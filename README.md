@@ -6,8 +6,10 @@
 [sjjeong](https://github.com/sjjeong) [공간](https://github.com/sjjeong/GoogryAndroidArchitecutreStudy/tree/master/sjjeong)
 
 ## 1기
+
 [improve777](https://github.com/improve777) [공간](https://github.com/sjjeong/GoogryAndroidArchitecutreStudy/tree/master/improve777)
 [sabgilhun](https://github.com/sabgilhun) [공간](https://github.com/sjjeong/GoogryAndroidArchitecutreStudy/tree/master/sabgilhun)
 [gongsulmin](https://github.com/GongSulMin?tab=repositories) [공간](https://github.com/GongSulMin/GoogryAndroidArchitecutreStudy/tree/master/gongsulmin)
 [namjackson](https://github.com/namjackson) [공간](https://github.com/sjjeong/GoogryAndroidArchitecutreStudy/tree/master/namjackson)
+[hoyuo](https://github.com/hoyuo) [공간](https://github.com/hoyuo/GoogryAndroidArchitecutreStudy/tree/master/hoyuo)
 
