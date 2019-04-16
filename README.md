@@ -6,3 +6,4 @@
 [sjjeong](https://github.com/sjjeong) [공간](https://github.com/sjjeong/GoogryAndroidArchitecutreStudy/tree/master/sjjeong)
 
 ## 1기
+[gongsulmin](https://github.com/GongSulMin?tab=repositories) [공간](https://github.com/GongSulMin/GoogryAndroidArchitecutreStudy/tree/master/gongsulmin)
