@@ -3,13 +3,20 @@
 본인의 깃허브 아이디에 맞는 폴더를 생성하고 그 안에서 작업을 진행해주세요.
 
 ## 스터디장
-[sjjeong](https://github.com/sjjeong) [공간](https://github.com/sjjeong/GoogryAndroidArchitecutreStudy/tree/master/sjjeong)
+- 정석준 [sjjeong](https://github.com/sjjeong)
+[공간](https://github.com/sjjeong/GoogryAndroidArchitecutreStudy/tree/master/sjjeong)
 
 ## 1기
 
-[improve777](https://github.com/improve777) [공간](https://github.com/sjjeong/GoogryAndroidArchitecutreStudy/tree/master/improve777)
-[sabgilhun](https://github.com/sabgilhun) [공간](https://github.com/sjjeong/GoogryAndroidArchitecutreStudy/tree/master/sabgilhun)
-[gongsulmin](https://github.com/GongSulMin?tab=repositories) [공간](https://github.com/GongSulMin/GoogryAndroidArchitecutreStudy/tree/master/gongsulmin)
-[namjackson](https://github.com/namjackson) [공간](https://github.com/sjjeong/GoogryAndroidArchitecutreStudy/tree/master/namjackson)
-[hoyuo](https://github.com/hoyuo) [공간](https://github.com/hoyuo/GoogryAndroidArchitecutreStudy/tree/master/hoyuo)
-[GeoN5](https://github.com/GeoN5) [공간](https://github.com/sjjeong/GoogryAndroidArchitecutreStudy/tree/master/GeoN5)
+- 김대연 [improve777](https://github.com/improve777)
+[공간](https://github.com/sjjeong/GoogryAndroidArchitecutreStudy/tree/master/improve777)
+- 김용훈 [sabgilhun](https://github.com/sabgilhun)
+[공간](https://github.com/sjjeong/GoogryAndroidArchitecutreStudy/tree/master/sabgilhun)
+- 공설민 [gongsulmin](https://github.com/GongSulMin?tab=repositories)
+[공간](https://github.com/sjjeong/GoogryAndroidArchitecutreStudy/tree/master/gongsulmin)
+- 조남재 [namjackson](https://github.com/namjackson)
+[공간](https://github.com/sjjeong/GoogryAndroidArchitecutreStudy/tree/master/namjackson)
+- 박상현 [hoyuo](https://github.com/hoyuo)
+[공간](https://github.com/sjjeong/GoogryAndroidArchitecutreStudy/tree/master/hoyuo)
+- 이건호 [GeoN5](https://github.com/GeoN5)
+[공간](https://github.com/sjjeong/GoogryAndroidArchitecutreStudy/tree/master/GeoN5)
