@@ -6,6 +6,12 @@
 - 정석준 [sjjeong](https://github.com/sjjeong)
 [공간](https://github.com/sjjeong/GoogryAndroidArchitecutreStudy/tree/master/sjjeong)
 
+## 0기
+- 양수장 [deadlykitten-dev](https://github.com/deadlykitten-dev)
+[공간](https://github.com/sjjeong/GoogryAndroidArchitecutreStudy/tree/master/deadlykitten-dev)
+- 배용표 [baeyeongpyo](https://github.com/baeyeongpyo)
+[공간](https://github.com/sjjeong/GoogryAndroidArchitecutreStudy/tree/master/baeyeongpyo)
+
 ## 1기
 
 - 김대연 [improve777](https://github.com/improve777)
