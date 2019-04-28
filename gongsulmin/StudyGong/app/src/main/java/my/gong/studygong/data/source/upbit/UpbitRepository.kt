@@ -8,24 +8,37 @@ import retrofit2.Response
 
 object  UpbitRepository
     :IUpbitDataSource{
-    override fun getTickers(market: String ,success: (List<UpbitTickerResponse>) -> Unit, fail: (String) -> Unit) {
-        RetrofitProvider.upbitRetrofit().getMarket().enqueue(object : retrofit2.Callback<List<UpbitMarketResponse>>{
-            override fun onResponse(call: Call<List<UpbitMarketResponse>>, response: Response<List<UpbitMarketResponse>>) {
-//                getMarket()
+    override fun getTickers(success: (List<UpbitTickerResponse>) -> Unit, fail: (String) -> Unit) {
+        getMarket(
+            success = {
+                    market ->
+                RetrofitProvider.upbitRetrofit().getTicker(market).enqueue(object : retrofit2.Callback<List<UpbitTickerResponse>>{
+                    override fun onResponse(call: Call<List<UpbitTickerResponse>>, response: Response<List<UpbitTickerResponse>>) {
+                        success.invoke(response.body()!!)
+                    }
+                    override fun onFailure(call: Call<List<UpbitTickerResponse>>, t: Throwable) {
+                        fail.invoke(" ${t.cause}")
+                    }
+                })
             }
-            override fun onFailure(call: Call<List<UpbitMarketResponse>>, t: Throwable) {
-                fail.invoke(" 마켓 데이터 실패 ")
-            }
-        })
+        )
+
     }
 
-    override fun getMarket( success: (List<UpbitMarketResponse>) -> Unit, fail: (String) -> Unit) {
+    private fun getMarket( success: (String) -> Unit  ) {
         RetrofitProvider.upbitRetrofit().getMarket().enqueue(object : retrofit2.Callback<List<UpbitMarketResponse>>{
             override fun onResponse(call: Call<List<UpbitMarketResponse>>, response: Response<List<UpbitMarketResponse>>) {
+                success.invoke(
+                    response.body()!!.map {
+                        it.market
+                    }.joinToString (",")
+                )
             }
             override fun onFailure(call: Call<List<UpbitMarketResponse>>, t: Throwable) {
-                fail.invoke(" 마켓 데이터 실패 ")
+//                fail.invoke("    데이터 전 송  실 패    ")
             }
         })
     }
 }
+
+

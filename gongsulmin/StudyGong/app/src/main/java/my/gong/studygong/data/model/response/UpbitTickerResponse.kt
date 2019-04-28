@@ -1,7 +1,6 @@
 package my.gong.studygong.data.model.response
 
 import com.google.gson.annotations.SerializedName
-import com.google.gson.annotations.Expose
 
 
 
@@ -11,8 +10,8 @@ data class UpbitTickerResponse(
     @SerializedName("trade_time") val tradeTime: String ,
     @SerializedName("trade_date_kst") val tradeDateKst: String ,
     @SerializedName("trade_time_kst") val tradeTimeKst: String ,
-    @SerializedName("trade_timestamp") val tradeTimestamp: Int ,
-    @SerializedName("opening_price") val openingPrice: Int ,
+    @SerializedName("trade_timestamp") val tradeTimestamp: Double ,
+    @SerializedName("opening_price") val openingPrice: Double ,
     @SerializedName("high_price") val highPrice: Int ,
     @SerializedName("low_price") val lowPrice: Int ,
     @SerializedName("trade_price") val tradePrice: Int ,
@@ -31,5 +30,5 @@ data class UpbitTickerResponse(
     @SerializedName("highest_52_week_date") val highest52WeekDate: String ,
     @SerializedName("lowest_52_week_price") val lowest52WeekPrice: Int,
     @SerializedName("lowest_52_week_date") val lowest52WeekDate: String ,
-    @SerializedName("timestamp") private val timestamp: Int
+    @SerializedName("timestamp") private val timestamp: Double
 )
