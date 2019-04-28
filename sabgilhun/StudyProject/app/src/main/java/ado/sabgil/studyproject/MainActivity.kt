@@ -1,4 +1,4 @@
-package ado.sabgil.androidarchitecturestudy
+package ado.sabgil.studyproject
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle

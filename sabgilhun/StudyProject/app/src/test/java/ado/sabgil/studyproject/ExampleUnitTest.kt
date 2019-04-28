@@ -1,4 +1,4 @@
-package ado.sabgil.androidarchitecturestudy
+package ado.sabgil.studyproject
 
 import org.junit.Test
 
