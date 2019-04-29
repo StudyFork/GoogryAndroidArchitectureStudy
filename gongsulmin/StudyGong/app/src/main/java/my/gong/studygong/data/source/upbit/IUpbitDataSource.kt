@@ -1,6 +1,6 @@
 package my.gong.studygong.data.source.upbit
 
-import my.gong.studygong.data.model.response.UpbitTickerResponse
+import my.gong.studygong.data.model.Ticker
 
 interface IUpbitDataSource {
 //
@@ -9,7 +9,7 @@ interface IUpbitDataSource {
 //    )
 
     fun getTickers(
-        success: (List<UpbitTickerResponse>) -> Unit ,
+        success: (List<Ticker>) -> Unit,
         fail: (String) -> Unit
     )
 

@@ -7,9 +7,11 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface UpbitApi {
+
     companion object {
         val BASE_URL = " https://api.upbit.com/"
     }
+
     @GET("v1/market/all")
     fun getMarket(): Call<List<UpbitMarketResponse>>
 

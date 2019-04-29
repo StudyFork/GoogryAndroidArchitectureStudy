@@ -20,10 +20,27 @@ class CoinAdapter(
     override fun getItemCount() = coinList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.coinMarket.text = coinList[position].market
+        holder.run {
+            coinMarket.text = coinList[position].market
+            coinOpningPrice.text = coinList[position].openPrice
+            coinChangePrice.text = coinList[position].changePrice
+            coinChangeAccTradePrice.text = coinList[position].changeAccTradePrice
+        }
+    }
+
+    fun refreshData(coinList: List<Ticker>){
+        this.coinList.run {
+            clear()
+        addAll(coinList)
+        }
+        notifyDataSetChanged()
     }
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val coinMarket = view.txt_item_ticker_market
+        val coinMarket = view.txt_item_ticker_market!!
+        val coinOpningPrice = view.txt_item_ticker_opening_price
+        val coinChangePrice = view.txt_item_ticker_change_price
+        val coinChangeAccTradePrice = view.txt_item_ticker_acc_trade_price
+
     }
 }

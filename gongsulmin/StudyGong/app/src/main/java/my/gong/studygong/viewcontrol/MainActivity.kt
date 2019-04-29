@@ -9,9 +9,12 @@ import my.gong.studygong.R
 import my.gong.studygong.data.model.Ticker
 import my.gong.studygong.data.source.upbit.UpbitRepository
 import my.gong.studygong.viewcontrol.adapter.CoinAdapter
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
+
     var coinList: MutableList<Ticker> = mutableListOf()
+    val minute = 30000L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,27 +23,34 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init(){
-        getCoinData()
+
         recycler_main_ticker_list.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = CoinAdapter(this@MainActivity , coinList)
         }
+        getCoinData()
     }
 
     private fun getCoinData(){
-        UpbitRepository.getTickers(
-            {
-                it.map {
-                    coinList.add(
-                        Ticker(it.market)
-                    )
-                }
-            },
+        Timer().scheduleAtFixedRate(object: TimerTask(){
+            override fun run() {
+                UpbitRepository.getTickers(
+                    {
+                        runOnUiThread {
+                            (recycler_main_ticker_list.adapter as CoinAdapter).refreshData(it)
+                        }
+                    },
 
-            {
-                Toast.makeText(this@MainActivity , " 에러 " , Toast.LENGTH_LONG).show()
+                    {
+                        runOnUiThread {
+                            Toast.makeText(this@MainActivity , " $it " , Toast.LENGTH_LONG).show()
+                        }
+                    }
+
+                )
             }
 
-        )
+        } , 0 , minute)
+
     }
 }
