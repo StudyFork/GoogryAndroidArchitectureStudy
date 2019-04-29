@@ -21,7 +21,6 @@ object  UpbitRepository
                                     it.market.split("-")[0] == "KRW"
                                 }
                                 .map {
-                                    it.market
                                     Ticker(
                                         it.market,
                                         String.format("%.0f", it.tradePrice),

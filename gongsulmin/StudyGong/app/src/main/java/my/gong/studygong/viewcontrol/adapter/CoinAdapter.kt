@@ -22,8 +22,8 @@ class CoinAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.run {
             coinMarket.text = coinList[position].market
-            coinOpningPrice.text = coinList[position].openPrice
-            coinChangePrice.text = coinList[position].changePrice
+            coinOpningPrice.text = coinList[position].tradePrice
+            coinChangePrice.text = coinList[position].changeRate
 //            coinChangeAccTradePrice.text = coinList[position].changeAccTradePrice
         }
     }
