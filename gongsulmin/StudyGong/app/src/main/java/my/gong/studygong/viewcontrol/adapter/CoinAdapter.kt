@@ -24,7 +24,7 @@ class CoinAdapter(
             coinMarket.text = coinList[position].market
             coinOpningPrice.text = coinList[position].openPrice
             coinChangePrice.text = coinList[position].changePrice
-            coinChangeAccTradePrice.text = coinList[position].changeAccTradePrice
+//            coinChangeAccTradePrice.text = coinList[position].changeAccTradePrice
         }
     }
 

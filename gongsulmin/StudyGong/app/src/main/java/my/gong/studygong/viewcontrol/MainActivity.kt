@@ -2,7 +2,6 @@ package my.gong.studygong.viewcontrol
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import my.gong.studygong.R
@@ -23,34 +22,32 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init(){
-
         recycler_main_ticker_list.apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = CoinAdapter(this@MainActivity , coinList)
         }
         getCoinData()
     }
 
     private fun getCoinData(){
-        Timer().scheduleAtFixedRate(object: TimerTask(){
+        Timer().scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
                 UpbitRepository.getTickers(
-                    {
-                        runOnUiThread {
-                            (recycler_main_ticker_list.adapter as CoinAdapter).refreshData(it)
-                        }
-                    },
+                    success =   {
+                                    runOnUiThread {
+                                        (recycler_main_ticker_list.adapter as CoinAdapter).refreshData(it)
+                                    }
+                                },
 
-                    {
-                        runOnUiThread {
-                            Toast.makeText(this@MainActivity , " $it " , Toast.LENGTH_LONG).show()
-                        }
-                    }
+                        fail =  {
+                                    runOnUiThread {
+                                        Toast.makeText(this@MainActivity, " $it ", Toast.LENGTH_LONG).show()
+                                    }
+                                }
 
                 )
             }
 
-        } , 0 , minute)
+        }, 0, minute)
 
     }
 }

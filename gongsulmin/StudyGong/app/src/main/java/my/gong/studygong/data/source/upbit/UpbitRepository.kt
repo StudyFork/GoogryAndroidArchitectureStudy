@@ -15,13 +15,22 @@ object  UpbitRepository
                     market ->
                 RetrofitProvider.upbitRetrofit().getTicker(market).enqueue(object : retrofit2.Callback<List<UpbitTickerResponse>>{
                     override fun onResponse(call: Call<List<UpbitTickerResponse>>, response: Response<List<UpbitTickerResponse>>) {
-                        success.invoke(response.body()!!
-                            .map {
-                                it.market
-                                Ticker(it.market , it.openingPrice.toString() , it.changePrice.toString() , it.accTradePrice.toString())
-                            })
-                    }
-                    override fun onFailure(call: Call<List<UpbitTickerResponse>>, t: Throwable) {
+                        success.invoke(
+                            response.body()!!
+                                .filter {
+                                    it.market.split("-")[0] == "KRW"
+                                }
+                                .map {
+                                    it.market
+                                    Ticker(
+                                        it.market,
+                                        String.format("%.0f", it.tradePrice),
+                                        String.format("%.2f", it.changeRate * 100),
+                                        String.format("%.5f", it.accTradePrice24h)
+                                    )
+                                }
+                        )
+                    }override fun onFailure(call: Call<List<UpbitTickerResponse>>, t: Throwable) {
                         fail.invoke(" 코인 데이터 통신 불가    ")
                     }
                 })

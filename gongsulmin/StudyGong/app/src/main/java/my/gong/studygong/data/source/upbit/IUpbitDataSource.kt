@@ -7,7 +7,6 @@ interface IUpbitDataSource {
 //    fun getMarket(
 //        success: (String) -> Unit
 //    )
-
     fun getTickers(
         success: (List<Ticker>) -> Unit,
         fail: (String) -> Unit
