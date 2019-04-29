@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    android:layout_height="25dp"
+    card_view:cardCornerRadius="5dp"
+    card_view:cardElevation="3dp"
+    card_view:cardUseCompatPadding="true">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/tradeTitle"
-        android:layout_width="0dp"
-        android:layout_height="36dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/coinName"
@@ -21,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="@string/coinName"
             android:textAlignment="viewStart"
-            android:textSize="20dp"
+            android:textSize="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/coinTradePrice"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/coinTradePrice"
-            android:textSize="20dp"
+            android:textSize="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/coinPrevClosePriceRatio"
             app:layout_constraintStart_toEndOf="@+id/coinName"
@@ -44,7 +42,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/coinPrevClosePriceRatio"
-            android:textSize="20dp"
+            android:textSize="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/coinTradeVolume"
             app:layout_constraintStart_toEndOf="@+id/coinTradePrice"
@@ -55,21 +53,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/coinTradeVolume"
-            android:textSize="20dp"
+            android:textSize="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/coinPrevClosePriceRatio"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/itemListView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tradeTitle"
-        tools:itemCount="25"
-        tools:listitem="@layout/coin_item" />
-</android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>
