@@ -4,22 +4,32 @@ import ado.sabgil.studyproject.R
 import ado.sabgil.studyproject.data.model.Ticker
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 
 
-class TickerAdapter : ListAdapter<Ticker, TickerViewHolder>(DIFF_CALLBACK) {
+class TickerAdapter : RecyclerView.Adapter<TickerViewHolder>() {
 
-    companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Ticker>() {
-            override fun areItemsTheSame(oldItem: Ticker, newItem: Ticker): Boolean {
-                return oldItem == newItem
-            }
+    private var items: MutableList<Ticker>? = null
 
-            override fun areContentsTheSame(oldItem: Ticker, newItem: Ticker): Boolean {
-                return oldItem == newItem
-            }
+    fun updateItem(items: List<Ticker>) {
+
+        if (this.items == null) {
+            this.items = mutableListOf()
         }
+
+        this.items!!.apply {
+            clear()
+            addAll(items)
+            notifyDataSetChanged()
+        }
+    }
+
+    private fun getItem(position: Int): Ticker {
+        return this.items!![position]
+    }
+
+    override fun getItemCount(): Int {
+        return this.items?.size ?: 0
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TickerViewHolder {
