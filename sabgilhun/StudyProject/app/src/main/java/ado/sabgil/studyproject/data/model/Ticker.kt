@@ -4,7 +4,7 @@ import ado.sabgil.studyproject.data.remote.upbit.response.UpbitTickerResponse
 
 data class Ticker private constructor(
     val coinName: String,
-    val currentValue: Int,
+    val currentValue: String,
     val changeRate: String,
     val accTradePrice: String
 ) {
@@ -29,7 +29,7 @@ data class Ticker private constructor(
 
             return Ticker(
                 tickerResponse.market,
-                tickerResponse.openingPrice.toInt(),
+                tickerResponse.tradePrice.toInt().toString(),
                 changeRate,
                 accTradePrice
             )

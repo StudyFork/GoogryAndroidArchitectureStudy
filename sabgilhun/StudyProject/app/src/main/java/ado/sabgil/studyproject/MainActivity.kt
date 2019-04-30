@@ -1,20 +1,28 @@
 package ado.sabgil.studyproject
 
+import ado.sabgil.studyproject.adapter.TickerAdapter
 import ado.sabgil.studyproject.data.model.Ticker
 import ado.sabgil.studyproject.data.remote.upbit.UpbitApiHandler
 import ado.sabgil.studyproject.data.remote.upbit.UpbitApiHandlerImpl
 import ado.sabgil.studyproject.data.remote.upbit.request.UpbitTickerListRequest
+import ado.sabgil.studyproject.databinding.ActivityMainBinding
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var upbitApiHandler: UpbitApiHandler
+    private lateinit var binding: ActivityMainBinding
+
+    private lateinit var upbitApiHandler: UpbitApiHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        binding.rvTickerList.adapter = TickerAdapter()
 
         upbitApiHandler = UpbitApiHandlerImpl.getInstance()
 
@@ -24,8 +32,9 @@ class MainActivity : AppCompatActivity() {
                 for (tickerResponse in result) {
                     tickerList.add(Ticker.from(tickerResponse))
                 }
-                Log.d("테스트", tickerList.toString())
+                binding.it = tickerList
             },
-            { error -> Log.e("테스트", error.message) })
+            { error ->
+            })
     }
 }
