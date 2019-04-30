@@ -1,5 +1,6 @@
 package ado.sabgil.studyproject
 
+import ado.sabgil.studyproject.data.model.Ticker
 import ado.sabgil.studyproject.data.remote.upbit.UpbitApiHandler
 import ado.sabgil.studyproject.data.remote.upbit.UpbitApiHandlerImpl
 import ado.sabgil.studyproject.data.remote.upbit.request.UpbitTickerListRequest
@@ -18,7 +19,13 @@ class MainActivity : AppCompatActivity() {
         upbitApiHandler = UpbitApiHandlerImpl.getInstance()
 
         upbitApiHandler.getAllTickers(UpbitTickerListRequest.Base.KRW,
-            {result -> Log.i("테스트", result.toString())},
-            { error -> Log.e("테스트", error.message)})
+            { result ->
+                val tickerList: MutableList<Ticker> = mutableListOf()
+                for (tickerResponse in result) {
+                    tickerList.add(Ticker.from(tickerResponse))
+                }
+                Log.d("테스트", tickerList.toString())
+            },
+            { error -> Log.e("테스트", error.message) })
     }
 }
