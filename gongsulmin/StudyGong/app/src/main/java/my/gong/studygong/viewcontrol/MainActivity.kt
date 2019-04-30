@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun init(){
         recycler_main_ticker_list.apply {
-            adapter = CoinAdapter(this@MainActivity , coinList)
+            adapter = CoinAdapter(coinList)
         }
         getCoinData()
     }

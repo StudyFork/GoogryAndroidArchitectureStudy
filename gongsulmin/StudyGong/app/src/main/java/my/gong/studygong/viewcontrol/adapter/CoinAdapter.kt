@@ -1,6 +1,5 @@
 package my.gong.studygong.viewcontrol.adapter
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import my.gong.studygong.R
 import my.gong.studygong.data.model.Ticker
 
 class CoinAdapter(
-    val context: Context,
     val coinList: MutableList<Ticker>
     )
     : RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
@@ -20,12 +18,20 @@ class CoinAdapter(
     override fun getItemCount() = coinList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.run {
-            coinMarket.text = coinList[position].market
-            coinOpningPrice.text = coinList[position].tradePrice
-            coinChangePrice.text = coinList[position].changeRate
-//            coinChangeAccTradePrice.text = coinList[position].changeAccTradePrice
+        with(holder){
+            coinList[position].let {
+                coinMarket.text = it.market
+                coinOpningPrice.text = it.tradePrice
+                coinChangePrice.text = it.changeRate
+            }
         }
+        // 수정
+//        holder.run {
+//            coinMarket.text = coinList[position].market
+//            coinOpningPrice.text = coinList[position].tradePrice
+//            coinChangePrice.text = coinList[position].changeRate
+////            coinChangeAccTradePrice.text = coinList[position].changeAccTradePrice
+//        }
     }
 
     fun refreshData(coinList: List<Ticker>){

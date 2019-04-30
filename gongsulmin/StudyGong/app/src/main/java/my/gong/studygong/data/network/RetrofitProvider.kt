@@ -11,10 +11,12 @@ object RetrofitProvider {
             .baseUrl(UpbitApi.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(
-                OkHttpClient.Builder()
-                    .addInterceptor(HttpLoggingInterceptor().apply {
-                        level = HttpLoggingInterceptor.Level.BODY
-                    })
+                OkHttpClient.Builder().addInterceptor(
+                        HttpLoggingInterceptor()
+                            .apply {
+                                level = HttpLoggingInterceptor.Level.BODY
+                            }
+                    )
                     .build()
             )
             .build()
