@@ -83,8 +83,8 @@ class MainActivity : AppCompatActivity() {
         itemAdapter = ItemAdapter().apply {
             setItemClickListener(object : ItemAdapter.ItemClickListener {
                 override fun onItemClick(ticker: Ticker) {
-                    Timber.d("Item Click")
-
+                    Timber.tag(TAG).d("Item Click")
+                    startActivity(CoinDetailPage.newIntent(this@MainActivity.baseContext, ticker))
                 }
             })
         }
