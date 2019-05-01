@@ -1,21 +1,21 @@
 package dev.daeyeon.gaasproject.data.source
 
-import dev.daesin.gaasdy.data.MarketResponse
-import dev.daesin.gaasdy.data.TickerResponse
-import dev.daesin.gaasdy.network.NetworkManager
+import dev.daeyeon.gaasproject.data.MarketResponse
+import dev.daeyeon.gaasproject.data.TickerResponse
+import dev.daeyeon.gaasproject.network.NetworkManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class UpbitRepository : UpbitDataSource {
 
-    var markets: String? = null
+    private var markets = ""
 
-    override fun getTicker(success: (list: List<Ticker>) -> Unit?, fail: (msg: String) -> Unit?) {
+    override fun getTicker(success: (list: List<Ticker>) -> Unit, fail: (msg: String) -> Unit) {
         getMarkets(
                 success = { result ->
                     markets = result
-                    NetworkManager.instance?.getTicker(markets!!)!!
+                    NetworkManager.instance.getTicker(markets)
                             .enqueue(object : Callback<List<TickerResponse>?> {
                                 override fun onFailure(call: Call<List<TickerResponse>?>,
                                                        t: Throwable) {
@@ -34,9 +34,9 @@ class UpbitRepository : UpbitDataSource {
         )
     }
 
-    override fun getMarkets(success: (markets: String) -> Unit?, fail: (msg: String) -> Unit?) {
-        if (markets == null) {
-            NetworkManager.instance?.getMarketCode()!!
+    override fun getMarkets(success: (markets: String) -> Unit, fail: (msg: String) -> Unit) {
+        if (markets.isEmpty()) {
+            NetworkManager.instance.getMarketCode()
                     .enqueue(object : Callback<List<MarketResponse>?> {
                         override fun onFailure(call: Call<List<MarketResponse>?>,
                                                t: Throwable) {
@@ -49,8 +49,7 @@ class UpbitRepository : UpbitDataSource {
                         }
                     })
         } else {
-            success.invoke(markets!!)
+            success.invoke(markets)
         }
     }
-
 }

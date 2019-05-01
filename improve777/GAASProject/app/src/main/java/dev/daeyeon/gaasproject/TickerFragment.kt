@@ -1,4 +1,4 @@
-package dev.daesin.gaasdy
+package dev.daeyeon.gaasproject
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import dev.daeyeon.gaasproject.R
 import dev.daeyeon.gaasproject.data.source.UpbitRepository
 import dev.daeyeon.gaasproject.databinding.FragmentTickerBinding
 
@@ -60,8 +59,7 @@ class TickerFragment : Fragment() {
             repository.getTicker(
                     success = {
                         isRefreshing = false
-                        tickerAdapter?.clearList()
-                        tickerAdapter?.addList(it)
+                        tickerAdapter?.replaceList(it)
                     },
                     fail = {
                         isRefreshing = false

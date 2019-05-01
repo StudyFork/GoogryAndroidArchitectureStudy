@@ -1,4 +1,4 @@
-package dev.daesin.gaasdy.data
+package dev.daeyeon.gaasproject.data
 
 import com.google.gson.annotations.SerializedName
 import dev.daeyeon.gaasproject.data.source.Ticker

@@ -1,8 +1,7 @@
 package dev.daeyeon.gaasproject
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import dev.daesin.gaasdy.TickerFragment
+import android.support.v7.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -10,9 +9,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, TickerFragment.newInstance())
-            .commit()
+                .replace(R.id.container, TickerFragment.newInstance())
+                .commit()
     }
 }
