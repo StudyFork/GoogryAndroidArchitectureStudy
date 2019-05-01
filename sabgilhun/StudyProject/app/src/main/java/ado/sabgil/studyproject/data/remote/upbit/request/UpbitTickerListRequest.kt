@@ -9,16 +9,19 @@ class UpbitTickerListRequest private constructor(
     companion object {
         fun of(marketCodeList: List<UpbitMarketCodeResponse>, base: Base): UpbitTickerListRequest {
             val stringBuilder = StringBuilder()
+            val regex = Regex("""^$base""")
+
             stringBuilder.apply {
-                val regex = Regex("""^$base""")
-                for (marketCode in marketCodeList) {
-                    if (regex.containsMatchIn(marketCode.market)) {
-                        append(marketCode.market)
+                marketCodeList
+                    .filter {
+                        regex.containsMatchIn(it.market)
+                    }.map {
+                        append(it.market)
                         append(", ")
                     }
-                }
                 delete(this.length - 2, this.length - 1)
             }
+
             return UpbitTickerListRequest(stringBuilder.toString())
         }
     }
