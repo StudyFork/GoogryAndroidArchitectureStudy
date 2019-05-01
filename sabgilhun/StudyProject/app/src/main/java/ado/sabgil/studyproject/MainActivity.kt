@@ -27,11 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         upbitApiHandler.getAllTickers(UpbitTickerListRequest.Base.KRW,
             { result ->
-                val tickerList: MutableList<Ticker> = mutableListOf()
-                for (tickerResponse in result) {
-                    tickerList.add(Ticker.from(tickerResponse))
-                }
-                binding.it = tickerList
+                binding.it = result.map { Ticker.from(it) }.toMutableList()
             },
             { error ->
             })
