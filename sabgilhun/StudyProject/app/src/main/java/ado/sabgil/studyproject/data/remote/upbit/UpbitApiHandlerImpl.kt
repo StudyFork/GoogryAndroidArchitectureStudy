@@ -8,9 +8,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.Exception
 
-class UpbitApiHandlerImpl private constructor() : UpbitApiHandler {
+object UpbitApiHandlerImpl : UpbitApiHandler {
 
     private val retrofit: UpbitApi
     private val baseURL = "https://api.upbit.com/v1/"
@@ -24,27 +23,19 @@ class UpbitApiHandlerImpl private constructor() : UpbitApiHandler {
         }
     }
 
-    companion object {
-        private var INSTANCE: UpbitApiHandlerImpl? = null
-
-        @JvmStatic
-        fun getInstance(): UpbitApiHandlerImpl {
-            return INSTANCE ?: UpbitApiHandlerImpl()
-                .apply { INSTANCE = this }
-        }
-    }
-
     override fun getAllTickers(
         base: UpbitTickerListRequest.Base,
         onResponse: (List<UpbitTickerResponse>) -> Unit,
         onFail: (Exception) -> Unit
     ) {
         getMarketCodes(
-            {response ->
+            { response ->
                 val tickerRequest = UpbitTickerListRequest.of(response, base)
-                getTickers(tickerRequest,
+                getTickers(
+                    tickerRequest,
                     onResponse,
-                    onFail)
+                    onFail
+                )
             },
             onFail
         )

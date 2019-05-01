@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.rvTickerList.adapter = TickerAdapter()
 
-        upbitApiHandler = UpbitApiHandlerImpl.getInstance()
+        upbitApiHandler = UpbitApiHandlerImpl
 
         upbitApiHandler.getAllTickers(UpbitTickerListRequest.Base.KRW,
             { result ->
