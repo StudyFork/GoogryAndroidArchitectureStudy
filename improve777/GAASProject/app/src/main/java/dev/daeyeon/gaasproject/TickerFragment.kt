@@ -6,10 +6,10 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import dev.daeyeon.gaasproject.data.ResponseCode
 import dev.daeyeon.gaasproject.data.source.UpbitRepository
 import dev.daeyeon.gaasproject.databinding.FragmentTickerBinding
+import org.jetbrains.anko.toast
 
 class TickerFragment : Fragment() {
 
@@ -77,17 +77,9 @@ class TickerFragment : Fragment() {
     private fun toastTickerFailMsg(msg: String) {
         when (msg) {
             ResponseCode.CODE_NULL_SUCCESS,
-            ResponseCode.CODE_NULL_FAIL_MSG ->
-                Toast.makeText(activity!!,
-                        activity!!.getText(R.string.all_network_error),
-                        Toast.LENGTH_SHORT)
-                        .show()
-            ResponseCode.CODE_EMPTY_SUCCESS ->
-                Toast.makeText(activity!!,
-                        activity!!.getText(R.string.ticker_fragment_empty),
-                        Toast.LENGTH_SHORT)
-                        .show()
-            else -> Toast.makeText(activity!!, msg, Toast.LENGTH_SHORT).show()
+            ResponseCode.CODE_NULL_FAIL_MSG -> activity!!.toast(R.string.all_network_error)
+            ResponseCode.CODE_EMPTY_SUCCESS -> activity!!.toast(R.string.ticker_fragment_empty)
+            else -> activity!!.toast(msg)
         }
     }
 

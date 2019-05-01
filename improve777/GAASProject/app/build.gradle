@@ -42,4 +42,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+
+    // anko commons
+    implementation "org.jetbrains.anko:anko-commons:$ankoVersion"
 }
