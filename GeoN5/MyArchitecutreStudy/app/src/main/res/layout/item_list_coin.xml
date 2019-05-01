@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_margin="8dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/recycler_item_background"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+            android:id="@+id/coinNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:layout_weight="1"
+            android:gravity="center"
+            tools:text="NPXS"/>
+
+    <TextView
+            android:id="@+id/currentPriceText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:layout_weight="1"
+            android:gravity="center"
+            tools:text="0.75"/>
+
+    <TextView
+            android:id="@+id/dayBeforeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:layout_weight="1"
+            android:gravity="center"
+            tools:text="1.33%"/>
+
+    <TextView
+            android:id="@+id/transactionPriceText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:layout_weight="1"
+            android:gravity="center"
+            tools:text="87M"/>
+
+</LinearLayout>
