@@ -5,15 +5,15 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import my.gong.studygong.R
-import my.gong.studygong.data.model.Ticker
+import my.gong.studygong.data.model.enum.TickerCurrency
 import my.gong.studygong.data.source.upbit.UpbitRepository
 import my.gong.studygong.viewcontrol.adapter.CoinAdapter
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    var coinList: MutableList<Ticker> = mutableListOf()
-    val minute = 30000L
+    private val REPEAT_INTERVAL_MILLIS = 3000L
+    private var timer: Timer = Timer()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,17 +21,27 @@ class MainActivity : AppCompatActivity() {
         init()
     }
 
-    private fun init(){
-        recycler_main_ticker_list.apply {
-            adapter = CoinAdapter(coinList)
-        }
+    override fun onResume() {
+        super.onResume()
         getCoinData()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        timer.cancel()
+    }
+
+    private fun init(){
+        recycler_main_ticker_list.apply {
+            adapter = CoinAdapter()
+        }
+    }
+
     private fun getCoinData(){
-        Timer().scheduleAtFixedRate(object : TimerTask() {
+        timer.scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
                 UpbitRepository.getTickers(
+                    tickerCurrency = TickerCurrency.KRW ,
                     success =   {
                                     runOnUiThread {
                                         (recycler_main_ticker_list.adapter as CoinAdapter).refreshData(it)
@@ -47,7 +57,6 @@ class MainActivity : AppCompatActivity() {
                 )
             }
 
-        }, 0, minute)
-
+        }, 0, REPEAT_INTERVAL_MILLIS)
     }
 }

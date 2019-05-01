@@ -1,7 +1,5 @@
 package my.gong.studygong
 
-import my.gong.studygong.data.model.Ticker
-import my.gong.studygong.data.source.upbit.UpbitRepository
 import org.junit.Test
 
 /**
@@ -29,20 +27,5 @@ class ExampleUnitTest {
 //        }  , {
 //
 //        })
-        UpbitRepository.getTickers(
-            {
-                it.map {
-                        Ticker(it.market)
-                }
-            },
-
-            {
-                println("  $it   ")
-            }
-
-        )
-
-
-        Thread.sleep(2000)
     }
 }

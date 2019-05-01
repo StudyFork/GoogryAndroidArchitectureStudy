@@ -8,10 +8,11 @@ import kotlinx.android.synthetic.main.item_ticker.view.*
 import my.gong.studygong.R
 import my.gong.studygong.data.model.Ticker
 
-class CoinAdapter(
-    val coinList: MutableList<Ticker>
-    )
+class CoinAdapter
     : RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
+
+    private val coinList: MutableList<Ticker> = mutableListOf()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
          ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_ticker, parent ,false))
 
@@ -25,13 +26,6 @@ class CoinAdapter(
                 coinChangePrice.text = it.changeRate
             }
         }
-        // 수정
-//        holder.run {
-//            coinMarket.text = coinList[position].market
-//            coinOpningPrice.text = coinList[position].tradePrice
-//            coinChangePrice.text = coinList[position].changeRate
-////            coinChangeAccTradePrice.text = coinList[position].changeAccTradePrice
-//        }
     }
 
     fun refreshData(coinList: List<Ticker>){
