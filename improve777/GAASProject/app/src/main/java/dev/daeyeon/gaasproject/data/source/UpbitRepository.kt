@@ -1,6 +1,7 @@
 package dev.daeyeon.gaasproject.data.source
 
 import dev.daeyeon.gaasproject.data.MarketResponse
+import dev.daeyeon.gaasproject.data.ResponseCode
 import dev.daeyeon.gaasproject.data.TickerResponse
 import dev.daeyeon.gaasproject.network.NetworkManager
 import retrofit2.Call
@@ -19,12 +20,18 @@ class UpbitRepository : UpbitDataSource {
                             .enqueue(object : Callback<List<TickerResponse>?> {
                                 override fun onFailure(call: Call<List<TickerResponse>?>,
                                                        t: Throwable) {
-                                    fail.invoke(t.message!!)
+                                    fail.invoke(t.message ?: ResponseCode.CODE_NULL_FAIL_MSG)
                                 }
 
                                 override fun onResponse(call: Call<List<TickerResponse>?>,
                                                         response: Response<List<TickerResponse>?>) {
-                                    success.invoke(response.body()!!.map { it.toTicker() })
+                                    response.body()?.let { list ->
+                                        if (list.isEmpty()) {
+                                            fail.invoke(ResponseCode.CODE_EMPTY_SUCCESS)
+                                        } else {
+                                            success.invoke(list.map { it.toTicker() })
+                                        }
+                                    } ?: fail.invoke(ResponseCode.CODE_NULL_SUCCESS)
                                 }
                             })
                 },
@@ -40,12 +47,18 @@ class UpbitRepository : UpbitDataSource {
                     .enqueue(object : Callback<List<MarketResponse>?> {
                         override fun onFailure(call: Call<List<MarketResponse>?>,
                                                t: Throwable) {
-                            fail.invoke(t.message!!)
+                            fail.invoke(t.message ?: ResponseCode.CODE_NULL_FAIL_MSG)
                         }
 
                         override fun onResponse(call: Call<List<MarketResponse>?>,
                                                 response: Response<List<MarketResponse>?>) {
-                            success.invoke(response.body()!!.joinToString { it.market })
+                            response.body()?.let { list ->
+                                if (list.isEmpty()) {
+                                    fail.invoke(ResponseCode.CODE_EMPTY_SUCCESS)
+                                } else {
+                                    success.invoke(list.joinToString { it.market })
+                                }
+                            } ?: fail.invoke(ResponseCode.CODE_NULL_SUCCESS)
                         }
                     })
         } else {

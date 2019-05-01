@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import dev.daeyeon.gaasproject.data.ResponseCode
 import dev.daeyeon.gaasproject.data.source.UpbitRepository
 import dev.daeyeon.gaasproject.databinding.FragmentTickerBinding
 
@@ -63,14 +64,34 @@ class TickerFragment : Fragment() {
                     },
                     fail = {
                         isRefreshing = false
-                        Toast.makeText(activity!!, it, Toast.LENGTH_SHORT).show()
+                        toastTickerFailMsg(it)
                     }
             )
         }
     }
 
+    /**
+     * ticker 에러 메시지 처리
+     * @param msg
+     */
+    private fun toastTickerFailMsg(msg: String) {
+        when (msg) {
+            ResponseCode.CODE_NULL_SUCCESS,
+            ResponseCode.CODE_NULL_FAIL_MSG ->
+                Toast.makeText(activity!!,
+                        activity!!.getText(R.string.all_network_error),
+                        Toast.LENGTH_SHORT)
+                        .show()
+            ResponseCode.CODE_EMPTY_SUCCESS ->
+                Toast.makeText(activity!!,
+                        activity!!.getText(R.string.ticker_fragment_empty),
+                        Toast.LENGTH_SHORT)
+                        .show()
+            else -> Toast.makeText(activity!!, msg, Toast.LENGTH_SHORT).show()
+        }
+    }
+
     companion object {
-        const val TAG = "TickerFragment"
         fun newInstance(): TickerFragment {
             return TickerFragment()
         }
