@@ -9,15 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 
 class TickerAdapter : RecyclerView.Adapter<TickerViewHolder>() {
 
-    private var items: MutableList<Ticker>? = null
+    private val items: MutableList<Ticker> by lazy { mutableListOf<Ticker>() }
 
     fun updateItem(items: List<Ticker>) {
 
-        if (this.items == null) {
-            this.items = mutableListOf()
-        }
-
-        this.items!!.apply {
+        this.items.apply {
             clear()
             addAll(items)
             notifyDataSetChanged()
@@ -25,11 +21,11 @@ class TickerAdapter : RecyclerView.Adapter<TickerViewHolder>() {
     }
 
     private fun getItem(position: Int): Ticker {
-        return this.items!![position]
+        return this.items[position]
     }
 
     override fun getItemCount(): Int {
-        return this.items?.size ?: 0
+        return this.items.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TickerViewHolder {
