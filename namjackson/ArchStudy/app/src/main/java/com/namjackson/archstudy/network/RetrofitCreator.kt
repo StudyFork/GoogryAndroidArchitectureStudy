@@ -17,7 +17,6 @@ object RetrofitCreator{
             .baseUrl(url)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build().create(tClass)
     }
 }

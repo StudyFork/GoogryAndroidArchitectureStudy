@@ -36,9 +36,9 @@ class CoinListAdapter :RecyclerView.Adapter<CoinListAdapter.CoinListViewHolder>(
     class CoinListViewHolder(val binding:ItemCoinListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(ticker: Ticker) {
             binding.let {
-                it.market.text = ticker.market.split("-")?.get(1)
+                it.market.text = ticker.market.split("-").get(1)
                 it.tradePrice.text = if (ticker.tradePrice.toString().length>4) ticker.tradePrice.toInt().toString() else ticker.tradePrice.toString()
-                it.beforePrice.text = (ticker.signedChangeRate * 100).toInt().toString()+"%"
+                it.beforePrice.text = (ticker.signedChangeRate * 100).toFloat().toString()+"%"
                 it.volume.text = if(ticker.accTradePrice24h.toLong()>1000000L) (ticker.accTradePrice24h/1000000L).toInt().toString()+"M" else ticker.accTradePrice24h.toInt().toString()
                 if(ticker.change.equals("RISE"))
                     it.beforePrice.setTextColor(Color.RED)
@@ -50,18 +50,4 @@ class CoinListAdapter :RecyclerView.Adapter<CoinListAdapter.CoinListViewHolder>(
         }
     }
 
- /*
-    @BindingAdapter("app:setCoinList")
-    fun setCoinList(recyclerView: RecyclerView, assTaskList: List<Ticker>) {
-        val adapter: CoinListAdapter
-
-        if (recyclerView.adapter == null) {
-            adapter = CoinListAdapter()
-            recyclerView.adapter = adapter
-        } else {
-            adapter = recyclerView.adapter as CoinListAdapter
-        }
-        adapter.setList(assTaskList)
-    }
-    */
 }

@@ -10,12 +10,14 @@ import retrofit2.Response
 class UpbitRepository private constructor(val upbitApi: UpbitApi){
 
     companion object{
-        private var instance: UpbitRepository? = null
-        fun getInstance(upbitApi: UpbitApi): UpbitRepository {
-            return instance ?: synchronized(UpbitRepository) {
-                instance ?: UpbitRepository(upbitApi).also { instance = it }
+        private lateinit var instance: UpbitRepository
+        fun getInstance(upbit: UpbitApi): UpbitRepository {
+            if( ! this::instance.isInitialized ) {
+                instance = UpbitRepository(upbit)
             }
+            return instance
         }
+
     }
 
     fun getMarketAll(baseCurrency:String, success: (markets: String) -> Unit, fail: (msg: String) -> Unit){

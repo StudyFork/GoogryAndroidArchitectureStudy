@@ -24,9 +24,9 @@ private const val BASE_CURRENCY = "BASE_CURRENCY"
 
 class CoinListFragment : Fragment() {
 
-    private var adapter: CoinListAdapter? = null
-    private var baseCurrency: String? = null
-    private var markets: String? = null
+    private lateinit var adapter: CoinListAdapter
+    private var baseCurrency: String =""
+    private lateinit var markets: String
 
     private lateinit var binding: FragmentCoinListBinding
 
@@ -35,7 +35,7 @@ class CoinListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            baseCurrency = it.getString(BASE_CURRENCY)
+            baseCurrency = it.getString(BASE_CURRENCY)?:""
         }
     }
 
@@ -49,24 +49,21 @@ class CoinListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter= CoinListAdapter();
         initLayout()
         initMarket()
     }
 
 
     fun initLayout(){
-        binding.recyclerView.let {
-            it.adapter=this.adapter
-        }
+        adapter= CoinListAdapter();
+        binding.recyclerView.adapter=this.adapter
     }
 
     fun initMarket(){
         UpbitRepository.getInstance(UpbitService.upbitApi).getMarketAll(
-            baseCurrency?:"",
+            baseCurrency,
             success = {
                 markets = it
-
                 mTimer = Timer()
                 mTimer.schedule(object : TimerTask() {
                     override fun run() {
@@ -75,7 +72,7 @@ class CoinListFragment : Fragment() {
                 }, 0, (60 * 1000))
 
             },
-            fail = {  Log.d("test", "eror : $it")  }
+            fail = {  Log.d("UpbitRepository", "eror : $it")  }
         )
 
     }
@@ -83,8 +80,8 @@ class CoinListFragment : Fragment() {
     fun getTicker(markets:String){
         UpbitRepository.getInstance(UpbitService.upbitApi).getTickers(
             markets,
-            success = {adapter?.setList(it)},
-            fail = {Log.d("test", "eror : $it")  }
+            success = {adapter.setList(it)},
+            fail = {Log.d("UpbitRepository", "eror : $it")  }
         )
     }
 
