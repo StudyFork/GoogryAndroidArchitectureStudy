@@ -2,6 +2,7 @@ package me.hoyuo.myapplication.util.http
 
 import android.content.Context
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import io.reactivex.Flowable
 import io.reactivex.Single
 import me.hoyuo.myapplication.BuildConfig
 import me.hoyuo.myapplication.model.upbit.Market
@@ -62,8 +63,9 @@ public class HttpClient private constructor(context: Context) {
         return httpInterface.getMarketList()
     }
 
-    fun getTickers(list: String): Single<List<Ticker>> {
+    fun getTickers(list: String): Flowable<List<Ticker>> {
         return httpInterface.getTickers(list)
+                .repeatWhen { t -> t.delay(10, TimeUnit.SECONDS) }
     }
 
     companion object {

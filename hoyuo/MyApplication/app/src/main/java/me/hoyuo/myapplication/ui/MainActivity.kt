@@ -34,22 +34,23 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         disposableManager.refreshIfNecessary()
-        disposableManager += httpClient.getMarketList()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        ::getMarketListOnSuccess,
-                        ::onError
-                )
+
+        if (krwList.isEmpty()) {
+            disposableManager += httpClient.getMarketList()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            ::getMarketListOnSuccess,
+                            ::onError
+                    )
+        } else {
+            getTickers()
+        }
     }
 
     override fun onStop() {
         super.onStop()
         disposableManager.dispose()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
     private fun onError(e: Throwable) {
@@ -63,16 +64,21 @@ class MainActivity : AppCompatActivity() {
 
         Timber.tag(TAG).d(krwList.joinToString(","))
 
+        getTickers()
+    }
+
+    private fun getTickers() {
         disposableManager += httpClient.getTickers(krwList.joinToString(","))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        ::getTickersOnSuccess,
+                        ::getTickersOnNext,
                         ::onError
                 )
     }
 
-    private fun getTickersOnSuccess(list: List<Ticker>) {
+    private fun getTickersOnNext(list: List<Ticker>) {
+        Timber.tag(TAG).d("getTickersOnNext - ${list.size}")
         itemAdapter.loadData(list)
     }
 
