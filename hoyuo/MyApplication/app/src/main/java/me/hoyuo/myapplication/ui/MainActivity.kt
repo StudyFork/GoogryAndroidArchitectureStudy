@@ -56,13 +56,10 @@ class MainActivity : AppCompatActivity() {
         Timber.tag(TAG).e(e)
     }
 
-    private fun getMarketListOnSuccess(t: List<Market>) {
+    private fun getMarketListOnSuccess(list: List<Market>) {
         krwList.clear()
-        t.forEach { market ->
-            if (market.market.contains("KRW-")) {
-                krwList.add(market.market)
-            }
-        }
+        list.filter { market -> market.market.contains("KRW-") }
+                .map { krwList.add(it.market) }
 
         Timber.tag(TAG).d(krwList.joinToString(","))
 

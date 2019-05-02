@@ -39,39 +39,38 @@ class CoinDetailPage : AppCompatActivity() {
         Timber.tag(TAG).d("onCreate")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coin)
-        val data = intent.getSerializableExtra(KEY)
-        data ?: run {
-            Timber.tag(TAG).d("ticker is null")
+        val ticker = intent.getParcelableExtra<Ticker>(KEY)
+        ticker ?: run {
+            Timber.tag(TAG).e("ticker is null")
             finish()
         }
-        val ticker: Ticker = data as Ticker
 
-        acc_trade_price.text = ticker.acc_trade_price.toString()
-        acc_trade_price_24h.text = ticker.acc_trade_price_24h.toString()
-        acc_trade_volume.text = ticker.acc_trade_volume.toString()
-        acc_trade_volume_24h.text = ticker.acc_trade_volume_24h.toString()
+        acc_trade_price.text = ticker.accTradePrice.toString()
+        acc_trade_price_24h.text = ticker.accTradePrice24h.toString()
+        acc_trade_volume.text = ticker.accTradeVolume.toString()
+        acc_trade_volume_24h.text = ticker.accTradeVolume24h.toString()
         change.text = ticker.change
-        change_price.text = ticker.change_price.toString()
-        change_rate.text = ticker.change_rate.toString()
-        high_price.text = ticker.high_price.toString()
-        highest_52_week_date.text = ticker.highest_52_week_date
-        highest_52_week_price.text = ticker.highest_52_week_price.toString()
-        low_price.text = ticker.low_price.toString()
-        lowest_52_week_date.text = ticker.lowest_52_week_date
-        lowest_52_week_price.text = ticker.lowest_52_week_price.toString()
+        change_price.text = ticker.changePrice.toString()
+        change_rate.text = ticker.changeRate.toString()
+        high_price.text = ticker.highPrice.toString()
+        highest_52_week_date.text = ticker.highest52WeekDate
+        highest_52_week_price.text = ticker.highest52WeekPrice.toString()
+        low_price.text = ticker.lowPrice.toString()
+        lowest_52_week_date.text = ticker.lowest52WeekDate
+        lowest_52_week_price.text = ticker.lowest52WeekPrice.toString()
         market.text = ticker.market
-        opening_price.text = ticker.opening_price.toString()
-        prev_closing_price.text = ticker.prev_closing_price.toString()
-        signed_change_price.text = ticker.signed_change_price.toString()
-        signed_change_rate.text = ticker.signed_change_rate.toString()
+        opening_price.text = ticker.openingPrice.toString()
+        prev_closing_price.text = ticker.prevClosingPrice.toString()
+        signed_change_price.text = ticker.signedChangePrice.toString()
+        signed_change_rate.text = ticker.signedChangeRate.toString()
         timestamp.text = ticker.timestamp.toString()
-        trade_date.text = ticker.trade_date
-        trade_date_kst.text = ticker.trade_date_kst
-        trade_price.text = ticker.trade_price.toString()
-        trade_time.text = ticker.trade_time
-        trade_time_kst.text = ticker.trade_time_kst
-        trade_timestamp.text = ticker.trade_timestamp.toString()
-        trade_volume.text = ticker.trade_volume.toString()
+        trade_date.text = ticker.tradeDate
+        trade_date_kst.text = ticker.tradeDateKst
+        trade_price.text = ticker.tradePrice.toString()
+        trade_time.text = ticker.tradeTime
+        trade_time_kst.text = ticker.tradeTimeKst
+        trade_timestamp.text = ticker.tradeTimestamp.toString()
+        trade_volume.text = ticker.tradeVolume.toString()
     }
 
     companion object {
