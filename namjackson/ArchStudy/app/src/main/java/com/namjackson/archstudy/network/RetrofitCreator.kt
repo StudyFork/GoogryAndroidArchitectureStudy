@@ -6,8 +6,8 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-object RetrofitCreator{
-    fun <T> createRetrofit( url :String , tClass: Class<T>):T{
+object RetrofitCreator {
+    fun <T> createRetrofit(url: String, tClass: Class<T>): T {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
 
