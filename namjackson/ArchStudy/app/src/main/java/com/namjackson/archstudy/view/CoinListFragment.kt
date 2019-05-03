@@ -27,7 +27,7 @@ class CoinListFragment : Fragment() {
 
     private lateinit var binding: FragmentCoinListBinding
 
-    private lateinit var mTimer: Timer;
+    private lateinit var timer: Timer;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,8 +61,8 @@ class CoinListFragment : Fragment() {
             baseCurrency,
             success = {
                 markets = it
-                mTimer = Timer()
-                mTimer.schedule(object : TimerTask() {
+                timer = Timer()
+                timer.schedule(object : TimerTask() {
                     override fun run() {
                         getTicker(it)
                     }
@@ -84,7 +84,7 @@ class CoinListFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        mTimer.cancel();
+        timer.cancel();
     }
 
     companion object {
