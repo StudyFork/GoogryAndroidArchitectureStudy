@@ -31,7 +31,7 @@ class CoinAdapter
     fun refreshData(coinList: List<Ticker>){
         this.coinList.run {
             clear()
-        addAll(coinList)
+            addAll(coinList)
         }
         notifyDataSetChanged()
     }
@@ -41,6 +41,5 @@ class CoinAdapter
         val coinOpningPrice = view.txt_item_ticker_opening_price
         val coinChangePrice = view.txt_item_ticker_change_price
         val coinChangeAccTradePrice = view.txt_item_ticker_acc_trade_price
-
     }
 }
