@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 
-public interface HttpInterface {
+interface HttpInterface {
     @GET("v1/market/all/")
     fun getMarketList(): Single<List<Market>>
 

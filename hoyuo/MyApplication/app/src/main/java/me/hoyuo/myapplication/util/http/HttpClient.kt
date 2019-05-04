@@ -17,7 +17,7 @@ import java.io.File
 import java.util.concurrent.TimeUnit
 
 
-public class HttpClient private constructor(context: Context) {
+class HttpClient private constructor(context: Context) {
     init {
         updateHttpClient(context)
     }
@@ -44,7 +44,7 @@ public class HttpClient private constructor(context: Context) {
         val httpCacheDirectory = File(context.cacheDir, "http")
         val cacheSize = 32 * 1024 * 1024L
 
-        var client = OkHttpClient.Builder()
+        val client = OkHttpClient.Builder()
                 .cache(Cache(httpCacheDirectory, cacheSize))
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(20, TimeUnit.SECONDS)

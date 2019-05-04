@@ -34,7 +34,7 @@ import me.hoyuo.myapplication.R
 import me.hoyuo.myapplication.model.upbit.Ticker
 import timber.log.Timber
 
-class CoinDetailPage : AppCompatActivity() {
+class CoinDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.tag(TAG).d("onCreate")
         super.onCreate(savedInstanceState)
@@ -74,11 +74,11 @@ class CoinDetailPage : AppCompatActivity() {
     }
 
     companion object {
-        val TAG: String = CoinDetailPage::class.java.simpleName
+        val TAG: String = CoinDetailActivity::class.java.simpleName
         const val KEY = "ticker"
 
         fun newIntent(context: Context, ticker: Ticker): Intent {
-            return Intent(context, CoinDetailPage::class.java).apply {
+            return Intent(context, CoinDetailActivity::class.java).apply {
                 putExtra(KEY, ticker)
             }
         }

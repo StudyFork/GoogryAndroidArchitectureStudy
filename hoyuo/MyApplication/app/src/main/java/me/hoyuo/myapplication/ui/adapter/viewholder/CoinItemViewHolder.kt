@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import me.hoyuo.myapplication.R
 
-class CoinItem(parent: ViewGroup) : AndroidExtensionsViewHolder(
+class CoinItemViewHolder(parent: ViewGroup) : AndroidExtensionsViewHolder(
         LayoutInflater.from(parent.context)
                 .inflate(R.layout.coin_item, parent, false)
 )

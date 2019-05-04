@@ -8,16 +8,19 @@ import kotlinx.android.synthetic.main.coin_item.view.coinPrevClosePriceRatio
 import kotlinx.android.synthetic.main.coin_item.view.coinTradePrice
 import kotlinx.android.synthetic.main.coin_item.view.coinTradeVolume
 import me.hoyuo.myapplication.model.upbit.Ticker
-import me.hoyuo.myapplication.ui.adapter.viewholder.CoinItem
+import me.hoyuo.myapplication.ui.adapter.viewholder.CoinItemViewHolder
 import java.util.concurrent.CopyOnWriteArrayList
 
-class ItemAdapter : RecyclerView.Adapter<CoinItem>() {
-    private var itemList = CopyOnWriteArrayList<Ticker>()
-    private var listener: ItemClickListener? = null
+class ItemAdapter : RecyclerView.Adapter<CoinItemViewHolder>() {
+    private val itemList = CopyOnWriteArrayList<Ticker>()
+    private lateinit var listener: (ticker: Ticker) -> Unit
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinItem = CoinItem(parent)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): CoinItemViewHolder = CoinItemViewHolder(parent)
 
-    override fun onBindViewHolder(holder: CoinItem, position: Int) {
+    override fun onBindViewHolder(holder: CoinItemViewHolder, position: Int) {
         itemList[position].let { ticker ->
             with(holder.containerView) {
                 coinName.text = ticker.market
@@ -33,7 +36,7 @@ class ItemAdapter : RecyclerView.Adapter<CoinItem>() {
                         .toString()
 
                 coinTradeVolume.text = ticker.tradeVolume.toString()
-                setOnClickListener { listener?.onItemClick(ticker) }
+                setOnClickListener { listener(ticker) }
             }
         }
     }
@@ -46,11 +49,7 @@ class ItemAdapter : RecyclerView.Adapter<CoinItem>() {
         notifyDataSetChanged()
     }
 
-    fun setItemClickListener(listener: ItemClickListener) {
+    fun setItemClickListener(listener: (ticker: Ticker) -> Unit) {
         this.listener = listener
-    }
-
-    interface ItemClickListener {
-        fun onItemClick(ticker: Ticker)
     }
 }
