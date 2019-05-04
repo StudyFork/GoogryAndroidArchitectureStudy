@@ -5,8 +5,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitUtil {
 
-    var retrofit = Retrofit.Builder()
+    val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl("https://api.upbit.com/v1/")
         .addConverterFactory(GsonConverterFactory.create())
-        .build()!!
+        .build()
 }

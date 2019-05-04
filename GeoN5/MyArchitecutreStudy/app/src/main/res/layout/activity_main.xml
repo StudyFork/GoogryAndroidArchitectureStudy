@@ -24,13 +24,14 @@
             app:tabMode="fixed"
             app:tabTextColor="@android:color/darker_gray"
             app:tabSelectedTextColor="@android:color/white"
-            app:tabIndicatorHeight="1dp"
-            app:tabIndicatorColor="@android:color/holo_orange_light"
+            app:tabIndicatorHeight="3dp"
+            app:tabIndicatorColor="@android:color/white"
             android:background="@color/colorPrimary" />
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:background="@color/colorPrimary"
             android:orientation="horizontal">
         <TextView

@@ -1,30 +1,58 @@
 package com.example.myarchitecutrestudy.model
 
+import com.google.gson.annotations.SerializedName
+
 data class Ticker(
-    val acc_trade_price: Double,
-    var acc_trade_price_24h: Double, //거래대금+M
-    val acc_trade_volume: Double,
-    val acc_trade_volume_24h: Double,
-    val change: String,
-    val change_price: Double,
-    val change_rate: Double,
-    val high_price: Double,
-    val highest_52_week_date: String,
-    val highest_52_week_price: Double,
-    val low_price: Double,
-    val lowest_52_week_date: String,
-    val lowest_52_week_price: Double,
-    val market: String,
-    val opening_price: Double,
-    val prev_closing_price: Double,
-    val signed_change_price: Double,
-    val signed_change_rate: Double, //전일대비+% 소수점2자리까지, 0보다 작으면 파랑,크면 빨강
-    val timestamp: Long,
-    val trade_date: String,
-    val trade_date_kst: String,
-    val trade_price: Double, //현재가[그대로]
-    val trade_time: String,
-    val trade_time_kst: String,
-    val trade_timestamp: Long,
-    val trade_volume: Double
+    @SerializedName("market")
+    val market:String,
+    @SerializedName("trade_date")
+    val tradeDate:String,
+    @SerializedName("trade_time")
+    val tradeTime:String,
+    @SerializedName("trade_date_kst")
+    val tradeDateKst:String,
+    @SerializedName("trade_time_kst")
+    val tradeTimeKst:String,
+    @SerializedName("trade_timestamp")
+    val tradeTimestamp:Long,
+    @SerializedName("opening_price")
+    val openingPrice:Double,
+    @SerializedName("high_price")
+    val highPrice:Double,
+    @SerializedName("low_price")
+    val lowPrice:Double,
+    @SerializedName("trade_price")
+    val tradePrice:Double, //현재가[그대로]
+    @SerializedName("prev_closing_price")
+    val prevClosingPrice:Double,
+    @SerializedName("change")
+    val change:String,
+    @SerializedName("change_price")
+    val changePrice:Double,
+    @SerializedName("change_rate")
+    val changeRate:Double,
+    @SerializedName("signed_change_price")
+    val signedChangePrice:Double,
+    @SerializedName("signed_change_rate")
+    val signedChangeRate:Double, //전일대비+% 소수점2자리까지, 0보다 작으면 파랑,크면 빨강
+    @SerializedName("trade_volume")
+    val tradeVolume:Double,
+    @SerializedName("acc_trade_price")
+    val accTradePrice:Double,
+    @SerializedName("acc_trade_price_24h")
+    val accTradePrice24h:Double, //거래대금+M
+    @SerializedName("acc_trade_volume")
+    val accTradeVolume:Double,
+    @SerializedName("acc_trade_volume_24h")
+    val accTradeVolume24h:Double,
+    @SerializedName("highest_52_week_price")
+    val highest52WeekPrice:Double,
+    @SerializedName("highest_52_week_date")
+    val highest52WeekDate:String,
+    @SerializedName("lowest_52_week_price")
+    val lowest52WeekPrice:Double,
+    @SerializedName("lowest_52_week_date")
+    val lowest52WeekDate:String,
+    @SerializedName("timestamp")
+    val timestamp:Long
 )

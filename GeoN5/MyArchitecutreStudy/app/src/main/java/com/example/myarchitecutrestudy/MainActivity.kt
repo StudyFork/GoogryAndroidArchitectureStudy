@@ -16,6 +16,8 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
+    private val TAG : String = MainActivity::class.java.simpleName
+    private lateinit var adapter: CoinPagerAdapter
     private var marketList:List<MarketAll> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +28,6 @@ class MainActivity : AppCompatActivity() {
 
         setTabLayout()
         getMarketInfo()
-      //setViewpager()
     }
 
     private fun setTabLayout(){
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         tab.addTab(tab.newTab().setText("USDT"))
     }
 
-    private fun getMarketInfo(){ //비동기라서 setViewPager()가 먼저실행되서 리스트에 값이 없어서 문제발생했다. 기억하기.
+    private fun getMarketInfo(){
         val coinService: CoinService = RetrofitUtil.retrofit.create(CoinService::class.java)
         val call: Call<List<MarketAll>> = coinService.getMarket()
 
@@ -49,9 +50,10 @@ class MainActivity : AppCompatActivity() {
                 Log.d("MainActivity",response.body().toString())
                 response.body()?.let {
                     Toast.makeText(applicationContext, "ActonResponse!", Toast.LENGTH_SHORT).show()
-                    marketList = response.body()!!
-                    Log.d("yy",marketList.toString())
+                    Log.d(TAG, it.toString())
+                    marketList = it
                     setViewpager()
+                    //adapter.setList(it)
                 } ?: Toast.makeText(applicationContext,"액티비티 문제가 발생했습니다!", Toast.LENGTH_SHORT).show()
             }
 
@@ -59,22 +61,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setViewpager(){
-        Log.d("vv",marketList.toString())
-        val pagerAdapter = CoinPagerAdapter(supportFragmentManager, tab.tabCount, marketList)
-        viewPager.adapter = pagerAdapter
+        adapter = CoinPagerAdapter(supportFragmentManager, tab.tabCount,marketList)
+        viewPager.adapter = adapter
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tab))
 
         tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {
+            override fun onTabReselected(tab: TabLayout.Tab) {
 
             }
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            override fun onTabUnselected(tab: TabLayout.Tab) {
 
             }
 
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                viewPager.currentItem = tab!!.position
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                viewPager.currentItem = tab.position
             }
 
         })
