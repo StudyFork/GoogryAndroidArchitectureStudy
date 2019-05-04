@@ -24,10 +24,8 @@ class UpbitRepository private constructor(val upbitApi: UpbitApi) {
         upbitApi.getMarketAll().enqueue(object : Callback<List<UpbitMarket>> {
             override fun onResponse(call: Call<List<UpbitMarket>>?, response: Response<List<UpbitMarket>>?) {
                 success(response?.body()?.filter {
-                    it.market.contains((baseCurrency).toRegex())
-                }?.map {
-                    it.market
-                }?.joinToString().toString())
+                    it.market.startsWith(baseCurrency)
+                }?.joinToString { it.market  }?:"")
             }
 
             override fun onFailure(call: Call<List<UpbitMarket>>?, t: Throwable?) {

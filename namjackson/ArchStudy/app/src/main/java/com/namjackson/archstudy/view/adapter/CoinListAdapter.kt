@@ -15,7 +15,7 @@ class CoinListAdapter : RecyclerView.Adapter<CoinListAdapter.CoinListViewHolder>
     private val coinList = mutableListOf<Ticker>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinListViewHolder {
-        var binding = DataBindingUtil.inflate<ItemCoinListBinding>(
+        val binding = DataBindingUtil.inflate<ItemCoinListBinding>(
             LayoutInflater.from(parent.context),
             R.layout.item_coin_list,
             parent,
@@ -44,7 +44,7 @@ class CoinListAdapter : RecyclerView.Adapter<CoinListAdapter.CoinListViewHolder>
                 it.market.text = ticker.market.split("-").get(1)
                 it.tradePrice.text =
                     if (ticker.tradePrice.toString().length > 4) ticker.tradePrice.toInt().toString() else ticker.tradePrice.toString()
-                it.beforePrice.text = (ticker.signedChangeRate * 100).toFloat().toString() + "%"
+                it.beforePrice.text = (ticker.signedChangeRate * 100).toFloat().toString().substring(0,4) + "%"
                 it.volume.text =
                     if (ticker.accTradePrice24h.toLong() > 1000000L) (ticker.accTradePrice24h / 1000000L).toInt().toString() + "M" else ticker.accTradePrice24h.toInt().toString()
                 if (ticker.change.equals("RISE"))

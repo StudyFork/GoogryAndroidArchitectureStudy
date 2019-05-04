@@ -83,8 +83,8 @@ class CoinListFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         timer.cancel();
+        super.onDestroyView()
     }
 
     companion object {
