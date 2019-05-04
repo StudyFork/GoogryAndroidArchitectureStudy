@@ -27,7 +27,7 @@ class CoinListFragment : Fragment() {
 
     private lateinit var binding: FragmentCoinListBinding
 
-    private lateinit var timer: Timer;
+    private lateinit var timer: Timer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
