@@ -73,7 +73,6 @@ class CoinFragment : Fragment() {
                     response.body()?.let {
                         Toast.makeText(context, "FragonResponse!", Toast.LENGTH_SHORT).show()
                         recyclerAdapter.setList(it as ArrayList<Ticker>)
-                        recyclerAdapter.notifyDataSetChanged()
                     } ?: Toast.makeText(context,"프래그먼트 문제가 발생했습니다!", Toast.LENGTH_SHORT).show()
                 }
 

@@ -19,6 +19,7 @@ class RecyclerViewAdapter(private val nameList: List<String>, private val contex
     fun setList(tickerList: ArrayList<Ticker>) {
         this.tickerList.clear()
         this.tickerList.addAll(tickerList)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinViewHolder {
