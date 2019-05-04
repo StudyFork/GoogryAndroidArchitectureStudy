@@ -59,7 +59,6 @@ class CoinFragment : Fragment() {
     private fun loadData(){
         val coinService: CoinService = RetrofitUtil.retrofit.create(CoinService::class.java)
 
-        //약 60초마다 갱신
         timerTask = timer(period = 60 * 1000){
             val call: Call<List<Ticker>> = coinService.getTicker(nameList.joinToString())
 

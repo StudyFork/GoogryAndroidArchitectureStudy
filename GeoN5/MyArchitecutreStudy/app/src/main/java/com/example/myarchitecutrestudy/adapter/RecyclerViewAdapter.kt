@@ -57,18 +57,7 @@ class RecyclerViewAdapter(private val nameList: List<String>, private val contex
 
     }
 }
-//기존 뷰홀더 코드
-//class CoinViewHolder(itemView : View):RecyclerView.ViewHolder(itemView){
-//    var coinName = itemView.coinNameText!!
-//    var currentPrice = itemView.currentPriceText!!
-//    var dayBefore = itemView.dayBeforeText!!
-//    var transactionPrice = itemView.transactionPriceText!!
-//}
 
-//찾아본 글에서 아래와 같은 추상클래스를 만들어두고 뷰홀더클래스를 주석과 같이 정의해서 사용하던데
-//안되는 부분이 생겨서 아래와 같이 처리했습니다.
-//class CoinViewHolder(parent: ViewGroup) : AndroidExtensionsViewHolder(
-//    LayoutInflater.from(parent.context).inflate(R.layout.item_list_coin, parent, false))
 class CoinViewHolder(itemView: View) : AndroidExtensionsViewHolder(itemView)
 
 abstract class AndroidExtensionsViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer
