@@ -25,6 +25,8 @@ class MainActivity : AppCompatActivity() {
 
         upbitApiHandler = UpbitApiHandlerImpl
 
+        upbitApiHandler.toString()
+
         upbitApiHandler.getAllTickers(UpbitTickerListRequest.Base.KRW,
             { result ->
                 binding.it = result.map { Ticker.from(it) }.toMutableList()
