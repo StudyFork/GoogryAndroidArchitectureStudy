@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="coinName">코인명</string>
+    <string name="coinTradeVolume">거래대금</string>
+    <string name="coinPrevClosePriceRatio">전일대비</string>
+    <string name="coinTradePrice">현재가</string>
 </resources>
