@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object UpbitApiHandlerImpl : UpbitApiHandler {
 
     private val retrofit: UpbitApi
-    private val baseURL = "https://api.upbit.com/v1/"
+    private const val baseURL = "https://api.upbit.com/v1/"
 
     init {
         retrofit = run {

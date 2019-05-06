@@ -18,7 +18,7 @@ class UpbitTickerListRequest private constructor(
         }
     }
 
-    enum class Base(val value: String) {
-        KRW("KRW"), BTC("BTC"), ETH("ETH"), USDT("USDT")
+    enum class Base {
+        KRW, BTC, ETH, USDT
     }
 }

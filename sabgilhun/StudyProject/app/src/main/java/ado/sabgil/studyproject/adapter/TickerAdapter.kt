@@ -20,20 +20,18 @@ class TickerAdapter : RecyclerView.Adapter<TickerViewHolder>() {
         }
     }
 
-    private fun getItem(position: Int): Ticker {
-        return this.items[position]
-    }
+    private fun getItem(position: Int) = this.items[position]
 
-    override fun getItemCount(): Int {
-        return this.items.size
-    }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TickerViewHolder {
-        return TickerViewHolder(
+    override fun getItemCount() = this.items.size
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        TickerViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_ticker, parent, false)
         )
-    }
+
 
     override fun onBindViewHolder(holder: TickerViewHolder, position: Int) {
         holder.binding?.item = getItem(position)
