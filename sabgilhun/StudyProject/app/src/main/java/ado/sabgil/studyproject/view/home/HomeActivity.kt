@@ -2,35 +2,25 @@ package ado.sabgil.studyproject.view.home
 
 import ado.sabgil.studyproject.R
 import ado.sabgil.studyproject.adapter.TickerAdapter
-import ado.sabgil.studyproject.data.model.Ticker
-import ado.sabgil.studyproject.data.remote.upbit.UpbitApiHandler
-import ado.sabgil.studyproject.data.remote.upbit.UpbitApiHandlerImpl
-import ado.sabgil.studyproject.data.remote.upbit.request.UpbitTickerListRequest
 import ado.sabgil.studyproject.databinding.ActivityMainBinding
 import ado.sabgil.studyproject.enums.BaseCurrency
+import ado.sabgil.studyproject.view.base.BaseActivity
+import ado.sabgil.studyproject.view.coinlist.CoinListFragment
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity<ActivityMainBinding>() {
 
-    private lateinit var binding: ActivityMainBinding
-
-    private lateinit var upbitApiHandler: UpbitApiHandler
+    override fun getLayout() = R.layout.activity_main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        binding.rvTickerList.adapter = TickerAdapter()
 
-        upbitApiHandler = UpbitApiHandlerImpl
-
-        upbitApiHandler.getAllTickers(BaseCurrency.KRW,
-            { result ->
-                binding.it = result.map { Ticker.from(it) }.toMutableList()
-            },
-            {})
+        // TODO : delete this code block
+        supportFragmentManager.beginTransaction().add(
+            R.id.fl_container,
+            CoinListFragment.newInstance(BaseCurrency.KRW)
+        ).commit()
     }
 }
