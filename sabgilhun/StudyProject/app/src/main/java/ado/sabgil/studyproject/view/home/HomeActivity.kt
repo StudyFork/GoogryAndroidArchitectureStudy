@@ -1,4 +1,4 @@
-package ado.sabgil.studyproject.view.coinlist
+package ado.sabgil.studyproject.view.home
 
 import ado.sabgil.studyproject.R
 import ado.sabgil.studyproject.adapter.TickerAdapter
@@ -11,7 +11,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 
-class CoinListActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
