@@ -36,6 +36,7 @@ class CoinAdapter
         notifyDataSetChanged()
     }
 
+
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val coinMarket = view.txt_item_ticker_market!!
         val coinOpningPrice = view.txt_item_ticker_opening_price
