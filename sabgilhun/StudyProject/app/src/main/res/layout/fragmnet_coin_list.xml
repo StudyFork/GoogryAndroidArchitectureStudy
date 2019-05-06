@@ -1,33 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
-	
-	<data>
-		<import type="java.util.List"/>
-		
-		<import type="ado.sabgil.studyproject.data.model.Ticker"/>
-		
-		<variable
-				name="it"
-				type="List&lt;Ticker&gt;"/>
-	</data>
-	
-	<androidx.constraintlayout.widget.ConstraintLayout
-			android:layout_width="match_parent"
-			android:layout_height="match_parent">
-		
-		<androidx.recyclerview.widget.RecyclerView
-				android:id="@+id/rv_ticker_list"
-				android:layout_width="0dp"
-				android:layout_height="0dp"
-				android:background="@android:color/white"
-				android:foregroundGravity="center"
-				app:item="@{it}"
-				app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="parent"
-				app:layout_constraintBottom_toBottomOf="parent"/>
-	
-	</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+        <import type="java.util.List"/>
+
+        <import type="ado.sabgil.studyproject.data.model.Ticker"/>
+
+        <variable
+                name="it"
+                type="List&lt;Ticker&gt;"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_ticker_list"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@android:color/white"
+                android:foregroundGravity="center"
+                app:item="@{it}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ProgressBar
+                android:id="@+id/pg"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

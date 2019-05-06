@@ -3,7 +3,6 @@ package ado.sabgil.studyproject.view.coinlist
 import ado.sabgil.studyproject.R
 import ado.sabgil.studyproject.adapter.TickerAdapter
 import ado.sabgil.studyproject.data.model.Ticker
-import ado.sabgil.studyproject.data.remote.upbit.UpbitApiHandlerImpl
 import ado.sabgil.studyproject.databinding.FragmnetCoinListBinding
 import ado.sabgil.studyproject.enums.BaseCurrency
 import ado.sabgil.studyproject.view.base.BaseFragment
@@ -35,20 +34,19 @@ class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(), CoinListContra
         CoinListPresenter(requireNotNull(baseCurrency), this)
 
         binding.rvTickerList.adapter = TickerAdapter()
-
-        UpbitApiHandlerImpl.getAllTickers(baseCurrency!!,
-            { result ->
-                binding.it = result.map { Ticker.from(it) }.toMutableList()
-            },
-            {})
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.start()
+    }
 
     override fun showProgressBar(flag: Boolean) {
+        if (flag) binding.pg.visibility = View.VISIBLE
+        else binding.pg.visibility = View.INVISIBLE
     }
 
     override fun updateList(list: List<Ticker>) {
+        binding.it = list
     }
-
-
 }
