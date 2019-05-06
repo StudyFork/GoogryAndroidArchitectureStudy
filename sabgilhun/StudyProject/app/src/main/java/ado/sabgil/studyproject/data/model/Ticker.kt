@@ -10,8 +10,8 @@ data class Ticker private constructor(
 ) {
 
     companion object {
-        const val KILO = 1_000.0
-        const val MEGA = 1_000_000.0
+        private const val KILO = 1_000.0
+        private const val MEGA = 1_000_000.0
 
         fun from(tickerResponse: UpbitTickerResponse): Ticker {
             val changeRate =

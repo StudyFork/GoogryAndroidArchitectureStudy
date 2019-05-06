@@ -3,7 +3,6 @@ package ado.sabgil.studyproject.view.coinlist
 import ado.sabgil.studyproject.R
 import ado.sabgil.studyproject.adapter.TickerAdapter
 import ado.sabgil.studyproject.data.model.Ticker
-import ado.sabgil.studyproject.data.remote.upbit.UpbitApiHandler
 import ado.sabgil.studyproject.data.remote.upbit.UpbitApiHandlerImpl
 import ado.sabgil.studyproject.databinding.FragmnetCoinListBinding
 import ado.sabgil.studyproject.enums.BaseCurrency
@@ -37,12 +36,11 @@ class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(), CoinListContra
 
         binding.rvTickerList.adapter = TickerAdapter()
 
-        UpbitApiHandlerImpl.getAllTickers(BaseCurrency.KRW,
+        UpbitApiHandlerImpl.getAllTickers(baseCurrency!!,
             { result ->
                 binding.it = result.map { Ticker.from(it) }.toMutableList()
             },
             {})
-
     }
 
 

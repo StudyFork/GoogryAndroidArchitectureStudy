@@ -1,7 +1,7 @@
 package ado.sabgil.studyproject.view.home
 
 import ado.sabgil.studyproject.R
-import ado.sabgil.studyproject.adapter.TickerAdapter
+import ado.sabgil.studyproject.adapter.CoinListPagerAdapter
 import ado.sabgil.studyproject.databinding.ActivityMainBinding
 import ado.sabgil.studyproject.enums.BaseCurrency
 import ado.sabgil.studyproject.view.base.BaseActivity
@@ -15,12 +15,17 @@ class HomeActivity : BaseActivity<ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val coinListPagerAdapter = CoinListPagerAdapter(supportFragmentManager)
 
+        binding.vpCoinList.apply {
+            adapter = coinListPagerAdapter
+            (adapter as CoinListPagerAdapter).setPages(
+                BaseCurrency.values().map {
+                    it.toString() to CoinListFragment.newInstance(it)
+                }.toMap()
+            )
+        }
 
-        // TODO : delete this code block
-        supportFragmentManager.beginTransaction().add(
-            R.id.fl_container,
-            CoinListFragment.newInstance(BaseCurrency.KRW)
-        ).commit()
+        binding.tlCoinList.setupWithViewPager(binding.vpCoinList)
     }
 }
