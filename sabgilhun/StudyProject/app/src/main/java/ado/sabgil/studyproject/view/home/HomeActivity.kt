@@ -7,6 +7,7 @@ import ado.sabgil.studyproject.data.remote.upbit.UpbitApiHandler
 import ado.sabgil.studyproject.data.remote.upbit.UpbitApiHandlerImpl
 import ado.sabgil.studyproject.data.remote.upbit.request.UpbitTickerListRequest
 import ado.sabgil.studyproject.databinding.ActivityMainBinding
+import ado.sabgil.studyproject.enums.BaseCurrency
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -26,7 +27,7 @@ class HomeActivity : AppCompatActivity() {
 
         upbitApiHandler = UpbitApiHandlerImpl
 
-        upbitApiHandler.getAllTickers(UpbitTickerListRequest.Base.KRW,
+        upbitApiHandler.getAllTickers(BaseCurrency.KRW,
             { result ->
                 binding.it = result.map { Ticker.from(it) }.toMutableList()
             },
