@@ -1,13 +1,13 @@
 package com.namjackson.archstudy.view.adapter
 
 import android.databinding.DataBindingUtil
+import android.graphics.Color
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.namjackson.archstudy.R
 import com.namjackson.archstudy.data.Ticker
 import com.namjackson.archstudy.databinding.ItemCoinListBinding
-import android.view.LayoutInflater
-import com.namjackson.archstudy.R
-import android.graphics.Color
 
 
 class CoinListAdapter : RecyclerView.Adapter<CoinListAdapter.CoinListViewHolder>() {
@@ -44,7 +44,12 @@ class CoinListAdapter : RecyclerView.Adapter<CoinListAdapter.CoinListViewHolder>
                 it.market.text = ticker.market.split("-").get(1)
                 it.tradePrice.text =
                     if (ticker.tradePrice.toString().length > 4) ticker.tradePrice.toInt().toString() else ticker.tradePrice.toString()
-                it.beforePrice.text = (ticker.signedChangeRate * 100).toFloat().toString().substring(0,4) + "%"
+                it.beforePrice.text =
+                    if ((ticker.signedChangeRate * 100).toFloat().toString().length > 4) {
+                        (ticker.signedChangeRate * 100).toFloat().toString().substring(0, 4) + "%"
+                    } else {
+                        (ticker.signedChangeRate * 100).toFloat().toString() + "%"
+                    }
                 it.volume.text =
                     if (ticker.accTradePrice24h.toLong() > 1000000L) (ticker.accTradePrice24h / 1000000L).toInt().toString() + "M" else ticker.accTradePrice24h.toInt().toString()
                 if (ticker.change.equals("RISE"))
