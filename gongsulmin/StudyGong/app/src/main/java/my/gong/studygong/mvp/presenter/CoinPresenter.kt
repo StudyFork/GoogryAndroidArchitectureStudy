@@ -1,9 +1,10 @@
 package my.gong.studygong.mvp.presenter
 
 import my.gong.studygong.data.model.enum.TickerCurrency
-import my.gong.studygong.data.source.upbit.UpbitRepository
+import my.gong.studygong.data.source.upbit.IUpbitDataSource
 
 class CoinPresenter(
+    val coinRepository: IUpbitDataSource ,
     val view: CoinContract.View
 ): CoinContract.Presenter {
 
@@ -16,7 +17,7 @@ class CoinPresenter(
     }
 
     override fun populateCoinData() {
-        UpbitRepository.getTickers(TickerCurrency.KRW ,
+        coinRepository.getTickers(TickerCurrency.KRW ,
             success = {
                 view.showTickers(it)
             } ,

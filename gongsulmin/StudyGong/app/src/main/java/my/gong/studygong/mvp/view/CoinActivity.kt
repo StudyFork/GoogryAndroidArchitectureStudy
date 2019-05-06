@@ -6,6 +6,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import my.gong.studygong.R
 import my.gong.studygong.data.model.Ticker
+import my.gong.studygong.mvp.Injection
 import my.gong.studygong.mvp.presenter.CoinContract
 import my.gong.studygong.mvp.presenter.CoinPresenter
 import my.gong.studygong.viewcontrol.adapter.CoinAdapter
@@ -22,7 +23,7 @@ class CoinActivity: AppCompatActivity() , CoinContract.View {
         setContentView(R.layout.activity_main)
         init()
 
-        presenter = CoinPresenter(this@CoinActivity)
+        presenter = CoinPresenter(Injection.provideCoinRepository() , this@CoinActivity)
     }
 
     override fun onStart() {

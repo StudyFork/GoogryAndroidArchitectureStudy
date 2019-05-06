@@ -12,6 +12,6 @@ interface CoinContract {
 
     interface View: BaseView<Presenter>{
         fun showTickers(ticker: List<Ticker>)
-
     }
+
 }
