@@ -24,7 +24,6 @@ object  UpbitRepository
                                     call: Call<List<UpbitTickerResponse>>,
                                     response: Response<List<UpbitTickerResponse>>
                                 ) {
-
                                     response.body()?.let { tickerResponse ->
                                             success.invoke(
                                                 tickerResponse
