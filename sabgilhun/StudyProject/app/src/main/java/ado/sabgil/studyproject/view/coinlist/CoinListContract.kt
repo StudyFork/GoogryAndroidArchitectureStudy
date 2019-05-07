@@ -1,16 +1,26 @@
 package ado.sabgil.studyproject.view.coinlist
 
 import ado.sabgil.studyproject.data.model.Ticker
-import ado.sabgil.studyproject.view.BasePresenter
-import ado.sabgil.studyproject.view.BaseView
 
 interface CoinListContract {
-    interface View : BaseView<Presenter> {
+
+    interface View {
+        var presenter: Presenter
+
         fun showProgressBar(flag: Boolean)
+
         fun updateList(list: List<Ticker>)
+
+        fun showToast(msg: String)
+
     }
 
-    interface Presenter : BasePresenter {
-        fun loadTickers()
+    interface Presenter {
+        fun start()
+
+        fun stop()
+
+        fun refreshTickers()
+
     }
 }

@@ -15,15 +15,16 @@ class HomeActivity : BaseActivity<ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val coinListPagerAdapter = CoinListPagerAdapter(supportFragmentManager)
-
         binding.vpCoinList.apply {
-            adapter = coinListPagerAdapter
-            (adapter as CoinListPagerAdapter).setPages(
+
+            adapter = CoinListPagerAdapter(
+                supportFragmentManager,
                 BaseCurrency.values().map {
                     it.toString() to CoinListFragment.newInstance(it)
                 }.toMap()
             )
+
+            offscreenPageLimit = BaseCurrency.values().size - 1
         }
 
         binding.tlCoinList.setupWithViewPager(binding.vpCoinList)

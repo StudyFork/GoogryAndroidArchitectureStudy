@@ -1,27 +1,31 @@
 package ado.sabgil.studyproject.adapter
 
-import androidx.fragment.app.Fragment
+import ado.sabgil.studyproject.view.coinlist.CoinListFragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
-class CoinListPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
+class CoinListPagerAdapter(
+    fragmentManager: FragmentManager,
+    views: Map<String, CoinListFragment>
+) : FragmentPagerAdapter(fragmentManager) {
 
-    private val pages: MutableList<Fragment> by lazy { mutableListOf<Fragment>() }
+    private val pages = mutableListOf<CoinListFragment>()
 
-    private val title: MutableList<String> by lazy { mutableListOf<String>() }
+    private val title = mutableListOf<String>()
+
+    init {
+        this.pages.apply {
+            clear()
+            addAll(views.values.toList())
+            notifyDataSetChanged()
+        }
+        this.title.addAll(views.keys.toList())
+
+    }
 
     override fun getItem(position: Int) = pages[position]
 
     override fun getCount() = pages.size
-
-    fun setPages(pages: Map<String, Fragment>) {
-        this.pages.apply {
-            clear()
-            addAll(pages.values.toList())
-            notifyDataSetChanged()
-        }
-        this.title.addAll(pages.keys.toList())
-    }
 
     override fun getPageTitle(position: Int) = title[position]
 }

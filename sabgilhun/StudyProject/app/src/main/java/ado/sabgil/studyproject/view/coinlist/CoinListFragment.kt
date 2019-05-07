@@ -8,6 +8,7 @@ import ado.sabgil.studyproject.enums.BaseCurrency
 import ado.sabgil.studyproject.view.base.BaseFragment
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 
 class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(), CoinListContract.View {
 
@@ -29,24 +30,41 @@ class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(), CoinListContra
             }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        CoinListPresenter(requireNotNull(baseCurrency), this)
-
-        binding.rvTickerList.adapter = TickerAdapter()
-    }
-
     override fun onResume() {
         super.onResume()
         presenter.start()
     }
 
+    override fun onPause() {
+        super.onPause()
+        presenter.stop()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        CoinListPresenter(requireNotNull(baseCurrency), this)
+
+        binding.rlTickerRefreshs.apply {
+            scrollUpChild = binding.rvTickerList
+            setOnRefreshListener {
+                presenter.refreshTickers()
+            }
+        }
+
+        binding.rvTickerList.adapter = TickerAdapter()
+    }
+
     override fun showProgressBar(flag: Boolean) {
-        if (flag) binding.pg.visibility = View.VISIBLE
-        else binding.pg.visibility = View.INVISIBLE
+        with(binding.rlTickerRefreshs) {
+            post { isRefreshing = flag }
+        }
     }
 
     override fun updateList(list: List<Ticker>) {
         binding.it = list
+    }
+
+    override fun showToast(msg: String) {
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
     }
 }

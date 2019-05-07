@@ -52,7 +52,7 @@ object UpbitApiHandlerImpl : UpbitApiHandler {
                     call: Call<List<UpbitMarketCodeResponse>>,
                     t: Throwable
                 ) {
-                    onFail.invoke(RuntimeException(t.message))
+                    onFail.invoke(RuntimeException("서버에서 데이터를 가져오는데 실패하였습니다."))
                 }
 
                 override fun onResponse(
@@ -64,7 +64,7 @@ object UpbitApiHandlerImpl : UpbitApiHandler {
                     if (marketCodes != null) {
                         onResponse.invoke(marketCodes)
                     } else {
-                        onFail.invoke(RuntimeException("empty response"))
+                        onFail.invoke(RuntimeException("서버에서 응답이 없습니다."))
                     }
                 }
             })
@@ -81,7 +81,7 @@ object UpbitApiHandlerImpl : UpbitApiHandler {
                     call: Call<List<UpbitTickerResponse>>,
                     t: Throwable
                 ) {
-                    onFail.invoke(RuntimeException(t.message))
+                    onFail.invoke(RuntimeException("서버에서 데이터를 가져오는데 실패하였습니다."))
                 }
 
                 override fun onResponse(
@@ -93,7 +93,7 @@ object UpbitApiHandlerImpl : UpbitApiHandler {
                     if (tickers != null) {
                         onResponse.invoke(tickers)
                     } else {
-                        onFail.invoke(RuntimeException("empty response"))
+                        onFail.invoke(RuntimeException("서버에서 응답이 없습니다."))
                     }
                 }
             })

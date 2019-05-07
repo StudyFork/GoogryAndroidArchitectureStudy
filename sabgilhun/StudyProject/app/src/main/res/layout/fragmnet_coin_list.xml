@@ -16,28 +16,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_ticker_list"
+        <ado.sabgil.studyproject.view.custom.ScrollChildSwipeRefreshLayout
+                android:id="@+id/rl_ticker_refreshs"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@android:color/white"
-                android:foregroundGravity="center"
-                app:item="@{it}"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <ProgressBar
-                android:id="@+id/pg"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:visibility="gone"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent">
 
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_ticker_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/white"
+                    android:foregroundGravity="center"
+                    app:item="@{it}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+        </ado.sabgil.studyproject.view.custom.ScrollChildSwipeRefreshLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
