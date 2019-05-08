@@ -1,4 +1,4 @@
-package me.hoyuo.myapplication.ui.adapter.viewholder
+package me.hoyuo.myapplication.util.viewholder
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

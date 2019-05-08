@@ -1,7 +1,7 @@
 package me.hoyuo.myapplication.ui
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.LinearLayoutManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -9,12 +9,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 import me.hoyuo.myapplication.R
 import me.hoyuo.myapplication.model.upbit.Market
 import me.hoyuo.myapplication.model.upbit.Ticker
-import me.hoyuo.myapplication.ui.adapter.ItemAdapter
+import me.hoyuo.myapplication.ui.coinlist.adapter.ItemAdapter
 import me.hoyuo.myapplication.util.http.HttpClient
 import me.hoyuo.myapplication.util.rx.DisposableManager
 import timber.log.Timber
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : FragmentActivity() {
     private lateinit var itemAdapter: ItemAdapter
     private lateinit var httpClient: HttpClient
     private lateinit var disposableManager: DisposableManager

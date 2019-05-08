@@ -1,4 +1,4 @@
-package me.hoyuo.myapplication.ui.adapter
+package me.hoyuo.myapplication.ui.coinlist.adapter
 
 import android.graphics.Color
 import android.support.v7.widget.RecyclerView
@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.coin_item.view.coinPrevClosePriceRatio
 import kotlinx.android.synthetic.main.coin_item.view.coinTradePrice
 import kotlinx.android.synthetic.main.coin_item.view.coinTradeVolume
 import me.hoyuo.myapplication.model.upbit.Ticker
-import me.hoyuo.myapplication.ui.adapter.viewholder.CoinItemViewHolder
+import me.hoyuo.myapplication.ui.coinlist.adapter.viewholder.CoinItemViewHolder
 import java.util.concurrent.CopyOnWriteArrayList
 
 class ItemAdapter : RecyclerView.Adapter<CoinItemViewHolder>() {
