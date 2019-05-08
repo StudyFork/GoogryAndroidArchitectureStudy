@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_main.itemListView
+import kotlinx.android.synthetic.main.activity_main.*
 import me.hoyuo.myapplication.R
 import me.hoyuo.myapplication.model.upbit.Market
 import me.hoyuo.myapplication.model.upbit.Ticker
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         disposableManager = DisposableManager()
         disposableManager.refreshIfNecessary()
 
-        httpClient = HttpClient.getInstance(this)
+        httpClient = HttpClient.getInstance()
     }
 
     override fun onStart() {
@@ -37,12 +37,12 @@ class MainActivity : AppCompatActivity() {
 
         if (krwList.isEmpty()) {
             disposableManager += httpClient.getMarketList()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                            ::getMarketListOnSuccess,
-                            ::onError
-                    )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    ::getMarketListOnSuccess,
+                    ::onError
+                )
         } else {
             getTickers()
         }
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     private fun getMarketListOnSuccess(list: List<Market>) {
         krwList.clear()
         list.filter { market -> market.market.contains("KRW-") }
-                .map { krwList.add(it.market) }
+            .map { krwList.add(it.market) }
 
         Timber.tag(TAG).d(krwList.joinToString(","))
 
@@ -69,12 +69,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun getTickers() {
         disposableManager += httpClient.getTickers(krwList.joinToString(","))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        ::getTickersOnNext,
-                        ::onError
-                )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                ::getTickersOnNext,
+                ::onError
+            )
     }
 
     private fun getTickersOnNext(list: List<Ticker>) {

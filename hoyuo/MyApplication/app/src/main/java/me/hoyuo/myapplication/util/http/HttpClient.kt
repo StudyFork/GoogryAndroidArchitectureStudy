@@ -1,12 +1,12 @@
 package me.hoyuo.myapplication.util.http
 
-import android.content.Context
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import io.reactivex.Flowable
 import io.reactivex.Single
 import me.hoyuo.myapplication.BuildConfig
 import me.hoyuo.myapplication.model.upbit.Market
 import me.hoyuo.myapplication.model.upbit.Ticker
+import me.hoyuo.myapplication.util.ContextHelper
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -17,23 +17,37 @@ import java.io.File
 import java.util.concurrent.TimeUnit
 
 
-class HttpClient private constructor(context: Context) {
+object HttpClient {
+    private val TAG = HttpClient::class.java.simpleName
+    private const val URL = "https://api.upbit.com/"
+
+    private lateinit var instance: HttpClient
+    private lateinit var okHttpClient: OkHttpClient
+    private lateinit var httpInterface: HttpInterface
+
     init {
-        updateHttpClient(context)
+        updateHttpClient()
     }
 
-    private fun updateHttpClient(context: Context) {
-        okHttpClient = getOkHttpClient(context)
+    fun getInstance(): HttpClient {
+        if (!::instance.isInitialized) {
+            instance = HttpClient
+        }
+        return instance
+    }
+
+    private fun updateHttpClient() {
+        okHttpClient = getOkHttpClient()
         httpInterface = Retrofit.Builder()
-                .baseUrl(URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(okHttpClient)
-                .build()
-                .create(HttpInterface::class.java)
+            .baseUrl(URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .client(okHttpClient)
+            .build()
+            .create(HttpInterface::class.java)
     }
 
-    private fun getOkHttpClient(context: Context): OkHttpClient {
+    private fun getOkHttpClient(): OkHttpClient {
         val logInterceptor = HttpLoggingInterceptor()
         if (BuildConfig.DEBUG) {
             logInterceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -41,18 +55,18 @@ class HttpClient private constructor(context: Context) {
             logInterceptor.level = HttpLoggingInterceptor.Level.NONE
         }
 
-        val httpCacheDirectory = File(context.cacheDir, "http")
+        val httpCacheDirectory = File(ContextHelper.context.cacheDir, "http")
         val cacheSize = 32 * 1024 * 1024L
 
         val client = OkHttpClient.Builder()
-                .cache(Cache(httpCacheDirectory, cacheSize))
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(20, TimeUnit.SECONDS)
-                .writeTimeout(20, TimeUnit.SECONDS)
-                .retryOnConnectionFailure(true)
-                .addInterceptor(logInterceptor)
-                .addInterceptor(StethoInterceptor())
-                .build()
+            .cache(Cache(httpCacheDirectory, cacheSize))
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(20, TimeUnit.SECONDS)
+            .writeTimeout(20, TimeUnit.SECONDS)
+            .retryOnConnectionFailure(true)
+            .addInterceptor(logInterceptor)
+            .addInterceptor(StethoInterceptor())
+            .build()
 
         client.dispatcher().maxRequests = 16
 
@@ -65,23 +79,6 @@ class HttpClient private constructor(context: Context) {
 
     fun getTickers(list: String): Flowable<List<Ticker>> {
         return httpInterface.getTickers(list)
-                .repeatWhen { t -> t.delay(10, TimeUnit.SECONDS) }
-    }
-
-    companion object {
-        @JvmStatic
-        fun getInstance(context: Context): HttpClient {
-            if (!::instance.isInitialized) {
-                instance = HttpClient(context)
-            }
-            return instance
-        }
-
-        private val TAG = HttpClient::class.java.simpleName
-        private const val URL = "https://api.upbit.com/"
-
-        private lateinit var instance: HttpClient
-        private lateinit var okHttpClient: OkHttpClient
-        private lateinit var httpInterface: HttpInterface
+            .repeatWhen { t -> t.delay(10, TimeUnit.SECONDS) }
     }
 }
