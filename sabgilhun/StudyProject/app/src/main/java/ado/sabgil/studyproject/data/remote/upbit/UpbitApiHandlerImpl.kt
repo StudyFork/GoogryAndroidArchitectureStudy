@@ -13,7 +13,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 object UpbitApiHandlerImpl : UpbitApiHandler {
 
     private val retrofit: UpbitApi
+
     private const val baseURL = "https://api.upbit.com/v1/"
+
+    private var cachedMarketCode: List<UpbitMarketCodeResponse>? = null
 
     init {
         retrofit = run {
@@ -24,22 +27,46 @@ object UpbitApiHandlerImpl : UpbitApiHandler {
         }
     }
 
+    override fun getMarketList(
+        onResponse: (List<String>) -> Unit,
+        onFail: (Exception) -> Unit
+    ) {
+        getMarketCodes(
+            { response ->
+                onResponse.invoke(response.map { it.market.substringBefore('-') }.distinct())
+            },
+            onFail
+        )
+    }
+
     override fun getAllTickers(
         base: BaseCurrency,
         onResponse: (List<UpbitTickerResponse>) -> Unit,
         onFail: (Exception) -> Unit
     ) {
-        getMarketCodes(
-            { response ->
-                val tickerRequest = UpbitTickerListRequest.of(response, base)
-                getTickers(
-                    tickerRequest,
-                    onResponse,
-                    onFail
-                )
-            },
-            onFail
-        )
+        if (cachedMarketCode == null) {
+            getMarketCodes(
+                { response ->
+                    cachedMarketCode = response
+                    val tickerRequest = UpbitTickerListRequest.of(cachedMarketCode!!, base)
+                    getTickers(
+                        tickerRequest,
+                        onResponse,
+                        onFail
+                    )
+                },
+                onFail
+            )
+        } else {
+            val tickerRequest = UpbitTickerListRequest.of(cachedMarketCode!!, base)
+            getTickers(
+                tickerRequest,
+                onResponse,
+                onFail
+            )
+        }
+
+
     }
 
     private fun getMarketCodes(

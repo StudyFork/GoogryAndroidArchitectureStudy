@@ -6,7 +6,7 @@ import ado.sabgil.studyproject.enums.BaseCurrency
 import java.util.*
 
 class CoinListPresenter(
-    private val baseCurrency: BaseCurrency,
+    private val baseCurrency: String,
     private val coinListView: CoinListContract.View
 ) : CoinListContract.Presenter {
 
@@ -26,28 +26,28 @@ class CoinListPresenter(
     }
 
     override fun start() {
-        if (refreshTask == null) {
-            refreshTask = TickerRefreshTask()
-            refreshTimer.schedule(refreshTask, 0, TICKER_REFRESH_PERIOD)
-        }
+//        if (refreshTask == null) {
+//            refreshTask = TickerRefreshTask()
+//            refreshTimer.schedule(refreshTask, 0, TICKER_REFRESH_PERIOD)
+//        }
     }
 
     override fun stop() {
-        refreshTask?.cancel()
-        refreshTask = null
+//        refreshTask?.cancel()
+//        refreshTask = null
     }
 
     override fun refreshTickers() {
-        dataSource.getAllTickers(
-            baseCurrency,
-            { result ->
-                coinListView.showProgressBar(false)
-                coinListView.updateList(result.map { Ticker.from(it) }.toMutableList())
-            },
-            { exception ->
-                coinListView.showToast(exception.message ?: "error")
-
-            })
+//        dataSource.getAllTickers(
+//            baseCurrency,
+//            { result ->
+//                coinListView.showProgressBar(false)
+//                coinListView.updateList(result.map { Ticker.from(it) }.toMutableList())
+//            },
+//            { exception ->
+//                coinListView.showToast(exception.message ?: "error")
+//
+//            })
     }
 
     private inner class TickerRefreshTask : TimerTask() {

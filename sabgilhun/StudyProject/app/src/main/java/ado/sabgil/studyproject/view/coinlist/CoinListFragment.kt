@@ -4,7 +4,6 @@ import ado.sabgil.studyproject.R
 import ado.sabgil.studyproject.adapter.TickerAdapter
 import ado.sabgil.studyproject.data.model.Ticker
 import ado.sabgil.studyproject.databinding.FragmnetCoinListBinding
-import ado.sabgil.studyproject.enums.BaseCurrency
 import ado.sabgil.studyproject.view.base.BaseFragment
 import android.os.Bundle
 import android.view.View
@@ -16,16 +15,16 @@ class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(), CoinListContra
 
     override fun getLayout() = R.layout.fragmnet_coin_list
 
-    private val baseCurrency: BaseCurrency? by lazy {
-        arguments?.getString(ARGUMENT_BASE_CURRENCY)?.let { BaseCurrency.valueOf(it) }
+    private val baseCurrency: String? by lazy {
+        arguments?.getString(ARGUMENT_BASE_CURRENCY)
     }
 
     companion object {
         const val ARGUMENT_BASE_CURRENCY = "BASE_CURRENCY"
-        fun newInstance(baseCurrency: BaseCurrency) =
+        fun newInstance(baseCurrency: String) =
             CoinListFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARGUMENT_BASE_CURRENCY, baseCurrency.toString())
+                    putString(ARGUMENT_BASE_CURRENCY, baseCurrency)
                 }
             }
     }

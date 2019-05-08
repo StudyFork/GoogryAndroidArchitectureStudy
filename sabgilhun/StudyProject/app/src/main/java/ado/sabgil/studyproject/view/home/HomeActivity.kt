@@ -3,30 +3,43 @@ package ado.sabgil.studyproject.view.home
 import ado.sabgil.studyproject.R
 import ado.sabgil.studyproject.adapter.CoinListPagerAdapter
 import ado.sabgil.studyproject.databinding.ActivityMainBinding
-import ado.sabgil.studyproject.enums.BaseCurrency
 import ado.sabgil.studyproject.view.base.BaseActivity
 import ado.sabgil.studyproject.view.coinlist.CoinListFragment
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 
-class HomeActivity : BaseActivity<ActivityMainBinding>() {
+class HomeActivity : BaseActivity<ActivityMainBinding>(), HomeContract.View {
+
+    override lateinit var presenter: HomeContract.Presenter
 
     override fun getLayout() = R.layout.activity_main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        HomePresenter(this)
 
+        presenter.loadMarketData()
+    }
+
+    override fun updateViewPager(marketList: List<String>) {
         binding.vpCoinList.apply {
-
             adapter = CoinListPagerAdapter(
                 supportFragmentManager,
-                BaseCurrency.values().map {
-                    it.toString() to CoinListFragment.newInstance(it)
-                }.toMap()
+                marketList.map { it to CoinListFragment.newInstance(it) }.toMap()
             )
 
-            offscreenPageLimit = BaseCurrency.values().size - 1
+            offscreenPageLimit = marketList.size - 1
         }
 
         binding.tlCoinList.setupWithViewPager(binding.vpCoinList)
+    }
+
+    override fun showProgressBar(flag: Boolean) {
+        if (flag) binding.pgHome.visibility = View.VISIBLE else binding.pgHome.visibility = View.GONE
+    }
+
+    override fun showToast(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 }

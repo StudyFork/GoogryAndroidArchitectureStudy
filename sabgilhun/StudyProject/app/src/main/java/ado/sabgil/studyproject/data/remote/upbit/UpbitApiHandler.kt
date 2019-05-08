@@ -5,6 +5,11 @@ import ado.sabgil.studyproject.enums.BaseCurrency
 
 interface UpbitApiHandler {
 
+    fun getMarketList(
+        onResponse: (List<String>) -> Unit,
+        onFail: (Exception) -> Unit
+    )
+
     fun getAllTickers(
         base: BaseCurrency,
         onResponse: (List<UpbitTickerResponse>) -> Unit,
