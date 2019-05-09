@@ -2,8 +2,6 @@ package my.gong.studygong.data.model.response
 
 import com.google.gson.annotations.SerializedName
 
-
-
 data class UpbitTickerResponse(
     @SerializedName("market") val market: String,
     @SerializedName("trade_date") val tradeDate: String,
