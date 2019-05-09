@@ -21,8 +21,6 @@ interface TickerContract {
     interface Presenter {
         val view: View
 
-        val upbitRepository: UpbitRepository
-
         val adapterView: TickerAdapterContract.View
         val adapterModel: TickerAdapterContract.Model
 

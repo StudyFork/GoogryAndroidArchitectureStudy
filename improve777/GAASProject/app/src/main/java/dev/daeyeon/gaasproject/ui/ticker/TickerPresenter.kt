@@ -4,7 +4,7 @@ import dev.daeyeon.gaasproject.data.source.UpbitRepository
 import dev.daeyeon.gaasproject.ui.ticker.adapter.TickerAdapterContract
 
 class TickerPresenter(override val view: TickerContract.View,
-                      override val upbitRepository: UpbitRepository,
+                      val upbitRepository: UpbitRepository,
                       override val adapterView: TickerAdapterContract.View,
                       override val adapterModel: TickerAdapterContract.Model
 ) : TickerContract.Presenter {
