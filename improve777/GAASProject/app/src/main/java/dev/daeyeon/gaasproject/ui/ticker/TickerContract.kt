@@ -19,10 +19,6 @@ interface TickerContract {
     }
 
     interface Presenter {
-        val view: View
-
-        val adapterView: TickerAdapterContract.View
-        val adapterModel: TickerAdapterContract.Model
 
         fun start()
 
