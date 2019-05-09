@@ -36,9 +36,9 @@ class CoinListFragment : Fragment(), CoinListContract.View {
 
     override fun setProgress(boolean: Boolean) {
         if (boolean) {
-            binding.progress.visibility = View.VISIBLE
+            showProgress()
         } else {
-            binding.progress.visibility = View.GONE
+            hideProgress()
         }
     }
 
@@ -91,6 +91,14 @@ class CoinListFragment : Fragment(), CoinListContract.View {
                     putString(BASE_CURRENCY, baseCurrency)
                 }
             }
+    }
+
+    fun showProgress() {
+        binding.progress.visibility = View.VISIBLE
+    }
+
+    fun hideProgress() {
+        binding.progress.visibility = View.GONE
     }
 
 }
