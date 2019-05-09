@@ -31,35 +31,22 @@ class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(), CoinListContra
 
     override fun onResume() {
         super.onResume()
-        presenter.start()
+        presenter.subscribe()
     }
 
     override fun onPause() {
         super.onPause()
-        presenter.stop()
+        presenter.unsubscribe()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         CoinListPresenter(requireNotNull(baseCurrency), this)
 
-        binding.rlTickerRefreshs.apply {
-            scrollUpChild = binding.rvTickerList
-            setOnRefreshListener {
-                presenter.refreshTickers()
-            }
-        }
-
         binding.rvTickerList.adapter = TickerAdapter()
     }
 
-    override fun showProgressBar(flag: Boolean) {
-        with(binding.rlTickerRefreshs) {
-            post { isRefreshing = flag }
-        }
-    }
-
-    override fun updateList(list: List<Ticker>) {
+    override fun updateCoinList(list: List<Ticker>) {
         binding.it = list
     }
 

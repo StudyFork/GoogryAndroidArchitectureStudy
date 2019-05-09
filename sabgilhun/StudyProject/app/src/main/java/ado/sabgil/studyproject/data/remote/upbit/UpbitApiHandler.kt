@@ -1,18 +1,14 @@
 package ado.sabgil.studyproject.data.remote.upbit
 
-import ado.sabgil.studyproject.data.remote.upbit.response.UpbitTickerResponse
-import ado.sabgil.studyproject.enums.BaseCurrency
+import ado.sabgil.studyproject.data.model.Ticker
+import io.reactivex.Observable
+import io.reactivex.Single
 
 interface UpbitApiHandler {
 
-    fun getMarketList(
-        onResponse: (List<String>) -> Unit,
-        onFail: (Exception) -> Unit
-    )
+    fun getMarketList(): Single<List<String>>
 
-    fun getAllTickers(
-        base: BaseCurrency,
-        onResponse: (List<UpbitTickerResponse>) -> Unit,
-        onFail: (Exception) -> Unit
-    )
+    fun subscribeRemoteData(): Observable<List<Ticker>>
+
+    fun unSubscribe()
 }

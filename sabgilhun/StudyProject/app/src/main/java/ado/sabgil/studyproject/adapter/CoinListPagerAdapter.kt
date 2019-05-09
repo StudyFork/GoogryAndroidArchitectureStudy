@@ -20,7 +20,6 @@ class CoinListPagerAdapter(
             notifyDataSetChanged()
         }
         this.title.addAll(views.keys.toList())
-
     }
 
     override fun getItem(position: Int) = pages[position]

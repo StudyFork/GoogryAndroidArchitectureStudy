@@ -18,10 +18,14 @@ class HomeActivity : BaseActivity<ActivityMainBinding>(), HomeContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         HomePresenter(this)
-
-        presenter.loadMarketData()
+        presenter.subscribe()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.unsubscribe()
+    }
+    
     override fun updateViewPager(marketList: List<String>) {
         binding.vpCoinList.apply {
             adapter = CoinListPagerAdapter(

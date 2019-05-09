@@ -16,16 +16,18 @@
         <TextView
                 android:id="@+id/tv_coin_name"
                 android:layout_width="0dp"
-                android:layout_weight="4"
+                android:layout_weight="2"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="@{item.coinName}"
                 android:textSize="14sp"/>
 
         <TextView
                 android:id="@+id/tv_current_value"
                 android:layout_width="0dp"
-                android:layout_weight="2"
+                android:layout_weight="4"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="@{item.currentValue.toString}"
                 android:textSize="14sp"/>
 
@@ -34,6 +36,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="@{item.changeRate}"
                 android:textSize="14sp"/>
 
@@ -42,6 +45,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="@{item.accTradePrice}"
                 android:textSize="14sp"/>
     </LinearLayout>
