@@ -19,6 +19,7 @@ import java.util.*
 
 
 private const val BASE_CURRENCY = "BASE_CURRENCY"
+private const val SECOND = 1000L
 
 class CoinListFragment : Fragment(), CoinListContract.View {
 
@@ -76,7 +77,7 @@ class CoinListFragment : Fragment(), CoinListContract.View {
             override fun run() {
                 presenter.loadCoinList()
             }
-        }, 0, (60 * 1000))
+        }, 0, (20 * SECOND))
     }
 
     override fun onDestroyView() {
