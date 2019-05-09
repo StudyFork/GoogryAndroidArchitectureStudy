@@ -16,10 +16,11 @@ class CoinListPresenter(
     }
 
     override fun loadCoinList() {
-        if (!this::markets.isInitialized)
+        if (!this::markets.isInitialized) {
             initMarket()
-        else
+        } else {
             getTickers(markets)
+        }
     }
 
     fun initMarket() {
