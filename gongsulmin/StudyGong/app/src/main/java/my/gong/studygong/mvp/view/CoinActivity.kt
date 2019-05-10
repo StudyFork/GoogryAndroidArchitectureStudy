@@ -9,7 +9,7 @@ import my.gong.studygong.data.model.Ticker
 import my.gong.studygong.mvp.Injection
 import my.gong.studygong.mvp.presenter.CoinContract
 import my.gong.studygong.mvp.presenter.CoinPresenter
-import my.gong.studygong.viewcontrol.adapter.CoinAdapter
+import my.gong.studygong.mvp.adapter.CoinAdapter
 import java.util.*
 
 class CoinActivity: AppCompatActivity() , CoinContract.View {
