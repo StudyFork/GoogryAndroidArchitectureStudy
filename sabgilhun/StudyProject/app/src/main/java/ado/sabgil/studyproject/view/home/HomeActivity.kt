@@ -23,7 +23,7 @@ class HomeActivity : BaseActivity<ActivityMainBinding>(), HomeContract.View {
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter.unsubscribe()
+        presenter.unSubscribe()
     }
     
     override fun updateViewPager(marketList: List<String>) {

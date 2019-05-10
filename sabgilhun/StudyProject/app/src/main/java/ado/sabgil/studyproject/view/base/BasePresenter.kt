@@ -4,6 +4,6 @@ interface BasePresenter {
 
     fun subscribe()
 
-    fun unsubscribe()
+    fun unSubscribe()
 
 }

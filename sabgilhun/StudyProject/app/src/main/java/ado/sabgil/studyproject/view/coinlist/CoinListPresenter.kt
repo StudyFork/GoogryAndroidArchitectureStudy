@@ -30,7 +30,7 @@ class CoinListPresenter(
             })
     }
 
-    override fun unsubscribe() {
+    override fun unSubscribe() {
         dataSource.unSubscribe()
         disposables.clear()
     }

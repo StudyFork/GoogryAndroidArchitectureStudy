@@ -36,7 +36,7 @@ class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(), CoinListContra
 
     override fun onPause() {
         super.onPause()
-        presenter.unsubscribe()
+        presenter.unSubscribe()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

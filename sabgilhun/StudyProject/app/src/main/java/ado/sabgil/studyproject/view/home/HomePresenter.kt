@@ -21,7 +21,7 @@ class HomePresenter(
         loadMarketData()
     }
 
-    override fun unsubscribe() {
+    override fun unSubscribe() {
         disposables.clear()
     }
 
