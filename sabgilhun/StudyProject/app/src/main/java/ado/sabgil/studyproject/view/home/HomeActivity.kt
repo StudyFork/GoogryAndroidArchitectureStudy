@@ -25,7 +25,7 @@ class HomeActivity : BaseActivity<ActivityMainBinding>(), HomeContract.View {
         super.onDestroy()
         presenter.unSubscribe()
     }
-    
+
     override fun updateViewPager(marketList: List<String>) {
         binding.vpCoinList.apply {
             adapter = CoinListPagerAdapter(
@@ -40,7 +40,7 @@ class HomeActivity : BaseActivity<ActivityMainBinding>(), HomeContract.View {
     }
 
     override fun showProgressBar(flag: Boolean) {
-        if (flag) binding.pgHome.visibility = View.VISIBLE else binding.pgHome.visibility = View.GONE
+        binding.pgHome.visibility = if (flag) View.VISIBLE else View.GONE
     }
 
     override fun showToast(msg: String) {
