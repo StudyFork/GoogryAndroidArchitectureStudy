@@ -28,7 +28,11 @@ class CoinActivity: AppCompatActivity() , CoinContract.View {
 
     override fun onStart() {
         super.onStart()
-        presenter.onStart()
+        timer.scheduleAtFixedRate(object : TimerTask(){
+            override fun run() {
+                presenter.onStart()
+            }
+        } , 0 , REPEAT_INTERVAL_MILLIS)
     }
 
     override fun onDestroy() {
