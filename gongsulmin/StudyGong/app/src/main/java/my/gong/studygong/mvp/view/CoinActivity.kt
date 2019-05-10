@@ -14,7 +14,9 @@ import java.util.*
 
 class CoinActivity: AppCompatActivity() , CoinContract.View {
 
-    private val REPEAT_INTERVAL_MILLIS = 3000L
+    companion object {
+       const val REPEAT_INTERVAL_MILLIS = 3000L
+    }
     private var timer: Timer = Timer()
     override lateinit var presenter: CoinContract.Presenter
 
