@@ -7,10 +7,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_coin_list.itemListView
-import kotlinx.android.synthetic.main.fragment_coin_list.progressBar
+import kotlinx.android.synthetic.main.fragment_coin_list.*
 import me.hoyuo.myapplication.R
 import me.hoyuo.myapplication.model.upbit.Ticker
+import me.hoyuo.myapplication.ui.coindetail.CoinDetailActivity
 import me.hoyuo.myapplication.ui.coinlist.adapter.ItemAdapter
 import timber.log.Timber
 
@@ -94,6 +94,11 @@ class CoinListFragment : Fragment(), CoinListContract.View {
         hideProgressBar()
         Timber.tag(TAG).d("updateData - ${list.size}")
         itemAdapter.loadData(list)
+    }
+
+    override fun navigationCoinDetailActivity(ticker: Ticker) {
+        val intent = activity?.baseContext?.let { CoinDetailActivity.newIntent(it, ticker) }
+        startActivity(intent)
     }
     //endregion
 

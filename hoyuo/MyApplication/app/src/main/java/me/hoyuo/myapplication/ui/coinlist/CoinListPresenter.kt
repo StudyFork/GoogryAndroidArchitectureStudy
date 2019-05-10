@@ -73,8 +73,9 @@ class CoinListPresenter(val view: CoinListContract.View) : CoinListContract.Pres
         Timber.tag(TAG).e(e)
     }
 
-    override fun onItemClick(it: Ticker) {
+    override fun onItemClick(ticker: Ticker) {
         Timber.tag(TAG).d("onItemClick")
+        view.navigationCoinDetailActivity(ticker)
     }
 
     override fun subscribe() {

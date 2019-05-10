@@ -7,6 +7,8 @@ import me.hoyuo.myapplication.ui.base.BaseView
 interface CoinListContract {
     interface View : BaseView<Presenter> {
         fun updateData(list: List<Ticker>)
+
+        fun navigationCoinDetailActivity(ticker: Ticker)
     }
 
     interface Presenter : BasePresenter {

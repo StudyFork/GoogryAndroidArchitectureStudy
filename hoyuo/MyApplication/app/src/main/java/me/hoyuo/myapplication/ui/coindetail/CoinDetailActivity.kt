@@ -3,13 +3,14 @@ package me.hoyuo.myapplication.ui.coindetail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_coin.*
 import me.hoyuo.myapplication.R
 import me.hoyuo.myapplication.model.upbit.Ticker
 import timber.log.Timber
 
-class CoinDetailFragment : Fragment(), CoinDetailContract.View {
+class CoinDetailActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.tag(TAG).d("onCreate")
         super.onCreate(savedInstanceState)
@@ -58,5 +59,4 @@ class CoinDetailFragment : Fragment(), CoinDetailContract.View {
             }
         }
     }
-
 }
