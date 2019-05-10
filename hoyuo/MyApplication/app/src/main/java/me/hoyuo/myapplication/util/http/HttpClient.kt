@@ -2,6 +2,7 @@ package me.hoyuo.myapplication.util.http
 
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import io.reactivex.Flowable
+import io.reactivex.Observable
 import io.reactivex.Single
 import me.hoyuo.myapplication.BuildConfig
 import me.hoyuo.myapplication.model.upbit.Market
@@ -29,7 +30,7 @@ object HttpClient {
         updateHttpClient()
     }
 
-    fun getInstance(): HttpClient {
+    fun newInstance(): HttpClient {
         if (!::instance.isInitialized) {
             instance = HttpClient
         }
@@ -73,7 +74,7 @@ object HttpClient {
         return client
     }
 
-    fun getMarketList(): Single<List<Market>> {
+    fun getMarketList(): Flowable<List<Market>> {
         return httpInterface.getMarketList()
     }
 
