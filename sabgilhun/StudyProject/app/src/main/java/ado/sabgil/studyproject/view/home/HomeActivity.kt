@@ -9,11 +9,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 
-class HomeActivity : BaseActivity<ActivityMainBinding>(), HomeContract.View {
+class HomeActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), HomeContract.View {
 
     override lateinit var presenter: HomeContract.Presenter
-
-    override fun getLayout() = R.layout.activity_main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

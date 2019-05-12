@@ -9,11 +9,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 
-class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(), CoinListContract.View {
+class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(R.layout.fragmnet_coin_list), CoinListContract.View {
 
     override lateinit var presenter: CoinListContract.Presenter
-
-    override fun getLayout() = R.layout.fragmnet_coin_list
 
     private val baseCurrency: String? by lazy {
         arguments?.getString(ARGUMENT_BASE_CURRENCY)
