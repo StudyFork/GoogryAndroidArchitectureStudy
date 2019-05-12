@@ -1,4 +1,4 @@
-package com.namjackson.archstudy.view
+package com.namjackson.archstudy.view.coinlist
 
 import com.namjackson.archstudy.data.repository.UpbitRepository
 

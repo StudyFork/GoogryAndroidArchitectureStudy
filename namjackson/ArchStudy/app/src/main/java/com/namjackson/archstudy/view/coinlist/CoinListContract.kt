@@ -1,4 +1,4 @@
-package com.namjackson.archstudy.view
+package com.namjackson.archstudy.view.coinlist
 
 import com.namjackson.archstudy.base.mvp.BasePresenter
 import com.namjackson.archstudy.base.mvp.BaseView

@@ -1,4 +1,4 @@
-package com.namjackson.archstudy.view
+package com.namjackson.archstudy.view.coinlist
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -12,7 +12,7 @@ import com.namjackson.archstudy.data.Ticker
 import com.namjackson.archstudy.data.repository.UpbitRepository
 import com.namjackson.archstudy.databinding.FragmentCoinListBinding
 import com.namjackson.archstudy.network.UpbitService
-import com.namjackson.archstudy.view.adapter.CoinListAdapter
+import com.namjackson.archstudy.view.coinlist.adapter.CoinListAdapter
 import java.util.*
 
 
@@ -47,7 +47,11 @@ class CoinListFragment : Fragment(), CoinListContract.View {
         arguments?.let {
             baseCurrency = it.getString(BASE_CURRENCY) ?: ""
         }
-        presenter = CoinListPresenter(baseCurrency, UpbitRepository.getInstance(UpbitService.upbitApi), this)
+        presenter = CoinListPresenter(
+            baseCurrency,
+            UpbitRepository.getInstance(UpbitService.upbitApi),
+            this
+        )
 
         initLayout()
         initTimer()

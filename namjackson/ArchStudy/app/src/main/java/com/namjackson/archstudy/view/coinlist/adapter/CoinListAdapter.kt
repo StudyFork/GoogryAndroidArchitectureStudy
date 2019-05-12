@@ -1,4 +1,4 @@
-package com.namjackson.archstudy.view.adapter
+package com.namjackson.archstudy.view.coinlist.adapter
 
 import android.databinding.DataBindingUtil
 import android.graphics.Color

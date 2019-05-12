@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.namjackson.archstudy.R
+import com.namjackson.archstudy.view.coinlist.CoinListFragment
 
 class MainActivity : AppCompatActivity() {
 
