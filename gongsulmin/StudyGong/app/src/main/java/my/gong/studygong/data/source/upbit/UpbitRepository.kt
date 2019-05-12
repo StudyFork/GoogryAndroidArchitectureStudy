@@ -9,11 +9,15 @@ import retrofit2.Call
 import retrofit2.Response
 
 object UpbitRepository
-    : IUpbitDataSource {
+    : UpbitDataSource {
 
     var market: String? = null
 
-    override fun getTickers(tickerCurrency: TickerCurrency, success: (List<Ticker>) -> Unit, fail: (String) -> Unit) {
+    override fun getTickers(
+        tickerCurrency: TickerCurrency,
+        success: (List<Ticker>) -> Unit,
+        fail: (String) -> Unit
+    ) {
         getMarket(
             success = { market ->
                 this.market = market
@@ -27,7 +31,7 @@ object UpbitRepository
                                 success.invoke(
                                     tickerResponse
                                         .filter {
-                                            it.market.split("-")[0] == tickerCurrency.value
+                                            it.market.startsWith(tickerCurrency.value)
                                         }
                                         .map {
                                             Ticker(
@@ -52,8 +56,10 @@ object UpbitRepository
         )
     }
 
-    // 참고 수정
-    private fun getMarket(success: (String) -> Unit, fail: (String) -> Unit) {
+    private fun getMarket(
+        success: (String) -> Unit,
+        fail: (String) -> Unit
+    ) {
         if (market == null) {
             RetrofitProvider.upbitApi.getMarket()
                 .enqueue(object : retrofit2.Callback<List<UpbitMarketResponse>> {
@@ -63,9 +69,9 @@ object UpbitRepository
                     ) {
                         response.body()?.let {
                             success.invoke(
-                                it.map {
+                                it.joinToString(",") {
                                     it.market
-                                }.joinToString(",")
+                                }
                             )
                         }
                     }

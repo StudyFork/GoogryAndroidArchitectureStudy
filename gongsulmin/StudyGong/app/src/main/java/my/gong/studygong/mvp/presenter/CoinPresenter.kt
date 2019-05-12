@@ -1,10 +1,10 @@
 package my.gong.studygong.mvp.presenter
 
 import my.gong.studygong.data.model.enum.TickerCurrency
-import my.gong.studygong.data.source.upbit.IUpbitDataSource
+import my.gong.studygong.data.source.upbit.UpbitDataSource
 
 class CoinPresenter(
-    private val coinRepository: IUpbitDataSource,
+    private val coinRepository: UpbitDataSource,
     private val view: CoinContract.View
 ) : CoinContract.Presenter {
 
