@@ -20,7 +20,11 @@ class UpbitRepository private constructor(val upbitApi: UpbitApi) {
 
     }
 
-    fun getMarketAll(baseCurrency: String, success: (markets: String) -> Unit, fail: (msg: String) -> Unit) {
+    fun getMarketAll(
+        baseCurrency: String,
+        success: (markets: String) -> Unit,
+        fail: (msg: String) -> Unit
+    ) {
         upbitApi.getMarketAll().enqueue(object : Callback<List<UpbitMarket>> {
             override fun onResponse(call: Call<List<UpbitMarket>>?, response: Response<List<UpbitMarket>>?) {
                 success(response?.body()?.filter {
@@ -34,7 +38,11 @@ class UpbitRepository private constructor(val upbitApi: UpbitApi) {
         })
     }
 
-    fun getTickers(markets: String, success: (coinList: List<Ticker>) -> Unit, fail: (msg: String) -> Unit) {
+    fun getTickers(
+        markets: String,
+        success: (coinList: List<Ticker>) -> Unit,
+        fail: (msg: String) -> Unit
+    ) {
         upbitApi.getTickers(markets).enqueue(object : Callback<List<Ticker>> {
             override fun onResponse(call: Call<List<Ticker>>?, response: Response<List<Ticker>>?) {
                 success(response?.body().orEmpty().sortedByDescending { it.accTradePrice24h })

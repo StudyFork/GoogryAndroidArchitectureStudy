@@ -7,8 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.namjackson.archstudy.CoinListContract
-import com.namjackson.archstudy.CoinListPresenter
 import com.namjackson.archstudy.R
 import com.namjackson.archstudy.data.Ticker
 import com.namjackson.archstudy.data.repository.UpbitRepository
@@ -35,18 +33,6 @@ class CoinListFragment : Fragment(), CoinListContract.View {
         adapter.setList(ticker)
     }
 
-    override fun setProgress(boolean: Boolean) {
-        if (boolean) {
-            showProgress()
-        } else {
-            hideProgress()
-        }
-    }
-
-    override fun showError(errorMsg: String) {
-        Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,10 +43,12 @@ class CoinListFragment : Fragment(), CoinListContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter = CoinListPresenter(UpbitRepository.getInstance(UpbitService.upbitApi), this)
+        var baseCurrency: String = ""
         arguments?.let {
-            presenter.baseCurrency = it.getString(BASE_CURRENCY) ?: ""
+            baseCurrency = it.getString(BASE_CURRENCY) ?: ""
         }
+        presenter = CoinListPresenter(baseCurrency, UpbitRepository.getInstance(UpbitService.upbitApi), this)
+
         initLayout()
         initTimer()
     }
@@ -94,12 +82,16 @@ class CoinListFragment : Fragment(), CoinListContract.View {
             }
     }
 
-    fun showProgress() {
+    override fun showProgress() {
         binding.progress.visibility = View.VISIBLE
     }
 
-    fun hideProgress() {
+    override fun hideProgress() {
         binding.progress.visibility = View.GONE
+    }
+
+    override fun showError(errorMsg: String) {
+        Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
     }
 
 }

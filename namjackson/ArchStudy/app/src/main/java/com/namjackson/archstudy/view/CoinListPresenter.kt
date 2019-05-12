@@ -1,13 +1,12 @@
-package com.namjackson.archstudy
+package com.namjackson.archstudy.view
 
 import com.namjackson.archstudy.data.repository.UpbitRepository
 
 class CoinListPresenter(
+    val baseCurrency: String,
     val upbitRepository: UpbitRepository,
     val coinListView: CoinListContract.View
 ) : CoinListContract.Presenter {
-
-    override var baseCurrency: String = ""
 
     private lateinit var markets: String
 
@@ -24,7 +23,7 @@ class CoinListPresenter(
     }
 
     fun initMarket() {
-        coinListView.setProgress(true)
+        coinListView.showProgress()
         upbitRepository.getMarketAll(
             baseCurrency,
             success = {
@@ -39,8 +38,8 @@ class CoinListPresenter(
         upbitRepository.getTickers(
             markets,
             success = {
-                coinListView.setProgress(false)
                 coinListView.showCoinList(it)
+                coinListView.hideProgress()
             },
             fail = { coinListView.showError("Error : $it") }
         )

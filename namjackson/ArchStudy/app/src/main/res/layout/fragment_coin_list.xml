@@ -1,102 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-		xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:app="http://schemas.android.com/apk/res-auto"
-		xmlns:tools="http://schemas.android.com/tools"
-		tools:context=".view.CoinListFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.CoinListFragment">
 
-	<data>
+    <data>
 
-	</data>
+    </data>
 
-	<FrameLayout
-			android:layout_width="match_parent"
-			android:layout_height="match_parent">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-		<LinearLayout
-				android:orientation="vertical"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-			<android.support.constraint.ConstraintLayout
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:paddingStart="10dp"
-					android:paddingTop="12dp"
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingTop="12dp"
 
-					android:paddingEnd="10dp">
+                android:paddingEnd="10dp">
 
-				<TextView
-						android:id="@+id/market"
-						android:layout_width="0dp"
-						android:layout_height="wrap_content"
-						android:text="코인명"
-						app:layout_constraintHorizontal_weight="1"
-						app:layout_constraintStart_toStartOf="parent"
-						app:layout_constraintEnd_toStartOf="@id/now_price"
-						app:layout_constraintTop_toTopOf="parent"
-						app:layout_constraintHorizontal_chainStyle="spread_inside"
-						app:layout_constraintBottom_toBottomOf="parent"/>
-
-
-				<TextView
-						android:id="@+id/now_price"
-						android:layout_width="0dp"
-						android:layout_height="wrap_content"
-						android:text="가격"
-						app:layout_constraintHorizontal_weight="2"
-						app:layout_constraintStart_toEndOf="@id/market"
-						app:layout_constraintEnd_toStartOf="@id/before_price"
-						app:layout_constraintTop_toTopOf="parent"
-						app:layout_constraintHorizontal_chainStyle="spread_inside"
-						app:layout_constraintBottom_toBottomOf="parent"/>
-
-				<TextView
-						android:id="@+id/before_price"
-						android:layout_width="0dp"
-						android:layout_height="wrap_content"
-						android:text="전일대비"
-						app:layout_constraintHorizontal_weight="1"
-						app:layout_constraintStart_toEndOf="@id/now_price"
-						app:layout_constraintEnd_toStartOf="@id/volume"
-						app:layout_constraintTop_toTopOf="parent"
-						app:layout_constraintHorizontal_chainStyle="spread_inside"
-						app:layout_constraintBottom_toBottomOf="parent"/>
-
-				<TextView
-						android:id="@+id/volume"
-						android:layout_width="0dp"
-						android:layout_height="wrap_content"
-						android:text="거래량"
-						app:layout_constraintHorizontal_weight="1"
-						app:layout_constraintStart_toEndOf="@id/before_price"
-						app:layout_constraintEnd_toEndOf="parent"
-						app:layout_constraintTop_toTopOf="parent"
-						app:layout_constraintHorizontal_chainStyle="spread_inside"
-						app:layout_constraintBottom_toBottomOf="parent"/>
-
-			</android.support.constraint.ConstraintLayout>
-
-			<ProgressBar
-					android:id="@+id/progress"
-					android:visibility="gone"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"/>
-
-			<android.support.v7.widget.RecyclerView
-					android:id="@+id/recycler_view"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-					app:layout_constraintBottom_toBottomOf="parent"
-					app:layout_constraintEnd_toEndOf="parent"
-					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toTopOf="parent"
-					tools:listitem="@layout/item_coin_list"/>
-
-		</LinearLayout>
+                <TextView
+                    android:id="@+id/market"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="코인명"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/now_price"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintBottom_toBottomOf="parent" />
 
 
-	</FrameLayout>
+                <TextView
+                    android:id="@+id/now_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="가격"
+                    app:layout_constraintHorizontal_weight="2"
+                    app:layout_constraintStart_toEndOf="@id/market"
+                    app:layout_constraintEnd_toStartOf="@id/before_price"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <TextView
+                    android:id="@+id/before_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="전일대비"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/now_price"
+                    app:layout_constraintEnd_toStartOf="@id/volume"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <TextView
+                    android:id="@+id/volume"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="거래량"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/before_price"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/item_coin_list" />
+
+        </LinearLayout>
+
+
+    </FrameLayout>
 
 </layout>
