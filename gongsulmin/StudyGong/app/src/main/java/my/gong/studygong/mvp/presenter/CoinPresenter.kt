@@ -4,8 +4,8 @@ import my.gong.studygong.data.model.enum.TickerCurrency
 import my.gong.studygong.data.source.upbit.IUpbitDataSource
 
 class CoinPresenter(
-    val coinRepository: IUpbitDataSource,
-    val view: CoinContract.View
+    private val coinRepository: IUpbitDataSource,
+    private val view: CoinContract.View
 ) : CoinContract.Presenter {
 
     override fun onStart() {
