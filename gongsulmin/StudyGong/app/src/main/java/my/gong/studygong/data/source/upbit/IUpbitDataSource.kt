@@ -5,7 +5,7 @@ import my.gong.studygong.data.model.enum.TickerCurrency
 
 interface IUpbitDataSource {
     fun getTickers(
-        tickerCurrency: TickerCurrency ,
+        tickerCurrency: TickerCurrency,
         success: (List<Ticker>) -> Unit,
         fail: (String) -> Unit
     )

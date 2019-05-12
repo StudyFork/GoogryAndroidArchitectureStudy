@@ -7,52 +7,52 @@ import kotlinx.android.synthetic.main.activity_main.*
 import my.gong.studygong.R
 import my.gong.studygong.data.model.Ticker
 import my.gong.studygong.mvp.Injection
+import my.gong.studygong.mvp.adapter.CoinAdapter
 import my.gong.studygong.mvp.presenter.CoinContract
 import my.gong.studygong.mvp.presenter.CoinPresenter
-import my.gong.studygong.mvp.adapter.CoinAdapter
 import java.util.*
 
-class CoinActivity: AppCompatActivity() , CoinContract.View {
+class CoinActivity : AppCompatActivity(), CoinContract.View {
 
-    companion object {
-       const val REPEAT_INTERVAL_MILLIS = 3000L
+    private lateinit var timer: Timer
+    val presenter: CoinContract.Presenter by lazy {
+        CoinPresenter(Injection.provideCoinRepository(), this@CoinActivity)
     }
-    private var timer: Timer = Timer()
-    override lateinit var presenter: CoinContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         init()
-
-        presenter = CoinPresenter(Injection.provideCoinRepository() , this@CoinActivity)
     }
 
     override fun onStart() {
         super.onStart()
-        timer.scheduleAtFixedRate(object : TimerTask(){
+        timer = Timer()
+        timer.scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
                 presenter.onStart()
             }
-        } , 0 , REPEAT_INTERVAL_MILLIS)
+        }, 0, REPEAT_INTERVAL_MILLIS)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
         timer.cancel()
+        super.onStop()
     }
 
     override fun showToast(msg: String) {
-        Toast.makeText(this@CoinActivity , msg , Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@CoinActivity, msg, Toast.LENGTH_SHORT).show()
     }
 
     override fun showTickers(ticker: List<Ticker>) {
-        (recycler_main_ticker_list.adapter as CoinAdapter).refreshData(ticker)
+        (recyclerview_main_ticker_list.adapter as CoinAdapter).refreshData(ticker)
     }
 
-    private fun init(){
-        recycler_main_ticker_list.apply {
-            adapter = CoinAdapter()
-        }
+    private fun init() {
+        recyclerview_main_ticker_list.adapter = CoinAdapter()
+    }
+
+    companion object {
+        const val REPEAT_INTERVAL_MILLIS = 3000L
     }
 }

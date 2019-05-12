@@ -6,11 +6,11 @@ import my.gong.studygong.mvp.base.BaseView
 
 interface CoinContract {
 
-    interface Presenter: BasePresenter{
+    interface Presenter : BasePresenter {
         fun populateCoinData()
     }
 
-    interface View: BaseView<Presenter>{
+    interface View : BaseView<Presenter> {
         fun showTickers(ticker: List<Ticker>)
     }
 

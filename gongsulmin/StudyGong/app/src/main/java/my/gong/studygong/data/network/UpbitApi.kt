@@ -16,5 +16,5 @@ interface UpbitApi {
     fun getMarket(): Call<List<UpbitMarketResponse>>
 
     @GET("v1/ticker")
-    fun getTicker(@Query(value = "markets" , encoded = true) tickers: String): Call<List<UpbitTickerResponse>>
+    fun getTicker(@Query(value = "markets", encoded = true) tickers: String): Call<List<UpbitTickerResponse>>
 }

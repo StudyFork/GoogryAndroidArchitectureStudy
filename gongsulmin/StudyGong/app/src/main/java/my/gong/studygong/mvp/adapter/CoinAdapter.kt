@@ -14,12 +14,12 @@ class CoinAdapter
     private val coinList: MutableList<Ticker> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-         ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_ticker, parent ,false))
+        ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_ticker, parent, false))
 
     override fun getItemCount() = coinList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        with(holder){
+        with(holder) {
             coinList[position].let {
                 coinMarket.text = it.market
                 coinOpningPrice.text = it.tradePrice
@@ -28,7 +28,7 @@ class CoinAdapter
         }
     }
 
-    fun refreshData(coinList: List<Ticker>){
+    fun refreshData(coinList: List<Ticker>) {
         this.coinList.run {
             clear()
             addAll(coinList)
@@ -37,7 +37,7 @@ class CoinAdapter
     }
 
 
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val coinMarket = view.txt_item_ticker_market!!
         val coinOpningPrice = view.txt_item_ticker_opening_price
         val coinChangePrice = view.txt_item_ticker_change_price
