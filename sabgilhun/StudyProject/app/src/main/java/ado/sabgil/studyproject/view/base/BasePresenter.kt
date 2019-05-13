@@ -1,9 +1,15 @@
 package ado.sabgil.studyproject.view.base
 
-interface BasePresenter {
+import io.reactivex.disposables.CompositeDisposable
 
-    fun subscribe()
+abstract class BasePresenter<V : BaseContract.View> constructor(
+    protected val view: V
+) : BaseContract.Presenter {
 
-    fun unSubscribe()
+    protected val disposables = CompositeDisposable()
+
+    override fun unSubscribe() {
+        disposables.clear()
+    }
 
 }

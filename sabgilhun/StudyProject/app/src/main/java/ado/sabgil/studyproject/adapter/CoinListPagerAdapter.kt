@@ -27,4 +27,5 @@ class CoinListPagerAdapter(
     override fun getCount() = pages.size
 
     override fun getPageTitle(position: Int) = title[position]
+
 }

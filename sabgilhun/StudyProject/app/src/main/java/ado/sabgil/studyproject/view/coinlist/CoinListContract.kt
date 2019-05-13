@@ -1,18 +1,21 @@
 package ado.sabgil.studyproject.view.coinlist
 
 import ado.sabgil.studyproject.data.model.Ticker
-import ado.sabgil.studyproject.view.base.BasePresenter
-import ado.sabgil.studyproject.view.base.BaseView
+import ado.sabgil.studyproject.view.base.BaseContract
 
 interface CoinListContract {
 
-    interface View : BaseView<Presenter> {
-        fun updateCoinList(list: List<Ticker>)
+    interface View : BaseContract.View {
 
-        fun showToast(msg: String)
+        fun updateCoinList(list: List<Ticker>)
 
     }
 
-    interface Presenter : BasePresenter
+    interface Presenter : BaseContract.Presenter {
 
+        fun subscribeRemote()
+
+        fun unSubscribeRemote()
+
+    }
 }

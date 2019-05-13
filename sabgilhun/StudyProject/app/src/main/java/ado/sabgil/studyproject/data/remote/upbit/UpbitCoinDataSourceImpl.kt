@@ -1,6 +1,7 @@
 package ado.sabgil.studyproject.data.remote.upbit
 
 import ado.sabgil.studyproject.data.model.Ticker
+import ado.sabgil.studyproject.data.remote.CoinDataSource
 import ado.sabgil.studyproject.data.remote.upbit.request.UpbitTickerListRequest
 import ado.sabgil.studyproject.data.remote.upbit.response.UpbitMarketCodeResponse
 import io.reactivex.Observable
@@ -12,7 +13,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-object UpbitApiHandlerImpl : UpbitApiHandler {
+object UpbitCoinDataSourceImpl : CoinDataSource {
 
     private val retrofit: UpbitApi
 
@@ -36,7 +37,7 @@ object UpbitApiHandlerImpl : UpbitApiHandler {
         }
     }
 
-    override fun getMarketList(): Single<List<String>> {
+    override fun loadMarketList(): Single<List<String>> {
         return retrofit.getMarketCode()
             .map { response ->
                 cachedMarketCode = response
@@ -47,13 +48,13 @@ object UpbitApiHandlerImpl : UpbitApiHandler {
             }
     }
 
-    override fun subscribeRemoteData(): Observable<List<Ticker>> {
+    override fun subscribeCoinDataChange(): Observable<List<Ticker>> {
         if (behaviorSubject == null) {
             behaviorSubject = BehaviorSubject.create<List<Ticker>>()
 
             compositeDisposable.add(Observable.interval(0, 5000, TimeUnit.MILLISECONDS)
                 .flatMap {
-                    getAllTickers().toObservable()
+                    loadAllTicker().toObservable()
                 }
                 .subscribe {
                     behaviorSubject!!.onNext(it)
@@ -65,7 +66,7 @@ object UpbitApiHandlerImpl : UpbitApiHandler {
         return behaviorSubject!!
     }
 
-    override fun unSubscribe() {
+    override fun unSubscribeCoinDataChange() {
         check(subscribeCnt > 0)
 
         subscribeCnt--
@@ -75,7 +76,7 @@ object UpbitApiHandlerImpl : UpbitApiHandler {
         }
     }
 
-    private fun getAllTickers(): Single<List<Ticker>> {
+    private fun loadAllTicker(): Single<List<Ticker>> {
         requireNotNull(cachedMarketCode)
 
         return Single.fromObservable(retrofit.getTickerList(UpbitTickerListRequest.of(cachedMarketCode!!).marketCodeQuery)

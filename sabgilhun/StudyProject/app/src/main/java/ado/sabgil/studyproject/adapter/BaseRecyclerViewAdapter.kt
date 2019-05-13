@@ -15,4 +15,5 @@ abstract class BaseRecyclerViewAdapter<T : Any, VH : RecyclerView.ViewHolder> : 
     }
 
     override fun getItemCount() = this.items.size
+
 }
