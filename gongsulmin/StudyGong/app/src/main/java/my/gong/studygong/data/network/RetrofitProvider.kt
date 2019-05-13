@@ -22,6 +22,6 @@ object RetrofitProvider {
                     .build()
             )
             .build()
-            retrofitBuilder.create(UpbitApi::class.java)
+        retrofitBuilder.create(UpbitApi::class.java)
     }
 }
