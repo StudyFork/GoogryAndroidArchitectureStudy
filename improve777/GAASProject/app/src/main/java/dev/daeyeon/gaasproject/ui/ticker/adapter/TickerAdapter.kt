@@ -9,17 +9,17 @@ import dev.daeyeon.gaasproject.data.source.Ticker
 import dev.daeyeon.gaasproject.databinding.ItemTickerBinding
 
 class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>(),
-        TickerAdapterContract.View,
-        TickerAdapterContract.Model {
+    TickerAdapterContract.View,
+    TickerAdapterContract.Model {
 
     private val tickerList = mutableListOf<Ticker>()
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): TickerViewHolder {
         val binding = DataBindingUtil.inflate<ItemTickerBinding>(
-                LayoutInflater.from(viewGroup.context),
-                R.layout.item_ticker,
-                viewGroup,
-                false
+            LayoutInflater.from(viewGroup.context),
+            R.layout.item_ticker,
+            viewGroup,
+            false
         )
         return TickerViewHolder(binding)
     }

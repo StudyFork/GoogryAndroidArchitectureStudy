@@ -11,15 +11,17 @@ object NetworkManager {
 
     fun createUpbitApi(): UpbitApi {
         return Retrofit.Builder()
-                .baseUrl("https://api.upbit.com/v1/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(OkHttpClient.Builder()
-                        .addInterceptor(HttpLoggingInterceptor().apply {
-                            level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
-                            else HttpLoggingInterceptor.Level.NONE
-                        })
-                        .build())
-                .build()
-                .create(UpbitApi::class.java)
+            .baseUrl("https://api.upbit.com/v1/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(
+                OkHttpClient.Builder()
+                    .addInterceptor(HttpLoggingInterceptor().apply {
+                        level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+                        else HttpLoggingInterceptor.Level.NONE
+                    })
+                    .build()
+            )
+            .build()
+            .create(UpbitApi::class.java)
     }
 }

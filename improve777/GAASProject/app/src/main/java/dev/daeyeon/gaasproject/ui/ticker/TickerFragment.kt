@@ -20,9 +20,9 @@ class TickerFragment : Fragment(), TickerContract.View {
     private lateinit var tickerAdapter: TickerAdapter
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_ticker, container, false)
         return binding.root
@@ -36,10 +36,10 @@ class TickerFragment : Fragment(), TickerContract.View {
         }
 
         presenter = TickerPresenter(
-                view = this,
-                upbitRepository = UpbitRepository(),
-                adapterView = tickerAdapter,
-                adapterModel = tickerAdapter
+            view = this,
+            upbitRepository = UpbitRepository(),
+            adapterView = tickerAdapter,
+            adapterModel = tickerAdapter
         )
 
         swipeInit()
@@ -56,10 +56,10 @@ class TickerFragment : Fragment(), TickerContract.View {
     private fun swipeInit() {
         binding.srlTicker.apply {
             setColorSchemeResources(
-                    android.R.color.holo_blue_bright,
-                    android.R.color.holo_green_light,
-                    android.R.color.holo_orange_light,
-                    android.R.color.holo_red_light
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light
             )
             setOnRefreshListener { presenter.loadUpbitTicker() }
         }
