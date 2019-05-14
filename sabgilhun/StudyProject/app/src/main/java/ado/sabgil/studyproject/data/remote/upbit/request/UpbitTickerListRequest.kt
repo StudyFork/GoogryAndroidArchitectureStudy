@@ -7,18 +7,10 @@ class UpbitTickerListRequest private constructor(
 ) {
 
     companion object {
-        fun of(marketCodeList: List<UpbitMarketCodeResponse>, base: Base): UpbitTickerListRequest {
-            val regex = Regex("""^$base""")
-
+        fun of(marketCodeList: List<UpbitMarketCodeResponse>): UpbitTickerListRequest {
             return UpbitTickerListRequest(
-                marketCodeList
-                    .map { it.market }
-                    .filter { regex.containsMatchIn(it) }
-                    .joinToString(", "))
+                marketCodeList.joinToString(", ") { it.market }
+            )
         }
-    }
-
-    enum class Base(val value: String) {
-        KRW("KRW"), BTC("BTC"), ETH("ETH"), USDT("USDT")
     }
 }
