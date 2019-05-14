@@ -11,6 +11,7 @@ import dev.daeyeon.gaasproject.data.Ticker
 import dev.daeyeon.gaasproject.data.response.ResponseCode
 import dev.daeyeon.gaasproject.data.source.UpbitRepository
 import dev.daeyeon.gaasproject.databinding.FragmentTickerBinding
+import dev.daeyeon.gaasproject.network.NetworkManager
 import org.jetbrains.anko.toast
 
 class TickerFragment : Fragment(), TickerContract.View {
@@ -34,7 +35,7 @@ class TickerFragment : Fragment(), TickerContract.View {
 
         presenter = TickerPresenter(
             view = this,
-            upbitRepository = UpbitRepository()
+            upbitRepository = UpbitRepository(upbitApi = NetworkManager.instance)
         )
 
         swipeInit()

@@ -4,12 +4,12 @@ import dev.daeyeon.gaasproject.data.Ticker
 import dev.daeyeon.gaasproject.data.response.MarketResponse
 import dev.daeyeon.gaasproject.data.response.ResponseCode
 import dev.daeyeon.gaasproject.data.response.TickerResponse
-import dev.daeyeon.gaasproject.network.NetworkManager
+import dev.daeyeon.gaasproject.network.UpbitApi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UpbitRepository : UpbitDataSource {
+class UpbitRepository(private val upbitApi: UpbitApi) : UpbitDataSource {
 
     private var markets = ""
 
@@ -17,7 +17,7 @@ class UpbitRepository : UpbitDataSource {
         getMarkets(
             success = { result ->
                 markets = result
-                NetworkManager.instance.getTicker(markets)
+                upbitApi.getTicker(markets)
                     .enqueue(object : Callback<List<TickerResponse>?> {
                         override fun onFailure(
                             call: Call<List<TickerResponse>?>,
@@ -48,7 +48,7 @@ class UpbitRepository : UpbitDataSource {
 
     override fun getMarkets(success: (markets: String) -> Unit, fail: (msg: String) -> Unit) {
         if (markets.isEmpty()) {
-            NetworkManager.instance.getMarketCode()
+            upbitApi.getMarketCode()
                 .enqueue(object : Callback<List<MarketResponse>?> {
                     override fun onFailure(
                         call: Call<List<MarketResponse>?>,
