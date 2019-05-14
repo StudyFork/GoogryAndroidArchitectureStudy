@@ -1,4 +1,4 @@
-package dev.daeyeon.gaasproject.data.source
+package dev.daeyeon.gaasproject.data
 
 data class Ticker(
     val market: String,

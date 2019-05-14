@@ -1,7 +1,7 @@
 package dev.daeyeon.gaasproject.network
 
-import dev.daeyeon.gaasproject.data.MarketResponse
-import dev.daeyeon.gaasproject.data.TickerResponse
+import dev.daeyeon.gaasproject.data.response.MarketResponse
+import dev.daeyeon.gaasproject.data.response.TickerResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

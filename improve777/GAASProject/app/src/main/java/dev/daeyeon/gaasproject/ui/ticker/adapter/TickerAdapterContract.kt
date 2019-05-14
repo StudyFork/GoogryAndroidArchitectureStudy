@@ -1,6 +1,6 @@
 package dev.daeyeon.gaasproject.ui.ticker.adapter
 
-import dev.daeyeon.gaasproject.data.source.Ticker
+import dev.daeyeon.gaasproject.data.Ticker
 
 interface TickerAdapterContract {
     interface View {

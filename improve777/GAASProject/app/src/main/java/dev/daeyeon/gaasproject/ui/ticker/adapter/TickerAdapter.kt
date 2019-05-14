@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import dev.daeyeon.gaasproject.R
-import dev.daeyeon.gaasproject.data.source.Ticker
+import dev.daeyeon.gaasproject.data.Ticker
 import dev.daeyeon.gaasproject.databinding.ItemTickerBinding
 
 class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>(),

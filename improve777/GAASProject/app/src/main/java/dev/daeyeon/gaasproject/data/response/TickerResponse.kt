@@ -1,7 +1,7 @@
-package dev.daeyeon.gaasproject.data
+package dev.daeyeon.gaasproject.data.response
 
 import com.google.gson.annotations.SerializedName
-import dev.daeyeon.gaasproject.data.source.Ticker
+import dev.daeyeon.gaasproject.data.Ticker
 
 data class TickerResponse(
     /**
