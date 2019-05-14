@@ -1,13 +1,10 @@
 package dev.daeyeon.gaasproject.ui.ticker
 
 import dev.daeyeon.gaasproject.data.source.UpbitRepository
-import dev.daeyeon.gaasproject.ui.ticker.adapter.TickerAdapterContract
 
 class TickerPresenter(
     val view: TickerContract.View,
-    val upbitRepository: UpbitRepository,
-    val adapterView: TickerAdapterContract.View,
-    val adapterModel: TickerAdapterContract.Model
+    val upbitRepository: UpbitRepository
 ) : TickerContract.Presenter {
 
     override fun start() {
@@ -19,8 +16,7 @@ class TickerPresenter(
         upbitRepository.getTicker(
             success = {
                 view.hideProgress()
-                adapterModel.replaceList(it)
-                adapterView.notifyAdapter()
+                view.replaceTickerList(it)
             },
             fail = {
                 view.hideProgress()

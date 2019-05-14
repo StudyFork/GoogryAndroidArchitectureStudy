@@ -7,10 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dev.daeyeon.gaasproject.R
+import dev.daeyeon.gaasproject.data.Ticker
 import dev.daeyeon.gaasproject.data.response.ResponseCode
 import dev.daeyeon.gaasproject.data.source.UpbitRepository
 import dev.daeyeon.gaasproject.databinding.FragmentTickerBinding
-import dev.daeyeon.gaasproject.ui.ticker.adapter.TickerAdapter
 import org.jetbrains.anko.toast
 
 class TickerFragment : Fragment(), TickerContract.View {
@@ -30,16 +30,11 @@ class TickerFragment : Fragment(), TickerContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         tickerAdapter = TickerAdapter()
-
-        binding.rvTicker.apply {
-            this.adapter = tickerAdapter
-        }
+        binding.rvTicker.adapter = tickerAdapter
 
         presenter = TickerPresenter(
             view = this,
-            upbitRepository = UpbitRepository(),
-            adapterView = tickerAdapter,
-            adapterModel = tickerAdapter
+            upbitRepository = UpbitRepository()
         )
 
         swipeInit()
@@ -71,6 +66,10 @@ class TickerFragment : Fragment(), TickerContract.View {
 
     override fun hideProgress() {
         binding.srlTicker.isRefreshing = false
+    }
+
+    override fun replaceTickerList(tickerList: List<Ticker>) {
+        tickerAdapter.replaceList(tickerList)
     }
 
     override fun toastTickerFailMsg(msg: String) {

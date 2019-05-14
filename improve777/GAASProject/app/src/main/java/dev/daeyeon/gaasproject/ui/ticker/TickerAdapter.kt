@@ -1,4 +1,4 @@
-package dev.daeyeon.gaasproject.ui.ticker.adapter
+package dev.daeyeon.gaasproject.ui.ticker
 
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
@@ -8,9 +8,7 @@ import dev.daeyeon.gaasproject.R
 import dev.daeyeon.gaasproject.data.Ticker
 import dev.daeyeon.gaasproject.databinding.ItemTickerBinding
 
-class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>(),
-    TickerAdapterContract.View,
-    TickerAdapterContract.Model {
+class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
 
     private val tickerList = mutableListOf<Ticker>()
 
@@ -30,29 +28,19 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>(),
         holder.binding.ticker = tickerList[position]
     }
 
-    override fun notifyAdapter() {
+    /**
+     * 리스트 추가
+     */
+    private fun addList(list: List<Ticker>) {
+        tickerList.addAll(list)
         notifyDataSetChanged()
     }
 
     /**
-     * 리스트 추가
+     * clear() 후 리스트 추가
      */
-    override fun addList(list: List<Ticker>) {
-        tickerList.addAll(list)
-    }
-
-    /**
-     * 비우기
-     */
-    override fun clearList() {
+    fun replaceList(list: List<Ticker>) {
         tickerList.clear()
-    }
-
-    /**
-     * 초기화 후 리스트 추가
-     */
-    override fun replaceList(list: List<Ticker>) {
-        clearList()
         addList(list)
     }
 
