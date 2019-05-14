@@ -27,6 +27,11 @@ interface TickerContract {
 
         fun start()
 
+        /**
+         * 뷰가 제거되면 api 중지
+         */
+        fun cancelApi()
+
         fun loadUpbitTicker()
     }
 }

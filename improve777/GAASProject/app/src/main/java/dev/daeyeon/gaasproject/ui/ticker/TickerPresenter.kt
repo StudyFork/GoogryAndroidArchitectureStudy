@@ -25,4 +25,8 @@ class TickerPresenter(
         )
     }
 
+    override fun cancelApi() {
+        upbitRepository.cancelMarketCall()
+        upbitRepository.cancelTickerCall()
+    }
 }

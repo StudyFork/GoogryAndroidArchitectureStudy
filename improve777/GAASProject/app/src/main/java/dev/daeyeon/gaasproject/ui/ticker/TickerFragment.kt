@@ -46,6 +46,11 @@ class TickerFragment : Fragment(), TickerContract.View {
         presenter.start()
     }
 
+    override fun onDestroyView() {
+        presenter.cancelApi()
+        super.onDestroyView()
+    }
+
     /**
      * swipeRefreshLayout 버튼 색, 이벤트 설정
      */

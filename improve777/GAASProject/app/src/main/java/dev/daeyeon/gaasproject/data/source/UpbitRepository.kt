@@ -13,32 +13,36 @@ class UpbitRepository(private val upbitApi: UpbitApi) : UpbitDataSource {
 
     private var markets = ""
 
+    private var tickerCall: Call<List<TickerResponse>>? = null
+    private var marketCall: Call<List<MarketResponse>>? = null
+
     override fun getTicker(success: (list: List<Ticker>) -> Unit, fail: (msg: String) -> Unit) {
         getMarkets(
             success = { result ->
                 markets = result
-                upbitApi.getTicker(markets)
-                    .enqueue(object : Callback<List<TickerResponse>?> {
-                        override fun onFailure(
-                            call: Call<List<TickerResponse>?>,
-                            t: Throwable
-                        ) {
-                            fail.invoke(t.message ?: ResponseCode.CODE_NULL_FAIL_MSG)
-                        }
+                tickerCall = upbitApi.getTicker(markets)
 
-                        override fun onResponse(
-                            call: Call<List<TickerResponse>?>,
-                            response: Response<List<TickerResponse>?>
-                        ) {
-                            response.body()?.let { list ->
-                                if (list.isEmpty()) {
-                                    fail.invoke(ResponseCode.CODE_EMPTY_SUCCESS)
-                                } else {
-                                    success.invoke(list.map { it.toTicker() })
-                                }
-                            } ?: fail.invoke(ResponseCode.CODE_NULL_SUCCESS)
-                        }
-                    })
+                tickerCall?.enqueue(object : Callback<List<TickerResponse>?> {
+                    override fun onFailure(
+                        call: Call<List<TickerResponse>?>,
+                        t: Throwable
+                    ) {
+                        fail.invoke(t.message ?: ResponseCode.CODE_NULL_FAIL_MSG)
+                    }
+
+                    override fun onResponse(
+                        call: Call<List<TickerResponse>?>,
+                        response: Response<List<TickerResponse>?>
+                    ) {
+                        response.body()?.let { list ->
+                            if (list.isEmpty()) {
+                                fail.invoke(ResponseCode.CODE_EMPTY_SUCCESS)
+                            } else {
+                                success.invoke(list.map { it.toTicker() })
+                            }
+                        } ?: fail.invoke(ResponseCode.CODE_NULL_SUCCESS)
+                    }
+                })
             },
             fail = {
                 fail.invoke(it)
@@ -48,30 +52,39 @@ class UpbitRepository(private val upbitApi: UpbitApi) : UpbitDataSource {
 
     override fun getMarkets(success: (markets: String) -> Unit, fail: (msg: String) -> Unit) {
         if (markets.isEmpty()) {
-            upbitApi.getMarketCode()
-                .enqueue(object : Callback<List<MarketResponse>?> {
-                    override fun onFailure(
-                        call: Call<List<MarketResponse>?>,
-                        t: Throwable
-                    ) {
-                        fail.invoke(t.message ?: ResponseCode.CODE_NULL_FAIL_MSG)
-                    }
+            marketCall = upbitApi.getMarketCode()
 
-                    override fun onResponse(
-                        call: Call<List<MarketResponse>?>,
-                        response: Response<List<MarketResponse>?>
-                    ) {
-                        response.body()?.let { list ->
-                            if (list.isEmpty()) {
-                                fail.invoke(ResponseCode.CODE_EMPTY_SUCCESS)
-                            } else {
-                                success.invoke(list.joinToString { it.market })
-                            }
-                        } ?: fail.invoke(ResponseCode.CODE_NULL_SUCCESS)
-                    }
-                })
+            marketCall?.enqueue(object : Callback<List<MarketResponse>?> {
+                override fun onFailure(
+                    call: Call<List<MarketResponse>?>,
+                    t: Throwable
+                ) {
+                    fail.invoke(t.message ?: ResponseCode.CODE_NULL_FAIL_MSG)
+                }
+
+                override fun onResponse(
+                    call: Call<List<MarketResponse>?>,
+                    response: Response<List<MarketResponse>?>
+                ) {
+                    response.body()?.let { list ->
+                        if (list.isEmpty()) {
+                            fail.invoke(ResponseCode.CODE_EMPTY_SUCCESS)
+                        } else {
+                            success.invoke(list.joinToString { it.market })
+                        }
+                    } ?: fail.invoke(ResponseCode.CODE_NULL_SUCCESS)
+                }
+            })
         } else {
             success.invoke(markets)
         }
+    }
+
+    override fun cancelMarketCall() {
+        marketCall?.cancel()
+    }
+
+    override fun cancelTickerCall() {
+        tickerCall?.cancel()
     }
 }
