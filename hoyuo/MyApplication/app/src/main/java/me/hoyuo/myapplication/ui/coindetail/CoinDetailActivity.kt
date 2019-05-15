@@ -1,40 +1,16 @@
-package me.hoyuo.myapplication.ui
+package me.hoyuo.myapplication.ui.coindetail
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_coin.acc_trade_price
-import kotlinx.android.synthetic.main.activity_coin.acc_trade_price_24h
-import kotlinx.android.synthetic.main.activity_coin.acc_trade_volume
-import kotlinx.android.synthetic.main.activity_coin.acc_trade_volume_24h
-import kotlinx.android.synthetic.main.activity_coin.change
-import kotlinx.android.synthetic.main.activity_coin.change_price
-import kotlinx.android.synthetic.main.activity_coin.change_rate
-import kotlinx.android.synthetic.main.activity_coin.high_price
-import kotlinx.android.synthetic.main.activity_coin.highest_52_week_date
-import kotlinx.android.synthetic.main.activity_coin.highest_52_week_price
-import kotlinx.android.synthetic.main.activity_coin.low_price
-import kotlinx.android.synthetic.main.activity_coin.lowest_52_week_date
-import kotlinx.android.synthetic.main.activity_coin.lowest_52_week_price
-import kotlinx.android.synthetic.main.activity_coin.market
-import kotlinx.android.synthetic.main.activity_coin.opening_price
-import kotlinx.android.synthetic.main.activity_coin.prev_closing_price
-import kotlinx.android.synthetic.main.activity_coin.signed_change_price
-import kotlinx.android.synthetic.main.activity_coin.signed_change_rate
-import kotlinx.android.synthetic.main.activity_coin.timestamp
-import kotlinx.android.synthetic.main.activity_coin.trade_date
-import kotlinx.android.synthetic.main.activity_coin.trade_date_kst
-import kotlinx.android.synthetic.main.activity_coin.trade_price
-import kotlinx.android.synthetic.main.activity_coin.trade_time
-import kotlinx.android.synthetic.main.activity_coin.trade_time_kst
-import kotlinx.android.synthetic.main.activity_coin.trade_timestamp
-import kotlinx.android.synthetic.main.activity_coin.trade_volume
+import kotlinx.android.synthetic.main.activity_coin.*
 import me.hoyuo.myapplication.R
 import me.hoyuo.myapplication.model.upbit.Ticker
 import timber.log.Timber
 
 class CoinDetailActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.tag(TAG).d("onCreate")
         super.onCreate(savedInstanceState)
@@ -83,5 +59,4 @@ class CoinDetailActivity : AppCompatActivity() {
             }
         }
     }
-
 }
