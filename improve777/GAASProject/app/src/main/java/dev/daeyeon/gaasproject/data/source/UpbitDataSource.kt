@@ -1,7 +1,19 @@
 package dev.daeyeon.gaasproject.data.source
 
-interface UpbitDataSource {
-    fun getTicker(success: (list: List<Ticker>) -> Unit, fail:(msg: String) -> Unit)
+import dev.daeyeon.gaasproject.data.Ticker
 
-    fun getMarkets(success: (markets: String) -> Unit, fail:(msg: String) -> Unit)
+interface UpbitDataSource {
+    fun getTicker(success: (list: List<Ticker>) -> Unit, fail: (msg: String) -> Unit)
+
+    fun getMarkets(success: (markets: String) -> Unit, fail: (msg: String) -> Unit)
+
+    /**
+     * 마켓 코드 요청 중지
+     */
+    fun cancelMarketCall()
+
+    /**
+     * 코인 시세 정보 요청 중지
+     */
+    fun cancelTickerCall()
 }

@@ -1,10 +1,11 @@
-package dev.daeyeon.gaasproject
+package dev.daeyeon.gaasproject.ui.ticker
 
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import dev.daeyeon.gaasproject.data.source.Ticker
+import dev.daeyeon.gaasproject.R
+import dev.daeyeon.gaasproject.data.Ticker
 import dev.daeyeon.gaasproject.databinding.ItemTickerBinding
 
 class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
@@ -13,10 +14,11 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): TickerViewHolder {
         val binding = DataBindingUtil.inflate<ItemTickerBinding>(
-                LayoutInflater.from(viewGroup.context),
-                R.layout.item_ticker,
-                viewGroup,
-                false)
+            LayoutInflater.from(viewGroup.context),
+            R.layout.item_ticker,
+            viewGroup,
+            false
+        )
         return TickerViewHolder(binding)
     }
 
@@ -29,24 +31,16 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
     /**
      * 리스트 추가
      */
-    fun addList(list: List<Ticker>) {
+    private fun addList(list: List<Ticker>) {
         tickerList.addAll(list)
         notifyDataSetChanged()
     }
 
     /**
-     * 비우기
-     */
-    fun clearList() {
-        tickerList.clear()
-        notifyDataSetChanged()
-    }
-
-    /**
-     * 초기화 후 리스트 추가
+     * clear() 후 리스트 추가
      */
     fun replaceList(list: List<Ticker>) {
-        clearList()
+        tickerList.clear()
         addList(list)
     }
 
