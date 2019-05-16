@@ -11,16 +11,15 @@ class HomePresenter(
     override fun loadMarketList() {
         homeView.showProgressBar(true)
 
-        disposables.add(coinRepository.loadMarketList(
-            { response ->
+        disposables.add(coinRepository
+            .loadMarketList({ response ->
                 homeView.showProgressBar(false)
                 homeView.updateViewPager(response)
-            },
-            {
+            }, {
                 homeView.showProgressBar(false)
                 homeView.showToastMessage(it)
             }
-        ))
+            ))
     }
 
 }

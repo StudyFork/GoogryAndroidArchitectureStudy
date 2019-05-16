@@ -10,11 +10,12 @@ class CoinListPresenter(
 ) : BasePresenter<CoinListContract.View>(coinListView), CoinListContract.Presenter {
 
     override fun subscribeRemote() {
-        disposables.add(coinRepository.subscribeCoinDataChange(baseCurrency,
-            {
+        disposables.add(coinRepository.subscribeCoinDataChange(
+            baseCurrency, {
                 coinListView.updateCoinList(it)
-            },
-            { coinListView.showToastMessage(it) }
+            }, {
+                coinListView.showToastMessage(it)
+            }
         ))
     }
 
