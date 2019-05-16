@@ -1,7 +1,7 @@
 package ado.sabgil.studyproject.view.searchcoin
 
 import ado.sabgil.studyproject.R
-import ado.sabgil.studyproject.adapter.SearchedCoinTickerAdapter
+import ado.sabgil.studyproject.adapter.TickerAdapter
 import ado.sabgil.studyproject.data.CoinRepositoryImpl
 import ado.sabgil.studyproject.data.model.Ticker
 import ado.sabgil.studyproject.databinding.ActivitySearchCoinBinding
@@ -16,7 +16,7 @@ class SearchCoinActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.rvTickerList.adapter = SearchedCoinTickerAdapter()
+        binding.rvTickerList.adapter = TickerAdapter()
 
         binding.tvSearch.setOnClickListener {
             presenter.searchCoin(binding.etKeyword.text.toString())
