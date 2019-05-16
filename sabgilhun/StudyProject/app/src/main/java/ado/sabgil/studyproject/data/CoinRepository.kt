@@ -10,8 +10,14 @@ interface CoinRepository {
         fail: (String) -> Unit
     ): Disposable
 
-    fun subscribeCoinDataChange(
+    fun getCoinDataChangeWithCurrency(
         baseCurrency: String,
+        success: (List<Ticker>) -> Unit,
+        fail: (String) -> Unit
+    ): Disposable
+
+    fun getCoinDataChangeWithCoinName(
+        coinName: String,
         success: (List<Ticker>) -> Unit,
         fail: (String) -> Unit
     ): Disposable

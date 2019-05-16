@@ -23,7 +23,7 @@ object CoinRepositoryImpl : CoinRepository {
             })
     }
 
-    override fun subscribeCoinDataChange(
+    override fun getCoinDataChangeWithCurrency(
         baseCurrency: String,
         success: (List<Ticker>) -> Unit,
         fail: (String) -> Unit
@@ -34,6 +34,22 @@ object CoinRepositoryImpl : CoinRepository {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ result ->
                 success.invoke(result.filter { it.base == baseCurrency })
+            }, {
+                fail.invoke("서버에서 데이터를 가져오는데에 실패하였습니다.")
+            })
+    }
+
+    override fun getCoinDataChangeWithCoinName(
+        coinName: String,
+        success: (List<Ticker>) -> Unit,
+        fail: (String) -> Unit
+    ): Disposable {
+        return dataSource
+            .subscribeCoinDataChange()
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ result ->
+                success.invoke(result.filter { it.coinName == coinName })
             }, {
                 fail.invoke("서버에서 데이터를 가져오는데에 실패하였습니다.")
             })

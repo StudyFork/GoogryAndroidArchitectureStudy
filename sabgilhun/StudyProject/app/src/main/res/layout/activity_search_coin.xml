@@ -32,7 +32,9 @@
                 android:layout_height="match_parent"
                 android:layout_margin="8dp"
                 android:layout_weight="7.5"
-                android:hint="코인을 검색하세요." />
+                android:hint="코인을 검색하세요."
+                android:maxLength="10"
+                android:singleLine="true" />
 
             <Button
                 android:id="@+id/tv_search"
