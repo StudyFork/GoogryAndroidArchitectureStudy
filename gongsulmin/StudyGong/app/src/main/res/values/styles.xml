@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TextViewCoinMarket">
+        <item name="android:gravity">center</item>
+        <item name="android:color"> @color/black</item>
+    </style>
+
 </resources>
