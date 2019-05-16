@@ -84,6 +84,35 @@ object UpbitRepository
             success.invoke(market!!)
         }
     }
+
+    override fun getCoinCurrency(
+        success: (List<String>) -> Unit,
+        fail: (String) -> Unit
+    ) {
+        RetrofitProvider.upbitApi.getMarket()
+            .enqueue(object : retrofit2.Callback<List<UpbitMarketResponse>> {
+                override fun onResponse(
+                    call: Call<List<UpbitMarketResponse>>,
+                    response: Response<List<UpbitMarketResponse>>
+                ) {
+                    response.body()?.let {
+                        success.invoke(
+
+                            it.map {
+                                it.market.substring(0, it.market.indexOf("-"))
+                            }
+                                .distinct()
+                                .toList()
+
+                        )
+                    }
+                }
+
+                override fun onFailure(call: Call<List<UpbitMarketResponse>>, t: Throwable) {
+                    fail.invoke(" 코인 정보 불가    ")
+                }
+            })
+    }
 }
 
 

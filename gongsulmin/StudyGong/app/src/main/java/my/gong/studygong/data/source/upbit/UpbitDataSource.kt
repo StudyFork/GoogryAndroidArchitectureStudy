@@ -9,4 +9,8 @@ interface UpbitDataSource {
         success: (List<Ticker>) -> Unit,
         fail: (String) -> Unit
     )
+    fun getCoinCurrency(
+        success: (List<String>) -> Unit,
+        fail: (String) -> Unit
+    )
 }
