@@ -1,10 +1,10 @@
 package dev.daeyeon.gaasproject.ui.ticker
 
-import dev.daeyeon.gaasproject.data.source.UpbitRepository
+import dev.daeyeon.gaasproject.data.source.UpbitDataSource
 
 class TickerPresenter(
     val view: TickerContract.View,
-    val upbitRepository: UpbitRepository
+    val upbitRepository: UpbitDataSource
 ) : TickerContract.Presenter {
 
     override var currencyArray: Array<String>? = null

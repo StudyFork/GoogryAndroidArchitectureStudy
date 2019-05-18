@@ -4,6 +4,8 @@ import dev.daeyeon.gaasproject.data.Ticker
 
 interface UpbitDataSource {
 
+    var markets: String
+
     fun getTicker(
         baseCurrency: String,
         searchTicker: String,

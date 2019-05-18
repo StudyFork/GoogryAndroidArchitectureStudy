@@ -11,7 +11,7 @@ import retrofit2.Response
 
 class UpbitRepository(private val upbitApi: UpbitApi) : UpbitDataSource {
 
-    var markets = ""
+    override var markets: String = ""
 
     private var tickerCall: Call<List<TickerResponse>>? = null
     private var marketCall: Call<List<MarketResponse>>? = null
