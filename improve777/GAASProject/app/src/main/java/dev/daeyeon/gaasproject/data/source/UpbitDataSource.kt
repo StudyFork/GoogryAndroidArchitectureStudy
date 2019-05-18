@@ -6,6 +6,7 @@ interface UpbitDataSource {
 
     fun getTicker(
         baseCurrency: String,
+        searchTicker: String,
         success: (List<Ticker>) -> Unit,
         fail: (String) -> Unit
     )

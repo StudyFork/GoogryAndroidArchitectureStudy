@@ -36,6 +36,6 @@ interface TickerContract {
          */
         fun cancelApi()
 
-        fun loadUpbitTicker()
+        fun loadUpbitTicker(searchTicker: String? = null)
     }
 }

@@ -16,10 +16,11 @@ class TickerPresenter(
         loadUpbitTicker()
     }
 
-    override fun loadUpbitTicker() {
+    override fun loadUpbitTicker(searchTicker: String?) {
         view.showProgress()
         upbitRepository.getTicker(
             baseCurrency ?: "",
+            searchTicker ?: "",
             success = {
                 view.hideProgress()
                 if (currencyArray.isNullOrEmpty()) {

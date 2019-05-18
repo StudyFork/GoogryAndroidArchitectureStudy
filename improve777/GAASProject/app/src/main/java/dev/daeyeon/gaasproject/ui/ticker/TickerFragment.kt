@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.view.*
+import android.view.inputmethod.EditorInfo
 import dev.daeyeon.gaasproject.R
 import dev.daeyeon.gaasproject.data.Ticker
 import dev.daeyeon.gaasproject.data.response.ResponseCode
 import dev.daeyeon.gaasproject.data.source.UpbitRepository
+import dev.daeyeon.gaasproject.databinding.DialogTickerSearchBinding
 import dev.daeyeon.gaasproject.databinding.FragmentTickerBinding
 import dev.daeyeon.gaasproject.network.NetworkManager
 import org.jetbrains.anko.toast
@@ -18,6 +20,10 @@ class TickerFragment : Fragment(), TickerContract.View {
     override lateinit var presenter: TickerContract.Presenter
     private lateinit var binding: FragmentTickerBinding
     private lateinit var tickerAdapter: TickerAdapter
+
+    private val searchDialogBinding by lazy { initDialogTickerSearchBinding() }
+    // 검색 다이얼로그
+    private var searchDialog: AlertDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +57,7 @@ class TickerFragment : Fragment(), TickerContract.View {
         when (item?.itemId) {
             // 검색
             R.id.action_search -> {
+                showTickerSearchDialog()
             }
             // 기본 통화 설정
             R.id.action_base_currency -> {
@@ -59,6 +66,61 @@ class TickerFragment : Fragment(), TickerContract.View {
         }
 
         return false
+    }
+
+    /**
+     * ticker 검색 다이얼로그
+     */
+    private fun showTickerSearchDialog() {
+
+        // 기존 부모뷰에 붙은 자식뷰 제거
+        if (searchDialogBinding.root.parent != null) {
+            (searchDialogBinding.root.parent as ViewGroup).removeView(searchDialogBinding.root)
+        }
+
+        searchDialog = AlertDialog.Builder(activity!!)
+            .setTitle(R.string.ticker_search)
+            .setView(searchDialogBinding.root)
+            .setPositiveButton(R.string.all_positive) { dialog, _ ->
+                dialog.dismiss()
+                presenter.loadUpbitTicker(searchDialogBinding.etSearch.text.toString())
+                searchDialogBinding.etSearch.setText("")
+            }
+            .setNegativeButton(R.string.all_negative) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+        searchDialog?.show()
+    }
+
+    /**
+     * 커스텀 레이아웃 다이얼로그를 사용하기 위한 DialogTickerSearchBinding
+     *
+     */
+    private fun initDialogTickerSearchBinding(): DialogTickerSearchBinding {
+        val binding = DataBindingUtil.inflate<DialogTickerSearchBinding>(
+            activity!!.layoutInflater,
+            R.layout.dialog_ticker_search,
+            null,
+            false
+        )
+
+        binding.btnTickerSearch.setOnClickListener {
+            searchDialog?.dismiss()
+            presenter.loadUpbitTicker(binding.etSearch.text.toString())
+            binding.etSearch.setText("")
+        }
+
+        binding.etSearch.setOnEditorActionListener { _, actionId, _ ->
+            // 키보드의 검색 키
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                binding.btnTickerSearch.performClick()
+                return@setOnEditorActionListener true
+            }
+            return@setOnEditorActionListener false
+        }
+
+        return binding
     }
 
     /**

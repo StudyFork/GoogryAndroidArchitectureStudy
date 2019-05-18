@@ -18,6 +18,7 @@ class UpbitRepository(private val upbitApi: UpbitApi) : UpbitDataSource {
 
     override fun getTicker(
         baseCurrency: String,
+        searchTicker: String,
         success: (List<Ticker>) -> Unit,
         fail: (String) -> Unit
     ) {
@@ -44,6 +45,7 @@ class UpbitRepository(private val upbitApi: UpbitApi) : UpbitDataSource {
                             } else {
                                 success.invoke(
                                     list.filter { it.market.startsWith(baseCurrency) }
+                                        .filter { it.market.endsWith(searchTicker.toUpperCase()) }
                                         .map {
                                             it.toTicker()
                                         })
