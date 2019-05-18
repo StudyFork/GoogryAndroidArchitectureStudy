@@ -3,9 +3,8 @@ package dev.daeyeon.gaasproject.ui.ticker
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.support.v7.app.AlertDialog
+import android.view.*
 import dev.daeyeon.gaasproject.R
 import dev.daeyeon.gaasproject.data.Ticker
 import dev.daeyeon.gaasproject.data.response.ResponseCode
@@ -38,7 +37,46 @@ class TickerFragment : Fragment(), TickerContract.View {
             upbitRepository = UpbitRepository(upbitApi = NetworkManager.instance)
         )
 
+        setHasOptionsMenu(true)
         swipeInit()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.menu_ticker_fragment, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        when (item?.itemId) {
+            // 검색
+            R.id.action_search -> {
+            }
+            // 기본 통화 설정
+            R.id.action_base_currency -> {
+                showBaseCurrencyDialog()
+            }
+        }
+
+        return false
+    }
+
+    /**
+     * 기본 통화 설정 다이얼로그
+     */
+    private fun showBaseCurrencyDialog() {
+        AlertDialog.Builder(activity!!)
+            .setTitle(R.string.ticker_fragment_base_currency)
+            .setSingleChoiceItems(presenter.currencyArray, -1) { _, item ->
+                presenter.baseCurrency = if (item == 0) "" else presenter.currencyArray?.get(item) ?: ""
+            }
+            .setPositiveButton(R.string.all_positive) { dialog, _ ->
+                dialog.dismiss()
+                presenter.loadUpbitTicker()
+            }
+            .setCancelable(false)
+            .create()
+            .show()
     }
 
     override fun onResume() {

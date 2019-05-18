@@ -11,12 +11,16 @@ import retrofit2.Response
 
 class UpbitRepository(private val upbitApi: UpbitApi) : UpbitDataSource {
 
-    private var markets = ""
+    var markets = ""
 
     private var tickerCall: Call<List<TickerResponse>>? = null
     private var marketCall: Call<List<MarketResponse>>? = null
 
-    override fun getTicker(success: (list: List<Ticker>) -> Unit, fail: (msg: String) -> Unit) {
+    override fun getTicker(
+        baseCurrency: String,
+        success: (List<Ticker>) -> Unit,
+        fail: (String) -> Unit
+    ) {
         getMarkets(
             success = { result ->
                 markets = result
@@ -38,7 +42,11 @@ class UpbitRepository(private val upbitApi: UpbitApi) : UpbitDataSource {
                             if (list.isEmpty()) {
                                 fail.invoke(ResponseCode.CODE_EMPTY_SUCCESS)
                             } else {
-                                success.invoke(list.map { it.toTicker() })
+                                success.invoke(
+                                    list.filter { it.market.startsWith(baseCurrency) }
+                                        .map {
+                                            it.toTicker()
+                                        })
                             }
                         } ?: fail.invoke(ResponseCode.CODE_NULL_SUCCESS)
                     }
@@ -70,7 +78,7 @@ class UpbitRepository(private val upbitApi: UpbitApi) : UpbitDataSource {
                         if (list.isEmpty()) {
                             fail.invoke(ResponseCode.CODE_EMPTY_SUCCESS)
                         } else {
-                            success.invoke(list.joinToString { it.market })
+                            success.invoke(list.joinToString(separator = ",") { it.market })
                         }
                     } ?: fail.invoke(ResponseCode.CODE_NULL_SUCCESS)
                 }

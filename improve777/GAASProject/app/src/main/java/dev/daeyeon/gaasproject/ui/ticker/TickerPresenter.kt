@@ -7,6 +7,11 @@ class TickerPresenter(
     val upbitRepository: UpbitRepository
 ) : TickerContract.Presenter {
 
+    override var currencyArray: Array<String>? = null
+
+    override var baseCurrency: String? = null
+
+
     override fun start() {
         loadUpbitTicker()
     }
@@ -14,8 +19,12 @@ class TickerPresenter(
     override fun loadUpbitTicker() {
         view.showProgress()
         upbitRepository.getTicker(
+            baseCurrency ?: "",
             success = {
                 view.hideProgress()
+                if (currencyArray.isNullOrEmpty()) {
+                    initCurrentArray()
+                }
                 view.replaceTickerList(it)
             },
             fail = {
@@ -23,6 +32,16 @@ class TickerPresenter(
                 view.toastTickerFailMsg(it)
             }
         )
+    }
+
+    private fun initCurrentArray() {
+        val list = arrayListOf<String>()
+        list.add("전체")
+        list.addAll(upbitRepository.markets.split(",")
+            .map { market -> market.substringBefore("-") }
+            .distinct())
+
+        currencyArray = list.toTypedArray()
     }
 
     override fun cancelApi() {

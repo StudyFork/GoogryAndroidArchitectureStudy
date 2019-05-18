@@ -25,6 +25,10 @@ interface TickerContract {
 
     interface Presenter {
 
+        var currencyArray: Array<String>?
+
+        var baseCurrency: String?
+
         fun start()
 
         /**
