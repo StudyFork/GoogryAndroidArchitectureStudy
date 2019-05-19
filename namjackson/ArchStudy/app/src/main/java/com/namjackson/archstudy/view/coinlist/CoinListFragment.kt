@@ -107,6 +107,10 @@ class CoinListFragment
 
 
     companion object {
+
+        private const val BASE_CURRENCY = "BASE_CURRENCY"
+        private const val SECOND = 1000L
+
         fun newInstance(baseCurrency: String) =
             CoinListFragment().apply {
                 arguments = Bundle().apply {
