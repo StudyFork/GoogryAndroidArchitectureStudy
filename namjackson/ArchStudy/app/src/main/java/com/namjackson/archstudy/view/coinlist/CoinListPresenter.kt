@@ -31,7 +31,10 @@ class CoinListPresenter(
                 markets = it
                 getTickers(markets)
             },
-            fail = { coinListView.showError("Error : $it") }
+            fail = {
+                coinListView.showError("Error : $it")
+                coinListView.hideProgress()
+            }
         )
     }
 
@@ -45,12 +48,14 @@ class CoinListPresenter(
                 showCoinList()
                 coinListView.hideProgress()
             },
-            fail = { coinListView.showError("Error : $it") }
+            fail = {
+                coinListView.showError("Error : $it")
+                coinListView.hideProgress()
+            }
         )
     }
 
     override fun changeBaseCurrency(baseCurrency: String) {
-        coinListView.showProgress()
         this.baseCurrency = baseCurrency
         initMarket()
     }
@@ -60,7 +65,7 @@ class CoinListPresenter(
         showCoinList()
     }
 
-    fun showCoinList() {
+    private fun showCoinList() {
         coinListView.showCoinList(coinList.filter { it.market.split("-")[1].contains(searchStr.toUpperCase()) })
     }
 }
