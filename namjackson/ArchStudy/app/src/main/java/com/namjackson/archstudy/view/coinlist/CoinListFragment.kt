@@ -2,12 +2,13 @@ package com.namjackson.archstudy.view.coinlist
 
 import android.os.Bundle
 import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.namjackson.archstudy.R
 import com.namjackson.archstudy.base.BaseFragment
+import com.namjackson.archstudy.base.component.BaseOnItemSelectedListener
+import com.namjackson.archstudy.base.component.BaseTextWatcher
 import com.namjackson.archstudy.data.Ticker
 import com.namjackson.archstudy.data.repository.UpbitRepository
 import com.namjackson.archstudy.databinding.FragmentCoinListBinding
@@ -52,13 +53,7 @@ class CoinListFragment
         adapter = CoinListAdapter()
         binding.recyclerView.adapter = this.adapter
 
-        binding.search.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-            }
-
+        binding.search.addTextChangedListener(object : BaseTextWatcher {
             override fun afterTextChanged(s: Editable) {
                 presenter.search(s.toString())
             }
@@ -71,12 +66,10 @@ class CoinListFragment
             android.R.layout.simple_spinner_item,
             arrayOf("KRW", "BTC", "ETH", "USDT")
         )
-        binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                presenter.changeBaseCurrency(parent.getItemAtPosition(position).toString())
-            }
 
-            override fun onNothingSelected(parent: AdapterView<*>) {
+        binding.spinner.onItemSelectedListener = object : BaseOnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, p1: View?, position: Int, p3: Long) {
+                presenter.changeBaseCurrency(parent.getItemAtPosition(position).toString())
             }
         }
     }
