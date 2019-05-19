@@ -17,9 +17,6 @@ import com.namjackson.archstudy.view.coinlist.adapter.CoinListAdapter
 import java.util.*
 
 
-private const val BASE_CURRENCY = "BASE_CURRENCY"
-private const val SECOND = 1000L
-
 class CoinListFragment
     : BaseFragment<FragmentCoinListBinding, CoinListContract.Presenter>(R.layout.fragment_coin_list),
     CoinListContract.View {
@@ -41,7 +38,7 @@ class CoinListFragment
         presenter = CoinListPresenter(
             baseCurrency,
             UpbitRepository.getInstance(UpbitService.upbitApi),
-            this as CoinListContract.View
+            this
         )
 
         initLayout()
@@ -76,6 +73,7 @@ class CoinListFragment
 
     override fun onResume() {
         super.onResume()
+        timer = Timer()
         timer.schedule(object : TimerTask() {
             override fun run() {
                 presenter.loadCoinList()
