@@ -11,6 +11,7 @@ object UpbitRepository
     : UpbitDataSource {
 
     private var market: String? = null
+    private var coinCurrencyList: List<String>? = null
 
     override fun getDetailTickers(tickerDetail: String, success: (List<Ticker>) -> Unit, fail: (String) -> Unit) {
         getMarket(
@@ -134,29 +135,34 @@ object UpbitRepository
         success: (List<String>) -> Unit,
         fail: (String) -> Unit
     ) {
-        RetrofitProvider.upbitApi.getMarket()
-            .enqueue(object : retrofit2.Callback<List<UpbitMarketResponse>> {
-                override fun onResponse(
-                    call: Call<List<UpbitMarketResponse>>,
-                    response: Response<List<UpbitMarketResponse>>
-                ) {
-                    response.body()?.let {
-                        success.invoke(
+        if (coinCurrencyList == null) {
+            RetrofitProvider.upbitApi.getMarket()
+                .enqueue(object : retrofit2.Callback<List<UpbitMarketResponse>> {
+                    override fun onResponse(
+                        call: Call<List<UpbitMarketResponse>>,
+                        response: Response<List<UpbitMarketResponse>>
+                    ) {
+                        response.body()?.let {
+                            coinCurrencyList =
+                                    it.map {
+                                        it.market.substring(0, it.market.indexOf("-"))
+                                    }
+                                        .distinct()
+                                        .toList()
 
-                            it.map {
-                                it.market.substring(0, it.market.indexOf("-"))
-                            }
-                                .distinct()
-                                .toList()
-
-                        )
+                            success.invoke(
+                                coinCurrencyList!!
+                            )
+                        }
                     }
-                }
 
-                override fun onFailure(call: Call<List<UpbitMarketResponse>>, t: Throwable) {
-                    fail.invoke(" 코인 정보 불가    ")
-                }
-            })
+                    override fun onFailure(call: Call<List<UpbitMarketResponse>>, t: Throwable) {
+                        fail.invoke(" 코인 정보 불가    ")
+                    }
+                })
+        } else {
+            success.invoke(coinCurrencyList!!)
+        }
     }
 }
 
