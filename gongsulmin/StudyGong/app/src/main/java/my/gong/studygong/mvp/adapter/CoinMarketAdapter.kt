@@ -8,8 +8,9 @@ import kotlinx.android.synthetic.main.item_coin_market.view.*
 import my.gong.studygong.R
 
 class CoinMarketAdapter(
-    val clickCoinMaketListener: (String) -> Unit
+    val clickCoinMarketListener: (String) -> Unit
 ) : RecyclerView.Adapter<CoinMarketAdapter.ViewHolder>() {
+
 
     private val coinMarketList: MutableList<String> = mutableListOf()
 
@@ -22,7 +23,7 @@ class CoinMarketAdapter(
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.coinMarket.text = coinMarketList[position]
         viewHolder.parentCoinMarket.setOnClickListener {
-            clickCoinMaketListener.invoke(coinMarketList[position])
+            clickCoinMarketListener.invoke(coinMarketList[position])
         }
     }
 

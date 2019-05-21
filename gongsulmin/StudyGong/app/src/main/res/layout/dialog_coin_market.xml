@@ -1,67 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview_coin_market"
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         >
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_coin_market"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            >
     </android.support.v7.widget.RecyclerView>
-
-    <!--<TextView-->
-        <!--android:id="@+id/txt_coin_market_krw"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:text=" KRW "-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--app:layout_constraintBottom_toTopOf="@+id/txt_coin_market_btc"-->
-        <!--app:layout_constraintVertical_chainStyle="packed"-->
-        <!--style="@style/TextViewCoinMarket"-->
-        <!--/>-->
-    <!--<TextView-->
-        <!--android:id="@+id/txt_coin_market_btc"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:text=" BTC "-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/txt_coin_market_krw"-->
-        <!--app:layout_constraintBottom_toTopOf="@+id/txt_coin_market_eth"-->
-        <!--style="@style/TextViewCoinMarket"-->
-        <!--/>-->
-    <!--<TextView-->
-        <!--android:id="@+id/txt_coin_market_eth"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:text=" ETH "-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/txt_coin_market_btc"-->
-        <!--app:layout_constraintBottom_toTopOf="@+id/txt_coin_market_usdt"-->
-        <!--style="@style/TextViewCoinMarket"-->
-        <!--/>-->
-    <!--<TextView-->
-        <!--android:id="@+id/txt_coin_market_usdt"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:text=" USDT "-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/txt_coin_market_eth"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--style="@style/TextViewCoinMarket"-->
-        <!--/>-->
-
 
 </android.support.constraint.ConstraintLayout>

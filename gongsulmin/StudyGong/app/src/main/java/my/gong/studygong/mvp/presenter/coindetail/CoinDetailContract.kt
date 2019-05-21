@@ -1,4 +1,4 @@
-package my.gong.studygong.mvp.presenter.coinmarketlist
+package my.gong.studygong.mvp.presenter.coindetail
 
 import my.gong.studygong.data.model.Ticker
 
@@ -10,7 +10,7 @@ interface CoinDetailContract {
 
     interface View {
         fun showCoinMarket(coinDetail: List<Ticker>)
-        fun errorCoinDetail(erroeMsg: String)
+        fun errorCoinDetail(errorMsg: String)
     }
 
 }

@@ -29,10 +29,12 @@ class CoinMarketDialog
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         recyclerview_coin_market.adapter = CoinMarketAdapter(
-            clickCoinMaketListener = {
+            clickCoinMarketListener = {
                 dismissDialog.invoke(it)
                 dismiss()
             }
+
+
         )
         presenter.populateCoinData()
     }
