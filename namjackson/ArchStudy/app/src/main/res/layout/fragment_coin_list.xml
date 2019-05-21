@@ -73,7 +73,6 @@
                 android:text="가격"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/before_price"
-                app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintHorizontal_weight="1.3"
                 app:layout_constraintStart_toEndOf="@id/market"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -86,7 +85,6 @@
                 android:text="전일대비"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/volume"
-                app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintStart_toEndOf="@id/now_price"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -99,7 +97,6 @@
                 android:text="거래량"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintStart_toEndOf="@id/before_price"
                 app:layout_constraintTop_toTopOf="parent" />
