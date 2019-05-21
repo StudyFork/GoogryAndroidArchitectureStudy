@@ -47,6 +47,17 @@ class CoinListActivity : AppCompatActivity(), CoinListContract.View {
         (recyclerview_main_ticker_list.adapter as CoinAdapter).refreshData(ticker)
     }
 
+    override fun showSearchDialog(coin: String) {
+        val coinMarketDialog = CoinDetailDialog()
+
+        coinMarketDialog.arguments =
+                Bundle().apply {
+                    putString(COIN_DETAIL, edit_search_ticker.text.toString())
+                }
+
+        coinMarketDialog.show(supportFragmentManager, null)
+    }
+
     private fun init() {
         recyclerview_main_ticker_list.adapter = CoinAdapter()
 
@@ -63,18 +74,7 @@ class CoinListActivity : AppCompatActivity(), CoinListContract.View {
         }
 
         btn_search.setOnClickListener {
-
-            if (edit_search_ticker.text.toString().isNotEmpty()) {
-                val coinMarketDialog = CoinDetailDialog()
-
-                coinMarketDialog.arguments =
-                    Bundle().apply {
-                        putString(COIN_DETAIL, edit_search_ticker.text.toString())
-                    }
-
-                coinMarketDialog.show(supportFragmentManager, null)
-            }
-
+            presenter.searchCoin(edit_search_ticker.text.toString())
         }
     }
 

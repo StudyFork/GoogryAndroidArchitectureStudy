@@ -6,7 +6,6 @@ class CoinListPresenter(
     private val coinRepository: UpbitDataSource,
     private val view: CoinListContract.View
 ) : CoinListContract.Presenter {
-
     override fun populateCoinData(coinMarket: String) {
         coinRepository.getTickers(
             coinMarket,
@@ -17,5 +16,12 @@ class CoinListPresenter(
                 view.showToast(it)
             }
         )
+    }
+    override fun searchCoin(coin: String) {
+        if (coin.isNotEmpty()){
+            view.showSearchDialog(coin)
+        }else{
+            view.showToast(" 검색할 코인을 입력해주세요! ")
+        }
     }
 }
