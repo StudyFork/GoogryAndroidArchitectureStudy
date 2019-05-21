@@ -1,6 +1,8 @@
 package my.gong.studygong.mvp.view
 
+import android.content.Context
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.dialog_coin_market.*
 import my.gong.studygong.R
@@ -28,6 +30,7 @@ class CoinMarketDialog
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         recyclerview_coin_market.adapter = CoinMarketAdapter(
             clickCoinMarketListener = {
                 dialogCallBackListener.invoke(it)
@@ -47,4 +50,8 @@ class CoinMarketDialog
         Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
     }
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        (activity as CoinListActivity).setDialogCallBackListener()
+    }
 }

@@ -22,6 +22,8 @@ class CoinListActivity : AppCompatActivity(), CoinListContract.View {
         )
     }
     private var coinMarket: String = "KRW"
+    private val coinMarketDialog = CoinMarketDialog()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,14 +64,6 @@ class CoinListActivity : AppCompatActivity(), CoinListContract.View {
         recyclerview_main_ticker_list.adapter = CoinAdapter()
 
         linear_coin_markets.setOnClickListener {
-            val coinMarketDialog = CoinMarketDialog()
-
-            coinMarketDialog.dialogCallBackListener = {
-                txt_select_coin_market.text = it
-                coinMarket = it
-                populateCoin(coinMarket)
-            }
-
             coinMarketDialog.show(supportFragmentManager, null)
         }
 
@@ -86,6 +80,14 @@ class CoinListActivity : AppCompatActivity(), CoinListContract.View {
                 presenter.populateCoinData(coinMarket)
             }
         }, 0, REPEAT_INTERVAL_MILLIS)
+    }
+
+    fun setDialogCallBackListener(){
+        coinMarketDialog.dialogCallBackListener = {
+            txt_select_coin_market.text = it
+            coinMarket = it
+            populateCoin(coinMarket)
+        }
     }
 
     companion object {
