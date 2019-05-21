@@ -15,7 +15,7 @@ import java.util.*
 class CoinListActivity : AppCompatActivity(), CoinListContract.View {
 
     private var timer: Timer = Timer()
-    val presenter: CoinListContract.Presenter by lazy {
+    private val presenter: CoinListContract.Presenter by lazy {
         CoinListPresenter(
             Injection.provideCoinRepository(),
             this@CoinListActivity

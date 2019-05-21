@@ -10,7 +10,7 @@ import retrofit2.Response
 object UpbitRepository
     : UpbitDataSource {
 
-    var market: String? = null
+    private var market: String? = null
 
     override fun getDetailTickers(tickerDetail: String, success: (List<Ticker>) -> Unit, fail: (String) -> Unit) {
         getMarket(
