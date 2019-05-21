@@ -26,3 +26,19 @@
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/hoyuo)
 - 이건호 [GeoN5](https://github.com/GeoN5)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/GeoN5)
+
+## 2기
+
+- 강현석 []()
+[공간]()
+- 이윤지 []()
+[공간]()
+- 정상용 []()
+[공간]()
+- 이선민 []()
+[공간]()
+- 오지수 []()
+[공간]()
+- 신현성 []()
+[공간]()
+
