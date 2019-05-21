@@ -17,7 +17,7 @@ import my.gong.studygong.mvp.presenter.coinmarketlist.CoinMarketPresenter
 class CoinMarketDialog
     : BaseDialog(R.layout.dialog_coin_market), CoinMarketContract.View {
 
-    lateinit var dismissDialog: (String) -> Unit
+    lateinit var dialogCallBackListener: (String) -> Unit
 
     private val presenter: CoinMarketContract.Presenter by lazy {
         CoinMarketPresenter(
@@ -30,7 +30,7 @@ class CoinMarketDialog
         super.onActivityCreated(savedInstanceState)
         recyclerview_coin_market.adapter = CoinMarketAdapter(
             clickCoinMarketListener = {
-                dismissDialog.invoke(it)
+                dialogCallBackListener.invoke(it)
                 dismiss()
             }
 

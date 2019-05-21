@@ -64,7 +64,7 @@ class CoinListActivity : AppCompatActivity(), CoinListContract.View {
         linear_coin_markets.setOnClickListener {
             val coinMarketDialog = CoinMarketDialog()
 
-            coinMarketDialog.dismissDialog = {
+            coinMarketDialog.dialogCallBackListener = {
                 txt_select_coin_market.text = it
                 coinMarket = it
                 populateCoin(coinMarket)
