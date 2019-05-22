@@ -19,8 +19,8 @@ class UpbitRepository(private val upbitApi: UpbitApi) : UpbitDataSource {
     override fun getTicker(
         baseCurrency: String,
         searchTicker: String,
-        success: (List<Ticker>) -> Unit,
-        fail: (String) -> Unit
+        success: (tickerList: List<Ticker>) -> Unit,
+        fail: (msg: String) -> Unit
     ) {
         getMarkets(
             success = { result ->
