@@ -17,10 +17,11 @@ class CoinListPresenter(
             }
         )
     }
+
     override fun searchCoin(coin: String) {
-        if (coin.isNotEmpty()){
+        if (coin.isNotEmpty()) {
             view.showSearchDialog(coin)
-        }else{
+        } else {
             view.showToast(" 검색할 코인을 입력해주세요! ")
         }
     }

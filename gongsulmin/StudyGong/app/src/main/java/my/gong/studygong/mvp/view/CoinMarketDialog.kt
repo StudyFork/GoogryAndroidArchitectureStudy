@@ -2,7 +2,6 @@ package my.gong.studygong.mvp.view
 
 import android.content.Context
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.dialog_coin_market.*
 import my.gong.studygong.R

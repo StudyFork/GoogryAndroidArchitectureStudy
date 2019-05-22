@@ -82,7 +82,7 @@ class CoinListActivity : AppCompatActivity(), CoinListContract.View {
         }, 0, REPEAT_INTERVAL_MILLIS)
     }
 
-    fun setDialogCallBackListener(){
+    fun setDialogCallBackListener() {
         coinMarketDialog.dialogCallBackListener = {
             txt_select_coin_market.text = it
             coinMarket = it

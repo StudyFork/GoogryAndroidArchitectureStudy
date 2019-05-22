@@ -1,7 +1,6 @@
 package my.gong.studygong.mvp.base
 
 import android.os.Bundle
-import android.support.constraint.solver.widgets.Analyzer.setPosition
 import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
