@@ -40,4 +40,4 @@
 - 오지수 []()
 [공간]()
 - 신현성 [Nanamare](https://github.com/Nanamare)
-[공간](https://github.com/Nanamare/GoogryAndroidArchitectureStudy/tree/class02/readme-init/Nanamare)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/Nanamare)
