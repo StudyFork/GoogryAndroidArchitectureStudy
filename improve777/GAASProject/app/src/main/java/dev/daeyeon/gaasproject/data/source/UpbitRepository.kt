@@ -44,8 +44,7 @@ class UpbitRepository(private val upbitApi: UpbitApi) : UpbitDataSource {
                                 fail.invoke(ResponseCode.CODE_EMPTY_SUCCESS)
                             } else {
                                 success.invoke(
-                                    list.filter { it.market.startsWith(baseCurrency) }
-                                        .filter { it.market.endsWith(searchTicker.toUpperCase()) }
+                                    list.filter { it.market.contains("$baseCurrency-${searchTicker.toUpperCase()}") }
                                         .map {
                                             it.toTicker()
                                         })
