@@ -31,7 +31,7 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeContract.Presenter>(R
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.action_search -> {
-                startActivity(Intent(applicationContext, SearchCoinActivity::class.java))
+                startActivity(Intent(this, SearchCoinActivity::class.java))
                 return true
             }
         }
