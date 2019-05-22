@@ -12,7 +12,7 @@ class SearchCoinPresenter(
 
     override fun searchCoin(coinName: String) {
 
-        if(disposables.size() > 0) {
+        if (disposables.size() > 0) {
             disposables.clear()
         }
 
