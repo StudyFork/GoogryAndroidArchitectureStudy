@@ -33,12 +33,7 @@ class CoinListFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var baseCurrency: String = ""
-        arguments?.let {
-            baseCurrency = it.getString(BASE_CURRENCY) ?: ""
-        }
         presenter = CoinListPresenter(
-            baseCurrency,
             TickerRepository.getInstance(
                 TickerLocalDataSourceImpl.getInstance(),
                 TickerRemoteDataSourceImpl.getInstance(UpbitService.upbitApi)
@@ -105,14 +100,7 @@ class CoinListFragment
 
     companion object {
 
-        private const val BASE_CURRENCY = "BASE_CURRENCY"
         private const val SECOND = 1000L
-
-        fun newInstance(baseCurrency: String) =
-            CoinListFragment().apply {
-                arguments = Bundle().apply {
-                    putString(BASE_CURRENCY, baseCurrency)
-                }
-            }
+        fun newInstance() = CoinListFragment()
     }
 }

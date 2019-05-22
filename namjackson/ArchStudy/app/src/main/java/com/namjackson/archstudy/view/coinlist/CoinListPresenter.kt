@@ -4,11 +4,11 @@ import com.namjackson.archstudy.data.model.Ticker
 import com.namjackson.archstudy.data.source.TickerRepository
 
 class CoinListPresenter(
-    var baseCurrency: String,
     val tickerRepository: TickerRepository,
     val coinListView: CoinListContract.View
 ) : CoinListContract.Presenter {
 
+    private var baseCurrency: String=""
     private val coinList = mutableListOf<Ticker>()
     private var searchStr: String = ""
 

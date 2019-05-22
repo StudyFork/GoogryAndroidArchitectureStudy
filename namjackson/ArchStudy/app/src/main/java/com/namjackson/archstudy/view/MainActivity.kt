@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Log.d("Activity onCreate Test", "test")
-        loadFragment(CoinListFragment.newInstance("KRW"))
+        loadFragment(CoinListFragment.newInstance())
     }
 
     private fun loadFragment(fragment: Fragment) {
