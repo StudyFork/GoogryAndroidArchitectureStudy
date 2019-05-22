@@ -47,6 +47,8 @@ object UpbitCoinDataSourceImpl : CoinDataSource {
     }
 
     override fun subscribeCoinDataChange(): Observable<List<Ticker>> {
+        var behaviorSubject = this.behaviorSubject
+
         if (behaviorSubject == null) {
             behaviorSubject = BehaviorSubject.create<List<Ticker>>()
 
@@ -54,16 +56,12 @@ object UpbitCoinDataSourceImpl : CoinDataSource {
                 .flatMap {
                     loadAllTicker().toObservable()
                 }
-                .subscribe({
-                    behaviorSubject!!.onNext(it)
-                }, {
-                    behaviorSubject!!.onError(it)
-                })
+                .subscribe(behaviorSubject::onNext, behaviorSubject::onError)
             )
         }
         subscribeCnt++
 
-        return behaviorSubject!!
+        return behaviorSubject
     }
 
     override fun unSubscribeCoinDataChange() {
@@ -77,9 +75,10 @@ object UpbitCoinDataSourceImpl : CoinDataSource {
     }
 
     private fun loadAllTicker(): Single<List<Ticker>> {
+        val cachedTickerListRequest = this.cachedTickerListRequest
         requireNotNull(cachedTickerListRequest)
 
-        return Single.fromObservable(retrofit.getTickerList(cachedTickerListRequest!!.marketCodeQuery)
+        return Single.fromObservable(retrofit.getTickerList(cachedTickerListRequest.marketCodeQuery)
             .map { response ->
                 response.map { Ticker.from(it) }
             })
