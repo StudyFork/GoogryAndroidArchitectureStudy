@@ -1,8 +1,8 @@
-package com.namjackson.archstudy.data
+package com.namjackson.archstudy.data.source.remote.upbit.response
 
 import com.google.gson.annotations.SerializedName
 
-data class Ticker(
+data class UpbitTickerResponse(
     @SerializedName("market") val market: String,
     @SerializedName("trade_date") val tradeDate: String,
     @SerializedName("trade_time") val tradeTime: String,

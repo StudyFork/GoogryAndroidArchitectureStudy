@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.namjackson.archstudy.R
-import com.namjackson.archstudy.data.Ticker
+import com.namjackson.archstudy.data.model.Ticker
 import com.namjackson.archstudy.databinding.ItemCoinListBinding
 
 
@@ -41,17 +41,10 @@ class CoinListAdapter : RecyclerView.Adapter<CoinListAdapter.CoinListViewHolder>
     class CoinListViewHolder(val binding: ItemCoinListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(ticker: Ticker) {
             binding.let {
-                it.market.text = ticker.market.split("-").get(1)
-                it.tradePrice.text =
-                    if (ticker.tradePrice.toString().length > 4) ticker.tradePrice.toInt().toString() else ticker.tradePrice.toString()
-                it.beforePrice.text =
-                    if ((ticker.signedChangeRate * 100).toFloat().toString().length > 4) {
-                        (ticker.signedChangeRate * 100).toFloat().toString().substring(0, 4) + "%"
-                    } else {
-                        (ticker.signedChangeRate * 100).toFloat().toString() + "%"
-                    }
-                it.volume.text =
-                    if (ticker.accTradePrice24h.toLong() > 1000000L) (ticker.accTradePrice24h / 1000000L).toInt().toString() + "M" else ticker.accTradePrice24h.toInt().toString()
+                it.market.text = ticker.name
+                it.tradePrice.text = ticker.tradePrice
+                it.beforePrice.text = ticker.changeRate
+                it.volume.text = ticker.tradeVolume
                 if (ticker.change.equals("RISE"))
                     it.beforePrice.setTextColor(Color.RED)
                 else if (ticker.change.equals("FALL"))
