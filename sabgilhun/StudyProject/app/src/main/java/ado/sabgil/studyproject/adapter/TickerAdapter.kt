@@ -16,12 +16,13 @@ class TickerAdapter : ListAdapter<Ticker, TickerViewHolder>(DIFF_CALLBACK) {
 
     override fun onBindViewHolder(holder: TickerViewHolder, position: Int) {
         holder.binding.item = getItem(position)
+        holder.binding.executePendingBindings()
     }
 
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Ticker>() {
             override fun areItemsTheSame(oldItem: Ticker, newItem: Ticker): Boolean {
-                return oldItem == newItem
+                return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(oldItem: Ticker, newItem: Ticker): Boolean {
