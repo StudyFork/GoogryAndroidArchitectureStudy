@@ -1,11 +1,11 @@
 package com.namjackson.archstudy.view.coinlist
 
-import com.namjackson.archstudy.data.Ticker
-import com.namjackson.archstudy.data.repository.UpbitRepository
+import com.namjackson.archstudy.data.model.Ticker
+import com.namjackson.archstudy.data.source.TickerRepository
 
 class CoinListPresenter(
     var baseCurrency: String,
-    val upbitRepository: UpbitRepository,
+    val tickerRepository: TickerRepository,
     val coinListView: CoinListContract.View
 ) : CoinListContract.Presenter {
 
@@ -25,7 +25,7 @@ class CoinListPresenter(
 
     fun initMarket() {
         coinListView.showProgress()
-        upbitRepository.getMarketAll(
+        tickerRepository.getMarketAll(
             baseCurrency,
             success = {
                 markets = it
@@ -39,7 +39,7 @@ class CoinListPresenter(
     }
 
     fun getTickers(markets: String) {
-        upbitRepository.getTickers(
+        tickerRepository.getTickers(
             markets,
             success = {
                 coinList.clear()
@@ -66,6 +66,6 @@ class CoinListPresenter(
     }
 
     private fun showCoinList() {
-        coinListView.showCoinList(coinList.filter { it.market.split("-")[1].contains(searchStr.toUpperCase()) })
+        coinListView.showCoinList(coinList.filter { it.name.contains(searchStr.toUpperCase()) })
     }
 }

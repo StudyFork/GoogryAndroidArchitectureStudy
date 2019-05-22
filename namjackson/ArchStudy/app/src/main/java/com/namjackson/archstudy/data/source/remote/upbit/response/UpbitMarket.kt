@@ -1,4 +1,4 @@
-package com.namjackson.archstudy.data
+package com.namjackson.archstudy.data.source.remote.upbit.response
 
 import com.google.gson.annotations.SerializedName
 

@@ -9,8 +9,10 @@ import com.namjackson.archstudy.R
 import com.namjackson.archstudy.base.BaseFragment
 import com.namjackson.archstudy.base.component.BaseOnItemSelectedListener
 import com.namjackson.archstudy.base.component.BaseTextWatcher
-import com.namjackson.archstudy.data.Ticker
-import com.namjackson.archstudy.data.repository.UpbitRepository
+import com.namjackson.archstudy.data.model.Ticker
+import com.namjackson.archstudy.data.source.TickerRepository
+import com.namjackson.archstudy.data.source.local.TickerLocalDataSourceImpl
+import com.namjackson.archstudy.data.source.remote.TickerRemoteDataSourceImpl
 import com.namjackson.archstudy.databinding.FragmentCoinListBinding
 import com.namjackson.archstudy.network.UpbitService
 import com.namjackson.archstudy.view.coinlist.adapter.CoinListAdapter
@@ -37,9 +39,13 @@ class CoinListFragment
         }
         presenter = CoinListPresenter(
             baseCurrency,
-            UpbitRepository.getInstance(UpbitService.upbitApi),
+            TickerRepository.getInstance(
+                TickerLocalDataSourceImpl.getInstance(),
+                TickerRemoteDataSourceImpl.getInstance(UpbitService.upbitApi)
+            ),
             this
         )
+
 
         initLayout()
         initSpinner()

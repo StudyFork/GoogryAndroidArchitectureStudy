@@ -7,7 +7,7 @@
 
         <variable
             name="ticker"
-            type="com.namjackson.archstudy.data.Ticker" />
+            type="com.namjackson.archstudy.data.model.Ticker" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -44,7 +44,7 @@
                 android:id="@+id/trade_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="right"
+                android:gravity="end"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/before_price"

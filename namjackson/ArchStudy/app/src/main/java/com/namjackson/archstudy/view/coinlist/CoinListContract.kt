@@ -1,8 +1,7 @@
 package com.namjackson.archstudy.view.coinlist
 
 import com.namjackson.archstudy.base.BaseContract
-import com.namjackson.archstudy.data.Ticker
-import java.util.*
+import com.namjackson.archstudy.data.model.Ticker
 
 interface CoinListContract : BaseContract {
 

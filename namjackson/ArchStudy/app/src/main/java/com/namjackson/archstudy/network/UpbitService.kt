@@ -1,7 +1,7 @@
 package com.namjackson.archstudy.network
 
 import com.namjackson.archstudy.base.UPBIT_API
-import com.namjackson.archstudy.network.api.UpbitApi
+import com.namjackson.archstudy.data.source.remote.upbit.UpbitApi
 
 object UpbitService {
     val upbitApi: UpbitApi by lazy {
