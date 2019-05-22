@@ -130,10 +130,10 @@ class TickerFragment : Fragment(), TickerContract.View {
         AlertDialog.Builder(activity!!)
             .setTitle(R.string.ticker_fragment_base_currency)
             .setSingleChoiceItems(
-                presenter.currencyArray,
-                presenter.currencyArray?.indexOf(presenter.baseCurrency) ?: -1
+                presenter.getCurrencyArray(),
+                presenter.getCurrencyArray().indexOf(presenter.getBaseCurrency())
             ) { _, item ->
-                presenter.baseCurrency = if (item == 0) "" else presenter.currencyArray?.get(item) ?: ""
+                presenter.setBaseCurrency(presenter.getCurrencyArray()[item])
             }
             .setPositiveButton(R.string.all_positive) { dialog, _ ->
                 dialog.dismiss()

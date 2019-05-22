@@ -25,11 +25,13 @@ interface TickerContract {
 
     interface Presenter {
 
-        var currencyArray: Array<String>?
-
-        var baseCurrency: String?
-
         fun start()
+
+        fun getBaseCurrency(): String
+
+        fun setBaseCurrency(baseCurrency: String)
+
+        fun getCurrencyArray(): Array<String>
 
         /**
          * 뷰가 제거되면 api 중지
