@@ -10,8 +10,7 @@ object BindingAdapter {
     @JvmStatic
     fun setRecyclerViewItem(view: RecyclerView, item: List<Ticker>?) {
         if (item != null) {
-            (view.adapter as TickerAdapter).updateItem(item)
+            (view.adapter as TickerAdapter).submitList(item)
         }
-
     }
 }

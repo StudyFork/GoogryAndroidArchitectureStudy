@@ -3,7 +3,6 @@ package ado.sabgil.studyproject.data.remote.upbit
 import ado.sabgil.studyproject.data.model.Ticker
 import ado.sabgil.studyproject.data.remote.CoinDataSource
 import ado.sabgil.studyproject.data.remote.upbit.request.UpbitTickerListRequest
-import ado.sabgil.studyproject.data.remote.upbit.response.UpbitMarketCodeResponse
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -19,7 +18,7 @@ object UpbitCoinDataSourceImpl : CoinDataSource {
 
     private const val baseURL = "https://api.upbit.com/v1/"
 
-    private var cachedMarketCode: List<UpbitMarketCodeResponse>? = null
+    private var cachedTickerListRequest: UpbitTickerListRequest? = null
 
     private var behaviorSubject: BehaviorSubject<List<Ticker>>? = null
 
@@ -40,8 +39,7 @@ object UpbitCoinDataSourceImpl : CoinDataSource {
     override fun loadMarketList(): Single<List<String>> {
         return retrofit.getMarketCode()
             .map { response ->
-                cachedMarketCode = response
-
+                cachedTickerListRequest = UpbitTickerListRequest.of(response)
                 response.map {
                     it.market.substringBefore('-')
                 }.distinct()
@@ -49,6 +47,8 @@ object UpbitCoinDataSourceImpl : CoinDataSource {
     }
 
     override fun subscribeCoinDataChange(): Observable<List<Ticker>> {
+        var behaviorSubject = this.behaviorSubject
+
         if (behaviorSubject == null) {
             behaviorSubject = BehaviorSubject.create<List<Ticker>>()
 
@@ -56,14 +56,12 @@ object UpbitCoinDataSourceImpl : CoinDataSource {
                 .flatMap {
                     loadAllTicker().toObservable()
                 }
-                .subscribe {
-                    behaviorSubject!!.onNext(it)
-                }
+                .subscribe(behaviorSubject::onNext, behaviorSubject::onError)
             )
         }
         subscribeCnt++
 
-        return behaviorSubject!!
+        return behaviorSubject
     }
 
     override fun unSubscribeCoinDataChange() {
@@ -77,9 +75,10 @@ object UpbitCoinDataSourceImpl : CoinDataSource {
     }
 
     private fun loadAllTicker(): Single<List<Ticker>> {
-        requireNotNull(cachedMarketCode)
+        val cachedTickerListRequest = this.cachedTickerListRequest
+        requireNotNull(cachedTickerListRequest)
 
-        return Single.fromObservable(retrofit.getTickerList(UpbitTickerListRequest.of(cachedMarketCode!!).marketCodeQuery)
+        return Single.fromObservable(retrofit.getTickerList(cachedTickerListRequest.marketCodeQuery)
             .map { response ->
                 response.map { Ticker.from(it) }
             })

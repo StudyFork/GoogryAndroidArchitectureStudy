@@ -3,6 +3,7 @@ package ado.sabgil.studyproject.data.model
 import ado.sabgil.studyproject.data.remote.upbit.response.UpbitTickerResponse
 
 data class Ticker private constructor(
+    val id: String,
     val base: String,
     val coinName: String,
     val currentValue: String,
@@ -29,6 +30,7 @@ data class Ticker private constructor(
                 }
 
             return Ticker(
+                tickerResponse.market,
                 tickerResponse.market.substringBefore("-"),
                 tickerResponse.market.substringAfter("-"),
                 tickerResponse.tradePrice.toBigDecimal().toString().format(".8f"),

@@ -2,11 +2,7 @@ package ado.sabgil.studyproject.data
 
 import ado.sabgil.studyproject.data.model.Ticker
 import ado.sabgil.studyproject.data.remote.upbit.UpbitCoinDataSourceImpl
-import android.util.Log
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 
 object CoinRepositoryImpl : CoinRepository {
 
@@ -18,23 +14,40 @@ object CoinRepositoryImpl : CoinRepository {
     ): Disposable {
         return dataSource
             .loadMarketList()
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(success, { fail.invoke(it.message ?: "error") })
+            .setNetworkingThread()
+            .subscribe(success, {
+                fail.invoke("서버에서 데이터를 가져오는데에 실패하였습니다.")
+            })
     }
 
-    override fun subscribeCoinDataChange(
+    override fun getCoinDataChangeWithCurrency(
         baseCurrency: String,
         success: (List<Ticker>) -> Unit,
         fail: (String) -> Unit
     ): Disposable {
         return dataSource
             .subscribeCoinDataChange()
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { result ->
+            .setNetworkingThread()
+            .subscribe({ result ->
                 success.invoke(result.filter { it.base == baseCurrency })
-            }
+            }, {
+                fail.invoke("서버에서 데이터를 가져오는데에 실패하였습니다.")
+            })
+    }
+
+    override fun getCoinDataChangeWithCoinName(
+        coinName: String,
+        success: (List<Ticker>) -> Unit,
+        fail: (String) -> Unit
+    ): Disposable {
+        return dataSource
+            .subscribeCoinDataChange()
+            .setNetworkingThread()
+            .subscribe({ result ->
+                success.invoke(result.filter { it.coinName == coinName })
+            }, {
+                fail.invoke("서버에서 데이터를 가져오는데에 실패하였습니다.")
+            })
     }
 
     override fun unSubscribeCoinDataChange() {
