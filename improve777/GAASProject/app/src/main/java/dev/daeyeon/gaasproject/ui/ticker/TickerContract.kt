@@ -27,11 +27,17 @@ interface TickerContract {
 
         fun start()
 
+        fun getBaseCurrency(): String
+
+        fun setBaseCurrency(baseCurrency: String)
+
+        fun getCurrencyArray(): Array<String>
+
         /**
          * 뷰가 제거되면 api 중지
          */
         fun cancelApi()
 
-        fun loadUpbitTicker()
+        fun loadUpbitTicker(searchTicker: String? = null)
     }
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_base_currency"
+        android:icon="@drawable/ticker_fragment_base_currency_white_24dp"
+        android:title="@string/ticker_fragment_base_currency"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_search"
+        android:icon="@drawable/ticker_fragment_search_white_24dp"
+        android:title="@string/ticker_search"
+        app:showAsAction="ifRoom" />
+</menu>
