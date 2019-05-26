@@ -5,9 +5,9 @@ interface BaseContract {
     interface View {
         fun showError(errorMsg: String)
 
-        fun showProgress()
+        fun showLoading()
 
-        fun hideProgress()
+        fun hideLoading()
     }
 
     interface Presenter

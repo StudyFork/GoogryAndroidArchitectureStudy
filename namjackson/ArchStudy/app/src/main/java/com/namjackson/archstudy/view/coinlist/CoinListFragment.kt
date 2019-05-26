@@ -87,14 +87,22 @@ class CoinListFragment
         super.onPause()
     }
 
-    override fun showProgress() {
-        binding.progress.visibility = View.VISIBLE
-        binding.recyclerView.visibility = View.GONE
+    override fun showLoading() {
+        setProgress(true)
+        setRecyclerView(false)
     }
 
-    override fun hideProgress() {
-        binding.progress.visibility = View.GONE
-        binding.recyclerView.visibility = View.VISIBLE
+    override fun hideLoading() {
+        setProgress(false)
+        setRecyclerView(true)
+    }
+
+    fun setProgress(boolean: Boolean) {
+        binding.progress.visibility = if (boolean) View.VISIBLE else View.GONE
+    }
+    
+    fun setRecyclerView(boolean: Boolean) {
+        binding.recyclerView.visibility = if (boolean) View.VISIBLE else View.GONE
     }
 
 

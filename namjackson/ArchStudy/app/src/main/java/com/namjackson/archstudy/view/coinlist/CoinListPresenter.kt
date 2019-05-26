@@ -24,7 +24,7 @@ class CoinListPresenter(
     }
 
     fun initMarket() {
-        coinListView.showProgress()
+        coinListView.showLoading()
         tickerRepository.getMarketAll(
             baseCurrency,
             success = {
@@ -33,7 +33,7 @@ class CoinListPresenter(
             },
             fail = {
                 coinListView.showError("Error : $it")
-                coinListView.hideProgress()
+                coinListView.hideLoading()
             }
         )
     }
@@ -46,11 +46,11 @@ class CoinListPresenter(
                 coinList.addAll(it)
 
                 showCoinList()
-                coinListView.hideProgress()
+                coinListView.hideLoading()
             },
             fail = {
                 coinListView.showError("Error : $it")
-                coinListView.hideProgress()
+                coinListView.hideLoading()
             }
         )
     }
