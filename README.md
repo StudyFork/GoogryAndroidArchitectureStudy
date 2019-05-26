@@ -29,8 +29,8 @@
 
 ## 2기
 
-- 강현석 [BeokBeok](https://github.com/BeokBeok)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/BeokBeok)
+- 강현석 []()
+[공간]()
 - 이윤지 []()
 [공간]()
 - 정상용 []()
