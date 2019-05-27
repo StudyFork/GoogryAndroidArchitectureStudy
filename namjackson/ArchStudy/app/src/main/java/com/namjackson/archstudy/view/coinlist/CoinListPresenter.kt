@@ -1,18 +1,19 @@
 package com.namjackson.archstudy.view.coinlist
 
-import com.namjackson.archstudy.data.repository.UpbitRepository
+import com.namjackson.archstudy.data.model.Ticker
+import com.namjackson.archstudy.data.source.TickerRepository
 
 class CoinListPresenter(
-    val baseCurrency: String,
-    val upbitRepository: UpbitRepository,
+    val tickerRepository: TickerRepository,
     val coinListView: CoinListContract.View
 ) : CoinListContract.Presenter {
 
+    private var baseCurrency: String=""
+    private val coinList = mutableListOf<Ticker>()
+    private var searchStr: String = ""
+
     private lateinit var markets: String
 
-    override fun start() {
-        coinListView.presenter = this
-    }
 
     override fun loadCoinList() {
         if (!this::markets.isInitialized) {
@@ -23,25 +24,48 @@ class CoinListPresenter(
     }
 
     fun initMarket() {
-        coinListView.showProgress()
-        upbitRepository.getMarketAll(
+        coinListView.showLoading()
+        tickerRepository.getMarketAll(
             baseCurrency,
             success = {
                 markets = it
                 getTickers(markets)
             },
-            fail = { coinListView.showError("Error : $it") }
+            fail = {
+                coinListView.showError("Error : $it")
+                coinListView.hideLoading()
+            }
         )
     }
 
     fun getTickers(markets: String) {
-        upbitRepository.getTickers(
+        tickerRepository.getTickers(
             markets,
             success = {
-                coinListView.showCoinList(it)
-                coinListView.hideProgress()
+                coinList.clear()
+                coinList.addAll(it)
+
+                showCoinList()
+                coinListView.hideLoading()
             },
-            fail = { coinListView.showError("Error : $it") }
+            fail = {
+                coinListView.showError("Error : $it")
+                coinListView.hideLoading()
+            }
         )
+    }
+
+    override fun changeBaseCurrency(baseCurrency: String) {
+        this.baseCurrency = baseCurrency
+        initMarket()
+    }
+
+    override fun search(searchStr: String) {
+        this.searchStr = searchStr
+        showCoinList()
+    }
+
+    private fun showCoinList() {
+        coinListView.showCoinList(coinList.filter { it.name.contains(searchStr.toUpperCase()) })
     }
 }
