@@ -4,7 +4,7 @@ import ado.sabgil.studyproject.R
 import ado.sabgil.studyproject.adapter.CoinListPagerAdapter
 import ado.sabgil.studyproject.data.CoinRepositoryImpl
 import ado.sabgil.studyproject.databinding.ActivityMainBinding
-import ado.sabgil.studyproject.view.base.BaseActivity
+import ado.sabgil.studyproject.view.base.BaseActivityViewModel
 import ado.sabgil.studyproject.view.coinlist.CoinListFragment
 import ado.sabgil.studyproject.view.searchcoin.SearchCoinActivity
 import android.content.Intent
@@ -13,14 +13,19 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 
-class HomeActivity : BaseActivity<ActivityMainBinding, HomeContract.Presenter>(R.layout.activity_main),
-    HomeContract.View {
-
-    override fun createPresenter(): HomeContract.Presenter = HomePresenter(this, CoinRepositoryImpl)
+class HomeActivity : BaseActivityViewModel<ActivityMainBinding>(R.layout.activity_main) {
+    private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter.loadMarketList()
+
+        homeViewModel = HomeViewModel(CoinRepositoryImpl)
+
+        homeViewModel.marketListListeners.add {
+            it?.let { marketList -> updateViewPager(marketList) }
+        }
+
+        homeViewModel.loadMarketList()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -38,7 +43,7 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeContract.Presenter>(R
         return super.onOptionsItemSelected(item)
     }
 
-    override fun updateViewPager(marketList: List<String>) {
+    private fun updateViewPager(marketList: List<String>) {
         binding.vpCoinList.apply {
             adapter = CoinListPagerAdapter(
                 supportFragmentManager,
@@ -49,7 +54,7 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeContract.Presenter>(R
         binding.tlCoinList.setupWithViewPager(binding.vpCoinList)
     }
 
-    override fun showProgressBar(flag: Boolean) {
+    fun showProgressBar(flag: Boolean) {
         binding.pgHome.visibility = if (flag) View.VISIBLE else View.GONE
     }
 }
