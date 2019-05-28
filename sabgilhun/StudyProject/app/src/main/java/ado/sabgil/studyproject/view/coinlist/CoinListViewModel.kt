@@ -11,18 +11,27 @@ class CoinListViewModel(
 ) : BaseViewModel() {
 
     val coinListListeners = mutableListOf<((List<Ticker>?) -> Unit)?>()
-
     private var coinList: List<Ticker>? by Delegates.observable(emptyList()) { _, _, newValue ->
         coinListListeners.map {
             it?.invoke(newValue)
         }
     }
 
+    val showToastEventListeners = mutableListOf<((String) -> Unit)?>()
+
+    val showProgressEventListeners = mutableListOf<(() -> Unit)?>()
+
+    val hideProgressEventListeners = mutableListOf<(() -> Unit)?>()
+
     fun subscribeRemote() {
+        showProgressBar()
         disposables.add(coinRepository.getCoinDataChangeWithCurrency(
-            baseCurrency, {
-                coinList = it
-            }, {
+            baseCurrency, { response ->
+                hideProgressBar()
+                coinList = response
+            }, { error ->
+                hideProgressBar()
+                showToast(error)
             }
         ))
     }
@@ -30,5 +39,17 @@ class CoinListViewModel(
     fun unSubscribeRemote() {
         coinRepository.unSubscribeCoinDataChange()
         disposables.clear()
+    }
+
+    private fun showToast(message: String) {
+        showToastEventListeners.map { it?.invoke(message) }
+    }
+
+    private fun showProgressBar() {
+        showProgressEventListeners.map { it?.invoke() }
+    }
+
+    private fun hideProgressBar() {
+        hideProgressEventListeners.map { it?.invoke() }
     }
 }

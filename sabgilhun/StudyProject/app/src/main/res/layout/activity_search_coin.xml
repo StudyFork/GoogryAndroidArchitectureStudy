@@ -60,7 +60,7 @@
             app:layout_constraintTop_toBottomOf="@id/ll_search_box" />
 
         <ProgressBar
-            android:id="@+id/pg_search_coin"
+            android:id="@+id/pg_coin_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
@@ -68,7 +68,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

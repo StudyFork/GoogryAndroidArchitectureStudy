@@ -14,17 +14,35 @@ class HomeViewModel(private val coinRepository: CoinRepository) : BaseViewModel(
         }
     }
 
+    val showToastEventListeners = mutableListOf<((String) -> Unit)?>()
+
+    val showProgressEventListeners = mutableListOf<(() -> Unit)?>()
+
+    val hideProgressEventListeners = mutableListOf<(() -> Unit)?>()
+
     fun loadMarketList() {
-        // show progress bar
+        showProgressBar()
 
         disposables.add(coinRepository
             .loadMarketList({ response ->
-                // hide progress bar
+                hideProgressBar()
                 marketList = response
-            }, {
-                // hide progress bar
-                // show toast
+            }, { error ->
+                hideProgressBar()
+                showToast(error)
             }
             ))
+    }
+
+    private fun showToast(message: String) {
+        showToastEventListeners.map { it?.invoke(message) }
+    }
+
+    private fun showProgressBar() {
+        showProgressEventListeners.map { it?.invoke() }
+    }
+
+    private fun hideProgressBar() {
+        hideProgressEventListeners.map { it?.invoke() }
     }
 }

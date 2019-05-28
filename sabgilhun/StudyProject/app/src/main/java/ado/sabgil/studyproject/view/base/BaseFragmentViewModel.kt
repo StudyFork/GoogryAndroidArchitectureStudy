@@ -16,6 +16,8 @@ abstract class BaseFragmentViewModel<B : ViewDataBinding>(
     protected lateinit var binding: B
         private set
 
+    protected var progressBar: View? = null
+
     protected val viewModelContainer = mutableListOf<BaseViewModel>()
 
     override fun onCreateView(
@@ -31,8 +33,15 @@ abstract class BaseFragmentViewModel<B : ViewDataBinding>(
         super.onDestroyView()
     }
 
-    fun showToastMessage(msg: String) {
+    protected fun showToastMessage(msg: String) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
     }
 
+    protected fun showProgressBar() {
+        progressBar?.visibility = View.VISIBLE
+    }
+
+    protected fun hideProgressBar() {
+        progressBar?.visibility = View.GONE
+    }
 }

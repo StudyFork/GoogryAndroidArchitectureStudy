@@ -8,33 +8,46 @@ import kotlin.properties.Delegates
 class SearchCoinViewModel(private val coinRepository: CoinRepository) : BaseViewModel() {
 
     val coinListListeners = mutableListOf<((List<Ticker>?) -> Unit)?>()
-
     private var coinList: List<Ticker>? by Delegates.observable(emptyList()) { _, _, newValue ->
         coinListListeners.map {
             it?.invoke(newValue)
         }
     }
 
+    val showToastEventListeners = mutableListOf<((String) -> Unit)?>()
+
+    val showProgressEventListeners = mutableListOf<(() -> Unit)?>()
+
+    val hideProgressEventListeners = mutableListOf<(() -> Unit)?>()
+
     private var currentCoin = ""
 
     fun searchCoin(coinName: String) {
 
+        if (coinName.isBlank()) {
+            showToast("검색할 코인을 입력해주세요.")
+            return
+        }
+
+        showProgressBar()
         if (disposables.size() > 0) {
             disposables.clear()
         }
 
-        disposables.add(coinRepository
-            .getCoinDataChangeWithCoinName(
-                coinName.toUpperCase(), {
-                    if (it.isNotEmpty()) {
+        disposables.add(
+            coinRepository
+                .getCoinDataChangeWithCoinName(coinName.toUpperCase(), { response ->
+                    hideProgressBar()
+                    if (response.isNotEmpty()) {
                         currentCoin = coinName
-                        coinList = it
+                        coinList = response
                     } else {
                         disposables.clear()
-                        // show toast
+                        showToast("검색한 코인에 대한 결과가 없습니다.")
                     }
-                }, {
-                    // show toast
+                }, { error ->
+                    hideProgressBar()
+                    showToast(error)
                 })
         )
     }
@@ -47,5 +60,17 @@ class SearchCoinViewModel(private val coinRepository: CoinRepository) : BaseView
 
     fun unSubscribeCoinData() {
         disposables.clear()
+    }
+
+    private fun showToast(message: String) {
+        showToastEventListeners.map { it?.invoke(message) }
+    }
+
+    private fun showProgressBar() {
+        showProgressEventListeners.map { it?.invoke() }
+    }
+
+    private fun hideProgressBar() {
+        hideProgressEventListeners.map { it?.invoke() }
     }
 }

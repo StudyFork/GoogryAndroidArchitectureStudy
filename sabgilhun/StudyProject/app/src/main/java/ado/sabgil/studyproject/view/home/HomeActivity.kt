@@ -19,10 +19,24 @@ class HomeActivity : BaseActivityViewModel<ActivityMainBinding>(R.layout.activit
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        progressBar = binding.pgHome
+
         homeViewModel = HomeViewModel(CoinRepositoryImpl)
 
         homeViewModel.marketListListeners.add {
             it?.let { marketList -> updateViewPager(marketList) }
+        }
+
+        homeViewModel.showToastEventListeners.add {
+            showToastMessage(it)
+        }
+
+        homeViewModel.showProgressEventListeners.add {
+            showProgressBar()
+        }
+
+        homeViewModel.hideProgressEventListeners.add {
+            hideProgressBar()
         }
 
         homeViewModel.loadMarketList()
@@ -52,9 +66,5 @@ class HomeActivity : BaseActivityViewModel<ActivityMainBinding>(R.layout.activit
             offscreenPageLimit = marketList.size - 1
         }
         binding.tlCoinList.setupWithViewPager(binding.vpCoinList)
-    }
-
-    fun showProgressBar(flag: Boolean) {
-        binding.pgHome.visibility = if (flag) View.VISIBLE else View.GONE
     }
 }

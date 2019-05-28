@@ -21,7 +21,21 @@ class CoinListFragment : BaseFragmentViewModel<FragmnetCoinListBinding>(R.layout
 
         coinListViewModel = CoinListViewModel(baseCurrency!!, CoinRepositoryImpl)
 
+        progressBar = binding.pgCoinList
+
         binding.rvTickerList.adapter = TickerAdapter()
+
+        coinListViewModel.showToastEventListeners.add {
+            showToastMessage(it)
+        }
+
+        coinListViewModel.showProgressEventListeners.add {
+            showProgressBar()
+        }
+
+        coinListViewModel.hideProgressEventListeners.add {
+            hideProgressBar()
+        }
 
         coinListViewModel.coinListListeners.add {
             binding.item = it

@@ -17,16 +17,30 @@ class SearchCoinActivity :
 
         searchCoinViewModel = SearchCoinViewModel(CoinRepositoryImpl)
 
+        progressBar = binding.pgCoinList
+
         binding.rvTickerList.adapter = TickerAdapter()
 
         binding.tvSearch.setOnClickListener {
             searchCoinViewModel.searchCoin(binding.etKeyword.text.toString())
         }
 
+        searchCoinViewModel.showToastEventListeners.add {
+            showToastMessage(it)
+        }
+
+        searchCoinViewModel.showProgressEventListeners.add {
+            showProgressBar()
+        }
+
+        searchCoinViewModel.hideProgressEventListeners.add {
+            hideProgressBar()
+        }
+
+
         searchCoinViewModel.coinListListeners.add {
             binding.item = it
         }
-
     }
 
     override fun onResume() {
