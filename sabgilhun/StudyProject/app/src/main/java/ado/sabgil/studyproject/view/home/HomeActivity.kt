@@ -20,7 +20,7 @@ class HomeActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         progressBar = binding.pgHome
 
-        homeViewModel = HomeViewModel(CoinRepositoryImpl)
+        homeViewModel = HomeViewModel(CoinRepositoryImpl).apply { viewModelContainer.add(this) }
 
         registerEvent()
 

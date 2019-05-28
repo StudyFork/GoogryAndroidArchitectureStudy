@@ -15,7 +15,7 @@ class SearchCoinActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        searchCoinViewModel = SearchCoinViewModel(CoinRepositoryImpl)
+        searchCoinViewModel = SearchCoinViewModel(CoinRepositoryImpl).apply { viewModelContainer.add(this) }
 
         progressBar = binding.pgCoinList
 

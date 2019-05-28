@@ -19,7 +19,8 @@ class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(R.layout.fragmnet
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        coinListViewModel = CoinListViewModel(baseCurrency!!, CoinRepositoryImpl)
+        coinListViewModel =
+            CoinListViewModel(baseCurrency!!, CoinRepositoryImpl).apply { viewModelContainer.add(this) }
 
         progressBar = binding.pgCoinList
 
