@@ -9,7 +9,7 @@
         <import type="ado.sabgil.studyproject.data.model.Ticker" />
 
         <variable
-            name="it"
+            name="item"
             type="List&lt;Ticker&gt;" />
     </data>
 
@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/white"
             android:foregroundGravity="center"
-            app:item="@{it}"
+            app:item="@{item}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

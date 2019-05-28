@@ -4,10 +4,10 @@ import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseViewModel {
 
-    protected val disposable = CompositeDisposable()
+    protected val disposables = CompositeDisposable()
 
     fun onDestroy() {
-        disposable.clear()
+        disposables.clear()
     }
 
 }

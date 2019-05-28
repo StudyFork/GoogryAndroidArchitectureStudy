@@ -13,8 +13,7 @@ abstract class BaseActivityViewModel<B : ViewDataBinding>(
     protected lateinit var binding: B
         private set
 
-    protected var viewModelContainer = mutableListOf<BaseViewModel>()
-        private set
+    protected val viewModelContainer = mutableListOf<BaseViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

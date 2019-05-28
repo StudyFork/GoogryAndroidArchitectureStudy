@@ -16,8 +16,7 @@ abstract class BaseFragmentViewModel<B : ViewDataBinding>(
     protected lateinit var binding: B
         private set
 
-    protected var viewModelContainer = mutableListOf<BaseViewModel>()
-        private set
+    protected val viewModelContainer = mutableListOf<BaseViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
