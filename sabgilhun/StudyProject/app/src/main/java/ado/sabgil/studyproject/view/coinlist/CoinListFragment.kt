@@ -19,9 +19,9 @@ class CoinListFragment : BaseFragmentViewModel<FragmnetCoinListBinding>(R.layout
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rvTickerList.adapter = TickerAdapter()
-
         coinListViewModel = CoinListViewModel(baseCurrency!!, CoinRepositoryImpl)
+
+        binding.rvTickerList.adapter = TickerAdapter()
 
         coinListViewModel.coinListListeners.add {
             binding.item = it

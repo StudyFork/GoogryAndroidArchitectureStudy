@@ -1,16 +1,23 @@
 package ado.sabgil.studyproject.view.searchcoin
 
 import ado.sabgil.studyproject.data.CoinRepository
-import ado.sabgil.studyproject.view.base.BasePresenter
+import ado.sabgil.studyproject.data.model.Ticker
+import ado.sabgil.studyproject.view.base.BaseViewModel
+import kotlin.properties.Delegates
 
-class SearchCoinPresenter(
-    private val searchCoinView: SearchCoinContract.View,
-    private val coinRepository: CoinRepository
-) : BasePresenter<SearchCoinContract.View>(searchCoinView), SearchCoinContract.Presenter {
+class SearchCoinViewModel(private val coinRepository: CoinRepository) : BaseViewModel() {
+
+    val coinListListeners = mutableListOf<((List<Ticker>?) -> Unit)?>()
+
+    private var coinList: List<Ticker>? by Delegates.observable(emptyList()) { _, _, newValue ->
+        coinListListeners.map {
+            it?.invoke(newValue)
+        }
+    }
 
     private var currentCoin = ""
 
-    override fun searchCoin(coinName: String) {
+    fun searchCoin(coinName: String) {
 
         if (disposables.size() > 0) {
             disposables.clear()
@@ -21,24 +28,24 @@ class SearchCoinPresenter(
                 coinName.toUpperCase(), {
                     if (it.isNotEmpty()) {
                         currentCoin = coinName
-                        searchCoinView.updateCoinList(it)
+                        coinList = it
                     } else {
                         disposables.clear()
-                        searchCoinView.showToastMessage("$coinName 의 검색결과가 없습니다.")
+                        // show toast
                     }
                 }, {
-                    searchCoinView.showToastMessage(it)
+                    // show toast
                 })
         )
     }
 
-    override fun subscribeCoinData() {
+    fun subscribeCoinData() {
         if (disposables.size() == 0 && currentCoin != "") {
             searchCoin(currentCoin)
         }
     }
 
-    override fun unSubscribeCoinData() {
+    fun unSubscribeCoinData() {
         disposables.clear()
     }
 }
