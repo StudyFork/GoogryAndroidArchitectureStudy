@@ -4,11 +4,11 @@ import ado.sabgil.studyproject.R
 import ado.sabgil.studyproject.adapter.TickerAdapter
 import ado.sabgil.studyproject.data.CoinRepositoryImpl
 import ado.sabgil.studyproject.databinding.ActivitySearchCoinBinding
-import ado.sabgil.studyproject.view.base.BaseActivityViewModel
+import ado.sabgil.studyproject.view.base.BaseActivity
 import android.os.Bundle
 
 class SearchCoinActivity :
-    BaseActivityViewModel<ActivitySearchCoinBinding>(R.layout.activity_search_coin) {
+    BaseActivity<ActivitySearchCoinBinding>(R.layout.activity_search_coin) {
 
     private lateinit var searchCoinViewModel: SearchCoinViewModel
 
@@ -25,18 +25,7 @@ class SearchCoinActivity :
             searchCoinViewModel.searchCoin(binding.etKeyword.text.toString())
         }
 
-        searchCoinViewModel.showToastEventListeners.add {
-            showToastMessage(it)
-        }
-
-        searchCoinViewModel.showProgressEventListeners.add {
-            showProgressBar()
-        }
-
-        searchCoinViewModel.hideProgressEventListeners.add {
-            hideProgressBar()
-        }
-
+        registerEvent()
 
         searchCoinViewModel.coinListListeners.add {
             binding.item = it
@@ -51,5 +40,19 @@ class SearchCoinActivity :
     override fun onPause() {
         searchCoinViewModel.unSubscribeCoinData()
         super.onPause()
+    }
+
+    private fun registerEvent() {
+        searchCoinViewModel.showToastEventListeners.add {
+            showToastMessage(it)
+        }
+
+        searchCoinViewModel.showProgressEventListeners.add {
+            showProgressBar()
+        }
+
+        searchCoinViewModel.hideProgressEventListeners.add {
+            hideProgressBar()
+        }
     }
 }

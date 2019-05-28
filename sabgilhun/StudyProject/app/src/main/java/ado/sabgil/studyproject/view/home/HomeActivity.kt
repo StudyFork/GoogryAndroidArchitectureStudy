@@ -4,16 +4,15 @@ import ado.sabgil.studyproject.R
 import ado.sabgil.studyproject.adapter.CoinListPagerAdapter
 import ado.sabgil.studyproject.data.CoinRepositoryImpl
 import ado.sabgil.studyproject.databinding.ActivityMainBinding
-import ado.sabgil.studyproject.view.base.BaseActivityViewModel
+import ado.sabgil.studyproject.view.base.BaseActivity
 import ado.sabgil.studyproject.view.coinlist.CoinListFragment
 import ado.sabgil.studyproject.view.searchcoin.SearchCoinActivity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 
-class HomeActivity : BaseActivityViewModel<ActivityMainBinding>(R.layout.activity_main) {
+class HomeActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,20 +22,10 @@ class HomeActivity : BaseActivityViewModel<ActivityMainBinding>(R.layout.activit
 
         homeViewModel = HomeViewModel(CoinRepositoryImpl)
 
+        registerEvent()
+
         homeViewModel.marketListListeners.add {
             it?.let { marketList -> updateViewPager(marketList) }
-        }
-
-        homeViewModel.showToastEventListeners.add {
-            showToastMessage(it)
-        }
-
-        homeViewModel.showProgressEventListeners.add {
-            showProgressBar()
-        }
-
-        homeViewModel.hideProgressEventListeners.add {
-            hideProgressBar()
         }
 
         homeViewModel.loadMarketList()
@@ -55,6 +44,20 @@ class HomeActivity : BaseActivityViewModel<ActivityMainBinding>(R.layout.activit
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun registerEvent() {
+        homeViewModel.showToastEventListeners.add {
+            showToastMessage(it)
+        }
+
+        homeViewModel.showProgressEventListeners.add {
+            showProgressBar()
+        }
+
+        homeViewModel.hideProgressEventListeners.add {
+            hideProgressBar()
+        }
     }
 
     private fun updateViewPager(marketList: List<String>) {

@@ -25,15 +25,15 @@ class CoinListViewModel(
 
     fun subscribeRemote() {
         showProgressBar()
-        disposables.add(coinRepository.getCoinDataChangeWithCurrency(
-            baseCurrency, { response ->
+        coinRepository.getCoinDataChangeWithCurrency(baseCurrency,
+            { response ->
                 hideProgressBar()
                 coinList = response
             }, { error ->
                 hideProgressBar()
                 showToast(error)
             }
-        ))
+        ).apply { disposables.add(this) }
     }
 
     fun unSubscribeRemote() {

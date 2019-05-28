@@ -34,22 +34,21 @@ class SearchCoinViewModel(private val coinRepository: CoinRepository) : BaseView
             disposables.clear()
         }
 
-        disposables.add(
-            coinRepository
-                .getCoinDataChangeWithCoinName(coinName.toUpperCase(), { response ->
-                    hideProgressBar()
-                    if (response.isNotEmpty()) {
-                        currentCoin = coinName
-                        coinList = response
-                    } else {
-                        disposables.clear()
-                        showToast("검색한 코인에 대한 결과가 없습니다.")
-                    }
-                }, { error ->
-                    hideProgressBar()
-                    showToast(error)
-                })
-        )
+        coinRepository.getCoinDataChangeWithCoinName(coinName.toUpperCase(),
+            { response ->
+                hideProgressBar()
+                if (response.isNotEmpty()) {
+                    currentCoin = coinName
+                    coinList = response
+                } else {
+                    disposables.clear()
+                    showToast("검색한 코인에 대한 결과가 없습니다.")
+                }
+            }, { error ->
+                hideProgressBar()
+                showToast(error)
+            }
+        ).apply { disposables.add(this) }
     }
 
     fun subscribeCoinData() {

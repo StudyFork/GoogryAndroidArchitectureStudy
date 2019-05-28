@@ -52,12 +52,11 @@ object UpbitCoinDataSourceImpl : CoinDataSource {
         if (behaviorSubject == null) {
             behaviorSubject = BehaviorSubject.create<List<Ticker>>()
 
-            compositeDisposable.add(Observable.interval(0, 5000, TimeUnit.MILLISECONDS)
-                .flatMap {
-                    loadAllTicker().toObservable()
-                }
+            Observable.interval(0, 5000, TimeUnit.MILLISECONDS)
+                .flatMap { loadAllTicker().toObservable() }
                 .subscribe(behaviorSubject::onNext, behaviorSubject::onError)
-            )
+                .apply { compositeDisposable.add(this) }
+
         }
         subscribeCnt++
 

@@ -1,4 +1,4 @@
-package ado.sabgil.studyproject.data
+package ado.sabgil.studyproject.ext
 
 import io.reactivex.Maybe
 import io.reactivex.Observable

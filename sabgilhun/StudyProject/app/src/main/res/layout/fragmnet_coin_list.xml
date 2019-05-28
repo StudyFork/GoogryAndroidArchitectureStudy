@@ -19,9 +19,9 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_ticker_list"
-            android:layout_margin="8dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="8dp"
             android:background="@android:color/white"
             android:foregroundGravity="center"
             app:item="@{item}"

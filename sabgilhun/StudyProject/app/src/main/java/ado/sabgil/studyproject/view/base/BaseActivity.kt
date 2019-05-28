@@ -1,40 +1,42 @@
 package ado.sabgil.studyproject.view.base
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import io.reactivex.disposables.CompositeDisposable
 
-abstract class BaseActivity<B : ViewDataBinding, P : BaseContract.Presenter> constructor(
+abstract class BaseActivity<B : ViewDataBinding>(
     private val layoutId: Int
-) : AppCompatActivity(), BaseContract.View {
+) : AppCompatActivity() {
 
     protected lateinit var binding: B
         private set
 
-    protected lateinit var presenter: P
-        private set
+    protected var progressBar: View? = null
 
-    protected val disposables = CompositeDisposable()
-
-    protected abstract fun createPresenter(): P
+    protected val viewModelContainer = mutableListOf<BaseViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutId)
-        presenter = createPresenter()
     }
 
     override fun onDestroy() {
-        disposables.clear()
-        presenter.unSubscribe()
+        viewModelContainer.map { it.onDestroy() }
         super.onDestroy()
     }
 
-    override fun showToastMessage(msg: String) {
+    protected fun showToastMessage(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
+    protected fun showProgressBar() {
+        progressBar?.visibility = View.VISIBLE
+    }
+
+    protected fun hideProgressBar() {
+        progressBar?.visibility = View.GONE
+    }
 }

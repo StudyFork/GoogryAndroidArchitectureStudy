@@ -4,11 +4,11 @@ import ado.sabgil.studyproject.R
 import ado.sabgil.studyproject.adapter.TickerAdapter
 import ado.sabgil.studyproject.data.CoinRepositoryImpl
 import ado.sabgil.studyproject.databinding.FragmnetCoinListBinding
-import ado.sabgil.studyproject.view.base.BaseFragmentViewModel
+import ado.sabgil.studyproject.view.base.BaseFragment
 import android.os.Bundle
 import android.view.View
 
-class CoinListFragment : BaseFragmentViewModel<FragmnetCoinListBinding>(R.layout.fragmnet_coin_list) {
+class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(R.layout.fragmnet_coin_list) {
 
     private lateinit var coinListViewModel: CoinListViewModel
 
@@ -23,19 +23,9 @@ class CoinListFragment : BaseFragmentViewModel<FragmnetCoinListBinding>(R.layout
 
         progressBar = binding.pgCoinList
 
+        registerEvent()
+
         binding.rvTickerList.adapter = TickerAdapter()
-
-        coinListViewModel.showToastEventListeners.add {
-            showToastMessage(it)
-        }
-
-        coinListViewModel.showProgressEventListeners.add {
-            showProgressBar()
-        }
-
-        coinListViewModel.hideProgressEventListeners.add {
-            hideProgressBar()
-        }
 
         coinListViewModel.coinListListeners.add {
             binding.item = it
@@ -50,6 +40,20 @@ class CoinListFragment : BaseFragmentViewModel<FragmnetCoinListBinding>(R.layout
     override fun onPause() {
         coinListViewModel.unSubscribeRemote()
         super.onPause()
+    }
+
+    private fun registerEvent() {
+        coinListViewModel.showToastEventListeners.add {
+            showToastMessage(it)
+        }
+
+        coinListViewModel.showProgressEventListeners.add {
+            showProgressBar()
+        }
+
+        coinListViewModel.hideProgressEventListeners.add {
+            hideProgressBar()
+        }
     }
 
     companion object {
