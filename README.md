@@ -37,8 +37,8 @@
 [공간]()
 - 이선민 []()
 [공간]()
-- 오지수 []()
-[공간]()
+- 오지수 [machine-human](https://github.com/machine-human)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/machine-human)
 - 신현성 []()
 [공간]()
 
