@@ -144,11 +144,11 @@ object UpbitRepository
                     ) {
                         response.body()?.let {
                             coinCurrencyList =
-                                    it.map {
-                                        it.market.substring(0, it.market.indexOf("-"))
-                                    }
-                                        .distinct()
-                                        .toList()
+                                it.map {
+                                    it.market.substring(0, it.market.indexOf("-"))
+                                }
+                                    .distinct()
+                                    .toList()
 
                             success.invoke(
                                 coinCurrencyList!!
