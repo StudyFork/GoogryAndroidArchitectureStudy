@@ -35,10 +35,9 @@
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/zion830)
 - 정상용 []()
 [공간]()
-- 이선민 []()
-[공간]()
+- 이선민 [sport0102](https://github.com/sport0102)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/sport0102)
 - 오지수 []()
 [공간]()
 - 신현성 []()
 [공간]()
-
