@@ -29,16 +29,15 @@
 
 ## 2기
 
-- 강현석 []()
-[공간]()
+- 강현석 [BeokBeok](https://github.com/BeokBeok)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/BeokBeok)
 - 이윤지 [zion830](https://github.com/zion830)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/zion830)
 - 정상용 [NackUn](https://github.com/NackUn)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/NackUn)
-- 이선민 []()
-[공간]()
-- 오지수 []()
-[공간]()
-- 신현성 []()
-[공간]()
-
+- 오지수 [machine-human](https://github.com/machine-human)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/machine-human)
+- 이선민 [sport0102](https://github.com/sport0102)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/sport0102)
+- 신현성 [Nanamare](https://github.com/Nanamare)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/Nanamare)
