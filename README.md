@@ -39,5 +39,6 @@
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/sport0102)
 - 오지수 []()
 [공간]()
-- 신현성 []()
-[공간]()
+- 신현성 [Nanamare](https://github.com/Nanamare)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/Nanamare)
+
