@@ -11,16 +11,14 @@ import com.namjackson.archstudy.base.component.BaseOnItemSelectedListener
 import com.namjackson.archstudy.base.component.BaseTextWatcher
 import com.namjackson.archstudy.data.model.Ticker
 import com.namjackson.archstudy.data.source.TickerRepository
-import com.namjackson.archstudy.data.source.local.TickerLocalDataSourceImpl
-import com.namjackson.archstudy.data.source.remote.TickerRemoteDataSourceImpl
 import com.namjackson.archstudy.databinding.FragmentCoinListBinding
-import com.namjackson.archstudy.network.UpbitService
 import com.namjackson.archstudy.view.coinlist.adapter.CoinListAdapter
 import java.util.*
+import kotlin.properties.Delegates
 
 
 class CoinListFragment
-    : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coin_list){
+    : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coin_list) {
 
     private lateinit var adapter: CoinListAdapter
     private var timer: Timer = Timer()
@@ -98,5 +96,77 @@ class CoinListFragment
     companion object {
         private const val SECOND = 1000L
         fun newInstance() = CoinListFragment()
+    }
+
+
+    /*
+    * ViewModel
+    * */
+    inner class CoinListViewModel(
+        val tickerRepository: TickerRepository
+    ) {
+        private var coinList by Delegates.observable<List<Ticker>>(arrayListOf()) { _, _, newValue ->
+            showFilterCoinList()
+        }
+        private var searchStr by Delegates.observable("") { _, _, newValue ->
+            showFilterCoinList()
+        }
+
+        private var baseCurrency by Delegates.observable("") { _, _, newValue ->
+            showFilterCoinList()
+            initMarket()
+        }
+        private lateinit var markets: String
+
+
+        fun loadCoinList() {
+            if (!this::markets.isInitialized) {
+                initMarket()
+            } else {
+                getTickers(markets)
+            }
+        }
+
+        fun initMarket() {
+            showLoading()
+            tickerRepository.getMarketAll(
+                baseCurrency,
+                success = {
+                    markets = it
+                    getTickers(markets)
+                },
+                fail = {
+                    showError("Error : $it")
+                    hideLoading()
+                }
+            )
+        }
+
+        fun getTickers(markets: String) {
+            tickerRepository.getTickers(
+                markets,
+                success = {
+                    coinList = it
+                    showFilterCoinList()
+                    hideLoading()
+                },
+                fail = {
+                    showError("Error : $it")
+                    hideLoading()
+                }
+            )
+        }
+
+        fun changeBaseCurrency(baseCurrency: String) {
+            this.baseCurrency = baseCurrency
+        }
+
+        fun search(searchStr: String) {
+            this.searchStr = searchStr
+        }
+
+        private fun showFilterCoinList() {
+            showCoinList(coinList.filter { it.name.contains(searchStr.toUpperCase()) })
+        }
     }
 }
