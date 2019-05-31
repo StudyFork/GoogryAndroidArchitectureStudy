@@ -169,14 +169,6 @@ class TickerFragment : Fragment() {
         }
     }
 
-    fun showProgress() {
-        binding.srlTicker.isRefreshing = true
-    }
-
-    fun hideProgress() {
-        binding.srlTicker.isRefreshing = false
-    }
-
     fun toastTickerFailMsg(msg: String) {
         when (msg) {
             ResponseCode.CODE_NULL_SUCCESS,
@@ -215,7 +207,7 @@ class TickerFragment : Fragment() {
                 return@observable
             }
 
-            if (newValue) showProgress() else hideProgress()
+            binding.srlTicker.isRefreshing = newValue
         }
 
         /**
