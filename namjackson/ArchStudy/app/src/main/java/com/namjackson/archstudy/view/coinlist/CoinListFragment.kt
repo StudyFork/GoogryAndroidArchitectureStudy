@@ -11,7 +11,10 @@ import com.namjackson.archstudy.base.component.BaseOnItemSelectedListener
 import com.namjackson.archstudy.base.component.BaseTextWatcher
 import com.namjackson.archstudy.data.model.Ticker
 import com.namjackson.archstudy.data.source.TickerRepository
+import com.namjackson.archstudy.data.source.local.TickerLocalDataSourceImpl
+import com.namjackson.archstudy.data.source.remote.TickerRemoteDataSourceImpl
 import com.namjackson.archstudy.databinding.FragmentCoinListBinding
+import com.namjackson.archstudy.network.UpbitService
 import com.namjackson.archstudy.view.coinlist.adapter.CoinListAdapter
 import java.util.*
 import kotlin.properties.Delegates
@@ -23,10 +26,17 @@ class CoinListFragment
     private lateinit var adapter: CoinListAdapter
     private var timer: Timer = Timer()
 
+    private val viewModel by lazy {
+        CoinListViewModel(
+            TickerRepository.getInstance(
+                TickerLocalDataSourceImpl.getInstance(),
+                TickerRemoteDataSourceImpl.getInstance(UpbitService.upbitApi)
+            )
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         initLayout()
         initSpinner()
@@ -39,6 +49,7 @@ class CoinListFragment
 
         binding.search.addTextChangedListener(object : BaseTextWatcher {
             override fun afterTextChanged(s: Editable) {
+                viewModel.search(s.toString())
             }
         })
     }
@@ -52,6 +63,7 @@ class CoinListFragment
 
         binding.spinner.onItemSelectedListener = object : BaseOnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, p1: View?, position: Int, p3: Long) {
+                viewModel.changeBaseCurrency(parent.getItemAtPosition(position).toString())
             }
         }
     }
@@ -61,6 +73,7 @@ class CoinListFragment
         timer = Timer()
         timer.schedule(object : TimerTask() {
             override fun run() {
+                viewModel.loadCoinList()
             }
         }, 0, (10 * SECOND))
     }
@@ -113,7 +126,6 @@ class CoinListFragment
         }
 
         private var baseCurrency by Delegates.observable("") { _, _, newValue ->
-            showFilterCoinList()
             initMarket()
         }
         private lateinit var markets: String
@@ -125,6 +137,14 @@ class CoinListFragment
             } else {
                 getTickers(markets)
             }
+        }
+
+        fun changeBaseCurrency(baseCurrency: String) {
+            this.baseCurrency = baseCurrency
+        }
+
+        fun search(searchStr: String) {
+            this.searchStr = searchStr
         }
 
         fun initMarket() {
@@ -147,7 +167,6 @@ class CoinListFragment
                 markets,
                 success = {
                     coinList = it
-                    showFilterCoinList()
                     hideLoading()
                 },
                 fail = {
@@ -155,14 +174,6 @@ class CoinListFragment
                     hideLoading()
                 }
             )
-        }
-
-        fun changeBaseCurrency(baseCurrency: String) {
-            this.baseCurrency = baseCurrency
-        }
-
-        fun search(searchStr: String) {
-            this.searchStr = searchStr
         }
 
         private fun showFilterCoinList() {
