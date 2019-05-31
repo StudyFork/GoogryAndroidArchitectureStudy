@@ -169,6 +169,23 @@ class TickerFragment : Fragment() {
         }
     }
 
+    fun showProgress() {
+        binding.srlTicker.isRefreshing = true
+    }
+
+    fun hideProgress() {
+        binding.srlTicker.isRefreshing = false
+    }
+
+    fun toastTickerFailMsg(msg: String) {
+        when (msg) {
+            ResponseCode.CODE_NULL_SUCCESS,
+            ResponseCode.CODE_NULL_FAIL_MSG -> activity!!.toast(R.string.all_network_error)
+            ResponseCode.CODE_EMPTY_SUCCESS -> activity!!.toast(R.string.ticker_fragment_empty)
+            else -> activity!!.toast(msg)
+        }
+    }
+
     companion object {
         fun newInstance(): TickerFragment {
             return TickerFragment()
@@ -187,12 +204,7 @@ class TickerFragment : Fragment() {
          * 통신 실패시 메시지
          */
         private var failMsg by Delegates.observable("") { _, _, newValue ->
-            when (newValue) {
-                ResponseCode.CODE_NULL_SUCCESS,
-                ResponseCode.CODE_NULL_FAIL_MSG -> activity!!.toast(R.string.all_network_error)
-                ResponseCode.CODE_EMPTY_SUCCESS -> activity!!.toast(R.string.ticker_fragment_empty)
-                else -> activity!!.toast(newValue)
-            }
+            toastTickerFailMsg(newValue)
         }
 
         /**
@@ -202,7 +214,8 @@ class TickerFragment : Fragment() {
             if (oldValue == newValue) {
                 return@observable
             }
-            binding.srlTicker.isRefreshing = newValue
+
+            if (newValue) showProgress() else hideProgress()
         }
 
         /**
