@@ -20,26 +20,14 @@ import java.util.*
 
 
 class CoinListFragment
-    : BaseFragment<FragmentCoinListBinding, CoinListContract.Presenter>(R.layout.fragment_coin_list),
-    CoinListContract.View {
-
+    : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coin_list){
 
     private lateinit var adapter: CoinListAdapter
     private var timer: Timer = Timer()
 
-    override fun showCoinList(ticker: List<Ticker>) {
-        adapter.setList(ticker)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter = CoinListPresenter(
-            TickerRepository.getInstance(
-                TickerLocalDataSourceImpl.getInstance(),
-                TickerRemoteDataSourceImpl.getInstance(UpbitService.upbitApi)
-            ),
-            this
-        )
 
 
         initLayout()
@@ -53,7 +41,6 @@ class CoinListFragment
 
         binding.search.addTextChangedListener(object : BaseTextWatcher {
             override fun afterTextChanged(s: Editable) {
-                presenter.search(s.toString())
             }
         })
     }
@@ -67,7 +54,6 @@ class CoinListFragment
 
         binding.spinner.onItemSelectedListener = object : BaseOnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, p1: View?, position: Int, p3: Long) {
-                presenter.changeBaseCurrency(parent.getItemAtPosition(position).toString())
             }
         }
     }
@@ -77,7 +63,6 @@ class CoinListFragment
         timer = Timer()
         timer.schedule(object : TimerTask() {
             override fun run() {
-                presenter.loadCoinList()
             }
         }, 0, (10 * SECOND))
     }
@@ -87,12 +72,16 @@ class CoinListFragment
         super.onPause()
     }
 
-    override fun showLoading() {
+    fun showCoinList(ticker: List<Ticker>) {
+        adapter.setList(ticker)
+    }
+
+    fun showLoading() {
         setProgress(true)
         setRecyclerView(false)
     }
 
-    override fun hideLoading() {
+    fun hideLoading() {
         setProgress(false)
         setRecyclerView(true)
     }
@@ -100,14 +89,13 @@ class CoinListFragment
     fun setProgress(boolean: Boolean) {
         binding.progress.visibility = if (boolean) View.VISIBLE else View.GONE
     }
-    
+
     fun setRecyclerView(boolean: Boolean) {
         binding.recyclerView.visibility = if (boolean) View.VISIBLE else View.GONE
     }
 
 
     companion object {
-
         private const val SECOND = 1000L
         fun newInstance() = CoinListFragment()
     }
