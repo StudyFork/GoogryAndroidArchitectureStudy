@@ -208,12 +208,12 @@ class TickerFragment : Fragment() {
         /**
          * 마켓 어레이
          */
-        private lateinit var _currencyArray: Array<String>
+        private lateinit var currencyArray: Array<String>
 
         /**
          * 기준 마켓
          */
-        private lateinit var _baseCurrency: String
+        private lateinit var baseCurrency: String
 
         fun loadUpbitTicker(searchTicker: String? = null) {
             isShowProgressBar = true
@@ -223,7 +223,7 @@ class TickerFragment : Fragment() {
                 searchTicker ?: "",
                 success = {
                     isShowProgressBar = false
-                    if (!::_currencyArray.isInitialized) {
+                    if (!::currencyArray.isInitialized) {
                         initCurrentArray()
                     }
                     tickerList = it
@@ -235,13 +235,13 @@ class TickerFragment : Fragment() {
             )
         }
 
-        fun getBaseCurrency() = if (!::_baseCurrency.isInitialized) "" else _baseCurrency
+        fun getBaseCurrency() = if (!::baseCurrency.isInitialized) "" else baseCurrency
 
         fun setBaseCurrency(baseCurrency: String) {
-            _baseCurrency = if (baseCurrency == ALL_CURRENCY) "" else baseCurrency
+            this.baseCurrency = if (baseCurrency == ALL_CURRENCY) "" else baseCurrency
         }
 
-        fun getCurrencyArray() = if (!::_currencyArray.isInitialized) emptyArray() else _currencyArray
+        fun getCurrencyArray() = if (!::currencyArray.isInitialized) emptyArray() else currencyArray
 
         private fun initCurrentArray() {
             val list = arrayListOf<String>()
@@ -250,7 +250,7 @@ class TickerFragment : Fragment() {
                 .map { market -> market.substringBefore("-") }
                 .distinct())
 
-            _currencyArray = list.toTypedArray()
+            currencyArray = list.toTypedArray()
         }
 
         fun cancelApi() {
