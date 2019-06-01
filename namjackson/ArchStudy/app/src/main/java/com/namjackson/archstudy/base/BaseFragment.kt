@@ -17,7 +17,7 @@ abstract class BaseFragment<B : ViewDataBinding>(private val layoutId: Int) : Fr
         return binding.root
     }
 
-    fun showError(errorMsg: String) {
+    fun showToast(errorMsg: String) {
         Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
     }
 }

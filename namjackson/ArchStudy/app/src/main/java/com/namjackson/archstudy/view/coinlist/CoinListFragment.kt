@@ -131,7 +131,7 @@ class CoinListFragment
             if (newValue) showLoading() else hideLoading()
         }
         private var errorMsg by Delegates.observable("") { _, _, newValue ->
-            showError(newValue)
+            showToast(newValue)
         }
         private lateinit var markets: String
 
