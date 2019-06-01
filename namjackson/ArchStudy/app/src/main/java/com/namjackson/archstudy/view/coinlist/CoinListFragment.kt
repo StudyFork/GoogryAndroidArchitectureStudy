@@ -130,6 +130,9 @@ class CoinListFragment
         private var isLoading by Delegates.observable(false) { _, _, newValue ->
             if(newValue) showLoading() else hideLoading()
         }
+        private var errorMsg by Delegates.observable(""){_,_,newValue ->
+            showError(newValue)
+        }
         private lateinit var markets: String
 
 
@@ -158,7 +161,7 @@ class CoinListFragment
                     getTickers(markets)
                 },
                 fail = {
-                    showError("Error : $it")
+                    errorMsg=it
                     isLoading =false
                 }
             )
@@ -172,7 +175,7 @@ class CoinListFragment
                     isLoading =false
                 },
                 fail = {
-                    showError("Error : $it")
+                    errorMsg=it
                     isLoading =false
                 }
             )
