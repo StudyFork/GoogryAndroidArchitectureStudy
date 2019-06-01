@@ -24,8 +24,8 @@ class HomeActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         registerEvent()
 
-        homeViewModel.marketListListeners.add {
-            it?.let { marketList -> updateViewPager(marketList) }
+        homeViewModel.marketListListeners = {
+            updateViewPager(it)
         }
 
         homeViewModel.loadMarketList()
@@ -47,17 +47,11 @@ class HomeActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun registerEvent() {
-        homeViewModel.showToastEventListeners.add {
-            showToastMessage(it)
-        }
+        homeViewModel.showToastEventListeners = ::showToastMessage
 
-        homeViewModel.showProgressEventListeners.add {
-            showProgressBar()
-        }
+        homeViewModel.showProgressEventListeners = ::showProgressBar
 
-        homeViewModel.hideProgressEventListeners.add {
-            hideProgressBar()
-        }
+        homeViewModel.hideProgressEventListeners = ::hideProgressBar
     }
 
     private fun updateViewPager(marketList: List<String>) {

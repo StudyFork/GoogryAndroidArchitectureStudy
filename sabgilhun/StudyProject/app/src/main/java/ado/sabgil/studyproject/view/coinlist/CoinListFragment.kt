@@ -44,17 +44,11 @@ class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(R.layout.fragmnet
     }
 
     private fun registerEvent() {
-        coinListViewModel.showToastEventListeners.add {
-            showToastMessage(it)
-        }
+        coinListViewModel.showToastEventListeners = ::showToastMessage
 
-        coinListViewModel.showProgressEventListeners.add {
-            showProgressBar()
-        }
+        coinListViewModel.showProgressEventListeners = ::showProgressBar
 
-        coinListViewModel.hideProgressEventListeners.add {
-            hideProgressBar()
-        }
+        coinListViewModel.hideProgressEventListeners = ::hideProgressBar
     }
 
     companion object {

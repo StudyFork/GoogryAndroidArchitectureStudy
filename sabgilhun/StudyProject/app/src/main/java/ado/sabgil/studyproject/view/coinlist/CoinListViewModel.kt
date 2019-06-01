@@ -17,12 +17,6 @@ class CoinListViewModel(
         }
     }
 
-    val showToastEventListeners = mutableListOf<((String) -> Unit)?>()
-
-    val showProgressEventListeners = mutableListOf<(() -> Unit)?>()
-
-    val hideProgressEventListeners = mutableListOf<(() -> Unit)?>()
-
     fun subscribeRemote() {
         showProgressBar()
         coinRepository.getCoinDataChangeWithCurrency(baseCurrency,
@@ -39,17 +33,5 @@ class CoinListViewModel(
     fun unSubscribeRemote() {
         coinRepository.unSubscribeCoinDataChange()
         disposables.clear()
-    }
-
-    private fun showToast(message: String) {
-        showToastEventListeners.map { it?.invoke(message) }
-    }
-
-    private fun showProgressBar() {
-        showProgressEventListeners.map { it?.invoke() }
-    }
-
-    private fun hideProgressBar() {
-        hideProgressEventListeners.map { it?.invoke() }
     }
 }

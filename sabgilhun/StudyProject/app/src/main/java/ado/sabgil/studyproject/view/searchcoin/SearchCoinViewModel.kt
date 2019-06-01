@@ -2,33 +2,42 @@ package ado.sabgil.studyproject.view.searchcoin
 
 import ado.sabgil.studyproject.data.CoinRepository
 import ado.sabgil.studyproject.data.model.Ticker
+import ado.sabgil.studyproject.ext.isEmpty
 import ado.sabgil.studyproject.view.base.BaseViewModel
 import kotlin.properties.Delegates
 
 class SearchCoinViewModel(private val coinRepository: CoinRepository) : BaseViewModel() {
 
-    val coinListListeners = mutableListOf<((List<Ticker>?) -> Unit)?>()
-    private var coinList: List<Ticker>? by Delegates.observable(emptyList()) { _, _, newValue ->
-        coinListListeners.map {
-            it?.invoke(newValue)
-        }
+    var coinListListeners: ((List<Ticker>) -> Unit)? = null
+    private var coinList: List<Ticker> by Delegates.observable(emptyList()) { _, _, newValue ->
+        coinListListeners?.invoke(newValue)
     }
 
-    val showToastEventListeners = mutableListOf<((String) -> Unit)?>()
-
-    val showProgressEventListeners = mutableListOf<(() -> Unit)?>()
-
-    val hideProgressEventListeners = mutableListOf<(() -> Unit)?>()
+    var keyword = ""
 
     private var currentCoin = ""
 
-    fun searchCoin(coinName: String) {
+    fun searchCoinByKeyword() {
 
-        if (coinName.isBlank()) {
+        if (keyword.isBlank()) {
             showToast("검색할 코인을 입력해주세요.")
             return
         }
 
+        searchCoinData(keyword)
+    }
+
+    fun subscribeCoinData() {
+        if (disposables.isEmpty() && currentCoin.isNotBlank()) {
+            searchCoinData(currentCoin)
+        }
+    }
+
+    fun unSubscribeCoinData() {
+        disposables.clear()
+    }
+
+    private fun searchCoinData(coinName: String) {
         showProgressBar()
         if (disposables.size() > 0) {
             disposables.clear()
@@ -49,27 +58,6 @@ class SearchCoinViewModel(private val coinRepository: CoinRepository) : BaseView
                 showToast(error)
             }
         ).apply { disposables.add(this) }
-    }
 
-    fun subscribeCoinData() {
-        if (disposables.size() == 0 && currentCoin != "") {
-            searchCoin(currentCoin)
-        }
-    }
-
-    fun unSubscribeCoinData() {
-        disposables.clear()
-    }
-
-    private fun showToast(message: String) {
-        showToastEventListeners.map { it?.invoke(message) }
-    }
-
-    private fun showProgressBar() {
-        showProgressEventListeners.map { it?.invoke() }
-    }
-
-    private fun hideProgressBar() {
-        hideProgressEventListeners.map { it?.invoke() }
     }
 }

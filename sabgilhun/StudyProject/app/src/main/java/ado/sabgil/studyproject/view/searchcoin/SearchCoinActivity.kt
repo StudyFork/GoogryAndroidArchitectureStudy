@@ -4,6 +4,7 @@ import ado.sabgil.studyproject.R
 import ado.sabgil.studyproject.adapter.TickerAdapter
 import ado.sabgil.studyproject.data.CoinRepositoryImpl
 import ado.sabgil.studyproject.databinding.ActivitySearchCoinBinding
+import ado.sabgil.studyproject.ext.setTextChangeListener
 import ado.sabgil.studyproject.view.base.BaseActivity
 import android.os.Bundle
 
@@ -22,12 +23,16 @@ class SearchCoinActivity :
         binding.rvTickerList.adapter = TickerAdapter()
 
         binding.tvSearch.setOnClickListener {
-            searchCoinViewModel.searchCoin(binding.etKeyword.text.toString())
+            searchCoinViewModel.searchCoinByKeyword()
+        }
+
+        binding.etKeyword.setTextChangeListener {
+            searchCoinViewModel.keyword = it
         }
 
         registerEvent()
 
-        searchCoinViewModel.coinListListeners.add {
+        searchCoinViewModel.coinListListeners = {
             binding.item = it
         }
     }
@@ -43,16 +48,10 @@ class SearchCoinActivity :
     }
 
     private fun registerEvent() {
-        searchCoinViewModel.showToastEventListeners.add {
-            showToastMessage(it)
-        }
+        searchCoinViewModel.showToastEventListeners = ::showToastMessage
 
-        searchCoinViewModel.showProgressEventListeners.add {
-            showProgressBar()
-        }
+        searchCoinViewModel.showProgressEventListeners = ::showProgressBar
 
-        searchCoinViewModel.hideProgressEventListeners.add {
-            hideProgressBar()
-        }
+        searchCoinViewModel.hideProgressEventListeners = ::hideProgressBar
     }
 }

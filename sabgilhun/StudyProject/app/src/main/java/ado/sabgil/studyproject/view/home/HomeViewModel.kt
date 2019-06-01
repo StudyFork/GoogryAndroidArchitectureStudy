@@ -6,19 +6,11 @@ import kotlin.properties.Delegates
 
 class HomeViewModel(private val coinRepository: CoinRepository) : BaseViewModel() {
 
-    val marketListListeners = mutableListOf<((List<String>?) -> Unit)?>()
+    var marketListListeners: ((List<String>) -> Unit)? = null
 
-    private var marketList: List<String>? by Delegates.observable(emptyList()) { _, _, newValue ->
-        marketListListeners.map {
-            it?.invoke(newValue)
-        }
+    private var marketList: List<String> by Delegates.observable(emptyList()) { _, _, newValue ->
+        marketListListeners?.invoke(newValue)
     }
-
-    val showToastEventListeners = mutableListOf<((String) -> Unit)?>()
-
-    val showProgressEventListeners = mutableListOf<(() -> Unit)?>()
-
-    val hideProgressEventListeners = mutableListOf<(() -> Unit)?>()
 
     fun loadMarketList() {
         showProgressBar()
@@ -32,17 +24,5 @@ class HomeViewModel(private val coinRepository: CoinRepository) : BaseViewModel(
                 showToast(error)
             }
         ).apply { disposables.add(this) }
-    }
-
-    private fun showToast(message: String) {
-        showToastEventListeners.map { it?.invoke(message) }
-    }
-
-    private fun showProgressBar() {
-        showProgressEventListeners.map { it?.invoke() }
-    }
-
-    private fun hideProgressBar() {
-        hideProgressEventListeners.map { it?.invoke() }
     }
 }
