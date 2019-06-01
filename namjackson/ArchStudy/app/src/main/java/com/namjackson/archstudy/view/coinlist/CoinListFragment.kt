@@ -128,9 +128,9 @@ class CoinListFragment
             initMarket()
         }
         private var isLoading by Delegates.observable(false) { _, _, newValue ->
-            if(newValue) showLoading() else hideLoading()
+            if (newValue) showLoading() else hideLoading()
         }
-        private var errorMsg by Delegates.observable(""){_,_,newValue ->
+        private var errorMsg by Delegates.observable("") { _, _, newValue ->
             showError(newValue)
         }
         private lateinit var markets: String
@@ -153,7 +153,7 @@ class CoinListFragment
         }
 
         fun initMarket() {
-            isLoading=true
+            isLoading = true
             tickerRepository.getMarketAll(
                 baseCurrency,
                 success = {
@@ -161,8 +161,8 @@ class CoinListFragment
                     getTickers(markets)
                 },
                 fail = {
-                    errorMsg=it
-                    isLoading =false
+                    errorMsg = it
+                    isLoading = false
                 }
             )
         }
@@ -172,11 +172,11 @@ class CoinListFragment
                 markets,
                 success = {
                     coinList = it
-                    isLoading =false
+                    isLoading = false
                 },
                 fail = {
-                    errorMsg=it
-                    isLoading =false
+                    errorMsg = it
+                    isLoading = false
                 }
             )
         }
