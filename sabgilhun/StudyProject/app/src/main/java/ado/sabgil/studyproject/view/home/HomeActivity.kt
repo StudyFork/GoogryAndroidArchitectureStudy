@@ -20,15 +20,14 @@ class HomeActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         progressBar = binding.pgHome
 
-        homeViewModel = HomeViewModel(CoinRepositoryImpl).apply { viewModelContainer.add(this) }
+        homeViewModel = addingToContainer {
+            HomeViewModel(CoinRepositoryImpl)
+        }
 
         registerEvent()
 
-        homeViewModel.marketListListeners = {
-            updateViewPager(it)
-        }
-
         homeViewModel.loadMarketList()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -47,21 +46,29 @@ class HomeActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun registerEvent() {
-        homeViewModel.showToastEventListeners = ::showToastMessage
+        homeViewModel.run {
+            showToastEventListeners = ::showToastMessage
 
-        homeViewModel.showProgressEventListeners = ::showProgressBar
+            showProgressEventListeners = ::showProgressBar
 
-        homeViewModel.hideProgressEventListeners = ::hideProgressBar
+            hideProgressEventListeners = ::hideProgressBar
+
+            marketListListeners = ::updateViewPager
+        }
     }
 
     private fun updateViewPager(marketList: List<String>) {
-        binding.vpCoinList.apply {
-            adapter = CoinListPagerAdapter(
-                supportFragmentManager,
-                marketList.map { it to CoinListFragment.newInstance(it) }.toMap()
-            )
-            offscreenPageLimit = marketList.size - 1
+        bind {
+            vpCoinList.apply {
+                adapter = CoinListPagerAdapter(
+                    supportFragmentManager,
+                    marketList.map {
+                        it to CoinListFragment.newInstance(it)
+                    }.toMap()
+                )
+                offscreenPageLimit = marketList.size - 1
+            }
+            tlCoinList.setupWithViewPager(vpCoinList)
         }
-        binding.tlCoinList.setupWithViewPager(binding.vpCoinList)
     }
 }

@@ -39,4 +39,14 @@ abstract class BaseActivity<B : ViewDataBinding>(
     protected fun hideProgressBar() {
         progressBar?.visibility = View.GONE
     }
+
+    protected fun bind(block: B.() -> Unit) {
+        binding.block()
+    }
+
+    protected fun <T : BaseViewModel> addingToContainer(block: () -> T): T {
+        return block().apply {
+            viewModelContainer.add(this)
+        }
+    }
 }

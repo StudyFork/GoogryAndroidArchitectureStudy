@@ -16,25 +16,23 @@ class SearchCoinActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        searchCoinViewModel = SearchCoinViewModel(CoinRepositoryImpl).apply { viewModelContainer.add(this) }
-
         progressBar = binding.pgCoinList
 
-        binding.rvTickerList.adapter = TickerAdapter()
-
-        binding.tvSearch.setOnClickListener {
-            searchCoinViewModel.searchCoinByKeyword()
+        searchCoinViewModel = addingToContainer {
+            SearchCoinViewModel(CoinRepositoryImpl)
         }
+        
+        bind {
+            rvTickerList.adapter = TickerAdapter()
 
-        binding.etKeyword.setTextChangeListener {
-            searchCoinViewModel.keyword = it
+            tvSearch.setOnClickListener {
+                searchCoinViewModel.searchCoinByKeyword()
+            }
+
+            etKeyword.setTextChangeListener(searchCoinViewModel::keyword::set)
         }
 
         registerEvent()
-
-        searchCoinViewModel.coinListListeners = {
-            binding.item = it
-        }
     }
 
     override fun onResume() {
@@ -48,10 +46,14 @@ class SearchCoinActivity :
     }
 
     private fun registerEvent() {
-        searchCoinViewModel.showToastEventListeners = ::showToastMessage
+        searchCoinViewModel.run {
+            showToastEventListeners = ::showToastMessage
 
-        searchCoinViewModel.showProgressEventListeners = ::showProgressBar
+            showProgressEventListeners = ::showProgressBar
 
-        searchCoinViewModel.hideProgressEventListeners = ::hideProgressBar
+            hideProgressEventListeners = ::hideProgressBar
+
+            coinListListeners = binding::setItem
+        }
     }
 }

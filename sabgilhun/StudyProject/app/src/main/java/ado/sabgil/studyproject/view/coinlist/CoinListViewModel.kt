@@ -10,11 +10,10 @@ class CoinListViewModel(
     private val coinRepository: CoinRepository
 ) : BaseViewModel() {
 
-    val coinListListeners = mutableListOf<((List<Ticker>?) -> Unit)?>()
-    private var coinList: List<Ticker>? by Delegates.observable(emptyList()) { _, _, newValue ->
-        coinListListeners.map {
-            it?.invoke(newValue)
-        }
+    var coinListListeners: ((List<Ticker>) -> Unit)? = null
+
+    private var coinList: List<Ticker> by Delegates.observable(emptyList()) { _, _, newValue ->
+        coinListListeners?.invoke(newValue)
     }
 
     fun subscribeRemote() {

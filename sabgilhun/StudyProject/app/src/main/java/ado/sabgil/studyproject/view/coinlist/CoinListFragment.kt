@@ -19,18 +19,17 @@ class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(R.layout.fragmnet
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        coinListViewModel =
-            CoinListViewModel(baseCurrency!!, CoinRepositoryImpl).apply { viewModelContainer.add(this) }
-
         progressBar = binding.pgCoinList
 
-        registerEvent()
-
-        binding.rvTickerList.adapter = TickerAdapter()
-
-        coinListViewModel.coinListListeners.add {
-            binding.item = it
+        coinListViewModel = addingToContainer {
+            CoinListViewModel(baseCurrency!!, CoinRepositoryImpl)
         }
+
+        bind {
+            rvTickerList.adapter = TickerAdapter()
+        }
+
+        registerEvent()
     }
 
     override fun onResume() {
@@ -44,11 +43,15 @@ class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(R.layout.fragmnet
     }
 
     private fun registerEvent() {
-        coinListViewModel.showToastEventListeners = ::showToastMessage
+        coinListViewModel.run {
+            showToastEventListeners = ::showToastMessage
 
-        coinListViewModel.showProgressEventListeners = ::showProgressBar
+            showProgressEventListeners = ::showProgressBar
 
-        coinListViewModel.hideProgressEventListeners = ::hideProgressBar
+            hideProgressEventListeners = ::hideProgressBar
+
+            coinListListeners = binding::setItem
+        }
     }
 
     companion object {
