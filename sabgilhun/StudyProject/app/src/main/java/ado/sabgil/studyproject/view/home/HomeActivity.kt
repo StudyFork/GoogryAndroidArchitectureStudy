@@ -27,7 +27,6 @@ class HomeActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         registerEvent()
 
         homeViewModel.loadMarketList()
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

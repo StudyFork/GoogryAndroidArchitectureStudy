@@ -10,8 +10,8 @@ import retrofit2.http.Query
 interface UpbitApi {
 
     @GET(value = "market/all")
-    fun getMarketCode(): Single<List<UpbitMarketCodeResponse>>
+    fun loadMarketCode(): Single<List<UpbitMarketCodeResponse>>
 
     @GET(value = "ticker")
-    fun getTickerList(@Query("markets") marketCodes: String): Observable<List<UpbitTickerResponse>>
+    fun loadTickerList(@Query("markets") marketCodes: String): Observable<List<UpbitTickerResponse>>
 }

@@ -3,6 +3,7 @@ package ado.sabgil.studyproject.view.coinlist
 import ado.sabgil.studyproject.data.CoinRepository
 import ado.sabgil.studyproject.data.model.Ticker
 import ado.sabgil.studyproject.view.base.BaseViewModel
+import io.reactivex.rxkotlin.addTo
 import kotlin.properties.Delegates
 
 class CoinListViewModel(
@@ -18,7 +19,7 @@ class CoinListViewModel(
 
     fun subscribeRemote() {
         showProgressBar()
-        coinRepository.getCoinDataChangeWithCurrency(baseCurrency,
+        coinRepository.subscribeCoinDataByCurrency(baseCurrency,
             { response ->
                 hideProgressBar()
                 coinList = response
@@ -26,11 +27,11 @@ class CoinListViewModel(
                 hideProgressBar()
                 showToast(error)
             }
-        ).apply { disposables.add(this) }
+        ).addTo(disposables)
     }
 
     fun unSubscribeRemote() {
-        coinRepository.unSubscribeCoinDataChange()
+        coinRepository.unSubscribeCoinData()
         disposables.clear()
     }
 }

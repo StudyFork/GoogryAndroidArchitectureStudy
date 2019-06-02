@@ -8,8 +8,14 @@ interface CoinDataSource {
 
     fun loadMarketList(): Single<List<String>>
 
-    fun subscribeCoinDataChange(): Observable<List<Ticker>>
+    fun subscribeCoinDataByCurrency(
+        baseCurrency: String
+    ): Observable<List<Ticker>>
 
-    fun unSubscribeCoinDataChange()
+    fun subscribeCoinDataByCoinName(
+        coinName: String
+    ): Observable<List<Ticker>>
+
+    fun unSubscribeCoinData()
 
 }

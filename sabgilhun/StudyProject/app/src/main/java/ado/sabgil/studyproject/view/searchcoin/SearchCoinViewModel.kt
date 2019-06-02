@@ -4,6 +4,7 @@ import ado.sabgil.studyproject.data.CoinRepository
 import ado.sabgil.studyproject.data.model.Ticker
 import ado.sabgil.studyproject.ext.isEmpty
 import ado.sabgil.studyproject.view.base.BaseViewModel
+import io.reactivex.rxkotlin.addTo
 import kotlin.properties.Delegates
 
 class SearchCoinViewModel(private val coinRepository: CoinRepository) : BaseViewModel() {
@@ -43,7 +44,8 @@ class SearchCoinViewModel(private val coinRepository: CoinRepository) : BaseView
             disposables.clear()
         }
 
-        coinRepository.getCoinDataChangeWithCoinName(coinName.toUpperCase(),
+        coinRepository.subscribeCoinDataByCoinName(
+            coinName.toUpperCase(),
             { response ->
                 hideProgressBar()
                 if (response.isNotEmpty()) {
@@ -57,7 +59,7 @@ class SearchCoinViewModel(private val coinRepository: CoinRepository) : BaseView
                 hideProgressBar()
                 showToast(error)
             }
-        ).apply { disposables.add(this) }
+        ).addTo(disposables)
 
     }
 }

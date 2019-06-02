@@ -21,7 +21,7 @@ class SearchCoinActivity :
         searchCoinViewModel = addingToContainer {
             SearchCoinViewModel(CoinRepositoryImpl)
         }
-        
+
         bind {
             rvTickerList.adapter = TickerAdapter()
 

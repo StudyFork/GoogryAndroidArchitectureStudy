@@ -2,6 +2,7 @@ package ado.sabgil.studyproject.view.home
 
 import ado.sabgil.studyproject.data.CoinRepository
 import ado.sabgil.studyproject.view.base.BaseViewModel
+import io.reactivex.rxkotlin.addTo
 import kotlin.properties.Delegates
 
 class HomeViewModel(private val coinRepository: CoinRepository) : BaseViewModel() {
@@ -23,6 +24,6 @@ class HomeViewModel(private val coinRepository: CoinRepository) : BaseViewModel(
                 hideProgressBar()
                 showToast(error)
             }
-        ).apply { disposables.add(this) }
+        ).addTo(disposables)
     }
 }
