@@ -21,7 +21,7 @@ class SearchCoinViewModel(private val coinRepository: CoinRepository) : BaseView
     fun searchCoinByKeyword() {
 
         if (keyword.isBlank()) {
-            showToast("검색할 코인을 입력해주세요.")
+            handleErrorMessage("검색할 코인을 입력해주세요.")
             return
         }
 
@@ -39,7 +39,7 @@ class SearchCoinViewModel(private val coinRepository: CoinRepository) : BaseView
     }
 
     private fun searchCoinData(coinName: String) {
-        showProgressBar()
+        startLoading()
         if (disposables.size() > 0) {
             disposables.clear()
         }
@@ -47,17 +47,17 @@ class SearchCoinViewModel(private val coinRepository: CoinRepository) : BaseView
         coinRepository.subscribeCoinDataByCoinName(
             coinName.toUpperCase(),
             { response ->
-                hideProgressBar()
+                endLoading()
                 if (response.isNotEmpty()) {
                     currentCoin = coinName
                     coinList = response
                 } else {
                     disposables.clear()
-                    showToast("검색한 코인에 대한 결과가 없습니다.")
+                    handleErrorMessage("검색한 코인에 대한 결과가 없습니다.")
                 }
             }, { error ->
-                hideProgressBar()
-                showToast(error)
+                endLoading()
+                handleErrorMessage(error)
             }
         ).addTo(disposables)
 

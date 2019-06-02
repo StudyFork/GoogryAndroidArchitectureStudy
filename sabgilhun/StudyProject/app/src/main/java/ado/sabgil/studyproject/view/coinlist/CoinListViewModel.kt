@@ -18,14 +18,14 @@ class CoinListViewModel(
     }
 
     fun subscribeRemote() {
-        showProgressBar()
+        startLoading()
         coinRepository.subscribeCoinDataByCurrency(baseCurrency,
             { response ->
-                hideProgressBar()
+                endLoading()
                 coinList = response
             }, { error ->
-                hideProgressBar()
-                showToast(error)
+                endLoading()
+                handleErrorMessage(error)
             }
         ).addTo(disposables)
     }

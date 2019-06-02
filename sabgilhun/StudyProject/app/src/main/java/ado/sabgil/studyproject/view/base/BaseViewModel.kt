@@ -17,15 +17,20 @@ abstract class BaseViewModel {
         disposables.clear()
     }
 
-    protected fun showToast(message: String) {
+    protected fun handleErrorMessage(message: String) {
         showToastEventListeners?.invoke(message)
     }
 
-    protected fun showProgressBar() {
+    protected fun handleErrorMessage(throwable: Throwable) {
+        throwable.printStackTrace()
+        showToastEventListeners?.invoke("서버에서 데이터를 가져오는데에 실패하였습니다.")
+    }
+
+    protected fun startLoading() {
         showProgressEventListeners?.invoke()
     }
 
-    protected fun hideProgressBar() {
+    protected fun endLoading() {
         hideProgressEventListeners?.invoke()
     }
 

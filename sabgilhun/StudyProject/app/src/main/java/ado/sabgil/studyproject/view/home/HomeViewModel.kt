@@ -14,15 +14,15 @@ class HomeViewModel(private val coinRepository: CoinRepository) : BaseViewModel(
     }
 
     fun loadMarketList() {
-        showProgressBar()
+        startLoading()
 
         coinRepository.loadMarketList(
             { response ->
-                hideProgressBar()
+                endLoading()
                 marketList = response
             }, { error ->
-                hideProgressBar()
-                showToast(error)
+                endLoading()
+                handleErrorMessage(error)
             }
         ).addTo(disposables)
     }
