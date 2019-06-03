@@ -24,7 +24,9 @@ abstract class BaseActivity<B : ViewDataBinding>(
     }
 
     override fun onDestroy() {
-        viewModelContainer.map { it.onDestroy() }
+        for (viewModel in viewModelContainer) {
+            viewModel.onDestroy()
+        }
         super.onDestroy()
     }
 

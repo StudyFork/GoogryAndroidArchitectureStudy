@@ -19,7 +19,8 @@ class CoinListViewModel(
 
     fun subscribeRemote() {
         startLoading()
-        coinRepository.subscribeCoinDataByCurrency(baseCurrency,
+        coinRepository.subscribeCoinDataByCurrency(
+            baseCurrency,
             { response ->
                 endLoading()
                 coinList = response

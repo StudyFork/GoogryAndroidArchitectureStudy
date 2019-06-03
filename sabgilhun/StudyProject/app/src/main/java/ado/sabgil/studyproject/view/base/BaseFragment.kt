@@ -29,7 +29,9 @@ abstract class BaseFragment<B : ViewDataBinding>(
     }
 
     override fun onDestroyView() {
-        viewModelContainer.map { it.onDestroy() }
+        for (viewModel in viewModelContainer) {
+            viewModel.onDestroy()
+        }
         super.onDestroyView()
     }
 

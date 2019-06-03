@@ -7,7 +7,7 @@ class UpbitTickerListRequest private constructor(
 ) {
 
     companion object {
-        fun of(marketCodeList: List<UpbitMarketCodeResponse>): UpbitTickerListRequest {
+        fun fromResponse(marketCodeList: List<UpbitMarketCodeResponse>): UpbitTickerListRequest {
             return UpbitTickerListRequest(
                 marketCodeList.joinToString(",") { it.market }
             )

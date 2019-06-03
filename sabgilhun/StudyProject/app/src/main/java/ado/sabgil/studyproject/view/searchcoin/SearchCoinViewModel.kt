@@ -3,6 +3,7 @@ package ado.sabgil.studyproject.view.searchcoin
 import ado.sabgil.studyproject.data.CoinRepository
 import ado.sabgil.studyproject.data.model.Ticker
 import ado.sabgil.studyproject.ext.isEmpty
+import ado.sabgil.studyproject.ext.isNotEmpty
 import ado.sabgil.studyproject.view.base.BaseViewModel
 import io.reactivex.rxkotlin.addTo
 import kotlin.properties.Delegates
@@ -40,7 +41,7 @@ class SearchCoinViewModel(private val coinRepository: CoinRepository) : BaseView
 
     private fun searchCoinData(coinName: String) {
         startLoading()
-        if (disposables.size() > 0) {
+        if (disposables.isNotEmpty()) {
             disposables.clear()
         }
 

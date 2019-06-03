@@ -40,7 +40,7 @@ object UpbitCoinDataSourceImpl : CoinDataSource {
     override fun loadMarketList(): Single<List<String>> {
         return retrofit.loadMarketCode()
             .map { response ->
-                cachedTickerListRequest = UpbitTickerListRequest.of(response)
+                cachedTickerListRequest = UpbitTickerListRequest.fromResponse(response)
                 response.map {
                     it.market.substringBefore('-')
                 }.distinct()
@@ -105,12 +105,15 @@ object UpbitCoinDataSourceImpl : CoinDataSource {
         return behaviorSubject
     }
 
-    private fun loadAllTicker(request: UpbitTickerListRequest): Single<List<Ticker>> {
-        return Single.fromObservable(retrofit.loadTickerList(request.marketCodeQuery)
-            .map { response ->
-                response.map {
-                    Ticker.from(it)
-                }
-            })
+    private fun loadAllTicker(
+        request: UpbitTickerListRequest
+    ): Single<List<Ticker>> {
+        return Single.fromObservable(
+            retrofit.loadTickerList(request.marketCodeQuery)
+                .map { response ->
+                    response.map {
+                        Ticker.fromApiResponse(it)
+                    }
+                })
     }
 }
