@@ -27,11 +27,12 @@ class CoinMarketDialog
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        recyclerview_coin_market.adapter = CoinMarketAdapter(
-            clickCoinMarketListener = {
-                dialogCallBackListener.invoke(it)
-                dismiss()
-            }
+        recyclerview_coin_market.adapter =
+            CoinMarketAdapter(
+                clickCoinMarketListener = {
+                    dialogCallBackListener.invoke(it)
+                    dismiss()
+                }
         )
         coinViewModel.loadBaseCurrency()
 
@@ -42,6 +43,8 @@ class CoinMarketDialog
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        (activity as CoinListActivity).setDialogCallBackListener()
+        dialogCallBackListener = {
+            (activity as CoinListActivity).onClickCoinMarketItem(it)
+        }
     }
 }

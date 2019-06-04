@@ -8,19 +8,19 @@ class CoinViewModel(
     private val upbitRepository: UpbitDataSource
 ) {
 
-    var tickerList: List<Ticker> by Delegates.observable(listOf()) { _, _, newValue ->
+    private var tickerList: List<Ticker> by Delegates.observable(listOf()) { _, _, newValue ->
         tickerLoadedListener?.invoke(tickerList)
     }
 
-    var searchTickerResultList: List<Ticker> by Delegates.observable(listOf()) { _, _, newValue ->
+    private var searchTickerResultList: List<Ticker> by Delegates.observable(listOf()) { _, _, newValue ->
         searchTickerLoadedListener?.invoke(searchTickerResultList)
     }
 
-    var errorMessage: String by Delegates.observable("") { _, _, newValue ->
+    private var errorMessage: String by Delegates.observable("") { _, _, newValue ->
         errorLoadedListener?.invoke(errorMessage)
     }
 
-    var baseCurrencyList: List<String> by Delegates.observable(listOf()) { _, _, newValue ->
+    private var baseCurrencyList: List<String> by Delegates.observable(listOf()) { _, _, newValue ->
         baseCurrencyLoadedListener?.invoke(baseCurrencyList)
     }
 

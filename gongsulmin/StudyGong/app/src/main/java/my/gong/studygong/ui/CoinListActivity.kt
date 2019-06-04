@@ -73,12 +73,10 @@ class CoinListActivity : AppCompatActivity() {
         }, 0, REPEAT_INTERVAL_MILLIS)
     }
 
-    fun setDialogCallBackListener() {
-        coinMarketDialog.dialogCallBackListener = {
-            txt_select_coin_market.text = it
-            coinMarket = it
-            loadCoin(coinMarket)
-        }
+    fun onClickCoinMarketItem(market: String) {
+        txt_select_coin_market.text = market
+        coinMarket = market
+        loadCoin(coinMarket)
     }
 
     companion object {
