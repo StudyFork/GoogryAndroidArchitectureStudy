@@ -8,12 +8,9 @@ import my.gong.studygong.Injection
 import my.gong.studygong.R
 import my.gong.studygong.adapter.CoinAdapter
 import my.gong.studygong.viewmodel.CoinViewModel
-import java.util.*
 
 class CoinListActivity : AppCompatActivity() {
 
-    private var timer: Timer = Timer()
-    private var coinMarket: String = "KRW"
     private val coinMarketDialog = CoinMarketDialog()
 
     private val coinViewModel: CoinViewModel by lazy {
@@ -28,11 +25,11 @@ class CoinListActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        loadCoin(coinMarket)
+        coinViewModel.loadCoin()
     }
 
     override fun onStop() {
-        timer.cancel()
+        coinViewModel.onStop()
         super.onStop()
     }
 
@@ -63,20 +60,9 @@ class CoinListActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadCoin(coinMarket: String) {
-        timer.cancel()
-        timer = Timer()
-        timer.scheduleAtFixedRate(object : TimerTask() {
-            override fun run() {
-                coinViewModel.loadTickerList(coinMarket)
-            }
-        }, 0, REPEAT_INTERVAL_MILLIS)
-    }
-
     fun onClickCoinMarketItem(market: String) {
         txt_select_coin_market.text = market
-        coinMarket = market
-        loadCoin(coinMarket)
+        coinViewModel.loadCoin(market)
     }
 
     companion object {

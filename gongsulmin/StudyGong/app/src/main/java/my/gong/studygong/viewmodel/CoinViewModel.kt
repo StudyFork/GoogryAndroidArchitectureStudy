@@ -2,6 +2,8 @@ package my.gong.studygong.viewmodel
 
 import my.gong.studygong.data.model.Ticker
 import my.gong.studygong.data.source.upbit.UpbitDataSource
+import my.gong.studygong.ui.CoinListActivity
+import java.util.*
 import kotlin.properties.Delegates
 
 class CoinViewModel(
@@ -9,19 +11,19 @@ class CoinViewModel(
 ) {
 
     private var tickerList: List<Ticker> by Delegates.observable(listOf()) { _, _, newValue ->
-        tickerLoadedListener?.invoke(tickerList)
+        tickerLoadedListener?.invoke(newValue)
     }
 
     private var searchTickerResultList: List<Ticker> by Delegates.observable(listOf()) { _, _, newValue ->
-        searchTickerLoadedListener?.invoke(searchTickerResultList)
+        searchTickerLoadedListener?.invoke(newValue)
     }
 
     private var errorMessage: String by Delegates.observable("") { _, _, newValue ->
-        errorLoadedListener?.invoke(errorMessage)
+        errorLoadedListener?.invoke(newValue)
     }
 
     private var baseCurrencyList: List<String> by Delegates.observable(listOf()) { _, _, newValue ->
-        baseCurrencyLoadedListener?.invoke(baseCurrencyList)
+        baseCurrencyLoadedListener?.invoke(newValue)
     }
 
     var tickerLoadedListener: ((List<Ticker>) -> Unit)? = null
@@ -29,9 +31,25 @@ class CoinViewModel(
     var baseCurrencyLoadedListener: ((List<String>) -> Unit)? = null
     var errorLoadedListener: ((String) -> Unit)? = null
 
+    private var timer: Timer = Timer()
+
+    fun loadCoin(coinMarket: String = "KRW") {
+        timer.cancel()
+        timer = Timer()
+        timer.scheduleAtFixedRate(object : TimerTask() {
+            override fun run() {
+                loadTickerList(coinMarket)
+            }
+        }, 0, CoinListActivity.REPEAT_INTERVAL_MILLIS)
+    }
+
+    fun onStop(){
+        timer.cancel()
+    }
+
     fun loadTickerList(currency: String) {
         upbitRepository.getTickers(
-            currency,
+            tickerCurrency = currency,
             success = {
                 tickerList = it
             },
@@ -44,7 +62,7 @@ class CoinViewModel(
     fun loadTickerSearchResult(searchTicker: String) {
         if (searchTicker.isNotEmpty()) {
             upbitRepository.getDetailTickers(
-                searchTicker,
+                tickerSearch = searchTicker,
                 success = {
                     searchTickerResultList = it
                 },
