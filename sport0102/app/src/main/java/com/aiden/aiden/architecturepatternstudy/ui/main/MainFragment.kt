@@ -20,10 +20,6 @@ import retrofit2.Response
 
 class MainFragment(private val market: Market) : Fragment() {
 
-    init {
-
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_main, container, false)
         val retrofitService = retrofit.create(UpbitApi::class.java)

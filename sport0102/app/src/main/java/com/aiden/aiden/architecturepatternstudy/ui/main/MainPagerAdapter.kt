@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.aiden.aiden.architecturepatternstudy.data.enums.Market
 
 class MainPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+
     private val marketList = listOf(Market.KRW, Market.BTC, Market.ETH, Market.USDT)
 
     override fun getItem(position: Int): Fragment? {

@@ -7,10 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aiden.aiden.architecturepatternstudy.R
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerModel
 import com.aiden.aiden.architecturepatternstudy.data.enums.Market
-import com.aiden.aiden.architecturepatternstudy.util.getBTCETHCommaNumber
-import com.aiden.aiden.architecturepatternstudy.util.getKRWCommaNumber
-import com.aiden.aiden.architecturepatternstudy.util.getPercentNumber
-import com.aiden.aiden.architecturepatternstudy.util.getUSDTCommaNumber
+import com.aiden.aiden.architecturepatternstudy.util.*
 import kotlinx.android.synthetic.main.item_ticker.view.*
 
 class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewHolder>() {
@@ -29,20 +26,21 @@ class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewH
 
     override fun onBindViewHolder(holder: ItemTickerViewHolder, position: Int) {
         with(holder.itemView) {
+            // 코인 이름
             item_ticker_tv_coin_name.text = tickerList[position].market.split("-")[1]
-            // 현재 가격 설정
+            // 현재 가격
             item_ticker_tv_now_price.text = if (tickerList[position].market.startsWith(Market.KRW.marketName, true)) {
-                getKRWCommaNumber(tickerList[position].trade_price)
+                getKRWCommaPrice(tickerList[position].trade_price)
             } else if (tickerList[position].market.startsWith(
                     Market.BTC.marketName,
                     true
                 ) || tickerList[position].market.startsWith(Market.ETH.marketName, true)
             ) {
-                getBTCETHCommaNumber(tickerList[position].trade_price)
+                getBTCETHCommaPrice(tickerList[position].trade_price)
             } else {
-                getUSDTCommaNumber(tickerList[position].trade_price)
+                getUSDTCommaPrice(tickerList[position].trade_price)
             }
-            // 전일대비 설정
+            // 전일대비
             when {
                 tickerList[position].prev_closing_price > tickerList[position].trade_price -> {
                     item_ticker_tv_compare_before.setTextColor(context.getColor(R.color.blue))
@@ -55,9 +53,20 @@ class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewH
                 }
             }
             item_ticker_tv_compare_before.text =
-                getPercentNumber(tickerList[position].prev_closing_price, tickerList[position].trade_price)
-
-            item_ticker_tv_total_deal_price.text = tickerList[position].acc_trade_price_24h.toString()
+                getPercent(tickerList[position].prev_closing_price, tickerList[position].trade_price)
+            // 거래대금
+            item_ticker_tv_total_deal_price.text =
+                if (tickerList[position].market.startsWith(Market.KRW.marketName, true)) {
+                    getKRWTotalDealPrice(tickerList[position].acc_trade_price_24h)
+                } else if (tickerList[position].market.startsWith(
+                        Market.BTC.marketName,
+                        true
+                    ) || tickerList[position].market.startsWith(Market.ETH.marketName, true)
+                ) {
+                    getBTCETHTotalDealPrice(tickerList[position].acc_trade_price_24h)
+                } else {
+                    getUSDTTotalDealPrice(tickerList[position].acc_trade_price_24h)
+                }
         }
     }
 
