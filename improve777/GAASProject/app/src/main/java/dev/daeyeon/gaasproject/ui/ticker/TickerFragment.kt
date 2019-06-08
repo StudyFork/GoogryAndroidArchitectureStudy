@@ -123,8 +123,8 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
             .setSingleChoiceItems(
                 tickerViewModel.getCurrencyArray(),
                 tickerViewModel.getCurrencyArray().indexOf(tickerViewModel.getBaseCurrency())
-            ) { _, item ->
-                tickerViewModel.setBaseCurrency(tickerViewModel.getCurrencyArray()[item])
+            ) { _, position ->
+                tickerViewModel.setBaseCurrency(tickerViewModel.getCurrencyArray()[position])
             }
             .setPositiveButton(R.string.all_positive) { dialog, _ ->
                 dialog.dismiss()
