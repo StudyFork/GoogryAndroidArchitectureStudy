@@ -1,7 +1,6 @@
 package com.aiden.aiden.architecturepatternstudy.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
@@ -13,10 +12,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setTabBar()
-    }
-
-    private fun setTabBar() {
         main_vp.adapter = MainPagerAdapter(supportFragmentManager)
         main_vp.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
@@ -32,7 +27,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
         val movePageListener: View.OnClickListener = View.OnClickListener {
-            Log.d("it.getTag()", it.tag.toString())
             setSelectedTabColor(it.tag as Int)
             main_vp.currentItem = it.tag as Int
         }

@@ -6,6 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aiden.aiden.architecturepatternstudy.R
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerModel
+import com.aiden.aiden.architecturepatternstudy.data.enums.Market
+import com.aiden.aiden.architecturepatternstudy.util.getBTCETHCommaNumber
+import com.aiden.aiden.architecturepatternstudy.util.getKRWCommaNumber
+import com.aiden.aiden.architecturepatternstudy.util.getPercentNumber
+import com.aiden.aiden.architecturepatternstudy.util.getUSDTCommaNumber
 import kotlinx.android.synthetic.main.item_ticker.view.*
 
 class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewHolder>() {
@@ -25,9 +30,34 @@ class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewH
     override fun onBindViewHolder(holder: ItemTickerViewHolder, position: Int) {
         with(holder.itemView) {
             item_ticker_tv_coin_name.text = tickerList[position].market.split("-")[1]
-            item_ticker_tv_now_price.text = tickerList[position].trade_price.toString()
-            item_ticker_tv_compare_before.text = tickerList[position].signed_change_rate.toString()
-            item_ticker_tv_total_deal_price.text = tickerList[position].acc_trade_price.toString()
+            // 현재 가격 설정
+            item_ticker_tv_now_price.text = if (tickerList[position].market.startsWith(Market.KRW.marketName, true)) {
+                getKRWCommaNumber(tickerList[position].trade_price)
+            } else if (tickerList[position].market.startsWith(
+                    Market.BTC.marketName,
+                    true
+                ) || tickerList[position].market.startsWith(Market.ETH.marketName, true)
+            ) {
+                getBTCETHCommaNumber(tickerList[position].trade_price)
+            } else {
+                getUSDTCommaNumber(tickerList[position].trade_price)
+            }
+            // 전일대비 설정
+            when {
+                tickerList[position].prev_closing_price > tickerList[position].trade_price -> {
+                    item_ticker_tv_compare_before.setTextColor(context.getColor(R.color.blue))
+                }
+                tickerList[position].prev_closing_price < tickerList[position].trade_price -> {
+                    item_ticker_tv_compare_before.setTextColor(context.getColor(R.color.red))
+                }
+                else -> {
+                    item_ticker_tv_compare_before.setTextColor(context.getColor(R.color.black))
+                }
+            }
+            item_ticker_tv_compare_before.text =
+                getPercentNumber(tickerList[position].prev_closing_price, tickerList[position].trade_price)
+
+            item_ticker_tv_total_deal_price.text = tickerList[position].acc_trade_price_24h.toString()
         }
     }
 

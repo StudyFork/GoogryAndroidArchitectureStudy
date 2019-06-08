@@ -8,26 +8,25 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aiden.aiden.architecturepatternstudy.R
-import com.aiden.aiden.architecturepatternstudy.api.RetrofitService
+import com.aiden.aiden.architecturepatternstudy.api.UpbitApi
 import com.aiden.aiden.architecturepatternstudy.api.model.MarketModel
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerModel
 import com.aiden.aiden.architecturepatternstudy.api.retrofit
+import com.aiden.aiden.architecturepatternstudy.data.enums.Market
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainFragment(private val marketName: String) : Fragment() {
+class MainFragment(private val market: Market) : Fragment() {
+
     init {
+
     }
 
-    private val marketKrw = "krw"
-    private val marketBtc = "btc"
-    private val marketEth = "eth"
-    private val marketUsdt = "usdt"
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_main, container, false)
-        val retrofitService = retrofit.create(RetrofitService::class.java)
+        val retrofitService = retrofit.create(UpbitApi::class.java)
         retrofitService.getMarketList().enqueue(object : Callback<ArrayList<MarketModel>> {
 
             override fun onFailure(call: Call<ArrayList<MarketModel>>?, t: Throwable?) {
@@ -35,9 +34,9 @@ class MainFragment(private val marketName: String) : Fragment() {
             }
 
             override fun onResponse(call: Call<ArrayList<MarketModel>>?, response: Response<ArrayList<MarketModel>>?) {
-                if (null != response?.body()) {
-                    var query: String = ""
-                    response.body()?.filter { item -> item.market.startsWith(marketName, true) }
+                response?.body()?.let {
+                    var query = ""
+                    response.body()?.filter { item -> item.market.startsWith(market.marketName, true) }
                         ?.map { item -> query += item.market + "," }
                     query = query.substring(0, query.length - 1)
                     Log.d("query", query)
@@ -51,10 +50,12 @@ class MainFragment(private val marketName: String) : Fragment() {
                             response: Response<ArrayList<TickerModel>>
                         ) {
                             response.body()?.let {
-                                view.fragment_ticker_list_rv.layoutManager = LinearLayoutManager(context)
-                                view.fragment_ticker_list_rv.adapter = TickerListAdapter().apply {
-                                    setData(it)
-                                    notifyDataSetChanged()
+                                with(view) {
+                                    fragment_ticker_list_rv.layoutManager = LinearLayoutManager(context)
+                                    fragment_ticker_list_rv.adapter = TickerListAdapter().apply {
+                                        setData(it)
+                                        notifyDataSetChanged()
+                                    }
                                 }
                             }
                         }
