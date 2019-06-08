@@ -155,7 +155,7 @@ class CoinListFragment
         fun initMarket() {
             isLoading = true
             tickerRepository.getMarketAll(
-                baseCurrency,
+                baseCurrency = baseCurrency,
                 success = {
                     markets = it
                     getTickers(markets)
@@ -169,7 +169,7 @@ class CoinListFragment
 
         fun getTickers(markets: String) {
             tickerRepository.getTickers(
-                markets,
+                markets = markets,
                 success = {
                     coinList = it
                     isLoading = false
