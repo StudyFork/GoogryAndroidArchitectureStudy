@@ -213,9 +213,6 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
                 searchTicker ?: UpbitDataSource.ALL_CURRENCY,
                 success = {
                     isShowProgressBar = false
-                    if (!::currencyArray.isInitialized) {
-                        initCurrentArray()
-                    }
                     tickerList = it
                 },
                 fail = {
@@ -231,14 +228,23 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
             this.baseCurrency = if (baseCurrency == UpbitDataSource.ALL_CURRENCY) "" else baseCurrency
         }
 
-        fun getCurrencyArray() = if (!::currencyArray.isInitialized) emptyArray() else currencyArray
+        fun getCurrencyArray(): Array<String> {
+            if (!::currencyArray.isInitialized || (currencyArray.size <= 1)) {
+                initCurrentArray()
+            }
+            return currencyArray
+        }
 
         private fun initCurrentArray() {
-            val list = arrayListOf<String>()
-            list.add(UpbitDataSource.ALL_CURRENCY)
-            list.addAll(upbitRepository.markets.split(",")
+            val marketList = upbitRepository.markets.split(",")
                 .map { market -> market.substringBefore("-") }
-                .distinct())
+                .distinct()
+
+            val list = arrayListOf(UpbitDataSource.ALL_CURRENCY)
+
+            if (marketList[0].isNotEmpty()) {
+                list.addAll(marketList)
+            }
 
             currencyArray = list.toTypedArray()
         }
