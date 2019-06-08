@@ -73,4 +73,11 @@
 
     </android.support.v7.widget.RecyclerView>
 
+    <!--동작 테스트를 위한 버튼 (추후 제거)-->
+    <Button
+        android:id="@+id/btn_test"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="test" />
+
 </android.support.constraint.ConstraintLayout>
