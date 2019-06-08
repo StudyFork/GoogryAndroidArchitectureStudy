@@ -33,7 +33,13 @@ fun getKRWTotalDealPrice(totalPrice: Double): String = "${String.format("%,d", (
 
 fun getBTCETHTotalDealPrice(totalPrice: Double): String = String.format("%1$,.3f", totalPrice)
 
-fun getUSDTTotalDealPrice(totalPrice: Double): String = String.format("%,d", totalPrice.toInt())
+fun getUSDTTotalDealPrice(totalPrice: Double): String {
+    if (totalPrice > 1000000) {
+        return "${String.format("%,d", (totalPrice / 1000).toInt())} K"
+    } else {
+        return String.format("%,d", totalPrice.toInt())
+    }
+}
 
 
 
