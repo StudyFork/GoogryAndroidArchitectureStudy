@@ -173,8 +173,6 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
 
     inner class TickerViewModel(private val upbitRepository: UpbitDataSource) {
 
-        private val ALL_CURRENCY = "전체"
-
         private var tickerList by Delegates.observable<List<Ticker>>(arrayListOf()) { _, _, newValue ->
             tickerAdapter.replaceList(newValue)
         }
@@ -212,7 +210,7 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
 
             upbitRepository.getTicker(
                 getBaseCurrency(),
-                searchTicker ?: "",
+                searchTicker ?: UpbitDataSource.ALL_CURRENCY,
                 success = {
                     isShowProgressBar = false
                     if (!::currencyArray.isInitialized) {
@@ -230,14 +228,14 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
         fun getBaseCurrency() = if (!::baseCurrency.isInitialized) "" else baseCurrency
 
         fun setBaseCurrency(baseCurrency: String) {
-            this.baseCurrency = if (baseCurrency == ALL_CURRENCY) "" else baseCurrency
+            this.baseCurrency = if (baseCurrency == UpbitDataSource.ALL_CURRENCY) "" else baseCurrency
         }
 
         fun getCurrencyArray() = if (!::currencyArray.isInitialized) emptyArray() else currencyArray
 
         private fun initCurrentArray() {
             val list = arrayListOf<String>()
-            list.add(ALL_CURRENCY)
+            list.add(UpbitDataSource.ALL_CURRENCY)
             list.addAll(upbitRepository.markets.split(",")
                 .map { market -> market.substringBefore("-") }
                 .distinct())
