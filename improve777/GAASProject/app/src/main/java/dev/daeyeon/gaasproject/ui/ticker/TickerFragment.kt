@@ -70,14 +70,11 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
         searchDialog = AlertDialog.Builder(activity!!)
             .setTitle(R.string.ticker_search)
             .setView(searchDialogBinding.root)
-            .setPositiveButton(R.string.all_positive) { dialog, _ ->
-                dialog.dismiss()
+            .setPositiveButton(R.string.all_positive) { _, _ ->
                 tickerViewModel.loadUpbitTicker(searchDialogBinding.etSearch.text.toString())
                 searchDialogBinding.etSearch.setText("")
             }
-            .setNegativeButton(R.string.all_negative) { dialog, _ ->
-                dialog.dismiss()
-            }
+            .setNegativeButton(R.string.all_negative) { _, _ -> }
             .create()
         searchDialog?.show()
     }
@@ -126,8 +123,7 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
             ) { _, position ->
                 tickerViewModel.setBaseCurrency(tickerViewModel.getCurrencyArray()[position])
             }
-            .setPositiveButton(R.string.all_positive) { dialog, _ ->
-                dialog.dismiss()
+            .setPositiveButton(R.string.all_positive) { _, _ ->
                 tickerViewModel.loadUpbitTicker()
             }
             .setCancelable(false)
