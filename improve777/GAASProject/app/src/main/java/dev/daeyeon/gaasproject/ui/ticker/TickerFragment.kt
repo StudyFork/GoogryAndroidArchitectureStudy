@@ -2,11 +2,11 @@ package dev.daeyeon.gaasproject.ui.ticker
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import dev.daeyeon.gaasproject.R
+import dev.daeyeon.gaasproject.base.BaseFragment
 import dev.daeyeon.gaasproject.data.Ticker
 import dev.daeyeon.gaasproject.data.response.ResponseCode
 import dev.daeyeon.gaasproject.data.source.UpbitDataSource
@@ -17,9 +17,9 @@ import dev.daeyeon.gaasproject.network.NetworkManager
 import org.jetbrains.anko.toast
 import kotlin.properties.Delegates
 
-class TickerFragment : Fragment() {
-
-    private lateinit var binding: FragmentTickerBinding
+class TickerFragment : BaseFragment<FragmentTickerBinding>(
+    R.layout.fragment_ticker
+) {
     private lateinit var tickerAdapter: TickerAdapter
 
     private val searchDialogBinding by lazy { initDialogTickerSearchBinding() }
@@ -27,15 +27,6 @@ class TickerFragment : Fragment() {
     private var searchDialog: AlertDialog? = null
 
     private val tickerViewModel by lazy { TickerViewModel(UpbitRepository(NetworkManager.instance)) }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_ticker, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         tickerAdapter = TickerAdapter()
@@ -96,31 +87,31 @@ class TickerFragment : Fragment() {
      *
      */
     private fun initDialogTickerSearchBinding(): DialogTickerSearchBinding {
-        val binding = DataBindingUtil.inflate<DialogTickerSearchBinding>(
+        val dialogTickerSearchBinding = DataBindingUtil.inflate<DialogTickerSearchBinding>(
             activity!!.layoutInflater,
             R.layout.dialog_ticker_search,
             null,
             false
         )
 
-        binding.run {
+        bind(dialogTickerSearchBinding) {
             btnTickerSearch.setOnClickListener {
                 searchDialog?.dismiss()
-                tickerViewModel.loadUpbitTicker(binding.etSearch.text.toString())
-                binding.etSearch.setText("")
+                tickerViewModel.loadUpbitTicker(etSearch.text.toString())
+                etSearch.setText("")
             }
 
             etSearch.setOnEditorActionListener { _, actionId, _ ->
                 // 키보드의 검색 키
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    binding.btnTickerSearch.performClick()
+                    btnTickerSearch.performClick()
                     return@setOnEditorActionListener true
                 }
                 return@setOnEditorActionListener false
             }
         }
 
-        return binding
+        return dialogTickerSearchBinding
     }
 
     /**
