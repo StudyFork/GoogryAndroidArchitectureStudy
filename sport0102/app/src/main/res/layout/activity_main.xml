@@ -1,19 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        android:background="@color/background"
+        android:orientation="vertical"
+        tools:context=".ui.main.MainActivity">
+    <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/main_market_tab_ll"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:textColor="@color/grey"
+                android:gravity="center"
+                android:text="@string/all_krw"
+                android:textSize="16sp"
+                android:id="@+id/main_market_tab_tv_krw"
+                android:layout_weight="1"
+                android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <TextView
+                android:textColor="@color/grey"
+                android:gravity="center"
+                android:text="@string/all_btc"
+                android:textSize="16sp"
+                android:id="@+id/main_market_tab_tv_btc"
+                android:layout_weight="1"
+                android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <TextView
+                android:textColor="@color/grey"
+                android:gravity="center"
+                android:text="@string/all_eth"
+                android:textSize="16sp"
+                android:id="@+id/main_market_tab_tv_eth"
+                android:layout_weight="1"
+                android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <TextView
+                android:textColor="@color/grey"
+                android:gravity="center"
+                android:text="@string/all_usdt"
+                android:textSize="16sp"
+                android:id="@+id/main_market_tab_tv_usdt"
+                android:layout_weight="1"
+                android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/main_sort_tab_ll"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:textColor="@color/black"
+                android:text="@string/all_coin_name"
+                android:textSize="14sp"
+                android:id="@+id/main_sort_tab_tv_coin_name"
+                android:layout_weight="0.8"
+                android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <TextView
+                android:textColor="@color/black"
+                android:text="@string/all_now_price"
+                android:textSize="14sp"
+                android:id="@+id/main_sort_tab_tv_now_price"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <TextView
+                android:textColor="@color/black"
+                android:text="@string/all_compare_before"
+                android:textSize="14sp"
+                android:id="@+id/main_sort_tab_tv_compare_before"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <TextView
+                android:textColor="@color/black"
+                android:text="@string/all_total_deal_price"
+                android:textSize="14sp"
+                android:id="@+id/main_sort_tab_tv_total_deal_price"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <android.support.v4.view.ViewPager
+            android:id="@+id/main_vp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/main_tab_ll">
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+    </android.support.v4.view.ViewPager>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

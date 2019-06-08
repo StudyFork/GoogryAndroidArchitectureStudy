@@ -1,7 +1,8 @@
-package com.aiden.aiden.architecturepatternstudy
+package com.aiden.aiden.architecturepatternstudy.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.aiden.aiden.architecturepatternstudy.R
 
 class MainActivity : AppCompatActivity() {
 

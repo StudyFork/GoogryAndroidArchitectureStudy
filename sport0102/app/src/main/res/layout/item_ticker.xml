@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:background="@drawable/stroke_1dp_radius"
+              android:layout_width="match_parent"
+              android:gravity="center_vertical"
+              android:padding="5dp"
+              android:layout_height="wrap_content">
+    <TextView
+            android:textColor="@color/black"
+            android:text="BTC"
+            android:layout_marginLeft="5dp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:id="@+id/item_ticker_tv_coin_name"
+            android:layout_weight="0.8"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <TextView
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:text="9,661,000"
+            android:id="@+id/item_ticker_tv_now_price"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <TextView
+            android:textColor="@color/black"
+            android:text="-0.39%"
+            android:textSize="14sp"
+            android:id="@+id/item_ticker_tv_compare_before"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <TextView
+            android:textColor="@color/black"
+            android:text="180,051 M"
+            android:textSize="14sp"
+            android:id="@+id/item_ticker_tv_total_deal_price"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+</LinearLayout>
