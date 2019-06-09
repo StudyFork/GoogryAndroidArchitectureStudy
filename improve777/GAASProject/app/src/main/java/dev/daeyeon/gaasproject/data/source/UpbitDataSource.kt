@@ -24,4 +24,8 @@ interface UpbitDataSource {
      * 코인 시세 정보 요청 중지
      */
     fun cancelTickerCall()
+
+    companion object {
+        const val ALL_CURRENCY = "전체"
+    }
 }
