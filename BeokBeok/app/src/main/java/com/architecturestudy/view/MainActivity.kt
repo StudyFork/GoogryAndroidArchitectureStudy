@@ -1,7 +1,8 @@
-package com.architecturestudy
+package com.architecturestudy.view
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.architecturestudy.R
 
 class MainActivity : AppCompatActivity() {
 

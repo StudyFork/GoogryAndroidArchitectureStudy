@@ -1,7 +1,7 @@
-package com.architecturestudy.model.upbit
+package com.architecturestudy.common
 
 import android.util.Log
-import com.architecturestudy.model.upbit.response.Ticker
+import com.architecturestudy.model.UpBitTickerResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -12,7 +12,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-class Common {
+class UpBitConnector(val receiver: UpBitCommunicable) {
+
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://api.upbit.com/v1/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -25,27 +26,34 @@ class Common {
         .create(Retrofittable::class.java)
 
     fun getMarketPrice(prefix: String) {
-        retrofit.getMarkets().enqueue(object : Callback<List<Ticker>> {
-            override fun onResponse(call: Call<List<Ticker>>, response: Response<List<Ticker>>) {
+        retrofit.getMarkets().enqueue(object : Callback<List<UpBitTickerResponse>> {
+            override fun onResponse(
+                call: Call<List<UpBitTickerResponse>>,
+                response: Response<List<UpBitTickerResponse>>
+            ) {
                 val markets = response.body()
                 getTickers(markets?.asSequence()?.filter { prefix.length == 3 || prefix.length == 4 }
                     ?.filter { it.market!!.startsWith(prefix) }
                     ?.map { it.market }?.toList())
             }
 
-            override fun onFailure(call: Call<List<Ticker>>, t: Throwable) {
+            override fun onFailure(call: Call<List<UpBitTickerResponse>>, t: Throwable) {
                 Log.d("kkk", "server err : " + t.message)
             }
         })
     }
 
     fun getTickers(market: List<String?>?) {
-        retrofit.getTicker(market).enqueue(object : Callback<List<Ticker>> {
-            override fun onResponse(call: Call<List<Ticker>>, response: Response<List<Ticker>>) {
-
+        retrofit.getTicker(market).enqueue(object : Callback<List<UpBitTickerResponse>> {
+            override fun onResponse(
+                call: Call<List<UpBitTickerResponse>>,
+                response: Response<List<UpBitTickerResponse>>
+            ) {
+                val responseTicker = response.body()
+                responseTicker?.let { receiver.onSuccessMarketPrice(it) }
             }
 
-            override fun onFailure(call: Call<List<Ticker>>, t: Throwable) {
+            override fun onFailure(call: Call<List<UpBitTickerResponse>>, t: Throwable) {
                 Log.d("kkk", "server err : " + t.message)
             }
 
@@ -54,9 +62,9 @@ class Common {
 
     interface Retrofittable {
         @GET("market/all")
-        fun getMarkets(): Call<List<Ticker>>
+        fun getMarkets(): Call<List<UpBitTickerResponse>>
 
         @GET("ticker")
-        fun getTicker(@Query("markets") list: List<String?>?): Call<List<Ticker>>
+        fun getTicker(@Query("markets") list: List<String?>?): Call<List<UpBitTickerResponse>>
     }
 }
