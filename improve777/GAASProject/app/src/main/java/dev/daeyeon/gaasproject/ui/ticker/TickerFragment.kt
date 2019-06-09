@@ -230,20 +230,19 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
 
         fun getCurrencyArray(): Array<String> {
             if (!::currencyArray.isInitialized || (currencyArray.size <= 1)) {
-                initCurrentArray()
+                setCurrencyArray()
             }
             return currencyArray
         }
 
-        private fun initCurrentArray() {
-            val marketList = upbitRepository.markets.split(",")
-                .map { market -> market.substringBefore("-") }
-                .distinct()
-
+        private fun setCurrencyArray() {
             val list = arrayListOf(UpbitDataSource.ALL_CURRENCY)
 
-            if (marketList[0].isNotEmpty()) {
-                list.addAll(marketList)
+            if (upbitRepository.markets.isNotEmpty()) {
+                list.addAll(upbitRepository.markets.split(",")
+                    .map { market -> market.substringBefore("-") }
+                    .distinct()
+                )
             }
 
             currencyArray = list.toTypedArray()
