@@ -27,6 +27,11 @@ class TickerViewModel(private val upbitRepository: UpbitDataSource) {
         get() = _isShowProgressBar
 
     /**
+     * 검색어 two-way binding
+     */
+    val searchText = MutableLiveData<String>()
+
+    /**
      * 마켓 어레이
      */
     private lateinit var currencyArray: Array<String>
@@ -36,15 +41,17 @@ class TickerViewModel(private val upbitRepository: UpbitDataSource) {
      */
     private lateinit var baseCurrency: String
 
-    fun loadUpbitTicker(searchTicker: String? = null) {
+    fun loadUpbitTicker() {
         _isShowProgressBar.value = true
 
         upbitRepository.getTicker(
             getBaseCurrency(),
-            searchTicker ?: UpbitDataSource.ALL_CURRENCY,
+            searchText.value ?: UpbitDataSource.ALL_CURRENCY,
             success = {
                 _isShowProgressBar.value = false
                 _tickerList.value = it
+
+                searchText.value = ""
             },
             fail = {
                 _isShowProgressBar.value = false

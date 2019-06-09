@@ -5,7 +5,6 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.view.*
-import android.view.inputmethod.EditorInfo
 import dev.daeyeon.gaasproject.R
 import dev.daeyeon.gaasproject.base.BaseFragment
 import dev.daeyeon.gaasproject.data.response.ResponseCode
@@ -45,7 +44,6 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
         when (item?.itemId) {
             // 검색
             R.id.action_search -> {
@@ -61,57 +59,40 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
     }
 
     /**
-     * ticker 검색 다이얼로그
-     */
-    private fun showTickerSearchDialog() {
-
-        // 기존 부모뷰에 붙은 자식뷰 제거
-        if (searchDialogBinding.root.parent != null) {
-            (searchDialogBinding.root.parent as ViewGroup).removeView(searchDialogBinding.root)
-        }
-
-        searchDialog = AlertDialog.Builder(activity!!)
-            .setTitle(R.string.ticker_search)
-            .setView(searchDialogBinding.root)
-            .setPositiveButton(R.string.all_positive) { _, _ ->
-                tickerViewModel.loadUpbitTicker(searchDialogBinding.etSearch.text.toString())
-                searchDialogBinding.etSearch.setText("")
-            }
-            .setNegativeButton(R.string.all_negative) { _, _ -> }
-            .create()
-        searchDialog?.show()
-    }
-
-    /**
      * 커스텀 레이아웃 다이얼로그를 사용하기 위한 DialogTickerSearchBinding
      *
      */
     private fun initDialogTickerSearchBinding(): DialogTickerSearchBinding {
-        val dialogTickerSearchBinding = DataBindingUtil.inflate<DialogTickerSearchBinding>(
+        return DataBindingUtil.inflate<DialogTickerSearchBinding>(
             activity!!.layoutInflater,
             R.layout.dialog_ticker_search,
             null,
             false
-        )
-
-        bind(dialogTickerSearchBinding) {
-            btnTickerSearch.setOnClickListener {
-                searchDialog?.dismiss()
-                tickerViewModel.loadUpbitTicker(etSearch.text.toString())
-                etSearch.setText("")
-            }
-
-            etSearch.setOnEditorActionListener { _, actionId, _ ->
-                // 키보드의 검색 키
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    btnTickerSearch.performClick()
-                    return@setOnEditorActionListener true
-                }
-                return@setOnEditorActionListener false
-            }
+        ).apply {
+            viewModel = tickerViewModel
+            lifecycleOwner = viewLifecycleOwner
         }
+    }
 
-        return dialogTickerSearchBinding
+    /**
+     * ticker 검색 다이얼로그
+     */
+    private fun showTickerSearchDialog() {
+        if (searchDialog == null) {
+            initSearchDialog()
+        }
+        searchDialog?.show()
+    }
+
+    private fun initSearchDialog() {
+        searchDialog = AlertDialog.Builder(activity!!)
+            .setTitle(R.string.ticker_search)
+            .setView(searchDialogBinding.root)
+            .setPositiveButton(R.string.all_positive) { _, _ ->
+                tickerViewModel.loadUpbitTicker()
+            }
+            .setNegativeButton(R.string.all_negative) { _, _ -> }
+            .create()
     }
 
     /**
