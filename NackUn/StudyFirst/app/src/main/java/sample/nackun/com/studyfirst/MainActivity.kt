@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -17,8 +16,6 @@ import sample.nackun.com.studyfirst.network.Retrofit_interface
 
 class MainActivity : AppCompatActivity() {
 
-    //var tickers: ArrayList<Ticker> = ArrayList()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -26,25 +23,21 @@ class MainActivity : AppCompatActivity() {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.upbit.com/v1/")
             .addConverterFactory(GsonConverterFactory.create())
-            //.client(OkHttpClient())
             .build()
 
         val service = retrofit.create(Retrofit_interface::class.java)
 
-
-        //val call: Call<List<Market>> = service.requestMarket()
-        var marketsKRW: String = ""
-
         service.requestMarket().enqueue(object : Callback<ArrayList<Market>> {
             override fun onFailure(call: Call<ArrayList<Market>>, t: Throwable) {
-                Toast.makeText(applicationContext, "실패", Toast.LENGTH_SHORT).show()
+                Log.e("Retro", "fail_requestMarket")
             }
 
             override fun onResponse(call: Call<ArrayList<Market>>, response: Response<ArrayList<Market>>) {
+                Log.e("Retro", "succ_requestMarket")
                 if (response.body() != null) {
                     var markets: String = ""
                     for (i in 0..response.body()!!.size - 1) {
-                        if(response.body()!!.get(i).market.startsWith("KRW")) {
+                        if (response.body()!!.get(i).market.startsWith("KRW")) {
                             val marketA = response.body()!!.get(i).market
                             markets += "$marketA,"
                         }
@@ -52,34 +45,23 @@ class MainActivity : AppCompatActivity() {
                     markets = markets.substring(0, markets.length - 1)
                     Log.d("query", markets)
 
-                        service.requestTicker(markets)
-                            .enqueue(object : Callback<ArrayList<Ticker>> {
-                                override fun onResponse(
-                                    call: Call<ArrayList<Ticker>>,
-                                    response: Response<ArrayList<Ticker>>
-                                ) {
-                                    if (response.body() != null) {
-                                        tickerRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
-                                        tickerRecyclerView.adapter = TickerAdapter(response.body()!!,this@MainActivity)
-                                        Toast.makeText(applicationContext, "성공", Toast.LENGTH_SHORT).show()
-                                        //for (i in 0..response.body()!!.size - 1) {
-                                        //    val marketB = response.body()!!.get(i).toString()
-                                            //val sb = StringBuilder().append(tvTemp.text).append(marketB).append("\n")
-                                            //tvTemp.text = marketB
-
-                                        //}
-                                    }
+                    service.requestTicker(markets)
+                        .enqueue(object : Callback<ArrayList<Ticker>> {
+                            override fun onResponse(
+                                call: Call<ArrayList<Ticker>>,
+                                response: Response<ArrayList<Ticker>>
+                            ) {
+                                if (response.body() != null) {
+                                    tickerRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+                                    tickerRecyclerView.adapter = TickerAdapter(response.body()!!, this@MainActivity)
                                 }
+                            }
 
-                                override fun onFailure(call: Call<ArrayList<Ticker>>, t: Throwable) {
-                                    Toast.makeText(applicationContext, "실패", Toast.LENGTH_SHORT).show()
-                                }
-                            })
-                    }
+                            override fun onFailure(call: Call<ArrayList<Ticker>>, t: Throwable) {
+                            }
+                        })
                 }
+            }
         })
-
-        //tickerRecyclerView.layoutManager = LinearLayoutManager(this)
-        //tickerRecyclerView.adapter = TickerAdapter(tickers,this)
     }
 }
