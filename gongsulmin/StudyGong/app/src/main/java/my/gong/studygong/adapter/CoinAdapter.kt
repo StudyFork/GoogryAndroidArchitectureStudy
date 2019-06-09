@@ -1,4 +1,4 @@
-package my.gong.studygong.mvp.adapter
+package my.gong.studygong.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package my.gong.studygong.mvp.base
+package my.gong.studygong.base
 
 import android.os.Bundle
 import android.support.v4.app.DialogFragment

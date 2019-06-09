@@ -13,7 +13,11 @@ object UpbitRepository
     private var market: String? = null
     private var coinCurrencyList: List<String>? = null
 
-    override fun getDetailTickers(tickerDetail: String, success: (List<Ticker>) -> Unit, fail: (String) -> Unit) {
+    override fun getDetailTickers(
+        tickerSearch: String,
+        success: (List<Ticker>) -> Unit,
+        fail: (String) -> Unit
+    ) {
         getMarket(
             success = { market ->
                 this.market = market
@@ -27,7 +31,7 @@ object UpbitRepository
 
                                 tickerResponse
                                     .filter {
-                                        it.market.endsWith(tickerDetail, ignoreCase = true)
+                                        it.market.endsWith(tickerSearch, ignoreCase = true)
                                     }
                                     .map {
                                         Ticker(
@@ -144,11 +148,11 @@ object UpbitRepository
                     ) {
                         response.body()?.let {
                             coinCurrencyList =
-                                    it.map {
-                                        it.market.substring(0, it.market.indexOf("-"))
-                                    }
-                                        .distinct()
-                                        .toList()
+                                it.map {
+                                    it.market.substring(0, it.market.indexOf("-"))
+                                }
+                                    .distinct()
+                                    .toList()
 
                             success.invoke(
                                 coinCurrencyList!!

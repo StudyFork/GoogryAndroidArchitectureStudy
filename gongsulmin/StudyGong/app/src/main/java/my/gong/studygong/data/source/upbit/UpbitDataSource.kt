@@ -10,7 +10,7 @@ interface UpbitDataSource {
     )
 
     fun getDetailTickers(
-        tickerDetail: String,
+        tickerSearch: String,
         success: (List<Ticker>) -> Unit,
         fail: (String) -> Unit
     )

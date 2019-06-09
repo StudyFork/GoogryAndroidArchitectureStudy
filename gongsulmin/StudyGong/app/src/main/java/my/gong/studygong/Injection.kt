@@ -1,4 +1,4 @@
-package my.gong.studygong.mvp
+package my.gong.studygong
 
 import my.gong.studygong.data.source.upbit.UpbitRepository
 
