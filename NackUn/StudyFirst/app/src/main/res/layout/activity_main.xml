@@ -15,45 +15,46 @@
               android:layout_marginLeft="12dp"
               android:id="@+id/marketTitle">
     </TextView>
-    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                   android:orientation="horizontal"
                   android:layout_below="@+id/marketTitle"
-                  android:id="@+id/marketLike">
+                  android:id="@+id/marketLike"
+                  android:layout_marginTop="12dp">
         <TextView
                 android:id="@+id/marketKRW"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="KRW"
-                android:textSize="36dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginLeft="12dp">
+                android:textSize="28dp"
+                android:gravity="center">
         </TextView>
         <TextView
                 android:id="@+id/marketBTC"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="BTC"
-                android:textSize="36dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginLeft="12dp">
+                android:textSize="28dp"
+                android:gravity="center">
         </TextView>
         <TextView
                 android:id="@+id/marketETH"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="ETH"
-                android:textSize="36dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginLeft="12dp">
+                android:textSize="28dp"
+                android:gravity="center">
         </TextView>
         <TextView
                 android:id="@+id/marketUSDT"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="USDT"
-                android:textSize="36dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginLeft="12dp">
+                android:textSize="28dp"
+                android:gravity="center">
         </TextView>
     </LinearLayout>
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"

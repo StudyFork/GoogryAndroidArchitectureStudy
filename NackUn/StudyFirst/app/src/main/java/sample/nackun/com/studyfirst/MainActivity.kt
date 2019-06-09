@@ -1,9 +1,12 @@
 package sample.nackun.com.studyfirst
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.View
+import android.widget.Button
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,6 +23,47 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        var marketLike: String = ""
+
+        val onClickListener = object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                marketKRW.setTextColor(Color.BLACK)
+                marketBTC.setTextColor(Color.BLACK)
+                marketETH.setTextColor(Color.BLACK)
+                marketUSDT.setTextColor(Color.BLACK)
+                when(v){
+
+                    marketKRW -> {
+                        marketLike = "KRW"
+                        marketKRW.setTextColor(Color.parseColor("#384786"))
+                    }
+                    marketBTC -> {
+                        marketLike = "BTC"
+                        marketBTC.setTextColor(Color.parseColor("#384786"))
+                    }
+                    marketETH -> {
+                        marketLike = "ETH"
+                        marketETH.setTextColor(Color.parseColor("#384786"))
+                    }
+                    marketUSDT -> {
+                        marketLike = "USDT"
+                        marketUSDT.setTextColor(Color.parseColor("#384786"))
+                    }
+                }
+                initView(marketLike)
+            }
+        }
+
+        marketKRW.setOnClickListener(onClickListener)
+        marketBTC.setOnClickListener(onClickListener)
+        marketETH.setOnClickListener(onClickListener)
+        marketUSDT.setOnClickListener(onClickListener)
+
+        marketKRW.callOnClick()
+
+    }
+
+    fun initView(marketLike: String): Unit{
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.upbit.com/v1/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -37,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                 if (response.body() != null) {
                     var markets: String = ""
                     for (i in 0..response.body()!!.size - 1) {
-                        if (response.body()!!.get(i).market.startsWith("KRW")) {
+                        if (response.body()!!.get(i).market.startsWith(marketLike)) {
                             val marketA = response.body()!!.get(i).market
                             markets += "$marketA,"
                         }
