@@ -8,39 +8,52 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import io.reactivex.disposables.CompositeDisposable
 
-abstract class BaseFragment<B : ViewDataBinding, P : BaseContract.Presenter> constructor(
+abstract class BaseFragment<B : ViewDataBinding>(
     private val layoutId: Int
-) : Fragment(), BaseContract.View {
+) : Fragment() {
 
     protected lateinit var binding: B
         private set
 
-    protected lateinit var presenter: P
-        private set
+    protected var progressBar: View? = null
 
-    protected abstract fun createPresenter(): P
-
-    protected val disposables = CompositeDisposable()
+    protected val viewModelContainer = mutableListOf<BaseViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-        presenter = createPresenter()
         return binding.root
     }
 
     override fun onDestroyView() {
-        disposables.clear()
-        presenter.unSubscribe()
+        for (viewModel in viewModelContainer) {
+            viewModel.onDestroy()
+        }
         super.onDestroyView()
     }
 
-    override fun showToastMessage(msg: String) {
+    protected fun showToastMessage(msg: String) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
     }
 
+    protected fun showProgressBar() {
+        progressBar?.visibility = View.VISIBLE
+    }
+
+    protected fun hideProgressBar() {
+        progressBar?.visibility = View.GONE
+    }
+
+    protected fun bind(block: B.() -> Unit) {
+        binding.block()
+    }
+
+    protected fun <T : BaseViewModel> addingToContainer(block: () -> T): T {
+        return block().apply {
+            viewModelContainer.add(this)
+        }
+    }
 }

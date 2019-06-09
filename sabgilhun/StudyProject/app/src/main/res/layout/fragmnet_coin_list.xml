@@ -9,7 +9,7 @@
         <import type="ado.sabgil.studyproject.data.model.Ticker" />
 
         <variable
-            name="it"
+            name="item"
             type="List&lt;Ticker&gt;" />
     </data>
 
@@ -19,13 +19,23 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_ticker_list"
-            android:layout_margin="8dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="8dp"
             android:background="@android:color/white"
             android:foregroundGravity="center"
-            app:item="@{it}"
+            app:item="@{item}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/pg_coin_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

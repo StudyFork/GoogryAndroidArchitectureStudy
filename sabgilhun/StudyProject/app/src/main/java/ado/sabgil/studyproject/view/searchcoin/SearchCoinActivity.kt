@@ -3,37 +3,59 @@ package ado.sabgil.studyproject.view.searchcoin
 import ado.sabgil.studyproject.R
 import ado.sabgil.studyproject.adapter.TickerAdapter
 import ado.sabgil.studyproject.data.CoinRepositoryImpl
-import ado.sabgil.studyproject.data.model.Ticker
 import ado.sabgil.studyproject.databinding.ActivitySearchCoinBinding
 import ado.sabgil.studyproject.view.base.BaseActivity
 import android.os.Bundle
+import androidx.core.widget.doAfterTextChanged
 
 class SearchCoinActivity :
-    BaseActivity<ActivitySearchCoinBinding, SearchCoinContract.Presenter>(R.layout.activity_search_coin),
-    SearchCoinContract.View {
+    BaseActivity<ActivitySearchCoinBinding>(R.layout.activity_search_coin) {
 
-    override fun createPresenter() = SearchCoinPresenter(this, CoinRepositoryImpl)
+    private lateinit var searchCoinViewModel: SearchCoinViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.rvTickerList.adapter = TickerAdapter()
 
-        binding.tvSearch.setOnClickListener {
-            presenter.searchCoin(binding.etKeyword.text.toString())
+        progressBar = binding.pgCoinList
+
+        searchCoinViewModel = addingToContainer {
+            SearchCoinViewModel(CoinRepositoryImpl)
         }
-    }
 
-    override fun updateCoinList(list: List<Ticker>) {
-        binding.it = list
+        bind {
+            rvTickerList.adapter = TickerAdapter()
+
+            tvSearch.setOnClickListener {
+                searchCoinViewModel.searchCoinByKeyword()
+            }
+
+            etKeyword.doAfterTextChanged {
+                searchCoinViewModel.keyword = it.toString()
+            }
+        }
+
+        registerEvent()
     }
 
     override fun onResume() {
         super.onResume()
-        presenter.subscribeCoinData()
+        searchCoinViewModel.subscribeCoinData()
     }
 
     override fun onPause() {
-        presenter.unSubscribeCoinData()
+        searchCoinViewModel.unSubscribeCoinData()
         super.onPause()
+    }
+
+    private fun registerEvent() {
+        searchCoinViewModel.run {
+            showToastEventListeners = ::showToastMessage
+
+            showProgressEventListeners = ::showProgressBar
+
+            hideProgressEventListeners = ::hideProgressBar
+
+            coinListListeners = binding::setItem
+        }
     }
 }

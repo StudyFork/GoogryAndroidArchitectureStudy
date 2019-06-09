@@ -7,21 +7,21 @@ interface CoinRepository {
 
     fun loadMarketList(
         success: (List<String>) -> Unit,
-        fail: (String) -> Unit
+        fail: (Throwable) -> Unit
     ): Disposable
 
-    fun getCoinDataChangeWithCurrency(
+    fun subscribeCoinDataByCurrency(
         baseCurrency: String,
         success: (List<Ticker>) -> Unit,
-        fail: (String) -> Unit
+        fail: (Throwable) -> Unit
     ): Disposable
 
-    fun getCoinDataChangeWithCoinName(
+    fun subscribeCoinDataByCoinName(
         coinName: String,
         success: (List<Ticker>) -> Unit,
-        fail: (String) -> Unit
+        fail: (Throwable) -> Unit
     ): Disposable
 
-    fun unSubscribeCoinDataChange()
+    fun unSubscribeCoinData()
 
 }

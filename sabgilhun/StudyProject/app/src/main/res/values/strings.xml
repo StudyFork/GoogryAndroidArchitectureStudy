@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">StudyProject</string>
-    
+
     <string name="searched_coin_name">%s-%s</string>
 </resources>

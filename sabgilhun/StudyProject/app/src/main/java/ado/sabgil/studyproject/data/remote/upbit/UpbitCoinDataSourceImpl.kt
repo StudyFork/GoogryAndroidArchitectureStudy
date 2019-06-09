@@ -6,6 +6,7 @@ import ado.sabgil.studyproject.data.remote.upbit.request.UpbitTickerListRequest
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import io.reactivex.subjects.BehaviorSubject
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -37,36 +38,38 @@ object UpbitCoinDataSourceImpl : CoinDataSource {
     }
 
     override fun loadMarketList(): Single<List<String>> {
-        return retrofit.getMarketCode()
+        return retrofit.loadMarketCode()
             .map { response ->
-                cachedTickerListRequest = UpbitTickerListRequest.of(response)
+                cachedTickerListRequest = UpbitTickerListRequest.fromResponse(response)
                 response.map {
                     it.market.substringBefore('-')
                 }.distinct()
             }
     }
 
-    override fun subscribeCoinDataChange(): Observable<List<Ticker>> {
-        var behaviorSubject = this.behaviorSubject
-
-        if (behaviorSubject == null) {
-            behaviorSubject = BehaviorSubject.create<List<Ticker>>()
-
-            compositeDisposable.add(Observable.interval(0, 5000, TimeUnit.MILLISECONDS)
-                .flatMap {
-                    loadAllTicker().toObservable()
+    override fun subscribeCoinDataByCurrency(
+        baseCurrency: String
+    ): Observable<List<Ticker>> {
+        return subscribeCoinData()
+            .map { tickers ->
+                tickers.filter {
+                    it.base == baseCurrency
                 }
-                .subscribe(behaviorSubject::onNext, behaviorSubject::onError)
-            )
-        }
-        subscribeCnt++
-
-        return behaviorSubject
+            }
     }
 
-    override fun unSubscribeCoinDataChange() {
-        check(subscribeCnt > 0)
+    override fun subscribeCoinDataByCoinName(
+        coinName: String
+    ): Observable<List<Ticker>> {
+        return subscribeCoinData()
+            .map { tickers ->
+                tickers.filter {
+                    it.coinName == coinName
+                }
+            }
+    }
 
+    override fun unSubscribeCoinData() {
         subscribeCnt--
         if (subscribeCnt == 0) {
             compositeDisposable.clear()
@@ -74,13 +77,43 @@ object UpbitCoinDataSourceImpl : CoinDataSource {
         }
     }
 
-    private fun loadAllTicker(): Single<List<Ticker>> {
-        val cachedTickerListRequest = this.cachedTickerListRequest
-        requireNotNull(cachedTickerListRequest)
+    private fun subscribeCoinData(): Observable<List<Ticker>> {
+        var behaviorSubject = this.behaviorSubject
 
-        return Single.fromObservable(retrofit.getTickerList(cachedTickerListRequest.marketCodeQuery)
-            .map { response ->
-                response.map { Ticker.from(it) }
-            })
+        if (behaviorSubject == null) {
+            behaviorSubject = BehaviorSubject.create<List<Ticker>>()
+
+            Observable.interval(0, 5000, TimeUnit.MILLISECONDS)
+                .flatMap {
+                    if (cachedTickerListRequest != null) {
+                        loadAllTicker(cachedTickerListRequest!!).toObservable()
+                    } else {
+                        loadMarketList()
+                            .flatMap {
+                                loadAllTicker(cachedTickerListRequest!!)
+                            }.toObservable()
+                    }
+                }
+                .subscribe(
+                    behaviorSubject::onNext,
+                    behaviorSubject::onError
+                )
+                .addTo(compositeDisposable)
+        }
+        subscribeCnt++
+
+        return behaviorSubject
+    }
+
+    private fun loadAllTicker(
+        request: UpbitTickerListRequest
+    ): Single<List<Ticker>> {
+        return Single.fromObservable(
+            retrofit.loadTickerList(request.marketCodeQuery)
+                .map { response ->
+                    response.map {
+                        Ticker.fromApiResponse(it)
+                    }
+                })
     }
 }

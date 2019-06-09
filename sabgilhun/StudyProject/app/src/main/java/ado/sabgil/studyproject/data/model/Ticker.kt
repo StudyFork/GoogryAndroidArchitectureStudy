@@ -15,7 +15,7 @@ data class Ticker private constructor(
         private const val KILO = 1_000.0
         private const val MEGA = 1_000_000.0
 
-        fun from(tickerResponse: UpbitTickerResponse): Ticker {
+        fun fromApiResponse(tickerResponse: UpbitTickerResponse): Ticker {
             val changeRate =
                 (Math.floor(tickerResponse.signedChangeRate * 10_000.0) / 100.0).toString() + "%"
 

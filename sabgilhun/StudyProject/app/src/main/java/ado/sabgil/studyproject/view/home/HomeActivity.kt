@@ -11,16 +11,22 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 
-class HomeActivity : BaseActivity<ActivityMainBinding, HomeContract.Presenter>(R.layout.activity_main),
-    HomeContract.View {
-
-    override fun createPresenter(): HomeContract.Presenter = HomePresenter(this, CoinRepositoryImpl)
+class HomeActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
+    private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter.loadMarketList()
+
+        progressBar = binding.pgHome
+
+        homeViewModel = addingToContainer {
+            HomeViewModel(CoinRepositoryImpl)
+        }
+
+        registerEvent()
+
+        homeViewModel.loadMarketList()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -38,18 +44,30 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeContract.Presenter>(R
         return super.onOptionsItemSelected(item)
     }
 
-    override fun updateViewPager(marketList: List<String>) {
-        binding.vpCoinList.apply {
-            adapter = CoinListPagerAdapter(
-                supportFragmentManager,
-                marketList.map { it to CoinListFragment.newInstance(it) }.toMap()
-            )
-            offscreenPageLimit = marketList.size - 1
+    private fun registerEvent() {
+        homeViewModel.run {
+            showToastEventListeners = ::showToastMessage
+
+            showProgressEventListeners = ::showProgressBar
+
+            hideProgressEventListeners = ::hideProgressBar
+
+            marketListListeners = ::updateViewPager
         }
-        binding.tlCoinList.setupWithViewPager(binding.vpCoinList)
     }
 
-    override fun showProgressBar(flag: Boolean) {
-        binding.pgHome.visibility = if (flag) View.VISIBLE else View.GONE
+    private fun updateViewPager(marketList: List<String>) {
+        bind {
+            vpCoinList.apply {
+                adapter = CoinListPagerAdapter(
+                    supportFragmentManager,
+                    marketList.map {
+                        it to CoinListFragment.newInstance(it)
+                    }.toMap()
+                )
+                offscreenPageLimit = marketList.size - 1
+            }
+            tlCoinList.setupWithViewPager(vpCoinList)
+        }
     }
 }
