@@ -16,8 +16,12 @@
               android:layout_marginLeft="12dp"
               android:id="@+id/marketTitle">
     </TextView>
-    <TextView android:layout_below="@+id/marketTitle"
-              android:id="@+id/marketLike"
+    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:layout_below="@+id/marketTitle"
+    android:id="@+id/marketLike">
+    <TextView
+              android:id="@+id/marketKRW"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:text="KRW"
@@ -25,15 +29,59 @@
               android:layout_marginTop="12dp"
               android:layout_marginLeft="12dp">
     </TextView>
-    <ScrollView android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-    <TextView android:layout_below="@+id/marketLike"
-              android:id="@+id/tvTemp"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:textSize="36dp"
-              android:layout_marginTop="12dp"
-              android:layout_marginLeft="12dp">
-    </TextView>
+        <TextView
+                android:id="@+id/marketBTC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BTC"
+                android:textSize="36dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="12dp">
+        </TextView>
+        <TextView
+                android:id="@+id/marketETH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ETH"
+                android:textSize="36dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="12dp">
+        </TextView>
+        <TextView
+                android:id="@+id/marketUSDT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="USDT"
+                android:textSize="36dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="12dp">
+        </TextView>
+</LinearLayout>
+
+<ScrollView
+            android:layout_below="@+id/marketLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical">
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:layout_marginTop="8dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="코인명" android:textSize="18dp" android:layout_marginLeft="24dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="현재가" android:textSize="18dp" android:layout_marginLeft="48dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="전일대비" android:textSize="18dp" android:layout_marginLeft="24dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="거래대금" android:textSize="18dp" android:layout_marginLeft="24dp"/>
+
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView android:layout_width="match_parent"
+                                                    android:layout_height="match_parent"
+            android:id="@+id/tickerRecyclerView">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
     </ScrollView>
 </RelativeLayout>

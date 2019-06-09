@@ -2,6 +2,7 @@ package sample.nackun.com.studyfirst
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
@@ -15,6 +16,8 @@ import sample.nackun.com.studyfirst.market.Ticker
 import sample.nackun.com.studyfirst.network.Retrofit_interface
 
 class MainActivity : AppCompatActivity() {
+
+    //var tickers: ArrayList<Ticker> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,12 +59,15 @@ class MainActivity : AppCompatActivity() {
                                     response: Response<ArrayList<Ticker>>
                                 ) {
                                     if (response.body() != null) {
+                                        tickerRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+                                        tickerRecyclerView.adapter = TickerAdapter(response.body()!!,this@MainActivity)
                                         Toast.makeText(applicationContext, "성공", Toast.LENGTH_SHORT).show()
-                                        for (i in 0..response.body()!!.size - 1) {
-                                            val marketB = response.body()!!.get(i).toString()
+                                        //for (i in 0..response.body()!!.size - 1) {
+                                        //    val marketB = response.body()!!.get(i).toString()
                                             //val sb = StringBuilder().append(tvTemp.text).append(marketB).append("\n")
-                                            tvTemp.text = marketB
-                                        }
+                                            //tvTemp.text = marketB
+
+                                        //}
                                     }
                                 }
 
@@ -70,8 +76,10 @@ class MainActivity : AppCompatActivity() {
                                 }
                             })
                     }
-                    Toast.makeText(applicationContext, "끝", Toast.LENGTH_SHORT).show()
                 }
         })
+
+        //tickerRecyclerView.layoutManager = LinearLayoutManager(this)
+        //tickerRecyclerView.adapter = TickerAdapter(tickers,this)
     }
 }
