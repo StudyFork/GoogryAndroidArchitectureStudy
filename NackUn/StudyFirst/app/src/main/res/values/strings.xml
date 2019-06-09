@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">StudyFirst</string>
+    <string name="upBit">https://api.upbit.com/v1</string>
 </resources>
