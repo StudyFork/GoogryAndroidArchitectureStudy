@@ -1,34 +1,30 @@
 package dev.daeyeon.gaasproject.ui.ticker
 
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import dev.daeyeon.gaasproject.data.Ticker
 import dev.daeyeon.gaasproject.data.source.UpbitDataSource
-import kotlin.properties.Delegates
+import dev.daeyeon.gaasproject.util.Event
 
 class TickerViewModel(private val upbitRepository: UpbitDataSource) {
 
-    private var tickerList by Delegates.observable<List<Ticker>>(
-        arrayListOf()
-    ) { _, _, newValue ->
-        tickerAdapter.replaceList(newValue)
-    }
+    private val _tickerList = MutableLiveData<List<Ticker>>().apply { value = emptyList() }
+    val tickerList: LiveData<List<Ticker>>
+        get() = _tickerList
 
     /**
      * 통신 실패시 메시지
      */
-    private var failMsg by Delegates.observable("") { _, _, newValue ->
-        toastTickerFailMsg(newValue)
-    }
+    private val _failMsgEvent = MutableLiveData<Event<String>>()
+    val failMsgEvent: LiveData<Event<String>>
+        get() = _failMsgEvent
 
     /**
      * 프로그레스바
      */
-    private var isShowProgressBar by Delegates.observable(false) { _, oldValue, newValue ->
-        if (oldValue == newValue) {
-            return@observable
-        }
-
-        binding.srlTicker.isRefreshing = newValue
-    }
+    private val _isShowProgressBar = MutableLiveData<Boolean>()
+    val isShowProgressBar: LiveData<Boolean>
+        get() = _isShowProgressBar
 
     /**
      * 마켓 어레이
@@ -41,20 +37,24 @@ class TickerViewModel(private val upbitRepository: UpbitDataSource) {
     private lateinit var baseCurrency: String
 
     fun loadUpbitTicker(searchTicker: String? = null) {
-        isShowProgressBar = true
+        _isShowProgressBar.value = true
 
         upbitRepository.getTicker(
             getBaseCurrency(),
             searchTicker ?: UpbitDataSource.ALL_CURRENCY,
             success = {
-                isShowProgressBar = false
-                tickerList = it
+                _isShowProgressBar.value = false
+                _tickerList.value = it
             },
             fail = {
-                isShowProgressBar = false
-                failMsg = it
+                _isShowProgressBar.value = false
+                _failMsgEvent.value = Event(it)
             }
         )
+    }
+
+    fun onRefresh() {
+        loadUpbitTicker()
     }
 
     fun getBaseCurrency() = if (!::baseCurrency.isInitialized) "" else baseCurrency

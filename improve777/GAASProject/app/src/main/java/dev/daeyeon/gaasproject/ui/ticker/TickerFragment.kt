@@ -1,5 +1,6 @@
 package dev.daeyeon.gaasproject.ui.ticker
 
+import android.arch.lifecycle.Observer
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -29,8 +30,13 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
         tickerAdapter = TickerAdapter()
         binding.rvTicker.adapter = tickerAdapter
 
+        binding.viewModel = tickerViewModel
+        binding.lifecycleOwner = this.viewLifecycleOwner
+
         setHasOptionsMenu(true)
         swipeInit()
+
+        subscribeToFailMsg()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -142,18 +148,26 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
      * swipeRefreshLayout 버튼 색, 이벤트 설정
      */
     private fun swipeInit() {
-        binding.srlTicker.apply {
-            setColorSchemeResources(
-                android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light
-            )
-            setOnRefreshListener { tickerViewModel.loadUpbitTicker() }
-        }
+        binding.srlTicker.setColorSchemeResources(
+            android.R.color.holo_blue_bright,
+            android.R.color.holo_green_light,
+            android.R.color.holo_orange_light,
+            android.R.color.holo_red_light
+        )
     }
 
-    fun toastTickerFailMsg(msg: String) {
+    /**
+     * failMsgEvent 구독
+     */
+    private fun subscribeToFailMsg() {
+        tickerViewModel.failMsgEvent.observe(this, Observer { event ->
+            event?.getContentIfNotHandled()?.let {
+                toastTickerFailMsg(it)
+            }
+        })
+    }
+
+    private fun toastTickerFailMsg(msg: String) {
         when (msg) {
             ResponseCode.CODE_NULL_SUCCESS,
             ResponseCode.CODE_NULL_FAIL_MSG -> activity!!.toast(R.string.all_network_error)

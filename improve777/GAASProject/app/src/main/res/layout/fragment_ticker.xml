@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="dev.daeyeon.gaasproject.ui.ticker.TickerViewModel" />
+    </data>
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -72,10 +78,13 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvCoinName">
+            app:layout_constraintTop_toBottomOf="@+id/tvCoinName"
+            app:onRefreshListener="@{viewModel::onRefresh}"
+            app:refreshing="@{viewModel.isShowProgressBar}">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvTicker"
+                items="@{viewModel.tickerList}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"
