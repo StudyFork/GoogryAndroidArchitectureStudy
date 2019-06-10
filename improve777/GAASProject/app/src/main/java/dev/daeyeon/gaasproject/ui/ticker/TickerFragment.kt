@@ -4,7 +4,10 @@ import android.arch.lifecycle.Observer
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import dev.daeyeon.gaasproject.R
 import dev.daeyeon.gaasproject.base.BaseFragment
 import dev.daeyeon.gaasproject.data.response.ResponseCode
@@ -27,10 +30,12 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         tickerAdapter = TickerAdapter()
-        binding.rvTicker.adapter = tickerAdapter
 
-        binding.viewModel = tickerViewModel
-        binding.lifecycleOwner = this.viewLifecycleOwner
+        bind {
+            rvTicker.adapter = tickerAdapter
+            viewModel = tickerViewModel
+            lifecycleOwner = this@TickerFragment.viewLifecycleOwner
+        }
 
         setHasOptionsMenu(true)
         swipeInit()
