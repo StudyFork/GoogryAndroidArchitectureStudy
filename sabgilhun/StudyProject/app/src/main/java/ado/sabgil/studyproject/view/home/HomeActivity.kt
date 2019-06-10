@@ -11,6 +11,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.Observer
 
 class HomeActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private lateinit var homeViewModel: HomeViewModel
@@ -23,6 +24,8 @@ class HomeActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         homeViewModel = addingToContainer {
             HomeViewModel(CoinRepositoryImpl)
         }
+
+        homeViewModel.marketList.observe(this, Observer<List<String>>(::updateViewPager))
 
         registerEvent()
 
@@ -46,13 +49,11 @@ class HomeActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun registerEvent() {
         homeViewModel.run {
-            showToastEventListeners = ::showToastMessage
+            showToastEvent.observe(this@HomeActivity, Observer(::showToastMessage))
 
-            showProgressEventListeners = ::showProgressBar
-
-            hideProgressEventListeners = ::hideProgressBar
-
-            marketListListeners = ::updateViewPager
+            isLoading.observe(this@HomeActivity, Observer {
+                if (it) showProgressBar() else hideProgressBar()
+            })
         }
     }
 

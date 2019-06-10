@@ -1,37 +1,41 @@
 package ado.sabgil.studyproject.view.base
 
+import ado.sabgil.studyproject.utils.SingleLiveEvent
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseViewModel {
 
     protected val disposables = CompositeDisposable()
 
+    private val _showToastEvent = SingleLiveEvent<String>()
+    val showToastEvent: LiveData<String>
+        get() = _showToastEvent
 
-    var showToastEventListeners: ((String) -> Unit)? = null
-
-    var showProgressEventListeners: (() -> Unit)? = null
-
-    var hideProgressEventListeners: (() -> Unit)? = null
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
 
     fun onDestroy() {
         disposables.clear()
     }
 
     protected fun handleErrorMessage(message: String) {
-        showToastEventListeners?.invoke(message)
+        _showToastEvent.value = message
     }
 
     protected fun handleErrorMessage(throwable: Throwable) {
         throwable.printStackTrace()
-        showToastEventListeners?.invoke("서버에서 데이터를 가져오는데에 실패하였습니다.")
+        _showToastEvent.value = "서버에서 데이터를 가져오는데에 실패하였습니다."
     }
 
     protected fun startLoading() {
-        showProgressEventListeners?.invoke()
+        _isLoading.value = true
     }
 
     protected fun endLoading() {
-        hideProgressEventListeners?.invoke()
+        _isLoading.value = false
     }
 
 }

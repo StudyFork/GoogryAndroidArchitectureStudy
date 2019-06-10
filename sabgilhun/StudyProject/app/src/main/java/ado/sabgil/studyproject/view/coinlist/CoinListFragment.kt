@@ -7,6 +7,7 @@ import ado.sabgil.studyproject.databinding.FragmnetCoinListBinding
 import ado.sabgil.studyproject.view.base.BaseFragment
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 
 class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(R.layout.fragmnet_coin_list) {
 
@@ -44,11 +45,11 @@ class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(R.layout.fragmnet
 
     private fun registerEvent() {
         coinListViewModel.run {
-            showToastEventListeners = ::showToastMessage
+            showToastEvent.observe(this@CoinListFragment, Observer(::showToastMessage))
 
-            showProgressEventListeners = ::showProgressBar
-
-            hideProgressEventListeners = ::hideProgressBar
+            isLoading.observe(this@CoinListFragment, Observer {
+                if (it) showProgressBar() else hideProgressBar()
+            })
 
             coinListListeners = binding::setItem
         }

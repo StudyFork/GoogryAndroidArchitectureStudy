@@ -7,6 +7,7 @@ import ado.sabgil.studyproject.databinding.ActivitySearchCoinBinding
 import ado.sabgil.studyproject.view.base.BaseActivity
 import android.os.Bundle
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.Observer
 
 class SearchCoinActivity :
     BaseActivity<ActivitySearchCoinBinding>(R.layout.activity_search_coin) {
@@ -49,11 +50,11 @@ class SearchCoinActivity :
 
     private fun registerEvent() {
         searchCoinViewModel.run {
-            showToastEventListeners = ::showToastMessage
+            showToastEvent.observe(this@SearchCoinActivity, Observer(::showToastMessage))
 
-            showProgressEventListeners = ::showProgressBar
-
-            hideProgressEventListeners = ::hideProgressBar
+            isLoading.observe(this@SearchCoinActivity, Observer {
+                if (it) showProgressBar() else hideProgressBar()
+            })
 
             coinListListeners = binding::setItem
         }
