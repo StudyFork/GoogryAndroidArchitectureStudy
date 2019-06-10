@@ -25,7 +25,10 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
     override fun getItemCount(): Int = tickerList.size
 
     override fun onBindViewHolder(holder: TickerViewHolder, position: Int) {
-        holder.binding.ticker = tickerList[position]
+        holder.binding.run {
+            ticker = tickerList[position]
+            executePendingBindings()
+        }
     }
 
     /**

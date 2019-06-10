@@ -91,7 +91,6 @@ class TickerViewModel(private val upbitRepository: UpbitDataSource) {
     }
 
     fun cancelApi() {
-        upbitRepository.cancelMarketCall()
-        upbitRepository.cancelTickerCall()
+        upbitRepository.unsubscribeTicker()
     }
 }
