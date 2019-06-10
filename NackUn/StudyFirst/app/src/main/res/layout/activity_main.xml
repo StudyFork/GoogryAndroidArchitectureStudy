@@ -10,10 +10,11 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:text="업비트(Upbit)"
-              android:textSize="36dp"
+              android:textSize="24dp"
               android:layout_marginTop="12dp"
               android:layout_marginLeft="12dp"
-              android:id="@+id/marketTitle">
+              android:id="@+id/marketTitle"
+              android:textColor="#000000">
     </TextView>
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                   android:orientation="horizontal"
@@ -26,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="KRW"
-                android:textSize="28dp"
+                android:textSize="20dp"
                 android:gravity="center">
         </TextView>
         <TextView
@@ -35,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="BTC"
-                android:textSize="28dp"
+                android:textSize="20dp"
                 android:gravity="center">
         </TextView>
         <TextView
@@ -44,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="ETH"
-                android:textSize="28dp"
+                android:textSize="20dp"
                 android:gravity="center">
         </TextView>
         <TextView
@@ -53,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="USDT"
-                android:textSize="28dp"
+                android:textSize="20dp"
                 android:gravity="center">
         </TextView>
     </LinearLayout>

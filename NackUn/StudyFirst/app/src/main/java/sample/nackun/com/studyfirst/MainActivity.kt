@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,11 +26,11 @@ class MainActivity : AppCompatActivity() {
 
         val onClickListener = object : View.OnClickListener {
             override fun onClick(v: View?) {
-                marketKRW.setTextColor(Color.BLACK)
-                marketBTC.setTextColor(Color.BLACK)
-                marketETH.setTextColor(Color.BLACK)
-                marketUSDT.setTextColor(Color.BLACK)
-                when(v){
+                marketKRW.setTextColor(Color.parseColor("#bebbb4"))
+                marketBTC.setTextColor(Color.parseColor("#bebbb4"))
+                marketETH.setTextColor(Color.parseColor("#bebbb4"))
+                marketUSDT.setTextColor(Color.parseColor("#bebbb4"))
+                when (v) {
 
                     marketKRW -> {
                         marketLike = "KRW"
@@ -63,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun initView(marketLike: String): Unit{
+    fun initView(marketLike: String): Unit {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.upbit.com/v1/")
             .addConverterFactory(GsonConverterFactory.create())
