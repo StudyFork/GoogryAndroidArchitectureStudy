@@ -27,6 +27,7 @@ class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(R.layout.fragmnet
         }
 
         bind {
+            vm = coinListViewModel
             rvTickerList.adapter = TickerAdapter()
         }
 
@@ -50,8 +51,6 @@ class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(R.layout.fragmnet
             isLoading.observe(this@CoinListFragment, Observer {
                 if (it) showProgressBar() else hideProgressBar()
             })
-
-            coinListListeners = binding::setItem
         }
     }
 
@@ -64,5 +63,4 @@ class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(R.layout.fragmnet
                 }
             }
     }
-
 }
