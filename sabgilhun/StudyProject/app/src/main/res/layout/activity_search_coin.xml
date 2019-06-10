@@ -4,13 +4,9 @@
 
     <data>
 
-        <import type="java.util.List" />
-
-        <import type="ado.sabgil.studyproject.data.model.Ticker" />
-
         <variable
-            name="item"
-            type="List&lt;Ticker&gt;" />
+            name="vm"
+            type="ado.sabgil.studyproject.view.searchcoin.SearchCoinViewModel" />
 
     </data>
 
@@ -52,7 +48,7 @@
             android:layout_margin="8dp"
             android:background="@android:color/white"
             android:foregroundGravity="center"
-            app:item="@{item}"
+            app:item="@{vm.coinList}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

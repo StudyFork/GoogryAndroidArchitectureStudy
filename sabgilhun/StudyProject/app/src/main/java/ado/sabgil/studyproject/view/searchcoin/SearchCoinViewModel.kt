@@ -5,15 +5,15 @@ import ado.sabgil.studyproject.data.model.Ticker
 import ado.sabgil.studyproject.ext.isEmpty
 import ado.sabgil.studyproject.ext.isNotEmpty
 import ado.sabgil.studyproject.view.base.BaseViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import io.reactivex.rxkotlin.addTo
-import kotlin.properties.Delegates
 
 class SearchCoinViewModel(private val coinRepository: CoinRepository) : BaseViewModel() {
 
-    var coinListListeners: ((List<Ticker>) -> Unit)? = null
-    private var coinList: List<Ticker> by Delegates.observable(emptyList()) { _, _, newValue ->
-        coinListListeners?.invoke(newValue)
-    }
+    private val _coinList = MutableLiveData<List<Ticker>>()
+    val coinList: LiveData<List<Ticker>>
+        get() = _coinList
 
     var keyword = ""
 
@@ -51,7 +51,7 @@ class SearchCoinViewModel(private val coinRepository: CoinRepository) : BaseView
                 endLoading()
                 if (response.isNotEmpty()) {
                     currentCoin = coinName
-                    coinList = response
+                    _coinList.value = response
                 } else {
                     disposables.clear()
                     handleErrorMessage("검색한 코인에 대한 결과가 없습니다.")

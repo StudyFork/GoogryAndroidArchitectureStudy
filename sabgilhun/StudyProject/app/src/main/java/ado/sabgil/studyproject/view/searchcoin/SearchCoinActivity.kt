@@ -24,6 +24,8 @@ class SearchCoinActivity :
         }
 
         bind {
+            vm = searchCoinViewModel
+
             rvTickerList.adapter = TickerAdapter()
 
             tvSearch.setOnClickListener {
@@ -55,8 +57,6 @@ class SearchCoinActivity :
             isLoading.observe(this@SearchCoinActivity, Observer {
                 if (it) showProgressBar() else hideProgressBar()
             })
-
-            coinListListeners = binding::setItem
         }
     }
 }
