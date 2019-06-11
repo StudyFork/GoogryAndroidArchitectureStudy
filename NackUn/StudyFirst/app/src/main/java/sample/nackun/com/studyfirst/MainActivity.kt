@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,7 +15,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import sample.nackun.com.studyfirst.market.Market
 import sample.nackun.com.studyfirst.market.Ticker
-import sample.nackun.com.studyfirst.network.Retrofit_interface
+import sample.nackun.com.studyfirst.network.UpbitCommunicable
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,34 +23,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var marketLike: String = ""
+        setBtnClick()
+        marketKRW.callOnClick()
+    }
 
+    fun setBtnClick(){
         val onClickListener = object : View.OnClickListener {
             override fun onClick(v: View?) {
                 marketKRW.setTextColor(Color.parseColor("#bebbb4"))
                 marketBTC.setTextColor(Color.parseColor("#bebbb4"))
                 marketETH.setTextColor(Color.parseColor("#bebbb4"))
                 marketUSDT.setTextColor(Color.parseColor("#bebbb4"))
-                when (v) {
-
-                    marketKRW -> {
-                        marketLike = "KRW"
-                        marketKRW.setTextColor(Color.parseColor("#384786"))
-                    }
-                    marketBTC -> {
-                        marketLike = "BTC"
-                        marketBTC.setTextColor(Color.parseColor("#384786"))
-                    }
-                    marketETH -> {
-                        marketLike = "ETH"
-                        marketETH.setTextColor(Color.parseColor("#384786"))
-                    }
-                    marketUSDT -> {
-                        marketLike = "USDT"
-                        marketUSDT.setTextColor(Color.parseColor("#384786"))
-                    }
-                }
-                initView(marketLike)
+                var tt = findViewById<TextView>(v!!.id)
+                tt.setTextColor(Color.parseColor("#384786"))
+                initView(tt.text.toString())
             }
         }
 
@@ -57,9 +44,6 @@ class MainActivity : AppCompatActivity() {
         marketBTC.setOnClickListener(onClickListener)
         marketETH.setOnClickListener(onClickListener)
         marketUSDT.setOnClickListener(onClickListener)
-
-        marketKRW.callOnClick()
-
     }
 
     fun initView(marketLike: String): Unit {
@@ -68,25 +52,18 @@ class MainActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        val service = retrofit.create(Retrofit_interface::class.java)
+        val service = retrofit.create(UpbitCommunicable::class.java)
 
         service.requestMarket().enqueue(object : Callback<ArrayList<Market>> {
             override fun onFailure(call: Call<ArrayList<Market>>, t: Throwable) {
-                Log.e("Retro", "fail_requestMarket")
             }
 
             override fun onResponse(call: Call<ArrayList<Market>>, response: Response<ArrayList<Market>>) {
-                Log.e("Retro", "succ_requestMarket")
-                if (response.body() != null) {
                     var markets: String = ""
-                    for (i in 0..response.body()!!.size - 1) {
-                        if (response.body()!!.get(i).market.startsWith(marketLike)) {
-                            val marketA = response.body()!!.get(i).market
-                            markets += "$marketA,"
-                        }
-                    }
+                    response.body()?.filter { it.market.startsWith(marketLike) }
+                    ?.map { it-> markets += it.market+","}
                     markets = markets.substring(0, markets.length - 1)
-                    Log.d("query", markets)
+                    Log.d("aa12", markets)
 
                     service.requestTicker(markets)
                         .enqueue(object : Callback<ArrayList<Ticker>> {
@@ -94,16 +71,15 @@ class MainActivity : AppCompatActivity() {
                                 call: Call<ArrayList<Ticker>>,
                                 response: Response<ArrayList<Ticker>>
                             ) {
-                                if (response.body() != null) {
+                                response.body()?.let{
                                     tickerRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
-                                    tickerRecyclerView.adapter = TickerAdapter(response.body()!!, this@MainActivity)
+                                    tickerRecyclerView.adapter = TickerAdapter(it, this@MainActivity)
                                 }
                             }
 
                             override fun onFailure(call: Call<ArrayList<Ticker>>, t: Throwable) {
                             }
                         })
-                }
             }
         })
     }

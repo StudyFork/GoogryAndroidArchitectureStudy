@@ -6,7 +6,7 @@ import retrofit2.http.Query
 import sample.nackun.com.studyfirst.market.Market
 import sample.nackun.com.studyfirst.market.Ticker
 
-interface Retrofit_interface {
+interface UpbitCommunicable {
     @GET("https://api.upbit.com/v1/market/all")
     fun requestMarket(): Call<ArrayList<Market>>
 
