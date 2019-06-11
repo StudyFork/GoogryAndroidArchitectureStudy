@@ -1,7 +1,6 @@
 package com.studyfirstproject.activity
 
 import android.os.Bundle
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.util.Log.e
 import android.view.View
@@ -15,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 
 
-class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
+class MainActivity : AppCompatActivity() {
     private lateinit var coinAdapter: CoinRecyclerViewAdapter
     private lateinit var service: CoinApi
 
@@ -30,7 +29,9 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
     private fun initView() {
         coinAdapter = CoinRecyclerViewAdapter(arrayListOf())
         rv_main.adapter = coinAdapter
-        layout_main_swipe.setOnRefreshListener(this)
+        layout_main_swipe.setOnRefreshListener {
+            getMarketData()
+        }
 
         getMarketData()
     }
@@ -83,9 +84,5 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
     private fun hideRefreshIcon() {
         if (layout_main_swipe.isRefreshing)
             layout_main_swipe.isRefreshing = false
-    }
-
-    override fun onRefresh() {
-        getMarketData()
     }
 }

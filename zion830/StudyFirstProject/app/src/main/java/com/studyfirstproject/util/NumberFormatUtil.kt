@@ -22,7 +22,7 @@ object NumberFormatUtil {
 
         if (num < 0) {
             type = "▼"
-            percent = 0 - percent
+            percent = -percent
         } else if (num > 0) {
             type = "▲"
         }
