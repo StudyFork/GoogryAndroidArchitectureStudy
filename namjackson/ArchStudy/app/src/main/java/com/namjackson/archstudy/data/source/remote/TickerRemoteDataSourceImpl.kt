@@ -8,7 +8,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class TickerRemoteDataSourceImpl(val upbitApi: UpbitApi) : TickerRemoteDataSource {
+class TickerRemoteDataSourceImpl(
+    val upbitApi: UpbitApi
+) : TickerRemoteDataSource {
 
     override fun getMarketAll(baseCurrency: String, success: (markets: String) -> Unit, fail: (msg: String) -> Unit) {
         upbitApi.getMarketAll().enqueue(object : Callback<List<UpbitMarket>> {

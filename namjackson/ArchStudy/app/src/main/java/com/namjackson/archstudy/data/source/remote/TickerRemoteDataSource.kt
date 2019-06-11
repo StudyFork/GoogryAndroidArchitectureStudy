@@ -4,7 +4,6 @@ import com.namjackson.archstudy.data.model.Ticker
 
 interface TickerRemoteDataSource {
 
-
     fun getMarketAll(
         baseCurrency: String,
         success: (markets: String) -> Unit,
