@@ -49,17 +49,14 @@ class MainFragment : Fragment() {
 
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view: View? = inflater.inflate(R.layout.fragment_main, container, false);
-        recyclerView = view!!.findViewById(R.id.recyclerview_mainfragment)
+        recyclerView = view!!.recyclerview_mainfragment
+
         recyclerView!!.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(activity?.applicationContext)
         recyclerView!!.layoutManager = layoutManager
-        recyclerviewAdapter = RecyclerviewAdapter(arrayListOf())
+        mainListAdapter = MainListAdapter(arrayListOf())
         val message = arguments!!.getString(EXTRA_MESSAGE)
         getMarketList(message)
         return view
