@@ -32,7 +32,7 @@ class UpBitConnector(val receiver: UpBitCommunicable) {
                 response: Response<List<UpBitTickerResponse>>
             ) {
                 val markets = response.body()
-                getTickers(markets?.asSequence()?.filter { prefix.length == 3 || prefix.length == 4 }
+                getTickers(markets?.asSequence()?.filter { hasPrefix(prefix) }
                     ?.filter { it.market!!.startsWith(prefix) }
                     ?.map { it.market }?.toList())
             }
@@ -58,6 +58,10 @@ class UpBitConnector(val receiver: UpBitCommunicable) {
             }
 
         })
+    }
+
+    fun hasPrefix(prefix: String): Boolean {
+        return listOf("KRW", "BTC", "ETH", "USDT").contains(prefix)
     }
 
     interface Retrofittable {
