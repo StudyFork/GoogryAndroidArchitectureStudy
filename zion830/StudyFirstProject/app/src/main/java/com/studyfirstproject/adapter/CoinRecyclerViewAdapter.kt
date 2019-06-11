@@ -53,10 +53,10 @@ class CoinRecyclerViewAdapter
             coinChangeRateText.text = NumberFormatUtil.getPercent(data.signedChangeRate)
             coinAccTradePriceText.text = NumberFormatUtil.skipUnderMillions(data.accTradePrice24h)
 
-            coinChangeRateText.textColor = when (data.signedChangeRate) {
-                0.0 -> Color.BLACK
-                in 0.0..100.0 -> Color.BLUE
-                else -> Color.RED
+            coinChangeRateText.textColor = when {
+                data.signedChangeRate > 0 -> Color.BLUE
+                data.signedChangeRate < 0 -> Color.RED
+                else -> Color.BLACK
             }
         }
     }
