@@ -1,6 +1,6 @@
 package my.gong.studygong.adapter
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import my.gong.studygong.R
 
 class CoinMarketAdapter(
     val clickCoinMarketListener: (String) -> Unit
-) : RecyclerView.Adapter<CoinMarketAdapter.ViewHolder>() {
+) : androidx.recyclerview.widget.RecyclerView.Adapter<CoinMarketAdapter.ViewHolder>() {
 
 
     private val coinMarketList: MutableList<String> = mutableListOf()
@@ -35,7 +35,7 @@ class CoinMarketAdapter(
         notifyDataSetChanged()
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
         val coinMarket = view.txt_coin_market
         val parentCoinMarket = view.linear_coin_market
     }

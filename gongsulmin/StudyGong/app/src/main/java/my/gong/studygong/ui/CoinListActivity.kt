@@ -1,8 +1,8 @@
 package my.gong.studygong.ui
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import my.gong.studygong.Injection
 import my.gong.studygong.R

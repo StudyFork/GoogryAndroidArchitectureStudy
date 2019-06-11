@@ -1,6 +1,6 @@
 package my.gong.studygong.adapter
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import my.gong.studygong.R
 import my.gong.studygong.data.model.Ticker
 
 class CoinAdapter
-    : RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
+    : androidx.recyclerview.widget.RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
 
     private val coinList: MutableList<Ticker> = mutableListOf()
 
@@ -36,7 +36,7 @@ class CoinAdapter
         notifyDataSetChanged()
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
         val coinMarket = view.txt_item_ticker_market!!
         val coinOpningPrice = view.txt_item_ticker_opening_price
         val coinChangePrice = view.txt_item_ticker_change_price
