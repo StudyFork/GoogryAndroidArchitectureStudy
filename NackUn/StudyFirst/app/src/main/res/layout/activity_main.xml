@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".MainActivity"
-                android:background="#FEFBF2">
-    <TextView android:layout_alignParentLeft="true"
-              android:layout_alignParentTop="true"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="업비트(Upbit)"
-              android:textSize="24dp"
-              android:layout_marginTop="12dp"
-              android:layout_marginLeft="12dp"
-              android:id="@+id/marketTitle"
-              android:textColor="#000000">
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity"
+        android:background="#FEFBF2">
+    <TextView
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/exchange"
+            android:textSize="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="12dp"
+            android:id="@+id/marketTitle"
+            android:textColor="#000000">
     </TextView>
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                  android:orientation="horizontal"
-                  android:layout_below="@+id/marketTitle"
-                  android:id="@+id/marketLike"
-                  android:layout_marginTop="12dp">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/marketTitle"
+            android:id="@+id/marketLike"
+            android:layout_marginTop="12dp">
         <TextView
                 android:id="@+id/marketKRW"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="KRW"
+                android:text="@string/marketKRW"
                 android:textSize="20dp"
                 android:gravity="center">
         </TextView>
@@ -35,7 +39,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="BTC"
+                android:text="@string/marketBTC"
                 android:textSize="20dp"
                 android:gravity="center">
         </TextView>
@@ -44,7 +48,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="ETH"
+                android:text="@string/marketETH"
                 android:textSize="20dp"
                 android:gravity="center">
         </TextView>
@@ -53,28 +57,47 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="USDT"
+                android:text="@string/marketUSDT"
                 android:textSize="20dp"
                 android:gravity="center">
         </TextView>
     </LinearLayout>
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                  android:orientation="horizontal" android:layout_marginTop="8dp"
-                  android:layout_marginLeft="12dp"
-                  android:layout_marginRight="12dp"
-                  android:id="@+id/tickerTitle"
-                  android:layout_below="@+id/marketLike">
-        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                  android:text="코인명" android:textSize="18dp" android:layout_weight="1"/>
-        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                  android:text="현재가" android:textSize="18dp" android:layout_weight="1"
-                  android:gravity="right"/>
-        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                  android:text="전일대비" android:textSize="18dp" android:layout_weight="1"
-                  android:gravity="right"/>
-        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                  android:text="거래대금" android:textSize="18dp" android:layout_weight="1"
-                  android:gravity="right"/>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:id="@+id/tickerTitle"
+            android:layout_below="@+id/marketLike">
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/coinName"
+                android:textSize="18dp"
+                android:layout_weight="1"/>
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/currentPrice"
+                android:textSize="18dp"
+                android:layout_weight="1"
+                android:gravity="right"/>
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/comparePrice"
+                android:textSize="18dp"
+                android:layout_weight="1"
+                android:gravity="right"/>
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/changePrice"
+                android:textSize="18dp"
+                android:layout_weight="1"
+                android:gravity="right"/>
 
     </LinearLayout>
     <ScrollView
@@ -82,9 +105,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <android.support.v7.widget.RecyclerView android:layout_width="match_parent"
-                                                android:layout_height="match_parent"
-                                                android:id="@+id/tickerRecyclerView">
+        <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/tickerRecyclerView">
         </android.support.v7.widget.RecyclerView>
     </ScrollView>
 </RelativeLayout>
