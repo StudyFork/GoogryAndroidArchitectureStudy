@@ -10,13 +10,13 @@ class TickerViewHolder(itemView: View) : BaseViewHolder<TickerModel>(itemView) {
 
         val data = data as TickerModel
 
+        /**
+         * Todo market 에 맞춰서 나중에 포맷 바꿔야함
+         */
         itemView.tv_coin_name.text = data.market!!.split('-')[1]
         itemView.tv_coin_current_price.text = data.tradePrice.toString()
-        itemView.tv_coin_compare_rate.text = when {
-            data.signedChangeRate!! < 0 -> String.format("%.2f%%", data.signedChangeRate)
-            else -> String.format("%s%.2f%%", '+', data.signedChangeRate)
-        }
-        itemView.tv_coin_all_price.text = String.format("%.2f M", data.accTradePrice24h)
+        itemView.tv_coin_compare_rate.text = data.signedChangeRate.toString()
+        itemView.tv_coin_all_price.text = data.accTradePrice24h.toString()
 
     }
 
