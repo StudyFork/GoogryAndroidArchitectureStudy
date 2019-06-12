@@ -29,19 +29,19 @@
             android:layout_height="match_parent"
             android:layout_weight="0.4"
             android:paddingLeft="10dp"
-            android:text="@string/coin_name" />
+            android:text="@string/coin_Name" />
 
         <TextView
             style="@style/CusTextViewTextView"
-            android:text="@string/trade_price" />
+            android:text="@string/trade_Price" />
 
         <TextView
             style="@style/CusTextViewTextView"
-            android:text="@string/change_rate" />
+            android:text="@string/change_Rate" />
 
         <TextView
             style="@style/CusTextViewTextView"
-            android:text="@string/accTrade_price" />
+            android:text="@string/accTrade_Price" />
 
 
     </LinearLayout>
