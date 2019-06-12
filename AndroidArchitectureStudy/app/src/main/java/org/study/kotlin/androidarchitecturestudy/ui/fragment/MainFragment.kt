@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.study.kotlin.androidarchitecturestudy.R
-import org.study.kotlin.androidarchitecturestudy.adapter.recyclerviewadapter.RecyclerviewAdapter
+import org.study.kotlin.androidarchitecturestudy.adapter.recyclerviewadapter.MainListAdapter
 import org.study.kotlin.androidarchitecturestudy.api.UPbitApi
 import org.study.kotlin.androidarchitecturestudy.api.model.MarketModel
 import org.study.kotlin.androidarchitecturestudy.api.model.TickerModel
@@ -27,7 +27,7 @@ class MainFragment : Fragment() {
     private val restApi: UPbitApi
     private val baseUrl = "https://api.upbit.com"
     var listData: ArrayList<TickerModel> = ArrayList()
-    private var recyclerviewAdapter: RecyclerviewAdapter? = null
+    private var mainListAdapter: MainListAdapter? = null
     private var recyclerView: RecyclerView? = null
 
     companion object {
@@ -59,7 +59,7 @@ class MainFragment : Fragment() {
         recyclerView!!.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(activity?.applicationContext)
         recyclerView!!.layoutManager = layoutManager
-        recyclerviewAdapter = RecyclerviewAdapter(arrayListOf())
+        mainListAdapter = MainListAdapter(arrayListOf())
         val message = arguments!!.getString(EXTRA_MESSAGE)
         getMarketList(message)
         return view
@@ -99,8 +99,8 @@ class MainFragment : Fragment() {
 
             override fun onResponse(call: Call<ArrayList<TickerModel>>, response: Response<ArrayList<TickerModel>>) {
                 listData = response?.body()!!
-                recyclerviewAdapter!!.setList(listData)
-                recyclerview_mainfragment.adapter = RecyclerviewAdapter(response?.body()!!)
+                mainListAdapter!!.setList(listData)
+                recyclerview_mainfragment.adapter = MainListAdapter(response?.body()!!)
             }
         })
     }
