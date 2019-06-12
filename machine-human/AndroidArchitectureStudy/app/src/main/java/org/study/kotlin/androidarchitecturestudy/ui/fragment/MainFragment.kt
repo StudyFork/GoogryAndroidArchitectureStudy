@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.fragment_main.view.*
 import org.study.kotlin.androidarchitecturestudy.R
 import org.study.kotlin.androidarchitecturestudy.adapter.recyclerviewadapter.MainListAdapter
 import org.study.kotlin.androidarchitecturestudy.api.UPbitApi
@@ -49,13 +50,9 @@ class MainFragment : Fragment() {
 
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view: View? = inflater.inflate(R.layout.fragment_main, container, false);
-        recyclerView = view!!.findViewById(R.id.recyclerview_mainfragment)
+        recyclerView = view!!.recyclerview_mainfragment
         recyclerView!!.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(activity?.applicationContext)
         recyclerView!!.layoutManager = layoutManager
@@ -100,8 +97,11 @@ class MainFragment : Fragment() {
             override fun onResponse(call: Call<ArrayList<TickerModel>>, response: Response<ArrayList<TickerModel>>) {
                 listData = response?.body()!!
                 mainListAdapter!!.setList(listData)
-                recyclerview_mainfragment.adapter = MainListAdapter(response?.body()!!)
+                recyclerview_mainfragment.adapter = mainListAdapter
+                recyclerview_mainfragment.adapter!!.notifyDataSetChanged()
             }
         })
     }
 }
+
+
