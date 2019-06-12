@@ -43,8 +43,7 @@ class MainListAdapter(var tickerList: ArrayList<TickerModel>) :
     }
 
     fun setList(list: ArrayList<TickerModel>) {
-        if (tickerList != null)
-            tickerList.clear()
+        tickerList?.clear()
 
         tickerList?.addAll(list)
         notifyDataSetChanged()
