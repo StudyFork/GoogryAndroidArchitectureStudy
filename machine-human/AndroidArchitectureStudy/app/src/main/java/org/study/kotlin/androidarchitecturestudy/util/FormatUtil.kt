@@ -9,6 +9,13 @@ object FormatUtil {
     fun commaIntFormat(number: Long) = format.format(number).toString()
     fun floatingEightPointFormat(number: Double) = String.format("%.8f", number)
     fun floatingThreePointFormat(number: Double) = String.format("%.3f", number)
+    fun usdtFloatingPointFormat(number: Double) : String {
+        if (number < 1) {
+            return String.format("%.8f", number)
+        } else {
+            return commaDoubleFormat(number)
+        }
+    }
     fun percentFormat(number: Double) = String.format("%.2f", number * 100) + "%"
     fun accTradePriceFormat(number: Double, market: String): String {
         if (market == "KRW") {
