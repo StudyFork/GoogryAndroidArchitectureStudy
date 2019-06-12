@@ -4,8 +4,8 @@
     <string name="tab2_name">BTC</string>
     <string name="tab3_name">ETH</string>
     <string name="tab4_name">USDT</string>
-    <string name="coin_Name">코인명</string>
-    <string name="trade_Price">현재가</string>
-    <string name="change_Rate">전일대비</string>
-    <string name="accTrade_Price">거래대금</string>
+    <string name="coin_name">코인명</string>
+    <string name="trade_price">현재가</string>
+    <string name="change_rate">전일대비</string>
+    <string name="accTrade_price">거래대금</string>
 </resources>
