@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
@@ -7,55 +8,20 @@
 	android:orientation="vertical"
 	tools:context=".ui.main.MainActivity">
 
-	<LinearLayout
-		android:id="@+id/main_market_tab_ll"
+	<com.google.android.material.tabs.TabLayout
+		android:id="@+id/main_market_tab_tl"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="15dp"
 		android:layout_marginTop="10dp"
 		android:layout_marginRight="15dp"
-		android:orientation="horizontal">
+		app:tabGravity="center"
+		app:tabIndicatorColor="@color/accent"
+		app:tabMode="fixed"
+		app:tabSelectedTextColor="@color/accent"
+		app:tabTextColor="@color/grey">
 
-		<TextView
-			android:id="@+id/main_market_tab_tv_krw"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:gravity="center"
-			android:text="@string/all_krw"
-			android:textColor="@color/grey"
-			android:textSize="16sp" />
-
-		<TextView
-			android:id="@+id/main_market_tab_tv_btc"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:gravity="center"
-			android:text="@string/all_btc"
-			android:textColor="@color/grey"
-			android:textSize="16sp" />
-
-		<TextView
-			android:id="@+id/main_market_tab_tv_eth"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:gravity="center"
-			android:text="@string/all_eth"
-			android:textColor="@color/grey"
-			android:textSize="16sp" />
-
-		<TextView
-			android:id="@+id/main_market_tab_tv_usdt"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:gravity="center"
-			android:text="@string/all_usdt"
-			android:textColor="@color/grey"
-			android:textSize="16sp" />
-	</LinearLayout>
+	</com.google.android.material.tabs.TabLayout>
 
 	<LinearLayout
 		android:id="@+id/main_sort_tab_ll"

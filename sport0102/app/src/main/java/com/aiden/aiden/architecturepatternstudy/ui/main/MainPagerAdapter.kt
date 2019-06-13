@@ -9,13 +9,13 @@ class MainPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
     private val marketList = Market.values()
 
-    override fun getItem(position: Int): Fragment? {
+    override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> MainFragment(marketList[0])
             1 -> MainFragment(marketList[1])
             2 -> MainFragment(marketList[2])
             3 -> MainFragment(marketList[3])
-            else -> null
+            else -> MainFragment(marketList[0])
         }
 
     }

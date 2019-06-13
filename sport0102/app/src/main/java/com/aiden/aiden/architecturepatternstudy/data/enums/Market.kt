@@ -1,8 +1,8 @@
 package com.aiden.aiden.architecturepatternstudy.data.enums
 
 enum class Market(val marketName: String) {
-    KRW("krw"),
-    BTC("btc"),
-    ETH("eth"),
-    USDT("usdt")
+    KRW("KRW"),
+    BTC("BTC"),
+    ETH("ETH"),
+    USDT("USDT")
 }
