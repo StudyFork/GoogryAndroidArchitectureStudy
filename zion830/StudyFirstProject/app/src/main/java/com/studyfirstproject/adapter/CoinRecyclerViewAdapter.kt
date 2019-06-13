@@ -39,20 +39,22 @@ class CoinRecyclerViewAdapter
 
     inner class CoinItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(data: TickerModel) {
-            val coinNameText = view.tv_coin_name as TextView
-            val coinTradePriceText = view.tv_coin_trade_price as TextView
-            val coinChangeRateText = view.tv_coin_change_rate as TextView
-            val coinAccTradePriceText = view.tv_coin_acc_trade_price as TextView
+            with(view) {
+                val coinNameText = tv_coin_name as TextView
+                val coinTradePriceText = tv_coin_trade_price as TextView
+                val coinChangeRateText = tv_coin_change_rate as TextView
+                val coinAccTradePriceText = tv_coin_acc_trade_price as TextView
 
-            coinNameText.text = data.market.substring(data.market.indexOf("-") + 1)
-            coinTradePriceText.text = NumberFormatUtil.insertComma(data.tradePrice.toLong())
-            coinChangeRateText.text = NumberFormatUtil.getPercent(data.signedChangeRate)
-            coinAccTradePriceText.text = NumberFormatUtil.skipUnderMillions(data.accTradePrice24h)
+                coinNameText.text = data.market.substring(data.market.indexOf("-") + 1)
+                coinTradePriceText.text = NumberFormatUtil.insertComma(data.tradePrice.toLong())
+                coinChangeRateText.text = NumberFormatUtil.getPercent(data.signedChangeRate)
+                coinAccTradePriceText.text = NumberFormatUtil.skipUnderMillions(data.accTradePrice24h)
 
-            coinChangeRateText.textColor = when {
-                data.signedChangeRate > 0 -> Color.BLUE
-                data.signedChangeRate < 0 -> Color.RED
-                else -> Color.BLACK
+                coinChangeRateText.textColor = when {
+                    data.signedChangeRate > 0 -> Color.BLUE
+                    data.signedChangeRate < 0 -> Color.RED
+                    else -> Color.BLACK
+                }
             }
         }
     }
