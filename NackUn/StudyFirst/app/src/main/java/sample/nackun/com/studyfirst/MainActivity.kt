@@ -30,12 +30,12 @@ class MainActivity : AppCompatActivity() {
     fun setBtnClick(){
         val onClickListener = object : View.OnClickListener {
             override fun onClick(v: View?) {
-                marketKRW.setTextColor(Color.parseColor("#bebbb4"))
-                marketBTC.setTextColor(Color.parseColor("#bebbb4"))
-                marketETH.setTextColor(Color.parseColor("#bebbb4"))
-                marketUSDT.setTextColor(Color.parseColor("#bebbb4"))
+                marketKRW.setTextColor(resources.getColor(R.color.grey))
+                marketBTC.setTextColor(resources.getColor(R.color.grey))
+                marketETH.setTextColor(resources.getColor(R.color.grey))
+                marketUSDT.setTextColor(resources.getColor(R.color.grey))
                 var selectedMarket = v as TextView
-                selectedMarket.setTextColor(Color.parseColor("#384786"))
+                selectedMarket.setTextColor(resources.getColor(R.color.indigo))
                 initView(selectedMarket.text.toString())
             }
         }
