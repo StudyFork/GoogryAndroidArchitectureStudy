@@ -21,9 +21,8 @@ class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewH
         return ItemTickerViewHolder(retView)
     }
 
-    override fun getItemCount(): Int {
-        return tickerList.size
-    }
+    override fun getItemCount(): Int = tickerList.size
+
 
     override fun onBindViewHolder(holder: ItemTickerViewHolder, position: Int) {
         with(holder.itemView) {
