@@ -15,8 +15,9 @@ class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewH
     private var tickerList = ArrayList<TickerModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemTickerViewHolder {
-        val retView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_ticker, parent, false)
+        val retView =
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_ticker, parent, false)
         return ItemTickerViewHolder(retView)
     }
 
