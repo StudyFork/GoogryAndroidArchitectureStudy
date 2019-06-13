@@ -65,8 +65,9 @@ class MainActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<ArrayList<Market>>, response: Response<ArrayList<Market>>) {
                     var markets = ""
-                    response.body()?.filter { it.market.startsWith(marketLike) }
-                    ?.map { it-> markets += it.market+","}
+                    response.body()
+                        ?.filter { it.market.startsWith(marketLike) }
+                        ?.map { it-> markets += it.market+","}
                     markets = markets.substring(0, markets.length - 1)
                     Log.d("aa12", markets)
 
