@@ -15,7 +15,9 @@ import com.architecturestudy.model.UpBitTickerResponse
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment(), UpBitCommunicable {
-    init {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         UpBitConnector(this).getMarketPrice("KRW")
     }
 
@@ -26,15 +28,26 @@ class MainFragment : Fragment(), UpBitCommunicable {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        initRecyclerView()
+    }
+
     override fun onSuccessMarketPrice(marketPrice: List<UpBitTickerResponse>) {
+        setMainAdapter(marketPrice)
+    }
+
+    private fun initRecyclerView() {
         val context = activity as MainActivity
         rv_coin_price.addItemDecoration(DividerItemDecoration(context))
-        val adapter = MainAdapter()
-        adapter.setMarketPrices(marketPrice.sortedBy { it.market })
-        rv_coin_price.adapter = adapter
-
         val lm = LinearLayoutManager(context)
         rv_coin_price.layoutManager = lm
         rv_coin_price.setHasFixedSize(true)
+    }
+
+    private fun setMainAdapter(marketPrice: List<UpBitTickerResponse>) {
+        val adapter = MainAdapter()
+        adapter.setMarketPrices(marketPrice.sortedBy { it.market })
+        rv_coin_price.adapter = adapter
     }
 }
