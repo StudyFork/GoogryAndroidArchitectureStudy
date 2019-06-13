@@ -19,8 +19,6 @@ class TickerAdapter() : RecyclerView.Adapter<TickerViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun settingItems(items: ArrayList<Ticker>) = items.size
-
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): TickerViewHolder {
         return TickerViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.ticker_item, parent, false))
     }
