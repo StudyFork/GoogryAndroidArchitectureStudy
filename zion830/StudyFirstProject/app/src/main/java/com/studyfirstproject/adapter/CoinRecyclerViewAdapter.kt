@@ -14,7 +14,7 @@ import org.jetbrains.anko.textColor
 
 class CoinRecyclerViewAdapter
     : RecyclerView.Adapter<CoinRecyclerViewAdapter.CoinItemViewHolder> {
-    var coinList: ArrayList<TickerModel>
+    private var coinList: ArrayList<TickerModel>
 
     constructor(tickers: ArrayList<TickerModel>) : super() {
         this.coinList = tickers
