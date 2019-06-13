@@ -9,7 +9,7 @@ import com.architecturestudy.R
 import com.architecturestudy.model.UpBitTickerResponse
 import java.text.DecimalFormat
 
-class MainAdapter() : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
+class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
     var marketPrice: List<UpBitTickerResponse>? = null
 
     fun setMarketPrices(marketPrice: List<UpBitTickerResponse>) {
@@ -29,11 +29,11 @@ class MainAdapter() : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
         marketPrice?.get(position)?.let { holder.bind(it) }
     }
 
-    inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
-        private val coinName = itemView?.findViewById<TextView>(R.id.tv_coin_name)
-        private val currentPrice = itemView?.findViewById<TextView>(R.id.tv_current_price)
-        private val netChange = itemView?.findViewById<TextView>(R.id.tv_net_change)
-        private val tradingVal = itemView?.findViewById<TextView>(R.id.tv_trading_value)
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val coinName = itemView.findViewById<TextView>(R.id.tv_coin_name)
+        private val currentPrice = itemView.findViewById<TextView>(R.id.tv_current_price)
+        private val netChange = itemView.findViewById<TextView>(R.id.tv_net_change)
+        private val tradingVal = itemView.findViewById<TextView>(R.id.tv_trading_value)
 
         fun bind(marketPrice: UpBitTickerResponse) {
             coinName?.text =
