@@ -16,12 +16,13 @@ object RetrofitBuilder {
     }
 
     private fun initService(): CoinApi {
-        val builder = OkHttpClient.Builder()
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
-        builder.addInterceptor(interceptor)
-        builder.connectTimeout(TIME_OUT_SEC, TimeUnit.SECONDS)
-        val okHttpClient = builder.build()
+
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .connectTimeout(TIME_OUT_SEC, TimeUnit.SECONDS)
+            .build()
 
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
