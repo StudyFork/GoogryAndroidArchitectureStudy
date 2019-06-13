@@ -20,7 +20,5 @@ class MainPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
     }
 
-    override fun getCount(): Int {
-        return marketList.size
-    }
+    override fun getCount(): Int = marketList.size
 }
