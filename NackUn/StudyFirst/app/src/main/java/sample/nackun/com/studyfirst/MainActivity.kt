@@ -19,12 +19,24 @@ import sample.nackun.com.studyfirst.network.UpbitApi
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var retrofit: Retrofit
+    private lateinit var service: UpbitApi
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        initRetrofit();
         setBtnClick()
         marketKRW.callOnClick()
+    }
+
+    fun initRetrofit(){
+        retrofit = Retrofit.Builder()
+            .baseUrl("https://api.upbit.com/v1/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        service = retrofit.create(UpbitApi::class.java)
     }
 
     fun setBtnClick(){
@@ -47,13 +59,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun initView(marketLike: String) {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.upbit.com/v1/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val service = retrofit.create(UpbitApi::class.java)
-
         service.requestMarket().enqueue(object : Callback<ArrayList<Market>> {
             override fun onFailure(call: Call<ArrayList<Market>>, t: Throwable) {
             }
