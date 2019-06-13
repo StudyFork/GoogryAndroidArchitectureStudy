@@ -6,8 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aiden.aiden.architecturepatternstudy.R
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerModel
-import com.aiden.aiden.architecturepatternstudy.data.enums.Market
-import com.aiden.aiden.architecturepatternstudy.util.*
 import kotlinx.android.synthetic.main.item_ticker.view.*
 
 class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewHolder>() {
@@ -25,54 +23,75 @@ class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewH
 
 
     override fun onBindViewHolder(holder: ItemTickerViewHolder, position: Int) {
-        with(holder.itemView) {
-            // 코인 이름
-            item_ticker_tv_coin_name.text = tickerList[position].market.split("-")[1]
-            // 현재 가격
-            item_ticker_tv_now_price.text = if (tickerList[position].market.startsWith(Market.KRW.marketName, true)) {
-                getKrwCommaPrice(tickerList[position].tradePrice)
-            } else if (tickerList[position].market.startsWith(
-                    Market.BTC.marketName,
-                    true
-                ) || tickerList[position].market.startsWith(Market.ETH.marketName, true)
-            ) {
-                getBtcEthCommaPrice(tickerList[position].tradePrice)
-            } else {
-                getUsdtCommaPrice(tickerList[position].tradePrice)
-            }
-            // 전일대비
-            when {
-                tickerList[position].prevClosingPrice > tickerList[position].tradePrice -> {
-                    item_ticker_tv_compare_before.setTextColor(context.getColor(R.color.blue))
-                }
-                tickerList[position].prevClosingPrice < tickerList[position].tradePrice -> {
-                    item_ticker_tv_compare_before.setTextColor(context.getColor(R.color.red))
-                }
-                else -> {
-                    item_ticker_tv_compare_before.setTextColor(context.getColor(R.color.black))
-                }
-            }
-            item_ticker_tv_compare_before.text =
-                getPercent(tickerList[position].prevClosingPrice, tickerList[position].tradePrice)
-            // 거래대금
-            item_ticker_tv_total_deal_price.text =
-                if (tickerList[position].market.startsWith(Market.KRW.marketName, true)) {
-                    getKrwTotalDealPrice(tickerList[position].accTradePrice24h)
-                } else if (tickerList[position].market.startsWith(
-                        Market.BTC.marketName,
-                        true
-                    ) || tickerList[position].market.startsWith(Market.ETH.marketName, true)
-                ) {
-                    getBtcEthTotalDealPrice(tickerList[position].accTradePrice24h)
-                } else {
-                    getUsdtTotalDealPrice(tickerList[position].accTradePrice24h)
-                }
-        }
+        holder.bind(tickerList[position])
     }
 
     fun setData(list: ArrayList<TickerModel>) {
         tickerList = list
     }
 
-    inner class ItemTickerViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    inner class ItemTickerViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+        fun bind(tickerModel: TickerModel) {
+            with(view) {
+                // 코인 이름
+                item_ticker_tv_coin_name.text = tickerModel.market.split("-")[1]
+                // 현재 가격
+                item_ticker_tv_now_price.text = if (tickerModel.market.startsWith(
+                        com.aiden.aiden.architecturepatternstudy.data.enums.Market.KRW.marketName,
+                        true
+                    )
+                ) {
+                    com.aiden.aiden.architecturepatternstudy.util.getKrwCommaPrice(tickerModel.tradePrice)
+                } else if (tickerModel.market.startsWith(
+                        com.aiden.aiden.architecturepatternstudy.data.enums.Market.BTC.marketName,
+                        true
+                    ) || tickerModel.market.startsWith(
+                        com.aiden.aiden.architecturepatternstudy.data.enums.Market.ETH.marketName,
+                        true
+                    )
+                ) {
+                    com.aiden.aiden.architecturepatternstudy.util.getBtcEthCommaPrice(tickerModel.tradePrice)
+                } else {
+                    com.aiden.aiden.architecturepatternstudy.util.getUsdtCommaPrice(tickerModel.tradePrice)
+                }
+                // 전일대비
+                when {
+                    tickerModel.prevClosingPrice > tickerModel.tradePrice -> {
+                        item_ticker_tv_compare_before.setTextColor(context.getColor(R.color.blue))
+                    }
+                    tickerModel.prevClosingPrice < tickerModel.tradePrice -> {
+                        item_ticker_tv_compare_before.setTextColor(context.getColor(R.color.red))
+                    }
+                    else -> {
+                        item_ticker_tv_compare_before.setTextColor(context.getColor(R.color.black))
+                    }
+                }
+                item_ticker_tv_compare_before.text =
+                    com.aiden.aiden.architecturepatternstudy.util.getPercent(
+                        tickerModel.prevClosingPrice,
+                        tickerModel.tradePrice
+                    )
+                // 거래대금
+                item_ticker_tv_total_deal_price.text =
+                    if (tickerModel.market.startsWith(
+                            com.aiden.aiden.architecturepatternstudy.data.enums.Market.KRW.marketName,
+                            true
+                        )
+                    ) {
+                        com.aiden.aiden.architecturepatternstudy.util.getKrwTotalDealPrice(tickerModel.accTradePrice24h)
+                    } else if (tickerModel.market.startsWith(
+                            com.aiden.aiden.architecturepatternstudy.data.enums.Market.BTC.marketName,
+                            true
+                        ) || tickerModel.market.startsWith(
+                            com.aiden.aiden.architecturepatternstudy.data.enums.Market.ETH.marketName,
+                            true
+                        )
+                    ) {
+                        com.aiden.aiden.architecturepatternstudy.util.getBtcEthTotalDealPrice(tickerModel.accTradePrice24h)
+                    } else {
+                        com.aiden.aiden.architecturepatternstudy.util.getUsdtTotalDealPrice(tickerModel.accTradePrice24h)
+                    }
+            }
+        }
+    }
 }
