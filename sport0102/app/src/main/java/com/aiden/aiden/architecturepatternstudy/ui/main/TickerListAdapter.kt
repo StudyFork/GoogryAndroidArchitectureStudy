@@ -30,15 +30,15 @@ class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewH
             item_ticker_tv_coin_name.text = tickerList[position].market.split("-")[1]
             // 현재 가격
             item_ticker_tv_now_price.text = if (tickerList[position].market.startsWith(Market.KRW.marketName, true)) {
-                getKRWCommaPrice(tickerList[position].tradePrice)
+                getKrwCommaPrice(tickerList[position].tradePrice)
             } else if (tickerList[position].market.startsWith(
                     Market.BTC.marketName,
                     true
                 ) || tickerList[position].market.startsWith(Market.ETH.marketName, true)
             ) {
-                getBTCETHCommaPrice(tickerList[position].tradePrice)
+                getBtcEthCommaPrice(tickerList[position].tradePrice)
             } else {
-                getUSDTCommaPrice(tickerList[position].tradePrice)
+                getUsdtCommaPrice(tickerList[position].tradePrice)
             }
             // 전일대비
             when {
@@ -57,15 +57,15 @@ class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewH
             // 거래대금
             item_ticker_tv_total_deal_price.text =
                 if (tickerList[position].market.startsWith(Market.KRW.marketName, true)) {
-                    getKRWTotalDealPrice(tickerList[position].accTradePrice24h)
+                    getKrwTotalDealPrice(tickerList[position].accTradePrice24h)
                 } else if (tickerList[position].market.startsWith(
                         Market.BTC.marketName,
                         true
                     ) || tickerList[position].market.startsWith(Market.ETH.marketName, true)
                 ) {
-                    getBTCETHTotalDealPrice(tickerList[position].accTradePrice24h)
+                    getBtcEthTotalDealPrice(tickerList[position].accTradePrice24h)
                 } else {
-                    getUSDTTotalDealPrice(tickerList[position].accTradePrice24h)
+                    getUsdtTotalDealPrice(tickerList[position].accTradePrice24h)
                 }
         }
     }

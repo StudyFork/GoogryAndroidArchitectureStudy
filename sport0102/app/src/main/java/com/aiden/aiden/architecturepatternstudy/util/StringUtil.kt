@@ -1,15 +1,15 @@
 package com.aiden.aiden.architecturepatternstudy.util
 
-fun getKRWCommaPrice(price: Double): String =
+fun getKrwCommaPrice(price: Double): String =
     if (price.toString().split(".")[1].toInt() > 0) {
         String.format("%1$,.1f", price)
     } else {
         String.format("%,d", price.toInt())
     }
 
-fun getBTCETHCommaPrice(price: Double): String = String.format("%.8f", price)
+fun getBtcEthCommaPrice(price: Double): String = String.format("%.8f", price)
 
-fun getUSDTCommaPrice(price: Double): String {
+fun getUsdtCommaPrice(price: Double): String {
     if (price < 1) {
         return String.format("%.8f", price)
     }
@@ -30,11 +30,11 @@ fun getPercent(closingPrice: Double, tradePrice: Double): String {
     }
 }
 
-fun getKRWTotalDealPrice(totalPrice: Double): String = "${String.format("%,d", (totalPrice / 1000000).toInt())} M"
+fun getKrwTotalDealPrice(totalPrice: Double): String = "${String.format("%,d", (totalPrice / 1000000).toInt())} M"
 
-fun getBTCETHTotalDealPrice(totalPrice: Double): String = String.format("%1$,.3f", totalPrice)
+fun getBtcEthTotalDealPrice(totalPrice: Double): String = String.format("%1$,.3f", totalPrice)
 
-fun getUSDTTotalDealPrice(totalPrice: Double): String {
+fun getUsdtTotalDealPrice(totalPrice: Double): String {
     if (totalPrice > 1000000) {
         return "${String.format("%,d", (totalPrice / 1000).toInt())} K"
     } else {
