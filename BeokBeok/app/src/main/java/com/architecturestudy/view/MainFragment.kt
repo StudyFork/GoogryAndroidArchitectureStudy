@@ -29,7 +29,8 @@ class MainFragment : Fragment(), UpBitCommunicable {
     override fun onSuccessMarketPrice(marketPrice: List<UpBitTickerResponse>) {
         val context = activity as MainActivity
         rv_coin_price.addItemDecoration(DividerItemDecoration(context))
-        val adapter = MainAdapter(context, marketPrice.sortedBy { it.market })
+        val adapter = MainAdapter()
+        adapter.setMarketPrices(marketPrice.sortedBy { it.market })
         rv_coin_price.adapter = adapter
 
         val lm = LinearLayoutManager(context)
