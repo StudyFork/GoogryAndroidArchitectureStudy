@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setCoinInfo(coinData: List<TickerModel>) {
-        // coinAdapter.coinList = ArrayList(coinData)
+        coinAdapter.setCoinList(coinData)
         coinAdapter.notifyDataSetChanged()
         hideProgress()
         hideRefreshIcon()

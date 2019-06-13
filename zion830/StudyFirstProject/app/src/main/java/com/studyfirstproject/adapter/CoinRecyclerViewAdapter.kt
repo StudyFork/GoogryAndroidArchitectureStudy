@@ -32,8 +32,9 @@ class CoinRecyclerViewAdapter
 
     fun getItem(position: Int) = coinList[position]
 
-    fun removeAll() {
+    fun setCoinList(data: List<TickerModel>) {
         coinList.clear()
+        coinList.addAll(data)
         notifyDataSetChanged()
     }
 
