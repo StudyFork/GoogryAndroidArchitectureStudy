@@ -1,7 +1,9 @@
 package com.aiden.aiden.architecturepatternstudy.api.model
 
+import com.google.gson.annotations.SerializedName
+
 data class MarketModel(
-    val english_name: String,
-    val korean_name: String,
-    val market: String
+    @SerializedName("english_name") val englishName: String,
+    @SerializedName("korean_name") val koreanName: String,
+    @SerializedName("market") val market: String
 )
