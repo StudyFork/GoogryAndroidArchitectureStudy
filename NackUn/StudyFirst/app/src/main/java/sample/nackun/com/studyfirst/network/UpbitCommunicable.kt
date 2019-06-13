@@ -7,9 +7,9 @@ import sample.nackun.com.studyfirst.market.Market
 import sample.nackun.com.studyfirst.market.Ticker
 
 interface UpbitCommunicable {
-    @GET("https://api.upbit.com/v1/market/all")
+    @GET("market/all")
     fun requestMarket(): Call<ArrayList<Market>>
 
-    @GET("https://api.upbit.com/v1/ticker/")
+    @GET("ticker/")
     fun requestTicker(@Query("markets") markets: String): Call<ArrayList<Ticker>>
 }
