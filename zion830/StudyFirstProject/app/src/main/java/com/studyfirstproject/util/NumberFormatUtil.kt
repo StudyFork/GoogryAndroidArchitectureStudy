@@ -14,7 +14,7 @@ object NumberFormatUtil {
         }
 
     // 세자리 단위로 끊어 , 삽입
-    fun insertComma(num: Number): String = df.format(num).toString()
+    fun insertComma(num: Number): String = df.format(num)
 
     // 백분율 변환
     fun getPercent(num: Double): String {
