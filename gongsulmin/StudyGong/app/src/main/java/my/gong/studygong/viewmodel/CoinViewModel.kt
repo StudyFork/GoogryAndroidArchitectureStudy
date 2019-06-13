@@ -1,49 +1,60 @@
 package my.gong.studygong.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import my.gong.studygong.SingleLiveEvent
 import my.gong.studygong.data.model.Ticker
 import my.gong.studygong.data.source.upbit.UpbitDataSource
 import my.gong.studygong.ui.CoinListActivity
 import java.util.*
-import kotlin.properties.Delegates
 
 class CoinViewModel(
     private val upbitRepository: UpbitDataSource
 ) {
 
-    private var tickerList: List<Ticker> by Delegates.observable(listOf()) { _, _, newValue ->
-        tickerLoadedListener?.invoke(newValue)
-    }
+    private var _tickerList = MutableLiveData<List<Ticker>>()
+    val tickerList: LiveData<List<Ticker>>
+        get() = _tickerList
 
-    private var searchTickerResultList: List<Ticker> by Delegates.observable(listOf()) { _, _, newValue ->
-        searchTickerLoadedListener?.invoke(newValue)
-    }
+    private var _searchTickerList = MutableLiveData<List<Ticker>>()
+    val searchTickerList: LiveData<List<Ticker>>
+        get() = _searchTickerList
 
-    private var errorMessage: String by Delegates.observable("") { _, _, newValue ->
-        errorLoadedListener?.invoke(newValue)
-    }
+    private var _baseCurrencyList = MutableLiveData<List<String>>()
+    val baseCurrencyList: LiveData<List<String>>
+        get() = _baseCurrencyList
 
-    private var baseCurrencyList: List<String> by Delegates.observable(listOf()) { _, _, newValue ->
-        baseCurrencyLoadedListener?.invoke(newValue)
-    }
+    private var _dismissCoinMarketDialog = SingleLiveEvent<String>()
+    val dismissCoinMarketDialog: LiveData<String>
+        get() = _dismissCoinMarketDialog
 
-    var tickerLoadedListener: ((List<Ticker>) -> Unit)? = null
-    var searchTickerLoadedListener: ((List<Ticker>) -> Unit)? = null
-    var baseCurrencyLoadedListener: ((List<String>) -> Unit)? = null
-    var errorLoadedListener: ((String) -> Unit)? = null
+    private var _showCoinSearchDialog = SingleLiveEvent<String>()
+    val showCoinSearchDialog: LiveData<String>
+        get() = _showCoinSearchDialog
+
+    var showCoinMarketDialog = SingleLiveEvent<Any>()
+
+    var errorMessage = SingleLiveEvent<String>()
+
+    private var _baseCurrency = MutableLiveData<String>("KRW")
+    val baseCurrency: LiveData<String>
+        get() = _baseCurrency
+
+    var searchTicker = MutableLiveData<String>("")
 
     private var timer: Timer = Timer()
 
-    fun loadCoin(coinMarket: String = "KRW") {
+    fun loadCoin() {
         timer.cancel()
         timer = Timer()
         timer.scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
-                loadTickerList(coinMarket)
+                loadTickerList(baseCurrency.value!!)
             }
         }, 0, CoinListActivity.REPEAT_INTERVAL_MILLIS)
     }
 
-    fun onStop(){
+    fun onStop() {
         timer.cancel()
     }
 
@@ -51,10 +62,10 @@ class CoinViewModel(
         upbitRepository.getTickers(
             tickerCurrency = currency,
             success = {
-                tickerList = it
+                _tickerList.value = it
             },
             fail = {
-                errorMessage = it
+                errorMessage.value = it
             }
         )
     }
@@ -64,25 +75,41 @@ class CoinViewModel(
             upbitRepository.getDetailTickers(
                 tickerSearch = searchTicker,
                 success = {
-                    searchTickerResultList = it
+                    _searchTickerList.value = it
                 },
                 fail = {
-                    errorMessage = it
+                    errorMessage.value = it
                 }
             )
         } else {
-            errorMessage = "검색한 코인은 찾을수 없습니다!"
+            errorMessage.value = "검색한 코인은 찾을수 없습니다!"
         }
     }
 
     fun loadBaseCurrency() {
         upbitRepository.getCoinCurrency(
             success = {
-                baseCurrencyList = it
+                _baseCurrencyList.value = it
             },
             fail = {
-                errorMessage = it
+                errorMessage.value = it
             }
         )
+    }
+
+    fun showCoinMarketDialog() {
+        showCoinMarketDialog.call()
+    }
+
+    fun showCoinSearchDialog(searchTicker: String) {
+        _showCoinSearchDialog.value = searchTicker
+    }
+
+    fun selectBaseCurrnecy(baseCurrency: String) {
+        _dismissCoinMarketDialog.value = baseCurrency
+    }
+
+    fun resetBaseCurrecny(baseCurrency: String) {
+        _baseCurrency.value = baseCurrency
     }
 }
