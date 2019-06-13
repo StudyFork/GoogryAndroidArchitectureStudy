@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         marketUSDT.setOnClickListener(onClickListener)
     }
 
-    fun initView(marketLike: String): Unit {
+    fun initView(marketLike: String) {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.upbit.com/v1/")
             .addConverterFactory(GsonConverterFactory.create())
