@@ -9,15 +9,23 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.ticker_item.view.*
 import sample.nackun.com.studyfirst.market.Ticker
 
-class TickerAdapter(val items: ArrayList<Ticker>, val context: Context) : RecyclerView.Adapter<TickerViewHolder>() {
+class TickerAdapter() : RecyclerView.Adapter<TickerViewHolder>() {
 
-    var color: String = ""
+    private var items: ArrayList<Ticker> = arrayListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, p1: Int): TickerViewHolder {
-        return TickerViewHolder(LayoutInflater.from(context).inflate(R.layout.ticker_item, parent, false))
+    fun setItems(tickers: ArrayList<Ticker>) {
+        items.clear()
+        items.addAll(tickers)
+        notifyDataSetChanged()
     }
 
-    override fun getItemCount() = items.size
+    fun settingItems(items: ArrayList<Ticker>) = items.size
+
+    override fun onCreateViewHolder(parent: ViewGroup, p1: Int): TickerViewHolder {
+        return TickerViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.ticker_item, parent, false))
+    }
+
+    override fun getItemCount() = items?.size
 
     override fun onBindViewHolder(tickerViewHolder: TickerViewHolder, p1: Int) {
         tickerViewHolder.bind(items[p1])

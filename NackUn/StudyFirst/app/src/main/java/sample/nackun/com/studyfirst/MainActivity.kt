@@ -21,12 +21,13 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var retrofit: Retrofit
     private lateinit var service: UpbitApi
+    private lateinit var tickerAdapter: TickerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initView()
+        initAdapter()
         initRetrofit()
         setBtnClick()
         marketKRW.callOnClick()
@@ -59,9 +60,11 @@ class MainActivity : AppCompatActivity() {
         marketUSDT.setOnClickListener(onClickListener)
     }
 
-    fun initView(){
-        tickerRecyclerView.adapter = TickerAdapter(arrayListOf(), this@MainActivity)
+    fun initAdapter(){
+        tickerAdapter = TickerAdapter()
+        tickerRecyclerView.adapter = tickerAdapter
     }
+
     fun initData(marketLike: String) {
 
         service.requestMarket().enqueue(object : Callback<ArrayList<Market>> {
@@ -87,10 +90,7 @@ class MainActivity : AppCompatActivity() {
                                 call: Call<ArrayList<Ticker>>,
                                 response: Response<ArrayList<Ticker>>
                             ) {
-                                response.body()?.let{
-                                    tickerRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
-                                    tickerRecyclerView.adapter = TickerAdapter(it, this@MainActivity)
-                                }
+                                response.body()?.let { tickerAdapter.setItems(it) }
                             }
 
                             override fun onFailure(call: Call<ArrayList<Ticker>>, t: Throwable) {
