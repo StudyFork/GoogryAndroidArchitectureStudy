@@ -3,10 +3,13 @@ package my.gong.studygong.ui
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_main.*
 import my.gong.studygong.Injection
 import my.gong.studygong.R
 import my.gong.studygong.adapter.CoinAdapter
+import my.gong.studygong.databinding.ActivityMainBinding
 import my.gong.studygong.viewmodel.CoinViewModel
 
 class CoinListActivity : AppCompatActivity() {
@@ -17,9 +20,13 @@ class CoinListActivity : AppCompatActivity() {
         CoinViewModel(Injection.provideCoinRepository())
     }
 
+    private lateinit var viewDataBinding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        viewDataBinding = DataBindingUtil.setContentView(this@CoinListActivity , R.layout.activity_main)
+        viewDataBinding.coinViewModel = coinViewModel
+        viewDataBinding.lifecycleOwner = this
         init()
     }
 
@@ -36,11 +43,11 @@ class CoinListActivity : AppCompatActivity() {
     private fun init() {
         recyclerview_main_ticker_list.adapter = CoinAdapter()
 
-        linear_coin_markets.setOnClickListener {
+        coinViewModel.showCoinMarketDialog.observe(this , Observer {
             coinMarketDialog.show(supportFragmentManager, null)
-        }
+        })
 
-        btn_search.setOnClickListener {
+        coinViewModel.showCoinSearchDialog.observe(this , Observer {
             val coinSearchDialog = CoinSearchDialog()
 
             coinSearchDialog.arguments =
@@ -49,20 +56,17 @@ class CoinListActivity : AppCompatActivity() {
                 }
 
             coinSearchDialog.show(supportFragmentManager, null)
-        }
+        })
 
-        coinViewModel.tickerLoadedListener = {
-            (recyclerview_main_ticker_list.adapter as CoinAdapter).refreshData(it)
-        }
+        coinViewModel.errorMessage.observe(this , Observer {
+            Toast.makeText(this@CoinListActivity, it, Toast.LENGTH_SHORT).show()
+        })
 
-        coinViewModel.errorLoadedListener = { msg ->
-            Toast.makeText(this@CoinListActivity, msg, Toast.LENGTH_SHORT).show()
-        }
     }
 
     fun onClickCoinMarketItem(market: String) {
-        txt_select_coin_market.text = market
-        coinViewModel.loadCoin(market)
+        coinViewModel.loadCoin()
+        coinViewModel.resetBaseCurrecny(market)
     }
 
     companion object {

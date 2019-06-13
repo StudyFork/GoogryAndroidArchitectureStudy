@@ -1,12 +1,13 @@
 package my.gong.studygong.ui
 
-import android.content.Context
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.dialog_coin_market.*
 import my.gong.studygong.Injection
 import my.gong.studygong.R
 import my.gong.studygong.adapter.CoinMarketAdapter
 import my.gong.studygong.base.BaseDialog
+import my.gong.studygong.databinding.DialogCoinMarketBinding
 import my.gong.studygong.viewmodel.CoinViewModel
 
 /**
@@ -14,9 +15,7 @@ import my.gong.studygong.viewmodel.CoinViewModel
  *
  */
 class CoinMarketDialog
-    : BaseDialog(R.layout.dialog_coin_market) {
-
-    lateinit var dialogCallBackListener: (String) -> Unit
+    : BaseDialog<DialogCoinMarketBinding>(R.layout.dialog_coin_market) {
 
     private val coinViewModel: CoinViewModel by lazy {
         CoinViewModel(
@@ -26,25 +25,19 @@ class CoinMarketDialog
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        viewDataBinding.lifecycleOwner = this@CoinMarketDialog
+        viewDataBinding.coinViewModel = coinViewModel
+        coinViewModel.loadBaseCurrency()
+
+        coinViewModel.dismissCoinMarketDialog.observe(this, Observer {
+            dismiss()
+            (activity as CoinListActivity).onClickCoinMarketItem(it)
+        })
 
         recyclerview_coin_market.adapter =
             CoinMarketAdapter(
-                clickCoinMarketListener = {
-                    dialogCallBackListener.invoke(it)
-                    dismiss()
-                }
-        )
-        coinViewModel.loadBaseCurrency()
-
-        coinViewModel.baseCurrencyLoadedListener = {
-            (recyclerview_coin_market.adapter as CoinMarketAdapter).refreshData(it)
-        }
+                coinViewModel
+            )
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        dialogCallBackListener = {
-            (activity as CoinListActivity).onClickCoinMarketItem(it)
-        }
-    }
 }
