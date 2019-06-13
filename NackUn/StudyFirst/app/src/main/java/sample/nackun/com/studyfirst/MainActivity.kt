@@ -34,9 +34,9 @@ class MainActivity : AppCompatActivity() {
                 marketBTC.setTextColor(Color.parseColor("#bebbb4"))
                 marketETH.setTextColor(Color.parseColor("#bebbb4"))
                 marketUSDT.setTextColor(Color.parseColor("#bebbb4"))
-                var tt = findViewById<TextView>(v!!.id)
-                tt.setTextColor(Color.parseColor("#384786"))
-                initView(tt.text.toString())
+                var selectedMarket = v as TextView
+                selectedMarket.setTextColor(Color.parseColor("#384786"))
+                initView(selectedMarket.text.toString())
             }
         }
 
