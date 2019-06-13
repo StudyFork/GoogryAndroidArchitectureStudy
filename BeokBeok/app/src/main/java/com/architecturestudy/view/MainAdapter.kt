@@ -43,7 +43,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
                     marketPrice.market
             currentPrice?.text = DecimalFormat("#,###").format(marketPrice.tradePrice)
             netChange?.text = String.format("%.2f", marketPrice.signedChangeRate?.times(100))
-            tradingVal?.text = DecimalFormat("#,###M").format(marketPrice.accTradePrice24h?.div(1000000))
+            tradingVal?.text = DecimalFormat("#,###M").format(marketPrice.accTradePrice24h?.div(1_000_000))
         }
     }
 }
