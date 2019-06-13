@@ -11,7 +11,7 @@ import sample.nackun.com.studyfirst.market.Ticker
 
 class TickerAdapter(val items: ArrayList<Ticker>, val context: Context) : RecyclerView.Adapter<TickerViewHolder>() {
 
-    var color: String = "";
+    var color: String = ""
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): TickerViewHolder {
         return TickerViewHolder(LayoutInflater.from(context).inflate(R.layout.ticker_item, parent, false))
