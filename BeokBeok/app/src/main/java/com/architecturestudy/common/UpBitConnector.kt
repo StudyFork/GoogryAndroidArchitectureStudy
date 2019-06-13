@@ -31,10 +31,14 @@ class UpBitConnector(val receiver: UpBitCommunicable) {
                 call: Call<List<UpBitTickerResponse>>,
                 response: Response<List<UpBitTickerResponse>>
             ) {
-                val markets = response.body()
-                getTickers(markets?.asSequence()?.filter { hasPrefix(prefix) }
-                    ?.filter { it.market!!.startsWith(prefix) }
-                    ?.map { it.market }?.toList())
+                val markets = response.body() ?: return
+                val tickers = markets
+                    .asSequence()
+                    .filter { hasPrefix(prefix) }
+                    .filter { it.market!!.startsWith(prefix) }
+                    .map { it.market }
+                    .toList()
+                getTickers(tickers)
             }
 
             override fun onFailure(call: Call<List<UpBitTickerResponse>>, t: Throwable) {
