@@ -26,7 +26,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initRetrofit();
+        initView()
+        initRetrofit()
         setBtnClick()
         marketKRW.callOnClick()
     }
@@ -48,7 +49,7 @@ class MainActivity : AppCompatActivity() {
                 marketUSDT.setTextColor(resources.getColor(R.color.grey))
                 var selectedMarket = v as TextView
                 selectedMarket.setTextColor(resources.getColor(R.color.indigo))
-                initView(selectedMarket.text.toString())
+                initData(selectedMarket.text.toString())
             }
         }
 
@@ -58,7 +59,11 @@ class MainActivity : AppCompatActivity() {
         marketUSDT.setOnClickListener(onClickListener)
     }
 
-    fun initView(marketLike: String) {
+    fun initView(){
+        tickerRecyclerView.adapter = TickerAdapter(arrayListOf(), this@MainActivity)
+    }
+    fun initData(marketLike: String) {
+
         service.requestMarket().enqueue(object : Callback<ArrayList<Market>> {
             override fun onFailure(call: Call<ArrayList<Market>>, t: Throwable) {
             }
