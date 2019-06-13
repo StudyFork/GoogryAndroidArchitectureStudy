@@ -30,7 +30,8 @@
                 android:layout_weight="7.5"
                 android:hint="코인을 검색하세요."
                 android:maxLength="10"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:text="@={vm.keyword}" />
 
             <Button
                 android:id="@+id/tv_search"
@@ -38,6 +39,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="8dp"
                 android:layout_weight="2.5"
+                android:onClick="@{() -> vm.searchCoinByKeyword()}"
                 android:text="검색" />
         </LinearLayout>
 

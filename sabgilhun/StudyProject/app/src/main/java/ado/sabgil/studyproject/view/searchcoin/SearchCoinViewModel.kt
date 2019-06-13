@@ -15,22 +15,21 @@ class SearchCoinViewModel(private val coinRepository: CoinRepository) : BaseView
     val coinList: LiveData<List<Ticker>>
         get() = _coinList
 
-    var keyword = ""
+    val keyword = MutableLiveData<String>()
 
     private var currentCoin = ""
 
     fun searchCoinByKeyword() {
-
-        if (keyword.isBlank()) {
+        if (keyword.value.isNullOrEmpty()) {
             handleErrorMessage("검색할 코인을 입력해주세요.")
             return
+        } else {
+            searchCoinData(keyword.value!!)
         }
-
-        searchCoinData(keyword)
     }
 
     fun subscribeCoinData() {
-        if (disposables.isEmpty() && currentCoin.isNotBlank()) {
+        if (disposables.isEmpty() && currentCoin.isNotEmpty()) {
             searchCoinData(currentCoin)
         }
     }
