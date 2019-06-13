@@ -31,10 +31,13 @@ class MainFragment(private val market: Market) : Fragment() {
 
             override fun onResponse(call: Call<ArrayList<MarketModel>>?, response: Response<ArrayList<MarketModel>>?) {
                 response?.body()?.let {
-                    var query = ""
-                    it.filter { item -> item.market.startsWith(market.marketName, true) }
-                        .map { item -> query += item.market + "," }
-                    query = query.substring(0, query.length - 1)
+                    val query =
+                        it.filter { item ->
+                            item.market.startsWith(market.marketName, true)
+                        }
+                            .joinToString { marketModel ->
+                                marketModel.market
+                            }
                     retrofitService.getTickerInfo(query).enqueue(object : Callback<ArrayList<TickerModel>> {
                         override fun onFailure(call: Call<ArrayList<TickerModel>>, t: Throwable) {
                             Log.d("onFailure", t.toString())
