@@ -17,9 +17,7 @@ class TickerAdapter(val items: ArrayList<Ticker>, val context: Context) : Recycl
         return TickerViewHolder(LayoutInflater.from(context).inflate(R.layout.ticker_item, parent, false))
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount() = items.size
 
     override fun onBindViewHolder(tickerViewHolder: TickerViewHolder, p1: Int) {
         tickerViewHolder.tickerName.text = items.get(p1).market.substring(
