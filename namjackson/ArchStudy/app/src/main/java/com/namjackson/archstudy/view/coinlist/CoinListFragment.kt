@@ -1,15 +1,10 @@
 package com.namjackson.archstudy.view.coinlist
 
 import android.os.Bundle
-import android.text.Editable
 import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.namjackson.archstudy.R
 import com.namjackson.archstudy.base.BaseFragment
-import com.namjackson.archstudy.base.component.BaseOnItemSelectedListener
-import com.namjackson.archstudy.base.component.BaseTextWatcher
-import com.namjackson.archstudy.data.model.Ticker
 import com.namjackson.archstudy.data.source.TickerRepository
 import com.namjackson.archstudy.data.source.local.TickerLocalDataSourceImpl
 import com.namjackson.archstudy.data.source.remote.TickerRemoteDataSourceImpl
@@ -17,16 +12,14 @@ import com.namjackson.archstudy.databinding.FragmentCoinListBinding
 import com.namjackson.archstudy.network.UpbitService
 import com.namjackson.archstudy.view.coinlist.adapter.CoinListAdapter
 import java.util.*
-import kotlin.properties.Delegates
 
 
 class CoinListFragment
     : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coin_list) {
 
-    private lateinit var adapter: CoinListAdapter
     private var timer: Timer = Timer()
 
-    private val viewModel by lazy {
+    val viewModel by lazy {
         CoinListViewModel(
             TickerRepository.getInstance(
                 TickerLocalDataSourceImpl.getInstance(),
@@ -38,35 +31,24 @@ class CoinListFragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initLayout()
-        initSpinner()
-    }
+        bind {
 
+            spinner.adapter = ArrayAdapter(
+                context,
+                android.R.layout.simple_spinner_item,
+                arrayOf("KRW", "BTC", "ETH", "USDT")
+            )
 
-    fun initLayout() {
-        adapter = CoinListAdapter()
-        binding.recyclerView.adapter = this.adapter
-
-        binding.search.addTextChangedListener(object : BaseTextWatcher {
-            override fun afterTextChanged(s: Editable) {
-                viewModel.search(s.toString())
-            }
-        })
-    }
-
-    fun initSpinner() {
-        binding.spinner.adapter = ArrayAdapter(
-            context,
-            android.R.layout.simple_spinner_item,
-            arrayOf("KRW", "BTC", "ETH", "USDT")
-        )
-
-        binding.spinner.onItemSelectedListener = object : BaseOnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, p1: View?, position: Int, p3: Long) {
-                viewModel.changeBaseCurrency(parent.getItemAtPosition(position).toString())
-            }
+            viewmodel = viewModel
+            lifecycleOwner = this@CoinListFragment.viewLifecycleOwner
+            recyclerView.adapter = CoinListAdapter()
         }
+
+        subscribeToShowToast()
+
+        viewModel.baseCurrency.observe(this, androidx.lifecycle.Observer { viewModel.initMarket() })
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -83,28 +65,13 @@ class CoinListFragment
         super.onPause()
     }
 
-    fun showCoinList(ticker: List<Ticker>) {
-        adapter.setList(ticker)
+    private fun subscribeToShowToast() {
+        viewModel.showToastEvent.observe(this, androidx.lifecycle.Observer { event ->
+            event?.getContentIfNotHandled()?.let {
+                showToast(it)
+            }
+        })
     }
-
-    fun showLoading() {
-        setProgress(true)
-        setRecyclerView(false)
-    }
-
-    fun hideLoading() {
-        setProgress(false)
-        setRecyclerView(true)
-    }
-
-    fun setProgress(boolean: Boolean) {
-        binding.progress.visibility = if (boolean) View.VISIBLE else View.GONE
-    }
-
-    fun setRecyclerView(boolean: Boolean) {
-        binding.recyclerView.visibility = if (boolean) View.VISIBLE else View.GONE
-    }
-
 
     companion object {
         private const val SECOND = 1000L
