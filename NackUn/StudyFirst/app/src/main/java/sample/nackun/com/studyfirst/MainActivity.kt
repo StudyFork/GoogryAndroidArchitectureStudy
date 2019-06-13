@@ -15,7 +15,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import sample.nackun.com.studyfirst.market.Market
 import sample.nackun.com.studyfirst.market.Ticker
-import sample.nackun.com.studyfirst.network.UpbitCommunicable
+import sample.nackun.com.studyfirst.network.UpbitApi
 
 class MainActivity : AppCompatActivity() {
 
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        val service = retrofit.create(UpbitCommunicable::class.java)
+        val service = retrofit.create(UpbitApi::class.java)
 
         service.requestMarket().enqueue(object : Callback<ArrayList<Market>> {
             override fun onFailure(call: Call<ArrayList<Market>>, t: Throwable) {
