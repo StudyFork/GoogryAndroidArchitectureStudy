@@ -2,24 +2,21 @@ package ado.sabgil.studyproject.adapter
 
 import ado.sabgil.studyproject.view.coinlist.CoinListFragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 
 class CoinListPagerAdapter(
     fragmentManager: FragmentManager,
     views: Map<String, CoinListFragment>
-) : FragmentPagerAdapter(fragmentManager) {
+) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private val pages = mutableListOf<CoinListFragment>()
 
     private val title = mutableListOf<String>()
 
     init {
-        this.pages.apply {
-            clear()
-            addAll(views.values.toList())
-            notifyDataSetChanged()
-        }
-        this.title.addAll(views.keys.toList())
+        pages.addAll(views.values.toList())
+        title.addAll(views.keys.toList())
+        notifyDataSetChanged()
     }
 
     override fun getItem(position: Int) = pages[position]

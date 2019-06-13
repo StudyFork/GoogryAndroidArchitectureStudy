@@ -34,14 +34,14 @@ class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(R.layout.fragmnet
         registerEvent()
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         coinListViewModel.subscribeRemote()
     }
 
-    override fun onPause() {
+    override fun onStop() {
         coinListViewModel.unSubscribeRemote()
-        super.onPause()
+        super.onStop()
     }
 
     private fun registerEvent() {
