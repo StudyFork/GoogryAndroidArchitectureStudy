@@ -20,7 +20,7 @@ class TickerAdapter(val items: ArrayList<Ticker>, val context: Context) : Recycl
     override fun getItemCount() = items.size
 
     override fun onBindViewHolder(tickerViewHolder: TickerViewHolder, p1: Int) {
-        tickerViewHolder.tickerName.text = items.get(p1).market.substring(
+        tickerViewHolder.tickerName.text = items[p1].market.substring(
             items.get(p1).market.indexOf("-") + 1,
             items.get(p1).market.length
         )
