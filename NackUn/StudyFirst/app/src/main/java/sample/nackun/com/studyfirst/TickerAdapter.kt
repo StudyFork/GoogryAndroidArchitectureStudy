@@ -28,72 +28,72 @@ class TickerAdapter(val items: ArrayList<Ticker>, val context: Context) : Recycl
         )
         when (items.get(p1).market.substring(0, items.get(p1).market.indexOf("-"))) {
             "KRW" -> {
-                tickerViewHolder.currentPrice.text = String.format("%,d", items.get(p1).trade_price.toInt())
+                tickerViewHolder.currentPrice.text = String.format("%,d", items.get(p1).tradePrice.toInt())
                 tickerViewHolder.comparePrice.text = compareToBefore(
-                    items.get(p1).trade_price,
-                    items.get(p1).prev_closing_price
+                    items.get(p1).tradePrice,
+                    items.get(p1).prevClosingPrice
                 )
                 tickerViewHolder.comparePrice.setTextColor(Color.parseColor(color))
                 tickerViewHolder.changePrice.text = String.format(
                     "%,d",
-                    (items.get(p1).acc_trade_price_24h / 1000000).toInt()
+                    (items.get(p1).accTradePrice24h / 1000000).toInt()
                 ) + " M"
             }
             "BTC" -> {
-                tickerViewHolder.currentPrice.text = String.format("%,.8f", items.get(p1).trade_price)
+                tickerViewHolder.currentPrice.text = String.format("%,.8f", items.get(p1).tradePrice)
                 tickerViewHolder.comparePrice.text = compareToBefore(
-                    items.get(p1).trade_price,
-                    items.get(p1).prev_closing_price
+                    items.get(p1).tradePrice,
+                    items.get(p1).prevClosingPrice
                 )
                 tickerViewHolder.comparePrice.setTextColor(Color.parseColor(color))
                 tickerViewHolder.changePrice.text = String.format(
                     "%,.3f",
-                    items.get(p1).acc_trade_price_24h
+                    items.get(p1).accTradePrice24h
                 )
             }
             "ETH" -> {
-                if (items.get(p1).trade_price > 1) {
+                if (items.get(p1).tradePrice > 1) {
                     tickerViewHolder.currentPrice.text = String.format(
                         "%,.2f",
-                        items.get(p1).trade_price
+                        items.get(p1).tradePrice
                     )
                 } else {
-                    tickerViewHolder.currentPrice.text = String.format("%,.8f", items.get(p1).trade_price)
+                    tickerViewHolder.currentPrice.text = String.format("%,.8f", items.get(p1).tradePrice)
                 }
                 tickerViewHolder.comparePrice.text = compareToBefore(
-                    items.get(p1).trade_price,
-                    items.get(p1).prev_closing_price
+                    items.get(p1).tradePrice,
+                    items.get(p1).prevClosingPrice
                 )
                 tickerViewHolder.comparePrice.setTextColor(Color.parseColor(color))
                 tickerViewHolder.changePrice.text = String.format(
                     "%,.3f",
-                    items.get(p1).acc_trade_price_24h
+                    items.get(p1).accTradePrice24h
                 )
             }
             "USDT" -> {
-                if (items.get(p1).trade_price < 1) {
-                    tickerViewHolder.currentPrice.text = String.format("%,.8f", items.get(p1).trade_price)
+                if (items.get(p1).tradePrice < 1) {
+                    tickerViewHolder.currentPrice.text = String.format("%,.8f", items.get(p1).tradePrice)
                 } else {
-                    tickerViewHolder.currentPrice.text = String.format("%,.2f", items.get(p1).trade_price)
+                    tickerViewHolder.currentPrice.text = String.format("%,.2f", items.get(p1).tradePrice)
                 }
                 if (tickerViewHolder.currentPrice.text.endsWith("0"))
                     tickerViewHolder.currentPrice.text =
                         tickerViewHolder.currentPrice.text.substring(0, tickerViewHolder.currentPrice.text.length - 1)
 
                 tickerViewHolder.comparePrice.text = compareToBefore(
-                    items.get(p1).trade_price,
-                    items.get(p1).prev_closing_price
+                    items.get(p1).tradePrice,
+                    items.get(p1).prevClosingPrice
                 )
                 tickerViewHolder.comparePrice.setTextColor(Color.parseColor(color))
-                if (items.get(p1).acc_trade_price_24h > 1000000) {
+                if (items.get(p1).accTradePrice24h > 1000000) {
                     tickerViewHolder.changePrice.text = String.format(
                         "%,d",
-                        (items.get(p1).acc_trade_price_24h / 1000).toInt()
+                        (items.get(p1).accTradePrice24h / 1000).toInt()
                     ) + " K"
                 } else {
                     tickerViewHolder.changePrice.text = String.format(
                         "%,d",
-                        items.get(p1).acc_trade_price_24h.toInt()
+                        items.get(p1).accTradePrice24h.toInt()
                     )
                 }
             }

@@ -1,9 +1,9 @@
 package sample.nackun.com.studyfirst.market
 
 data class Ticker(
-    val acc_trade_price_24h: Double,
-    val change_price: Double,
+    val accTradePrice24h: Double,
+    val changePrice: Double,
     val market: String,
-    val prev_closing_price: Double,
-    val trade_price: Double
+    val prevClosingPrice: Double,
+    val tradePrice: Double
 )
