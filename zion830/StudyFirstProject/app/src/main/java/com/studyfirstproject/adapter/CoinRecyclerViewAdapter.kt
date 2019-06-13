@@ -37,7 +37,7 @@ class CoinRecyclerViewAdapter
         notifyDataSetChanged()
     }
 
-    inner class CoinItemViewHolder(private var view: View) : RecyclerView.ViewHolder(view) {
+    inner class CoinItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(data: TickerModel) {
             val coinNameText = view.tv_coin_name as TextView
             val coinTradePriceText = view.tv_coin_trade_price as TextView
