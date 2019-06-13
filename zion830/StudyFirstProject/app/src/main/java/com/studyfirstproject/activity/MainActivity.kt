@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
                     .map { it.market }
                     .filter { it.substring(0, it.indexOf("-")) == "KRW" }
 
-                val marketStr = marketList.joinToString().replace(" ", "")
+                val marketStr = marketList.joinToString(",")
                 getCoinData(marketStr)
             }
             throwable?.let {
