@@ -4,18 +4,18 @@ import com.google.gson.annotations.SerializedName
 
 data class UpBitTickerResponse(
 
-    @field:SerializedName("market")
+    @SerializedName("market")
     val market: String? = null,
 
-    @field:SerializedName("trade_price")
+    @SerializedName("trade_price")
     val tradePrice: Double? = null,
 
-    @field:SerializedName("change")
+    @SerializedName("change")
     val change: String? = null,
 
-    @field:SerializedName("signed_change_rate")
+    @SerializedName("signed_change_rate")
     val signedChangeRate: Double? = null,
 
-    @field:SerializedName("acc_trade_price_24h")
+    @SerializedName("acc_trade_price_24h")
     val accTradePrice24h: Double? = null
 )
