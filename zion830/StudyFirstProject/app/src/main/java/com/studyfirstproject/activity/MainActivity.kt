@@ -40,16 +40,19 @@ class MainActivity : AppCompatActivity() {
         showProgress()
         service.getAllMarket().enqueue(retrofitCallback { throwable, response ->
             response?.let {
-                val marketList = response.body()!!
-                    .map { it.market }
-                    .filter { it.substring(0, it.indexOf("-")) == "KRW" }
+                if (!response.body().isNullOrEmpty()) {
+                    val marketList = response.body()!!
+                        .map { it.market }
+                        .filter { it.substring(0, it.indexOf("-")) == getString(R.string.krw) }
 
-                val marketStr = marketList.joinToString(",")
-                getCoinData(marketStr)
+                    val marketStr = marketList.joinToString(",")
+                    getCoinData(marketStr)
+                } else {
+                    handlingError(getString(R.string.network_err), response.message())
+                }
             }
             throwable?.let {
-                toast(getString(R.string.network_err))
-                e(localClassName, throwable.message)
+                handlingError(getString(R.string.network_err), throwable.message)
             }
         })
     }
@@ -57,11 +60,14 @@ class MainActivity : AppCompatActivity() {
     private fun getCoinData(marketStr: String) {
         service.getTickers(marketStr).enqueue(retrofitCallback { throwable, response ->
             response?.let {
-                setCoinInfo(response.body() ?: listOf())
+                if (!response.body().isNullOrEmpty()) {
+                    setCoinInfo(response.body() as List<TickerModel>)
+                } else {
+                    handlingError(getString(R.string.network_err), response.message())
+                }
             }
             throwable?.let {
-                toast(getString(R.string.network_err))
-                e(localClassName, throwable.message)
+                handlingError(getString(R.string.network_err), throwable.message)
             }
         })
     }
@@ -84,5 +90,10 @@ class MainActivity : AppCompatActivity() {
     private fun hideRefreshIcon() {
         if (layout_main_swipe.isRefreshing)
             layout_main_swipe.isRefreshing = false
+    }
+
+    private fun handlingError(msg: String, reason: String?) {
+        toast(msg)
+        e(localClassName, reason ?: "No error message")
     }
 }
