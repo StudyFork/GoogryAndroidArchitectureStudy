@@ -29,7 +29,6 @@ class MainFragment : Fragment() {
     private val baseUrl = "https://api.upbit.com"
     var listData: ArrayList<TickerModel> = ArrayList()
     private var mainListAdapter: MainListAdapter? = null
-    private var recyclerView: RecyclerView? = null
 
     companion object {
         fun createInstance(message: String): MainFragment {
@@ -52,10 +51,9 @@ class MainFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view: View? = inflater.inflate(R.layout.fragment_main, container, false);
-        recyclerView = view!!.recyclerview_mainfragment
-        recyclerView!!.setHasFixedSize(true)
+        view!!.recyclerview_mainfragment.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(activity?.applicationContext)
-        recyclerView!!.layoutManager = layoutManager
+        view!!.recyclerview_mainfragment.layoutManager = layoutManager
         mainListAdapter = MainListAdapter(arrayListOf())
         val message = arguments!!.getString(EXTRA_MESSAGE)
         getMarketList(message)
