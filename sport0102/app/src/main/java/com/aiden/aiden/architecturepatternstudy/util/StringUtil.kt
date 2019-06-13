@@ -1,10 +1,11 @@
 package com.aiden.aiden.architecturepatternstudy.util
 
-fun getKRWCommaPrice(price: Double): String = if (price.toString().split(".")[1].toInt() > 0) {
-    String.format("%1$,.1f", price)
-} else {
-    String.format("%,d", price.toInt())
-}
+fun getKRWCommaPrice(price: Double): String =
+    if (price.toString().split(".")[1].toInt() > 0) {
+        String.format("%1$,.1f", price)
+    } else {
+        String.format("%,d", price.toInt())
+    }
 
 fun getBTCETHCommaPrice(price: Double): String = String.format("%.8f", price)
 
