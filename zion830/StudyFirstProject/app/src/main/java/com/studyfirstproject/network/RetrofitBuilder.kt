@@ -9,10 +9,8 @@ import java.util.concurrent.TimeUnit
 object RetrofitBuilder {
     private const val BASE_URL = "https://api.upbit.com/"
     private const val TIME_OUT_SEC = 5L
-    private var service: CoinApi? = null
-
-    fun getInstance(): CoinApi {
-        return service ?: initService()
+    val service: CoinApi by lazy {
+        initService()
     }
 
     private fun initService(): CoinApi {
