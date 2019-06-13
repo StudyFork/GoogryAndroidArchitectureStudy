@@ -1,54 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        card_view:cardCornerRadius="4dp"
-        card_view:cardElevation="5dp"
-        android:layout_margin="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="5dp">
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <TextView
-                android:id="@+id/tv_coin_name"
-                android:layout_weight="1"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:layout_width="0dp"
-                android:padding="10dp"
-                android:textColor="@android:color/black"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/tv_coin_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
         <TextView
-                android:id="@+id/tv_coin_trade_price"
-                android:layout_weight="1"
-                android:textSize="13sp"
-                android:layout_width="0dp"
-                android:gravity="center"
-                android:textColor="@android:color/black"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/tv_coin_trade_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="13sp" />
 
         <TextView
-                android:id="@+id/tv_coin_change_rate"
-                android:layout_weight="1"
-                android:textSize="13sp"
-                android:layout_width="0dp"
-                android:gravity="center"
-                android:textColor="@android:color/black"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/tv_coin_change_rate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="13sp" />
 
         <TextView
-                android:id="@+id/tv_coin_acc_trade_price"
-                android:layout_weight="1"
-                android:textSize="13sp"
-                android:layout_width="0dp"
-                android:gravity="center"
-                android:textColor="@android:color/black"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/tv_coin_acc_trade_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="13sp" />
     </LinearLayout>
 
 </android.support.v7.widget.CardView>
