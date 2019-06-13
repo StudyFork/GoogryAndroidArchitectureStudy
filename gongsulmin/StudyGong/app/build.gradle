@@ -47,4 +47,7 @@ dependencies {
     // recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
+    // livedata
+    implementation group: 'androidx.lifecycle', name: 'lifecycle-livedata', version: '2.2.0-alpha01'
+
 }
