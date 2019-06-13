@@ -32,8 +32,8 @@ class MainFragment(private val market: Market) : Fragment() {
             override fun onResponse(call: Call<ArrayList<MarketModel>>?, response: Response<ArrayList<MarketModel>>?) {
                 response?.body()?.let {
                     var query = ""
-                    response.body()?.filter { item -> item.market.startsWith(market.marketName, true) }
-                        ?.map { item -> query += item.market + "," }
+                    it.filter { item -> item.market.startsWith(market.marketName, true) }
+                        .map { item -> query += item.market + "," }
                     query = query.substring(0, query.length - 1)
                     retrofitService.getTickerInfo(query).enqueue(object : Callback<ArrayList<TickerModel>> {
                         override fun onFailure(call: Call<ArrayList<TickerModel>>, t: Throwable) {
