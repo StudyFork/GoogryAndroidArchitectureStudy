@@ -7,5 +7,5 @@
     <string name="coin_name">코인명</string>
     <string name="trade_price">현재가</string>
     <string name="change_rate">전일대비</string>
-    <string name="accTrade_price">거래대금</string>
+    <string name="acc_trade_price">거래대금</string>
 </resources>
