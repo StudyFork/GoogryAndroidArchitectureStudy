@@ -17,30 +17,26 @@ import com.namjackson.archstudy.databinding.FragmentCoinListBinding
 import com.namjackson.archstudy.network.UpbitService
 import com.namjackson.archstudy.view.coinlist.adapter.CoinListAdapter
 import java.util.*
+import kotlin.properties.Delegates
 
 
 class CoinListFragment
-    : BaseFragment<FragmentCoinListBinding, CoinListContract.Presenter>(R.layout.fragment_coin_list),
-    CoinListContract.View {
-
+    : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coin_list) {
 
     private lateinit var adapter: CoinListAdapter
     private var timer: Timer = Timer()
 
-    override fun showCoinList(ticker: List<Ticker>) {
-        adapter.setList(ticker)
+    private val viewModel by lazy {
+        CoinListViewModel(
+            TickerRepository.getInstance(
+                TickerLocalDataSourceImpl.getInstance(),
+                TickerRemoteDataSourceImpl.getInstance(UpbitService.upbitApi)
+            )
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter = CoinListPresenter(
-            TickerRepository.getInstance(
-                TickerLocalDataSourceImpl.getInstance(),
-                TickerRemoteDataSourceImpl.getInstance(UpbitService.upbitApi)
-            ),
-            this
-        )
-
 
         initLayout()
         initSpinner()
@@ -53,7 +49,7 @@ class CoinListFragment
 
         binding.search.addTextChangedListener(object : BaseTextWatcher {
             override fun afterTextChanged(s: Editable) {
-                presenter.search(s.toString())
+                viewModel.search(s.toString())
             }
         })
     }
@@ -67,7 +63,7 @@ class CoinListFragment
 
         binding.spinner.onItemSelectedListener = object : BaseOnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, p1: View?, position: Int, p3: Long) {
-                presenter.changeBaseCurrency(parent.getItemAtPosition(position).toString())
+                viewModel.changeBaseCurrency(parent.getItemAtPosition(position).toString())
             }
         }
     }
@@ -77,7 +73,7 @@ class CoinListFragment
         timer = Timer()
         timer.schedule(object : TimerTask() {
             override fun run() {
-                presenter.loadCoinList()
+                viewModel.loadCoinList()
             }
         }, 0, (10 * SECOND))
     }
@@ -87,12 +83,16 @@ class CoinListFragment
         super.onPause()
     }
 
-    override fun showLoading() {
+    fun showCoinList(ticker: List<Ticker>) {
+        adapter.setList(ticker)
+    }
+
+    fun showLoading() {
         setProgress(true)
         setRecyclerView(false)
     }
 
-    override fun hideLoading() {
+    fun hideLoading() {
         setProgress(false)
         setRecyclerView(true)
     }
@@ -100,15 +100,89 @@ class CoinListFragment
     fun setProgress(boolean: Boolean) {
         binding.progress.visibility = if (boolean) View.VISIBLE else View.GONE
     }
-    
+
     fun setRecyclerView(boolean: Boolean) {
         binding.recyclerView.visibility = if (boolean) View.VISIBLE else View.GONE
     }
 
 
     companion object {
-
         private const val SECOND = 1000L
         fun newInstance() = CoinListFragment()
+    }
+
+
+    /*
+    * ViewModel
+    * */
+    inner class CoinListViewModel(
+        val tickerRepository: TickerRepository
+    ) {
+        private var coinList by Delegates.observable<List<Ticker>>(arrayListOf()) { _, _, newValue ->
+            showFilterCoinList()
+        }
+        private var searchStr by Delegates.observable("") { _, _, newValue ->
+            showFilterCoinList()
+        }
+        private var baseCurrency by Delegates.observable("") { _, _, newValue ->
+            initMarket()
+        }
+        private var isLoading by Delegates.observable(false) { _, _, newValue ->
+            if (newValue) showLoading() else hideLoading()
+        }
+        private var errorMsg by Delegates.observable("") { _, _, newValue ->
+            showToast(newValue)
+        }
+        private lateinit var markets: String
+
+
+        fun loadCoinList() {
+            if (!this::markets.isInitialized) {
+                initMarket()
+            } else {
+                getTickers(markets)
+            }
+        }
+
+        fun changeBaseCurrency(baseCurrency: String) {
+            this.baseCurrency = baseCurrency
+        }
+
+        fun search(searchStr: String) {
+            this.searchStr = searchStr
+        }
+
+        fun initMarket() {
+            isLoading = true
+            tickerRepository.getMarketAll(
+                baseCurrency = baseCurrency,
+                success = {
+                    markets = it
+                    getTickers(markets)
+                },
+                fail = {
+                    errorMsg = it
+                    isLoading = false
+                }
+            )
+        }
+
+        fun getTickers(markets: String) {
+            tickerRepository.getTickers(
+                markets = markets,
+                success = {
+                    coinList = it
+                    isLoading = false
+                },
+                fail = {
+                    errorMsg = it
+                    isLoading = false
+                }
+            )
+        }
+
+        private fun showFilterCoinList() {
+            showCoinList(coinList.filter { it.name.contains(searchStr.toUpperCase()) })
+        }
     }
 }
