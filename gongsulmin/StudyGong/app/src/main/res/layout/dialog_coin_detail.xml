@@ -1,32 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+<layout>
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_coin_detail"
+    <data>
+
+        <variable
+                name="coinViewModel"
+                type="my.gong.studygong.viewmodel.CoinViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             >
-    </androidx.recyclerview.widget.RecyclerView>
 
-    <TextView
-            android:id="@+id/txt_coin_detail_no_data"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:visibility="gone"
-            />
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_coin_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                setItems="@{coinViewModel.searchTickerList}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                >
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+                android:id="@+id/txt_coin_detail_no_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:visibility="gone"
+                />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
