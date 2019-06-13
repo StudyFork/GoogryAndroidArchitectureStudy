@@ -22,4 +22,8 @@ abstract class BaseFragment<B : ViewDataBinding>(
     fun showToast(errorMsg: String) {
         Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
     }
+
+    protected fun bind(action: B.() -> Unit) {
+        binding.run(action)
+    }
 }
