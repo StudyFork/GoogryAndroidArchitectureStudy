@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        coinAdapter = CoinRecyclerViewAdapter(arrayListOf())
+        coinAdapter = CoinRecyclerViewAdapter()
         rv_main.adapter = coinAdapter
         layout_main_swipe.setOnRefreshListener {
             getMarketData()
@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setCoinInfo(coinData: List<TickerModel>) {
-        coinAdapter.coinList = ArrayList(coinData)
+        // coinAdapter.coinList = ArrayList(coinData)
         coinAdapter.notifyDataSetChanged()
         hideProgress()
         hideRefreshIcon()

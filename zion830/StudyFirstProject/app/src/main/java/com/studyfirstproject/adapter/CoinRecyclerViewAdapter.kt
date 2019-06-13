@@ -13,12 +13,8 @@ import kotlinx.android.synthetic.main.item_coin_info.view.*
 import org.jetbrains.anko.textColor
 
 class CoinRecyclerViewAdapter
-    : RecyclerView.Adapter<CoinRecyclerViewAdapter.CoinItemViewHolder> {
-    private var coinList: ArrayList<TickerModel>
-
-    constructor(tickers: ArrayList<TickerModel>) : super() {
-        this.coinList = tickers
-    }
+    : RecyclerView.Adapter<CoinRecyclerViewAdapter.CoinItemViewHolder>() {
+    private var coinList: ArrayList<TickerModel> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): CoinItemViewHolder {
         val viewGroup = LayoutInflater
