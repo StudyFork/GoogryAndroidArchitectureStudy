@@ -27,15 +27,16 @@ class MainListAdapter(var tickerList: ArrayList<TickerModel>) :
                 if (item.market.substringBeforeLast("-") == "BTC" || item.market.substringBeforeLast("-") == "ETH") {
                     textview_item_trade_price.text = FormatUtil.floatingEightPointFormat(item.trade_price)
                     textview_item_change_rate.text = FormatUtil.percentFormat(item.change_rate)
-                    textview_item_acc_trade_price_24h.text =  FormatUtil.floatingThreePointFormat(item.acc_trade_price_24h)
-                } else if(item.market.substringBeforeLast("-") == "KRW") {
+                    textview_item_acc_trade_price_24h.text =
+                        FormatUtil.floatingThreePointFormat(item.acc_trade_price_24h)
+                } else if (item.market.substringBeforeLast("-") == "KRW") {
                     textview_item_trade_price.text = FormatUtil.commaDoubleFormat(item.trade_price)
                     textview_item_change_rate.text = FormatUtil.percentFormat(item.change_rate)
-                    textview_item_acc_trade_price_24h.text = accTradePriceFormat(item.acc_trade_price_24h,"KRW")
+                    textview_item_acc_trade_price_24h.text = accTradePriceFormat(item.acc_trade_price_24h, "KRW")
                 } else {
                     textview_item_trade_price.text = FormatUtil.usdtFloatingPointFormat(item.trade_price)
                     textview_item_change_rate.text = FormatUtil.percentFormat(item.change_rate)
-                    textview_item_acc_trade_price_24h.text = accTradePriceFormat(item.acc_trade_price_24h,"USDT")
+                    textview_item_acc_trade_price_24h.text = accTradePriceFormat(item.acc_trade_price_24h, "USDT")
                 }
             }
         }
