@@ -31,15 +31,15 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager
         )
 
-        var firstFragmet: MainFragment = MainFragment.createInstance("KRW")
-        var secondFragmet: MainFragment = MainFragment.createInstance("BTC")
-        var thirdFragmet: MainFragment = MainFragment.createInstance("ETH")
-        var fourFragmet: MainFragment = MainFragment.createInstance("USDT")
+        val firstFragment: MainFragment = MainFragment.createInstance("KRW")
+        val secondFragment: MainFragment = MainFragment.createInstance("BTC")
+        val thirdFragment: MainFragment = MainFragment.createInstance("ETH")
+        val fourFragment: MainFragment = MainFragment.createInstance("USDT")
 
-        adapter.addFragment(firstFragmet, "KRW")
-        adapter.addFragment(secondFragmet, "BTC")
-        adapter.addFragment(thirdFragmet, "ETH")
-        adapter.addFragment(fourFragmet, "USDT")
+        adapter.addFragment(firstFragment, "KRW")
+        adapter.addFragment(secondFragment, "BTC")
+        adapter.addFragment(thirdFragment, "ETH")
+        adapter.addFragment(fourFragment, "USDT")
 
         viewpager_main!!.adapter = adapter
         tablayout_main!!.setupWithViewPager(viewpager_main)
