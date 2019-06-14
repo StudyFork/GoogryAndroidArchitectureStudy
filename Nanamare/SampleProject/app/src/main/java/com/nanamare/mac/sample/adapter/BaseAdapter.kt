@@ -3,9 +3,6 @@ package com.nanamare.mac.sample.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.nanamare.mac.sample.adapter.viewholder.BaseViewHolder
-import com.nanamare.mac.sample.adapter.viewholder.TickerViewHolder
-
-import java.util.ArrayList
 
 
 abstract class BaseAdapter<T : Any>(data: List<T>) : RecyclerView.Adapter<BaseViewHolder<Any>>() {
