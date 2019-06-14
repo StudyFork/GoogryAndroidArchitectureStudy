@@ -12,10 +12,10 @@ import com.namjackson.archstudy.data.model.Ticker
 import com.namjackson.archstudy.view.coinlist.adapter.CoinListAdapter
 
 
-@BindingAdapter("coinitems")
-fun setCoinListRecyclerView(view: RecyclerView, list: List<Ticker>?) {
+@BindingAdapter("coinItems")
+fun RecyclerView.setCoinItem(list: List<Ticker>?) {
     if (list != null) {
-        (view.adapter as? CoinListAdapter)?.setList(list)
+        (adapter as? CoinListAdapter)?.setList(list)
     }
 }
 

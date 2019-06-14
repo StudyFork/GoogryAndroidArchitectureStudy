@@ -123,7 +123,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="@{viewmodel.isLoading ? View.GONE : View.VISIBLE}"
-            app:coinitems="@{viewmodel.filterCoinList}"
+            app:coinItems="@{viewmodel.filterCoinList}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_coin_list" />
 
