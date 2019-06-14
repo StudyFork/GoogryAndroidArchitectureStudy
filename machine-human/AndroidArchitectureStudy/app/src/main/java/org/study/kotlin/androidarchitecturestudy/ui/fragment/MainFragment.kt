@@ -30,15 +30,6 @@ class MainFragment : Fragment() {
     var listData: ArrayList<TickerModel> = ArrayList()
     private var mainListAdapter: MainListAdapter? = null
 
-    companion object {
-        fun createInstance(message: String): MainFragment {
-            val fragmentInstance = MainFragment()
-            val bundle = Bundle(1)
-            bundle.putString(EXTRA_MESSAGE, message)
-            fragmentInstance.arguments = bundle
-            return fragmentInstance
-        }
-    }
 
     init {
         val retrofit = Retrofit.Builder()
@@ -100,6 +91,16 @@ class MainFragment : Fragment() {
             }
         })
     }
+    companion object {
+        fun createInstance(message: String): MainFragment {
+            val fragmentInstance = MainFragment()
+            val bundle = Bundle(1)
+            bundle.putString(EXTRA_MESSAGE, message)
+            fragmentInstance.arguments = bundle
+            return fragmentInstance
+        }
+    }
+}
 }
 
 
