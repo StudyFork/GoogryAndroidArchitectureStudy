@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupViewPager() {
 
         val adapter = MainViewPagerAdapter(
-            getSupportFragmentManager()
+            supportFragmentManager
         )
 
         var firstFragmet: MainFragment = MainFragment.createInstance("KRW")
