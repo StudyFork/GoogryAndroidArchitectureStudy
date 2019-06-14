@@ -23,7 +23,7 @@ class UpBitConnector(val receiver: UpBitCommunicable) {
             ).build()
         )
         .build()
-        .create(Retrofittable::class.java)
+        .create(UpBitService::class.java)
 
     fun getMarketPrice(prefix: String) {
         retrofit.getMarkets().enqueue(object : Callback<List<UpBitTickerResponse>> {
@@ -31,10 +31,14 @@ class UpBitConnector(val receiver: UpBitCommunicable) {
                 call: Call<List<UpBitTickerResponse>>,
                 response: Response<List<UpBitTickerResponse>>
             ) {
-                val markets = response.body()
-                getTickers(markets?.asSequence()?.filter { hasPrefix(prefix) }
-                    ?.filter { it.market!!.startsWith(prefix) }
-                    ?.map { it.market }?.toList())
+                val markets = response.body() ?: return
+                val tickers = markets
+                    .asSequence()
+                    .filter { hasPrefix(prefix) }
+                    .filter { it.market!!.startsWith(prefix) }
+                    .map { it.market }
+                    .toList()
+                getTickers(tickers)
             }
 
             override fun onFailure(call: Call<List<UpBitTickerResponse>>, t: Throwable) {
@@ -64,7 +68,7 @@ class UpBitConnector(val receiver: UpBitCommunicable) {
         return listOf("KRW", "BTC", "ETH", "USDT").contains(prefix)
     }
 
-    interface Retrofittable {
+    interface UpBitService {
         @GET("market/all")
         fun getMarkets(): Call<List<UpBitTickerResponse>>
 
