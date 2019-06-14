@@ -35,7 +35,7 @@ class MainFragment : Fragment() {
             val fragmentInstance = MainFragment()
             val bundle = Bundle(1)
             bundle.putString(EXTRA_MESSAGE, message)
-            fragmentInstance.setArguments(bundle)
+            fragmentInstance.arguments = bundle
             return fragmentInstance
         }
     }
