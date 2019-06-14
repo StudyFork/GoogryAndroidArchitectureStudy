@@ -1,6 +1,7 @@
 package sample.nackun.com.studyfirst
 
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
@@ -42,12 +43,12 @@ class MainActivity : AppCompatActivity() {
     fun setBtnClick() {
         val onClickListener = object : View.OnClickListener {
             override fun onClick(v: View?) {
-                marketKRW.setTextColor(resources.getColor(R.color.grey))
-                marketBTC.setTextColor(resources.getColor(R.color.grey))
-                marketETH.setTextColor(resources.getColor(R.color.grey))
-                marketUSDT.setTextColor(resources.getColor(R.color.grey))
+                marketKRW.setTextColor(ContextCompat.getColor(baseContext, R.color.grey))
+                marketBTC.setTextColor(ContextCompat.getColor(baseContext, R.color.grey))
+                marketETH.setTextColor(ContextCompat.getColor(baseContext, R.color.grey))
+                marketUSDT.setTextColor(ContextCompat.getColor(baseContext, R.color.grey))
                 var selectedMarket = v as TextView
-                selectedMarket.setTextColor(resources.getColor(R.color.indigo))
+                selectedMarket.setTextColor(ContextCompat.getColor(baseContext, R.color.indigo))
                 initData(selectedMarket.text.toString())
             }
         }

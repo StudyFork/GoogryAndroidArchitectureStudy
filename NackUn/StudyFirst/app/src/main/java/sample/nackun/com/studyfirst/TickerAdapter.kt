@@ -22,7 +22,7 @@ class TickerAdapter() : RecyclerView.Adapter<TickerViewHolder>() {
         return TickerViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.ticker_item, parent, false))
     }
 
-    override fun getItemCount() = items?.size
+    override fun getItemCount() = items.size
 
     override fun onBindViewHolder(tickerViewHolder: TickerViewHolder, p1: Int) {
         tickerViewHolder.bind(items[p1])
