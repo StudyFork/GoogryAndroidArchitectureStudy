@@ -10,24 +10,14 @@ import java.util.ArrayList
 
 abstract class BaseAdapter<T : Any>(data: List<T>) : RecyclerView.Adapter<BaseViewHolder<Any>>() {
 
-
-    private var mData: MutableList<T>? = ArrayList()
-
-    init {
-        mData = data.toMutableList()
-    }
+    private var mData: MutableList<T> = data.toMutableList()
 
     override fun onBindViewHolder(holder: BaseViewHolder<Any>, position: Int) {
-        holder.bind(mData!![position])
+        holder.bind(mData[position])
     }
 
     override fun getItemCount(): Int {
-        return if (mData != null) {
-            mData!!.size
-
-        } else {
-            0
-        }
+        return mData.size
     }
 
     fun setList(data: List<T>) {
@@ -37,7 +27,7 @@ abstract class BaseAdapter<T : Any>(data: List<T>) : RecyclerView.Adapter<BaseVi
 
 
     fun add(data: T) {
-        insert(data, mData!!.size)
+        insert(data, mData.size)
     }
 
 
@@ -46,36 +36,36 @@ abstract class BaseAdapter<T : Any>(data: List<T>) : RecyclerView.Adapter<BaseVi
             return
         }
 
-        val startIndex = mData!!.size
-        mData!!.addAll(startIndex, data)
+        val startIndex = mData.size
+        mData.addAll(startIndex, data)
         notifyItemRangeInserted(startIndex, data.size)
     }
 
     fun getItem(position: Int): T {
-        return mData!![position]
+        return mData[position]
     }
 
 
     fun insert(data: T, position: Int) {
-        mData!!.add(position, data)
+        mData.add(position, data)
         notifyItemInserted(position)
     }
 
 
     fun remove(position: Int) {
-        mData!!.removeAt(position)
+        mData.removeAt(position)
         notifyItemRemoved(position)
     }
 
 
     fun change(position: Int, data: T) {
-        mData!![position] = data
+        mData[position] = data
         notifyItemChanged(position)
     }
 
     fun clear() {
-        val size = mData!!.size
-        mData!!.clear()
+        val size = mData.size
+        mData.clear()
         notifyItemRangeRemoved(0, size)
     }
 }
