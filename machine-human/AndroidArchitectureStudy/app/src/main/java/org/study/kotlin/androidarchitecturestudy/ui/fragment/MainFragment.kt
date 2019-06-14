@@ -25,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainFragment : Fragment() {
 
-    private val restApi: UPbitApi
+    private val upbitApi: UpbitApi
     private val baseUrl = "https://api.upbit.com"
     var listData: ArrayList<TickerModel> = ArrayList()
     private var mainListAdapter: MainListAdapter? = null
