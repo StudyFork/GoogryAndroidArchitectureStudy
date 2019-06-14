@@ -106,8 +106,14 @@ class CoinFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnMoreLis
         adapter.addAll(list)
     }
 
-    override fun onMoreAsked(overallItemsCount: Int, itemsBeforeMore: Int, maxLastVisiblePosition: Int) =
-        Toast.makeText(context, getString(R.string.scroll_end), Toast.LENGTH_SHORT).show()
+    override fun onMoreAsked(overallItemsCount: Int, itemsBeforeMore: Int, maxLastVisiblePosition: Int) {
+        if(maxLastVisiblePosition == rv_coin_list.adapter.itemCount - 1) {
+            Toast.makeText(context, getString(R.string.scroll_end), Toast.LENGTH_SHORT).show()
+            rv_coin_list.hideMoreProgress()
+
+        }
+    }
+
 
     override fun onDestroy() {
         disposableManager.dispose()
