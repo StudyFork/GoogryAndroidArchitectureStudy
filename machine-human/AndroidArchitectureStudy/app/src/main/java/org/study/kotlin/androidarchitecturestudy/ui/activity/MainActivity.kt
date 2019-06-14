@@ -41,8 +41,8 @@ class MainActivity : AppCompatActivity() {
         adapter.addFragment(thirdFragment, "ETH")
         adapter.addFragment(fourFragment, "USDT")
 
-        viewpager_main!!.adapter = adapter
-        tablayout_main!!.setupWithViewPager(viewpager_main)
+        viewPagerMain.adapter = adapter
+        tablayoutMain.setupWithViewPager(viewPagerMain)
 
     }
 
