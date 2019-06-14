@@ -11,7 +11,7 @@ class UpBitServiceManager {
 
         private val SERVICE = ServiceDefine.retrofit.create(UpBitService::class.java)
 
-        fun getAllMarketList() : Single<Response<List<MarketModel>>> {
+        fun getAllMarketList(): Single<Response<List<MarketModel>>> {
             return SERVICE.getAllMarketList()
                 .subscribeOn(Schedulers.io())
         }

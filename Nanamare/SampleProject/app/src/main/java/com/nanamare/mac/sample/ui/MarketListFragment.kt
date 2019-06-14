@@ -32,7 +32,7 @@ class MarketListFragment : Fragment() {
 
         val jsonMarketList = arguments?.getString(KET_MARKET_LIST)
         val type = object : TypeToken<HashMap<String, List<String>>>() {}.type
-        val marketMap : HashMap<String, List<String>> = Gson().fromJson(jsonMarketList, type)
+        val marketMap: HashMap<String, List<String>> = Gson().fromJson(jsonMarketList, type)
 
         val itr = marketMap.iterator()
         while (itr.hasNext()) {
@@ -46,7 +46,6 @@ class MarketListFragment : Fragment() {
         tabLayout?.setupWithViewPager(coin_view_pager)
 
     }
-
 
 
 }

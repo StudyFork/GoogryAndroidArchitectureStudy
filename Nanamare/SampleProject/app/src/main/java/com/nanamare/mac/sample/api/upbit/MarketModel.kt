@@ -1,4 +1,5 @@
 package com.nanamare.mac.sample.api.upbit
+
 import com.google.gson.annotations.SerializedName
 
 

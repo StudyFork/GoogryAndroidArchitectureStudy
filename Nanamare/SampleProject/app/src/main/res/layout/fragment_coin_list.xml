@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:weightSum="4"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+        android:layout_height="?attr/actionBarSize"
+        android:orientation="horizontal"
+        android:weightSum="4">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:gravity="center"
-            android:layout_weight="1"
-            android:text="@string/coin_name"
             android:layout_width="0dp"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/coin_name" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:gravity="center"
-            android:layout_weight="1"
-            android:text="@string/current_price"
             android:layout_width="0dp"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/current_price" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:gravity="center"
-            android:layout_weight="1"
-            android:text="@string/compare_to_yesterday"
             android:layout_width="0dp"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/compare_to_yesterday" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:gravity="center"
-            android:layout_weight="1"
-            android:text="@string/coin_all_amount"
             android:layout_width="0dp"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/coin_all_amount" />
 
     </LinearLayout>
 
