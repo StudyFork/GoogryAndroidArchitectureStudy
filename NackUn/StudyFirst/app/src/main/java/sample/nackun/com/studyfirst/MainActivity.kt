@@ -1,9 +1,7 @@
 package sample.nackun.com.studyfirst
 
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import android.widget.TextView
@@ -33,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         marketKRW.callOnClick()
     }
 
-    fun initRetrofit(){
+    fun initRetrofit() {
         retrofit = Retrofit.Builder()
             .baseUrl("https://api.upbit.com/v1/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -41,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         service = retrofit.create(UpbitApi::class.java)
     }
 
-    fun setBtnClick(){
+    fun setBtnClick() {
         val onClickListener = object : View.OnClickListener {
             override fun onClick(v: View?) {
                 marketKRW.setTextColor(resources.getColor(R.color.grey))
@@ -60,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         marketUSDT.setOnClickListener(onClickListener)
     }
 
-    fun initAdapter(){
+    fun initAdapter() {
         tickerAdapter = TickerAdapter()
         tickerRecyclerView.adapter = tickerAdapter
     }
@@ -82,20 +80,20 @@ class MainActivity : AppCompatActivity() {
                                 marketModel.market
                             }
                 }
-                    Log.d("aa12", query)
+                Log.d("aa12", query)
 
-                    service.requestTicker(query)
-                        .enqueue(object : Callback<ArrayList<Ticker>> {
-                            override fun onResponse(
-                                call: Call<ArrayList<Ticker>>,
-                                response: Response<ArrayList<Ticker>>
-                            ) {
-                                response.body()?.let { tickerAdapter.setItems(it) }
-                            }
+                service.requestTicker(query)
+                    .enqueue(object : Callback<ArrayList<Ticker>> {
+                        override fun onResponse(
+                            call: Call<ArrayList<Ticker>>,
+                            response: Response<ArrayList<Ticker>>
+                        ) {
+                            response.body()?.let { tickerAdapter.setItems(it) }
+                        }
 
-                            override fun onFailure(call: Call<ArrayList<Ticker>>, t: Throwable) {
-                            }
-                        })
+                        override fun onFailure(call: Call<ArrayList<Ticker>>, t: Throwable) {
+                        }
+                    })
             }
         })
     }

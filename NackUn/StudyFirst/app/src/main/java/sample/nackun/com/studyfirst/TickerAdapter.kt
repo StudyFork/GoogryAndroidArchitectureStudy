@@ -1,6 +1,5 @@
 package sample.nackun.com.studyfirst
 
-import android.content.Context
 import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -36,7 +35,7 @@ class TickerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val comparePrice = view.comparePrice
     val changePrice = view.changePrice
 
-    fun bind(item: Ticker){
+    fun bind(item: Ticker) {
         tickerName.text = item.market.substring(
             item.market.indexOf("-") + 1,
             item.market.length
