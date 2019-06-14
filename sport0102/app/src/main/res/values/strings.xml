@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">ArchitecturePatternStudy</string>
+	<string name="app_name">ArchitecturePatternStudy</string>
+	<string name="all_krw">KRW</string>
+	<string name="all_btc">BTC</string>
+	<string name="all_eth">ETH</string>
+	<string name="all_usdt">USDT</string>
+	<string name="all_coin_name">코인명</string>
+	<string name="all_now_price">현재가</string>
+	<string name="all_compare_before">전일대비</string>
+	<string name="all_total_deal_price">거래대금</string>
 </resources>
