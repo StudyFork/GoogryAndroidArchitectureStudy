@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">StudyFirstProject</string>
+
+    <string name="coin_name">코인명</string>
+    <string name="coin_trade_price">현재가</string>
+    <string name="coin_change_rate">전일대비</string>
+    <string name="coin_acc_trade_price">거래대금</string>
+    <string name="network_err">오류가 발생했습니다. 다시 시도해주세요.</string>
+
+    <string name="sort_by">정렬 기준</string>
+    <string name="krw">KRW</string>
+    <string name="btc">BTC</string>
+    <string name="eth">ETH</string>
+    <string name="usdt">USDT</string>
 </resources>
