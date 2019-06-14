@@ -14,7 +14,7 @@ class MainListAdapter(var tickerList: ArrayList<TickerModel>) :
     RecyclerView.Adapter<MainListAdapter.ItemViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, vewType: Int): ItemViewHolder {
-        val v = LayoutInflater.from(viewGroup?.context).inflate(R.layout.item_ticker, viewGroup, false)
+        val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_ticker, viewGroup, false)
         return ItemViewHolder(v)
     }
 
