@@ -12,14 +12,15 @@ import org.study.kotlin.androidarchitecturestudy.util.FormatUtil.accTradePriceFo
 
 class MainListAdapter :
     RecyclerView.Adapter<MainListAdapter.ItemViewHolder>() {
-    var tickerList: ArrayList<TickerModel>? = null
+    var tickerList = ArrayList<TickerModel>()!!
     var itemViewHolder: ItemViewHolder? = null
     override fun onCreateViewHolder(viewGroup: ViewGroup, vewType: Int): ItemViewHolder {
         val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_ticker, viewGroup, false)
+        tickerList = ArrayList()!!
         return ItemViewHolder(v)
     }
 
-    override fun getItemCount(): Int = tickerList!!.size
+    override fun getItemCount(): Int = tickerList.size
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         itemViewHolder?.setData(holder,position,tickerList)
@@ -27,8 +28,8 @@ class MainListAdapter :
     }
 
     fun setList(list: ArrayList<TickerModel>) {
-        tickerList?.clear()
-        tickerList?.addAll(list)
+        tickerList.clear()
+        tickerList.addAll(list)
         notifyDataSetChanged()
     }
 
