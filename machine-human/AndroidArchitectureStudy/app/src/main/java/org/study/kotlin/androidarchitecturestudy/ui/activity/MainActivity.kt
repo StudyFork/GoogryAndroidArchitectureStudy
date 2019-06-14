@@ -2,15 +2,17 @@ package org.study.kotlin.androidarchitecturestudy.ui.activity
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout
+import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import org.study.kotlin.androidarchitecturestudy.R
 import org.study.kotlin.androidarchitecturestudy.adapter.viewpageradapter.MainViewPagerAdapter
 import org.study.kotlin.androidarchitecturestudy.ui.fragment.MainFragment
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var viewpager_main: ViewPager
-    private lateinit var tablayout_main: TabLayout
+    private lateinit var viewPagerMain: ViewPager
+    private lateinit var tablayoutMain: TabLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private fun initViews() {
         tablayoutMain = findViewById(R.id.tablayout_main)
         viewPagerMain = findViewById(R.id.viewpager_main)
+
     }
 
     private fun setupViewPager() {
@@ -48,3 +51,4 @@ class MainActivity : AppCompatActivity() {
 
 
 }
+
