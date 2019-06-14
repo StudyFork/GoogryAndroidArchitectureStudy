@@ -7,20 +7,12 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentStatePagerAdapter
 import java.util.ArrayList
 
-/**
- * 생성자
- * @param fm
- */
-class MarketListViewPager
-    (fm: FragmentManager) : FragmentPagerAdapter(fm) {
+
+class MarketListViewPager(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     private val mFragments = ArrayList<Fragment>()
     private val mFragmentTiles = ArrayList<String>()
 
-    /**
-     * 추가
-     * @param fragment
-     * @param title
-     */
+
     fun addFragment(fragment: Fragment, title: String) {
         mFragments.add(fragment)
         mFragmentTiles.add(title)
