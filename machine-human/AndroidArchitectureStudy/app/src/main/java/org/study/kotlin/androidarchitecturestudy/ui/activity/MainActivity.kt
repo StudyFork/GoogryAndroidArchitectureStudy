@@ -21,8 +21,8 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun initViews() {
-        tablayout_main = findViewById(R.id.tablayout_main)
-        viewpager_main = findViewById(R.id.viewpager_main)
+        tablayoutMain = findViewById(R.id.tablayout_main)
+        viewPagerMain = findViewById(R.id.viewpager_main)
     }
 
     private fun setupViewPager() {
