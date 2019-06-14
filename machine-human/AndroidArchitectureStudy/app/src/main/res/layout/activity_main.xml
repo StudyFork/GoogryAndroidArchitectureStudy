@@ -41,7 +41,7 @@
 
         <TextView
             style="@style/CusTextViewTextView"
-            android:text="@string/accTrade_price" />
+            android:text="@string/acc_trade_price" />
 
 
     </LinearLayout>
