@@ -46,9 +46,9 @@
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/spinner"
-                app:selectedValue="@={viewmodel.baseCurrency}"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                app:selectedValue="@={viewmodel.baseCurrency}" />
         </LinearLayout>
 
 
@@ -116,13 +116,13 @@
             android:id="@+id/progress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="@{viewmodel.isLoading ? View.VISIBLE : View.GONE}" />
+            android:visibility="@{viewmodel.isLoading}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="@{viewmodel.isLoading ? View.GONE : View.VISIBLE}"
+            android:visibility="@{!viewmodel.isLoading}"
             app:coinItems="@{viewmodel.filterCoinList}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_coin_list" />
