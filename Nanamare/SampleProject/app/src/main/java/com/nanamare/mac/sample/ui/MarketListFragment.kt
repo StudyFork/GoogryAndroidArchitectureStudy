@@ -34,10 +34,8 @@ class MarketListFragment : Fragment() {
         val type = object : TypeToken<HashMap<String, List<String>>>() {}.type
         val marketMap: HashMap<String, List<String>> = Gson().fromJson(jsonMarketList, type)
 
-        val itr = marketMap.iterator()
-        while (itr.hasNext()) {
-            val item = itr.next()
-            marketListViewPager.addFragment(CoinFragment.newInstance(item.value, item.key), item.key)
+        marketMap.map {
+            marketListViewPager.addFragment(CoinFragment.newInstance(it.value, it.key), it.key)
         }
 
         coin_view_pager.adapter = marketListViewPager
