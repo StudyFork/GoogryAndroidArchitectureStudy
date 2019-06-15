@@ -7,10 +7,13 @@
 
     <string name="scroll_end">끝!</string>
 
-    <string name="loading">Loading…</string>
+    <string name="loading">로딩중…</string>
+
     <string name="coin_name">코인명</string>
     <string name="current_price">현재</string>
     <string name="compare_to_yesterday">전일대비</string>
     <string name="coin_all_amount">거래대금</string>
+
+    <string name="waiting">기다려주세요..</string>
 
 </resources>

@@ -14,20 +14,19 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val KET_MARKET_LIST = "key_market_list"
+        const val PROGRESS_DIALOG_FRAGMENT = "progress_dialog_fragment"
     }
 
     private lateinit var disposableManager: DisposableManager
-    private lateinit var dialog: ProgressDialog
+
+    private lateinit var dialog: ProgressDialogFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        dialog = ProgressDialog(this)
-        dialog.setTitle("")
-        dialog.setMessage(getString(R.string.loading))
-        dialog.setCancelable(true)
-        dialog.show()
+        dialog = ProgressDialogFragment()
+        dialog.show(supportFragmentManager, PROGRESS_DIALOG_FRAGMENT)
 
         disposableManager = DisposableManager()
         disposableManager.add(
