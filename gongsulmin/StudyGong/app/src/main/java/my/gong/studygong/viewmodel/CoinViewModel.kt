@@ -24,9 +24,7 @@ class CoinViewModel(
     val baseCurrencyList: LiveData<List<String>>
         get() = _baseCurrencyList
 
-    private var _dismissCoinMarketDialog = SingleLiveEvent<String>()
-    val dismissCoinMarketDialog: LiveData<String>
-        get() = _dismissCoinMarketDialog
+    var dismissCoinMarketDialog = SingleLiveEvent<Any>()
 
     private var _showCoinSearchDialog = SingleLiveEvent<String>()
     val showCoinSearchDialog: LiveData<String>
@@ -70,10 +68,10 @@ class CoinViewModel(
         )
     }
 
-    fun loadTickerSearchResult(searchTicker: String) {
-        if (searchTicker.isNotEmpty()) {
+    fun loadTickerSearchResult() {
+        if (searchTicker.value!!.isNotEmpty()) {
             upbitRepository.getDetailTickers(
-                tickerSearch = searchTicker,
+                tickerSearch = searchTicker.value!!,
                 success = {
                     _searchTickerList.value = it
                 },
@@ -105,11 +103,9 @@ class CoinViewModel(
         _showCoinSearchDialog.value = searchTicker
     }
 
-    fun selectBaseCurrnecy(baseCurrency: String) {
-        _dismissCoinMarketDialog.value = baseCurrency
-    }
-
-    fun resetBaseCurrecny(baseCurrency: String) {
-        _baseCurrency.value = baseCurrency
+    fun selectBaseCurrnecy(selectBaseCurrency: String) {
+        _baseCurrency.value = selectBaseCurrency
+        loadCoin()
+        dismissCoinMarketDialog.call()
     }
 }

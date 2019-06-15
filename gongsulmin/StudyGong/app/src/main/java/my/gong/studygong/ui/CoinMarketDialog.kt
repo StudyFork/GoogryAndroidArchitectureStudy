@@ -2,7 +2,6 @@ package my.gong.studygong.ui
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import my.gong.studygong.Injection
 import my.gong.studygong.R
 import my.gong.studygong.adapter.CoinMarketAdapter
 import my.gong.studygong.base.BaseDialog
@@ -16,21 +15,18 @@ import my.gong.studygong.viewmodel.CoinViewModel
 class CoinMarketDialog
     : BaseDialog<DialogCoinMarketBinding>(R.layout.dialog_coin_market) {
 
-    private val coinViewModel: CoinViewModel by lazy {
-        CoinViewModel(
-            Injection.provideCoinRepository()
-        )
-    }
+    private lateinit var coinViewModel: CoinViewModel
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewDataBinding.lifecycleOwner = this@CoinMarketDialog
+        coinViewModel = (activity as CoinListActivity).obtainViewModel()
+
         viewDataBinding.coinViewModel = coinViewModel
+
         coinViewModel.loadBaseCurrency()
 
         coinViewModel.dismissCoinMarketDialog.observe(this, Observer {
             dismiss()
-            (activity as CoinListActivity).onClickCoinMarketItem(it)
         })
 
         viewDataBinding.recyclerviewCoinMarket.adapter =

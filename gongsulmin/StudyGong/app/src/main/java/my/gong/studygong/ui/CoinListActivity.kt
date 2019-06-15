@@ -5,7 +5,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import kotlinx.android.synthetic.main.activity_main.*
 import my.gong.studygong.Injection
 import my.gong.studygong.R
 import my.gong.studygong.adapter.CoinAdapter
@@ -49,12 +48,6 @@ class CoinListActivity : AppCompatActivity() {
 
         coinViewModel.showCoinSearchDialog.observe(this , Observer {
             val coinSearchDialog = CoinSearchDialog()
-
-            coinSearchDialog.arguments =
-                Bundle().apply {
-                    putString(COIN_DETAIL, edit_search_ticker.text.toString())
-                }
-
             coinSearchDialog.show(supportFragmentManager, null)
         })
 
@@ -64,13 +57,9 @@ class CoinListActivity : AppCompatActivity() {
 
     }
 
-    fun onClickCoinMarketItem(market: String) {
-        coinViewModel.loadCoin()
-        coinViewModel.resetBaseCurrecny(market)
-    }
+    fun obtainViewModel() = coinViewModel
 
     companion object {
         const val REPEAT_INTERVAL_MILLIS = 3000L
-        const val COIN_DETAIL = "COIN_DETAIL"
     }
 }
