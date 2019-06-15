@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.DialogFragment
 
-abstract class BaseDialog<B : ViewDataBinding>(private val layoutRes: Int) : androidx.fragment.app.DialogFragment() {
+abstract class BaseDialog<B : ViewDataBinding>(private val layoutRes: Int) : DialogFragment() {
 
     protected lateinit var viewDataBinding: B
         private set

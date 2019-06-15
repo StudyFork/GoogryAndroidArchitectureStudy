@@ -3,12 +3,13 @@ package my.gong.studygong.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.RecyclerView
 import my.gong.studygong.R
 import my.gong.studygong.data.model.Ticker
 import my.gong.studygong.databinding.ItemTickerBinding
 
 class CoinAdapter
-    : androidx.recyclerview.widget.RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
+    : RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
 
     private val coinList: MutableList<Ticker> = mutableListOf()
 
