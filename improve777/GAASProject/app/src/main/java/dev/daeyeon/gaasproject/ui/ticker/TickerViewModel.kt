@@ -50,8 +50,6 @@ class TickerViewModel(private val upbitRepository: UpbitDataSource) {
             success = {
                 _isShowProgressBar.value = false
                 _tickerList.value = it
-
-                searchText.value = ""
             },
             fail = {
                 _isShowProgressBar.value = false
