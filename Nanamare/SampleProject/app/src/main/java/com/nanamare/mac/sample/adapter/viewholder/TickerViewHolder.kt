@@ -6,13 +6,12 @@ import kotlinx.android.synthetic.main.item_ticker.view.*
 
 class TickerViewHolder(itemView: View) : BaseViewHolder<TickerModel>(itemView) {
 
-    override fun bind(data: Any) {
+    override fun bind(data: TickerModel) {
 
         /**
          * Todo market 에 맞춰서 나중에 포맷 바꿔야함
          */
-
-        (data as TickerModel).run {
+        data.run {
             with(itemView) {
                 tv_coin_name.text = data.market!!.split('-')[1]
                 tv_coin_current_price.text = data.tradePrice.toString()
