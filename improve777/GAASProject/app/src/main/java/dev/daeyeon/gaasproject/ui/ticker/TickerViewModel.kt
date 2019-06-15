@@ -45,8 +45,8 @@ class TickerViewModel(private val upbitRepository: UpbitDataSource) {
         _isShowProgressBar.value = true
 
         upbitRepository.getTicker(
-            getBaseCurrency(),
-            searchText.value ?: UpbitDataSource.ALL_CURRENCY,
+            baseCurrency = getBaseCurrency(),
+            searchTicker = searchText.value ?: UpbitDataSource.ALL_CURRENCY,
             success = {
                 _isShowProgressBar.value = false
                 _tickerList.value = it
