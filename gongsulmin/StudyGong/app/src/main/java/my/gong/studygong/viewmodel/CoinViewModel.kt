@@ -12,33 +12,33 @@ class CoinViewModel(
     private val upbitRepository: UpbitDataSource
 ) {
 
-    private var _tickerList = MutableLiveData<List<Ticker>>()
+    private val _tickerList = MutableLiveData<List<Ticker>>()
     val tickerList: LiveData<List<Ticker>>
         get() = _tickerList
 
-    private var _searchTickerList = MutableLiveData<List<Ticker>>()
+    private val _searchTickerList = MutableLiveData<List<Ticker>>()
     val searchTickerList: LiveData<List<Ticker>>
         get() = _searchTickerList
 
-    private var _baseCurrencyList = MutableLiveData<List<String>>()
+    private val _baseCurrencyList = MutableLiveData<List<String>>()
     val baseCurrencyList: LiveData<List<String>>
         get() = _baseCurrencyList
 
     var dismissCoinMarketDialog = SingleLiveEvent<Any>()
 
-    private var _showCoinSearchDialog = SingleLiveEvent<String>()
+    private val _showCoinSearchDialog = SingleLiveEvent<String>()
     val showCoinSearchDialog: LiveData<String>
         get() = _showCoinSearchDialog
 
-    var showCoinMarketDialog = SingleLiveEvent<Any>()
+    val showCoinMarketDialog = SingleLiveEvent<Any>()
 
-    var errorMessage = SingleLiveEvent<String>()
+    val errorMessage = SingleLiveEvent<String>()
 
-    private var _baseCurrency = MutableLiveData<String>("KRW")
+    private val _baseCurrency = MutableLiveData<String>("KRW")
     val baseCurrency: LiveData<String>
         get() = _baseCurrency
 
-    var searchTicker = MutableLiveData<String>("")
+    val searchTicker = MutableLiveData<String>("")
 
     private var timer: Timer = Timer()
 
