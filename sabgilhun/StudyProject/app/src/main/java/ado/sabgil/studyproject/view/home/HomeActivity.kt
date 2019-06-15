@@ -50,10 +50,6 @@ class HomeActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun registerEvent() {
         homeViewModel.run {
             showToastEvent.observe(this@HomeActivity, Observer(::showToastMessage))
-
-            isLoading.observe(this@HomeActivity, Observer {
-                if (it) showProgressBar() else hideProgressBar()
-            })
         }
     }
 

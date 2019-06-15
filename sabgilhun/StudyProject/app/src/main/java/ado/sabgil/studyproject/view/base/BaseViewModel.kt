@@ -13,7 +13,7 @@ abstract class BaseViewModel {
     val showToastEvent: LiveData<String>
         get() = _showToastEvent
 
-    private val _isLoading = MutableLiveData<Boolean>()
+    private val _isLoading = MutableLiveData<Boolean>(false)
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 

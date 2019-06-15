@@ -47,10 +47,6 @@ class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(R.layout.fragmnet
     private fun registerEvent() {
         coinListViewModel.run {
             showToastEvent.observe(this@CoinListFragment, Observer(::showToastMessage))
-
-            isLoading.observe(this@CoinListFragment, Observer {
-                if (it) showProgressBar() else hideProgressBar()
-            })
         }
     }
 

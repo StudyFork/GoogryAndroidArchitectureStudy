@@ -43,10 +43,6 @@ class SearchCoinActivity :
     private fun registerEvent() {
         searchCoinViewModel.run {
             showToastEvent.observe(this@SearchCoinActivity, Observer(::showToastMessage))
-
-            isLoading.observe(this@SearchCoinActivity, Observer {
-                if (it) showProgressBar() else hideProgressBar()
-            })
         }
     }
 }
