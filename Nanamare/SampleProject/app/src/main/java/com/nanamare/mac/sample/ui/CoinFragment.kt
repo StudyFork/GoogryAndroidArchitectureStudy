@@ -87,7 +87,7 @@ class CoinFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnMoreLis
     }
 
     override fun onRefresh() {
-        disposableManager = DisposableManager
+        disposableManager = DisposableManager()
         disposableManager.add(
             UpBitServiceManager.getTickerList(ticketList)
                 .observeOn(AndroidSchedulers.mainThread())

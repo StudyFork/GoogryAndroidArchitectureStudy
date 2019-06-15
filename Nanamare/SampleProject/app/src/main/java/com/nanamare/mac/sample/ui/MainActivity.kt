@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         dialog.setCancelable(true)
         dialog.show()
 
-        disposableManager = DisposableManager
+        disposableManager = DisposableManager()
         disposableManager.add(
             UpBitServiceManager.getAllMarketList()
                 .observeOn(AndroidSchedulers.mainThread())
@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        DisposableManager.dispose()
+        disposableManager.dispose()
         super.onDestroy()
     }
 
