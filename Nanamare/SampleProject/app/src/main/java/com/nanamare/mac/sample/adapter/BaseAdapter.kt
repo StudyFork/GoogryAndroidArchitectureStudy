@@ -7,14 +7,14 @@ import com.nanamare.mac.sample.adapter.viewholder.BaseViewHolder
 
 abstract class BaseAdapter<T>(data: List<T>) : RecyclerView.Adapter<BaseViewHolder<T>>() {
 
-    private var mData: MutableList<T> = data.toMutableList()
+    private var items: MutableList<T> = data.toMutableList()
 
     override fun onBindViewHolder(holder: BaseViewHolder<T>, position: Int) {
-        holder.bind(mData[position])
+        holder.bind(items[position])
     }
 
     override fun getItemCount(): Int {
-        return mData.size
+        return items.size
     }
 
     fun setList(data: List<T>) {
@@ -24,7 +24,7 @@ abstract class BaseAdapter<T>(data: List<T>) : RecyclerView.Adapter<BaseViewHold
 
 
     fun add(data: T) {
-        insert(data, mData.size)
+        insert(data, items.size)
     }
 
 
@@ -33,36 +33,36 @@ abstract class BaseAdapter<T>(data: List<T>) : RecyclerView.Adapter<BaseViewHold
             return
         }
 
-        val startIndex = mData.size
-        mData.addAll(startIndex, data)
+        val startIndex = items.size
+        items.addAll(startIndex, data)
         notifyItemRangeInserted(startIndex, data.size)
     }
 
     fun getItem(position: Int): T {
-        return mData[position]
+        return items[position]
     }
 
 
     fun insert(data: T, position: Int) {
-        mData.add(position, data)
+        items.add(position, data)
         notifyItemInserted(position)
     }
 
 
     fun remove(position: Int) {
-        mData.removeAt(position)
+        items.removeAt(position)
         notifyItemRemoved(position)
     }
 
 
     fun change(position: Int, data: T) {
-        mData[position] = data
+        items[position] = data
         notifyItemChanged(position)
     }
 
     fun clear() {
-        val size = mData.size
-        mData.clear()
+        val size = items.size
+        items.clear()
         notifyItemRangeRemoved(0, size)
     }
 }
