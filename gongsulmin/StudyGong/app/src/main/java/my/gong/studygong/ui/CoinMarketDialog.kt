@@ -2,7 +2,6 @@ package my.gong.studygong.ui
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import kotlinx.android.synthetic.main.dialog_coin_market.*
 import my.gong.studygong.Injection
 import my.gong.studygong.R
 import my.gong.studygong.adapter.CoinMarketAdapter
@@ -34,7 +33,7 @@ class CoinMarketDialog
             (activity as CoinListActivity).onClickCoinMarketItem(it)
         })
 
-        recyclerview_coin_market.adapter =
+        viewDataBinding.recyclerviewCoinMarket.adapter =
             CoinMarketAdapter(
                 coinViewModel
             )

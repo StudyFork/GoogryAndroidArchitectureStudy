@@ -3,7 +3,6 @@ package my.gong.studygong.ui
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import kotlinx.android.synthetic.main.dialog_coin_detail.*
 import my.gong.studygong.Injection
 import my.gong.studygong.R
 import my.gong.studygong.adapter.CoinAdapter
@@ -29,7 +28,7 @@ class CoinSearchDialog
         super.onActivityCreated(savedInstanceState)
         viewDataBinding.coinViewModel = coinViewModel
 
-        recyclerview_coin_detail.adapter = CoinAdapter()
+        viewDataBinding.recyclerviewCoinDetail.adapter = CoinAdapter()
 
         arguments?.getString(COIN_DETAIL)?.let {
             coinViewModel.loadTickerSearchResult(it)

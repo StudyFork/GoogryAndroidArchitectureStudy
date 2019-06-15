@@ -41,7 +41,7 @@ class CoinListActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        recyclerview_main_ticker_list.adapter = CoinAdapter()
+        viewDataBinding.recyclerviewMainTickerList.adapter = CoinAdapter()
 
         coinViewModel.showCoinMarketDialog.observe(this , Observer {
             coinMarketDialog.show(supportFragmentManager, null)
