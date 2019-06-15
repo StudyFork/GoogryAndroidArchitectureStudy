@@ -65,7 +65,7 @@ class CoinFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnMoreLis
             R.color.point_E47B75
         )
         rv_coin_list.setupMoreListener(this, 1)
-        adapter = TickerAdapter(listOf())
+        adapter = TickerAdapter()
         rv_coin_list.adapter = adapter
         ViewCompat.setNestedScrollingEnabled(rv_coin_list, true)
     }
