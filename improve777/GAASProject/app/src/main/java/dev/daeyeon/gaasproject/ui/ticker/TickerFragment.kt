@@ -29,10 +29,8 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
     private val tickerViewModel by lazy { TickerViewModel(UpbitRepository(NetworkManager.instance)) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        tickerAdapter = TickerAdapter()
-
         bind {
-            rvTicker.adapter = tickerAdapter
+            rvTicker.adapter = TickerAdapter()
             viewModel = tickerViewModel
             lifecycleOwner = this@TickerFragment.viewLifecycleOwner
         }
