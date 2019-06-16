@@ -27,11 +27,12 @@ interface MainContract {
         fun showTickerList(tickerList: ArrayList<TickerModel>)
 
         fun showErrorToast()
+
     }
 
     interface Presenter : BasePresenter {
 
-        fun loadMarketList()
+        fun loadMarketList(market: String)
 
         fun loadTickerList(marketList: ArrayList<MarketModel>)
 

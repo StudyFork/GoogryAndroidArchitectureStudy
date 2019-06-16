@@ -5,17 +5,17 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.aiden.aiden.architecturepatternstudy.data.enums.Market
 
-class MainPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+class MainPagerAdapter(fm: FragmentManager, val fragment: ArrayList<Fragment>) : FragmentStatePagerAdapter(fm) {
 
     private val marketList = Market.values()
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> MainFragment(marketList[0])
-            1 -> MainFragment(marketList[1])
-            2 -> MainFragment(marketList[2])
-            3 -> MainFragment(marketList[3])
-            else -> MainFragment(marketList[0])
+            0 -> fragment[0]
+            1 -> fragment[1]
+            2 -> fragment[2]
+            3 -> fragment[3]
+            else -> fragment[0]
         }
 
     }
