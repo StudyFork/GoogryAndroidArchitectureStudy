@@ -21,9 +21,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return marketPrice?.size ?: 0
-    }
+    override fun getItemCount(): Int = marketPrice?.size ?: 0
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         marketPrice?.get(position)?.let { holder.bind(it) }

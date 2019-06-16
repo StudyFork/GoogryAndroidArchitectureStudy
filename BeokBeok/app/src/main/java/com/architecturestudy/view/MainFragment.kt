@@ -24,18 +24,15 @@ class MainFragment : Fragment(), UpBitCommunicable {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
-    }
+    ): View? = inflater.inflate(R.layout.fragment_main, container, false)
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initRecyclerView()
     }
 
-    override fun onSuccessMarketPrice(marketPrice: List<UpBitTickerResponse>) {
-        setMainAdapter(marketPrice)
-    }
+    override fun onSuccessMarketPrice(marketPrice: List<UpBitTickerResponse>) = setMainAdapter(marketPrice)
 
     private fun initRecyclerView() {
         val context = activity as MainActivity

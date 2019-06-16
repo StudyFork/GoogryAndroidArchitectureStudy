@@ -64,9 +64,7 @@ class UpBitConnector(val receiver: UpBitCommunicable) {
         })
     }
 
-    fun hasPrefix(prefix: String): Boolean {
-        return listOf("KRW", "BTC", "ETH", "USDT").contains(prefix)
-    }
+    fun hasPrefix(prefix: String): Boolean = listOf("KRW", "BTC", "ETH", "USDT").contains(prefix)
 
     interface UpBitService {
         @GET("market/all")
