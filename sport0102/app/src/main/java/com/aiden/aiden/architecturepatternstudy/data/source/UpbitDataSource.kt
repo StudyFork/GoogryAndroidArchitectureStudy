@@ -28,7 +28,7 @@ import com.aiden.aiden.architecturepatternstudy.api.model.TickerModel
  * For example, when a new task is created, it's synchronously stored in cache but usually every
  * operation on database or network should be executed in a different thread.
  */
-interface DataSource {
+interface UpbitDataSource {
 
     interface GetMarketListCallback {
 
