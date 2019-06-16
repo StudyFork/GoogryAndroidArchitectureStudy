@@ -15,6 +15,7 @@
  */
 package com.aiden.aiden.architecturepatternstudy.ui.main
 
+import com.aiden.aiden.architecturepatternstudy.api.model.MarketModel
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerModel
 import com.aiden.aiden.architecturepatternstudy.base.BasePresenter
 import com.aiden.aiden.architecturepatternstudy.base.BaseView
@@ -24,13 +25,15 @@ interface MainContract {
     interface View : BaseView<Presenter> {
 
         fun showTickerList(tickerList: ArrayList<TickerModel>)
+
+        fun showErrorToast()
     }
 
     interface Presenter : BasePresenter {
 
         fun loadMarketList()
 
-        fun loadTickerList()
+        fun loadTickerList(marketList: ArrayList<MarketModel>)
 
     }
 }

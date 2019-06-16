@@ -49,4 +49,5 @@ interface UpbitDataSource {
     fun getMarketList(callback: GetMarketListCallback)
 
     fun getTickerList(marketList: ArrayList<MarketModel>, callback: GetTickerListCallback)
+
 }

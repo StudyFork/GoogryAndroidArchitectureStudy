@@ -5,12 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.aiden.aiden.architecturepatternstudy.data.enums.Market
+import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
+import com.aiden.aiden.architecturepatternstudy.data.source.remote.UpbitRemoteDataSource
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_main_tab.view.*
 
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var mainPresenter: MainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
