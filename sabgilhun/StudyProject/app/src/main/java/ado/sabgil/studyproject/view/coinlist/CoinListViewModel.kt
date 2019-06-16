@@ -3,19 +3,18 @@ package ado.sabgil.studyproject.view.coinlist
 import ado.sabgil.studyproject.data.CoinRepository
 import ado.sabgil.studyproject.data.model.Ticker
 import ado.sabgil.studyproject.view.base.BaseViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import io.reactivex.rxkotlin.addTo
-import kotlin.properties.Delegates
 
 class CoinListViewModel(
     private val baseCurrency: String,
     private val coinRepository: CoinRepository
 ) : BaseViewModel() {
 
-    var coinListListeners: ((List<Ticker>) -> Unit)? = null
-
-    private var coinList: List<Ticker> by Delegates.observable(emptyList()) { _, _, newValue ->
-        coinListListeners?.invoke(newValue)
-    }
+    private val _coinList = MutableLiveData<List<Ticker>>()
+    val coinList: LiveData<List<Ticker>>
+        get() = _coinList
 
     fun subscribeRemote() {
         startLoading()
@@ -23,7 +22,7 @@ class CoinListViewModel(
             baseCurrency,
             { response ->
                 endLoading()
-                coinList = response
+                _coinList.value = response
             }, { error ->
                 endLoading()
                 handleErrorMessage(error)

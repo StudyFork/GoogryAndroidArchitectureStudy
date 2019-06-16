@@ -6,7 +6,7 @@ import ado.sabgil.studyproject.data.CoinRepositoryImpl
 import ado.sabgil.studyproject.databinding.ActivitySearchCoinBinding
 import ado.sabgil.studyproject.view.base.BaseActivity
 import android.os.Bundle
-import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.Observer
 
 class SearchCoinActivity :
     BaseActivity<ActivitySearchCoinBinding>(R.layout.activity_search_coin) {
@@ -23,15 +23,8 @@ class SearchCoinActivity :
         }
 
         bind {
+            vm = searchCoinViewModel
             rvTickerList.adapter = TickerAdapter()
-
-            tvSearch.setOnClickListener {
-                searchCoinViewModel.searchCoinByKeyword()
-            }
-
-            etKeyword.doAfterTextChanged {
-                searchCoinViewModel.keyword = it.toString()
-            }
         }
 
         registerEvent()
@@ -49,13 +42,7 @@ class SearchCoinActivity :
 
     private fun registerEvent() {
         searchCoinViewModel.run {
-            showToastEventListeners = ::showToastMessage
-
-            showProgressEventListeners = ::showProgressBar
-
-            hideProgressEventListeners = ::hideProgressBar
-
-            coinListListeners = binding::setItem
+            showToastEvent.observe(this@SearchCoinActivity, Observer(::showToastMessage))
         }
     }
 }

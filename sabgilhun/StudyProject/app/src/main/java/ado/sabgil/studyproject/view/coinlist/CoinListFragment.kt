@@ -7,6 +7,7 @@ import ado.sabgil.studyproject.databinding.FragmnetCoinListBinding
 import ado.sabgil.studyproject.view.base.BaseFragment
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 
 class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(R.layout.fragmnet_coin_list) {
 
@@ -26,31 +27,26 @@ class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(R.layout.fragmnet
         }
 
         bind {
+            vm = coinListViewModel
             rvTickerList.adapter = TickerAdapter()
         }
 
         registerEvent()
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         coinListViewModel.subscribeRemote()
     }
 
-    override fun onPause() {
+    override fun onStop() {
         coinListViewModel.unSubscribeRemote()
-        super.onPause()
+        super.onStop()
     }
 
     private fun registerEvent() {
         coinListViewModel.run {
-            showToastEventListeners = ::showToastMessage
-
-            showProgressEventListeners = ::showProgressBar
-
-            hideProgressEventListeners = ::hideProgressBar
-
-            coinListListeners = binding::setItem
+            showToastEvent.observe(this@CoinListFragment, Observer(::showToastMessage))
         }
     }
 
@@ -63,5 +59,4 @@ class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(R.layout.fragmnet
                 }
             }
     }
-
 }

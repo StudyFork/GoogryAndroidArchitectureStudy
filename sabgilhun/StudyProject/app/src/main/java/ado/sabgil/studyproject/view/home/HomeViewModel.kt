@@ -2,16 +2,15 @@ package ado.sabgil.studyproject.view.home
 
 import ado.sabgil.studyproject.data.CoinRepository
 import ado.sabgil.studyproject.view.base.BaseViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import io.reactivex.rxkotlin.addTo
-import kotlin.properties.Delegates
 
 class HomeViewModel(private val coinRepository: CoinRepository) : BaseViewModel() {
 
-    var marketListListeners: ((List<String>) -> Unit)? = null
-
-    private var marketList: List<String> by Delegates.observable(emptyList()) { _, _, newValue ->
-        marketListListeners?.invoke(newValue)
-    }
+    private val _marketList = MutableLiveData<List<String>>()
+    val marketList: LiveData<List<String>>
+        get() = _marketList
 
     fun loadMarketList() {
         startLoading()
@@ -19,7 +18,7 @@ class HomeViewModel(private val coinRepository: CoinRepository) : BaseViewModel(
         coinRepository.loadMarketList(
             { response ->
                 endLoading()
-                marketList = response
+                _marketList.value = response
             }, { error ->
                 endLoading()
                 handleErrorMessage(error)

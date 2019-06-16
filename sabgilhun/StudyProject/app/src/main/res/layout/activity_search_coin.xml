@@ -4,13 +4,9 @@
 
     <data>
 
-        <import type="java.util.List" />
-
-        <import type="ado.sabgil.studyproject.data.model.Ticker" />
-
         <variable
-            name="item"
-            type="List&lt;Ticker&gt;" />
+            name="vm"
+            type="ado.sabgil.studyproject.view.searchcoin.SearchCoinViewModel" />
 
     </data>
 
@@ -34,7 +30,8 @@
                 android:layout_weight="7.5"
                 android:hint="코인을 검색하세요."
                 android:maxLength="10"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:text="@={vm.keyword}" />
 
             <Button
                 android:id="@+id/tv_search"
@@ -42,6 +39,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="8dp"
                 android:layout_weight="2.5"
+                android:onClick="@{() -> vm.searchCoinByKeyword()}"
                 android:text="검색" />
         </LinearLayout>
 
@@ -52,7 +50,7 @@
             android:layout_margin="8dp"
             android:background="@android:color/white"
             android:foregroundGravity="center"
-            app:item="@{item}"
+            app:item="@{vm.coinList}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +61,7 @@
             android:id="@+id/pg_coin_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            app:visibility="@{safeUnbox(vm.isLoading)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

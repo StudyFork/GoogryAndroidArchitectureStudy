@@ -4,6 +4,9 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="ado.sabgil.studyproject.view.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,11 +50,11 @@
             android:id="@+id/pg_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibility="@{safeUnbox(vm.isLoading)}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
