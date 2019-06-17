@@ -24,7 +24,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
         return binding.root
     }
 
-    protected fun bind(action: (B) -> Unit) {
+    protected fun bind(action: B.() -> Unit) {
         binding.run(action)
     }
 
