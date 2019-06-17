@@ -1,13 +1,12 @@
 package my.gong.studygong.ui
 
 import android.os.Bundle
-import android.view.View
-import kotlinx.android.synthetic.main.dialog_coin_detail.*
-import my.gong.studygong.Injection
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import my.gong.studygong.R
 import my.gong.studygong.adapter.CoinAdapter
 import my.gong.studygong.base.BaseDialog
-import my.gong.studygong.ui.CoinListActivity.Companion.COIN_DETAIL
+import my.gong.studygong.databinding.DialogCoinDetailBinding
 import my.gong.studygong.viewmodel.CoinViewModel
 
 /**
@@ -15,30 +14,23 @@ import my.gong.studygong.viewmodel.CoinViewModel
  *
  */
 class CoinSearchDialog
-    : BaseDialog(R.layout.dialog_coin_detail) {
+    : BaseDialog<DialogCoinDetailBinding>(R.layout.dialog_coin_detail) {
 
-    private val coinViewModel: CoinViewModel by lazy {
-        CoinViewModel(
-            Injection.provideCoinRepository()
-        )
-    }
+    private lateinit var coinViewModel: CoinViewModel
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        coinViewModel = (activity as CoinListActivity).obtainViewModel()
 
-        recyclerview_coin_detail.adapter = CoinAdapter()
+        viewDataBinding.coinViewModel = coinViewModel
 
-        arguments?.getString(COIN_DETAIL)?.let {
-            coinViewModel.loadTickerSearchResult(it)
-        }
+        viewDataBinding.recyclerviewCoinDetail.adapter = CoinAdapter()
 
-        coinViewModel.searchTickerLoadedListener = {
-            (recyclerview_coin_detail.adapter as CoinAdapter).refreshData(it)
-        }
+        coinViewModel.loadTickerSearchResult()
 
-        coinViewModel.errorLoadedListener = {
-            txt_coin_detail_no_data.visibility = View.VISIBLE
-            txt_coin_detail_no_data.text = it
-        }
+        coinViewModel.errorMessage.observe(this , Observer {
+            Toast.makeText(context , it , Toast.LENGTH_LONG).show()
+        })
+
     }
 }

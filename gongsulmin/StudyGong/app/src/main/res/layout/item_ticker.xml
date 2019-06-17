@@ -1,53 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+<layout>
 
-    <TextView
-            android:id="@+id/txt_item_ticker_market"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/txt_item_ticker_opening_price"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:text=" 마켓 "
-            />
+    <data>
 
-    <TextView
-            android:id="@+id/txt_item_ticker_opening_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@+id/txt_item_ticker_market"
-            app:layout_constraintRight_toLeftOf="@+id/txt_item_ticker_change_price"
-            app:layout_constraintTop_toTopOf="@+id/txt_item_ticker_market"
-            app:layout_constraintBottom_toBottomOf="@+id/txt_item_ticker_market"
-            tools:text=" 시가 "
-            />
+        <variable
+                name="ticker"
+                type="my.gong.studygong.data.model.Ticker"/>
+    </data>
 
-    <TextView
-            android:id="@+id/txt_item_ticker_change_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@+id/txt_item_ticker_opening_price"
-            app:layout_constraintRight_toLeftOf="@+id/txt_item_ticker_acc_trade_price"
-            app:layout_constraintTop_toTopOf="@+id/txt_item_ticker_market"
-            app:layout_constraintBottom_toBottomOf="@+id/txt_item_ticker_market"
-            tools:text=" 전일대비 "
-            />
+    <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-            android:id="@+id/txt_item_ticker_acc_trade_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@+id/txt_item_ticker_change_price"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/txt_item_ticker_market"
-            app:layout_constraintBottom_toBottomOf="@+id/txt_item_ticker_market"
-            tools:text=" 거래대금 "
-            />
+        <TextView
+                android:id="@+id/txt_item_ticker_market"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{ticker.market}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/txt_item_ticker_opening_price"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+                android:id="@+id/txt_item_ticker_opening_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{ticker.tradePrice}"
+                app:layout_constraintLeft_toRightOf="@+id/txt_item_ticker_market"
+                app:layout_constraintRight_toLeftOf="@+id/txt_item_ticker_change_price"
+                app:layout_constraintTop_toTopOf="@+id/txt_item_ticker_market"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_item_ticker_market"
+                />
+
+        <TextView
+                android:id="@+id/txt_item_ticker_change_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{ticker.changeRate}"
+                app:layout_constraintLeft_toRightOf="@+id/txt_item_ticker_opening_price"
+                app:layout_constraintRight_toLeftOf="@+id/txt_item_ticker_acc_trade_price"
+                app:layout_constraintTop_toTopOf="@+id/txt_item_ticker_market"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_item_ticker_market"
+                />
+
+        <TextView
+                android:id="@+id/txt_item_ticker_acc_trade_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@+id/txt_item_ticker_change_price"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/txt_item_ticker_market"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_item_ticker_market"
+                />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+
+

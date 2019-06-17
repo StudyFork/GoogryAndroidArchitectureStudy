@@ -1,31 +1,32 @@
 package my.gong.studygong.adapter
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.item_ticker.view.*
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.RecyclerView
 import my.gong.studygong.R
 import my.gong.studygong.data.model.Ticker
+import my.gong.studygong.databinding.ItemTickerBinding
 
 class CoinAdapter
     : RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
 
     private val coinList: MutableList<Ticker> = mutableListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_ticker, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val viewDataBinding = DataBindingUtil.inflate<ItemTickerBinding>(
+            LayoutInflater.from(parent.context),
+            R.layout.item_ticker,
+            parent,
+            false
+        )
+        return ViewHolder(viewDataBinding)
+    }
 
     override fun getItemCount() = coinList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        with(holder) {
-            coinList[position].let {
-                coinMarket.text = it.market
-                coinOpningPrice.text = it.tradePrice
-                coinChangePrice.text = it.changeRate
-            }
-        }
+        holder.viewDataBinding.ticker = coinList[position]
     }
 
     fun refreshData(coinList: List<Ticker>) {
@@ -36,10 +37,6 @@ class CoinAdapter
         notifyDataSetChanged()
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val coinMarket = view.txt_item_ticker_market!!
-        val coinOpningPrice = view.txt_item_ticker_opening_price
-        val coinChangePrice = view.txt_item_ticker_change_price
-        val coinChangeAccTradePrice = view.txt_item_ticker_acc_trade_price
-    }
+    class ViewHolder(val viewDataBinding: ItemTickerBinding) :
+        androidx.recyclerview.widget.RecyclerView.ViewHolder(viewDataBinding.root)
 }
