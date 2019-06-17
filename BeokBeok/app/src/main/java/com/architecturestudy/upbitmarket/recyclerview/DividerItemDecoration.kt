@@ -1,4 +1,4 @@
-package com.architecturestudy.view
+package com.architecturestudy.upbitmarket.recyclerview
 
 import android.content.Context
 import android.graphics.Canvas

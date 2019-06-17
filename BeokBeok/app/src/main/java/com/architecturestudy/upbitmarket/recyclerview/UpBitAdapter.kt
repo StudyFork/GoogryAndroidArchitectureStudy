@@ -1,4 +1,4 @@
-package com.architecturestudy.view
+package com.architecturestudy.upbitmarket.recyclerview
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -6,18 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.architecturestudy.R
-import com.architecturestudy.model.UpBitTickerResponse
+import com.architecturestudy.data.UpBitTicker
 import java.text.DecimalFormat
 
-class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
-    var marketPrice: List<UpBitTickerResponse>? = null
+class UpBitAdapter : RecyclerView.Adapter<UpBitAdapter.ViewHolder>() {
+    var marketPrice: List<UpBitTicker>? = null
 
-    fun setMarketPrices(marketPrice: List<UpBitTickerResponse>) {
+    fun setMarketPrices(marketPrice: List<UpBitTicker>) {
         this.marketPrice = marketPrice
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.rv_main_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.rv_upbit_item, parent, false)
         return ViewHolder(view)
     }
 
@@ -33,7 +33,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
         private val netChange = itemView.findViewById<TextView>(R.id.tv_net_change)
         private val tradingVal = itemView.findViewById<TextView>(R.id.tv_trading_value)
 
-        fun bind(marketPrice: UpBitTickerResponse) {
+        fun bind(marketPrice: UpBitTicker) {
             coinName?.text =
                 if (marketPrice.market?.contains("-")!!)
                     marketPrice.market.substringAfter("-")
