@@ -20,8 +20,8 @@ fun RecyclerView.setCoinItem(list: List<Ticker>?) {
 }
 
 @BindingAdapter("android:visibility")
-fun setVisibility(view: View, boolean: Boolean) {
-    view.visibility = if (boolean) View.VISIBLE else View.GONE
+fun View.setVisibility(boolean: Boolean) {
+    visibility = if (boolean) View.VISIBLE else View.GONE
 }
 
 @BindingAdapter(value = ["selectedValue", "selectedValueAttrChanged"], requireAll = false)
