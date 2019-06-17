@@ -15,6 +15,7 @@
  */
 package com.aiden.aiden.architecturepatternstudy.data.source.remote
 
+import android.util.Log
 import com.aiden.aiden.architecturepatternstudy.api.UpbitApi
 import com.aiden.aiden.architecturepatternstudy.api.model.MarketModel
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerModel

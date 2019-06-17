@@ -4,20 +4,53 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.aiden.aiden.architecturepatternstudy.data.enums.Market
+import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
+import com.aiden.aiden.architecturepatternstudy.data.source.remote.UpbitRemoteDataSource
 
-class MainPagerAdapter(fm: FragmentManager, val fragment: ArrayList<Fragment>) : FragmentStatePagerAdapter(fm) {
+class MainPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
     private val marketList = Market.values()
 
-    override fun getItem(position: Int): Fragment {
-        return when (position) {
-            0 -> fragment[0]
-            1 -> fragment[1]
-            2 -> fragment[2]
-            3 -> fragment[3]
-            else -> fragment[0]
-        }
+    private lateinit var presenter: MainPresenter
 
+    override fun getItem(position: Int): Fragment {
+        when (position) {
+            0 -> {
+                val krwFragment = MainFragment(Market.KRW.marketName)
+                presenter = MainPresenter(
+                    UpbitRepository.getInstance(UpbitRemoteDataSource), krwFragment
+                )
+                return krwFragment
+            }
+            1 -> {
+                val btcFragment = MainFragment(Market.BTC.marketName)
+                presenter = MainPresenter(
+                    UpbitRepository.getInstance(UpbitRemoteDataSource), btcFragment
+                )
+                return btcFragment
+            }
+            2 -> {
+                val ethFragment = MainFragment(Market.ETH.marketName)
+                presenter = MainPresenter(
+                    UpbitRepository.getInstance(UpbitRemoteDataSource), ethFragment
+                )
+                return ethFragment
+            }
+            3 -> {
+                val usdtFragment = MainFragment(Market.USDT.marketName)
+                presenter = MainPresenter(
+                    UpbitRepository.getInstance(UpbitRemoteDataSource), usdtFragment
+                )
+                return usdtFragment
+            }
+            else -> {
+                val krwFragment = MainFragment(Market.KRW.marketName)
+                presenter = MainPresenter(
+                    UpbitRepository.getInstance(UpbitRemoteDataSource), krwFragment
+                )
+                return krwFragment
+            }
+        }
     }
 
     override fun getCount(): Int = marketList.size

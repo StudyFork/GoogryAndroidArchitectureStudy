@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aiden.aiden.architecturepatternstudy.R
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerModel
 import kotlinx.android.synthetic.main.item_ticker.view.*
+import java.math.BigDecimal
 
 class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewHolder>() {
 
@@ -42,7 +43,7 @@ class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewH
                         true
                     )
                 ) {
-                    com.aiden.aiden.architecturepatternstudy.util.getKrwCommaPrice(tickerModel.tradePrice)
+                    com.aiden.aiden.architecturepatternstudy.util.getKrwCommaPrice(BigDecimal(tickerModel.tradePrice))
                 } else if (tickerModel.market.startsWith(
                         com.aiden.aiden.architecturepatternstudy.data.enums.Market.BTC.marketName,
                         true
