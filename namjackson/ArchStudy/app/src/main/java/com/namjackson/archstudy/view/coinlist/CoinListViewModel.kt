@@ -1,8 +1,9 @@
 package com.namjackson.archstudy.view.coinlist
 
-import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.namjackson.archstudy.base.BaseViewModel
 import com.namjackson.archstudy.data.model.Ticker
 import com.namjackson.archstudy.data.source.TickerRepository
@@ -12,23 +13,29 @@ class CoinListViewModel(
     val tickerRepository: TickerRepository
 ) : BaseViewModel() {
 
-    private var coinList = listOf<Ticker>()
-        set(value) {
-            field = value
-            filteringCoinList()
-        }
+    private val coinList = MutableLiveData<List<Ticker>>()
 
-    private var _filterCoinList = MutableLiveData<List<Ticker>>()
+    private val _filterCoinList = MediatorLiveData<List<Ticker>>()
     val filterCoinList: LiveData<List<Ticker>>
         get() = _filterCoinList
 
-    private var _searchStr = MutableLiveData<String>("")
+    private val _searchStr = MutableLiveData<String>("")
     val searchStr: LiveData<String>
         get() = _searchStr
 
     var baseCurrency = MutableLiveData<String>("")
 
     private lateinit var markets: String
+
+    init {
+        _filterCoinList.addSource(_searchStr, Observer { t ->
+            _filterCoinList.value = filteringCoinList()
+        })
+        _filterCoinList.addSource(coinList, Observer { t ->
+            _filterCoinList.value = filteringCoinList()
+        })
+    }
+
 
     fun loadCoinList() {
         if (!this::markets.isInitialized) {
@@ -57,7 +64,7 @@ class CoinListViewModel(
         tickerRepository.getTickers(
             markets = markets,
             success = {
-                coinList = it
+                coinList.value = it
                 _isLoading.value = false
             },
             fail = {
@@ -68,11 +75,9 @@ class CoinListViewModel(
     }
 
     fun changeSearch(searchStr: CharSequence) {
-        _searchStr.value = (searchStr.toString())
-        filteringCoinList()
+        _searchStr.value = searchStr.toString()
     }
 
-    private fun filteringCoinList() {
-        _filterCoinList.value = coinList.filter { it.name.contains(searchStr.value?.toUpperCase().toString()) }
-    }
+    private fun filteringCoinList(): List<Ticker>? =
+        coinList.value?.filter { it.name.contains(searchStr.value?.toUpperCase().toString()) }
 }
