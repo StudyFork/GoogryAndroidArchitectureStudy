@@ -12,8 +12,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportFragmentManager.commit {
-            replace(R.id.container, TickerFragment.newInstance())
+        if (savedInstanceState == null) {
+            // only create fragment if activity is started for the first time
+            // else : do nothing - fragment is recreated automatically
+            supportFragmentManager.commit {
+                replace(R.id.container, TickerFragment.newInstance())
+            }
         }
     }
 }
