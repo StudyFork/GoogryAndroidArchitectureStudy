@@ -7,7 +7,10 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import dev.daeyeon.gaasproject.R
 import dev.daeyeon.gaasproject.base.BaseFragment
 import dev.daeyeon.gaasproject.data.response.ResponseCode
@@ -24,7 +27,18 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
     // 검색 다이얼로그
     private var searchDialog: AlertDialog? = null
 
-    private val tickerViewModel by lazy { TickerViewModel(UpbitRepository(NetworkManager.instance)) }
+    private val tickerViewModel by createViewModelLazy(
+        TickerViewModel::class,
+        { viewModelStore },
+        {
+            object : ViewModelProvider.Factory {
+                @Suppress("UNCHECKED_CAST")
+                override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                    return TickerViewModel(UpbitRepository(NetworkManager.instance)) as T
+                }
+            }
+        }
+    )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         bind {
@@ -41,7 +55,6 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_ticker_fragment, menu)
-        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
