@@ -129,16 +129,6 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
             .show()
     }
 
-    override fun onResume() {
-        super.onResume()
-        tickerViewModel.loadUpbitTicker()
-    }
-
-    override fun onDestroyView() {
-        tickerViewModel.cancelApi()
-        super.onDestroyView()
-    }
-
     /**
      * swipeRefreshLayout 버튼 색, 이벤트 설정
      */

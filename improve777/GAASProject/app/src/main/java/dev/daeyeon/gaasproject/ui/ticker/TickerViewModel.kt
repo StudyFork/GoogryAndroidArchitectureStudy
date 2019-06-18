@@ -45,7 +45,12 @@ class TickerViewModel(
      */
     private lateinit var baseCurrency: String
 
+    init {
+        loadUpbitTicker()
+    }
+
     fun loadUpbitTicker() {
+        Log.e("ddd", "loadUpbitTicker")
         _isShowProgressBar.value = true
 
         upbitRepository.getTicker(
@@ -98,6 +103,7 @@ class TickerViewModel(
 
     override fun onCleared() {
         Log.e("TickerViewModel", "onCleared()")
+        cancelApi()
         super.onCleared()
     }
 }
