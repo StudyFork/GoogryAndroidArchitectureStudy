@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="dev.daeyeon.gaasproject.ui.ticker.TickerViewModel" />
+
+        <variable
+            name="searchViewModel"
+            type="dev.daeyeon.gaasproject.ui.ticker.search.TickerSearchViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <EditText
+            android:id="@+id/etSearch"
+            onEditorAction="@{() -> searchViewModel.complete()}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:hint="@string/ticker_search_hint"
+            android:imeOptions="actionSearch"
+            android:inputType="textCapCharacters|text"
+            android:maxLines="1"
+            android:text="@={viewModel.searchText}"
+            app:layout_constraintEnd_toStartOf="@+id/btnTickerSearch"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnTickerSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ticker_search_btn_selector"
+            android:onClick="@{() -> searchViewModel.complete()}"
+            android:text="@string/ticker_search"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
