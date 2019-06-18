@@ -28,9 +28,9 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
     private var searchDialog: AlertDialog? = null
 
     private val tickerViewModel by createViewModelLazy(
-        TickerViewModel::class,
-        { viewModelStore },
-        {
+        viewModelClass = TickerViewModel::class,
+        storeProducer = { viewModelStore },
+        factoryProducer = {
             object : ViewModelProvider.Factory {
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel?> create(modelClass: Class<T>): T {
