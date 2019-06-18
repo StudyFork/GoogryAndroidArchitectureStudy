@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         setBtnClick()
 
-        supportFragmentManager.beginTransaction().replace(R.id.mainFrame, MainFragment()).commit()
+        //supportFragmentManager.beginTransaction().replace(R.id.mainFrame, MainFragment()).commit()
 
         marketKRW.callOnClick()
     }

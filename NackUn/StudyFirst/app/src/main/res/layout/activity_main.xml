@@ -100,12 +100,13 @@
                 android:gravity="right"/>
 
     </LinearLayout>
-    <FrameLayout
-            android:id="@+id/mainFrame"
+    <fragment
+            android:id="@+id/mainFragment"
             android:layout_below="@+id/tickerTitle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-    </FrameLayout>
+            android:layout_height="match_parent"
+            android:name="sample.nackun.com.studyfirst.main.MainFragment">
+    </fragment>
     <!--<ScrollView
             android:layout_below="@+id/tickerTitle"
             android:layout_width="match_parent"

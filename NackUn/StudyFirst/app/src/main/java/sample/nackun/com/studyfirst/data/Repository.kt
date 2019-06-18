@@ -1,9 +1,10 @@
 package sample.nackun.com.studyfirst.data
 
+import sample.nackun.com.studyfirst.data.remote.RemoteDataSource
 import sample.nackun.com.studyfirst.vo.Ticker
 
 class Repository(
-    val remoteDataSource: DataSource
+    private val remoteDataSource: DataSource
 ) : DataSource
 {
     override var tickers: ArrayList<Ticker> = remoteDataSource.tickers
@@ -14,5 +15,15 @@ class Repository(
 
     override fun requestTickers(query: String) {
         remoteDataSource.requestTickers(query)
+    }
+
+    companion object {
+        private var INSTANCE: Repository? = null
+
+        @JvmStatic
+        fun getInstance(RemoteDataSource: DataSource): Repository{
+            return INSTANCE ?: Repository(RemoteDataSource)
+                .apply { INSTANCE = this }
+        }
     }
 }
