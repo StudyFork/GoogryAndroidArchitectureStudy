@@ -1,20 +1,12 @@
-package sample.nackun.com.studyfirst
+package sample.nackun.com.studyfirst.main
 
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import sample.nackun.com.studyfirst.network.UpbitApi
-import sample.nackun.com.studyfirst.vo.Market
-import sample.nackun.com.studyfirst.vo.Ticker
+import sample.nackun.com.studyfirst.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,7 +26,9 @@ class MainActivity : AppCompatActivity() {
                 marketETH.setTextColor(ContextCompat.getColor(baseContext, R.color.grey))
                 marketUSDT.setTextColor(ContextCompat.getColor(baseContext, R.color.grey))
                 var selectedMarket = v as TextView
-                selectedMarket.setTextColor(ContextCompat.getColor(baseContext, R.color.indigo))
+                selectedMarket.setTextColor(ContextCompat.getColor(baseContext,
+                    R.color.indigo
+                ))
                 //initData(selectedMarket.text.toString())
             }
         }
