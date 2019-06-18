@@ -18,26 +18,12 @@ import sample.nackun.com.studyfirst.vo.Ticker
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var retrofit: Retrofit
-    private lateinit var service: UpbitApi
-    private lateinit var tickerAdapter: TickerAdapter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initAdapter()
-        initRetrofit()
         setBtnClick()
         marketKRW.callOnClick()
-    }
-
-    fun initRetrofit() {
-        retrofit = Retrofit.Builder()
-            .baseUrl("https://api.upbit.com/v1/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        service = retrofit.create(UpbitApi::class.java)
     }
 
     fun setBtnClick() {
@@ -49,7 +35,7 @@ class MainActivity : AppCompatActivity() {
                 marketUSDT.setTextColor(ContextCompat.getColor(baseContext, R.color.grey))
                 var selectedMarket = v as TextView
                 selectedMarket.setTextColor(ContextCompat.getColor(baseContext, R.color.indigo))
-                initData(selectedMarket.text.toString())
+                //initData(selectedMarket.text.toString())
             }
         }
 
@@ -57,45 +43,5 @@ class MainActivity : AppCompatActivity() {
         marketBTC.setOnClickListener(onClickListener)
         marketETH.setOnClickListener(onClickListener)
         marketUSDT.setOnClickListener(onClickListener)
-    }
-
-    fun initAdapter() {
-        tickerAdapter = TickerAdapter()
-        tickerRecyclerView.adapter = tickerAdapter
-    }
-
-    fun initData(marketLike: String) {
-
-        service.requestMarket().enqueue(object : Callback<ArrayList<Market>> {
-            override fun onFailure(call: Call<ArrayList<Market>>, t: Throwable) {
-            }
-
-            override fun onResponse(call: Call<ArrayList<Market>>, response: Response<ArrayList<Market>>) {
-                lateinit var query: String
-                response.body()?.let {
-                    query =
-                        it.filter { item ->
-                            item.market.startsWith(marketLike)
-                        }
-                            .joinToString { marketModel ->
-                                marketModel.market
-                            }
-                }
-                Log.d("aa12", query)
-
-                service.requestTicker(query)
-                    .enqueue(object : Callback<ArrayList<Ticker>> {
-                        override fun onResponse(
-                            call: Call<ArrayList<Ticker>>,
-                            response: Response<ArrayList<Ticker>>
-                        ) {
-                            response.body()?.let { tickerAdapter.setItems(it) }
-                        }
-
-                        override fun onFailure(call: Call<ArrayList<Ticker>>, t: Throwable) {
-                        }
-                    })
-            }
-        })
     }
 }
