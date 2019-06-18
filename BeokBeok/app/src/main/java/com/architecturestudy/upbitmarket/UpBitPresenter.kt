@@ -14,7 +14,7 @@ class UpBitPresenter(
     }
 
     override fun start() {
-        showMarketPrice()
+        showMarketPrice("KRW")
     }
 
     override fun onThickerLoaded(marketPrice: List<UpBitTicker>) {
@@ -25,7 +25,7 @@ class UpBitPresenter(
         err?.let { upBitView.showErrMsg(it) }
     }
 
-    private fun showMarketPrice() {
-        upBitRepository.getMarketPrice("KRW", this)
+    override fun showMarketPrice(prefix: String) {
+        upBitRepository.getMarketPrice(prefix, this)
     }
 }

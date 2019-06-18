@@ -11,5 +11,7 @@ interface UpBitContract {
         fun showErrMsg(err: String)
     }
 
-    interface Presenter : BasePresenter
+    interface Presenter : BasePresenter {
+        fun showMarketPrice(prefix: String)
+    }
 }

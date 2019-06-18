@@ -1,6 +1,7 @@
 package com.architecturestudy.upbitmarket
 
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -37,6 +38,7 @@ class UpBitFragment : BaseFragment(), UpBitContract.View {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        initClickListener()
         initRecyclerView()
     }
 
@@ -60,5 +62,36 @@ class UpBitFragment : BaseFragment(), UpBitContract.View {
         val adapter = UpBitAdapter()
         adapter.setMarketPrices(marketPrice.sortedBy { it.market })
         rv_coin_price.adapter = adapter
+    }
+
+    private fun initClickListener() {
+        tv_market_krw.setOnClickListener {
+            tv_market_krw.setTextColor(Color.BLUE)
+            tv_market_btc.setTextColor(Color.GRAY)
+            tv_market_eth.setTextColor(Color.GRAY)
+            tv_market_usdt.setTextColor(Color.GRAY)
+            presenter.showMarketPrice(tv_market_krw.text.toString())
+        }
+        tv_market_btc.setOnClickListener {
+            tv_market_krw.setTextColor(Color.GRAY)
+            tv_market_btc.setTextColor(Color.BLUE)
+            tv_market_eth.setTextColor(Color.GRAY)
+            tv_market_usdt.setTextColor(Color.GRAY)
+            presenter.showMarketPrice(tv_market_btc.text.toString())
+        }
+        tv_market_eth.setOnClickListener {
+            tv_market_krw.setTextColor(Color.GRAY)
+            tv_market_btc.setTextColor(Color.GRAY)
+            tv_market_eth.setTextColor(Color.BLUE)
+            tv_market_usdt.setTextColor(Color.GRAY)
+            presenter.showMarketPrice(tv_market_eth.text.toString())
+        }
+        tv_market_usdt.setOnClickListener {
+            tv_market_krw.setTextColor(Color.GRAY)
+            tv_market_btc.setTextColor(Color.GRAY)
+            tv_market_eth.setTextColor(Color.GRAY)
+            tv_market_usdt.setTextColor(Color.BLUE)
+            presenter.showMarketPrice(tv_market_usdt.text.toString())
+        }
     }
 }
