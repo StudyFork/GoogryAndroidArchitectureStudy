@@ -9,7 +9,7 @@ import com.nanamare.mac.sample.ui.MainActivity
 import com.nanamare.mac.sample.ui.MarketListFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class MarketPresenter(private val view: MarketContract.MarketView) : MarketContract.Presenter {
+class MarketPresenter(private val view: MarketContract.MarketView) : MarketContract.MarketPresenter {
 
     private var disposableManager: DisposableManager = DisposableManager()
 

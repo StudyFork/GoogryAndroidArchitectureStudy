@@ -7,7 +7,7 @@ interface MarketContract {
 
     interface MarketView : BaseView
 
-    interface Presenter : BasePresenter {
+    interface MarketPresenter : BasePresenter {
         fun getMarketList()
     }
 

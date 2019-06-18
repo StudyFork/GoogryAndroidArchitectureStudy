@@ -5,7 +5,8 @@ import com.nanamare.mac.sample.api.upbit.UpBitServiceManager
 import com.nanamare.mac.sample.contract.CoinContract
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class CoinPresenter(private val view: CoinContract.CoinView) : CoinContract.Presenter {
+class CoinPresenter(private val view: CoinContract.CoinView) :
+    CoinContract.CoinPresenter {
 
     private var disposableManager : DisposableManager = DisposableManager()
 

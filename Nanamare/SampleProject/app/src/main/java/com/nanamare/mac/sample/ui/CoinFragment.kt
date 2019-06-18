@@ -25,7 +25,7 @@ class CoinFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, OnMor
 
     private lateinit var adapter: TickerAdapter
 
-    private lateinit var presenter: CoinContract.Presenter
+    private lateinit var coinPresenter: CoinContract.CoinPresenter
 
     companion object {
         private const val KEY_COIN_TITLE = "key_coin_title"
@@ -53,8 +53,8 @@ class CoinFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, OnMor
 
         initView()
 
-        presenter = CoinPresenter(this)
-        presenter.getCoins(ticketList)
+        coinPresenter = CoinPresenter(this)
+        coinPresenter.getCoins(ticketList)
     }
 
     private fun initView() {
@@ -89,7 +89,7 @@ class CoinFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, OnMor
     }
 
     override fun onRefresh() {
-        presenter.getCoins(ticketList)
+        coinPresenter.getCoins(ticketList)
     }
 
     override fun showCoins(list: List<TickerModel>?) {

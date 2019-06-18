@@ -10,7 +10,7 @@ interface CoinContract {
         fun showCoins(list: List<TickerModel>?)
     }
 
-    interface Presenter : BasePresenter {
+    interface CoinPresenter : BasePresenter {
         fun getCoins(ticketList: MutableList<String>)
     }
 
