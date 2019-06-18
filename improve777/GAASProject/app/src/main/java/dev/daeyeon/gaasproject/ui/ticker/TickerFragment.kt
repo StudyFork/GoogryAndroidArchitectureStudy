@@ -5,7 +5,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -16,6 +15,7 @@ import dev.daeyeon.gaasproject.data.response.ResponseCode
 import dev.daeyeon.gaasproject.data.source.UpbitRepository
 import dev.daeyeon.gaasproject.databinding.FragmentTickerBinding
 import dev.daeyeon.gaasproject.network.NetworkManager
+import dev.daeyeon.gaasproject.ui.ticker.marketchoice.MarketChoiceDialogFragment
 import dev.daeyeon.gaasproject.ui.ticker.search.TickerSearchDialogFragment
 import org.jetbrains.anko.toast
 
@@ -71,20 +71,7 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
      * 기본 통화 설정 다이얼로그
      */
     private fun showBaseCurrencyDialog() {
-        AlertDialog.Builder(activity!!)
-            .setTitle(R.string.ticker_fragment_base_currency)
-            .setSingleChoiceItems(
-                tickerViewModel.getCurrencyArray(),
-                tickerViewModel.getCurrencyArray().indexOf(tickerViewModel.getBaseCurrency())
-            ) { _, position ->
-                tickerViewModel.setBaseCurrency(tickerViewModel.getCurrencyArray()[position])
-            }
-            .setPositiveButton(R.string.all_positive) { _, _ ->
-                tickerViewModel.loadUpbitTicker()
-            }
-            .setCancelable(false)
-            .create()
-            .show()
+        MarketChoiceDialogFragment.newInstance().show(childFragmentManager, null)
     }
 
     /**
