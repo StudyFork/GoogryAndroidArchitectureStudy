@@ -3,8 +3,8 @@ package sample.nackun.com.studyfirst.network
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
-import sample.nackun.com.studyfirst.market.Market
-import sample.nackun.com.studyfirst.market.Ticker
+import sample.nackun.com.studyfirst.vo.Market
+import sample.nackun.com.studyfirst.vo.Ticker
 
 interface UpbitApi {
     @GET("market/all")

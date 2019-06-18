@@ -12,9 +12,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import sample.nackun.com.studyfirst.market.Market
-import sample.nackun.com.studyfirst.market.Ticker
 import sample.nackun.com.studyfirst.network.UpbitApi
+import sample.nackun.com.studyfirst.vo.Market
+import sample.nackun.com.studyfirst.vo.Ticker
 
 class MainActivity : AppCompatActivity() {
 

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.ticker_item.view.*
-import sample.nackun.com.studyfirst.market.Ticker
+import sample.nackun.com.studyfirst.vo.Ticker
 
 class TickerAdapter() : RecyclerView.Adapter<TickerViewHolder>() {
 
