@@ -1,12 +1,16 @@
 package dev.daeyeon.gaasproject.ui.ticker
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import dev.daeyeon.gaasproject.data.Ticker
 import dev.daeyeon.gaasproject.data.source.UpbitDataSource
 import dev.daeyeon.gaasproject.util.Event
 
-class TickerViewModel(private val upbitRepository: UpbitDataSource) {
+class TickerViewModel(
+    private val upbitRepository: UpbitDataSource
+) : ViewModel() {
 
     private val _tickerList = MutableLiveData<List<Ticker>>().apply { value = emptyList() }
     val tickerList: LiveData<List<Ticker>>
@@ -90,5 +94,10 @@ class TickerViewModel(private val upbitRepository: UpbitDataSource) {
 
     fun cancelApi() {
         upbitRepository.unsubscribeTicker()
+    }
+
+    override fun onCleared() {
+        Log.e("TickerViewModel", "onCleared()")
+        super.onCleared()
     }
 }
