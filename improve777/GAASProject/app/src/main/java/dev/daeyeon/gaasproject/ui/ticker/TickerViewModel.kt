@@ -12,7 +12,7 @@ class TickerViewModel(
     private val upbitRepository: UpbitDataSource
 ) : ViewModel() {
 
-    private val _tickerList = MutableLiveData<List<Ticker>>().apply { value = emptyList() }
+    private val _tickerList = MutableLiveData<List<Ticker>>(emptyList())
     val tickerList: LiveData<List<Ticker>>
         get() = _tickerList
 
@@ -26,14 +26,14 @@ class TickerViewModel(
     /**
      * 프로그레스바
      */
-    private val _isShowProgressBar = MutableLiveData<Boolean>()
+    private val _isShowProgressBar = MutableLiveData<Boolean>(false)
     val isShowProgressBar: LiveData<Boolean>
         get() = _isShowProgressBar
 
     /**
      * 검색어 two-way binding
      */
-    val searchText = MutableLiveData<String>()
+    val searchText = MutableLiveData<String>("")
 
     /**
      * 마켓 어레이
