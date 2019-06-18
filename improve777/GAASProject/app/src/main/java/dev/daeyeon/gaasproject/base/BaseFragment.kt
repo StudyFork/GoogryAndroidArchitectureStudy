@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 
 abstract class BaseFragment<B : ViewDataBinding>(
     private val layout: Int
-) : androidx.fragment.app.Fragment() {
+) : Fragment() {
 
     protected lateinit var binding: B
         private set

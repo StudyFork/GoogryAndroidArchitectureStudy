@@ -6,7 +6,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -15,29 +14,18 @@ import dev.daeyeon.gaasproject.R
 import dev.daeyeon.gaasproject.base.BaseFragment
 import dev.daeyeon.gaasproject.data.response.ResponseCode
 import dev.daeyeon.gaasproject.data.source.UpbitRepository
-import dev.daeyeon.gaasproject.databinding.DialogTickerSearchBinding
 import dev.daeyeon.gaasproject.databinding.FragmentTickerBinding
 import dev.daeyeon.gaasproject.network.NetworkManager
+import dev.daeyeon.gaasproject.ui.ticker.search.TickerSearchDialogFragment
 import org.jetbrains.anko.toast
 
 class TickerFragment : BaseFragment<FragmentTickerBinding>(
     R.layout.fragment_ticker
 ) {
-    private val searchDialogBinding by lazy { initDialogTickerSearchBinding() }
-    // 검색 다이얼로그
-    private var searchDialog: AlertDialog? = null
-
     private val tickerViewModel by createViewModelLazy(
         viewModelClass = TickerViewModel::class,
         storeProducer = { viewModelStore },
-        factoryProducer = {
-            object : ViewModelProvider.Factory {
-                @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                    return TickerViewModel(UpbitRepository(NetworkManager.instance)) as T
-                }
-            }
-        }
+        factoryProducer = { getTickerViewModelFactory() }
     )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -73,40 +61,10 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
     }
 
     /**
-     * 커스텀 레이아웃 다이얼로그를 사용하기 위한 DialogTickerSearchBinding
-     *
-     */
-    private fun initDialogTickerSearchBinding(): DialogTickerSearchBinding {
-        return DataBindingUtil.inflate<DialogTickerSearchBinding>(
-            activity!!.layoutInflater,
-            R.layout.dialog_ticker_search,
-            null,
-            false
-        ).apply {
-            viewModel = tickerViewModel
-            lifecycleOwner = viewLifecycleOwner
-        }
-    }
-
-    /**
      * ticker 검색 다이얼로그
      */
     private fun showTickerSearchDialog() {
-        if (searchDialog == null) {
-            initSearchDialog()
-        }
-        searchDialog?.show()
-    }
-
-    private fun initSearchDialog() {
-        searchDialog = AlertDialog.Builder(activity!!)
-            .setTitle(R.string.ticker_search)
-            .setView(searchDialogBinding.root)
-            .setPositiveButton(R.string.all_positive) { _, _ ->
-                tickerViewModel.loadUpbitTicker()
-            }
-            .setNegativeButton(R.string.all_negative) { _, _ -> }
-            .create()
+        TickerSearchDialogFragment.newInstance().show(childFragmentManager, null)
     }
 
     /**
@@ -165,5 +123,13 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
         fun newInstance(): TickerFragment {
             return TickerFragment()
         }
+
+        fun getTickerViewModelFactory() =
+            object : ViewModelProvider.Factory {
+                @Suppress("UNCHECKED_CAST")
+                override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                    return TickerViewModel(UpbitRepository(NetworkManager.instance)) as T
+                }
+            }
     }
 }
