@@ -1,7 +1,7 @@
 package dev.daeyeon.gaasproject.ui
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import dev.daeyeon.gaasproject.R
 import dev.daeyeon.gaasproject.ui.ticker.TickerFragment
 

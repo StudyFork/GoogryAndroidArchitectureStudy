@@ -1,7 +1,7 @@
 package dev.daeyeon.gaasproject.ui.ticker
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import dev.daeyeon.gaasproject.data.Ticker
 import dev.daeyeon.gaasproject.data.source.UpbitDataSource
 import dev.daeyeon.gaasproject.util.Event

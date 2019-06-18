@@ -1,14 +1,13 @@
 package dev.daeyeon.gaasproject.ui.ticker
 
-import android.databinding.DataBindingUtil
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import dev.daeyeon.gaasproject.R
 import dev.daeyeon.gaasproject.data.Ticker
 import dev.daeyeon.gaasproject.databinding.ItemTickerBinding
 
-class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
+class TickerAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
 
     private val tickerList = mutableListOf<Ticker>()
 
@@ -47,5 +46,6 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
         addList(list)
     }
 
-    class TickerViewHolder(val binding: ItemTickerBinding) : RecyclerView.ViewHolder(binding.root)
+    class TickerViewHolder(val binding: ItemTickerBinding) :
+        androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root)
 }

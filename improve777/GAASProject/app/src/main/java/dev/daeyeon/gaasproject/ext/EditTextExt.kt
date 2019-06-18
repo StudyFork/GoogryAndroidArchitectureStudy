@@ -1,8 +1,8 @@
 package dev.daeyeon.gaasproject.ext
 
-import android.databinding.BindingAdapter
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import androidx.databinding.BindingAdapter
 
 @BindingAdapter("onEditorAction")
 fun EditText.onEditorAction(action: () -> Unit) {

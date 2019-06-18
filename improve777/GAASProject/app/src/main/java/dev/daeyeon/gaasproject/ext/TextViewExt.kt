@@ -1,8 +1,8 @@
 package dev.daeyeon.gaasproject.ext
 
-import android.databinding.BindingAdapter
-import android.support.v4.content.ContextCompat
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.databinding.BindingAdapter
 
 @BindingAdapter("rateColor")
 fun TextView.setRateColor(rate: String) {

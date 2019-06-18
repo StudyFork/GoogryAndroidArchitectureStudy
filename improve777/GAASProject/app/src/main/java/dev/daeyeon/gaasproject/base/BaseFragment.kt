@@ -1,16 +1,15 @@
 package dev.daeyeon.gaasproject.base
 
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 
 abstract class BaseFragment<B : ViewDataBinding>(
     private val layout: Int
-) : Fragment() {
+) : androidx.fragment.app.Fragment() {
 
     protected lateinit var binding: B
         private set

@@ -1,13 +1,13 @@
 package dev.daeyeon.gaasproject.ui.ticker
 
-import android.arch.lifecycle.Observer
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import dev.daeyeon.gaasproject.R
 import dev.daeyeon.gaasproject.base.BaseFragment
 import dev.daeyeon.gaasproject.data.response.ResponseCode
@@ -20,8 +20,6 @@ import org.jetbrains.anko.toast
 class TickerFragment : BaseFragment<FragmentTickerBinding>(
     R.layout.fragment_ticker
 ) {
-    private lateinit var tickerAdapter: TickerAdapter
-
     private val searchDialogBinding by lazy { initDialogTickerSearchBinding() }
     // 검색 다이얼로그
     private var searchDialog: AlertDialog? = null
@@ -41,13 +39,13 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
         subscribeToFailMsg()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.menu_ticker_fragment, menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_ticker_fragment, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             // 검색
             R.id.action_search -> {
                 showTickerSearchDialog()
