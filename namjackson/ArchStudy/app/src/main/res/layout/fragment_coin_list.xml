@@ -6,6 +6,12 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="viewmodel"
+            type="com.namjackson.archstudy.view.coinlist.CoinListViewModel" />
+
     </data>
 
     <LinearLayout
@@ -33,13 +39,16 @@
                     android:imeOptions="actionDone"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:onTextChanged="@{(text, start, before, count) ->viewmodel.changeSearch(text)}"
+                    android:text="@{viewmodel.searchStr}"
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/spinner"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                app:selectedValue="@={viewmodel.baseCurrency}" />
         </LinearLayout>
 
 
@@ -107,12 +116,14 @@
             android:id="@+id/progress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone" />
+            android:visibility="@{viewmodel.isLoading}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="@{!viewmodel.isLoading}"
+            app:coinItems="@{viewmodel.filterCoinList}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_coin_list" />
 
