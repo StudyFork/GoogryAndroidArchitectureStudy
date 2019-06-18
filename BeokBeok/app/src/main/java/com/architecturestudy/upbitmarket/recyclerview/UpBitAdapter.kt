@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.architecturestudy.R
 import com.architecturestudy.data.UpBitTicker
+import java.math.BigDecimal
 import java.text.DecimalFormat
 
 class UpBitAdapter : RecyclerView.Adapter<UpBitAdapter.ViewHolder>() {
@@ -39,9 +40,26 @@ class UpBitAdapter : RecyclerView.Adapter<UpBitAdapter.ViewHolder>() {
                     marketPrice.market.substringAfter("-")
                 else
                     marketPrice.market
-            currentPrice?.text = DecimalFormat("#,###").format(marketPrice.tradePrice)
+            currentPrice?.text =
+                if (marketPrice.tradePrice?.toBigDecimal()?.compareTo(BigDecimal.ONE)!! < 0)
+                    String.format("%.8f", marketPrice.tradePrice.toBigDecimal())
+                else
+                    DecimalFormat("#,###.##").format(marketPrice.tradePrice.toBigDecimal())
             netChange?.text = String.format("%.2f", marketPrice.signedChangeRate?.times(100))
-            tradingVal?.text = DecimalFormat("#,###M").format(marketPrice.accTradePrice24h?.div(1_000_000))
+            tradingVal?.text =
+                when {
+                    marketPrice.accTradePrice24h?.div(1_000_000)!! > 100 -> DecimalFormat("#,###M").format(
+                        marketPrice.accTradePrice24h.div(
+                            1_000_000
+                        )
+                    )
+                    marketPrice.accTradePrice24h.div(1_000) > 1_000 -> DecimalFormat("#,###k").format(
+                        marketPrice.accTradePrice24h.div(
+                            1_000
+                        )
+                    )
+                    else -> DecimalFormat("#,###.###").format(marketPrice.accTradePrice24h)
+                }
         }
     }
 }
