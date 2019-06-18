@@ -14,9 +14,9 @@ import sample.nackun.com.studyfirst.vo.Market
 import sample.nackun.com.studyfirst.vo.Ticker
 
 object RemoteDataSource : DataSource {
-    private lateinit var retrofit: Retrofit
-    private lateinit var service: UpbitApi
-    private lateinit var tickerAdapter: TickerAdapter
+    override lateinit var tickers: ArrayList<Ticker>
+    private val retrofit: Retrofit
+    private val service: UpbitApi
 
     init {
         retrofit = Retrofit.Builder()
@@ -24,6 +24,7 @@ object RemoteDataSource : DataSource {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         service = retrofit.create(UpbitApi::class.java)
+        requestMarkets("BTC")
     }
 
     override fun requestMarkets(marketLike: String){
@@ -49,24 +50,21 @@ object RemoteDataSource : DataSource {
     }
 
     override fun requestTickers(query: String){
+
         service.requestTicker(query)
             .enqueue(object : Callback<ArrayList<Ticker>> {
                 override fun onResponse(
                     call: Call<ArrayList<Ticker>>,
                     response: Response<ArrayList<Ticker>>
                 ) {
-                    response.body()?.let { tickerAdapter.setItems(it) }
+                    response.body()?.let{
+                        tickers = it
+                    }
+                    //response.body()?.let { tickerAdapter.setItems(it) }
                 }
 
                 override fun onFailure(call: Call<ArrayList<Ticker>>, t: Throwable) {
                 }
             })
     }
-
-    /*
-    fun initAdapter() {
-        tickerAdapter = TickerAdapter()
-        tickerRecyclerView.adapter = tickerAdapter
-    }
-    */
 }

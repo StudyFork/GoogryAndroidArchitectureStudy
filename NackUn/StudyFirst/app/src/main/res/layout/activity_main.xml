@@ -100,16 +100,22 @@
                 android:gravity="right"/>
 
     </LinearLayout>
-    <ScrollView
+    <FrameLayout
+            android:id="@+id/mainFrame"
+            android:layout_below="@+id/tickerTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    </FrameLayout>
+    <!--<ScrollView
             android:layout_below="@+id/tickerTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/tickerRecyclerView"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager">
-        </android.support.v7.widget.RecyclerView>
-    </ScrollView>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tickerRecyclerView"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager">
+    </android.support.v7.widget.RecyclerView>
+    </ScrollView>-->
 </RelativeLayout>

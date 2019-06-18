@@ -7,6 +7,8 @@ import android.view.View
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import sample.nackun.com.studyfirst.R
+import sample.nackun.com.studyfirst.data.Repository
+import sample.nackun.com.studyfirst.data.remote.RemoteDataSource
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +17,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setBtnClick()
+
+        supportFragmentManager.beginTransaction().replace(R.id.mainFrame, MainFragment()).commit()
+
         marketKRW.callOnClick()
     }
 
