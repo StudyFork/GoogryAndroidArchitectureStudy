@@ -27,7 +27,10 @@ class MarketListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
+    }
 
+    private fun initView() {
         marketListViewPager = MarketListViewPager(childFragmentManager)
 
         val jsonMarketList = arguments?.getString(KET_MARKET_LIST)
@@ -42,7 +45,6 @@ class MarketListFragment : Fragment() {
 
         val tabLayout = activity?.findViewById<TabLayout>(R.id.tl_market_list)
         tabLayout?.setupWithViewPager(coin_view_pager)
-
     }
 
 

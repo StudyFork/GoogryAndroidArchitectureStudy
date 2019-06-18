@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.ViewCompat
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.malinskiy.superrecyclerview.OnMoreListener
@@ -14,17 +13,19 @@ import com.nanamare.mac.sample.R
 import com.nanamare.mac.sample.adapter.TickerAdapter
 import com.nanamare.mac.sample.api.DisposableManager
 import com.nanamare.mac.sample.api.upbit.TickerModel
-import com.nanamare.mac.sample.api.upbit.UpBitServiceManager
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.nanamare.mac.sample.contract.CoinContract
+import com.nanamare.mac.sample.presenter.CoinPresenter
 import kotlinx.android.synthetic.main.fragment_coin_list.*
 
-class CoinFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnMoreListener {
+class CoinFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, OnMoreListener, CoinContract.CoinView {
 
     private lateinit var ticketList: MutableList<String>
 
     private lateinit var disposableManager: DisposableManager
 
     private lateinit var adapter: TickerAdapter
+
+    private lateinit var presenter: CoinContract.Presenter
 
     companion object {
         private const val KEY_COIN_TITLE = "key_coin_title"
@@ -52,7 +53,8 @@ class CoinFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnMoreLis
 
         initView()
 
-        onRefresh()
+        presenter = CoinPresenter(this)
+        presenter.getCoins(ticketList)
     }
 
     private fun initView() {
@@ -87,19 +89,10 @@ class CoinFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnMoreLis
     }
 
     override fun onRefresh() {
-        disposableManager = DisposableManager()
-        disposableManager.add(
-            UpBitServiceManager.getTickerList(ticketList)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    setData(it.body())
-                }, {
-                    println(it.toString())
-                })
-        )
+        presenter.getCoins(ticketList)
     }
 
-    private fun setData(list: List<TickerModel>?) {
+    override fun showCoins(list: List<TickerModel>?) {
         if (adapter.itemCount > 0) {
             adapter.clear()
         }
