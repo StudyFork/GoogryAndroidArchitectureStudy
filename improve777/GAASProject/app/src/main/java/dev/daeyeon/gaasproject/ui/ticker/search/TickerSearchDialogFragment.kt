@@ -16,7 +16,7 @@ class TickerSearchDialogFragment : BaseDialogFragment<DialogFragmentTickerSearch
     private val tickerViewModel by createViewModelLazy(
         viewModelClass = TickerViewModel::class,
         storeProducer = { parentFragment!!.viewModelStore },
-        factoryProducer = { TickerFragment.getTickerViewModelFactory() }
+        factoryProducer = TickerFragment.Companion::getTickerViewModelFactory
     )
 
     private val searchViewModel by createViewModelLazy(
