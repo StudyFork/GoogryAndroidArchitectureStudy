@@ -1,7 +1,7 @@
 package com.studyfirstproject.network
 
-import com.studyfirstproject.model.MarketModel
-import com.studyfirstproject.model.TickerModel
+import com.studyfirstproject.data.model.MarketModel
+import com.studyfirstproject.data.model.TickerModel
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
