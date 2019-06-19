@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), CoinContract.View {
         getMarketData()
     }
 
-    fun getMarketData() {
+    private fun getMarketData() {
         showProgress()
         presenter.getMarketData()
     }

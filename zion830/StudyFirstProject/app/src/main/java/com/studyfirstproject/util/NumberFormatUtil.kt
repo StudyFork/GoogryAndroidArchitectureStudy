@@ -4,13 +4,14 @@ import java.text.DecimalFormat
 
 object NumberFormatUtil {
     val df = DecimalFormat("###,###")
+    const val standardNum = 1_000_000 // 생략 기준
 
     // 백만 이하 숫자는 생략
     fun skipUnderMillions(num: Double): String =
-        if (num < 1_000_000) {
+        if (num < standardNum) {
             insertComma(num)
         } else {
-            insertComma(num / 1_000_000) + "M"
+            insertComma(num / standardNum) + "M"
         }
 
     // 세자리 단위로 끊어 , 삽입
