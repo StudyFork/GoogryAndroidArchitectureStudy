@@ -15,8 +15,11 @@ interface DataSource {
         fun requestTicker(@Query("markets") markets: String): Call<ArrayList<Ticker>>
     }
 
-    
-    var tickers: ArrayList<Ticker>
-    fun requestMarkets(marketLike: String)
-    fun requestTickers(query: String)
+    interface RequestTickersCallback {
+        fun onTickersLoaded(tickers: ArrayList<Ticker>)
+
+        fun onTickersIsNull(err: String?)
+    }
+
+    fun requestMarkets(marketLike: String, callback: RequestTickersCallback)
 }

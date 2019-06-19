@@ -15,16 +15,20 @@ import sample.nackun.com.studyfirst.data.Repository
 import sample.nackun.com.studyfirst.data.remote.RemoteDataSource
 import sample.nackun.com.studyfirst.vo.Ticker
 
-class MainFragment : Fragment(), MainContract.View{
-    override var marketName: String= "KRW"
+class MainFragment : Fragment(), MainContract.View {
     override lateinit var presenter: MainContract.Presenter
     private val tickerAdapter = TickerAdapter()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val root = inflater.inflate(R.layout.main_fragment, container, false)
 
-        with(root){
+        val mainPresenter = MainPresenter(Repository(RemoteDataSource()), this)
+        mainPresenter.start()
+
+        with(root) {
             val onClickListener = object : View.OnClickListener {
                 override fun onClick(v: View?) {
                     marketKRW.setTextColor(resources.getColor(R.color.grey))
@@ -33,8 +37,7 @@ class MainFragment : Fragment(), MainContract.View{
                     marketUSDT.setTextColor(resources.getColor(R.color.grey))
                     var selectedMarket = v as TextView
                     selectedMarket.setTextColor(resources.getColor(R.color.indigo))
-                    marketName = selectedMarket.text.toString()
-                    selectedMarket(marketName)
+                    presenter.requestTickers(selectedMarket.text.toString())
                 }
             }
             marketKRW.setOnClickListener(onClickListener)
@@ -42,19 +45,18 @@ class MainFragment : Fragment(), MainContract.View{
             marketETH.setOnClickListener(onClickListener)
             marketUSDT.setOnClickListener(onClickListener)
 
-            tickerRecyclerView.adapter =  tickerAdapter
+            tickerRecyclerView.adapter = tickerAdapter
             marketKRW.callOnClick()
         }
-        val mainPresenter = MainPresenter(Repository(RemoteDataSource), this)
-        mainPresenter.start()
-
         return root
     }
 
-    override fun showTickes(tickers: ArrayList<Ticker>){
+    override fun showTickes(tickers: ArrayList<Ticker>) {
         tickerAdapter.setItems(tickers)
+
     }
-    fun selectedMarket(market: String){
-        Toast.makeText(context, market, LENGTH_SHORT).show()
+
+    override fun showToast(str: String?) {
+        Toast.makeText(context, str, LENGTH_SHORT).show()
     }
 }

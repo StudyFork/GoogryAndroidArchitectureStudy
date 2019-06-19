@@ -2,16 +2,15 @@ package sample.nackun.com.studyfirst.main
 
 import sample.nackun.com.studyfirst.BasePresenter
 import sample.nackun.com.studyfirst.BaseView
-import sample.nackun.com.studyfirst.vo.Market
 import sample.nackun.com.studyfirst.vo.Ticker
 
 interface MainContract {
-    interface View : BaseView<Presenter>{
-        var marketName: String
+    interface View : BaseView<Presenter> {
         fun showTickes(tickers: ArrayList<Ticker>)
+        fun showToast(str: String?)
     }
 
     interface Presenter : BasePresenter {
-        fun requestTickers()
+        fun requestTickers(marketName: String)
     }
 }

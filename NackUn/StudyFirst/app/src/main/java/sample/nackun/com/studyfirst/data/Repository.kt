@@ -1,27 +1,28 @@
 package sample.nackun.com.studyfirst.data
 
-import sample.nackun.com.studyfirst.data.remote.RemoteDataSource
 import sample.nackun.com.studyfirst.vo.Ticker
 
 class Repository(
     private val remoteDataSource: DataSource
-) : DataSource
-{
-    override var tickers: ArrayList<Ticker> = remoteDataSource.tickers
+) : DataSource {
+    override fun requestMarkets(marketLike: String, callback: DataSource.RequestTickersCallback) {
+        remoteDataSource.requestMarkets(marketLike, object : DataSource.RequestTickersCallback {
+            override fun onTickersLoaded(tickers: ArrayList<Ticker>) {
+                callback.onTickersLoaded(tickers)
+            }
 
-    override fun requestMarkets(marketLike: String) {
-        remoteDataSource.requestMarkets(marketLike)
-    }
+            override fun onTickersIsNull(err: String?) {
+                callback.onTickersIsNull(err)
+            }
 
-    override fun requestTickers(query: String) {
-        remoteDataSource.requestTickers(query)
+        })
     }
 
     companion object {
         private var INSTANCE: Repository? = null
 
         @JvmStatic
-        fun getInstance(RemoteDataSource: DataSource): Repository{
+        fun getInstance(RemoteDataSource: DataSource): Repository {
             return INSTANCE ?: Repository(RemoteDataSource)
                 .apply { INSTANCE = this }
         }
