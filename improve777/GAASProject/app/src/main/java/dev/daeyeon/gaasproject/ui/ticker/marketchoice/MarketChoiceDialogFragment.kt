@@ -29,6 +29,9 @@ class MarketChoiceDialogFragment : BaseDialogFragment<DialogFragmentMarketChoice
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        choiceViewModel.setMarketList(tickerViewModel.getMarkets())
+
         bind {
             choiceViewModel = this@MarketChoiceDialogFragment.choiceViewModel
             lifecycleOwner = this@MarketChoiceDialogFragment.viewLifecycleOwner
@@ -40,10 +43,10 @@ class MarketChoiceDialogFragment : BaseDialogFragment<DialogFragmentMarketChoice
 
     private fun setUpMarketAdapter() =
         MarketChoiceAdapter(
-            oldMarket = tickerViewModel.getBaseCurrency(),
-            onMarketSelectedListener = initBaseMarketSelectedListener()
+            oldMarket = tickerViewModel.baseMarket.value!!,
+            onMarketSelectedListener = { choiceViewModel.selectedMarket = it }
         ).apply {
-            replaceAll(tickerViewModel.getCurrencyArray().toList())
+            replaceAll(choiceViewModel.marketList.value!!)
         }
 
     /**
@@ -62,9 +65,4 @@ class MarketChoiceDialogFragment : BaseDialogFragment<DialogFragmentMarketChoice
     companion object {
         fun newInstance() = MarketChoiceDialogFragment()
     }
-
-    private fun initBaseMarketSelectedListener(): ((market: String) -> Unit) =
-        {
-            tickerViewModel.setBaseCurrency(it)
-        }
 }

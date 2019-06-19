@@ -36,25 +36,20 @@ class TickerViewModel(
     val searchText = MutableLiveData<String>("")
 
     /**
-     * 마켓 어레이
-     */
-    private lateinit var currencyArray: Array<String>
-
-    /**
      * 기준 마켓
      */
-    private lateinit var baseCurrency: String
+    private val _baseMarket = MutableLiveData<String>("")
+    val baseMarket: LiveData<String> get() = _baseMarket
 
     init {
         loadUpbitTicker()
     }
 
     fun loadUpbitTicker() {
-        Log.e("ddd", "loadUpbitTicker")
         _isShowProgressBar.value = true
 
         upbitRepository.getTicker(
-            baseCurrency = getBaseCurrency(),
+            baseCurrency = _baseMarket.value!!,
             searchTicker = searchText.value ?: UpbitDataSource.ALL_CURRENCY,
             success = {
                 _isShowProgressBar.value = false
@@ -67,35 +62,16 @@ class TickerViewModel(
         )
     }
 
-    fun onRefresh() {
-        loadUpbitTicker()
+    fun setBaseMarket(newBaseMarket: String) {
+        _baseMarket.value =
+            if (newBaseMarket == UpbitDataSource.ALL_CURRENCY) {
+                ""
+            } else {
+                newBaseMarket
+            }
     }
 
-    fun getBaseCurrency() = if (!::baseCurrency.isInitialized) "" else baseCurrency
-
-    fun setBaseCurrency(baseCurrency: String) {
-        this.baseCurrency = if (baseCurrency == UpbitDataSource.ALL_CURRENCY) "" else baseCurrency
-    }
-
-    fun getCurrencyArray(): Array<String> {
-        if (!::currencyArray.isInitialized || (currencyArray.size <= 1)) {
-            setCurrencyArray()
-        }
-        return currencyArray
-    }
-
-    private fun setCurrencyArray() {
-        val list = arrayListOf(UpbitDataSource.ALL_CURRENCY)
-
-        if (upbitRepository.markets.isNotEmpty()) {
-            list.addAll(upbitRepository.markets.split(",")
-                .map { market -> market.substringBefore("-") }
-                .distinct()
-            )
-        }
-
-        currencyArray = list.toTypedArray()
-    }
+    fun getMarkets(): String = upbitRepository.markets
 
     fun cancelApi() {
         upbitRepository.unsubscribeTicker()
