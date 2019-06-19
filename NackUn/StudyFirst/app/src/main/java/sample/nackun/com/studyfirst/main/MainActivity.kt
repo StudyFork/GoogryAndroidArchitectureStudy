@@ -15,32 +15,5 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        setBtnClick()
-
-        //supportFragmentManager.beginTransaction().replace(R.id.mainFrame, MainFragment()).commit()
-
-        marketKRW.callOnClick()
-    }
-
-    fun setBtnClick() {
-        val onClickListener = object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                marketKRW.setTextColor(ContextCompat.getColor(baseContext, R.color.grey))
-                marketBTC.setTextColor(ContextCompat.getColor(baseContext, R.color.grey))
-                marketETH.setTextColor(ContextCompat.getColor(baseContext, R.color.grey))
-                marketUSDT.setTextColor(ContextCompat.getColor(baseContext, R.color.grey))
-                var selectedMarket = v as TextView
-                selectedMarket.setTextColor(ContextCompat.getColor(baseContext,
-                    R.color.indigo
-                ))
-                //initData(selectedMarket.text.toString())
-            }
-        }
-
-        marketKRW.setOnClickListener(onClickListener)
-        marketBTC.setOnClickListener(onClickListener)
-        marketETH.setOnClickListener(onClickListener)
-        marketUSDT.setOnClickListener(onClickListener)
     }
 }

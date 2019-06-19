@@ -7,7 +7,7 @@ class Repository(
     private val remoteDataSource: DataSource
 ) : DataSource
 {
-    override var tickers: ArrayList<Ticker> = remoteDataSource.tickers
+    //override var tickers: ArrayList<Ticker> = remoteDataSource.tickers
 
     override fun requestMarkets(marketLike: String) {
         remoteDataSource.requestMarkets(marketLike)

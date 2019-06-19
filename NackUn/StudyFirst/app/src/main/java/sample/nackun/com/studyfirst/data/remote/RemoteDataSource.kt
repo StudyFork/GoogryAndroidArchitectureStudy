@@ -1,31 +1,22 @@
 package sample.nackun.com.studyfirst.data.remote
 
 import android.util.Log
-import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import sample.nackun.com.studyfirst.TickerAdapter
 import sample.nackun.com.studyfirst.data.DataSource
-import sample.nackun.com.studyfirst.network.UpbitApi
 import sample.nackun.com.studyfirst.vo.Market
 import sample.nackun.com.studyfirst.vo.Ticker
 
 object RemoteDataSource : DataSource {
-    override lateinit var tickers: ArrayList<Ticker>
-    private val retrofit: Retrofit
-    private val service: UpbitApi
-
-    init {
-        retrofit = Retrofit.Builder()
-            .baseUrl("https://api.upbit.com/v1/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        service = retrofit.create(UpbitApi::class.java)
-        requestMarkets("BTC")
-    }
+    //override lateinit var tickers: ArrayList<Ticker>
+    private val retrofit: Retrofit = Retrofit.Builder()
+        .baseUrl("https://api.upbit.com/v1/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+    private val service: DataSource.UpbitApi = retrofit.create(DataSource.UpbitApi::class.java)
 
     override fun requestMarkets(marketLike: String){
         service.requestMarket().enqueue(object : Callback<ArrayList<Market>> {
@@ -58,7 +49,7 @@ object RemoteDataSource : DataSource {
                     response: Response<ArrayList<Ticker>>
                 ) {
                     response.body()?.let{
-                        tickers = it
+                        //tickers = it
                     }
                     //response.body()?.let { tickerAdapter.setItems(it) }
                 }

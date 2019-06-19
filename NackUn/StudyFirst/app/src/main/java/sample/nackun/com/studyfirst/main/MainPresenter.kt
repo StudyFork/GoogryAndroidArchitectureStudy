@@ -6,13 +6,13 @@ import sample.nackun.com.studyfirst.vo.Ticker
 class MainPresenter(val repository: Repository, val mainView: MainContract.View)
     : MainContract.Presenter{
 
-    lateinit var arr:ArrayList<Ticker>
+    //lateinit var arr:ArrayList<Ticker>
 
     init {
         mainView.presenter = this
     }
 
     override fun start() {
-        arr = repository.tickers
+        //arr = repository.tickers
     }
 }
