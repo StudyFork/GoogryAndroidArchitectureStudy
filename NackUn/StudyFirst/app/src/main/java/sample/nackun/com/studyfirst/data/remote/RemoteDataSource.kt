@@ -11,7 +11,7 @@ import sample.nackun.com.studyfirst.vo.Market
 import sample.nackun.com.studyfirst.vo.Ticker
 
 object RemoteDataSource : DataSource {
-    //override lateinit var tickers: ArrayList<Ticker>
+    override lateinit var tickers: ArrayList<Ticker>
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl("https://api.upbit.com/v1/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -49,7 +49,7 @@ object RemoteDataSource : DataSource {
                     response: Response<ArrayList<Ticker>>
                 ) {
                     response.body()?.let{
-                        //tickers = it
+                        tickers = it
                     }
                     //response.body()?.let { tickerAdapter.setItems(it) }
                 }

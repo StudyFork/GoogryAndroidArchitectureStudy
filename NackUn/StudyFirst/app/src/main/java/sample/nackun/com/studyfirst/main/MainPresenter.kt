@@ -13,6 +13,11 @@ class MainPresenter(val repository: Repository, val mainView: MainContract.View)
     }
 
     override fun start() {
-        //arr = repository.tickers
+        requestTickers()
+    }
+
+    override fun requestTickers(){
+        repository.requestMarkets(mainView.marketName)
+        mainView.showTickes(repository.tickers)
     }
 }

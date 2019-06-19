@@ -13,9 +13,10 @@ import sample.nackun.com.studyfirst.R
 import sample.nackun.com.studyfirst.TickerAdapter
 import sample.nackun.com.studyfirst.data.Repository
 import sample.nackun.com.studyfirst.data.remote.RemoteDataSource
+import sample.nackun.com.studyfirst.vo.Ticker
 
 class MainFragment : Fragment(), MainContract.View{
-    override var marketName: String= "BTC"
+    override var marketName: String= "KRW"
     override lateinit var presenter: MainContract.Presenter
     private val tickerAdapter = TickerAdapter()
 
@@ -50,6 +51,9 @@ class MainFragment : Fragment(), MainContract.View{
         return root
     }
 
+    override fun showTickes(tickers: ArrayList<Ticker>){
+        tickerAdapter.setItems(tickers)
+    }
     fun selectedMarket(market: String){
         Toast.makeText(context, market, LENGTH_SHORT).show()
     }
