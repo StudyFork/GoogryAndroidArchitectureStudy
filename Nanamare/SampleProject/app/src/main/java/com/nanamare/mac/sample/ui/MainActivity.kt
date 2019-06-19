@@ -24,7 +24,7 @@ class MainActivity : BaseActivity(), MarketContract.MarketView {
 
 
     override fun onDestroy() {
-        presenter.networkDispose()
+        presenter.close()
         super.onDestroy()
     }
 

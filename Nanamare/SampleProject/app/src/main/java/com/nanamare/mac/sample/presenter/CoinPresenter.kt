@@ -13,7 +13,7 @@ class CoinPresenter(private val view: CoinContract.CoinView) : CoinContract.Coin
         })
     }
 
-    override fun networkDispose() {
+    override fun close() {
         CoinRepository.close()
     }
 

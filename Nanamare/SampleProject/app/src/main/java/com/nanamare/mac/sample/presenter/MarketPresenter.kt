@@ -31,7 +31,7 @@ class MarketPresenter(private val view: MarketContract.MarketView) : MarketContr
 
     }
 
-    override fun networkDispose() {
+    override fun close() {
         MarketRepository.close()
     }
 }

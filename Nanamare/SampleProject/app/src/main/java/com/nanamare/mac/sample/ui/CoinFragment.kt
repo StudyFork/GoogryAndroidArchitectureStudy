@@ -106,7 +106,7 @@ class CoinFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, OnMor
 
 
     override fun onDestroy() {
-        coinPresenter.networkDispose()
+        coinPresenter.close()
         super.onDestroy()
     }
 }
