@@ -11,7 +11,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.malinskiy.superrecyclerview.OnMoreListener
 import com.nanamare.mac.sample.R
 import com.nanamare.mac.sample.adapter.TickerAdapter
-import com.nanamare.mac.sample.api.DisposableManager
 import com.nanamare.mac.sample.api.upbit.TickerModel
 import com.nanamare.mac.sample.contract.CoinContract
 import com.nanamare.mac.sample.presenter.CoinPresenter
@@ -20,8 +19,6 @@ import kotlinx.android.synthetic.main.fragment_coin_list.*
 class CoinFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, OnMoreListener, CoinContract.CoinView {
 
     private lateinit var ticketList: MutableList<String>
-
-    private lateinit var disposableManager: DisposableManager
 
     private lateinit var adapter: TickerAdapter
 
@@ -109,7 +106,7 @@ class CoinFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, OnMor
 
 
     override fun onDestroy() {
-        disposableManager.dispose()
+        coinPresenter.networkDispose()
         super.onDestroy()
     }
 }
