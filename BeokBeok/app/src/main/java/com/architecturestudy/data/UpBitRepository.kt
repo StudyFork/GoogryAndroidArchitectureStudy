@@ -10,8 +10,8 @@ class UpBitRepository(
     override fun getMarketPrice(prefix: String, callback: UpBitDataSource.GetTickerCallback) {
 
         upBitRetrofitDataSource.getMarketPrice(prefix, object : UpBitDataSource.GetTickerCallback {
-            override fun onThickerLoaded(marketPrice: List<UpBitTicker>) {
-                callback.onThickerLoaded(marketPrice)
+            override fun onTickerLoaded(marketPrice: List<UpBitTicker>) {
+                callback.onTickerLoaded(marketPrice)
             }
 
             override fun onDataNotAvailable(err: String?) {

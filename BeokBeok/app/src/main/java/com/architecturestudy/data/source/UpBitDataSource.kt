@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface UpBitDataSource {
     interface GetTickerCallback {
-        fun onThickerLoaded(marketPrice: List<UpBitTicker>)
+        fun onTickerLoaded(marketPrice: List<UpBitTicker>)
 
         fun onDataNotAvailable(err: String?)
     }

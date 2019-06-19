@@ -45,7 +45,7 @@ class UpBitRetrofitDataSource : UpBitDataSource {
             override fun onResponse(call: Call<List<UpBitTicker>>, response: Response<List<UpBitTicker>>) {
                 val responseTicker = response.body()
                 if (responseTicker != null)
-                    callback.onThickerLoaded(responseTicker)
+                    callback.onTickerLoaded(responseTicker)
                 else
                     callback.onDataNotAvailable("Data is empty")
             }
