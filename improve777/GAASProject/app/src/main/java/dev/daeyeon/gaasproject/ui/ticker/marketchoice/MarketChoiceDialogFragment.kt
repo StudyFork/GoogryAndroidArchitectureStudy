@@ -9,6 +9,7 @@ import dev.daeyeon.gaasproject.base.BaseDialogFragment
 import dev.daeyeon.gaasproject.databinding.DialogFragmentMarketChoiceBinding
 import dev.daeyeon.gaasproject.ui.ticker.TickerFragment
 import dev.daeyeon.gaasproject.ui.ticker.TickerViewModel
+import dev.daeyeon.gaasproject.util.Event
 
 class MarketChoiceDialogFragment : BaseDialogFragment<DialogFragmentMarketChoiceBinding>(
     R.layout.dialog_fragment_market_choice
@@ -45,10 +46,16 @@ class MarketChoiceDialogFragment : BaseDialogFragment<DialogFragmentMarketChoice
             replaceAll(tickerViewModel.getCurrencyArray().toList())
         }
 
+    /**
+     * 완료 이벤트 구독
+     */
     private fun subscribeCompleteEvent() {
-        choiceViewModel.completeEvent.observe(this, Observer {
-            tickerViewModel.loadUpbitTicker()
-            dismiss()
+        choiceViewModel.completeEvent.observe(this, Observer<Event<Unit>> { event ->
+            event.getContentIfNotHandled()?.let {
+                tickerViewModel.setBaseMarket(choiceViewModel.selectedMarket)
+                tickerViewModel.loadUpbitTicker()
+                this@MarketChoiceDialogFragment.dismiss()
+            }
         })
     }
 

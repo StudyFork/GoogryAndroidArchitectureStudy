@@ -17,6 +17,7 @@ import dev.daeyeon.gaasproject.databinding.FragmentTickerBinding
 import dev.daeyeon.gaasproject.network.NetworkManager
 import dev.daeyeon.gaasproject.ui.ticker.marketchoice.MarketChoiceDialogFragment
 import dev.daeyeon.gaasproject.ui.ticker.search.TickerSearchDialogFragment
+import dev.daeyeon.gaasproject.util.Event
 import org.jetbrains.anko.toast
 
 class TickerFragment : BaseFragment<FragmentTickerBinding>(
@@ -90,8 +91,8 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
      * failMsgEvent 구독
      */
     private fun subscribeToFailMsg() {
-        tickerViewModel.failMsgEvent.observe(this, Observer { event ->
-            event?.getContentIfNotHandled()?.let {
+        tickerViewModel.failMsgEvent.observe(this, Observer<Event<String>> { event ->
+            event.getContentIfNotHandled()?.let {
                 toastTickerFailMsg(it)
             }
         })

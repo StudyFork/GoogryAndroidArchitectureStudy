@@ -9,6 +9,7 @@ import dev.daeyeon.gaasproject.base.BaseDialogFragment
 import dev.daeyeon.gaasproject.databinding.DialogFragmentTickerSearchBinding
 import dev.daeyeon.gaasproject.ui.ticker.TickerFragment
 import dev.daeyeon.gaasproject.ui.ticker.TickerViewModel
+import dev.daeyeon.gaasproject.util.Event
 
 class TickerSearchDialogFragment : BaseDialogFragment<DialogFragmentTickerSearchBinding>(
     R.layout.dialog_fragment_ticker_search
@@ -35,10 +36,15 @@ class TickerSearchDialogFragment : BaseDialogFragment<DialogFragmentTickerSearch
         subscribeCompleteEvent()
     }
 
+    /**
+     * 완료 이벤트 구독
+     */
     private fun subscribeCompleteEvent() {
-        searchViewModel.completeEvent.observe(this, Observer {
-            tickerViewModel.loadUpbitTicker()
-            this@TickerSearchDialogFragment.dismiss()
+        searchViewModel.completeEvent.observe(this, Observer<Event<Unit>> { event ->
+            event.getContentIfNotHandled()?.let {
+                tickerViewModel.loadUpbitTicker()
+                this@TickerSearchDialogFragment.dismiss()
+            }
         })
     }
 
