@@ -1,6 +1,7 @@
 package org.study.kotlin.androidarchitecturestudy.adapter.recyclerviewadapter
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,36 +11,35 @@ import org.study.kotlin.androidarchitecturestudy.api.model.TickerModel
 import org.study.kotlin.androidarchitecturestudy.util.FormatUtil
 import org.study.kotlin.androidarchitecturestudy.util.FormatUtil.accTradePriceFormat
 
-class MainListAdapter :
-    RecyclerView.Adapter<MainListAdapter.ItemViewHolder>() {
-    var tickerList = ArrayList<TickerModel>()!!
-    var itemViewHolder: ItemViewHolder? = null
+class MainListAdapter : RecyclerView.Adapter<MainListAdapter.ItemViewHolder>() {
+    var tickerList: ArrayList<TickerModel> = arrayListOf()
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, vewType: Int): ItemViewHolder {
         val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_ticker, viewGroup, false)
-        tickerList = ArrayList()!!
+        Log.e("TAG MAinListAdapter", "onCreateViewHolder")
         return ItemViewHolder(v)
     }
 
-    override fun getItemCount(): Int = tickerList.size
+    override fun getItemCount(): Int {
+        Log.e("TAG MAinListAdapter", "getItemCount")
+        return tickerList.size
+    }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        itemViewHolder?.setData(holder,position,tickerList)
+        Log.e("TAG MAinListAdapter", "onBindViewHolder")
+        holder?.setData(holder, position, tickerList)
 
     }
 
     fun setList(list: ArrayList<TickerModel>) {
+        Log.e("TAG MAinListAdapter", "setList")
         tickerList.clear()
         tickerList.addAll(list)
-        notifyDataSetChanged()
     }
 
-    class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view){
-//        val textview_item_market = view.textview_item_market
-//        val textview_item_trade_price = view.textview_item_trade_price
-//        val textview_item_change_rate = view.textview_item_change_rate
-//        val textview_item_acc_trade_price_24h = view.textview_item_acc_trade_price_24h
-
-        fun setData(holder: ItemViewHolder, position: Int, tickerList: ArrayList<TickerModel>?){
+    class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        fun setData(holder: ItemViewHolder, position: Int, tickerList: ArrayList<TickerModel>?) {
+            Log.e("TAG ItemViewHolder", "setData")
             tickerList!![position].let { item ->
                 with(holder.itemView) {
                     textview_item_market.text = item.market.substringAfterLast("-")
@@ -59,6 +59,7 @@ class MainListAdapter :
                     }
                 }
             }
+
         }
     }
 }
