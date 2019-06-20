@@ -11,14 +11,14 @@ import sample.nackun.com.studyfirst.vo.Market
 import sample.nackun.com.studyfirst.vo.Ticker
 
 class RemoteDataSource : DataSource {
-    private val retrofit: Retrofit = Retrofit.Builder()
+    private val retrofitService: DataSource.UpbitApi = Retrofit.Builder()
         .baseUrl("https://api.upbit.com/v1/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-    private val service: DataSource.UpbitApi = retrofit.create(DataSource.UpbitApi::class.java)
+        .create(DataSource.UpbitApi::class.java)
 
     override fun requestMarkets(marketLike: String, callback: DataSource.RequestTickersCallback) {
-        service.requestMarket().enqueue(object : Callback<ArrayList<Market>> {
+        retrofitService.requestMarket().enqueue(object : Callback<ArrayList<Market>> {
             override fun onFailure(call: Call<ArrayList<Market>>, t: Throwable) {
                 callback.onGetError("Don't request Markets")
             }
@@ -41,7 +41,7 @@ class RemoteDataSource : DataSource {
     }
 
     fun requestTickers(query: String, callback: DataSource.RequestTickersCallback) {
-        service.requestTicker(query)
+        retrofitService.requestTicker(query)
             .enqueue(object : Callback<ArrayList<Ticker>> {
                 override fun onResponse(
                     call: Call<ArrayList<Ticker>>,
