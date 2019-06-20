@@ -24,7 +24,7 @@ class RemoteDataSource : DataSource {
             }
 
             override fun onResponse(call: Call<ArrayList<Market>>, response: Response<ArrayList<Market>>) {
-                lateinit var query: String
+                var query: String = ""
                 response.body()?.let {
                     query =
                         it.filter { item ->
