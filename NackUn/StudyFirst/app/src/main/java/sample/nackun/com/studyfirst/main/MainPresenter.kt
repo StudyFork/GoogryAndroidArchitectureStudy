@@ -20,7 +20,7 @@ class MainPresenter(val repository: Repository, val mainView: MainContract.View)
         repository.requestMarkets(marketName, this)
     }
 
-    override fun onTickersIsNull(err: String?) {
+    override fun onGetError(err: String?) {
         mainView.showToast(err)
     }
 

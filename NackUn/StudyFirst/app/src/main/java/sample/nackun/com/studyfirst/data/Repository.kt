@@ -11,8 +11,8 @@ class Repository(
                 callback.onTickersLoaded(tickers)
             }
 
-            override fun onTickersIsNull(err: String?) {
-                callback.onTickersIsNull(err)
+            override fun onGetError(err: String?) {
+                callback.onGetError(err)
             }
 
         })
