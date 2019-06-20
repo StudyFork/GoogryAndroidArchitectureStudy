@@ -11,7 +11,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/exchange"
-            android:textSize="24dp"
+            android:textSize="24sp"
             android:layout_marginTop="12dp"
             android:layout_marginLeft="12dp"
             android:id="@+id/marketTitle"
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/marketKRW"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:gravity="center">
         </TextView>
         <TextView
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/marketBTC"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:gravity="center">
         </TextView>
         <TextView
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/marketETH"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:gravity="center">
         </TextView>
         <TextView
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/marketUSDT"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:gravity="center">
         </TextView>
     </LinearLayout>
@@ -74,27 +74,27 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/coinName"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 android:layout_weight="1"/>
         <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/currentPrice"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end"/>
         <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/comparePrice"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end"/>
         <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/changePrice"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end"/>
 
