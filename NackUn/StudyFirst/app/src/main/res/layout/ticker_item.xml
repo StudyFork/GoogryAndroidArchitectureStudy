@@ -28,7 +28,7 @@
             android:id="@+id/currentPrice"
             android:textSize="14dp"
             android:layout_weight="1"
-            android:gravity="right"
+            android:gravity="end"
             android:layout_gravity="center"
             android:text="9,525,000"/>
     <TextView
@@ -37,7 +37,7 @@
             android:id="@+id/comparePrice"
             android:textSize="14dp"
             android:layout_weight="1"
-            android:gravity="right"
+            android:gravity="end"
             android:layout_gravity="center"
             android:text="-2.08%"/>
     <TextView
@@ -46,7 +46,7 @@
             android:id="@+id/changePrice"
             android:textSize="14dp"
             android:layout_weight="1"
-            android:gravity="right"
+            android:gravity="end"
             android:layout_gravity="center"
             android:text="46,935 M"
             android:layout_marginRight="12dp"/>

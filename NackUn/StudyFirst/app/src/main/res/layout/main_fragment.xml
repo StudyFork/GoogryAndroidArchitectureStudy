@@ -82,21 +82,21 @@
                 android:text="@string/currentPrice"
                 android:textSize="18dp"
                 android:layout_weight="1"
-                android:gravity="right"/>
+                android:gravity="end"/>
         <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/comparePrice"
                 android:textSize="18dp"
                 android:layout_weight="1"
-                android:gravity="right"/>
+                android:gravity="end"/>
         <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/changePrice"
                 android:textSize="18dp"
                 android:layout_weight="1"
-                android:gravity="right"/>
+                android:gravity="end"/>
 
     </LinearLayout>
     <ScrollView
