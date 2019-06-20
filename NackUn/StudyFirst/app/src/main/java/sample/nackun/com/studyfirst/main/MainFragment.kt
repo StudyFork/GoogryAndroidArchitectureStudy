@@ -35,7 +35,7 @@ class MainFragment : Fragment(), MainContract.View {
                     marketBTC.setTextColor(resources.getColor(R.color.grey))
                     marketETH.setTextColor(resources.getColor(R.color.grey))
                     marketUSDT.setTextColor(resources.getColor(R.color.grey))
-                    var selectedMarket = v as TextView
+                    val selectedMarket = v as TextView
                     selectedMarket.setTextColor(resources.getColor(R.color.indigo))
                     presenter.requestTickers(selectedMarket.text.toString())
                 }
