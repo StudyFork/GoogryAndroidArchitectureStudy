@@ -34,6 +34,9 @@ class CoinListViewModel(
         _filterCoinList.addSource(coinList, Observer { t ->
             _filterCoinList.value = filteringCoinList()
         })
+        _filterCoinList.addSource(baseCurrency, Observer { t ->
+            initMarket()
+        })
     }
 
 

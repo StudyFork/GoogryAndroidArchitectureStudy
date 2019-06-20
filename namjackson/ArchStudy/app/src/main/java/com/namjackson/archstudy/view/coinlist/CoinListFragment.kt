@@ -6,12 +6,12 @@ import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProviders
 import com.namjackson.archstudy.R
 import com.namjackson.archstudy.base.BaseFragment
-import com.namjackson.archstudy.util.ViewModelFactory
 import com.namjackson.archstudy.data.source.TickerRepository
 import com.namjackson.archstudy.data.source.local.TickerLocalDataSourceImpl
 import com.namjackson.archstudy.data.source.remote.TickerRemoteDataSourceImpl
 import com.namjackson.archstudy.databinding.FragmentCoinListBinding
 import com.namjackson.archstudy.network.UpbitService
+import com.namjackson.archstudy.util.ViewModelFactory
 import com.namjackson.archstudy.view.coinlist.adapter.CoinListAdapter
 import java.util.*
 
@@ -50,8 +50,6 @@ class CoinListFragment
         }
 
         subscribeToShowToast()
-
-        viewModel.baseCurrency.observe(this, androidx.lifecycle.Observer { viewModel.initMarket() })
     }
 
 
