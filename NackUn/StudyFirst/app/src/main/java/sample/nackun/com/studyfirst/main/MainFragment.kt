@@ -51,7 +51,7 @@ class MainFragment : Fragment(), MainContract.View {
         return root
     }
 
-    override fun showTickes(tickers: ArrayList<Ticker>) {
+    override fun showTickers(tickers: ArrayList<Ticker>) {
         tickerAdapter.setItems(tickers)
 
     }

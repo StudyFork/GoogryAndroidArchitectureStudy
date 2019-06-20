@@ -25,6 +25,6 @@ class MainPresenter(val repository: Repository, val mainView: MainContract.View)
     }
 
     override fun onTickersLoaded(tickers: ArrayList<Ticker>) {
-        mainView.showTickes(tickers)
+        mainView.showTickers(tickers)
     }
 }
