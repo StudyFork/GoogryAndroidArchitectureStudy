@@ -18,7 +18,7 @@ class MainPresenter(val repository: Repository, val mainView: MainContract.View)
         repository.requestMarkets(marketName, this)
     }
 
-    override fun onGetError(err: String?) {
+    override fun onError(err: String?) {
         mainView.showToast(err)
     }
 

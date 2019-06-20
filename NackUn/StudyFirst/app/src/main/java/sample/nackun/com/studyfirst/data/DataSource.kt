@@ -18,7 +18,7 @@ interface DataSource {
     interface RequestTickersCallback {
         fun onTickersLoaded(tickers: ArrayList<Ticker>)
 
-        fun onGetError(err: String?)
+        fun onError(err: String?)
     }
 
     fun requestMarkets(marketLike: String, callback: RequestTickersCallback)

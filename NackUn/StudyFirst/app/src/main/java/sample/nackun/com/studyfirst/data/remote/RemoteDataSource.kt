@@ -20,7 +20,7 @@ class RemoteDataSource : DataSource {
     override fun requestMarkets(marketLike: String, callback: DataSource.RequestTickersCallback) {
         retrofitService.requestMarket().enqueue(object : Callback<ArrayList<Market>> {
             override fun onFailure(call: Call<ArrayList<Market>>, t: Throwable) {
-                callback.onGetError("Don't request Markets")
+                callback.onError("Don't request Markets")
             }
 
             override fun onResponse(call: Call<ArrayList<Market>>, response: Response<ArrayList<Market>>) {
@@ -47,11 +47,11 @@ class RemoteDataSource : DataSource {
                 ) {
                     response.body()?.let {
                         callback.onTickersLoaded(it)
-                    } ?: callback.onGetError("Tickers is Null")
+                    } ?: callback.onError("Tickers is Null")
                 }
 
                 override fun onFailure(call: Call<ArrayList<Ticker>>, t: Throwable) {
-                    callback.onGetError("Don't request Tickers")
+                    callback.onError("Don't request Tickers")
                 }
             })
     }
