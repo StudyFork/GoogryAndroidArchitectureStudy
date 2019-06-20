@@ -2,6 +2,7 @@ package my.gong.studygong.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import my.gong.studygong.SingleLiveEvent
 import my.gong.studygong.data.model.Ticker
 import my.gong.studygong.data.source.upbit.UpbitDataSource
@@ -10,7 +11,7 @@ import java.util.*
 
 class CoinViewModel(
     private val upbitRepository: UpbitDataSource
-) {
+) : ViewModel(){
 
     private val _tickerList = MutableLiveData<List<Ticker>>()
     val tickerList: LiveData<List<Ticker>>

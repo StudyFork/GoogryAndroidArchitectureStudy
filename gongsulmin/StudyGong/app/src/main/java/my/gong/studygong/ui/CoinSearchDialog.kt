@@ -3,11 +3,14 @@ package my.gong.studygong.ui
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import my.gong.studygong.Injection
 import my.gong.studygong.R
 import my.gong.studygong.adapter.CoinAdapter
 import my.gong.studygong.base.BaseDialog
 import my.gong.studygong.databinding.DialogCoinDetailBinding
 import my.gong.studygong.viewmodel.CoinViewModel
+import my.gong.studygong.viewmodel.ViewModelFactoryImpl
 
 /**
  *          Coin 검색 다이얼로그
@@ -16,11 +19,13 @@ import my.gong.studygong.viewmodel.CoinViewModel
 class CoinSearchDialog
     : BaseDialog<DialogCoinDetailBinding>(R.layout.dialog_coin_detail) {
 
-    private lateinit var coinViewModel: CoinViewModel
+    private val coinViewModel: CoinViewModel by lazy {
+        ViewModelProviders.of(activity as CoinListActivity, ViewModelFactoryImpl(Injection.provideCoinRepository()))
+            .get(CoinViewModel::class.java)
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        coinViewModel = (activity as CoinListActivity).obtainViewModel()
 
         viewDataBinding.coinViewModel = coinViewModel
 
@@ -28,8 +33,8 @@ class CoinSearchDialog
 
         coinViewModel.loadTickerSearchResult()
 
-        coinViewModel.errorMessage.observe(this , Observer {
-            Toast.makeText(context , it , Toast.LENGTH_LONG).show()
+        coinViewModel.errorMessage.observe(this, Observer {
+            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
         })
 
     }
