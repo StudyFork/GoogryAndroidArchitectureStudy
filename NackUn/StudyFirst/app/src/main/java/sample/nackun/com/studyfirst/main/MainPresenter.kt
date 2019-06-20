@@ -7,8 +7,6 @@ import sample.nackun.com.studyfirst.vo.Ticker
 class MainPresenter(val repository: Repository, val mainView: MainContract.View) : MainContract.Presenter,
     DataSource.RequestTickersCallback {
 
-    //lateinit var arr:ArrayList<Ticker>
-
     init {
         mainView.presenter = this
     }
