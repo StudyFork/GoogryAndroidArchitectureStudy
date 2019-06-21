@@ -11,16 +11,18 @@ import androidx.lifecycle.Observer
 class SearchCoinActivity :
     BaseActivity<ActivitySearchCoinBinding>(R.layout.activity_search_coin) {
 
-    private lateinit var searchCoinViewModel: SearchCoinViewModel
+    private val searchCoinViewModel: SearchCoinViewModel by lazy {
+        getActivityScopeViewModel(
+            SearchCoinViewModel::class.java,
+            SearchCoinViewModelFactory(CoinRepositoryImpl)
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         progressBar = binding.pgCoinList
 
-        searchCoinViewModel = addingToContainer {
-            SearchCoinViewModel(CoinRepositoryImpl)
-        }
 
         bind {
             vm = searchCoinViewModel

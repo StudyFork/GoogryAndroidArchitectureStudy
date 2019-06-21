@@ -6,6 +6,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 
 abstract class BaseActivity<B : ViewDataBinding>(
     private val layoutId: Int
@@ -16,19 +19,16 @@ abstract class BaseActivity<B : ViewDataBinding>(
 
     protected var progressBar: View? = null
 
-    protected val viewModelContainer = mutableListOf<BaseViewModel>()
+    protected fun <VM : ViewModel> getActivityScopeViewModel(
+        vmClass: Class<VM>,
+        viewModelFactory: ViewModelProvider.NewInstanceFactory
+    ) = ViewModelProviders.of(this, viewModelFactory).get(vmClass)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutId)
         binding.lifecycleOwner = this
-    }
-
-    override fun onDestroy() {
-        for (viewModel in viewModelContainer) {
-            viewModel.onDestroy()
-        }
-        super.onDestroy()
     }
 
     protected fun showToastMessage(msg: String) {
@@ -45,11 +45,5 @@ abstract class BaseActivity<B : ViewDataBinding>(
 
     protected fun bind(block: B.() -> Unit) {
         binding.block()
-    }
-
-    protected fun <T : BaseViewModel> addingToContainer(block: () -> T): T {
-        return block().apply {
-            viewModelContainer.add(this)
-        }
     }
 }

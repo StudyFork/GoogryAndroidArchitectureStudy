@@ -14,16 +14,18 @@ import android.view.MenuItem
 import androidx.lifecycle.Observer
 
 class HomeActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
-    private lateinit var homeViewModel: HomeViewModel
+
+    private val homeViewModel: HomeViewModel by lazy {
+        getActivityScopeViewModel(
+            HomeViewModel::class.java,
+            HomeViewModelFactory(CoinRepositoryImpl)
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         progressBar = binding.pgHome
-
-        homeViewModel = addingToContainer {
-            HomeViewModel(CoinRepositoryImpl)
-        }
 
         homeViewModel.marketList.observe(this, Observer<List<String>>(::updateViewPager))
 

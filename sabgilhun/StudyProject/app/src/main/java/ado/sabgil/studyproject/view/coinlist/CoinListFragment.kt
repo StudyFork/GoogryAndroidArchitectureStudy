@@ -11,20 +11,22 @@ import androidx.lifecycle.Observer
 
 class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(R.layout.fragmnet_coin_list) {
 
-    private lateinit var coinListViewModel: CoinListViewModel
+    private val coinListViewModel: CoinListViewModel by lazy {
+        getFragmentScopeViewModel(
+            CoinListViewModel::class.java,
+            CoinListViewModelFactory(baseCurrency, CoinRepositoryImpl)
+        )
+    }
 
-    private val baseCurrency: String? by lazy {
-        arguments?.getString(ARGUMENT_BASE_CURRENCY)
+
+    private val baseCurrency: String by lazy {
+        requireArguments().getString(ARGUMENT_BASE_CURRENCY)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         progressBar = binding.pgCoinList
-
-        coinListViewModel = addingToContainer {
-            CoinListViewModel(baseCurrency!!, CoinRepositoryImpl)
-        }
 
         bind {
             vm = coinListViewModel
