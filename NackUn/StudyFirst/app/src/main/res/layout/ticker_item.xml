@@ -5,8 +5,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/rounded"
         android:layout_marginTop="4dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
         android:orientation="horizontal"
         android:elevation="2dp"
         android:paddingTop="4dp"
@@ -49,5 +49,5 @@
             android:gravity="end"
             android:layout_gravity="center"
             android:text="46,935 M"
-            android:layout_marginRight="12dp"/>
+            android:layout_marginEnd="12dp"/>
 </LinearLayout>
