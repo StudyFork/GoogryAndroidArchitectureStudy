@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="ado.sabgil.studyproject.data.enums.SortingCriteria" />
+
         <variable
             name="vm"
             type="ado.sabgil.studyproject.view.home.HomeViewModel" />
@@ -39,53 +41,161 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tl_coin_list">
 
-            <TextView
-                android:id="@+id/tv_sort_coin_name"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_sort_coin_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:gravity="center"
-                android:padding="4dp"
-                android:text="@string/sort_button_coin_name"
-                android:textColor="@color/textLight"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:onClick="@{() ->vm.selectSortField(SortingCriteria.COIN_NAME)}"
+                android:orientation="horizontal"
+                android:padding="4dp">
 
-            <TextView
-                android:id="@+id/tv_sort_current_value"
+                <TextView
+                    android:id="@+id/tv_sort_coin_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/sort_button_coin_name"
+                    android:textColor="@color/textLight"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/iv_coin_name_order_indicator"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_coin_name_order_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/selector_order_indicator"
+                    app:isSelected="@{safeUnbox(vm.sortingOrder)}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_sort_coin_name"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:visibility="@{vm.selectedSortField == SortingCriteria.COIN_NAME}" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_sort_current_value"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2.5"
-                android:gravity="center"
-                android:padding="4dp"
-                android:text="@string/sort_button_current_value"
-                android:textColor="@color/textLight"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:onClick="@{() ->vm.selectSortField(SortingCriteria.CURRENT_VALUE)}"
+                android:orientation="horizontal"
+                android:padding="4dp">
 
-            <TextView
-                android:id="@+id/tv_sort_net_change"
+                <TextView
+                    android:id="@+id/tv_sort_current_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/sort_button_current_value"
+                    android:textColor="@color/textLight"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/iv_sort_current_value"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_sort_current_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/selector_order_indicator"
+                    android:visibility="visible"
+                    app:isSelected="@{safeUnbox(vm.sortingOrder)}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_sort_current_value"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:visibility="@{vm.selectedSortField == SortingCriteria.CURRENT_VALUE}" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_sort_net_change"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:gravity="center"
-                android:padding="4dp"
-                android:text="@string/sort_button_net_change"
-                android:textColor="@color/textLight"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:onClick="@{() ->vm.selectSortField(SortingCriteria.NET_CHANGE)}"
+                android:orientation="horizontal"
+                android:padding="4dp">
 
-            <TextView
-                android:id="@+id/tv_sort_acc_trade_price"
+                <TextView
+                    android:id="@+id/tv_sort_net_change"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/sort_button_net_change"
+                    android:textColor="@color/textLight"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/iv_sort_net_change"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_sort_net_change"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/selector_order_indicator"
+                    android:visibility="visible"
+                    app:isSelected="@{safeUnbox(vm.sortingOrder)}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_sort_net_change"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:visibility="@{vm.selectedSortField == SortingCriteria.NET_CHANGE}" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_sort_acc_trade_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2.5"
-                android:gravity="center"
-                android:padding="4dp"
-                android:text="@string/sort_button_acc_trade_price"
-                android:textColor="@color/textLight"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:onClick="@{() ->vm.selectSortField(SortingCriteria.ACC_TRADE_PRICE)}"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <TextView
+                    android:id="@+id/tv_sort_acc_trade_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/sort_button_acc_trade_price"
+                    android:textColor="@color/textLight"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/iv_sort_acc_trade_price"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_sort_acc_trade_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/selector_order_indicator"
+                    android:visibility="visible"
+                    app:isSelected="@{safeUnbox(vm.sortingOrder)}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_sort_acc_trade_price"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:visibility="@{vm.selectedSortField == SortingCriteria.ACC_TRADE_PRICE}" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
         <androidx.viewpager.widget.ViewPager

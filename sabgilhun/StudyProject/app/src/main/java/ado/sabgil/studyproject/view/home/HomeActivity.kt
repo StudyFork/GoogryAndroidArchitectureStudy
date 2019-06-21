@@ -27,6 +27,8 @@ class HomeActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         progressBar = binding.pgHome
 
+        binding.vm = homeViewModel
+
         homeViewModel.marketList.observe(this, Observer<List<String>>(::updateViewPager))
 
         registerEvent()
