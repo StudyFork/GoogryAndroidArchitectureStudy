@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.main_fragment.view.*
 import sample.nackun.com.studyfirst.R
 import sample.nackun.com.studyfirst.TickerAdapter
@@ -24,10 +25,7 @@ class MainFragment : Fragment(), MainContract.View {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.main_fragment, container, false)
-
         val mainPresenter = MainPresenter(Repository(RemoteDataSource()), this)
-        mainPresenter.start()
-
         with(root) {
             val onClickListener = object : View.OnClickListener {
                 override fun onClick(v: View?) {
@@ -46,14 +44,17 @@ class MainFragment : Fragment(), MainContract.View {
             marketUSDT.setOnClickListener(onClickListener)
 
             tickerRecyclerView.adapter = tickerAdapter
+
             marketKRW.callOnClick()
         }
+
+        mainPresenter.start()
+
         return root
     }
 
     override fun showTickers(tickers: ArrayList<Ticker>) {
         tickerAdapter.setItems(tickers)
-
     }
 
     override fun showToast(str: String?) {

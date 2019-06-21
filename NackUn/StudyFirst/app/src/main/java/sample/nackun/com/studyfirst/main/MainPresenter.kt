@@ -12,6 +12,7 @@ class MainPresenter(val repository: Repository, val mainView: MainContract.View)
     }
 
     override fun start() {
+
     }
 
     override fun requestTickers(marketName: String) {
