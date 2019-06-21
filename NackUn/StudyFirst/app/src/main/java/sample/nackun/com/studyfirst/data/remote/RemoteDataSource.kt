@@ -28,8 +28,8 @@ class RemoteDataSource : DataSource {
                 response.body()?.let {
                     query = it.filter {
                         it.market.startsWith(marketLike)
-                    }.joinToString { marketModel ->
-                        marketModel.market
+                    }.joinToString {
+                        it.market
                     }
                 }
                 Log.d("aa12", query)
