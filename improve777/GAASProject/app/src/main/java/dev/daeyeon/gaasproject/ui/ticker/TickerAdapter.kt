@@ -47,6 +47,5 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
         addList(list)
     }
 
-    class TickerViewHolder(val binding: ItemTickerBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    class TickerViewHolder(val binding: ItemTickerBinding) : RecyclerView.ViewHolder(binding.root)
 }
