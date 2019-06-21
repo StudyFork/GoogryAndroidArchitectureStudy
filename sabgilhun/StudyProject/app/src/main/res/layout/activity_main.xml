@@ -11,19 +11,82 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/backgroundLight">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_coin_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/backgroundWhite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tabGravity="fill"
+            app:tabIndicatorColor="@color/backgroundPrimary"
             app:tabMode="fixed"
-            app:tabSelectedTextColor="@android:color/black"
-            app:tabTextColor="@android:color/darker_gray" />
+            app:tabSelectedTextColor="@color/textPrimary"
+            app:tabTextColor="@color/textLight" />
+
+        <LinearLayout
+            android:id="@+id/ll_sort_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@color/backgroundWhite"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tl_coin_list">
+
+            <TextView
+                android:id="@+id/tv_sort_coin_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="@string/sort_button_coin_name"
+                android:textColor="@color/textLight"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_sort_current_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="@string/sort_button_current_value"
+                android:textColor="@color/textLight"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_sort_net_change"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="@string/sort_button_net_change"
+                android:textColor="@color/textLight"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_sort_acc_trade_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="@string/sort_button_acc_trade_price"
+                android:textColor="@color/textLight"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp_coin_list"
@@ -32,7 +95,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tl_coin_list">
+            app:layout_constraintTop_toBottomOf="@id/ll_sort_button">
 
             <FrameLayout
                 android:id="@+id/fl_container"

@@ -2,4 +2,13 @@
     <string name="app_name">StudyProject</string>
 
     <string name="searched_coin_name">%s-%s</string>
+
+    <string name="sort_button_coin_name">코인명</string>
+    <string name="sort_button_current_value">현재가</string>
+    <string name="sort_button_net_change">전일대비</string>
+    <string name="sort_button_acc_trade_price">거래대금</string>
+
+    <string name="coin_search_hint">코인을 검색하세요.</string>
+
+    <string name="search_coin_menu_title">코인 검색</string>
 </resources>

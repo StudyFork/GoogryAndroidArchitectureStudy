@@ -12,7 +12,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/backgroundWhite">
 
         <LinearLayout
             android:id="@+id/ll_search_box"
@@ -27,28 +28,27 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="8dp"
-                android:layout_weight="7.5"
-                android:hint="코인을 검색하세요."
+                android:layout_weight="8"
+                android:hint="@string/coin_search_hint"
                 android:maxLength="10"
                 android:singleLine="true"
                 android:text="@={vm.keyword}" />
 
-            <Button
+            <ImageView
                 android:id="@+id/tv_search"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_margin="8dp"
-                android:layout_weight="2.5"
+                android:layout_weight="2"
                 android:onClick="@{() -> vm.searchCoinByKeyword()}"
-                android:text="검색" />
+                android:padding="16dp"
+                android:src="@drawable/vector_search"
+                android:tint="@color/backgroundDark" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_ticker_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="8dp"
-            android:background="@android:color/white"
             android:foregroundGravity="center"
             app:item="@{vm.coinList}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -61,11 +61,11 @@
             android:id="@+id/pg_coin_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:visibility="@{safeUnbox(vm.isLoading)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibility="@{safeUnbox(vm.isLoading)}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
