@@ -3,6 +3,8 @@
 
     <string name="searched_coin_name">%s-%s</string>
 
+    <string name="percentage">%s%%</string>
+
     <string name="sort_button_coin_name">코인명</string>
     <string name="sort_button_current_value">현재가</string>
     <string name="sort_button_net_change">전일대비</string>

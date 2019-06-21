@@ -5,9 +5,12 @@ import ado.sabgil.studyproject.adapter.TickerAdapter
 import ado.sabgil.studyproject.data.CoinRepositoryImpl
 import ado.sabgil.studyproject.databinding.FragmnetCoinListBinding
 import ado.sabgil.studyproject.view.base.BaseFragment
+import ado.sabgil.studyproject.view.home.HomeViewModel
+import ado.sabgil.studyproject.view.home.HomeViewModelFactory
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+
 
 class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(R.layout.fragmnet_coin_list) {
 
@@ -18,6 +21,12 @@ class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(R.layout.fragmnet
         )
     }
 
+    private val homeViewModel: HomeViewModel by lazy {
+        getActivityScopeViewModel(
+            HomeViewModel::class.java,
+            HomeViewModelFactory(CoinRepositoryImpl)
+        )
+    }
 
     private val baseCurrency: String by lazy {
         requireArguments().getString(ARGUMENT_BASE_CURRENCY)
@@ -49,6 +58,11 @@ class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(R.layout.fragmnet
     private fun registerEvent() {
         coinListViewModel.run {
             showToastEvent.observe(this@CoinListFragment, Observer(::showToastMessage))
+        }
+
+        homeViewModel.run {
+            selectedSortField.observe(this@CoinListFragment, Observer(coinListViewModel::setSortingCriteria))
+            sortingOrder.observe(this@CoinListFragment, Observer(coinListViewModel::setSortingOrder))
         }
     }
 

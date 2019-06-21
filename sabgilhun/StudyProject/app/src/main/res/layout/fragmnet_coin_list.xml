@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/white"
             android:foregroundGravity="center"
-            app:item="@{vm.coinList}"
+            app:item="@{vm.sortedCoinList}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

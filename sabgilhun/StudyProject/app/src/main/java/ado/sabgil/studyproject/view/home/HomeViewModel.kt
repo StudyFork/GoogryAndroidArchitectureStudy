@@ -17,7 +17,7 @@ class HomeViewModel(private val coinRepository: CoinRepository) : BaseViewModel(
     val selectedSortField: LiveData<SortingCriteria>
         get() = _selectedSortField
 
-    private val _sortingOrder = MutableLiveData<Boolean>(false)
+    private val _sortingOrder = MutableLiveData<Boolean>(true)
     val sortingOrder: LiveData<Boolean>
         get() = _sortingOrder
 

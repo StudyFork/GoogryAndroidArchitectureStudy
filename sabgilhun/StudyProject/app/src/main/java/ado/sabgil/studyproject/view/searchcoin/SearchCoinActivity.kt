@@ -23,7 +23,6 @@ class SearchCoinActivity :
 
         progressBar = binding.pgCoinList
 
-
         bind {
             vm = searchCoinViewModel
             rvTickerList.adapter = TickerAdapter()
