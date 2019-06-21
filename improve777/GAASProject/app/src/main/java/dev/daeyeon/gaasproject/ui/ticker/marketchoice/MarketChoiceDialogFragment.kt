@@ -14,7 +14,12 @@ import dev.daeyeon.gaasproject.util.Event
 class MarketChoiceDialogFragment : BaseDialogFragment<DialogFragmentMarketChoiceBinding>(
     R.layout.dialog_fragment_market_choice
 ) {
-    private val marketAdapter by lazy { setUpMarketAdapter() }
+    private val marketAdapter by lazy {
+        MarketChoiceAdapter(
+            oldMarket = tickerViewModel.baseMarket.value!!,
+            onMarketSelectedListener = { choiceViewModel.selectedMarket = it }
+        )
+    }
 
     private val tickerViewModel by createViewModelLazy(
         viewModelClass = TickerViewModel::class,
@@ -40,14 +45,6 @@ class MarketChoiceDialogFragment : BaseDialogFragment<DialogFragmentMarketChoice
 
         subscribeCompleteEvent()
     }
-
-    private fun setUpMarketAdapter() =
-        MarketChoiceAdapter(
-            oldMarket = tickerViewModel.baseMarket.value!!,
-            onMarketSelectedListener = { choiceViewModel.selectedMarket = it }
-        ).apply {
-            replaceAll(choiceViewModel.marketList.value!!)
-        }
 
     /**
      * 완료 이벤트 구독
