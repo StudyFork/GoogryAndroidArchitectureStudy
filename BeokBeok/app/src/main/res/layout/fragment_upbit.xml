@@ -9,7 +9,7 @@
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".upbitmarket.UpBitActivity">
+        tools:context=".upbitmarket.UpbitActivity">
 
         <android.support.constraint.ConstraintLayout
                 android:id="@+id/cl_market_area"

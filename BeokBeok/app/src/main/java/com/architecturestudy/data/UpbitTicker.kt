@@ -2,7 +2,7 @@ package com.architecturestudy.data
 
 import com.google.gson.annotations.SerializedName
 
-data class UpBitTicker(
+data class UpbitTicker(
 
     @SerializedName("market")
     val market: String? = null,

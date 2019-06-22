@@ -1,13 +1,13 @@
 package com.architecturestudy.upbitmarket
 
-import com.architecturestudy.data.UpBitRepository
-import com.architecturestudy.data.UpBitTicker
-import com.architecturestudy.data.source.UpBitDataSource
+import com.architecturestudy.data.UpbitRepository
+import com.architecturestudy.data.UpbitTicker
+import com.architecturestudy.data.source.UpbitDataSource
 
 class UpBitPresenter(
-    private val upBitRepository: UpBitRepository,
+    private val upBitRepository: UpbitRepository,
     private val upBitView: UpBitContract.View
-) : UpBitContract.Presenter, UpBitDataSource.GetTickerCallback {
+) : UpBitContract.Presenter, UpbitDataSource.GetTickerCallback {
 
     init {
         upBitView.presenter = this
@@ -17,7 +17,7 @@ class UpBitPresenter(
         showMarketPrice("KRW")
     }
 
-    override fun onTickerLoaded(marketPrice: List<UpBitTicker>) {
+    override fun onTickerLoaded(marketPrice: List<UpbitTicker>) {
         upBitView.updateMarketPrice(marketPrice)
     }
 

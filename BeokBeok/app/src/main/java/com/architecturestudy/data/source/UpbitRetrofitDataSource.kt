@@ -1,6 +1,6 @@
 package com.architecturestudy.data.source
 
-import com.architecturestudy.data.UpBitTicker
+import com.architecturestudy.data.UpbitTicker
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -9,7 +9,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class UpBitRetrofitDataSource : UpBitDataSource {
+class UpbitRetrofitDataSource : UpbitDataSource {
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://api.upbit.com/v1/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -19,11 +19,11 @@ class UpBitRetrofitDataSource : UpBitDataSource {
             ).build()
         )
         .build()
-        .create(UpBitDataSource.Service::class.java)
+        .create(UpbitDataSource.Service::class.java)
 
-    override fun getMarketPrice(prefix: String, callback: UpBitDataSource.GetTickerCallback) {
-        retrofit.getMarkets().enqueue(object : Callback<List<UpBitTicker>> {
-            override fun onResponse(call: Call<List<UpBitTicker>>, response: Response<List<UpBitTicker>>) {
+    override fun getMarketPrice(prefix: String, callback: UpbitDataSource.GetTickerCallback) {
+        retrofit.getMarkets().enqueue(object : Callback<List<UpbitTicker>> {
+            override fun onResponse(call: Call<List<UpbitTicker>>, response: Response<List<UpbitTicker>>) {
                 val markets = response.body() ?: return
                 val tickers = markets
                     .asSequence()
@@ -34,15 +34,15 @@ class UpBitRetrofitDataSource : UpBitDataSource {
                 getTickers(tickers, callback)
             }
 
-            override fun onFailure(call: Call<List<UpBitTicker>>, t: Throwable) {
+            override fun onFailure(call: Call<List<UpbitTicker>>, t: Throwable) {
                 callback.onDataNotAvailable(t.message)
             }
         })
     }
 
-    private fun getTickers(market: List<String?>?, callback: UpBitDataSource.GetTickerCallback) {
-        retrofit.getTicker(market).enqueue(object : Callback<List<UpBitTicker>> {
-            override fun onResponse(call: Call<List<UpBitTicker>>, response: Response<List<UpBitTicker>>) {
+    private fun getTickers(market: List<String?>?, callback: UpbitDataSource.GetTickerCallback) {
+        retrofit.getTicker(market).enqueue(object : Callback<List<UpbitTicker>> {
+            override fun onResponse(call: Call<List<UpbitTicker>>, response: Response<List<UpbitTicker>>) {
                 val responseTicker = response.body()
                 if (responseTicker != null)
                     callback.onTickerLoaded(responseTicker)
@@ -50,7 +50,7 @@ class UpBitRetrofitDataSource : UpBitDataSource {
                     callback.onDataNotAvailable("Data is empty")
             }
 
-            override fun onFailure(call: Call<List<UpBitTicker>>, t: Throwable) {
+            override fun onFailure(call: Call<List<UpbitTicker>>, t: Throwable) {
                 callback.onDataNotAvailable(t.message)
             }
 
@@ -60,13 +60,13 @@ class UpBitRetrofitDataSource : UpBitDataSource {
     private fun hasPrefix(prefix: String): Boolean = listOf("KRW", "BTC", "ETH", "USDT").contains(prefix)
 
     companion object {
-        private lateinit var INSTANCE: UpBitRetrofitDataSource
+        private lateinit var INSTANCE: UpbitRetrofitDataSource
         private var needsNewInstance = true
 
         @JvmStatic
-        fun getInstance(): UpBitRetrofitDataSource {
+        fun getInstance(): UpbitRetrofitDataSource {
             if (needsNewInstance) {
-                INSTANCE = UpBitRetrofitDataSource()
+                INSTANCE = UpbitRetrofitDataSource()
                 needsNewInstance = false
             }
             return INSTANCE

@@ -9,11 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.architecturestudy.R
 import com.architecturestudy.base.BaseFragment
-import com.architecturestudy.data.UpBitRepository
-import com.architecturestudy.data.UpBitTicker
-import com.architecturestudy.data.source.UpBitRetrofitDataSource
+import com.architecturestudy.data.UpbitRepository
+import com.architecturestudy.data.UpbitTicker
+import com.architecturestudy.data.source.UpbitRetrofitDataSource
 import com.architecturestudy.upbitmarket.recyclerview.DividerItemDecoration
-import com.architecturestudy.upbitmarket.recyclerview.UpBitAdapter
+import com.architecturestudy.upbitmarket.recyclerview.UpbitAdapter
 import kotlinx.android.synthetic.main.fragment_upbit.*
 
 class UpBitFragment : BaseFragment(), UpBitContract.View {
@@ -23,7 +23,7 @@ class UpBitFragment : BaseFragment(), UpBitContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        upBitPresenter = UpBitPresenter(UpBitRepository.getInstance(UpBitRetrofitDataSource.getInstance()), this)
+        upBitPresenter = UpBitPresenter(UpbitRepository.getInstance(UpbitRetrofitDataSource.getInstance()), this)
     }
 
     override fun onCreateView(
@@ -42,7 +42,7 @@ class UpBitFragment : BaseFragment(), UpBitContract.View {
         initRecyclerView()
     }
 
-    override fun updateMarketPrice(marketPrice: List<UpBitTicker>) {
+    override fun updateMarketPrice(marketPrice: List<UpbitTicker>) {
         setMainAdapter(marketPrice)
     }
 
@@ -51,15 +51,15 @@ class UpBitFragment : BaseFragment(), UpBitContract.View {
     }
 
     private fun initRecyclerView() {
-        val context = activity as UpBitActivity
+        val context = activity as UpbitActivity
         rv_coin_price.addItemDecoration(DividerItemDecoration(context))
         val lm = LinearLayoutManager(context)
         rv_coin_price.layoutManager = lm
         rv_coin_price.setHasFixedSize(true)
     }
 
-    private fun setMainAdapter(marketPrice: List<UpBitTicker>) {
-        val adapter = UpBitAdapter()
+    private fun setMainAdapter(marketPrice: List<UpbitTicker>) {
+        val adapter = UpbitAdapter()
         adapter.setMarketPrices(marketPrice.sortedBy { it.market })
         rv_coin_price.adapter = adapter
     }

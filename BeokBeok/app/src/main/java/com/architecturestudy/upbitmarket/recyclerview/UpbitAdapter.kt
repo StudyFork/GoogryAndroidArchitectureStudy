@@ -6,14 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.architecturestudy.R
-import com.architecturestudy.data.UpBitTicker
+import com.architecturestudy.data.UpbitTicker
 import java.math.BigDecimal
 import java.text.DecimalFormat
 
-class UpBitAdapter : RecyclerView.Adapter<UpBitAdapter.ViewHolder>() {
-    var marketPrice: List<UpBitTicker>? = null
+class UpbitAdapter : RecyclerView.Adapter<UpbitAdapter.ViewHolder>() {
+    var marketPrice: List<UpbitTicker>? = null
 
-    fun setMarketPrices(marketPrice: List<UpBitTicker>) {
+    fun setMarketPrices(marketPrice: List<UpbitTicker>) {
         this.marketPrice = marketPrice
     }
 
@@ -34,7 +34,7 @@ class UpBitAdapter : RecyclerView.Adapter<UpBitAdapter.ViewHolder>() {
         private val netChange = itemView.findViewById<TextView>(R.id.tv_net_change)
         private val tradingVal = itemView.findViewById<TextView>(R.id.tv_trading_value)
 
-        fun bind(marketPrice: UpBitTicker) {
+        fun bind(marketPrice: UpbitTicker) {
             coinName?.text =
                 if (marketPrice.market?.contains("-")!!)
                     marketPrice.market.substringAfter("-")
