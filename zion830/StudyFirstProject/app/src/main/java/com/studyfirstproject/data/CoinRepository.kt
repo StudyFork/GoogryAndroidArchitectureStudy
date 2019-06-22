@@ -34,7 +34,7 @@ class CoinRepository : CoinDataSource {
             response?.let {
                 if (!response.body().isNullOrEmpty()) {
                     val coinData = response.body() as List<TickerModel>
-                    callback.onTickersLoaded(coinData)
+                    callback.onCoinsLoaded(coinData)
                 } else {
                     callback.onDataNotAvailable(loadErrMsg, throwable?.message)
                 }

@@ -22,7 +22,7 @@ class CoinPresenter(private val view: CoinContract.View) :
         repository.getCoinData(markets, this)
     }
 
-    override fun onTickersLoaded(tickers: List<TickerModel>) {
+    override fun onCoinsLoaded(tickers: List<TickerModel>) {
         view.setCoinInfo(tickers)
     }
 

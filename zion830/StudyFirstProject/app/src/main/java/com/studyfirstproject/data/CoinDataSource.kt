@@ -13,7 +13,7 @@ interface CoinDataSource {
 
     interface LoadTickersCallback {
 
-        fun onTickersLoaded(tickers: List<TickerModel>)
+        fun onCoinsLoaded(tickers: List<TickerModel>)
 
         fun onDataNotAvailable(msg: String, reason: String?)
     }
