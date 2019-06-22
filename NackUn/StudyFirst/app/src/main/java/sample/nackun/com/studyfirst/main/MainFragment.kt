@@ -2,6 +2,7 @@ package sample.nackun.com.studyfirst.main
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,16 +26,16 @@ class MainFragment : Fragment(), MainContract.View {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.main_fragment, container, false)
-        val mainPresenter = MainPresenter(Repository(RemoteDataSource()), this)
+        MainPresenter(Repository(RemoteDataSource()), this)
         with(root) {
             val onClickListener = object : View.OnClickListener {
                 override fun onClick(v: View?) {
-                    marketKRW.setTextColor(resources.getColor(R.color.grey))
-                    marketBTC.setTextColor(resources.getColor(R.color.grey))
-                    marketETH.setTextColor(resources.getColor(R.color.grey))
-                    marketUSDT.setTextColor(resources.getColor(R.color.grey))
+                    marketKRW.setTextColor(ContextCompat.getColor(context, R.color.grey))
+                    marketBTC.setTextColor(ContextCompat.getColor(context, R.color.grey))
+                    marketETH.setTextColor(ContextCompat.getColor(context, R.color.grey))
+                    marketUSDT.setTextColor(ContextCompat.getColor(context, R.color.grey))
                     val selectedMarket = v as TextView
-                    selectedMarket.setTextColor(resources.getColor(R.color.indigo))
+                    selectedMarket.setTextColor(ContextCompat.getColor(context, R.color.indigo))
                     presenter.requestTickers(selectedMarket.text.toString())
                 }
             }
