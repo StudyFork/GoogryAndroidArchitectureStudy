@@ -20,10 +20,8 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.ItemViewHolder>() {
         return ItemViewHolder(v)
     }
 
-    override fun getItemCount(): Int {
-        Log.e("TAG MAinListAdapter", "getItemCount")
-        return tickerList.size
-    }
+    override fun getItemCount(): Int =tickerList.size
+    
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         Log.e("TAG MAinListAdapter", "onBindViewHolder")
