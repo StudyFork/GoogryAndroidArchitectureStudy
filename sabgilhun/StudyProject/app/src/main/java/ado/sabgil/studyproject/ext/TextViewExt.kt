@@ -10,7 +10,7 @@ private const val MEGA = 1_000_000.0
 
 @BindingAdapter("setCurrentValue")
 fun TextView.setCurrentValueByTicker(ticker: Ticker) {
-    this.text =
+    text =
         ticker.currentValue.let {
             when (ticker.base) {
                 BaseCurrency.KRW.name ->
@@ -37,12 +37,12 @@ fun TextView.setCurrentValueByTicker(ticker: Ticker) {
 
 @BindingAdapter("setChangeRate")
 fun TextView.setChangeRateByTicker(ticker: Ticker) {
-    this.text = String.format("%s%%", (Math.floor(ticker.changeRate * 10_000.0) / 100.0))
+    text = String.format("%s%%", (Math.floor(ticker.changeRate * 10_000.0) / 100.0))
 }
 
 @BindingAdapter("setAccTradeValue")
 fun TextView.setAccTradeValueByTicker(ticker: Ticker) {
-    this.text = when {
+    text = when {
         ticker.accTradePrice > MEGA ->
             Math.floor(ticker.accTradePrice / MEGA).toInt().toString() + "M"
         ticker.accTradePrice > KILO ->
