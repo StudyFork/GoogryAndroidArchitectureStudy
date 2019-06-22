@@ -26,11 +26,8 @@ class RemoteDataSource : DataSource {
             override fun onResponse(call: Call<ArrayList<Market>>, response: Response<ArrayList<Market>>) {
                 var query: String = ""
                 response.body()?.let {
-                    query = it.filter {
-                        it.market.startsWith(marketLike)
-                    }.joinToString {
-                        it.market
-                    }
+                    query = it.filter { it.market.startsWith(marketLike) }
+                        .joinToString { it.market }
                 }
                 Log.d("aa12", query)
                 requestTickers(query, callback);
