@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import my.gong.studygong.SingleLiveEvent
 import my.gong.studygong.data.model.Ticker
 import my.gong.studygong.data.source.upbit.UpbitDataSource
-import my.gong.studygong.ui.CoinListActivity
 import java.util.*
 
 class CoinViewModel(
@@ -50,7 +49,7 @@ class CoinViewModel(
             override fun run() {
                 loadTickerList(baseCurrency.value!!)
             }
-        }, 0, CoinListActivity.REPEAT_INTERVAL_MILLIS)
+        }, 0, REPEAT_INTERVAL_MILLIS)
     }
 
     fun onStop() {
@@ -108,5 +107,9 @@ class CoinViewModel(
         _baseCurrency.value = selectBaseCurrency
         loadCoin()
         dismissCoinMarketDialog.call()
+    }
+
+    companion object {
+        const val REPEAT_INTERVAL_MILLIS = 3000L
     }
 }
