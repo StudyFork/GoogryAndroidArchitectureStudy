@@ -18,7 +18,7 @@ interface CoinDataSource {
         fun onDataNotAvailable(msg: String, reason: String?)
     }
 
-    fun getAllMarkets(callback: CoinDataSource.LoadMarketsCallback)
+    fun getAllMarkets(callback: LoadMarketsCallback)
 
-    fun getCoinData(markets: String, callback: CoinDataSource.LoadTickersCallback)
+    fun getCoinData(markets: String, callback: LoadTickersCallback)
 }
