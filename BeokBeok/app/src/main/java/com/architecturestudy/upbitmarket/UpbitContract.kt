@@ -4,11 +4,11 @@ import com.architecturestudy.base.BasePresenter
 import com.architecturestudy.base.BaseView
 import com.architecturestudy.data.UpbitTicker
 
-interface UpBitContract {
+interface UpbitContract {
     interface View : BaseView<Presenter> {
         fun updateMarketPrice(marketPrice: List<UpbitTicker>)
 
-        fun showErrMsg(err: String)
+        fun showErrMsg(t: Throwable)
     }
 
     interface Presenter : BasePresenter {

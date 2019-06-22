@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fg_main"
-        android:name="com.architecturestudy.upbitmarket.UpBitFragment"
+        android:name="com.architecturestudy.upbitmarket.UpbitFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

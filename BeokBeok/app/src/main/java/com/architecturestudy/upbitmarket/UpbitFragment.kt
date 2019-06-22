@@ -16,14 +16,10 @@ import com.architecturestudy.upbitmarket.recyclerview.DividerItemDecoration
 import com.architecturestudy.upbitmarket.recyclerview.UpbitAdapter
 import kotlinx.android.synthetic.main.fragment_upbit.*
 
-class UpBitFragment : BaseFragment(), UpBitContract.View {
+class UpbitFragment : BaseFragment(), UpbitContract.View {
 
-    private lateinit var upBitPresenter: UpBitPresenter
-    override lateinit var presenter: UpBitContract.Presenter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        upBitPresenter = UpBitPresenter(UpbitRepository.getInstance(UpbitRetrofitDataSource.getInstance()), this)
+    override val presenter: UpbitContract.Presenter by lazy {
+        UpbitPresenter(this, UpbitRepository(UpbitRetrofitDataSource()))
     }
 
     override fun onCreateView(
@@ -35,9 +31,8 @@ class UpBitFragment : BaseFragment(), UpBitContract.View {
         return view
     }
 
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initClickListener()
         initRecyclerView()
     }
@@ -46,8 +41,8 @@ class UpBitFragment : BaseFragment(), UpBitContract.View {
         setMainAdapter(marketPrice)
     }
 
-    override fun showErrMsg(err: String) {
-        showToast(err)
+    override fun showErrMsg(t: Throwable) {
+        showToast(t.message)
     }
 
     private fun initRecyclerView() {

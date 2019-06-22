@@ -6,8 +6,11 @@ interface UpbitDataSource {
     interface GetTickerCallback {
         fun onTickerLoaded(marketPrice: List<UpbitTicker>)
 
-        fun onDataNotAvailable(err: String?)
+        fun onDataNotAvailable(t: Throwable)
     }
 
-    fun getMarketPrice(prefix: String, callback: GetTickerCallback)
+    fun getMarketPrice(
+        prefix: String,
+        callback: GetTickerCallback
+    )
 }
