@@ -55,9 +55,13 @@ object TickerRemoteDataSource : BaseDataSource {
                     val responseList =
                         response.body()?.map { it.market }?.filter { it.substringBeforeLast("-") == marketName }
                     val coinList = responseList?.joinToString()
-                    if (coinList != null) {
+//                    if (coinList != null) {
+//                        Log.e("TAG TickerRemoteDataSource", "null!")
+//                        getTickerList(coinList, callback)
+//                    }
+                    coinList?.let{
                         Log.e("TAG TickerRemoteDataSource", "null!")
-                        getTickerList(coinList, callback)
+                        getTickerList(it,callback)
                     }
                 }
             }
