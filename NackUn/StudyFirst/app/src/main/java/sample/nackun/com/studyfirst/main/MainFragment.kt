@@ -48,8 +48,6 @@ class MainFragment : Fragment(), MainContract.View {
             marketKRW.callOnClick()
         }
 
-        mainPresenter.start()
-
         return root
     }
 
