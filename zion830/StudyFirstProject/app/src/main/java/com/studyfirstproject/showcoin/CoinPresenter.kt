@@ -12,10 +12,13 @@ class CoinPresenter(private val view: CoinContract.View) :
     }
 
     override fun getMarketData() {
+        view.showProgress()
         repository.getAllMarkets(this)
     }
 
     override fun onMarketsLoaded(markets: String) {
+        view.hideProgress()
+        view.hideRefreshIcon()
         repository.getCoinData(markets, this)
     }
 
