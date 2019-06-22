@@ -89,7 +89,7 @@ class CoinFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, OnMor
         coinPresenter.getCoins(ticketList)
     }
 
-    override fun showCoins(list: List<TickerModel>?) {
+    override fun showCoins(list: List<TickerModel>) {
         if (adapter.itemCount > 0) {
             adapter.clear()
         }

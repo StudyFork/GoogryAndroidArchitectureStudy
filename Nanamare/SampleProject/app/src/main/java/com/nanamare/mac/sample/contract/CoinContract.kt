@@ -7,7 +7,7 @@ import com.nanamare.mac.sample.presenter.BaseView
 interface CoinContract {
 
     interface CoinView : BaseView {
-        fun showCoins(list: List<TickerModel>?)
+        fun showCoins(list: List<TickerModel>)
     }
 
     interface CoinPresenter : BasePresenter {
