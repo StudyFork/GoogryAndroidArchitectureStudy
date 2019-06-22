@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class UpbitRetrofitDataSource : UpbitDataSource {
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://api.upbit.com/v1/")
+        .baseUrl("https://api.upbit.com/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(
             OkHttpClient.Builder().addInterceptor(
@@ -19,7 +19,7 @@ class UpbitRetrofitDataSource : UpbitDataSource {
             ).build()
         )
         .build()
-        .create(UpbitDataSource.Service::class.java)
+        .create(UpbitService::class.java)
 
     override fun getMarketPrice(prefix: String, callback: UpbitDataSource.GetTickerCallback) {
         retrofit.getMarkets().enqueue(object : Callback<List<UpbitTicker>> {
