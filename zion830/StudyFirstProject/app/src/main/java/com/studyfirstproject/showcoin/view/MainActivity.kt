@@ -1,6 +1,7 @@
 package com.studyfirstproject.showcoin.view
 
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
@@ -13,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 
 
-class MainActivity : AppCompatActivity(), CoinContract.View {
+class MainActivity : AppCompatActivity(), CoinContract.View, SwipeRefreshLayout.OnRefreshListener {
     override lateinit var presenter: CoinContract.Presenter
     private lateinit var coinAdapter: CoinRecyclerViewAdapter
 
@@ -28,22 +29,17 @@ class MainActivity : AppCompatActivity(), CoinContract.View {
     override fun initView() {
         coinAdapter = CoinRecyclerViewAdapter()
         rv_main.adapter = coinAdapter
-        layout_main_swipe.setOnRefreshListener {
-            getMarketData()
-        }
+        layout_main_swipe.setOnRefreshListener(this)
 
         getMarketData()
     }
 
     private fun getMarketData() {
-        showProgress()
         presenter.getMarketData()
     }
 
     override fun setCoinInfo(coinData: List<TickerModel>) {
         coinAdapter.setCoinList(coinData)
-        hideProgress()
-        hideRefreshIcon()
     }
 
     override fun showProgress() {
@@ -62,5 +58,9 @@ class MainActivity : AppCompatActivity(), CoinContract.View {
     override fun notifyError(msg: String, reason: String?) {
         toast(msg)
         Log.e(localClassName, reason ?: "No error message")
+    }
+
+    override fun onRefresh() {
+        getMarketData()
     }
 }
