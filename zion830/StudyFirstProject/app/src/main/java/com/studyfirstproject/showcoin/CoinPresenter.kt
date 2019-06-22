@@ -17,12 +17,12 @@ class CoinPresenter(private val view: CoinContract.View) :
     }
 
     override fun onMarketsLoaded(markets: String) {
-        view.hideProgress()
-        view.hideRefreshIcon()
         repository.getCoinData(markets, this)
     }
 
     override fun onCoinsLoaded(tickers: List<TickerModel>) {
+        view.hideProgress()
+        view.hideRefreshIcon()
         view.setCoinInfo(tickers)
     }
 
