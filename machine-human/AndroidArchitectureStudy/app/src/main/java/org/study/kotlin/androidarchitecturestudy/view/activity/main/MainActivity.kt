@@ -5,13 +5,14 @@ import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import kotlinx.android.synthetic.main.activity_main.*
 import org.study.kotlin.androidarchitecturestudy.R
 import org.study.kotlin.androidarchitecturestudy.adapter.viewpageradapter.MainViewPagerAdapter
 import org.study.kotlin.androidarchitecturestudy.view.fragment.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var viewPagerMain: ViewPager
-    private lateinit var tablayoutMain: TabLayout
+    private lateinit var mviewPagerMain: ViewPager
+    private lateinit var mtablayoutMain: TabLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +27,8 @@ class MainActivity : AppCompatActivity() {
     private fun initViews() {
         Log.e("TAG MainActivity", "initViews")
 
-        tablayoutMain = findViewById(R.id.tablayout_main)
-        viewPagerMain = findViewById(R.id.viewpager_main)
+        mtablayoutMain = tablayout_main
+        mviewPagerMain = viewpager_main
     }
 
     private fun setupViewPager() {
@@ -51,8 +52,8 @@ class MainActivity : AppCompatActivity() {
         adapter.addFragment(thirdFragment, "ETH")
         adapter.addFragment(fourFragment, "USDT")
 
-        viewPagerMain.adapter = adapter
-        tablayoutMain.setupWithViewPager(viewPagerMain)
+        mviewPagerMain.adapter = adapter
+        mtablayoutMain.setupWithViewPager(mviewPagerMain)
     }
 
 
