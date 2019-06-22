@@ -1,7 +1,7 @@
 package com.architecturestudy.upbitmarket
 
-import com.architecturestudy.common.BasePresenter
-import com.architecturestudy.common.BaseView
+import com.architecturestudy.base.BasePresenter
+import com.architecturestudy.base.BaseView
 import com.architecturestudy.data.UpBitTicker
 
 interface UpBitContract {

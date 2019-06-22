@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.architecturestudy.R
-import com.architecturestudy.common.BaseFragment
+import com.architecturestudy.base.BaseFragment
 import com.architecturestudy.data.UpBitRepository
 import com.architecturestudy.data.UpBitTicker
 import com.architecturestudy.data.source.UpBitRetrofitDataSource

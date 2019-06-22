@@ -1,4 +1,4 @@
-package com.architecturestudy.common
+package com.architecturestudy.base
 
 interface BasePresenter {
     fun start()

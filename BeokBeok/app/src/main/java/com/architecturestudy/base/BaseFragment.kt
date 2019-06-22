@@ -1,4 +1,4 @@
-package com.architecturestudy.common
+package com.architecturestudy.base
 
 import android.support.v4.app.Fragment
 import android.widget.Toast
