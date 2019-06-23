@@ -12,9 +12,9 @@
 		android:id="@+id/main_market_tab_tl"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginLeft="15dp"
-		android:layout_marginTop="10dp"
-		android:layout_marginRight="15dp"
+		android:layout_marginLeft="16dp"
+		android:layout_marginTop="12dp"
+		android:layout_marginRight="16dp"
 		app:tabGravity="center"
 		app:tabIndicatorColor="@color/accent"
 		app:tabMode="fixed"
@@ -28,9 +28,9 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="20dp"
-		android:layout_marginTop="10dp"
-		android:layout_marginRight="15dp"
-		android:layout_marginBottom="10dp"
+		android:layout_marginTop="12dp"
+		android:layout_marginRight="16dp"
+		android:layout_marginBottom="12dp"
 		android:orientation="horizontal">
 
 		<TextView
@@ -40,7 +40,7 @@
 			android:layout_weight="0.8"
 			android:text="@string/all_coin_name"
 			android:textColor="@color/black"
-			android:textSize="14sp" />
+			android:textSize="16sp" />
 
 		<TextView
 			android:id="@+id/main_sort_tab_tv_now_price"
@@ -50,7 +50,7 @@
 			android:gravity="center"
 			android:text="@string/all_now_price"
 			android:textColor="@color/black"
-			android:textSize="14sp" />
+			android:textSize="16sp" />
 
 		<TextView
 			android:id="@+id/main_sort_tab_tv_compare_before"
@@ -60,7 +60,7 @@
 			android:gravity="center"
 			android:text="@string/all_compare_before"
 			android:textColor="@color/black"
-			android:textSize="14sp" />
+			android:textSize="16sp" />
 
 		<TextView
 			android:id="@+id/main_sort_tab_tv_total_deal_price"
@@ -70,16 +70,16 @@
 			android:gravity="center"
 			android:text="@string/all_total_deal_price"
 			android:textColor="@color/black"
-			android:textSize="14sp" />
+			android:textSize="16sp" />
 	</LinearLayout>
 
 	<androidx.viewpager.widget.ViewPager
 		android:id="@+id/main_vp"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_marginLeft="15dp"
-		android:layout_marginRight="15dp"
-		android:layout_marginBottom="15dp">
+		android:layout_marginLeft="16dp"
+		android:layout_marginRight="16dp"
+		android:layout_marginBottom="16dp">
 
 	</androidx.viewpager.widget.ViewPager>
 
