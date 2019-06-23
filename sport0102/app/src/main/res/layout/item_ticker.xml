@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_marginBottom="5dp"
 	android:background="@drawable/stroke_1dp_radius"
 	android:gravity="center_vertical"
@@ -14,7 +15,7 @@
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="5dp"
 		android:layout_weight="1"
-		android:text="BTC"
+		tools:text="BTC"
 		android:textColor="@color/black"
 		android:textSize="18sp"
 		android:textStyle="bold" />
@@ -25,7 +26,7 @@
 		android:layout_height="wrap_content"
 		android:layout_marginRight="10dp"
 		android:layout_weight="0.9"
-		android:text="9,661,000"
+		tools:text="9,661,000"
 		android:textAlignment="textEnd"
 		android:textColor="@color/black"
 		android:textSize="14sp" />
@@ -37,7 +38,7 @@
 		android:layout_marginRight="10dp"
 		android:layout_weight="1.1"
 		android:maxLines="1"
-		android:text="-0.39%"
+		tools:text="-0.39%"
 		android:textAlignment="textEnd"
 		android:textColor="@color/black"
 		android:textSize="14sp" />
@@ -49,7 +50,7 @@
 		android:layout_marginRight="5dp"
 		android:layout_weight="1.1"
 		android:maxLines="1"
-		android:text="180,051 M"
+		tools:text="180,051 M"
 		android:textAlignment="textEnd"
 		android:textColor="@color/black"
 		android:textSize="14sp" />
