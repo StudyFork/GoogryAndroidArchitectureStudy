@@ -1,4 +1,4 @@
-package com.nanamare.mac.sample.adapter.viewholder
+package com.nanamare.mac.sample.base
 
 import android.content.Context
 import android.view.View

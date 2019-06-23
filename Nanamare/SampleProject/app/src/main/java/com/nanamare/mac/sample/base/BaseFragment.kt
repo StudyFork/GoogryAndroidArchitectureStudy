@@ -1,8 +1,7 @@
-package com.nanamare.mac.sample.ui
+package com.nanamare.mac.sample.base
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.nanamare.mac.sample.presenter.BaseView
 
 open class BaseFragment : Fragment() , BaseView {
 

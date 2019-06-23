@@ -1,10 +1,11 @@
-package com.nanamare.mac.sample.ui
+package com.nanamare.mac.sample.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.nanamare.mac.sample.R
-import com.nanamare.mac.sample.presenter.BaseView
+import com.nanamare.mac.sample.ui.MainActivity
+import com.nanamare.mac.sample.ui.ProgressDialogFragment
 
 abstract class BaseActivity : AppCompatActivity(), BaseView {
 

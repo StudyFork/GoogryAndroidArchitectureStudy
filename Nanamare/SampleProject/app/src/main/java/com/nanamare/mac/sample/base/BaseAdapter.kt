@@ -1,8 +1,7 @@
-package com.nanamare.mac.sample.adapter
+package com.nanamare.mac.sample.base
 
 
 import androidx.recyclerview.widget.RecyclerView
-import com.nanamare.mac.sample.adapter.viewholder.BaseViewHolder
 
 
 abstract class BaseAdapter<T>(data: List<T>) : RecyclerView.Adapter<BaseViewHolder<T>>() {

@@ -12,6 +12,7 @@ import com.malinskiy.superrecyclerview.OnMoreListener
 import com.nanamare.mac.sample.R
 import com.nanamare.mac.sample.adapter.TickerAdapter
 import com.nanamare.mac.sample.api.upbit.TickerModel
+import com.nanamare.mac.sample.base.BaseFragment
 import com.nanamare.mac.sample.contract.CoinContract
 import com.nanamare.mac.sample.presenter.CoinPresenter
 import kotlinx.android.synthetic.main.fragment_coin_list.*

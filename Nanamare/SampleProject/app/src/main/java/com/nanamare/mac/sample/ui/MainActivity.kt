@@ -2,6 +2,7 @@ package com.nanamare.mac.sample.ui
 
 import android.os.Bundle
 import com.nanamare.mac.sample.R
+import com.nanamare.mac.sample.base.BaseActivity
 import com.nanamare.mac.sample.contract.MarketContract
 import com.nanamare.mac.sample.presenter.MarketPresenter
 

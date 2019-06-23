@@ -1,8 +1,8 @@
 package com.nanamare.mac.sample.contract
 
 import com.nanamare.mac.sample.api.upbit.TickerModel
-import com.nanamare.mac.sample.presenter.BasePresenter
-import com.nanamare.mac.sample.presenter.BaseView
+import com.nanamare.mac.sample.base.BasePresenter
+import com.nanamare.mac.sample.base.BaseView
 
 interface CoinContract {
 

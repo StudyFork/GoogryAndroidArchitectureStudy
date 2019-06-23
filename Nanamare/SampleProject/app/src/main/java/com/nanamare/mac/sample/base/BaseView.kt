@@ -1,4 +1,4 @@
-package com.nanamare.mac.sample.presenter
+package com.nanamare.mac.sample.base
 
 import android.os.Bundle
 

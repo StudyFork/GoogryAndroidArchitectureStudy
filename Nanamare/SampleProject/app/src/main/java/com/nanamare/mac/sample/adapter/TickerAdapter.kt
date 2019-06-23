@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import com.nanamare.mac.sample.R
 import com.nanamare.mac.sample.adapter.viewholder.TickerViewHolder
 import com.nanamare.mac.sample.api.upbit.TickerModel
+import com.nanamare.mac.sample.base.BaseAdapter
 
 class TickerAdapter(data: List<TickerModel>) : BaseAdapter<TickerModel>(data) {
     constructor() : this(emptyList())

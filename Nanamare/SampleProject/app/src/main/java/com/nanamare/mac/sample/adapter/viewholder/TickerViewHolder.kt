@@ -2,6 +2,7 @@ package com.nanamare.mac.sample.adapter.viewholder
 
 import android.view.View
 import com.nanamare.mac.sample.api.upbit.TickerModel
+import com.nanamare.mac.sample.base.BaseViewHolder
 import kotlinx.android.synthetic.main.item_ticker.view.*
 
 class TickerViewHolder(itemView: View) : BaseViewHolder<TickerModel>(itemView) {
