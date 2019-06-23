@@ -20,19 +20,12 @@ class MainActivity : AppCompatActivity() {
         }
         main_vp.adapter = MainPagerAdapter(supportFragmentManager)
         main_vp.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(main_market_tab_tl))
-        main_market_tab_tl.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
-
+        main_market_tab_tl.addOnTabSelectedListener(object : TabSelectedListener() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 tab?.let {
                     main_vp.currentItem = it.position
                 }
             }
-
         })
     }
 
