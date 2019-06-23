@@ -35,12 +35,18 @@ class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewH
     }
 
     inner class ItemTickerViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+
+        private val tvCoinName by lazy { view.item_ticker_tv_coin_name }
+        private val tvNowPrice by lazy { view.item_ticker_tv_now_price }
+        private val tvCompareBefore by lazy { view.item_ticker_tv_compare_before }
+        private val tvTotalDealPrice by lazy { view.item_ticker_tv_total_deal_price }
+
         fun bind(tickerModel: TickerModel) {
             with(view) {
                 // 코인 이름
-                item_ticker_tv_coin_name.text = tickerModel.market.split("-")[1]
+                tvCoinName.text = tickerModel.market.split("-")[1]
                 // 현재 가격
-                item_ticker_tv_now_price.text = if (tickerModel.market.startsWith(
+                tvNowPrice.text = if (tickerModel.market.startsWith(
                         Market.KRW.marketName,
                         true
                     )
@@ -61,22 +67,22 @@ class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewH
                 // 전일대비
                 when {
                     tickerModel.prevClosingPrice > tickerModel.tradePrice -> {
-                        item_ticker_tv_compare_before.setTextColor(context.getColor(R.color.blue))
+                        tvCompareBefore.setTextColor(context.getColor(R.color.blue))
                     }
                     tickerModel.prevClosingPrice < tickerModel.tradePrice -> {
-                        item_ticker_tv_compare_before.setTextColor(context.getColor(R.color.red))
+                        tvCompareBefore.setTextColor(context.getColor(R.color.red))
                     }
                     else -> {
-                        item_ticker_tv_compare_before.setTextColor(context.getColor(R.color.black))
+                        tvCompareBefore.setTextColor(context.getColor(R.color.black))
                     }
                 }
-                item_ticker_tv_compare_before.text =
+                tvCompareBefore.text =
                     StringUtil.getPercent(
                         tickerModel.prevClosingPrice,
                         tickerModel.tradePrice
                     )
                 // 거래대금
-                item_ticker_tv_total_deal_price.text =
+                tvTotalDealPrice.text =
                     if (tickerModel.market.startsWith(
                             Market.KRW.marketName,
                             true
