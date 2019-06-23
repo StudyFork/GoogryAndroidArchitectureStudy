@@ -3,17 +3,14 @@ package com.architecturestudy.upbitmarket.recyclerview
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.architecturestudy.R
-import com.architecturestudy.data.UpbitTicker
-import java.math.BigDecimal
-import java.text.DecimalFormat
+import kotlinx.android.synthetic.main.fragment_upbit.view.*
 
 class UpbitAdapter : RecyclerView.Adapter<UpbitAdapter.ViewHolder>() {
-    var marketPrice: List<UpbitTicker>? = null
+    var marketPrice: List<Map<String, String>>? = null
 
-    fun setMarketPrices(marketPrice: List<UpbitTicker>) {
+    fun setMarketPrices(marketPrice: List<Map<String, String>>) {
         this.marketPrice = marketPrice
     }
 
@@ -29,37 +26,16 @@ class UpbitAdapter : RecyclerView.Adapter<UpbitAdapter.ViewHolder>() {
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val coinName = itemView.findViewById<TextView>(R.id.tv_coin_name)
-        private val currentPrice = itemView.findViewById<TextView>(R.id.tv_current_price)
-        private val netChange = itemView.findViewById<TextView>(R.id.tv_net_change)
-        private val tradingVal = itemView.findViewById<TextView>(R.id.tv_trading_value)
+        private val coinName = itemView.tv_coin_name
+        private val currentPrice = itemView.tv_current_price
+        private val netChange = itemView.tv_net_change
+        private val tradingVal = itemView.tv_trading_value
 
-        fun bind(marketPrice: UpbitTicker) {
-            coinName?.text =
-                if (marketPrice.market?.contains("-")!!)
-                    marketPrice.market.substringAfter("-")
-                else
-                    marketPrice.market
-            currentPrice?.text =
-                if (marketPrice.tradePrice?.toBigDecimal()?.compareTo(BigDecimal.ONE)!! < 0)
-                    String.format("%.8f", marketPrice.tradePrice.toBigDecimal())
-                else
-                    DecimalFormat("#,###.##").format(marketPrice.tradePrice.toBigDecimal())
-            netChange?.text = String.format("%.2f", marketPrice.signedChangeRate?.times(100))
-            tradingVal?.text =
-                when {
-                    marketPrice.accTradePrice24h?.div(1_000_000)!! > 100 -> DecimalFormat("#,###M").format(
-                        marketPrice.accTradePrice24h.div(
-                            1_000_000
-                        )
-                    )
-                    marketPrice.accTradePrice24h.div(1_000) > 1_000 -> DecimalFormat("#,###k").format(
-                        marketPrice.accTradePrice24h.div(
-                            1_000
-                        )
-                    )
-                    else -> DecimalFormat("#,###.###").format(marketPrice.accTradePrice24h)
-                }
+        fun bind(marketPrice: Map<String, String>) {
+            coinName.text = marketPrice["coinName"]
+            currentPrice.text = marketPrice["currentPrice"]
+            netChange.text = marketPrice["netChange"]
+            tradingVal.text = marketPrice["tradingVal"]
         }
     }
 }

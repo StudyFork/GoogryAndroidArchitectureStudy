@@ -10,9 +10,6 @@ data class UpbitTicker(
     @SerializedName("trade_price")
     val tradePrice: Double?,
 
-    @SerializedName("change")
-    val change: String?,
-
     @SerializedName("signed_change_rate")
     val signedChangeRate: Double?,
 

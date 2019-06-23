@@ -27,9 +27,11 @@ class UpbitRepository private constructor(
     }
 
     companion object {
+        private var instance: UpbitRepository? = null
 
-        operator fun invoke(upbitRerofitDataSource: UpbitRetrofitDataSource): UpbitRepository {
-            return UpbitRepository(upbitRetrofitDataSource = upbitRerofitDataSource)
+        operator fun invoke(upbitRetrofitDataSource: UpbitRetrofitDataSource): UpbitRepository {
+            return instance ?: UpbitRepository(upbitRetrofitDataSource)
+                .apply { instance = this }
         }
 
     }

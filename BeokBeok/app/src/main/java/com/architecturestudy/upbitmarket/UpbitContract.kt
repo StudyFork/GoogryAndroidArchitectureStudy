@@ -2,11 +2,10 @@ package com.architecturestudy.upbitmarket
 
 import com.architecturestudy.base.BasePresenter
 import com.architecturestudy.base.BaseView
-import com.architecturestudy.data.UpbitTicker
 
 interface UpbitContract {
     interface View : BaseView<Presenter> {
-        fun updateMarketPrice(marketPrice: List<UpbitTicker>)
+        fun updateMarketPrice(marketPrice: List<Map<String, String>>)
 
         fun showErrMsg(t: Throwable)
     }

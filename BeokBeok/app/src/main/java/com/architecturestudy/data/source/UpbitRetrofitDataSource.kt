@@ -2,25 +2,13 @@ package com.architecturestudy.data.source
 
 import com.architecturestudy.data.UpbitTicker
 import com.architecturestudy.data.base.Markets
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-class UpbitRetrofitDataSource private constructor() : UpbitDataSource {
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("https://api.upbit.com/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .client(
-            OkHttpClient.Builder().addInterceptor(
-                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-            ).build()
-        )
-        .build()
-        .create(UpbitService::class.java)
+class UpbitRetrofitDataSource private constructor(
+    private val retrofit: UpbitService
+) : UpbitDataSource {
 
     override fun getMarketPrice(
         prefix: String,
@@ -82,9 +70,11 @@ class UpbitRetrofitDataSource private constructor() : UpbitDataSource {
     }
 
     companion object {
+        private var instance: UpbitRetrofitDataSource? = null
 
-        operator fun invoke(): UpbitRetrofitDataSource {
-            return UpbitRetrofitDataSource()
+        operator fun invoke(retrofit: UpbitService): UpbitRetrofitDataSource {
+            return instance ?: UpbitRetrofitDataSource(retrofit)
+                .apply { instance = this }
         }
 
     }

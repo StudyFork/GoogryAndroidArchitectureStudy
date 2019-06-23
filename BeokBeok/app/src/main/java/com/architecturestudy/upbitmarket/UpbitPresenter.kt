@@ -3,6 +3,7 @@ package com.architecturestudy.upbitmarket
 import com.architecturestudy.data.UpbitRepository
 import com.architecturestudy.data.UpbitTicker
 import com.architecturestudy.data.source.UpbitDataSource
+import com.architecturestudy.util.NumberFormatter
 
 class UpbitPresenter(
     private val upbitView: UpbitContract.View,
@@ -14,7 +15,9 @@ class UpbitPresenter(
     }
 
     override fun onTickerLoaded(marketPrice: List<UpbitTicker>) {
-        upbitView.updateMarketPrice(marketPrice)
+        upbitView.updateMarketPrice(
+            NumberFormatter.convertTo(marketPrice)
+        )
     }
 
     override fun onDataNotAvailable(t: Throwable) {
