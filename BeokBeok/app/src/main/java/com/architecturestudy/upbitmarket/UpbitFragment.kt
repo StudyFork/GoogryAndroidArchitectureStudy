@@ -3,10 +3,10 @@ package com.architecturestudy.upbitmarket
 
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.architecturestudy.R
 import com.architecturestudy.base.BaseFragment
 import com.architecturestudy.data.UpbitRepository
