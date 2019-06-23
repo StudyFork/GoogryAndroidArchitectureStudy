@@ -66,12 +66,9 @@ class UpbitRemoteDataSource(private var upbitApi: UpbitApi) : UpbitDataSource {
 
         private var instance: UpbitRemoteDataSource? = null
 
-        fun getInstance(
-            upbitApi: UpbitApi
-        ): UpbitRemoteDataSource {
-            return instance ?: UpbitRemoteDataSource(upbitApi)
+        fun getInstance(upbitApi: UpbitApi) =
+            instance ?: UpbitRemoteDataSource(upbitApi)
                 .apply { instance = this }
-        }
 
     }
 }
