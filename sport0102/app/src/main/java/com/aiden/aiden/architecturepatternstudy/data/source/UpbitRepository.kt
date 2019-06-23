@@ -58,19 +58,14 @@ class UpbitRepository(
 
     companion object {
 
-        private var INSTANCE: UpbitRepository? = null
+        private var instance: UpbitRepository? = null
 
-        @JvmStatic
         fun getInstance(
             UpbitRemoteDataSource: UpbitDataSource
         ): UpbitRepository {
-            return INSTANCE ?: UpbitRepository(UpbitRemoteDataSource)
-                .apply { INSTANCE = this }
+            return instance ?: UpbitRepository(UpbitRemoteDataSource)
+                .apply { instance = this }
         }
 
-        @JvmStatic
-        fun destroyInstance() {
-            INSTANCE = null
-        }
     }
 }

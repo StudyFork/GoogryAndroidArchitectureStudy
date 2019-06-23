@@ -15,10 +15,11 @@ private val mainClient =
         })
         .build()
 
-val retrofit: Retrofit =
+val retrofit =
     Retrofit.Builder()
         .baseUrl(API_URL)
         .client(mainClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+
 

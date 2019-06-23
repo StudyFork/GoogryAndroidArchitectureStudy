@@ -18,7 +18,6 @@ package com.aiden.aiden.architecturepatternstudy.data.source.remote
 import com.aiden.aiden.architecturepatternstudy.api.UpbitApi
 import com.aiden.aiden.architecturepatternstudy.api.model.MarketModel
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerModel
-import com.aiden.aiden.architecturepatternstudy.api.retrofit
 import com.aiden.aiden.architecturepatternstudy.data.source.UpbitDataSource
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,12 +26,10 @@ import retrofit2.Response
 /**
  * Implementation of the data source that adds a latency simulating network.
  */
-object UpbitRemoteDataSource : UpbitDataSource {
-
-    private val retrofitService: UpbitApi = retrofit.create(UpbitApi::class.java)
+class UpbitRemoteDataSource(private var upbitApi: UpbitApi) : UpbitDataSource {
 
     override fun getMarketList(callback: UpbitDataSource.GetMarketListCallback) {
-        retrofitService.getMarketList().enqueue(object : Callback<ArrayList<MarketModel>> {
+        upbitApi.getMarketList().enqueue(object : Callback<ArrayList<MarketModel>> {
 
             override fun onFailure(call: Call<ArrayList<MarketModel>>?, t: Throwable?) {
                 callback.onDataNotAvailable()
@@ -47,7 +44,7 @@ object UpbitRemoteDataSource : UpbitDataSource {
     }
 
     override fun getTickerList(marketList: ArrayList<MarketModel>, callback: UpbitDataSource.GetTickerListCallback) {
-        retrofitService.getTickerInfo(marketList.joinToString { marketModel -> marketModel.market })
+        upbitApi.getTickerInfo(marketList.joinToString { marketModel -> marketModel.market })
             .enqueue(object : Callback<ArrayList<TickerModel>> {
                 override fun onFailure(call: Call<ArrayList<TickerModel>>, t: Throwable) {
                     callback.onDataNotAvailable()
@@ -65,4 +62,17 @@ object UpbitRemoteDataSource : UpbitDataSource {
             })
     }
 
+    companion object {
+
+        private var instance: UpbitRemoteDataSource? = null
+
+        fun getInstance(
+            upbitApi: UpbitApi
+        ): UpbitRemoteDataSource {
+            return instance ?: UpbitRemoteDataSource(upbitApi)
+                .apply { instance = this }
+        }
+
+    }
 }
+
