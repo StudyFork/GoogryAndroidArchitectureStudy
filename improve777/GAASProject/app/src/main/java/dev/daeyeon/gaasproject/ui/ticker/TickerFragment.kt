@@ -108,6 +108,8 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
     }
 
     companion object {
+        const val TAG = "TickerFragment"
+
         fun newInstance(): TickerFragment {
             return TickerFragment()
         }
