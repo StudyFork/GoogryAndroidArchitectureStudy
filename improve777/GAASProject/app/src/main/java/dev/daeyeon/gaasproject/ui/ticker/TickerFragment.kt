@@ -15,6 +15,7 @@ import dev.daeyeon.gaasproject.data.response.ResponseCode
 import dev.daeyeon.gaasproject.data.source.UpbitDataSource
 import dev.daeyeon.gaasproject.data.source.UpbitRepository
 import dev.daeyeon.gaasproject.databinding.FragmentTickerBinding
+import dev.daeyeon.gaasproject.ext.popContent
 import dev.daeyeon.gaasproject.network.NetworkManager
 import dev.daeyeon.gaasproject.ui.ticker.marketchoice.MarketChoiceDialogFragment
 import dev.daeyeon.gaasproject.ui.ticker.search.TickerSearchDialogFragment
@@ -96,7 +97,7 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
      */
     private fun subscribeToFailMsg() {
         tickerViewModel.failMsgEvent.observe(this, Observer<Event<String>> { event ->
-            event.getContentIfNotHandled()?.let {
+            event.popContent {
                 toastTickerFailMsg(it)
             }
         })

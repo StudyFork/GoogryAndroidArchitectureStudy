@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import dev.daeyeon.gaasproject.R
 import dev.daeyeon.gaasproject.base.BaseDialogFragment
 import dev.daeyeon.gaasproject.databinding.DialogFragmentTickerSearchBinding
+import dev.daeyeon.gaasproject.ext.popContent
 import dev.daeyeon.gaasproject.ui.ticker.TickerFragment
 import dev.daeyeon.gaasproject.ui.ticker.TickerViewModel
 import dev.daeyeon.gaasproject.util.Event
@@ -41,7 +42,7 @@ class TickerSearchDialogFragment : BaseDialogFragment<DialogFragmentTickerSearch
      */
     private fun subscribeCompleteEvent() {
         searchViewModel.completeEvent.observe(this, Observer<Event<Unit>> { event ->
-            event.getContentIfNotHandled()?.let {
+            event.popContent {
                 tickerViewModel.loadUpbitTicker()
                 this@TickerSearchDialogFragment.dismiss()
             }

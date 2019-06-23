@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import dev.daeyeon.gaasproject.R
 import dev.daeyeon.gaasproject.base.BaseDialogFragment
 import dev.daeyeon.gaasproject.databinding.DialogFragmentMarketChoiceBinding
+import dev.daeyeon.gaasproject.ext.popContent
 import dev.daeyeon.gaasproject.ui.ticker.TickerFragment
 import dev.daeyeon.gaasproject.util.Event
 
@@ -74,7 +75,7 @@ class MarketChoiceDialogFragment : BaseDialogFragment<DialogFragmentMarketChoice
      */
     private fun subscribeCompleteEvent() {
         choiceViewModel.completeEvent.observe(this, Observer<Event<Unit>> { event ->
-            event.getContentIfNotHandled()?.let {
+            event.popContent {
                 chooseListener(choiceViewModel.chooseMarket)
                 this@MarketChoiceDialogFragment.dismiss()
             }
@@ -94,6 +95,6 @@ class MarketChoiceDialogFragment : BaseDialogFragment<DialogFragmentMarketChoice
                     EXTRA_OLD_MARKET to oldMarket,
                     EXTRA_MARKETS to markets
                 )
-        }
+            }
     }
 }
