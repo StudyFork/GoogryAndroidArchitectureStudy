@@ -21,37 +21,35 @@ class MainPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
             0 -> {
                 val krwFragment = MainFragment(Market.KRW.marketName)
                 presenter = MainPresenter(
-                    UpbitRepository.getInstance(
-                        UpbitRemoteDataSource.getInstance(upbitApi)
-                    ), krwFragment
+                    UpbitRepository.getInstance(UpbitRemoteDataSource(upbitApi)), krwFragment
                 )
                 return krwFragment
             }
             1 -> {
                 val btcFragment = MainFragment(Market.BTC.marketName)
                 presenter = MainPresenter(
-                    UpbitRepository.getInstance(UpbitRemoteDataSource.getInstance(upbitApi)), btcFragment
+                    UpbitRepository.getInstance(UpbitRemoteDataSource(upbitApi)), btcFragment
                 )
                 return btcFragment
             }
             2 -> {
                 val ethFragment = MainFragment(Market.ETH.marketName)
                 presenter = MainPresenter(
-                    UpbitRepository.getInstance(UpbitRemoteDataSource.getInstance(upbitApi)), ethFragment
+                    UpbitRepository.getInstance(UpbitRemoteDataSource(upbitApi)), ethFragment
                 )
                 return ethFragment
             }
             3 -> {
                 val usdtFragment = MainFragment(Market.USDT.marketName)
                 presenter = MainPresenter(
-                    UpbitRepository.getInstance(UpbitRemoteDataSource.getInstance(upbitApi)), usdtFragment
+                    UpbitRepository.getInstance(UpbitRemoteDataSource(upbitApi)), usdtFragment
                 )
                 return usdtFragment
             }
             else -> {
                 val krwFragment = MainFragment(Market.KRW.marketName)
                 presenter = MainPresenter(
-                    UpbitRepository.getInstance(UpbitRemoteDataSource.getInstance(upbitApi)), krwFragment
+                    UpbitRepository.getInstance(UpbitRemoteDataSource(upbitApi)), krwFragment
                 )
                 return krwFragment
             }

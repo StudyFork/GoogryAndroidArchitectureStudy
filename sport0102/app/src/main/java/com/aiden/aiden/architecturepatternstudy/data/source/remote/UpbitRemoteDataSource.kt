@@ -26,9 +26,10 @@ import retrofit2.Response
 /**
  * Implementation of the data source that adds a latency simulating network.
  */
-class UpbitRemoteDataSource(private var upbitApi: UpbitApi) : UpbitDataSource {
+class UpbitRemoteDataSource private constructor(private val upbitApi: UpbitApi) : UpbitDataSource {
 
     override fun getMarketList(callback: UpbitDataSource.GetMarketListCallback) {
+
         upbitApi.getMarketList().enqueue(object : Callback<ArrayList<MarketModel>> {
 
             override fun onFailure(call: Call<ArrayList<MarketModel>>?, t: Throwable?) {
@@ -40,10 +41,13 @@ class UpbitRemoteDataSource(private var upbitApi: UpbitApi) : UpbitDataSource {
                     callback.onMarketListLoaded(it)
                 }
             }
+
         })
+
     }
 
     override fun getTickerList(marketList: List<MarketModel>, callback: UpbitDataSource.GetTickerListCallback) {
+
         upbitApi.getTickerInfo(marketList.joinToString { marketModel -> marketModel.market })
             .enqueue(object : Callback<ArrayList<TickerModel>> {
                 override fun onFailure(call: Call<ArrayList<TickerModel>>, t: Throwable) {
@@ -66,10 +70,11 @@ class UpbitRemoteDataSource(private var upbitApi: UpbitApi) : UpbitDataSource {
 
         private var instance: UpbitRemoteDataSource? = null
 
-        fun getInstance(upbitApi: UpbitApi) =
+        operator fun invoke(upbitApi: UpbitApi) =
             instance ?: UpbitRemoteDataSource(upbitApi)
                 .apply { instance = this }
 
     }
+
 }
 
