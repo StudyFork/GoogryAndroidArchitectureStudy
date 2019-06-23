@@ -31,7 +31,7 @@ class TickerViewModel(
     /**
      * 기준 마켓
      */
-    private val _baseMarket = MutableLiveData<String>("")
+    private val _baseMarket = MutableLiveData<String>(UpbitDataSource.ALL_MARKET)
     val baseMarket: LiveData<String> get() = _baseMarket
 
     init {
@@ -42,7 +42,7 @@ class TickerViewModel(
         _isShowProgressBar.value = true
 
         upbitRepository.getTicker(
-            baseCurrency = _baseMarket.value!!,
+            baseCurrency = _baseMarket.value ?: UpbitDataSource.ALL_MARKET,
             searchTicker = searchText.value ?: UpbitDataSource.ALL_CURRENCY,
             success = {
                 _isShowProgressBar.value = false

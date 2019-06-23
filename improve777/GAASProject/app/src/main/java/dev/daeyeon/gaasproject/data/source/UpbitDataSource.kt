@@ -19,5 +19,6 @@ interface UpbitDataSource {
 
     companion object {
         const val ALL_CURRENCY = "전체"
+        const val ALL_MARKET = ""
     }
 }
