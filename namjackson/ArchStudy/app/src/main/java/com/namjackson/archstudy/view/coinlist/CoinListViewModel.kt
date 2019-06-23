@@ -28,13 +28,13 @@ class CoinListViewModel(
     private lateinit var markets: String
 
     init {
-        _filterCoinList.addSource(_searchStr, Observer { t ->
+        _filterCoinList.addSource(_searchStr, Observer {
             _filterCoinList.value = filteringCoinList()
         })
-        _filterCoinList.addSource(coinList, Observer { t ->
+        _filterCoinList.addSource(coinList, Observer {
             _filterCoinList.value = filteringCoinList()
         })
-        _filterCoinList.addSource(baseCurrency, Observer { t ->
+        _filterCoinList.addSource(baseCurrency, Observer {
             initMarket()
         })
     }
