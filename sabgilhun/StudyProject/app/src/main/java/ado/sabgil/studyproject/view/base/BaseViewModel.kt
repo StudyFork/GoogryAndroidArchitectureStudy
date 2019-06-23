@@ -3,9 +3,10 @@ package ado.sabgil.studyproject.view.base
 import ado.sabgil.studyproject.utils.SingleLiveEvent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
 
-abstract class BaseViewModel {
+abstract class BaseViewModel : ViewModel() {
 
     protected val disposables = CompositeDisposable()
 

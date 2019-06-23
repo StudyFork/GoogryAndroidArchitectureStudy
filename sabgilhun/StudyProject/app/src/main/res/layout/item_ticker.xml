@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -11,7 +12,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/backgroundWhite"
         android:orientation="horizontal">
 
         <TextView
@@ -20,34 +23,42 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center"
-            android:text="@{@string/searched_coin_name(item.base, item.coinName)}"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="@{@string/searched_coin_name(item.coinName, item.base)}"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tv_current_value"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="center"
-            android:text="@{item.currentValue.toString}"
-            android:textSize="14sp" />
+            android:layout_weight="2.5"
+            android:gravity="end"
+            android:paddingStart="4dp"
+            android:paddingEnd="16dp"
+            android:textSize="14sp"
+            app:setCurrentValue="@{item}" />
 
         <TextView
             android:id="@+id/tv_change_rate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:gravity="center"
-            android:text="@{item.changeRate}"
-            android:textSize="14sp" />
+            android:gravity="end"
+            android:paddingStart="4dp"
+            android:paddingEnd="16dp"
+            android:textSize="14sp"
+            app:setChangeRate="@{item}" />
 
         <TextView
             android:id="@+id/tv_acc_trade_value"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:text="@{item.accTradePrice}"
-            android:textSize="14sp" />
+            android:layout_weight="2.5"
+            android:gravity="end"
+            android:paddingStart="4dp"
+            android:paddingEnd="16dp"
+            android:textSize="14sp"
+            app:setAccTradeValue="@{item}" />
     </LinearLayout>
 </layout>

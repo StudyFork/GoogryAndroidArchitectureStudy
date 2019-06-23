@@ -8,6 +8,9 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 
 abstract class BaseFragment<B : ViewDataBinding>(
     private val layoutId: Int
@@ -18,7 +21,15 @@ abstract class BaseFragment<B : ViewDataBinding>(
 
     protected var progressBar: View? = null
 
-    protected val viewModelContainer = mutableListOf<BaseViewModel>()
+    protected fun <VM : ViewModel> getActivityScopeViewModel(
+        vmClass: Class<VM>,
+        viewModelFactory: ViewModelProvider.NewInstanceFactory
+    ) = ViewModelProviders.of(requireActivity(), viewModelFactory).get(vmClass)
+
+    protected fun <VM : ViewModel> getFragmentScopeViewModel(
+        vmClass: Class<VM>,
+        viewModelFactory: ViewModelProvider.NewInstanceFactory
+    ) = ViewModelProviders.of(this, viewModelFactory).get(vmClass)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,13 +38,6 @@ abstract class BaseFragment<B : ViewDataBinding>(
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         binding.lifecycleOwner = this
         return binding.root
-    }
-
-    override fun onDestroyView() {
-        for (viewModel in viewModelContainer) {
-            viewModel.onDestroy()
-        }
-        super.onDestroyView()
     }
 
     protected fun showToastMessage(msg: String) {
@@ -50,11 +54,5 @@ abstract class BaseFragment<B : ViewDataBinding>(
 
     protected fun bind(block: B.() -> Unit) {
         binding.block()
-    }
-
-    protected fun <T : BaseViewModel> addingToContainer(block: () -> T): T {
-        return block().apply {
-            viewModelContainer.add(this)
-        }
     }
 }

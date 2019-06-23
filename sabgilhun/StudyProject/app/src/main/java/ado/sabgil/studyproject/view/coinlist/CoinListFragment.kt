@@ -5,26 +5,37 @@ import ado.sabgil.studyproject.adapter.TickerAdapter
 import ado.sabgil.studyproject.data.CoinRepositoryImpl
 import ado.sabgil.studyproject.databinding.FragmnetCoinListBinding
 import ado.sabgil.studyproject.view.base.BaseFragment
+import ado.sabgil.studyproject.view.home.HomeViewModel
+import ado.sabgil.studyproject.view.home.HomeViewModelFactory
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 
+
 class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(R.layout.fragmnet_coin_list) {
 
-    private lateinit var coinListViewModel: CoinListViewModel
+    private val coinListViewModel: CoinListViewModel by lazy {
+        getFragmentScopeViewModel(
+            CoinListViewModel::class.java,
+            CoinListViewModelFactory(baseCurrency, CoinRepositoryImpl)
+        )
+    }
 
-    private val baseCurrency: String? by lazy {
-        arguments?.getString(ARGUMENT_BASE_CURRENCY)
+    private val homeViewModel: HomeViewModel by lazy {
+        getActivityScopeViewModel(
+            HomeViewModel::class.java,
+            HomeViewModelFactory(CoinRepositoryImpl)
+        )
+    }
+
+    private val baseCurrency: String by lazy {
+        requireArguments().getString(ARGUMENT_BASE_CURRENCY)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         progressBar = binding.pgCoinList
-
-        coinListViewModel = addingToContainer {
-            CoinListViewModel(baseCurrency!!, CoinRepositoryImpl)
-        }
 
         bind {
             vm = coinListViewModel
@@ -47,6 +58,11 @@ class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(R.layout.fragmnet
     private fun registerEvent() {
         coinListViewModel.run {
             showToastEvent.observe(this@CoinListFragment, Observer(::showToastMessage))
+        }
+
+        homeViewModel.run {
+            selectedSortField.observe(this@CoinListFragment, Observer(coinListViewModel::setSortingCriteria))
+            sortingOrder.observe(this@CoinListFragment, Observer(coinListViewModel::setSortingOrder))
         }
     }
 

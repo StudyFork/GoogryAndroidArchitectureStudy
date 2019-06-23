@@ -6,36 +6,24 @@ data class Ticker private constructor(
     val id: String,
     val base: String,
     val coinName: String,
-    val currentValue: String,
-    val changeRate: String,
-    val accTradePrice: String
+    val currentValue: Double,
+    val changeRate: Double,
+    val accTradePrice: Double
 ) {
 
     companion object {
-        private const val KILO = 1_000.0
-        private const val MEGA = 1_000_000.0
-
         fun fromApiResponse(tickerResponse: UpbitTickerResponse): Ticker {
-            val changeRate =
-                (Math.floor(tickerResponse.signedChangeRate * 10_000.0) / 100.0).toString() + "%"
+            val base = tickerResponse.market.substringBefore("-")
 
-            val accTradePrice =
-                when {
-                    tickerResponse.accTradePrice > MEGA ->
-                        Math.floor(tickerResponse.accTradePrice / MEGA).toInt().toString() + "M"
-                    tickerResponse.accTradePrice > KILO ->
-                        Math.floor(tickerResponse.accTradePrice / KILO).toInt().toString() + "K"
-                    else ->
-                        Math.floor(tickerResponse.accTradePrice).toInt().toString()
-                }
+            val coinName = tickerResponse.market.substringAfter("-")
 
             return Ticker(
                 tickerResponse.market,
-                tickerResponse.market.substringBefore("-"),
-                tickerResponse.market.substringAfter("-"),
-                tickerResponse.tradePrice.toBigDecimal().toString().format(".8f"),
-                changeRate,
-                accTradePrice
+                base,
+                coinName,
+                tickerResponse.tradePrice,
+                tickerResponse.signedChangeRate,
+                tickerResponse.accTradePrice
             )
         }
     }

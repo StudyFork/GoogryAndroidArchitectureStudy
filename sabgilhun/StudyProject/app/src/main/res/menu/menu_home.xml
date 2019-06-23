@@ -4,8 +4,8 @@
 
     <item
         android:id="@+id/action_search"
-        android:icon="@drawable/ic_search_black_24dp"
-        android:title="코인 검색"
+        android:icon="@drawable/vector_search"
+        android:title="@string/search_coin_menu_title"
         app:showAsAction="always" />
 
 </menu>
