@@ -5,18 +5,20 @@ import androidx.lifecycle.MutableLiveData
 import dev.daeyeon.gaasproject.base.BaseViewModel
 import dev.daeyeon.gaasproject.data.source.UpbitDataSource
 
-class MarketChoiceViewModel : BaseViewModel() {
+class MarketChoiceViewModel(
+    var markets: String = UpbitDataSource.ALL_MARKET
+) : BaseViewModel() {
 
-    var selectedMarket: String = ""
+    var chooseMarket: String = UpbitDataSource.ALL_MARKET
 
     /**
      * 마켓 어레이
      */
-    private val _marketList = MutableLiveData<List<String>>(emptyList())
+    private val _marketList = MutableLiveData<List<String>>(initMarketList(markets))
     val marketList: LiveData<List<String>>
         get() = _marketList
 
-    fun setMarketList(markets: String) {
+    private fun initMarketList(markets: String): List<String> {
         val list = arrayListOf(UpbitDataSource.ALL_CURRENCY)
 
         if (markets.isNotEmpty()) {
@@ -26,6 +28,6 @@ class MarketChoiceViewModel : BaseViewModel() {
             )
         }
 
-        _marketList.value = list
+        return list
     }
 }

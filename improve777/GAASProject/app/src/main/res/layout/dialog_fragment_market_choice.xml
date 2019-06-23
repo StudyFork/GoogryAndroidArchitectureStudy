@@ -15,6 +15,7 @@
         android:padding="10dp">
 
         <androidx.recyclerview.widget.RecyclerView
+            items="@{choiceViewModel.marketList}"
             android:id="@+id/rv_market"
             items="@{choiceViewModel.marketList}"
             android:layout_width="0dp"

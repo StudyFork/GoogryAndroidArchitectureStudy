@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import dev.daeyeon.gaasproject.R
 import dev.daeyeon.gaasproject.base.BaseFragment
 import dev.daeyeon.gaasproject.data.response.ResponseCode
+import dev.daeyeon.gaasproject.data.source.UpbitDataSource
 import dev.daeyeon.gaasproject.data.source.UpbitRepository
 import dev.daeyeon.gaasproject.databinding.FragmentTickerBinding
 import dev.daeyeon.gaasproject.network.NetworkManager
@@ -72,7 +73,10 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
      * 기본 통화 설정 다이얼로그
      */
     private fun showBaseCurrencyDialog() {
-        MarketChoiceDialogFragment.newInstance().show(childFragmentManager, null)
+        MarketChoiceDialogFragment.newInstance(
+            oldMarket = tickerViewModel.baseMarket.value ?: UpbitDataSource.ALL_MARKET,
+            markets = tickerViewModel.getMarkets()
+        ).show(childFragmentManager, null)
     }
 
     /**
@@ -105,6 +109,15 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
             ResponseCode.CODE_EMPTY_SUCCESS -> activity!!.toast(R.string.ticker_fragment_empty)
             else -> activity!!.toast(msg)
         }
+    }
+
+    /**
+     * 마켓이 선택되면 ticker refresh
+     * @param chooseMarket
+     */
+    fun refreshTickerByChooseMarket(chooseMarket: String) {
+        tickerViewModel.setBaseMarket(chooseMarket)
+        tickerViewModel.loadUpbitTicker()
     }
 
     companion object {
