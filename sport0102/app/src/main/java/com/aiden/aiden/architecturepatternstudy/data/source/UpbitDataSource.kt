@@ -32,7 +32,7 @@ interface UpbitDataSource {
 
     interface GetMarketListCallback {
 
-        fun onMarketListLoaded(marketList: ArrayList<MarketModel>)
+        fun onMarketListLoaded(marketList: List<MarketModel>)
 
         fun onDataNotAvailable()
 
@@ -40,7 +40,7 @@ interface UpbitDataSource {
 
     interface GetTickerListCallback {
 
-        fun onTickerListLoaded(tickerList: ArrayList<TickerModel>)
+        fun onTickerListLoaded(tickerList: List<TickerModel>)
 
         fun onDataNotAvailable()
 
@@ -48,6 +48,6 @@ interface UpbitDataSource {
 
     fun getMarketList(callback: GetMarketListCallback)
 
-    fun getTickerList(marketList: ArrayList<MarketModel>, callback: GetTickerListCallback)
+    fun getTickerList(marketList: List<MarketModel>, callback: GetTickerListCallback)
 
 }

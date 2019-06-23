@@ -11,7 +11,7 @@ import java.math.BigDecimal
 
 class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewHolder>() {
 
-    private var jjjjjj = ArrayList<TickerModel>()
+    private var tickerList = ArrayList<TickerModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemTickerViewHolder {
         val retView =
@@ -20,16 +20,16 @@ class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewH
         return ItemTickerViewHolder(retView)
     }
 
-    override fun getItemCount(): Int = jjjjjj.size
+    override fun getItemCount(): Int = tickerList.size
 
 
     override fun onBindViewHolder(holder: ItemTickerViewHolder, position: Int) {
-        holder.bind(jjjjjj[position])
+        holder.bind(tickerList[position])
     }
 
     fun setData(list: ArrayList<TickerModel>) {
-        this.jjjjjj.clear()
-        this.jjjjjj.addAll(list)
+        this.tickerList.clear()
+        this.tickerList.addAll(list)
     }
 
     inner class ItemTickerViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {

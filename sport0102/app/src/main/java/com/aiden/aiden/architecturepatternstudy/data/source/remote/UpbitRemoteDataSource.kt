@@ -43,7 +43,7 @@ class UpbitRemoteDataSource(private var upbitApi: UpbitApi) : UpbitDataSource {
         })
     }
 
-    override fun getTickerList(marketList: ArrayList<MarketModel>, callback: UpbitDataSource.GetTickerListCallback) {
+    override fun getTickerList(marketList: List<MarketModel>, callback: UpbitDataSource.GetTickerListCallback) {
         upbitApi.getTickerInfo(marketList.joinToString { marketModel -> marketModel.market })
             .enqueue(object : Callback<ArrayList<TickerModel>> {
                 override fun onFailure(call: Call<ArrayList<TickerModel>>, t: Throwable) {

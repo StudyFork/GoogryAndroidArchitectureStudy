@@ -32,7 +32,7 @@ class UpbitRepository(
 
     override fun getMarketList(callback: UpbitDataSource.GetMarketListCallback) {
         remoteDataSource.getMarketList(object : UpbitDataSource.GetMarketListCallback {
-            override fun onMarketListLoaded(marketList: ArrayList<MarketModel>) {
+            override fun onMarketListLoaded(marketList: List<MarketModel>) {
                 callback.onMarketListLoaded(marketList)
             }
 
@@ -43,9 +43,9 @@ class UpbitRepository(
         })
     }
 
-    override fun getTickerList(marketList: ArrayList<MarketModel>, callback: UpbitDataSource.GetTickerListCallback) {
+    override fun getTickerList(marketList: List<MarketModel>, callback: UpbitDataSource.GetTickerListCallback) {
         remoteDataSource.getTickerList(marketList, object : UpbitDataSource.GetTickerListCallback {
-            override fun onTickerListLoaded(tickerList: ArrayList<TickerModel>) {
+            override fun onTickerListLoaded(tickerList: List<TickerModel>) {
                 callback.onTickerListLoaded(tickerList)
             }
 
