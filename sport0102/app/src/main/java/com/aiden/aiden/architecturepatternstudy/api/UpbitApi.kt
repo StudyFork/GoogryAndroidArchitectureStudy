@@ -7,6 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface UpbitApi {
+
     @GET("v1/market/all/")
     fun getMarketList(): Call<ArrayList<MarketModel>>
 
