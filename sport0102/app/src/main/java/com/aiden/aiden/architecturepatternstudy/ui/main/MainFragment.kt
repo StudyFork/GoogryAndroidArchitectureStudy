@@ -23,7 +23,6 @@ class MainFragment(val market: String) : Fragment(), MainContract.View {
 
 
     override fun showTickerList(tickerList: List<TickerModel>) {
-        fragment_ticker_list_rv.layoutManager = LinearLayoutManager(context)
         fragment_ticker_list_rv.adapter = TickerListAdapter().apply {
             setData(tickerList)
             notifyDataSetChanged()
