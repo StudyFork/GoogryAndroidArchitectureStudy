@@ -3,14 +3,14 @@ package dev.daeyeon.gaasproject.ui.ticker
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import dev.daeyeon.gaasproject.base.BaseViewModel
 import dev.daeyeon.gaasproject.data.Ticker
 import dev.daeyeon.gaasproject.data.source.UpbitDataSource
 import dev.daeyeon.gaasproject.util.Event
 
 class TickerViewModel(
     private val upbitRepository: UpbitDataSource
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _tickerList = MutableLiveData<List<Ticker>>(emptyList())
     val tickerList: LiveData<List<Ticker>>
@@ -22,13 +22,6 @@ class TickerViewModel(
     private val _failMsgEvent = MutableLiveData<Event<String>>()
     val failMsgEvent: LiveData<Event<String>>
         get() = _failMsgEvent
-
-    /**
-     * 프로그레스바
-     */
-    private val _isShowProgressBar = MutableLiveData<Boolean>(false)
-    val isShowProgressBar: LiveData<Boolean>
-        get() = _isShowProgressBar
 
     /**
      * 검색어 two-way binding
