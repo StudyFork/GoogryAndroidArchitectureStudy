@@ -1,14 +1,16 @@
 package com.nanamare.mac.sample.adapter.viewholder
 
-import android.view.View
+import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import com.nanamare.mac.sample.api.upbit.TickerModel
 import com.nanamare.mac.sample.base.BaseViewHolder
 import kotlinx.android.synthetic.main.item_ticker.view.*
 
-class TickerViewHolder(itemView: View) : BaseViewHolder<TickerModel>(itemView) {
-
+class TickerViewHolder(
+    @LayoutRes layoutRes: Int,
+    parent: ViewGroup
+) : BaseViewHolder<TickerModel>(layoutRes, parent) {
     override fun bind(data: TickerModel) {
-
         /**
          * Todo market 에 맞춰서 나중에 포맷 바꿔야함
          */
