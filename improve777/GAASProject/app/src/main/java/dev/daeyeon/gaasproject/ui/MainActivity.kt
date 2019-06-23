@@ -12,12 +12,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-            supportFragmentManager.commit {
-                replace(
-                    R.id.container,
-                    supportFragmentManager.findFragmentByTag(TickerFragment.TAG) ?: TickerFragment.newInstance(),
-                    TickerFragment.TAG
-                )
-            }
+        supportFragmentManager.commit {
+            replace(
+                R.id.container,
+                supportFragmentManager.findFragmentByTag(TickerFragment.TAG) ?: TickerFragment.newInstance(),
+                TickerFragment.TAG
+            )
+        }
     }
 }
