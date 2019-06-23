@@ -27,11 +27,13 @@ import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
 class MainPresenter(private val upbitRepository: UpbitRepository, val mainView: MainContract.View) :
     MainContract.Presenter {
 
+    override fun start() {
+        //no-op
+    }
+
     init {
         mainView.presenter = this
     }
-
-    override fun start() {}
 
     override fun loadMarketList(market: String) {
         upbitRepository.getMarketList(object : UpbitDataSource.GetMarketListCallback {
