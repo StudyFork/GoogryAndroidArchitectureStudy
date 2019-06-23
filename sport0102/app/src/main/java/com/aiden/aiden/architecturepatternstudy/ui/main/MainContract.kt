@@ -24,7 +24,7 @@ interface MainContract {
 
     interface View : BaseView<Presenter> {
 
-        fun showTickerList(tickerList: ArrayList<TickerModel>)
+        fun showTickerList(tickerList: List<TickerModel>)
 
         fun showErrorToast()
 

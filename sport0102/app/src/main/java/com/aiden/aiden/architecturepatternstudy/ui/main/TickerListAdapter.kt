@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aiden.aiden.architecturepatternstudy.R
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerModel
+import com.aiden.aiden.architecturepatternstudy.data.enums.Market
+import com.aiden.aiden.architecturepatternstudy.util.StringUtil
 import kotlinx.android.synthetic.main.item_ticker.view.*
 import java.math.BigDecimal
 
@@ -27,7 +29,7 @@ class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewH
         holder.bind(tickerList[position])
     }
 
-    fun setData(list: ArrayList<TickerModel>) {
+    fun setData(list: List<TickerModel>) {
         this.tickerList.clear()
         this.tickerList.addAll(list)
     }
@@ -39,22 +41,22 @@ class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewH
                 item_ticker_tv_coin_name.text = tickerModel.market.split("-")[1]
                 // 현재 가격
                 item_ticker_tv_now_price.text = if (tickerModel.market.startsWith(
-                        com.aiden.aiden.architecturepatternstudy.data.enums.Market.KRW.marketName,
+                        Market.KRW.marketName,
                         true
                     )
                 ) {
-                    com.aiden.aiden.architecturepatternstudy.util.getKrwCommaPrice(BigDecimal(tickerModel.tradePrice))
+                    StringUtil.getKrwCommaPrice(BigDecimal(tickerModel.tradePrice))
                 } else if (tickerModel.market.startsWith(
-                        com.aiden.aiden.architecturepatternstudy.data.enums.Market.BTC.marketName,
+                        Market.BTC.marketName,
                         true
                     ) || tickerModel.market.startsWith(
-                        com.aiden.aiden.architecturepatternstudy.data.enums.Market.ETH.marketName,
+                        Market.ETH.marketName,
                         true
                     )
                 ) {
-                    com.aiden.aiden.architecturepatternstudy.util.getBtcEthCommaPrice(tickerModel.tradePrice)
+                    StringUtil.getBtcEthCommaPrice(tickerModel.tradePrice)
                 } else {
-                    com.aiden.aiden.architecturepatternstudy.util.getUsdtCommaPrice(tickerModel.tradePrice)
+                    StringUtil.getUsdtCommaPrice(tickerModel.tradePrice)
                 }
                 // 전일대비
                 when {
@@ -69,29 +71,29 @@ class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewH
                     }
                 }
                 item_ticker_tv_compare_before.text =
-                    com.aiden.aiden.architecturepatternstudy.util.getPercent(
+                    StringUtil.getPercent(
                         tickerModel.prevClosingPrice,
                         tickerModel.tradePrice
                     )
                 // 거래대금
                 item_ticker_tv_total_deal_price.text =
                     if (tickerModel.market.startsWith(
-                            com.aiden.aiden.architecturepatternstudy.data.enums.Market.KRW.marketName,
+                            Market.KRW.marketName,
                             true
                         )
                     ) {
-                        com.aiden.aiden.architecturepatternstudy.util.getKrwTotalDealPrice(tickerModel.accTradePrice24h)
+                        StringUtil.getKrwTotalDealPrice(tickerModel.accTradePrice24h)
                     } else if (tickerModel.market.startsWith(
-                            com.aiden.aiden.architecturepatternstudy.data.enums.Market.BTC.marketName,
+                            Market.BTC.marketName,
                             true
                         ) || tickerModel.market.startsWith(
-                            com.aiden.aiden.architecturepatternstudy.data.enums.Market.ETH.marketName,
+                            Market.ETH.marketName,
                             true
                         )
                     ) {
-                        com.aiden.aiden.architecturepatternstudy.util.getBtcEthTotalDealPrice(tickerModel.accTradePrice24h)
+                        StringUtil.getBtcEthTotalDealPrice(tickerModel.accTradePrice24h)
                     } else {
-                        com.aiden.aiden.architecturepatternstudy.util.getUsdtTotalDealPrice(tickerModel.accTradePrice24h)
+                        StringUtil.getUsdtTotalDealPrice(tickerModel.accTradePrice24h)
                     }
             }
         }

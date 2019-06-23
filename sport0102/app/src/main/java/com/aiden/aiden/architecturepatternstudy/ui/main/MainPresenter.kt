@@ -35,7 +35,7 @@ class MainPresenter(private val upbitRepository: UpbitRepository, val mainView: 
 
     override fun loadMarketList(market: String) {
         upbitRepository.getMarketList(object : UpbitDataSource.GetMarketListCallback {
-            override fun onMarketListLoaded(marketList: ArrayList<MarketModel>) {
+            override fun onMarketListLoaded(marketList: List<MarketModel>) {
                 val modifiedMarketList = marketList.filter { item -> item.market.startsWith(market, true) } as ArrayList
                 loadTickerList(modifiedMarketList)
             }
@@ -49,7 +49,7 @@ class MainPresenter(private val upbitRepository: UpbitRepository, val mainView: 
 
     override fun loadTickerList(marketList: ArrayList<MarketModel>) {
         upbitRepository.getTickerList(marketList, object : UpbitDataSource.GetTickerListCallback {
-            override fun onTickerListLoaded(tickerList: ArrayList<TickerModel>) {
+            override fun onTickerListLoaded(tickerList: List<TickerModel>) {
                 mainView.showTickerList(tickerList)
             }
 
