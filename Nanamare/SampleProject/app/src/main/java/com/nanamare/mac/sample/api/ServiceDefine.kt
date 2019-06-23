@@ -1,8 +1,6 @@
 package com.nanamare.mac.sample.api
 
-import com.nanamare.mac.sample.AppApplication
 import com.nanamare.mac.sample.BuildConfig
-import com.nanamare.mac.sample.R
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -12,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ServiceDefine {
 
-    private val BASE_URL = AppApplication.instance.context().getString(R.string.upbit_base_url)
+    private const val BASE_URL = "https://api.upbit.com"
 
     val retrofit: Retrofit = Retrofit.Builder()
         .client(OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().apply {

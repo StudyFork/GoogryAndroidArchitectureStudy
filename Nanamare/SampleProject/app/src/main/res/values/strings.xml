@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">AndroidStudy</string>
 
-    <string name="upbit_base_url">https://api.upbit.com</string>
-
     <string name="empty_coin_list">아직 코인리스트를 받아오지 못했어요!</string>
 
     <string name="scroll_end">끝!</string>
