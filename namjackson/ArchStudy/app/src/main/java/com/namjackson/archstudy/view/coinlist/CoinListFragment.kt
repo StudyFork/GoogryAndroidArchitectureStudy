@@ -30,7 +30,7 @@ class CoinListFragment
                     TickerRemoteDataSourceImpl.getInstance(UpbitService.upbitApi)
                 )
             )
-        ).get(CoinListViewModel::class.java)
+        )[CoinListViewModel::class.java]
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
