@@ -14,7 +14,7 @@ object CoinRemoteDataSource : CoinSource {
             UpBitServiceManager.getTickerList(ticketList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    success.invoke(it.body()!!)
+                    it.body()?.let(success)
                 }, {
                     failed.invoke()
                 })

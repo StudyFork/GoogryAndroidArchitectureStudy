@@ -14,7 +14,7 @@ object MarketRemoteDataSource : MarketSource {
             UpBitServiceManager.getAllMarketList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    success.invoke(it.body()!!)
+                    it.body()?.let(success)
                 }, {
                     failed.invoke()
                 })
