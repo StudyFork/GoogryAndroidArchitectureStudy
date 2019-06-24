@@ -1,6 +1,5 @@
 package sample.nackun.com.studyfirst.main
 
-import android.widget.TextView
 import sample.nackun.com.studyfirst.BasePresenter
 import sample.nackun.com.studyfirst.BaseView
 import sample.nackun.com.studyfirst.vo.Ticker
