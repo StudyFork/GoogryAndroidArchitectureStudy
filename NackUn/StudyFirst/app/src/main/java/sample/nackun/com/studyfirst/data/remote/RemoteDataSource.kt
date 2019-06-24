@@ -7,15 +7,16 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import sample.nackun.com.studyfirst.data.DataSource
+import sample.nackun.com.studyfirst.network.UpbitApi
 import sample.nackun.com.studyfirst.vo.Market
 import sample.nackun.com.studyfirst.vo.Ticker
 
 class RemoteDataSource : DataSource {
-    private val retrofitService: DataSource.UpbitApi = Retrofit.Builder()
+    private val retrofitService: UpbitApi = Retrofit.Builder()
         .baseUrl("https://api.upbit.com/v1/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-        .create(DataSource.UpbitApi::class.java)
+        .create(UpbitApi::class.java)
 
     override fun requestMarkets(marketLike: String, callback: DataSource.RequestTickersCallback) {
         retrofitService.requestMarket().enqueue(object : Callback<ArrayList<Market>> {
