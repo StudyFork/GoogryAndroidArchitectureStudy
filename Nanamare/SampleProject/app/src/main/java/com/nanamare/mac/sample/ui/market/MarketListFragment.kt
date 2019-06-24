@@ -16,11 +16,7 @@ import kotlinx.android.synthetic.main.fragment_market_list_viewpager.*
 
 class MarketListFragment : Fragment() {
 
-    companion object {
-        const val KET_MARKET_LIST = "key_market_list"
-    }
-
-    private lateinit var marketListViewPager: MarketListViewPager
+    private val marketListViewPager: MarketListViewPager by lazy { MarketListViewPager(childFragmentManager) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_market_list_viewpager, container, false)
@@ -32,7 +28,6 @@ class MarketListFragment : Fragment() {
     }
 
     private fun initView() {
-        marketListViewPager = MarketListViewPager(childFragmentManager)
 
         val jsonMarketList = arguments?.getString(KET_MARKET_LIST)
         val type = object : TypeToken<HashMap<String, List<String>>>() {}.type
@@ -46,6 +41,10 @@ class MarketListFragment : Fragment() {
 
         val tabLayout = activity?.findViewById<TabLayout>(R.id.tl_market_list)
         tabLayout?.setupWithViewPager(coin_view_pager)
+    }
+
+    companion object {
+        const val KET_MARKET_LIST = "KET_MARKET_LIST"
     }
 
 
