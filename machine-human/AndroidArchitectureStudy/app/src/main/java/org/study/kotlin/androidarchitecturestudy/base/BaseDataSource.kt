@@ -25,16 +25,9 @@ i = BaseDataSource
 interface BaseDataSource {
 
     interface GetTickerListCallback {
-        fun onTickerListLoaded(tickerList: ArrayList<TickerModel>) {
-            Log.e("TAG BaseDAtaSource", "onTickerListLoaded")
-        }
-
-        fun onDataNotAvailable(error: String) {
-            Log.e("TAG BaseDAtaSource", "onDataNotAvailable")
-        }
+        fun onTickerListLoaded(tickerList: ArrayList<TickerModel>)
+        fun onDataNotAvailable(error: Throwable)
     }
 
-    fun requestMarkets(marketName: String, callback: GetTickerListCallback) {
-        Log.e("TAG BaseDAtaSource", "requestMarkets")
-    }
+    fun requestMarkets(marketName: String, callback: GetTickerListCallback)
 }
