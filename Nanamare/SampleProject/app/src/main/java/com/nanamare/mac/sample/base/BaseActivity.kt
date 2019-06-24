@@ -1,18 +1,25 @@
 package com.nanamare.mac.sample.base
 
 import android.os.Bundle
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.google.gson.Gson
 import com.nanamare.mac.sample.R
 import com.nanamare.mac.sample.ui.ProgressDialogFragment
 
-abstract class BaseActivity : AppCompatActivity(), BaseView {
+abstract class BaseActivity(
+    @LayoutRes val layoutResId : Int
+) : AppCompatActivity(), BaseView {
+
+    abstract val presenter: BasePresenter
 
     private val dialog by lazy { ProgressDialogFragment() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(layoutResId)
+
+        presenter.start()
 
     }
 
@@ -34,6 +41,12 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
             e.printStackTrace()
         }
     }
+
+    override fun onDestroy() {
+        presenter.close()
+        super.onDestroy()
+    }
+
 
     companion object {
         const val KET_MARKET_LIST = "KET_MARKET_LIST"

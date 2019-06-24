@@ -1,9 +1,7 @@
 package com.nanamare.mac.sample.ui.coin
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,17 +13,16 @@ import com.nanamare.mac.sample.api.upbit.TickerModel
 import com.nanamare.mac.sample.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_coin_list.*
 
-class CoinFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, OnMoreListener, CoinContract.CoinView {
+class CoinFragment : BaseFragment(R.layout.fragment_coin_list), SwipeRefreshLayout.OnRefreshListener, OnMoreListener,
+    CoinContract.CoinView {
 
     private lateinit var ticketList: MutableList<String>
 
     private lateinit var adapter: TickerAdapter
 
-    private lateinit var coinPresenter: CoinContract.CoinPresenter
+    override val coinPresenter: CoinPresenter
+        get() = CoinPresenter(this, ticketList)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_coin_list, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,9 +30,6 @@ class CoinFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, OnMor
         loadBundleData(savedInstanceState)
 
         initView()
-
-        coinPresenter = CoinPresenter(this)
-        coinPresenter.getCoins(ticketList)
     }
 
     private fun initView() {

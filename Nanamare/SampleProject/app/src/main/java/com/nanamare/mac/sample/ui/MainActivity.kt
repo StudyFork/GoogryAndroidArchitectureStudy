@@ -8,22 +8,10 @@ import com.nanamare.mac.sample.ui.market.MarketContract
 import com.nanamare.mac.sample.ui.market.MarketListFragment
 import com.nanamare.mac.sample.ui.market.MarketPresenter
 
-class MainActivity : BaseActivity(), MarketContract.MarketView {
-    private lateinit var presenter: MarketPresenter
+class MainActivity : BaseActivity(R.layout.activity_main), MarketContract.MarketView {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        presenter = MarketPresenter(this)
-        presenter.getMarketList()
-    }
-
-
-    override fun onDestroy() {
-        presenter.close()
-        super.onDestroy()
-    }
+    override val presenter: MarketPresenter
+        get() = MarketPresenter(this)
 
     override fun showMarketList(marketMap: LinkedHashMap<String, List<String>>) {
         val bundle = Bundle().apply {
@@ -31,6 +19,5 @@ class MainActivity : BaseActivity(), MarketContract.MarketView {
         }
         goToFragment(MarketListFragment::class.java, bundle)
     }
-
 
 }

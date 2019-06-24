@@ -4,6 +4,10 @@ import com.nanamare.mac.sample.data.market.MarketRepository
 
 class MarketPresenter(private val view: MarketContract.MarketView) : MarketContract.MarketPresenter {
 
+    override fun start() {
+        getMarketList()
+    }
+
     override fun getMarketList() {
         view.showLoadingDialog()
         MarketRepository.getMarketList(success = {
