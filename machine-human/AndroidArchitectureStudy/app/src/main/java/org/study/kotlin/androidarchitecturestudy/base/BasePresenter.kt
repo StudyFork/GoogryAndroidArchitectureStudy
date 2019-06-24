@@ -17,7 +17,5 @@ i = BasePresenter
  */
 //각기 다른 Presenter들이 공통으로 갖는 것을 작성하는 인터페이스
 interface BasePresenter {
-    fun start() {
-        Log.e("TAG BasePresenter", "start")
-    }
+    //no-op
 }
