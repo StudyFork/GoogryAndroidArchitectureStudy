@@ -1,6 +1,5 @@
 package com.architecturestudy.upbitmarket
 
-
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,7 +19,9 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class UpbitFragment : BaseFragment(), UpbitContract.View {
+class UpbitFragment : BaseFragment(
+    R.layout.fragment_upbit
+), UpbitContract.View {
 
     override val presenter: UpbitContract.Presenter by lazy {
         UpbitPresenter(
@@ -42,15 +43,18 @@ class UpbitFragment : BaseFragment(), UpbitContract.View {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_upbit, container, false)
         presenter.start()
-        return view
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) {
         super.onViewCreated(view, savedInstanceState)
         initClickListener()
         initRecyclerView()
@@ -65,12 +69,16 @@ class UpbitFragment : BaseFragment(), UpbitContract.View {
     }
 
     private fun initRecyclerView() {
-        rv_coin_price.addItemDecoration(DividerItemDecoration(activity as UpbitActivity))
+        rv_coin_price.addItemDecoration(
+            DividerItemDecoration(
+                resources.getDrawable(R.drawable.line_divider, null)
+            )
+        )
         rv_coin_price.setHasFixedSize(true)
     }
 
     private fun setMainAdapter(marketPrice: List<Map<String, String>>) {
-        val adapter = UpbitAdapter()
+        val adapter = UpbitAdapter(R.layout.rv_upbit_item)
         adapter.setMarketPrices(marketPrice.sortedBy { it["coinName"] })
         rv_coin_price.adapter = adapter
     }

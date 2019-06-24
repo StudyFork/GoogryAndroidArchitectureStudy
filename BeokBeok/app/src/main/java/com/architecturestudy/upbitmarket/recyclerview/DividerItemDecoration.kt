@@ -1,13 +1,12 @@
 package com.architecturestudy.upbitmarket.recyclerview
 
-import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import androidx.recyclerview.widget.RecyclerView
-import com.architecturestudy.R
 
-class DividerItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
-    private val divider: Drawable = context.resources.getDrawable(R.drawable.line_divider, null)
+class DividerItemDecoration(
+    private val divider: Drawable
+) : RecyclerView.ItemDecoration() {
 
     override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         val left = parent.paddingLeft
