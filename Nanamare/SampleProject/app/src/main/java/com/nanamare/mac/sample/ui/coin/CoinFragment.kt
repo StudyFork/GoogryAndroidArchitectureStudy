@@ -20,7 +20,7 @@ class CoinFragment : BaseFragment(R.layout.fragment_coin_list), SwipeRefreshLayo
 
     private lateinit var adapter: TickerAdapter
 
-    override val coinPresenter: CoinPresenter
+    override val presenter: CoinPresenter
         get() = CoinPresenter(this, ticketList)
 
 
@@ -64,7 +64,7 @@ class CoinFragment : BaseFragment(R.layout.fragment_coin_list), SwipeRefreshLayo
     }
 
     override fun onRefresh() {
-        coinPresenter.getCoins(ticketList)
+        presenter.getCoins(ticketList)
     }
 
     override fun showCoins(list: List<TickerModel>) {
@@ -83,7 +83,7 @@ class CoinFragment : BaseFragment(R.layout.fragment_coin_list), SwipeRefreshLayo
     }
 
     override fun onDestroy() {
-        coinPresenter.close()
+        presenter.close()
         super.onDestroy()
     }
 

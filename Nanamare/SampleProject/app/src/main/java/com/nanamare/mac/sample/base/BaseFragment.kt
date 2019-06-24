@@ -11,7 +11,7 @@ abstract class BaseFragment(
     @LayoutRes private val layoutResId: Int
 ) : Fragment(), BaseView {
 
-    open val coinPresenter: BasePresenter? = null
+    open val presenter: BasePresenter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(layoutResId, container, false)
@@ -20,7 +20,7 @@ abstract class BaseFragment(
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        coinPresenter?.start()
+        presenter?.start()
     }
 
     override fun goToFragment(cls: Class<*>, args: Bundle?) {
