@@ -1,22 +1,20 @@
 package sample.nackun.com.studyfirst.main
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
 import kotlinx.android.synthetic.main.main_fragment.view.*
+import sample.nackun.com.studyfirst.Base.BaseFragment
 import sample.nackun.com.studyfirst.R
 import sample.nackun.com.studyfirst.TickerAdapter
 import sample.nackun.com.studyfirst.data.Repository
 import sample.nackun.com.studyfirst.data.remote.RemoteDataSource
 import sample.nackun.com.studyfirst.vo.Ticker
 
-class MainFragment : Fragment(), MainContract.View {
+class MainFragment : BaseFragment(), MainContract.View {
     override lateinit var presenter: MainContract.Presenter
     private val tickerAdapter = TickerAdapter()
 
@@ -55,7 +53,4 @@ class MainFragment : Fragment(), MainContract.View {
         tickerAdapter.setItems(tickers)
     }
 
-    override fun showToast(str: String?) {
-        Toast.makeText(context, str, LENGTH_SHORT).show()
-    }
 }
