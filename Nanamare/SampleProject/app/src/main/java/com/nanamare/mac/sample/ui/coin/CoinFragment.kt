@@ -23,21 +23,6 @@ class CoinFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, OnMor
 
     private lateinit var coinPresenter: CoinContract.CoinPresenter
 
-    companion object {
-        private const val KEY_COIN_TITLE = "key_coin_title"
-        private const val KEY_FILTER = "key_filter"
-
-        fun newInstance(marketList: List<String>, key: String): CoinFragment {
-            val args = Bundle()
-            args.putStringArrayList(KEY_COIN_TITLE, ArrayList(marketList))
-            args.putString(KEY_FILTER, key)
-            val fragment = CoinFragment()
-            fragment.arguments = args
-            return fragment
-        }
-
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_coin_list, container, false)
     }
@@ -103,9 +88,23 @@ class CoinFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, OnMor
         }
     }
 
-
     override fun onDestroy() {
         coinPresenter.close()
         super.onDestroy()
+    }
+
+    companion object {
+        private const val KEY_COIN_TITLE = "key_coin_title"
+        private const val KEY_FILTER = "key_filter"
+
+        fun newInstance(marketList: List<String>, key: String): CoinFragment {
+            val args = Bundle()
+            args.putStringArrayList(KEY_COIN_TITLE, ArrayList(marketList))
+            args.putString(KEY_FILTER, key)
+            val fragment = CoinFragment()
+            fragment.arguments = args
+            return fragment
+        }
+
     }
 }
