@@ -1,4 +1,4 @@
-package com.nanamare.mac.sample.data
+package com.nanamare.mac.sample.data.market
 
 import com.nanamare.mac.sample.api.DisposableManager
 import com.nanamare.mac.sample.api.upbit.MarketModel

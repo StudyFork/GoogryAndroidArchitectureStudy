@@ -1,4 +1,4 @@
-package com.nanamare.mac.sample.contract
+package com.nanamare.mac.sample.ui.coin
 
 import com.nanamare.mac.sample.api.upbit.TickerModel
 import com.nanamare.mac.sample.base.BasePresenter

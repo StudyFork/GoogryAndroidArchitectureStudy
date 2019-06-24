@@ -15,7 +15,6 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         super.onCreate(savedInstanceState)
 
         dialog = ProgressDialogFragment()
-
     }
 
     override fun showLoadingDialog() {

@@ -1,11 +1,9 @@
-package com.nanamare.mac.sample.presenter
+package com.nanamare.mac.sample.ui.market
 
 import android.os.Bundle
 import com.google.gson.Gson
-import com.nanamare.mac.sample.contract.MarketContract
-import com.nanamare.mac.sample.data.MarketRepository
+import com.nanamare.mac.sample.data.market.MarketRepository
 import com.nanamare.mac.sample.ui.MainActivity
-import com.nanamare.mac.sample.ui.MarketListFragment
 
 class MarketPresenter(private val view: MarketContract.MarketView) : MarketContract.MarketPresenter {
 

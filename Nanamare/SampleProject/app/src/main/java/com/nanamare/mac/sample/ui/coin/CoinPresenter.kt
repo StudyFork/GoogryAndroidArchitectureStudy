@@ -1,7 +1,6 @@
-package com.nanamare.mac.sample.presenter
+package com.nanamare.mac.sample.ui.coin
 
-import com.nanamare.mac.sample.contract.CoinContract
-import com.nanamare.mac.sample.data.CoinRepository
+import com.nanamare.mac.sample.data.coin.CoinRepository
 
 class CoinPresenter(private val view: CoinContract.CoinView) : CoinContract.CoinPresenter {
 

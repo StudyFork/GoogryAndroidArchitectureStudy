@@ -1,4 +1,4 @@
-package com.nanamare.mac.sample.ui
+package com.nanamare.mac.sample.ui.coin
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,8 +13,6 @@ import com.nanamare.mac.sample.R
 import com.nanamare.mac.sample.adapter.TickerAdapter
 import com.nanamare.mac.sample.api.upbit.TickerModel
 import com.nanamare.mac.sample.base.BaseFragment
-import com.nanamare.mac.sample.contract.CoinContract
-import com.nanamare.mac.sample.presenter.CoinPresenter
 import kotlinx.android.synthetic.main.fragment_coin_list.*
 
 class CoinFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, OnMoreListener, CoinContract.CoinView {

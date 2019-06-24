@@ -1,4 +1,4 @@
-package com.nanamare.mac.sample.ui
+package com.nanamare.mac.sample.ui.market
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.nanamare.mac.sample.R
 import com.nanamare.mac.sample.adapter.MarketListViewPager
+import com.nanamare.mac.sample.ui.coin.CoinFragment
 import kotlinx.android.synthetic.main.fragment_market_list_viewpager.*
 
 
