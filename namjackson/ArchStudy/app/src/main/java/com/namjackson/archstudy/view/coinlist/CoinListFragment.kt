@@ -3,6 +3,7 @@ package com.namjackson.archstudy.view.coinlist
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import androidx.lifecycle.ViewModelProviders
 import com.namjackson.archstudy.R
 import com.namjackson.archstudy.base.BaseFragment
 import com.namjackson.archstudy.data.source.TickerRepository
@@ -10,6 +11,7 @@ import com.namjackson.archstudy.data.source.local.TickerLocalDataSourceImpl
 import com.namjackson.archstudy.data.source.remote.TickerRemoteDataSourceImpl
 import com.namjackson.archstudy.databinding.FragmentCoinListBinding
 import com.namjackson.archstudy.network.UpbitService
+import com.namjackson.archstudy.util.ViewModelFactory
 import com.namjackson.archstudy.view.coinlist.adapter.CoinListAdapter
 import java.util.*
 
@@ -20,12 +22,15 @@ class CoinListFragment
     private var timer: Timer = Timer()
 
     val viewModel by lazy {
-        CoinListViewModel(
-            TickerRepository.getInstance(
-                TickerLocalDataSourceImpl.getInstance(),
-                TickerRemoteDataSourceImpl.getInstance(UpbitService.upbitApi)
+        ViewModelProviders.of(
+            this,
+            ViewModelFactory.getInstance(
+                TickerRepository.getInstance(
+                    TickerLocalDataSourceImpl.getInstance(),
+                    TickerRemoteDataSourceImpl.getInstance(UpbitService.upbitApi)
+                )
             )
-        )
+        )[CoinListViewModel::class.java]
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,8 +50,6 @@ class CoinListFragment
         }
 
         subscribeToShowToast()
-
-        viewModel.baseCurrency.observe(this, androidx.lifecycle.Observer { viewModel.initMarket() })
     }
 
 

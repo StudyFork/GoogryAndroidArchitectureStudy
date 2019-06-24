@@ -22,7 +22,7 @@ data class Ticker(
             val changeRate =
                 (Math.floor(tickerResponse.signedChangeRate * 10_000.0) / 100.0).toString() + "%"
 
-            var tradeVolume =
+            val tradeVolume =
                 when {
                     (tickerResponse.accTradePrice24h.toLong() > M) -> (tickerResponse.accTradePrice24h / M).toInt().toString() + "M"
                     (tickerResponse.accTradePrice24h.toLong() > K) -> (tickerResponse.accTradePrice24h / K).toInt().toString() + "K"
