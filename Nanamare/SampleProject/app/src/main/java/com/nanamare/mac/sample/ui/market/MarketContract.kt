@@ -5,7 +5,9 @@ import com.nanamare.mac.sample.base.BaseView
 
 interface MarketContract {
 
-    interface MarketView : BaseView
+    interface MarketView : BaseView {
+        fun showMarketList(marketMap: LinkedHashMap<String, List<String>>)
+    }
 
     interface MarketPresenter : BasePresenter {
         fun getMarketList()
