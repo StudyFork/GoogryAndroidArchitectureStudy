@@ -1,6 +1,5 @@
 package com.nanamare.mac.sample.base
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
@@ -12,11 +11,6 @@ abstract class BaseViewHolder<T>(
     parent: ViewGroup
 ) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(layoutRes, parent, false)) {
 
-    private var mContext: Context = itemView.context
-    private var mData: T? = null
-
-    open fun bind(data: T) {
-        this.mData = data
-    }
+    abstract fun bind(t: T)
 
 }
