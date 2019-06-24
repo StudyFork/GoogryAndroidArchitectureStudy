@@ -9,7 +9,10 @@ object MarketRemoteDataSource : MarketSource {
 
     private var disposableManager: DisposableManager = DisposableManager()
 
-    override fun getMarketList(success: (List<MarketModel>) -> Unit, failed: () -> Unit) {
+    override fun getMarketList(
+        success: (List<MarketModel>) -> Unit,
+        failed: () -> Unit
+    ) {
         disposableManager.add(
             UpBitServiceManager.getAllMarketList()
                 .observeOn(AndroidSchedulers.mainThread())

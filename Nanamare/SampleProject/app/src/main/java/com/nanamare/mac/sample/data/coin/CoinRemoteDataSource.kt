@@ -9,7 +9,11 @@ object CoinRemoteDataSource : CoinSource {
 
     private var disposableManager: DisposableManager = DisposableManager()
 
-    override fun getCoins(ticketList: MutableList<String>, success: (List<TickerModel>) -> Unit, failed: () -> Unit) {
+    override fun getCoins(
+        ticketList: MutableList<String>,
+        success: (List<TickerModel>) -> Unit,
+        failed: () -> Unit
+    ) {
         disposableManager.add(
             UpBitServiceManager.getTickerList(ticketList)
                 .observeOn(AndroidSchedulers.mainThread())
