@@ -1,9 +1,6 @@
 package com.nanamare.mac.sample.ui.market
 
-import android.os.Bundle
-import com.google.gson.Gson
 import com.nanamare.mac.sample.data.market.MarketRepository
-import com.nanamare.mac.sample.ui.MainActivity
 
 class MarketPresenter(private val view: MarketContract.MarketView) : MarketContract.MarketPresenter {
 
@@ -19,10 +16,7 @@ class MarketPresenter(private val view: MarketContract.MarketView) : MarketContr
                     marketMap.put(market, marketList)
                 }
             }
-            val bundle = Bundle().apply {
-                putString(MainActivity.KET_MARKET_LIST, Gson().toJson(marketMap))
-            }
-            view.goToFragment(MarketListFragment::class.java, bundle)
+            view.showMarketList(marketMap)
         }, failed = {
             view.hideLoadingDialog()
         })
