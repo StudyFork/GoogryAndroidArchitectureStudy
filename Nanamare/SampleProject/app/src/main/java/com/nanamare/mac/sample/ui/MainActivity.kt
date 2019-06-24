@@ -1,19 +1,15 @@
 package com.nanamare.mac.sample.ui
 
 import android.os.Bundle
+import com.google.gson.Gson
 import com.nanamare.mac.sample.R
 import com.nanamare.mac.sample.base.BaseActivity
 import com.nanamare.mac.sample.ui.market.MarketContract
+import com.nanamare.mac.sample.ui.market.MarketListFragment
 import com.nanamare.mac.sample.ui.market.MarketPresenter
 
 class MainActivity : BaseActivity(), MarketContract.MarketView {
-
     private lateinit var presenter: MarketPresenter
-
-    companion object {
-        const val KET_MARKET_LIST = "key_market_list"
-        const val PROGRESS_DIALOG_FRAGMENT = "progress_dialog_fragment"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +23,13 @@ class MainActivity : BaseActivity(), MarketContract.MarketView {
     override fun onDestroy() {
         presenter.close()
         super.onDestroy()
+    }
+
+    override fun showMarketList(marketMap: LinkedHashMap<String, List<String>>) {
+        val bundle = Bundle().apply {
+            putString(KET_MARKET_LIST, Gson().toJson(marketMap))
+        }
+        goToFragment(MarketListFragment::class.java, bundle)
     }
 
 
