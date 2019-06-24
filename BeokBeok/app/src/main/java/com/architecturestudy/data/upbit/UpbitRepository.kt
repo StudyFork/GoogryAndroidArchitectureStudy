@@ -1,7 +1,7 @@
-package com.architecturestudy.data
+package com.architecturestudy.data.upbit
 
-import com.architecturestudy.data.source.UpbitDataSource
-import com.architecturestudy.data.source.UpbitRetrofitDataSource
+import com.architecturestudy.data.upbit.source.UpbitDataSource
+import com.architecturestudy.data.upbit.source.UpbitRetrofitDataSource
 
 class UpbitRepository private constructor(
     private val upbitRetrofitDataSource: UpbitRetrofitDataSource
@@ -29,8 +29,11 @@ class UpbitRepository private constructor(
     companion object {
         private var instance: UpbitRepository? = null
 
-        operator fun invoke(upbitRetrofitDataSource: UpbitRetrofitDataSource): UpbitRepository {
-            return instance ?: UpbitRepository(upbitRetrofitDataSource)
+        operator fun invoke(
+            upbitRetrofitDataSource: UpbitRetrofitDataSource
+        ): UpbitRepository {
+            return instance
+                ?: UpbitRepository(upbitRetrofitDataSource)
                 .apply { instance = this }
         }
 

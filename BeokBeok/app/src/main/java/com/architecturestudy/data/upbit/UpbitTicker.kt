@@ -1,4 +1,4 @@
-package com.architecturestudy.data
+package com.architecturestudy.data.upbit
 
 import com.google.gson.annotations.SerializedName
 

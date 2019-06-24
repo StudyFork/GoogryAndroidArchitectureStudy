@@ -1,8 +1,8 @@
 package com.architecturestudy.upbitmarket
 
-import com.architecturestudy.data.UpbitRepository
-import com.architecturestudy.data.UpbitTicker
-import com.architecturestudy.data.source.UpbitDataSource
+import com.architecturestudy.data.upbit.UpbitRepository
+import com.architecturestudy.data.upbit.UpbitTicker
+import com.architecturestudy.data.upbit.source.UpbitDataSource
 import com.architecturestudy.util.NumberFormatter
 
 class UpbitPresenter(

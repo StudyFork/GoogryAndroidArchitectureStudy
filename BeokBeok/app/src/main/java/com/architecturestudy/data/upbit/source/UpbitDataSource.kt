@@ -1,6 +1,6 @@
-package com.architecturestudy.data.source
+package com.architecturestudy.data.upbit.source
 
-import com.architecturestudy.data.UpbitTicker
+import com.architecturestudy.data.upbit.UpbitTicker
 
 interface UpbitDataSource {
     interface GetTickerCallback {

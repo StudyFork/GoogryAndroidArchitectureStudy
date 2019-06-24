@@ -8,16 +8,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.architecturestudy.R
 import com.architecturestudy.base.BaseFragment
-import com.architecturestudy.data.UpbitRepository
-import com.architecturestudy.data.source.UpbitRetrofitDataSource
-import com.architecturestudy.data.source.UpbitService
+import com.architecturestudy.data.upbit.UpbitRepository
+import com.architecturestudy.data.upbit.service.UpbitRetrofit
+import com.architecturestudy.data.upbit.source.UpbitRetrofitDataSource
 import com.architecturestudy.upbitmarket.recyclerview.DividerItemDecoration
 import com.architecturestudy.upbitmarket.recyclerview.UpbitAdapter
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_upbit.*
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class UpbitFragment : BaseFragment(
     R.layout.fragment_upbit
@@ -25,20 +22,8 @@ class UpbitFragment : BaseFragment(
 
     override val presenter: UpbitContract.Presenter by lazy {
         UpbitPresenter(
-            this, UpbitRepository(
-                UpbitRetrofitDataSource(
-                    Retrofit.Builder()
-                        .baseUrl("https://api.upbit.com/")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .client(
-                            OkHttpClient.Builder().addInterceptor(
-                                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-                            ).build()
-                        )
-                        .build()
-                        .create(UpbitService::class.java)
-                )
-            )
+            this,
+            UpbitRepository(UpbitRetrofitDataSource(UpbitRetrofit.retrofit))
         )
     }
 
@@ -58,6 +43,11 @@ class UpbitFragment : BaseFragment(
         super.onViewCreated(view, savedInstanceState)
         initClickListener()
         initRecyclerView()
+    }
+
+    override fun onDestroy() {
+        CompositeDisposable().dispose()
+        super.onDestroy()
     }
 
     override fun updateMarketPrice(marketPrice: List<Map<String, String>>) {
@@ -91,8 +81,12 @@ class UpbitFragment : BaseFragment(
     }
 
     private fun setViewColor(view: View) {
-        listOf<View>(tv_market_krw, tv_market_btc, tv_market_eth, tv_market_usdt)
-            .filter { view != it }
+        listOf<View>(
+            tv_market_krw,
+            tv_market_btc,
+            tv_market_eth,
+            tv_market_usdt
+        ).filter { view != it }
             .map { (it as TextView).setTextColor(Color.GRAY) }
 
         if (view is TextView) {

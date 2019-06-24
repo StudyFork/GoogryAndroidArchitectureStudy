@@ -13,22 +13,31 @@ class UpbitAdapter(
 ) : RecyclerView.Adapter<UpbitAdapter.ViewHolder>() {
     var marketPrice: List<Map<String, String>>? = null
 
-    fun setMarketPrices(marketPrice: List<Map<String, String>>) {
-        this.marketPrice = marketPrice
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(resource, parent, false)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(resource, parent, false)
         return ViewHolder(view)
     }
 
     override fun getItemCount(): Int = marketPrice?.size ?: 0
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int
+    ) {
         marketPrice?.get(position)?.let { holder.bind(it) }
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    fun setMarketPrices(marketPrice: List<Map<String, String>>) {
+        this.marketPrice = marketPrice
+    }
+
+    inner class ViewHolder(
+        itemView: View
+    ) : RecyclerView.ViewHolder(itemView) {
         private val coinName = itemView.tv_coin_name
         private val currentPrice = itemView.tv_current_price
         private val netChange = itemView.tv_net_change

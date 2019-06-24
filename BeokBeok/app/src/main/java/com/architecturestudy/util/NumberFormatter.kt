@@ -1,6 +1,6 @@
 package com.architecturestudy.util
 
-import com.architecturestudy.data.UpbitTicker
+import com.architecturestudy.data.upbit.UpbitTicker
 import java.math.BigDecimal
 import java.text.DecimalFormat
 
