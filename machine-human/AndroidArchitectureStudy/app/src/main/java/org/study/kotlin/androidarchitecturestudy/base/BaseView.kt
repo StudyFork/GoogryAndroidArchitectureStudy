@@ -1,5 +1,7 @@
 package org.study.kotlin.androidarchitecturestudy.base
 
+import android.widget.Toast
+
 /**
 ***************************
 BaseView - structure
@@ -19,6 +21,7 @@ i = BaseView<T>
 //각기 다른 View들이 공통으로 갖는 것을 작성하는 인터페이스
 interface BaseView<T> {
     var presenter: T
-    fun showProgress(text: Throwable)
+    fun showProgress()
     fun hideProgress()
+    fun showErrorToast(error: Throwable)
 }
