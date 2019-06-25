@@ -16,7 +16,7 @@ class CoinRepository : CoinDataSource {
                     val marketList = body
                         .asSequence()
                         .map { it.market }
-                        .filter { it.substring(0, it.indexOf("-")) == "KRW" }
+                        .filter { it.startsWith("KRW-") }
 
                     val marketStr = marketList.joinToString(",")
                     callback.onMarketsLoaded(marketStr)
