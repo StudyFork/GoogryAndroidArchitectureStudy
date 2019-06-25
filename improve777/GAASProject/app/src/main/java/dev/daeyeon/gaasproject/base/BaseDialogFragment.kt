@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.DialogFragment
 
-abstract class BaseFragment<B : ViewDataBinding>(
+abstract class BaseDialogFragment<B : ViewDataBinding>(
     private val layout: Int
-) : Fragment() {
+) : DialogFragment() {
 
     protected lateinit var binding: B
         private set
@@ -22,6 +22,11 @@ abstract class BaseFragment<B : ViewDataBinding>(
     ): View? {
         binding = DataBindingUtil.inflate(inflater, layout, container, false)
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
     protected fun bind(action: B.() -> Unit) {

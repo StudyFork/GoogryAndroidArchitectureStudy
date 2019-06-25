@@ -1,7 +1,8 @@
 package dev.daeyeon.gaasproject.ui
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
 import dev.daeyeon.gaasproject.R
 import dev.daeyeon.gaasproject.ui.ticker.TickerFragment
 
@@ -11,11 +12,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportFragmentManager.beginTransaction()
-            .replace(
+        supportFragmentManager.commit {
+            replace(
                 R.id.container,
-                TickerFragment.newInstance()
+                supportFragmentManager.findFragmentByTag(TickerFragment.TAG) ?: TickerFragment.newInstance(),
+                TickerFragment.TAG
             )
-            .commit()
+        }
     }
 }

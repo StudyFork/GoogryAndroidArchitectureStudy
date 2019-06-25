@@ -1,32 +1,35 @@
 package dev.daeyeon.gaasproject.ui.ticker
 
-import android.arch.lifecycle.Observer
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.fragment.app.createViewModelLazy
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import dev.daeyeon.gaasproject.R
 import dev.daeyeon.gaasproject.base.BaseFragment
 import dev.daeyeon.gaasproject.data.response.ResponseCode
+import dev.daeyeon.gaasproject.data.source.UpbitDataSource
 import dev.daeyeon.gaasproject.data.source.UpbitRepository
-import dev.daeyeon.gaasproject.databinding.DialogTickerSearchBinding
 import dev.daeyeon.gaasproject.databinding.FragmentTickerBinding
+import dev.daeyeon.gaasproject.ext.popContent
 import dev.daeyeon.gaasproject.network.NetworkManager
+import dev.daeyeon.gaasproject.ui.ticker.marketchoice.MarketChoiceDialogFragment
+import dev.daeyeon.gaasproject.ui.ticker.search.TickerSearchDialogFragment
+import dev.daeyeon.gaasproject.util.Event
 import org.jetbrains.anko.toast
 
 class TickerFragment : BaseFragment<FragmentTickerBinding>(
     R.layout.fragment_ticker
 ) {
-    private lateinit var tickerAdapter: TickerAdapter
-
-    private val searchDialogBinding by lazy { initDialogTickerSearchBinding() }
-    // 검색 다이얼로그
-    private var searchDialog: AlertDialog? = null
-
-    private val tickerViewModel by lazy { TickerViewModel(UpbitRepository(NetworkManager.instance)) }
+    private val tickerViewModel by createViewModelLazy(
+        viewModelClass = TickerViewModel::class,
+        storeProducer = { viewModelStore },
+        factoryProducer = { getTickerViewModelFactory() }
+    )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         bind {
@@ -41,13 +44,12 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
         subscribeToFailMsg()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.menu_ticker_fragment, menu)
-        super.onCreateOptionsMenu(menu, inflater)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_ticker_fragment, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             // 검색
             R.id.action_search -> {
                 showTickerSearchDialog()
@@ -62,70 +64,20 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
     }
 
     /**
-     * 커스텀 레이아웃 다이얼로그를 사용하기 위한 DialogTickerSearchBinding
-     *
-     */
-    private fun initDialogTickerSearchBinding(): DialogTickerSearchBinding {
-        return DataBindingUtil.inflate<DialogTickerSearchBinding>(
-            activity!!.layoutInflater,
-            R.layout.dialog_ticker_search,
-            null,
-            false
-        ).apply {
-            viewModel = tickerViewModel
-            lifecycleOwner = viewLifecycleOwner
-        }
-    }
-
-    /**
      * ticker 검색 다이얼로그
      */
     private fun showTickerSearchDialog() {
-        if (searchDialog == null) {
-            initSearchDialog()
-        }
-        searchDialog?.show()
-    }
-
-    private fun initSearchDialog() {
-        searchDialog = AlertDialog.Builder(activity!!)
-            .setTitle(R.string.ticker_search)
-            .setView(searchDialogBinding.root)
-            .setPositiveButton(R.string.all_positive) { _, _ ->
-                tickerViewModel.loadUpbitTicker()
-            }
-            .setNegativeButton(R.string.all_negative) { _, _ -> }
-            .create()
+        TickerSearchDialogFragment.newInstance().show(childFragmentManager, null)
     }
 
     /**
      * 기본 통화 설정 다이얼로그
      */
     private fun showBaseCurrencyDialog() {
-        AlertDialog.Builder(activity!!)
-            .setTitle(R.string.ticker_fragment_base_currency)
-            .setSingleChoiceItems(
-                tickerViewModel.getCurrencyArray(),
-                tickerViewModel.getCurrencyArray().indexOf(tickerViewModel.getBaseCurrency())
-            ) { _, position ->
-                tickerViewModel.setBaseCurrency(tickerViewModel.getCurrencyArray()[position])
-            }
-            .setPositiveButton(R.string.all_positive) { _, _ ->
-                tickerViewModel.loadUpbitTicker()
-            }
-            .setCancelable(false)
-            .create()
-            .show()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        tickerViewModel.loadUpbitTicker()
-    }
-
-    override fun onDestroyView() {
-        tickerViewModel.cancelApi()
-        super.onDestroyView()
+        MarketChoiceDialogFragment.newInstance(
+            oldMarket = tickerViewModel.baseMarket.value ?: UpbitDataSource.ALL_MARKET,
+            markets = tickerViewModel.getMarkets()
+        ).show(childFragmentManager, null)
     }
 
     /**
@@ -144,8 +96,8 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
      * failMsgEvent 구독
      */
     private fun subscribeToFailMsg() {
-        tickerViewModel.failMsgEvent.observe(this, Observer { event ->
-            event?.getContentIfNotHandled()?.let {
+        tickerViewModel.failMsgEvent.observe(this, Observer<Event<String>> { event ->
+            event.popContent {
                 toastTickerFailMsg(it)
             }
         })
@@ -160,9 +112,28 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
         }
     }
 
+    /**
+     * 마켓이 선택되면 ticker refresh
+     * @param chooseMarket
+     */
+    fun refreshTickerByChooseMarket(chooseMarket: String) {
+        tickerViewModel.setBaseMarket(chooseMarket)
+        tickerViewModel.loadUpbitTicker()
+    }
+
     companion object {
+        const val TAG = "TickerFragment"
+
         fun newInstance(): TickerFragment {
             return TickerFragment()
         }
+
+        fun getTickerViewModelFactory() =
+            object : ViewModelProvider.Factory {
+                @Suppress("UNCHECKED_CAST")
+                override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                    return TickerViewModel(UpbitRepository(NetworkManager.instance)) as T
+                }
+            }
     }
 }

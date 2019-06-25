@@ -1,9 +1,9 @@
 package dev.daeyeon.gaasproject.ui.ticker
 
-import android.databinding.DataBindingUtil
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.RecyclerView
 import dev.daeyeon.gaasproject.R
 import dev.daeyeon.gaasproject.data.Ticker
 import dev.daeyeon.gaasproject.databinding.ItemTickerBinding

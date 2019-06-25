@@ -11,4 +11,5 @@
     <string name="ticker_fragment_base_currency">기본 통화</string>
     <string name="all_negative">취소</string>
     <string name="all_positive">확인</string>
+    <string name="confirm">확인</string>
 </resources>

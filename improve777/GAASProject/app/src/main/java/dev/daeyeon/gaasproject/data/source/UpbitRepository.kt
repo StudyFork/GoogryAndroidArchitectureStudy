@@ -1,12 +1,9 @@
 package dev.daeyeon.gaasproject.data.source
 
 import dev.daeyeon.gaasproject.data.Ticker
-import dev.daeyeon.gaasproject.data.response.MarketResponse
 import dev.daeyeon.gaasproject.data.response.ResponseCode
-import dev.daeyeon.gaasproject.data.response.TickerResponse
 import dev.daeyeon.gaasproject.network.UpbitApi
 import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -17,8 +14,6 @@ class UpbitRepository(private val upbitApi: UpbitApi) : UpbitDataSource {
 
     override var markets: String = ""
 
-    private var tickerListObservable: Observable<List<TickerResponse>>? = null
-    private var marketSingle: Single<List<MarketResponse>>? = null
     private val compositeDisposable = CompositeDisposable()
 
     override fun getTicker(
@@ -30,14 +25,13 @@ class UpbitRepository(private val upbitApi: UpbitApi) : UpbitDataSource {
         getMarkets(
             success = { result ->
                 markets = result
-                tickerListObservable = upbitApi.getTicker(markets)
 
                 if (compositeDisposable.size() >= 1) {
                     unsubscribeTicker()
                 }
 
                 Observable.interval(0, 5000, TimeUnit.MILLISECONDS)
-                    .flatMap { tickerListObservable }
+                    .flatMap { upbitApi.getTicker(markets) }
                     .subscribeOn(Schedulers.io())
                     .map {
                         it.filter {
@@ -75,9 +69,7 @@ class UpbitRepository(private val upbitApi: UpbitApi) : UpbitDataSource {
 
     override fun getMarkets(success: (markets: String) -> Unit, fail: (msg: String) -> Unit) {
         if (markets.isEmpty()) {
-            marketSingle = upbitApi.getMarketCode()
-
-            marketSingle?.let {
+            upbitApi.getMarketCode().let {
                 it.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(

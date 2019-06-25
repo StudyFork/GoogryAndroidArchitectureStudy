@@ -1,11 +1,14 @@
 package dev.daeyeon.gaasproject.ext
 
-import android.databinding.BindingAdapter
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import dev.daeyeon.gaasproject.data.Ticker
+import dev.daeyeon.gaasproject.data.source.UpbitDataSource
 import dev.daeyeon.gaasproject.ui.ticker.TickerAdapter
+import dev.daeyeon.gaasproject.ui.ticker.marketchoice.MarketChoiceAdapter
 
 @BindingAdapter("items")
-fun RecyclerView.setItems(items: List<Ticker>) {
-    (adapter as? TickerAdapter)?.replaceList(items)
+fun RecyclerView.setItems(items: List<Any>) {
+    (adapter as? TickerAdapter)?.replaceList(items as? List<Ticker> ?: emptyList())
+    (adapter as? MarketChoiceAdapter)?.replaceAll(items as? List<String> ?: listOf(UpbitDataSource.ALL_CURRENCY))
 }
