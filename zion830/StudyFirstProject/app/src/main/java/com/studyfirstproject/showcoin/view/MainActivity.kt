@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 
 
-class MainActivity : AppCompatActivity(), CoinContract.View, SwipeRefreshLayout.OnRefreshListener {
+class MainActivity : AppCompatActivity(), CoinContract.View {
     override lateinit var presenter: CoinContract.Presenter
     private lateinit var coinAdapter: CoinRecyclerViewAdapter
 
@@ -30,7 +30,9 @@ class MainActivity : AppCompatActivity(), CoinContract.View, SwipeRefreshLayout.
     private fun initView() {
         coinAdapter = CoinRecyclerViewAdapter()
         rv_main.adapter = coinAdapter
-        layout_main_swipe.setOnRefreshListener(this)
+        layout_main_swipe.setOnRefreshListener {
+            getMarketData()
+        }
 
         getMarketData()
     }
@@ -59,9 +61,5 @@ class MainActivity : AppCompatActivity(), CoinContract.View, SwipeRefreshLayout.
     override fun notifyError(msg: String, reason: String?) {
         toast(msg)
         Log.e(localClassName, reason ?: "No error message")
-    }
-
-    override fun onRefresh() {
-        getMarketData()
     }
 }
