@@ -3,8 +3,8 @@ package com.studyfirstproject.util
 import java.text.DecimalFormat
 
 object NumberFormatUtil {
-    val df = DecimalFormat("###,###")
-    const val standardNum = 1_000_000 // 생략 기준
+    private val insertCommaFormat = DecimalFormat("#,###")
+    private const val standardNum = 1_000_000 // 생략 기준
 
     // 백만 이하 숫자는 생략
     fun skipUnderMillions(num: Double): String =
@@ -15,7 +15,7 @@ object NumberFormatUtil {
         }
 
     // 세자리 단위로 끊어 , 삽입
-    fun insertComma(num: Number): String = df.format(num)
+    fun insertComma(num: Number): String = insertCommaFormat.format(num)
 
     // 백분율 변환
     fun getPercent(num: Double): String {
