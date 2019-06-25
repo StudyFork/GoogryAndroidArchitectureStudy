@@ -38,24 +38,22 @@ class CoinRecyclerViewAdapter
         notifyDataSetChanged()
     }
 
-    inner class CoinItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    inner class CoinItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val tvCoinName by lazy { itemView.tv_coin_name as TextView }
+        private val tvCoinTradePrice by lazy { itemView.tv_coin_trade_price as TextView }
+        private val tvCoinChangeRate by lazy { itemView.tv_coin_change_rate as TextView }
+        private val tvCoinAccTradePrice by lazy { itemView.tv_coin_acc_trade_price as TextView }
+
         fun bind(data: TickerModel) {
-            with(view) {
-                val coinNameText = tv_coin_name as TextView
-                val coinTradePriceText = tv_coin_trade_price as TextView
-                val coinChangeRateText = tv_coin_change_rate as TextView
-                val coinAccTradePriceText = tv_coin_acc_trade_price as TextView
+            tvCoinName.text = data.market.substring(data.market.indexOf("-") + 1)
+            tvCoinTradePrice.text = NumberFormatUtil.insertComma(data.tradePrice.toLong())
+            tvCoinChangeRate.text = NumberFormatUtil.getPercent(data.signedChangeRate)
+            tvCoinAccTradePrice.text = NumberFormatUtil.skipUnderMillions(data.accTradePrice24h)
 
-                coinNameText.text = data.market.substring(data.market.indexOf("-") + 1)
-                coinTradePriceText.text = NumberFormatUtil.insertComma(data.tradePrice.toLong())
-                coinChangeRateText.text = NumberFormatUtil.getPercent(data.signedChangeRate)
-                coinAccTradePriceText.text = NumberFormatUtil.skipUnderMillions(data.accTradePrice24h)
-
-                coinChangeRateText.textColor = when {
-                    data.signedChangeRate > 0 -> Color.BLUE
-                    data.signedChangeRate < 0 -> Color.RED
-                    else -> Color.BLACK
-                }
+            tvCoinChangeRate.textColor = when {
+                data.signedChangeRate > 0 -> Color.BLUE
+                data.signedChangeRate < 0 -> Color.RED
+                else -> Color.BLACK
             }
         }
     }
