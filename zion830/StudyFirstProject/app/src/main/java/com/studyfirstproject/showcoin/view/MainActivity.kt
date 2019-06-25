@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import com.studyfirstproject.R
 import com.studyfirstproject.adapter.CoinRecyclerViewAdapter
+import com.studyfirstproject.data.CoinRepository
 import com.studyfirstproject.data.model.TickerModel
 import com.studyfirstproject.showcoin.CoinContract
 import com.studyfirstproject.showcoin.CoinPresenter
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity(), CoinContract.View, SwipeRefreshLayout.
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        presenter = CoinPresenter(this)
+        presenter = CoinPresenter(this, CoinRepository())
         initView()
     }
 

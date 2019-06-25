@@ -4,9 +4,12 @@ import com.studyfirstproject.data.CoinDataSource
 import com.studyfirstproject.data.CoinRepository
 import com.studyfirstproject.data.model.TickerModel
 
-class CoinPresenter(private val view: CoinContract.View) :
-    CoinContract.Presenter, CoinDataSource.LoadMarketsCallback, CoinDataSource.LoadTickersCallback {
-    private var repository: CoinDataSource = CoinRepository()
+class CoinPresenter(
+    private val view: CoinContract.View,
+    private val repository: CoinDataSource
+) : CoinContract.Presenter,
+    CoinDataSource.LoadMarketsCallback,
+    CoinDataSource.LoadTickersCallback {
 
     override fun start() {
     }
