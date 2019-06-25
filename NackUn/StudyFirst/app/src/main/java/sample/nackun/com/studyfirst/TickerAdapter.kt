@@ -3,13 +3,16 @@ package sample.nackun.com.studyfirst
 import android.graphics.Color
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.ticker_item.view.*
 import sample.nackun.com.studyfirst.vo.Ticker
 
-class TickerAdapter() : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
+class TickerAdapter(
+    @LayoutRes private val layoutRes: Int
+) : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
 
     private var items = mutableListOf<Ticker>()
 
@@ -19,12 +22,16 @@ class TickerAdapter() : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, p1: Int) =
-        TickerViewHolder(R.layout.ticker_item, parent)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ) =
+        TickerViewHolder(layoutRes, parent)
 
     override fun getItemCount() = items.size
 
     override fun onBindViewHolder(tickerViewHolder: TickerViewHolder, p1: Int) {
+        Log.d("aa12","aa");
         tickerViewHolder.bind(items[p1])
     }
 
