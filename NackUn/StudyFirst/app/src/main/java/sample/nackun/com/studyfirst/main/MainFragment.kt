@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.main_fragment.view.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -32,29 +33,29 @@ class MainFragment : BaseFragment(), MainContract.View {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(UpbitApi::class.java))), this)
-        with(root) {
-            val onClickListener = object : View.OnClickListener {
-                override fun onClick(v: View?) {
-                    marketKRW.setTextColor(ContextCompat.getColor(context, R.color.grey))
-                    marketBTC.setTextColor(ContextCompat.getColor(context, R.color.grey))
-                    marketETH.setTextColor(ContextCompat.getColor(context, R.color.grey))
-                    marketUSDT.setTextColor(ContextCompat.getColor(context, R.color.grey))
-                    val selectedMarket = v as TextView
-                    selectedMarket.setTextColor(ContextCompat.getColor(context, R.color.indigo))
-                    presenter.requestTickers(selectedMarket.text.toString())
-                }
-            }
-            marketKRW.setOnClickListener(onClickListener)
-            marketBTC.setOnClickListener(onClickListener)
-            marketETH.setOnClickListener(onClickListener)
-            marketUSDT.setOnClickListener(onClickListener)
-
-            tickerRecyclerView.adapter = tickerAdapter
-
-            marketKRW.callOnClick()
-        }
-
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val onClickListener = object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                marketKRW.setTextColor(ContextCompat.getColor(view.context, R.color.grey))
+                marketBTC.setTextColor(ContextCompat.getColor(view.context, R.color.grey))
+                marketETH.setTextColor(ContextCompat.getColor(view.context, R.color.grey))
+                marketUSDT.setTextColor(ContextCompat.getColor(view.context, R.color.grey))
+                val selectedMarket = v as TextView
+                selectedMarket.setTextColor(ContextCompat.getColor(view.context, R.color.indigo))
+                presenter.requestTickers(selectedMarket.text.toString())
+            }
+        }
+        marketKRW.setOnClickListener(onClickListener)
+        marketBTC.setOnClickListener(onClickListener)
+        marketETH.setOnClickListener(onClickListener)
+        marketUSDT.setOnClickListener(onClickListener)
+
+        tickerRecyclerView.adapter = tickerAdapter
+
+        marketKRW.callOnClick()
     }
 
     override fun showTickers(tickers: ArrayList<Ticker>) {
