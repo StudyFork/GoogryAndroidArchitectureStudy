@@ -1,13 +1,10 @@
 package org.study.kotlin.androidarchitecturestudy.data.source.remote
 
 import android.util.Log
-import org.study.kotlin.androidarchitecturestudy.api.model.MarketModel
-import org.study.kotlin.androidarchitecturestudy.api.model.TickerModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import org.study.kotlin.androidarchitecturestudy.api.retorifit.RetrofitBuilder
 import org.study.kotlin.androidarchitecturestudy.base.BaseDataSource
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 /**
  ***************************
@@ -30,38 +27,28 @@ f = requestMarkets(marketName: String, callback: GetTickerListCallback)
 class TickerRemoteDataSource private constructor(
 ) : BaseDataSource, RetrofitBuilder() {
 
-    /**
-    requestMarkets() = BaseDataSource의 requestMarkets()
-     */
     override fun requestMarkets(marketName: String, callback: BaseDataSource.GetTickerListCallback) {
-        retrofit.getMarket().enqueue(object : Callback<List<MarketModel>> {
-            override fun onFailure(call: Call<List<MarketModel>>, t: Throwable) {
-                callback.onDataNotAvailable(t)
-            }
-
-            override fun onResponse(call: Call<List<MarketModel>>, response: Response<List<MarketModel>>) {
-                response.let {
-                    val responseList =
-                        response.body()?.map { it.market }?.filter {
-                            it.substringBeforeLast("-") == marketName
-                        }
-                    val coinList = responseList?.joinToString()
-                    coinList?.let { getTickerList(it, callback) }
-                }
-            }
-        })
+        service.getMarket()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { success ->
+                    success.
+                        map { it.market }?.
+                        filter { it.substringBeforeLast("-") == marketName }.
+                        joinToString().
+                        let { getTickerList(it, callback) }
+                },
+                { failed -> callback.onDataNotAvailable(failed) })
     }
 
     private fun getTickerList(markets: String, callback: BaseDataSource.GetTickerListCallback) {
-        retrofit.getTicker(markets).enqueue(object : Callback<List<TickerModel>> {
-            override fun onFailure(call: Call<List<TickerModel>>, t: Throwable) {
-                callback.onDataNotAvailable(t)
-            }
-
-            override fun onResponse(call: Call<List<TickerModel>>, response: Response<List<TickerModel>>) {
-                response.body()?.let { callback.onTickerListLoaded(it) }
-            }
-        })
+        service.getTicker(markets)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { success -> callback.onTickerListLoaded(success) },
+                { failed -> callback.onDataNotAvailable(failed) })
     }
 
     companion object {
