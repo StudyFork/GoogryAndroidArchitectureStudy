@@ -13,6 +13,7 @@ class CoinRepository : CoinDataSource {
             response?.let {
                 if (!response.body().isNullOrEmpty()) {
                     val marketList = response.body()!!
+                        .asSequence()
                         .map { it.market }
                         .filter { it.substring(0, it.indexOf("-")) == "KRW" }
 
