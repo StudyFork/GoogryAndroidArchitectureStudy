@@ -8,8 +8,6 @@ interface CoinContract {
 
     interface View : BaseView<Presenter> {
 
-        fun initView()
-
         fun hideRefreshIcon()
 
         fun setCoinInfo(coinData: List<TickerModel>)

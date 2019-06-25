@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), CoinContract.View, SwipeRefreshLayout.
         initView()
     }
 
-    override fun initView() {
+    private fun initView() {
         coinAdapter = CoinRecyclerViewAdapter()
         rv_main.adapter = coinAdapter
         layout_main_swipe.setOnRefreshListener(this)
