@@ -14,7 +14,7 @@ import org.jetbrains.anko.textColor
 
 class CoinRecyclerViewAdapter
     : RecyclerView.Adapter<CoinRecyclerViewAdapter.CoinItemViewHolder>() {
-    private var coinList: ArrayList<TickerModel> = arrayListOf()
+    private var coinList: MutableList<TickerModel> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): CoinItemViewHolder {
         val viewGroup = LayoutInflater
