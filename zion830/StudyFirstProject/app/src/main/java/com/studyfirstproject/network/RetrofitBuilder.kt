@@ -14,8 +14,9 @@ object RetrofitBuilder {
     }
 
     private fun initService(): CoinApi {
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        val interceptor = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
 
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(interceptor)
