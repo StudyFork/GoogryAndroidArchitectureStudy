@@ -14,18 +14,18 @@
             android:textSize="24sp"
             android:layout_marginTop="12dp"
             android:layout_marginStart="12dp"
-            android:id="@+id/marketTitle"
+            android:id="@+id/tv_market_title"
             android:textColor="#000000">
     </TextView>
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@+id/marketTitle"
-            android:id="@+id/marketLike"
+            android:layout_below="@+id/tv_market_title"
+            android:id="@+id/li_market_like"
             android:layout_marginTop="12dp">
         <TextView
-                android:id="@+id/marketKRW"
+                android:id="@+id/tv_market_krw"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -34,7 +34,7 @@
                 android:gravity="center">
         </TextView>
         <TextView
-                android:id="@+id/marketBTC"
+                android:id="@+id/tv_market_btc"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -43,7 +43,7 @@
                 android:gravity="center">
         </TextView>
         <TextView
-                android:id="@+id/marketETH"
+                android:id="@+id/tv_market_eth"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -52,7 +52,7 @@
                 android:gravity="center">
         </TextView>
         <TextView
-                android:id="@+id/marketUSDT"
+                android:id="@+id/tv_market_usdt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -62,14 +62,14 @@
         </TextView>
     </LinearLayout>
     <LinearLayout
+            android:id="@+id/li_ticker_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="8dp"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
-            android:id="@+id/tickerTitle"
-            android:layout_below="@+id/marketLike">
+            android:layout_below="@+id/li_market_like">
         <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
 
     </LinearLayout>
     <ScrollView
-            android:layout_below="@+id/tickerTitle"
+            android:layout_below="@+id/li_ticker_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import kotlinx.android.synthetic.main.main_fragment.*
-import kotlinx.android.synthetic.main.main_fragment.view.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import sample.nackun.com.studyfirst.Base.BaseFragment
@@ -39,23 +38,23 @@ class MainFragment : BaseFragment(), MainContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val onClickListener = object : View.OnClickListener {
             override fun onClick(v: View?) {
-                marketKRW.setTextColor(ContextCompat.getColor(view.context, R.color.grey))
-                marketBTC.setTextColor(ContextCompat.getColor(view.context, R.color.grey))
-                marketETH.setTextColor(ContextCompat.getColor(view.context, R.color.grey))
-                marketUSDT.setTextColor(ContextCompat.getColor(view.context, R.color.grey))
+                tv_market_krw.setTextColor(ContextCompat.getColor(view.context, R.color.grey))
+                tv_market_btc.setTextColor(ContextCompat.getColor(view.context, R.color.grey))
+                tv_market_eth.setTextColor(ContextCompat.getColor(view.context, R.color.grey))
+                tv_market_usdt.setTextColor(ContextCompat.getColor(view.context, R.color.grey))
                 val selectedMarket = v as TextView
                 selectedMarket.setTextColor(ContextCompat.getColor(view.context, R.color.indigo))
                 presenter.requestTickers(selectedMarket.text.toString())
             }
         }
-        marketKRW.setOnClickListener(onClickListener)
-        marketBTC.setOnClickListener(onClickListener)
-        marketETH.setOnClickListener(onClickListener)
-        marketUSDT.setOnClickListener(onClickListener)
+        tv_market_krw.setOnClickListener(onClickListener)
+        tv_market_btc.setOnClickListener(onClickListener)
+        tv_market_eth.setOnClickListener(onClickListener)
+        tv_market_usdt.setOnClickListener(onClickListener)
 
         tickerRecyclerView.adapter = tickerAdapter
 
-        marketKRW.callOnClick()
+        tv_market_krw.callOnClick()
     }
 
     override fun showTickers(tickers: ArrayList<Ticker>) {
