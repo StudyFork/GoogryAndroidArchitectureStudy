@@ -11,8 +11,9 @@ class CoinRepository : CoinDataSource {
     override fun getAllMarkets(callback: CoinDataSource.LoadMarketsCallback) {
         service.getAllMarket().enqueue(retrofitCallback { response, throwable ->
             response?.let {
-                if (!response.body().isNullOrEmpty()) {
-                    val marketList = response.body()!!
+                val body = response.body()
+                if (!body.isNullOrEmpty()) {
+                    val marketList = body
                         .asSequence()
                         .map { it.market }
                         .filter { it.substring(0, it.indexOf("-")) == "KRW" }
@@ -33,9 +34,9 @@ class CoinRepository : CoinDataSource {
     override fun getCoinData(markets: String, callback: CoinDataSource.LoadTickersCallback) {
         service.getTickers(markets).enqueue(retrofitCallback { response, throwable ->
             response?.let {
-                if (!response.body().isNullOrEmpty()) {
-                    val coinData = response.body() as List<TickerModel>
-                    callback.onCoinsLoaded(coinData)
+                val body = response.body()
+                if (!body.isNullOrEmpty()) {
+                    callback.onCoinsLoaded(body)
                 } else {
                     callback.onDataNotAvailable(loadErrMsg, throwable?.message)
                 }
