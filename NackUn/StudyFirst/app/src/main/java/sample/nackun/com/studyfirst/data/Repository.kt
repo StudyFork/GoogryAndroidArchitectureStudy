@@ -2,7 +2,7 @@ package sample.nackun.com.studyfirst.data
 
 import sample.nackun.com.studyfirst.vo.Ticker
 
-class Repository(
+class Repository private constructor(
     private val remoteDataSource: DataSource
 ) : DataSource {
     override fun requestMarkets(marketLike: String, callback: DataSource.RequestTickersCallback) {
@@ -21,8 +21,7 @@ class Repository(
     companion object {
         private var INSTANCE: Repository? = null
 
-        @JvmStatic
-        fun getInstance(RemoteDataSource: DataSource): Repository {
+        operator fun invoke(RemoteDataSource: DataSource): Repository{
             return INSTANCE ?: Repository(RemoteDataSource)
                 .apply { INSTANCE = this }
         }

@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import kotlinx.android.synthetic.main.main_fragment.view.*
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import sample.nackun.com.studyfirst.Base.BaseFragment
 import sample.nackun.com.studyfirst.R
 import sample.nackun.com.studyfirst.TickerAdapter
 import sample.nackun.com.studyfirst.data.Repository
 import sample.nackun.com.studyfirst.data.remote.RemoteDataSource
+import sample.nackun.com.studyfirst.network.UpbitApi
 import sample.nackun.com.studyfirst.vo.Ticker
 
 class MainFragment : BaseFragment(), MainContract.View {
@@ -23,7 +26,12 @@ class MainFragment : BaseFragment(), MainContract.View {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.main_fragment, container, false)
-        MainPresenter(Repository(RemoteDataSource()), this)
+        MainPresenter(Repository(RemoteDataSource(
+            Retrofit.Builder()
+                .baseUrl("https://api.upbit.com/v1/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(UpbitApi::class.java))), this)
         with(root) {
             val onClickListener = object : View.OnClickListener {
                 override fun onClick(v: View?) {

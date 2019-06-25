@@ -11,27 +11,23 @@ import sample.nackun.com.studyfirst.network.UpbitApi
 import sample.nackun.com.studyfirst.vo.Market
 import sample.nackun.com.studyfirst.vo.Ticker
 
-class RemoteDataSource : DataSource {
-    private val retrofitService: UpbitApi = Retrofit.Builder()
-        .baseUrl("https://api.upbit.com/v1/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-        .create(UpbitApi::class.java)
+class RemoteDataSource(retrofitService: UpbitApi) : DataSource {
+    private val retrofitService = retrofitService
 
     override fun requestMarkets(marketLike: String, callback: DataSource.RequestTickersCallback) {
         retrofitService.requestMarket().enqueue(object : Callback<ArrayList<Market>> {
-            override fun onFailure(call: Call<ArrayList<Market>>, t: Throwable) {
-                callback.onError("Don't request Markets")
-            }
-
             override fun onResponse(call: Call<ArrayList<Market>>, response: Response<ArrayList<Market>>) {
-                var query: String = ""
-                response.body()?.let {
-                    query = it.filter { it.market.startsWith(marketLike) }
+                val query =
+                response.body()?.let { data ->
+                    data.filter { it.market.startsWith(marketLike) }
                         .joinToString { it.market }
-                }
+                }?:""
                 Log.d("aa12", query)
                 requestTickers(query, callback);
+            }
+
+            override fun onFailure(call: Call<ArrayList<Market>>, t: Throwable) {
+                callback.onError("Don't request Markets")
             }
         })
     }
@@ -42,11 +38,8 @@ class RemoteDataSource : DataSource {
                 override fun onResponse(
                     call: Call<ArrayList<Ticker>>,
                     response: Response<ArrayList<Ticker>>
-                ) {
-                    response.body()?.let {
-                        callback.onTickersLoaded(it)
-                    } ?: callback.onError("Tickers is Null")
-                }
+                ) = response.body()?.let(callback::onTickersLoaded)
+                ?: callback.onError("Tickers is Null")
 
                 override fun onFailure(call: Call<ArrayList<Ticker>>, t: Throwable) {
                     callback.onError("Don't request Tickers")
