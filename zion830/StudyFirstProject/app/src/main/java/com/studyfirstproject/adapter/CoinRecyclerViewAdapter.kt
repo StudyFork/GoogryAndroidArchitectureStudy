@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.studyfirstproject.R
-import com.studyfirstproject.model.TickerModel
+import com.studyfirstproject.data.model.TickerModel
 import com.studyfirstproject.util.NumberFormatUtil
 import kotlinx.android.synthetic.main.item_coin_info.view.*
 import org.jetbrains.anko.textColor
