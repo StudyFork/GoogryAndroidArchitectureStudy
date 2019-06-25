@@ -1,7 +1,6 @@
 package com.architecturestudy.upbitmarket.recyclerview
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
@@ -17,9 +16,7 @@ class UpbitAdapter(
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(resource, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(parent)
     }
 
     override fun getItemCount(): Int = marketPrice?.size ?: 0
@@ -36,8 +33,11 @@ class UpbitAdapter(
     }
 
     inner class ViewHolder(
-        itemView: View
-    ) : RecyclerView.ViewHolder(itemView) {
+        parent: ViewGroup
+    ) : RecyclerView.ViewHolder(
+        LayoutInflater.from(parent.context)
+            .inflate(resource, parent, false)
+    ) {
         private val coinName = itemView.tv_coin_name
         private val currentPrice = itemView.tv_current_price
         private val netChange = itemView.tv_net_change
