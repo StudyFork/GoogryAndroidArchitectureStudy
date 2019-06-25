@@ -17,7 +17,9 @@ import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity(), CoinContract.View {
     override lateinit var presenter: CoinContract.Presenter
-    private lateinit var coinAdapter: CoinRecyclerViewAdapter
+    private val coinAdapter: CoinRecyclerViewAdapter by lazy {
+        CoinRecyclerViewAdapter()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +30,6 @@ class MainActivity : AppCompatActivity(), CoinContract.View {
     }
 
     private fun initView() {
-        coinAdapter = CoinRecyclerViewAdapter()
         rv_main.adapter = coinAdapter
         layout_main_swipe.setOnRefreshListener {
             getMarketData()
@@ -54,8 +55,9 @@ class MainActivity : AppCompatActivity(), CoinContract.View {
     }
 
     override fun hideRefreshIcon() {
-        if (layout_main_swipe.isRefreshing)
+        if (layout_main_swipe.isRefreshing) {
             layout_main_swipe.isRefreshing = false
+        }
     }
 
     override fun notifyError(msg: String, reason: String?) {
