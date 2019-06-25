@@ -2,7 +2,7 @@ package com.studyfirstproject
 
 interface BaseView<T> {
 
-    var presenter: T
+    val presenter: T
 
     fun showProgress()
 

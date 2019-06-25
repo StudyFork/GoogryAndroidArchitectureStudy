@@ -16,7 +16,9 @@ import org.jetbrains.anko.toast
 
 
 class MainActivity : AppCompatActivity(), CoinContract.View {
-    override lateinit var presenter: CoinContract.Presenter
+    override val presenter: CoinContract.Presenter =
+        CoinPresenter(this, CoinRepository())
+
     private val coinAdapter: CoinRecyclerViewAdapter by lazy {
         CoinRecyclerViewAdapter()
     }
@@ -25,7 +27,6 @@ class MainActivity : AppCompatActivity(), CoinContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        presenter = CoinPresenter(this, CoinRepository())
         initView()
     }
 
