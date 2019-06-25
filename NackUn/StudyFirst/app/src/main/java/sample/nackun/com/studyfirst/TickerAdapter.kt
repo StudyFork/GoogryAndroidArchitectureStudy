@@ -11,10 +11,10 @@ import kotlinx.android.synthetic.main.ticker_item.view.*
 import sample.nackun.com.studyfirst.vo.Ticker
 
 class TickerAdapter(
-    @LayoutRes private val layoutRes: Int
+    //@LayoutRes private val layoutRes: Int
 ) : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
 
-    private var items = mutableListOf<Ticker>()
+    protected val items = mutableListOf<Ticker>()
 
     fun setItems(tickers: List<Ticker>) {
         items.clear()
@@ -22,30 +22,29 @@ class TickerAdapter(
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ) =
-        TickerViewHolder(layoutRes, parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : TickerViewHolder {
+        return TickerViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.ticker_item, parent, false))
+    }
 
     override fun getItemCount() = items.size
 
-    override fun onBindViewHolder(tickerViewHolder: TickerViewHolder, p1: Int) {
-        Log.d("aa12","aa");
-        tickerViewHolder.bind(items[p1])
+    override fun onBindViewHolder(tickerViewHolder: TickerViewHolder, position: Int) {
+        tickerViewHolder.bind(items[position])
     }
 
     inner class TickerViewHolder(
-        @LayoutRes layoutRes: Int,
-        parent: ViewGroup
+//        @LayoutRes layoutRes: Int,
+//    parent: ViewGroup
+        view: View
     ) : RecyclerView.ViewHolder(
-        LayoutInflater.from(parent.context)
-            .inflate(layoutRes, parent, false)
+//        LayoutInflater.from(parent.context)
+//            .inflate(layoutRes, parent, false)
+        view
     ) {
-        val tickerName = parent.tickerName
-        val currentPrice = parent.currentPrice
-        val comparePrice = parent.comparePrice
-        val changePrice = parent.changePrice
+        val tickerName = view.tickerName
+        val currentPrice = view.currentPrice
+        val comparePrice = view.comparePrice
+        val changePrice = view.changePrice
 
         fun bind(item: Ticker) {
             tickerName.text = item.market.substring(

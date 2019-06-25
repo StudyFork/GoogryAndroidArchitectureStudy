@@ -16,7 +16,7 @@ import sample.nackun.com.studyfirst.vo.Ticker
 
 class MainFragment : BaseFragment(), MainContract.View {
     override lateinit var presenter: MainContract.Presenter
-    private val tickerAdapter = TickerAdapter(R.layout.ticker_item)
+    private val tickerAdapter = TickerAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
