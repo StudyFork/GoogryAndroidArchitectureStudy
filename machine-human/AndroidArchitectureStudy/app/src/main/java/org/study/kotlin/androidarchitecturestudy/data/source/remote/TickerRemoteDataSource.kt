@@ -21,7 +21,7 @@ i = BaseDataSource
 
 i = GetTickerListCallback
 
-f = onTickerListLoaded(tickerList: ArrayList<TickerModel>)
+f = onTickerListLoaded(tickerList: List<TickerModel>)
 f = onDataNotAvailable(error: String)
 
 f = requestMarkets(marketName: String, callback: GetTickerListCallback)
@@ -34,12 +34,12 @@ class TickerRemoteDataSource private constructor(
     requestMarkets() = BaseDataSource의 requestMarkets()
      */
     override fun requestMarkets(marketName: String, callback: BaseDataSource.GetTickerListCallback) {
-        retrofit.getMarket().enqueue(object : Callback<ArrayList<MarketModel>> {
-            override fun onFailure(call: Call<ArrayList<MarketModel>>, t: Throwable) {
+        retrofit.getMarket().enqueue(object : Callback<List<MarketModel>> {
+            override fun onFailure(call: Call<List<MarketModel>>, t: Throwable) {
                 callback.onDataNotAvailable(t)
             }
 
-            override fun onResponse(call: Call<ArrayList<MarketModel>>, response: Response<ArrayList<MarketModel>>) {
+            override fun onResponse(call: Call<List<MarketModel>>, response: Response<List<MarketModel>>) {
                 response.let {
                     val responseList =
                         response.body()?.map { it.market }?.filter {
@@ -53,12 +53,12 @@ class TickerRemoteDataSource private constructor(
     }
 
     private fun getTickerList(markets: String, callback: BaseDataSource.GetTickerListCallback) {
-        retrofit.getTicker(markets).enqueue(object : Callback<ArrayList<TickerModel>> {
-            override fun onFailure(call: Call<ArrayList<TickerModel>>, t: Throwable) {
+        retrofit.getTicker(markets).enqueue(object : Callback<List<TickerModel>> {
+            override fun onFailure(call: Call<List<TickerModel>>, t: Throwable) {
                 callback.onDataNotAvailable(t)
             }
 
-            override fun onResponse(call: Call<ArrayList<TickerModel>>, response: Response<ArrayList<TickerModel>>) {
+            override fun onResponse(call: Call<List<TickerModel>>, response: Response<List<TickerModel>>) {
                 response.body()?.let { callback.onTickerListLoaded(it) }
             }
         })

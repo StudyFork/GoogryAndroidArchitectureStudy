@@ -16,7 +16,7 @@ v = variable
 
 i = MainContract
 i = View : BaseView<Presenter>
-f = setTickers(tickers: ArrayList<TickerModel>)
+f = setTickers(tickers: List<TickerModel>)
 
 i = Presenter : BasePresenter
 f = requestDataFromTickerRepository(marketName: String)
@@ -33,10 +33,8 @@ interface MainContract {
     f = hideProgress()
      */
     interface View : BaseView<Presenter> {
-        fun setTickers(tickers: ArrayList<TickerModel>) {
-            Log.e("TAG MainContract", "setTickers")
-        }
-
+        fun setTickers(tickers: List<TickerModel>)
+        fun setProgress(success: Boolean)
     }
 
     /**
@@ -46,7 +44,7 @@ interface MainContract {
      */
     interface Presenter : BasePresenter {
         fun requestDataFromTickerRepository(marketName: String) {
-            Log.e("TAG MainContract", "requestDataFromTickerRepository")
+            //no-op
         }
     }
 

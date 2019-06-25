@@ -16,7 +16,7 @@ i = BaseDataSource
 
 i = GetTickerListCallback
 
-f = onTickerListLoaded(tickerList: ArrayList<TickerModel>)
+f = onTickerListLoaded(tickerList: List<TickerModel>)
 f = onDataNotAvailable(error: String)
 
 f = requestMarkets(marketName: String, callback: GetTickerListCallback)
@@ -29,7 +29,7 @@ class TickerRepository private constructor(
     override fun requestMarkets(marketName: String, callback: BaseDataSource.GetTickerListCallback) {
 
         tickerRemoteDataSource.requestMarkets(marketName, object : BaseDataSource.GetTickerListCallback {
-            override fun onTickerListLoaded(tickerList: ArrayList<TickerModel>) {
+            override fun onTickerListLoaded(tickerList: List<TickerModel>) {
                 callback.onTickerListLoaded(tickerList)
             }
 

@@ -16,7 +16,7 @@ i = MainContract
 
 i = View : BaseView<Presenter>
 
-f = setTickers(tickers: ArrayList<TickerModel>)
+f = setTickers(tickers: List<TickerModel>)
 
 i = Presenter : BasePresenter
 
@@ -28,7 +28,7 @@ i = BaseDataSource
 
 i = GetTickerListCallback
 
-f = onTickerListLoaded(tickerList: ArrayList<TickerModel>)
+f = onTickerListLoaded(tickerList: List<TickerModel>)
 f = onDataNotAvailable(error: String)
 
 f = requestMarkets(marketName: String, callback: GetTickerListCallback)
@@ -50,13 +50,13 @@ class MainPresenter : MainContract.Presenter, BaseDataSource.GetTickerListCallba
         tickerRemoteDataSource.requestMarkets(message, this)
     }
 
-    override fun onTickerListLoaded(tickerList: ArrayList<TickerModel>) {
+    override fun onTickerListLoaded(tickerList: List<TickerModel>) {
         mainView.setTickers(tickerList)
-
+        mainView.setProgress(true)
     }
 
     override fun onDataNotAvailable(error: Throwable) {
-        mainView.showProgress(error)
+        mainView.showErrorToast(error)
 
     }
 

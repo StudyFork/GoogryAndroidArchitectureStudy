@@ -8,8 +8,8 @@ import retrofit2.http.Query
 
 interface UpbitApi {
     @GET("v1/market/all")
-    fun getMarket(): Call<ArrayList<MarketModel>>
+    fun getMarket(): Call<List<MarketModel>>
 
     @GET("v1/ticker")
-    fun getTicker(@Query("markets") markets: String): Call<ArrayList<TickerModel>>
+    fun getTicker(@Query("markets") markets: String): Call<List<TickerModel>>
 }
