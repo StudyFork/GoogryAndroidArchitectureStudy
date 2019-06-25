@@ -11,7 +11,7 @@ class Repository(
                 callback.onTickersLoaded(tickers)
             }
 
-            override fun onError(err: String?) {
+            override fun onError(err: String) {
                 callback.onError(err)
             }
 

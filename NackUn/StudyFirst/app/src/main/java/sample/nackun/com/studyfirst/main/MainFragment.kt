@@ -53,4 +53,7 @@ class MainFragment : BaseFragment(), MainContract.View {
         tickerAdapter.setItems(tickers)
     }
 
+    override fun showMsg(msg: String) {
+        showToast(msg)
+    }
 }
