@@ -16,8 +16,8 @@
 
 package com.aiden.aiden.architecturepatternstudy.data.source
 
-import com.aiden.aiden.architecturepatternstudy.api.model.MarketModel
-import com.aiden.aiden.architecturepatternstudy.api.model.TickerModel
+import com.aiden.aiden.architecturepatternstudy.api.model.MarketResponse
+import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 
 /**
  * Main entry point for accessing tasks data.
@@ -32,7 +32,7 @@ interface UpbitDataSource {
 
     interface GetMarketListCallback {
 
-        fun onMarketListLoaded(marketList: List<MarketModel>)
+        fun onMarketListLoaded(marketList: List<MarketResponse>)
 
         fun onDataNotAvailable()
 
@@ -40,7 +40,7 @@ interface UpbitDataSource {
 
     interface GetTickerListCallback {
 
-        fun onTickerListLoaded(tickerList: List<TickerModel>)
+        fun onTickerListLoaded(tickerList: List<TickerResponse>)
 
         fun onDataNotAvailable()
 
@@ -48,6 +48,6 @@ interface UpbitDataSource {
 
     fun getMarketList(callback: GetMarketListCallback)
 
-    fun getTickerList(marketList: List<MarketModel>, callback: GetTickerListCallback)
+    fun getTickerList(marketList: List<MarketResponse>, callback: GetTickerListCallback)
 
 }

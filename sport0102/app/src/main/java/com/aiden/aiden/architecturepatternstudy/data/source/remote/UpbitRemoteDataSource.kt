@@ -16,8 +16,8 @@
 package com.aiden.aiden.architecturepatternstudy.data.source.remote
 
 import com.aiden.aiden.architecturepatternstudy.api.UpbitApi
-import com.aiden.aiden.architecturepatternstudy.api.model.MarketModel
-import com.aiden.aiden.architecturepatternstudy.api.model.TickerModel
+import com.aiden.aiden.architecturepatternstudy.api.model.MarketResponse
+import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 import com.aiden.aiden.architecturepatternstudy.data.source.UpbitDataSource
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,13 +30,13 @@ class UpbitRemoteDataSource private constructor(private val upbitApi: UpbitApi) 
 
     override fun getMarketList(callback: UpbitDataSource.GetMarketListCallback) {
 
-        upbitApi.getMarketList().enqueue(object : Callback<ArrayList<MarketModel>> {
+        upbitApi.getMarketList().enqueue(object : Callback<ArrayList<MarketResponse>> {
 
-            override fun onFailure(call: Call<ArrayList<MarketModel>>?, t: Throwable?) {
+            override fun onFailure(call: Call<ArrayList<MarketResponse>>?, t: Throwable?) {
                 callback.onDataNotAvailable()
             }
 
-            override fun onResponse(call: Call<ArrayList<MarketModel>>?, response: Response<ArrayList<MarketModel>>?) {
+            override fun onResponse(call: Call<ArrayList<MarketResponse>>?, response: Response<ArrayList<MarketResponse>>?) {
                 response?.body()?.let {
                     callback.onMarketListLoaded(it)
                 }
@@ -46,17 +46,17 @@ class UpbitRemoteDataSource private constructor(private val upbitApi: UpbitApi) 
 
     }
 
-    override fun getTickerList(marketList: List<MarketModel>, callback: UpbitDataSource.GetTickerListCallback) {
+    override fun getTickerList(marketList: List<MarketResponse>, callback: UpbitDataSource.GetTickerListCallback) {
 
         upbitApi.getTickerInfo(marketList.joinToString { marketModel -> marketModel.market })
-            .enqueue(object : Callback<ArrayList<TickerModel>> {
-                override fun onFailure(call: Call<ArrayList<TickerModel>>, t: Throwable) {
+            .enqueue(object : Callback<ArrayList<TickerResponse>> {
+                override fun onFailure(call: Call<ArrayList<TickerResponse>>, t: Throwable) {
                     callback.onDataNotAvailable()
                 }
 
                 override fun onResponse(
-                    call: Call<ArrayList<TickerModel>>,
-                    response: Response<ArrayList<TickerModel>>
+                    call: Call<ArrayList<TickerResponse>>,
+                    response: Response<ArrayList<TickerResponse>>
                 ) {
                     response.body()?.let {
                         callback.onTickerListLoaded(it)

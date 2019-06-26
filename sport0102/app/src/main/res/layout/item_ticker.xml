@@ -36,7 +36,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginRight="12dp"
-		android:layout_weight="1.1"
+		android:layout_weight="1"
 		android:maxLines="1"
 		android:textAlignment="textEnd"
 		android:textColor="@color/black"

@@ -2,7 +2,7 @@ package com.aiden.aiden.architecturepatternstudy.api.model
 
 import com.google.gson.annotations.SerializedName
 
-data class TickerModel(
+data class TickerResponse(
 
     @SerializedName("acc_trade_price")
     val accTradePrice: Double,

@@ -5,11 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aiden.aiden.architecturepatternstudy.R
-import com.aiden.aiden.architecturepatternstudy.api.model.TickerModel
-import com.aiden.aiden.architecturepatternstudy.data.enums.Market
-import com.aiden.aiden.architecturepatternstudy.util.StringUtil
+import com.aiden.aiden.architecturepatternstudy.data.model.TickerModel
 import kotlinx.android.synthetic.main.item_ticker.view.*
-import java.math.BigDecimal
 
 class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewHolder>() {
 
@@ -25,9 +22,8 @@ class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewH
     override fun getItemCount(): Int = tickerList.size
 
 
-    override fun onBindViewHolder(holder: ItemTickerViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ItemTickerViewHolder, position: Int) =
         holder.bind(tickerList[position])
-    }
 
     fun setData(list: List<TickerModel>) {
         this.tickerList.clear()
@@ -42,66 +38,28 @@ class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewH
         private val tvTotalDealPrice by lazy { view.item_ticker_tv_total_deal_price }
 
         fun bind(tickerModel: TickerModel) {
-            with(view) {
-                // 코인 이름
-                tvCoinName.text = tickerModel.market.split("-")[1]
-                // 현재 가격
-                tvNowPrice.text = if (tickerModel.market.startsWith(
-                        Market.KRW.marketName,
-                        true
-                    )
-                ) {
-                    StringUtil.getKrwCommaPrice(BigDecimal(tickerModel.tradePrice))
-                } else if (tickerModel.market.startsWith(
-                        Market.BTC.marketName,
-                        true
-                    ) || tickerModel.market.startsWith(
-                        Market.ETH.marketName,
-                        true
-                    )
-                ) {
-                    StringUtil.getBtcEthCommaPrice(tickerModel.tradePrice)
-                } else {
-                    StringUtil.getUsdtCommaPrice(tickerModel.tradePrice)
+
+            tvCoinName.text = tickerModel.coinName
+
+            tvNowPrice.text = tickerModel.nowPrice
+
+            when {
+                tickerModel.prevClosingPrice > tickerModel.tradePrice -> {
+                    tvCompareBefore.setTextColor(view.context.getColor(R.color.blue))
                 }
-                // 전일대비
-                when {
-                    tickerModel.prevClosingPrice > tickerModel.tradePrice -> {
-                        tvCompareBefore.setTextColor(context.getColor(R.color.blue))
-                    }
-                    tickerModel.prevClosingPrice < tickerModel.tradePrice -> {
-                        tvCompareBefore.setTextColor(context.getColor(R.color.red))
-                    }
-                    else -> {
-                        tvCompareBefore.setTextColor(context.getColor(R.color.black))
-                    }
+                tickerModel.prevClosingPrice < tickerModel.tradePrice -> {
+                    tvCompareBefore.setTextColor(view.context.getColor(R.color.red))
                 }
-                tvCompareBefore.text =
-                    StringUtil.getPercent(
-                        tickerModel.prevClosingPrice,
-                        tickerModel.tradePrice
-                    )
-                // 거래대금
-                tvTotalDealPrice.text =
-                    if (tickerModel.market.startsWith(
-                            Market.KRW.marketName,
-                            true
-                        )
-                    ) {
-                        StringUtil.getKrwTotalDealPrice(tickerModel.accTradePrice24h)
-                    } else if (tickerModel.market.startsWith(
-                            Market.BTC.marketName,
-                            true
-                        ) || tickerModel.market.startsWith(
-                            Market.ETH.marketName,
-                            true
-                        )
-                    ) {
-                        StringUtil.getBtcEthTotalDealPrice(tickerModel.accTradePrice24h)
-                    } else {
-                        StringUtil.getUsdtTotalDealPrice(tickerModel.accTradePrice24h)
-                    }
+                else -> {
+                    tvCompareBefore.setTextColor(view.context.getColor(R.color.black))
+                }
             }
+            tvCompareBefore.text = tickerModel.compareBeforePercentage
+
+            tvTotalDealPrice.text = tickerModel.totalDealPrice
+
         }
+
     }
+
 }

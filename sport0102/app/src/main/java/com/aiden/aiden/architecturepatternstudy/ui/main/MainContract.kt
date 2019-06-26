@@ -15,10 +15,10 @@
  */
 package com.aiden.aiden.architecturepatternstudy.ui.main
 
-import com.aiden.aiden.architecturepatternstudy.api.model.MarketModel
-import com.aiden.aiden.architecturepatternstudy.api.model.TickerModel
+import com.aiden.aiden.architecturepatternstudy.api.model.MarketResponse
 import com.aiden.aiden.architecturepatternstudy.base.BasePresenter
 import com.aiden.aiden.architecturepatternstudy.base.BaseView
+import com.aiden.aiden.architecturepatternstudy.data.model.TickerModel
 
 interface MainContract {
 
@@ -34,7 +34,7 @@ interface MainContract {
 
         fun loadMarketList(market: String)
 
-        fun loadTickerList(marketList: ArrayList<MarketModel>)
+        fun loadTickerList(marketList: ArrayList<MarketResponse>)
 
     }
 }

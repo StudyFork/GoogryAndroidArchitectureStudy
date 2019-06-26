@@ -3,9 +3,9 @@ package com.aiden.aiden.architecturepatternstudy.ui.main
 import android.os.Bundle
 import android.view.View
 import com.aiden.aiden.architecturepatternstudy.api.UpbitApi
-import com.aiden.aiden.architecturepatternstudy.api.model.TickerModel
 import com.aiden.aiden.architecturepatternstudy.api.retrofit
 import com.aiden.aiden.architecturepatternstudy.base.BaseFragment
+import com.aiden.aiden.architecturepatternstudy.data.model.TickerModel
 import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
 import com.aiden.aiden.architecturepatternstudy.data.source.remote.UpbitRemoteDataSource
 import kotlinx.android.synthetic.main.fragment_main.*

@@ -15,8 +15,8 @@
  */
 package com.aiden.aiden.architecturepatternstudy.data.source
 
-import com.aiden.aiden.architecturepatternstudy.api.model.MarketModel
-import com.aiden.aiden.architecturepatternstudy.api.model.TickerModel
+import com.aiden.aiden.architecturepatternstudy.api.model.MarketResponse
+import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 
 /**
  * Concrete implementation to load tasks from the data sources into a cache.
@@ -32,7 +32,7 @@ class UpbitRepository(
 
     override fun getMarketList(callback: UpbitDataSource.GetMarketListCallback) {
         remoteDataSource.getMarketList(object : UpbitDataSource.GetMarketListCallback {
-            override fun onMarketListLoaded(marketList: List<MarketModel>) {
+            override fun onMarketListLoaded(marketList: List<MarketResponse>) {
                 callback.onMarketListLoaded(marketList)
             }
 
@@ -43,9 +43,9 @@ class UpbitRepository(
         })
     }
 
-    override fun getTickerList(marketList: List<MarketModel>, callback: UpbitDataSource.GetTickerListCallback) {
+    override fun getTickerList(marketList: List<MarketResponse>, callback: UpbitDataSource.GetTickerListCallback) {
         remoteDataSource.getTickerList(marketList, object : UpbitDataSource.GetTickerListCallback {
-            override fun onTickerListLoaded(tickerList: List<TickerModel>) {
+            override fun onTickerListLoaded(tickerList: List<TickerResponse>) {
                 callback.onTickerListLoaded(tickerList)
             }
 
