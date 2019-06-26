@@ -1,18 +1,15 @@
 package sample.nackun.com.studyfirst.main
 
 import android.os.Bundle
-import android.support.annotation.LayoutRes
 import android.support.v4.content.ContextCompat
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import kotlinx.android.synthetic.main.main_fragment.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import sample.nackun.com.studyfirst.Base.BaseFragment
 import sample.nackun.com.studyfirst.R
-import sample.nackun.com.studyfirst.TickerAdapter
+import sample.nackun.com.studyfirst.ui.TickerAdapter
 import sample.nackun.com.studyfirst.data.Repository
 import sample.nackun.com.studyfirst.data.remote.RemoteDataSource
 import sample.nackun.com.studyfirst.network.UpbitApi
@@ -21,6 +18,7 @@ import sample.nackun.com.studyfirst.vo.Ticker
 class MainFragment : BaseFragment(
     R.layout.main_fragment
 ), MainContract.View {
+
     override lateinit var presenter: MainContract.Presenter
     private val tickerAdapter = TickerAdapter()
 
@@ -38,12 +36,14 @@ class MainFragment : BaseFragment(
     }
 
     private fun initPresenter(){
-        MainPresenter(Repository(RemoteDataSource(
+        MainPresenter(this,
+            Repository(RemoteDataSource(
             Retrofit.Builder()
                 .baseUrl("https://api.upbit.com/v1/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(UpbitApi::class.java))), this)
+                .create(UpbitApi::class.java)))
+        )
     }
 
     private fun initOnClick(){

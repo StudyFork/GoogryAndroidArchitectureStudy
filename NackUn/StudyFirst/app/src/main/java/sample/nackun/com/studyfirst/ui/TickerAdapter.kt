@@ -1,13 +1,12 @@
-package sample.nackun.com.studyfirst
+package sample.nackun.com.studyfirst.ui
 
 import android.graphics.Color
-import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.ticker_item.view.*
+import sample.nackun.com.studyfirst.R
 import sample.nackun.com.studyfirst.util.TickerFormatter
 import sample.nackun.com.studyfirst.vo.Ticker
 
@@ -51,9 +50,8 @@ class TickerAdapter(
             tickerName.text = TickerFormatter.convertTo(item)["tickerName"]
             currentPrice.text = TickerFormatter.convertTo(item)["currentPrice"]
             comparePrice.text = TickerFormatter.convertTo(item)["comparePrice"]
-            //comparePrice.setTextColor(TickerFormatter.convertTo(item)["compareColor"])
+            comparePrice.setTextColor(TickerFormatter.convertTo(item)["compareColor"]!!.toInt())
             changePrice.text = TickerFormatter.convertTo(item)["changePrice"]
         }
     }
-
 }

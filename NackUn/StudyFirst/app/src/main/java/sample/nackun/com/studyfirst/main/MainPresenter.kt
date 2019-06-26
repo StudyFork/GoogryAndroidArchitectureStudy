@@ -4,7 +4,10 @@ import sample.nackun.com.studyfirst.data.DataSource
 import sample.nackun.com.studyfirst.data.Repository
 import sample.nackun.com.studyfirst.vo.Ticker
 
-class MainPresenter(val repository: Repository, val mainView: MainContract.View) : MainContract.Presenter,
+class MainPresenter(
+    val mainView: MainContract.View,
+    val repository: Repository
+) : MainContract.Presenter,
     DataSource.RequestTickersCallback {
 
     init {

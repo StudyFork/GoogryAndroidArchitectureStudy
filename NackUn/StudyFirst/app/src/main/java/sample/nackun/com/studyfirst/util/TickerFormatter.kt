@@ -1,10 +1,12 @@
 package sample.nackun.com.studyfirst.util
 
+import android.graphics.Color
 import sample.nackun.com.studyfirst.vo.Ticker
 
 object TickerFormatter {
     fun convertTo(item: Ticker): Map<String, String> {
-        val differPrice = compareToBefore(item.tradePrice, item.prevClosingPrice)
+        val differPrice =
+            compareToBefore(item.tradePrice, item.prevClosingPrice)
         val convertItem =
             mutableMapOf(
                 "tickerName" to getTickerName(item.market),
@@ -31,16 +33,16 @@ object TickerFormatter {
     }
 
     private fun compareToBefore(currentPrice: Double, beforePrice: Double) =
-        Math.abs(currentPrice - beforePrice) / beforePrice * 100
+        (currentPrice - beforePrice) / beforePrice * 100
 
     private fun getComparePrice(differPrice: Double) =
         String.format("%.2f", differPrice) + "%"
 
     private fun getCompareColor(differPrice: Double): String{
         when {
-            differPrice > 0 -> return "RED"
-            differPrice == 0.0 -> return "BLACK"
-            else -> return "BLUE"
+            differPrice > 0 -> return Color.RED.toString()
+            differPrice < 0 -> return Color.BLUE.toString()
+            else -> return Color.BLACK.toString()
         }
     }
 
