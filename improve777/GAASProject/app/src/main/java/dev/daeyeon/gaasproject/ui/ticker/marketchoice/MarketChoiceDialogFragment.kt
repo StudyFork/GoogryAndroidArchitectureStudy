@@ -4,16 +4,15 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
-import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import dev.daeyeon.gaasproject.R
 import dev.daeyeon.gaasproject.base.BaseDialogFragment
 import dev.daeyeon.gaasproject.databinding.DialogFragmentMarketChoiceBinding
 import dev.daeyeon.gaasproject.ext.popContent
 import dev.daeyeon.gaasproject.ui.ticker.TickerFragment
 import dev.daeyeon.gaasproject.util.Event
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class MarketChoiceDialogFragment : BaseDialogFragment<DialogFragmentMarketChoiceBinding>(
     R.layout.dialog_fragment_market_choice
@@ -25,18 +24,7 @@ class MarketChoiceDialogFragment : BaseDialogFragment<DialogFragmentMarketChoice
 
     private val marketAdapter by lazy { setUpMarketAdapter() }
 
-    private val choiceViewModel by createViewModelLazy(
-        viewModelClass = MarketChoiceViewModel::class,
-        storeProducer = { viewModelStore },
-        factoryProducer = {
-            object : ViewModelProvider.Factory {
-                @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                    return MarketChoiceViewModel(markets) as T
-                }
-            }
-        }
-    )
+    private val choiceViewModel: MarketChoiceViewModel by viewModel { parametersOf(markets) }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
