@@ -8,7 +8,7 @@ object TickerFormatter {
         val differPrice =
             compareToBefore(item.tradePrice, item.prevClosingPrice)
         val convertItem =
-            mutableMapOf(
+            mapOf<String, String>(
                 "tickerName" to getTickerName(item.market),
                 "currentPrice" to getCurrentPrice(item.tradePrice),
                 "comparePrice" to getComparePrice(differPrice),
