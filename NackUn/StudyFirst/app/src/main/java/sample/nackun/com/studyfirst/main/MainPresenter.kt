@@ -14,15 +14,12 @@ class MainPresenter(
         mainView.presenter = this
     }
 
-    override fun requestTickers(marketName: String) {
+    override fun requestTickers(marketName: String) =
         repository.requestMarkets(marketName, this)
-    }
 
-    override fun onError(err: String) {
+    override fun onError(err: String) =
         mainView.showMsg(err)
-    }
 
-    override fun onTickersLoaded(tickers: ArrayList<Ticker>) {
+    override fun onTickersLoaded(tickers: ArrayList<Ticker>) =
         mainView.showTickers(tickers)
-    }
 }

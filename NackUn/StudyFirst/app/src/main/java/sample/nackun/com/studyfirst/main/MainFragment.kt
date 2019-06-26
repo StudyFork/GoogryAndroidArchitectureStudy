@@ -27,13 +27,11 @@ class MainFragment : BaseFragment(
         initOnClick()
     }
 
-    override fun showTickers(tickers: ArrayList<Ticker>) {
+    override fun showTickers(tickers: ArrayList<Ticker>) =
         tickerAdapter.setItems(tickers)
-    }
 
-    override fun showMsg(msg: String) {
+    override fun showMsg(msg: String) =
         showToast(msg)
-    }
 
     private fun initPresenter(){
         MainPresenter(this,

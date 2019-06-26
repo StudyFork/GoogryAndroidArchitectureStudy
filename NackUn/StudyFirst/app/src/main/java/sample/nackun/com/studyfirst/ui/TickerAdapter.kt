@@ -22,15 +22,14 @@ class TickerAdapter(
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : TickerViewHolder {
-        return TickerViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.ticker_item, parent, false))
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        TickerViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.ticker_item, parent, false))
+
 
     override fun getItemCount() = items.size
 
-    override fun onBindViewHolder(tickerViewHolder: TickerViewHolder, position: Int) {
+    override fun onBindViewHolder(tickerViewHolder: TickerViewHolder, position: Int) =
         tickerViewHolder.bind(items[position])
-    }
 
     inner class TickerViewHolder(
 //        @LayoutRes layoutRes: Int,

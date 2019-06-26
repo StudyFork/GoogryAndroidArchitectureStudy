@@ -7,23 +7,19 @@ class Repository private constructor(
 ) : DataSource {
     override fun requestMarkets(marketLike: String, callback: DataSource.RequestTickersCallback) {
         remoteDataSource.requestMarkets(marketLike, object : DataSource.RequestTickersCallback {
-            override fun onTickersLoaded(tickers: ArrayList<Ticker>) {
+            override fun onTickersLoaded(tickers: ArrayList<Ticker>) =
                 callback.onTickersLoaded(tickers)
-            }
 
-            override fun onError(err: String) {
+            override fun onError(err: String) =
                 callback.onError(err)
-            }
-
         })
     }
 
     companion object {
         private var INSTANCE: Repository? = null
 
-        operator fun invoke(RemoteDataSource: DataSource): Repository{
-            return INSTANCE ?: Repository(RemoteDataSource)
+        operator fun invoke(RemoteDataSource: DataSource) =
+            INSTANCE ?: Repository(RemoteDataSource)
                 .apply { INSTANCE = this }
-        }
     }
 }

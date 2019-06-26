@@ -26,9 +26,8 @@ class RemoteDataSource(retrofitService: UpbitApi) : DataSource {
                 requestTickers(query, callback);
             }
 
-            override fun onFailure(call: Call<ArrayList<Market>>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<Market>>, t: Throwable) =
                 callback.onError("Don't request Markets")
-            }
         })
     }
 
@@ -41,9 +40,8 @@ class RemoteDataSource(retrofitService: UpbitApi) : DataSource {
                 ) = response.body()?.let(callback::onTickersLoaded)
                 ?: callback.onError("Tickers is Null")
 
-                override fun onFailure(call: Call<ArrayList<Ticker>>, t: Throwable) {
+                override fun onFailure(call: Call<ArrayList<Ticker>>, t: Throwable) =
                     callback.onError("Don't request Tickers")
-                }
             })
     }
 }
