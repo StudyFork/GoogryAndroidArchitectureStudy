@@ -1,72 +1,23 @@
 package com.nanamare.mac.sample.ui
 
-import android.app.ProgressDialog
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import com.nanamare.mac.sample.R
-import com.nanamare.mac.sample.api.DisposableManager
-import com.nanamare.mac.sample.api.upbit.UpBitServiceManager
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.nanamare.mac.sample.base.BaseActivity
+import com.nanamare.mac.sample.ui.market.MarketContract
+import com.nanamare.mac.sample.ui.market.MarketListFragment
+import com.nanamare.mac.sample.ui.market.MarketPresenter
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity(R.layout.activity_main), MarketContract.MarketView {
 
-    companion object {
-        const val KET_MARKET_LIST = "key_market_list"
-        const val PROGRESS_DIALOG_FRAGMENT = "progress_dialog_fragment"
-    }
+    override val presenter: MarketPresenter
+        get() = MarketPresenter(this)
 
-    private lateinit var disposableManager: DisposableManager
-
-    private lateinit var dialog: ProgressDialogFragment
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        dialog = ProgressDialogFragment()
-        dialog.show(supportFragmentManager, PROGRESS_DIALOG_FRAGMENT)
-
-        disposableManager = DisposableManager()
-        disposableManager.add(
-            UpBitServiceManager.getAllMarketList()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    dialog.dismiss()
-                    val marketMap: LinkedHashMap<String, List<String>> = LinkedHashMap()
-                    val marketList = listOf<String>().toMutableList()
-                    it.body()?.map { marketModel ->
-                        marketModel.market!!.split("-")[0].let { market ->
-                            marketList.add(marketModel.market)
-                            marketMap.put(market, marketList)
-                        }
-                    }
-                    val bundle = Bundle().apply {
-                        putString(KET_MARKET_LIST, Gson().toJson(marketMap))
-                    }
-                    goToFragment(MarketListFragment::class.java, bundle)
-                }, {
-                    dialog.dismiss()
-                })
-        )
-    }
-
-    private fun goToFragment(cls: Class<*>, args: Bundle?) {
-        try {
-            val fragment = cls.newInstance() as Fragment
-            fragment.arguments = args
-            val fragmentManager = supportFragmentManager
-            fragmentManager.beginTransaction().replace(R.id.fl_content, fragment).commit()
-        } catch (e: Exception) {
-            e.printStackTrace()
+    override fun showMarketList(marketMap: LinkedHashMap<String, List<String>>) {
+        val bundle = Bundle().apply {
+            putString(KET_MARKET_LIST, Gson().toJson(marketMap))
         }
+        goToFragment(MarketListFragment::class.java, bundle)
     }
-
-    override fun onDestroy() {
-        disposableManager.dispose()
-        super.onDestroy()
-    }
-
 
 }
