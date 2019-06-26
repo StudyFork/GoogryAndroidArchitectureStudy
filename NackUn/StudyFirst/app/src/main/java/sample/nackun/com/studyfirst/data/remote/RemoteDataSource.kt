@@ -11,9 +11,7 @@ import sample.nackun.com.studyfirst.network.UpbitApi
 import sample.nackun.com.studyfirst.vo.Market
 import sample.nackun.com.studyfirst.vo.Ticker
 
-class RemoteDataSource(retrofitService: UpbitApi) : DataSource {
-    private val retrofitService = retrofitService
-
+class RemoteDataSource(private val retrofitService: UpbitApi) : DataSource {
     override fun requestMarkets(marketLike: String, callback: DataSource.RequestTickersCallback) {
         retrofitService.requestMarket().enqueue(object : Callback<List<Market>> {
             override fun onResponse(call: Call<List<Market>>, response: Response<List<Market>>) {
