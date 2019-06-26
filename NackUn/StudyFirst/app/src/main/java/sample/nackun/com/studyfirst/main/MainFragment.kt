@@ -20,7 +20,7 @@ class MainFragment : BaseFragment(
 ), MainContract.View {
 
     override lateinit var presenter: MainContract.Presenter
-    private val tickerAdapter = TickerAdapter()
+    private val tickerAdapter = TickerAdapter(R.layout.ticker_item)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initPresenter()
