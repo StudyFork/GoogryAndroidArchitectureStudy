@@ -1,4 +1,4 @@
-﻿# GoogryAndroidArchitectureStudy
+# GoogryAndroidArchitectureStudy
 
 ## 스터디장
 - 정석준 [sjjeong](https://github.com/sjjeong)
@@ -20,7 +20,13 @@
 ## 1기
 
 - 김대연 [improve777](https://github.com/improve777)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/improve777)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/improve777)  
+처음에 신청할 때는 안드로이드 아키텍처에 대해 알기엔 너무 짧은 시간이 아닌가 싶었습니다.  
+하지만 2달 남짓의 시간 동안 스터디를 진행하면서 오히려 생각했던 것 보다 더 많은 것을 배울 수 있었습니다.  
+만약 혼자 했더라면 많은 시행착오를 겪은 후에도 애매하게 이해하는데만 꽤 오랜 시간이 걸렸을 것 입니다.  
+멘토님과 멘티님들의 코드 리뷰를 받으면서 개념에 대해 정립하고, 협업(github 활용)에 대해 간접 체험을 할 수 있었습니다.  
+제가 노력한 만큼 더 많은 것을 얻어가는 스터디가 아니었나 싶습니다. 
+[[각 주차별 후기](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/improve777/주차별_후기.md)]  
 - 김용훈 [sabgilhun](https://github.com/sabgilhun)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/sabgilhun)
 - 공설민 [gongsulmin](https://github.com/GongSulMin?tab=repositories)
