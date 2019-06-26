@@ -17,8 +17,8 @@ class MainPresenter(
     override fun requestTickers(marketName: String) =
         repository.requestMarkets(marketName, this)
 
-    override fun onError(err: String) =
-        mainView.showMsg(err)
+    override fun onError(t: Throwable) =
+        mainView.showMsg(t.toString())
 
     override fun onTickersLoaded(tickers: List<Ticker>) =
         mainView.showTickers(tickers)

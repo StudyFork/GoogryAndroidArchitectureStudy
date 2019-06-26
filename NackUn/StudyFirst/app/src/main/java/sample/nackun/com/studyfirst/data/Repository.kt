@@ -10,8 +10,8 @@ class Repository private constructor(
             override fun onTickersLoaded(tickers: List<Ticker>) =
                 callback.onTickersLoaded(tickers)
 
-            override fun onError(err: String) =
-                callback.onError(err)
+            override fun onError(t: Throwable) =
+                callback.onError(t)
         })
     }
 

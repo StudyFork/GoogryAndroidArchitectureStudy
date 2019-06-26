@@ -25,7 +25,7 @@ class RemoteDataSource(private val retrofitService: UpbitApi) : DataSource {
             }
 
             override fun onFailure(call: Call<List<Market>>, t: Throwable) =
-                callback.onError("Don't request Markets")
+                callback.onError(t)
         })
     }
 
@@ -36,10 +36,10 @@ class RemoteDataSource(private val retrofitService: UpbitApi) : DataSource {
                     call: Call<List<Ticker>>,
                     response: Response<List<Ticker>>
                 ) = response.body()?.let(callback::onTickersLoaded)
-                ?: callback.onError("Tickers is Null")
+                ?: callback.onError(IllegalStateException("Tickers is Null"))
 
                 override fun onFailure(call: Call<List<Ticker>>, t: Throwable) =
-                    callback.onError("Don't request Tickers")
+                    callback.onError(t)
             })
     }
 }
