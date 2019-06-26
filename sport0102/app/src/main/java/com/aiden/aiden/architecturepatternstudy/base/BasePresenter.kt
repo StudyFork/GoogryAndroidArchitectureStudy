@@ -16,8 +16,4 @@
 
 package com.aiden.aiden.architecturepatternstudy.base
 
-interface BasePresenter {
-
-    fun start()
-
-}
+interface BasePresenter

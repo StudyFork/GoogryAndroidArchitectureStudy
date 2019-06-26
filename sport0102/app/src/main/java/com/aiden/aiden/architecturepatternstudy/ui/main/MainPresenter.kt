@@ -24,12 +24,12 @@ import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
  * Listens to user actions from the UI ([TasksFragment]), retrieves the data and updates the
  * UI as required.
  */
-class MainPresenter(private val upbitRepository: UpbitRepository, val mainView: MainContract.View) :
+class MainPresenter(
+    private val upbitRepository: UpbitRepository,
+    val mainView: MainContract.View
+) :
     MainContract.Presenter {
 
-    override fun start() {
-        //no-op
-    }
 
     init {
         mainView.presenter = this

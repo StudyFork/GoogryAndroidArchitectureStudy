@@ -13,8 +13,6 @@ abstract class BaseFragment(@LayoutRes private val layoutId: Int) : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(layoutId, container, false)
 
-    abstract fun start()
-
     fun toastM(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }

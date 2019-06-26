@@ -2,20 +2,36 @@ package com.aiden.aiden.architecturepatternstudy.ui.main
 
 import android.os.Bundle
 import android.view.View
-import com.aiden.aiden.architecturepatternstudy.R
+import com.aiden.aiden.architecturepatternstudy.api.UpbitApi
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerModel
+import com.aiden.aiden.architecturepatternstudy.api.retrofit
 import com.aiden.aiden.architecturepatternstudy.base.BaseFragment
+import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
+import com.aiden.aiden.architecturepatternstudy.data.source.remote.UpbitRemoteDataSource
 import kotlinx.android.synthetic.main.fragment_main.*
 
-class MainFragment(val market: String) : BaseFragment(R.layout.fragment_main), MainContract.View {
 
+class MainFragment : BaseFragment(com.aiden.aiden.architecturepatternstudy.R.layout.fragment_main), MainContract.View {
 
     override lateinit var presenter: MainContract.Presenter
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = start()
+    private val upbitApi by lazy { retrofit.create(UpbitApi::class.java) }
 
-    override fun start() {
-        presenter.loadMarketList(market)
+    private lateinit var marketName: String
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        arguments?.let {
+            it.getString("marketName")?.let { marketName ->
+                this.marketName = marketName
+            } ?: ""
+        }
+        presenter = MainPresenter(UpbitRepository.getInstance(UpbitRemoteDataSource(upbitApi)), this)
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onResume() {
+        presenter.loadMarketList(marketName)
+        super.onResume()
     }
 
     override fun showTickerList(tickerList: List<TickerModel>) {
@@ -26,7 +42,7 @@ class MainFragment(val market: String) : BaseFragment(R.layout.fragment_main), M
     }
 
     override fun showErrorToast() {
-        toastM(getString(R.string.all_error_load_data_fail))
+        toastM(getString(com.aiden.aiden.architecturepatternstudy.R.string.all_error_load_data_fail))
     }
 
 }
