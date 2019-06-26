@@ -4,8 +4,6 @@ import android.util.Log
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import sample.nackun.com.studyfirst.data.DataSource
 import sample.nackun.com.studyfirst.network.UpbitApi
 import sample.nackun.com.studyfirst.vo.Market
@@ -16,10 +14,10 @@ class RemoteDataSource(private val retrofitService: UpbitApi) : DataSource {
         retrofitService.requestMarket().enqueue(object : Callback<List<Market>> {
             override fun onResponse(call: Call<List<Market>>, response: Response<List<Market>>) {
                 val query =
-                response.body()?.let { data ->
-                    data.filter { it.market.startsWith(marketLike) }
-                        .joinToString { it.market }
-                }?:""
+                    response.body()?.let { data ->
+                        data.filter { it.market.startsWith(marketLike) }
+                            .joinToString { it.market }
+                    } ?: ""
                 Log.d("aa12", query)
                 requestTickers(query, callback);
             }
@@ -36,7 +34,7 @@ class RemoteDataSource(private val retrofitService: UpbitApi) : DataSource {
                     call: Call<List<Ticker>>,
                     response: Response<List<Ticker>>
                 ) = response.body()?.let(callback::onTickersLoaded)
-                ?: callback.onError(IllegalStateException("Tickers is Null"))
+                    ?: callback.onError(IllegalStateException("Tickers is Null"))
 
                 override fun onFailure(call: Call<List<Ticker>>, t: Throwable) =
                     callback.onError(t)

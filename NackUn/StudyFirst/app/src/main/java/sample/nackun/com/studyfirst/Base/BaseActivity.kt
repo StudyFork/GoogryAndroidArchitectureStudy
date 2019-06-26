@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity
 
 abstract class BaseActivity(
     @LayoutRes private val layoutRes: Int
-): AppCompatActivity() {
+) : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layoutRes)

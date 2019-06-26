@@ -9,10 +9,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import sample.nackun.com.studyfirst.Base.BaseFragment
 import sample.nackun.com.studyfirst.R
-import sample.nackun.com.studyfirst.ui.TickerAdapter
 import sample.nackun.com.studyfirst.data.Repository
 import sample.nackun.com.studyfirst.data.remote.RemoteDataSource
 import sample.nackun.com.studyfirst.network.UpbitApi
+import sample.nackun.com.studyfirst.ui.TickerAdapter
 import sample.nackun.com.studyfirst.vo.Ticker
 
 class MainFragment : BaseFragment(
@@ -33,18 +33,22 @@ class MainFragment : BaseFragment(
     override fun showMsg(msg: String) =
         showToast(msg)
 
-    private fun initPresenter(){
-        MainPresenter(this,
-            Repository(RemoteDataSource(
-            Retrofit.Builder()
-                .baseUrl("https://api.upbit.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(UpbitApi::class.java)))
+    private fun initPresenter() {
+        MainPresenter(
+            this,
+            Repository(
+                RemoteDataSource(
+                    Retrofit.Builder()
+                        .baseUrl("https://api.upbit.com/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build()
+                        .create(UpbitApi::class.java)
+                )
+            )
         )
     }
 
-    private fun initOnClick(){
+    private fun initOnClick() {
         val onClickListener = object : View.OnClickListener {
             override fun onClick(v: View?) {
                 context?.let {

@@ -19,11 +19,10 @@ object TickerFormatter {
     }
 
 
-
     private fun getTickerName(tickerName: String) =
         tickerName.substring(tickerName.indexOf("-") + 1, tickerName.length)
 
-    private fun getCurrentPrice(currentPrice: Double) : String {
+    private fun getCurrentPrice(currentPrice: Double): String {
         return when {
             currentPrice > 10 -> String.format("%,d", currentPrice.toInt())
             currentPrice > 1 -> String.format("%,.2f", currentPrice)
@@ -38,7 +37,7 @@ object TickerFormatter {
     private fun getComparePrice(differPrice: Double) =
         String.format("%.2f", differPrice) + "%"
 
-    private fun getCompareColor(differPrice: Double): String{
+    private fun getCompareColor(differPrice: Double): String {
         return when {
             differPrice > 0 -> Color.RED.toString()
             differPrice < 0 -> Color.BLUE.toString()
@@ -46,11 +45,11 @@ object TickerFormatter {
         }
     }
 
-    private fun getChangePrice(changePrice: Double):String{
-        return when{
-            changePrice/1_000_000 > 50 ->
+    private fun getChangePrice(changePrice: Double): String {
+        return when {
+            changePrice / 1_000_000 > 50 ->
                 String.format("%,d", (changePrice / 1_000_000).toInt()) + " M"
-            changePrice/1_000 > 1_000 ->
+            changePrice / 1_000 > 1_000 ->
                 String.format("%,d", (changePrice / 1_000).toInt()) + " K"
             changePrice > 1_000 ->
                 String.format("%,d", changePrice.toInt())
