@@ -24,11 +24,11 @@ object TickerFormatter {
         tickerName.substring(tickerName.indexOf("-") + 1, tickerName.length)
 
     private fun getCurrentPrice(currentPrice: Double) : String {
-        when {
-            currentPrice > 10 -> return String.format("%,d", currentPrice.toInt())
-            currentPrice > 1 -> return String.format("%,.2f", currentPrice)
-            currentPrice < 1 -> return String.format("%,.8f", currentPrice)
-            else -> return String.format("%,d", currentPrice.toInt())
+        return when {
+            currentPrice > 10 -> String.format("%,d", currentPrice.toInt())
+            currentPrice > 1 -> String.format("%,.2f", currentPrice)
+            currentPrice < 1 -> String.format("%,.8f", currentPrice)
+            else -> String.format("%,d", currentPrice.toInt())
         }
     }
 
@@ -39,23 +39,23 @@ object TickerFormatter {
         String.format("%.2f", differPrice) + "%"
 
     private fun getCompareColor(differPrice: Double): String{
-        when {
-            differPrice > 0 -> return Color.RED.toString()
-            differPrice < 0 -> return Color.BLUE.toString()
-            else -> return Color.BLACK.toString()
+        return when {
+            differPrice > 0 -> Color.RED.toString()
+            differPrice < 0 -> Color.BLUE.toString()
+            else -> Color.BLACK.toString()
         }
     }
 
     private fun getChangePrice(changePrice: Double):String{
-        when{
+        return when{
             changePrice/1_000_000 > 50 ->
-                return String.format("%,d", (changePrice / 1_000_000).toInt()) + " M"
+                String.format("%,d", (changePrice / 1_000_000).toInt()) + " M"
             changePrice/1_000 > 1_000 ->
-                return String.format("%,d", (changePrice / 1_000).toInt()) + " K"
+                String.format("%,d", (changePrice / 1_000).toInt()) + " K"
             changePrice > 1_000 ->
-                return String.format("%,d", changePrice.toInt())
+                String.format("%,d", changePrice.toInt())
             else ->
-                return String.format("%,.3f", changePrice)
+                String.format("%,.3f", changePrice)
         }
     }
 }
