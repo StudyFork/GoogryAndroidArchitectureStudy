@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@+id/tv_market_title"
+            android:layout_below="@id/tv_market_title"
             android:id="@+id/li_market_like"
             android:layout_marginTop="12dp">
         <TextView
@@ -69,7 +69,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
-            android:layout_below="@+id/li_market_like">
+            android:layout_below="@id/li_market_like">
         <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -98,17 +98,17 @@
                 android:layout_weight="1"
                 android:gravity="end"/>
 
-    </LinearLayout>
-    <ScrollView
-            android:layout_below="@+id/li_ticker_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <android.support.v7.widget.RecyclerView
+        <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/tickerRecyclerView"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager">
-        </android.support.v7.widget.RecyclerView>
-    </ScrollView>
+                android:layout_height="wrap_content"
+                android:layout_below="@id/li_ticker_title">
+
+            <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/tickerRecyclerView"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager">
+            </android.support.v7.widget.RecyclerView>
+        </ScrollView>
+    </LinearLayout>
 </RelativeLayout>
