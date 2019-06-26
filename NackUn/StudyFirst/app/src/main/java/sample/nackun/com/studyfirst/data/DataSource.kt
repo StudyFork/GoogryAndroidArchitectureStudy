@@ -4,7 +4,7 @@ import sample.nackun.com.studyfirst.vo.Ticker
 
 interface DataSource {
     interface RequestTickersCallback {
-        fun onTickersLoaded(tickers: ArrayList<Ticker>)
+        fun onTickersLoaded(tickers: List<Ticker>)
 
         fun onError(err: String)
     }

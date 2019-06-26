@@ -15,8 +15,8 @@ class RemoteDataSource(retrofitService: UpbitApi) : DataSource {
     private val retrofitService = retrofitService
 
     override fun requestMarkets(marketLike: String, callback: DataSource.RequestTickersCallback) {
-        retrofitService.requestMarket().enqueue(object : Callback<ArrayList<Market>> {
-            override fun onResponse(call: Call<ArrayList<Market>>, response: Response<ArrayList<Market>>) {
+        retrofitService.requestMarket().enqueue(object : Callback<List<Market>> {
+            override fun onResponse(call: Call<List<Market>>, response: Response<List<Market>>) {
                 val query =
                 response.body()?.let { data ->
                     data.filter { it.market.startsWith(marketLike) }
@@ -26,21 +26,21 @@ class RemoteDataSource(retrofitService: UpbitApi) : DataSource {
                 requestTickers(query, callback);
             }
 
-            override fun onFailure(call: Call<ArrayList<Market>>, t: Throwable) =
+            override fun onFailure(call: Call<List<Market>>, t: Throwable) =
                 callback.onError("Don't request Markets")
         })
     }
 
     fun requestTickers(query: String, callback: DataSource.RequestTickersCallback) {
         retrofitService.requestTicker(query)
-            .enqueue(object : Callback<ArrayList<Ticker>> {
+            .enqueue(object : Callback<List<Ticker>> {
                 override fun onResponse(
-                    call: Call<ArrayList<Ticker>>,
-                    response: Response<ArrayList<Ticker>>
+                    call: Call<List<Ticker>>,
+                    response: Response<List<Ticker>>
                 ) = response.body()?.let(callback::onTickersLoaded)
                 ?: callback.onError("Tickers is Null")
 
-                override fun onFailure(call: Call<ArrayList<Ticker>>, t: Throwable) =
+                override fun onFailure(call: Call<List<Ticker>>, t: Throwable) =
                     callback.onError("Don't request Tickers")
             })
     }

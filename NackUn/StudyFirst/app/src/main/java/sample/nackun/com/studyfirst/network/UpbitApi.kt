@@ -8,8 +8,8 @@ import sample.nackun.com.studyfirst.vo.Ticker
 
 interface UpbitApi {
     @GET("market/all")
-    fun requestMarket(): Call<ArrayList<Market>>
+    fun requestMarket(): Call<List<Market>>
 
     @GET("ticker/")
-    fun requestTicker(@Query("markets") markets: String): Call<ArrayList<Ticker>>
+    fun requestTicker(@Query("markets") markets: String): Call<List<Ticker>>
 }

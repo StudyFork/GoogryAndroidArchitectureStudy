@@ -7,7 +7,7 @@ class Repository private constructor(
 ) : DataSource {
     override fun requestMarkets(marketLike: String, callback: DataSource.RequestTickersCallback) {
         remoteDataSource.requestMarkets(marketLike, object : DataSource.RequestTickersCallback {
-            override fun onTickersLoaded(tickers: ArrayList<Ticker>) =
+            override fun onTickersLoaded(tickers: List<Ticker>) =
                 callback.onTickersLoaded(tickers)
 
             override fun onError(err: String) =

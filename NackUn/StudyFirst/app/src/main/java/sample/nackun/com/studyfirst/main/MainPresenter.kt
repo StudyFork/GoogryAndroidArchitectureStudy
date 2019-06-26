@@ -20,6 +20,6 @@ class MainPresenter(
     override fun onError(err: String) =
         mainView.showMsg(err)
 
-    override fun onTickersLoaded(tickers: ArrayList<Ticker>) =
+    override fun onTickersLoaded(tickers: List<Ticker>) =
         mainView.showTickers(tickers)
 }
