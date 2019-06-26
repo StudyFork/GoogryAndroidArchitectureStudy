@@ -1,6 +1,7 @@
 package sample.nackun.com.studyfirst.main
 
 import android.os.Bundle
+import android.support.annotation.LayoutRes
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
@@ -17,34 +18,46 @@ import sample.nackun.com.studyfirst.data.remote.RemoteDataSource
 import sample.nackun.com.studyfirst.network.UpbitApi
 import sample.nackun.com.studyfirst.vo.Ticker
 
-class MainFragment : BaseFragment(), MainContract.View {
+class MainFragment : BaseFragment(
+    R.layout.main_fragment
+), MainContract.View {
     override lateinit var presenter: MainContract.Presenter
     private val tickerAdapter = TickerAdapter()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.main_fragment, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initPresenter()
+        initOnClick()
+    }
+
+    override fun showTickers(tickers: ArrayList<Ticker>) {
+        tickerAdapter.setItems(tickers)
+    }
+
+    override fun showMsg(msg: String) {
+        showToast(msg)
+    }
+
+    private fun initPresenter(){
         MainPresenter(Repository(RemoteDataSource(
             Retrofit.Builder()
                 .baseUrl("https://api.upbit.com/v1/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(UpbitApi::class.java))), this)
-        return root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    private fun initOnClick(){
         val onClickListener = object : View.OnClickListener {
             override fun onClick(v: View?) {
-                tv_market_krw.setTextColor(ContextCompat.getColor(view.context, R.color.grey))
-                tv_market_btc.setTextColor(ContextCompat.getColor(view.context, R.color.grey))
-                tv_market_eth.setTextColor(ContextCompat.getColor(view.context, R.color.grey))
-                tv_market_usdt.setTextColor(ContextCompat.getColor(view.context, R.color.grey))
-                val selectedMarket = v as TextView
-                selectedMarket.setTextColor(ContextCompat.getColor(view.context, R.color.indigo))
-                presenter.requestTickers(selectedMarket.text.toString())
+                context?.let {
+                    tv_market_krw.setTextColor(ContextCompat.getColor(it, R.color.grey))
+                    tv_market_btc.setTextColor(ContextCompat.getColor(it, R.color.grey))
+                    tv_market_eth.setTextColor(ContextCompat.getColor(it, R.color.grey))
+                    tv_market_usdt.setTextColor(ContextCompat.getColor(it, R.color.grey))
+                    val selectedMarket = v as TextView
+                    selectedMarket.setTextColor(ContextCompat.getColor(it, R.color.indigo))
+                    presenter.requestTickers(selectedMarket.text.toString())
+                }
             }
         }
         tv_market_krw.setOnClickListener(onClickListener)
@@ -55,13 +68,5 @@ class MainFragment : BaseFragment(), MainContract.View {
         tickerRecyclerView.adapter = tickerAdapter
 
         tv_market_krw.callOnClick()
-    }
-
-    override fun showTickers(tickers: ArrayList<Ticker>) {
-        tickerAdapter.setItems(tickers)
-    }
-
-    override fun showMsg(msg: String) {
-        showToast(msg)
     }
 }
