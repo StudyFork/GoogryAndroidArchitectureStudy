@@ -46,17 +46,13 @@ class UpbitFragment : BaseFragment(
     }
 
     override fun onDestroy() {
-        CompositeDisposable().dispose()
         super.onDestroy()
+        CompositeDisposable().dispose()
     }
 
-    override fun updateMarketPrice(marketPrice: List<Map<String, String>>) {
-        setMainAdapter(marketPrice)
-    }
+    override fun updateMarketPrice(marketPrice: List<Map<String, String>>) = setMainAdapter(marketPrice)
 
-    override fun showErrMsg(t: Throwable) {
-        showToast(t.message)
-    }
+    override fun showErrMsg(t: Throwable) = showToast(t.message)
 
     private fun initRecyclerView() {
         rv_coin_price.addItemDecoration(

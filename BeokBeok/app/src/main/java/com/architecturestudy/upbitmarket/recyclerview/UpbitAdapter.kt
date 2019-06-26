@@ -15,9 +15,7 @@ class UpbitAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ViewHolder {
-        return ViewHolder(parent)
-    }
+    ): ViewHolder = ViewHolder(parent)
 
     override fun getItemCount(): Int = marketPrice?.size ?: 0
 

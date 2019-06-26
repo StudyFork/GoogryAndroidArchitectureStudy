@@ -17,11 +17,7 @@ abstract class BaseFragment(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(resource, container, false)
-    }
+    ): View? = inflater.inflate(resource, container, false)
 
-    fun showToast(msg: String?) {
-        Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
-    }
+    fun showToast(msg: String?) = Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
 }

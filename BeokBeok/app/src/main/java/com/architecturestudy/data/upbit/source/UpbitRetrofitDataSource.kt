@@ -65,10 +65,8 @@ class UpbitRetrofitDataSource private constructor(
 
         operator fun invoke(
             retrofit: UpbitService
-        ): UpbitRetrofitDataSource {
-            return instance ?: UpbitRetrofitDataSource(retrofit)
-                .apply { instance = this }
-        }
+        ): UpbitRetrofitDataSource = instance ?: UpbitRetrofitDataSource(retrofit)
+            .apply { instance = this }
 
     }
 }
