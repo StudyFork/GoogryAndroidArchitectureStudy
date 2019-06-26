@@ -7,9 +7,9 @@ import sample.nackun.com.studyfirst.vo.Market
 import sample.nackun.com.studyfirst.vo.Ticker
 
 interface UpbitApi {
-    @GET("market/all")
+    @GET("v1/market/all")
     fun requestMarket(): Call<List<Market>>
 
-    @GET("ticker/")
+    @GET("v1/ticker/")
     fun requestTicker(@Query("markets") markets: String): Call<List<Ticker>>
 }

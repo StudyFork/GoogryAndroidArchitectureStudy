@@ -37,7 +37,7 @@ class MainFragment : BaseFragment(
         MainPresenter(this,
             Repository(RemoteDataSource(
             Retrofit.Builder()
-                .baseUrl("https://api.upbit.com/v1/")
+                .baseUrl("https://api.upbit.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(UpbitApi::class.java)))
