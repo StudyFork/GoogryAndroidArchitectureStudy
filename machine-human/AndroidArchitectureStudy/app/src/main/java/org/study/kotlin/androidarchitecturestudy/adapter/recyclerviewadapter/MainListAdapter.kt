@@ -12,7 +12,7 @@ import org.study.kotlin.androidarchitecturestudy.util.FormatUtil
 import org.study.kotlin.androidarchitecturestudy.util.FormatUtil.accTradePriceFormat
 
 class MainListAdapter : RecyclerView.Adapter<MainListAdapter.ItemViewHolder>() {
-    private val tickerList: MutableList<TickerModel> = ArrayList()
+    private val tickerList = mutableListOf<TickerModel>()
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, vewType: Int): ItemViewHolder {
         val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_ticker, viewGroup, false)
