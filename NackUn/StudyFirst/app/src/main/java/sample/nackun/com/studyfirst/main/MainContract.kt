@@ -7,7 +7,7 @@ import sample.nackun.com.studyfirst.vo.Ticker
 interface MainContract {
     interface View : BaseView<Presenter> {
         fun showTickers(tickers: List<Ticker>)
-        fun showMsg(msg: String)
+        fun showMsg(msg: String?)
     }
 
     interface Presenter : BasePresenter {
