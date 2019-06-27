@@ -24,7 +24,7 @@ class MainFragment : BaseFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initPresenter()
-        initOnClick()
+        setOnClick()
     }
 
     override fun showTickers(tickers: List<Map<String, String>>) =
@@ -48,27 +48,29 @@ class MainFragment : BaseFragment(
         )
     }
 
-    private fun initOnClick() {
-        val onClickListener = object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                context?.let {
-                    tv_market_krw.setTextColor(ContextCompat.getColor(it, R.color.grey))
-                    tv_market_btc.setTextColor(ContextCompat.getColor(it, R.color.grey))
-                    tv_market_eth.setTextColor(ContextCompat.getColor(it, R.color.grey))
-                    tv_market_usdt.setTextColor(ContextCompat.getColor(it, R.color.grey))
-                    val selectedMarket = v as TextView
-                    selectedMarket.setTextColor(ContextCompat.getColor(it, R.color.indigo))
-                    presenter.requestTickers(selectedMarket.text.toString())
-                }
-            }
-        }
-        tv_market_krw.setOnClickListener(onClickListener)
-        tv_market_btc.setOnClickListener(onClickListener)
-        tv_market_eth.setOnClickListener(onClickListener)
-        tv_market_usdt.setOnClickListener(onClickListener)
+    private fun setOnClick() {
+        tv_market_krw.setOnClickListener(this::setMarketColor)
+        tv_market_btc.setOnClickListener(this::setMarketColor)
+        tv_market_eth.setOnClickListener(this::setMarketColor)
+        tv_market_usdt.setOnClickListener(this::setMarketColor)
 
         tickerRecyclerView.adapter = tickerAdapter
 
         tv_market_krw.callOnClick()
+    }
+
+    private fun setMarketColor(view: View){
+        listOf<View>(
+            tv_market_krw,
+            tv_market_btc,
+            tv_market_eth,
+            tv_market_usdt
+        ).filter { view != it }
+            .map { (it as TextView).setTextColor(ContextCompat.getColor(it.context, R.color.grey)) }
+
+        if(view is TextView){
+            view.setTextColor(ContextCompat.getColor(view.context, R.color.indigo))
+            presenter.requestTickers(view.text.toString())
+        }
     }
 }
