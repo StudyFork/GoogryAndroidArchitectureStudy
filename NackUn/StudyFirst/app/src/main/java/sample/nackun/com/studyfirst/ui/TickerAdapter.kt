@@ -12,7 +12,7 @@ class TickerAdapter(
     @LayoutRes private val layoutRes: Int
 ) : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
 
-    protected val items = mutableListOf<Ticker>()
+    private val items = mutableListOf<Ticker>()
 
     fun setItems(tickers: List<Ticker>) {
         items.clear()
