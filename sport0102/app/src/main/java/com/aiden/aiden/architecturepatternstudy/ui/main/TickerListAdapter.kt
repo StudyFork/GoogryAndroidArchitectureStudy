@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.item_ticker.view.*
 
 class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewHolder>() {
 
-    private var tickerList = ArrayList<TickerModel>()
+    private var tickerList = mutableListOf<TickerModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemTickerViewHolder {
         val retView =
