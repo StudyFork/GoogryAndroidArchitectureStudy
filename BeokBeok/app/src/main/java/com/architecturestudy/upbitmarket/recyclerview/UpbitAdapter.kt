@@ -10,24 +10,23 @@ class UpbitAdapter(
     @LayoutRes
     private val resource: Int
 ) : RecyclerView.Adapter<UpbitAdapter.ViewHolder>() {
-    var marketPrice: List<Map<String, String>>? = null
+    private var marketPrice = mutableListOf<Map<String, String>>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder = ViewHolder(parent)
 
-    override fun getItemCount(): Int = marketPrice?.size ?: 0
+    override fun getItemCount(): Int = marketPrice.size
 
     override fun onBindViewHolder(
         holder: ViewHolder,
         position: Int
-    ) {
-        marketPrice?.get(position)?.let { holder.bind(it) }
-    }
+    ) = marketPrice[position].let { holder.bind(it) }
 
     fun setMarketPrices(marketPrice: List<Map<String, String>>) {
-        this.marketPrice = marketPrice
+        this.marketPrice.clear()
+        this.marketPrice.addAll(marketPrice)
     }
 
     inner class ViewHolder(
