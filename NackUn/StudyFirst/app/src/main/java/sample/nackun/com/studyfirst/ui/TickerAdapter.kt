@@ -12,9 +12,9 @@ class TickerAdapter(
     @LayoutRes private val layoutRes: Int
 ) : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
 
-    private val items = mutableListOf<Ticker>()
+    private val items = mutableListOf<Map<String, String>>()
 
-    fun setItems(tickers: List<Ticker>) {
+    fun setItems(tickers: List<Map<String, String>>) {
         items.clear()
         items.addAll(tickers)
         notifyDataSetChanged()
@@ -26,7 +26,7 @@ class TickerAdapter(
     override fun getItemCount() = items.size
 
     override fun onBindViewHolder(tickerViewHolder: TickerViewHolder, position: Int) =
-        tickerViewHolder.bind(items[position])
+        items[position].let(tickerViewHolder::bind)
 
     inner class TickerViewHolder(
         parent: ViewGroup
@@ -39,12 +39,12 @@ class TickerAdapter(
         val comparePrice = itemView.comparePrice
         val changePrice = itemView.changePrice
 
-        fun bind(item: Ticker) {
-            tickerName.text = TickerFormatter.convertTo(item)["tickerName"]
-            currentPrice.text = TickerFormatter.convertTo(item)["currentPrice"]
-            comparePrice.text = TickerFormatter.convertTo(item)["comparePrice"]
-            comparePrice.setTextColor(TickerFormatter.convertTo(item)["compareColor"]!!.toInt())
-            changePrice.text = TickerFormatter.convertTo(item)["changePrice"]
+        fun bind(item: Map<String, String>) {
+            tickerName.text = item["tickerName"]
+            currentPrice.text = item["currentPrice"]
+            comparePrice.text = item["comparePrice"]
+            comparePrice.setTextColor(item["compareColor"]!!.toInt())
+            changePrice.text = item["changePrice"]
         }
     }
 }

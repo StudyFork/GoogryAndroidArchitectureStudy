@@ -2,6 +2,7 @@ package sample.nackun.com.studyfirst.main
 
 import sample.nackun.com.studyfirst.data.DataSource
 import sample.nackun.com.studyfirst.data.Repository
+import sample.nackun.com.studyfirst.util.TickerFormatter
 import sample.nackun.com.studyfirst.vo.Ticker
 
 class MainPresenter(
@@ -21,5 +22,5 @@ class MainPresenter(
         mainView.showMsg(t.message)
 
     override fun onTickersLoaded(tickers: List<Ticker>) =
-        mainView.showTickers(tickers)
+        mainView.showTickers(TickerFormatter.convertTo(tickers))
 }

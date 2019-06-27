@@ -27,7 +27,7 @@ class MainFragment : BaseFragment(
         initOnClick()
     }
 
-    override fun showTickers(tickers: List<Ticker>) =
+    override fun showTickers(tickers: List<Map<String, String>>) =
         tickerAdapter.setItems(tickers)
 
     override fun showMsg(msg: String?) =

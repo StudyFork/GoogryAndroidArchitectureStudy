@@ -4,18 +4,24 @@ import android.graphics.Color
 import sample.nackun.com.studyfirst.vo.Ticker
 
 object TickerFormatter {
-    fun convertTo(item: Ticker): Map<String, String> {
-        val differPrice =
-            compareToBefore(item.tradePrice, item.prevClosingPrice)
-        val convertItem =
-            mapOf<String, String>(
-                "tickerName" to getTickerName(item.market),
-                "currentPrice" to getCurrentPrice(item.tradePrice),
-                "comparePrice" to getComparePrice(differPrice),
-                "compareColor" to getCompareColor(differPrice),
-                "changePrice" to getChangePrice(item.accTradePrice24h)
+    fun convertTo(target: List<Ticker>): List<Map<String, String>> {
+        val converList = mutableListOf<Map<String, String>>()
+        converList.clear()
+
+        target.forEachIndexed {
+            index, ticker ->
+            converList.add(
+                index,
+                hashMapOf(
+                    "tickerName" to getTickerName(ticker.market),
+                    "currentPrice" to getCurrentPrice(ticker.tradePrice),
+                    "comparePrice" to getComparePrice(ticker.tradePrice, ticker.prevClosingPrice),
+                    "compareColor" to getCompareColor(ticker.tradePrice, ticker.prevClosingPrice),
+                    "changePrice" to getChangePrice(ticker.accTradePrice24h)
+                )
             )
-        return convertItem
+        }
+        return converList
     }
 
 
@@ -31,13 +37,11 @@ object TickerFormatter {
         }
     }
 
-    private fun compareToBefore(currentPrice: Double, beforePrice: Double) =
-        (currentPrice - beforePrice) / beforePrice * 100
+    private fun getComparePrice(currentPrice: Double, beforePrice: Double) =
+        String.format("%.2f", ((currentPrice - beforePrice) / beforePrice * 100)) + "%"
 
-    private fun getComparePrice(differPrice: Double) =
-        String.format("%.2f", differPrice) + "%"
-
-    private fun getCompareColor(differPrice: Double): String {
+    private fun getCompareColor(currentPrice: Double, beforePrice: Double): String {
+        val differPrice = (currentPrice - beforePrice) / beforePrice * 100
         return when {
             differPrice > 0 -> Color.RED.toString()
             differPrice < 0 -> Color.BLUE.toString()
