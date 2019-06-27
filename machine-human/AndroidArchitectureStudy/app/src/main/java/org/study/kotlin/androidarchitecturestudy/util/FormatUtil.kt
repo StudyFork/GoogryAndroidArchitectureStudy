@@ -4,13 +4,12 @@ import android.icu.text.DecimalFormat
 
 object FormatUtil {
     val format = DecimalFormat("###,###")
-    fun commaFormat(number: Number): String? {
+    fun commaFormat(number: Number): String? =
         if (number is Double) {
-            return format.format(number)
+            format.format(number)
         } else {
-            return format.format(number)
+            format.format(number)
         }
-    }
 
     fun floatingEightPointFormat(number: Double) = String.format("%.8f", number)
     fun floatingThreePointFormat(number: Double) = String.format("%.3f", number)
