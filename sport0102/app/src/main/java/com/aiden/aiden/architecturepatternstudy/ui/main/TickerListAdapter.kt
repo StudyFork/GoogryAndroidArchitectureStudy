@@ -26,8 +26,10 @@ class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewH
         holder.bind(tickerList[position])
 
     fun setData(list: List<TickerModel>) {
-        this.tickerList.clear()
-        this.tickerList.addAll(list)
+        tickerList.run {
+            clear()
+            addAll(list)
+        }
     }
 
     inner class ItemTickerViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
