@@ -18,6 +18,6 @@ abstract class BaseFragment(
     ) =
         inflater.inflate(layoutRes, container, false)
 
-    fun showToast(msg: String) =
+    fun showToast(msg: String?) =
         Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
 }

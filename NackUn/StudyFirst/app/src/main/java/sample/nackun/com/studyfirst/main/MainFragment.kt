@@ -31,7 +31,7 @@ class MainFragment : BaseFragment(
         tickerAdapter.setItems(tickers)
 
     override fun showMsg(msg: String?) =
-        showToast(msg?:"msg is null")
+        showToast(msg)
 
     private fun initPresenter() {
         MainPresenter(
