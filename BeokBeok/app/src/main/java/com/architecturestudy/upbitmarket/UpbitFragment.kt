@@ -2,9 +2,7 @@ package com.architecturestudy.upbitmarket
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import com.architecturestudy.R
 import com.architecturestudy.base.BaseFragment
@@ -27,20 +25,12 @@ class UpbitFragment : BaseFragment(
         )
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        presenter.start()
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
+        presenter.start()
         initClickListener()
         initRecyclerView()
     }
