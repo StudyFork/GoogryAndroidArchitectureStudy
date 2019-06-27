@@ -70,10 +70,10 @@ class UpbitFragment : BaseFragment(
     }
 
     private fun initClickListener() {
-        tv_market_krw.setOnClickListener { setViewColor(tv_market_krw) }
-        tv_market_btc.setOnClickListener { setViewColor(tv_market_btc) }
-        tv_market_eth.setOnClickListener { setViewColor(tv_market_eth) }
-        tv_market_usdt.setOnClickListener { setViewColor(tv_market_usdt) }
+        tv_market_krw.setOnClickListener(this::setViewColor)
+        tv_market_btc.setOnClickListener(this::setViewColor)
+        tv_market_eth.setOnClickListener(this::setViewColor)
+        tv_market_usdt.setOnClickListener(this::setViewColor)
     }
 
     private fun setViewColor(view: View) {
