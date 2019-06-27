@@ -97,7 +97,7 @@
                 android:textSize="18sp"
                 android:layout_weight="1"
                 android:gravity="end"/>
-
+    </LinearLayout>
         <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -110,5 +110,4 @@
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager">
             </android.support.v7.widget.RecyclerView>
         </ScrollView>
-    </LinearLayout>
 </RelativeLayout>
