@@ -11,6 +11,7 @@ buildscript {
 
         rxAndroidVersion = '2.1.1'
         rxJavaVersion='2.2.8'
+        koin_version = '2.0.1'
     }
 
     repositories {
