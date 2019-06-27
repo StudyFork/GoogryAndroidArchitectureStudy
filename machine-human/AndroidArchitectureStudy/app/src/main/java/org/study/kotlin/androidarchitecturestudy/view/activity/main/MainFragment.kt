@@ -83,7 +83,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main), MainContract.View {
     }
 
     //(기능 추가 예정)
-    override fun showErrorToast(error: Throwable) {
+    override fun showErrorToast(errorMessage: Throwable) {
     }
 }
 

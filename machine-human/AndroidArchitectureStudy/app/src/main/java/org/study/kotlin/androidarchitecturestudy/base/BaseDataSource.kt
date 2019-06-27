@@ -26,7 +26,7 @@ interface BaseDataSource {
 
     interface GetTickerListCallback {
         fun onTickerListLoaded(tickerList: List<TickerModel>)
-        fun onDataNotAvailable(error: Throwable)
+        fun onDataNotAvailable(errorMessage: Throwable)
     }
 
     fun requestMarkets(marketName: String, callback: GetTickerListCallback)

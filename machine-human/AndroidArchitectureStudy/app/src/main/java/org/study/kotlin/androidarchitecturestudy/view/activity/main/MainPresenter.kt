@@ -55,8 +55,8 @@ class MainPresenter : MainContract.Presenter, BaseDataSource.GetTickerListCallba
         mainView.setProgress(true)
     }
 
-    override fun onDataNotAvailable(error: Throwable) {
-        mainView.showErrorToast(error)
+    override fun onDataNotAvailable(errorMessage: Throwable) {
+        mainView.showErrorToast(errorMessage)
 
     }
 
