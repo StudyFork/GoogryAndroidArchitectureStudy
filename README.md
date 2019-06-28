@@ -28,7 +28,8 @@
 제가 노력한 만큼 더 많은 것을 얻어가는 스터디가 아니었나 싶습니다. 
 [[각 주차별 후기](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/improve777/주차별_후기.md)]  
 - 김용훈 [sabgilhun](https://github.com/sabgilhun)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/sabgilhun)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/sabgilhun)  
+처음 스터디를 커리큘럼에 나와 있는 것만이라도 따라가 보자라는 생각으로 시작했는데, 막상 진행을 해보니 생각한 것보다 더 많은 것을 얻어간 거 같네요. 저는 일단 질문이나 의견을 나누는 것을 편하게 할 수 있는 환경이 제일 만족스러웠습니다. 아키텍처 공부를 하다 보면 헷갈리는 부분이 많은데, 이를 질문하면서 관점을 정립시킬 수 있었습니다. 그리고 github를 통해 과제 및 코드 리뷰를 진행한 것도 좋았습니다. github를 통해 협업하는 방식을 간접 체험했다고 생각합니다. 마지막으로 스터디원들과 네트워크가 형성되어 나중에도 슬랙을 통해 의견을 공유할 수 있다는 점이 만족스럽습니다. 나중에도 이것저것 많이 물어보고 싶네요.&#128513; 2달이 정말 빠르게 지나갔지만, 후기를 쓰며 되돌아보니 얻어간 게 많은 것 같습니다. 다들 수고하셨습니다.
 - 공설민 [gongsulmin](https://github.com/GongSulMin?tab=repositories)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/gongsulmin)
 - 조남재 [namjackson](https://github.com/namjackson)
