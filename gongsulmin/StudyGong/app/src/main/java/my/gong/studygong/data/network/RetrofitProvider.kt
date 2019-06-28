@@ -5,9 +5,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-// 싱글톤 변경
 object RetrofitProvider {
-
     val upbitApi: UpbitApi by lazy {
         val retrofitBuilder = Retrofit.Builder()
             .baseUrl(UpbitApi.BASE_URL)

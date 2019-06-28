@@ -7,7 +7,7 @@ import my.gong.studygong.data.network.RetrofitProvider
 import retrofit2.Call
 import retrofit2.Response
 
-object UpbitRepository
+class UpbitRepository
     : UpbitDataSource {
 
     private var market: String? = null
