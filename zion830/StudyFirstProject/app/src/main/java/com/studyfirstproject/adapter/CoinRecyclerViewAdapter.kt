@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.studyfirstproject.R
 import com.studyfirstproject.data.model.TickerModel
 import com.studyfirstproject.util.NumberFormatUtil
@@ -14,7 +13,7 @@ import org.jetbrains.anko.textColor
 
 class CoinRecyclerViewAdapter
     : RecyclerView.Adapter<CoinRecyclerViewAdapter.CoinItemViewHolder>() {
-    private var coinList: MutableList<TickerModel> = mutableListOf()
+    private var coinList = mutableListOf<TickerModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): CoinItemViewHolder {
         val viewGroup = LayoutInflater
