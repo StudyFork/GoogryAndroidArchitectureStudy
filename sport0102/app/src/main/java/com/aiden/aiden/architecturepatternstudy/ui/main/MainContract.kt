@@ -34,7 +34,7 @@ interface MainContract {
 
         fun loadMarketList(market: String)
 
-        fun loadTickerList(marketList: ArrayList<MarketResponse>)
+        fun loadTickerList(marketList: List<MarketResponse>)
 
     }
 }
