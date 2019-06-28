@@ -23,7 +23,7 @@ class MainFragment : BaseFragment(com.aiden.aiden.architecturepatternstudy.R.lay
         arguments?.let {
             it.getString("marketName")?.let { marketName ->
                 this.marketName = marketName
-            } ?: ""
+            }
         }
         presenter = MainPresenter(UpbitRepository.getInstance(UpbitRemoteDataSource(upbitApi)), this)
         super.onViewCreated(view, savedInstanceState)
