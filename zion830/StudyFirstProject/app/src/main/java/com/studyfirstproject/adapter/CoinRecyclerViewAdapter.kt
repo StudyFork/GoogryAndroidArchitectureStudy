@@ -39,10 +39,10 @@ class CoinRecyclerViewAdapter
     }
 
     inner class CoinItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val tvCoinName by lazy { itemView.tv_coin_name as TextView }
-        private val tvCoinTradePrice by lazy { itemView.tv_coin_trade_price as TextView }
-        private val tvCoinChangeRate by lazy { itemView.tv_coin_change_rate as TextView }
-        private val tvCoinAccTradePrice by lazy { itemView.tv_coin_acc_trade_price as TextView }
+        private val tvCoinName by lazy { itemView.tv_coin_name }
+        private val tvCoinTradePrice by lazy { itemView.tv_coin_trade_price }
+        private val tvCoinChangeRate by lazy { itemView.tv_coin_change_rate }
+        private val tvCoinAccTradePrice by lazy { itemView.tv_coin_acc_trade_price }
 
         fun bind(data: TickerModel) {
             tvCoinName.text = data.market.substring(data.market.indexOf("-") + 1)
