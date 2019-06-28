@@ -1,7 +1,12 @@
 <resources>
-    <string name="app_name">ArchitectureStudy</string>
-    <string name="coin_name">코인명</string>
-    <string name="current_price">현재가</string>
-    <string name="net_change">전일대비</string>
-    <string name="trading_value">거래대금</string>
+    <string name="app_name" translatable="false">ArchitectureStudy</string>
+    <string name="market_krw" translatable="false">KRW</string>
+    <string name="market_btc" translatable="false">BTC</string>
+    <string name="market_eth" translatable="false">ETH</string>
+    <string name="market_usdt" translatable="false">USDT</string>
+
+    <string name="coin_name">Coin name</string>
+    <string name="current_price">Current price</string>
+    <string name="net_change">Net change</string>
+    <string name="trading_value">Trading value</string>
 </resources>

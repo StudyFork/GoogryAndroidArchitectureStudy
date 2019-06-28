@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".upbitmarket.UpbitFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".upbitmarket.UpbitActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_market_area"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/cl_heading_row"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="1">
+
+            <TextView
+                android:id="@+id/tv_market_krw"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="@string/market_krw"
+                android:textColor="@color/midNightBlue"
+                app:layout_constraintBottom_toBottomOf="@id/cl_market_area"
+                app:layout_constraintEnd_toStartOf="@id/tv_market_btc"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cl_market_area" />
+
+            <TextView
+                android:id="@+id/tv_market_btc"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="@string/market_btc"
+                android:textColor="@color/silver"
+                app:layout_constraintBottom_toBottomOf="@id/cl_market_area"
+                app:layout_constraintEnd_toStartOf="@id/tv_market_eth"
+                app:layout_constraintStart_toEndOf="@id/tv_market_krw"
+                app:layout_constraintTop_toTopOf="@id/cl_market_area" />
+
+            <TextView
+                android:id="@+id/tv_market_eth"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="@string/market_eth"
+                android:textColor="@color/silver"
+                app:layout_constraintBottom_toBottomOf="@id/cl_market_area"
+                app:layout_constraintEnd_toStartOf="@id/tv_market_usdt"
+                app:layout_constraintStart_toEndOf="@id/tv_market_btc"
+                app:layout_constraintTop_toTopOf="@id/cl_market_area" />
+
+            <TextView
+                android:id="@+id/tv_market_usdt"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="@string/market_usdt"
+                android:textColor="@color/silver"
+                app:layout_constraintBottom_toBottomOf="@id/cl_market_area"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_market_eth"
+                app:layout_constraintTop_toTopOf="@id/cl_market_area" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_heading_row"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/rv_coin_price"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_market_area"
+            app:layout_constraintVertical_weight="1">
+
+            <TextView
+                android:id="@+id/tv_coin_name"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center_vertical"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:text="@string/coin_name"
+                app:layout_constraintBottom_toBottomOf="@id/cl_heading_row"
+                app:layout_constraintEnd_toStartOf="@id/tv_current_price"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cl_heading_row" />
+
+            <TextView
+                android:id="@+id/tv_current_price"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center_vertical|end"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:text="@string/current_price"
+                app:layout_constraintBottom_toBottomOf="@id/cl_heading_row"
+                app:layout_constraintEnd_toStartOf="@id/tv_net_change"
+                app:layout_constraintStart_toEndOf="@id/tv_coin_name"
+                app:layout_constraintTop_toTopOf="@id/cl_heading_row" />
+
+            <TextView
+                android:id="@+id/tv_net_change"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center_vertical|end"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:text="@string/net_change"
+                app:layout_constraintBottom_toBottomOf="@id/cl_heading_row"
+                app:layout_constraintEnd_toStartOf="@id/tv_trading_value"
+                app:layout_constraintStart_toEndOf="@id/tv_current_price"
+                app:layout_constraintTop_toTopOf="@id/cl_heading_row" />
+
+            <TextView
+                android:id="@+id/tv_trading_value"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center_vertical|end"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:text="@string/trading_value"
+                app:layout_constraintBottom_toBottomOf="@id/cl_heading_row"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_net_change"
+                app:layout_constraintTop_toTopOf="@id/cl_heading_row" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_coin_price"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_heading_row"
+            app:layout_constraintVertical_weight="22">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
