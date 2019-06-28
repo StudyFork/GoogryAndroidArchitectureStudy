@@ -44,7 +44,7 @@ data class TickerResponse(
     val lowest52WeekPrice: Double,
 
     @SerializedName("market")
-    val market: String,
+    var market: String,
 
     @SerializedName("opening_price")
     val openingPrice: Double,
@@ -68,7 +68,7 @@ data class TickerResponse(
     val tradeDateKst: String,
 
     @SerializedName("trade_price")
-    val tradePrice: Double,
+    var tradePrice: Double,
 
     @SerializedName("trade_time")
     val tradeTime: String,
@@ -80,6 +80,14 @@ data class TickerResponse(
     val tradeTimeStamp: Long,
 
     @SerializedName("trade_volume")
-    val tradeVolume: Double
+    val tradeVolume: Double,
+
+    var coinName: String? = null,
+
+    var nowPrice: String? = null,
+
+    var compareBeforePercentage: String? = null,
+
+    var totalDealPrice: String? = null
 
 )

@@ -5,12 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aiden.aiden.architecturepatternstudy.R
-import com.aiden.aiden.architecturepatternstudy.data.model.TickerModel
+import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 import kotlinx.android.synthetic.main.item_ticker.view.*
 
 class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewHolder>() {
 
-    private var tickerList = mutableListOf<TickerModel>()
+    private var tickerList = mutableListOf<TickerResponse>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemTickerViewHolder {
         val retView =
@@ -25,7 +25,7 @@ class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewH
     override fun onBindViewHolder(holder: ItemTickerViewHolder, position: Int) =
         holder.bind(tickerList[position])
 
-    fun setData(list: List<TickerModel>) {
+    fun setData(list: List<TickerResponse>) {
         tickerList.run {
             clear()
             addAll(list)
@@ -39,7 +39,7 @@ class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewH
         private val tvCompareBefore by lazy { view.item_ticker_tv_compare_before }
         private val tvTotalDealPrice by lazy { view.item_ticker_tv_total_deal_price }
 
-        fun bind(tickerModel: TickerModel) {
+        fun bind(tickerModel: TickerResponse) {
 
             tvCoinName.text = tickerModel.coinName
 

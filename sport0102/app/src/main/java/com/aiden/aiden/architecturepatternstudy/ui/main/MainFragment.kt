@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.View
 import com.aiden.aiden.architecturepatternstudy.api.Retrofit.retrofit
 import com.aiden.aiden.architecturepatternstudy.api.UpbitApi
+import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 import com.aiden.aiden.architecturepatternstudy.base.BaseFragment
-import com.aiden.aiden.architecturepatternstudy.data.model.TickerModel
 import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
 import com.aiden.aiden.architecturepatternstudy.data.source.remote.UpbitRemoteDataSource
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -39,7 +39,7 @@ class MainFragment : BaseFragment(com.aiden.aiden.architecturepatternstudy.R.lay
         super.onResume()
     }
 
-    override fun showTickerList(tickerList: List<TickerModel>) {
+    override fun showTickerList(tickerList: List<TickerResponse>) {
         fragment_ticker_list_rv.adapter = TickerListAdapter().apply {
             setData(tickerList)
             notifyDataSetChanged()

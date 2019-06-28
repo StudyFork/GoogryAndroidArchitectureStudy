@@ -16,6 +16,7 @@
 package com.aiden.aiden.architecturepatternstudy.ui.main
 
 import com.aiden.aiden.architecturepatternstudy.api.model.MarketResponse
+import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 import com.aiden.aiden.architecturepatternstudy.base.BasePresenter
 import com.aiden.aiden.architecturepatternstudy.base.BaseView
 import com.aiden.aiden.architecturepatternstudy.data.model.TickerModel
@@ -24,7 +25,7 @@ interface MainContract {
 
     interface View : BaseView<Presenter> {
 
-        fun showTickerList(tickerList: List<TickerModel>)
+        fun showTickerList(tickerList: List<TickerResponse>)
 
         fun showErrorToast()
 

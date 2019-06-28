@@ -18,7 +18,6 @@ package com.aiden.aiden.architecturepatternstudy.ui.main
 import com.aiden.aiden.architecturepatternstudy.api.model.MarketResponse
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 import com.aiden.aiden.architecturepatternstudy.data.enums.Market
-import com.aiden.aiden.architecturepatternstudy.data.model.TickerModel
 import com.aiden.aiden.architecturepatternstudy.data.source.UpbitDataSource
 import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
 import com.aiden.aiden.architecturepatternstudy.util.StringUtil
@@ -56,7 +55,7 @@ class MainPresenter(
     override fun loadTickerList(marketList: List<MarketResponse>) {
         upbitRepository.getTickerList(marketList, object : UpbitDataSource.GetTickerListCallback {
             override fun onTickerListLoaded(tickerList: List<TickerResponse>) {
-                mainView.showTickerList(modifyTickerList(tickerList))
+                mainView.showTickerList(tickerList.map(::modifyTicker))
             }
 
             override fun onDataNotAvailable() {
@@ -66,71 +65,62 @@ class MainPresenter(
         })
     }
 
-    private fun modifyTickerList(tickerList: List<TickerResponse>): List<TickerModel> {
+    private fun modifyTicker(ticker: TickerResponse): TickerResponse {
 
-        val modifiedTickerList = ArrayList<TickerModel>()
+        with(ticker) {
 
-        tickerList.forEach {
             // 코인 이름
-            val coinName = it.market.split("-")[1]
+            coinName = market.split("-")[1]
+
             //  현재 가격
-            val nowPrice = if (it.market.startsWith(
+            nowPrice = if (market.startsWith(
                     Market.KRW.marketName,
                     true
                 )
             ) {
-                StringUtil.getKrwCommaPrice(BigDecimal(it.tradePrice))
-            } else if (it.market.startsWith(
+                StringUtil.getKrwCommaPrice(BigDecimal(tradePrice))
+            } else if (market.startsWith(
                     Market.BTC.marketName,
                     true
-                ) || it.market.startsWith(
+                ) || market.startsWith(
                     Market.ETH.marketName,
                     true
                 )
             ) {
-                StringUtil.getBtcEthCommaPrice(it.tradePrice)
+                StringUtil.getBtcEthCommaPrice(tradePrice)
             } else {
-                StringUtil.getUsdtCommaPrice(it.tradePrice)
+                StringUtil.getUsdtCommaPrice(tradePrice)
             }
 
             // 전일대비 퍼센트
-            val compareBeforePercentage = StringUtil.getPercent(
-                it.prevClosingPrice,
-                it.tradePrice
+            compareBeforePercentage = StringUtil.getPercent(
+                prevClosingPrice,
+                tradePrice
             )
 
             // 거래대금
-            val totalDealPrice = if (it.market.startsWith(
+            totalDealPrice = if (market.startsWith(
                     Market.KRW.marketName,
                     true
                 )
             ) {
-                StringUtil.getKrwTotalDealPrice(it.accTradePrice24h)
-            } else if (it.market.startsWith(
+                StringUtil.getKrwTotalDealPrice(accTradePrice24h)
+            } else if (market.startsWith(
                     Market.BTC.marketName,
                     true
-                ) || it.market.startsWith(
+                ) || market.startsWith(
                     Market.ETH.marketName,
                     true
                 )
             ) {
-                StringUtil.getBtcEthTotalDealPrice(it.accTradePrice24h)
+                StringUtil.getBtcEthTotalDealPrice(accTradePrice24h)
             } else {
-                StringUtil.getUsdtTotalDealPrice(it.accTradePrice24h)
+                StringUtil.getUsdtTotalDealPrice(accTradePrice24h)
             }
-            modifiedTickerList.add(
-                TickerModel(
-                    coinName = coinName,
-                    nowPrice = nowPrice,
-                    compareBeforePercentage = compareBeforePercentage,
-                    totalDealPrice = totalDealPrice,
-                    prevClosingPrice = it.prevClosingPrice,
-                    tradePrice = it.tradePrice
-                )
-            )
+
         }
 
-        return modifiedTickerList
+        return ticker
 
     }
 
