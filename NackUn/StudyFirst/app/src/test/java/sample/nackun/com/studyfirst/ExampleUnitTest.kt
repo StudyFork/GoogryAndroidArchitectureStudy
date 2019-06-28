@@ -10,14 +10,5 @@ import org.junit.Test
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        var a = 5
-        var b = 0
-        println("a = $a b = $b");
-        a = a xor b
-        b = a xor b
-        a = a xor b
-        //a = b or a
-        //a = b - a
-        println("a = $a b = $b");
     }
 }
