@@ -2,21 +2,16 @@ package ado.sabgil.studyproject.view.searchcoin
 
 import ado.sabgil.studyproject.R
 import ado.sabgil.studyproject.adapter.TickerAdapter
-import ado.sabgil.studyproject.data.CoinRepositoryImpl
 import ado.sabgil.studyproject.databinding.ActivitySearchCoinBinding
 import ado.sabgil.studyproject.view.base.BaseActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class SearchCoinActivity :
     BaseActivity<ActivitySearchCoinBinding>(R.layout.activity_search_coin) {
 
-    private val searchCoinViewModel: SearchCoinViewModel by lazy {
-        getActivityScopeViewModel(
-            SearchCoinViewModel::class.java,
-            SearchCoinViewModelFactory(CoinRepositoryImpl)
-        )
-    }
+    private val searchCoinViewModel: SearchCoinViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

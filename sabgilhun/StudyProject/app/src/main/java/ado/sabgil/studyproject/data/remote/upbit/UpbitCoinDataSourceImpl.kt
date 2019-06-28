@@ -8,16 +8,11 @@ import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.subjects.BehaviorSubject
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-object UpbitCoinDataSourceImpl : CoinDataSource {
-
-    private val retrofit: UpbitApi
-
-    private const val baseURL = "https://api.upbit.com/v1/"
+class UpbitCoinDataSourceImpl(
+    private val upbitApi: UpbitApi
+) : CoinDataSource {
 
     private var cachedTickerListRequest: UpbitTickerListRequest? = null
 
@@ -27,18 +22,8 @@ object UpbitCoinDataSourceImpl : CoinDataSource {
 
     private val compositeDisposable = CompositeDisposable()
 
-    init {
-        retrofit = run {
-            Retrofit.Builder().baseUrl(baseURL)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(UpbitApi::class.java)
-        }
-    }
-
     override fun loadMarketList(): Single<List<String>> {
-        return retrofit.loadMarketCode()
+        return upbitApi.loadMarketCode()
             .map { response ->
                 cachedTickerListRequest = UpbitTickerListRequest.fromResponse(response)
                 response.map {
@@ -109,7 +94,7 @@ object UpbitCoinDataSourceImpl : CoinDataSource {
         request: UpbitTickerListRequest
     ): Single<List<Ticker>> {
         return Single.fromObservable(
-            retrofit.loadTickerList(request.marketCodeQuery)
+            upbitApi.loadTickerList(request.marketCodeQuery)
                 .map { response ->
                     response.map {
                         Ticker.fromApiResponse(it)

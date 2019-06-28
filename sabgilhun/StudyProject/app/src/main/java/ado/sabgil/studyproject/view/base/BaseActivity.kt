@@ -6,9 +6,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 
 abstract class BaseActivity<B : ViewDataBinding>(
     private val layoutId: Int
@@ -18,12 +15,6 @@ abstract class BaseActivity<B : ViewDataBinding>(
         private set
 
     protected var progressBar: View? = null
-
-    protected fun <VM : ViewModel> getActivityScopeViewModel(
-        vmClass: Class<VM>,
-        viewModelFactory: ViewModelProvider.NewInstanceFactory
-    ) = ViewModelProviders.of(this, viewModelFactory).get(vmClass)
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

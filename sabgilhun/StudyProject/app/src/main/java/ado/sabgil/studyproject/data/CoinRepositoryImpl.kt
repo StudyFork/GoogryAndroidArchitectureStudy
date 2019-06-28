@@ -1,19 +1,19 @@
 package ado.sabgil.studyproject.data
 
 import ado.sabgil.studyproject.data.model.Ticker
-import ado.sabgil.studyproject.data.remote.upbit.UpbitCoinDataSourceImpl
+import ado.sabgil.studyproject.data.remote.CoinDataSource
 import ado.sabgil.studyproject.ext.setNetworkingThread
 import io.reactivex.disposables.Disposable
 
-object CoinRepositoryImpl : CoinRepository {
-
-    private val dataSource = UpbitCoinDataSourceImpl
+class CoinRepositoryImpl(
+    private val remoteDataSource: CoinDataSource
+) : CoinRepository {
 
     override fun loadMarketList(
         success: (List<String>) -> Unit,
         fail: (Throwable) -> Unit
     ): Disposable {
-        return dataSource
+        return this.remoteDataSource
             .loadMarketList()
             .setNetworkingThread()
             .subscribe(success, fail)
@@ -24,7 +24,7 @@ object CoinRepositoryImpl : CoinRepository {
         success: (List<Ticker>) -> Unit,
         fail: (Throwable) -> Unit
     ): Disposable {
-        return dataSource
+        return this.remoteDataSource
             .subscribeCoinDataByCurrency(baseCurrency)
             .setNetworkingThread()
             .subscribe(success, fail)
@@ -35,14 +35,14 @@ object CoinRepositoryImpl : CoinRepository {
         success: (List<Ticker>) -> Unit,
         fail: (Throwable) -> Unit
     ): Disposable {
-        return dataSource
+        return this.remoteDataSource
             .subscribeCoinDataByCoinName(coinName)
             .setNetworkingThread()
             .subscribe(success, fail)
     }
 
     override fun unSubscribeCoinData() {
-        dataSource.unSubscribeCoinData()
+        this.remoteDataSource.unSubscribeCoinData()
     }
 
 }

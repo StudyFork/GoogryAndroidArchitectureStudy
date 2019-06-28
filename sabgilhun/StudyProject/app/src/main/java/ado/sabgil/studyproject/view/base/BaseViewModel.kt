@@ -18,7 +18,7 @@ abstract class BaseViewModel : ViewModel() {
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
-    fun onDestroy() {
+    override fun onCleared() {
         disposables.clear()
     }
 

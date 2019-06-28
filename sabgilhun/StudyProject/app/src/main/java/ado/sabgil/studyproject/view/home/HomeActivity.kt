@@ -2,7 +2,6 @@ package ado.sabgil.studyproject.view.home
 
 import ado.sabgil.studyproject.R
 import ado.sabgil.studyproject.adapter.CoinListPagerAdapter
-import ado.sabgil.studyproject.data.CoinRepositoryImpl
 import ado.sabgil.studyproject.databinding.ActivityMainBinding
 import ado.sabgil.studyproject.view.base.BaseActivity
 import ado.sabgil.studyproject.view.coinlist.CoinListFragment
@@ -12,15 +11,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.Observer
+import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    private val homeViewModel: HomeViewModel by lazy {
-        getActivityScopeViewModel(
-            HomeViewModel::class.java,
-            HomeViewModelFactory(CoinRepositoryImpl)
-        )
-    }
+    private val homeViewModel: HomeViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
