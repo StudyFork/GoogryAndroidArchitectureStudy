@@ -18,10 +18,15 @@ class MainFragment : BaseFragment(com.aiden.aiden.architecturepatternstudy.R.lay
     private val upbitApi by lazy { retrofit.create(UpbitApi::class.java) }
 
     private lateinit var marketName: String
+    private val error = "error"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         arguments?.let {
             it.getString("marketName")?.let { marketName ->
+                if (marketName == error) {
+                    showErrorToast()
+                    return
+                }
                 this.marketName = marketName
             }
         }
