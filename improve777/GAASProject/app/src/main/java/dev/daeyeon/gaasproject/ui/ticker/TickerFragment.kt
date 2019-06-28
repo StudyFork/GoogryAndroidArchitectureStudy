@@ -5,31 +5,23 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import dev.daeyeon.gaasproject.R
 import dev.daeyeon.gaasproject.base.BaseFragment
 import dev.daeyeon.gaasproject.data.response.ResponseCode
 import dev.daeyeon.gaasproject.data.source.UpbitDataSource
-import dev.daeyeon.gaasproject.data.source.UpbitRepository
 import dev.daeyeon.gaasproject.databinding.FragmentTickerBinding
 import dev.daeyeon.gaasproject.ext.popContent
-import dev.daeyeon.gaasproject.network.NetworkManager
 import dev.daeyeon.gaasproject.ui.ticker.marketchoice.MarketChoiceDialogFragment
 import dev.daeyeon.gaasproject.ui.ticker.search.TickerSearchDialogFragment
 import dev.daeyeon.gaasproject.util.Event
 import org.jetbrains.anko.toast
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TickerFragment : BaseFragment<FragmentTickerBinding>(
     R.layout.fragment_ticker
 ) {
-    private val tickerViewModel by createViewModelLazy(
-        viewModelClass = TickerViewModel::class,
-        storeProducer = { viewModelStore },
-        factoryProducer = { getTickerViewModelFactory() }
-    )
+    private val tickerViewModel: TickerViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         bind {
@@ -127,13 +119,5 @@ class TickerFragment : BaseFragment<FragmentTickerBinding>(
         fun newInstance(): TickerFragment {
             return TickerFragment()
         }
-
-        fun getTickerViewModelFactory() =
-            object : ViewModelProvider.Factory {
-                @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                    return TickerViewModel(UpbitRepository(NetworkManager.instance)) as T
-                }
-            }
     }
 }
