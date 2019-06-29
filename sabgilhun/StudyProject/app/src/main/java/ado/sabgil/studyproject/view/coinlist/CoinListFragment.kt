@@ -2,31 +2,22 @@ package ado.sabgil.studyproject.view.coinlist
 
 import ado.sabgil.studyproject.R
 import ado.sabgil.studyproject.adapter.TickerAdapter
-import ado.sabgil.studyproject.data.CoinRepositoryImpl
 import ado.sabgil.studyproject.databinding.FragmnetCoinListBinding
 import ado.sabgil.studyproject.view.base.BaseFragment
 import ado.sabgil.studyproject.view.home.HomeViewModel
-import ado.sabgil.studyproject.view.home.HomeViewModelFactory
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 
 class CoinListFragment : BaseFragment<FragmnetCoinListBinding>(R.layout.fragmnet_coin_list) {
 
-    private val coinListViewModel: CoinListViewModel by lazy {
-        getFragmentScopeViewModel(
-            CoinListViewModel::class.java,
-            CoinListViewModelFactory(baseCurrency, CoinRepositoryImpl)
-        )
-    }
+    private val coinListViewModel: CoinListViewModel by viewModel { parametersOf(baseCurrency) }
 
-    private val homeViewModel: HomeViewModel by lazy {
-        getActivityScopeViewModel(
-            HomeViewModel::class.java,
-            HomeViewModelFactory(CoinRepositoryImpl)
-        )
-    }
+    private val homeViewModel: HomeViewModel by sharedViewModel()
 
     private val baseCurrency: String by lazy {
         requireArguments().getString(ARGUMENT_BASE_CURRENCY)

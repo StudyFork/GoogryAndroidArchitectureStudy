@@ -8,9 +8,6 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 
 abstract class BaseFragment<B : ViewDataBinding>(
     private val layoutId: Int
@@ -20,16 +17,6 @@ abstract class BaseFragment<B : ViewDataBinding>(
         private set
 
     protected var progressBar: View? = null
-
-    protected fun <VM : ViewModel> getActivityScopeViewModel(
-        vmClass: Class<VM>,
-        viewModelFactory: ViewModelProvider.NewInstanceFactory
-    ) = ViewModelProviders.of(requireActivity(), viewModelFactory).get(vmClass)
-
-    protected fun <VM : ViewModel> getFragmentScopeViewModel(
-        vmClass: Class<VM>,
-        viewModelFactory: ViewModelProvider.NewInstanceFactory
-    ) = ViewModelProviders.of(this, viewModelFactory).get(vmClass)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
