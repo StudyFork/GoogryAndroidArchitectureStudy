@@ -1,5 +1,4 @@
-package com.studyfirstproject.model
-
+package com.studyfirstproject.data.model
 
 import com.google.gson.annotations.SerializedName
 
