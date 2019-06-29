@@ -24,7 +24,7 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.ItemViewHolder>() {
 
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder?.setData(tickerList[position])
+        holder.setData(tickerList[position])
     }
 
     fun setList(list: List<TickerModel>) {
