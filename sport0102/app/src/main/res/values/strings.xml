@@ -8,4 +8,5 @@
 	<string name="all_now_price">현재가</string>
 	<string name="all_compare_before">전일대비</string>
 	<string name="all_total_deal_price">거래대금</string>
+	<string name="all_error_load_data_fail">데이터를 로드하지 못했습니다</string>
 </resources>

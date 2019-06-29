@@ -1,24 +1,32 @@
 package com.aiden.aiden.architecturepatternstudy.ui.main
 
-import androidx.fragment.app.Fragment
+import android.os.Bundle
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.aiden.aiden.architecturepatternstudy.data.enums.Market
 
-class MainPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+
+class MainPagerAdapter(private val fm: FragmentManager) :
+    FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private val marketList = Market.values()
+    private val error = "error"
 
-    override fun getItem(position: Int): Fragment {
-        return when (position) {
-            0 -> MainFragment(marketList[0])
-            1 -> MainFragment(marketList[1])
-            2 -> MainFragment(marketList[2])
-            3 -> MainFragment(marketList[3])
-            else -> MainFragment(marketList[0])
-        }
-
+    override fun getItem(position: Int) = when (position) {
+        0 -> getFragmentByMarketName(Market.KRW.marketName)
+        1 -> getFragmentByMarketName(Market.BTC.marketName)
+        2 -> getFragmentByMarketName(Market.ETH.marketName)
+        3 -> getFragmentByMarketName(Market.USDT.marketName)
+        else -> getFragmentByMarketName(error)
     }
 
-    override fun getCount(): Int = marketList.size
+    private fun getFragmentByMarketName(marketName: String): MainFragment {
+        val mainFragment = MainFragment()
+        mainFragment.arguments = Bundle().apply {
+            putString("marketName", marketName)
+        }
+        return mainFragment
+    }
+
+    override fun getCount() = marketList.size
 }
