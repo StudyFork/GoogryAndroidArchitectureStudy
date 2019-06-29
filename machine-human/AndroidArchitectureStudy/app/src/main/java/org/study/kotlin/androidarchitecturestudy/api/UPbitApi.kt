@@ -1,6 +1,5 @@
 package org.study.kotlin.androidarchitecturestudy.api
 
-import io.reactivex.Flowable
 import io.reactivex.Single
 import org.study.kotlin.androidarchitecturestudy.api.model.MarketModel
 import org.study.kotlin.androidarchitecturestudy.api.model.TickerModel
@@ -12,5 +11,5 @@ interface UpbitApi {
     fun getMarket(): Single<List<MarketModel>>
 
     @GET("v1/ticker")
-    fun getTicker(@Query("markets") markets: String): Flowable<List<TickerModel>>
+    fun getTicker(@Query("markets") markets: String): Single<List<TickerModel>>
 }
