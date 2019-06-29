@@ -2,9 +2,7 @@ package com.architecturestudy.upbitmarket
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import com.architecturestudy.R
 import com.architecturestudy.base.BaseFragment
@@ -27,36 +25,24 @@ class UpbitFragment : BaseFragment(
         )
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        presenter.start()
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
+        presenter.start()
         initClickListener()
         initRecyclerView()
     }
 
     override fun onDestroy() {
-        CompositeDisposable().dispose()
         super.onDestroy()
+        CompositeDisposable().dispose()
     }
 
-    override fun updateMarketPrice(marketPrice: List<Map<String, String>>) {
-        setMainAdapter(marketPrice)
-    }
+    override fun updateMarketPrice(marketPrice: List<Map<String, String>>) = setMainAdapter(marketPrice)
 
-    override fun showErrMsg(t: Throwable) {
-        showToast(t.message)
-    }
+    override fun showErrMsg(t: Throwable) = showToast(t.message)
 
     private fun initRecyclerView() {
         rv_coin_price.addItemDecoration(
@@ -74,10 +60,10 @@ class UpbitFragment : BaseFragment(
     }
 
     private fun initClickListener() {
-        tv_market_krw.setOnClickListener { setViewColor(tv_market_krw) }
-        tv_market_btc.setOnClickListener { setViewColor(tv_market_btc) }
-        tv_market_eth.setOnClickListener { setViewColor(tv_market_eth) }
-        tv_market_usdt.setOnClickListener { setViewColor(tv_market_usdt) }
+        tv_market_krw.setOnClickListener(this::setViewColor)
+        tv_market_btc.setOnClickListener(this::setViewColor)
+        tv_market_eth.setOnClickListener(this::setViewColor)
+        tv_market_usdt.setOnClickListener(this::setViewColor)
     }
 
     private fun setViewColor(view: View) {

@@ -31,11 +31,8 @@ class UpbitRepository private constructor(
 
         operator fun invoke(
             upbitRetrofitDataSource: UpbitRetrofitDataSource
-        ): UpbitRepository {
-            return instance
-                ?: UpbitRepository(upbitRetrofitDataSource)
-                .apply { instance = this }
-        }
+        ): UpbitRepository = instance ?: UpbitRepository(upbitRetrofitDataSource)
+            .apply { instance = this }
 
     }
 }
