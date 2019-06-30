@@ -1,6 +1,7 @@
 package my.gong.studygong
 
 import android.app.Application
+import my.gong.studygong.di.networkModule
 import my.gong.studygong.di.repositoryModule
 import my.gong.studygong.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -19,6 +20,7 @@ class MyApplication : Application() {
             androidFileProperties()
             modules(
                 listOf(
+                    networkModule ,
                     repositoryModule ,
                     viewModelModule
                 )
