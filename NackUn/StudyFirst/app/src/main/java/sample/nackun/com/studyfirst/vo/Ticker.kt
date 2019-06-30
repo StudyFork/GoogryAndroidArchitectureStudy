@@ -1,4 +1,4 @@
-package sample.nackun.com.studyfirst.market
+package sample.nackun.com.studyfirst.vo
 
 
 import com.google.gson.annotations.SerializedName
