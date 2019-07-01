@@ -5,23 +5,17 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import my.gong.studygong.Injection
 import my.gong.studygong.R
 import my.gong.studygong.adapter.CoinAdapter
 import my.gong.studygong.databinding.ActivityMainBinding
 import my.gong.studygong.viewmodel.CoinViewModel
-import my.gong.studygong.viewmodel.ViewModelFactoryImpl
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CoinListActivity : AppCompatActivity() {
 
     private val coinMarketDialog = CoinMarketDialog()
 
-    private val coinViewModel: CoinViewModel by lazy {
-        CoinViewModel(Injection.provideCoinRepository())
-        ViewModelProviders.of(this@CoinListActivity, ViewModelFactoryImpl(Injection.provideCoinRepository()))
-            .get(CoinViewModel::class.java)
-    }
+    private val coinViewModel: CoinViewModel by viewModel()
 
     private lateinit var viewDataBinding: ActivityMainBinding
 

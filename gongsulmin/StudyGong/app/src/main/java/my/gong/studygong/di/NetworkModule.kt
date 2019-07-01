@@ -1,16 +1,15 @@
-package my.gong.studygong.data.network
+package my.gong.studygong.di
 
+import my.gong.studygong.data.network.UpbitApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-// 싱글톤 변경
-object RetrofitProvider {
-
-    val upbitApi: UpbitApi by lazy {
-        val retrofitBuilder = Retrofit.Builder()
-            .baseUrl(UpbitApi.BASE_URL)
+val networkModule = module {
+    single {
+        Retrofit.Builder().baseUrl(UpbitApi.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(
                 OkHttpClient.Builder().addInterceptor(
@@ -22,6 +21,6 @@ object RetrofitProvider {
                     .build()
             )
             .build()
-        retrofitBuilder.create(UpbitApi::class.java)
+            .create(UpbitApi::class.java)
     }
 }

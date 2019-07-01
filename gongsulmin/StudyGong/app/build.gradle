@@ -50,5 +50,9 @@ dependencies {
     // aac
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0-alpha01"
 
+    // koin
+    implementation 'org.koin:koin-core:2.0.1'
+    implementation 'org.koin:koin-android:2.0.1'
+    implementation 'org.koin:koin-androidx-viewmodel:2.0.1'
 
 }

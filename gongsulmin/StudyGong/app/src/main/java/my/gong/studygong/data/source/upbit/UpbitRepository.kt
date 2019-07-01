@@ -3,11 +3,13 @@ package my.gong.studygong.data.source.upbit
 import my.gong.studygong.data.model.Ticker
 import my.gong.studygong.data.model.response.UpbitMarketResponse
 import my.gong.studygong.data.model.response.UpbitTickerResponse
-import my.gong.studygong.data.network.RetrofitProvider
+import my.gong.studygong.data.network.UpbitApi
 import retrofit2.Call
 import retrofit2.Response
 
-object UpbitRepository
+class UpbitRepository(
+    val upbitApi: UpbitApi
+)
     : UpbitDataSource {
 
     private var market: String? = null
@@ -21,7 +23,7 @@ object UpbitRepository
         getMarket(
             success = { market ->
                 this.market = market
-                RetrofitProvider.upbitApi.getTicker(market)
+                upbitApi.getTicker(market)
                     .enqueue(object : retrofit2.Callback<List<UpbitTickerResponse>> {
                         override fun onResponse(
                             call: Call<List<UpbitTickerResponse>>,
@@ -71,7 +73,7 @@ object UpbitRepository
         getMarket(
             success = { market ->
                 this.market = market
-                RetrofitProvider.upbitApi.getTicker(market)
+                upbitApi.getTicker(market)
                     .enqueue(object : retrofit2.Callback<List<UpbitTickerResponse>> {
                         override fun onResponse(
                             call: Call<List<UpbitTickerResponse>>,
@@ -111,7 +113,7 @@ object UpbitRepository
         fail: (String) -> Unit
     ) {
         if (market == null) {
-            RetrofitProvider.upbitApi.getMarket()
+            upbitApi.getMarket()
                 .enqueue(object : retrofit2.Callback<List<UpbitMarketResponse>> {
                     override fun onResponse(
                         call: Call<List<UpbitMarketResponse>>,
@@ -140,7 +142,7 @@ object UpbitRepository
         fail: (String) -> Unit
     ) {
         if (coinCurrencyList == null) {
-            RetrofitProvider.upbitApi.getMarket()
+            upbitApi.getMarket()
                 .enqueue(object : retrofit2.Callback<List<UpbitMarketResponse>> {
                     override fun onResponse(
                         call: Call<List<UpbitMarketResponse>>,
