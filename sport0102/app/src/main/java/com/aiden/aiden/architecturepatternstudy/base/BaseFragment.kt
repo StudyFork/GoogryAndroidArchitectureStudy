@@ -10,11 +10,14 @@ import androidx.fragment.app.Fragment
 
 abstract class BaseFragment(@LayoutRes private val layoutId: Int) : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? =
         inflater.inflate(layoutId, container, false)
 
     fun toastM(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
-
 }
