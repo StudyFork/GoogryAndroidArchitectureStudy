@@ -83,8 +83,8 @@
 - 정태휘 []()
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
 
-- 이진성 []()
-[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+- 이진성 [dlwls5201](https://github.com/dlwls5201)
+[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/dlwls5201)
 
 - 김수연 []()
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
