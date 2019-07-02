@@ -1,56 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="coinViewModel"
+            type="com.nanamare.mac.sample.vm.CoinViewModel" />
+
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:orientation="horizontal"
-        android:weightSum="4">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/coin_name" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:orientation="horizontal"
+            android:weightSum="4">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/current_price" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/coin_name" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/compare_to_yesterday" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/current_price" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="0dp"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/compare_to_yesterday" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/coin_all_amount" />
+
+        </LinearLayout>
+
+        <com.malinskiy.superrecyclerview.SuperRecyclerView
+            replaceAll="@{coinViewModel.coins}"
+            android:id="@+id/rv_coin_list"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/coin_all_amount" />
+            app:layout_empty="@layout/empty_coin_list"
+            app:layout_moreProgress="@layout/layout_more_progress"
+            app:mainLayoutId="@layout/layout_recyclerview_verticalscroll"
+            app:recyclerClipToPadding="false"
+            app:recyclerPadding="0dp"
+            app:scrollbarStyle="outsideOverlay" />
+
 
     </LinearLayout>
-
-    <com.malinskiy.superrecyclerview.SuperRecyclerView
-        android:id="@+id/rv_coin_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_empty="@layout/empty_coin_list"
-        app:layout_moreProgress="@layout/layout_more_progress"
-        app:mainLayoutId="@layout/layout_recyclerview_verticalscroll"
-        app:recyclerClipToPadding="false"
-        app:recyclerPadding="0dp"
-        app:scrollbarStyle="outsideOverlay" />
-
-
-</LinearLayout>
+</layout>
