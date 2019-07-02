@@ -4,20 +4,36 @@ import android.os.Bundle
 import com.google.gson.Gson
 import com.nanamare.mac.sample.R
 import com.nanamare.mac.sample.base.BaseActivity
-import com.nanamare.mac.sample.ui.market.MarketContract
+import com.nanamare.mac.sample.databinding.ActivityMainBinding
 import com.nanamare.mac.sample.ui.market.MarketListFragment
-import com.nanamare.mac.sample.ui.market.MarketPresenter
+import com.nanamare.mac.sample.ui.market.MarketNavigator
+import com.nanamare.mac.sample.vm.MarketViewModel
 
-class MainActivity : BaseActivity(R.layout.activity_main), MarketContract.MarketView {
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), MarketNavigator {
 
-    override val presenter: MarketPresenter
-        get() = MarketPresenter(this)
+    private lateinit var marketVM: MarketViewModel
 
-    override fun showMarketList(marketMap: LinkedHashMap<String, List<String>>) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        marketVM = MarketViewModel()
+        with(marketVM) {
+            navigator = this@MainActivity
+            onMarketClick()
+        }
+
+    }
+
+    override fun sendMarketList(marketMap: LinkedHashMap<String, List<String>>) {
         val bundle = Bundle().apply {
             putString(KET_MARKET_LIST, Gson().toJson(marketMap))
         }
         goToFragment(MarketListFragment::class.java, bundle)
+    }
+
+    override fun onDestroy() {
+        marketVM.onClose()
+        super.onDestroy()
     }
 
 }

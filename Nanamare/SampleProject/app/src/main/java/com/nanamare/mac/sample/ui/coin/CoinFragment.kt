@@ -9,20 +9,20 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.malinskiy.superrecyclerview.OnMoreListener
 import com.nanamare.mac.sample.R
 import com.nanamare.mac.sample.adapter.TickerAdapter
-import com.nanamare.mac.sample.api.upbit.TickerModel
 import com.nanamare.mac.sample.base.BaseFragment
+import com.nanamare.mac.sample.databinding.FragmentCoinListBinding
+import com.nanamare.mac.sample.vm.CoinViewModel
 import kotlinx.android.synthetic.main.fragment_coin_list.*
 
-class CoinFragment : BaseFragment(R.layout.fragment_coin_list), SwipeRefreshLayout.OnRefreshListener, OnMoreListener,
-    CoinContract.CoinView {
+class CoinFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coin_list),
+    SwipeRefreshLayout.OnRefreshListener, OnMoreListener,
+    CoinNavigator {
 
     private lateinit var ticketList: MutableList<String>
 
     private lateinit var adapter: TickerAdapter
 
-    override val presenter: CoinPresenter
-        get() = CoinPresenter(this, ticketList)
-
+    private lateinit var coinVM: CoinViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,6 +30,15 @@ class CoinFragment : BaseFragment(R.layout.fragment_coin_list), SwipeRefreshLayo
         loadBundleData(savedInstanceState)
 
         initView()
+
+        coinVM = CoinViewModel()
+        coinVM.getCoins(ticketList)
+        coinVM.navigator = this@CoinFragment
+
+        binding.run {
+            coinViewModel = coinVM
+        }
+
     }
 
     private fun initView() {
@@ -64,27 +73,18 @@ class CoinFragment : BaseFragment(R.layout.fragment_coin_list), SwipeRefreshLayo
     }
 
     override fun onRefresh() {
-        presenter.getCoins(ticketList)
+        coinVM.getCoins(ticketList)
     }
 
-    override fun showCoins(list: List<TickerModel>) {
-        if (adapter.itemCount > 0) {
-            adapter.clear()
-        }
-        adapter.addAll(list)
-    }
-
-    override fun onMoreAsked(overallItemsCount: Int, itemsBeforeMore: Int, maxLastVisiblePosition: Int) {
+    override fun onMoreAsked(
+        overallItemsCount: Int,
+        itemsBeforeMore: Int,
+        maxLastVisiblePosition: Int
+    ) {
         if (maxLastVisiblePosition == rv_coin_list.adapter.itemCount - 1) {
             Toast.makeText(context, getString(R.string.scroll_end), Toast.LENGTH_SHORT).show()
             rv_coin_list.hideMoreProgress()
-
         }
-    }
-
-    override fun onDestroy() {
-        presenter.close()
-        super.onDestroy()
     }
 
     companion object {
@@ -100,5 +100,10 @@ class CoinFragment : BaseFragment(R.layout.fragment_coin_list), SwipeRefreshLayo
             return fragment
         }
 
+    }
+
+    override fun onDestroyView() {
+        coinVM.onClose()
+        super.onDestroyView()
     }
 }
