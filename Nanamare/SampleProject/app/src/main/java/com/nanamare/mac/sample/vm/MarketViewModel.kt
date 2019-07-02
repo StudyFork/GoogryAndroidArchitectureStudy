@@ -1,17 +1,16 @@
-package com.nanamare.mac.sample.ui.market
+package com.nanamare.mac.sample.vm
 
 import com.nanamare.mac.sample.data.market.MarketRepository
+import com.nanamare.mac.sample.ui.market.MarketNavigator
 
-class MarketPresenter(private val view: MarketContract.MarketView) : MarketContract.MarketPresenter {
+class MarketViewModel {
 
-    override fun start() {
-        getMarketList()
-    }
+    var navigator: MarketNavigator? = null
 
-    override fun getMarketList() {
-        view.showLoadingDialog()
+    fun onMarketClick() {
+        navigator?.showLoadingDialog()
         MarketRepository.getMarketList(success = {
-            view.hideLoadingDialog()
+            navigator?.hideLoadingDialog()
             val marketMap: LinkedHashMap<String, List<String>> = LinkedHashMap()
             val marketList = listOf<String>().toMutableList()
             it.map { marketModel ->
@@ -20,14 +19,14 @@ class MarketPresenter(private val view: MarketContract.MarketView) : MarketContr
                     marketMap.put(market, marketList)
                 }
             }
-            view.showMarketList(marketMap)
+            navigator?.sendMarketList(marketMap)
         }, failed = {
-            view.hideLoadingDialog()
+            navigator?.hideLoadingDialog()
         })
-
     }
 
-    override fun close() {
+    fun onClose() {
         MarketRepository.close()
     }
+
 }
