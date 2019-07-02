@@ -2,14 +2,11 @@ package com.architecturestudy.upbitmarket.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
+import com.architecturestudy.R
 import kotlinx.android.synthetic.main.fragment_upbit.view.*
 
-class UpbitAdapter(
-    @LayoutRes
-    private val resource: Int
-) : RecyclerView.Adapter<UpbitAdapter.ViewHolder>() {
+class UpbitAdapter : RecyclerView.Adapter<UpbitAdapter.ViewHolder>() {
     private var marketPrice = mutableListOf<Map<String, String>>()
 
     override fun onCreateViewHolder(
@@ -33,7 +30,7 @@ class UpbitAdapter(
         parent: ViewGroup
     ) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context)
-            .inflate(resource, parent, false)
+            .inflate(R.layout.rv_upbit_item, parent, false)
     ) {
         private val coinName = itemView.tv_coin_name
         private val currentPrice = itemView.tv_current_price

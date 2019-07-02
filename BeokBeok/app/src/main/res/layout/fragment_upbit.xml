@@ -136,6 +136,7 @@
                 android:scrollbars="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
+                setItems="@{vm.marketPriceList}"
                 app:layout_constraintTop_toBottomOf="@id/tv_coin_name" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
