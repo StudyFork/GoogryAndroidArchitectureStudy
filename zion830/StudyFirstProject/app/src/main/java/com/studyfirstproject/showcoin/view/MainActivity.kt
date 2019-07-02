@@ -1,7 +1,7 @@
 package com.studyfirstproject.showcoin.view
 
+import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
@@ -9,6 +9,7 @@ import com.studyfirstproject.R
 import com.studyfirstproject.adapter.CoinRecyclerViewAdapter
 import com.studyfirstproject.data.CoinRepository
 import com.studyfirstproject.data.model.TickerModel
+import com.studyfirstproject.databinding.ActivityMainBinding
 import com.studyfirstproject.showcoin.CoinContract
 import com.studyfirstproject.showcoin.CoinPresenter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -25,7 +26,10 @@ class MainActivity : AppCompatActivity(), CoinContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        val binding = DataBindingUtil
+            .setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        binding.activity = this
 
         initView()
     }
