@@ -1,4 +1,4 @@
-# GoogryAndroidArchitectureStudy
+﻿# GoogryAndroidArchitectureStudy
 
 ## 스터디장
 - 정석준 [sjjeong](https://github.com/sjjeong)
@@ -71,8 +71,8 @@
 - 장도익 []()
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
 
-- 조재영 []()
-[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+- 조재영 [Zojae031](https://github.com/zojae031)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/zojae031)
 
 - 원우석 []()
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
