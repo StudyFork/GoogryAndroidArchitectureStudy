@@ -1,7 +1,7 @@
 package com.nanamare.mac.sample.data.coin
 
 import com.nanamare.mac.sample.api.DisposableManager
-import com.nanamare.mac.sample.api.upbit.TickerModel
+import com.nanamare.mac.sample.api.upbit.CoinModel
 import com.nanamare.mac.sample.api.upbit.UpBitServiceManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 
@@ -11,7 +11,7 @@ object CoinRemoteDataSource : CoinSource {
 
     override fun getCoins(
         ticketList: MutableList<String>,
-        success: (List<TickerModel>) -> Unit,
+        success: (List<CoinModel>) -> Unit,
         failed: () -> Unit
     ) {
         disposableManager.add(

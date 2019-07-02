@@ -16,7 +16,7 @@ class UpBitServiceManager {
                 .subscribeOn(Schedulers.io())
         }
 
-        fun getTickerList(ticketList: MutableList<String>): Single<Response<List<TickerModel>>> {
+        fun getTickerList(ticketList: MutableList<String>): Single<Response<List<CoinModel>>> {
             return SERVICE.getTickerList(ticketList.joinToString())
                 .subscribeOn(Schedulers.io())
         }
