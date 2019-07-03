@@ -4,6 +4,9 @@
 
 	<data>
 
+		<variable
+			name="ticker"
+			type="com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse" />
 	</data>
 
 	<LinearLayout
