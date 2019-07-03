@@ -15,6 +15,7 @@ class UpbitViewModel(
 
     var marketPriceList = ObservableField<List<Map<String, String>>>()
     var errMsg = ObservableField<Throwable>()
+    var selectedTextView = ObservableField<TextView>()
 
     init {
         upBitRepository.getMarketPrice("KRW", this)
@@ -29,10 +30,9 @@ class UpbitViewModel(
     }
 
     fun showMarketPrice(v: View) {
-        // TODO 클릭한 뷰의 글자색만 변경하기
-        upBitRepository.getMarketPrice(
-            (v as TextView).text.toString(),
-            this
-        )
+        if (v is TextView) {
+            selectedTextView.set(v)
+            upBitRepository.getMarketPrice(v.text.toString(), this)
+        }
     }
 }

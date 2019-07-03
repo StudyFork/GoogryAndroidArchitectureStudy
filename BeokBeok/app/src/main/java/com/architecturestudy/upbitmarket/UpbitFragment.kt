@@ -1,7 +1,9 @@
 package com.architecturestudy.upbitmarket
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
@@ -23,11 +25,17 @@ class UpbitFragment : BaseFragment<FragmentUpbitBinding>(
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
-        val vm = UpbitViewModel(
-            UpbitRepository(
-                UpbitRetrofitDataSource(UpbitRetrofit.retrofit)
-            )
-        )
+        setBinding()
+        initRecyclerView()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        CompositeDisposable().dispose()
+    }
+
+    private fun setBinding() {
+        val vm = UpbitViewModel(UpbitRepository(UpbitRetrofitDataSource(UpbitRetrofit.retrofit)))
         binding.vm = vm
         vm.errMsg.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
@@ -40,12 +48,15 @@ class UpbitFragment : BaseFragment<FragmentUpbitBinding>(
                 }
             }
         })
-        initRecyclerView()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        CompositeDisposable().dispose()
+        vm.selectedTextView.addOnPropertyChangedCallback(
+            object : Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    if (sender is ObservableField<*>) {
+                        setViewColor((sender.get() as TextView))
+                    }
+                }
+            }
+        )
     }
 
     private fun initRecyclerView() {
@@ -53,18 +64,17 @@ class UpbitFragment : BaseFragment<FragmentUpbitBinding>(
         rv_coin_price.adapter = UpbitAdapter()
     }
 
-    // TODO 뷰 클릭 시 텍스트 색상 변경 코드 참고하기
-//    fun setViewColor(view: View) {
-//        listOf<View>(
-//            tv_market_krw,
-//            tv_market_btc,
-//            tv_market_eth,
-//            tv_market_usdt
-//        ).filter { view != it }
-//            .map { (it as TextView).setTextColor(Color.GRAY) }
-//
-//        if (view is TextView) {
-//            view.setTextColor(Color.BLUE)
-//        }
-//    }
+    private fun setViewColor(view: View) {
+        listOf<View>(
+            tv_market_krw,
+            tv_market_btc,
+            tv_market_eth,
+            tv_market_usdt
+        ).filter { view != it }
+            .map { (it as TextView).setTextColor(Color.GRAY) }
+
+        if (view is TextView) {
+            view.setTextColor(Color.BLUE)
+        }
+    }
 }
