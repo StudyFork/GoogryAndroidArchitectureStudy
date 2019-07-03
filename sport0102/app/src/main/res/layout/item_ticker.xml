@@ -1,67 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_marginBottom="4dp"
+	android:background="@drawable/stroke_1dp_radius"
+	android:gravity="center_vertical"
+	android:orientation="horizontal"
+	android:padding="4dp">
 
-	<data>
-
-		<variable
-			name="ticker"
-			type="com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse" />
-
-	</data>
-
-	<LinearLayout
+	<TextView
+		android:id="@+id/item_ticker_tv_coin_name"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginBottom="4dp"
-		android:background="@drawable/stroke_1dp_radius"
-		android:gravity="center_vertical"
-		android:orientation="horizontal"
-		android:padding="4dp">
+		android:layout_marginLeft="4dp"
+		android:layout_weight="1"
+		android:textColor="@color/black"
+		android:textSize="20sp"
+		android:textStyle="bold"
+		tools:text="BTC" />
 
-		<TextView
-			android:id="@+id/item_ticker_tv_coin_name"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginLeft="4dp"
-			android:layout_weight="1"
-			android:text="@{ticker.coinName}"
-			android:textColor="@color/black"
-			android:textSize="20sp"
-			android:textStyle="bold" />
+	<TextView
+		android:id="@+id/item_ticker_tv_now_price"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginRight="12dp"
+		android:layout_weight="0.9"
+		android:textAlignment="textEnd"
+		android:textColor="@color/black"
+		android:textSize="16sp"
+		tools:text="9,661,000" />
 
-		<TextView
-			android:id="@+id/item_ticker_tv_now_price"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginRight="12dp"
-			android:layout_weight="0.9"
-			android:text="@{ticker.nowPrice}"
-			android:textAlignment="textEnd"
-			android:textColor="@color/black"
-			android:textSize="16sp" />
+	<TextView
+		android:id="@+id/item_ticker_tv_compare_before"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginRight="12dp"
+		android:layout_weight="1"
+		android:maxLines="1"
+		android:textAlignment="textEnd"
+		android:textColor="@color/black"
+		android:textSize="16sp"
+		tools:text="-0.39%" />
 
-		<TextView
-			android:id="@+id/item_ticker_tv_compare_before"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginRight="12dp"
-			android:layout_weight="1"
-			android:maxLines="1"
-			android:text="@{ticker.compareBeforePercentage}"
-			android:textAlignment="textEnd"
-			android:textColor="@color/black"
-			android:textSize="16sp" />
-
-		<TextView
-			android:id="@+id/item_ticker_tv_total_deal_price"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginRight="4dp"
-			android:layout_weight="1.1"
-			android:maxLines="1"
-			android:text="@{ticker.totalDealPrice}"
-			android:textAlignment="textEnd"
-			android:textColor="@color/black"
-			android:textSize="16sp" />
-	</LinearLayout>
-</layout>
+	<TextView
+		android:id="@+id/item_ticker_tv_total_deal_price"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginRight="4dp"
+		android:layout_weight="1.1"
+		android:maxLines="1"
+		android:textAlignment="textEnd"
+		android:textColor="@color/black"
+		android:textSize="16sp"
+		tools:text="180,051 M" />
+</LinearLayout>
