@@ -11,30 +11,33 @@ import sample.nackun.com.studyfirst.Base.BaseFragment
 import sample.nackun.com.studyfirst.R
 import sample.nackun.com.studyfirst.data.Repository
 import sample.nackun.com.studyfirst.data.remote.RemoteDataSource
+import sample.nackun.com.studyfirst.databinding.MainFragmentBinding
 import sample.nackun.com.studyfirst.network.UpbitApi
 import sample.nackun.com.studyfirst.ui.TickerAdapter
-import sample.nackun.com.studyfirst.vo.Ticker
 
-class MainFragment : BaseFragment(
+class MainFragment : BaseFragment<MainFragmentBinding>(
     R.layout.main_fragment
-), MainContract.View {
+) {
 
-    override lateinit var presenter: MainContract.Presenter
     private val tickerAdapter = TickerAdapter()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initPresenter()
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) {
+        super.onViewCreated(view, savedInstanceState)
+        initViewModel()
         setOnClick()
     }
 
-    override fun showTickers(tickers: List<Map<String, String>>) =
+    fun showTickers(tickers: List<Map<String, String>>) =
         tickerAdapter.setItems(tickers)
 
-    override fun showMsg(msg: String?) =
+    fun showMsg(msg: String?) =
         showToast(msg)
 
-    private fun initPresenter() {
-        MainPresenter(
+    private fun initViewModel() {
+        binding.vm = MainViewModel(
             this,
             Repository(
                 RemoteDataSource(
@@ -70,7 +73,7 @@ class MainFragment : BaseFragment(
 
         if(view is TextView){
             view.setTextColor(ContextCompat.getColor(view.context, R.color.indigo))
-            presenter.requestTickers(view.text.toString())
+            binding.vm.requestTickers(view.text.toString())
         }
     }
 }
