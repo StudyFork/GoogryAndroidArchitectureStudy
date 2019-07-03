@@ -39,7 +39,9 @@ MVP를 진행하다보니 내가 이걸 왜 쓰고 있는거지...? 의문과 �
 저 스스로를 반성할수 있는 계기가 되었고 앞으로 개발을 하는데 있어서 좋은 경험으로 남을거라고 확신합니다!
 빠르게 지나간 시간만큼 빠르게 성장할 수 있었습니다. 다들 감사합니다 :)
 - 조남재 [namjackson](https://github.com/namjackson)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/namjackson)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/namjackson)  
+안드로이드 아키텍처를 처음 도입하려다 보니, MVVM패턴에 대해서 이렇게 사용하는 방법이 괜찮은 방법일까? 라는 의문도 들었고, 사용하면서 헷갈리는 부분이 많았는데, 스터디 과정을 통해 아키텍처에 대해 많이 배울 수 있었던 거 같습니다. 또한 코드저장의 용도로만 사용하던 Github의 브랜치 전략을 활용한 협업 방식을 체험해 볼 수 있어서 정말 좋았고, 스터디 중간중간에 좋은 정보나 노하우 등을 공유 해주시는 것도 많은 도움이 됐습니다.
+그리고 가장 좋았던 건 코드리뷰인데, 내가 작성한 코드에 대한 의견이나 피드백을 받고, 다른 분들이 작성한 코드를 리뷰하면서 많이 성장할 수 있었던 계기가 되었던 거 같습니다. 처음 스터디 신청할 땐, 이렇게까지 혜자 스터디일 거라고 예상하지 못했는데, 2달 동안 많이 배운 것 같습니다. 어디 가서 쉽게 해볼 수 없는 경험을 한 것 같습니다. 멘토님과 스터디분들 모두 수고하셨습니다!ㅎㅎ
 - 박상현 [hoyuo](https://github.com/hoyuo)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/hoyuo)
 - 이건호 [GeoN5](https://github.com/GeoN5)
