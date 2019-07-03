@@ -1,5 +1,5 @@
 package sample.nackun.com.studyfirst.Base
 
-import android.arch.lifecycle.ViewModel
+import android.databinding.BaseObservable
 
-abstract class BaseViewModel : ViewModel()
+abstract class BaseViewModel : BaseObservable()

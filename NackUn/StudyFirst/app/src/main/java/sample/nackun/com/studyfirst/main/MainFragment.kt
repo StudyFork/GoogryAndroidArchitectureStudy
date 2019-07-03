@@ -7,6 +7,7 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.main_fragment.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import sample.nackun.com.studyfirst.BR
 import sample.nackun.com.studyfirst.Base.BaseFragment
 import sample.nackun.com.studyfirst.R
 import sample.nackun.com.studyfirst.data.Repository
@@ -21,24 +22,24 @@ class MainFragment : BaseFragment<MainFragmentBinding>(
 
     private val tickerAdapter = TickerAdapter()
 
+    private lateinit var vm: MainViewModel
+
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?
     ) {
-        super.onViewCreated(view, savedInstanceState)
         initViewModel()
         setOnClick()
     }
 
-    fun showTickers(tickers: List<Map<String, String>>) =
-        tickerAdapter.setItems(tickers)
+//    fun showTickers(tickers: List<Map<String, String>>) =
+////        tickerAdapter.setItems(tickers)
 
-    fun showMsg(msg: String?) =
-        showToast(msg)
+//    fun showMsg(msg: String?) =
+//        showToast(msg)
 
     private fun initViewModel() {
-        binding.vm = MainViewModel(
-            this,
+        vm = MainViewModel(
             Repository(
                 RemoteDataSource(
                     Retrofit.Builder()
@@ -49,6 +50,7 @@ class MainFragment : BaseFragment<MainFragmentBinding>(
                 )
             )
         )
+        binding.setVariable(BR.vm, vm)
     }
 
     private fun setOnClick() {
@@ -73,7 +75,7 @@ class MainFragment : BaseFragment<MainFragmentBinding>(
 
         if(view is TextView){
             view.setTextColor(ContextCompat.getColor(view.context, R.color.indigo))
-            binding.vm.requestTickers(view.text.toString())
+            vm.requestTickers(view.text.toString())
         }
     }
 }
