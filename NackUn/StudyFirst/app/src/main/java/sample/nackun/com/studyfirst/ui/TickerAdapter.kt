@@ -1,13 +1,10 @@
 package sample.nackun.com.studyfirst.ui
 
-import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.ticker_item.view.*
 import sample.nackun.com.studyfirst.R
-import sample.nackun.com.studyfirst.util.TickerFormatter
-import sample.nackun.com.studyfirst.vo.Ticker
 
 class TickerAdapter: RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
 
