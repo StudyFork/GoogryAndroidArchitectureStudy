@@ -75,7 +75,7 @@ class MainFragment : BaseFragment<MainFragmentBinding>(
 
         if(view is TextView){
             view.setTextColor(ContextCompat.getColor(view.context, R.color.indigo))
-            vm.requestTickers(view.text.toString())
+            vm.requestTickers(view)
         }
     }
 }
