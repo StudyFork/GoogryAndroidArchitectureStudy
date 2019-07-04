@@ -68,8 +68,8 @@
 
 
 ## 3기
-- 장도익 []()
-[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+- 장도익 [wkdehdlr](https://github.com/wkdehdlr)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
 
 - 조재영 [Zojae031](https://github.com/zojae031)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/zojae031)
