@@ -64,7 +64,7 @@ class MainFragment : BaseFragment<MainFragmentBinding>(
         tv_market_krw.callOnClick()
     }
 
-    private fun setMarketColor(view: View){
+    private fun setMarketColor(view: View) {
         listOf<View>(
             tv_market_krw,
             tv_market_btc,
@@ -73,7 +73,7 @@ class MainFragment : BaseFragment<MainFragmentBinding>(
         ).filter { view != it }
             .map { (it as TextView).setTextColor(ContextCompat.getColor(it.context, R.color.grey)) }
 
-        if(view is TextView){
+        if (view is TextView) {
             view.setTextColor(ContextCompat.getColor(view.context, R.color.indigo))
             vm.requestTickers(view)
         }

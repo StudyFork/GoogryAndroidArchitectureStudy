@@ -8,8 +8,7 @@ object TickerFormatter {
         val converList = mutableListOf<Map<String, String>>()
         converList.clear()
 
-        target.forEachIndexed {
-            index, ticker ->
+        target.forEachIndexed { index, ticker ->
             converList.add(
                 index,
                 hashMapOf(

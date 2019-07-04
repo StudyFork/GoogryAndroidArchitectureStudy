@@ -1,7 +1,6 @@
 package sample.nackun.com.studyfirst.main
 
 import android.databinding.ObservableField
-import android.databinding.ObservableList
 import android.widget.TextView
 import sample.nackun.com.studyfirst.Base.BaseViewModel
 import sample.nackun.com.studyfirst.data.DataSource

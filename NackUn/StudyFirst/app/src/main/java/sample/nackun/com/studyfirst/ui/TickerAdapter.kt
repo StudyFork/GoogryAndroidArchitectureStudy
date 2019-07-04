@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.ticker_item.view.*
 import sample.nackun.com.studyfirst.R
 
-class TickerAdapter: RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
+class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
 
     private val items = mutableListOf<Map<String, String>>()
 
