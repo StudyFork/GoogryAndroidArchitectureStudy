@@ -36,7 +36,10 @@ class UpbitRemoteDataSource private constructor(private val upbitApi: UpbitApi) 
                 callback.onDataNotAvailable()
             }
 
-            override fun onResponse(call: Call<ArrayList<MarketResponse>>?, response: Response<ArrayList<MarketResponse>>?) {
+            override fun onResponse(
+                call: Call<ArrayList<MarketResponse>>?,
+                response: Response<ArrayList<MarketResponse>>?
+            ) {
                 response?.body()?.let {
                     callback.onMarketListLoaded(it)
                 }
@@ -46,7 +49,10 @@ class UpbitRemoteDataSource private constructor(private val upbitApi: UpbitApi) 
 
     }
 
-    override fun getTickerList(marketList: List<MarketResponse>, callback: UpbitDataSource.GetTickerListCallback) {
+    override fun getTickerList(
+        marketList: List<MarketResponse>,
+        callback: UpbitDataSource.GetTickerListCallback
+    ) {
 
         upbitApi.getTickerInfo(marketList.joinToString { marketModel -> marketModel.market })
             .enqueue(object : Callback<ArrayList<TickerResponse>> {

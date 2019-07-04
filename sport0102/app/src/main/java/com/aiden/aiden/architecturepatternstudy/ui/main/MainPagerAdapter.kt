@@ -10,6 +10,7 @@ class MainPagerAdapter(private val fm: FragmentManager) :
     FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private val marketList = Market.values()
+
     private val error = "error"
 
     override fun getItem(position: Int) = when (position) {

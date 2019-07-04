@@ -1,27 +1,21 @@
 package com.aiden.aiden.architecturepatternstudy.ui.main
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import com.aiden.aiden.architecturepatternstudy.R
 import com.aiden.aiden.architecturepatternstudy.api.Retrofit.retrofit
 import com.aiden.aiden.architecturepatternstudy.api.UpbitApi
-import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 import com.aiden.aiden.architecturepatternstudy.base.BaseFragment
 import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
 import com.aiden.aiden.architecturepatternstudy.data.source.remote.UpbitRemoteDataSource
-import kotlinx.android.synthetic.main.fragment_main.*
-import android.widget.Toast
-import android.R.attr.password
-import androidx.databinding.Observable.OnPropertyChangedCallback
-import android.R
-import android.app.Activity
-import androidx.databinding.DataBindingUtil
+import com.aiden.aiden.architecturepatternstudy.databinding.FragmentMainBinding
 
 
+class MainFragment : BaseFragment(R.layout.fragment_main) {
 
-
-class MainFragment : BaseFragment(com.aiden.aiden.architecturepatternstudy.R.layout.fragment_main), MainContract.View {
-
-    override lateinit var presenter: MainContract.Presenter
 
     private val upbitApi by lazy { retrofit.create(UpbitApi::class.java) }
 
@@ -29,9 +23,23 @@ class MainFragment : BaseFragment(com.aiden.aiden.architecturepatternstudy.R.lay
 
     private val error = "error"
 
-    private lateinit var mBinding : DataBindingUtil
+    private lateinit var binding: FragmentMainBinding
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    private lateinit var mainVm: MainViewModel
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
+        binding.fragmentTickerListRv.adapter = TickerListAdapter()
+        return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         arguments?.let {
             it.getString("marketName")?.let { marketName ->
                 if (marketName == error) {
@@ -41,22 +49,18 @@ class MainFragment : BaseFragment(com.aiden.aiden.architecturepatternstudy.R.lay
                 this.marketName = marketName
             }
         }
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onResume() {
-        presenter.loadMarketList(marketName)
-        super.onResume()
-    }
-
-    override fun showTickerList(tickerList: List<TickerResponse>) {
-        fragment_ticker_list_rv.adapter = TickerListAdapter().apply {
-            setData(tickerList)
-            notifyDataSetChanged()
+        mainVm = MainViewModel(
+            upbitRepository = UpbitRepository.getInstance(
+                UpbitRemoteDataSource(upbitApi)
+            )
+        )
+        mainVm.loadMarketList(marketName)
+        binding.run {
+            mainViewModel = mainVm
         }
     }
 
-    override fun showErrorToast() {
+    private fun showErrorToast() {
         toastM(getString(com.aiden.aiden.architecturepatternstudy.R.string.all_error_load_data_fail))
     }
 

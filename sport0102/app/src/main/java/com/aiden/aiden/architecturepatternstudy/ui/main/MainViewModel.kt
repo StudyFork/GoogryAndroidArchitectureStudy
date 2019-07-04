@@ -12,24 +12,15 @@ import java.math.BigDecimal
 
 class MainViewModel(private val upbitRepository: UpbitRepository) : BaseObservable() {
 
-    private var tickerObservable: ObservableField<List<TickerResponse>> = ObservableField()
+    var tickerObservable: ObservableField<List<TickerResponse>> = ObservableField()
 
-    private var isDataLoadingError: ObservableField<Boolean> = ObservableField()
-
-    private var marketName = Market.BTC.marketName
+    var isDataLoadingError: ObservableField<Boolean> = ObservableField()
 
     init {
-        loadMarketList(marketName)
+        tickerObservable.set(mutableListOf())
     }
 
-    private fun setMarketName(marketName: String) {
-
-        this.marketName = marketName
-
-    }
-
-
-    private fun loadMarketList(market: String) {
+    fun loadMarketList(market: String) {
 
         upbitRepository.getMarketList(object : UpbitDataSource.GetMarketListCallback {
 

@@ -8,6 +8,7 @@ import com.aiden.aiden.architecturepatternstudy.R
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 import kotlinx.android.synthetic.main.item_ticker.view.*
 
+
 class TickerListAdapter : RecyclerView.Adapter<TickerListAdapter.ItemTickerViewHolder>() {
 
     private val tickerList = mutableListOf<TickerResponse>()

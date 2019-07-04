@@ -6,13 +6,9 @@
 
 	<data>
 
-		<import type="androidx.databinding.ObservableArrayList" />
-
-		<import type="com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse" />
-
 		<variable
-			name="tickerList"
-			type="ObservableArrayList&lt;TickerResponse&gt;" />
+			name="mainViewModel"
+			type="com.aiden.aiden.architecturepatternstudy.ui.main.MainViewModel" />
 
 	</data>
 
@@ -26,7 +22,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-			bind:item="@{tickerList}"
+			bind:item="@{mainViewModel.tickerObservable}"
 			tools:itemCount="15"
 			tools:listitem="@layout/item_ticker" />
 	</LinearLayout>

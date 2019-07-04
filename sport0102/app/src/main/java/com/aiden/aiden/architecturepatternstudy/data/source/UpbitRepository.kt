@@ -18,14 +18,6 @@ package com.aiden.aiden.architecturepatternstudy.data.source
 import com.aiden.aiden.architecturepatternstudy.api.model.MarketResponse
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 
-/**
- * Concrete implementation to load tasks from the data sources into a cache.
- *
- *
- * For simplicity, this implements a dumb synchronisation between locally persisted data and data
- * obtained from the server, by using the remote data source only if the local database doesn't
- * exist or is empty.
- */
 class UpbitRepository(
     private val remoteDataSource: UpbitDataSource
 ) : UpbitDataSource {
@@ -43,7 +35,10 @@ class UpbitRepository(
         })
     }
 
-    override fun getTickerList(marketList: List<MarketResponse>, callback: UpbitDataSource.GetTickerListCallback) {
+    override fun getTickerList(
+        marketList: List<MarketResponse>,
+        callback: UpbitDataSource.GetTickerListCallback
+    ) {
         remoteDataSource.getTickerList(marketList, object : UpbitDataSource.GetTickerListCallback {
             override fun onTickerListLoaded(tickerList: List<TickerResponse>) {
                 callback.onTickerListLoaded(tickerList)
