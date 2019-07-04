@@ -4,9 +4,17 @@
 
     <data>
 
+        <import type="android.databinding.ObservableArrayList" />
+
+        <import type="com.studyfirstproject.data.model.TickerModel" />
+
         <variable
-            name="activity"
-            type="com.studyfirstproject.showcoin.view.MainActivity" />
+            name="items"
+            type="ObservableArrayList&lt;TickerModel&gt;" />
+
+        <variable
+            name="progressStatus"
+            type="Boolean" />
     </data>
 
     <FrameLayout
@@ -80,6 +88,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="8dp"
+                    app:bind_item="@{items}"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -93,7 +102,8 @@
             android:id="@+id/progress_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            app:show_progress="@{progressStatus}" />
 
     </FrameLayout>
 </layout>
