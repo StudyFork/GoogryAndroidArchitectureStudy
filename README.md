@@ -77,7 +77,7 @@
 - 원우석 []()
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
 
-- 김강희 []()
+- 김강희 [ganghee](https://github.com/ganghee)
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
 
 - 정태휘 []()
