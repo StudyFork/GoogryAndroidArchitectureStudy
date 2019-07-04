@@ -15,7 +15,6 @@ class MainViewModel(
 
     var tickers = ObservableField<List<Map<String, String>>>()
     var errMsg = ObservableField<Throwable>()
-    var selectedTextView = ObservableField<TextView>()
 
     init {
         tickers.set(mutableListOf())
@@ -30,7 +29,6 @@ class MainViewModel(
     }
 
     fun requestTickers(view: TextView) {
-        selectedTextView.set(view)
         repository.requestMarkets(view.text.toString(), this)
     }
 }

@@ -1,9 +1,12 @@
 package sample.nackun.com.studyfirst.main
 
+import android.databinding.Observable
+import android.databinding.ObservableField
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.main_fragment.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -15,6 +18,7 @@ import sample.nackun.com.studyfirst.data.remote.RemoteDataSource
 import sample.nackun.com.studyfirst.databinding.MainFragmentBinding
 import sample.nackun.com.studyfirst.network.UpbitApi
 import sample.nackun.com.studyfirst.ui.TickerAdapter
+import java.util.*
 
 class MainFragment : BaseFragment<MainFragmentBinding>(
     R.layout.main_fragment
@@ -44,7 +48,20 @@ class MainFragment : BaseFragment<MainFragmentBinding>(
                 )
             )
         )
+
         binding.setVariable(BR.vm, vm)
+
+        vm.errMsg.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                if (sender is ObservableField<*>) {
+                    Toast.makeText(
+                        context,
+                        (sender.get() as Throwable).message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
     }
 
     private fun setOnClick() {
