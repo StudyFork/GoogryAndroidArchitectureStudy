@@ -14,7 +14,7 @@ import com.aiden.aiden.architecturepatternstudy.data.source.remote.UpbitRemoteDa
 import com.aiden.aiden.architecturepatternstudy.databinding.FragmentMainBinding
 
 
-class MainFragment : BaseFragment(R.layout.fragment_main) {
+class MainFragment : BaseFragment() {
 
 
     private val upbitApi by lazy { retrofit.create(UpbitApi::class.java) }
