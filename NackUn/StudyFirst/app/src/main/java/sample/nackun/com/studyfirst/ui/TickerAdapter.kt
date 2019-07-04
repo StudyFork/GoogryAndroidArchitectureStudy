@@ -13,7 +13,6 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
     fun setItems(tickers: List<Map<String, String>>) {
         items.clear()
         items.addAll(tickers)
-        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =

@@ -32,12 +32,6 @@ class MainFragment : BaseFragment<MainFragmentBinding>(
         setOnClick()
     }
 
-//    fun showTickers(tickers: List<Map<String, String>>) =
-////        tickerAdapter.setItems(tickers)
-
-//    fun showMsg(msg: String?) =
-//        showToast(msg)
-
     private fun initViewModel() {
         vm = MainViewModel(
             Repository(
