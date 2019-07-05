@@ -61,3 +61,28 @@ MVP를 진행하다보니 내가 이걸 왜 쓰고 있는거지...? 의문과 �
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/sport0102)
 - 신현성 [Nanamare](https://github.com/Nanamare)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/Nanamare)
+
+## 3기
+- 장도익 []()
+[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+
+- 조재영 [Zojae031](https://github.com/zojae031)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/zojae031)
+
+- 원우석 []()
+[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+
+- 김강희 [ganghee](https://github.com/ganghee)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/ganghee)
+
+- 정태휘 []()
+[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+
+- 이진성 []()
+[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+
+- 김수연 []()
+[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+
+-  []()
+[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
