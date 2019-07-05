@@ -50,7 +50,7 @@ class MainFragment : BaseFragment() {
             }
         }
         mainVm = MainViewModel(
-            upbitRepository = UpbitRepository.getInstance(
+            upbitRepository = UpbitRepository(
                 UpbitRemoteDataSource(upbitApi)
             )
         )

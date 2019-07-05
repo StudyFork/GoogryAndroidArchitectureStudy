@@ -55,12 +55,9 @@ class UpbitRepository(
 
         private var instance: UpbitRepository? = null
 
-        fun getInstance(
-            UpbitRemoteDataSource: UpbitDataSource
-        ): UpbitRepository {
-            return instance ?: UpbitRepository(UpbitRemoteDataSource)
+        operator fun invoke(UpbitRemoteDataSource: UpbitDataSource) =
+            instance ?: UpbitRepository(UpbitRemoteDataSource)
                 .apply { instance = this }
-        }
 
     }
 }
