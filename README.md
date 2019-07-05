@@ -86,8 +86,8 @@
 - 이진성 []()
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
 
-- 김수연 []()
-[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+- 김수연 [onemask](https://github.com/onemask)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/onemask)
 
 -  []()
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
