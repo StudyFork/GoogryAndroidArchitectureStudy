@@ -74,8 +74,8 @@
 - 조재영 []()
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
 
-- 원우석 []()
-[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+- 원우석 [wswon](https://github.com/wswon)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
 
 - 김강희 []()
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
