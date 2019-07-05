@@ -9,7 +9,7 @@ import sample.nackun.com.studyfirst.util.TickerFormatter
 import sample.nackun.com.studyfirst.vo.Ticker
 
 class TickerViewModel(
-    val repository: Repository
+    private val repository: Repository
 ) : BaseObservable(), DataSource.RequestTickersCallback {
 
     var tickers = ObservableField<List<Map<String, String>>>()
