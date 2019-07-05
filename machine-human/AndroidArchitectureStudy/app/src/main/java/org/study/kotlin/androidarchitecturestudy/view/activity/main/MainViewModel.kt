@@ -6,19 +6,15 @@ import org.study.kotlin.androidarchitecturestudy.api.model.TickerModel
 import org.study.kotlin.androidarchitecturestudy.base.BaseDataSource
 
 class MainViewModel(
-    remoteDataSOurce: BaseDataSource,
-    getMessage: String
+    remoteDataSource: BaseDataSource,
+    message: String
 ) : BaseDataSource.GetTickerListCallback {
-    val dataSource: BaseDataSource
-    val message: String
     var observableTickerList = ObservableField<List<TickerModel>>()
     var observableErrorMessage = MutableLiveData<Throwable>()
-    init {
-        dataSource = remoteDataSOurce
-        message = getMessage
-        dataSource.requestMarkets(message, this)
-    }
 
+    init {
+        remoteDataSource.requestMarkets(message,this)
+    }
     override fun onTickerListLoaded(tickerList: List<TickerModel>) {
         observableTickerList.set(tickerList)
     }
