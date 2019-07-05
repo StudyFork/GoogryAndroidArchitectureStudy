@@ -17,7 +17,6 @@ class CoinViewModel(
     CoinDataSource.LoadMarketsCallback,
     CoinDataSource.LoadTickersCallback {
 
-    val items = ObservableField<List<TickerModel>>()
     val adapter = CoinRecyclerViewAdapter(R.layout.item_coin_info)
     val progressStatus: ObservableInt = ObservableInt(View.INVISIBLE)
     val isLoading: ObservableBoolean = ObservableBoolean(false)
@@ -40,10 +39,9 @@ class CoinViewModel(
         progressStatus.set(View.INVISIBLE)
         isLoading.set(false)
         adapter.setCoinList(tickers)
-        adapter.notifyDataSetChanged()
     }
 
     override fun onDataNotAvailable(msg: String, reason: String?) {
-        e(javaClass.toString(), reason ?: "No error message")
+        e(msg, reason ?: "No error message")
     }
 }
