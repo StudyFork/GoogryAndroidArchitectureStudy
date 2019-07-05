@@ -11,7 +11,7 @@ import com.studyfirstproject.showcoin.CoinViewModel
 class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    val viewModel by lazy { CoinViewModel(CoinRepository()) }
+    private val viewModel by lazy { CoinViewModel(CoinRepository()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
