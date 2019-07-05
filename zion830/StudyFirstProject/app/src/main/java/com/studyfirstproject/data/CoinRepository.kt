@@ -1,6 +1,5 @@
 package com.studyfirstproject.data
 
-import com.studyfirstproject.data.model.TickerModel
 import com.studyfirstproject.network.RetrofitBuilder
 import com.studyfirstproject.network.retrofitCallback
 
