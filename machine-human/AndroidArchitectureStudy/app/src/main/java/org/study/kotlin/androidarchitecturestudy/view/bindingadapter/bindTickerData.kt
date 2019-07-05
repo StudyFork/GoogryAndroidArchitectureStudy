@@ -10,9 +10,10 @@ fun bindTickerListRecyclerView(
     view: RecyclerView,
     list: List<TickerModel>?
 ) {
-    (view.adapter as? MainListAdapter)?.run {
-        notifyDataSetChanged()
-        list?.let { setList(it) }
+    (view.adapter as MainListAdapter)?.run {
+        list?.let { setList(it)
+            notifyDataSetChanged() }
+
     }
 
 }
