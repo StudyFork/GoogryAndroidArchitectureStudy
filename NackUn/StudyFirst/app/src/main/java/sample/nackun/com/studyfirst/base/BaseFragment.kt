@@ -1,4 +1,4 @@
-package sample.nackun.com.studyfirst.Base
+package sample.nackun.com.studyfirst.base
 
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding

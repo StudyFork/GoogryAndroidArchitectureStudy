@@ -11,14 +11,13 @@ import kotlinx.android.synthetic.main.main_fragment.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import sample.nackun.com.studyfirst.BR
-import sample.nackun.com.studyfirst.Base.BaseFragment
+import sample.nackun.com.studyfirst.base.BaseFragment
 import sample.nackun.com.studyfirst.R
 import sample.nackun.com.studyfirst.data.Repository
 import sample.nackun.com.studyfirst.data.remote.RemoteDataSource
 import sample.nackun.com.studyfirst.databinding.MainFragmentBinding
 import sample.nackun.com.studyfirst.network.UpbitApi
 import sample.nackun.com.studyfirst.ui.TickerAdapter
-import java.util.*
 
 class MainFragment : BaseFragment<MainFragmentBinding>(
     R.layout.main_fragment
