@@ -12,9 +12,9 @@ import java.math.BigDecimal
 
 class MainViewModel(private val upbitRepository: UpbitRepository) : BaseObservable() {
 
-    var tickerObservable: ObservableField<List<TickerResponse>> = ObservableField()
+    var tickerObservable = ObservableField<List<TickerResponse>>()
 
-    var isDataLoadingError: ObservableField<Boolean> = ObservableField()
+    var isDataLoadingError = ObservableField<Boolean>()
 
     init {
         tickerObservable.set(mutableListOf())
