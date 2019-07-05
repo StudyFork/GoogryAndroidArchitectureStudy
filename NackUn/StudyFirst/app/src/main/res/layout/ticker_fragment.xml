@@ -4,7 +4,7 @@
     <data>
         <variable
                 name="vm"
-                type="sample.nackun.com.studyfirst.main.MainViewModel"/>
+                type="sample.nackun.com.studyfirst.ui.ticker.TickerViewModel"/>
     </data>
 
     <RelativeLayout

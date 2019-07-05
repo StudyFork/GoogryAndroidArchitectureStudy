@@ -1,7 +1,7 @@
-package sample.nackun.com.studyfirst.main
+package sample.nackun.com.studyfirst.ui.ticker
 
 import android.databinding.ViewDataBinding
 import sample.nackun.com.studyfirst.base.BaseActivity
 import sample.nackun.com.studyfirst.R
 
-class MainActivity : BaseActivity<ViewDataBinding>(R.layout.activity_main)
+class TickerActivity : BaseActivity<ViewDataBinding>(R.layout.activity_ticker)

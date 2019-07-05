@@ -1,4 +1,4 @@
-package sample.nackun.com.studyfirst.main
+package sample.nackun.com.studyfirst.ui.ticker
 
 import android.databinding.BaseObservable
 import android.databinding.ObservableField
@@ -8,7 +8,7 @@ import sample.nackun.com.studyfirst.data.Repository
 import sample.nackun.com.studyfirst.util.TickerFormatter
 import sample.nackun.com.studyfirst.vo.Ticker
 
-class MainViewModel(
+class TickerViewModel(
     val repository: Repository
 ) : BaseObservable(), DataSource.RequestTickersCallback {
 

@@ -1,4 +1,4 @@
-package sample.nackun.com.studyfirst.ui
+package sample.nackun.com.studyfirst.ui.ticker
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
