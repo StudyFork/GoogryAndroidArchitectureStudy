@@ -36,7 +36,8 @@
                     android:layout_weight="1"
                     android:text="@string/marketKRW"
                     android:textSize="20sp"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:onClick="@{(v)->vm.showTickers(v)}"/>
             <TextView
                     android:id="@+id/tv_market_btc"
                     android:layout_width="0dp"
@@ -44,7 +45,8 @@
                     android:layout_weight="1"
                     android:text="@string/marketBTC"
                     android:textSize="20sp"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:onClick="@{(v)->vm.showTickers(v)}"/>
             <TextView
                     android:id="@+id/tv_market_eth"
                     android:layout_width="0dp"
@@ -52,7 +54,8 @@
                     android:layout_weight="1"
                     android:text="@string/marketETH"
                     android:textSize="20sp"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:onClick="@{(v)->vm.showTickers(v)}"/>
             <TextView
                     android:id="@+id/tv_market_usdt"
                     android:layout_width="0dp"
@@ -60,7 +63,8 @@
                     android:layout_weight="1"
                     android:text="@string/marketUSDT"
                     android:textSize="20sp"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:onClick="@{(v)->vm.showTickers(v)}"/>
         </LinearLayout>
         <LinearLayout
                 android:id="@+id/li_ticker_title"
