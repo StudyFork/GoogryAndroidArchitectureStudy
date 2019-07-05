@@ -10,8 +10,7 @@ import sample.nackun.com.studyfirst.vo.Ticker
 
 class MainViewModel(
     val repository: Repository
-) : BaseViewModel(),
-    DataSource.RequestTickersCallback {
+) : BaseViewModel(), DataSource.RequestTickersCallback {
 
     var tickers = ObservableField<List<Map<String, String>>>()
     var errMsg = ObservableField<Throwable>()
