@@ -1,8 +1,8 @@
 package sample.nackun.com.studyfirst.main
 
+import android.databinding.BaseObservable
 import android.databinding.ObservableField
 import android.widget.TextView
-import sample.nackun.com.studyfirst.base.BaseViewModel
 import sample.nackun.com.studyfirst.data.DataSource
 import sample.nackun.com.studyfirst.data.Repository
 import sample.nackun.com.studyfirst.util.TickerFormatter
@@ -10,7 +10,7 @@ import sample.nackun.com.studyfirst.vo.Ticker
 
 class MainViewModel(
     val repository: Repository
-) : BaseViewModel(), DataSource.RequestTickersCallback {
+) : BaseObservable(), DataSource.RequestTickersCallback {
 
     var tickers = ObservableField<List<Map<String, String>>>()
     var errMsg = ObservableField<Throwable>()
