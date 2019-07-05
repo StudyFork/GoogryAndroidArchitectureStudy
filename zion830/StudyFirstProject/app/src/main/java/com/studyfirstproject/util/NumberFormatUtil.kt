@@ -15,7 +15,7 @@ object NumberFormatUtil {
         }
 
     // 세자리 단위로 끊어 , 삽입
-    fun insertComma(num: Number): String = insertCommaFormat.format(num)
+    fun insertComma(num: Double): String = insertCommaFormat.format(num.toLong())
 
     // 백분율 변환
     fun getPercent(num: Double): String {
