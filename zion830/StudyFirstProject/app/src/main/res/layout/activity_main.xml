@@ -9,12 +9,12 @@
         <import type="com.studyfirstproject.data.model.TickerModel" />
 
         <variable
-            name="items"
-            type="ObservableArrayList&lt;TickerModel&gt;" />
+            name="activity"
+            type="com.studyfirstproject.showcoin.view.MainActivity" />
 
         <variable
-            name="progressStatus"
-            type="Boolean" />
+            name="viewModel"
+            type="com.studyfirstproject.showcoin.CoinViewModel" />
     </data>
 
     <FrameLayout
@@ -24,7 +24,9 @@
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/layout_main_swipe"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:onRefreshListener="@{() -> viewModel.onRefresh()}"
+            app:refreshing="@{viewModel.isLoading}">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -88,7 +90,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="8dp"
-                    app:bind_item="@{items}"
+                    app:bind_adapter="@{viewModel.adapter}"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -103,7 +105,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:show_progress="@{progressStatus}" />
+            android:visibility="@{viewModel.progressStatus}" />
 
     </FrameLayout>
 </layout>
