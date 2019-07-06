@@ -1,10 +1,6 @@
 package com.aiden.aiden.architecturepatternstudy.ui.main
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import com.aiden.aiden.architecturepatternstudy.R
 import com.aiden.aiden.architecturepatternstudy.api.Retrofit.retrofit
 import com.aiden.aiden.architecturepatternstudy.api.UpbitApi
@@ -14,7 +10,7 @@ import com.aiden.aiden.architecturepatternstudy.data.source.remote.UpbitRemoteDa
 import com.aiden.aiden.architecturepatternstudy.databinding.FragmentMainBinding
 
 
-class MainFragment : BaseFragment() {
+class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
 
     private val upbitApi by lazy { retrofit.create(UpbitApi::class.java) }
@@ -23,23 +19,11 @@ class MainFragment : BaseFragment() {
 
     private val error = "error"
 
-    private lateinit var binding: FragmentMainBinding
-
     private lateinit var mainVm: MainViewModel
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
-        return binding.root
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.fragmentTickerListRv.adapter = TickerListAdapter()
         arguments?.let {
             it.getString("marketName")?.let { marketName ->
                 if (marketName == error) {
@@ -55,7 +39,8 @@ class MainFragment : BaseFragment() {
             )
         )
         mainVm.loadMarketList(marketName)
-        binding.run {
+        binding {
+            fragmentTickerListRv.adapter = TickerListAdapter()
             mainViewModel = mainVm
         }
     }
