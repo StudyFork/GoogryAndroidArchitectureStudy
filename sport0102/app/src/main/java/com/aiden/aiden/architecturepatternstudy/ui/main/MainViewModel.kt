@@ -16,10 +16,6 @@ class MainViewModel(private val upbitRepository: UpbitRepository) : BaseObservab
 
     var isDataLoadingError = ObservableField<Boolean>()
 
-    init {
-        tickerObservable.set(mutableListOf())
-    }
-
     fun loadMarketList(market: String) {
 
         upbitRepository.getMarketList(object : UpbitDataSource.GetMarketListCallback {

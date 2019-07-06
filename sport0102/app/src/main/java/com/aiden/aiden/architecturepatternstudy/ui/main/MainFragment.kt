@@ -34,12 +34,12 @@ class MainFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
-        binding.fragmentTickerListRv.adapter = TickerListAdapter()
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        binding.fragmentTickerListRv.adapter = TickerListAdapter()
         arguments?.let {
             it.getString("marketName")?.let { marketName ->
                 if (marketName == error) {
