@@ -30,10 +30,6 @@ class TickerViewModel(
         this.tickers.set(TickerFormatter.convertTo(tickers))
     }
 
-    fun requestTickers(view: TextView) {
-        repository.requestMarkets(view.text.toString(), this)
-    }
-
     fun showTickers(view: View) {
         if (view is TextView) {
             selectedTextView.set(view)
