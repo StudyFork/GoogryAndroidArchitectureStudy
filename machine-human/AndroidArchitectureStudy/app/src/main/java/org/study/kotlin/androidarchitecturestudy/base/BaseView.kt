@@ -19,6 +19,9 @@ i = BaseView<T>
 
  */
 //각기 다른 View들이 공통으로 갖는 것을 작성하는 인터페이스
-interface BaseView {
+interface BaseView<T> {
+    var presenter: T
+    fun showProgress()
+    fun hideProgress()
     fun showErrorToast(errorMessage: Throwable)
 }
