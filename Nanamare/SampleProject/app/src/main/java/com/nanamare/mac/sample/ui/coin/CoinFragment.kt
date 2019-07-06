@@ -22,7 +22,7 @@ class CoinFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coi
 
     private lateinit var adapter: TickerAdapter
 
-    private lateinit var coinVM: CoinViewModel
+    private val coinVM: CoinViewModel by lazy { CoinViewModel() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,7 +31,6 @@ class CoinFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coi
 
         initView()
 
-        coinVM = CoinViewModel()
         coinVM.getCoins(ticketList)
         coinVM.navigator = this@CoinFragment
 

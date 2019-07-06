@@ -11,12 +11,11 @@ import com.nanamare.mac.sample.vm.MarketViewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), MarketNavigator {
 
-    private lateinit var marketVM: MarketViewModel
+    private val marketVM: MarketViewModel by lazy { MarketViewModel() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        marketVM = MarketViewModel()
         with(marketVM) {
             navigator = this@MainActivity
             onMarketClick()
