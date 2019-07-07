@@ -2,8 +2,8 @@ package com.architecturestudy.upbitmarket
 
 import android.view.View
 import android.widget.TextView
-import androidx.databinding.BaseObservable
 import androidx.databinding.ObservableField
+import com.architecturestudy.base.BaseViewModel
 import com.architecturestudy.data.upbit.UpbitRepository
 import com.architecturestudy.data.upbit.UpbitTicker
 import com.architecturestudy.data.upbit.source.UpbitDataSource
@@ -12,7 +12,7 @@ import com.architecturestudy.util.NumberFormatter
 class UpbitViewModel( // TODO BaseViewModel 추가
     private val upBitRepository: UpbitRepository
 ) : UpbitDataSource.GetTickerCallback,
-    BaseObservable() { // TODO callback 제거하기
+    BaseViewModel() { // TODO callback 제거하기
 
     var marketPriceList = ObservableField<List<Map<String, String>>>()
     var errMsg = ObservableField<Throwable>()
