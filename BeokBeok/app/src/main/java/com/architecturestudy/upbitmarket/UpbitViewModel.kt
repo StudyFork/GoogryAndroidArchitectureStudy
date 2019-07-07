@@ -9,7 +9,7 @@ import com.architecturestudy.data.upbit.UpbitTicker
 import com.architecturestudy.data.upbit.source.UpbitDataSource
 import com.architecturestudy.util.NumberFormatter
 
-class UpbitViewModel( // TODO BaseViewModel 추가
+class UpbitViewModel(
     private val upBitRepository: UpbitRepository
 ) : UpbitDataSource.GetTickerCallback,
     BaseViewModel() { // TODO callback 제거하기
