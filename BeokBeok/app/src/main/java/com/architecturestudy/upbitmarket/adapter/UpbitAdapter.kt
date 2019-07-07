@@ -7,7 +7,7 @@ import com.architecturestudy.R
 import kotlinx.android.synthetic.main.fragment_upbit.view.*
 
 class UpbitAdapter : RecyclerView.Adapter<UpbitAdapter.ViewHolder>() {
-    private var marketPrice = mutableListOf<Map<String, String>>()
+    private val marketPrice = mutableListOf<Map<String, String>>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
