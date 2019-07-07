@@ -20,11 +20,8 @@ import kotlinx.android.synthetic.main.fragment_upbit.*
 class UpbitFragment : BaseFragment<FragmentUpbitBinding>(
     R.layout.fragment_upbit
 ) {
-    override fun onViewCreated( // TODO onActivityCreated로 변경
-        view: View,
-        savedInstanceState: Bundle?
-    ) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         setBinding()
         initRecyclerView()
     }
