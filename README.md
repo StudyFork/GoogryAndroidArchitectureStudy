@@ -80,8 +80,8 @@
 - 김강희 [ganghee](https://github.com/ganghee)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/ganghee)
 
-- 정태휘 []()
-[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+- 정태휘 [preludezdev](https://github.com/preludezdev)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/preludezdev)
 
 - 이진성 [dlwls5201](https://github.com/dlwls5201)
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/dlwls5201)
