@@ -2,9 +2,10 @@ package com.architecturestudy.upbitmarket.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.architecturestudy.R
-import kotlinx.android.synthetic.main.fragment_upbit.view.*
+import com.architecturestudy.databinding.RvUpbitItemBinding
 
 class UpbitAdapter : RecyclerView.Adapter<UpbitAdapter.ViewHolder>() {
     private val marketPrice = mutableListOf<Map<String, String>>()
@@ -32,16 +33,14 @@ class UpbitAdapter : RecyclerView.Adapter<UpbitAdapter.ViewHolder>() {
         LayoutInflater.from(parent.context)
             .inflate(R.layout.rv_upbit_item, parent, false)
     ) {
-        private val coinName = itemView.tv_coin_name
-        private val currentPrice = itemView.tv_current_price
-        private val netChange = itemView.tv_net_change
-        private val tradingVal = itemView.tv_trading_value
+        private val binding: RvUpbitItemBinding = DataBindingUtil.bind(itemView)!!
 
         fun bind(marketPrice: Map<String, String>) {
-            coinName.text = marketPrice["coinName"]
-            currentPrice.text = marketPrice["currentPrice"]
-            netChange.text = marketPrice["netChange"]
-            tradingVal.text = marketPrice["tradingVal"]
+            // TODO 모델을 생성하여 모델을 xml에 연결하기
+            binding.tvCoinName.text = marketPrice["coinName"]
+            binding.tvCurrentPrice.text = marketPrice["currentPrice"]
+            binding.tvNetChange.text = marketPrice["netChange"]
+            binding.tvTradingValue.text = marketPrice["tradingVal"]
         }
     }
 }
