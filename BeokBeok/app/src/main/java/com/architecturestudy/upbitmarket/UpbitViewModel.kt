@@ -11,7 +11,8 @@ import com.architecturestudy.util.NumberFormatter
 
 class UpbitViewModel( // TODO BaseViewModel 추가
     private val upBitRepository: UpbitRepository
-) : UpbitDataSource.GetTickerCallback, BaseObservable() { // TODO callback 제거하기, Line break 하기
+) : UpbitDataSource.GetTickerCallback,
+    BaseObservable() { // TODO callback 제거하기
 
     var marketPriceList = ObservableField<List<Map<String, String>>>()
     var errMsg = ObservableField<Throwable>()
