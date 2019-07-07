@@ -26,10 +26,8 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
 
     private lateinit var vm: TickerViewModel
 
-    override fun onViewCreated(
-        view: View,
-        savedInstanceState: Bundle?
-    ) {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         initViewModel()
         setAdapterAndClick()
     }
