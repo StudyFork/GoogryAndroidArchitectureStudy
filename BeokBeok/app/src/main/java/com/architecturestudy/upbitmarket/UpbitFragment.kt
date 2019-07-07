@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_upbit.*
 class UpbitFragment : BaseFragment<FragmentUpbitBinding>(
     R.layout.fragment_upbit
 ) {
-    override fun onViewCreated(
+    override fun onViewCreated( // TODO onActivityCreated로 변경
         view: View,
         savedInstanceState: Bundle?
     ) {
@@ -64,7 +64,7 @@ class UpbitFragment : BaseFragment<FragmentUpbitBinding>(
         rv_coin_price.adapter = UpbitAdapter()
     }
 
-    private fun setViewColor(view: View) {
+    private fun setViewColor(view: View) { // TODO Databinding 사용하여 제거하기
         listOf<View>(
             tv_market_krw,
             tv_market_btc,

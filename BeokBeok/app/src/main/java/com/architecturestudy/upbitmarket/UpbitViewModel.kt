@@ -9,13 +9,13 @@ import com.architecturestudy.data.upbit.UpbitTicker
 import com.architecturestudy.data.upbit.source.UpbitDataSource
 import com.architecturestudy.util.NumberFormatter
 
-class UpbitViewModel(
+class UpbitViewModel( // TODO BaseViewModel 추가
     private val upBitRepository: UpbitRepository
-) : UpbitDataSource.GetTickerCallback, BaseObservable() {
+) : UpbitDataSource.GetTickerCallback, BaseObservable() { // TODO callback 제거하기, Line break 하기
 
     var marketPriceList = ObservableField<List<Map<String, String>>>()
     var errMsg = ObservableField<Throwable>()
-    var selectedTextView = ObservableField<TextView>()
+    var selectedTextView = ObservableField<TextView>() // TODO TextView 제거하기
 
     init {
         upBitRepository.getMarketPrice("KRW", this)
