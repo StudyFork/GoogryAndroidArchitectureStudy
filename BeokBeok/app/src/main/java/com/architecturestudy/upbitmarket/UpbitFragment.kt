@@ -2,8 +2,6 @@ package com.architecturestudy.upbitmarket
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
@@ -45,11 +43,14 @@ class UpbitFragment : BaseFragment<FragmentUpbitBinding>(
                 }
             }
         })
-        vm.selectedTextView.addOnPropertyChangedCallback(
+        vm.isMarketTypeClicked.addOnPropertyChangedCallback(
             object : Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    if (sender is ObservableField<*>) {
-                        setViewColor((sender.get() as TextView))
+                    if (sender is ObservableField<*> && sender.get() == false) {
+                        binding.tvMarketKrw.setTextColor(Color.GRAY)
+                        binding.tvMarketBtc.setTextColor(Color.GRAY)
+                        binding.tvMarketEth.setTextColor(Color.GRAY)
+                        binding.tvMarketUsdt.setTextColor(Color.GRAY)
                     }
                 }
             }
@@ -59,19 +60,5 @@ class UpbitFragment : BaseFragment<FragmentUpbitBinding>(
     private fun initRecyclerView() {
         rv_coin_price.setHasFixedSize(true)
         rv_coin_price.adapter = UpbitAdapter()
-    }
-
-    private fun setViewColor(view: View) { // TODO Databinding 사용하여 제거하기
-        listOf<View>(
-            tv_market_krw,
-            tv_market_btc,
-            tv_market_eth,
-            tv_market_usdt
-        ).filter { view != it }
-            .map { (it as TextView).setTextColor(Color.GRAY) }
-
-        if (view is TextView) {
-            view.setTextColor(Color.BLUE)
-        }
     }
 }

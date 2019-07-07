@@ -1,5 +1,6 @@
 package com.architecturestudy.upbitmarket
 
+import android.graphics.Color
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.ObservableField
@@ -16,7 +17,7 @@ class UpbitViewModel(
 
     var marketPriceList = ObservableField<List<Map<String, String>>>()
     var errMsg = ObservableField<Throwable>()
-    var selectedTextView = ObservableField<TextView>() // TODO TextView 제거하기
+    var isMarketTypeClicked = ObservableField<Boolean>()
 
     init {
         upBitRepository.getMarketPrice("KRW", this)
@@ -31,9 +32,11 @@ class UpbitViewModel(
     }
 
     fun showMarketPrice(v: View) {
+        isMarketTypeClicked.set(false)
         if (v is TextView) {
-            selectedTextView.set(v)
             upBitRepository.getMarketPrice(v.text.toString(), this)
+            v.setTextColor(Color.BLUE)
+            isMarketTypeClicked.set(true)
         }
     }
 }
