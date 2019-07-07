@@ -74,8 +74,8 @@
 - 조재영 [Zojae031](https://github.com/zojae031)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/zojae031)
 
-- 원우석 []()
-[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+- 원우석 [wswon](https://github.com/wswon)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
 
 - 김강희 [ganghee](https://github.com/ganghee)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/ganghee)
