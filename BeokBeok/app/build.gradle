@@ -41,6 +41,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'
