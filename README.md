@@ -90,10 +90,8 @@ MVP를 진행하다보니 내가 이걸 왜 쓰고 있는거지...? 의문과 �
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/preludezdev)
 
 - 이진성 [dlwls5201](https://github.com/dlwls5201)
-[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/dlwls5201)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/dlwls5201)
 
 - 김수연 [onemask](https://github.com/onemask)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/onemask)
 
--  []()
-[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
