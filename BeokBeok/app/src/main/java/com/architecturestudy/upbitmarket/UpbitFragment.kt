@@ -8,7 +8,6 @@ import androidx.databinding.ObservableField
 import com.architecturestudy.R
 import com.architecturestudy.base.BaseFragment
 import com.architecturestudy.data.upbit.UpbitRepository
-import com.architecturestudy.data.upbit.service.UpbitRetrofit
 import com.architecturestudy.data.upbit.source.UpbitRetrofitDataSource
 import com.architecturestudy.databinding.FragmentUpbitBinding
 import com.architecturestudy.upbitmarket.adapter.UpbitAdapter
@@ -30,8 +29,12 @@ class UpbitFragment : BaseFragment<FragmentUpbitBinding>(
     }
 
     private fun setBinding() {
-        val vm = UpbitViewModel(UpbitRepository(UpbitRetrofitDataSource(UpbitRetrofit.retrofit)))
+        val vm = UpbitViewModel(UpbitRepository(UpbitRetrofitDataSource()))
         binding.vm = vm
+        registerPropertyChangedCallbacks(vm)
+    }
+
+    private fun registerPropertyChangedCallbacks(vm: UpbitViewModel) {
         vm.errMsg.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 if (sender is ObservableField<*>) {

@@ -1,19 +1,18 @@
 package com.architecturestudy.data.upbit.source
 
 import com.architecturestudy.data.common.MarketTypes
-import com.architecturestudy.data.upbit.service.UpbitService
+import com.architecturestudy.data.upbit.UpbitRepository
+import com.architecturestudy.data.upbit.service.UpbitRetrofit
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class UpbitRetrofitDataSource private constructor(
-    private val retrofit: UpbitService
-) : UpbitDataSource {
+class UpbitRetrofitDataSource private constructor() : UpbitDataSource {
 
-    override fun getMarketPrice(
-        prefix: String,
-        callback: UpbitDataSource.GetTickerCallback
-    ) {
+    private val retrofit = UpbitRetrofit.retrofit
+    private val upbitRepository = UpbitRepository(this)
+
+    override fun getMarketPrice(prefix: String) {
         CompositeDisposable().add(
             retrofit.getMarkets()
                 .subscribeOn(Schedulers.io())
@@ -30,17 +29,14 @@ class UpbitRetrofitDataSource private constructor(
                         .filter { data -> data.market!!.startsWith(prefix) }
                         .map { data -> data.market }
                         .toList()
-                    getTickers(tickers, callback)
+                    getTickers(tickers)
                 }, {
-                    callback.onDataNotAvailable(it)
+                    upbitRepository.throwable.set(it)
                 })
         )
     }
 
-    private fun getTickers(
-        market: List<String?>?,
-        callback: UpbitDataSource.GetTickerCallback
-    ) {
+    private fun getTickers(market: List<String?>?) {
         CompositeDisposable().add(
             retrofit.getTicker(market)
                 .subscribeOn(Schedulers.io())
@@ -48,14 +44,12 @@ class UpbitRetrofitDataSource private constructor(
                 .subscribe({
                     val responseTicker = it.body()
                     if (responseTicker != null) {
-                        callback.onTickerLoaded(responseTicker)
+                        upbitRepository.marketPriceList.set(responseTicker)
                     } else {
-                        callback.onDataNotAvailable(
-                            IllegalStateException("Data is empty")
-                        )
+                        upbitRepository.throwable.set(IllegalStateException("Data is empty"))
                     }
                 }, {
-                    callback.onDataNotAvailable(it)
+                    upbitRepository.throwable.set(it)
                 })
         )
     }
@@ -63,10 +57,9 @@ class UpbitRetrofitDataSource private constructor(
     companion object {
         private var instance: UpbitRetrofitDataSource? = null
 
-        operator fun invoke(
-            retrofit: UpbitService
-        ): UpbitRetrofitDataSource = instance ?: UpbitRetrofitDataSource(retrofit)
-            .apply { instance = this }
+        operator fun invoke(): UpbitRetrofitDataSource =
+            instance ?: UpbitRetrofitDataSource()
+                .apply { instance = this }
 
     }
 }

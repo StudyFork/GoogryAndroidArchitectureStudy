@@ -1,5 +1,6 @@
 package com.architecturestudy.data.upbit
 
+import androidx.databinding.ObservableField
 import com.architecturestudy.data.upbit.source.UpbitDataSource
 import com.architecturestudy.data.upbit.source.UpbitRetrofitDataSource
 
@@ -7,23 +8,11 @@ class UpbitRepository private constructor(
     private val upbitRetrofitDataSource: UpbitRetrofitDataSource
 ) : UpbitDataSource {
 
-    override fun getMarketPrice(
-        prefix: String,
-        callback: UpbitDataSource.GetTickerCallback
-    ) {
+    var marketPriceList = ObservableField<List<UpbitTicker>>()
+    var throwable = ObservableField<Throwable>()
 
-        upbitRetrofitDataSource.getMarketPrice(
-            prefix,
-            object : UpbitDataSource.GetTickerCallback {
-                override fun onTickerLoaded(marketPrice: List<UpbitTicker>) {
-                    callback.onTickerLoaded(marketPrice)
-                }
-
-                override fun onDataNotAvailable(t: Throwable) {
-                    callback.onDataNotAvailable(t)
-                }
-
-            })
+    override fun getMarketPrice(prefix: String) {
+        upbitRetrofitDataSource.getMarketPrice(prefix)
     }
 
     companion object {
