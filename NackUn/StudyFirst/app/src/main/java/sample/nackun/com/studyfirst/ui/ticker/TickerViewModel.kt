@@ -15,11 +15,12 @@ class TickerViewModel(
 ) : BaseObservable(), DataSource.RequestTickersCallback {
 
     var tickers = ObservableField<List<Map<String, String>>>()
+    var selectedMarket = ObservableField<String>()
     var errMsg = ObservableField<Throwable>()
-    var selectedTextView = ObservableField<TextView>()
 
     init {
         tickers.set(mutableListOf())
+        selectedMarket.set("KRW")
     }
 
     override fun onError(t: Throwable) {
@@ -30,10 +31,14 @@ class TickerViewModel(
         this.tickers.set(TickerFormatter.convertTo(tickers))
     }
 
-    fun showTickers(view: View) {
+    fun selectedMarket(view: View) {
         if (view is TextView) {
-            selectedTextView.set(view)
-            repository.requestMarkets(view.text.toString(), this)
+            selectedMarket.set(view.text.toString())
+            showTickers(view)
         }
+    }
+
+    fun showTickers(view: TextView) {
+        repository.requestMarkets(view.text.toString(), this)
     }
 }

@@ -59,13 +59,13 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
             }
         })
 
-        vm.selectedTextView.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                if (sender is ObservableField<*>) {
-                    setMarketColor(sender.get() as TextView)
-                }
-            }
-        })
+//        vm.selectedTextView.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+//            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+//                if (sender is ObservableField<*>) {
+//                    setMarketColor(sender.get() as TextView)
+//                }
+//            }
+//        })
     }
 
     private fun setAdapterAndClick() {
