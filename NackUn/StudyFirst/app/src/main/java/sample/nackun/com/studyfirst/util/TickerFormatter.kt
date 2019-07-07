@@ -5,11 +5,11 @@ import sample.nackun.com.studyfirst.vo.Ticker
 
 object TickerFormatter {
     fun convertTo(target: List<Ticker>): List<Map<String, String>> {
-        val converList = mutableListOf<Map<String, String>>()
-        converList.clear()
+        val convertList = mutableListOf<Map<String, String>>()
+        convertList.clear()
 
         target.forEachIndexed { index, ticker ->
-            converList.add(
+            convertList.add(
                 index,
                 hashMapOf(
                     "tickerName" to getTickerName(ticker.market),
@@ -20,7 +20,7 @@ object TickerFormatter {
                 )
             )
         }
-        return converList
+        return convertList
     }
 
 
