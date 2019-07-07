@@ -23,7 +23,7 @@ class UpbitRetrofitDataSource private constructor() : UpbitDataSource {
                         .asSequence()
                         .filter {
                             enumValues<MarketTypes>().any { data ->
-                                data.markets == prefix
+                                data.name == prefix
                             }
                         }
                         .filter { data -> data.market!!.startsWith(prefix) }
