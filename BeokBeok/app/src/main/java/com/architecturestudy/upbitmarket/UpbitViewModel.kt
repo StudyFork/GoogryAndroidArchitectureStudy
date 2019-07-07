@@ -14,9 +14,9 @@ class UpbitViewModel(
     private val upBitRepository: UpbitRepository
 ) : BaseViewModel() {
 
-    var marketPriceList = ObservableField<List<Map<String, String>>>()
-    var errMsg = ObservableField<Throwable>()
-    var isMarketTypeClicked = ObservableField<Boolean>()
+    val marketPriceList = ObservableField<List<Map<String, String>>>()
+    val errMsg = ObservableField<Throwable>()
+    val isMarketTypeClicked = ObservableField<Boolean>()
 
     init {
         registerPropertyChangedCallbacks()

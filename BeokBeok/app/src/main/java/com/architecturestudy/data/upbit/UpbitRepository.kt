@@ -8,8 +8,8 @@ class UpbitRepository private constructor(
     private val upbitRetrofitDataSource: UpbitRetrofitDataSource
 ) : UpbitDataSource {
 
-    var marketPriceList = ObservableField<List<UpbitTicker>>()
-    var throwable = ObservableField<Throwable>()
+    val marketPriceList = ObservableField<List<UpbitTicker>>()
+    val throwable = ObservableField<Throwable>()
 
     override fun getMarketPrice(prefix: String) {
         upbitRetrofitDataSource.getMarketPrice(prefix)
