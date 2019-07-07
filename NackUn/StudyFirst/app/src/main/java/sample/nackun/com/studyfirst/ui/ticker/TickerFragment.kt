@@ -58,32 +58,10 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
                 }
             }
         })
-
-//        vm.selectedTextView.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-//            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-//                if (sender is ObservableField<*>) {
-//                    setMarketColor(sender.get() as TextView)
-//                }
-//            }
-//        })
     }
 
     private fun setAdapterAndClick() {
         tickerRecyclerView.adapter = tickerAdapter
         tv_market_krw.callOnClick()
-    }
-
-    private fun setMarketColor(view: View) {
-        listOf<View>(
-            tv_market_krw,
-            tv_market_btc,
-            tv_market_eth,
-            tv_market_usdt
-        ).filter { view != it }
-            .map { (it as TextView).setTextColor(ContextCompat.getColor(it.context, R.color.grey)) }
-
-        if (view is TextView) {
-            view.setTextColor(ContextCompat.getColor(view.context, R.color.indigo))
-        }
     }
 }
