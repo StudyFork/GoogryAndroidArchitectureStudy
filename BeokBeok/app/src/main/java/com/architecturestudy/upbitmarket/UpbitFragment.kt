@@ -13,7 +13,7 @@ import com.architecturestudy.data.upbit.UpbitRepository
 import com.architecturestudy.data.upbit.service.UpbitRetrofit
 import com.architecturestudy.data.upbit.source.UpbitRetrofitDataSource
 import com.architecturestudy.databinding.FragmentUpbitBinding
-import com.architecturestudy.upbitmarket.recyclerview.UpbitAdapter
+import com.architecturestudy.upbitmarket.adapter.UpbitAdapter
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_upbit.*
 

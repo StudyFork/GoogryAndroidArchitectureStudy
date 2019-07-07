@@ -1,4 +1,4 @@
-package com.architecturestudy.upbitmarket.recyclerview
+package com.architecturestudy.upbitmarket.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

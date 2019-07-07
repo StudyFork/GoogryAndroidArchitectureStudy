@@ -1,7 +1,8 @@
-package com.architecturestudy.upbitmarket.recyclerview
+package com.architecturestudy.upbitmarket.ext
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.architecturestudy.upbitmarket.adapter.UpbitAdapter
 
 @BindingAdapter("setItems")
 fun RecyclerView.setItems(items: List<Map<String, String>>?) {
