@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="vm"
             type="com.architecturestudy.upbitmarket.UpbitViewModel" />
@@ -14,6 +16,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".upbitmarket.UpbitFragment">
+
+        <ProgressBar
+            android:id="@+id/pb_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="@{vm.isLoading ? View.VISIBLE : View.GONE}" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -131,15 +140,14 @@
             <!-- List -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_coin_price"
+                setItems="@{vm.marketPriceList}"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:scrollbars="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
-                setItems="@{vm.marketPriceList}"
                 app:layout_constraintTop_toBottomOf="@id/tv_coin_name" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </FrameLayout>
 </layout>

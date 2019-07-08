@@ -17,10 +17,12 @@ class UpbitViewModel(
     val marketPriceList = ObservableField<List<Map<String, String>>>()
     val errMsg = ObservableField<Throwable>()
     val isMarketTypeClicked = ObservableField<Boolean>()
+    val isLoading = ObservableField<Boolean>()
 
     init {
         registerPropertyChangedCallbacks()
         upBitRepository.getMarketPrice("KRW")
+        isLoading.set(true)
     }
 
     private fun registerPropertyChangedCallbacks() {
@@ -32,6 +34,7 @@ class UpbitViewModel(
                         marketPriceList.set(
                             NumberFormatter.convertTo(sender.get() as List<UpbitTicker>)
                         )
+                        isLoading.set(false)
                     }
                 }
             }
@@ -50,6 +53,7 @@ class UpbitViewModel(
     fun showMarketPrice(v: View) {
         isMarketTypeClicked.set(false)
         if (v is TextView) {
+            isLoading.set(true)
             upBitRepository.getMarketPrice(v.text.toString())
             v.setTextColor(Color.BLUE)
             isMarketTypeClicked.set(true)
