@@ -36,7 +36,6 @@ class UpbitAdapter : RecyclerView.Adapter<UpbitAdapter.ViewHolder>() {
         private val binding: RvUpbitItemBinding = DataBindingUtil.bind(itemView)!!
 
         fun bind(marketPrice: Map<String, String>) {
-            // TODO 모델을 생성하여 모델을 xml에 연결하기
             binding.tvCoinName.text = marketPrice["coinName"]
             binding.tvCurrentPrice.text = marketPrice["currentPrice"]
             binding.tvNetChange.text = marketPrice["netChange"]
