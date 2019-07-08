@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".view.activity.main.MainActivity">
 
-    <android.support.design.widget.TabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/tablayout_main"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -47,7 +47,7 @@
     </LinearLayout>
 
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

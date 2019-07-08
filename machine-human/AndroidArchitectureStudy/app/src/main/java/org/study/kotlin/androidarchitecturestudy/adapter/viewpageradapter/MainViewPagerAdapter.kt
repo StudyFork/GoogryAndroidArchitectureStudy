@@ -1,12 +1,12 @@
 package org.study.kotlin.androidarchitecturestudy.adapter.viewpageradapter
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 
-class MainViewPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager) {
-    private val fragments: MutableList<Pair<Fragment, String>> = mutableListOf()
-    override fun getItem(position: Int): Fragment {
+class MainViewPagerAdapter(manager: androidx.fragment.app.FragmentManager) : androidx.fragment.app.FragmentPagerAdapter(manager) {
+    private val fragments: MutableList<Pair<androidx.fragment.app.Fragment, String>> = mutableListOf()
+    override fun getItem(position: Int): androidx.fragment.app.Fragment {
         return fragments[position].first
     }
 
@@ -14,7 +14,7 @@ class MainViewPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(mana
         return fragments.size
     }
 
-    fun addFragment(fragment: Fragment, title: String) {
+    fun addFragment(fragment: androidx.fragment.app.Fragment, title: String) {
         fragments?.add(Pair(fragment, title))
 
     }

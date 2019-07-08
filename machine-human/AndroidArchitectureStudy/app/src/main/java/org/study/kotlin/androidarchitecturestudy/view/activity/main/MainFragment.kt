@@ -1,11 +1,10 @@
 package org.study.kotlin.androidarchitecturestudy.view.activity.main
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
 import android.provider.AlarmClock.EXTRA_MESSAGE
-import android.view.View
 import android.widget.Toast
-import kotlinx.android.synthetic.main.fragment_main.view.*
+import kotlinx.android.synthetic.main.fragment_main.*
 import org.study.kotlin.androidarchitecturestudy.R
 import org.study.kotlin.androidarchitecturestudy.adapter.recyclerviewadapter.MainListAdapter
 import org.study.kotlin.androidarchitecturestudy.base.BaseFragment
@@ -35,25 +34,41 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private val mainListAdapter: MainListAdapter = MainListAdapter()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        view.recyclerview_mainfragment.run {
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//        view.recyclerview_mainfragment.run {
+//            setHasFixedSize(true)
+//            val message = arguments!!.getString(EXTRA_MESSAGE)
+//
+//            binding.viewModel = MainViewModel(TickerRepository(TickerRemoteDataSource()), message)
+//            adapter = mainListAdapter
+//        }
+//
+//        binding.viewModel?.observableErrorMessage?.observe(this, Observer {
+//            errorMessage -> errorMessage?.let { showErrorToast(it) }
+//        })
+//
+//    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        recyclerview_mainfragment.run {
             setHasFixedSize(true)
             val message = arguments!!.getString(EXTRA_MESSAGE)
 
+//            binding.viewModel = MainViewModel(TickerRepository(TickerRemoteDataSource()), message)
             binding.viewModel = MainViewModel(TickerRepository(TickerRemoteDataSource()), message)
             adapter = mainListAdapter
         }
 
-        binding.viewModel?.observableErrorMessage?.observe(this, Observer {
-            errorMessage -> errorMessage?.let { showErrorToast(it) }
+        binding.viewModel?.observableErrorMessage?.observe(this, Observer { errorMessage ->
+            errorMessage?.let { showErrorToast(it) }
         })
-
     }
 
     override fun showErrorToast(errorMessage: Throwable) {
         super.showErrorToast(errorMessage)
-        Toast.makeText(context,errorMessage.toString(),Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, errorMessage.toString(), Toast.LENGTH_SHORT).show()
     }
 
     companion object {

@@ -16,11 +16,11 @@
         android:orientation="vertical">
 
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_mainfragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:setTickerList="@{viewModel.observableTickerList}"
             tools:itemCount="20"
             tools:listitem="@layout/item_ticker" />

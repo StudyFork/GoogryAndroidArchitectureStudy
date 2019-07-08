@@ -1,6 +1,6 @@
 package org.study.kotlin.androidarchitecturestudy.adapter.recyclerviewadapter
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +11,7 @@ import org.study.kotlin.androidarchitecturestudy.data.enum.TabTitle
 import org.study.kotlin.androidarchitecturestudy.util.FormatUtil
 import org.study.kotlin.androidarchitecturestudy.util.FormatUtil.accTradePriceFormat
 
-class MainListAdapter : RecyclerView.Adapter<MainListAdapter.ItemViewHolder>() {
+class MainListAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<MainListAdapter.ItemViewHolder>() {
     private val tickerList = mutableListOf<TickerModel>()
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, vewType: Int): ItemViewHolder {
@@ -34,7 +34,7 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.ItemViewHolder>() {
         }
     }
 
-    class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ItemViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
         private val tvItemMarket by lazy { view.textview_item_market }
         private val tvItemTradePrice by lazy { view.textview_item_trade_price }
         private val tvItemChangeRate by lazy { view.textview_item_change_rate }
