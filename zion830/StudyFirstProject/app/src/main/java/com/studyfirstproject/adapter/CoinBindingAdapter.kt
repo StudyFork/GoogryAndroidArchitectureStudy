@@ -15,7 +15,7 @@ object CoinBindingAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter("text_color")
+    @BindingAdapter("price_status_color")
     fun setRateTextColor(tv: TextView, signedChangeRate: Double) {
         tv.textColor = when {
             signedChangeRate > 0 -> Color.BLUE
