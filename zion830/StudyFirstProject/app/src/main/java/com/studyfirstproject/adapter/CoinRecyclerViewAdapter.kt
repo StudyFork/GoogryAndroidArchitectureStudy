@@ -18,13 +18,9 @@ class CoinRecyclerViewAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding: ItemCoinInfoBinding =
-            DataBindingUtil.inflate(inflater, viewType, parent, false)
+            DataBindingUtil.inflate(inflater, layoutResId, parent, false)
 
         return CoinItemViewHolder(binding)
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return layoutResId
     }
 
     override fun getItemCount(): Int = coinList.size
