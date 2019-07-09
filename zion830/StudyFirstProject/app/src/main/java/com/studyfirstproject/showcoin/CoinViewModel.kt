@@ -9,10 +9,7 @@ import com.studyfirstproject.adapter.CoinRecyclerViewAdapter
 import com.studyfirstproject.data.CoinDataSource
 import com.studyfirstproject.data.model.TickerModel
 
-class CoinViewModel(
-    private val repository: CoinDataSource
-) : CoinDataSource.LoadMarketsCallback,
-    CoinDataSource.LoadTickersCallback {
+class CoinViewModel(private val repository: CoinDataSource) {
 
     val adapter = CoinRecyclerViewAdapter(R.layout.item_coin_info)
     val progressStatus: ObservableInt = ObservableInt(View.INVISIBLE)
@@ -20,7 +17,16 @@ class CoinViewModel(
 
     fun getMarketData() {
         progressStatus.set(View.VISIBLE)
-        repository.getAllMarkets(this)
+        repository.getAllMarkets({
+            repository.getCoinData(it,
+                success = { tickers ->
+                    onCoinsLoaded(tickers)
+                }, failed = { msg, reason ->
+                    onDataNotAvailable(msg, reason)
+                })
+        }, { msg, reason ->
+            onDataNotAvailable(msg, reason)
+        })
     }
 
     fun onRefresh() {
@@ -28,17 +34,13 @@ class CoinViewModel(
         getMarketData()
     }
 
-    override fun onMarketsLoaded(markets: String) {
-        repository.getCoinData(markets, this)
-    }
-
-    override fun onCoinsLoaded(tickers: List<TickerModel>) {
+    private fun onCoinsLoaded(tickers: List<TickerModel>) {
         progressStatus.set(View.INVISIBLE)
         isLoading.set(false)
         adapter.setCoinList(tickers)
     }
 
-    override fun onDataNotAvailable(msg: String, reason: String?) {
+    private fun onDataNotAvailable(msg: String, reason: String?) {
         Log.e(msg, reason ?: "No error message")
     }
 }
