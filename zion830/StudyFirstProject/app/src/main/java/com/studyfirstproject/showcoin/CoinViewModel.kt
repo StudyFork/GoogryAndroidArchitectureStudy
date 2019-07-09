@@ -1,8 +1,6 @@
 package com.studyfirstproject.showcoin
 
-import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableBoolean
-import android.databinding.ObservableField
 import android.databinding.ObservableInt
 import android.util.Log.e
 import android.view.View
@@ -13,8 +11,7 @@ import com.studyfirstproject.data.model.TickerModel
 
 class CoinViewModel(
     private val repository: CoinDataSource
-) : ViewModel(),
-    CoinDataSource.LoadMarketsCallback,
+) : CoinDataSource.LoadMarketsCallback,
     CoinDataSource.LoadTickersCallback {
 
     val adapter = CoinRecyclerViewAdapter(R.layout.item_coin_info)

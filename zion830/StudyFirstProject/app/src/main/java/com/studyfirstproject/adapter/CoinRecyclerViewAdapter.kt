@@ -2,6 +2,7 @@ package com.studyfirstproject.adapter
 
 import android.databinding.DataBindingUtil
 import android.databinding.ObservableArrayList
+import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import com.studyfirstproject.databinding.ItemCoinInfoBinding
 
 
 class CoinRecyclerViewAdapter(
-    private val layoutResId: Int
+    @LayoutRes private val layoutResId: Int
 ) : RecyclerView.Adapter<CoinRecyclerViewAdapter.CoinItemViewHolder>() {
     private val coinList = ObservableArrayList<TickerModel>()
 
