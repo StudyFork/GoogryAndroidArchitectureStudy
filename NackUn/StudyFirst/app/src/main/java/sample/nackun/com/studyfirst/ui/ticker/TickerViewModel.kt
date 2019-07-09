@@ -1,10 +1,9 @@
 package sample.nackun.com.studyfirst.ui.ticker
 
-import android.databinding.BaseObservable
 import android.databinding.ObservableField
 import android.view.View
 import android.widget.TextView
-import org.w3c.dom.Text
+import sample.nackun.com.studyfirst.base.BaseViewModel
 import sample.nackun.com.studyfirst.data.DataSource
 import sample.nackun.com.studyfirst.data.Repository
 import sample.nackun.com.studyfirst.util.TickerFormatter
@@ -12,7 +11,7 @@ import sample.nackun.com.studyfirst.vo.Ticker
 
 class TickerViewModel(
     private val repository: Repository
-) : BaseObservable(), DataSource.RequestTickersCallback {
+) : BaseViewModel(), DataSource.RequestTickersCallback {
 
     var tickers = ObservableField<List<Map<String, String>>>(mutableListOf())
     var selectedMarket = ObservableField<String>("KRW")
