@@ -12,7 +12,6 @@ import com.architecturestudy.data.upbit.source.UpbitRetrofitDataSource
 import com.architecturestudy.databinding.FragmentUpbitBinding
 import com.architecturestudy.upbitmarket.adapter.UpbitAdapter
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.fragment_upbit.*
 
 class UpbitFragment : BaseFragment<FragmentUpbitBinding>(
     R.layout.fragment_upbit
@@ -61,7 +60,7 @@ class UpbitFragment : BaseFragment<FragmentUpbitBinding>(
     }
 
     private fun initRecyclerView() {
-        rv_coin_price.setHasFixedSize(true)
-        rv_coin_price.adapter = UpbitAdapter()
+        binding.rvCoinPrice.setHasFixedSize(true)
+        binding.rvCoinPrice.adapter = UpbitAdapter()
     }
 }
