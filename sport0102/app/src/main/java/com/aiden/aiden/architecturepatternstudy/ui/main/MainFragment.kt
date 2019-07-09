@@ -1,6 +1,7 @@
 package com.aiden.aiden.architecturepatternstudy.ui.main
 
 import android.os.Bundle
+import androidx.databinding.Observable
 import com.aiden.aiden.architecturepatternstudy.R
 import com.aiden.aiden.architecturepatternstudy.api.Retrofit.retrofit
 import com.aiden.aiden.architecturepatternstudy.api.UpbitApi
@@ -42,6 +43,15 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         binding {
             fragmentTickerListRv.adapter = TickerListAdapter()
             mainViewModel = mainVm
+            mainVm.isDataLoadingError.addOnPropertyChangedCallback(object :
+                Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    mainVm.isDataLoadingError.get()?.let {
+                        if (!it) showErrorToast()
+                    }
+                }
+
+            })
         }
     }
 
