@@ -47,6 +47,4 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
 
     implementation 'com.google.code.gson:gson:2.8.5'
-
-    implementation "org.jetbrains.anko:anko:0.10.8"
 }
