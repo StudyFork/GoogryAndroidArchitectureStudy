@@ -13,9 +13,9 @@ class TickerViewModel(
     private val repository: Repository
 ) : BaseViewModel(), DataSource.RequestTickersCallback {
 
-    var tickers = ObservableField<List<Map<String, String>>>(mutableListOf())
-    var selectedMarket = ObservableField<String>("KRW")
-    var errMsg = ObservableField<Throwable>()
+    val tickers = ObservableField<List<Map<String, String>>>(mutableListOf())
+    val selectedMarket = ObservableField<String>("KRW")
+    val errMsg = ObservableField<Throwable>()
 
     override fun onError(t: Throwable) {
         errMsg.set(t)
