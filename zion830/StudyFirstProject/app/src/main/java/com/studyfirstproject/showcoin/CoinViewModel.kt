@@ -2,7 +2,7 @@ package com.studyfirstproject.showcoin
 
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableInt
-import android.util.Log.e
+import android.util.Log
 import android.view.View
 import com.studyfirstproject.R
 import com.studyfirstproject.adapter.CoinRecyclerViewAdapter
@@ -39,6 +39,6 @@ class CoinViewModel(
     }
 
     override fun onDataNotAvailable(msg: String, reason: String?) {
-        e(msg, reason ?: "No error message")
+        Log.e(msg, reason ?: "No error message")
     }
 }
