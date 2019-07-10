@@ -2,13 +2,17 @@ package com.aiden.aiden.architecturepatternstudy.ui.main
 
 import android.os.Bundle
 import androidx.databinding.Observable
+import com.aiden.aiden.architecturepatternstudy.BR
 import com.aiden.aiden.architecturepatternstudy.R
 import com.aiden.aiden.architecturepatternstudy.api.Retrofit.retrofit
 import com.aiden.aiden.architecturepatternstudy.api.UpbitApi
+import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 import com.aiden.aiden.architecturepatternstudy.base.BaseFragment
+import com.aiden.aiden.architecturepatternstudy.base.SimpleRecyclerView
 import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
 import com.aiden.aiden.architecturepatternstudy.data.source.remote.UpbitRemoteDataSource
 import com.aiden.aiden.architecturepatternstudy.databinding.FragmentMainBinding
+import com.aiden.aiden.architecturepatternstudy.databinding.ItemTickerBinding
 
 
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
@@ -41,7 +45,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         )
         mainVm.loadMarketList(marketName)
         binding {
-            fragmentTickerListRv.adapter = TickerListAdapter()
+            fragmentTickerListRv.adapter =
+                object : SimpleRecyclerView.Adapter<TickerResponse, ItemTickerBinding>(
+                    layoutRes = R.layout.item_ticker,
+                    bindingVariableId = BR.item
+                ) {}
             mainViewModel = mainVm
             mainVm.isDataLoadingError.addOnPropertyChangedCallback(object :
                 Observable.OnPropertyChangedCallback() {

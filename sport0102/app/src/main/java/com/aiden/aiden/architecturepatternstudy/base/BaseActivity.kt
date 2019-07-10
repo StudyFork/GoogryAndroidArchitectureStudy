@@ -1,14 +1,23 @@
 package com.aiden.aiden.architecturepatternstudy.base
 
 import android.os.Bundle
-import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 
-abstract class BaseActivity(@LayoutRes val layoutResId: Int) : AppCompatActivity() {
+abstract class BaseActivity<B : ViewDataBinding>(private val layoutId: Int) : AppCompatActivity() {
+    protected lateinit var binding: B
+        private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layoutResId)
+        binding = DataBindingUtil.inflate(layoutInflater, layoutId, null, false)
+        setContentView(binding.root)
+        binding.lifecycleOwner = this
+    }
+
+    protected fun binding(action: (B) -> Unit) {
+        binding.run(action)
     }
 
 }
