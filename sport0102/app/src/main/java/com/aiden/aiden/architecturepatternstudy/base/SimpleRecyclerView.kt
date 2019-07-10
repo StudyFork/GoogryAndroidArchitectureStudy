@@ -6,30 +6,9 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
 abstract class SimpleRecyclerView {
-
-    abstract class ListAdapter<ITEM : Any, B : ViewDataBinding>(
-        @LayoutRes private val layoutRes: Int = -1,
-        private val bindingVariableId: Int? = null,
-        diffCallback: DiffUtil.ItemCallback<ITEM>
-    ) : androidx.recyclerview.widget.ListAdapter<ITEM, ViewHolder<B>>(
-        diffCallback
-    ) {
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            object : ViewHolder<B>(
-                layoutRes = layoutRes,
-                parent = parent,
-                bindingVariableId = bindingVariableId
-            ) {}
-
-        override fun onBindViewHolder(holder: ViewHolder<B>, position: Int) {
-            holder.onBindViewHolder(getItem(position))
-        }
-    }
 
     abstract class Adapter<ITEM : Any, B : ViewDataBinding>(
         @LayoutRes private val layoutRes: Int = -1,

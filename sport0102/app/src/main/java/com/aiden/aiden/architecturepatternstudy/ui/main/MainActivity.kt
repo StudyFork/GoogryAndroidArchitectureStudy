@@ -23,8 +23,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 )
             )
             it.mainMarketTabTl.addOnTabSelectedListener(object : TabSelectedListener() {
-                override fun onTabSelected(tabLayout: TabLayout.Tab?) {
-                    tabLayout?.let { tab ->
+                override fun onTabSelected(tl: TabLayout.Tab?) {
+                    tl?.let { tab ->
                         it.mainVp.currentItem = tab.position
                     }
                 }

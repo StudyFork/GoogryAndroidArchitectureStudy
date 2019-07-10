@@ -1,6 +1,7 @@
 package com.aiden.aiden.architecturepatternstudy.util
 
 import java.math.BigDecimal
+import kotlin.math.abs
 
 object StringUtil {
 
@@ -22,7 +23,7 @@ object StringUtil {
     }
 
     fun getPercent(closingPrice: Double, tradePrice: Double): String {
-        var percent = Math.abs(tradePrice - closingPrice) / closingPrice
+        var percent = abs(tradePrice - closingPrice) / closingPrice
         percent *= 100
         return if (closingPrice - tradePrice > 0) {
             "-${String.format("%.2f", percent)}%"

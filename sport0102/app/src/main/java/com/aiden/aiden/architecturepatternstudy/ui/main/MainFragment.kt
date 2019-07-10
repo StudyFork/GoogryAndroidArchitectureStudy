@@ -64,7 +64,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     }
 
     private fun showErrorToast() {
-        toastM(getString(com.aiden.aiden.architecturepatternstudy.R.string.all_error_load_data_fail))
+        toastM(getString(R.string.all_error_load_data_fail))
     }
 
 }
