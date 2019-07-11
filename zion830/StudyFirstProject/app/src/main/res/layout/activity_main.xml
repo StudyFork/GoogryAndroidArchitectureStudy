@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <import type="android.databinding.ObservableArrayList" />
 
         <import type="com.studyfirstproject.data.model.TickerModel" />
@@ -101,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="@{viewModel.progressStatus}" />
+            android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.INVISIBLE}" />
 
     </FrameLayout>
 </layout>
