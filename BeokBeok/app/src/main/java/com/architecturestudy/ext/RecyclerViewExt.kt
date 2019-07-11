@@ -1,4 +1,4 @@
-package com.architecturestudy.upbitmarket.ext
+package com.architecturestudy.ext
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
