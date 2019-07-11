@@ -1,20 +1,7 @@
-/*
- * Copyright 2017, The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.aiden.aiden.architecturepatternstudy.ui.main
 
+import androidx.databinding.BaseObservable
+import androidx.databinding.ObservableField
 import com.aiden.aiden.architecturepatternstudy.api.model.MarketResponse
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 import com.aiden.aiden.architecturepatternstudy.data.enums.Market
@@ -23,46 +10,44 @@ import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
 import com.aiden.aiden.architecturepatternstudy.util.StringUtil
 import java.math.BigDecimal
 
-/**
- * Listens to user actions from the UI ([TasksFragment]), retrieves the data and updates the
- * UI as required.
- */
-class MainPresenter(
-    private val upbitRepository: UpbitRepository,
-    val mainView: MainContract.View
-) :
-    MainContract.Presenter {
+class MainViewModel(private val upbitRepository: UpbitRepository) : BaseObservable() {
 
+    val tickerObservable = ObservableField<List<TickerResponse>>()
 
-    init {
-        mainView.presenter = this
-    }
+    var isDataLoadingError = ObservableField<Boolean>()
 
-    override fun loadMarketList(market: String) {
+    fun loadMarketList(market: String) {
+
         upbitRepository.getMarketList(object : UpbitDataSource.GetMarketListCallback {
+
             override fun onMarketListLoaded(marketList: List<MarketResponse>) {
-                val modifiedMarketList = marketList.filter { item -> item.market.startsWith(market, true) }
+                val modifiedMarketList =
+                    marketList.filter { item -> item.market.startsWith(market, true) }
                 loadTickerList(modifiedMarketList)
             }
 
             override fun onDataNotAvailable() {
-                mainView.showErrorToast()
+                isDataLoadingError.set(false)
             }
 
         })
+
     }
 
-    override fun loadTickerList(marketList: List<MarketResponse>) {
+    private fun loadTickerList(marketList: List<MarketResponse>) {
+
         upbitRepository.getTickerList(marketList, object : UpbitDataSource.GetTickerListCallback {
+
             override fun onTickerListLoaded(tickerList: List<TickerResponse>) {
-                mainView.showTickerList(tickerList.map(::modifyTicker))
+                tickerObservable.set(tickerList.map(::modifyTicker))
             }
 
             override fun onDataNotAvailable() {
-                mainView.showErrorToast()
+                isDataLoadingError.set(false)
             }
 
         })
+
     }
 
     private fun modifyTicker(ticker: TickerResponse): TickerResponse {
@@ -123,5 +108,4 @@ class MainPresenter(
         return ticker
 
     }
-
 }
