@@ -9,21 +9,14 @@ class UpbitRepository private constructor(
 
     override fun getMarketPrice(
         prefix: String,
-        callback: UpbitDataSource.GetTickerCallback
+        onSuccess: (List<UpbitTicker>) -> Unit,
+        onFail: (Throwable) -> Unit
     ) {
-
         upbitRetrofitDataSource.getMarketPrice(
             prefix,
-            object : UpbitDataSource.GetTickerCallback {
-                override fun onTickerLoaded(marketPrice: List<UpbitTicker>) {
-                    callback.onTickerLoaded(marketPrice)
-                }
-
-                override fun onDataNotAvailable(t: Throwable) {
-                    callback.onDataNotAvailable(t)
-                }
-
-            })
+            onSuccess,
+            onFail
+        )
     }
 
     companion object {
