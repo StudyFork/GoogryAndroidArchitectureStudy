@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:setTickerList="@{viewModel.observableTickerList}"
+            replaceAll="@{viewModel.observableTickerList}"
             tools:itemCount="20"
             tools:listitem="@layout/item_ticker" />
     </LinearLayout>

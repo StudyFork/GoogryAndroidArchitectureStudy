@@ -2,18 +2,16 @@ package org.study.kotlin.androidarchitecturestudy.view.bindingadapter
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import org.study.kotlin.androidarchitecturestudy.adapter.recyclerviewadapter.MainListAdapter
-import org.study.kotlin.androidarchitecturestudy.api.model.TickerModel
+import org.study.kotlin.androidarchitecturestudy.base.BaseRecyclerView
 
-@BindingAdapter("setTickerList")
-fun bindTickerListRecyclerView(
-    view: androidx.recyclerview.widget.RecyclerView,
-    list: List<TickerModel>?
-) {
-    (view.adapter as MainListAdapter)?.run {
-        list?.let { setList(it)
-            notifyDataSetChanged() }
-
+@Suppress("UNCHECKED_CAST")
+@BindingAdapter("replaceAll")
+fun RecyclerView.replaceAll(list: List<Any>?) {
+    (this.adapter as? BaseRecyclerView.Adapter<Any, *>)?.run {
+        list?.let {
+            replaceAll(it)
+            notifyDataSetChanged()
+        }
     }
-
 }
+
