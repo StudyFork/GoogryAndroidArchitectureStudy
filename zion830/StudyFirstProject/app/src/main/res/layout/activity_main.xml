@@ -9,10 +9,6 @@
         <import type="com.studyfirstproject.data.model.TickerModel" />
 
         <variable
-            name="activity"
-            type="com.studyfirstproject.showcoin.view.MainActivity" />
-
-        <variable
             name="viewModel"
             type="com.studyfirstproject.showcoin.CoinViewModel" />
     </data>
