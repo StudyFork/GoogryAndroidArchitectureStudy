@@ -7,11 +7,7 @@ import com.nanamare.mac.sample.ui.coin.CoinNavigator
 
 class CoinViewModel {
 
-    var coins = ObservableField<List<CoinModel>>()
-
-    init {
-        coins.set(mutableListOf())
-    }
+    var coins = ObservableField<List<CoinModel>>(mutableListOf())
 
     var navigator: CoinNavigator? = null
 
