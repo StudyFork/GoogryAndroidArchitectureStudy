@@ -23,11 +23,5 @@ i = BaseDataSource
  */
 //콜백인터페이스 정의
 interface BaseDataSource {
-
-    interface GetTickerListCallback {
-        fun onTickerListLoaded(tickerList: List<TickerModel>)
-        fun onDataNotAvailable(errorMessage: Throwable)
-    }
-
-    fun requestMarkets(marketName: String, callback: GetTickerListCallback)
+    fun getTickerList(marketName: String, success: (List<TickerModel>) -> Unit, failed: (Throwable) -> Unit)
 }
