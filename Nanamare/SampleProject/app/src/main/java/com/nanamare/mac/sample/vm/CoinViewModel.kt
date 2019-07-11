@@ -2,24 +2,26 @@ package com.nanamare.mac.sample.vm
 
 import androidx.databinding.ObservableField
 import com.nanamare.mac.sample.api.upbit.CoinModel
+import com.nanamare.mac.sample.base.BaseViewModel
 import com.nanamare.mac.sample.data.coin.CoinRepository
-import com.nanamare.mac.sample.ui.coin.CoinNavigator
+import io.reactivex.subjects.PublishSubject
 
-class CoinViewModel {
+class CoinViewModel: BaseViewModel() {
 
     var coins = ObservableField<List<CoinModel>>(mutableListOf())
 
-    var navigator: CoinNavigator? = null
+    var coinsObservable: PublishSubject<List<CoinModel>> = PublishSubject.create()
 
     fun getCoins(ticketList: MutableList<String>) {
         CoinRepository.getCoins(ticketList, success = {
             coins.set(it)
+            coinsObservable.onNext(it)
         }, failed = {
-            navigator?.hideLoadingDialog()
+            coinsObservable.onError(Throwable())
         })
     }
 
-    fun onClose() {
+    override fun close() {
         CoinRepository.close()
     }
 
