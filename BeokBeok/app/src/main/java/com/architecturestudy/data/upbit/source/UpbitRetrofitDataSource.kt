@@ -1,7 +1,7 @@
 package com.architecturestudy.data.upbit.source
 
 import com.architecturestudy.data.common.MarketTypes
-import com.architecturestudy.data.upbit.UpbitRepository
+import com.architecturestudy.data.upbit.UpbitTicker
 import com.architecturestudy.data.upbit.service.UpbitRetrofit
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -10,46 +10,61 @@ import io.reactivex.schedulers.Schedulers
 class UpbitRetrofitDataSource private constructor() : UpbitDataSource {
 
     private val retrofit = UpbitRetrofit.retrofit
-    private val upbitRepository = UpbitRepository(this)
 
-    override fun getMarketPrice(prefix: String) {
+    override fun getMarketPrice(
+        prefix: String,
+        onSuccess: (List<UpbitTicker>) -> Unit,
+        onFail: (Throwable) -> Unit
+    ) {
         CompositeDisposable().add(
             retrofit.getMarkets()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    val markets = it.body() ?: return@subscribe
-                    val tickers = markets
-                        .asSequence()
-                        .filter {
-                            enumValues<MarketTypes>().any { data ->
-                                data.name == prefix
+                    val markets = it.body()
+                    if (markets.isNullOrEmpty()) {
+                        onFail(IllegalStateException("Data not validate"))
+                    } else {
+                        val tickers = markets
+                            .asSequence()
+                            .filter {
+                                enumValues<MarketTypes>().any { data ->
+                                    data.name == prefix
+                                }
                             }
-                        }
-                        .filter { data -> data.market!!.startsWith(prefix) }
-                        .map { data -> data.market }
-                        .toList()
-                    getTickers(tickers)
+                            .filter { data -> data.market!!.startsWith(prefix) }
+                            .map { data -> data.market }
+                            .toList()
+                        getTickers(
+                            tickers,
+                            onSuccess,
+                            onFail
+                        )
+                    }
                 }, {
-                    upbitRepository.throwable.set(it)
+                    onFail(it)
                 })
         )
     }
 
-    private fun getTickers(market: List<String?>?) {
+    private fun getTickers(
+        tickers: List<String?>?,
+        onSuccess: (List<UpbitTicker>) -> Unit,
+        onFail: (Throwable) -> Unit
+    ) {
         CompositeDisposable().add(
-            retrofit.getTicker(market)
+            retrofit.getTicker(tickers)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     val responseTicker = it.body()
-                    if (responseTicker != null) {
-                        upbitRepository.marketPriceList.set(responseTicker)
+                    if (responseTicker.isNullOrEmpty()) {
+                        onFail(IllegalStateException("Data is empty"))
                     } else {
-                        upbitRepository.throwable.set(IllegalStateException("Data is empty"))
+                        onSuccess(responseTicker)
                     }
                 }, {
-                    upbitRepository.throwable.set(it)
+                    onFail(it)
                 })
         )
     }

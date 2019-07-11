@@ -3,11 +3,9 @@ package com.architecturestudy.upbitmarket
 import android.graphics.Color
 import android.view.View
 import android.widget.TextView
-import androidx.databinding.Observable
 import androidx.databinding.ObservableField
 import com.architecturestudy.base.BaseViewModel
 import com.architecturestudy.data.upbit.UpbitRepository
-import com.architecturestudy.data.upbit.UpbitTicker
 import com.architecturestudy.util.NumberFormatter
 
 class UpbitViewModel(
@@ -20,41 +18,35 @@ class UpbitViewModel(
     val isLoading = ObservableField<Boolean>()
 
     init {
-        registerPropertyChangedCallbacks()
-        upBitRepository.getMarketPrice("KRW")
+        upBitRepository.getMarketPrice(
+            "KRW",
+            onSuccess = {
+                marketPriceList.set(NumberFormatter.convertTo(it))
+                isLoading.set(false)
+            },
+            onFail = {
+                errMsg.set(it)
+                isLoading.set(false)
+            }
+        )
         isLoading.set(true)
-    }
-
-    private fun registerPropertyChangedCallbacks() {
-        @Suppress("UNCHECKED_CAST")
-        upBitRepository.marketPriceList.addOnPropertyChangedCallback(
-            object : Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    if (sender is ObservableField<*>) {
-                        marketPriceList.set(
-                            NumberFormatter.convertTo(sender.get() as List<UpbitTicker>)
-                        )
-                        isLoading.set(false)
-                    }
-                }
-            }
-        )
-        upBitRepository.throwable.addOnPropertyChangedCallback(
-            object : Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    if (sender is ObservableField<*>) {
-                        errMsg.set(sender.get() as Throwable)
-                    }
-                }
-            }
-        )
     }
 
     fun showMarketPrice(v: View) {
         isMarketTypeClicked.set(false)
         if (v is TextView) {
             isLoading.set(true)
-            upBitRepository.getMarketPrice(v.text.toString())
+            upBitRepository.getMarketPrice(
+                v.text.toString(),
+                onSuccess = {
+                    marketPriceList.set(NumberFormatter.convertTo(it))
+                    isLoading.set(false)
+                },
+                onFail = {
+                    errMsg.set(it)
+                    isLoading.set(false)
+                }
+            )
             v.setTextColor(Color.BLUE)
             isMarketTypeClicked.set(true)
         }
