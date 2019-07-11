@@ -5,14 +5,16 @@ import sample.nackun.com.studyfirst.vo.Ticker
 class Repository private constructor(
     private val remoteDataSource: DataSource
 ) : DataSource {
-    override fun requestMarkets(marketLike: String, callback: DataSource.RequestTickersCallback) {
-        remoteDataSource.requestMarkets(marketLike, object : DataSource.RequestTickersCallback {
-            override fun onTickersLoaded(tickers: List<Ticker>) =
-                callback.onTickersLoaded(tickers)
-
-            override fun onError(t: Throwable) =
-                callback.onError(t)
-        })
+    override fun requestMarkets(
+        marketLike: String,
+        onTickersLoaded: (tickers: List<Ticker>) -> Unit,
+        onError: (t: Throwable) -> Unit
+    ) {
+        remoteDataSource.requestMarkets(
+            marketLike,
+            onTickersLoaded,
+            onError
+        )
     }
 
     companion object {

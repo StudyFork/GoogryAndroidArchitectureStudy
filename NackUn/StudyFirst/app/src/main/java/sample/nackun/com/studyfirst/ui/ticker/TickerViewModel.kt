@@ -11,17 +11,17 @@ import sample.nackun.com.studyfirst.vo.Ticker
 
 class TickerViewModel(
     private val repository: Repository
-) : BaseViewModel(), DataSource.RequestTickersCallback {
+) : BaseViewModel() {
 
     val tickers = ObservableField<List<Map<String, String>>>(mutableListOf())
     val selectedMarket = ObservableField<String>("KRW")
     val errMsg = ObservableField<Throwable>()
 
-    override fun onError(t: Throwable) {
+    private fun onError(t: Throwable) {
         errMsg.set(t)
     }
 
-    override fun onTickersLoaded(tickers: List<Ticker>) {
+    private fun onTickersLoaded(tickers: List<Ticker>) {
         this.tickers.set(TickerFormatter.convertTo(tickers))
     }
 
@@ -33,6 +33,13 @@ class TickerViewModel(
     }
 
     fun showTickers(view: TextView) {
-        repository.requestMarkets(view.text.toString(), this)
+        repository.requestMarkets(
+            view.text.toString(),
+            onTickersLoaded = {
+                onTickersLoaded(it)
+            }, onError = {
+                onError(it)
+            }
+        )
     }
 }
