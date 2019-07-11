@@ -8,20 +8,23 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.malinskiy.superrecyclerview.OnMoreListener
 import com.nanamare.mac.sample.R
 import com.nanamare.mac.sample.adapter.TickerAdapter
+import com.nanamare.mac.sample.api.DisposableManager
 import com.nanamare.mac.sample.base.BaseFragment
 import com.nanamare.mac.sample.databinding.FragmentCoinListBinding
 import com.nanamare.mac.sample.vm.CoinViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_coin_list.*
 
 class CoinFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coin_list),
-    SwipeRefreshLayout.OnRefreshListener, OnMoreListener,
-    CoinNavigator {
+    SwipeRefreshLayout.OnRefreshListener, OnMoreListener {
 
     private lateinit var ticketList: MutableList<String>
 
     private val adapter: TickerAdapter by lazy { TickerAdapter() }
 
     private val coinVM: CoinViewModel by lazy { CoinViewModel() }
+
+    private val disposableManager = DisposableManager()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,8 +33,18 @@ class CoinFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coi
 
         initView()
 
-        coinVM.getCoins(ticketList)
-        coinVM.navigator = this@CoinFragment
+        with(coinVM) {
+            showLoadingDialog()
+            getCoins(ticketList)
+            disposableManager.add(
+                coinsObservable.observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        hideLoadingDialog()
+                    }, {
+                        hideLoadingDialog()
+                    })
+            )
+        }
 
     }
 
@@ -99,7 +112,8 @@ class CoinFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coi
     }
 
     override fun onDestroyView() {
-        coinVM.onClose()
+        coinVM.close()
+        disposableManager.dispose()
         super.onDestroyView()
     }
 }
