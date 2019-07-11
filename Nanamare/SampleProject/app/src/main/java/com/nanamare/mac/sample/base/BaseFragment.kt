@@ -12,7 +12,7 @@ import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseFragment<B : ViewDataBinding>(
     @LayoutRes private val layoutResId: Int
-) : Fragment(), BaseNavigator {
+) : Fragment() {
 
     protected lateinit var binding: B
 
@@ -22,15 +22,15 @@ abstract class BaseFragment<B : ViewDataBinding>(
         return binding.root
     }
 
-    override fun goToFragment(cls: Class<*>, args: Bundle?) {
+    fun goToFragment(cls: Class<*>, args: Bundle?) {
         (activity as? BaseActivity<*>)?.goToFragment(cls, args)
     }
 
-    override fun showLoadingDialog() {
+    fun showLoadingDialog() {
         (activity as? BaseActivity<*>)?.showLoadingDialog()
     }
 
-    override fun hideLoadingDialog() {
+    fun hideLoadingDialog() {
         (activity as? BaseActivity<*>)?.hideLoadingDialog()
     }
     

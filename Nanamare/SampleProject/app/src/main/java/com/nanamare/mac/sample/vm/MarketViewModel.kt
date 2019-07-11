@@ -1,16 +1,15 @@
 package com.nanamare.mac.sample.vm
 
+import com.nanamare.mac.sample.base.BaseViewModel
 import com.nanamare.mac.sample.data.market.MarketRepository
-import com.nanamare.mac.sample.ui.market.MarketNavigator
+import io.reactivex.subjects.PublishSubject
 
-class MarketViewModel {
+class MarketViewModel: BaseViewModel() {
 
-    var navigator: MarketNavigator? = null
+    var marketObservable: PublishSubject<LinkedHashMap<String, List<String>>> = PublishSubject.create()
 
     fun onMarketClick() {
-        navigator?.showLoadingDialog()
         MarketRepository.getMarketList(success = {
-            navigator?.hideLoadingDialog()
             val marketMap: LinkedHashMap<String, List<String>> = LinkedHashMap()
             val marketList = listOf<String>().toMutableList()
             it.map { marketModel ->
@@ -19,13 +18,13 @@ class MarketViewModel {
                     marketMap.put(market, marketList)
                 }
             }
-            navigator?.sendMarketList(marketMap)
+            marketObservable.onNext(marketMap)
         }, failed = {
-            navigator?.hideLoadingDialog()
+            marketObservable.onError(Throwable())
         })
     }
 
-    fun onClose() {
+    override fun close() {
         MarketRepository.close()
     }
 
