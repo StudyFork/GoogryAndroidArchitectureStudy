@@ -4,7 +4,7 @@ import android.databinding.BindingAdapter
 import android.graphics.Color
 import android.widget.TextView
 
-@BindingAdapter("app:selectedMarketColor")
+@BindingAdapter("selectedMarketColor")
 fun selectedMarketColor(textView: TextView, selectedMarket: String) {
     if (textView.text.toString().equals(selectedMarket)) {
         textView.setTextColor(Color.BLUE)
