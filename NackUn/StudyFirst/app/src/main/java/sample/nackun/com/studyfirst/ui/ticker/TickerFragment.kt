@@ -29,7 +29,7 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initViewModel()
-        setAdapterAndClick()
+        setAdapter()
     }
 
     private fun initViewModel() {
@@ -60,8 +60,7 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
         })
     }
 
-    private fun setAdapterAndClick() {
+    private fun setAdapter() {
         tickerRecyclerView.adapter = tickerAdapter
-        tv_market_krw.callOnClick()
     }
 }
