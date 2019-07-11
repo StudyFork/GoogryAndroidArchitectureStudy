@@ -26,7 +26,5 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
         viewpager_main.adapter = adapter
         tablayout_main.setupWithViewPager(viewpager_main)
     }
-
-
 }
 
