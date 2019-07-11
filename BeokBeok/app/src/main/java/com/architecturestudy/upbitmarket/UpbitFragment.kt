@@ -1,6 +1,5 @@
 package com.architecturestudy.upbitmarket
 
-import android.graphics.Color
 import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.Observable
@@ -52,18 +51,6 @@ class UpbitFragment : BaseFragment<FragmentUpbitBinding>(
                 }
             }
         })
-        vm.isMarketTypeClicked.addOnPropertyChangedCallback(
-            object : Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    if (sender is ObservableField<*> && sender.get() == false) {
-                        binding.tvMarketKrw.setTextColor(Color.GRAY)
-                        binding.tvMarketBtc.setTextColor(Color.GRAY)
-                        binding.tvMarketEth.setTextColor(Color.GRAY)
-                        binding.tvMarketUsdt.setTextColor(Color.GRAY)
-                    }
-                }
-            }
-        )
     }
 
     private fun initRecyclerView() {

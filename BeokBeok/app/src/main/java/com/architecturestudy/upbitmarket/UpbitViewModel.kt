@@ -1,10 +1,8 @@
 package com.architecturestudy.upbitmarket
 
-import android.graphics.Color
-import android.view.View
-import android.widget.TextView
 import androidx.databinding.ObservableField
 import com.architecturestudy.base.BaseViewModel
+import com.architecturestudy.data.common.MarketTypes
 import com.architecturestudy.data.upbit.UpbitRepository
 import com.architecturestudy.util.NumberFormatter
 
@@ -14,12 +12,14 @@ class UpbitViewModel(
 
     val marketPriceList = ObservableField<List<Map<String, String>>>()
     val errMsg = ObservableField<Throwable>()
-    val isMarketTypeClicked = ObservableField<Boolean>()
+    val selectedText = ObservableField<String>()
     val isLoading = ObservableField<Boolean>()
 
     init {
+        selectedText.set(MarketTypes.KRW.name)
+        isLoading.set(true)
         upBitRepository.getMarketPrice(
-            "KRW",
+            MarketTypes.KRW.name,
             onSuccess = {
                 marketPriceList.set(NumberFormatter.convertTo(it))
                 isLoading.set(false)
@@ -29,26 +29,21 @@ class UpbitViewModel(
                 isLoading.set(false)
             }
         )
-        isLoading.set(true)
     }
 
-    fun showMarketPrice(v: View) {
-        isMarketTypeClicked.set(false)
-        if (v is TextView) {
-            isLoading.set(true)
-            upBitRepository.getMarketPrice(
-                v.text.toString(),
-                onSuccess = {
-                    marketPriceList.set(NumberFormatter.convertTo(it))
-                    isLoading.set(false)
-                },
-                onFail = {
-                    errMsg.set(it)
-                    isLoading.set(false)
-                }
-            )
-            v.setTextColor(Color.BLUE)
-            isMarketTypeClicked.set(true)
-        }
+    fun showMarketPrice(market: String) {
+        selectedText.set(market)
+        isLoading.set(true)
+        upBitRepository.getMarketPrice(
+            market,
+            onSuccess = {
+                marketPriceList.set(NumberFormatter.convertTo(it))
+                isLoading.set(false)
+            },
+            onFail = {
+                errMsg.set(it)
+                isLoading.set(false)
+            }
+        )
     }
 }
