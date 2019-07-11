@@ -3,7 +3,6 @@ package com.nanamare.mac.sample.ui.coin
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.malinskiy.superrecyclerview.OnMoreListener
@@ -20,7 +19,7 @@ class CoinFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coi
 
     private lateinit var ticketList: MutableList<String>
 
-    private lateinit var adapter: TickerAdapter
+    private val adapter: TickerAdapter by lazy { TickerAdapter() }
 
     private val coinVM: CoinViewModel by lazy { CoinViewModel() }
 
@@ -34,25 +33,23 @@ class CoinFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coi
         coinVM.getCoins(ticketList)
         coinVM.navigator = this@CoinFragment
 
-        binding.run {
-            coinViewModel = coinVM
-        }
-
     }
 
     private fun initView() {
-        rv_coin_list.setLayoutManager(LinearLayoutManager(context))
-        rv_coin_list.setRefreshListener(this)
-        rv_coin_list.setRefreshingColorResources(
-            R.color.point_424C57,
-            R.color.point_5FA9D0,
-            R.color.white_87,
-            R.color.point_E47B75
-        )
-        rv_coin_list.setupMoreListener(this, 1)
-        adapter = TickerAdapter()
-        rv_coin_list.adapter = adapter
-        ViewCompat.setNestedScrollingEnabled(rv_coin_list, true)
+        binding.run {
+            coinViewModel = coinVM
+            rvCoinList.setLayoutManager(LinearLayoutManager(context))
+            rvCoinList.setRefreshListener(this@CoinFragment)
+            rvCoinList.setRefreshingColorResources(
+                R.color.point_424C57,
+                R.color.point_5FA9D0,
+                R.color.white_87,
+                R.color.point_E47B75
+            )
+            rvCoinList.setupMoreListener(this@CoinFragment, 1)
+            rvCoinList.adapter = adapter
+
+        }
     }
 
     private fun loadBundleData(savedInstanceState: Bundle?) {
@@ -80,7 +77,7 @@ class CoinFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coi
         itemsBeforeMore: Int,
         maxLastVisiblePosition: Int
     ) {
-        if (maxLastVisiblePosition == rv_coin_list.adapter.itemCount - 1) {
+        if (maxLastVisiblePosition == adapter.itemCount - 1) {
             Toast.makeText(context, getString(R.string.scroll_end), Toast.LENGTH_SHORT).show()
             rv_coin_list.hideMoreProgress()
         }
