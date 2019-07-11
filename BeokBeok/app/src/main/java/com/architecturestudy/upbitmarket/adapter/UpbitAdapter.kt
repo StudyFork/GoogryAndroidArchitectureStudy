@@ -36,10 +36,7 @@ class UpbitAdapter : RecyclerView.Adapter<UpbitAdapter.ViewHolder>() {
         private val binding: RvUpbitItemBinding = DataBindingUtil.bind(itemView)!!
 
         fun bind(marketPrice: Map<String, String>) {
-            binding.tvCoinName.text = marketPrice["coinName"]
-            binding.tvCurrentPrice.text = marketPrice["currentPrice"]
-            binding.tvNetChange.text = marketPrice["netChange"]
-            binding.tvTradingValue.text = marketPrice["tradingVal"]
+            binding.marketList = marketPrice
         }
     }
 }
