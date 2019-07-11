@@ -28,13 +28,13 @@ class TickerViewModel(
     fun selectedMarket(view: View) {
         if (view is TextView) {
             selectedMarket.set(view.text.toString())
-            showTickers(view)
+            showTickers(view.text.toString())
         }
     }
 
-    fun showTickers(view: TextView) {
+    fun showTickers(marketLike: String) {
         repository.requestMarkets(
-            view.text.toString(),
+            marketLike,
             onTickersLoaded = {
                 onTickersLoaded(it)
             }, onError = {

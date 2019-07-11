@@ -30,6 +30,7 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
         super.onActivityCreated(savedInstanceState)
         initViewModel()
         setAdapter()
+        setFirstTickers()
     }
 
     private fun initViewModel() {
@@ -62,5 +63,9 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
 
     private fun setAdapter() {
         tickerRecyclerView.adapter = tickerAdapter
+    }
+
+    private fun setFirstTickers() {
+        vm.showTickers(vm.selectedMarket.get().toString())
     }
 }
