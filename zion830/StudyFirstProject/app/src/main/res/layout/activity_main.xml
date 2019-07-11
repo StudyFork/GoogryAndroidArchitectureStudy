@@ -90,7 +90,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="8dp"
-                    app:bind_adapter="@{viewModel.adapter}"
+                    app:bind_item="@{viewModel.items}"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -2,6 +2,7 @@ package com.studyfirstproject.showcoin.view
 
 import android.os.Bundle
 import com.studyfirstproject.R
+import com.studyfirstproject.adapter.CoinRecyclerViewAdapter
 import com.studyfirstproject.base.BaseActivity
 import com.studyfirstproject.data.CoinRepository
 import com.studyfirstproject.databinding.ActivityMainBinding
@@ -12,6 +13,7 @@ class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private val viewModel by lazy { CoinViewModel(CoinRepository()) }
+    private val adapter = CoinRecyclerViewAdapter(R.layout.item_coin_info)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +23,7 @@ class MainActivity :
 
     private fun initView() {
         binding.viewModel = viewModel
+        binding.rvMain.adapter = adapter
         viewModel.getMarketData()
     }
 }

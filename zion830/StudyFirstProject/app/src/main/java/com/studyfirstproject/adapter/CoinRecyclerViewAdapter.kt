@@ -1,7 +1,6 @@
 package com.studyfirstproject.adapter
 
 import android.databinding.DataBindingUtil
-import android.databinding.ObservableArrayList
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -14,7 +13,7 @@ import com.studyfirstproject.databinding.ItemCoinInfoBinding
 class CoinRecyclerViewAdapter(
     @LayoutRes private val layoutResId: Int
 ) : RecyclerView.Adapter<CoinRecyclerViewAdapter.CoinItemViewHolder>() {
-    private val coinList = ObservableArrayList<TickerModel>()
+    private val coinList = mutableListOf<TickerModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)

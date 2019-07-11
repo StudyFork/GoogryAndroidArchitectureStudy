@@ -1,26 +1,27 @@
 package com.studyfirstproject.showcoin
 
 import android.databinding.ObservableBoolean
+import android.databinding.ObservableField
 import android.databinding.ObservableInt
 import android.util.Log
 import android.view.View
-import com.studyfirstproject.R
-import com.studyfirstproject.adapter.CoinRecyclerViewAdapter
 import com.studyfirstproject.data.CoinDataSource
 import com.studyfirstproject.data.model.TickerModel
 
 class CoinViewModel(private val repository: CoinDataSource) {
 
-    val adapter = CoinRecyclerViewAdapter(R.layout.item_coin_info)
     val progressStatus: ObservableInt = ObservableInt(View.INVISIBLE)
     val isLoading: ObservableBoolean = ObservableBoolean(false)
+    val items = ObservableField<List<TickerModel>>(listOf())
 
     fun getMarketData() {
         progressStatus.set(View.VISIBLE)
         repository.getAllMarkets({
             repository.getCoinData(it,
                 success = { tickers ->
-                    onCoinsLoaded(tickers)
+                    progressStatus.set(View.INVISIBLE)
+                    isLoading.set(false)
+                    items.set(tickers)
                 }, failed = { msg, reason ->
                     onDataNotAvailable(msg, reason)
                 })
@@ -32,12 +33,6 @@ class CoinViewModel(private val repository: CoinDataSource) {
     fun onRefresh() {
         isLoading.set(true)
         getMarketData()
-    }
-
-    private fun onCoinsLoaded(tickers: List<TickerModel>) {
-        progressStatus.set(View.INVISIBLE)
-        isLoading.set(false)
-        adapter.setCoinList(tickers)
     }
 
     private fun onDataNotAvailable(msg: String, reason: String?) {
