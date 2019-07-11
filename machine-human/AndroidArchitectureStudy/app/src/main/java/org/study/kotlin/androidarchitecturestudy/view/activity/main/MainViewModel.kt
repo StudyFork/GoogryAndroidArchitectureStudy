@@ -7,10 +7,11 @@ import org.study.kotlin.androidarchitecturestudy.base.BaseDataSource
 
 class MainViewModel(
     remoteDataSource: BaseDataSource,
-    marketNames: String
-) : BaseDataSource.GetTickerListCallback {
+    marketName: String
+) : BaseViewModel {
+
     var observableTickerList = ObservableField<List<TickerModel>>()
-    var observableErrorMessage = MutableLiveData<Throwable>()
+    var observableErrorMessage = ObservableField<Throwable>()
 
     init {
         remoteDataSource.requestMarkets(marketNames,this)
