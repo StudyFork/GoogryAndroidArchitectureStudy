@@ -14,6 +14,7 @@ abstract class BaseActivity<B : ViewDataBinding>(
 ) : AppCompatActivity(), BaseNavigator {
 
     protected lateinit var binding: B
+        private set
 
     private val dialog by lazy { ProgressDialogFragment() }
 
