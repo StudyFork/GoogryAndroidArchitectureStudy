@@ -3,9 +3,6 @@ package sample.nackun.com.studyfirst.ui.ticker
 import android.databinding.Observable
 import android.databinding.ObservableField
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.ticker_fragment.*
 import retrofit2.Retrofit
