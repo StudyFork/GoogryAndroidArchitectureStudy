@@ -11,7 +11,7 @@ class TickerViewModel(
 ) : BaseViewModel() {
 
     val tickers = ObservableField<List<Map<String, String>>>(mutableListOf())
-    val selectedMarket = ObservableField<String>("KRW")
+    val selectedMarket = ObservableField("KRW")
     val errMsg = ObservableField<Throwable>()
 
     private fun onError(t: Throwable) {
