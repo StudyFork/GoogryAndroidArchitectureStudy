@@ -21,34 +21,20 @@ import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 class UpbitRepository(
     private val remoteDataSource: UpbitDataSource
 ) : UpbitDataSource {
-
-    override fun getMarketList(callback: UpbitDataSource.GetMarketListCallback) {
-        remoteDataSource.getMarketList(object : UpbitDataSource.GetMarketListCallback {
-            override fun onMarketListLoaded(marketList: List<MarketResponse>) {
-                callback.onMarketListLoaded(marketList)
-            }
-
-            override fun onDataNotAvailable() {
-                callback.onDataNotAvailable()
-            }
-
-        })
+    
+    override fun getMarketList(
+        onSuccess: (List<MarketResponse>) -> Unit,
+        onFail: (Throwable?) -> Unit
+    ) {
+        remoteDataSource.getMarketList(onSuccess, onFail)
     }
 
     override fun getTickerList(
         marketList: List<MarketResponse>,
-        callback: UpbitDataSource.GetTickerListCallback
+        onSuccess: (List<TickerResponse>) -> Unit,
+        onFail: (Throwable?) -> Unit
     ) {
-        remoteDataSource.getTickerList(marketList, object : UpbitDataSource.GetTickerListCallback {
-            override fun onTickerListLoaded(tickerList: List<TickerResponse>) {
-                callback.onTickerListLoaded(tickerList)
-            }
-
-            override fun onDataNotAvailable() {
-                callback.onDataNotAvailable()
-            }
-
-        })
+        remoteDataSource.getTickerList(marketList, onSuccess, onFail)
     }
 
     companion object {

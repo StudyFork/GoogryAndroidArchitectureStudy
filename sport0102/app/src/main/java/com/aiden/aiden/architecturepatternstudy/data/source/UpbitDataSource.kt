@@ -30,24 +30,15 @@ import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
  */
 interface UpbitDataSource {
 
-    interface GetMarketListCallback {
+    fun getMarketList(
+        onSuccess: (List<MarketResponse>) -> Unit,
+        onFail: (Throwable?) -> Unit
+    )
 
-        fun onMarketListLoaded(marketList: List<MarketResponse>)
-
-        fun onDataNotAvailable()
-
-    }
-
-    interface GetTickerListCallback {
-
-        fun onTickerListLoaded(tickerList: List<TickerResponse>)
-
-        fun onDataNotAvailable()
-
-    }
-
-    fun getMarketList(callback: GetMarketListCallback)
-
-    fun getTickerList(marketList: List<MarketResponse>, callback: GetTickerListCallback)
+    fun getTickerList(
+        marketList: List<MarketResponse>,
+        onSuccess: (List<TickerResponse>) -> Unit,
+        onFail: (Throwable?) -> Unit
+    )
 
 }

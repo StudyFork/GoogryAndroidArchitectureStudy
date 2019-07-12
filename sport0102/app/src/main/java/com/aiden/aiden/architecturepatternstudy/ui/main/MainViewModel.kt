@@ -5,7 +5,6 @@ import androidx.databinding.ObservableField
 import com.aiden.aiden.architecturepatternstudy.api.model.MarketResponse
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 import com.aiden.aiden.architecturepatternstudy.data.enums.Market
-import com.aiden.aiden.architecturepatternstudy.data.source.UpbitDataSource
 import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
 import com.aiden.aiden.architecturepatternstudy.util.StringUtil
 import java.math.BigDecimal
@@ -18,36 +17,27 @@ class MainViewModel(private val upbitRepository: UpbitRepository) : BaseObservab
 
     fun loadMarketList(market: String) {
 
-        upbitRepository.getMarketList(object : UpbitDataSource.GetMarketListCallback {
-
-            override fun onMarketListLoaded(marketList: List<MarketResponse>) {
-                val modifiedMarketList =
-                    marketList.filter { item -> item.market.startsWith(market, true) }
-                loadTickerList(modifiedMarketList)
-            }
-
-            override fun onDataNotAvailable() {
+        upbitRepository.getMarketList(onSuccess = {
+            val modifiedMarketList =
+                it.filter { item -> item.market.startsWith(market, true) }
+            loadTickerList(modifiedMarketList)
+        },
+            onFail = {
                 isDataLoadingError.set(false)
             }
-
-        })
+        )
 
     }
 
     private fun loadTickerList(marketList: List<MarketResponse>) {
 
-        upbitRepository.getTickerList(marketList, object : UpbitDataSource.GetTickerListCallback {
-
-            override fun onTickerListLoaded(tickerList: List<TickerResponse>) {
-                tickerObservable.set(tickerList.map(::modifyTicker))
-            }
-
-            override fun onDataNotAvailable() {
+        upbitRepository.getTickerList(marketList, onSuccess = {
+            tickerObservable.set(it.map(::modifyTicker))
+        },
+            onFail = {
                 isDataLoadingError.set(false)
             }
-
-        })
-
+        )
     }
 
     private fun modifyTicker(ticker: TickerResponse): TickerResponse {
