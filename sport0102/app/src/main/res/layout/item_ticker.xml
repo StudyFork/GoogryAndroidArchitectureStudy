@@ -3,6 +3,7 @@
 	xmlns:tools="http://schemas.android.com/tools">
 
 	<data>
+
 		<variable
 			name="item"
 			type="com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse" />
@@ -23,10 +24,10 @@
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="4dp"
 			android:layout_weight="1"
+			android:text="@{item.coinName}"
 			android:textColor="@color/black"
 			android:textSize="20sp"
 			android:textStyle="bold"
-			android:text="@{item.coinName}"
 			tools:text="BTC" />
 
 		<TextView
@@ -35,10 +36,10 @@
 			android:layout_height="wrap_content"
 			android:layout_marginRight="12dp"
 			android:layout_weight="0.9"
+			android:text="@{item.nowPrice}"
 			android:textAlignment="textEnd"
 			android:textColor="@color/black"
 			android:textSize="16sp"
-			android:text="@{item.nowPrice}"
 			tools:text="9,661,000" />
 
 		<TextView
@@ -48,10 +49,10 @@
 			android:layout_marginRight="12dp"
 			android:layout_weight="1"
 			android:maxLines="1"
+			android:text="@{item.compareBeforePercentage}"
 			android:textAlignment="textEnd"
 			android:textColor="@color/black"
 			android:textSize="16sp"
-			android:text="@{item.compareBeforePercentage}"
 			tools:text="-0.39%" />
 
 		<TextView
@@ -61,10 +62,10 @@
 			android:layout_marginRight="4dp"
 			android:layout_weight="1.1"
 			android:maxLines="1"
+			android:text="@{item.totalDealPrice}"
 			android:textAlignment="textEnd"
 			android:textColor="@color/black"
 			android:textSize="16sp"
-			android:text="@{item.totalDealPrice}"
 			tools:text="180,051 M" />
 	</LinearLayout>
 </layout>
