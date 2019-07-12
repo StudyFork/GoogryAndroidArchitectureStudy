@@ -1,6 +1,7 @@
 package com.studyfirstproject.showcoin.view
 
 import android.os.Bundle
+import com.android.databinding.library.baseAdapters.BR
 import com.studyfirstproject.R
 import com.studyfirstproject.adapter.CoinRecyclerViewAdapter
 import com.studyfirstproject.base.BaseActivity
@@ -13,7 +14,7 @@ class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private val viewModel by lazy { CoinViewModel(CoinRepository()) }
-    private val adapter = CoinRecyclerViewAdapter(R.layout.item_coin_info)
+    private val adapter = CoinRecyclerViewAdapter(R.layout.item_coin_info, BR.item)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
