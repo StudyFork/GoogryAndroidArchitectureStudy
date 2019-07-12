@@ -63,6 +63,8 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
     }
 
     private fun setFirstTickers() {
-        vm.showTickers(vm.selectedMarket.get().toString())
+        vm.selectedMarket.get()?.let {
+            vm.showTickers(it)
+        } ?: vm.errMsg.set(IllegalStateException("Selected Market is not exist"))
     }
 }
