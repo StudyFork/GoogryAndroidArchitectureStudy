@@ -1,10 +1,7 @@
 package sample.nackun.com.studyfirst.ui.ticker
 
 import android.databinding.ObservableField
-import android.view.View
-import android.widget.TextView
 import sample.nackun.com.studyfirst.base.BaseViewModel
-import sample.nackun.com.studyfirst.data.DataSource
 import sample.nackun.com.studyfirst.data.Repository
 import sample.nackun.com.studyfirst.util.TickerFormatter
 import sample.nackun.com.studyfirst.vo.Ticker
@@ -25,11 +22,9 @@ class TickerViewModel(
         this.tickers.set(TickerFormatter.convertTo(tickers))
     }
 
-    fun selectedMarket(view: View) {
-        if (view is TextView) {
-            selectedMarket.set(view.text.toString())
-            showTickers(view.text.toString())
-        }
+    fun selectedMarket(marketLike: String) {
+        selectedMarket.set(marketLike)
+        showTickers(marketLike)
     }
 
     fun showTickers(marketLike: String) {

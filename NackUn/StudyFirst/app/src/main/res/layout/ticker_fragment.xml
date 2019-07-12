@@ -37,7 +37,7 @@
                     android:text="@string/marketKRW"
                     android:textSize="20sp"
                     android:gravity="center"
-                    android:onClick="@{(v)->vm.selectedMarket(v)}"
+                    android:onClick="@{(v)->vm.selectedMarket(@string/marketKRW)}"
                     app:selectedMarketColor="@{vm.selectedMarket}"/>
             <TextView
                     android:id="@+id/tv_market_btc"
@@ -47,7 +47,7 @@
                     android:text="@string/marketBTC"
                     android:textSize="20sp"
                     android:gravity="center"
-                    android:onClick="@{(v)->vm.selectedMarket(v)}"
+                    android:onClick="@{(v)->vm.selectedMarket(@string/marketBTC)}"
                     app:selectedMarketColor="@{vm.selectedMarket}"/>
             <TextView
                     android:id="@+id/tv_market_eth"
@@ -57,7 +57,7 @@
                     android:text="@string/marketETH"
                     android:textSize="20sp"
                     android:gravity="center"
-                    android:onClick="@{(v)->vm.selectedMarket(v)}"
+                    android:onClick="@{(v)->vm.selectedMarket(@string/marketETH)}"
                     app:selectedMarketColor="@{vm.selectedMarket}"/>
             <TextView
                     android:id="@+id/tv_market_usdt"
@@ -67,7 +67,7 @@
                     android:text="@string/marketUSDT"
                     android:textSize="20sp"
                     android:gravity="center"
-                    android:onClick="@{(v)->vm.selectedMarket(v)}"
+                    android:onClick="@{(v)->vm.selectedMarket(@string/marketUSDT)}"
                     app:selectedMarketColor="@{vm.selectedMarket}"/>
         </LinearLayout>
         <LinearLayout
