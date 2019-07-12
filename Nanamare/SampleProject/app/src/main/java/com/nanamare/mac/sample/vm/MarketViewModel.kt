@@ -9,6 +9,7 @@ class MarketViewModel: BaseViewModel() {
     var marketObservable: PublishSubject<LinkedHashMap<String, List<String>>> = PublishSubject.create()
 
     fun onMarketClick() {
+        isLoadingObservable.onNext(true)
         MarketRepository.getMarketList(success = {
             val marketMap: LinkedHashMap<String, List<String>> = LinkedHashMap()
             val marketList = listOf<String>().toMutableList()
@@ -18,8 +19,10 @@ class MarketViewModel: BaseViewModel() {
                     marketMap.put(market, marketList)
                 }
             }
+            isLoadingObservable.onNext(false)
             marketObservable.onNext(marketMap)
         }, failed = {
+            isLoadingObservable.onNext(false)
             marketObservable.onError(Throwable())
         })
     }

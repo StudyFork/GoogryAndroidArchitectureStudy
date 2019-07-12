@@ -36,13 +36,16 @@ class CoinFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coi
         with(coinVM) {
             showLoadingDialog()
             getCoins(ticketList)
-            disposableManager.add(
-                coinsObservable.observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({
+
+            disposableManager.add(isLoadingObservable
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    if(it) {
+                        showLoadingDialog()
+                    } else {
                         hideLoadingDialog()
-                    }, {
-                        hideLoadingDialog()
-                    })
+                    }
+                }
             )
         }
 

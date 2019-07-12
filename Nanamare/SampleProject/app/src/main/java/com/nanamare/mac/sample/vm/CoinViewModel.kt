@@ -10,14 +10,13 @@ class CoinViewModel: BaseViewModel() {
 
     var coins = ObservableField<List<CoinModel>>(mutableListOf())
 
-    var coinsObservable: PublishSubject<List<CoinModel>> = PublishSubject.create()
-
     fun getCoins(ticketList: MutableList<String>) {
+        isLoadingObservable.onNext(true)
         CoinRepository.getCoins(ticketList, success = {
             coins.set(it)
-            coinsObservable.onNext(it)
+            isLoadingObservable.onNext(false)
         }, failed = {
-            coinsObservable.onError(Throwable())
+            isLoadingObservable.onNext(false)
         })
     }
 

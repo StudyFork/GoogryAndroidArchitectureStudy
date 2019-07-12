@@ -20,17 +20,27 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
 
         with(marketVM) {
-            showLoadingDialog()
             onMarketClick()
             disposableManager.add(
                 marketObservable.observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
-                        hideLoadingDialog()
                         gotoFragment(it)
                     }, {
-                        hideLoadingDialog()
+                        //Todo 에러처리
                     })
             )
+
+            disposableManager.add(isLoadingObservable
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    if(it) {
+                        showLoadingDialog()
+                    } else {
+                        hideLoadingDialog()
+                    }
+                }
+            )
+
         }
 
     }
