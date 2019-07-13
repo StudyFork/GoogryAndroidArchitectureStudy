@@ -8,7 +8,10 @@ class CoinRepository : CoinDataSource {
     private val service = RetrofitBuilder.service
     private val loadErrMsg = "오류가 발생했습니다. 다시 시도해주세요."
 
-    override fun getAllMarkets(callback: CoinDataSource.LoadMarketsCallback) {
+    override fun getAllMarkets(
+        success: (String) -> Unit,
+        failed: (String, String?) -> Unit
+    ) {
         service.getAllMarket().enqueue(retrofitCallback { response, throwable ->
             response?.let {
                 val body = response.body()
@@ -19,31 +22,35 @@ class CoinRepository : CoinDataSource {
                         .filter { it.startsWith("KRW-") }
 
                     val marketStr = marketList.joinToString(",")
-                    callback.onMarketsLoaded(marketStr)
+                    marketStr.run(success)
                 } else {
-                    callback.onDataNotAvailable(loadErrMsg, throwable?.message)
+                    failed(loadErrMsg, throwable?.message)
                 }
             }
 
             throwable?.let {
-                callback.onDataNotAvailable(loadErrMsg, throwable.message)
+                failed(loadErrMsg, throwable.message)
             }
         })
     }
 
-    override fun getCoinData(markets: String, callback: CoinDataSource.LoadTickersCallback) {
+    override fun getCoinData(
+        markets: String,
+        success: (List<TickerModel>) -> Unit,
+        failed: (String, String?) -> Unit
+    ) {
         service.getTickers(markets).enqueue(retrofitCallback { response, throwable ->
             response?.let {
                 val body = response.body()
                 if (!body.isNullOrEmpty()) {
-                    callback.onCoinsLoaded(body)
+                    body.run(success)
                 } else {
-                    callback.onDataNotAvailable(loadErrMsg, throwable?.message)
+                    failed(loadErrMsg, throwable?.message)
                 }
             }
 
             throwable?.let {
-                callback.onDataNotAvailable(loadErrMsg, throwable.message)
+                failed(loadErrMsg, throwable.message)
             }
         })
     }
