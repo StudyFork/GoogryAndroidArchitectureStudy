@@ -3,26 +3,28 @@ package com.nanamare.mac.sample.ui.coin
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.malinskiy.superrecyclerview.OnMoreListener
 import com.nanamare.mac.sample.R
 import com.nanamare.mac.sample.adapter.TickerAdapter
-import com.nanamare.mac.sample.api.upbit.TickerModel
+import com.nanamare.mac.sample.api.DisposableManager
 import com.nanamare.mac.sample.base.BaseFragment
+import com.nanamare.mac.sample.databinding.FragmentCoinListBinding
+import com.nanamare.mac.sample.vm.CoinViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_coin_list.*
 
-class CoinFragment : BaseFragment(R.layout.fragment_coin_list), SwipeRefreshLayout.OnRefreshListener, OnMoreListener,
-    CoinContract.CoinView {
+class CoinFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coin_list),
+    SwipeRefreshLayout.OnRefreshListener, OnMoreListener {
 
     private lateinit var ticketList: MutableList<String>
 
-    private lateinit var adapter: TickerAdapter
+    private val adapter: TickerAdapter by lazy { TickerAdapter() }
 
-    override val presenter: CoinPresenter
-        get() = CoinPresenter(this, ticketList)
+    private val coinVM: CoinViewModel by lazy { CoinViewModel() }
 
+    private val disposableManager = DisposableManager()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,21 +32,40 @@ class CoinFragment : BaseFragment(R.layout.fragment_coin_list), SwipeRefreshLayo
         loadBundleData(savedInstanceState)
 
         initView()
+
+        with(coinVM) {
+            showLoadingDialog()
+            getCoins(ticketList)
+
+            disposableManager.add(isLoadingObservable
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    if(it) {
+                        showLoadingDialog()
+                    } else {
+                        hideLoadingDialog()
+                    }
+                }
+            )
+        }
+
     }
 
     private fun initView() {
-        rv_coin_list.setLayoutManager(LinearLayoutManager(context))
-        rv_coin_list.setRefreshListener(this)
-        rv_coin_list.setRefreshingColorResources(
-            R.color.point_424C57,
-            R.color.point_5FA9D0,
-            R.color.white_87,
-            R.color.point_E47B75
-        )
-        rv_coin_list.setupMoreListener(this, 1)
-        adapter = TickerAdapter()
-        rv_coin_list.adapter = adapter
-        ViewCompat.setNestedScrollingEnabled(rv_coin_list, true)
+        binding.run {
+            coinViewModel = coinVM
+            rvCoinList.setLayoutManager(LinearLayoutManager(context))
+            rvCoinList.setRefreshListener(this@CoinFragment)
+            rvCoinList.setRefreshingColorResources(
+                R.color.point_424C57,
+                R.color.point_5FA9D0,
+                R.color.white_87,
+                R.color.point_E47B75
+            )
+            rvCoinList.setupMoreListener(this@CoinFragment, 1)
+            rvCoinList.adapter = adapter
+
+        }
     }
 
     private fun loadBundleData(savedInstanceState: Bundle?) {
@@ -64,27 +85,18 @@ class CoinFragment : BaseFragment(R.layout.fragment_coin_list), SwipeRefreshLayo
     }
 
     override fun onRefresh() {
-        presenter.getCoins(ticketList)
+        coinVM.getCoins(ticketList)
     }
 
-    override fun showCoins(list: List<TickerModel>) {
-        if (adapter.itemCount > 0) {
-            adapter.clear()
-        }
-        adapter.addAll(list)
-    }
-
-    override fun onMoreAsked(overallItemsCount: Int, itemsBeforeMore: Int, maxLastVisiblePosition: Int) {
-        if (maxLastVisiblePosition == rv_coin_list.adapter.itemCount - 1) {
+    override fun onMoreAsked(
+        overallItemsCount: Int,
+        itemsBeforeMore: Int,
+        maxLastVisiblePosition: Int
+    ) {
+        if (maxLastVisiblePosition == adapter.itemCount - 1) {
             Toast.makeText(context, getString(R.string.scroll_end), Toast.LENGTH_SHORT).show()
             rv_coin_list.hideMoreProgress()
-
         }
-    }
-
-    override fun onDestroy() {
-        presenter.close()
-        super.onDestroy()
     }
 
     companion object {
@@ -100,5 +112,11 @@ class CoinFragment : BaseFragment(R.layout.fragment_coin_list), SwipeRefreshLayo
             return fragment
         }
 
+    }
+
+    override fun onDestroyView() {
+        coinVM.close()
+        disposableManager.dispose()
+        super.onDestroyView()
     }
 }

@@ -3,35 +3,43 @@ package com.nanamare.mac.sample.base
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.nanamare.mac.sample.R
 import com.nanamare.mac.sample.ui.ProgressDialogFragment
 
-abstract class BaseActivity(
-    @LayoutRes val layoutResId : Int
-) : AppCompatActivity(), BaseView {
+abstract class BaseActivity<B : ViewDataBinding>(
+    @LayoutRes val layoutResId: Int
+) : AppCompatActivity() {
 
-    abstract val presenter: BasePresenter
+    protected lateinit var binding: B
+        private set
 
-    private val dialog by lazy { ProgressDialogFragment() }
+    private var dialog: ProgressDialogFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layoutResId)
 
-        presenter.start()
-
+        binding = DataBindingUtil.setContentView(this, layoutResId)
     }
 
-    override fun showLoadingDialog() {
-        dialog.show(supportFragmentManager, PROGRESS_DIALOG_FRAGMENT)
+    fun showLoadingDialog() {
+        if(dialog == null) {
+            dialog = ProgressDialogFragment().apply {
+                show(supportFragmentManager, PROGRESS_DIALOG_FRAGMENT)
+            }
+        }
     }
 
-    override fun hideLoadingDialog() {
-        dialog.dismiss()
+    fun hideLoadingDialog() {
+        if(dialog != null) {
+            dialog?.dismiss()
+            dialog = null
+        }
     }
 
-    override fun goToFragment(cls: Class<*>, args: Bundle?) {
+    fun goToFragment(cls: Class<*>, args: Bundle?) {
         try {
             val fragment = cls.newInstance() as Fragment
             fragment.arguments = args
@@ -41,12 +49,6 @@ abstract class BaseActivity(
             e.printStackTrace()
         }
     }
-
-    override fun onDestroy() {
-        presenter.close()
-        super.onDestroy()
-    }
-
 
     companion object {
         const val KET_MARKET_LIST = "KET_MARKET_LIST"

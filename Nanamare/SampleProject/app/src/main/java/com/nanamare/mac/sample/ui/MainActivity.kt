@@ -3,21 +3,59 @@ package com.nanamare.mac.sample.ui
 import android.os.Bundle
 import com.google.gson.Gson
 import com.nanamare.mac.sample.R
+import com.nanamare.mac.sample.api.DisposableManager
 import com.nanamare.mac.sample.base.BaseActivity
-import com.nanamare.mac.sample.ui.market.MarketContract
+import com.nanamare.mac.sample.databinding.ActivityMainBinding
 import com.nanamare.mac.sample.ui.market.MarketListFragment
-import com.nanamare.mac.sample.ui.market.MarketPresenter
+import com.nanamare.mac.sample.vm.MarketViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
 
-class MainActivity : BaseActivity(R.layout.activity_main), MarketContract.MarketView {
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    override val presenter: MarketPresenter
-        get() = MarketPresenter(this)
+    private val marketVM: MarketViewModel by lazy { MarketViewModel() }
 
-    override fun showMarketList(marketMap: LinkedHashMap<String, List<String>>) {
+    private val disposableManager = DisposableManager()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        with(marketVM) {
+            onMarketClick()
+            disposableManager.add(
+                marketObservable.observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        gotoFragment(it)
+                    }, {
+                        //Todo 에러처리
+                    })
+            )
+
+            disposableManager.add(isLoadingObservable
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    if(it) {
+                        showLoadingDialog()
+                    } else {
+                        hideLoadingDialog()
+                    }
+                }
+            )
+
+        }
+
+    }
+
+    private fun gotoFragment(it: LinkedHashMap<String, List<String>>) {
         val bundle = Bundle().apply {
-            putString(KET_MARKET_LIST, Gson().toJson(marketMap))
+            putString(KET_MARKET_LIST, Gson().toJson(it))
         }
         goToFragment(MarketListFragment::class.java, bundle)
+    }
+
+    override fun onDestroy() {
+        marketVM.close()
+        disposableManager.dispose()
+        super.onDestroy()
     }
 
 }

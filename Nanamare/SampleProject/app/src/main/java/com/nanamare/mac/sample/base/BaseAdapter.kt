@@ -4,11 +4,11 @@ package com.nanamare.mac.sample.base
 import androidx.recyclerview.widget.RecyclerView
 
 
-abstract class BaseAdapter<T> : RecyclerView.Adapter<BaseViewHolder<T>>() {
+abstract class BaseAdapter<T> : RecyclerView.Adapter<BaseViewHolder<T, *>>() {
 
     private var items: MutableList<T> = mutableListOf()
 
-    override fun onBindViewHolder(holder: BaseViewHolder<T>, position: Int) {
+    override fun onBindViewHolder(holder: BaseViewHolder<T, *>, position: Int) {
         holder.bind(items[position])
     }
 

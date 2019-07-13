@@ -3,7 +3,7 @@ package com.nanamare.mac.sample.api.upbit
 
 import com.google.gson.annotations.SerializedName
 
-data class TickerModel(
+data class CoinModel(
     @SerializedName("acc_trade_price")
     val accTradePrice: Double?,
     @SerializedName("acc_trade_price_24h")

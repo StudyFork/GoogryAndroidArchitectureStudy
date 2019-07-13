@@ -10,6 +10,6 @@ interface UpBitService {
     fun getAllMarketList(): Single<Response<List<MarketModel>>>
 
     @GET("v1/ticker")
-    fun getTickerList(@Query("markets") markets: String): Single<Response<List<TickerModel>>>
+    fun getTickerList(@Query("markets") markets: String): Single<Response<List<CoinModel>>>
 
 }

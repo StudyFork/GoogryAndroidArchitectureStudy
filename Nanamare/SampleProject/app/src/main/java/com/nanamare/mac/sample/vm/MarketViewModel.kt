@@ -1,17 +1,16 @@
-package com.nanamare.mac.sample.ui.market
+package com.nanamare.mac.sample.vm
 
+import com.nanamare.mac.sample.base.BaseViewModel
 import com.nanamare.mac.sample.data.market.MarketRepository
+import io.reactivex.subjects.PublishSubject
 
-class MarketPresenter(private val view: MarketContract.MarketView) : MarketContract.MarketPresenter {
+class MarketViewModel: BaseViewModel() {
 
-    override fun start() {
-        getMarketList()
-    }
+    var marketObservable: PublishSubject<LinkedHashMap<String, List<String>>> = PublishSubject.create()
 
-    override fun getMarketList() {
-        view.showLoadingDialog()
+    fun onMarketClick() {
+        isLoadingObservable.onNext(true)
         MarketRepository.getMarketList(success = {
-            view.hideLoadingDialog()
             val marketMap: LinkedHashMap<String, List<String>> = LinkedHashMap()
             val marketList = listOf<String>().toMutableList()
             it.map { marketModel ->
@@ -20,14 +19,16 @@ class MarketPresenter(private val view: MarketContract.MarketView) : MarketContr
                     marketMap.put(market, marketList)
                 }
             }
-            view.showMarketList(marketMap)
+            isLoadingObservable.onNext(false)
+            marketObservable.onNext(marketMap)
         }, failed = {
-            view.hideLoadingDialog()
+            isLoadingObservable.onNext(false)
+            marketObservable.onError(Throwable())
         })
-
     }
 
     override fun close() {
         MarketRepository.close()
     }
+
 }
