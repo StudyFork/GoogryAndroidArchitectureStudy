@@ -3,13 +3,15 @@ package com.architecturestudy.upbitmarket
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import com.architecturestudy.BR
 import com.architecturestudy.R
 import com.architecturestudy.base.BaseFragment
+import com.architecturestudy.base.BaseRecyclerView
 import com.architecturestudy.data.upbit.UpbitRepository
 import com.architecturestudy.data.upbit.service.UpbitRetrofit
 import com.architecturestudy.data.upbit.source.UpbitRetrofitDataSource
 import com.architecturestudy.databinding.FragmentUpbitBinding
-import com.architecturestudy.upbitmarket.adapter.UpbitAdapter
+import com.architecturestudy.databinding.RvUpbitItemBinding
 import io.reactivex.disposables.CompositeDisposable
 
 class UpbitFragment : BaseFragment<FragmentUpbitBinding>(
@@ -40,6 +42,10 @@ class UpbitFragment : BaseFragment<FragmentUpbitBinding>(
 
     private fun initRecyclerView() {
         binding.rvCoinPrice.setHasFixedSize(true)
-        binding.rvCoinPrice.adapter = UpbitAdapter()
+        binding.rvCoinPrice.adapter =
+            object : BaseRecyclerView.BaseAdapter<List<Map<String, String>>, RvUpbitItemBinding>(
+                R.layout.rv_upbit_item,
+                BR.marketList
+            ) {}
     }
 }

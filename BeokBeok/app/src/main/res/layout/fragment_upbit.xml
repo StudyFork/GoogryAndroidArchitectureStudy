@@ -140,7 +140,7 @@
             <!-- List -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_coin_price"
-                setItems="@{vm.marketPriceList}"
+                replaceItems="@{vm.marketPriceList}"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:scrollbars="vertical"

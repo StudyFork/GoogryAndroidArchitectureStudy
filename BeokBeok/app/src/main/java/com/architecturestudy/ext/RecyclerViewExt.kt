@@ -2,14 +2,13 @@ package com.architecturestudy.ext
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.architecturestudy.upbitmarket.adapter.UpbitAdapter
+import com.architecturestudy.base.BaseRecyclerView
 
-@BindingAdapter("setItems")
-fun RecyclerView.setItems(items: List<Map<String, String>>?) {
-    (this.adapter as? UpbitAdapter)?.run {
-        items?.let {
-            setMarketPrices(items.sortedBy { it["coinName"] })
-            notifyDataSetChanged()
-        }
+@Suppress("UNCHECKED_CAST")
+@BindingAdapter("replaceItems")
+fun RecyclerView.replaceItems(items: List<Map<String, String>>?) {
+    (this.adapter as? BaseRecyclerView.BaseAdapter<Any, *>)?.run {
+        replaceItems(items)
+        notifyDataSetChanged()
     }
 }
