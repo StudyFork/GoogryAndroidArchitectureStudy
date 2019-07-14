@@ -22,6 +22,7 @@
             android:layout_gravity="center"
             android:textStyle="bold"
             android:paddingStart="4dp"
+            android:paddingEnd="2dp"
             tools:text="BTC"/>
     <TextView
             android:layout_width="0dp"

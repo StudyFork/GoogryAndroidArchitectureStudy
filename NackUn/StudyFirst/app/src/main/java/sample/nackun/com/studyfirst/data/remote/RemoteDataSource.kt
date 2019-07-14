@@ -10,7 +10,11 @@ import sample.nackun.com.studyfirst.vo.Market
 import sample.nackun.com.studyfirst.vo.Ticker
 
 class RemoteDataSource(private val retrofitService: UpbitApi) : DataSource {
-    override fun requestMarkets(marketLike: String, callback: DataSource.RequestTickersCallback) {
+    override fun requestMarkets(
+        marketLike: String,
+        onTickersLoaded: (List<Ticker>) -> Unit,
+        onError: (Throwable) -> Unit
+    ) {
         retrofitService.requestMarket().enqueue(object : Callback<List<Market>> {
             override fun onResponse(call: Call<List<Market>>, response: Response<List<Market>>) {
                 val query =
@@ -19,25 +23,29 @@ class RemoteDataSource(private val retrofitService: UpbitApi) : DataSource {
                             .joinToString { it.market }
                     } ?: ""
                 Log.d("aa12", query)
-                requestTickers(query, callback);
+                requestTickers(query, onTickersLoaded, onError)
             }
 
             override fun onFailure(call: Call<List<Market>>, t: Throwable) =
-                callback.onError(t)
+                onError(t)
         })
     }
 
-    fun requestTickers(query: String, callback: DataSource.RequestTickersCallback) {
+    fun requestTickers(
+        query: String,
+        onTickersLoaded: (List<Ticker>) -> Unit,
+        onError: (Throwable) -> Unit
+    ) {
         retrofitService.requestTicker(query)
             .enqueue(object : Callback<List<Ticker>> {
                 override fun onResponse(
                     call: Call<List<Ticker>>,
                     response: Response<List<Ticker>>
-                ) = response.body()?.let(callback::onTickersLoaded)
-                    ?: callback.onError(IllegalStateException("Tickers is Null"))
+                ) = response.body()?.let(onTickersLoaded)
+                    ?: onError(IllegalStateException("Tickers is Null"))
 
                 override fun onFailure(call: Call<List<Ticker>>, t: Throwable) =
-                    callback.onError(t)
+                    onError(t)
             })
     }
 }

@@ -4,11 +4,10 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".main.MainActivity">
+        tools:context=".ui.ticker.TickerActivity">
     <fragment
-            android:id="@+id/mainFragment"
+            android:id="@+id/tickerFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:name="sample.nackun.com.studyfirst.main.MainFragment">
-    </fragment>
+            android:name="sample.nackun.com.studyfirst.ui.ticker.TickerFragment"/>
 </RelativeLayout>

@@ -1,22 +1,18 @@
-package sample.nackun.com.studyfirst.ui
+package sample.nackun.com.studyfirst.ui.ticker
 
-import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.ticker_item.view.*
 import sample.nackun.com.studyfirst.R
-import sample.nackun.com.studyfirst.util.TickerFormatter
-import sample.nackun.com.studyfirst.vo.Ticker
 
-class TickerAdapter: RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
+class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
 
     private val items = mutableListOf<Map<String, String>>()
 
     fun setItems(tickers: List<Map<String, String>>) {
         items.clear()
         items.addAll(tickers)
-        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
