@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp">
+        <TextView
+                android:text="코인명"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/name" android:layout_weight="1"/>
+        <TextView
+                android:text="현재가"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/price" android:layout_weight="1"/>
+        <TextView
+                android:text="전일대비"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/last" android:layout_weight="1"/>
+        <TextView
+                android:text="거래대금"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/money" android:layout_weight="1"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
