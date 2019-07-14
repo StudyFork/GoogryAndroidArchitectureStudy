@@ -21,7 +21,7 @@ import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 class UpbitRepository(
     private val remoteDataSource: UpbitDataSource
 ) : UpbitDataSource {
-    
+
     override fun getMarketList(
         onSuccess: (List<MarketResponse>) -> Unit,
         onFail: (Throwable?) -> Unit

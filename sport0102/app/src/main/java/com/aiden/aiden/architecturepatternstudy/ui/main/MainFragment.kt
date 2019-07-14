@@ -27,6 +27,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private lateinit var mainVm: MainViewModel
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+
         super.onActivityCreated(savedInstanceState)
         arguments?.let {
             it.getString("marketName")?.let { marketName ->
@@ -56,13 +57,16 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
         }
         val isDataLoadingErrorObserver = Observer<Boolean> {
-            if (!it) showErrorToast()
+            if (it) showErrorToast()
         }
         mainVm.isDataLoadingError.observe(this@MainFragment, isDataLoadingErrorObserver)
+
     }
 
     private fun showErrorToast() {
+
         toastM(getString(R.string.all_error_load_data_fail))
+
     }
 }
 

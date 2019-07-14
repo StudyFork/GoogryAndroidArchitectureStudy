@@ -24,9 +24,11 @@ class MainViewModel(private val upbitRepository: UpbitRepository) {
                 it.filter { item -> item.market.startsWith(market, true) }
             loadTickerList(modifiedMarketList)
         },
+
             onFail = {
-                _isDataLoadingError.value = false
+                _isDataLoadingError.value = true
             }
+
         )
 
     }
@@ -36,11 +38,13 @@ class MainViewModel(private val upbitRepository: UpbitRepository) {
         upbitRepository.getTickerList(marketList, onSuccess = {
             _tickerList.value = it.map(::modifyTicker)
         },
+
             onFail = {
-                _isDataLoadingError.value = false
+                _isDataLoadingError.value = true
             }
-        )
         
+        )
+
     }
 
     private fun modifyTicker(ticker: TickerResponse): TickerResponse {
