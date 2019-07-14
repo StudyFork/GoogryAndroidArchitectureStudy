@@ -1,7 +1,5 @@
 package com.aiden.aiden.architecturepatternstudy.ui.main
 
-import androidx.databinding.BaseObservable
-import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.aiden.aiden.architecturepatternstudy.api.model.MarketResponse
@@ -11,12 +9,13 @@ import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
 import com.aiden.aiden.architecturepatternstudy.util.StringUtil
 import java.math.BigDecimal
 
-class MainViewModel(private val upbitRepository: UpbitRepository) : BaseObservable() {
+class MainViewModel(private val upbitRepository: UpbitRepository) {
 
     private var _tickerList = MutableLiveData<List<TickerResponse>>()
     val tickerList: LiveData<List<TickerResponse>> get() = _tickerList
 
-    var isDataLoadingError = ObservableField<Boolean>()
+    private var _isDataLoadingError = MutableLiveData<Boolean>()
+    val isDataLoadingError: LiveData<Boolean> get() = _isDataLoadingError
 
     fun loadMarketList(market: String) {
 
@@ -26,7 +25,7 @@ class MainViewModel(private val upbitRepository: UpbitRepository) : BaseObservab
             loadTickerList(modifiedMarketList)
         },
             onFail = {
-                isDataLoadingError.set(false)
+                _isDataLoadingError.value = false
             }
         )
 
@@ -38,9 +37,10 @@ class MainViewModel(private val upbitRepository: UpbitRepository) : BaseObservab
             _tickerList.value = it.map(::modifyTicker)
         },
             onFail = {
-                isDataLoadingError.set(false)
+                _isDataLoadingError.value = false
             }
         )
+        
     }
 
     private fun modifyTicker(ticker: TickerResponse): TickerResponse {

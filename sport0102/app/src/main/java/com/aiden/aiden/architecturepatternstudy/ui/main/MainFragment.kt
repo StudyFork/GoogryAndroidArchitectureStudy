@@ -1,7 +1,6 @@
 package com.aiden.aiden.architecturepatternstudy.ui.main
 
 import android.os.Bundle
-import androidx.databinding.Observable
 import androidx.lifecycle.Observer
 import com.aiden.aiden.architecturepatternstudy.BR
 import com.aiden.aiden.architecturepatternstudy.R
@@ -49,15 +48,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                     layoutRes = R.layout.item_ticker,
                     bindingVariableId = BR.item
                 ) {}
-            mainVm.isDataLoadingError.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    mainVm.isDataLoadingError.get()?.let {
-                        if (!it) showErrorToast()
-                    }
-                }
-
-            })
             val tickerListObserver = Observer<List<TickerResponse>> {
                 (fragmentTickerListRv.adapter as SimpleRecyclerView.Adapter<Any, *>).run {
                     replaceAll(it)
@@ -65,7 +55,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                 }
             }
             mainVm.tickerList.observe(this@MainFragment, tickerListObserver)
+
         }
+        val isDataLoadingErrorObserver = Observer<Boolean> {
+            if (!it) showErrorToast()
+        }
+        mainVm.isDataLoadingError.observe(this@MainFragment, isDataLoadingErrorObserver)
     }
 
     private fun showErrorToast() {
