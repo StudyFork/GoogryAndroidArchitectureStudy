@@ -60,18 +60,22 @@ class MainActivity : AppCompatActivity() {
 
         override fun getItem(position: Int): Fragment {
             when (position) {
-                0 -> return MainFragment(MainFragment.TAB.KRW)
-                1 -> return MainFragment(MainFragment.TAB.BTC)
-                2 -> return MainFragment(MainFragment.TAB.ETH)
-                3 -> return MainFragment(MainFragment.TAB.USDT)
+                0 -> return MainFragment(Companion.TAB.KRW)
+                1 -> return MainFragment(Companion.TAB.BTC)
+                2 -> return MainFragment(Companion.TAB.ETH)
+                3 -> return MainFragment(Companion.TAB.USDT)
             }
-            return MainFragment(MainFragment.TAB.KRW)
+            return MainFragment(Companion.TAB.KRW)
         }
 
     }
 
     companion object {
         private const val TAB_NUMBER = 4
+
+        enum class TAB {
+            KRW, BTC, ETH, USDT
+        }
     }
 
 
