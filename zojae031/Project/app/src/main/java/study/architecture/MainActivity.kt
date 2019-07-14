@@ -1,12 +1,10 @@
 package study.architecture
 
 import android.os.Bundle
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -52,7 +50,13 @@ class MainActivity : AppCompatActivity() {
 
 
         override fun getItem(position: Int): Fragment {
-            return MainFragment(position)
+            when (position) {
+                0 -> return MainFragment(MainFragment.TAB.KRW)
+                1 -> return MainFragment(MainFragment.TAB.BTC)
+                2 -> return MainFragment(MainFragment.TAB.ETH)
+                3 -> return MainFragment(MainFragment.TAB.USDT)
+            }
+            return MainFragment(MainFragment.TAB.KRW)
         }
 
     }
