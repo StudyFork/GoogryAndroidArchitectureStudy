@@ -2,6 +2,7 @@ package com.aiden.aiden.architecturepatternstudy.ui.main
 
 import android.os.Bundle
 import androidx.databinding.Observable
+import androidx.lifecycle.Observer
 import com.aiden.aiden.architecturepatternstudy.BR
 import com.aiden.aiden.architecturepatternstudy.R
 import com.aiden.aiden.architecturepatternstudy.api.UpbitApi
@@ -16,7 +17,7 @@ import org.koin.android.ext.android.inject
 
 
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
-    
+
     private val upbitApi: UpbitApi by inject()
 
     private lateinit var marketName: String
@@ -48,7 +49,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                     layoutRes = R.layout.item_ticker,
                     bindingVariableId = BR.item
                 ) {}
-            mainViewModel = mainVm
             mainVm.isDataLoadingError.addOnPropertyChangedCallback(object :
                 Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
@@ -58,11 +58,18 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                 }
 
             })
+            val tickerListObserver = Observer<List<TickerResponse>> {
+                (fragmentTickerListRv.adapter as SimpleRecyclerView.Adapter<Any, *>).run {
+                    replaceAll(it)
+                    notifyDataSetChanged()
+                }
+            }
+            mainVm.tickerList.observe(this@MainFragment, tickerListObserver)
         }
     }
 
     private fun showErrorToast() {
         toastM(getString(R.string.all_error_load_data_fail))
     }
-
 }
+

@@ -2,6 +2,8 @@ package com.aiden.aiden.architecturepatternstudy.ui.main
 
 import androidx.databinding.BaseObservable
 import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.aiden.aiden.architecturepatternstudy.api.model.MarketResponse
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 import com.aiden.aiden.architecturepatternstudy.data.enums.Market
@@ -11,7 +13,8 @@ import java.math.BigDecimal
 
 class MainViewModel(private val upbitRepository: UpbitRepository) : BaseObservable() {
 
-    val tickerObservable = ObservableField<List<TickerResponse>>()
+    private var _tickerList = MutableLiveData<List<TickerResponse>>()
+    val tickerList: LiveData<List<TickerResponse>> get() = _tickerList
 
     var isDataLoadingError = ObservableField<Boolean>()
 
@@ -32,7 +35,7 @@ class MainViewModel(private val upbitRepository: UpbitRepository) : BaseObservab
     private fun loadTickerList(marketList: List<MarketResponse>) {
 
         upbitRepository.getTickerList(marketList, onSuccess = {
-            tickerObservable.set(it.map(::modifyTicker))
+            _tickerList.value = it.map(::modifyTicker)
         },
             onFail = {
                 isDataLoadingError.set(false)
