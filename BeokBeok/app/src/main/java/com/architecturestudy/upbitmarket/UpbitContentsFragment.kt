@@ -10,42 +10,48 @@ import com.architecturestudy.base.BaseRecyclerView
 import com.architecturestudy.data.upbit.UpbitRepository
 import com.architecturestudy.data.upbit.service.UpbitRetrofit
 import com.architecturestudy.data.upbit.source.UpbitRetrofitDataSource
-import com.architecturestudy.databinding.FragmentUpbitBinding
+import com.architecturestudy.databinding.FragmentUpbitContentsBinding
 import com.architecturestudy.databinding.RvUpbitItemBinding
-import io.reactivex.disposables.CompositeDisposable
 
-class UpbitFragment : BaseFragment<FragmentUpbitBinding>(
-    R.layout.fragment_upbit
+class UpbitContentsFragment : BaseFragment<FragmentUpbitContentsBinding>(
+    R.layout.fragment_upbit_contents
 ) {
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setBinding()
         initRecyclerView()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        CompositeDisposable().dispose()
-    }
-
     private fun setBinding() {
         val vm = UpbitViewModel(UpbitRepository(UpbitRetrofitDataSource(UpbitRetrofit.retrofit)))
         binding.vm = vm
-        binding.lifecycleOwner = this
+        arguments?.let {
+            @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+            vm.showMarketPrice(it.getString("marketType"))
+        }
         vm.errMsg.observe(
-            this@UpbitFragment,
+            this,
             Observer {
-                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    it.message,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         )
     }
 
     private fun initRecyclerView() {
-        binding.rvCoinPrice.setHasFixedSize(true)
-        binding.rvCoinPrice.adapter =
-            object : BaseRecyclerView.BaseAdapter<List<Map<String, String>>, RvUpbitItemBinding>(
-                R.layout.rv_upbit_item,
-                BR.marketList
-            ) {}
+        binding.run {
+            rvCoinPrice.setHasFixedSize(true)
+            rvCoinPrice.adapter =
+                object :
+                    BaseRecyclerView.BaseAdapter<List<Map<String, String>>, RvUpbitItemBinding>(
+                        R.layout.rv_upbit_item,
+                        BR.marketList
+                    ) {}
+        }
     }
+
 }

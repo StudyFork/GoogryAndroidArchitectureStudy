@@ -12,37 +12,27 @@ class UpbitViewModel(
 
     val marketPriceList = MutableLiveData<List<Map<String, String>>>()
     val errMsg = MutableLiveData<Throwable>()
-    val selectedText = MutableLiveData<String>()
-    val isLoading = MutableLiveData<Boolean>()
 
     init {
-        selectedText.value = MarketTypes.KRW.name
-        isLoading.value = true
         upBitRepository.getMarketPrice(
             MarketTypes.KRW.name,
             onSuccess = {
                 marketPriceList.value = NumberFormatter.convertTo(it)
-                isLoading.value = false
             },
             onFail = {
                 errMsg.value = it
-                isLoading.value = false
             }
         )
     }
 
     fun showMarketPrice(market: String) {
-        selectedText.value = market
-        isLoading.value = true
         upBitRepository.getMarketPrice(
             market,
             onSuccess = {
                 marketPriceList.value = NumberFormatter.convertTo(it)
-                isLoading.value = false
             },
             onFail = {
                 errMsg.value = it
-                isLoading.value = false
             }
         )
     }
