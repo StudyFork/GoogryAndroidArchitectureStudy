@@ -1,6 +1,6 @@
 package com.architecturestudy.upbitmarket
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import com.architecturestudy.base.BaseViewModel
 import com.architecturestudy.data.common.MarketTypes
 import com.architecturestudy.data.upbit.UpbitRepository
@@ -10,39 +10,39 @@ class UpbitViewModel(
     private val upBitRepository: UpbitRepository
 ) : BaseViewModel() {
 
-    val marketPriceList = ObservableField<List<Map<String, String>>>()
-    val errMsg = ObservableField<Throwable>()
-    val selectedText = ObservableField<String>()
-    val isLoading = ObservableField<Boolean>()
+    val marketPriceList = MutableLiveData<List<Map<String, String>>>()
+    val errMsg = MutableLiveData<Throwable>()
+    val selectedText = MutableLiveData<String>()
+    val isLoading = MutableLiveData<Boolean>()
 
     init {
-        selectedText.set(MarketTypes.KRW.name)
-        isLoading.set(true)
+        selectedText.value = MarketTypes.KRW.name
+        isLoading.value = true
         upBitRepository.getMarketPrice(
             MarketTypes.KRW.name,
             onSuccess = {
-                marketPriceList.set(NumberFormatter.convertTo(it))
-                isLoading.set(false)
+                marketPriceList.value = NumberFormatter.convertTo(it)
+                isLoading.value = false
             },
             onFail = {
-                errMsg.set(it)
-                isLoading.set(false)
+                errMsg.value = it
+                isLoading.value = false
             }
         )
     }
 
     fun showMarketPrice(market: String) {
-        selectedText.set(market)
-        isLoading.set(true)
+        selectedText.value = market
+        isLoading.value = true
         upBitRepository.getMarketPrice(
             market,
             onSuccess = {
-                marketPriceList.set(NumberFormatter.convertTo(it))
-                isLoading.set(false)
+                marketPriceList.value = NumberFormatter.convertTo(it)
+                isLoading.value = false
             },
             onFail = {
-                errMsg.set(it)
-                isLoading.set(false)
+                errMsg.value = it
+                isLoading.value = false
             }
         )
     }

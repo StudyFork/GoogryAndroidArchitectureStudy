@@ -2,8 +2,7 @@ package com.architecturestudy.upbitmarket
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.databinding.Observable
-import androidx.databinding.ObservableField
+import androidx.lifecycle.Observer
 import com.architecturestudy.R
 import com.architecturestudy.base.BaseFragment
 import com.architecturestudy.data.upbit.UpbitRepository
@@ -28,29 +27,15 @@ class UpbitFragment : BaseFragment<FragmentUpbitBinding>(
     }
 
     private fun setBinding() {
-        val vm = UpbitViewModel(
-            UpbitRepository(
-                UpbitRetrofitDataSource(
-                    UpbitRetrofit.retrofit
-                )
-            )
-        )
+        val vm = UpbitViewModel(UpbitRepository(UpbitRetrofitDataSource(UpbitRetrofit.retrofit)))
         binding.vm = vm
-        registerPropertyChangedCallbacks(vm)
-    }
-
-    private fun registerPropertyChangedCallbacks(vm: UpbitViewModel) {
-        vm.errMsg.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                if (sender is ObservableField<*>) {
-                    Toast.makeText(
-                        context,
-                        (sender.get() as Throwable).message,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+        binding.lifecycleOwner = this
+        vm.errMsg.observe(
+            this@UpbitFragment,
+            Observer {
+                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
             }
-        })
+        )
     }
 
     private fun initRecyclerView() {
