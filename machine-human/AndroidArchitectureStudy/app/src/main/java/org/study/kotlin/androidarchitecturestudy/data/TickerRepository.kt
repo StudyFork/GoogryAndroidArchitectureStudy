@@ -24,16 +24,12 @@ class TickerRepository private constructor(
     val tickerRemoteDataSource: BaseDataSource
 ) : BaseDataSource {
 
-    override fun requestMarkets(marketName: String, callback: BaseDataSource.GetTickerListCallback) {
-
-        tickerRemoteDataSource.requestMarkets(marketName, object : BaseDataSource.GetTickerListCallback {
-            override fun onTickerListLoaded(tickerList: List<TickerModel>) =
-                callback.onTickerListLoaded(tickerList)
-            override fun onDataNotAvailable(errorMessage: Throwable) {
-                callback.onDataNotAvailable(errorMessage)
-            }
-
-        })
+    override fun getTickerList(
+        marketName: String,
+        success: (List<TickerModel>) -> Unit,
+        failed: (Throwable) -> Unit
+    ) {
+        tickerRemoteDataSource.getTickerList(marketName, success, failed)
     }
 
     companion object {
