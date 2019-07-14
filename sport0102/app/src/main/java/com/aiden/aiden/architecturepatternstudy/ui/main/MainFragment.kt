@@ -12,6 +12,7 @@ import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
 import com.aiden.aiden.architecturepatternstudy.data.source.remote.UpbitRemoteDataSource
 import com.aiden.aiden.architecturepatternstudy.databinding.FragmentMainBinding
 import com.aiden.aiden.architecturepatternstudy.databinding.ItemTickerBinding
+import com.aiden.aiden.architecturepatternstudy.ext.replaceAll
 import org.koin.android.ext.android.inject
 
 
@@ -49,10 +50,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                     bindingVariableId = BR.item
                 ) {}
             val tickerListObserver = Observer<List<TickerResponse>> {
-                (fragmentTickerListRv.adapter as SimpleRecyclerView.Adapter<Any, *>).run {
-                    replaceAll(it)
-                    notifyDataSetChanged()
-                }
+                fragmentTickerListRv.replaceAll(it)
             }
             mainVm.tickerList.observe(this@MainFragment, tickerListObserver)
 
