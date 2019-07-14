@@ -17,7 +17,7 @@ class UpbitViewModel(
         upBitRepository.getMarketPrice(
             MarketTypes.KRW.name,
             onSuccess = {
-                marketPriceList.value = NumberFormatter.convertTo(it)
+                marketPriceList.postValue(NumberFormatter.convertTo(it))
             },
             onFail = {
                 errMsg.value = it
@@ -29,7 +29,7 @@ class UpbitViewModel(
         upBitRepository.getMarketPrice(
             market,
             onSuccess = {
-                marketPriceList.value = NumberFormatter.convertTo(it)
+                marketPriceList.postValue(NumberFormatter.convertTo(it))
             },
             onFail = {
                 errMsg.value = it
