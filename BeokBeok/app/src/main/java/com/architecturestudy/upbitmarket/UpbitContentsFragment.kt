@@ -27,8 +27,9 @@ class UpbitContentsFragment : BaseFragment<FragmentUpbitContentsBinding>(
         val vm = UpbitViewModel(UpbitRepository(UpbitRetrofitDataSource(UpbitRetrofit.retrofit)))
         binding.vm = vm
         arguments?.let {
-            @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-            vm.showMarketPrice(it.getString("marketType"))
+            it.getString("marketType")?.let { data ->
+                vm.showMarketPrice(data)
+            }
         }
         vm.errMsg.observe(
             this,
