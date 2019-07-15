@@ -5,15 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import study.architecture.adapter.MainPageAdapter
+import study.architecture.model.DataParser
 
 class MainActivity : AppCompatActivity() {
-
+    init {
+        DataParser
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         tabSetting()
         pagerSetting()
-
     }
 
     private fun tabSetting() {
@@ -43,10 +45,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val TAB_NUMBER = 4
-
-        enum class TAB {
-            KRW, BTC, ETH, USDT
-        }
     }
 
 

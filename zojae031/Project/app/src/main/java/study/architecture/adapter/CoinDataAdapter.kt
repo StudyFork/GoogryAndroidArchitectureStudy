@@ -6,28 +6,24 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import study.architecture.R
+import study.architecture.vo.Ticker
 
-//TODO dataClass를 통해서 받아오는 새로운 데이터 폼 만들기
-class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
-    private lateinit var list: List<Int>
+class CoinDataAdapter(private val lists: List<Ticker>) : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
 
-    fun setList(list: List<Int>) {
-        this.list = list
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, null)
         return Holder(view)
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = lists.size
 
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.name.text = list[position].toString()
-        holder.price.text = list[position].toString()
-        holder.last.text = list[position].toString()
-        holder.money.text = list[position].toString()
+        holder.name.text = lists[position].toString()
+        holder.price.text = lists[position].toString()
+        holder.last.text = lists[position].toString()
+        holder.money.text = lists[position].toString()
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
