@@ -5,7 +5,7 @@
     <data>
         <variable
             name="itemViewModel"
-            type="org.study.kotlin.androidarchitecturestudy.api.model.TickerModel" />
+            type="org.study.kotlin.androidarchitecturestudy.api.model.ConvertTickerModel" />
     </data>
 
     <LinearLayout
@@ -21,21 +21,21 @@
             android:paddingStart="12dp"
             android:textSize="20dp"
             android:layout_weight="0.4"
-            tools:text="@{String.valueOf(itemViewModel.market)}"/>
+            tools:text="@{String.valueOf(itemViewModel.convertMarket)}"/>
 
         <TextView
             android:id="@+id/textview_item_trade_price"
-            tools:text="@{String.valueOf(itemViewModel.tradePrice)}"
+            tools:text="@{String.valueOf(itemViewModel.convertTradePrice)}"
             style="@style/CusTextViewTextView" />
 
         <TextView
             android:id="@+id/textview_item_change_rate"
-            tools:text="@{String.valueOf(itemViewModel.changeRate)}"
+            tools:text="@{String.valueOf(itemViewModel.convertChangeRate)}"
             style="@style/CusTextViewTextView" />
 
         <TextView
             android:id="@+id/textview_item_acc_trade_price_24h"
-            tools:text="@{String.valueOf(itemViewModel.accTradePrice24h)}"
+            tools:text="@{String.valueOf(itemViewModel.convertAccTradePrice24h)}"
             style="@style/CusTextViewTextView" />
 
     </LinearLayout>

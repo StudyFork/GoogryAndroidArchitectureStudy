@@ -1,10 +1,12 @@
 package org.study.kotlin.androidarchitecturestudy.view.activity.main
 
-import androidx.databinding.ObservableField
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import org.study.kotlin.androidarchitecturestudy.api.model.TickerModel
+import org.study.kotlin.androidarchitecturestudy.api.model.ConvertTickerModel
 import org.study.kotlin.androidarchitecturestudy.base.BaseDataSource
 import org.study.kotlin.androidarchitecturestudy.base.BaseViewModel
+import org.study.kotlin.androidarchitecturestudy.util.FormatUtil
 
 class MainViewModel(
     remoteDataSource: BaseDataSource,
@@ -19,17 +21,22 @@ class MainViewModel(
     val observableErrorMessage: LiveData<Throwable>
         get() = _observableErrorMessage
 
-    var observableTickerList = ObservableField<List<TickerModel>>()
-    var observableErrorMessage = ObservableField<Throwable>()
 
     init {
         remoteDataSource.getTickerList(marketName, success = { tickerList ->
-            observableTickerList.set(tickerList)
+            var convertTickerList = ArrayList<ConvertTickerModel>()
+            tickerList.map {
+                convertTickerList.add(
+                    FormatUtil.convertTo(it)
+                )
+            }
+            _observableTickerList.value = convertTickerList
         }, failed = { errorMessage ->
+            Log.e("TAG", errorMessage.toString())
         })
     }
 
     override fun onDataNotAvailable(errorMessage: Throwable) {
-        observableErrorMessage.set(errorMessage)
+        _observableErrorMessage.value = errorMessage
     }
 }
