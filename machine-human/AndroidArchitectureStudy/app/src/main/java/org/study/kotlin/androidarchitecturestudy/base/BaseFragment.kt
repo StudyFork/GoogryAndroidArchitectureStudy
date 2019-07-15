@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 
 abstract class BaseFragment<B : ViewDataBinding>(
     @LayoutRes
@@ -29,7 +30,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
 
     }
 
-    protected fun binding(action: B.() -> Unit) {
+    protected fun bind(action: B.() -> Unit) {
         binding.run(action)
     }
 }
