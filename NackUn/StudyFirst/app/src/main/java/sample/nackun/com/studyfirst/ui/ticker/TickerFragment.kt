@@ -2,8 +2,7 @@ package sample.nackun.com.studyfirst.ui.ticker
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.databinding.Observable
-import androidx.databinding.ObservableField
+import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.ticker_fragment.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -44,18 +43,17 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
         )
 
         binding.setVariable(BR.vm, vm)
+        binding.lifecycleOwner = this
 
-        vm.errMsg.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                if (sender is ObservableField<*>) {
-                    Toast.makeText(
-                        context,
-                        (sender.get() as Throwable).message,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        })
+        val errMsgObserver = Observer<Throwable> {
+            Toast.makeText(
+                context,
+                it.message,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        vm.errMsg.observe(this@TickerFragment, errMsgObserver)
     }
 
     private fun setAdapter() {
@@ -63,8 +61,6 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
     }
 
     private fun setFirstTickers() {
-        vm.selectedMarket.get()?.let {
-            vm.showTickers(it)
-        } ?: vm.errMsg.set(IllegalStateException("Selected Market is not exist"))
+        vm.showTickers(vm.selectedMarket.value)
     }
 }
