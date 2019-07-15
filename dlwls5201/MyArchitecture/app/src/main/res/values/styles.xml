@@ -1,11 +1,77 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <!-- 아플리케이션의 주 색상입니다. 대표적으로 지메일이나 유튜브의 빨간색, 구글 뮤직의 주황색을 들 수 있습니다. -->
         <item name="colorPrimary">@color/colorPrimary</item>
+
+        <!-- 주 색상 계통에서 조금 더 어두운 색상입니다. 상태바 색상을 별도로 지정하지 않을 경우 상태바 색상으로 사용됩니다 -->
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+
+        <!-- 강조 색상으로, 보통 주 색상과 대비되는 색상을 지정합니다. 중요한 역할을 하는 UI 요소에 주로 사용합니다. -->
         <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- 컨트롤러(EditText, 체크박스, 라디오버튼, 프로그레스 바 등)에 사용합니다. 비활성 상태/선택한 상태 등이 아닌 '일반적인' 상태에 적용됩니다. -->
+        <item name="colorControlNormal">#f5a623</item>
+
+        <!-- 배경 색상 설정 -->
+        <item name="android:windowBackground">@color/colorPrimaryDark</item>
+
+    </style>
+
+    <style name="RootViewGroup">
+        <item name="android:background">@drawable/bg_round</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:layout_margin">16dp</item>
+    </style>
+
+    <style name="RootTopViewGroup">
+        <item name="android:background">@drawable/bg_top_round</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="FragmentRootViewGroup">
+        <item name="android:background">@color/gray1</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="TitleText">
+        <item name="android:textColor">@color/gray5</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="SelectText">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="MenuTitle">
+        <item name="android:textColor">@color/gray5</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_marginStart">12dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="MenuItem">
+        <item name="android:textColor">@color/gray4</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:gravity">center_vertical</item>
     </style>
 
 </resources>

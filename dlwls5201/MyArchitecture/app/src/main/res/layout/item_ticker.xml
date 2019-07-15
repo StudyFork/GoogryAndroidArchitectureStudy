@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:layout_marginStart="@dimen/main_item_cell_margin_side"
+    android:layout_marginEnd="@dimen/main_item_cell_margin_side"
+    android:background="?attr/selectableItemBackground"
+    app:cardCornerRadius="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp">
+
+        <!-- 코인명 -->
+        <TextView
+            android:id="@+id/tvMarket"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:autoSizeTextType="uniform"
+            android:maxLines="1"
+            android:textColor="@color/gray5"
+            android:textSize="14sp"
+            tools:text="BTC" />
+
+        <!-- 현재가 -->
+        <TextView
+            android:id="@+id/tvTradePrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:autoSizeTextType="uniform"
+            android:gravity="end"
+            android:maxLines="1"
+            android:textColor="@color/gray5"
+            android:textSize="14sp"
+            tools:text="99,999,999" />
+
+        <!-- 전일대비 -->
+        <TextView
+            android:id="@+id/tvSignedChangeRate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:autoSizeTextType="uniform"
+            android:gravity="end"
+            android:maxLines="1"
+            android:textColor="@color/gray5"
+            android:textSize="14sp"
+            tools:text="4.00%" />
+
+        <!-- 거래대금 -->
+        <TextView
+            android:id="@+id/tvAccTradePrice24h"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:autoSizeTextType="uniform"
+            android:gravity="end"
+            android:maxLines="1"
+            android:textColor="@color/gray5"
+            android:textSize="14sp"
+            tools:text="4.00%" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

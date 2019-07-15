@@ -65,6 +65,9 @@ dependencies {
     implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:$rxbindingVersion"
     implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$rxbindingVersion"
 
+    //sliding up panel
+    implementation 'com.sothree.slidinguppanel:library:3.4.0'
+
     //junit
     testImplementation 'junit:junit:4.12'
 
