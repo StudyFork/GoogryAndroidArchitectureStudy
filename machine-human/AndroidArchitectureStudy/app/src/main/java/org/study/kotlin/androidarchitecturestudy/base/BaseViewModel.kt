@@ -1,5 +1,7 @@
 package org.study.kotlin.androidarchitecturestudy.base
 
-interface BaseViewModel {
-    fun onDataNotAvailable(errorMessage: Throwable)
+import androidx.lifecycle.ViewModel
+
+abstract class BaseViewModel: ViewModel() {
+    abstract fun onDataNotAvailable(errorMessage: Throwable)
 }
