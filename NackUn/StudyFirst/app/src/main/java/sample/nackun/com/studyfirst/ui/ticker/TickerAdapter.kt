@@ -29,10 +29,10 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
         LayoutInflater.from(parent.context)
             .inflate(R.layout.ticker_item, parent, false)
     ) {
-        val tickerName = itemView.tickerName
-        val currentPrice = itemView.currentPrice
-        val comparePrice = itemView.comparePrice
-        val changePrice = itemView.changePrice
+        private val tickerName = itemView.tickerName
+        private val currentPrice = itemView.currentPrice
+        private val comparePrice = itemView.comparePrice
+        private val changePrice = itemView.changePrice
 
         fun bind(item: Map<String, String>) {
             tickerName.text = item["tickerName"]
