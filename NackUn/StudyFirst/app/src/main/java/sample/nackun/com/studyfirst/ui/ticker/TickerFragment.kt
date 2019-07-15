@@ -1,15 +1,15 @@
 package sample.nackun.com.studyfirst.ui.ticker
 
-import android.databinding.Observable
-import android.databinding.ObservableField
 import android.os.Bundle
 import android.widget.Toast
+import androidx.databinding.Observable
+import androidx.databinding.ObservableField
 import kotlinx.android.synthetic.main.ticker_fragment.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import sample.nackun.com.studyfirst.BR
-import sample.nackun.com.studyfirst.base.BaseFragment
 import sample.nackun.com.studyfirst.R
+import sample.nackun.com.studyfirst.base.BaseFragment
 import sample.nackun.com.studyfirst.data.Repository
 import sample.nackun.com.studyfirst.data.remote.RemoteDataSource
 import sample.nackun.com.studyfirst.databinding.TickerFragmentBinding

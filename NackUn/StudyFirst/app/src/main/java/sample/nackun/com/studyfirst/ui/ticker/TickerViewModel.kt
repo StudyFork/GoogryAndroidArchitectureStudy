@@ -1,6 +1,6 @@
 package sample.nackun.com.studyfirst.ui.ticker
 
-import android.databinding.ObservableField
+import androidx.databinding.ObservableField
 import sample.nackun.com.studyfirst.base.BaseViewModel
 import sample.nackun.com.studyfirst.data.Repository
 import sample.nackun.com.studyfirst.util.TickerFormatter

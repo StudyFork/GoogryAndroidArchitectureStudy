@@ -108,12 +108,12 @@
                     android:gravity="end"/>
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
                 android:layout_below="@id/li_ticker_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tickerRecyclerView"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:setItems="@{vm.tickers}"/>
     </RelativeLayout>
 </layout>

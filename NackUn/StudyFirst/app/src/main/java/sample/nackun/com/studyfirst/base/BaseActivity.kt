@@ -1,9 +1,9 @@
 package sample.nackun.com.studyfirst.base
 
-import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.v7.app.AppCompatActivity
+import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.ViewDataBinding
 
 abstract class BaseActivity<B : ViewDataBinding>(
     @LayoutRes private val layoutRes: Int

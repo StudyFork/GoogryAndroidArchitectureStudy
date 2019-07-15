@@ -1,7 +1,7 @@
 package sample.nackun.com.studyfirst.ui.ticker
 
-import android.databinding.BindingAdapter
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 
 @BindingAdapter("setItems")
 fun setItems(recyclerView: RecyclerView, items: List<Map<String, String>>) {

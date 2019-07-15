@@ -1,5 +1,5 @@
 package sample.nackun.com.studyfirst.base
 
-import android.databinding.BaseObservable
+import androidx.databinding.BaseObservable
 
 abstract class BaseViewModel : BaseObservable()
