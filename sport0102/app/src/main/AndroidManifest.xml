@@ -5,6 +5,7 @@
 	package="com.aiden.aiden.architecturepatternstudy">
 
 	<dist:module dist:instant="true" />
+
 	<uses-permission android:name="android.permission.INTERNET" />
 
 	<application
@@ -16,6 +17,7 @@
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme"
 		tools:ignore="GoogleAppIndexingWarning">
+		<activity android:name=".ui.search.SearchActivity"></activity>
 		<activity android:name=".ui.main.MainActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
