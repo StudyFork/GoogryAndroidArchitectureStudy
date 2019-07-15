@@ -1,7 +1,6 @@
 package sample.nackun.com.studyfirst.ui.ticker
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.ticker_fragment.*
 import retrofit2.Retrofit
@@ -46,11 +45,7 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
         binding.lifecycleOwner = this
 
         val errMsgObserver = Observer<Throwable> {
-            Toast.makeText(
-                context,
-                it.message,
-                Toast.LENGTH_SHORT
-            ).show()
+            showToast(it.message)
         }
 
         vm.errMsg.observe(this@TickerFragment, errMsgObserver)
