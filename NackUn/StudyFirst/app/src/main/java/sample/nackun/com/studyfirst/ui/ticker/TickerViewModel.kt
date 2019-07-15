@@ -40,10 +40,10 @@ class TickerViewModel(
         marketLike?.let {
             repository.requestMarkets(
                 it,
-                onTickersLoaded = {
-                    onTickersLoaded(it)
-                }, onError = {
-                    onError(it)
+                onTickersLoaded = { tickers ->
+                    onTickersLoaded(tickers)
+                }, onError = { error ->
+                    onError(error)
                 }
             )
         } ?: onError(IllegalStateException("Selected Market is not exist"))
