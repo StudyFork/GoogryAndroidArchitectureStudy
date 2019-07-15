@@ -1,7 +1,6 @@
 package com.architecturestudy.upbitmarket
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.architecturestudy.BR
 import com.architecturestudy.R
@@ -34,11 +33,7 @@ class UpbitContentsFragment : BaseFragment<FragmentUpbitContentsBinding>(
         vm.errMsg.observe(
             this,
             Observer {
-                Toast.makeText(
-                    context,
-                    it.message,
-                    Toast.LENGTH_SHORT
-                ).show()
+                showToast(it.message)
             }
         )
     }
