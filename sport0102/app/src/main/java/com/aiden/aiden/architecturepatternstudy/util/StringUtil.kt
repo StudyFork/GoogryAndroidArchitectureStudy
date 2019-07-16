@@ -1,5 +1,7 @@
 package com.aiden.aiden.architecturepatternstudy.util
 
+import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
+import com.aiden.aiden.architecturepatternstudy.data.enums.Market
 import java.math.BigDecimal
 import kotlin.math.abs
 
@@ -44,5 +46,64 @@ object StringUtil {
         } else {
             String.format("%,d", totalPrice.toInt())
         }
+
+    fun modifyTicker(ticker: TickerResponse): TickerResponse {
+
+        with(ticker) {
+
+            // 코인 이름
+            coinName = market.split("-")[1]
+
+            //  현재 가격
+            nowPrice = if (market.startsWith(
+                    Market.KRW.marketName,
+                    true
+                )
+            ) {
+                StringUtil.getKrwCommaPrice(BigDecimal(tradePrice))
+            } else if (market.startsWith(
+                    Market.BTC.marketName,
+                    true
+                ) || market.startsWith(
+                    Market.ETH.marketName,
+                    true
+                )
+            ) {
+                StringUtil.getBtcEthCommaPrice(tradePrice)
+            } else {
+                StringUtil.getUsdtCommaPrice(tradePrice)
+            }
+
+            // 전일대비 퍼센트
+            compareBeforePercentage = StringUtil.getPercent(
+                prevClosingPrice,
+                tradePrice
+            )
+
+            // 거래대금
+            totalDealPrice = if (market.startsWith(
+                    Market.KRW.marketName,
+                    true
+                )
+            ) {
+                StringUtil.getKrwTotalDealPrice(accTradePrice24h)
+            } else if (market.startsWith(
+                    Market.BTC.marketName,
+                    true
+                ) || market.startsWith(
+                    Market.ETH.marketName,
+                    true
+                )
+            ) {
+                StringUtil.getBtcEthTotalDealPrice(accTradePrice24h)
+            } else {
+                StringUtil.getUsdtTotalDealPrice(accTradePrice24h)
+            }
+
+        }
+
+        return ticker
+
+    }
 
 }
