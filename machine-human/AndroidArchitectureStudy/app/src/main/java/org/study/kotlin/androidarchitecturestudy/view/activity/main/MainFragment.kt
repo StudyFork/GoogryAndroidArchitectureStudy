@@ -50,7 +50,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                         layoutRes = R.layout.item_ticker,
                         bindingVariableId = BR.itemViewModel
                     ) {}
-                lifecycleOwner = this@MainFragment
             }
         }
     }
