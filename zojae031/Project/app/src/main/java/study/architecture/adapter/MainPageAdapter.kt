@@ -26,8 +26,8 @@ class MainPageAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getCount(): Int = fragments.size
 
-    override fun getItem(position: Int): Fragment {
-        return fragments[position]
-    }
+    override fun getItem(position: Int): Fragment =
+        fragments[position]
+
 
 }

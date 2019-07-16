@@ -17,27 +17,24 @@ import study.architecture.vo.Ticker
 class MainFragment(idx: FragIndex) : Fragment(), MainContract.View {
     private val presenter = MainPresenter(this@MainFragment, idx)
 
-    private var adapter: CoinDataAdapter? = null
-    internal lateinit var view: View
+    private val adapter: CoinDataAdapter = CoinDataAdapter()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         presenter.onCreate()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        if (!::view.isInitialized) {
-            view = inflater.inflate(R.layout.fragment_main, container, false)
-            view.recyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
-            adapter = CoinDataAdapter()
-            view.recyclerView.adapter = adapter
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+        inflater.inflate(R.layout.fragment_main, container, false).apply {
+            recyclerView.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
+            recyclerView.adapter = adapter
         }
-        return view
-    }
+
 
     override fun notifyAdapter(list: List<Ticker>) {
-        adapter?.lists = list
-        adapter?.notifyDataSetChanged()
+        adapter.lists = list
+        adapter.notifyDataSetChanged()
     }
 
     override fun onPause() {
