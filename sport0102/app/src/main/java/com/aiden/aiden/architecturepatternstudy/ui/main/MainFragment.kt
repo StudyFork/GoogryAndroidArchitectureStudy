@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.aiden.aiden.architecturepatternstudy.BR
 import com.aiden.aiden.architecturepatternstudy.R
+import com.aiden.aiden.architecturepatternstudy.api.Retrofit.retrofit
 import com.aiden.aiden.architecturepatternstudy.api.UpbitApi
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 import com.aiden.aiden.architecturepatternstudy.base.BaseFragment
@@ -15,12 +16,11 @@ import com.aiden.aiden.architecturepatternstudy.databinding.FragmentMainBinding
 import com.aiden.aiden.architecturepatternstudy.databinding.ItemTickerBinding
 import com.aiden.aiden.architecturepatternstudy.domain.UpbitDatabase
 import com.aiden.aiden.architecturepatternstudy.ext.replaceAll
-import org.koin.android.ext.android.inject
 
 
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
-    private val upbitApi: UpbitApi by inject()
+    private val upbitApi by lazy { retrofit.create(UpbitApi::class.java) }
 
     private lateinit var marketName: String
 
