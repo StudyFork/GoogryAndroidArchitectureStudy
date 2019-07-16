@@ -30,9 +30,9 @@ class MainRvAdapter(val context: Context, val itemList: ArrayList<UpbitItem>) :
             val volume = itemView.findViewById<TextView>(R.id.volume)
 
             name.text = upbitItem.name
-            current.text = upbitItem.current
-            diff.text = upbitItem.diff
-            volume.text = upbitItem.volume
+            current.text = upbitItem.current.toString()
+            diff.text = upbitItem.diff.toString()
+            volume.text = upbitItem.volume.toString()
         }
     }
 

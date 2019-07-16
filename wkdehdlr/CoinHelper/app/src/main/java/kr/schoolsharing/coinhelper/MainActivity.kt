@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
+
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -11,6 +12,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val myPagerAdapter = MyPagerAdapter(supportFragmentManager)
+
+        myPagerAdapter.setUpbitMarket()
+//        myPagerAdapter.setUpbitTicker()
         viewpager_main.adapter = myPagerAdapter
         tabs_main.setupWithViewPager(viewpager_main)
     }

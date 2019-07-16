@@ -22,12 +22,7 @@ private const val ARG_PARAM2 = "param2"
 class FragmentUSDT : Fragment() {
 
     var itemList = arrayListOf<UpbitItem>(
-        UpbitItem("XRP", "7,744,543", "-1.99%", "48,559 M"),
-        UpbitItem("TRX", "543", "-1.92%", "48,559 M"),
-        UpbitItem("BTC", "543", "3.99%", "9 M"),
-        UpbitItem("MEDX", "543", "-0.99%", "59 M"),
-        UpbitItem("ETH", "543", "-0.19%", "4,859 M"),
-        UpbitItem("EOS", "543", "0.99%", "559 M")
+
     )
 
     override fun onCreateView(

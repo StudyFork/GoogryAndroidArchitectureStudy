@@ -1,3 +1,3 @@
 package kr.schoolsharing.coinhelper
 
-data class UpbitItem(val name: String, val current: String, val diff: String, val volume: String)
+data class UpbitItem(val name: String, val current: Double, val diff: Double, val volume: Double)
