@@ -1,9 +1,9 @@
 package com.studyfirstproject.adapter
 
-import android.databinding.BindingAdapter
 import android.graphics.Color
-import android.support.v7.widget.RecyclerView
 import android.widget.TextView
+import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.studyfirstproject.data.model.TickerModel
 
 @BindingAdapter("bind_item")

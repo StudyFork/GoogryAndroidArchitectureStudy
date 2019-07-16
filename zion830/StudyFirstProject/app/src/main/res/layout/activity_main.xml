@@ -6,7 +6,7 @@
 
         <import type="android.view.View" />
 
-        <import type="android.databinding.ObservableArrayList" />
+        <import type="androidx.databinding.ObservableArrayList" />
 
         <import type="com.studyfirstproject.data.model.TickerModel" />
 
@@ -19,14 +19,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v4.widget.SwipeRefreshLayout
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/layout_main_swipe"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:onRefreshListener="@{() -> viewModel.onRefresh()}"
             app:refreshing="@{viewModel.isLoading}">
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -80,7 +80,7 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_main"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -89,14 +89,14 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="8dp"
                     app:bind_item="@{viewModel.items}"
-                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/layout_main_category" />
 
-            </android.support.constraint.ConstraintLayout>
-        </android.support.v4.widget.SwipeRefreshLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <ProgressBar
             android:id="@+id/progress_main"

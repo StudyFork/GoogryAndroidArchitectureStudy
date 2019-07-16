@@ -1,8 +1,8 @@
 package com.studyfirstproject.showcoin
 
-import android.databinding.ObservableBoolean
-import android.databinding.ObservableField
 import android.util.Log
+import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableField
 import com.studyfirstproject.data.CoinDataSource
 import com.studyfirstproject.data.model.TickerModel
 

@@ -1,7 +1,7 @@
 package com.studyfirstproject.showcoin.view
 
 import android.os.Bundle
-import com.android.databinding.library.baseAdapters.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.studyfirstproject.R
 import com.studyfirstproject.adapter.CoinRecyclerViewAdapter
 import com.studyfirstproject.base.BaseActivity
