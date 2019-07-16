@@ -2,7 +2,6 @@ package com.aiden.aiden.architecturepatternstudy.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.aiden.aiden.architecturepatternstudy.api.model.MarketResponse
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 import com.aiden.aiden.architecturepatternstudy.data.enums.Market
 import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
@@ -17,12 +16,12 @@ class MainViewModel(private val upbitRepository: UpbitRepository) {
     private var _isDataLoadingError = MutableLiveData<Boolean>()
     val isDataLoadingError: LiveData<Boolean> get() = _isDataLoadingError
 
-    fun loadMarketList(market: String) {
+    fun loadMarketList(targetMarket: String) {
 
         upbitRepository.getMarketList(onSuccess = {
             val modifiedMarketList =
-                it.filter { item -> item.market.startsWith(market, true) }
-            loadTickerList(modifiedMarketList)
+                it.filter { market -> market.startsWith(targetMarket, true) }
+            loadAllTickerList(modifiedMarketList)
         },
 
             onFail = {
@@ -33,16 +32,16 @@ class MainViewModel(private val upbitRepository: UpbitRepository) {
 
     }
 
-    private fun loadTickerList(marketList: List<MarketResponse>) {
+    private fun loadAllTickerList(marketList: List<String>) {
 
-        upbitRepository.getTickerList(marketList, onSuccess = {
+        upbitRepository.getTickerList(marketList, false, onSuccess = {
             _tickerList.value = it.map(::modifyTicker)
         },
 
             onFail = {
                 _isDataLoadingError.value = true
             }
-        
+
         )
 
     }

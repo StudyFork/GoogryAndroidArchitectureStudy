@@ -15,34 +15,49 @@
  */
 package com.aiden.aiden.architecturepatternstudy.data.source
 
-import com.aiden.aiden.architecturepatternstudy.api.model.MarketResponse
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
+import com.aiden.aiden.architecturepatternstudy.data.source.local.UpbitLocalDataSource
 
-class UpbitRepository(
-    private val remoteDataSource: UpbitDataSource
+class UpbitRepository private constructor(
+    private val remoteDataSource: UpbitDataSource,
+    private val localDataSource: UpbitLocalDataSource
 ) : UpbitDataSource {
 
     override fun getMarketList(
-        onSuccess: (List<MarketResponse>) -> Unit,
+        onSuccess: (List<String>) -> Unit,
         onFail: (Throwable?) -> Unit
     ) {
         remoteDataSource.getMarketList(onSuccess, onFail)
     }
 
     override fun getTickerList(
-        marketList: List<MarketResponse>,
+        marketList: List<String>,
+        isUsingLocalDb: Boolean,
         onSuccess: (List<TickerResponse>) -> Unit,
         onFail: (Throwable?) -> Unit
     ) {
-        remoteDataSource.getTickerList(marketList, onSuccess, onFail)
+
+        when (isUsingLocalDb) {
+            true -> {
+                localDataSource.getTickerList(marketList, true, onSuccess, onFail)
+            }
+
+            false -> {
+                remoteDataSource.getTickerList(marketList, false, onSuccess, onFail)
+            }
+        }
+
     }
 
     companion object {
 
         private var instance: UpbitRepository? = null
 
-        operator fun invoke(UpbitRemoteDataSource: UpbitDataSource) =
-            instance ?: UpbitRepository(UpbitRemoteDataSource)
+        operator fun invoke(
+            upbitRemoteDataSource: UpbitDataSource,
+            upbitLocalDataSource: UpbitLocalDataSource
+        ) =
+            instance ?: UpbitRepository(upbitRemoteDataSource, upbitLocalDataSource)
                 .apply { instance = this }
 
     }

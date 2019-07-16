@@ -9,9 +9,11 @@ import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 import com.aiden.aiden.architecturepatternstudy.base.BaseFragment
 import com.aiden.aiden.architecturepatternstudy.base.SimpleRecyclerView
 import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
+import com.aiden.aiden.architecturepatternstudy.data.source.local.UpbitLocalDataSource
 import com.aiden.aiden.architecturepatternstudy.data.source.remote.UpbitRemoteDataSource
 import com.aiden.aiden.architecturepatternstudy.databinding.FragmentMainBinding
 import com.aiden.aiden.architecturepatternstudy.databinding.ItemTickerBinding
+import com.aiden.aiden.architecturepatternstudy.domain.UpbitDatabase
 import com.aiden.aiden.architecturepatternstudy.ext.replaceAll
 import org.koin.android.ext.android.inject
 
@@ -25,6 +27,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private val error = "error"
 
     private lateinit var mainVm: MainViewModel
+
+    private val db by lazy {
+        context?.let {
+            UpbitDatabase(it)
+        }
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
 
@@ -40,7 +48,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         }
         mainVm = MainViewModel(
             upbitRepository = UpbitRepository(
-                UpbitRemoteDataSource(upbitApi)
+                UpbitRemoteDataSource(upbitApi),
+                UpbitLocalDataSource(db)
             )
         )
         mainVm.loadMarketList(marketName)

@@ -2,18 +2,18 @@ package com.aiden.aiden.architecturepatternstudy.domain.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy.REPLACE
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.aiden.aiden.architecturepatternstudy.domain.model.Ticker
+import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 
 @Dao
 interface TickerDao {
     @Query("SELECT * FROM ticker")
-    fun getAll(): List<Ticker>
+    fun getAll(): List<TickerResponse>
 
     @Query("SELECT * FROM ticker WHERE market = :market LIMIT 1")
-    fun getByMarket(market: String): Ticker
+    fun getByMarket(market: String): TickerResponse
 
-    @Insert(onConflict = REPLACE)
-    fun insert(vararg users: Ticker)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(tickerList: List<TickerResponse>)
 }

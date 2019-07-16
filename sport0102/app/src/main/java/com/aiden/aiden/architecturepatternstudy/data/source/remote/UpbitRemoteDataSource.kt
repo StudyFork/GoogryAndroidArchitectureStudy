@@ -26,7 +26,7 @@ import retrofit2.Response
 class UpbitRemoteDataSource private constructor(private val upbitApi: UpbitApi) : UpbitDataSource {
 
     override fun getMarketList(
-        onSuccess: (List<MarketResponse>) -> Unit,
+        onSuccess: (List<String>) -> Unit,
         onFail: (Throwable?) -> Unit
     ) {
         upbitApi.getMarketList().enqueue(object : Callback<ArrayList<MarketResponse>> {
@@ -40,7 +40,7 @@ class UpbitRemoteDataSource private constructor(private val upbitApi: UpbitApi) 
                 response: Response<ArrayList<MarketResponse>>?
             ) {
                 response?.body()?.let {
-                    onSuccess(it)
+                    onSuccess(it.map { res -> res.market })
                 }
             }
 
@@ -48,12 +48,15 @@ class UpbitRemoteDataSource private constructor(private val upbitApi: UpbitApi) 
     }
 
     override fun getTickerList(
-        marketList: List<MarketResponse>,
+        marketList: List<String>,
+        isUsingLocalDb: Boolean,
         onSuccess: (List<TickerResponse>) -> Unit,
         onFail: (Throwable?) -> Unit
     ) {
-        upbitApi.getTickerInfo(marketList.joinToString { marketModel -> marketModel.market })
+
+        upbitApi.getTickerInfo(marketList.joinToString())
             .enqueue(object : Callback<ArrayList<TickerResponse>> {
+
                 override fun onFailure(call: Call<ArrayList<TickerResponse>>, t: Throwable) {
                     onFail(t)
                 }

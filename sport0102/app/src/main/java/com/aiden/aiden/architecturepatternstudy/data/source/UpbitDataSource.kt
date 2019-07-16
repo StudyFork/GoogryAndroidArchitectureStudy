@@ -16,7 +16,6 @@
 
 package com.aiden.aiden.architecturepatternstudy.data.source
 
-import com.aiden.aiden.architecturepatternstudy.api.model.MarketResponse
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 
 /**
@@ -31,12 +30,13 @@ import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 interface UpbitDataSource {
 
     fun getMarketList(
-        onSuccess: (List<MarketResponse>) -> Unit,
+        onSuccess: (List<String>) -> Unit,
         onFail: (Throwable?) -> Unit
     )
 
     fun getTickerList(
-        marketList: List<MarketResponse>,
+        marketList: List<String>,
+        isUsingLocalDB : Boolean,
         onSuccess: (List<TickerResponse>) -> Unit,
         onFail: (Throwable?) -> Unit
     )
