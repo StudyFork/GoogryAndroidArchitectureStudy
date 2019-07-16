@@ -24,7 +24,8 @@ class MainActivity :
 
     private fun initView() {
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this@MainActivity
         binding.rvMain.adapter = adapter
-        viewModel.getMarketData()
+        viewModel.init()
     }
 }
