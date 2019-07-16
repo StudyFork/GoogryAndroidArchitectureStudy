@@ -3,8 +3,7 @@ package study.architecture.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import study.architecture.MainActivity.Companion.TAB_NUMBER
-import study.architecture.MainFragment
+import study.architecture.mainjob.MainFragment
 
 /**
  * [FragmentPagerAdapter] vs [FragmentStatePagerAdapter]
@@ -17,6 +16,7 @@ import study.architecture.MainFragment
  * -> [FragemntPagerAdapter]를 사용한 이유 : 정해진 갯수의 프래그먼트를 사용하며, Destroy가 되는경우 API 콜이 다시 일어나기 때문에 오버헤드를 줄이기 위함
  */
 class MainPageAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+
     private val fragments: List<MainFragment> = listOf(
         MainFragment(0),
         MainFragment(1),
@@ -24,8 +24,10 @@ class MainPageAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         MainFragment(3)
     )
 
-    override fun getCount(): Int = TAB_NUMBER
+    override fun getCount(): Int = fragments.size
 
-    override fun getItem(position: Int): Fragment = fragments[position]
+    override fun getItem(position: Int): Fragment {
+        return fragments[position]
+    }
 
 }

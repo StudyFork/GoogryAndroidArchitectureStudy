@@ -9,64 +9,93 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import study.architecture.MainFragment
 import study.architecture.vo.Market
 import study.architecture.vo.Ticker
 
-object DataParser {
-    lateinit var marketList: List<Market>
-    private val lists = Array(4) { "" }
-    val tickerList = Array<List<Ticker>>(4) { listOf() }
+class DataParser(index: Int, resultCallback: ResultCallback) {
+    private lateinit var stateString: String
+    private var list = ""
+
+    private val callback = resultCallback
+
+    interface ResultCallback {
+        fun successMarketList()
+        fun successTickerList(list: List<Ticker>)
+    }
+
+    init {
+        when (index) {
+            0 -> stateString = "KRW"
+            1 -> stateString = "BTC"
+            2 -> stateString = "ETH"
+            3 -> stateString = "USDT"
+        }
+    }
 
 
     private val client =
         Retrofit
             .Builder()
-            .baseUrl(MainFragment.url)
+            .baseUrl(url)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
     private val api = client.create(UpbitApi::class.java)
 
-    init {
+    /**
+     * 해당하는 Fragment index 정보를 통해 가져올 Market 정보를 구하는 함수
+     * @see study.architecture.MainPresenter
+     */
+    fun paresMarketList() {
         api.getMarkets()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : SingleObserver<List<Market>> {
                 override fun onSuccess(t: List<Market>) {
                     for (item in t) {
-                        when {
-                            item.market.contains("KRW") -> lists[0] += "${item.market},"
-                            item.market.contains("BTC") -> lists[1] += "${item.market},"
-                            item.market.contains("ETH") -> lists[2] += "${item.market},"
-                            item.market.contains("USDT") -> lists[3] += "${item.market},"
-                        }
+                        if (item.market.contains(stateString)) list += "${item.market},"
                     }
-                    parseTickerList()
+                    list = list.substring(0, list.lastIndex)
+
+                    callback.successMarketList()
                 }
 
                 override fun onSubscribe(d: Disposable) {
                 }
 
                 override fun onError(e: Throwable) {
-                    Log.e("Error",e.printStackTrace().toString())
+                    Log.e("Error", e.printStackTrace().toString())
                 }
             })
     }
 
-
     @SuppressLint("CheckResult")
     fun parseTickerList() {
         for (i in 0..3) {
-            api.getTickers(lists[i])
+            api.getTickers(list)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { item ->
-                    tickerList[i] = item
-                }
+                .subscribe(object : SingleObserver<List<Ticker>> {
+                    override fun onSuccess(t: List<Ticker>) {
+                        callback.successTickerList(t)
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
+
+                    }
+
+                    override fun onError(e: Throwable) {
+                        Log.e("onError", e.message)
+                    }
+                })
         }
+
     }
 
+
+    companion object {
+        private val url = "https://api.upbit.com/v1/"
+    }
 
 }

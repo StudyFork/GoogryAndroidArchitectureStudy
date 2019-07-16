@@ -1,16 +1,15 @@
-package study.architecture
+package study.architecture.mainjob
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
+import study.architecture.R
 import study.architecture.adapter.MainPageAdapter
-import study.architecture.model.DataParser
 
 class MainActivity : AppCompatActivity() {
-    init {
-        DataParser
-    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -41,10 +40,6 @@ class MainActivity : AppCompatActivity() {
         pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
         pager.adapter = MainPageAdapter(supportFragmentManager)
 
-    }
-
-    companion object {
-        const val TAB_NUMBER = 4
     }
 
 

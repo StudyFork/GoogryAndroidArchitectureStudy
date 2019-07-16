@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import study.architecture.R
 import study.architecture.vo.Ticker
 
-class CoinDataAdapter(private val lists: List<Ticker>) : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
+class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
+
+    var lists: List<Ticker> = listOf()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -20,10 +22,10 @@ class CoinDataAdapter(private val lists: List<Ticker>) : RecyclerView.Adapter<Co
 
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.name.text = lists[position].toString()
-        holder.price.text = lists[position].toString()
-        holder.last.text = lists[position].toString()
-        holder.money.text = lists[position].toString()
+        holder.name.text = lists[position].market
+        holder.price.text = lists[position].trade_price.toString()
+        holder.last.text = lists[position].change_rate.toString()
+        holder.money.text = lists[position].acc_trade_price_24h.toString()
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
