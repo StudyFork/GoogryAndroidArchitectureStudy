@@ -16,54 +16,56 @@
 
     </com.google.android.material.tabs.TabLayout>
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="410dp"
-        android:layout_height="602dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCointName3"
-        app:layout_constraintVertical_bias="0.0">
-
-    </androidx.viewpager.widget.ViewPager>
-
     <TextView
-        android:id="@+id/tvCoinName"
+        android:id="@+id/tvSortName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
         android:text="코인명"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
 
     <TextView
-        android:id="@+id/tvCurrPrice"
+        android:id="@+id/tvSortCurrPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:text="현재가"
-        app:layout_constraintEnd_toStartOf="@+id/tvCointName"
-        app:layout_constraintTop_toTopOf="@+id/tvCoinName" />
+        app:layout_constraintEnd_toStartOf="@+id/tvSortCompare"
+        app:layout_constraintStart_toEndOf="@+id/tvSortName"
+        app:layout_constraintTop_toTopOf="@+id/tvSortName" />
 
     <TextView
-        android:id="@+id/tvCointName"
+        android:id="@+id/tvSortCompare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:text="전일대비"
-        app:layout_constraintEnd_toStartOf="@+id/tvCointName3"
-        app:layout_constraintTop_toTopOf="@+id/tvCurrPrice" />
+        app:layout_constraintEnd_toStartOf="@+id/tvSortTotalTrade"
+        app:layout_constraintTop_toTopOf="@+id/tvSortCurrPrice" />
 
     <TextView
-        android:id="@+id/tvCointName3"
+        android:id="@+id/tvSortTotalTrade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="32dp"
         android:text="거래대금"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvCointName" />
+        app:layout_constraintTop_toTopOf="@+id/tvSortCompare" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSortTotalTrade"
+        app:layout_constraintVertical_bias="0.0">
+
+    </androidx.viewpager.widget.ViewPager>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

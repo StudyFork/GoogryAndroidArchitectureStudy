@@ -1,0 +1,30 @@
+package com.example.architecturestudy.data
+
+data class CoinVo(
+    val tradeVolume: Double = 0.0,
+    val tradeTime: String = "",
+    val tradeTimestamp: Long = 0,
+    val signedChangeRate: Double = 0.0,
+    val accTradePriceH: Double = 0.0,
+    val signedChangePrice: Int = 0,
+    val accTradeVolume: Double = 0.0,
+    val tradeDateKst: String = "",
+    val lowestWeekPrice: Int = 0,
+    val prevClosingPrice: Double = 0.0,
+    val tradeTimeKst: String = "",
+    val lowPrice: Double = 0.0,
+    val timestamp: Long = 0,
+    val openingPrice: Double = 0.0,
+    val tradePrice: Double = 0.0,
+    val change: String = "",
+    val accTradeVolumeH: Double = 0.0,
+    val lowestWeekDate: String = "",
+    val highPrice: Double = 0.0,
+    val tradeDate: String = "",
+    val changeRate: Double = 0.0,
+    val market: String = "",
+    val highestWeekDate: String = "",
+    val highestWeekPrice: Double = 0.0,
+    val accTradePrice: Double = 0.0,
+    val changePrice: Int = 0
+)
