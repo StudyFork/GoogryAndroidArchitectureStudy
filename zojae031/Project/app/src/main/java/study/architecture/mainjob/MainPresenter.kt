@@ -13,6 +13,7 @@ class MainPresenter(private val view: MainContract.View, index: Int) :
 
     override fun successMarketList() {
         parser.parseTickerList()
+
     }
 
     override fun successTickerList(list: List<Ticker>) {

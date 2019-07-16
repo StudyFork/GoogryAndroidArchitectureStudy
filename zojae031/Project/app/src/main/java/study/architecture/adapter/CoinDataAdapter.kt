@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import study.architecture.R
 import study.architecture.vo.Ticker
+import java.text.DecimalFormat
 
 class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
 
@@ -22,17 +23,24 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
 
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.name.text = lists[position].market
-        holder.price.text = lists[position].trade_price.toString()
-        holder.last.text = lists[position].change_rate.toString()
-        holder.money.text = lists[position].acc_trade_price_24h.toString()
+        holder.name.text = lists[position].market.substringAfter('-')
+        val tradePrice = lists[position].trade_price.toInt()
+        if(tradePrice>0){
+            holder.tradePrice.text = String.format("%,d",tradePrice)
+        }
+        else{
+            holder.tradePrice.text = String.format("%,f",lists[position].trade_price)
+        }
+
+        holder.changeRate.text = String.format("%.2f%%",lists[position].change_rate*100)
+        holder.accTradePrice24h.text = String.format("%,d",lists[position].acc_trade_price_24h.toInt())
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.name)
-        val price: TextView = itemView.findViewById(R.id.price)
-        val last: TextView = itemView.findViewById(R.id.last)
-        val money: TextView = itemView.findViewById(R.id.money)
+        val tradePrice: TextView = itemView.findViewById(R.id.trade_price)
+        val changeRate: TextView = itemView.findViewById(R.id.change_rate)
+        val accTradePrice24h: TextView = itemView.findViewById(R.id.acc_trade_price)
 
     }
 }

@@ -3,6 +3,9 @@ package study.architecture.model
 import android.annotation.SuppressLint
 import android.util.Log
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import io.reactivex.Observable
+import io.reactivex.Observer
+import io.reactivex.Scheduler
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -11,6 +14,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import study.architecture.vo.Market
 import study.architecture.vo.Ticker
+import java.util.concurrent.TimeUnit
 
 class DataParser(index: Int, resultCallback: ResultCallback) {
     private lateinit var stateString: String
@@ -72,25 +76,27 @@ class DataParser(index: Int, resultCallback: ResultCallback) {
 
     @SuppressLint("CheckResult")
     fun parseTickerList() {
-        for (i in 0..3) {
-            api.getTickers(list)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : SingleObserver<List<Ticker>> {
-                    override fun onSuccess(t: List<Ticker>) {
-                        callback.successTickerList(t)
-                    }
+        Observable.interval(0,3,TimeUnit.SECONDS)
+            .flatMap { api.getTickers(list) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<List<Ticker>>{
+                override fun onComplete() {
 
-                    override fun onSubscribe(d: Disposable) {
+                }
 
-                    }
+                override fun onSubscribe(d: Disposable) {
 
-                    override fun onError(e: Throwable) {
-                        Log.e("onError", e.message)
-                    }
-                })
-        }
+                }
 
+                override fun onNext(t: List<Ticker>) {
+                    callback.successTickerList(t)
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.e("onError",e.message)
+                }
+            })
     }
 
 
