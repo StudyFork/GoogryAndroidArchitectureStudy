@@ -9,6 +9,9 @@ import kotlinx.android.synthetic.main.list_item.view.*
 import study.architecture.R
 import study.architecture.vo.Ticker
 
+/**
+ * RecyclerView에 아이템을 뿌려주는 Adpater
+ */
 class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
 
     var lists: List<Ticker> = listOf()
@@ -16,7 +19,8 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, null)
-        view.dataWrapper.minimumWidth = view.context.applicationContext.resources.displayMetrics.widthPixels
+        view.dataWrapper.minimumWidth =
+            view.context.applicationContext.resources.displayMetrics.widthPixels // 현재 Device 사이즈를 구하여 최소 width로 설정해준다.
         return Holder(view)
     }
 
@@ -26,9 +30,9 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.name.text = lists[position].market.substringAfter('-')
         val tradePrice = lists[position].trade_price.toInt()
-        if (tradePrice > 0) {
+        if (tradePrice > 0) { //소수점이 아니라면 Int 형으로
             holder.tradePrice.text = String.format("%,d", tradePrice)
-        } else {
+        } else {//소수점으로 내려간다면 double 형으로
             holder.tradePrice.text = String.format("%,f", lists[position].trade_price)
         }
 
@@ -41,6 +45,5 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
         val tradePrice: TextView = itemView.findViewById(R.id.trade_price)
         val changeRate: TextView = itemView.findViewById(R.id.change_rate)
         val accTradePrice24h: TextView = itemView.findViewById(R.id.acc_trade_price)
-
     }
 }
