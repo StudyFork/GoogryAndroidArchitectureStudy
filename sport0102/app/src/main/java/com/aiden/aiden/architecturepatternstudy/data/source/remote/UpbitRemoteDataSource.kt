@@ -19,11 +19,15 @@ import com.aiden.aiden.architecturepatternstudy.api.UpbitApi
 import com.aiden.aiden.architecturepatternstudy.api.model.MarketResponse
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 import com.aiden.aiden.architecturepatternstudy.data.source.UpbitDataSource
+import com.aiden.aiden.architecturepatternstudy.domain.UpbitDatabase
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UpbitRemoteDataSource private constructor(private val upbitApi: UpbitApi) : UpbitDataSource {
+class UpbitRemoteDataSource private constructor(
+    private val upbitApi: UpbitApi,
+    private val db: UpbitDatabase?
+) : UpbitDataSource {
 
     override fun getMarketList(
         onSuccess: (List<String>) -> Unit,
@@ -65,8 +69,13 @@ class UpbitRemoteDataSource private constructor(private val upbitApi: UpbitApi) 
                     call: Call<ArrayList<TickerResponse>>,
                     response: Response<ArrayList<TickerResponse>>
                 ) {
-                    response.body()?.let {
-                        onSuccess(it)
+                    response.body()?.let { tickerList ->
+                        Thread(Runnable {
+                            db?.let {
+                                it.tickerDao().insert(tickerList)
+                            }
+                        }).start()
+                        onSuccess(tickerList)
                     }
                 }
 
@@ -78,8 +87,8 @@ class UpbitRemoteDataSource private constructor(private val upbitApi: UpbitApi) 
 
         private var instance: UpbitRemoteDataSource? = null
 
-        operator fun invoke(upbitApi: UpbitApi) =
-            instance ?: UpbitRemoteDataSource(upbitApi)
+        operator fun invoke(upbitApi: UpbitApi, db: UpbitDatabase?) =
+            instance ?: UpbitRemoteDataSource(upbitApi, db)
                 .apply { instance = this }
 
     }
