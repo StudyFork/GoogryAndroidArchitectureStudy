@@ -4,15 +4,11 @@ import android.annotation.SuppressLint
 import android.util.Log
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.Scheduler
-import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import study.architecture.vo.Market
 import study.architecture.vo.Ticker
 import java.util.concurrent.TimeUnit
 
@@ -55,49 +51,33 @@ class DataParser(index: Int, resultCallback: ResultCallback) {
         api.getMarkets()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : SingleObserver<List<Market>> {
-                override fun onSuccess(t: List<Market>) {
-                    for (item in t) {
-                        if (item.market.contains(stateString)) list += "${item.market},"
+            .subscribe(
+                { marketList ->
+                    for (item in marketList) {
+                        if (item.market.substringBefore("-") == stateString) list += "${item.market},"
                     }
                     list = list.substring(0, list.lastIndex)
-
                     callback.successMarketList()
-                }
-
-                override fun onSubscribe(d: Disposable) {
-                }
-
-                override fun onError(e: Throwable) {
-                    Log.e("Error", e.printStackTrace().toString())
-                }
-            })
+                },
+                {e->Log.e("onErrorMarketList",e.message)}
+            )
     }
 
     @SuppressLint("CheckResult")
-    fun parseTickerList() {
-        Observable.interval(0,3,TimeUnit.SECONDS)
+    fun parseTickerList(): Disposable =
+        Observable.interval(0, 3, TimeUnit.SECONDS)
             .flatMap { api.getTickers(list) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<List<Ticker>>{
-                override fun onComplete() {
-
-                }
-
-                override fun onSubscribe(d: Disposable) {
-
-                }
-
-                override fun onNext(t: List<Ticker>) {
-                    callback.successTickerList(t)
-                }
-
-                override fun onError(e: Throwable) {
-                    Log.e("onError",e.message)
-                }
-            })
-    }
+            .doOnSubscribe{Log.e("data",list.toString())}
+            .subscribe(
+                { list ->
+                    callback.successTickerList(list)
+                    Log.e("onNext", list.toString())
+                },
+                { e -> Log.e("onError", e.message) },
+                { Log.e("onSuccess", "발행 완료") }
+            )
 
 
     companion object {

@@ -9,6 +9,7 @@ interface MainContract {
 
     interface Presenter {
         fun onCreate()
-
+        fun onResume()
+        fun onPause()
     }
 }

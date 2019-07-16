@@ -39,4 +39,14 @@ class MainFragment(idx: Int) : Fragment(), MainContract.View {
         adapter?.lists = list
         adapter?.notifyDataSetChanged()
     }
+
+    override fun onPause() {
+        super.onPause()
+        presenter.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.onResume()
+    }
 }
