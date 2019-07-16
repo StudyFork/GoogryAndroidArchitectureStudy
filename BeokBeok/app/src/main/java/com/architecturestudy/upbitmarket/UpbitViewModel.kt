@@ -14,15 +14,7 @@ class UpbitViewModel(
     val errMsg = MutableLiveData<Throwable>()
 
     init {
-        upBitRepository.getMarketPrice(
-            MarketTypes.KRW.name,
-            onSuccess = {
-                marketPriceList.postValue(NumberFormatter.convertTo(it))
-            },
-            onFail = {
-                errMsg.value = it
-            }
-        )
+        showMarketPrice(MarketTypes.KRW.name)
     }
 
     fun showMarketPrice(market: String) {
