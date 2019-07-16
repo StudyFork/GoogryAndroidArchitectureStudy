@@ -48,7 +48,7 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
             showToast(it.message)
         }
 
-        vm.errMsg.observe(this@TickerFragment, errMsgObserver)
+        vm.errMsg.observe(this, errMsgObserver)
     }
 
     private fun setAdapter() {
