@@ -88,7 +88,6 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="8dp"
-                    android:visibility="@{viewModel.dataExist ? View.VISIBLE : View.INVISIBLE}"
                     app:bind_item="@{viewModel.items}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"

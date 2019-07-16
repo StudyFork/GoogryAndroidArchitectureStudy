@@ -8,6 +8,7 @@ import com.studyfirstproject.data.model.TickerModel
 
 class CoinViewModel(private val repository: CoinDataSource) {
 
+    private var isFirstLoading = true
     private val _isLoading = MutableLiveData<Boolean>()
     private val _dataExist = MutableLiveData<Boolean>().apply { value = true }
     private val _errorMsg = MutableLiveData<String>()
@@ -36,8 +37,12 @@ class CoinViewModel(private val repository: CoinDataSource) {
             repository.getCoinData(it,
                 success = { tickers ->
                     _isLoading.value = false
-                    _dataExist.value = true
                     _items.value = tickers
+                    _dataExist.value = true
+
+                    if (isFirstLoading) {
+                        isFirstLoading = false
+                    }
                 }, failed = { msg, reason ->
                     onDataNotAvailable(msg, reason)
                 })
@@ -53,8 +58,12 @@ class CoinViewModel(private val repository: CoinDataSource) {
 
     private fun onDataNotAvailable(msg: String, reason: String?) {
         Log.e(msg, reason ?: "No error message")
-        _errorMsg.value = "오류가 발생했습니다. 다시 시도해주세요."
+        _errorMsg.value = "네트워크 오류가 발생했습니다."
         _isLoading.value = false
-        _dataExist.value = false
+
+        if (isFirstLoading) {
+            _dataExist.value = false
+            isFirstLoading = false
+        }
     }
 }
