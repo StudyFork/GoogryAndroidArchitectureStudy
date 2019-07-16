@@ -71,9 +71,7 @@ class UpbitRemoteDataSource private constructor(
                 ) {
                     response.body()?.let { tickerList ->
                         Thread(Runnable {
-                            db?.let {
-                                it.tickerDao().insert(tickerList)
-                            }
+                            db?.tickerDao()?.insert(tickerList)
                         }).start()
                         onSuccess(tickerList)
                     }
