@@ -3,6 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -10,10 +11,9 @@
 
     <style name="TabTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@android:color/white</item>                                <!-- 배경 -->
-
         <item name="android:textColorPrimary">@android:color/holo_blue_dark</item>       <!-- 탭바 선택된 텍스트 -->
         <item name="android:textColorSecondary">@android:color/darker_gray</item>     <!-- 탭바 텍스트 -->
-
         <item name="colorAccent">@android:color/white</item>                    <!-- 하단 움직이는 바 색-->
     </style>
+
 </resources>
