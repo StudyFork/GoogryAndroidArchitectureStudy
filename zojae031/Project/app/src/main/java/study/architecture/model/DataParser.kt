@@ -59,17 +59,17 @@ class DataParser(index: Int, resultCallback: ResultCallback) {
                     list = list.substring(0, list.lastIndex)
                     callback.successMarketList()
                 },
-                {e->Log.e("onErrorMarketList",e.message)}
+                { e -> Log.e("onErrorMarketList", e.message) }
             )
     }
 
     @SuppressLint("CheckResult")
     fun parseTickerList(): Disposable =
-        Observable.interval(0, 3, TimeUnit.SECONDS)
+        Observable.interval(0, 5, TimeUnit.SECONDS)
             .flatMap { api.getTickers(list) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe{Log.e("data",list.toString())}
+            .doOnSubscribe { Log.e("data", list.toString()) }
             .subscribe(
                 { list ->
                     callback.successTickerList(list)
