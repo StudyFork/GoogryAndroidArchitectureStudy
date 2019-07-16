@@ -15,7 +15,6 @@ import com.aiden.aiden.architecturepatternstudy.data.source.remote.UpbitRemoteDa
 import com.aiden.aiden.architecturepatternstudy.databinding.FragmentMainBinding
 import com.aiden.aiden.architecturepatternstudy.databinding.ItemTickerBinding
 import com.aiden.aiden.architecturepatternstudy.domain.UpbitDatabase
-import com.aiden.aiden.architecturepatternstudy.ext.replaceAll
 
 
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
@@ -59,10 +58,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                     layoutRes = R.layout.item_ticker,
                     bindingVariableId = BR.item
                 ) {}
-            val tickerListObserver = Observer<List<TickerResponse>> {
-                fragmentTickerListRv.replaceAll(it)
-            }
-            mainVm.tickerList.observe(this@MainFragment, tickerListObserver)
+            mainViewModel = mainVm
 
         }
         val isDataLoadingErrorObserver = Observer<Boolean> {
