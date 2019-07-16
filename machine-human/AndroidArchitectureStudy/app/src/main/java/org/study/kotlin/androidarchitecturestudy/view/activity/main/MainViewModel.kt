@@ -24,13 +24,7 @@ class MainViewModel(
 
     init {
         remoteDataSource.getTickerList(marketName, success = { tickerList ->
-            var convertTickerList = ArrayList<ConvertTickerModel>()
-            tickerList.map {
-                convertTickerList.add(
-                    FormatUtil.convertTo(it)
-                )
-            }
-            _observableTickerList.value = convertTickerList
+            _observableTickerList.value = tickerList.map{FormatUtil.convertTo(it)}
         }, failed = { errorMessage ->
             Log.e("TAG", errorMessage.toString())
         })
