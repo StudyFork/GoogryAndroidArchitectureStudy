@@ -8,10 +8,10 @@ import com.aiden.aiden.architecturepatternstudy.util.StringUtil
 
 class MainViewModel(private val upbitRepository: UpbitRepository) {
 
-    private var _tickerList = MutableLiveData<List<TickerResponse>>()
+    private val _tickerList = MutableLiveData<List<TickerResponse>>()
     val tickerList: LiveData<List<TickerResponse>> get() = _tickerList
 
-    private var _isDataLoadingError = MutableLiveData<Boolean>()
+    private val _isDataLoadingError = MutableLiveData<Boolean>()
     val isDataLoadingError: LiveData<Boolean> get() = _isDataLoadingError
 
     fun loadMarketList(targetMarket: String) {
