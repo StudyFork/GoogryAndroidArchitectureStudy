@@ -1,6 +1,7 @@
 package study.architecture.myarchitecture.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import kotlinx.android.synthetic.main.fragment_ticker_list.*
 import org.jetbrains.anko.support.v4.toast
 import study.architecture.myarchitecture.BaseFragment
 import study.architecture.myarchitecture.R
+import study.architecture.myarchitecture.RxEventBus.RxEventBusHelper
 import study.architecture.myarchitecture.network.ApiProvider
 import study.architecture.myarchitecture.network.model.UpbitTicker
 import study.architecture.myarchitecture.util.Dlog
@@ -42,8 +44,23 @@ class TickerListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        subscribeEventBus()
         initRecyclerView()
         loadData()
+    }
+
+    override fun onDestroyView() {
+        compositeDisposable.clear()
+        super.onDestroyView()
+    }
+
+    private fun subscribeEventBus() {
+        RxEventBusHelper.mSubject
+            .subscribe {
+                tickerAdapter.orderByField(it)
+            }.also {
+                compositeDisposable.add(it)
+            }
     }
 
     private fun initRecyclerView() {

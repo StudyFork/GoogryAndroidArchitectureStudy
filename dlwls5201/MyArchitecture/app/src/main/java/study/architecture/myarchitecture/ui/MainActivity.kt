@@ -3,7 +3,7 @@ package study.architecture.myarchitecture.ui
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.view.animation.RotateAnimation
+import android.widget.ImageView
 import androidx.drawerlayout.widget.DrawerLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import io.reactivex.Single
@@ -12,11 +12,16 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import study.architecture.myarchitecture.BaseActivity
+import study.architecture.myarchitecture.RxEventBus.RxEventBusHelper
 import study.architecture.myarchitecture.network.ApiProvider
 import study.architecture.myarchitecture.util.Dlog
 import java.util.regex.Pattern
 
 class MainActivity : BaseActivity() {
+
+    enum class SelectArrow {
+        COIN_NAME, LAST, TRADE_DIFF, TRADE_AMOUNT
+    }
 
     private val mainAdapter by lazy { MainAdapter(supportFragmentManager) }
 
@@ -31,6 +36,7 @@ class MainActivity : BaseActivity() {
         initToolbar()
         initDrawer()
         initViewPager()
+        initTopCategory()
         loadData()
 
     }
@@ -104,6 +110,25 @@ class MainActivity : BaseActivity() {
 
     }
 
+    private fun initTopCategory() {
+
+        llCoinNameParent.setOnClickListener {
+            changeArrow(SelectArrow.COIN_NAME)
+        }
+
+        llLastParent.setOnClickListener {
+            changeArrow(SelectArrow.LAST)
+        }
+
+        llTradeDiffParent.setOnClickListener {
+            changeArrow(SelectArrow.TRADE_DIFF)
+        }
+
+        llTradeAmountParent.setOnClickListener {
+            changeArrow(SelectArrow.TRADE_AMOUNT)
+        }
+    }
+
     private fun loadData() {
 
         upbitApi.getMarkets()
@@ -125,7 +150,7 @@ class MainActivity : BaseActivity() {
                 val arrMarkets = Array(keys.size) { "" }
 
                 for ((index, value) in keys.withIndex()) {
-                    Dlog.d("index : $index -> value : $value")
+                    //Dlog.d("index : $index -> value : $value")
 
                     arrMarkets[index] = groupMarket
                         .getValue(value)
@@ -143,5 +168,53 @@ class MainActivity : BaseActivity() {
             }.also {
                 compositeDisposable.add(it)
             }
+    }
+
+    private fun changeArrow(selectArrow: SelectArrow) {
+
+        ivSelectByCoinName.visibility = View.INVISIBLE
+        ivSelectByLast.visibility = View.INVISIBLE
+        ivSelectByTradeDiff.visibility = View.INVISIBLE
+        ivSelectByTradeAmount.visibility = View.INVISIBLE
+
+        val bundle = Bundle()
+
+        when (selectArrow) {
+
+            SelectArrow.COIN_NAME -> {
+                setArrowImage(ivSelectByCoinName, bundle, TickerAdapter.COIN_NAME)
+            }
+
+            SelectArrow.LAST -> {
+                setArrowImage(ivSelectByLast, bundle, TickerAdapter.LAST)
+            }
+
+            SelectArrow.TRADE_DIFF -> {
+                setArrowImage(ivSelectByTradeDiff, bundle, TickerAdapter.TRADE_DIFF)
+            }
+
+            SelectArrow.TRADE_AMOUNT -> {
+                setArrowImage(ivSelectByTradeAmount, bundle, TickerAdapter.TRADE_AMOUNT)
+            }
+        }
+
+        RxEventBusHelper.sendEvent(bundle)
+    }
+
+    private fun setArrowImage(ivArrow: ImageView, bundle: Bundle, field: String) {
+
+        ivArrow.visibility = View.VISIBLE
+
+        bundle.putString(TickerAdapter.KEY_FIELD, field)
+
+        if (ivArrow.isSelected) {
+            //내림차순
+            bundle.putInt(TickerAdapter.KEY_ORDER, TickerAdapter.DESC)
+        } else {
+            //오름차순
+            bundle.putInt(TickerAdapter.KEY_ORDER, TickerAdapter.ASC)
+        }
+
+        ivArrow.isSelected = !ivArrow.isSelected
     }
 }

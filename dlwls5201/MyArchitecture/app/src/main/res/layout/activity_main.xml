@@ -99,6 +99,7 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
+                            android:id="@+id/llCoinNameParent"
                             android:gravity="center_vertical"
                             android:layout_weight="1"
                             android:layout_width="0dp"
@@ -119,6 +120,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/llLastParent"
                             android:gravity="center_vertical|end"
                             android:layout_weight="3"
                             android:layout_width="0dp"
@@ -139,6 +141,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/llTradeDiffParent"
                             android:gravity="center_vertical|end"
                             android:layout_weight="2"
                             android:layout_width="0dp"
@@ -159,6 +162,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/llTradeAmountParent"
                             android:gravity="center_vertical|end"
                             android:layout_weight="2"
                             android:layout_width="0dp"
