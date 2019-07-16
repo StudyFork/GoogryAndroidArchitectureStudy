@@ -27,7 +27,7 @@ class TickerViewModel(
     }
 
     private fun onTickersLoaded(tickers: List<Ticker>) {
-        this._tickers.value = TickerFormatter.convertTo(tickers)
+        _tickers.value = TickerFormatter.convertTo(tickers)
     }
 
     fun selectedMarket(marketLike: String) {
