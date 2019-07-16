@@ -26,15 +26,11 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
             val item = coins[position]
 
             //뷰 id를 통해 직접 접근
-//            tvCoinName.text = item.market
-//            tvCurrPrice.text = item.tradePrice.toString()
-//            tvCoinCompare.text = item.changeRate.toString()
-//            tvCoinTotalTrade.text = item.tradeVolume.toString()
+            tvCoinName.text = item.market
+            tvCurrPrice.text = item.tradePrice.toString()
+            tvCoinCompare.text = item.changeRate.toString()
+            tvCoinTotalTrade.text = item.tradeVolume.toString()
 
-            tvCoinName.text = "BTC"
-            tvCurrPrice.text = "12,900,000"
-            tvCoinCompare.text = "-2.02%"
-            tvCoinTotalTrade.text = "246,941M"
         }
     }
 
