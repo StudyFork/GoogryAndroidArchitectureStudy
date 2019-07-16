@@ -14,6 +14,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import study.architecture.myarchitecture.BaseActivity
 import study.architecture.myarchitecture.RxEventBus.RxEventBusHelper
 import study.architecture.myarchitecture.network.ApiProvider
+import study.architecture.myarchitecture.repository.UpbitRepository
+import study.architecture.myarchitecture.repository.UpbitRepositoryImpl
 import study.architecture.myarchitecture.util.Dlog
 import java.util.regex.Pattern
 
@@ -25,13 +27,17 @@ class MainActivity : BaseActivity() {
 
     private val mainAdapter by lazy { MainAdapter(supportFragmentManager) }
 
-    private val upbitApi = ApiProvider.provideUpbitApi()
+    private lateinit var upbitRepository: UpbitRepository
 
     private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(study.architecture.myarchitecture.R.layout.activity_main)
+
+        upbitRepository = UpbitRepositoryImpl(
+            ApiProvider.provideUpbitApi()
+        )
 
         initToolbar()
         initDrawer()
@@ -131,17 +137,8 @@ class MainActivity : BaseActivity() {
 
     private fun loadData() {
 
-        upbitApi.getMarkets()
-            .flatMap { markets ->
-
-                val pattern = Pattern.compile("^([a-zA-Z]*)-([a-zA-Z]*)$")
-
-                val groupMarket = markets
-                    .filter { pattern.matcher(it.market).find() }
-                    .groupBy {
-                        val idx = it.market.indexOf("-")
-                        it.market.substring(0, idx)
-                    }
+        upbitRepository.getGroupedMarkets()
+            .subscribe({ groupMarket ->
 
                 val keys = groupMarket.keys
 
@@ -157,12 +154,8 @@ class MainActivity : BaseActivity() {
                         .joinToString(separator = ",") { it.market }
                 }
 
-                Single.just(arrMarkets)
-            }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ items ->
-                mainAdapter.setItems(items)
+                mainAdapter.setItems(arrMarkets)
+
             }) {
                 Dlog.e(it.message)
             }.also {

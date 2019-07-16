@@ -1,7 +1,6 @@
 package study.architecture.myarchitecture.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,8 @@ import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.RxEventBus.RxEventBusHelper
 import study.architecture.myarchitecture.network.ApiProvider
 import study.architecture.myarchitecture.network.model.UpbitTicker
+import study.architecture.myarchitecture.repository.UpbitRepository
+import study.architecture.myarchitecture.repository.UpbitRepositoryImpl
 import study.architecture.myarchitecture.util.Dlog
 
 class TickerListFragment : BaseFragment() {
@@ -33,7 +34,7 @@ class TickerListFragment : BaseFragment() {
 
     private val tickerAdapter = TickerAdapter()
 
-    private val upbitApi = ApiProvider.provideUpbitApi()
+    private lateinit var upbitRepository: UpbitRepository
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -43,6 +44,10 @@ class TickerListFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        upbitRepository = UpbitRepositoryImpl(
+            ApiProvider.provideUpbitApi()
+        )
 
         subscribeEventBus()
         initRecyclerView()
@@ -81,10 +86,8 @@ class TickerListFragment : BaseFragment() {
 
         val markets = arguments?.getString(KEY_MARKETS) ?: ""
 
-        upbitApi
+        upbitRepository
             .getTickers(markets)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
                 showProgress()
             }

@@ -74,66 +74,28 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
         when (field) {
 
             COIN_NAME -> {
-                orderByCoinName(order)
+                val selector: (UpbitTicker) -> String = { it.market }
+                setOrderByField(selector, order)
             }
 
             LAST -> {
-                orderByLast(order)
+                val selector: (UpbitTicker) -> Double = { it.tradePrice }
+                setOrderByField(selector, order)
             }
 
             TRADE_DIFF -> {
-                orderByTradeDiff(order)
+                val selector: (UpbitTicker) -> Double = { it.signedChangeRate }
+                setOrderByField(selector, order)
             }
 
             TRADE_AMOUNT -> {
-                orderByTradeAmount(order)
+                val selector: (UpbitTicker) -> Double = { it.accTradePrice24h }
+                setOrderByField(selector, order)
             }
         }
     }
 
-    private fun orderByCoinName(order: Int) {
-
-        val selector: (UpbitTicker) -> String = { it.market }
-
-        if (order == ASC) {
-            tickers.sortBy(selector)
-        } else if (order == DESC) {
-            tickers.sortByDescending(selector)
-        }
-
-        notifyDataSetChanged()
-    }
-
-    private fun orderByLast(order: Int) {
-
-        val selector: (UpbitTicker) -> Double = { it.tradePrice }
-
-        if (order == ASC) {
-            tickers.sortBy(selector)
-        } else if (order == DESC) {
-            tickers.sortByDescending(selector)
-        }
-
-        notifyDataSetChanged()
-    }
-
-    private fun orderByTradeDiff(order: Int) {
-
-        val selector: (UpbitTicker) -> Double = { it.signedChangeRate }
-
-        if (order == ASC) {
-            tickers.sortBy(selector)
-        } else if (order == DESC) {
-            tickers.sortByDescending(selector)
-        }
-
-        notifyDataSetChanged()
-    }
-
-    private fun orderByTradeAmount(order: Int) {
-
-        val selector: (UpbitTicker) -> Double = { it.accTradePrice24h }
-
+    private fun <R : Comparable<R>>setOrderByField(selector: (UpbitTicker) -> R, order: Int) {
         if (order == ASC) {
             tickers.sortBy(selector)
         } else if (order == DESC) {
