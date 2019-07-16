@@ -9,11 +9,17 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import study.architecture.mainjob.MainFragment
 import study.architecture.vo.Ticker
 import java.util.concurrent.TimeUnit
 
-class DataParser(index: Int, resultCallback: ResultCallback) {
-    private lateinit var stateString: String
+class DataParser(index: MainFragment.FragIndex, resultCallback: ResultCallback) {
+    private var stateString: String = when (index) {
+        MainFragment.FragIndex.KRW -> "KRW"
+        MainFragment.FragIndex.BTC -> "BTC"
+        MainFragment.FragIndex.ETH -> "ETH"
+        MainFragment.FragIndex.USDT -> "USDT"
+    }
     private var list = ""
 
     private val callback = resultCallback
@@ -21,15 +27,6 @@ class DataParser(index: Int, resultCallback: ResultCallback) {
     interface ResultCallback {
         fun successMarketList()
         fun successTickerList(list: List<Ticker>)
-    }
-
-    init {
-        when (index) {
-            0 -> stateString = "KRW"
-            1 -> stateString = "BTC"
-            2 -> stateString = "ETH"
-            3 -> stateString = "USDT"
-        }
     }
 
 
@@ -69,11 +66,10 @@ class DataParser(index: Int, resultCallback: ResultCallback) {
             .flatMap { api.getTickers(list) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { Log.e("data", list.toString()) }
             .subscribe(
                 { list ->
                     callback.successTickerList(list)
-                    Log.e("onNext", list.toString())
+
                 },
                 { e -> Log.e("onError", e.message) },
                 { Log.e("onSuccess", "발행 완료") }

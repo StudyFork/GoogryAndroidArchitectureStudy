@@ -14,7 +14,7 @@ import study.architecture.vo.Ticker
 
 
 @SuppressLint("ValidFragment", "WrongConstant")
-class MainFragment(idx: Int) : Fragment(), MainContract.View {
+class MainFragment(idx: FragIndex) : Fragment(), MainContract.View {
     private val presenter = MainPresenter(this@MainFragment, idx)
 
     private var adapter: CoinDataAdapter? = null
@@ -48,5 +48,9 @@ class MainFragment(idx: Int) : Fragment(), MainContract.View {
     override fun onResume() {
         super.onResume()
         presenter.onResume()
+    }
+
+    enum class FragIndex {
+        KRW, BTC, ETH, USDT
     }
 }

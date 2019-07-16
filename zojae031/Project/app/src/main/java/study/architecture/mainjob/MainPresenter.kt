@@ -4,7 +4,7 @@ import io.reactivex.disposables.CompositeDisposable
 import study.architecture.model.DataParser
 import study.architecture.vo.Ticker
 
-class MainPresenter(private val view: MainContract.View, index: Int) :
+class MainPresenter(private val view: MainContract.View, index: MainFragment.FragIndex) :
     MainContract.Presenter, DataParser.ResultCallback {
     private val compositeDisposable = CompositeDisposable()
     private val parser = DataParser(index, this@MainPresenter)

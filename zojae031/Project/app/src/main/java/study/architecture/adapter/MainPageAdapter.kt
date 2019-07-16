@@ -18,10 +18,10 @@ import study.architecture.mainjob.MainFragment
 class MainPageAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     private val fragments: List<MainFragment> = listOf(
-        MainFragment(0),
-        MainFragment(1),
-        MainFragment(2),
-        MainFragment(3)
+        MainFragment(MainFragment.FragIndex.KRW),
+        MainFragment(MainFragment.FragIndex.BTC),
+        MainFragment(MainFragment.FragIndex.ETH),
+        MainFragment(MainFragment.FragIndex.USDT)
     )
 
     override fun getCount(): Int = fragments.size
