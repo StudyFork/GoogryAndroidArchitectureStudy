@@ -12,14 +12,12 @@ class MainViewModel(
     remoteDataSource: BaseDataSource,
     marketName: String
 ) : BaseViewModel() {
-    val _observableTickerList = MutableLiveData<List<ConvertTickerModel>>()
-    val _observableErrorMessage = MutableLiveData<Throwable>()
 
-    val observableTickerList: LiveData<List<ConvertTickerModel>>
-        get() = _observableTickerList
+    protected val _observableTickerList = MutableLiveData<List<ConvertTickerModel>>()
+    val observableTickerList: LiveData<List<ConvertTickerModel>> get() = _observableTickerList
 
-    val observableErrorMessage: LiveData<Throwable>
-        get() = _observableErrorMessage
+    protected val _observableErrorMessage = MutableLiveData<Throwable>()
+    val observableErrorMessage: LiveData<Throwable> get() = _observableErrorMessage
 
 
     init {
