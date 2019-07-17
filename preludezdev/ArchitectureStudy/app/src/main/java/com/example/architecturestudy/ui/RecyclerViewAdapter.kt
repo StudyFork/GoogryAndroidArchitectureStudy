@@ -4,17 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.architecturestudy.R
-import com.example.architecturestudy.data.CoinVo
+import com.example.architecturestudy.data.CoinTickerResponse
 import kotlinx.android.synthetic.main.item_coin.view.*
 
 class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {
 
     private val coins = listOf(
-        CoinVo(213.0, "123"),
-        CoinVo(213.0, "123"),
-        CoinVo(213.0, "123"),
-        CoinVo(213.0, "123"),
-        CoinVo(213.0, "123")
+        CoinTickerResponse(213.0, "123"),
+        CoinTickerResponse(213.0, "123"),
+        CoinTickerResponse(213.0, "123"),
+        CoinTickerResponse(213.0, "123"),
+        CoinTickerResponse(213.0, "123")
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder = MyViewHolder(parent)

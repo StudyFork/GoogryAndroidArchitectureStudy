@@ -17,7 +17,6 @@ class USDTFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         //super.onViewCreated(view, savedInstanceState)
         //뷰 id를 사용하여 인스턴스에 바로 접근합니다.
-        textView.setText(String.format("%s", "USDT1"))
 
     }
 }

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.architecturestudy.R
-import kotlinx.android.synthetic.main.fragment_btc.*
 
 class ETHFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -17,7 +16,6 @@ class ETHFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         //super.onViewCreated(view, savedInstanceState)
         //뷰 id를 사용하여 인스턴스에 바로 접근합니다.
-        textView.setText(String.format("%s", "ETH1"))
 
     }
 }
