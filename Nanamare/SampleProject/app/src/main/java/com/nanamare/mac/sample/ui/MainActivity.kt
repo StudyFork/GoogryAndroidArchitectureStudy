@@ -1,6 +1,7 @@
 package com.nanamare.mac.sample.ui
 
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import com.google.gson.Gson
 import com.nanamare.mac.sample.R
 import com.nanamare.mac.sample.api.DisposableManager
@@ -30,16 +31,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     })
             )
 
-            disposableManager.add(isLoadingObservable
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    if(it) {
-                        showLoadingDialog()
-                    } else {
-                        hideLoadingDialog()
-                    }
+            isLoadingObservable.observe(this@MainActivity, Observer {
+                when {
+                    it -> showLoadingDialog()
+                    else -> hideLoadingDialog()
                 }
-            )
+            })
 
         }
 
