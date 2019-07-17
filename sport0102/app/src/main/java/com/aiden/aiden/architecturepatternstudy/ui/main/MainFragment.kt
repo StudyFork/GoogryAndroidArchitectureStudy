@@ -67,6 +67,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         }
         mainVm.isDataLoadingError.observe(this@MainFragment, isDataLoadingErrorObserver)
         val searchKeywordObserver = Observer<String> {
+            if (it.isNullOrBlank()) {
+                mainVm.loadMarketList(marketName)
+                return@Observer
+            }
             mainVm.searchTickerByKeyword(listOf("$marketName-$it"))
         }
         mainVm.searchKeyword.observe(this@MainFragment, searchKeywordObserver)
