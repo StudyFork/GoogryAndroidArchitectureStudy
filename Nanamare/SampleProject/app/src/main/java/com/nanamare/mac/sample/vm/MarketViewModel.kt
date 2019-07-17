@@ -1,12 +1,15 @@
 package com.nanamare.mac.sample.vm
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.nanamare.mac.sample.base.BaseViewModel
 import com.nanamare.mac.sample.data.market.MarketRepository
-import io.reactivex.subjects.PublishSubject
 
 class MarketViewModel: BaseViewModel() {
 
-    var marketObservable: PublishSubject<LinkedHashMap<String, List<String>>> = PublishSubject.create()
+    private var _market = MutableLiveData<LinkedHashMap<String, List<String>>>()
+
+    val market: LiveData<LinkedHashMap<String, List<String>>> get() = _market
 
     fun onMarketClick() {
         isLoadingObservable.value = true
@@ -20,10 +23,10 @@ class MarketViewModel: BaseViewModel() {
                 }
             }
             isLoadingObservable.value = false
-            marketObservable.onNext(marketMap)
+            _market.value = marketMap
         }, failed = {
             isLoadingObservable.value = false
-            marketObservable.onError(Throwable())
+            _market.value = LinkedHashMap()
         })
     }
 
