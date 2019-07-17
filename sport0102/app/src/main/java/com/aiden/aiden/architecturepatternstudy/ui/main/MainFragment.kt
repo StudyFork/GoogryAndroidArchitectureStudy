@@ -46,6 +46,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             }
         }
         mainVm = MainViewModel(
+            context = context!!,
             upbitRepository = UpbitRepository(
                 UpbitRemoteDataSource(upbitApi, db),
                 UpbitLocalDataSource(db)
@@ -65,6 +66,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             if (it) showErrorToast()
         }
         mainVm.isDataLoadingError.observe(this@MainFragment, isDataLoadingErrorObserver)
+        val searchKeywordObserver = Observer<String> {
+            mainVm.searchTickerByKeyword(listOf("$marketName-$it"))
+        }
+        mainVm.searchKeyword.observe(this@MainFragment, searchKeywordObserver)
 
     }
 

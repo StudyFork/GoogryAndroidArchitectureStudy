@@ -22,9 +22,7 @@ class UpbitLocalDataSource private constructor(private val db: UpbitDatabase?) :
 
         Thread(Runnable {
             try {
-                db?.let {
-                    onSuccess(it.tickerDao().getByMarket(marketList[0]))
-                } ?: onFail(Throwable())
+                onSuccess(db!!.tickerDao().getByMarket(marketList[0]))
             } catch (e: Exception) {
                 onFail(e)
             }
