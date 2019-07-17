@@ -3,6 +3,7 @@
 	xmlns:tools="http://schemas.android.com/tools">
 
 	<data>
+
 		<variable
 			name="item"
 			type="com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse" />
