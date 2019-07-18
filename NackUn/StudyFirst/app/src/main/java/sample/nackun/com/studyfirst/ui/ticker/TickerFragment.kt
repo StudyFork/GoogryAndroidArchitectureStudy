@@ -49,7 +49,6 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
         )
 
         binding.setVariable(BR.vm, vm)
-        binding.lifecycleOwner = this
 
         val errMsgObserver = Observer<Throwable> {
             showToast(it.message)
