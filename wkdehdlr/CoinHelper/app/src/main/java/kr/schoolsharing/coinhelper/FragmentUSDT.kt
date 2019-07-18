@@ -19,11 +19,7 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class FragmentUSDT : Fragment() {
-
-    var itemList = arrayListOf<UpbitItem>(
-
-    )
+class FragmentUSDT(val itemList: List<UpbitItem>) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -11,10 +11,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val myPagerAdapter = MyPagerAdapter(supportFragmentManager)
+        val apiConnector = ApiConnector()
+        apiConnector.setUpbitMarket()
 
-        myPagerAdapter.setUpbitMarket()
-//        myPagerAdapter.setUpbitTicker()
+        val myPagerAdapter = MyPagerAdapter(supportFragmentManager, apiConnector)
         viewpager_main.adapter = myPagerAdapter
         tabs_main.setupWithViewPager(viewpager_main)
     }

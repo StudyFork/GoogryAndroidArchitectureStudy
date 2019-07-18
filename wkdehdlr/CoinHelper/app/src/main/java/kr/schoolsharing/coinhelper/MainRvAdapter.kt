@@ -1,13 +1,14 @@
 package kr.schoolsharing.coinhelper
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class MainRvAdapter(val context: Context, val itemList: ArrayList<UpbitItem>) :
+class MainRvAdapter(val context: Context, val itemList: List<UpbitItem>) :
     RecyclerView.Adapter<MainRvAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -26,12 +27,18 @@ class MainRvAdapter(val context: Context, val itemList: ArrayList<UpbitItem>) :
         fun bind(upbitItem: UpbitItem, context: Context) {
             val name = itemView.findViewById<TextView>(R.id.name)
             val current = itemView.findViewById<TextView>(R.id.current)
-            val diff = itemView.findViewById<TextView>(R.id.diff)
+            val signedChangeRate = itemView.findViewById<TextView>(R.id.signedChangeRate)
             val volume = itemView.findViewById<TextView>(R.id.volume)
 
             name.text = upbitItem.name
             current.text = upbitItem.current.toString()
-            diff.text = upbitItem.diff.toString()
+
+            when (upbitItem.change) {
+                "RISE" -> signedChangeRate.setTextColor(Color.BLUE)
+                else -> signedChangeRate.setTextColor(Color.RED)
+            }
+
+            signedChangeRate.text = upbitItem.signedChangeRate.toString()
             volume.text = upbitItem.volume.toString()
         }
     }
