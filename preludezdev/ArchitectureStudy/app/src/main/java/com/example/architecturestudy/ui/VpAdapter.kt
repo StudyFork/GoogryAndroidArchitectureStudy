@@ -24,11 +24,12 @@ class VpAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         return fragmentTitleList.size
     }
 
-    //탭 텍스트 설정
+    //탭 텍스트 제목 설정
     override fun getPageTitle(position: Int): CharSequence? {
         return fragmentTitleList[position]
     }
 
+    //페이지 이동시 OnCreateView() 함수 호출해 뷰 다시 생성
     override fun getItemPosition(`object`: Any): Int {
         return PagerAdapter.POSITION_NONE
     }

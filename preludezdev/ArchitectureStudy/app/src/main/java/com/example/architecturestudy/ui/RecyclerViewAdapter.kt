@@ -1,6 +1,6 @@
 package com.example.architecturestudy.ui
 
-import android.util.Log
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -25,7 +25,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
         }
         marketList.deleteCharAt(marketList.length - 1)
 
-        //Ticker 가져오기
+        //Ticker 정보들 가져오기
         NetworkHelper
             .coinApiService
             .getCurrTicker(marketList.toString())
@@ -55,29 +55,36 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
         //코틀린 안드로이드 익스텐션을 사용해 레이아웃 내 뷰에 접근하려면
         //뷰홀더 내의 itemView를 거쳐야 한다.
         with(holder.itemView) {
-            val item = coins[position]
+            val currItem = coins[position]
+            val currBaseCoin = currItem.market.split("-")[0]
 
-            val currMarket = item.market.split("-")[0]
+            //각 레이아웃 내 뷰에 텍스트 설정
+            tvCoinName.text = currItem.market.split("-")[1]
+            tvCoinCompare.text = String.format("%.2f", currItem.signed_change_rate * 100) + "%"
 
-            tvCoinName.text = item.market.split("-")[1]
-            tvCoinCompare.text = String.format("%.2f", item.signed_change_rate * 100) + "%"
+            if (currItem.signed_change_rate > 0) {
+                tvCoinCompare.setTextColor(Color.RED)
+            } else {
+                tvCoinCompare.setTextColor(Color.BLUE)
+            }
 
+            //각 마켓별로 데이터를 다르게 보여주게끔 설정
             when {
-                currMarket.equals("KRW") -> {
-                    tvCurrPrice.text = String.format("%9.2f", item.trade_price)
-                    tvCoinTotalTrade.text = String.format("%6.0f", (item.acc_trade_price_24h / 1000000)) + "M"
+                currBaseCoin.equals("KRW") -> {
+                    tvCurrPrice.text = String.format("%9.2f", currItem.trade_price)
+                    tvCoinTotalTrade.text = String.format("%6.0f", (currItem.acc_trade_price_24h / 1000000)) + "M"
                 }
-                currMarket.equals("BTC") -> {
-                    tvCurrPrice.text = String.format("%.8f", item.trade_price)
-                    tvCoinTotalTrade.text = String.format("%.3f", (item.acc_trade_price_24h))
+                currBaseCoin.equals("BTC") -> {
+                    tvCurrPrice.text = String.format("%.8f", currItem.trade_price)
+                    tvCoinTotalTrade.text = String.format("%.3f", (currItem.acc_trade_price_24h))
                 }
-                currMarket.equals("ETH") -> {
-                    tvCurrPrice.text = String.format("%.8f", item.trade_price)
-                    tvCoinTotalTrade.text = String.format("%.3f", (item.acc_trade_price_24h))
+                currBaseCoin.equals("ETH") -> {
+                    tvCurrPrice.text = String.format("%.8f", currItem.trade_price)
+                    tvCoinTotalTrade.text = String.format("%.3f", (currItem.acc_trade_price_24h))
                 }
-                currMarket.equals("USDT") -> {
-                    tvCurrPrice.text = String.format("%9.2f", item.trade_price)
-                    tvCoinTotalTrade.text = String.format("%6.0f", (item.acc_trade_price_24h))
+                currBaseCoin.equals("USDT") -> {
+                    tvCurrPrice.text = String.format("%9.2f", currItem.trade_price)
+                    tvCoinTotalTrade.text = String.format("%6.0f", (currItem.acc_trade_price_24h))
                 }
             }
         }

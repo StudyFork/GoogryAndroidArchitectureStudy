@@ -13,15 +13,15 @@ import retrofit2.Response
 
 class SplashActivity : AppCompatActivity() {
 
-    private val delayTime = 1300L
+    private val delayTime = 1300L //스플래시 화면에 머무는 시간
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        loadCoinMarketList()
+        loadCoinMarketList() //메인액티비티로 이동
 
-        redirectByTime()
+        redirectByTime() //전체 코인시장목록 불러오기
     }
 
     //메인액티비티로 이동
@@ -32,7 +32,7 @@ class SplashActivity : AppCompatActivity() {
         )
     }
 
-    //코인시장목록 불러오기
+    //전체 코인시장목록 불러와서 MainActivity에 있는 전역변수에 저장
     private fun loadCoinMarketList() {
         NetworkHelper
             .coinApiService

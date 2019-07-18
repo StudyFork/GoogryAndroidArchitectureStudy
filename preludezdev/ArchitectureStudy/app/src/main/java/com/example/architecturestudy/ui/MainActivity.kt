@@ -16,13 +16,12 @@ class MainActivity : AppCompatActivity() {
         var USDT_MARKETS: HashSet<String> = HashSet()
     }
 
-    var vpAdapter = VpAdapter(supportFragmentManager)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         //뷰페이저 어댑터 연결
+        var vpAdapter = VpAdapter(supportFragmentManager)
         viewPager.adapter = vpAdapter
 
         //탭 레이아웃에 뷰페이저 연결

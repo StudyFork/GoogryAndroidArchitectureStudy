@@ -16,7 +16,6 @@ class EthFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_market, container, false)
 
-    //프래그먼트에 보여줄 뷰가 생성된 이후 시점
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
