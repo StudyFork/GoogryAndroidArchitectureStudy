@@ -14,14 +14,12 @@ class BaseRecyclerView {
         private val bindingVariabledId: Int
     ) : RecyclerView.Adapter<BaseViewHolder<B>>() {
 
-        private val items = mutableListOf<ITEM>()//변경
+        private val items = mutableListOf<ITEM>()
 
         fun setItems(items: List<ITEM>) {
-            items.let {
-                this.items.run {
-                    clear()
-                    addAll(it)
-                }
+            this.items.run {
+                clear()
+                addAll(items)
             }
         }
 
