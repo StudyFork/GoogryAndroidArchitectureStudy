@@ -34,39 +34,39 @@
                 android:text="USDT"/>
     </com.google.android.material.tabs.TabLayout>
     <LinearLayout
-            android:orientation="horizontal"
+            android:id="@+id/dataWrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/tabLayout" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            android:id="@+id/dataWrapper">
+            android:orientation="horizontal">
         <TextView
                 android:text="코인명"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView4" android:layout_weight="1"
+                android:layout_height="wrap_content"  android:layout_weight="1"
                 android:gravity="center"/>
         <TextView
                 android:text="현재가"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView3" android:layout_weight="1"
+                android:layout_height="wrap_content" android:layout_weight="1"
                 android:gravity="center"/>
         <TextView
                 android:text="전일대비"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView2" android:layout_weight="1"
+                android:layout_height="wrap_content" android:layout_weight="1"
                 android:gravity="center"/>
         <TextView
                 android:text="거래대금"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView" android:layout_weight="1"
+                android:layout_height="wrap_content" android:layout_weight="1"
                 android:gravity="center"/>
     </LinearLayout>
     <androidx.viewpager.widget.ViewPager
+            android:id="@+id/pager"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:id="@+id/pager"
             android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/dataWrapper"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
