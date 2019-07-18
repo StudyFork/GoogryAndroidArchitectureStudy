@@ -18,8 +18,8 @@ class UpbitOutlineFragment : BaseFragment<FragmentUpbitOutlineBinding>(
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         CompositeDisposable().dispose()
+        super.onDestroy()
     }
 
     private fun initViewPager() {
