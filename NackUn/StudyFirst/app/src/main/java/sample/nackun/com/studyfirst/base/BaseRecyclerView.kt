@@ -14,7 +14,7 @@ class BaseRecyclerView {
         private val bindingVariabledId: Int
     ) : RecyclerView.Adapter<BaseViewHolder<B>>() {
 
-        private val items = mutableListOf<ITEM>()
+        private val items = mutableListOf<ITEM>()//변경
 
         fun setItems(items: List<ITEM>) {
             items.let {
