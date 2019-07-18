@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 
 class MainVpAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
-    val fragmentTitleList = listOf("KRW", "BTC", "ETH", "USDT")
+    private val fragmentTitleList = listOf("KRW", "BTC", "ETH", "USDT")
 
     override fun getItem(position: Int): Fragment? {
         return when (position) {

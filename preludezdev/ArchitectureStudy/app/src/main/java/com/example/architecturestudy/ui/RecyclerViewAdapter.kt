@@ -75,5 +75,4 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
             .inflate(R.layout.item_coin, parent, false)
     )
 
-
 }

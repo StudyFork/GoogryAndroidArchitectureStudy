@@ -7,7 +7,6 @@ import android.os.Handler
 import com.example.architecturestudy.R
 import com.example.architecturestudy.data.CoinMarketResponse
 import com.example.architecturestudy.network.NetworkHelper
-import kotlinx.android.synthetic.main.fragment_btc.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
