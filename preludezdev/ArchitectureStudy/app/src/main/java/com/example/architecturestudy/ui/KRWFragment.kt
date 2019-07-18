@@ -23,6 +23,8 @@ class KRWFragment : Fragment() {
         //리사이클러뷰 어댑터와 레이아웃매니저 설정
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = recyclerViewAdapter
+
+        recyclerViewAdapter.loadData(MainActivity.KRWList)
     }
 
 }

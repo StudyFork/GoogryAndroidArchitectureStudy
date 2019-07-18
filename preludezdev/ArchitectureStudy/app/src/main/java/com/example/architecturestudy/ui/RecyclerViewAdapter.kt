@@ -5,17 +5,36 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.architecturestudy.R
 import com.example.architecturestudy.data.CoinTickerResponse
+import com.example.architecturestudy.network.NetworkHelper
 import kotlinx.android.synthetic.main.item_coin.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {
 
-    private val coins = listOf(
-        CoinTickerResponse(213.0, "123"),
-        CoinTickerResponse(213.0, "123"),
-        CoinTickerResponse(213.0, "123"),
-        CoinTickerResponse(213.0, "123"),
-        CoinTickerResponse(213.0, "123")
-    )
+    private val coins = mutableListOf<CoinTickerResponse>()
+
+    fun loadData(markets: HashSet<String>) {
+        for (market in markets) {
+
+            NetworkHelper
+                .coinApiService
+                .getCurrTicker(market)
+                .enqueue(object : Callback<CoinTickerResponse> {
+                    override fun onFailure(call: Call<CoinTickerResponse>, t: Throwable) {
+                        t.printStackTrace()
+                    }
+
+                    override fun onResponse(call: Call<CoinTickerResponse>, response: Response<CoinTickerResponse>) {
+                        coins.add(response.body()!!)
+                    }
+                })
+        }
+
+        notifyDataSetChanged()
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder = MyViewHolder(parent)
 
