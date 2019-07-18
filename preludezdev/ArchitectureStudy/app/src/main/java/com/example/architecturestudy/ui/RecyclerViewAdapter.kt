@@ -59,11 +59,29 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
         with(holder.itemView) {
             val item = coins[position]
 
-            //뷰 id를 통해 직접 접근
+            val currMarket = item.market.split("-")[0]
+
             tvCoinName.text = item.market.split("-")[1]
-            tvCurrPrice.text = String.format("%9.2f", item.trade_price)
             tvCoinCompare.text = String.format("%.2f", item.signed_change_rate * 100) + "%"
-            tvCoinTotalTrade.text = String.format("%6.0f", (item.acc_trade_price_24h / 1000000)) + "M"
+
+            when {
+                currMarket.equals("KRW") -> {
+                    tvCurrPrice.text = String.format("%9.2f", item.trade_price)
+                    tvCoinTotalTrade.text = String.format("%6.0f", (item.acc_trade_price_24h / 1000000)) + "M"
+                }
+                currMarket.equals("BTC") -> {
+                    tvCurrPrice.text = String.format("%.8f", item.trade_price)
+                    tvCoinTotalTrade.text = String.format("%.3f", (item.acc_trade_price_24h))
+                }
+                currMarket.equals("ETH") -> {
+                    tvCurrPrice.text = String.format("%.8f", item.trade_price)
+                    tvCoinTotalTrade.text = String.format("%.3f", (item.acc_trade_price_24h))
+                }
+                currMarket.equals("USDT") -> {
+                    tvCurrPrice.text = String.format("%9.2f", item.trade_price)
+                    tvCoinTotalTrade.text = String.format("%6.0f", (item.acc_trade_price_24h))
+                }
+            }
 
         }
     }

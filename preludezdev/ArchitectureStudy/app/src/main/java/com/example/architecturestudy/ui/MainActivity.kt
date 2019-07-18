@@ -24,7 +24,5 @@ class MainActivity : AppCompatActivity() {
 
         //탭 레이아웃에 뷰페이저 연결
         tabLayout.setupWithViewPager(viewPager)
-
-
     }
 }
