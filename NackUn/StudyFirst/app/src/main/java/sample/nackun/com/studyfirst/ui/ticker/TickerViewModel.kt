@@ -7,7 +7,8 @@ import sample.nackun.com.studyfirst.util.TickerFormatter
 import sample.nackun.com.studyfirst.vo.Ticker
 
 class TickerViewModel(
-    private val repository: Repository
+    private val repository: Repository,
+    firstMarketName: String
 ) : BaseViewModel() {
 
     private val _tickers = MutableLiveData<List<Map<String, String>>>()
@@ -19,7 +20,7 @@ class TickerViewModel(
 
     init {
         _tickers.value = mutableListOf()
-        _selectedMarket.value = "KRW"
+        _selectedMarket.value = firstMarketName
     }
 
     private fun onError(t: Throwable) {
