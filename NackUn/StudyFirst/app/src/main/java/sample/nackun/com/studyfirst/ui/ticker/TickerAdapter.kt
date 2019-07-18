@@ -2,11 +2,13 @@ package sample.nackun.com.studyfirst.ui.ticker
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.ticker_item.view.*
+import sample.nackun.com.studyfirst.BR
 import sample.nackun.com.studyfirst.R
 
-class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
+class TickerAdapter<B : ViewDataBinding> : RecyclerView.Adapter<TickerAdapter<B>.TickerViewHolder<B>>() {
 
     private val items = mutableListOf<Map<String, String>>()
 
@@ -16,30 +18,25 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        TickerViewHolder(parent)
+        TickerViewHolder<B>(parent)
 
     override fun getItemCount() = items.size
 
-    override fun onBindViewHolder(tickerViewHolder: TickerViewHolder, position: Int) =
+    override fun onBindViewHolder(tickerViewHolder: TickerViewHolder<B>, position: Int) =
         items[position].let(tickerViewHolder::bind)
 
-    inner class TickerViewHolder(
+    inner class TickerViewHolder<B : ViewDataBinding>(
         parent: ViewGroup
     ) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context)
             .inflate(R.layout.ticker_item, parent, false)
     ) {
-        private val tickerName = itemView.tickerName
-        private val currentPrice = itemView.currentPrice
-        private val comparePrice = itemView.comparePrice
-        private val changePrice = itemView.changePrice
+        val binding: B = DataBindingUtil.bind(itemView)!!
 
         fun bind(item: Map<String, String>) {
-            tickerName.text = item["tickerName"]
-            currentPrice.text = item["currentPrice"]
-            comparePrice.text = item["comparePrice"]
-            comparePrice.setTextColor(item["compareColor"]!!.toInt())
-            changePrice.text = item["changePrice"]
+            binding.run {
+                setVariable(BR.tickerItem, item)
+            }
         }
     }
 }

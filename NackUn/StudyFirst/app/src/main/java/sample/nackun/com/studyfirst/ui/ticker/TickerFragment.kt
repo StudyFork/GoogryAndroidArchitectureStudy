@@ -11,13 +11,14 @@ import sample.nackun.com.studyfirst.base.BaseFragment
 import sample.nackun.com.studyfirst.data.Repository
 import sample.nackun.com.studyfirst.data.remote.RemoteDataSource
 import sample.nackun.com.studyfirst.databinding.TickerFragmentBinding
+import sample.nackun.com.studyfirst.databinding.TickerItemBinding
 import sample.nackun.com.studyfirst.network.UpbitApi
 
 class TickerFragment : BaseFragment<TickerFragmentBinding>(
     R.layout.ticker_fragment
 ) {
 
-    private val tickerAdapter = TickerAdapter()
+    private val tickerAdapter = TickerAdapter<TickerItemBinding>()
 
     private lateinit var vm: TickerViewModel
 
