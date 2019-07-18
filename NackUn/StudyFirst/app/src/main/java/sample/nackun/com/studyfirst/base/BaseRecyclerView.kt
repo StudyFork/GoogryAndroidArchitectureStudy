@@ -44,7 +44,7 @@ class BaseRecyclerView {
         LayoutInflater.from(parent?.context)
             .inflate(layoutRes, parent, false)
     ) {
-        val binding: B = DataBindingUtil.bind(itemView)!!
+        private val binding: B = DataBindingUtil.bind(itemView)!!
 
         fun bind(item: Any?) {
             binding.setVariable(bindingVariabledId, item)
