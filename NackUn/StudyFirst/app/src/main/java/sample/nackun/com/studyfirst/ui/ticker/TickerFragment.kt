@@ -18,7 +18,7 @@ import sample.nackun.com.studyfirst.network.UpbitApi
 class TickerFragment : BaseFragment<TickerFragmentBinding>(
     R.layout.ticker_fragment
 ) {
-
+    private val firstMarketName = "KRW"
     private val tickerAdapter =
         object :
             BaseRecyclerView.BaseAdapter<List<Map<String, String>>, TickerItemBinding>(
@@ -45,7 +45,7 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
                         .build()
                         .create(UpbitApi::class.java)
                 )
-            ), getString(R.string.firstMarketName)
+            )
         )
 
         binding.setVariable(BR.vm, vm)
@@ -62,5 +62,5 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
     }
 
     private fun setFirstTickers() =
-        vm.showTickers(getString(R.string.firstMarketName))
+        vm.showTickers(firstMarketName)
 }

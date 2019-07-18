@@ -9,5 +9,4 @@
     <string name="currentPrice">현재가</string>
     <string name="comparePrice">전일대비</string>
     <string name="changePrice">거래대금</string>
-    <string name="firstMarketName">KRW</string>
 </resources>
