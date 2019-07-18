@@ -13,9 +13,7 @@ import com.architecturestudy.data.upbit.source.UpbitRetrofitDataSource
 import com.architecturestudy.databinding.FragmentUpbitContentsBinding
 import com.architecturestudy.databinding.RvUpbitItemBinding
 
-class UpbitContentsFragment(
-    private val position: Int
-) : BaseFragment<FragmentUpbitContentsBinding>(
+class UpbitContentsFragment : BaseFragment<FragmentUpbitContentsBinding>(
     R.layout.fragment_upbit_contents
 ) {
 
@@ -44,6 +42,7 @@ class UpbitContentsFragment(
     }
 
     private fun showContents() {
+        val position = arguments?.getInt("marketType", 0) ?: 0
         binding.vm?.let {
             it.showMarketPrice(MarketTypes.values()[position].name)
             it.errMsg.observe(

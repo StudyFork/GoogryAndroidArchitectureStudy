@@ -1,5 +1,6 @@
 package com.architecturestudy.upbitmarket
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -11,5 +12,11 @@ class UpbitViewPagerAdapter(
 
     override fun getCount(): Int = MarketTypes.values().size
 
-    override fun getItem(position: Int): Fragment = UpbitContentsFragment(position)
+    override fun getItem(position: Int): Fragment {
+        val upbitContentsFragment = UpbitContentsFragment()
+        upbitContentsFragment.arguments = Bundle().apply {
+            putInt("marketType", position)
+        }
+        return upbitContentsFragment
+    }
 }
