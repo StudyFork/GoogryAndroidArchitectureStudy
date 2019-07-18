@@ -70,8 +70,7 @@ class DataParser(index: MainFragment.FragIndex, private val resultCallback: Resu
                 { list ->
                     resultCallback.successTickerList(list)
                 },
-                { e -> Log.e("onError", e.message) },
-                { Log.e("onSuccess", "발행 완료") }
+                { e -> Log.e("onError", e.message) }
             )
 
 
