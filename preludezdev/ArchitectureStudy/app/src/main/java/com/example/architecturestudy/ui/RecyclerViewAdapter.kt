@@ -1,5 +1,6 @@
 package com.example.architecturestudy.ui
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -16,21 +17,31 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
     private val coins = mutableListOf<CoinTickerResponse>()
 
     fun loadData(markets: HashSet<String>) {
+        var marketList = StringBuffer()
+
         for (market in markets) {
-
-            NetworkHelper
-                .coinApiService
-                .getCurrTicker(market)
-                .enqueue(object : Callback<CoinTickerResponse> {
-                    override fun onFailure(call: Call<CoinTickerResponse>, t: Throwable) {
-                        t.printStackTrace()
-                    }
-
-                    override fun onResponse(call: Call<CoinTickerResponse>, response: Response<CoinTickerResponse>) {
-                        coins.add(response.body()!!)
-                    }
-                })
+            marketList.append(market + ",")
         }
+
+        Log.d("test", "marketList:::: " + marketList)
+        Log.d("test", "marketList:::: " + marketList.toString().length)
+        //marketList.deleteCharAt(marketList.length - 1)
+        Log.d("test", "marketList:::: " + marketList)
+//        NetworkHelper
+//            .coinApiService
+//            .getCurrTicker(marketList.toString())
+//            .enqueue(object : Callback<List<CoinTickerResponse>> {
+//                override fun onFailure(call: Call<List<CoinTickerResponse>>, t: Throwable) {
+//                    t.printStackTrace()
+//                }
+//
+//                override fun onResponse(call: Call<List<CoinTickerResponse>>, response: Response<List<CoinTickerResponse>>) {
+//                    var list = response.body()
+//                    for(ticker in list!!){
+//                        coins.add(ticker)
+//                    }
+//                }
+//            })
 
         notifyDataSetChanged()
     }

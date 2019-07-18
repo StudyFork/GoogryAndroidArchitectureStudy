@@ -24,7 +24,9 @@ class KRWFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = recyclerViewAdapter
 
+        //마켓 데이터 불러오기
         recyclerViewAdapter.loadData(MainActivity.KRWList)
+
     }
 
 }

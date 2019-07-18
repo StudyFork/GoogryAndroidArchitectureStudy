@@ -11,5 +11,5 @@ interface CoinApiService{
     fun getAllCoinMarket(): Call<List<CoinMarketResponse>>
 
     @GET("v1/ticker/")
-    fun getCurrTicker(@Query("markets") markets: String): Call<CoinTickerResponse>
+    fun getCurrTicker(@Query("markets") markets: String): Call<List<CoinTickerResponse>>
 }
