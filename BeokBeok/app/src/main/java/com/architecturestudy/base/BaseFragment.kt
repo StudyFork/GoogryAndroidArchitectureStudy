@@ -22,9 +22,19 @@ abstract class BaseFragment<B : ViewDataBinding>(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, resource, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            resource,
+            container,
+            false
+        )
+        binding.lifecycleOwner = this
         return binding.root
     }
 
-    fun showToast(msg: String?) = Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
+    fun showToast(msg: String?) = Toast.makeText(
+        activity,
+        msg,
+        Toast.LENGTH_SHORT
+    ).show()
 }
