@@ -13,10 +13,11 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {
-
     private val coins = mutableListOf<CoinTickerResponse>()
 
     fun loadData(markets: HashSet<String>) {
+        coins.clear()
+
         var marketList = StringBuffer()
 
         for (market in markets) {
@@ -40,14 +41,11 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
                     var list = response.body()
                     for (ticker in list!!) {
                         coins.add(ticker)
-                        Log.d("test", ticker.market)
-                        Log.d("test", String.format("%.2f", ticker.trade_price))
-                        Log.d("test", ticker.toString())
                     }
+
+                    notifyDataSetChanged()
                 }
             })
-
-        notifyDataSetChanged()
     }
 
 
@@ -82,7 +80,6 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
                     tvCoinTotalTrade.text = String.format("%6.0f", (item.acc_trade_price_24h))
                 }
             }
-
         }
     }
 
@@ -92,5 +89,4 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
         LayoutInflater.from(parent.context)
             .inflate(R.layout.item_coin, parent, false)
     )
-
 }

@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.R
 import kotlinx.android.synthetic.main.fragment_market.*
 
-class USDTFragment : Fragment() {
+class EthFragment : Fragment() {
 
-    val recyclerViewAdapter = RecyclerViewAdapter()
+    private val ethRvAdapter = RecyclerViewAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_market, container, false)
@@ -22,10 +22,9 @@ class USDTFragment : Fragment() {
 
         //리사이클러뷰 어댑터와 레이아웃매니저 설정
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        recyclerView.adapter = recyclerViewAdapter
+        recyclerView.adapter = ethRvAdapter
 
         //마켓 데이터 불러오기
-        recyclerViewAdapter.loadData(MainActivity.USDTList)
-
+        ethRvAdapter.loadData(MainActivity.ETH_MARKETS)
     }
 }

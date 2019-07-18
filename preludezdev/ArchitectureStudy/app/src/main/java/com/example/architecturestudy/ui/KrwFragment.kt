@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.R
 import kotlinx.android.synthetic.main.fragment_market.*
 
-class BTCFragment : Fragment() {
+class KrwFragment : Fragment() {
 
-    val recyclerViewAdapter = RecyclerViewAdapter()
+    private val krwRvAdapter = RecyclerViewAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_market, container, false)
@@ -22,10 +22,9 @@ class BTCFragment : Fragment() {
 
         //리사이클러뷰 어댑터와 레이아웃매니저 설정
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        recyclerView.adapter = recyclerViewAdapter
+        recyclerView.adapter = krwRvAdapter
 
         //마켓 데이터 불러오기
-        recyclerViewAdapter.loadData(MainActivity.BTCList)
-
+        krwRvAdapter.loadData(MainActivity.KRW_MARKETS)
     }
 }

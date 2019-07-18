@@ -1,9 +1,9 @@
 package com.example.architecturestudy.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import androidx.appcompat.app.AppCompatActivity
 import com.example.architecturestudy.R
 import com.example.architecturestudy.data.CoinMarketResponse
 import com.example.architecturestudy.network.NetworkHelper
@@ -13,26 +13,27 @@ import retrofit2.Response
 
 class SplashActivity : AppCompatActivity() {
 
-    private val DELAY_TIME = 1300L
+    private val delayTime = 1300L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        //코인시장목록 불러오기
         loadCoinMarketList()
 
-        //메인액티비티로 이동
         redirectByTime()
     }
 
+    //메인액티비티로 이동
     private fun redirectByTime() {
-        Handler().postDelayed({ startActivity(Intent(this@SplashActivity, MainActivity::class.java)) }, DELAY_TIME)
+        Handler().postDelayed(
+            { startActivity(Intent(this@SplashActivity, MainActivity::class.java)) },
+            delayTime
+        )
     }
 
-
-    //업비트api에서 전체 마켓목록 가져오기
-    fun loadCoinMarketList() {
+    //코인시장목록 불러오기
+    private fun loadCoinMarketList() {
         NetworkHelper
             .coinApiService
             .getAllCoinMarket()
@@ -49,16 +50,15 @@ class SplashActivity : AppCompatActivity() {
                         var currMarketName = list[num].market
                         var arrMarketName = currMarketName.split("-")
 
-
                         when {
-                            arrMarketName.contains("KRW") -> MainActivity.KRWList.add(currMarketName.trim())
-                            arrMarketName.contains("BTC") -> MainActivity.BTCList.add(currMarketName.trim())
-                            arrMarketName.contains("ETH") -> MainActivity.ETHList.add(currMarketName.trim())
-                            arrMarketName.contains("USDT") -> MainActivity.USDTList.add(currMarketName.trim())
+                            arrMarketName.contains("KRW") -> MainActivity.KRW_MARKETS.add(currMarketName.trim())
+                            arrMarketName.contains("BTC") -> MainActivity.BTC_MARKETS.add(currMarketName.trim())
+                            arrMarketName.contains("ETH") -> MainActivity.ETH_MARKETS.add(currMarketName.trim())
+                            arrMarketName.contains("USDT") -> MainActivity.USDT_MARKETS.add(currMarketName.trim())
                         }
                     }
 
-                    for (str in MainActivity.KRWList) {
+                    for (str in MainActivity.KRW_MARKETS) {
                         sb.append(str + "\n")
                     }
                 }
