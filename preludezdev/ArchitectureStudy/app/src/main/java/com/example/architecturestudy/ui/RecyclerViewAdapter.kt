@@ -22,26 +22,30 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
         for (market in markets) {
             marketList.append(market + ",")
         }
+        marketList.deleteCharAt(marketList.length - 1)
 
-        Log.d("test", "marketList:::: " + marketList)
-        Log.d("test", "marketList:::: " + marketList.toString().length)
-        //marketList.deleteCharAt(marketList.length - 1)
-        Log.d("test", "marketList:::: " + marketList)
-//        NetworkHelper
-//            .coinApiService
-//            .getCurrTicker(marketList.toString())
-//            .enqueue(object : Callback<List<CoinTickerResponse>> {
-//                override fun onFailure(call: Call<List<CoinTickerResponse>>, t: Throwable) {
-//                    t.printStackTrace()
-//                }
-//
-//                override fun onResponse(call: Call<List<CoinTickerResponse>>, response: Response<List<CoinTickerResponse>>) {
-//                    var list = response.body()
-//                    for(ticker in list!!){
-//                        coins.add(ticker)
-//                    }
-//                }
-//            })
+        //Ticker 가져오기
+        NetworkHelper
+            .coinApiService
+            .getCurrTicker(marketList.toString())
+            .enqueue(object : Callback<List<CoinTickerResponse>> {
+                override fun onFailure(call: Call<List<CoinTickerResponse>>, t: Throwable) {
+                    t.printStackTrace()
+                }
+
+                override fun onResponse(
+                    call: Call<List<CoinTickerResponse>>,
+                    response: Response<List<CoinTickerResponse>>
+                ) {
+                    var list = response.body()
+                    for (ticker in list!!) {
+                        coins.add(ticker)
+                        Log.d("test", ticker.market)
+                        Log.d("test", String.format("%.2f", ticker.trade_price))
+                        Log.d("test", ticker.toString())
+                    }
+                }
+            })
 
         notifyDataSetChanged()
     }
@@ -56,10 +60,10 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
             val item = coins[position]
 
             //뷰 id를 통해 직접 접근
-            tvCoinName.text = item.market
-            tvCurrPrice.text = item.tradePrice.toString()
-            tvCoinCompare.text = item.changeRate.toString()
-            tvCoinTotalTrade.text = item.tradeVolume.toString()
+            tvCoinName.text = item.market.split("-")[1]
+            tvCurrPrice.text = String.format("%9.2f", item.trade_price)
+            tvCoinCompare.text = String.format("%.2f", item.signed_change_rate * 100) + "%"
+            tvCoinTotalTrade.text = String.format("%6.0f", (item.acc_trade_price_24h / 1000000)) + "M"
 
         }
     }

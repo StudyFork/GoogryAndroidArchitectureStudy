@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
-class MainAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class MainVpAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     val fragmentTitleList = listOf("KRW", "BTC", "ETH", "USDT")
 
@@ -19,7 +19,7 @@ class MainAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     }
 
-    //생성할 Fragment 갯수
+    //전체 Fragment 갯수
     override fun getCount(): Int {
         return 4
     }
