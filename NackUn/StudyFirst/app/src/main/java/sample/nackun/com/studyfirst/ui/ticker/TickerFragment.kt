@@ -8,6 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import sample.nackun.com.studyfirst.BR
 import sample.nackun.com.studyfirst.R
 import sample.nackun.com.studyfirst.base.BaseFragment
+import sample.nackun.com.studyfirst.base.BaseRecyclerView
 import sample.nackun.com.studyfirst.data.Repository
 import sample.nackun.com.studyfirst.data.remote.RemoteDataSource
 import sample.nackun.com.studyfirst.databinding.TickerFragmentBinding
@@ -18,7 +19,12 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
     R.layout.ticker_fragment
 ) {
 
-    private val tickerAdapter = TickerAdapter<TickerItemBinding>()
+    private val tickerAdapter =
+        object :
+            BaseRecyclerView.BaseAdapter<List<Map<String, String>>, TickerItemBinding>(
+                R.layout.ticker_item,
+                BR.tickerItem
+            ) {}
 
     private lateinit var vm: TickerViewModel
 

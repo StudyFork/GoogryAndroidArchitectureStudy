@@ -2,13 +2,12 @@ package sample.nackun.com.studyfirst.ui.ticker
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import sample.nackun.com.studyfirst.databinding.TickerItemBinding
+import sample.nackun.com.studyfirst.base.BaseRecyclerView
 
 @BindingAdapter("setItems")
-fun setItems(recyclerView: RecyclerView, items: List<Map<String, String>>) {
-    val adapter: TickerAdapter<TickerItemBinding>? = recyclerView.adapter as? TickerAdapter<TickerItemBinding>
-    adapter?.let {
-        it.setItems(items)
-        it.notifyDataSetChanged()
+fun RecyclerView.setItems(items: List<Map<String, String>>) {
+    (this.adapter as? BaseRecyclerView.BaseAdapter<Any, *>)?.run {
+        setItems(items)
+        notifyDataSetChanged()
     }
 }
