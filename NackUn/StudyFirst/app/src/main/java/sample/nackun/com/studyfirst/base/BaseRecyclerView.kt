@@ -16,10 +16,12 @@ class BaseRecyclerView {
 
         private val items = mutableListOf<ITEM>()
 
-        fun setItems(items: List<ITEM>) {
+        fun setItems(items: List<ITEM>?) {
             this.items.run {
-                clear()
-                addAll(items)
+                items?.let {
+                    clear()
+                    addAll(it)
+                }
             }
         }
 
