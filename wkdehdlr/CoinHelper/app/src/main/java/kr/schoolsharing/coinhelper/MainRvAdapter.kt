@@ -19,27 +19,27 @@ class MainRvAdapter(val context: Context, val itemList: List<UpbitItem>) :
     override fun getItemCount(): Int = itemList.size
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder?.bind(itemList[position], context)
+        holder?.bind(itemList[position])
     }
 
     inner class Holder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
 
-        fun bind(upbitItem: UpbitItem, context: Context) {
+        fun bind(upbitItem: UpbitItem) {
             val name = itemView.findViewById<TextView>(R.id.name)
             val current = itemView.findViewById<TextView>(R.id.current)
             val signedChangeRate = itemView.findViewById<TextView>(R.id.signedChangeRate)
             val volume = itemView.findViewById<TextView>(R.id.volume)
 
             name.text = upbitItem.name
-            current.text = upbitItem.current.toString()
+            current.text = upbitItem.current
 
             when (upbitItem.change) {
                 "RISE" -> signedChangeRate.setTextColor(Color.BLUE)
                 else -> signedChangeRate.setTextColor(Color.RED)
             }
 
-            signedChangeRate.text = upbitItem.signedChangeRate.toString()
-            volume.text = upbitItem.volume.toString()
+            signedChangeRate.text = upbitItem.signedChangeRate
+            volume.text = upbitItem.volume
         }
     }
 

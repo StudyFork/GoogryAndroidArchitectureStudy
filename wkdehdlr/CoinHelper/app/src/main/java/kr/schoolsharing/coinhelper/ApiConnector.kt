@@ -12,11 +12,20 @@ import java.text.DecimalFormat
 
 class ApiConnector {
 
-    private var krwList: MutableList<UpbitItem> = ArrayList()
-    private var btcList: MutableList<UpbitItem> = ArrayList()
-    private var ethList: MutableList<UpbitItem> = ArrayList()
-    private var usdtList: MutableList<UpbitItem> = ArrayList()
-    private var upbitMarketStr = ""
+    var krwList: MutableList<UpbitItem> = ArrayList()
+        private set
+
+    var btcList: MutableList<UpbitItem> = ArrayList()
+        private set
+
+    var ethList: MutableList<UpbitItem> = ArrayList()
+        private set
+
+    var usdtList: MutableList<UpbitItem> = ArrayList()
+        private set
+
+    var upbitMarketStr = ""
+        private set
 
     fun setUpbitMarket() {
         val retrofit = Retrofit.Builder()
@@ -35,7 +44,7 @@ class ApiConnector {
             }
 
             override fun onResponse(call: Call<List<UpbitMarket>>, response: Response<List<UpbitMarket>>) {
-                if (response.body() != null) {
+                response.body()?.let {
                     val list = response.body()
                     for (item in list!!) {
 //                        setUpbitTicker(item.market)
@@ -67,7 +76,7 @@ class ApiConnector {
 
 
             override fun onResponse(call: Call<List<UpbitTicker>>, response: Response<List<UpbitTicker>>) {
-                if (response.body() != null) {
+                response.body()?.let {
                     val list = response.body()
 
                     for (item in list!!) {
@@ -77,55 +86,19 @@ class ApiConnector {
 
                         val doubleFormat = DecimalFormat("#.##")
                         val intFormat = DecimalFormat("#,###.##")
+                        val data = UpbitItem(
+                            name,
+                            intFormat.format(item.tradePrice),
+                            item.change,
+                            doubleFormat.format(item.signedChangeRate),
+                            doubleFormat.format(item.accTradePrice24h)
+                        )
 
-                        if (category == "KRW") {
-
-                            krwList.add(
-                                UpbitItem(
-                                    name,
-                                    intFormat.format(item.tradePrice),
-                                    item.change,
-                                    doubleFormat.format(item.signedChangeRate),
-                                    doubleFormat.format(item.accTradePrice24h)
-                                )
-                            )
-
-                        } else if (category == "BTC") {
-
-                            btcList.add(
-                                UpbitItem(
-                                    name,
-                                    intFormat.format(item.tradePrice),
-                                    item.change,
-                                    doubleFormat.format(item.signedChangeRate),
-                                    doubleFormat.format(item.accTradePrice24h)
-                                )
-                            )
-
-                        } else if (category == "ETH") {
-
-                            ethList.add(
-                                UpbitItem(
-                                    name,
-                                    intFormat.format(item.tradePrice),
-                                    item.change,
-                                    doubleFormat.format(item.signedChangeRate),
-                                    doubleFormat.format(item.accTradePrice24h)
-                                )
-                            )
-
-                        } else if (category == "USDT") {
-
-                            usdtList.add(
-                                UpbitItem(
-                                    name,
-                                    intFormat.format(item.tradePrice),
-                                    item.change,
-                                    doubleFormat.format(item.signedChangeRate),
-                                    doubleFormat.format(item.accTradePrice24h)
-                                )
-                            )
-
+                        when (category) {
+                            "KRW" -> krwList.add(data)
+                            "BTC" -> krwList.add(data)
+                            "ETH" -> krwList.add(data)
+                            else -> krwList.add(data)
                         }
                     }
                 }
@@ -140,9 +113,4 @@ class ApiConnector {
         builder.addInterceptor(interceptor)
         return builder.build()
     }
-
-    fun getKRWList() = this.krwList
-    fun getBTCList() = this.btcList
-    fun getETHList() = this.ethList
-    fun getUSDTList() = this.usdtList
 }

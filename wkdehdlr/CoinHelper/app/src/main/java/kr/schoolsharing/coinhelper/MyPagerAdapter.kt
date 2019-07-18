@@ -9,10 +9,10 @@ class MyPagerAdapter(fm: FragmentManager, val apiConnector: ApiConnector) : Frag
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> FragmentKRW(apiConnector.getKRWList())
-            1 -> FragmentBTC(apiConnector.getBTCList())
-            2 -> FragmentETH(apiConnector.getETHList())
-            else -> return FragmentUSDT(apiConnector.getUSDTList())
+            0 -> FragmentKRW(apiConnector.krwList)
+            1 -> FragmentBTC(apiConnector.btcList)
+            2 -> FragmentETH(apiConnector.ethList)
+            else -> return FragmentUSDT(apiConnector.usdtList)
         }
     }
 
