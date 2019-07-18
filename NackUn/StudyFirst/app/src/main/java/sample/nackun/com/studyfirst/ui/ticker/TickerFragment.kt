@@ -61,7 +61,6 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
         tickerRecyclerView.adapter = tickerAdapter
     }
 
-    private fun setFirstTickers() {
+    private fun setFirstTickers() =
         vm.showTickers(vm.selectedMarket.value)
-    }
 }
