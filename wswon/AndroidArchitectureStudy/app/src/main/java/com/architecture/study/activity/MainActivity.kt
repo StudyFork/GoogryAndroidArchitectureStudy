@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /* tab layout && view page init*/
+    /* tab layout && view pager init*/
     private fun setPager() {
         monetary_unit_tablayout.run {
             addTab(newTab().setText(getString(R.string.monetary_unit_1)))
