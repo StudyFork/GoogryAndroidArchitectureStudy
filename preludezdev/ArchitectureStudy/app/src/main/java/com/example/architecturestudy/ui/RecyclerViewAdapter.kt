@@ -39,12 +39,14 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
                     call: Call<List<CoinTickerResponse>>,
                     response: Response<List<CoinTickerResponse>>
                 ) {
-                    var list = response.body()
-                    for (ticker in list!!) {
-                        coins.add(ticker)
-                    }
+                    if (response.isSuccessful) {
+                        var list = response.body()
+                        for (ticker in list!!) {
+                            coins.add(ticker)
+                        }
 
-                    notifyDataSetChanged()
+                        notifyDataSetChanged()
+                    }
                 }
             })
     }

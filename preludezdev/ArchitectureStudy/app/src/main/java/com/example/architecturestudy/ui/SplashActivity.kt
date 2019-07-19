@@ -45,22 +45,24 @@ class SplashActivity : AppCompatActivity() {
                     call: Call<List<CoinMarketResponse>>,
                     response: Response<List<CoinMarketResponse>>
                 ) {
-                    var list: List<CoinMarketResponse>? = response.body()
+                    if (response.isSuccessful) {
+                        var list: List<CoinMarketResponse>? = response.body()
 
-                    if (list != null) {
-                        for (num in 0 until list.size - 1) {
-                            var currMarketName = list[num].market
-                            var arrMarketName = currMarketName.split("-")
+                        if (list != null) {
+                            for (num in 0 until list.size - 1) {
+                                var currMarketName = list[num].market
+                                var arrMarketName = currMarketName.split("-")
 
-                            when {
-                                arrMarketName.contains("KRW") -> MainActivity.KRW_MARKETS.add(currMarketName.trim())
-                                arrMarketName.contains("BTC") -> MainActivity.BTC_MARKETS.add(currMarketName.trim())
-                                arrMarketName.contains("ETH") -> MainActivity.ETH_MARKETS.add(currMarketName.trim())
-                                arrMarketName.contains("USDT") -> MainActivity.USDT_MARKETS.add(currMarketName.trim())
+                                when {
+                                    arrMarketName.contains("KRW") -> MainActivity.KRW_MARKETS.add(currMarketName.trim())
+                                    arrMarketName.contains("BTC") -> MainActivity.BTC_MARKETS.add(currMarketName.trim())
+                                    arrMarketName.contains("ETH") -> MainActivity.ETH_MARKETS.add(currMarketName.trim())
+                                    arrMarketName.contains("USDT") -> MainActivity.USDT_MARKETS.add(currMarketName.trim())
+                                }
                             }
-                        }
 
-                        isDataLoadSuccess = true //데이터 받아오기 성공
+                            isDataLoadSuccess = true //데이터 받아오기 성공
+                        }
                     }
                 }
 
