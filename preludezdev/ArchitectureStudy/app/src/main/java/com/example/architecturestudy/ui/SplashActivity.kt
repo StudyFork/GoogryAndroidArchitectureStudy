@@ -49,7 +49,7 @@ class SplashActivity : AppCompatActivity() {
                         var list: List<CoinMarketResponse>? = response.body()
 
                         if (list != null) {
-                            for (num in 0 until list.size - 1) {
+                            for (num in 0 until list.size) {
                                 var currMarketName = list[num].market
                                 var arrMarketName = currMarketName.split("-")
 
