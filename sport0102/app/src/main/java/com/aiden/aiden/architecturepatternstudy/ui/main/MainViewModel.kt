@@ -43,12 +43,16 @@ class MainViewModel(private val context: Context, private val upbitRepository: U
         upbitRepository.getTickerList(marketList,
             false,
             onSuccess = {
-                _tickerList.value =
-                    it.map { tickerResponse -> StringUtil.modifyTicker(tickerResponse) }
+                (context as Activity).runOnUiThread {
+                    _tickerList.value =
+                        it.map { tickerResponse -> StringUtil.modifyTicker(tickerResponse) }
+                }
             },
 
             onFail = {
-                _isDataLoadingError.value = true
+                (context as Activity).runOnUiThread {
+                    _isDataLoadingError.value = true
+                }
             }
 
         )

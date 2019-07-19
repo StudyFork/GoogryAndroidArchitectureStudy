@@ -38,13 +38,31 @@ class UpbitRepository private constructor(
     ) {
 
         when (isUsingLocalDb) {
+
             true -> {
-                localDataSource.getTickerList(marketList, true, onSuccess, onFail)
+                localDataSource.getTickerList(
+                    marketList,
+                    true,
+                    onSuccess,
+                    onFail
+                )
             }
 
             false -> {
-                remoteDataSource.getTickerList(marketList, false, onSuccess, onFail)
+                remoteDataSource.getTickerList(
+                    marketList,
+                    false,
+                    onSuccess = {
+                        localDataSource.saveTickerList(
+                            it,
+                            onSuccess = onSuccess,
+                            onFail = onFail
+                        )
+                    },
+                    onFail = onFail
+                )
             }
+
         }
 
     }

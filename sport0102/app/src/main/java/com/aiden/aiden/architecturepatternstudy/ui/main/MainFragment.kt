@@ -27,12 +27,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private lateinit var mainVm: MainViewModel
 
-    private val db by lazy {
-        context?.let {
-            UpbitDatabase(it)
-        }
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
 
         super.onActivityCreated(savedInstanceState)
@@ -48,8 +42,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         mainVm = MainViewModel(
             context = context!!,
             upbitRepository = UpbitRepository(
-                UpbitRemoteDataSource(upbitApi, db),
-                UpbitLocalDataSource(db)
+                UpbitRemoteDataSource(upbitApi),
+                UpbitLocalDataSource(UpbitDatabase(context!!))
             )
         )
         mainVm.loadMarketList(marketName)

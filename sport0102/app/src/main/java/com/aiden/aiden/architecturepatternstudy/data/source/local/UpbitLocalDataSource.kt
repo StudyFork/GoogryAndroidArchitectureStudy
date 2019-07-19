@@ -30,6 +30,21 @@ class UpbitLocalDataSource private constructor(private val db: UpbitDatabase?) :
 
     }
 
+    fun saveTickerList(
+        tickerList: List<TickerResponse>,
+        onSuccess: (List<TickerResponse>) -> Unit,
+        onFail: (Throwable?) -> Unit
+    ) {
+        Thread(Runnable {
+            try {
+                db!!.tickerDao().insert(tickerList)
+                onSuccess(tickerList)
+            } catch (e: Exception) {
+                onFail(e)
+            }
+        }).start()
+    }
+
     companion object {
 
         private var instance: UpbitLocalDataSource? = null
