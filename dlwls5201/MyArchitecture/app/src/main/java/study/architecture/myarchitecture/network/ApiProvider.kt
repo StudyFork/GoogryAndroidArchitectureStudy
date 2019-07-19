@@ -24,7 +24,7 @@ object ApiProvider {
 
     // 네트뭐크 통신에 사용할 클라이언트 객체를 생성합니다.
     private fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
-        val b = OkHttpClient.Builder().apply {
+        return OkHttpClient.Builder().apply {
 
             //TimeOut 시간을 지정합니다.
             readTimeout(60, TimeUnit.SECONDS)
@@ -33,8 +33,7 @@ object ApiProvider {
 
             // 이 클라이언트를 통해 오고 가는 네트워크 요청/응답을 로그로 표시하도록 합니다.
             addInterceptor(interceptor)
-        }
-        return b.build()
+        }.build()
     }
 
     // 네트워크 요청/응답을 로그에 표시하는 Interceptor 객체를 생성합니다.
