@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.android.studyfork.R
-import com.android.studyfork.ext.replaceFragment
 import com.android.studyfork.repository.UpbitApi
 import com.android.studyfork.repository.UpbitService
 import com.android.studyfork.repository.model.MarketAllResponse

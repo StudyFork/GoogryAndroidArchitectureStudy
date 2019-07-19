@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:weightSum="1"
+    android:gravity="center"
+    android:background="@drawable/rounded_rectangle_8dp"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="30dp">
+
+    <TextView
+        android:id="@+id/text_title"
+        tools:text="ETH"
+        android:layout_width="0dp"
+        android:layout_weight="0.25"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/text_current_price"
+        tools:text="0.12345678"
+        android:layout_width="0dp"
+        android:layout_weight="0.25"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/text_before_day"
+        tools:text="0.00"
+        android:layout_width="0dp"
+        android:layout_weight="0.25"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/text_total_trade"
+        tools:text="123,456"
+        android:layout_width="0dp"
+        android:layout_weight="0.25"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>
