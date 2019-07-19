@@ -56,7 +56,6 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
         //뷰홀더 내의 itemView를 거쳐야 한다.
         with(holder.itemView) {
             val currItem = coins[position]
-            val currBaseCoin = currItem.market.split("-")[0]
 
             //각 레이아웃 내 뷰에 텍스트 설정
             tvCoinName.text = currItem.market.split("-")[1]
@@ -68,24 +67,19 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
                 tvCoinCompare.setTextColor(Color.BLUE)
             }
 
-            //각 마켓별로 데이터를 다르게 보여주게끔 설정
-            when {
-                currBaseCoin.equals("KRW") -> {
-                    tvCurrPrice.text = String.format("%9.2f", currItem.trade_price)
-                    tvCoinTotalTrade.text = String.format("%6.0f", (currItem.acc_trade_price_24h / 1000000)) + "M"
-                }
-                currBaseCoin.equals("BTC") -> {
-                    tvCurrPrice.text = String.format("%.8f", currItem.trade_price)
-                    tvCoinTotalTrade.text = String.format("%.3f", (currItem.acc_trade_price_24h))
-                }
-                currBaseCoin.equals("ETH") -> {
-                    tvCurrPrice.text = String.format("%.8f", currItem.trade_price)
-                    tvCoinTotalTrade.text = String.format("%.3f", (currItem.acc_trade_price_24h))
-                }
-                currBaseCoin.equals("USDT") -> {
-                    tvCurrPrice.text = String.format("%9.2f", currItem.trade_price)
-                    tvCoinTotalTrade.text = String.format("%6.0f", (currItem.acc_trade_price_24h))
-                }
+            //데이터의 크기에 따라 ui를 다르게 보여주게끔 설정
+            if (currItem.trade_price > 1) {
+                tvCurrPrice.text = String.format("%9.2f", currItem.trade_price)
+            } else {
+                tvCurrPrice.text = String.format("%.8f", currItem.trade_price)
+            }
+
+            if (currItem.acc_trade_price_24h > 10000000) {
+                tvCoinTotalTrade.text = String.format("%6.0f", (currItem.acc_trade_price_24h / 1000000)) + "M"
+            } else if (currItem.acc_trade_price_24h > 10000) {
+                tvCoinTotalTrade.text = String.format("%6.0f", (currItem.acc_trade_price_24h / 1000)) + "k"
+            } else {
+                tvCoinTotalTrade.text = String.format("%.3f", currItem.acc_trade_price_24h)
             }
         }
     }
