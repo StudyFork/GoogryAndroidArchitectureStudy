@@ -10,15 +10,15 @@ class CoinViewModel(private val repository: CoinDataSource) {
 
     private var isFirstLoading = true
     private val _isLoading = MutableLiveData<Boolean>()
-    private val _dataExist = MutableLiveData<Boolean>()
+    private val _isNoData = MutableLiveData<Boolean>()
     private val _errorMsg = MutableLiveData<String>()
     private val _items = MutableLiveData<List<TickerModel>>()
 
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
-    val dataExist: LiveData<Boolean>
-        get() = _dataExist
+    val isNoData: LiveData<Boolean>
+        get() = _isNoData
 
     val errorMsg: LiveData<String>
         get() = _errorMsg
@@ -28,18 +28,18 @@ class CoinViewModel(private val repository: CoinDataSource) {
 
     fun init() {
         _items.value = mutableListOf()
-        _isLoading.value = true
-        _dataExist.value = true
         getMarketData()
     }
 
     private fun getMarketData() {
+        _isLoading.value = true
+
         repository.getAllMarkets({
             repository.getCoinData(it,
                 success = { tickers ->
                     _isLoading.value = false
                     _items.value = tickers
-                    _dataExist.value = true
+                    _isNoData.value = false
 
                     if (isFirstLoading) {
                         isFirstLoading = false
@@ -53,7 +53,6 @@ class CoinViewModel(private val repository: CoinDataSource) {
     }
 
     fun onRefresh() {
-        _isLoading.value = true
         getMarketData()
     }
 
@@ -63,7 +62,7 @@ class CoinViewModel(private val repository: CoinDataSource) {
         _isLoading.value = false
 
         if (isFirstLoading) {
-            _dataExist.value = false
+            _isNoData.value = true
             isFirstLoading = false
         }
     }
