@@ -12,6 +12,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {
     private val coins = mutableListOf<CoinTickerResponse>()
 
@@ -74,12 +75,13 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
                 tvCurrPrice.text = String.format("%.8f", currItem.trade_price)
             }
 
-            if (currItem.acc_trade_price_24h > 10000000) {
-                tvCoinTotalTrade.text = String.format("%6.0f", (currItem.acc_trade_price_24h / 1000000)) + "M"
-            } else if (currItem.acc_trade_price_24h > 10000) {
-                tvCoinTotalTrade.text = String.format("%6.0f", (currItem.acc_trade_price_24h / 1000)) + "k"
-            } else {
-                tvCoinTotalTrade.text = String.format("%.3f", currItem.acc_trade_price_24h)
+            when {
+                currItem.acc_trade_price_24h > 10000000 ->
+                    tvCoinTotalTrade.text = String.format("%6.0f", (currItem.acc_trade_price_24h / 1000000)) + "M"
+                currItem.acc_trade_price_24h > 10000 ->
+                    tvCoinTotalTrade.text = String.format("%6.0f", (currItem.acc_trade_price_24h / 1000)) + "k"
+                else ->
+                    tvCoinTotalTrade.text = String.format("%.3f", currItem.acc_trade_price_24h)
             }
         }
     }
