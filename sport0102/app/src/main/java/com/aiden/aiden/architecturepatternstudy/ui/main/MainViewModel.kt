@@ -1,14 +1,12 @@
 package com.aiden.aiden.architecturepatternstudy.ui.main
 
-import android.app.Activity
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
 import com.aiden.aiden.architecturepatternstudy.util.StringUtil
 
-class MainViewModel(private val context: Context, private val upbitRepository: UpbitRepository) {
+class MainViewModel(private val upbitRepository: UpbitRepository) {
 
     private lateinit var marketName: String
 
@@ -29,7 +27,7 @@ class MainViewModel(private val context: Context, private val upbitRepository: U
                 it.filter { market -> market.startsWith(targetMarket, true) }
             loadAllTickerList(modifiedMarketList)
         },
-
+            
             onFail = {
                 _isDataLoadingError.value = true
             }
@@ -43,16 +41,15 @@ class MainViewModel(private val context: Context, private val upbitRepository: U
         upbitRepository.getTickerList(marketList,
             false,
             onSuccess = {
-                (context as Activity).runOnUiThread {
-                    _tickerList.value =
-                        it.map { tickerResponse -> StringUtil.modifyTicker(tickerResponse) }
-                }
+                _tickerList.postValue(it.map { tickerResponse ->
+                    StringUtil.modifyTicker(
+                        tickerResponse
+                    )
+                })
             },
 
             onFail = {
-                (context as Activity).runOnUiThread {
-                    _isDataLoadingError.value = true
-                }
+                _isDataLoadingError.postValue(true)
             }
 
         )
@@ -64,17 +61,17 @@ class MainViewModel(private val context: Context, private val upbitRepository: U
         upbitRepository.getTickerList(keywords,
             true,
             onSuccess = {
-                (context as Activity).runOnUiThread {
-                    _tickerList.value =
-                        it.map { tickerResponse -> StringUtil.modifyTicker(tickerResponse) }
-                }
+                _tickerList.postValue(it.map { tickerResponse ->
+                    StringUtil.modifyTicker(
+                        tickerResponse
+                    )
+                })
             },
 
             onFail = {
-                (context as Activity).runOnUiThread {
-                    _isDataLoadingError.value = true
-                }
-            })
+                _isDataLoadingError.postValue(true)
+            }
+        )
 
     }
 

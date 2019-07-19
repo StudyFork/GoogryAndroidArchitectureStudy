@@ -40,7 +40,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             }
         }
         mainVm = MainViewModel(
-            context = context!!,
             upbitRepository = UpbitRepository(
                 UpbitRemoteDataSource(upbitApi),
                 UpbitLocalDataSource(UpbitDatabase(context!!))
