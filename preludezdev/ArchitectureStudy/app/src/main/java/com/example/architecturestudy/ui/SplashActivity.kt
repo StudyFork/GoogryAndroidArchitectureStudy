@@ -49,7 +49,7 @@ class SplashActivity : AppCompatActivity() {
 
                     if (list != null) {
                         for (num in 0 until list.size - 1) {
-                            var currMarketName = list?.get(num).market
+                            var currMarketName = list[num].market
                             var arrMarketName = currMarketName.split("-")
 
                             when {
