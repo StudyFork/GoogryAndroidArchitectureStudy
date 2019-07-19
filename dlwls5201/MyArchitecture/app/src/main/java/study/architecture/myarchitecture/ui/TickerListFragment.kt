@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_ticker_list.*
 import org.jetbrains.anko.support.v4.toast
 import study.architecture.myarchitecture.BaseFragment
@@ -17,7 +15,7 @@ import study.architecture.myarchitecture.network.ApiProvider
 import study.architecture.myarchitecture.network.model.UpbitTicker
 import study.architecture.myarchitecture.repository.UpbitRepository
 import study.architecture.myarchitecture.repository.UpbitRepositoryImpl
-import study.architecture.myarchitecture.util.Dlog
+import timber.log.Timber
 
 class TickerListFragment : BaseFragment() {
 
@@ -99,11 +97,11 @@ class TickerListFragment : BaseFragment() {
             }
             .subscribe({
 
-                Dlog.d("$it")
+                Timber.d("$it")
                 tickerAdapter.setItem(it.toMutableList())
 
-            }){
-                Dlog.e(it.message)
+            }) {
+                Timber.e(it.message)
             }.also {
                 compositeDisposable.add(it)
             }

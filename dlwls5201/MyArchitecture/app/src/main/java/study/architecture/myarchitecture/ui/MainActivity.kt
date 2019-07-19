@@ -6,18 +6,14 @@ import android.view.View
 import android.widget.ImageView
 import androidx.drawerlayout.widget.DrawerLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import study.architecture.myarchitecture.BaseActivity
 import study.architecture.myarchitecture.RxEventBus.RxEventBusHelper
 import study.architecture.myarchitecture.network.ApiProvider
 import study.architecture.myarchitecture.repository.UpbitRepository
 import study.architecture.myarchitecture.repository.UpbitRepositoryImpl
-import study.architecture.myarchitecture.util.Dlog
-import java.util.regex.Pattern
+import timber.log.Timber
 
 class MainActivity : BaseActivity() {
 
@@ -147,7 +143,6 @@ class MainActivity : BaseActivity() {
                 val arrMarkets = Array(keys.size) { "" }
 
                 for ((index, value) in keys.withIndex()) {
-                    //Dlog.d("index : $index -> value : $value")
 
                     arrMarkets[index] = groupMarket
                         .getValue(value)
@@ -157,7 +152,7 @@ class MainActivity : BaseActivity() {
                 mainAdapter.setItems(arrMarkets)
 
             }) {
-                Dlog.e(it.message)
+                Timber.e(it.message)
             }.also {
                 compositeDisposable.add(it)
             }
