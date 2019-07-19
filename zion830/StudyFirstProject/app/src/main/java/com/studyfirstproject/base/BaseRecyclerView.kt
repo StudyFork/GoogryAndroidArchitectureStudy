@@ -11,7 +11,7 @@ abstract class BaseRecyclerView<B : ViewDataBinding, T : Any>(
 ) : RecyclerView.Adapter<BaseViewHolder<B, T>>() {
     protected val items = mutableListOf<T>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<B, T> =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         object : BaseViewHolder<B, T>(
             layoutResId, parent, bindingVariableId
         ) {}
