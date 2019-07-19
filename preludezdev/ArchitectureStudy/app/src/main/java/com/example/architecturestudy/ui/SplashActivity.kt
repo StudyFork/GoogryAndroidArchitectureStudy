@@ -46,15 +46,17 @@ class SplashActivity : AppCompatActivity() {
 
                     var sb = StringBuffer()
 
-                    for (num in 0 until list!!.size - 1) {
-                        var currMarketName = list[num].market
-                        var arrMarketName = currMarketName.split("-")
+                    if (list != null) {
+                        for (num in 0 until list.size - 1) {
+                            var currMarketName = list?.get(num).market
+                            var arrMarketName = currMarketName.split("-")
 
-                        when {
-                            arrMarketName.contains("KRW") -> MainActivity.KRW_MARKETS.add(currMarketName.trim())
-                            arrMarketName.contains("BTC") -> MainActivity.BTC_MARKETS.add(currMarketName.trim())
-                            arrMarketName.contains("ETH") -> MainActivity.ETH_MARKETS.add(currMarketName.trim())
-                            arrMarketName.contains("USDT") -> MainActivity.USDT_MARKETS.add(currMarketName.trim())
+                            when {
+                                arrMarketName.contains("KRW") -> MainActivity.KRW_MARKETS.add(currMarketName.trim())
+                                arrMarketName.contains("BTC") -> MainActivity.BTC_MARKETS.add(currMarketName.trim())
+                                arrMarketName.contains("ETH") -> MainActivity.ETH_MARKETS.add(currMarketName.trim())
+                                arrMarketName.contains("USDT") -> MainActivity.USDT_MARKETS.add(currMarketName.trim())
+                            }
                         }
                     }
 
