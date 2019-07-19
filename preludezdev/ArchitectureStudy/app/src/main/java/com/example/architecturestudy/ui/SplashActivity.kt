@@ -14,21 +14,24 @@ import retrofit2.Response
 class SplashActivity : AppCompatActivity() {
 
     private val delayTime = 1300L //스플래시 화면에 머무는 시간
+    private var isDataLoadSuccess = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        loadCoinMarketList() //메인액티비티로 이동
+        loadCoinMarketList() //전체 코인시장목록 불러오기
 
-        redirectByTime() //전체 코인시장목록 불러오기
+        moveToMainActivity() //메인액티비티로 이동
     }
 
     //메인액티비티로 이동
-    private fun redirectByTime() {
+    private fun moveToMainActivity() {
         Handler().postDelayed(
-            { startActivity(Intent(this@SplashActivity, MainActivity::class.java)) },
-            delayTime
+            {
+                if (isDataLoadSuccess)
+                    startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            }, delayTime
         )
     }
 
@@ -44,8 +47,6 @@ class SplashActivity : AppCompatActivity() {
                 ) {
                     var list: List<CoinMarketResponse>? = response.body()
 
-                    var sb = StringBuffer()
-
                     if (list != null) {
                         for (num in 0 until list.size - 1) {
                             var currMarketName = list?.get(num).market
@@ -58,10 +59,8 @@ class SplashActivity : AppCompatActivity() {
                                 arrMarketName.contains("USDT") -> MainActivity.USDT_MARKETS.add(currMarketName.trim())
                             }
                         }
-                    }
 
-                    for (str in MainActivity.KRW_MARKETS) {
-                        sb.append(str + "\n")
+                        isDataLoadSuccess = true //데이터 받아오기 성공
                     }
                 }
 
