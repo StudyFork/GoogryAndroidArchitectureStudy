@@ -52,9 +52,8 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder = MyViewHolder(parent)
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        //코틀린 안드로이드 익스텐션을 사용해 레이아웃 내 뷰에 접근하려면
-        //뷰홀더 내의 itemView를 거쳐야 한다.
-        with(holder.itemView) {
+        //뷰홀더 객체의 프로퍼티를 binding 해준다.
+        with(holder) {
             val currItem = coins[position]
 
             //각 레이아웃 내 뷰에 텍스트 설정
@@ -90,5 +89,13 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
     inner class MyViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context)
             .inflate(R.layout.item_coin, parent, false)
-    )
+    ) {
+        // 각 뷰의 인스턴스를 저장하는 프로퍼티를 추가합니다.
+        // 생성자가 호출되는 시점에 뷰의 인스턴스가 할당됩니다.
+        val tvCoinName = itemView.tvCoinName
+        val tvCoinCompare = itemView.tvCoinCompare
+        val tvCurrPrice = itemView.tvCurrPrice
+        val tvCoinTotalTrade = itemView.tvCoinTotalTrade
+    }
+
 }
