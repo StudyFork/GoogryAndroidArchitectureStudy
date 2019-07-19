@@ -10,7 +10,7 @@ class CoinViewModel(private val repository: CoinDataSource) {
 
     private var isFirstLoading = true
     private val _isLoading = MutableLiveData<Boolean>()
-    private val _dataExist = MutableLiveData<Boolean>().apply { value = true }
+    private val _dataExist = MutableLiveData<Boolean>()
     private val _errorMsg = MutableLiveData<String>()
     private val _items = MutableLiveData<List<TickerModel>>()
 
@@ -29,6 +29,7 @@ class CoinViewModel(private val repository: CoinDataSource) {
     fun init() {
         _items.value = mutableListOf()
         _isLoading.value = true
+        _dataExist.value = true
         getMarketData()
     }
 
