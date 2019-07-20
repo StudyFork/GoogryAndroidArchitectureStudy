@@ -48,4 +48,7 @@ dependencies {
     // Rxjava
     implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+
+    // LifeCycle
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
 }
