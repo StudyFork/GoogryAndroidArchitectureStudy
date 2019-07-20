@@ -14,11 +14,11 @@ class TickerViewModel(
     private val firstMarketName = "KRW"
 
     private val _tickers = MutableLiveData<List<Map<String, String>>>()
-    val tickers get() = _tickers as LiveData<List<Map<String, String>>>
+    val tickers: LiveData<List<Map<String, String>>> get() = _tickers
     private val _selectedMarket = MutableLiveData<String>()
-    val selectedMarket get() = _selectedMarket as LiveData<String>
+    val selectedMarket: LiveData<String> get() = _selectedMarket
     private val _errMsg = MutableLiveData<Throwable>()
-    val errMsg get() = _errMsg as LiveData<Throwable>
+    val errMsg: LiveData<Throwable> get() = _errMsg
 
     init {
         _tickers.value = mutableListOf()
