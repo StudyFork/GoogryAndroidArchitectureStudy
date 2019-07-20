@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 
 abstract class BaseViewModel {
 
-    var isLoadingObservable = MutableLiveData<Boolean>().apply {
+    val isLoadingObservable = MutableLiveData<Boolean>().apply {
         value = false
     }
 
