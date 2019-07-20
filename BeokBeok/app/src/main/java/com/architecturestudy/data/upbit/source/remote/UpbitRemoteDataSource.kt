@@ -1,14 +1,14 @@
-package com.architecturestudy.data.upbit.source
+package com.architecturestudy.data.upbit.source.remote
 
 import com.architecturestudy.data.common.MarketTypes
 import com.architecturestudy.data.upbit.UpbitTicker
-import com.architecturestudy.data.upbit.service.UpbitService
+import com.architecturestudy.data.upbit.source.UpbitDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class UpbitRetrofitDataSource private constructor(
-    private val retrofit: UpbitService
+class UpbitRemoteDataSource private constructor(
+    private val retrofit: UpbitRemoteService
 ) : UpbitDataSource {
 
     override fun getMarketPrice(
@@ -70,13 +70,11 @@ class UpbitRetrofitDataSource private constructor(
     }
 
     companion object {
-        private var instance: UpbitRetrofitDataSource? = null
+        private var instance: UpbitRemoteDataSource? = null
 
         operator fun invoke(
-            retrofit: UpbitService
-        ): UpbitRetrofitDataSource =
-            instance ?: UpbitRetrofitDataSource(retrofit)
-                .apply { instance = this }
-
+            retrofit: UpbitRemoteService
+        ): UpbitRemoteDataSource = instance ?: UpbitRemoteDataSource(retrofit)
+            .apply { instance = this }
     }
 }

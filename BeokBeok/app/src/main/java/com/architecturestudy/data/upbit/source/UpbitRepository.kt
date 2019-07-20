@@ -1,10 +1,10 @@
-package com.architecturestudy.data.upbit
+package com.architecturestudy.data.upbit.source
 
-import com.architecturestudy.data.upbit.source.UpbitDataSource
-import com.architecturestudy.data.upbit.source.UpbitRetrofitDataSource
+import com.architecturestudy.data.upbit.UpbitTicker
+import com.architecturestudy.data.upbit.source.remote.UpbitRemoteDataSource
 
 class UpbitRepository private constructor(
-    private val upbitRetrofitDataSource: UpbitRetrofitDataSource
+    private val upbitRemoteDataSource: UpbitRemoteDataSource
 ) : UpbitDataSource {
 
     override fun getMarketPrice(
@@ -12,7 +12,7 @@ class UpbitRepository private constructor(
         onSuccess: (List<UpbitTicker>) -> Unit,
         onFail: (Throwable) -> Unit
     ) {
-        upbitRetrofitDataSource.getMarketPrice(
+        upbitRemoteDataSource.getMarketPrice(
             prefix,
             onSuccess,
             onFail
@@ -23,9 +23,8 @@ class UpbitRepository private constructor(
         private var instance: UpbitRepository? = null
 
         operator fun invoke(
-            upbitRetrofitDataSource: UpbitRetrofitDataSource
-        ): UpbitRepository = instance ?: UpbitRepository(upbitRetrofitDataSource)
+            upbitRemoteDataSource: UpbitRemoteDataSource
+        ): UpbitRepository = instance ?: UpbitRepository(upbitRemoteDataSource)
             .apply { instance = this }
-
     }
 }

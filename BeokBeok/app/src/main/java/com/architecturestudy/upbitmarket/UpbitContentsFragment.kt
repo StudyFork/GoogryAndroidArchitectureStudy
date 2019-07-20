@@ -10,9 +10,9 @@ import com.architecturestudy.R
 import com.architecturestudy.base.BaseFragment
 import com.architecturestudy.base.BaseRecyclerView
 import com.architecturestudy.data.common.MarketTypes
-import com.architecturestudy.data.upbit.UpbitRepository
-import com.architecturestudy.data.upbit.service.UpbitRetrofit
-import com.architecturestudy.data.upbit.source.UpbitRetrofitDataSource
+import com.architecturestudy.data.upbit.source.UpbitRepository
+import com.architecturestudy.data.upbit.source.remote.UpbitRemoteDataSource
+import com.architecturestudy.data.upbit.source.remote.UpbitRetrofit
 import com.architecturestudy.databinding.FragmentUpbitContentsBinding
 import com.architecturestudy.databinding.RvUpbitItemBinding
 
@@ -34,7 +34,7 @@ class UpbitContentsFragment : BaseFragment<FragmentUpbitContentsBinding>(
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel?> create(modelClass: Class<T>): T =
                     UpbitViewModel(
-                        UpbitRepository(UpbitRetrofitDataSource(UpbitRetrofit.retrofit))
+                        UpbitRepository(UpbitRemoteDataSource(UpbitRetrofit.service))
                     ) as T
             }
         )[UpbitViewModel::class.java]

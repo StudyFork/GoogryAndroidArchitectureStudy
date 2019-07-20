@@ -2,7 +2,7 @@ package com.architecturestudy.upbitmarket
 
 import androidx.lifecycle.MutableLiveData
 import com.architecturestudy.base.BaseViewModel
-import com.architecturestudy.data.upbit.UpbitRepository
+import com.architecturestudy.data.upbit.source.UpbitRepository
 import com.architecturestudy.util.NumberFormatter
 
 class UpbitViewModel(
