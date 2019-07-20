@@ -1,7 +1,7 @@
 package com.aiden.aiden.architecturepatternstudy.ui.main
 
 import android.os.Bundle
-import androidx.databinding.Observable
+import androidx.lifecycle.Observer
 import com.aiden.aiden.architecturepatternstudy.BR
 import com.aiden.aiden.architecturepatternstudy.R
 import com.aiden.aiden.architecturepatternstudy.api.Retrofit.retrofit
@@ -10,13 +10,14 @@ import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 import com.aiden.aiden.architecturepatternstudy.base.BaseFragment
 import com.aiden.aiden.architecturepatternstudy.base.SimpleRecyclerView
 import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
+import com.aiden.aiden.architecturepatternstudy.data.source.local.UpbitLocalDataSource
 import com.aiden.aiden.architecturepatternstudy.data.source.remote.UpbitRemoteDataSource
 import com.aiden.aiden.architecturepatternstudy.databinding.FragmentMainBinding
 import com.aiden.aiden.architecturepatternstudy.databinding.ItemTickerBinding
+import com.aiden.aiden.architecturepatternstudy.domain.UpbitDatabase
 
 
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
-
 
     private val upbitApi by lazy { retrofit.create(UpbitApi::class.java) }
 
@@ -26,8 +27,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private lateinit var mainVm: MainViewModel
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+
         super.onActivityCreated(savedInstanceState)
         arguments?.let {
             it.getString("marketName")?.let { marketName ->
@@ -40,7 +41,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         }
         mainVm = MainViewModel(
             upbitRepository = UpbitRepository(
-                UpbitRemoteDataSource(upbitApi)
+                UpbitRemoteDataSource(upbitApi),
+                UpbitLocalDataSource(UpbitDatabase(context!!))
             )
         )
         mainVm.loadMarketList(marketName)
@@ -51,20 +53,27 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                     bindingVariableId = BR.item
                 ) {}
             mainViewModel = mainVm
-            mainVm.isDataLoadingError.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    mainVm.isDataLoadingError.get()?.let {
-                        if (!it) showErrorToast()
-                    }
-                }
 
-            })
         }
+        val isDataLoadingErrorObserver = Observer<Boolean> {
+            if (it) showErrorToast()
+        }
+        mainVm.isDataLoadingError.observe(this@MainFragment, isDataLoadingErrorObserver)
+        val searchKeywordObserver = Observer<String> {
+            if (it.isNullOrBlank()) {
+                mainVm.loadMarketList(marketName)
+                return@Observer
+            }
+            mainVm.searchTickerByKeyword(listOf("$marketName-$it"))
+        }
+        mainVm.searchKeyword.observe(this@MainFragment, searchKeywordObserver)
+
     }
 
     private fun showErrorToast() {
-        toastM(getString(R.string.all_error_load_data_fail))
-    }
 
+        toastM(getString(R.string.all_error_load_data_fail))
+
+    }
 }
+

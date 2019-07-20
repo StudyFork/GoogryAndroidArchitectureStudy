@@ -15,48 +15,67 @@
  */
 package com.aiden.aiden.architecturepatternstudy.data.source
 
-import com.aiden.aiden.architecturepatternstudy.api.model.MarketResponse
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
+import com.aiden.aiden.architecturepatternstudy.data.source.local.UpbitLocalDataSource
 
-class UpbitRepository(
-    private val remoteDataSource: UpbitDataSource
+class UpbitRepository private constructor(
+    private val remoteDataSource: UpbitDataSource,
+    private val localDataSource: UpbitLocalDataSource
 ) : UpbitDataSource {
 
-    override fun getMarketList(callback: UpbitDataSource.GetMarketListCallback) {
-        remoteDataSource.getMarketList(object : UpbitDataSource.GetMarketListCallback {
-            override fun onMarketListLoaded(marketList: List<MarketResponse>) {
-                callback.onMarketListLoaded(marketList)
-            }
-
-            override fun onDataNotAvailable() {
-                callback.onDataNotAvailable()
-            }
-
-        })
+    override fun getMarketList(
+        onSuccess: (List<String>) -> Unit,
+        onFail: (Throwable?) -> Unit
+    ) {
+        remoteDataSource.getMarketList(onSuccess, onFail)
     }
 
     override fun getTickerList(
-        marketList: List<MarketResponse>,
-        callback: UpbitDataSource.GetTickerListCallback
+        marketList: List<String>,
+        isUsingLocalDb: Boolean,
+        onSuccess: (List<TickerResponse>) -> Unit,
+        onFail: (Throwable?) -> Unit
     ) {
-        remoteDataSource.getTickerList(marketList, object : UpbitDataSource.GetTickerListCallback {
-            override fun onTickerListLoaded(tickerList: List<TickerResponse>) {
-                callback.onTickerListLoaded(tickerList)
+
+        when (isUsingLocalDb) {
+
+            true -> {
+                localDataSource.getTickerList(
+                    marketList,
+                    true,
+                    onSuccess,
+                    onFail
+                )
             }
 
-            override fun onDataNotAvailable() {
-                callback.onDataNotAvailable()
+            false -> {
+                remoteDataSource.getTickerList(
+                    marketList,
+                    false,
+                    onSuccess = {
+                        localDataSource.saveTickerList(
+                            it,
+                            onSuccess = onSuccess,
+                            onFail = onFail
+                        )
+                    },
+                    onFail = onFail
+                )
             }
 
-        })
+        }
+
     }
 
     companion object {
 
         private var instance: UpbitRepository? = null
 
-        operator fun invoke(UpbitRemoteDataSource: UpbitDataSource) =
-            instance ?: UpbitRepository(UpbitRemoteDataSource)
+        operator fun invoke(
+            upbitRemoteDataSource: UpbitDataSource,
+            upbitLocalDataSource: UpbitLocalDataSource
+        ) =
+            instance ?: UpbitRepository(upbitRemoteDataSource, upbitLocalDataSource)
                 .apply { instance = this }
 
     }

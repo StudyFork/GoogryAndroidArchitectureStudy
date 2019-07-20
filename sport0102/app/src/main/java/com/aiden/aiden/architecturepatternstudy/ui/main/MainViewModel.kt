@@ -1,111 +1,84 @@
 package com.aiden.aiden.architecturepatternstudy.ui.main
 
-import androidx.databinding.BaseObservable
-import androidx.databinding.ObservableField
-import com.aiden.aiden.architecturepatternstudy.api.model.MarketResponse
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
-import com.aiden.aiden.architecturepatternstudy.data.enums.Market
-import com.aiden.aiden.architecturepatternstudy.data.source.UpbitDataSource
 import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
 import com.aiden.aiden.architecturepatternstudy.util.StringUtil
-import java.math.BigDecimal
 
-class MainViewModel(private val upbitRepository: UpbitRepository) : BaseObservable() {
+class MainViewModel(private val upbitRepository: UpbitRepository) {
 
-    val tickerObservable = ObservableField<List<TickerResponse>>()
+    private lateinit var marketName: String
 
-    var isDataLoadingError = ObservableField<Boolean>()
+    private val _tickerList = MutableLiveData<List<TickerResponse>>()
+    val tickerList: LiveData<List<TickerResponse>> get() = _tickerList
 
-    fun loadMarketList(market: String) {
+    private val _isDataLoadingError = MutableLiveData<Boolean>()
+    val isDataLoadingError: LiveData<Boolean> get() = _isDataLoadingError
 
-        upbitRepository.getMarketList(object : UpbitDataSource.GetMarketListCallback {
+    val searchKeyword = MutableLiveData<String>()
 
-            override fun onMarketListLoaded(marketList: List<MarketResponse>) {
-                val modifiedMarketList =
-                    marketList.filter { item -> item.market.startsWith(market, true) }
-                loadTickerList(modifiedMarketList)
+    fun loadMarketList(targetMarket: String) {
+
+        marketName = targetMarket
+
+        upbitRepository.getMarketList(onSuccess = {
+            val modifiedMarketList =
+                it.filter { market -> market.startsWith(targetMarket, true) }
+            loadAllTickerList(modifiedMarketList)
+        },
+            
+            onFail = {
+                _isDataLoadingError.value = true
             }
 
-            override fun onDataNotAvailable() {
-                isDataLoadingError.set(false)
-            }
-
-        })
+        )
 
     }
 
-    private fun loadTickerList(marketList: List<MarketResponse>) {
+    private fun loadAllTickerList(marketList: List<String>) {
 
-        upbitRepository.getTickerList(marketList, object : UpbitDataSource.GetTickerListCallback {
+        upbitRepository.getTickerList(marketList,
+            false,
+            onSuccess = {
+                _tickerList.postValue(it.map { tickerResponse ->
+                    StringUtil.modifyTicker(
+                        tickerResponse
+                    )
+                })
+            },
 
-            override fun onTickerListLoaded(tickerList: List<TickerResponse>) {
-                tickerObservable.set(tickerList.map(::modifyTicker))
+            onFail = {
+                _isDataLoadingError.postValue(true)
             }
 
-            override fun onDataNotAvailable() {
-                isDataLoadingError.set(false)
-            }
-
-        })
+        )
 
     }
 
-    private fun modifyTicker(ticker: TickerResponse): TickerResponse {
+    fun searchTickerByKeyword(keywords: List<String>) {
 
-        with(ticker) {
+        upbitRepository.getTickerList(keywords,
+            true,
+            onSuccess = {
+                _tickerList.postValue(it.map { tickerResponse ->
+                    StringUtil.modifyTicker(
+                        tickerResponse
+                    )
+                })
+            },
 
-            // 코인 이름
-            coinName = market.split("-")[1]
-
-            //  현재 가격
-            nowPrice = if (market.startsWith(
-                    Market.KRW.marketName,
-                    true
-                )
-            ) {
-                StringUtil.getKrwCommaPrice(BigDecimal(tradePrice))
-            } else if (market.startsWith(
-                    Market.BTC.marketName,
-                    true
-                ) || market.startsWith(
-                    Market.ETH.marketName,
-                    true
-                )
-            ) {
-                StringUtil.getBtcEthCommaPrice(tradePrice)
-            } else {
-                StringUtil.getUsdtCommaPrice(tradePrice)
+            onFail = {
+                _isDataLoadingError.postValue(true)
             }
-
-            // 전일대비 퍼센트
-            compareBeforePercentage = StringUtil.getPercent(
-                prevClosingPrice,
-                tradePrice
-            )
-
-            // 거래대금
-            totalDealPrice = if (market.startsWith(
-                    Market.KRW.marketName,
-                    true
-                )
-            ) {
-                StringUtil.getKrwTotalDealPrice(accTradePrice24h)
-            } else if (market.startsWith(
-                    Market.BTC.marketName,
-                    true
-                ) || market.startsWith(
-                    Market.ETH.marketName,
-                    true
-                )
-            ) {
-                StringUtil.getBtcEthTotalDealPrice(accTradePrice24h)
-            } else {
-                StringUtil.getUsdtTotalDealPrice(accTradePrice24h)
-            }
-
-        }
-
-        return ticker
+        )
 
     }
+
+    fun clearKeyword() {
+
+        searchKeyword.value = ""
+
+    }
+
 }

@@ -9,5 +9,7 @@
 	<color name="green">#00ff00</color>
 	<color name="blue">#0000ff</color>
 	<color name="grey">#b3b3cc</color>
+	<color name="pink">#e75480</color>
 	<color name="background">#ffffe6</color>
+
 </resources>

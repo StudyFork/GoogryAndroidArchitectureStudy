@@ -23,17 +23,18 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-/**
- * Implementation of the data source that adds a latency simulating network.
- */
-class UpbitRemoteDataSource private constructor(private val upbitApi: UpbitApi) : UpbitDataSource {
+class UpbitRemoteDataSource private constructor(
+    private val upbitApi: UpbitApi
+) : UpbitDataSource {
 
-    override fun getMarketList(callback: UpbitDataSource.GetMarketListCallback) {
-
+    override fun getMarketList(
+        onSuccess: (List<String>) -> Unit,
+        onFail: (Throwable?) -> Unit
+    ) {
         upbitApi.getMarketList().enqueue(object : Callback<ArrayList<MarketResponse>> {
 
             override fun onFailure(call: Call<ArrayList<MarketResponse>>?, t: Throwable?) {
-                callback.onDataNotAvailable()
+                onFail(t)
             }
 
             override fun onResponse(
@@ -41,35 +42,38 @@ class UpbitRemoteDataSource private constructor(private val upbitApi: UpbitApi) 
                 response: Response<ArrayList<MarketResponse>>?
             ) {
                 response?.body()?.let {
-                    callback.onMarketListLoaded(it)
+                    onSuccess(it.map { res -> res.market })
                 }
             }
 
         })
-
     }
 
     override fun getTickerList(
-        marketList: List<MarketResponse>,
-        callback: UpbitDataSource.GetTickerListCallback
+        marketList: List<String>,
+        isUsingLocalDb: Boolean,
+        onSuccess: (List<TickerResponse>) -> Unit,
+        onFail: (Throwable?) -> Unit
     ) {
 
-        upbitApi.getTickerInfo(marketList.joinToString { marketModel -> marketModel.market })
+        upbitApi.getTickerInfo(marketList.joinToString())
             .enqueue(object : Callback<ArrayList<TickerResponse>> {
+
                 override fun onFailure(call: Call<ArrayList<TickerResponse>>, t: Throwable) {
-                    callback.onDataNotAvailable()
+                    onFail(t)
                 }
 
                 override fun onResponse(
                     call: Call<ArrayList<TickerResponse>>,
                     response: Response<ArrayList<TickerResponse>>
                 ) {
-                    response.body()?.let {
-                        callback.onTickerListLoaded(it)
+                    response.body()?.let { tickerList ->
+                        onSuccess(tickerList)
                     }
                 }
 
             })
+
     }
 
     companion object {

@@ -17,6 +17,7 @@
 		android:orientation="vertical"
 		tools:context=".ui.main.MainActivity">
 
+
 		<com.google.android.material.tabs.TabLayout
 			android:id="@+id/main_market_tab_tl"
 			android:layout_width="match_parent"
@@ -34,9 +35,9 @@
 			android:id="@+id/main_sort_tab_ll"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="20dp"
+			android:layout_marginStart="20dp"
 			android:layout_marginTop="12dp"
-			android:layout_marginRight="16dp"
+			android:layout_marginEnd="16dp"
 			android:layout_marginBottom="12dp"
 			android:orientation="horizontal">
 

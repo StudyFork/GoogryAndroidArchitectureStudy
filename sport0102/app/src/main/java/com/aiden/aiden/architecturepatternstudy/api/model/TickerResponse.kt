@@ -1,7 +1,10 @@
 package com.aiden.aiden.architecturepatternstudy.api.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "ticker")
 data class TickerResponse(
 
     @SerializedName("acc_trade_price")
@@ -43,6 +46,7 @@ data class TickerResponse(
     @SerializedName("lowest_52_week_price")
     val lowest52WeekPrice: Double,
 
+    @PrimaryKey
     @SerializedName("market")
     var market: String,
 
