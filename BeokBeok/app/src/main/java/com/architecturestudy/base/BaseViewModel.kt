@@ -1,3 +1,5 @@
 package com.architecturestudy.base
 
-abstract class BaseViewModel
+import androidx.lifecycle.ViewModel
+
+abstract class BaseViewModel : ViewModel()

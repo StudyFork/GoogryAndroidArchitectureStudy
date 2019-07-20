@@ -2,6 +2,9 @@ package com.architecturestudy.upbitmarket
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.architecturestudy.BR
 import com.architecturestudy.R
 import com.architecturestudy.base.BaseFragment
@@ -25,8 +28,16 @@ class UpbitContentsFragment : BaseFragment<FragmentUpbitContentsBinding>(
     }
 
     private fun initBinding() {
-        binding.vm =
-            UpbitViewModel(UpbitRepository(UpbitRetrofitDataSource(UpbitRetrofit.retrofit)))
+        binding.vm = ViewModelProviders.of(
+            this,
+            object : ViewModelProvider.Factory {
+                @Suppress("UNCHECKED_CAST")
+                override fun <T : ViewModel?> create(modelClass: Class<T>): T =
+                    UpbitViewModel(
+                        UpbitRepository(UpbitRetrofitDataSource(UpbitRetrofit.retrofit))
+                    ) as T
+            }
+        )[UpbitViewModel::class.java]
     }
 
     private fun initRecyclerView() {
