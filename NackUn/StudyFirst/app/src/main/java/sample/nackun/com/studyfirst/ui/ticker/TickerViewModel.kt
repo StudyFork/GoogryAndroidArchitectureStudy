@@ -1,5 +1,6 @@
 package sample.nackun.com.studyfirst.ui.ticker
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import sample.nackun.com.studyfirst.base.BaseViewModel
 import sample.nackun.com.studyfirst.data.Repository
@@ -13,11 +14,11 @@ class TickerViewModel(
     private val firstMarketName = "KRW"
 
     private val _tickers = MutableLiveData<List<Map<String, String>>>()
-    val tickers get() = _tickers
+    val tickers get() = _tickers as LiveData<List<Map<String, String>>>
     private val _selectedMarket = MutableLiveData<String>()
-    val selectedMarket get() = _selectedMarket
+    val selectedMarket get() = _selectedMarket as LiveData<String>
     private val _errMsg = MutableLiveData<Throwable>()
-    val errMsg get() = _errMsg
+    val errMsg get() = _errMsg as LiveData<Throwable>
 
     init {
         _tickers.value = mutableListOf()
