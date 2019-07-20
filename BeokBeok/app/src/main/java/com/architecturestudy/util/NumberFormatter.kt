@@ -20,7 +20,7 @@ object NumberFormatter {
                     "coinName" to getCoinName(upbitTicker.market),
                     "currentPrice" to getCurrentPrice(upbitTicker.tradePrice),
                     "netChange" to getNetChange(upbitTicker.signedChangeRate),
-                    "tradingVal" to getTradingValue(upbitTicker.accTradePrice24h)
+                    "tradingValue" to getTradingValue(upbitTicker.accTradePrice24h)
                 )
             )
         }
