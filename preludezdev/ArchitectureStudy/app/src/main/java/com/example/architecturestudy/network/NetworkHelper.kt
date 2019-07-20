@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkHelper {
-    val API_URL = "https://api.upbit.com/"
+    const val API_URL = "https://api.upbit.com/"
 
     private val retrofit : Retrofit
     val coinApiService : CoinApiService
