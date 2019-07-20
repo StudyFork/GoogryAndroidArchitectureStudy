@@ -8,7 +8,7 @@ import com.nanamare.mac.sample.data.coin.CoinRepository
 
 class CoinViewModel: BaseViewModel() {
 
-    private var _coins = MutableLiveData<List<CoinModel>>(mutableListOf())
+    private val _coins = MutableLiveData<List<CoinModel>>(mutableListOf())
 
     val coins: LiveData<List<CoinModel>> get() = _coins
 
