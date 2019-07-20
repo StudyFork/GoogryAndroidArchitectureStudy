@@ -58,8 +58,8 @@ class UpbitContentsFragment : BaseFragment<FragmentUpbitContentsBinding>(
             it.showMarketPrice(MarketTypes.values()[position].name)
             it.errMsg.observe(
                 this,
-                Observer {
-                    showToast(it.message)
+                Observer { throwable ->
+                    showToast(throwable.message)
                 }
             )
         }
