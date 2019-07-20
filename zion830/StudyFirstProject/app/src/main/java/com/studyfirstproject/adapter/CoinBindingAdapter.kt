@@ -1,15 +1,16 @@
 package com.studyfirstproject.adapter
 
-import android.databinding.BindingAdapter
 import android.graphics.Color
-import android.support.v7.widget.RecyclerView
 import android.widget.TextView
+import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.studyfirstproject.base.BaseRecyclerView
 import com.studyfirstproject.data.model.TickerModel
 
+@Suppress("UNCHECKED_CAST")
 @BindingAdapter("bind_item")
-fun bindTickerItems(rv: RecyclerView, data: List<TickerModel>) {
-    val adapter = rv.adapter as CoinRecyclerViewAdapter
-    adapter.setCoinList(data)
+fun bindItems(rv: RecyclerView, data: List<TickerModel>) {
+    (rv.adapter as BaseRecyclerView<*, Any>).setItems(data)
 }
 
 @BindingAdapter("price_status_color")

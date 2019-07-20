@@ -1,13 +1,13 @@
 package com.studyfirstproject.base
 
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.support.annotation.LayoutRes
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseViewHolder<out B : ViewDataBinding, T : Any>(
+abstract class BaseViewHolder<out B : ViewDataBinding, T>(
     @LayoutRes layoutResId: Int,
     parent: ViewGroup?,
     private val bindingVariableId: Int

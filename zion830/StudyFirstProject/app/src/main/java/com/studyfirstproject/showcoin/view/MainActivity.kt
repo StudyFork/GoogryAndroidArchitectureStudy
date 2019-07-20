@@ -1,7 +1,9 @@
 package com.studyfirstproject.showcoin.view
 
 import android.os.Bundle
-import com.android.databinding.library.baseAdapters.BR
+import android.widget.Toast
+import androidx.databinding.library.baseAdapters.BR
+import androidx.lifecycle.Observer
 import com.studyfirstproject.R
 import com.studyfirstproject.adapter.CoinRecyclerViewAdapter
 import com.studyfirstproject.base.BaseActivity
@@ -24,7 +26,12 @@ class MainActivity :
 
     private fun initView() {
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this@MainActivity
         binding.rvMain.adapter = adapter
-        viewModel.getMarketData()
+        viewModel.init()
+
+        viewModel.errorMsg.observe(this, Observer { t ->
+            Toast.makeText(this, t, Toast.LENGTH_SHORT).show()
+        })
     }
 }
