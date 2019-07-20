@@ -13,8 +13,8 @@ class MarketViewModel: BaseViewModel() {
 
     fun onMarketClick() {
         isLoadingObservable.value = true
+        val marketMap: LinkedHashMap<String, List<String>> = LinkedHashMap()
         MarketRepository.getMarketList(success = {
-            val marketMap: LinkedHashMap<String, List<String>> = LinkedHashMap()
             val marketList = listOf<String>().toMutableList()
             it.map { marketModel ->
                 marketModel.market!!.split("-")[0].let { market ->
@@ -26,7 +26,7 @@ class MarketViewModel: BaseViewModel() {
             _market.value = marketMap
         }, failed = {
             isLoadingObservable.value = false
-            _market.value = LinkedHashMap()
+            _market.value = marketMap
         })
     }
 
