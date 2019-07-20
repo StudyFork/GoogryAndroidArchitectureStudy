@@ -17,7 +17,7 @@ import study.architecture.vo.Ticker
 class MainFragment(idx: FragIndex) : Fragment(), MainContract.View {
     private val presenter = MainPresenter(this@MainFragment, idx)
 
-    private val adapter: CoinDataAdapter = CoinDataAdapter()
+    private val adapter: CoinDataAdapter by lazy { CoinDataAdapter() }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +27,6 @@ class MainFragment(idx: FragIndex) : Fragment(), MainContract.View {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_main, container, false).apply {
-            recyclerView.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
             recyclerView.adapter = adapter
         }
 
@@ -38,8 +37,8 @@ class MainFragment(idx: FragIndex) : Fragment(), MainContract.View {
     }
 
     override fun onPause() {
-        super.onPause()
         presenter.onPause()
+        super.onPause()
     }
 
     override fun onResume() {

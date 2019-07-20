@@ -29,15 +29,15 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.name.text = lists[position].market.substringAfter('-')
-        val tradePrice = lists[position].trade_price.toInt()
+        val tradePrice = lists[position].tradePrice.toInt()
         if (tradePrice > 0) { //소수점이 아니라면 Int 형으로
             holder.tradePrice.text = String.format("%,d", tradePrice)
         } else {//소수점으로 내려간다면 double 형으로
-            holder.tradePrice.text = String.format("%,f", lists[position].trade_price)
+            holder.tradePrice.text = String.format("%,f", lists[position].tradePrice)
         }
 
-        holder.changeRate.text = String.format("%.2f%%", lists[position].change_rate * 100)
-        holder.accTradePrice24h.text = String.format("%,d", lists[position].acc_trade_price_24h.toInt())
+        holder.changeRate.text = String.format("%.2f%%", lists[position].changeRate * 100)
+        holder.accTradePrice24h.text = String.format("%,d", lists[position].accTradePrice24h.toInt())
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {

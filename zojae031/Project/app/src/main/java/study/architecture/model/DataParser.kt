@@ -18,12 +18,7 @@ import java.util.concurrent.TimeUnit
  */
 class DataParser(index: MainFragment.FragIndex, private val resultCallback: ResultCallback) {
 
-    private var stateString: String = when (index) {
-        MainFragment.FragIndex.KRW -> "KRW"
-        MainFragment.FragIndex.BTC -> "BTC"
-        MainFragment.FragIndex.ETH -> "ETH"
-        MainFragment.FragIndex.USDT -> "USDT"
-    }
+    private val stateString: String = index.name
     private var list = ""
 
     private val client =
@@ -44,16 +39,28 @@ class DataParser(index: MainFragment.FragIndex, private val resultCallback: Resu
         api.getMarkets()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .map {
+                list->
+                list.filter { it.market.startsWith(stateString) }
+                    .joinToString(",") { it.market }
+            }
             .subscribe(
                 { marketList ->
-                    for (item in marketList) {
-                        if (item.market.substringBefore("-") == stateString) list += "${item.market},"
-                    }
-                    list = list.substring(0, list.lastIndex)
+                    list = marketList
                     resultCallback.successMarketList()
                 },
                 { e -> Log.e("onErrorMarketList", e.message) }
             )
+//            .subscribe(
+//                { marketList ->
+//                    for (item in marketList) {
+//                        if (item.market.substringBefore("-") == stateString) list += "${item.market},"
+//                    }
+//                    list = list.substring(0, list.lastIndex)
+//                    resultCallback.successMarketList()
+//                },
+//                { e -> Log.e("onErrorMarketList", e.message) }
+//            )
     }
 
     /**
