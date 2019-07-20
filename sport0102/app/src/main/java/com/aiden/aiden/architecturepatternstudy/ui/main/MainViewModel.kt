@@ -2,11 +2,12 @@ package com.aiden.aiden.architecturepatternstudy.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
 import com.aiden.aiden.architecturepatternstudy.util.StringUtil
 
-class MainViewModel(private val upbitRepository: UpbitRepository) {
+class MainViewModel(private val upbitRepository: UpbitRepository) : ViewModel() {
 
     private lateinit var marketName: String
 
@@ -27,7 +28,7 @@ class MainViewModel(private val upbitRepository: UpbitRepository) {
                 it.filter { market -> market.startsWith(targetMarket, true) }
             loadAllTickerList(modifiedMarketList)
         },
-            
+
             onFail = {
                 _isDataLoadingError.value = true
             }

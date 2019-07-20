@@ -2,6 +2,9 @@ package com.aiden.aiden.architecturepatternstudy.ui.main
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.aiden.aiden.architecturepatternstudy.BR
 import com.aiden.aiden.architecturepatternstudy.R
 import com.aiden.aiden.architecturepatternstudy.api.Retrofit.retrofit
@@ -39,12 +42,16 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                 this.marketName = marketName
             }
         }
-        mainVm = MainViewModel(
-            upbitRepository = UpbitRepository(
-                UpbitRemoteDataSource(upbitApi),
-                UpbitLocalDataSource(UpbitDatabase(context!!))
-            )
-        )
+        mainVm = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return modelClass.getConstructor(UpbitRepository::class.java).newInstance(
+                    UpbitRepository(
+                        UpbitRemoteDataSource(upbitApi),
+                        UpbitLocalDataSource(UpbitDatabase(context!!))
+                    )
+                )
+            }
+        })[MainViewModel::class.java]
         mainVm.loadMarketList(marketName)
         binding {
             fragmentTickerListRv.adapter =
