@@ -1,6 +1,5 @@
 package study.architecture
 
-import org.junit.Assert.assertEquals
 import org.junit.Test
 import study.architecture.model.DataParser
 
