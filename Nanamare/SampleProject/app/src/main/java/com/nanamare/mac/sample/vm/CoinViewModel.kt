@@ -1,22 +1,24 @@
 package com.nanamare.mac.sample.vm
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.nanamare.mac.sample.api.upbit.CoinModel
 import com.nanamare.mac.sample.base.BaseViewModel
 import com.nanamare.mac.sample.data.coin.CoinRepository
-import io.reactivex.subjects.PublishSubject
 
 class CoinViewModel: BaseViewModel() {
 
-    var coins = ObservableField<List<CoinModel>>(mutableListOf())
+    private val _coins = MutableLiveData<List<CoinModel>>(mutableListOf())
+
+    val coins: LiveData<List<CoinModel>> get() = _coins
 
     fun getCoins(ticketList: MutableList<String>) {
-        isLoadingObservable.onNext(true)
+        isLoadingObservable.value = true
         CoinRepository.getCoins(ticketList, success = {
-            coins.set(it)
-            isLoadingObservable.onNext(false)
+            _coins.value = it
+            isLoadingObservable.value = false
         }, failed = {
-            isLoadingObservable.onNext(false)
+            isLoadingObservable.value = false
         })
     }
 

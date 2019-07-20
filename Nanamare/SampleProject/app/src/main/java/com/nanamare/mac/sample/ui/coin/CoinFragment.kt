@@ -3,16 +3,15 @@ package com.nanamare.mac.sample.ui.coin
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.malinskiy.superrecyclerview.OnMoreListener
 import com.nanamare.mac.sample.R
 import com.nanamare.mac.sample.adapter.TickerAdapter
-import com.nanamare.mac.sample.api.DisposableManager
 import com.nanamare.mac.sample.base.BaseFragment
 import com.nanamare.mac.sample.databinding.FragmentCoinListBinding
 import com.nanamare.mac.sample.vm.CoinViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_coin_list.*
 
 class CoinFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coin_list),
@@ -23,8 +22,6 @@ class CoinFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coi
     private val adapter: TickerAdapter by lazy { TickerAdapter() }
 
     private val coinVM: CoinViewModel by lazy { CoinViewModel() }
-
-    private val disposableManager = DisposableManager()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,16 +34,12 @@ class CoinFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coi
             showLoadingDialog()
             getCoins(ticketList)
 
-            disposableManager.add(isLoadingObservable
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    if(it) {
-                        showLoadingDialog()
-                    } else {
-                        hideLoadingDialog()
-                    }
+            isLoadingObservable.observe(this@CoinFragment, Observer {
+                when {
+                    it -> showLoadingDialog()
+                    else -> hideLoadingDialog()
                 }
-            )
+            })
         }
 
     }
@@ -116,7 +109,6 @@ class CoinFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coi
 
     override fun onDestroyView() {
         coinVM.close()
-        disposableManager.dispose()
         super.onDestroyView()
     }
 }

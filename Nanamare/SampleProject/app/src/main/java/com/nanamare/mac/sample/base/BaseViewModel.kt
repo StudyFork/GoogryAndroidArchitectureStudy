@@ -1,10 +1,12 @@
 package com.nanamare.mac.sample.base
 
-import io.reactivex.subjects.PublishSubject
+import androidx.lifecycle.MutableLiveData
 
 abstract class BaseViewModel {
 
-    var isLoadingObservable: PublishSubject<Boolean> = PublishSubject.create()
+    val isLoadingObservable = MutableLiveData<Boolean>().apply {
+        value = false
+    }
 
     abstract fun close()
 
