@@ -37,8 +37,8 @@
                     android:text="@string/marketKRW"
                     android:textSize="20sp"
                     android:gravity="center"
-                    android:onClick="@{(v)->vm.selectedMarket(@string/marketKRW)}"
-                    app:selectedMarketColor="@{vm.selectedMarket}"/>
+                    android:textColor="@{vm.selectedMarket.equals(@string/marketKRW) ? @color/indigo : @color/grey}"
+                    android:onClick="@{(v)->vm.selectedMarket(@string/marketKRW)}"/>
             <TextView
                     android:id="@+id/tv_market_btc"
                     android:layout_width="0dp"
@@ -47,8 +47,8 @@
                     android:text="@string/marketBTC"
                     android:textSize="20sp"
                     android:gravity="center"
-                    android:onClick="@{(v)->vm.selectedMarket(@string/marketBTC)}"
-                    app:selectedMarketColor="@{vm.selectedMarket}"/>
+                    android:textColor="@{vm.selectedMarket.equals(@string/marketBTC) ? @color/indigo : @color/grey}"
+                    android:onClick="@{(v)->vm.selectedMarket(@string/marketBTC)}"/>
             <TextView
                     android:id="@+id/tv_market_eth"
                     android:layout_width="0dp"
@@ -57,8 +57,8 @@
                     android:text="@string/marketETH"
                     android:textSize="20sp"
                     android:gravity="center"
-                    android:onClick="@{(v)->vm.selectedMarket(@string/marketETH)}"
-                    app:selectedMarketColor="@{vm.selectedMarket}"/>
+                    android:textColor="@{vm.selectedMarket.equals(@string/marketETH) ? @color/indigo : @color/grey}"
+                    android:onClick="@{(v)->vm.selectedMarket(@string/marketETH)}"/>
             <TextView
                     android:id="@+id/tv_market_usdt"
                     android:layout_width="0dp"
@@ -67,8 +67,8 @@
                     android:text="@string/marketUSDT"
                     android:textSize="20sp"
                     android:gravity="center"
-                    android:onClick="@{(v)->vm.selectedMarket(@string/marketUSDT)}"
-                    app:selectedMarketColor="@{vm.selectedMarket}"/>
+                    android:textColor="@{vm.selectedMarket.equals(@string/marketUSDT) ? @color/indigo : @color/grey}"
+                    android:onClick="@{(v)->vm.selectedMarket(@string/marketUSDT)}"/>
         </LinearLayout>
         <LinearLayout
                 android:id="@+id/li_ticker_title"
@@ -108,12 +108,12 @@
                     android:gravity="end"/>
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
                 android:layout_below="@id/li_ticker_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tickerRecyclerView"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:setItems="@{vm.tickers}"/>
     </RelativeLayout>
 </layout>

@@ -1,25 +1,30 @@
 package sample.nackun.com.studyfirst.ui.ticker
 
-import android.databinding.Observable
-import android.databinding.ObservableField
 import android.os.Bundle
-import android.widget.Toast
+import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.ticker_fragment.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import sample.nackun.com.studyfirst.BR
-import sample.nackun.com.studyfirst.base.BaseFragment
 import sample.nackun.com.studyfirst.R
+import sample.nackun.com.studyfirst.base.BaseFragment
+import sample.nackun.com.studyfirst.base.BaseRecyclerView
 import sample.nackun.com.studyfirst.data.Repository
 import sample.nackun.com.studyfirst.data.remote.RemoteDataSource
 import sample.nackun.com.studyfirst.databinding.TickerFragmentBinding
+import sample.nackun.com.studyfirst.databinding.TickerItemBinding
 import sample.nackun.com.studyfirst.network.UpbitApi
 
 class TickerFragment : BaseFragment<TickerFragmentBinding>(
     R.layout.ticker_fragment
 ) {
-
-    private val tickerAdapter = TickerAdapter()
+    private val firstMarketName = "KRW"
+    private val tickerAdapter =
+        object :
+            BaseRecyclerView.BaseAdapter<List<Map<String, String>>, TickerItemBinding>(
+                R.layout.ticker_item,
+                BR.tickerItem
+            ) {}
 
     private lateinit var vm: TickerViewModel
 
@@ -45,26 +50,17 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
 
         binding.setVariable(BR.vm, vm)
 
-        vm.errMsg.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                if (sender is ObservableField<*>) {
-                    Toast.makeText(
-                        context,
-                        (sender.get() as Throwable).message,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        })
+        val errMsgObserver = Observer<Throwable> {
+            showToast(it.message)
+        }
+
+        vm.errMsg.observe(this, errMsgObserver)
     }
 
     private fun setAdapter() {
         tickerRecyclerView.adapter = tickerAdapter
     }
 
-    private fun setFirstTickers() {
-        vm.selectedMarket.get()?.let {
-            vm.showTickers(it)
-        } ?: vm.errMsg.set(IllegalStateException("Selected Market is not exist"))
-    }
+    private fun setFirstTickers() =
+        vm.showTickers(firstMarketName)
 }

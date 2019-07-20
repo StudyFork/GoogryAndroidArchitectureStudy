@@ -1,13 +1,14 @@
 package sample.nackun.com.studyfirst.ui.ticker
 
-import android.databinding.BindingAdapter
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
+import sample.nackun.com.studyfirst.base.BaseRecyclerView
 
+@Suppress("UNCHECKED_CAST")
 @BindingAdapter("setItems")
-fun setItems(recyclerView: RecyclerView, items: List<Map<String, String>>) {
-    val adapter: TickerAdapter? = recyclerView.adapter as? TickerAdapter
-    adapter?.let {
-        it.setItems(items)
-        it.notifyDataSetChanged()
+fun RecyclerView.setItems(items: List<Map<String, String>>) {
+    (this.adapter as? BaseRecyclerView.BaseAdapter<Any, *>)?.run {
+        setItems(items)
+        notifyDataSetChanged()
     }
 }
