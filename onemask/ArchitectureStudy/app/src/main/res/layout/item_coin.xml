@@ -13,6 +13,7 @@
         android:id="@+id/text_title"
         tools:text="ETH"
         android:layout_width="0dp"
+        android:paddingLeft="5dp"
         android:layout_weight="0.25"
         android:layout_height="wrap_content" />
 
