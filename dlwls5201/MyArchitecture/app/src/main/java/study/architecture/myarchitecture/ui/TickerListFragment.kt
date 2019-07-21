@@ -10,10 +10,9 @@ import kotlinx.android.synthetic.main.fragment_ticker_list.*
 import org.jetbrains.anko.support.v4.toast
 import study.architecture.myarchitecture.BaseFragment
 import study.architecture.myarchitecture.R
-import study.architecture.myarchitecture.data.ApiProvider
+import study.architecture.myarchitecture.data.Injection
 import study.architecture.myarchitecture.data.model.UpbitTicker
-import study.architecture.myarchitecture.repository.UpbitRepository
-import study.architecture.myarchitecture.repository.UpbitRepositoryImpl
+import study.architecture.myarchitecture.data.repository.UpbitRepository
 import study.architecture.myarchitecture.rxeventbus.RxEventBusHelper
 import timber.log.Timber
 
@@ -43,9 +42,7 @@ class TickerListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        upbitRepository = UpbitRepositoryImpl(
-            ApiProvider.provideUpbitApi()
-        )
+        upbitRepository = Injection.provideFolderRepository(context!!)
 
         subscribeEventBus()
         initRecyclerView()

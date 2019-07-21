@@ -9,9 +9,8 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 import study.architecture.myarchitecture.BaseActivity
-import study.architecture.myarchitecture.data.ApiProvider
-import study.architecture.myarchitecture.repository.UpbitRepository
-import study.architecture.myarchitecture.repository.UpbitRepositoryImpl
+import study.architecture.myarchitecture.data.Injection
+import study.architecture.myarchitecture.data.repository.UpbitRepository
 import study.architecture.myarchitecture.rxeventbus.RxEventBusHelper
 import timber.log.Timber
 
@@ -31,9 +30,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(study.architecture.myarchitecture.R.layout.activity_main)
 
-        upbitRepository = UpbitRepositoryImpl(
-            ApiProvider.provideUpbitApi()
-        )
+        upbitRepository = Injection.provideFolderRepository(this)
 
         initToolbar()
         initDrawer()

@@ -1,4 +1,4 @@
-package study.architecture.myarchitecture.data.api
+package study.architecture.myarchitecture.data.source.remote
 
 import io.reactivex.Single
 import retrofit2.http.GET

@@ -1,4 +1,4 @@
-package study.architecture.myarchitecture.RxEventBus
+package study.architecture.myarchitecture.rxeventbus
 
 import android.os.Bundle
 import io.reactivex.subjects.PublishSubject

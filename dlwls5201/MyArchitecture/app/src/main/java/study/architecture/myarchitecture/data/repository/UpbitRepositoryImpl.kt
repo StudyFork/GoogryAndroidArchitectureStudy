@@ -1,9 +1,9 @@
-package study.architecture.myarchitecture.repository
+package study.architecture.myarchitecture.data.repository
 
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import study.architecture.myarchitecture.data.api.UpbitApi
+import study.architecture.myarchitecture.data.source.remote.UpbitApi
 import java.util.regex.Pattern
 
 class UpbitRepositoryImpl(

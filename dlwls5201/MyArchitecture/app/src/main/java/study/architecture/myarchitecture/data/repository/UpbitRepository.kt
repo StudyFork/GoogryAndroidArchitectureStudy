@@ -1,4 +1,4 @@
-package study.architecture.myarchitecture.repository
+package study.architecture.myarchitecture.data.repository
 
 import io.reactivex.Single
 import study.architecture.myarchitecture.data.model.UpbitMarket
