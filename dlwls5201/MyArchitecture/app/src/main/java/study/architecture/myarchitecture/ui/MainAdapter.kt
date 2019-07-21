@@ -31,11 +31,11 @@ class MainAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     }
 
     fun setItems(items: Array<String>) {
-        this.markets = items
+        this.markets = items.copyOf()
         notifyDataSetChanged()
     }
 
     fun setTitles(items: Array<String>) {
-        this.titles = items
+        this.titles = items.copyOf()
     }
 }
