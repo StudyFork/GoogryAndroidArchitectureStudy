@@ -12,8 +12,8 @@ object Repository {
         RemoteDataSource.paresMarketList()
             .observeOn(AndroidSchedulers.mainThread())
             .map { list ->
-                list.filter { it.market.startsWith(index.name) }
-                    .joinToString(",") { it.market }
+                list.filter { filterData -> filterData.market.startsWith(index.name) }
+                    .joinToString(",") { separateData -> separateData.market }
             }
 
 

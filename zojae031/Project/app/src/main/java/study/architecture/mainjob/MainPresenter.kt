@@ -17,8 +17,6 @@ class MainPresenter(private val view: MainContract.View, private val index: Main
     private var list = ""
     private val compositeDisposable = CompositeDisposable()
 
-    //RemoteDataSource 를 사용해서 받아오자
-
     @SuppressLint("CheckResult")
     override fun onCreate() {
         compositeDisposable.add(
@@ -36,20 +34,21 @@ class MainPresenter(private val view: MainContract.View, private val index: Main
 
 
     override fun onResume() {
-        tickerRequest()
+        if (list != "")
+            tickerRequest()
     }
 
 
     override fun onPause() {
         compositeDisposable.clear()
-        Log.e("onPause", index.name)
     }
 
     @SuppressLint("CheckResult")
     private fun tickerRequest() {
         compositeDisposable.add(
-            Observable.interval(0, 5, TimeUnit.SECONDS)
+            Observable.interval(0, 8, TimeUnit.SECONDS)
                 .flatMapSingle { Repository.getTickerList(list) }
+                //TODO onBindViewHolder에서 하는 Ticker 데이터 가공작업 해서 view 에게 넘겨주기
                 .subscribe(
                     { lists ->
                         view.notifyAdapter(lists)

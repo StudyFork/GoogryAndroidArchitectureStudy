@@ -46,8 +46,8 @@ class MainFragment : Fragment(), MainContract.View {
     }
 
     override fun onResume() {
-        presenter.onResume()
         super.onResume()
+        presenter.onResume()
     }
 
     enum class FragIndex {

@@ -15,21 +15,14 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
 
     private val lists: MutableList<Ticker> = mutableListOf()
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder =
+        Holder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
-        return Holder(view)
-    }
 
     override fun getItemCount(): Int = lists.size
 
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-//        holder.name.text = lists[position].market
-//        holder.tradePrice.text = lists[position].tradePrice
-//        holder.changeRate.text = lists[position].changeRate
-//        holder.accTradePrice24h.text = lists[position].accTradePrice24h
-
         holder.name.text = lists[position].market.substringAfter('-')
         val tradePrice = lists[position].tradePrice.toInt()
         if (tradePrice > 0) { //소수점이 아니라면 Int 형으로

@@ -36,5 +36,4 @@ object RemoteDataSource {
         api.getTickers(listName)
             .subscribeOn(Schedulers.io())
 
-
 }
