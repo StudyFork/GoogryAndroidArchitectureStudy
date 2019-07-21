@@ -1,0 +1,24 @@
+package study.architecture.model.repository
+
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import study.architecture.mainjob.MainFragment
+import study.architecture.model.datasource.RemoteDataSource
+import study.architecture.vo.Ticker
+
+object Repository {
+
+    fun getMarketList(index: MainFragment.FragIndex): Single<String> =
+        RemoteDataSource.paresMarketList()
+            .observeOn(AndroidSchedulers.mainThread())
+            .map { list ->
+                list.filter { it.market.startsWith(index.name) }
+                    .joinToString(",") { it.market }
+            }
+
+
+    fun getTickerList(listName: String): Single<MutableList<Ticker>> =
+        RemoteDataSource.parseTickerList(listName)
+
+
+}

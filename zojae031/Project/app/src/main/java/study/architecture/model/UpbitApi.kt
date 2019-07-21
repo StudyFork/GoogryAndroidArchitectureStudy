@@ -1,7 +1,6 @@
 package study.architecture.model
 
 
-import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -15,7 +14,7 @@ interface UpbitApi {
     fun getMarkets(): Single<List<Market>>
 
     @GET("ticker")
-    fun getTickers(@Query("markets") markets: String): Observable<MutableList<Ticker>>
+    fun getTickers(@Query("markets") markets: String): Single<MutableList<Ticker>>
 
 
 }

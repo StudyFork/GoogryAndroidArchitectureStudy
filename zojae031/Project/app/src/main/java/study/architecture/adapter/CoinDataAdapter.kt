@@ -25,6 +25,11 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
 
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
+//        holder.name.text = lists[position].market
+//        holder.tradePrice.text = lists[position].tradePrice
+//        holder.changeRate.text = lists[position].changeRate
+//        holder.accTradePrice24h.text = lists[position].accTradePrice24h
+
         holder.name.text = lists[position].market.substringAfter('-')
         val tradePrice = lists[position].tradePrice.toInt()
         if (tradePrice > 0) { //소수점이 아니라면 Int 형으로
@@ -34,6 +39,7 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
         }
         holder.changeRate.text = String.format("%.2f%%", lists[position].changeRate * 100)
         holder.accTradePrice24h.text = String.format("%,d", lists[position].accTradePrice24h.toInt())
+
     }
 
     fun updateList(list: List<Ticker>) {
@@ -41,7 +47,6 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
             clear()
             addAll(list)
         }
-        notifyDataSetChanged()
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {

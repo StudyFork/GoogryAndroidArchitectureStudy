@@ -37,6 +37,7 @@ class MainFragment : Fragment(), MainContract.View {
 
     override fun notifyAdapter(list: MutableList<Ticker>) {
         adapter.updateList(list)
+        adapter.notifyDataSetChanged()
     }
 
     override fun onPause() {
@@ -45,8 +46,8 @@ class MainFragment : Fragment(), MainContract.View {
     }
 
     override fun onResume() {
-        super.onResume()
         presenter.onResume()
+        super.onResume()
     }
 
     enum class FragIndex {
