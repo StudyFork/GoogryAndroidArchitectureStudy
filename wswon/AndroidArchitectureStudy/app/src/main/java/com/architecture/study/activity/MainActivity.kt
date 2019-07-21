@@ -1,64 +1,41 @@
 package com.architecture.study.activity
 
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.architecture.study.R
 import com.architecture.study.adapter.TabPagerAdapter
-import com.architecture.study.model.Market
-import com.architecture.study.model.Ticker
+import com.architecture.study.model.MarketResponse
 import com.architecture.study.server.UpbitRequest
+import com.architecture.study.server.UpbitRequestListener
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var marketList: List<Market>
-    lateinit var tickerList: List<Ticker>
+    private lateinit var marketList: List<MarketResponse>
+
+    private var initTabLayout = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        marketList = SplashActivity.marketList
-        tickerList = SplashActivity.tickerList
-        setPager()
+        getMarketList()
     }
 
-    /* 데이터 갱신역할을 하는 함수 CoinListFragment에서 Call*/
-    fun refreshTickerData() {
-        if (marketList.isNotEmpty()) {
-            var marketNames = ""
-            for (market in marketList) {
-                marketNames += if (marketList.lastIndex == marketList.indexOf(market)) {
-                    "${market.market}"
-                } else {
-                    "${market.market},"
-                }
-            }
-            Handler().postDelayed({
-                getTickerList(marketNames)
-                refreshTickerData()
-            }, 5000)
-        } else {
-            Handler().postDelayed({
-                refreshTickerData()
-            }, 5000)
-        }
-
-    }
-
-    /* retrofit getTickerList */
-    private fun getTickerList(marketNames: String) {
+    private fun getMarketList() {
         UpbitRequest().apply {
-            getTickerList(marketNames)
-            setOnUpbitRequestListener(object : UpbitRequest.UpbitRequestListener {
-                override fun onSucess(tickerList: List<Any>) {
-                    this@MainActivity.tickerList = tickerList as List<Ticker>
+            getMarketList(object : UpbitRequestListener<MarketResponse> {
+                override fun onSucess(dataList: List<MarketResponse>) {
+                    marketList = dataList
+                    if (!initTabLayout) {
+                        initTabLayout = true
+                        setPager()
+                    }
                 }
 
                 override fun onEmpty(str: String) {
+
                 }
 
                 override fun onFailure(str: String) {
@@ -71,17 +48,15 @@ class MainActivity : AppCompatActivity() {
     /* tab layout && view pager init*/
     private fun setPager() {
         monetary_unit_tablayout.run {
-            addTab(newTab().setText(getString(R.string.monetary_unit_1)))
-            addTab(newTab().setText(getString(R.string.monetary_unit_2)))
-            addTab(newTab().setText(getString(R.string.monetary_unit_3)))
-            addTab(newTab().setText(getString(R.string.monetary_unit_4)))
-
+            tabList.forEach {
+                addTab(newTab().setText(getString(it)))
+            }
             tabGravity = TabLayout.GRAVITY_FILL
 
             addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab) {
-                    Log.d("presse", "tab.position")
                     coin_list_viewpager.currentItem = tab.position
+
                 }
 
                 override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -93,13 +68,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         coin_list_viewpager.run {
-            adapter = TabPagerAdapter(supportFragmentManager, monetary_unit_tablayout.tabCount, this@MainActivity)
+            adapter = TabPagerAdapter(supportFragmentManager, tabList, this@MainActivity, marketList)
             addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(monetary_unit_tablayout))
-//            offscreenPageLimit = 4
         }
 
     }
 
-
-
+    companion object {
+        val tabList = listOf(
+            R.string.monetary_unit_1,
+            R.string.monetary_unit_2,
+            R.string.monetary_unit_3,
+            R.string.monetary_unit_4
+        )
+    }
 }
