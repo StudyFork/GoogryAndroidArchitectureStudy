@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="coin_name">코인명</string>
-    <string name="current_price">현재가</string>
-    <string name="net_change">전일대비</string>
-    <string name="trading_value">거래대금</string>
+    <string name="market">코인명</string>
+    <string name="tradePrice">현재가</string>
+    <string name="signedChangeRate">전일대비</string>
+    <string name="accTradePrice24h">거래대금</string>
 </resources>

@@ -24,7 +24,7 @@
             android:gravity="center_vertical"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="@{marketList[`coinName`]}"
+            android:text="@{marketList[`market`]}"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/tv_current_price"
@@ -38,7 +38,7 @@
             android:gravity="center_vertical|end"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="@{marketList[`currentPrice`]}"
+            android:text="@{marketList[`tradePrice`]}"
             android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@id/tv_net_change"
             app:layout_constraintStart_toEndOf="@id/tv_coin_name" />
@@ -50,7 +50,7 @@
             android:gravity="center_vertical|end"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="@{marketList[`netChange`]}"
+            android:text="@{marketList[`signedChangeRate`]}"
             android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@id/tv_trading_value"
             app:layout_constraintStart_toEndOf="@id/tv_current_price" />
@@ -62,7 +62,7 @@
             android:gravity="center_vertical|end"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="@{marketList[`tradingValue`]}"
+            android:text="@{marketList[`accTradePrice24h`]}"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_net_change" />

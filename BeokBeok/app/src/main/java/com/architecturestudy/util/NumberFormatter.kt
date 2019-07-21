@@ -17,10 +17,10 @@ object NumberFormatter {
             convertList.add(
                 index,
                 hashMapOf(
-                    "coinName" to getCoinName(upbitTicker.market),
-                    "currentPrice" to getCurrentPrice(upbitTicker.tradePrice),
-                    "netChange" to getNetChange(upbitTicker.signedChangeRate),
-                    "tradingValue" to getTradingValue(upbitTicker.accTradePrice24h)
+                    "market" to getCoinName(upbitTicker.market),
+                    "tradePrice" to getCurrentPrice(upbitTicker.tradePrice),
+                    "signedChangeRate" to getNetChange(upbitTicker.signedChangeRate),
+                    "accTradePrice24h" to getTradingValue(upbitTicker.accTradePrice24h)
                 )
             )
         }
