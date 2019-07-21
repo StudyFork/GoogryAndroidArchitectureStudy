@@ -1,0 +1,52 @@
+<resources>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">코인헬퍼</string>
+    <string name="admob_app_key">ca-app-pub-3455486566753347~2819068799</string>
+    <string name="admob_start_interstitial_key">ca-app-pub-3455486566753347/4239536643</string>
+    <string name="admob_main_bottom_banner_key">ca-app-pub-3455486566753347/5783247637</string>
+
+    <string name="coinone">코인원(Coinone)</string>
+    <string name="upbit">업비트(Upbit)</string>
+    <string name="bithumb">빗썸(Bithumb)</string>
+    <string name="gopax">고팍스(Gopax)</string>
+    <string name="binance">바이낸스(Binance)</string>
+    <string name="bitfinex">비트파이넥스(Bitfinex)</string>
+    <string name="huobi">후오비(Huobi)</string>
+    <string name="coinex">코인엑스(CoinEx)</string>
+    <string name="hitbtc">힛빗(HitBTC)</string>
+    <string name="zbcom">지비닷컴(ZB.COM)</string>
+    <string name="lbank">엘뱅크(LBank)</string>
+    <string name="bibox">바이박스(Bibox)</string>
+
+    <string name="description_welcome_title">환영합니다!</string>
+    <string name="description_welcome_content">간단한 설정을 하고\n앱을 사용해봐요.</string>
+    <string name="description_select_main_exchange_title">사용 중인 주 거래소를\n선택해 주세요.</string>
+    <string name="next">다음으로</string>
+    <string name="skip">건너뛰기</string>
+    <string name="start">시작하기</string>
+    <string name="description_back_finish">\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다.</string>
+    <string name="trade_amount_milli_fmt">%,.3f</string>
+    <string name="trade_amount_fmt">%,d</string>
+    <string name="trade_amount_kilo_fmt">%,d k</string>
+    <string name="trade_amount_mega_fmt">%,d M</string>
+    <string name="trade_amount_giga_fmt">%,d G</string>
+    <string name="coin_name">코인명</string>
+    <string name="last">현재가</string>
+    <string name="trade_amount">거래대금</string>
+    <string name="trade_diff">전일대비</string>
+    <string name="price_diff">가격차이</string>
+    <string name="please_select_main_exchange">주 거래소를 선택해 주세요.</string>
+    <string name="select_exchange">거래소 선택</string>
+    <string name="setting">설정</string>
+    <string name="etc">기타</string>
+    <string name="privacy_policy">개인정보이용정책</string>
+    <string name="communication">소통</string>
+    <string name="write_review_rating">리뷰 / 평점 작성하기</string>
+    <string name="talk_to_user">코인헬퍼 사용자와 카톡하기</string>
+    <string name="talk_to_developer">코인헬퍼와 카톡하기</string>
+    <string name="menu">메뉴</string>
+    <string name="space_slash_unit">/</string>
+    <string name="exchange_name">거래소명</string>
+</resources>

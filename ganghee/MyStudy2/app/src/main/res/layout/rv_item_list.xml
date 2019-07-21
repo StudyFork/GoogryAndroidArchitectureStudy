@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ll_item"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="3dp"
+        android:elevation="2dp"
+        app:cardCornerRadius="10dp"
+>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="8dp">
+        <TextView
+                android:id="@+id/tv_coin_name"
+                android:textColor="@color/black"
+                android:text="DASH"
+                android:textSize="20sp"
+                android:paddingStart="10dp"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+        />
+        <TextView
+                android:id="@+id/tv_trade_price"
+                android:textColor="@color/black"
+                android:text="1.2222222"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:gravity="right"
+        />
+        <TextView
+                android:id="@+id/tv_signed_change_rate"
+                android:text="-1.22%"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+        />
+        <TextView
+                android:id="@+id/tv_acc_trade_price_24h"
+                android:text="44444444"
+                android:textColor="@color/black"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:paddingRight="10dp"
+        />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

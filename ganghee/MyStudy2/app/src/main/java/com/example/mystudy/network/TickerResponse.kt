@@ -1,0 +1,30 @@
+package com.example.mystudy.network
+
+data class  TickerResponse(
+    var acc_trade_price: Double,
+    var acc_trade_price_24h: Double,
+    var acc_trade_volume: Double,
+    var acc_trade_volume_24h: Double,
+    var change: String,
+    var change_price: Double,
+    var change_rate: Double,
+    var high_price: Double,
+    var highest_52_week_date: String,
+    var highest_52_week_price: Double,
+    var low_price: Double,
+    var lowest_52_week_date: String,
+    var lowest_52_week_price: Double,
+    var market: String,
+    var opening_price: Double,
+    var prev_closing_price: Double,
+    var signed_change_price: Double,
+    var signed_change_rate: Double,
+    var timestamp: Long,
+    var trade_date: String,
+    var trade_date_kst: String,
+    var trade_price: Double,
+    var trade_time: String,
+    var trade_time_kst: String,
+    var trade_timestamp: Long,
+    var trade_volume: Double
+)
