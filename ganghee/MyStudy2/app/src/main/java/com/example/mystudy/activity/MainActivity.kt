@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun configureMainTab() {
 
+
         viewPager.adapter = ViewPagerAdapter(supportFragmentManager, num_fragment = 4)
 
         /*      TabLayout과 ViewPager를 연결한다!!    */
