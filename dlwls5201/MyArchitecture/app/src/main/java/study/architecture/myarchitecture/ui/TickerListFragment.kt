@@ -11,8 +11,8 @@ import org.jetbrains.anko.support.v4.toast
 import study.architecture.myarchitecture.BaseFragment
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.RxEventBus.RxEventBusHelper
-import study.architecture.myarchitecture.network.ApiProvider
-import study.architecture.myarchitecture.network.model.UpbitTicker
+import study.architecture.myarchitecture.data.ApiProvider
+import study.architecture.myarchitecture.data.model.UpbitTicker
 import study.architecture.myarchitecture.repository.UpbitRepository
 import study.architecture.myarchitecture.repository.UpbitRepositoryImpl
 import timber.log.Timber
@@ -101,7 +101,7 @@ class TickerListFragment : BaseFragment() {
                 tickerAdapter.setItem(it.toMutableList())
 
             }) {
-                Timber.e(it.message)
+                Timber.e(it)
             }.also {
                 compositeDisposable.add(it)
             }

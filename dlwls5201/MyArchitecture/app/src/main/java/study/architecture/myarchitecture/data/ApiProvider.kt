@@ -1,4 +1,4 @@
-package study.architecture.myarchitecture.network
+package study.architecture.myarchitecture.data
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -6,15 +6,14 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import study.architecture.myarchitecture.BuildConfig
-import study.architecture.myarchitecture.network.api.UpbitApi
+import study.architecture.myarchitecture.data.api.UpbitApi
 import java.util.concurrent.TimeUnit
 
 object ApiProvider {
 
     private const val HOST_URL = "https://api.upbit.com/"
 
-    fun provideUpbitApi(): UpbitApi
-            = Retrofit.Builder()
+    fun provideUpbitApi(): UpbitApi = Retrofit.Builder()
         .baseUrl(HOST_URL)
         .client(provideOkHttpClient(provideLoggingInterceptor()))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())

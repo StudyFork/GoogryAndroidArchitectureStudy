@@ -10,7 +10,7 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 import study.architecture.myarchitecture.BaseActivity
 import study.architecture.myarchitecture.RxEventBus.RxEventBusHelper
-import study.architecture.myarchitecture.network.ApiProvider
+import study.architecture.myarchitecture.data.ApiProvider
 import study.architecture.myarchitecture.repository.UpbitRepository
 import study.architecture.myarchitecture.repository.UpbitRepositoryImpl
 import timber.log.Timber

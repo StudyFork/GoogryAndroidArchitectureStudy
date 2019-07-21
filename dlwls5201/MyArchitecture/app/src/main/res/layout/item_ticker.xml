@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="4dp"
-    android:layout_marginBottom="4dp"
     android:layout_marginStart="@dimen/main_item_cell_margin_side"
+    android:layout_marginTop="4dp"
     android:layout_marginEnd="@dimen/main_item_cell_margin_side"
+    android:layout_marginBottom="4dp"
     android:background="?attr/selectableItemBackground"
     app:cardCornerRadius="8dp">
 
@@ -25,12 +25,12 @@
             android:id="@+id/tvMarket"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:layout_weight="1"
             android:autoSizeTextType="uniform"
             android:maxLines="1"
             android:textColor="@color/gray5"
             android:textSize="14sp"
+            android:textStyle="bold"
             tools:text="BTC" />
 
         <!-- 현재가 -->

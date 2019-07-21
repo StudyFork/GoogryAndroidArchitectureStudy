@@ -21,7 +21,7 @@ fun TextView.setCoinName(market: String) {
 fun TextView.setLast(tradePrice: Double) {
 
     val df = if (tradePrice >= 1) {
-         DecimalFormat("#,###")
+        DecimalFormat("#,###")
     } else {
         DecimalFormat("0.00000000")
     }
@@ -52,9 +52,9 @@ fun TextView.setTradeAmount(accTradePrice24h: Double) {
 
     val df = DecimalFormat("#,###")
 
-    val amount = if(accTradePrice24h >= 1000000) {
+    val amount = if (accTradePrice24h >= 1000000) {
         df.format(accTradePrice24h / 1000000)
-    } else if(accTradePrice24h < 1000000 && accTradePrice24h >= 1000) {
+    } else if (accTradePrice24h < 1000000 && accTradePrice24h >= 1000) {
         df.format(accTradePrice24h / 1000)
     } else {
         df.format(accTradePrice24h)

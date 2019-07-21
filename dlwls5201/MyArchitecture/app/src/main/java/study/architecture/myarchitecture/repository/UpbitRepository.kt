@@ -1,8 +1,8 @@
 package study.architecture.myarchitecture.repository
 
 import io.reactivex.Single
-import study.architecture.myarchitecture.network.model.UpbitMarket
-import study.architecture.myarchitecture.network.model.UpbitTicker
+import study.architecture.myarchitecture.data.model.UpbitMarket
+import study.architecture.myarchitecture.data.model.UpbitTicker
 
 interface UpbitRepository {
 

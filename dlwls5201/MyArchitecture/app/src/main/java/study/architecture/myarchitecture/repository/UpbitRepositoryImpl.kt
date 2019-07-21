@@ -3,7 +3,7 @@ package study.architecture.myarchitecture.repository
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import study.architecture.myarchitecture.network.api.UpbitApi
+import study.architecture.myarchitecture.data.api.UpbitApi
 import java.util.regex.Pattern
 
 class UpbitRepositoryImpl(

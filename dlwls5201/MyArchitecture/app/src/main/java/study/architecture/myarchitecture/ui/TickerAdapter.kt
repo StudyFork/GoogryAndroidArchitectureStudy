@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import study.architecture.myarchitecture.R
-import study.architecture.myarchitecture.network.model.UpbitTicker
-import study.architecture.myarchitecture.util.*
+import study.architecture.myarchitecture.data.model.UpbitTicker
+import study.architecture.myarchitecture.util.setCoinName
+import study.architecture.myarchitecture.util.setLast
+import study.architecture.myarchitecture.util.setTradeAmount
+import study.architecture.myarchitecture.util.setTradeDiff
 
 class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
 
@@ -95,7 +98,7 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
         }
     }
 
-    private fun <R : Comparable<R>>setOrderByField(selector: (UpbitTicker) -> R, order: Int) {
+    private fun <R : Comparable<R>> setOrderByField(selector: (UpbitTicker) -> R, order: Int) {
         if (order == ASC) {
             tickers.sortBy(selector)
         } else if (order == DESC) {

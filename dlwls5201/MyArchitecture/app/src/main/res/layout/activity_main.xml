@@ -92,93 +92,93 @@
                         android:id="@+id/llTickerCategory"
                         android:layout_width="match_parent"
                         android:layout_height="24dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
                         android:layout_marginStart="@dimen/main_item_cell_margin_side"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="@dimen/main_item_cell_margin_side"
+                        android:layout_marginBottom="8dp"
                         android:orientation="horizontal">
 
                         <LinearLayout
                             android:id="@+id/llCoinNameParent"
-                            android:gravity="center_vertical"
-                            android:layout_weight="1"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical">
 
                             <TextView
-                                android:text="@string/coin_name"
                                 style="@style/SelectText"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:text="@string/coin_name" />
 
                             <ImageView
                                 android:id="@+id/ivSelectByCoinName"
-                                android:src="@drawable/ic_arrow_drop_selector"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_arrow_drop_selector" />
 
                         </LinearLayout>
 
                         <LinearLayout
                             android:id="@+id/llLastParent"
-                            android:gravity="center_vertical|end"
-                            android:layout_weight="3"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:gravity="center_vertical|end">
 
                             <TextView
-                                android:text="@string/last"
                                 style="@style/SelectText"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:text="@string/last" />
 
                             <ImageView
                                 android:id="@+id/ivSelectByLast"
-                                android:src="@drawable/ic_arrow_drop_selector"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_arrow_drop_selector" />
 
                         </LinearLayout>
 
                         <LinearLayout
                             android:id="@+id/llTradeDiffParent"
-                            android:gravity="center_vertical|end"
-                            android:layout_weight="2"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:gravity="center_vertical|end">
 
                             <TextView
-                                android:text="@string/trade_diff"
                                 style="@style/SelectText"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:text="@string/trade_diff" />
 
                             <ImageView
                                 android:id="@+id/ivSelectByTradeDiff"
-                                android:src="@drawable/ic_arrow_drop_selector"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_arrow_drop_selector" />
 
                         </LinearLayout>
 
                         <LinearLayout
                             android:id="@+id/llTradeAmountParent"
-                            android:gravity="center_vertical|end"
-                            android:layout_weight="2"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:gravity="center_vertical|end">
 
                             <TextView
-                                android:text="@string/trade_amount"
                                 style="@style/SelectText"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:text="@string/trade_amount" />
 
                             <ImageView
                                 android:id="@+id/ivSelectByTradeAmount"
-                                android:src="@drawable/ic_arrow_drop_selector"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_arrow_drop_selector" />
 
                         </LinearLayout>
 
@@ -201,7 +201,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:background="@drawable/bg_bottom_round"/>
+                        android:background="@drawable/bg_bottom_round" />
 
                     <Space
                         android:layout_width="match_parent"
@@ -215,10 +215,10 @@
 
         <FrameLayout
             android:id="@+id/flEndSideInDrawer"
-            android:background="@color/colorAccent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="end" />
+            android:layout_gravity="end"
+            android:background="@color/colorAccent" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 
