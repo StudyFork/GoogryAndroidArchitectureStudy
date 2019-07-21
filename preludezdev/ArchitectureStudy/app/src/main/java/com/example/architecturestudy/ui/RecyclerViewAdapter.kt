@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.architecturestudy.R
 import com.example.architecturestudy.data.CoinTickerResponse
+import com.example.architecturestudy.util.Util
 import kotlinx.android.synthetic.main.item_coin.view.*
 
 
@@ -38,17 +39,29 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
             }
 
             //데이터의 크기에 따라 ui를 다르게 보여주게끔 설정
-            if (currItem.tradePrice > 1) {
-                tvCurrPrice.text = String.format("%9.2f", currItem.tradePrice)
-            } else {
-                tvCurrPrice.text = String.format("%.8f", currItem.tradePrice)
+            when {
+                currItem.tradePrice > 1000 ->
+                    tvCurrPrice.text = Util.convertBigNumberToStdString(currItem.tradePrice.toInt())
+                currItem.tradePrice > 2 ->
+                    tvCurrPrice.text = String.format("%.2f", currItem.tradePrice)
+                else ->
+                    tvCurrPrice.text = String.format("%.8f", currItem.tradePrice)
             }
 
             when {
-                currItem.accTradePriceH > 10000000 ->
-                    tvCoinTotalTrade.text = String.format("%6.0f", (currItem.accTradePriceH / 1000000)) + "M"
-                currItem.accTradePriceH > 10000 ->
-                    tvCoinTotalTrade.text = String.format("%6.0f", (currItem.accTradePriceH / 1000)) + "k"
+                currItem.accTradePriceH > 10000000 -> {
+                    tvCoinTotalTrade.text =
+                        Util.convertBigNumberToStdString((currItem.accTradePriceH / 1000000).toInt()) + "M"
+                }
+
+                currItem.accTradePriceH > 100000 ->
+                    tvCoinTotalTrade.text =
+                        Util.convertBigNumberToStdString(currItem.accTradePriceH.toInt() / 1000) + "k"
+
+                currItem.accTradePriceH > 1000 ->
+                    tvCoinTotalTrade.text =
+                        Util.convertBigNumberToStdString(currItem.accTradePriceH.toInt())
+
                 else ->
                     tvCoinTotalTrade.text = String.format("%.3f", currItem.accTradePriceH)
             }
