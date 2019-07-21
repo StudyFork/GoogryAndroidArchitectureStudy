@@ -51,8 +51,8 @@ class SplashActivity : AppCompatActivity() {
 
                         if (list != null) {
                             for (num in 0 until list.size) {
-                                var currMarketName = list[num].market
-                                var arrMarketName = currMarketName.split("-")
+                                val currMarketName = list[num].market
+                                val arrMarketName = currMarketName.split("-")
 
                                 when {
                                     arrMarketName.contains("KRW") -> MainActivity.KRW_MARKETS.add(currMarketName.trim())
