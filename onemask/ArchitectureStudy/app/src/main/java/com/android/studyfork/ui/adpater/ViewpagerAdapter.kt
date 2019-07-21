@@ -6,25 +6,25 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.android.studyfork.ui.TikcerListFragment
 
-class ViewpagerAdapter(fragmentMnager : FragmentManager) :
-    FragmentPagerAdapter(fragmentMnager){
+class ViewpagerAdapter(fragmentManager : FragmentManager) :
+    FragmentPagerAdapter(fragmentManager){
 
     private var titles: Array<String>? = null
-    private var marketDataset : Array<String>? = null
+    private var marketDataSet : Array<String>? = null
 
     override fun getItem(position: Int): Fragment  {
-        val item = marketDataset?.get(position) ?:""
+        val item = marketDataSet?.get(position) ?:""
         return TikcerListFragment.newInstance(item)
     }
 
-    override fun getCount(): Int  = marketDataset?.size ?:0
+    override fun getCount(): Int  = marketDataSet?.size ?:0
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         super.destroyItem(container, position, `object`)
     }
 
     fun setData(items : Array<String>){
-        this.marketDataset = items
+        this.marketDataSet = items
         notifyDataSetChanged()
     }
 
