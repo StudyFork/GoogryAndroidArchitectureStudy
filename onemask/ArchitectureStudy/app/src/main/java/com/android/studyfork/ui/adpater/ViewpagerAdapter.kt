@@ -3,11 +3,13 @@ package com.android.studyfork.ui.adpater
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.android.studyfork.repository.model.MarketAllResponse
+import com.android.studyfork.repository.remote.model.MarketAllResponse
 import com.android.studyfork.ui.*
 import timber.log.Timber
 
-class ViewpagerAdapter(fragmentMnager : FragmentManager,val allMarketList : List<MarketAllResponse>,val tabCount : Int ) : FragmentPagerAdapter(fragmentMnager) {
+class ViewpagerAdapter(fragmentMnager : FragmentManager,
+                       val allMarketList : List<MarketAllResponse>,
+                       val tabCount : Int ) : FragmentPagerAdapter(fragmentMnager) {
 
     private var krwList : ArrayList<String> = ArrayList()
     private var btcList: ArrayList<String> = ArrayList()
@@ -24,13 +26,12 @@ class ViewpagerAdapter(fragmentMnager : FragmentManager,val allMarketList : List
                     "ETH" -> ethList.add(response.market)
                     "USDT" -> usdtList.add(response.market)
                 }
-        Timber.d("krwList $krwList")
-        return when(position){
-            0->return  newKrwFragment(krwList)
-            1->return  newBtcFragment(btcList)
-            2->return  newEthFragment(ethList)
-            3->return  newUsdtFragmentFragment(usdtList)
-            else ->BtcFragment()
+        when(position){
+            0-> return newTikcerListFragment(krwList)
+            1-> return newTikcerListFragment(btcList)
+            2-> return newTikcerListFragment(ethList)
+            3-> return newTikcerListFragment(usdtList)
+            else -> error("e")
         }
     }
 
