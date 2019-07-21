@@ -32,7 +32,7 @@ class UpbitRemoteDataSource private constructor(
                                     data.name == prefix
                                 }
                             }
-                            .filter { data -> data.market!!.startsWith(prefix) }
+                            .filter { data -> data.market.startsWith(prefix) }
                             .map { data -> data.market }
                             .toList()
                         getTickers(
@@ -45,6 +45,10 @@ class UpbitRemoteDataSource private constructor(
                     onFail(it)
                 })
         )
+    }
+
+    override fun saveTicker(upbitTicker: UpbitTicker) {
+        // NO OP
     }
 
     private fun getTickers(

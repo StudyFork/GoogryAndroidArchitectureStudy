@@ -8,4 +8,6 @@ interface UpbitDataSource {
         onSuccess: (List<UpbitTicker>) -> Unit,
         onFail: (Throwable) -> Unit
     )
+
+    fun saveTicker(upbitTicker: UpbitTicker)
 }

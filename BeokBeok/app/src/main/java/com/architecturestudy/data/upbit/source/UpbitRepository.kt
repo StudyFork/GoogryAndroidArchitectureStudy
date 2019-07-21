@@ -1,9 +1,11 @@
 package com.architecturestudy.data.upbit.source
 
 import com.architecturestudy.data.upbit.UpbitTicker
+import com.architecturestudy.data.upbit.source.local.UpbitLocalDataSource
 import com.architecturestudy.data.upbit.source.remote.UpbitRemoteDataSource
 
 class UpbitRepository private constructor(
+    private val upbitLocalDataSource: UpbitLocalDataSource?,
     private val upbitRemoteDataSource: UpbitRemoteDataSource
 ) : UpbitDataSource {
 
@@ -19,12 +21,19 @@ class UpbitRepository private constructor(
         )
     }
 
+    override fun saveTicker(upbitTicker: UpbitTicker) {
+        upbitLocalDataSource?.saveTicker(upbitTicker)
+    }
+
     companion object {
         private var instance: UpbitRepository? = null
 
         operator fun invoke(
+            upbitLocalDataSource: UpbitLocalDataSource?,
             upbitRemoteDataSource: UpbitRemoteDataSource
-        ): UpbitRepository = instance ?: UpbitRepository(upbitRemoteDataSource)
-            .apply { instance = this }
+        ): UpbitRepository = instance ?: UpbitRepository(
+            upbitLocalDataSource,
+            upbitRemoteDataSource
+        ).apply { instance = this }
     }
 }

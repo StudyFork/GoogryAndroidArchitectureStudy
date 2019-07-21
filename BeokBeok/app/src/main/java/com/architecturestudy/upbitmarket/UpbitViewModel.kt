@@ -16,6 +16,9 @@ class UpbitViewModel(
         upBitRepository.getMarketPrice(
             market,
             onSuccess = {
+                for (i in 0 until it.size) {
+                    upBitRepository.saveTicker(it[i])
+                }
                 marketPriceList.value = NumberFormatter.convertTo(it)
             },
             onFail = {
