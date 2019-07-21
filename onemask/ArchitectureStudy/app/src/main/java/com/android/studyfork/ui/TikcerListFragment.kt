@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.studyfork.R
+import com.android.studyfork.ext.inflate
 import com.android.studyfork.repository.UpbitApi
 import com.android.studyfork.repository.UpbitService
 import com.android.studyfork.ui.adpater.CoinItemAdapter
@@ -17,16 +18,15 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_krw.*
 import timber.log.Timber
 
-fun newBtcFragment(arrayList : ArrayList<String>) : Fragment{
-    return BtcFragment().apply {
+fun newTikcerListFragment(arrayList : ArrayList<String>) : Fragment{
+    return TikcerListFragment().apply {
         arguments = Bundle(1).apply {
-            putStringArrayList("market",arrayList)
+                putStringArrayList("market",arrayList)
+            }
         }
-    }
 }
-
-class BtcFragment : Fragment() {
-    private var btcList : ArrayList<String> = arrayListOf()
+class TikcerListFragment : Fragment() {
+    private var krwList : ArrayList<String> = arrayListOf()
     lateinit var upbitService: UpbitApi
 
     private lateinit var coinItemAdapter: CoinItemAdapter
@@ -35,36 +35,26 @@ class BtcFragment : Fragment() {
         super.onCreate(savedInstanceState)
         val bundle =arguments
         bundle?.run {
-            btcList = this.getStringArrayList("market")
+            krwList = this.getStringArrayList("market")
         }
         setupApiService()
         getTicker(makePrameter())
+
     }
+
     private fun setupApiService() {
         upbitService = UpbitService.getInstance().upbitApi
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setRecyclerView()
-    }
-
     private fun makePrameter() : String{
-        var Parameter = ""
-        for (item in btcList.iterator()) {
-            Parameter += "$item,"
+        var krwParameter = ""
+        for (item in krwList.iterator()) {
+            krwParameter += "$item,"
         }
-        Parameter=Parameter.substring(0,Parameter.length-1)
-        Timber.d("Parameter $Parameter")
-        return Parameter
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_krw, container, false)
-    }
+        krwParameter=krwParameter.substring(0,krwParameter.length-1)
+        Timber.d("krwParameter $krwParameter")
+        return krwParameter
+     }
 
     @SuppressLint("CheckResult")
     private fun getTicker(makrets : String){
@@ -78,6 +68,15 @@ class BtcFragment : Fragment() {
                 Timber.e("${it.printStackTrace()}")
             })
     }
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = container?.inflate(R.layout.fragment_krw)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setRecyclerView()
+    }
 
     private fun setRecyclerView() {
         coinItemAdapter = CoinItemAdapter()
@@ -89,5 +88,6 @@ class BtcFragment : Fragment() {
         }
     }
 
-
 }
+
+
