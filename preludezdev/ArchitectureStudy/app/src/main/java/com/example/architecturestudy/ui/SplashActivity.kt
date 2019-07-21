@@ -29,8 +29,9 @@ class SplashActivity : AppCompatActivity() {
     private fun moveToMainActivity() {
         Handler().postDelayed(
             {
-                if (isDataLoadSuccess)
+                if (isDataLoadSuccess) {
                     startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                }
             }, delayTime
         )
     }
