@@ -21,28 +21,40 @@ class RecyclerViewAdapter(var ctx: Context, var dataList: List<TickerResponse>) 
 
     override fun getItemCount(): Int = dataList.size
 
-
     override fun onBindViewHolder(holder: Holder, position: Int) {
+        //코인명
         holder.coin_name.text = dataList[position].market.split("-")[1]
 
-        if(dataList[position].trade_price > 0.1) {
+        //현재가
+        if (dataList[position].trade_price > 0.1) {
             holder.tv_trade_price.text = String.format("%,.0f", dataList[position].trade_price)
-        }else{
+        } else {
             holder.tv_trade_price.text = String.format("%,.8f", dataList[position].trade_price)
         }
 
-        holder.signed_change_rate.text = String.format("%,.2f", dataList[position].signed_change_rate*100) + "%"
-        holder.acc_trade_price_24th.text = String.format("%,.0f", dataList[position].acc_trade_volume_24h) + "M"
-
-        //색이 바뀌지 않음
-        if(dataList[position].signed_change_rate > 0){
-            holder.signed_change_rate.textColor = ContextCompat.getColor(ctx, R.color.diff_up)
-        }else if (dataList[position].signed_change_rate < 0){
-            holder.signed_change_rate.textColor = ContextCompat.getColor(ctx, R.color.diff_down)
-        }else{
-            holder.signed_change_rate.textColor = ContextCompat.getColor(ctx, R.color.black)
+        //전일대비
+        holder.signed_change_rate.text = String.format("%,.2f", dataList[position].signed_change_rate * 100) + "%"
+        when {
+            dataList[position].signed_change_rate > 0 -> holder.signed_change_rate.textColor =
+                ContextCompat.getColor(ctx, R.color.diff_up)
+            dataList[position].signed_change_rate < 0 -> holder.signed_change_rate.textColor =
+                ContextCompat.getColor(ctx, R.color.diff_down)
+            else -> holder.signed_change_rate.textColor = ContextCompat.getColor(ctx, R.color.black)
         }
 
+        //거래대금
+        when(dataList[position].market.split("-")[0]){
+            "KRW" -> {
+                holder.acc_trade_price_24th.text = String.format("%,.0f", dataList[position].acc_trade_volume_24h) + "M"
+            }
+            "USDT" -> {
+                if(dataList[position].acc_trade_volume_24h > 1000000)
+                holder.acc_trade_price_24th.text = String.format("%,.0f", dataList[position].acc_trade_volume_24h / 1000) + "k"
+                else
+                    holder.acc_trade_price_24th.text = String.format("%,.0f", dataList[position].acc_trade_volume_24h)
+            }
+            else -> holder.acc_trade_price_24th.text = String.format("%,.0f", dataList[position].acc_trade_volume_24h)
+        }
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
