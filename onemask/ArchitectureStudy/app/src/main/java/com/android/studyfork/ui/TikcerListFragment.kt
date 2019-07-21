@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.studyfork.R
 import com.android.studyfork.ext.inflate
-import com.android.studyfork.repository.UpbitApi
 import com.android.studyfork.repository.UpbitService
 import com.android.studyfork.ui.adpater.CoinItemAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -27,7 +26,7 @@ fun newTikcerListFragment(arrayList : ArrayList<String>) : Fragment{
 }
 class TikcerListFragment : Fragment() {
     private var krwList : ArrayList<String> = arrayListOf()
-    lateinit var upbitService: UpbitApi
+    private val upbitService by lazy{ UpbitService.getInstance().upbitApi }
 
     private lateinit var coinItemAdapter: CoinItemAdapter
 
@@ -37,13 +36,8 @@ class TikcerListFragment : Fragment() {
         bundle?.run {
             krwList = this.getStringArrayList("market")
         }
-        setupApiService()
         getTicker(makePrameter())
 
-    }
-
-    private fun setupApiService() {
-        upbitService = UpbitService.getInstance().upbitApi
     }
 
     private fun makePrameter() : String{

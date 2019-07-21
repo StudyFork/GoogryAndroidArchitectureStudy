@@ -4,9 +4,8 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.android.studyfork.R
-import com.android.studyfork.repository.UpbitApi
 import com.android.studyfork.repository.UpbitService
-import com.android.studyfork.repository.model.MarketAllResponse
+import com.android.studyfork.repository.remote.model.MarketAllResponse
 import com.android.studyfork.ui.adpater.ViewpagerAdapter
 import com.google.android.material.tabs.TabLayout
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -16,7 +15,7 @@ import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var upbitService: UpbitApi
+    private val upbitService by lazy{ UpbitService.getInstance().upbitApi }
     lateinit var viewpagerAdapter: ViewpagerAdapter
 
     private var allMarketList:List<MarketAllResponse>  = ArrayList()
@@ -25,7 +24,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupTab()
-        setupApiService()
         loadData()
     }
 
@@ -44,16 +42,13 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
-    private fun setupApiService() {
-        upbitService = UpbitService.getInstance().upbitApi
-    }
-
-
     private fun setupTab() {
-        layout_tab.addTab(layout_tab.newTab().setText("KRW"))
-        layout_tab.addTab(layout_tab.newTab().setText("BTC"))
-        layout_tab.addTab(layout_tab.newTab().setText("ETH"))
-        layout_tab.addTab(layout_tab.newTab().setText("USDT"))
+        layout_tab.apply {
+            addTab(layout_tab.newTab().setText("KRW"))
+            addTab(layout_tab.newTab().setText("BTC"))
+            addTab(layout_tab.newTab().setText("ETH"))
+            addTab(layout_tab.newTab().setText("USDT"))
+        }
     }
 
     private fun setViewPager() {
