@@ -1,7 +1,7 @@
 package com.android.studyfork.repository
 
-import com.android.studyfork.repository.model.MarketAllResponse
-import com.android.studyfork.repository.model.TickerResponse
+import com.android.studyfork.repository.remote.model.MarketAllResponse
+import com.android.studyfork.repository.remote.model.TickerResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
