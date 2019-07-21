@@ -2,7 +2,6 @@ package com.example.architecturestudy.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager.widget.ViewPager
 import com.example.architecturestudy.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -26,7 +25,6 @@ class MainActivity : AppCompatActivity() {
 
         //탭 레이아웃에 뷰페이저 연결
         tabLayout.setupWithViewPager(viewPager)
-
         vpAdapter.notifyDataSetChanged()
     }
 }

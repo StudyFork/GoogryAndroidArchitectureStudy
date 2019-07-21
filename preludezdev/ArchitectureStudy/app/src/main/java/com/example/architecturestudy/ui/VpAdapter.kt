@@ -1,9 +1,11 @@
 package com.example.architecturestudy.ui
 
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.PagerAdapter
+import com.example.architecturestudy.MarketFragment
 
 class VpAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
@@ -11,10 +13,11 @@ class VpAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment? {
         return when (position) {
-            0 -> KrwFragment()
-            1 -> BtcFragment()
-            2 -> EthFragment()
-            3 -> UsdtFragment()
+            0 -> MarketFragment.newInstance("KRW")
+            1 -> MarketFragment.newInstance("BTC")
+            2 -> MarketFragment.newInstance("ETH")
+            3 -> MarketFragment.newInstance("USDT")
+
             else -> null
         }
     }
