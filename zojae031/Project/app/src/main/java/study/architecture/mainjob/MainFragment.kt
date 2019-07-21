@@ -13,8 +13,13 @@ import study.architecture.vo.Ticker
 
 
 @SuppressLint("ValidFragment", "WrongConstant")
-class MainFragment(idx: FragIndex) : Fragment(), MainContract.View {
-    private val presenter = MainPresenter(this@MainFragment, idx)
+class MainFragment : Fragment(), MainContract.View {
+    private val presenter: MainPresenter by lazy {
+        MainPresenter(
+            this@MainFragment,
+            arguments!!.getSerializable("idx") as FragIndex
+        )
+    }
 
     private val adapter = CoinDataAdapter()
 
