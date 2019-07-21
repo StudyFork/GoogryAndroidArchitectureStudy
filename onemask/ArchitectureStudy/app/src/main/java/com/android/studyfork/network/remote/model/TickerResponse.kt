@@ -1,4 +1,4 @@
-package com.android.studyfork.repository.remote.model
+package com.android.studyfork.network.remote.model
 
 import com.google.gson.annotations.SerializedName
 
