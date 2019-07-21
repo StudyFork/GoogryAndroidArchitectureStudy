@@ -39,8 +39,7 @@ class DataParser(index: MainFragment.FragIndex, private val resultCallback: Resu
         api.getMarkets()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .map {
-                list->
+            .map { list ->
                 list.filter { it.market.startsWith(stateString) }
                     .joinToString(",") { it.market }
             }

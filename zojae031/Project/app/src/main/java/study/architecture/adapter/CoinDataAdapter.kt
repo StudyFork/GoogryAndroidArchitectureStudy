@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.list_item.view.*
 import study.architecture.R
 import study.architecture.vo.Ticker
 
@@ -17,9 +16,8 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
     private val lists: MutableList<Ticker> = mutableListOf()
 
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent,false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
         return Holder(view)
     }
 
@@ -38,10 +36,12 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
         holder.changeRate.text = String.format("%.2f%%", lists[position].changeRate * 100)
         holder.accTradePrice24h.text = String.format("%,d", lists[position].accTradePrice24h.toInt())
     }
-    fun updateList(list: List<Ticker>){
+
+    fun updateList(list: List<Ticker>) {
         lists.removeAll(lists)
         lists.addAll(list)
     }
+
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.name)
         val tradePrice: TextView = itemView.findViewById(R.id.trade_price)
