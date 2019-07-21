@@ -40,11 +40,11 @@ class SplashActivity : AppCompatActivity() {
                                 val currMarketName = list[num].market
                                 val arrMarketName = currMarketName.split("-")
 
-                                when {
-                                    arrMarketName.contains("KRW") -> MainActivity.KRW_MARKETS.add(currMarketName.trim())
-                                    arrMarketName.contains("BTC") -> MainActivity.BTC_MARKETS.add(currMarketName.trim())
-                                    arrMarketName.contains("ETH") -> MainActivity.ETH_MARKETS.add(currMarketName.trim())
-                                    arrMarketName.contains("USDT") -> MainActivity.USDT_MARKETS.add(currMarketName.trim())
+                                when (arrMarketName[0]) {
+                                    "KRW" -> MainActivity.KRW_MARKETS.add(currMarketName.trim())
+                                    "BTC" -> MainActivity.BTC_MARKETS.add(currMarketName.trim())
+                                    "ETH" -> MainActivity.ETH_MARKETS.add(currMarketName.trim())
+                                    "USDT" -> MainActivity.USDT_MARKETS.add(currMarketName.trim())
                                 }
                             }
                         }
