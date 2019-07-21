@@ -3,51 +3,27 @@ package com.example.mystudy.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.example.mystudy.fragment.BitcoinFragment
-import com.example.mystudy.fragment.EthereumFragment
-import com.example.mystudy.fragment.KoreanFragment
-import com.example.mystudy.fragment.TetherFragment
+import com.example.mystudy.fragment.UpbitFragment
 
-class ViewPagerAdapter  (fm : FragmentManager, private val num_fragment:Int): FragmentStatePagerAdapter(fm){
+class ViewPagerAdapter(fm: FragmentManager, private val num_fragment: Int) : FragmentStatePagerAdapter(fm) {
 
-    //Singleton Design Pattern: 기존에 생성되었던 객체를 재사용
-    companion object{
-        private var koreanFragment : KoreanFragment? = null
-        private var bitcoinFragment : BitcoinFragment? = null
-        private var ethereumFragment : EthereumFragment? = null
-        private var tetherFragment : TetherFragment? = null
+/*    //Singleton Design Pattern: 기존에 생성되었던 객체를 재사용
+    companion object {
+        private var upbitFragment: UpbitFragment? = null
     }
 
     @Synchronized
-    fun getKoreanFragment(): KoreanFragment {
-        if (koreanFragment == null) koreanFragment = KoreanFragment()
-        return koreanFragment!!
-    }
-
-    @Synchronized
-    fun getBitcoinFragment(): BitcoinFragment {
-        if (bitcoinFragment == null) bitcoinFragment = BitcoinFragment()
-        return bitcoinFragment!!
-    }
-
-    @Synchronized
-    fun getEthereumFragment(): EthereumFragment {
-        if (ethereumFragment == null) ethereumFragment = EthereumFragment()
-        return ethereumFragment!!
-    }
-
-    @Synchronized
-    fun getTetherFragment(): TetherFragment {
-        if (tetherFragment == null) tetherFragment = TetherFragment()
-        return tetherFragment!!
-    }
+    fun getUpbitFragment(): UpbitFragment {
+        if (upbitFragment == null) upbitFragment = UpbitFragment()
+        return upbitFragment!!
+    }*/
 
     override fun getItem(p0: Int): Fragment {
-        return when(p0) {
-            0 -> getKoreanFragment()
-            1 -> getBitcoinFragment()
-            2 -> getEthereumFragment()
-            3 -> getTetherFragment()
+        return when (p0) {
+            0 -> UpbitFragment("KRW")
+            1 -> UpbitFragment("BTC")
+            2 -> UpbitFragment("ETH")
+            3 -> UpbitFragment("USDT")
             else -> null
         }!!
     }
