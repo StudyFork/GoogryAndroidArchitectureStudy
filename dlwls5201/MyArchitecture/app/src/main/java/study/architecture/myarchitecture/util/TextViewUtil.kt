@@ -52,14 +52,12 @@ fun TextView.setTradeAmount(accTradePrice24h: Double) {
 
     val df = DecimalFormat("#,###")
 
-    val amount = if (accTradePrice24h >= 1000000) {
-        df.format(accTradePrice24h / 1000000)
+    this.text = if (accTradePrice24h >= 1000000) {
+        "${df.format(accTradePrice24h / 1000000)}M"
     } else if (accTradePrice24h < 1000000 && accTradePrice24h >= 1000) {
-        df.format(accTradePrice24h / 1000)
+        "${df.format(accTradePrice24h / 1000)}K"
     } else {
         df.format(accTradePrice24h)
     }
-
-    this.text = "$amount M"
 }
 
