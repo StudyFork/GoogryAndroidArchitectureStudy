@@ -5,23 +5,23 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.studyfork.R
 import com.android.studyfork.ext.inflate
-import com.android.studyfork.repository.remote.model.TickerResponse
+import com.android.studyfork.network.remote.model.TickerResponse
 import kotlinx.android.synthetic.main.item_coin.view.*
 
 class CoinItemAdapter
     : RecyclerView.Adapter<CoinItemAdapter.ViewHolder>() {
 
+    private var dataSet : List<TickerResponse> = ArrayList()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(parent.inflate(R.layout.item_coin))
 
-    private var dataSet : List<TickerResponse> = ArrayList()
-
     override fun getItemCount(): Int = dataSet.size
 
-    override fun onBindViewHolder(holder: CoinItemAdapter.ViewHolder, position: Int) =
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         holder.bind(position,dataSet[position])
 
-    fun prependData(dataSet : List<TickerResponse>?){
+    fun setData(dataSet : List<TickerResponse>?){
         this.dataSet = emptyList()
         dataSet?.let {
             this.dataSet = ArrayList(dataSet)

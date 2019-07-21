@@ -4,10 +4,10 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.android.studyfork.R
-import com.android.studyfork.repository.UpbitService
-import com.android.studyfork.repository.remote.model.MarketAllResponse
+import com.android.studyfork.network.api.UpbitService
+import com.android.studyfork.network.repository.UpbitRepository
+import com.android.studyfork.network.repository.UpbitRepositoryImpl
 import com.android.studyfork.ui.adpater.ViewpagerAdapter
-import com.google.android.material.tabs.TabLayout
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
@@ -15,57 +15,47 @@ import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
-    private val upbitService by lazy{ UpbitService.getInstance().upbitApi }
-    lateinit var viewpagerAdapter: ViewpagerAdapter
-
-    private var allMarketList:List<MarketAllResponse>  = ArrayList()
-
+    private val upbitService by lazy{ UpbitService.getInstance().upbitDataSource }
+    private val viewpagerAdapter by lazy { ViewpagerAdapter(supportFragmentManager) }
+    private lateinit var upbitRepository: UpbitRepository
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setupTab()
+        upbitRepository = UpbitRepositoryImpl(upbitService)
+        initViewPager()
         loadData()
     }
 
     @SuppressLint("CheckResult")
     private fun loadData() {
-        upbitService.getMarketAll()
+        upbitRepository.getMarketAll()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                it?.let {
-                    allMarketList = it
-               }
-                setViewPager()
+
+                val keys = it.keys.apply {
+                    viewpagerAdapter.setTitles(this.toTypedArray())
+                }
+                val marketName = Array(keys.size){""}
+
+                for((index : Int,value : String) in keys.withIndex()){
+                    marketName[index] = it
+                        .getValue(value)
+                        .joinToString(","){it.market}
+                }
+                viewpagerAdapter.setData(marketName)
             },{
                 Timber.e("${it.printStackTrace()}")
             })
     }
 
-    private fun setupTab() {
-        layout_tab.apply {
-            addTab(layout_tab.newTab().setText("KRW"))
-            addTab(layout_tab.newTab().setText("BTC"))
-            addTab(layout_tab.newTab().setText("ETH"))
-            addTab(layout_tab.newTab().setText("USDT"))
+    fun initViewPager() {
+        with(pager_content){
+            adapter = viewpagerAdapter
+            layout_tab.setupWithViewPager(this)
         }
     }
-
-    private fun setViewPager() {
-        viewpagerAdapter = ViewpagerAdapter(supportFragmentManager,allMarketList,layout_tab.tabCount)
-        pager_content.adapter = viewpagerAdapter
-        layout_tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                pager_content.currentItem=(tab.position)
-            }
-        })
-    }
-
 
 }
 

@@ -10,54 +10,31 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.studyfork.R
 import com.android.studyfork.ext.inflate
-import com.android.studyfork.repository.UpbitService
+import com.android.studyfork.network.api.UpbitService
+import com.android.studyfork.network.repository.UpbitRepository
+import com.android.studyfork.network.repository.UpbitRepositoryImpl
 import com.android.studyfork.ui.adpater.CoinItemAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_krw.*
 import timber.log.Timber
 
-fun newTikcerListFragment(arrayList : ArrayList<String>) : Fragment{
-    return TikcerListFragment().apply {
-        arguments = Bundle(1).apply {
-                putStringArrayList("market",arrayList)
-            }
-        }
-}
 class TikcerListFragment : Fragment() {
-    private var krwList : ArrayList<String> = arrayListOf()
-    private val upbitService by lazy{ UpbitService.getInstance().upbitApi }
 
+    private val upbitService by lazy{ UpbitService.getInstance().upbitDataSource }
+
+    private lateinit var upbitRepository: UpbitRepository
     private lateinit var coinItemAdapter: CoinItemAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val bundle =arguments
-        bundle?.run {
-            krwList = this.getStringArrayList("market")
-        }
-        getTicker(makePrameter())
-
-    }
-
-    private fun makePrameter() : String{
-        var krwParameter = ""
-        for (item in krwList.iterator()) {
-            krwParameter += "$item,"
-        }
-        krwParameter=krwParameter.substring(0,krwParameter.length-1)
-        Timber.d("krwParameter $krwParameter")
-        return krwParameter
-     }
-
     @SuppressLint("CheckResult")
-    private fun getTicker(makrets : String){
-        upbitService.getTikers(makrets)
+    private fun getTicker(){
+        val markets = arguments?.getString(KEY_MARKETS) ?:""
+        upbitRepository.getTikcers(markets)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 Timber.d("getTicker success")
-                coinItemAdapter.prependData(it)
+                coinItemAdapter.setData(it)
             },{
                 Timber.e("${it.printStackTrace()}")
             })
@@ -69,7 +46,10 @@ class TikcerListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        upbitRepository = UpbitRepositoryImpl(upbitService)
         setRecyclerView()
+        getTicker()
+
     }
 
     private fun setRecyclerView() {
@@ -81,6 +61,17 @@ class TikcerListFragment : Fragment() {
             setHasFixedSize(false)
         }
     }
+
+
+    companion object {
+        const val KEY_MARKETS = "markets"
+        fun newInstance(tickers: String) = TikcerListFragment().apply {
+            arguments = Bundle().apply {
+                putString(KEY_MARKETS, tickers)
+            }
+        }
+    }
+
 
 }
 
