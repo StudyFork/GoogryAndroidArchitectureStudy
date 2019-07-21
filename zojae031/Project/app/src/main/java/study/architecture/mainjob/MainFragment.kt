@@ -17,7 +17,7 @@ import study.architecture.vo.Ticker
 class MainFragment(idx: FragIndex) : Fragment(), MainContract.View {
     private val presenter = MainPresenter(this@MainFragment, idx)
 
-    private val adapter: CoinDataAdapter by lazy { CoinDataAdapter() }
+    private val adapter = CoinDataAdapter()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +31,8 @@ class MainFragment(idx: FragIndex) : Fragment(), MainContract.View {
         }
 
 
-    override fun notifyAdapter(list: List<Ticker>) {
-        adapter.lists = list
+    override fun notifyAdapter(list: MutableList<Ticker>) {
+        adapter.updateList(list)
         adapter.notifyDataSetChanged()
     }
 

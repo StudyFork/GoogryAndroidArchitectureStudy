@@ -51,16 +51,6 @@ class DataParser(index: MainFragment.FragIndex, private val resultCallback: Resu
                 },
                 { e -> Log.e("onErrorMarketList", e.message) }
             )
-//            .subscribe(
-//                { marketList ->
-//                    for (item in marketList) {
-//                        if (item.market.substringBefore("-") == stateString) list += "${item.market},"
-//                    }
-//                    list = list.substring(0, list.lastIndex)
-//                    resultCallback.successMarketList()
-//                },
-//                { e -> Log.e("onErrorMarketList", e.message) }
-//            )
     }
 
     /**
@@ -90,7 +80,7 @@ class DataParser(index: MainFragment.FragIndex, private val resultCallback: Resu
      */
     interface ResultCallback {
         fun successMarketList()
-        fun successTickerList(list: List<Ticker>)
+        fun successTickerList(list: MutableList<Ticker>)
     }
 
 }

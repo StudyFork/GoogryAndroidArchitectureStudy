@@ -15,7 +15,7 @@ interface UpbitApi {
     fun getMarkets(): Single<List<Market>>
 
     @GET("ticker")
-    fun getTickers(@Query("markets") markets: String): Observable<List<Ticker>>
+    fun getTickers(@Query("markets") markets: String): Observable<MutableList<Ticker>>
 
 
 }

@@ -27,7 +27,7 @@ class MainPresenter(private val view: MainContract.View, index: MainFragment.Fra
         onResume()
     }
 
-    override fun successTickerList(list: List<Ticker>) {
+    override fun successTickerList(list: MutableList<Ticker>) {
         view.notifyAdapter(list)
     }
 

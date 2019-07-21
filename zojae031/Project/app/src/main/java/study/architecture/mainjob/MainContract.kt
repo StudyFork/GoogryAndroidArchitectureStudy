@@ -4,7 +4,7 @@ import study.architecture.vo.Ticker
 
 interface MainContract {
     interface View {
-        fun notifyAdapter(list: List<Ticker>)
+        fun notifyAdapter(list: MutableList<Ticker>)
     }
 
     interface Presenter {
