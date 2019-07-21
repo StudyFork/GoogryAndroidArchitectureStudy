@@ -25,6 +25,20 @@ class UpbitRepository private constructor(
         upbitLocalDataSource?.saveTicker(upbitTicker)
     }
 
+    override fun sort(
+        tabType: String,
+        sortType: String,
+        onSuccess: (List<UpbitTicker>) -> Unit,
+        onFail: (Throwable) -> Unit
+    ) {
+        upbitLocalDataSource?.sort(
+            tabType,
+            sortType,
+            onSuccess,
+            onFail
+        )
+    }
+
     companion object {
         private var instance: UpbitRepository? = null
 
