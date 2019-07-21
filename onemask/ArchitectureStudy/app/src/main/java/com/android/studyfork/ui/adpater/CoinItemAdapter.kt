@@ -19,7 +19,7 @@ class CoinItemAdapter
     override fun getItemCount(): Int = dataSet.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-        holder.bind(position,dataSet[position])
+        holder.bind(dataSet[position])
 
     fun setData(dataSet : List<TickerResponse>?){
         this.dataSet = emptyList()
@@ -30,7 +30,7 @@ class CoinItemAdapter
     }
 
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-        fun bind(position : Int,ticker : TickerResponse) = with(itemView){
+        fun bind(ticker: TickerResponse) = with(itemView) {
             text_title.text = ticker.market.split("-")[1]
             text_current_price.text = ticker.tradePrice.toString()
             text_before_day.text = ticker.signedChangeRate.toString()
