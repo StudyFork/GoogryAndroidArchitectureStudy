@@ -1,11 +1,15 @@
-package kr.schoolsharing.coinhelper
+package kr.schoolsharing.coinhelper.util
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import kr.schoolsharing.coinhelper.network.ApiConnector
+import kr.schoolsharing.coinhelper.ui.FragmentBTC
+import kr.schoolsharing.coinhelper.ui.FragmentETH
+import kr.schoolsharing.coinhelper.ui.FragmentKRW
+import kr.schoolsharing.coinhelper.ui.FragmentUSDT
 
 class MyPagerAdapter(fm: FragmentManager, val apiConnector: ApiConnector) : FragmentStatePagerAdapter(fm) {
-
 
     override fun getItem(position: Int): Fragment {
         return when (position) {

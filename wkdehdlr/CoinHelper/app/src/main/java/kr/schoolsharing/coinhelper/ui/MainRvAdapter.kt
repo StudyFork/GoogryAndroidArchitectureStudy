@@ -1,4 +1,4 @@
-package kr.schoolsharing.coinhelper
+package kr.schoolsharing.coinhelper.ui
 
 import android.content.Context
 import android.graphics.Color
@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import kr.schoolsharing.coinhelper.R
+import kr.schoolsharing.coinhelper.data.UpbitItem
 
 class MainRvAdapter(val context: Context, val itemList: List<UpbitItem>) :
     RecyclerView.Adapter<MainRvAdapter.Holder>() {
@@ -19,7 +21,7 @@ class MainRvAdapter(val context: Context, val itemList: List<UpbitItem>) :
     override fun getItemCount(): Int = itemList.size
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder?.bind(itemList[position])
+        holder.bind(itemList[position])
     }
 
     inner class Holder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {

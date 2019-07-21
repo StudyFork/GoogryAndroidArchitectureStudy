@@ -1,8 +1,11 @@
-package kr.schoolsharing.coinhelper
+package kr.schoolsharing.coinhelper.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kr.schoolsharing.coinhelper.R
+import kr.schoolsharing.coinhelper.network.ApiConnector
+import kr.schoolsharing.coinhelper.util.MyPagerAdapter
 
 
 class MainActivity : AppCompatActivity() {

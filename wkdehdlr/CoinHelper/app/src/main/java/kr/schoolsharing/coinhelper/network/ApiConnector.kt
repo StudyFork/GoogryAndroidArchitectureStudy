@@ -1,6 +1,9 @@
-package kr.schoolsharing.coinhelper
+package kr.schoolsharing.coinhelper.network
 
 import android.util.Log
+import kr.schoolsharing.coinhelper.data.UpbitItem
+import kr.schoolsharing.coinhelper.data.UpbitMarket
+import kr.schoolsharing.coinhelper.data.UpbitTicker
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -8,24 +11,14 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.text.DecimalFormat
 
 class ApiConnector {
 
-    var krwList: MutableList<UpbitItem> = ArrayList()
-        private set
-
-    var btcList: MutableList<UpbitItem> = ArrayList()
-        private set
-
+    val krwList: MutableList<UpbitItem> = ArrayList()
+    val btcList: MutableList<UpbitItem> = ArrayList()
     var ethList: MutableList<UpbitItem> = ArrayList()
-        private set
-
-    var usdtList: MutableList<UpbitItem> = ArrayList()
-        private set
-
+    val usdtList: MutableList<UpbitItem> = ArrayList()
     var upbitMarketStr = ""
-        private set
 
     fun setUpbitMarket() {
         val retrofit = Retrofit.Builder()
@@ -81,24 +74,26 @@ class ApiConnector {
 
                     for (item in list!!) {
 
-                        var category = item.market.split("-")[0]
-                        var name = item.market.split("-")[1]
+                        val category = item.market.split("-")[0]
+                        val name = item.market.split("-")[1]
+                        val price = when {
+                            item.tradePrice.toInt() > 0 -> String.format("%,d", item.tradePrice.toInt())
+                            else -> String.format("%,f", item.tradePrice)
+                        }
 
-                        val doubleFormat = DecimalFormat("#.##")
-                        val intFormat = DecimalFormat("#,###.##")
                         val data = UpbitItem(
                             name,
-                            intFormat.format(item.tradePrice),
+                            price,
                             item.change,
-                            doubleFormat.format(item.signedChangeRate),
-                            doubleFormat.format(item.accTradePrice24h)
+                            String.format("%.2f%%", item.signedChangeRate * 100),
+                            String.format("%,d", item.accTradePrice24h.toInt())
                         )
 
                         when (category) {
                             "KRW" -> krwList.add(data)
-                            "BTC" -> krwList.add(data)
-                            "ETH" -> krwList.add(data)
-                            else -> krwList.add(data)
+                            "BTC" -> btcList.add(data)
+                            "ETH" -> ethList.add(data)
+                            else -> usdtList.add(data)
                         }
                     }
                 }
