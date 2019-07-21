@@ -6,50 +6,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.architecturestudy.R
 import com.example.architecturestudy.data.CoinTickerResponse
-import com.example.architecturestudy.network.NetworkHelper
 import kotlinx.android.synthetic.main.item_coin.view.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {
     private val coins = mutableListOf<CoinTickerResponse>()
 
-    fun loadData(markets: HashSet<String>) {
+    fun clearData() {
         coins.clear()
-
-        var marketList = StringBuffer()
-
-        for (market in markets) {
-            marketList.append(market + ",")
-        }
-        marketList.deleteCharAt(marketList.length - 1)
-
-        //Ticker 정보들 가져오기
-        NetworkHelper
-            .coinApiService
-            .getCurrTicker(marketList.toString())
-            .enqueue(object : Callback<List<CoinTickerResponse>> {
-                override fun onFailure(call: Call<List<CoinTickerResponse>>, t: Throwable) {
-                    t.printStackTrace()
-                }
-
-                override fun onResponse(
-                    call: Call<List<CoinTickerResponse>>,
-                    response: Response<List<CoinTickerResponse>>
-                ) {
-                    if (response.isSuccessful) {
-                        var list = response.body()
-                        for (ticker in list!!) {
-                            coins.add(ticker)
-                        }
-
-                        notifyDataSetChanged()
-                    }
-                }
-            })
     }
+
+    fun addData(data: CoinTickerResponse) {
+        coins.add(data)
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder = MyViewHolder(parent)
 
