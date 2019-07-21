@@ -37,7 +37,6 @@ class MainFragment : Fragment(), MainContract.View {
 
     override fun notifyAdapter(list: MutableList<Ticker>) {
         adapter.updateList(list)
-        adapter.notifyDataSetChanged()
     }
 
     override fun onPause() {

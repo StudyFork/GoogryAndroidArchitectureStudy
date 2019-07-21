@@ -32,14 +32,16 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
         } else {//소수점으로 내려간다면 double 형으로
             holder.tradePrice.text = String.format("%,f", lists[position].tradePrice)
         }
-
         holder.changeRate.text = String.format("%.2f%%", lists[position].changeRate * 100)
         holder.accTradePrice24h.text = String.format("%,d", lists[position].accTradePrice24h.toInt())
     }
 
     fun updateList(list: List<Ticker>) {
-        lists.removeAll(lists)
-        lists.addAll(list)
+        lists.apply {
+            clear()
+            addAll(list)
+        }
+        notifyDataSetChanged()
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {

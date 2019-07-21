@@ -39,8 +39,5 @@ class MainActivity : AppCompatActivity() {
     private fun pagerSetting() {
         pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
         pager.adapter = MainPageAdapter(supportFragmentManager)
-
     }
-
-
 }

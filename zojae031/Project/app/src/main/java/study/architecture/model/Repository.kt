@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Data 관리하는 비즈니스로직이 담긴 클래스
  */
-class DataParser(index: MainFragment.FragIndex, private val resultCallback: ResultCallback) {
+class Repository(index: MainFragment.FragIndex, private val resultCallback: ResultCallback) {
 
     private val stateString: String = index.name
     private var list = ""
@@ -39,7 +39,8 @@ class DataParser(index: MainFragment.FragIndex, private val resultCallback: Resu
         api.getMarkets()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .map { list ->
+            .map {
+                list->
                 list.filter { it.market.startsWith(stateString) }
                     .joinToString(",") { it.market }
             }
