@@ -7,38 +7,63 @@
                                                    android:layout_margin="4dp" android:padding="4dp">
 
     <LinearLayout
-            android:orientation="horizontal"
+        android:id="@+id/dataWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:background="@drawable/item_background"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:gravity="center"
             android:padding="4dp"
-            android:background="@drawable/item_background" android:layout_margin="0dp" android:id="@+id/dataWrapper"
-            android:layout_width="wrap_content">
+            android:text="코인명"
+            android:textColor="@android:color/black" />
+
         <TextView
-                android:text="코인명"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/name" android:layout_weight="1"
-                android:textColor="@android:color/black"
-                android:padding="4dp" android:gravity="center" android:layout_margin="8dp"/>
+            android:id="@+id/trade_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="4dp"
+            android:singleLine="true"
+            android:text="현재가"
+            android:textColor="@android:color/black" />
+
         <TextView
-                android:text="현재가"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:layout_weight="1"
-                android:textColor="@android:color/black"
-                android:gravity="center" android:singleLine="true" android:padding="4dp" android:layout_margin="8dp"
-                android:id="@+id/trade_price"/>
+            android:id="@+id/change_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="4dp"
+            android:singleLine="true"
+            android:text="전일대비"
+            android:textColor="@android:color/black" />
+
         <TextView
-                android:text="전일대비"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/change_rate" android:layout_weight="1"
-                android:textColor="@android:color/black"
-                android:gravity="center" android:singleLine="true" android:padding="4dp" android:layout_margin="8dp"/>
-        <TextView
-                android:text="거래대금"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" android:id="@+id/acc_trade_price" android:layout_weight="1"
-                android:textColor="@android:color/black"
-                android:gravity="center" android:layout_margin="8dp" android:singleLine="true" android:padding="4dp"/>
+            android:id="@+id/acc_trade_price"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="4dp"
+            android:singleLine="true"
+            android:text="거래대금"
+            android:textColor="@android:color/black" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

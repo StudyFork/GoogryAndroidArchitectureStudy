@@ -19,9 +19,7 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, null)
-        view.dataWrapper.minimumWidth =
-            view.context.applicationContext.resources.displayMetrics.widthPixels // 현재 Device 사이즈를 구하여 최소 width로 설정해준다.
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent,false)
         return Holder(view)
     }
 
