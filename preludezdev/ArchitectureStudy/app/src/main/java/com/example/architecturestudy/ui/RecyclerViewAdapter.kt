@@ -20,7 +20,6 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
         coins.add(data)
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder = MyViewHolder(parent)
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
