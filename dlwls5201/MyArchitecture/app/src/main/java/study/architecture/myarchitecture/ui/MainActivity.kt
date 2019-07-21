@@ -9,10 +9,10 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 import study.architecture.myarchitecture.BaseActivity
-import study.architecture.myarchitecture.RxEventBus.RxEventBusHelper
 import study.architecture.myarchitecture.data.ApiProvider
 import study.architecture.myarchitecture.repository.UpbitRepository
 import study.architecture.myarchitecture.repository.UpbitRepositoryImpl
+import study.architecture.myarchitecture.rxeventbus.RxEventBusHelper
 import timber.log.Timber
 
 class MainActivity : BaseActivity() {

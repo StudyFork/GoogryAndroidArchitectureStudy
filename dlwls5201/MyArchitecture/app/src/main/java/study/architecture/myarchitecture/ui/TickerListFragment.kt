@@ -10,11 +10,11 @@ import kotlinx.android.synthetic.main.fragment_ticker_list.*
 import org.jetbrains.anko.support.v4.toast
 import study.architecture.myarchitecture.BaseFragment
 import study.architecture.myarchitecture.R
-import study.architecture.myarchitecture.RxEventBus.RxEventBusHelper
 import study.architecture.myarchitecture.data.ApiProvider
 import study.architecture.myarchitecture.data.model.UpbitTicker
 import study.architecture.myarchitecture.repository.UpbitRepository
 import study.architecture.myarchitecture.repository.UpbitRepositoryImpl
+import study.architecture.myarchitecture.rxeventbus.RxEventBusHelper
 import timber.log.Timber
 
 class TickerListFragment : BaseFragment() {
