@@ -8,10 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.data.model.UpbitTicker
-import study.architecture.myarchitecture.util.setCoinName
-import study.architecture.myarchitecture.util.setLast
-import study.architecture.myarchitecture.util.setTradeAmount
-import study.architecture.myarchitecture.util.setTradeDiff
+import study.architecture.myarchitecture.util.setTradeDiffColor
 
 class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
 
@@ -55,7 +52,7 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
     }
 
     fun setItem(newTickers: MutableList<UpbitTicker>) {
-        this.tickers = newTickers
+        tickers.addAll(newTickers)
         notifyDataSetChanged()
     }
 
@@ -123,10 +120,11 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
 
         fun onBindView(ticker: UpbitTicker) {
 
-            tvMarket.setCoinName(ticker.market)
-            tvTradePrice.setLast(ticker.tradePrice)
-            tvSignedChangeRate.setTradeDiff(ticker.signedChangeRate)
-            tvAccTradePrice24h.setTradeAmount(ticker.accTradePrice24h)
+            tvMarket.text = ticker.getCoinName()
+            tvTradePrice.text = ticker.getLast()
+            tvSignedChangeRate.setTradeDiffColor(ticker.signedChangeRate)
+            tvSignedChangeRate.text = ticker.getTradeDiff()
+            tvAccTradePrice24h.text = ticker.getTradeAmount()
 
             itemView.setOnClickListener {
                 listener?.onItemClick(ticker)
