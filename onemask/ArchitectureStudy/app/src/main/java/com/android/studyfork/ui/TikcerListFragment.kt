@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.studyfork.R
-import com.android.studyfork.ext.inflate
+import com.android.studyfork.utill.inflate
 import com.android.studyfork.network.api.UpbitService
 import com.android.studyfork.network.repository.UpbitRepository
 import com.android.studyfork.network.repository.UpbitRepositoryImpl
