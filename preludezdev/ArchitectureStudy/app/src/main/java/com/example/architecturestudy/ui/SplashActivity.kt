@@ -47,7 +47,7 @@ class SplashActivity : AppCompatActivity() {
                     response: Response<List<CoinMarketResponse>>
                 ) {
                     if (response.isSuccessful) {
-                        var list: List<CoinMarketResponse>? = response.body()
+                        val list: List<CoinMarketResponse>? = response.body()
 
                         if (list != null) {
                             for (num in 0 until list.size) {
