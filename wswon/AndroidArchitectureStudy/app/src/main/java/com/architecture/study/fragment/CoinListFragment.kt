@@ -9,14 +9,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.architecture.study.R
-import com.architecture.study.activity.MainActivity
 import com.architecture.study.adapter.CoinListAdapter
+import com.architecture.study.item.Ticker
+import com.architecture.study.model.TickerResponse
+import com.architecture.study.server.UpbitRequest
+import com.architecture.study.server.UpbitRequestListener
 import kotlinx.android.synthetic.main.fragment_coinlist.*
+import java.text.DecimalFormat
 
 class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickListener {
-    private lateinit var mCoinListAdapter: CoinListAdapter
+    private lateinit var coinListAdapter: CoinListAdapter
 
-    var monetaryUnitName: String? = null
+    private var monetaryUnitNameList: List<String>? = null
+    private lateinit var tickerList: List<Ticker>
 
     private var refreshHandler = Handler()
 
@@ -38,21 +43,20 @@ class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickLi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        /* 받아온 argument - Coin name */
-        monetaryUnitName = arguments?.getString(MONETARY_UNIT_NAME)
 
-        mCoinListAdapter = CoinListAdapter(requireContext()).apply {
-            setOnClickListener(this@CoinListFragment)
-            monetaryUnitName?.let {
-                setMonetaryUnitName(it)
-            }
+        /* 받아온 argument - Coin name */
+        monetaryUnitNameList = arguments?.getStringArrayList(MONETARY_UNIT_NAME_LIST)
+
+        monetaryUnitNameList?.let {
+            getTickerList(it.joinToString(","))
         }
 
-        setTickerData()
+
+        coinListAdapter = CoinListAdapter(requireContext(), this)
 
         coin_list_recyclerview.run {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = mCoinListAdapter
+            adapter = coinListAdapter
         }
     }
 
@@ -60,45 +64,102 @@ class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickLi
     private fun refreshData() {
         refreshHandler = Handler().apply {
             postDelayed({
-                (requireActivity() as MainActivity).refreshTickerData()
-                Log.d("monetaryUnitName", monetaryUnitName)
-                setTickerData()
-                refreshData()
+                monetaryUnitNameList?.let {
+                    getTickerList(it.joinToString(","))
+                }
             }, 5000)
         }
     }
 
 
-    /* adapter data setting */
-    private fun setTickerData() {
-        if ((requireActivity() as MainActivity).tickerList.isNotEmpty()) {
-            val mCoinListData =
-                (requireActivity() as MainActivity).tickerList.filter { it.market.split("-")[0] == monetaryUnitName }
-            for (data in mCoinListData) {
-                Log.d("market, acc_trade_price_24h", data.market + "," + data.acc_trade_price_24h)
-            }
-            mCoinListAdapter.setData(mCoinListData)
-            mCoinListAdapter.notifyDataSetChanged()
+    /* retrofit getTickerList */
+    private fun getTickerList(marketNames: String) {
+        UpbitRequest().apply {
+            getTickerList(marketNames, object : UpbitRequestListener<TickerResponse> {
+                override fun onSucess(dataList: List<TickerResponse>) {
+
+                    val _tickerList = mutableListOf<Ticker>()
+                    dataList.forEach {
+                        val unitName = it.market.split("-")[0]
+                        val coinName = it.market.split("-")[1]
+                        val nowPrice = DecimalFormat("0.########").format(it.tradePrice)
+                        val compareYesterday: String
+                        val compareYesterdayTextColor: Int
+                        if (it.tradePrice > it.prevClosingPrice) {
+                            compareYesterday =
+                                DecimalFormat("0.##").format((1 - (it.prevClosingPrice / it.tradePrice)) * 10.0) + "%"
+                            compareYesterdayTextColor = R.color.colorRed
+                        } else {
+                            compareYesterday =
+                                "-" + DecimalFormat("0.##").format((1 - (it.tradePrice / it.prevClosingPrice)) * 10.0) + "%"
+                            compareYesterdayTextColor = R.color.colorBlue
+                        }
+                        val transactionAmount = when (it.market.split("-")[0]) {
+                            getString(R.string.monetary_unit_1) -> {
+                                String.format("%,d", (it.accTradePrice24h / 1000000).toInt()) + "M"
+                            }
+                            getString(R.string.monetary_unit_2) -> {
+                                String.format(
+                                    "%,d",
+                                    DecimalFormat("0.###").format(it.accTradePrice24h).split(".")[0].toInt()
+                                ) +
+                                        "." + DecimalFormat("0.###").format(it.accTradePrice24h).split(".")[1]
+                            }
+                            getString(R.string.monetary_unit_3) -> {
+                                String.format(
+                                    "%,d",
+                                    DecimalFormat("0.###").format(it.accTradePrice24h).split(".")[0].toInt()
+                                ) +
+                                        "." + DecimalFormat("0.###").format(it.accTradePrice24h).split(".")[1]
+                            }
+                            getString(R.string.monetary_unit_4) -> {
+                                String.format(
+                                    "%,d",
+                                    DecimalFormat("0.###").format(it.accTradePrice24h / 1000).split(".")[0].toInt()
+                                ) + " k"
+                            }
+                            else -> error("error")
+                        }
+                        _tickerList.add(
+                            Ticker(
+                                unitName,
+                                coinName,
+                                nowPrice,
+                                compareYesterday,
+                                compareYesterdayTextColor,
+                                transactionAmount
+                            ).apply {
+                                Log.d("ddd", toString())
+                            }
+                        )
+                    }
+                    tickerList = _tickerList
+                    coinListAdapter.setData(tickerList)
+                }
+
+                override fun onEmpty(str: String) {
+
+                }
+
+                override fun onFailure(str: String) {
+
+                }
+            })
         }
     }
-
 
     override fun onItemClicked(position: Int) {
         //click event
     }
 
-    override fun onShareButtonClicked(position: Int) {
-    }
-
-
     /* fragment singleton */
     companion object {
-        fun newInstance(monetaryUnitName: String) = CoinListFragment().apply {
+        fun newInstance(monetaryUnitNameList: ArrayList<String>) = CoinListFragment().apply {
             arguments = Bundle().apply {
-                putString(MONETARY_UNIT_NAME, monetaryUnitName)
+                putStringArrayList(MONETARY_UNIT_NAME_LIST, monetaryUnitNameList)
             }
         }
-        const val MONETARY_UNIT_NAME = "monetaryUnitName"
-    }
 
+        private const val MONETARY_UNIT_NAME_LIST = "MONETARY_UNIT_NAME"
+    }
 }
