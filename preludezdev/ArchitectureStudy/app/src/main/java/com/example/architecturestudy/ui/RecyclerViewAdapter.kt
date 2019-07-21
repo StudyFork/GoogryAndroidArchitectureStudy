@@ -60,28 +60,28 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
 
             //각 레이아웃 내 뷰에 텍스트 설정
             tvCoinName.text = currItem.market.split("-")[1]
-            tvCoinCompare.text = String.format("%.2f", currItem.signed_change_rate * 100) + "%"
+            tvCoinCompare.text = String.format("%.2f", currItem.signedChangeRate * 100) + "%"
 
-            if (currItem.signed_change_rate > 0) {
+            if (currItem.signedChangeRate > 0) {
                 tvCoinCompare.setTextColor(Color.RED)
             } else {
                 tvCoinCompare.setTextColor(Color.BLUE)
             }
 
             //데이터의 크기에 따라 ui를 다르게 보여주게끔 설정
-            if (currItem.trade_price > 1) {
-                tvCurrPrice.text = String.format("%9.2f", currItem.trade_price)
+            if (currItem.tradePrice > 1) {
+                tvCurrPrice.text = String.format("%9.2f", currItem.tradePrice)
             } else {
-                tvCurrPrice.text = String.format("%.8f", currItem.trade_price)
+                tvCurrPrice.text = String.format("%.8f", currItem.tradePrice)
             }
 
             when {
-                currItem.acc_trade_price_24h > 10000000 ->
-                    tvCoinTotalTrade.text = String.format("%6.0f", (currItem.acc_trade_price_24h / 1000000)) + "M"
-                currItem.acc_trade_price_24h > 10000 ->
-                    tvCoinTotalTrade.text = String.format("%6.0f", (currItem.acc_trade_price_24h / 1000)) + "k"
+                currItem.accTradePriceH > 10000000 ->
+                    tvCoinTotalTrade.text = String.format("%6.0f", (currItem.accTradePriceH / 1000000)) + "M"
+                currItem.accTradePriceH > 10000 ->
+                    tvCoinTotalTrade.text = String.format("%6.0f", (currItem.accTradePriceH / 1000)) + "k"
                 else ->
-                    tvCoinTotalTrade.text = String.format("%.3f", currItem.acc_trade_price_24h)
+                    tvCoinTotalTrade.text = String.format("%.3f", currItem.accTradePriceH)
             }
         }
     }
