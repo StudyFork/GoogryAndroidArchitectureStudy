@@ -10,7 +10,6 @@ import com.example.mystudy.fragment.TetherFragment
 
 class ViewPagerAdapter  (fm : FragmentManager, private val num_fragment:Int): FragmentStatePagerAdapter(fm){
 
-
     //Singleton Design Pattern: 기존에 생성되었던 객체를 재사용
     companion object{
         private var koreanFragment : KoreanFragment? = null
@@ -18,7 +17,6 @@ class ViewPagerAdapter  (fm : FragmentManager, private val num_fragment:Int): Fr
         private var ethereumFragment : EthereumFragment? = null
         private var tetherFragment : TetherFragment? = null
     }
-
 
     @Synchronized
     fun getKoreanFragment(): KoreanFragment {

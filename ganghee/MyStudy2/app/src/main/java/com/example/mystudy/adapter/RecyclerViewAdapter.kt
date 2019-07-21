@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mystudy.R
 import com.example.mystudy.network.TickerResponse
@@ -35,11 +36,11 @@ class RecyclerViewAdapter(var ctx: Context, var dataList: List<TickerResponse>) 
 
         //색이 바뀌지 않음
         if(dataList[position].signed_change_rate > 0){
-            holder.signed_change_rate.textColor = R.color.diff_up
+            holder.signed_change_rate.textColor = ContextCompat.getColor(ctx, R.color.diff_up)
         }else if (dataList[position].signed_change_rate < 0){
-            holder.signed_change_rate.textColor = R.color.diff_down
+            holder.signed_change_rate.textColor = ContextCompat.getColor(ctx, R.color.diff_down)
         }else{
-            holder.signed_change_rate.textColor = R.color.black
+            holder.signed_change_rate.textColor = ContextCompat.getColor(ctx, R.color.black)
         }
 
     }

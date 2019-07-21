@@ -45,12 +45,12 @@ class BitcoinFragment : Fragment() {
         rv_bitcoin.adapter = recyclerViewAdapter
         rv_bitcoin.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
-        getMarketNameResponse()
+        getTickerResponse()
 
 
     }
 
-    private fun getMarketNameResponse() {
+    private fun getTickerResponse() {
 
         compositeDisposable.add(
             jsonApi.getTickers(

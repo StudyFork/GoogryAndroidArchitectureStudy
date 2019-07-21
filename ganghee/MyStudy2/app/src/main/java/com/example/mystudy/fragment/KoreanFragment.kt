@@ -46,12 +46,12 @@ class KoreanFragment : Fragment() {
         rv_korean.adapter = recyclerViewAdapter
         rv_korean.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
-        getMarketNameResponse()
+        getTickerResponse()
 
 
     }
 
-    private fun getMarketNameResponse() {
+    private fun getTickerResponse() {
 
         compositeDisposable.add(
             jsonApi.getTickers("KRW-BTC, KRW-DASH, KRW-ETH, KRW-NEO, KRW-MTL" +

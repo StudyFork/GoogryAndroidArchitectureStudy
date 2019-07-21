@@ -44,12 +44,12 @@ class TetherFragment : Fragment() {
         rv_tether.adapter = recyclerViewAdapter
         rv_tether.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
-        getMarketNameResponse()
+        getTickerResponse()
 
 
     }
 
-    private fun getMarketNameResponse() {
+    private fun getTickerResponse() {
 
         compositeDisposable.add(
             jsonApi.getTickers("USDT-BTC, USDT-ETH, USDT-LTC, USDT-XRP, USDT-ETC," +

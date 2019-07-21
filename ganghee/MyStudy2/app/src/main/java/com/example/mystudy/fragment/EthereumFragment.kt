@@ -46,12 +46,12 @@ class EthereumFragment : Fragment() {
         rv_ethereum.adapter = recyclerViewAdapter
         rv_ethereum.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
-        getMarketNameResponse()
+        getTickerResponse()
 
 
     }
 
-    private fun getMarketNameResponse() {
+    private fun getTickerResponse() {
 
         compositeDisposable.add(
             jsonApi.getTickers("ETH-LTC, ETH-STRAT, ETH-XRP, ETH-ETC, ETH-OMG"+
