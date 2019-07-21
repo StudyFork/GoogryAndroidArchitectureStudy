@@ -17,7 +17,7 @@ import com.example.mystudy.network.UpbitApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_korean.*
+import kotlinx.android.synthetic.main.fragment_upbit.*
 import org.jetbrains.anko.support.v4.ctx
 
 class UpbitFragment(tabName: String) : Fragment() {
@@ -32,7 +32,7 @@ class UpbitFragment(tabName: String) : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_korean, container, false)
+        return inflater.inflate(R.layout.fragment_upbit, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
