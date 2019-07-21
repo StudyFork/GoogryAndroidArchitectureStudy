@@ -14,19 +14,6 @@ class ViewpagerAdapter(fragmentMnager : FragmentManager,val allMarketList : List
     private var ethList: ArrayList<String> = ArrayList()
     private var usdtList: ArrayList<String> = ArrayList()
 
-    fun filterList(){
-        Timber.d("allMarketList $allMarketList")
-        for (response in allMarketList) {
-            when (response.market!!.split("-")[0]) {
-                "KRW" -> krwList.add(response.market)
-                "BTC" -> btcList.add(response.market)
-                "ETH" -> ethList.add(response.market)
-                "USDT" -> usdtList.add(response.market)
-            }
-        }
-        Timber.d("krwlist $krwList")
-    }
-
     override fun getItem(position: Int): Fragment {
         Timber.d("market ${allMarketList.size}")
         if(krwList.isEmpty() && btcList.isEmpty())
@@ -38,7 +25,6 @@ class ViewpagerAdapter(fragmentMnager : FragmentManager,val allMarketList : List
                     "USDT" -> usdtList.add(response.market)
                 }
         Timber.d("krwList $krwList")
-
         return when(position){
             0->return  newKrwFragment(krwList)
             1->return  newBtcFragment(btcList)

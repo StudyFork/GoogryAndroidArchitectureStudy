@@ -37,7 +37,6 @@ class UpbitService private constructor(){
     companion object {
         @Volatile
         private var INSTANCE: UpbitService? = null
-
         fun getInstance(): UpbitService {
             return INSTANCE ?: synchronized(this) {
                 INSTANCE

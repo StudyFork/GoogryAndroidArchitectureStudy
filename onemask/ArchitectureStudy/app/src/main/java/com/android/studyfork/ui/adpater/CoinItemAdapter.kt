@@ -8,7 +8,7 @@ import com.android.studyfork.ext.inflate
 import com.android.studyfork.repository.model.TickerResponse
 import kotlinx.android.synthetic.main.item_coin.view.*
 
-class CoinItemAdapter()
+class CoinItemAdapter
     : RecyclerView.Adapter<CoinItemAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
@@ -34,12 +34,13 @@ class CoinItemAdapter()
         notifyDataSetChanged()
     }
 
+
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         fun bind(position : Int,ticker : TickerResponse) = with(itemView){
-            text_title.text = ticker.market!!.split("-")[1]
-            text_current_price.text = ticker.trade_price.toString()
-            text_before_day.text = ticker.signed_change_rate.toString()
-            text_total_trade.text  = ticker.acc_trade_price_24h.toString()
+            text_title.text = ticker.market.split("-")[1]
+            text_current_price.text = ticker.tradePrice.toString()
+            text_before_day.text = ticker.signedChangeRate.toString()
+            text_total_trade.text = ticker.accTradePrice24h.toString()
         }
     }
 }

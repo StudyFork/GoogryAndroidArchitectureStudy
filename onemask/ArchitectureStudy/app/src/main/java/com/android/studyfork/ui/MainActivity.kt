@@ -19,13 +19,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var upbitService: UpbitApi
     lateinit var viewpagerAdapter: ViewpagerAdapter
 
-    private var categoryId : Int = -1
-
-    private var krwList : ArrayList<String> = ArrayList()
-    private var btcList: ArrayList<String> = ArrayList()
-    private var ethList: ArrayList<String> = ArrayList()
-    private var usdtList: ArrayList<String> = ArrayList()
-
     private var allMarketList:List<MarketAllResponse>  = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,14 +37,6 @@ class MainActivity : AppCompatActivity() {
             .subscribe({
                 it?.let {
                     allMarketList = it
-                    for (response in allMarketList) {
-                        when (response.market!!.split("-")[0]) {
-                            "KRW" -> krwList.add(response.market)
-                            "BTC" -> btcList.add(response.market)
-                            "ETH" -> ethList.add(response.market)
-                            "USDT" -> usdtList.add(response.market)
-                        }
-                    }
                }
                 setViewPager()
             },{
