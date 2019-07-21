@@ -14,7 +14,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
         android:gravity="left"
-        android:text="도지코인"
+        tools:text="도지코인"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
