@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.studyfork.R
 import com.android.studyfork.ext.inflate
-import com.android.studyfork.repository.model.TickerResponse
+import com.android.studyfork.repository.remote.model.TickerResponse
 import kotlinx.android.synthetic.main.item_coin.view.*
 
 class CoinItemAdapter
@@ -28,12 +28,6 @@ class CoinItemAdapter
         }
         notifyDataSetChanged()
     }
-
-    fun clearData(){
-        dataSet = emptyList()
-        notifyDataSetChanged()
-    }
-
 
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         fun bind(position : Int,ticker : TickerResponse) = with(itemView){
