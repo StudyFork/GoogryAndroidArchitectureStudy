@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import study.architecture.R
 import study.architecture.adapter.CoinDataAdapter
+import study.architecture.vo.ProcessingTicker
 import study.architecture.vo.Ticker
 
 
@@ -30,7 +31,7 @@ class MainFragment : Fragment(), MainContract.View {
         }
 
 
-    override fun notifyAdapter(list: MutableList<Ticker>) {
+    override fun notifyAdapter(list: MutableList<ProcessingTicker>) {
         adapter.updateList(list)
         adapter.notifyDataSetChanged()
     }

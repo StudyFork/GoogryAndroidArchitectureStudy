@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import study.architecture.R
-import study.architecture.vo.Ticker
+import study.architecture.vo.ProcessingTicker
 
 /**
  * RecyclerView에 아이템을 뿌려주는 Adpater
  */
 class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
 
-    private val lists: MutableList<Ticker> = mutableListOf()
+    private val lists: MutableList<ProcessingTicker> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder =
         Holder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
@@ -23,19 +23,15 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
 
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.name.text = lists[position].market.substringAfter('-')
-        val tradePrice = lists[position].tradePrice.toInt()
-        if (tradePrice > 0) { //소수점이 아니라면 Int 형으로
-            holder.tradePrice.text = String.format("%,d", tradePrice)
-        } else {//소수점으로 내려간다면 double 형으로
-            holder.tradePrice.text = String.format("%,f", lists[position].tradePrice)
+        holder.apply {
+            name.text = lists[position].market
+            tradePrice.text = lists[position].tradePrice
+            changeRate.text = lists[position].changeRate
+            accTradePrice24h.text = lists[position].accTradePrice24h
         }
-        holder.changeRate.text = String.format("%.2f%%", lists[position].changeRate * 100)
-        holder.accTradePrice24h.text = String.format("%,d", lists[position].accTradePrice24h.toInt())
-
     }
 
-    fun updateList(list: List<Ticker>) {
+    fun updateList(list: List<ProcessingTicker>) {
         lists.apply {
             clear()
             addAll(list)
