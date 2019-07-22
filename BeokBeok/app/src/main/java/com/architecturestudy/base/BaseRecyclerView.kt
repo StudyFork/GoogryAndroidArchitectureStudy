@@ -65,9 +65,6 @@ abstract class BaseRecyclerView {
         override fun onBindViewHolder(
             holder: BaseViewHolder<VDB>,
             position: Int
-        ) {
-            holder.onBind(items[position])
-        }
-
+        ) = holder.onBind(items[position])
     }
 }
