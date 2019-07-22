@@ -1,14 +1,10 @@
 package study.architecture.myarchitecture.data.model
 
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import study.architecture.myarchitecture.util.TextUtil
 
-@Entity(tableName = "tickers")
 data class UpbitTicker(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @SerializedName("market") val market: String,
     @SerializedName("trade_date") val tradeDate: String,
     @SerializedName("trade_time") val tradeTime: String,

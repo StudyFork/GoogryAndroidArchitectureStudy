@@ -16,9 +16,6 @@ buildscript {
         //kotlin
         kotlinVersion = '1.3.41'
 
-        //room
-        roomVersion = "2.1.0"
-
         //retrofit
         retrofitVersion = '2.3.0'
 
