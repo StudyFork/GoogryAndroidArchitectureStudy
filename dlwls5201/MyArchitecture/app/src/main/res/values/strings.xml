@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MyArchitecture</string>
+    <string name="upbit">업비트(Upbit)</string>
+
+    <string name="coin_name">코인명</string>
+    <string name="last">현재가</string>
+    <string name="trade_amount">거래대금</string>
+    <string name="trade_diff">전일대비</string>
+
 </resources>
