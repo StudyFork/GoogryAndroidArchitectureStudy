@@ -3,7 +3,9 @@ package study.architecture.mainjob
 import android.annotation.SuppressLint
 import android.util.Log
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import study.architecture.model.repository.Repository
 import java.util.concurrent.TimeUnit
 
@@ -14,12 +16,10 @@ import java.util.concurrent.TimeUnit
  */
 class MainPresenter(private val view: MainContract.View, private val index: MainFragment.FragIndex) :
     MainContract.Presenter {
-    private var list = ""
-    private val compositeDisposable = CompositeDisposable()
+    private val dispose: Disposable
 
-    @SuppressLint("CheckResult")
-    override fun onCreate() {
-        compositeDisposable.add(
+    init {
+        dispose =
             Repository.getMarketList(index)
                 .subscribe(
                     { marketList ->
@@ -29,13 +29,18 @@ class MainPresenter(private val view: MainContract.View, private val index: Main
                     { e ->
                         Log.e("onErrorMarketList", e.message)
                     })
-        )
+
     }
+
+    private var list = ""
+    private val compositeDisposable = CompositeDisposable()
 
 
     override fun onResume() {
-        if (list != "")
+        if (dispose.isDisposed) {
             tickerRequest()
+            Log.e("dispose", dispose.isDisposed.toString())
+        }
     }
 
 
@@ -48,6 +53,7 @@ class MainPresenter(private val view: MainContract.View, private val index: Main
         compositeDisposable.add(
             Observable.interval(0, 8, TimeUnit.SECONDS)
                 .flatMapSingle { Repository.getTickerList(list) }
+                .observeOn(AndroidSchedulers.mainThread())
                 //TODO onBindViewHolder에서 하는 Ticker 데이터 가공작업 해서 view 에게 넘겨주기
                 .subscribe(
                     { lists ->

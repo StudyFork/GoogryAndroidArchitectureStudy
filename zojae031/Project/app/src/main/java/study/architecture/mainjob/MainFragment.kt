@@ -14,20 +14,15 @@ import study.architecture.vo.Ticker
 
 @SuppressLint("ValidFragment", "WrongConstant")
 class MainFragment : Fragment(), MainContract.View {
-    private val presenter: MainPresenter by lazy {
+    private val presenter by lazy {
         MainPresenter(
             this@MainFragment,
             arguments!!.getSerializable("idx") as FragIndex
         )
     }
 
-    private val adapter = CoinDataAdapter()
+    private val adapter by lazy { CoinDataAdapter() }
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        presenter.onCreate()
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_main, container, false).apply {
