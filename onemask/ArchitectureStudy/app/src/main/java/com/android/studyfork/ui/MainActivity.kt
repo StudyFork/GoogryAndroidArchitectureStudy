@@ -4,9 +4,8 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.android.studyfork.R
+import com.android.studyfork.data.repository.UpbitRepository
 import com.android.studyfork.network.api.UpbitService
-import com.android.studyfork.network.repository.UpbitRepository
-import com.android.studyfork.network.repository.UpbitRepositoryImpl
 import com.android.studyfork.ui.adpater.ViewpagerAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -15,14 +14,12 @@ import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
-    private val upbitService by lazy{ UpbitService.getInstance().upbitDataSource }
     private val viewpagerAdapter by lazy { ViewpagerAdapter(supportFragmentManager) }
-    private lateinit var upbitRepository: UpbitRepository
-    
+    private val upbitRepository: UpbitRepository by lazy { UpbitRepository(UpbitService.getInstance().upbitApi) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        upbitRepository = UpbitRepositoryImpl(upbitService)
         initViewPager()
         loadData()
     }
@@ -45,6 +42,7 @@ class MainActivity : AppCompatActivity() {
                         .joinToString(","){it.market}
                 }
                 viewpagerAdapter.setData(marketName)
+                Timber.d("getMarketAll success")
             },{
                 Timber.e("${it.printStackTrace()}")
             })

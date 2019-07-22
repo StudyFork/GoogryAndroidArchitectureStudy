@@ -9,11 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.studyfork.R
-import com.android.studyfork.utill.inflate
+import com.android.studyfork.data.repository.UpbitRepository
 import com.android.studyfork.network.api.UpbitService
-import com.android.studyfork.network.repository.UpbitRepository
-import com.android.studyfork.network.repository.UpbitRepositoryImpl
 import com.android.studyfork.ui.adpater.CoinItemAdapter
+import com.android.studyfork.utill.inflate
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_krw.*
@@ -21,9 +20,8 @@ import timber.log.Timber
 
 class TikcerListFragment : Fragment() {
 
-    private val upbitService by lazy{ UpbitService.getInstance().upbitDataSource }
+    private val upbitRepository: UpbitRepository by lazy { UpbitRepository(UpbitService.getInstance().upbitApi) }
 
-    private lateinit var upbitRepository: UpbitRepository
     private lateinit var coinItemAdapter: CoinItemAdapter
 
     @SuppressLint("CheckResult")
@@ -33,8 +31,8 @@ class TikcerListFragment : Fragment() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                Timber.d("getTicker success")
                 coinItemAdapter.setData(it)
+                Timber.d("getTicker success")
             },{
                 Timber.e("${it.printStackTrace()}")
             })
@@ -46,7 +44,6 @@ class TikcerListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        upbitRepository = UpbitRepositoryImpl(upbitService)
         setRecyclerView()
         getTicker()
 
