@@ -15,10 +15,18 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
 
     fun clearData() {
         coins.clear()
+        notifyDataSetChanged()
     }
 
     fun addData(data: CoinTickerResponse) {
         coins.add(data)
+        notifyDataSetChanged()
+    }
+
+    fun setData(data: List<CoinTickerResponse>) {
+        coins.clear()
+        coins.addAll(data)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder = MyViewHolder(parent)
