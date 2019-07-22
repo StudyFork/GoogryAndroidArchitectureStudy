@@ -43,7 +43,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
             binding.viewModel = MainViewModel(TickerRepository(TickerRemoteDataSource()), message)
 
-            binding {
+
+            bind {
                 adapter =
                     object : BaseRecyclerView.Adapter<TickerModel, ItemTickerBinding>(
                         layoutRes = R.layout.item_ticker,

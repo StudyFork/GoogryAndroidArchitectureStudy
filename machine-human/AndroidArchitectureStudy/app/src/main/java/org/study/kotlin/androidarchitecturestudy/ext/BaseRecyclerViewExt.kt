@@ -1,4 +1,4 @@
-package org.study.kotlin.androidarchitecturestudy.view.bindingadapter
+package org.study.kotlin.androidarchitecturestudy.ext
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView

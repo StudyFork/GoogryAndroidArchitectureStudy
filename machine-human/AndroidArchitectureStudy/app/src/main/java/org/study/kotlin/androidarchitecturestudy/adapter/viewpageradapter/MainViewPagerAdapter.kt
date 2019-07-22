@@ -4,9 +4,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
-class MainViewPagerAdapter(manager: androidx.fragment.app.FragmentManager) : androidx.fragment.app.FragmentPagerAdapter(manager) {
-    private val fragments: MutableList<Pair<androidx.fragment.app.Fragment, String>> = mutableListOf()
-    override fun getItem(position: Int): androidx.fragment.app.Fragment {
+class MainViewPagerAdapter(manager: FragmentManager) :
+    FragmentPagerAdapter(manager) {
+    private val fragments: MutableList<Pair<Fragment, String>> =
+        mutableListOf()
+
+    override fun getItem(position: Int): Fragment {
         return fragments[position].first
     }
 
@@ -14,7 +17,7 @@ class MainViewPagerAdapter(manager: androidx.fragment.app.FragmentManager) : and
         return fragments.size
     }
 
-    fun addFragment(fragment: androidx.fragment.app.Fragment, title: String) {
+    fun addFragment(fragment: Fragment, title: String) {
         fragments?.add(Pair(fragment, title))
 
     }

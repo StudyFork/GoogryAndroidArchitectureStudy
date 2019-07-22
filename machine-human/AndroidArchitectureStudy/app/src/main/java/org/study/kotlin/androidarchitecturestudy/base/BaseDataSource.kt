@@ -1,6 +1,5 @@
 package org.study.kotlin.androidarchitecturestudy.base
 
-import android.util.Log
 import org.study.kotlin.androidarchitecturestudy.api.model.TickerModel
 
 /**

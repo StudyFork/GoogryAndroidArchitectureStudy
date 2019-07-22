@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 
 abstract class BaseFragment<B : ViewDataBinding>(
     @LayoutRes
     private val layoutId: Int
-) : androidx.fragment.app.Fragment(), BaseView {
+) : Fragment(), BaseView {
 
     protected lateinit var binding: B
         private set
@@ -22,6 +23,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
+        binding.lifecycleOwner = this
         return binding.root
     }
 
@@ -29,7 +31,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
 
     }
 
-    protected fun binding(action: B.() -> Unit) {
+    protected fun bind(action: B.() -> Unit) {
         binding.run(action)
     }
 }
