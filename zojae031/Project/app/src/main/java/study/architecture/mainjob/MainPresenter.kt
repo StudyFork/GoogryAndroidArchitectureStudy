@@ -17,6 +17,8 @@ import java.util.concurrent.TimeUnit
 class MainPresenter(private val view: MainContract.View, private val index: MainFragment.FragIndex) :
     MainContract.Presenter {
     private val dispose: Disposable
+    private var list = ""
+    private val compositeDisposable = CompositeDisposable()
 
     init {
         dispose =
@@ -29,17 +31,12 @@ class MainPresenter(private val view: MainContract.View, private val index: Main
                     { e ->
                         Log.e("onErrorMarketList", e.message)
                     })
-
     }
-
-    private var list = ""
-    private val compositeDisposable = CompositeDisposable()
 
 
     override fun onResume() {
         if (dispose.isDisposed) {
             tickerRequest()
-            Log.e("dispose", dispose.isDisposed.toString())
         }
     }
 
@@ -53,12 +50,11 @@ class MainPresenter(private val view: MainContract.View, private val index: Main
         compositeDisposable.add(
             Observable.interval(0, 8, TimeUnit.SECONDS)
                 .flatMapSingle { Repository.getTickerList(list) }
-                .observeOn(AndroidSchedulers.mainThread())
                 //TODO onBindViewHolder에서 하는 Ticker 데이터 가공작업 해서 view 에게 넘겨주기
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { lists ->
                         view.notifyAdapter(lists)
-                        Log.e("getTickerList $index", lists.toString())
                     },
                     { e ->
                         Log.e("onError", e.message)
