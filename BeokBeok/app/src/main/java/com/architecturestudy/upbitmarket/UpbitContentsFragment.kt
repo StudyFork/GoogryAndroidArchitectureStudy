@@ -17,6 +17,10 @@ import com.architecturestudy.data.upbit.source.remote.UpbitRemoteDataSource
 import com.architecturestudy.data.upbit.source.remote.UpbitRetrofit
 import com.architecturestudy.databinding.FragmentUpbitContentsBinding
 import com.architecturestudy.databinding.RvUpbitItemBinding
+import com.architecturestudy.util.RxEventBus
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
 class UpbitContentsFragment : BaseFragment<FragmentUpbitContentsBinding>(
     R.layout.fragment_upbit_contents
@@ -58,16 +62,34 @@ class UpbitContentsFragment : BaseFragment<FragmentUpbitContentsBinding>(
     }
 
     private fun showContents() {
-        val position = arguments?.getInt("marketType", 0) ?: 0
         binding.vm?.let {
-            it.showMarketPrice(MarketTypes.values()[position].name)
+            it.showMarketPrice(MarketTypes.values()[getPosition()].name)
             it.errMsg.observe(
                 this,
                 Observer { throwable ->
                     showToast(throwable.message)
                 }
             )
+            CompositeDisposable().add(
+                RxEventBus.getEvents()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ data ->
+                        @Suppress("UNCHECKED_CAST")
+                        if (data is List<*>) {
+                            val items = data as List<Map<String, String>>
+                            if (items[0]["prefix"].equals(MarketTypes.values()[getPosition()].name)) {
+                                it.marketPriceList.value = items
+                            }
+                        } else if (data is Throwable) {
+                            it.errMsg.value = data
+                        }
+                    }, { throwable ->
+                        showToast(throwable.message)
+                    })
+            )
         }
     }
 
+    private fun getPosition(): Int = arguments?.getInt("marketType", 0) ?: 0
 }

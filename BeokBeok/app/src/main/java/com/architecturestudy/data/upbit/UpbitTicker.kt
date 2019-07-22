@@ -22,5 +22,8 @@ data class UpbitTicker(
 
     @ColumnInfo(name = "acc_trade_price_24h")
     @SerializedName("acc_trade_price_24h")
-    val accTradePrice24h: Double?
+    val accTradePrice24h: Double?,
+
+    @ColumnInfo(name = "prefix")
+    var prefix: String = ""
 )

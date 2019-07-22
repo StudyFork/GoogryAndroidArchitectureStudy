@@ -5,6 +5,7 @@ import com.architecturestudy.base.BaseViewModel
 import com.architecturestudy.data.common.MarketTypes
 import com.architecturestudy.data.upbit.source.UpbitRepository
 import com.architecturestudy.util.NumberFormatter
+import com.architecturestudy.util.RxEventBus
 
 class UpbitViewModel(
     private val upBitRepository: UpbitRepository
@@ -14,11 +15,12 @@ class UpbitViewModel(
     val errMsg = MutableLiveData<Throwable>()
     val currentTabPosition = MutableLiveData<Int>().apply { value = 0 }
 
-    fun showMarketPrice(market: String) {
+    fun showMarketPrice(prefix: String) {
         upBitRepository.getMarketPrice(
-            market,
+            prefix,
             onSuccess = {
                 for (i in 0 until it.size) {
+                    it[i].prefix = prefix
                     upBitRepository.saveTicker(it[i])
                 }
                 marketPriceList.value = NumberFormatter.convertTo(it)
@@ -34,20 +36,11 @@ class UpbitViewModel(
             MarketTypes.values()[currentTabPosition.value ?: 0].name,
             sortType,
             onSuccess = {
-                marketPriceList.value = NumberFormatter.convertTo(it)
+                RxEventBus.sendEvent(NumberFormatter.convertTo(it))
             },
             onFail = {
-                errMsg.value = it
+                RxEventBus.sendEvent(it)
             }
         )
-    }
-
-    companion object {
-        private var instance: UpbitViewModel? = null
-
-        operator fun invoke(
-            upBitRepository: UpbitRepository
-        ): UpbitViewModel = instance ?: UpbitViewModel(upBitRepository)
-            .apply { instance = this }
     }
 }

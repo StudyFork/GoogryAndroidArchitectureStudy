@@ -17,6 +17,7 @@ object NumberFormatter {
             convertList.add(
                 index,
                 hashMapOf(
+                    "prefix" to upbitTicker.prefix,
                     "market" to convertToMarket(upbitTicker.market),
                     "tradePrice" to convertToTradePrice(upbitTicker.tradePrice),
                     "signedChangeRate" to convertToSignedChangeRate(upbitTicker.signedChangeRate),
