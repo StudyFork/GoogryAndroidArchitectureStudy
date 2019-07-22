@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">AndroidArchitectureStudy</string>
+
+    <string name="monetary_unit_1">KRW</string>
+    <string name="monetary_unit_2">BTC</string>
+    <string name="monetary_unit_3">ETH</string>
+    <string name="monetary_unit_4">USDT</string>
+
+    <string name="coin_name">코인명</string>
+    <string name="now_price">현재가</string>
+    <string name="compare_yesterday">전일대비</string>
+    <string name="transaction_amount">거래대금</string>
 </resources>
