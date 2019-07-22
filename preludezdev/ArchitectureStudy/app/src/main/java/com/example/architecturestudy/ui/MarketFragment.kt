@@ -60,17 +60,12 @@ class MarketFragment : Fragment() {
     fun loadData(markets: HashSet<String>) {
         rvAdapter.clearData()
 
-        var marketList = StringBuffer()
-
-        for (market in markets) {
-            marketList.append(market + ",")
-        }
-        marketList.deleteCharAt(marketList.length - 1)
+        var marketList = markets.joinToString(separator = ",")
 
         //Ticker 정보들 가져오기
         NetworkHelper
             .coinApiService
-            .getCurrTicker(marketList.toString())
+            .getCurrTicker(marketList)
             .enqueue(object : Callback<List<CoinTickerResponse>> {
                 override fun onFailure(call: Call<List<CoinTickerResponse>>, t: Throwable) {
                     t.printStackTrace()
