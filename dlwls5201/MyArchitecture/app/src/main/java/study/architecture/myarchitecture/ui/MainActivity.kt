@@ -9,6 +9,7 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 import study.architecture.myarchitecture.BaseActivity
+import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.data.Injection
 import study.architecture.myarchitecture.data.repository.UpbitRepository
 import study.architecture.myarchitecture.rxeventbus.RxEventBusHelper
@@ -28,7 +29,7 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(study.architecture.myarchitecture.R.layout.activity_main)
+        setContentView(R.layout.activity_main)
 
         upbitRepository = Injection.provideFolderRepository(this)
 
