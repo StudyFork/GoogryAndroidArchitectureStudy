@@ -32,8 +32,24 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder = MyViewHolder(parent)
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        //뷰홀더 객체의 프로퍼티를 binding 해준다.
-        with(holder) {
+        holder.bindView(position)
+    }
+
+    override fun getItemCount(): Int = coins.size
+
+    inner class MyViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+        LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_coin, parent, false)
+    ) {
+        // 각 뷰의 인스턴스를 저장하는 프로퍼티를 추가합니다.
+        // 생성자가 호출되는 시점에 뷰의 인스턴스가 할당됩니다.
+        private val tvCoinName = itemView.tvCoinName
+        private val tvCoinCompare = itemView.tvCoinCompare
+        private val tvCurrPrice = itemView.tvCurrPrice
+        private val tvCoinTotalTrade = itemView.tvCoinTotalTrade
+
+        fun bindView(position: Int) {
+            //뷰홀더 객체의 프로퍼티를 binding 해준다.
             val currItem = coins[position]
 
             //각 레이아웃 내 뷰에 텍스트 설정
@@ -49,7 +65,8 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
             //데이터의 크기에 따라 ui를 다르게 보여주게끔 설정
             when {
                 currItem.tradePrice > 1000 ->
-                    tvCurrPrice.text = Util.convertBigNumberToStdString(currItem.tradePrice.toInt())
+                    tvCurrPrice.text =
+                        Util.convertBigNumberToStdString(currItem.tradePrice.toInt())
                 currItem.tradePrice > 2 ->
                     tvCurrPrice.text = String.format("%.2f", currItem.tradePrice)
                 else ->
@@ -75,19 +92,6 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
             }
         }
     }
-
-    override fun getItemCount(): Int = coins.size
-
-    inner class MyViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
-        LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_coin, parent, false)
-    ) {
-        // 각 뷰의 인스턴스를 저장하는 프로퍼티를 추가합니다.
-        // 생성자가 호출되는 시점에 뷰의 인스턴스가 할당됩니다.
-        val tvCoinName = itemView.tvCoinName
-        val tvCoinCompare = itemView.tvCoinCompare
-        val tvCurrPrice = itemView.tvCurrPrice
-        val tvCoinTotalTrade = itemView.tvCoinTotalTrade
-    }
-
 }
+
+
