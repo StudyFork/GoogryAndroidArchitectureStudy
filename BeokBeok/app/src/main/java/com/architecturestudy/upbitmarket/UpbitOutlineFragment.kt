@@ -15,7 +15,6 @@ import com.architecturestudy.data.upbit.source.remote.UpbitRemoteDataSource
 import com.architecturestudy.data.upbit.source.remote.UpbitRetrofit
 import com.architecturestudy.databinding.FragmentUpbitOutlineBinding
 import com.google.android.material.tabs.TabLayout
-import io.reactivex.disposables.CompositeDisposable
 
 class UpbitOutlineFragment : BaseFragment<FragmentUpbitOutlineBinding>(
     R.layout.fragment_upbit_outline
@@ -24,11 +23,6 @@ class UpbitOutlineFragment : BaseFragment<FragmentUpbitOutlineBinding>(
         super.onActivityCreated(savedInstanceState)
         initBinding()
         initViewPager()
-    }
-
-    override fun onDestroy() {
-        CompositeDisposable().dispose()
-        super.onDestroy()
     }
 
     private fun initBinding() {
