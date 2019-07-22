@@ -17,7 +17,7 @@ object NumberFormatter {
             convertList.add(
                 index,
                 hashMapOf(
-                    "prefix" to upbitTicker.prefix,
+                    "prefix" to convertToPrefix(upbitTicker.market),
                     "market" to convertToMarket(upbitTicker.market),
                     "tradePrice" to convertToTradePrice(upbitTicker.tradePrice),
                     "signedChangeRate" to convertToSignedChangeRate(upbitTicker.signedChangeRate),
@@ -26,6 +26,17 @@ object NumberFormatter {
             )
         }
         return convertList
+    }
+
+    private fun convertToPrefix(market: String?): String {
+        market?.let {
+            return if (it.contains("-")) {
+                it.substringBefore("-")
+            } else {
+                ""
+            }
+        }
+        return ""
     }
 
     private fun convertToMarket(market: String?): String {

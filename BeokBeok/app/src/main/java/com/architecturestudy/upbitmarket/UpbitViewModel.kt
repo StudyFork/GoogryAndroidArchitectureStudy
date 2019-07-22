@@ -20,7 +20,6 @@ class UpbitViewModel(
             prefix,
             onSuccess = {
                 for (i in 0 until it.size) {
-                    it[i].prefix = prefix
                     upBitRepository.saveTicker(it[i])
                 }
                 marketPriceList.value = NumberFormatter.convertTo(it)
