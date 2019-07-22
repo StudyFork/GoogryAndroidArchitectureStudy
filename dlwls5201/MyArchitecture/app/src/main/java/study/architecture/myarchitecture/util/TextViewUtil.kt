@@ -30,7 +30,7 @@ fun TextView.setLast(tradePrice: Double) {
 }
 
 //전일대비
-fun TextView.setTradeDiffColor(signedChangeRate: Double) {
+fun TextView.setTradeDiff(signedChangeRate: Double) {
 
     val color = if (signedChangeRate > 0) {
         ContextCompat.getColor(context, study.architecture.myarchitecture.R.color.diff_up)
@@ -42,9 +42,9 @@ fun TextView.setTradeDiffColor(signedChangeRate: Double) {
 
     this.setTextColor(color)
 
-    //val df = DecimalFormat("0.##")
-    //val rate = df.format(signedChangeRate * 100)
-    //this.text = "$rate%"
+    val df = DecimalFormat("0.##")
+    val rate = df.format(signedChangeRate * 100)
+    this.text = "$rate%"
 }
 
 //거래대금

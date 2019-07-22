@@ -4,7 +4,6 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import study.architecture.myarchitecture.data.source.remote.UpbitApi
-import study.architecture.myarchitecture.util.TextUtil
 import java.util.regex.Pattern
 
 class UpbitRepositoryImpl(
@@ -33,5 +32,4 @@ class UpbitRepositoryImpl(
         api.getTickers(markets)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-
 }
