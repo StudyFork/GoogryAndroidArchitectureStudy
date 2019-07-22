@@ -55,7 +55,7 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
     }
 
     fun setItem(newTickers: MutableList<UpbitTicker>) {
-        this.tickers = newTickers
+        tickers.addAll(newTickers)
         notifyDataSetChanged()
     }
 
