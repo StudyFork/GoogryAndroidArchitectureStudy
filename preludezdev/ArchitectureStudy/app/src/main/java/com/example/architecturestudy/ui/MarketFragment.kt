@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.architecturestudy.data.Coin
 import com.example.architecturestudy.data.CoinTickerResponse
 import com.example.architecturestudy.network.NetworkHelper
 import com.example.architecturestudy.ui.MainActivity
 import com.example.architecturestudy.ui.RecyclerViewAdapter
+import com.example.architecturestudy.util.Util
 import kotlinx.android.synthetic.main.fragment_market.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -78,7 +80,8 @@ class MarketFragment : Fragment() {
                     if (response.isSuccessful) {
                         var list = response.body()
                         for (ticker in list!!) {
-                            rvAdapter.addData(ticker)
+                            //ticker 를 Coin 클래스로 변환해서 저장
+                            rvAdapter.addData(convertTickerIntoCoin(ticker))
                         }
 
                         rvAdapter.notifyDataSetChanged()
@@ -86,4 +89,41 @@ class MarketFragment : Fragment() {
                 }
             })
     }
+
+    fun convertTickerIntoCoin(ticker: CoinTickerResponse): Coin {
+        //코인 이름
+        var market = ticker.market.split("-")[1]
+
+        //현재가
+        var tradePrice = when {
+            ticker.tradePrice > 1000 ->
+                Util.convertBigNumberToStdString(ticker.tradePrice.toInt())
+            ticker.tradePrice > 2 ->
+                String.format("%.2f", ticker.tradePrice)
+            else ->
+                String.format("%.8f", ticker.tradePrice)
+        }
+
+        //전일대비
+        var signedChangeRate = String.format("%.2f", ticker.signedChangeRate * 100) + "%"
+
+        //거래대금
+        var accTradePriceH = when {
+            ticker.accTradePriceH > 10000000 -> {
+                Util.convertBigNumberToStdString((ticker.accTradePriceH / 1000000).toInt()) + "M"
+            }
+
+            ticker.accTradePriceH > 100000 ->
+                Util.convertBigNumberToStdString(ticker.accTradePriceH.toInt() / 1000) + "k"
+
+            ticker.accTradePriceH > 1000 ->
+                Util.convertBigNumberToStdString(ticker.accTradePriceH.toInt())
+
+            else ->
+                String.format("%.3f", ticker.accTradePriceH)
+        }
+
+        return Coin(market, tradePrice, signedChangeRate, accTradePriceH)
+    }
+
 }
