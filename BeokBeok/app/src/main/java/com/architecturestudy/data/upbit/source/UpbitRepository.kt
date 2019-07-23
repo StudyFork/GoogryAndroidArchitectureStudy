@@ -27,11 +27,13 @@ class UpbitRepository private constructor(
 
     override fun sort(
         sortType: String,
+        isDesc: Boolean,
         onSuccess: (List<UpbitTicker>) -> Unit,
         onFail: (Throwable) -> Unit
     ) {
         upbitLocalDataSource?.sort(
             sortType,
+            isDesc,
             onSuccess,
             onFail
         )

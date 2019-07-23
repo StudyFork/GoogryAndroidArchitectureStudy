@@ -13,6 +13,7 @@ interface UpbitDataSource {
 
     fun sort(
         sortType: String,
+        isDesc: Boolean,
         onSuccess: (List<UpbitTicker>) -> Unit,
         onFail: (Throwable) -> Unit
     )

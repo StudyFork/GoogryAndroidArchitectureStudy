@@ -10,6 +10,7 @@ import io.reactivex.schedulers.Schedulers
 class UpbitLocalDataSource internal constructor(
     private val upbitTickerDao: UpbitTickerDao?
 ) : UpbitDataSource {
+
     override fun getMarketPrice(
         prefix: String,
         onSuccess: (List<UpbitTicker>) -> Unit,
@@ -32,16 +33,42 @@ class UpbitLocalDataSource internal constructor(
 
     override fun sort(
         sortType: String,
+        isDesc: Boolean,
         onSuccess: (List<UpbitTicker>) -> Unit,
         onFail: (Throwable) -> Unit
     ) {
         CompositeDisposable().add(
             Observable.fromCallable {
                 when (sortType) {
-                    "market" -> upbitTickerDao?.sortMarket()
-                    "trade_price" -> upbitTickerDao?.sortTradePrice()
-                    "signed_change_rate" -> upbitTickerDao?.sortSignedChangeRate()
-                    "acc_trade_price_24h" -> upbitTickerDao?.sortAccTradePrice24h()
+                    "market" -> {
+                        if (isDesc) {
+                            upbitTickerDao?.sortMarketByDESC()
+                        } else {
+                            upbitTickerDao?.sortMarket()
+                        }
+                    }
+                    "trade_price" -> {
+                        if (isDesc) {
+                            upbitTickerDao?.sortTradePriceByDESC()
+                        } else {
+                            upbitTickerDao?.sortTradePrice()
+                        }
+                    }
+                    "signed_change_rate" -> {
+                        if (isDesc) {
+                            upbitTickerDao?.sortSignedChangeRateByDESC()
+                        } else {
+                            upbitTickerDao?.sortSignedChangeRate()
+                        }
+
+                    }
+                    "acc_trade_price_24h" -> {
+                        if (isDesc) {
+                            upbitTickerDao?.sortAccTradePrice24hByDESC()
+                        } else {
+                            upbitTickerDao?.sortAccTradePrice24h()
+                        }
+                    }
                     else -> listOf()
                 }
             }.subscribeOn(Schedulers.io())

@@ -12,6 +12,7 @@ class UpbitViewModel(
 
     val marketPriceList = MutableLiveData<List<Map<String, String>>>()
     val errMsg = MutableLiveData<Throwable>()
+    private var isDESC: Boolean = false
 
     fun showMarketPrice(prefix: String) {
         upBitRepository.getMarketPrice(
@@ -31,8 +32,10 @@ class UpbitViewModel(
     fun sort(sortType: String) {
         upBitRepository.sort(
             sortType,
+            isDESC,
             onSuccess = {
                 RxEventBus.sendEvent(NumberFormatter.convertTo(it))
+                isDESC = !isDESC
             },
             onFail = {
                 RxEventBus.sendEvent(it)
