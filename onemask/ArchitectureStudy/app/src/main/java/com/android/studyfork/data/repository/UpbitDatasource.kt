@@ -7,7 +7,7 @@ import io.reactivex.Single
 /**
  * created by onemask
  */
-interface UpbitDatasource {
+interface UpbitDataSource {
     fun getMarketAll(): Single<Map<String, List<UpbitMarketResponse>>>
     fun getTikcers(margket: String): Single<List<UpbitTickerResponse>>
 }

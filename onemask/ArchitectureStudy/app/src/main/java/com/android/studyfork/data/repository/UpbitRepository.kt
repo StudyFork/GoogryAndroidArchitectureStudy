@@ -10,7 +10,7 @@ import io.reactivex.schedulers.Schedulers
  */
 class UpbitRepository(
     private val api: UpbitApi
-) : UpbitDatasource {
+) : UpbitDataSource {
 
     override fun getMarketAll() =
         api.getMarketAll()
