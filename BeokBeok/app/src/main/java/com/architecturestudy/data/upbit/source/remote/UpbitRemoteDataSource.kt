@@ -52,7 +52,6 @@ class UpbitRemoteDataSource private constructor(
     }
 
     override fun sort(
-        tabType: String,
         sortType: String,
         onSuccess: (List<UpbitTicker>) -> Unit,
         onFail: (Throwable) -> Unit

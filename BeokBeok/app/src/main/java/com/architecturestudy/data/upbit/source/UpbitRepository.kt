@@ -26,13 +26,11 @@ class UpbitRepository private constructor(
     }
 
     override fun sort(
-        tabType: String,
         sortType: String,
         onSuccess: (List<UpbitTicker>) -> Unit,
         onFail: (Throwable) -> Unit
     ) {
         upbitLocalDataSource?.sort(
-            tabType,
             sortType,
             onSuccess,
             onFail

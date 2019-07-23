@@ -12,28 +12,28 @@ interface UpbitTickerDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTicker(ticker: UpbitTicker)
 
-    @Query("SELECT * FROM upbitTicker WHERE market LIKE :type || '%' ORDER BY market")
-    fun sortMarket(type: String): List<UpbitTicker>
+    @Query("SELECT * FROM upbitTicker ORDER BY market")
+    fun sortMarket(): List<UpbitTicker>
 
-    @Query("SELECT * FROM upbitTicker WHERE market LIKE :type || '%' ORDER BY market DESC")
-    fun sortMarketByDESC(type: String): List<UpbitTicker>
+    @Query("SELECT * FROM upbitTicker ORDER BY market DESC")
+    fun sortMarketByDESC(): List<UpbitTicker>
 
-    @Query("SELECT * FROM upbitticker WHERE market LIKE :type || '%' ORDER BY trade_price")
-    fun sortTradePrice(type: String): List<UpbitTicker>
+    @Query("SELECT * FROM upbitticker ORDER BY trade_price")
+    fun sortTradePrice(): List<UpbitTicker>
 
-    @Query("SELECT * FROM upbitTicker WHERE market LIKE :type || '%' ORDER BY trade_price DESC")
-    fun sortTradePriceByDESC(type: String): List<UpbitTicker>
+    @Query("SELECT * FROM upbitTicker ORDER BY trade_price DESC")
+    fun sortTradePriceByDESC(): List<UpbitTicker>
 
-    @Query("SELECT * FROM upbitTicker WHERE market LIKE :type || '%' ORDER BY signed_change_rate")
-    fun sortSignedChangeRate(type: String): List<UpbitTicker>
+    @Query("SELECT * FROM upbitTicker ORDER BY signed_change_rate")
+    fun sortSignedChangeRate(): List<UpbitTicker>
 
-    @Query("SELECT * FROM upbitTicker WHERE market LIKE :type || '%' ORDER BY signed_change_rate DESC")
-    fun sortSignedChangeRateByDESC(type: String): List<UpbitTicker>
+    @Query("SELECT * FROM upbitTicker ORDER BY signed_change_rate DESC")
+    fun sortSignedChangeRateByDESC(): List<UpbitTicker>
 
-    @Query("SELECT * FROM upbitTicker WHERE market LIKE :type || '%' ORDER BY acc_trade_price_24h")
-    fun sortAccTradePrice24h(type: String): List<UpbitTicker>
+    @Query("SELECT * FROM upbitTicker ORDER BY acc_trade_price_24h")
+    fun sortAccTradePrice24h(): List<UpbitTicker>
 
-    @Query("SELECT * FROM upbitTicker WHERE market LIKE :type || '%' ORDER BY acc_trade_price_24h DESC")
-    fun sortAccTradePrice24hByDESC(type: String): List<UpbitTicker>
+    @Query("SELECT * FROM upbitTicker ORDER BY acc_trade_price_24h DESC")
+    fun sortAccTradePrice24hByDESC(): List<UpbitTicker>
 
 }

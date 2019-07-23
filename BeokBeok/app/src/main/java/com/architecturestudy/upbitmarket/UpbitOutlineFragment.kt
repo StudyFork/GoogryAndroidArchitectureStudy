@@ -62,7 +62,6 @@ class UpbitOutlineFragment : BaseFragment<FragmentUpbitOutlineBinding>(
                     override fun onTabSelected(tab: TabLayout.Tab?) {
                         tab?.let {
                             vpContents.currentItem = it.position
-                            vm?.currentTabPosition?.value = it.position
                         }
                     }
                 })

@@ -31,7 +31,6 @@ class UpbitLocalDataSource internal constructor(
     }
 
     override fun sort(
-        tabType: String,
         sortType: String,
         onSuccess: (List<UpbitTicker>) -> Unit,
         onFail: (Throwable) -> Unit
@@ -39,10 +38,10 @@ class UpbitLocalDataSource internal constructor(
         CompositeDisposable().add(
             Observable.fromCallable {
                 when (sortType) {
-                    "market" -> upbitTickerDao?.sortMarket(tabType)
-                    "trade_price" -> upbitTickerDao?.sortTradePrice(tabType)
-                    "signed_change_rate" -> upbitTickerDao?.sortSignedChangeRate(tabType)
-                    "acc_trade_price_24h" -> upbitTickerDao?.sortAccTradePrice24h(tabType)
+                    "market" -> upbitTickerDao?.sortMarket()
+                    "trade_price" -> upbitTickerDao?.sortTradePrice()
+                    "signed_change_rate" -> upbitTickerDao?.sortSignedChangeRate()
+                    "acc_trade_price_24h" -> upbitTickerDao?.sortAccTradePrice24h()
                     else -> listOf()
                 }
             }.subscribeOn(Schedulers.io())

@@ -77,10 +77,13 @@ class UpbitContentsFragment : BaseFragment<FragmentUpbitContentsBinding>(
                     .subscribe({ data ->
                         @Suppress("UNCHECKED_CAST")
                         if (data is List<*>) {
-                            val items = data as List<Map<String, String>>
-                            if (items[0]["prefix"].equals(MarketTypes.values()[getPosition()].name)) {
-                                it.marketPriceList.value = items
-                            }
+                            val ticker = (data as? List<Map<String, String>>)
+                                ?.asSequence()
+                                ?.filter { map ->
+                                    map["prefix"] == MarketTypes.values()[getPosition()].name
+                                }
+                                ?.toList()
+                            it.marketPriceList.value = ticker
                         } else if (data is Throwable) {
                             it.errMsg.value = data
                         }
