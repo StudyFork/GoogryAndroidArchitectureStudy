@@ -56,6 +56,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
             tvCoinName.text = currItem.market.split("-")[1]
             tvCoinCompare.text = String.format("%.2f", currItem.signedChangeRate * 100) + "%"
 
+            //전일대비 색깔 지정하기
             if (currItem.signedChangeRate > 0) {
                 tvCoinCompare.setTextColor(Color.RED)
             } else {
@@ -63,6 +64,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
             }
 
             //데이터의 크기에 따라 ui를 다르게 보여주게끔 설정
+            //현재가
             when {
                 currItem.tradePrice > 1000 ->
                     tvCurrPrice.text =
@@ -73,6 +75,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
                     tvCurrPrice.text = String.format("%.8f", currItem.tradePrice)
             }
 
+            //거래대금
             when {
                 currItem.accTradePriceH > 10000000 -> {
                     tvCoinTotalTrade.text =
@@ -93,5 +96,3 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
         }
     }
 }
-
-
