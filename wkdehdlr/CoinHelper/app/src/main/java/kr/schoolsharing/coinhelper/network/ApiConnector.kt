@@ -43,7 +43,9 @@ class ApiConnector {
 //                        setUpbitTicker(item.market)
                         upbitMarketStr += (item.market + ",")
                     }
+//                    list.joinToString(",")
                     upbitMarketStr = upbitMarketStr.substring(0, upbitMarketStr.length - 1)
+//                    list.joinToString(","){it.market}
                     setUpbitTicker(upbitMarketStr)
                     Log.d("success :: ", upbitMarketStr)
                 }
