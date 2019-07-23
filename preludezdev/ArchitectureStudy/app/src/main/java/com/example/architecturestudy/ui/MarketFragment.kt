@@ -83,8 +83,6 @@ class MarketFragment : Fragment() {
                             //ticker 를 Coin 클래스로 변환해서 저장
                             rvAdapter.addData(convertTickerIntoCoin(ticker))
                         }
-
-                        rvAdapter.notifyDataSetChanged()
                     }
                 }
             })
