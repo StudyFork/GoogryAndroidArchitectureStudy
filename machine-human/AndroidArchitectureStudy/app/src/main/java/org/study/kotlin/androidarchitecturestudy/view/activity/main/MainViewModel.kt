@@ -9,8 +9,7 @@ import org.study.kotlin.androidarchitecturestudy.base.BaseViewModel
 import org.study.kotlin.androidarchitecturestudy.util.FormatUtil
 
 class MainViewModel(
-    remoteDataSource: BaseDataSource,
-    marketName: String
+    private val tickerRepository: TickerRepository
 ) : BaseViewModel() {
 
     protected val _observableTickerList = MutableLiveData<List<ConvertTickerModel>>()
