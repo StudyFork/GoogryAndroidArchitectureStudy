@@ -45,6 +45,7 @@ class UpbitOutlineFragment : BaseFragment<FragmentUpbitOutlineBinding>(
         binding.run {
 
             vpContents.run {
+                offscreenPageLimit = 3
                 adapter = fragmentManager?.let {
                     UpbitViewPagerAdapter(it)
                 }
