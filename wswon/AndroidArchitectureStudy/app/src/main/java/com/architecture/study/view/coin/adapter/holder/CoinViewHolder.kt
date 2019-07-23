@@ -1,4 +1,4 @@
-package com.architecture.study.adapter.viewholder
+package com.architecture.study.view.coin.adapter.holder
 
 import android.content.Context
 import android.view.View
@@ -6,8 +6,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.architecture.study.R
-import com.architecture.study.adapter.CoinListAdapter
-import com.architecture.study.item.Ticker
+import com.architecture.study.view.coin.adapter.CoinListAdapter
+import com.architecture.study.data.model.Ticker
 
 class CoinViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val tvCoinName = itemView.findViewById(R.id.coin_name_tv) as TextView

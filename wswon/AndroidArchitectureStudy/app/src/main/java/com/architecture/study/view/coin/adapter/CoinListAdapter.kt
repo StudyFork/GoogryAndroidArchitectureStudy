@@ -1,12 +1,12 @@
-package com.architecture.study.adapter
+package com.architecture.study.view.coin.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.architecture.study.R
-import com.architecture.study.adapter.viewholder.CoinViewHolder
-import com.architecture.study.item.Ticker
+import com.architecture.study.view.coin.adapter.holder.CoinViewHolder
+import com.architecture.study.data.model.Ticker
 
 class CoinListAdapter(private val context: Context, private val listener: CoinItemRecyclerViewClickListener) :
     RecyclerView.Adapter<CoinViewHolder>() {

@@ -1,7 +1,8 @@
-package com.architecture.study.server
+package com.architecture.study.network.request
 
-import com.architecture.study.model.MarketResponse
-import com.architecture.study.model.TickerResponse
+import com.architecture.study.network.api.UpbitApi
+import com.architecture.study.network.model.MarketResponse
+import com.architecture.study.network.model.TickerResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,7 +17,7 @@ class UpbitRequest {
             .baseUrl(URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        val apiService = retrofit.create(ApiService::class.java)
+        val apiService = retrofit.create(UpbitApi::class.java)
 
         apiService.getMarketData().enqueue(object : Callback<List<MarketResponse>> {
             override fun onResponse(call: Call<List<MarketResponse>>, response: Response<List<MarketResponse>>) {
@@ -43,7 +44,7 @@ class UpbitRequest {
             .baseUrl(URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        val apiService = retrofit.create(ApiService::class.java)
+        val apiService = retrofit.create(UpbitApi::class.java)
 
 
         val call = apiService.getTickerData(marketNames)

@@ -1,4 +1,4 @@
-package com.architecture.study.model
+package com.architecture.study.network.model
 
 import com.google.gson.annotations.SerializedName
 
