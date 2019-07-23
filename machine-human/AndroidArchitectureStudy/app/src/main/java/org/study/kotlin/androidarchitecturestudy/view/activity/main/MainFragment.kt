@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.widget.Toast
 import androidx.databinding.library.baseAdapters.BR
-import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.study.kotlin.androidarchitecturestudy.R
 import org.study.kotlin.androidarchitecturestudy.api.model.TickerModel
@@ -34,15 +33,15 @@ i = Presenter : BasePresenter
 f = requestDataFromTickerRepository(marketName: String)
  */
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
-
+    private lateinit var mainViewModel: MainViewModel
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         recyclerview_mainfragment.run {
             setHasFixedSize(true)
             val message = arguments!!.getString(EXTRA_MESSAGE)
 
-            binding.viewModel = MainViewModel(TickerRepository(TickerRemoteDataSource()), message)
-
+            mainViewModel = MainViewModel(TickerRepository(TickerRemoteDataSource()))
+            mainViewModel.getTickerListFromRemoteDataSource(message)
 
             bind {
                 adapter =
@@ -50,6 +49,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                         layoutRes = R.layout.item_ticker,
                         bindingVariableId = BR.itemViewModel
                     ) {}
+                viewModel = mainViewModel
             }
         }
     }
