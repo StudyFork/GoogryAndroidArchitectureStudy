@@ -1,4 +1,4 @@
-package study.architecture.adapter
+package study.architecture.ui.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import study.architecture.R
-import study.architecture.vo.ProcessingTicker
+import study.architecture.model.vo.ProcessingTicker
 
 /**
  * RecyclerView에 아이템을 뿌려주는 Adpater

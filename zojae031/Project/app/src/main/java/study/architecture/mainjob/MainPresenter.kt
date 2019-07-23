@@ -6,7 +6,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import study.architecture.model.repository.Repository
-import study.architecture.vo.ProcessingTicker
+import study.architecture.model.vo.ProcessingTicker
+import study.architecture.ui.MainFragment
+import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit
 
 /**
@@ -58,13 +60,23 @@ class MainPresenter(private val view: MainContract.View, index: MainFragment.Fra
                         String.format("%,f", data.tradePrice)
                     }
 
+                    val acc = with(DecimalFormat("#,###")) {
+                        if (data.accTradePrice24h >= 1000000) {
+                            return@with "${this.format(data.accTradePrice24h / 1000000)}M"
+                        } else if (data.accTradePrice24h < 1000000 && data.accTradePrice24h >= 1000) {
+                            return@with "${this.format(data.accTradePrice24h / 1000)}K"
+                        } else {
+                            return@with this.format(data.accTradePrice24h)
+                        }
+                    }
+
                     with(processList) {
                         add(
                             ProcessingTicker(
                                 data.market.substringAfter('-'),
                                 tradePrice,
                                 String.format("%.2f%%", data.signedChangeRate * 100),
-                                String.format("%,d", data.accTradePrice24h.toInt())
+                                acc
                             )
                         )
                     }
@@ -82,7 +94,7 @@ class MainPresenter(private val view: MainContract.View, index: MainFragment.Fra
                 { e ->
                     Log.e("onError", e.message)
                 }
-            )
+            ).also { compositeDisposable.add(it) }
 
     }
 

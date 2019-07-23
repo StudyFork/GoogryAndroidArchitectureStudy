@@ -1,10 +1,10 @@
-package study.architecture.adapter
+package study.architecture.ui.adapter
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import study.architecture.mainjob.MainFragment
+import study.architecture.ui.MainFragment
 
 /**
  * [FragmentPagerAdapter] vs [FragmentStatePagerAdapter]

@@ -1,4 +1,4 @@
-package study.architecture.vo
+package study.architecture.model.vo
 
 import com.google.gson.annotations.SerializedName
 

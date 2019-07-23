@@ -2,9 +2,9 @@ package study.architecture.model.repository
 
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import study.architecture.mainjob.MainFragment
+import study.architecture.ui.MainFragment
 import study.architecture.model.datasource.RemoteDataSource
-import study.architecture.vo.Ticker
+import study.architecture.model.vo.Ticker
 
 object Repository {
 

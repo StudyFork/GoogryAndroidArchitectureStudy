@@ -1,6 +1,6 @@
 package study.architecture.mainjob
 
-import study.architecture.vo.ProcessingTicker
+import study.architecture.model.vo.ProcessingTicker
 
 interface MainContract {
     interface View {

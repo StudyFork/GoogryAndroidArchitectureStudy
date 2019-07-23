@@ -6,7 +6,7 @@ import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import study.architecture.model.UpbitApi
-import study.architecture.vo.Market
+import study.architecture.model.vo.Market
 
 /**
  * Data 관리하는 비즈니스로직이 담긴 클래스
