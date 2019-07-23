@@ -42,7 +42,6 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
         vm = ViewModelProviders.of(
             this,
             object : ViewModelProvider.Factory {
-
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel?> create(modelClass: Class<T>): T =
                     TickerViewModel(
