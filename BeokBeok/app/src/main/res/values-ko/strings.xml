@@ -4,4 +4,5 @@
     <string name="tradePrice">현재가</string>
     <string name="signedChangeRate">전일대비</string>
     <string name="accTradePrice24h">거래대금</string>
+    <string name="sort">정렬</string>
 </resources>

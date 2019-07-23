@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="vm"
             type="com.architecturestudy.upbitmarket.UpbitViewModel" />
@@ -19,6 +21,50 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".upbitmarket.UpbitActivity">
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:contentDescription="@string/sort"
+                android:src="@{vm.isSortByDESC ? @drawable/sort_down : @drawable/sort_up}"
+                android:visibility="@{vm.selectedSortTypeList.get(0) ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@id/tv_coin_name"
+                app:layout_constraintEnd_toEndOf="@id/tv_coin_name"
+                app:layout_constraintTop_toTopOf="@id/tv_coin_name"
+                tools:background="@drawable/sort_up" />
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:contentDescription="@string/sort"
+                android:src="@{vm.isSortByDESC ? @drawable/sort_down : @drawable/sort_up}"
+                android:visibility="@{vm.selectedSortTypeList.get(1) ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@id/tv_current_price"
+                app:layout_constraintEnd_toEndOf="@id/tv_current_price"
+                app:layout_constraintTop_toTopOf="@id/tv_current_price"
+                tools:background="@drawable/sort_up" />
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:contentDescription="@string/sort"
+                android:src="@{vm.isSortByDESC ? @drawable/sort_down : @drawable/sort_up}"
+                android:visibility="@{vm.selectedSortTypeList.get(2) ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@id/tv_net_change"
+                app:layout_constraintEnd_toEndOf="@id/tv_net_change"
+                app:layout_constraintTop_toTopOf="@id/tv_net_change"
+                tools:background="@drawable/sort_up" />
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:contentDescription="@string/sort"
+                android:src="@{vm.isSortByDESC ? @drawable/sort_down : @drawable/sort_up}"
+                android:visibility="@{vm.selectedSortTypeList.get(3) ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@id/tv_trading_value"
+                app:layout_constraintEnd_toEndOf="@id/tv_trading_value"
+                app:layout_constraintTop_toTopOf="@id/tv_trading_value"
+                tools:background="@drawable/sort_up" />
 
             <TextView
                 android:id="@+id/tv_coin_name"

@@ -12,6 +12,9 @@ class UpbitViewModel(
 
     val marketPriceList = MutableLiveData<List<Map<String, String>>>()
     val errMsg = MutableLiveData<Throwable>()
+    val isSortByDESC = MutableLiveData<Boolean>()
+    val selectedSortTypeList = MutableLiveData<List<Boolean>>()
+        .apply { listOf(false, false, false, false) }
     private var isDESC: Boolean = false
 
     fun showMarketPrice(prefix: String) {
@@ -30,6 +33,8 @@ class UpbitViewModel(
     }
 
     fun sort(sortType: String) {
+        setSelectedTypeList(sortType)
+        isSortByDESC.value = isDESC
         upBitRepository.sort(
             sortType,
             isDESC,
@@ -41,5 +46,14 @@ class UpbitViewModel(
                 RxEventBus.sendEvent(it)
             }
         )
+    }
+
+    private fun setSelectedTypeList(sortType: String) {
+        when (sortType) {
+            "market" -> selectedSortTypeList.value = listOf(true, false, false, false)
+            "trade_price" -> selectedSortTypeList.value = listOf(false, true, false, false)
+            "signed_change_rate" -> selectedSortTypeList.value = listOf(false, false, true, false)
+            "acc_trade_price_24h" -> selectedSortTypeList.value = listOf(false, false, false, true)
+        }
     }
 }
