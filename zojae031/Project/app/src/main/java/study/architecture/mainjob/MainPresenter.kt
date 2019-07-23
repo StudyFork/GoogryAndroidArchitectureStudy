@@ -8,7 +8,7 @@ import io.reactivex.disposables.Disposable
 import study.architecture.model.repository.Repository
 import study.architecture.model.vo.ProcessingTicker
 import study.architecture.ui.MainFragment
-import java.text.DecimalFormat
+import study.architecture.util.TextUtil
 import java.util.concurrent.TimeUnit
 
 /**
@@ -51,38 +51,21 @@ class MainPresenter(private val view: MainContract.View, index: MainFragment.Fra
         Repository.getTickerList(list)
             .repeatWhen { t -> t.delay(8, TimeUnit.SECONDS) }
             .map { lists ->
-                val processList = mutableListOf<ProcessingTicker>()
 
-                for (data in lists) {
-                    val tradePrice = if (data.tradePrice.toInt() > 0) {
-                        String.format("%,d", data.tradePrice.toInt())
-                    } else {
-                        String.format("%,f", data.tradePrice)
-                    }
-
-                    val acc = with(DecimalFormat("#,###")) {
-                        if (data.accTradePrice24h >= 1000000) {
-                            return@with "${this.format(data.accTradePrice24h / 1000000)}M"
-                        } else if (data.accTradePrice24h < 1000000 && data.accTradePrice24h >= 1000) {
-                            return@with "${this.format(data.accTradePrice24h / 1000)}K"
-                        } else {
-                            return@with this.format(data.accTradePrice24h)
-                        }
-                    }
-
-                    with(processList) {
+                with(mutableListOf<ProcessingTicker>()) {
+                    for (data in lists) {
                         add(
                             ProcessingTicker(
-                                data.market.substringAfter('-'),
-                                tradePrice,
-                                String.format("%.2f%%", data.signedChangeRate * 100),
-                                acc
+                                TextUtil.getMarketName(data.market),
+                                TextUtil.getTradePrice(data.tradePrice),
+                                TextUtil.getChangeRate(data.signedChangeRate),
+                                TextUtil.getAccTradePrice24h(data.accTradePrice24h)
                             )
                         )
                     }
-
+                    return@map this
                 }
-                return@map processList
+
             }
             .doOnSubscribe { view.showProgress() }
             .doOnRequest { view.hideProgress() }
