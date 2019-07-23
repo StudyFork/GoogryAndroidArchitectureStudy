@@ -1,5 +1,6 @@
 package study.architecture.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,9 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
         holder.apply {
             name.text = lists[position].market
             tradePrice.text = lists[position].tradePrice
+            if (lists[position].changeRate.startsWith('-')) {
+                changeRate.setTextColor(Color.RED)
+            }
             changeRate.text = lists[position].changeRate
             accTradePrice24h.text = lists[position].accTradePrice24h
         }

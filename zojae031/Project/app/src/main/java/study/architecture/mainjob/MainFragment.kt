@@ -10,7 +10,6 @@ import kotlinx.android.synthetic.main.fragment_main.view.*
 import study.architecture.R
 import study.architecture.adapter.CoinDataAdapter
 import study.architecture.vo.ProcessingTicker
-import study.architecture.vo.Ticker
 
 
 @SuppressLint("ValidFragment", "WrongConstant")

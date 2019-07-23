@@ -57,16 +57,18 @@ class MainPresenter(private val view: MainContract.View, private val index: Main
                     } else {
                         String.format("%,f", data.tradePrice)
                     }
+
                     with(processList) {
                         add(
                             ProcessingTicker(
                                 data.market.substringAfter('-'),
                                 tradePrice,
-                                String.format("%.2f%%", data.changeRate * 100),
+                                String.format("%.2f%%", data.signedChangeRate * 100),
                                 String.format("%,d", data.accTradePrice24h.toInt())
                             )
                         )
                     }
+
                 }
                 return@map processList
             }
