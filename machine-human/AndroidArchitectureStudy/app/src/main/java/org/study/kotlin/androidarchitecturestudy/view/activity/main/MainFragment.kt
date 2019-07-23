@@ -47,7 +47,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                 adapter =
                     object : BaseRecyclerView.Adapter<TickerModel, ItemTickerBinding>(
                         layoutRes = R.layout.item_ticker,
-                        bindingVariableId = BR.itemViewModel
+                        bindingVariableId = BR.tickerModel
                     ) {}
                 viewModel = mainViewModel
             }
