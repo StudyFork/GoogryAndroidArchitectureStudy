@@ -44,8 +44,8 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
             object : ViewModelProvider.Factory {
 
                 @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                    return TickerViewModel(
+                override fun <T : ViewModel?> create(modelClass: Class<T>): T =
+                    TickerViewModel(
                         Repository(
                             RemoteDataSource(
                                 Retrofit.Builder()
@@ -56,7 +56,6 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
                             )
                         )
                     ) as T
-                }
             }
         )[TickerViewModel::class.java]
 
