@@ -33,9 +33,9 @@ abstract class BaseFragment<B : ViewDataBinding>(
         return binding.root
     }
 
-    override fun onDestroy() {
+    override fun onDestroyView() {
         CompositeDisposable().dispose()
-        super.onDestroy()
+        super.onDestroyView()
     }
 
     fun showToast(msg: String?) = Toast.makeText(
