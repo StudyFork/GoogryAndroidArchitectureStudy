@@ -1,7 +1,6 @@
 package org.study.kotlin.androidarchitecturestudy.util
 
 import android.icu.text.DecimalFormat
-import org.study.kotlin.androidarchitecturestudy.api.model.ConvertTickerModel
 import org.study.kotlin.androidarchitecturestudy.api.model.TickerModel
 import org.study.kotlin.androidarchitecturestudy.data.enum.TabTitle
 
@@ -42,24 +41,24 @@ object FormatUtil {
 
         }
 
-    fun convertTo(tickerList: TickerModel): ConvertTickerModel{
-        val convertTickerModel = ConvertTickerModel()
+    fun convertTo(tickerList: TickerModel): TickerModel{
+        val convertTickerList = TickerModel(0.toDouble(),0.toDouble(),0.toString(),0.toDouble())
         with(tickerList){
-            convertTickerModel.convertMarket = this.market.substringAfterLast("-")
+            convertTickerList.convertMarket = this.market.substringAfterLast("-")
             if (this.market.substringBeforeLast("-") == TabTitle.BTC.toString() || this.market.substringBeforeLast("-") == TabTitle.ETH.toString()) {
-                convertTickerModel.convertTradePrice = floatingEightPointFormat(this.tradePrice)
-                convertTickerModel.convertChangeRate = percentFormat(this.changeRate)
-                convertTickerModel.convertAccTradePrice24h = floatingThreePointFormat(this.accTradePrice24h)
+                convertTickerList.convertTradePrice = floatingEightPointFormat(this.tradePrice)
+                convertTickerList.convertChangeRate = percentFormat(this.changeRate)
+                convertTickerList.convertAccTradePrice24h = floatingThreePointFormat(this.accTradePrice24h)
             } else if (this.market.substringBeforeLast("-") == TabTitle.KRW.toString()) {
-                convertTickerModel.convertTradePrice = FormatUtil.commaFormat(this.tradePrice)
-                convertTickerModel.convertChangeRate = FormatUtil.percentFormat(this.changeRate)
-                convertTickerModel.convertAccTradePrice24h = accTradePriceFormat(this.accTradePrice24h, TabTitle.KRW.toString())
+                convertTickerList.convertTradePrice = commaFormat(this.tradePrice)
+                convertTickerList.convertChangeRate = percentFormat(this.changeRate)
+                convertTickerList.convertAccTradePrice24h = accTradePriceFormat(this.accTradePrice24h, TabTitle.KRW.toString())
             } else {
-                convertTickerModel.convertTradePrice = FormatUtil.usdtFloatingPointFormat(this.tradePrice)
-                convertTickerModel.convertChangeRate = FormatUtil.percentFormat(this.changeRate)
-                convertTickerModel.convertAccTradePrice24h = accTradePriceFormat(this.accTradePrice24h, TabTitle.USDT.toString())
+                convertTickerList.convertTradePrice = usdtFloatingPointFormat(this.tradePrice)
+                convertTickerList.convertChangeRate = percentFormat(this.changeRate)
+                convertTickerList.convertAccTradePrice24h = accTradePriceFormat(this.accTradePrice24h, TabTitle.USDT.toString())
             }
         }
-        return convertTickerModel
+        return convertTickerList
     }
 }
