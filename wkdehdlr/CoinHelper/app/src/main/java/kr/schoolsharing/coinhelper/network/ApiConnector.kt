@@ -4,6 +4,7 @@ import android.util.Log
 import kr.schoolsharing.coinhelper.data.UpbitItem
 import kr.schoolsharing.coinhelper.data.UpbitMarket
 import kr.schoolsharing.coinhelper.data.UpbitTicker
+import kr.schoolsharing.coinhelper.util.TextEditor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -18,7 +19,6 @@ class ApiConnector {
     val btcList: MutableList<UpbitItem> = ArrayList()
     var ethList: MutableList<UpbitItem> = ArrayList()
     val usdtList: MutableList<UpbitItem> = ArrayList()
-    var upbitMarketStr = ""
 
     fun setUpbitMarket() {
         val retrofit = Retrofit.Builder()
@@ -38,16 +38,7 @@ class ApiConnector {
 
             override fun onResponse(call: Call<List<UpbitMarket>>, response: Response<List<UpbitMarket>>) {
                 response.body()?.let {
-                    val list = response.body()
-                    for (item in list!!) {
-//                        setUpbitTicker(item.market)
-                        upbitMarketStr += (item.market + ",")
-                    }
-//                    list.joinToString(",")
-                    upbitMarketStr = upbitMarketStr.substring(0, upbitMarketStr.length - 1)
-//                    list.joinToString(","){it.market}
-                    setUpbitTicker(upbitMarketStr)
-                    Log.d("success :: ", upbitMarketStr)
+                    setUpbitTicker(it.joinToString(",") { it.market })
                 }
             }
         })
@@ -78,17 +69,13 @@ class ApiConnector {
 
                         val category = item.market.split("-")[0]
                         val name = item.market.split("-")[1]
-                        val price = when {
-                            item.tradePrice.toInt() > 0 -> String.format("%,d", item.tradePrice.toInt())
-                            else -> String.format("%,f", item.tradePrice)
-                        }
 
                         val data = UpbitItem(
                             name,
-                            price,
+                            TextEditor.makeTradePrice(item.tradePrice),
                             item.change,
-                            String.format("%.2f%%", item.signedChangeRate * 100),
-                            String.format("%,d", item.accTradePrice24h.toInt())
+                            TextEditor.makeSignedChangeRate(item.signedChangePrice),
+                            TextEditor.makeAccTradePrice24h(item.accTradePrice24h)
                         )
 
                         when (category) {
