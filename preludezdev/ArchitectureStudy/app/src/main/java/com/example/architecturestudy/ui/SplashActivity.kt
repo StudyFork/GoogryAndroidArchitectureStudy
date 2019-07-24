@@ -2,7 +2,6 @@ package com.example.architecturestudy.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.architecturestudy.R
@@ -11,8 +10,6 @@ import com.example.architecturestudy.data.source.CoinsDataSource
 import com.example.architecturestudy.data.source.CoinsRepository
 
 class SplashActivity : AppCompatActivity() {
-
-    private val delayTime = 1300L //스플래시 화면에 머무는 시간
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,9 +35,9 @@ class SplashActivity : AppCompatActivity() {
                     }
 
                     // 메인엑티비티로 이동
-                    Handler().postDelayed({
-                        startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-                    }, delayTime)
+                    startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+
+                    finish() // 현재액티비티 종료
                 }
 
                 override fun onDataNotAvailable() {
