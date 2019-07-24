@@ -27,15 +27,15 @@ object CoinsRepository : CoinsDataSource {
         //local로 데이터를 받아오는 기능이 생기면 추가 구현해야함.
     }
 
-    override fun getCoinTicker(coin: String, callback: CoinsDataSource.GetCoinTickerCallback) {
+    override fun getCoinTickers(markets: String, callback: CoinsDataSource.GetCoinTickersCallback) {
         //현재는 remote하고만 연결해준다.
-        coinsRemoteDataSource.getCoinTicker(coin, object : CoinsDataSource.GetCoinTickerCallback {
-            override fun onTickerLoaded(tickers: List<CoinTickerResponse>) {
-                callback.onTickerLoaded(tickers)
+        coinsRemoteDataSource.getCoinTickers(markets, object : CoinsDataSource.GetCoinTickersCallback {
+            override fun onTickersLoaded(tickers: List<CoinTickerResponse>) {
+                callback.onTickersLoaded(tickers)
             }
 
             override fun onDataNotAvailable() {
-                Log.d("test", "getCoinTicker data not available")
+                Log.d("test", "getCoinTickers data not available")
             }
         })
 

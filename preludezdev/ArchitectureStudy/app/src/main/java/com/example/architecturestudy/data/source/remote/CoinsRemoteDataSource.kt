@@ -42,9 +42,9 @@ object CoinsRemoteDataSource : CoinsDataSource {
             })
     }
 
-    override fun getCoinTicker(coin: String, callback: CoinsDataSource.GetCoinTickerCallback) {
+    override fun getCoinTickers(markets: String, callback: CoinsDataSource.GetCoinTickersCallback) {
         coinApiService
-            .getCurrTicker(coin)
+            .getCoinTickers(markets)
             .enqueue(object : Callback<List<CoinTickerResponse>> {
                 override fun onFailure(call: Call<List<CoinTickerResponse>>, t: Throwable) {
                     t.printStackTrace()
@@ -54,7 +54,7 @@ object CoinsRemoteDataSource : CoinsDataSource {
                     call: Call<List<CoinTickerResponse>>,
                     response: Response<List<CoinTickerResponse>>
                 ) {
-                    response.body()?.let { callback.onTickerLoaded(it) }
+                    response.body()?.let { callback.onTickersLoaded(it) }
                 }
             })
     }

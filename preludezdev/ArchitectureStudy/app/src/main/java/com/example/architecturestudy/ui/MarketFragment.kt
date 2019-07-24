@@ -4,18 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.data.Coin
 import com.example.architecturestudy.data.CoinTickerResponse
-import com.example.architecturestudy.network.NetworkHelper
+import com.example.architecturestudy.data.source.CoinsDataSource
+import com.example.architecturestudy.data.source.CoinsRepository
 import com.example.architecturestudy.ui.MainActivity
 import com.example.architecturestudy.ui.RecyclerViewAdapter
 import com.example.architecturestudy.util.Util
 import kotlinx.android.synthetic.main.fragment_market.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MarketFragment : Fragment() {
 
@@ -62,30 +61,24 @@ class MarketFragment : Fragment() {
     fun loadData(markets: HashSet<String>) {
         rvAdapter.clearData()
 
-        var marketList = markets.joinToString(separator = ",")
+        var markets = markets.joinToString(separator = ",")
 
-        //Ticker 정보들 가져오기
-        NetworkHelper
-            .coinApiService
-            .getCurrTicker(marketList)
-            .enqueue(object : Callback<List<CoinTickerResponse>> {
-                override fun onFailure(call: Call<List<CoinTickerResponse>>, t: Throwable) {
-                    t.printStackTrace()
-                }
+        //Tickers 정보 가져오기
 
-                override fun onResponse(
-                    call: Call<List<CoinTickerResponse>>,
-                    response: Response<List<CoinTickerResponse>>
-                ) {
-                    if (response.isSuccessful) {
-                        var list = response.body()
-                        for (ticker in list!!) {
-                            //ticker 를 Coin 클래스로 변환해서 저장
-                            rvAdapter.addData(convertTickerIntoCoin(ticker))
-                        }
+        CoinsRepository
+            .getCoinTickers(markets, object : CoinsDataSource.GetCoinTickersCallback {
+                override fun onTickersLoaded(tickers: List<CoinTickerResponse>) {
+                    for (ticker in tickers) {
+                        //ticker 를 Coin 클래스로 변환해서 저장
+                        rvAdapter.addData(convertTickerIntoCoin(ticker))
                     }
                 }
+
+                override fun onDataNotAvailable() {
+                    Toast.makeText(context, "Ticker 데이터를 불러오지 못했습니다.", Toast.LENGTH_SHORT)
+                }
             })
+
     }
 
     fun convertTickerIntoCoin(ticker: CoinTickerResponse): Coin {

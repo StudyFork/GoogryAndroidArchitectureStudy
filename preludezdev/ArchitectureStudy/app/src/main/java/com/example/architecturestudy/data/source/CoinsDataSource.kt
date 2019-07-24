@@ -11,13 +11,13 @@ interface CoinsDataSource {
         fun onDataNotAvailable()
     }
 
-    interface GetCoinTickerCallback {
-        fun onTickerLoaded(tickers: List<CoinTickerResponse>)
+    interface GetCoinTickersCallback {
+        fun onTickersLoaded(tickers: List<CoinTickerResponse>)
 
         fun onDataNotAvailable()
     }
 
     fun getAllMarket(callback: GetAllMarketCallback)
 
-    fun getCoinTicker(coin: String, callback: GetCoinTickerCallback)
+    fun getCoinTickers(markets: String, callback: GetCoinTickersCallback)
 }
