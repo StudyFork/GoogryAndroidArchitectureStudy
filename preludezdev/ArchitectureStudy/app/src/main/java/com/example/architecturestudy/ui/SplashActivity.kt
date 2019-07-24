@@ -8,6 +8,8 @@ import com.example.architecturestudy.R
 import com.example.architecturestudy.data.CoinMarketResponse
 import com.example.architecturestudy.data.source.CoinsDataSource
 import com.example.architecturestudy.data.source.CoinsRepository
+import com.example.architecturestudy.data.source.local.CoinsLocalDataSource
+import com.example.architecturestudy.data.source.remote.CoinsRemoteDataSource
 
 class SplashActivity : AppCompatActivity() {
 
@@ -21,6 +23,7 @@ class SplashActivity : AppCompatActivity() {
     //전체 코인시장목록 불러와서 MainActivity에 있는 전역변수에 저장하고 이동
     private fun moveToMainActivity() {
         CoinsRepository
+            .getInstance(CoinsRemoteDataSource, CoinsLocalDataSource)
             .getAllMarket(object : CoinsDataSource.GetAllMarketCallback {
                 override fun onAllMarketLoaded(markets: List<CoinMarketResponse>) {
                     for (currMarket in markets) {

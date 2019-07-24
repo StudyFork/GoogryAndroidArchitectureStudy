@@ -11,6 +11,8 @@ import com.example.architecturestudy.data.Coin
 import com.example.architecturestudy.data.CoinTickerResponse
 import com.example.architecturestudy.data.source.CoinsDataSource
 import com.example.architecturestudy.data.source.CoinsRepository
+import com.example.architecturestudy.data.source.local.CoinsLocalDataSource
+import com.example.architecturestudy.data.source.remote.CoinsRemoteDataSource
 import com.example.architecturestudy.ui.MainActivity
 import com.example.architecturestudy.ui.RecyclerViewAdapter
 import com.example.architecturestudy.util.Util
@@ -65,6 +67,7 @@ class MarketFragment : Fragment() {
         val markets = marketList.joinToString(separator = ",")
 
         CoinsRepository
+            .getInstance(CoinsRemoteDataSource, CoinsLocalDataSource)
             .getCoinTickers(markets, object : CoinsDataSource.GetCoinTickersCallback {
                 override fun onTickersLoaded(tickers: List<CoinTickerResponse>) {
                     val list = mutableListOf<Coin>()

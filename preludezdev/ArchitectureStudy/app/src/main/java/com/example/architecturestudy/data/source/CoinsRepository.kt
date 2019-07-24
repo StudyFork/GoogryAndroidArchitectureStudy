@@ -3,13 +3,11 @@ package com.example.architecturestudy.data.source
 import android.util.Log
 import com.example.architecturestudy.data.CoinMarketResponse
 import com.example.architecturestudy.data.CoinTickerResponse
-import com.example.architecturestudy.data.source.local.CoinsLocalDataSource
-import com.example.architecturestudy.data.source.remote.CoinsRemoteDataSource
 
-object CoinsRepository : CoinsDataSource {
-    private val coinsRemoteDataSource: CoinsRemoteDataSource = CoinsRemoteDataSource
-    private val coinsLocalDataSource: CoinsLocalDataSource = CoinsLocalDataSource
-
+class CoinsRepository(
+    val coinsRemoteDataSource: CoinsDataSource,
+    val coinsLocalDataSource: CoinsDataSource
+) : CoinsDataSource {
 
     override fun getAllMarket(callback: CoinsDataSource.GetAllMarketCallback) {
 
@@ -39,8 +37,18 @@ object CoinsRepository : CoinsDataSource {
             }
         })
 
-
         //local로 데이터를 받아오는 기능이 생기면 추가 구현해야함.
+    }
+
+    companion object {
+        private var INSTANCE: CoinsRepository? = null
+
+        fun getInstance(
+            coinsRemoteDataSource: CoinsDataSource,
+            coinsLocalDataSource: CoinsDataSource
+        ): CoinsRepository {
+            return INSTANCE ?: CoinsRepository(coinsRemoteDataSource, coinsLocalDataSource).apply { INSTANCE = this }
+        }
     }
 
 }
