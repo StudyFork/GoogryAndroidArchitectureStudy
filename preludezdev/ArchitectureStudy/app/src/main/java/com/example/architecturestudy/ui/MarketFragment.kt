@@ -58,19 +58,23 @@ class MarketFragment : Fragment() {
         }
     }
 
-    private fun loadData(markets: HashSet<String>) {
+    private fun loadData(marketList: HashSet<String>) {
         rvAdapter.clearData()
 
         //Tickers 정보 가져오기
-        var markets = markets.joinToString(separator = ",")
+        val markets = marketList.joinToString(separator = ",")
 
         CoinsRepository
             .getCoinTickers(markets, object : CoinsDataSource.GetCoinTickersCallback {
                 override fun onTickersLoaded(tickers: List<CoinTickerResponse>) {
+                    val list = mutableListOf<Coin>()
+
                     for (ticker in tickers) {
                         //ticker 를 Coin 클래스로 변환해서 저장
-                        rvAdapter.addData(convertTickerIntoCoin(ticker))
+                        list.add(convertTickerIntoCoin(ticker))
                     }
+
+                    rvAdapter.setData(list)
                 }
 
                 override fun onDataNotAvailable() {
