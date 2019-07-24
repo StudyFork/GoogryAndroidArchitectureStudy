@@ -19,7 +19,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
 
     fun addData(data: Coin) {
         coins.add(data)
-        notifyDataSetChanged()
+        notifyItemInserted(coins.lastIndex)
     }
 
     fun setData(data: List<Coin>) {
