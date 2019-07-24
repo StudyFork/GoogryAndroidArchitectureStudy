@@ -3,10 +3,11 @@ package com.studyfirstproject.showcoin
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.studyfirstproject.data.CoinDataSource
 import com.studyfirstproject.data.model.TickerModel
 
-class CoinViewModel(private val repository: CoinDataSource) {
+class CoinViewModel(private val repository: CoinDataSource) : ViewModel() {
 
     private var isFirstLoading = true
     private val _isLoading = MutableLiveData<Boolean>()
