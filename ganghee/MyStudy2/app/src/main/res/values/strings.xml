@@ -49,4 +49,7 @@
     <string name="menu">메뉴</string>
     <string name="space_slash_unit">/</string>
     <string name="exchange_name">거래소명</string>
+
+    <string name="test_text">테스트글자</string>
+    <string name="test_number">1234.5678</string>
 </resources>

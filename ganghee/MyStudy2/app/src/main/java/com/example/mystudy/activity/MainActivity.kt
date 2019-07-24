@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         viewPager.adapter = ViewPagerAdapter(supportFragmentManager, num_fragment = 4)
 
-        /*      TabLayout과 ViewPager를 연결한다!!    */
+        //TabLayout과 ViewPager를 연결한다!!
         tabLayout.setupWithViewPager(viewPager)
 
         tabLayout.getTabAt(0)!!.text = "KRW"
