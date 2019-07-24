@@ -9,7 +9,7 @@ import study.architecture.model.vo.Ticker
 object Repository {
 
     fun getMarketList(index: MainFragment.FragIndex): Single<String> =
-        RemoteDataSource.paresMarketList()
+        RemoteDataSource.getMarkets()
             .observeOn(AndroidSchedulers.mainThread())
             .map { list ->
                 list.filter { filterData -> filterData.market.startsWith(index.name) }
@@ -18,7 +18,7 @@ object Repository {
 
 
     fun getTickerList(listName: String): Single<MutableList<Ticker>> =
-        RemoteDataSource.parseTickerList(listName)
+        RemoteDataSource.getTickers(listName)
 
 
 }
