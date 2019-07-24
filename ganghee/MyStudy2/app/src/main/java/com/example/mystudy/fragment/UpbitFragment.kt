@@ -1,19 +1,19 @@
 package com.example.mystudy.fragment
 
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mystudy.R
-import com.example.mystudy.adapter.RecyclerViewAdapter
-import com.example.mystudy.network.RetrofitClient
+import com.example.mystudy.adapter.TickerAdapter
+import com.example.mystudy.data.UpbitRepository
 import com.example.mystudy.network.TickerResponse
-import com.example.mystudy.network.UpbitApi
+import com.example.mystudy.network.UpbitService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -22,10 +22,10 @@ import org.jetbrains.anko.support.v4.ctx
 
 class UpbitFragment(tabName: String) : Fragment() {
 
-    lateinit var recyclerViewAdapter: RecyclerViewAdapter
-    internal lateinit var jsonApi: UpbitApi
+    private lateinit var tickerAdapter: TickerAdapter
     private val compositeDisposable = CompositeDisposable()
     var firstMarket = tabName
+    private val repository: UpbitRepository by lazy { UpbitRepository(UpbitService.getInstance().upbitApi) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,53 +35,35 @@ class UpbitFragment(tabName: String) : Fragment() {
         return inflater.inflate(R.layout.fragment_upbit, container, false)
     }
 
+    @SuppressLint("CheckResult")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         var dataList: ArrayList<TickerResponse> = ArrayList()
 
-        val retrofit = RetrofitClient.instance
-        jsonApi = retrofit.create(UpbitApi::class.java)
-
-        recyclerViewAdapter = RecyclerViewAdapter(context!!, dataList)
-        rv_korean.adapter = recyclerViewAdapter
+        tickerAdapter = TickerAdapter(context!!, dataList)
+        rv_korean.adapter = tickerAdapter
         rv_korean.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
-        getMarketResponse()
-    }
-
-    private fun getMarketResponse() {
-
-        compositeDisposable.add(
-            jsonApi.getMarkets()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map {
-                    it.map {
-                        it.market
-                    }.joinToString(",")
-                }
-                .subscribe({
-                    jsonApi.getTickers(it)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .map {
-                            it.filter{
-                                it.market.split("-")[0] == firstMarket
-                            }
+        repository.getMarket()
+            .subscribe { it ->
+                repository.getTicker(it)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .map {
+                        it.filter {
+                            it.market.split("-")[0] == firstMarket
                         }
-                        .subscribe({
-                            displayData(it)
-                        }, {
-                        })
-                }, {
-                        Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                    }
+                    .subscribe({
+                        displayData(it)
+                    }, {
                     })
-        )
+            }
     }
 
     private fun displayData(posts: List<TickerResponse>?) {
-        val adapter = RecyclerViewAdapter(ctx, posts!!)
+        val adapter = TickerAdapter(ctx, posts!!)
         rv_korean.adapter = adapter
     }
 
@@ -90,3 +72,4 @@ class UpbitFragment(tabName: String) : Fragment() {
         super.onStop()
     }
 }
+
