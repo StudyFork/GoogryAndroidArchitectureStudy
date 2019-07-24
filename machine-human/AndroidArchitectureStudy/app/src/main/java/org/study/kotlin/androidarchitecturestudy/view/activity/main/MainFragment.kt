@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.widget.Toast
 import androidx.databinding.library.baseAdapters.BR
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.study.kotlin.androidarchitecturestudy.R
 import org.study.kotlin.androidarchitecturestudy.api.model.TickerModel
@@ -33,14 +36,22 @@ i = Presenter : BasePresenter
 f = requestDataFromTickerRepository(marketName: String)
  */
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
-    private lateinit var mainViewModel: MainViewModel
+
+    @Suppress("UNCHECKED_CAST")
+    private val mainViewModel by lazy {
+        ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T =
+                MainViewModel(TickerRepository(TickerRemoteDataSource())) as T
+        })[MainViewModel::class.java]
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         recyclerview_mainfragment.run {
             setHasFixedSize(true)
             val message = arguments!!.getString(EXTRA_MESSAGE)
 
-            mainViewModel = MainViewModel(TickerRepository(TickerRemoteDataSource()))
             mainViewModel.getTickerListFromRemoteDataSource(message)
 
             bind {
