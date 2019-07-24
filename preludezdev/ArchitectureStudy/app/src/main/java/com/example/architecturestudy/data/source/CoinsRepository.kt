@@ -13,7 +13,7 @@ object CoinsRepository : CoinsDataSource {
 
     override fun getAllMarket(callback: CoinsDataSource.GetAllMarketCallback) {
 
-        //현재는 remote하고만 연결해준다.
+        //현재는 RemoteDataSource만 연결해준다.
         coinsRemoteDataSource.getAllMarket(object : CoinsDataSource.GetAllMarketCallback {
             override fun onAllMarketLoaded(markets: List<CoinMarketResponse>) {
                 callback.onAllMarketLoaded(markets)
@@ -28,7 +28,7 @@ object CoinsRepository : CoinsDataSource {
     }
 
     override fun getCoinTickers(markets: String, callback: CoinsDataSource.GetCoinTickersCallback) {
-        //현재는 remote하고만 연결해준다.
+        //현재는 RemoteDataSource만 연결해준다.
         coinsRemoteDataSource.getCoinTickers(markets, object : CoinsDataSource.GetCoinTickersCallback {
             override fun onTickersLoaded(tickers: List<CoinTickerResponse>) {
                 callback.onTickersLoaded(tickers)
