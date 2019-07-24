@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit
 class MainPresenter(private val view: MainContract.View, index: MainFragment.FragIndex) :
     MainContract.Presenter {
     private val dispose: Disposable
-    private var list = ""
+    private lateinit var list : String
     private val compositeDisposable = CompositeDisposable()
 
     init {
