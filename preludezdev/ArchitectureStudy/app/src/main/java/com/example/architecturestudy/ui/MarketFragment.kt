@@ -1,10 +1,10 @@
 package com.example.architecturestudy
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.data.Coin
@@ -58,12 +58,11 @@ class MarketFragment : Fragment() {
         }
     }
 
-    fun loadData(markets: HashSet<String>) {
+    private fun loadData(markets: HashSet<String>) {
         rvAdapter.clearData()
 
-        var markets = markets.joinToString(separator = ",")
-
         //Tickers 정보 가져오기
+        var markets = markets.joinToString(separator = ",")
 
         CoinsRepository
             .getCoinTickers(markets, object : CoinsDataSource.GetCoinTickersCallback {
@@ -75,7 +74,7 @@ class MarketFragment : Fragment() {
                 }
 
                 override fun onDataNotAvailable() {
-                    Toast.makeText(context, "Ticker 데이터를 불러오지 못했습니다.", Toast.LENGTH_SHORT)
+                    Log.d("test", "All Market Data Not Available")
                 }
             })
 
