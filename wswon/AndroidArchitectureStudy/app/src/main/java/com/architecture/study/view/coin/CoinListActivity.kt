@@ -15,6 +15,13 @@ class CoinListActivity : AppCompatActivity() {
 
     private lateinit var marketList: List<MarketResponse>
 
+    private val tabList = listOf(
+        R.string.monetary_unit_1,
+        R.string.monetary_unit_2,
+        R.string.monetary_unit_3,
+        R.string.monetary_unit_4
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -71,12 +78,4 @@ class CoinListActivity : AppCompatActivity() {
 
     }
 
-    companion object {
-        val tabList = listOf(
-            R.string.monetary_unit_1,
-            R.string.monetary_unit_2,
-            R.string.monetary_unit_3,
-            R.string.monetary_unit_4
-        )
-    }
 }
