@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.android.studyfork.ui.TikcerListFragment
+import com.android.studyfork.ui.TickerListFragment
 
 class ViewpagerAdapter(fragmentManager : FragmentManager) :
     FragmentPagerAdapter(fragmentManager){
@@ -14,7 +14,7 @@ class ViewpagerAdapter(fragmentManager : FragmentManager) :
 
     override fun getItem(position: Int): Fragment  {
         val item = marketDataSet?.get(position) ?:""
-        return TikcerListFragment.newInstance(item)
+        return TickerListFragment.newInstance(item)
     }
 
     override fun getCount(): Int  = marketDataSet?.size ?:0
