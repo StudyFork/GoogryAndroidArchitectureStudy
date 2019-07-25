@@ -12,24 +12,13 @@ import kr.schoolsharing.coinhelper.R
 import kr.schoolsharing.coinhelper.model.UpbitItem
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- *
- */
 class FragmentUSDT(val itemList: List<UpbitItem>) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_fragment_usdt, container, false)
-        // Inflate the layout for this fragment
         val mRecyclerViewKRW = view.findViewById<RecyclerView>(R.id.mRecyclerView_USDT)
 
 

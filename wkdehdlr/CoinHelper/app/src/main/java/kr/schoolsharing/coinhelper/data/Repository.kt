@@ -10,24 +10,6 @@ class Repository : UpbitDataSource {
     private val upbitRemoteDataSource: UpbitRemoteDataSource = UpbitRemoteDataSource
     private val upbitLocalDataSource: UpbitLocalDataSource = UpbitLocalDataSource
 
-
-    fun getTickerFromLocal(onSuccess: () -> Unit, onError: (Throwable) -> Unit) {
-        try {
-            onSuccess()
-        } catch (e: Throwable) {
-            onError(e)
-        }
-    }
-
-    fun getTickerFromApi(onSuccess: () -> Unit, onError: (Throwable) -> Unit) {
-        try {
-            onSuccess()
-        } catch (e: Throwable) {
-            onError(e)
-        }
-    }
-
-
     override fun getMarket(callback: UpbitDataSource.GetMarketCallback) {
         getMarketFromRemoteDataSource(callback)
     }
