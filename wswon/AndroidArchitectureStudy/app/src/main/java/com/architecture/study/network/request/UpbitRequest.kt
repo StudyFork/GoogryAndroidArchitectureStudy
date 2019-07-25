@@ -11,13 +11,18 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 class UpbitRequest {
-    val URL = "https://api.upbit.com"
-    fun getMarketList(listener: UpbitRequestListener<MarketResponse>) {
-        val retrofit = Retrofit.Builder()
+
+    companion object{
+        private const val URL = "https://api.upbit.com"
+        private val retrofit = Retrofit.Builder()
             .baseUrl(URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        val apiService = retrofit.create(UpbitApi::class.java)
+        private val apiService = retrofit.create(UpbitApi::class.java)
+    }
+
+
+    fun getMarketList(listener: UpbitRequestListener<MarketResponse>) {
 
         apiService.getMarketData().enqueue(object : Callback<List<MarketResponse>> {
             override fun onResponse(call: Call<List<MarketResponse>>, response: Response<List<MarketResponse>>) {
@@ -40,15 +45,8 @@ class UpbitRequest {
     }
 
     fun getTickerList(marketNames: String, listener: UpbitRequestListener<TickerResponse>) {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val apiService = retrofit.create(UpbitApi::class.java)
 
-
-        val call = apiService.getTickerData(marketNames)
-        call.enqueue(object : Callback<List<TickerResponse>> {
+        apiService.getTickerData(marketNames).enqueue(object : Callback<List<TickerResponse>> {
             override fun onResponse(call: Call<List<TickerResponse>>, response: Response<List<TickerResponse>>) {
                 if (response.isSuccessful) {
                     val tickerList = response.body()
