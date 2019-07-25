@@ -24,7 +24,7 @@ import org.jetbrains.anko.support.v4.ctx
 class UpbitFragment(tabName: String) : Fragment() {
 
     private val compositeDisposable = CompositeDisposable()
-    var firstMarket = tabName
+    private val firstMarket = tabName
     private val repository: UpbitRepository by lazy { UpbitRepository(UpbitService.getInstance().upbitApi) }
 
     override fun onCreateView(
@@ -67,7 +67,7 @@ class UpbitFragment(tabName: String) : Fragment() {
             rv_tickers.adapter = TickerAdapter(ctx, tickerList)
             rv_tickers.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         }
-    } 
+    }
 
     override fun onStop() {
         compositeDisposable.clear()
