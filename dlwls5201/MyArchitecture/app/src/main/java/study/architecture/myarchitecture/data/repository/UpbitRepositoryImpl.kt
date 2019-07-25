@@ -18,47 +18,32 @@ class UpbitRepositoryImpl(
 
     override fun getGroupedMarkets(): Single<Map<String, List<UpbitMarket>>> {
         //Timber.d("isOnline : $isOnline")
-        return if (isOnline) {
-            api.getMarkets()
-                .flatMap { markets ->
+        val dataSource = if (isOnline) api else dao
 
+        return dataSource.getMarkets()
+            .flatMap { markets ->
+
+                if (isOnline) {
                     dao.clearMarkets()
                     for (market in markets) {
                         //Timber.d("api market 저장 -> $market")
                         dao.insertMarket(market)
                     }
-
-                    val pattern = Pattern.compile("^([a-zA-Z]*)-([a-zA-Z]*)$")
-
-                    val groupMarket = markets
-                        .filter { pattern.matcher(it.market).find() }
-                        .groupBy {
-                            val idx = it.market.indexOf("-")
-                            it.market.substring(0, idx)
-                        }
-
-                    Single.just(groupMarket)
                 }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-        } else {
-            dao.getMarkets()
-                .flatMap { markets ->
 
-                    val pattern = Pattern.compile("^([a-zA-Z]*)-([a-zA-Z]*)$")
+                val pattern = Pattern.compile("^([a-zA-Z]*)-([a-zA-Z]*)$")
 
-                    val groupMarket = markets
-                        .filter { pattern.matcher(it.market).find() }
-                        .groupBy {
-                            val idx = it.market.indexOf("-")
-                            it.market.substring(0, idx)
-                        }
+                val groupMarket = markets
+                    .filter { pattern.matcher(it.market).find() }
+                    .groupBy {
+                        val idx = it.market.indexOf("-")
+                        it.market.substring(0, idx)
+                    }
 
-                    Single.just(groupMarket)
-                }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-        }
+                Single.just(groupMarket)
+            }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
     }
 
     override fun getTickers(markets: String): Single<List<UpbitTicker>> {
