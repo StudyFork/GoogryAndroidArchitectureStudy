@@ -2,6 +2,9 @@ package sample.nackun.com.studyfirst.ui.ticker
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.ticker_fragment.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -36,17 +39,24 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
     }
 
     private fun initViewModel() {
-        vm = TickerViewModel(
-            Repository(
-                RemoteDataSource(
-                    Retrofit.Builder()
-                        .baseUrl("https://api.upbit.com/")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build()
-                        .create(UpbitApi::class.java)
-                )
-            )
-        )
+        vm = ViewModelProviders.of(
+            this,
+            object : ViewModelProvider.Factory {
+                @Suppress("UNCHECKED_CAST")
+                override fun <T : ViewModel?> create(modelClass: Class<T>): T =
+                    TickerViewModel(
+                        Repository(
+                            RemoteDataSource(
+                                Retrofit.Builder()
+                                    .baseUrl("https://api.upbit.com/")
+                                    .addConverterFactory(GsonConverterFactory.create())
+                                    .build()
+                                    .create(UpbitApi::class.java)
+                            )
+                        )
+                    ) as T
+            }
+        )[TickerViewModel::class.java]
 
         binding.setVariable(BR.vm, vm)
 
