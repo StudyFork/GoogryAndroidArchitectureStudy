@@ -1,7 +1,6 @@
 package study.architecture.myarchitecture.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -11,6 +10,7 @@ import study.architecture.myarchitecture.data.model.UpbitTicker
 import study.architecture.myarchitecture.util.Filter
 import study.architecture.myarchitecture.util.Filter.ASC
 import study.architecture.myarchitecture.util.Filter.DESC
+import study.architecture.myarchitecture.util.inflate
 import study.architecture.myarchitecture.util.setTradeDiffColor
 
 class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
@@ -115,14 +115,8 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
         }
 
         companion object {
-            fun newInstance(parent: ViewGroup, listener: TickerClickListener?): TickerViewHolder {
-
-                return TickerViewHolder(
-                    LayoutInflater.from(parent.context).inflate(R.layout.item_ticker, parent, false),
-                    listener
-                )
-
-            }
+            fun newInstance(parent: ViewGroup, listener: TickerClickListener?) =
+                TickerViewHolder(parent.inflate(R.layout.item_ticker), listener)
         }
     }
 
