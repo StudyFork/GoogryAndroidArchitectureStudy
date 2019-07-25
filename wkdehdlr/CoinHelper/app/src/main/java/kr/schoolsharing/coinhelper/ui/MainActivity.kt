@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
 
 
         loadUpbitMarket()
-        loadUpbitTicker()
         adaptPager()
 
     }
@@ -36,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         repository.getMarket(object : UpbitDataSource.GetMarketCallback {
             override fun onMarketLoaded(markets: List<UpbitMarket>) {
                 marketList = markets.joinToString(",") { it.market }
+                loadUpbitTicker()
             }
 
             override fun onDataNotAvailable(t: Throwable) {
