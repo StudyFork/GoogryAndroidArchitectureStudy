@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kr.schoolsharing.coinhelper.R
-import kr.schoolsharing.coinhelper.data.UpbitItem
+import kr.schoolsharing.coinhelper.model.UpbitItem
 
 
 // TODO: Rename parameter arguments, choose names that match

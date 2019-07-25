@@ -2,6 +2,8 @@ package kr.schoolsharing.coinhelper.data
 
 import kr.schoolsharing.coinhelper.data.local.UpbitLocalDataSource
 import kr.schoolsharing.coinhelper.data.remote.UpbitRemoteDataSource
+import kr.schoolsharing.coinhelper.model.UpbitMarket
+import kr.schoolsharing.coinhelper.model.UpbitTicker
 
 class Repository : UpbitDataSource {
 
@@ -40,8 +42,8 @@ class Repository : UpbitDataSource {
                 callback.onMarketLoaded(markets)
             }
 
-            override fun onDataNotAvailable() {
-                callback.onDataNotAvailable()
+            override fun onDataNotAvailable(t: Throwable) {
+                callback.onDataNotAvailable(t)
             }
         })
     }
@@ -52,8 +54,8 @@ class Repository : UpbitDataSource {
                 callback.onTickerLoaded(tickers)
             }
 
-            override fun onDataNotAvailable() {
-                callback.onDataNotAvailable()
+            override fun onDataNotAvailable(t: Throwable) {
+                callback.onDataNotAvailable(t)
             }
         })
 

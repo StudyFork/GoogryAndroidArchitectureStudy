@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kr.schoolsharing.coinhelper.R
-import kr.schoolsharing.coinhelper.data.UpbitItem
+import kr.schoolsharing.coinhelper.model.UpbitItem
 
 class MainRvAdapter(val context: Context, val itemList: List<UpbitItem>) :
     RecyclerView.Adapter<MainRvAdapter.Holder>() {
