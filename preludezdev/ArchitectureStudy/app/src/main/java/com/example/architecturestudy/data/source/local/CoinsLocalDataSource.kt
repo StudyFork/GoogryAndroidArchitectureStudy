@@ -7,7 +7,7 @@ object CoinsLocalDataSource : CoinsDataSource {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getCoinTickers(markets: String, callback: CoinsDataSource.GetCoinTickersCallback) {
+    override fun getCoinTickers(markets: List<String>, callback: CoinsDataSource.GetCoinTickersCallback) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

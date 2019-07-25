@@ -19,5 +19,5 @@ interface CoinsDataSource {
 
     fun getAllMarket(callback: GetAllMarketCallback)
 
-    fun getCoinTickers(markets: String, callback: GetCoinTickersCallback)
+    fun getCoinTickers(markets: List<String>, callback: GetCoinTickersCallback)
 }

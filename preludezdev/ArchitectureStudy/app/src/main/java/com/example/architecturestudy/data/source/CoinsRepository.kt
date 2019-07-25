@@ -25,7 +25,7 @@ class CoinsRepository(
         //local로 데이터를 받아오는 기능이 생기면 추가 구현해야함.
     }
 
-    override fun getCoinTickers(markets: String, callback: CoinsDataSource.GetCoinTickersCallback) {
+    override fun getCoinTickers(markets: List<String>, callback: CoinsDataSource.GetCoinTickersCallback) {
         //현재는 RemoteDataSource만 연결해준다.
         coinsRemoteDataSource.getCoinTickers(markets, object : CoinsDataSource.GetCoinTickersCallback {
             override fun onTickersLoaded(tickers: List<CoinTickerResponse>) {

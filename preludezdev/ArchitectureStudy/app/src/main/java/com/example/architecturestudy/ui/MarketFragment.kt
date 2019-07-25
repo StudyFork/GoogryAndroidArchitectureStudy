@@ -60,15 +60,13 @@ class MarketFragment : Fragment() {
         }
     }
 
-    private fun loadData(marketList: HashSet<String>) {
+    private fun loadData(marketList: List<String>) {
         rvAdapter.clearData()
 
         //Tickers 정보 가져오기
-        val markets = marketList.joinToString(separator = ",")
-
         CoinsRepository
             .getInstance(CoinsRemoteDataSource, CoinsLocalDataSource)
-            .getCoinTickers(markets, object : CoinsDataSource.GetCoinTickersCallback {
+            .getCoinTickers(marketList, object : CoinsDataSource.GetCoinTickersCallback {
                 override fun onTickersLoaded(tickers: List<CoinTickerResponse>) {
                     val list = mutableListOf<Coin>()
 

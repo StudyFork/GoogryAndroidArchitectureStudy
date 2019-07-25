@@ -42,9 +42,11 @@ object CoinsRemoteDataSource : CoinsDataSource {
             })
     }
 
-    override fun getCoinTickers(markets: String, callback: CoinsDataSource.GetCoinTickersCallback) {
+    override fun getCoinTickers(markets: List<String>, callback: CoinsDataSource.GetCoinTickersCallback) {
+        val marketsStr = markets.joinToString(separator = ",")
+
         coinApiService
-            .getCoinTickers(markets)
+            .getCoinTickers(marketsStr)
             .enqueue(object : Callback<List<CoinTickerResponse>> {
                 override fun onFailure(call: Call<List<CoinTickerResponse>>, t: Throwable) {
                     t.printStackTrace()

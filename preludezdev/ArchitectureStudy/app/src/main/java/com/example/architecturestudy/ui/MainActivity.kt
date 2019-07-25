@@ -9,10 +9,10 @@ class MainActivity : AppCompatActivity() {
 
     //각 마켓별 코인리스트
     companion object {
-        val KRW_MARKETS: HashSet<String> = HashSet()
-        val BTC_MARKETS: HashSet<String> = HashSet()
-        val ETH_MARKETS: HashSet<String> = HashSet()
-        val USDT_MARKETS: HashSet<String> = HashSet()
+        val KRW_MARKETS: MutableList<String> = mutableListOf()
+        val BTC_MARKETS: MutableList<String> = mutableListOf()
+        val ETH_MARKETS: MutableList<String> = mutableListOf()
+        val USDT_MARKETS: MutableList<String> = mutableListOf()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
