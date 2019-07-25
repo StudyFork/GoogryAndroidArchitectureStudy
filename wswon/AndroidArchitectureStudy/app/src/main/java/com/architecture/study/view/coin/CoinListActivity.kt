@@ -1,6 +1,7 @@
 package com.architecture.study.view.coin
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.architecture.study.R
 import com.architecture.study.data.source.CoinRepository
@@ -29,11 +30,12 @@ class CoinListActivity : AppCompatActivity() {
             }
 
             override fun onEmpty(str: String) {
+                Toast.makeText(this@CoinListActivity, "data Empty : $str", Toast.LENGTH_LONG).show()
 
             }
 
             override fun onFailure(str: String) {
-
+                Toast.makeText(this@CoinListActivity, "call failure : $str", Toast.LENGTH_LONG).show()
             }
         })
     }

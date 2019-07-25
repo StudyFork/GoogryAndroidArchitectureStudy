@@ -94,11 +94,11 @@ class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickLi
            }
 
            override fun onEmpty(str: String) {
-               Toast.makeText(requireContext(), str, Toast.LENGTH_LONG).show()
+               Toast.makeText(requireContext(), "data Empty : $str", Toast.LENGTH_LONG).show()
            }
 
            override fun onFailure(str: String) {
-               Toast.makeText(requireContext(), str, Toast.LENGTH_LONG).show()
+               Toast.makeText(requireContext(), "call failure : $str", Toast.LENGTH_LONG).show()
            }
        })
     }

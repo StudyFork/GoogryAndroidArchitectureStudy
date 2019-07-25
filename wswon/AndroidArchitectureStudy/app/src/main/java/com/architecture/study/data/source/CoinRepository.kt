@@ -15,11 +15,11 @@ class CoinRepository : CoinDataSource{
                 }
 
                 override fun onEmpty(str: String) {
-
+                    listener.onEmpty(str)
                 }
 
                 override fun onFailure(str: String) {
-
+                    listener.onFailure(str)
                 }
             })
         }
@@ -34,9 +34,11 @@ class CoinRepository : CoinDataSource{
                 }
 
                 override fun onEmpty(str: String) {
+                    listener.onEmpty(str)
                 }
 
                 override fun onFailure(str: String) {
+                    listener.onFailure(str)
                 }
             })
         }
