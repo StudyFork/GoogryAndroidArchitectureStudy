@@ -50,18 +50,15 @@ class MainActivity : AppCompatActivity() {
             override fun onTickerLoaded(tickers: List<UpbitTicker>) {
                 for (item in tickers) {
 
-                    val category = item.market.split("-")[0]
-                    val name = item.market.split("-")[1]
-
                     val data = UpbitItem(
-                        name,
+                        TextEditor.splitString(item.market, 1),
                         TextEditor.makeTradePrice(item.tradePrice),
                         item.change,
                         TextEditor.makeSignedChangeRate(item.signedChangePrice),
                         TextEditor.makeAccTradePrice24h(item.accTradePrice24h)
                     )
 
-                    when (category) {
+                    when (TextEditor.splitString(item.market, 0)) {
                         "KRW" -> upbitList.krwList.add(data)
                         "BTC" -> upbitList.btcList.add(data)
                         "ETH" -> upbitList.ethList.add(data)

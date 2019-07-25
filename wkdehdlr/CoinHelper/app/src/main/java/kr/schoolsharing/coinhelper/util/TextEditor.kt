@@ -9,5 +9,6 @@ object TextEditor {
 
     fun makeSignedChangeRate(param: Double) = String.format("%.2f", param * 100)
     fun makeAccTradePrice24h(param: Double) = String.format("%,d", param.toInt())
+    fun splitString(param: String, idx: Int) = param.split("-")[idx]
 
 }
