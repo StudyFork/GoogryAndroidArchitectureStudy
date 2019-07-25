@@ -3,10 +3,10 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".fragment.UpbitFragment">
+             tools:context=".ui.fragment.UpbitFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_korean"
+            android:id="@+id/rv_tickers"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
     </androidx.recyclerview.widget.RecyclerView>
