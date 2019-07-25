@@ -67,7 +67,7 @@ class UpbitFragment(tabName: String) : Fragment() {
             rv_tickers.adapter = TickerAdapter(ctx, tickerList)
             rv_tickers.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         }
-    }
+    } 
 
     override fun onStop() {
         compositeDisposable.clear()
