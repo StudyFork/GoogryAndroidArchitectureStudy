@@ -11,10 +11,12 @@ interface UpbitDataSource {
 
     interface GetTickerCallback {
 
-        fun onTickerLoaded(tickers: List<UpbitMarket>)
+        fun onTickerLoaded(tickers: List<UpbitTicker>)
         fun onDataNotAvailable()
 
     }
 
+    fun getMarket(callback: GetMarketCallback)
+    fun getTicker(markets: String, callback: GetTickerCallback)
 
 }
