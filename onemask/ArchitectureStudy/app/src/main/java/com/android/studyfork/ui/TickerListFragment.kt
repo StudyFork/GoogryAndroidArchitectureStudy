@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_krw.*
 import timber.log.Timber
 
-class TikcerListFragment : Fragment() {
+class TickerListFragment : Fragment() {
 
     private val upbitRepository: UpbitRepository by lazy { UpbitRepository(UpbitService.getInstance().upbitApi) }
 
@@ -27,7 +27,7 @@ class TikcerListFragment : Fragment() {
     @SuppressLint("CheckResult")
     private fun getTicker(){
         val markets = arguments?.getString(KEY_MARKETS) ?:""
-        upbitRepository.getTikcers(markets)
+        upbitRepository.getTicKers(markets)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -62,7 +62,7 @@ class TikcerListFragment : Fragment() {
 
     companion object {
         const val KEY_MARKETS = "markets"
-        fun newInstance(tickers: String) = TikcerListFragment().apply {
+        fun newInstance(tickers: String) = TickerListFragment().apply {
             arguments = Bundle().apply {
                 putString(KEY_MARKETS, tickers)
             }

@@ -9,5 +9,5 @@ import io.reactivex.Single
  */
 interface UpbitDataSource {
     fun getMarketAll(): Single<Map<String, List<UpbitMarketResponse>>>
-    fun getTikcers(margket: String): Single<List<UpbitTickerResponse>>
+    fun getTicKers(market: String): Single<List<UpbitTickerResponse>>
 }
