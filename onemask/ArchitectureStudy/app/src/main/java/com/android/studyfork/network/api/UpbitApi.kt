@@ -12,6 +12,6 @@ interface UpbitApi {
     fun getMarketAll(): Single<List<UpbitMarketResponse>>
 
     @GET("ticker")
-    fun getTikers(@Query("markets") markets: String?): Single<List<UpbitTickerResponse>>
+    fun getTickers(@Query("markets") markets: String?): Single<List<UpbitTickerResponse>>
 
 }
