@@ -24,15 +24,7 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
 
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.apply {
-            name.text = lists[position].market
-            tradePrice.text = lists[position].tradePrice
-            if (lists[position].changeRate.startsWith('-')) {
-                changeRate.setTextColor(Color.RED)
-            }
-            changeRate.text = lists[position].changeRate
-            accTradePrice24h.text = lists[position].accTradePrice24h
-        }
+        holder.bind(position)
     }
 
     fun updateList(list: List<ProcessingTicker>) {
@@ -43,9 +35,23 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name: TextView = itemView.findViewById(R.id.name)
-        val tradePrice: TextView = itemView.findViewById(R.id.trade_price)
-        val changeRate: TextView = itemView.findViewById(R.id.change_rate)
-        val accTradePrice24h: TextView = itemView.findViewById(R.id.acc_trade_price)
+        private val name: TextView = itemView.findViewById(R.id.name)
+        private val tradePrice: TextView = itemView.findViewById(R.id.trade_price)
+        private val changeRate: TextView = itemView.findViewById(R.id.change_rate)
+        private val accTradePrice24h: TextView = itemView.findViewById(R.id.acc_trade_price)
+
+        fun bind(position: Int) {
+            name.text = lists[position].market
+            tradePrice.text = lists[position].tradePrice
+            if (lists[position].changeRate[0] == '-') {
+                changeRate.setTextColor(Color.RED)
+            }
+            else{
+                changeRate.setTextColor(Color.BLUE)
+            }
+            changeRate.text = lists[position].changeRate
+            accTradePrice24h.text = lists[position].accTradePrice24h
+        }
+
     }
 }
