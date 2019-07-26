@@ -39,6 +39,11 @@ class UpbitRepository private constructor(
         )
     }
 
+    fun clearDisposes() {
+        upbitLocalDataSource?.compositeDisposable?.clear()
+        upbitRemoteDataSource.compositeDisposable.clear()
+    }
+
     companion object {
         private var instance: UpbitRepository? = null
 

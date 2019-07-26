@@ -9,7 +9,6 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import com.architecturestudy.util.CompositeDisposable
 
 abstract class BaseFragment<B : ViewDataBinding>(
     @LayoutRes
@@ -31,11 +30,6 @@ abstract class BaseFragment<B : ViewDataBinding>(
         )
         binding.lifecycleOwner = this
         return binding.root
-    }
-
-    override fun onDestroyView() {
-        CompositeDisposable.dispose()
-        super.onDestroyView()
     }
 
     fun showToast(msg: String?) = Toast.makeText(

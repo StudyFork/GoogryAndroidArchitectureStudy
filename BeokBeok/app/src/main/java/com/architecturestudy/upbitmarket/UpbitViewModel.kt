@@ -17,6 +17,11 @@ class UpbitViewModel(
         .apply { listOf(false, false, false, false) }
     private var isDESC: Boolean = false
 
+    override fun onCleared() {
+        upBitRepository.clearDisposes()
+        super.onCleared()
+    }
+
     fun showMarketPrice(prefix: String) {
         upBitRepository.getMarketPrice(
             prefix,
