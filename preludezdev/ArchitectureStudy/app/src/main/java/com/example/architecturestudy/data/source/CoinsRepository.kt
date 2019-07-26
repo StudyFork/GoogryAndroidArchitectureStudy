@@ -11,7 +11,7 @@ class CoinsRepository(
 
     override fun getAllMarket(callback: CoinsDataSource.GetAllMarketCallback) {
 
-        //현재는 RemoteDataSource만 연결해준다.
+        //현재는 RemoteDataSource 만 연결해준다.
         coinsRemoteDataSource.getAllMarket(object : CoinsDataSource.GetAllMarketCallback {
             override fun onAllMarketLoaded(markets: List<CoinMarketResponse>) {
                 callback.onAllMarketLoaded(markets)
@@ -25,8 +25,8 @@ class CoinsRepository(
         //local로 데이터를 받아오는 기능이 생기면 추가 구현해야함.
     }
 
-    override fun getCoinTickers(markets: List<String>, callback: CoinsDataSource.GetCoinTickersCallback) {
-        //현재는 RemoteDataSource만 연결해준다.
+    override fun getCoinTickers(markets: String, callback: CoinsDataSource.GetCoinTickersCallback) {
+        //현재는 RemoteDataSource 만 연결해준다.
         coinsRemoteDataSource.getCoinTickers(markets, object : CoinsDataSource.GetCoinTickersCallback {
             override fun onTickersLoaded(tickers: List<CoinTickerResponse>) {
                 callback.onTickersLoaded(tickers)

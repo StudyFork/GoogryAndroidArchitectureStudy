@@ -9,21 +9,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.data.Coin
+import com.example.architecturestudy.data.CoinMarketResponse
 import com.example.architecturestudy.data.CoinTickerResponse
 import com.example.architecturestudy.data.source.CoinsDataSource
 import com.example.architecturestudy.data.source.CoinsRepository
 import com.example.architecturestudy.data.source.local.CoinsLocalDataSource
 import com.example.architecturestudy.data.source.remote.CoinsRemoteDataSource
-import com.example.architecturestudy.ui.MainActivity
 import com.example.architecturestudy.ui.RecyclerViewAdapter
 import com.example.architecturestudy.util.Util
 import kotlinx.android.synthetic.main.fragment_market.*
 
 class MarketFragment : Fragment() {
 
-    private val repository = CoinsRepository
-        .getInstance(CoinsRemoteDataSource, CoinsLocalDataSource)
-
+    private val repository = CoinsRepository.getInstance(CoinsRemoteDataSource, CoinsLocalDataSource)
     private val rvAdapter = RecyclerViewAdapter()
 
     companion object {
@@ -32,10 +30,10 @@ class MarketFragment : Fragment() {
             val args = Bundle()
 
             when (market) {
-                "KRW" -> args.putSerializable("type", "KRW")
-                "BTC" -> args.putSerializable("type", "BTC")
-                "ETH" -> args.putSerializable("type", "ETH")
-                "USDT" -> args.putSerializable("type", "USDT")
+                "KRW" -> args.putSerializable("KEY_MARKET", "KRW")
+                "BTC" -> args.putSerializable("KEY_MARKET", "BTC")
+                "ETH" -> args.putSerializable("KEY_MARKET", "ETH")
+                "USDT" -> args.putSerializable("KEY_MARKET", "USDT")
             }
 
             fragment.arguments = args
@@ -53,39 +51,51 @@ class MarketFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = rvAdapter
 
-        //마켓별로 다르게 데이터 불러오기
-        var type = arguments?.get("type")
+        var keyMarket = arguments?.get("KEY_MARKET") as String
 
-        when (type) {
-            "KRW" -> loadData(MainActivity.KRW_MARKETS)
-            "BTC" -> loadData(MainActivity.BTC_MARKETS)
-            "ETH" -> loadData(MainActivity.ETH_MARKETS)
-            "USDT" -> loadData(MainActivity.USDT_MARKETS)
-        }
+        loadData(keyMarket) // 해당 마켓의 데이터 불러오기
     }
 
-    private fun loadData(marketList: List<String>) {
+    private fun loadData(keyMarket: String) {
         rvAdapter.clearData()
 
-        //Tickers 정보 가져오기
         repository
-            .getCoinTickers(marketList, object : CoinsDataSource.GetCoinTickersCallback {
-                override fun onTickersLoaded(tickers: List<CoinTickerResponse>) {
+            .getAllMarket(object : CoinsDataSource.GetAllMarketCallback {
+                override fun onAllMarketLoaded(markets: List<CoinMarketResponse>) {
+                    val marketList = mutableListOf<String>()
+                    markets.forEach {
+                        val currMarket = it.market
+                        if (currMarket.split('-')[0] == keyMarket) {
+                            marketList.add(currMarket)
+                        }
+                    }
 
-                    //map() 스트림 함수 : 컬렉션 내 인자를 변환하여 반환
-                    rvAdapter.setData(tickers.map {
-                        convertTickerIntoCoin(it)
-                    })
+                    val targetTickers = marketList.joinToString(separator = ",")
+
+                    repository
+                        .getCoinTickers(targetTickers, object : CoinsDataSource.GetCoinTickersCallback {
+                            override fun onTickersLoaded(tickers: List<CoinTickerResponse>) {
+
+                                //map() 스트림 함수 : 컬렉션 내 인자를 변환하여 반환
+                                //리싸이클러뷰 어댑터에 데이터 장착
+                                rvAdapter.setData(tickers.map {
+                                    convertTickerIntoCoin(it)
+                                })
+                            }
+
+                            override fun onDataNotAvailable() {
+                                Log.d("test", "All Market Data Not Available")
+                            }
+                        })
                 }
 
                 override fun onDataNotAvailable() {
-                    Log.d("test", "All Market Data Not Available")
+                    Log.d("test", "getAllMarket data not available")
                 }
             })
-
     }
 
-    fun convertTickerIntoCoin(ticker: CoinTickerResponse): Coin {
+    private fun convertTickerIntoCoin(ticker: CoinTickerResponse): Coin {
         //코인 이름
         var market = ticker.market.split("-")[1]
 

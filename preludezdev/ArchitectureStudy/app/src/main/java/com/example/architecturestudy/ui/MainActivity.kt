@@ -7,24 +7,17 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    //각 마켓별 코인리스트
-    companion object {
-        val KRW_MARKETS: MutableList<String> = mutableListOf()
-        val BTC_MARKETS: MutableList<String> = mutableListOf()
-        val ETH_MARKETS: MutableList<String> = mutableListOf()
-        val USDT_MARKETS: MutableList<String> = mutableListOf()
-    }
+    var vpAdapter = VpAdapter(supportFragmentManager)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         //뷰페이저 어댑터 연결
-        var vpAdapter = VpAdapter(supportFragmentManager)
         viewPager.adapter = vpAdapter
 
         //탭 레이아웃에 뷰페이저 연결
         tabLayout.setupWithViewPager(viewPager)
-        vpAdapter.notifyDataSetChanged()
+
     }
 }
