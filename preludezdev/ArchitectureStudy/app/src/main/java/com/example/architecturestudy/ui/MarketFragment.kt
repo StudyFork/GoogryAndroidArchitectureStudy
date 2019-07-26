@@ -80,9 +80,7 @@ class MarketFragment : Fragment() {
 
                                 //map() 스트림 함수 : 컬렉션 내 인자를 변환하여 반환
                                 //리싸이클러뷰 어댑터에 데이터 장착
-                                rvAdapter.setData(tickers.map {
-                                    convertTickerIntoCoin(it)
-                                })
+                                rvAdapter.setData(tickers.map(::convertTickerIntoCoin))
                             }
 
                             override fun onDataNotAvailable() {
