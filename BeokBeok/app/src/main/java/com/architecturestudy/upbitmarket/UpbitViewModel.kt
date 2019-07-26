@@ -17,39 +17,38 @@ class UpbitViewModel(
         .apply { listOf(false, false, false, false) }
     private var isDESC: Boolean = false
 
-    override fun onCleared() {
-        upBitRepository.clearDisposes()
-        super.onCleared()
-    }
-
     fun showMarketPrice(prefix: String) {
-        upBitRepository.getMarketPrice(
-            prefix,
-            onSuccess = {
-                for (i in 0 until it.size) {
-                    upBitRepository.saveTicker(it[i])
+        addDisposable(
+            upBitRepository.getMarketPrice(
+                prefix,
+                onSuccess = {
+                    for (i in 0 until it.size) {
+                        upBitRepository.saveTicker(it[i])
+                    }
+                    marketPriceList.value = NumberFormatter.convertTo(it)
+                },
+                onFail = {
+                    errMsg.value = it
                 }
-                marketPriceList.value = NumberFormatter.convertTo(it)
-            },
-            onFail = {
-                errMsg.value = it
-            }
+            )
         )
     }
 
     fun sort(sortType: String) {
         setSelectedTypeList(sortType)
         isSortByDESC.value = isDESC
-        upBitRepository.sort(
-            sortType,
-            isDESC,
-            onSuccess = {
-                RxEventBus.sendEvent(NumberFormatter.convertTo(it))
-                isDESC = !isDESC
-            },
-            onFail = {
-                RxEventBus.sendEvent(it)
-            }
+        addDisposable(
+            upBitRepository.sort(
+                sortType,
+                isDESC,
+                onSuccess = {
+                    RxEventBus.sendEvent(NumberFormatter.convertTo(it))
+                    isDESC = !isDESC
+                },
+                onFail = {
+                    RxEventBus.sendEvent(it)
+                }
+            )
         )
     }
 

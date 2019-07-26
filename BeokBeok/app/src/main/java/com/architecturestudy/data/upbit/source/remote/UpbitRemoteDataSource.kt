@@ -4,85 +4,73 @@ import com.architecturestudy.data.common.MarketTypes
 import com.architecturestudy.data.upbit.UpbitTicker
 import com.architecturestudy.data.upbit.source.UpbitDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 class UpbitRemoteDataSource private constructor(
     private val retrofit: UpbitRemoteService
 ) : UpbitDataSource {
 
-    val compositeDisposable = CompositeDisposable()
-
     override fun getMarketPrice(
         prefix: String,
         onSuccess: (List<UpbitTicker>) -> Unit,
         onFail: (Throwable) -> Unit
-    ) {
-        compositeDisposable.add(
-            retrofit.getMarkets()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    val markets = it.body()
-                    if (markets.isNullOrEmpty()) {
-                        onFail(IllegalStateException("Data not validate"))
-                    } else {
-                        val tickers = markets
-                            .asSequence()
-                            .filter {
-                                enumValues<MarketTypes>().any { data ->
-                                    data.name == prefix
-                                }
+    ): Disposable =
+        retrofit.getMarkets()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                val markets = it.body()
+                if (markets.isNullOrEmpty()) {
+                    onFail(IllegalStateException("Data not validate"))
+                } else {
+                    val tickers = markets
+                        .asSequence()
+                        .filter {
+                            enumValues<MarketTypes>().any { data ->
+                                data.name == prefix
                             }
-                            .filter { data -> data.market.startsWith(prefix) }
-                            .map { data -> data.market }
-                            .toList()
-                        getTickers(
-                            tickers,
-                            onSuccess,
-                            onFail
-                        )
-                    }
-                }, {
-                    onFail(it)
-                })
-        )
-    }
+                        }
+                        .filter { data -> data.market.startsWith(prefix) }
+                        .map { data -> data.market }
+                        .toList()
+                    getTickers(
+                        tickers,
+                        onSuccess,
+                        onFail
+                    )
+                }
+            }, {
+                onFail(it)
+            })
 
-    override fun saveTicker(upbitTicker: UpbitTicker) {
-        // NO OP
-    }
+    override fun saveTicker(upbitTicker: UpbitTicker): Disposable? =
+        throw IllegalStateException("Not validate call")
 
     override fun sort(
         sortType: String,
         isDesc: Boolean,
         onSuccess: (List<UpbitTicker>) -> Unit,
         onFail: (Throwable) -> Unit
-    ) {
-        // NO OP
-    }
+    ): Disposable = throw IllegalStateException("Not validate call")
 
     private fun getTickers(
         tickers: List<String?>?,
         onSuccess: (List<UpbitTicker>) -> Unit,
         onFail: (Throwable) -> Unit
-    ) {
-        compositeDisposable.add(
-            retrofit.getTicker(tickers)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    val responseTicker = it.body()
-                    if (responseTicker.isNullOrEmpty()) {
-                        onFail(IllegalStateException("Data is empty"))
-                    } else {
-                        onSuccess(responseTicker)
-                    }
-                }, {
-                    onFail(it)
-                })
-        )
-    }
+    ): Disposable = retrofit.getTicker(tickers)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe({
+            val responseTicker = it.body()
+            if (responseTicker.isNullOrEmpty()) {
+                onFail(IllegalStateException("Data is empty"))
+            } else {
+                onSuccess(responseTicker)
+            }
+        }, {
+            onFail(it)
+        })
 
     companion object {
         private var instance: UpbitRemoteDataSource? = null
