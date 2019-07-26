@@ -10,5 +10,13 @@ data class TickerModel(
     @SerializedName("market")
     val market: String,
     @SerializedName("trade_price")
-    val tradePrice: Double
+    val tradePrice: Double,
+
+    var convertAccTradePrice24h: String? = null,
+
+    var convertChangeRate: String? = null,
+
+    var convertMarket: String? = null,
+
+    var convertTradePrice: String? = null
 )
