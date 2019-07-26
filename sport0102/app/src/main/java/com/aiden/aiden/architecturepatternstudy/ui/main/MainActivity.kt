@@ -13,6 +13,7 @@ class MainActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding {
+            // 뷰페이저에 탭을 추가
             Market.values().forEach { market ->
                 mainMarketTabTl.addTab(mainMarketTabTl.newTab().setText(market.marketName))
             }
@@ -29,6 +30,7 @@ class MainActivity :
                     }
                 }
             })
+            // 검색창 fragment 추가
             supportFragmentManager.beginTransaction()
                 .add(
                     com.aiden.aiden.architecturepatternstudy.R.id.main_fl,

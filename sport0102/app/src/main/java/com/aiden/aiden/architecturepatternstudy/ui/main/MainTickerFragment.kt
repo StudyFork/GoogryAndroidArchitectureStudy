@@ -35,6 +35,8 @@ class MainTickerFragment : BaseFragment<FragmentTickerMainBinding>(R.layout.frag
     override fun onActivityCreated(savedInstanceState: Bundle?) {
 
         super.onActivityCreated(savedInstanceState)
+
+        // 각 fragment의 마켓이름을 가져옴
         arguments?.let {
             it.getString("marketName")?.let { marketName ->
                 if (marketName == error) {
@@ -44,6 +46,8 @@ class MainTickerFragment : BaseFragment<FragmentTickerMainBinding>(R.layout.frag
                 this.marketName = marketName
             }
         }
+
+        // ticker 리스트를 뿌리기 위한 ViewModel 생성
         mainVm = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return modelClass.getConstructor(UpbitRepository::class.java).newInstance(
@@ -54,14 +58,19 @@ class MainTickerFragment : BaseFragment<FragmentTickerMainBinding>(R.layout.frag
                 )
             }
         })[MainViewModel::class.java]
+
+        // 검색어를 공유하기 위한 ViewModel 생성
         mainSearchVm =
             ViewModelProviders.of(context as MainActivity)[MainSearchViewModel::class.java]
+
+        // 검색어가 있으면 검색결과가 나오고, 없으면 해당 마켓의 코인리스트가 나옴
         val searchKeyword = mainSearchVm.searchKeyword.value
         if (searchKeyword.isNullOrBlank()) {
             mainVm.loadMarketList(marketName)
         } else {
             mainVm.searchTickerByKeyword(listOf("$marketName-$searchKeyword"))
         }
+
         binding {
             fragmentTickerListRv.adapter =
                 object : SimpleRecyclerView.Adapter<TickerResponse, ItemTickerBinding>(
@@ -71,11 +80,14 @@ class MainTickerFragment : BaseFragment<FragmentTickerMainBinding>(R.layout.frag
             mainViewModel = mainVm
 
         }
+
+        // 데이터를 불러오지 못할 경우
         val isDataLoadingErrorObserver = Observer<Boolean> {
             if (it) showErrorToast()
         }
         mainVm.isDataLoadingError.observe(this, isDataLoadingErrorObserver)
 
+        // 검색어에 따라서 검색결과를 보여줌. 검색어가 빈칸이 되면 해당 마켓의 코인리스트가 나옴
         val searchKeywordObserver = Observer<String> {
             if (it.isNullOrBlank()) {
                 mainVm.loadMarketList(marketName)
