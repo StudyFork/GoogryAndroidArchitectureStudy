@@ -48,8 +48,10 @@ class MarketFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //리사이클러뷰 어댑터와 레이아웃매니저 설정
-        recyclerView.layoutManager = LinearLayoutManager(activity)
-        recyclerView.adapter = rvAdapter
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(activity)
+            adapter = rvAdapter
+        }
 
         var keyMarket = arguments?.get("KEY_MARKET") as String
 
