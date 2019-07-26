@@ -27,7 +27,7 @@ class TickerListFragment : Fragment() {
     @SuppressLint("CheckResult")
     private fun getTicker(){
         val markets = arguments?.getString(KEY_MARKETS) ?:""
-        upbitRepository.getTicKers(markets)
+        upbitRepository.getTickers(markets)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
