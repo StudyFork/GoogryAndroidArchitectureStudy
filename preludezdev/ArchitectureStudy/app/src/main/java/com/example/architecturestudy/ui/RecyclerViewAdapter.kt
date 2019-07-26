@@ -1,6 +1,5 @@
 package com.example.architecturestudy.ui
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -51,18 +50,12 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
             //뷰홀더 객체의 프로퍼티를 binding 해준다.
             val currItem = coins[position]
 
-            //각 레이아웃 내 뷰에 텍스트 설정
+            //각 레이아웃 내 뷰에 텍스트 및 색상 설정
             tvMarket.text = currItem.market
             tvTradePrice.text = currItem.tradePrice
             tvSignedChangedRate.text = currItem.signedChangeRate
             tvAccTradePriceH.text = currItem.accTradePriceH
-
-            //전일대비 색깔 지정하기
-            if (currItem.signedChangeRate.startsWith('-')) {
-                tvSignedChangedRate.setTextColor(Color.BLUE)
-            } else {
-                tvSignedChangedRate.setTextColor(Color.RED)
-            }
+            tvSignedChangedRate.setTextColor(currItem.coinColor)
         }
     }
 }

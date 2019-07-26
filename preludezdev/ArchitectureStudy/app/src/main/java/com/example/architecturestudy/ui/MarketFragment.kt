@@ -1,5 +1,6 @@
 package com.example.architecturestudy
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -101,6 +102,9 @@ class MarketFragment : Fragment() {
         //전일대비
         var signedChangeRate = String.format("%.2f", ticker.signedChangeRate * 100) + "%"
 
+        //전일대비 색깔 지정
+        val coinColor = if (signedChangeRate.startsWith('-')) Color.BLUE else Color.RED
+
         //거래대금
         var accTradePriceH = when {
             ticker.accTradePriceH > 10000000 -> {
@@ -117,7 +121,7 @@ class MarketFragment : Fragment() {
                 String.format("%.3f", ticker.accTradePriceH)
         }
 
-        return Coin(market, tradePrice, signedChangeRate, accTradePriceH)
+        return Coin(market, tradePrice, signedChangeRate, accTradePriceH, coinColor)
     }
 
 }
