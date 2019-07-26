@@ -107,14 +107,14 @@ class MarketFragment : Fragment() {
 
         //거래대금
         var accTradePriceH = when {
-            ticker.accTradePriceH > 10000000 -> {
+            ticker.accTradePriceH > 10_000_000 -> {
                 Util.convertBigNumberToStdString((ticker.accTradePriceH / 1000000).toInt()) + "M"
             }
 
-            ticker.accTradePriceH > 100000 ->
+            ticker.accTradePriceH > 100_000 ->
                 Util.convertBigNumberToStdString(ticker.accTradePriceH.toInt() / 1000) + "k"
 
-            ticker.accTradePriceH > 1000 ->
+            ticker.accTradePriceH > 1_000 ->
                 Util.convertBigNumberToStdString(ticker.accTradePriceH.toInt())
 
             else ->
