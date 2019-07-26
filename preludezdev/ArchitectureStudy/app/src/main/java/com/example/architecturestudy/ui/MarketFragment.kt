@@ -70,14 +70,11 @@ class MarketFragment : Fragment() {
         repository
             .getCoinTickers(marketList, object : CoinsDataSource.GetCoinTickersCallback {
                 override fun onTickersLoaded(tickers: List<CoinTickerResponse>) {
-                    val list = mutableListOf<Coin>()
 
-                    for (ticker in tickers) {
-                        //ticker 를 Coin 클래스로 변환해서 저장
-                        list.add(convertTickerIntoCoin(ticker))
-                    }
-
-                    rvAdapter.setData(list)
+                    //map() 스트림 함수 : 컬렉션 내 인자를 변환하여 반환
+                    rvAdapter.setData(tickers.map {
+                        convertTickerIntoCoin(it)
+                    })
                 }
 
                 override fun onDataNotAvailable() {
