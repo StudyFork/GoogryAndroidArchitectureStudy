@@ -91,7 +91,7 @@ class MarketFragment : Fragment() {
 
         //현재가
         var tradePrice = when {
-            ticker.tradePrice > 1000 ->
+            ticker.tradePrice > 1_000 ->
                 Util.convertBigNumberToStdString(ticker.tradePrice.toInt())
             ticker.tradePrice > 2 ->
                 String.format("%.2f", ticker.tradePrice)
