@@ -20,6 +20,9 @@ import kotlinx.android.synthetic.main.fragment_market.*
 
 class MarketFragment : Fragment() {
 
+    private val repository = CoinsRepository
+        .getInstance(CoinsRemoteDataSource, CoinsLocalDataSource)
+
     private val rvAdapter = RecyclerViewAdapter()
 
     companion object {
@@ -64,8 +67,7 @@ class MarketFragment : Fragment() {
         rvAdapter.clearData()
 
         //Tickers 정보 가져오기
-        CoinsRepository
-            .getInstance(CoinsRemoteDataSource, CoinsLocalDataSource)
+        repository
             .getCoinTickers(marketList, object : CoinsDataSource.GetCoinTickersCallback {
                 override fun onTickersLoaded(tickers: List<CoinTickerResponse>) {
                     val list = mutableListOf<Coin>()
