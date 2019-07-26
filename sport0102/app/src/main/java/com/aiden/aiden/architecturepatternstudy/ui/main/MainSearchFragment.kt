@@ -14,7 +14,7 @@ class MainSearchFragment : BaseFragment<FragmentSearchMainBinding>(R.layout.frag
 
         super.onActivityCreated(savedInstanceState)
         mainSearchVm =
-            ViewModelProviders.of(context as MainActivity)[MainSearchViewModel::class.java]
+            ViewModelProviders.of(activity!!)[MainSearchViewModel::class.java]
         binding {
             mainSearchViewModel = mainSearchVm
         }

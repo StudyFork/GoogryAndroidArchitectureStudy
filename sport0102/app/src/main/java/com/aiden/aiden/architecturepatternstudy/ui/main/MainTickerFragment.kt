@@ -61,7 +61,7 @@ class MainTickerFragment : BaseFragment<FragmentTickerMainBinding>(R.layout.frag
 
         // 검색어를 공유하기 위한 ViewModel 생성
         mainSearchVm =
-            ViewModelProviders.of(context as MainActivity)[MainSearchViewModel::class.java]
+            ViewModelProviders.of(activity!!)[MainSearchViewModel::class.java]
 
         // 검색어가 있으면 검색결과가 나오고, 없으면 해당 마켓의 코인리스트가 나옴
         val searchKeyword = mainSearchVm.searchKeyword.value
