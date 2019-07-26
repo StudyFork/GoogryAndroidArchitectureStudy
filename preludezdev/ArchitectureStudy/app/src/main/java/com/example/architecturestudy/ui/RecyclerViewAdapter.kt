@@ -16,11 +16,6 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
         notifyDataSetChanged()
     }
 
-    fun addData(data: Coin) {
-        coins.add(data)
-        notifyItemInserted(coins.lastIndex)
-    }
-
     fun setData(data: List<Coin>) {
         coins.clear()
         coins.addAll(data)
