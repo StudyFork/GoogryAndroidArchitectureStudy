@@ -24,7 +24,7 @@ class CoinFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coi
     private val adapter: TickerAdapter by lazy { TickerAdapter() }
 
     private val coinVM: CoinViewModel by lazy {
-        ViewModelProviders.of(this, CoinViewModel().createFactory()).get(CoinViewModel().javaClass)
+        ViewModelProviders.of(this, CoinViewModel().createFactory())[CoinViewModel().javaClass]
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

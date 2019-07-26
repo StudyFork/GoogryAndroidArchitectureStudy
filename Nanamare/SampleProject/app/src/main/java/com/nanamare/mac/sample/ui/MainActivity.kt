@@ -15,7 +15,7 @@ import com.nanamare.mac.sample.vm.MarketViewModel
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private val marketVM: MarketViewModel by lazy {
-        ViewModelProviders.of(this, MarketViewModel().createFactory()).get(MarketViewModel().javaClass)
+        ViewModelProviders.of(this, MarketViewModel().createFactory())[MarketViewModel().javaClass]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
