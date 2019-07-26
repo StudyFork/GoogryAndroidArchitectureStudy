@@ -5,7 +5,7 @@ import kr.schoolsharing.coinhelper.data.remote.UpbitRemoteDataSource
 import kr.schoolsharing.coinhelper.model.UpbitMarket
 import kr.schoolsharing.coinhelper.model.UpbitTicker
 
-class Repository : UpbitDataSource {
+object Repository : UpbitDataSource {
 
     private val upbitRemoteDataSource: UpbitRemoteDataSource = UpbitRemoteDataSource
     private val upbitLocalDataSource: UpbitLocalDataSource = UpbitLocalDataSource

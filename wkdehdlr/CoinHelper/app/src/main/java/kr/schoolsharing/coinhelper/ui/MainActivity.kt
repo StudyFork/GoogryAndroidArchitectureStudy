@@ -16,7 +16,6 @@ import kr.schoolsharing.coinhelper.util.TextEditor
 
 class MainActivity : AppCompatActivity() {
 
-    private val repository: Repository = Repository()
 
     private lateinit var marketList: String
     private var upbitList = UpbitList(ArrayList(), ArrayList(), ArrayList(), ArrayList())
@@ -32,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadUpbitMarket() {
-        repository.getMarket(object : UpbitDataSource.GetMarketCallback {
+        Repository.getMarket(object : UpbitDataSource.GetMarketCallback {
             override fun onMarketLoaded(markets: List<UpbitMarket>) {
                 marketList = markets.joinToString(",") { it.market }
                 loadUpbitTicker()
@@ -45,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadUpbitTicker() {
-        repository.getTicker(marketList, object : UpbitDataSource.GetTickerCallback {
+        Repository.getTicker(marketList, object : UpbitDataSource.GetTickerCallback {
 
             override fun onTickerLoaded(tickers: List<UpbitTicker>) {
                 for (item in tickers) {
