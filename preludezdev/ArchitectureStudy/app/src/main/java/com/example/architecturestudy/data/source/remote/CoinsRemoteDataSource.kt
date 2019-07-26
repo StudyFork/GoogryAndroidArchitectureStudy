@@ -37,7 +37,7 @@ object CoinsRemoteDataSource : CoinsDataSource {
                     call: Call<List<CoinMarketResponse>>,
                     response: Response<List<CoinMarketResponse>>
                 ) {
-                    response.body()?.let { callback.onAllMarketLoaded(it) } // 이부분 맞게 코딩한건지 확인 필요
+                    response.body()?.let { callback.onAllMarketLoaded(it) } ?: callback.onDataNotAvailable()
                 }
             })
     }
@@ -56,7 +56,7 @@ object CoinsRemoteDataSource : CoinsDataSource {
                     call: Call<List<CoinTickerResponse>>,
                     response: Response<List<CoinTickerResponse>>
                 ) {
-                    response.body()?.let { callback.onTickersLoaded(it) }
+                    response.body()?.let { callback.onTickersLoaded(it) } ?: callback.onDataNotAvailable()
                 }
             })
     }

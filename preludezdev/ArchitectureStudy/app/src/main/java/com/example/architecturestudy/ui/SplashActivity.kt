@@ -20,7 +20,7 @@ class SplashActivity : AppCompatActivity() {
         moveToMainActivity() //메인액티비티로 이동
     }
 
-    //전체 코인시장목록 불러와서 MainActivity에 있는 전역변수에 저장하고 이동
+    //전체 코인시장목록 불러와서 MainActivity 에 있는 전역변수에 저장하고 이동
     private fun moveToMainActivity() {
         CoinsRepository
             .getInstance(CoinsRemoteDataSource, CoinsLocalDataSource)
