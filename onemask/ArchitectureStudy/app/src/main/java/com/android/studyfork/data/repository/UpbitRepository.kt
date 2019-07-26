@@ -26,9 +26,27 @@ class UpbitRepository(
             .observeOn(AndroidSchedulers.mainThread())
 
 
-    override fun getTicKers(market: String) =
+    override fun getTickers(market: String) =
         api.getTickers(market)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
+
+    companion object {
+        private var INSTANCE: UpbitRepository? = null
+
+        @JvmStatic
+        fun getInstance(api: UpbitApi): UpbitDataSource {
+            return INSTANCE ?: UpbitRepository(api).apply {
+                INSTANCE = this
+            }
+        }
+
+        @JvmStatic
+        fun destroruInstance() {
+            INSTANCE = null
+        }
+    }
+
 }
+
