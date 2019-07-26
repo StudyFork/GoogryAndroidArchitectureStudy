@@ -3,8 +3,8 @@ package com.architecturestudy.data.upbit.source.remote
 import com.architecturestudy.data.common.MarketTypes
 import com.architecturestudy.data.upbit.UpbitTicker
 import com.architecturestudy.data.upbit.source.UpbitDataSource
+import com.architecturestudy.util.CompositeDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class UpbitRemoteDataSource private constructor(
@@ -16,7 +16,7 @@ class UpbitRemoteDataSource private constructor(
         onSuccess: (List<UpbitTicker>) -> Unit,
         onFail: (Throwable) -> Unit
     ) {
-        CompositeDisposable().add(
+        CompositeDisposable.add(
             retrofit.getMarkets()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -65,7 +65,7 @@ class UpbitRemoteDataSource private constructor(
         onSuccess: (List<UpbitTicker>) -> Unit,
         onFail: (Throwable) -> Unit
     ) {
-        CompositeDisposable().add(
+        CompositeDisposable.add(
             retrofit.getTicker(tickers)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

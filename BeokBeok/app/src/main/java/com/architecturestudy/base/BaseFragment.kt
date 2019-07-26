@@ -9,7 +9,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import io.reactivex.disposables.CompositeDisposable
+import com.architecturestudy.util.CompositeDisposable
 
 abstract class BaseFragment<B : ViewDataBinding>(
     @LayoutRes
@@ -34,7 +34,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
     }
 
     override fun onDestroyView() {
-        CompositeDisposable().dispose()
+        CompositeDisposable.dispose()
         super.onDestroyView()
     }
 

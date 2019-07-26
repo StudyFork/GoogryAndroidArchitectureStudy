@@ -2,9 +2,9 @@ package com.architecturestudy.data.upbit.source.local
 
 import com.architecturestudy.data.upbit.UpbitTicker
 import com.architecturestudy.data.upbit.source.UpbitDataSource
+import com.architecturestudy.util.CompositeDisposable
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class UpbitLocalDataSource internal constructor(
@@ -20,7 +20,7 @@ class UpbitLocalDataSource internal constructor(
     }
 
     override fun saveTicker(upbitTicker: UpbitTicker) {
-        CompositeDisposable().add(
+        CompositeDisposable.add(
             Observable.fromCallable {
                 upbitTickerDao?.run {
                     insertTicker(upbitTicker)
@@ -37,7 +37,7 @@ class UpbitLocalDataSource internal constructor(
         onSuccess: (List<UpbitTicker>) -> Unit,
         onFail: (Throwable) -> Unit
     ) {
-        CompositeDisposable().add(
+        CompositeDisposable.add(
             Observable.fromCallable {
                 when (sortType) {
                     "market" -> {
