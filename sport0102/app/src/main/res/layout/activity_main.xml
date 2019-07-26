@@ -8,6 +8,7 @@
 		<variable
 			name="mainViewModel"
 			type="com.aiden.aiden.architecturepatternstudy.ui.main.MainViewModel" />
+
 	</data>
 
 	<LinearLayout
@@ -17,30 +18,10 @@
 		android:orientation="vertical"
 		tools:context=".ui.main.MainActivity">
 
-		<RelativeLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="10dp"
-			android:background="@drawable/stroke_1dp_pink">
-
-			<EditText
-				android:layout_width="match_parent"
-				android:layout_height="40dp"
-				android:background="@null"
-				android:drawableStart="@drawable/search"
-				android:paddingStart="12dp"
-				android:text="@={mainViewModel.searchKeyword}" />
-
-			<ImageView
-				android:layout_width="24dp"
-				android:layout_height="24dp"
-				android:layout_alignParentEnd="true"
-				android:layout_centerVertical="true"
-				android:layout_marginEnd="12dp"
-				android:onClick="@{() -> mainViewModel.clearKeyword()}"
-				android:src="@drawable/close" />
-
-		</RelativeLayout>
+		<FrameLayout
+			android:id="@+id/main_fl"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
 
 
 		<com.google.android.material.tabs.TabLayout

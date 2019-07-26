@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<data>
+
+		<variable
+			name="mainSearchViewModel"
+			type="com.aiden.aiden.architecturepatternstudy.ui.main.MainSearchViewModel" />
+
+	</data>
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="16dp"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="16dp"
+		android:background="@drawable/stroke_1dp_pink">
+
+		<EditText
+			android:layout_width="match_parent"
+			android:layout_height="40dp"
+			android:background="@null"
+			android:drawableStart="@drawable/search"
+			android:paddingStart="12dp"
+			android:text="@={mainSearchViewModel.searchKeyword}" />
+
+		<ImageView
+			android:layout_width="24dp"
+			android:layout_height="24dp"
+			android:layout_alignParentEnd="true"
+			android:layout_centerVertical="true"
+			android:layout_marginEnd="12dp"
+			android:onClick="@{() -> mainSearchViewModel.clearKeyword()}"
+			android:src="@drawable/close" />
+
+	</RelativeLayout>
+</layout>

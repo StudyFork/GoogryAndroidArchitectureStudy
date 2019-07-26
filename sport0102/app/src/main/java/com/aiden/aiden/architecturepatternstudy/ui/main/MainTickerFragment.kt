@@ -15,12 +15,12 @@ import com.aiden.aiden.architecturepatternstudy.base.SimpleRecyclerView
 import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
 import com.aiden.aiden.architecturepatternstudy.data.source.local.UpbitLocalDataSource
 import com.aiden.aiden.architecturepatternstudy.data.source.remote.UpbitRemoteDataSource
-import com.aiden.aiden.architecturepatternstudy.databinding.FragmentMainBinding
+import com.aiden.aiden.architecturepatternstudy.databinding.FragmentTickerMainBinding
 import com.aiden.aiden.architecturepatternstudy.databinding.ItemTickerBinding
 import com.aiden.aiden.architecturepatternstudy.domain.UpbitDatabase
 
 
-class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
+class MainTickerFragment : BaseFragment<FragmentTickerMainBinding>(R.layout.fragment_ticker_main) {
 
     private val upbitApi by lazy { retrofit.create(UpbitApi::class.java) }
 
@@ -29,6 +29,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private val error = "error"
 
     private lateinit var mainVm: MainViewModel
+
+    private lateinit var mainSearchVm: MainSearchViewModel
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
 
@@ -52,7 +54,14 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                 )
             }
         })[MainViewModel::class.java]
-        mainVm.loadMarketList(marketName)
+        mainSearchVm =
+            ViewModelProviders.of(context as MainActivity)[MainSearchViewModel::class.java]
+        val searchKeyword = mainSearchVm.searchKeyword.value
+        if (searchKeyword.isNullOrBlank()) {
+            mainVm.loadMarketList(marketName)
+        } else {
+            mainVm.searchTickerByKeyword(listOf("$marketName-$searchKeyword"))
+        }
         binding {
             fragmentTickerListRv.adapter =
                 object : SimpleRecyclerView.Adapter<TickerResponse, ItemTickerBinding>(
@@ -65,7 +74,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         val isDataLoadingErrorObserver = Observer<Boolean> {
             if (it) showErrorToast()
         }
-        mainVm.isDataLoadingError.observe(this@MainFragment, isDataLoadingErrorObserver)
+        mainVm.isDataLoadingError.observe(this, isDataLoadingErrorObserver)
+
         val searchKeywordObserver = Observer<String> {
             if (it.isNullOrBlank()) {
                 mainVm.loadMarketList(marketName)
@@ -73,7 +83,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             }
             mainVm.searchTickerByKeyword(listOf("$marketName-$it"))
         }
-        mainVm.searchKeyword.observe(this@MainFragment, searchKeywordObserver)
+        mainSearchVm.searchKeyword.observe(this, searchKeywordObserver)
 
     }
 

@@ -9,23 +9,17 @@ import com.aiden.aiden.architecturepatternstudy.util.StringUtil
 
 class MainViewModel(private val upbitRepository: UpbitRepository) : ViewModel() {
 
-    private lateinit var marketName: String
-
     private val _tickerList = MutableLiveData<List<TickerResponse>>()
     val tickerList: LiveData<List<TickerResponse>> get() = _tickerList
 
     private val _isDataLoadingError = MutableLiveData<Boolean>()
     val isDataLoadingError: LiveData<Boolean> get() = _isDataLoadingError
 
-    val searchKeyword = MutableLiveData<String>()
-
-    fun loadMarketList(targetMarket: String) {
-
-        marketName = targetMarket
+    fun loadMarketList(marketName: String) {
 
         upbitRepository.getMarketList(onSuccess = {
             val modifiedMarketList =
-                it.filter { market -> market.startsWith(targetMarket, true) }
+                it.filter { market -> market.startsWith(marketName, true) }
             loadAllTickerList(modifiedMarketList)
         },
 
@@ -73,12 +67,6 @@ class MainViewModel(private val upbitRepository: UpbitRepository) : ViewModel() 
                 _isDataLoadingError.postValue(true)
             }
         )
-
-    }
-
-    fun clearKeyword() {
-
-        searchKeyword.value = ""
 
     }
 
