@@ -9,10 +9,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 object CoinsRemoteDataSource : CoinsDataSource {
+    private val retrofitHelper = RetrofitHelper.getInstance()
 
     override fun getAllMarket(callback: CoinsDataSource.GetAllMarketCallback) {
-        RetrofitHelper
-            .getInstance()
+        retrofitHelper
             .coinApiService
             .getAllCoinMarket()
             .enqueue(object : Callback<List<CoinMarketResponse>> {
@@ -30,8 +30,7 @@ object CoinsRemoteDataSource : CoinsDataSource {
     }
 
     override fun getCoinTickers(markets: String, callback: CoinsDataSource.GetCoinTickersCallback) {
-        RetrofitHelper
-            .getInstance()
+        retrofitHelper
             .coinApiService
             .getCoinTickers(markets)
             .enqueue(object : Callback<List<CoinTickerResponse>> {
