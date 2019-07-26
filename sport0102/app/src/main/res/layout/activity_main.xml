@@ -6,8 +6,9 @@
 	<data>
 
 		<variable
-			name="vm"
+			name="mainViewModel"
 			type="com.aiden.aiden.architecturepatternstudy.ui.main.MainViewModel" />
+
 	</data>
 
 	<LinearLayout
@@ -16,6 +17,11 @@
 		android:background="@color/background"
 		android:orientation="vertical"
 		tools:context=".ui.main.MainActivity">
+
+		<FrameLayout
+			android:id="@+id/main_fl"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
 
 
 		<com.google.android.material.tabs.TabLayout

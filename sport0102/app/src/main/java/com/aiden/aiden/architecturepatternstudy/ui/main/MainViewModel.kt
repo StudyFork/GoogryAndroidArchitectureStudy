@@ -2,13 +2,12 @@ package com.aiden.aiden.architecturepatternstudy.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
 import com.aiden.aiden.architecturepatternstudy.util.StringUtil
 
-class MainViewModel(private val upbitRepository: UpbitRepository) {
-
-    private lateinit var marketName: String
+class MainViewModel(private val upbitRepository: UpbitRepository) : ViewModel() {
 
     private val _tickerList = MutableLiveData<List<TickerResponse>>()
     val tickerList: LiveData<List<TickerResponse>> get() = _tickerList
@@ -16,18 +15,14 @@ class MainViewModel(private val upbitRepository: UpbitRepository) {
     private val _isDataLoadingError = MutableLiveData<Boolean>()
     val isDataLoadingError: LiveData<Boolean> get() = _isDataLoadingError
 
-    val searchKeyword = MutableLiveData<String>()
-
-    fun loadMarketList(targetMarket: String) {
-
-        marketName = targetMarket
+    fun loadMarketList(marketName: String) {
 
         upbitRepository.getMarketList(onSuccess = {
             val modifiedMarketList =
-                it.filter { market -> market.startsWith(targetMarket, true) }
+                it.filter { market -> market.startsWith(marketName, true) }
             loadAllTickerList(modifiedMarketList)
         },
-            
+
             onFail = {
                 _isDataLoadingError.value = true
             }
@@ -72,12 +67,6 @@ class MainViewModel(private val upbitRepository: UpbitRepository) {
                 _isDataLoadingError.postValue(true)
             }
         )
-
-    }
-
-    fun clearKeyword() {
-
-        searchKeyword.value = ""
 
     }
 

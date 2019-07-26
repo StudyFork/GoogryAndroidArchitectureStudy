@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.aiden.aiden.architecturepatternstudy.data.enums.Market
 
 
-class MainPagerAdapter(fm: FragmentManager) :
+class MainTickerPagerAdapter(fm: FragmentManager) :
     FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private val marketList = Market.values()
@@ -21,8 +21,8 @@ class MainPagerAdapter(fm: FragmentManager) :
         else -> getFragmentByMarketName(error)
     }
 
-    private fun getFragmentByMarketName(marketName: String): MainFragment {
-        val mainFragment = MainFragment()
+    private fun getFragmentByMarketName(marketName: String): MainTickerFragment {
+        val mainFragment = MainTickerFragment()
         mainFragment.arguments = Bundle().apply {
             putString("marketName", marketName)
         }

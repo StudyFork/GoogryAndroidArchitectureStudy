@@ -1,34 +1,42 @@
 package com.aiden.aiden.architecturepatternstudy.ui.main
 
 import android.os.Bundle
-import com.aiden.aiden.architecturepatternstudy.R
 import com.aiden.aiden.architecturepatternstudy.base.BaseActivity
 import com.aiden.aiden.architecturepatternstudy.data.enums.Market
 import com.aiden.aiden.architecturepatternstudy.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayout
 
 
-class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
+class MainActivity :
+    BaseActivity<ActivityMainBinding>(com.aiden.aiden.architecturepatternstudy.R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding {
+            // 뷰페이저에 탭을 추가
             Market.values().forEach { market ->
-                it.mainMarketTabTl.addTab(it.mainMarketTabTl.newTab().setText(market.marketName))
+                mainMarketTabTl.addTab(mainMarketTabTl.newTab().setText(market.marketName))
             }
-            it.mainVp.adapter = MainPagerAdapter(supportFragmentManager)
-            it.mainVp.addOnPageChangeListener(
+            mainVp.adapter = MainTickerPagerAdapter(supportFragmentManager)
+            mainVp.addOnPageChangeListener(
                 TabLayout.TabLayoutOnPageChangeListener(
-                    it.mainMarketTabTl
+                    mainMarketTabTl
                 )
             )
-            it.mainMarketTabTl.addOnTabSelectedListener(object : TabSelectedListener() {
+            mainMarketTabTl.addOnTabSelectedListener(object : TabSelectedListener() {
                 override fun onTabSelected(tl: TabLayout.Tab?) {
                     tl?.let { tab ->
-                        it.mainVp.currentItem = tab.position
+                        mainVp.currentItem = tab.position
                     }
                 }
             })
+            // 검색창 fragment 추가
+            supportFragmentManager.beginTransaction()
+                .add(
+                    com.aiden.aiden.architecturepatternstudy.R.id.main_fl,
+                    MainSearchFragment()
+                )
+                .commit()
         }
 
     }
