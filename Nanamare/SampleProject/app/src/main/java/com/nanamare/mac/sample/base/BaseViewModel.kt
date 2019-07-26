@@ -10,8 +10,5 @@ abstract class BaseViewModel: ViewModel() {
     }
 
     abstract fun close()
-
-    override fun onCleared() {
-        super.onCleared()
-    }
+    
 }
