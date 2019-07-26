@@ -30,10 +30,10 @@ class MarketFragment : Fragment() {
             val args = Bundle()
 
             when (market) {
-                "KRW" -> args.putSerializable("KEY_MARKET", "KRW")
-                "BTC" -> args.putSerializable("KEY_MARKET", "BTC")
-                "ETH" -> args.putSerializable("KEY_MARKET", "ETH")
-                "USDT" -> args.putSerializable("KEY_MARKET", "USDT")
+                "KRW" -> args.putString("KEY_MARKET", "KRW")
+                "BTC" -> args.putString("KEY_MARKET", "BTC")
+                "ETH" -> args.putString("KEY_MARKET", "ETH")
+                "USDT" -> args.putString("KEY_MARKET", "USDT")
             }
 
             fragment.arguments = args
