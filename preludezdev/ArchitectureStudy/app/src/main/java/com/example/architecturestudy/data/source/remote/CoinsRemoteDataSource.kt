@@ -17,7 +17,7 @@ object CoinsRemoteDataSource : CoinsDataSource {
             .getAllCoinMarket()
             .enqueue(object : Callback<List<CoinMarketResponse>> {
                 override fun onFailure(call: Call<List<CoinMarketResponse>>, t: Throwable) {
-                    t.printStackTrace()
+                    callback.onDataNotAvailable()
                 }
 
                 override fun onResponse(
@@ -36,7 +36,7 @@ object CoinsRemoteDataSource : CoinsDataSource {
             .getCoinTickers(markets)
             .enqueue(object : Callback<List<CoinTickerResponse>> {
                 override fun onFailure(call: Call<List<CoinTickerResponse>>, t: Throwable) {
-                    t.printStackTrace()
+                    callback.onDataNotAvailable()
                 }
 
                 override fun onResponse(
