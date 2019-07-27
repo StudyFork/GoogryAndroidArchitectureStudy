@@ -1,6 +1,5 @@
 package kr.schoolsharing.coinhelper.ui
 
-import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import kr.schoolsharing.coinhelper.R
 import kr.schoolsharing.coinhelper.model.UpbitItem
 
-class MainRvAdapter(val context: Context, val itemList: List<UpbitItem>) :
+class MainRvAdapter(val itemList: List<UpbitItem>) :
     RecyclerView.Adapter<MainRvAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view = LayoutInflater.from(context).inflate(R.layout.main_rv_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.main_rv_item, parent, false)
         return Holder(view)
     }
 

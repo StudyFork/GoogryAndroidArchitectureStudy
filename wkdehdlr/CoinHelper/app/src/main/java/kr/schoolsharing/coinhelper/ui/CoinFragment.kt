@@ -29,7 +29,7 @@ class CoinFragment(val marketName: String) : Fragment() {
         val view = inflater.inflate(R.layout.fragment_fragment_krw, container, false)
         val mRecyclerViewKRW = view.findViewById<RecyclerView>(R.id.mRecyclerView_KRW)
 
-        val myRVAdapter = MainRvAdapter(context!!, UpbitList.getListFromName(marketName))
+        val myRVAdapter = MainRvAdapter(UpbitList.getListFromName(marketName))
         mRecyclerViewKRW.adapter = myRVAdapter
 
         val lm = LinearLayoutManager(context!!)
