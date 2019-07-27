@@ -2,16 +2,25 @@ package com.architecturestudy.upbitmarket
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.architecturestudy.BR
 import com.architecturestudy.R
 import com.architecturestudy.base.BaseFragment
 import com.architecturestudy.base.BaseRecyclerView
 import com.architecturestudy.data.common.MarketTypes
-import com.architecturestudy.data.upbit.UpbitRepository
-import com.architecturestudy.data.upbit.service.UpbitRetrofit
-import com.architecturestudy.data.upbit.source.UpbitRetrofitDataSource
+import com.architecturestudy.data.upbit.source.UpbitRepository
+import com.architecturestudy.data.upbit.source.local.UpbitLocalDataSource
+import com.architecturestudy.data.upbit.source.local.UpbitRoom
+import com.architecturestudy.data.upbit.source.remote.UpbitRemoteDataSource
+import com.architecturestudy.data.upbit.source.remote.UpbitRetrofit
 import com.architecturestudy.databinding.FragmentUpbitContentsBinding
 import com.architecturestudy.databinding.RvUpbitItemBinding
+import com.architecturestudy.util.RxEventBus
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
 class UpbitContentsFragment : BaseFragment<FragmentUpbitContentsBinding>(
     R.layout.fragment_upbit_contents
@@ -25,8 +34,19 @@ class UpbitContentsFragment : BaseFragment<FragmentUpbitContentsBinding>(
     }
 
     private fun initBinding() {
-        binding.vm =
-            UpbitViewModel(UpbitRepository(UpbitRetrofitDataSource(UpbitRetrofit.retrofit)))
+        binding.vm = ViewModelProviders.of(
+            this,
+            object : ViewModelProvider.Factory {
+                @Suppress("UNCHECKED_CAST")
+                override fun <T : ViewModel?> create(modelClass: Class<T>): T =
+                    UpbitViewModel(
+                        UpbitRepository(
+                            UpbitLocalDataSource(UpbitRoom.getDao(context)),
+                            UpbitRemoteDataSource(UpbitRetrofit.service)
+                        )
+                    ) as T
+            }
+        )[UpbitViewModel::class.java]
     }
 
     private fun initRecyclerView() {
@@ -42,16 +62,37 @@ class UpbitContentsFragment : BaseFragment<FragmentUpbitContentsBinding>(
     }
 
     private fun showContents() {
-        val position = arguments?.getInt("marketType", 0) ?: 0
         binding.vm?.let {
-            it.showMarketPrice(MarketTypes.values()[position].name)
+            it.showMarketPrice(MarketTypes.values()[getPosition()].name)
             it.errMsg.observe(
                 this,
-                Observer {
-                    showToast(it.message)
+                Observer { throwable ->
+                    showToast(throwable.message)
                 }
+            )
+            CompositeDisposable().add(
+                RxEventBus.getEvents()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ data ->
+                        @Suppress("UNCHECKED_CAST")
+                        if (data is List<*>) {
+                            val ticker = (data as? List<Map<String, String>>)
+                                ?.asSequence()
+                                ?.filter { map ->
+                                    map["prefix"] == MarketTypes.values()[getPosition()].name
+                                }
+                                ?.toList()
+                            it.marketPriceList.value = ticker
+                        } else if (data is Throwable) {
+                            it.errMsg.value = data
+                        }
+                    }, { throwable ->
+                        showToast(throwable.message)
+                    })
             )
         }
     }
 
+    private fun getPosition(): Int = arguments?.getInt("marketType", 0) ?: 0
 }

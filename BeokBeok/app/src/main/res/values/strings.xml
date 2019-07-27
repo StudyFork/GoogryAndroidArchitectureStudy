@@ -1,12 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">ArchitectureStudy</string>
-    <string name="market_krw" translatable="false">KRW</string>
-    <string name="market_btc" translatable="false">BTC</string>
-    <string name="market_eth" translatable="false">ETH</string>
-    <string name="market_usdt" translatable="false">USDT</string>
-
-    <string name="coin_name">Coin name</string>
-    <string name="current_price">Current price</string>
-    <string name="net_change">Net change</string>
-    <string name="trading_value">Trading value</string>
+    <string name="market">Coin name</string>
+    <string name="tradePrice">Current price</string>
+    <string name="signedChangeRate">Net change</string>
+    <string name="accTradePrice24h">Trading value</string>
+    <string name="sort">Sort</string>
 </resources>

@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="vm"
             type="com.architecturestudy.upbitmarket.UpbitViewModel" />
@@ -20,14 +22,61 @@
             android:layout_height="match_parent"
             tools:context=".upbitmarket.UpbitActivity">
 
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:contentDescription="@string/sort"
+                android:src="@{vm.isSortByDESC ? @drawable/sort_down : @drawable/sort_up}"
+                android:visibility="@{vm.selectedSortTypeList.get(0) ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@id/tv_coin_name"
+                app:layout_constraintEnd_toEndOf="@id/tv_coin_name"
+                app:layout_constraintTop_toTopOf="@id/tv_coin_name"
+                tools:background="@drawable/sort_up" />
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:contentDescription="@string/sort"
+                android:src="@{vm.isSortByDESC ? @drawable/sort_down : @drawable/sort_up}"
+                android:visibility="@{vm.selectedSortTypeList.get(1) ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@id/tv_current_price"
+                app:layout_constraintEnd_toEndOf="@id/tv_current_price"
+                app:layout_constraintTop_toTopOf="@id/tv_current_price"
+                tools:background="@drawable/sort_up" />
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:contentDescription="@string/sort"
+                android:src="@{vm.isSortByDESC ? @drawable/sort_down : @drawable/sort_up}"
+                android:visibility="@{vm.selectedSortTypeList.get(2) ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@id/tv_net_change"
+                app:layout_constraintEnd_toEndOf="@id/tv_net_change"
+                app:layout_constraintTop_toTopOf="@id/tv_net_change"
+                tools:background="@drawable/sort_up" />
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:contentDescription="@string/sort"
+                android:src="@{vm.isSortByDESC ? @drawable/sort_down : @drawable/sort_up}"
+                android:visibility="@{vm.selectedSortTypeList.get(3) ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@id/tv_trading_value"
+                app:layout_constraintEnd_toEndOf="@id/tv_trading_value"
+                app:layout_constraintTop_toTopOf="@id/tv_trading_value"
+                tools:background="@drawable/sort_up" />
+
             <TextView
                 android:id="@+id/tv_coin_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
                 android:gravity="center_vertical"
+                android:onClick="@{() -> vm.sort(`market`)}"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:text="@string/coin_name"
+                android:text="@string/market"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toStartOf="@id/tv_current_price"
                 app:layout_constraintHorizontal_chainStyle="spread"
@@ -38,10 +87,13 @@
                 android:id="@+id/tv_current_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
                 android:gravity="center_vertical|end"
+                android:onClick="@{() -> vm.sort(`trade_price`)}"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:text="@string/current_price"
+                android:text="@string/tradePrice"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toStartOf="@id/tv_net_change"
                 app:layout_constraintStart_toEndOf="@id/tv_coin_name"
@@ -51,10 +103,13 @@
                 android:id="@+id/tv_net_change"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
                 android:gravity="center_vertical|end"
+                android:onClick="@{() -> vm.sort(`signed_change_rate`)}"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:text="@string/net_change"
+                android:text="@string/signedChangeRate"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toStartOf="@id/tv_trading_value"
                 app:layout_constraintStart_toEndOf="@id/tv_current_price"
@@ -64,10 +119,13 @@
                 android:id="@+id/tv_trading_value"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
                 android:gravity="center_vertical|end"
+                android:onClick="@{() -> vm.sort(`acc_trade_price_24h`)}"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:text="@string/trading_value"
+                android:text="@string/accTradePrice24h"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_net_change"

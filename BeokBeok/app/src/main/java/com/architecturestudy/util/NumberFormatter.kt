@@ -17,17 +17,29 @@ object NumberFormatter {
             convertList.add(
                 index,
                 hashMapOf(
-                    "coinName" to getCoinName(upbitTicker.market),
-                    "currentPrice" to getCurrentPrice(upbitTicker.tradePrice),
-                    "netChange" to getNetChange(upbitTicker.signedChangeRate),
-                    "tradingVal" to getTradingValue(upbitTicker.accTradePrice24h)
+                    "prefix" to convertToPrefix(upbitTicker.market),
+                    "market" to convertToMarket(upbitTicker.market),
+                    "tradePrice" to convertToTradePrice(upbitTicker.tradePrice),
+                    "signedChangeRate" to convertToSignedChangeRate(upbitTicker.signedChangeRate),
+                    "accTradePrice24h" to convertToAccTradePrice24h(upbitTicker.accTradePrice24h)
                 )
             )
         }
         return convertList
     }
 
-    private fun getCoinName(market: String?): String {
+    private fun convertToPrefix(market: String?): String {
+        market?.let {
+            return if (it.contains("-")) {
+                it.substringBefore("-")
+            } else {
+                ""
+            }
+        }
+        return ""
+    }
+
+    private fun convertToMarket(market: String?): String {
         market?.let {
             return if (it.contains("-")) {
                 it.substringAfter("-")
@@ -38,7 +50,7 @@ object NumberFormatter {
         return ""
     }
 
-    private fun getCurrentPrice(tradePrice: Double?): String {
+    private fun convertToTradePrice(tradePrice: Double?): String {
         tradePrice?.let {
             return if (it.toBigDecimal() < BigDecimal.ONE) {
                 String.format("%.8f", it.toBigDecimal())
@@ -49,14 +61,14 @@ object NumberFormatter {
         return ""
     }
 
-    private fun getNetChange(signedChangeRate: Double?): String {
+    private fun convertToSignedChangeRate(signedChangeRate: Double?): String {
         signedChangeRate?.let {
             return String.format("%.2f", it * 100)
         }
         return ""
     }
 
-    private fun getTradingValue(accTradePrice24h: Double?): String {
+    private fun convertToAccTradePrice24h(accTradePrice24h: Double?): String {
         accTradePrice24h?.let {
             return when {
                 it / 1_000_000 > 100 -> millionFormat.format(it / 1_000_000)

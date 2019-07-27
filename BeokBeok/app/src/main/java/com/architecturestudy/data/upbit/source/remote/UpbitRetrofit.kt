@@ -1,14 +1,15 @@
-package com.architecturestudy.data.upbit.service
+package com.architecturestudy.data.upbit.source.remote
 
 import com.architecturestudy.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
 import retrofit2.Retrofit.Builder
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object UpbitRetrofit {
-    val retrofit: UpbitService = Builder()
+    private val retrofit: Retrofit = Builder()
         .baseUrl("https://api.upbit.com/")
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -26,5 +27,5 @@ object UpbitRetrofit {
                 .build()
         )
         .build()
-        .create(UpbitService::class.java)
+    val service: UpbitRemoteService = retrofit.create(UpbitRemoteService::class.java)
 }
