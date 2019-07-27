@@ -1,4 +1,4 @@
-package com.architecturestudy.data.upbit
+package com.architecturestudy.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

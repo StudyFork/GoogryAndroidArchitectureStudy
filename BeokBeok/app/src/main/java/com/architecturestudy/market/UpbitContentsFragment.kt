@@ -1,4 +1,4 @@
-package com.architecturestudy.upbitmarket
+package com.architecturestudy.market
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
@@ -6,7 +6,7 @@ import com.architecturestudy.BR
 import com.architecturestudy.R
 import com.architecturestudy.base.BaseFragment
 import com.architecturestudy.base.BaseRecyclerView
-import com.architecturestudy.data.common.MarketTypes
+import com.architecturestudy.common.MarketTypes
 import com.architecturestudy.databinding.FragmentUpbitContentsBinding
 import com.architecturestudy.databinding.RvUpbitItemBinding
 import com.architecturestudy.util.RxEventBus

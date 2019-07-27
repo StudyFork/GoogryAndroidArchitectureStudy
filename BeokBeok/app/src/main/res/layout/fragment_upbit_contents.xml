@@ -7,13 +7,13 @@
 
         <variable
             name="vm"
-            type="com.architecturestudy.upbitmarket.UpbitViewModel" />
+            type="com.architecturestudy.market.UpbitViewModel" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".upbitmarket.UpbitContentsFragment">
+        tools:context=".market.UpbitContentsFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_coin_price"

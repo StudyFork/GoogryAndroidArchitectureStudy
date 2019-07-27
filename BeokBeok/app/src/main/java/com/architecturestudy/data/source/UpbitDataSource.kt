@@ -1,6 +1,6 @@
-package com.architecturestudy.data.upbit.source
+package com.architecturestudy.data.source
 
-import com.architecturestudy.data.upbit.UpbitTicker
+import com.architecturestudy.data.UpbitTicker
 import io.reactivex.disposables.Disposable
 
 interface UpbitDataSource {

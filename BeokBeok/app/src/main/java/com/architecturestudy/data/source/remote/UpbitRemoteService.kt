@@ -1,6 +1,6 @@
-package com.architecturestudy.data.upbit.source.remote
+package com.architecturestudy.data.source.remote
 
-import com.architecturestudy.data.upbit.UpbitTicker
+import com.architecturestudy.data.UpbitTicker
 import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.http.GET

@@ -1,4 +1,4 @@
-package com.architecturestudy
+package com.architecturestudy.common
 
 import android.app.Application
 import com.architecturestudy.di.dataSourceModules

@@ -1,7 +1,7 @@
-package com.architecturestudy.data.upbit.source.local
+package com.architecturestudy.data.source.local
 
-import com.architecturestudy.data.upbit.UpbitTicker
-import com.architecturestudy.data.upbit.source.UpbitDataSource
+import com.architecturestudy.data.UpbitTicker
+import com.architecturestudy.data.source.UpbitDataSource
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable

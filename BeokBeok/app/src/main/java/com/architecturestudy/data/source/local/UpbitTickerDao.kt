@@ -1,10 +1,10 @@
-package com.architecturestudy.data.upbit.source.local
+package com.architecturestudy.data.source.local
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.architecturestudy.data.upbit.UpbitTicker
+import com.architecturestudy.data.UpbitTicker
 
 @Dao
 interface UpbitTickerDao {

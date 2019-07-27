@@ -1,10 +1,10 @@
-package com.architecturestudy.upbitmarket
+package com.architecturestudy.market
 
 import android.os.Bundle
 import com.architecturestudy.R
 import com.architecturestudy.base.BaseFragment
-import com.architecturestudy.customlistener.TabSelectedListener
-import com.architecturestudy.data.common.MarketTypes
+import com.architecturestudy.common.MarketTypes
+import com.architecturestudy.common.TabSelectedListener
 import com.architecturestudy.databinding.FragmentUpbitOutlineBinding
 import com.google.android.material.tabs.TabLayout
 import org.koin.android.viewmodel.ext.android.viewModel

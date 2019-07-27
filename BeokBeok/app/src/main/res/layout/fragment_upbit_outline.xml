@@ -9,18 +9,18 @@
 
         <variable
             name="vm"
-            type="com.architecturestudy.upbitmarket.UpbitViewModel" />
+            type="com.architecturestudy.market.UpbitViewModel" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".upbitmarket.UpbitOutlineFragment">
+        tools:context=".market.UpbitOutlineFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".upbitmarket.UpbitActivity">
+            tools:context=".market.UpbitActivity">
 
             <ImageView
                 android:layout_width="12dp"

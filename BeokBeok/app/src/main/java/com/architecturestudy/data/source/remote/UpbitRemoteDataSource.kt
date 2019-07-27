@@ -1,8 +1,8 @@
-package com.architecturestudy.data.upbit.source.remote
+package com.architecturestudy.data.source.remote
 
-import com.architecturestudy.data.common.MarketTypes
-import com.architecturestudy.data.upbit.UpbitTicker
-import com.architecturestudy.data.upbit.source.UpbitDataSource
+import com.architecturestudy.common.MarketTypes
+import com.architecturestudy.data.UpbitTicker
+import com.architecturestudy.data.source.UpbitDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers

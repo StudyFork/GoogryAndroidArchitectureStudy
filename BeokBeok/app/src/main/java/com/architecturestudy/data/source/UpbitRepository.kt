@@ -1,8 +1,8 @@
-package com.architecturestudy.data.upbit.source
+package com.architecturestudy.data.source
 
-import com.architecturestudy.data.upbit.UpbitTicker
-import com.architecturestudy.data.upbit.source.local.UpbitLocalDataSource
-import com.architecturestudy.data.upbit.source.remote.UpbitRemoteDataSource
+import com.architecturestudy.data.UpbitTicker
+import com.architecturestudy.data.source.local.UpbitLocalDataSource
+import com.architecturestudy.data.source.remote.UpbitRemoteDataSource
 import io.reactivex.disposables.Disposable
 
 class UpbitRepository constructor(
