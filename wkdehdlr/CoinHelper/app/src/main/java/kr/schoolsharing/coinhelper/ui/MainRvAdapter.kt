@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kr.schoolsharing.coinhelper.R
 import kr.schoolsharing.coinhelper.model.UpbitItem
 
-class MainRvAdapter(val itemList: List<UpbitItem>) :
+class MainRvAdapter(private val itemList: List<UpbitItem>) :
     RecyclerView.Adapter<MainRvAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
