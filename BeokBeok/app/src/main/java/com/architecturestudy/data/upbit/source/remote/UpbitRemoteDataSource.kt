@@ -7,7 +7,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class UpbitRemoteDataSource private constructor(
+class UpbitRemoteDataSource constructor(
     private val retrofit: UpbitRemoteService
 ) : UpbitDataSource {
 
@@ -71,13 +71,4 @@ class UpbitRemoteDataSource private constructor(
         }, {
             onFail(it)
         })
-
-    companion object {
-        private var instance: UpbitRemoteDataSource? = null
-
-        operator fun invoke(
-            retrofit: UpbitRemoteService
-        ): UpbitRemoteDataSource = instance ?: UpbitRemoteDataSource(retrofit)
-            .apply { instance = this }
-    }
 }

@@ -1,11 +1,15 @@
 package com.architecturestudy
 
 import android.app.Application
+import com.architecturestudy.di.dataSourceModules
+import com.architecturestudy.di.getLocalServiceModules
+import com.architecturestudy.di.getRemoteServiceModules
 import com.architecturestudy.di.viewModelModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 
+@Suppress("unused")
 class Application : Application() {
 
     override fun onCreate() {
@@ -13,7 +17,14 @@ class Application : Application() {
         startKoin {
             androidLogger()
             androidContext(this@Application)
-            modules(viewModelModules)
+            modules(
+                listOf(
+                    getLocalServiceModules(this@Application),
+                    getRemoteServiceModules("https://api.upbit.com/"),
+                    dataSourceModules,
+                    viewModelModules
+                )
+            )
         }
     }
 }

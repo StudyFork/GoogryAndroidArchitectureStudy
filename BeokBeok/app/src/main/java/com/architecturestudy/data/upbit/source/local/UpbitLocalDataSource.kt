@@ -7,7 +7,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class UpbitLocalDataSource private constructor(
+class UpbitLocalDataSource constructor(
     private val upbitTickerDao: UpbitTickerDao?
 ) : UpbitDataSource {
 
@@ -76,13 +76,4 @@ class UpbitLocalDataSource private constructor(
             }, {
                 onFail(IllegalStateException("Sort fail"))
             })
-
-    companion object {
-        private var instance: UpbitLocalDataSource? = null
-
-        operator fun invoke(
-            upbitTickerDao: UpbitTickerDao?
-        ): UpbitLocalDataSource = instance ?: UpbitLocalDataSource(upbitTickerDao)
-            .apply { instance = this }
-    }
 }

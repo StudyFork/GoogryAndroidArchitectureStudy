@@ -5,7 +5,7 @@ import com.architecturestudy.data.upbit.source.local.UpbitLocalDataSource
 import com.architecturestudy.data.upbit.source.remote.UpbitRemoteDataSource
 import io.reactivex.disposables.Disposable
 
-class UpbitRepository private constructor(
+class UpbitRepository constructor(
     private val upbitLocalDataSource: UpbitLocalDataSource?,
     private val upbitRemoteDataSource: UpbitRemoteDataSource
 ) : UpbitDataSource {
@@ -34,16 +34,4 @@ class UpbitRepository private constructor(
         onSuccess,
         onFail
     )
-
-    companion object {
-        private var instance: UpbitRepository? = null
-
-        operator fun invoke(
-            upbitLocalDataSource: UpbitLocalDataSource?,
-            upbitRemoteDataSource: UpbitRemoteDataSource
-        ): UpbitRepository = instance ?: UpbitRepository(
-            upbitLocalDataSource,
-            upbitRemoteDataSource
-        ).apply { instance = this }
-    }
 }
