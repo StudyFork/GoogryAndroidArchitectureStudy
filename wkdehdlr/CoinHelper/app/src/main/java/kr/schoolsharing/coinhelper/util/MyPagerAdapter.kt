@@ -4,20 +4,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import kr.schoolsharing.coinhelper.model.UpbitList
-import kr.schoolsharing.coinhelper.ui.FragmentBTC
-import kr.schoolsharing.coinhelper.ui.FragmentETH
-import kr.schoolsharing.coinhelper.ui.FragmentKRW
-import kr.schoolsharing.coinhelper.ui.FragmentUSDT
+import kr.schoolsharing.coinhelper.ui.CoinFragment
 
 class MyPagerAdapter(fm: FragmentManager, upbitList: UpbitList) : FragmentStatePagerAdapter(fm) {
 
     private val upbitList = upbitList
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> FragmentKRW(upbitList.krwList)
-            1 -> FragmentBTC(upbitList.btcList)
-            2 -> FragmentETH(upbitList.ethList)
-            else -> return FragmentUSDT(upbitList.usdtList)
+            0 -> CoinFragment(upbitList.krwList)
+            1 -> CoinFragment(upbitList.btcList)
+            2 -> CoinFragment(upbitList.ethList)
+            else -> return CoinFragment(upbitList.usdtList)
         }
     }
 
