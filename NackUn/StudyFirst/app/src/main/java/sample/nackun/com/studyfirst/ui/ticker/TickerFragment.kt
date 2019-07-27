@@ -6,8 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.ticker_fragment.*
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import org.koin.android.ext.android.inject
 import sample.nackun.com.studyfirst.BR
 import sample.nackun.com.studyfirst.R
 import sample.nackun.com.studyfirst.base.BaseFragment
@@ -22,6 +21,7 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
     R.layout.ticker_fragment
 ) {
     private val firstMarketName = "KRW"
+    private val upbitApi: UpbitApi by inject()
     private val tickerAdapter =
         object :
             BaseRecyclerView.BaseAdapter<List<Map<String, String>>, TickerItemBinding>(
@@ -47,11 +47,7 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
                     TickerViewModel(
                         Repository(
                             RemoteDataSource(
-                                Retrofit.Builder()
-                                    .baseUrl("https://api.upbit.com/")
-                                    .addConverterFactory(GsonConverterFactory.create())
-                                    .build()
-                                    .create(UpbitApi::class.java)
+                                upbitApi
                             )
                         )
                     ) as T
