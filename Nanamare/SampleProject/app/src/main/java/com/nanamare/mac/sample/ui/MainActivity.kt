@@ -46,9 +46,4 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         goToFragment(MarketListFragment::class.java, bundle)
     }
 
-    override fun onDestroy() {
-        marketVM.close()
-        super.onDestroy()
-    }
-
 }

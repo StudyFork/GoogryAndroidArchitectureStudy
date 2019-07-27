@@ -111,8 +111,4 @@ class CoinFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coi
 
     }
 
-    override fun onDestroyView() {
-        coinVM.close()
-        super.onDestroyView()
-    }
 }
