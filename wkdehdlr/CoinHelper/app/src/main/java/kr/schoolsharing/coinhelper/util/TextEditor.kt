@@ -9,9 +9,9 @@ object TextEditor {
 
     fun makeSignedChangeRate(param: Double) = String.format("%.2f", param * 100)
     fun makeAccTradePrice24h(param: Double) = when {
-        param > 10000000 -> (param / 1000000).toInt().toString() + "M"
-        param > 100000 -> (param / 1000).toInt().toString() + "K"
-        param > 1000 -> (param / 1000000).toInt().toString()
+        param > 10000000 -> "${(param / 1000000).toInt()}M"
+        param > 100000 -> "${(param / 1000).toInt()}K"
+        param > 1000 -> "${(param / 1000000).toInt()}"
         else -> String.format("%.3f", param)
     }
     fun splitString(param: String, idx: Int) = param.split("-")[idx]
