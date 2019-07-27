@@ -1,5 +1,6 @@
 package study.architecture.util
 
+import android.graphics.Color
 import java.text.DecimalFormat
 
 object TextUtil {
@@ -22,6 +23,13 @@ object TextUtil {
             return@with "${this.format(accTradePrice / 1000)}K"
         } else {
             return@with this.format(accTradePrice)
+        }
+    }
+    fun getColorState(changeRate:Double) : Int{
+        return if (changeRate > 0) {
+            Color.RED
+        } else {
+            Color.BLUE
         }
     }
 }

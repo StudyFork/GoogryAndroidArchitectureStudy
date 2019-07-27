@@ -60,7 +60,8 @@ class MainPresenter(private val view: MainContract.View, index: MainFragment.Fra
                                 TextUtil.getMarketName(data.market),
                                 TextUtil.getTradePrice(data.tradePrice),
                                 TextUtil.getChangeRate(data.signedChangeRate),
-                                TextUtil.getAccTradePrice24h(data.accTradePrice24h)
+                                TextUtil.getAccTradePrice24h(data.accTradePrice24h),
+                                TextUtil.getColorState(data.signedChangeRate)
                             )
                         )
                     }
