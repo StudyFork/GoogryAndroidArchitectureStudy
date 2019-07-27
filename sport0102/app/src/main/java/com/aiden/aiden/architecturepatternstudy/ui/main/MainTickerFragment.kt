@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.aiden.aiden.architecturepatternstudy.BR
 import com.aiden.aiden.architecturepatternstudy.R
-import com.aiden.aiden.architecturepatternstudy.api.Retrofit.retrofit
 import com.aiden.aiden.architecturepatternstudy.api.UpbitApi
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 import com.aiden.aiden.architecturepatternstudy.base.BaseFragment
@@ -18,11 +17,12 @@ import com.aiden.aiden.architecturepatternstudy.data.source.remote.UpbitRemoteDa
 import com.aiden.aiden.architecturepatternstudy.databinding.FragmentTickerMainBinding
 import com.aiden.aiden.architecturepatternstudy.databinding.ItemTickerBinding
 import com.aiden.aiden.architecturepatternstudy.domain.UpbitDatabase
+import org.koin.android.ext.android.inject
 
 
 class MainTickerFragment : BaseFragment<FragmentTickerMainBinding>(R.layout.fragment_ticker_main) {
 
-    private val upbitApi by lazy { retrofit.create(UpbitApi::class.java) }
+    private val upbitApi: UpbitApi by inject()
 
     private lateinit var marketName: String
 
