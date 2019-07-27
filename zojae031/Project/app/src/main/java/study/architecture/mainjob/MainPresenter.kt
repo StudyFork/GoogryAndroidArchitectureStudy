@@ -18,12 +18,13 @@ import java.util.concurrent.TimeUnit
 class MainPresenter(private val view: MainContract.View, index: MainFragment.FragIndex) :
     MainContract.Presenter {
     private val dispose: Disposable
-    private lateinit var list : String
+    private lateinit var list: String
     private val compositeDisposable = CompositeDisposable()
 
     init {
         dispose =
             Repository.getMarketList(index)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { marketList ->
                         list = marketList

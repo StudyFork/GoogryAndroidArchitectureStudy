@@ -45,8 +45,7 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
             tradePrice.text = lists[position].tradePrice
             if (lists[position].changeRate[0] == '-') {
                 changeRate.setTextColor(Color.RED)
-            }
-            else{
+            } else {
                 changeRate.setTextColor(Color.BLUE)
             }
             changeRate.text = lists[position].changeRate
