@@ -1,8 +1,15 @@
 package kr.schoolsharing.coinhelper.model
 
-data class UpbitList(
-    val krwList: MutableList<UpbitItem>,
-    val btcList: MutableList<UpbitItem>,
-    val ethList: MutableList<UpbitItem>,
-    val usdtList: MutableList<UpbitItem>
-)
+object UpbitList {
+    val krwList: MutableList<UpbitItem> = ArrayList()
+    val btcList: MutableList<UpbitItem> = ArrayList()
+    val ethList: MutableList<UpbitItem> = ArrayList()
+    val usdtList: MutableList<UpbitItem> = ArrayList()
+
+    fun getListFromName(param: String) = when (param) {
+        "KRW" -> krwList
+        "BTC" -> btcList
+        "ETH" -> ethList
+        else -> usdtList
+    }
+}

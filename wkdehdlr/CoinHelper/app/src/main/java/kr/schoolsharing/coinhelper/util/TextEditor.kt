@@ -14,6 +14,7 @@ object TextEditor {
         param > 1000 -> "${(param / 1000000).toInt()}"
         else -> String.format("%.3f", param)
     }
+
     fun splitString(param: String, idx: Int) = param.split("-")[idx]
 
 
