@@ -1,12 +1,11 @@
-package kr.schoolsharing.coinhelper.util
+package kr.schoolsharing.coinhelper.ui
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import kr.schoolsharing.coinhelper.model.UpbitList
-import kr.schoolsharing.coinhelper.ui.CoinFragment
 
-class MyPagerAdapter(fm: FragmentManager, upbitList: UpbitList) : FragmentStatePagerAdapter(fm) {
+class PagerAdapter(fm: FragmentManager, upbitList: UpbitList) : FragmentStatePagerAdapter(fm) {
 
     private val upbitList = upbitList
     override fun getItem(position: Int): Fragment {

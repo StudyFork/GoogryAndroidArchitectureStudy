@@ -10,7 +10,6 @@ import kr.schoolsharing.coinhelper.model.UpbitItem
 import kr.schoolsharing.coinhelper.model.UpbitList
 import kr.schoolsharing.coinhelper.model.UpbitMarket
 import kr.schoolsharing.coinhelper.model.UpbitTicker
-import kr.schoolsharing.coinhelper.util.MyPagerAdapter
 import kr.schoolsharing.coinhelper.util.TextEditor
 
 
@@ -74,7 +73,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun adaptPager() {
-        MyPagerAdapter(supportFragmentManager, upbitList).apply {
+        PagerAdapter(supportFragmentManager, upbitList).apply {
             viewpager_main.adapter = this
             tabs_main.setupWithViewPager(viewpager_main)
         }
