@@ -5,18 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_ticker_list.*
 import org.jetbrains.anko.support.v4.toast
 import study.architecture.myarchitecture.BaseFragment
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.data.Injection
 import study.architecture.myarchitecture.data.model.UpbitTicker
-import study.architecture.myarchitecture.data.repository.UpbitRepository
-import study.architecture.myarchitecture.rxobserver.RxObserverHelper
-import timber.log.Timber
 
-class TickerListFragment : BaseFragment() {
+class TickerListFragment : BaseFragment(), TickerListContract.View {
 
     companion object {
 
@@ -31,9 +27,7 @@ class TickerListFragment : BaseFragment() {
 
     private val tickerAdapter = TickerAdapter()
 
-    private lateinit var upbitRepository: UpbitRepository
-
-    private val compositeDisposable = CompositeDisposable()
+    private lateinit var presenter: TickerListContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_ticker_list, container, false)
@@ -42,25 +36,18 @@ class TickerListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        upbitRepository = Injection.provideFolderRepository(context!!)
+        presenter = TickerListPresenter(
+            Injection.provideFolderRepository(context!!),
+            this@TickerListFragment
+        )
 
-        subscribeEventBus()
         initRecyclerView()
-        loadData()
+        presenter.createdView()
     }
 
     override fun onDestroyView() {
-        compositeDisposable.clear()
+        presenter.detachView()
         super.onDestroyView()
-    }
-
-    private fun subscribeEventBus() {
-        RxObserverHelper.tickerListSubject
-            .subscribe {
-                tickerAdapter.orderByField(it)
-            }.also {
-                compositeDisposable.add(it)
-            }
     }
 
     private fun initRecyclerView() {
@@ -78,38 +65,21 @@ class TickerListFragment : BaseFragment() {
         })
     }
 
-    private fun loadData() {
-
-        val markets = arguments?.getString(KEY_MARKETS) ?: ""
-
-        upbitRepository
-            .getTickers(markets)
-            .doOnSubscribe {
-                showProgress()
-            }
-            .doOnSuccess {
-                hideProgress()
-            }
-            .doOnError {
-                hideProgress()
-            }
-            .subscribe({
-
-                Timber.d("$it")
-                tickerAdapter.setItem(it.toMutableList())
-
-            }) {
-                Timber.e(it)
-            }.also {
-                compositeDisposable.add(it)
-            }
-    }
-
-    private fun showProgress() {
+    override fun showProgress() {
         pbTickerList.visibility = View.VISIBLE
     }
 
-    private fun hideProgress() {
+    override fun hideProgress() {
         pbTickerList.visibility = View.GONE
+    }
+
+    override fun getKeyMarkets() = arguments?.getString(KEY_MARKETS) ?: ""
+
+    override fun setTickers(tickers: MutableList<UpbitTicker>) {
+        tickerAdapter.setItem(tickers)
+    }
+
+    override fun orderByField(bundle: Bundle) {
+        tickerAdapter.orderByField(bundle)
     }
 }
