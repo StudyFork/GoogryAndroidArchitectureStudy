@@ -4,13 +4,12 @@ import androidx.room.*
 import io.reactivex.Single
 import study.architecture.myarchitecture.data.model.UpbitMarket
 import study.architecture.myarchitecture.data.model.UpbitTicker
-import study.architecture.myarchitecture.data.source.UpbitDataSource
 
 @Dao
-interface UpbitDao : UpbitDataSource {
+interface UpbitDao {
 
     @Query("SELECT * FROM markets")
-    override fun getMarkets(): Single<List<UpbitMarket>>
+    fun getMarkets(): Single<List<UpbitMarket>>
 
     @Query("SELECT * FROM tickers WHERE market Like :marketKey")
     fun getTickers(marketKey: String): Single<List<UpbitTicker>>
