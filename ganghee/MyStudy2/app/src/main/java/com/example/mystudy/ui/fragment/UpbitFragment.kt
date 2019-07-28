@@ -16,16 +16,14 @@ import com.example.mystudy.data.UpbitRepository
 import com.example.mystudy.network.TickerResponse
 import com.example.mystudy.network.UpbitService
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_upbit.*
-import org.jetbrains.anko.support.v4.ctx
 
 class UpbitFragment(tabName: String) : Fragment() {
 
-    private val compositeDisposable = CompositeDisposable()
     private val firstMarket = tabName
-    private val repository: UpbitRepository by lazy { UpbitRepository(UpbitService.getInstance().upbitApi) }
+    private val repository: UpbitRepository  by lazy { UpbitRepository() }
+    private val tickerList by lazy { mutableListOf<FormatTickers>() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,13 +37,15 @@ class UpbitFragment(tabName: String) : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        //recyclerViewSetup()
+
         repository.getMarket()
+            .observeOn(Schedulers.newThread())
             .subscribe { it ->
                 repository.getTicker(it)
-                    .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .map {
-                        it.filter {TickerResponse ->
+                        it.filter { TickerResponse ->
                             TickerResponse.market.split("-")[0] == firstMarket
                         }
                     }
@@ -56,21 +56,21 @@ class UpbitFragment(tabName: String) : Fragment() {
             }
     }
 
-    private fun displayData(posts: List<TickerResponse>?) {
-        posts?.let {
-            val tickerList = mutableListOf<FormatTickers>()
-            posts.forEach{
-                tickerList.add(
-                    it.toTicker(requireContext())
-                )
-            }
-            rv_tickers.adapter = TickerAdapter(ctx, tickerList)
-            rv_tickers.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+    private fun recyclerViewSetup() {
+        rv_tickers.apply{
+            adapter =  TickerAdapter(tickerList)
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         }
     }
 
-    override fun onStop() {
-        compositeDisposable.clear()
-        super.onStop()
+    private fun displayData(posts: List<TickerResponse>?) {
+        posts?.let {
+            it.map {
+                tickerList.add(
+                    it.toTicker()
+                )
+            }
+        }
+        recyclerViewSetup()
     }
 }
