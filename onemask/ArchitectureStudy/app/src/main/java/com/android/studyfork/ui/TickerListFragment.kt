@@ -1,6 +1,7 @@
 package com.android.studyfork.ui
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.studyfork.R
 import com.android.studyfork.data.repository.UpbitRepository
 import com.android.studyfork.network.api.UpbitService
+import com.android.studyfork.network.remote.model.Coin
 import com.android.studyfork.ui.adpater.CoinItemAdapter
+import com.android.studyfork.utill.filterTrade
 import com.android.studyfork.utill.inflate
+import com.android.studyfork.utill.setBeforeRate
+import com.android.studyfork.utill.setTradeAmount
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_krw.*
@@ -24,6 +29,7 @@ class TickerListFragment : Fragment() {
 
     private lateinit var coinItemAdapter: CoinItemAdapter
 
+
     @SuppressLint("CheckResult")
     private fun getTicker(){
         val markets = arguments?.getString(KEY_MARKETS) ?:""
@@ -31,7 +37,17 @@ class TickerListFragment : Fragment() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                coinItemAdapter.setData(it)
+                coinItemAdapter.setData(
+                    it.map {
+                        Coin(
+                            title = it.market.split("-")[1],
+                            textCurrentPrice = it.tradePrice.filterTrade(it.tradePrice),
+                            textBeforeDay = it.signedChangeRate.setBeforeRate(it.signedChangeRate),
+                            textTotalTrade = it.accTradePrice24h.setTradeAmount(it.accTradePrice24h),
+                            coinColor = if (it.signedChangePrice >= 0) Color.RED else Color.BLUE
+                        )
+                    }
+                )
                 Timber.d("getTicker success")
             },{
                 Timber.e("${it.printStackTrace()}")
@@ -58,8 +74,6 @@ class TickerListFragment : Fragment() {
             setHasFixedSize(false)
         }
     }
-
-
     companion object {
         const val KEY_MARKETS = "markets"
         fun newInstance(tickers: String) = TickerListFragment().apply {
