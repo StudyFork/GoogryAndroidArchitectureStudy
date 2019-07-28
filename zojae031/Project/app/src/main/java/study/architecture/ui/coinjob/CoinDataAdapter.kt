@@ -11,7 +11,8 @@ import study.architecture.model.vo.ProcessingTicker
 /**
  * RecyclerView에 아이템을 뿌려주는 Adpater
  */
-class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
+class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>(), CoinAdapterContract.View,
+    CoinAdapterContract.Model {
 
     private val lists: MutableList<ProcessingTicker> = mutableListOf()
 
@@ -26,11 +27,16 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
         holder.bind(position)
     }
 
-    fun updateList(list: List<ProcessingTicker>) {
-        lists.apply {
-            clear()
-            addAll(list)
-        }
+    override fun notifyDataChange() {
+        notifyDataSetChanged()
+    }
+
+    override fun updateList(list: List<ProcessingTicker>) {
+        lists.addAll(list)
+    }
+
+    override fun clearList() {
+        lists.clear()
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {

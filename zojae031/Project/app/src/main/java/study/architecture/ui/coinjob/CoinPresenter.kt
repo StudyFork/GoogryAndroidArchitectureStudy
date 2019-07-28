@@ -13,9 +13,14 @@ import study.architecture.model.repository.Repository
  */
 class CoinPresenter(private val view: CoinContract.View, index: CoinFragment.FragIndex) :
     CoinContract.Presenter {
+
+
     private val dispose: Disposable
     private lateinit var marketName: String
     private val compositeDisposable = CompositeDisposable()
+
+    private lateinit var adapterView: CoinAdapterContract.View
+    private lateinit var adapterModel: CoinAdapterContract.Model
 
     init {
         dispose =
@@ -31,6 +36,13 @@ class CoinPresenter(private val view: CoinContract.View, index: CoinFragment.Fra
                     })
     }
 
+    override fun setAdapterView(adapterView: CoinAdapterContract.View) {
+        this.adapterView = adapterView
+    }
+
+    override fun setAdapterModel(adapterModel: CoinAdapterContract.Model) {
+        this.adapterModel = adapterModel
+    }
 
     override fun onResume() {
         if (dispose.isDisposed) {
@@ -51,7 +63,9 @@ class CoinPresenter(private val view: CoinContract.View, index: CoinFragment.Fra
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { lists ->
-                    view.notifyAdapter(lists)
+                    adapterView.clearList()
+                    adapterView.updateList(lists)
+                    adapterModel.notifyDataChange()
                 },
                 { e ->
                     Log.e("onError", e.message)

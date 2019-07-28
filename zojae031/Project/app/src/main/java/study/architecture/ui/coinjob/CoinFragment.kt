@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import study.architecture.R
-import study.architecture.model.vo.ProcessingTicker
 
 
 @SuppressLint("ValidFragment", "WrongConstant")
@@ -20,7 +19,10 @@ class CoinFragment : Fragment(), CoinContract.View {
         CoinPresenter(
             this@CoinFragment,
             arguments!!.getSerializable("idx") as FragIndex
-        )
+        ).also {
+            it.setAdapterModel(adapter)
+            it.setAdapterView(adapter)
+        }
     }
 
     private val adapter by lazy { CoinDataAdapter() }
@@ -32,11 +34,6 @@ class CoinFragment : Fragment(), CoinContract.View {
             loading.animation = AnimationUtils.loadAnimation(context, R.anim.loading)
         }
 
-
-    override fun notifyAdapter(list: List<ProcessingTicker>) {
-        adapter.updateList(list)
-        adapter.notifyDataSetChanged()
-    }
 
     override fun showProgress() {
         loading.visibility = View.VISIBLE
