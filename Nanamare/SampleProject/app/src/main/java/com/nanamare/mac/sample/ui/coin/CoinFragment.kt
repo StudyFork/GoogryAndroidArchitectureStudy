@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.malinskiy.superrecyclerview.OnMoreListener
@@ -11,6 +12,7 @@ import com.nanamare.mac.sample.R
 import com.nanamare.mac.sample.adapter.TickerAdapter
 import com.nanamare.mac.sample.base.BaseFragment
 import com.nanamare.mac.sample.databinding.FragmentCoinListBinding
+import com.nanamare.mac.sample.ext.createFactory
 import com.nanamare.mac.sample.vm.CoinViewModel
 import kotlinx.android.synthetic.main.fragment_coin_list.*
 
@@ -21,7 +23,9 @@ class CoinFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coi
 
     private val adapter: TickerAdapter by lazy { TickerAdapter() }
 
-    private val coinVM: CoinViewModel by lazy { CoinViewModel() }
+    private val coinVM: CoinViewModel by lazy {
+        ViewModelProviders.of(this, CoinViewModel().createFactory())[CoinViewModel().javaClass]
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -107,8 +111,4 @@ class CoinFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coi
 
     }
 
-    override fun onDestroyView() {
-        coinVM.close()
-        super.onDestroyView()
-    }
 }
