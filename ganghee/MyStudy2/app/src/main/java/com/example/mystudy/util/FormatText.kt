@@ -3,7 +3,7 @@ package com.example.mystudy.util
 import android.content.Context
 import com.example.mystudy.R
 
-class FormatText(val ctx: Context) {
+object FormatText {
 
     //코인명
     fun lastMarketName(marketName: String) =
