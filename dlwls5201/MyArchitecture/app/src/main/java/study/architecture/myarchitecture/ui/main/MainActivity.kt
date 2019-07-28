@@ -93,7 +93,7 @@ class MainActivity : BaseActivity(), MainContract.View {
         ivSelectByTradeAmount.visibility = visibility
     }
 
-    override fun notifyTickerListObervers(field: String, order: Int) {
+    override fun notifyTickerListObservers(field: String, order: Int) {
 
         val bundle = Bundle().apply {
             putString(Filter.KEY_FIELD, field)
