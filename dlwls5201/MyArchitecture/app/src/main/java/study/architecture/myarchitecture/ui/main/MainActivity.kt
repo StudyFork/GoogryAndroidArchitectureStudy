@@ -33,7 +33,6 @@ class MainActivity : BaseActivity(), MainContract.View {
 
         initToolbar()
         initDrawer()
-        initViewPager()
         initTopCategory()
 
         presenter.loadData()
@@ -46,6 +45,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     }
 
     override fun setViewPagers(pagers: Array<String>) {
+        initViewPager(pagers.size)
         mainAdapter.setItems(pagers)
     }
 
@@ -143,7 +143,7 @@ class MainActivity : BaseActivity(), MainContract.View {
                 }
 
                 override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
-                    if (drawerView.id == study.architecture.myarchitecture.R.id.flEndSideInDrawer) {
+                    if (drawerView.id == R.id.flEndSideInDrawer) {
                         llMainInDrawer.translationX = -llMainInDrawer.width * slideOffset
                     }
                 }
@@ -157,13 +157,13 @@ class MainActivity : BaseActivity(), MainContract.View {
         }
     }
 
-    private fun initViewPager() {
+    private fun initViewPager(size: Int) {
 
         with(vpMain) {
             adapter = mainAdapter
+            offscreenPageLimit = size
             tlMain.setupWithViewPager(this)
         }
-
 
     }
 
