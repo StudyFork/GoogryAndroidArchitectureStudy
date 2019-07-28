@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.fragment_main.view.*
+import kotlinx.android.synthetic.main.fragment_coin.*
+import kotlinx.android.synthetic.main.fragment_coin.view.*
 import study.architecture.R
 
 
@@ -29,7 +29,7 @@ class CoinFragment : Fragment(), CoinContract.View {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        inflater.inflate(R.layout.fragment_main, container, false).apply {
+        inflater.inflate(R.layout.fragment_coin, container, false).apply {
             recyclerView.adapter = adapter
             loading.animation = AnimationUtils.loadAnimation(context, R.anim.loading)
         }

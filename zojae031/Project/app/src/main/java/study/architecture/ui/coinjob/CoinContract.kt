@@ -9,7 +9,7 @@ interface CoinContract {
     interface Presenter {
         fun onResume()
         fun onPause()
-        fun setAdapterView(adapterView : CoinAdapterContract.View)
-        fun setAdapterModel(adapterModel : CoinAdapterContract.Model)
+        fun setAdapterView(adapterView: CoinAdapterContract.View)
+        fun setAdapterModel(adapterModel: CoinAdapterContract.Model)
     }
 }
