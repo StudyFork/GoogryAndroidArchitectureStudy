@@ -8,7 +8,7 @@ class PagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
     private val marketList = listOf("KRW", "BTC", "ETH", "USDT")
 
-    override fun getItem(position: Int): Fragment = CoinFragment(marketList[position])
+    override fun getItem(position: Int): Fragment = CoinFragment.newInstance(marketList[position])
 
     override fun getCount(): Int = 4
 
