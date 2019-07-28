@@ -4,7 +4,7 @@ import study.architecture.model.vo.ProcessingTicker
 
 interface MainContract {
     interface View {
-        fun notifyAdapter(list: MutableList<ProcessingTicker>)
+        fun notifyAdapter(list: List<ProcessingTicker>)
         fun showProgress()
         fun hideProgress()
     }

@@ -36,7 +36,7 @@ class MainFragment : Fragment(), MainContract.View {
         }
 
 
-    override fun notifyAdapter(list: MutableList<ProcessingTicker>) {
+    override fun notifyAdapter(list: List<ProcessingTicker>) {
         adapter.updateList(list)
         adapter.notifyDataSetChanged()
     }

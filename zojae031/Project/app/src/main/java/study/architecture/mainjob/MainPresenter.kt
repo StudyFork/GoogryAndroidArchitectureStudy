@@ -51,23 +51,16 @@ class MainPresenter(private val view: MainContract.View, index: MainFragment.Fra
     private fun tickerRequest() {
         Repository.getTickerList(list)
             .repeatWhen { t -> t.delay(8, TimeUnit.SECONDS) }
-            .map { lists ->
-
-                with(mutableListOf<ProcessingTicker>()) {
-                    for (data in lists) {
-                        add(
-                            ProcessingTicker(
-                                TextUtil.getMarketName(data.market),
-                                TextUtil.getTradePrice(data.tradePrice),
-                                TextUtil.getChangeRate(data.signedChangeRate),
-                                TextUtil.getAccTradePrice24h(data.accTradePrice24h),
-                                TextUtil.getColorState(data.signedChangeRate)
-                            )
-                        )
-                    }
-                    return@map this
+            .map { list ->
+                list.map { data ->
+                    ProcessingTicker(
+                        TextUtil.getMarketName(data.market),
+                        TextUtil.getTradePrice(data.tradePrice),
+                        TextUtil.getChangeRate(data.signedChangeRate),
+                        TextUtil.getAccTradePrice24h(data.accTradePrice24h),
+                        TextUtil.getColorState(data.signedChangeRate)
+                    )
                 }
-
             }
             .doOnSubscribe { view.showProgress() }
             .doOnRequest { view.hideProgress() }
