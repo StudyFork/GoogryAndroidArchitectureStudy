@@ -60,13 +60,13 @@ data class TickerResponse(
     @SerializedName("trade_volume")
     val tradeVolume: Double
 ) {
-    fun toTicker(context: Context): FormatTickers {
-        val toMarket = FormatText(context).lastMarketName(market)
-        val toTradePrice = FormatText(context).formatTradePrice(tradePrice)
-        val toSignedChangeRate = FormatText(context).formatSignedChangeRate(signedChangeRate)
-        val toRateColor = FormatText(context).formatRateColor(signedChangeRate)
+    fun toTicker(): FormatTickers {
+        val toMarket = FormatText.lastMarketName(market)
+        val toTradePrice = FormatText.formatTradePrice(tradePrice)
+        val toSignedChangeRate = FormatText.formatSignedChangeRate(signedChangeRate)
+        val toRateColor = FormatText.formatRateColor(signedChangeRate)
         val toAccTradePrice24h: String =
-            FormatText(context).formatAccTradePrice24h(accTradePrice24h, market.split("-")[0])
+            FormatText.formatAccTradePrice24h(accTradePrice24h, market.split("-")[0])
 
         return FormatTickers(
             toMarket,
