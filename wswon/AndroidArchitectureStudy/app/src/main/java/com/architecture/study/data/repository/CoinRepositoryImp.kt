@@ -9,7 +9,7 @@ import com.architecture.study.network.model.TickerResponse
 
 class CoinRepositoryImp : CoinRepository {
 
-    private val upbitUrl= "https://api.upbit.com"
+    private val upbitUrl = "https://api.upbit.com"
 
     companion object {
         private var instance: CoinRepositoryImp? = null
@@ -17,17 +17,18 @@ class CoinRepositoryImp : CoinRepository {
             instance ?: synchronized(this) {
                 instance
                     ?: CoinRepositoryImp().also {
-                    instance = it
-                }
+                        instance = it
+                    }
             }
     }
 
     override fun getMarketList(listener: CoinRemoteDataSourceListener<MarketResponse>) {
-        CoinRemoteDataSourceImp.getInstance(RetrofitInstance.getInstance<UpbitApi>(upbitUrl)).getMarketList(listener)
+        CoinRemoteDataSourceImp.getInstance(RetrofitInstance.getInstance<UpbitApi>(upbitUrl))
+            .getMarketList(listener)
     }
 
     override fun getTickerList(marketNames: String, listener: CoinRemoteDataSourceListener<TickerResponse>) {
-        CoinRemoteDataSourceImp.getInstance()
+        CoinRemoteDataSourceImp.getInstance(RetrofitInstance.getInstance<UpbitApi>(upbitUrl))
             .getTickerList(marketNames, listener)
     }
 }
