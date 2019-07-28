@@ -12,15 +12,13 @@ import kr.schoolsharing.coinhelper.R
 import kr.schoolsharing.coinhelper.data.Repository
 import kr.schoolsharing.coinhelper.data.UpbitDataSource
 import kr.schoolsharing.coinhelper.model.UpbitItem
-import kr.schoolsharing.coinhelper.model.UpbitList
 import kr.schoolsharing.coinhelper.model.UpbitMarket
 import kr.schoolsharing.coinhelper.model.UpbitTicker
 import kr.schoolsharing.coinhelper.util.TextEditor
 
-class CoinFragment() : Fragment() {
+class CoinFragment : Fragment() {
 
-    private lateinit var marketList: String
-    private val rVAdapter = MainRvAdapter(UpbitList.getListFromName(marketName))
+    private val rVAdapter = MainRvAdapter()
 
     companion object {
         fun newInstance(marketName: String): CoinFragment {
@@ -56,10 +54,14 @@ class CoinFragment() : Fragment() {
 
 
     private fun loadUpbitMarket(marketName: String) {
+
         Repository.getMarket(object : UpbitDataSource.GetMarketCallback {
             override fun onMarketLoaded(markets: List<UpbitMarket>) {
-                marketList = markets.joinToString(",") { it.market }
-                loadUpbitTicker(marketName)
+                val marketList = markets
+                    .filter { TextEditor.splitString(it.market, 0) == marketName }
+                    .map { it.market }
+                    .joinToString(",")
+                loadUpbitTicker(marketList)
             }
 
             override fun onDataNotAvailable(t: Throwable) {
@@ -68,28 +70,23 @@ class CoinFragment() : Fragment() {
         })
     }
 
-    private fun loadUpbitTicker(marketName: String) {
+    private fun loadUpbitTicker(marketList: String) {
         Repository.getTicker(marketList, object : UpbitDataSource.GetTickerCallback {
 
             override fun onTickerLoaded(tickers: List<UpbitTicker>) {
-                for (item in tickers) {
-
+                val tickerList: MutableList<UpbitItem> = ArrayList()
+                tickers.forEach {
                     val data = UpbitItem(
-                        TextEditor.splitString(item.market, 1),
-                        TextEditor.makeTradePrice(item.tradePrice),
-                        item.change,
-                        TextEditor.makeSignedChangeRate(item.signedChangePrice),
-                        TextEditor.makeAccTradePrice24h(item.accTradePrice24h)
+                        TextEditor.splitString(it.market, 1),
+                        TextEditor.makeTradePrice(it.tradePrice),
+                        it.change,
+                        TextEditor.makeSignedChangeRate(it.signedChangePrice),
+                        TextEditor.makeAccTradePrice24h(it.accTradePrice24h)
                     )
-
-                    when (TextEditor.splitString(item.market, 0)) {
-                        "KRW" -> UpbitList.krwList.add(data)
-                        "BTC" -> UpbitList.btcList.add(data)
-                        "ETH" -> UpbitList.ethList.add(data)
-                        else -> UpbitList.usdtList.add(data)
-                    }
+                    tickerList.add(data)
                 }
-                rVAdapter.notifyDataSetChanged()
+
+                rVAdapter.setTickerList(tickerList)
             }
 
 
