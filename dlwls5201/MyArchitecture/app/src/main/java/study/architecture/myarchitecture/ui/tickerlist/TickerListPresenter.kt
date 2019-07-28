@@ -1,4 +1,9 @@
 package study.architecture.myarchitecture.ui.tickerlist
 
-class TickerListPresenter {
+import study.architecture.myarchitecture.data.repository.UpbitRepository
+
+class TickerListPresenter(
+    private val upbitRepository: UpbitRepository,
+    private val view: TickerListContract.View
+) : TickerListContract.Presenter {
 }
