@@ -27,14 +27,14 @@ class CoinFragment(val marketName: String) : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_fragment_krw, container, false)
-        val mRecyclerViewKRW = view.findViewById<RecyclerView>(R.id.mRecyclerView_KRW)
+        val view = inflater.inflate(R.layout.fragment_coinrecycler, container, false)
+        val coinRecyclerView = view.findViewById<RecyclerView>(R.id.CoinRecyclerView)
 
-        mRecyclerViewKRW.adapter = RVAdapter
+        coinRecyclerView.adapter = RVAdapter
 
         val lm = LinearLayoutManager(context!!)
-        mRecyclerViewKRW.layoutManager = lm
-        mRecyclerViewKRW.setHasFixedSize(true)
+        coinRecyclerView.layoutManager = lm
+        coinRecyclerView.setHasFixedSize(true)
 
         loadUpbitMarket()
 
