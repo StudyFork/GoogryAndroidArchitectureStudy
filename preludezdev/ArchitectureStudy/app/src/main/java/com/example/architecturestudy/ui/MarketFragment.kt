@@ -15,13 +15,17 @@ import com.example.architecturestudy.data.source.CoinsDataSource
 import com.example.architecturestudy.data.source.CoinsRepository
 import com.example.architecturestudy.data.source.local.CoinsLocalDataSource
 import com.example.architecturestudy.data.source.remote.CoinsRemoteDataSource
+import com.example.architecturestudy.network.RetrofitHelper
 import com.example.architecturestudy.ui.RecyclerViewAdapter
 import com.example.architecturestudy.util.Util
 import kotlinx.android.synthetic.main.fragment_market.*
 
 class MarketFragment : Fragment() {
 
-    private val repository = CoinsRepository.getInstance(CoinsRemoteDataSource, CoinsLocalDataSource)
+    private val repository = CoinsRepository.getInstance(
+        CoinsRemoteDataSource.getInstance(RetrofitHelper.getInstance().coinApiService),
+        CoinsLocalDataSource
+    )
     private val rvAdapter = RecyclerViewAdapter()
 
     companion object {

@@ -3,17 +3,17 @@ package com.example.architecturestudy.data.source.remote
 import com.example.architecturestudy.data.CoinMarketResponse
 import com.example.architecturestudy.data.CoinTickerResponse
 import com.example.architecturestudy.data.source.CoinsDataSource
-import com.example.architecturestudy.network.RetrofitHelper
+import com.example.architecturestudy.network.CoinApiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object CoinsRemoteDataSource : CoinsDataSource {
-    private val retrofitHelper = RetrofitHelper.getInstance()
+class CoinsRemoteDataSource(
+    val coinApiService: CoinApiService
+) : CoinsDataSource {
 
     override fun getAllMarket(callback: CoinsDataSource.GetAllMarketCallback) {
-        retrofitHelper
-            .coinApiService
+        coinApiService
             .getAllCoinMarket()
             .enqueue(object : Callback<List<CoinMarketResponse>> {
                 override fun onFailure(call: Call<List<CoinMarketResponse>>, t: Throwable) {
@@ -30,8 +30,7 @@ object CoinsRemoteDataSource : CoinsDataSource {
     }
 
     override fun getCoinTickers(markets: String, callback: CoinsDataSource.GetCoinTickersCallback) {
-        retrofitHelper
-            .coinApiService
+        coinApiService
             .getCoinTickers(markets)
             .enqueue(object : Callback<List<CoinTickerResponse>> {
                 override fun onFailure(call: Call<List<CoinTickerResponse>>, t: Throwable) {
@@ -47,4 +46,14 @@ object CoinsRemoteDataSource : CoinsDataSource {
             })
     }
 
+    companion object {
+        private var INSTANCE: CoinsRemoteDataSource? = null
+
+        fun getInstance(coinApiService: CoinApiService): CoinsRemoteDataSource {
+            return INSTANCE ?: CoinsRemoteDataSource(coinApiService).apply {
+                INSTANCE = this
+            }
+        }
+
+    }
 }
