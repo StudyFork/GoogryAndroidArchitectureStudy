@@ -1,4 +1,4 @@
-package study.architecture.myarchitecture.ui
+package study.architecture.myarchitecture.ui.tickerlist
 
 import android.os.Bundle
 import android.view.View
@@ -20,7 +20,10 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
     private var listener: TickerClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TickerViewHolder {
-        return TickerViewHolder.newInstance(parent, listener)
+        return TickerViewHolder.newInstance(
+            parent,
+            listener
+        )
     }
 
     override fun getItemCount() = tickers.size
@@ -116,7 +119,10 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
 
         companion object {
             fun newInstance(parent: ViewGroup, listener: TickerClickListener?) =
-                TickerViewHolder(parent.inflate(R.layout.item_ticker), listener)
+                TickerViewHolder(
+                    parent.inflate(R.layout.item_ticker),
+                    listener
+                )
         }
     }
 

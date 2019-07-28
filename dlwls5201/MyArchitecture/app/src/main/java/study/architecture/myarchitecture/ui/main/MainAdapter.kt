@@ -1,9 +1,10 @@
-package study.architecture.myarchitecture.ui
+package study.architecture.myarchitecture.ui.main
 
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import study.architecture.myarchitecture.ui.tickerlist.TickerListFragment
 
 class MainAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 

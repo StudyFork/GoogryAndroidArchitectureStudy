@@ -1,4 +1,4 @@
-package study.architecture.myarchitecture.ui
+package study.architecture.myarchitecture.ui.tickerlist
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -70,7 +70,8 @@ class TickerListFragment : BaseFragment() {
             adapter = tickerAdapter
         }
 
-        tickerAdapter.setTickerClickListener(object : TickerAdapter.TickerClickListener {
+        tickerAdapter.setTickerClickListener(object :
+            TickerAdapter.TickerClickListener {
             override fun onItemClick(ticker: UpbitTicker) {
                 toast(ticker.toString())
             }

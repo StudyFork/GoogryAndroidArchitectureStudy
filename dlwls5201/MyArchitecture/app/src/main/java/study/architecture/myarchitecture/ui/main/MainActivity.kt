@@ -1,4 +1,4 @@
-package study.architecture.myarchitecture.ui
+package study.architecture.myarchitecture.ui.main
 
 import android.graphics.Color
 import android.os.Bundle
