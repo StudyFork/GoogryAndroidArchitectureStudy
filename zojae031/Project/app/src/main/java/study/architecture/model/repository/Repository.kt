@@ -1,9 +1,12 @@
 package study.architecture.model.repository
 
+import io.reactivex.Flowable
 import io.reactivex.Single
 import study.architecture.model.datasource.RemoteDataSource
-import study.architecture.model.vo.Ticker
-import study.architecture.ui.MainFragment
+import study.architecture.model.vo.ProcessingTicker
+import study.architecture.ui.mainjob.MainFragment
+import study.architecture.util.TextUtil
+import java.util.concurrent.TimeUnit
 
 object Repository {
 
@@ -15,8 +18,20 @@ object Repository {
             }
 
 
-    fun getTickerList(listName: String): Single<MutableList<Ticker>> =
+    fun getTickerList(listName: String): Flowable<List<ProcessingTicker>> =
         RemoteDataSource.getTickers(listName)
+            .repeatWhen { t -> t.delay(8, TimeUnit.SECONDS) }
+            .map { list ->
+                list.map { data ->
+                    ProcessingTicker(
+                        TextUtil.getMarketName(data.market),
+                        TextUtil.getTradePrice(data.tradePrice),
+                        TextUtil.getChangeRate(data.signedChangeRate),
+                        TextUtil.getAccTradePrice24h(data.accTradePrice24h),
+                        TextUtil.getColorState(data.signedChangeRate)
+                    )
+                }
+            }
 
 
 }

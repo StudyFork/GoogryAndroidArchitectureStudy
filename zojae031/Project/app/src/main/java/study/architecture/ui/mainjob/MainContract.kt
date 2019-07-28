@@ -1,4 +1,4 @@
-package study.architecture.mainjob
+package study.architecture.ui.mainjob
 
 import study.architecture.model.vo.ProcessingTicker
 

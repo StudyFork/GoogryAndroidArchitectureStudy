@@ -1,4 +1,4 @@
-package study.architecture.ui
+package study.architecture.ui.mainjob
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -10,8 +10,6 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import study.architecture.R
-import study.architecture.mainjob.MainContract
-import study.architecture.mainjob.MainPresenter
 import study.architecture.model.vo.ProcessingTicker
 import study.architecture.ui.adapter.CoinDataAdapter
 

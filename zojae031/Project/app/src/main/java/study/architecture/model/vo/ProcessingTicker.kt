@@ -6,6 +6,6 @@ data class ProcessingTicker(
     val tradePrice: String, // 현재가
     val changeRate: String, //전일대비
     val accTradePrice24h: String, //거래대금
-    val color : Int
+    val color: Int
 
 )

@@ -1,4 +1,4 @@
-package study.architecture.mainjob
+package study.architecture.ui.mainjob
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -6,10 +6,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import study.architecture.model.repository.Repository
-import study.architecture.model.vo.ProcessingTicker
-import study.architecture.ui.MainFragment
-import study.architecture.util.TextUtil
-import java.util.concurrent.TimeUnit
 
 /**
  * 1. 업비트 데이터를 가져와 View에게 알려준다.
@@ -50,18 +46,6 @@ class MainPresenter(private val view: MainContract.View, index: MainFragment.Fra
     @SuppressLint("CheckResult")
     private fun tickerRequest() {
         Repository.getTickerList(list)
-            .repeatWhen { t -> t.delay(8, TimeUnit.SECONDS) }
-            .map { list ->
-                list.map { data ->
-                    ProcessingTicker(
-                        TextUtil.getMarketName(data.market),
-                        TextUtil.getTradePrice(data.tradePrice),
-                        TextUtil.getChangeRate(data.signedChangeRate),
-                        TextUtil.getAccTradePrice24h(data.accTradePrice24h),
-                        TextUtil.getColorState(data.signedChangeRate)
-                    )
-                }
-            }
             .doOnSubscribe { view.showProgress() }
             .doOnRequest { view.hideProgress() }
             .observeOn(AndroidSchedulers.mainThread())
