@@ -1,6 +1,5 @@
 package com.example.mystudy.adapter
 
-import android.content.Context
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -14,12 +13,13 @@ class UpbitHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val signedChangeRate: TextView = itemView.tv_signed_change_rate
     val accTradePrice24th: TextView = itemView.tv_acc_trade_price_24h
 
-    fun bind(context: Context, ticker: FormatTickers) {
+    fun bind(ticker: FormatTickers) {
         coinName.text = ticker.toMarket
         tradePrice.text = ticker.toTradePrice
         signedChangeRate.text = ticker.toSignedChangeRate
         signedChangeRate.setTextColor(
-            ContextCompat.getColor(context, ticker.toRateColor))
+            ContextCompat.getColor(itemView.context, ticker.toRateColor)
+        )
         accTradePrice24th.text = ticker.toAccTradePrice24h
     }
 }
