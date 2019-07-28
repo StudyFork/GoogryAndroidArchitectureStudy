@@ -20,6 +20,7 @@ import kr.schoolsharing.coinhelper.util.TextEditor
 class CoinFragment(val marketName: String) : Fragment() {
 
     private lateinit var marketList: String
+    private val RVAdapter = MainRvAdapter(UpbitList.getListFromName(marketName))
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,8 +30,7 @@ class CoinFragment(val marketName: String) : Fragment() {
         val view = inflater.inflate(R.layout.fragment_fragment_krw, container, false)
         val mRecyclerViewKRW = view.findViewById<RecyclerView>(R.id.mRecyclerView_KRW)
 
-        val myRVAdapter = MainRvAdapter(UpbitList.getListFromName(marketName))
-        mRecyclerViewKRW.adapter = myRVAdapter
+        mRecyclerViewKRW.adapter = RVAdapter
 
         val lm = LinearLayoutManager(context!!)
         mRecyclerViewKRW.layoutManager = lm
@@ -76,6 +76,7 @@ class CoinFragment(val marketName: String) : Fragment() {
                         else -> UpbitList.usdtList.add(data)
                     }
                 }
+                RVAdapter.notifyDataSetChanged()
             }
 
 
