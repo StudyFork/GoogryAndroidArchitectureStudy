@@ -14,7 +14,7 @@ import com.architecture.study.view.coin.adapter.CoinListAdapter
 import com.architecture.study.data.model.Ticker
 import com.architecture.study.data.source.CoinRepository
 import com.architecture.study.network.model.TickerResponse
-import com.architecture.study.network.request.UpbitRequestListener
+import com.architecture.study.data.source.CoinRemoteDataSourceListener
 import kotlinx.android.synthetic.main.fragment_coinlist.*
 
 class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickListener {
@@ -81,7 +81,8 @@ class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickLi
 
     /* retrofit getTickerList */
     private fun getTickerList(marketNames: String) {
-       CoinRepository().getTickerList(marketNames, object : UpbitRequestListener<TickerResponse>{
+       CoinRepository.getInstance().getTickerList(marketNames, object :
+           CoinRemoteDataSourceListener<TickerResponse> {
            override fun onSucess(dataList: List<TickerResponse>) {
                val _tickerList = mutableListOf<Ticker>()
                dataList.forEach {

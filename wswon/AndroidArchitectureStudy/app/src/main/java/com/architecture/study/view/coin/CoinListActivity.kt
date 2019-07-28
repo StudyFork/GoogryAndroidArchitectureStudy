@@ -7,7 +7,7 @@ import com.architecture.study.R
 import com.architecture.study.data.source.CoinRepository
 import com.architecture.study.view.coin.adapter.CoinTabPagerAdapter
 import com.architecture.study.network.model.MarketResponse
-import com.architecture.study.network.request.UpbitRequestListener
+import com.architecture.study.data.source.CoinRemoteDataSourceListener
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -30,7 +30,8 @@ class CoinListActivity : AppCompatActivity() {
     }
 
     private fun getMarketList() {
-        CoinRepository().getMarketList(object : UpbitRequestListener<MarketResponse>{
+        CoinRepository.getInstance().getMarketList(object :
+            CoinRemoteDataSourceListener<MarketResponse> {
             override fun onSucess(dataList: List<MarketResponse>) {
                 marketList = dataList
                 setPager()
