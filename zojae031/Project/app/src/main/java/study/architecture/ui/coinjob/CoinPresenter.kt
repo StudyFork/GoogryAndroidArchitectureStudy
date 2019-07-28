@@ -14,7 +14,7 @@ import study.architecture.model.repository.Repository
 class CoinPresenter(private val view: CoinContract.View, index: CoinFragment.FragIndex) :
     CoinContract.Presenter {
     private val dispose: Disposable
-    private lateinit var list: String
+    private lateinit var marketName: String
     private val compositeDisposable = CompositeDisposable()
 
     init {
@@ -23,7 +23,7 @@ class CoinPresenter(private val view: CoinContract.View, index: CoinFragment.Fra
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { marketList ->
-                        list = marketList
+                        marketName = marketList
                         tickerRequest()
                     },
                     { e ->
@@ -45,7 +45,7 @@ class CoinPresenter(private val view: CoinContract.View, index: CoinFragment.Fra
 
     @SuppressLint("CheckResult")
     private fun tickerRequest() {
-        Repository.getTickerList(list)
+        Repository.getTickerList(marketName)
             .doOnSubscribe { view.showProgress() }
             .doOnRequest { view.hideProgress() }
             .observeOn(AndroidSchedulers.mainThread())
