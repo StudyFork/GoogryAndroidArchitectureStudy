@@ -1,4 +1,4 @@
-package study.architecture.ui.adapter
+package study.architecture.ui.coinjob
 
 import android.view.LayoutInflater
 import android.view.View

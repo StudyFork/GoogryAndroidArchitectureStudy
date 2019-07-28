@@ -1,11 +1,10 @@
-package study.architecture.ui
+package study.architecture.ui.mainjob
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import study.architecture.R
-import study.architecture.ui.adapter.MainPageAdapter
 
 class MainActivity : AppCompatActivity() {
 

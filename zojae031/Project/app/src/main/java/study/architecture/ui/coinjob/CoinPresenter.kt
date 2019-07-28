@@ -1,4 +1,4 @@
-package study.architecture.ui.mainjob
+package study.architecture.ui.coinjob
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -11,8 +11,8 @@ import study.architecture.model.repository.Repository
  * 1. 업비트 데이터를 가져와 View에게 알려준다.
  * 2. Observable 생명주기를 관리한다.
  */
-class MainPresenter(private val view: MainContract.View, index: MainFragment.FragIndex) :
-    MainContract.Presenter {
+class CoinPresenter(private val view: CoinContract.View, index: CoinFragment.FragIndex) :
+    CoinContract.Presenter {
     private val dispose: Disposable
     private lateinit var list: String
     private val compositeDisposable = CompositeDisposable()

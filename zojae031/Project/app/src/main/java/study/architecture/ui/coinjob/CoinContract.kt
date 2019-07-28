@@ -1,8 +1,8 @@
-package study.architecture.ui.mainjob
+package study.architecture.ui.coinjob
 
 import study.architecture.model.vo.ProcessingTicker
 
-interface MainContract {
+interface CoinContract {
     interface View {
         fun notifyAdapter(list: List<ProcessingTicker>)
         fun showProgress()

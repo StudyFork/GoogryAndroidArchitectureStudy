@@ -4,13 +4,13 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 import study.architecture.model.datasource.RemoteDataSource
 import study.architecture.model.vo.ProcessingTicker
-import study.architecture.ui.mainjob.MainFragment
+import study.architecture.ui.coinjob.CoinFragment
 import study.architecture.util.TextUtil
 import java.util.concurrent.TimeUnit
 
 object Repository {
 
-    fun getMarketList(index: MainFragment.FragIndex): Single<String> =
+    fun getMarketList(index: CoinFragment.FragIndex): Single<String> =
         RemoteDataSource.getMarkets()
             .map { list ->
                 list.filter { filterData -> filterData.market.startsWith(index.name) }

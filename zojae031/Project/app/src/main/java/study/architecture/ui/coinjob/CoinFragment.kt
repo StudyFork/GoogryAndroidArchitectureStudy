@@ -1,4 +1,4 @@
-package study.architecture.ui.mainjob
+package study.architecture.ui.coinjob
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -11,15 +11,14 @@ import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import study.architecture.R
 import study.architecture.model.vo.ProcessingTicker
-import study.architecture.ui.adapter.CoinDataAdapter
 
 
 @SuppressLint("ValidFragment", "WrongConstant")
-class MainFragment : Fragment(), MainContract.View {
+class CoinFragment : Fragment(), CoinContract.View {
 
     private val presenter by lazy {
-        MainPresenter(
-            this@MainFragment,
+        CoinPresenter(
+            this@CoinFragment,
             arguments!!.getSerializable("idx") as FragIndex
         )
     }
