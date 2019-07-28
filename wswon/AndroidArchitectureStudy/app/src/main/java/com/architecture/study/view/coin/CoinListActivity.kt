@@ -1,20 +1,26 @@
-package com.architecture.study.activity
+package com.architecture.study.view.coin
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.architecture.study.R
-import com.architecture.study.adapter.TabPagerAdapter
-import com.architecture.study.model.MarketResponse
-import com.architecture.study.server.UpbitRequest
-import com.architecture.study.server.UpbitRequestListener
+import com.architecture.study.data.source.CoinRepository
+import com.architecture.study.view.coin.adapter.CoinTabPagerAdapter
+import com.architecture.study.network.model.MarketResponse
+import com.architecture.study.data.source.CoinRemoteDataSourceListener
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class CoinListActivity : AppCompatActivity() {
 
     private lateinit var marketList: List<MarketResponse>
 
-    private var initTabLayout = false
+    private val tabList = listOf(
+        R.string.monetary_unit_1,
+        R.string.monetary_unit_2,
+        R.string.monetary_unit_3,
+        R.string.monetary_unit_4
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,25 +30,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getMarketList() {
-        UpbitRequest().apply {
-            getMarketList(object : UpbitRequestListener<MarketResponse> {
-                override fun onSucess(dataList: List<MarketResponse>) {
-                    marketList = dataList
-                    if (!initTabLayout) {
-                        initTabLayout = true
-                        setPager()
-                    }
-                }
+        CoinRepository.getInstance().getMarketList(object :
+            CoinRemoteDataSourceListener<MarketResponse> {
+            override fun onSucess(dataList: List<MarketResponse>) {
+                marketList = dataList
+                setPager()
+            }
 
-                override fun onEmpty(str: String) {
+            override fun onEmpty(str: String) {
+                Toast.makeText(this@CoinListActivity, "data Empty : $str", Toast.LENGTH_LONG).show()
 
-                }
+            }
 
-                override fun onFailure(str: String) {
-
-                }
-            })
-        }
+            override fun onFailure(str: String) {
+                Toast.makeText(this@CoinListActivity, "call failure : $str", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     /* tab layout && view pager init*/
@@ -56,7 +59,6 @@ class MainActivity : AppCompatActivity() {
             addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab) {
                     coin_list_viewpager.currentItem = tab.position
-
                 }
 
                 override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -68,18 +70,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         coin_list_viewpager.run {
-            adapter = TabPagerAdapter(supportFragmentManager, tabList, this@MainActivity, marketList)
+            adapter = CoinTabPagerAdapter(
+                supportFragmentManager,
+                tabList, this@CoinListActivity, marketList
+            )
             addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(monetary_unit_tablayout))
         }
 
     }
 
-    companion object {
-        val tabList = listOf(
-            R.string.monetary_unit_1,
-            R.string.monetary_unit_2,
-            R.string.monetary_unit_3,
-            R.string.monetary_unit_4
-        )
-    }
 }

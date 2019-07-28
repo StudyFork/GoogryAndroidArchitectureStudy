@@ -1,4 +1,4 @@
-package com.architecture.study.item
+package com.architecture.study.data.model
 
 data class Ticker(
     val unitName: String,

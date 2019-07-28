@@ -1,22 +1,35 @@
-package com.architecture.study.server
+package com.architecture.study.data.source
 
-import com.architecture.study.model.MarketResponse
-import com.architecture.study.model.TickerResponse
+import com.architecture.study.network.api.UpbitApi
+import com.architecture.study.network.model.MarketResponse
+import com.architecture.study.network.model.TickerResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+class CoinRemoteDataSource : CoinDataSource {
 
-class UpbitRequest {
-    val URL = "https://api.upbit.com"
-    fun getMarketList(listener: UpbitRequestListener<MarketResponse>) {
-        val retrofit = Retrofit.Builder()
+    companion object {
+        private const val URL = "https://api.upbit.com"
+        private val retrofit = Retrofit.Builder()
             .baseUrl(URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        val apiService = retrofit.create(ApiService::class.java)
+        private val apiService = retrofit.create(UpbitApi::class.java)
+
+        private var instance: CoinRemoteDataSource? = null
+        fun getInstance(): CoinRemoteDataSource =
+            instance ?: synchronized(this) {
+                instance ?: CoinRemoteDataSource().also {
+                    instance = it
+                }
+            }
+    }
+
+
+    override fun getMarketList(listener: CoinRemoteDataSourceListener<MarketResponse>) {
 
         apiService.getMarketData().enqueue(object : Callback<List<MarketResponse>> {
             override fun onResponse(call: Call<List<MarketResponse>>, response: Response<List<MarketResponse>>) {
@@ -38,16 +51,9 @@ class UpbitRequest {
         })
     }
 
-    fun getTickerList(marketNames: String, listener: UpbitRequestListener<TickerResponse>) {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val apiService = retrofit.create(ApiService::class.java)
+    override fun getTickerList(marketNames: String, listener: CoinRemoteDataSourceListener<TickerResponse>) {
 
-
-        val call = apiService.getTickerData(marketNames)
-        call.enqueue(object : Callback<List<TickerResponse>> {
+        apiService.getTickerData(marketNames).enqueue(object : Callback<List<TickerResponse>> {
             override fun onResponse(call: Call<List<TickerResponse>>, response: Response<List<TickerResponse>>) {
                 if (response.isSuccessful) {
                     val tickerList = response.body()

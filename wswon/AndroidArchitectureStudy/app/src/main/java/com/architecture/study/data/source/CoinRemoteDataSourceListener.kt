@@ -1,6 +1,6 @@
-package com.architecture.study.server
+package com.architecture.study.data.source
 
-interface UpbitRequestListener<T> {
+interface CoinRemoteDataSourceListener<T> {
     fun onSucess(dataList: List<T>)
     fun onEmpty(str: String)
     fun onFailure(str: String)

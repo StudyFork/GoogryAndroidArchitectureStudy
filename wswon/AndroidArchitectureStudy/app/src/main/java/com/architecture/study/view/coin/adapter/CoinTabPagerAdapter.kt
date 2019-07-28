@@ -1,13 +1,13 @@
-package com.architecture.study.adapter
+package com.architecture.study.view.coin.adapter
 
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.architecture.study.fragment.CoinListFragment
-import com.architecture.study.model.MarketResponse
+import com.architecture.study.view.coin.CoinListFragment
+import com.architecture.study.network.model.MarketResponse
 
-class TabPagerAdapter(
+class CoinTabPagerAdapter(
     fm: FragmentManager,
     private val tabList: List<Int>,
     private val context: Context,
