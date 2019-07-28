@@ -13,7 +13,7 @@ import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.data.Injection
 import study.architecture.myarchitecture.data.model.UpbitTicker
 import study.architecture.myarchitecture.data.repository.UpbitRepository
-import study.architecture.myarchitecture.rxeventbus.RxEventBusHelper
+import study.architecture.myarchitecture.rxobserver.RxObserverHelper
 import timber.log.Timber
 
 class TickerListFragment : BaseFragment() {
@@ -55,7 +55,7 @@ class TickerListFragment : BaseFragment() {
     }
 
     private fun subscribeEventBus() {
-        RxEventBusHelper.mSubject
+        RxObserverHelper.tickerListSubject
             .subscribe {
                 tickerAdapter.orderByField(it)
             }.also {

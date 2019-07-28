@@ -55,9 +55,9 @@ class MainPresenter(
                 view.setCoinNameVisibility(View.VISIBLE)
 
                 if (view.getCoinNameIsSelected()) {
-                    view.sendEventBus(Filter.COIN_NAME, Filter.DESC)
+                    view.notifyTickerListObervers(Filter.COIN_NAME, Filter.DESC)
                 } else {
-                    view.sendEventBus(Filter.COIN_NAME, Filter.ASC)
+                    view.notifyTickerListObervers(Filter.COIN_NAME, Filter.ASC)
                 }
 
                 view.setCoinNameIsSelected(!view.getCoinNameIsSelected())
@@ -67,9 +67,9 @@ class MainPresenter(
                 view.setLastVisibility(View.VISIBLE)
 
                 if (view.getLastIsSelected()) {
-                    view.sendEventBus(Filter.LAST, Filter.DESC)
+                    view.notifyTickerListObervers(Filter.LAST, Filter.DESC)
                 } else {
-                    view.sendEventBus(Filter.LAST, Filter.ASC)
+                    view.notifyTickerListObervers(Filter.LAST, Filter.ASC)
                 }
 
                 view.setLastIsSelected(!view.getLastIsSelected())
@@ -79,9 +79,9 @@ class MainPresenter(
                 view.setTradeDiffVisibility(View.VISIBLE)
 
                 if (view.getTradeDiffIsSelected()) {
-                    view.sendEventBus(Filter.TRADE_DIFF, Filter.DESC)
+                    view.notifyTickerListObervers(Filter.TRADE_DIFF, Filter.DESC)
                 } else {
-                    view.sendEventBus(Filter.TRADE_DIFF, Filter.ASC)
+                    view.notifyTickerListObervers(Filter.TRADE_DIFF, Filter.ASC)
                 }
 
                 view.setTradeDiffIsSelected(!view.getTradeDiffIsSelected())
@@ -91,9 +91,9 @@ class MainPresenter(
                 view.setTradeAmountVisibility(View.VISIBLE)
 
                 if (view.getTradeAmountIsSelected()) {
-                    view.sendEventBus(Filter.TRADE_AMOUNT, Filter.DESC)
+                    view.notifyTickerListObervers(Filter.TRADE_AMOUNT, Filter.DESC)
                 } else {
-                    view.sendEventBus(Filter.TRADE_AMOUNT, Filter.ASC)
+                    view.notifyTickerListObervers(Filter.TRADE_AMOUNT, Filter.ASC)
                 }
 
                 view.setTradeAmountIsSelected(!view.getTradeAmountIsSelected())

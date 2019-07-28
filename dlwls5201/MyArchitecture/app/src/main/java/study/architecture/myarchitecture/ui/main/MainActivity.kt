@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import study.architecture.myarchitecture.BaseActivity
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.data.Injection
-import study.architecture.myarchitecture.rxeventbus.RxEventBusHelper
+import study.architecture.myarchitecture.rxobserver.RxObserverHelper
 import study.architecture.myarchitecture.util.Filter
 
 class MainActivity : BaseActivity(), MainContract.View {
@@ -93,14 +93,14 @@ class MainActivity : BaseActivity(), MainContract.View {
         ivSelectByTradeAmount.visibility = visibility
     }
 
-    override fun sendEventBus(field: String, order: Int) {
+    override fun notifyTickerListObervers(field: String, order: Int) {
 
         val bundle = Bundle().apply {
             putString(Filter.KEY_FIELD, field)
             putInt(Filter.KEY_ORDER, order)
         }
 
-        RxEventBusHelper.sendEvent(bundle)
+        RxObserverHelper.sendEvent(bundle)
     }
 
     private fun initToolbar() {
