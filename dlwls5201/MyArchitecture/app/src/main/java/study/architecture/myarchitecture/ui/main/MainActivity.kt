@@ -3,13 +3,13 @@ package study.architecture.myarchitecture.ui.main
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import androidx.drawerlayout.widget.DrawerLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import study.architecture.myarchitecture.BaseActivity
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.data.Injection
+import study.architecture.myarchitecture.rxeventbus.RxEventBusHelper
 import study.architecture.myarchitecture.util.Filter
 
 class MainActivity : BaseActivity(), MainContract.View {
@@ -36,6 +36,8 @@ class MainActivity : BaseActivity(), MainContract.View {
         initViewPager()
         initTopCategory()
 
+        presenter.loadData()
+
     }
 
     override fun onDestroy() {
@@ -49,6 +51,56 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun setViewPagerTitles(titles: Array<String>) {
         mainAdapter.setTitles(titles)
+    }
+
+    override fun getCoinNameIsSelected() = ivSelectByCoinName.isSelected
+
+    override fun getLastIsSelected() = ivSelectByLast.isSelected
+
+    override fun getTradeDiffIsSelected() = ivSelectByTradeDiff.isSelected
+
+    override fun getTradeAmountIsSelected() = ivSelectByTradeAmount.isSelected
+
+    override fun setCoinNameIsSelected(selected: Boolean) {
+        ivSelectByCoinName.isSelected = selected
+    }
+
+    override fun setLastIsSelected(selected: Boolean) {
+        ivSelectByLast.isSelected = selected
+    }
+
+    override fun setTradeDiffIsSelected(selected: Boolean) {
+        ivSelectByTradeDiff.isSelected = selected
+    }
+
+    override fun setTradeAmountIsSelected(selected: Boolean) {
+        ivSelectByTradeAmount.isSelected = selected
+    }
+
+    override fun setCoinNameVisibility(visibility: Int) {
+        ivSelectByCoinName.visibility = visibility
+    }
+
+    override fun setLastVisibility(visibility: Int) {
+        ivSelectByLast.visibility = visibility
+    }
+
+    override fun setTradeDiffVisibility(visibility: Int) {
+        ivSelectByTradeDiff.visibility = visibility
+    }
+
+    override fun setTradeAmountVisibility(visibility: Int) {
+        ivSelectByTradeAmount.visibility = visibility
+    }
+
+    override fun sendEventBus(field: String, order: Int) {
+
+        val bundle = Bundle().apply {
+            putString(Filter.KEY_FIELD, field)
+            putInt(Filter.KEY_ORDER, order)
+        }
+
+        RxEventBusHelper.sendEvent(bundle)
     }
 
     private fun initToolbar() {
@@ -118,67 +170,19 @@ class MainActivity : BaseActivity(), MainContract.View {
     private fun initTopCategory() {
 
         llCoinNameParent.setOnClickListener {
-            changeArrow(SelectArrow.COIN_NAME)
+            presenter.changeArrow(SelectArrow.COIN_NAME)
         }
 
         llLastParent.setOnClickListener {
-            changeArrow(SelectArrow.LAST)
+            presenter.changeArrow(SelectArrow.LAST)
         }
 
         llTradeDiffParent.setOnClickListener {
-            changeArrow(SelectArrow.TRADE_DIFF)
+            presenter.changeArrow(SelectArrow.TRADE_DIFF)
         }
 
         llTradeAmountParent.setOnClickListener {
-            changeArrow(SelectArrow.TRADE_AMOUNT)
+            presenter.changeArrow(SelectArrow.TRADE_AMOUNT)
         }
-    }
-
-    private fun changeArrow(selectArrow: SelectArrow) {
-
-        ivSelectByCoinName.visibility = View.INVISIBLE
-        ivSelectByLast.visibility = View.INVISIBLE
-        ivSelectByTradeDiff.visibility = View.INVISIBLE
-        ivSelectByTradeAmount.visibility = View.INVISIBLE
-
-        val bundle = Bundle()
-
-        when (selectArrow) {
-
-            SelectArrow.COIN_NAME -> {
-                setArrowImage(ivSelectByCoinName, bundle, Filter.COIN_NAME)
-            }
-
-            SelectArrow.LAST -> {
-                setArrowImage(ivSelectByLast, bundle, Filter.LAST)
-            }
-
-            SelectArrow.TRADE_DIFF -> {
-                setArrowImage(ivSelectByTradeDiff, bundle, Filter.TRADE_DIFF)
-            }
-
-            SelectArrow.TRADE_AMOUNT -> {
-                setArrowImage(ivSelectByTradeAmount, bundle, Filter.TRADE_AMOUNT)
-            }
-        }
-
-        presenter.sendEventBus(bundle)
-    }
-
-    private fun setArrowImage(ivArrow: ImageView, bundle: Bundle, field: String) {
-
-        ivArrow.visibility = View.VISIBLE
-
-        bundle.putString(Filter.KEY_FIELD, field)
-
-        if (ivArrow.isSelected) {
-            //내림차순
-            bundle.putInt(Filter.KEY_ORDER, Filter.DESC)
-        } else {
-            //오름차순
-            bundle.putInt(Filter.KEY_ORDER, Filter.ASC)
-        }
-
-        ivArrow.isSelected = !ivArrow.isSelected
     }
 }

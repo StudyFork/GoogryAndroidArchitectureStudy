@@ -1,7 +1,5 @@
 package study.architecture.myarchitecture.ui.main
 
-import android.os.Bundle
-
 interface MainContract {
 
     interface View {
@@ -9,6 +7,32 @@ interface MainContract {
         fun setViewPagers(pagers: Array<String>)
 
         fun setViewPagerTitles(titles: Array<String>)
+
+        fun getCoinNameIsSelected(): Boolean
+
+        fun getLastIsSelected(): Boolean
+
+        fun getTradeDiffIsSelected(): Boolean
+
+        fun getTradeAmountIsSelected(): Boolean
+
+        fun setCoinNameIsSelected(selected: Boolean)
+
+        fun setLastIsSelected(selected: Boolean)
+
+        fun setTradeDiffIsSelected(selected: Boolean)
+
+        fun setTradeAmountIsSelected(selected: Boolean)
+
+        fun setCoinNameVisibility(visibility: Int)
+
+        fun setLastVisibility(visibility: Int)
+
+        fun setTradeDiffVisibility(visibility: Int)
+
+        fun setTradeAmountVisibility(visibility: Int)
+
+        fun sendEventBus(field: String, order: Int)
     }
 
     interface Presenter {
@@ -17,6 +41,6 @@ interface MainContract {
 
         fun loadData()
 
-        fun sendEventBus(bundle: Bundle)
+        fun changeArrow(selectArrow: MainActivity.SelectArrow)
     }
 }
