@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.architecture.study.R
 import com.architecture.study.view.coin.adapter.CoinListAdapter
 import com.architecture.study.data.model.Ticker
-import com.architecture.study.data.source.CoinRepository
+import com.architecture.study.data.repository.CoinRepositoryImp
 import com.architecture.study.network.model.TickerResponse
 import com.architecture.study.data.source.CoinRemoteDataSourceListener
 import kotlinx.android.synthetic.main.fragment_coinlist.*
@@ -81,7 +81,7 @@ class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickLi
 
     /* retrofit getTickerList */
     private fun getTickerList(marketNames: String) {
-       CoinRepository.getInstance().getTickerList(marketNames, object :
+       CoinRepositoryImp.getInstance().getTickerList(marketNames, object :
            CoinRemoteDataSourceListener<TickerResponse> {
            override fun onSucess(dataList: List<TickerResponse>) {
                val _tickerList = mutableListOf<Ticker>()

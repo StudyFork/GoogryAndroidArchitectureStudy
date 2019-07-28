@@ -36,6 +36,6 @@ class CoinListAdapter(private val context: Context, private val listener: CoinIt
     override fun getItemCount(): Int = coinListData.size
 
     override fun onBindViewHolder(holder: CoinViewHolder, position: Int) =
-        holder.bind(context, coinListData[position], listener)
+        holder.bind(coinListData[position], listener)
 
 }

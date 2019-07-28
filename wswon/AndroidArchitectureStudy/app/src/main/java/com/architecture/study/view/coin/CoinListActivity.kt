@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.architecture.study.R
-import com.architecture.study.data.source.CoinRepository
+import com.architecture.study.data.repository.CoinRepositoryImp
 import com.architecture.study.view.coin.adapter.CoinTabPagerAdapter
 import com.architecture.study.network.model.MarketResponse
 import com.architecture.study.data.source.CoinRemoteDataSourceListener
@@ -30,7 +30,7 @@ class CoinListActivity : AppCompatActivity() {
     }
 
     private fun getMarketList() {
-        CoinRepository.getInstance().getMarketList(object :
+        CoinRepositoryImp.getInstance().getMarketList(object :
             CoinRemoteDataSourceListener<MarketResponse> {
             override fun onSucess(dataList: List<MarketResponse>) {
                 marketList = dataList
