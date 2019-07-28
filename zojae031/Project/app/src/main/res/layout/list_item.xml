@@ -13,7 +13,6 @@
         android:layout_margin="0dp"
         android:background="@drawable/item_background"
         android:orientation="horizontal"
-        android:padding="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,30 +20,32 @@
 
         <TextView
             android:id="@+id/name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="left"
             android:padding="4dp"
             android:text="코인명"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/trade_price"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="center|right"
             android:padding="4dp"
             android:singleLine="true"
             android:text="현재가"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textSize="10sp" />
 
         <TextView
             android:id="@+id/change_rate"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
@@ -52,18 +53,20 @@
             android:padding="4dp"
             android:singleLine="true"
             android:text="전일대비"
-            android:textColor="@android:color/black" />
+            android:textColor="@color/blue"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/acc_trade_price"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="center|right"
             android:padding="4dp"
             android:singleLine="true"
             android:text="거래대금"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textSize="12sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

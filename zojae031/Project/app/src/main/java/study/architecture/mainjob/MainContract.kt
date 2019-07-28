@@ -1,14 +1,15 @@
 package study.architecture.mainjob
 
-import study.architecture.vo.Ticker
+import study.architecture.model.vo.ProcessingTicker
 
 interface MainContract {
     interface View {
-        fun notifyAdapter(list: MutableList<Ticker>)
+        fun notifyAdapter(list: List<ProcessingTicker>)
+        fun showProgress()
+        fun hideProgress()
     }
 
     interface Presenter {
-        fun onCreate()
         fun onResume()
         fun onPause()
     }
