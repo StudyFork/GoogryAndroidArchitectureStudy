@@ -6,14 +6,14 @@ interface MainContract {
 
     interface View {
 
-        fun detachView()
-
         fun setViewPagers(pagers: Array<String>)
 
         fun setViewPagerTitles(titles: Array<String>)
     }
 
     interface Presenter {
+
+        fun detachView()
 
         fun loadData()
 

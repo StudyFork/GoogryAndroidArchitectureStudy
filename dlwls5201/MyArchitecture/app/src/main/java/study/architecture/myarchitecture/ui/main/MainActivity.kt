@@ -6,17 +6,13 @@ import android.view.View
 import android.widget.ImageView
 import androidx.drawerlayout.widget.DrawerLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 import study.architecture.myarchitecture.BaseActivity
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.data.Injection
-import study.architecture.myarchitecture.data.repository.UpbitRepository
-import study.architecture.myarchitecture.rxeventbus.RxEventBusHelper
 import study.architecture.myarchitecture.util.Filter
-import timber.log.Timber
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), MainContract.View {
 
     enum class SelectArrow {
         COIN_NAME, LAST, TRADE_DIFF, TRADE_AMOUNT
@@ -24,27 +20,35 @@ class MainActivity : BaseActivity() {
 
     private val mainAdapter by lazy { MainAdapter(supportFragmentManager) }
 
-    private lateinit var upbitRepository: UpbitRepository
-
-    private val compositeDisposable = CompositeDisposable()
+    private lateinit var presenter: MainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        upbitRepository = Injection.provideFolderRepository(this)
+        presenter = MainPresenter(
+            Injection.provideFolderRepository(this),
+            this@MainActivity
+        )
 
         initToolbar()
         initDrawer()
         initViewPager()
         initTopCategory()
-        loadData()
 
     }
 
     override fun onDestroy() {
-        compositeDisposable.clear()
+        presenter.detachView()
         super.onDestroy()
+    }
+
+    override fun setViewPagers(pagers: Array<String>) {
+        mainAdapter.setItems(pagers)
+    }
+
+    override fun setViewPagerTitles(titles: Array<String>) {
+        mainAdapter.setTitles(titles)
     }
 
     private fun initToolbar() {
@@ -130,33 +134,6 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun loadData() {
-
-        upbitRepository.getGroupedMarkets()
-            .subscribe({ groupMarket ->
-
-                val keys = groupMarket.keys
-
-                mainAdapter.setTitles(keys.toTypedArray())
-
-                val arrMarkets = Array(keys.size) { "" }
-
-                for ((index, value) in keys.withIndex()) {
-
-                    arrMarkets[index] = groupMarket
-                        .getValue(value)
-                        .joinToString(separator = ",") { it.market }
-                }
-
-                mainAdapter.setItems(arrMarkets)
-
-            }) {
-                Timber.e(it.message)
-            }.also {
-                compositeDisposable.add(it)
-            }
-    }
-
     private fun changeArrow(selectArrow: SelectArrow) {
 
         ivSelectByCoinName.visibility = View.INVISIBLE
@@ -185,7 +162,7 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        RxEventBusHelper.sendEvent(bundle)
+        presenter.sendEventBus(bundle)
     }
 
     private fun setArrowImage(ivArrow: ImageView, bundle: Bundle, field: String) {
