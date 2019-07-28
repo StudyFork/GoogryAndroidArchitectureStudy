@@ -100,7 +100,7 @@ class MainActivity : BaseActivity(), MainContract.View {
             putInt(Filter.KEY_ORDER, order)
         }
 
-        RxObserverHelper.sendEvent(bundle)
+        RxObserverHelper.notifyTickerList(bundle)
     }
 
     private fun initToolbar() {

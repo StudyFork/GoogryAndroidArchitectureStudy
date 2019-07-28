@@ -7,7 +7,7 @@ object RxObserverHelper {
 
     val tickerListSubject = PublishSubject.create<Bundle>()
 
-    fun norifyTickerList(bundle: Bundle) {
+    fun notifyTickerList(bundle: Bundle) {
         tickerListSubject.onNext(bundle)
     }
 
