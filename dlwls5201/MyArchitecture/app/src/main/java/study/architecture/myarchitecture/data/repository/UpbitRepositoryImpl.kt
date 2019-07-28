@@ -5,14 +5,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import study.architecture.myarchitecture.data.model.UpbitMarket
 import study.architecture.myarchitecture.data.model.UpbitTicker
-import study.architecture.myarchitecture.data.source.local.UpbitDao
-import study.architecture.myarchitecture.data.source.remote.UpbitApi
+import study.architecture.myarchitecture.data.source.local.UpbitLocalDataSource
+import study.architecture.myarchitecture.data.source.remote.UpbitRemoteDataSource
 import study.architecture.myarchitecture.util.TextUtil
 import java.util.regex.Pattern
 
 class UpbitRepositoryImpl(
-    private val api: UpbitApi,
-    private val dao: UpbitDao,
+    private val api: UpbitRemoteDataSource,
+    private val dao: UpbitLocalDataSource,
     private val isOnline: Boolean
 ) : UpbitRepository {
 
