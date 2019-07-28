@@ -8,15 +8,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CoinRemoteDataSourceImp : CoinRemoteDataSource { //리모트 만들때 파라미터로 API넣게
+class CoinRemoteDataSourceImp(private val upbitApi: UpbitApi) : CoinRemoteDataSource { //리모트 만들때 파라미터로 API넣게
 
     companion object {
-        private const val URL = "https://api.upbit.com"
-
         private var instance: CoinRemoteDataSourceImp? = null
-        fun getInstance(): CoinRemoteDataSourceImp =
+        fun getInstance(upbitApi: UpbitApi): CoinRemoteDataSourceImp =
             instance ?: synchronized(this) {
-                instance ?: CoinRemoteDataSourceImp().also {
+                instance ?: CoinRemoteDataSourceImp(upbitApi).also {
                     instance = it
                 }
             }
@@ -24,7 +22,7 @@ class CoinRemoteDataSourceImp : CoinRemoteDataSource { //리모트 만들때 파
 
 
     override fun getMarketList(listener: CoinRemoteDataSourceListener<MarketResponse>) {
-        RetrofitInstance.getInstance<UpbitApi>(URL).getMarketData().enqueue(object : Callback<List<MarketResponse>> {
+        upbitApi.getMarketData().enqueue(object : Callback<List<MarketResponse>> {
             override fun onResponse(call: Call<List<MarketResponse>>, response: Response<List<MarketResponse>>) {
                 if (response.isSuccessful) {
                     val marketList = response.body()
@@ -45,7 +43,7 @@ class CoinRemoteDataSourceImp : CoinRemoteDataSource { //리모트 만들때 파
     }
 
     override fun getTickerList(marketNames: String, listener: CoinRemoteDataSourceListener<TickerResponse>) {
-        RetrofitInstance.getInstance<UpbitApi>(URL).getTickerData(marketNames).enqueue(object : Callback<List<TickerResponse>> {
+        upbitApi.getTickerData(marketNames).enqueue(object : Callback<List<TickerResponse>> {
             override fun onResponse(call: Call<List<TickerResponse>>, response: Response<List<TickerResponse>>) {
                 if (response.isSuccessful) {
                     val tickerList = response.body()
