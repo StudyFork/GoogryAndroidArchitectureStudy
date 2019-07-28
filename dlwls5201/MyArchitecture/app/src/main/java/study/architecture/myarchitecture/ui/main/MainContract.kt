@@ -36,7 +36,7 @@ interface MainContract {
          * ViewPager 에서 미리 생성된 프래그먼트의 값을 상단 정렬바 아이템을 누를떄
          * 일괄적으로 변경해 주기 위한 옵저버 패턴 함수
          */
-        fun notifyTickerListObervers(field: String, order: Int)
+        fun notifyTickerListObservers(field: String, order: Int)
     }
 
     interface Presenter {
