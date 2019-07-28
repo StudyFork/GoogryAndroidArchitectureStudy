@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_coin.*
 import kotlinx.android.synthetic.main.fragment_coin.view.*
 import study.architecture.R
+import study.architecture.ui.coinjob.adapter.CoinDataAdapter
 
 
 @SuppressLint("ValidFragment", "WrongConstant")

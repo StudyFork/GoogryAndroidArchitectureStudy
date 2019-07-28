@@ -1,5 +1,7 @@
 package study.architecture.ui.coinjob
 
+import study.architecture.ui.coinjob.adapter.CoinAdapterContract
+
 interface CoinContract {
     interface View {
         fun showProgress()

@@ -1,4 +1,4 @@
-package study.architecture.ui.coinjob
+package study.architecture.ui.coinjob.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +11,8 @@ import study.architecture.model.vo.ProcessingTicker
 /**
  * RecyclerView에 아이템을 뿌려주는 Adpater
  */
-class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>(), CoinAdapterContract.View,
+class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>(),
+    CoinAdapterContract.View,
     CoinAdapterContract.Model {
 
     private val lists: MutableList<ProcessingTicker> = mutableListOf()

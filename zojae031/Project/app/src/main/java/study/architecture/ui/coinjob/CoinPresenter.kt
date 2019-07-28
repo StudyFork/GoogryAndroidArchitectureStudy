@@ -6,6 +6,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import study.architecture.model.repository.Repository
+import study.architecture.ui.coinjob.adapter.CoinAdapterContract
 
 /**
  * 1. 업비트 데이터를 가져와 View에게 알려준다.
