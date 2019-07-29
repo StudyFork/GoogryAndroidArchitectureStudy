@@ -1,4 +1,4 @@
-﻿# GoogryAndroidArchitectureStudy
+# GoogryAndroidArchitectureStudy
 
 ## 스터디장
 - 정석준 [sjjeong](https://github.com/sjjeong)
@@ -109,5 +109,5 @@ MVP를 진행하다보니 내가 이걸 왜 쓰고 있는거지...? 의문과 �
 - 엄선오 []()
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
 
-- 임소율 []()
-[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+- 임소율 [syli9526](https://github.com/syli9526)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/syli9526)
