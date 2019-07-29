@@ -7,7 +7,7 @@
 	<data>
 
 		<variable
-			name="mainViewModel"
+			name="vm"
 			type="com.aiden.aiden.architecturepatternstudy.ui.main.MainViewModel" />
 
 	</data>
@@ -24,7 +24,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-			bind:item="@{mainViewModel.tickerList}"
+			bind:item="@{vm.tickerList}"
 			tools:itemCount="15"
 			tools:listitem="@layout/item_ticker" />
 	</LinearLayout>

@@ -4,7 +4,7 @@
 	<data>
 
 		<variable
-			name="mainSearchViewModel"
+			name="vm"
 			type="com.aiden.aiden.architecturepatternstudy.ui.main.MainSearchViewModel" />
 
 	</data>
@@ -22,8 +22,9 @@
 			android:layout_height="40dp"
 			android:background="@null"
 			android:drawableStart="@drawable/search"
+			android:inputType="text"
 			android:paddingStart="12dp"
-			android:text="@={mainSearchViewModel.searchKeyword}" />
+			android:text="@={vm.searchKeyword}" />
 
 		<ImageView
 			android:layout_width="24dp"
@@ -31,7 +32,7 @@
 			android:layout_alignParentEnd="true"
 			android:layout_centerVertical="true"
 			android:layout_marginEnd="12dp"
-			android:onClick="@{() -> mainSearchViewModel.clearKeyword()}"
+			android:onClick="@{() -> vm.clearKeyword()}"
 			android:src="@drawable/close" />
 
 	</RelativeLayout>
