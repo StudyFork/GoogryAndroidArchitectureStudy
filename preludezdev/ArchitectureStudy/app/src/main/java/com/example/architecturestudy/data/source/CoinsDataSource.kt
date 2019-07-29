@@ -5,19 +5,16 @@ import com.example.architecturestudy.data.CoinTickerResponse
 
 //CoinsRepository, RemoteDataSource, LocalDataSource 가 implement 하는 인터페이스
 interface CoinsDataSource {
-    interface GetAllMarketCallback {
-        fun onAllMarketLoaded(markets: List<CoinMarketResponse>)
 
-        fun onDataNotAvailable()
-    }
+    fun getAllMarket(
+        onSuccess: (data: List<CoinMarketResponse>?) -> Unit,
+        onFail: (errorCode: String) -> Unit
+    )
 
-    interface GetCoinTickersCallback {
-        fun onTickersLoaded(tickers: List<CoinTickerResponse>)
+    fun getCoinTickers(
+        markets: String,
+        onSuccess: (data: List<CoinTickerResponse>?) -> Unit,
+        onFail: (errorCode: String) -> Unit
+    )
 
-        fun onDataNotAvailable()
-    }
-
-    fun getAllMarket(callback: GetAllMarketCallback)
-
-    fun getCoinTickers(markets: String, callback: GetCoinTickersCallback)
 }

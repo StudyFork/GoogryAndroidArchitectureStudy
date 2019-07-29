@@ -9,9 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.data.Coin
-import com.example.architecturestudy.data.CoinMarketResponse
 import com.example.architecturestudy.data.CoinTickerResponse
-import com.example.architecturestudy.data.source.CoinsDataSource
 import com.example.architecturestudy.data.source.CoinsRepository
 import com.example.architecturestudy.data.source.local.CoinsLocalDataSource
 import com.example.architecturestudy.data.source.remote.CoinsRemoteDataSource
@@ -24,7 +22,7 @@ class MarketFragment : Fragment() {
 
     private val repository = CoinsRepository.getInstance(
         CoinsRemoteDataSource.getInstance(RetrofitHelper.getInstance().coinApiService),
-        CoinsLocalDataSource
+        CoinsLocalDataSource.getInstance()
     )
     private val rvAdapter = RecyclerViewAdapter()
 
@@ -66,12 +64,14 @@ class MarketFragment : Fragment() {
         rvAdapter.clearData()
 
         repository
-            .getAllMarket(object : CoinsDataSource.GetAllMarketCallback {
-                override fun onAllMarketLoaded(markets: List<CoinMarketResponse>) {
+            .getAllMarket({ coinMarketResponse ->
+
+                if (coinMarketResponse != null) {
                     val marketList = mutableListOf<String>()
-                    markets.forEach {
+
+                    coinMarketResponse?.forEach {
                         val currMarket = it.market
-                        if (currMarket.split('-')[0] == keyMarket) {
+                        if (currMarket.split('-')[0] == keyMarket) { // 해당 마켓 데이터만 가져오기
                             marketList.add(currMarket)
                         }
                     }
@@ -79,24 +79,18 @@ class MarketFragment : Fragment() {
                     val targetTickers = marketList.joinToString(separator = ",")
 
                     repository
-                        .getCoinTickers(targetTickers, object : CoinsDataSource.GetCoinTickersCallback {
-                            override fun onTickersLoaded(tickers: List<CoinTickerResponse>) {
-
-                                //map() 스트림 함수 : 컬렉션 내 인자를 변환하여 반환
-                                //리싸이클러뷰 어댑터에 데이터 장착
-                                rvAdapter.setData(tickers.map(::convertTickerIntoCoin))
+                        .getCoinTickers(targetTickers, { coinTickerResponse ->
+                            //map() 스트림 함수 : 컬렉션 내 인자를 변환하여 반환
+                            if (coinTickerResponse != null) {
+                                rvAdapter.setData(coinTickerResponse.map(::convertTickerIntoCoin))
                             }
-
-                            override fun onDataNotAvailable() {
-                                Log.d("test", "All Market Data Not Available")
-                            }
-                        })
+                        }, { onFailCallback(it) })
                 }
+            }, { onFailCallback(it) })
+    }
 
-                override fun onDataNotAvailable() {
-                    Log.d("test", "getAllMarket data not available")
-                }
-            })
+    private fun onFailCallback(errorMsg: String) {
+        Log.d("test", errorMsg)
     }
 
     private fun convertTickerIntoCoin(ticker: CoinTickerResponse): Coin {

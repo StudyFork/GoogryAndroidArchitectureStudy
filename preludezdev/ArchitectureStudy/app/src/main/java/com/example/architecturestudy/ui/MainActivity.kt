@@ -7,7 +7,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    var vpAdapter = VpAdapter(supportFragmentManager)
+    private val vpAdapter = VpAdapter(supportFragmentManager)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +18,6 @@ class MainActivity : AppCompatActivity() {
 
         //탭 레이아웃에 뷰페이저 연결
         tabLayout.setupWithViewPager(viewPager)
-
     }
+
 }
