@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.elevation = 0.0f
+        supportActionBar?.title = resources.getString(R.string.app_title)
         tabSetting()
         pagerSetting()
     }
