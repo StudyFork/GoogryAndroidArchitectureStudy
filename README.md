@@ -106,7 +106,7 @@ MVP를 진행하다보니 내가 이걸 왜 쓰고 있는거지...? 의문과 �
 - 김종선 []()
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
 
-- 엄선오 []()
+- 엄선오 [eso0609](https://github.com/seonoh)
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
 
 - 임소율 []()
