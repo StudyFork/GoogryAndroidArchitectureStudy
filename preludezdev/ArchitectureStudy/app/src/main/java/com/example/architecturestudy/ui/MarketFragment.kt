@@ -67,16 +67,10 @@ class MarketFragment : Fragment() {
             .getAllMarket({ coinMarketResponse ->
 
                 if (coinMarketResponse != null) {
-                    val marketList = mutableListOf<String>()
 
-                    coinMarketResponse?.forEach {
-                        val currMarket = it.market
-                        if (currMarket.split('-')[0] == keyMarket) { // 해당 마켓 데이터만 가져오기
-                            marketList.add(currMarket)
-                        }
-                    }
-
-                    val targetTickers = marketList.joinToString(separator = ",")
+                    val targetTickers = coinMarketResponse?.filter {
+                        it.market.split('-')[0] == keyMarket
+                    }.joinToString(separator = ",") { it.market }
 
                     repository
                         .getCoinTickers(targetTickers, { coinTickerResponse ->
