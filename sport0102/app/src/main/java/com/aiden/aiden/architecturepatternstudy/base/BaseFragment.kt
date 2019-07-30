@@ -19,7 +19,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : ViewModel>(
     protected lateinit var binding: B
         private set
 
-    abstract val viewModel: Lazy<VM>
+    abstract val viewModel: VM
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +34,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : ViewModel>(
         super.onViewCreated(view, savedInstanceState)
         binding {
             binding.lifecycleOwner = this@BaseFragment
-            binding.setVariable(BR.vm, viewModel.value)
+            binding.setVariable(BR.vm, viewModel)
         }
     }
 

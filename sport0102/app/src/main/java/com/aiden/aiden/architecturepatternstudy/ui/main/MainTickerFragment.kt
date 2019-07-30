@@ -20,9 +20,9 @@ class MainTickerFragment :
 
     private val error = "error"
 
-    override val viewModel = viewModel<MainViewModel>()
-
     private val mainSearchVm by sharedViewModel<MainSearchViewModel>()
+
+    override val viewModel by viewModel<MainViewModel>()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
 
@@ -43,9 +43,9 @@ class MainTickerFragment :
         // 검색어가 있으면 검색결과가 나오고, 없으면 해당 마켓의 코인리스트가 나옴
         val searchKeyword = mainSearchVm.searchKeyword.value
         if (searchKeyword.isNullOrBlank()) {
-            viewModel.value.loadMarketList(marketName)
+            viewModel.loadMarketList(marketName)
         } else {
-            viewModel.value.searchTickerByKeyword(listOf("$marketName-$searchKeyword"))
+            viewModel.searchTickerByKeyword(listOf("$marketName-$searchKeyword"))
         }
 
         binding {
@@ -60,15 +60,15 @@ class MainTickerFragment :
         val isDataLoadingErrorObserver = Observer<Boolean> {
             if (it) showErrorToast()
         }
-        viewModel.value.isDataLoadingError.observe(this, isDataLoadingErrorObserver)
+        viewModel.isDataLoadingError.observe(this, isDataLoadingErrorObserver)
 
         // 검색어에 따라서 검색결과를 보여줌. 검색어가 빈칸이 되면 해당 마켓의 코인리스트가 나옴
         val searchKeywordObserver = Observer<String> {
             if (it.isNullOrBlank()) {
-                viewModel.value.loadMarketList(marketName)
+                viewModel.loadMarketList(marketName)
                 return@Observer
             }
-            viewModel.value.searchTickerByKeyword(listOf("$marketName-$it"))
+            viewModel.searchTickerByKeyword(listOf("$marketName-$it"))
         }
         mainSearchVm.searchKeyword.observe(this, searchKeywordObserver)
 
