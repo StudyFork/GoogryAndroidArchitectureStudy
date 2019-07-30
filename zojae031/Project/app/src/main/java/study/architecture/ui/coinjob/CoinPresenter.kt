@@ -67,6 +67,7 @@ class CoinPresenter(private val view: CoinContract.View, index: CoinFragment.Fra
                     adapterView.clearList()
                     adapterView.updateList(lists)
                     adapterModel.notifyDataChange()
+
                 },
                 { e ->
                     Log.e("onError", e.message)
