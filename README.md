@@ -97,8 +97,8 @@ MVP를 진행하다보니 내가 이걸 왜 쓰고 있는거지...? 의문과 �
 
 
 ## 4기
-- 조정흠 [ssenne](https://github.com/junghum21)
-[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+- 조정흠 [junghum21](https://github.com/junghum21)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/junghum21)
 
 - 김한빈 []()
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
