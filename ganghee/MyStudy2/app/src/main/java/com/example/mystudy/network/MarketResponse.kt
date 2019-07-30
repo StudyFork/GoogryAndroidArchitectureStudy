@@ -1,7 +1,13 @@
 package com.example.mystudy.network
 
+
+import com.google.gson.annotations.SerializedName
+
 data class MarketResponse(
-    var english_name: String,
-    var korean_name: String,
-    var market: String
+    @SerializedName("english_name")
+    val englishName: String,
+    @SerializedName("korean_name")
+    val koreanName: String,
+    @SerializedName("market")
+    val market: String
 )

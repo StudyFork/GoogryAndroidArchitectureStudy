@@ -3,7 +3,7 @@ package com.example.mystudy.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.example.mystudy.fragment.UpbitFragment
+import com.example.mystudy.ui.fragment.UpbitFragment
 
 class ViewPagerAdapter(fm: FragmentManager, private val num_fragment: Int) : FragmentStatePagerAdapter(fm) {
 
