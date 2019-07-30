@@ -97,7 +97,7 @@ MVP를 진행하다보니 내가 이걸 왜 쓰고 있는거지...? 의문과 �
 
 
 ## 4기
-- 조정흠 []()
+- 조정흠 [ssenne](https://github.com/junghum21)
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
 
 - 김한빈 []()
