@@ -1,4 +1,4 @@
-package com.aiden.aiden.architecturepatternstudy.domain.dao
+package com.aiden.aiden.architecturepatternstudy.data.source.local
 
 import androidx.room.Dao
 import androidx.room.Insert

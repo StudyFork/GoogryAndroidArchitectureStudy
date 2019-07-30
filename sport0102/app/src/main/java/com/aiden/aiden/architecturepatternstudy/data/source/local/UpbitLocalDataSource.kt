@@ -2,7 +2,6 @@ package com.aiden.aiden.architecturepatternstudy.data.source.local
 
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 import com.aiden.aiden.architecturepatternstudy.data.source.UpbitDataSource
-import com.aiden.aiden.architecturepatternstudy.domain.UpbitDatabase
 
 class UpbitLocalDataSource private constructor(private val db: UpbitDatabase?) : UpbitDataSource {
 
