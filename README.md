@@ -107,7 +107,7 @@ MVP를 진행하다보니 내가 이걸 왜 쓰고 있는거지...? 의문과 �
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
 
 - 엄선오 [eso0609](https://github.com/seonoh)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/eso0609)
+[공간](https://github.com/seonoh/GoogryAndroidArchitectureStudy/tree/master/eso0609)
 
 - 임소율 []()
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
