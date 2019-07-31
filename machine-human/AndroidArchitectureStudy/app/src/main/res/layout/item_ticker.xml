@@ -4,7 +4,7 @@
 
     <data>
         <variable
-            name="tickerModel"
+            name="vm"
             type="org.study.kotlin.androidarchitecturestudy.api.model.TickerModel" />
     </data>
 
@@ -21,21 +21,21 @@
             android:paddingStart="12dp"
             android:textSize="20dp"
             android:layout_weight="0.4"
-            tools:text="@{String.valueOf(tickerModel.convertMarket)}"/>
+            tools:text="@{String.valueOf(vm.convertMarket)}"/>
 
         <TextView
             android:id="@+id/textview_item_trade_price"
-            tools:text="@{String.valueOf(tickerModel.convertTradePrice)}"
+            tools:text="@{String.valueOf(vm.convertTradePrice)}"
             style="@style/CusTextViewTextView" />
 
         <TextView
             android:id="@+id/textview_item_change_rate"
-            tools:text="@{String.valueOf(tickerModel.convertChangeRate)}"
+            tools:text="@{String.valueOf(vm.convertChangeRate)}"
             style="@style/CusTextViewTextView" />
 
         <TextView
             android:id="@+id/textview_item_acc_trade_price_24h"
-            tools:text="@{String.valueOf(tickerModel.convertAccTradePrice24h)}"
+            tools:text="@{String.valueOf(vm.convertAccTradePrice24h)}"
             style="@style/CusTextViewTextView" />
 
     </LinearLayout>
