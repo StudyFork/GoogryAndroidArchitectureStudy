@@ -48,6 +48,9 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
     //AAC
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0-alpha02"
+    //Koin
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-android-viewmodel:$koin_version"
 
 
 }
