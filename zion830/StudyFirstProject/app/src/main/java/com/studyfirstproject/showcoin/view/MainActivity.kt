@@ -10,11 +10,12 @@ import com.studyfirstproject.base.BaseActivity
 import com.studyfirstproject.databinding.ActivityMainBinding
 import com.studyfirstproject.showcoin.CoinViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 
 class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
-    private val viewModel: CoinViewModel by viewModel()
+    private val viewModel: CoinViewModel by viewModel { parametersOf(this@MainActivity) }
     private val adapter = CoinRecyclerViewAdapter(R.layout.item_coin_info, BR.item)
 
     override fun onCreate(savedInstanceState: Bundle?) {
