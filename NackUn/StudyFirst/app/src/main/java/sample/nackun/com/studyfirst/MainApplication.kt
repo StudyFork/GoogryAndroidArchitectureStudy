@@ -13,6 +13,7 @@ class MainApplication : Application() {
         startKoin {
             androidContext(this@MainApplication)
             modules(getNetworkModule("https://api.upbit.com/"))
+
         }
     }
 }
