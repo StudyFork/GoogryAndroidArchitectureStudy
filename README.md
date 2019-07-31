@@ -100,8 +100,8 @@ MVP를 진행하다보니 내가 이걸 왜 쓰고 있는거지...? 의문과 �
 - 조정흠 []()
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
 
-- 김한빈 []()
-[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+- 김한빈 [toctocbin](https://github.com/toctocbin)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/toctocbin)
 
 - 김종선 [jskim5923](https://github.com/jskim5923)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/jskim5923)
