@@ -4,6 +4,7 @@ import android.app.Application
 import org.koin.core.context.startKoin
 import sample.nackun.com.studyfirst.di.getNetworkModule
 
+@Suppress("unused")
 class MainApplication : Application() {
 
     override fun onCreate() {
