@@ -14,6 +14,7 @@ fun getNetworkModule(baseUrl: String) = module {
             .build()
             .create(UpbitApi::class.java)
     }
+
     single {
         GsonConverterFactory.create() as Converter.Factory
     }
