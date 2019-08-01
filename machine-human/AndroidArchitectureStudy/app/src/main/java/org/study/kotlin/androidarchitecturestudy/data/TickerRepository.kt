@@ -20,7 +20,7 @@ f = onTickerListLoaded(tickerList: List<TickerModel>=
 f = onDataNotAvailable(error: String)
 
  */
-class TickerRepository private constructor(
+class TickerRepository (
     val tickerRemoteDataSource: BaseDataSource
 ) : BaseDataSource {
 
@@ -30,14 +30,5 @@ class TickerRepository private constructor(
         failed: (Throwable) -> Unit
     ) {
         tickerRemoteDataSource.getTickerList(marketName, success, failed)
-    }
-
-    companion object {
-        private var instance: TickerRepository? = null
-        operator fun invoke(tickerRemoteDataSource: BaseDataSource): TickerRepository {
-            Log.e("TAG", "repositoryinvoke")
-            return instance ?: TickerRepository(tickerRemoteDataSource = tickerRemoteDataSource)
-                .apply { instance = this }
-        }
     }
 }

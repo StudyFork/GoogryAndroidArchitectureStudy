@@ -54,16 +54,4 @@ class TickerRemoteDataSource( private val upbitApi: UpbitApi): BaseDataSource{
                 },
                 { failed(it) })
     }
-
-//    companion object {
-//        //static 접근을 허용할 프로터피/함수등 입력
-//        private var instance: TickerRemoteDataSource? = null
-//
-//        operator fun invoke(): TickerRemoteDataSource {
-//            Log.e("TAG", "remoteinvoke")
-//            return instance ?: TickerRemoteDataSource()
-//                .apply { instance = this }
-//
-//        }
-//    }
 }
