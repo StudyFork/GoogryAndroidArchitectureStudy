@@ -106,8 +106,8 @@ MVP를 진행하다보니 내가 이걸 왜 쓰고 있는거지...? 의문과 �
 - 김종선 [jskim5923](https://github.com/jskim5923)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/jskim5923)
 
-- 엄선오 []()
-[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+- 엄선오 [seonoh](https://github.com/seonoh)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/seonoh)
 
 - 임소율 []()
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
