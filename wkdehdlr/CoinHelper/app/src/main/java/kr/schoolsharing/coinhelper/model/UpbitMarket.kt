@@ -1,4 +1,4 @@
-package kr.schoolsharing.coinhelper.data
+package kr.schoolsharing.coinhelper.model
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,4 +1,4 @@
-package kr.schoolsharing.coinhelper.data
+package kr.schoolsharing.coinhelper.model
 
 data class UpbitItem(
     val name: String,

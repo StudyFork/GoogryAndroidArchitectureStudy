@@ -1,7 +1,7 @@
 package kr.schoolsharing.coinhelper.network
 
-import kr.schoolsharing.coinhelper.data.UpbitMarket
-import kr.schoolsharing.coinhelper.data.UpbitTicker
+import kr.schoolsharing.coinhelper.model.UpbitMarket
+import kr.schoolsharing.coinhelper.model.UpbitTicker
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

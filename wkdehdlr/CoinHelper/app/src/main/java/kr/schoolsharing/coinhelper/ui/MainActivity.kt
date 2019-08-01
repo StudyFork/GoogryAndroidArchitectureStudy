@@ -4,8 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kr.schoolsharing.coinhelper.R
-import kr.schoolsharing.coinhelper.network.ApiConnector
-import kr.schoolsharing.coinhelper.util.MyPagerAdapter
 
 
 class MainActivity : AppCompatActivity() {
@@ -14,11 +12,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val apiConnector = ApiConnector()
-        apiConnector.setUpbitMarket()
+        adaptPager()
 
-        val myPagerAdapter = MyPagerAdapter(supportFragmentManager, apiConnector)
-        viewpager_main.adapter = myPagerAdapter
-        tabs_main.setupWithViewPager(viewpager_main)
     }
+
+    private fun adaptPager() {
+        PagerAdapter(supportFragmentManager).apply {
+            viewpager_main.adapter = this
+            tabs_main.setupWithViewPager(viewpager_main)
+        }
+    }
+
 }
