@@ -15,10 +15,14 @@ class MainApplication : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@MainApplication)
-            modules(getNetworkModule("https://api.upbit.com/"))
-            repositoryModule
-            remoteModule
-            viewModelModule
+            modules(
+                listOf(
+                    getNetworkModule("https://api.upbit.com/"),
+                    repositoryModule,
+                    remoteModule,
+                    viewModelModule
+                )
+            )
         }
     }
 }
