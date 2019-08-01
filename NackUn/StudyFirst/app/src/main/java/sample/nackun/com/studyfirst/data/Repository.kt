@@ -1,9 +1,10 @@
 package sample.nackun.com.studyfirst.data
 
+import sample.nackun.com.studyfirst.data.remote.RemoteDataSource
 import sample.nackun.com.studyfirst.vo.Ticker
 
-class Repository private constructor(
-    private val remoteDataSource: DataSource
+class Repository(
+    private val remoteDataSource: RemoteDataSource
 ) : DataSource {
     override fun requestMarkets(
         marketLike: String,
@@ -15,13 +16,5 @@ class Repository private constructor(
             onTickersLoaded,
             onError
         )
-    }
-
-    companion object {
-        private var INSTANCE: Repository? = null
-
-        operator fun invoke(RemoteDataSource: DataSource) =
-            INSTANCE ?: Repository(RemoteDataSource)
-                .apply { INSTANCE = this }
     }
 }
