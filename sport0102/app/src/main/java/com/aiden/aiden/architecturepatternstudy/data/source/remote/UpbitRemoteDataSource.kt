@@ -23,7 +23,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UpbitRemoteDataSource private constructor(
+class UpbitRemoteDataSource(
     private val upbitApi: UpbitApi
 ) : UpbitDataSource {
 
@@ -76,15 +76,6 @@ class UpbitRemoteDataSource private constructor(
 
     }
 
-    companion object {
-
-        private var instance: UpbitRemoteDataSource? = null
-
-        operator fun invoke(upbitApi: UpbitApi) =
-            instance ?: UpbitRemoteDataSource(upbitApi)
-                .apply { instance = this }
-
-    }
 
 }
 

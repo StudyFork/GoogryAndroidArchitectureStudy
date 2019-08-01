@@ -19,7 +19,7 @@ import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 import com.aiden.aiden.architecturepatternstudy.data.source.local.UpbitLocalDataSource
 import com.aiden.aiden.architecturepatternstudy.data.source.remote.UpbitRemoteDataSource
 
-class UpbitRepository private constructor(
+class UpbitRepository(
     private val remoteDataSource: UpbitRemoteDataSource,
     private val localDataSource: UpbitLocalDataSource
 ) : UpbitDataSource {
@@ -68,16 +68,4 @@ class UpbitRepository private constructor(
 
     }
 
-    companion object {
-
-        private var instance: UpbitRepository? = null
-
-        operator fun invoke(
-            upbitRemoteDataSource: UpbitRemoteDataSource,
-            upbitLocalDataSource: UpbitLocalDataSource
-        ) =
-            instance ?: UpbitRepository(upbitRemoteDataSource, upbitLocalDataSource)
-                .apply { instance = this }
-
-    }
 }
