@@ -59,7 +59,7 @@ fun getRemoteServiceModules(url: String) = module {
 fun getLocalServiceModules(context: Context) = module {
     single {
         Room.databaseBuilder(
-            context,
+            context.applicationContext,
             UpbitDatabase::class.java,
             "UpbitTicker.db"
         ).build()
