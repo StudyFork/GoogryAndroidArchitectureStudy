@@ -36,6 +36,7 @@
 - 정상용 [NackUn](https://github.com/NackUn)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/NackUn)
 - 오지수 [machine-human](https://github.com/machine-human)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/machine-human)
 
 제목 : 여러분 속지 마세요!!!!
 
@@ -69,7 +70,7 @@ Git에 서툴렀던 제가 다른 개발 부서에 GitFlow에 대해 설명해 �
 스터디장님과 스터디팀원 분들 모두 8주 동안 늦은 시간에도 친절히 답변 주시고 좋은 경험 만들어 주셔서 감사합니다. 운 좋게 좋은 분들과 함께해서 처음 경험한 스터디인데 좋은 기억만 담고 가네요. 고생하셨습니다 :)
 
 결론 : 저는 또 속을래요ㅋㅋ
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/machine-human)
+
 - 이선민 [sport0102](https://github.com/sport0102)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/sport0102)
 - 신현성 [Nanamare](https://github.com/Nanamare)
