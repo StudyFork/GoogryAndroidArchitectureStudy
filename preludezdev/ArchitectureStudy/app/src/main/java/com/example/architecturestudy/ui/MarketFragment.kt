@@ -68,7 +68,7 @@ class MarketFragment : Fragment() {
 
                 if (coinMarketResponse != null) {
 
-                    val targetTickers = coinMarketResponse?.filter {
+                    val targetTickers = coinMarketResponse.filter {
                         it.market.split('-')[0] == keyMarket
                     }.joinToString(separator = ",") { it.market }
 
