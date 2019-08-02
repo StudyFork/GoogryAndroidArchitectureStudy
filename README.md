@@ -36,6 +36,7 @@
 - 정상용 [NackUn](https://github.com/NackUn)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/NackUn)
 - 오지수 [machine-human](https://github.com/machine-human)
+
 제목 : 여러분 속지 마세요!!!!
 
 오픈 채팅방에서 무심하게 써진 "Android Architecture Pattern 스터디" 라는 제목에 깜빡 속았습니다.
