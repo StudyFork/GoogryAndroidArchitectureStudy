@@ -1,4 +1,4 @@
-package kr.schoolsharing.coinhelper.ui
+package kr.schoolsharing.coinhelper.tasks
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

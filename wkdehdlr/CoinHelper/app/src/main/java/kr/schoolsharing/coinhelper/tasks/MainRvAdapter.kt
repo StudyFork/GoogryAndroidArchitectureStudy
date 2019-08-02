@@ -1,4 +1,4 @@
-package kr.schoolsharing.coinhelper.ui
+package kr.schoolsharing.coinhelper.tasks
 
 import android.graphics.Color
 import android.view.LayoutInflater

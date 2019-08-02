@@ -1,14 +1,5 @@
-package kr.schoolsharing.coinhelper.ui
+package kr.schoolsharing.coinhelper.tasks
 
-
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import kr.schoolsharing.coinhelper.R
 import kr.schoolsharing.coinhelper.data.Repository
 import kr.schoolsharing.coinhelper.data.UpbitDataSource
 import kr.schoolsharing.coinhelper.model.UpbitItem
@@ -16,46 +7,22 @@ import kr.schoolsharing.coinhelper.model.UpbitMarket
 import kr.schoolsharing.coinhelper.model.UpbitTicker
 import kr.schoolsharing.coinhelper.util.TextEditor
 
-class CoinFragment : Fragment() {
+class UpbitPresenter(val repository: Repository, val upbitView: UpbitContract.View) : UpbitContract.Presenter {
 
-    private val rVAdapter = MainRvAdapter()
-
-    companion object {
-        fun newInstance(marketName: String): CoinFragment {
-            val fragment = CoinFragment()
-            val bundle = Bundle()
-
-            bundle.putString("MARKET_NAME", marketName)
-            fragment.arguments = bundle
-            return fragment
-        }
+    init {
+        upbitView.presenter = this
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun completeTask() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
-        val view = inflater.inflate(R.layout.fragment_coinrecycler, container, false)
-        val coinRecyclerView = view.findViewById<RecyclerView>(R.id.CoinRecyclerView)
-
-        coinRecyclerView.adapter = rVAdapter
-
-        val lm = LinearLayoutManager(context!!)
-        coinRecyclerView.layoutManager = lm
-        coinRecyclerView.setHasFixedSize(true)
-
-
-        val marketName = arguments?.get("MARKET_NAME") as String
+    override fun start(marketName: String) {
         loadUpbitMarket(marketName)
-
-        return view
     }
-
 
     private fun loadUpbitMarket(marketName: String) {
-
-        Repository.getMarket(object : UpbitDataSource.GetMarketCallback {
+        repository.getMarket(object : UpbitDataSource.GetMarketCallback {
             override fun onMarketLoaded(markets: List<UpbitMarket>) {
                 val marketList = markets
                     .filter { TextEditor.splitString(it.market, 0) == marketName }
@@ -86,7 +53,7 @@ class CoinFragment : Fragment() {
                     tickerList.add(data)
                 }
 
-                rVAdapter.setTickerList(tickerList)
+                procesUpbit(tickerList)
             }
 
 
@@ -94,6 +61,10 @@ class CoinFragment : Fragment() {
                 t.printStackTrace()
             }
         })
+    }
+
+    private fun procesUpbit(tickerList: MutableList<UpbitItem>) {
+        upbitView.showAddTask(tickerList)
     }
 
 
