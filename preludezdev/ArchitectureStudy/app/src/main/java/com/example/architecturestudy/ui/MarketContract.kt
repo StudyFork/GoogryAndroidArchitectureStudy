@@ -6,14 +6,16 @@ import com.example.architecturestudy.data.CoinTickerResponse
 interface MarketContract {
 
     interface View {
-        fun showTickerList(data: List<Coin>)
+        fun setTickerData(data: List<Coin>)
+
+        fun clearTickerData()
     }
 
     interface Presenter {
 
         fun loadData(keyMarket: String)
 
-        fun onFailCallBack(errorMsg: String)
+        fun onFailCallback(errorMsg: String)
 
         fun convertTickerIntoCoin(ticker: CoinTickerResponse): Coin
     }
