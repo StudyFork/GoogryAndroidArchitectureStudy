@@ -6,7 +6,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import study.architecture.model.repository.Repository
+import study.architecture.model.vo.ProcessingTicker
 import study.architecture.ui.coinjob.adapter.CoinAdapterContract
+import study.architecture.util.TextUtil
 
 /**
  * 1. 업비트 데이터를 가져와 View에게 알려준다.
@@ -25,7 +27,16 @@ class CoinPresenter(private val view: CoinContract.View, index: CoinFragment.Fra
 
     init {
         dispose =
-            Repository.getMarketList(index)
+            Repository.getMarketList()
+                .map { list ->
+                    list.filter { filterData
+                        ->
+                        filterData.market.startsWith(index.name)
+                    }
+                        .joinToString(",") { separateData ->
+                            separateData.market
+                        }
+                }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { marketList ->
@@ -61,6 +72,17 @@ class CoinPresenter(private val view: CoinContract.View, index: CoinFragment.Fra
         Repository.getTickerList(marketName)
             .doOnSubscribe { view.showProgress() }
             .doOnRequest { view.hideProgress() }
+            .map { list ->
+                list.map { data ->
+                    ProcessingTicker(
+                        TextUtil.getMarketName(data.market),
+                        TextUtil.getTradePrice(data.tradePrice),
+                        TextUtil.getChangeRate(data.signedChangeRate),
+                        TextUtil.getAccTradePrice24h(data.accTradePrice24h),
+                        TextUtil.getColorState(data.signedChangeRate)
+                    )
+                }
+            }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { lists ->
