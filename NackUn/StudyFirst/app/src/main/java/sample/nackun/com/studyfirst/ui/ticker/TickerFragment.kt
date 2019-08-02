@@ -11,7 +11,7 @@ import sample.nackun.com.studyfirst.base.BaseRecyclerView
 import sample.nackun.com.studyfirst.databinding.TickerFragmentBinding
 import sample.nackun.com.studyfirst.databinding.TickerItemBinding
 
-class TickerFragment : BaseFragment<TickerFragmentBinding>(
+class TickerFragment : BaseFragment<TickerFragmentBinding, TickerViewModel>(
     R.layout.ticker_fragment
 ) {
     private val firstMarketName = "KRW"
@@ -22,7 +22,7 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
                 BR.tickerItem
             ) {}
 
-    private val vm: TickerViewModel by viewModel()
+    override val vm: TickerViewModel by viewModel()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
