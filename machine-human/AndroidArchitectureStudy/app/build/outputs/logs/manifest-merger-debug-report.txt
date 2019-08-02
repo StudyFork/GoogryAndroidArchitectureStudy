@@ -1,0 +1,225 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:2:1-22:12
+MERGED from [androidx.databinding:databinding-adapters:3.5.0-rc01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/296f7ca8c2d7d43fb35d3acf821c8692/databinding-adapters-3.5.0-rc01/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.databinding:databinding-runtime:3.5.0-rc01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/3ec10a12ffb083bf0486ceb86ed28409/databinding-runtime-3.5.0-rc01/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.material:material:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/7ea92b27f39806da37caa47a643bd9f4/material-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [org.koin:koin-android-viewmodel:2.0.1] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/4c4bccb8b31160d412036f390f42ccc0/jetified-koin-android-viewmodel-2.0.1/AndroidManifest.xml:2:1-9:12
+MERGED from [org.koin:koin-android-scope:2.0.1] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/895b12495160351f445f8903ee0fa3dd/jetified-koin-android-scope-2.0.1/AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.appcompat:appcompat:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/e21ee44fcac72a728f515a7b1ec6c666/appcompat-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/e448f25fd65a03c94f51d1816b4eb2ba/constraintlayout-1.1.3/AndroidManifest.xml:2:1-11:12
+MERGED from [io.reactivex.rxjava2:rxandroid:2.1.1] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/1a6814a1fee63488b2400ff926afbf6b/rxandroid-2.1.1/AndroidManifest.xml:15:1-20:12
+MERGED from [androidx.lifecycle:lifecycle-extensions:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/8c5413edd4f56321d6890b0b842f605a/lifecycle-extensions-2.2.0-alpha02/AndroidManifest.xml:17:1-27:12
+MERGED from [org.koin:koin-android:2.0.1] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/9e2c64299c8baa67c90c0e00f8468649/koin-android-2.0.1/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-process:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/9077e2aabc9b2a3ea7554931e9783827/lifecycle-process-2.2.0-alpha02/AndroidManifest.xml:17:1-32:12
+MERGED from [androidx.lifecycle:lifecycle-service:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/fdd3c6f23b737ea1e19460983965d2a8/lifecycle-service-2.2.0-alpha02/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/bb4fd4c4270e089eae1b8a42cf178454/vectordrawable-animated-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/d9f1de19e663fd67456d983df8f8d2a7/recyclerview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/91ff6be73f4d4a2b14c369cd225a447f/legacy-support-core-ui-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/c690bad99b3cfed8474a73fd0b21c91d/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/4417254f2e9419be0b7a4eeec6338258/vectordrawable-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.transition:transition:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/df3a75b23eab2b41491fd763f1bd4a29/transition-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.fragment:fragment:1.2.0-alpha01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/fcecc47a35766385aa17e88a21e62e04/fragment-1.2.0-alpha01/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.loader:loader:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/5085007deb3da8b478db8a4b61bdd724/loader-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/300d70b1d821325151c74e70568ff42b/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/effb6d38a65912bf6f56501bfe2d5ea7/coordinatorlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/4b73b4e5f5f326d2da0f20bf255b988c/drawerlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/68196d467ecbf6b350d80a32d3540b63/slidingpanelayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/b9e362c9470b55f0a8193cedb2a5b269/customview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/7c895885a9429bb8fcf62ddf710bf926/swiperefreshlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/abe1f38159a68dee78dfaef4b20b59aa/asynclayoutinflater-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity:1.1.0-alpha01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/52de0fb248d37e1d9de10e9bdea20262/activity-1.1.0-alpha01/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.core:core:1.1.0-rc01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/44c171691fbcdaa3f722d15420654c4a/core-1.1.0-rc01/AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/09e2ff5fcd178b1da0083e193f8a575f/lifecycle-runtime-2.2.0-alpha02/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0-rc01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/e40a9c1d7dd5af310c24c9f4842a38ac/versionedparcelable-1.1.0-rc01/AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/90f8c266d7bb2b7a991b7bb203777347/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/8272ac0380c6e124ab1ee390cd8de8f6/cardview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/7cb44569aae9340d8f4b941d00c8fd0f/lifecycle-livedata-2.2.0-alpha02/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/152f581b035fc4e6e98fcd2632ca9fbe/lifecycle-livedata-core-2.2.0-alpha02/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.arch.core:core-runtime:2.1.0-rc01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/e58577e4fff726b6350fee317c68c4e4/core-runtime-2.1.0-rc01/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.savedstate:savedstate:1.0.0-rc01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/5b3f495d6b81a086a41fc3e68d11a2f1/savedstate-1.0.0-rc01/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/850b2fdbdfa8631a9b851f0760983b64/lifecycle-viewmodel-2.2.0-alpha02/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/5c1fcde382e54d5aeb274574e266ce70/documentfile-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/c729d0a6ea4dfa44fa89bb515c4c9e38/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/86b75b7100393751441b51f249b5ac2f/print-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/125afc8fc34340a27a6883d20c32bfdc/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
+INJECTED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:2:1-22:12
+	package
+		ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:3:11-62
+		INJECTED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml
+		ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:2:1-22:12
+		INJECTED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml
+		ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:2:1-22:12
+		INJECTED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.INTERNET
+ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:4:5-66
+	android:name
+		ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:4:22-64
+application
+ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:5:5-20:19
+MERGED from [com.google.android.material:material:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/7ea92b27f39806da37caa47a643bd9f4/material-1.0.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/7ea92b27f39806da37caa47a643bd9f4/material-1.0.0/AndroidManifest.xml:22:5-20
+MERGED from [org.koin:koin-android-viewmodel:2.0.1] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/4c4bccb8b31160d412036f390f42ccc0/jetified-koin-android-viewmodel-2.0.1/AndroidManifest.xml:7:5-20
+MERGED from [org.koin:koin-android-viewmodel:2.0.1] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/4c4bccb8b31160d412036f390f42ccc0/jetified-koin-android-viewmodel-2.0.1/AndroidManifest.xml:7:5-20
+MERGED from [org.koin:koin-android-scope:2.0.1] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/895b12495160351f445f8903ee0fa3dd/jetified-koin-android-scope-2.0.1/AndroidManifest.xml:7:5-20
+MERGED from [org.koin:koin-android-scope:2.0.1] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/895b12495160351f445f8903ee0fa3dd/jetified-koin-android-scope-2.0.1/AndroidManifest.xml:7:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/e448f25fd65a03c94f51d1816b4eb2ba/constraintlayout-1.1.3/AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/e448f25fd65a03c94f51d1816b4eb2ba/constraintlayout-1.1.3/AndroidManifest.xml:9:5-20
+MERGED from [androidx.lifecycle:lifecycle-extensions:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/8c5413edd4f56321d6890b0b842f605a/lifecycle-extensions-2.2.0-alpha02/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.lifecycle:lifecycle-extensions:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/8c5413edd4f56321d6890b0b842f605a/lifecycle-extensions-2.2.0-alpha02/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/9077e2aabc9b2a3ea7554931e9783827/lifecycle-process-2.2.0-alpha02/AndroidManifest.xml:24:5-30:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/9077e2aabc9b2a3ea7554931e9783827/lifecycle-process-2.2.0-alpha02/AndroidManifest.xml:24:5-30:19
+MERGED from [androidx.core:core:1.1.0-rc01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/44c171691fbcdaa3f722d15420654c4a/core-1.1.0-rc01/AndroidManifest.xml:24:5-89
+MERGED from [androidx.core:core:1.1.0-rc01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/44c171691fbcdaa3f722d15420654c4a/core-1.1.0-rc01/AndroidManifest.xml:24:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0-rc01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/e40a9c1d7dd5af310c24c9f4842a38ac/versionedparcelable-1.1.0-rc01/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0-rc01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/e40a9c1d7dd5af310c24c9f4842a38ac/versionedparcelable-1.1.0-rc01/AndroidManifest.xml:24:5-25:19
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.1.0-rc01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/44c171691fbcdaa3f722d15420654c4a/core-1.1.0-rc01/AndroidManifest.xml:24:18-86
+	android:supportsRtl
+		ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:11:13-39
+	android:label
+		ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:9:13-45
+	android:roundIcon
+		ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:10:13-58
+	android:icon
+		ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:8:13-47
+	android:allowBackup
+		ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:7:13-39
+	android:theme
+		ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:12:13-44
+	android:name
+		ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:6:13-44
+activity#org.study.kotlin.androidarchitecturestudy.view.activity.main.MainActivity
+ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:13:9-19:20
+	android:name
+		ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:13:19-66
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:14:13-18:29
+action#android.intent.action.MAIN
+ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:15:17-68
+	android:name
+		ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:15:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:17:17-76
+	android:name
+		ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml:17:27-74
+uses-sdk
+INJECTED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml
+INJECTED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml
+MERGED from [androidx.databinding:databinding-adapters:3.5.0-rc01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/296f7ca8c2d7d43fb35d3acf821c8692/databinding-adapters-3.5.0-rc01/AndroidManifest.xml:22:5-44
+MERGED from [androidx.databinding:databinding-adapters:3.5.0-rc01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/296f7ca8c2d7d43fb35d3acf821c8692/databinding-adapters-3.5.0-rc01/AndroidManifest.xml:22:5-44
+MERGED from [androidx.databinding:databinding-runtime:3.5.0-rc01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/3ec10a12ffb083bf0486ceb86ed28409/databinding-runtime-3.5.0-rc01/AndroidManifest.xml:22:5-44
+MERGED from [androidx.databinding:databinding-runtime:3.5.0-rc01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/3ec10a12ffb083bf0486ceb86ed28409/databinding-runtime-3.5.0-rc01/AndroidManifest.xml:22:5-44
+MERGED from [com.google.android.material:material:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/7ea92b27f39806da37caa47a643bd9f4/material-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/7ea92b27f39806da37caa47a643bd9f4/material-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [org.koin:koin-android-viewmodel:2.0.1] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/4c4bccb8b31160d412036f390f42ccc0/jetified-koin-android-viewmodel-2.0.1/AndroidManifest.xml:5:5-44
+MERGED from [org.koin:koin-android-viewmodel:2.0.1] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/4c4bccb8b31160d412036f390f42ccc0/jetified-koin-android-viewmodel-2.0.1/AndroidManifest.xml:5:5-44
+MERGED from [org.koin:koin-android-scope:2.0.1] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/895b12495160351f445f8903ee0fa3dd/jetified-koin-android-scope-2.0.1/AndroidManifest.xml:5:5-44
+MERGED from [org.koin:koin-android-scope:2.0.1] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/895b12495160351f445f8903ee0fa3dd/jetified-koin-android-scope-2.0.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.appcompat:appcompat:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/e21ee44fcac72a728f515a7b1ec6c666/appcompat-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/e21ee44fcac72a728f515a7b1ec6c666/appcompat-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/e448f25fd65a03c94f51d1816b4eb2ba/constraintlayout-1.1.3/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/e448f25fd65a03c94f51d1816b4eb2ba/constraintlayout-1.1.3/AndroidManifest.xml:5:5-7:41
+MERGED from [io.reactivex.rxjava2:rxandroid:2.1.1] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/1a6814a1fee63488b2400ff926afbf6b/rxandroid-2.1.1/AndroidManifest.xml:18:5-43
+MERGED from [io.reactivex.rxjava2:rxandroid:2.1.1] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/1a6814a1fee63488b2400ff926afbf6b/rxandroid-2.1.1/AndroidManifest.xml:18:5-43
+MERGED from [androidx.lifecycle:lifecycle-extensions:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/8c5413edd4f56321d6890b0b842f605a/lifecycle-extensions-2.2.0-alpha02/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-extensions:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/8c5413edd4f56321d6890b0b842f605a/lifecycle-extensions-2.2.0-alpha02/AndroidManifest.xml:20:5-22:41
+MERGED from [org.koin:koin-android:2.0.1] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/9e2c64299c8baa67c90c0e00f8468649/koin-android-2.0.1/AndroidManifest.xml:5:5-44
+MERGED from [org.koin:koin-android:2.0.1] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/9e2c64299c8baa67c90c0e00f8468649/koin-android-2.0.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/9077e2aabc9b2a3ea7554931e9783827/lifecycle-process-2.2.0-alpha02/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-process:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/9077e2aabc9b2a3ea7554931e9783827/lifecycle-process-2.2.0-alpha02/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-service:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/fdd3c6f23b737ea1e19460983965d2a8/lifecycle-service-2.2.0-alpha02/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-service:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/fdd3c6f23b737ea1e19460983965d2a8/lifecycle-service-2.2.0-alpha02/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/bb4fd4c4270e089eae1b8a42cf178454/vectordrawable-animated-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/bb4fd4c4270e089eae1b8a42cf178454/vectordrawable-animated-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/d9f1de19e663fd67456d983df8f8d2a7/recyclerview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/d9f1de19e663fd67456d983df8f8d2a7/recyclerview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/91ff6be73f4d4a2b14c369cd225a447f/legacy-support-core-ui-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/91ff6be73f4d4a2b14c369cd225a447f/legacy-support-core-ui-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/c690bad99b3cfed8474a73fd0b21c91d/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/c690bad99b3cfed8474a73fd0b21c91d/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/4417254f2e9419be0b7a4eeec6338258/vectordrawable-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/4417254f2e9419be0b7a4eeec6338258/vectordrawable-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.transition:transition:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/df3a75b23eab2b41491fd763f1bd4a29/transition-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.transition:transition:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/df3a75b23eab2b41491fd763f1bd4a29/transition-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.2.0-alpha01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/fcecc47a35766385aa17e88a21e62e04/fragment-1.2.0-alpha01/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.2.0-alpha01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/fcecc47a35766385aa17e88a21e62e04/fragment-1.2.0-alpha01/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.loader:loader:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/5085007deb3da8b478db8a4b61bdd724/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/5085007deb3da8b478db8a4b61bdd724/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/300d70b1d821325151c74e70568ff42b/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/300d70b1d821325151c74e70568ff42b/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/effb6d38a65912bf6f56501bfe2d5ea7/coordinatorlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/effb6d38a65912bf6f56501bfe2d5ea7/coordinatorlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/4b73b4e5f5f326d2da0f20bf255b988c/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/4b73b4e5f5f326d2da0f20bf255b988c/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/68196d467ecbf6b350d80a32d3540b63/slidingpanelayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/68196d467ecbf6b350d80a32d3540b63/slidingpanelayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/b9e362c9470b55f0a8193cedb2a5b269/customview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/b9e362c9470b55f0a8193cedb2a5b269/customview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/7c895885a9429bb8fcf62ddf710bf926/swiperefreshlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/7c895885a9429bb8fcf62ddf710bf926/swiperefreshlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/abe1f38159a68dee78dfaef4b20b59aa/asynclayoutinflater-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/abe1f38159a68dee78dfaef4b20b59aa/asynclayoutinflater-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.1.0-alpha01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/52de0fb248d37e1d9de10e9bdea20262/activity-1.1.0-alpha01/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.1.0-alpha01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/52de0fb248d37e1d9de10e9bdea20262/activity-1.1.0-alpha01/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.1.0-rc01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/44c171691fbcdaa3f722d15420654c4a/core-1.1.0-rc01/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.1.0-rc01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/44c171691fbcdaa3f722d15420654c4a/core-1.1.0-rc01/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/09e2ff5fcd178b1da0083e193f8a575f/lifecycle-runtime-2.2.0-alpha02/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/09e2ff5fcd178b1da0083e193f8a575f/lifecycle-runtime-2.2.0-alpha02/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0-rc01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/e40a9c1d7dd5af310c24c9f4842a38ac/versionedparcelable-1.1.0-rc01/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0-rc01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/e40a9c1d7dd5af310c24c9f4842a38ac/versionedparcelable-1.1.0-rc01/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/90f8c266d7bb2b7a991b7bb203777347/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/90f8c266d7bb2b7a991b7bb203777347/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/8272ac0380c6e124ab1ee390cd8de8f6/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/8272ac0380c6e124ab1ee390cd8de8f6/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/7cb44569aae9340d8f4b941d00c8fd0f/lifecycle-livedata-2.2.0-alpha02/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/7cb44569aae9340d8f4b941d00c8fd0f/lifecycle-livedata-2.2.0-alpha02/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/152f581b035fc4e6e98fcd2632ca9fbe/lifecycle-livedata-core-2.2.0-alpha02/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/152f581b035fc4e6e98fcd2632ca9fbe/lifecycle-livedata-core-2.2.0-alpha02/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0-rc01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/e58577e4fff726b6350fee317c68c4e4/core-runtime-2.1.0-rc01/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0-rc01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/e58577e4fff726b6350fee317c68c4e4/core-runtime-2.1.0-rc01/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0-rc01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/5b3f495d6b81a086a41fc3e68d11a2f1/savedstate-1.0.0-rc01/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0-rc01] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/5b3f495d6b81a086a41fc3e68d11a2f1/savedstate-1.0.0-rc01/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/850b2fdbdfa8631a9b851f0760983b64/lifecycle-viewmodel-2.2.0-alpha02/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/850b2fdbdfa8631a9b851f0760983b64/lifecycle-viewmodel-2.2.0-alpha02/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/5c1fcde382e54d5aeb274574e266ce70/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/5c1fcde382e54d5aeb274574e266ce70/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/c729d0a6ea4dfa44fa89bb515c4c9e38/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/c729d0a6ea4dfa44fa89bb515c4c9e38/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/86b75b7100393751441b51f249b5ac2f/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/86b75b7100393751441b51f249b5ac2f/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/125afc8fc34340a27a6883d20c32bfdc/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/125afc8fc34340a27a6883d20c32bfdc/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+INJECTED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml
+INJECTED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml
+		ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml
+		ADDED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/AndroidManifest.xml
+provider#androidx.lifecycle.ProcessLifecycleOwnerInitializer
+ADDED from [androidx.lifecycle:lifecycle-process:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/9077e2aabc9b2a3ea7554931e9783827/lifecycle-process-2.2.0-alpha02/AndroidManifest.xml:25:9-29:43
+	android:authorities
+		ADDED from [androidx.lifecycle:lifecycle-process:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/9077e2aabc9b2a3ea7554931e9783827/lifecycle-process-2.2.0-alpha02/AndroidManifest.xml:27:13-69
+	android:multiprocess
+		ADDED from [androidx.lifecycle:lifecycle-process:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/9077e2aabc9b2a3ea7554931e9783827/lifecycle-process-2.2.0-alpha02/AndroidManifest.xml:29:13-40
+	android:exported
+		ADDED from [androidx.lifecycle:lifecycle-process:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/9077e2aabc9b2a3ea7554931e9783827/lifecycle-process-2.2.0-alpha02/AndroidManifest.xml:28:13-37
+	android:name
+		ADDED from [androidx.lifecycle:lifecycle-process:2.2.0-alpha02] /Users/ojisu/.gradle/caches/transforms-2/files-2.1/9077e2aabc9b2a3ea7554931e9783827/lifecycle-process-2.2.0-alpha02/AndroidManifest.xml:26:13-79

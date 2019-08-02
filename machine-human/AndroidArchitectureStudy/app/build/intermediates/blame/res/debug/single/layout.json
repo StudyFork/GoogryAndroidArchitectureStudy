@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/item_ticker.xml",
+        "source": "/Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/res/layout/item_ticker.xml"
+    },
+    {
+        "merged": "/Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/fragment_main.xml",
+        "source": "/Users/ojisu/workspace/GoogryAndroidArchitectureStudy/machine-human/AndroidArchitectureStudy/app/src/main/res/layout/fragment_main.xml"
+    }
+]
