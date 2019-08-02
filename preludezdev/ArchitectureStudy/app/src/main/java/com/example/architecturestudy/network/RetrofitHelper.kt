@@ -3,8 +3,8 @@ package com.example.architecturestudy.network
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object NetworkHelper {
-    private const val API_URL = "https://api.upbit.com/"
+class RetrofitHelper {
+    private val API_URL = "https://api.upbit.com/"
 
     private val retrofit: Retrofit
     val coinApiService: CoinApiService
@@ -16,5 +16,13 @@ object NetworkHelper {
             .build()
 
         coinApiService = retrofit.create(CoinApiService::class.java)
+    }
+
+    companion object {
+        private var INSTANCE: RetrofitHelper? = null
+
+        fun getInstance(): RetrofitHelper {
+            return INSTANCE ?: RetrofitHelper()
+        }
     }
 }

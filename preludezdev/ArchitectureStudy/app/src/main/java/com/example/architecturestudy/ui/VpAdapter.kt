@@ -11,14 +11,7 @@ class VpAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     private val fragmentTitleList = listOf("KRW", "BTC", "ETH", "USDT")
 
     override fun getItem(position: Int): Fragment? {
-        return when (position) {
-            0 -> MarketFragment.newInstance("KRW")
-            1 -> MarketFragment.newInstance("BTC")
-            2 -> MarketFragment.newInstance("ETH")
-            3 -> MarketFragment.newInstance("USDT")
-
-            else -> null
-        }
+        return MarketFragment.newInstance(fragmentTitleList[position])
     }
 
     //뷰페이저에 포함된 전체 Fragment 갯수
@@ -35,4 +28,5 @@ class VpAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     override fun getItemPosition(`object`: Any): Int {
         return PagerAdapter.POSITION_NONE
     }
+
 }
