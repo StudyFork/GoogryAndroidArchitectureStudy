@@ -6,11 +6,10 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-val tickerBaseUrl = "https://api.upbit.com/"
-val retrofitMoudle = module {
+fun getRetrofitModule(baseUrl: String) = module {
     single {
         Retrofit.Builder()
-            .baseUrl(tickerBaseUrl)
+            .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
