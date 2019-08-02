@@ -1,4 +1,4 @@
-# GoogryAndroidArchitecutreStudy
+﻿# GoogryAndroidArchitecutreStudy
 
 본인의 깃허브 아이디에 맞는 폴더를 생성하고 그 안에서 작업을 진행해주세요.
 
@@ -26,3 +26,18 @@
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/hoyuo)
 - 이건호 [GeoN5](https://github.com/GeoN5)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/GeoN5)
+
+## 2기
+
+- 강현석 []()
+[공간]()
+- 이윤지 [zion830](https://github.com/zion830)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/zion830)
+- 정상용 []()
+[공간]()
+- 이선민 [sport0102](https://github.com/sport0102)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/sport0102)
+- 오지수 []()
+[공간]()
+- 신현성 []()
+[공간]()
