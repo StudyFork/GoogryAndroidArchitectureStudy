@@ -1,6 +1,7 @@
 package com.aiden.aiden.architecturepatternstudy.di
 
 import android.app.Application
+import androidx.room.Room
 import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
 import com.aiden.aiden.architecturepatternstudy.data.source.local.UpbitDatabase
 import com.aiden.aiden.architecturepatternstudy.data.source.local.UpbitLocalDataSource
@@ -12,7 +13,12 @@ fun getRepositoryModule(application: Application) = module {
         UpbitRemoteDataSource(get())
     }
     single {
-        UpbitDatabase(application)
+        Room.databaseBuilder(
+            application,
+            UpbitDatabase::class.java, "upbit-db"
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
     single {
         UpbitLocalDataSource(get())

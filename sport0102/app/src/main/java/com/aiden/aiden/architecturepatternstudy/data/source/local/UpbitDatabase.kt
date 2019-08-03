@@ -1,8 +1,6 @@
 package com.aiden.aiden.architecturepatternstudy.data.source.local
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 
@@ -11,19 +9,4 @@ abstract class UpbitDatabase : RoomDatabase() {
 
     abstract fun tickerDao(): TickerDao
 
-    companion object {
-
-        private var instance: UpbitDatabase? = null
-
-        operator fun invoke(context: Context) =
-            instance
-                ?: Room.databaseBuilder(
-                    context,
-                    UpbitDatabase::class.java, "upbit-db"
-                )
-                    .fallbackToDestructiveMigration()
-                    .build()
-                    .apply { instance = this }
-
-    }
 }
