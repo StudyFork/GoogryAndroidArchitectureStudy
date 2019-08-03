@@ -19,7 +19,7 @@ class Application : Application() {
             androidContext(this@Application)
             modules(
                 listOf(
-                    getLocalServiceModules(this@Application),
+                    getLocalServiceModules(),
                     getRemoteServiceModules("https://api.upbit.com/"),
                     dataSourceModules,
                     viewModelModules

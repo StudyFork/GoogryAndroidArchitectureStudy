@@ -1,6 +1,5 @@
 package com.architecturestudy.di
 
-import android.content.Context
 import androidx.room.Room
 import com.architecturestudy.BuildConfig
 import com.architecturestudy.data.source.UpbitRepository
@@ -11,6 +10,7 @@ import com.architecturestudy.data.source.remote.UpbitRemoteService
 import com.architecturestudy.market.UpbitViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidApplication
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -56,10 +56,10 @@ fun getRemoteServiceModules(url: String) = module {
 
 }
 
-fun getLocalServiceModules(context: Context) = module {
+fun getLocalServiceModules() = module {
     single {
         Room.databaseBuilder(
-            context.applicationContext,
+            androidApplication(),
             UpbitDatabase::class.java,
             "UpbitTicker.db"
         ).build()
