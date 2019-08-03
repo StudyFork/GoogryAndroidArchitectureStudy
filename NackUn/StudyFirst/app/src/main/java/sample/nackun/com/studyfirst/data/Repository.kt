@@ -4,7 +4,7 @@ import sample.nackun.com.studyfirst.data.remote.RemoteDataSource
 import sample.nackun.com.studyfirst.vo.Ticker
 
 class Repository(
-    private val remoteDataSource: RemoteDataSource
+    private val remoteDataSource: DataSource
 ) : DataSource {
     override fun requestMarkets(
         marketLike: String,
