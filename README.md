@@ -134,9 +134,6 @@ github-flow 방식을 체험하면서 진정한 git의 매력를 느끼게 되�
 - 이진성 [dlwls5201](https://github.com/dlwls5201)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/dlwls5201)
 
-- 김수연 [onemask](https://github.com/onemask)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/onemask)
-
 
 ## 4기
 - 조정흠 [junghum21](https://github.com/junghum21)
@@ -153,3 +150,6 @@ github-flow 방식을 체험하면서 진정한 git의 매력를 느끼게 되�
 
 - 임소율 [syli9526](https://github.com/syli9526)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/syli9526)
+
+- 김수연 [onemask](https://github.com/onemask)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/onemask)
