@@ -5,7 +5,7 @@ import sample.nackun.com.studyfirst.vo.Ticker
 
 class Repository(
     private val remoteDataSource: DataSource
-) : DataSource {
+) : RepositoryInterface {
     override fun requestMarkets(
         marketLike: String,
         onTickersLoaded: (tickers: List<Ticker>) -> Unit,
