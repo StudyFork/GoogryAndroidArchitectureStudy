@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_coin.*
 import kotlinx.android.synthetic.main.fragment_coin.view.*
 import study.architecture.R
+import study.architecture.model.repository.RepositoryImpl
 import study.architecture.ui.coinjob.adapter.CoinDataAdapter
 
 
@@ -19,7 +20,8 @@ class CoinFragment : Fragment(), CoinContract.View {
     private val presenter by lazy {
         CoinPresenter(
             this@CoinFragment,
-            arguments!!.getSerializable("idx") as FragIndex
+            arguments!!.getSerializable("idx") as FragIndex,
+            RepositoryImpl
         ).also {
             it.setAdapterModel(adapter)
             it.setAdapterView(adapter)

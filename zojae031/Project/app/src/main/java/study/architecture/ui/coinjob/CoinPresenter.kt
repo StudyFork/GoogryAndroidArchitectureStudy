@@ -5,7 +5,7 @@ import android.util.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import study.architecture.model.repository.Repository
+import study.architecture.model.repository.RepositoryImpl
 import study.architecture.model.vo.ProcessingTicker
 import study.architecture.ui.coinjob.adapter.CoinAdapterContract
 import study.architecture.util.TextUtil
@@ -14,9 +14,12 @@ import study.architecture.util.TextUtil
  * 1. 업비트 데이터를 가져와 View에게 알려준다.
  * 2. Observable 생명주기를 관리한다.
  */
-class CoinPresenter(private val view: CoinContract.View, index: CoinFragment.FragIndex) :
+class CoinPresenter(
+    private val view: CoinContract.View,
+    private val index: CoinFragment.FragIndex,
+    private val repository: RepositoryImpl
+) :
     CoinContract.Presenter {
-
 
     private val dispose: Disposable
     private lateinit var marketName: String
@@ -27,7 +30,7 @@ class CoinPresenter(private val view: CoinContract.View, index: CoinFragment.Fra
 
     init {
         dispose =
-            Repository.getMarketList()
+            repository.getMarketList()
                 .map { list ->
                     list.filter { filterData
                         ->
@@ -69,7 +72,7 @@ class CoinPresenter(private val view: CoinContract.View, index: CoinFragment.Fra
 
     @SuppressLint("CheckResult")
     private fun tickerRequest() {
-        Repository.getTickerList(marketName)
+        repository.getTickerList(marketName)
             .doOnSubscribe { view.showProgress() }
             .doOnRequest { view.hideProgress() }
             .map { list ->
