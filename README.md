@@ -87,6 +87,14 @@ github-flow 방식을 체험하면서 진정한 git의 매력를 느끼게 되�
 
 - 정상용 [NackUn](https://github.com/NackUn)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/NackUn)
+스터디를 들어야하는 7가지 이유.txt
+1. 가격 : 가격을 보고 망설이지 마세요. 어디 가서 돈 주고도 못 배울 만한 것들을 배웁니다.
+2. 학습 : 과외가 아니라 스터디입니다. 직접 공부하고 코드를 짤 수 있게 과제로(강제로) 만들어드립니다.
+3. 목표 : 목표했던 MVP, MVVM, DataBinding, AAC 뿐만 아니라 툴 사용법, 현업, 코드 작성법 등을 배울 수 있습니다.
+4. 리뷰 : 개판으로 짜던 나의 코드를 파트너(현석님 감사합니다!)와의 리뷰를 통해 사람답게 만들어나가고 있습니다.
+5. 멘토 : 사람이 된 줄 알았던 나의 코드가 아직 멀었습니다. 멘토(석준)님의 리뷰로 현실을 깨닫습니다.
+6. 동료 : 나보다 훨씬 잘하면서도 열심히 공부하시는 동료들을 보면서 동기부여를 받고 친절한 동료들의 도움으로 더 이해하기 편했습니다.
+7. 현실 : 현업(개발자 2인 스타트업) 5개월보다 멘토(석준)님과 스터디원분들과 함께한 8주에 더 많은 것을 배웠습니다.
 
 - 오지수 [machine-human](https://github.com/machine-human)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/machine-human)
