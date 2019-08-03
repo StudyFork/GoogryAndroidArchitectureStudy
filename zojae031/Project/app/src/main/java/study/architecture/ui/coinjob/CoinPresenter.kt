@@ -5,10 +5,11 @@ import android.util.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import study.architecture.model.repository.RepositoryImpl
+import study.architecture.model.repository.Repository
 import study.architecture.model.vo.ProcessingTicker
 import study.architecture.ui.coinjob.adapter.CoinAdapterContract
 import study.architecture.util.TextUtil
+import java.util.concurrent.TimeUnit
 
 /**
  * 1. 업비트 데이터를 가져와 View에게 알려준다.
@@ -17,7 +18,7 @@ import study.architecture.util.TextUtil
 class CoinPresenter(
     private val view: CoinContract.View,
     private val index: CoinFragment.FragIndex,
-    private val repository: RepositoryImpl
+    private val repository: Repository
 ) :
     CoinContract.Presenter {
 
@@ -30,7 +31,7 @@ class CoinPresenter(
 
     init {
         dispose =
-            repository.getMarketList()
+            repository.getMarkets()
                 .map { list ->
                     list.filter { filterData
                         ->
@@ -72,7 +73,8 @@ class CoinPresenter(
 
     @SuppressLint("CheckResult")
     private fun tickerRequest() {
-        repository.getTickerList(marketName)
+        repository.getTickers(marketName)
+            .repeatWhen { t -> t.delay(8, TimeUnit.SECONDS) }
             .doOnSubscribe { view.showProgress() }
             .doOnRequest { view.hideProgress() }
             .map { list ->

@@ -8,7 +8,7 @@ import study.architecture.model.vo.Market
 import study.architecture.model.vo.Ticker
 
 
-interface UpbitApi {
+interface UpbitDataSource {
 
     @GET("market/all")
     fun getMarkets(): Single<List<Market>>

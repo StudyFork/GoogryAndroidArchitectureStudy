@@ -11,7 +11,7 @@ import study.architecture.model.vo.Ticker
 /**
  * Data 관리하는 비즈니스로직이 담긴 클래스
  */
-object RemoteDataSource : UpbitApi {
+object RemoteDataSource : UpbitDataSource {
 
 
     private const val url = "https://api.upbit.com/v1/"
@@ -25,7 +25,7 @@ object RemoteDataSource : UpbitApi {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
-    private val api = client.create(UpbitApi::class.java)
+    private val api = client.create(UpbitDataSource::class.java)
 
     override fun getMarkets(): Single<List<Market>> =
         api.getMarkets()
