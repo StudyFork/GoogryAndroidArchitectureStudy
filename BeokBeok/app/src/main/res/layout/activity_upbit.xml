@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".upbitmarket.UpbitActivity">
+    tools:context=".market.UpbitActivity">
 
     <fragment
         android:id="@+id/fg_main"
-        android:name="com.architecturestudy.upbitmarket.UpbitOutlineFragment"
+        android:name="com.architecturestudy.market.UpbitOutlineFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

@@ -1,8 +1,8 @@
-package com.architecturestudy.data.upbit.source.local
+package com.architecturestudy.data.source.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.architecturestudy.data.upbit.UpbitTicker
+import com.architecturestudy.data.UpbitTicker
 
 @Database(
     entities = [UpbitTicker::class],

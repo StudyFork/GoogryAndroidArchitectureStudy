@@ -1,4 +1,4 @@
-package com.architecturestudy.data.common
+package com.architecturestudy.common
 
 @Suppress("unused")
 enum class MarketTypes {

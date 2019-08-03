@@ -1,4 +1,4 @@
-package com.architecturestudy.customlistener
+package com.architecturestudy.common
 
 import com.google.android.material.tabs.TabLayout
 

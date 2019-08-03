@@ -1,8 +1,8 @@
-package com.architecturestudy.upbitmarket
+package com.architecturestudy.market
 
 import androidx.lifecycle.MutableLiveData
 import com.architecturestudy.base.BaseViewModel
-import com.architecturestudy.data.upbit.source.UpbitRepository
+import com.architecturestudy.data.source.UpbitRepository
 import com.architecturestudy.util.NumberFormatter
 import com.architecturestudy.util.RxEventBus
 

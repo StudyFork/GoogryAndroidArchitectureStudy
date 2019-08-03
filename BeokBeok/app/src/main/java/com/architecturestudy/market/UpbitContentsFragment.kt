@@ -1,52 +1,31 @@
-package com.architecturestudy.upbitmarket
+package com.architecturestudy.market
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.architecturestudy.BR
 import com.architecturestudy.R
 import com.architecturestudy.base.BaseFragment
 import com.architecturestudy.base.BaseRecyclerView
-import com.architecturestudy.data.common.MarketTypes
-import com.architecturestudy.data.upbit.source.UpbitRepository
-import com.architecturestudy.data.upbit.source.local.UpbitLocalDataSource
-import com.architecturestudy.data.upbit.source.local.UpbitRoom
-import com.architecturestudy.data.upbit.source.remote.UpbitRemoteDataSource
-import com.architecturestudy.data.upbit.source.remote.UpbitRetrofit
+import com.architecturestudy.common.MarketTypes
 import com.architecturestudy.databinding.FragmentUpbitContentsBinding
 import com.architecturestudy.databinding.RvUpbitItemBinding
 import com.architecturestudy.util.RxEventBus
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import org.koin.android.viewmodel.ext.android.viewModel
 
-class UpbitContentsFragment : BaseFragment<FragmentUpbitContentsBinding>(
+class UpbitContentsFragment : BaseFragment<FragmentUpbitContentsBinding, UpbitViewModel>(
     R.layout.fragment_upbit_contents
 ) {
 
+    override val viewModel by viewModel<UpbitViewModel>()
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        initBinding()
+        binding.vm = viewModel
         initRecyclerView()
         showContents()
-    }
-
-    private fun initBinding() {
-        binding.vm = ViewModelProviders.of(
-            this,
-            object : ViewModelProvider.Factory {
-                @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-                    UpbitViewModel(
-                        UpbitRepository(
-                            UpbitLocalDataSource(UpbitRoom.getDao(context)),
-                            UpbitRemoteDataSource(UpbitRetrofit.service)
-                        )
-                    ) as T
-            }
-        )[UpbitViewModel::class.java]
     }
 
     private fun initRecyclerView() {

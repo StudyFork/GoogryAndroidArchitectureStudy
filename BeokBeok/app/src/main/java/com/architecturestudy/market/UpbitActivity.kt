@@ -1,4 +1,4 @@
-package com.architecturestudy.upbitmarket
+package com.architecturestudy.market
 
 import com.architecturestudy.R
 import com.architecturestudy.base.BaseActivity

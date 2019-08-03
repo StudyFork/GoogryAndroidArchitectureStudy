@@ -1,10 +1,10 @@
-package com.architecturestudy.upbitmarket
+package com.architecturestudy.market
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.architecturestudy.data.common.MarketTypes
+import com.architecturestudy.common.MarketTypes
 
 class UpbitViewPagerAdapter(
     fm: FragmentManager
