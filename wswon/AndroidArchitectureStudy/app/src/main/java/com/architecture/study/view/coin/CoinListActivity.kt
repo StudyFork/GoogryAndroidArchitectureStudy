@@ -5,13 +5,18 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.architecture.study.R
 import com.architecture.study.data.repository.CoinRepositoryImp
-import com.architecture.study.view.coin.adapter.CoinTabPagerAdapter
 import com.architecture.study.network.model.MarketResponse
-import com.architecture.study.data.source.CoinRemoteDataSourceListener
+import com.architecture.study.view.coin.adapter.CoinTabPagerAdapter
+import com.architecture.study.view.coin.presenter.CoinListActivityContract
+import com.architecture.study.view.coin.presenter.CoinListActivityPresenter
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
-class CoinListActivity : AppCompatActivity() {
+class CoinListActivity : AppCompatActivity(), CoinListActivityContract.View {
+
+    override lateinit var presenter: CoinListActivityContract.Presenter
+
+    private lateinit var coinTapPagerAdapter: CoinTabPagerAdapter
 
     private lateinit var marketList: List<MarketResponse>
 
@@ -22,30 +27,41 @@ class CoinListActivity : AppCompatActivity() {
         R.string.monetary_unit_4
     )
 
+    override fun onResume() {
+        super.onResume()
+        presenter.start()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        getMarketList()
+        presenter = CoinListActivityPresenter(
+            CoinRepositoryImp.getInstance(),
+            this@CoinListActivity,
+            false
+        )
     }
 
-    private fun getMarketList() {
-        CoinRepositoryImp.getInstance().getMarketList(object :
-            CoinRemoteDataSourceListener<MarketResponse> {
-            override fun onSucess(dataList: List<MarketResponse>) {
-                marketList = dataList
-                setPager()
-            }
+    override fun sendMarketList(marketList: List<MarketResponse>) {
+        this.marketList = marketList
+        setPager()
+    }
 
-            override fun onEmpty(str: String) {
-                Toast.makeText(this@CoinListActivity, "data Empty : $str", Toast.LENGTH_LONG).show()
+    override fun showEmptyMarketData(empty: String) {
+        Toast.makeText(this@CoinListActivity, empty, Toast.LENGTH_SHORT).show()
+    }
 
-            }
+    override fun showFailureGetMarketData(failure: String) {
+        Toast.makeText(this@CoinListActivity, failure, Toast.LENGTH_SHORT).show()
+    }
 
-            override fun onFailure(str: String) {
-                Toast.makeText(this@CoinListActivity, "call failure : $str", Toast.LENGTH_LONG).show()
-            }
-        })
+    override fun successConnectApi() {
+        presenter.getMarketList()
+    }
+
+    override fun showFailedConnectError() {
+        Toast.makeText(this@CoinListActivity, getString(R.string.failed_connect_api), Toast.LENGTH_SHORT).show()
     }
 
     /* tab layout && view pager init*/
@@ -69,11 +85,9 @@ class CoinListActivity : AppCompatActivity() {
             })
         }
 
+        coinTapPagerAdapter = CoinTabPagerAdapter(supportFragmentManager, tabList, this@CoinListActivity, marketList)
         coin_list_viewpager.run {
-            adapter = CoinTabPagerAdapter(
-                supportFragmentManager,
-                tabList, this@CoinListActivity, marketList
-            )
+            adapter = coinTapPagerAdapter
             addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(monetary_unit_tablayout))
         }
 
