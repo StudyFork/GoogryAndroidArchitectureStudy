@@ -64,7 +64,7 @@ class MarketFragment : Fragment(), MarketContract.View {
     }
 
     override fun hideProgressBar() {
-        pb_market.visibility = View.INVISIBLE
+        pb_market.visibility = View.GONE
     }
 
 }
