@@ -10,8 +10,8 @@ import study.architecture.myarchitecture.data.source.remote.UpbitRemoteDataSourc
 import java.util.regex.Pattern
 
 class UpbitRepositoryImpl(
-    private val api: UpbitRemoteDataSource,
-    private val dao: UpbitLocalDataSource,
+    private val upbitRemoteDataSource: UpbitRemoteDataSource,
+    private val upbitLocalDataSource: UpbitLocalDataSource,
     private val isOnline: Boolean
 ) : UpbitRepository {
 
@@ -19,14 +19,14 @@ class UpbitRepositoryImpl(
         //Timber.d("isOnline : $isOnline")
         return if (isOnline) {
 
-            api.getMarkets()
+            upbitRemoteDataSource.getMarkets()
                 .flatMap { markets ->
 
                     if (isOnline) {
-                        dao.clearMarkets()
+                        upbitLocalDataSource.clearMarkets()
                         for (market in markets) {
-                            //Timber.d("api market 저장 -> $market")
-                            dao.insertMarket(market)
+                            //Timber.d("upbitRemoteDataSource market 저장 -> $market")
+                            upbitLocalDataSource.insertMarket(market)
                         }
                     }
 
@@ -46,7 +46,7 @@ class UpbitRepositoryImpl(
 
         } else {
 
-            dao.getMarkets()
+            upbitLocalDataSource.getMarkets()
                 .flatMap { markets ->
 
                     val pattern = Pattern.compile("^([a-zA-Z]*)-([a-zA-Z]*)$")
@@ -69,18 +69,17 @@ class UpbitRepositoryImpl(
     override fun getTickers(markets: String): Single<List<UpbitTicker>> {
         //Timber.e("isOnline : $isOnline , markets : $markets")
         return if (isOnline) {
-            api.getTickers(markets)
+            upbitRemoteDataSource.getTickers(markets)
                 .flatMap { tickers ->
 
                     val idx = markets.indexOf("-")
                     val marketKey = markets.substring(0, idx)
                     //Timber.e("clear marketKey : $marketKey")
 
-                    dao.clearTickers("$marketKey%")
+                    upbitLocalDataSource.clearTickers("$marketKey%")
 
                     for (ticker in tickers) {
-                        //Timber.d("api ticker 저장 -> $ticker")
-                        dao.insertTicker(ticker)
+                        upbitLocalDataSource.insertTicker(ticker)
                     }
 
                     Single.just(tickers)
@@ -92,7 +91,7 @@ class UpbitRepositoryImpl(
             val marketKey = markets.substring(0, idx)
             //Timber.e("marketKey : $marketKey")
 
-            dao.getTickers("$marketKey%")
+            upbitLocalDataSource.getTickers("$marketKey%")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
         }
