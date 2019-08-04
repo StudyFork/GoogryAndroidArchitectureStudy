@@ -12,28 +12,29 @@ class MarketPresenter(
     private val repository: CoinsRepository
 ) : MarketContract.Presenter {
 
-
-    override fun loadData(keyMarket: String) {
+    override fun loadData(keyMarket: String?) {
         marketFragmentView.clearTickerData()
 
-        repository
-            .getAllMarket({ coinMarketResponse ->
+        if (keyMarket != null) {
+            repository
+                .getAllMarket({ coinMarketResponse ->
 
-                if (coinMarketResponse != null) {
+                    if (coinMarketResponse != null) {
 
-                    val targetTickers = coinMarketResponse.filter {
-                        it.market.split('-')[0] == keyMarket
-                    }.joinToString(separator = ",") { it.market }
+                        val targetTickers = coinMarketResponse.filter {
+                            it.market.split('-')[0] == keyMarket
+                        }.joinToString(separator = ",") { it.market }
 
-                    repository
-                        .getCoinTickers(targetTickers, { coinTickerResponse ->
-                            //map() 스트림 함수 : 컬렉션 내 인자를 변환하여 반환
-                            if (coinTickerResponse != null) {
-                                marketFragmentView.setTickerData(coinTickerResponse.map(::convertTickerIntoCoin))
-                            }
-                        }, { onFailCallback(it) })
-                }
-            }, { onFailCallback(it) })
+                        repository
+                            .getCoinTickers(targetTickers, { coinTickerResponse ->
+                                //map() 스트림 함수 : 컬렉션 내 인자를 변환하여 반환
+                                if (coinTickerResponse != null) {
+                                    marketFragmentView.setTickerData(coinTickerResponse.map(::convertTickerIntoCoin))
+                                }
+                            }, { onFailCallback(it) })
+                    }
+                }, { onFailCallback(it) })
+        }
     }
 
     override fun onFailCallback(errorMsg: String) {

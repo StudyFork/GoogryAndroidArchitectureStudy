@@ -13,7 +13,7 @@ interface MarketContract {
 
     interface Presenter {
 
-        fun loadData(keyMarket: String)
+        fun loadData(keyMarket: String?)
 
         fun onFailCallback(errorMsg: String)
 
