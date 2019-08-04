@@ -26,8 +26,7 @@ class UpbitPresenter(val repository: Repository, val upbitView: UpbitContract.Vi
             override fun onMarketLoaded(markets: List<UpbitMarket>) {
                 val marketList = markets
                     .filter { TextEditor.splitString(it.market, 0) == marketName }
-                    .map { it.market }
-                    .joinToString(",")
+                    .joinToString(",") { it.market }
                 loadUpbitTicker(marketList)
             }
 
