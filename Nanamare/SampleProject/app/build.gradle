@@ -55,4 +55,9 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
 
     implementation "org.jetbrains.anko:anko:0.10.8"
+
+    implementation "org.koin:koin-core:$koin_android_version"
+    implementation "org.koin:koin-android:$koin_android_version"
+    implementation "org.koin:koin-android-viewmodel:$koin_android_version"
+
 }
