@@ -2,14 +2,14 @@ package com.nanamare.mac.sample.data.market
 
 import com.nanamare.mac.sample.api.upbit.MarketModel
 
-class MarketRepository(private val marketRemoteDataSource: MarketRemoteDataSource) : MarketSource {
+class MarketRepository(private val marketSource: MarketSource) : MarketSource {
 
     override fun getMarketList(success: (List<MarketModel>) -> Unit, failed: () -> Unit) {
-        marketRemoteDataSource.getMarketList(success, failed)
+        marketSource.getMarketList(success, failed)
     }
 
     override fun close() {
-        marketRemoteDataSource.close()
+        marketSource.close()
     }
 
 
