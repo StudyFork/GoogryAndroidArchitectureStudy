@@ -3,7 +3,7 @@ package study.architecture.myarchitecture.ui.tickerlist
 import io.reactivex.disposables.CompositeDisposable
 import study.architecture.myarchitecture.data.repository.UpbitRepository
 import study.architecture.myarchitecture.rxobserver.RxObserverHelper
-import study.architecture.myarchitecture.util.TextUtil
+import study.architecture.myarchitecture.ui.model.mapToPresentation
 import timber.log.Timber
 
 class TickerListPresenter(
@@ -44,16 +44,8 @@ class TickerListPresenter(
             }
             .subscribe({
 
-                Timber.d("$it")
-
-                it.map { ticker ->
-                    ticker.setCoinName(TextUtil.getCoinName(ticker.market))
-                    ticker.setLast(TextUtil.getLast(ticker.tradePrice))
-                    ticker.setTradeDiff(TextUtil.getTradeDiff(ticker.signedChangeRate))
-                    ticker.setTradeAmount(TextUtil.getTradeAmount(ticker.accTradePrice24h))
-                }
-
-                view.setTickers(it.toMutableList())
+                //Timber.d("$it")
+                view.setTickers(it.mapToPresentation().toMutableList())
 
             }) {
                 Timber.e(it)

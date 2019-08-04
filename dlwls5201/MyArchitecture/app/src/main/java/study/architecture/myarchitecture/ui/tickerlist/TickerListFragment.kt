@@ -10,7 +10,7 @@ import org.jetbrains.anko.support.v4.toast
 import study.architecture.myarchitecture.BaseFragment
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.data.Injection
-import study.architecture.myarchitecture.data.model.UpbitTicker
+import study.architecture.myarchitecture.ui.model.TickerItem
 
 class TickerListFragment : BaseFragment(), TickerListContract.View {
 
@@ -59,7 +59,7 @@ class TickerListFragment : BaseFragment(), TickerListContract.View {
 
         tickerAdapter.setTickerClickListener(object :
             TickerAdapter.TickerClickListener {
-            override fun onItemClick(ticker: UpbitTicker) {
+            override fun onItemClick(ticker: TickerItem) {
                 toast(ticker.toString())
             }
         })
@@ -75,7 +75,7 @@ class TickerListFragment : BaseFragment(), TickerListContract.View {
 
     override fun getKeyMarkets() = arguments?.getString(KEY_MARKETS) ?: ""
 
-    override fun setTickers(tickers: MutableList<UpbitTicker>) {
+    override fun setTickers(tickers: MutableList<TickerItem>) {
         tickerAdapter.setItem(tickers)
     }
 

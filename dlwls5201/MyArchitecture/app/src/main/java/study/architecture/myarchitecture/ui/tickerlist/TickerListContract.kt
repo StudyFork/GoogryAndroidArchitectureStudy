@@ -1,7 +1,7 @@
 package study.architecture.myarchitecture.ui.tickerlist
 
 import android.os.Bundle
-import study.architecture.myarchitecture.data.model.UpbitTicker
+import study.architecture.myarchitecture.ui.model.TickerItem
 
 interface TickerListContract {
 
@@ -13,7 +13,7 @@ interface TickerListContract {
 
         fun getKeyMarkets(): String
 
-        fun setTickers(tickers: MutableList<UpbitTicker>)
+        fun setTickers(tickers: MutableList<TickerItem>)
 
         fun orderByField(bundle: Bundle)
     }

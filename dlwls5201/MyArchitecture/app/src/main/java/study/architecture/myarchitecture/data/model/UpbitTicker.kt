@@ -4,7 +4,6 @@ package study.architecture.myarchitecture.data.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import study.architecture.myarchitecture.util.TextUtil
 
 @Entity(tableName = "tickers")
 data class UpbitTicker(
@@ -35,49 +34,4 @@ data class UpbitTicker(
     @SerializedName("lowest_52_week_price") val lowest52WeekPrice: Double,
     @SerializedName("lowest_52_week_date") val lowest52WeekDate: String,
     @SerializedName("timestamp") val timestamp: Long
-) {
-    //코인명
-    private var coinName: String? = null
-
-    fun setCoinName(coinName: String) {
-        this.coinName = coinName
-    }
-
-    fun getCoinName(): String {
-        return if (coinName.isNullOrEmpty()) TextUtil.getCoinName(market) else coinName!!
-    }
-
-    //현재가
-    private var last: String? = null
-
-    fun setLast(last: String) {
-        this.last = last
-    }
-
-    fun getLast(): String {
-        return if (last.isNullOrEmpty()) TextUtil.getLast(tradePrice) else last!!
-    }
-
-    //전일대비
-    private var tradeDiff: String? = null
-
-    fun setTradeDiff(tradeDiff: String) {
-        this.tradeDiff = tradeDiff
-    }
-
-    fun getTradeDiff(): String {
-        return if (tradeDiff.isNullOrEmpty()) TextUtil.getTradeDiff(signedChangeRate) else tradeDiff!!
-    }
-
-    //거래대금
-    private var tradeAmount: String? = null
-
-    fun setTradeAmount(tradeAmount: String) {
-        this.tradeAmount = tradeAmount
-    }
-
-    fun getTradeAmount(): String {
-        return if (tradeAmount.isNullOrEmpty()) TextUtil.getTradeAmount(accTradePrice24h) else tradeAmount!!
-    }
-
-}
+)

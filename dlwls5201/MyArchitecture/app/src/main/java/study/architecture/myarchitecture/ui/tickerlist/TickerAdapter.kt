@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import study.architecture.myarchitecture.R
-import study.architecture.myarchitecture.data.model.UpbitTicker
+import study.architecture.myarchitecture.ui.model.TickerItem
 import study.architecture.myarchitecture.util.Filter
 import study.architecture.myarchitecture.util.Filter.ASC
 import study.architecture.myarchitecture.util.Filter.DESC
@@ -15,7 +15,7 @@ import study.architecture.myarchitecture.util.setTradeDiffColor
 
 class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
 
-    private var tickers = mutableListOf<UpbitTicker>()
+    private var tickers = mutableListOf<TickerItem>()
 
     private var listener: TickerClickListener? = null
 
@@ -36,14 +36,14 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
         this.listener = listener
     }
 
-    fun setItem(newTickers: MutableList<UpbitTicker>) {
+    fun setItem(newTickers: MutableList<TickerItem>) {
         tickers.addAll(newTickers)
         notifyDataSetChanged()
     }
 
     interface TickerClickListener {
 
-        fun onItemClick(ticker: UpbitTicker)
+        fun onItemClick(ticker: TickerItem)
     }
 
     /**
@@ -59,28 +59,28 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
         when (field) {
 
             Filter.COIN_NAME -> {
-                val selector: (UpbitTicker) -> String = { it.market }
+                val selector: (TickerItem) -> String = { it.coinName }
                 setOrderByField(selector, order)
             }
 
             Filter.LAST -> {
-                val selector: (UpbitTicker) -> Double = { it.tradePrice }
+                val selector: (TickerItem) -> Double = { it.tradePrice }
                 setOrderByField(selector, order)
             }
 
             Filter.TRADE_DIFF -> {
-                val selector: (UpbitTicker) -> Double = { it.signedChangeRate }
+                val selector: (TickerItem) -> Double = { it.signedChangeRate }
                 setOrderByField(selector, order)
             }
 
             Filter.TRADE_AMOUNT -> {
-                val selector: (UpbitTicker) -> Double = { it.accTradePrice24h }
+                val selector: (TickerItem) -> Double = { it.accTradePrice24h }
                 setOrderByField(selector, order)
             }
         }
     }
 
-    private fun <R : Comparable<R>> setOrderByField(selector: (UpbitTicker) -> R, order: Int) {
+    private fun <R : Comparable<R>> setOrderByField(selector: (TickerItem) -> R, order: Int) {
         if (order == ASC) {
             tickers.sortBy(selector)
         } else if (order == DESC) {
@@ -103,13 +103,13 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
         private val tvSignedChangeRate: TextView = itemView.findViewById(R.id.tvSignedChangeRate)
         private val tvAccTradePrice24h: TextView = itemView.findViewById(R.id.tvAccTradePrice24h)
 
-        fun onBindView(ticker: UpbitTicker) {
+        fun onBindView(ticker: TickerItem) {
 
-            tvMarket.text = ticker.getCoinName()
-            tvTradePrice.text = ticker.getLast()
+            tvMarket.text = ticker.coinName
+            tvTradePrice.text = ticker.last
             tvSignedChangeRate.setTradeDiffColor(ticker.signedChangeRate)
-            tvSignedChangeRate.text = ticker.getTradeDiff()
-            tvAccTradePrice24h.text = ticker.getTradeAmount()
+            tvSignedChangeRate.text = ticker.tradeDiff
+            tvAccTradePrice24h.text = ticker.tradeAmount
 
             itemView.setOnClickListener {
                 listener?.onItemClick(ticker)
