@@ -14,16 +14,20 @@ import com.architecture.study.view.coin.adapter.CoinListAdapter
 import com.architecture.study.data.model.Ticker
 import com.architecture.study.data.repository.CoinRepositoryImp
 import com.architecture.study.network.model.TickerResponse
-import com.architecture.study.data.source.CoinRemoteDataSourceListener
+import com.architecture.study.view.coin.presenter.CoinListFragmentContract
+import com.architecture.study.view.coin.presenter.CoinListFragmentPresenter
 import kotlinx.android.synthetic.main.fragment_coinlist.*
 
-class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickListener {
+class CoinListFragment : Fragment(), CoinListFragmentContract.View, CoinListAdapter.CoinItemRecyclerViewClickListener {
+    override lateinit var presenter: CoinListFragmentContract.Presenter
     private lateinit var coinListAdapter: CoinListAdapter
 
     private var monetaryUnitNameList: List<String>? = null
     private lateinit var tickerList: List<Ticker>
 
     private var refreshHandler = Handler()
+    override var isActive = false
+        get() = isAdded
 
 
     /* 현재 보고있는 화면의 데이터만 갱신, 5초 간격 */
@@ -34,6 +38,11 @@ class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickLi
         } else {
             refreshHandler.removeMessages(0)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.start()
     }
 
     override fun onPause() {
@@ -48,14 +57,14 @@ class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickLi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        presenter = CoinListFragmentPresenter(
+            CoinRepositoryImp.getInstance(),
+            this@CoinListFragment,
+            false
+        )
 
         /* 받아온 argument - Coin name */
         monetaryUnitNameList = arguments?.getStringArrayList(MONETARY_UNIT_NAME_LIST)
-
-        monetaryUnitNameList?.let {
-            getTickerList(it.joinToString(","))
-        }
-
 
         coinListAdapter = CoinListAdapter(requireContext(), this)
 
@@ -63,6 +72,39 @@ class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickLi
             layoutManager = LinearLayoutManager(requireContext())
             adapter = coinListAdapter
         }
+
+    }
+
+
+
+    /* TickerResponse -> Ticker로 변환작업 */
+    override fun showTickerList(tickerList: List<TickerResponse>) {
+        val convertTickerList = mutableListOf<Ticker>()
+        tickerList.forEach {
+            convertTickerList.add(
+                it.toTicker(requireContext())
+            )
+        }
+        this.tickerList = convertTickerList
+        coinListAdapter.setData(this.tickerList)
+    }
+
+    override fun showEmptyTickerData(empty: String) {
+        Toast.makeText(requireContext(), empty, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showFailureGetTickerData(failure: String) {
+        Toast.makeText(requireContext(), failure, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun successConnectApi() {
+        monetaryUnitNameList?.let {
+            presenter.getTickerList(it.joinToString(","))
+        }
+    }
+
+    override fun showFailedConnectError() {
+        Toast.makeText(requireContext(), getString(R.string.failed_connect_api), Toast.LENGTH_SHORT).show()
     }
 
     /* handler로 5초간격 호출 재귀함수 */
@@ -70,49 +112,24 @@ class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickLi
         refreshHandler = Handler().apply {
             postDelayed({
                 monetaryUnitNameList?.let {
-                    Log.d("1111", it[0])
-                    getTickerList(it.joinToString(","))
+                    presenter.getTickerList(it.joinToString(","))
                 }
                 refreshData()
             }, 5000)
         }
     }
 
-
-    /* retrofit getTickerList */
-    private fun getTickerList(marketNames: String) {
-       CoinRepositoryImp.getInstance().getTickerList(marketNames, object :
-           CoinRemoteDataSourceListener<TickerResponse> {
-           override fun onSucess(dataList: List<TickerResponse>) {
-               val _tickerList = mutableListOf<Ticker>()
-               dataList.forEach {
-                   _tickerList.add(
-                        it.toTicker(requireContext())
-                   )
-               }
-               tickerList = _tickerList
-               coinListAdapter.setData(tickerList)
-           }
-
-           override fun onEmpty(str: String) {
-               Toast.makeText(requireContext(), "data Empty : $str", Toast.LENGTH_LONG).show()
-           }
-
-           override fun onFailure(str: String) {
-               Toast.makeText(requireContext(), "call failure : $str", Toast.LENGTH_LONG).show()
-           }
-       })
-    }
-
     override fun onItemClicked(position: Int) {
         //click event
     }
 
-    /* fragment singleton */
+
     companion object {
-        fun newInstance(monetaryUnitNameList: ArrayList<String>) = CoinListFragment().apply {
+        fun newInstance(monetaryUnitNameList: ArrayList<String>?) = CoinListFragment().apply {
             arguments = Bundle().apply {
-                putStringArrayList(MONETARY_UNIT_NAME_LIST, monetaryUnitNameList)
+                monetaryUnitNameList?.let {
+                    putStringArrayList(MONETARY_UNIT_NAME_LIST, it)
+                }
             }
         }
 
