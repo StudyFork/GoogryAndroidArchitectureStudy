@@ -1,4 +1,4 @@
-package study.architecture.ui.mainjob
+package study.architecture.presentation.mainjob
 
 import android.os.Bundle
 import android.view.Menu

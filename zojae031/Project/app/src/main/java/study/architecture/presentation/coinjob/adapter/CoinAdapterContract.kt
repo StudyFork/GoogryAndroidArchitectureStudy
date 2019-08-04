@@ -1,4 +1,4 @@
-package study.architecture.ui.coinjob.adapter
+package study.architecture.presentation.coinjob.adapter
 
 import study.architecture.model.vo.ProcessingTicker
 

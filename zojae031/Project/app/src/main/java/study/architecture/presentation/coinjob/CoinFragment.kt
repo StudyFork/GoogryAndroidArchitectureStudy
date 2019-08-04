@@ -1,4 +1,4 @@
-package study.architecture.ui.coinjob
+package study.architecture.presentation.coinjob
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -10,9 +10,10 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_coin.*
 import kotlinx.android.synthetic.main.fragment_coin.view.*
 import study.architecture.R
+import study.architecture.model.datasource.LocalDataSource
 import study.architecture.model.datasource.RemoteDataSource
 import study.architecture.model.repository.Repository
-import study.architecture.ui.coinjob.adapter.CoinDataAdapter
+import study.architecture.presentation.coinjob.adapter.CoinDataAdapter
 
 
 @SuppressLint("ValidFragment", "WrongConstant")
@@ -22,7 +23,7 @@ class CoinFragment : Fragment(), CoinContract.View {
         CoinPresenter(
             this@CoinFragment,
             arguments!!.getSerializable("idx") as FragIndex,
-            Repository.getInstance(RemoteDataSource)
+            Repository.getInstance(RemoteDataSource, LocalDataSource.getInstance(context!!))
         ).also {
             it.setAdapterModel(adapter)
             it.setAdapterView(adapter)

@@ -1,6 +1,6 @@
-package study.architecture.ui.coinjob
+package study.architecture.presentation.coinjob
 
-import study.architecture.ui.coinjob.adapter.CoinAdapterContract
+import study.architecture.presentation.coinjob.adapter.CoinAdapterContract
 
 interface CoinContract {
     interface View {

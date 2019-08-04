@@ -1,14 +1,22 @@
 package study.architecture.model.repository
 
 import io.reactivex.Single
+import study.architecture.model.datasource.LocalDataSource
 import study.architecture.model.datasource.UpbitDataSource
 import study.architecture.model.vo.Market
 import study.architecture.model.vo.Ticker
 
-class Repository private constructor(private val remoteDataSource: UpbitDataSource) : UpbitDataSource {
+class Repository private constructor(
+    private val remoteDataSource: UpbitDataSource,
+    private val localDataSource: LocalDataSource
+) : UpbitDataSource {
+    private var cacheIsDirty = false
+    override fun getMarkets(): Single<List<Market>> {
 
-    override fun getMarkets(): Single<List<Market>> =
-        remoteDataSource.getMarkets()
+        val a = localDataSource.getMarket()
+
+        return remoteDataSource.getMarkets()
+    }
 
 
     override fun getTickers(markets: String): Single<MutableList<Ticker>> =
@@ -17,9 +25,9 @@ class Repository private constructor(private val remoteDataSource: UpbitDataSour
     companion object {
         private var INSTANCE: Repository? = null
 
-        fun getInstance(remoteDataSource: UpbitDataSource): Repository {
+        fun getInstance(remoteDataSource: UpbitDataSource, localDataSource: LocalDataSource): Repository {
             if (INSTANCE == null) {
-                INSTANCE = Repository(remoteDataSource)
+                INSTANCE = Repository(remoteDataSource, localDataSource)
             }
             return INSTANCE!!
         }

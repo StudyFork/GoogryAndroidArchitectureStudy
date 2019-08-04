@@ -1,4 +1,4 @@
-package study.architecture.ui.coinjob
+package study.architecture.presentation.coinjob
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -7,7 +7,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import study.architecture.model.repository.Repository
 import study.architecture.model.vo.ProcessingTicker
-import study.architecture.ui.coinjob.adapter.CoinAdapterContract
+import study.architecture.presentation.coinjob.adapter.CoinAdapterContract
 import study.architecture.util.TextUtil
 import java.util.concurrent.TimeUnit
 
