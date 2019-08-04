@@ -41,7 +41,7 @@ class MarketPresenter(
         Log.d("test", errorMsg)
     }
 
-    override fun convertTickerIntoCoin(ticker: CoinTickerResponse): Coin {
+    private fun convertTickerIntoCoin(ticker: CoinTickerResponse): Coin {
         //코인 이름
         val market = ticker.market.split("-")[1]
 

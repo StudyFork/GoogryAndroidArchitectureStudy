@@ -1,7 +1,6 @@
 package com.example.architecturestudy.ui
 
 import com.example.architecturestudy.data.Coin
-import com.example.architecturestudy.data.CoinTickerResponse
 
 interface MarketContract {
 
@@ -17,7 +16,6 @@ interface MarketContract {
 
         fun onFailCallback(errorMsg: String)
 
-        fun convertTickerIntoCoin(ticker: CoinTickerResponse): Coin
     }
 
 }
