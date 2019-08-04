@@ -56,7 +56,7 @@ class MarketFragment : Fragment(), MarketContract.View {
             adapter = rvAdapter
         }
 
-        var keyMarket = arguments?.getString("KEY_MARKET")
+        val keyMarket = arguments?.getString("KEY_MARKET")
 
         presenter = MarketPresenter(this, repository) // Presenter 객체 생성해서 할당
         presenter.loadData(keyMarket) // Presenter 를 통해 해당 마켓의 데이터 불러오기

@@ -43,10 +43,10 @@ class MarketPresenter(
 
     override fun convertTickerIntoCoin(ticker: CoinTickerResponse): Coin {
         //코인 이름
-        var market = ticker.market.split("-")[1]
+        val market = ticker.market.split("-")[1]
 
         //현재가
-        var tradePrice = when {
+        val tradePrice = when {
             ticker.tradePrice > 1_000 ->
                 Util.convertBigNumberToStdString(ticker.tradePrice.toInt())
             ticker.tradePrice > 2 ->
@@ -56,13 +56,13 @@ class MarketPresenter(
         }
 
         //전일대비
-        var signedChangeRate = String.format("%.2f", ticker.signedChangeRate * 100) + "%"
+        val signedChangeRate = String.format("%.2f", ticker.signedChangeRate * 100) + "%"
 
         //전일대비 색깔 지정
         val coinColor = if (signedChangeRate.startsWith('-')) Color.BLUE else Color.RED
 
         //거래대금
-        var accTradePriceH = when {
+        val accTradePriceH = when {
             ticker.accTradePriceH > 10_000_000 -> {
                 Util.convertBigNumberToStdString((ticker.accTradePriceH / 1000000).toInt()) + "M"
             }
