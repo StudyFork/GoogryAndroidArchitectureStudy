@@ -14,13 +14,6 @@ class AppApplication : Application() {
         super.onCreate()
         instance = this
 
-
-        val logger =  if (BuildConfig.BUILD_TYPE == "debug") {
-            AndroidLogger()
-        } else {
-            EmptyLogger()
-        }
-
         startKoin {
             androidContext(this@AppApplication)
             modules(listOf(
@@ -29,7 +22,11 @@ class AppApplication : Application() {
                 viewModelModule,
                 apiManagerModule,
                 dataSourceModule))
-            logger(logger)
+            logger(if (BuildConfig.DEBUG) {
+                AndroidLogger()
+            } else {
+                EmptyLogger()
+            })
         }
 
     }
