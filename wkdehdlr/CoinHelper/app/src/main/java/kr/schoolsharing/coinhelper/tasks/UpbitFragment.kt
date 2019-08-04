@@ -1,11 +1,9 @@
 package kr.schoolsharing.coinhelper.tasks
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +21,13 @@ class UpbitFragment : Fragment(), UpbitContract.View {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_coinrecycler, container, false)
+        return inflater.inflate(R.layout.fragment_coinrecycler, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
         val coinRecyclerView = view.findViewById<RecyclerView>(R.id.CoinRecyclerView)
 
         coinRecyclerView.adapter = rVAdapter
@@ -33,52 +37,11 @@ class UpbitFragment : Fragment(), UpbitContract.View {
         coinRecyclerView.setHasFixedSize(true)
 
 
-        val marketName = arguments?.get("MARKET_NAME") as String
+        val marketName = arguments?.get("MARKET_NAME").toString()
         presenter.start(marketName)
-        return view
     }
 
-    private class UpbitRVAdapter : RecyclerView.Adapter<UpbitRVAdapter.Holder>() {
 
-        private val itemList: MutableList<UpbitItem> = ArrayList()
-
-        override fun getItemCount(): Int = itemList.size
-
-        override fun onBindViewHolder(holder: Holder, position: Int) = holder.bind(itemList[position])
-
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.main_rv_item, parent, false)
-            return Holder(view)
-        }
-
-        fun setTickerList(tickerList: MutableList<UpbitItem>) {
-            itemList.clear()
-            itemList.addAll(tickerList)
-            notifyDataSetChanged()
-        }
-
-        inner class Holder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
-
-            fun bind(upbitItem: UpbitItem) {
-                val name = itemView.findViewById<TextView>(R.id.name)
-                val current = itemView.findViewById<TextView>(R.id.current)
-                val signedChangeRate = itemView.findViewById<TextView>(R.id.signedChangeRate)
-                val volume = itemView.findViewById<TextView>(R.id.volume)
-
-                name.text = upbitItem.name
-                current.text = upbitItem.current
-
-                when (upbitItem.change) {
-                    "RISE" -> signedChangeRate.setTextColor(Color.BLUE)
-                    else -> signedChangeRate.setTextColor(Color.RED)
-                }
-
-                signedChangeRate.text = upbitItem.signedChangeRate
-                volume.text = upbitItem.volume
-            }
-        }
-    }
 
     companion object {
 
