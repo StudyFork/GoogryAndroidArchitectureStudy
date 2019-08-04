@@ -28,19 +28,8 @@ class MarketFragment : Fragment(), MarketContract.View {
     private val rvAdapter = RecyclerViewAdapter()
 
     companion object {
-        fun newInstance(market: String): MarketFragment {
-            val fragment = MarketFragment()
-            val args = Bundle()
-
-            when (market) {
-                "KRW" -> args.putString("KEY_MARKET", "KRW")
-                "BTC" -> args.putString("KEY_MARKET", "BTC")
-                "ETH" -> args.putString("KEY_MARKET", "ETH")
-                "USDT" -> args.putString("KEY_MARKET", "USDT")
-            }
-
-            fragment.arguments = args
-            return fragment
+        fun newInstance(market: String) = MarketFragment().apply {
+            arguments = Bundle().apply { putString("KEY_MARKET", market) }
         }
     }
 
