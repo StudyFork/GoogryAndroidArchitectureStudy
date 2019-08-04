@@ -52,7 +52,7 @@ class UpbitPresenter(val repository: Repository, val upbitView: UpbitContract.Vi
                     tickerList.add(data)
                 }
 
-                procesUpbit(tickerList)
+                processUpbit(tickerList)
             }
 
 
@@ -62,7 +62,7 @@ class UpbitPresenter(val repository: Repository, val upbitView: UpbitContract.Vi
         })
     }
 
-    private fun procesUpbit(tickerList: MutableList<UpbitItem>) {
+    private fun processUpbit(tickerList: MutableList<UpbitItem>) {
         upbitView.showAddTask(tickerList)
     }
 
