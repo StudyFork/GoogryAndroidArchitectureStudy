@@ -8,12 +8,24 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_coinrecycler.view.*
 import kr.schoolsharing.coinhelper.R
+import kr.schoolsharing.coinhelper.data.Repository
 import kr.schoolsharing.coinhelper.model.UpbitItem
 
 class UpbitFragment : Fragment(), UpbitContract.View {
 
     override lateinit var presenter: UpbitContract.Presenter
     private val rVAdapter = UpbitRVAdapter()
+
+    companion object {
+        fun newInstance(marketName: String): UpbitFragment {
+            val fragment = UpbitFragment()
+            val bundle = Bundle()
+
+            bundle.putString("MARKET_NAME", marketName)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
 
 
     override fun showAddTask(tickerList: MutableList<UpbitItem>) {
@@ -38,13 +50,8 @@ class UpbitFragment : Fragment(), UpbitContract.View {
 
 
         val marketName = arguments?.get("MARKET_NAME").toString()
+        presenter = UpbitPresenter(Repository, this)
         presenter.start(marketName)
     }
 
-
-
-    companion object {
-
-        fun newInstance() = UpbitFragment()
-    }
 }
