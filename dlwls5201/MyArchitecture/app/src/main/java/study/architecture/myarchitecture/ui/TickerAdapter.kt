@@ -1,37 +1,19 @@
 package study.architecture.myarchitecture.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.data.model.UpbitTicker
+import study.architecture.myarchitecture.util.Filter
+import study.architecture.myarchitecture.util.Filter.ASC
+import study.architecture.myarchitecture.util.Filter.DESC
+import study.architecture.myarchitecture.util.inflate
 import study.architecture.myarchitecture.util.setTradeDiffColor
 
 class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
-
-    companion object {
-
-
-        const val KEY_ORDER = "order"
-
-        const val ASC = 0   //오름차순
-
-        const val DESC = 1  //내림차순
-
-
-        const val KEY_FIELD = "field"
-
-        const val COIN_NAME = "코인명"
-
-        const val LAST = "현재가"
-
-        const val TRADE_DIFF = "전일대비"
-
-        const val TRADE_AMOUNT = "거래대금"
-    }
 
     private var tickers = mutableListOf<UpbitTicker>()
 
@@ -66,29 +48,29 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
      */
     fun orderByField(bundle: Bundle) {
 
-        val order = bundle.getInt(KEY_ORDER)
+        val order = bundle.getInt(Filter.KEY_ORDER)
 
-        val field = bundle.getString(KEY_FIELD)
+        val field = bundle.getString(Filter.KEY_FIELD)
 
         //Dlog.d("order : $order , field : $field")
         when (field) {
 
-            COIN_NAME -> {
+            Filter.COIN_NAME -> {
                 val selector: (UpbitTicker) -> String = { it.market }
                 setOrderByField(selector, order)
             }
 
-            LAST -> {
+            Filter.LAST -> {
                 val selector: (UpbitTicker) -> Double = { it.tradePrice }
                 setOrderByField(selector, order)
             }
 
-            TRADE_DIFF -> {
+            Filter.TRADE_DIFF -> {
                 val selector: (UpbitTicker) -> Double = { it.signedChangeRate }
                 setOrderByField(selector, order)
             }
 
-            TRADE_AMOUNT -> {
+            Filter.TRADE_AMOUNT -> {
                 val selector: (UpbitTicker) -> Double = { it.accTradePrice24h }
                 setOrderByField(selector, order)
             }
@@ -133,14 +115,8 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
         }
 
         companion object {
-            fun newInstance(parent: ViewGroup, listener: TickerClickListener?): TickerViewHolder {
-
-                return TickerViewHolder(
-                    LayoutInflater.from(parent.context).inflate(R.layout.item_ticker, parent, false),
-                    listener
-                )
-
-            }
+            fun newInstance(parent: ViewGroup, listener: TickerClickListener?) =
+                TickerViewHolder(parent.inflate(R.layout.item_ticker), listener)
         }
     }
 

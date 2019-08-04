@@ -41,10 +41,6 @@ fun TextView.setTradeDiffColor(signedChangeRate: Double) {
     }
 
     this.setTextColor(color)
-
-    //val df = DecimalFormat("0.##")
-    //val rate = df.format(signedChangeRate * 100)
-    //this.text = "$rate%"
 }
 
 //거래대금

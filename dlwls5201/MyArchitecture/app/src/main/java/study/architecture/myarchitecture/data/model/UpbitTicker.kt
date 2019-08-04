@@ -36,7 +36,6 @@ data class UpbitTicker(
     @SerializedName("lowest_52_week_date") val lowest52WeekDate: String,
     @SerializedName("timestamp") val timestamp: Long
 ) {
-
     //코인명
     private var coinName: String? = null
 
@@ -80,4 +79,5 @@ data class UpbitTicker(
     fun getTradeAmount(): String {
         return if (tradeAmount.isNullOrEmpty()) TextUtil.getTradeAmount(accTradePrice24h) else tradeAmount!!
     }
+
 }

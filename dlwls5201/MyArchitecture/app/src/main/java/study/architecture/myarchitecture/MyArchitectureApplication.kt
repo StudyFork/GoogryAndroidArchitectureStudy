@@ -12,6 +12,4 @@ class MyArchitectureApplication : Application() {
             Timber.plant(Timber.DebugTree())
         }
     }
-
-
 }

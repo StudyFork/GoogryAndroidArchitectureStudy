@@ -5,28 +5,30 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import study.architecture.myarchitecture.data.model.UpbitMarket
 import study.architecture.myarchitecture.data.model.UpbitTicker
-import study.architecture.myarchitecture.data.source.local.UpbitDao
-import study.architecture.myarchitecture.data.source.remote.UpbitApi
+import study.architecture.myarchitecture.data.source.local.UpbitLocalDataSource
+import study.architecture.myarchitecture.data.source.remote.UpbitRemoteDataSource
 import study.architecture.myarchitecture.util.TextUtil
 import java.util.regex.Pattern
 
 class UpbitRepositoryImpl(
-    private val api: UpbitApi,
-    private val dao: UpbitDao,
+    private val upbitRemoteDataSource: UpbitRemoteDataSource,
+    private val upbitLocalDataSource: UpbitLocalDataSource,
     private val isOnline: Boolean
 ) : UpbitRepository {
 
     override fun getGroupedMarkets(): Single<Map<String, List<UpbitMarket>>> {
         //Timber.d("isOnline : $isOnline")
         return if (isOnline) {
-            api.getMarkets()
+
+            upbitRemoteDataSource.getMarkets()
                 .flatMap { markets ->
 
-                    dao.clearMarkets()
-
-                    for (market in markets) {
-                        //Timber.d("api market 저장 -> $market")
-                        dao.insertMarket(market)
+                    if (isOnline) {
+                        upbitLocalDataSource.clearMarkets()
+                        for (market in markets) {
+                            //Timber.d("upbitRemoteDataSource market 저장 -> $market")
+                            upbitLocalDataSource.insertMarket(market)
+                        }
                     }
 
                     val pattern = Pattern.compile("^([a-zA-Z]*)-([a-zA-Z]*)$")
@@ -42,8 +44,10 @@ class UpbitRepositoryImpl(
                 }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+
         } else {
-            dao.getMarkets()
+
+            upbitLocalDataSource.getMarkets()
                 .flatMap { markets ->
 
                     val pattern = Pattern.compile("^([a-zA-Z]*)-([a-zA-Z]*)$")
@@ -59,30 +63,30 @@ class UpbitRepositoryImpl(
                 }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+
         }
     }
 
     override fun getTickers(markets: String): Single<List<UpbitTicker>> {
         //Timber.e("isOnline : $isOnline , markets : $markets")
         return if (isOnline) {
-            api.getTickers(markets)
+            upbitRemoteDataSource.getTickers(markets)
                 .flatMap { tickers ->
 
                     val idx = markets.indexOf("-")
                     val marketKey = markets.substring(0, idx)
                     //Timber.e("clear marketKey : $marketKey")
 
-                    dao.clearTickers("$marketKey%")
+                    upbitLocalDataSource.clearTickers("$marketKey%")
 
                     for (ticker in tickers) {
-                        //Timber.d("api ticker 저장 -> $ticker")
-
+                        //Timber.d("upbitRemoteDataSource ticker 저장 -> $ticker")
                         ticker.setCoinName(TextUtil.getCoinName(ticker.market))
                         ticker.setLast(TextUtil.getLast(ticker.tradePrice))
                         ticker.setTradeDiff(TextUtil.getTradeDiff(ticker.signedChangeRate))
                         ticker.setTradeAmount(TextUtil.getTradeAmount(ticker.accTradePrice24h))
 
-                        dao.insertTicker(ticker)
+                        upbitLocalDataSource.insertTicker(ticker)
                     }
 
                     Single.just(tickers)
@@ -94,7 +98,7 @@ class UpbitRepositoryImpl(
             val marketKey = markets.substring(0, idx)
             //Timber.e("marketKey : $marketKey")
 
-            dao.getTickers("$marketKey%")
+            upbitLocalDataSource.getTickers("$marketKey%")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
         }

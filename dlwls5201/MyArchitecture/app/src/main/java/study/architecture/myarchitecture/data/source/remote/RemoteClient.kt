@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import study.architecture.myarchitecture.BuildConfig
 import java.util.concurrent.TimeUnit
 
-object RemoteDataSource {
+object RemoteClient {
 
     private const val HOST_URL = "https://api.upbit.com/"
 

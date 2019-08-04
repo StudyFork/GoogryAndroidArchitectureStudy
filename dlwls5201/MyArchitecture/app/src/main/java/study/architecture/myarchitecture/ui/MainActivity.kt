@@ -9,9 +9,11 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 import study.architecture.myarchitecture.BaseActivity
+import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.data.Injection
 import study.architecture.myarchitecture.data.repository.UpbitRepository
 import study.architecture.myarchitecture.rxeventbus.RxEventBusHelper
+import study.architecture.myarchitecture.util.Filter
 import timber.log.Timber
 
 class MainActivity : BaseActivity() {
@@ -28,7 +30,7 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(study.architecture.myarchitecture.R.layout.activity_main)
+        setContentView(R.layout.activity_main)
 
         upbitRepository = Injection.provideFolderRepository(this)
 
@@ -167,19 +169,19 @@ class MainActivity : BaseActivity() {
         when (selectArrow) {
 
             SelectArrow.COIN_NAME -> {
-                setArrowImage(ivSelectByCoinName, bundle, TickerAdapter.COIN_NAME)
+                setArrowImage(ivSelectByCoinName, bundle, Filter.COIN_NAME)
             }
 
             SelectArrow.LAST -> {
-                setArrowImage(ivSelectByLast, bundle, TickerAdapter.LAST)
+                setArrowImage(ivSelectByLast, bundle, Filter.LAST)
             }
 
             SelectArrow.TRADE_DIFF -> {
-                setArrowImage(ivSelectByTradeDiff, bundle, TickerAdapter.TRADE_DIFF)
+                setArrowImage(ivSelectByTradeDiff, bundle, Filter.TRADE_DIFF)
             }
 
             SelectArrow.TRADE_AMOUNT -> {
-                setArrowImage(ivSelectByTradeAmount, bundle, TickerAdapter.TRADE_AMOUNT)
+                setArrowImage(ivSelectByTradeAmount, bundle, Filter.TRADE_AMOUNT)
             }
         }
 
@@ -190,14 +192,14 @@ class MainActivity : BaseActivity() {
 
         ivArrow.visibility = View.VISIBLE
 
-        bundle.putString(TickerAdapter.KEY_FIELD, field)
+        bundle.putString(Filter.KEY_FIELD, field)
 
         if (ivArrow.isSelected) {
             //내림차순
-            bundle.putInt(TickerAdapter.KEY_ORDER, TickerAdapter.DESC)
+            bundle.putInt(Filter.KEY_ORDER, Filter.DESC)
         } else {
             //오름차순
-            bundle.putInt(TickerAdapter.KEY_ORDER, TickerAdapter.ASC)
+            bundle.putInt(Filter.KEY_ORDER, Filter.ASC)
         }
 
         ivArrow.isSelected = !ivArrow.isSelected
