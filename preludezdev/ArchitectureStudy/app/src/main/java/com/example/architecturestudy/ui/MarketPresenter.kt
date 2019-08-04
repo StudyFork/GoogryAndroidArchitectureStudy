@@ -13,6 +13,8 @@ class MarketPresenter(
 ) : MarketContract.Presenter {
 
     override fun loadData(keyMarket: String?) {
+        marketFragmentView.showProgressBar() // 프로그레스바 시작
+
         marketFragmentView.clearTickerData()
 
         if (keyMarket != null) {
@@ -30,6 +32,7 @@ class MarketPresenter(
                                 //map() 스트림 함수 : 컬렉션 내 인자를 변환하여 반환
                                 if (coinTickerResponse != null) {
                                     marketFragmentView.setTickerData(coinTickerResponse.map(::convertTickerIntoCoin))
+                                    marketFragmentView.hideProgressBar() // 프로그레스바 종료
                                 }
                             }, { onFailCallback(it) })
                     }

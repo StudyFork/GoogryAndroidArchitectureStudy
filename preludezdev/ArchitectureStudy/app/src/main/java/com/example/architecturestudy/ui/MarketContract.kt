@@ -8,6 +8,10 @@ interface MarketContract {
         fun setTickerData(data: List<Coin>)
 
         fun clearTickerData()
+
+        fun showProgressBar()
+
+        fun hideProgressBar()
     }
 
     interface Presenter {

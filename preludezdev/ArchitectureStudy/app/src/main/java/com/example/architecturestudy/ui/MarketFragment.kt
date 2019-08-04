@@ -70,4 +70,12 @@ class MarketFragment : Fragment(), MarketContract.View {
         rvAdapter.clearData()
     }
 
+    override fun showProgressBar() {
+        pb_market.visibility = View.VISIBLE
+    }
+
+    override fun hideProgressBar() {
+        pb_market.visibility = View.INVISIBLE
+    }
+
 }
