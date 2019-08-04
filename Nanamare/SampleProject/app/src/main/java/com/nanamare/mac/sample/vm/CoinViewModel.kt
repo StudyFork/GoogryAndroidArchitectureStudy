@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nanamare.mac.sample.api.upbit.CoinModel
 import com.nanamare.mac.sample.base.BaseViewModel
-import com.nanamare.mac.sample.data.coin.CoinRepository
+import com.nanamare.mac.sample.data.coin.CoinSource
 
-class CoinViewModel(private val coinRepository: CoinRepository): BaseViewModel() {
+class CoinViewModel(private val coinSource: CoinSource): BaseViewModel() {
 
     private val _coins = MutableLiveData<List<CoinModel>>(mutableListOf())
 
@@ -14,7 +14,7 @@ class CoinViewModel(private val coinRepository: CoinRepository): BaseViewModel()
 
     fun getCoins(ticketList: MutableList<String>) {
         isLoadingObservable.value = true
-        coinRepository.getCoins(ticketList, success = {
+        coinSource.getCoins(ticketList, success = {
             _coins.value = it
             isLoadingObservable.value = false
         }, failed = {
@@ -23,7 +23,7 @@ class CoinViewModel(private val coinRepository: CoinRepository): BaseViewModel()
     }
 
     override fun close() {
-        coinRepository.close()
+        coinSource.close()
     }
 
 }

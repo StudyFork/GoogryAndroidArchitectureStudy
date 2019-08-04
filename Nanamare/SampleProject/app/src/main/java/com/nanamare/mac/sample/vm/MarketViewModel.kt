@@ -3,9 +3,9 @@ package com.nanamare.mac.sample.vm
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nanamare.mac.sample.base.BaseViewModel
-import com.nanamare.mac.sample.data.market.MarketRepository
+import com.nanamare.mac.sample.data.market.MarketSource
 
-class MarketViewModel(private val marketRepository: MarketRepository): BaseViewModel() {
+class MarketViewModel(private val marketSource: MarketSource): BaseViewModel() {
 
     private var _market = MutableLiveData<LinkedHashMap<String, List<String>>>()
 
@@ -14,7 +14,7 @@ class MarketViewModel(private val marketRepository: MarketRepository): BaseViewM
     fun onMarketClick() {
         isLoadingObservable.value = true
         val marketMap: LinkedHashMap<String, List<String>> = LinkedHashMap()
-        marketRepository.getMarketList(success = {
+        marketSource.getMarketList(success = {
             val marketList = listOf<String>().toMutableList()
             it.map { marketModel ->
                 marketModel.market!!.split("-")[0].let { market ->
@@ -31,7 +31,7 @@ class MarketViewModel(private val marketRepository: MarketRepository): BaseViewM
     }
 
     override fun close() {
-        marketRepository.close()
+        marketSource.close()
     }
 
 }
