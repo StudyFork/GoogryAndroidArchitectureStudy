@@ -30,9 +30,9 @@ class CoinRepositoryImp : CoinRepository {
         upbitRetrofitInstance = RetrofitInstance.getInstance<UpbitApi>(upbitUrl)
 
         if (upbitRetrofitInstance != null) {
-            callBack.onLoadded()
+            callBack.onLoaded()
         } else {
-            callBack.onNotLoadded()
+            callBack.onNotLoaded()
         }
 
     }
