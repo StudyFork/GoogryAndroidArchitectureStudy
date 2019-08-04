@@ -5,7 +5,7 @@ import com.nanamare.mac.sample.api.upbit.MarketModel
 import com.nanamare.mac.sample.api.upbit.UpBitServiceManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-object MarketRemoteDataSource : MarketSource {
+class MarketRemoteDataSource(private val upBitServiceManager: UpBitServiceManager) : MarketSource {
 
     private var disposableManager: DisposableManager = DisposableManager()
 
@@ -14,7 +14,7 @@ object MarketRemoteDataSource : MarketSource {
         failed: () -> Unit
     ) {
         disposableManager.add(
-            UpBitServiceManager.getAllMarketList()
+            upBitServiceManager.getAllMarketList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     it.body()?.let(success)
