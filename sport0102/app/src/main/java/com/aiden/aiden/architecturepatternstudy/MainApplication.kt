@@ -14,7 +14,7 @@ class MainApplication : Application() {
             this,
             getNetworkModule("https://api.upbit.com/"),
             getAppModule(),
-            getRepositoryModule(this)
+            getRepositoryModule()
         )
     }
 

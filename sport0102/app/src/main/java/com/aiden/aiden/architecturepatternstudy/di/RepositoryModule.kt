@@ -1,20 +1,20 @@
 package com.aiden.aiden.architecturepatternstudy.di
 
-import android.app.Application
 import androidx.room.Room
 import com.aiden.aiden.architecturepatternstudy.data.source.UpbitRepository
 import com.aiden.aiden.architecturepatternstudy.data.source.local.UpbitDatabase
 import com.aiden.aiden.architecturepatternstudy.data.source.local.UpbitLocalDataSource
 import com.aiden.aiden.architecturepatternstudy.data.source.remote.UpbitRemoteDataSource
+import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
-fun getRepositoryModule(application: Application) = module {
+fun getRepositoryModule() = module {
     single {
         UpbitRemoteDataSource(get())
     }
     single {
         Room.databaseBuilder(
-            application,
+            androidApplication(),
             UpbitDatabase::class.java, "upbit-db"
         )
             .fallbackToDestructiveMigration()
