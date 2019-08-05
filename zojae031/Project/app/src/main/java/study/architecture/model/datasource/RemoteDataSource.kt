@@ -5,8 +5,8 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import study.architecture.model.vo.Market
-import study.architecture.model.vo.Ticker
+import study.architecture.model.entity.Market
+import study.architecture.model.entity.Ticker
 
 /**
  * Data 관리하는 비즈니스로직이 담긴 클래스

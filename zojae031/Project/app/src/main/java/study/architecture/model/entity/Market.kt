@@ -1,4 +1,4 @@
-package study.architecture.model.vo
+package study.architecture.model.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

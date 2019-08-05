@@ -5,8 +5,8 @@ import android.util.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import study.architecture.model.entity.ProcessingTicker
 import study.architecture.model.repository.Repository
-import study.architecture.model.vo.ProcessingTicker
 import study.architecture.presentation.coinjob.adapter.CoinAdapterContract
 import study.architecture.util.TextUtil
 import java.util.concurrent.TimeUnit
@@ -33,6 +33,7 @@ class CoinPresenter(
         dispose =
             repository.getMarkets()
                 .map { list ->
+                    repository.insertMarket(list)
                     list.filter { filterData
                         ->
                         filterData.market.startsWith(index.name)
@@ -78,6 +79,7 @@ class CoinPresenter(
             .doOnSubscribe { view.showProgress() }
             .doOnRequest { view.hideProgress() }
             .map { list ->
+                repository.insertTicker(list)
                 list.map { data ->
                     ProcessingTicker(
                         TextUtil.getMarketName(data.market),
