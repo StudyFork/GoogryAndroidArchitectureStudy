@@ -53,7 +53,34 @@ class MainActivity : BaseActivity(), MainContract.View {
         mainAdapter.setTitles(titles)
     }
 
-    override fun getCoinNameIsSelected() = ivSelectByCoinName.isSelected
+    override fun getArrowIsSelected(selectArrow: SelectArrow) =
+        when (selectArrow) {
+            SelectArrow.COIN_NAME -> ivSelectByCoinName.isSelected
+            SelectArrow.LAST -> ivSelectByLast.isSelected
+            SelectArrow.TRADE_DIFF -> ivSelectByTradeDiff.isSelected
+            SelectArrow.TRADE_AMOUNT -> ivSelectByTradeAmount.isSelected
+        }
+
+
+    override fun setArrowSelected(selectArrow: SelectArrow, selected: Boolean) {
+        when (selectArrow) {
+            SelectArrow.COIN_NAME -> ivSelectByCoinName
+            SelectArrow.LAST -> ivSelectByLast
+            SelectArrow.TRADE_DIFF -> ivSelectByTradeDiff
+            SelectArrow.TRADE_AMOUNT -> ivSelectByTradeAmount
+        }.isSelected = selected
+    }
+
+    override fun setArrowVisibility(selectArrow: SelectArrow, visibility: Int) {
+        when (selectArrow) {
+            SelectArrow.COIN_NAME -> ivSelectByCoinName
+            SelectArrow.LAST -> ivSelectByLast
+            SelectArrow.TRADE_DIFF -> ivSelectByTradeDiff
+            SelectArrow.TRADE_AMOUNT -> ivSelectByTradeAmount
+        }.visibility = visibility
+    }
+
+    /*override fun getCoinNameIsSelected() = ivSelectByCoinName.isSelected
 
     override fun getLastIsSelected() = ivSelectByLast.isSelected
 
@@ -91,7 +118,7 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun setTradeAmountVisibility(visibility: Int) {
         ivSelectByTradeAmount.visibility = visibility
-    }
+    }*/
 
     override fun notifyTickerListObservers(field: String, order: Int) {
 

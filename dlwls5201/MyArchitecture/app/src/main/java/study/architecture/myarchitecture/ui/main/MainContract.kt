@@ -8,7 +8,13 @@ interface MainContract {
 
         fun setViewPagerTitles(titles: Array<String>)
 
-        fun getCoinNameIsSelected(): Boolean
+        fun getArrowIsSelected(selectArrow: MainActivity.SelectArrow): Boolean
+
+        fun setArrowSelected(selectArrow: MainActivity.SelectArrow, selected: Boolean)
+
+        fun setArrowVisibility(selectArrow: MainActivity.SelectArrow, visibility: Int)
+
+        /*fun getCoinNameIsSelected(): Boolean
 
         fun getLastIsSelected(): Boolean
 
@@ -30,7 +36,7 @@ interface MainContract {
 
         fun setTradeDiffVisibility(visibility: Int)
 
-        fun setTradeAmountVisibility(visibility: Int)
+        fun setTradeAmountVisibility(visibility: Int)*/
 
         /**
          * ViewPager 에서 미리 생성된 프래그먼트의 값을 상단 정렬바 아이템을 누를떄

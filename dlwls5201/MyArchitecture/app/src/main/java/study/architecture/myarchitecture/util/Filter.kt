@@ -1,5 +1,7 @@
 package study.architecture.myarchitecture.util
 
+import study.architecture.myarchitecture.ui.main.MainActivity
+
 object Filter {
     const val KEY_ORDER = "order"
 
@@ -12,4 +14,11 @@ object Filter {
     const val LAST = "현재가"
     const val TRADE_DIFF = "전일대비"
     const val TRADE_AMOUNT = "거래대금"
+
+    fun selectArrowToFilter(selectArrow: MainActivity.SelectArrow) = when (selectArrow) {
+        MainActivity.SelectArrow.COIN_NAME -> COIN_NAME
+        MainActivity.SelectArrow.LAST -> LAST
+        MainActivity.SelectArrow.TRADE_DIFF -> TRADE_DIFF
+        MainActivity.SelectArrow.TRADE_AMOUNT -> TRADE_AMOUNT
+    }
 }

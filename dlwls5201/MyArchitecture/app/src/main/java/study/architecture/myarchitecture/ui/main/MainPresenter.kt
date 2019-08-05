@@ -44,61 +44,20 @@ class MainPresenter(
 
     override fun changeArrow(selectArrow: MainActivity.SelectArrow) {
 
-        view.setCoinNameVisibility(View.INVISIBLE)
-        view.setLastVisibility(View.INVISIBLE)
-        view.setTradeDiffVisibility(View.INVISIBLE)
-        view.setTradeAmountVisibility(View.INVISIBLE)
+        view.setArrowVisibility(MainActivity.SelectArrow.COIN_NAME, View.INVISIBLE)
+        view.setArrowVisibility(MainActivity.SelectArrow.LAST, View.INVISIBLE)
+        view.setArrowVisibility(MainActivity.SelectArrow.TRADE_AMOUNT, View.INVISIBLE)
+        view.setArrowVisibility(MainActivity.SelectArrow.TRADE_DIFF, View.INVISIBLE)
 
-        when (selectArrow) {
+        view.setArrowVisibility(selectArrow, View.VISIBLE)
 
-            MainActivity.SelectArrow.COIN_NAME -> {
-                view.setCoinNameVisibility(View.VISIBLE)
-
-                if (view.getCoinNameIsSelected()) {
-                    view.notifyTickerListObservers(Filter.COIN_NAME, Filter.DESC)
-                } else {
-                    view.notifyTickerListObservers(Filter.COIN_NAME, Filter.ASC)
-                }
-
-                view.setCoinNameIsSelected(!view.getCoinNameIsSelected())
-            }
-
-            MainActivity.SelectArrow.LAST -> {
-                view.setLastVisibility(View.VISIBLE)
-
-                if (view.getLastIsSelected()) {
-                    view.notifyTickerListObservers(Filter.LAST, Filter.DESC)
-                } else {
-                    view.notifyTickerListObservers(Filter.LAST, Filter.ASC)
-                }
-
-                view.setLastIsSelected(!view.getLastIsSelected())
-            }
-
-            MainActivity.SelectArrow.TRADE_DIFF -> {
-                view.setTradeDiffVisibility(View.VISIBLE)
-
-                if (view.getTradeDiffIsSelected()) {
-                    view.notifyTickerListObservers(Filter.TRADE_DIFF, Filter.DESC)
-                } else {
-                    view.notifyTickerListObservers(Filter.TRADE_DIFF, Filter.ASC)
-                }
-
-                view.setTradeDiffIsSelected(!view.getTradeDiffIsSelected())
-            }
-
-            MainActivity.SelectArrow.TRADE_AMOUNT -> {
-                view.setTradeAmountVisibility(View.VISIBLE)
-
-                if (view.getTradeAmountIsSelected()) {
-                    view.notifyTickerListObservers(Filter.TRADE_AMOUNT, Filter.DESC)
-                } else {
-                    view.notifyTickerListObservers(Filter.TRADE_AMOUNT, Filter.ASC)
-                }
-
-                view.setTradeAmountIsSelected(!view.getTradeAmountIsSelected())
-            }
+        if (view.getArrowIsSelected(selectArrow)) {
+            view.notifyTickerListObservers(Filter.selectArrowToFilter(selectArrow), Filter.DESC)
+        } else {
+            view.notifyTickerListObservers(Filter.selectArrowToFilter(selectArrow), Filter.ASC)
         }
+
+        view.setArrowSelected(selectArrow, !view.getArrowIsSelected(selectArrow))
     }
 
 }
