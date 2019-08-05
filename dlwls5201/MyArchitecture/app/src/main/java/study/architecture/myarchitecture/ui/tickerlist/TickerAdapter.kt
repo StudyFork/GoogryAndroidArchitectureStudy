@@ -15,7 +15,7 @@ import study.architecture.myarchitecture.util.setTradeDiffColor
 
 class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
 
-    private var tickers = mutableListOf<TickerItem>()
+    private val tickers = mutableListOf<TickerItem>()
 
     private var listener: TickerClickListener? = null
 
