@@ -39,7 +39,6 @@ class MainTickerFragment :
             }
         }
 
-
         // 검색어가 있으면 검색결과가 나오고, 없으면 해당 마켓의 코인리스트가 나옴
         val searchKeyword = mainSearchVm.searchKeyword.value
         if (searchKeyword.isNullOrBlank()) {
