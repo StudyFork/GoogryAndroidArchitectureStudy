@@ -1,8 +1,8 @@
 package org.study.kotlin.androidarchitecturestudy.data
 
-import android.util.Log
 import org.study.kotlin.androidarchitecturestudy.api.model.TickerModel
 import org.study.kotlin.androidarchitecturestudy.base.BaseDataSource
+import org.study.kotlin.androidarchitecturestudy.base.BaseRepository
 
 /**
  ***************************
@@ -22,7 +22,7 @@ f = onDataNotAvailable(error: String)
  */
 class TickerRepository (
     val tickerRemoteDataSource: BaseDataSource
-) : BaseDataSource {
+) : BaseRepository {
 
     override fun getTickerList(
         marketName: String,
