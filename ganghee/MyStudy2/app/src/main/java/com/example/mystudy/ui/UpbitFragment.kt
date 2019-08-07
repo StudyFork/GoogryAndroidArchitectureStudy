@@ -2,7 +2,6 @@ package com.example.mystudy.ui.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,22 +12,24 @@ import com.example.mystudy.R
 import com.example.mystudy.adapter.TickerAdapter
 import com.example.mystudy.data.FormatTickers
 import com.example.mystudy.data.UpbitRepository
-import com.example.mystudy.network.TickerResponse
+import com.example.mystudy.presenter.UpbitContract
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_upbit.*
 
-class UpbitFragment(tabName: String) : Fragment() {
+class UpbitFragment(tabName: String) : Fragment(), UpbitContract.View {
 
-    private val firstMarket = tabName
+    val firstMarket = tabName
+    /*
     private val repository: UpbitRepository  by lazy { UpbitRepository() }
-    private val tickerList by lazy { mutableListOf<FormatTickers>() }
+    private val tickerList by lazy { mutableListOf<FormatTickers>() }*/
     private lateinit var tickerAdapter : TickerAdapter
+    override lateinit var presenter : UpbitContract.Presenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ) : View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_upbit, container, false)
     }
@@ -39,7 +40,8 @@ class UpbitFragment(tabName: String) : Fragment() {
 
         recyclerViewSetup()
 
-        repository.getMarket()
+        presenter.getTicker(firstMarket)
+        /*repository.getMarket()
             .observeOn(Schedulers.newThread())
             .subscribe { it ->
                 repository.getTicker(it)
@@ -58,7 +60,7 @@ class UpbitFragment(tabName: String) : Fragment() {
                         }
                     }, {
                     })
-            }
+            }*/
     }
 
     private fun recyclerViewSetup() {
@@ -69,5 +71,13 @@ class UpbitFragment(tabName: String) : Fragment() {
             adapter = tickerAdapter
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         }
+    }
+
+    override fun showUpbitTicker() {
+
+    }
+    companion object {
+
+        fun newInstance() = UpbitFragment("UPBIT")
     }
 }
