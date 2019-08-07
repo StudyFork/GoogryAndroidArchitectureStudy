@@ -2,9 +2,8 @@ package com.aiden.aiden.architecturepatternstudy.data.source.local
 
 import com.aiden.aiden.architecturepatternstudy.api.model.TickerResponse
 import com.aiden.aiden.architecturepatternstudy.data.source.UpbitDataSource
-import com.aiden.aiden.architecturepatternstudy.domain.UpbitDatabase
 
-class UpbitLocalDataSource private constructor(private val db: UpbitDatabase?) : UpbitDataSource {
+class UpbitLocalDataSource(private val db: UpbitDatabase?) : UpbitDataSource {
 
     override fun getMarketList(
         onSuccess: (List<String>) -> Unit,
@@ -43,16 +42,6 @@ class UpbitLocalDataSource private constructor(private val db: UpbitDatabase?) :
                 onFail(e)
             }
         }).start()
-    }
-
-    companion object {
-
-        private var instance: UpbitLocalDataSource? = null
-
-        operator fun invoke(db: UpbitDatabase?) =
-            instance ?: UpbitLocalDataSource(db)
-                .apply { instance = this }
-
     }
 
 }

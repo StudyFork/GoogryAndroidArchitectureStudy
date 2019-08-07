@@ -9,13 +9,17 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import com.aiden.aiden.architecturepatternstudy.BR
 
-abstract class BaseFragment<B : ViewDataBinding>(
+abstract class BaseFragment<B : ViewDataBinding, VM : ViewModel>(
     @LayoutRes private val layoutResId: Int
 ) : Fragment() {
 
     protected lateinit var binding: B
         private set
+
+    abstract val viewModel: VM
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,8 +27,15 @@ abstract class BaseFragment<B : ViewDataBinding>(
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, layoutResId, container, false)
-        binding.lifecycleOwner = this
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding {
+            binding.lifecycleOwner = this@BaseFragment
+            binding.setVariable(BR.vm, viewModel)
+        }
     }
 
     protected fun binding(action: B.() -> Unit) {
