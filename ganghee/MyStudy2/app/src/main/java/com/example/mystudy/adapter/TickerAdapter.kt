@@ -19,7 +19,7 @@ class TickerAdapter : RecyclerView.Adapter<UpbitHolder>() {
         holder.bind(tickerList[position])
     }
 
-    fun setData(setDataList: List<FormatTickers>){
+    fun setData(setDataList: List<FormatTickers>) {
         this.tickerList.clear()
         this.tickerList.addAll(setDataList)
         notifyDataSetChanged()

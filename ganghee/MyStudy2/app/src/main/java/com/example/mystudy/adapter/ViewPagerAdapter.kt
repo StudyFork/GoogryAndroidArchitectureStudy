@@ -3,9 +3,10 @@ package com.example.mystudy.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.example.mystudy.ui.fragment.UpbitFragment
+import com.example.mystudy.ui.UpbitFragment
 
-class ViewPagerAdapter(fm: FragmentManager, private val num_fragment: Int) : FragmentStatePagerAdapter(fm) {
+class ViewPagerAdapter(fm: FragmentManager, private val num_fragment: Int) :
+    FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getItem(p0: Int): Fragment {
         return when (p0) {
@@ -17,7 +18,6 @@ class ViewPagerAdapter(fm: FragmentManager, private val num_fragment: Int) : Fra
         }!!
     }
 
-    override fun getCount(): Int {
-        return num_fragment
-    }
+    override fun getCount() = num_fragment
+
 }

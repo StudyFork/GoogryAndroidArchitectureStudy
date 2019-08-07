@@ -1,6 +1,5 @@
 package com.example.mystudy.util
 
-import android.content.Context
 import com.example.mystudy.R
 
 object FormatText {
@@ -44,4 +43,6 @@ object FormatText {
             else -> String.format("%,.3f", accTradePrice24h)
 
         }
+
+
 }
