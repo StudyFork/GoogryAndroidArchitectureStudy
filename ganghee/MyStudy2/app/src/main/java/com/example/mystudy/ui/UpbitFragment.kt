@@ -1,7 +1,8 @@
-package com.example.mystudy.ui.fragment
+package com.example.mystudy.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,24 +13,20 @@ import com.example.mystudy.R
 import com.example.mystudy.adapter.TickerAdapter
 import com.example.mystudy.data.FormatTickers
 import com.example.mystudy.data.UpbitRepository
-import com.example.mystudy.presenter.UpbitContract
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_upbit.*
+import org.jetbrains.anko.support.v4.toast
 
 class UpbitFragment(tabName: String) : Fragment(), UpbitContract.View {
 
-    val firstMarket = tabName
-    /*
-    private val repository: UpbitRepository  by lazy { UpbitRepository() }
-    private val tickerList by lazy { mutableListOf<FormatTickers>() }*/
-    private lateinit var tickerAdapter : TickerAdapter
-    override lateinit var presenter : UpbitContract.Presenter
+
+    private val firstMarket = tabName
+    private lateinit var tickerAdapter: TickerAdapter
+    override lateinit var presenter: UpbitContract.Presenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) : View? {
+    ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_upbit, container, false)
     }
@@ -37,35 +34,18 @@ class UpbitFragment(tabName: String) : Fragment(), UpbitContract.View {
     @SuppressLint("CheckResult")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         recyclerViewSetup()
-
+        presenter =
+            UpbitPresenter(
+                UpbitRepository.getInstance(),
+                this@UpbitFragment
+            )
         presenter.getTicker(firstMarket)
-        /*repository.getMarket()
-            .observeOn(Schedulers.newThread())
-            .subscribe { it ->
-                repository.getTicker(it)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .map {
-                        it.filter { TickerResponse ->
-                            TickerResponse.market.split("-")[0] == firstMarket
-                        }
-                    }
-                    .subscribe({ list->
-                        list.map {
-                            tickerList.add(
-                                it.toTicker()
-                            )
-                            tickerAdapter.setData(tickerList)
-                        }
-                    }, {
-                    })
-            }*/
     }
 
     private fun recyclerViewSetup() {
-
-        tickerAdapter= TickerAdapter()
+        Log.d("recyclerViewSetup", "" + firstMarket)
+        tickerAdapter = TickerAdapter()
 
         rv_tickers.apply {
             adapter = tickerAdapter
@@ -73,11 +53,12 @@ class UpbitFragment(tabName: String) : Fragment(), UpbitContract.View {
         }
     }
 
-    override fun showUpbitTicker() {
+    override fun showSuccessUpbitTickerList(tickerList: MutableList<FormatTickers>) {
+        tickerAdapter.setData(tickerList)
 
     }
-    companion object {
 
-        fun newInstance() = UpbitFragment("UPBIT")
+    override fun showFailedUpbitTickerList() {
+        toast("$firstMarket tiker 데이터를 가져올 수 없습니다.").show()
     }
 }
