@@ -4,16 +4,13 @@ import android.os.Bundle
 import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.widget.Toast
 import androidx.databinding.library.baseAdapters.BR
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.fragment_main.*
+import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import org.study.kotlin.androidarchitecturestudy.R
 import org.study.kotlin.androidarchitecturestudy.api.model.TickerModel
 import org.study.kotlin.androidarchitecturestudy.base.BaseFragment
 import org.study.kotlin.androidarchitecturestudy.base.BaseRecyclerView
-import org.study.kotlin.androidarchitecturestudy.data.TickerRepository
-import org.study.kotlin.androidarchitecturestudy.data.source.remote.TickerRemoteDataSource
 import org.study.kotlin.androidarchitecturestudy.databinding.FragmentMainBinding
 import org.study.kotlin.androidarchitecturestudy.databinding.ItemTickerBinding
 
@@ -35,16 +32,18 @@ i = Presenter : BasePresenter
 
 f = requestDataFromTickerRepository(marketName: String)
  */
-class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
+class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(R.layout.fragment_main) {
+    override val viewModel by viewModel<MainViewModel>()
 
-    @Suppress("UNCHECKED_CAST")
-    private val mainViewModel by lazy {
-        ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-                MainViewModel(TickerRepository(TickerRemoteDataSource())) as T
-        })[MainViewModel::class.java]
-    }
+//    override val viewModel by viewModel<MainViewModel>()
+//    @Suppress("UNCHECKED_CAST")
+//    private val mainViewModel by lazy {
+//        ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+//
+//            override fun <T : ViewModel?> create(modelClass: Class<T>): T =
+//                MainViewModel(TickerRepository(TickerRemoteDataSource())) as T
+//        })[MainViewModel::class.java]
+//    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -52,15 +51,15 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             setHasFixedSize(true)
             val message = arguments!!.getString(EXTRA_MESSAGE)
 
-            mainViewModel.getTickerListFromRemoteDataSource(message)
 
+            viewModel.getTickerListFromRemoteDataSource(message)
             bind {
                 adapter =
                     object : BaseRecyclerView.Adapter<TickerModel, ItemTickerBinding>(
                         layoutRes = R.layout.item_ticker,
-                        bindingVariableId = BR.tickerModel
+                        bindingVariableId = BR.vm
                     ) {}
-                viewModel = mainViewModel
+                vm = viewModel
             }
         }
     }

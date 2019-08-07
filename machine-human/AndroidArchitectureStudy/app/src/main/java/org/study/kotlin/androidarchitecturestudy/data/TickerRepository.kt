@@ -1,8 +1,8 @@
 package org.study.kotlin.androidarchitecturestudy.data
 
-import android.util.Log
 import org.study.kotlin.androidarchitecturestudy.api.model.TickerModel
 import org.study.kotlin.androidarchitecturestudy.base.BaseDataSource
+import org.study.kotlin.androidarchitecturestudy.base.BaseRepository
 
 /**
  ***************************
@@ -20,9 +20,9 @@ f = onTickerListLoaded(tickerList: List<TickerModel>=
 f = onDataNotAvailable(error: String)
 
  */
-class TickerRepository private constructor(
+class TickerRepository (
     val tickerRemoteDataSource: BaseDataSource
-) : BaseDataSource {
+) : BaseRepository {
 
     override fun getTickerList(
         marketName: String,
@@ -30,14 +30,5 @@ class TickerRepository private constructor(
         failed: (Throwable) -> Unit
     ) {
         tickerRemoteDataSource.getTickerList(marketName, success, failed)
-    }
-
-    companion object {
-        private var instance: TickerRepository? = null
-        operator fun invoke(tickerRemoteDataSource: BaseDataSource): TickerRepository {
-            Log.e("TAG", "repositoryinvoke")
-            return instance ?: TickerRepository(tickerRemoteDataSource = tickerRemoteDataSource)
-                .apply { instance = this }
-        }
     }
 }

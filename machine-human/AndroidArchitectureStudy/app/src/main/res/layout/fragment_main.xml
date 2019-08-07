@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="viewModel"
+            name="vm"
             type="org.study.kotlin.androidarchitecturestudy.view.activity.main.MainViewModel" />
     </data>
 
@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            replaceAll="@{viewModel.observableTickerList}"
+            replaceAll="@{vm.observableTickerList}"
             tools:itemCount="20"
             tools:listitem="@layout/item_ticker" />
     </LinearLayout>

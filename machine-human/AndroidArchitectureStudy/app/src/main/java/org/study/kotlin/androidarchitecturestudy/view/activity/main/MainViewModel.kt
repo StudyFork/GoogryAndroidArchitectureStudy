@@ -4,12 +4,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import org.study.kotlin.androidarchitecturestudy.api.model.TickerModel
+import org.study.kotlin.androidarchitecturestudy.base.BaseDataSource
+import org.study.kotlin.androidarchitecturestudy.base.BaseRepository
 import org.study.kotlin.androidarchitecturestudy.base.BaseViewModel
 import org.study.kotlin.androidarchitecturestudy.data.TickerRepository
 import org.study.kotlin.androidarchitecturestudy.util.FormatUtil
 
 class MainViewModel(
-    private val tickerRepository: TickerRepository
+    private val tickerRepository: BaseRepository
 ) : BaseViewModel() {
 
     protected val _observableTickerList = MutableLiveData<List<TickerModel>>()
