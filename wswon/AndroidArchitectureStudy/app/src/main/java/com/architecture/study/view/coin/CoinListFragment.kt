@@ -96,7 +96,7 @@ class CoinListFragment : Fragment(), CoinListFragmentContract.View, CoinListAdap
 
     override fun successConnectApi() {
         monetaryUnitNameList?.let {
-            presenter.getTickerList(it.joinToString(","))
+            presenter.getTickerList(it)
         }
     }
 
@@ -109,7 +109,7 @@ class CoinListFragment : Fragment(), CoinListFragmentContract.View, CoinListAdap
         refreshHandler = Handler().apply {
             postDelayed({
                 monetaryUnitNameList?.let {
-                    presenter.getTickerList(it.joinToString(","))
+                    presenter.getTickerList(it)
                 }
                 refreshData()
             }, 5000)

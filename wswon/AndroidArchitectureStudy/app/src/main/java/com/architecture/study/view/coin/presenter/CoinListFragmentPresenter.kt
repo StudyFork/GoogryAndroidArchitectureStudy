@@ -21,9 +21,9 @@ class CoinListFragmentPresenter(
         }
     }
 
-    override fun getTickerList(marketNames: String) {
+    override fun getTickerList(marketNameList: List<String>) {
         if (isConnectApi) {
-            coinRepository.getTickerList(marketNames, object :
+            coinRepository.getTickerList( marketNameList.joinToString (","), object :
                 CoinRemoteDataSourceListener<TickerResponse> {
                 override fun onSucess(dataList: List<TickerResponse>) {
                     val convertTickerList = mutableListOf<Ticker>()

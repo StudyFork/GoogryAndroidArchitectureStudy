@@ -1,7 +1,6 @@
 package com.architecture.study.view.coin.presenter
 
 import com.architecture.study.data.model.Ticker
-import com.architecture.study.network.model.TickerResponse
 import com.architecture.study.view.base.BasePresenter
 import com.architecture.study.view.base.BaseView
 
@@ -25,6 +24,6 @@ interface CoinListFragmentContract {
     interface Presenter : BasePresenter{
         var isConnectApi: Boolean
 
-        fun getTickerList(marketNames: String)
+        fun getTickerList(marketNameList: List<String>)
     }
 }
