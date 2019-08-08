@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_coinrecycler.view.*
+import kotlinx.android.synthetic.main.fragment_coinrecycler.*
 import kr.schoolsharing.coinhelper.R
 import kr.schoolsharing.coinhelper.data.Repository
 import kr.schoolsharing.coinhelper.model.UpbitItem
@@ -28,13 +28,11 @@ class UpbitFragment : Fragment(), UpbitContract.View {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val coinRecyclerView = view.CoinRecyclerView
-
-        coinRecyclerView.adapter = rVAdapter
-
-        val lm = LinearLayoutManager(context!!)
-        coinRecyclerView.layoutManager = lm
-        coinRecyclerView.setHasFixedSize(true)
+        CoinRecyclerView.apply {
+            adapter = rVAdapter
+            layoutManager = LinearLayoutManager(context!!)
+            setHasFixedSize(true)
+        }
 
 
         val marketName = arguments?.get("MARKET_NAME").toString()
