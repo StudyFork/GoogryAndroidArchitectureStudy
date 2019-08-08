@@ -11,7 +11,7 @@ import kr.schoolsharing.coinhelper.R
 import kr.schoolsharing.coinhelper.data.Repository
 import kr.schoolsharing.coinhelper.model.UpbitItem
 
-class UpbitFragment : Fragment(), UpbitContract.View {
+class UpbitFragment private constructor() : Fragment(), UpbitContract.View {
 
     override lateinit var presenter: UpbitContract.Presenter
     private val rVAdapter = UpbitRVAdapter()
