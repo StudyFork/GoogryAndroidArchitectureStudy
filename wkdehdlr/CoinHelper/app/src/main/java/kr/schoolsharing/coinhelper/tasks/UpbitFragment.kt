@@ -16,18 +16,6 @@ class UpbitFragment : Fragment(), UpbitContract.View {
     override lateinit var presenter: UpbitContract.Presenter
     private val rVAdapter = UpbitRVAdapter()
 
-    companion object {
-        fun newInstance(marketName: String): UpbitFragment {
-            val fragment = UpbitFragment()
-            val bundle = Bundle()
-
-            bundle.putString("MARKET_NAME", marketName)
-            fragment.arguments = bundle
-            return fragment
-        }
-    }
-
-
     override fun showAddTask(tickerList: MutableList<UpbitItem>) {
         rVAdapter.setTickerList(tickerList)
     }
@@ -52,6 +40,17 @@ class UpbitFragment : Fragment(), UpbitContract.View {
         val marketName = arguments?.get("MARKET_NAME").toString()
         presenter = UpbitPresenter(Repository, this)
         presenter.start(marketName)
+    }
+
+    companion object {
+        fun newInstance(marketName: String): UpbitFragment {
+            val fragment = UpbitFragment()
+            val bundle = Bundle()
+
+            bundle.putString("MARKET_NAME", marketName)
+            fragment.arguments = bundle
+            return fragment
+        }
     }
 
 }
