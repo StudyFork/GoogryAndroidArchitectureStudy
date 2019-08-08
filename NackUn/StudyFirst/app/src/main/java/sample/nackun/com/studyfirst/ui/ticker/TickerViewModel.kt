@@ -3,12 +3,12 @@ package sample.nackun.com.studyfirst.ui.ticker
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import sample.nackun.com.studyfirst.base.BaseViewModel
-import sample.nackun.com.studyfirst.data.Repository
+import sample.nackun.com.studyfirst.data.RepositoryInterface
 import sample.nackun.com.studyfirst.util.TickerFormatter
 import sample.nackun.com.studyfirst.vo.Ticker
 
 class TickerViewModel(
-    private val repository: Repository
+    private val repository: RepositoryInterface
 ) : BaseViewModel() {
 
     private val firstMarketName = "KRW"
