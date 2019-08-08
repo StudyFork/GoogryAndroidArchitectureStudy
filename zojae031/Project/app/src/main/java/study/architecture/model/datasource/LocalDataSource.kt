@@ -8,8 +8,8 @@ import study.architecture.model.CoinDatabase
 import study.architecture.model.entity.Market
 import study.architecture.model.entity.Ticker
 
-class LocalDataSource private constructor(private val context: Context) {
-    private val db by lazy { CoinDatabase.getInstance(context) }
+class LocalDataSource private constructor(context: Context) {
+    private val db = CoinDatabase.getInstance(context)
     private val marketDao = db!!.marketDao()
     private val tickerDao = db!!.tickerDao()
     private val manager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

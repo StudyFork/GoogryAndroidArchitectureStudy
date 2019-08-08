@@ -1,8 +1,6 @@
 package study.architecture.model.repository
 
-import android.util.Log
 import io.reactivex.Single
-import io.reactivex.disposables.CompositeDisposable
 import study.architecture.model.datasource.LocalDataSource
 import study.architecture.model.datasource.UpbitDataSource
 import study.architecture.model.entity.Market

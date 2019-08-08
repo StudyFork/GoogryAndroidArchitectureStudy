@@ -29,8 +29,7 @@ class CoinFragment : Fragment(), CoinContract.View {
             it.setAdapterView(adapter)
         }
     }
-
-    private val adapter by lazy { CoinDataAdapter() }
+    private val adapter = CoinDataAdapter()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
