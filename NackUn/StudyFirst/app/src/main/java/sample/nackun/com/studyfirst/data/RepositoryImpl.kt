@@ -1,9 +1,8 @@
 package sample.nackun.com.studyfirst.data
 
-import sample.nackun.com.studyfirst.data.remote.RemoteDataSource
 import sample.nackun.com.studyfirst.vo.Ticker
 
-class Repository(
+class RepositoryImpl(
     private val remoteDataSource: DataSource
 ) : RepositoryInterface {
     override fun requestMarkets(
