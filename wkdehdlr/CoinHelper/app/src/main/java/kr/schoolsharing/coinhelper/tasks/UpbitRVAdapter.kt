@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.main_rv_item.view.*
 import kr.schoolsharing.coinhelper.R
 import kr.schoolsharing.coinhelper.model.UpbitItem
+import kr.schoolsharing.coinhelper.util.UpDown
 
 class UpbitRVAdapter : RecyclerView.Adapter<UpbitRVAdapter.Holder>() {
 
@@ -38,7 +39,7 @@ class UpbitRVAdapter : RecyclerView.Adapter<UpbitRVAdapter.Holder>() {
             current.text = upbitItem.current
 
             when (upbitItem.change) {
-                "RISE" -> signedChangeRate.setTextColor(Color.BLUE)
+                UpDown.RISE.toString() -> signedChangeRate.setTextColor(Color.BLUE)
                 else -> signedChangeRate.setTextColor(Color.RED)
             }
 
