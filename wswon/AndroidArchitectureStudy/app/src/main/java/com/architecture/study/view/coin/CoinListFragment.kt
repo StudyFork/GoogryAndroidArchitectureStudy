@@ -2,7 +2,6 @@ package com.architecture.study.view.coin
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,11 +56,15 @@ class CoinListFragment : Fragment(), CoinListFragmentContract.View, CoinListAdap
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        presenter = CoinListFragmentPresenter(
-            CoinRepositoryImp.getInstance(),
-            this@CoinListFragment,
-            false
-        )
+        context?.let {
+            presenter = CoinListFragmentPresenter(
+                CoinRepositoryImp.getInstance(),
+                this@CoinListFragment,
+                it,
+                false
+            )
+        }
+
 
         /* 받아온 argument - Coin name */
         monetaryUnitNameList = arguments?.getStringArrayList(MONETARY_UNIT_NAME_LIST)
@@ -78,15 +81,9 @@ class CoinListFragment : Fragment(), CoinListFragmentContract.View, CoinListAdap
 
 
     /* TickerResponse -> Ticker로 변환작업 */
-    override fun showTickerList(tickerList: List<TickerResponse>) {
-        val convertTickerList = mutableListOf<Ticker>()
-        tickerList.forEach {
-            convertTickerList.add(
-                it.toTicker(requireContext())
-            )
-        }
-        this.tickerList = convertTickerList
-        coinListAdapter.setData(this.tickerList)
+    override fun showTickerList(tickerList: List<Ticker>) {
+
+        coinListAdapter.setData(tickerList)
     }
 
     override fun showEmptyTickerData(empty: String) {

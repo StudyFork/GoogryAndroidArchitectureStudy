@@ -1,5 +1,7 @@
 package com.architecture.study.view.coin.presenter
 
+import android.content.Context
+import com.architecture.study.data.model.Ticker
 import com.architecture.study.data.repository.CoinRepository
 import com.architecture.study.data.source.CoinRemoteDataSourceListener
 import com.architecture.study.network.RetrofitInstanceCallBack
@@ -8,22 +10,29 @@ import com.architecture.study.network.model.TickerResponse
 class CoinListFragmentPresenter(
     private val coinRepository: CoinRepository,
     private val coinListView: CoinListFragmentContract.View,
+    private val context: Context,
     override var isConnectApi: Boolean
 ) : CoinListFragmentContract.Presenter, RetrofitInstanceCallBack {
 
 
     override fun start() {
-        if(!isConnectApi){
+        if (!isConnectApi) {
             coinRepository.setRetrofitInstance(this)
         }
     }
 
     override fun getTickerList(marketNames: String) {
-        if(isConnectApi){
+        if (isConnectApi) {
             coinRepository.getTickerList(marketNames, object :
                 CoinRemoteDataSourceListener<TickerResponse> {
                 override fun onSucess(dataList: List<TickerResponse>) {
-                    coinListView.showTickerList(dataList)
+                    val convertTickerList = mutableListOf<Ticker>()
+                    dataList.forEach {
+                        convertTickerList.add(
+                            it.toTicker(context)
+                        )
+                    }
+                    coinListView.showTickerList(convertTickerList)
                 }
 
                 override fun onEmpty(str: String) {
@@ -39,14 +48,14 @@ class CoinListFragmentPresenter(
 
     override fun onLoaded() {
         isConnectApi = true
-        if(coinListView.isActive){
+        if (coinListView.isActive) {
             coinListView.successConnectApi()
         }
     }
 
     override fun onNotLoaded() {
         isConnectApi = false
-        if(coinListView.isActive) {
+        if (coinListView.isActive) {
             coinListView.showFailedConnectError()
         }
     }
