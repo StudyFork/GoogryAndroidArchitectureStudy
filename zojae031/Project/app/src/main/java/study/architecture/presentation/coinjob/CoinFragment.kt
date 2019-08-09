@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_coin.*
 import kotlinx.android.synthetic.main.fragment_coin.view.*
@@ -58,6 +59,10 @@ class CoinFragment : Fragment(), CoinContract.View {
     override fun onResume() {
         super.onResume()
         presenter.onResume()
+    }
+
+    override fun showError(e: String?) {
+        Toast.makeText(context,e,Toast.LENGTH_SHORT).show()
     }
 
     enum class FragIndex {

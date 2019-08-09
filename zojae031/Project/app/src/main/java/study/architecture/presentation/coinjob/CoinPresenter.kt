@@ -1,7 +1,6 @@
 package study.architecture.presentation.coinjob
 
 import android.annotation.SuppressLint
-import android.util.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -49,7 +48,7 @@ class CoinPresenter(
                         tickerRequest()
                     },
                     { e ->
-                        Log.e("onErrorMarketList", e.message)
+                        view.showError(e.message)
                     })
     }
 
@@ -99,7 +98,7 @@ class CoinPresenter(
 
                 },
                 { e ->
-                    Log.e("onError", e.message)
+                    view.showError(e.message)
                 }
             ).also { compositeDisposable.add(it) }
 
