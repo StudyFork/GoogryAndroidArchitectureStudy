@@ -4,28 +4,17 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.studyfirstproject.R
 import com.studyfirstproject.adapter.CoinRecyclerViewAdapter
 import com.studyfirstproject.base.BaseActivity
-import com.studyfirstproject.data.CoinRepository
 import com.studyfirstproject.databinding.ActivityMainBinding
 import com.studyfirstproject.showcoin.CoinViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
-
-    @Suppress("UNCHECKED_CAST")
-    private val viewModel by lazy {
-        ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-                CoinViewModel(CoinRepository()) as T
-        })[CoinViewModel::class.java]
-    }
+    private val viewModel: CoinViewModel by viewModel()
     private val adapter = CoinRecyclerViewAdapter(R.layout.item_coin_info, BR.item)
 
     override fun onCreate(savedInstanceState: Bundle?) {
