@@ -46,11 +46,21 @@ class MainActivity : AppCompatActivity() {
 
                 }
 
-
             }
 
 
         })
+
+        tabLayout.apply {
+            addTab(tabLayout.newTab().setText("KRW"))
+            addTab(tabLayout.newTab().setText("BTC"))
+            addTab(tabLayout.newTab().setText("ETH"))
+            addTab(tabLayout.newTab().setText("USDT"))
+        }
+
+        tabLayout.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(coinViewPager))
+
+
 
     }
 }
