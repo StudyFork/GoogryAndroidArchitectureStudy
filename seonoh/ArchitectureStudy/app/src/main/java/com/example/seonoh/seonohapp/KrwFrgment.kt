@@ -18,5 +18,11 @@ class KrwFrgment : Fragment() {
         return mView
     }
 
+    companion object{
+        fun newInstance(): KrwFrgment {
+            return KrwFrgment()
+        }
+    }
+
 
 }
