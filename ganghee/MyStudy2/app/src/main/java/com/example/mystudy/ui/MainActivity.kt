@@ -20,13 +20,12 @@ class MainActivity : AppCompatActivity() {
 
         viewPager.adapter = ViewPagerAdapter(supportFragmentManager, num_fragment = 4)
 
-        //TabLayout과 ViewPager를 연결한다!!
-        tabLayout.setupWithViewPager(viewPager)
-
-        tabLayout.getTabAt(0)!!.text = "KRW"
-        tabLayout.getTabAt(1)!!.text = "BTC"
-        tabLayout.getTabAt(2)!!.text = "ETH"
-        tabLayout.getTabAt(3)!!.text = "USDT"
-
+        with(tabLayout){
+            setupWithViewPager(viewPager)
+            getTabAt(0)?.text = "KRW"
+            getTabAt(1)?.text = "BTC"
+            getTabAt(2)?.text = "ETH"
+            getTabAt(3)?.text = "USDT"
+        }
     }
 }
