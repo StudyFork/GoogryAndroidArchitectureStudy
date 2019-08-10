@@ -13,12 +13,7 @@ class UpbitPresenter(private val repository: UpbitRepository, private val ticker
         //TODO: start UI
     }
 
-    init {
-        tickerView.presenter = this
-    }
-
     private val tickerList by lazy { mutableListOf<FormatTickers>() }
-
 
     @SuppressLint("CheckResult")
     override fun getTicker(firstMarket: String) {
@@ -30,7 +25,6 @@ class UpbitPresenter(private val repository: UpbitRepository, private val ticker
                     .map {
                         it.filter { TickerResponse ->
                             TickerResponse.market.split("-")[0] == firstMarket
-
                         }
                     }
                     .subscribe({ list ->
