@@ -2,23 +2,16 @@ package sample.nackun.com.studyfirst.ui.ticker
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.ticker_fragment.*
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import sample.nackun.com.studyfirst.BR
 import sample.nackun.com.studyfirst.R
 import sample.nackun.com.studyfirst.base.BaseFragment
 import sample.nackun.com.studyfirst.base.BaseRecyclerView
-import sample.nackun.com.studyfirst.data.Repository
-import sample.nackun.com.studyfirst.data.remote.RemoteDataSource
 import sample.nackun.com.studyfirst.databinding.TickerFragmentBinding
 import sample.nackun.com.studyfirst.databinding.TickerItemBinding
-import sample.nackun.com.studyfirst.network.UpbitApi
 
-class TickerFragment : BaseFragment<TickerFragmentBinding>(
+class TickerFragment : BaseFragment<TickerFragmentBinding, TickerViewModel>(
     R.layout.ticker_fragment
 ) {
     private val firstMarketName = "KRW"
@@ -29,7 +22,7 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
                 BR.tickerItem
             ) {}
 
-    private lateinit var vm: TickerViewModel
+    override val vm: TickerViewModel by viewModel()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -39,25 +32,6 @@ class TickerFragment : BaseFragment<TickerFragmentBinding>(
     }
 
     private fun initViewModel() {
-        vm = ViewModelProviders.of(
-            this,
-            object : ViewModelProvider.Factory {
-                @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-                    TickerViewModel(
-                        Repository(
-                            RemoteDataSource(
-                                Retrofit.Builder()
-                                    .baseUrl("https://api.upbit.com/")
-                                    .addConverterFactory(GsonConverterFactory.create())
-                                    .build()
-                                    .create(UpbitApi::class.java)
-                            )
-                        )
-                    ) as T
-            }
-        )[TickerViewModel::class.java]
-
         binding.setVariable(BR.vm, vm)
 
         val errMsgObserver = Observer<Throwable> {
