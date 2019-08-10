@@ -22,11 +22,8 @@ class UpbitRepository {
     companion object {
         private var INSTANCE: UpbitRepository? = null
 
-        fun getInstance(): UpbitRepository {
-            if (INSTANCE == null) {
-                INSTANCE = UpbitRepository()
-            }
-            return INSTANCE!!
+        fun getInstance(): UpbitRepository = INSTANCE?.let { it } ?: UpbitRepository().apply {
+            INSTANCE = this
         }
     }
 }
