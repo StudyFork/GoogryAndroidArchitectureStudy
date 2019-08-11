@@ -1,24 +1,23 @@
 package com.example.seonoh.seonohapp.network
-import com.example.seonoh.seonohapp.SeonohApplication
-import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
 import com.example.seonoh.seonohapp.model.Market
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 
-class MarketRequest{
+class MarketRequest : BaseReqeust(){
+
 
     lateinit var mListener : ResultListener
 
-
-
-    fun send(listener: ResultListener) {
+    fun send(listener: ResultListener)  {
 
         mListener = listener
-        var single = SeonohApplication.mApiService!!.getMarketAll()
 
-        single.subscribeOn(Schedulers.io())
+
+        var single = api!!.getMarketAll()
+
+        single
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 mListener.getMarketSuccess(it)
@@ -36,7 +35,7 @@ class MarketRequest{
 
 
     interface ResultListener {
-        fun getMarketSuccess(result: Market)
+        fun getMarketSuccess(result: ArrayList<Market>)
         fun getMarketFailed(code : String)
     }
 }
