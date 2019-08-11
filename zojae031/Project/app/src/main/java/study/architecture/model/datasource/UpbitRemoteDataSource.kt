@@ -8,13 +8,10 @@ import study.architecture.model.entity.Market
 import study.architecture.model.entity.Ticker
 
 
-interface UpbitDataSource {
-
+interface UpbitRemoteDataSource {
     @GET("market/all")
     fun getMarkets(): Single<List<Market>>
 
     @GET("ticker")
     fun getTickers(@Query("markets") markets: String): Single<MutableList<Ticker>>
-
-
 }

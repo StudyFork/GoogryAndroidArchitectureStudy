@@ -8,30 +8,33 @@ import study.architecture.model.CoinDatabase
 import study.architecture.model.entity.Market
 import study.architecture.model.entity.Ticker
 
-class LocalDataSource private constructor(context: Context) {
+class LocalDataSourceImpl private constructor(context: Context) : UpbitLocalDataSource {
+
     private val db = CoinDatabase.getInstance(context)
     private val marketDao = db!!.marketDao()
     private val tickerDao = db!!.tickerDao()
     private val manager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-    fun getMarket(): Single<List<Market>> =
+
+    override fun getMarkets(): Single<List<Market>> =
         marketDao.selectAll()
             .subscribeOn(Schedulers.io())
 
+    override fun getTickers(markets: String): Single<MutableList<Ticker>> =
+        tickerDao.selectTicker("%$markets%")
+            .subscribeOn(Schedulers.io())
 
-    fun insertMarket(market: Market) {
+
+    override fun insertMarket(market: Market) {
         marketDao.insert(market)
     }
 
-    fun insertTicker(ticker: Ticker) {
+    override fun insertTicker(ticker: Ticker) {
         tickerDao.insert(ticker)
     }
 
-    fun getTicker(market: String): Single<MutableList<Ticker>> =
-        tickerDao.selectTicker("%$market%")
-            .subscribeOn(Schedulers.io())
 
-    fun checkNetwork(): Boolean {
+    override fun checkNetwork(): Boolean {
         if (manager.activeNetworkInfo == null) {
             return false
         }
@@ -39,10 +42,10 @@ class LocalDataSource private constructor(context: Context) {
     }
 
     companion object {
-        private var INSTANCE: LocalDataSource? = null
-        fun getInstance(context: Context): LocalDataSource {
+        private var INSTANCE: LocalDataSourceImpl? = null
+        fun getInstance(context: Context): LocalDataSourceImpl {
             if (INSTANCE == null) {
-                INSTANCE = LocalDataSource(context)
+                INSTANCE = LocalDataSourceImpl(context)
             }
             return INSTANCE!!
         }

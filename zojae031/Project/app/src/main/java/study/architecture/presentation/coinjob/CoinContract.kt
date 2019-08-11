@@ -6,7 +6,7 @@ interface CoinContract {
     interface View {
         fun showProgress()
         fun hideProgress()
-        fun showError(e : String?)
+        fun showError(e: String?)
     }
 
     interface Presenter {

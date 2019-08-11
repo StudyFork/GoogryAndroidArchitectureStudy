@@ -11,9 +11,9 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_coin.*
 import kotlinx.android.synthetic.main.fragment_coin.view.*
 import study.architecture.R
-import study.architecture.model.datasource.LocalDataSource
-import study.architecture.model.datasource.RemoteDataSource
-import study.architecture.model.repository.Repository
+import study.architecture.model.datasource.LocalDataSourceImpl
+import study.architecture.model.datasource.RemoteDataSourceImpl
+import study.architecture.model.repository.RepositoryImpl
 import study.architecture.presentation.coinjob.adapter.CoinDataAdapter
 
 
@@ -24,7 +24,7 @@ class CoinFragment : Fragment(), CoinContract.View {
         CoinPresenter(
             this@CoinFragment,
             arguments!!.getSerializable("idx") as FragIndex,
-            Repository.getInstance(RemoteDataSource, LocalDataSource.getInstance(context!!))
+            RepositoryImpl.getInstance(RemoteDataSourceImpl, LocalDataSourceImpl.getInstance(context!!))
         ).also {
             it.setAdapterModel(adapter)
             it.setAdapterView(adapter)
@@ -41,14 +41,14 @@ class CoinFragment : Fragment(), CoinContract.View {
 
 
     override fun showProgress() {
-        loading.visibility = View.VISIBLE
-        loading.animation.start()
+        loading?.visibility = View.VISIBLE
+        loading?.animation?.start()
 
     }
 
     override fun hideProgress() {
-        loading.visibility = View.INVISIBLE
-        loading.animation?.cancel()
+        loading?.visibility = View.INVISIBLE
+        loading?.animation?.cancel()
     }
 
     override fun onPause() {
@@ -62,7 +62,7 @@ class CoinFragment : Fragment(), CoinContract.View {
     }
 
     override fun showError(e: String?) {
-        Toast.makeText(context,e,Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, e, Toast.LENGTH_SHORT).show()
     }
 
     enum class FragIndex {

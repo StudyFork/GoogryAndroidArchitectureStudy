@@ -5,7 +5,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import study.architecture.model.entity.ProcessingTicker
-import study.architecture.model.repository.Repository
+import study.architecture.model.repository.RepositoryImpl
 import study.architecture.presentation.coinjob.adapter.CoinAdapterContract
 import study.architecture.util.TextUtil
 import java.util.concurrent.TimeUnit
@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit
 class CoinPresenter(
     private val view: CoinContract.View,
     private val index: CoinFragment.FragIndex,
-    private val repository: Repository
+    private val repository: RepositoryImpl
 ) :
     CoinContract.Presenter {
 
@@ -32,7 +32,6 @@ class CoinPresenter(
         dispose =
             repository.getMarkets()
                 .map { list ->
-                    repository.insertMarket(list)
                     list.filter { filterData
                         ->
                         filterData.market.startsWith(index.name)
