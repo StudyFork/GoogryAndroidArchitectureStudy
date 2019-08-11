@@ -88,3 +88,13 @@ View <-> Presenter <-> model
 
 # 4주차 2019-08-11
 
+### 1. interface를 사용하여 받자
+
+- 해당 클래스의 지표인 interface로 인자를 받아 변화에 유용하도록 한다.
+
+### 2. context정보를 presenter가 모르도록 한다.
+
+- 만약 model이나 presenter에서 필요로 한다면 만들어서 넘겨준다.
+
+### 3. Repository, remote, local interface를 모두 만들자
+
