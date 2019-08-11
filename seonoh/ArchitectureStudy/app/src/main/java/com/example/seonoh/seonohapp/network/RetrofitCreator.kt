@@ -10,7 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-const val BASE_URL = "https://api.upbit.com/v1/"
+const val BASE_URL = "https://api.upbit.com/"
 class RetrofitCreator {
 
     companion object{
@@ -31,10 +31,10 @@ class RetrofitCreator {
 
 
            val retrofit =  Retrofit.Builder()
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BASE_URL)
                 .client(okClient)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
 
