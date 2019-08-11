@@ -6,7 +6,7 @@ import io.reactivex.Single
 import study.architecture.model.entity.Ticker
 
 @Dao
-interface TickerDao : BaseDAO<Ticker> {
+interface TickerDao : BaseDao<Ticker> {
     @Query("Select * from ticker")
     fun selectAll(): Single<MutableList<Ticker>>
 
