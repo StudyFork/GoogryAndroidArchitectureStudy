@@ -9,6 +9,7 @@ interface UpbitContract {
     interface View : BaseView<Presenter> {
 
         fun showAddTask(tickerList: List<UpbitItem>)
+        fun showErrorToast(str: String)
 
     }
 

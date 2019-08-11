@@ -31,7 +31,7 @@ class UpbitPresenter(val repository: Repository, val upbitView: UpbitContract.Vi
             }
 
             override fun onDataNotAvailable(t: Throwable) {
-                t.printStackTrace()
+                upbitView.showErrorToast(t.printStackTrace().toString())
             }
         })
     }
@@ -52,9 +52,8 @@ class UpbitPresenter(val repository: Repository, val upbitView: UpbitContract.Vi
                 })
             }
 
-
             override fun onDataNotAvailable(t: Throwable) {
-                t.printStackTrace()
+                upbitView.showErrorToast(t.printStackTrace().toString())
             }
         })
     }
