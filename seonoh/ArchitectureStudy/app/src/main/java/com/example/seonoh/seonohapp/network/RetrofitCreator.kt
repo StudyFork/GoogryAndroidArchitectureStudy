@@ -10,7 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-const val BASE_URL = "https://api.upbit.com/v1/market/"
+const val BASE_URL = "https://api.upbit.com/v1/"
 class RetrofitCreator {
 
     companion object{
