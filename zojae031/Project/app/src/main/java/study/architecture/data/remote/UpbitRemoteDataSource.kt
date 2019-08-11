@@ -1,11 +1,11 @@
-package study.architecture.model.datasource
+package study.architecture.data.remote
 
 
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
-import study.architecture.model.entity.Market
-import study.architecture.model.entity.Ticker
+import study.architecture.data.entity.Market
+import study.architecture.data.entity.Ticker
 
 
 interface UpbitRemoteDataSource {

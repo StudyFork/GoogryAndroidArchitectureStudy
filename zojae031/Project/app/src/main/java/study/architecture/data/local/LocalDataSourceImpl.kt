@@ -1,12 +1,11 @@
-package study.architecture.model.datasource
+package study.architecture.data.local
 
 import android.content.Context
 import android.net.ConnectivityManager
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import study.architecture.model.CoinDatabase
-import study.architecture.model.entity.Market
-import study.architecture.model.entity.Ticker
+import study.architecture.data.entity.Market
+import study.architecture.data.entity.Ticker
 
 class LocalDataSourceImpl private constructor(context: Context) : UpbitLocalDataSource {
 
@@ -45,7 +44,8 @@ class LocalDataSourceImpl private constructor(context: Context) : UpbitLocalData
         private var INSTANCE: LocalDataSourceImpl? = null
         fun getInstance(context: Context): LocalDataSourceImpl {
             if (INSTANCE == null) {
-                INSTANCE = LocalDataSourceImpl(context)
+                INSTANCE =
+                    LocalDataSourceImpl(context)
             }
             return INSTANCE!!
         }

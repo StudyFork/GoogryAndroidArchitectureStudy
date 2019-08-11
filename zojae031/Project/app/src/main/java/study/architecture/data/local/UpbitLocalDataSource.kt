@@ -1,8 +1,8 @@
-package study.architecture.model.datasource
+package study.architecture.data.local
 
 import io.reactivex.Single
-import study.architecture.model.entity.Market
-import study.architecture.model.entity.Ticker
+import study.architecture.data.entity.Market
+import study.architecture.data.entity.Ticker
 
 interface UpbitLocalDataSource {
     fun getMarkets(): Single<List<Market>>

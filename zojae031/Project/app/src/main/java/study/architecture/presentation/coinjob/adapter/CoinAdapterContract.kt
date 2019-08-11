@@ -1,6 +1,6 @@
 package study.architecture.presentation.coinjob.adapter
 
-import study.architecture.model.entity.ProcessingTicker
+import study.architecture.data.entity.ProcessingTicker
 
 interface CoinAdapterContract {
     interface View {

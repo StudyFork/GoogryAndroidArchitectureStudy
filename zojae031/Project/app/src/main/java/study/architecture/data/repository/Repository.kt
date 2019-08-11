@@ -1,8 +1,8 @@
-package study.architecture.model.repository
+package study.architecture.data.repository
 
 import io.reactivex.Single
-import study.architecture.model.entity.Market
-import study.architecture.model.entity.Ticker
+import study.architecture.data.entity.Market
+import study.architecture.data.entity.Ticker
 
 interface Repository {
     fun getMarkets(): Single<List<Market>>

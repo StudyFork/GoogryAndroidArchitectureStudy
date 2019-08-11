@@ -1,11 +1,11 @@
-package study.architecture.model.repository
+package study.architecture.data.repository
 
 import io.reactivex.Single
-import study.architecture.model.datasource.LocalDataSourceImpl
-import study.architecture.model.datasource.UpbitLocalDataSource
-import study.architecture.model.datasource.UpbitRemoteDataSource
-import study.architecture.model.entity.Market
-import study.architecture.model.entity.Ticker
+import study.architecture.data.local.LocalDataSourceImpl
+import study.architecture.data.local.UpbitLocalDataSource
+import study.architecture.data.remote.UpbitRemoteDataSource
+import study.architecture.data.entity.Market
+import study.architecture.data.entity.Ticker
 
 class RepositoryImpl private constructor(
     private val remoteRemoteDataSource: UpbitRemoteDataSource,
@@ -47,7 +47,8 @@ class RepositoryImpl private constructor(
             localDataSource: LocalDataSourceImpl
         ): RepositoryImpl {
             if (INSTANCE == null) {
-                INSTANCE = RepositoryImpl(remoteRemoteDataSource, localDataSource)
+                INSTANCE =
+                    RepositoryImpl(remoteRemoteDataSource, localDataSource)
             }
             return INSTANCE!!
         }

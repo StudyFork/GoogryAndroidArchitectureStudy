@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.list_item.view.*
 import study.architecture.R
-import study.architecture.model.entity.ProcessingTicker
+import study.architecture.data.entity.ProcessingTicker
 
 /**
  * RecyclerView에 아이템을 뿌려주는 Adpater

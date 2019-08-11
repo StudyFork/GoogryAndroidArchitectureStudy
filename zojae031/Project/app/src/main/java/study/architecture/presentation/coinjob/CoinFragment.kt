@@ -11,9 +11,9 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_coin.*
 import kotlinx.android.synthetic.main.fragment_coin.view.*
 import study.architecture.R
-import study.architecture.model.datasource.LocalDataSourceImpl
-import study.architecture.model.datasource.RemoteDataSourceImpl
-import study.architecture.model.repository.RepositoryImpl
+import study.architecture.data.local.LocalDataSourceImpl
+import study.architecture.data.remote.RemoteDataSourceImpl
+import study.architecture.data.repository.RepositoryImpl
 import study.architecture.presentation.coinjob.adapter.CoinDataAdapter
 
 

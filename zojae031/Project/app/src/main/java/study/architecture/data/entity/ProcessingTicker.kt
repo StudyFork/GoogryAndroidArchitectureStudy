@@ -1,4 +1,4 @@
-package study.architecture.model.entity
+package study.architecture.data.entity
 
 data class ProcessingTicker(
 

@@ -1,4 +1,4 @@
-package study.architecture.model.dao
+package study.architecture.data.local.dao
 
 import androidx.room.*
 
