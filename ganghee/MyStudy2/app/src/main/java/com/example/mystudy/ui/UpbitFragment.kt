@@ -53,9 +53,8 @@ class UpbitFragment(tabName: String) : Fragment(), UpbitContract.View {
         }
     }
 
-    override fun showSuccessUpbitTickerList(tickerList: MutableList<FormatTickers>) {
+    override fun showUpbitTickerList(tickerList: List<FormatTickers>) {
         tickerAdapter.setData(tickerList)
-
     }
 
     override fun showFailedUpbitTickerList() {
