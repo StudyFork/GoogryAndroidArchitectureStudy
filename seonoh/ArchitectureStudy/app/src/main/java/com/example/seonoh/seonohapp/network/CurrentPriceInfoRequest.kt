@@ -2,7 +2,6 @@ package com.example.seonoh.seonohapp.network
 import com.example.seonoh.seonohapp.SeonohApplication
 import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 
@@ -12,12 +11,12 @@ class CurrentPriceInfoRequest{
 
 
 
-    fun send(listener: ResultListener,markets : String): Disposable {
+    fun send(listener: ResultListener,markets : String) {
 
         mListener = listener
-        val single = SeonohApplication.mApiService!!.getCurrentPriceInfo(markets)
+        var single = SeonohApplication.mApiService!!.getCurrentPriceInfo(markets)
 
-        return single.subscribeOn(Schedulers.io())
+        single.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 mListener.getCurrentInfoSuccess(it)
