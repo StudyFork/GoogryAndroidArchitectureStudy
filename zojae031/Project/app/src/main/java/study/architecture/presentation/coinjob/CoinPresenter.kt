@@ -67,6 +67,7 @@ class CoinPresenter(
 
 
     override fun onPause() {
+        dispose.dispose()
         compositeDisposable.clear()
     }
 
