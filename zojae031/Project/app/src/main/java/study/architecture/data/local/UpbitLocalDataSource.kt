@@ -9,5 +9,5 @@ interface UpbitLocalDataSource {
     fun getTickers(markets: String): Single<MutableList<Ticker>>
     fun insertMarket(market: Market)
     fun insertTicker(ticker: Ticker)
-    fun checkNetwork(): Boolean
+
 }

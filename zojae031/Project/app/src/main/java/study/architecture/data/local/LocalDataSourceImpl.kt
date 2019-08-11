@@ -1,7 +1,6 @@
 package study.architecture.data.local
 
 import android.content.Context
-import android.net.ConnectivityManager
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import study.architecture.data.entity.Market
@@ -12,7 +11,6 @@ class LocalDataSourceImpl private constructor(context: Context) : UpbitLocalData
     private val db = CoinDatabase.getInstance(context)
     private val marketDao = db!!.marketDao()
     private val tickerDao = db!!.tickerDao()
-    private val manager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
 
     override fun getMarkets(): Single<List<Market>> =
@@ -32,13 +30,6 @@ class LocalDataSourceImpl private constructor(context: Context) : UpbitLocalData
         tickerDao.insert(ticker)
     }
 
-
-    override fun checkNetwork(): Boolean {
-        if (manager.activeNetworkInfo == null) {
-            return false
-        }
-        return manager.activeNetworkInfo.isConnected
-    }
 
     companion object {
         private var INSTANCE: LocalDataSourceImpl? = null

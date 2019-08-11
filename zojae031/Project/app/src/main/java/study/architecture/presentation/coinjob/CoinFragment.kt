@@ -1,6 +1,8 @@
 package study.architecture.presentation.coinjob
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +26,11 @@ class CoinFragment : Fragment(), CoinContract.View {
         CoinPresenter(
             this@CoinFragment,
             arguments!!.getSerializable("idx") as FragIndex,
-            RepositoryImpl.getInstance(RemoteDataSourceImpl, LocalDataSourceImpl.getInstance(context!!))
+            RepositoryImpl.getInstance(
+                RemoteDataSourceImpl, LocalDataSourceImpl.getInstance(context!!), context!!.getSystemService(
+                    Context.CONNECTIVITY_SERVICE
+                ) as ConnectivityManager
+            )
         ).also {
             it.setAdapterModel(adapter)
             it.setAdapterView(adapter)

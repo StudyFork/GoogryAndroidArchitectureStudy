@@ -90,10 +90,10 @@ class CoinPresenter(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { lists ->
+                    if (!repository.checkNetwork()) view.showError("데이터가 최신이 아닙니다.\n 인터넷에 연결해주세요")
                     adapterView.clearList()
                     adapterView.updateList(lists)
                     adapterModel.notifyDataChange()
-
                 },
                 { e ->
                     view.showError(e.message)
