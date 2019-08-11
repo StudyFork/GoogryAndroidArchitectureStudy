@@ -9,6 +9,6 @@ interface Api {
 
     @GET("/ticker")
     fun getCurrentPriceInfo(
-        @Query("markets") page: Int): Single<CurrentPriceInfoModel>
+        @Query("markets") markets: String): Single<CurrentPriceInfoModel>
 
 }
