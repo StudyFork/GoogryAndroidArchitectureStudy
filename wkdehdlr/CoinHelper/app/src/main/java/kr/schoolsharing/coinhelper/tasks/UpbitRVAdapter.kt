@@ -20,7 +20,7 @@ class UpbitRVAdapter : RecyclerView.Adapter<UpbitRVAdapter.Holder>() {
     override fun onBindViewHolder(holder: Holder, position: Int) = holder.bind(itemList[position])
 
 
-    fun setTickerList(tickerList: MutableList<UpbitItem>) {
+    fun setTickerList(tickerList: List<UpbitItem>) {
         itemList.clear()
         itemList.addAll(tickerList)
         notifyDataSetChanged()

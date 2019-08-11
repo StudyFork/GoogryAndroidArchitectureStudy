@@ -8,7 +8,7 @@ interface UpbitContract {
 
     interface View : BaseView<Presenter> {
 
-        fun showAddTask(tickerList: MutableList<UpbitItem>)
+        fun showAddTask(tickerList: List<UpbitItem>)
 
     }
 

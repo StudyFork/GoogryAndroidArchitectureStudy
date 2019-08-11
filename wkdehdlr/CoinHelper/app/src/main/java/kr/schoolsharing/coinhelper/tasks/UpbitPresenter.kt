@@ -40,19 +40,16 @@ class UpbitPresenter(val repository: Repository, val upbitView: UpbitContract.Vi
         Repository.getTicker(marketList, object : UpbitDataSource.GetTickerCallback {
 
             override fun onTickerLoaded(tickers: List<UpbitTicker>) {
-                val tickerList: MutableList<UpbitItem> = ArrayList()
-                tickers.forEach {
-                    val data = UpbitItem(
+
+                processUpbit(tickers.map {
+                    UpbitItem(
                         TextEditor.splitString(it.market, 1),
                         TextEditor.makeTradePrice(it.tradePrice),
                         it.change,
                         TextEditor.makeSignedChangeRate(it.signedChangePrice),
                         TextEditor.makeAccTradePrice24h(it.accTradePrice24h)
                     )
-                    tickerList.add(data)
-                }
-
-                processUpbit(tickerList)
+                })
             }
 
 
@@ -62,7 +59,7 @@ class UpbitPresenter(val repository: Repository, val upbitView: UpbitContract.Vi
         })
     }
 
-    private fun processUpbit(tickerList: MutableList<UpbitItem>) {
+    private fun processUpbit(tickerList: List<UpbitItem>) {
         upbitView.showAddTask(tickerList)
     }
 
