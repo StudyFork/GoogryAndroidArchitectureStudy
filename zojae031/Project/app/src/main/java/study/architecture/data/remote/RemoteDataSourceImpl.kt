@@ -5,6 +5,7 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import study.architecture.data.UpbitRemoteDataSource
 import study.architecture.data.entity.Market
 import study.architecture.data.entity.Ticker
 

@@ -1,4 +1,4 @@
-package study.architecture.presentation.coinjob
+package study.architecture.ui.coinjob
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -16,7 +16,8 @@ import study.architecture.R
 import study.architecture.data.local.LocalDataSourceImpl
 import study.architecture.data.remote.RemoteDataSourceImpl
 import study.architecture.data.repository.RepositoryImpl
-import study.architecture.presentation.coinjob.adapter.CoinDataAdapter
+import study.architecture.presentation.CoinContract
+import study.architecture.presentation.CoinPresenter
 
 
 @SuppressLint("ValidFragment", "WrongConstant")
@@ -27,7 +28,9 @@ class CoinFragment : Fragment(), CoinContract.View {
             this@CoinFragment,
             arguments!!.getSerializable("idx") as FragIndex,
             RepositoryImpl.getInstance(
-                RemoteDataSourceImpl, LocalDataSourceImpl.getInstance(context!!), context!!.getSystemService(
+                RemoteDataSourceImpl,
+                LocalDataSourceImpl.getInstance(context!!),
+                context!!.getSystemService(
                     Context.CONNECTIVITY_SERVICE
                 ) as ConnectivityManager
             )
@@ -49,7 +52,6 @@ class CoinFragment : Fragment(), CoinContract.View {
     override fun showProgress() {
         loading?.visibility = View.VISIBLE
         loading?.animation?.start()
-
     }
 
     override fun hideProgress() {

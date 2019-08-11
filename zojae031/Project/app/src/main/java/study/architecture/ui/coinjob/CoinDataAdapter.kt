@@ -1,4 +1,4 @@
-package study.architecture.presentation.coinjob.adapter
+package study.architecture.ui.coinjob
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.list_item.view.*
 import study.architecture.R
 import study.architecture.data.entity.ProcessingTicker
+import study.architecture.presentation.CoinAdapterContract
 
 /**
  * RecyclerView에 아이템을 뿌려주는 Adpater

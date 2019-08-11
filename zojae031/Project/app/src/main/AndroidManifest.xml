@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.mainjob.MainActivity">
+        <activity android:name="study.architecture.ui.mainjob.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -4,8 +4,9 @@ import android.net.ConnectivityManager
 import io.reactivex.Single
 import study.architecture.data.entity.Market
 import study.architecture.data.entity.Ticker
-import study.architecture.data.local.UpbitLocalDataSource
-import study.architecture.data.remote.UpbitRemoteDataSource
+import study.architecture.data.UpbitLocalDataSource
+import study.architecture.data.UpbitRemoteDataSource
+import study.architecture.data.Repository
 
 class RepositoryImpl private constructor(
     private val remoteRemoteDataSource: UpbitRemoteDataSource,

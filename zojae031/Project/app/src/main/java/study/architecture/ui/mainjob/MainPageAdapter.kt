@@ -1,10 +1,10 @@
-package study.architecture.presentation.mainjob
+package study.architecture.ui.mainjob
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import study.architecture.presentation.coinjob.CoinFragment
+import study.architecture.ui.coinjob.CoinFragment
 
 /**
  * [FragmentPagerAdapter] vs [FragmentStatePagerAdapter]

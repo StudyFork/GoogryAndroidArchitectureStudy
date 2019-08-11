@@ -3,6 +3,7 @@ package study.architecture.data.local
 import android.content.Context
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import study.architecture.data.UpbitLocalDataSource
 import study.architecture.data.entity.Market
 import study.architecture.data.entity.Ticker
 
