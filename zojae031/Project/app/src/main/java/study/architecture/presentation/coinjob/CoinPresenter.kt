@@ -20,35 +20,34 @@ class CoinPresenter(
     private val repository: RepositoryImpl
 ) :
     CoinContract.Presenter {
+    private lateinit var marketName: String
 
     private val dispose: Disposable
-    private lateinit var marketName: String
     private val compositeDisposable = CompositeDisposable()
 
     private lateinit var adapterView: CoinAdapterContract.View
     private lateinit var adapterModel: CoinAdapterContract.Model
 
     init {
-        dispose =
-            repository.getMarkets()
-                .map { list ->
-                    list.filter { filterData
-                        ->
-                        filterData.market.startsWith(index.name)
-                    }
-                        .joinToString(",") { separateData ->
-                            separateData.market
-                        }
+        repository.getMarkets()
+            .map { list ->
+                list.filter { filterData
+                    ->
+                    filterData.market.startsWith(index.name)
                 }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { marketList ->
-                        marketName = marketList
-                        tickerRequest()
-                    },
-                    { e ->
-                        view.showError(e.message)
-                    })
+                    .joinToString(",") { separateData ->
+                        separateData.market
+                    }
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    marketName = it
+                    tickerRequest()
+                },
+                {
+                    view.showError(it.message)
+                }).also { dispose = it }
     }
 
     override fun setAdapterView(adapterView: CoinAdapterContract.View) {
@@ -74,11 +73,10 @@ class CoinPresenter(
     @SuppressLint("CheckResult")
     private fun tickerRequest() {
         repository.getTickers(marketName)
-            .repeatWhen { t -> t.delay(8, TimeUnit.SECONDS) }
+            .repeatWhen { it.delay(8, TimeUnit.SECONDS) }
             .doOnSubscribe { view.showProgress() }
             .doOnRequest { view.hideProgress() }
             .map { list ->
-                repository.insertTicker(list)
                 list.map { data ->
                     ProcessingTicker(
                         TextUtil.getMarketName(data.market),

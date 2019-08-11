@@ -1,11 +1,11 @@
 package study.architecture.data.repository
 
 import io.reactivex.Single
+import study.architecture.data.entity.Market
+import study.architecture.data.entity.Ticker
 import study.architecture.data.local.LocalDataSourceImpl
 import study.architecture.data.local.UpbitLocalDataSource
 import study.architecture.data.remote.UpbitRemoteDataSource
-import study.architecture.data.entity.Market
-import study.architecture.data.entity.Ticker
 
 class RepositoryImpl private constructor(
     private val remoteRemoteDataSource: UpbitRemoteDataSource,
@@ -17,23 +17,17 @@ class RepositoryImpl private constructor(
             localRemoteDataSource.getMarkets()
         } else {
             remoteRemoteDataSource.getMarkets()
-                .doOnSuccess { insertMarket(it) }
+                .doOnSuccess { list -> list.map { localRemoteDataSource.insertMarket(it) } }
         }
     }
 
-    private fun insertMarket(lists: List<Market>) {
-        lists.map { localRemoteDataSource.insertMarket(it) }
-    }
-
-    fun insertTicker(lists: MutableList<Ticker>) {
-        lists.map { localRemoteDataSource.insertTicker(it) }
-    }
 
     override fun getTickers(markets: String): Single<MutableList<Ticker>> {
         return if (!localRemoteDataSource.checkNetwork()) {
             localRemoteDataSource.getTickers(markets.split("-")[0])
         } else {
             remoteRemoteDataSource.getTickers(markets)
+                .doOnSuccess { list -> list.map { localRemoteDataSource.insertTicker(it) } }
         }
 
     }
