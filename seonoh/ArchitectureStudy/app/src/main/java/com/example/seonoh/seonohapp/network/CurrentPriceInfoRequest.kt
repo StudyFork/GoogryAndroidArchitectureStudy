@@ -1,4 +1,5 @@
 package com.example.seonoh.seonohapp.network
+import android.util.Log
 import com.example.seonoh.seonohapp.SeonohApplication
 import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -20,6 +21,7 @@ class CurrentPriceInfoRequest{
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 mListener.getCurrentInfoSuccess(it)
+
             }, { e ->
                 if (e is HttpException) {
                     mListener.getCurrentInfoFailed(e.toString())
@@ -34,7 +36,7 @@ class CurrentPriceInfoRequest{
 
 
     interface ResultListener {
-        fun getCurrentInfoSuccess(result: CurrentPriceInfoModel)
+        fun getCurrentInfoSuccess(result: ArrayList<CurrentPriceInfoModel>)
         fun getCurrentInfoFailed(code : String)
     }
 }
