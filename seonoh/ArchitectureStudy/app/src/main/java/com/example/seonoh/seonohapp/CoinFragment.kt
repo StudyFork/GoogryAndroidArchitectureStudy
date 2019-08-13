@@ -30,8 +30,7 @@ class CoinFragment : BaseFragment(),CurrentPriceInfoRequest.ResultListener{
             marketName = arguments!!.getString("market")
             marketType = arguments!!.getInt("type")
         }
-        Log.e("onCreateView","onCreateView")
-        showLoading()
+//        showLoading()
         requestData()
 
         return mView
@@ -51,13 +50,13 @@ class CoinFragment : BaseFragment(),CurrentPriceInfoRequest.ResultListener{
     }
 
     override fun getCurrentInfoSuccess(result: ArrayList<CurrentPriceInfoModel>) {
-        hideLoading()
+//        hideLoading()
         mData = result
         initView(mData)
     }
 
     override fun getCurrentInfoFailed(code: String) {
-        hideLoading()
+//        hideLoading()
     }
 
 
