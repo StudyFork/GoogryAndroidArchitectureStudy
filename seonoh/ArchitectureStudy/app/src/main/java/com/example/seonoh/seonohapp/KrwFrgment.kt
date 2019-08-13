@@ -19,7 +19,7 @@ class KrwFrgment : Fragment(),CurrentPriceInfoRequest.ResultListener{
     lateinit var mView : View
     lateinit var mData : ArrayList<CurrentPriceInfoModel>
     lateinit var mLinearLayoutManager: LinearLayoutManager
-    lateinit var mAdapter : KrwAdapter
+    lateinit var mAdapter : CoinAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -32,7 +32,7 @@ class KrwFrgment : Fragment(),CurrentPriceInfoRequest.ResultListener{
     }
 
     fun initView( data: ArrayList<CurrentPriceInfoModel>){
-        mAdapter = KrwAdapter(data)
+        mAdapter = CoinAdapter(data,KRW_TYPE)
         mLinearLayoutManager = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
         mView.krwRecyclerView.apply {
             layoutManager = mLinearLayoutManager
@@ -45,14 +45,11 @@ class KrwFrgment : Fragment(),CurrentPriceInfoRequest.ResultListener{
     }
 
     override fun getCurrentInfoSuccess(result: ArrayList<CurrentPriceInfoModel>) {
-        Log.e("getCurrentInfoSuccess","$result")
         mData = result
-
         initView(mData)
     }
 
     override fun getCurrentInfoFailed(code: String) {
-        Log.e("getCurrentInfoFailed","$code")
 
     }
 
