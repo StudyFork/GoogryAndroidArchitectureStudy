@@ -14,7 +14,7 @@ import com.example.seonoh.seonohapp.network.CurrentPriceInfoRequest
 import kotlinx.android.synthetic.main.btc_fragment.view.*
 import kotlinx.android.synthetic.main.usdt_fragment.view.*
 
-class UsdtFragment :Fragment(), CurrentPriceInfoRequest.ResultListener {
+class UsdtFragment :BaseFragment(), CurrentPriceInfoRequest.ResultListener {
 
     lateinit var mView: View
     lateinit var mData: ArrayList<CurrentPriceInfoModel>
@@ -27,7 +27,7 @@ class UsdtFragment :Fragment(), CurrentPriceInfoRequest.ResultListener {
     ): View? {
         mView = inflater.inflate(R.layout.usdt_fragment, container, false)
         Log.e("onCreateView", "onCreateView")
-
+        showLoading()
         requestData()
 
         return mView
@@ -47,12 +47,13 @@ class UsdtFragment :Fragment(), CurrentPriceInfoRequest.ResultListener {
     }
 
     override fun getCurrentInfoSuccess(result: ArrayList<CurrentPriceInfoModel>) {
+        hideLoading()
         mData = result
         initView(mData)
     }
 
     override fun getCurrentInfoFailed(code: String) {
-
+        hideLoading()
     }
 
 

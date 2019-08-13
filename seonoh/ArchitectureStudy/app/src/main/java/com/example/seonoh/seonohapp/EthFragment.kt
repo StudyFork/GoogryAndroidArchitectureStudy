@@ -13,7 +13,7 @@ import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
 import com.example.seonoh.seonohapp.network.CurrentPriceInfoRequest
 import kotlinx.android.synthetic.main.eth_fragment.view.*
 
-class EthFragment : Fragment(), CurrentPriceInfoRequest.ResultListener {
+class EthFragment : BaseFragment(), CurrentPriceInfoRequest.ResultListener {
 
     lateinit var mView: View
     lateinit var mData: ArrayList<CurrentPriceInfoModel>
@@ -26,7 +26,7 @@ class EthFragment : Fragment(), CurrentPriceInfoRequest.ResultListener {
     ): View? {
         mView = inflater.inflate(R.layout.eth_fragment, container, false)
         Log.e("onCreateView", "onCreateView")
-
+        showLoading()
         requestData()
 
         return mView
@@ -46,13 +46,14 @@ class EthFragment : Fragment(), CurrentPriceInfoRequest.ResultListener {
     }
 
     override fun getCurrentInfoSuccess(result: ArrayList<CurrentPriceInfoModel>) {
+        hideLoading()
         mData = result
         Log.e("getCurrentInfoSuccess","getCurrentInfoSuccess ETH : $result")
         initView(mData)
     }
 
     override fun getCurrentInfoFailed(code: String) {
-
+        hideLoading()
     }
 
 

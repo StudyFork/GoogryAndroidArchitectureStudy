@@ -14,7 +14,7 @@ import com.example.seonoh.seonohapp.network.CurrentPriceInfoRequest
 import kotlinx.android.synthetic.main.krw_fragment.view.*
 
 
-class KrwFrgment : Fragment(),CurrentPriceInfoRequest.ResultListener{
+class KrwFrgment : BaseFragment(),CurrentPriceInfoRequest.ResultListener{
 
     lateinit var mView : View
     lateinit var mData : ArrayList<CurrentPriceInfoModel>
@@ -25,7 +25,7 @@ class KrwFrgment : Fragment(),CurrentPriceInfoRequest.ResultListener{
                               savedInstanceState: Bundle?): View? {
         mView = inflater.inflate(R.layout.krw_fragment, container, false)
         Log.e("onCreateView","onCreateView")
-
+        showLoading()
         requestData()
 
         return mView
@@ -45,12 +45,13 @@ class KrwFrgment : Fragment(),CurrentPriceInfoRequest.ResultListener{
     }
 
     override fun getCurrentInfoSuccess(result: ArrayList<CurrentPriceInfoModel>) {
+        hideLoading()
         mData = result
         initView(mData)
     }
 
     override fun getCurrentInfoFailed(code: String) {
-
+        hideLoading()
     }
 
 

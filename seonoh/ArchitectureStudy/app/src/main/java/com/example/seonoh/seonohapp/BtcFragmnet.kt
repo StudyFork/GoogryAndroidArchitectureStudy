@@ -13,7 +13,7 @@ import com.example.seonoh.seonohapp.network.CurrentPriceInfoRequest
 import kotlinx.android.synthetic.main.btc_fragment.view.*
 import kotlinx.android.synthetic.main.eth_fragment.view.*
 
-class BtcFragmnet : Fragment(), CurrentPriceInfoRequest.ResultListener {
+class BtcFragmnet : BaseFragment(), CurrentPriceInfoRequest.ResultListener {
 
     lateinit var mView: View
     lateinit var mData: ArrayList<CurrentPriceInfoModel>
@@ -26,6 +26,7 @@ class BtcFragmnet : Fragment(), CurrentPriceInfoRequest.ResultListener {
     ): View? {
         mView = inflater.inflate(R.layout.btc_fragment, container, false)
         Log.e("onCreateView", "onCreateView")
+        showLoading()
 
         requestData()
 
@@ -42,23 +43,23 @@ class BtcFragmnet : Fragment(), CurrentPriceInfoRequest.ResultListener {
     }
 
     fun requestData() {
-        Log.e("BtcFragmnet","${MainActivity.btcMarketData}")
         CurrentPriceInfoRequest().send(this, MainActivity.btcMarketData)
     }
 
     override fun getCurrentInfoSuccess(result: ArrayList<CurrentPriceInfoModel>) {
+        hideLoading()
         mData = result
         initView(mData)
+
     }
 
     override fun getCurrentInfoFailed(code: String) {
-
+        hideLoading()
     }
 
 
     companion object {
-        fun newInstance(): BtcFragmnet
-        {
+        fun newInstance(): BtcFragmnet {
             val fragment = BtcFragmnet()
             return fragment
         }
