@@ -1,5 +1,4 @@
 package com.example.seonoh.seonohapp.network
-import android.util.Log
 import com.example.seonoh.seonohapp.SeonohApplication
 import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
 import io.reactivex.android.schedulers.AndroidSchedulers
