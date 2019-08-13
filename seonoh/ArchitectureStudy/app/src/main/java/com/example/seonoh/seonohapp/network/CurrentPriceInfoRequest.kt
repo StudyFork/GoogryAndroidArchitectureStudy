@@ -1,4 +1,5 @@
 package com.example.seonoh.seonohapp.network
+import android.util.Log
 import com.example.seonoh.seonohapp.SeonohApplication
 import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -13,6 +14,7 @@ class CurrentPriceInfoRequest{
 
     fun send(listener: ResultListener,markets : String) {
 
+        Log.e("gittest","gittest!!")
         mListener = listener
         var single = SeonohApplication.mApiService!!.getCurrentPriceInfo(markets)
 
