@@ -1,20 +1,17 @@
 package com.example.seonoh.seonohapp.network
-import android.util.Log
+
 import com.example.seonoh.seonohapp.SeonohApplication
 import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 
-class CurrentPriceInfoRequest{
+class CurrentPriceInfoRequest {
 
-    lateinit var mListener : ResultListener
+    lateinit var mListener: ResultListener
 
 
-
-    fun send(listener: ResultListener,markets : String) {
-
-        Log.e("gittest","gittest!!")
+    fun send(listener: ResultListener, markets: String) {
         mListener = listener
         var single = SeonohApplication.mApiService!!.getCurrentPriceInfo(markets)
 
@@ -34,10 +31,8 @@ class CurrentPriceInfoRequest{
     }
 
 
-
-
     interface ResultListener {
         fun getCurrentInfoSuccess(result: ArrayList<CurrentPriceInfoModel>)
-        fun getCurrentInfoFailed(code : String)
+        fun getCurrentInfoFailed(code: String)
     }
 }
