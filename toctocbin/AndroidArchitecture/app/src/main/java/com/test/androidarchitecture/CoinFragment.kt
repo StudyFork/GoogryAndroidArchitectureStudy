@@ -9,7 +9,16 @@ import android.view.ViewGroup
 
 
 class CoinFragment : Fragment() {
+    companion object {
 
+        fun getInstance(coinFilterList: ArrayList<String>): CoinFragment {
+            val args: Bundle = Bundle();
+            args.putStringArrayList("coinFilterList", coinFilterList)
+            val fragment = CoinFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
