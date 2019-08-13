@@ -29,8 +29,6 @@ class BtcFragmnet : Fragment(), CurrentPriceInfoRequest.ResultListener {
 
         requestData()
 
-        //git testasdasdsad
-
         return mView
     }
 
