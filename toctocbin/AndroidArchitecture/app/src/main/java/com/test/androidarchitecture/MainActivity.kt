@@ -8,11 +8,9 @@ import com.test.androidarchitecture.adpter.ViewpagerAdapter
 import com.test.androidarchitecture.data.Market
 import com.test.androidarchitecture.network.RetrofitClient
 import com.test.androidarchitecture.network.RetrofitService
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.adapter.rxjava2.Result.response
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,13 +41,13 @@ class MainActivity : AppCompatActivity() {
         fragmentList.run {
             for (market in marketList) {
                 if (market.market.contains("KRW"))
-                    krwList.add(market.english_name)
+                    krwList.add(market.market)
                 if (market.market.contains("BTC"))
-                    btcList.add(market.english_name)
+                    btcList.add(market.market)
                 if (market.market.contains("ETH"))
-                    ethList.add(market.english_name)
+                    ethList.add(market.market)
                 if (market.market.contains("USDT"))
-                    usdtList.add(market.english_name)
+                    usdtList.add(market.market)
             }
             add(CoinFragment.getInstance(krwList))
             add(CoinFragment.getInstance(btcList))
@@ -57,6 +55,7 @@ class MainActivity : AppCompatActivity() {
             add(CoinFragment.getInstance(usdtList))
         }
         viewpagerAdapter = ViewpagerAdapter(supportFragmentManager, fragmentList, titleList)
+        main_viewPager.offscreenPageLimit = 3
         main_viewPager.adapter = viewpagerAdapter
     }
 
