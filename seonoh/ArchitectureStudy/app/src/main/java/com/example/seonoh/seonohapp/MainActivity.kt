@@ -12,9 +12,16 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(),MarketRequest.ResultListener {
 
     companion object{
+        @JvmStatic
         var krwMarketData : String = ""
+
+        @JvmStatic
         var btcMarketData : String = ""
+
+        @JvmStatic
         var ethMarketData : String = ""
+
+        @JvmStatic
         var usdtMarketData : String = ""
     }
     lateinit var mPagerAdapter : TabPagerAdapter

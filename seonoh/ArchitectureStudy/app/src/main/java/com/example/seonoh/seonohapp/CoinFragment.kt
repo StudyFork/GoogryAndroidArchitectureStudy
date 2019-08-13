@@ -6,24 +6,30 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
 import com.example.seonoh.seonohapp.network.CurrentPriceInfoRequest
-import kotlinx.android.synthetic.main.krw_fragment.view.*
+import kotlinx.android.synthetic.main.coin_fragment.view.*
 
 
-class KrwFrgment : BaseFragment(),CurrentPriceInfoRequest.ResultListener{
+class CoinFragment : BaseFragment(),CurrentPriceInfoRequest.ResultListener{
 
     lateinit var mView : View
     lateinit var mData : ArrayList<CurrentPriceInfoModel>
     lateinit var mLinearLayoutManager: LinearLayoutManager
     lateinit var mAdapter : CoinAdapter
+    var marketName = ""
+    var marketType = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        mView = inflater.inflate(R.layout.krw_fragment, container, false)
+        mView = inflater.inflate(R.layout.coin_fragment, container, false)
+
+        if(arguments != null){
+            marketName = arguments!!.getString("market")
+            marketType = arguments!!.getInt("type")
+        }
         Log.e("onCreateView","onCreateView")
         showLoading()
         requestData()
@@ -32,7 +38,7 @@ class KrwFrgment : BaseFragment(),CurrentPriceInfoRequest.ResultListener{
     }
 
     fun initView( data: ArrayList<CurrentPriceInfoModel>){
-        mAdapter = CoinAdapter(data,KRW_TYPE)
+        mAdapter = CoinAdapter(data,marketType)
         mLinearLayoutManager = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
         mView.krwRecyclerView.apply {
             layoutManager = mLinearLayoutManager
@@ -41,7 +47,7 @@ class KrwFrgment : BaseFragment(),CurrentPriceInfoRequest.ResultListener{
     }
 
     fun requestData(){
-        CurrentPriceInfoRequest().send(this, MainActivity.krwMarketData)
+        CurrentPriceInfoRequest().send(this, marketName)
     }
 
     override fun getCurrentInfoSuccess(result: ArrayList<CurrentPriceInfoModel>) {
@@ -56,8 +62,12 @@ class KrwFrgment : BaseFragment(),CurrentPriceInfoRequest.ResultListener{
 
 
     companion object{
-        fun newInstance(): KrwFrgment {
-            val fragment = KrwFrgment()
+        fun newInstance(type : Int,data : String): CoinFragment {
+            val fragment = CoinFragment()
+            val bundle = Bundle()
+            bundle.putString("market",data)
+            bundle.putInt("type",type)
+            fragment.arguments = bundle
             return fragment
         }
     }
