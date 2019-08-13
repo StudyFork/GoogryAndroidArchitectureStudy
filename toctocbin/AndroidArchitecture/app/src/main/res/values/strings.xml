@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AndroidArchitecture</string>
+    <string name="str_upbit">업비트(Upbit)</string>
 </resources>
