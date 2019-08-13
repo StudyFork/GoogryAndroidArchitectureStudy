@@ -58,7 +58,8 @@ class UsdtFragment :Fragment(), CurrentPriceInfoRequest.ResultListener {
 
     companion object {
         fun newInstance(): UsdtFragment {
-            return UsdtFragment()
+            val fragment = UsdtFragment()
+            return fragment
         }
     }
 }

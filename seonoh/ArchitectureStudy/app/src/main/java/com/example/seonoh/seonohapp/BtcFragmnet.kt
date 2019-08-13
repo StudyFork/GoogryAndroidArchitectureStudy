@@ -59,8 +59,10 @@ class BtcFragmnet : Fragment(), CurrentPriceInfoRequest.ResultListener {
 
 
     companion object {
-        fun newInstance(): BtcFragmnet {
-            return BtcFragmnet()
+        fun newInstance(): BtcFragmnet
+        {
+            val fragment = BtcFragmnet()
+            return fragment
         }
     }
 }

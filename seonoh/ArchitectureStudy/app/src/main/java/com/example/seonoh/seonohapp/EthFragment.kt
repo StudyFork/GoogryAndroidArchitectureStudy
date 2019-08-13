@@ -58,7 +58,8 @@ class EthFragment : Fragment(), CurrentPriceInfoRequest.ResultListener {
 
     companion object {
         fun newInstance(): EthFragment {
-            return EthFragment()
+            val fragment = EthFragment()
+            return fragment
         }
     }
 }

@@ -56,7 +56,8 @@ class KrwFrgment : Fragment(),CurrentPriceInfoRequest.ResultListener{
 
     companion object{
         fun newInstance(): KrwFrgment {
-            return KrwFrgment()
+            val fragment = KrwFrgment()
+            return fragment
         }
     }
 }
