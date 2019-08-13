@@ -22,7 +22,7 @@ data class Coin(
     val timestamp: Long,
     val trade_date: String,
     val trade_date_kst: String,
-    val trade_price: String,
+    val trade_price: Double,
     val trade_time: String,
     val trade_time_kst: String,
     val trade_timestamp: Long,

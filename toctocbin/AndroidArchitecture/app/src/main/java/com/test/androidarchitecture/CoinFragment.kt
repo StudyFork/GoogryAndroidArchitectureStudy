@@ -18,12 +18,14 @@ class CoinFragment : Fragment() {
 
     private var coinList: ArrayList<String>? = null
     private var retrofitService: RetrofitService? = null
+    private var coinType: String? = null
 
     companion object {
 
-        fun getInstance(coinFilterList: ArrayList<String>): CoinFragment {
+        fun getInstance(coinFilterList: ArrayList<String>, coinType: String): CoinFragment {
             val args = Bundle()
             args.putStringArrayList("coinList", coinFilterList)
+            args.putString("coinType", coinType)
             val fragment = CoinFragment()
             fragment.arguments = args
             return fragment
@@ -39,6 +41,7 @@ class CoinFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         coinList = arguments?.getStringArrayList("coinList")
+        coinType = arguments?.getString("coinType")
         coinList?.let { loadCoinData(it) }
     }
 

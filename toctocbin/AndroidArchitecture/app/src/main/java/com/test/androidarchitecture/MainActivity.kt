@@ -49,10 +49,10 @@ class MainActivity : AppCompatActivity() {
                 if (market.market.contains("USDT"))
                     usdtList.add(market.market)
             }
-            add(CoinFragment.getInstance(krwList))
-            add(CoinFragment.getInstance(btcList))
-            add(CoinFragment.getInstance(ethList))
-            add(CoinFragment.getInstance(usdtList))
+            add(CoinFragment.getInstance(krwList, "KRW"))
+            add(CoinFragment.getInstance(btcList, "BTC"))
+            add(CoinFragment.getInstance(ethList, "ETH"))
+            add(CoinFragment.getInstance(usdtList, "USDT"))
         }
         viewpagerAdapter = ViewpagerAdapter(supportFragmentManager, fragmentList, titleList)
         main_viewPager.offscreenPageLimit = 3
