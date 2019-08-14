@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
 
-class CoinAdapter(data: ArrayList<CurrentPriceInfoModel>,val type : Int) : RecyclerView.Adapter<CoinItemViewHolder>(){
+class CoinAdapter(data: ArrayList<CurrentPriceInfoModel>) : RecyclerView.Adapter<CoinItemViewHolder>(){
 
     lateinit var mView : View
     val mData = data
@@ -14,7 +14,7 @@ class CoinAdapter(data: ArrayList<CurrentPriceInfoModel>,val type : Int) : Recyc
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinItemViewHolder {
 
         mView = LayoutInflater.from(parent.context).inflate(R.layout.coin_item,parent,false)
-        return CoinItemViewHolder(mView,type)
+        return CoinItemViewHolder(mView)
     }
 
     override fun getItemCount(): Int = mData.size

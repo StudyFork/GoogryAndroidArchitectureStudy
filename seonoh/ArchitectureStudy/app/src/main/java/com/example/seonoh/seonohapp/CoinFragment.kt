@@ -30,14 +30,13 @@ class CoinFragment : BaseFragment(),CurrentPriceInfoRequest.ResultListener{
             marketName = arguments!!.getString("market")
             marketType = arguments!!.getInt("type")
         }
-//        showLoading()
         requestData()
 
         return mView
     }
 
     fun initView( data: ArrayList<CurrentPriceInfoModel>){
-        mAdapter = CoinAdapter(data,marketType)
+        mAdapter = CoinAdapter(data)
         mLinearLayoutManager = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
         mView.krwRecyclerView.apply {
             layoutManager = mLinearLayoutManager
@@ -50,13 +49,11 @@ class CoinFragment : BaseFragment(),CurrentPriceInfoRequest.ResultListener{
     }
 
     override fun getCurrentInfoSuccess(result: ArrayList<CurrentPriceInfoModel>) {
-//        hideLoading()
         mData = result
         initView(mData)
     }
 
     override fun getCurrentInfoFailed(code: String) {
-//        hideLoading()
     }
 
 
