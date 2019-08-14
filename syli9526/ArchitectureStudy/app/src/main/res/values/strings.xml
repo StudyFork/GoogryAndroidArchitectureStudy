@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">ArchitectureStudy</string>
+
+    <string name="currency_1">KRW</string>
+    <string name="currency_2">BTC</string>
+    <string name="currency_3">ETH</string>
+    <string name="currency_4">USDT</string>
+
+    <string name="coin_name">코인명</string>
+    <string name="present_price">현재가</string>
+    <string name="compare_with_yesterday">전일대비</string>
+    <string name="transaction_amount">거래대금</string>
+
 </resources>
