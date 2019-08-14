@@ -1,7 +1,8 @@
-package com.jskim5923.architecturestudy
+package com.jskim5923.architecturestudy.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.jskim5923.architecturestudy.R
 
 class MainActivity : AppCompatActivity() {
 
