@@ -87,4 +87,14 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/coin_list_viewpager"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/main_panel"
+            app:layout_constraintBottom_toBottomOf="parent"
+    />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
