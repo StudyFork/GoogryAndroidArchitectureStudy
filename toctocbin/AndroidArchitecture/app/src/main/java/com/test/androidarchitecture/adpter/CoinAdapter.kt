@@ -12,8 +12,7 @@ import kotlin.collections.ArrayList
 
 class CoinAdapter(private val coinType: String) : RecyclerView.Adapter<CoinAdapter.CoinViewHolder>() {
 
-    val coinList: MutableList<Coin> = ArrayList()
-
+    private val coinList: MutableList<Coin> = ArrayList()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinViewHolder {
@@ -26,7 +25,7 @@ class CoinAdapter(private val coinType: String) : RecyclerView.Adapter<CoinAdapt
 
     override fun onBindViewHolder(holder: CoinViewHolder, position: Int) {
         coinList[position].let { coin ->
-            with(holder){
+            with(holder) {
                 coinNameTextView.text = coin.market.replace(coinType, "").replace("-", "")
                 coinNowPriceView.text = formatPrice(coin.trade_price)
             }
@@ -34,7 +33,7 @@ class CoinAdapter(private val coinType: String) : RecyclerView.Adapter<CoinAdapt
     }
 
 
-    private fun addItem(coinList: ArrayList<Coin>) {
+    fun addItem(coinList: ArrayList<Coin>) {
         this.coinList.addAll(coinList)
     }
 

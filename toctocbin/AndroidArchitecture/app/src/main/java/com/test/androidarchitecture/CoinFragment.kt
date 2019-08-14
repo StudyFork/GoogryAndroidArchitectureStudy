@@ -7,18 +7,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.test.androidarchitecture.adpter.CoinAdapter
 import com.test.androidarchitecture.data.Coin
 import com.test.androidarchitecture.network.RetrofitClient
 import com.test.androidarchitecture.network.RetrofitService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_coin.*
 
 
 class CoinFragment : Fragment() {
 
     private var coinList: ArrayList<String>? = null
     private var retrofitService: RetrofitService? = null
-    private var coinType: String? = null
+    private var coinType: String = ""
+    private var adapter: CoinAdapter? = null
 
     companion object {
 
@@ -41,7 +44,9 @@ class CoinFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         coinList = arguments?.getStringArrayList("coinList")
-        coinType = arguments?.getString("coinType")
+        coinType = arguments?.getString("coinType")!!
+        adapter = CoinAdapter(coinType)
+        coin_recyclerView.adapter = this.adapter
         coinList?.let { loadCoinData(it) }
     }
 
@@ -54,7 +59,8 @@ class CoinFragment : Fragment() {
     }
 
     private fun coinResponse(coinList: ArrayList<Coin>) {
-        Toast.makeText(context, coinList[0].low_price, Toast.LENGTH_SHORT).show()
+        adapter?.addItem(coinList)
+        adapter?.notifyDataSetChanged()
     }
 
     private fun coinError(error: Throwable) {

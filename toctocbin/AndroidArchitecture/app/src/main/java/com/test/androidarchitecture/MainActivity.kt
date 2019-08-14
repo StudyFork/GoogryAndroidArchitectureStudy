@@ -40,13 +40,13 @@ class MainActivity : AppCompatActivity() {
         val usdtList: ArrayList<String> = ArrayList()
         fragmentList.run {
             for (market in marketList) {
-                if (market.market.contains("KRW"))
+                if (market.market.startsWith("KRW"))
                     krwList.add(market.market)
-                if (market.market.contains("BTC"))
+                if (market.market.startsWith("BTC"))
                     btcList.add(market.market)
-                if (market.market.contains("ETH"))
+                if (market.market.startsWith("ETH"))
                     ethList.add(market.market)
-                if (market.market.contains("USDT"))
+                if (market.market.startsWith("USDT"))
                     usdtList.add(market.market)
             }
             add(CoinFragment.getInstance(krwList, "KRW"))
