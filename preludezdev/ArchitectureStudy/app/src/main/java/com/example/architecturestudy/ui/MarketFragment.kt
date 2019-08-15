@@ -21,11 +21,6 @@ class MarketFragment : Fragment(), MarketContract.View {
 
     private var key = "KEY_MARKET"
 
-    private val repository = CoinsRepository.getInstance(
-        CoinsRemoteDataSource.getInstance(RetrofitHelper.getInstance().coinApiService),
-        CoinsLocalDataSource.getInstance()
-    )
-
     private val rvAdapter = RecyclerViewAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
@@ -41,7 +36,13 @@ class MarketFragment : Fragment(), MarketContract.View {
 
         val keyMarket = arguments?.getString(key)
 
-        presenter = MarketPresenter(this, repository) // Presenter 객체 생성해서 할당
+        presenter = MarketPresenter(
+            this, CoinsRepository.getInstance(
+                CoinsRemoteDataSource.getInstance(RetrofitHelper.getInstance().coinApiService),
+                CoinsLocalDataSource.getInstance()
+            )
+        ) // Presenter 객체 생성해서 할당
+
         presenter.loadData(keyMarket) // Presenter 를 통해 해당 마켓의 데이터 불러오기
     }
 
