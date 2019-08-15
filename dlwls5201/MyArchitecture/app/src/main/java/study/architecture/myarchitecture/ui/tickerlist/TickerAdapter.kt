@@ -17,12 +17,12 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
 
     private val tickers = mutableListOf<TickerItem>()
 
-    private var listener: TickerClickListener? = null
+    private var clickEvent: ((ticker: TickerItem) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TickerViewHolder {
         return TickerViewHolder.newInstance(
             parent,
-            listener
+            clickEvent
         )
     }
 
@@ -32,18 +32,13 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
         holder.onBindView(tickers[position])
     }
 
-    fun setTickerClickListener(listener: TickerClickListener) {
-        this.listener = listener
+    fun setTickerClickEvent(clickEvent: (ticker: TickerItem) -> Unit) {
+        this.clickEvent = clickEvent
     }
 
     fun setItem(newTickers: MutableList<TickerItem>) {
         tickers.addAll(newTickers)
         notifyDataSetChanged()
-    }
-
-    interface TickerClickListener {
-
-        fun onItemClick(ticker: TickerItem)
     }
 
     /**
@@ -95,7 +90,7 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
      */
     class TickerViewHolder(
         itemView: View,
-        private val listener: TickerClickListener?
+        private val clickEvent: ((ticker: TickerItem) -> Unit)?
     ) : RecyclerView.ViewHolder(itemView) {
 
         private val tvMarket: TextView = itemView.findViewById(R.id.tvMarket)
@@ -112,16 +107,16 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
             tvAccTradePrice24h.text = ticker.tradeAmount
 
             itemView.setOnClickListener {
-                listener?.onItemClick(ticker)
+                clickEvent?.invoke(ticker)
             }
 
         }
 
         companion object {
-            fun newInstance(parent: ViewGroup, listener: TickerClickListener?) =
+            fun newInstance(parent: ViewGroup, clickEvent: ((ticker: TickerItem) -> Unit)?) =
                 TickerViewHolder(
                     parent.inflate(R.layout.item_ticker),
-                    listener
+                    clickEvent
                 )
         }
     }

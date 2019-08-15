@@ -42,12 +42,9 @@ class TickerListFragment : BaseFragment(), TickerListContract.View {
 
         rvTickerList.adapter = tickerAdapter
 
-        tickerAdapter.setTickerClickListener(object :
-            TickerAdapter.TickerClickListener {
-            override fun onItemClick(ticker: TickerItem) {
-                toast(ticker.toString())
-            }
-        })
+        tickerAdapter.setTickerClickEvent {
+            toast(it.toString())
+        }
     }
 
     override fun showProgress() {
