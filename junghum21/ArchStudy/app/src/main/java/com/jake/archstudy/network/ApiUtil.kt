@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiUtil {
 
-    private const val BASE_URL = "https://api.upbit.com/v1/"
+    private const val BASE_URL = "https://api.upbit.com/"
 
     private var retrofit: Retrofit? = null
 
