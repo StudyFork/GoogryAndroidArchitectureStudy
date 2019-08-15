@@ -6,7 +6,7 @@ import retrofit2.http.GET
 
 interface UpbitService {
 
-    @GET("/market/all")
-    fun getMarketAll(): Call<MarketResponse>
+    @GET("/v1/market/all")
+    fun getMarketAll(): Call<List<MarketResponse>>
 
 }
