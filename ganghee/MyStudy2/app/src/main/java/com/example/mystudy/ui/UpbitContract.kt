@@ -9,6 +9,6 @@ interface UpbitContract {
     }
 
     interface Presenter : BasePresenter {
-        fun getTicker(firstMarket: String)
+        fun getTicker(firstMarket: String?)
     }
 }
