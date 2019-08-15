@@ -23,6 +23,13 @@ class CoinListFragment : Fragment(), CoinListFragmentContract.View, CoinListAdap
 
     private var monetaryUnitNameList: List<String>? = null
 
+    private val tabList = listOf(
+        R.string.monetary_unit_1,
+        R.string.monetary_unit_2,
+        R.string.monetary_unit_3,
+        R.string.monetary_unit_4
+    )
+
     private var refreshHandler = Handler()
     override var isActive = false
         get() = isAdded
@@ -59,7 +66,7 @@ class CoinListFragment : Fragment(), CoinListFragmentContract.View, CoinListAdap
             presenter = CoinListFragmentPresenter(
                 CoinRepositoryImp.getInstance(),
                 this@CoinListFragment,
-                it,
+                tabList.map { getString(it) },
                 false
             )
         }

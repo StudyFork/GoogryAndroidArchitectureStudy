@@ -1,6 +1,5 @@
 package com.architecture.study.view.coin.presenter
 
-import android.content.Context
 import com.architecture.study.data.model.Ticker
 import com.architecture.study.data.repository.CoinRepository
 import com.architecture.study.data.source.CoinRemoteDataSourceListener
@@ -10,7 +9,7 @@ import com.architecture.study.network.model.TickerResponse
 class CoinListFragmentPresenter(
     private val coinRepository: CoinRepository,
     private val coinListView: CoinListFragmentContract.View,
-    private val context: Context,
+    private val monetaryUnitList: List<String>,
     override var isConnectApi: Boolean
 ) : CoinListFragmentContract.Presenter, RetrofitInstanceCallBack {
 
@@ -23,12 +22,12 @@ class CoinListFragmentPresenter(
 
     override fun getTickerList(marketNameList: List<String>) {
         if (isConnectApi) {
-            coinRepository.getTickerList( marketNameList.joinToString (","), object :
+            coinRepository.getTickerList(marketNameList.joinToString(","), object :
                 CoinRemoteDataSourceListener<TickerResponse> {
                 override fun onSucess(dataList: List<TickerResponse>) {
                     val convertTickerList = mutableListOf<Ticker>()
                     dataList.map {
-                        convertTickerList.add(it.toTicker(context))
+                        convertTickerList.add(it.toTicker(monetaryUnitList))
                     }
                     coinListView.showTickerList(convertTickerList)
                 }
