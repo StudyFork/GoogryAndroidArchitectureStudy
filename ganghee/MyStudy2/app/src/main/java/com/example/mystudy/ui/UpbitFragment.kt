@@ -16,10 +16,8 @@ import com.example.mystudy.data.UpbitRepository
 import kotlinx.android.synthetic.main.fragment_upbit.*
 import org.jetbrains.anko.support.v4.toast
 
-class UpbitFragment(tabName: String) : Fragment(), UpbitContract.View {
+class UpbitFragment : Fragment(), UpbitContract.View {
 
-
-    private val firstMarket = tabName
     private lateinit var tickerAdapter: TickerAdapter
     override lateinit var presenter: UpbitContract.Presenter
 
@@ -34,6 +32,8 @@ class UpbitFragment(tabName: String) : Fragment(), UpbitContract.View {
     @SuppressLint("CheckResult")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        val firstMarket = arguments?.getString("MARKET_NAME")
+
         recyclerViewSetup()
         presenter =
             UpbitPresenter(
@@ -44,7 +44,7 @@ class UpbitFragment(tabName: String) : Fragment(), UpbitContract.View {
     }
 
     private fun recyclerViewSetup() {
-        Log.d("recyclerViewSetup", "" + firstMarket)
+        Log.d("recyclerViewSetup", "" )
         tickerAdapter = TickerAdapter()
 
         rv_tickers.apply {
@@ -58,6 +58,18 @@ class UpbitFragment(tabName: String) : Fragment(), UpbitContract.View {
     }
 
     override fun showFailedUpbitTickerList() {
-        toast("$firstMarket tiker 데이터를 가져올 수 없습니다.").show()
+        toast("tiker 데이터를 가져올 수 없습니다.").show()
+    }
+
+    companion object {
+        fun newInstance(marketName: String): UpbitFragment {
+            val fragment = UpbitFragment()
+            val bundle = Bundle()
+
+            bundle.putString("MARKET_NAME", marketName)
+            Log.d("market3",""+marketName)
+            fragment.arguments = bundle
+            return fragment
+        }
     }
 }
