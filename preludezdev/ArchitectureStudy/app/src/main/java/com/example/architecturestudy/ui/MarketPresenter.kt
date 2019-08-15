@@ -31,7 +31,7 @@ class MarketPresenter(
                             .getCoinTickers(targetTickers, { coinTickerResponse ->
                                 //map() 스트림 함수 : 컬렉션 내 인자를 변환하여 반환
                                 if (coinTickerResponse != null) {
-                                    marketFragmentView.setTickerData(coinTickerResponse.map(::convertTickerIntoCoin))
+                                    marketFragmentView.showTickerData(coinTickerResponse.map(::convertTickerIntoCoin))
                                     marketFragmentView.hideProgressBar() // 프로그레스바 종료
                                 }
                             }, { onFailCallback(it) })

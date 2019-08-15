@@ -5,7 +5,7 @@ import com.example.architecturestudy.data.Coin
 interface MarketContract {
 
     interface View {
-        fun setTickerData(data: List<Coin>)
+        fun showTickerData(data: List<Coin>)
 
         fun clearTickerData()
 

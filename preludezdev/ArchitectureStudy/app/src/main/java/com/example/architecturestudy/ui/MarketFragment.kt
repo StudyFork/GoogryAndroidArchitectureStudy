@@ -49,7 +49,7 @@ class MarketFragment : Fragment(), MarketContract.View {
         presenter.loadData(keyMarket) // Presenter 를 통해 해당 마켓의 데이터 불러오기
     }
 
-    override fun setTickerData(data: List<Coin>) {
+    override fun showTickerData(data: List<Coin>) {
         rvAdapter.setData(data)
     }
 
