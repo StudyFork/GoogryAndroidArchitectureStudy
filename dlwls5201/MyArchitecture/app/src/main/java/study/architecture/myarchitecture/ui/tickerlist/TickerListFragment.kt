@@ -60,11 +60,11 @@ class TickerListFragment : BaseFragment(), TickerListContract.View {
     }
 
     override fun showTickers(tickers: MutableList<TickerItem>) {
-        tickerAdapter.setItem(tickers)
+        tickerAdapter.setItems(tickers)
     }
 
-    override fun orderByField(bundle: Bundle) {
-        tickerAdapter.orderByField(bundle)
+    override fun showTickerListOrderByField(field: String, order: Int) {
+        presenter.sortByField(tickerAdapter.getCopyItems(), field, order)
     }
 
     companion object {

@@ -53,9 +53,9 @@ class MainPresenter(
         view.setArrowVisibility(selectArrow, View.VISIBLE)
 
         if (view.getArrowIsSelected(selectArrow)) {
-            view.notifyTickerListObservers(Filter.selectArrowToFilter(selectArrow), Filter.DESC)
+            view.showTickerListOrderByField(Filter.selectArrowToFilter(selectArrow), Filter.DESC)
         } else {
-            view.notifyTickerListObservers(Filter.selectArrowToFilter(selectArrow), Filter.ASC)
+            view.showTickerListOrderByField(Filter.selectArrowToFilter(selectArrow), Filter.ASC)
         }
 
         view.setArrowSelected(selectArrow, !view.getArrowIsSelected(selectArrow))

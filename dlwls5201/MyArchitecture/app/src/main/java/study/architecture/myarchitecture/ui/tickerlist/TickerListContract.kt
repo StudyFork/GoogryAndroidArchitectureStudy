@@ -1,6 +1,5 @@
 package study.architecture.myarchitecture.ui.tickerlist
 
-import android.os.Bundle
 import study.architecture.myarchitecture.ui.model.TickerItem
 
 interface TickerListContract {
@@ -13,12 +12,14 @@ interface TickerListContract {
 
         fun showTickers(tickers: MutableList<TickerItem>)
 
-        fun orderByField(bundle: Bundle)
+        fun showTickerListOrderByField(field: String, order: Int)
     }
 
     interface Presenter {
 
         fun detachView()
+
+        fun sortByField(tickers: MutableList<TickerItem>, field: String, order: Int)
 
         fun loadData()
     }

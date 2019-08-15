@@ -1,15 +1,11 @@
 package study.architecture.myarchitecture.ui.tickerlist
 
-import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.ui.model.TickerItem
-import study.architecture.myarchitecture.util.Filter
-import study.architecture.myarchitecture.util.Filter.ASC
-import study.architecture.myarchitecture.util.Filter.DESC
 import study.architecture.myarchitecture.util.inflate
 import study.architecture.myarchitecture.util.setTradeDiffColor
 
@@ -32,52 +28,15 @@ class TickerAdapter(
         holder.onBindView(tickers[position])
     }
 
-    fun setItem(newTickers: MutableList<TickerItem>) {
+    fun getCopyItems(): MutableList<TickerItem> {
+        val copyItems = mutableListOf<TickerItem>()
+        copyItems.addAll(tickers)
+        return copyItems
+    }
+
+    fun setItems(newTickers: MutableList<TickerItem>) {
+        tickers.clear()
         tickers.addAll(newTickers)
-        notifyDataSetChanged()
-    }
-
-    /**
-     * 정렬
-     */
-    fun orderByField(bundle: Bundle) {
-
-        val order = bundle.getInt(Filter.KEY_ORDER)
-
-        val field = bundle.getString(Filter.KEY_FIELD)
-
-        //Dlog.d("order : $order , field : $field")
-        when (field) {
-
-            Filter.COIN_NAME -> {
-                val selector: (TickerItem) -> String = { it.coinName }
-                setOrderByField(selector, order)
-            }
-
-            Filter.LAST -> {
-                val selector: (TickerItem) -> Double = { it.tradePrice }
-                setOrderByField(selector, order)
-            }
-
-            Filter.TRADE_DIFF -> {
-                val selector: (TickerItem) -> Double = { it.signedChangeRate }
-                setOrderByField(selector, order)
-            }
-
-            Filter.TRADE_AMOUNT -> {
-                val selector: (TickerItem) -> Double = { it.accTradePrice24h }
-                setOrderByField(selector, order)
-            }
-        }
-    }
-
-    private fun <R : Comparable<R>> setOrderByField(selector: (TickerItem) -> R, order: Int) {
-        if (order == ASC) {
-            tickers.sortBy(selector)
-        } else if (order == DESC) {
-            tickers.sortByDescending(selector)
-        }
-
         notifyDataSetChanged()
     }
 

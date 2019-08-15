@@ -9,8 +9,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import study.architecture.myarchitecture.BaseActivity
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.data.Injection
-import study.architecture.myarchitecture.ui.tickerlist.TickerListFragment
-import study.architecture.myarchitecture.util.Filter
 
 class MainActivity : BaseActivity(), MainContract.View {
 
@@ -81,18 +79,11 @@ class MainActivity : BaseActivity(), MainContract.View {
         }.visibility = visibility
     }
 
-    override fun notifyTickerListObservers(field: String, order: Int) {
-
-        val bundle = Bundle().apply {
-            putString(Filter.KEY_FIELD, field)
-            putInt(Filter.KEY_ORDER, order)
-        }
+    override fun showTickerListOrderByField(field: String, order: Int) {
 
         for (i: Int in 0 until mainAdapter.count) {
-            mainAdapter.getItem(i).run {
-                if (this is TickerListFragment) {
-                    orderByField(bundle)
-                }
+            mainAdapter.getFragment(i)?.run {
+                this.get()?.showTickerListOrderByField(field, order)
             }
         }
     }
