@@ -1,7 +1,6 @@
 package com.example.architecturestudy.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,7 @@ import com.example.architecturestudy.util.UpbitRequest
 import kotlinx.android.synthetic.main.fragment_list_coin.*
 import java.text.DecimalFormat
 
-class CoinFragment : Fragment(), CoinAdapter.CoinItemRecyclerViewClickListener{
+class CoinFragment : Fragment(), CoinAdapter.CoinItemRecyclerViewClickListener {
 
     var currencyList: List<String>? = null
     lateinit var coinAdapter: CoinAdapter
@@ -36,7 +35,7 @@ class CoinFragment : Fragment(), CoinAdapter.CoinItemRecyclerViewClickListener{
             getTickerInfo(it.joinToString(","))
         }
 
-        coinAdapter = CoinAdapter(requireContext(),this)
+        coinAdapter = CoinAdapter(requireContext(), this)
 
         rv_coin_list.run {
             layoutManager = LinearLayoutManager(requireContext())
@@ -59,6 +58,7 @@ class CoinFragment : Fragment(), CoinAdapter.CoinItemRecyclerViewClickListener{
                         val price = DecimalFormat("0.########").format(it.tradePrice)
                         val compare: String
                         val compareColor: Int
+
                         if (it.tradePrice < it.prevClosingPrice) {
                             compare =
                                 "-" + DecimalFormat("0.##").format((1 - (it.tradePrice / it.prevClosingPrice)) * 10.0) + "%"
@@ -93,9 +93,7 @@ class CoinFragment : Fragment(), CoinAdapter.CoinItemRecyclerViewClickListener{
                             else -> amount = ""
                         }
 
-                        list.add(CoinInfo(cur, coin, price, compare, compareColor, amount).apply {
-                            Log.d("CoinInfo ::", toString())
-                        })
+                        list.add(CoinInfo(cur, coin, price, compare, compareColor, amount))
                     }
 
                     coinAdapter.setData(list)

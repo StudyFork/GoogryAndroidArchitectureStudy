@@ -1,6 +1,5 @@
 package com.example.architecturestudy.util
 
-import android.util.Log
 import com.example.architecturestudy.model.MarketResponse
 import com.example.architecturestudy.model.TickerResponse
 import retrofit2.Call
@@ -30,7 +29,6 @@ class UpbitRequest {
             }
 
             override fun onResponse(call: Call<List<MarketResponse>>, response: Response<List<MarketResponse>>) {
-                Log.d("response :: ", response.body().toString())
                 response.body()?.let {
                     listenser.onResponse(it)
                 }.let { listenser.onFailure("null") }
@@ -56,7 +54,6 @@ class UpbitRequest {
             }
 
             override fun onResponse(call: Call<List<TickerResponse>>, response: Response<List<TickerResponse>>) {
-                Log.d("response ticker :: ", response.body().toString())
                 response.body()?.let {
                     listenser.onResponse(it)
                 }.let { listenser.onFailure("null") }
