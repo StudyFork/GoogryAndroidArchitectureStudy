@@ -26,13 +26,19 @@ class TickerListFragment : BaseFragment(), TickerListContract.View {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        presenter = TickerListPresenter(
-            Injection.provideFolderRepository(context!!),
-            this@TickerListFragment
-        )
+        arguments?.let { bundle ->
 
-        initRecyclerView()
-        presenter.createdView()
+            presenter = TickerListPresenter(
+                Injection.provideFolderRepository(context!!),
+                this@TickerListFragment,
+                bundle.getString(KEY_MARKETS, "")
+            )
+
+            initRecyclerView()
+            presenter.createdView()
+
+        } ?: error("arguments is null")
+
     }
 
     override fun onDestroyView() {
@@ -52,8 +58,6 @@ class TickerListFragment : BaseFragment(), TickerListContract.View {
     override fun hideProgress() {
         pbTickerList.visibility = View.GONE
     }
-
-    override fun getKeyMarkets() = arguments?.getString(KEY_MARKETS) ?: ""
 
     override fun setTickers(tickers: MutableList<TickerItem>) {
         tickerAdapter.setItem(tickers)

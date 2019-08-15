@@ -8,6 +8,7 @@ import timber.log.Timber
 class TickerListPresenter(
     private val upbitRepository: UpbitRepository,
     private val view: TickerListContract.View,
+    private val keyMarket: String,
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 ) : TickerListContract.Presenter {
 
@@ -20,10 +21,9 @@ class TickerListPresenter(
     }
 
     override fun loadData() {
-        val markets = view.getKeyMarkets()
 
         upbitRepository
-            .getTickers(markets)
+            .getTickers(keyMarket)
             .doOnSubscribe {
                 view.showProgress()
             }
