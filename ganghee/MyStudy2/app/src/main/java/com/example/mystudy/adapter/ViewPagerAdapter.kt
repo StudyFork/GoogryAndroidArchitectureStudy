@@ -8,15 +8,9 @@ import com.example.mystudy.ui.UpbitFragment
 class ViewPagerAdapter(fm: FragmentManager, private val num_fragment: Int) :
     FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    override fun getItem(p0: Int): Fragment {
-        return when (p0) {
-            0 -> UpbitFragment("KRW")
-            1 -> UpbitFragment("BTC")
-            2 -> UpbitFragment("ETH")
-            3 -> UpbitFragment("USDT")
-            else -> null
-        }!!
-    }
+    private val marketList = listOf("KRW", "BTC", "ETH", "USDT")
+
+    override fun getItem(position: Int): Fragment = UpbitFragment.newInstance(marketList[position])
 
     override fun getCount() = num_fragment
 
