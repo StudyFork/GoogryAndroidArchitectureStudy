@@ -12,10 +12,6 @@ class TickerListPresenter(
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 ) : TickerListContract.Presenter {
 
-    override fun createdView() {
-        loadData()
-    }
-
     override fun detachView() {
         compositeDisposable.clear()
     }

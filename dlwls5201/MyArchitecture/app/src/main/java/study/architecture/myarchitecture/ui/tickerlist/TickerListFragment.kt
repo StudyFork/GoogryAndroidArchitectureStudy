@@ -35,7 +35,7 @@ class TickerListFragment : BaseFragment(), TickerListContract.View {
             )
 
             initRecyclerView()
-            presenter.createdView()
+            presenter.loadData()
 
         } ?: error("arguments is null")
 

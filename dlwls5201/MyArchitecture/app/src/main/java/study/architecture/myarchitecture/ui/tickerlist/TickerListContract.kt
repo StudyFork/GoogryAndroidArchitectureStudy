@@ -18,8 +18,6 @@ interface TickerListContract {
 
     interface Presenter {
 
-        fun createdView()
-
         fun detachView()
 
         fun loadData()
