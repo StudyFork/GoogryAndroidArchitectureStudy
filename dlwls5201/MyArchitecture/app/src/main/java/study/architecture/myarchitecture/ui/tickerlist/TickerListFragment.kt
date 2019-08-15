@@ -22,8 +22,8 @@ class TickerListFragment : BaseFragment(), TickerListContract.View {
         return inflater.inflate(R.layout.fragment_ticker_list, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
         presenter = TickerListPresenter(
             Injection.provideFolderRepository(context!!),
