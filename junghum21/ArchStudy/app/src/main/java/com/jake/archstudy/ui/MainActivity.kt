@@ -3,6 +3,9 @@ package com.jake.archstudy.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentStatePagerAdapter
+import com.google.android.material.tabs.TabLayout
 import com.jake.archstudy.R
 import com.jake.archstudy.data.source.UpbitRepository
 import com.jake.archstudy.databinding.ActivityMainBinding
@@ -20,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        initTabLayout()
         getMarketAll()
     }
 
@@ -34,9 +38,35 @@ class MainActivity : AppCompatActivity() {
                     call: Call<List<MarketResponse>?>,
                     response: Response<List<MarketResponse>?>
                 ) {
-
+                    if (response.isSuccessful) {
+                        response.body()?.let { initViewPager(it) }
+                    }
                 }
             })
+    }
+
+    private fun initTabLayout() {
+        binding.tlMarket.run {
+            val viewPager = binding.vpContent
+            addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(viewPager))
+            setupWithViewPager(viewPager)
+        }
+    }
+
+    private fun initViewPager(markets: List<MarketResponse>) {
+        binding.vpContent.run {
+            adapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
+                override fun getItem(position: Int): Fragment {
+                    return TickersFragment.newInstance(markets[position].market ?: "")
+                }
+
+                override fun getCount() = markets.size
+
+                override fun getPageTitle(position: Int): CharSequence? {
+                    return markets[position].market
+                }
+            }
+        }
     }
 
 }
