@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import study.architecture.myarchitecture.BaseActivity
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.data.Injection
-import study.architecture.myarchitecture.rxobserver.RxObserverHelper
+import study.architecture.myarchitecture.ui.tickerlist.TickerListFragment
 import study.architecture.myarchitecture.util.Filter
 
 class MainActivity : BaseActivity(), MainContract.View {
@@ -127,7 +127,13 @@ class MainActivity : BaseActivity(), MainContract.View {
             putInt(Filter.KEY_ORDER, order)
         }
 
-        RxObserverHelper.notifyTickerList(bundle)
+        for (i: Int in 0 until mainAdapter.count) {
+            mainAdapter.getItem(i).run {
+                if (this is TickerListFragment) {
+                    orderByField(bundle)
+                }
+            }
+        }
     }
 
     private fun initToolbar() {

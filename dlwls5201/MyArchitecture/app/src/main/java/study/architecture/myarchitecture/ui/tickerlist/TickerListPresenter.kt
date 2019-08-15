@@ -2,7 +2,6 @@ package study.architecture.myarchitecture.ui.tickerlist
 
 import io.reactivex.disposables.CompositeDisposable
 import study.architecture.myarchitecture.data.repository.UpbitRepository
-import study.architecture.myarchitecture.rxobserver.RxObserverHelper
 import study.architecture.myarchitecture.ui.model.mapToPresentation
 import timber.log.Timber
 
@@ -13,14 +12,6 @@ class TickerListPresenter(
 ) : TickerListContract.Presenter {
 
     override fun createdView() {
-
-        RxObserverHelper.tickerListSubject
-            .subscribe {
-                view.orderByField(it)
-            }.also {
-                compositeDisposable.add(it)
-            }
-
         loadData()
     }
 
