@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_ticker_list.*
 import org.jetbrains.anko.support.v4.toast
 import study.architecture.myarchitecture.BaseFragment
@@ -41,10 +40,7 @@ class TickerListFragment : BaseFragment(), TickerListContract.View {
 
     private fun initRecyclerView() {
 
-        with(rvTickerList) {
-            layoutManager = LinearLayoutManager(context)
-            adapter = tickerAdapter
-        }
+        rvTickerList.adapter = tickerAdapter
 
         tickerAdapter.setTickerClickListener(object :
             TickerAdapter.TickerClickListener {
