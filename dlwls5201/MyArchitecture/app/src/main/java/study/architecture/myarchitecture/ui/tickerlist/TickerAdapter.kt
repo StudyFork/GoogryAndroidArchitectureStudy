@@ -13,11 +13,11 @@ import study.architecture.myarchitecture.util.Filter.DESC
 import study.architecture.myarchitecture.util.inflate
 import study.architecture.myarchitecture.util.setTradeDiffColor
 
-class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
+class TickerAdapter(
+    private val clickEvent: (ticker: TickerItem) -> Unit
+) : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
 
     private val tickers = mutableListOf<TickerItem>()
-
-    private var clickEvent: ((ticker: TickerItem) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TickerViewHolder {
         return TickerViewHolder.newInstance(
@@ -30,10 +30,6 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
 
     override fun onBindViewHolder(holder: TickerViewHolder, position: Int) {
         holder.onBindView(tickers[position])
-    }
-
-    fun setTickerClickEvent(clickEvent: (ticker: TickerItem) -> Unit) {
-        this.clickEvent = clickEvent
     }
 
     fun setItem(newTickers: MutableList<TickerItem>) {

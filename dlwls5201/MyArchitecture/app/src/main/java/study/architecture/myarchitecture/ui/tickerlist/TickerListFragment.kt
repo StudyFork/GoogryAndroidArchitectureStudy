@@ -13,7 +13,9 @@ import study.architecture.myarchitecture.ui.model.TickerItem
 
 class TickerListFragment : BaseFragment(), TickerListContract.View {
 
-    private val tickerAdapter = TickerAdapter()
+    private val tickerAdapter by lazy {
+        TickerAdapter { toast(it.toString()) }
+    }
 
     private lateinit var presenter: TickerListContract.Presenter
 
@@ -41,10 +43,6 @@ class TickerListFragment : BaseFragment(), TickerListContract.View {
     private fun initRecyclerView() {
 
         rvTickerList.adapter = tickerAdapter
-
-        tickerAdapter.setTickerClickEvent {
-            toast(it.toString())
-        }
     }
 
     override fun showProgress() {
