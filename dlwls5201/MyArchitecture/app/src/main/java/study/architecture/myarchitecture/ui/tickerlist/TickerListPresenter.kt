@@ -27,10 +27,7 @@ class TickerListPresenter(
             .doOnSubscribe {
                 view.showProgress()
             }
-            .doOnSuccess {
-                view.hideProgress()
-            }
-            .doOnError {
+            .doOnTerminate {
                 view.hideProgress()
             }
             .subscribe({
