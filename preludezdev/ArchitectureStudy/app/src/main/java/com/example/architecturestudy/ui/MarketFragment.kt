@@ -64,7 +64,7 @@ class MarketFragment : Fragment(), MarketContract.View {
 
     companion object {
         fun newInstance(market: String) = MarketFragment().apply {
-            arguments = Bundle().apply { putString("KEY_MARKET", market) }
+            arguments = Bundle().apply { putString(key, market) }
         }
     }
 
