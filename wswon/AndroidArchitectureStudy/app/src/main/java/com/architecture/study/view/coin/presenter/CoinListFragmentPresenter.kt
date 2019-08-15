@@ -27,10 +27,8 @@ class CoinListFragmentPresenter(
                 CoinRemoteDataSourceListener<TickerResponse> {
                 override fun onSucess(dataList: List<TickerResponse>) {
                     val convertTickerList = mutableListOf<Ticker>()
-                    dataList.forEach {
-                        convertTickerList.add(
-                            it.toTicker(context)
-                        )
+                    dataList.map {
+                        convertTickerList.add(it.toTicker(context))
                     }
                     coinListView.showTickerList(convertTickerList)
                 }
