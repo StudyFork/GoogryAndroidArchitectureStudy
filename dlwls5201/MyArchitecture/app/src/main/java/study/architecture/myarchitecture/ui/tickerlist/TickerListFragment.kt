@@ -10,6 +10,7 @@ import study.architecture.myarchitecture.BaseFragment
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.data.Injection
 import study.architecture.myarchitecture.ui.model.TickerItem
+import study.architecture.myarchitecture.util.Filter
 
 class TickerListFragment : BaseFragment(), TickerListContract.View {
 
@@ -62,7 +63,7 @@ class TickerListFragment : BaseFragment(), TickerListContract.View {
         tickerAdapter.setItems(tickers)
     }
 
-    override fun showTickerListOrderByField(field: String, order: Int) {
+    override fun showTickerListOrderByField(field: Filter.SelectArrow, order: Int) {
         presenter.sortByField(tickerAdapter.getCopyItems(), field, order)
     }
 

@@ -13,10 +13,6 @@ import study.architecture.myarchitecture.util.Filter
 
 class MainActivity : BaseActivity(), MainContract.View {
 
-    enum class SelectArrow {
-        COIN_NAME, LAST, TRADE_DIFF, TRADE_AMOUNT
-    }
-
     private val mainAdapter by lazy { MainAdapter(supportFragmentManager) }
 
     private lateinit var presenter: MainPresenter
@@ -53,7 +49,7 @@ class MainActivity : BaseActivity(), MainContract.View {
         mainAdapter.setTitles(titles)
     }
 
-    override fun showCategoryAllow(selectArrow: SelectArrow) {
+    override fun showCategoryAllow(selectArrow: Filter.SelectArrow) {
 
         ivSelectByCoinName.visibility = View.INVISIBLE
         ivSelectByLast.visibility = View.INVISIBLE
@@ -61,22 +57,22 @@ class MainActivity : BaseActivity(), MainContract.View {
         ivSelectByTradeAmount.visibility = View.INVISIBLE
 
         val imageView = when (selectArrow) {
-            SelectArrow.COIN_NAME -> ivSelectByCoinName
-            SelectArrow.LAST -> ivSelectByLast
-            SelectArrow.TRADE_DIFF -> ivSelectByTradeDiff
-            SelectArrow.TRADE_AMOUNT -> ivSelectByTradeAmount
+            Filter.SelectArrow.COIN_NAME -> ivSelectByCoinName
+            Filter.SelectArrow.LAST -> ivSelectByLast
+            Filter.SelectArrow.TRADE_DIFF -> ivSelectByTradeDiff
+            Filter.SelectArrow.TRADE_AMOUNT -> ivSelectByTradeAmount
         }
 
         with(imageView) {
             visibility = View.VISIBLE
             if (isSelected) {
                 showTickerListOrderByField(
-                    Filter.selectArrowToFilter(selectArrow),
+                    selectArrow,
                     Filter.DESC
                 )
             } else {
                 showTickerListOrderByField(
-                    Filter.selectArrowToFilter(selectArrow),
+                    selectArrow,
                     Filter.ASC
                 )
             }
@@ -89,7 +85,7 @@ class MainActivity : BaseActivity(), MainContract.View {
      * ViewPager 에서 미리 생성된 프래그먼트의 값을 상단 정렬바 아이템을 누를떄
      * 일괄적으로 변경해 주기 위한 옵저버 패턴 함수
      */
-    private fun showTickerListOrderByField(field: String, order: Int) {
+    private fun showTickerListOrderByField(field: Filter.SelectArrow, order: Int) {
 
         for (i: Int in 0 until mainAdapter.count) {
             mainAdapter.getFragment(i)?.run {
@@ -171,19 +167,19 @@ class MainActivity : BaseActivity(), MainContract.View {
     private fun initTopCategory() {
 
         llCoinNameParent.setOnClickListener {
-            presenter.changeArrow(SelectArrow.COIN_NAME)
+            showCategoryAllow(Filter.SelectArrow.COIN_NAME)
         }
 
         llLastParent.setOnClickListener {
-            presenter.changeArrow(SelectArrow.LAST)
+            showCategoryAllow(Filter.SelectArrow.LAST)
         }
 
         llTradeDiffParent.setOnClickListener {
-            presenter.changeArrow(SelectArrow.TRADE_DIFF)
+            showCategoryAllow(Filter.SelectArrow.TRADE_DIFF)
         }
 
         llTradeAmountParent.setOnClickListener {
-            presenter.changeArrow(SelectArrow.TRADE_AMOUNT)
+            showCategoryAllow(Filter.SelectArrow.TRADE_AMOUNT)
         }
     }
 }

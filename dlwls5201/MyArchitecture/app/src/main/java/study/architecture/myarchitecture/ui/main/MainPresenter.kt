@@ -40,9 +40,4 @@ class MainPresenter(
                 compositeDisposable.add(it)
             }
     }
-
-    override fun changeArrow(selectArrow: MainActivity.SelectArrow) {
-        view.showCategoryAllow(selectArrow)
-    }
-
 }

@@ -18,26 +18,25 @@ class TickerListPresenter(
         compositeDisposable.clear()
     }
 
-    override fun sortByField(tickers: MutableList<TickerItem>, field: String, order: Int) {
+    override fun sortByField(tickers: MutableList<TickerItem>, field: Filter.SelectArrow, order: Int) {
 
         when (field) {
-
-            Filter.COIN_NAME -> {
+            Filter.SelectArrow.COIN_NAME -> {
                 val selector: (TickerItem) -> String = { it.coinName }
                 setOrderByField(tickers, selector, order)
             }
 
-            Filter.LAST -> {
+            Filter.SelectArrow.LAST -> {
                 val selector: (TickerItem) -> Double = { it.tradePrice }
                 setOrderByField(tickers, selector, order)
             }
 
-            Filter.TRADE_DIFF -> {
+            Filter.SelectArrow.TRADE_DIFF -> {
                 val selector: (TickerItem) -> Double = { it.signedChangeRate }
                 setOrderByField(tickers, selector, order)
             }
 
-            Filter.TRADE_AMOUNT -> {
+            Filter.SelectArrow.TRADE_AMOUNT -> {
                 val selector: (TickerItem) -> Double = { it.accTradePrice24h }
                 setOrderByField(tickers, selector, order)
             }

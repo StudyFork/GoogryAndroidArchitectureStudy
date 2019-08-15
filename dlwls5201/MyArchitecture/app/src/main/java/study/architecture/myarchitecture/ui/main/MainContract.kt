@@ -1,5 +1,7 @@
 package study.architecture.myarchitecture.ui.main
 
+import study.architecture.myarchitecture.util.Filter
+
 interface MainContract {
 
     interface View {
@@ -8,7 +10,7 @@ interface MainContract {
 
         fun showViewPagerTitles(titles: Array<String>)
 
-        fun showCategoryAllow(selectArrow: MainActivity.SelectArrow)
+        fun showCategoryAllow(selectArrow: Filter.SelectArrow)
     }
 
     interface Presenter {
@@ -16,7 +18,5 @@ interface MainContract {
         fun detachView()
 
         fun loadData()
-
-        fun changeArrow(selectArrow: MainActivity.SelectArrow)
     }
 }
