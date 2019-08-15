@@ -26,12 +26,6 @@ class MarketFragment : Fragment(), MarketContract.View {
 
     private val rvAdapter = RecyclerViewAdapter()
 
-    companion object {
-        fun newInstance(market: String) = MarketFragment().apply {
-            arguments = Bundle().apply { putString("KEY_MARKET", market) }
-        }
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_market, container, false)
 
@@ -63,6 +57,13 @@ class MarketFragment : Fragment(), MarketContract.View {
 
     override fun hideProgressBar() {
         pb_market.visibility = View.GONE
+    }
+
+
+    companion object {
+        fun newInstance(market: String) = MarketFragment().apply {
+            arguments = Bundle().apply { putString("KEY_MARKET", market) }
+        }
     }
 
 }
