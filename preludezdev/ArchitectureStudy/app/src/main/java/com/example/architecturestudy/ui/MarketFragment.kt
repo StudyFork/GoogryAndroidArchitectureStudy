@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.data.Coin
 import com.example.architecturestudy.data.source.CoinsRepository
 import com.example.architecturestudy.data.source.local.CoinsLocalDataSource
@@ -39,9 +38,8 @@ class MarketFragment : Fragment(), MarketContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //리사이클러뷰 어댑터와 레이아웃매니저 설정
+        //리사이클러뷰 어댑터 설정
         recyclerView.apply {
-            layoutManager = LinearLayoutManager(activity)
             adapter = rvAdapter
         }
 

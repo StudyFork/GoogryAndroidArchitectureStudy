@@ -34,8 +34,8 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
         LayoutInflater.from(parent.context)
             .inflate(R.layout.item_coin, parent, false)
     ) {
-        // 각 뷰의 인스턴스를 저장하는 프로퍼티를 추가합니다.
-        // 생성자가 호출되는 시점에 뷰의 인스턴스가 할당됩니다.
+        //각 뷰의 인스턴스를 저장하는 프로퍼티를 추가합니다.
+        //생성자가 호출되는 시점에 뷰의 인스턴스가 할당됩니다.
         private val tvMarket = itemView.tv_market
         private val tvTradePrice = itemView.tv_trade_price
         private val tvSignedChangedRate = itemView.tv_signed_changed_rate
