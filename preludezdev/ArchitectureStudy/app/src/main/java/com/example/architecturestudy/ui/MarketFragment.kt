@@ -19,6 +19,8 @@ class MarketFragment : Fragment(), MarketContract.View {
 
     private lateinit var presenter: MarketContract.Presenter // Presenter 프로퍼티 선언
 
+    private var key = "KEY_MARKET"
+
     private val repository = CoinsRepository.getInstance(
         CoinsRemoteDataSource.getInstance(RetrofitHelper.getInstance().coinApiService),
         CoinsLocalDataSource.getInstance()
@@ -37,7 +39,7 @@ class MarketFragment : Fragment(), MarketContract.View {
             adapter = rvAdapter
         }
 
-        val keyMarket = arguments?.getString("KEY_MARKET")
+        val keyMarket = arguments?.getString(key)
 
         presenter = MarketPresenter(this, repository) // Presenter 객체 생성해서 할당
         presenter.loadData(keyMarket) // Presenter 를 통해 해당 마켓의 데이터 불러오기
