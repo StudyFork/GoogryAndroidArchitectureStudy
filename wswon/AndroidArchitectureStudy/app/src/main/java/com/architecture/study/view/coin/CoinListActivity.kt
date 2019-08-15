@@ -56,10 +56,6 @@ class CoinListActivity : AppCompatActivity(), CoinListActivityContract.View {
         Toast.makeText(this@CoinListActivity, failure, Toast.LENGTH_SHORT).show()
     }
 
-    override fun successConnectApi() {
-        presenter.getMarketList()
-    }
-
     override fun showFailedConnectError() {
         Toast.makeText(this@CoinListActivity, getString(R.string.failed_connect_api), Toast.LENGTH_SHORT).show()
     }

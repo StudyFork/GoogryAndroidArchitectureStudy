@@ -12,8 +12,6 @@ interface CoinListActivityContract {
 
         fun showFailureGetMarketData(failure: String) //마켓 데이터 로드 실패
 
-        fun successConnectApi() // Retrofit 객체 연결 성공
-
         fun showFailedConnectError() // Retrofit 객체 연결 실패
     }
 

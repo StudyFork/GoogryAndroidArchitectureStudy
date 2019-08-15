@@ -38,7 +38,7 @@ class CoinListActivityPresenter(
 
     override fun onLoaded() {
         isConnectApi = true
-        coinListView.successConnectApi()
+        getMarketList()
     }
 
     override fun onNotLoaded() {
