@@ -1,9 +1,7 @@
 package study.architecture.myarchitecture.ui.main
 
-import android.view.View
 import io.reactivex.disposables.CompositeDisposable
 import study.architecture.myarchitecture.data.repository.UpbitRepository
-import study.architecture.myarchitecture.util.Filter
 import timber.log.Timber
 
 class MainPresenter(
@@ -44,21 +42,7 @@ class MainPresenter(
     }
 
     override fun changeArrow(selectArrow: MainActivity.SelectArrow) {
-
-        view.setArrowVisibility(MainActivity.SelectArrow.COIN_NAME, View.INVISIBLE)
-        view.setArrowVisibility(MainActivity.SelectArrow.LAST, View.INVISIBLE)
-        view.setArrowVisibility(MainActivity.SelectArrow.TRADE_AMOUNT, View.INVISIBLE)
-        view.setArrowVisibility(MainActivity.SelectArrow.TRADE_DIFF, View.INVISIBLE)
-
-        view.setArrowVisibility(selectArrow, View.VISIBLE)
-
-        if (view.getArrowIsSelected(selectArrow)) {
-            view.showTickerListOrderByField(Filter.selectArrowToFilter(selectArrow), Filter.DESC)
-        } else {
-            view.showTickerListOrderByField(Filter.selectArrowToFilter(selectArrow), Filter.ASC)
-        }
-
-        view.setArrowSelected(selectArrow, !view.getArrowIsSelected(selectArrow))
+        view.showCategoryAllow(selectArrow)
     }
 
 }

@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import study.architecture.myarchitecture.BaseActivity
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.data.Injection
+import study.architecture.myarchitecture.util.Filter
 
 class MainActivity : BaseActivity(), MainContract.View {
 
@@ -52,34 +53,43 @@ class MainActivity : BaseActivity(), MainContract.View {
         mainAdapter.setTitles(titles)
     }
 
-    override fun getArrowIsSelected(selectArrow: SelectArrow) =
-        when (selectArrow) {
-            SelectArrow.COIN_NAME -> ivSelectByCoinName.isSelected
-            SelectArrow.LAST -> ivSelectByLast.isSelected
-            SelectArrow.TRADE_DIFF -> ivSelectByTradeDiff.isSelected
-            SelectArrow.TRADE_AMOUNT -> ivSelectByTradeAmount.isSelected
+    override fun showCategoryAllow(selectArrow: SelectArrow) {
+
+        ivSelectByCoinName.visibility = View.INVISIBLE
+        ivSelectByLast.visibility = View.INVISIBLE
+        ivSelectByTradeDiff.visibility = View.INVISIBLE
+        ivSelectByTradeAmount.visibility = View.INVISIBLE
+
+        val imageView = when (selectArrow) {
+            SelectArrow.COIN_NAME -> ivSelectByCoinName
+            SelectArrow.LAST -> ivSelectByLast
+            SelectArrow.TRADE_DIFF -> ivSelectByTradeDiff
+            SelectArrow.TRADE_AMOUNT -> ivSelectByTradeAmount
         }
 
+        with(imageView) {
+            visibility = View.VISIBLE
+            if (isSelected) {
+                showTickerListOrderByField(
+                    Filter.selectArrowToFilter(selectArrow),
+                    Filter.DESC
+                )
+            } else {
+                showTickerListOrderByField(
+                    Filter.selectArrowToFilter(selectArrow),
+                    Filter.ASC
+                )
+            }
 
-    override fun setArrowSelected(selectArrow: SelectArrow, selected: Boolean) {
-        when (selectArrow) {
-            SelectArrow.COIN_NAME -> ivSelectByCoinName
-            SelectArrow.LAST -> ivSelectByLast
-            SelectArrow.TRADE_DIFF -> ivSelectByTradeDiff
-            SelectArrow.TRADE_AMOUNT -> ivSelectByTradeAmount
-        }.isSelected = selected
+            isSelected = !isSelected
+        }
     }
 
-    override fun setArrowVisibility(selectArrow: SelectArrow, visibility: Int) {
-        when (selectArrow) {
-            SelectArrow.COIN_NAME -> ivSelectByCoinName
-            SelectArrow.LAST -> ivSelectByLast
-            SelectArrow.TRADE_DIFF -> ivSelectByTradeDiff
-            SelectArrow.TRADE_AMOUNT -> ivSelectByTradeAmount
-        }.visibility = visibility
-    }
-
-    override fun showTickerListOrderByField(field: String, order: Int) {
+    /**
+     * ViewPager 에서 미리 생성된 프래그먼트의 값을 상단 정렬바 아이템을 누를떄
+     * 일괄적으로 변경해 주기 위한 옵저버 패턴 함수
+     */
+    private fun showTickerListOrderByField(field: String, order: Int) {
 
         for (i: Int in 0 until mainAdapter.count) {
             mainAdapter.getFragment(i)?.run {
