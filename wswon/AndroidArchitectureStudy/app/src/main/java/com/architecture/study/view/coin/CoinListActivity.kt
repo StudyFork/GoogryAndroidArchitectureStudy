@@ -18,8 +18,6 @@ class CoinListActivity : AppCompatActivity(), CoinListActivityContract.View {
 
     private lateinit var coinTapPagerAdapter: CoinTabPagerAdapter
 
-    private lateinit var marketList: List<MarketResponse>
-
     private val tabList = listOf(
         R.string.monetary_unit_1,
         R.string.monetary_unit_2,
@@ -43,11 +41,6 @@ class CoinListActivity : AppCompatActivity(), CoinListActivityContract.View {
         )
     }
 
-    override fun sendMarketList(marketList: List<MarketResponse>) {
-        this.marketList = marketList
-        setPager()
-    }
-
     override fun showEmptyMarketData(empty: String) {
         Toast.makeText(this@CoinListActivity, empty, Toast.LENGTH_SHORT).show()
     }
@@ -61,9 +54,9 @@ class CoinListActivity : AppCompatActivity(), CoinListActivityContract.View {
     }
 
     /* tab layout && view pager init*/
-    private fun setPager() {
+    override fun setTabPager(marketList: List<MarketResponse>) {
         monetary_unit_tablayout.run {
-            tabList.forEach {
+            tabList.map {
                 addTab(newTab().setText(getString(it)))
             }
             tabGravity = TabLayout.GRAVITY_FILL

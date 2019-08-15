@@ -22,7 +22,7 @@ class CoinListActivityPresenter(
             coinRepository.getMarketList(object :
                 CoinRemoteDataSourceListener<MarketResponse> {
                 override fun onSucess(dataList: List<MarketResponse>) {
-                    coinListView.sendMarketList(dataList)
+                    coinListView.setTabPager(dataList)
                 }
 
                 override fun onEmpty(str: String) {

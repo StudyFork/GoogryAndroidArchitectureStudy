@@ -6,7 +6,7 @@ import com.architecture.study.view.base.BaseView
 
 interface CoinListActivityContract {
     interface View : BaseView<Presenter> {
-        fun sendMarketList(marketList: List<MarketResponse>) // Fragment로 마켓리스트 보냄
+        fun setTabPager(marketList: List<MarketResponse>) // Fragment로 마켓리스트 보냄
 
         fun showEmptyMarketData(empty: String) //마켓 데이터 비어있음
 
