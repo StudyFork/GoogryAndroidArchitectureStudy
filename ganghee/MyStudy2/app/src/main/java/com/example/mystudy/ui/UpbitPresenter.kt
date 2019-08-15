@@ -14,7 +14,7 @@ class UpbitPresenter(private val repository: UpbitRepository, private val ticker
     }
 
     @SuppressLint("CheckResult")
-    override fun getTicker(firstMarket: String) {
+    override fun getTicker(firstMarket: String?) {
         repository.getMarket()
             .observeOn(Schedulers.newThread())
             .subscribe { it ->
