@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.jskim5923.architecturestudy.R
 import com.jskim5923.architecturestudy.adapter.ViewPagerAdapter
 import com.jskim5923.architecturestudy.api.ApiManager
+import com.jskim5923.architecturestudy.extension.getCoinCurrency
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
@@ -12,10 +13,6 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    companion object {
-        private const val MARKET_DELIMITER = "-"
-    }
-
     private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +24,7 @@ class MainActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ marketList ->
                 marketList.map {
-                    it.market.substringBefore(MARKET_DELIMITER)
+                    it.market.getCoinCurrency()
                 }.distinct()
                     .run {
                         setViewPager(this)
