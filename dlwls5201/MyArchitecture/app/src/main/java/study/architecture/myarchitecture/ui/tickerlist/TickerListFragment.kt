@@ -14,17 +14,6 @@ import study.architecture.myarchitecture.ui.model.TickerItem
 
 class TickerListFragment : BaseFragment(), TickerListContract.View {
 
-    companion object {
-
-        const val KEY_MARKETS = "markets"
-
-        fun newInstance(tickers: String) = TickerListFragment().apply {
-            arguments = Bundle().apply {
-                putString(KEY_MARKETS, tickers)
-            }
-        }
-    }
-
     private val tickerAdapter = TickerAdapter()
 
     private lateinit var presenter: TickerListContract.Presenter
@@ -81,5 +70,16 @@ class TickerListFragment : BaseFragment(), TickerListContract.View {
 
     override fun orderByField(bundle: Bundle) {
         tickerAdapter.orderByField(bundle)
+    }
+
+    companion object {
+
+        const val KEY_MARKETS = "markets"
+
+        fun newInstance(tickers: String) = TickerListFragment().apply {
+            arguments = Bundle().apply {
+                putString(KEY_MARKETS, tickers)
+            }
+        }
     }
 }
