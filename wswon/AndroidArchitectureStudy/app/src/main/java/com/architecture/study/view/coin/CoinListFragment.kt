@@ -22,7 +22,6 @@ class CoinListFragment : Fragment(), CoinListFragmentContract.View, CoinListAdap
     private lateinit var coinListAdapter: CoinListAdapter
 
     private var monetaryUnitNameList: List<String>? = null
-    private lateinit var tickerList: List<Ticker>
 
     private var refreshHandler = Handler()
     override var isActive = false
@@ -75,7 +74,6 @@ class CoinListFragment : Fragment(), CoinListFragmentContract.View, CoinListAdap
             layoutManager = LinearLayoutManager(requireContext())
             adapter = coinListAdapter
         }
-
     }
 
 
