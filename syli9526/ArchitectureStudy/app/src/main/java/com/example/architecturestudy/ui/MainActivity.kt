@@ -1,7 +1,8 @@
-package com.example.architecturestudy
+package com.example.architecturestudy.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.architecturestudy.R
 
 class MainActivity : AppCompatActivity() {
 
