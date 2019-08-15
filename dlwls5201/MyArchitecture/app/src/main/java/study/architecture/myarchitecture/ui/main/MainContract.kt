@@ -4,39 +4,15 @@ interface MainContract {
 
     interface View {
 
-        fun setViewPagers(pagers: Array<String>)
+        fun showViewPagers(pagers: Array<String>)
 
-        fun setViewPagerTitles(titles: Array<String>)
+        fun showViewPagerTitles(titles: Array<String>)
 
         fun getArrowIsSelected(selectArrow: MainActivity.SelectArrow): Boolean
 
         fun setArrowSelected(selectArrow: MainActivity.SelectArrow, selected: Boolean)
 
         fun setArrowVisibility(selectArrow: MainActivity.SelectArrow, visibility: Int)
-
-        /*fun getCoinNameIsSelected(): Boolean
-
-        fun getLastIsSelected(): Boolean
-
-        fun getTradeDiffIsSelected(): Boolean
-
-        fun getTradeAmountIsSelected(): Boolean
-
-        fun setCoinNameIsSelected(selected: Boolean)
-
-        fun setLastIsSelected(selected: Boolean)
-
-        fun setTradeDiffIsSelected(selected: Boolean)
-
-        fun setTradeAmountIsSelected(selected: Boolean)
-
-        fun setCoinNameVisibility(visibility: Int)
-
-        fun setLastVisibility(visibility: Int)
-
-        fun setTradeDiffVisibility(visibility: Int)
-
-        fun setTradeAmountVisibility(visibility: Int)*/
 
         /**
          * ViewPager 에서 미리 생성된 프래그먼트의 값을 상단 정렬바 아이템을 누를떄

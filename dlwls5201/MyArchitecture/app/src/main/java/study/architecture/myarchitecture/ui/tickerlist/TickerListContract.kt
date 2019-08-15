@@ -11,7 +11,7 @@ interface TickerListContract {
 
         fun hideProgress()
 
-        fun setTickers(tickers: MutableList<TickerItem>)
+        fun showTickers(tickers: MutableList<TickerItem>)
 
         fun orderByField(bundle: Bundle)
     }

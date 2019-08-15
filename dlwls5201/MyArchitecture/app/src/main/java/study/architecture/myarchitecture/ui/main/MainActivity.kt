@@ -45,12 +45,12 @@ class MainActivity : BaseActivity(), MainContract.View {
         super.onDestroy()
     }
 
-    override fun setViewPagers(pagers: Array<String>) {
+    override fun showViewPagers(pagers: Array<String>) {
         setViewPagerPagerLimit(pagers.size)
         mainAdapter.setItems(pagers)
     }
 
-    override fun setViewPagerTitles(titles: Array<String>) {
+    override fun showViewPagerTitles(titles: Array<String>) {
         mainAdapter.setTitles(titles)
     }
 
@@ -80,46 +80,6 @@ class MainActivity : BaseActivity(), MainContract.View {
             SelectArrow.TRADE_AMOUNT -> ivSelectByTradeAmount
         }.visibility = visibility
     }
-
-    /*override fun getCoinNameIsSelected() = ivSelectByCoinName.isSelected
-
-    override fun getLastIsSelected() = ivSelectByLast.isSelected
-
-    override fun getTradeDiffIsSelected() = ivSelectByTradeDiff.isSelected
-
-    override fun getTradeAmountIsSelected() = ivSelectByTradeAmount.isSelected
-
-    override fun setCoinNameIsSelected(selected: Boolean) {
-        ivSelectByCoinName.isSelected = selected
-    }
-
-    override fun setLastIsSelected(selected: Boolean) {
-        ivSelectByLast.isSelected = selected
-    }
-
-    override fun setTradeDiffIsSelected(selected: Boolean) {
-        ivSelectByTradeDiff.isSelected = selected
-    }
-
-    override fun setTradeAmountIsSelected(selected: Boolean) {
-        ivSelectByTradeAmount.isSelected = selected
-    }
-
-    override fun setCoinNameVisibility(visibility: Int) {
-        ivSelectByCoinName.visibility = visibility
-    }
-
-    override fun setLastVisibility(visibility: Int) {
-        ivSelectByLast.visibility = visibility
-    }
-
-    override fun setTradeDiffVisibility(visibility: Int) {
-        ivSelectByTradeDiff.visibility = visibility
-    }
-
-    override fun setTradeAmountVisibility(visibility: Int) {
-        ivSelectByTradeAmount.visibility = visibility
-    }*/
 
     override fun notifyTickerListObservers(field: String, order: Int) {
 

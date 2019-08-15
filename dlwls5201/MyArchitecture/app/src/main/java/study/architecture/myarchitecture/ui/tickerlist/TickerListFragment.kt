@@ -59,7 +59,7 @@ class TickerListFragment : BaseFragment(), TickerListContract.View {
         pbTickerList.visibility = View.GONE
     }
 
-    override fun setTickers(tickers: MutableList<TickerItem>) {
+    override fun showTickers(tickers: MutableList<TickerItem>) {
         tickerAdapter.setItem(tickers)
     }
 

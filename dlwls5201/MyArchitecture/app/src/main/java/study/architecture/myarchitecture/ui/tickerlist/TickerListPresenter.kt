@@ -32,8 +32,7 @@ class TickerListPresenter(
             }
             .subscribe({
 
-                //Timber.d("$it")
-                view.setTickers(it.mapToPresentation().toMutableList())
+                view.showTickers(it.mapToPresentation().toMutableList())
 
             }) {
                 Timber.e(it)

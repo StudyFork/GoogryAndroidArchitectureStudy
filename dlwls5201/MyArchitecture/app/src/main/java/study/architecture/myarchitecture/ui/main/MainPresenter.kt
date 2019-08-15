@@ -23,7 +23,7 @@ class MainPresenter(
 
                 val keys = groupMarket.keys
 
-                view.setViewPagerTitles(keys.toTypedArray())
+                view.showViewPagerTitles(keys.toTypedArray())
 
                 val arrMarkets = Array(keys.size) { "" }
 
@@ -34,7 +34,8 @@ class MainPresenter(
                         .joinToString(separator = ",") { it.market }
                 }
 
-                view.setViewPagers(arrMarkets)
+                view.showViewPagers(arrMarkets)
+
             }) {
                 Timber.e(it)
             }.also {
