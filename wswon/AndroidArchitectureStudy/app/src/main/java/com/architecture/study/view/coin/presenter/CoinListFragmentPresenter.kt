@@ -1,5 +1,6 @@
 package com.architecture.study.view.coin.presenter
 
+import com.architecture.study.R
 import com.architecture.study.data.model.Ticker
 import com.architecture.study.data.repository.CoinRepository
 import com.architecture.study.data.source.CoinRemoteDataSourceListener
@@ -33,11 +34,11 @@ class CoinListFragmentPresenter(
                 }
 
                 override fun onEmpty(str: String) {
-                    coinListView.showEmptyTickerData(str)
+                    coinListView.showMessage(str)
                 }
 
                 override fun onFailure(str: String) {
-                    coinListView.showFailureGetTickerData(str)
+                    coinListView.showMessage(str)
                 }
             })
         }
@@ -53,7 +54,7 @@ class CoinListFragmentPresenter(
     override fun onNotLoaded() {
         isConnectApi = false
         if (coinListView.isActive) {
-            coinListView.showFailedConnectError()
+            coinListView.showMessage("Failed Connect Api Server")
         }
     }
 }

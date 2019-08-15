@@ -87,26 +87,18 @@ class CoinListFragment : Fragment(), CoinListFragmentContract.View, CoinListAdap
 
     /* TickerResponse -> Ticker로 변환작업 */
     override fun showTickerList(tickerList: List<Ticker>) {
-
         coinListAdapter.setData(tickerList)
     }
 
-    override fun showEmptyTickerData(empty: String) {
-        Toast.makeText(requireContext(), empty, Toast.LENGTH_SHORT).show()
-    }
 
-    override fun showFailureGetTickerData(failure: String) {
-        Toast.makeText(requireContext(), failure, Toast.LENGTH_SHORT).show()
+    override fun showMessage(message: String){
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     override fun successConnectApi() {
         monetaryUnitNameList?.let {
             presenter.getTickerList(it)
         }
-    }
-
-    override fun showFailedConnectError() {
-        Toast.makeText(requireContext(), getString(R.string.failed_connect_api), Toast.LENGTH_SHORT).show()
     }
 
     /* handler로 5초간격 호출 재귀함수 */

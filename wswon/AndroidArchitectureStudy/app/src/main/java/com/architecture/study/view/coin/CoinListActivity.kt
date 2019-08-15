@@ -41,16 +41,8 @@ class CoinListActivity : AppCompatActivity(), CoinListActivityContract.View {
         )
     }
 
-    override fun showEmptyMarketData(empty: String) {
-        Toast.makeText(this@CoinListActivity, empty, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun showFailureGetMarketData(failure: String) {
-        Toast.makeText(this@CoinListActivity, failure, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun showFailedConnectError() {
-        Toast.makeText(this@CoinListActivity, getString(R.string.failed_connect_api), Toast.LENGTH_SHORT).show()
+    override fun showMessage(message: String) {
+        Toast.makeText(this@CoinListActivity, message, Toast.LENGTH_SHORT).show()
     }
 
     /* tab layout && view pager init*/

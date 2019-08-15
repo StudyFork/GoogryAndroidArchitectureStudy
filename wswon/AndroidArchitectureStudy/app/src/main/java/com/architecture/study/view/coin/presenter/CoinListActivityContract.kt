@@ -8,11 +8,7 @@ interface CoinListActivityContract {
     interface View : BaseView<Presenter> {
         fun setTabPager(marketList: List<MarketResponse>) // Fragment로 마켓리스트 보냄
 
-        fun showEmptyMarketData(empty: String) //마켓 데이터 비어있음
-
-        fun showFailureGetMarketData(failure: String) //마켓 데이터 로드 실패
-
-        fun showFailedConnectError() // Retrofit 객체 연결 실패
+        fun showMessage(message: String)
     }
 
     interface Presenter : BasePresenter{

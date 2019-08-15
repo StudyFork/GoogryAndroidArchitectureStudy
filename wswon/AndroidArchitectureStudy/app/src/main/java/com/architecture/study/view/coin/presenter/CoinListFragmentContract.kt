@@ -10,15 +10,11 @@ interface CoinListFragmentContract {
     interface View : BaseView<Presenter> {
         var isActive: Boolean
 
-        fun showTickerList(tickerList: List<Ticker>) // Ticker 리스트를 화면에 뿌려줌
+        fun showTickerList(tickerList: List<Ticker>) // Ticker 리스트를 화면에 뿌려{
 
-        fun showEmptyTickerData(empty: String)
-
-        fun showFailureGetTickerData(failure: String)
+        fun showMessage(message: String)
 
         fun successConnectApi() // Retrofit 객체 연결 성공
-
-        fun showFailedConnectError() // Retrofit 객체 연결 실패
     }
 
     interface Presenter : BasePresenter{

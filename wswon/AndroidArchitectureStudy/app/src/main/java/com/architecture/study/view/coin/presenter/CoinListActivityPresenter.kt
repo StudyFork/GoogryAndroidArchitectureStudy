@@ -26,11 +26,11 @@ class CoinListActivityPresenter(
                 }
 
                 override fun onEmpty(str: String) {
-                    coinListView.showEmptyMarketData(str)
+                    coinListView.showMessage(str)
                 }
 
                 override fun onFailure(str: String) {
-                    coinListView.showFailureGetMarketData(str)
+                    coinListView.showMessage(str)
                 }
             })
         }
@@ -43,6 +43,6 @@ class CoinListActivityPresenter(
 
     override fun onNotLoaded() {
         isConnectApi = false
-        coinListView.showFailedConnectError()
+        coinListView.showMessage("Failed Connect Api Server")
     }
 }

@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">AndroidArchitectureStudy</string>
 
-    <string name="failed_connect_api">Failed Connect Api Server</string>
-
     <string name="monetary_unit_1">KRW</string>
     <string name="monetary_unit_2">BTC</string>
     <string name="monetary_unit_3">ETH</string>
