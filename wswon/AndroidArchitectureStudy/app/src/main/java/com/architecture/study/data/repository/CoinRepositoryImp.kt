@@ -1,5 +1,6 @@
 package com.architecture.study.data.repository
 
+import com.architecture.study.data.source.CoinRemoteDataSource
 import com.architecture.study.data.source.CoinRemoteDataSourceImp
 import com.architecture.study.data.source.CoinRemoteDataSourceListener
 import com.architecture.study.network.RetrofitInstance
@@ -11,7 +12,9 @@ import com.architecture.study.network.model.TickerResponse
 class CoinRepositoryImp : CoinRepository {
     private val upbitUrl = "https://api.upbit.com"
 
-    private lateinit var upbitRetrofitInstance: UpbitApi
+    private var upbitRetrofitInstance: UpbitApi? = null
+
+    private lateinit var coinRemoteDataSource: CoinRemoteDataSource
 
     companion object {
         private var instance: CoinRepositoryImp? = null
@@ -27,7 +30,10 @@ class CoinRepositoryImp : CoinRepository {
 
     // retrofit instance 가져옴
     override fun setRetrofitInstance(callBack: RetrofitInstanceCallBack) {
-        upbitRetrofitInstance = RetrofitInstance.getInstance<UpbitApi>(upbitUrl)
+        RetrofitInstance.getInstance<UpbitApi>(upbitUrl)?.let {
+            upbitRetrofitInstance = it
+            coinRemoteDataSource = CoinRemoteDataSourceImp.getInstance(it)
+        }
 
         if (upbitRetrofitInstance != null) {
             callBack.onLoaded()
@@ -40,12 +46,14 @@ class CoinRepositoryImp : CoinRepository {
 
     // 생성시 Retrofit 객체를 주입해 작동하도록 변경
     override fun getMarketList(listener: CoinRemoteDataSourceListener<MarketResponse>) {
-        CoinRemoteDataSourceImp.getInstance(upbitRetrofitInstance)
-            .getMarketList(listener)
+        upbitRetrofitInstance?.let {
+            coinRemoteDataSource.getMarketList(listener)
+        }
     }
 
     override fun getTickerList(marketNames: String, listener: CoinRemoteDataSourceListener<TickerResponse>) {
-        CoinRemoteDataSourceImp.getInstance(upbitRetrofitInstance)
-            .getTickerList(marketNames, listener)
+        upbitRetrofitInstance?.let {
+            coinRemoteDataSource.getTickerList(marketNames, listener)
+        }
     }
 }
