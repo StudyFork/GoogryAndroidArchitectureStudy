@@ -34,6 +34,7 @@ class MainActivity : BaseActivity(), MainContract.View {
         initToolbar()
         initDrawer()
         initTopCategory()
+        initViewPager()
 
         presenter.loadData()
 
@@ -45,7 +46,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     }
 
     override fun setViewPagers(pagers: Array<String>) {
-        initViewPager(pagers.size)
+        setViewPagerPagerLimit(pagers.size)
         mainAdapter.setItems(pagers)
     }
 
@@ -190,14 +191,20 @@ class MainActivity : BaseActivity(), MainContract.View {
         }
     }
 
-    private fun initViewPager(size: Int) {
+    private fun initViewPager() {
 
         with(vpMain) {
             adapter = mainAdapter
-            offscreenPageLimit = size
             tlMain.setupWithViewPager(this)
         }
 
+    }
+
+    private fun setViewPagerPagerLimit(size: Int) {
+
+        with(vpMain) {
+            offscreenPageLimit = size
+        }
     }
 
     private fun initTopCategory() {
