@@ -47,7 +47,6 @@ class TickerListFragment : BaseFragment(), TickerListContract.View {
     }
 
     private fun initRecyclerView() {
-
         rvTickerList.adapter = tickerAdapter
     }
 

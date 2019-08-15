@@ -16,10 +16,16 @@ class TickerAdapter(
     private val tickers = mutableListOf<TickerItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TickerViewHolder {
-        return TickerViewHolder.newInstance(
-            parent,
-            clickEvent
+
+        val holder = TickerViewHolder(
+            parent.inflate(R.layout.item_ticker)
         )
+
+        holder.itemView.setOnClickListener {
+            clickEvent.invoke(tickers[holder.adapterPosition])
+        }
+
+        return holder
     }
 
     override fun getItemCount() = tickers.size
@@ -44,8 +50,7 @@ class TickerAdapter(
      * ViewHolder
      */
     class TickerViewHolder(
-        itemView: View,
-        private val clickEvent: ((ticker: TickerItem) -> Unit)?
+        itemView: View
     ) : RecyclerView.ViewHolder(itemView) {
 
         private val tvMarket: TextView = itemView.findViewById(R.id.tvMarket)
@@ -54,25 +59,11 @@ class TickerAdapter(
         private val tvAccTradePrice24h: TextView = itemView.findViewById(R.id.tvAccTradePrice24h)
 
         fun onBindView(ticker: TickerItem) {
-
             tvMarket.text = ticker.coinName
             tvTradePrice.text = ticker.last
             tvSignedChangeRate.setTradeDiffColor(ticker.signedChangeRate)
             tvSignedChangeRate.text = ticker.tradeDiff
             tvAccTradePrice24h.text = ticker.tradeAmount
-
-            itemView.setOnClickListener {
-                clickEvent?.invoke(ticker)
-            }
-
-        }
-
-        companion object {
-            fun newInstance(parent: ViewGroup, clickEvent: ((ticker: TickerItem) -> Unit)?) =
-                TickerViewHolder(
-                    parent.inflate(R.layout.item_ticker),
-                    clickEvent
-                )
         }
     }
 
