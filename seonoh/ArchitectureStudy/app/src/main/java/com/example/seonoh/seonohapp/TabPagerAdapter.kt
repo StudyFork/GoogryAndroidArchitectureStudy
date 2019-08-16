@@ -8,13 +8,10 @@ import com.example.seonoh.seonohapp.MainActivity.Companion.ethMarketData
 import com.example.seonoh.seonohapp.MainActivity.Companion.krwMarketData
 import com.example.seonoh.seonohapp.MainActivity.Companion.usdtMarketData
 
-class TabPagerAdapter : FragmentStatePagerAdapter {
+class TabPagerAdapter(fm: FragmentManager, tabcount: Int) : FragmentStatePagerAdapter(fm) {
 
-    private var tabCount = 0
+    private val tabCount = tabcount
 
-    constructor(fm: FragmentManager, tabcount: Int) : super(fm) {
-        this.tabCount = tabcount
-    }
 
 
     override fun getItem(position: Int): Fragment {
@@ -27,7 +24,7 @@ class TabPagerAdapter : FragmentStatePagerAdapter {
 
             3 -> return CoinFragment.newInstance(USDT_TYPE, usdtMarketData)
 
-            else -> return throw NullPointerException()
+            else -> return throw Throwable()
         }
     }
 
