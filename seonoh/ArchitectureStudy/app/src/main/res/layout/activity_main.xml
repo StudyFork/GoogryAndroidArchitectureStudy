@@ -25,7 +25,7 @@
                 android:layout_weight="1"
                 android:textColor="@color/seonohBlack"
                 android:textStyle="bold"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:text="코인명"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
@@ -36,7 +36,7 @@
                 android:textColor="@color/seonohBlack"
                 android:textStyle="bold"
                 android:text="현재가"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:id="@+id/currentPrice"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
@@ -47,7 +47,7 @@
                 android:textColor="@color/seonohBlack"
                 android:textStyle="bold"
                 android:text="전일대비"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:hint="-2.00%"
                 android:id="@+id/changeRate"
                 android:layout_width="0dp"
@@ -59,7 +59,7 @@
                 android:textColor="@color/seonohBlack"
                 android:textStyle="bold"
                 android:text="거래대금"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:id="@+id/totalTradePrice"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
