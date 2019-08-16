@@ -15,7 +15,18 @@ class RetrofitCreator {
 
     companion object{
         fun createNet() : Api{
-            val client = OkHttpClient.Builder()
+            val okClient = OkHttpClient.Builder()
+                .addInterceptor(
+                    LoggingInterceptor.Builder()
+                        .loggable(BuildConfig.DEBUG)
+                        .setLevel(Level.BASIC)
+                        .log(Platform.INFO)
+                        .request("OH_req")
+                        .response("OH_res")
+                        .build()
+                )
+                .addNetworkInterceptor(StethoInterceptor())
+                .build()
             client.addInterceptor(
                 LoggingInterceptor.Builder()
                     .loggable(BuildConfig.DEBUG)
