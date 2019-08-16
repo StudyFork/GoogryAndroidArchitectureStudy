@@ -8,7 +8,10 @@ import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
 
 class CoinAdapter(data: ArrayList<CurrentPriceInfoModel>,val type : Int) : RecyclerView.Adapter<KrwItemViewHolder>(){
 
-    lateinit var mView : View
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KrwItemViewHolder {
+        val mView = LayoutInflater.from(parent.context).inflate(R.layout.krw_item,parent,false)
+        return KrwItemViewHolder(mView,type)
+    }
 class CoinAdapter(private val data: ArrayList<CurrentPriceInfoModel>,val type : Int) : RecyclerView.Adapter<KrwItemViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KrwItemViewHolder {
