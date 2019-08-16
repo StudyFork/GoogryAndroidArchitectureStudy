@@ -61,7 +61,7 @@ data class CurrentPriceInfoModel(
     val accTradePrice: Double,
     @Expose
     @SerializedName("acc_trade_price_24h")
-    val accTradePrice_24h: String,
+    val accTradePrice_24h: Double,
     @Expose
     @SerializedName("highest_52_week_price")
     val highest52WeekPrice: Double,
