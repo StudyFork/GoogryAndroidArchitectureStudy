@@ -9,7 +9,7 @@ class TabPagerAdapter : FragmentStatePagerAdapter {
 
     private var tabCount = 0
 
-    constructor(fm: FragmentManager, tabcount: Int) : super(fm) {
+   class TabPagerAdapter(fm : FragmentManager, private val tabCount:Int) : FragmentStatePagerAdapter (fm){
         this.tabCount = tabcount
     }
 
