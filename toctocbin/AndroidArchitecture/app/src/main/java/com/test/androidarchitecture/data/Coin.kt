@@ -2,7 +2,7 @@ package com.test.androidarchitecture.data
 
 data class Coin(
     val acc_trade_price: String,
-    val acc_trade_price_24h: String,
+    val acc_trade_price_24h: Double,
     val acc_trade_volume: String,
     val acc_trade_volume_24h: String,
     val change: String,
@@ -18,7 +18,7 @@ data class Coin(
     val opening_price: String,
     val prev_closing_price: String,
     val signed_change_price: String,
-    val signed_change_rate: String,
+    val signed_change_rate: Double,
     val timestamp: Long,
     val trade_date: String,
     val trade_date_kst: String,
