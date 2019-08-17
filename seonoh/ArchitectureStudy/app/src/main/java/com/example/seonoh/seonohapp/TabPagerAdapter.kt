@@ -15,7 +15,17 @@ class TabPagerAdapter(fm: FragmentManager, tabcount: Int) : FragmentStatePagerAd
 
 
     override fun getItem(position: Int): Fragment {
-        when (position) {
+return when (position) {
+            0 -> CoinFragment.newInstance(KRW_TYPE, krwMarketData)
+
+            1 -> CoinFragment.newInstance(BTC_TYPE, btcMarketData)
+
+            2 -> CoinFragment.newInstance(ETH_TYPE, ethMarketData)
+
+            3 -> CoinFragment.newInstance(USDT_TYPE, usdtMarketData)
+
+            else -> throw Throwable()
+        }
             0 -> return CoinFragment.newInstance(KRW_TYPE, krwMarketData)
 
             1 -> return CoinFragment.newInstance(BTC_TYPE, btcMarketData)
