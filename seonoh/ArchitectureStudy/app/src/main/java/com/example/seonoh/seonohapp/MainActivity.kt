@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity(), MarketRequest.ResultListener {
     private val TAG = "COIN_MAIN"
     private val TAB_COUNT = 4
     lateinit var toast: Toast
+    lateinit var conMarketNameList: List<String>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,13 +38,12 @@ class MainActivity : AppCompatActivity(), MarketRequest.ResultListener {
 
         toast = Toast.makeText(this, "뒤로가기를 한번 더 누르시면 앱이 종료됩니다.", Toast.LENGTH_SHORT)
 
-
         MarketRequest().send(this@MainActivity)
 
     }
 
     fun initView() {
-        mPagerAdapter = TabPagerAdapter(supportFragmentManager, TAB_COUNT)
+        mPagerAdapter = TabPagerAdapter(supportFragmentManager, conMarketNameList.size)
         coinViewPager.adapter = mPagerAdapter
 
 
@@ -70,7 +70,6 @@ class MainActivity : AppCompatActivity(), MarketRequest.ResultListener {
 
                     }
 
-
                 }
 
             }
@@ -79,13 +78,13 @@ class MainActivity : AppCompatActivity(), MarketRequest.ResultListener {
         })
 
         tabLayout.apply {
-            addTab(tabLayout.newTab().setText("KRW"))
-            addTab(tabLayout.newTab().setText("BTC"))
-            addTab(tabLayout.newTab().setText("ETH"))
-            addTab(tabLayout.newTab().setText("USDT"))
-        }
 
-        tabLayout.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(coinViewPager))
+            conMarketNameList.forEach {
+                addTab(tabLayout.newTab().setText(it))
+            }
+
+            addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(coinViewPager))
+        }
 
 
     }
@@ -99,15 +98,29 @@ class MainActivity : AppCompatActivity(), MarketRequest.ResultListener {
         }
     }
 
-    fun classifyMarketData(marketData: ArrayList<Market>) {
+    private fun classifyMarketData(marketData: ArrayList<Market>) {
 
-        for (i in 0 until marketData.size) {
+        conMarketNameList = marketData.map {
+            it.market.substringBefore("-")
+        }.distinct()
 
-            when (marketData[i].market.substring(0, 3)) {
-                "KRW" -> krwMarketData += marketData[i].market + ","
-                "BTC" -> btcMarketData += marketData[i].market + ","
-                "ETH" -> ethMarketData += marketData[i].market + ","
-                "USD" -> usdtMarketData += marketData[i].market + ","
+        val marketDataList = ArrayList<String>()
+
+        conMarketNameList.forEach { title ->
+            marketDataList += marketData.filter {
+                it.market.substringBefore("-") == title
+            }.joinToString(",") {
+                it.market
+            }
+        }
+
+        for (i in 0 until marketDataList.size) {
+
+            when (marketDataList[i].substring(0, 3)) {
+                "KRW" -> krwMarketData += marketDataList[i] + ","
+                "BTC" -> btcMarketData += marketDataList[i] + ","
+                "ETH" -> ethMarketData += marketDataList[i] + ","
+                "USD" -> usdtMarketData += marketDataList[i] + ","
             }
 
         }
