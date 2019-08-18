@@ -18,6 +18,9 @@ import kotlinx.android.synthetic.main.layout_coin_fragment.*
 
 class CoinFragment : Fragment() {
     private val compositeDisposable = CompositeDisposable()
+
+    private var coinListAdapter = CoinListAdapter()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,6 +44,8 @@ class CoinFragment : Fragment() {
 
         val market = arguments?.getString(KEY_MARKET)
 
+        recyclerView.adapter = coinListAdapter
+
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
 
@@ -57,7 +62,7 @@ class CoinFragment : Fragment() {
                 ApiManager.coinApi.getTicker(market)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ tickerList ->
-                        recyclerView.adapter = CoinListAdapter(tickerList)
+                        coinListAdapter.updateItem(tickerList)
                     }, { e ->
                         e.printStackTrace()
                     })

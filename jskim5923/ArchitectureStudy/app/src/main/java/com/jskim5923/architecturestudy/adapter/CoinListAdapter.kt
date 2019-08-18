@@ -12,8 +12,11 @@ import com.jskim5923.architecturestudy.extension.setSignedChangeRateText
 import com.jskim5923.architecturestudy.extension.setTradeVolumeText
 import com.jskim5923.architecturestudy.model.Ticker
 
-class CoinListAdapter(private val itemList: List<Ticker>) :
+class CoinListAdapter :
     RecyclerView.Adapter<CoinListAdapter.CoinListViewHolder>() {
+
+    private var itemList = mutableListOf<Ticker>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinListViewHolder {
         return CoinListViewHolder(
             LayoutInflater.from(parent.context).inflate(
@@ -28,6 +31,13 @@ class CoinListAdapter(private val itemList: List<Ticker>) :
 
     override fun onBindViewHolder(holder: CoinListViewHolder, position: Int) {
         holder.bind(itemList[position])
+    }
+
+    fun updateItem(itemList: List<Ticker>) {
+        this.itemList.clear()
+        this.itemList.addAll(itemList)
+        notifyDataSetChanged()
+
     }
 
     class CoinListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
