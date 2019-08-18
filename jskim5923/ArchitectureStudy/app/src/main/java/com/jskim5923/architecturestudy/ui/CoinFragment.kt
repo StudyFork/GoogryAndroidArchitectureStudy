@@ -37,21 +37,18 @@ class CoinFragment : Fragment() {
 
         compositeDisposable += ApiManager.coinApi.getMarketList()
             .subscribeOn(Schedulers.io())
-            .map { marketList ->
-                marketList.filter {
-                    it.market.getCoinCurrency() == market
-                }.joinToString(",") {
-                    it.market
-                }
+            .flatMap { marketList ->
+                ApiManager.coinApi.getTicker(
+                    marketList.filter {
+                        it.market.getCoinCurrency() == market
+                    }.joinToString(",") {
+                        it.market
+                    }
+                )
             }
-            .subscribe({ market ->
-                ApiManager.coinApi.getTicker(market)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ tickerList ->
-                        coinListAdapter.updateItem(tickerList)
-                    }, { e ->
-                        e.printStackTrace()
-                    })
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ tickerList ->
+                coinListAdapter.updateItem(tickerList)
             }, { e ->
                 e.printStackTrace()
             })
