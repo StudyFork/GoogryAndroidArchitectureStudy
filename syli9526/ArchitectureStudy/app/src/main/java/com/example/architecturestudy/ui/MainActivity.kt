@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onTabSelected(p0: TabLayout.Tab) {
-
+                    coin_list_viewpager.currentItem = p0.position
                 }
 
             })
