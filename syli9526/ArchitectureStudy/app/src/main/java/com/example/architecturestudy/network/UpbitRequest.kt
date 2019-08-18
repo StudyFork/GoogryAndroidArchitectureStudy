@@ -11,17 +11,17 @@ class UpbitRequest {
 
     private val upbitService = UpbitService.getInstance().retrofit
 
-    fun getMarketInfo(listenser: UpbitListener<MarketResponse>) {
+    fun getMarketInfo(listener: UpbitListener<MarketResponse>) {
 
         upbitService.getMarketData().enqueue(object : Callback<List<MarketResponse>> {
             override fun onFailure(call: Call<List<MarketResponse>>, t: Throwable) {
                 t.message?.let {
-                    listenser.onFailure(it)
+                    listener.onFailure(it)
                 }
             }
 
             override fun onResponse(call: Call<List<MarketResponse>>, response: Response<List<MarketResponse>>) {
-                response.body()?.let { listenser.onResponse(it) } ?: run { listenser.onFailure("null") }
+                response.body()?.let { listener.onResponse(it) } ?: run { listener.onFailure("null") }
             }
         })
     }
