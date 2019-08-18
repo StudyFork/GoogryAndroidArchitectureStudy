@@ -42,7 +42,7 @@ class TickersAdapter : RecyclerView.Adapter<TickersAdapter.ViewHolder>() {
             binding.run {
                 tvName.setCoinName(item.market)
                 tvCurrentPrice.setCurrentPrice(item.tradePrice)
-                tvChangeRate.setChangeRate(item.signedChangeRate)
+                tvChangeRate.setChangeRate(item.change,item.signedChangeRate)
                 tvAccTradePrice.setTradePrice(item.accTradePrice24h)
             }
         }

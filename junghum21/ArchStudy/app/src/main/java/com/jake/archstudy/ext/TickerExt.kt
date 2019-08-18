@@ -12,9 +12,14 @@ fun TextView.setCurrentPrice(price: Double) {
 }
 
 @SuppressLint("SetTextI18n")
-fun TextView.setChangeRate(rate: Double) {
+fun TextView.setChangeRate(change: String, rate: Double) {
     val color = context.getColor(
-        if (rate > 0) android.R.color.holo_red_light else android.R.color.holo_blue_light
+        when (change) {
+            "RISE" -> android.R.color.holo_red_light
+            "EVEN" -> android.R.color.darker_gray
+            "FALL" -> android.R.color.holo_blue_light
+            else -> android.R.color.darker_gray
+        }
     )
     setTextColor(color)
     text = String.format("%,.2f", rate * 100) + "%"
