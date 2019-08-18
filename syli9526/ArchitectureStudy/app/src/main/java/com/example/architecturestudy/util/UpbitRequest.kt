@@ -26,18 +26,18 @@ class UpbitRequest {
         })
     }
 
-    fun getTickerInfo(listenser: UpbitListener<TickerResponse>, name: String) {
+    fun getTickerInfo(listener: UpbitListener<TickerResponse>, name: String) {
 
         upbitService.getTickerData(name).enqueue(object : Callback<List<TickerResponse>> {
 
             override fun onFailure(call: Call<List<TickerResponse>>, t: Throwable) {
                 t.message?.let {
-                    listenser.onFailure(it)
+                    listener.onFailure(it)
                 }
             }
 
             override fun onResponse(call: Call<List<TickerResponse>>, response: Response<List<TickerResponse>>) {
-                response.body()?.let { listenser.onResponse(it) } ?: run { listenser.onFailure("null") }
+                response.body()?.let { listener.onResponse(it) } ?: run { listener.onFailure("null") }
             }
         })
 
