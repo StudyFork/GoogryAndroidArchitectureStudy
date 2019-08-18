@@ -5,8 +5,8 @@ import android.os.Bundle
 import com.example.architecturestudy.R
 import com.example.architecturestudy.model.MarketResponse
 import com.example.architecturestudy.ui.adapter.ViewPagerAdapter
-import com.example.architecturestudy.util.UpbitListener
-import com.example.architecturestudy.util.UpbitRequest
+import com.example.architecturestudy.network.UpbitListener
+import com.example.architecturestudy.network.UpbitRequest
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -21,7 +21,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun getInfomation() {
 
-        UpbitRequest().getMarketInfo(object : UpbitListener<MarketResponse> {
+        UpbitRequest()
+            .getMarketInfo(object : UpbitListener<MarketResponse> {
             override fun onResponse(dataList: List<MarketResponse>) {
 
                 currency_tab_layout.run {

@@ -1,4 +1,4 @@
-package com.example.architecturestudy.util
+package com.example.architecturestudy.network
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

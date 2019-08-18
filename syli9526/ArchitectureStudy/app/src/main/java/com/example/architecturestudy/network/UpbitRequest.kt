@@ -1,4 +1,4 @@
-package com.example.architecturestudy.util
+package com.example.architecturestudy.network
 
 import com.example.architecturestudy.model.MarketResponse
 import com.example.architecturestudy.model.TickerResponse
