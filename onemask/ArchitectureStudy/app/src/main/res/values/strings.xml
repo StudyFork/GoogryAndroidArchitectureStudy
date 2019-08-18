@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">StudyFork</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="trade_amount_milli_fmt">%,.3f</string>
+    <string name="trade_amount_fmt">%,d</string>
+    <string name="trade_amount_kilo_fmt">%,d k</string>
+    <string name="trade_amount_mega_fmt">%,d M</string>
+    <string name="trade_amount_giga_fmt">%,d G</string>
 </resources>
