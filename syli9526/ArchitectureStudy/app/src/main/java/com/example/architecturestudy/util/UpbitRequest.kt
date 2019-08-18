@@ -13,7 +13,7 @@ class UpbitRequest{
 
     fun getMarketInfo(listenser: UpbitListener<MarketResponse>) {
 
-        upbitService.getMarketData()?.enqueue(object : Callback<List<MarketResponse>> {
+        upbitService.getMarketData().enqueue(object : Callback<List<MarketResponse>> {
             override fun onFailure(call: Call<List<MarketResponse>>, t: Throwable) {
                 t.message?.let {
                     listenser.onFailure(it)
