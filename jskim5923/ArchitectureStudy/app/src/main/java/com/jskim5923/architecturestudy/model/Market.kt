@@ -1,7 +1,9 @@
 package com.jskim5923.architecturestudy.model
 
+import com.google.gson.annotations.SerializedName
+
 data class Market(
-    val english_name: String,
-    val korean_name: String,
+    @SerializedName("english_name") val englishName: String,
+    @SerializedName("korean_name") val koreanName: String,
     val market: String
 )
