@@ -29,16 +29,6 @@ class CoinFragment : Fragment() {
         return inflater.inflate(R.layout.layout_coin_fragment, container, false)
     }
 
-    companion object {
-        const val KEY_MARKET = "KEY_MARKET"
-
-        fun newInstance(market: String) = CoinFragment().apply {
-            arguments = Bundle().apply {
-                putString(KEY_MARKET, market)
-            }
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -74,6 +64,16 @@ class CoinFragment : Fragment() {
     override fun onDestroyView() {
         compositeDisposable.clear()
         super.onDestroyView()
+    }
+
+    companion object {
+        const val KEY_MARKET = "KEY_MARKET"
+
+        fun newInstance(market: String) = CoinFragment().apply {
+            arguments = Bundle().apply {
+                putString(KEY_MARKET, market)
+            }
+        }
     }
 
 }
