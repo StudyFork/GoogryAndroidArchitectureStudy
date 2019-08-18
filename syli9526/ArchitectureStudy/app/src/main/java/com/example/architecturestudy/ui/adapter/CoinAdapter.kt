@@ -15,11 +15,6 @@ class CoinAdapter(private val context: Context, private val listener: CoinItemRe
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
 
-        val width = parent.measuredWidth
-        val height = parent.measuredHeight / 10
-
-        view.layoutParams = RecyclerView.LayoutParams(width, height)
-
         return ViewHolder(view)
     }
 
