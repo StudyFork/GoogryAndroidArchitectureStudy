@@ -15,28 +15,36 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     private val compositeDisposable = CompositeDisposable()
 
+    private val viewpagerAdapter by lazy {
+        ViewPagerAdapter(supportFragmentManager)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        with(viewPager) {
+            tabLayout.setupWithViewPager(this)
+            adapter = viewpagerAdapter
+        }
+
+        loadData()
+    }
+
+    private fun loadData() {
         compositeDisposable += ApiManager.coinApi.getMarketList()
             .subscribeOn(Schedulers.io())
-            .map {marketList ->
+            .map { marketList ->
                 marketList.map {
                     it.market.getCoinCurrency()
                 }.distinct()
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                setViewPager(it)
+                viewpagerAdapter.updateItem(it)
             }, {
                 it.printStackTrace()
             })
-    }
-
-    private fun setViewPager(titleList: List<String>) {
-        tabLayout.setupWithViewPager(viewPager)
-        viewPager.adapter = ViewPagerAdapter(supportFragmentManager, titleList)
     }
 
     override fun onDestroy() {
