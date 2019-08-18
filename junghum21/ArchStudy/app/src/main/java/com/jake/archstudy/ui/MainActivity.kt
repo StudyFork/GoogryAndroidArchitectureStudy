@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.jake.archstudy.R
+import com.jake.archstudy.data.model.Market
 import com.jake.archstudy.data.source.UpbitRepository
 import com.jake.archstudy.databinding.ActivityMainBinding
 import com.jake.archstudy.network.response.MarketResponse

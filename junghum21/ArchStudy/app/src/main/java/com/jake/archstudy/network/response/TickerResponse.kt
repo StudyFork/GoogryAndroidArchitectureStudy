@@ -14,29 +14,29 @@ data class TickerResponse(
     @SerializedName("change")
     val change: String,
     @SerializedName("change_price")
-    val changePrice: Int,
+    val changePrice: Double,
     @SerializedName("change_rate")
     val changeRate: Double,
     @SerializedName("high_price")
-    val highPrice: Int,
+    val highPrice: Double,
     @SerializedName("highest_52_week_date")
     val highest52WeekDate: String,
     @SerializedName("highest_52_week_price")
-    val highest52WeekPrice: Int,
+    val highest52WeekPrice: Double,
     @SerializedName("low_price")
-    val lowPrice: Int,
+    val lowPrice: Double,
     @SerializedName("lowest_52_week_date")
     val lowest52WeekDate: String,
     @SerializedName("lowest_52_week_price")
-    val lowest52WeekPrice: Int,
+    val lowest52WeekPrice: Double,
     @SerializedName("market")
     val market: String,
     @SerializedName("opening_price")
-    val openingPrice: Int,
+    val openingPrice: Double,
     @SerializedName("prev_closing_price")
-    val prevClosingPrice: Int,
+    val prevClosingPrice: Double,
     @SerializedName("signed_change_price")
-    val signedChangePrice: Int,
+    val signedChangePrice: Double,
     @SerializedName("signed_change_rate")
     val signedChangeRate: Double,
     @SerializedName("timestamp")
@@ -46,7 +46,7 @@ data class TickerResponse(
     @SerializedName("trade_date_kst")
     val tradeDateKst: String,
     @SerializedName("trade_price")
-    val tradePrice: Int,
+    val tradePrice: Double,
     @SerializedName("trade_time")
     val tradeTime: String,
     @SerializedName("trade_time_kst")
