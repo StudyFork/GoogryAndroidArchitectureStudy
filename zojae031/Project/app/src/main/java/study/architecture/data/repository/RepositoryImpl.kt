@@ -2,35 +2,35 @@ package study.architecture.data.repository
 
 import android.net.ConnectivityManager
 import io.reactivex.Single
-import study.architecture.data.entity.Market
-import study.architecture.data.entity.Ticker
+import study.architecture.data.Repository
 import study.architecture.data.UpbitLocalDataSource
 import study.architecture.data.UpbitRemoteDataSource
-import study.architecture.data.Repository
+import study.architecture.data.entity.Market
+import study.architecture.data.entity.Ticker
 
 class RepositoryImpl private constructor(
-    private val remoteRemoteDataSource: UpbitRemoteDataSource,
-    private val localRemoteDataSource: UpbitLocalDataSource,
+    private val remoteDataSource: UpbitRemoteDataSource,
+    private val localDataSource: UpbitLocalDataSource,
     private val manager: ConnectivityManager
 ) : Repository {
 
 
     override fun getMarkets(): Single<List<Market>> {
         return if (!checkNetwork()) {
-            localRemoteDataSource.getMarkets()
+            localDataSource.getMarkets()
         } else {
-            remoteRemoteDataSource.getMarkets()
-                .doOnSuccess { list -> list.map { localRemoteDataSource.insertMarket(it) } }
+            remoteDataSource.getMarkets()
+                .doOnSuccess { list -> list.map { localDataSource.insertMarket(it) } }
         }
     }
 
 
     override fun getTickers(markets: String): Single<MutableList<Ticker>> {
         return if (!checkNetwork()) {
-            localRemoteDataSource.getTickers(markets.split("-")[0])
+            localDataSource.getTickers(markets.split("-")[0])
         } else {
-            remoteRemoteDataSource.getTickers(markets)
-                .doOnSuccess { list -> list.map { localRemoteDataSource.insertTicker(it) } }
+            remoteDataSource.getTickers(markets)
+                .doOnSuccess { list -> list.map { localDataSource.insertTicker(it) } }
         }
 
     }
