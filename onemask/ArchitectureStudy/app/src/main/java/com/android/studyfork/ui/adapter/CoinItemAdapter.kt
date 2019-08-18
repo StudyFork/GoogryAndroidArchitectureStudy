@@ -45,7 +45,7 @@ class CoinItemAdapter  : RecyclerView.Adapter<CoinItemAdapter.ViewHolder>() {
             textTitle.text = ticker.market.split("-")[1]
             textCurrentPrice.filterTrade(ticker.tradePrice)
             textBeforeDay.setTradeDiff(ticker.signedChangeRate)
-            textTotalTrade.setTradeAmount(ticker.accTradePrice24h)
+            textTotalTrade.setTradeAmount(ticker)
         }
     }
 }
