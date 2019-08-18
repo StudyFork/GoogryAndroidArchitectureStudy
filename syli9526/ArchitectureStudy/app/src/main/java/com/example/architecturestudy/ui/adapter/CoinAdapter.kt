@@ -1,13 +1,13 @@
 package com.example.architecturestudy.ui.adapter
 
-import android.content.Context
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.architecturestudy.R
 import com.example.architecturestudy.ui.CoinInfo
 
-class CoinAdapter(private val context: Context) : RecyclerView.Adapter<ViewHolder>() {
+class CoinAdapter : RecyclerView.Adapter<ViewHolder>() {
 
     private var coinList = mutableListOf<CoinInfo>()
 
@@ -19,7 +19,7 @@ class CoinAdapter(private val context: Context) : RecyclerView.Adapter<ViewHolde
 
     override fun getItemCount(): Int = coinList.size
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(context, coinList[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(coinList[position])
 
 
     fun setData(coinListData: List<CoinInfo>) {

@@ -12,7 +12,6 @@ import com.example.architecturestudy.ui.adapter.CoinAdapter
 import com.example.architecturestudy.network.UpbitListener
 import com.example.architecturestudy.network.UpbitRequest
 import kotlinx.android.synthetic.main.fragment_list_coin.*
-import java.text.DecimalFormat
 
 class CoinFragment : Fragment() {
 
@@ -37,9 +36,9 @@ class CoinFragment : Fragment() {
 
     }
 
-    private fun setCoinAdapter(){
+    private fun setCoinAdapter() {
 
-        coinAdapter = CoinAdapter(requireContext())
+        coinAdapter = CoinAdapter()
 
         rv_coin_list.run {
             layoutManager = LinearLayoutManager(requireContext())
@@ -59,45 +58,11 @@ class CoinFragment : Fragment() {
                     dataList.forEach {
                         val cur = it.market.split("-")[0]
                         val coin = it.market.split("-")[1]
-                        val price = DecimalFormat("0.########").format(it.tradePrice)
-                        val compare: String
-                        val compareColor: Int
+                        val price = it.tradePrice
+                        val compare: Double = it.signedChangeRate
+                        val amount: Double = it.accTradePrice24h
 
-                        if (it.tradePrice < it.prevClosingPrice) {
-                            compare =
-                                "-" + DecimalFormat("0.##").format((1 - (it.tradePrice / it.prevClosingPrice)) * 10.0) + "%"
-                            compareColor = R.color.colorRed
-                        } else {
-                            compare =
-                                DecimalFormat("0.##").format((1 - (it.prevClosingPrice / it.tradePrice)) * 10.0) + "%"
-                            compareColor = R.color.colorBlue
-                        }
-                        val amount: String
-                        when (cur) {
-
-                            getString(R.string.currency_1) -> {
-                                amount = String.format("%,d", (it.accTradePrice24h / 1000000).toInt()) + "M"
-                            }
-                            getString(R.string.currency_2) -> {
-                                amount = String.format(
-                                    "%,d", DecimalFormat("0.###").format(it.accTradePrice24h).split(".")[0].toInt()
-                                ) + "." + DecimalFormat("0.###").format(it.accTradePrice24h).split(".")[1]
-                            }
-                            getString(R.string.currency_3) -> {
-                                amount = String.format(
-                                    "%,d", DecimalFormat("0.###").format(it.accTradePrice24h).split(".")[0].toInt()
-                                ) + "." + DecimalFormat("0.###").format(it.accTradePrice24h).split(".")[1]
-                            }
-                            getString(R.string.currency_4) -> {
-                                amount = String.format(
-                                    "%,d",
-                                    DecimalFormat("0.###").format(it.accTradePrice24h / 1000).split(".")[0].toInt()
-                                ) + " k"
-                            }
-                            else -> amount = ""
-                        }
-
-                        list.add(CoinInfo(cur, coin, price, compare, compareColor, amount))
+                        list.add(CoinInfo(cur, coin, price, compare, amount))
                     }
 
                     coinAdapter.setData(list)
