@@ -11,4 +11,10 @@
     <string name="compare_with_yesterday">전일대비</string>
     <string name="transaction_amount">거래대금</string>
 
+    <string name="trade_amount_milli_fmt">%,.3f</string>
+    <string name="trade_amount_fmt">%,d</string>
+    <string name="trade_amount_kilo_fmt">%,d k</string>
+    <string name="trade_amount_mega_fmt">%,d M</string>
+    <string name="trade_amount_giga_fmt">%,d G</string>
+
 </resources>

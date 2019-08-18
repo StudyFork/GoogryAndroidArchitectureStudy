@@ -19,7 +19,6 @@ fun TextView.filterTrade(tradePrice: Double?) {
 
 //전일 대비
 fun TextView.setTradeDiff(signedChangeRate: Double) {
-
     val color = when {
         (signedChangeRate > 0) -> ContextCompat.getColor(context, R.color.colorRed)
         signedChangeRate < 0 -> ContextCompat.getColor(context, R.color.colorBlue)
@@ -35,31 +34,78 @@ fun TextView.setTradeDiff(signedChangeRate: Double) {
 //거래대금
 fun TextView.setTradeAmount(currency: String, accTradePrice24h: Double) {
 
-    val amount: String = when (currency) {
-
+    var amount = accTradePrice24h.toLong()
+    when (currency) {
         "KRW" -> {
-            String.format("%,d", (accTradePrice24h / 1000000).toInt()) + " M"
+            text = String.format(
+                context.getString(
+                    when {
+                        amount < 1_000_000L -> {
+                            R.string.trade_amount_fmt
+                        }
+                        amount < 1_000_000_000_000L -> {
+                            amount /= 1_000_000L
+                            R.string.trade_amount_mega_fmt
+                        }
+                        else -> {
+                            amount /= 1_000_000_000L
+                            R.string.trade_amount_giga_fmt
+                        }
+                    }
+                ), amount
+            )
         }
-        "BTC" -> {
-            String.format(
-                "%,d", DecimalFormat("0.###").format(accTradePrice24h).split(".")[0].toInt()
-            ) + "." + DecimalFormat("0.###").format(accTradePrice24h).split(".")[1]
-        }
-        "ETH" -> {
-            String.format(
-                "%,d", DecimalFormat("0.###").format(accTradePrice24h).split(".")[0].toInt()
-            ) + "." + DecimalFormat("0.###").format(accTradePrice24h).split(".")[1]
-        }
+        "BTC", "ETH" -> text = String.format(context.getString(R.string.trade_amount_milli_fmt), accTradePrice24h)
         "USDT" -> {
-            String.format(
-                "%,d",
-                DecimalFormat("0.###").format(accTradePrice24h / 1000).split(".")[0].toInt()
-            ) + " K"
+            text = String.format(
+                context.getString(
+                    when {
+                        amount < 1_000_000L -> {
+                            R.string.trade_amount_fmt
+                        }
+                        amount < 1_000_000_000L -> {
+                            amount /= 1_000L
+                            R.string.trade_amount_kilo_fmt
+                        }
+                        amount < 1_000_000_000_000L -> {
+                            amount /= 1_000_000L
+                            R.string.trade_amount_mega_fmt
+                        }
+                        else -> {
+                            amount /= 1_000_000_000L
+                            R.string.trade_amount_giga_fmt
+                        }
+                    }
+                ), amount
+            )
         }
+        else -> {
+            val fmtResId = when {
+                amount < 1_000L -> {
 
-        else -> ""
-
+                    R.string.trade_amount_milli_fmt
+                }
+                amount < 1_000_000L -> {
+                    R.string.trade_amount_fmt
+                }
+                amount < 1_000_000_000L -> {
+                    amount /= 1_000L
+                    R.string.trade_amount_kilo_fmt
+                }
+                amount < 1_000_000_000_000L -> {
+                    amount /= 1_000_000L
+                    R.string.trade_amount_mega_fmt
+                }
+                else -> {
+                    amount /= 1_000_000_000L
+                    R.string.trade_amount_giga_fmt
+                }
+            }
+            text = if (amount < 1_000L) {
+                String.format(context.getString(fmtResId), accTradePrice24h)
+            } else {
+                String.format(context.getString(fmtResId), amount)
+            }
+        }
     }
-
-    text = "$amount"
 }
