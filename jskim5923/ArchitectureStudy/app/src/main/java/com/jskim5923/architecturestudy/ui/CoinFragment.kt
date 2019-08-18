@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.jskim5923.architecturestudy.R
 import com.jskim5923.architecturestudy.adapter.CoinListAdapter
 import com.jskim5923.architecturestudy.api.ApiManager
@@ -35,9 +34,6 @@ class CoinFragment : Fragment() {
         val market = arguments?.getString(KEY_MARKET)
 
         recyclerView.adapter = coinListAdapter
-
-        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-
 
         compositeDisposable += ApiManager.coinApi.getMarketList()
             .subscribeOn(Schedulers.io())
