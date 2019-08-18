@@ -9,9 +9,9 @@ import com.example.architecturestudy.ui.CoinFragment
 
 class ViewPagerAdapter(
     fm: FragmentManager,
-    val context: Context,
-    val pageList: List<Int>,
-    val marketList: List<MarketResponse>
+    private val context: Context,
+    private val pageList: List<Int>,
+    private val marketList: List<MarketResponse>
 ) : FragmentStatePagerAdapter(fm) {
 
     override fun getCount(): Int = pageList.size

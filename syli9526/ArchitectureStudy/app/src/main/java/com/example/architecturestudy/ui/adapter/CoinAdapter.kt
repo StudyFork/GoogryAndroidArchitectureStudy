@@ -10,7 +10,7 @@ import com.example.architecturestudy.ui.CoinInfo
 class CoinAdapter(private val context: Context, private val listener: CoinItemRecyclerViewClickListener) :
     RecyclerView.Adapter<ViewHolder>() {
 
-    var coinList = mutableListOf<CoinInfo>()
+    private var coinList = mutableListOf<CoinInfo>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)

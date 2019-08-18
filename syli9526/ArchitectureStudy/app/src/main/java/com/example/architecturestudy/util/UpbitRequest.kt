@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class UpbitRequest {
 
-    val url = "https://api.upbit.com"
+    private val url = "https://api.upbit.com"
 
     fun getMarketInfo(listenser: UpbitListener<MarketResponse>) {
 

@@ -16,8 +16,8 @@ import java.text.DecimalFormat
 
 class CoinFragment : Fragment(), CoinAdapter.CoinItemRecyclerViewClickListener {
 
-    var currencyList: List<String>? = null
-    lateinit var coinAdapter: CoinAdapter
+    private var currencyList: List<String>? = null
+    private lateinit var coinAdapter: CoinAdapter
 
     override fun onItemClicked(position: Int) {
 

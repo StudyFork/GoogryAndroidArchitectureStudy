@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         getInfomation()
     }
 
-    fun getInfomation() {
+    private fun getInfomation() {
 
         UpbitRequest().getMarketInfo(object : UpbitListener<MarketResponse> {
             override fun onResponse(dataList: List<MarketResponse>) {
