@@ -29,8 +29,8 @@ class CoinFragment : Fragment() {
         return inflater.inflate(R.layout.layout_coin_fragment, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
         val market = arguments?.getString(KEY_MARKET)
 
