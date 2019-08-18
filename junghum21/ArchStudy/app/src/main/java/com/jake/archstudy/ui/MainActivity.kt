@@ -40,7 +40,17 @@ class MainActivity : AppCompatActivity() {
                     response: Response<List<MarketResponse>?>
                 ) {
                     if (response.isSuccessful) {
-                        response.body()?.let { initViewPager(it) }
+                        response.body()?.let { body ->
+                            val markets = body.groupBy { it.market.split("-")[0] }
+                                .map { map ->
+                                    val title = map.key
+                                    val markets = map.value.joinToString(separator = ",") {
+                                        it.market
+                                    }
+                                    Market(title, markets)
+                                }
+                            initViewPager(markets)
+                        }
                     }
                 }
             })
@@ -54,17 +64,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initViewPager(markets: List<MarketResponse>) {
+    private fun initViewPager(markets: List<Market>) {
         binding.vpContent.run {
             adapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
                 override fun getItem(position: Int): Fragment {
-                    return TickersFragment.newInstance(markets[position].market ?: "")
+                    return TickersFragment.newInstance(markets[position].markets)
                 }
 
                 override fun getCount() = markets.size
 
                 override fun getPageTitle(position: Int): CharSequence? {
-                    return markets[position].market
+                    return markets[position].title
                 }
             }
         }
