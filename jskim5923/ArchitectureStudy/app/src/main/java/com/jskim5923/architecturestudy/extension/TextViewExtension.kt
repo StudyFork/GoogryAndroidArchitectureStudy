@@ -40,7 +40,7 @@ fun TextView.setSignedChangeRateText(changeRate: Double) {
 fun TextView.setTradeVolumeText(ticker: Ticker) {
     when (ticker.market.getCoinCurrency()) {
         EnumCoinCurrency.KRW.name, EnumCoinCurrency.USDT.name -> {
-            var tradeVolume: Long = ticker.acc_trade_price_24h.toLong()
+            var tradeVolume: Long = ticker.accTradePrice24h.toLong()
             text = String.format(
                 context.getString(
                     when {
@@ -67,12 +67,12 @@ fun TextView.setTradeVolumeText(ticker: Ticker) {
             text = String.format(
                 context.getString(
                     R.string.coin_trade_volume_format_decimal,
-                    ticker.acc_trade_price_24h
+                    ticker.accTradePrice24h
                 )
             )
         }
         else -> {
-            var tradeVolume: Long = ticker.acc_trade_price_24h.toLong()
+            var tradeVolume: Long = ticker.accTradePrice24h.toLong()
             text = String.format(
                 context.getString(
                     when {

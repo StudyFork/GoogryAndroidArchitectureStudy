@@ -51,8 +51,8 @@ class CoinListAdapter :
 
         fun bind(item: Ticker) {
             coinName.text = item.market.getCoinName()
-            currentPrice.setCurrentPriceText(item.trade_price)
-            diff.setSignedChangeRateText(item.signed_change_rate)
+            currentPrice.setCurrentPriceText(item.tradePrice)
+            diff.setSignedChangeRateText(item.signedChangeRate)
             tradeVolume.setTradeVolumeText(item)
         }
 
