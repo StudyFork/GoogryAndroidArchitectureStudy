@@ -15,10 +15,7 @@ class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val tvCompareWithYesterday = itemView.findViewById(R.id.tv_compare_yesterday) as TextView
     private val tvTransactionAmount = itemView.findViewById(R.id.tv_transaction_amount) as TextView
 
-    fun bind(context: Context, coinInfo: CoinInfo, listener: CoinAdapter.CoinItemRecyclerViewClickListener) {
-        itemView.setOnClickListener {
-            listener.onItemClicked(adapterPosition)
-        }
+    fun bind(context: Context, coinInfo: CoinInfo) {
 
         tvCoinName.text = coinInfo.coinName
         tvPresentPrice.text = coinInfo.presentPrice

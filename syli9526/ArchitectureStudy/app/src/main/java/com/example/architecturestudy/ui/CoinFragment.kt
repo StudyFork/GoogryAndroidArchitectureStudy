@@ -14,14 +14,11 @@ import com.example.architecturestudy.util.UpbitRequest
 import kotlinx.android.synthetic.main.fragment_list_coin.*
 import java.text.DecimalFormat
 
-class CoinFragment : Fragment(), CoinAdapter.CoinItemRecyclerViewClickListener {
+class CoinFragment : Fragment() {
 
     private var currencyList: List<String>? = null
     private lateinit var coinAdapter: CoinAdapter
 
-    override fun onItemClicked(position: Int) {
-
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return return inflater.inflate(R.layout.fragment_list_coin, container, false)
@@ -42,7 +39,7 @@ class CoinFragment : Fragment(), CoinAdapter.CoinItemRecyclerViewClickListener {
 
     private fun setCoinAdapter(){
 
-        coinAdapter = CoinAdapter(requireContext(), this)
+        coinAdapter = CoinAdapter(requireContext())
 
         rv_coin_list.run {
             layoutManager = LinearLayoutManager(requireContext())

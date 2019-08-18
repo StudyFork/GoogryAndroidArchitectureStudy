@@ -7,8 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.architecturestudy.R
 import com.example.architecturestudy.ui.CoinInfo
 
-class CoinAdapter(private val context: Context, private val listener: CoinItemRecyclerViewClickListener) :
-    RecyclerView.Adapter<ViewHolder>() {
+class CoinAdapter(private val context: Context) : RecyclerView.Adapter<ViewHolder>() {
 
     private var coinList = mutableListOf<CoinInfo>()
 
@@ -20,11 +19,8 @@ class CoinAdapter(private val context: Context, private val listener: CoinItemRe
 
     override fun getItemCount(): Int = coinList.size
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(context, coinList[position], listener)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(context, coinList[position])
 
-    interface CoinItemRecyclerViewClickListener {
-        fun onItemClicked(position: Int)
-    }
 
     fun setData(coinListData: List<CoinInfo>) {
         this.coinList.clear()
