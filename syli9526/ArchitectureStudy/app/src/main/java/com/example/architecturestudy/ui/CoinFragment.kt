@@ -27,13 +27,20 @@ class CoinFragment : Fragment(), CoinAdapter.CoinItemRecyclerViewClickListener {
         return return inflater.inflate(R.layout.fragment_list_coin, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         currencyList = arguments?.getStringArrayList(CURRENCY_LIST)
         currencyList?.let {
             getTickerInfo(it.joinToString(","))
         }
+
+        setCoinAdapter()
+
+    }
+
+    private fun setCoinAdapter(){
 
         coinAdapter = CoinAdapter(requireContext(), this)
 
