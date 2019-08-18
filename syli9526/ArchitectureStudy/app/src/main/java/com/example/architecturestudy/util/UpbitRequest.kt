@@ -7,7 +7,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class UpbitRequest{
+class UpbitRequest {
 
     private val upbitService = UpbitService.getInstance().retrofit
 
@@ -21,9 +21,7 @@ class UpbitRequest{
             }
 
             override fun onResponse(call: Call<List<MarketResponse>>, response: Response<List<MarketResponse>>) {
-                response.body()?.let {
-                    listenser.onResponse(it)
-                }.let { listenser.onFailure("null") }
+                response.body()?.let { listenser.onResponse(it) } ?: run { listenser.onFailure("null") }
             }
         })
     }
@@ -39,9 +37,7 @@ class UpbitRequest{
             }
 
             override fun onResponse(call: Call<List<TickerResponse>>, response: Response<List<TickerResponse>>) {
-                response.body()?.let {
-                    listenser.onResponse(it)
-                }.let { listenser.onFailure("null") }
+                response.body()?.let { listenser.onResponse(it) } ?: run { listenser.onFailure("null") }
             }
         })
 
