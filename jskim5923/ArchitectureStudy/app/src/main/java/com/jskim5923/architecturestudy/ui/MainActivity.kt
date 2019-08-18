@@ -21,14 +21,14 @@ class MainActivity : AppCompatActivity() {
 
         compositeDisposable += ApiManager.coinApi.getMarketList()
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ marketList ->
+            .map {marketList ->
                 marketList.map {
                     it.market.getCoinCurrency()
                 }.distinct()
-                    .run {
-                        setViewPager(this)
-                    }
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                setViewPager(it)
             }, {
                 it.printStackTrace()
             })
