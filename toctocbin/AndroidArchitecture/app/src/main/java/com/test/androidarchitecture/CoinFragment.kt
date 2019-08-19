@@ -51,14 +51,14 @@ class CoinFragment : Fragment() {
     }
 
 
-    private fun loadCoinData(coinList: ArrayList<String>) {
+    private fun loadCoinData(coinList: List<String>) {
         retrofitService = RetrofitClient().getClient().create(RetrofitService::class.java)
         retrofitService?.loadCoinData(coinList.joinToString(","))?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe(this::coinResponse, this::coinError)
     }
 
-    private fun coinResponse(coinList: ArrayList<Coin>) {
+    private fun coinResponse(coinList: List<Coin>) {
         adapter?.addItem(coinList)
         adapter?.notifyDataSetChanged()
     }

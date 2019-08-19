@@ -32,7 +32,7 @@ class CoinAdapter(private val coinType: String) : RecyclerView.Adapter<CoinAdapt
     }
 
 
-    fun addItem(coinList: ArrayList<Coin>) {
+    fun addItem(coinList: List<Coin>) {
         this.coinList.addAll(coinList)
     }
 
