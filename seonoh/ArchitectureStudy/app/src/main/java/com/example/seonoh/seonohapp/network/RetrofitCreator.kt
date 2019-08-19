@@ -12,9 +12,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 const val BASE_URL = "https://api.upbit.com/"
 
-class RetrofitCreator {
+object RetrofitCreator {
 
-    companion object {
         fun createNet(): Api {
 
             val okClient = OkHttpClient.Builder()
@@ -41,7 +40,5 @@ class RetrofitCreator {
 
             return retrofit.create(Api::class.java)
         }
-
-    }
 
 }
