@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private var viewpagerAdapter: ViewpagerAdapter? = null
     private val titleList = arrayListOf("KRW", "BTC", "ETH", "USDT")
-    private val fragmentList: ArrayList<Fragment> = ArrayList()
+    private val fragmentList: MutableList<Fragment> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

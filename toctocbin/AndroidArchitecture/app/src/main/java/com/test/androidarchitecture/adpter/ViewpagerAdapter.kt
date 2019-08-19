@@ -5,8 +5,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 
 class ViewpagerAdapter(fm: FragmentManager?,
-                       private val fragmentList: ArrayList<Fragment>,
-                       private val titleList: ArrayList<String>
+                       private val fragmentList: List<Fragment>,
+                       private val titleList: MutableList<String>
 ) : FragmentStatePagerAdapter(fm) {
 
 
