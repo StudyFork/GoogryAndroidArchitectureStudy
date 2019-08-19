@@ -49,9 +49,9 @@ class CoinAdapter : RecyclerView.Adapter<CoinAdapter.CoinViewHolder>() {
 
         fun onBindView(coin: Coin) {
             coinNameTextView.setCoinNameText(coin.market)
-            coinNowPriceTextView.setNowPriceText(coin.trade_price)
-            coinPreParePercentTextView.setChangeRate(coin.signed_change_rate, coin.change)
-            coinDealPriceTextView.setTradePriceText(coin.acc_trade_price_24h)
+            coinNowPriceTextView.setNowPriceText(coin.tradePrice)
+            coinPreParePercentTextView.setChangeRate(coin.signedChangeRate, coin.change)
+            coinDealPriceTextView.setTradePriceText(coin.accTradePrice24h)
         }
     }
 
