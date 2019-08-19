@@ -36,11 +36,12 @@ class CoinFragment : BaseFragment(),CurrentPriceInfoRequest.ResultListener{
     }
 
     fun initView( data: ArrayList<CurrentPriceInfoModel>){
-        mAdapter = CoinAdapter(data)
+        mAdapter = CoinAdapter()
         mLinearLayoutManager = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
         mView.krwRecyclerView.apply {
             layoutManager = mLinearLayoutManager
             adapter = mAdapter
+            mAdapter.addCoinData(data)
         }
     }
 
