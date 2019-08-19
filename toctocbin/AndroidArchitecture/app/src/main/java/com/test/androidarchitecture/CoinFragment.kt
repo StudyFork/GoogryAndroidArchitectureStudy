@@ -34,8 +34,10 @@ class CoinFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_coin, container, false)
     }
@@ -45,7 +47,7 @@ class CoinFragment : Fragment() {
         marketSearch = arguments?.getString("marketSearch")!!
         adapter = CoinAdapter()
         coin_recyclerView.adapter = this.adapter
-        marketSearch?.let { loadCoinData(it) }
+        marketSearch.let { loadCoinData(it) }
     }
 
 
@@ -53,17 +55,12 @@ class CoinFragment : Fragment() {
     private fun loadCoinData(marketSearch: String) {
         retrofitService = RetrofitClient().getClient().create(RetrofitService::class.java)
         retrofitService?.loadCoinData(marketSearch)?.subscribeOn(Schedulers.io())
-                ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe(this::coinResponse, this::coinError)
-    }
-
-    private fun coinResponse(coinList: List<Coin>) {
-        adapter?.addItem(coinList)
-        adapter?.notifyDataSetChanged()
-    }
-
-    private fun coinError(error: Throwable) {
-        Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribe({ t: List<Coin>? ->
+                run {
+                    t?.let { it1 -> adapter?.addItem(it1) }
+                }
+            }, { t: Throwable? -> Toast.makeText(context, t?.message, Toast.LENGTH_SHORT).show() })
     }
 
 }
