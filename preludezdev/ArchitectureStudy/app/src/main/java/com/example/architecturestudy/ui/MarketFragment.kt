@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.architecturestudy.data.Coin
-import com.example.architecturestudy.data.source.CoinsRepository
+import com.example.architecturestudy.data.source.CoinsRepositoryImpl
 import com.example.architecturestudy.data.source.local.CoinsLocalDataSource
 import com.example.architecturestudy.data.source.remote.CoinsRemoteDataSource
 import com.example.architecturestudy.network.RetrofitHelper
@@ -37,7 +37,7 @@ class MarketFragment : Fragment(), MarketContract.View {
         val keyMarket = arguments?.getString(key)
 
         presenter = MarketPresenter(
-            this, CoinsRepository.getInstance(
+            this, CoinsRepositoryImpl.getInstance(
                 CoinsRemoteDataSource.getInstance(RetrofitHelper.getInstance().coinApiService),
                 CoinsLocalDataSource.getInstance()
             )
