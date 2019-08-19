@@ -1,6 +1,7 @@
 package com.test.androidarchitecture
 
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,17 +19,15 @@ import kotlinx.android.synthetic.main.fragment_coin.*
 
 class CoinFragment : Fragment() {
 
-    private var coinList: ArrayList<String>? = null
     private var retrofitService: RetrofitService? = null
-    private var coinType: String = ""
+    private var marketSearch: String = ""
     private var adapter: CoinAdapter? = null
 
     companion object {
 
-        fun getInstance(coinFilterList: ArrayList<String>, coinType: String): CoinFragment {
+        fun getInstance(marketSearch: String): CoinFragment {
             val args = Bundle()
-            args.putStringArrayList("coinList", coinFilterList)
-            args.putString("coinType", coinType)
+            args.putString("marketSearch", marketSearch)
             val fragment = CoinFragment()
             fragment.arguments = args
             return fragment
@@ -43,17 +42,17 @@ class CoinFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        coinList = arguments?.getStringArrayList("coinList")
-        coinType = arguments?.getString("coinType")!!
-        adapter = CoinAdapter(coinType)
+        marketSearch = arguments?.getString("marketSearch")!!
+        adapter = CoinAdapter()
         coin_recyclerView.adapter = this.adapter
-        coinList?.let { loadCoinData(it) }
+        marketSearch?.let { loadCoinData(it) }
     }
 
 
-    private fun loadCoinData(coinList: List<String>) {
+    @SuppressLint("CheckResult")
+    private fun loadCoinData(marketSearch: String) {
         retrofitService = RetrofitClient().getClient().create(RetrofitService::class.java)
-        retrofitService?.loadCoinData(coinList.joinToString(","))?.subscribeOn(Schedulers.io())
+        retrofitService?.loadCoinData(marketSearch)?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe(this::coinResponse, this::coinError)
     }

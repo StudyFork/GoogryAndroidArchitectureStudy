@@ -14,7 +14,7 @@ import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class CoinAdapter(private val coinType: String) : RecyclerView.Adapter<CoinAdapter.CoinViewHolder>() {
+class CoinAdapter() : RecyclerView.Adapter<CoinAdapter.CoinViewHolder>() {
 
     private val coinList: MutableList<Coin> = ArrayList()
 
@@ -28,7 +28,7 @@ class CoinAdapter(private val coinType: String) : RecyclerView.Adapter<CoinAdapt
     }
 
     override fun onBindViewHolder(holder: CoinViewHolder, position: Int) {
-        holder.onBindView(coinList[position], coinType)
+        holder.onBindView(coinList[position])
     }
 
 
@@ -49,8 +49,8 @@ class CoinAdapter(private val coinType: String) : RecyclerView.Adapter<CoinAdapt
 
         val coinDealPriceTextView = itemView.item_coin_deal_price_text
 
-        fun onBindView(coin: Coin, coinType: String) {
-            coinNameTextView.text = coin.market.replace(coinType, "").replace("-", "")
+        fun onBindView(coin: Coin) {
+            coinNameTextView.text = coin.market.split("-")[1]
             coinNowPriceView.text = formatPrice(coin.trade_price)
             setPrePercent(coinPreParePercentTextView, coin.signed_change_rate, itemView.context)
             coinDealPriceTextView.text = formatDealPrice(coin.acc_trade_price_24h)

@@ -1,11 +1,12 @@
 package com.test.androidarchitecture
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import com.test.androidarchitecture.adpter.ViewpagerAdapter
 import com.test.androidarchitecture.data.Market
+import com.test.androidarchitecture.data.MarketTitle
 import com.test.androidarchitecture.network.RetrofitClient
 import com.test.androidarchitecture.network.RetrofitService
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -16,8 +17,6 @@ class MainActivity : AppCompatActivity() {
 
 
     private var viewpagerAdapter: ViewpagerAdapter? = null
-    private val titleList = arrayListOf("KRW", "BTC", "ETH", "USDT")
-    private val fragmentList: MutableList<Fragment> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,41 +25,29 @@ class MainActivity : AppCompatActivity() {
         loadMarketData()
     }
 
+    @SuppressLint("CheckResult")
     private fun loadMarketData() {
         val retrofitService = RetrofitClient().getClient().create(RetrofitService::class.java)
         retrofitService.loadMarketData().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(this::marketResponse, this::marketError)
-    }
-
-    private fun marketResponse(marketList: List<Market>) {
-        val krwList: ArrayList<String> = ArrayList()
-        val btcList: ArrayList<String> = ArrayList()
-        val ethList: ArrayList<String> = ArrayList()
-        val usdtList: ArrayList<String> = ArrayList()
-        fragmentList.run {
-            for (market in marketList) {
-                if (market.market.startsWith("KRW"))
-                    krwList.add(market.market)
-                if (market.market.startsWith("BTC"))
-                    btcList.add(market.market)
-                if (market.market.startsWith("ETH"))
-                    ethList.add(market.market)
-                if (market.market.startsWith("USDT"))
-                    usdtList.add(market.market)
-            }
-            add(CoinFragment.getInstance(krwList, "KRW"))
-            add(CoinFragment.getInstance(btcList, "BTC"))
-            add(CoinFragment.getInstance(ethList, "ETH"))
-            add(CoinFragment.getInstance(usdtList, "USDT"))
-        }
-        viewpagerAdapter = ViewpagerAdapter(supportFragmentManager, fragmentList, titleList)
-        main_viewPager.offscreenPageLimit = 3
-        main_viewPager.adapter = viewpagerAdapter
-    }
-
-    private fun marketError(error: Throwable) {
-        Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
+            .subscribe({ t: List<Market>? ->
+                run {
+                    val marketTitle = t?.groupBy { it.market.split("-")[0] }
+                        ?.map { map ->
+                            val title = map.key
+                            val markets = map.value.joinToString(separator = ",") {
+                                it.market
+                            }
+                            MarketTitle(title, markets)
+                        }
+                    viewpagerAdapter =
+                        marketTitle?.let {
+                            ViewpagerAdapter(supportFragmentManager, it)
+                        }
+                    main_viewPager.offscreenPageLimit = 3
+                    main_viewPager.adapter = viewpagerAdapter
+                }
+            }, { t: Throwable? -> Toast.makeText(this, t?.message, Toast.LENGTH_SHORT).show() })
     }
 
 }
