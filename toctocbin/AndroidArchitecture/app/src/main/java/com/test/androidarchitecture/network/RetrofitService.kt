@@ -8,10 +8,10 @@ import retrofit2.http.Query
 
 interface RetrofitService {
 
-    @GET("market/all")
+    @GET("v1/market/all")
     fun loadMarketData(): Single<List<Market>>
 
-    @GET("ticker")
+    @GET("v1/ticker")
     fun loadCoinData(@Query("markets") markets: String): Single<List<Coin>>
 
 }

@@ -28,7 +28,7 @@ class RetrofitClient {
             .writeTimeout(20, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS).build()
         retrofit = Retrofit.Builder()
-            .baseUrl("https://api.upbit.com/v1/")
+            .baseUrl("https://api.upbit.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okHttpClient)

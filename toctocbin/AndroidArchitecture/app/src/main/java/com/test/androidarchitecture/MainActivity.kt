@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             .subscribe(this::marketResponse, this::marketError)
     }
 
-    private fun marketResponse(marketList: ArrayList<Market>) {
+    private fun marketResponse(marketList: List<Market>) {
         val krwList: ArrayList<String> = ArrayList()
         val btcList: ArrayList<String> = ArrayList()
         val ethList: ArrayList<String> = ArrayList()
