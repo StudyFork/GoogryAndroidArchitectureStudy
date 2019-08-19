@@ -17,7 +17,6 @@ class CoinFragment : BaseFragment(),CurrentPriceInfoRequest.ResultListener{
 
     lateinit var mView : View
     lateinit var mData : ArrayList<CurrentPriceInfoModel>
-    lateinit var mLinearLayoutManager: LinearLayoutManager
     lateinit var mAdapter : CoinAdapter
     var marketName = ""
     var marketType = 0
@@ -37,9 +36,7 @@ class CoinFragment : BaseFragment(),CurrentPriceInfoRequest.ResultListener{
 
     fun initView( data: ArrayList<CurrentPriceInfoModel>){
         mAdapter = CoinAdapter()
-        mLinearLayoutManager = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
         mView.krwRecyclerView.apply {
-            layoutManager = mLinearLayoutManager
             adapter = mAdapter
             mAdapter.addCoinData(data)
         }
