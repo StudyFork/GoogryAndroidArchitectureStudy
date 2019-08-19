@@ -1,6 +1,9 @@
 package com.example.architecturestudy.util
 
 object Util {
+    const val THOUSAND = 1_000
+    const val MILLION = 1_000_000
+
     //천 단위로 끊어서 콤마 붙여주는 함수
     fun convertBigNumberToStdString(num: Int): String {
         var resultText = ""

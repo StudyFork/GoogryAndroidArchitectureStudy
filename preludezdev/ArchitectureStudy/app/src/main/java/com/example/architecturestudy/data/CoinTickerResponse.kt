@@ -2,6 +2,8 @@ package com.example.architecturestudy.data
 
 import android.graphics.Color
 import com.example.architecturestudy.util.Util
+import com.example.architecturestudy.util.Util.MILLION
+import com.example.architecturestudy.util.Util.THOUSAND
 import com.google.gson.annotations.SerializedName
 
 data class CoinTickerResponse(
@@ -14,17 +16,13 @@ data class CoinTickerResponse(
     @SerializedName("acc_trade_price_24h")
     val accTradePriceH: Double = 0.0
 ) {
-    private val oneThousand = 1_000
-    private val oneHundredThousand = 100_000
-    private val tenMillion = 10_000_000
-
     fun convertTickerIntoCoin(): Coin {
         //코인 이름
         val coinName = market.split("-")[1]
 
         //현재가
         val tradePrice = when {
-            tradePrice > oneThousand ->
+            tradePrice > THOUSAND ->
                 Util.convertBigNumberToStdString(tradePrice.toInt())
             tradePrice > 2 ->
                 String.format("%.2f", tradePrice)
@@ -40,14 +38,14 @@ data class CoinTickerResponse(
 
         //거래대금
         val accTradePriceH = when {
-            accTradePriceH > tenMillion -> {
-                Util.convertBigNumberToStdString((accTradePriceH / 1000000).toInt()) + "M"
+            accTradePriceH > 10 * MILLION -> {
+                Util.convertBigNumberToStdString((accTradePriceH / MILLION).toInt()) + "M"
             }
 
-            accTradePriceH > oneHundredThousand ->
-                Util.convertBigNumberToStdString(accTradePriceH.toInt() / 1000) + "k"
+            accTradePriceH > 100 * THOUSAND ->
+                Util.convertBigNumberToStdString(accTradePriceH.toInt() / THOUSAND) + "k"
 
-            accTradePriceH > oneThousand ->
+            accTradePriceH > THOUSAND ->
                 Util.convertBigNumberToStdString(accTradePriceH.toInt())
 
             else ->
