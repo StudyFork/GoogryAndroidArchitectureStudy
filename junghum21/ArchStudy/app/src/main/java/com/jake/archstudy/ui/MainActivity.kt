@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.google.android.material.tabs.TabLayout
 import com.jake.archstudy.R
 import com.jake.archstudy.data.model.Market
 import com.jake.archstudy.data.source.UpbitRepository
@@ -59,7 +58,6 @@ class MainActivity : AppCompatActivity() {
     private fun initTabLayout() {
         binding.tlMarket.run {
             val viewPager = binding.vpContent
-            addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(viewPager))
             setupWithViewPager(viewPager)
         }
     }
