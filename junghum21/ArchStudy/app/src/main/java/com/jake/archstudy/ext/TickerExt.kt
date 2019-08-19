@@ -27,7 +27,7 @@ fun TextView.setChangeRate(change: String, rate: Double) {
 
 fun TextView.setTradePrice(price: Double) {
     text = when {
-        price < 1F -> String.format("%,.2f", price)
+        price < 1F -> String.format("%,.8f", price)
         price in 1F..999F -> String.format("%,d", price.toInt())
         price in 1000F..999999F -> String.format("%,d", price.toInt() / 1000) + "K"
         price > 1000000F -> String.format("%,d", price.toInt() / 1000000) + "M"
