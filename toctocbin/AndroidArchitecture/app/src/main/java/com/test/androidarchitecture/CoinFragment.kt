@@ -22,6 +22,7 @@ class CoinFragment : Fragment() {
     private var retrofitService: RetrofitService? = null
     private var marketSearch: String = ""
     private var adapter: CoinAdapter? = null
+    private val retrofitClient by lazy { RetrofitClient.getInstance().getClient() }
 
     companion object {
 
@@ -53,7 +54,7 @@ class CoinFragment : Fragment() {
 
     @SuppressLint("CheckResult")
     private fun loadCoinData(marketSearch: String) {
-        retrofitService = RetrofitClient().getClient().create(RetrofitService::class.java)
+        retrofitService = retrofitClient.create(RetrofitService::class.java)
         retrofitService?.loadCoinData(marketSearch)?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe({ t: List<Coin>? ->

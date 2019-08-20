@@ -1,6 +1,7 @@
 package com.test.androidarchitecture.network
 
 import okhttp3.OkHttpClient
+import okhttp3.internal.Internal.instance
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -34,6 +35,20 @@ class RetrofitClient {
             .client(okHttpClient)
             .build()
         return retrofit
+    }
+
+    companion object {
+
+        @Volatile
+        private var instance: RetrofitClient? = null
+
+        @JvmStatic
+        fun getInstance(): RetrofitClient =
+            instance ?: synchronized(this) {
+                instance ?: RetrofitClient().also {
+                    instance = it
+                }
+            }
     }
 
 }

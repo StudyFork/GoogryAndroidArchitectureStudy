@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private var viewpagerAdapter: ViewpagerAdapter? = null
+    private val retrofitClient by lazy { RetrofitClient.getInstance().getClient() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("CheckResult")
     private fun loadMarketData() {
-        val retrofitService = RetrofitClient().getClient().create(RetrofitService::class.java)
+        val retrofitService = retrofitClient.create(RetrofitService::class.java)
         retrofitService.loadMarketData().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ t: List<Market>? ->
