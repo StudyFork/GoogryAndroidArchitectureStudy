@@ -1,8 +1,6 @@
 package com.example.seonoh.seonohapp
 
-
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
-import com.example.seonoh.seonohapp.network.CurrentPriceInfoRequest
+import com.example.seonoh.seonohapp.network.CoinRequest
+import com.example.seonoh.seonohapp.network.RetrofitCreator
 import kotlinx.android.synthetic.main.coin_fragment.view.*
 
 
-class CoinFragment : Fragment(),CurrentPriceInfoRequest.ResultListener{
+class CoinFragment : Fragment(),CoinRequest.CurrentPriceInfoResultListener{
 
     lateinit var mView : View
     lateinit var mData : ArrayList<CurrentPriceInfoModel>
@@ -47,7 +46,7 @@ class CoinFragment : Fragment(),CurrentPriceInfoRequest.ResultListener{
     }
 
     fun requestData(){
-        CurrentPriceInfoRequest().send(this, marketName)
+        CoinRequest().currentPriceInfoSend(RetrofitCreator.coinApi,this, marketName)
     }
 
     override fun getCurrentInfoSuccess(result: ArrayList<CurrentPriceInfoModel>) {

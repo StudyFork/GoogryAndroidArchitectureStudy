@@ -5,11 +5,12 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.seonoh.seonohapp.model.Market
-import com.example.seonoh.seonohapp.network.MarketRequest
+import com.example.seonoh.seonohapp.network.CoinRequest
+import com.example.seonoh.seonohapp.network.RetrofitCreator
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), MarketRequest.ResultListener {
+class MainActivity : AppCompatActivity(), CoinRequest.MarketResultListener {
 
     companion object {
         @JvmStatic
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity(), MarketRequest.ResultListener {
 
         toast = Toast.makeText(this, "뒤로가기를 한번 더 누르시면 앱이 종료됩니다.", Toast.LENGTH_SHORT)
 
-        MarketRequest().send(this@MainActivity)
+        CoinRequest().marketSend(RetrofitCreator.coinApi,this@MainActivity)
 
     }
 
