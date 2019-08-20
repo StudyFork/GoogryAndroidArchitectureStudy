@@ -24,17 +24,6 @@ class CoinFragment : Fragment() {
     private val adapter by lazy { CoinAdapter() }
     private val retrofitClient by lazy { RetrofitClient.getInstance().getClient() }
 
-    companion object {
-
-        fun getInstance(marketSearch: String): CoinFragment {
-            val args = Bundle()
-            args.putString("marketSearch", marketSearch)
-            val fragment = CoinFragment()
-            fragment.arguments = args
-            return fragment
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,4 +51,14 @@ class CoinFragment : Fragment() {
             }, { t: Throwable -> Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show() })
     }
 
+    companion object {
+
+        fun getInstance(marketSearch: String): CoinFragment {
+            val args = Bundle()
+            args.putString("marketSearch", marketSearch)
+            val fragment = CoinFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 }
