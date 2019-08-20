@@ -16,7 +16,7 @@ fun TextView.setNowPriceText(price: Double) {
 }
 
 fun TextView.setCoinNameText(market: String) {
-    text = market.split("-")[1]
+    text = market.substringAfter("-")
 }
 
 @SuppressLint("SetTextI18n")
