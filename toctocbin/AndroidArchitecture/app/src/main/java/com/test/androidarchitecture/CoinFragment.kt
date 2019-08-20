@@ -11,7 +11,6 @@ import android.widget.Toast
 import com.test.androidarchitecture.adpter.CoinAdapter
 import com.test.androidarchitecture.data.Coin
 import com.test.androidarchitecture.network.RetrofitClient
-import com.test.androidarchitecture.network.RetrofitService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_coin.*
@@ -19,10 +18,9 @@ import kotlinx.android.synthetic.main.fragment_coin.*
 
 class CoinFragment : Fragment() {
 
-    private val retrofitService by lazy { retrofitClient.create(RetrofitService::class.java) }
     private var marketSearch: String = ""
     private val adapter by lazy { CoinAdapter() }
-    private val retrofitClient by lazy { RetrofitClient.getInstance().getClient() }
+    private val retrofitService by lazy { RetrofitClient.getInstance().retrofitService }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

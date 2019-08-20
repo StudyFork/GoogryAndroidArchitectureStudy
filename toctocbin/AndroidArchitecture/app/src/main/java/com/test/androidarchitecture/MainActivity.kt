@@ -8,7 +8,6 @@ import com.test.androidarchitecture.adpter.ViewpagerAdapter
 import com.test.androidarchitecture.data.Market
 import com.test.androidarchitecture.data.MarketTitle
 import com.test.androidarchitecture.network.RetrofitClient
-import com.test.androidarchitecture.network.RetrofitService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
@@ -17,7 +16,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private var viewpagerAdapter: ViewpagerAdapter? = null
-    private val retrofitClient by lazy { RetrofitClient.getInstance().getClient() }
+    private val retrofitService by lazy { RetrofitClient.getInstance().retrofitService }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +27,6 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("CheckResult")
     private fun loadMarketData() {
-        val retrofitService = retrofitClient.create(RetrofitService::class.java)
         retrofitService.loadMarketData().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ t: List<Market> ->
