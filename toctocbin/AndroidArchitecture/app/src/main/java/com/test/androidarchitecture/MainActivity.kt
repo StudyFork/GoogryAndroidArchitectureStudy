@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         retrofitService.loadMarketData().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ t: List<Market> ->
-                run {
                     val marketTitle = t.groupBy { it.market.split("-")[0] }
                         .map { map ->
                             val title = map.key
@@ -43,7 +42,6 @@ class MainActivity : AppCompatActivity() {
                             MarketTitle(title, markets)
                         }
                     viewpagerAdapter?.setData(marketTitle)
-                }
             }, { t: Throwable -> Toast.makeText(this, t.message, Toast.LENGTH_SHORT).show() })
     }
 
