@@ -22,6 +22,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         main_tabLayout.setupWithViewPager(main_viewPager)
+        viewpagerAdapter = ViewpagerAdapter(supportFragmentManager)
+        main_viewPager.offscreenPageLimit = 3
+        main_viewPager.adapter = viewpagerAdapter
         loadMarketData()
     }
 
@@ -39,9 +42,7 @@ class MainActivity : AppCompatActivity() {
                             }
                             MarketTitle(title, markets)
                         }
-                    viewpagerAdapter = ViewpagerAdapter(supportFragmentManager, marketTitle)
-                    main_viewPager.offscreenPageLimit = 3
-                    main_viewPager.adapter = viewpagerAdapter
+                    viewpagerAdapter?.setData(marketTitle)
                 }
             }, { t: Throwable -> Toast.makeText(this, t.message, Toast.LENGTH_SHORT).show() })
     }
