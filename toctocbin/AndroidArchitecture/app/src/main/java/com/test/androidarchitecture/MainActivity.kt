@@ -32,17 +32,20 @@ class MainActivity : AppCompatActivity() {
     private fun loadMarketData() {
         retrofitService.loadMarketData().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ t: List<Market> ->
-                val marketTitle = t.groupBy { it.market.substringBefore("-") }
-                    .map { map ->
-                        val title = map.key
-                        val markets = map.value.joinToString(separator = ",") {
-                            it.market
-                        }
-                        MarketTitle(title, markets)
-                    }
-                viewpagerAdapter?.setData(marketTitle)
-            }, { t: Throwable -> Toast.makeText(this, t.message, Toast.LENGTH_SHORT).show() })
+            .subscribe({
+                    t: List<Market> ->
+                        val marketTitle = t.groupBy { it.market.substringBefore("-") }
+                            .map { map ->
+                                val title = map.key
+                                val markets = map.value.joinToString(separator = ",") { it.market }
+                                MarketTitle(title, markets)
+                            }
+                        viewpagerAdapter?.setData(marketTitle)
+                }, {
+                    t: Throwable ->
+                        Toast.makeText(this, t.message, Toast.LENGTH_SHORT).show()
+                }
+            )
     }
 
 }

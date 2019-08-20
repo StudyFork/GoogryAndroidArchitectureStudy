@@ -41,9 +41,11 @@ class CoinFragment : Fragment() {
     private fun loadCoinData(marketSearch: String) {
         retrofitService.loadCoinData(marketSearch).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ t: List<Coin> ->
-                adapter.addItem(t)
-            }, { t: Throwable -> Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show() })
+            .subscribe({
+                    t: List<Coin> -> adapter.addItem(t)
+            }, {
+                    t: Throwable -> Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
+                })
     }
 
     companion object {
