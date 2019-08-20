@@ -31,24 +31,21 @@ class MainActivity : AppCompatActivity() {
         val retrofitService = retrofitClient.create(RetrofitService::class.java)
         retrofitService.loadMarketData().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ t: List<Market>? ->
+            .subscribe({ t: List<Market> ->
                 run {
-                    val marketTitle = t?.groupBy { it.market.split("-")[0] }
-                        ?.map { map ->
+                    val marketTitle = t.groupBy { it.market.split("-")[0] }
+                        .map { map ->
                             val title = map.key
                             val markets = map.value.joinToString(separator = ",") {
                                 it.market
                             }
                             MarketTitle(title, markets)
                         }
-                    viewpagerAdapter =
-                        marketTitle?.let {
-                            ViewpagerAdapter(supportFragmentManager, it)
-                        }
+                    viewpagerAdapter = ViewpagerAdapter(supportFragmentManager, marketTitle)
                     main_viewPager.offscreenPageLimit = 3
                     main_viewPager.adapter = viewpagerAdapter
                 }
-            }, { t: Throwable? -> Toast.makeText(this, t?.message, Toast.LENGTH_SHORT).show() })
+            }, { t: Throwable -> Toast.makeText(this, t.message, Toast.LENGTH_SHORT).show() })
     }
 
 }
