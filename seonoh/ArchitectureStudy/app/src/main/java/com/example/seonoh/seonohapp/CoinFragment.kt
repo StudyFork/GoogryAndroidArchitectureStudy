@@ -6,24 +6,27 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
+import com.example.seonoh.seonohapp.model.UseCoinModel
 import com.example.seonoh.seonohapp.network.CoinRequest
 import com.example.seonoh.seonohapp.network.RetrofitCreator
+import com.example.seonoh.seonohapp.util.CalculateUtils
 import kotlinx.android.synthetic.main.coin_fragment.view.*
 
 
-class CoinFragment : Fragment(),CoinRequest.CurrentPriceInfoResultListener{
+class CoinFragment : Fragment(), CoinRequest.CurrentPriceInfoResultListener {
 
-    lateinit var mView : View
-    lateinit var mData : ArrayList<CurrentPriceInfoModel>
-    lateinit var mAdapter : CoinAdapter
+    lateinit var mView: View
+    lateinit var mData: ArrayList<UseCoinModel>
+    lateinit var mAdapter: CoinAdapter
     var marketName = ""
-    var marketType = 0
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         mView = inflater.inflate(R.layout.coin_fragment, container, false)
 
-        if(arguments != null){
+        if (arguments != null) {
             marketName = arguments!!.getString("market")
         }
         requestData()
@@ -31,7 +34,7 @@ class CoinFragment : Fragment(),CoinRequest.CurrentPriceInfoResultListener{
         return mView
     }
 
-    fun initView( data: ArrayList<CurrentPriceInfoModel>){
+    fun initView(data: ArrayList<UseCoinModel>) {
         mAdapter = CoinAdapter()
         mView.krwRecyclerView.apply {
             adapter = mAdapter
@@ -39,23 +42,36 @@ class CoinFragment : Fragment(),CoinRequest.CurrentPriceInfoResultListener{
         }
     }
 
-    fun requestData(){
-        CoinRequest().currentPriceInfoSend(RetrofitCreator.coinApi,this, marketName)
+    fun requestData() {
+        CoinRequest().currentPriceInfoSend(RetrofitCreator.coinApi, this, marketName)
     }
 
     override fun getCurrentInfoSuccess(result: ArrayList<CurrentPriceInfoModel>) {
-        mData = result
+        mData = ArrayList()
+
+        // 데이터 가공후 모델에 넣음.
+        // signedChangeRate textcolor 처리때문에 viewholder에서 진행
+        for (i in 0 until result.size) {
+            val model = UseCoinModel(
+                CalculateUtils.setMarketName(result[i].market),
+                CalculateUtils.filterTrade(result[i].tradePrice),
+                result[i].signedChangeRate.toString(),
+                CalculateUtils.setTradeAmount(result[i].accTradePrice_24h)
+            )
+            mData.add(model)
+        }
+
         initView(mData)
     }
 
     override fun getCurrentInfoFailed(code: String) {
     }
 
-    companion object{
-        fun newInstance(data : String): CoinFragment {
+    companion object {
+        fun newInstance(data: String): CoinFragment {
             val fragment = CoinFragment()
             val bundle = Bundle()
-            bundle.putString("market",data)
+            bundle.putString("market", data)
             fragment.arguments = bundle
             return fragment
         }
