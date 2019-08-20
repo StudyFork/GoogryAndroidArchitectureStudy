@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
@@ -13,7 +14,7 @@ import com.example.seonoh.seonohapp.network.CurrentPriceInfoRequest
 import kotlinx.android.synthetic.main.coin_fragment.view.*
 
 
-class CoinFragment : BaseFragment(),CurrentPriceInfoRequest.ResultListener{
+class CoinFragment : Fragment(),CurrentPriceInfoRequest.ResultListener{
 
     lateinit var mView : View
     lateinit var mData : ArrayList<CurrentPriceInfoModel>
