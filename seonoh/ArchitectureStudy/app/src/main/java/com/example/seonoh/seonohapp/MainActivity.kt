@@ -13,10 +13,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), CoinRequest.MarketResultListener {
 
 
-    lateinit var mPagerAdapter: TabPagerAdapter
+    private lateinit var mPagerAdapter: TabPagerAdapter
     private val TAG = "COIN_MAIN"
-    lateinit var toast: Toast
-    lateinit var conMarketNameList: List<String>
+    private lateinit var toast: Toast
+    private lateinit var conMarketNameList: List<String>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,8 +26,8 @@ class MainActivity : AppCompatActivity(), CoinRequest.MarketResultListener {
         CoinRequest().marketSend(RetrofitCreator.coinApi, this@MainActivity)
     }
 
-    fun initView() {
-        mPagerAdapter = TabPagerAdapter(supportFragmentManager, conMarketNameList.size)
+    fun initView(data : ArrayList<String>) {
+        mPagerAdapter = TabPagerAdapter(supportFragmentManager, data, conMarketNameList.size)
         coinViewPager.adapter = mPagerAdapter
 
         coinViewPager.addOnPageChangeListener(object : TabLayout.TabLayoutOnPageChangeListener(tabLayout) {
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity(), CoinRequest.MarketResultListener {
         }
     }
 
-    private fun classifyMarketData(marketData: ArrayList<Market>) {
+    private fun classifyMarketData(marketData: ArrayList<Market>) : ArrayList<String> {
 
         conMarketNameList = marketData.map {
             it.market.substringBefore("-")
@@ -84,33 +84,25 @@ class MainActivity : AppCompatActivity(), CoinRequest.MarketResultListener {
         val marketDataList = ArrayList<String>()
 
         conMarketNameList.forEach { title ->
-            marketDataList += marketData.filter {
+
+            marketDataList +=( marketData.filter {
                 it.market.substringBefore("-") == title
             }.joinToString(",") {
                 it.market
-            }
+            })
         }
 
-        for (i in 0 until marketDataList.size) {
+        krwMarketData = marketDataList[0]
+        btcMarketData = marketDataList[1]
+        ethMarketData = marketDataList[2]
+        usdtMarketData = marketDataList[3]
 
-            when (marketDataList[i].substring(0, 3)) {
-                "KRW" -> krwMarketData += marketDataList[i] + ","
-                "BTC" -> btcMarketData += marketDataList[i] + ","
-                "ETH" -> ethMarketData += marketDataList[i] + ","
-                "USD" -> usdtMarketData += marketDataList[i] + ","
-            }
-
-        }
-
-        krwMarketData = krwMarketData.substring(0, krwMarketData.length - 1)
-        btcMarketData = btcMarketData.substring(0, btcMarketData.length - 1)
-        ethMarketData = ethMarketData.substring(0, ethMarketData.length - 1)
-        usdtMarketData = usdtMarketData.substring(0, usdtMarketData.length - 1)
+        return marketDataList
     }
 
     override fun getMarketSuccess(result: ArrayList<Market>) {
-        classifyMarketData(result)
-        initView()
+        val data = classifyMarketData(result)
+        initView(data)
     }
 
     override fun getMarketFailed(code: String) {

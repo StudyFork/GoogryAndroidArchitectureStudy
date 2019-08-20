@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
 import com.example.seonoh.seonohapp.network.CoinRequest
 import com.example.seonoh.seonohapp.network.RetrofitCreator
@@ -27,7 +25,6 @@ class CoinFragment : Fragment(),CoinRequest.CurrentPriceInfoResultListener{
 
         if(arguments != null){
             marketName = arguments!!.getString("market")
-            marketType = arguments!!.getInt("type")
         }
         requestData()
 
@@ -47,7 +44,6 @@ class CoinFragment : Fragment(),CoinRequest.CurrentPriceInfoResultListener{
     }
 
     override fun getCurrentInfoSuccess(result: ArrayList<CurrentPriceInfoModel>) {
-
         mData = result
         initView(mData)
     }
@@ -55,13 +51,11 @@ class CoinFragment : Fragment(),CoinRequest.CurrentPriceInfoResultListener{
     override fun getCurrentInfoFailed(code: String) {
     }
 
-
     companion object{
-        fun newInstance(type : Int,data : String): CoinFragment {
+        fun newInstance(data : String): CoinFragment {
             val fragment = CoinFragment()
             val bundle = Bundle()
             bundle.putString("market",data)
-            bundle.putInt("type",type)
             fragment.arguments = bundle
             return fragment
         }
