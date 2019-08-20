@@ -19,9 +19,9 @@ import kotlinx.android.synthetic.main.fragment_coin.*
 
 class CoinFragment : Fragment() {
 
-    private var retrofitService: RetrofitService? = null
+    private val retrofitService by lazy { retrofitClient.create(RetrofitService::class.java) }
     private var marketSearch: String = ""
-    private var adapter: CoinAdapter? = null
+    private val adapter by lazy { CoinAdapter() }
     private val retrofitClient by lazy { RetrofitClient.getInstance().getClient() }
 
     companion object {
@@ -46,7 +46,6 @@ class CoinFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         marketSearch = arguments?.getString("marketSearch")!!
-        adapter = CoinAdapter()
         coin_recyclerView.adapter = this.adapter
         marketSearch.let { loadCoinData(it) }
     }
@@ -54,12 +53,11 @@ class CoinFragment : Fragment() {
 
     @SuppressLint("CheckResult")
     private fun loadCoinData(marketSearch: String) {
-        retrofitService = retrofitClient.create(RetrofitService::class.java)
-        retrofitService?.loadCoinData(marketSearch)?.subscribeOn(Schedulers.io())
-            ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribe({ t: List<Coin>? ->
+        retrofitService.loadCoinData(marketSearch).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ t: List<Coin>? ->
                 run {
-                    t?.let { it1 -> adapter?.addItem(it1) }
+                    t?.let { it1 -> adapter.addItem(it1) }
                 }
             }, { t: Throwable? -> Toast.makeText(context, t?.message, Toast.LENGTH_SHORT).show() })
     }

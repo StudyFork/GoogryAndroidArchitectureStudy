@@ -32,6 +32,7 @@ class CoinAdapter : RecyclerView.Adapter<CoinAdapter.CoinViewHolder>() {
 
     fun addItem(coinList: List<Coin>) {
         this.coinList.addAll(coinList)
+        notifyDataSetChanged()
     }
 
 

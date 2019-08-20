@@ -6,14 +6,14 @@ data class Coin(
 
     val market: String,
 
-    @SerializedName("tradePrice")
+    @SerializedName("trade_price")
     val tradePrice: Double,
 
-    @SerializedName("signedChangeRate")
+    @SerializedName("signed_change_rate")
     val signedChangeRate: Double,
 
     val change: String,
 
-    @SerializedName("accTradePrice24h")
+    @SerializedName("acc_trade_price_24h")
     val accTradePrice24h: Double
 )
