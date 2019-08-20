@@ -12,12 +12,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), CoinRequest.MarketResultListener {
 
-
     private lateinit var mPagerAdapter: TabPagerAdapter
     private val TAG = "COIN_MAIN"
     private lateinit var toast: Toast
     private lateinit var conMarketNameList: List<String>
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +24,7 @@ class MainActivity : AppCompatActivity(), CoinRequest.MarketResultListener {
         CoinRequest().marketSend(RetrofitCreator.coinApi, this@MainActivity)
     }
 
-    fun initView(data : ArrayList<String>) {
+    fun initView(data: ArrayList<String>) {
         mPagerAdapter = TabPagerAdapter(supportFragmentManager, data, conMarketNameList.size)
         coinViewPager.adapter = mPagerAdapter
 
@@ -67,7 +65,6 @@ class MainActivity : AppCompatActivity(), CoinRequest.MarketResultListener {
     }
 
     override fun onBackPressed() {
-
         if (toast.view.isShown) {
             finish()
         } else {
@@ -75,7 +72,7 @@ class MainActivity : AppCompatActivity(), CoinRequest.MarketResultListener {
         }
     }
 
-    private fun classifyMarketData(marketData: ArrayList<Market>) : ArrayList<String> {
+    private fun classifyMarketData(marketData: ArrayList<Market>): ArrayList<String> {
 
         conMarketNameList = marketData.map {
             it.market.substringBefore("-")
@@ -85,17 +82,12 @@ class MainActivity : AppCompatActivity(), CoinRequest.MarketResultListener {
 
         conMarketNameList.forEach { title ->
 
-            marketDataList +=( marketData.filter {
+            marketDataList += (marketData.filter {
                 it.market.substringBefore("-") == title
             }.joinToString(",") {
                 it.market
             })
         }
-
-        krwMarketData = marketDataList[0]
-        btcMarketData = marketDataList[1]
-        ethMarketData = marketDataList[2]
-        usdtMarketData = marketDataList[3]
 
         return marketDataList
     }
@@ -106,13 +98,7 @@ class MainActivity : AppCompatActivity(), CoinRequest.MarketResultListener {
     }
 
     override fun getMarketFailed(code: String) {
-    }
-
-    companion object {
-        var krwMarketData: String = ""
-        var btcMarketData: String = ""
-        var ethMarketData: String = ""
-        var usdtMarketData: String = ""
+        Log.e("marketfailed","getMarketFailed code : $code")
     }
 
 }
