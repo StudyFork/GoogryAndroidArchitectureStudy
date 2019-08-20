@@ -7,7 +7,7 @@ import com.example.seonoh.seonohapp.model.UseCoinModel
 
 class CoinAdapter : RecyclerView.Adapter<CoinItemViewHolder>() {
 
-    private var mData: ArrayList<UseCoinModel>? = null
+    private val mData: ArrayList<UseCoinModel> by lazy { ArrayList<UseCoinModel>() }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinItemViewHolder {
 
@@ -18,11 +18,7 @@ class CoinAdapter : RecyclerView.Adapter<CoinItemViewHolder>() {
     override fun getItemCount(): Int = mData!!.size
 
     fun addCoinData(data: ArrayList<UseCoinModel>) {
-        if (mData != null) {
-            mData!!.addAll(data)
-        } else {
-            mData = data
-        }
+        mData!!.addAll(data)
         notifyDataSetChanged()
     }
 
