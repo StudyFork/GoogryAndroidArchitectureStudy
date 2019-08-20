@@ -5,13 +5,18 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 
 class TabPagerAdapter(
-    fm: FragmentManager,
-    private val data: ArrayList<String>
+    fm: FragmentManager
 ) : FragmentStatePagerAdapter(fm) {
 
-    override fun getCount(): Int = data.size
+    private lateinit var mData: ArrayList<String>
 
-    override fun getItem(position: Int): Fragment = CoinFragment.newInstance(data[position])
+    fun setData( data: ArrayList<String>){
+        mData = data
+    }
+
+    override fun getCount(): Int = if(::mData.isInitialized) mData.size else 0
+
+    override fun getItem(position: Int): Fragment = CoinFragment.newInstance(mData[position])
 
 }
 
