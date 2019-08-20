@@ -20,6 +20,7 @@ class UpbitFragment : Fragment(), UpbitContract.View {
 
     private lateinit var tickerAdapter: TickerAdapter
     override lateinit var presenter: UpbitContract.Presenter
+    private val MARKET_NAME = "market name"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +33,7 @@ class UpbitFragment : Fragment(), UpbitContract.View {
     @SuppressLint("CheckResult")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val firstMarket = arguments?.getString("MARKET_NAME")
+        val firstMarket = arguments?.getString(MARKET_NAME)
 
         recyclerViewSetup()
         presenter =
@@ -65,8 +66,9 @@ class UpbitFragment : Fragment(), UpbitContract.View {
         fun newInstance(marketName: String): UpbitFragment {
             val fragment = UpbitFragment()
             val bundle = Bundle()
+            val MARKET_NAME = "market name"
 
-            bundle.putString("MARKET_NAME", marketName)
+            bundle.putString(MARKET_NAME, marketName)
             Log.d("market3",""+marketName)
             fragment.arguments = bundle
             return fragment
