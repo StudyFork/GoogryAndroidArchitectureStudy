@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.fragment_coin.*
 
 class CoinFragment : Fragment() {
 
-    private var marketSearch: String = ""
     private val adapter by lazy { CoinAdapter() }
     private val retrofitService by lazy { RetrofitClient.getInstance().retrofitService }
 
@@ -32,9 +31,9 @@ class CoinFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        marketSearch = arguments?.getString("marketSearch")!!
+        val marketSearch = arguments?.getString(MARKET_SEARCH)
         coin_recyclerView.adapter = this.adapter
-        marketSearch.let { loadCoinData(it) }
+        marketSearch?.let { loadCoinData(it) }
     }
 
 
@@ -42,11 +41,14 @@ class CoinFragment : Fragment() {
     private fun loadCoinData(marketSearch: String) {
         retrofitService.loadCoinData(marketSearch).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ t: List<Coin> -> adapter.addItem(t)
+            .subscribe({ t: List<Coin> ->
+                adapter.addItem(t)
             }, { t: Throwable -> Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show() })
     }
 
     companion object {
+
+        const val MARKET_SEARCH: String = "marketSearch"
 
         fun getInstance(marketSearch: String): CoinFragment {
             val args = Bundle()
