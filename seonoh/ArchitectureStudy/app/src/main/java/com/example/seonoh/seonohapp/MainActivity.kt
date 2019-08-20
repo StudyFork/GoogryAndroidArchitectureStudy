@@ -12,23 +12,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), CoinRequest.MarketResultListener {
 
-    companion object {
-        @JvmStatic
-        var krwMarketData: String = ""
-
-        @JvmStatic
-        var btcMarketData: String = ""
-
-        @JvmStatic
-        var ethMarketData: String = ""
-
-        @JvmStatic
-        var usdtMarketData: String = ""
-    }
 
     lateinit var mPagerAdapter: TabPagerAdapter
     private val TAG = "COIN_MAIN"
-    private val TAB_COUNT = 4
     lateinit var toast: Toast
     lateinit var conMarketNameList: List<String>
 
@@ -36,17 +22,13 @@ class MainActivity : AppCompatActivity(), CoinRequest.MarketResultListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         toast = Toast.makeText(this, "뒤로가기를 한번 더 누르시면 앱이 종료됩니다.", Toast.LENGTH_SHORT)
-
-        CoinRequest().marketSend(RetrofitCreator.coinApi,this@MainActivity)
-
+        CoinRequest().marketSend(RetrofitCreator.coinApi, this@MainActivity)
     }
 
     fun initView() {
         mPagerAdapter = TabPagerAdapter(supportFragmentManager, conMarketNameList.size)
         coinViewPager.adapter = mPagerAdapter
-
 
         coinViewPager.addOnPageChangeListener(object : TabLayout.TabLayoutOnPageChangeListener(tabLayout) {
             override fun onPageSelected(position: Int) {
@@ -70,12 +52,8 @@ class MainActivity : AppCompatActivity(), CoinRequest.MarketResultListener {
                         Log.e(TAG, "USDT")
 
                     }
-
                 }
-
             }
-
-
         })
 
         tabLayout.apply {
@@ -86,8 +64,6 @@ class MainActivity : AppCompatActivity(), CoinRequest.MarketResultListener {
 
             addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(coinViewPager))
         }
-
-
     }
 
     override fun onBackPressed() {
@@ -133,12 +109,18 @@ class MainActivity : AppCompatActivity(), CoinRequest.MarketResultListener {
     }
 
     override fun getMarketSuccess(result: ArrayList<Market>) {
-
         classifyMarketData(result)
         initView()
     }
 
     override fun getMarketFailed(code: String) {
+    }
+
+    companion object {
+        var krwMarketData: String = ""
+        var btcMarketData: String = ""
+        var ethMarketData: String = ""
+        var usdtMarketData: String = ""
     }
 
 }

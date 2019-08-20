@@ -47,6 +47,7 @@ class CoinFragment : Fragment(),CoinRequest.CurrentPriceInfoResultListener{
     }
 
     override fun getCurrentInfoSuccess(result: ArrayList<CurrentPriceInfoModel>) {
+
         mData = result
         initView(mData)
     }

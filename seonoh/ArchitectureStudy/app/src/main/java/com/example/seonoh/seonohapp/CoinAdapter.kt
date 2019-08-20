@@ -28,7 +28,7 @@ class CoinAdapter : RecyclerView.Adapter<CoinItemViewHolder>(){
     }
 
     override fun onBindViewHolder(holder: CoinItemViewHolder, position: Int) {
-        holder.bind(mData!!,position)
+        holder.bind(mData!![position])
     }
 }
 
