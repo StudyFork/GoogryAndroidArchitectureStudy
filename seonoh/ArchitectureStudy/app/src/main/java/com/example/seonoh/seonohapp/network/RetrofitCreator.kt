@@ -14,31 +14,26 @@ const val BASE_URL = "https://api.upbit.com/"
 
 object RetrofitCreator {
 
-        fun createNet(): Api {
-
-            val okClient = OkHttpClient.Builder()
-                .addInterceptor(
-                    LoggingInterceptor.Builder()
-                        .loggable(BuildConfig.DEBUG)
-                        .setLevel(Level.BASIC)
-                        .log(Platform.INFO)
-                        .request("OH_req")
-                        .response("OH_res")
-                        .build()
-                )
-                .addNetworkInterceptor(StethoInterceptor())
+    val okClient = OkHttpClient.Builder()
+        .addInterceptor(
+            LoggingInterceptor.Builder()
+                .loggable(BuildConfig.DEBUG)
+                .setLevel(Level.BASIC)
+                .log(Platform.INFO)
+                .request("OH_req")
+                .response("OH_res")
                 .build()
+        )
+        .addNetworkInterceptor(StethoInterceptor())
+        .build()
 
+    val coinApi = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .client(okClient)
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+        .create(Api::class.java)
 
-            val retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(okClient)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-
-
-            return retrofit.create(Api::class.java)
-        }
 
 }

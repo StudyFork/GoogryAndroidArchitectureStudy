@@ -1,34 +1,26 @@
 package com.example.seonoh.seonohapp
 
-import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
-import com.example.seonoh.seonohapp.util.*
-import kotlinx.android.synthetic.main.coin_item.view.*
-import java.text.DecimalFormat
-import java.text.NumberFormat
-import kotlin.math.roundToInt
-
-
-const val KRW_TYPE = 0
-const val BTC_TYPE = 1
-const val ETH_TYPE = 2
-const val USDT_TYPE = 3
-
-
-
+import com.example.seonoh.seonohapp.model.UseCoinModel
+import com.example.seonoh.seonohapp.util.setTradeDiff
 
 class CoinItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(data: ArrayList<CurrentPriceInfoModel>, position: Int) {
-        with(data[position]) {
-            itemView.apply {
-                coinName.setMarketName(market)
-                currentPrice.filterTrade(tradePrice)
-                changeRate.setTradeDiff(signedChangeRate)
-                totalTradePrice.setTradeAmount(accTradePrice_24h)
-            }
-        }
+    private val coinNameTv: TextView = itemView.findViewById(R.id.coinName)
+
+    private val currentPriceTv: TextView = itemView.findViewById(R.id.currentPrice)
+
+    private val changeRateTv: TextView = itemView.findViewById(R.id.changeRate)
+
+    private val totalTradePriceTv: TextView = itemView.findViewById(R.id.totalTradePrice)
+
+    fun bind(data: UseCoinModel) {
+        coinNameTv.text = data.market
+        currentPriceTv.text = data.tradePrice
+        changeRateTv.setTradeDiff(data.signedChangeRate.toDouble())
+        totalTradePriceTv.text = data.accTradePrice_24h
+
     }
 }
