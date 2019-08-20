@@ -21,11 +21,15 @@ class MainActivity : AppCompatActivity(), CoinRequest.MarketResultListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         toast = Toast.makeText(this, "뒤로가기를 한번 더 누르시면 앱이 종료됩니다.", Toast.LENGTH_SHORT)
-        CoinRequest().marketSend(RetrofitCreator.coinApi, this@MainActivity)
+        CoinRequest(RetrofitCreator.coinApi).marketSend(this@MainActivity)
     }
 
     fun initView(data: ArrayList<String>) {
-        mPagerAdapter = TabPagerAdapter(supportFragmentManager, data)
+        mPagerAdapter = TabPagerAdapter(supportFragmentManager).apply {
+            setData(data)
+            notifyDataSetChanged()
+        }
+
         coinViewPager.adapter = mPagerAdapter
 
         coinViewPager.addOnPageChangeListener(object : TabLayout.TabLayoutOnPageChangeListener(tabLayout) {

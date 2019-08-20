@@ -34,16 +34,19 @@ class CoinFragment : Fragment(), CoinRequest.CurrentPriceInfoResultListener {
         return mView
     }
 
-    fun initView(data: ArrayList<UseCoinModel>) {
+    fun setData(data: ArrayList<UseCoinModel>){
+        mAdapter.addCoinData(data)
+    }
+
+    fun initView() {
         mAdapter = CoinAdapter()
         mView.krwRecyclerView.apply {
             adapter = mAdapter
-            mAdapter.addCoinData(data)
         }
     }
 
     fun requestData() {
-        CoinRequest().currentPriceInfoSend(RetrofitCreator.coinApi, this, marketName)
+        CoinRequest(RetrofitCreator.coinApi).currentPriceInfoSend( this, marketName)
     }
 
     override fun getCurrentInfoSuccess(result: ArrayList<CurrentPriceInfoModel>) {
@@ -61,7 +64,8 @@ class CoinFragment : Fragment(), CoinRequest.CurrentPriceInfoResultListener {
             mData.add(model)
         }
 
-        initView(mData)
+        initView()
+        setData(mData)
     }
 
     override fun getCurrentInfoFailed(code: String) {

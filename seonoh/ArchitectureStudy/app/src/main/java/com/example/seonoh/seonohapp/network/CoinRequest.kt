@@ -6,23 +6,21 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 
-class CoinRequest {
-    lateinit var mMarketListener: MarketResultListener
+class CoinRequest(api: Api) {
+    private val mApi = api
 
-    fun marketSend(api: Api, listener: MarketResultListener) {
+    fun marketSend(listener: MarketResultListener) {
 
-        mMarketListener = listener
-
-        var single = api!!.getMarketAll()
+        var single = mApi.getMarketAll()
 
         single
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                mMarketListener.getMarketSuccess(it)
+                listener.getMarketSuccess(it)
             }, { e ->
                 if (e is HttpException) {
-                    mMarketListener.getMarketFailed(e.toString())
+                    listener.getMarketFailed(e.toString())
 
 
                 } else {
@@ -37,22 +35,17 @@ class CoinRequest {
     }
 
 
-    lateinit var mCurrentPriceInfoListener: CurrentPriceInfoResultListener
-
-
-    fun currentPriceInfoSend(api: Api, listener: CurrentPriceInfoResultListener, markets: String) {
-        mCurrentPriceInfoListener = listener
-        var single = api.getCurrentPriceInfo(markets)
+    fun currentPriceInfoSend(listener: CurrentPriceInfoResultListener, markets: String) {
+        var single = mApi.getCurrentPriceInfo(markets)
 
         single.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                mCurrentPriceInfoListener.getCurrentInfoSuccess(it)
+                listener.getCurrentInfoSuccess(it)
 
             }, { e ->
                 if (e is HttpException) {
-                    mCurrentPriceInfoListener.getCurrentInfoFailed(e.toString())
-
+                    listener.getCurrentInfoFailed(e.toString())
 
                 } else {
                 }
