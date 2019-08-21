@@ -20,49 +20,47 @@ class MainActivity : AppCompatActivity(), CoinRequest.BaseResult<ArrayList<Marke
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initView()
         toast = Toast.makeText(this, "뒤로가기를 한번 더 누르시면 앱이 종료됩니다.", Toast.LENGTH_SHORT)
         CoinRequest(RetrofitCreator.coinApi).marketSend(this@MainActivity)
     }
 
-    fun initView(data: ArrayList<String>) {
-        mPagerAdapter = TabPagerAdapter(supportFragmentManager).apply {
-            setData(data)
-            notifyDataSetChanged()
-        }
+    fun initView() {
+        mPagerAdapter = TabPagerAdapter(supportFragmentManager)
+        coinViewPager.apply {
+            adapter = mPagerAdapter
+            addOnPageChangeListener(object : TabLayout.TabLayoutOnPageChangeListener(tabLayout) {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
 
-        coinViewPager.adapter = mPagerAdapter
+                    when (position) {
+                        0 -> {
+                            Log.e(TAG, "KRW")
+                        }
 
-        coinViewPager.addOnPageChangeListener(object : TabLayout.TabLayoutOnPageChangeListener(tabLayout) {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
+                        1 -> {
+                            Log.e(TAG, "BTC")
 
-                when (position) {
-                    0 -> {
-                        Log.e(TAG, "KRW")
-                    }
+                        }
 
-                    1 -> {
-                        Log.e(TAG, "BTC")
+                        2 -> {
+                            Log.e(TAG, "ETH")
 
-                    }
+                        }
+                        3 -> {
+                            Log.e(TAG, "USDT")
 
-                    2 -> {
-                        Log.e(TAG, "ETH")
-
-                    }
-                    3 -> {
-                        Log.e(TAG, "USDT")
-
+                        }
                     }
                 }
-            }
-        })
+            })
+        }
 
         tabLayout.apply {
-
-            conMarketNameList.forEach {
-                addTab(tabLayout.newTab().setText(it))
-            }
+            addTab(tabLayout.newTab().setText("KRW"))
+            addTab(tabLayout.newTab().setText("BTC"))
+            addTab(tabLayout.newTab().setText("ETH"))
+            addTab(tabLayout.newTab().setText("USDT"))
 
             addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(coinViewPager))
         }
@@ -98,11 +96,12 @@ class MainActivity : AppCompatActivity(), CoinRequest.BaseResult<ArrayList<Marke
 
     override fun getNetworkSuccess(result: ArrayList<Market>) {
         val data = classifyMarketData(result)
-        initView(data)
+        mPagerAdapter.setData(data)
+//        initView(data)
     }
 
     override fun getNetworkFailed(code: String) {
-        Log.e("marketfailed","getMarketFailed code : $code")
+        Log.e("marketfailed", "getMarketFailed code : $code")
     }
 
 }

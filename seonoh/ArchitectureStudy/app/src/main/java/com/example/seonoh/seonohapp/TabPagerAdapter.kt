@@ -12,6 +12,7 @@ class TabPagerAdapter(
 
     fun setData( data: ArrayList<String>){
         mData.addAll(data)
+        notifyDataSetChanged()
     }
 
     override fun getCount(): Int =  mData.size
