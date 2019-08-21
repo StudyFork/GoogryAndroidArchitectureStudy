@@ -5,16 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.test.androidarchitecture.R
 import com.test.androidarchitecture.data.Coin
-import com.test.androidarchitecture.ext.setChangeRate
-import com.test.androidarchitecture.ext.setCoinNameText
-import com.test.androidarchitecture.ext.setNowPriceText
-import com.test.androidarchitecture.ext.setTradePriceText
+import com.test.androidarchitecture.data.CoinFormat
+import com.test.androidarchitecture.ext.*
 import kotlinx.android.synthetic.main.item_coin.view.*
 import kotlin.collections.ArrayList
 
 class CoinAdapter : RecyclerView.Adapter<CoinAdapter.CoinViewHolder>() {
 
-    private val coinList: MutableList<Coin> = ArrayList()
+    private val coinFormatList: MutableList<CoinFormat> = ArrayList()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinViewHolder {
@@ -22,16 +20,16 @@ class CoinAdapter : RecyclerView.Adapter<CoinAdapter.CoinViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return coinList.size
+        return coinFormatList.size
     }
 
     override fun onBindViewHolder(holder: CoinViewHolder, position: Int) {
-        holder.onBindView(coinList[position])
+        holder.onBindView(coinFormatList[position])
     }
 
 
-    fun addItem(coinList: List<Coin>) {
-        this.coinList.addAll(coinList)
+    fun addItem(coinList: List<CoinFormat>) {
+        this.coinFormatList.addAll(coinList)
         notifyDataSetChanged()
     }
 
@@ -48,11 +46,12 @@ class CoinAdapter : RecyclerView.Adapter<CoinAdapter.CoinViewHolder>() {
 
         private val coinDealPriceTextView = itemView.item_coin_deal_price_text
 
-        fun onBindView(coin: Coin) {
-            coinNameTextView.setCoinNameText(coin.market)
-            coinNowPriceTextView.setNowPriceText(coin.tradePrice)
-            coinPreParePercentTextView.setChangeRate(coin.signedChangeRate, coin.change)
-            coinDealPriceTextView.setTradePriceText(coin.accTradePrice24h)
+        fun onBindView(coinFormat: CoinFormat) {
+            coinNameTextView.text = coinFormat.marketName
+            coinNowPriceTextView.text = coinFormat.tradePrice
+            coinPreParePercentTextView.text = coinFormat.changeRate
+            coinPreParePercentTextView.setTextColorRes(coinFormat.changeColor)
+            coinDealPriceTextView.text = coinFormat.accTradePrice
         }
     }
 
