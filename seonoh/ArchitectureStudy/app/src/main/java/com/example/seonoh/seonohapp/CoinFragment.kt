@@ -28,6 +28,7 @@ class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceIn
         if (arguments != null) {
             marketName = arguments!!.getString("market")
         }
+
         requestData()
 
         return mView
@@ -46,6 +47,12 @@ class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceIn
 
     fun requestData() {
         CoinRequest(RetrofitCreator.coinApi).currentPriceInfoSend(this, marketName)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        initView()
+
     }
 
     override fun getNetworkSuccess(result: ArrayList<CurrentPriceInfoModel>) {
@@ -68,7 +75,6 @@ class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceIn
             mData.add(model)
         }
 
-        initView()
         setData(mData)
     }
 
