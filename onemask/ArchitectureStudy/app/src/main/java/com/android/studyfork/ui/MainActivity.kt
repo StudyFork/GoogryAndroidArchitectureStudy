@@ -37,14 +37,14 @@ class MainActivity : AppCompatActivity() {
                 val keys = it.keys.apply {
                     viewpagerAdapter.setTitles(this.toTypedArray())
                 }
-                val marketName = Array(keys.size){""}
+                val marketNamesArr = Array(keys.size) { "" }
 
                 for((index : Int,value : String) in keys.withIndex()){
-                    marketName[index] = it
+                    marketNamesArr[index] = it
                         .getValue(value)
                         .joinToString(","){it.market}
                 }
-                viewpagerAdapter.setData(marketName)
+                viewpagerAdapter.setData(marketNamesArr)
             },{
                 Timber.e("${it.printStackTrace()}")
             })
