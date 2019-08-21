@@ -9,7 +9,7 @@ import com.test.androidarchitecture.data.MarketTitle
 class ViewpagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
 
 
-    private var marketTitles: List<MarketTitle> = mutableListOf()
+    private val marketTitles = mutableListOf<MarketTitle>()
 
     override fun getItem(position: Int): Fragment {
         return CoinFragment.getInstance(marketTitles[position].marketSearch)
@@ -23,8 +23,8 @@ class ViewpagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
         return marketTitles[position].marketTitle
     }
 
-    fun setData(marketTitles: List<MarketTitle>){
-        this.marketTitles = marketTitles
+    fun setData(marketTitles: List<MarketTitle>) {
+        this.marketTitles.addAll(marketTitles)
         notifyDataSetChanged()
     }
 
