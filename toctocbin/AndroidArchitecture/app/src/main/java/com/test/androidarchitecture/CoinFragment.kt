@@ -89,7 +89,7 @@ class CoinFragment : Fragment() {
 
         fun getInstance(marketSearch: String): CoinFragment {
             val args = Bundle()
-            args.putString("marketSearch", marketSearch)
+            args.putString(MARKET_SEARCH, marketSearch)
             val fragment = CoinFragment()
             fragment.arguments = args
             return fragment
