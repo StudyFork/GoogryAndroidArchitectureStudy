@@ -8,8 +8,6 @@ import com.android.studyfork.network.api.UpbitService
 import com.android.studyfork.repository.UpbitRepository
 import com.android.studyfork.repository.UpbitRepositoryImpl
 import com.android.studyfork.ui.adapter.ViewpagerAdapter
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 
@@ -30,8 +28,6 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("CheckResult")
     private fun loadData() {
         upbitRepository.getMarketAll()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
 
                 val keys = it.keys.apply {
