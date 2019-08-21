@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 viewpagerAdapter.setData(marketNamesArr)
             },{
-                Timber.e("${it.printStackTrace()}")
+                Timber.e(it)
             })
     }
 
