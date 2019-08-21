@@ -34,7 +34,7 @@ class TickerListFragment : Fragment() {
                 Timber.d("getTicker success")
                 coinItemAdapter.setData(it)
             },{
-                Timber.e("${it.printStackTrace()}")
+                Timber.e(it)
             })
     }
     override fun onCreateView(
