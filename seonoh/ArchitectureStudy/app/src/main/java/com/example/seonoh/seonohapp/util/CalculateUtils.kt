@@ -1,23 +1,14 @@
 package com.example.seonoh.seonohapp.util
 
+import android.content.Context
+import android.util.Log
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.example.seonoh.seonohapp.R
 import java.text.DecimalFormat
 
-//onemask 코드 사용 ( 자체 리뷰 )
-
 val doubleFormat = DecimalFormat("#,##0.00000000")
 val intFormat = DecimalFormat("#,###.##")
-
-//마켓 이름
-//fun TextView.setMarketName(marketName: String?) {
-//    if (marketName!!.contains("USDT")) {
-//        text = marketName?.substring(5, marketName.length)
-//    } else {
-//        text = marketName?.substring(4, marketName.length)
-//    }
-//}
 
 object CalculateUtils {
     fun setMarketName(marketName: String?): String {
@@ -37,22 +28,90 @@ object CalculateUtils {
     }
 
     //거래대금
-    fun setTradeAmount(accTradePrice24h: Double): String {
+    fun setTradeAmount(marketType: String, accTradePrice24h: Double, context: Context): String {
+        var totalPriceAmount = accTradePrice24h.toLong()
 
-        val df = DecimalFormat("#,###")
-        val amount: String = when {
-            (accTradePrice24h >= 1000000) -> df.format(accTradePrice24h / 1000000)
-            (accTradePrice24h < 1000000 && accTradePrice24h >= 1000) -> df.format(accTradePrice24h / 1000)
-            else -> df.format(accTradePrice24h)
+        return when (marketType) {
+            "KRW" -> {
+                String.format(
+                    context.getString(
+                        when {
+                            totalPriceAmount < 1_000_000L -> {
+                                R.string.trade_amount_fmt
+                            }
+                            totalPriceAmount < 1_000_000_000_000L -> {
+                                totalPriceAmount /= 1_000_000L
+                                R.string.trade_amount_mega_fmt
+                            }
+                            else -> {
+                                totalPriceAmount /= 1_000_000_000L
+                                R.string.trade_amount_giga_fmt
+                            }
+                        }
+                    )
+                    , totalPriceAmount
+                )
+            }
+            "BTC", "ETH" -> {
+                String.format(context.getString(R.string.trade_amount_milli_fmt), accTradePrice24h)
+            }
+            "USDt" -> {
+                String.format(
+                    context.getString(
+                        when {
+                            totalPriceAmount < 1_000_000L -> {
+                                R.string.trade_amount_fmt
+                            }
+                            totalPriceAmount < 1_000_000_000L -> {
+                                totalPriceAmount /= 1_000L
+                                R.string.trade_amount_kilo_fmt
+                            }
+                            totalPriceAmount < 1_000_000_000_000L -> {
+                                totalPriceAmount /= 1_000_000L
+                                R.string.trade_amount_mega_fmt
+                            }
+                            else -> {
+                                totalPriceAmount /= 1_000_000_000L
+                                R.string.trade_amount_giga_fmt
+                            }
+                        }
+                    ), totalPriceAmount
+                )
+            }
+            else -> {
+                val fmtResId = when {
+                    totalPriceAmount < 1_000L -> {
+
+                        R.string.trade_amount_milli_fmt
+                    }
+                    totalPriceAmount < 1_000_000L -> {
+                        R.string.trade_amount_fmt
+                    }
+                    totalPriceAmount < 1_000_000_000L -> {
+                        totalPriceAmount /= 1_000L
+                        R.string.trade_amount_kilo_fmt
+                    }
+                    totalPriceAmount < 1_000_000_000_000L -> {
+                        totalPriceAmount /= 1_000_000L
+                        R.string.trade_amount_mega_fmt
+                    }
+                    else -> {
+                        totalPriceAmount /= 1_000_000_000L
+                        R.string.trade_amount_giga_fmt
+                    }
+                }
+                return if (totalPriceAmount < 1_000L) {
+                    String.format(context.getString(fmtResId), accTradePrice24h)
+                } else {
+                    String.format(context.getString(fmtResId), totalPriceAmount)
+                }
+            }
         }
-        return "$amount M"
     }
-
-
 }
 
 //전일 대비
-fun TextView.setTradeDiff(signedChangeRate: Double) : String {
+fun TextView.setTradeDiff(signedChangeRate: Double) {
     val color = when {
         (signedChangeRate > 0) -> ContextCompat.getColor(context, R.color.seonohRed)
         signedChangeRate < 0 -> ContextCompat.getColor(context, R.color.seonohBlue)
@@ -62,16 +121,9 @@ fun TextView.setTradeDiff(signedChangeRate: Double) : String {
 
     val df = DecimalFormat("0.##")
     val rate = df.format(signedChangeRate * 100)
-    return "$rate %"
-}
+    Log.e("변화율","$rate")
 
-//현재가
-fun TextView.filterTrade(tradePrice: Double?) {
-    text = if (tradePrice ?: .0 > 1) {
-        intFormat.format(tradePrice ?: 0)
-    } else {
-        doubleFormat.format(tradePrice ?: 0)
-    }
+    text = "$rate %"
 }
 
 

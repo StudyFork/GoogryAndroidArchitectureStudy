@@ -1,6 +1,7 @@
 package com.example.seonoh.seonohapp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,6 @@ import com.example.seonoh.seonohapp.network.CoinRequest
 import com.example.seonoh.seonohapp.network.RetrofitCreator
 import com.example.seonoh.seonohapp.util.CalculateUtils
 import kotlinx.android.synthetic.main.coin_fragment.view.*
-
 
 class CoinFragment : Fragment(), CoinRequest.CurrentPriceInfoResultListener {
 
@@ -34,7 +34,7 @@ class CoinFragment : Fragment(), CoinRequest.CurrentPriceInfoResultListener {
         return mView
     }
 
-    fun setData(data: ArrayList<UseCoinModel>){
+    fun setData(data: ArrayList<UseCoinModel>) {
         mAdapter.addCoinData(data)
     }
 
@@ -46,20 +46,26 @@ class CoinFragment : Fragment(), CoinRequest.CurrentPriceInfoResultListener {
     }
 
     fun requestData() {
-        CoinRequest(RetrofitCreator.coinApi).currentPriceInfoSend( this, marketName)
+        CoinRequest(RetrofitCreator.coinApi).currentPriceInfoSend(this, marketName)
     }
+
 
     override fun getCurrentInfoSuccess(result: ArrayList<CurrentPriceInfoModel>) {
         mData = ArrayList()
-
+        var marketType = ""
         // 데이터 가공후 모델에 넣음.
         // signedChangeRate textcolor 처리때문에 viewholder에서 진행
+        if (result.size != 0) {
+            marketType = result[0].market.substringBefore("-")
+        }
+
         for (i in 0 until result.size) {
+
             val model = UseCoinModel(
                 CalculateUtils.setMarketName(result[i].market),
                 CalculateUtils.filterTrade(result[i].tradePrice),
-                result[i].signedChangeRate.toString(),
-                CalculateUtils.setTradeAmount(result[i].accTradePrice_24h)
+                result[i].signedChangeRate,
+                CalculateUtils.setTradeAmount(marketType, result[i].accTradePrice_24h, context!!)
             )
             mData.add(model)
         }

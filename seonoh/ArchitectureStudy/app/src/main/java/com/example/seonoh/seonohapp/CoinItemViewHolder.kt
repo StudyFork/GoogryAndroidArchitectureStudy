@@ -19,7 +19,7 @@ class CoinItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(data: UseCoinModel) {
         coinNameTv.text = data.market
         currentPriceTv.text = data.tradePrice
-        changeRateTv.setTradeDiff(data.signedChangeRate.toDouble())
+        changeRateTv.setTradeDiff(data.signedChangeRate)
         totalTradePriceTv.text = data.accTradePrice_24h
 
     }
