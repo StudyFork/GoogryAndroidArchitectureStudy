@@ -39,7 +39,8 @@ class CoinFragment : Fragment() {
 
     @SuppressLint("CheckResult")
     private fun loadCoinData(marketSearch: String) {
-        retrofitService.loadCoinData(marketSearch).subscribeOn(Schedulers.io())
+        retrofitService.loadCoinData(marketSearch)
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { list: List<Coin> ->

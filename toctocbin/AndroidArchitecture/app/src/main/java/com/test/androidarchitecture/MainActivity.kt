@@ -30,7 +30,8 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("CheckResult")
     private fun loadMarketData() {
-        retrofitService.loadMarketData().subscribeOn(Schedulers.io())
+        retrofitService.loadMarketData()
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { list: List<Market> ->
