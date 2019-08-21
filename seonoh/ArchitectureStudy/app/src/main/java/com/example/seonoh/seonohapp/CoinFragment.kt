@@ -46,7 +46,7 @@ class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceIn
     }
 
     fun requestData() {
-        CoinRequest(RetrofitCreator.coinApi).currentPriceInfoSend(this, marketName)
+        CoinRequest(RetrofitCreator.coinApi).sendCurrentPriceInfo(this, marketName)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

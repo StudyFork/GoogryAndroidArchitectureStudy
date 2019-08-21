@@ -15,10 +15,10 @@ class CoinAdapter : RecyclerView.Adapter<CoinItemViewHolder>() {
         return CoinItemViewHolder(view)
     }
 
-    override fun getItemCount(): Int = mData!!.size
+    override fun getItemCount(): Int = mData.size
 
     fun addCoinData(data: ArrayList<UseCoinModel>) {
-        mData!!.addAll(data)
+        mData.addAll(data)
         notifyDataSetChanged()
     }
 

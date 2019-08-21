@@ -33,7 +33,7 @@ class CoinRequest(api: Api) {
             })
     }
 
-    fun currentPriceInfoSend(listener: BaseResult<ArrayList<CurrentPriceInfoModel>>, markets: String) {
+    fun sendCurrentPriceInfo(listener: BaseResult<ArrayList<CurrentPriceInfoModel>>, markets: String) {
         var single = mApi.getCurrentPriceInfo(markets)
 
         single.subscribeOn(Schedulers.io())
