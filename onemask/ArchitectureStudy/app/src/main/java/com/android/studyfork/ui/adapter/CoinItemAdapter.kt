@@ -16,7 +16,7 @@ import com.android.studyfork.util.setTradeDiff
  */
 class CoinItemAdapter  : RecyclerView.Adapter<CoinItemAdapter.ViewHolder>() {
 
-    private var dataSet: List<TickerResponse> = ArrayList()
+    private var dataSet = mutableListOf<TickerResponse>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(parent.inflate(R.layout.item_coin))
@@ -26,10 +26,10 @@ class CoinItemAdapter  : RecyclerView.Adapter<CoinItemAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         holder.bind(dataSet[position])
 
-    fun setData(dataSet: List<TickerResponse>?) {
-        this.dataSet = emptyList()
-        dataSet?.let {
-            this.dataSet = ArrayList(dataSet)
+    fun setData(dataSet: List<TickerResponse>) {
+        with(this.dataSet) {
+            clear()
+            addAll(dataSet)
         }
         notifyDataSetChanged()
     }
