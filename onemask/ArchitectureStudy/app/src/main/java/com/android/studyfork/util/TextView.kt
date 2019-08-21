@@ -1,10 +1,17 @@
+
 package com.android.studyfork.util
 
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.android.studyfork.R
+import com.android.studyfork.R.string.trade_amount_fmt
 import com.android.studyfork.network.model.TickerResponse
+import com.android.studyfork.util.TransactionAmount.Companion.giga
+import com.android.studyfork.util.TransactionAmount.Companion.kilo
+import com.android.studyfork.util.TransactionAmount.Companion.mega
+import com.android.studyfork.util.TransactionAmount.Companion.tera
 import java.text.DecimalFormat
+import com.android.studyfork.R.string.trade_amount_milli_fmt as trade_amount_milli_fmt1
 
 /**
  * created by onemask
@@ -57,15 +64,15 @@ fun TextView.setTradeAmount(ticker: TickerResponse) {
             text = String.format(
                 context.getString(
                     when {
-                        amount < 1_000_000L -> {
-                            R.string.trade_amount_fmt
+                        amount < mega -> {
+                            trade_amount_fmt
                         }
-                        amount < 1_000_000_000_000L -> {
-                            amount /= 1_000_000L
+                        amount < tera -> {
+                            amount /= mega
                             R.string.trade_amount_mega_fmt
                         }
                         else -> {
-                            amount /= 1_000_000_000L
+                            amount /= giga
                             R.string.trade_amount_giga_fmt
                         }
                     }
@@ -73,24 +80,24 @@ fun TextView.setTradeAmount(ticker: TickerResponse) {
             )
         }
         "BTC", "ETH" -> text =
-            String.format(context.getString(R.string.trade_amount_milli_fmt), ticker.accTradePrice24h)
+            String.format(context.getString(trade_amount_milli_fmt1), ticker.accTradePrice24h)
         "USDT" -> {
             text = String.format(
                 context.getString(
                     when {
-                        amount < 1_000_000L -> {
-                            R.string.trade_amount_fmt
+                        amount < mega -> {
+                            trade_amount_fmt
                         }
-                        amount < 1_000_000_000L -> {
-                            amount /= 1_000L
+                        amount < giga -> {
+                            amount /= kilo
                             R.string.trade_amount_kilo_fmt
                         }
-                        amount < 1_000_000_000_000L -> {
-                            amount /= 1_000_000L
+                        amount < tera -> {
+                            amount /= mega
                             R.string.trade_amount_mega_fmt
                         }
                         else -> {
-                            amount /= 1_000_000_000L
+                            amount /= giga
                             R.string.trade_amount_giga_fmt
                         }
                     }
@@ -98,31 +105,31 @@ fun TextView.setTradeAmount(ticker: TickerResponse) {
             )
         }
         else -> {
-            val fmtResId = when {
-                amount < 1_000L -> {
-
+            val fmtResId: Any = when {
+                amount < kilo -> {
                     R.string.trade_amount_milli_fmt
+
                 }
-                amount < 1_000_000L -> {
-                    R.string.trade_amount_fmt
+                amount < mega -> {
+                    trade_amount_fmt
                 }
-                amount < 1_000_000_000L -> {
-                    amount /= 1_000L
-                    R.string.trade_amount_kilo_fmt
+                amount < giga -> {
+                    amount /= kilo
+                    R.string.trade_amount_mega_fmt
                 }
-                amount < 1_000_000_000_000L -> {
-                    amount /= 1_000_000L
+                amount < tera -> {
+                    amount /= mega
                     R.string.trade_amount_mega_fmt
                 }
                 else -> {
-                    amount /= 1_000_000_000L
+                    amount /= giga
                     R.string.trade_amount_giga_fmt
                 }
             }
-            text = if (amount < 1_000L) {
-                String.format(context.getString(fmtResId), ticker.accTradePrice24h)
+            text = if (amount < kilo) {
+                String.format(context.getString(fmtResId as Int), ticker.accTradePrice24h)
             } else {
-                String.format(context.getString(fmtResId), amount)
+                String.format(context.getString(fmtResId as Int), amount)
             }
         }
     }
