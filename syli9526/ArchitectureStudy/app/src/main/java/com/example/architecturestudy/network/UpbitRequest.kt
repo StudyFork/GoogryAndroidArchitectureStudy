@@ -26,7 +26,7 @@ class UpbitRequest {
         })
     }
 
-    fun getTickerInfo(listener: UpbitListener<TickerResponse>, name: String) {
+    fun getTickerInfo(name: String, listener: UpbitListener<TickerResponse>) {
 
         upbitService.getTickerData(name).enqueue(object : Callback<List<TickerResponse>> {
 

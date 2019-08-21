@@ -41,7 +41,7 @@ class CoinFragment : Fragment() {
     private fun setCoinAdapter() {
 
         rv_coin_list.run {
-            addItemDecoration(DividerItemDecoration(context,1))
+            addItemDecoration(DividerItemDecoration(context, 1))
             layoutManager = LinearLayoutManager(requireContext())
             adapter = coinAdapter
         }
@@ -51,7 +51,7 @@ class CoinFragment : Fragment() {
     private fun getTickerInfo(name: String) {
 
         UpbitRequest().apply {
-            getTickerInfo(object : UpbitListener<TickerResponse> {
+            getTickerInfo(name, object : UpbitListener<TickerResponse> {
 
                 override fun onResponse(dataList: List<TickerResponse>) {
 
@@ -74,7 +74,7 @@ class CoinFragment : Fragment() {
 
                 }
 
-            }, name)
+            })
         }
     }
 
