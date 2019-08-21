@@ -18,18 +18,6 @@ import retrofit2.Response
 
 class TickersFragment : Fragment() {
 
-    companion object {
-
-        const val ARGS_MARKET_NAME = "ARGS_MARKET_NAME"
-
-        fun newInstance(marketName: String): TickersFragment {
-            return TickersFragment().apply {
-                arguments = bundleOf(ARGS_MARKET_NAME to marketName)
-            }
-        }
-
-    }
-
     private lateinit var binding: FragmentTickersBinding
 
     private val marketName by lazy { arguments?.getString(ARGS_MARKET_NAME) }
@@ -74,6 +62,18 @@ class TickersFragment : Fragment() {
             adapter.set(tickers)
             addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
         }
+    }
+
+    companion object {
+
+        const val ARGS_MARKET_NAME = "ARGS_MARKET_NAME"
+
+        fun newInstance(marketName: String): TickersFragment {
+            return TickersFragment().apply {
+                arguments = bundleOf(ARGS_MARKET_NAME to marketName)
+            }
+        }
+
     }
 
 }
