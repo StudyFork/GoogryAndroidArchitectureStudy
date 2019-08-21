@@ -12,31 +12,31 @@ import com.android.studyfork.ui.TickerListFragment
 class ViewpagerAdapter(fragmentManager : FragmentManager) :
     FragmentPagerAdapter(fragmentManager){
 
-    private var titles: Array<String>? = null
-    private var marketDataSet : Array<String>? = null
+    private var titles: List<String> = listOf("")
+    private var marketDataSet: List<String> = listOf()
 
     override fun getItem(position: Int): Fragment {
-        val item = marketDataSet?.get(position) ?:""
+        val item = marketDataSet[position]
         return TickerListFragment.newInstance(item)
     }
 
-    override fun getCount(): Int  = marketDataSet?.size ?:0
+    override fun getCount(): Int = marketDataSet.size
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         super.destroyItem(container, position, `object`)
     }
 
     fun setData(items : Array<String>){
-        this.marketDataSet = items
+        this.marketDataSet = items.toList()
         notifyDataSetChanged()
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return titles?.get(position)
+        return titles[position]
     }
 
     fun setTitles(items : Array<String>){
-        this.titles = items
+        this.titles = items.toList()
     }
 
 }
