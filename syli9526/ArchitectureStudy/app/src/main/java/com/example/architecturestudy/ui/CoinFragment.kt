@@ -17,9 +17,8 @@ import kotlinx.android.synthetic.main.fragment_list_coin.*
 
 class CoinFragment : Fragment() {
 
-    private var currencyList: List<String>? = null
-    private val coinAdapter by lazy { CoinAdapter() }
 
+    private val coinAdapter by lazy { CoinAdapter() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return return inflater.inflate(R.layout.fragment_list_coin, container, false)
@@ -29,10 +28,8 @@ class CoinFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        currencyList = arguments?.getStringArrayList(CURRENCY_LIST)
-        currencyList?.let {
-            getTickerInfo(it.joinToString(","))
-        }
+        val currencyList = arguments?.getString(CURRENCY_LIST) ?: ""
+        getTickerInfo(currencyList)
 
         setCoinAdapter()
 
@@ -82,10 +79,9 @@ class CoinFragment : Fragment() {
 
         private const val CURRENCY_LIST = "currency_list"
 
-        fun newInstance(currencyList: ArrayList<String>) = CoinFragment().apply {
-
+        fun newInstance(currencyList: String) = CoinFragment().apply {
             arguments = Bundle().apply {
-                putStringArrayList(CURRENCY_LIST, currencyList)
+                putString(CURRENCY_LIST, currencyList)
             }
         }
     }
