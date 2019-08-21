@@ -57,8 +57,9 @@ class CoinFragment : Fragment() {
 
                     var list = mutableListOf<CoinInfo>()
                     dataList.forEach {
-                        val currencyType = it.market.split("-")[0]
-                        val coinName = it.market.split("-")[1]
+                        val market = it.market.split("-")
+                        val currencyType = market[0]
+                        val coinName = market[1]
                         val presentPrice = it.tradePrice
                         val signedChangeRate: Double = it.signedChangeRate
                         val transactionAmount: Double = it.accTradePrice24h
