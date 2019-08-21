@@ -9,7 +9,12 @@ import retrofit2.HttpException
 class CoinRequest(api: Api) {
     private val mApi = api
 
-    fun marketSend(listener: MarketResultListener) {
+    interface BaseResult<in T> {
+        fun getNetworkSuccess(result: T)
+        fun getNetworkFailed(code: String)
+    }
+
+    fun marketSend(listener: BaseResult<ArrayList<Market>>) {
 
         var single = mApi.getMarketAll()
 
@@ -17,10 +22,10 @@ class CoinRequest(api: Api) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                listener.getMarketSuccess(it)
+                listener.getNetworkSuccess(it)
             }, { e ->
                 if (e is HttpException) {
-                    listener.getMarketFailed(e.toString())
+                    listener.getNetworkFailed(e.toString())
 
 
                 } else {
@@ -28,35 +33,20 @@ class CoinRequest(api: Api) {
             })
     }
 
-
-    interface MarketResultListener {
-        fun getMarketSuccess(result: ArrayList<Market>)
-        fun getMarketFailed(code: String)
-    }
-
-
-    fun currentPriceInfoSend(listener: CurrentPriceInfoResultListener, markets: String) {
+    fun currentPriceInfoSend(listener: BaseResult<ArrayList<CurrentPriceInfoModel>>, markets: String) {
         var single = mApi.getCurrentPriceInfo(markets)
 
         single.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                listener.getCurrentInfoSuccess(it)
+                listener.getNetworkSuccess(it)
 
             }, { e ->
                 if (e is HttpException) {
-                    listener.getCurrentInfoFailed(e.toString())
+                    listener.getNetworkFailed(e.toString())
 
                 } else {
                 }
             })
     }
-
-
-    interface CurrentPriceInfoResultListener {
-        fun getCurrentInfoSuccess(result: ArrayList<CurrentPriceInfoModel>)
-        fun getCurrentInfoFailed(code: String)
-    }
-
-
 }

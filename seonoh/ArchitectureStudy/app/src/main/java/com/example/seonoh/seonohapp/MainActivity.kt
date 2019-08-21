@@ -10,7 +10,7 @@ import com.example.seonoh.seonohapp.network.RetrofitCreator
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), CoinRequest.MarketResultListener {
+class MainActivity : AppCompatActivity(), CoinRequest.BaseResult<ArrayList<Market>> {
 
     private lateinit var mPagerAdapter: TabPagerAdapter
     private val TAG = "COIN_MAIN"
@@ -96,12 +96,12 @@ class MainActivity : AppCompatActivity(), CoinRequest.MarketResultListener {
         return marketDataList
     }
 
-    override fun getMarketSuccess(result: ArrayList<Market>) {
+    override fun getNetworkSuccess(result: ArrayList<Market>) {
         val data = classifyMarketData(result)
         initView(data)
     }
 
-    override fun getMarketFailed(code: String) {
+    override fun getNetworkFailed(code: String) {
         Log.e("marketfailed","getMarketFailed code : $code")
     }
 

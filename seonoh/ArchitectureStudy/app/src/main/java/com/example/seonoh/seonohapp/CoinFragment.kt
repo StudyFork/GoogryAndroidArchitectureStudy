@@ -1,7 +1,6 @@
 package com.example.seonoh.seonohapp
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +12,12 @@ import com.example.seonoh.seonohapp.network.RetrofitCreator
 import com.example.seonoh.seonohapp.util.CalculateUtils
 import kotlinx.android.synthetic.main.coin_fragment.view.*
 
-class CoinFragment : Fragment(), CoinRequest.CurrentPriceInfoResultListener {
+class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceInfoModel>> {
 
     lateinit var mView: View
     lateinit var mData: ArrayList<UseCoinModel>
     lateinit var mAdapter: CoinAdapter
-    var marketName = ""
+    private var marketName = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,8 +48,7 @@ class CoinFragment : Fragment(), CoinRequest.CurrentPriceInfoResultListener {
         CoinRequest(RetrofitCreator.coinApi).currentPriceInfoSend(this, marketName)
     }
 
-
-    override fun getCurrentInfoSuccess(result: ArrayList<CurrentPriceInfoModel>) {
+    override fun getNetworkSuccess(result: ArrayList<CurrentPriceInfoModel>) {
         mData = ArrayList()
         var marketType = ""
         // 데이터 가공후 모델에 넣음.
@@ -74,7 +72,7 @@ class CoinFragment : Fragment(), CoinRequest.CurrentPriceInfoResultListener {
         setData(mData)
     }
 
-    override fun getCurrentInfoFailed(code: String) {
+    override fun getNetworkFailed(code: String) {
     }
 
     companion object {
