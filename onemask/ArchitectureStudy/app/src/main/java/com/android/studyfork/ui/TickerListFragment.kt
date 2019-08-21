@@ -7,8 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.studyfork.R
 import com.android.studyfork.network.api.UpbitService
 import com.android.studyfork.repository.UpbitRepository
@@ -54,8 +52,6 @@ class TickerListFragment : Fragment() {
         coinItemAdapter = CoinItemAdapter()
         recyclerview.apply {
             adapter = coinItemAdapter
-            addItemDecoration(DividerItemDecoration(context,1))
-            layoutManager = LinearLayoutManager(context)
             setHasFixedSize(false)
         }
     }
