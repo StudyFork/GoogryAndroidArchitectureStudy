@@ -57,13 +57,13 @@ class CoinFragment : Fragment() {
 
                     var list = mutableListOf<CoinInfo>()
                     dataList.forEach {
-                        val cur = it.market.split("-")[0]
-                        val coin = it.market.split("-")[1]
-                        val price = it.tradePrice
-                        val compare: Double = it.signedChangeRate
-                        val amount: Double = it.accTradePrice24h
+                        val currencyType = it.market.split("-")[0]
+                        val coinName = it.market.split("-")[1]
+                        val presentPrice = it.tradePrice
+                        val signedChangeRate: Double = it.signedChangeRate
+                        val transactionAmount: Double = it.accTradePrice24h
 
-                        list.add(CoinInfo(cur, coin, price, compare, amount))
+                        list.add(CoinInfo(currencyType, coinName, presentPrice, signedChangeRate, transactionAmount))
                     }
 
                     coinAdapter.setData(list)
