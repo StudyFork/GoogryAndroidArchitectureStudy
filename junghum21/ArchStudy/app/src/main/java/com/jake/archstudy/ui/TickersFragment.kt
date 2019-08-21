@@ -24,6 +24,8 @@ class TickersFragment : Fragment() {
 
     private val repository = UpbitRepository()
 
+    private val tickersAdapter = TickersAdapter()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,6 +37,7 @@ class TickersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initTickers()
         getTickers()
     }
 
@@ -56,12 +59,15 @@ class TickersFragment : Fragment() {
             })
     }
 
-    private fun setTickers(tickers: List<TickerResponse>) {
+    private fun initTickers() {
         binding.rvTickers.run {
-            val adapter = adapter as? TickersAdapter ?: TickersAdapter().apply { adapter = this }
-            adapter.set(tickers)
+            adapter = tickersAdapter
             addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
         }
+    }
+
+    private fun setTickers(tickers: List<TickerResponse>) {
+        tickersAdapter.set(tickers)
     }
 
     companion object {
