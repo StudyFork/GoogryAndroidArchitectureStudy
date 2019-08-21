@@ -63,10 +63,10 @@ class UpbitFragment : Fragment(), UpbitContract.View {
     }
 
     companion object {
+        const val MARKET_NAME = "market name"
         fun newInstance(marketName: String): UpbitFragment {
             val fragment = UpbitFragment()
             val bundle = Bundle()
-            val MARKET_NAME = "market name"
 
             bundle.putString(MARKET_NAME, marketName)
             Log.d("market3",""+marketName)
