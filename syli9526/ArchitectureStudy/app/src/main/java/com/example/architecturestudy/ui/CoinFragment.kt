@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.R
+import com.example.architecturestudy.model.CoinInfo
 import com.example.architecturestudy.model.TickerResponse
 import com.example.architecturestudy.ui.adapter.CoinAdapter
 import com.example.architecturestudy.network.UpbitListener

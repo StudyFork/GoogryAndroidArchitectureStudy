@@ -1,4 +1,4 @@
-package com.example.architecturestudy.ui
+package com.example.architecturestudy.model
 
 data class CoinInfo(
     val currencyType: String,
