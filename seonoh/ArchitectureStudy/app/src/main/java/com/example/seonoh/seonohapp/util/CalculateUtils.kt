@@ -81,7 +81,6 @@ object CalculateUtils {
             else -> {
                 val fmtResId = when {
                     totalPriceAmount < 1_000L -> {
-
                         R.string.trade_amount_milli_fmt
                     }
                     totalPriceAmount < 1_000_000L -> {
