@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_list_coin.*
 class CoinFragment : Fragment() {
 
     private var currencyList: List<String>? = null
-    private lateinit var coinAdapter: CoinAdapter
+    private val coinAdapter by lazy { CoinAdapter() }
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -39,8 +39,6 @@ class CoinFragment : Fragment() {
     }
 
     private fun setCoinAdapter() {
-
-        coinAdapter = CoinAdapter()
 
         rv_coin_list.run {
             addItemDecoration(DividerItemDecoration(context,1))
