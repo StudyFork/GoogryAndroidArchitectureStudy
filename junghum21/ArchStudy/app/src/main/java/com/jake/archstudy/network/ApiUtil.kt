@@ -26,6 +26,8 @@ object ApiUtil {
                 .build()
         }
 
-    fun getUpbitService() = retrofit.create<UpbitService>()
+    private val upbitService = retrofit.create<UpbitService>()
+
+    fun getUpbitService() = upbitService
 
 }
