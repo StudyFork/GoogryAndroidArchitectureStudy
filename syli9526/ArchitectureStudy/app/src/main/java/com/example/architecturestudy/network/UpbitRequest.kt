@@ -1,5 +1,6 @@
 package com.example.architecturestudy.network
 
+import com.example.architecturestudy.model.CoinInfo
 import com.example.architecturestudy.model.MarketResponse
 import com.example.architecturestudy.model.TickerResponse
 import retrofit2.Call
@@ -26,7 +27,7 @@ class UpbitRequest {
         })
     }
 
-    fun getTickerInfo(name: String, listener: UpbitListener<TickerResponse>) {
+    fun getTickerInfo(name: String, listener: UpbitListener<CoinInfo>) {
 
         upbitService.getTickerData(name).enqueue(object : Callback<List<TickerResponse>> {
 
@@ -37,7 +38,22 @@ class UpbitRequest {
             }
 
             override fun onResponse(call: Call<List<TickerResponse>>, response: Response<List<TickerResponse>>) {
-                response.body()?.let { listener.onResponse(it) } ?: run { listener.onFailure("null") }
+                response.body()?.let {
+                    var list = mutableListOf<CoinInfo>()
+
+                    it.forEach {
+                        val market = it.market.split("-")
+                        val currencyType = market[0]
+                        val coinName = market[1]
+                        val presentPrice = it.tradePrice
+                        val signedChangeRate: Double = it.signedChangeRate
+                        val transactionAmount: Double = it.accTradePrice24h
+
+                        list.add(CoinInfo(currencyType, coinName, presentPrice, signedChangeRate, transactionAmount))
+                    }
+
+                    listener.onResponse(list)
+                } ?: run { listener.onFailure("null") }
             }
         })
 
