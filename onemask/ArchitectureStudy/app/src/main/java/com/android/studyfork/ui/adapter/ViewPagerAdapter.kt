@@ -9,7 +9,7 @@ import com.android.studyfork.ui.TickerListFragment
 /**
  * created by onemask
  */
-class ViewpagerAdapter(fragmentManager : FragmentManager) :
+class ViewPagerAdapter(fragmentManager: FragmentManager) :
     FragmentPagerAdapter(fragmentManager){
 
     private var titles: List<String> = listOf("")

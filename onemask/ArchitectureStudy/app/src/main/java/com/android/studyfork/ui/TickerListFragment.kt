@@ -27,7 +27,7 @@ class TickerListFragment : Fragment() {
     @SuppressLint("CheckResult")
     private fun getTicker(){
         val markets = arguments?.getString(KEY_MARKETS) ?:""
-        upbitRepository.getTikcers(markets)
+        upbitRepository.getTickers(markets)
             .subscribe({
                 Timber.d("getTicker success")
                 coinItemAdapter.setData(it)
