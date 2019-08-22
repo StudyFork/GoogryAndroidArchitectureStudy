@@ -85,7 +85,7 @@ class CoinFragment : Fragment() {
 
     companion object {
 
-        const val MARKET_SEARCH: String = "marketSearch"
+        private const val MARKET_SEARCH: String = "marketSearch"
 
         fun getInstance(marketSearch: String): CoinFragment {
             val args = Bundle()
