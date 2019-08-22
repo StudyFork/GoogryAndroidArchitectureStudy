@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.jake.archstudy.data.source.UpbitRepository
 import com.jake.archstudy.databinding.FragmentTickersBinding
+import com.jake.archstudy.network.ApiUtil
 import com.jake.archstudy.network.response.TickerResponse
 import com.jake.archstudy.ui.adapter.TickersAdapter
 import retrofit2.Call
@@ -22,7 +23,7 @@ class TickersFragment : Fragment() {
 
     private val marketName by lazy { arguments?.getString(ARGS_MARKET_NAME) }
 
-    private val repository = UpbitRepository()
+    private val repository = UpbitRepository(ApiUtil.getUpbitService())
 
     private val tickersAdapter = TickersAdapter()
 

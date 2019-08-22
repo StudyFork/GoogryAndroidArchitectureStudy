@@ -9,6 +9,7 @@ import com.jake.archstudy.R
 import com.jake.archstudy.data.model.Market
 import com.jake.archstudy.data.source.UpbitRepository
 import com.jake.archstudy.databinding.ActivityMainBinding
+import com.jake.archstudy.network.ApiUtil
 import com.jake.archstudy.network.response.MarketResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val repository = UpbitRepository()
+    private val repository = UpbitRepository(ApiUtil.getUpbitService())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
