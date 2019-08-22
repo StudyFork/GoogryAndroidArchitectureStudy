@@ -26,7 +26,7 @@ class UpbitRepositoryImpl(
 
 
     override fun getTikcers(market: String) =
-        api.getTikers(market)
+        api.getTickers(market)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
