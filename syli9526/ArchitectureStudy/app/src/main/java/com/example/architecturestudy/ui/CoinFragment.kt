@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.R
 import com.example.architecturestudy.model.CoinInfo
-import com.example.architecturestudy.model.TickerResponse
 import com.example.architecturestudy.ui.adapter.CoinAdapter
 import com.example.architecturestudy.network.UpbitListener
 import com.example.architecturestudy.network.UpbitRequest
@@ -48,25 +47,11 @@ class CoinFragment : Fragment() {
     private fun getTickerInfo(name: String) {
 
         UpbitRequest().apply {
-            getTickerInfo(name, object : UpbitListener<TickerResponse> {
+            getTickerInfo(name, object : UpbitListener<CoinInfo> {
 
-                override fun onResponse(dataList: List<TickerResponse>) {
-
-                    var list = mutableListOf<CoinInfo>()
-                    dataList.forEach {
-                        val market = it.market.split("-")
-                        val currencyType = market[0]
-                        val coinName = market[1]
-                        val presentPrice = it.tradePrice
-                        val signedChangeRate: Double = it.signedChangeRate
-                        val transactionAmount: Double = it.accTradePrice24h
-
-                        list.add(CoinInfo(currencyType, coinName, presentPrice, signedChangeRate, transactionAmount))
-                    }
-
-                    coinAdapter.setData(list)
+                override fun onResponse(dataList: List<CoinInfo>) {
+                    coinAdapter.setData(dataList)
                 }
-
                 override fun onFailure(str: String) {
 
                 }
