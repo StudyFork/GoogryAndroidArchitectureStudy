@@ -23,7 +23,8 @@ class MainActivity : AppCompatActivity() {
         UpbitRequest()
             .getMarketInfo(object : UpbitListener<MarketResponse> {
                 override fun onResponse(dataList: List<MarketResponse>) {
-                    setPage(dataList)
+                    setPage()
+                    setData(dataList)
                 }
 
                 override fun onFailure(str: String) {
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
-    private fun setPage(dataList: List<MarketResponse>){
+    private fun setPage(){
 
         currency_tab_layout.run {
             pageList.forEach {
@@ -53,14 +54,14 @@ class MainActivity : AppCompatActivity() {
 
             })
         }
+    }
 
+    private fun setData(dataList: List<MarketResponse>){
         coin_list_viewpager.run {
             adapter = ViewPagerAdapter(supportFragmentManager, this@MainActivity, pageList, dataList)
             addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(currency_tab_layout))
         }
     }
-
-
 
 
     companion object {
