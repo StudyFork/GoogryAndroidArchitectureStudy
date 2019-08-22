@@ -32,6 +32,7 @@ class TickersAdapter : RecyclerView.Adapter<TickersAdapter.ViewHolder>() {
     fun set(list: List<TickerResponse>) {
         items.clear()
         items.addAll(list)
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(
