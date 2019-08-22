@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.test.androidarchitecture.adpter.ViewpagerAdapter
+import com.test.androidarchitecture.adpter.ViewPagerAdapter
 import com.test.androidarchitecture.data.Market
 import com.test.androidarchitecture.data.MarketTitle
 import com.test.androidarchitecture.network.RetrofitClient
@@ -15,16 +15,16 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
 
-    private var viewpagerAdapter: ViewpagerAdapter? = null
+    private var mViewPagerAdapter: ViewPagerAdapter? = null
     private val retrofitService by lazy { RetrofitClient.getInstance().retrofitService }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         main_tabLayout.setupWithViewPager(main_viewPager)
-        viewpagerAdapter = ViewpagerAdapter(supportFragmentManager)
+        mViewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
         main_viewPager.offscreenPageLimit = 3
-        main_viewPager.adapter = viewpagerAdapter
+        main_viewPager.adapter = mViewPagerAdapter
         loadMarketData()
     }
 
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                                     marketSearch = value.joinToString(separator = ",") { it.market }
                                 )
                             }
-                        viewpagerAdapter?.setData(marketTitle)
+                        mViewPagerAdapter?.setData(marketTitle)
                 }, { t: Throwable ->
                     Toast.makeText(this, t.message, Toast.LENGTH_SHORT).show()
                 }

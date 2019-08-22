@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.test.androidarchitecture.CoinFragment
 import com.test.androidarchitecture.data.MarketTitle
 
-class ViewpagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
+class ViewPagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
 
 
     private val marketTitles = mutableListOf<MarketTitle>()
