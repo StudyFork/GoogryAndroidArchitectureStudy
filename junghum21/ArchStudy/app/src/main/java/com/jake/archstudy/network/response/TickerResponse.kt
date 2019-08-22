@@ -72,7 +72,7 @@ data class TickerResponse(
                 "%,d",
                 accTradePrice24h.toInt() / 1000
             ) + "K"
-            accTradePrice24h > 1000000F -> String.format(
+            accTradePrice24h >= 1000000F -> String.format(
                 "%,d",
                 accTradePrice24h.toInt() / 1000000
             ) + "M"
