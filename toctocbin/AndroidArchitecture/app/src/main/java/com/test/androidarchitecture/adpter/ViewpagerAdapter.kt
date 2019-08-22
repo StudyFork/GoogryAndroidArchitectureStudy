@@ -24,6 +24,7 @@ class ViewpagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
     }
 
     fun setData(marketTitles: List<MarketTitle>) {
+        this.marketTitles.clear()
         this.marketTitles.addAll(marketTitles)
         notifyDataSetChanged()
     }
