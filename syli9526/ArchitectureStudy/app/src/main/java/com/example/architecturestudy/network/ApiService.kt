@@ -10,7 +10,7 @@ interface ApiService {
     @GET("/v1/market/all")
     fun getMarketData(): Call<List<MarketResponse>>
 
-    @GET("/v1/ticker?")
+    @GET("/v1/ticker")
     fun getTickerData(
         @Query("markets") markets: String
     ): Call<List<TickerResponse>>
