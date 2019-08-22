@@ -3,7 +3,7 @@ package com.example.architecturestudy.network
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class UpbitService {
+class UpbitService private constructor(){
 
     private val url = "https://api.upbit.com"
     val retrofit: ApiService
