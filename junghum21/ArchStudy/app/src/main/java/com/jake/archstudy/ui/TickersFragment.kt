@@ -8,6 +8,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.jake.archstudy.data.model.Ticker
 import com.jake.archstudy.data.source.UpbitRepository
 import com.jake.archstudy.databinding.FragmentTickersBinding
 import com.jake.archstudy.network.ApiUtil
@@ -54,7 +55,10 @@ class TickersFragment : Fragment() {
                     response: Response<List<TickerResponse>?>
                 ) {
                     if (response.isSuccessful) {
-                        response.body()?.let { setTickers(it) }
+                        response.body()?.let { body ->
+                            val tickers = body.map { it.toTicker() }
+                            setTickers(tickers)
+                        }
                     }
                 }
             })
@@ -67,7 +71,7 @@ class TickersFragment : Fragment() {
         }
     }
 
-    private fun setTickers(tickers: List<TickerResponse>) {
+    private fun setTickers(tickers: List<Ticker>) {
         tickersAdapter.set(tickers)
     }
 

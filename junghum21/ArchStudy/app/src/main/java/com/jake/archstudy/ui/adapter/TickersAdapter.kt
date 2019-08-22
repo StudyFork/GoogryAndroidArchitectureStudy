@@ -3,16 +3,13 @@ package com.jake.archstudy.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.jake.archstudy.data.model.Ticker
 import com.jake.archstudy.databinding.ItemTickerBinding
-import com.jake.archstudy.ext.setChangeRate
-import com.jake.archstudy.ext.setCoinName
-import com.jake.archstudy.ext.setCurrentPrice
-import com.jake.archstudy.ext.setTradePrice
-import com.jake.archstudy.network.response.TickerResponse
+import com.jake.archstudy.ext.setChangeColor
 
 class TickersAdapter : RecyclerView.Adapter<TickersAdapter.ViewHolder>() {
 
-    private val items = mutableListOf<TickerResponse>()
+    private val items = mutableListOf<Ticker>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(
@@ -29,7 +26,7 @@ class TickersAdapter : RecyclerView.Adapter<TickersAdapter.ViewHolder>() {
         holder.bind(items[position])
     }
 
-    fun set(list: List<TickerResponse>) {
+    fun set(list: List<Ticker>) {
         items.clear()
         items.addAll(list)
         notifyDataSetChanged()
@@ -39,12 +36,13 @@ class TickersAdapter : RecyclerView.Adapter<TickersAdapter.ViewHolder>() {
         private val binding: ItemTickerBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: TickerResponse) {
+        fun bind(item: Ticker) {
             binding.run {
-                tvName.setCoinName(item.market)
-                tvCurrentPrice.setCurrentPrice(item.tradePrice)
-                tvChangeRate.setChangeRate(item.change,item.signedChangeRate)
-                tvAccTradePrice.setTradePrice(item.accTradePrice24h)
+                tvName.text = item.market
+                tvTradePrice.text = item.tradePrice
+                tvChangeRate.text = item.signedChangeRate
+                tvChangeRate.setChangeColor(item.change)
+                tvAccTradePrice.text = item.accTradePrice24h
             }
         }
 

@@ -22,7 +22,7 @@
             />
 
         <TextView
-            android:id="@+id/tvCurrentPrice"
+            android:id="@+id/tvTradePrice"
             style="@style/ChartRow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

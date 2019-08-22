@@ -1,6 +1,7 @@
 package com.jake.archstudy.network.response
 
 import com.google.gson.annotations.SerializedName
+import com.jake.archstudy.data.model.Ticker
 
 data class TickerResponse(
     @SerializedName("acc_trade_price")
@@ -55,4 +56,36 @@ data class TickerResponse(
     val tradeTimestamp: Long,
     @SerializedName("trade_volume")
     val tradeVolume: Double
-)
+) {
+
+    fun toTicker(): Ticker {
+        val market = market.substringAfter("-")
+        val tradePrice = if (tradePrice < 1) String.format("%,.2f", tradePrice) else String.format(
+            "%,d",
+            tradePrice.toInt()
+        )
+        val signedChangeRate = String.format("%,.2f", signedChangeRate * 100) + "%"
+        val accTradePrice = when {
+            accTradePrice24h < 1F -> String.format("%,.8f", accTradePrice24h)
+            accTradePrice24h in 1F..999F -> String.format("%,d", accTradePrice24h.toInt())
+            accTradePrice24h in 1000F..999999F -> String.format(
+                "%,d",
+                accTradePrice24h.toInt() / 1000
+            ) + "K"
+            accTradePrice24h > 1000000F -> String.format(
+                "%,d",
+                accTradePrice24h.toInt() / 1000000
+            ) + "M"
+            else -> String.format("%,f", accTradePrice24h)
+        }
+
+        return Ticker(
+            market,
+            tradePrice,
+            change,
+            signedChangeRate,
+            accTradePrice
+        )
+    }
+
+}
