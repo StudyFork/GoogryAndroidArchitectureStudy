@@ -5,7 +5,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.android.studyfork.R
 import com.android.studyfork.R.string.trade_amount_fmt
-import com.android.studyfork.network.model.TickerResponse
+import com.android.studyfork.network.model.Ticker
 import com.android.studyfork.util.TransactionAmount.Companion.giga
 import com.android.studyfork.util.TransactionAmount.Companion.kilo
 import com.android.studyfork.util.TransactionAmount.Companion.mega
@@ -56,10 +56,10 @@ fun TextView.setTradeAmount(accTradePrice24h : Double) {
 }*/
 
 //거래대금2
-fun TextView.setTradeAmount(ticker: TickerResponse) {
+fun TextView.setTradeAmount(ticker: Ticker) {
 
-    var amount = ticker.accTradePrice24h.toLong()
-    when (ticker.market.split("-")[0]) {
+    var amount = ticker.totalTrade.toLong()
+    when (ticker.marketName.split("-")[0]) {
         "KRW" -> {
             text = String.format(
                 context.getString(
@@ -80,7 +80,7 @@ fun TextView.setTradeAmount(ticker: TickerResponse) {
             )
         }
         "BTC", "ETH" -> text =
-            String.format(context.getString(trade_amount_milli_fmt1), ticker.accTradePrice24h)
+            String.format(context.getString(trade_amount_milli_fmt1), ticker.totalTrade)
         "USDT" -> {
             text = String.format(
                 context.getString(
@@ -127,7 +127,7 @@ fun TextView.setTradeAmount(ticker: TickerResponse) {
                 }
             }
             text = if (amount < kilo) {
-                String.format(context.getString(fmtResId as Int), ticker.accTradePrice24h)
+                String.format(context.getString(fmtResId as Int), ticker.totalTrade)
             } else {
                 String.format(context.getString(fmtResId as Int), amount)
             }
