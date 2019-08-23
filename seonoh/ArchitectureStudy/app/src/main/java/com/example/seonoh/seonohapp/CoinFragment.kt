@@ -12,10 +12,10 @@ import com.example.seonoh.seonohapp.network.RetrofitCreator
 import com.example.seonoh.seonohapp.util.CalculateUtils
 import kotlinx.android.synthetic.main.coin_fragment.view.*
 
+const val MARKET = "market"
 class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceInfoModel>> {
 
     lateinit var coinFragmentView: View
-
     lateinit var mData: ArrayList<UseCoinModel>
     lateinit var mAdapter: CoinAdapter
     private var marketName = ""
@@ -27,7 +27,7 @@ class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceIn
         coinFragmentView = inflater.inflate(R.layout.coin_fragment, container, false)
 
         if (arguments != null) {
-            marketName = arguments!!.getString("market")
+            marketName = arguments!!.getString(MARKET)
         }
 
         requestData()
@@ -35,18 +35,18 @@ class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceIn
         return coinFragmentView
     }
 
-    fun setData(data: ArrayList<UseCoinModel>) {
+    private fun setData(data: ArrayList<UseCoinModel>) {
         mAdapter.addCoinData(data)
     }
 
-    fun initView() {
+    private fun initView() {
         mAdapter = CoinAdapter()
         coinFragmentView.krwRecyclerView.apply {
             adapter = mAdapter
         }
     }
 
-    fun requestData() {
+    private fun requestData() {
         CoinRequest(RetrofitCreator.coinApi).sendCurrentPriceInfo(this, marketName)
     }
 
@@ -59,24 +59,26 @@ class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceIn
     override fun getNetworkSuccess(result: ArrayList<CurrentPriceInfoModel>) {
         mData = ArrayList()
         var marketType = ""
+
         // 데이터 가공후 모델에 넣음.
         // signedChangeRate textcolor 처리때문에 viewholder에서 진행
         if (result.size != 0) {
             marketType = result[0].market.substringBefore("-")
         }
 
-        for (i in 0 until result.size) {
+        val data  = result.map {
+                UseCoinModel(
+                    CalculateUtils.setMarketName(it.market),
+                    CalculateUtils.filterTrade(it.tradePrice),
+                    it.signedChangeRate,
+                    CalculateUtils.setTradeAmount(marketType, it.accTradePrice24h, context!!)
+                )
 
-            val model = UseCoinModel(
-                CalculateUtils.setMarketName(result[i].market),
-                CalculateUtils.filterTrade(result[i].tradePrice),
-                result[i].signedChangeRate,
-                CalculateUtils.setTradeAmount(marketType, result[i].accTradePrice24h, context!!)
-            )
-            mData.add(model)
-        }
+        } as ArrayList<UseCoinModel>
 
-        setData(mData)
+
+
+        setData(data)
     }
 
     override fun getNetworkFailed(code: String) {
@@ -86,7 +88,7 @@ class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceIn
         fun newInstance(data: String): CoinFragment {
             val fragment = CoinFragment()
             val bundle = Bundle()
-            bundle.putString("market", data)
+            bundle.putString(MARKET, data)
             fragment.arguments = bundle
             return fragment
         }
