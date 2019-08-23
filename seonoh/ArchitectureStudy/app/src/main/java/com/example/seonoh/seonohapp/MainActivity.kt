@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), CoinRequest.BaseResult<ArrayList<Market>> {
 
     private lateinit var pagerAdapter: TabPagerAdapter
-    private val TAG = "COIN_MAIN"
     private lateinit var toast: Toast
     private lateinit var conMarketNameList: List<String>
 

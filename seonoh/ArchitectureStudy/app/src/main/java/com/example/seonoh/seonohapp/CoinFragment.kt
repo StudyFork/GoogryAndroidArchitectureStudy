@@ -16,23 +16,19 @@ const val MARKET = "market"
 
 class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceInfoModel>> {
 
-    lateinit var coinFragmentView: View
     lateinit var mAdapter: CoinAdapter
-    private var marketName = ""
+    private var marketName: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        coinFragmentView = inflater.inflate(R.layout.coin_fragment, container, false)
 
-        if (arguments != null) {
-            marketName = arguments!!.getString(MARKET)
-        }
+        marketName = arguments?.getString(MARKET)
 
         requestData()
 
-        return coinFragmentView
+        return inflater.inflate(R.layout.coin_fragment, container, false)
     }
 
     private fun setData(data: ArrayList<UseCoinModel>) {
@@ -41,7 +37,7 @@ class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceIn
 
     private fun initView() {
         mAdapter = CoinAdapter()
-        coinFragmentView.krwRecyclerView.apply {
+        view!!.krwRecyclerView.apply {
             adapter = mAdapter
         }
     }
