@@ -12,9 +12,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val viewPagerAdapter by lazy { ViewPagerAdapter(supportFragmentManager) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setPage()
         getInformation()
     }
 
@@ -23,8 +26,7 @@ class MainActivity : AppCompatActivity() {
         UpbitRequest()
             .getMarketInfo(object : UpbitListener<MarketResponse> {
                 override fun onResponse(dataList: List<MarketResponse>) {
-                    setPage()
-                    setData(dataList)
+                    viewPagerAdapter.setData(pageList,dataList)
                 }
 
                 override fun onFailure(str: String) {
@@ -54,11 +56,8 @@ class MainActivity : AppCompatActivity() {
 
             })
         }
-    }
-
-    private fun setData(dataList: List<MarketResponse>) {
         coin_list_viewpager.run {
-            adapter = ViewPagerAdapter(supportFragmentManager, pageList, dataList)
+            adapter = viewPagerAdapter
             addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(currency_tab_layout))
         }
     }
