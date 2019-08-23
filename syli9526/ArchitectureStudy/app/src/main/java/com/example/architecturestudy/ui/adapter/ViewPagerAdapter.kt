@@ -7,20 +7,18 @@ import com.example.architecturestudy.model.MarketResponse
 import com.example.architecturestudy.ui.CoinFragment
 
 class ViewPagerAdapter(
-    fm: FragmentManager,
-    private val pageList: List<String>,
-    private val marketList: List<MarketResponse>
+    fm: FragmentManager
 ) : FragmentStatePagerAdapter(fm) {
 
-    private val markets by lazy { setMarkets() }
+    private  var markets =  ArrayList<String>()
 
-    override fun getCount(): Int = pageList.size
+    override fun getCount(): Int = markets.size
 
     override fun getItemPosition(`object`: Any): Int = POSITION_NONE
 
     override fun getItem(position: Int): Fragment? = CoinFragment.newInstance(markets[position])
 
-    private fun setMarkets(): ArrayList<String> {
+    fun setData(pageList: List<String>, marketList: List<MarketResponse>) {
 
         val list = ArrayList<String>()
 
@@ -28,7 +26,8 @@ class ViewPagerAdapter(
             list.add((marketList.filter { it.market.split("-")[0] == value }
                 .map { it.market } as ArrayList<String>).joinToString(","))
         }
-        return list
+        markets = list
+        notifyDataSetChanged()
     }
 
 }
