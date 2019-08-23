@@ -8,16 +8,16 @@ class TabPagerAdapter(
     fm: FragmentManager
 ) : FragmentStatePagerAdapter(fm) {
 
-    private val mData = mutableListOf<String>()
+    private val data = mutableListOf<String>()
 
     fun setData( data: ArrayList<String>){
-        mData.addAll(data)
+        this.data.addAll(data)
         notifyDataSetChanged()
     }
 
-    override fun getCount(): Int =  mData.size
+    override fun getCount(): Int =  data.size
 
-    override fun getItem(position: Int): Fragment = CoinFragment.newInstance(mData[position])
+    override fun getItem(position: Int): Fragment = CoinFragment.newInstance(data[position])
 
 }
 

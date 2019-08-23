@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), CoinRequest.BaseResult<ArrayList<Market>> {
 
-    private lateinit var mPagerAdapter: TabPagerAdapter
+    private lateinit var pagerAdapter: TabPagerAdapter
     private val TAG = "COIN_MAIN"
     private lateinit var toast: Toast
     private lateinit var conMarketNameList: List<String>
@@ -26,9 +26,9 @@ class MainActivity : AppCompatActivity(), CoinRequest.BaseResult<ArrayList<Marke
     }
 
     fun initView() {
-        mPagerAdapter = TabPagerAdapter(supportFragmentManager)
+        pagerAdapter = TabPagerAdapter(supportFragmentManager)
         coinViewPager.apply {
-            adapter = mPagerAdapter
+            adapter = pagerAdapter
             addOnPageChangeListener(object : TabLayout.TabLayoutOnPageChangeListener(tabLayout) {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity(), CoinRequest.BaseResult<ArrayList<Marke
 
     override fun getNetworkSuccess(result: ArrayList<Market>) {
         val data = classifyMarketData(result)
-        mPagerAdapter.setData(data)
+        pagerAdapter.setData(data)
 //        initView(data)
     }
 

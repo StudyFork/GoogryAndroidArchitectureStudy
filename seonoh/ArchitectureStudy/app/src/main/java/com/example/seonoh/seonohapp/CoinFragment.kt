@@ -14,7 +14,8 @@ import kotlinx.android.synthetic.main.coin_fragment.view.*
 
 class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceInfoModel>> {
 
-    lateinit var mView: View
+    lateinit var coinFragmentView: View
+
     lateinit var mData: ArrayList<UseCoinModel>
     lateinit var mAdapter: CoinAdapter
     private var marketName = ""
@@ -23,7 +24,7 @@ class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceIn
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mView = inflater.inflate(R.layout.coin_fragment, container, false)
+        coinFragmentView = inflater.inflate(R.layout.coin_fragment, container, false)
 
         if (arguments != null) {
             marketName = arguments!!.getString("market")
@@ -31,7 +32,7 @@ class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceIn
 
         requestData()
 
-        return mView
+        return coinFragmentView
     }
 
     fun setData(data: ArrayList<UseCoinModel>) {
@@ -40,7 +41,7 @@ class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceIn
 
     fun initView() {
         mAdapter = CoinAdapter()
-        mView.krwRecyclerView.apply {
+        coinFragmentView.krwRecyclerView.apply {
             adapter = mAdapter
         }
     }
