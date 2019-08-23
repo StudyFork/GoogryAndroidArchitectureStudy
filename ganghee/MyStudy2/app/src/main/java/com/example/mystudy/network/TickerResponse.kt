@@ -1,7 +1,6 @@
 package com.example.mystudy.network
 
 
-import android.content.Context
 import com.example.mystudy.data.FormatTickers
 import com.example.mystudy.util.FormatText
 import com.google.gson.annotations.SerializedName
