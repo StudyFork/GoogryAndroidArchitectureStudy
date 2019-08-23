@@ -33,11 +33,11 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
-    private fun setPage(){
+    private fun setPage() {
 
         currency_tab_layout.run {
             pageList.forEach {
-                addTab(newTab().setText(getString(it)))
+                addTab(newTab().setText(it))
             }
 
             addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -56,9 +56,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setData(dataList: List<MarketResponse>){
+    private fun setData(dataList: List<MarketResponse>) {
         coin_list_viewpager.run {
-            adapter = ViewPagerAdapter(supportFragmentManager, this@MainActivity, pageList, dataList)
+            adapter = ViewPagerAdapter(supportFragmentManager, pageList, dataList)
             addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(currency_tab_layout))
         }
     }
@@ -66,10 +66,10 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         val pageList = listOf(
-            R.string.currency_1,
-            R.string.currency_2,
-            R.string.currency_3,
-            R.string.currency_4
+            "KRW",
+            "BTC",
+            "ETH",
+            "USDT"
         )
     }
 }
