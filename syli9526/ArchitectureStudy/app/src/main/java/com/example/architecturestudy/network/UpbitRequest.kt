@@ -40,7 +40,7 @@ class UpbitRequest {
             override fun onResponse(call: Call<List<TickerResponse>>, response: Response<List<TickerResponse>>) {
                 response.body()?.let {
 
-                    val test = it.map {
+                    val coinInfo = it.map {
                         val market = it.market.split("-")
                         val currencyType = market[0]
                         val coinName = market[1]
@@ -50,7 +50,7 @@ class UpbitRequest {
 
                         CoinInfo(currencyType, coinName, presentPrice, signedChangeRate, transactionAmount)
                     }
-                    listener.onResponse(test)
+                    listener.onResponse(coinInfo)
 
                 } ?: run { listener.onFailure("null") }
             }
