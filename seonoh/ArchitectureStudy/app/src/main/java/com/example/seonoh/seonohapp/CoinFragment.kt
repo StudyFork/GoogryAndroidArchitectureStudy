@@ -71,7 +71,7 @@ class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceIn
                 CalculateUtils.setMarketName(result[i].market),
                 CalculateUtils.filterTrade(result[i].tradePrice),
                 result[i].signedChangeRate,
-                CalculateUtils.setTradeAmount(marketType, result[i].accTradePrice_24h, context!!)
+                CalculateUtils.setTradeAmount(marketType, result[i].accTradePrice24h, context!!)
             )
             mData.add(model)
         }
