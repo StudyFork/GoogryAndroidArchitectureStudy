@@ -46,19 +46,17 @@ class CoinFragment : Fragment() {
 
     private fun getTickerInfo(name: String) {
 
-        UpbitRequest().apply {
-            getTickerInfo(name, object : UpbitListener<CoinInfo> {
+        UpbitRequest().getTickerInfo(name, object : UpbitListener<CoinInfo> {
 
-                override fun onResponse(dataList: List<CoinInfo>) {
-                    coinAdapter.setData(dataList)
-                }
+            override fun onResponse(dataList: List<CoinInfo>) {
+                coinAdapter.setData(dataList)
+            }
 
-                override fun onFailure(str: String) {
+            override fun onFailure(str: String) {
 
-                }
+            }
 
-            })
-        }
+        })
     }
 
     companion object {
