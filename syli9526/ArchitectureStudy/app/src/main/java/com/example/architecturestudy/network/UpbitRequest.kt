@@ -39,9 +39,8 @@ class UpbitRequest {
 
             override fun onResponse(call: Call<List<TickerResponse>>, response: Response<List<TickerResponse>>) {
                 response.body()?.let {
-                    var list = mutableListOf<CoinInfo>()
 
-                    it.forEach {
+                    val test = it.map {
                         val market = it.market.split("-")
                         val currencyType = market[0]
                         val coinName = market[1]
@@ -49,10 +48,10 @@ class UpbitRequest {
                         val signedChangeRate: Double = it.signedChangeRate
                         val transactionAmount: Double = it.accTradePrice24h
 
-                        list.add(CoinInfo(currencyType, coinName, presentPrice, signedChangeRate, transactionAmount))
+                        CoinInfo(currencyType, coinName, presentPrice, signedChangeRate, transactionAmount)
                     }
+                    listener.onResponse(test)
 
-                    listener.onResponse(list)
                 } ?: run { listener.onFailure("null") }
             }
         })
