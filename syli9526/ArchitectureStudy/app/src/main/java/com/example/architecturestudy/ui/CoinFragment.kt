@@ -20,7 +20,7 @@ class CoinFragment : Fragment() {
     private val coinAdapter by lazy { CoinAdapter() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return return inflater.inflate(R.layout.fragment_list_coin, container, false)
+        return inflater.inflate(R.layout.fragment_list_coin, container, false)
     }
 
 
@@ -52,6 +52,7 @@ class CoinFragment : Fragment() {
                 override fun onResponse(dataList: List<CoinInfo>) {
                     coinAdapter.setData(dataList)
                 }
+
                 override fun onFailure(str: String) {
 
                 }
