@@ -11,8 +11,8 @@ val doubleFormat = DecimalFormat("#,##0.00000000")
 val intFormat = DecimalFormat("#,###.##")
 
 object CalculateUtils {
-    fun setMarketName(marketName: String?): String {
-        return if (marketName!!.contains("USDT")) {
+    fun setMarketName(marketName: String): String? {
+        return if (marketName?.contains("USDT")) {
              marketName?.substring(5, marketName.length)
         } else {
              marketName?.substring(4, marketName.length)
