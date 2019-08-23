@@ -12,10 +12,10 @@ val intFormat = DecimalFormat("#,###.##")
 
 object CalculateUtils {
     fun setMarketName(marketName: String?): String {
-        if (marketName!!.contains("USDT")) {
-            return marketName?.substring(5, marketName.length)
+        return if (marketName!!.contains("USDT")) {
+             marketName?.substring(5, marketName.length)
         } else {
-            return marketName?.substring(4, marketName.length)
+             marketName?.substring(4, marketName.length)
         }
     }
 
@@ -55,7 +55,7 @@ object CalculateUtils {
             "BTC", "ETH" -> {
                 String.format(context.getString(R.string.trade_amount_milli_fmt), accTradePrice24h)
             }
-            "USDt" -> {
+            "USDT" -> {
                 String.format(
                     context.getString(
                         when {
