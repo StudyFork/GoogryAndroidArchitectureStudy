@@ -13,10 +13,10 @@ import com.example.seonoh.seonohapp.util.CalculateUtils
 import kotlinx.android.synthetic.main.coin_fragment.view.*
 
 const val MARKET = "market"
+
 class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceInfoModel>> {
 
     lateinit var coinFragmentView: View
-    lateinit var mData: ArrayList<UseCoinModel>
     lateinit var mAdapter: CoinAdapter
     private var marketName = ""
 
@@ -57,7 +57,6 @@ class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceIn
     }
 
     override fun getNetworkSuccess(result: ArrayList<CurrentPriceInfoModel>) {
-        mData = ArrayList()
         var marketType = ""
 
         // 데이터 가공후 모델에 넣음.
@@ -66,13 +65,13 @@ class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceIn
             marketType = result[0].market.substringBefore("-")
         }
 
-        val data  = result.map {
-                UseCoinModel(
-                    CalculateUtils.setMarketName(it.market),
-                    CalculateUtils.filterTrade(it.tradePrice),
-                    it.signedChangeRate,
-                    CalculateUtils.setTradeAmount(marketType, it.accTradePrice24h, context!!)
-                )
+        val data = result.map {
+            UseCoinModel(
+                CalculateUtils.setMarketName(it.market),
+                CalculateUtils.filterTrade(it.tradePrice),
+                it.signedChangeRate,
+                CalculateUtils.setTradeAmount(marketType, it.accTradePrice24h, context!!)
+            )
 
         } as ArrayList<UseCoinModel>
 
