@@ -2,7 +2,9 @@ package com.jake.archstudy.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.jake.archstudy.R
 import com.jake.archstudy.data.model.Ticker
 import com.jake.archstudy.databinding.ItemTickerBinding
 import com.jake.archstudy.ext.setChangeColor
@@ -13,8 +15,9 @@ class TickersAdapter : RecyclerView.Adapter<TickersAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(
-            ItemTickerBinding.inflate(
+            DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
+                R.layout.item_ticker,
                 parent,
                 false
             )
