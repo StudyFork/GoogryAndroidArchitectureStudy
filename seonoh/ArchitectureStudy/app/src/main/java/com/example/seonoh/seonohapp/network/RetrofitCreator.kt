@@ -14,8 +14,23 @@ const val BASE_URL = "https://api.upbit.com/"
 
 object RetrofitCreator {
 
-    fun createClient() : OkHttpClient{
-        val client = OkHttpClient.Builder()
+//    private fun createClient() : OkHttpClient{
+//        val client = OkHttpClient.Builder()
+//            .addInterceptor(
+//                LoggingInterceptor.Builder()
+//                    .loggable(BuildConfig.DEBUG)
+//                    .setLevel(Level.BASIC)
+//                    .log(Platform.INFO)
+//                    .request("OH_req")
+//                    .response("OH_res")
+//                    .build()
+//            )
+//            .addNetworkInterceptor(StethoInterceptor())
+//            .build()
+//        return client
+//    }
+
+    private fun createClient() = OkHttpClient.Builder()
             .addInterceptor(
                 LoggingInterceptor.Builder()
                     .loggable(BuildConfig.DEBUG)
@@ -27,10 +42,9 @@ object RetrofitCreator {
             )
             .addNetworkInterceptor(StethoInterceptor())
             .build()
-        return client
-    }
 
-    val coinApi = Retrofit.Builder()
+
+     val coinApi = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .client(createClient())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
