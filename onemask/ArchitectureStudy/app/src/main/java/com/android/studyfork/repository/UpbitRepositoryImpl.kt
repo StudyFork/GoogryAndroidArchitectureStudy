@@ -8,7 +8,7 @@ import io.reactivex.schedulers.Schedulers
  * created by onemask
  */
 class UpbitRepositoryImpl(
-    private val api : UpbitDataSource
+    private val api : UpbitApi
 ): UpbitRepository {
 
     override fun getMarketAll() =

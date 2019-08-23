@@ -9,7 +9,7 @@ import retrofit2.http.Query
 /**
  * created by onemask
  */
-interface UpbitDataSource {
+interface UpbitApi {
     @GET("market/all")
     fun getMarketAll() : Single<List<MarketResponse>>
 

@@ -13,7 +13,7 @@ import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
-    private val upbitService by lazy{ UpbitService.getInstance().upbitDataSource }
+    private val upbitService by lazy{ UpbitService.getInstance().upbitApi }
     private val viewpagerAdapter by lazy { ViewPagerAdapter(supportFragmentManager) }
     private lateinit var upbitRepository: UpbitRepository
 

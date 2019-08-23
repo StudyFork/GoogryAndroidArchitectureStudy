@@ -19,7 +19,7 @@ import timber.log.Timber
 
 class TickerListFragment : Fragment() {
 
-    private val upbitService by lazy{ UpbitService.getInstance().upbitDataSource }
+    private val upbitService by lazy{ UpbitService.getInstance().upbitApi }
 
     private lateinit var upbitRepository: UpbitRepository
     private lateinit var coinItemAdapter: CoinItemAdapter
