@@ -1,6 +1,7 @@
 package com.example.seonoh.seonohapp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import com.example.seonoh.seonohapp.model.UseCoinModel
 import com.example.seonoh.seonohapp.network.CoinRequest
 import com.example.seonoh.seonohapp.network.RetrofitCreator
 import com.example.seonoh.seonohapp.util.CalculateUtils
+import kotlinx.android.synthetic.main.coin_fragment.*
 import kotlinx.android.synthetic.main.coin_fragment.view.*
 
 const val MARKET = "market"
@@ -37,13 +39,17 @@ class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceIn
 
     private fun initView() {
         mAdapter = CoinAdapter()
-        view!!.krwRecyclerView.apply {
+        krwRecyclerView.apply {
             adapter = mAdapter
         }
     }
 
     private fun requestData() {
-        CoinRequest(RetrofitCreator.coinApi).sendCurrentPriceInfo(this, marketName)
+        if(marketName != null){
+            CoinRequest(RetrofitCreator.coinApi).sendCurrentPriceInfo(this, marketName!!)
+        }else{
+            Log.e("coinrequest","marketName : $marketName")
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
