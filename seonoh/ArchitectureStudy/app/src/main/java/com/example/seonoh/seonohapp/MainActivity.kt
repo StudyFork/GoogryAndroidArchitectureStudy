@@ -32,26 +32,6 @@ class MainActivity : AppCompatActivity(), CoinRequest.BaseResult<ArrayList<Marke
             addOnPageChangeListener(object : TabLayout.TabLayoutOnPageChangeListener(tabLayout) {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-
-                    when (position) {
-                        0 -> {
-                            Log.e(TAG, "KRW")
-                        }
-
-                        1 -> {
-                            Log.e(TAG, "BTC")
-
-                        }
-
-                        2 -> {
-                            Log.e(TAG, "ETH")
-
-                        }
-                        3 -> {
-                            Log.e(TAG, "USDT")
-
-                        }
-                    }
                 }
             })
         }
@@ -97,7 +77,6 @@ class MainActivity : AppCompatActivity(), CoinRequest.BaseResult<ArrayList<Marke
     override fun getNetworkSuccess(result: ArrayList<Market>) {
         val data = classifyMarketData(result)
         pagerAdapter.setData(data)
-//        initView(data)
     }
 
     override fun getNetworkFailed(code: String) {
