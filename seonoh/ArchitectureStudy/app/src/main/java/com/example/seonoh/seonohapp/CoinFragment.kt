@@ -14,7 +14,6 @@ import com.example.seonoh.seonohapp.util.CalculateUtils
 import kotlinx.android.synthetic.main.coin_fragment.*
 import kotlinx.android.synthetic.main.coin_fragment.view.*
 
-const val MARKET = "market"
 
 class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceInfoModel>> {
 
@@ -86,6 +85,8 @@ class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceIn
     }
 
     companion object {
+        private const val MARKET = "market"
+
         fun newInstance(data: String): CoinFragment {
             val fragment = CoinFragment()
             val bundle = Bundle()
