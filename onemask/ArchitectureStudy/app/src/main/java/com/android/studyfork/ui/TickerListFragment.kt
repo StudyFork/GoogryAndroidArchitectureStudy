@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.android.studyfork.R
 import com.android.studyfork.network.api.UpbitService
+import com.android.studyfork.network.model.Ticker
 import com.android.studyfork.repository.UpbitRepository
 import com.android.studyfork.repository.UpbitRepositoryImpl
 import com.android.studyfork.ui.adapter.CoinItemAdapter
@@ -27,10 +28,19 @@ class TickerListFragment : Fragment() {
     @SuppressLint("CheckResult")
     private fun getTicker(){
         val markets = arguments?.getString(KEY_MARKETS) ?:""
+        val tickerList:ArrayList<Ticker> = arrayListOf()
+
         upbitRepository.getTickers(markets)
             .subscribe({
                 Timber.d("getTicker success")
-                coinItemAdapter.setData(it)
+                it.forEachIndexed { index, tickerResponse ->
+                    tickerList.add(index,
+                        Ticker(tickerResponse.market,
+                               tickerResponse.tradePrice,
+                               tickerResponse.signedChangeRate,
+                               tickerResponse.accTradePrice24h))
+                }
+                coinItemAdapter.setData(tickerList)
             },{
                 Timber.e(it)
             })
