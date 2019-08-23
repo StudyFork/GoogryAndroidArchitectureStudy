@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(), CoinRequest.BaseResult<ArrayList<Marke
         setContentView(R.layout.activity_main)
         initView()
         toast = Toast.makeText(this, "뒤로가기를 한번 더 누르시면 앱이 종료됩니다.", Toast.LENGTH_SHORT)
-        CoinRequest(RetrofitCreator.coinApi).marketSend(this@MainActivity)
+        CoinRequest(RetrofitCreator.coinApi).sendMarket(this@MainActivity)
     }
 
     fun initView() {

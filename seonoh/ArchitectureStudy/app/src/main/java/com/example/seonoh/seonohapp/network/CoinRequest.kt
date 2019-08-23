@@ -6,17 +6,16 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 
-class CoinRequest(api: Api) {
-    private val coinApi = api
+class CoinRequest(private val api: Api) {
 
     interface BaseResult<in T> {
         fun getNetworkSuccess(result: T)
         fun getNetworkFailed(code: String)
     }
 
-    fun marketSend(listener: BaseResult<ArrayList<Market>>) {
+    fun sendMarket(listener: BaseResult<ArrayList<Market>>) {
 
-        var single = coinApi.getMarketAll()
+        val single = api.getMarketAll()
 
         single
             .subscribeOn(Schedulers.io())
@@ -26,15 +25,12 @@ class CoinRequest(api: Api) {
             }, { e ->
                 if (e is HttpException) {
                     listener.getNetworkFailed(e.toString())
-
-
-                } else {
                 }
             })
     }
 
     fun sendCurrentPriceInfo(listener: BaseResult<ArrayList<CurrentPriceInfoModel>>, markets: String) {
-        var single = coinApi.getCurrentPriceInfo(markets)
+        val single = api.getCurrentPriceInfo(markets)
 
         single.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -44,8 +40,6 @@ class CoinRequest(api: Api) {
             }, { e ->
                 if (e is HttpException) {
                     listener.getNetworkFailed(e.toString())
-
-                } else {
                 }
             })
     }
