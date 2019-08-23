@@ -1,13 +1,12 @@
 package com.jake.archstudy.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.jake.archstudy.R
+import com.jake.archstudy.base.BaseFragment
 import com.jake.archstudy.data.model.Ticker
 import com.jake.archstudy.data.source.UpbitRepository
 import com.jake.archstudy.databinding.FragmentTickersBinding
@@ -18,24 +17,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class TickersFragment : Fragment() {
-
-    private lateinit var binding: FragmentTickersBinding
+class TickersFragment : BaseFragment<FragmentTickersBinding>(R.layout.fragment_tickers) {
 
     private val marketName by lazy { arguments?.getString(ARGS_MARKET_NAME) }
 
     private val repository = UpbitRepository(ApiUtil.getUpbitService())
 
     private val tickersAdapter = TickersAdapter()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentTickersBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
