@@ -13,11 +13,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        initView()
+    }
+
+    private fun initView() {
         //뷰페이저 어댑터 연결
         viewPager.adapter = vpAdapter
 
         //탭 레이아웃에 뷰페이저 연결
         tabLayout.setupWithViewPager(viewPager)
+
+        //default sort 값
+        iv_arrow_coin_name.isSelected = true
     }
 
 }
