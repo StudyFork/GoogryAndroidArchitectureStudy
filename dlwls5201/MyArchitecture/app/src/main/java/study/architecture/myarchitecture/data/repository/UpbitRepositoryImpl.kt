@@ -7,7 +7,6 @@ import study.architecture.myarchitecture.data.model.UpbitMarket
 import study.architecture.myarchitecture.data.model.UpbitTicker
 import study.architecture.myarchitecture.data.source.local.UpbitLocalDataSource
 import study.architecture.myarchitecture.data.source.remote.UpbitRemoteDataSource
-import study.architecture.myarchitecture.util.TextUtil
 import java.util.regex.Pattern
 
 class UpbitRepositoryImpl(
@@ -80,12 +79,6 @@ class UpbitRepositoryImpl(
                     upbitLocalDataSource.clearTickers("$marketKey%")
 
                     for (ticker in tickers) {
-                        //Timber.d("upbitRemoteDataSource ticker 저장 -> $ticker")
-                        ticker.setCoinName(TextUtil.getCoinName(ticker.market))
-                        ticker.setLast(TextUtil.getLast(ticker.tradePrice))
-                        ticker.setTradeDiff(TextUtil.getTradeDiff(ticker.signedChangeRate))
-                        ticker.setTradeAmount(TextUtil.getTradeAmount(ticker.accTradePrice24h))
-
                         upbitLocalDataSource.insertTicker(ticker)
                     }
 
