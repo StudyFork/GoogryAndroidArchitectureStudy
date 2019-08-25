@@ -1,17 +1,21 @@
-package study.architecture.ui.adapter
+package study.architecture.ui.coinjob
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.list_item.view.*
 import study.architecture.R
-import study.architecture.model.vo.ProcessingTicker
+import study.architecture.data.entity.ProcessingTicker
+import study.architecture.presentation.CoinAdapterContract
 
 /**
  * RecyclerView에 아이템을 뿌려주는 Adpater
  */
-class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
+class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>(),
+    CoinAdapterContract.View,
+    CoinAdapterContract.Model {
 
     private val lists: MutableList<ProcessingTicker> = mutableListOf()
 
@@ -26,18 +30,23 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
         holder.bind(position)
     }
 
-    fun updateList(list: List<ProcessingTicker>) {
-        lists.apply {
-            clear()
-            addAll(list)
-        }
+    override fun notifyDataChange() {
+        notifyDataSetChanged()
+    }
+
+    override fun updateList(list: List<ProcessingTicker>) {
+        lists.addAll(list)
+    }
+
+    override fun clearList() {
+        lists.clear()
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val name: TextView = itemView.findViewById(R.id.name)
-        private val tradePrice: TextView = itemView.findViewById(R.id.trade_price)
-        private val changeRate: TextView = itemView.findViewById(R.id.change_rate)
-        private val accTradePrice24h: TextView = itemView.findViewById(R.id.acc_trade_price)
+        private val name: TextView = itemView.name
+        private val tradePrice: TextView = itemView.trade_price
+        private val changeRate: TextView = itemView.change_rate
+        private val accTradePrice24h: TextView = itemView.acc_trade_price
 
         fun bind(position: Int) {
             name.text = lists[position].market

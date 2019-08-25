@@ -1,20 +1,17 @@
-package study.architecture.model.datasource
+package study.architecture.data
 
 
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
-import study.architecture.model.vo.Market
-import study.architecture.model.vo.Ticker
+import study.architecture.data.entity.Market
+import study.architecture.data.entity.Ticker
 
 
-interface UpbitApi {
-
+interface UpbitRemoteDataSource {
     @GET("market/all")
     fun getMarkets(): Single<List<Market>>
 
     @GET("ticker")
     fun getTickers(@Query("markets") markets: String): Single<MutableList<Ticker>>
-
-
 }

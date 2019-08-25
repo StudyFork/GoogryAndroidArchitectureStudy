@@ -25,7 +25,8 @@ object TextUtil {
             return@with this.format(accTradePrice)
         }
     }
-    fun getColorState(changeRate:Double) : Int{
+
+    fun getColorState(changeRate: Double): Int {
         return if (changeRate > 0) {
             Color.RED
         } else {

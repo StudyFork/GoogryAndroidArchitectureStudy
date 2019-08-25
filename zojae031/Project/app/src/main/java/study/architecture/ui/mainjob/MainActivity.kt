@@ -1,11 +1,14 @@
-package study.architecture.ui
+package study.architecture.ui.mainjob
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import study.architecture.R
-import study.architecture.ui.adapter.MainPageAdapter
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,6 +16,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        supportActionBar?.elevation = 0.0f
+        supportActionBar?.title = resources.getString(R.string.app_title)
         tabSetting()
         pagerSetting()
     }
@@ -34,6 +39,19 @@ class MainActivity : AppCompatActivity() {
                 }
             })
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        MenuInflater(this@MainActivity).inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        AlertDialog.Builder(this@MainActivity).apply {
+            setTitle("코인헬퍼 클론 프로젝트")
+            setMessage("Class03/Zojae031")
+        }.show()
+        return true
     }
 
     private fun pagerSetting() {
