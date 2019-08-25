@@ -1,7 +1,6 @@
 package com.example.seonoh.seonohapp
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,16 +8,16 @@ import androidx.fragment.app.Fragment
 import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
 import com.example.seonoh.seonohapp.model.UseCoinModel
 import com.example.seonoh.seonohapp.network.CoinRequest
-import com.example.seonoh.seonohapp.network.RetrofitCreator
 import com.example.seonoh.seonohapp.util.CalculateUtils
 import kotlinx.android.synthetic.main.coin_fragment.*
-import kotlinx.android.synthetic.main.coin_fragment.view.*
 
 
 class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceInfoModel>> {
 
     lateinit var mAdapter: CoinAdapter
     private var marketName: String? = null
+    private val coinRepository by lazy { CoinRepositoryImpl() }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,8 +25,7 @@ class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceIn
     ): View? {
 
         marketName = arguments?.getString(MARKET)
-
-        requestData()
+        coinRepository.sendCurrentPriceInfo(this,marketName!!)
 
         return inflater.inflate(R.layout.coin_fragment, container, false)
     }
@@ -43,13 +41,6 @@ class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceIn
         }
     }
 
-    private fun requestData() {
-        if(marketName != null){
-            CoinRequest(RetrofitCreator.coinApi).sendCurrentPriceInfo(this, marketName!!)
-        }else{
-            Log.e("coinrequest","marketName : $marketName")
-        }
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
