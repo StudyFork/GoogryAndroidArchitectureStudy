@@ -7,19 +7,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.jake.archstudy.R
 import com.jake.archstudy.data.model.Market
+import com.jake.archstudy.data.source.UpbitRemoteDataSource
 import com.jake.archstudy.data.source.UpbitRepository
 import com.jake.archstudy.databinding.ActivityMainBinding
 import com.jake.archstudy.network.ApiUtil
-import com.jake.archstudy.network.response.MarketResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val repository = UpbitRepository(ApiUtil.getUpbitService())
+    private val repository = UpbitRepository(UpbitRemoteDataSource(ApiUtil.getUpbitService()))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,31 +26,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getMarketAll() {
-        repository.getMarketAll()
-            .enqueue(object : Callback<List<MarketResponse>?> {
-                override fun onFailure(call: Call<List<MarketResponse>?>, t: Throwable) {
-                    t.printStackTrace()
-                }
-
-                override fun onResponse(
-                    call: Call<List<MarketResponse>?>,
-                    response: Response<List<MarketResponse>?>
-                ) {
-                    if (response.isSuccessful) {
-                        response.body()?.let { body ->
-                            val markets = body.groupBy { it.market.split("-")[0] }
-                                .map { map ->
-                                    val title = map.key
-                                    val markets = map.value.joinToString(separator = ",") {
-                                        it.market
-                                    }
-                                    Market(title, markets)
-                                }
-                            initViewPager(markets)
-                        }
+        repository.getMarketAll({ response ->
+            val markets = response.groupBy { it.market.substringBefore("-") }
+                .map { map ->
+                    val title = map.key
+                    val markets = map.value.joinToString(separator = ",") {
+                        it.market
                     }
+                    Market(title, markets)
                 }
-            })
+            initViewPager(markets)
+        }, {})
     }
 
     private fun initTabLayout() {
