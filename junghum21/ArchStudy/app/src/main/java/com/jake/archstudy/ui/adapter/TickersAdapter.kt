@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jake.archstudy.R
 import com.jake.archstudy.data.model.Ticker
 import com.jake.archstudy.databinding.ItemTickerBinding
-import com.jake.archstudy.ext.setChangeColor
 
 class TickersAdapter : RecyclerView.Adapter<TickersAdapter.ViewHolder>() {
 
@@ -44,7 +43,8 @@ class TickersAdapter : RecyclerView.Adapter<TickersAdapter.ViewHolder>() {
                 tvName.text = item.market
                 tvTradePrice.text = item.tradePrice
                 tvChangeRate.text = item.signedChangeRate
-                tvChangeRate.setChangeColor(item.change)
+                val color = root.context.getColor(item.colorRes)
+                tvChangeRate.setTextColor(color)
                 tvAccTradePrice.text = item.accTradePrice24h
             }
         }

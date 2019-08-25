@@ -79,12 +79,19 @@ data class TickerResponse(
             else -> String.format("%,f", accTradePrice24h)
         }
 
+        val colorId = when (change) {
+            "RISE" -> android.R.color.holo_red_light
+            "EVEN" -> android.R.color.darker_gray
+            "FALL" -> android.R.color.holo_blue_light
+            else -> android.R.color.darker_gray
+        }
+
         return Ticker(
             market,
             tradePrice,
-            change,
             signedChangeRate,
-            accTradePrice
+            accTradePrice,
+            colorId
         )
     }
 
