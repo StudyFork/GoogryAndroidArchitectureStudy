@@ -1,4 +1,4 @@
-package kr.schoolsharing.coinhelper.ui
+package kr.schoolsharing.coinhelper.tasks
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +13,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         adaptPager()
-
     }
 
     private fun adaptPager() {

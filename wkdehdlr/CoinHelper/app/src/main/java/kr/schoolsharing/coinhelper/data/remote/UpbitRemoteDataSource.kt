@@ -59,6 +59,4 @@ object UpbitRemoteDataSource : UpbitDataSource {
                 }
             })
     }
-
-
 }
