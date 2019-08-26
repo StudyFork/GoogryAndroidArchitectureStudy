@@ -11,12 +11,13 @@ import com.jake.archstudy.data.model.Ticker
 import com.jake.archstudy.data.source.UpbitRemoteDataSource
 import com.jake.archstudy.data.source.UpbitRepository
 import com.jake.archstudy.databinding.FragmentTickersBinding
+import com.jake.archstudy.ext.toast
 import com.jake.archstudy.network.ApiUtil
 import com.jake.archstudy.ui.adapter.TickersAdapter
 
 class TickersFragment : BaseFragment<FragmentTickersBinding>(R.layout.fragment_tickers) {
 
-    private val marketName by lazy { arguments?.getString(ARGS_MARKET_NAME) }
+    private val marketName by lazy { arguments?.getString(ARGS_MARKET_NAME) ?: "" }
 
     private val repository = UpbitRepository(UpbitRemoteDataSource(ApiUtil.getUpbitService()))
 
@@ -29,10 +30,16 @@ class TickersFragment : BaseFragment<FragmentTickersBinding>(R.layout.fragment_t
     }
 
     private fun getTickers() {
-        repository.getTicker(marketName ?: "", { response ->
-            val tickers = response.map { it.toTicker() }
-            setTickers(tickers)
-        }, {})
+        repository.getTicker(
+            marketName,
+            { response ->
+                val tickers = response.map { it.toTicker() }
+                setTickers(tickers)
+            },
+            {
+                toast(getString(R.string.fail_network))
+            }
+        )
     }
 
     private fun initTickers() {

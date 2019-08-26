@@ -10,6 +10,7 @@ import com.jake.archstudy.data.model.Market
 import com.jake.archstudy.data.source.UpbitRemoteDataSource
 import com.jake.archstudy.data.source.UpbitRepository
 import com.jake.archstudy.databinding.ActivityMainBinding
+import com.jake.archstudy.ext.toast
 import com.jake.archstudy.network.ApiUtil
 
 class MainActivity : AppCompatActivity() {
@@ -26,16 +27,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getMarketAll() {
-        repository.getMarketAll({ response ->
-            val markets = response.asSequence()
-                .groupBy { it.market.substringBefore("-") }
-                .map { map ->
-                    val title = map.key
-                    val markets = map.value.joinToString { it.market }
-                    Market(title, markets)
-                }
-            initViewPager(markets)
-        }, {})
+        repository.getMarketAll(
+            { response ->
+                val markets = response.asSequence()
+                    .groupBy { it.market.substringBefore("-") }
+                    .map { map ->
+                        val title = map.key
+                        val markets = map.value.joinToString { it.market }
+                        Market(title, markets)
+                    }
+                initViewPager(markets)
+            },
+            {
+                toast(getString(R.string.fail_network))
+            }
+        )
     }
 
     private fun initTabLayout() {

@@ -4,4 +4,5 @@
     <string name="current_price">현재가</string>
     <string name="change_rate">전일대비</string>
     <string name="trade_price">거래대금</string>
+    <string name="fail_network">통신 실패</string>
 </resources>
