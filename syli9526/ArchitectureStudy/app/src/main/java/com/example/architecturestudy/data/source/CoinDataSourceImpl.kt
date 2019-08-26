@@ -41,19 +41,8 @@ class CoinDataSourceImpl : CoinDataSource {
 
             override fun onResponse(call: Call<List<TickerResponse>>, response: Response<List<TickerResponse>>) {
                 response.body()?.let {
-
-                    val coinInfo = it.map {
-                        val market = it.market.split("-")
-                        val currencyType = market[0]
-                        val coinName = market[1]
-                        val presentPrice = it.tradePrice
-                        val signedChangeRate: Double = it.signedChangeRate
-                        val transactionAmount: Double = it.accTradePrice24h
-
-                        Ticker(currencyType, coinName, presentPrice, signedChangeRate, transactionAmount)
-                    }
-                    listener.onResponse(coinInfo)
-
+                    val tickerList = it.map { it.toTicker() }
+                    listener.onResponse(tickerList)
                 } ?: run { listener.onFailure("null") }
             }
         })
