@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity(), BaseResult<List<Market>> {
         coinRepository.sendMarket(this)
     }
 
-    fun initView() {
+    private fun initView() {
         pagerAdapter = TabPagerAdapter(supportFragmentManager)
         coinViewPager.apply {
             adapter = pagerAdapter
