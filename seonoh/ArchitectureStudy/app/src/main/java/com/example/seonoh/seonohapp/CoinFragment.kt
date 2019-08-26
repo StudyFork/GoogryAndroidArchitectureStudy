@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
 import com.example.seonoh.seonohapp.model.UseCoinModel
@@ -18,14 +19,14 @@ class CoinFragment : Fragment(), BaseResult<List<CurrentPriceInfoModel>> {
     private var marketName: String? = null
     private val coinRepository by lazy { CoinRepositoryImpl() }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         marketName = arguments?.getString(MARKET)
-        coinRepository.sendCurrentPriceInfo(this, marketName!!)
+        if (marketName != null) coinRepository.sendCurrentPriceInfo(this, marketName!!)
+        else Toast.makeText(activity, "마켓데이터를 불러올 수 없습니다.", Toast.LENGTH_LONG).show()
 
         return inflater.inflate(R.layout.coin_fragment, container, false)
     }
@@ -41,11 +42,9 @@ class CoinFragment : Fragment(), BaseResult<List<CurrentPriceInfoModel>> {
         }
     }
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initView()
-
     }
 
     override fun getNetworkSuccess(result: List<CurrentPriceInfoModel>) {
@@ -67,13 +66,10 @@ class CoinFragment : Fragment(), BaseResult<List<CurrentPriceInfoModel>> {
 
         } as ArrayList<UseCoinModel>
 
-
-
         setData(data)
     }
 
-    override fun getNetworkFailed(code: String) {
-    }
+    override fun getNetworkFailed(code: String) {}
 
     companion object {
         private const val MARKET = "market"
