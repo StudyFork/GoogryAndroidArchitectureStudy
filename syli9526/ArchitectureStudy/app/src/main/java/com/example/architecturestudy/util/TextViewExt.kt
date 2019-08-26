@@ -109,3 +109,7 @@ fun TextView.setTradeAmount(currency: String, accTradePrice24h: Double) {
         }
     }
 }
+
+fun TextView.setColor(color: Int){
+    setTextColor(ContextCompat.getColor(context, color))
+}
