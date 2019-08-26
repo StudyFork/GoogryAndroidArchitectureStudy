@@ -12,7 +12,6 @@ class CoinRepositoryImpl : CoinRepository {
 
     private val coinDataSource = CoinDataSourceImpl()
 
-
     override fun sendCurrentPriceInfo(listener: BaseResult<List<CurrentPriceInfoModel>>, markets: String) {
         val currentPriceInfoData = coinDataSource.getCurrentPriceInfo(markets)
 
@@ -47,6 +46,5 @@ class CoinRepositoryImpl : CoinRepository {
                     listener.getNetworkFailed(e.message())
                 }
             })
-
     }
 }
