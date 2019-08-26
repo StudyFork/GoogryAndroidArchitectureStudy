@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">AndroidArchitecture</string>
+    <string name="str_upbit">업비트(Upbit)</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="str_coin_name">코인명</string>
+    <string name="str_now_price">현재가</string>
+    <string name="str_prepare_percent">전일대비</string>
+    <string name="str_deal_price">거래대금</string>
 </resources>
