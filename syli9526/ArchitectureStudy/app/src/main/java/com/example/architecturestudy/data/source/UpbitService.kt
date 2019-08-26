@@ -1,5 +1,6 @@
-package com.example.architecturestudy.network
+package com.example.architecturestudy.data.source
 
+import com.example.architecturestudy.network.api.ApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

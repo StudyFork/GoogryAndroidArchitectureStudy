@@ -1,8 +1,8 @@
-package com.example.architecturestudy.network
+package com.example.architecturestudy.data.source
 
-import com.example.architecturestudy.model.CoinInfo
-import com.example.architecturestudy.model.MarketResponse
-import com.example.architecturestudy.model.TickerResponse
+import com.example.architecturestudy.data.model.CoinInfo
+import com.example.architecturestudy.network.model.MarketResponse
+import com.example.architecturestudy.network.model.TickerResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

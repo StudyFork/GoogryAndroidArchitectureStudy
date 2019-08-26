@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.architecturestudy.R
-import com.example.architecturestudy.model.CoinInfo
+import com.example.architecturestudy.data.model.CoinInfo
 
 class CoinAdapter : RecyclerView.Adapter<ViewHolder>() {
 

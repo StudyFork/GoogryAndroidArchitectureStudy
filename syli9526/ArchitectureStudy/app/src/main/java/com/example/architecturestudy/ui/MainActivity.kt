@@ -3,10 +3,10 @@ package com.example.architecturestudy.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.architecturestudy.R
-import com.example.architecturestudy.model.MarketResponse
+import com.example.architecturestudy.network.model.MarketResponse
 import com.example.architecturestudy.ui.adapter.ViewPagerAdapter
-import com.example.architecturestudy.network.UpbitListener
-import com.example.architecturestudy.network.UpbitRequest
+import com.example.architecturestudy.data.source.UpbitListener
+import com.example.architecturestudy.data.source.UpbitRequest
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 

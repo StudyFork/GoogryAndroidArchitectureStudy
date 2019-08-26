@@ -1,7 +1,7 @@
-package com.example.architecturestudy.network
+package com.example.architecturestudy.network.api
 
-import com.example.architecturestudy.model.MarketResponse
-import com.example.architecturestudy.model.TickerResponse
+import com.example.architecturestudy.network.model.MarketResponse
+import com.example.architecturestudy.network.model.TickerResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

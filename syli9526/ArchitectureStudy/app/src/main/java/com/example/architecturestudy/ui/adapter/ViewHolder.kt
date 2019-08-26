@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.architecturestudy.R
-import com.example.architecturestudy.model.CoinInfo
+import com.example.architecturestudy.data.model.CoinInfo
 import com.example.architecturestudy.util.filterTrade
 import com.example.architecturestudy.util.setTradeAmount
 import com.example.architecturestudy.util.setTradeDiff
