@@ -1,4 +1,4 @@
-package com.example.seonoh.seonohapp
+package com.example.seonoh.seonohapp.datasource
 
 import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
 import com.example.seonoh.seonohapp.model.Market

@@ -1,5 +1,6 @@
-package com.example.seonoh.seonohapp
+package com.example.seonoh.seonohapp.datasource
 
+import com.example.seonoh.seonohapp.BuildConfig
 import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
 import com.example.seonoh.seonohapp.model.Market
 import com.example.seonoh.seonohapp.network.Api
@@ -13,7 +14,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class CoinDataSourceImpl : CoinDataSource{
+class CoinDataSourceImpl : CoinDataSource {
 
     private val BASE_URL = "https://api.upbit.com/"
     private fun createClient() = OkHttpClient.Builder()
