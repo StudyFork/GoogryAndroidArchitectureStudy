@@ -7,6 +7,6 @@ import io.reactivex.Single
 
 interface CoinDataSource{
 
-    fun getMarket() : Single<ArrayList<Market>>
-    fun getCurrentPriceInfo(marketNameList : String) : Single<ArrayList<CurrentPriceInfoModel>>
+    fun getMarket() : Single<List<Market>>
+    fun getCurrentPriceInfo(marketNameList : String) : Single<List<CurrentPriceInfoModel>>
 }

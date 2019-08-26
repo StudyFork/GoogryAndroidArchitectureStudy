@@ -10,8 +10,8 @@ interface Api {
 
     @GET("/v1/ticker")
     fun getCurrentPriceInfo(
-        @Query("markets") markets: String): Single<ArrayList<CurrentPriceInfoModel>>
+        @Query("markets") markets: String): Single<List<CurrentPriceInfoModel>>
 
     @GET("/v1/market/all")
-    fun getMarketAll(): Single<ArrayList<Market>>
+    fun getMarketAll(): Single<List<Market>>
 }

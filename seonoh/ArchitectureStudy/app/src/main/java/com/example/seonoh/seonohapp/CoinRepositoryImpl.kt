@@ -2,7 +2,7 @@ package com.example.seonoh.seonohapp
 
 import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
 import com.example.seonoh.seonohapp.model.Market
-import com.example.seonoh.seonohapp.network.CoinRequest
+import com.example.seonoh.seonohapp.network.BaseResult
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
@@ -12,8 +12,7 @@ class CoinRepositoryImpl : CoinRepository {
     private val coinDataSource = CoinDataSourceImpl()
 
 
-
-    override fun sendCurrentPriceInfo(listener: CoinRequest.BaseResult<ArrayList<CurrentPriceInfoModel>>, markets: String) {
+    override fun sendCurrentPriceInfo(listener: BaseResult<List<CurrentPriceInfoModel>>, markets: String) {
         val single = coinDataSource.getCurrentPriceInfo(markets)
 
         single.subscribeOn(Schedulers.io())
@@ -29,7 +28,7 @@ class CoinRepositoryImpl : CoinRepository {
     }
 
 
-    override fun sendMarket(listener: CoinRequest.BaseResult<ArrayList<Market>>) {
+    override fun sendMarket(listener: BaseResult<List<Market>>) {
         val single = coinDataSource.getMarket()
         single
             .subscribeOn(Schedulers.io())

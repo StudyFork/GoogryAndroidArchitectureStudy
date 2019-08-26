@@ -38,8 +38,8 @@ class CoinDataSourceImpl : CoinDataSource{
         .build()
         .create(Api::class.java)
 
-    override fun getMarket(): Single<ArrayList<Market>> = coinApi.getMarketAll()
+    override fun getMarket(): Single<List<Market>> = coinApi.getMarketAll()
 
-    override fun getCurrentPriceInfo(marketNameList: String):Single< ArrayList<CurrentPriceInfoModel>>
+    override fun getCurrentPriceInfo(marketNameList: String):Single< List<CurrentPriceInfoModel>>
                 = coinApi.getCurrentPriceInfo(marketNameList)
 }

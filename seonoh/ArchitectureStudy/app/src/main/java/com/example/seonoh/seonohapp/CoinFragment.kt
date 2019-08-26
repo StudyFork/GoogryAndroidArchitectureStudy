@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
 import com.example.seonoh.seonohapp.model.UseCoinModel
-import com.example.seonoh.seonohapp.network.CoinRequest
+import com.example.seonoh.seonohapp.network.BaseResult
 import com.example.seonoh.seonohapp.util.CalculateUtils
 import kotlinx.android.synthetic.main.coin_fragment.*
 
 
-class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceInfoModel>> {
+class CoinFragment : Fragment(), BaseResult<List<CurrentPriceInfoModel>> {
 
     lateinit var mAdapter: CoinAdapter
     private var marketName: String? = null
@@ -25,7 +25,7 @@ class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceIn
     ): View? {
 
         marketName = arguments?.getString(MARKET)
-        coinRepository.sendCurrentPriceInfo(this,marketName!!)
+        coinRepository.sendCurrentPriceInfo(this, marketName!!)
 
         return inflater.inflate(R.layout.coin_fragment, container, false)
     }
@@ -48,7 +48,7 @@ class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceIn
 
     }
 
-    override fun getNetworkSuccess(result: ArrayList<CurrentPriceInfoModel>) {
+    override fun getNetworkSuccess(result: List<CurrentPriceInfoModel>) {
         var marketType = ""
 
         // 데이터 가공후 모델에 넣음.

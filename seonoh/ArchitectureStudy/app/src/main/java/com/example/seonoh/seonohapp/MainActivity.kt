@@ -5,18 +5,18 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.seonoh.seonohapp.model.Market
-import com.example.seonoh.seonohapp.network.CoinRequest
+import com.example.seonoh.seonohapp.network.BaseResult
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), CoinRequest.BaseResult<ArrayList<Market>> {
+class MainActivity : AppCompatActivity(), BaseResult<List<Market>> {
 
     private lateinit var pagerAdapter: TabPagerAdapter
     private lateinit var toast: Toast
     private lateinit var conMarketNameList: List<String>
     private val coinRepository = CoinRepositoryImpl()
 
-    override fun getNetworkSuccess(result: ArrayList<Market>) {
+    override fun getNetworkSuccess(result: List<Market>) {
         val data = classifyMarketData(result)
         pagerAdapter.setData(data)
     }
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity(), CoinRequest.BaseResult<ArrayList<Marke
         }
     }
 
-    private fun classifyMarketData(marketData: ArrayList<Market>): ArrayList<String> {
+    private fun classifyMarketData(marketData: List<Market>): ArrayList<String> {
 
         conMarketNameList = marketData.map {
             it.market.substringBefore("-")
