@@ -14,9 +14,9 @@ class CoinRepositoryImpl : CoinRepository {
 
 
     override fun sendCurrentPriceInfo(listener: BaseResult<List<CurrentPriceInfoModel>>, markets: String) {
-        val single = coinDataSource.getCurrentPriceInfo(markets)
+        val currentPriceInfoData = coinDataSource.getCurrentPriceInfo(markets)
 
-        single.subscribeOn(Schedulers.io())
+        currentPriceInfoData.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 listener.getNetworkSuccess(it)
@@ -30,8 +30,8 @@ class CoinRepositoryImpl : CoinRepository {
 
 
     override fun sendMarket(listener: BaseResult<List<Market>>) {
-        val single = coinDataSource.getMarket()
-        single.subscribeOn(Schedulers.io())
+        val marketNameData = coinDataSource.getMarket()
+        marketNameData.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 listener.getNetworkSuccess(it)
