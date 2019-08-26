@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
             val markets = response.groupBy { it.market.substringBefore("-") }
                 .map { map ->
                     val title = map.key
-                    val markets = map.value.joinToString(separator = ",") {
+                    val markets = map.value.joinToString {
                         it.market
                     }
                     Market(title, markets)
