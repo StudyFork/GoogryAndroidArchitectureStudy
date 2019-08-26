@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.architecturestudy.R
-import com.example.architecturestudy.data.model.CoinInfo
+import com.example.architecturestudy.data.model.Ticker
 
 class CoinAdapter : RecyclerView.Adapter<ViewHolder>() {
 
-    private val coinList = mutableListOf<CoinInfo>()
+    private val coinList = mutableListOf<Ticker>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
@@ -22,7 +22,7 @@ class CoinAdapter : RecyclerView.Adapter<ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(coinList[position])
 
 
-    fun setData(coinListData: List<CoinInfo>) {
+    fun setData(coinListData: List<Ticker>) {
         this.coinList.clear()
         this.coinList.addAll(coinListData)
         notifyDataSetChanged()

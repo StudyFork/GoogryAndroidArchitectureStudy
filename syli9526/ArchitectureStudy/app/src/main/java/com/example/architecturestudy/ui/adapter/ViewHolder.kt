@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.architecturestudy.R
-import com.example.architecturestudy.data.model.CoinInfo
+import com.example.architecturestudy.data.model.Ticker
 import com.example.architecturestudy.util.filterTrade
 import com.example.architecturestudy.util.setTradeAmount
 import com.example.architecturestudy.util.setTradeDiff
@@ -16,7 +16,7 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val tvCompareWithYesterday: TextView = itemView.findViewById(R.id.tv_compare_yesterday)
     private val tvTransactionAmount: TextView = itemView.findViewById(R.id.tv_transaction_amount)
 
-    fun bind(coinInfo: CoinInfo) {
+    fun bind(coinInfo: Ticker) {
 
         tvCoinName.text = coinInfo.coinName
         tvPresentPrice.filterTrade(coinInfo.presentPrice)

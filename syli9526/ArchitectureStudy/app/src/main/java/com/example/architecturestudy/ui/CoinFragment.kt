@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.R
-import com.example.architecturestudy.data.model.CoinInfo
+import com.example.architecturestudy.data.model.Ticker
 import com.example.architecturestudy.data.source.CoinRepository
 import com.example.architecturestudy.ui.adapter.CoinAdapter
 import com.example.architecturestudy.data.source.UpbitListener
@@ -46,9 +46,9 @@ class CoinFragment : Fragment() {
 
     private fun getTickerInfo(name: String) {
 
-        CoinRepository.getInstance().getTickerInfo(name, object : UpbitListener<CoinInfo> {
+        CoinRepository.getInstance().getTickerInfo(name, object : UpbitListener<Ticker> {
 
-            override fun onResponse(dataList: List<CoinInfo>) {
+            override fun onResponse(dataList: List<Ticker>) {
                 coinAdapter.setData(dataList)
             }
 

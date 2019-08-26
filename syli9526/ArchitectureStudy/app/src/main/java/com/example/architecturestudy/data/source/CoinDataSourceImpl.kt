@@ -1,6 +1,6 @@
 package com.example.architecturestudy.data.source
 
-import com.example.architecturestudy.data.model.CoinInfo
+import com.example.architecturestudy.data.model.Ticker
 import com.example.architecturestudy.network.api.ApiService
 import com.example.architecturestudy.network.model.MarketResponse
 import com.example.architecturestudy.network.model.TickerResponse
@@ -29,7 +29,7 @@ class CoinDataSourceImpl : CoinDataSource {
         })
     }
 
-    override fun getTickerInfo(name: String, listener: UpbitListener<CoinInfo>) {
+    override fun getTickerInfo(name: String, listener: UpbitListener<Ticker>) {
 
         apiService.getTickerData(name).enqueue(object : Callback<List<TickerResponse>> {
 
@@ -50,7 +50,7 @@ class CoinDataSourceImpl : CoinDataSource {
                         val signedChangeRate: Double = it.signedChangeRate
                         val transactionAmount: Double = it.accTradePrice24h
 
-                        CoinInfo(currencyType, coinName, presentPrice, signedChangeRate, transactionAmount)
+                        Ticker(currencyType, coinName, presentPrice, signedChangeRate, transactionAmount)
                     }
                     listener.onResponse(coinInfo)
 

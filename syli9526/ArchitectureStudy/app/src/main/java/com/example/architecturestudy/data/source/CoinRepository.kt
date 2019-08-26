@@ -1,6 +1,6 @@
 package com.example.architecturestudy.data.source
 
-import com.example.architecturestudy.data.model.CoinInfo
+import com.example.architecturestudy.data.model.Ticker
 import com.example.architecturestudy.network.model.MarketResponse
 
 class CoinRepository: CoinDataSource{
@@ -10,7 +10,7 @@ class CoinRepository: CoinDataSource{
         CoinDataSourceImpl.getInstance().getMarketInfo(listener)
     }
 
-    override fun getTickerInfo(name: String, listener: UpbitListener<CoinInfo>) {
+    override fun getTickerInfo(name: String, listener: UpbitListener<Ticker>) {
         CoinDataSourceImpl.getInstance().getTickerInfo(name, listener)
     }
 
