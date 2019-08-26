@@ -3,10 +3,10 @@ package com.example.architecturestudy.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.architecturestudy.R
+import com.example.architecturestudy.data.source.CoinRepository
 import com.example.architecturestudy.network.model.MarketResponse
 import com.example.architecturestudy.ui.adapter.ViewPagerAdapter
 import com.example.architecturestudy.data.source.UpbitListener
-import com.example.architecturestudy.data.source.UpbitRequest
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -23,16 +23,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun getInformation() {
 
-        UpbitRequest()
-            .getMarketInfo(object : UpbitListener<MarketResponse> {
-                override fun onResponse(dataList: List<MarketResponse>) {
-                    viewPagerAdapter.setData(pageList,dataList)
-                }
+        CoinRepository.getInstance().getMarketInfo(object : UpbitListener<MarketResponse> {
+            override fun onResponse(dataList: List<MarketResponse>) {
+                viewPagerAdapter.setData(pageList, dataList)
+            }
 
-                override fun onFailure(str: String) {
-                }
+            override fun onFailure(str: String) {
+            }
 
-            })
+        })
     }
 
     private fun setPage() {
