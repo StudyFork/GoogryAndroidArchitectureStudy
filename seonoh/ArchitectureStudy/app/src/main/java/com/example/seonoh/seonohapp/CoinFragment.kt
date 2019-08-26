@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.coin_fragment.*
 
 class CoinFragment : Fragment(), BaseResult<List<CurrentPriceInfoModel>> {
 
-    lateinit var mAdapter: CoinAdapter
+    private lateinit var mAdapter: CoinAdapter
     private var marketName: String? = null
     private val coinRepository by lazy { CoinRepositoryImpl() }
 
