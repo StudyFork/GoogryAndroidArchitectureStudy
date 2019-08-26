@@ -1,20 +1,22 @@
 package com.example.architecturestudy.data.source
 
 import com.example.architecturestudy.data.model.CoinInfo
+import com.example.architecturestudy.network.api.ApiService
 import com.example.architecturestudy.network.model.MarketResponse
 import com.example.architecturestudy.network.model.TickerResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
-class UpbitRequest {
+class CoinDataSourceImpl : CoinDataSource {
 
-    private val upbitService = UpbitService.getInstance().retrofit
 
-    fun getMarketInfo(listener: UpbitListener<MarketResponse>) {
+    override fun getMarketInfo(listener: UpbitListener<MarketResponse>) {
 
-        upbitService.getMarketData().enqueue(object : Callback<List<MarketResponse>> {
+        apiService.getMarketData().enqueue(object : Callback<List<MarketResponse>> {
             override fun onFailure(call: Call<List<MarketResponse>>, t: Throwable) {
                 t.message?.let {
                     listener.onFailure(it)
@@ -27,9 +29,9 @@ class UpbitRequest {
         })
     }
 
-    fun getTickerInfo(name: String, listener: UpbitListener<CoinInfo>) {
+    override fun getTickerInfo(name: String, listener: UpbitListener<CoinInfo>) {
 
-        upbitService.getTickerData(name).enqueue(object : Callback<List<TickerResponse>> {
+        apiService.getTickerData(name).enqueue(object : Callback<List<TickerResponse>> {
 
             override fun onFailure(call: Call<List<TickerResponse>>, t: Throwable) {
                 t.message?.let {
@@ -56,5 +58,22 @@ class UpbitRequest {
             }
         })
 
+    }
+
+    companion object {
+        private const val URL = "https://api.upbit.com"
+        private val retrofit = Retrofit.Builder()
+            .baseUrl(URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        private val apiService = retrofit.create(ApiService::class.java)
+
+        private var instance: CoinDataSourceImpl? = null
+        fun getInstance(): CoinDataSourceImpl =
+            instance ?: synchronized(this) {
+                instance ?: CoinDataSourceImpl().also {
+                    instance = it
+                }
+            }
     }
 }
