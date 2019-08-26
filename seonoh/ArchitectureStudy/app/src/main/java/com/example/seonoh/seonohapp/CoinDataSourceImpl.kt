@@ -30,7 +30,7 @@ class CoinDataSourceImpl : CoinDataSource{
         .build()
 
 
-    val coinApi = Retrofit.Builder()
+    private val coinApi = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .client(createClient())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
