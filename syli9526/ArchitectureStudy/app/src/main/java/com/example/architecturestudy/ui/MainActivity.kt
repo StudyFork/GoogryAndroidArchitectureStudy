@@ -2,6 +2,7 @@ package com.example.architecturestudy.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.architecturestudy.R
 import com.example.architecturestudy.data.source.CoinRepository
 import com.example.architecturestudy.network.model.MarketResponse
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(str: String) {
+                Toast.makeText(this@MainActivity, "Call Failure : $str", Toast.LENGTH_LONG).show()
             }
 
         })
