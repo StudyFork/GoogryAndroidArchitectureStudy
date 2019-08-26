@@ -10,6 +10,6 @@ interface CoinRepository {
     )
     fun sendCurrentPriceInfo(
         listener: BaseResult<List<CurrentPriceInfoModel>>,
-        markets: String
+        markets: String?
     )
 }

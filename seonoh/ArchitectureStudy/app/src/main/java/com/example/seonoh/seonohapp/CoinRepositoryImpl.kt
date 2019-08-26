@@ -1,5 +1,6 @@
 package com.example.seonoh.seonohapp
 
+import android.util.Log
 import com.example.seonoh.seonohapp.datasource.CoinDataSourceImpl
 import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
 import com.example.seonoh.seonohapp.model.Market
@@ -12,15 +13,19 @@ class CoinRepositoryImpl : CoinRepository {
 
     private val coinDataSource = CoinDataSourceImpl()
 
-    override fun sendCurrentPriceInfo(listener: BaseResult<List<CurrentPriceInfoModel>>, markets: String) {
-        val currentPriceInfoData = coinDataSource.getCurrentPriceInfo(markets)
+    override fun sendCurrentPriceInfo(listener: BaseResult<List<CurrentPriceInfoModel>>, markets: String?) {
+        if(markets == null){
+            Log.e("coinrepo","markets is null ")
+            return
+        }
+        val currentPriceInfoData = coinDataSource.getCurrentPriceInfo(markets!!)
 
         currentPriceInfoData.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                if(it != null){
+                if (it != null) {
                     listener.getNetworkSuccess(it)
-                }else{
+                } else {
                     listener.getNetworkFailed("body is null")
                 }
             }, { e ->
@@ -36,9 +41,9 @@ class CoinRepositoryImpl : CoinRepository {
         marketNameData.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                if(it != null){
+                if (it != null) {
                     listener.getNetworkSuccess(it)
-                }else{
+                } else {
                     listener.getNetworkFailed("body is null")
                 }
             }, { e ->
