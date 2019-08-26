@@ -31,8 +31,7 @@ class CoinRepositoryImpl : CoinRepository {
 
     override fun sendMarket(listener: BaseResult<List<Market>>) {
         val single = coinDataSource.getMarket()
-        single
-            .subscribeOn(Schedulers.io())
+        single.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 listener.getNetworkSuccess(it)
