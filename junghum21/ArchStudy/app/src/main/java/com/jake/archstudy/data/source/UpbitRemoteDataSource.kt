@@ -15,7 +15,10 @@ class UpbitRemoteDataSource(private val upbitService: UpbitService) : UpbitDataS
     ) {
         upbitService.getMarketAll()
             .enqueue(object : Callback<List<MarketResponse>?> {
-                override fun onFailure(call: Call<List<MarketResponse>?>, t: Throwable) {
+                override fun onFailure(
+                    call: Call<List<MarketResponse>?>,
+                    t: Throwable
+                ) {
                     t.printStackTrace()
                     failure(t)
                 }
@@ -38,7 +41,10 @@ class UpbitRemoteDataSource(private val upbitService: UpbitService) : UpbitDataS
     ) {
         upbitService.getTicker(markets)
             .enqueue(object : Callback<List<TickerResponse>?> {
-                override fun onFailure(call: Call<List<TickerResponse>?>, t: Throwable) {
+                override fun onFailure(
+                    call: Call<List<TickerResponse>?>,
+                    t: Throwable
+                ) {
                     t.printStackTrace()
                     failure(t)
                 }
