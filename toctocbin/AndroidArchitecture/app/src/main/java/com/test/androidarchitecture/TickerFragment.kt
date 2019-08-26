@@ -8,10 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
-import com.test.androidarchitecture.adpter.CoinAdapter
-import com.test.androidarchitecture.data.Coin
-import com.test.androidarchitecture.data.CoinFormat
+import com.test.androidarchitecture.adpter.TickerAdapter
+import com.test.androidarchitecture.data.Ticker
+import com.test.androidarchitecture.data.TickerFormat
 import com.test.androidarchitecture.network.RetrofitClient
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -21,9 +20,9 @@ import java.text.NumberFormat
 import java.util.*
 
 
-class CoinFragment : Fragment() {
+class TickerFragment : Fragment() {
 
-    private val adapter by lazy { CoinAdapter() }
+    private val adapter by lazy { TickerAdapter() }
     private val retrofitService by lazy { RetrofitClient.getInstance().retrofitService }
 
     override fun onCreateView(
@@ -44,11 +43,11 @@ class CoinFragment : Fragment() {
 
     @SuppressLint("CheckResult")
     private fun loadCoinData(marketSearch: String) {
-        retrofitService.loadCoinData(marketSearch)
+        retrofitService.loadTickerData(marketSearch)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { list: List<Coin> ->
+                { list: List<Ticker> ->
                     val formatList = list.map {
                         getCoinFormat(it)
                     }
@@ -58,17 +57,17 @@ class CoinFragment : Fragment() {
                 })
     }
 
-    private fun getCoinFormat(coin: Coin): CoinFormat {
-        val marketName: String = coin.market.substringAfter("-")
+    private fun getCoinFormat(ticker: Ticker): TickerFormat {
+        val marketName: String = ticker.market.substringAfter("-")
 
         val tradePrice: String = when {
-            coin.tradePrice < 1 -> String.format("%.8f", coin.tradePrice)
-            else -> NumberFormat.getNumberInstance(Locale.US).format(coin.tradePrice)
+            ticker.tradePrice < 1 -> String.format("%.8f", ticker.tradePrice)
+            else -> NumberFormat.getNumberInstance(Locale.US).format(ticker.tradePrice)
         }
 
-        val changeRate = """${String.format("%.2f", coin.signedChangeRate * 100)}%"""
+        val changeRate = """${String.format("%.2f", ticker.signedChangeRate * 100)}%"""
 
-        val changeColor: Int = when (coin.change) {
+        val changeColor: Int = when (ticker.change) {
             "RISE" -> R.color.colorRed
             "EVEN" -> R.color.colorBlack
             "FALL" -> R.color.colorBlue
@@ -76,21 +75,21 @@ class CoinFragment : Fragment() {
         }
         val df = DecimalFormat("#,###")
         val accTradePrice: String = when {
-            coin.accTradePrice24h > 1000000 -> df.format(coin.accTradePrice24h / 1000000) + "M"
-            coin.accTradePrice24h > 1000 -> df.format(coin.accTradePrice24h / 1000) + "K"
-            else -> df.format(coin.accTradePrice24h)
+            ticker.accTradePrice24h > 1000000 -> df.format(ticker.accTradePrice24h / 1000000) + "M"
+            ticker.accTradePrice24h > 1000 -> df.format(ticker.accTradePrice24h / 1000) + "K"
+            else -> df.format(ticker.accTradePrice24h)
         }
-        return CoinFormat(marketName, tradePrice, changeRate, changeColor, accTradePrice)
+        return TickerFormat(marketName, tradePrice, changeRate, changeColor, accTradePrice)
     }
 
     companion object {
 
         private const val MARKET_SEARCH: String = "marketSearch"
 
-        fun getInstance(marketSearch: String): CoinFragment {
+        fun getInstance(marketSearch: String): TickerFragment {
             val args = Bundle()
             args.putString(MARKET_SEARCH, marketSearch)
-            val fragment = CoinFragment()
+            val fragment = TickerFragment()
             fragment.arguments = args
             return fragment
         }

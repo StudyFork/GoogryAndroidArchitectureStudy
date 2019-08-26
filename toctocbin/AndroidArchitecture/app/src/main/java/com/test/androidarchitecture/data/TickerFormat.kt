@@ -1,6 +1,6 @@
 package com.test.androidarchitecture.data
 
-data class CoinFormat (
+data class TickerFormat (
 
     val marketName: String,
 

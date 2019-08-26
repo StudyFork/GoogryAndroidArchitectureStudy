@@ -2,7 +2,7 @@ package com.test.androidarchitecture.data
 
 import com.google.gson.annotations.SerializedName
 
-data class Coin(
+data class Ticker(
 
     @SerializedName("acc_trade_price")
     val accTradePrice: Double,
