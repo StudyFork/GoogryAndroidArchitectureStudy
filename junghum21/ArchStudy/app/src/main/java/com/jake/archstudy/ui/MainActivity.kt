@@ -27,12 +27,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun getMarketAll() {
         repository.getMarketAll({ response ->
-            val markets = response.groupBy { it.market.substringBefore("-") }
+            val markets = response.asSequence()
+                .groupBy { it.market.substringBefore("-") }
                 .map { map ->
                     val title = map.key
-                    val markets = map.value.joinToString {
-                        it.market
-                    }
+                    val markets = map.value.joinToString { it.market }
                     Market(title, markets)
                 }
             initViewPager(markets)
