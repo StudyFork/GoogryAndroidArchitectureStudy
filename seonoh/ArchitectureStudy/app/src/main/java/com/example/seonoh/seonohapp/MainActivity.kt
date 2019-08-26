@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity(), BaseResult<List<Market>> {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView()
-        toast = Toast.makeText(this, "뒤로가기를 한번 더 누르시면 앱이 종료됩니다.", Toast.LENGTH_SHORT)
         coinRepository.sendMarket(this)
     }
 
@@ -55,6 +54,8 @@ class MainActivity : AppCompatActivity(), BaseResult<List<Market>> {
     }
 
     override fun onBackPressed() {
+        toast = Toast.makeText(this, "뒤로가기를 한번 더 누르시면 앱이 종료됩니다.", Toast.LENGTH_SHORT)
+
         if (toast.view.isShown) {
             finish()
         } else {
