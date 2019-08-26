@@ -26,7 +26,7 @@ class CoinRepositoryImpl : CoinRepository {
                 }
             }, { e ->
                 if (e is HttpException) {
-                    listener.getNetworkFailed(e.toString())
+                    listener.getNetworkFailed(e.message())
                 }
             })
     }
@@ -44,7 +44,7 @@ class CoinRepositoryImpl : CoinRepository {
                 }
             }, { e ->
                 if (e is HttpException) {
-                    listener.getNetworkFailed(e.toString())
+                    listener.getNetworkFailed(e.message())
                 }
             })
 
