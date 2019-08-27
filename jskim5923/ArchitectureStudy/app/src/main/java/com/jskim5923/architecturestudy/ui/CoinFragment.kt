@@ -47,6 +47,12 @@ class CoinFragment : Fragment() {
                     }
                 )
             }
+            .flattenAsObservable { tickerResponseList ->
+                tickerResponseList.map { tickerResponse ->
+                    tickerResponse.toTicker()
+                }
+            }
+            .toList()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ tickerList ->
                 coinListAdapter.updateItem(tickerList)

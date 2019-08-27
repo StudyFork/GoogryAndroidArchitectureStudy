@@ -1,7 +1,6 @@
 package com.jskim5923.architecturestudy.model
 
 import com.google.gson.annotations.SerializedName
-import com.jskim5923.architecturestudy.extension.DataFormatUtils
 import com.jskim5923.architecturestudy.extension.getCoinName
 import com.jskim5923.architecturestudy.util.DataFormatUtils
 
