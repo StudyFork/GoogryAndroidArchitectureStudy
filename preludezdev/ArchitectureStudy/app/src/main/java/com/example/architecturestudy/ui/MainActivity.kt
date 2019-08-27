@@ -2,10 +2,13 @@ package com.example.architecturestudy.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.example.architecturestudy.R
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.architecturestudy.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
 
     private val vpAdapter = VpAdapter(supportFragmentManager)
 
@@ -13,18 +16,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
         initView()
     }
 
     private fun initView() {
         //뷰페이저 어댑터 연결
-        viewPager.adapter = vpAdapter
+        binding.viewPager.adapter = vpAdapter
 
         //탭 레이아웃에 뷰페이저 연결
-        tabLayout.setupWithViewPager(viewPager)
+        binding.tabLayout.setupWithViewPager(binding.viewPager)
 
-        //default sort 값
-        iv_arrow_coin_name.isSelected = true
+        //default sort 값, 임시로 해둠...
+        binding.ivArrowCoinName.isSelected = true
     }
 
 }

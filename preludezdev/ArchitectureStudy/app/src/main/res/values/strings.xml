@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ArchitectureStudy</string>
+    <string name="coin_name">코인이름</string>
+    <string name="curr_price">현재가</string>
+    <string name="price_compare">전일대비</string>
+    <string name="total_trade">거래대금</string>
+    <string name="iv_main_arrow">메인화면 화살표</string>
 </resources>
