@@ -1,4 +1,4 @@
-package com.android.studyfork.repository
+package com.android.studyfork.network.source
 
 import com.android.studyfork.network.model.MarketResponse
 import com.android.studyfork.network.model.TickerResponse

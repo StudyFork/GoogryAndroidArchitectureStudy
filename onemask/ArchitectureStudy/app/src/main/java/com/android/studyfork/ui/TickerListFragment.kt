@@ -8,9 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.android.studyfork.R
-import com.android.studyfork.network.api.UpbitService
 import com.android.studyfork.network.model.Ticker
-import com.android.studyfork.repository.UpbitRepository
 import com.android.studyfork.repository.UpbitRepositoryImpl
 import com.android.studyfork.ui.adapter.CoinItemAdapter
 import com.android.studyfork.util.inflate
@@ -20,9 +18,7 @@ import timber.log.Timber
 
 class TickerListFragment : Fragment() {
 
-    private val upbitService by lazy{ UpbitService.getInstance().upbitApi }
-
-    private lateinit var upbitRepository: UpbitRepository
+    private val upbitRepository = UpbitRepositoryImpl
     private lateinit var coinItemAdapter: CoinItemAdapter
 
     @SuppressLint("CheckResult")
@@ -52,7 +48,6 @@ class TickerListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        upbitRepository = UpbitRepositoryImpl(upbitService)
         setRecyclerView()
         getTicker()
 
