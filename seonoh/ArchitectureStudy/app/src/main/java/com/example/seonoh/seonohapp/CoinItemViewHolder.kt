@@ -4,7 +4,6 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.seonoh.seonohapp.model.UseCoinModel
-import com.example.seonoh.seonohapp.util.setTradeDiff
 
 class CoinItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -19,8 +18,10 @@ class CoinItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(data: UseCoinModel) {
         coinNameTv.text = data.market
         currentPriceTv.text = data.tradePrice
-        changeRateTv.setTradeDiff(data.signedChangeRate)
+        changeRateTv.apply {
+            text = data.signedChangeRate["rate"].toString()
+            setTextColor(data.signedChangeRate["color"].toString().toInt())
+        }
         totalTradePriceTv.text = data.accTradePrice_24h
-
     }
 }

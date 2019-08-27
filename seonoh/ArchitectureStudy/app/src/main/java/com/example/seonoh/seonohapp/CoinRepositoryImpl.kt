@@ -32,7 +32,6 @@ class CoinRepositoryImpl : CoinRepository {
             })
     }
 
-
     override fun sendMarket(listener: BaseResult<List<Market>>) {
         val marketNameData = coinDataSource.getMarket()
         marketNameData.subscribeOn(Schedulers.io())

@@ -12,7 +12,6 @@ import com.example.seonoh.seonohapp.network.BaseResult
 import com.example.seonoh.seonohapp.util.CalculateUtils
 import kotlinx.android.synthetic.main.coin_fragment.*
 
-
 class CoinFragment : Fragment(), BaseResult<List<CurrentPriceInfoModel>> {
 
     private lateinit var mAdapter: CoinAdapter
@@ -24,7 +23,7 @@ class CoinFragment : Fragment(), BaseResult<List<CurrentPriceInfoModel>> {
         savedInstanceState: Bundle?
     ): View? {
 
-            marketName = arguments?.getString(MARKET)
+        marketName = arguments?.getString(MARKET)
 
         marketName = arguments?.getString(MARKET)
         marketName?.let {
@@ -70,7 +69,7 @@ class CoinFragment : Fragment(), BaseResult<List<CurrentPriceInfoModel>> {
             UseCoinModel(
                 CalculateUtils.setMarketName(it.market),
                 CalculateUtils.filterTrade(it.tradePrice),
-                it.signedChangeRate,
+                CalculateUtils.setTradeDiff(it.signedChangeRate, context!!),
                 CalculateUtils.setTradeAmount(marketType, it.accTradePrice24h, context!!)
             )
 
