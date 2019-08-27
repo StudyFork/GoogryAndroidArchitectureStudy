@@ -34,7 +34,7 @@ class CoinFragment : Fragment(), BaseResult<List<CurrentPriceInfoModel>> {
             )
         } ?: Toast.makeText(
             activity,
-            "마켓데이터를 불러올 수 없습니다.",
+            resources.getString(R.string.empty_market_text),
             Toast.LENGTH_LONG
         ).show()
 
