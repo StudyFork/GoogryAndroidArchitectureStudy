@@ -1,5 +1,6 @@
 package com.android.studyfork.repository
 
+import com.android.studyfork.network.api.UpbitService
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -7,9 +8,10 @@ import io.reactivex.schedulers.Schedulers
 /**
  * created by onemask
  */
-class UpbitRepositoryImpl(
-    private val api : UpbitApi
-): UpbitRepository {
+object UpbitRepositoryImpl
+    : UpbitRepository {
+
+    private val api = UpbitService.upbitApi
 
     override fun getMarketAll() =
         api.getMarketAll()
