@@ -24,11 +24,19 @@ class CoinFragment : Fragment(), BaseResult<List<CurrentPriceInfoModel>> {
         savedInstanceState: Bundle?
     ): View? {
 
-        if(arguments != null){
-            marketName = arguments!!.getString(MARKET)
-        }
-        if (marketName != null) coinRepository.sendCurrentPriceInfo(this, marketName)
-        else Toast.makeText(activity, "마켓데이터를 불러올 수 없습니다.", Toast.LENGTH_LONG).show()
+            marketName = arguments?.getString(MARKET)
+
+        marketName = arguments?.getString(MARKET)
+        marketName?.let {
+            coinRepository.sendCurrentPriceInfo(
+                this,
+                it
+            )
+        } ?: Toast.makeText(
+            activity,
+            "마켓데이터를 불러올 수 없습니다.",
+            Toast.LENGTH_LONG
+        ).show()
 
         return inflater.inflate(R.layout.coin_fragment, container, false)
     }
