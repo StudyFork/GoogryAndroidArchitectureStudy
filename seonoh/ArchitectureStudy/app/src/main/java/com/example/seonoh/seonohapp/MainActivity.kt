@@ -16,12 +16,12 @@ class MainActivity : AppCompatActivity(), BaseResult<List<Market>> {
     private lateinit var conMarketNameList: List<String>
     private val coinRepository = CoinRepositoryImpl()
 
-    override fun getNetworkSuccess(result: List<Market>) {
+    override fun onNetworkSuccess(result: List<Market>) {
         val data = classifyMarketData(result)
         pagerAdapter.setData(data)
     }
 
-    override fun getNetworkFailed(code: String) {
+    override fun onNetworkFailed(code: String) {
         Log.e("marketfailed", "getMarketFailed code : $code")
     }
 

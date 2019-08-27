@@ -23,11 +23,11 @@ class CoinRepositoryImpl : CoinRepository {
         currentPriceInfoData.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                it?.let { listener.getNetworkSuccess(it) } ?: Log.e("coinrepo","CurrentPriceInfoModel is null ")
+                it?.let { listener.onNetworkSuccess(it) } ?: Log.e("coinrepo","CurrentPriceInfoModel is null ")
 
             }, { e ->
                 if (e is HttpException) {
-                    listener.getNetworkFailed(e.message())
+                    listener.onNetworkFailed(e.message())
                 }
             })
     }
@@ -38,11 +38,11 @@ class CoinRepositoryImpl : CoinRepository {
         marketNameData.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                it?.let { listener.getNetworkSuccess(it) } ?: Log.e("coinrepo","Market is null ")
+                it?.let { listener.onNetworkSuccess(it) } ?: Log.e("coinrepo","Market is null ")
 
             }, { e ->
                 if (e is HttpException) {
-                    listener.getNetworkFailed(e.message())
+                    listener.onNetworkFailed(e.message())
                 }
             })
     }

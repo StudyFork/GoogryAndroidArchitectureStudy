@@ -57,7 +57,7 @@ class CoinFragment : Fragment(), BaseResult<List<CurrentPriceInfoModel>> {
         initView()
     }
 
-    override fun getNetworkSuccess(result: List<CurrentPriceInfoModel>) {
+    override fun onNetworkSuccess(result: List<CurrentPriceInfoModel>) {
         var marketType = ""
 
         // 데이터 가공후 모델에 넣음.
@@ -79,7 +79,7 @@ class CoinFragment : Fragment(), BaseResult<List<CurrentPriceInfoModel>> {
         setData(data)
     }
 
-    override fun getNetworkFailed(code: String) {}
+    override fun onNetworkFailed(code: String) {}
 
     companion object {
         private const val MARKET = "market"
