@@ -1,6 +1,6 @@
 package com.android.studyfork.network.api
 
-import com.android.studyfork.repository.UpbitApi
+import com.android.studyfork.network.source.UpbitApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
-class UpbitService private constructor(){
+object UpbitService {
     val upbitApi : UpbitApi
 
     init {
@@ -25,7 +25,6 @@ class UpbitService private constructor(){
             writeTimeout(15, TimeUnit.SECONDS)
         }.build()
 
-
         upbitApi = Retrofit.Builder()
             .baseUrl("https://api.upbit.com/v1/")
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -35,15 +34,5 @@ class UpbitService private constructor(){
             .create(UpbitApi::class.java)
     }
 
-    companion object {
-        @Volatile
-        private var INSTANCE: UpbitService? = null
-        fun getInstance(): UpbitService {
-            return INSTANCE ?: synchronized(this) {
-                INSTANCE
-                    ?: UpbitService().also { INSTANCE = it }
-            }
-        }
-    }
 
 }
