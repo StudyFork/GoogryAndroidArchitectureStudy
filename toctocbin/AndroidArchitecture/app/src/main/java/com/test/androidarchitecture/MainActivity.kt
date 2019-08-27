@@ -7,6 +7,7 @@ import android.widget.Toast
 import com.test.androidarchitecture.adpter.ViewPagerAdapter
 import com.test.androidarchitecture.data.Market
 import com.test.androidarchitecture.data.MarketTitle
+import com.test.androidarchitecture.data.source.UpbitRepository
 import com.test.androidarchitecture.network.RetrofitClient
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -16,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private var mViewPagerAdapter: ViewPagerAdapter? = null
-    private val retrofitService by lazy { RetrofitClient.getInstance().retrofitService }
+    private val upbitRepository: UpbitRepository by lazy { UpbitRepository.getInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("CheckResult")
     private fun loadMarketData() {
-        retrofitService.loadMarketData()
-            .subscribeOn(Schedulers.io())
+        upbitRepository.getMarketAll()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { list: List<Market> ->

@@ -11,6 +11,7 @@ import android.widget.Toast
 import com.test.androidarchitecture.adpter.TickerAdapter
 import com.test.androidarchitecture.data.Ticker
 import com.test.androidarchitecture.data.TickerFormat
+import com.test.androidarchitecture.data.source.UpbitRepository
 import com.test.androidarchitecture.network.RetrofitClient
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -23,7 +24,7 @@ import java.util.*
 class TickerFragment : Fragment() {
 
     private val adapter by lazy { TickerAdapter() }
-    private val retrofitService by lazy { RetrofitClient.getInstance().retrofitService }
+    private val upbitRepository: UpbitRepository by lazy { UpbitRepository.getInstance() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,18 +44,16 @@ class TickerFragment : Fragment() {
 
     @SuppressLint("CheckResult")
     private fun loadCoinData(marketSearch: String) {
-        retrofitService.loadTickerData(marketSearch)
-            .subscribeOn(Schedulers.io())
+        upbitRepository.getTicker(marketSearch)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { list: List<Ticker> ->
-                    val formatList = list.map {
-                        getCoinFormat(it)
-                    }
+                    val formatList = list.map { getCoinFormat(it) }
                     adapter.addItem(formatList)
                 }, { t: Throwable ->
                     Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
-                })
+                }
+            )
     }
 
     private fun getCoinFormat(ticker: Ticker): TickerFormat {
