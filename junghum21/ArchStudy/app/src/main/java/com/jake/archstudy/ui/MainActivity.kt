@@ -17,7 +17,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val repository = UpbitRepository(UpbitRemoteDataSource(ApiUtil.getUpbitService()))
+    private val repository =
+        UpbitRepository.getInstance(UpbitRemoteDataSource(ApiUtil.getUpbitService()))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

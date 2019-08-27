@@ -19,7 +19,8 @@ class TickersFragment : BaseFragment<FragmentTickersBinding>(R.layout.fragment_t
 
     private val marketName by lazy { arguments?.getString(ARGS_MARKET_NAME) ?: "" }
 
-    private val repository = UpbitRepository(UpbitRemoteDataSource(ApiUtil.getUpbitService()))
+    private val repository =
+        UpbitRepository.getInstance(UpbitRemoteDataSource(ApiUtil.getUpbitService()))
 
     private val tickersAdapter = TickersAdapter()
 
