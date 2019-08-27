@@ -62,7 +62,7 @@ class CoinFragment : Fragment(), BaseResult<List<CurrentPriceInfoModel>> {
 
         // 데이터 가공후 모델에 넣음.
         // signedChangeRate textcolor 처리때문에 viewholder에서 진행
-        if (result.size != 0) {
+        if (result.isNotEmpty()) {
             marketType = result[0].market.substringBefore("-")
         }
 
