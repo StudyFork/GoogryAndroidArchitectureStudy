@@ -1,11 +1,11 @@
 package com.jskim5923.architecturestudy.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.jskim5923.architecturestudy.R
 import com.jskim5923.architecturestudy.adapter.ViewPagerAdapter
-import com.jskim5923.architecturestudy.api.ApiManager
 import com.jskim5923.architecturestudy.extension.getCoinCurrency
+import com.jskim5923.architecturestudy.model.data.source.Repository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadData() {
-        compositeDisposable += ApiManager.coinApi.getMarketList()
+        compositeDisposable += Repository.getMarketList()
             .subscribeOn(Schedulers.io())
             .map { marketList ->
                 marketList.map {
