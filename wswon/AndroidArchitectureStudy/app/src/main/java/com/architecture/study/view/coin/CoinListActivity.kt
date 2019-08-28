@@ -3,18 +3,22 @@ package com.architecture.study.view.coin
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.architecture.study.R
 import com.architecture.study.data.repository.CoinRepositoryImp
+import com.architecture.study.databinding.ActivityMainBinding
 import com.architecture.study.network.model.MarketResponse
 import com.architecture.study.view.coin.adapter.CoinTabPagerAdapter
 import com.architecture.study.view.coin.presenter.CoinListActivityContract
 import com.architecture.study.view.coin.presenter.CoinListActivityPresenter
 import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.activity_main.*
+
 
 class CoinListActivity : AppCompatActivity(), CoinListActivityContract.View {
 
     override lateinit var presenter: CoinListActivityContract.Presenter
+
+    private lateinit var binding: ActivityMainBinding
 
     private lateinit var coinTapPagerAdapter: CoinTabPagerAdapter
 
@@ -32,7 +36,8 @@ class CoinListActivity : AppCompatActivity(), CoinListActivityContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         presenter = CoinListActivityPresenter(
             CoinRepositoryImp.getInstance(),
@@ -47,7 +52,7 @@ class CoinListActivity : AppCompatActivity(), CoinListActivityContract.View {
 
     /* tab layout && view pager init*/
     override fun setTabPager(marketList: List<MarketResponse>) {
-        monetary_unit_tablayout.run {
+        binding.monetaryUnitTablayout.run {
             tabList.map {
                 addTab(newTab().setText(getString(it)))
             }
@@ -55,7 +60,7 @@ class CoinListActivity : AppCompatActivity(), CoinListActivityContract.View {
 
             addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab) {
-                    coin_list_viewpager.currentItem = tab.position
+                    binding.coinListViewpager.currentItem = tab.position
                 }
 
                 override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -67,9 +72,9 @@ class CoinListActivity : AppCompatActivity(), CoinListActivityContract.View {
         }
 
         coinTapPagerAdapter = CoinTabPagerAdapter(supportFragmentManager, tabList, this@CoinListActivity, marketList)
-        coin_list_viewpager.run {
+        binding.coinListViewpager.run {
             adapter = coinTapPagerAdapter
-            addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(monetary_unit_tablayout))
+            addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.monetaryUnitTablayout))
         }
 
     }
