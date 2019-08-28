@@ -32,19 +32,21 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("CheckResult")
     private fun loadMarketData() {
         upbitRepository.getMarketAll()
+            .map { list: List<Market> ->
+                list.groupBy { it.market.substringBefore("-") }
+                    .map { (key, value) ->
+                        MarketTitle(
+                            marketTitle = key,
+                            marketSearch = value.joinToString(separator = ",") { it.market }
+                        )
+                    }
+            }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { list: List<Market> ->
-                        val marketTitle = list.groupBy { it.market.substringBefore("-") }
-                            .map { (key, value) ->
-                                MarketTitle(
-                                    marketTitle = key,
-                                    marketSearch = value.joinToString(separator = ",") { it.market }
-                                )
-                            }
-                        mViewPagerAdapter?.setData(marketTitle)
-                }, { t: Throwable ->
-                    Toast.makeText(this, t.message, Toast.LENGTH_SHORT).show()
+                {
+                    mViewPagerAdapter?.setData(it)
+                }, {
+                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
                 }
             )
     }

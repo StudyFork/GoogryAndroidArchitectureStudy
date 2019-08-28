@@ -45,13 +45,15 @@ class TickerFragment : Fragment() {
     @SuppressLint("CheckResult")
     private fun loadCoinData(marketSearch: String) {
         upbitRepository.getTicker(marketSearch)
+            .map { list: List<Ticker> ->
+                list.map { getCoinFormat(it) }
+            }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { list: List<Ticker> ->
-                    val formatList = list.map { getCoinFormat(it) }
-                    adapter.addItem(formatList)
-                }, { t: Throwable ->
-                    Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
+                {
+                    adapter.setItem(it)
+                }, {
+                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                 }
             )
     }
