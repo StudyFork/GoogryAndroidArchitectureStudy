@@ -48,7 +48,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
         mainAdapter.setTitles(titles)
     }
 
-    override fun showCategoryAllow(selectArrow: Filter.SelectArrow) {
+    override fun showCategoryArrow(selectArrow: Filter.SelectArrow) {
 
         with(binding) {
             ivSelectByCoinName.visibility = View.INVISIBLE
@@ -181,19 +181,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
 
         with(binding) {
             llCoinNameParent.setOnClickListener {
-                showCategoryAllow(Filter.SelectArrow.COIN_NAME)
+                showCategoryArrow(Filter.SelectArrow.COIN_NAME)
             }
 
             llLastParent.setOnClickListener {
-                showCategoryAllow(Filter.SelectArrow.LAST)
+                showCategoryArrow(Filter.SelectArrow.LAST)
             }
 
             llTradeDiffParent.setOnClickListener {
-                showCategoryAllow(Filter.SelectArrow.TRADE_DIFF)
+                showCategoryArrow(Filter.SelectArrow.TRADE_DIFF)
             }
 
             llTradeAmountParent.setOnClickListener {
-                showCategoryAllow(Filter.SelectArrow.TRADE_AMOUNT)
+                showCategoryArrow(Filter.SelectArrow.TRADE_AMOUNT)
             }
         }
     }

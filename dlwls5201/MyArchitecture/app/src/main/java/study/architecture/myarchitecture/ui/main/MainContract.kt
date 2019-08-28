@@ -10,7 +10,7 @@ interface MainContract {
 
         fun showViewPagerTitles(titles: Array<String>)
 
-        fun showCategoryAllow(selectArrow: Filter.SelectArrow)
+        fun showCategoryArrow(selectArrow: Filter.SelectArrow)
     }
 
     interface Presenter {
