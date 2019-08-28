@@ -6,7 +6,7 @@ import com.test.androidarchitecture.network.RetrofitClient
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
-class UpbitRemoteDataSourceImpl private constructor() : UpbitRemoteDataSource {
+object UpbitRemoteDataSourceImpl : UpbitRemoteDataSource {
 
     private val retrofitService = RetrofitClient.getInstance().retrofitService
 
@@ -18,20 +18,6 @@ class UpbitRemoteDataSourceImpl private constructor() : UpbitRemoteDataSource {
     override fun getTicker(marketSearch: String): Single<List<Ticker>> {
         return retrofitService.loadTickerData(marketSearch)
             .subscribeOn(Schedulers.io())
-    }
-
-    companion object {
-
-        @Volatile
-        private var instance: UpbitRemoteDataSourceImpl? = null
-
-        @JvmStatic
-        fun getInstance(): UpbitRemoteDataSourceImpl =
-            instance ?: synchronized(this) {
-                instance ?: UpbitRemoteDataSourceImpl().also {
-                    instance = it
-                }
-            }
     }
 
 }

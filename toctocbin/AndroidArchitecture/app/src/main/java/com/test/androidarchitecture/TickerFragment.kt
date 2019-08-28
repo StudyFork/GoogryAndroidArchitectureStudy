@@ -24,7 +24,7 @@ import java.util.*
 class TickerFragment : Fragment() {
 
     private val adapter by lazy { TickerAdapter() }
-    private val upbitRepository: UpbitRepository by lazy { UpbitRepository.getInstance() }
+    private val upbitRepository: UpbitRepository by lazy { UpbitRepository }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
