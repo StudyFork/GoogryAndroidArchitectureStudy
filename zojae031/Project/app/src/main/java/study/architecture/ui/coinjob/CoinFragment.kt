@@ -57,13 +57,13 @@ class CoinFragment : Fragment(), CoinContract.View {
 
 
     override fun showProgress() {
-        binding.loading?.visibility = View.VISIBLE
-        binding.loading?.animation?.start()
+        binding.loading.visibility = View.VISIBLE
+        binding.loading.animation?.start()
     }
 
     override fun hideProgress() {
-        binding.loading?.visibility = View.INVISIBLE
-        binding.loading?.animation?.cancel()
+        binding.loading.visibility = View.INVISIBLE
+        binding.loading.animation.cancel()
     }
 
     override fun onPause() {

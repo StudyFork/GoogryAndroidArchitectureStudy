@@ -13,7 +13,7 @@ import study.architecture.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+    private val binding by lazy { DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
