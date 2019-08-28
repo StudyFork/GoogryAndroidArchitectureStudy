@@ -8,7 +8,7 @@ import io.reactivex.Single
 /**
  * created by onemask
  */
-class UpbitDataSourceImpl : UpbitDataSource {
+object UpbitDataSourceImpl : UpbitDataSource {
     private val upbitApi = UpbitService.upbitApi
 
     override fun getMarketAll(): Single<List<MarketResponse>> = upbitApi.getMarketAll()
