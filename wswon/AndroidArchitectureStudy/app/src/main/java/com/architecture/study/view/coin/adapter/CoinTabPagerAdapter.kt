@@ -12,10 +12,10 @@ class CoinTabPagerAdapter(
     private val tabList: List<Int>,
     private val context: Context,
     private val marketList: List<MarketResponse>
-) : FragmentStatePagerAdapter(fm) {
+) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     /*4개 탭 one fragment로 bundle argument 처리*/
-    override fun getItem(position: Int): Fragment? = CoinListFragment.newInstance(
+    override fun getItem(position: Int): Fragment = CoinListFragment.newInstance(
         marketList.filter { it.market.split("-")[0] == context.getString(tabList[position]) }.map { it.market } as ArrayList<String>
     )
 
