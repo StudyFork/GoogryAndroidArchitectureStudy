@@ -40,17 +40,17 @@ class CoinFragment : Fragment() {
             .subscribeOn(Schedulers.io())
             .flatMap { marketList ->
                 ApiManager.coinApi.getTicker(
-                    marketList.filter {
+                    marketList.asSequence().filter {
                         it.market.getCoinCurrency() == market
-                    }.joinToString(",") {
+                    }.toList().joinToString(",") {
                         it.market
                     }
                 )
             }
             .flattenAsObservable { tickerResponseList ->
-                tickerResponseList.map { tickerResponse ->
+                tickerResponseList.asSequence().map { tickerResponse ->
                     tickerResponse.toTicker()
-                }
+                }.toList()
             }
             .toList()
             .observeOn(AndroidSchedulers.mainThread())
