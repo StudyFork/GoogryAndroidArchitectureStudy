@@ -8,7 +8,7 @@ import io.reactivex.schedulers.Schedulers
 
 object UpbitRemoteDataSourceImpl : UpbitRemoteDataSource {
 
-    private val retrofitService = RetrofitClient.getInstance().retrofitService
+    private val retrofitService = RetrofitClient.getRetrofitService()
 
     override fun getMarketAll(): Single<List<Market>> {
         return retrofitService.loadMarketData()

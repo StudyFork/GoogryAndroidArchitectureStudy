@@ -8,9 +8,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-class RetrofitClient private constructor() {
+object RetrofitClient {
 
-    val retrofitService: RetrofitService
+    private val retrofitService: RetrofitService
 
     init {
         retrofitService = Retrofit.Builder()
@@ -41,18 +41,6 @@ class RetrofitClient private constructor() {
         return builder.build()
     }
 
-    companion object {
-
-        @Volatile
-        private var instance: RetrofitClient? = null
-
-        @JvmStatic
-        fun getInstance(): RetrofitClient =
-            instance ?: synchronized(this) {
-                instance ?: RetrofitClient().also {
-                    instance = it
-                }
-            }
-    }
+    fun getRetrofitService() = retrofitService
 
 }
