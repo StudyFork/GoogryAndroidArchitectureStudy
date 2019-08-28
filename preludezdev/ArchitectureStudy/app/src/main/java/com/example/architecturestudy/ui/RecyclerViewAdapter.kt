@@ -8,6 +8,7 @@ import com.example.architecturestudy.databinding.ItemCoinBinding
 
 class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {
     private val coins = mutableListOf<Coin>()
+    private lateinit var binding: ItemCoinBinding
 
     fun clearData() {
         coins.clear()
@@ -22,13 +23,14 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemCoinBinding.inflate(inflater, parent, false)
+        binding = ItemCoinBinding.inflate(inflater, parent, false)
 
         return MyViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.bindView(position)
+        binding.executePendingBindings()
     }
 
     override fun getItemCount(): Int = coins.size
