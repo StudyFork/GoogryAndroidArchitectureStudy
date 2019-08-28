@@ -1,27 +1,33 @@
 package com.architecture.study.view.coin.adapter.holder
 
-import android.content.Context
-import android.view.View
-import android.widget.TextView
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.architecture.study.R
-import com.architecture.study.view.coin.adapter.CoinListAdapter
 import com.architecture.study.data.model.Ticker
+import com.architecture.study.databinding.ItemCoinBinding
+import com.architecture.study.view.coin.adapter.CoinListAdapter
 
-class CoinViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    private val tvCoinName = itemView.findViewById(R.id.coin_name_tv) as TextView
-    private val tvNowPrice = itemView.findViewById(R.id.now_price_tv) as TextView
-    private val tvCompareYesterday = itemView.findViewById(R.id.compare_yesterday_tv) as TextView
-    private val tvTransactionAmount = itemView.findViewById(R.id.transaction_amount_tv) as TextView
+class CoinViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+    LayoutInflater.from(parent.context).inflate(R.layout.item_coin, parent, false).apply {
+        layoutParams = RecyclerView.LayoutParams(parent.measuredWidth, parent.measuredHeight / 10)
+    }
+) {
+    private val binding: ItemCoinBinding = DataBindingUtil.bind(itemView)!!
+
     fun bind(ticker: Ticker, listener: CoinListAdapter.CoinItemRecyclerViewClickListener) {
+        binding.ticker = ticker
         itemView.setOnClickListener {
             listener.onItemClicked(adapterPosition)
         }
-        tvCoinName.text = ticker.coinName
-        tvNowPrice.text = ticker.nowPrice
-        tvCompareYesterday.text = ticker.compareYesterday
-        tvCompareYesterday.setTextColor(ContextCompat.getColor(itemView.context, ticker.compareYesterdayTextColor))
-        tvTransactionAmount.text = ticker.transactionAmount
+        binding.run {
+//            coinNameTv.text = ticker.coinName
+//            nowPriceTv.text = ticker.nowPrice
+//            compareYesterdayTv.text = ticker.compareYesterday
+            compareYesterdayTv.setTextColor(ContextCompat.getColor(itemView.context, ticker.compareYesterdayTextColor))
+//            transactionAmountTv.text = ticker.transactionAmount
+        }
     }
 }
