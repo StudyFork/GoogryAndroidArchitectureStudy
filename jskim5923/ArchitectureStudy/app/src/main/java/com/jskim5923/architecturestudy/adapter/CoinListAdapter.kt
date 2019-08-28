@@ -49,7 +49,7 @@ class CoinListAdapter :
         fun bind(item: Ticker) {
             coinName.text = item.name
             currentPrice.text = item.currentPrice
-            diff.run {
+            with(diff) {
                 text = item.diff
                 setTextColor(ContextCompat.getColor(context, item.diffTextColorId))
             }
