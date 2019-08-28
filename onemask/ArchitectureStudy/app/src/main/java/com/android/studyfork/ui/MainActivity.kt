@@ -11,7 +11,7 @@ import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
-    private val viewpagerAdapter by lazy { ViewPagerAdapter(supportFragmentManager) }
+    private val viewPagerAdapter by lazy { ViewPagerAdapter(supportFragmentManager) }
     private val upbitRepository = UpbitRepositoryImpl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
             .subscribe({
 
                 val keys = it.keys.apply {
-                    viewpagerAdapter.setTitles(this.toTypedArray())
+                    viewPagerAdapter.setTitles(this.toTypedArray())
                 }
                 val marketNamesArr = Array(keys.size) { "" }
 
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
                         .getValue(value)
                         .joinToString(","){it.market}
                 }
-                viewpagerAdapter.setData(marketNamesArr)
+                viewPagerAdapter.setData(marketNamesArr)
             },{
                 Timber.e(it)
             })
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViewPager() {
         with(pager_content){
-            adapter = viewpagerAdapter
+            adapter = viewPagerAdapter
             layout_tab.setupWithViewPager(this)
             offscreenPageLimit= 3
         }
