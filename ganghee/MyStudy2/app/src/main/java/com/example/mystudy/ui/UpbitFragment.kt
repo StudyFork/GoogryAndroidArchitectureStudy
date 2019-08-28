@@ -13,7 +13,7 @@ import com.example.mystudy.R
 import com.example.mystudy.adapter.TickerAdapter
 import com.example.mystudy.data.FormatTickers
 import com.example.mystudy.data.UpbitRepository
-import kotlinx.android.synthetic.main.fragment_upbit.*
+import com.example.mystudy.databinding.FragmentUpbitBinding
 import org.jetbrains.anko.support.v4.toast
 
 class UpbitFragment : Fragment(), UpbitContract.View {
@@ -21,6 +21,7 @@ class UpbitFragment : Fragment(), UpbitContract.View {
     private lateinit var tickerAdapter: TickerAdapter
     override lateinit var presenter: UpbitContract.Presenter
     private val MARKET_NAME = "market name"
+    private lateinit var binding : FragmentUpbitBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +49,7 @@ class UpbitFragment : Fragment(), UpbitContract.View {
         Log.d("recyclerViewSetup", "" )
         tickerAdapter = TickerAdapter()
 
-        rv_tickers.apply {
+        binding.rvTickers.apply {
             adapter = tickerAdapter
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         }
