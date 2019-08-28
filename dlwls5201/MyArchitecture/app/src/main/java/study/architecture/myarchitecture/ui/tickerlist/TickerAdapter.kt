@@ -1,16 +1,14 @@
 package study.architecture.myarchitecture.ui.tickerlist
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import study.architecture.myarchitecture.R
+import study.architecture.myarchitecture.databinding.ItemTickerBinding
 import study.architecture.myarchitecture.ui.model.TickerItem
-import study.architecture.myarchitecture.util.inflate
 import study.architecture.myarchitecture.util.setTradeDiffColor
 
 class TickerAdapter(
@@ -21,9 +19,7 @@ class TickerAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TickerViewHolder {
 
-        val holder = TickerViewHolder(
-            parent.inflate(R.layout.item_ticker)
-        )
+        val holder = TickerViewHolder(parent)
 
         holder.itemView.setOnClickListener {
             clickEvent.invoke(tickers[holder.adapterPosition])
@@ -53,49 +49,32 @@ class TickerAdapter(
     /**
      * ViewHolder
      */
-    class TickerViewHolder(
-        itemView: View
-    ) : RecyclerView.ViewHolder(itemView) {
-
-        private val tvMarket: TextView = itemView.findViewById(R.id.tvMarket)
-        private val tvTradePrice: TextView = itemView.findViewById(R.id.tvTradePrice)
-        private val tvSignedChangeRate: TextView = itemView.findViewById(R.id.tvSignedChangeRate)
-        private val tvAccTradePrice24h: TextView = itemView.findViewById(R.id.tvAccTradePrice24h)
+    class TickerViewHolder(parent: ViewGroup) :
+        BaseViewHolder<ItemTickerBinding>(R.layout.item_ticker, parent) {
 
         fun onBindView(ticker: TickerItem) {
-            tvMarket.text = ticker.coinName
-            tvTradePrice.text = ticker.last
-            tvSignedChangeRate.setTradeDiffColor(ticker.signedChangeRate)
-            tvSignedChangeRate.text = ticker.tradeDiff
-            tvAccTradePrice24h.text = ticker.tradeAmount
+
+            with(binding) {
+                tvMarket.text = ticker.coinName
+                tvTradePrice.text = ticker.last
+                tvSignedChangeRate.setTradeDiffColor(ticker.signedChangeRate)
+                tvSignedChangeRate.text = ticker.tradeDiff
+                tvAccTradePrice24h.text = ticker.tradeAmount
+
+                executePendingBindings()
+            }
         }
     }
 
     abstract class BaseViewHolder<B : ViewDataBinding>(
         @LayoutRes layoutRes: Int,
-        parent: ViewGroup?,
-        private val bindingVariableId: Int?
+        parent: ViewGroup?
     ) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent?.context)
             .inflate(layoutRes, parent, false)
     ) {
 
         val binding: B = DataBindingUtil.bind(itemView)!!
-
-        fun onBindViewHolder(item: Any?) {
-            try {
-                binding.run {
-                    bindingVariableId?.let {
-                        setVariable(it, item)
-                    }
-                    executePendingBindings()
-                }
-                itemView.visibility = View.VISIBLE
-            } catch (e: Exception) {
-                e.printStackTrace()
-                itemView.visibility = View.GONE
-            }
-        }
     }
 
 }
