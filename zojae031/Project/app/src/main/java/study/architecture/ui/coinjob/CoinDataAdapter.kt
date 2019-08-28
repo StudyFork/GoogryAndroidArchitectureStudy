@@ -16,9 +16,13 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>(),
     CoinAdapterContract.Model {
 
     private val lists: MutableList<ProcessingTicker> = mutableListOf()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder =
-        Holder(ListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    private lateinit var binding: ListItemBinding
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+        binding = ListItemBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
+        return Holder(binding)
+    }
 
 
     override fun getItemCount(): Int = lists.size
@@ -26,6 +30,7 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>(),
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bind(position)
+        binding.executePendingBindings()
     }
 
     override fun notifyDataChange() {
