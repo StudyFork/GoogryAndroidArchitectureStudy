@@ -34,12 +34,6 @@ class TickerAdapter(
         holder.onBindView(tickers[position])
     }
 
-    fun getCopyItems(): MutableList<TickerItem> {
-        val copyItems = mutableListOf<TickerItem>()
-        copyItems.addAll(tickers)
-        return copyItems
-    }
-
     fun setItems(newTickers: MutableList<TickerItem>) {
         tickers.clear()
         tickers.addAll(newTickers)

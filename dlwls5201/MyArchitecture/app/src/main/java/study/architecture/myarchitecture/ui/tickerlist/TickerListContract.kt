@@ -21,7 +21,7 @@ interface TickerListContract {
 
         fun detachView()
 
-        fun sortByField(tickers: MutableList<TickerItem>, field: Filter.SelectArrow, order: Int)
+        fun sortByField(field: Filter.SelectArrow, order: Int)
 
         fun loadData()
     }

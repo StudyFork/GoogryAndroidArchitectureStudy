@@ -59,7 +59,7 @@ class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.frag
     }
 
     override fun showTickerListOrderByField(field: Filter.SelectArrow, order: Int) {
-        presenter.sortByField(tickerAdapter.getCopyItems(), field, order)
+        presenter.sortByField(field, order)
     }
 
     companion object {

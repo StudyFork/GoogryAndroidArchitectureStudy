@@ -14,11 +14,13 @@ class TickerListPresenter(
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 ) : TickerListContract.Presenter {
 
+    private var tickers: MutableList<TickerItem> = mutableListOf()
+
     override fun detachView() {
         compositeDisposable.clear()
     }
 
-    override fun sortByField(tickers: MutableList<TickerItem>, field: Filter.SelectArrow, order: Int) {
+    override fun sortByField(field: Filter.SelectArrow, order: Int) {
 
         when (field) {
             Filter.SelectArrow.COIN_NAME -> {
@@ -71,7 +73,8 @@ class TickerListPresenter(
             }
             .subscribe({
 
-                view.showTickers(it.mapToPresentation().toMutableList())
+                tickers = it.mapToPresentation().toMutableList()
+                view.showTickers(tickers)
 
             }) {
                 Timber.e(it)
