@@ -37,7 +37,7 @@ object DataFormatUtils {
     fun setTradeVolumeText(market: String, accTradePrice24h: Double): String {
         return when (market.getCoinCurrency()) {
             EnumCoinCurrency.KRW.name, EnumCoinCurrency.USDT.name -> {
-                var tradeVolume: Long = accTradePrice24h.toLong()
+                var tradeVolume = accTradePrice24h.toLong()
                 String.format(
                     when {
                         tradeVolume < 1_000_000L -> {
