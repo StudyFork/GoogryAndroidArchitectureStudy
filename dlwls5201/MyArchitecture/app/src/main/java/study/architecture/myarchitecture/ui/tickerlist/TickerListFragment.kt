@@ -1,28 +1,23 @@
 package study.architecture.myarchitecture.ui.tickerlist
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_ticker_list.*
 import org.jetbrains.anko.support.v4.toast
 import study.architecture.myarchitecture.BaseFragment
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.data.Injection
+import study.architecture.myarchitecture.databinding.FragmentTickerListBinding
 import study.architecture.myarchitecture.ui.model.TickerItem
 import study.architecture.myarchitecture.util.Filter
 
-class TickerListFragment : BaseFragment(), TickerListContract.View {
+class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.fragment_ticker_list),
+    TickerListContract.View {
 
     private val tickerAdapter by lazy {
         TickerAdapter { toast(it.toString()) }
     }
 
     private lateinit var presenter: TickerListContract.Presenter
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_ticker_list, container, false)
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -48,15 +43,15 @@ class TickerListFragment : BaseFragment(), TickerListContract.View {
     }
 
     private fun initRecyclerView() {
-        rvTickerList.adapter = tickerAdapter
+        binding.rvTickerList.adapter = tickerAdapter
     }
 
     override fun showProgress() {
-        pbTickerList.visibility = View.VISIBLE
+        binding.pbTickerList.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
-        pbTickerList.visibility = View.GONE
+        binding.pbTickerList.visibility = View.GONE
     }
 
     override fun showTickers(tickers: MutableList<TickerItem>) {
