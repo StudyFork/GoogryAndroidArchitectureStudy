@@ -1,7 +1,6 @@
 package com.jskim5923.architecturestudy.api
 
 import com.jskim5923.architecturestudy.model.Market
-import com.jskim5923.architecturestudy.model.Ticker
 import com.jskim5923.architecturestudy.model.TickerResponse
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -12,5 +11,8 @@ interface CoinApi {
     fun getMarketList(): Single<List<Market>>
 
     @GET("v1/ticker")
-    fun getTicker(@Query("markets") markets: String): Single<List<TickerResponse>>
+    fun getTicker(
+        @Query("markets")
+        markets: String
+    ): Single<List<TickerResponse>>
 }
