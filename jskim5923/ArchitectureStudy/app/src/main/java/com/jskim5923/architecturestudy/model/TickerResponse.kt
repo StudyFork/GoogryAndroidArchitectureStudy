@@ -14,8 +14,8 @@ data class TickerResponse(
     @SerializedName("acc_trade_price_24h")
     val accTradePrice24h: Double
 ) {
-    fun toTicker(): Ticker {
-        return Ticker(
+    fun toTicker() =
+        Ticker(
             name = market.getCoinName(),
             currentPrice = DataFormatUtils.setCurrentPriceFormat(tradePrice),
             diff = DataFormatUtils.setSignedChangeRateFormat(signedChangeRate),
@@ -26,5 +26,4 @@ data class TickerResponse(
             },
             tradeVolume = DataFormatUtils.setTradeVolumeText(market, accTradePrice24h)
         )
-    }
 }
