@@ -22,20 +22,18 @@ object DataFormatUtils {
     private const val COIN_TRADE_VOLUME_FORMAT_GIGA = "%,d G"
 
 
-    fun setCurrentPriceFormat(currentPrice: Double): String {
-        return if (currentPrice > 1) {
+    fun setCurrentPriceFormat(currentPrice: Double): String =
+        if (currentPrice > 1) {
             DecimalFormat(COIN_PRICE_INTEGER_FORMAT).format(currentPrice)
         } else {
             DecimalFormat(COIN_PRICE_DECIMAL_FORMAT).format(currentPrice)
         }
-    }
 
-    fun setSignedChangeRateFormat(changeRate: Double): String {
-        return "${COIN_CHANGE_RATE_FORMAT.format(changeRate * 100)}%"
-    }
+    fun setSignedChangeRateFormat(changeRate: Double) =
+        "${COIN_CHANGE_RATE_FORMAT.format(changeRate * 100)}%"
 
-    fun setTradeVolumeText(market: String, accTradePrice24h: Double): String {
-        return when (market.getCoinCurrency()) {
+    fun setTradeVolumeText(market: String, accTradePrice24h: Double) =
+        when (market.getCoinCurrency()) {
             EnumCoinCurrency.KRW.name, EnumCoinCurrency.USDT.name -> {
                 var tradeVolume = accTradePrice24h.toLong()
                 String.format(
@@ -89,6 +87,4 @@ object DataFormatUtils {
                 )
             }
         }
-    }
-
 }
