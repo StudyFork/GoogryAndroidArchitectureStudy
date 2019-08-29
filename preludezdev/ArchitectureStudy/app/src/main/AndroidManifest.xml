@@ -2,15 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.architecturestudy">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:fullBackupContent="false"
         android:theme="@style/AppTheme">
 
         <activity android:name=".ui.splash.SplashActivity">
@@ -25,5 +23,7 @@
         <activity android:name=".ui.main.MainActivity" />
 
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
