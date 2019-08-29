@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private var mViewPagerAdapter: ViewPagerAdapter? = null
-    private val upbitRepository: UpbitRepository by lazy { UpbitRepository }
+    private val upbitRepository by lazy { UpbitRepository }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
