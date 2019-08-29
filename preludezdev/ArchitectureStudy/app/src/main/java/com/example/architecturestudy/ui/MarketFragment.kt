@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import com.example.architecturestudy.R
+import com.example.architecturestudy.base.BaseFragment
 import com.example.architecturestudy.data.Coin
 import com.example.architecturestudy.data.source.CoinsRepositoryImpl
 import com.example.architecturestudy.data.source.local.CoinsLocalDataSource
@@ -14,9 +14,9 @@ import com.example.architecturestudy.data.source.remote.CoinsRemoteDataSource
 import com.example.architecturestudy.databinding.FragmentMarketBinding
 import com.example.architecturestudy.network.RetrofitHelper
 
-class MarketFragment : Fragment(), MarketContract.View {
+class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_market),
+    MarketContract.View {
 
-    private lateinit var binding: FragmentMarketBinding
     private lateinit var presenter: MarketContract.Presenter // Presenter 프로퍼티 선언
     private var key = "KEY_MARKET"
     private val rvAdapter = RecyclerViewAdapter()

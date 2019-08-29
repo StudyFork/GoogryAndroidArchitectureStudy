@@ -1,15 +1,12 @@
 package com.example.architecturestudy.ui
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.architecturestudy.R
+import com.example.architecturestudy.base.BaseActivity
 import com.example.architecturestudy.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityMainBinding
-
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private val vpAdapter = VpAdapter(supportFragmentManager)
 
     override fun onCreate(savedInstanceState: Bundle?) {
