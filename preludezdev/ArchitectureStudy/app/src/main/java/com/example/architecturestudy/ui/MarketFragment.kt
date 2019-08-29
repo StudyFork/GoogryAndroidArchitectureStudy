@@ -21,21 +21,26 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        initRvAdapter()
+        initPresenter()
+
+        presenter.loadData(arguments?.getString(key)) // Presenter 를 통해 해당 마켓의 데이터 불러오기
+    }
+
+    private fun initRvAdapter() {
         //리사이클러뷰 어댑터 설정
         binding.recyclerView.apply {
             adapter = rvAdapter
         }
+    }
 
-        val keyMarket = arguments?.getString(key)
-
+    private fun initPresenter() {
         presenter = MarketPresenter(
             this, CoinsRepositoryImpl.getInstance(
                 CoinsRemoteDataSource.getInstance(RetrofitHelper.getInstance().coinApiService),
                 CoinsLocalDataSource.getInstance()
             )
         ) // Presenter 객체 생성해서 할당
-
-        presenter.loadData(keyMarket) // Presenter 를 통해 해당 마켓의 데이터 불러오기
     }
 
     override fun showTickerData(data: List<Coin>) {
