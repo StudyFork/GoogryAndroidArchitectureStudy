@@ -5,15 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kr.schoolsharing.coinhelper.R
 import kr.schoolsharing.coinhelper.data.Repository
+import kr.schoolsharing.coinhelper.databinding.FragmentCoinrecyclerBinding
 import kr.schoolsharing.coinhelper.model.UpbitItem
 
 class UpbitFragment : Fragment(), UpbitContract.View {
 
     override lateinit var presenter: UpbitContract.Presenter
+    private lateinit var binding: FragmentCoinrecyclerBinding
+
     private val rVAdapter = UpbitRVAdapter()
 
     override fun showAddTask(tickerList: List<UpbitItem>) {
@@ -24,9 +28,15 @@ class UpbitFragment : Fragment(), UpbitContract.View {
         Toast.makeText(context, str, Toast.LENGTH_SHORT).show()
     }
 
-    //onCreateView
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_coinrecycler, container, false)
+        binding = DataBindingUtil.inflate(
+            LayoutInflater.from(context),
+            R.layout.fragment_coinrecycler,
+            container,
+            false
+        )
+        return binding.root
+//        return inflater.inflate(R.layout.fragment_coinrecycler, container, false)
     }
 
 
@@ -38,12 +48,12 @@ class UpbitFragment : Fragment(), UpbitContract.View {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        CoinRecyclerView.apply {
+
+        binding.CoinRecyclerView.apply {
             adapter = rVAdapter
             layoutManager = LinearLayoutManager(context!!)
             setHasFixedSize(true)
         }
-
 
         //TODO : MARKET_NAME enum으로 빼자
         val marketName = arguments?.get("MARKET_NAME").toString()
