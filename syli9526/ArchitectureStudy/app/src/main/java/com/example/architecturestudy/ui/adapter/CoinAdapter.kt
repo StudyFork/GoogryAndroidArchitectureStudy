@@ -23,8 +23,10 @@ class CoinAdapter : RecyclerView.Adapter<ViewHolder>() {
 
 
     fun setData(coinListData: List<Ticker>) {
-        this.coinList.clear()
-        this.coinList.addAll(coinListData)
+        this.coinList.apply {
+            clear()
+            addAll(coinListData)
+        }
         notifyDataSetChanged()
     }
 }
