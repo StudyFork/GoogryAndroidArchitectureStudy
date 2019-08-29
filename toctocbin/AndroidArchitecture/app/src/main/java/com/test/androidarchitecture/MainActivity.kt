@@ -32,14 +32,16 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("CheckResult")
     private fun loadMarketData() {
         upbitRepository.getMarketAll()
-            .map { list: List<Market> ->
+            .map { list ->
                 list.groupBy { it.market.substringBefore("-") }
+                    .asSequence()
                     .map { (key, value) ->
                         MarketTitle(
                             marketTitle = key,
                             marketSearch = value.joinToString(separator = ",") { it.market }
                         )
                     }
+                    .toList()
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
