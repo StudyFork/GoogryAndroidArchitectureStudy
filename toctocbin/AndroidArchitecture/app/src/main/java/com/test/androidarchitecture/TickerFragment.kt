@@ -1,7 +1,6 @@
 package com.test.androidarchitecture
 
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +12,7 @@ import com.test.androidarchitecture.data.Ticker
 import com.test.androidarchitecture.data.TickerFormat
 import com.test.androidarchitecture.data.source.UpbitRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_coin.*
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -23,6 +23,7 @@ class TickerFragment : Fragment() {
 
     private val adapter by lazy { TickerAdapter() }
     private val upbitRepository by lazy { UpbitRepository }
+    private val disposables by lazy { CompositeDisposable() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,8 +40,11 @@ class TickerFragment : Fragment() {
         marketSearch?.let { loadCoinData(it) }
     }
 
+    override fun onDestroyView() {
+        disposables.clear()
+        super.onDestroyView()
+    }
 
-    @SuppressLint("CheckResult")
     private fun loadCoinData(marketSearch: String) {
         upbitRepository.getTicker(marketSearch)
             .map { list ->
@@ -56,6 +60,7 @@ class TickerFragment : Fragment() {
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                 }
             )
+            .apply { disposables.add(this) }
     }
 
     private fun setAdapterItem(tickerList: List<TickerFormat>) {
