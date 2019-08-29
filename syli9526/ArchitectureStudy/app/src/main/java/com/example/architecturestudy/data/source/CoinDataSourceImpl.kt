@@ -39,12 +39,12 @@ class CoinDataSourceImpl : CoinDataSource {
                 }
             }
 
-            override fun onResponse(call: Call<List<TickerResponse>>, response: Response<List<TickerResponse>>) {
+            override fun onResponse(call: Call<List<TickerResponse>>, response: Response<List<TickerResponse>>) =
                 response.body()?.let {
-                    val tickerList = it.map { it.toTicker() }
+                    val tickerList = it.map { tickerResponse -> tickerResponse.toTicker() }
                     listener.onResponse(tickerList)
                 } ?: run { listener.onFailure("null") }
-            }
+
         })
 
     }
