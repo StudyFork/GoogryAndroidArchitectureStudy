@@ -1,7 +1,6 @@
 package com.example.architecturestudy.ui
 
 import android.os.Bundle
-import androidx.databinding.DataBindingUtil
 import com.example.architecturestudy.R
 import com.example.architecturestudy.base.BaseActivity
 import com.example.architecturestudy.databinding.ActivityMainBinding
@@ -11,9 +10,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         initView()
     }

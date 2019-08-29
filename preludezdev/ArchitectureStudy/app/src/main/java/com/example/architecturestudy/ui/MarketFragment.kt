@@ -1,10 +1,7 @@
 package com.example.architecturestudy.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import com.example.architecturestudy.R
 import com.example.architecturestudy.base.BaseFragment
 import com.example.architecturestudy.data.Coin
@@ -20,14 +17,6 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
     private lateinit var presenter: MarketContract.Presenter // Presenter 프로퍼티 선언
     private var key = "KEY_MARKET"
     private val rvAdapter = RecyclerViewAdapter()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_market, container, false)
-        return binding.root
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
