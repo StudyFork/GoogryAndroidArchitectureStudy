@@ -9,17 +9,17 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
 
-    private val retrofitService: RetrofitService
-
-    init {
-        retrofitService = Retrofit.Builder()
-            .baseUrl("https://api.upbit.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .client(setOkHttpClient())
-            .build()
-            .create(RetrofitService::class.java)
+    private val retrofitService by lazy {
+        createService()
     }
+
+    private fun createService() = Retrofit.Builder()
+        .baseUrl("https://api.upbit.com/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .client(setOkHttpClient())
+        .build()
+        .create(RetrofitService::class.java)
 
     private fun setOkHttpClient(): OkHttpClient {
         val builder = OkHttpClient.Builder()
@@ -40,6 +40,6 @@ object RetrofitClient {
         return builder.build()
     }
 
-    fun getRetrofitService() = retrofitService
+    fun getService(): RetrofitService = retrofitService
 
 }
