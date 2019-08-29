@@ -12,6 +12,7 @@ interface RetrofitService {
     fun loadMarketData(): Single<List<Market>>
 
     @GET("v1/ticker")
-    fun loadTickerData(@Query("markets") markets: String): Single<List<Ticker>>
+    fun loadTickerData(@Query("markets")
+                       markets: String): Single<List<Ticker>>
 
 }
