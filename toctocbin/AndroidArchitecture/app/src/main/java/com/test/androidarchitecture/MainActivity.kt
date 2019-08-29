@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                     .map { (key, value) ->
                         MarketTitle(
                             marketTitle = key,
-                            marketSearch = value.joinToString(separator = ",") { it.market }
+                            marketSearch = value.joinToString() { it.market }
                         )
                     }
                     .toList()
