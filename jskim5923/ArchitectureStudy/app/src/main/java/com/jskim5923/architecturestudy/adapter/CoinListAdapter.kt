@@ -4,12 +4,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.jskim5923.architecturestudy.R
-import com.jskim5923.architecturestudy.extension.getCoinName
-import com.jskim5923.architecturestudy.extension.setCurrentPriceText
-import com.jskim5923.architecturestudy.extension.setSignedChangeRateText
-import com.jskim5923.architecturestudy.extension.setTradeVolumeText
 import com.jskim5923.architecturestudy.model.Ticker
 
 class CoinListAdapter :
@@ -50,10 +47,13 @@ class CoinListAdapter :
         private val tradeVolume: TextView = itemView.findViewById(R.id.tv_tradeVolume)
 
         fun bind(item: Ticker) {
-            coinName.text = item.market.getCoinName()
-            currentPrice.setCurrentPriceText(item.tradePrice)
-            diff.setSignedChangeRateText(item.signedChangeRate)
-            tradeVolume.setTradeVolumeText(item)
+            coinName.text = item.name
+            currentPrice.text = item.currentPrice
+            with(diff) {
+                text = item.diff
+                setTextColor(ContextCompat.getColor(context, item.diffTextColorId))
+            }
+            tradeVolume.text = item.tradeVolume
         }
 
     }

@@ -4,14 +4,4 @@
     <string name="current_price">현재가</string>
     <string name="signed_change_rate">전일대비</string>
     <string name="acc_trade_price_24h">거래대금</string>
-
-    <string name="coin_price_integer_format">#,###.##</string>
-    <string name="coin_price_decimal_format">#,##0.00000000</string>
-    <string name="coin_change_rate_format">%.2f%%</string>
-
-    <string name="coin_trade_volume_format_default">%,d</string>
-    <string name="coin_trade_volume_format_decimal">%,.3f</string>
-    <string name="coin_trade_volume_format_kilo">%,d K</string>
-    <string name="coin_trade_volume_format_mega">%,d M</string>
-    <string name="coin_trade_volume_format_giga">%,d G</string>
 </resources>

@@ -9,6 +9,7 @@ import com.jskim5923.architecturestudy.R
 import com.jskim5923.architecturestudy.adapter.CoinListAdapter
 import com.jskim5923.architecturestudy.api.ApiManager
 import com.jskim5923.architecturestudy.extension.getCoinCurrency
+import com.jskim5923.architecturestudy.model.data.source.Repository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
@@ -35,17 +36,23 @@ class CoinFragment : Fragment() {
 
         recyclerView.adapter = coinListAdapter
 
-        compositeDisposable += ApiManager.coinApi.getMarketList()
+        compositeDisposable += Repository.getMarketList()
             .subscribeOn(Schedulers.io())
             .flatMap { marketList ->
                 ApiManager.coinApi.getTicker(
-                    marketList.filter {
+                    marketList.asSequence().filter {
                         it.market.getCoinCurrency() == market
-                    }.joinToString(",") {
+                    }.toList().joinToString(",") {
                         it.market
                     }
                 )
             }
+            .flattenAsObservable { tickerResponseList ->
+                tickerResponseList.asSequence().map { tickerResponse ->
+                    tickerResponse.toTicker()
+                }.toList()
+            }
+            .toList()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ tickerList ->
                 coinListAdapter.updateItem(tickerList)
