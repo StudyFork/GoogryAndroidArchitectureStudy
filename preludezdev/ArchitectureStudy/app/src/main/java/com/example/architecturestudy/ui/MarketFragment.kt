@@ -21,13 +21,13 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        initRvAdapter()
+        initRecyclerView()
         initPresenter()
 
         presenter.loadData(arguments?.getString(key)) // Presenter 를 통해 해당 마켓의 데이터 불러오기
     }
 
-    private fun initRvAdapter() {
+    private fun initRecyclerView() {
         //리사이클러뷰 어댑터 설정
         binding.recyclerView.apply {
             adapter = rvAdapter
