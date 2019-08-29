@@ -27,8 +27,10 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.CoinViewHolder>() {
 
 
     fun setItem(tickerList: List<TickerFormat>) {
-        this.tickerFormatList.clear()
-        this.tickerFormatList.addAll(tickerList)
+        with(this.tickerFormatList) {
+            clear()
+            addAll(tickerList)
+        }
         notifyDataSetChanged()
     }
 
