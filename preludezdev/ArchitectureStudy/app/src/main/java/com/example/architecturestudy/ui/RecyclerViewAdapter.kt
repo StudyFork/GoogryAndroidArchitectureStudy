@@ -29,9 +29,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val currItem = coins[position]
-
-        holder.bindView(currItem)
+        holder.bindView(coins[position])
         binding.executePendingBindings()
     }
 
