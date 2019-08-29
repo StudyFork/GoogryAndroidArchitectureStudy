@@ -1,4 +1,4 @@
-package com.example.architecturestudy.ui
+package com.example.architecturestudy.ui.market
 
 import android.util.Log
 import com.example.architecturestudy.data.source.CoinsRepositoryImpl

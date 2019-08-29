@@ -1,4 +1,4 @@
-package com.example.architecturestudy.ui
+package com.example.architecturestudy.ui.market
 
 import android.os.Bundle
 import android.view.View

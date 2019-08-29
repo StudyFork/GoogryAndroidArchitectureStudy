@@ -1,4 +1,4 @@
-package com.example.architecturestudy.ui
+package com.example.architecturestudy.ui.market
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

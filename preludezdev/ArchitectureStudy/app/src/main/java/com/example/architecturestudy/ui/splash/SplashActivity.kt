@@ -1,10 +1,11 @@
-package com.example.architecturestudy.ui
+package com.example.architecturestudy.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
 import com.example.architecturestudy.R
 import com.example.architecturestudy.base.BaseActivity
 import com.example.architecturestudy.databinding.ActivitySplashBinding
+import com.example.architecturestudy.ui.main.MainActivity
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {
 

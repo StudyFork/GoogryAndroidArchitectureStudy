@@ -5,4 +5,5 @@
     <string name="price_compare">전일대비</string>
     <string name="total_trade">거래대금</string>
     <string name="iv_main_arrow">메인화면 화살표</string>
+    <string name="splash">스플래쉬 화면</string>
 </resources>

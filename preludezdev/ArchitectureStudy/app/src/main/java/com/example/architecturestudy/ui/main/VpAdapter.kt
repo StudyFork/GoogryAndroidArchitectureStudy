@@ -1,16 +1,19 @@
-package com.example.architecturestudy.ui
+package com.example.architecturestudy.ui.main
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.PagerAdapter
+import com.example.architecturestudy.ui.market.MarketFragment
 
 class VpAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     private val fragmentTitleList = listOf("KRW", "BTC", "ETH", "USDT")
 
     override fun getItem(position: Int): Fragment? {
-        return MarketFragment.newInstance(fragmentTitleList[position])
+        return MarketFragment.newInstance(
+            fragmentTitleList[position]
+        )
     }
 
     //뷰페이저에 포함된 전체 Fragment 갯수

@@ -1,4 +1,4 @@
-package com.example.architecturestudy.ui
+package com.example.architecturestudy.ui.main
 
 import android.os.Bundle
 import com.example.architecturestudy.R

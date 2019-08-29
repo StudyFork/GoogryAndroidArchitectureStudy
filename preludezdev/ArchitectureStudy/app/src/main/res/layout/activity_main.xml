@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.MainActivity">
+        tools:context=".ui.main.MainActivity">
 
         <LinearLayout
             android:id="@+id/linearLayout1"
@@ -91,7 +91,6 @@
                 android:text="@string/price_compare" />
         </LinearLayout>
 
-
         <LinearLayout
             android:id="@+id/linearLayout4"
             android:layout_width="wrap_content"
@@ -118,7 +117,6 @@
                 android:clickable="false"
                 android:text="@string/total_trade" />
         </LinearLayout>
-
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"

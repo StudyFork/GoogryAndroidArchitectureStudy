@@ -1,4 +1,4 @@
-package com.example.architecturestudy.ui
+package com.example.architecturestudy.ui.market
 
 import com.example.architecturestudy.data.Coin
 
