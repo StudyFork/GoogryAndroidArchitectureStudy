@@ -2,7 +2,9 @@ package com.example.architecturestudy.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.architecturestudy.R
 import com.example.architecturestudy.data.Coin
 import com.example.architecturestudy.databinding.ItemCoinBinding
 
@@ -23,7 +25,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        binding = ItemCoinBinding.inflate(inflater, parent, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.item_coin, parent, false)
 
         return MyViewHolder(binding)
     }
