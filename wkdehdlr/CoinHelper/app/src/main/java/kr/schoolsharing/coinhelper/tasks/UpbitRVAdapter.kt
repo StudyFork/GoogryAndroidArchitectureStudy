@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.main_rv_item.view.*
 import kr.schoolsharing.coinhelper.R
 import kr.schoolsharing.coinhelper.model.UpbitItem
 import kr.schoolsharing.coinhelper.util.UpDown

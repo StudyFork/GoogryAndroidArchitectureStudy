@@ -2,7 +2,6 @@ package kr.schoolsharing.coinhelper.tasks
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import kr.schoolsharing.coinhelper.R
 
 

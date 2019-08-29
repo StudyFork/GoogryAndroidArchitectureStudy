@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_coinrecycler.*
 import kr.schoolsharing.coinhelper.R
 import kr.schoolsharing.coinhelper.data.Repository
 import kr.schoolsharing.coinhelper.model.UpbitItem
