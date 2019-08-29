@@ -12,9 +12,7 @@ import com.test.androidarchitecture.adpter.TickerAdapter
 import com.test.androidarchitecture.data.Ticker
 import com.test.androidarchitecture.data.TickerFormat
 import com.test.androidarchitecture.data.source.UpbitRepository
-import com.test.androidarchitecture.network.RetrofitClient
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_coin.*
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -51,11 +49,15 @@ class TickerFragment : Fragment() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    adapter.setItem(it)
+                    setAdapterItem(it)
                 }, {
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                 }
             )
+    }
+
+    private fun setAdapterItem(tickerList: List<TickerFormat>) {
+        adapter.setItem(tickerList)
     }
 
     private fun getCoinFormat(ticker: Ticker): TickerFormat {
