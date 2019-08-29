@@ -1,5 +1,6 @@
 package com.android.studyfork.repository
 
+import com.android.studyfork.network.source.UpbitDataSourceImpl
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -7,12 +8,11 @@ import io.reactivex.schedulers.Schedulers
 /**
  * created by onemask
  */
-class UpbitRepositoryImpl(
-    private val api : UpbitApi
-): UpbitRepository {
+object UpbitRepositoryImpl
+    : UpbitRepository {
 
     override fun getMarketAll() =
-        api.getMarketAll()
+        UpbitDataSourceImpl.getMarketAll()
             .flatMap {  markets->
                 val marketNamesKey = markets
                     .groupBy {
@@ -26,7 +26,7 @@ class UpbitRepositoryImpl(
 
 
     override fun getTickers(market: String) =
-        api.getTickers(market)
+        UpbitDataSourceImpl.getTickers(market)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
