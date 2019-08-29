@@ -29,7 +29,9 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bindView(position)
+        val currItem = coins[position]
+
+        holder.bindView(currItem)
         binding.executePendingBindings()
     }
 
@@ -39,16 +41,14 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
     inner class MyViewHolder(private val binding: ItemCoinBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bindView(position: Int) {
-            val currItem = coins[position]
-
+        fun bindView(item: Coin) {
             //각 레이아웃 내 뷰에 텍스트 및 색상 설정
             with(binding) {
-                tvMarket.text = currItem.market
-                tvTradePrice.text = currItem.tradePrice
-                tvSignedChangedRate.text = currItem.signedChangeRate
-                tvAccTradePriceH.text = currItem.accTradePriceH
-                tvSignedChangedRate.setTextColor(currItem.coinColor)
+                tvMarket.text = item.market
+                tvTradePrice.text = item.tradePrice
+                tvSignedChangedRate.text = item.signedChangeRate
+                tvAccTradePriceH.text = item.accTradePriceH
+                tvSignedChangedRate.setTextColor(item.coinColor)
             }
         }
     }
