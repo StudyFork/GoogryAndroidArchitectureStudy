@@ -43,8 +43,10 @@ class TickerFragment : Fragment() {
     @SuppressLint("CheckResult")
     private fun loadCoinData(marketSearch: String) {
         upbitRepository.getTicker(marketSearch)
-            .map { list: List<Ticker> ->
-                list.map { getCoinFormat(it) }
+            .map { list ->
+                list.asSequence()
+                    .map { getCoinFormat(it) }
+                    .toList()
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
