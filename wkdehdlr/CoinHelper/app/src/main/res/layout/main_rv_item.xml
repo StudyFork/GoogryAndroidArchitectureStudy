@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -10,7 +13,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp">
 
-    <TextView
+        <TextView
             android:id="@+id/name"
             android:gravity="center_vertical"
             android:textAlignment="center"
@@ -18,7 +21,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             tools:text="이름"/>
-    <TextView
+
+        <TextView
             android:id="@+id/current"
             android:gravity="center_vertical"
             android:textAlignment="textEnd"
@@ -26,7 +30,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             tools:text="현재가"/>
-    <TextView
+
+        <TextView
             android:id="@+id/signedChangeRate"
             android:gravity="center_vertical"
             android:textAlignment="center"
@@ -34,7 +39,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             tools:text="전일대비"/>
-    <TextView
+
+        <TextView
             android:id="@+id/volume"
             android:gravity="center_vertical"
             android:textAlignment="center"
@@ -44,4 +50,5 @@
             tools:text="거래대금"/>
 
 
-</LinearLayout>
+    </LinearLayout>
+</layout>
