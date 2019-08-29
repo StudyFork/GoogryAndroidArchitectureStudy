@@ -7,7 +7,6 @@ import com.test.androidarchitecture.R
 import com.test.androidarchitecture.data.TickerFormat
 import com.test.androidarchitecture.ext.*
 import kotlinx.android.synthetic.main.item_coin.view.*
-import kotlin.collections.ArrayList
 
 class TickerAdapter : RecyclerView.Adapter<TickerAdapter.CoinViewHolder>() {
 

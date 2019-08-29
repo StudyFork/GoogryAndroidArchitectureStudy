@@ -5,12 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.test.androidarchitecture.adpter.ViewPagerAdapter
-import com.test.androidarchitecture.data.Market
 import com.test.androidarchitecture.data.MarketTitle
 import com.test.androidarchitecture.data.source.UpbitRepository
-import com.test.androidarchitecture.network.RetrofitClient
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
