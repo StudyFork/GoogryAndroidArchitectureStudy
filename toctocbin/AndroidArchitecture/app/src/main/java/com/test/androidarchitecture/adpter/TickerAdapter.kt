@@ -11,7 +11,7 @@ import kotlin.collections.ArrayList
 
 class TickerAdapter : RecyclerView.Adapter<TickerAdapter.CoinViewHolder>() {
 
-    private val tickerFormatList: MutableList<TickerFormat> = ArrayList()
+    private val tickerFormatList = mutableListOf<TickerFormat>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinViewHolder {
