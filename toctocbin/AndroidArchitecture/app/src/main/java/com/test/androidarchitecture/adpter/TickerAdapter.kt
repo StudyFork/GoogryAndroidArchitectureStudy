@@ -18,9 +18,8 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.CoinViewHolder>() {
         return CoinViewHolder(parent)
     }
 
-    override fun getItemCount(): Int {
-        return tickerFormatList.size
-    }
+    override fun getItemCount() = tickerFormatList.size
+
 
     override fun onBindViewHolder(holder: CoinViewHolder, position: Int) {
         holder.onBindView(tickerFormatList[position])
