@@ -21,7 +21,10 @@ class CoinDataSourceImpl : CoinDataSource {
                 }
             }
 
-            override fun onResponse(call: Call<List<MarketResponse>>, response: Response<List<MarketResponse>>) {
+            override fun onResponse(
+                call: Call<List<MarketResponse>>,
+                response: Response<List<MarketResponse>>
+            ) {
                 response.body()?.let { listener.onResponse(it) } ?: run { listener.onFailure("null") }
             }
         })
@@ -37,11 +40,13 @@ class CoinDataSourceImpl : CoinDataSource {
                 }
             }
 
-            override fun onResponse(call: Call<List<TickerResponse>>, response: Response<List<TickerResponse>>) =
-                response.body()?.let {
-                    val tickerList = it.map { tickerResponse -> tickerResponse.toTicker() }
-                    listener.onResponse(tickerList)
-                } ?: run { listener.onFailure("null") }
+            override fun onResponse(
+                call: Call<List<TickerResponse>>,
+                response: Response<List<TickerResponse>>
+            ) = response.body()?.let {
+                val tickerList = it.map { tickerResponse -> tickerResponse.toTicker() }
+                listener.onResponse(tickerList)
+            } ?: run { listener.onFailure("null") }
 
         })
 
