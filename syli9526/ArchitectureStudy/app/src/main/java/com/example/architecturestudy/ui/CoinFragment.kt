@@ -17,13 +17,11 @@ import kotlinx.android.synthetic.main.fragment_list_coin.*
 
 class CoinFragment : Fragment() {
 
-
     private val coinAdapter by lazy { CoinAdapter() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_list_coin, container, false)
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -70,6 +68,5 @@ class CoinFragment : Fragment() {
             }
         }
     }
-
 
 }

@@ -9,5 +9,4 @@ interface CoinDataSource {
 
     fun getTickerInfo(name: String, listener: UpbitListener<Ticker>)
 
-
 }

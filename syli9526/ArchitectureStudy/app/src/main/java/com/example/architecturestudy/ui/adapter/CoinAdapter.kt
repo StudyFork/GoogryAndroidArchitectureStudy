@@ -21,7 +21,6 @@ class CoinAdapter : RecyclerView.Adapter<ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(coinList[position])
 
-
     fun setData(coinListData: List<Ticker>) {
         this.coinList.apply {
             clear()

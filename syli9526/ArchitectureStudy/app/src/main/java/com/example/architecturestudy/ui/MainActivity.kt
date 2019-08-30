@@ -63,7 +63,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     companion object {
         val pageList = listOf(
             "KRW",

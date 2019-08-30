@@ -1,9 +1,7 @@
 package com.example.architecturestudy.util
 
-
 import com.example.architecturestudy.R
 import java.text.DecimalFormat
-
 
 object CalculateUtils {
 

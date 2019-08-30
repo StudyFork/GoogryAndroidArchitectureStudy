@@ -5,7 +5,6 @@ import com.example.architecturestudy.network.model.MarketResponse
 
 class CoinRepository: CoinDataSource{
 
-
     override  fun getMarketInfo(listener: UpbitListener<MarketResponse>) {
         CoinDataSourceImpl.getInstance().getMarketInfo(listener)
     }
