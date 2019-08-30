@@ -9,6 +9,6 @@ class CoinRepositoryImpl : CoinRepository {
     override fun sendMarket() = coinDataSource.getMarket()
 
     override fun sendCurrentPriceInfo(
-        markets: String?
-    ) = coinDataSource.getCurrentPriceInfo(markets!!)
+        markets: String
+    ) = coinDataSource.getCurrentPriceInfo(markets)
 }

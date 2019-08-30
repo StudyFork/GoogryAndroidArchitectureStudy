@@ -7,6 +7,6 @@ import io.reactivex.Single
 interface CoinRepository {
     fun sendMarket() : Single<List<Market>>
     fun sendCurrentPriceInfo(
-        markets: String?
+        markets: String
     ) : Single<List<CurrentPriceInfoModel>>
 }
