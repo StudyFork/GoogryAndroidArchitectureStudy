@@ -13,9 +13,9 @@ val intFormat = DecimalFormat("#,###.##")
 object CalculateUtils {
     fun setMarketName(marketName: String): String? {
         return if (marketName?.contains("USDT")) {
-             marketName?.substring(5, marketName.length)
+            marketName?.substring(5, marketName.length)
         } else {
-             marketName?.substring(4, marketName.length)
+            marketName?.substring(4, marketName.length)
         }
     }
 
@@ -107,24 +107,21 @@ object CalculateUtils {
             }
         }
     }
-}
 
-//전일 대비
-fun TextView.setTradeDiff(signedChangeRate: Double) {
-    val color = when {
-        (signedChangeRate > 0) -> ContextCompat.getColor(context, R.color.seonohRed)
-        signedChangeRate < 0 -> ContextCompat.getColor(context, R.color.seonohBlue)
-        else -> ContextCompat.getColor(context, R.color.seonohBlack)
+    fun setTradeDiff(signedChangeRate: Double, context: Context): Map<String, Any> {
+        val mapValue = mutableMapOf<String, Any>()
+        val color = when {
+            (signedChangeRate > 0) -> ContextCompat.getColor(context, R.color.seonohRed)
+            signedChangeRate < 0 -> ContextCompat.getColor(context, R.color.seonohBlue)
+            else -> ContextCompat.getColor(context, R.color.seonohBlack)
+        }
+
+        val df = DecimalFormat("0.##")
+        val rate = df.format(signedChangeRate * 100)
+        Log.e("변화율", "$rate")
+
+        mapValue["color"] = color
+        mapValue["rate"] = "$rate %"
+        return mapValue
     }
-    setTextColor(color)
-
-    val df = DecimalFormat("0.##")
-    val rate = df.format(signedChangeRate * 100)
-    Log.e("변화율","$rate")
-
-    text = "$rate %"
 }
-
-
-
-

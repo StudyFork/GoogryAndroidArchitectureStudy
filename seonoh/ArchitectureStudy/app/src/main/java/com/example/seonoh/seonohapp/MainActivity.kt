@@ -5,26 +5,41 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.seonoh.seonohapp.model.Market
-import com.example.seonoh.seonohapp.network.CoinRequest
-import com.example.seonoh.seonohapp.network.RetrofitCreator
+import com.example.seonoh.seonohapp.repository.CoinRepositoryImpl
 import com.google.android.material.tabs.TabLayout
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.HttpException
 
-class MainActivity : AppCompatActivity(), CoinRequest.BaseResult<ArrayList<Market>> {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var pagerAdapter: TabPagerAdapter
     private lateinit var toast: Toast
     private lateinit var conMarketNameList: List<String>
-
+    private val coinRepository = CoinRepositoryImpl()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView()
-        toast = Toast.makeText(this, "뒤로가기를 한번 더 누르시면 앱이 종료됩니다.", Toast.LENGTH_SHORT)
-        CoinRequest(RetrofitCreator.coinApi).sendMarket(this@MainActivity)
+        loadMarketData()
     }
 
-    fun initView() {
+    private fun loadMarketData() {
+        coinRepository.sendMarket().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+
+                pagerAdapter.setData(classifyMarketData(it))
+
+            }, { e ->
+                if (e is HttpException) {
+                    Log.e("market", "Market Network failed !! ${e.message()}")
+                }
+            })
+    }
+
+    private fun initView() {
         pagerAdapter = TabPagerAdapter(supportFragmentManager)
         coinViewPager.apply {
             adapter = pagerAdapter
@@ -46,6 +61,8 @@ class MainActivity : AppCompatActivity(), CoinRequest.BaseResult<ArrayList<Marke
     }
 
     override fun onBackPressed() {
+        toast = Toast.makeText(this, "뒤로가기를 한번 더 누르시면 앱이 종료됩니다.", Toast.LENGTH_SHORT)
+
         if (toast.view.isShown) {
             finish()
         } else {
@@ -53,7 +70,7 @@ class MainActivity : AppCompatActivity(), CoinRequest.BaseResult<ArrayList<Marke
         }
     }
 
-    private fun classifyMarketData(marketData: ArrayList<Market>): ArrayList<String> {
+    private fun classifyMarketData(marketData: List<Market>): ArrayList<String> {
 
         conMarketNameList = marketData.map {
             it.market.substringBefore("-")
@@ -73,13 +90,5 @@ class MainActivity : AppCompatActivity(), CoinRequest.BaseResult<ArrayList<Marke
         return marketDataList
     }
 
-    override fun getNetworkSuccess(result: ArrayList<Market>) {
-        val data = classifyMarketData(result)
-        pagerAdapter.setData(data)
-    }
-
-    override fun getNetworkFailed(code: String) {
-        Log.e("marketfailed", "getMarketFailed code : $code")
-    }
 
 }

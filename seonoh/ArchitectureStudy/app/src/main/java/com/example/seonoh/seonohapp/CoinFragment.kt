@@ -5,31 +5,41 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
 import com.example.seonoh.seonohapp.model.UseCoinModel
-import com.example.seonoh.seonohapp.network.CoinRequest
-import com.example.seonoh.seonohapp.network.RetrofitCreator
+import com.example.seonoh.seonohapp.repository.CoinRepositoryImpl
 import com.example.seonoh.seonohapp.util.CalculateUtils
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.coin_fragment.*
-import kotlinx.android.synthetic.main.coin_fragment.view.*
 
+class CoinFragment : Fragment() {
 
-class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceInfoModel>> {
-
-    lateinit var mAdapter: CoinAdapter
+    private lateinit var mAdapter: CoinAdapter
     private var marketName: String? = null
+    private val coinRepository by lazy { CoinRepositoryImpl() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        marketName = arguments?.getString(MARKET)
-
-        requestData()
-
         return inflater.inflate(R.layout.coin_fragment, container, false)
+    }
+
+
+    private fun loadData(marketName: String) {
+        coinRepository.sendCurrentPriceInfo(marketName)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                translateData(it)
+
+            }, { e ->
+                Log.e("currentPriceInfo", "Network failed!! ${e.message}")
+            })
     }
 
     private fun setData(data: ArrayList<UseCoinModel>) {
@@ -43,26 +53,25 @@ class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceIn
         }
     }
 
-    private fun requestData() {
-        if(marketName != null){
-            CoinRequest(RetrofitCreator.coinApi).sendCurrentPriceInfo(this, marketName!!)
-        }else{
-            Log.e("coinrequest","marketName : $marketName")
-        }
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initView()
-
+        marketName = arguments?.getString(MARKET)
+        marketName?.let {
+            loadData(it)
+        } ?: Toast.makeText(
+            activity,
+            resources.getString(R.string.empty_market_text),
+            Toast.LENGTH_LONG
+        ).show()
     }
 
-    override fun getNetworkSuccess(result: ArrayList<CurrentPriceInfoModel>) {
+    private fun translateData(result: List<CurrentPriceInfoModel>) {
         var marketType = ""
 
         // 데이터 가공후 모델에 넣음.
         // signedChangeRate textcolor 처리때문에 viewholder에서 진행
-        if (result.size != 0) {
+        if (result.isNotEmpty()) {
             marketType = result[0].market.substringBefore("-")
         }
 
@@ -70,19 +79,15 @@ class CoinFragment : Fragment(), CoinRequest.BaseResult<ArrayList<CurrentPriceIn
             UseCoinModel(
                 CalculateUtils.setMarketName(it.market),
                 CalculateUtils.filterTrade(it.tradePrice),
-                it.signedChangeRate,
+                CalculateUtils.setTradeDiff(it.signedChangeRate, context!!),
                 CalculateUtils.setTradeAmount(marketType, it.accTradePrice24h, context!!)
             )
 
         } as ArrayList<UseCoinModel>
 
-
-
         setData(data)
     }
 
-    override fun getNetworkFailed(code: String) {
-    }
 
     companion object {
         private const val MARKET = "market"
