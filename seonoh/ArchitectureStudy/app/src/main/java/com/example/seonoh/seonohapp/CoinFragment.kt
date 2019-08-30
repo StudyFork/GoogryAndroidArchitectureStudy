@@ -8,12 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
-import com.example.seonoh.seonohapp.model.Market
 import com.example.seonoh.seonohapp.model.UseCoinModel
-import com.example.seonoh.seonohapp.network.BaseResult
+import com.example.seonoh.seonohapp.repository.CoinRepositoryImpl
 import com.example.seonoh.seonohapp.util.CalculateUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.coin_fragment.*
 

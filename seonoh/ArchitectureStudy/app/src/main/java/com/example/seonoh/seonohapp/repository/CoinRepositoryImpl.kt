@@ -1,4 +1,4 @@
-package com.example.seonoh.seonohapp
+package com.example.seonoh.seonohapp.repository
 
 import com.example.seonoh.seonohapp.datasource.CoinDataSourceImpl
 
