@@ -44,7 +44,10 @@ class CoinDataSourceImpl : CoinDataSource {
                 call: Call<List<TickerResponse>>,
                 response: Response<List<TickerResponse>>
             ) = response.body()?.let {
-                val tickerList = it.map { tickerResponse -> tickerResponse.toTicker() }
+                val tickerList = it
+                    .asSequence()
+                    .map { tickerResponse -> tickerResponse.toTicker() }
+                    .toList()
                 listener.onResponse(tickerList)
             } ?: run { listener.onFailure("null") }
 
