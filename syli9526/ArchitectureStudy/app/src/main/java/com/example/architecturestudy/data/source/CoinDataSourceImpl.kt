@@ -63,8 +63,8 @@ class CoinDataSourceImpl : CoinDataSource {
         private var instance: CoinDataSourceImpl? = null
         fun getInstance(): CoinDataSourceImpl =
             instance ?: synchronized(this) {
-                instance ?: CoinDataSourceImpl().also {
-                    instance = it
+                instance ?: CoinDataSourceImpl().apply {
+                    instance = this
                 }
             }
     }
