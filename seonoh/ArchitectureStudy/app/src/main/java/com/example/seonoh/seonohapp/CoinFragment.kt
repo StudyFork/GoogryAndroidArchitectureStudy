@@ -28,17 +28,9 @@ class CoinFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        marketName = arguments?.getString(MARKET)
-        marketName?.let {
-            loadData(it)
-        } ?: Toast.makeText(
-            activity,
-            resources.getString(R.string.empty_market_text),
-            Toast.LENGTH_LONG
-        ).show()
-
         return inflater.inflate(R.layout.coin_fragment, container, false)
     }
+
 
     private fun loadData(marketName: String) {
         coinRepository.sendCurrentPriceInfo(marketName)
@@ -66,6 +58,14 @@ class CoinFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initView()
+        marketName = arguments?.getString(MARKET)
+        marketName?.let {
+            loadData(it)
+        } ?: Toast.makeText(
+            activity,
+            resources.getString(R.string.empty_market_text),
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     private fun translateData(result: List<CurrentPriceInfoModel>) {
