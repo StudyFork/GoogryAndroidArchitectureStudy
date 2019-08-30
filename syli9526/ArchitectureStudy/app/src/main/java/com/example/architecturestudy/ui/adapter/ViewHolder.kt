@@ -16,10 +16,13 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(ticker: Ticker) {
 
-        tvCoinName.text = ticker.coinName
-        tvPresentPrice.text = ticker.presentPrice
-        tvCompareWithYesterday.text = ticker.signedChangeRate
-        tvCompareWithYesterday.setColor(ticker.signedChangeRateColor)
-        tvTransactionAmount.text = ticker.transactionAmount
+        with(ticker){
+            tvCoinName.text = coinName
+            tvPresentPrice.text = presentPrice
+            tvCompareWithYesterday.text = signedChangeRate
+            tvCompareWithYesterday.setColor(signedChangeRateColor)
+            tvTransactionAmount.text = transactionAmount
+        }
+
     }
 }
