@@ -8,13 +8,13 @@ object CalculateUtils {
     private val doubleFormat = DecimalFormat("#,##0.00000000")
     private val intFormat = DecimalFormat("#,###.##")
 
-    fun filterTrade(tradePrice: Double?): String {
-        return if (tradePrice ?: .0 > 1) {
+    fun filterTrade(tradePrice: Double?): String =
+        if (tradePrice ?: .0 > 1) {
             intFormat.format(tradePrice ?: 0).toString()
         } else {
             doubleFormat.format(tradePrice ?: 0).toString()
         }
-    }
+
 
     //거래대금
     fun setTradeAmount(marketType: String, accTradePrice24h: Double): String {
