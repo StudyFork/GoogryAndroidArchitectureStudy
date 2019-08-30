@@ -29,8 +29,6 @@ class CoinFragment : Fragment() {
     ): View? {
 
         marketName = arguments?.getString(MARKET)
-
-        marketName = arguments?.getString(MARKET)
         marketName?.let {
             loadData(it)
         } ?: Toast.makeText(
