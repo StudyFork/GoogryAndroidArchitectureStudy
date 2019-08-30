@@ -4,10 +4,8 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.architecturestudy.R
-import com.example.architecturestudy.model.CoinInfo
-import com.example.architecturestudy.util.filterTrade
-import com.example.architecturestudy.util.setTradeAmount
-import com.example.architecturestudy.util.setTradeDiff
+import com.example.architecturestudy.data.model.Ticker
+import com.example.architecturestudy.util.setColor
 
 class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -16,11 +14,15 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val tvCompareWithYesterday: TextView = itemView.findViewById(R.id.tv_compare_yesterday)
     private val tvTransactionAmount: TextView = itemView.findViewById(R.id.tv_transaction_amount)
 
-    fun bind(coinInfo: CoinInfo) {
+    fun bind(ticker: Ticker) {
 
-        tvCoinName.text = coinInfo.coinName
-        tvPresentPrice.filterTrade(coinInfo.presentPrice)
-        tvCompareWithYesterday.setTradeDiff(coinInfo.signedChangeRate)
-        tvTransactionAmount.setTradeAmount(coinInfo.currencyType, coinInfo.transactionAmount)
+        tvCoinName.text = ticker.coinName
+        tvPresentPrice.text = ticker.presentPrice
+        with(tvCompareWithYesterday){
+            text = ticker.signedChangeRate
+            setColor(ticker.signedChangeRateColor)
+        }
+        tvTransactionAmount.text = ticker.transactionAmount
+
     }
 }

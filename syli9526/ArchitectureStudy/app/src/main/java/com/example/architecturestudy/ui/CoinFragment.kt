@@ -1,6 +1,7 @@
 package com.example.architecturestudy.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,21 +9,19 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.R
-import com.example.architecturestudy.model.CoinInfo
+import com.example.architecturestudy.data.model.Ticker
+import com.example.architecturestudy.data.source.CoinRepository
 import com.example.architecturestudy.ui.adapter.CoinAdapter
-import com.example.architecturestudy.network.UpbitListener
-import com.example.architecturestudy.network.UpbitRequest
+import com.example.architecturestudy.data.source.UpbitListener
 import kotlinx.android.synthetic.main.fragment_list_coin.*
 
 class CoinFragment : Fragment() {
-
 
     private val coinAdapter by lazy { CoinAdapter() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_list_coin, container, false)
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,14 +45,14 @@ class CoinFragment : Fragment() {
 
     private fun getTickerInfo(name: String) {
 
-        UpbitRequest().getTickerInfo(name, object : UpbitListener<CoinInfo> {
+        CoinRepository.getInstance().getTickerInfo(name, object : UpbitListener<Ticker> {
 
-            override fun onResponse(dataList: List<CoinInfo>) {
+            override fun onResponse(dataList: List<Ticker>) {
                 coinAdapter.setData(dataList)
             }
 
             override fun onFailure(str: String) {
-
+                Log.d("onFailure",str)
             }
 
         })
@@ -69,6 +68,5 @@ class CoinFragment : Fragment() {
             }
         }
     }
-
 
 }

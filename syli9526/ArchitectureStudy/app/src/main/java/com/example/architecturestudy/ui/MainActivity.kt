@@ -2,11 +2,12 @@ package com.example.architecturestudy.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.architecturestudy.R
-import com.example.architecturestudy.model.MarketResponse
+import com.example.architecturestudy.data.source.CoinRepository
+import com.example.architecturestudy.network.model.MarketResponse
 import com.example.architecturestudy.ui.adapter.ViewPagerAdapter
-import com.example.architecturestudy.network.UpbitListener
-import com.example.architecturestudy.network.UpbitRequest
+import com.example.architecturestudy.data.source.UpbitListener
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -23,16 +24,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun getInformation() {
 
-        UpbitRequest()
-            .getMarketInfo(object : UpbitListener<MarketResponse> {
-                override fun onResponse(dataList: List<MarketResponse>) {
-                    viewPagerAdapter.setData(pageList,dataList)
-                }
+        CoinRepository.getInstance().getMarketInfo(object : UpbitListener<MarketResponse> {
+            override fun onResponse(dataList: List<MarketResponse>) {
+                viewPagerAdapter.setData(pageList, dataList)
+            }
 
-                override fun onFailure(str: String) {
-                }
+            override fun onFailure(str: String) {
+                Toast.makeText(this@MainActivity, "Call Failure : $str", Toast.LENGTH_LONG).show()
+            }
 
-            })
+        })
     }
 
     private fun setPage() {
@@ -61,7 +62,6 @@ class MainActivity : AppCompatActivity() {
             addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(currency_tab_layout))
         }
     }
-
 
     companion object {
         val pageList = listOf(

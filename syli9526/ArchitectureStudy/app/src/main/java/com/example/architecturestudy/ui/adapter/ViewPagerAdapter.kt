@@ -3,7 +3,7 @@ package com.example.architecturestudy.ui.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.example.architecturestudy.model.MarketResponse
+import com.example.architecturestudy.network.model.MarketResponse
 import com.example.architecturestudy.ui.CoinFragment
 
 class ViewPagerAdapter(

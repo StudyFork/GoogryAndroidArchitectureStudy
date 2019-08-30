@@ -1,5 +1,8 @@
-package com.example.architecturestudy.model
+package com.example.architecturestudy.network.model
 
+import com.example.architecturestudy.data.model.ITicker
+import com.example.architecturestudy.data.model.Ticker
+import com.example.architecturestudy.util.CalculateUtils
 import com.google.gson.annotations.SerializedName
 
 data class TickerResponse(
@@ -29,4 +32,16 @@ data class TickerResponse(
     @SerializedName("lowest_52_week_price") val lowest52WeekPrice: Double,
     @SerializedName("lowest_52_week_date") val lowest52WeekDate: String,
     @SerializedName("timestamp") val timestamp: Long
-)
+) : ITicker {
+
+    override fun toTicker() =
+        Ticker(
+            currencyType = market.split("-")[0],
+            coinName =  market.split("-")[1],
+            presentPrice = CalculateUtils.filterTrade(tradePrice),
+            signedChangeRate = CalculateUtils.setTradeDiff(signedChangeRate),
+            signedChangeRateColor = CalculateUtils.setColor(signedChangeRate),
+            transactionAmount = CalculateUtils.setTradeAmount(market.split("-")[0],accTradePrice24h)
+        )
+
+}

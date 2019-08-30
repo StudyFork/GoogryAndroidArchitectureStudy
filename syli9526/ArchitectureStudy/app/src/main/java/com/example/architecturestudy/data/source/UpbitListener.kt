@@ -1,4 +1,4 @@
-package com.example.architecturestudy.network
+package com.example.architecturestudy.data.source
 
 interface UpbitListener<T> {
 
