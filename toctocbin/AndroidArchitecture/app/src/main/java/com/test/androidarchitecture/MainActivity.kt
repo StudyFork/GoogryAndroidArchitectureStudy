@@ -22,8 +22,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         main_tabLayout.setupWithViewPager(main_viewPager)
         mViewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
-        main_viewPager.offscreenPageLimit = 3
-        main_viewPager.adapter = mViewPagerAdapter
+        with(main_viewPager) {
+            offscreenPageLimit = 3
+            adapter = mViewPagerAdapter
+        }
         loadMarketData()
     }
 

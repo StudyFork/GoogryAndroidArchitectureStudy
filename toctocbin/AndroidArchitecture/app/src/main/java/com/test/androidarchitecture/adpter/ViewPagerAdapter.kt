@@ -24,8 +24,10 @@ class ViewPagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
     }
 
     fun setData(marketTitles: List<MarketTitle>) {
-        this.marketTitles.clear()
-        this.marketTitles.addAll(marketTitles)
+        with(this.marketTitles) {
+            clear()
+            addAll(marketTitles)
+        }
         notifyDataSetChanged()
     }
 
