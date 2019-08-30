@@ -5,31 +5,37 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.seonoh.seonohapp.model.Market
-import com.example.seonoh.seonohapp.network.BaseResult
 import com.google.android.material.tabs.TabLayout
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.HttpException
 
-class MainActivity : AppCompatActivity(), BaseResult<List<Market>> {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var pagerAdapter: TabPagerAdapter
     private lateinit var toast: Toast
     private lateinit var conMarketNameList: List<String>
     private val coinRepository = CoinRepositoryImpl()
-
-    override fun onNetworkSuccess(result: List<Market>) {
-        val data = classifyMarketData(result)
-        pagerAdapter.setData(data)
-    }
-
-    override fun onNetworkFailed(code: String) {
-        Log.e("marketfailed", "getMarketFailed code : $code")
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView()
-        coinRepository.sendMarket(this)
+        loadMarketData()
+    }
+
+    private fun loadMarketData() {
+        coinRepository.sendMarket().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+
+                pagerAdapter.setData(classifyMarketData(it))
+
+            }, { e ->
+                if (e is HttpException) {
+                    Log.e("market", "Market Network failed !! ${e.message()}")
+                }
+            })
     }
 
     private fun initView() {
