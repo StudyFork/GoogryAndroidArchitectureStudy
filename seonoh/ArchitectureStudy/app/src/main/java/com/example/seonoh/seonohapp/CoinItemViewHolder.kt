@@ -18,7 +18,7 @@ class CoinItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(data: UseCoinModel) {
         coinNameTv.text = data.market
         currentPriceTv.text = data.tradePrice
-        changeRateTv.apply {
+        changeRateTv.run {
             text = data.signedChangeRate["rate"].toString()
             setTextColor(data.signedChangeRate["color"].toString().toInt())
         }
