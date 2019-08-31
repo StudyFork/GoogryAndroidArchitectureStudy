@@ -1,6 +1,6 @@
 package com.test.androidarchitecture.network
 
-import com.test.androidarchitecture.data.Coin
+import com.test.androidarchitecture.data.Ticker
 import com.test.androidarchitecture.data.Market
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -12,6 +12,8 @@ interface RetrofitService {
     fun loadMarketData(): Single<List<Market>>
 
     @GET("v1/ticker")
-    fun loadCoinData(@Query("markets") markets: String): Single<List<Coin>>
+    fun loadTickerData(@Query("markets")
+                       markets: String
+    ): Single<List<Ticker>>
 
 }

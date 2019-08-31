@@ -3,7 +3,7 @@ package com.test.androidarchitecture.adpter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.test.androidarchitecture.CoinFragment
+import com.test.androidarchitecture.TickerFragment
 import com.test.androidarchitecture.data.MarketTitle
 
 class ViewPagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
@@ -12,7 +12,7 @@ class ViewPagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
     private val marketTitles = mutableListOf<MarketTitle>()
 
     override fun getItem(position: Int): Fragment {
-        return CoinFragment.getInstance(marketTitles[position].marketSearch)
+        return TickerFragment.getInstance(marketTitles[position].marketSearch)
     }
 
     override fun getCount(): Int {
@@ -24,8 +24,10 @@ class ViewPagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
     }
 
     fun setData(marketTitles: List<MarketTitle>) {
-        this.marketTitles.clear()
-        this.marketTitles.addAll(marketTitles)
+        with(this.marketTitles) {
+            clear()
+            addAll(marketTitles)
+        }
         notifyDataSetChanged()
     }
 

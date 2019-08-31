@@ -1,26 +1,25 @@
 package com.test.androidarchitecture.network
 
 import okhttp3.OkHttpClient
-import okhttp3.internal.Internal.instance
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-class RetrofitClient private constructor() {
+object RetrofitClient {
 
-    val retrofitService: RetrofitService
-
-    init {
-        retrofitService = Retrofit.Builder()
-            .baseUrl("https://api.upbit.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .client(setOkHttpClient())
-            .build()
-            .create(RetrofitService::class.java)
+    private val retrofitService by lazy {
+        createService()
     }
+
+    private fun createService() = Retrofit.Builder()
+        .baseUrl("https://api.upbit.com/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .client(setOkHttpClient())
+        .build()
+        .create(RetrofitService::class.java)
 
     private fun setOkHttpClient(): OkHttpClient {
         val builder = OkHttpClient.Builder()
@@ -41,18 +40,6 @@ class RetrofitClient private constructor() {
         return builder.build()
     }
 
-    companion object {
-
-        @Volatile
-        private var instance: RetrofitClient? = null
-
-        @JvmStatic
-        fun getInstance(): RetrofitClient =
-            instance ?: synchronized(this) {
-                instance ?: RetrofitClient().also {
-                    instance = it
-                }
-            }
-    }
+    fun getService(): RetrofitService = retrofitService
 
 }
