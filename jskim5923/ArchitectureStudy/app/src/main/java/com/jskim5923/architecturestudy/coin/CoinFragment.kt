@@ -8,7 +8,10 @@ import androidx.fragment.app.Fragment
 import com.jskim5923.architecturestudy.R
 import com.jskim5923.architecturestudy.adapter.CoinListAdapter
 import com.jskim5923.architecturestudy.api.ApiManager
+import com.jskim5923.architecturestudy.coin.CoinContract
+import com.jskim5923.architecturestudy.coin.CoinPresenter
 import com.jskim5923.architecturestudy.extension.getCoinCurrency
+import com.jskim5923.architecturestudy.model.Ticker
 import com.jskim5923.architecturestudy.model.data.source.Repository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -16,10 +19,12 @@ import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.layout_coin_fragment.*
 
-class CoinFragment : Fragment() {
-    private val compositeDisposable = CompositeDisposable()
-
+class CoinFragment : Fragment(), CoinContract.View {
     private var coinListAdapter = CoinListAdapter()
+
+    private val presenter by lazy {
+        CoinPresenter(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,37 +37,17 @@ class CoinFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val market = arguments?.getString(KEY_MARKET)
-
         recyclerView.adapter = coinListAdapter
 
-        compositeDisposable += Repository.getMarketList()
-            .subscribeOn(Schedulers.io())
-            .flatMap { marketList ->
-                ApiManager.coinApi.getTicker(
-                    marketList.asSequence().filter {
-                        it.market.getCoinCurrency() == market
-                    }.toList().joinToString(",") {
-                        it.market
-                    }
-                )
-            }
-            .flattenAsObservable { tickerResponseList ->
-                tickerResponseList.asSequence().map { tickerResponse ->
-                    tickerResponse.toTicker()
-                }.toList()
-            }
-            .toList()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ tickerList ->
-                coinListAdapter.updateItem(tickerList)
-            }, { e ->
-                e.printStackTrace()
-            })
+        presenter.getTickerList(arguments?.getString(KEY_MARKET))
+    }
+
+    override fun updateRecyclerView(tickerList: List<Ticker>) {
+        coinListAdapter.updateItem(tickerList)
     }
 
     override fun onDestroyView() {
-        compositeDisposable.clear()
+        presenter.disposableClear()
         super.onDestroyView()
     }
 
