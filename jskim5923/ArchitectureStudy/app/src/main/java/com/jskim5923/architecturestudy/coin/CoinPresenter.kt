@@ -1,6 +1,5 @@
 package com.jskim5923.architecturestudy.coin
 
-import com.jskim5923.architecturestudy.api.ApiManager
 import com.jskim5923.architecturestudy.extension.getCoinCurrency
 import com.jskim5923.architecturestudy.model.data.source.Repository
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,7 +14,7 @@ class CoinPresenter(private val view: CoinContract.View) : CoinContract.Presente
         compositeDisposable += Repository.getMarketList()
             .subscribeOn(Schedulers.io())
             .flatMap { marketList ->
-                ApiManager.coinApi.getTicker(
+                Repository.getTicker(
                     marketList.asSequence().filter {
                         it.market.getCoinCurrency() == market
                     }.toList().joinToString(",") {
