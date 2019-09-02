@@ -10,6 +10,6 @@ interface CoinContract {
     interface Presenter {
         fun getTickerList(market: String?)
 
-        fun disposableClear()
+        fun clearCompositeDisposable()
     }
 }

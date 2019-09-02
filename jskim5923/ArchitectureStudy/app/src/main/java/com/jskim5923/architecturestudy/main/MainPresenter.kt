@@ -26,7 +26,7 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
             })
     }
 
-    override fun disposableClear() {
+    override fun clearCompositeDisposable() {
         compositeDisposable.clear()
     }
 

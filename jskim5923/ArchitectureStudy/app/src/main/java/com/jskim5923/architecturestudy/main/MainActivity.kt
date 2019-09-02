@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun onDestroy() {
-        presenter.disposableClear()
+        presenter.clearCompositeDisposable()
         super.onDestroy()
     }
 }

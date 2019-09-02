@@ -37,7 +37,7 @@ class CoinPresenter(private val view: CoinContract.View) : CoinContract.Presente
             })
     }
 
-    override fun disposableClear() {
+    override fun clearCompositeDisposable() {
         compositeDisposable.clear()
     }
 }

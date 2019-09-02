@@ -9,6 +9,6 @@ interface MainContract {
     interface Presenter {
         fun loadMarketList()
 
-        fun disposableClear()
+        fun clearCompositeDisposable()
     }
 }

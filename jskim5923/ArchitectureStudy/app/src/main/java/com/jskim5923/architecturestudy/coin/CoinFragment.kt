@@ -7,16 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.jskim5923.architecturestudy.R
 import com.jskim5923.architecturestudy.adapter.CoinListAdapter
-import com.jskim5923.architecturestudy.api.ApiManager
 import com.jskim5923.architecturestudy.coin.CoinContract
 import com.jskim5923.architecturestudy.coin.CoinPresenter
-import com.jskim5923.architecturestudy.extension.getCoinCurrency
 import com.jskim5923.architecturestudy.model.Ticker
-import com.jskim5923.architecturestudy.model.data.source.Repository
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.plusAssign
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.layout_coin_fragment.*
 
 class CoinFragment : Fragment(), CoinContract.View {
@@ -47,7 +40,7 @@ class CoinFragment : Fragment(), CoinContract.View {
     }
 
     override fun onDestroyView() {
-        presenter.disposableClear()
+        presenter.clearCompositeDisposable()
         super.onDestroyView()
     }
 
