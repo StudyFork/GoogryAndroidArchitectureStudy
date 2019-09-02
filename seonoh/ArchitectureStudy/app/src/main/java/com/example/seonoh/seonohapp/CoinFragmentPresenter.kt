@@ -32,7 +32,7 @@ class CoinFragmentPresenter(
     }
 
     override fun setData(data: ArrayList<UseCoinModel>) {
-        view.mAdapter.addCoinData(data)
+        view.initRecyclerView(data)
     }
 
     override fun translateData(result: List<CurrentPriceInfoModel>,context : Context) {

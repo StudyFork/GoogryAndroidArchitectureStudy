@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.seonoh.seonohapp.contract.CoinFragmentContract
+import com.example.seonoh.seonohapp.model.UseCoinModel
 import kotlinx.android.synthetic.main.coin_fragment.*
 
 
 class CoinFragment : Fragment(), CoinFragmentContract.View {
 
-    override var mAdapter: CoinAdapter = CoinAdapter()
+    lateinit var mAdapter: CoinAdapter
     private var marketName: String? = null
     override var presenter: CoinFragmentContract.Presenter = CoinFragmentPresenter(this)
     override fun onCreateView(
@@ -23,12 +24,18 @@ class CoinFragment : Fragment(), CoinFragmentContract.View {
         return inflater.inflate(R.layout.coin_fragment, container, false)
     }
 
+    override fun initRecyclerView(data: ArrayList<UseCoinModel>) {
+        mAdapter.addCoinData(data)
+    }
 
     override fun initView() {
+        mAdapter = CoinAdapter()
         krwRecyclerView.apply {
             adapter = mAdapter
         }
     }
+
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
