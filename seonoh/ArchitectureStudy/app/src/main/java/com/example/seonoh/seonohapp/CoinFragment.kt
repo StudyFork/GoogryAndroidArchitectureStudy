@@ -15,7 +15,8 @@ class CoinFragment : Fragment(), CoinFragmentContract.View {
 
     lateinit var mAdapter: CoinAdapter
     private var marketName: String? = null
-    override var presenter: CoinFragmentContract.Presenter = CoinFragmentPresenter(this)
+    private val presenter : CoinFragmentContract.Presenter by lazy { CoinFragmentPresenter(this) }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,8 +35,6 @@ class CoinFragment : Fragment(), CoinFragmentContract.View {
             adapter = mAdapter
         }
     }
-
-
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

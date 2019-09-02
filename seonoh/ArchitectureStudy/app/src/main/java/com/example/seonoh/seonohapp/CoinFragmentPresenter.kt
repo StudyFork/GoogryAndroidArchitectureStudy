@@ -14,9 +14,6 @@ class CoinFragmentPresenter(
     val view : CoinFragmentContract.View
 ) : CoinFragmentContract.Presenter{
 
-    init {
-        view.presenter = this
-    }
     private val coinRepository = CoinRepositoryImpl()
 
     override fun loadData(marketName: String,context: Context) {
