@@ -8,6 +8,6 @@ class UpbitHolder(binding: RvItemListBinding) : RecyclerView.ViewHolder(binding.
     private var rvBinding: RvItemListBinding = binding
 
     fun bind(ticker: FormatTickers) {
-        rvBinding.apply { item = ticker }
+        rvBinding.item = ticker
     }
 }
