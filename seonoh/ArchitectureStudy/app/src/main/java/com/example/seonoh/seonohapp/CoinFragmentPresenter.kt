@@ -11,17 +11,17 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class CoinFragmentPresenter(
-    val view : CoinFragmentContract.View
+    private val view : CoinFragmentContract.View
 ) : CoinFragmentContract.Presenter{
 
     private val coinRepository = CoinRepositoryImpl()
 
-    override fun loadData(marketName: String,context: Context) {
+    override fun loadData(marketName: String) {
         coinRepository.sendCurrentPriceInfo(marketName)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                translateData(it,context)
+                translateData(it)
 
             }, { e ->
                 Log.e("currentPriceInfo", "Network failed!! ${e.message}")
@@ -32,7 +32,7 @@ class CoinFragmentPresenter(
         view.initRecyclerView(data)
     }
 
-    override fun translateData(result: List<CurrentPriceInfoModel>,context : Context) {
+    override fun translateData(result: List<CurrentPriceInfoModel>) {
         var marketType = ""
 
         // 데이터 가공후 모델에 넣음.
@@ -45,8 +45,8 @@ class CoinFragmentPresenter(
             UseCoinModel(
                 CalculateUtils.setMarketName(it.market),
                 CalculateUtils.filterTrade(it.tradePrice),
-                CalculateUtils.setTradeDiff(it.signedChangeRate, context!!),
-                CalculateUtils.setTradeAmount(marketType, it.accTradePrice24h, context!!)
+                CalculateUtils.setTradeDiff(it.signedChangeRate),
+                CalculateUtils.setTradeAmount(marketType, it.accTradePrice24h)
             )
 
         } as ArrayList<UseCoinModel>

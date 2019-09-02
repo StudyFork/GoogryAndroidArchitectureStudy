@@ -12,8 +12,8 @@ interface CoinFragmentContract {
     }
 
     interface Presenter{
-        fun loadData(marketName: String,context: Context)
+        fun loadData(marketName: String)
         fun setData(data: ArrayList<UseCoinModel>)
-        fun translateData(result: List<CurrentPriceInfoModel>,context : Context)
+        fun translateData(result: List<CurrentPriceInfoModel>)
     }
 }

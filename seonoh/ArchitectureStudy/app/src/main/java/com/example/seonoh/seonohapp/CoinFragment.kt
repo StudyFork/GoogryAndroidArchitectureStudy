@@ -41,7 +41,7 @@ class CoinFragment : Fragment(), CoinFragmentContract.View {
         initView()
         marketName = arguments?.getString(MARKET)
         marketName?.let {
-            presenter.loadData(it, activity!!)
+            presenter.loadData(it)
         } ?: Toast.makeText(
             activity,
             resources.getString(R.string.empty_market_text),
