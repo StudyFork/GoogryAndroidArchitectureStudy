@@ -1,16 +1,17 @@
-package com.test.androidarchitecture
+package com.test.androidarchitecture.ui.market
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.test.androidarchitecture.R
 import com.test.androidarchitecture.adpter.ViewPagerAdapter
 import com.test.androidarchitecture.data.MarketTitle
 import com.test.androidarchitecture.data.source.UpbitRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_market.*
 
-class MainActivity : AppCompatActivity() {
+class MarketActivity : AppCompatActivity() {
 
 
     private var mViewPagerAdapter: ViewPagerAdapter? = null
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_market)
         main_tabLayout.setupWithViewPager(main_viewPager)
         mViewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
         with(main_viewPager) {

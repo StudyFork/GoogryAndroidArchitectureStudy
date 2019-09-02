@@ -1,4 +1,4 @@
-package com.test.androidarchitecture
+package com.test.androidarchitecture.ui.ticker
 
 
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.test.androidarchitecture.R
 import com.test.androidarchitecture.adpter.TickerAdapter
 import com.test.androidarchitecture.data.Ticker
 import com.test.androidarchitecture.data.TickerFormat
