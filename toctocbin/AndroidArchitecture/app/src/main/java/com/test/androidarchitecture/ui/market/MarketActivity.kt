@@ -6,57 +6,36 @@ import android.widget.Toast
 import com.test.androidarchitecture.R
 import com.test.androidarchitecture.adpter.ViewPagerAdapter
 import com.test.androidarchitecture.data.MarketTitle
-import com.test.androidarchitecture.data.source.UpbitRepository
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_market.*
 
-class MarketActivity : AppCompatActivity() {
+class MarketActivity : AppCompatActivity(), MarketContract.View {
 
-
-    private var mViewPagerAdapter: ViewPagerAdapter? = null
-    private val upbitRepository by lazy { UpbitRepository }
-    private val disposables by lazy { CompositeDisposable() }
+    private var viewPagerAdapter: ViewPagerAdapter? = null
+    private val presenter by lazy { MarketPresenter.getInstance(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_market)
         main_tabLayout.setupWithViewPager(main_viewPager)
-        mViewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
+        viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
         with(main_viewPager) {
             offscreenPageLimit = 3
-            adapter = mViewPagerAdapter
+            adapter = viewPagerAdapter
         }
-        loadMarketData()
+        presenter.getMarketAll()
     }
 
     override fun onDestroy() {
-        disposables.clear()
+        presenter.disposablesClear()
         super.onDestroy()
     }
 
-    private fun loadMarketData() {
-        upbitRepository.getMarketAll()
-            .map { list ->
-                list.groupBy { it.market.substringBefore("-") }
-                    .asSequence()
-                    .map { (key, value) ->
-                        MarketTitle(
-                            marketTitle = key,
-                            marketSearch = value.joinToString() { it.market }
-                        )
-                    }
-                    .toList()
-            }
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    mViewPagerAdapter?.setData(it)
-                }, {
-                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-                }
-            )
-            .apply { disposables.add(this) }
+    override fun setViewpagerData(list: List<MarketTitle>) {
+        viewPagerAdapter?.setData(list)
+    }
+
+    override fun showToast(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
 }
