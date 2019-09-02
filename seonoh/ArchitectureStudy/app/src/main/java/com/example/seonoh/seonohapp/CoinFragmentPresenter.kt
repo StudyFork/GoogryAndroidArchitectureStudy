@@ -1,6 +1,5 @@
 package com.example.seonoh.seonohapp
 
-import android.content.Context
 import android.util.Log
 import com.example.seonoh.seonohapp.contract.CoinFragmentContract
 import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
@@ -8,24 +7,32 @@ import com.example.seonoh.seonohapp.model.UseCoinModel
 import com.example.seonoh.seonohapp.repository.CoinRepositoryImpl
 import com.example.seonoh.seonohapp.util.CalculateUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class CoinFragmentPresenter(
-    private val view : CoinFragmentContract.View
-) : CoinFragmentContract.Presenter{
+    private val view: CoinFragmentContract.View
+) : CoinFragmentContract.Presenter {
 
     private val coinRepository = CoinRepositoryImpl()
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun loadData(marketName: String) {
-        coinRepository.sendCurrentPriceInfo(marketName)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                translateData(it)
+        compositeDisposable.addAll(
+            coinRepository.sendCurrentPriceInfo(marketName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    translateData(it)
 
-            }, { e ->
-                Log.e("currentPriceInfo", "Network failed!! ${e.message}")
-            })
+                }, { e ->
+                    Log.e("currentPriceInfo", "Network failed!! ${e.message}")
+                })
+        )
+    }
+
+    override fun disposableClear() {
+        compositeDisposable.clear()
     }
 
     override fun setData(data: ArrayList<UseCoinModel>) {
@@ -50,8 +57,6 @@ class CoinFragmentPresenter(
             )
 
         } as ArrayList<UseCoinModel>
-
-
         setData(data)
     }
 }
