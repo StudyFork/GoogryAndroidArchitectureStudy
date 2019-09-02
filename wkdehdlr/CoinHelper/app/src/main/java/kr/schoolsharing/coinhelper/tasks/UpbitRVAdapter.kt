@@ -19,7 +19,11 @@ class UpbitRVAdapter : RecyclerView.Adapter<UpbitRVAdapter.Holder>() {
         binding = MainRvItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return Holder(binding)
     }
-    override fun onBindViewHolder(holder: Holder, position: Int) = holder.bind(itemList[position])
+
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+        holder.bind(itemList[position])
+        binding.executePendingBindings()
+    }
 
 
     fun setTickerList(tickerList: List<UpbitItem>) {
