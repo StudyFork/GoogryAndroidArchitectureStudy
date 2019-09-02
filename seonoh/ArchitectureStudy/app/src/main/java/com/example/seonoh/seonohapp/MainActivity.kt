@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(), CoinMainContract.View {
     }
 
     override fun showToast() {
-        toast = Toast.makeText(this, "뒤로가기를 한번 더 누르시면 앱이 종료됩니다.", Toast.LENGTH_SHORT)
+        toast = Toast.makeText(this, resources.getString(R.string.back_text), Toast.LENGTH_SHORT)
         if (toast.view.isShown) {
             finish()
         } else {
