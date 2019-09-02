@@ -20,7 +20,6 @@ class UpbitFragment : Fragment(), UpbitContract.View {
 
     private lateinit var tickerAdapter: TickerAdapter
     override lateinit var presenter: UpbitContract.Presenter
-    private val MARKET_NAME = "market name"
     private lateinit var binding : FragmentUpbitBinding
 
     override fun onCreateView(
