@@ -12,10 +12,6 @@ class CoinMainPresenter(
     private val view: CoinMainContract.View
 ) : CoinMainContract.Presenter {
 
-    init {
-        view.presenter = this
-    }
-
     private val coinRepository = CoinRepositoryImpl()
 
     override fun loadMarketData() {

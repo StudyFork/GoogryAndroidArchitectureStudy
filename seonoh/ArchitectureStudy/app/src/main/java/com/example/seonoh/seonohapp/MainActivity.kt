@@ -14,9 +14,11 @@ class MainActivity : AppCompatActivity(), CoinMainContract.View {
     private lateinit var toast: Toast
     private lateinit var coinMarketNameList: List<String>
 
-    override var presenter: CoinMainPresenter = CoinMainPresenter(
-        this
-    )
+    private val presenter: CoinMainPresenter by lazy {
+        CoinMainPresenter(
+            this
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
