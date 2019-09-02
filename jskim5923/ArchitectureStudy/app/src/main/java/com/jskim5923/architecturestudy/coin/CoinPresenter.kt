@@ -15,17 +15,19 @@ class CoinPresenter(private val view: CoinContract.View) : CoinContract.Presente
             .subscribeOn(Schedulers.io())
             .flatMap { marketList ->
                 Repository.getTicker(
-                    marketList.asSequence().filter {
-                        it.market.getCoinCurrency() == market
-                    }.toList().joinToString(",") {
-                        it.market
-                    }
+                    marketList.asSequence()
+                        .filter {
+                            it.market.getCoinCurrency() == market
+                        }.toList().joinToString(",") {
+                            it.market
+                        }
                 )
             }
             .flattenAsObservable { tickerResponseList ->
-                tickerResponseList.asSequence().map { tickerResponse ->
-                    tickerResponse.toTicker()
-                }.toList()
+                tickerResponseList.asSequence()
+                    .map { tickerResponse ->
+                        tickerResponse.toTicker()
+                    }.toList()
             }
             .toList()
             .observeOn(AndroidSchedulers.mainThread())
