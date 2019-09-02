@@ -1,9 +1,6 @@
 package com.example.seonoh.seonohapp.util
 
-import android.content.Context
 import android.util.Log
-import android.widget.TextView
-import androidx.core.content.ContextCompat
 import com.example.seonoh.seonohapp.R
 import java.text.DecimalFormat
 
@@ -29,7 +26,7 @@ object CalculateUtils {
     }
 
     //거래대금
-    fun setTradeAmount(marketType: String, accTradePrice24h: Double): Map<String,Any> {
+    fun setTradeAmount(marketType: String, accTradePrice24h: Double): Map<String, Any> {
         var totalPriceAmount = accTradePrice24h.toLong()
         var mapValue = mutableMapOf<String, Any>()
         when (marketType) {
@@ -104,11 +101,9 @@ object CalculateUtils {
                 if (totalPriceAmount < 1_000L) {
                     mapValue["format"] = fmtResId
                     mapValue["price"] = accTradePrice24h
-//                    mapOf("format" to fmtResId, "price" to accTradePrice24h)
                 } else {
                     mapValue["format"] = fmtResId
                     mapValue["price"] = totalPriceAmount
-//                    mapOf(fmtResId to totalPriceAmount) //totalPriceAmount
                 }
 
             }
