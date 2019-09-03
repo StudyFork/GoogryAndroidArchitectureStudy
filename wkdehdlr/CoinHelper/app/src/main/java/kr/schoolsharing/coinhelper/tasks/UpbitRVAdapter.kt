@@ -16,7 +16,12 @@ class UpbitRVAdapter : RecyclerView.Adapter<UpbitRVAdapter.Holder>() {
     override fun getItemCount(): Int = itemList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        binding = MainRvItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding = MainRvItemBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+
         return Holder(binding)
     }
 
