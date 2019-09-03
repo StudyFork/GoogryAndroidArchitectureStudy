@@ -25,7 +25,7 @@ class CoinViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
             listener.onItemClicked(adapterPosition)
         }
         binding.run {
-            compareYesterdayTv.setTextColor(
+            tvCompareYesterday.setTextColor(
                 ContextCompat.getColor(
                     itemView.context,
                     ticker.compareYesterdayTextColor

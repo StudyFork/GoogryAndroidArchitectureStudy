@@ -52,7 +52,7 @@ class CoinListActivity : AppCompatActivity(), CoinListActivityContract.View {
 
     /* tab layout && view pager init*/
     override fun setTabPager(marketList: List<MarketResponse>) {
-        binding.monetaryUnitTablayout.run {
+        binding.tabLayoutMonetaryUnit.run {
             tabList.map {
                 addTab(newTab().setText(getString(it)))
             }
@@ -74,7 +74,7 @@ class CoinListActivity : AppCompatActivity(), CoinListActivityContract.View {
         coinTapPagerAdapter = CoinTabPagerAdapter(supportFragmentManager, tabList, this@CoinListActivity, marketList)
         binding.coinListViewpager.run {
             adapter = coinTapPagerAdapter
-            addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.monetaryUnitTablayout))
+            addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayoutMonetaryUnit))
         }
 
     }

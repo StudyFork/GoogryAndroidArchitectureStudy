@@ -15,7 +15,7 @@
         android:paddingEnd="16dp">
 
         <TextView
-            android:id="@+id/coin_name_tv"
+            android:id="@+id/tv_coin_name"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -27,11 +27,11 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/now_price_tv"
+            android:id="@+id/tv_now_price"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/coin_name_tv"
+            app:layout_constraintLeft_toRightOf="@id/tv_coin_name"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent=".3"
             android:text="@{ticker.nowPrice}"
@@ -40,11 +40,11 @@
             android:textAlignment="center" />
 
         <TextView
-            android:id="@+id/compare_yesterday_tv"
+            android:id="@+id/tv_compare_yesterday"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/now_price_tv"
+            app:layout_constraintLeft_toRightOf="@id/tv_now_price"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent=".2"
             android:text="@{ticker.compareYesterday}"
@@ -52,11 +52,11 @@
             android:textAlignment="textEnd" />
 
         <TextView
-            android:id="@+id/transaction_amount_tv"
+            android:id="@+id/tv_transaction_amount"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/compare_yesterday_tv"
+            app:layout_constraintLeft_toRightOf="@id/tv_compare_yesterday"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent=".2"
             android:text="@{ticker.transactionAmount}"

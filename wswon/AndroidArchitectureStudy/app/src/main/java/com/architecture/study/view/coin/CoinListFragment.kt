@@ -80,7 +80,7 @@ class CoinListFragment : Fragment(), CoinListFragmentContract.View, CoinListAdap
 
         coinListAdapter = CoinListAdapter(this)
 
-        binding.coinListRecyclerview.run {
+        binding.recyclerViewCoinList.run {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = coinListAdapter
         }

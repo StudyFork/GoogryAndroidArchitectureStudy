@@ -9,7 +9,7 @@
         tools:context=".view.coin.CoinListActivity">
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/monetary_unit_tablayout"
+            android:id="@+id/tab_layout_monetary_unit"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:theme="@style/mainTabTheme"
@@ -26,7 +26,7 @@
             android:id="@+id/title_panel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/monetary_unit_tablayout"
+            app:layout_constraintTop_toBottomOf="@id/tab_layout_monetary_unit"
             app:layout_constraintHeight_percent=".07"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -34,7 +34,7 @@
             android:paddingEnd="16dp">
 
             <TextView
-                android:id="@+id/coin_name_tv"
+                android:id="@+id/tv_coin_name"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -46,11 +46,11 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/now_price_tv"
+                android:id="@+id/tv_now_price"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/coin_name_tv"
+                app:layout_constraintStart_toEndOf="@id/tv_coin_name"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent=".3"
                 android:text="@string/now_price"
@@ -59,11 +59,11 @@
                 android:textAlignment="center" />
 
             <TextView
-                android:id="@+id/compare_yesterday_tv"
+                android:id="@+id/tv_compare_yesterday"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/now_price_tv"
+                app:layout_constraintStart_toEndOf="@id/tv_now_price"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent=".2"
                 android:text="@string/compare_yesterday"
@@ -72,11 +72,11 @@
                 android:textAlignment="textEnd" />
 
             <TextView
-                android:id="@+id/transaction_amount_tv"
+                android:id="@+id/tv_transaction_amount"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/compare_yesterday_tv"
+                app:layout_constraintStart_toEndOf="@id/tv_compare_yesterday"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent=".2"
                 android:text="@string/transaction_amount"
