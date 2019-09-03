@@ -20,10 +20,13 @@ class CoinListAdapter(private val listener: CoinItemRecyclerViewClickListener) :
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinViewHolder = CoinViewHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinViewHolder =
+        CoinViewHolder(parent)
 
-    override fun getItemCount(): Int = coinListData.size
+    override fun getItemCount(): Int =
+        coinListData.size
 
-    override fun onBindViewHolder(holder: CoinViewHolder, position: Int) = holder.bind(coinListData[position], listener)
+    override fun onBindViewHolder(holder: CoinViewHolder, position: Int) =
+        holder.bind(coinListData[position], listener)
 
 }

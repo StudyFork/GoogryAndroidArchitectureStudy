@@ -15,7 +15,9 @@ class CoinViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         layoutParams = RecyclerView.LayoutParams(parent.measuredWidth, parent.measuredHeight / 10)
     }
 ) {
-    private val binding: ItemCoinBinding = DataBindingUtil.bind(itemView)!!
+    private val binding: ItemCoinBinding =
+        DataBindingUtil.bind(itemView)!!
+
 
     fun bind(ticker: Ticker, listener: CoinListAdapter.CoinItemRecyclerViewClickListener) {
         binding.ticker = ticker
