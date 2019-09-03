@@ -11,7 +11,6 @@ import com.jake.archstudy.data.model.Ticker
 import com.jake.archstudy.data.source.UpbitRemoteDataSource
 import com.jake.archstudy.data.source.UpbitRepository
 import com.jake.archstudy.databinding.FragmentTickersBinding
-import com.jake.archstudy.ext.toast
 import com.jake.archstudy.network.ApiUtil
 import com.jake.archstudy.ui.tickers.adapter.TickersAdapter
 
@@ -20,33 +19,21 @@ class TickersFragment :
     TickersContract.View {
 
     override val presenter by lazy {
-        TickersPresenter(this)
+        TickersPresenter(
+            this,
+            UpbitRepository.getInstance(UpbitRemoteDataSource(ApiUtil.getUpbitService())),
+            marketName
+        )
     }
 
     private val marketName by lazy { arguments?.getString(ARGS_MARKET_NAME) ?: "" }
-
-    private val repository =
-        UpbitRepository.getInstance(UpbitRemoteDataSource(ApiUtil.getUpbitService()))
 
     private val tickersAdapter = TickersAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        presenter.onCreate()
         initTickers()
-        getTickers()
-    }
-
-    private fun getTickers() {
-        repository.getTicker(
-            marketName,
-            { response ->
-                val tickers = response.map { it.toTicker() }
-                setTickers(tickers)
-            },
-            {
-                toast(getString(R.string.fail_network))
-            }
-        )
     }
 
     private fun initTickers() {
@@ -56,7 +43,7 @@ class TickersFragment :
         }
     }
 
-    private fun setTickers(tickers: List<Ticker>) {
+    override fun setTickers(tickers: List<Ticker>) {
         tickersAdapter.set(tickers)
     }
 
