@@ -48,7 +48,7 @@ class CoinMainPresenter(
         return marketDataList
     }
 
-    override fun disposableClear() {
+    override fun clearDisposable() {
         compositeDisposable.clear()
     }
 }

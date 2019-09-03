@@ -13,6 +13,6 @@ interface CoinFragmentContract {
         fun loadData(marketName: String)
         fun setData(data: ArrayList<UseCoinModel>)
         fun translateData(result: List<CurrentPriceInfoModel>)
-        fun disposableClear()
+        fun clearDisposable()
     }
 }

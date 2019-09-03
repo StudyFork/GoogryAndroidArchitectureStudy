@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.seonoh.seonohapp.contract.CoinFragmentContract
 import com.example.seonoh.seonohapp.model.UseCoinModel
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.coin_fragment.*
 
 
@@ -63,7 +62,7 @@ class CoinFragment : Fragment(), CoinFragmentContract.View {
     }
 
     override fun onDestroyView() {
-        presenter.disposableClear()
+        presenter.clearDisposable()
         super.onDestroyView()
     }
 }

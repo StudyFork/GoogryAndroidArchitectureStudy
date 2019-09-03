@@ -31,7 +31,7 @@ class CoinFragmentPresenter(
         )
     }
 
-    override fun disposableClear() {
+    override fun clearDisposable() {
         compositeDisposable.clear()
     }
 

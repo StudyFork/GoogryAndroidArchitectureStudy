@@ -10,7 +10,7 @@ interface CoinMainContract {
     }
 
     interface Presenter {
-        fun disposableClear()
+        fun clearDisposable()
         fun loadMarketData()
         fun classifyMarketData(marketData: List<Market>): ArrayList<String>
     }
