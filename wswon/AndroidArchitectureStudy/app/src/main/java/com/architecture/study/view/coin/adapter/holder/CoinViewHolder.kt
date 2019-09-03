@@ -25,11 +25,12 @@ class CoinViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
             listener.onItemClicked(adapterPosition)
         }
         binding.run {
-//            coinNameTv.text = ticker.coinName
-//            nowPriceTv.text = ticker.nowPrice
-//            compareYesterdayTv.text = ticker.compareYesterday
-            compareYesterdayTv.setTextColor(ContextCompat.getColor(itemView.context, ticker.compareYesterdayTextColor))
-//            transactionAmountTv.text = ticker.transactionAmount
+            compareYesterdayTv.setTextColor(
+                ContextCompat.getColor(
+                    itemView.context,
+                    ticker.compareYesterdayTextColor
+                )
+            )
         }
     }
 }
