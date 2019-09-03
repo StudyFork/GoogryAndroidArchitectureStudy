@@ -3,12 +3,10 @@ package com.jake.archstudy.ui.main
 import com.jake.archstudy.R
 import com.jake.archstudy.data.model.Market
 import com.jake.archstudy.data.source.UpbitRepository
-import com.jake.archstudy.util.ResourceProvider
 
 class MainPresenter(
     override val view: MainContract.View,
-    private val repository: UpbitRepository,
-    private val resourceProvider: ResourceProvider
+    private val repository: UpbitRepository
 ) : MainContract.Presenter {
 
     override fun onCreate() {
@@ -32,8 +30,7 @@ class MainPresenter(
                 view.setViewPager(markets)
             },
             {
-                val message = resourceProvider.getString(R.string.fail_network)
-                view.showToast(message)
+                view.showToast(R.string.fail_network)
             }
         )
     }

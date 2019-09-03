@@ -8,10 +8,8 @@ import com.jake.archstudy.data.model.Market
 import com.jake.archstudy.data.source.UpbitRemoteDataSource
 import com.jake.archstudy.data.source.UpbitRepository
 import com.jake.archstudy.databinding.ActivityMainBinding
-import com.jake.archstudy.ext.toast
 import com.jake.archstudy.network.ApiUtil
 import com.jake.archstudy.ui.tickers.TickersFragment
-import com.jake.archstudy.util.ResourceProviderImpl
 
 class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main),
@@ -20,8 +18,7 @@ class MainActivity :
     override val presenter by lazy {
         MainPresenter(
             this,
-            UpbitRepository.getInstance(UpbitRemoteDataSource(ApiUtil.getUpbitService())),
-            ResourceProviderImpl(applicationContext)
+            UpbitRepository.getInstance(UpbitRemoteDataSource(ApiUtil.getUpbitService()))
         )
     }
 
@@ -40,10 +37,6 @@ class MainActivity :
 
             override fun getPageTitle(position: Int) = markets[position].title
         }
-    }
-
-    override fun showToast(text: String) {
-        toast(text)
     }
 
     private fun initTabLayout() {

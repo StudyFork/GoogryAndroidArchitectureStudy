@@ -10,8 +10,6 @@ interface MainContract {
 
         fun setViewPager(markets: List<Market>)
 
-        fun showToast(text: String)
-
     }
 
     interface Presenter : BasePresenter<View>
