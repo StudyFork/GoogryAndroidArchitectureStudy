@@ -16,7 +16,9 @@ class CoinTabPagerAdapter(
 
     /*4개 탭 one fragment로 bundle argument 처리*/
     override fun getItem(position: Int): Fragment = CoinListFragment.newInstance(
-        marketList.filter { it.market.split("-")[0] == context.getString(tabList[position]) }.map { it.market } as ArrayList<String>
+        marketList
+            .filter { it.market.split("-")[0] == context.getString(tabList[position]) }
+            .map { it.market } as ArrayList<String>
     )
 
     override fun getCount(): Int = tabList.size
