@@ -15,7 +15,13 @@ import com.jake.archstudy.ext.toast
 import com.jake.archstudy.network.ApiUtil
 import com.jake.archstudy.ui.tickers.adapter.TickersAdapter
 
-class TickersFragment : BaseFragment<FragmentTickersBinding>(R.layout.fragment_tickers) {
+class TickersFragment :
+    BaseFragment<FragmentTickersBinding>(R.layout.fragment_tickers),
+    TickersContract.View {
+
+    override val presenter by lazy {
+        TickersPresenter(this)
+    }
 
     private val marketName by lazy { arguments?.getString(ARGS_MARKET_NAME) ?: "" }
 
