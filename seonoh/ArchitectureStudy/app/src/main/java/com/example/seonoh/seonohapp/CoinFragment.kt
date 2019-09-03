@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.coin_fragment.*
 
 class CoinFragment : Fragment(), CoinFragmentContract.View {
 
-    lateinit var mAdapter: CoinAdapter
+    private lateinit var mAdapter: CoinAdapter
     private var marketName: String? = null
     private val presenter : CoinFragmentContract.Presenter by lazy { CoinFragmentPresenter(this) }
 
