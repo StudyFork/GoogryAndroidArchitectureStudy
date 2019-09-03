@@ -20,7 +20,7 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            tools:text="이름"/>
+            tools:text="@string/top_coin_name" />
 
         <TextView
             android:id="@+id/current"
@@ -29,7 +29,7 @@
             android:layout_weight="2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            tools:text="현재가"/>
+            tools:text="@string/top_current" />
 
         <TextView
             android:id="@+id/signedChangeRate"
@@ -38,7 +38,7 @@
             android:layout_weight="1.5"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            tools:text="전일대비"/>
+            tools:text="@string/top_signed_change_rate" />
 
         <TextView
             android:id="@+id/volume"
@@ -47,7 +47,7 @@
             android:layout_weight="1.5"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            tools:text="거래대금"/>
+            tools:text="@string/top_volume" />
 
 
     </LinearLayout>
