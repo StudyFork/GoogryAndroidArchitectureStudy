@@ -1,4 +1,4 @@
-package com.jake.archstudy.ui
+package com.jake.archstudy.ui.tickers
 
 import android.os.Bundle
 import android.view.View
@@ -13,7 +13,7 @@ import com.jake.archstudy.data.source.UpbitRepository
 import com.jake.archstudy.databinding.FragmentTickersBinding
 import com.jake.archstudy.ext.toast
 import com.jake.archstudy.network.ApiUtil
-import com.jake.archstudy.ui.adapter.TickersAdapter
+import com.jake.archstudy.ui.tickers.adapter.TickersAdapter
 
 class TickersFragment : BaseFragment<FragmentTickersBinding>(R.layout.fragment_tickers) {
 

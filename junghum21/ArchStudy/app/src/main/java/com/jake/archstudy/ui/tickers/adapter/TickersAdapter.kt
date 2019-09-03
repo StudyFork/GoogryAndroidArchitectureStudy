@@ -1,4 +1,4 @@
-package com.jake.archstudy.ui.adapter
+package com.jake.archstudy.ui.tickers.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

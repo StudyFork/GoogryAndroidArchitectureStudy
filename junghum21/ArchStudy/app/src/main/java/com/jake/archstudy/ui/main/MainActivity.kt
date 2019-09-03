@@ -10,7 +10,7 @@ import com.jake.archstudy.data.source.UpbitRepository
 import com.jake.archstudy.databinding.ActivityMainBinding
 import com.jake.archstudy.ext.toast
 import com.jake.archstudy.network.ApiUtil
-import com.jake.archstudy.ui.TickersFragment
+import com.jake.archstudy.ui.tickers.TickersFragment
 import com.jake.archstudy.util.ResourceProviderImpl
 
 class MainActivity :
