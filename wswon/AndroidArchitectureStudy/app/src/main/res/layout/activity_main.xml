@@ -15,8 +15,8 @@
             android:theme="@style/mainTabTheme"
             app:tabTextColor="@color/pinkish_grey"
             app:tabSelectedTextColor="@color/dark_indigo"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintHeight_percent=".07">
 
@@ -24,8 +24,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/title_panel"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/monetary_unit_tablayout"
             app:layout_constraintHeight_percent=".07"
             android:layout_width="0dp"
@@ -38,7 +38,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent=".3"
                 android:text="@string/coin_name"
@@ -50,7 +50,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/coin_name_tv"
+                app:layout_constraintStart_toEndOf="@id/coin_name_tv"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent=".3"
                 android:text="@string/now_price"
@@ -63,7 +63,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/now_price_tv"
+                app:layout_constraintStart_toEndOf="@id/now_price_tv"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent=".2"
                 android:text="@string/compare_yesterday"
@@ -76,7 +76,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/compare_yesterday_tv"
+                app:layout_constraintStart_toEndOf="@id/compare_yesterday_tv"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent=".2"
                 android:text="@string/transaction_amount"
@@ -89,8 +89,8 @@
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/coin_list_viewpager"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title_panel"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="0dp"
