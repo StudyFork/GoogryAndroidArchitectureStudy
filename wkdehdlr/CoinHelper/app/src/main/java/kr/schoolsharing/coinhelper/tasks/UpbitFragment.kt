@@ -36,14 +36,14 @@ class UpbitFragment : Fragment(), UpbitContract.View {
             false
         )
         return binding.root
-//        return inflater.inflate(R.layout.fragment_coinrecycler, container, false)
     }
 
 
-    //onActivityCreated 에서는 activity가 붙어있다고 확신할 수 있음 -> onViewCreted는 스쳐지나가는 정도임
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
+    /**    onActivityCreated 에서는 activity가 붙어있다고 확신할 수 있음 -> onViewCreted는 스쳐지나가는 정도임
+     *      override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+     *            super.onViewCreated(view, savedInstanceState)
+     *      }
+     */
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
