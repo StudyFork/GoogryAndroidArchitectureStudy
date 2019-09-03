@@ -12,8 +12,9 @@ import com.jake.archstudy.data.source.UpbitRepository
 import com.jake.archstudy.databinding.ActivityMainBinding
 import com.jake.archstudy.ext.toast
 import com.jake.archstudy.network.ApiUtil
+import com.jake.archstudy.ui.TickersFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainContract.View {
 
     private lateinit var binding: ActivityMainBinding
 
