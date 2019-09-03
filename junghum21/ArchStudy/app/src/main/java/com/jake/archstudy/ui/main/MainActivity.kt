@@ -1,11 +1,10 @@
 package com.jake.archstudy.ui.main
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.jake.archstudy.R
+import com.jake.archstudy.base.BaseActivity
 import com.jake.archstudy.data.model.Market
 import com.jake.archstudy.data.source.UpbitRemoteDataSource
 import com.jake.archstudy.data.source.UpbitRepository
@@ -14,16 +13,15 @@ import com.jake.archstudy.ext.toast
 import com.jake.archstudy.network.ApiUtil
 import com.jake.archstudy.ui.TickersFragment
 
-class MainActivity : AppCompatActivity(), MainContract.View {
-
-    private lateinit var binding: ActivityMainBinding
+class MainActivity :
+    BaseActivity<ActivityMainBinding>(R.layout.activity_main),
+    MainContract.View {
 
     private val repository =
         UpbitRepository.getInstance(UpbitRemoteDataSource(ApiUtil.getUpbitService()))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         initTabLayout()
         getMarketAll()
     }
