@@ -1,7 +1,6 @@
 package com.jake.archstudy.ui.main
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.jake.archstudy.R
 import com.jake.archstudy.base.BaseActivity
@@ -12,59 +11,43 @@ import com.jake.archstudy.databinding.ActivityMainBinding
 import com.jake.archstudy.ext.toast
 import com.jake.archstudy.network.ApiUtil
 import com.jake.archstudy.ui.TickersFragment
+import com.jake.archstudy.util.ResourceProviderImpl
 
 class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main),
     MainContract.View {
 
-    private val repository =
-        UpbitRepository.getInstance(UpbitRemoteDataSource(ApiUtil.getUpbitService()))
+    override val presenter by lazy {
+        MainPresenter(
+            this,
+            UpbitRepository.getInstance(UpbitRemoteDataSource(ApiUtil.getUpbitService())),
+            ResourceProviderImpl(applicationContext)
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initTabLayout()
-        getMarketAll()
+        presenter.onCreate()
     }
 
-    private fun getMarketAll() {
-        repository.getMarketAll(
-            { response ->
-                val markets = response.asSequence()
-                    .groupBy { it.market.substringBefore("-") }
-                    .map { map ->
-                        val title = map.key
-                        val markets = map.value.joinToString { it.market }
-                        Market(title, markets)
-                    }
-                initViewPager(markets)
-            },
-            {
-                toast(getString(R.string.fail_network))
-            }
-        )
+    override fun setViewPager(markets: List<Market>) {
+        binding.vpContent.adapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
+            override fun getItem(position: Int) =
+                TickersFragment.newInstance(markets[position].markets)
+
+            override fun getCount() = markets.size
+
+            override fun getPageTitle(position: Int) = markets[position].title
+        }
+    }
+
+    override fun showToast(text: String) {
+        toast(text)
     }
 
     private fun initTabLayout() {
-        binding.tlMarket.run {
-            val viewPager = binding.vpContent
-            setupWithViewPager(viewPager)
-        }
-    }
-
-    private fun initViewPager(markets: List<Market>) {
-        binding.vpContent.run {
-            adapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
-                override fun getItem(position: Int): Fragment {
-                    return TickersFragment.newInstance(markets[position].markets)
-                }
-
-                override fun getCount() = markets.size
-
-                override fun getPageTitle(position: Int): CharSequence? {
-                    return markets[position].title
-                }
-            }
-        }
+        binding.tlMarket.setupWithViewPager(binding.vpContent)
     }
 
 }
