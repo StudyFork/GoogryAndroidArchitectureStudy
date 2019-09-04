@@ -14,6 +14,7 @@ import study.architecture.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -35,8 +36,8 @@ class MainActivity : AppCompatActivity() {
 
                 }
 
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    binding.pager.currentItem = tab!!.position
+                override fun onTabSelected(tab: TabLayout.Tab) {
+                    binding.pager.currentItem = tab.position
                 }
             })
         }
