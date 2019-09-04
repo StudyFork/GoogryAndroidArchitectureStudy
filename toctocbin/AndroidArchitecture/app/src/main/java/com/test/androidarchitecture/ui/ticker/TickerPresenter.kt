@@ -46,7 +46,7 @@ class TickerPresenter(private val view: TickerContract.View) : TickerContract.Pr
             else -> NumberFormat.getNumberInstance(Locale.US).format(ticker.tradePrice)
         }
 
-        val changeRate = """${String.format("%.2f", ticker.signedChangeRate * 100)}%"""
+        val changeRate = "${String.format("%.2f", ticker.signedChangeRate * 100)}%"
 
         val changeColor: Int = when (ticker.change) {
             "RISE" -> R.color.colorRed
