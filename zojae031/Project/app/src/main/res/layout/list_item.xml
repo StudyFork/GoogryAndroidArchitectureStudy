@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
-                android:gravity="left"
+                android:gravity="start"
                 android:padding="4dp"
                 android:text="코인명"
                 android:textColor="@android:color/black"
@@ -40,12 +40,12 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
-                android:gravity="center|right"
+                android:gravity="end"
                 android:padding="4dp"
                 android:singleLine="true"
                 android:text="현재가"
                 android:textColor="@android:color/black"
-                android:textSize="10sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/change_rate"
