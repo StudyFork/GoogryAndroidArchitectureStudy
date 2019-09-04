@@ -13,7 +13,7 @@ class MarketActivity :
     MarketContract.View {
 
     private lateinit var viewPagerAdapter: ViewPagerAdapter
-    private val presenter by lazy { MarketPresenter.getInstance(this) }
+    private val presenter by lazy { MarketPresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
