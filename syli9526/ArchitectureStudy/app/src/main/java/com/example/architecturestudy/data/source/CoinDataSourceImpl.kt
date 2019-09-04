@@ -1,16 +1,17 @@
 package com.example.architecturestudy.data.source
 
 import com.example.architecturestudy.data.model.Ticker
-import com.example.architecturestudy.network.api.ApiService
+import com.example.architecturestudy.network.api.ApiManager
 import com.example.architecturestudy.network.model.MarketResponse
 import com.example.architecturestudy.network.model.TickerResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+
 
 class CoinDataSourceImpl : CoinDataSource {
+
+    private val apiService = ApiManager.apiService
 
     override fun getMarketInfo(listener: UpbitListener<MarketResponse>) {
 
@@ -56,12 +57,6 @@ class CoinDataSourceImpl : CoinDataSource {
     }
 
     companion object {
-        private const val URL = "https://api.upbit.com"
-        private val retrofit = Retrofit.Builder()
-            .baseUrl(URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        private val apiService = retrofit.create(ApiService::class.java)
 
         private var instance: CoinDataSourceImpl? = null
         fun getInstance(): CoinDataSourceImpl =
