@@ -27,7 +27,12 @@ class UpbitFragment : Fragment(), UpbitContract.View {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_upbit,container,false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_upbit,
+            container,
+            false
+        )
         return binding.root
     }
 
@@ -49,7 +54,7 @@ class UpbitFragment : Fragment(), UpbitContract.View {
         Log.d("recyclerViewSetup", "" )
         tickerAdapter = TickerAdapter()
 
-        binding.rvTickers.apply {
+        with(binding.rvTickers) {
             adapter = tickerAdapter
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         }
