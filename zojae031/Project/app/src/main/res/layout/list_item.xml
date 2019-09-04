@@ -11,7 +11,7 @@
         android:padding="4dp">
 
         <LinearLayout
-            android:id="@+id/dataWrapper"
+            android:id="@+id/data_wrapper"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"

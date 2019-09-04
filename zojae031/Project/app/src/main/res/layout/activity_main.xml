@@ -10,7 +10,7 @@
         tools:context=".ui.mainjob.MainActivity">
 
         <LinearLayout
-            android:id="@+id/dataWrapper"
+            android:id="@+id/data_wrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -19,7 +19,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tabLayout">
+            app:layout_constraintTop_toBottomOf="@+id/tab_layout">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -65,10 +65,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dataWrapper" />
+            app:layout_constraintTop_toBottomOf="@+id/data_wrapper" />
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
+            android:id="@+id/tab_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
