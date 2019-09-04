@@ -1,23 +1,22 @@
 package com.example.architecturestudy.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.R
 import com.example.architecturestudy.data.model.Ticker
-import com.example.architecturestudy.data.repository.CoinRepositoryImpl
 import com.example.architecturestudy.ui.adapter.CoinAdapter
-import com.example.architecturestudy.data.source.UpbitListener
 import kotlinx.android.synthetic.main.fragment_list_coin.*
 
-class CoinFragment : Fragment() {
+class CoinFragment : Fragment(), CoinContract.View {
 
     private val coinAdapter by lazy { CoinAdapter() }
+    private val presenter by lazy { CoinPresenter(this) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_list_coin, container, false)
@@ -27,10 +26,18 @@ class CoinFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val currencyList = arguments?.getString(CURRENCY_LIST) ?: ""
-        getTickerInfo(currencyList)
+        presenter.getTickerList(currencyList)
 
         setCoinAdapter()
 
+    }
+
+    override fun setData(tickerList: List<Ticker>) {
+        coinAdapter.setData(tickerList)
+    }
+
+    override fun showMessage(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     private fun setCoinAdapter() {
@@ -41,21 +48,6 @@ class CoinFragment : Fragment() {
             adapter = coinAdapter
         }
 
-    }
-
-    private fun getTickerInfo(name: String) {
-
-        CoinRepositoryImpl.getInstance().getTickerInfo(name, object : UpbitListener<Ticker> {
-
-            override fun onResponse(dataList: List<Ticker>) {
-                coinAdapter.setData(dataList)
-            }
-
-            override fun onFailure(str: String) {
-                Log.d("onFailure",str)
-            }
-
-        })
     }
 
     companion object {
