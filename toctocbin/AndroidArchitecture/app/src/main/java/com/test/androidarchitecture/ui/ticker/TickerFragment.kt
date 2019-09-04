@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_coin.*
 class TickerFragment : Fragment(), TickerContract.View {
 
     private val adapter by lazy { TickerAdapter() }
-    private val presenter by lazy { TickerPresenter.getInstance(this) }
+    private val presenter by lazy { TickerPresenter(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
