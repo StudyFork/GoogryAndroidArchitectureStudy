@@ -11,7 +11,7 @@ class MarketPresenter(private val view: MarketContract.View) : MarketContract.Pr
     private val disposables by lazy { CompositeDisposable() }
 
     override fun getMarketAll() {
-        upbitRepository.getMarketAll()
+        disposables.add(upbitRepository.getMarketAll()
             .map { list ->
                 list.groupBy { it.market.substringBefore("-") }
                     .asSequence()
@@ -30,8 +30,7 @@ class MarketPresenter(private val view: MarketContract.View) : MarketContract.Pr
                 }, {
                     view.showToast(it.message.toString())
                 }
-            )
-            .apply { disposables.add(this) }
+            ))
     }
 
     override fun disposablesClear() {
