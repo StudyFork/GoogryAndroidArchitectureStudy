@@ -33,7 +33,7 @@ class MarketActivity :
     }
 
     override fun setViewpagerData(list: List<MarketTitle>) {
-        viewPagerAdapter?.setData(list)
+        viewPagerAdapter.setData(list)
     }
 
     override fun showToast(msg: String) {
