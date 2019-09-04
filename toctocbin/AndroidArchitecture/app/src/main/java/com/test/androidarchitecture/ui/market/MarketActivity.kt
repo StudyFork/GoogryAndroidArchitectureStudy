@@ -8,7 +8,9 @@ import com.test.androidarchitecture.adpter.ViewPagerAdapter
 import com.test.androidarchitecture.data.MarketTitle
 import kotlinx.android.synthetic.main.activity_market.*
 
-class MarketActivity : AppCompatActivity(), MarketContract.View {
+class MarketActivity :
+    AppCompatActivity(),
+    MarketContract.View {
 
     private var viewPagerAdapter: ViewPagerAdapter? = null
     private val presenter by lazy { MarketPresenter.getInstance(this) }
