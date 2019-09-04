@@ -38,16 +38,4 @@ class MarketPresenter(private val view: MarketContract.View) : MarketContract.Pr
         disposables.clear()
     }
 
-    companion object {
-
-        @Volatile
-        private var instance: MarketPresenter? = null
-
-        @JvmStatic
-        fun getInstance(view: MarketContract.View) = instance ?: synchronized(this) {
-            instance ?: MarketPresenter(view).also {
-                instance = it
-            }
-        }
-    }
 }
