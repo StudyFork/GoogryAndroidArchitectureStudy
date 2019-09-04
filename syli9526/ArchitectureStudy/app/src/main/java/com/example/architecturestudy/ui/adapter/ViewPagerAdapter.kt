@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.example.architecturestudy.network.model.MarketResponse
-import com.example.architecturestudy.ui.CoinFragment
+import com.example.architecturestudy.ui.coin.CoinFragment
 
 class ViewPagerAdapter(
     fm: FragmentManager

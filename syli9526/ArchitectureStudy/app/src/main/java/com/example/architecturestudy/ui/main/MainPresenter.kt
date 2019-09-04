@@ -1,11 +1,12 @@
-package com.example.architecturestudy.ui
+package com.example.architecturestudy.ui.main
 
 
 import com.example.architecturestudy.data.repository.CoinRepositoryImpl
 import com.example.architecturestudy.data.source.UpbitListener
 import com.example.architecturestudy.network.model.MarketResponse
 
-class MainPresenter(private val view: MainContract.View): MainContract.Presenter {
+class MainPresenter(private val view: MainContract.View):
+    MainContract.Presenter {
 
     override fun getMarketList() {
 
