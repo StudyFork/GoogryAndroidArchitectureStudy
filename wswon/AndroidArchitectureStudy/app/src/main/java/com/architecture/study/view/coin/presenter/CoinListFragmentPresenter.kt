@@ -1,6 +1,5 @@
 package com.architecture.study.view.coin.presenter
 
-import com.architecture.study.R
 import com.architecture.study.data.model.Ticker
 import com.architecture.study.data.repository.CoinRepository
 import com.architecture.study.data.source.CoinRemoteDataSourceListener

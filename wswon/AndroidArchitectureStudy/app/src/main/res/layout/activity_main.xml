@@ -1,96 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.coin.CoinListActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/monetary_unit_tablayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:theme="@style/mainTabTheme"
-        app:tabTextColor="@color/pinkish_grey"
-        app:tabSelectedTextColor="@color/dark_indigo"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHeight_percent=".07">
-
-    </com.google.android.material.tabs.TabLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/title_panel"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/monetary_unit_tablayout"
-        app:layout_constraintHeight_percent=".07"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.coin.CoinListActivity">
 
-        <TextView
-            android:id="@+id/coin_name_tv"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout_monetary_unit"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:theme="@style/mainTabTheme"
+            app:tabTextColor="@color/pinkish_grey"
+            app:tabSelectedTextColor="@color/dark_indigo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent=".3"
-            android:text="@string/coin_name"
-            android:textColor="@color/colorBlack"
-            android:textSize="14sp"/>
-        <TextView
-            android:id="@+id/now_price_tv"
+            app:layout_constraintHeight_percent=".07">
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/title_panel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab_layout_monetary_unit"
+            app:layout_constraintHeight_percent=".07"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <TextView
+                android:id="@+id/tv_coin_name"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent=".3"
+                android:text="@string/coin_name"
+                android:textColor="@color/colorBlack"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_now_price"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_coin_name"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent=".3"
+                android:text="@string/now_price"
+                android:textColor="@color/colorBlack"
+                android:textSize="12sp"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tv_compare_yesterday"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_now_price"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent=".2"
+                android:text="@string/compare_yesterday"
+                android:textColor="@color/colorBlack"
+                android:textSize="12sp"
+                android:textAlignment="textEnd" />
+
+            <TextView
+                android:id="@+id/tv_transaction_amount"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_compare_yesterday"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent=".2"
+                android:text="@string/transaction_amount"
+                android:textColor="@color/colorBlack"
+                android:textSize="12sp"
+                android:textAlignment="textEnd" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/coin_list_viewpager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_panel"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/coin_name_tv"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent=".3"
-            android:text="@string/now_price"
-            android:textColor="@color/colorBlack"
-            android:textSize="12sp"
-            android:textAlignment="center"/>
-        <TextView
-            android:id="@+id/compare_yesterday_tv"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/now_price_tv"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent=".2"
-            android:text="@string/compare_yesterday"
-            android:textColor="@color/colorBlack"
-            android:textSize="12sp"
-            android:textAlignment="textEnd"/>
-        <TextView
-            android:id="@+id/transaction_amount_tv"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/compare_yesterday_tv"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent=".2"
-            android:text="@string/transaction_amount"
-            android:textColor="@color/colorBlack"
-            android:textSize="12sp"
-            android:textAlignment="textEnd"/>
+            android:layout_height="0dp" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/coin_list_viewpager"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_panel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

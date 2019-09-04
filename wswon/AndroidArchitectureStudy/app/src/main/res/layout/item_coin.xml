@@ -1,57 +1,68 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/coin_name_tv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent=".3"
-        android:text="RVN"
-        android:textColor="@color/colorBlack"
-        android:textSize="14sp"/>
-    <TextView
-        android:id="@+id/now_price_tv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/coin_name_tv"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent=".3"
-        android:text="0.000000423"
-        android:textColor="@color/colorBlack"
-        android:textSize="12sp"
-        android:textAlignment="center"/>
-    <TextView
-        android:id="@+id/compare_yesterday_tv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/now_price_tv"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent=".2"
-        android:text="-5.16%"
-        android:textSize="12sp"
-        android:textAlignment="textEnd"/>
-    <TextView
-        android:id="@+id/transaction_amount_tv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/compare_yesterday_tv"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent=".2"
-        android:text="331,838"
-        android:textColor="@color/colorBlack"
-        android:textSize="12sp"
-        android:textAlignment="textEnd"/>
+    <data>
+        <variable
+            name="ticker"
+            type="com.architecture.study.data.model.Ticker" />
+    </data>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:id="@+id/tv_coin_name"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent=".3"
+            android:text="@{ticker.coinName}"
+            android:textColor="@color/colorBlack"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_now_price"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/tv_coin_name"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent=".3"
+            android:text="@{ticker.nowPrice}"
+            android:textColor="@color/colorBlack"
+            android:textSize="12sp"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/tv_compare_yesterday"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/tv_now_price"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent=".2"
+            android:text="@{ticker.compareYesterday}"
+            android:textSize="12sp"
+            android:textAlignment="textEnd" />
+
+        <TextView
+            android:id="@+id/tv_transaction_amount"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/tv_compare_yesterday"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent=".2"
+            android:text="@{ticker.transactionAmount}"
+            android:textColor="@color/colorBlack"
+            android:textSize="12sp"
+            android:textAlignment="textEnd" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
