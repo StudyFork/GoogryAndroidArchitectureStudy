@@ -13,7 +13,12 @@ import study.architecture.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private val binding by lazy { DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main) }
+    private val binding by lazy {
+        DataBindingUtil.setContentView<ActivityMainBinding>(
+            this,
+            R.layout.activity_main
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +62,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun pagerSetting() {
-        binding.pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout))
-        binding.pager.adapter = MainPageAdapter(supportFragmentManager)
+        with(binding.pager) {
+            addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout))
+            adapter = MainPageAdapter(supportFragmentManager)
+        }
     }
 }
