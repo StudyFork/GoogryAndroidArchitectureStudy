@@ -17,6 +17,7 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>(),
 
     private val lists: MutableList<ProcessingTicker> = mutableListOf()
     private lateinit var binding: ListItemBinding
+    
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         binding = ListItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
