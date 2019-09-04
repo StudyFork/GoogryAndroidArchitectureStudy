@@ -54,7 +54,7 @@ class UpbitFragment : Fragment(), UpbitContract.View {
         Log.d("recyclerViewSetup", "" )
         tickerAdapter = TickerAdapter()
 
-        with(binding.rvTickers) {
+        binding.rvTickers?.run {
             adapter = tickerAdapter
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         }
