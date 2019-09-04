@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.architecturestudy.R
-import com.example.architecturestudy.data.source.CoinRepository
+import com.example.architecturestudy.data.repository.CoinRepositoryImpl
 import com.example.architecturestudy.network.model.MarketResponse
 import com.example.architecturestudy.ui.adapter.ViewPagerAdapter
 import com.example.architecturestudy.data.source.UpbitListener
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getInformation() {
 
-        CoinRepository.getInstance().getMarketInfo(object : UpbitListener<MarketResponse> {
+        CoinRepositoryImpl.getInstance().getMarketInfo(object : UpbitListener<MarketResponse> {
             override fun onResponse(dataList: List<MarketResponse>) {
                 viewPagerAdapter.setData(pageList, dataList)
             }
