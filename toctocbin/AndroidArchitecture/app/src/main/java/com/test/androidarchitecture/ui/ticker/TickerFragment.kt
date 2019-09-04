@@ -13,7 +13,9 @@ import com.test.androidarchitecture.data.TickerFormat
 import kotlinx.android.synthetic.main.fragment_coin.*
 
 
-class TickerFragment : Fragment(), TickerContract.View {
+class TickerFragment :
+    Fragment(),
+    TickerContract.View {
 
     private val adapter by lazy { TickerAdapter() }
     private val presenter by lazy { TickerPresenter(this) }
