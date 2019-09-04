@@ -4,39 +4,34 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.architecturestudy.R
-import com.example.architecturestudy.data.repository.CoinRepositoryImpl
 import com.example.architecturestudy.network.model.MarketResponse
 import com.example.architecturestudy.ui.adapter.ViewPagerAdapter
-import com.example.architecturestudy.data.source.UpbitListener
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainContract.View {
 
     private val viewPagerAdapter by lazy { ViewPagerAdapter(supportFragmentManager) }
+    private val presenter by lazy { MainPresenter(this) }
+    private val pageList = listOf(
+        "KRW",
+        "BTC",
+        "ETH",
+        "USDT"
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setPage()
-        getInformation()
+        presenter.getMarketList()
     }
 
-    private fun getInformation() {
-
-        CoinRepositoryImpl.getInstance().getMarketInfo(object : UpbitListener<MarketResponse> {
-            override fun onResponse(dataList: List<MarketResponse>) {
-                viewPagerAdapter.setData(pageList, dataList)
-            }
-
-            override fun onFailure(str: String) {
-                Toast.makeText(this@MainActivity, "Call Failure : $str", Toast.LENGTH_LONG).show()
-            }
-
-        })
+    override fun setData(marketList: List<MarketResponse>) {
+        viewPagerAdapter.setData(pageList, marketList)
     }
 
-    private fun setPage() {
+    override fun setPage() {
 
         currency_tab_layout.run {
             pageList.forEach {
@@ -63,12 +58,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    companion object {
-        val pageList = listOf(
-            "KRW",
-            "BTC",
-            "ETH",
-            "USDT"
-        )
+    override fun showMessage(message: String) {
+        Toast.makeText(this@MainActivity, message, Toast.LENGTH_LONG).show()
     }
+
 }
