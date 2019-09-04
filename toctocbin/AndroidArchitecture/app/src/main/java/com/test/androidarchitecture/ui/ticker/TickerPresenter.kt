@@ -17,7 +17,7 @@ class TickerPresenter(private val view: TickerContract.View) : TickerContract.Pr
 
 
     override fun getTicker(marketSearch: String) {
-        upbitRepository.getTicker(marketSearch)
+        disposables.add(upbitRepository.getTicker(marketSearch)
             .map { list ->
                 list.asSequence()
                     .map { getCoinFormat(it) }
@@ -30,8 +30,8 @@ class TickerPresenter(private val view: TickerContract.View) : TickerContract.Pr
                 }, {
                     view.showToast(it.message.toString())
                 }
-            )
-            .apply { disposables.add(this) }
+            ))
+
     }
 
     override fun disposablesClear() {
