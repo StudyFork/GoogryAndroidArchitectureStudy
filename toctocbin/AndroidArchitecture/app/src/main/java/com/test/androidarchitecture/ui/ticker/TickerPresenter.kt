@@ -63,16 +63,4 @@ class TickerPresenter(private val view: TickerContract.View) : TickerContract.Pr
         return TickerFormat(marketName, tradePrice, changeRate, changeColor, accTradePrice)
     }
 
-    companion object {
-
-        @Volatile
-        private var instance: TickerPresenter? = null
-
-        @JvmStatic
-        fun getInstance(view: TickerContract.View) = instance ?: synchronized(this) {
-            instance ?: TickerPresenter(view).also {
-                instance = it
-            }
-        }
-    }
 }
