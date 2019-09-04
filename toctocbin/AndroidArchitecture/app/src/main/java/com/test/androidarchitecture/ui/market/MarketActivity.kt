@@ -12,7 +12,7 @@ class MarketActivity :
     AppCompatActivity(),
     MarketContract.View {
 
-    private var viewPagerAdapter: ViewPagerAdapter? = null
+    private lateinit var viewPagerAdapter: ViewPagerAdapter
     private val presenter by lazy { MarketPresenter.getInstance(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
