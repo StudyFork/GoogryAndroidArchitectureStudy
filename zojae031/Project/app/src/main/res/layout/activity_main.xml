@@ -82,22 +82,22 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="KRW" />
+                android:text="@string/krw" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="BTC" />
+                android:text="@string/btc" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ETH" />
+                android:text="@string/eth" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="USDT" />
+                android:text="@string/usdt" />
         </com.google.android.material.tabs.TabLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
