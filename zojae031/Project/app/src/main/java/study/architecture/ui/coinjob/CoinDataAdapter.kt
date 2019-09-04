@@ -24,9 +24,7 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>(),
         return Holder(binding)
     }
 
-
     override fun getItemCount(): Int = lists.size
-
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bind(position)
