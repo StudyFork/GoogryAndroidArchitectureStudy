@@ -42,7 +42,11 @@ class CoinFragment : Fragment(), CoinContract.View {
     private val adapter = CoinDataAdapter()
     private lateinit var binding: FragmentCoinBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = DataBindingUtil.inflate<FragmentCoinBinding>(
             LayoutInflater.from(context),
             R.layout.fragment_coin,
