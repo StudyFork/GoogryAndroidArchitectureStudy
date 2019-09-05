@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun adaptPager() {
-        PagerAdapter(supportFragmentManager).apply {
+        with(PagerAdapter(supportFragmentManager)) {
             binding.viewpagerMain.adapter = this
             binding.tabsMain.setupWithViewPager(binding.viewpagerMain)
         }
