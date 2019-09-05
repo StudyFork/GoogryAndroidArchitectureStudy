@@ -41,8 +41,8 @@ class MainActivity : AppCompatActivity() {
 
                 }
 
-                override fun onTabSelected(tab: TabLayout.Tab) {
-                    binding.pager.currentItem = tab.position
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    binding.pager.currentItem = tab?.position ?: 0
                 }
             })
         }
