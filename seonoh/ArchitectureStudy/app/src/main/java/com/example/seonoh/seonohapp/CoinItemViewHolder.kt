@@ -21,8 +21,18 @@ class CoinItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         currentPriceTv.text = data.tradePrice
         changeRateTv.run {
             text = data.signedChangeRate["rate"].toString()
-            setTextColor(ContextCompat.getColor(itemView.context,data.signedChangeRate["color"].toString().toInt()))
+            setTextColor(
+                ContextCompat.getColor(
+                    itemView.context
+                    , data.signedChangeRate["color"]
+                        .toString()
+                        .toInt()
+                )
+            )
         }
-        totalTradePriceTv.text = String.format(itemView.context.getString(data.accTradePrice_24h["format"].toString().toInt()),data.accTradePrice_24h["price"])
+        totalTradePriceTv.text = String.format(
+            itemView.context.getString(data.accTradePrice_24h["format"].toString().toInt()),
+            data.accTradePrice_24h["price"]
+        )
     }
 }
