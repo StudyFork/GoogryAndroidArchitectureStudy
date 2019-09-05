@@ -13,10 +13,6 @@ class MainPresenter(
         getMarketAll()
     }
 
-    override fun onDestroy() {
-
-    }
-
     private fun getMarketAll() {
         repository.getMarketAll(
             { response ->

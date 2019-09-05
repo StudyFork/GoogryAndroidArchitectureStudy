@@ -13,9 +13,6 @@ class TickersPresenter(
         getTickers()
     }
 
-    override fun onDestroy() {
-    }
-
     private fun getTickers() {
         repository.getTicker(
             marketName,

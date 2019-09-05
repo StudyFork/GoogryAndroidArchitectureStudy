@@ -6,6 +6,4 @@ interface BasePresenter<V> {
 
     fun onCreate()
 
-    fun onDestroy()
-
 }
