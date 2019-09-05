@@ -8,7 +8,9 @@ val doubleFormat = DecimalFormat("#,##0.00000000")
 val intFormat = DecimalFormat("#,###.##")
 
 object CalculateUtils {
-    fun setMarketName(marketName: String): String? {
+    fun setMarketName(
+        marketName: String
+    ): String? {
         return if (marketName?.contains("USDT")) {
             marketName?.substring(5, marketName.length)
         } else {
@@ -16,7 +18,9 @@ object CalculateUtils {
         }
     }
 
-    fun filterTrade(tradePrice: Double?): String {
+    fun filterTrade(
+        tradePrice: Double?
+    ): String {
         return if (tradePrice ?: .0 > 1) {
             intFormat.format(tradePrice ?: 0).toString()
         } else {
@@ -26,7 +30,10 @@ object CalculateUtils {
     }
 
     //거래대금
-    fun setTradeAmount(marketType: String, accTradePrice24h: Double): Map<String, Any> {
+    fun setTradeAmount(
+        marketType: String,
+        accTradePrice24h: Double
+    ): Map<String, Any> {
         var totalPriceAmount = accTradePrice24h.toLong()
         val mapValue = mutableMapOf<String, Any>()
         when (marketType) {
@@ -109,7 +116,9 @@ object CalculateUtils {
         return mapValue
     }
 
-    fun setTradeDiff(signedChangeRate: Double): Map<String, Any> {
+    fun setTradeDiff(
+        signedChangeRate: Double
+    ): Map<String, Any> {
         val mapValue = mutableMapOf<String, Any>()
         val color = when {
             (signedChangeRate > 0) -> R.color.seonohRed
