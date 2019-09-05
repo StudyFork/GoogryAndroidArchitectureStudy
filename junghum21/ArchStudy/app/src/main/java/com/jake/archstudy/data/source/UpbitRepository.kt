@@ -27,13 +27,13 @@ class UpbitRepository private constructor() : UpbitDataSource {
 
         private lateinit var upbitRemoteDataSource: UpbitRemoteDataSource
 
-        @JvmStatic
         fun getInstance(upbitRemoteDataSource: UpbitRemoteDataSource): UpbitRepository {
             this.upbitRemoteDataSource = upbitRemoteDataSource
             return INSTANCE ?: synchronized(this) {
                 INSTANCE ?: UpbitRepository().also { INSTANCE = it }
             }
         }
+
     }
 
 }
