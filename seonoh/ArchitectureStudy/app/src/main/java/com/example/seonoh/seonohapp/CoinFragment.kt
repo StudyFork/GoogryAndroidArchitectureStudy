@@ -49,6 +49,11 @@ class CoinFragment : Fragment(), CoinFragmentContract.View {
         ).show()
     }
 
+    override fun onDestroyView() {
+        presenter.clearDisposable()
+        super.onDestroyView()
+    }
+
     companion object {
         private const val MARKET = "market"
 
@@ -59,10 +64,5 @@ class CoinFragment : Fragment(), CoinFragmentContract.View {
             fragment.arguments = bundle
             return fragment
         }
-    }
-
-    override fun onDestroyView() {
-        presenter.clearDisposable()
-        super.onDestroyView()
     }
 }
