@@ -28,9 +28,7 @@ class UpbitRepository private constructor() : UpbitDataSource {
 
         fun getInstance(upbitRemoteDataSource: UpbitRemoteDataSource): UpbitRepository {
             this.upbitRemoteDataSource = upbitRemoteDataSource
-            return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: UpbitRepository().also { INSTANCE = it }
-            }
+            return INSTANCE ?: UpbitRepository().also { INSTANCE = it }
         }
 
     }
