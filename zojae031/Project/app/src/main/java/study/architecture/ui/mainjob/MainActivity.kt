@@ -13,16 +13,14 @@ import study.architecture.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private val binding by lazy {
-        DataBindingUtil.setContentView<ActivityMainBinding>(
-            this,
-            R.layout.activity_main
-        )
-    }
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        binding = DataBindingUtil.setContentView<ActivityMainBinding>(
+            this,
+            R.layout.activity_main
+        )
         supportActionBar?.elevation = 0.0f
         supportActionBar?.title = resources.getString(R.string.app_title)
         tabSetting()
