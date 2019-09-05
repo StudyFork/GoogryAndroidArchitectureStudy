@@ -25,7 +25,7 @@ class CoinFragment : Fragment(), CoinFragmentContract.View {
         return inflater.inflate(R.layout.coin_fragment, container, false)
     }
 
-    override fun initRecyclerView(data: ArrayList<UseCoinModel>) {
+    override fun initRecyclerView(data: List<UseCoinModel>) {
         mAdapter.addCoinData(data)
     }
 
