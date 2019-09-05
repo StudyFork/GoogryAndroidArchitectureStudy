@@ -22,7 +22,6 @@ class UpbitRepository private constructor() : UpbitDataSource {
 
     companion object {
 
-        @Volatile
         private var INSTANCE: UpbitRepository? = null
 
         private lateinit var upbitRemoteDataSource: UpbitRemoteDataSource
