@@ -12,7 +12,8 @@ fun Activity.toast(
 }
 
 fun Activity.toast(
-    @StringRes stringRes: Int,
+    @StringRes
+    stringRes: Int,
     duration: Int = Toast.LENGTH_SHORT
 ) {
     Toast.makeText(this, stringRes, duration).show()

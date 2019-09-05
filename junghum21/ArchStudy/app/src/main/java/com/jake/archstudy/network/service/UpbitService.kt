@@ -12,6 +12,9 @@ interface UpbitService {
     fun getMarketAll(): Call<List<MarketResponse>>
 
     @GET("/v1/ticker")
-    fun getTicker(@Query("markets") markets: String): Call<List<TickerResponse>>
+    fun getTicker(
+        @Query("markets")
+        markets: String
+    ): Call<List<TickerResponse>>
 
 }

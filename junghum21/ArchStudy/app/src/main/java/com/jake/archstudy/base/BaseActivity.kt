@@ -10,7 +10,8 @@ import androidx.databinding.ViewDataBinding
 import com.jake.archstudy.ext.toast
 
 abstract class BaseActivity<B : ViewDataBinding>(
-    @LayoutRes val layoutRes: Int
+    @LayoutRes
+    val layoutRes: Int
 ) : AppCompatActivity() {
 
     protected lateinit var binding: B
@@ -20,11 +21,18 @@ abstract class BaseActivity<B : ViewDataBinding>(
         binding = DataBindingUtil.setContentView(this, layoutRes)
     }
 
-    fun showToast(text: String, duration: Int = Toast.LENGTH_SHORT) {
+    fun showToast(
+        text: String,
+        duration: Int = Toast.LENGTH_SHORT
+    ) {
         toast(text, duration)
     }
 
-    fun showToast(@StringRes stringResId: Int, duration: Int = Toast.LENGTH_SHORT) {
+    fun showToast(
+        @StringRes
+        stringResId: Int,
+        duration: Int = Toast.LENGTH_SHORT
+    ) {
         toast(stringResId, duration)
     }
 

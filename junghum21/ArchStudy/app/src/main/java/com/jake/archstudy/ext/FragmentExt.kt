@@ -12,7 +12,8 @@ fun Fragment.toast(
 }
 
 fun Fragment.toast(
-    @StringRes stringRes: Int,
+    @StringRes
+    stringRes: Int,
     duration: Int = Toast.LENGTH_SHORT
 ) {
     activity?.toast(stringRes, duration)

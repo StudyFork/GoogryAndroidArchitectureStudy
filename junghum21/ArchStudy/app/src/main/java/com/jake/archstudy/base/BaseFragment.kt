@@ -13,7 +13,8 @@ import androidx.fragment.app.Fragment
 import com.jake.archstudy.ext.toast
 
 abstract class BaseFragment<B : ViewDataBinding>(
-    @LayoutRes private val layoutId: Int
+    @LayoutRes
+    private val layoutId: Int
 ) : Fragment() {
 
     internal lateinit var binding: B
@@ -31,7 +32,11 @@ abstract class BaseFragment<B : ViewDataBinding>(
         toast(text, duration)
     }
 
-    fun showToast(@StringRes stringResId: Int, duration: Int = Toast.LENGTH_SHORT) {
+    fun showToast(
+        @StringRes
+        stringResId: Int,
+        duration: Int = Toast.LENGTH_SHORT
+    ) {
         toast(stringResId, duration)
     }
 
