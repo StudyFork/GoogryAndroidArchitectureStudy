@@ -28,7 +28,7 @@ object CalculateUtils {
     //거래대금
     fun setTradeAmount(marketType: String, accTradePrice24h: Double): Map<String, Any> {
         var totalPriceAmount = accTradePrice24h.toLong()
-        var mapValue = mutableMapOf<String, Any>()
+        val mapValue = mutableMapOf<String, Any>()
         when (marketType) {
             "KRW" -> {
                 when {
