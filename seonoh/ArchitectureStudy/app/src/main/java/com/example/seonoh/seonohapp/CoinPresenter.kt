@@ -10,7 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class CoinFragmentPresenter(
+class CoinPresenter(
     private val view: CoinFragmentContract.View
 ) : CoinFragmentContract.Presenter {
 

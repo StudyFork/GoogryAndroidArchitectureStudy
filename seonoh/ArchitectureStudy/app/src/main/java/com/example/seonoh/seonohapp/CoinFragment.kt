@@ -15,7 +15,7 @@ class CoinFragment : Fragment(), CoinFragmentContract.View {
 
     private lateinit var mAdapter: CoinAdapter
     private var marketName: String? = null
-    private val presenter by lazy { CoinFragmentPresenter(this) }
+    private val presenter by lazy { CoinPresenter(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
