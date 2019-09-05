@@ -5,7 +5,6 @@ import com.example.seonoh.seonohapp.model.UseCoinModel
 
 interface CoinFragmentContract {
     interface View {
-        fun initView()
         fun initRecyclerView(data: List<UseCoinModel>)
     }
 

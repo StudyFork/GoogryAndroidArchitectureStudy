@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), CoinMainContract.View {
         presenter.loadMarketData()
     }
 
-    override fun initView() {
+    private fun initView() {
         pagerAdapter = TabPagerAdapter(supportFragmentManager)
         coinViewPager.apply {
             adapter = pagerAdapter

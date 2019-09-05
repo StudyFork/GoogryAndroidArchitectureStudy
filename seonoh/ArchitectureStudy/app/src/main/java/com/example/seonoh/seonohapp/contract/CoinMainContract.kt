@@ -4,7 +4,6 @@ import com.example.seonoh.seonohapp.model.Market
 
 interface CoinMainContract {
     interface View {
-        fun initView()
         fun showToast()
         fun setPager(marketData: List<Market>)
     }

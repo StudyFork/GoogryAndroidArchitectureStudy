@@ -29,7 +29,7 @@ class CoinFragment : Fragment(), CoinFragmentContract.View {
         mAdapter.addCoinData(data)
     }
 
-    override fun initView() {
+    private fun initView() {
         mAdapter = CoinAdapter()
         krwRecyclerView.apply {
             adapter = mAdapter
