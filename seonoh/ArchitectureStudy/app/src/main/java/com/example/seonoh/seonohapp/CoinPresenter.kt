@@ -40,12 +40,12 @@ class CoinPresenter(
     }
 
     override fun translateData(result: List<CurrentPriceInfoModel>) {
-        var marketType = ""
-
         // 데이터 가공후 모델에 넣음.
         // signedChangeRate textcolor 처리때문에 viewholder에서 진행
-        if (result.isNotEmpty()) {
-            marketType = result[0].market.substringBefore("-")
+        val marketType = if (result.isNotEmpty()) {
+            result[0].market.substringBefore("-")
+        } else {
+            ""
         }
 
         val data = result.map {
