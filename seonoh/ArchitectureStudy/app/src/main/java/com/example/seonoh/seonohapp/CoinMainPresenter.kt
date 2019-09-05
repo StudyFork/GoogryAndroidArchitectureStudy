@@ -40,7 +40,7 @@ class CoinMainPresenter(
 
             marketDataList += (marketData.filter {
                 it.market.substringBefore("-") == title
-            }.joinToString(",") {
+            }.joinToString {
                 it.market
             })
         }
