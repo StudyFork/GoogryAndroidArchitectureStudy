@@ -18,7 +18,7 @@ class CoinPresenter(
     private val compositeDisposable = CompositeDisposable()
 
     override fun loadData(marketName: String) {
-        compositeDisposable.addAll(
+        compositeDisposable.add(
             coinRepository.sendCurrentPriceInfo(marketName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
