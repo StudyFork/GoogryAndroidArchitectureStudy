@@ -77,7 +77,7 @@ object CalculateUtils {
                 }
             }
             else -> {
-                val fmtResId = when {
+                mapValue["format"] = when {
                     totalPriceAmount < 1_000L -> {
                         mapValue["format"] = R.string.trade_amount_milli_fmt
                     }
@@ -99,10 +99,8 @@ object CalculateUtils {
                     }
                 }
                 if (totalPriceAmount < 1_000L) {
-                    mapValue["format"] = fmtResId
                     mapValue["price"] = accTradePrice24h
                 } else {
-                    mapValue["format"] = fmtResId
                     mapValue["price"] = totalPriceAmount
                 }
 
