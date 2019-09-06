@@ -3,13 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <FrameLayout
-        android:id="@+id/contentFrame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".tasks.UpbitFragment">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/CoinRecyclerView"
+            android:id="@+id/rv_coin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

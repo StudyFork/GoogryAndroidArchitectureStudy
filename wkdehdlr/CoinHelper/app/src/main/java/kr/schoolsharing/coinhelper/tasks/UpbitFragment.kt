@@ -42,7 +42,7 @@ class UpbitFragment : Fragment(), UpbitContract.View {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        with(binding.CoinRecyclerView) {
+        with(binding.rvCoin) {
             adapter = rVAdapter
             layoutManager = LinearLayoutManager(context!!)
             setHasFixedSize(true)
