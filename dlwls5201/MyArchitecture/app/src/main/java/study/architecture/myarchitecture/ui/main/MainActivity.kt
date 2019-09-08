@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.drawerlayout.widget.DrawerLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
-import kotlinx.android.synthetic.main.activity_main.*
 import study.architecture.myarchitecture.BaseActivity
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.data.Injection
+import study.architecture.myarchitecture.databinding.ActivityMainBinding
 import study.architecture.myarchitecture.util.Filter
 
-class MainActivity : BaseActivity(), MainContract.View {
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), MainContract.View {
 
     private val mainAdapter by lazy { MainAdapter(supportFragmentManager) }
 
@@ -19,7 +19,6 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         presenter = MainPresenter(
             Injection.provideFolderRepository(this),
@@ -49,18 +48,20 @@ class MainActivity : BaseActivity(), MainContract.View {
         mainAdapter.setTitles(titles)
     }
 
-    override fun showCategoryAllow(selectArrow: Filter.SelectArrow) {
+    override fun showCategoryArrow(selectArrow: Filter.SelectArrow) {
 
-        ivSelectByCoinName.visibility = View.INVISIBLE
-        ivSelectByLast.visibility = View.INVISIBLE
-        ivSelectByTradeDiff.visibility = View.INVISIBLE
-        ivSelectByTradeAmount.visibility = View.INVISIBLE
+        with(binding) {
+            ivSelectByCoinName.visibility = View.INVISIBLE
+            ivSelectByLast.visibility = View.INVISIBLE
+            ivSelectByTradeDiff.visibility = View.INVISIBLE
+            ivSelectByTradeAmount.visibility = View.INVISIBLE
+        }
 
         val imageView = when (selectArrow) {
-            Filter.SelectArrow.COIN_NAME -> ivSelectByCoinName
-            Filter.SelectArrow.LAST -> ivSelectByLast
-            Filter.SelectArrow.TRADE_DIFF -> ivSelectByTradeDiff
-            Filter.SelectArrow.TRADE_AMOUNT -> ivSelectByTradeAmount
+            Filter.SelectArrow.COIN_NAME -> binding.ivSelectByCoinName
+            Filter.SelectArrow.LAST -> binding.ivSelectByLast
+            Filter.SelectArrow.TRADE_DIFF -> binding.ivSelectByTradeDiff
+            Filter.SelectArrow.TRADE_AMOUNT -> binding.ivSelectByTradeAmount
         }
 
         with(imageView) {
@@ -96,38 +97,49 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     private fun initToolbar() {
 
-        llToolbarTitle.setOnClickListener {
+        with(binding) {
+            llToolbarTitle.setOnClickListener {
 
-            if (suplRoot.panelState == SlidingUpPanelLayout.PanelState.EXPANDED) {
-                suplRoot.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-            } else {
-                suplRoot.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
-            }
-        }
-
-        suplRoot.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
-            override fun onPanelSlide(panel: View?, slideOffset: Float) {
-                ivToolbarArrow.rotation = slideOffset * 180
+                if (suplRoot.panelState == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                    suplRoot.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+                } else {
+                    suplRoot.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
+                }
             }
 
-            override fun onPanelStateChanged(
-                panel: View?,
-                previousState: SlidingUpPanelLayout.PanelState?,
-                newState: SlidingUpPanelLayout.PanelState?
-            ) {
+            llToolbarTitle.setOnClickListener {
 
+                if (suplRoot.panelState == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                    suplRoot.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+                } else {
+                    suplRoot.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
+                }
             }
 
-        })
+            suplRoot.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
+                override fun onPanelSlide(panel: View?, slideOffset: Float) {
+                    ivToolbarArrow.rotation = slideOffset * 180
+                }
 
-        ivToolbarMenu.setOnClickListener {
-            dlRoot.openDrawer(flEndSideInDrawer)
+                override fun onPanelStateChanged(
+                    panel: View?,
+                    previousState: SlidingUpPanelLayout.PanelState?,
+                    newState: SlidingUpPanelLayout.PanelState?
+                ) {
+
+                }
+
+            })
+
+            ivToolbarMenu.setOnClickListener {
+                dlRoot.openDrawer(flEndSideInDrawer)
+            }
         }
     }
 
     private fun initDrawer() {
 
-        dlRoot.run {
+        binding.dlRoot.run {
             setScrimColor(Color.TRANSPARENT)
             addDrawerListener(object : DrawerLayout.DrawerListener {
                 override fun onDrawerStateChanged(newState: Int) {
@@ -135,7 +147,8 @@ class MainActivity : BaseActivity(), MainContract.View {
 
                 override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                     if (drawerView.id == R.id.flEndSideInDrawer) {
-                        llMainInDrawer.translationX = -llMainInDrawer.width * slideOffset
+                        binding.llMainInDrawer.translationX =
+                            -binding.llMainInDrawer.width * slideOffset
                     }
                 }
 
@@ -150,36 +163,38 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     private fun initViewPager() {
 
-        with(vpMain) {
+        with(binding.vpMain) {
             adapter = mainAdapter
-            tlMain.setupWithViewPager(this)
+            binding.tlMain.setupWithViewPager(this)
         }
 
     }
 
     private fun setViewPagerPagerLimit(size: Int) {
 
-        with(vpMain) {
+        with(binding.vpMain) {
             offscreenPageLimit = size
         }
     }
 
     private fun initTopCategory() {
 
-        llCoinNameParent.setOnClickListener {
-            showCategoryAllow(Filter.SelectArrow.COIN_NAME)
-        }
+        with(binding) {
+            llCoinNameParent.setOnClickListener {
+                showCategoryArrow(Filter.SelectArrow.COIN_NAME)
+            }
 
-        llLastParent.setOnClickListener {
-            showCategoryAllow(Filter.SelectArrow.LAST)
-        }
+            llLastParent.setOnClickListener {
+                showCategoryArrow(Filter.SelectArrow.LAST)
+            }
 
-        llTradeDiffParent.setOnClickListener {
-            showCategoryAllow(Filter.SelectArrow.TRADE_DIFF)
-        }
+            llTradeDiffParent.setOnClickListener {
+                showCategoryArrow(Filter.SelectArrow.TRADE_DIFF)
+            }
 
-        llTradeAmountParent.setOnClickListener {
-            showCategoryAllow(Filter.SelectArrow.TRADE_AMOUNT)
+            llTradeAmountParent.setOnClickListener {
+                showCategoryArrow(Filter.SelectArrow.TRADE_AMOUNT)
+            }
         }
     }
 }
