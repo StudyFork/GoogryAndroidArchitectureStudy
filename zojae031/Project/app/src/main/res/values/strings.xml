@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">코인헬퍼 짝퉁</string>
     <string name="app_title">UpBit</string>
+    <string name="krw">KRW</string>
+    <string name="btc">BTC</string>
+    <string name="eth">eth</string>
+    <string name="usdt">usdt</string>
 </resources>

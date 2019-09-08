@@ -1,13 +1,11 @@
 package study.architecture.ui.coinjob
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.list_item.view.*
-import study.architecture.R
 import study.architecture.data.entity.ProcessingTicker
+import study.architecture.databinding.ListItemBinding
 import study.architecture.presentation.CoinAdapterContract
 
 /**
@@ -18,16 +16,22 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>(),
     CoinAdapterContract.Model {
 
     private val lists: MutableList<ProcessingTicker> = mutableListOf()
+    private lateinit var binding: ListItemBinding
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder =
-        Holder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+        binding = ListItemBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return Holder(binding)
+    }
 
     override fun getItemCount(): Int = lists.size
 
-
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bind(position)
+        binding.executePendingBindings()
     }
 
     override fun notifyDataChange() {
@@ -42,11 +46,11 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>(),
         lists.clear()
     }
 
-    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class Holder(itemView: ListItemBinding) : RecyclerView.ViewHolder(itemView.root) {
         private val name: TextView = itemView.name
-        private val tradePrice: TextView = itemView.trade_price
-        private val changeRate: TextView = itemView.change_rate
-        private val accTradePrice24h: TextView = itemView.acc_trade_price
+        private val tradePrice: TextView = itemView.tradePrice
+        private val changeRate: TextView = itemView.changeRate
+        private val accTradePrice24h: TextView = itemView.accTradePrice
 
         fun bind(position: Int) {
             name.text = lists[position].market

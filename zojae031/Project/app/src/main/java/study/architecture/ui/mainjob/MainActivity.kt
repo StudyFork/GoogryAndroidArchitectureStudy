@@ -6,16 +6,21 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.activity_main.*
 import study.architecture.R
+import study.architecture.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView<ActivityMainBinding>(
+            this,
+            R.layout.activity_main
+        )
         supportActionBar?.elevation = 0.0f
         supportActionBar?.title = resources.getString(R.string.app_title)
         tabSetting()
@@ -23,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun tabSetting() {
-        with(tabLayout) {
+        with(binding.tabLayout) {
             tabGravity = TabLayout.GRAVITY_FILL
             addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -35,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onTabSelected(tab: TabLayout.Tab?) {
-                    pager.currentItem = tab!!.position
+                    binding.pager.currentItem = tab?.position ?: 0
                 }
             })
         }
@@ -55,7 +60,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun pagerSetting() {
-        pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
-        pager.adapter = MainPageAdapter(supportFragmentManager)
+        with(binding.pager) {
+            addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout))
+            adapter = MainPageAdapter(supportFragmentManager)
+        }
     }
 }

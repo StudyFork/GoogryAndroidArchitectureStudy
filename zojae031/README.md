@@ -98,3 +98,50 @@ View <-> Presenter <-> model
 
 ### 3. Repository, remote, local interface를 모두 만들자
 
+
+
+# 5주차 2019-08-25
+
+## 1. DataBinding
+
+1. DatabindingUitl.bind() 
+   - View를 인자로 받는다.
+   - 특정 layout을 view형태로 inflate해서 바인드 해줘야 할때
+   - bind는 view로 만드어진 것을 바인드 시켜줄 때
+
+2. DatabindingUitl.inflate()
+   - view를 만들면서 bind를 해주어야 할 때
+
+3. DatabindingUitl.setContentView()
+   - 액티비티 한정
+
+
+
+## 2. 연산
+
+1. &lt : <
+2. &gt : >
+3. &amp : &
+
+
+
+## 3. Event Handling
+
+
+
+```xml 
+android:Onclick="@{ () -> view.onBackPressed()  }"
+```
+
+
+
+executePendingBindings() : UI 스레드가 바로 작동 할 수 있도록 ( 우선순위를 최상단으로 준다. )
+
+- bind할때 **필수!!!**
+
+
+
+BindingAdapter : java -> xml
+
+InverseBindingAdapter : xml -> java
+
