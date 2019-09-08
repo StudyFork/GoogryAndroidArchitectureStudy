@@ -11,36 +11,17 @@ import com.android.studyfork.R
 import com.android.studyfork.network.model.Ticker
 import com.android.studyfork.repository.UpbitRepositoryImpl
 import com.android.studyfork.ui.adapter.CoinItemAdapter
+import com.android.studyfork.ui.tickerlist.presenter.TickerContract
+import com.android.studyfork.ui.tickerlist.presenter.TickerPresenter
 import com.android.studyfork.util.inflate
 import kotlinx.android.synthetic.main.fragment_ticker_list.*
-import timber.log.Timber
 
 
-class TickerListFragment : Fragment() {
+class TickerListFragment : Fragment(), TickerContract.View {
 
-    private val upbitRepository = UpbitRepositoryImpl
     private lateinit var coinItemAdapter: CoinItemAdapter
+    private val tickerPresenter by lazy { TickerPresenter(UpbitRepositoryImpl, this) }
 
-    @SuppressLint("CheckResult")
-    private fun getTicker(){
-        val markets = arguments?.getString(KEY_MARKETS) ?:""
-        val tickerList:ArrayList<Ticker> = arrayListOf()
-
-        upbitRepository.getTickers(markets)
-            .subscribe({
-                Timber.d("getTicker success")
-                it.forEachIndexed { index, tickerResponse ->
-                    tickerList.add(index,
-                        Ticker(tickerResponse.market,
-                               tickerResponse.tradePrice,
-                               tickerResponse.signedChangeRate,
-                               tickerResponse.accTradePrice24h))
-                }
-                coinItemAdapter.setData(tickerList)
-            },{
-                Timber.e(it)
-            })
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,15 +31,24 @@ class TickerListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setRecyclerView()
         getTicker()
-
     }
 
-    private fun setRecyclerView() {
+    @SuppressLint("CheckResult")
+    private fun getTicker() {
+        val market = arguments?.getString(KEY_MARKETS) ?: ""
+        tickerPresenter.getTicker(market)
+    }
+
+    override fun setRecyclerView() {
         coinItemAdapter = CoinItemAdapter()
         recyclerview.apply {
             adapter = coinItemAdapter
             setHasFixedSize(false)
         }
+    }
+
+    override fun setData(ticker: List<Ticker>) {
+        coinItemAdapter.setData(ticker)
     }
 
 
