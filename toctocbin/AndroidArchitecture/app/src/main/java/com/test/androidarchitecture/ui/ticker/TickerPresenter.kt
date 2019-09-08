@@ -10,7 +10,8 @@ import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
 
-class TickerPresenter(private val view: TickerContract.View) : TickerContract.Presenter {
+class TickerPresenter(
+    private val view: TickerContract.View) : TickerContract.Presenter {
 
     private val upbitRepository by lazy { UpbitRepository }
     private val disposables by lazy { CompositeDisposable() }
