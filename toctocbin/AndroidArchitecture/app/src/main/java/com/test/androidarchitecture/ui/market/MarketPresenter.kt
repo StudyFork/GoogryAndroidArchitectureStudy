@@ -5,7 +5,9 @@ import com.test.androidarchitecture.data.source.UpbitRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
-class MarketPresenter(private val view: MarketContract.View) : MarketContract.Presenter {
+class MarketPresenter(
+    private val view: MarketContract.View
+) : MarketContract.Presenter {
 
     private val upbitRepository by lazy { UpbitRepository }
     private val disposables by lazy { CompositeDisposable() }
