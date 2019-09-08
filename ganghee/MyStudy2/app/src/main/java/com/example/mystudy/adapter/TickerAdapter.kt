@@ -5,13 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mystudy.R
 import com.example.mystudy.data.FormatTickers
+import com.example.mystudy.databinding.RvItemListBinding
 
 class TickerAdapter : RecyclerView.Adapter<UpbitHolder>() {
 
     private val tickerList = mutableListOf<FormatTickers>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        UpbitHolder(LayoutInflater.from(parent.context).inflate(R.layout.rv_item_list, parent, false))
+        UpbitHolder(RvItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
     override fun getItemCount(): Int = tickerList.size
 
