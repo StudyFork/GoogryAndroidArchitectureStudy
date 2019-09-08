@@ -9,7 +9,7 @@
         tools:context=".tasks.MainActivity">
 
         <LinearLayout
-            android:id="@id/title"
+            android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
