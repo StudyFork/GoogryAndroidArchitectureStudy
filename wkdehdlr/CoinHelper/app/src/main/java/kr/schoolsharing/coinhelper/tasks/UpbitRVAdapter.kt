@@ -4,20 +4,31 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.main_rv_item.view.*
-import kr.schoolsharing.coinhelper.R
+import kr.schoolsharing.coinhelper.databinding.MainRvItemBinding
 import kr.schoolsharing.coinhelper.model.UpbitItem
 import kr.schoolsharing.coinhelper.util.UpDown
 
 class UpbitRVAdapter : RecyclerView.Adapter<UpbitRVAdapter.Holder>() {
 
     private val itemList: MutableList<UpbitItem> = ArrayList()
+    private lateinit var binding: MainRvItemBinding
 
     override fun getItemCount(): Int = itemList.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder = Holder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+        binding = MainRvItemBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
 
-    override fun onBindViewHolder(holder: Holder, position: Int) = holder.bind(itemList[position])
+        return Holder(binding)
+    }
+
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+        holder.bind(itemList[position])
+        binding.executePendingBindings()
+    }
 
 
     fun setTickerList(tickerList: List<UpbitItem>) {
@@ -26,8 +37,7 @@ class UpbitRVAdapter : RecyclerView.Adapter<UpbitRVAdapter.Holder>() {
         notifyDataSetChanged()
     }
 
-    inner class Holder(parent: ViewGroup) :
-        RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.main_rv_item, parent, false)) {
+    inner class Holder(itemView: MainRvItemBinding) : RecyclerView.ViewHolder(itemView.root) {
 
         private val name = itemView.name
         private val current = itemView.current

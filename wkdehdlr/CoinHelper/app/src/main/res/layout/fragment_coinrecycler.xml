@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-    android:id="@+id/contentFrame"
-    tools:context=".tasks.CoinFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/CoinRecyclerView"
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".tasks.UpbitFragment">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_coin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-</FrameLayout>
+    </FrameLayout>
+
+</layout>

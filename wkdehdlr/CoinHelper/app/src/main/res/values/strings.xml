@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">CoinHelper</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="top_coin_name">코인명</string>
+    <string name="top_current">현재가</string>
+    <string name="top_signed_change_rate">전일대비</string>
+    <string name="top_volume">거래대금</string>
 </resources>
