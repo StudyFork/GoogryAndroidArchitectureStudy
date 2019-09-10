@@ -33,9 +33,9 @@ object CalculateUtils {
     fun setTradeAmount(
         marketType: String,
         accTradePrice24h: Double
-    ): Map<String, Any> {
+    ): Map<String, Number> {
         var totalPriceAmount = accTradePrice24h.toLong()
-        val mapValue = mutableMapOf<String, Any>()
+        val mapValue = mutableMapOf<String, Number>()
         when (marketType) {
             "KRW" -> {
                 when {
@@ -86,23 +86,25 @@ object CalculateUtils {
             else -> {
                 mapValue["format"] = when {
                     totalPriceAmount < 1_000L -> {
-                        mapValue["format"] = R.string.trade_amount_milli_fmt
+                         R.string.trade_amount_milli_fmt
+
                     }
                     totalPriceAmount < 1_000_000L -> {
-                        mapValue["format"] = R.string.trade_amount_fmt
+                        R.string.trade_amount_fmt
+
                     }
                     totalPriceAmount < 1_000_000_000L -> {
                         totalPriceAmount /= 1_000L
-                        mapValue["format"] = R.string.trade_amount_kilo_fmt
+                         R.string.trade_amount_kilo_fmt
+
                     }
                     totalPriceAmount < 1_000_000_000_000L -> {
                         totalPriceAmount /= 1_000_000L
-                        mapValue["format"] = R.string.trade_amount_mega_fmt
-
+                        R.string.trade_amount_mega_fmt
                     }
                     else -> {
                         totalPriceAmount /= 1_000_000_000L
-                        mapValue["format"] = R.string.trade_amount_giga_fmt
+                        R.string.trade_amount_giga_fmt
                     }
                 }
                 if (totalPriceAmount < 1_000L) {
