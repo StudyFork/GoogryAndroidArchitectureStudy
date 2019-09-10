@@ -8,6 +8,7 @@ import com.architecture.study.R
 import com.architecture.study.data.repository.CoinRepositoryImp
 import com.architecture.study.databinding.ActivityMainBinding
 import com.architecture.study.network.model.MarketResponse
+import com.architecture.study.util.Injection
 import com.architecture.study.view.coin.adapter.CoinTabPagerAdapter
 import com.architecture.study.view.coin.presenter.CoinListActivityContract
 import com.architecture.study.view.coin.presenter.CoinListActivityPresenter
@@ -40,7 +41,7 @@ class CoinListActivity : AppCompatActivity(), CoinListActivityContract.View {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         presenter = CoinListActivityPresenter(
-            CoinRepositoryImp.getInstance(),
+            CoinRepositoryImp.getInstance(Injection.provideCoinRepository()),
             this@CoinListActivity,
             false
         )
@@ -60,7 +61,7 @@ class CoinListActivity : AppCompatActivity(), CoinListActivityContract.View {
 
             addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab) {
-                    binding.coinListViewpager.currentItem = tab.position
+                    binding.viewPagerCoinList.currentItem = tab.position
                 }
 
                 override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -72,11 +73,9 @@ class CoinListActivity : AppCompatActivity(), CoinListActivityContract.View {
         }
 
         coinTapPagerAdapter = CoinTabPagerAdapter(supportFragmentManager, tabList, this@CoinListActivity, marketList)
-        binding.coinListViewpager.run {
+        binding.viewPagerCoinList.run {
             adapter = coinTapPagerAdapter
             addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayoutMonetaryUnit))
         }
-
     }
-
 }

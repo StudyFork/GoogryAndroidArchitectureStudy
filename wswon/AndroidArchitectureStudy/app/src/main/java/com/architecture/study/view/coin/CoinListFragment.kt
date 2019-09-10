@@ -13,6 +13,7 @@ import com.architecture.study.R
 import com.architecture.study.data.model.Ticker
 import com.architecture.study.data.repository.CoinRepositoryImp
 import com.architecture.study.databinding.FragmentCoinlistBinding
+import com.architecture.study.util.Injection
 import com.architecture.study.view.coin.adapter.CoinListAdapter
 import com.architecture.study.view.coin.presenter.CoinListFragmentContract
 import com.architecture.study.view.coin.presenter.CoinListFragmentPresenter
@@ -68,7 +69,7 @@ class CoinListFragment : Fragment(), CoinListFragmentContract.View, CoinListAdap
 
         context?.let {
             presenter = CoinListFragmentPresenter(
-                CoinRepositoryImp.getInstance(),
+                CoinRepositoryImp.getInstance(Injection.provideCoinRepository()),
                 this@CoinListFragment,
                 tabList.map { getString(it) },
                 false
@@ -129,6 +130,6 @@ class CoinListFragment : Fragment(), CoinListFragmentContract.View, CoinListAdap
             }
         }
 
-        private const val MONETARY_UNIT_NAME_LIST = "MONETARY_UNIT_NAME"
+        private const val MONETARY_UNIT_NAME_LIST = "MONETARY_UNIT_NAME_LIST"
     }
 }

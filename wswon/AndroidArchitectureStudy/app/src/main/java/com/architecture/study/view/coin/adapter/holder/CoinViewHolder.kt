@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.architecture.study.BR
 import com.architecture.study.R
 import com.architecture.study.data.model.Ticker
 import com.architecture.study.databinding.ItemCoinBinding
@@ -21,6 +22,8 @@ class CoinViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
 
     fun bind(ticker: Ticker, listener: CoinListAdapter.CoinItemRecyclerViewClickListener) {
         binding.ticker = ticker
+        binding.setVariable(BR.ticker, ticker)
+
         itemView.setOnClickListener {
             listener.onItemClicked(adapterPosition)
         }
