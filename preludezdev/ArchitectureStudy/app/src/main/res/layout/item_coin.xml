@@ -2,6 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.architecturestudy.viewmodel.ItemViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,6 +22,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
             android:gravity="start"
+            android:text="@{viewModel.coin.market}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -28,6 +36,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="4dp"
             android:gravity="end"
+            android:text="@{viewModel.coin.tradePrice}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_signed_changed_rate"
             app:layout_constraintStart_toEndOf="@+id/tv_market"
@@ -41,6 +50,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="4dp"
             android:gravity="end"
+            android:text="@{viewModel.coin.signedChangeRate}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_acc_trade_price_h"
             app:layout_constraintTop_toTopOf="parent" />
@@ -53,6 +63,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="4dp"
             android:gravity="end"
+            android:text="@{viewModel.coin.accTradePriceH}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
