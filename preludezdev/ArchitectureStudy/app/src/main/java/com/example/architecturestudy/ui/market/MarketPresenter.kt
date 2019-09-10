@@ -1,30 +1,34 @@
 package com.example.architecturestudy.ui.market
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.example.architecturestudy.data.Coin
 import com.example.architecturestudy.data.source.CoinsRepositoryImpl
 
-class MarketPresenter(
-    private val marketFragmentView: MarketContract.View,
+class MarketViewModel(
     private val repository: CoinsRepositoryImpl
-) : MarketContract.Presenter {
+) : ViewModel() {
 
-    override fun loadData(keyMarket: String?) {
-        marketFragmentView.showProgressBar() // 프로그레스바 시작
-        marketFragmentView.clearTickerData()
+    var coinData = MutableLiveData<List<Coin>>()
+    var isProgressed = MutableLiveData<Boolean>()
+
+    fun loadData(keyMarket: String?) {
+        isProgressed.postValue(true) // 프로그래스바 시작
 
         if (keyMarket != null) {
             repository
                 .getCoinTickers(keyMarket, { coinTickerResponses ->
                     //map() 스트림 함수 : 컬렉션 내 인자를 변환하여 반환
                     if (coinTickerResponses != null) {
-                        marketFragmentView.showTickerData(coinTickerResponses.map { it.convertTickerIntoCoin() })
-                        marketFragmentView.hideProgressBar() // 프로그레스바 종료
+                        coinData.value = coinTickerResponses.map { it.convertTickerIntoCoin() }
+                        isProgressed.postValue(false) // 프로그래스바 종료
                     }
                 }, { onFailCallback(it) })
         }
     }
 
-    override fun onFailCallback(errorMsg: String) {
+    private fun onFailCallback(errorMsg: String) {
         Log.d("test", errorMsg)
     }
 
