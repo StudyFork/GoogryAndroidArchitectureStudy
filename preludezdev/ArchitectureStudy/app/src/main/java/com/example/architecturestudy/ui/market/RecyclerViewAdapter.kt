@@ -10,15 +10,12 @@ import com.example.architecturestudy.databinding.ItemCoinBinding
 class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {
     private val coins = mutableListOf<Coin>()
 
-    fun clearData() {
-        coins.clear()
-        notifyDataSetChanged()
-    }
-
-    fun setData(data: List<Coin>) {
-        coins.clear()
-        coins.addAll(data)
-        notifyDataSetChanged()
+    fun setData(data: List<Coin>?) {
+        if (data != null) {
+            coins.clear()
+            coins.addAll(data)
+            notifyDataSetChanged()
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
