@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.example.architecturestudy.viewmodel.ItemViewModel" />
@@ -51,6 +50,7 @@
             android:layout_marginBottom="4dp"
             android:gravity="end"
             android:text="@{viewModel.coin.signedChangeRate}"
+            android:textColor="@{viewModel.coin.coinColor}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_acc_trade_price_h"
             app:layout_constraintTop_toTopOf="parent" />
@@ -69,7 +69,4 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <data>
-
-    </data>
 </layout>
