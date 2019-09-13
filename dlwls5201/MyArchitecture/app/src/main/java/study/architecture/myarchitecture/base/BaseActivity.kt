@@ -1,4 +1,4 @@
-package study.architecture.myarchitecture
+package study.architecture.myarchitecture.base
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle

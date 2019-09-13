@@ -3,8 +3,8 @@ package study.architecture.myarchitecture.ui.tickerlist
 import android.os.Bundle
 import android.view.View
 import org.jetbrains.anko.support.v4.toast
-import study.architecture.myarchitecture.BaseFragment
 import study.architecture.myarchitecture.R
+import study.architecture.myarchitecture.base.BaseFragment
 import study.architecture.myarchitecture.data.Injection
 import study.architecture.myarchitecture.databinding.FragmentTickerListBinding
 import study.architecture.myarchitecture.ui.model.TickerItem

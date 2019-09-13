@@ -1,4 +1,4 @@
-package study.architecture.myarchitecture
+package study.architecture.myarchitecture.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

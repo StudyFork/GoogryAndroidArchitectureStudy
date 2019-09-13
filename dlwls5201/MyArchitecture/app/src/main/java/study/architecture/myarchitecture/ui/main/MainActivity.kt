@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.drawerlayout.widget.DrawerLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
-import study.architecture.myarchitecture.BaseActivity
 import study.architecture.myarchitecture.R
+import study.architecture.myarchitecture.base.BaseActivity
 import study.architecture.myarchitecture.data.Injection
 import study.architecture.myarchitecture.databinding.ActivityMainBinding
 import study.architecture.myarchitecture.util.Filter
