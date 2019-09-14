@@ -9,14 +9,13 @@ import timber.log.Timber
  * created by onemask
  */
 class TickerPresenter(
-    private val upbitRepository: UpbitRepositoryImpl,
     private val view: TickerContract.View
 ) : TickerContract.Presenter {
 
     @SuppressLint("CheckResult")
     override fun getTicker(market: String) {
         val tickerList: ArrayList<Ticker> = arrayListOf()
-        upbitRepository.getTickers(market)
+        UpbitRepositoryImpl.getTickers(market)
             .subscribe({
                 Timber.d("getTicker success")
                 it.forEachIndexed { index, tickerResponse ->
