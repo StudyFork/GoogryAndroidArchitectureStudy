@@ -13,11 +13,9 @@ import study.architecture.myarchitecture.util.Filter
 class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.fragment_ticker_list),
     TickerListContract.View {
 
-    private val tickerAdapter by lazy {
-        TickerAdapter { toast(it.toString()) }
-    }
-
     private lateinit var presenter: TickerListContract.Presenter
+
+    private lateinit var tickerViewModel: TickerListViewModel
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -30,7 +28,13 @@ class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.frag
                 bundle.getString(KEY_MARKETS, "")
             )
 
-            initRecyclerView()
+            tickerViewModel = TickerListViewModel(
+                Injection.provideFolderRepository(context!!),
+                bundle.getString(KEY_MARKETS, ""),
+                TickerAdapter { toast(it.toString()) }
+            )
+            binding.tickerModel = tickerViewModel
+
             presenter.loadData()
 
         } ?: error("arguments is null")
@@ -42,10 +46,6 @@ class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.frag
         super.onDestroyView()
     }
 
-    private fun initRecyclerView() {
-        binding.rvTickerList.adapter = tickerAdapter
-    }
-
     override fun showProgress() {
         binding.pbTickerList.visibility = View.VISIBLE
     }
@@ -55,7 +55,7 @@ class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.frag
     }
 
     override fun showTickers(tickers: MutableList<TickerItem>) {
-        tickerAdapter.setItems(tickers)
+        //tickerAdapter.setItems(tickers)
     }
 
     override fun showTickerListOrderByField(field: Filter.SelectArrow, order: Int) {
