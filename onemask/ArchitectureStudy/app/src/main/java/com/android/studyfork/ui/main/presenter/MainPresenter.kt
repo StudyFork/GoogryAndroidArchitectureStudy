@@ -8,13 +8,12 @@ import timber.log.Timber
  * created by onemask
  */
 class MainPresenter(
-    private val upbitRepository: UpbitRepositoryImpl,
     private val view: MainContract.View
 ) : MainContract.Presenter {
 
     @SuppressLint("CheckResult")
     override fun loadData() {
-        upbitRepository.getMarketAll()
+        UpbitRepositoryImpl.getMarketAll()
             .subscribe({
 
                 val keys = it.keys.apply {
