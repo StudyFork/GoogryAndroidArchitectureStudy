@@ -29,7 +29,6 @@ class CoinFragment : Fragment(), CoinContract.View {
         presenter.getTickerList(currencyList)
 
         setCoinAdapter()
-
     }
 
     override fun setData(tickerList: List<Ticker>) {
