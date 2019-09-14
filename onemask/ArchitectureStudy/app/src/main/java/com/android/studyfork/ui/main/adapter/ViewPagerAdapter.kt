@@ -1,4 +1,4 @@
-package com.android.studyfork.ui.adapter
+package com.android.studyfork.ui.main.adapter
 
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment

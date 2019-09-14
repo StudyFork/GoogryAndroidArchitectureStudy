@@ -3,14 +3,18 @@ package com.android.studyfork.ui.main
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.android.studyfork.R
-import com.android.studyfork.ui.adapter.ViewPagerAdapter
+import com.android.studyfork.ui.main.adapter.ViewPagerAdapter
 import com.android.studyfork.ui.main.presenter.MainContract
 import com.android.studyfork.ui.main.presenter.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
-    private val viewPagerAdapter by lazy { ViewPagerAdapter(supportFragmentManager) }
+    private val viewPagerAdapter by lazy {
+        ViewPagerAdapter(
+            supportFragmentManager
+        )
+    }
     private val presenter by lazy { MainPresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
