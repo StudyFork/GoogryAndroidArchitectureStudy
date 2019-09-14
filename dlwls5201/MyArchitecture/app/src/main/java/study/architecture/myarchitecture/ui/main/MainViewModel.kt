@@ -3,19 +3,20 @@ package study.architecture.myarchitecture.ui.main
 import androidx.databinding.ObservableField
 import io.reactivex.disposables.CompositeDisposable
 import study.architecture.myarchitecture.data.repository.UpbitRepository
-import study.architecture.myarchitecture.util.Filter
 import timber.log.Timber
 
 class MainViewModel(
     private val upbitRepository: UpbitRepository,
+    private val mainAdapter: MainAdapter,
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 ) {
 
-    val viewPagers = ObservableField<Array<String>>()
+    val pageLimit = ObservableField<Int>()
+    val adapter = ObservableField<MainAdapter>()
 
-    val tabTitles = ObservableField<Array<String>>()
-
-    val tabArraow = ObservableField<Filter.SelectArrow>()
+    init {
+        adapter.set(mainAdapter)
+    }
 
     fun detachView() {
         compositeDisposable.clear()
@@ -27,7 +28,8 @@ class MainViewModel(
 
                 val keys = groupMarket.keys
 
-                //view.showViewPagerTitles(keys.toTypedArray())
+                mainAdapter.setTitles(keys.toTypedArray())
+                pageLimit.set(keys.size)
 
                 val arrMarkets = Array(keys.size) { "" }
 
@@ -38,7 +40,7 @@ class MainViewModel(
                         .joinToString(separator = ",") { it.market }
                 }
 
-                //view.showViewPagers(arrMarkets)
+                mainAdapter.setItems(arrMarkets)
 
             }) {
                 Timber.e(it)

@@ -11,9 +11,7 @@ import study.architecture.myarchitecture.data.Injection
 import study.architecture.myarchitecture.databinding.ActivityMainBinding
 import study.architecture.myarchitecture.util.Filter
 
-class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), MainContract.View {
-
-    private val mainAdapter by lazy { MainAdapter(supportFragmentManager) }
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private lateinit var mainViewModel: MainViewModel
 
@@ -21,14 +19,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
         super.onCreate(savedInstanceState)
 
         mainViewModel =
-            MainViewModel(Injection.provideFolderRepository(this)).apply {
+            MainViewModel(
+                Injection.provideFolderRepository(this),
+                MainAdapter(supportFragmentManager)
+            ).apply {
                 binding.mainModel = this
             }
 
         initToolbar()
         initDrawer()
         initTopCategory()
-        initViewPager()
 
         mainViewModel.loadData()
 
@@ -39,23 +39,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
         super.onDestroy()
     }
 
-    override fun showViewPagers(pagers: Array<String>) {
-        setViewPagerPagerLimit(pagers.size)
-        mainAdapter.setItems(pagers)
-    }
-
-    private fun setViewPagerPagerLimit(size: Int) {
-
-        with(binding.vpMain) {
-            offscreenPageLimit = size
-        }
-    }
-
-    override fun showViewPagerTitles(titles: Array<String>) {
-        mainAdapter.setTitles(titles)
-    }
-
-    override fun showCategoryArrow(selectArrow: Filter.SelectArrow) {
+    fun showCategoryArrow(selectArrow: Filter.SelectArrow) {
 
         with(binding) {
             ivSelectByCoinName.visibility = View.INVISIBLE
@@ -91,11 +75,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
 
     private fun showTickerListOrderByField(field: Filter.SelectArrow, order: Int) {
 
-        for (i: Int in 0 until mainAdapter.count) {
+        /*for (i: Int in 0 until mainAdapter.count) {
             mainAdapter.getFragment(i)?.run {
                 this.get()?.showTickerListOrderByField(field, order)
             }
-        }
+        }*/
     }
 
     private fun initToolbar() {
@@ -162,15 +146,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
                 }
             })
         }
-    }
-
-    private fun initViewPager() {
-
-        with(binding.vpMain) {
-            adapter = mainAdapter
-            binding.tlMain.setupWithViewPager(this)
-        }
-
     }
 
     private fun initTopCategory() {

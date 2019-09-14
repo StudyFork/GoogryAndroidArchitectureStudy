@@ -1,10 +1,10 @@
 package study.architecture.myarchitecture.util
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.annotation.LayoutRes
+import androidx.databinding.BindingAdapter
+import androidx.viewpager.widget.ViewPager
+import study.architecture.myarchitecture.ui.main.MainAdapter
 
-fun ViewGroup.inflate(
-    @LayoutRes resource: Int, attachRoot: Boolean = false
-): View = LayoutInflater.from(context).inflate(resource, this, attachRoot)
+@BindingAdapter("android:adapter")
+fun ViewPager.setAdapter(mainAdapter: MainAdapter) {
+    adapter = mainAdapter
+}

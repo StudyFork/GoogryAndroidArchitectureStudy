@@ -90,6 +90,7 @@
                             android:id="@+id/tlMain"
                             android:layout_width="match_parent"
                             android:layout_height="24dp"
+                            app:setupWithViewPager="@{vpMain}"
                             app:tabIndicatorHeight="0dp"
                             app:tabMode="scrollable"
                             app:tabPadding="2dp"
@@ -195,6 +196,8 @@
 
                         <androidx.viewpager.widget.ViewPager
                             android:id="@+id/vpMain"
+                            android:adapter="@{mainModel.adapter}"
+                            app:offscreenPageLimit="@{mainModel.pageLimit}"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1" />
