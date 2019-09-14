@@ -26,6 +26,8 @@ class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.frag
             )
             binding.tickerModel = tickerViewModel
 
+            tickerViewModel.loadData()
+
         } ?: error("arguments is null")
 
     }
@@ -35,19 +37,19 @@ class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.frag
         super.onDestroyView()
     }
 
-    override fun showProgress() {
+    fun showProgress() {
         binding.pbTickerList.visibility = View.VISIBLE
     }
 
-    override fun hideProgress() {
+    fun hideProgress() {
         binding.pbTickerList.visibility = View.GONE
     }
 
-    override fun showTickers(tickers: MutableList<TickerItem>) {
+    fun showTickers(tickers: MutableList<TickerItem>) {
         //tickerAdapter.setItems(tickers)
     }
 
-    override fun showTickerListOrderByField(field: Filter.SelectArrow, order: Int) {
+    fun showTickerListOrderByField(field: Filter.SelectArrow, order: Int) {
         //presenter.sortByField(field, order)
     }
 
