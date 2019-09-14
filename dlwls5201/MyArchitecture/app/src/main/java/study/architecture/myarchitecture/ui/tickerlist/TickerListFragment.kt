@@ -1,13 +1,11 @@
 package study.architecture.myarchitecture.ui.tickerlist
 
 import android.os.Bundle
-import android.view.View
 import org.jetbrains.anko.support.v4.toast
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.base.BaseFragment
 import study.architecture.myarchitecture.data.Injection
 import study.architecture.myarchitecture.databinding.FragmentTickerListBinding
-import study.architecture.myarchitecture.ui.model.TickerItem
 import study.architecture.myarchitecture.util.Filter
 
 class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.fragment_ticker_list) {
@@ -37,20 +35,8 @@ class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.frag
         super.onDestroyView()
     }
 
-    fun showProgress() {
-        binding.pbTickerList.visibility = View.VISIBLE
-    }
-
-    fun hideProgress() {
-        binding.pbTickerList.visibility = View.GONE
-    }
-
-    fun showTickers(tickers: MutableList<TickerItem>) {
-        //tickerAdapter.setItems(tickers)
-    }
-
     fun showTickerListOrderByField(field: Filter.SelectArrow, order: Int) {
-        //presenter.sortByField(field, order)
+        tickerViewModel.sortByField(field, order)
     }
 
     companion object {

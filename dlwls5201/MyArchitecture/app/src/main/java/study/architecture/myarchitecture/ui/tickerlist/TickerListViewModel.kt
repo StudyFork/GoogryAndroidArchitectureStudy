@@ -6,6 +6,7 @@ import io.reactivex.disposables.CompositeDisposable
 import study.architecture.myarchitecture.data.repository.UpbitRepository
 import study.architecture.myarchitecture.ui.model.TickerItem
 import study.architecture.myarchitecture.ui.model.mapToPresentation
+import study.architecture.myarchitecture.util.Filter
 import timber.log.Timber
 
 class TickerListViewModel(
@@ -26,6 +27,47 @@ class TickerListViewModel(
 
     fun detachView() {
         compositeDisposable.clear()
+    }
+
+    fun sortByField(field: Filter.SelectArrow, order: Int) {
+
+        when (field) {
+            Filter.SelectArrow.COIN_NAME -> {
+                val selector: (TickerItem) -> String = { it.coinName }
+                setOrderByField(tickers, selector, order)
+            }
+
+            Filter.SelectArrow.LAST -> {
+                val selector: (TickerItem) -> Double = { it.tradePrice }
+                setOrderByField(tickers, selector, order)
+            }
+
+            Filter.SelectArrow.TRADE_DIFF -> {
+                val selector: (TickerItem) -> Double = { it.signedChangeRate }
+                setOrderByField(tickers, selector, order)
+            }
+
+            Filter.SelectArrow.TRADE_AMOUNT -> {
+                val selector: (TickerItem) -> Double = { it.accTradePrice24h }
+                setOrderByField(tickers, selector, order)
+            }
+        }
+    }
+
+    private fun <R : Comparable<R>> setOrderByField(
+        tickers: MutableList<TickerItem>, selector: (TickerItem) -> R, order: Int
+    ) {
+
+        Timber.d("tickers : $tickers")
+
+        if (order == Filter.ASC) {
+            tickers.sortBy(selector)
+        } else if (order == Filter.DESC) {
+            tickers.sortByDescending(selector)
+        }
+
+        Timber.e("tickers : $tickers")
+        tickerAdapter.setItems(tickers)
     }
 
     fun loadData() {
