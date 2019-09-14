@@ -6,7 +6,6 @@ import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.base.BaseViewHolder
 import study.architecture.myarchitecture.databinding.ItemTickerBinding
 import study.architecture.myarchitecture.ui.model.TickerItem
-import study.architecture.myarchitecture.util.setTradeDiffColor
 
 class TickerAdapter(
     private val clickEvent: (ticker: TickerItem) -> Unit
@@ -45,10 +44,8 @@ class TickerAdapter(
 
         fun onBindView(ticker: TickerItem) {
 
-            binding.tickerItemModel = TickerItemViewModel(ticker)
-
             with(binding) {
-                tvSignedChangeRate.setTradeDiffColor(ticker.signedChangeRate)
+                tickerItemModel = TickerItemViewModel(ticker)
                 executePendingBindings()
             }
         }

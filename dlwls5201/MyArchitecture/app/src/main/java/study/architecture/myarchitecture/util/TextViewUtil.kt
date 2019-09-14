@@ -1,7 +1,6 @@
 package study.architecture.myarchitecture.util
 
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import java.text.DecimalFormat
 
 //코인명
@@ -29,19 +28,6 @@ fun TextView.setLast(tradePrice: Double) {
     this.text = df.format(tradePrice)
 }
 
-//전일대비
-fun TextView.setTradeDiffColor(signedChangeRate: Double) {
-
-    val color = if (signedChangeRate > 0) {
-        ContextCompat.getColor(context, study.architecture.myarchitecture.R.color.diff_up)
-    } else if (signedChangeRate < 0) {
-        ContextCompat.getColor(context, study.architecture.myarchitecture.R.color.diff_down)
-    } else {
-        ContextCompat.getColor(context, study.architecture.myarchitecture.R.color.gray5)
-    }
-
-    this.setTextColor(color)
-}
 
 //거래대금
 fun TextView.setTradeAmount(accTradePrice24h: Double) {

@@ -4,7 +4,7 @@ import androidx.databinding.ObservableField
 import study.architecture.myarchitecture.ui.model.TickerItem
 
 class TickerItemViewModel(
-    private val item: TickerItem
+    item: TickerItem
 ) {
 
     val tickerItem = ObservableField<TickerItem>()

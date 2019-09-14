@@ -68,6 +68,7 @@
                 android:maxLines="1"
                 android:textColor="@color/gray5"
                 android:textSize="14sp"
+                android:tradeDiffColor="@{tickerItemModel.tickerItem.signedChangeRate}"
                 android:text="@{tickerItemModel.tickerItem.tradeDiff}"
                 tools:text="4.00%" />
 

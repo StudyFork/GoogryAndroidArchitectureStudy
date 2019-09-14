@@ -1,6 +1,8 @@
 package study.architecture.myarchitecture.util
 
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
@@ -36,4 +38,18 @@ fun ImageView.setCategory(field: Filter.SelectArrow?, mainAdapter: MainAdapter?)
             this.get()?.showTickerListOrderByField(field, order)
         }
     }
+}
+
+@BindingAdapter("android:tradeDiffColor")
+fun TextView.setTradeDiffColor(signedChangeRate: Double) {
+
+    val color = if (signedChangeRate > 0) {
+        ContextCompat.getColor(context, study.architecture.myarchitecture.R.color.diff_up)
+    } else if (signedChangeRate < 0) {
+        ContextCompat.getColor(context, study.architecture.myarchitecture.R.color.diff_down)
+    } else {
+        ContextCompat.getColor(context, study.architecture.myarchitecture.R.color.gray5)
+    }
+
+    this.setTextColor(color)
 }
