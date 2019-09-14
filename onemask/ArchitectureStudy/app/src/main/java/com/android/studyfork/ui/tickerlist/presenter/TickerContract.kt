@@ -7,7 +7,6 @@ import com.android.studyfork.network.model.Ticker
  */
 interface TickerContract {
     interface View {
-        fun setRecyclerView()
         fun setData(ticker: List<Ticker>)
     }
 
