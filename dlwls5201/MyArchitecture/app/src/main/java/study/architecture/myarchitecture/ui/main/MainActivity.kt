@@ -9,7 +9,6 @@ import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.base.BaseActivity
 import study.architecture.myarchitecture.data.Injection
 import study.architecture.myarchitecture.databinding.ActivityMainBinding
-import study.architecture.myarchitecture.util.Filter
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
@@ -28,7 +27,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         initToolbar()
         initDrawer()
-        initTopCategory()
 
         mainViewModel.loadData()
 
@@ -37,49 +35,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onDestroy() {
         mainViewModel.detachView()
         super.onDestroy()
-    }
-
-    fun showCategoryArrow(selectArrow: Filter.SelectArrow) {
-
-        with(binding) {
-            ivSelectByCoinName.visibility = View.INVISIBLE
-            ivSelectByLast.visibility = View.INVISIBLE
-            ivSelectByTradeDiff.visibility = View.INVISIBLE
-            ivSelectByTradeAmount.visibility = View.INVISIBLE
-        }
-
-        val imageView = when (selectArrow) {
-            Filter.SelectArrow.COIN_NAME -> binding.ivSelectByCoinName
-            Filter.SelectArrow.LAST -> binding.ivSelectByLast
-            Filter.SelectArrow.TRADE_DIFF -> binding.ivSelectByTradeDiff
-            Filter.SelectArrow.TRADE_AMOUNT -> binding.ivSelectByTradeAmount
-        }
-
-        with(imageView) {
-            visibility = View.VISIBLE
-            if (isSelected) {
-                showTickerListOrderByField(
-                    selectArrow,
-                    Filter.DESC
-                )
-            } else {
-                showTickerListOrderByField(
-                    selectArrow,
-                    Filter.ASC
-                )
-            }
-
-            isSelected = !isSelected
-        }
-    }
-
-    private fun showTickerListOrderByField(field: Filter.SelectArrow, order: Int) {
-
-        /*for (i: Int in 0 until mainAdapter.count) {
-            mainAdapter.getFragment(i)?.run {
-                this.get()?.showTickerListOrderByField(field, order)
-            }
-        }*/
     }
 
     private fun initToolbar() {
@@ -145,27 +100,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 override fun onDrawerOpened(drawerView: View) {
                 }
             })
-        }
-    }
-
-    private fun initTopCategory() {
-
-        with(binding) {
-            llCoinNameParent.setOnClickListener {
-                showCategoryArrow(Filter.SelectArrow.COIN_NAME)
-            }
-
-            llLastParent.setOnClickListener {
-                showCategoryArrow(Filter.SelectArrow.LAST)
-            }
-
-            llTradeDiffParent.setOnClickListener {
-                showCategoryArrow(Filter.SelectArrow.TRADE_DIFF)
-            }
-
-            llTradeAmountParent.setOnClickListener {
-                showCategoryArrow(Filter.SelectArrow.TRADE_AMOUNT)
-            }
         }
     }
 }

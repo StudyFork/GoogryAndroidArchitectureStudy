@@ -3,6 +3,7 @@ package study.architecture.myarchitecture.ui.main
 import androidx.databinding.ObservableField
 import io.reactivex.disposables.CompositeDisposable
 import study.architecture.myarchitecture.data.repository.UpbitRepository
+import study.architecture.myarchitecture.util.Filter
 import timber.log.Timber
 
 class MainViewModel(
@@ -13,6 +14,8 @@ class MainViewModel(
 
     val pageLimit = ObservableField<Int>()
     val adapter = ObservableField<MainAdapter>()
+
+    val category = ObservableField<Filter.SelectArrow>()
 
     init {
         adapter.set(mainAdapter)
@@ -47,5 +50,16 @@ class MainViewModel(
             }.also {
                 compositeDisposable.add(it)
             }
+    }
+
+    fun showCategoryArrow(selectArrow: Filter.SelectArrow) {
+
+        this.category.set(selectArrow)
+
+        /**
+         * 같은 값을 넣어주면 notify 되지 않는다.
+         * 임의로 notifyChange 호출
+         */
+        this.category.notifyChange()
     }
 }
