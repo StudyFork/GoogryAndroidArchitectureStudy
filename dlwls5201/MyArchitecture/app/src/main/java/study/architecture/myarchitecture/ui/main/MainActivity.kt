@@ -7,7 +7,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.base.BaseActivity
-import study.architecture.myarchitecture.data.Injection
 import study.architecture.myarchitecture.databinding.ActivityMainBinding
 import study.architecture.myarchitecture.util.Filter
 
@@ -15,27 +14,24 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
 
     private val mainAdapter by lazy { MainAdapter(supportFragmentManager) }
 
-    private lateinit var presenter: MainPresenter
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        presenter = MainPresenter(
-            Injection.provideFolderRepository(this),
-            this@MainActivity
-        )
+        binding.mainModel = mainViewModel
 
         initToolbar()
         initDrawer()
         initTopCategory()
         initViewPager()
 
-        presenter.loadData()
+        mainViewModel.loadData()
 
     }
 
     override fun onDestroy() {
-        presenter.detachView()
+        mainViewModel.detatchView()
         super.onDestroy()
     }
 
@@ -82,10 +78,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
         }
     }
 
-    /**
-     * ViewPager 에서 미리 생성된 프래그먼트의 값을 상단 정렬바 아이템을 누를떄
-     * 일괄적으로 변경해 주기 위한 옵저버 패턴 함수
-     */
     private fun showTickerListOrderByField(field: Filter.SelectArrow, order: Int) {
 
         for (i: Int in 0 until mainAdapter.count) {

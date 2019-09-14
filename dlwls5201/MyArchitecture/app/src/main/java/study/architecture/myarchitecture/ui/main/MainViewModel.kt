@@ -22,7 +22,7 @@ class MainViewModel(
 
     }
 
-    fun loadView() {
+    fun loadData() {
 
     }
 }
