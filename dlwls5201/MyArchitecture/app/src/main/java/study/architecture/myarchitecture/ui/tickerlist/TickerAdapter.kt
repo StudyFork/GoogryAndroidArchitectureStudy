@@ -45,13 +45,10 @@ class TickerAdapter(
 
         fun onBindView(ticker: TickerItem) {
 
-            with(binding) {
-                tvMarket.text = ticker.coinName
-                tvTradePrice.text = ticker.last
-                tvSignedChangeRate.setTradeDiffColor(ticker.signedChangeRate)
-                tvSignedChangeRate.text = ticker.tradeDiff
-                tvAccTradePrice24h.text = ticker.tradeAmount
+            binding.tickerItemModel = TickerItemViewModel(ticker)
 
+            with(binding) {
+                tvSignedChangeRate.setTradeDiffColor(ticker.signedChangeRate)
                 executePendingBindings()
             }
         }

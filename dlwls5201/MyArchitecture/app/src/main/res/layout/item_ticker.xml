@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="tickerItemModel"
+            type="study.architecture.myarchitecture.ui.tickerlist.TickerItemViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -37,6 +40,7 @@
                 android:textColor="@color/gray5"
                 android:textSize="14sp"
                 android:textStyle="bold"
+                android:text="@{tickerItemModel.tickerItem.coinName}"
                 tools:text="BTC" />
 
             <!-- 현재가 -->
@@ -50,6 +54,7 @@
                 android:maxLines="1"
                 android:textColor="@color/gray5"
                 android:textSize="14sp"
+                android:text="@{tickerItemModel.tickerItem.last}"
                 tools:text="99,999,999" />
 
             <!-- 전일대비 -->
@@ -63,6 +68,7 @@
                 android:maxLines="1"
                 android:textColor="@color/gray5"
                 android:textSize="14sp"
+                android:text="@{tickerItemModel.tickerItem.tradeDiff}"
                 tools:text="4.00%" />
 
             <!-- 거래대금 -->
@@ -76,6 +82,7 @@
                 android:maxLines="1"
                 android:textColor="@color/gray5"
                 android:textSize="14sp"
+                android:text="@{tickerItemModel.tickerItem.tradeAmount}"
                 tools:text="4.00%" />
 
         </LinearLayout>
