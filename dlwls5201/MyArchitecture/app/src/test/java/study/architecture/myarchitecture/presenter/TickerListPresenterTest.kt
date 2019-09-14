@@ -10,8 +10,6 @@ import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 import study.architecture.myarchitecture.data.repository.UpbitRepository
-import study.architecture.myarchitecture.ui.tickerlist.TickerListContract
-import study.architecture.myarchitecture.ui.tickerlist.TickerListPresenter
 
 @RunWith(MockitoJUnitRunner::class)
 class TickerListPresenterTest {
