@@ -7,6 +7,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.base.BaseActivity
+import study.architecture.myarchitecture.data.Injection
 import study.architecture.myarchitecture.databinding.ActivityMainBinding
 import study.architecture.myarchitecture.util.Filter
 
@@ -19,7 +20,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding.mainModel = mainViewModel
+        mainViewModel =
+            MainViewModel(Injection.provideFolderRepository(this)).apply {
+                binding.mainModel = this
+            }
 
         initToolbar()
         initDrawer()
@@ -31,13 +35,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
     }
 
     override fun onDestroy() {
-        mainViewModel.detatchView()
+        mainViewModel.detachView()
         super.onDestroy()
     }
 
     override fun showViewPagers(pagers: Array<String>) {
         setViewPagerPagerLimit(pagers.size)
         mainAdapter.setItems(pagers)
+    }
+
+    private fun setViewPagerPagerLimit(size: Int) {
+
+        with(binding.vpMain) {
+            offscreenPageLimit = size
+        }
     }
 
     override fun showViewPagerTitles(titles: Array<String>) {
@@ -160,13 +171,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
             binding.tlMain.setupWithViewPager(this)
         }
 
-    }
-
-    private fun setViewPagerPagerLimit(size: Int) {
-
-        with(binding.vpMain) {
-            offscreenPageLimit = size
-        }
     }
 
     private fun initTopCategory() {
