@@ -12,8 +12,6 @@ import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 import study.architecture.myarchitecture.data.model.UpbitMarket
 import study.architecture.myarchitecture.data.repository.UpbitRepository
-import study.architecture.myarchitecture.ui.main.MainContract
-import study.architecture.myarchitecture.ui.main.MainPresenter
 
 @RunWith(MockitoJUnitRunner::class)
 class MainPresenterTest {
