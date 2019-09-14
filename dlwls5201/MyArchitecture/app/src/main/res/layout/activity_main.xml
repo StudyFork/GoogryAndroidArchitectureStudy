@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="mainModel"
+            type="study.architecture.myarchitecture.ui.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
