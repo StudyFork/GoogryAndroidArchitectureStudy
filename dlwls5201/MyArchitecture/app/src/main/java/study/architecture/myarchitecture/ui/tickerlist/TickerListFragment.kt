@@ -10,10 +10,7 @@ import study.architecture.myarchitecture.databinding.FragmentTickerListBinding
 import study.architecture.myarchitecture.ui.model.TickerItem
 import study.architecture.myarchitecture.util.Filter
 
-class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.fragment_ticker_list),
-    TickerListContract.View {
-
-    private lateinit var presenter: TickerListContract.Presenter
+class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.fragment_ticker_list) {
 
     private lateinit var tickerViewModel: TickerListViewModel
 
@@ -22,12 +19,6 @@ class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.frag
 
         arguments?.let { bundle ->
 
-            presenter = TickerListPresenter(
-                Injection.provideFolderRepository(context!!),
-                this@TickerListFragment,
-                bundle.getString(KEY_MARKETS, "")
-            )
-
             tickerViewModel = TickerListViewModel(
                 Injection.provideFolderRepository(context!!),
                 bundle.getString(KEY_MARKETS, ""),
@@ -35,14 +26,12 @@ class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.frag
             )
             binding.tickerModel = tickerViewModel
 
-            presenter.loadData()
-
         } ?: error("arguments is null")
 
     }
 
     override fun onDestroyView() {
-        presenter.detachView()
+        tickerViewModel.detachView()
         super.onDestroyView()
     }
 
@@ -59,7 +48,7 @@ class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.frag
     }
 
     override fun showTickerListOrderByField(field: Filter.SelectArrow, order: Int) {
-        presenter.sortByField(field, order)
+        //presenter.sortByField(field, order)
     }
 
     companion object {
