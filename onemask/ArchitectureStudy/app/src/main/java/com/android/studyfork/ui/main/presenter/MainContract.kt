@@ -5,7 +5,6 @@ package com.android.studyfork.ui.main.presenter
  */
 interface MainContract {
     interface View {
-        fun initViewPager()
         fun setViewPagerTitle(titles: Array<String>)
         fun setViewPagerData(items: Array<String>)
     }
