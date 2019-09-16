@@ -16,6 +16,7 @@ class CoinViewModel(
     private val adapter: CoinDataAdapter
 ) {
     private lateinit var marketName: String
+
     private val compositeDisposable = CompositeDisposable()
     private val dispose: Disposable
 
@@ -63,9 +64,9 @@ class CoinViewModel(
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { lists ->
+                { pLists ->
                     if (!repository.checkNetwork()) Log.e("데이터 연결x", "데이터 최신화 필요")
-                    adapter.updateLists(lists)
+                    adapter.updateLists(pLists)
                 },
                 { e ->
                     Log.e("CoinViewModel", e.message)

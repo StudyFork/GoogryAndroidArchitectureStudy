@@ -3,6 +3,7 @@ package study.architecture.ui.coinjob
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.databinding.ObservableField
 import androidx.recyclerview.widget.RecyclerView
 import study.architecture.data.entity.ProcessingTicker
 import study.architecture.databinding.ListItemBinding
@@ -13,6 +14,7 @@ import study.architecture.databinding.ListItemBinding
 class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
 
     private val lists: MutableList<ProcessingTicker> = mutableListOf()
+
     private lateinit var binding: ListItemBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -21,6 +23,7 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
             parent,
             false
         )
+
         return Holder(binding)
     }
 
@@ -45,11 +48,12 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
         private val accTradePrice24h: TextView = itemView.accTradePrice
 
         fun bind(position: Int) {
-            name.text = lists[position].market
-            tradePrice.text = lists[position].tradePrice
-            changeRate.setTextColor(lists[position].color)
-            changeRate.text = lists[position].changeRate
-            accTradePrice24h.text = lists[position].accTradePrice24h
+//            name.text = lists[position].market
+//            tradePrice.text = lists[position].tradePrice
+//            changeRate.setTextColor(lists[position].color)
+//            changeRate.text = lists[position].changeRate
+//            accTradePrice24h.text = lists[position].accTradePrice24h
+            binding.pTicker = lists[position]
         }
 
     }
