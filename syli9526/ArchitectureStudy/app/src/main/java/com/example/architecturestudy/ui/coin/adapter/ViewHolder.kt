@@ -1,4 +1,4 @@
-package com.example.architecturestudy.ui.adapter
+package com.example.architecturestudy.ui.coin.adapter
 
 import android.view.View
 import android.widget.TextView

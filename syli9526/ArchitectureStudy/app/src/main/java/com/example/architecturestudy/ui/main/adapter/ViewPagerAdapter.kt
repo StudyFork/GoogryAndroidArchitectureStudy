@@ -1,4 +1,4 @@
-package com.example.architecturestudy.ui.adapter
+package com.example.architecturestudy.ui.main.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

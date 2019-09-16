@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.architecturestudy.R
 import com.example.architecturestudy.network.model.MarketResponse
-import com.example.architecturestudy.ui.adapter.ViewPagerAdapter
+import com.example.architecturestudy.ui.main.adapter.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
