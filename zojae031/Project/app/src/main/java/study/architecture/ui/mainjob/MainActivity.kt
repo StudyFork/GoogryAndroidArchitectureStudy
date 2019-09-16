@@ -6,7 +6,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import com.google.android.material.tabs.TabLayout
 import study.architecture.R
 import study.architecture.databinding.ActivityMainBinding
@@ -14,13 +13,18 @@ import study.architecture.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView<ActivityMainBinding>(
-            this,
-            R.layout.activity_main
-        )
+        mainViewModel = MainViewModel(
+            MainPageAdapter(supportFragmentManager)
+        ).apply {
+            binding.mainViewModel = this
+        }
+
+        mainViewModel.initView()
+
         supportActionBar?.elevation = 0.0f
         supportActionBar?.title = resources.getString(R.string.app_title)
         tabSetting()
@@ -62,7 +66,6 @@ class MainActivity : AppCompatActivity() {
     private fun pagerSetting() {
         with(binding.pager) {
             addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout))
-            adapter = MainPageAdapter(supportFragmentManager)
         }
     }
 }
