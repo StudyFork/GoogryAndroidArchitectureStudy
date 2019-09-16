@@ -6,6 +6,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.google.android.material.tabs.TabLayout
 import study.architecture.R
 import study.architecture.databinding.ActivityMainBinding
@@ -17,10 +18,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
         mainViewModel = MainViewModel(
             MainPageAdapter(supportFragmentManager)
         ).apply {
-            binding.mainViewModel = this
+            binding.viewModel = this
         }
 
         mainViewModel.initView()

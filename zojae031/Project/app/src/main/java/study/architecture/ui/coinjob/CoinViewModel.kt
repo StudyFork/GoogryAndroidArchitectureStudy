@@ -1,6 +1,7 @@
 package study.architecture.ui.coinjob
 
 import android.util.Log
+import androidx.databinding.ObservableField
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -18,7 +19,11 @@ class CoinViewModel(
     private val compositeDisposable = CompositeDisposable()
     private val dispose: Disposable
 
+    val coinAdapter = ObservableField<CoinDataAdapter>()
+
     init {
+        coinAdapter.set(adapter)
+
         repository.getMarkets()
             .map { list ->
                 list.filter { filterData
@@ -41,10 +46,10 @@ class CoinViewModel(
     }
 
     private fun tickerRequest() {
+        dispose.dispose()
+
         repository.getTickers(marketName)
             .repeatWhen { it.delay(8, TimeUnit.SECONDS) }
-            .doOnSubscribe { view.showProgress() }
-            .doOnRequest { view.hideProgress() }
             .map { list ->
                 list.map { data ->
                     ProcessingTicker(
@@ -59,16 +64,24 @@ class CoinViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { lists ->
-                    if (!repository.checkNetwork()) view.showError("데이터가 최신이 아닙니다.\n 인터넷에 연결해주세요")
-
-                    adapter.clearList()
-                    adapter.updateList(lists)
-                    adapter.notifyDataChange()
+                    if (!repository.checkNetwork()) Log.e("데이터 연결x", "데이터 최신화 필요")
+                    adapter.updateLists(lists)
                 },
                 { e ->
-                    view.showError(e.message)
+                    Log.e("CoinViewModel", e.message)
                 }
             ).also { compositeDisposable.add(it) }
 
+    }
+
+    fun onResume() {
+        if (dispose.isDisposed) {
+            tickerRequest()
+        }
+    }
+
+    fun onPause() {
+        dispose.dispose()
+        compositeDisposable.clear()
     }
 }

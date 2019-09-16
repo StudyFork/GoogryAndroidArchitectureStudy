@@ -10,9 +10,7 @@ import study.architecture.databinding.ListItemBinding
 /**
  * RecyclerView에 아이템을 뿌려주는 Adpater
  */
-class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>(),
-    CoinAdapterContract.View,
-    CoinAdapterContract.Model {
+class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
 
     private val lists: MutableList<ProcessingTicker> = mutableListOf()
     private lateinit var binding: ListItemBinding
@@ -33,17 +31,12 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>(),
         binding.executePendingBindings()
     }
 
-    override fun notifyDataChange() {
+    fun updateLists(list: List<ProcessingTicker>) {
+        lists.clear()
+        lists.addAll(list)
         notifyDataSetChanged()
     }
 
-    override fun updateList(list: List<ProcessingTicker>) {
-        lists.addAll(list)
-    }
-
-    override fun clearList() {
-        lists.clear()
-    }
 
     inner class Holder(itemView: ListItemBinding) : RecyclerView.ViewHolder(itemView.root) {
         private val name: TextView = itemView.name

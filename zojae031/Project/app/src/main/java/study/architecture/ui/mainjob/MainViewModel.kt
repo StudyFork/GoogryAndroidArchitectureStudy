@@ -6,8 +6,8 @@ import study.architecture.ui.coinjob.CoinFragment
 class MainViewModel(
     adapter: MainPageAdapter
 ) {
-    private val mainAdapter = ObservableField<MainPageAdapter>()
-    private val pageLimit = ObservableField<Int>()
+    val mainAdapter = ObservableField<MainPageAdapter>()
+    val pageLimit = ObservableField<Int>()
 
     init {
         mainAdapter.set(adapter)

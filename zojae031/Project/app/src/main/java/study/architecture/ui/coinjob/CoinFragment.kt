@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import study.architecture.R
@@ -19,11 +18,10 @@ import study.architecture.databinding.FragmentCoinBinding
 
 
 @SuppressLint("ValidFragment", "WrongConstant")
-class CoinFragment : Fragment(), CoinContract.View {
+class CoinFragment : Fragment() {
 
-    private val presenter by lazy {
-        CoinPresenter(
-            this@CoinFragment,
+    private val coinViewModel by lazy {
+        CoinViewModel(
             arguments!!.getSerializable("idx") as FragIndex,
             RepositoryImpl.getInstance(
                 RemoteDataSourceImpl,
@@ -31,13 +29,10 @@ class CoinFragment : Fragment(), CoinContract.View {
                 context!!.getSystemService(
                     Context.CONNECTIVITY_SERVICE
                 ) as ConnectivityManager
-            )
-        ).also {
-            it.setAdapterModel(adapter)
-            it.setAdapterView(adapter)
-        }
+            ), CoinDataAdapter()
+        )
     }
-    private val adapter = CoinDataAdapter()
+
     private lateinit var binding: FragmentCoinBinding
 
     override fun onCreateView(
@@ -51,36 +46,34 @@ class CoinFragment : Fragment(), CoinContract.View {
             container,
             false
         ).apply {
-            recyclerView.adapter = adapter
             loading.animation = AnimationUtils.loadAnimation(context, R.anim.loading)
         }
-        return binding.root
+        binding.viewModel = coinViewModel
+
+        return binding.recyclerView
     }
 
 
-    override fun showProgress() {
-        binding.loading.visibility = View.VISIBLE
-        binding.loading.animation?.start()
-    }
-
-    override fun hideProgress() {
-        binding.loading.visibility = View.INVISIBLE
-        binding.loading.animation.cancel()
-    }
+//    override fun showProgress() {
+//        binding.loading.visibility = View.VISIBLE
+//        binding.loading.animation?.start()
+//    }
+//
+//    override fun hideProgress() {
+//        binding.loading.visibility = View.INVISIBLE
+//        binding.loading.animation.cancel()
+//    }
 
     override fun onPause() {
-        presenter.onPause()
+        coinViewModel.onPause()
         super.onPause()
     }
 
     override fun onResume() {
         super.onResume()
-        presenter.onResume()
+        coinViewModel.onResume()
     }
 
-    override fun showError(e: String?) {
-        Toast.makeText(context, e, Toast.LENGTH_SHORT).show()
-    }
 
     enum class FragIndex {
         KRW, BTC, ETH, USDT
