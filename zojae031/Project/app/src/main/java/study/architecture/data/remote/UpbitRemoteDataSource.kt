@@ -1,4 +1,4 @@
-package study.architecture.data
+package study.architecture.data.remote
 
 
 import io.reactivex.Single

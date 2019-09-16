@@ -3,11 +3,11 @@ package study.architecture.data.local
 import android.content.Context
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import study.architecture.data.UpbitLocalDataSource
 import study.architecture.data.entity.Market
 import study.architecture.data.entity.Ticker
 
-class LocalDataSourceImpl private constructor(context: Context) : UpbitLocalDataSource {
+class LocalDataSourceImpl private constructor(context: Context) :
+    UpbitLocalDataSource {
 
     private val db = CoinDatabase.getInstance(context)
     private val marketDao = db!!.marketDao()
