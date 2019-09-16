@@ -16,8 +16,6 @@ import study.architecture.data.local.LocalDataSourceImpl
 import study.architecture.data.remote.RemoteDataSourceImpl
 import study.architecture.data.repository.RepositoryImpl
 import study.architecture.databinding.FragmentCoinBinding
-import study.architecture.presentation.CoinContract
-import study.architecture.presentation.CoinPresenter
 
 
 @SuppressLint("ValidFragment", "WrongConstant")

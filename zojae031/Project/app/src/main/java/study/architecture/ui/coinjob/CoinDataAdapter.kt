@@ -6,7 +6,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import study.architecture.data.entity.ProcessingTicker
 import study.architecture.databinding.ListItemBinding
-import study.architecture.presentation.CoinAdapterContract
 
 /**
  * RecyclerView에 아이템을 뿌려주는 Adpater

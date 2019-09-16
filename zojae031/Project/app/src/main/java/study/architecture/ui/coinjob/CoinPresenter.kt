@@ -1,24 +1,31 @@
-package study.architecture.presentation
+package study.architecture.ui.coinjob
 
-import android.util.Log
+import android.annotation.SuppressLint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import study.architecture.data.entity.ProcessingTicker
 import study.architecture.data.repository.RepositoryImpl
-import study.architecture.ui.coinjob.CoinDataAdapter
-import study.architecture.ui.coinjob.CoinFragment
 import study.architecture.util.TextUtil
 import java.util.concurrent.TimeUnit
 
-class CoinViewModel(
+/**
+ * 1. 업비트 데이터를 가져와 View에게 알려준다.
+ * 2. Observable 생명주기를 관리한다.
+ */
+class CoinPresenter(
+    private val view: CoinContract.View,
     private val index: CoinFragment.FragIndex,
-    private val repository: RepositoryImpl,
-    private val adapter: CoinDataAdapter
-) {
+    private val repository: RepositoryImpl
+) :
+    CoinContract.Presenter {
     private lateinit var marketName: String
-    private val compositeDisposable = CompositeDisposable()
+
     private val dispose: Disposable
+    private val compositeDisposable = CompositeDisposable()
+
+    private lateinit var adapterView: CoinAdapterContract.View
+    private lateinit var adapterModel: CoinAdapterContract.Model
 
     init {
         repository.getMarkets()
@@ -38,10 +45,31 @@ class CoinViewModel(
                     tickerRequest()
                 },
                 {
-                    Log.e("CoinViewModelError", it.message)
+                    view.showError(it.message)
                 }).also { dispose = it }
     }
 
+    override fun setAdapterView(adapterView: CoinAdapterContract.View) {
+        this.adapterView = adapterView
+    }
+
+    override fun setAdapterModel(adapterModel: CoinAdapterContract.Model) {
+        this.adapterModel = adapterModel
+    }
+
+    override fun onResume() {
+        if (dispose.isDisposed) {
+            tickerRequest()
+        }
+    }
+
+
+    override fun onPause() {
+        dispose.dispose()
+        compositeDisposable.clear()
+    }
+
+    @SuppressLint("CheckResult")
     private fun tickerRequest() {
         repository.getTickers(marketName)
             .repeatWhen { it.delay(8, TimeUnit.SECONDS) }
@@ -62,10 +90,9 @@ class CoinViewModel(
             .subscribe(
                 { lists ->
                     if (!repository.checkNetwork()) view.showError("데이터가 최신이 아닙니다.\n 인터넷에 연결해주세요")
-
-                    adapter.clearList()
-                    adapter.updateList(lists)
-                    adapter.notifyDataChange()
+                    adapterView.clearList()
+                    adapterView.updateList(lists)
+                    adapterModel.notifyDataChange()
                 },
                 { e ->
                     view.showError(e.message)
@@ -73,4 +100,6 @@ class CoinViewModel(
             ).also { compositeDisposable.add(it) }
 
     }
+
+
 }
