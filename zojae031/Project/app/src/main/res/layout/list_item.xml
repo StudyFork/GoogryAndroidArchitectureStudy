@@ -56,7 +56,7 @@
                 android:padding="4dp"
                 android:singleLine="true"
                 android:text="@{pTicker.changeRate}"
-                android:textColor="@color/blue"
+                android:textColor="@{pTicker.color}"
                 android:textSize="12sp" />
 
             <TextView
