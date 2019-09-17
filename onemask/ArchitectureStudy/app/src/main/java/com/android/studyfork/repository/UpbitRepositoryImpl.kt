@@ -14,12 +14,12 @@ object UpbitRepositoryImpl
     override fun getMarketAll() =
         UpbitDataSourceImpl.getMarketAll()
             .flatMap {  markets->
-                val marketNamesKey = markets
+                val marketNamesMap = markets
                     .groupBy {
                         val idx = it.market.indexOf("-")
                         it.market.substring(0,idx)
                     }
-                Single.just(marketNamesKey)
+                Single.just(marketNamesMap)
             }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
