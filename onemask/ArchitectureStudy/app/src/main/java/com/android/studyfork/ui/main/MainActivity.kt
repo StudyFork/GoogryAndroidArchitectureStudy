@@ -44,6 +44,5 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         presenter.loadData()
     }
 
-
 }
 
