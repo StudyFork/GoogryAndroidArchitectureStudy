@@ -32,6 +32,11 @@ class TickerListFragment : Fragment(), TickerContract.View {
         coinItemAdapter.setData(ticker)
     }
 
+    override fun onDestroyView() {
+        tickerPresenter.clearDisposable()
+        super.onDestroyView()
+    }
+
     private fun setRecyclerView() {
         coinItemAdapter = CoinItemAdapter()
         recyclerview.apply {
