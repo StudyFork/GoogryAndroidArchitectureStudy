@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.architecturestudy.data.Coin
 import com.example.architecturestudy.ui.market.RecyclerViewAdapter
 
-
 object BindingAdapters {
 
     @JvmStatic

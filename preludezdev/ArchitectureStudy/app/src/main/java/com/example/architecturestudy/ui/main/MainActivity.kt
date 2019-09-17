@@ -20,11 +20,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun initViewPager() {
-        //뷰페이저 어댑터 연결
-        binding.viewPager.adapter = vpAdapter
+        with(binding) {
+            //뷰페이저 어댑터 연결
+            viewPager.adapter = vpAdapter
+            viewPager.offscreenPageLimit = vpAdapter.count
 
-        //탭 레이아웃에 뷰페이저 연결
-        binding.tabLayout.setupWithViewPager(binding.viewPager)
+            //탭 레이아웃에 뷰페이저 연결
+            tabLayout.setupWithViewPager(binding.viewPager)
+        }
     }
 
     private fun initArrowView() {

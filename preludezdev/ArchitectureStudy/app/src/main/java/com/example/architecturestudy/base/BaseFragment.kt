@@ -21,4 +21,5 @@ abstract class BaseFragment<B : ViewDataBinding>(private val layoutId: Int) : Fr
 
         return binding.root
     }
+
 }

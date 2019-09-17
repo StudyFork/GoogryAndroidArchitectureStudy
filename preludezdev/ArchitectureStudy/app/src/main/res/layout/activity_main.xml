@@ -18,14 +18,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tabLayout">
 
-            <ImageView
-                android:id="@+id/iv_arrow_coin_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:contentDescription="@string/iv_main_arrow"
-                app:srcCompat="@drawable/ic_arrow_selector" />
-
             <TextView
                 android:id="@+id/tv_coin_name"
                 android:layout_width="wrap_content"
@@ -33,6 +25,14 @@
                 android:layout_gravity="center"
                 android:clickable="false"
                 android:text="@string/coin_name" />
+
+            <ImageView
+                android:id="@+id/iv_arrow_coin_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:contentDescription="@string/iv_main_arrow"
+                app:srcCompat="@drawable/ic_arrow_selector" />
         </LinearLayout>
 
         <LinearLayout
@@ -47,14 +47,6 @@
             app:layout_constraintStart_toEndOf="@+id/linearLayout1"
             app:layout_constraintTop_toBottomOf="@+id/tabLayout">
 
-            <ImageView
-                android:id="@+id/iv_arrow_curr_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:contentDescription="@string/iv_main_arrow"
-                app:srcCompat="@drawable/ic_arrow_selector" />
-
             <TextView
                 android:id="@+id/tv_curr_price"
                 android:layout_width="wrap_content"
@@ -62,6 +54,14 @@
                 android:layout_gravity="center"
                 android:clickable="false"
                 android:text="@string/curr_price" />
+
+            <ImageView
+                android:id="@+id/iv_arrow_curr_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:contentDescription="@string/iv_main_arrow"
+                app:srcCompat="@drawable/ic_arrow_selector" />
         </LinearLayout>
 
         <LinearLayout
@@ -74,14 +74,6 @@
             app:layout_constraintEnd_toStartOf="@+id/linearLayout4"
             app:layout_constraintTop_toBottomOf="@+id/tabLayout">
 
-            <ImageView
-                android:id="@+id/iv_arrow_price_compare"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:contentDescription="@string/iv_main_arrow"
-                app:srcCompat="@drawable/ic_arrow_selector" />
-
             <TextView
                 android:id="@+id/tv_price_compare"
                 android:layout_width="wrap_content"
@@ -89,6 +81,14 @@
                 android:layout_gravity="center"
                 android:clickable="false"
                 android:text="@string/price_compare" />
+
+            <ImageView
+                android:id="@+id/iv_arrow_price_compare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:contentDescription="@string/iv_main_arrow"
+                app:srcCompat="@drawable/ic_arrow_selector" />
         </LinearLayout>
 
         <LinearLayout
@@ -101,14 +101,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tabLayout">
 
-            <ImageView
-                android:id="@+id/iv_arrow_total_trade"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:contentDescription="@string/iv_main_arrow"
-                app:srcCompat="@drawable/ic_arrow_selector" />
-
             <TextView
                 android:id="@+id/tv_total_trade"
                 android:layout_width="wrap_content"
@@ -116,6 +108,14 @@
                 android:layout_gravity="center"
                 android:clickable="false"
                 android:text="@string/total_trade" />
+
+            <ImageView
+                android:id="@+id/iv_arrow_total_trade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:contentDescription="@string/iv_main_arrow"
+                app:srcCompat="@drawable/ic_arrow_selector" />
         </LinearLayout>
 
         <androidx.viewpager.widget.ViewPager
