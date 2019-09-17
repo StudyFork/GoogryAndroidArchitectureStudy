@@ -1,8 +1,9 @@
 package com.android.studyfork.ui.tickerlist.presenter
 
-import android.annotation.SuppressLint
 import com.android.studyfork.network.model.Ticker
 import com.android.studyfork.repository.UpbitRepositoryImpl
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.plusAssign
 import timber.log.Timber
 
 /**
@@ -12,10 +13,13 @@ class TickerPresenter(
     private val view: TickerContract.View
 ) : TickerContract.Presenter {
 
-    @SuppressLint("CheckResult")
+    private val disposables = CompositeDisposable()
+
     override fun getTicker(market: String) {
+
         val tickerList: ArrayList<Ticker> = arrayListOf()
-        UpbitRepositoryImpl.getTickers(market)
+
+        disposables += UpbitRepositoryImpl.getTickers(market)
             .subscribe({
                 Timber.d("getTicker success")
                 it.forEachIndexed { index, tickerResponse ->
@@ -35,5 +39,10 @@ class TickerPresenter(
             })
 
     }
+
+    override fun clearDisposable() {
+        disposables.clear()
+    }
+
 }
 
