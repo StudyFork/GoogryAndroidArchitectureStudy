@@ -12,5 +12,6 @@ interface TickerContract {
 
     interface Presenter {
         fun getTicker(market: String)
+        fun clearDisposable()
     }
 }
