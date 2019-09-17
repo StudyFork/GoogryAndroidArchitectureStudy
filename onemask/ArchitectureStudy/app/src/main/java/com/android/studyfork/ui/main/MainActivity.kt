@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 .joinToString { marketResponse -> marketResponse.market }
         }
 
-        viewPagerAdapter.apply {
+        with(viewPagerAdapter) {
             setTitles(titles.toList())
             setData(marketNames)
         }
