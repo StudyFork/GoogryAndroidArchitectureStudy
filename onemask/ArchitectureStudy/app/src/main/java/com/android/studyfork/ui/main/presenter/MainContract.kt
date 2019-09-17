@@ -1,12 +1,9 @@
 package com.android.studyfork.ui.main.presenter
 
-/**
- * created by onemask
- */
+
 interface MainContract {
     interface View {
-        fun setViewPagerTitle(titles: Array<String>)
-        fun setViewPagerData(items: Array<String>)
+        fun setViewPagerData(titles: List<String>, items: List<String>)
     }
 
     interface Presenter {
