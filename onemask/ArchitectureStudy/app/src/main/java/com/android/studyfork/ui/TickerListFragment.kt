@@ -44,7 +44,6 @@ class TickerListFragment : Fragment(), TickerContract.View {
         }
     }
 
-    @SuppressLint("CheckResult")
     private fun getTicker() {
         val market = arguments?.getString(KEY_MARKETS) ?: ""
         tickerPresenter.getTicker(market)
