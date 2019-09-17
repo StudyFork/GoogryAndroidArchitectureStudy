@@ -14,20 +14,19 @@ class MainPresenter(
     @SuppressLint("CheckResult")
     override fun loadData() {
         UpbitRepositoryImpl.getMarketAll()
-            .subscribe({
+            .subscribe({ marketMap ->
 
-                val keys = it.keys.apply {
-                    view.setViewPagerTitle(this.toTypedArray())
-                }
-                val marketNamesArr = Array(keys.size) { "" }
+               val titles = marketMap.keys.toTypedArray()
+               val marketNames = Array(titles.count()) { "" }
 
-                for ((index: Int, value: String) in keys.withIndex()) {
-                    marketNamesArr[index] = it
-                        .getValue(value)
-                        .joinToString(",") { it.market }
-                }
-                view.setViewPagerData(marketNamesArr)
-            }, {
+               for ((index: Int, value: String) in titles.withIndex()) {
+                   marketNames[index] = marketMap
+                       .getValue(value)
+                       .joinToString { marketResponse -> marketResponse.market }
+               }
+               view.setViewPagerData(titles.toList(), marketNames.toList())
+            },
+            {
                 Timber.e(it)
             })
     }
