@@ -21,9 +21,7 @@ class CoinFragment : Fragment() {
     private val coinDataAdapter = CoinDataAdapter()
     private lateinit var coinViewModel: CoinViewModel
 
-
     private lateinit var binding: FragmentCoinBinding
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,7 +40,7 @@ class CoinFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        coinViewModel = CoinViewModel(
+        CoinViewModel(
             arguments!!.getSerializable("idx") as FragIndex,
             RepositoryImpl.getInstance(
                 RemoteDataSourceImpl,
@@ -51,8 +49,10 @@ class CoinFragment : Fragment() {
                     Context.CONNECTIVITY_SERVICE
                 ) as ConnectivityManager
             ), coinDataAdapter
-        )
-        binding.viewModel = coinViewModel
+        ).also {
+            coinViewModel = it
+            binding.viewModel = it
+        }
     }
 
 

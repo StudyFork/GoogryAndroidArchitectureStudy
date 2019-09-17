@@ -21,12 +21,11 @@ class CoinViewModel(
     private val compositeDisposable = CompositeDisposable()
     private val dispose: Disposable
 
-
     val coinAdapter = ObservableField<CoinDataAdapter>()
     val progressBar = ObservableField<Int>()
 
-
     init {
+        coinAdapter.set(adapter)
         repository.getMarkets()
             .map { list ->
                 list.filter { filterData
@@ -46,14 +45,10 @@ class CoinViewModel(
                 {
                     Log.e("CoinViewModelError", it.message)
                 }).also { dispose = it }
-
-        coinAdapter.set(adapter)
-
     }
 
     private fun tickerRequest() {
         dispose.dispose()
-
         repository.getTickers(marketName)
             .repeatWhen { it.delay(8, TimeUnit.SECONDS) }
             .doOnSubscribe { progressBar.set(View.VISIBLE) }
@@ -79,7 +74,6 @@ class CoinViewModel(
                     Log.e("CoinViewModel", e.message)
                 }
             ).also { compositeDisposable.add(it) }
-
     }
 
     fun onResume() {
