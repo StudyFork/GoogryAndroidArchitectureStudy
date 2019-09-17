@@ -1,6 +1,7 @@
 package study.architecture.ui.coinjob
 
 import android.util.Log
+import android.view.View
 import androidx.databinding.ObservableField
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -20,7 +21,10 @@ class CoinViewModel(
     private val compositeDisposable = CompositeDisposable()
     private val dispose: Disposable
 
+
     val coinAdapter = ObservableField<CoinDataAdapter>()
+    val progressBar = ObservableField<Int>()
+
 
     init {
         repository.getMarkets()
@@ -42,7 +46,9 @@ class CoinViewModel(
                 {
                     Log.e("CoinViewModelError", it.message)
                 }).also { dispose = it }
+
         coinAdapter.set(adapter)
+
     }
 
     private fun tickerRequest() {
@@ -50,6 +56,8 @@ class CoinViewModel(
 
         repository.getTickers(marketName)
             .repeatWhen { it.delay(8, TimeUnit.SECONDS) }
+            .doOnSubscribe { progressBar.set(View.VISIBLE) }
+            .doOnRequest { progressBar.set(View.GONE) }
             .map { list ->
                 list.map { data ->
                     ProcessingTicker(

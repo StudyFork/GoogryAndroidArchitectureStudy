@@ -1,6 +1,5 @@
 package study.architecture.ui.coinjob
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +21,6 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
             parent,
             false
         )
-        Log.e("onCreateViewHolder 생성", "앙 생성띠")
         return Holder(binding)
     }
 
