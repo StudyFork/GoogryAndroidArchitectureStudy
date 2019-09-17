@@ -32,12 +32,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         }
     }
 
-    override fun setViewPagerTitle(titles: Array<String>) {
-        viewPagerAdapter.setTitles(titles)
-    }
-
-    override fun setViewPagerData(items: Array<String>) {
-        viewPagerAdapter.setData(items)
+    override fun setViewPagerData(titles: List<String>, items: List<String>) {
+        viewPagerAdapter.setData(titles,items)
     }
 
     private fun loadData() {
