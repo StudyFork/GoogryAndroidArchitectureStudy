@@ -3,6 +3,7 @@ package com.android.studyfork.ui.main
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.android.studyfork.R
+import com.android.studyfork.network.model.MarketResponse
 import com.android.studyfork.ui.main.adapter.ViewPagerAdapter
 import com.android.studyfork.ui.main.presenter.MainContract
 import com.android.studyfork.ui.main.presenter.MainPresenter
@@ -24,16 +25,33 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         loadData()
     }
 
+    override fun setViewPagerData(marketData: Map<String, List<MarketResponse>>) {
+        val titles = marketData.keys.toTypedArray()
+        val marketNames = Array(titles.count()) { "" }
+
+        for ((index: Int, value: String) in titles.withIndex()) {
+            marketNames[index] = marketData
+                .getValue(value)
+                .joinToString { marketResponse -> marketResponse.market }
+        }
+
+        viewPagerAdapter.apply {
+            setTitles(titles.toList())
+            setData(marketNames)
+        }
+    }
+
+    override fun onDestroy() {
+        presenter.clearDisposable()
+        super.onDestroy()
+    }
+
     private fun initViewPager() {
         with(pager_content) {
             adapter = viewPagerAdapter
             layout_tab.setupWithViewPager(this)
             offscreenPageLimit = 3
         }
-    }
-
-    override fun setViewPagerData(titles: List<String>, items: List<String>) {
-        viewPagerAdapter.setData(titles,items)
     }
 
     private fun loadData() {
