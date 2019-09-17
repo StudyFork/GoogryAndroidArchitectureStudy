@@ -13,7 +13,7 @@ class ViewPagerAdapter(fragmentManager: FragmentManager) :
     FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private var titles: List<String> = listOf("")
-    private var marketDataSet: List<String> = listOf()
+    private var marketDataSet: Array<String> = arrayOf()
 
     override fun getItem(position: Int): Fragment {
         val item = marketDataSet[position]
@@ -30,10 +30,13 @@ class ViewPagerAdapter(fragmentManager: FragmentManager) :
         return titles[position]
     }
 
-    fun setData(titles : List<String>,items: List<String>) {
+    fun setTitles(titles : List<String>){
         this.titles = titles
-        this.marketDataSet = items
+        notifyDataSetChanged()
+    }
 
+    fun setData(items: Array<String>) {
+        this.marketDataSet = items
         notifyDataSetChanged()
     }
 
