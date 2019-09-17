@@ -14,18 +14,15 @@ import study.architecture.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        mainViewModel = MainViewModel(
-            MainPageAdapter(supportFragmentManager)
-        ).apply {
-            binding.viewModel = this
-        }
 
-        mainViewModel.initView()
+        with(MainViewModel(MainPageAdapter(supportFragmentManager))) {
+            binding.viewModel = this
+            initView()
+        }
 
         supportActionBar?.elevation = 0.0f
         supportActionBar?.title = resources.getString(R.string.app_title)
@@ -66,8 +63,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun pagerSetting() {
-        with(binding.pager) {
-            addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout))
-        }
+        binding.pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout))
     }
 }
