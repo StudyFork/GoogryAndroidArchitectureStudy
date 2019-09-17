@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import study.architecture.R
@@ -19,9 +18,31 @@ import study.architecture.databinding.FragmentCoinBinding
 
 @SuppressLint("ValidFragment", "WrongConstant")
 class CoinFragment : Fragment() {
+    private val coinDataAdapter = CoinDataAdapter()
+    private lateinit var coinViewModel: CoinViewModel
 
-    private val coinViewModel by lazy {
-        CoinViewModel(
+
+    private lateinit var binding: FragmentCoinBinding
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(
+            LayoutInflater.from(context),
+            R.layout.fragment_coin,
+            container,
+            false
+        )
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        coinViewModel = CoinViewModel(
             arguments!!.getSerializable("idx") as FragIndex,
             RepositoryImpl.getInstance(
                 RemoteDataSourceImpl,
@@ -29,28 +50,9 @@ class CoinFragment : Fragment() {
                 context!!.getSystemService(
                     Context.CONNECTIVITY_SERVICE
                 ) as ConnectivityManager
-            ), CoinDataAdapter()
+            ), coinDataAdapter
         )
-    }
-
-    private lateinit var binding: FragmentCoinBinding
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate<FragmentCoinBinding>(
-            LayoutInflater.from(context),
-            R.layout.fragment_coin,
-            container,
-            false
-        ).apply {
-            loading.animation = AnimationUtils.loadAnimation(context, R.anim.loading)
-        }
         binding.viewModel = coinViewModel
-
-        return binding.recyclerView
     }
 
 

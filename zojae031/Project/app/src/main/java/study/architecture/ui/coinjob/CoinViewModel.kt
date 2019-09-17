@@ -23,8 +23,6 @@ class CoinViewModel(
     val coinAdapter = ObservableField<CoinDataAdapter>()
 
     init {
-        coinAdapter.set(adapter)
-
         repository.getMarkets()
             .map { list ->
                 list.filter { filterData
@@ -44,6 +42,7 @@ class CoinViewModel(
                 {
                     Log.e("CoinViewModelError", it.message)
                 }).also { dispose = it }
+        coinAdapter.set(adapter)
     }
 
     private fun tickerRequest() {

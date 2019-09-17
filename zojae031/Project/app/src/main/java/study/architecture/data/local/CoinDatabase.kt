@@ -19,7 +19,11 @@ abstract class CoinDatabase : RoomDatabase() {
         private var INSTANCE: CoinDatabase? = null
         fun getInstance(context: Context): CoinDatabase? {
             if (INSTANCE == null) {
-                INSTANCE = Room.databaseBuilder(context.applicationContext, CoinDatabase::class.java, "coin").build()
+                INSTANCE = Room.databaseBuilder(
+                    context.applicationContext,
+                    CoinDatabase::class.java,
+                    "coin"
+                ).build()
             }
             return INSTANCE
         }
