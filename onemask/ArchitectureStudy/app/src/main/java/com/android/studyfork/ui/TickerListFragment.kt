@@ -1,11 +1,8 @@
 package com.android.studyfork.ui
 
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import com.android.studyfork.R
 import com.android.studyfork.network.model.Ticker
@@ -14,7 +11,6 @@ import com.android.studyfork.ui.tickerlist.presenter.TickerContract
 import com.android.studyfork.ui.tickerlist.presenter.TickerPresenter
 import com.android.studyfork.util.inflate
 import kotlinx.android.synthetic.main.fragment_ticker_list.*
-
 
 class TickerListFragment : Fragment(), TickerContract.View {
 
