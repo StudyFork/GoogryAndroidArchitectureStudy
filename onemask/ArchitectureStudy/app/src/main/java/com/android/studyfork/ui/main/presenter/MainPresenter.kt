@@ -1,7 +1,8 @@
 package com.android.studyfork.ui.main.presenter
 
-import android.annotation.SuppressLint
 import com.android.studyfork.repository.UpbitRepositoryImpl
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.plusAssign
 import timber.log.Timber
 
 /**
@@ -11,24 +12,24 @@ class MainPresenter(
     private val view: MainContract.View
 ) : MainContract.Presenter {
 
-    @SuppressLint("CheckResult")
+    private val disposables = CompositeDisposable()
+
     override fun loadData() {
-        UpbitRepositoryImpl.getMarketAll()
+        disposables += UpbitRepositoryImpl.getMarketAll()
             .subscribe({ marketMap ->
-
-               val titles = marketMap.keys.toTypedArray()
-               val marketNames = Array(titles.count()) { "" }
-
-               for ((index: Int, value: String) in titles.withIndex()) {
-                   marketNames[index] = marketMap
-                       .getValue(value)
-                       .joinToString { marketResponse -> marketResponse.market }
-               }
-               view.setViewPagerData(titles.toList(), marketNames.toList())
+               view.setViewPagerData(marketMap)
             },
             {
                 Timber.e(it)
-            })
+            }
+        )
+    }
+
+    override fun clearDisposable() {
+        disposables.clear()
     }
 
 }
+
+
+
