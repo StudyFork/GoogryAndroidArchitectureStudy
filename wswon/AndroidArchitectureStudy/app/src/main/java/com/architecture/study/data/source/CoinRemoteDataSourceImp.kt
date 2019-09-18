@@ -1,6 +1,5 @@
 package com.architecture.study.data.source
 
-import com.architecture.study.network.RetrofitInstance
 import com.architecture.study.network.api.UpbitApi
 import com.architecture.study.network.model.MarketResponse
 import com.architecture.study.network.model.TickerResponse
@@ -9,17 +8,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class CoinRemoteDataSourceImp(private val upbitApi: UpbitApi) : CoinRemoteDataSource { //리모트 만들때 파라미터로 API넣게
-
-    companion object {
-        private var instance: CoinRemoteDataSourceImp? = null
-        fun getInstance(upbitApi: UpbitApi): CoinRemoteDataSourceImp =
-            instance ?: synchronized(this) {
-                instance ?: CoinRemoteDataSourceImp(upbitApi).also {
-                    instance = it
-                }
-            }
-    }
-
 
     override fun getMarketList(listener: CoinRemoteDataSourceListener<MarketResponse>) {
         upbitApi.getMarketData().enqueue(object : Callback<List<MarketResponse>> {
@@ -63,4 +51,13 @@ class CoinRemoteDataSourceImp(private val upbitApi: UpbitApi) : CoinRemoteDataSo
         })
     }
 
+    companion object {
+        private var instance: CoinRemoteDataSourceImp? = null
+        fun getInstance(upbitApi: UpbitApi): CoinRemoteDataSourceImp =
+            instance ?: synchronized(this) {
+                instance ?: CoinRemoteDataSourceImp(upbitApi).also {
+                    instance = it
+                }
+            }
+    }
 }

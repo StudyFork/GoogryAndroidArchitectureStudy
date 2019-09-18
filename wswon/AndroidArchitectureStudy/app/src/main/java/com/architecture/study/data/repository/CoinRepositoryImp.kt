@@ -10,24 +10,12 @@ class CoinRepositoryImp private constructor(
     private val coinRemoteDataSource: CoinRemoteDataSource?
 ) : CoinRepository {
 
-    companion object {
-        private var instance: CoinRepositoryImp? = null
-        fun getInstance(coinRemoteDataSource: CoinRemoteDataSource?): CoinRepositoryImp =
-            instance ?: synchronized(this) {
-                instance
-                    ?: CoinRepositoryImp(coinRemoteDataSource).also {
-                        instance = it
-                    }
-            }
-    }
-
     // retrofit instance 가져옴
-    override fun setRetrofitInstance(callBack: RetrofitInstanceCallBack) {
+    override fun setRetrofitInstance(retrofitInstanceCallBack: RetrofitInstanceCallBack) {
         coinRemoteDataSource?.let {
-            callBack.onLoaded()
-        } ?: callBack.onNotLoaded()
+            retrofitInstanceCallBack.onLoaded()
+        } ?: retrofitInstanceCallBack.onNotLoaded()
     }
-
 
     // 생성시 Retrofit 객체를 주입해 작동하도록 변경
     override fun getMarketList(listener: CoinRemoteDataSourceListener<MarketResponse>) {
@@ -39,5 +27,16 @@ class CoinRepositoryImp private constructor(
         listener: CoinRemoteDataSourceListener<TickerResponse>
     ) {
         coinRemoteDataSource?.getTickerList(marketNames, listener)
+    }
+
+    companion object {
+        private var instance: CoinRepositoryImp? = null
+        fun getInstance(coinRemoteDataSource: CoinRemoteDataSource?): CoinRepositoryImp =
+            instance ?: synchronized(this) {
+                instance
+                    ?: CoinRepositoryImp(coinRemoteDataSource).also {
+                        instance = it
+                    }
+            }
     }
 }
