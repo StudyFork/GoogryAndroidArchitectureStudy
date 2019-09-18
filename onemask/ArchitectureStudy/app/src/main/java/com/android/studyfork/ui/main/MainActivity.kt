@@ -26,18 +26,13 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun setViewPagerData(marketData: Map<String, List<MarketResponse>>) {
-        val titles = marketData.keys.toTypedArray()
-        val marketNames = Array(titles.count()) { "" }
-
-        for ((index: Int, value: String) in titles.withIndex()) {
-            marketNames[index] = marketData
-                .getValue(value)
-                .joinToString { marketResponse -> marketResponse.market }
-        }
-
         with(viewPagerAdapter) {
-            setTitles(titles.toList())
-            setData(marketNames)
+            setTitles(marketData.keys.toList())
+            setData( marketData.values.map { responseList ->
+                responseList.joinToString { response ->
+                    response.market
+                }
+            })
         }
     }
 
