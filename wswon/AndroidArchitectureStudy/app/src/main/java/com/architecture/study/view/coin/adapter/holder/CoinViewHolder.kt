@@ -19,10 +19,7 @@ class CoinViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     private val binding: ItemCoinBinding =
         DataBindingUtil.bind(itemView)!!
 
-
     fun bind(ticker: Ticker, listener: CoinListAdapter.CoinItemRecyclerViewClickListener) {
-        binding.ticker = ticker
-        binding.setVariable(BR.ticker, ticker)
 
         itemView.setOnClickListener {
             listener.onItemClicked(adapterPosition)
@@ -34,6 +31,8 @@ class CoinViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
                     ticker.compareYesterdayTextColor
                 )
             )
+            setVariable(BR.ticker, ticker)
+            executePendingBindings()
         }
     }
 }
