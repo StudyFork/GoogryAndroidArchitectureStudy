@@ -2,6 +2,7 @@ package study.architecture.myarchitecture.ui.tickerlist
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import study.architecture.myarchitecture.BR
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.base.BaseViewHolder
 import study.architecture.myarchitecture.databinding.ItemTickerBinding
@@ -45,7 +46,7 @@ class TickerAdapter(
         fun onBindView(ticker: TickerItem) {
 
             with(binding) {
-                tickerItemModel = TickerItemViewModel(ticker)
+                setVariable(BR.tickerItem, ticker)
                 executePendingBindings()
             }
         }
