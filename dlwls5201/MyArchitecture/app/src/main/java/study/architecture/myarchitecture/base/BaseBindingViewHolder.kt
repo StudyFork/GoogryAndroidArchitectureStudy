@@ -1,19 +1,24 @@
 package study.architecture.myarchitecture.base
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseBindingViewHolder<B : ViewDataBinding>(
     @LayoutRes layoutRes: Int,
-    parent: ViewGroup?
-) : RecyclerView.ViewHolder(
-    LayoutInflater.from(parent?.context)
-        .inflate(layoutRes, parent, false)
-) {
+    parent: ViewGroup?,
+    private val variableId: Int?
+) : BaseViewHolder(layoutRes, parent) {
 
-    val binding: B = DataBindingUtil.bind(itemView)!!
+    private val binding: B = DataBindingUtil.bind(itemView)!!
+
+    override fun onBindView(item: Any?) {
+        binding.run {
+            variableId?.let {
+                setVariable(it, item)
+            }
+            executePendingBindings()
+        }
+    }
 }
