@@ -12,18 +12,13 @@ import timber.log.Timber
 class TickerListViewModel(
     private val upbitRepository: UpbitRepository,
     private val keyMarket: String,
-    private val tickerAdapter: TickerAdapter,
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 ) {
 
-    private var tickers: MutableList<TickerItem> = mutableListOf()
+    private val mTickers = mutableListOf<TickerItem>()
 
-    val adapter = ObservableField<TickerAdapter>()
+    val tickers = ObservableField<MutableList<TickerItem>>()
     val isProgress = ObservableField<Int>()
-
-    init {
-        adapter.set(tickerAdapter)
-    }
 
     fun detachView() {
         compositeDisposable.clear()
@@ -34,40 +29,43 @@ class TickerListViewModel(
         when (field) {
             Filter.SelectArrow.COIN_NAME -> {
                 val selector: (TickerItem) -> String = { it.coinName }
-                setOrderByField(tickers, selector, order)
+                setOrderByField(selector, order)
             }
 
             Filter.SelectArrow.LAST -> {
                 val selector: (TickerItem) -> Double = { it.tradePrice }
-                setOrderByField(tickers, selector, order)
+                setOrderByField(selector, order)
             }
 
             Filter.SelectArrow.TRADE_DIFF -> {
                 val selector: (TickerItem) -> Double = { it.signedChangeRate }
-                setOrderByField(tickers, selector, order)
+                setOrderByField(selector, order)
             }
 
             Filter.SelectArrow.TRADE_AMOUNT -> {
                 val selector: (TickerItem) -> Double = { it.accTradePrice24h }
-                setOrderByField(tickers, selector, order)
+                setOrderByField(selector, order)
             }
         }
     }
 
     private fun <R : Comparable<R>> setOrderByField(
-        tickers: MutableList<TickerItem>, selector: (TickerItem) -> R, order: Int
+        selector: (TickerItem) -> R, order: Int
     ) {
 
-        Timber.d("tickers : $tickers")
-
         if (order == Filter.ASC) {
-            tickers.sortBy(selector)
+            mTickers.sortBy(selector)
         } else if (order == Filter.DESC) {
-            tickers.sortByDescending(selector)
+            mTickers.sortByDescending(selector)
         }
 
-        Timber.e("tickers : $tickers")
-        tickerAdapter.setItems(tickers)
+        /**
+         * ObservableField의 set()함수는 다른 객체를 넣어줘야 동작이 됩니다.
+         * mTickers를 sorting해도 같은 객체이므로 아래 코드는 1회만 동작되게 됩니다.
+         * 이에 강제로 notifyChange를 호출해 줍니다.
+         */
+        tickers.set(mTickers)
+        tickers.notifyChange()
     }
 
     fun loadData() {
@@ -82,8 +80,10 @@ class TickerListViewModel(
             }
             .subscribe({
 
-                tickers = it.mapToPresentation().toMutableList()
-                tickerAdapter.setItems(tickers)
+                tickers.set(it.mapToPresentation().toMutableList())
+
+                mTickers.clear()
+                mTickers.addAll(tickers.get()!!)
 
             }) {
                 Timber.e(it)

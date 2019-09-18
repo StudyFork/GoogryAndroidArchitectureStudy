@@ -19,14 +19,15 @@ class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.frag
 
             tickerViewModel = TickerListViewModel(
                 Injection.provideFolderRepository(context!!),
-                bundle.getString(KEY_MARKETS, ""),
-                TickerAdapter { toast(it.toString()) }
+                bundle.getString(KEY_MARKETS, "")
             )
             binding.tickerModel = tickerViewModel
 
             tickerViewModel.loadData()
 
         } ?: error("arguments is null")
+
+        initRecyclerView()
 
     }
 
@@ -37,6 +38,10 @@ class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.frag
 
     fun showTickerListOrderByField(field: Filter.SelectArrow, order: Int) {
         tickerViewModel.sortByField(field, order)
+    }
+
+    private fun initRecyclerView() {
+        binding.rvTickerList.adapter = TickerAdapter { toast(it.toString()) }
     }
 
     companion object {
