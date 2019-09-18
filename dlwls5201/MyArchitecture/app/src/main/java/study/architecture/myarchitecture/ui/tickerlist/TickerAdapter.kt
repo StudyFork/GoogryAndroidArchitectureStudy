@@ -4,19 +4,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import study.architecture.myarchitecture.BR
 import study.architecture.myarchitecture.R
-import study.architecture.myarchitecture.base.BaseViewHolder
+import study.architecture.myarchitecture.base.BaseBindingViewHolder
 import study.architecture.myarchitecture.databinding.ItemTickerBinding
 import study.architecture.myarchitecture.ui.model.TickerItem
 
 class TickerAdapter(
     private val clickEvent: (ticker: TickerItem) -> Unit
-) : RecyclerView.Adapter<TickerAdapter.TickerViewHolder>() {
+) : RecyclerView.Adapter<TickerAdapter.TickerBindingViewHolder>() {
 
     private val tickers = mutableListOf<TickerItem>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TickerViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TickerBindingViewHolder {
 
-        val holder = TickerViewHolder(parent)
+        val holder = TickerBindingViewHolder(parent)
 
         holder.itemView.setOnClickListener {
             clickEvent.invoke(tickers[holder.adapterPosition])
@@ -27,7 +27,7 @@ class TickerAdapter(
 
     override fun getItemCount() = tickers.size
 
-    override fun onBindViewHolder(holder: TickerViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TickerBindingViewHolder, position: Int) {
         holder.onBindView(tickers[position])
     }
 
@@ -40,8 +40,8 @@ class TickerAdapter(
     /**
      * ViewHolder
      */
-    class TickerViewHolder(parent: ViewGroup) :
-        BaseViewHolder<ItemTickerBinding>(R.layout.item_ticker, parent) {
+    class TickerBindingViewHolder(parent: ViewGroup) :
+        BaseBindingViewHolder<ItemTickerBinding>(R.layout.item_ticker, parent) {
 
         fun onBindView(ticker: TickerItem) {
 
