@@ -30,9 +30,8 @@ class ViewPagerAdapter(fragmentManager: FragmentManager) :
         return titles[position]
     }
 
-    fun setTitles(titles : List<String>){
+    fun setTitles(titles: List<String>) {
         this.titles = titles
-        notifyDataSetChanged()
     }
 
     fun setData(items: List<String>) {
