@@ -15,5 +15,6 @@ interface CoinContract {
     interface Presenter {
 
         fun getTickerList(marketName: String)
+
     }
 }

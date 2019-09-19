@@ -7,7 +7,6 @@ import com.example.architecturestudy.data.source.UpbitListener
 class CoinPresenter(private val view: CoinContract.View) :
     CoinContract.Presenter {
 
-
     override fun getTickerList(marketName: String) {
         CoinRepositoryImpl.getInstance().getTickerInfo(marketName, object : UpbitListener<Ticker> {
 
