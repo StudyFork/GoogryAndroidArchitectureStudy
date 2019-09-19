@@ -11,9 +11,9 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
     private val coins = mutableListOf<Coin>()
 
     fun setData(data: List<Coin>?) {
-        if (data != null) {
+        data?.let {
             coins.clear()
-            coins.addAll(data)
+            coins.addAll(it)
             notifyDataSetChanged()
         }
     }
