@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="viewModel"
-            type="com.example.architecturestudy.viewmodel.ItemViewModel" />
+            name="coin"
+            type="com.example.architecturestudy.data.Coin" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -31,7 +31,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 android:gravity="start"
-                android:text="@{viewModel.coin.market}"
+                android:text="@{coin.market}"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -46,7 +46,7 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="4dp"
                 android:gravity="end"
-                android:text="@{viewModel.coin.tradePrice}"
+                android:text="@{coin.tradePrice}"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_signed_changed_rate"
@@ -61,8 +61,8 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="4dp"
                 android:gravity="end"
-                android:text="@{viewModel.coin.signedChangeRate}"
-                android:textColor="@{viewModel.coin.coinColor}"
+                android:text="@{coin.signedChangeRate}"
+                android:textColor="@{coin.coinColor}"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_acc_trade_price_h"
@@ -76,7 +76,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="4dp"
                 android:gravity="end"
-                android:text="@{viewModel.coin.accTradePriceH}"
+                android:text="@{coin.accTradePriceH}"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

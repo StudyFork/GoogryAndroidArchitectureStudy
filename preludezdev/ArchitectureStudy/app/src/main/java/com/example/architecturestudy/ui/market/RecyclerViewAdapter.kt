@@ -6,7 +6,6 @@ import com.example.architecturestudy.R
 import com.example.architecturestudy.base.BaseViewHolder
 import com.example.architecturestudy.data.Coin
 import com.example.architecturestudy.databinding.ItemCoinBinding
-import com.example.architecturestudy.viewmodel.ItemViewModel
 
 class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {
     private val coins = mutableListOf<Coin>()
@@ -35,8 +34,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
         fun bindView(item: Coin) {
             //각 레이아웃 내 뷰에 텍스트 및 색상 설정
             with(binding) {
-                viewModel = ItemViewModel(item)
-
+                coin = item
                 executePendingBindings()
             }
         }
