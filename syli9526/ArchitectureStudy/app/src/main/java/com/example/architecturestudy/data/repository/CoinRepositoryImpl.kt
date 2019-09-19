@@ -12,8 +12,7 @@ class CoinRepositoryImpl: CoinRepository {
     }
 
     override fun getTickerInfo(name: String, listener: UpbitListener<Ticker>) {
-        CoinDataSourceImpl.getInstance()
-            .getTickerInfo(name, listener)
+        CoinDataSourceImpl.getInstance().getTickerInfo(name, listener)
     }
 
     companion object {
