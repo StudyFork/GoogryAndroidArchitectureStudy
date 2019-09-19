@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.mystudy.R
 import com.example.mystudy.adapter.ViewPagerAdapter
 import com.example.mystudy.databinding.ActivityMainBinding
+import com.example.mystudy.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +16,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
+        with(MainViewModel(ViewPagerAdapter(supportFragmentManager,4))){
+            binding.vm = this
+            initView()
+        }
         configureMainTab()
     }
 
@@ -22,12 +27,5 @@ class MainActivity : AppCompatActivity() {
 
         binding.viewPager.adapter = ViewPagerAdapter(supportFragmentManager, num_fragment = 4)
 
-        with(binding.tabLayout){
-            setupWithViewPager(binding.viewPager)
-            getTabAt(0)?.text = "KRW"
-            getTabAt(1)?.text = "BTC"
-            getTabAt(2)?.text = "ETH"
-            getTabAt(3)?.text = "USDT"
-        }
     }
 }
