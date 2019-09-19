@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 
-interface UpbitApi {
+interface UpbitRemoteDataSource {
 
     @GET("market/all")
     fun getMarkets(): Single<List<MarketResponse>>

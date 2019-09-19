@@ -14,4 +14,7 @@ class ViewPagerAdapter(fm: FragmentManager, private val num_fragment: Int) :
 
     override fun getCount() = num_fragment
 
+    override fun getPageTitle(position: Int): CharSequence? {
+        return marketList[position]
+    }
 }
