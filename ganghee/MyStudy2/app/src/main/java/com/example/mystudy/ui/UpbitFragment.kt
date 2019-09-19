@@ -14,14 +14,17 @@ import com.example.mystudy.R
 import com.example.mystudy.adapter.TickerAdapter
 import com.example.mystudy.data.FormatTickers
 import com.example.mystudy.data.UpbitRepository
+import com.example.mystudy.data.remote.UpbitRemoteDataSourceImpl
 import com.example.mystudy.databinding.FragmentUpbitBinding
+import com.example.mystudy.viewmodel.UpbitViewModel
+import kotlinx.coroutines.channels.ticker
 import org.jetbrains.anko.support.v4.toast
 
-class UpbitFragment : Fragment(), UpbitContract.View {
+class UpbitFragment : Fragment(){
 
-    private lateinit var tickerAdapter: TickerAdapter
-    override lateinit var presenter: UpbitContract.Presenter
+    private var tickerAdapter= TickerAdapter()
     private lateinit var binding : FragmentUpbitBinding
+    private lateinit var upbitViewModel: UpbitViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,32 +44,18 @@ class UpbitFragment : Fragment(), UpbitContract.View {
         super.onActivityCreated(savedInstanceState)
         val firstMarket = arguments?.getString(MARKET_NAME)
 
-        recyclerViewSetup()
-        presenter =
-            UpbitPresenter(
-                UpbitRepository.getInstance(),
-                this@UpbitFragment
-            )
-        presenter.getTicker(firstMarket)
+        initViewModel()
+        upbitViewModel.getTicker(firstMarket)
     }
 
-    private fun recyclerViewSetup() {
-        Log.d("recyclerViewSetup", "" )
-        tickerAdapter = TickerAdapter()
-
-        binding.rvTickers?.run {
-            adapter = tickerAdapter
-            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        }
+    private fun initViewModel() {
+        upbitViewModel= UpbitViewModel(
+            UpbitRepository.getInstance(UpbitRemoteDataSourceImpl),
+            tickerAdapter
+        )
+        binding.vm = upbitViewModel
     }
 
-    override fun showUpbitTickerList(tickerList: List<FormatTickers>) {
-        tickerAdapter.setData(tickerList)
-    }
-
-    override fun showFailedUpbitTickerList() {
-        toast("tiker 데이터를 가져올 수 없습니다.").show()
-    }
 
     companion object {
         const val MARKET_NAME = "market name"
