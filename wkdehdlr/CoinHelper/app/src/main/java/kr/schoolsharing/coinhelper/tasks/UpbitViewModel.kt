@@ -13,7 +13,7 @@ class UpbitViewModel(val repository: Repository) {
 
     private var tickerList = ObservableField<List<UpbitItem>>()
 
-    private fun loadUpbitMarket(marketName: String) {
+    fun loadUpbitMarket(marketName: String) {
         repository.getMarket(object : UpbitDataSource.GetMarketCallback {
             override fun onMarketLoaded(markets: List<UpbitMarket>) {
                 val marketList = markets
