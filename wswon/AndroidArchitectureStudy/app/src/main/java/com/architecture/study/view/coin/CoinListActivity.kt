@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.architecture.study.R
-import com.architecture.study.data.repository.CoinRepositoryImp
+import com.architecture.study.data.repository.CoinRepositoryImpl
 import com.architecture.study.databinding.ActivityMainBinding
 import com.architecture.study.network.model.MarketResponse
 import com.architecture.study.util.Injection
@@ -34,11 +34,12 @@ class CoinListActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         coinListViewModel = CoinListViewModel(
-            CoinRepositoryImp.getInstance(Injection.provideCoinRemoteDataSource()),
+            CoinRepositoryImpl.getInstance(Injection.provideCoinRemoteDataSource("https://api.upbit.com")),
             tabList.map { getString(it) }
         ).apply {
             if(isConnectedApi){
                 getMarketList {
+                    Toast.LENGTH_SHORT
                     if (it == CoinListViewModel.SUCCESS) {
                         coinListViewModel.marketList.get()?.let { marketList->
                             setTabPager(marketList)

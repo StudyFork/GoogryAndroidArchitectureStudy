@@ -10,7 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.architecture.study.R
-import com.architecture.study.data.repository.CoinRepositoryImp
+import com.architecture.study.data.repository.CoinRepositoryImpl
 import com.architecture.study.databinding.FragmentCoinlistBinding
 import com.architecture.study.util.Injection
 import com.architecture.study.view.coin.adapter.CoinListAdapter
@@ -48,7 +48,7 @@ class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickLi
         super.onActivityCreated(savedInstanceState)
 
         coinListViewModel = CoinListViewModel(
-            CoinRepositoryImp.getInstance(Injection.provideCoinRemoteDataSource()),
+            CoinRepositoryImpl.getInstance(Injection.provideCoinRemoteDataSource("https://api.upbit.com")),
             tabList.map { getString(it) }
         )
 

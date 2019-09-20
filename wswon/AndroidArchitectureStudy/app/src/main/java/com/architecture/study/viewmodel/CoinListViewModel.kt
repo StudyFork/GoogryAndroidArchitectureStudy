@@ -19,17 +19,12 @@ class CoinListViewModel(
     var isConnectedApi: Boolean = false
 
     init {
-        coinRepository.setRetrofitInstance(object : RetrofitInstanceCallBack{
+        coinRepository.setRetrofitInstance(object : RetrofitInstanceCallBack {
             override fun onLoaded() {
                 isConnectedApi = true
             }
-
-            override fun onNotLoaded() {
-                isConnectedApi = false
-            }
         })
     }
-
 
 
     var marketList = ObservableField<List<MarketResponse>>()
