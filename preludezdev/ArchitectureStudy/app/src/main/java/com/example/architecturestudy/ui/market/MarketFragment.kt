@@ -22,7 +22,7 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
         initRecyclerView()
         initViewModel()
 
-        marketViewModel.loadData(arguments?.getString(key)) // Presenter 를 통해 해당 마켓의 데이터 불러오기
+        marketViewModel.loadData(arguments?.getString(key))
     }
 
     private fun initRecyclerView() {
