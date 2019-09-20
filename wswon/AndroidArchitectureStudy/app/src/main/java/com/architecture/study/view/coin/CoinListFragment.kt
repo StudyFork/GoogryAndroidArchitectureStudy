@@ -84,8 +84,8 @@ class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickLi
     }
 
     override fun onPause() {
-        super.onPause()
         refreshHandler.removeMessages(0)
+        super.onPause()
     }
 
     /* handler로 5초간격 호출 재귀함수 */
