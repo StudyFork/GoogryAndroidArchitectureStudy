@@ -18,8 +18,6 @@ class UpbitFragment : Fragment() {
 
     private val rVAdapter = UpbitRVAdapter()
 
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(
             LayoutInflater.from(context),
@@ -44,6 +42,7 @@ class UpbitFragment : Fragment() {
         val marketName = arguments?.get("MARKET_NAME").toString()
         upbitViewModel = UpbitViewModel(Repository)
         upbitViewModel.loadUpbitMarket(marketName)
+        binding.viewModel = upbitViewModel
     }
 
     companion object {
