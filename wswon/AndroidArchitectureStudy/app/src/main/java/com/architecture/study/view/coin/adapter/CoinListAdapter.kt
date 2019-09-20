@@ -17,7 +17,6 @@ class CoinListAdapter(private val listener: CoinItemRecyclerViewClickListener) :
     fun setData(coinListData: List<Ticker>) {
         this.coinListData.clear()
         this.coinListData.addAll(coinListData)
-        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinViewHolder =
