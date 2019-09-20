@@ -1,5 +1,7 @@
 package kr.schoolsharing.coinhelper.tasks
 
+import android.util.Log
+import androidx.databinding.ObservableField
 import kr.schoolsharing.coinhelper.data.Repository
 import kr.schoolsharing.coinhelper.data.UpbitDataSource
 import kr.schoolsharing.coinhelper.model.UpbitItem
@@ -7,19 +9,9 @@ import kr.schoolsharing.coinhelper.model.UpbitMarket
 import kr.schoolsharing.coinhelper.model.UpbitTicker
 import kr.schoolsharing.coinhelper.util.TextEditor
 
-class UpbitPresenter(val repository: Repository, val upbitView: UpbitContract.View) : UpbitContract.Presenter {
+class UpbitViewModel(val repository: Repository) {
 
-    init {
-        upbitView.presenter = this
-    }
-
-    override fun completeTask() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun start(marketName: String) {
-        loadUpbitMarket(marketName)
-    }
+    private var tickerList = ObservableField<List<UpbitItem>>()
 
     private fun loadUpbitMarket(marketName: String) {
         repository.getMarket(object : UpbitDataSource.GetMarketCallback {
@@ -31,7 +23,8 @@ class UpbitPresenter(val repository: Repository, val upbitView: UpbitContract.Vi
             }
 
             override fun onDataNotAvailable(t: Throwable) {
-                upbitView.showErrorToast(t.printStackTrace().toString())
+                Log.e("UpbitViewModel/loadUpbitMarket : ", t.toString())
+//                upbitView.showErrorToast(t.printStackTrace().toString())
             }
         })
     }
@@ -41,7 +34,7 @@ class UpbitPresenter(val repository: Repository, val upbitView: UpbitContract.Vi
 
             override fun onTickerLoaded(tickers: List<UpbitTicker>) {
 
-                processUpbit(tickers.map {
+                tickerList.set(tickers.map {
                     UpbitItem(
                         TextEditor.splitString(it.market, 1),
                         TextEditor.makeTradePrice(it.tradePrice),
@@ -53,14 +46,10 @@ class UpbitPresenter(val repository: Repository, val upbitView: UpbitContract.Vi
             }
 
             override fun onDataNotAvailable(t: Throwable) {
-                upbitView.showErrorToast(t.printStackTrace().toString())
+                Log.e("UpbitViewModel/loadUpbitTicker : ", t.toString())
+//                upbitView.showErrorToast(t.printStackTrace().toString())
             }
         })
     }
-
-    private fun processUpbit(tickerList: List<UpbitItem>) {
-        upbitView.showAddTask(tickerList)
-    }
-
 
 }
