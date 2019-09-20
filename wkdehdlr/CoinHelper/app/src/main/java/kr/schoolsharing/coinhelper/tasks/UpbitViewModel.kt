@@ -11,7 +11,7 @@ import kr.schoolsharing.coinhelper.util.TextEditor
 
 class UpbitViewModel(val repository: Repository) {
 
-    private var tickerList = ObservableField<List<UpbitItem>>()
+    var tickerList = ObservableField<List<UpbitItem>>()
 
     fun loadUpbitMarket(marketName: String) {
         repository.getMarket(object : UpbitDataSource.GetMarketCallback {
@@ -24,7 +24,6 @@ class UpbitViewModel(val repository: Repository) {
 
             override fun onDataNotAvailable(t: Throwable) {
                 Log.e("UpbitViewModel/loadUpbitMarket : ", t.toString())
-//                upbitView.showErrorToast(t.printStackTrace().toString())
             }
         })
     }
@@ -47,7 +46,6 @@ class UpbitViewModel(val repository: Repository) {
 
             override fun onDataNotAvailable(t: Throwable) {
                 Log.e("UpbitViewModel/loadUpbitTicker : ", t.toString())
-//                upbitView.showErrorToast(t.printStackTrace().toString())
             }
         })
     }
