@@ -51,7 +51,7 @@ class CoinListViewModel(
 
     fun getTickerList(marketNameList: List<String>, callback: (notSucceedMessage: String) -> Unit) {
         coinRepository.getTickerList(
-            marketNameList.joinToString(","),
+            marketNameList.joinToString(),
             object : CoinRemoteDataSourceListener<TickerResponse> {
                 override fun onSucess(dataList: List<TickerResponse>) {
                     val convertTickerList = mutableListOf<Ticker>()
