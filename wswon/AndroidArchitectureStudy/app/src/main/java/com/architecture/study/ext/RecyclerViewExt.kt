@@ -9,8 +9,8 @@ import com.architecture.study.view.coin.adapter.CoinListAdapter
 fun RecyclerView.replaceAll(list: List<Ticker>?) {
 
     (this.adapter as? CoinListAdapter)?.let {
-        list?.let { tickerList ->
-            it.setData(tickerList)
+        if(list != null){
+            it.setData(list)
         }
         it.notifyDataSetChanged()
     }
