@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.architecture.study.data.model.Ticker
 import com.architecture.study.view.coin.adapter.CoinListAdapter
 
-@BindingAdapter(value = ["replaceAll"])
+@BindingAdapter("replaceAll")
 fun RecyclerView.replaceAll(list: List<Ticker>?) {
 
     (this.adapter as? CoinListAdapter)?.let {
