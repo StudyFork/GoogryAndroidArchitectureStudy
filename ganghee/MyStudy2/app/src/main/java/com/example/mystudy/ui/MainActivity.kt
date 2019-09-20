@@ -9,23 +9,19 @@ import com.example.mystudy.databinding.ActivityMainBinding
 import com.example.mystudy.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
-
+ 
     private lateinit var binding : ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
-        with(MainViewModel(ViewPagerAdapter(supportFragmentManager,4))){
+        MainViewModel(ViewPagerAdapter(supportFragmentManager)).run{
             binding.vm = this
             initView()
         }
-        configureMainTab()
-    }
-
-    private fun configureMainTab() {
-
-        binding.viewPager.adapter = ViewPagerAdapter(supportFragmentManager, num_fragment = 4)
-
+        binding.tabLayout.run {
+            setupWithViewPager(binding.viewPager)
+        }
     }
 }
