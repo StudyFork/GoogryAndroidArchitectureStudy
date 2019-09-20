@@ -38,7 +38,7 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
                 CoinsRemoteDataSource.getInstance(RetrofitHelper.getInstance().coinApiService),
                 CoinsLocalDataSource.getInstance()
             )
-        ) // MarketViewModel 객체 생성
+        )
 
         binding.viewModel = marketViewModel // 뷰모델을 레이아웃과 바인딩
     }
