@@ -9,8 +9,8 @@ class MarketViewModel(
     private val repository: CoinsRepositoryImpl
 ) {
 
-    var coinList = ObservableField<List<Coin>>()
-    var isProgressed = ObservableField<Boolean>()
+    val coinList = ObservableField<List<Coin>>()
+    val isProgressed = ObservableField<Boolean>()
 
     fun loadData(keyMarket: String?) {
         isProgressed.set(true) // 프로그래스바 시작
