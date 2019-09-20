@@ -5,14 +5,14 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.example.mystudy.ui.UpbitFragment
 
-class ViewPagerAdapter(fm: FragmentManager, private val num_fragment: Int) :
+class ViewPagerAdapter(fm: FragmentManager) :
     FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private val marketList = listOf("KRW", "BTC", "ETH", "USDT")
 
     override fun getItem(position: Int): Fragment = UpbitFragment.newInstance(marketList[position])
 
-    override fun getCount() = num_fragment
+    override fun getCount() = marketList.size
 
     override fun getPageTitle(position: Int): CharSequence? {
         return marketList[position]
