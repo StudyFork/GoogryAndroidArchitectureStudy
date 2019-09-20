@@ -58,11 +58,10 @@ class CoinDataSourceImpl : CoinDataSource {
     companion object {
 
         private var instance: CoinDataSourceImpl? = null
+
         fun getInstance(): CoinDataSourceImpl =
-            instance ?: synchronized(this) {
-                instance ?: CoinDataSourceImpl().apply {
-                    instance = this
-                }
+            instance ?: CoinDataSourceImpl().apply {
+                instance = this
             }
     }
 }
