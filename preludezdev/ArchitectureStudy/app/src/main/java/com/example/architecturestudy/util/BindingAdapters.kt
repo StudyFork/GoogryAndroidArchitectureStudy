@@ -11,7 +11,9 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("items")
     fun RecyclerView.replaceAll(items: ObservableField<List<Coin>>) {
-        val adapter = this.adapter as RecyclerViewAdapter
-        adapter.setData(items.get())
+        val adapter = this.adapter
+
+        if (adapter is RecyclerViewAdapter)
+            adapter.setData(items.get())
     }
 }
