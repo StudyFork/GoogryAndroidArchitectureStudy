@@ -5,6 +5,7 @@ import com.architecture.study.data.source.CoinRemoteDataSourceImpl
 import com.architecture.study.network.RetrofitInstance
 
 object Injection {
-    fun provideCoinRemoteDataSource(url: String): CoinRemoteDataSource =
+    fun provideCoinRemoteDataSource(): CoinRemoteDataSource =
         CoinRemoteDataSourceImpl.getInstance(RetrofitInstance.getInstance(url))
+    private const val url = "https://api.upbit.com"
 }

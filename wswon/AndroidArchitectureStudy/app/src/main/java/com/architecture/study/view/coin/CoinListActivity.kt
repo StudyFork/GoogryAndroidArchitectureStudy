@@ -34,7 +34,7 @@ class CoinListActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         coinListViewModel = CoinListViewModel(
-            CoinRepositoryImpl.getInstance(Injection.provideCoinRemoteDataSource("https://api.upbit.com")),
+            CoinRepositoryImpl.getInstance(Injection.provideCoinRemoteDataSource()),
             tabList.map { getString(it) }
         ).apply {
             if(isConnectedApi){

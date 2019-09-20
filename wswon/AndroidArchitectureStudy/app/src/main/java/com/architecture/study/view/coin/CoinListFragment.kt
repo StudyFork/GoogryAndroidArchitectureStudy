@@ -48,7 +48,7 @@ class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickLi
         super.onActivityCreated(savedInstanceState)
 
         coinListViewModel = CoinListViewModel(
-            CoinRepositoryImpl.getInstance(Injection.provideCoinRemoteDataSource("https://api.upbit.com")),
+            CoinRepositoryImpl.getInstance(Injection.provideCoinRemoteDataSource()),
             tabList.map { getString(it) }
         )
 
