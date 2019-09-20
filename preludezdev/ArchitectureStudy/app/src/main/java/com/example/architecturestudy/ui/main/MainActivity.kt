@@ -26,7 +26,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             viewPager.offscreenPageLimit = vpAdapter.count
 
             //탭 레이아웃에 뷰페이저 연결
-            tabLayout.setupWithViewPager(binding.viewPager)
+            tabLayout.setupWithViewPager(viewPager)
         }
     }
 

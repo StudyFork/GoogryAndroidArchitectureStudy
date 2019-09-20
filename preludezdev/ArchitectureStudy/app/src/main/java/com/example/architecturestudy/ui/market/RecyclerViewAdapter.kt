@@ -32,6 +32,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolde
         BaseViewHolder<ItemCoinBinding>(R.layout.item_coin, parent) {
 
         fun bindView(item: Coin) {
+
             //각 레이아웃 내 뷰에 텍스트 및 색상 설정
             with(binding) {
                 coin = item
