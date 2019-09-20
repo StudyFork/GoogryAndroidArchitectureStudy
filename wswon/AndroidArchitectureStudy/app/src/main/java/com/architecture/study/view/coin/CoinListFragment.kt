@@ -18,7 +18,12 @@ import com.architecture.study.viewmodel.CoinListViewModel
 
 class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickListener {
 
-    private lateinit var coinListViewModel: CoinListViewModel
+    private val coinListViewModel by lazy {
+        CoinListViewModel(
+            CoinRepositoryImpl.getInstance(Injection.provideCoinRemoteDataSource()),
+            tabList.map { getString(it) }
+        )
+    }
 
     private var monetaryUnitNameList: List<String>? = null
 
@@ -46,12 +51,6 @@ class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickLi
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        coinListViewModel = CoinListViewModel(
-            CoinRepositoryImpl.getInstance(Injection.provideCoinRemoteDataSource()),
-            tabList.map { getString(it) }
-        )
-
 
         /* 받아온 argument - Coin name */
         monetaryUnitNameList = arguments?.getStringArrayList(MONETARY_UNIT_NAME_LIST)

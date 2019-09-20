@@ -19,7 +19,12 @@ class CoinListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private lateinit var coinListViewModel: CoinListViewModel
+    private val coinListViewModel by lazy {
+        CoinListViewModel(
+            CoinRepositoryImpl.getInstance(Injection.provideCoinRemoteDataSource()),
+            tabList.map { getString(it) }
+        )
+    }
 
     private val tabList = listOf(
         R.string.monetary_unit_1,
@@ -33,10 +38,7 @@ class CoinListActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        coinListViewModel = CoinListViewModel(
-            CoinRepositoryImpl.getInstance(Injection.provideCoinRemoteDataSource()),
-            tabList.map { getString(it) }
-        ).apply {
+        coinListViewModel.run {
             if(isConnectedApi){
                 getMarketList {
                     Toast.LENGTH_SHORT
