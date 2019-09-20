@@ -25,11 +25,13 @@ class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickLi
         )
     }
 
-    private var monetaryUnitNameList: List<String>? = null
-
-    private lateinit var coinListAdapter: CoinListAdapter
+    private val coinListAdapter by lazy {
+        CoinListAdapter(this)
+    }
 
     private lateinit var binding: FragmentCoinlistBinding
+
+    private var monetaryUnitNameList: List<String>? = null
 
     private val tabList = listOf(
         R.string.monetary_unit_1,
@@ -59,12 +61,10 @@ class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickLi
             getTickerList(it)
         }
 
-        coinListAdapter = CoinListAdapter(this)
 
         binding.run {
             coinListVM = coinListViewModel
             recyclerViewCoinList.run {
-                layoutManager = LinearLayoutManager(requireContext())
                 adapter = coinListAdapter
             }
         }
