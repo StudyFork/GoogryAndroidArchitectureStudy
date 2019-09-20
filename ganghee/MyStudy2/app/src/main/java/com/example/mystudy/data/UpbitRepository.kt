@@ -1,7 +1,7 @@
 package com.example.mystudy.data
 
 import com.example.mystudy.data.remote.UpbitRemoteDataSourceImpl
-import com.example.mystudy.network.UpbitRemoteDataSource
+import com.example.mystudy.data.remote.UpbitRemoteDataSource
 import io.reactivex.Single
 
 /**

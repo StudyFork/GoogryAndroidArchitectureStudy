@@ -1,7 +1,6 @@
 package com.example.mystudy.data.remote
 
-import com.example.mystudy.network.MarketResponse
-import com.example.mystudy.network.UpbitRemoteDataSource
+import com.example.mystudy.data.MarketResponse
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit

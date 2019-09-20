@@ -19,6 +19,7 @@ class UpbitViewModel(
 
     @SuppressLint("CheckResult")
     fun getTicker(firstMarket: String?) {
+        tickerAdapter.set(upbitAdapter)
         repository.getMarket()
             .observeOn(Schedulers.newThread())
             .subscribe { it ->
