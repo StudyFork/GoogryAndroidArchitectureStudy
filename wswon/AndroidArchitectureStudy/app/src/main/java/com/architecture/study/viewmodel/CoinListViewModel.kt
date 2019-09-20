@@ -27,9 +27,9 @@ class CoinListViewModel(
     }
 
 
-    var marketList = ObservableField<List<MarketResponse>>()
+    val marketList = ObservableField<List<MarketResponse>>()
 
-    var tickerList = ObservableField<List<Ticker>>()
+    val tickerList = ObservableField<List<Ticker>>()
 
     fun getMarketList(callback: (message: String) -> Unit) {
         coinRepository.getMarketList(
