@@ -39,11 +39,11 @@ class CoinListActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         coinListViewModel.run {
-            if(isConnectedApi){
+            if (isConnectedApi) {
                 getMarketList {
                     Toast.LENGTH_SHORT
                     if (it == CoinListViewModel.SUCCESS) {
-                        coinListViewModel.marketList.get()?.let { marketList->
+                        coinListViewModel.marketList.get()?.let { marketList ->
                             setTabPager(marketList)
                         }
                     } else {
@@ -68,12 +68,12 @@ class CoinListActivity : AppCompatActivity() {
                 BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
             ) {
 
-                override fun getItem(position: Int): Fragment =
-                    CoinListFragment.newInstance(
-                        marketList
-                            .filter { it.market.split("-")[0] == context.getString(tabList[position]) }
-                            .map { it.market } as ArrayList<String>
-                    )
+                override fun getItem(position: Int): Fragment {
+                    val monetaryUnitNameList = marketList
+                        .filter { it.market.split("-")[0] == context.getString(tabList[position]) }
+                        .map { it.market } as ArrayList<String>
+                    return CoinListFragment.newInstance(monetaryUnitNameList)
+                }
 
                 override fun getCount(): Int =
                     tabList.size
