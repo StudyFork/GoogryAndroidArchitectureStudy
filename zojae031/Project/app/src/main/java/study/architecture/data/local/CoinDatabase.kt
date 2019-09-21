@@ -17,7 +17,7 @@ abstract class CoinDatabase : RoomDatabase() {
 
     companion object {
         private var INSTANCE: CoinDatabase? = null
-        fun getInstance(context: Context): CoinDatabase? {
+        fun getInstance(context: Context): CoinDatabase {
             if (INSTANCE == null) {
                 INSTANCE = Room.databaseBuilder(
                     context.applicationContext,
@@ -25,7 +25,7 @@ abstract class CoinDatabase : RoomDatabase() {
                     "coin"
                 ).build()
             }
-            return INSTANCE
+            return INSTANCE!!
         }
     }
 
