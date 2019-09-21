@@ -26,11 +26,11 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.elevation = 0.0f
         supportActionBar?.title = resources.getString(R.string.app_title)
-        tabSetting()
-        pagerSetting()
+        settingTab()
+        settingPager()
     }
 
-    private fun tabSetting() {
+    private fun settingTab() {
         with(binding.tabLayout) {
             tabGravity = TabLayout.GRAVITY_FILL
             addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    private fun pagerSetting() {
+    private fun settingPager() {
         binding.pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout))
     }
 }
