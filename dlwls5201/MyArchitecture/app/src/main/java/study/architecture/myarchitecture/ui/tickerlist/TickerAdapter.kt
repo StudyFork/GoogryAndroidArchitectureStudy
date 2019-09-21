@@ -41,6 +41,6 @@ class TickerAdapter(
     /**
      * ViewHolder
      */
-    class TickerBindingViewHolder(parent: ViewGroup) :
+    inner class TickerBindingViewHolder(parent: ViewGroup) :
         BaseBindingViewHolder<ItemTickerBinding>(R.layout.item_ticker, parent, BR.tickerItem)
 }
