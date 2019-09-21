@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.fragment.app.FragmentStatePagerAdapter
 import com.architecture.study.R
 import com.architecture.study.data.repository.CoinRepositoryImpl
 import com.architecture.study.databinding.ActivityMainBinding
@@ -69,12 +68,15 @@ class CoinListActivity : AppCompatActivity() {
                 BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
             ) {
 
-                override fun getItem(position: Int): Fragment {
-                    val monetaryUnitNameList = marketList
-                        .filter { it.market.split("-")[0] == context.getString(tabList[position]) }
-                        .map { it.market } as ArrayList<String>
-                    return CoinListFragment.newInstance(monetaryUnitNameList)
-                }
+                override fun getItem(position: Int): Fragment =
+                    CoinListFragment.newInstance(
+                        marketList
+                            .asSequence()
+                            .filter { it.market.split("-")[0] == context.getString(tabList[position]) }
+                            .map { it.market }
+                            .toList()
+                    )
+
 
                 override fun getCount(): Int =
                     tabList.size

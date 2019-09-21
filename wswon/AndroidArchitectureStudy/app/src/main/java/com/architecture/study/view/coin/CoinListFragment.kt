@@ -115,10 +115,10 @@ class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickLi
     }
 
     companion object {
-        fun newInstance(monetaryUnitNameList: ArrayList<String>?) = CoinListFragment().apply {
+        fun newInstance(monetaryUnitNameList: List<String>?) = CoinListFragment().apply {
             arguments = Bundle().apply {
                 monetaryUnitNameList?.let {
-                    putStringArrayList(MONETARY_UNIT_NAME_LIST, it)
+                    putStringArrayList(MONETARY_UNIT_NAME_LIST, ArrayList(monetaryUnitNameList))
                 }
             }
         }
