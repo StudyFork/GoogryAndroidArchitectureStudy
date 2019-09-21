@@ -39,7 +39,7 @@ fun ImageView.setCategory(field: Filter.SelectArrow?, listener: MainViewModel.So
 
     if (field == null) return
 
-    val order: Int = if (isSelected) {
+    val order = if (isSelected) {
         Filter.DESC
     } else {
         Filter.ASC
