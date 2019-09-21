@@ -8,9 +8,9 @@ import timber.log.Timber
 
 class MainViewModel(
     private val upbitRepository: UpbitRepository,
+    val listener: SortListener?,
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 ) {
-
 
     val titles = ObservableField<Array<String>>()
     val markets = ObservableField<Array<String>>()
@@ -59,5 +59,10 @@ class MainViewModel(
          * 임의로 notifyChange 호출
          */
         this.category.notifyChange()
+    }
+
+    interface SortListener {
+
+        fun sortTicker(field: Filter.SelectArrow, order: Int)
     }
 }
