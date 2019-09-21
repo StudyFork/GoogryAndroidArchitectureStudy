@@ -16,7 +16,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun initView() {
         initViewPager()
-        initArrowView()
     }
 
     private fun initViewPager() {
@@ -28,11 +27,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             //탭 레이아웃에 뷰페이저 연결
             tabLayout.setupWithViewPager(viewPager)
         }
-    }
-
-    private fun initArrowView() {
-        //default sort 값, 임시로 해둠...
-        binding.ivArrowCoinName.isSelected = true
     }
 
 }
