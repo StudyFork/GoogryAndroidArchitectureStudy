@@ -1,46 +1,22 @@
 package com.android.studyfork.ui
 
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import com.android.studyfork.R
 import com.android.studyfork.network.model.Ticker
-import com.android.studyfork.repository.UpbitRepositoryImpl
 import com.android.studyfork.ui.adapter.CoinItemAdapter
+import com.android.studyfork.ui.tickerlist.presenter.TickerContract
+import com.android.studyfork.ui.tickerlist.presenter.TickerPresenter
 import com.android.studyfork.util.inflate
 import kotlinx.android.synthetic.main.fragment_ticker_list.*
-import timber.log.Timber
 
+class TickerListFragment : Fragment(), TickerContract.View {
 
-class TickerListFragment : Fragment() {
-
-    private val upbitRepository = UpbitRepositoryImpl
     private lateinit var coinItemAdapter: CoinItemAdapter
+    private val tickerPresenter by lazy { TickerPresenter(this) }
 
-    @SuppressLint("CheckResult")
-    private fun getTicker(){
-        val markets = arguments?.getString(KEY_MARKETS) ?:""
-        val tickerList:ArrayList<Ticker> = arrayListOf()
-
-        upbitRepository.getTickers(markets)
-            .subscribe({
-                Timber.d("getTicker success")
-                it.forEachIndexed { index, tickerResponse ->
-                    tickerList.add(index,
-                        Ticker(tickerResponse.market,
-                               tickerResponse.tradePrice,
-                               tickerResponse.signedChangeRate,
-                               tickerResponse.accTradePrice24h))
-                }
-                coinItemAdapter.setData(tickerList)
-            },{
-                Timber.e(it)
-            })
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,7 +26,15 @@ class TickerListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setRecyclerView()
         getTicker()
+    }
 
+    override fun setData(ticker: List<Ticker>) {
+        coinItemAdapter.setData(ticker)
+    }
+
+    override fun onDestroyView() {
+        tickerPresenter.clearDisposable()
+        super.onDestroyView()
     }
 
     private fun setRecyclerView() {
@@ -61,6 +45,10 @@ class TickerListFragment : Fragment() {
         }
     }
 
+    private fun getTicker() {
+        val market = arguments?.getString(KEY_MARKETS) ?: ""
+        tickerPresenter.getTicker(market)
+    }
 
     companion object {
         const val KEY_MARKETS = "markets"

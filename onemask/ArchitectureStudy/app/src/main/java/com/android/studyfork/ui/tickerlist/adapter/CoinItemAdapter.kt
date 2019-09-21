@@ -14,9 +14,9 @@ import com.android.studyfork.util.setTradeDiff
 /**
  * created by onemask
  */
-class CoinItemAdapter  : RecyclerView.Adapter<CoinItemAdapter.ViewHolder>() {
+class CoinItemAdapter : RecyclerView.Adapter<CoinItemAdapter.ViewHolder>() {
 
-     private val dataList = mutableListOf<Ticker>()
+    private val dataList = mutableListOf<Ticker>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(parent.inflate(R.layout.item_coin))

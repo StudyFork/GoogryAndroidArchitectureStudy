@@ -1,4 +1,4 @@
-package com.android.studyfork.ui.adapter
+package com.android.studyfork.ui.main.adapter
 
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -26,17 +26,17 @@ class ViewPagerAdapter(fragmentManager: FragmentManager) :
         super.destroyItem(container, position, `object`)
     }
 
-    fun setData(items : Array<String>){
-        this.marketDataSet = items.toList()
-        notifyDataSetChanged()
-    }
-
     override fun getPageTitle(position: Int): CharSequence? {
         return titles[position]
     }
 
-    fun setTitles(items : Array<String>){
-        this.titles = items.toList()
+    fun setTitles(titles: List<String>) {
+        this.titles = titles
+    }
+
+    fun setData(items: List<String>) {
+        this.marketDataSet = items
+        notifyDataSetChanged()
     }
 
 }
