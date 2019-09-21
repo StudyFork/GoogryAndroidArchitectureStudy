@@ -2,6 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="pTicker"
+            type="study.architecture.data.entity.ProcessingTicker" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -74,10 +80,5 @@
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <data>
 
-        <variable
-            name="pTicker"
-            type="study.architecture.data.entity.ProcessingTicker" />
-    </data>
 </layout>
