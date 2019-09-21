@@ -7,13 +7,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import study.architecture.data.entity.ProcessingTicker
-import study.architecture.data.repository.RepositoryImpl
+import study.architecture.data.repository.Repository
 import study.architecture.util.TextUtil
 import java.util.concurrent.TimeUnit
 
 class CoinViewModel(
     private val index: CoinFragment.FragIndex,
-    private val repository: RepositoryImpl,
+    private val repository: Repository,
     private val adapter: CoinDataAdapter
 ) {
     private lateinit var marketName: String

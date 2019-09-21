@@ -8,35 +8,34 @@ import retrofit2.converter.gson.GsonConverterFactory
 import study.architecture.data.local.LocalDataSourceImpl
 import study.architecture.data.remote.RemoteDataSourceImpl
 import study.architecture.data.remote.UpbitRemoteDataSource
+import study.architecture.data.repository.Repository
 import study.architecture.data.repository.RepositoryImpl
 
-class Injection private constructor(context: Context) {
+object Injection {
 
-    companion object {
-        private var repository: RepositoryImpl? = null
+    private var repository: Repository? = null
 
-        fun getRepository(context: Context): RepositoryImpl {
-            if (repository == null) {
-                repository = RepositoryImpl.getInstance(
-                    RemoteDataSourceImpl.getInstance(
-                        Retrofit
-                            .Builder()
-                            .baseUrl(RemoteDataSourceImpl.url)
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                            .build().create(
-                                UpbitRemoteDataSource::
-                                class.java
-                            )
-                    ),
-                    LocalDataSourceImpl.getInstance(context),
-                    context.getSystemService(
-                        Context.CONNECTIVITY_SERVICE
-                    ) as ConnectivityManager
-                )
-            }
-            return repository!!
+    fun getRepository(context: Context): Repository {
+        if (repository == null) {
+            repository = RepositoryImpl.getInstance(
+                RemoteDataSourceImpl.getInstance(
+                    Retrofit
+                        .Builder()
+                        .baseUrl(RemoteDataSourceImpl.url)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                        .build().create(
+                            UpbitRemoteDataSource::
+                            class.java
+                        )
+                ),
+                LocalDataSourceImpl.getInstance(context),
+                context.getSystemService(
+                    Context.CONNECTIVITY_SERVICE
+                ) as ConnectivityManager
+            )
         }
+        return repository!!
     }
-
 }
+
