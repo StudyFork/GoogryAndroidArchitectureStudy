@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import study.architecture.Injection
 import study.architecture.R
 import study.architecture.data.local.LocalDataSourceImpl
 import study.architecture.data.remote.RemoteDataSourceImpl
@@ -42,13 +43,7 @@ class CoinFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         CoinViewModel(
             arguments!!.getSerializable("idx") as FragIndex,
-            RepositoryImpl.getInstance(
-                RemoteDataSourceImpl,
-                LocalDataSourceImpl.getInstance(context!!),
-                context!!.getSystemService(
-                    Context.CONNECTIVITY_SERVICE
-                ) as ConnectivityManager
-            ), coinDataAdapter
+            Injection.getRepository(context!!), coinDataAdapter
         ).also {
             coinViewModel = it
             binding.viewModel = it

@@ -11,21 +11,13 @@ import study.architecture.data.entity.Ticker
 /**
  * Data 관리하는 비즈니스로직이 담긴 클래스
  */
-object RemoteDataSourceImpl : UpbitRemoteDataSource {
+class RemoteDataSourceImpl private constructor(private val api: UpbitRemoteDataSource) :
+    UpbitRemoteDataSource {
 
 
-    private const val url = "https://api.upbit.com/v1/"
 
 
-    private val client =
-        Retrofit
-            .Builder()
-            .baseUrl(url)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
 
-    private val api = client.create(UpbitRemoteDataSource::class.java)
 
     override fun getMarkets(): Single<List<Market>> =
         api.getMarkets()
@@ -35,5 +27,15 @@ object RemoteDataSourceImpl : UpbitRemoteDataSource {
         api.getTickers(markets)
             .subscribeOn(Schedulers.io())
 
+    companion object {
+        const val url = "https://api.upbit.com/v1/"
+        private var INSTANCE: RemoteDataSourceImpl? = null
+        fun getInstance(api: UpbitRemoteDataSource): RemoteDataSourceImpl {
+            if (INSTANCE == null) {
+                INSTANCE = RemoteDataSourceImpl(api)
+            }
+            return INSTANCE!!
+        }
+    }
 
 }
