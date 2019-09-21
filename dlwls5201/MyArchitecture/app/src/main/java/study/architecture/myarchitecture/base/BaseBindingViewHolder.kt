@@ -15,8 +15,8 @@ abstract class BaseBindingViewHolder<B : ViewDataBinding>(
 
     override fun onBindView(item: Any?) {
         binding.run {
-            bindingVariableId?.let {
-                setVariable(it, item)
+            if (bindingVariableId != null) {
+                setVariable(bindingVariableId, item)
             }
             executePendingBindings()
         }
