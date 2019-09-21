@@ -30,11 +30,9 @@ class CoinRepositoryImpl private constructor(
     companion object {
         private var instance: CoinRepositoryImpl? = null
         fun getInstance(coinRemoteDataSource: CoinRemoteDataSource): CoinRepositoryImpl =
-            instance ?: synchronized(this) {
-                instance
-                    ?: CoinRepositoryImpl(coinRemoteDataSource).also {
-                        instance = it
-                    }
+            instance ?: CoinRepositoryImpl(coinRemoteDataSource).also {
+                instance = it
             }
+
     }
 }
