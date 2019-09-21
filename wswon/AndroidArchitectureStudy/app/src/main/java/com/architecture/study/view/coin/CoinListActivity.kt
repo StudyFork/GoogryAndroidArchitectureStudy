@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.architecture.study.R
 import com.architecture.study.data.repository.CoinRepositoryImpl
@@ -63,7 +64,7 @@ class CoinListActivity : AppCompatActivity() {
         binding.tabLayoutMonetaryUnit.setupWithViewPager(binding.viewPagerCoinList)
 
         binding.viewPagerCoinList.run {
-            adapter = object : FragmentStatePagerAdapter(
+            adapter = object : FragmentPagerAdapter(
                 supportFragmentManager,
                 BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
             ) {
