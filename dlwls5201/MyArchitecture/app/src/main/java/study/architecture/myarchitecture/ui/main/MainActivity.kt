@@ -24,8 +24,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 object : MainViewModel.SortListener {
                     override fun sortTicker(field: Filter.SelectArrow, order: Int) {
                         for (i in 0 until (mainAdapter.count)) {
-                            mainAdapter.getFragment(i)?.run {
-                                this.get()?.showTickerListOrderByField(field, order)
+                            mainAdapter.getFragment(i)?.let {
+                                it.get()?.showTickerListOrderByField(field, order)
                             }
                         }
                     }
