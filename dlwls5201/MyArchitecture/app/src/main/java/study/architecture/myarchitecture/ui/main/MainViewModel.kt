@@ -8,18 +8,16 @@ import timber.log.Timber
 
 class MainViewModel(
     private val upbitRepository: UpbitRepository,
-    private val mainAdapter: MainAdapter,
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 ) {
 
+
+    val titles = ObservableField<Array<String>>()
+    val markets = ObservableField<Array<String>>()
+
     val pageLimit = ObservableField<Int>()
-    val adapter = ObservableField<MainAdapter>()
 
     val category = ObservableField<Filter.SelectArrow>()
-
-    init {
-        adapter.set(mainAdapter)
-    }
 
     fun destroyView() {
         compositeDisposable.clear()
@@ -31,7 +29,7 @@ class MainViewModel(
 
                 val keys = groupMarket.keys
 
-                mainAdapter.setTitles(keys.toTypedArray())
+                titles.set(keys.toTypedArray())
                 pageLimit.set(keys.size)
 
                 val arrMarkets = Array(keys.size) { "" }
@@ -43,7 +41,7 @@ class MainViewModel(
                         .joinToString(separator = ",") { it.market }
                 }
 
-                mainAdapter.setItems(arrMarkets)
+                markets.set(arrMarkets)
 
             }) {
                 Timber.e(it)

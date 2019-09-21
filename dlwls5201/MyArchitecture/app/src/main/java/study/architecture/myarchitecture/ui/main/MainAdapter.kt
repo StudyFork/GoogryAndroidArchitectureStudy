@@ -43,7 +43,6 @@ class MainAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     fun setItems(items: Array<String>) {
         this.markets = items.copyOf()
-        notifyDataSetChanged()
     }
 
     fun setTitles(items: Array<String>) {

@@ -10,9 +10,16 @@ import study.architecture.myarchitecture.ui.main.MainAdapter
 import study.architecture.myarchitecture.ui.model.TickerItem
 import study.architecture.myarchitecture.ui.tickerlist.TickerAdapter
 
-@BindingAdapter("android:adapter")
-fun ViewPager.setAdapter(mainAdapter: MainAdapter) {
-    adapter = mainAdapter
+@BindingAdapter(value = ["android:setMarkets", "android:setTitles"], requireAll = true)
+fun ViewPager.setMainItems(markets: Array<String>?, titles: Array<String>?) {
+    (adapter as? MainAdapter)?.run {
+
+        if (markets == null || titles == null) return
+
+        setItems(markets)
+        setTitles(titles)
+        notifyDataSetChanged()
+    }
 }
 
 @BindingAdapter("android:setItems")
@@ -25,7 +32,7 @@ fun RecyclerView.setItems(tickerItems: MutableList<TickerItem>?) {
 }
 
 
-@BindingAdapter(value = ["android:category", "android:adapter"], requireAll = true)
+@BindingAdapter(value = ["android:category", "android:adapter"], requireAll = false)
 fun ImageView.setCategory(field: Filter.SelectArrow?, mainAdapter: MainAdapter?) {
 
     if (field == null || mainAdapter == null) return

@@ -15,11 +15,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         mainViewModel =
             MainViewModel(
-                Injection.provideFolderRepository(this),
-                MainAdapter(supportFragmentManager)
+                Injection.provideFolderRepository(this)
             ).apply {
                 binding.mainModel = this
             }
+
+        initViewPager()
 
         mainViewModel.loadData()
 
@@ -28,5 +29,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onDestroy() {
         mainViewModel.destroyView()
         super.onDestroy()
+    }
+
+    private fun initViewPager() {
+        binding.vpMain.adapter = MainAdapter(supportFragmentManager)
     }
 }

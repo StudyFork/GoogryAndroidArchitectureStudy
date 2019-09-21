@@ -107,7 +107,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:category="@{mainModel.category}"
-                        android:adapter="@{mainModel.adapter}"
                         android:visibility="@{mainModel.category.equals(SelectArrow.COIN_NAME) ? View.VISIBLE : View.INVISIBLE}"
                         android:src="@drawable/ic_arrow_drop_selector" />
 
@@ -132,7 +131,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:category="@{mainModel.category}"
-                        android:adapter="@{mainModel.adapter}"
                         android:visibility="@{mainModel.category.equals(SelectArrow.LAST) ? View.VISIBLE : View.INVISIBLE}"
                         android:src="@drawable/ic_arrow_drop_selector" />
 
@@ -157,7 +155,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:category="@{mainModel.category}"
-                        android:adapter="@{mainModel.adapter}"
                         android:visibility="@{mainModel.category.equals(SelectArrow.TRADE_DIFF) ? View.VISIBLE : View.INVISIBLE}"
                         android:src="@drawable/ic_arrow_drop_selector" />
 
@@ -182,7 +179,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:category="@{mainModel.category}"
-                        android:adapter="@{mainModel.adapter}"
                         android:visibility="@{mainModel.category.equals(SelectArrow.TRADE_AMOUNT) ? View.VISIBLE : View.INVISIBLE}"
                         android:src="@drawable/ic_arrow_drop_selector" />
 
@@ -192,7 +188,8 @@
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/vpMain"
-                android:adapter="@{mainModel.adapter}"
+                android:setMarkets="@{mainModel.markets}"
+                android:setTitles="@{mainModel.titles}"
                 app:offscreenPageLimit="@{mainModel.pageLimit}"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
