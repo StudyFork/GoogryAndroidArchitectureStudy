@@ -26,7 +26,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     override fun onDestroy() {
-        mainViewModel.detachView()
+        mainViewModel.destroyView()
         super.onDestroy()
     }
 }

@@ -21,7 +21,7 @@ class MainViewModel(
         adapter.set(mainAdapter)
     }
 
-    fun detachView() {
+    fun destroyView() {
         compositeDisposable.clear()
     }
 
