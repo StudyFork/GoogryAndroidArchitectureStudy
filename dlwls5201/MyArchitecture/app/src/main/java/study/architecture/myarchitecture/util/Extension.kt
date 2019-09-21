@@ -26,8 +26,9 @@ fun ViewPager.setMainItems(markets: Array<String>?, titles: Array<String>?) {
 @BindingAdapter("android:setItems")
 fun RecyclerView.setItems(tickerItems: MutableList<TickerItem>?) {
     (adapter as? TickerAdapter)?.run {
-        tickerItems?.let {
-            setItems(it)
+
+        if (tickerItems != null) {
+            setItems(tickerItems)
         }
     }
 }
