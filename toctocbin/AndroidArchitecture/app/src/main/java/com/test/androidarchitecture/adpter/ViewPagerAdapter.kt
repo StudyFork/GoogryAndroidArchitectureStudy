@@ -3,7 +3,7 @@ package com.test.androidarchitecture.adpter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.test.androidarchitecture.TickerFragment
+import com.test.androidarchitecture.ui.ticker.TickerFragment
 import com.test.androidarchitecture.data.MarketTitle
 
 class ViewPagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
