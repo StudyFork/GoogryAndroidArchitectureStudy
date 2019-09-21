@@ -8,14 +8,14 @@ import androidx.databinding.ViewDataBinding
 abstract class BaseBindingViewHolder<B : ViewDataBinding>(
     @LayoutRes layoutRes: Int,
     parent: ViewGroup?,
-    private val variableId: Int?
+    private val bindingVariableId: Int?
 ) : BaseViewHolder(layoutRes, parent) {
 
     private val binding: B = DataBindingUtil.bind(itemView)!!
 
     override fun onBindView(item: Any?) {
         binding.run {
-            variableId?.let {
+            bindingVariableId?.let {
                 setVariable(it, item)
             }
             executePendingBindings()
