@@ -18,7 +18,7 @@ class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.frag
         arguments?.let { bundle ->
 
             tickerViewModel = TickerListViewModel(
-                Injection.provideFolderRepository(context!!),
+                Injection.provideFolderRepository(requireContext()),
                 bundle.getString(KEY_MARKETS, "")
             )
             binding.tickerModel = tickerViewModel
