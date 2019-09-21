@@ -23,7 +23,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 Injection.provideFolderRepository(this),
                 object : MainViewModel.SortListener {
                     override fun sortTicker(field: Filter.SelectArrow, order: Int) {
-                        for (i: Int in 0 until (mainAdapter.count)) {
+                        for (i in 0 until (mainAdapter.count)) {
                             mainAdapter.getFragment(i)?.run {
                                 this.get()?.showTickerListOrderByField(field, order)
                             }
