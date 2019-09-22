@@ -8,6 +8,7 @@ import com.example.mystudy.adapter.TickerAdapter
 import com.example.mystudy.adapter.ViewPagerAdapter
 import com.example.mystudy.data.UpbitRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class UpbitViewModel(
@@ -16,8 +17,8 @@ class UpbitViewModel(
 ) : ViewModel() {
 
     val tickerAdapter = ObservableField<TickerAdapter>()
+    private val compositeDisposable = CompositeDisposable()
 
-    @SuppressLint("CheckResult")
     fun getTicker(firstMarket: String?) {
         tickerAdapter.set(upbitAdapter)
         repository.getMarket()
@@ -33,10 +34,11 @@ class UpbitViewModel(
                     .subscribe({
                         upbitAdapter.setData(it.map { it.toTicker() })
 
+
                     }, {
                         showFailedUpbitTickerList()
                     })
-            }
+            }.also { compositeDisposable.add(it) }
     }
 
     private fun showFailedUpbitTickerList() {
