@@ -27,7 +27,7 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
     override fun getItemCount(): Int = lists.size
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(position)
+        holder.bind(lists[position])
     }
 
     fun updateLists(list: List<ProcessingTicker>) {
@@ -37,11 +37,11 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
     }
 
 
-    inner class Holder(private val binding: ItemTickerBinding) :
+    class Holder(private val binding: ItemTickerBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind(list : ProcessingTicker) {
             binding.apply {
-                pTicker = lists[position]
+                pTicker = list
                 executePendingBindings()
             }
         }
