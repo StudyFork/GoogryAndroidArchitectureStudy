@@ -36,6 +36,7 @@ class CoinViewModel(
                     }
             }
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { loadingState.set(true) }
             .subscribe(
                 {
                     marketName = it
@@ -50,7 +51,6 @@ class CoinViewModel(
         dispose.dispose()
         repository.getTickers(marketName)
             .repeatWhen { it.delay(8, TimeUnit.SECONDS) }
-            .doOnSubscribe { loadingState.set(true) }
             .doOnRequest { loadingState.set(false) }
             .map { list ->
                 list.map { data ->

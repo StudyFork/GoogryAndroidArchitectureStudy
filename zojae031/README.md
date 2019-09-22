@@ -145,3 +145,30 @@ BindingAdapter : java -> xml
 
 InverseBindingAdapter : xml -> java
 
+# 6주차 2019-09-22
+
+#### - Kotlin의 기본은 Effective Java에 의거한 방식을 사용한것이라 기본을 지키는게 좋다.
+
+Ex) class 
+
+- java : inner class, 변수(Mutable)
+- kotlin : static class, 변수(Immutable)
+
+주체일때 run, apply ///객체를 다른곳에 사용할때 let, also
+
+onPropertyChangeCallback
+
+#### - 구글 아키텍쳐 디자인 가이드를 보고 해도 좋다
+
+1. dialog vs dialog fragment
+
+
+
+2. 왜 데이터는 번들로 옮길까
+
+
+
+3. listener set 하면 안되는 이유
+
+
+
