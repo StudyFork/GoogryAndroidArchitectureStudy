@@ -12,19 +12,18 @@ import java.util.concurrent.TimeUnit
 
 class CoinViewModel(
     private val index: CoinFragment.FragIndex,
-    private val repository: Repository,
-    private val adapter: CoinDataAdapter
+    private val repository: Repository
 ) {
     private lateinit var marketName: String
 
     private val compositeDisposable = CompositeDisposable()
     private val dispose: Disposable
 
-    val coinAdapter = ObservableField<CoinDataAdapter>()
+    val lists = ObservableField<List<ProcessingTicker>>()
     val loadingState = ObservableField<Boolean>()
 
     init {
-        coinAdapter.set(adapter)
+
         repository.getMarkets()
             .map { list ->
                 list.filter { filterData
@@ -67,7 +66,7 @@ class CoinViewModel(
             .subscribe(
                 { pLists ->
                     if (!repository.checkNetwork()) Log.e("데이터 연결x", "데이터 최신화 필요")
-                    adapter.updateLists(pLists)
+                    lists.set(pLists)
                 },
                 { e ->
                     Log.e("CoinViewModel", e.message)

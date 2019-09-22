@@ -1,6 +1,5 @@
 package study.architecture.ui.coinjob
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +11,8 @@ import study.architecture.R
 import study.architecture.databinding.FragmentCoinBinding
 
 
-@SuppressLint("ValidFragment", "WrongConstant")
 class CoinFragment : Fragment() {
-    private val coinDataAdapter = CoinDataAdapter()
+
     private lateinit var coinViewModel: CoinViewModel
 
     private lateinit var binding: FragmentCoinBinding
@@ -38,13 +36,15 @@ class CoinFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         CoinViewModel(
             arguments!!.getSerializable("idx") as FragIndex,
-            Injection.getRepository(activity!!.applicationContext), coinDataAdapter
-        ).also {
-            coinViewModel = it
-            binding.viewModel = it
-        }
-    }
+            Injection.getRepository(activity!!.applicationContext)
+        ).also { coinViewModel = it }
 
+        with(binding) {
+            viewModel = coinViewModel
+            recyclerView.adapter = CoinDataAdapter()
+        }
+
+    }
 
     override fun onPause() {
         coinViewModel.onPause()
@@ -60,4 +60,5 @@ class CoinFragment : Fragment() {
     enum class FragIndex {
         KRW, BTC, ETH, USDT
     }
+
 }
