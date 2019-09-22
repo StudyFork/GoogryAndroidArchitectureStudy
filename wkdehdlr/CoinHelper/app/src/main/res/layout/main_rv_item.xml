@@ -2,6 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="item"
+            type="kr.schoolsharing.coinhelper.model.UpbitItem" />
+
+    </data>
+
     <LinearLayout
 
         android:orientation="horizontal"
@@ -56,11 +64,5 @@
 
     </LinearLayout>
 
-    <data>
 
-        <variable
-            name="item"
-            type="kr.schoolsharing.coinhelper.model.UpbitItem" />
-
-    </data>
 </layout>
