@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
+import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.ui.main.MainAdapter
 import study.architecture.myarchitecture.ui.main.MainViewModel
 import study.architecture.myarchitecture.ui.model.TickerItem
@@ -54,11 +55,11 @@ fun ImageView.setCategory(field: Filter.SelectArrow?, listener: MainViewModel.So
 fun TextView.setTradeDiffColor(signedChangeRate: Double) {
 
     val color = if (signedChangeRate > 0) {
-        ContextCompat.getColor(context, study.architecture.myarchitecture.R.color.diff_up)
+        ContextCompat.getColor(context, R.color.diff_up)
     } else if (signedChangeRate < 0) {
-        ContextCompat.getColor(context, study.architecture.myarchitecture.R.color.diff_down)
+        ContextCompat.getColor(context, R.color.diff_down)
     } else {
-        ContextCompat.getColor(context, study.architecture.myarchitecture.R.color.gray5)
+        ContextCompat.getColor(context, R.color.gray5)
     }
 
     this.setTextColor(color)
