@@ -1,42 +1,30 @@
 package com.example.seonoh.seonohapp
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.seonoh.seonohapp.contract.CoinMainContract
 import com.example.seonoh.seonohapp.model.Market
-import com.example.seonoh.seonohapp.repository.CoinRepositoryImpl
 import com.google.android.material.tabs.TabLayout
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.HttpException
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CoinMainContract.View {
 
     private lateinit var pagerAdapter: TabPagerAdapter
     private lateinit var toast: Toast
-    private lateinit var conMarketNameList: List<String>
-    private val coinRepository = CoinRepositoryImpl()
+    private lateinit var coinMarketNameList: List<String>
+
+    private val presenter: CoinMainPresenter by lazy {
+        CoinMainPresenter(
+            this
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView()
-        loadMarketData()
-    }
-
-    private fun loadMarketData() {
-        coinRepository.sendMarket().subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-
-                pagerAdapter.setData(classifyMarketData(it))
-
-            }, { e ->
-                if (e is HttpException) {
-                    Log.e("market", "Market Network failed !! ${e.message()}")
-                }
-            })
+        presenter.loadMarketData()
     }
 
     private fun initView() {
@@ -60,9 +48,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        toast = Toast.makeText(this, "뒤로가기를 한번 더 누르시면 앱이 종료됩니다.", Toast.LENGTH_SHORT)
+    override fun setPager(marketData: List<Market>) {
+        pagerAdapter.setData(classifyMarketData(marketData))
+    }
 
+    override fun showToast() {
+        toast = Toast.makeText(this, resources.getString(R.string.back_text), Toast.LENGTH_SHORT)
         if (toast.view.isShown) {
             finish()
         } else {
@@ -70,15 +61,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        showToast()
+    }
+
     private fun classifyMarketData(marketData: List<Market>): ArrayList<String> {
 
-        conMarketNameList = marketData.map {
+        coinMarketNameList = marketData.map {
             it.market.substringBefore("-")
         }.distinct()
 
         val marketDataList = ArrayList<String>()
 
-        conMarketNameList.forEach { title ->
+        coinMarketNameList.forEach { title ->
 
             marketDataList += (marketData.filter {
                 it.market.substringBefore("-") == title

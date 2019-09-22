@@ -2,6 +2,7 @@ package com.example.seonoh.seonohapp
 
 import android.view.View
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.seonoh.seonohapp.model.UseCoinModel
 
@@ -20,8 +21,18 @@ class CoinItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         currentPriceTv.text = data.tradePrice
         changeRateTv.run {
             text = data.signedChangeRate["rate"].toString()
-            setTextColor(data.signedChangeRate["color"].toString().toInt())
+            setTextColor(
+                ContextCompat.getColor(
+                    itemView.context
+                    , data.signedChangeRate["color"]
+                        .toString()
+                        .toInt()
+                )
+            )
         }
-        totalTradePriceTv.text = data.accTradePrice_24h
+        totalTradePriceTv.text = String.format(
+            itemView.context.getString(data.accTradePrice_24h["format"].toString().toInt()),
+            data.accTradePrice_24h["price"]
+        )
     }
 }

@@ -1,9 +1,6 @@
 package com.example.seonoh.seonohapp.util
 
-import android.content.Context
 import android.util.Log
-import android.widget.TextView
-import androidx.core.content.ContextCompat
 import com.example.seonoh.seonohapp.R
 import java.text.DecimalFormat
 
@@ -11,7 +8,9 @@ val doubleFormat = DecimalFormat("#,##0.00000000")
 val intFormat = DecimalFormat("#,###.##")
 
 object CalculateUtils {
-    fun setMarketName(marketName: String): String? {
+    fun setMarketName(
+        marketName: String
+    ): String? {
         return if (marketName?.contains("USDT")) {
             marketName?.substring(5, marketName.length)
         } else {
@@ -19,76 +18,85 @@ object CalculateUtils {
         }
     }
 
-    fun filterTrade(tradePrice: Double?): String {
+    fun filterTrade(
+        tradePrice: Double?
+    ): String {
         return if (tradePrice ?: .0 > 1) {
             intFormat.format(tradePrice ?: 0).toString()
         } else {
             doubleFormat.format(tradePrice ?: 0).toString()
         }
+
     }
 
     //거래대금
-    fun setTradeAmount(marketType: String, accTradePrice24h: Double, context: Context): String {
+    fun setTradeAmount(
+        marketType: String,
+        accTradePrice24h: Double
+    ): Map<String, Number> {
         var totalPriceAmount = accTradePrice24h.toLong()
-
-        return when (marketType) {
+        val mapValue = mutableMapOf<String, Number>()
+        when (marketType) {
             "KRW" -> {
-                String.format(
-                    context.getString(
-                        when {
-                            totalPriceAmount < 1_000_000L -> {
-                                R.string.trade_amount_fmt
-                            }
-                            totalPriceAmount < 1_000_000_000_000L -> {
-                                totalPriceAmount /= 1_000_000L
-                                R.string.trade_amount_mega_fmt
-                            }
-                            else -> {
-                                totalPriceAmount /= 1_000_000_000L
-                                R.string.trade_amount_giga_fmt
-                            }
-                        }
-                    )
-                    , totalPriceAmount
-                )
+                when {
+                    totalPriceAmount < 1_000_000L -> {
+                        mapValue["format"] = R.string.trade_amount_fmt
+                        mapValue["price"] = totalPriceAmount
+                    }
+                    totalPriceAmount < 1_000_000_000_000L -> {
+                        totalPriceAmount /= 1_000_000L
+                        mapValue["format"] = R.string.trade_amount_mega_fmt
+                        mapValue["price"] = totalPriceAmount
+                    }
+                    else -> {
+                        totalPriceAmount /= 1_000_000_000L
+                        mapValue["format"] = R.string.trade_amount_giga_fmt
+                        mapValue["price"] = totalPriceAmount
+
+                    }
+                }
             }
             "BTC", "ETH" -> {
-                String.format(context.getString(R.string.trade_amount_milli_fmt), accTradePrice24h)
+                mapValue["format"] = R.string.trade_amount_milli_fmt
+                mapValue["price"] = accTradePrice24h
             }
             "USDT" -> {
-                String.format(
-                    context.getString(
-                        when {
-                            totalPriceAmount < 1_000_000L -> {
-                                R.string.trade_amount_fmt
-                            }
-                            totalPriceAmount < 1_000_000_000L -> {
-                                totalPriceAmount /= 1_000L
-                                R.string.trade_amount_kilo_fmt
-                            }
-                            totalPriceAmount < 1_000_000_000_000L -> {
-                                totalPriceAmount /= 1_000_000L
-                                R.string.trade_amount_mega_fmt
-                            }
-                            else -> {
-                                totalPriceAmount /= 1_000_000_000L
-                                R.string.trade_amount_giga_fmt
-                            }
-                        }
-                    ), totalPriceAmount
-                )
-            }
-            else -> {
-                val fmtResId = when {
-                    totalPriceAmount < 1_000L -> {
-                        R.string.trade_amount_milli_fmt
-                    }
+                when {
                     totalPriceAmount < 1_000_000L -> {
-                        R.string.trade_amount_fmt
+                        mapValue["format"] = R.string.trade_amount_fmt
+                        mapValue["price"] = totalPriceAmount
                     }
                     totalPriceAmount < 1_000_000_000L -> {
                         totalPriceAmount /= 1_000L
-                        R.string.trade_amount_kilo_fmt
+                        mapValue["format"] = R.string.trade_amount_kilo_fmt
+                        mapValue["price"] = totalPriceAmount
+                    }
+                    totalPriceAmount < 1_000_000_000_000L -> {
+                        totalPriceAmount /= 1_000_000L
+                        mapValue["format"] = R.string.trade_amount_mega_fmt
+                        mapValue["price"] = totalPriceAmount
+                    }
+                    else -> {
+                        totalPriceAmount /= 1_000_000_000L
+                        mapValue["format"] = R.string.trade_amount_giga_fmt
+                        mapValue["price"] = totalPriceAmount
+                    }
+                }
+            }
+            else -> {
+                mapValue["format"] = when {
+                    totalPriceAmount < 1_000L -> {
+                         R.string.trade_amount_milli_fmt
+
+                    }
+                    totalPriceAmount < 1_000_000L -> {
+                        R.string.trade_amount_fmt
+
+                    }
+                    totalPriceAmount < 1_000_000_000L -> {
+                        totalPriceAmount /= 1_000L
+                         R.string.trade_amount_kilo_fmt
+
                     }
                     totalPriceAmount < 1_000_000_000_000L -> {
                         totalPriceAmount /= 1_000_000L
@@ -99,21 +107,25 @@ object CalculateUtils {
                         R.string.trade_amount_giga_fmt
                     }
                 }
-                return if (totalPriceAmount < 1_000L) {
-                    String.format(context.getString(fmtResId), accTradePrice24h)
+                if (totalPriceAmount < 1_000L) {
+                    mapValue["price"] = accTradePrice24h
                 } else {
-                    String.format(context.getString(fmtResId), totalPriceAmount)
+                    mapValue["price"] = totalPriceAmount
                 }
+
             }
         }
+        return mapValue
     }
 
-    fun setTradeDiff(signedChangeRate: Double, context: Context): Map<String, Any> {
+    fun setTradeDiff(
+        signedChangeRate: Double
+    ): Map<String, Any> {
         val mapValue = mutableMapOf<String, Any>()
         val color = when {
-            (signedChangeRate > 0) -> ContextCompat.getColor(context, R.color.seonohRed)
-            signedChangeRate < 0 -> ContextCompat.getColor(context, R.color.seonohBlue)
-            else -> ContextCompat.getColor(context, R.color.seonohBlack)
+            (signedChangeRate > 0) -> R.color.seonohRed
+            signedChangeRate < 0 -> R.color.seonohBlue
+            else -> R.color.seonohBlack
         }
 
         val df = DecimalFormat("0.##")
