@@ -22,7 +22,7 @@ class CoinViewModel(
     private val dispose: Disposable
 
     val coinAdapter = ObservableField<CoinDataAdapter>()
-    val progressBar = ObservableField<Int>()
+    val loadingState = ObservableField<Boolean>()
 
     init {
         coinAdapter.set(adapter)
@@ -51,8 +51,8 @@ class CoinViewModel(
         dispose.dispose()
         repository.getTickers(marketName)
             .repeatWhen { it.delay(8, TimeUnit.SECONDS) }
-            .doOnSubscribe { progressBar.set(View.VISIBLE) }
-            .doOnRequest { progressBar.set(View.GONE) }
+            .doOnSubscribe { loadingState.set(true) }
+            .doOnRequest { loadingState.set(false) }
             .map { list ->
                 list.map { data ->
                     ProcessingTicker(

@@ -39,7 +39,6 @@ class CoinDataAdapter : RecyclerView.Adapter<CoinDataAdapter.Holder>() {
 
     inner class Holder(private val binding: ItemTickerBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
         fun bind(position: Int) {
             binding.apply {
                 pTicker = lists[position]

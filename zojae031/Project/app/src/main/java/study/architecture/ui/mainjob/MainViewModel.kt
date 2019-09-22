@@ -7,10 +7,9 @@ class MainViewModel(
     private val adapter: MainPageAdapter
 ) {
     val mainAdapter = ObservableField<MainPageAdapter>()
-    val pageLimit = ObservableField<Int>()
+    val pageLimit: Int = CoinFragment.FragIndex.values().size
 
     fun initView() {
         mainAdapter.set(adapter)
-        pageLimit.set(CoinFragment.FragIndex.values().size)
     }
 }
