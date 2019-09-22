@@ -1,10 +1,7 @@
 package study.architecture.data.remote
 
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import study.architecture.data.entity.Market
 import study.architecture.data.entity.Ticker
 
@@ -13,11 +10,6 @@ import study.architecture.data.entity.Ticker
  */
 class RemoteDataSourceImpl private constructor(private val api: UpbitRemoteDataSource) :
     UpbitRemoteDataSource {
-
-
-
-
-
 
     override fun getMarkets(): Single<List<Market>> =
         api.getMarkets()

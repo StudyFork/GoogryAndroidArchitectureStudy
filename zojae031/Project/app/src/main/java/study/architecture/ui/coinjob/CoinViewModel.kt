@@ -1,7 +1,6 @@
 package study.architecture.ui.coinjob
 
 import android.util.Log
-import android.view.View
 import androidx.databinding.ObservableField
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

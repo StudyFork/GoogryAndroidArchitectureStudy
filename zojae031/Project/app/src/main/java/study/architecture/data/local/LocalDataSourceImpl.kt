@@ -10,8 +10,8 @@ class LocalDataSourceImpl private constructor(context: Context) :
     UpbitLocalDataSource {
 
     private val db = CoinDatabase.getInstance(context)
-    private val marketDao = db!!.marketDao()
-    private val tickerDao = db!!.tickerDao()
+    private val marketDao = db.marketDao()
+    private val tickerDao = db.tickerDao()
 
 
     override fun getMarkets(): Single<List<Market>> =
