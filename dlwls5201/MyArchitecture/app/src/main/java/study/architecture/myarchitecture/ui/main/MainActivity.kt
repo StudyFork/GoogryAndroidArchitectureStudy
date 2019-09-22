@@ -41,7 +41,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     override fun onDestroy() {
-        mainViewModel.destroyView()
+        mainViewModel.clearDisposable()
         super.onDestroy()
     }
 

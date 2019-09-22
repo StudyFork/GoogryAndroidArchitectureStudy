@@ -19,7 +19,7 @@ class MainViewModel(
 
     val category = ObservableField<Filter.SelectArrow>()
 
-    fun destroyView() {
+    fun clearDisposable() {
         compositeDisposable.clear()
     }
 
