@@ -11,20 +11,20 @@ import retrofit2.converter.gson.GsonConverterFactory
  * 서버에서 데이터를 가져오는 클래스
  **/
 
-object UpbitRemoteDataSourceImpl : UpbitRemoteDataSource {
-    private val RETROFIT: UpbitRemoteDataSource = Retrofit.Builder()
+object UpbitRemoteDataSource : UpbitService {
+    private val retrofit: UpbitService = Retrofit.Builder()
         .baseUrl("https://api.upbit.com/v1/")
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(UpbitRemoteDataSource::class.java)
+        .create(UpbitService::class.java)
 
     override fun getMarkets(): Single<List<MarketResponse>> =
-        RETROFIT.getMarkets()
+        retrofit.getMarkets()
             .subscribeOn(Schedulers.io())
 
     override fun getTickers(marketList: String) =
-        RETROFIT.getTickers(marketList)
+        retrofit.getTickers(marketList)
             .subscribeOn(Schedulers.io())
 
 
