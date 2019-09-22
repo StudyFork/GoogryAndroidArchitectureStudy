@@ -8,7 +8,5 @@ import kr.schoolsharing.coinhelper.tasks.UpbitRVAdapter
 
 @BindingAdapter("items")
 fun RecyclerView.replaceAll(items: ObservableField<List<UpbitItem>>) {
-    (this.adapter as? UpbitRVAdapter)?.let {
-        it.setTickerList(items.get()!!)
-    }
+    (this.adapter as? UpbitRVAdapter)?.setTickerList(items.get())
 }

@@ -28,11 +28,12 @@ class UpbitRVAdapter : RecyclerView.Adapter<UpbitRVAdapter.Holder>() {
         binding.executePendingBindings()
     }
 
-
-    fun setTickerList(tickerList: List<UpbitItem>) {
-        itemList.clear()
-        itemList.addAll(tickerList)
-        notifyDataSetChanged()
+    fun setTickerList(tickerList: List<UpbitItem>?) {
+        if (tickerList != null) {
+            itemList.clear()
+            itemList.addAll(tickerList)
+            notifyDataSetChanged()
+        }
     }
 
     inner class Holder(itemView: MainRvItemBinding) : RecyclerView.ViewHolder(itemView.root) {
