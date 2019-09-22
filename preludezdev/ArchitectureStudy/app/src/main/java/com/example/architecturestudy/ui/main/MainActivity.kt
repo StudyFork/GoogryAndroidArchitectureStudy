@@ -16,20 +16,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun initView() {
         initViewPager()
-        initArrowView()
     }
 
     private fun initViewPager() {
-        //뷰페이저 어댑터 연결
-        binding.viewPager.adapter = vpAdapter
+        with(binding) {
+            //뷰페이저 어댑터 연결
+            viewPager.adapter = vpAdapter
+            viewPager.offscreenPageLimit = vpAdapter.count
 
-        //탭 레이아웃에 뷰페이저 연결
-        binding.tabLayout.setupWithViewPager(binding.viewPager)
-    }
-
-    private fun initArrowView() {
-        //default sort 값, 임시로 해둠...
-        binding.ivArrowCoinName.isSelected = true
+            //탭 레이아웃에 뷰페이저 연결
+            tabLayout.setupWithViewPager(viewPager)
+        }
     }
 
 }
