@@ -12,40 +12,38 @@ import com.example.architecturestudy.viewmodel.MarketViewModel
 
 class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_market) {
 
-    private lateinit var marketViewModel: MarketViewModel
-    private var key = "KEY_MARKET"
-    private val rvAdapter = RecyclerViewAdapter()
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        initRecyclerView()
-        initViewModel()
-
-        marketViewModel.loadData(arguments?.getString(key))
-    }
-
-    private fun initRecyclerView() {
-        //리사이클러뷰 어댑터 설정
-        binding.recyclerView.apply {
-            adapter = rvAdapter
-        }
-    }
-
-    private fun initViewModel() {
-        marketViewModel = MarketViewModel(
+    private val marketViewModel: MarketViewModel by lazy {
+        MarketViewModel(
             CoinsRepositoryImpl.getInstance(
                 CoinsRemoteDataSource.getInstance(RetrofitHelper.getInstance().coinApiService),
                 CoinsLocalDataSource.getInstance()
             )
         )
+    }
 
+    private var keyMarket = "KEY_MARKET"
+    private val rvAdapter = RecyclerViewAdapter()
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        initViewModel()
+        initRecyclerView()
+
+        marketViewModel.loadData(arguments?.getString(keyMarket))
+    }
+
+    private fun initViewModel() {
         binding.viewModel = marketViewModel // 뷰모델을 레이아웃과 바인딩
+    }
+
+    private fun initRecyclerView() {
+        binding.recyclerView.adapter = rvAdapter
     }
 
     companion object {
         fun newInstance(market: String) = MarketFragment().apply {
-            arguments = Bundle().apply { putString(key, market) }
+            arguments = Bundle().apply { putString(keyMarket, market) }
         }
     }
 
