@@ -15,7 +15,7 @@ class ViewPagerAdapter(fm: FragmentManager) :
 
     override fun getCount() = marketList.size
 
-    override fun getPageTitle(position: Int): CharSequence? {
-        return marketList[position]
-    }
+    override fun getPageTitle(position: Int): CharSequence? =
+         marketList[position]
+
 }
