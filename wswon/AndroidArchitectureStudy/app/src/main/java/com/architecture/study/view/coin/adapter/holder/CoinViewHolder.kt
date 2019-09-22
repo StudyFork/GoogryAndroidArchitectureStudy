@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.architecture.study.BR
 import com.architecture.study.R
 import com.architecture.study.data.model.Ticker
 import com.architecture.study.databinding.ItemCoinBinding
@@ -18,9 +19,8 @@ class CoinViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     private val binding: ItemCoinBinding =
         DataBindingUtil.bind(itemView)!!
 
-
     fun bind(ticker: Ticker, listener: CoinListAdapter.CoinItemRecyclerViewClickListener) {
-        binding.ticker = ticker
+
         itemView.setOnClickListener {
             listener.onItemClicked(adapterPosition)
         }
@@ -31,6 +31,8 @@ class CoinViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
                     ticker.compareYesterdayTextColor
                 )
             )
+            setVariable(BR.ticker, ticker)
+            executePendingBindings()
         }
     }
 }

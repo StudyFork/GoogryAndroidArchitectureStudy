@@ -1,6 +1,5 @@
 package com.architecture.study.data.source
 
-import com.architecture.study.network.RetrofitInstance
 import com.architecture.study.network.api.UpbitApi
 import com.architecture.study.network.model.MarketResponse
 import com.architecture.study.network.model.TickerResponse
@@ -8,22 +7,15 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CoinRemoteDataSourceImp(private val upbitApi: UpbitApi) : CoinRemoteDataSource { //리모트 만들때 파라미터로 API넣게
-
-    companion object {
-        private var instance: CoinRemoteDataSourceImp? = null
-        fun getInstance(upbitApi: UpbitApi): CoinRemoteDataSourceImp =
-            instance ?: synchronized(this) {
-                instance ?: CoinRemoteDataSourceImp(upbitApi).also {
-                    instance = it
-                }
-            }
-    }
-
+class CoinRemoteDataSourceImpl(private val upbitApi: UpbitApi) :
+    CoinRemoteDataSource { //리모트 만들때 파라미터로 API넣게
 
     override fun getMarketList(listener: CoinRemoteDataSourceListener<MarketResponse>) {
         upbitApi.getMarketData().enqueue(object : Callback<List<MarketResponse>> {
-            override fun onResponse(call: Call<List<MarketResponse>>, response: Response<List<MarketResponse>>) {
+            override fun onResponse(
+                call: Call<List<MarketResponse>>,
+                response: Response<List<MarketResponse>>
+            ) {
                 if (response.isSuccessful) {
                     val marketList = response.body()
                     if (marketList != null) {
@@ -42,9 +34,15 @@ class CoinRemoteDataSourceImp(private val upbitApi: UpbitApi) : CoinRemoteDataSo
         })
     }
 
-    override fun getTickerList(marketNames: String, listener: CoinRemoteDataSourceListener<TickerResponse>) {
+    override fun getTickerList(
+        marketNames: String,
+        listener: CoinRemoteDataSourceListener<TickerResponse>
+    ) {
         upbitApi.getTickerData(marketNames).enqueue(object : Callback<List<TickerResponse>> {
-            override fun onResponse(call: Call<List<TickerResponse>>, response: Response<List<TickerResponse>>) {
+            override fun onResponse(
+                call: Call<List<TickerResponse>>,
+                response: Response<List<TickerResponse>>
+            ) {
                 if (response.isSuccessful) {
                     val tickerList = response.body()
                     if (tickerList != null) {
@@ -63,4 +61,12 @@ class CoinRemoteDataSourceImp(private val upbitApi: UpbitApi) : CoinRemoteDataSo
         })
     }
 
+    companion object {
+        private var instance: CoinRemoteDataSourceImpl? = null
+        fun getInstance(upbitApi: UpbitApi): CoinRemoteDataSourceImpl =
+            instance ?: CoinRemoteDataSourceImpl(upbitApi).also {
+                instance = it
+            }
+
+    }
 }

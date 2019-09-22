@@ -10,20 +10,28 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.architecture.study.R
-import com.architecture.study.data.model.Ticker
-import com.architecture.study.data.repository.CoinRepositoryImp
+import com.architecture.study.data.repository.CoinRepositoryImpl
 import com.architecture.study.databinding.FragmentCoinlistBinding
+import com.architecture.study.util.Injection
 import com.architecture.study.view.coin.adapter.CoinListAdapter
-import com.architecture.study.view.coin.presenter.CoinListFragmentContract
-import com.architecture.study.view.coin.presenter.CoinListFragmentPresenter
+import com.architecture.study.viewmodel.CoinListViewModel
 
-class CoinListFragment : Fragment(), CoinListFragmentContract.View, CoinListAdapter.CoinItemRecyclerViewClickListener {
-    override lateinit var presenter: CoinListFragmentContract.Presenter
-    private lateinit var coinListAdapter: CoinListAdapter
+class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickListener {
 
-    private var monetaryUnitNameList: List<String>? = null
+    private val coinListViewModel by lazy {
+        CoinListViewModel(
+            CoinRepositoryImpl.getInstance(Injection.provideCoinRemoteDataSource()),
+            tabList.map { getString(it) }
+        )
+    }
+
+    private val coinListAdapter by lazy {
+        CoinListAdapter(this)
+    }
 
     private lateinit var binding: FragmentCoinlistBinding
+
+    private var monetaryUnitNameList: List<String>? = null
 
     private val tabList = listOf(
         R.string.monetary_unit_1,
@@ -33,9 +41,37 @@ class CoinListFragment : Fragment(), CoinListFragmentContract.View, CoinListAdap
     )
 
     private var refreshHandler = Handler()
-    override var isActive = false
-        get() = isAdded
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(inflater,
+            R.layout.fragment_coinlist,
+            container,
+            false)
+        return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        /* 받아온 argument - Coin name */
+        monetaryUnitNameList = arguments?.getStringArrayList(MONETARY_UNIT_NAME_LIST)
+
+        monetaryUnitNameList?.let {
+            getTickerList(it)
+        }
+
+
+        binding.run {
+            coinListVM = coinListViewModel
+            recyclerViewCoinList.run {
+                adapter = coinListAdapter
+            }
+        }
+    }
 
     /* 현재 보고있는 화면의 데이터만 갱신, 5초 간격 */
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
@@ -47,60 +83,9 @@ class CoinListFragment : Fragment(), CoinListFragmentContract.View, CoinListAdap
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        presenter.start()
-    }
-
     override fun onPause() {
-        super.onPause()
         refreshHandler.removeMessages(0)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_coinlist, container, false)
-
-        return binding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        context?.let {
-            presenter = CoinListFragmentPresenter(
-                CoinRepositoryImp.getInstance(),
-                this@CoinListFragment,
-                tabList.map { getString(it) },
-                false
-            )
-        }
-
-        /* 받아온 argument - Coin name */
-        monetaryUnitNameList = arguments?.getStringArrayList(MONETARY_UNIT_NAME_LIST)
-
-        coinListAdapter = CoinListAdapter(this)
-
-        binding.recyclerViewCoinList.run {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = coinListAdapter
-        }
-    }
-
-
-    /* TickerResponse -> Ticker로 변환작업 */
-    override fun showTickerList(tickerList: List<Ticker>) {
-        coinListAdapter.setData(tickerList)
-    }
-
-
-    override fun showMessage(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun successConnectApi() {
-        monetaryUnitNameList?.let {
-            presenter.getTickerList(it)
-        }
+        super.onPause()
     }
 
     /* handler로 5초간격 호출 재귀함수 */
@@ -108,27 +93,36 @@ class CoinListFragment : Fragment(), CoinListFragmentContract.View, CoinListAdap
         refreshHandler = Handler().apply {
             postDelayed({
                 monetaryUnitNameList?.let {
-                    presenter.getTickerList(it)
+                    getTickerList(it)
                 }
                 refreshData()
             }, 5000)
         }
     }
 
+    private fun getTickerList(marketNameList: List<String>){
+        coinListViewModel.getTickerList(marketNameList){
+            showMessage(it)
+        }
+    }
+
+    private fun showMessage(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
     override fun onItemClicked(position: Int) {
         //click event
     }
 
-
     companion object {
-        fun newInstance(monetaryUnitNameList: ArrayList<String>?) = CoinListFragment().apply {
+        fun newInstance(monetaryUnitNameList: List<String>?) = CoinListFragment().apply {
             arguments = Bundle().apply {
                 monetaryUnitNameList?.let {
-                    putStringArrayList(MONETARY_UNIT_NAME_LIST, it)
+                    putStringArrayList(MONETARY_UNIT_NAME_LIST, ArrayList(monetaryUnitNameList))
                 }
             }
         }
 
-        private const val MONETARY_UNIT_NAME_LIST = "MONETARY_UNIT_NAME"
+        private const val MONETARY_UNIT_NAME_LIST = "MONETARY_UNIT_NAME_LIST"
     }
 }

@@ -4,23 +4,27 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentPagerAdapter
 import com.architecture.study.R
-import com.architecture.study.data.repository.CoinRepositoryImp
+import com.architecture.study.data.repository.CoinRepositoryImpl
 import com.architecture.study.databinding.ActivityMainBinding
 import com.architecture.study.network.model.MarketResponse
-import com.architecture.study.view.coin.adapter.CoinTabPagerAdapter
-import com.architecture.study.view.coin.presenter.CoinListActivityContract
-import com.architecture.study.view.coin.presenter.CoinListActivityPresenter
+import com.architecture.study.util.Injection
+import com.architecture.study.viewmodel.CoinListViewModel
 import com.google.android.material.tabs.TabLayout
 
 
-class CoinListActivity : AppCompatActivity(), CoinListActivityContract.View {
-
-    override lateinit var presenter: CoinListActivityContract.Presenter
+class CoinListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private lateinit var coinTapPagerAdapter: CoinTabPagerAdapter
+    private val coinListViewModel by lazy {
+        CoinListViewModel(
+            CoinRepositoryImpl.getInstance(Injection.provideCoinRemoteDataSource()),
+            tabList.map { getString(it) }
+        )
+    }
 
     private val tabList = listOf(
         R.string.monetary_unit_1,
@@ -29,54 +33,58 @@ class CoinListActivity : AppCompatActivity(), CoinListActivityContract.View {
         R.string.monetary_unit_4
     )
 
-    override fun onResume() {
-        super.onResume()
-        presenter.start()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        presenter = CoinListActivityPresenter(
-            CoinRepositoryImp.getInstance(),
-            this@CoinListActivity,
-            false
-        )
+        coinListViewModel.run {
+            if (isConnectedApi) {
+                getMarketList {
+                    Toast.LENGTH_SHORT
+                    if (it == CoinListViewModel.SUCCESS) {
+                        coinListViewModel.marketList.get()?.let { marketList ->
+                            setTabPager(marketList)
+                        }
+                    } else {
+                        showMessage(it)
+                    }
+                }
+            }
+        }
     }
 
-    override fun showMessage(message: String) {
+    private fun showMessage(message: String) {
         Toast.makeText(this@CoinListActivity, message, Toast.LENGTH_SHORT).show()
     }
 
     /* tab layout && view pager init*/
-    override fun setTabPager(marketList: List<MarketResponse>) {
-        binding.tabLayoutMonetaryUnit.run {
-            tabList.map {
-                addTab(newTab().setText(getString(it)))
+    private fun setTabPager(marketList: List<MarketResponse>) {
+        binding.tabLayoutMonetaryUnit.setupWithViewPager(binding.viewPagerCoinList)
+
+        binding.viewPagerCoinList.run {
+            adapter = object : FragmentPagerAdapter(
+                supportFragmentManager,
+                BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+            ) {
+
+                override fun getItem(position: Int): Fragment =
+                    CoinListFragment.newInstance(
+                        marketList
+                            .asSequence()
+                            .filter { it.market.split("-")[0] == context.getString(tabList[position]) }
+                            .map { it.market }
+                            .toList()
+                    )
+
+
+                override fun getCount(): Int =
+                    tabList.size
+
+                override fun getPageTitle(position: Int): CharSequence? =
+                    getString(tabList[position])
             }
-            tabGravity = TabLayout.GRAVITY_FILL
-
-            addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab) {
-                    binding.coinListViewpager.currentItem = tab.position
-                }
-
-                override fun onTabReselected(tab: TabLayout.Tab?) {
-                }
-
-                override fun onTabUnselected(tab: TabLayout.Tab?) {
-                }
-            })
-        }
-
-        coinTapPagerAdapter = CoinTabPagerAdapter(supportFragmentManager, tabList, this@CoinListActivity, marketList)
-        binding.coinListViewpager.run {
-            adapter = coinTapPagerAdapter
             addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayoutMonetaryUnit))
         }
-
     }
-
 }
