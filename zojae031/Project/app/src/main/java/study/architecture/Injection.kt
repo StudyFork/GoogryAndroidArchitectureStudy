@@ -17,11 +17,11 @@ object Injection {
 
     fun getRepository(context: Context): Repository = RepositoryImpl.getInstance(
         getRemoteDataSource(getRetrofitApi()),
-        getLocalDataSource(getDataBase(context)),
-        getConnectivityService(context)
+        getLocalDataSource(getDataBase(context.applicationContext)),
+        getConnectivityService(context.applicationContext)
     )
 
-    private fun getDataBase(context: Context) = CoinDatabase.getInstance(context)
+    private fun getDataBase(context: Context) = CoinDatabase.getInstance(context.applicationContext)
 
     private fun getRemoteDataSource(api: UpbitApi): RemoteDataSource =
         RemoteDataSourceImpl.getInstance(api)
@@ -38,9 +38,10 @@ object Injection {
             class.java
         )
 
-    private fun getConnectivityService(context: Context) = context.getSystemService(
-        Context.CONNECTIVITY_SERVICE
-    ) as ConnectivityManager
+    private fun getConnectivityService(context: Context) =
+        context.applicationContext.getSystemService(
+            Context.CONNECTIVITY_SERVICE
+        ) as ConnectivityManager
 
 }
 
