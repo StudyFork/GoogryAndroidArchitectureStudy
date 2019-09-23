@@ -19,7 +19,7 @@ class MainViewModel(
     val category = ObservableField<Filter.SelectArrow>()
     val isSelected = ObservableField<Boolean>()
 
-    val sortingField = ObservableField<Pair<Filter.SelectArrow, Boolean>>()
+    val selectField = ObservableField<Pair<Filter.SelectArrow, Boolean>>()
 
     fun clearDisposable() {
         compositeDisposable.clear()
@@ -59,7 +59,7 @@ class MainViewModel(
         val selected = !(isSelected.get() ?: false)
         this.isSelected.set(selected)
 
-        sortingField.set(Pair(selectArrow, selected))
+        selectField.set(Pair(selectArrow, selected))
 
     }
 }

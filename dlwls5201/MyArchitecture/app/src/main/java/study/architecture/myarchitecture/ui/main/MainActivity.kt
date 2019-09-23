@@ -31,7 +31,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         mainViewModel.loadData()
 
-        mainViewModel.sortingField.addOnPropertyChangedCallback(object :
+        mainViewModel.selectField.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable, propertyId: Int) {
                 (sender as ObservableField<Pair<Filter.SelectArrow, Boolean>>).get()?.let {
