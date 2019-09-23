@@ -39,7 +39,8 @@ class UpbitViewModel(
         Log.d("TickerFail", "Ticker is not show")
     }
 
-    fun onPause(){
+    override fun onCleared() {
+        super.onCleared()
         compositeDisposable.clear()
     }
 }
