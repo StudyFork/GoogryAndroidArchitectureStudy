@@ -5,7 +5,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseRecylcerViewAdapter<ITEM : Any, B : ViewDataBinding>(
+abstract class BaseAdapter<ITEM : Any, B : ViewDataBinding>(
     @LayoutRes private val layoutRes: Int,
     private val bindingVariableId: Int? = null
 ) : RecyclerView.Adapter<BaseViewHolder<B>>() {
@@ -30,6 +30,7 @@ abstract class BaseRecylcerViewAdapter<ITEM : Any, B : ViewDataBinding>(
                 clear()
                 addAll(it)
             }
+            notifyDataSetChanged()
         }
     }
 }

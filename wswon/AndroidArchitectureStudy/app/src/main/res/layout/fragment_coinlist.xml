@@ -27,7 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layoutManager="LinearLayoutManager"
-            tools:listitem="@layout/item_coin">
+            tools:listitem="@layout/item_ticker">
 
         </androidx.recyclerview.widget.RecyclerView>
 

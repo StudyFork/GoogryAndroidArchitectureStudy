@@ -1,23 +1,21 @@
 package com.architecture.study.view.coin
 
 import android.os.Bundle
-import android.os.Handler
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
-import androidx.fragment.app.Fragment
+import com.architecture.study.BR
 import com.architecture.study.R
+import com.architecture.study.base.BaseAdapter
+import com.architecture.study.base.BaseFragment
+import com.architecture.study.data.model.Ticker
 import com.architecture.study.data.repository.CoinRepositoryImpl
 import com.architecture.study.databinding.FragmentCoinlistBinding
+import com.architecture.study.databinding.ItemTickerBinding
 import com.architecture.study.util.Injection
-import com.architecture.study.view.coin.adapter.CoinListAdapter
 import com.architecture.study.viewmodel.TickerViewModel
 
-class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickListener {
+class CoinListFragment : BaseFragment<FragmentCoinlistBinding>(R.layout.fragment_coinlist) {
 
     private val tickerViewModel by lazy {
         TickerViewModel(
@@ -25,12 +23,6 @@ class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickLi
             tabList.map { getString(it) }
         )
     }
-
-    private val coinListAdapter by lazy {
-        CoinListAdapter(this)
-    }
-
-    private lateinit var binding: FragmentCoinlistBinding
 
     private lateinit var monetaryUnitNameList: List<String>
 
@@ -41,20 +33,6 @@ class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickLi
         R.string.monetary_unit_4
     )
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_coinlist,
-            container,
-            false
-        )
-        return binding.root
-    }
-
     @Suppress("UNCHECKED_CAST")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -63,16 +41,17 @@ class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickLi
         arguments?.getStringArrayList(MONETARY_UNIT_NAME_LIST)?.let {
             monetaryUnitNameList = it
         }
-        tickerViewModel.getTickerList(monetaryUnitNameList)
 
         binding.run {
             tickerVM = tickerViewModel
             recyclerViewCoinList.run {
-                adapter = coinListAdapter
+                adapter = object :
+                    BaseAdapter<Ticker, ItemTickerBinding>(R.layout.item_ticker, BR.ticker) {}
             }
         }
 
         tickerViewModel.run {
+            getTickerList(monetaryUnitNameList)
             exceptionMessage.addOnPropertyChangedCallback(object :
                 Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
@@ -82,10 +61,6 @@ class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickLi
                 }
             })
         }
-    }
-
-    override fun onItemClicked(position: Int) {
-        //click event
     }
 
     private fun showMessage(message: String) {

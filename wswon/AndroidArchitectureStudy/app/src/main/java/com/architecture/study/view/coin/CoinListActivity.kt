@@ -2,24 +2,22 @@ package com.architecture.study.view.coin
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import com.architecture.study.R
+import com.architecture.study.base.BaseActivity
 import com.architecture.study.data.repository.CoinRepositoryImpl
-import com.architecture.study.databinding.ActivityMainBinding
+import com.architecture.study.databinding.ActivityCoinBinding
 import com.architecture.study.network.model.MarketResponse
 import com.architecture.study.util.Injection
 import com.architecture.study.viewmodel.MarketViewModel
 import com.google.android.material.tabs.TabLayout
 
 
-class CoinListActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityMainBinding
+class CoinListActivity : BaseActivity<ActivityCoinBinding>(R.layout.activity_coin){
 
     private val marketViewModel by lazy {
         MarketViewModel(CoinRepositoryImpl.getInstance(Injection.provideCoinRemoteDataSource()))
@@ -35,8 +33,6 @@ class CoinListActivity : AppCompatActivity() {
     @Suppress("UNCHECKED_CAST")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         marketViewModel.run {
             getMarketList()
@@ -63,8 +59,6 @@ class CoinListActivity : AppCompatActivity() {
                 }
             })
         }
-
-
     }
 
     private fun showMessage(message: String) {
