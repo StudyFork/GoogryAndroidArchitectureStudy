@@ -8,7 +8,6 @@ import timber.log.Timber
 
 class MainViewModel(
     private val upbitRepository: UpbitRepository,
-    val listener: SortListener?,
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 ) {
 
@@ -18,6 +17,9 @@ class MainViewModel(
     val pageLimit = ObservableField<Int>()
 
     val category = ObservableField<Filter.SelectArrow>()
+    val isSelected = ObservableField<Boolean>()
+
+    val sortingField = ObservableField<Pair<Filter.SelectArrow, Boolean>>()
 
     fun clearDisposable() {
         compositeDisposable.clear()
@@ -54,15 +56,10 @@ class MainViewModel(
 
         this.category.set(selectArrow)
 
-        /**
-         * 같은 값을 넣어주면 notify 되지 않는다.
-         * 임의로 notifyChange 호출
-         */
-        this.category.notifyChange()
-    }
+        val selected = !(isSelected.get() ?: false)
+        this.isSelected.set(selected)
 
-    interface SortListener {
+        sortingField.set(Pair(selectArrow, selected))
 
-        fun sortTicker(field: Filter.SelectArrow, order: Int)
     }
 }

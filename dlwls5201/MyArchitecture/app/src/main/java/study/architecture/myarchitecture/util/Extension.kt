@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.ui.main.MainAdapter
-import study.architecture.myarchitecture.ui.main.MainViewModel
 import study.architecture.myarchitecture.ui.model.TickerItem
 import study.architecture.myarchitecture.ui.tickerlist.TickerAdapter
 
@@ -34,21 +33,9 @@ fun RecyclerView.setItems(tickerItems: MutableList<TickerItem>?) {
     }
 }
 
-
-@BindingAdapter(value = ["android:category", "android:listener"], requireAll = false)
-fun ImageView.setCategory(field: Filter.SelectArrow?, listener: MainViewModel.SortListener?) {
-
-    if (field == null) return
-
-    val order = if (isSelected) {
-        Filter.DESC
-    } else {
-        Filter.ASC
-    }
-
-    isSelected = !isSelected
-
-    listener?.sortTicker(field, order)
+@BindingAdapter("android:isSelected")
+fun ImageView.isSelected(isSelected: Boolean) {
+    this.isSelected = isSelected
 }
 
 @BindingAdapter("android:tradeDiffColor")

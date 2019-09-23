@@ -1,6 +1,8 @@
 package study.architecture.myarchitecture.ui.main
 
 import android.os.Bundle
+import androidx.databinding.Observable
+import androidx.databinding.ObservableField
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.base.BaseActivity
 import study.architecture.myarchitecture.data.Injection
@@ -20,16 +22,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         mainViewModel =
             MainViewModel(
-                Injection.provideFolderRepository(this),
-                object : MainViewModel.SortListener {
-                    override fun sortTicker(field: Filter.SelectArrow, order: Int) {
-                        for (i in 0 until (mainAdapter.count)) {
-                            mainAdapter.getFragment(i)?.let {
-                                it.get()?.showTickerListOrderByField(field, order)
-                            }
-                        }
-                    }
-                }
+                Injection.provideFolderRepository(this)
             ).apply {
                 binding.mainModel = this
             }
@@ -37,6 +30,30 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         initViewPager()
 
         mainViewModel.loadData()
+
+        mainViewModel.sortingField.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable, propertyId: Int) {
+                (sender as ObservableField<Pair<Filter.SelectArrow, Boolean>>).get()?.let {
+                    val filter = it.first
+                    val selected = it.second
+
+                    for (i in 0 until (mainAdapter.count)) {
+                        mainAdapter.getFragment(i)?.let { fragment ->
+
+                            val order = if (selected) {
+                                Filter.ASC
+                            } else {
+                                Filter.DESC
+                            }
+
+                            fragment.get()?.showTickerListOrderByField(filter, order)
+                        }
+                    }
+                }
+            }
+
+        })
 
     }
 
