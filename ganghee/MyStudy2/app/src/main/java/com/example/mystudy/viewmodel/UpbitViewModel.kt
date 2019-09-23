@@ -38,4 +38,8 @@ class UpbitViewModel(
     private fun showFailedUpbitTickerList() {
         Log.d("TickerFail", "Ticker is not show")
     }
+
+    fun onPause(){
+        compositeDisposable.clear()
+    }
 }
