@@ -9,8 +9,6 @@ import kr.schoolsharing.coinhelper.databinding.FragmentCoinrecyclerBinding
 
 class UpbitFragment : BaseFragment<FragmentCoinrecyclerBinding>(R.layout.fragment_coinrecycler) {
 
-    private lateinit var upbitViewModel: UpbitViewModel
-
     private val rVAdapter = UpbitRVAdapter()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -24,9 +22,9 @@ class UpbitFragment : BaseFragment<FragmentCoinrecyclerBinding>(R.layout.fragmen
 
         //TODO : MARKET_NAME enum으로 빼자
         val marketName = arguments?.get("MARKET_NAME").toString()
-        upbitViewModel = UpbitViewModel(Repository)
-        upbitViewModel.loadUpbitMarket(marketName)
-        binding.viewModel = upbitViewModel
+        UpbitViewModel(Repository).apply {
+            loadUpbitMarket(marketName)
+        }.also { binding.viewModel = it }
     }
 
     companion object {
