@@ -24,7 +24,7 @@ class CoinListFragment : BaseFragment<FragmentCoinlistBinding>(R.layout.fragment
         )
     }
 
-    private lateinit var monetaryUnitNameList: List<String>
+    private lateinit var monetaryUnitList: List<String>
 
     private val tabList = listOf(
         R.string.monetary_unit_1,
@@ -37,11 +37,6 @@ class CoinListFragment : BaseFragment<FragmentCoinlistBinding>(R.layout.fragment
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        /* 받아온 argument - Coin name */
-        arguments?.getStringArrayList(MONETARY_UNIT_NAME_LIST)?.let {
-            monetaryUnitNameList = it
-        }
-
         binding.run {
             tickerVM = tickerViewModel
             recyclerViewCoinList.run {
@@ -51,7 +46,6 @@ class CoinListFragment : BaseFragment<FragmentCoinlistBinding>(R.layout.fragment
         }
 
         tickerViewModel.run {
-            getTickerList(monetaryUnitNameList)
             exceptionMessage.addOnPropertyChangedCallback(object :
                 Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
@@ -67,15 +61,12 @@ class CoinListFragment : BaseFragment<FragmentCoinlistBinding>(R.layout.fragment
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
-    companion object {
-        fun newInstance(monetaryUnitNameList: List<String>?) = CoinListFragment().apply {
-            arguments = Bundle().apply {
-                monetaryUnitNameList?.let {
-                    putStringArrayList(MONETARY_UNIT_NAME_LIST, ArrayList(monetaryUnitNameList))
-                }
-            }
-        }
+    fun setMonetaryUnitList(monetaryUnitList: List<String>){
+        this.monetaryUnitList = monetaryUnitList
+        tickerViewModel.getTickerList(this.monetaryUnitList)
+    }
 
-        private const val MONETARY_UNIT_NAME_LIST = "MONETARY_UNIT_NAME_LIST"
+    companion object {
+        fun newInstance() = CoinListFragment()
     }
 }
