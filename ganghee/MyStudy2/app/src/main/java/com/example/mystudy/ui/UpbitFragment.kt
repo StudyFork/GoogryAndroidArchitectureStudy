@@ -51,6 +51,10 @@ class UpbitFragment : Fragment(){
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        upbitViewModel.onPause()
+    }
 
     companion object {
         const val MARKET_NAME = "market name"
