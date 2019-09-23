@@ -17,12 +17,10 @@ import com.example.mystudy.viewmodel.UpbitViewModel
 
 class UpbitFragment : Fragment(){
 
-    private val tickerAdapter= TickerAdapter()
     private lateinit var binding : FragmentUpbitBinding
     private  val upbitViewModel by lazy { UpbitViewModel(
-        UpbitRepository.getInstance(UpbitRemoteDataSource),
-        tickerAdapter
-    ) } 
+        UpbitRepository.getInstance(UpbitRemoteDataSource)
+    ) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +45,10 @@ class UpbitFragment : Fragment(){
     }
 
     private fun initViewModel() {
-        binding.vm = upbitViewModel
+        binding.run {
+            vm = upbitViewModel
+            rvTickers.adapter = TickerAdapter()
+        }
     }
 
 
