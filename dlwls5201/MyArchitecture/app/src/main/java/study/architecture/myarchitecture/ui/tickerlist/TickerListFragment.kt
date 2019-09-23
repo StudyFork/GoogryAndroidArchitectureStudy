@@ -1,65 +1,47 @@
 package study.architecture.myarchitecture.ui.tickerlist
 
 import android.os.Bundle
-import android.view.View
 import org.jetbrains.anko.support.v4.toast
-import study.architecture.myarchitecture.BaseFragment
 import study.architecture.myarchitecture.R
+import study.architecture.myarchitecture.base.BaseFragment
 import study.architecture.myarchitecture.data.Injection
 import study.architecture.myarchitecture.databinding.FragmentTickerListBinding
-import study.architecture.myarchitecture.ui.model.TickerItem
 import study.architecture.myarchitecture.util.Filter
 
-class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.fragment_ticker_list),
-    TickerListContract.View {
+class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.fragment_ticker_list) {
 
-    private val tickerAdapter by lazy {
-        TickerAdapter { toast(it.toString()) }
-    }
-
-    private lateinit var presenter: TickerListContract.Presenter
+    private lateinit var tickerViewModel: TickerListViewModel
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         arguments?.let { bundle ->
 
-            presenter = TickerListPresenter(
-                Injection.provideFolderRepository(context!!),
-                this@TickerListFragment,
+            tickerViewModel = TickerListViewModel(
+                Injection.provideFolderRepository(requireContext()),
                 bundle.getString(KEY_MARKETS, "")
             )
+            binding.tickerModel = tickerViewModel
 
-            initRecyclerView()
-            presenter.loadData()
+            tickerViewModel.loadData()
 
         } ?: error("arguments is null")
+
+        initRecyclerView()
 
     }
 
     override fun onDestroyView() {
-        presenter.detachView()
+        tickerViewModel.detachView()
         super.onDestroyView()
     }
 
+    fun showTickerListOrderByField(field: Filter.SelectArrow, order: Int) {
+        tickerViewModel.sortByField(field, order)
+    }
+
     private fun initRecyclerView() {
-        binding.rvTickerList.adapter = tickerAdapter
-    }
-
-    override fun showProgress() {
-        binding.pbTickerList.visibility = View.VISIBLE
-    }
-
-    override fun hideProgress() {
-        binding.pbTickerList.visibility = View.GONE
-    }
-
-    override fun showTickers(tickers: MutableList<TickerItem>) {
-        tickerAdapter.setItems(tickers)
-    }
-
-    override fun showTickerListOrderByField(field: Filter.SelectArrow, order: Int) {
-        presenter.sortByField(field, order)
+        binding.rvTickerList.adapter = TickerAdapter { toast(it.toString()) }
     }
 
     companion object {
