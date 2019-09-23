@@ -8,7 +8,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class CoinRemoteDataSourceImpl(private val upbitApi: UpbitApi) :
-    CoinRemoteDataSource { //리모트 만들때 파라미터로 API넣게
+    CoinRemoteDataSource {
 
     override fun getMarketList(listener: CoinRemoteDataSourceListener<MarketResponse>) {
         upbitApi.getMarketData().enqueue(object : Callback<List<MarketResponse>> {
