@@ -19,7 +19,10 @@ class UpbitFragment : Fragment(){
 
     private val tickerAdapter= TickerAdapter()
     private lateinit var binding : FragmentUpbitBinding
-    private lateinit var upbitViewModel: UpbitViewModel
+    private  val upbitViewModel by lazy { UpbitViewModel(
+        UpbitRepository.getInstance(UpbitRemoteDataSource),
+        tickerAdapter
+    ) } 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,10 +47,6 @@ class UpbitFragment : Fragment(){
     }
 
     private fun initViewModel() {
-        upbitViewModel= UpbitViewModel(
-            UpbitRepository.getInstance(UpbitRemoteDataSource),
-            tickerAdapter
-        )
         binding.vm = upbitViewModel
     }
 
