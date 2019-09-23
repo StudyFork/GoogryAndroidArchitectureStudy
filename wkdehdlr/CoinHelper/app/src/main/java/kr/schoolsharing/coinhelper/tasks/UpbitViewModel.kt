@@ -9,7 +9,7 @@ import kr.schoolsharing.coinhelper.model.UpbitMarket
 import kr.schoolsharing.coinhelper.model.UpbitTicker
 import kr.schoolsharing.coinhelper.util.TextEditor
 
-class UpbitViewModel(val repository: Repository) {
+class UpbitViewModel(private val repository: Repository) {
 
     var tickerList = ObservableField<List<UpbitItem>>()
 
