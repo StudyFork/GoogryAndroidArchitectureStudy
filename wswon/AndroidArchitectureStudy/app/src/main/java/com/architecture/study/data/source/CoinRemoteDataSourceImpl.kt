@@ -19,7 +19,7 @@ class CoinRemoteDataSourceImpl(private val upbitApi: UpbitApi) :
                 if (response.isSuccessful) {
                     val marketList = response.body()
                     if (marketList != null) {
-                        listener.onSucess(marketList)
+                        listener.onSuccess(marketList)
                     } else {
                         listener.onEmpty("data empty")
                     }
@@ -46,7 +46,7 @@ class CoinRemoteDataSourceImpl(private val upbitApi: UpbitApi) :
                 if (response.isSuccessful) {
                     val tickerList = response.body()
                     if (tickerList != null) {
-                        listener.onSucess(tickerList)
+                        listener.onSuccess(tickerList)
                     } else {
                         listener.onEmpty("data empty")
                     }

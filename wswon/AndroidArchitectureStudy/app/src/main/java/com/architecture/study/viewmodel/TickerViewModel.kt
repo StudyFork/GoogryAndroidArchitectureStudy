@@ -22,7 +22,7 @@ class TickerViewModel(
         coinRepository.getTickerList(
             marketNameList.joinToString(),
             object : CoinRemoteDataSourceListener<TickerResponse> {
-                override fun onSucess(dataList: List<TickerResponse>) {
+                override fun onSuccess(dataList: List<TickerResponse>) {
                     val convertTickerList = mutableListOf<Ticker>()
                     dataList.map {
                         convertTickerList.add(it.toTicker(monetaryUnitList))

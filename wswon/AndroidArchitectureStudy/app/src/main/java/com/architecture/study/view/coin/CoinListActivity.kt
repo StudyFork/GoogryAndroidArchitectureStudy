@@ -33,7 +33,6 @@ class CoinListActivity : BaseActivity<ActivityCoinBinding>(R.layout.activity_coi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         setTabPager()
 
         marketViewModel.run {
