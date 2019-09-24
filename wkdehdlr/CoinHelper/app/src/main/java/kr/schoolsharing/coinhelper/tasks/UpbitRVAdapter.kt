@@ -34,7 +34,7 @@ class UpbitRVAdapter : RecyclerView.Adapter<UpbitRVAdapter.Holder>() {
         }
     }
 
-    inner class Holder(private val binding: MainRvItemBinding) :
+    class Holder(private val binding: MainRvItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(upbitItem: UpbitItem) {
