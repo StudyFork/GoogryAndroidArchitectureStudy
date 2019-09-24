@@ -11,7 +11,7 @@ import kr.schoolsharing.coinhelper.util.TextEditor
 
 class UpbitViewModel(private val repository: Repository) {
 
-    var tickerList = ObservableField<List<UpbitItem>>()
+    val tickerList = ObservableField<List<UpbitItem>>()
 
     fun loadUpbitMarket(marketName: String) {
         repository.getMarket(object : UpbitDataSource.GetMarketCallback {
