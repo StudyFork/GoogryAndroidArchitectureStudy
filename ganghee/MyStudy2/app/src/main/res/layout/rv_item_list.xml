@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+        <variable
+            name= "item"
+            type = "com.example.mystudy.data.FormatTickers"
+            />
+    </data>
 <androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -43,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
+                android:textColor="@{item.toRateColor}"
         />
         <TextView
                 android:id="@+id/tv_acc_trade_price_24h"
@@ -56,10 +63,5 @@
         />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
-    <data>
-        <variable
-            name= "item"
-            type = "com.example.mystudy.data.FormatTickers"
-        />
-    </data>
+
 </layout>

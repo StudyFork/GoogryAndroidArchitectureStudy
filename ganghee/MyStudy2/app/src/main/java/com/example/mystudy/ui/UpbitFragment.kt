@@ -8,20 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.mystudy.R
 import com.example.mystudy.adapter.TickerAdapter
-import com.example.mystudy.data.FormatTickers
 import com.example.mystudy.data.UpbitRepository
+import com.example.mystudy.data.remote.UpbitRemoteDataSource
 import com.example.mystudy.databinding.FragmentUpbitBinding
-import org.jetbrains.anko.support.v4.toast
+import com.example.mystudy.viewmodel.UpbitViewModel
 
-class UpbitFragment : Fragment(), UpbitContract.View {
+class UpbitFragment : Fragment(){
 
-    private lateinit var tickerAdapter: TickerAdapter
-    override lateinit var presenter: UpbitContract.Presenter
     private lateinit var binding : FragmentUpbitBinding
+    private  val upbitViewModel by lazy { UpbitViewModel(
+        UpbitRepository.getInstance(UpbitRemoteDataSource)
+    ) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,31 +40,15 @@ class UpbitFragment : Fragment(), UpbitContract.View {
         super.onActivityCreated(savedInstanceState)
         val firstMarket = arguments?.getString(MARKET_NAME)
 
-        recyclerViewSetup()
-        presenter =
-            UpbitPresenter(
-                UpbitRepository.getInstance(),
-                this@UpbitFragment
-            )
-        presenter.getTicker(firstMarket)
+        initViewModel()
+        upbitViewModel.getTicker(firstMarket)
     }
 
-    private fun recyclerViewSetup() {
-        Log.d("recyclerViewSetup", "" )
-        tickerAdapter = TickerAdapter()
-
-        binding.rvTickers?.run {
-            adapter = tickerAdapter
-            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+    private fun initViewModel() {
+        binding.run {
+            vm = upbitViewModel
+            rvTickers.adapter = TickerAdapter()
         }
-    }
-
-    override fun showUpbitTickerList(tickerList: List<FormatTickers>) {
-        tickerAdapter.setData(tickerList)
-    }
-
-    override fun showFailedUpbitTickerList() {
-        toast("tiker 데이터를 가져올 수 없습니다.").show()
     }
 
     companion object {

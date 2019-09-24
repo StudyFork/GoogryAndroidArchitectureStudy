@@ -9,25 +9,17 @@ import com.example.mystudy.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
+    private val viewPagerAdapter by lazy { ViewPagerAdapter(supportFragmentManager) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        configureMainTab()
-    }
-
-    private fun configureMainTab() {
-
-        binding.viewPager.adapter = ViewPagerAdapter(supportFragmentManager, num_fragment = 4)
-
-        with(binding.tabLayout){
-            setupWithViewPager(binding.viewPager)
-            getTabAt(0)?.text = "KRW"
-            getTabAt(1)?.text = "BTC"
-            getTabAt(2)?.text = "ETH"
-            getTabAt(3)?.text = "USDT"
+        binding.run {
+            viewPager.adapter = viewPagerAdapter
+            tabLayout.setupWithViewPager(binding.viewPager)
         }
     }
 }
+ 
