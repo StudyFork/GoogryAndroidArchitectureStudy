@@ -11,7 +11,13 @@ import study.architecture.myarchitecture.util.Filter
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    private lateinit var mainViewModel: MainViewModel
+    private val mainViewModel: MainViewModel by lazy {
+        MainViewModel(
+            Injection.provideFolderRepository(this)
+        ).apply {
+            binding.mainModel = this
+        }
+    }
 
     private val mainAdapter: MainAdapter by lazy {
         MainAdapter(supportFragmentManager)
@@ -20,17 +26,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        mainViewModel =
-            MainViewModel(
-                Injection.provideFolderRepository(this)
-            ).apply {
-                binding.mainModel = this
-            }
-
         initViewPager()
-
+        initAdapterCallback()
         mainViewModel.loadData()
+    }
 
+    override fun onDestroy() {
+        mainViewModel.clearDisposable()
+        super.onDestroy()
+    }
+
+    private fun initViewPager() {
+        binding.vpMain.adapter = mainAdapter
+    }
+
+    private fun initAdapterCallback() {
         mainViewModel.selectField.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable, propertyId: Int) {
@@ -54,15 +64,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
 
         })
-
-    }
-
-    override fun onDestroy() {
-        mainViewModel.clearDisposable()
-        super.onDestroy()
-    }
-
-    private fun initViewPager() {
-        binding.vpMain.adapter = mainAdapter
     }
 }
