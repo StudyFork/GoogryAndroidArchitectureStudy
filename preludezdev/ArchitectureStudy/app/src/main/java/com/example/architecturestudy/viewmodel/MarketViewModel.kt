@@ -21,9 +21,12 @@ class MarketViewModel(
                     if (coinTickerResponses != null) {
                         coinList.set((coinTickerResponses.map { it.convertTickerIntoCoin() }))
                     }
-                }, { onFailCallback(it) })
+                    isProgressed.set(false) // 프로그래스바 종료
+                }, {
+                    onFailCallback(it)
+                    isProgressed.set(false) // 프로그래스바 종료
+                })
 
-            isProgressed.set(false) // 프로그래스바 종료
         }
     }
 
