@@ -2,18 +2,16 @@ package com.example.mystudy.viewmodel
 
 import android.util.Log
 import androidx.databinding.ObservableField
-import androidx.lifecycle.ViewModel
+import com.example.mystudy.base.BaseViewModel
 import com.example.mystudy.data.FormatTickers
 import com.example.mystudy.data.UpbitRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class UpbitViewModel(
     private val repository: UpbitRepository
-) : ViewModel() {
+) : BaseViewModel() {
 
-    private val compositeDisposable = CompositeDisposable()
     val tickerList = ObservableField<List<FormatTickers>>()
 
     fun getTicker(firstMarket: String?) {
@@ -39,10 +37,4 @@ class UpbitViewModel(
         Log.d("TickerFail", "Ticker is not show")
     }
 
-    override fun onCleared() {
-        if(!compositeDisposable.isDisposed){
-            compositeDisposable.dispose()
-        }
-        super.onCleared()
-    }
 }

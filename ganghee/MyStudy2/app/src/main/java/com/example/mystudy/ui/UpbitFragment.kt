@@ -3,36 +3,23 @@ package com.example.mystudy.ui
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
+import com.example.mystudy.BR
 import com.example.mystudy.R
-import com.example.mystudy.adapter.TickerAdapter
+import com.example.mystudy.base.BaseFragment
+import com.example.mystudy.base.BaseRecyclerViewAdapter
+import com.example.mystudy.data.FormatTickers
 import com.example.mystudy.data.UpbitRepository
 import com.example.mystudy.data.remote.UpbitRemoteDataSource
 import com.example.mystudy.databinding.FragmentUpbitBinding
+import com.example.mystudy.databinding.RvItemListBinding
 import com.example.mystudy.viewmodel.UpbitViewModel
 
-class UpbitFragment : Fragment(){
+class UpbitFragment : BaseFragment<FragmentUpbitBinding>(R.layout.fragment_upbit) {
 
-    private lateinit var binding : FragmentUpbitBinding
-    private  val upbitViewModel by lazy { UpbitViewModel(
-        UpbitRepository.getInstance(UpbitRemoteDataSource)
-    ) }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_upbit,
-            container,
-            false
+    private val upbitViewModel by lazy {
+        UpbitViewModel(
+            UpbitRepository.getInstance(UpbitRemoteDataSource)
         )
-        return binding.root
     }
 
     @SuppressLint("CheckResult")
@@ -47,7 +34,11 @@ class UpbitFragment : Fragment(){
     private fun initViewModel() {
         binding.run {
             vm = upbitViewModel
-            rvTickers.adapter = TickerAdapter()
+            rvTickers.adapter =
+                object : BaseRecyclerViewAdapter<FormatTickers, RvItemListBinding>(
+                    layoutRes = R.layout.rv_item_list,
+                    bindingVariableId = BR.item
+                ) {}
         }
     }
 
@@ -58,7 +49,7 @@ class UpbitFragment : Fragment(){
             val bundle = Bundle()
 
             bundle.putString(MARKET_NAME, marketName)
-            Log.d("market3",""+marketName)
+            Log.d("market3", "" + marketName)
             fragment.arguments = bundle
             return fragment
         }

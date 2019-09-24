@@ -1,73 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-<FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/blue5"
-    >
-<LinearLayout
-        android:layout_marginTop="3dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.MainActivity"
-        android:orientation="vertical"
-        android:background="@drawable/bg_top_round"
->
+        android:background="@color/blue5">
 
-    <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabSelectedTextColor="@color/blue5"
-            app:tabTextColor="@color/gray4"
-            app:tabIndicatorHeight="0dp"
-            app:tabMode="scrollable"
-            android:background="@drawable/bg_top_round"
-    />
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingHorizontal="20dp"
-    >
-        <TextView
-                android:text="@string/coin_name"
-                android:textColor="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-        <TextView
-                android:text="@string/last"
-                android:textColor="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="right"
-        />
-        <TextView
-                android:text="@string/trade_diff"
-                android:textColor="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"/>
-        <TextView
-                android:text="@string/trade_amount"
-                android:textColor="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"/>
-
-    </LinearLayout>
-    <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-    />
-</LinearLayout>
-</FrameLayout>
+            android:layout_marginTop="3dp"
+            android:background="@drawable/bg_top_round"
+            android:orientation="vertical"
+            tools:context=".ui.MainActivity">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_top_round"
+                app:tabIndicatorHeight="0dp"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="@color/blue5"
+                app:tabTextColor="@color/gray4" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/coin_name"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="right"
+                    android:text="@string/last"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="@string/trade_diff"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="@string/trade_amount"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </FrameLayout>
 </layout>
