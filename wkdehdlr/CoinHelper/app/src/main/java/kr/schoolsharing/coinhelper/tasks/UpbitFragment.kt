@@ -22,9 +22,9 @@ class UpbitFragment : BaseFragment<FragmentCoinrecyclerBinding>(R.layout.fragmen
 
         //TODO : MARKET_NAME enum으로 빼자
         val marketName = arguments?.get("MARKET_NAME").toString()
-        UpbitViewModel(Repository).apply {
+        binding.viewModel = UpbitViewModel(Repository).apply {
             loadUpbitMarket(marketName)
-        }.also { binding.viewModel = it }
+        }
     }
 
     companion object {
