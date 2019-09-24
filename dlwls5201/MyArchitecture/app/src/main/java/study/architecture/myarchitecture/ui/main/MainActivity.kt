@@ -35,18 +35,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable, propertyId: Int) {
                 (sender as ObservableField<Pair<Filter.SelectArrow, Boolean>>).get()?.let {
+
                     val filter = it.first
                     val selected = it.second
 
+                    val order = if (selected) {
+                        Filter.ASC
+                    } else {
+                        Filter.DESC
+                    }
+
                     for (i in 0 until (mainAdapter.count)) {
                         mainAdapter.getFragment(i)?.let { fragment ->
-
-                            val order = if (selected) {
-                                Filter.ASC
-                            } else {
-                                Filter.DESC
-                            }
-
                             fragment.get()?.showTickerListOrderByField(filter, order)
                         }
                     }
