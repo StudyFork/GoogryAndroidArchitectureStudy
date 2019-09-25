@@ -1,43 +1,16 @@
 package kr.schoolsharing.coinhelper.tasks
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kr.schoolsharing.coinhelper.R
+import kr.schoolsharing.coinhelper.base.BaseFragment
 import kr.schoolsharing.coinhelper.data.Repository
 import kr.schoolsharing.coinhelper.databinding.FragmentCoinrecyclerBinding
-import kr.schoolsharing.coinhelper.model.UpbitItem
+import kr.schoolsharing.coinhelper.util.Market
 
-class UpbitFragment : Fragment(), UpbitContract.View {
-
-    override lateinit var presenter: UpbitContract.Presenter
-    private lateinit var binding: FragmentCoinrecyclerBinding
+class UpbitFragment : BaseFragment<FragmentCoinrecyclerBinding>(R.layout.fragment_coinrecycler) {
 
     private val rVAdapter = UpbitRVAdapter()
-
-    override fun showAddTask(tickerList: List<UpbitItem>) {
-        rVAdapter.setTickerList(tickerList)
-    }
-
-    override fun showErrorToast(str: String) {
-        Toast.makeText(context, str, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(
-            LayoutInflater.from(context),
-            R.layout.fragment_coinrecycler,
-            container,
-            false
-        )
-        return binding.root
-    }
-    
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -48,10 +21,10 @@ class UpbitFragment : Fragment(), UpbitContract.View {
             setHasFixedSize(true)
         }
 
-        //TODO : MARKET_NAME enum으로 빼자
-        val marketName = arguments?.get("MARKET_NAME").toString()
-        presenter = UpbitPresenter(Repository, this)
-        presenter.start(marketName)
+        val marketName = arguments?.get(Market.NAME.name).toString()
+        binding.viewModel = UpbitViewModel(Repository).apply {
+            loadUpbitMarket(marketName)
+        }
     }
 
     companion object {
@@ -59,7 +32,7 @@ class UpbitFragment : Fragment(), UpbitContract.View {
             val fragment = UpbitFragment()
             val bundle = Bundle()
 
-            bundle.putString("MARKET_NAME", marketName)
+            bundle.putString(Market.NAME.name, marketName)
             fragment.arguments = bundle
             return fragment
         }
