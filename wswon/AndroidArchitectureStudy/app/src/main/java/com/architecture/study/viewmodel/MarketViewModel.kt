@@ -7,14 +7,12 @@ import com.architecture.study.data.source.CoinRemoteDataSourceListener
 import com.architecture.study.network.model.MarketResponse
 
 
-class MarketViewModel(private val coinRepository: CoinRepository) : BaseViewModel() {
-
-    val exceptionMessage = ObservableField<String>()
+class MarketViewModel(coinRepository: CoinRepository) : BaseViewModel<CoinRepository>(coinRepository) {
 
     val marketList = ObservableField<List<MarketResponse>>()
 
     fun getMarketList() {
-        coinRepository.getMarketList(
+        repository.getMarketList(
             object : CoinRemoteDataSourceListener<MarketResponse> {
                 override fun onSuccess(dataList: List<MarketResponse>) {
                     marketList.set(dataList)

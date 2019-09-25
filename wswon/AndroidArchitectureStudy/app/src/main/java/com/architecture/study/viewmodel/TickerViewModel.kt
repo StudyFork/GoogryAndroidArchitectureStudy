@@ -8,18 +8,14 @@ import com.architecture.study.data.source.CoinRemoteDataSourceListener
 import com.architecture.study.network.model.TickerResponse
 
 class TickerViewModel(
-    private val coinRepository: CoinRepository,
+    coinRepository: CoinRepository,
     private val monetaryUnitList: List<String>
-
-) : BaseViewModel() {
-
-
-    val exceptionMessage = ObservableField<String>()
+) : BaseViewModel<CoinRepository>(coinRepository) {
 
     val tickerList = ObservableField<List<Ticker>>()
 
     fun getTickerList(marketNameList: List<String>) {
-        coinRepository.getTickerList(
+        repository.getTickerList(
             marketNameList.joinToString(),
             object : CoinRemoteDataSourceListener<TickerResponse> {
                 override fun onSuccess(dataList: List<TickerResponse>) {
