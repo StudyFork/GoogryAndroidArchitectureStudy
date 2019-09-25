@@ -40,10 +40,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.vpMain.adapter = mainAdapter
     }
 
+    @Suppress("UNCHECKED_CAST")
     private fun initAdapterCallback() {
         mainViewModel.selectField.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable, propertyId: Int) {
+
                 (sender as ObservableField<Pair<Filter.SelectArrow, Boolean>>).get()?.let {
 
                     val filter = it.first
