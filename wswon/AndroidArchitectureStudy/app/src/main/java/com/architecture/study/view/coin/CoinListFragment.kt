@@ -39,29 +39,30 @@ class CoinListFragment : BaseFragment<FragmentCoinlistBinding>(R.layout.fragment
 
         binding.run {
             tickerVM = tickerViewModel
-            recyclerViewCoinList.run {
-                adapter = object :
-                    BaseAdapter<Ticker, ItemTickerBinding>(R.layout.item_ticker, BR.ticker) {}
-            }
+            recyclerViewCoinList.adapter =
+                object : BaseAdapter<Ticker, ItemTickerBinding>(R.layout.item_ticker, BR.ticker) {}
         }
 
-        tickerViewModel.run {
-            exceptionMessage.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    (sender as? ObservableField<String>)?.get()?.let {
-                        showMessage(it)
+        tickerViewModel
+            .exceptionMessage
+            .addOnPropertyChangedCallback(
+                object : Observable.OnPropertyChangedCallback() {
+                    override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                        (sender as? ObservableField<String>)
+                            ?.get()
+                            ?.let {
+                                showMessage(it)
+                            }
                     }
-                }
-            })
-        }
+                })
+
     }
 
     private fun showMessage(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
-    fun setMonetaryUnitList(monetaryUnitList: List<String>){
+    fun setMonetaryUnitList(monetaryUnitList: List<String>) {
         this.monetaryUnitList = monetaryUnitList
         tickerViewModel.getTickerList(this.monetaryUnitList)
     }
