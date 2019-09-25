@@ -29,7 +29,7 @@ abstract class BaseViewHolder<B : ViewDataBinding>(
             itemView.visibility = View.VISIBLE
         } catch (e: Exception) {
             e.printStackTrace()
-            itemView.visibility = View.INVISIBLE
+            itemView.visibility = View.GONE
         }
     }
 }
