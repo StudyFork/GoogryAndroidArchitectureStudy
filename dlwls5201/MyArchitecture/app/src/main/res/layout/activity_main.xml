@@ -106,7 +106,7 @@
                         android:id="@+id/ivSelectByCoinName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:isSelected="@{mainModel.isSelected}"
+                        android:isSelected="@{safeUnbox(mainModel.isSelected)}"
                         android:visibility="@{mainModel.category.equals(SelectArrow.COIN_NAME) ? View.VISIBLE : View.INVISIBLE}"
                         android:src="@drawable/ic_arrow_drop_selector" />
 
@@ -130,7 +130,7 @@
                         android:id="@+id/ivSelectByLast"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:isSelected="@{mainModel.isSelected}"
+                        android:isSelected="@{safeUnbox(mainModel.isSelected)}"
                         android:visibility="@{mainModel.category.equals(SelectArrow.LAST) ? View.VISIBLE : View.INVISIBLE}"
                         android:src="@drawable/ic_arrow_drop_selector" />
 
@@ -154,7 +154,7 @@
                         android:id="@+id/ivSelectByTradeDiff"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:isSelected="@{mainModel.isSelected}"
+                        android:isSelected="@{safeUnbox(mainModel.isSelected)}"
                         android:visibility="@{mainModel.category.equals(SelectArrow.TRADE_DIFF) ? View.VISIBLE : View.INVISIBLE}"
                         android:src="@drawable/ic_arrow_drop_selector" />
 
@@ -178,7 +178,7 @@
                         android:id="@+id/ivSelectByTradeAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:isSelected="@{mainModel.isSelected}"
+                        android:isSelected="@{safeUnbox(mainModel.isSelected)}"
                         android:visibility="@{mainModel.category.equals(SelectArrow.TRADE_AMOUNT) ? View.VISIBLE : View.INVISIBLE}"
                         android:src="@drawable/ic_arrow_drop_selector" />
 
