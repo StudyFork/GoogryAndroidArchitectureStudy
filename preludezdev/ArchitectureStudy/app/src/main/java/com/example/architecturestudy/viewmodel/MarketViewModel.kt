@@ -10,6 +10,7 @@ class MarketViewModel(
 ) {
     val coinList = ObservableField<List<Coin>>()
     val isProgressed = ObservableField<Boolean>()
+    val notificationMsg = ObservableField<String>()
 
     fun loadData(keyMarket: String?) {
         if (keyMarket != null) {
@@ -26,7 +27,8 @@ class MarketViewModel(
                     onFailCallback(it)
                     isProgressed.set(false) // 프로그래스바 종료
                 })
-
+        } else {
+            notificationMsg.set("데이터를 불러올 수 없습니다.") // 예외처리
         }
     }
 

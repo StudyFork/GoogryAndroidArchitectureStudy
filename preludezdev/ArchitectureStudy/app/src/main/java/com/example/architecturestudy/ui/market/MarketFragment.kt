@@ -1,6 +1,9 @@
 package com.example.architecturestudy.ui.market
 
 import android.os.Bundle
+import android.widget.Toast
+import androidx.databinding.Observable
+import androidx.databinding.ObservableField
 import com.example.architecturestudy.R
 import com.example.architecturestudy.base.BaseFragment
 import com.example.architecturestudy.data.source.CoinsRepositoryImpl
@@ -28,6 +31,7 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
 
         initViewModel()
         initRecyclerView()
+        initCallback()
 
         marketViewModel.loadData(arguments?.getString(keyMarket))
     }
@@ -38,6 +42,17 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
 
     private fun initRecyclerView() {
         binding.recyclerView.adapter = rvAdapter
+    }
+
+    private fun initCallback() {
+        marketViewModel.notificationMsg.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                (sender as ObservableField<String>).get()?.let { msg ->
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
     }
 
     companion object {
