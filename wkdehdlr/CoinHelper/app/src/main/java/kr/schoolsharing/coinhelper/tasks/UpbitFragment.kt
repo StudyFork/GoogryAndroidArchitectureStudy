@@ -6,7 +6,7 @@ import kr.schoolsharing.coinhelper.R
 import kr.schoolsharing.coinhelper.base.BaseFragment
 import kr.schoolsharing.coinhelper.data.Repository
 import kr.schoolsharing.coinhelper.databinding.FragmentCoinrecyclerBinding
-import kr.schoolsharing.coinhelper.util.Name
+import kr.schoolsharing.coinhelper.util.Market
 
 class UpbitFragment : BaseFragment<FragmentCoinrecyclerBinding>(R.layout.fragment_coinrecycler) {
 
@@ -21,7 +21,7 @@ class UpbitFragment : BaseFragment<FragmentCoinrecyclerBinding>(R.layout.fragmen
             setHasFixedSize(true)
         }
 
-        val marketName = arguments?.get(Name.MARKET_NAME.toString()).toString()
+        val marketName = arguments?.get(Market.NAME.name).toString()
         binding.viewModel = UpbitViewModel(Repository).apply {
             loadUpbitMarket(marketName)
         }
@@ -32,7 +32,7 @@ class UpbitFragment : BaseFragment<FragmentCoinrecyclerBinding>(R.layout.fragmen
             val fragment = UpbitFragment()
             val bundle = Bundle()
 
-            bundle.putString(Name.MARKET_NAME.toString(), marketName)
+            bundle.putString(Market.NAME.name, marketName)
             fragment.arguments = bundle
             return fragment
         }
