@@ -2,10 +2,14 @@ package study.architecture.coinjob
 
 import android.os.Bundle
 import android.view.View
+import androidx.databinding.library.baseAdapters.BR
 import study.architecture.BaseFragment
+import study.architecture.BaseRecyclerViewAdapter
 import study.architecture.Injection
 import study.architecture.R
+import study.architecture.data.entity.ProcessingTicker
 import study.architecture.databinding.FragmentCoinBinding
+import study.architecture.databinding.ItemTickerBinding
 
 
 class CoinFragment : BaseFragment<FragmentCoinBinding>(R.layout.fragment_coin) {
@@ -21,7 +25,11 @@ class CoinFragment : BaseFragment<FragmentCoinBinding>(R.layout.fragment_coin) {
 
         with(binding) {
             viewModel = coinViewModel
-            recyclerView.adapter = CoinDataAdapter()
+            recyclerView.adapter = object :
+                BaseRecyclerViewAdapter<ProcessingTicker, ItemTickerBinding>(
+                    R.layout.item_ticker,
+                    BR.pTicker
+                ) {}
         }
 
     }
