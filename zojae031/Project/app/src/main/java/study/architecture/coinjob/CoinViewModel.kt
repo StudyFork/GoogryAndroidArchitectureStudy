@@ -3,8 +3,8 @@ package study.architecture.coinjob
 import android.util.Log
 import androidx.databinding.ObservableField
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import study.architecture.BaseViewModel
 import study.architecture.data.entity.ProcessingTicker
 import study.architecture.data.repository.Repository
 import study.architecture.util.TextUtil
@@ -13,10 +13,9 @@ import java.util.concurrent.TimeUnit
 class CoinViewModel(
     private val index: CoinFragment.FragIndex,
     private val repository: Repository
-) {
+) : BaseViewModel() {
     private lateinit var marketName: String
 
-    private val compositeDisposable = CompositeDisposable()
     private val dispose: Disposable
 
     val lists = ObservableField<List<ProcessingTicker>>()
@@ -74,14 +73,14 @@ class CoinViewModel(
             ).also { compositeDisposable.add(it) }
     }
 
-    fun onResume() {
+    override fun onResume() {
         if (dispose.isDisposed) {
             tickerRequest()
         }
     }
 
-    fun onPause() {
+    override fun onPause() {
         dispose.dispose()
-        compositeDisposable.clear()
+        super.onPause()
     }
 }
