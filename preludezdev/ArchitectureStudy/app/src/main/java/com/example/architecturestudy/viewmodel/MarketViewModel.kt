@@ -18,7 +18,7 @@ class MarketViewModel(
             repository
                 .getCoinTickers(keyMarket, { coinTickerResponses ->
                     //map() 스트림 함수 : 컬렉션 내 인자를 변환하여 반환
-                    if (coinTickerResponses != null) {
+                    if (!coinTickerResponses.isNullOrEmpty()) {
                         coinList.set((coinTickerResponses.map { it.convertTickerIntoCoin() }))
                     }
                     isProgressed.set(false) // 프로그래스바 종료
