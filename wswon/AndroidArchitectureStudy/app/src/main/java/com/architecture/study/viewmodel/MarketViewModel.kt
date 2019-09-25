@@ -16,7 +16,7 @@ class MarketViewModel(private val coinRepository: CoinRepository) : BaseViewMode
     fun getMarketList() {
         coinRepository.getMarketList(
             object : CoinRemoteDataSourceListener<MarketResponse> {
-                override fun onSucess(dataList: List<MarketResponse>) {
+                override fun onSuccess(dataList: List<MarketResponse>) {
                     marketList.set(dataList)
                 }
 
