@@ -1,4 +1,4 @@
-package study.architecture.ui.coinjob
+package study.architecture.coinjob
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -28,7 +28,6 @@ class CoinFragment : Fragment() {
             container,
             false
         )
-
         return binding.root
     }
 

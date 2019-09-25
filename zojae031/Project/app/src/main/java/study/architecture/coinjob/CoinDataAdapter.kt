@@ -1,4 +1,4 @@
-package study.architecture.ui.coinjob
+package study.architecture.coinjob
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
