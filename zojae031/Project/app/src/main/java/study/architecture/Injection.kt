@@ -5,11 +5,11 @@ import android.net.ConnectivityManager
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import study.architecture.data.local.CoinDatabase
-import study.architecture.data.local.LocalDataSourceImpl
-import study.architecture.data.remote.RemoteDataSource
-import study.architecture.data.remote.RemoteDataSourceImpl
-import study.architecture.data.remote.UpbitApi
+import study.architecture.data.datasource.local.CoinDatabase
+import study.architecture.data.datasource.local.LocalDataSourceImpl
+import study.architecture.data.datasource.remote.RemoteDataSource
+import study.architecture.data.datasource.remote.RemoteDataSourceImpl
+import study.architecture.data.datasource.remote.UpbitApi
 import study.architecture.data.repository.Repository
 import study.architecture.data.repository.RepositoryImpl
 

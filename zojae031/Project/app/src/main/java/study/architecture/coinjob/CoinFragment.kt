@@ -1,4 +1,4 @@
-package study.architecture.ui.coinjob
+package study.architecture.coinjob
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,12 +23,11 @@ class CoinFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-            LayoutInflater.from(context),
+            inflater,
             R.layout.fragment_coin,
             container,
             false
         )
-
         return binding.root
     }
 

@@ -1,4 +1,4 @@
-package study.architecture.data.local
+package study.architecture.data.datasource.local
 
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers

@@ -1,4 +1,4 @@
-package study.architecture.ui.coinjob
+package study.architecture.coinjob
 
 import android.util.Log
 import androidx.databinding.ObservableField
