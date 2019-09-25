@@ -15,7 +15,6 @@ import study.architecture.databinding.ItemTickerBinding
 class CoinFragment : BaseFragment<FragmentCoinBinding>(R.layout.fragment_coin) {
 
     private lateinit var coinViewModel: CoinViewModel
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         CoinViewModel(
