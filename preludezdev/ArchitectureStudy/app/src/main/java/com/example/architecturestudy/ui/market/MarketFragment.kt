@@ -12,7 +12,7 @@ import com.example.architecturestudy.viewmodel.MarketViewModel
 
 class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_market) {
 
-    private val marketViewModel: MarketViewModel by lazy {
+    private val marketViewModel by lazy {
         MarketViewModel(
             CoinsRepositoryImpl.getInstance(
                 CoinsRemoteDataSource.getInstance(RetrofitHelper.getInstance().coinApiService),
