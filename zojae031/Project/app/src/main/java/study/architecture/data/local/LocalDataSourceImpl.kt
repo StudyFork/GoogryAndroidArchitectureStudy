@@ -1,17 +1,15 @@
 package study.architecture.data.local
 
-import android.content.Context
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import study.architecture.data.UpbitLocalDataSource
 import study.architecture.data.entity.Market
 import study.architecture.data.entity.Ticker
 
-class LocalDataSourceImpl private constructor(context: Context) : UpbitLocalDataSource {
+class LocalDataSourceImpl(db: CoinDatabase) :
+    LocalDataSource {
 
-    private val db = CoinDatabase.getInstance(context)
-    private val marketDao = db!!.marketDao()
-    private val tickerDao = db!!.tickerDao()
+    private val marketDao = db.marketDao()
+    private val tickerDao = db.tickerDao()
 
 
     override fun getMarkets(): Single<List<Market>> =
@@ -34,10 +32,10 @@ class LocalDataSourceImpl private constructor(context: Context) : UpbitLocalData
 
     companion object {
         private var INSTANCE: LocalDataSourceImpl? = null
-        fun getInstance(context: Context): LocalDataSourceImpl {
+        fun getInstance(db: CoinDatabase): LocalDataSourceImpl {
             if (INSTANCE == null) {
                 INSTANCE =
-                    LocalDataSourceImpl(context)
+                    LocalDataSourceImpl(db)
             }
             return INSTANCE!!
         }

@@ -1,4 +1,4 @@
-package study.architecture.data
+package study.architecture.data.remote
 
 
 import io.reactivex.Single
@@ -8,7 +8,7 @@ import study.architecture.data.entity.Market
 import study.architecture.data.entity.Ticker
 
 
-interface UpbitRemoteDataSource {
+interface UpbitApi {
     @GET("market/all")
     fun getMarkets(): Single<List<Market>>
 

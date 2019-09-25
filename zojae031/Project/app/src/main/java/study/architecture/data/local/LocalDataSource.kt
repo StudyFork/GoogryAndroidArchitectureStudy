@@ -1,11 +1,13 @@
-package study.architecture.data
+package study.architecture.data.local
 
 import io.reactivex.Single
 import study.architecture.data.entity.Market
 import study.architecture.data.entity.Ticker
 
-interface Repository {
+interface LocalDataSource {
     fun getMarkets(): Single<List<Market>>
     fun getTickers(markets: String): Single<MutableList<Ticker>>
-    fun checkNetwork(): Boolean
+    fun insertMarket(market: Market)
+    fun insertTicker(ticker: Ticker)
+
 }

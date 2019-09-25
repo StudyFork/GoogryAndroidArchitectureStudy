@@ -2,15 +2,14 @@ package study.architecture.data.repository
 
 import android.net.ConnectivityManager
 import io.reactivex.Single
-import study.architecture.data.Repository
-import study.architecture.data.UpbitLocalDataSource
-import study.architecture.data.UpbitRemoteDataSource
 import study.architecture.data.entity.Market
 import study.architecture.data.entity.Ticker
+import study.architecture.data.local.LocalDataSource
+import study.architecture.data.remote.RemoteDataSource
 
 class RepositoryImpl private constructor(
-    private val remoteDataSource: UpbitRemoteDataSource,
-    private val localDataSource: UpbitLocalDataSource,
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource,
     private val manager: ConnectivityManager
 ) : Repository {
 
@@ -46,13 +45,13 @@ class RepositoryImpl private constructor(
         private var INSTANCE: RepositoryImpl? = null
 
         fun getInstance(
-            remoteRemoteDataSource: UpbitRemoteDataSource,
-            localDataSource: UpbitLocalDataSource,
+            remoteDataSource: RemoteDataSource,
+            localDataSource: LocalDataSource,
             manager: ConnectivityManager
         ): RepositoryImpl {
             if (INSTANCE == null) {
                 INSTANCE =
-                    RepositoryImpl(remoteRemoteDataSource, localDataSource, manager)
+                    RepositoryImpl(remoteDataSource, localDataSource, manager)
             }
             return INSTANCE!!
         }

@@ -17,17 +17,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView<ActivityMainBinding>(
-            this,
-            R.layout.activity_main
-        )
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        with(binding) {
+            pager.adapter = MainPageAdapter(supportFragmentManager)
+            viewModel = MainViewModel()
+        }
+
         supportActionBar?.elevation = 0.0f
         supportActionBar?.title = resources.getString(R.string.app_title)
-        tabSetting()
-        pagerSetting()
+        settingTab()
+        settingPager()
     }
 
-    private fun tabSetting() {
+    private fun settingTab() {
         with(binding.tabLayout) {
             tabGravity = TabLayout.GRAVITY_FILL
             addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -59,10 +62,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    private fun pagerSetting() {
-        with(binding.pager) {
-            addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout))
-            adapter = MainPageAdapter(supportFragmentManager)
-        }
+    private fun settingPager() {
+        binding.pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout))
     }
 }
