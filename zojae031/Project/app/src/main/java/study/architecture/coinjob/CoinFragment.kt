@@ -1,35 +1,16 @@
 package study.architecture.coinjob
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
+import study.architecture.BaseFragment
 import study.architecture.Injection
 import study.architecture.R
 import study.architecture.databinding.FragmentCoinBinding
 
 
-class CoinFragment : Fragment() {
+class CoinFragment : BaseFragment<FragmentCoinBinding>(R.layout.fragment_coin) {
 
     private lateinit var coinViewModel: CoinViewModel
-
-    private lateinit var binding: FragmentCoinBinding
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_coin,
-            container,
-            false
-        )
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
