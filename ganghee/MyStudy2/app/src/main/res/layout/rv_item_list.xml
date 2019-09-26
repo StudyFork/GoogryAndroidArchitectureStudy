@@ -27,7 +27,7 @@
 
             <TextView
                 android:id="@+id/tv_coin_name"
-                android:layout_width="0sp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingStart="10dp"
@@ -37,28 +37,28 @@
 
             <TextView
                 android:id="@+id/tv_trade_price"
-                android:layout_width="0sp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
-                android:gravity="right"
+                android:gravity="end"
                 android:text="@{item.toTradePrice}"
                 android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/tv_signed_change_rate"
-                android:layout_width="0sp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="right"
+                android:gravity="end"
                 android:text="@{item.toSignedChangeRate}"
                 android:textColor="@{item.toRateColor}" />
 
             <TextView
                 android:id="@+id/tv_acc_trade_price_24h"
-                android:layout_width="0sp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="right"
+                android:gravity="end"
                 android:paddingEnd="10dp"
                 android:text="@{item.toAccTradePrice24h}"
                 android:textColor="@color/black" />
