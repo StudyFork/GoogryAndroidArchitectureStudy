@@ -31,7 +31,7 @@ abstract class BaseRecyclerViewAdapter<ITEM : Any, B : ViewDataBinding>(
 
     override fun getItemCount(): Int = items.size
 
-    override fun onBindViewHolder(holder: BaseViewHolder<B>, position: Int) {
+    override fun onBindViewHolder(holder: BaseViewHolder<B>, position: Int) =
         holder.onBindViewHolder(items[position])
-    }
+
 }
