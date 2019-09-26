@@ -37,7 +37,7 @@ class UpbitFragment : BaseFragment<FragmentUpbitBinding>(R.layout.fragment_upbit
             rvTickers.adapter =
                 object : BaseRecyclerViewAdapter<FormatTickers, RvItemListBinding>(
                     layoutRes = R.layout.rv_item_list,
-                    bindingVariableId = BR.item
+                    bindingId = BR.item
                 ) {}
         }
     }
