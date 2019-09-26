@@ -1,6 +1,5 @@
 package com.example.architecturestudy.viewmodel
 
-import android.util.Log
 import androidx.databinding.ObservableField
 import com.example.architecturestudy.data.Coin
 import com.example.architecturestudy.data.source.CoinsRepositoryImpl
@@ -24,16 +23,16 @@ class MarketViewModel(
                     }
                     isProgressed.set(false) // 프로그래스바 종료
                 }, {
-                    onFailCallback(it)
                     isProgressed.set(false) // 프로그래스바 종료
+                    onFailCallback(it)
                 })
         } else {
-            notificationMsg.set("데이터를 불러올 수 없습니다.") // 예외처리
+            onFailCallback("데이터를 불러올 수 없습니다")
         }
     }
 
     private fun onFailCallback(errorMsg: String) {
-        Log.d("test", errorMsg)
+        notificationMsg.set(errorMsg)
     }
 
 }
