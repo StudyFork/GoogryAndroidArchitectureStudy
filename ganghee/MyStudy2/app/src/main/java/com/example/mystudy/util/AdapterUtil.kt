@@ -7,8 +7,8 @@ import com.example.mystudy.base.BaseRecyclerViewAdapter
 @BindingAdapter("replaceAll")
 fun RecyclerView.replaceAll(list: List<Any>?) {
     @Suppress("UNCHECKED_CAST")
-    (this.adapter as? BaseRecyclerViewAdapter<Any, *>)?.let {
-        it.replaceAll(list)
-        it.notifyDataSetChanged()
+    (this.adapter as? BaseRecyclerViewAdapter<Any, *>)?.run {
+        replaceAll(list)
+        notifyDataSetChanged()
     }
 }
