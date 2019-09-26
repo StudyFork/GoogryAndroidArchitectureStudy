@@ -190,7 +190,7 @@
                 android:id="@+id/vpMain"
                 android:setMarkets="@{mainModel.markets}"
                 android:setTitles="@{mainModel.titles}"
-                app:offscreenPageLimit="@{mainModel.pageLimit}"
+                app:offscreenPageLimit="@{safeUnbox(mainModel.pageLimit)}"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1" />
