@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 abstract class BaseViewHolder<B : ViewDataBinding>(
     @LayoutRes layoutRes: Int,
     parent: ViewGroup?,
-    private val bindingVariableId: Int?
+    private val bindingId: Int?
 ) : RecyclerView.ViewHolder(
     LayoutInflater.from(parent?.context)
         .inflate(layoutRes, parent, false)
@@ -19,17 +19,11 @@ abstract class BaseViewHolder<B : ViewDataBinding>(
     private val binding: B = DataBindingUtil.bind(itemView)!!
 
     fun onBindViewHolder(item: Any?) {
-        try {
             binding.run {
-                bindingVariableId?.let {
+                bindingId?.let {
                     setVariable(it, item)
                 }
                 executePendingBindings()
             }
-            itemView.visibility = View.VISIBLE
-        } catch (e: Exception) {
-            e.printStackTrace()
-            itemView.visibility = View.GONE
-        }
     }
 }
