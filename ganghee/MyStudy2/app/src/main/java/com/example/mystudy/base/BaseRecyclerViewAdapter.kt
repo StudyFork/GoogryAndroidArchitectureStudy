@@ -14,10 +14,10 @@ abstract class BaseRecyclerViewAdapter<ITEM : Any, B : ViewDataBinding>(
     private val items = mutableListOf<ITEM>()
 
     fun replaceAll(items: List<ITEM>?) {
-        items?.let {
+        if (items != null) {
             this.items.run {
                 clear()
-                addAll(it)
+                addAll(items)
             }
         }
     }
