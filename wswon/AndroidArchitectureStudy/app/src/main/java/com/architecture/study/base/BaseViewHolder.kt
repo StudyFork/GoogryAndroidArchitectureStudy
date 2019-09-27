@@ -7,10 +7,10 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import java.lang.Exception
 
 abstract class BaseViewHolder<B : ViewDataBinding>(
-    @LayoutRes layoutRes: Int,
+    @LayoutRes
+    layoutRes: Int,
     parent: ViewGroup?,
     private val bindingVariableId: Int?
 ) : RecyclerView.ViewHolder(
@@ -20,16 +20,16 @@ abstract class BaseViewHolder<B : ViewDataBinding>(
 ) {
     val binding: B? = DataBindingUtil.bind(itemView)
 
-    fun bind(item: Any?){
+    fun bind(item: Any?) {
         try {
             binding?.run {
-                bindingVariableId?.let{
+                bindingVariableId?.let {
                     setVariable(it, item)
                 }
                 executePendingBindings()
             }
             itemView.visibility = View.VISIBLE
-        }catch (e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
             itemView.visibility = View.GONE
         }
