@@ -8,7 +8,7 @@ interface BaseContract {
     }
 
     interface Presenter{
-        fun loadData(marketName : String = "")
+        fun loadData(marketName : String? = null)
         fun clearDisposable()
     }
 }
