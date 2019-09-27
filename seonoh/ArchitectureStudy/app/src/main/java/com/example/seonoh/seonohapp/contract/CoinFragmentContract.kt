@@ -1,6 +1,5 @@
 package com.example.seonoh.seonohapp.contract
 
-import com.example.seonoh.seonohapp.base.BaseContract
 import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
 import com.example.seonoh.seonohapp.model.UseCoinModel
 

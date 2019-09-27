@@ -1,4 +1,4 @@
-package com.example.seonoh.seonohapp.base
+package com.example.seonoh.seonohapp.contract
 
 interface BaseContract {
 
