@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity(), CoinMainContract.View {
     private lateinit var pagerAdapter: TabPagerAdapter
     private lateinit var toast: Toast
     private lateinit var coinMarketNameList: List<String>
+
     override val presenter: CoinMainContract.Presenter by lazy { CoinMainPresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity(), CoinMainContract.View {
 
         setContentView(R.layout.activity_main)
         initView()
-        presenter.loadMarketData()
+        presenter.loadData()
     }
 
     private fun initView() {
@@ -40,11 +41,11 @@ class MainActivity : AppCompatActivity(), CoinMainContract.View {
         }
     }
 
-    override fun setPager(marketData: List<Market>) {
-        pagerAdapter.setData(classifyMarketData(marketData))
+    override fun setData(data: List<Market>) {
+        pagerAdapter.setData(refineData(data))
     }
 
-    override fun showToast() {
+    private fun showToast() {
         toast = Toast.makeText(this, resources.getString(R.string.back_text), Toast.LENGTH_SHORT)
         if (toast.view.isShown) {
             finish()
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity(), CoinMainContract.View {
         showToast()
     }
 
-    private fun classifyMarketData(marketData: List<Market>): ArrayList<String> {
+    private fun refineData(marketData: List<Market>): ArrayList<String> {
 
         coinMarketNameList = marketData.map {
             it.market.substringBefore("-")
