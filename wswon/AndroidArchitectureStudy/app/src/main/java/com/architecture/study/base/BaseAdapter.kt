@@ -25,10 +25,10 @@ abstract class BaseAdapter<ITEM : Any, B : ViewDataBinding>(
         holder.bind(items[position])
 
     fun replaceAll(items: List<ITEM>?) {
-        items?.let {
+        if(items != null){
             this.items.run {
                 clear()
-                addAll(it)
+                addAll(items)
             }
             notifyDataSetChanged()
         }
