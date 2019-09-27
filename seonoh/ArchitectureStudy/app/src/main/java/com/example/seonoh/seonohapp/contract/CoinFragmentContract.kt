@@ -1,17 +1,16 @@
 package com.example.seonoh.seonohapp.contract
 
+import com.example.seonoh.seonohapp.base.BaseContract
 import com.example.seonoh.seonohapp.model.CurrentPriceInfoModel
 import com.example.seonoh.seonohapp.model.UseCoinModel
 
 interface CoinFragmentContract {
-    interface View {
-        fun initRecyclerView(data: List<UseCoinModel>)
+    interface View : BaseContract.View {
+        fun initCoinMarketTicker(data: List<UseCoinModel>)
     }
 
-    interface Presenter {
+    interface Presenter : BaseContract.Presenter {
         fun loadData(marketName: String)
-        fun setData(data: ArrayList<UseCoinModel>)
-        fun translateData(result: List<CurrentPriceInfoModel>)
-        fun clearDisposable()
+        fun translateData(result: List<CurrentPriceInfoModel>) : ArrayList<UseCoinModel>
     }
 }

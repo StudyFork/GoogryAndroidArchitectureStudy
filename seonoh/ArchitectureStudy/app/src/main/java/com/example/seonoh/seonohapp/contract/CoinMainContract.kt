@@ -1,15 +1,15 @@
 package com.example.seonoh.seonohapp.contract
 
+import com.example.seonoh.seonohapp.base.BaseContract
 import com.example.seonoh.seonohapp.model.Market
 
-interface CoinMainContract {
-    interface View {
+interface CoinMainContract : BaseContract {
+    interface View : BaseContract.View {
         fun showToast()
         fun setPager(marketData: List<Market>)
     }
 
-    interface Presenter {
-        fun clearDisposable()
+    interface Presenter : BaseContract.Presenter {
         fun loadMarketData()
         fun classifyMarketData(marketData: List<Market>): ArrayList<String>
     }

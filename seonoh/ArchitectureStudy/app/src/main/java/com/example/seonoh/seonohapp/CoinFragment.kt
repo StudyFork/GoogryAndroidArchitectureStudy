@@ -10,12 +10,11 @@ import com.example.seonoh.seonohapp.contract.CoinFragmentContract
 import com.example.seonoh.seonohapp.model.UseCoinModel
 import kotlinx.android.synthetic.main.coin_fragment.*
 
-
 class CoinFragment : Fragment(), CoinFragmentContract.View {
 
     private lateinit var mAdapter: CoinAdapter
     private var marketName: String? = null
-    private val presenter by lazy { CoinPresenter(this) }
+    override val presenter by lazy { CoinPresenter(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +24,7 @@ class CoinFragment : Fragment(), CoinFragmentContract.View {
         return inflater.inflate(R.layout.coin_fragment, container, false)
     }
 
-    override fun initRecyclerView(data: List<UseCoinModel>) {
+    override fun initCoinMarketTicker(data: List<UseCoinModel>) {
         mAdapter.addCoinData(data)
     }
 

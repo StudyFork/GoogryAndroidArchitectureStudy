@@ -13,15 +13,11 @@ class MainActivity : AppCompatActivity(), CoinMainContract.View {
     private lateinit var pagerAdapter: TabPagerAdapter
     private lateinit var toast: Toast
     private lateinit var coinMarketNameList: List<String>
-
-    private val presenter: CoinMainPresenter by lazy {
-        CoinMainPresenter(
-            this
-        )
-    }
+    override val presenter: CoinMainContract.Presenter by lazy { CoinMainPresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
         initView()
         presenter.loadMarketData()
@@ -31,11 +27,7 @@ class MainActivity : AppCompatActivity(), CoinMainContract.View {
         pagerAdapter = TabPagerAdapter(supportFragmentManager)
         coinViewPager.apply {
             adapter = pagerAdapter
-            addOnPageChangeListener(object : TabLayout.TabLayoutOnPageChangeListener(tabLayout) {
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                }
-            })
+            addOnPageChangeListener(object : TabLayout.TabLayoutOnPageChangeListener(tabLayout) {})
         }
 
         tabLayout.apply {

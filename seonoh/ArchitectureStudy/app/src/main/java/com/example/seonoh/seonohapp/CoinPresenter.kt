@@ -20,13 +20,13 @@ class CoinPresenter(
     override fun loadData(marketName: String) {
         compositeDisposable.add(
             coinRepository.sendCurrentPriceInfo(marketName)
+                .map {
+                    translateData(it)
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    translateData(it)
-
-                }, { e ->
-                    Log.e("currentPriceInfo", "Network failed!! ${e.message}")
+                .subscribe({ view.initCoinMarketTicker(it) }, {
+                    Log.e("currentPriceInfo", "Network failed!! ${it.message}")
                 })
         )
     }
@@ -35,18 +35,12 @@ class CoinPresenter(
         compositeDisposable.clear()
     }
 
-    override fun setData(data: ArrayList<UseCoinModel>) {
-        view.initRecyclerView(data)
-    }
-
-    override fun translateData(result: List<CurrentPriceInfoModel>) {
+    override fun translateData(result: List<CurrentPriceInfoModel>): ArrayList<UseCoinModel> {
         // 데이터 가공후 모델에 넣음.
         // signedChangeRate textcolor 처리때문에 viewholder에서 진행
         val marketType = if (result.isNotEmpty()) {
             result[0].market.substringBefore("-")
-        } else {
-            ""
-        }
+        } else ""
 
         val data = result.map {
             UseCoinModel(
@@ -57,6 +51,6 @@ class CoinPresenter(
             )
 
         } as ArrayList<UseCoinModel>
-        setData(data)
+        return data
     }
 }

@@ -16,17 +16,14 @@ class CoinMainPresenter(
     private val coinRepository = CoinRepositoryImpl()
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-
     override fun loadMarketData() {
-        compositeDisposable.addAll(coinRepository.sendMarket().subscribeOn(Schedulers.io())
+        compositeDisposable.addAll(coinRepository.sendMarket()
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                view.setPager(it)
-            }, { e ->
-                if (e is HttpException) {
-                    Log.e("market", "Market Network failed !! ${e.message()}")
-                }
+            .subscribe({view.setPager(it)},{
+                Log.e("currentPriceInfo", "Network failed!! ${it.message}")
             }))
+
     }
 
     override fun classifyMarketData(marketData: List<Market>): ArrayList<String> {
