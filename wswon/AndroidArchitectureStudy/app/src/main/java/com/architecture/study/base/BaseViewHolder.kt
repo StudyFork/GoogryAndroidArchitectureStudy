@@ -12,7 +12,7 @@ abstract class BaseViewHolder<B : ViewDataBinding>(
     @LayoutRes
     layoutRes: Int,
     parent: ViewGroup?,
-    private val bindingVariableId: Int?
+    private val dataBindingId: Int?
 ) : RecyclerView.ViewHolder(
     LayoutInflater
         .from(parent?.context)
@@ -23,7 +23,7 @@ abstract class BaseViewHolder<B : ViewDataBinding>(
     fun bind(item: Any?) {
         try {
             binding?.run {
-                bindingVariableId?.let {
+                dataBindingId?.let {
                     setVariable(it, item)
                 }
                 executePendingBindings()
