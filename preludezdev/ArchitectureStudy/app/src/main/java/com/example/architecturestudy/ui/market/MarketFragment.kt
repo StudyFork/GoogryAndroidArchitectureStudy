@@ -33,7 +33,7 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
         initRecyclerView()
         initCallback()
 
-        marketViewModel.loadData(arguments?.getString(keyMarket))
+        marketViewModel.loadData(arguments?.getString(KEY_MARKET))
     }
 
     private fun initViewModel() {
@@ -56,10 +56,10 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
     }
 
     companion object {
-        private const val keyMarket = "KEY_MARKET"
+        private const val KEY_MARKET = "KEY_MARKET"
 
         fun newInstance(market: String) = MarketFragment().apply {
-            arguments = Bundle().apply { putString(keyMarket, market) }
+            arguments = Bundle().apply { putString(KEY_MARKET, market) }
         }
     }
 
