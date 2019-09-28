@@ -17,9 +17,7 @@ class MainViewModel(
     val pageLimit = ObservableField<Int>()
 
     val category = ObservableField<Filter.SelectArrow>()
-    val isSelected = ObservableField<Boolean>().apply {
-        set(false)
-    }
+    val isSelected = ObservableField<Boolean>(false)
 
     val selectField = ObservableField<Pair<Filter.SelectArrow, Boolean>>()
 
