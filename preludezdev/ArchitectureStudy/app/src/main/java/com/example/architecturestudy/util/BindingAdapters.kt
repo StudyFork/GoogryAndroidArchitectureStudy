@@ -7,11 +7,6 @@ import com.example.architecturestudy.ui.market.RecyclerViewAdapter
 
 @BindingAdapter("items")
 fun RecyclerView.replaceAll(items: List<Coin>?) {
-    (adapter as? RecyclerViewAdapter)?.run {
-        if (items != null) {
-            setData(items)
-        }
-    }
-
+    (adapter as? RecyclerViewAdapter)?.setData(items)
 }
 
