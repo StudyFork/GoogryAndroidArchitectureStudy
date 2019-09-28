@@ -11,13 +11,7 @@ import study.architecture.myarchitecture.util.Filter
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    private val mainViewModel: MainViewModel by lazy {
-        MainViewModel(
-            Injection.provideFolderRepository(this)
-        ).apply {
-            binding.mainModel = this
-        }
-    }
+    private lateinit var mainViewModel: MainViewModel
 
     private val mainAdapter: MainAdapter by lazy {
         MainAdapter(supportFragmentManager)
@@ -26,6 +20,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initViewModel()
         initViewPager()
         initAdapterCallback()
         mainViewModel.loadData()
@@ -34,6 +29,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onDestroy() {
         mainViewModel.clearDisposable()
         super.onDestroy()
+    }
+
+
+    private fun initViewModel() {
+        mainViewModel = MainViewModel(
+            Injection.provideFolderRepository(this)
+        ).apply {
+            binding.mainModel = this
+        }
     }
 
     private fun initViewPager() {
