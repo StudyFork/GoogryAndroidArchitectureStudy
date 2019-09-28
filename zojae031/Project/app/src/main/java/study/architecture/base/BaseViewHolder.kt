@@ -1,13 +1,14 @@
-package study.architecture
+package study.architecture.base
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseViewHolder<B : ViewDataBinding>(
-    layoutId: Int,
+    @LayoutRes layoutId: Int,
     parents: ViewGroup,
     private val bindingVariableId: Int? = null
 ) :

@@ -6,7 +6,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.tabs.TabLayout
-import study.architecture.BaseActivity
+import study.architecture.base.BaseActivity
 import study.architecture.R
 import study.architecture.databinding.ActivityMainBinding
 

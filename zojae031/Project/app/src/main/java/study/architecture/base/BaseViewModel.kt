@@ -1,4 +1,4 @@
-package study.architecture
+package study.architecture.base
 
 import io.reactivex.disposables.CompositeDisposable
 

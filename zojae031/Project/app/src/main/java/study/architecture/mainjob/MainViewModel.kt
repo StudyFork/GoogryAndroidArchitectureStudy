@@ -1,7 +1,7 @@
 package study.architecture.mainjob
 
 
-import study.architecture.BaseViewModel
+import study.architecture.base.BaseViewModel
 import study.architecture.coinjob.CoinFragment
 
 class MainViewModel : BaseViewModel() {

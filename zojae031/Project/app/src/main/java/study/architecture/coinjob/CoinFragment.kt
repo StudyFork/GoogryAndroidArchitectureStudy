@@ -3,8 +3,8 @@ package study.architecture.coinjob
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.library.baseAdapters.BR
-import study.architecture.BaseFragment
-import study.architecture.BaseRecyclerViewAdapter
+import study.architecture.base.BaseFragment
+import study.architecture.base.BaseRecyclerViewAdapter
 import study.architecture.Injection
 import study.architecture.R
 import study.architecture.data.entity.ProcessingTicker
@@ -15,6 +15,7 @@ import study.architecture.databinding.ItemTickerBinding
 class CoinFragment : BaseFragment<FragmentCoinBinding>(R.layout.fragment_coin) {
 
     private lateinit var coinViewModel: CoinViewModel
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         CoinViewModel(

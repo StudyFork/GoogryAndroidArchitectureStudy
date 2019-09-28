@@ -1,11 +1,12 @@
-package study.architecture
+package study.architecture.base
 
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseRecyclerViewAdapter<ITEM : Any, B : ViewDataBinding>(
-    private val layoutId: Int,
+    @LayoutRes private val layoutId: Int,
     private val bindingVariableId: Int? = null
 ) : RecyclerView.Adapter<BaseViewHolder<B>>() {
 

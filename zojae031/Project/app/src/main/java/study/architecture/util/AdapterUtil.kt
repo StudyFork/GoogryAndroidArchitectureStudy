@@ -2,7 +2,7 @@ package study.architecture.util
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import study.architecture.BaseRecyclerViewAdapter
+import study.architecture.base.BaseRecyclerViewAdapter
 
 
 @BindingAdapter("replaceAll")

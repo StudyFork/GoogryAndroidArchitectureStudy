@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.databinding.ObservableField
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import study.architecture.BaseViewModel
+import study.architecture.base.BaseViewModel
 import study.architecture.data.entity.ProcessingTicker
 import study.architecture.data.repository.Repository
 import study.architecture.util.TextUtil
