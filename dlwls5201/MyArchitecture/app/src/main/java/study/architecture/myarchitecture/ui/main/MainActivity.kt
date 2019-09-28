@@ -52,8 +52,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
                 (sender as ObservableField<Pair<Filter.SelectArrow, Boolean>>).get()?.let {
 
-                    val filter = it.first
-                    val selected = it.second
+                    val (filter, selected) = it
 
                     val order = if (selected) {
                         Filter.ASC
