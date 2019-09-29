@@ -21,19 +21,12 @@ abstract class BaseViewHolder<B : ViewDataBinding>(
     val binding: B? = DataBindingUtil.bind(itemView)
 
     fun bind(item: Any?) {
-        try {
             binding?.run {
                 dataBindingId?.let {
                     setVariable(it, item)
                 }
                 executePendingBindings()
             }
-            itemView.visibility = View.VISIBLE
-        } catch (e: Exception) {
-            e.printStackTrace()
-            itemView.visibility = View.GONE
-        }
-
     }
 
 }
