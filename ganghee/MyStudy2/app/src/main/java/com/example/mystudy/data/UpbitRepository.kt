@@ -8,9 +8,9 @@ import io.reactivex.Single
  * 가져온 데이터를 가공하는 클래스
  **/
 
-class UpbitRepository (
+class UpbitRepository(
     private val upbitService: UpbitService
-){
+) {
     fun getMarket(): Single<String> =
         upbitService.getMarkets()
             .map {

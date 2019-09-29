@@ -1,67 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
+
         <variable
-            name= "item"
-            type = "com.example.mystudy.data.FormatTickers"
-            />
+            name="item"
+            type="com.example.mystudy.data.FormatTickers" />
     </data>
-<androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/ll_item"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/white"
         android:layout_marginHorizontal="10dp"
         android:layout_marginVertical="3dp"
         android:elevation="2dp"
-        app:cardCornerRadius="10dp"
->
-    <LinearLayout
+        android:orientation="horizontal"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="10dp">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="8dp">
-        <TextView
+
+            <TextView
                 android:id="@+id/tv_coin_name"
-                android:textColor="@color/black"
-                android:text="@{item.toMarket}"
-                android:textSize="20sp"
-                android:paddingStart="10dp"
-                android:layout_width="0sp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-        />
-        <TextView
-                android:id="@+id/tv_trade_price"
+                android:paddingStart="10dp"
+                android:text="@{item.toMarket}"
                 android:textColor="@color/black"
-                android:text="@{item.toTradePrice}"
-                android:layout_width="0sp"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_trade_price"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
-                android:gravity="right"
-        />
-        <TextView
+                android:gravity="end"
+                android:text="@{item.toTradePrice}"
+                android:textColor="@color/black" />
+
+            <TextView
                 android:id="@+id/tv_signed_change_rate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
                 android:text="@{item.toSignedChangeRate}"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:textColor="@{item.toRateColor}"
-        />
-        <TextView
+                android:textColor="@{item.toRateColor}" />
+
+            <TextView
                 android:id="@+id/tv_acc_trade_price_24h"
-                android:text="@{item.toAccTradePrice24h}"
-                android:textColor="@color/black"
-                android:layout_width="0sp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="right"
+                android:gravity="end"
                 android:paddingEnd="10dp"
-        />
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+                android:text="@{item.toAccTradePrice24h}"
+                android:textColor="@color/black" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </layout>

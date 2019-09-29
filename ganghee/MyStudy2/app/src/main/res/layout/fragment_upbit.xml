@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="vm"
             type="com.example.mystudy.viewmodel.UpbitViewModel" />
     </data>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_upbit"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.UpbitFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_tickers"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/fragment_upbit"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        replaceAll="@{vm.tickerList}"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        />
+        tools:context=".ui.UpbitFragment">
 
-</FrameLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_tickers"
+            replaceAll="@{vm.tickerList}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layoutManager="LinearLayoutManager" />
+
+    </FrameLayout>
 </layout>
