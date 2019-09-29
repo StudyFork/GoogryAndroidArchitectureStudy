@@ -7,8 +7,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
 
-class CoinPresenter(private val view: CoinContract.View) : CoinContract.Presenter {
-    private val compositeDisposable = CompositeDisposable()
+class CoinPresenter(override val view: CoinContract.View) : CoinContract.Presenter {
+    override val compositeDisposable = CompositeDisposable()
 
     override fun getTickerList(market: String?) {
         compositeDisposable += Repository.getMarketList()

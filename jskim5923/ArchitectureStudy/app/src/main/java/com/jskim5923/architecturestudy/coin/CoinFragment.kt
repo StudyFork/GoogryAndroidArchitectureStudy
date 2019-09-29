@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.layout_coin_fragment.*
 class CoinFragment : Fragment(), CoinContract.View {
     private var coinListAdapter = CoinListAdapter()
 
-    private val presenter by lazy {
+    override val presenter by lazy {
         CoinPresenter(this)
     }
 
