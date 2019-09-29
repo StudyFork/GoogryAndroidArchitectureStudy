@@ -4,14 +4,14 @@ import com.jskim5923.architecturestudy.extension.getCoinCurrency
 import com.jskim5923.architecturestudy.model.data.source.Repository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.plusAssign
+import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 
 class CoinPresenter(override val view: CoinContract.View) : CoinContract.Presenter {
     override val compositeDisposable = CompositeDisposable()
 
     override fun getTickerList(market: String?) {
-        compositeDisposable += Repository.getMarketList()
+        Repository.getMarketList()
             .subscribeOn(Schedulers.io())
             .flatMap { marketList ->
                 Repository.getTicker(
@@ -36,6 +36,7 @@ class CoinPresenter(override val view: CoinContract.View) : CoinContract.Present
             }, { e ->
                 e.printStackTrace()
             })
+            .addTo(compositeDisposable)
     }
 
     override fun clearCompositeDisposable() {
