@@ -11,7 +11,9 @@ import study.architecture.myarchitecture.util.Filter
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    private lateinit var mainViewModel: MainViewModel
+    private val mainViewModel by lazy {
+        MainViewModel(Injection.provideFolderRepository(this))
+    }
 
     private val mainAdapter: MainAdapter by lazy {
         MainAdapter(supportFragmentManager)
@@ -33,11 +35,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
 
     private fun initViewModel() {
-        mainViewModel = MainViewModel(
-            Injection.provideFolderRepository(this)
-        ).apply {
-            binding.mainModel = this
-        }
+        binding.mainModel = mainViewModel
     }
 
     private fun initViewPager() {
