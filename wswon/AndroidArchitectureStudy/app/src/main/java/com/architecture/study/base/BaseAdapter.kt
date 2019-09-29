@@ -6,7 +6,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseAdapter<ITEM : Any, B : ViewDataBinding>(
-    @LayoutRes private val layoutRes: Int,
+    @LayoutRes
+    private val layoutRes: Int,
     private val dataBindingId: Int? = null
 ) : RecyclerView.Adapter<BaseViewHolder<B>>() {
     private val items = mutableListOf<ITEM>()

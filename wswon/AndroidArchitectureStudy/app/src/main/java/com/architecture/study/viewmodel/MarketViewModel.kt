@@ -11,6 +11,7 @@ class MarketViewModel(coinRepository: CoinRepository) : BaseViewModel<CoinReposi
 
     val marketList = ObservableField<List<MarketResponse>>()
 
+
     fun getMarketList() {
         repository.getMarketList(
             object : CoinRemoteDataSourceListener<MarketResponse> {
