@@ -7,8 +7,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
 
-class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
-    private val compositeDisposable = CompositeDisposable()
+class MainPresenter(override val view: MainContract.View) : MainContract.Presenter {
+    override val compositeDisposable = CompositeDisposable()
 
     override fun loadMarketList() {
         compositeDisposable += Repository.getMarketList()
