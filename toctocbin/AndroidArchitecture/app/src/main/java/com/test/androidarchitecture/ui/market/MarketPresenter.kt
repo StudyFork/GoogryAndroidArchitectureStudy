@@ -35,7 +35,7 @@ class MarketPresenter(
             ))
     }
 
-    override fun disposablesClear() {
+    override fun clearDisposable() {
         disposables.clear()
     }
 
