@@ -15,10 +15,11 @@ class MarketActivity : BaseActivity(R.layout.activity_market), MarketContract.Vi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        start()
         presenter.getMarketAll()
     }
 
-    override fun start() {
+    private fun start() {
         main_tabLayout.setupWithViewPager(main_viewPager)
         viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
         with(main_viewPager) {
