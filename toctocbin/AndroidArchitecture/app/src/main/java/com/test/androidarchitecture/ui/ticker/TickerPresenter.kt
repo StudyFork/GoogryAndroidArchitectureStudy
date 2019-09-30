@@ -11,13 +11,14 @@ import java.text.NumberFormat
 import java.util.*
 
 class TickerPresenter(
-    private val view: TickerContract.View) : TickerContract.Presenter {
-
+    private val view: TickerContract.View,
+    private val marketSearch: String
+) : TickerContract.Presenter {
     private val upbitRepository by lazy { UpbitRepository }
     private val disposables by lazy { CompositeDisposable() }
 
 
-    override fun getTicker(marketSearch: String) {
+    override fun getTicker() {
         disposables.add(upbitRepository.getTicker(marketSearch)
             .map { list ->
                 list.asSequence()
@@ -35,7 +36,7 @@ class TickerPresenter(
 
     }
 
-    override fun disposablesClear() {
+    override fun clearDisposable() {
         disposables.clear()
     }
 
