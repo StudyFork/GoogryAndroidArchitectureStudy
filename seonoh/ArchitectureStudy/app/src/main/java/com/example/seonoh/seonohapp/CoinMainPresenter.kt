@@ -13,10 +13,8 @@ class CoinMainPresenter(
     private val view: CoinMainContract.View
 ) : CoinMainContract.Presenter {
 
-
     private val coinRepository = CoinRepositoryImpl()
     override val compositeDisposable by lazy { CompositeDisposable() }
-
 
     override fun loadData(marketName : String?) {
         compositeDisposable.addAll(coinRepository.sendMarket()
@@ -25,28 +23,6 @@ class CoinMainPresenter(
             .subscribe({view.setData(it)},{
                 Log.e("currentPriceInfo", "Network failed!! ${it.message}")
             }))
-
-    }
-
-
-
-     fun classifyMarketData(marketData: List<Market>): ArrayList<String> {
-        val conMarketNameList = marketData.map {
-            it.market.substringBefore("-")
-        }.distinct()
-
-        val marketDataList = ArrayList<String>()
-
-        conMarketNameList.forEach { title ->
-
-            marketDataList += (marketData.filter {
-                it.market.substringBefore("-") == title
-            }.joinToString {
-                it.market
-            })
-        }
-
-        return marketDataList
     }
 
     override fun clearDisposable() {
