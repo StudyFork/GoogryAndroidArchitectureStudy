@@ -11,7 +11,6 @@ interface BaseContract {
 
     interface Presenter{
         val compositeDisposable : CompositeDisposable
-        fun loadData(marketName : String? = null)
         fun clearDisposable()
     }
 }

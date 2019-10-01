@@ -17,7 +17,7 @@ class CoinPresenter(
     private val coinRepository = CoinRepositoryImpl()
     override val compositeDisposable by lazy { CompositeDisposable() }
 
-    override fun loadData(marketName: String?) {
+    override fun loadData(marketName: String) {
         compositeDisposable.add(
             coinRepository.sendCurrentPriceInfo(marketName!!)
                 .map {

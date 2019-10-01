@@ -5,5 +5,7 @@ import com.example.seonoh.seonohapp.model.UseCoinModel
 interface CoinFragmentContract {
     interface View : BaseContract.View<List<UseCoinModel>>
 
-    interface Presenter : BaseContract.Presenter
+    interface Presenter : BaseContract.Presenter{
+        fun loadData(marketName : String)
+    }
 }
