@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_ticker_list.*
 class TickerListFragment : Fragment(), TickerContract.View {
 
     private lateinit var coinItemAdapter: CoinItemAdapter
-    private val tickerPresenter by lazy { TickerPresenter(this) }
+    override val presenter by lazy { TickerPresenter(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +33,7 @@ class TickerListFragment : Fragment(), TickerContract.View {
     }
 
     override fun onDestroyView() {
-        tickerPresenter.clearDisposable()
+        presenter.clearDisposable()
         super.onDestroyView()
     }
 
@@ -47,7 +47,7 @@ class TickerListFragment : Fragment(), TickerContract.View {
 
     private fun getTicker() {
         val market = arguments?.getString(KEY_MARKETS) ?: ""
-        tickerPresenter.getTicker(market)
+        presenter.getTicker(market)
     }
 
     companion object {
