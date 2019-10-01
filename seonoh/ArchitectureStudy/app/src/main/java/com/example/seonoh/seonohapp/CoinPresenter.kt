@@ -11,7 +11,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class CoinPresenter(
-    private val view: CoinFragmentContract.View
+    override val view: CoinFragmentContract.View
 ) : CoinFragmentContract.Presenter {
 
     private val coinRepository = CoinRepositoryImpl()

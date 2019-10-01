@@ -10,7 +10,7 @@ import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 
 class CoinMainPresenter(
-    private val view: CoinMainContract.View
+    override val view: CoinMainContract.View
 ) : CoinMainContract.Presenter {
 
     private val coinRepository = CoinRepositoryImpl()

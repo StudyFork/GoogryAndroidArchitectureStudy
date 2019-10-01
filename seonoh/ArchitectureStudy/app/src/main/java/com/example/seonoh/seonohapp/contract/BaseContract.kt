@@ -4,12 +4,12 @@ import io.reactivex.disposables.CompositeDisposable
 
 interface BaseContract {
 
-    interface View<in T>{
-        val presenter : Presenter
-        fun setData(data : T)
+    interface View<T>{
+        val presenter : T
     }
 
-    interface Presenter{
+    interface Presenter<T>{
+        val view : T
         val compositeDisposable : CompositeDisposable
         fun clearDisposable()
     }
