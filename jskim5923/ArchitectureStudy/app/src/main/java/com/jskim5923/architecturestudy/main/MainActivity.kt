@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         ViewPagerAdapter(supportFragmentManager)
     }
 
-    private val presenter by lazy {
+    override val presenter by lazy {
         MainPresenter(this)
     }
 
