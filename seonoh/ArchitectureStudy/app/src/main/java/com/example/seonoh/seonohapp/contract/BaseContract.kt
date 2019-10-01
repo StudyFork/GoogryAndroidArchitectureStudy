@@ -1,5 +1,7 @@
 package com.example.seonoh.seonohapp.contract
 
+import io.reactivex.disposables.CompositeDisposable
+
 interface BaseContract {
 
     interface View<in T>{
@@ -8,6 +10,7 @@ interface BaseContract {
     }
 
     interface Presenter{
+        val compositeDisposable : CompositeDisposable
         fun loadData(marketName : String? = null)
         fun clearDisposable()
     }

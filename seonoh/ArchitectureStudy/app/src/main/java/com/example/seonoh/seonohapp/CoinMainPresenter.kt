@@ -13,8 +13,9 @@ class CoinMainPresenter(
     private val view: CoinMainContract.View
 ) : CoinMainContract.Presenter {
 
+
     private val coinRepository = CoinRepositoryImpl()
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
+    override val compositeDisposable by lazy { CompositeDisposable() }
 
 
     override fun loadData(marketName : String?) {
