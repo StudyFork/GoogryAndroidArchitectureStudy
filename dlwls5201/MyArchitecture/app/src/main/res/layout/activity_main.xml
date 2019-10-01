@@ -106,7 +106,7 @@
                         android:id="@+id/ivSelectByCoinName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:category="@{mainModel.category}"
+                        android:isSelected="@{safeUnbox(mainModel.isSelected)}"
                         android:visibility="@{mainModel.category.equals(SelectArrow.COIN_NAME) ? View.VISIBLE : View.INVISIBLE}"
                         android:src="@drawable/ic_arrow_drop_selector" />
 
@@ -130,7 +130,7 @@
                         android:id="@+id/ivSelectByLast"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:category="@{mainModel.category}"
+                        android:isSelected="@{safeUnbox(mainModel.isSelected)}"
                         android:visibility="@{mainModel.category.equals(SelectArrow.LAST) ? View.VISIBLE : View.INVISIBLE}"
                         android:src="@drawable/ic_arrow_drop_selector" />
 
@@ -154,7 +154,7 @@
                         android:id="@+id/ivSelectByTradeDiff"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:category="@{mainModel.category}"
+                        android:isSelected="@{safeUnbox(mainModel.isSelected)}"
                         android:visibility="@{mainModel.category.equals(SelectArrow.TRADE_DIFF) ? View.VISIBLE : View.INVISIBLE}"
                         android:src="@drawable/ic_arrow_drop_selector" />
 
@@ -178,8 +178,7 @@
                         android:id="@+id/ivSelectByTradeAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:category="@{mainModel.category}"
-                        android:listener="@{mainModel.listener}"
+                        android:isSelected="@{safeUnbox(mainModel.isSelected)}"
                         android:visibility="@{mainModel.category.equals(SelectArrow.TRADE_AMOUNT) ? View.VISIBLE : View.INVISIBLE}"
                         android:src="@drawable/ic_arrow_drop_selector" />
 
@@ -191,7 +190,7 @@
                 android:id="@+id/vpMain"
                 android:setMarkets="@{mainModel.markets}"
                 android:setTitles="@{mainModel.titles}"
-                app:offscreenPageLimit="@{mainModel.pageLimit}"
+                app:offscreenPageLimit="@{safeUnbox(mainModel.pageLimit)}"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1" />
