@@ -29,4 +29,13 @@ data class TickerResponse(
     @SerializedName("lowest_52_week_price") val lowest52WeekPrice: Double,
     @SerializedName("lowest_52_week_date") val lowest52WeekDate: String,
     @SerializedName("timestamp") val timestamp: Long
-)
+) : TickerImpl {
+
+    override fun toTicker() =
+        Ticker(
+            marketName = market.split("-")[1],
+            currentTradePrice = tradePrice,
+            beforeSignedChangeRate = signedChangeRate,
+            totalTrade = accTradePrice24h
+        )
+}

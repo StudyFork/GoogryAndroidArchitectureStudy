@@ -9,3 +9,7 @@ data class Ticker(
     val beforeSignedChangeRate : Double, //전일대비
     val totalTrade : Double  //거래대금
 )
+
+interface TickerImpl{
+    fun toTicker() : Ticker
+}

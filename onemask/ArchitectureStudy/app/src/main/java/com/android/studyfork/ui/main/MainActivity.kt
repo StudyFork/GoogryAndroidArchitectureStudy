@@ -11,12 +11,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
+
     private val viewPagerAdapter by lazy {
         ViewPagerAdapter(
             supportFragmentManager
         )
     }
-    private val presenter by lazy { MainPresenter(this) }
+
+    override val presenter by lazy { MainPresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +26,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         initViewPager()
         loadData()
     }
+/*
 
     override fun setViewPagerData(marketData: Map<String, List<MarketResponse>>) {
         with(viewPagerAdapter) {
@@ -35,6 +38,15 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             })
         }
     }
+
+ */
+
+    override fun setViewPagerData(marketData: Pair<List<String>, List<String>>) {
+        with(viewPagerAdapter){
+
+        }
+    }
+
 
     override fun onDestroy() {
         presenter.clearDisposable()
