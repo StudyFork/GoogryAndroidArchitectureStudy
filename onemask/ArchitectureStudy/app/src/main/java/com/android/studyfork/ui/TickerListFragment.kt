@@ -14,7 +14,6 @@ import kotlinx.android.synthetic.main.fragment_ticker_list.*
 class TickerListFragment : BaseFragment(R.layout.fragment_ticker_list), TickerContract.View {
 
     private lateinit var coinItemAdapter: CoinItemAdapter
-
     override val presenter by lazy { TickerPresenter(this) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
