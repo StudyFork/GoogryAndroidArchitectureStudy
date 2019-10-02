@@ -26,10 +26,9 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainContract.View {
     override fun setViewPagerData(marketData: Pair<List<String>, List<String>>) {
         with(viewPagerAdapter) {
             setTitles(marketData.first.toList())
-            setData( marketData.second)
-            }
+            setData(marketData.second)
         }
-
+    }
 
     private fun initViewPager() {
         with(pager_content) {
