@@ -1,4 +1,4 @@
-package study.architecture.data.local.dao
+package study.architecture.data.datasource.local.dao
 
 import androidx.room.Dao
 import androidx.room.Query

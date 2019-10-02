@@ -1,36 +1,20 @@
-package study.architecture.ui.coinjob
+package study.architecture.coinjob
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
+import androidx.databinding.library.baseAdapters.BR
+import study.architecture.base.BaseFragment
+import study.architecture.base.BaseRecyclerViewAdapter
 import study.architecture.Injection
 import study.architecture.R
+import study.architecture.data.entity.ProcessingTicker
 import study.architecture.databinding.FragmentCoinBinding
+import study.architecture.databinding.ItemTickerBinding
 
 
-class CoinFragment : Fragment() {
+class CoinFragment : BaseFragment<FragmentCoinBinding>(R.layout.fragment_coin) {
 
     private lateinit var coinViewModel: CoinViewModel
-
-    private lateinit var binding: FragmentCoinBinding
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(
-            LayoutInflater.from(context),
-            R.layout.fragment_coin,
-            container,
-            false
-        )
-
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,7 +25,11 @@ class CoinFragment : Fragment() {
 
         with(binding) {
             viewModel = coinViewModel
-            recyclerView.adapter = CoinDataAdapter()
+            recyclerView.adapter = object :
+                BaseRecyclerViewAdapter<ProcessingTicker, ItemTickerBinding>(
+                    R.layout.item_ticker,
+                    BR.pTicker
+                ) {}
         }
 
     }

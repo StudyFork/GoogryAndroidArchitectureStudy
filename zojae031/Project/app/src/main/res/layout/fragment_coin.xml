@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="study.architecture.ui.coinjob.CoinViewModel" />
+            type="study.architecture.coinjob.CoinViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

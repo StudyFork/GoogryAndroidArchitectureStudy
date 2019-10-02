@@ -2,13 +2,13 @@ package study.architecture.util
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import study.architecture.data.entity.ProcessingTicker
-import study.architecture.ui.coinjob.CoinDataAdapter
+import study.architecture.base.BaseRecyclerViewAdapter
+
 
 @BindingAdapter("replaceAll")
-fun RecyclerView.replaceAll(list: List<ProcessingTicker>?) {
+fun RecyclerView.replaceAll(list: List<Any>?) {
     if (list != null) {
-        (this.adapter as? CoinDataAdapter)?.updateLists(list)
+        (this.adapter as? BaseRecyclerViewAdapter<Any, *>)?.updateLists(list)
     }
 
 }
