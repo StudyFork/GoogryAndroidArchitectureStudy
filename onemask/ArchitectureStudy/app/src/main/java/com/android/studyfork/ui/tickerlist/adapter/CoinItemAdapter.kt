@@ -42,7 +42,7 @@ class CoinItemAdapter : RecyclerView.Adapter<CoinItemAdapter.ViewHolder>() {
         private val textTotalTrade: TextView = itemView.findViewById(R.id.text_total_trade)
 
         fun bind(ticker: Ticker) = with(itemView) {
-            textTitle.text = ticker.marketName.split("-")[1]
+            textTitle.text = ticker.marketName
             textCurrentPrice.filterTrade(ticker.currentTradePrice)
             textBeforeDay.setTradeDiff(ticker.beforeSignedChangeRate)
             textTotalTrade.setTradeAmount(ticker)
