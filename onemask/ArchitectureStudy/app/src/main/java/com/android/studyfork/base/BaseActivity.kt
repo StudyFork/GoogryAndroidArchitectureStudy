@@ -11,8 +11,4 @@ abstract class BaseActivity(@LayoutRes private val layoutRes: Int) : AppCompatAc
         setContentView(layoutRes)
         onStart()
     }
-
-    override fun onStart() {
-        super.onStart()
-    }
 }
