@@ -12,6 +12,9 @@ abstract class BaseActivity(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layoutRes)
+        start()
     }
+
+    abstract fun start()
 
 }

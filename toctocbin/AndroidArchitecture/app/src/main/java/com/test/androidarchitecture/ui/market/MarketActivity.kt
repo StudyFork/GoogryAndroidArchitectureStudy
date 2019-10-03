@@ -1,6 +1,5 @@
 package com.test.androidarchitecture.ui.market
 
-import android.os.Bundle
 import android.widget.Toast
 import com.test.androidarchitecture.R
 import com.test.androidarchitecture.adpter.ViewPagerAdapter
@@ -13,19 +12,14 @@ class MarketActivity : BaseActivity(R.layout.activity_market), MarketContract.Vi
     private lateinit var viewPagerAdapter: ViewPagerAdapter
     override val presenter by lazy { MarketPresenter(this) }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        start()
-        presenter.getMarketAll()
-    }
-
-    private fun start() {
+    override fun start() {
         main_tabLayout.setupWithViewPager(main_viewPager)
         viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
         with(main_viewPager) {
             offscreenPageLimit = 3
             adapter = viewPagerAdapter
         }
+        presenter.getMarketAll()
     }
 
     override fun onDestroy() {
