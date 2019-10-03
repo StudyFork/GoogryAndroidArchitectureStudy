@@ -21,4 +21,11 @@ abstract class BaseFragment(
         return inflater.inflate(layoutRes, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        start()
+    }
+
+
+    abstract fun start()
 }

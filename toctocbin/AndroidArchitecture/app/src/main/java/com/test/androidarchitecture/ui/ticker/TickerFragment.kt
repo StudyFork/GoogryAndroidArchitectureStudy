@@ -19,19 +19,14 @@ class TickerFragment :
     override val presenter by lazy { TickerPresenter(this, marketSearch) }
     private val marketSearch by lazy { arguments!!.getString(MARKET_SEARCH) }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        start()
-        presenter.getTicker()
-    }
-
     override fun onDestroyView() {
         presenter.clearDisposable()
         super.onDestroyView()
     }
 
-    private fun start() {
+    override fun start() {
         coin_recyclerView.adapter = this.adapter
+        presenter.getTicker()
     }
 
     override fun setTickerData(list: List<TickerFormat>) {
