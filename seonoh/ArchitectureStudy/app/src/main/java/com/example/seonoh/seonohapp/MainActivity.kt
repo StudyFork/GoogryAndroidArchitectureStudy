@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), CoinMainContract.View {
         pagerAdapter = TabPagerAdapter(supportFragmentManager)
         coinViewPager.apply {
             adapter = pagerAdapter
-            addOnPageChangeListener(object : TabLayout.TabLayoutOnPageChangeListener(tabLayout) {})
+            addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
         }
 
         tabLayout.run {
