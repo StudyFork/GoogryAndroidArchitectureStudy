@@ -20,7 +20,7 @@ class CoinFragment : BaseFragment(), CoinFragmentContract.View {
         return inflater.inflate(R.layout.coin_fragment, container, false)
     }
 
-    override fun setData(data: List<UseCoinModel>) = mAdapter.addCoinData(data)
+    override fun setData(data: List<UseCoinModel>) = fragmentAdapter.addCoinData(data)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

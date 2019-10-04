@@ -5,13 +5,13 @@ import kotlinx.android.synthetic.main.coin_fragment.*
 
 abstract class BaseFragment : Fragment(){
 
-    protected lateinit var mAdapter: CoinAdapter
+    protected lateinit var fragmentAdapter: CoinAdapter
     protected var marketName: String? = null
 
     fun initView() {
-        mAdapter = CoinAdapter()
+        fragmentAdapter = CoinAdapter()
         krwRecyclerView.apply {
-            adapter = mAdapter
+            adapter = fragmentAdapter
         }
     }
 }
