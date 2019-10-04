@@ -1,6 +1,7 @@
 package com.example.seonoh.seonohapp
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.seonoh.seonohapp.contract.CoinMainContract
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity(), CoinMainContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        toast = Toast.makeText(this, resources.getString(R.string.back_text), Toast.LENGTH_SHORT)
         setContentView(R.layout.activity_main)
         initView()
         presenter.loadData()
@@ -46,7 +47,6 @@ class MainActivity : AppCompatActivity(), CoinMainContract.View {
     }
 
     private fun showToast() {
-        toast = Toast.makeText(this, resources.getString(R.string.back_text), Toast.LENGTH_SHORT)
         if (toast.view.isShown) {
             finish()
         } else {
