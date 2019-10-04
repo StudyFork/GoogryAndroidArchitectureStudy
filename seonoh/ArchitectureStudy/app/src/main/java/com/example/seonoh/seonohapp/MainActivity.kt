@@ -15,8 +15,7 @@ class MainActivity : BaseActivity(), CoinMainContract.View {
         presenter.loadData()
     }
 
-    override fun setData(data: List<Market>) {
-        pagerAdapter.setData(refineData(data))
-    }
+    override fun setData(data: List<Market>) = pagerAdapter.setData(refineData(data))
+
 
 }
