@@ -24,9 +24,8 @@ class CoinFragment : Fragment(), CoinFragmentContract.View {
         return inflater.inflate(R.layout.coin_fragment, container, false)
     }
 
-    override fun setData(data: List<UseCoinModel>) {
-        mAdapter.addCoinData(data)
-    }
+    override fun setData(data: List<UseCoinModel>) = mAdapter.addCoinData(data)
+
 
     private fun initView() {
         mAdapter = CoinAdapter()
