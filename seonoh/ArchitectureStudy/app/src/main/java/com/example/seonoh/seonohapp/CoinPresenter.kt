@@ -19,7 +19,7 @@ class CoinPresenter(
 
     override fun loadData(marketName: String) {
         compositeDisposable.add(
-            coinRepository.sendCurrentPriceInfo(marketName!!)
+            coinRepository.sendCurrentPriceInfo(marketName)
                 .map {
                     refineData(it)
                 }
