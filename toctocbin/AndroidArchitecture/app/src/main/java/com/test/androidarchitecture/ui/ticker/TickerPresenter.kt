@@ -14,9 +14,9 @@ class TickerPresenter(
     private val view: TickerContract.View,
     private val marketSearch: String
 ) : TickerContract.Presenter {
-    private val upbitRepository by lazy { UpbitRepository }
-    private val disposables by lazy { CompositeDisposable() }
 
+    private val upbitRepository = UpbitRepository
+    private val disposables = CompositeDisposable()
 
     override fun getTicker() {
         disposables.add(upbitRepository.getTicker(marketSearch)
