@@ -42,15 +42,13 @@ class CoinPresenter(
             result[0].market.substringBefore("-")
         } else ""
 
-        val data = result.map {
+        return result.map {
             UseCoinModel(
                 CalculateUtils.setMarketName(it.market),
                 CalculateUtils.filterTrade(it.tradePrice),
                 CalculateUtils.setTradeDiff(it.signedChangeRate),
                 CalculateUtils.setTradeAmount(marketType, it.accTradePrice24h)
             )
-
         }
-        return data
     }
 }
