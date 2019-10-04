@@ -16,8 +16,7 @@ class TickerFragment :
     TickerContract.View {
 
     private val adapter by lazy { TickerAdapter() }
-    override val presenter by lazy { TickerPresenter(this, marketSearch) }
-    private val marketSearch by lazy { arguments!!.getString(MARKET_SEARCH) }
+    override val presenter by lazy { TickerPresenter(this, arguments?.getString(MARKET_SEARCH) ?: "") }
 
     override fun onDestroyView() {
         presenter.clearDisposable()
