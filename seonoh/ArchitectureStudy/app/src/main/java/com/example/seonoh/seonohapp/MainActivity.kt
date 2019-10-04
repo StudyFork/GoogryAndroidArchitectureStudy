@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(), CoinMainContract.View {
             addOnPageChangeListener(object : TabLayout.TabLayoutOnPageChangeListener(tabLayout) {})
         }
 
-        tabLayout.apply {
+        tabLayout.run {
             addTab(tabLayout.newTab().setText("KRW"))
             addTab(tabLayout.newTab().setText("BTC"))
             addTab(tabLayout.newTab().setText("ETH"))
