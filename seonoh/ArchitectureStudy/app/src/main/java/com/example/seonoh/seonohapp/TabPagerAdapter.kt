@@ -10,7 +10,7 @@ class TabPagerAdapter(
 
     private val data = mutableListOf<String>()
 
-    fun setData( data: ArrayList<String>){
+    fun setData( data: List<String>){
         this.data.addAll(data)
         notifyDataSetChanged()
     }

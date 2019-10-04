@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(), CoinMainContract.View {
         showToast()
     }
 
-    private fun refineData(marketData: List<Market>): ArrayList<String> {
+    private fun refineData(marketData: List<Market>): List<String> {
 
         coinMarketNameList = marketData.map {
             it.market.substringBefore("-")
