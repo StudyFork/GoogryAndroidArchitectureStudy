@@ -17,9 +17,8 @@ abstract class BaseFragment(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(layoutRes, container, false)
-    }
+    ): View? = inflater.inflate(layoutRes, container, false)
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
