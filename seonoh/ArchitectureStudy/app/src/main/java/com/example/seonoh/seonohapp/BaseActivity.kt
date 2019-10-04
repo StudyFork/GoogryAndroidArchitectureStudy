@@ -8,11 +8,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 abstract class BaseActivity : AppCompatActivity() {
 
-     lateinit var pagerAdapter: TabPagerAdapter
-     lateinit var toast: Toast
-     lateinit var coinMarketNameList: List<String>
+    protected lateinit var pagerAdapter: TabPagerAdapter
+    private lateinit var toast: Toast
+    private lateinit var coinMarketNameList: List<String>
 
-    fun initView(){
+    fun initView() {
         pagerAdapter = TabPagerAdapter(supportFragmentManager)
         coinViewPager.apply {
             adapter = pagerAdapter
@@ -29,7 +29,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun showToast(){
+    fun showToast() {
         if (toast.view.isShown) {
             finish()
         } else {
