@@ -20,7 +20,9 @@ class CoinMainPresenter(
         compositeDisposable.add(coinRepository.sendMarket()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({view.setData(it)},{
+            .subscribe({
+                view.setData(it)
+            },{
                 Log.e("currentPriceInfo", "Network failed!! ${it.message}")
             }))
     }
