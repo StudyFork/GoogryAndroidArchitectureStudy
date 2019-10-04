@@ -5,8 +5,8 @@ import kotlinx.android.synthetic.main.coin_fragment.*
 
 abstract class BaseFragment : Fragment(){
 
-    lateinit var mAdapter: CoinAdapter
-    var marketName: String? = null
+    protected lateinit var mAdapter: CoinAdapter
+    protected var marketName: String? = null
 
     fun initView() {
         mAdapter = CoinAdapter()
