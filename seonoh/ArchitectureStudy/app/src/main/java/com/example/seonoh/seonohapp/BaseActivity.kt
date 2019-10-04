@@ -14,7 +14,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun initView() {
         pagerAdapter = TabPagerAdapter(supportFragmentManager)
-        coinViewPager.apply {
+        coinViewPager.run {
             adapter = pagerAdapter
             addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
         }
