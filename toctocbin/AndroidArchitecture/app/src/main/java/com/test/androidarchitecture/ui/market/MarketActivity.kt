@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.activity_market.*
 class MarketActivity : BaseActivity(R.layout.activity_market), MarketContract.View {
 
     private lateinit var viewPagerAdapter: ViewPagerAdapter
-    override val presenter by lazy { MarketPresenter(this) }
+    override val presenter = MarketPresenter(this)
 
     override fun start() {
         main_tabLayout.setupWithViewPager(main_viewPager)
