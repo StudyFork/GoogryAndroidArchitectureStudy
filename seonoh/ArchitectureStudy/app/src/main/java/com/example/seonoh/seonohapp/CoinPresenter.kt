@@ -35,7 +35,7 @@ class CoinPresenter(
         compositeDisposable.clear()
     }
 
-    private fun refineData(result: List<CurrentPriceInfoModel>): ArrayList<UseCoinModel> {
+    private fun refineData(result: List<CurrentPriceInfoModel>): List<UseCoinModel> {
         // 데이터 가공후 모델에 넣음.
         // signedChangeRate textcolor 처리때문에 viewholder에서 진행
         val marketType = if (result.isNotEmpty()) {
@@ -50,7 +50,7 @@ class CoinPresenter(
                 CalculateUtils.setTradeAmount(marketType, it.accTradePrice24h)
             )
 
-        } as ArrayList<UseCoinModel>
+        }
         return data
     }
 }
