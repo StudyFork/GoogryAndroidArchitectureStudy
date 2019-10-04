@@ -10,8 +10,7 @@ abstract class BaseFragment : Fragment(){
 
     fun initView() {
         fragmentAdapter = CoinAdapter()
-        krwRecyclerView.apply {
-            adapter = fragmentAdapter
-        }
+        krwRecyclerView.adapter = fragmentAdapter
+
     }
 }
