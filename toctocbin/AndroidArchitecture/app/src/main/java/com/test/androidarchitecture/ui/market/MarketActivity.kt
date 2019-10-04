@@ -23,8 +23,8 @@ class MarketActivity : BaseActivity(R.layout.activity_market), MarketContract.Vi
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         presenter.clearDisposable()
+        super.onDestroy()
     }
 
     override fun setViewpagerData(list: List<MarketTitle>) {
