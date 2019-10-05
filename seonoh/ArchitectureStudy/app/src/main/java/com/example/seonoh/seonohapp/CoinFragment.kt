@@ -5,20 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.seonoh.seonohapp.contract.BaseContract
 import com.example.seonoh.seonohapp.contract.CoinFragmentContract
 import com.example.seonoh.seonohapp.model.UseCoinModel
+import kotlinx.android.synthetic.main.coin_fragment.*
 
-class CoinFragment : BaseFragment(), CoinFragmentContract.View {
+class CoinFragment : BaseFragment(
+    R.layout.coin_fragment
+), CoinFragmentContract.View {
 
-    override val presenter by lazy { CoinPresenter(this) }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        return inflater.inflate(R.layout.coin_fragment, container, false)
-    }
+    private val presenter = CoinPresenter(this)
+    private lateinit var fragmentAdapter: CoinAdapter
+    private var marketName: String? = null
 
     override fun setData(data: List<UseCoinModel>) = fragmentAdapter.addCoinData(data)
 
@@ -33,6 +31,11 @@ class CoinFragment : BaseFragment(), CoinFragmentContract.View {
             resources.getString(R.string.empty_market_text),
             Toast.LENGTH_LONG
         ).show()
+    }
+
+    private fun initView() {
+        fragmentAdapter = CoinAdapter()
+        krwRecyclerView.adapter = fragmentAdapter
     }
 
     override fun onDestroyView() {

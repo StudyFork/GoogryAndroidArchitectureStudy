@@ -1,16 +1,23 @@
 package com.example.seonoh.seonohapp
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.coin_fragment.*
+import com.example.seonoh.seonohapp.contract.BaseContract
 
-abstract class BaseFragment : Fragment(){
+abstract class BaseFragment(
+    @LayoutRes
+    private val layoutRes: Int
+) : Fragment(), BaseContract.FragmentView {
 
-    protected lateinit var fragmentAdapter: CoinAdapter
-    protected var marketName: String? = null
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
-    fun initView() {
-        fragmentAdapter = CoinAdapter()
-        krwRecyclerView.adapter = fragmentAdapter
-
+        return inflater.inflate(layoutRes, container, false)
     }
 }

@@ -3,7 +3,7 @@ package com.example.seonoh.seonohapp.contract
 import com.example.seonoh.seonohapp.model.UseCoinModel
 
 interface CoinFragmentContract {
-    interface View : BaseContract.View<Presenter>{
+    interface View : BaseContract.FragmentView{
         fun setData(data : List<UseCoinModel>)
     }
 
