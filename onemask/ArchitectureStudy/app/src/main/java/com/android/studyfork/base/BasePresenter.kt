@@ -2,9 +2,13 @@ package com.android.studyfork.base
 
 import io.reactivex.disposables.CompositeDisposable
 
-interface BasePresenter<T> {
-    val view : T
-    val disposables : CompositeDisposable
+abstract class BasePresenter : BaseContract.Presenter {
 
-    fun clearDisposable()
+    protected val compositeDisposable = CompositeDisposable()
+
+    override fun clearDisposable() {
+        compositeDisposable.clear()
+    }
+
 }
+
