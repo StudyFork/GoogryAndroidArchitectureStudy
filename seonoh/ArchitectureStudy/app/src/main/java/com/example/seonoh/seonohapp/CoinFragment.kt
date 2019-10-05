@@ -14,7 +14,7 @@ class CoinFragment : BaseFragment(
     R.layout.coin_fragment
 ), CoinFragmentContract.View {
 
-    private val presenter = CoinPresenter(this)
+    override val presenter = CoinPresenter(this)
     private lateinit var fragmentAdapter: CoinAdapter
     private var marketName: String? = null
 
@@ -42,6 +42,8 @@ class CoinFragment : BaseFragment(
         presenter.clearDisposable()
         super.onDestroyView()
     }
+
+    override fun showToast(){}
 
     companion object {
         private const val MARKET = "market"

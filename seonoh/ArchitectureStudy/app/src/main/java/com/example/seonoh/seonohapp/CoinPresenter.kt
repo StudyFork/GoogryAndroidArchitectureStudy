@@ -7,17 +7,15 @@ import com.example.seonoh.seonohapp.model.UseCoinModel
 import com.example.seonoh.seonohapp.repository.CoinRepositoryImpl
 import com.example.seonoh.seonohapp.util.CalculateUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class CoinPresenter(
     override val view: CoinFragmentContract.View
-) : CoinFragmentContract.Presenter {
+) : BasePresenter(view) {
 
     private val coinRepository = CoinRepositoryImpl()
-    override val compositeDisposable = CompositeDisposable()
 
-    override fun loadData(marketName: String) {
+    fun loadData(marketName: String) {
         compositeDisposable.add(
             coinRepository.sendCurrentPriceInfo(marketName)
                 .map {

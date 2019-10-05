@@ -11,8 +11,7 @@ import com.example.seonoh.seonohapp.contract.BaseContract
 abstract class BaseFragment(
     @LayoutRes
     private val layoutRes: Int
-) : Fragment(), BaseContract.FragmentView {
-
+) : Fragment(), BaseContract.View {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

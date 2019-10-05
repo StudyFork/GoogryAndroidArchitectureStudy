@@ -29,4 +29,8 @@ abstract class BaseActivity(
     override fun onBackPressed() {
         showToast()
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
 }

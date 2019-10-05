@@ -6,8 +6,4 @@ interface CoinMainContract : BaseContract {
     interface View : BaseContract.View{
         fun setData(data : List<Market>)
     }
-
-    interface Presenter : BaseContract.Presenter<View>{
-        fun loadData()
-    }
 }

@@ -9,8 +9,6 @@ interface BaseContract {
         fun showToast()
     }
 
-    interface FragmentView
-
     interface Presenter<V> {
         val view: V
         val compositeDisposable: CompositeDisposable
