@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 
-abstract class BaseFragment(@LayoutRes private val layoutRes: Int) : Fragment() {
+abstract class BaseFragment<P : BaseContract.Presenter>(@LayoutRes private val layoutRes: Int) :
+    Fragment(), BaseContract.View<P> {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -15,5 +16,10 @@ abstract class BaseFragment(@LayoutRes private val layoutRes: Int) : Fragment() 
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(layoutRes, container, false)
+    }
+
+    override fun onDestroy() {
+        presenter.clearDisposable()
+        super.onDestroy()
     }
 }
