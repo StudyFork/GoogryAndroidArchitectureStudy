@@ -1,13 +1,12 @@
 package com.test.androidarchitecture.ui.market
 
-import android.widget.Toast
 import com.test.androidarchitecture.R
 import com.test.androidarchitecture.adpter.ViewPagerAdapter
 import com.test.androidarchitecture.base.BaseActivity
 import com.test.androidarchitecture.data.MarketTitle
 import kotlinx.android.synthetic.main.activity_market.*
 
-class MarketActivity : BaseActivity(R.layout.activity_market), MarketContract.View {
+class MarketActivity : BaseActivity<MarketContract.Presenter>(R.layout.activity_market), MarketContract.View {
 
     private lateinit var viewPagerAdapter: ViewPagerAdapter
     override val presenter = MarketPresenter(this)
@@ -22,17 +21,7 @@ class MarketActivity : BaseActivity(R.layout.activity_market), MarketContract.Vi
         presenter.getMarketAll()
     }
 
-    override fun onDestroy() {
-        presenter.clearDisposable()
-        super.onDestroy()
-    }
-
     override fun setViewpagerData(list: List<MarketTitle>) {
         viewPagerAdapter.setData(list)
     }
-
-    override fun showToast(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-    }
-
 }

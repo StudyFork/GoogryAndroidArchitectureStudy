@@ -1,19 +1,19 @@
 package com.test.androidarchitecture.ui.market
 
+import com.test.androidarchitecture.base.BasePresenter
 import com.test.androidarchitecture.data.MarketTitle
 import com.test.androidarchitecture.data.source.UpbitRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 
 class MarketPresenter(
     private val view: MarketContract.View
-) : MarketContract.Presenter {
+) : MarketContract.Presenter,
+    BasePresenter() {
 
     private val upbitRepository by lazy { UpbitRepository }
-    private val disposables by lazy { CompositeDisposable() }
 
     override fun getMarketAll() {
-        disposables.add(upbitRepository.getMarketAll()
+        compositeDisposable.add(upbitRepository.getMarketAll()
             .map { list ->
                 list.groupBy { it.market.substringBefore("-") }
                     .asSequence()
@@ -35,8 +35,5 @@ class MarketPresenter(
             ))
     }
 
-    override fun clearDisposable() {
-        disposables.clear()
-    }
 
 }
