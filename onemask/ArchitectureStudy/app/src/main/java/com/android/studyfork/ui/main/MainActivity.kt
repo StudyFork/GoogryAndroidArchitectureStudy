@@ -7,7 +7,8 @@ import com.android.studyfork.ui.main.presenter.MainContract
 import com.android.studyfork.ui.main.presenter.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity(R.layout.activity_main), MainContract.View {
+class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main),
+    MainContract.View {
 
     private val viewPagerAdapter by lazy {
         ViewPagerAdapter(
