@@ -1,7 +1,7 @@
 package com.android.studyfork.ui.main.presenter
 
+import com.android.studyfork.base.BasePresenter
 import com.android.studyfork.repository.UpbitRepositoryImpl
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 
@@ -9,10 +9,8 @@ import timber.log.Timber
  * created by onemask
  */
 class MainPresenter(
-    override val view: MainContract.View
-) : MainContract.Presenter {
-
-    override val disposables = CompositeDisposable()
+    private val view: MainContract.View
+) : MainContract.Presenter, BasePresenter() {
 
     override fun loadData() {
         UpbitRepositoryImpl.getMarketAll()
@@ -22,11 +20,8 @@ class MainPresenter(
                         list.map { it.second }.map { it.joinToString { it.market } }
             }
             .subscribe(view::setViewPagerData, Timber::e)
-            .addTo(disposables)
-    }
+            .addTo(compositeDisposable)
 
-    override fun clearDisposable() {
-        disposables.clear()
     }
 
 }
