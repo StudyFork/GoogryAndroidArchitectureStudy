@@ -11,7 +11,8 @@ import com.android.studyfork.ui.tickerlist.presenter.TickerContract
 import com.android.studyfork.ui.tickerlist.presenter.TickerPresenter
 import kotlinx.android.synthetic.main.fragment_ticker_list.*
 
-class TickerListFragment : BaseFragment(R.layout.fragment_ticker_list), TickerContract.View {
+class TickerListFragment : BaseFragment<TickerContract.Presenter>(R.layout.fragment_ticker_list),
+    TickerContract.View {
 
     private lateinit var coinItemAdapter: CoinItemAdapter
 
@@ -25,11 +26,6 @@ class TickerListFragment : BaseFragment(R.layout.fragment_ticker_list), TickerCo
 
     override fun setData(ticker: List<Ticker>) {
         coinItemAdapter.setData(ticker)
-    }
-
-    override fun onDestroyView() {
-        presenter.clearDisposable()
-        super.onDestroyView()
     }
 
     private fun setRecyclerView() {
