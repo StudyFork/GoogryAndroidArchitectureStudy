@@ -31,6 +31,7 @@ abstract class BaseActivity(
     }
 
     override fun onDestroy() {
+        presenter.clearDisposable()
         super.onDestroy()
     }
 }

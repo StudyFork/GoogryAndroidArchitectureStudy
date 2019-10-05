@@ -38,11 +38,6 @@ class CoinFragment : BaseFragment(
         krwRecyclerView.adapter = fragmentAdapter
     }
 
-    override fun onDestroyView() {
-        presenter.clearDisposable()
-        super.onDestroyView()
-    }
-
     override fun showToast(){}
 
     companion object {

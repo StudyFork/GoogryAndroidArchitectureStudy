@@ -19,4 +19,9 @@ abstract class BaseFragment(
 
         return inflater.inflate(layoutRes, container, false)
     }
+
+    override fun onDestroyView() {
+        presenter.clearDisposable()
+        super.onDestroyView()
+    }
 }
