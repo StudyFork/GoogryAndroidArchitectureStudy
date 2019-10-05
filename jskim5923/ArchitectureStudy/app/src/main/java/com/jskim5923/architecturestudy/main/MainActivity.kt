@@ -13,9 +13,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         ViewPagerAdapter(supportFragmentManager)
     }
 
-    override val presenter by lazy {
-        MainPresenter(this)
-    }
+    private val presenter = MainPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
