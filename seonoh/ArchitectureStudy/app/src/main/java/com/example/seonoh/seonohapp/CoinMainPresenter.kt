@@ -11,12 +11,12 @@ import retrofit2.HttpException
 
 class CoinMainPresenter(
     override val view: CoinMainContract.View
-) : CoinMainContract.Presenter {
+) : BasePresenter(view){
+
 
     private val coinRepository = CoinRepositoryImpl()
-    override val compositeDisposable = CompositeDisposable()
 
-    override fun loadData() {
+    fun loadData() {
         compositeDisposable.add(coinRepository.sendMarket()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
