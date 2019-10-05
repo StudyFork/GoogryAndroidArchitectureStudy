@@ -9,7 +9,7 @@ class MainPresenter(
     private val repository: UpbitRepository
 ) : MainContract.Presenter {
 
-    override fun onCreate() {
+    override fun start() {
         getMarketAll()
     }
 

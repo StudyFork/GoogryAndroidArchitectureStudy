@@ -21,7 +21,7 @@ interface BaseContract {
 
         val view: V
 
-        fun onCreate()
+        fun start()
 
     }
 

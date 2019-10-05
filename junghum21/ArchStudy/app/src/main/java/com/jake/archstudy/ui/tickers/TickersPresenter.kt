@@ -9,7 +9,7 @@ class TickersPresenter(
     private val marketName: String
 ) : TickersContract.Presenter {
 
-    override fun onCreate() {
+    override fun start() {
         getTickers()
     }
 

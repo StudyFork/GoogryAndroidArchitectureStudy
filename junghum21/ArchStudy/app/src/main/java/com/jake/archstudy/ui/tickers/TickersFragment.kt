@@ -32,7 +32,7 @@ class TickersFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.onCreate()
+        presenter.start()
         initTickers()
     }
 

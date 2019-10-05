@@ -25,7 +25,7 @@ class MainActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initTabLayout()
-        presenter.onCreate()
+        presenter.start()
     }
 
     override fun setViewPager(markets: List<Market>) {
