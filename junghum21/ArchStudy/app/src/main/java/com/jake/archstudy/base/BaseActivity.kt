@@ -9,29 +9,24 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.jake.archstudy.ext.toast
 
-abstract class BaseActivity<B : ViewDataBinding>(
+abstract class BaseActivity<B : ViewDataBinding, P : BaseContract.Presenter>(
     @LayoutRes
     val layoutRes: Int
-) : AppCompatActivity() {
+) : AppCompatActivity(),
+    BaseContract.View<P> {
 
     protected lateinit var binding: B
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutRes)
+        presenter.start()
     }
 
-    fun showToast(
-        text: String,
-        duration: Int = Toast.LENGTH_SHORT
-    ) {
-        toast(text, duration)
-    }
-
-    fun showToast(
+    override fun showToast(
         @StringRes
         stringResId: Int,
-        duration: Int = Toast.LENGTH_SHORT
+        duration: Int
     ) {
         toast(stringResId, duration)
     }

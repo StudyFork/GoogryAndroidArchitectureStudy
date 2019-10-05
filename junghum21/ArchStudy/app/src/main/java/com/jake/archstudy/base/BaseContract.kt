@@ -17,9 +17,7 @@ interface BaseContract {
 
     }
 
-    interface Presenter<V> {
-
-        val view: V
+    interface Presenter {
 
         fun start()
 

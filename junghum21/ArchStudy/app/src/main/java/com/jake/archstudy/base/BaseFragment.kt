@@ -12,10 +12,11 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.jake.archstudy.ext.toast
 
-abstract class BaseFragment<B : ViewDataBinding>(
+abstract class BaseFragment<B : ViewDataBinding, P : BaseContract.Presenter>(
     @LayoutRes
     private val layoutId: Int
-) : Fragment() {
+) : Fragment(),
+    BaseContract.View<P> {
 
     internal lateinit var binding: B
 
@@ -28,14 +29,15 @@ abstract class BaseFragment<B : ViewDataBinding>(
         return binding.root
     }
 
-    fun showToast(text: String, duration: Int = Toast.LENGTH_SHORT) {
-        toast(text, duration)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        presenter.start()
     }
 
-    fun showToast(
+    override fun showToast(
         @StringRes
         stringResId: Int,
-        duration: Int = Toast.LENGTH_SHORT
+        duration: Int
     ) {
         toast(stringResId, duration)
     }
