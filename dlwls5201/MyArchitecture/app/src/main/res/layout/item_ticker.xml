@@ -37,10 +37,10 @@
                 android:layout_weight="1"
                 android:autoSizeTextType="uniform"
                 android:maxLines="1"
+                android:text="@{tickerItem.coinName}"
                 android:textColor="@color/gray5"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:text="@{tickerItem.coinName}"
                 tools:text="BTC" />
 
             <!-- 현재가 -->
@@ -52,9 +52,9 @@
                 android:autoSizeTextType="uniform"
                 android:gravity="end"
                 android:maxLines="1"
+                android:text="@{tickerItem.last}"
                 android:textColor="@color/gray5"
                 android:textSize="14sp"
-                android:text="@{tickerItem.last}"
                 tools:text="99,999,999" />
 
             <!-- 전일대비 -->
@@ -66,10 +66,10 @@
                 android:autoSizeTextType="uniform"
                 android:gravity="end"
                 android:maxLines="1"
+                android:text="@{tickerItem.tradeDiff}"
                 android:textColor="@color/gray5"
                 android:textSize="14sp"
                 android:tradeDiffColor="@{tickerItem.signedChangeRate}"
-                android:text="@{tickerItem.tradeDiff}"
                 tools:text="4.00%" />
 
             <!-- 거래대금 -->
@@ -81,9 +81,9 @@
                 android:autoSizeTextType="uniform"
                 android:gravity="end"
                 android:maxLines="1"
+                android:text="@{tickerItem.tradeAmount}"
                 android:textColor="@color/gray5"
                 android:textSize="14sp"
-                android:text="@{tickerItem.tradeAmount}"
                 tools:text="4.00%" />
 
         </LinearLayout>

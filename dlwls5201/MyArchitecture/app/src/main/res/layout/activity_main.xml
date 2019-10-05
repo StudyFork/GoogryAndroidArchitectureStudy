@@ -15,10 +15,10 @@
     </data>
 
     <LinearLayout
+        style="@style/RootTopViewGroup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        style="@style/RootTopViewGroup"
         tools:context=".ui.main.MainActivity">
 
         <LinearLayout
@@ -93,8 +93,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1.5"
-                    android:onClick="@{() -> mainModel.showCategoryArrow(SelectArrow.COIN_NAME)}"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:onClick="@{() -> mainModel.showCategoryArrow(SelectArrow.COIN_NAME)}">
 
                     <TextView
                         style="@style/SelectText"
@@ -107,8 +107,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:isSelected="@{safeUnbox(mainModel.isSelected)}"
-                        android:visibility="@{mainModel.category.equals(SelectArrow.COIN_NAME) ? View.VISIBLE : View.INVISIBLE}"
-                        android:src="@drawable/ic_arrow_drop_selector" />
+                        android:src="@drawable/ic_arrow_drop_selector"
+                        android:visibility="@{mainModel.category.equals(SelectArrow.COIN_NAME) ? View.VISIBLE : View.INVISIBLE}" />
 
                 </LinearLayout>
 
@@ -117,8 +117,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:onClick="@{() -> mainModel.showCategoryArrow(SelectArrow.LAST)}"
-                    android:gravity="center_vertical|end">
+                    android:gravity="center_vertical|end"
+                    android:onClick="@{() -> mainModel.showCategoryArrow(SelectArrow.LAST)}">
 
                     <TextView
                         style="@style/SelectText"
@@ -131,8 +131,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:isSelected="@{safeUnbox(mainModel.isSelected)}"
-                        android:visibility="@{mainModel.category.equals(SelectArrow.LAST) ? View.VISIBLE : View.INVISIBLE}"
-                        android:src="@drawable/ic_arrow_drop_selector" />
+                        android:src="@drawable/ic_arrow_drop_selector"
+                        android:visibility="@{mainModel.category.equals(SelectArrow.LAST) ? View.VISIBLE : View.INVISIBLE}" />
 
                 </LinearLayout>
 
@@ -141,8 +141,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    android:onClick="@{() -> mainModel.showCategoryArrow(SelectArrow.TRADE_DIFF)}"
-                    android:gravity="center_vertical|end">
+                    android:gravity="center_vertical|end"
+                    android:onClick="@{() -> mainModel.showCategoryArrow(SelectArrow.TRADE_DIFF)}">
 
                     <TextView
                         style="@style/SelectText"
@@ -155,8 +155,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:isSelected="@{safeUnbox(mainModel.isSelected)}"
-                        android:visibility="@{mainModel.category.equals(SelectArrow.TRADE_DIFF) ? View.VISIBLE : View.INVISIBLE}"
-                        android:src="@drawable/ic_arrow_drop_selector" />
+                        android:src="@drawable/ic_arrow_drop_selector"
+                        android:visibility="@{mainModel.category.equals(SelectArrow.TRADE_DIFF) ? View.VISIBLE : View.INVISIBLE}" />
 
                 </LinearLayout>
 
@@ -165,8 +165,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    android:onClick="@{() -> mainModel.showCategoryArrow(SelectArrow.TRADE_AMOUNT)}"
-                    android:gravity="center_vertical|end">
+                    android:gravity="center_vertical|end"
+                    android:onClick="@{() -> mainModel.showCategoryArrow(SelectArrow.TRADE_AMOUNT)}">
 
                     <TextView
                         style="@style/SelectText"
@@ -179,8 +179,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:isSelected="@{safeUnbox(mainModel.isSelected)}"
-                        android:visibility="@{mainModel.category.equals(SelectArrow.TRADE_AMOUNT) ? View.VISIBLE : View.INVISIBLE}"
-                        android:src="@drawable/ic_arrow_drop_selector" />
+                        android:src="@drawable/ic_arrow_drop_selector"
+                        android:visibility="@{mainModel.category.equals(SelectArrow.TRADE_AMOUNT) ? View.VISIBLE : View.INVISIBLE}" />
 
                 </LinearLayout>
 
@@ -188,12 +188,12 @@
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/vpMain"
-                android:setMarkets="@{mainModel.markets}"
-                android:setTitles="@{mainModel.titles}"
-                app:offscreenPageLimit="@{safeUnbox(mainModel.pageLimit)}"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:setMarkets="@{mainModel.markets}"
+                android:setTitles="@{mainModel.titles}"
+                app:offscreenPageLimit="@{safeUnbox(mainModel.pageLimit)}" />
 
         </LinearLayout>
 
