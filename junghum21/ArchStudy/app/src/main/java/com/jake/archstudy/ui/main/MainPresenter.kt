@@ -5,7 +5,7 @@ import com.jake.archstudy.data.model.Market
 import com.jake.archstudy.data.source.UpbitRepository
 
 class MainPresenter(
-    override val view: MainContract.View,
+    private val view: MainContract.View,
     private val repository: UpbitRepository
 ) : MainContract.Presenter {
 

@@ -4,7 +4,7 @@ import com.jake.archstudy.R
 import com.jake.archstudy.data.source.UpbitRepository
 
 class TickersPresenter(
-    override val view: TickersContract.View,
+    private val view: TickersContract.View,
     private val repository: UpbitRepository,
     private val marketName: String
 ) : TickersContract.Presenter {

@@ -11,6 +11,6 @@ interface TickersContract {
 
     }
 
-    interface Presenter : BaseContract.Presenter<View>
+    interface Presenter : BaseContract.Presenter
 
 }

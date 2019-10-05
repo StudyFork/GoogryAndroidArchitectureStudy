@@ -12,7 +12,7 @@ import com.jake.archstudy.network.ApiUtil
 import com.jake.archstudy.ui.tickers.TickersFragment
 
 class MainActivity :
-    BaseActivity<ActivityMainBinding>(R.layout.activity_main),
+    BaseActivity<ActivityMainBinding, MainContract.Presenter>(R.layout.activity_main),
     MainContract.View {
 
     override val presenter by lazy {
@@ -25,7 +25,6 @@ class MainActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initTabLayout()
-        presenter.start()
     }
 
     override fun setViewPager(markets: List<Market>) {
