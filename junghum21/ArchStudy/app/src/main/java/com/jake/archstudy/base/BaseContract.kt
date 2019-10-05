@@ -5,15 +5,9 @@ import androidx.annotation.StringRes
 
 interface BaseContract {
 
-
     interface View<P> {
 
         val presenter: P
-
-        fun showToast(
-            text: String,
-            duration: Int = Toast.LENGTH_SHORT
-        )
 
         fun showToast(
             @StringRes
@@ -30,6 +24,5 @@ interface BaseContract {
         fun onCreate()
 
     }
-
 
 }
