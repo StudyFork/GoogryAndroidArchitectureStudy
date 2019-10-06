@@ -6,10 +6,10 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import com.example.seonoh.seonohapp.contract.BaseContract
 
-abstract class BaseActivity(
+abstract class BaseActivity<P : BaseContract.Presenter>(
     @LayoutRes
     private val layoutRes: Int
-) : AppCompatActivity(), BaseContract.View {
+) : AppCompatActivity(), BaseContract.View<P> {
 
     private lateinit var toast: Toast
 

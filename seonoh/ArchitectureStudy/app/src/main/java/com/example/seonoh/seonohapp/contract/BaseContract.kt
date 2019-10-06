@@ -1,17 +1,14 @@
 package com.example.seonoh.seonohapp.contract
 
-import io.reactivex.disposables.CompositeDisposable
-
 interface BaseContract {
 
-    interface View {
-        val presenter : Presenter<View>
+    interface View<P> {
+        val presenter : Presenter
         fun showToast()
     }
 
-    interface Presenter<V> {
-        val view: V
-        val compositeDisposable: CompositeDisposable
+    interface Presenter {
+
         fun clearDisposable()
     }
 }

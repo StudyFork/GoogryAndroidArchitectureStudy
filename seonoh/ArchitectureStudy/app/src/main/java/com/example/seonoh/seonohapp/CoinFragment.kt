@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.seonoh.seonohapp.contract.BaseContract
 import com.example.seonoh.seonohapp.contract.CoinFragmentContract
+import com.example.seonoh.seonohapp.contract.CoinMainContract
 import com.example.seonoh.seonohapp.model.UseCoinModel
 import kotlinx.android.synthetic.main.coin_fragment.*
 
-class CoinFragment : BaseFragment(
+class CoinFragment : BaseFragment<CoinFragmentContract.Presenter>(
     R.layout.coin_fragment
 ), CoinFragmentContract.View {
 

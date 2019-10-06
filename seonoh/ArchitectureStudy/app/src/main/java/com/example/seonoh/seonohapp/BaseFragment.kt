@@ -8,10 +8,10 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.example.seonoh.seonohapp.contract.BaseContract
 
-abstract class BaseFragment(
+abstract class BaseFragment<P : BaseContract.Presenter>(
     @LayoutRes
     private val layoutRes: Int
-) : Fragment(), BaseContract.View {
+) : Fragment(), BaseContract.View<P> {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

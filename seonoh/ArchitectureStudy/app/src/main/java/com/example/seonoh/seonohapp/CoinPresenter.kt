@@ -10,8 +10,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class CoinPresenter(
-    override val view: CoinFragmentContract.View
-) : BasePresenter(view) {
+     val view: CoinFragmentContract.View
+) : BasePresenter() {
 
     private val coinRepository = CoinRepositoryImpl()
 

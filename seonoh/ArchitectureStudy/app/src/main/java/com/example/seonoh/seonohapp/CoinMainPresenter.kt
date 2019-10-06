@@ -10,8 +10,8 @@ import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 
 class CoinMainPresenter(
-    override val view: CoinMainContract.View
-) : BasePresenter(view){
+     val view: CoinMainContract.View
+) : BasePresenter(){
 
 
     private val coinRepository = CoinRepositoryImpl()
@@ -25,9 +25,5 @@ class CoinMainPresenter(
             },{
                 Log.e("currentPriceInfo", "Network failed!! ${it.message}")
             }))
-    }
-
-    override fun clearDisposable() {
-        compositeDisposable.clear()
     }
 }

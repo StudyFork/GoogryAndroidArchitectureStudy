@@ -6,7 +6,7 @@ import com.example.seonoh.seonohapp.model.Market
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity(
+class MainActivity : BaseActivity<CoinMainContract.Presenter>(
     R.layout.activity_main
 ), CoinMainContract.View {
 
