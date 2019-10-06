@@ -1,6 +1,7 @@
 package com.test.androidarchitecture.ui.ticker
 
 import com.test.androidarchitecture.R
+import com.test.androidarchitecture.base.BasePresenter
 import com.test.androidarchitecture.data.Ticker
 import com.test.androidarchitecture.data.TickerFormat
 import com.test.androidarchitecture.data.source.UpbitRepository
@@ -11,14 +12,15 @@ import java.text.NumberFormat
 import java.util.*
 
 class TickerPresenter(
-    private val view: TickerContract.View) : TickerContract.Presenter {
+    private val view: TickerContract.View,
+    private val marketSearch: String
+) : TickerContract.Presenter,
+    BasePresenter() {
 
-    private val upbitRepository by lazy { UpbitRepository }
-    private val disposables by lazy { CompositeDisposable() }
+    private val upbitRepository = UpbitRepository
 
-
-    override fun getTicker(marketSearch: String) {
-        disposables.add(upbitRepository.getTicker(marketSearch)
+    override fun getTicker() {
+        compositeDisposable.add(upbitRepository.getTicker(marketSearch)
             .map { list ->
                 list.asSequence()
                     .map { getCoinFormat(it) }
@@ -33,10 +35,6 @@ class TickerPresenter(
                 }
             ))
 
-    }
-
-    override fun disposablesClear() {
-        disposables.clear()
     }
 
     private fun getCoinFormat(ticker: Ticker): TickerFormat {
