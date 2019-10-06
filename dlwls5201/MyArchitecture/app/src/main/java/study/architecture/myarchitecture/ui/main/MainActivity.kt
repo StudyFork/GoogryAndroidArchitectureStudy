@@ -29,7 +29,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         initViewModel()
         initViewPager()
         initAdapterCallback()
-        mainViewModel.loadData()
     }
 
     private fun initViewModel() {

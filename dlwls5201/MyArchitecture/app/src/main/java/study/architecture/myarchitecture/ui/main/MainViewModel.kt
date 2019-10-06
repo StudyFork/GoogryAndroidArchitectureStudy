@@ -31,7 +31,12 @@ class MainViewModel(
 
     val selectField: LiveData<Pair<Filter.SelectArrow, Boolean>> get() = _selectField
 
-    fun loadData() {
+    init {
+        loadData()
+    }
+
+    private fun loadData() {
+
         addDisposable(
             upbitRepository.getGroupedMarkets()
                 .subscribe({ groupMarket ->
