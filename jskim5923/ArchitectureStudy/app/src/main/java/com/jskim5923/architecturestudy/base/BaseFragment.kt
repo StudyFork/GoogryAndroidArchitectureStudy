@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 
-abstract class BaseFragment : Fragment(), BaseContract.View {
-    @get:LayoutRes
-    abstract val layoutRes: Int
-
+abstract class BaseFragment(
+    @LayoutRes
+    private val layoutRes: Int
+) : Fragment(), BaseContract.View {
     abstract val presenter: BaseContract.Presenter
 
     abstract override fun initView()

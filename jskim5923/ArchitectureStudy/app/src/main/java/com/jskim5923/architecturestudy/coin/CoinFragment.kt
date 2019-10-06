@@ -9,9 +9,7 @@ import com.jskim5923.architecturestudy.coin.CoinPresenter
 import com.jskim5923.architecturestudy.model.Ticker
 import kotlinx.android.synthetic.main.layout_coin_fragment.*
 
-class CoinFragment : BaseFragment(), CoinContract.View {
-    override val layoutRes = R.layout.layout_coin_fragment
-
+class CoinFragment : BaseFragment(R.layout.layout_coin_fragment), CoinContract.View {
     override val presenter = CoinPresenter(this)
 
     private var coinListAdapter = CoinListAdapter()
