@@ -6,8 +6,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.tabs.TabLayout
-import study.architecture.base.BaseActivity
 import study.architecture.R
+import study.architecture.base.BaseActivity
 import study.architecture.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -17,6 +17,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         with(binding) {
             pager.adapter = MainPageAdapter(supportFragmentManager)
             viewModel = MainViewModel()
+            lifecycleOwner = this@MainActivity
         }
         supportActionBar?.elevation = 0.0f
         supportActionBar?.title = resources.getString(R.string.app_title)

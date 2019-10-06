@@ -3,10 +3,10 @@ package study.architecture.coinjob
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.library.baseAdapters.BR
-import study.architecture.base.BaseFragment
-import study.architecture.base.BaseRecyclerViewAdapter
 import study.architecture.Injection
 import study.architecture.R
+import study.architecture.base.BaseFragment
+import study.architecture.base.BaseRecyclerViewAdapter
 import study.architecture.data.entity.ProcessingTicker
 import study.architecture.databinding.FragmentCoinBinding
 import study.architecture.databinding.ItemTickerBinding
@@ -30,6 +30,7 @@ class CoinFragment : BaseFragment<FragmentCoinBinding>(R.layout.fragment_coin) {
                     R.layout.item_ticker,
                     BR.pTicker
                 ) {}
+            lifecycleOwner = this@CoinFragment
         }
 
     }
