@@ -33,7 +33,9 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$supportLibraryVersion"
     implementation "com.google.android.material:material:$supportLibraryVersion"
     implementation "androidx.cardview:cardview:$supportLibraryVersion"
-    //implementation "androidx.recyclerview:recyclerview:$supportLibraryVersion"
+
+    //viewmodel extension
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 
     //constraint
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
@@ -45,7 +47,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
 
-    // optional - RxJava support for Room
+    //optional - RxJava support for Room
     implementation "androidx.room:room-rxjava2:$roomVersion"
 
     //retrofit
