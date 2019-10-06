@@ -10,8 +10,6 @@ abstract class BaseActivity(
 ) : AppCompatActivity(), BaseContract.View {
     abstract val presenter: BaseContract.Presenter
 
-    abstract override fun initView()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layoutRes)
