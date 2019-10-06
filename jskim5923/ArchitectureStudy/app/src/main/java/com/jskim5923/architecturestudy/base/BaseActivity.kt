@@ -4,10 +4,10 @@ import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 
-abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
-    @get:LayoutRes
-    abstract val layoutRes: Int
-
+abstract class BaseActivity(
+    @LayoutRes
+    val layoutRes: Int
+) : AppCompatActivity(), BaseContract.View {
     abstract val presenter: BaseContract.Presenter
 
     abstract override fun initView()

@@ -7,14 +7,12 @@ import com.jskim5923.architecturestudy.main.MainContract
 import com.jskim5923.architecturestudy.main.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity(), MainContract.View {
-    override val layoutRes = R.layout.activity_main
+class MainActivity : BaseActivity(R.layout.activity_main), MainContract.View {
+    override val presenter = MainPresenter(this)
 
     private val viewpagerAdapter by lazy {
         ViewPagerAdapter(supportFragmentManager)
     }
-
-    override val presenter = MainPresenter(this)
 
     override fun initView() {
         with(viewPager) {
