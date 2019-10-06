@@ -1,7 +1,7 @@
 package study.architecture.coinjob
 
 import android.util.Log
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import study.architecture.base.BaseViewModel
@@ -18,8 +18,8 @@ class CoinViewModel(
 
     private val dispose: Disposable
 
-    val lists = ObservableField<List<ProcessingTicker>>()
-    val loadingState = ObservableField<Boolean>()
+    val lists = MutableLiveData<List<ProcessingTicker>>()
+    val loadingState = MutableLiveData<Boolean>()
 
     init {
 
@@ -34,7 +34,7 @@ class CoinViewModel(
                     }
             }
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { loadingState.set(true) }
+            .doOnSubscribe { loadingState.value = true }
             .subscribe(
                 {
                     marketName = it
@@ -49,7 +49,7 @@ class CoinViewModel(
         dispose.dispose()
         repository.getTickers(marketName)
             .repeatWhen { it.delay(8, TimeUnit.SECONDS) }
-            .doOnRequest { loadingState.set(false) }
+            .doOnRequest { loadingState.value = false }
             .map { list ->
                 list.map { data ->
                     ProcessingTicker(
@@ -65,7 +65,7 @@ class CoinViewModel(
             .subscribe(
                 { pLists ->
                     if (!repository.checkNetwork()) Log.e("데이터 연결x", "데이터 최신화 필요")
-                    lists.set(pLists)
+                    lists.value = pLists
                 },
                 { e ->
                     Log.e("CoinViewModel", e.message)
