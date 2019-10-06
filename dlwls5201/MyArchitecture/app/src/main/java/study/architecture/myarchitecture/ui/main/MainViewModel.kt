@@ -1,15 +1,14 @@
 package study.architecture.myarchitecture.ui.main
 
 import androidx.databinding.ObservableField
-import io.reactivex.disposables.CompositeDisposable
+import study.architecture.myarchitecture.base.BaseViewModel
 import study.architecture.myarchitecture.data.repository.UpbitRepository
 import study.architecture.myarchitecture.util.Filter
 import timber.log.Timber
 
 class MainViewModel(
-    private val upbitRepository: UpbitRepository,
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-) {
+    private val upbitRepository: UpbitRepository
+) : BaseViewModel() {
 
     val titles = ObservableField<Array<String>>()
     val markets = ObservableField<Array<String>>()
@@ -21,35 +20,31 @@ class MainViewModel(
 
     val selectField = ObservableField<Pair<Filter.SelectArrow, Boolean>>()
 
-    fun clearDisposable() {
-        compositeDisposable.clear()
-    }
-
     fun loadData() {
-        upbitRepository.getGroupedMarkets()
-            .subscribe({ groupMarket ->
+        addDisposable(
+            upbitRepository.getGroupedMarkets()
+                .subscribe({ groupMarket ->
 
-                val keys = groupMarket.keys
+                    val keys = groupMarket.keys
 
-                titles.set(keys.toTypedArray())
-                pageLimit.set(keys.size)
+                    titles.set(keys.toTypedArray())
+                    pageLimit.set(keys.size)
 
-                val arrMarkets = Array(keys.size) { "" }
+                    val arrMarkets = Array(keys.size) { "" }
 
-                for ((index, value) in keys.withIndex()) {
+                    for ((index, value) in keys.withIndex()) {
 
-                    arrMarkets[index] = groupMarket
-                        .getValue(value)
-                        .joinToString(separator = ",") { it.market }
+                        arrMarkets[index] = groupMarket
+                            .getValue(value)
+                            .joinToString(separator = ",") { it.market }
+                    }
+
+                    markets.set(arrMarkets)
+
+                }) {
+                    Timber.e(it)
                 }
-
-                markets.set(arrMarkets)
-
-            }) {
-                Timber.e(it)
-            }.also {
-                compositeDisposable.add(it)
-            }
+        )
     }
 
     fun showCategoryArrow(selectArrow: Filter.SelectArrow) {
