@@ -1,7 +1,8 @@
 package study.architecture.myarchitecture.ui.tickerlist
 
 import android.view.View
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import study.architecture.myarchitecture.base.BaseViewModel
 import study.architecture.myarchitecture.data.repository.UpbitRepository
 import study.architecture.myarchitecture.ui.model.TickerItem
@@ -16,8 +17,11 @@ class TickerListViewModel(
 
     private val mTickers = mutableListOf<TickerItem>()
 
-    val tickers = ObservableField<MutableList<TickerItem>>()
-    val isProgress = ObservableField<Int>()
+    private val _tickers = MutableLiveData<MutableList<TickerItem>>()
+    private val _isProgress = MutableLiveData<Int>()
+
+    val tickers: LiveData<MutableList<TickerItem>> get() = _tickers
+    val isProgress: LiveData<Int> get() = _isProgress
 
     fun sortByField(field: Filter.SelectArrow, order: Int) {
 
@@ -54,13 +58,7 @@ class TickerListViewModel(
             mTickers.sortByDescending(selector)
         }
 
-        /**
-         * ObservableField의 set()함수는 다른 객체를 넣어줘야 동작이 됩니다.
-         * mTickers를 sorting해도 같은 객체이므로 아래 코드는 1회만 동작되게 됩니다.
-         * 이에 강제로 notifyChange를 호출해 줍니다.
-         */
-        tickers.set(mTickers)
-        tickers.notifyChange()
+        _tickers.value = mTickers
     }
 
     fun loadData() {
@@ -68,17 +66,17 @@ class TickerListViewModel(
             upbitRepository
                 .getTickers(keyMarket)
                 .doOnSubscribe {
-                    isProgress.set(View.VISIBLE)
+                    _isProgress.value = View.VISIBLE
                 }
                 .doOnTerminate {
-                    isProgress.set(View.GONE)
+                    _isProgress.value = View.GONE
                 }
                 .subscribe({
 
-                    tickers.set(it.mapToPresentation().toMutableList())
+                    _tickers.value = it.mapToPresentation().toMutableList()
 
                     mTickers.clear()
-                    mTickers.addAll(tickers.get()!!)
+                    mTickers.addAll(_tickers.value!!)
 
                 }) {
                     Timber.e(it)
