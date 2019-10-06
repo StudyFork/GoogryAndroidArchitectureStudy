@@ -1,6 +1,7 @@
 package study.architecture.myarchitecture.ui.main
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import study.architecture.myarchitecture.base.BaseViewModel
 import study.architecture.myarchitecture.data.repository.UpbitRepository
 import study.architecture.myarchitecture.util.Filter
@@ -10,15 +11,25 @@ class MainViewModel(
     private val upbitRepository: UpbitRepository
 ) : BaseViewModel() {
 
-    val titles = ObservableField<Array<String>>()
-    val markets = ObservableField<Array<String>>()
+    private val _titles = MutableLiveData<Array<String>>()
+    private val _markets = MutableLiveData<Array<String>>()
 
-    val pageLimit = ObservableField<Int>()
+    private val _pageLimit = MutableLiveData<Int>()
 
-    val category = ObservableField<Filter.SelectArrow>()
-    val isSelected = ObservableField<Boolean>(false)
+    private val _category = MutableLiveData<Filter.SelectArrow>()
+    private val _isSelected = MutableLiveData<Boolean>(false)
 
-    val selectField = ObservableField<Pair<Filter.SelectArrow, Boolean>>()
+    private val _selectField = MutableLiveData<Pair<Filter.SelectArrow, Boolean>>()
+
+    val titles: LiveData<Array<String>> get() = _titles
+    val markets: LiveData<Array<String>> get() = _markets
+
+    val pageLimit: LiveData<Int> get() = _pageLimit
+
+    val category: LiveData<Filter.SelectArrow> get() = _category
+    val isSelected: LiveData<Boolean> get() = _isSelected
+
+    val selectField: LiveData<Pair<Filter.SelectArrow, Boolean>> get() = _selectField
 
     fun loadData() {
         addDisposable(
@@ -27,8 +38,8 @@ class MainViewModel(
 
                     val keys = groupMarket.keys
 
-                    titles.set(keys.toTypedArray())
-                    pageLimit.set(keys.size)
+                    _titles.value = keys.toTypedArray()
+                    _pageLimit.value = keys.size
 
                     val arrMarkets = Array(keys.size) { "" }
 
@@ -39,7 +50,7 @@ class MainViewModel(
                             .joinToString(separator = ",") { it.market }
                     }
 
-                    markets.set(arrMarkets)
+                    _markets.value = arrMarkets
 
                 }) {
                     Timber.e(it)
@@ -49,12 +60,11 @@ class MainViewModel(
 
     fun showCategoryArrow(selectArrow: Filter.SelectArrow) {
 
-        this.category.set(selectArrow)
+        _category.value = selectArrow
 
-        val selected = !isSelected.get()!!
-        this.isSelected.set(selected)
+        val selected = !isSelected.value!!
+        _isSelected.value = selected
 
-        selectField.set(Pair(selectArrow, selected))
-
+        _selectField.value = Pair(selectArrow, selected)
     }
 }
