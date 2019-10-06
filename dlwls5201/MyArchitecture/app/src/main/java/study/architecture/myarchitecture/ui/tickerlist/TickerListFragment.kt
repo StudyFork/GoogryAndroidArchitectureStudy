@@ -29,8 +29,6 @@ class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.frag
             binding.tickerModel = tickerViewModel
             binding.lifecycleOwner = this
 
-            tickerViewModel.loadData()
-
         } ?: error("arguments is null")
 
         initRecyclerView()

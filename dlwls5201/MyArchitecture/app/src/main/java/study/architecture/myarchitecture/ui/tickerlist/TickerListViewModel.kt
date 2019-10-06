@@ -23,6 +23,10 @@ class TickerListViewModel(
     val tickers: LiveData<MutableList<TickerItem>> get() = _tickers
     val isProgress: LiveData<Int> get() = _isProgress
 
+    init {
+        loadData()
+    }
+
     fun sortByField(field: Filter.SelectArrow, order: Int) {
 
         when (field) {
@@ -61,7 +65,7 @@ class TickerListViewModel(
         _tickers.value = mTickers
     }
 
-    fun loadData() {
+    private fun loadData() {
         addDisposable(
             upbitRepository
                 .getTickers(keyMarket)
