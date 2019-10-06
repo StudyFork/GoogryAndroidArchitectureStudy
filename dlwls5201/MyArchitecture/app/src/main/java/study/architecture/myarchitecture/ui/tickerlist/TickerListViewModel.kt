@@ -2,7 +2,7 @@ package study.architecture.myarchitecture.ui.tickerlist
 
 import android.view.View
 import androidx.databinding.ObservableField
-import io.reactivex.disposables.CompositeDisposable
+import study.architecture.myarchitecture.base.BaseViewModel
 import study.architecture.myarchitecture.data.repository.UpbitRepository
 import study.architecture.myarchitecture.ui.model.TickerItem
 import study.architecture.myarchitecture.ui.model.mapToPresentation
@@ -11,18 +11,13 @@ import timber.log.Timber
 
 class TickerListViewModel(
     private val upbitRepository: UpbitRepository,
-    private val keyMarket: String,
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-) {
+    private val keyMarket: String
+) : BaseViewModel() {
 
     private val mTickers = mutableListOf<TickerItem>()
 
     val tickers = ObservableField<MutableList<TickerItem>>()
     val isProgress = ObservableField<Int>()
-
-    fun detachView() {
-        compositeDisposable.clear()
-    }
 
     fun sortByField(field: Filter.SelectArrow, order: Int) {
 
@@ -69,26 +64,26 @@ class TickerListViewModel(
     }
 
     fun loadData() {
+        addDisposable(
+            upbitRepository
+                .getTickers(keyMarket)
+                .doOnSubscribe {
+                    isProgress.set(View.VISIBLE)
+                }
+                .doOnTerminate {
+                    isProgress.set(View.GONE)
+                }
+                .subscribe({
 
-        upbitRepository
-            .getTickers(keyMarket)
-            .doOnSubscribe {
-                isProgress.set(View.VISIBLE)
-            }
-            .doOnTerminate {
-                isProgress.set(View.GONE)
-            }
-            .subscribe({
+                    tickers.set(it.mapToPresentation().toMutableList())
 
-                tickers.set(it.mapToPresentation().toMutableList())
+                    mTickers.clear()
+                    mTickers.addAll(tickers.get()!!)
 
-                mTickers.clear()
-                mTickers.addAll(tickers.get()!!)
+                }) {
+                    Timber.e(it)
+                }
 
-            }) {
-                Timber.e(it)
-            }.also {
-                compositeDisposable.add(it)
-            }
+        )
     }
 }
