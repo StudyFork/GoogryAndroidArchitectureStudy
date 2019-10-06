@@ -13,7 +13,7 @@ abstract class BaseActivity<B : ViewDataBinding>(private val layoutId: Int) : Ap
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutId)
 
-        setOrientationToPortrait()
+        //setOrientationToPortrait()
     }
 
     private fun setOrientationToPortrait() {
