@@ -43,7 +43,7 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
     }
 
     private fun initViewModel() {
-        binding.viewModel = marketViewModel // 뷰모델을 레이아웃과 바인딩
+        binding.viewModel = marketViewModel
     }
 
     private fun initRecyclerView() {

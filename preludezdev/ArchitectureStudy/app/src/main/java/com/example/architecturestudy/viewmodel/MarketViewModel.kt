@@ -9,6 +9,7 @@ import com.example.architecturestudy.data.source.CoinsRepositoryImpl
 class MarketViewModel(
     private val repository: CoinsRepositoryImpl
 ) : ViewModel() {
+
     private val _coinList = MutableLiveData<List<Coin>>()
     val coinList: LiveData<List<Coin>> get() = _coinList
 
@@ -20,7 +21,7 @@ class MarketViewModel(
 
     fun loadData(keyMarket: String?) {
         if (keyMarket != null) {
-            showProgressBar(true) // 프로그래스바 종료 // 프로그래스바 시작
+            showProgressBar(true) // 프로그래스바 시작
 
             repository
                 .getCoinTickers(keyMarket, { coinTickerResponses ->
