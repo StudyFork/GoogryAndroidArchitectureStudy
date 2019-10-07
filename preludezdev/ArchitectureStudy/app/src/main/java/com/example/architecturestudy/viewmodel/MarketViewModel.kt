@@ -20,7 +20,7 @@ class MarketViewModel(
 
     fun loadData(keyMarket: String?) {
         if (keyMarket != null) {
-            _isProgressed.value = true // 프로그래스바 시작
+            showProgressBar(true) // 프로그래스바 종료 // 프로그래스바 시작
 
             repository
                 .getCoinTickers(keyMarket, { coinTickerResponses ->
@@ -28,9 +28,10 @@ class MarketViewModel(
                     if (!coinTickerResponses.isNullOrEmpty()) {
                         _coinList.value = coinTickerResponses.map { it.convertTickerIntoCoin() }
                     }
-                    _isProgressed.value = false // 프로그래스바 종료
+
+                    showProgressBar(false) // 프로그래스바 종료
                 }, {
-                    _isProgressed.value = false // 프로그래스바 종료
+                    showProgressBar(false) // 프로그래스바 종료
                     onFailCallback(it)
                 })
         } else {
@@ -40,6 +41,10 @@ class MarketViewModel(
 
     private fun onFailCallback(errorMsg: String) {
         _notificationMsg.value = errorMsg
+    }
+
+    private fun showProgressBar(status: Boolean) {
+        _isProgressed.value = status
     }
 
 }
