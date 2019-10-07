@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.example.architecturestudy.R
 import com.example.architecturestudy.base.BaseFragment
 import com.example.architecturestudy.data.source.CoinsRepositoryImpl
@@ -16,12 +19,16 @@ import com.example.architecturestudy.viewmodel.MarketViewModel
 class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_market) {
 
     private val marketViewModel by lazy {
-        MarketViewModel(
-            CoinsRepositoryImpl.getInstance(
-                CoinsRemoteDataSource.getInstance(RetrofitHelper.getInstance().coinApiService),
-                CoinsLocalDataSource.getInstance()
-            )
-        )
+        ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MarketViewModel(
+                    CoinsRepositoryImpl.getInstance(
+                        CoinsRemoteDataSource.getInstance(RetrofitHelper.getInstance().coinApiService),
+                        CoinsLocalDataSource.getInstance()
+                    )
+                ) as T
+            }
+        }).get(MarketViewModel::class.java)
     }
 
     private val rvAdapter = RecyclerViewAdapter()
@@ -62,5 +69,4 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
             arguments = Bundle().apply { putString(KEY_MARKET, market) }
         }
     }
-
 }
