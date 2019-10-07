@@ -1,7 +1,7 @@
 package study.architecture.myarchitecture.ui.tickerlist
 
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import org.jetbrains.anko.support.v4.toast
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.base.BaseFragment
@@ -18,7 +18,7 @@ class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.frag
 
         arguments?.let { bundle ->
 
-            tickerViewModel = ViewModelProviders.of(
+            tickerViewModel = ViewModelProvider(
                 this,
                 TickerListViewModelFactory(
                     Injection.provideFolderRepository(requireContext()),
