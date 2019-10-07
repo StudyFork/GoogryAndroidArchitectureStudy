@@ -39,7 +39,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.vpMain.adapter = mainAdapter
     }
 
-    @Suppress("UNCHECKED_CAST")
     private fun initAdapterCallback() {
 
         mainViewModel.selectField.observe(this, Observer {
