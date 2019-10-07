@@ -6,11 +6,12 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.PagerAdapter
 import com.example.architecturestudy.ui.market.MarketFragment
 
-class VpAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class VpAdapter(fm: FragmentManager) :
+    FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private val fragmentTitleList = listOf("KRW", "BTC", "ETH", "USDT")
 
-    override fun getItem(position: Int): Fragment? {
+    override fun getItem(position: Int): Fragment {
         return MarketFragment.newInstance(
             fragmentTitleList[position]
         )
