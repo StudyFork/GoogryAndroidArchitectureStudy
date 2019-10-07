@@ -1,12 +1,13 @@
 package com.example.architecturestudy.viewmodel
 
 import androidx.databinding.ObservableField
+import androidx.lifecycle.ViewModel
 import com.example.architecturestudy.data.Coin
 import com.example.architecturestudy.data.source.CoinsRepositoryImpl
 
 class MarketViewModel(
     private val repository: CoinsRepositoryImpl
-) {
+) : ViewModel() {
     val coinList = ObservableField<List<Coin>>()
     val isProgressed = ObservableField<Boolean>()
     val notificationMsg = ObservableField<String>()
