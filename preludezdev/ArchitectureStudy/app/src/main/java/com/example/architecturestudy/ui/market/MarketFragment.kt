@@ -2,8 +2,7 @@ package com.example.architecturestudy.ui.market
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.databinding.Observable
-import androidx.databinding.ObservableField
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -52,12 +51,9 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
     }
 
     private fun initCallback() {
-        marketViewModel.notificationMsg.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                (sender as ObservableField<String>).get()?.let { msg ->
-                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
-                }
+        marketViewModel.notificationMsg.observe(this, Observer<String> { msg ->
+            if (!msg.isNullOrEmpty()) {
+                Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
             }
         })
     }
