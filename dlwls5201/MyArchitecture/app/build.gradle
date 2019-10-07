@@ -34,7 +34,7 @@ dependencies {
     implementation "com.google.android.material:material:$supportLibraryVersion"
     implementation "androidx.cardview:cardview:$supportLibraryVersion"
 
-    //viewmodel extension
+    //lifecycle extension
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 
     //constraint
