@@ -6,10 +6,10 @@ import com.jskim5923.architecturestudy.adapter.CoinListAdapter
 import com.jskim5923.architecturestudy.base.BaseFragment
 import com.jskim5923.architecturestudy.coin.CoinContract
 import com.jskim5923.architecturestudy.coin.CoinPresenter
+import com.jskim5923.architecturestudy.databinding.LayoutCoinFragmentBinding
 import com.jskim5923.architecturestudy.model.Ticker
-import kotlinx.android.synthetic.main.layout_coin_fragment.*
 
-class CoinFragment : BaseFragment(), CoinContract.View {
+class CoinFragment : BaseFragment<LayoutCoinFragmentBinding>(), CoinContract.View {
     override val layoutRes = R.layout.layout_coin_fragment
 
     override val presenter = CoinPresenter(this)
@@ -17,7 +17,9 @@ class CoinFragment : BaseFragment(), CoinContract.View {
     private var coinListAdapter = CoinListAdapter()
 
     override fun initView() {
-        recyclerView.adapter = coinListAdapter
+        binding.run {
+            recyclerView.adapter = coinListAdapter
+        }
 
         presenter.getTickerList(arguments?.getString(KEY_MARKET))
     }
