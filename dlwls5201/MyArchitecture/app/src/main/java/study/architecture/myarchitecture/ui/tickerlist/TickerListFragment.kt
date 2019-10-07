@@ -27,7 +27,6 @@ class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.frag
             ).get(TickerListViewModel::class.java)
 
             binding.tickerModel = tickerViewModel
-            binding.lifecycleOwner = this
 
         } ?: error("arguments is null")
 

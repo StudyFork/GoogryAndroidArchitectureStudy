@@ -33,7 +33,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun initViewModel() {
         binding.mainModel = mainViewModel
-        binding.lifecycleOwner = this
     }
 
     private fun initViewPager() {
