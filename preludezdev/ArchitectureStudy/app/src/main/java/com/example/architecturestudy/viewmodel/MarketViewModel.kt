@@ -10,16 +10,13 @@ class MarketViewModel(
     private val repository: CoinsRepositoryImpl
 ) : ViewModel() {
     private val _coinList = MutableLiveData<List<Coin>>()
-    val coinList: LiveData<List<Coin>>
-        get() = _coinList
+    val coinList: LiveData<List<Coin>> get() = _coinList
 
     private val _isProgressed = MutableLiveData<Boolean>()
-    val isProgressed: LiveData<Boolean>
-        get() = _isProgressed
+    val isProgressed: LiveData<Boolean> get() = _isProgressed
 
     private val _notificationMsg = MutableLiveData<String>()
-    val notificationMsg: LiveData<String>
-        get() = _notificationMsg
+    val notificationMsg: LiveData<String> get() = _notificationMsg
 
     fun loadData(keyMarket: String?) {
         if (keyMarket != null) {

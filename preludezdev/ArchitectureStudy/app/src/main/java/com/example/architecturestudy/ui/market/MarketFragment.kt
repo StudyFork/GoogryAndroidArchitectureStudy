@@ -16,6 +16,7 @@ import com.example.architecturestudy.viewmodel.MarketViewModel
 
 class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_market) {
 
+    @Suppress("UNCHECKED_CAST")
     private val marketViewModel by lazy {
         ViewModelProvider(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
