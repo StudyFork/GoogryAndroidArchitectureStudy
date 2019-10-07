@@ -16,8 +16,8 @@ class MainViewModel(
 
     private val _pageLimit = MutableLiveData<Int>()
 
-    private val _category = MutableLiveData<Filter.SelectArrow>()
-    private val _isSelected = MutableLiveData<Boolean>(false)
+    private val _category = MutableLiveData<Filter.SelectArrow>(Filter.SelectArrow.COIN_NAME)
+    private val _isSelected = MutableLiveData<Boolean>(true)
 
     private val _selectField = MutableLiveData<Pair<Filter.SelectArrow, Boolean>>()
 

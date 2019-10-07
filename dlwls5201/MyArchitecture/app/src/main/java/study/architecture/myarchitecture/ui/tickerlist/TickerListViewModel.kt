@@ -82,6 +82,8 @@ class TickerListViewModel(
                     mTickers.clear()
                     mTickers.addAll(_tickers.value!!)
 
+                    sortByField(Filter.SelectArrow.COIN_NAME, Filter.ASC)
+
                 }) {
                     Timber.e(it)
                 }
