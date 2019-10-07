@@ -1,16 +1,15 @@
 package com.android.studyfork.ui.main.presenter
 
-import com.android.studyfork.network.model.MarketResponse
+import com.android.studyfork.base.BaseContract
 
 
 interface MainContract {
-    interface View {
-        fun setViewPagerData(marketData: Map<String, List<MarketResponse>>)
+    interface View : BaseContract.View<Presenter> {
+        fun setViewPagerData(marketData: Pair<List<String>, List<String>>)
     }
 
-    interface Presenter {
+    interface Presenter : BaseContract.Presenter {
         fun loadData()
-        fun clearDisposable()
     }
 
 }

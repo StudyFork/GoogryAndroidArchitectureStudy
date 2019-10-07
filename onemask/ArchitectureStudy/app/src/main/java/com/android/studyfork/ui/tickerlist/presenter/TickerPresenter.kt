@@ -1,9 +1,10 @@
 package com.android.studyfork.ui.tickerlist.presenter
 
-import com.android.studyfork.network.model.Ticker
+import com.android.studyfork.base.BasePresenter
+import com.android.studyfork.network.model.TickerResponse
 import com.android.studyfork.repository.UpbitRepositoryImpl
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.plusAssign
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 
 /**
@@ -11,37 +12,14 @@ import timber.log.Timber
  */
 class TickerPresenter(
     private val view: TickerContract.View
-) : TickerContract.Presenter {
-
-    private val disposables = CompositeDisposable()
+) : TickerContract.Presenter, BasePresenter() {
 
     override fun getTicker(market: String) {
-
-        val tickerList: ArrayList<Ticker> = arrayListOf()
-
-        disposables += UpbitRepositoryImpl.getTickers(market)
-            .subscribe({
-                Timber.d("getTicker success")
-                it.forEachIndexed { index, tickerResponse ->
-                    tickerList.add(
-                        index,
-                        Ticker(
-                            tickerResponse.market,
-                            tickerResponse.tradePrice,
-                            tickerResponse.signedChangeRate,
-                            tickerResponse.accTradePrice24h
-                        )
-                    )
-                }
-                view.setData(tickerList)
-            }, {
-                Timber.e(it)
-            })
-
-    }
-
-    override fun clearDisposable() {
-        disposables.clear()
+        UpbitRepositoryImpl.getTickers(market)
+            .map { it.map(TickerResponse::toTicker) }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(view::setData, Timber::e)
+            .addTo(compositeDisposable)
     }
 
 }
