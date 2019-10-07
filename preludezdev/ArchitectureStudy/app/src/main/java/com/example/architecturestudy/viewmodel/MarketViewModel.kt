@@ -32,14 +32,14 @@ class MarketViewModel(
                     showProgressBar(false) // 프로그래스바 종료
                 }, {
                     showProgressBar(false) // 프로그래스바 종료
-                    onFailCallback(it)
+                    showToastErrorMessage(it)
                 })
         } else {
-            onFailCallback("데이터를 불러올 수 없습니다")
+            showToastErrorMessage("데이터를 불러올 수 없습니다")
         }
     }
 
-    private fun onFailCallback(errorMsg: String) {
+    private fun showToastErrorMessage(errorMsg: String) {
         _notificationMsg.value = errorMsg
     }
 
