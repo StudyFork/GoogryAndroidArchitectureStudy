@@ -27,11 +27,11 @@ class TickerViewModel(
                 }
 
                 override fun onEmpty(str: String) {
-                    exceptionMessage.set(str)
+                    exceptionMessage.value = str
                 }
 
                 override fun onFailure(str: String) {
-                    exceptionMessage.set(str)
+                    exceptionMessage.value = str
                 }
             })
     }
