@@ -1,6 +1,6 @@
 package com.architecture.study.viewmodel
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import com.architecture.study.base.BaseViewModel
 import com.architecture.study.data.repository.CoinRepository
 import com.architecture.study.data.source.CoinRemoteDataSourceListener
@@ -9,14 +9,14 @@ import com.architecture.study.network.model.MarketResponse
 
 class MarketViewModel(coinRepository: CoinRepository) : BaseViewModel<CoinRepository>(coinRepository) {
 
-    val marketList = ObservableField<List<MarketResponse>>()
+    val marketList = MutableLiveData<List<MarketResponse>>()
 
 
     fun getMarketList() {
         repository.getMarketList(
             object : CoinRemoteDataSourceListener<MarketResponse> {
                 override fun onSuccess(dataList: List<MarketResponse>) {
-                    marketList.set(dataList)
+                    marketList.value = dataList
                 }
 
                 override fun onEmpty(str: String) {

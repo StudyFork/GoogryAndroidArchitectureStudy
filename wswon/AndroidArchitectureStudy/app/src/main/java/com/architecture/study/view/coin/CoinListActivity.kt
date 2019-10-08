@@ -6,11 +6,11 @@ import androidx.databinding.Observable
 import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.Observer
 import com.architecture.study.R
 import com.architecture.study.base.BaseActivity
 import com.architecture.study.data.repository.CoinRepositoryImpl
 import com.architecture.study.databinding.ActivityCoinBinding
-import com.architecture.study.network.model.MarketResponse
 import com.architecture.study.util.Injection
 import com.architecture.study.viewmodel.MarketViewModel
 import com.google.android.material.tabs.TabLayout
@@ -48,26 +48,18 @@ class CoinListActivity : BaseActivity<ActivityCoinBinding>(R.layout.activity_coi
                         }
                 }
             })
-
-            marketList.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    (sender as? ObservableField<List<MarketResponse>>)
-                        ?.get()
-                        ?.let { marketList ->
-                            supportFragmentManager.fragments.forEachIndexed { index, fragment ->
-                                (fragment as? CoinListFragment)?.setMonetaryUnitList(marketList
-                                    .asSequence()
-                                    .filter {
-                                        it.market.split("-")[0] == getString(
-                                            tabList[index]
-                                        )
-                                    }
-                                    .map { it.market }
-                                    .toList()
-                                )
-                            }
+            marketList.observe(this@CoinListActivity, Observer { marketList ->
+                supportFragmentManager.fragments.forEachIndexed { index, fragment ->
+                    (fragment as? CoinListFragment)?.setMonetaryUnitList(marketList
+                        .asSequence()
+                        .filter {
+                            it.market.split("-")[0] == getString(
+                                tabList[index]
+                            )
                         }
+                        .map { it.market }
+                        .toList()
+                    )
                 }
             })
         }
