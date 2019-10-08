@@ -1,6 +1,6 @@
 package com.example.mystudy.util
 
-import com.example.mystudy.R
+import android.graphics.Color
 
 object FormatText {
 
@@ -24,9 +24,9 @@ object FormatText {
 
     fun formatRateColor(signedChangeRate: Double) =
         when {
-            signedChangeRate > 0 -> R.color.diff_up
-            signedChangeRate < 0 -> R.color.diff_down
-            else -> R.color.black
+            signedChangeRate > 0 -> Color.RED
+            signedChangeRate < 0 -> Color.BLUE
+            else -> Color.BLACK
         }
 
     //거래대금
