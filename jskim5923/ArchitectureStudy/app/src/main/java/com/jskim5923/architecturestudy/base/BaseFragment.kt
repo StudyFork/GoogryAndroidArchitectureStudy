@@ -5,12 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
-abstract class BaseFragment(
-    @LayoutRes
-    private val layoutRes: Int
-) : Fragment(), BaseContract.View {
+abstract class BaseFragment<B : ViewDataBinding> : Fragment(), BaseContract.View {
+    @get:LayoutRes
+    abstract val layoutRes: Int
+
+    protected lateinit var binding: B
+
     abstract val presenter: BaseContract.Presenter
 
     abstract override fun initView()
@@ -20,7 +24,8 @@ abstract class BaseFragment(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(layoutRes, container, false)
+        binding = DataBindingUtil.inflate(inflater, layoutRes, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
