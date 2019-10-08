@@ -2,16 +2,11 @@ package com.architecture.study.ext
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.architecture.study.base.BaseAdapter
 import com.architecture.study.data.model.Ticker
-import com.architecture.study.view.coin.adapter.CoinListAdapter
 
 @BindingAdapter("replaceAll")
-fun RecyclerView.replaceAll(list: List<Ticker>?) {
-
-    (this.adapter as? CoinListAdapter)?.let {
-        if(list != null){
-            it.setData(list)
-        }
-        it.notifyDataSetChanged()
-    }
+fun RecyclerView.replaceAll(list: List<Any>?) {
+    @Suppress("UNCHECKED_CAST")
+    (adapter as? BaseAdapter<Any, *>)?.replaceAll(list)
 }

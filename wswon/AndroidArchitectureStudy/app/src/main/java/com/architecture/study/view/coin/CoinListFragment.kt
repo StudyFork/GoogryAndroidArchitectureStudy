@@ -1,37 +1,30 @@
 package com.architecture.study.view.coin
 
 import android.os.Bundle
-import android.os.Handler
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.databinding.Observable
+import androidx.databinding.ObservableField
+import com.architecture.study.BR
 import com.architecture.study.R
+import com.architecture.study.base.BaseAdapter
+import com.architecture.study.base.BaseFragment
+import com.architecture.study.data.model.Ticker
 import com.architecture.study.data.repository.CoinRepositoryImpl
 import com.architecture.study.databinding.FragmentCoinlistBinding
+import com.architecture.study.databinding.ItemTickerBinding
 import com.architecture.study.util.Injection
-import com.architecture.study.view.coin.adapter.CoinListAdapter
-import com.architecture.study.viewmodel.CoinListViewModel
+import com.architecture.study.viewmodel.TickerViewModel
 
-class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickListener {
+class CoinListFragment : BaseFragment<FragmentCoinlistBinding>(R.layout.fragment_coinlist) {
 
-    private val coinListViewModel by lazy {
-        CoinListViewModel(
+    private val tickerViewModel by lazy {
+        TickerViewModel(
             CoinRepositoryImpl.getInstance(Injection.provideCoinRemoteDataSource()),
             tabList.map { getString(it) }
         )
     }
 
-    private val coinListAdapter by lazy {
-        CoinListAdapter(this)
-    }
-
-    private lateinit var binding: FragmentCoinlistBinding
-
-    private var monetaryUnitNameList: List<String>? = null
+    private lateinit var monetaryUnitList: List<String>
 
     private val tabList = listOf(
         R.string.monetary_unit_1,
@@ -40,89 +33,41 @@ class CoinListFragment : Fragment(), CoinListAdapter.CoinItemRecyclerViewClickLi
         R.string.monetary_unit_4
     )
 
-    private var refreshHandler = Handler()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_coinlist,
-            container,
-            false)
-        return binding.root
-    }
-
+    @Suppress("UNCHECKED_CAST")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        /* 받아온 argument - Coin name */
-        monetaryUnitNameList = arguments?.getStringArrayList(MONETARY_UNIT_NAME_LIST)
-
-        monetaryUnitNameList?.let {
-            getTickerList(it)
-        }
-
-
         binding.run {
-            coinListVM = coinListViewModel
-            recyclerViewCoinList.run {
-                adapter = coinListAdapter
-            }
+            tickerVM = tickerViewModel
+            recyclerViewCoinList.adapter =
+                object : BaseAdapter<Ticker, ItemTickerBinding>(R.layout.item_ticker, BR.ticker) {}
         }
-    }
 
-    /* 현재 보고있는 화면의 데이터만 갱신, 5초 간격 */
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser) {
-            refreshData()
-        } else {
-            refreshHandler.removeMessages(0)
-        }
-    }
+        tickerViewModel
+            .exceptionMessage
+            .addOnPropertyChangedCallback(
+                object : Observable.OnPropertyChangedCallback() {
+                    override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                        (sender as? ObservableField<String>)
+                            ?.get()
+                            ?.let {
+                                showMessage(it)
+                            }
+                    }
+                })
 
-    override fun onPause() {
-        refreshHandler.removeMessages(0)
-        super.onPause()
-    }
-
-    /* handler로 5초간격 호출 재귀함수 */
-    private fun refreshData() {
-        refreshHandler = Handler().apply {
-            postDelayed({
-                monetaryUnitNameList?.let {
-                    getTickerList(it)
-                }
-                refreshData()
-            }, 5000)
-        }
-    }
-
-    private fun getTickerList(marketNameList: List<String>){
-        coinListViewModel.getTickerList(marketNameList){
-            showMessage(it)
-        }
     }
 
     private fun showMessage(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onItemClicked(position: Int) {
-        //click event
+    fun setMonetaryUnitList(monetaryUnitList: List<String>) {
+        this.monetaryUnitList = monetaryUnitList
+        tickerViewModel.getTickerList(this.monetaryUnitList)
     }
 
     companion object {
-        fun newInstance(monetaryUnitNameList: List<String>?) = CoinListFragment().apply {
-            arguments = Bundle().apply {
-                monetaryUnitNameList?.let {
-                    putStringArrayList(MONETARY_UNIT_NAME_LIST, ArrayList(monetaryUnitNameList))
-                }
-            }
-        }
-
-        private const val MONETARY_UNIT_NAME_LIST = "MONETARY_UNIT_NAME_LIST"
+        fun newInstance() = CoinListFragment()
     }
 }

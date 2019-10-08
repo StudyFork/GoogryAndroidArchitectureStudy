@@ -2,28 +2,24 @@ package com.architecture.study.view.coin
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
+import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import com.architecture.study.R
+import com.architecture.study.base.BaseActivity
 import com.architecture.study.data.repository.CoinRepositoryImpl
-import com.architecture.study.databinding.ActivityMainBinding
+import com.architecture.study.databinding.ActivityCoinBinding
 import com.architecture.study.network.model.MarketResponse
 import com.architecture.study.util.Injection
-import com.architecture.study.viewmodel.CoinListViewModel
+import com.architecture.study.viewmodel.MarketViewModel
 import com.google.android.material.tabs.TabLayout
 
 
-class CoinListActivity : AppCompatActivity() {
+class CoinListActivity : BaseActivity<ActivityCoinBinding>(R.layout.activity_coin) {
 
-    private lateinit var binding: ActivityMainBinding
-
-    private val coinListViewModel by lazy {
-        CoinListViewModel(
-            CoinRepositoryImpl.getInstance(Injection.provideCoinRemoteDataSource()),
-            tabList.map { getString(it) }
-        )
+    private val marketViewModel by lazy {
+        MarketViewModel(CoinRepositoryImpl.getInstance(Injection.provideCoinRemoteDataSource()))
     }
 
     private val tabList = listOf(
@@ -33,24 +29,47 @@ class CoinListActivity : AppCompatActivity() {
         R.string.monetary_unit_4
     )
 
+    @Suppress("UNCHECKED_CAST")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setTabPager()
 
-        coinListViewModel.run {
-            if (isConnectedApi) {
-                getMarketList {
-                    Toast.LENGTH_SHORT
-                    if (it == CoinListViewModel.SUCCESS) {
-                        coinListViewModel.marketList.get()?.let { marketList ->
-                            setTabPager(marketList)
+        marketViewModel.run {
+            getMarketList()
+
+            exceptionMessage.addOnPropertyChangedCallback(object :
+                Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    (sender as? ObservableField<String>)
+                        ?.get()
+                        ?.let {
+                            showMessage(it)
                         }
-                    } else {
-                        showMessage(it)
-                    }
                 }
-            }
+            })
+
+            marketList.addOnPropertyChangedCallback(object :
+                Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    (sender as? ObservableField<List<MarketResponse>>)
+                        ?.get()
+                        ?.let { marketList ->
+                            supportFragmentManager.fragments.forEachIndexed { index, fragment ->
+                                (fragment as? CoinListFragment)?.setMonetaryUnitList(marketList
+                                    .asSequence()
+                                    .filter {
+                                        it.market.split("-")[0] == getString(
+                                            tabList[index]
+                                        )
+                                    }
+                                    .map { it.market }
+                                    .toList()
+                                )
+                            }
+                        }
+                }
+            })
         }
     }
 
@@ -59,32 +78,34 @@ class CoinListActivity : AppCompatActivity() {
     }
 
     /* tab layout && view pager init*/
-    private fun setTabPager(marketList: List<MarketResponse>) {
-        binding.tabLayoutMonetaryUnit.setupWithViewPager(binding.viewPagerCoinList)
+    private fun setTabPager() {
 
-        binding.viewPagerCoinList.run {
-            adapter = object : FragmentPagerAdapter(
-                supportFragmentManager,
-                BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
-            ) {
+        binding.run {
+            tabLayoutMonetaryUnit.setupWithViewPager(viewPagerCoinList)
 
-                override fun getItem(position: Int): Fragment =
-                    CoinListFragment.newInstance(
-                        marketList
-                            .asSequence()
-                            .filter { it.market.split("-")[0] == context.getString(tabList[position]) }
-                            .map { it.market }
-                            .toList()
+            viewPagerCoinList.run {
+                offscreenPageLimit = 3
+                adapter = object : FragmentPagerAdapter(
+                    supportFragmentManager,
+                    BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+                ) {
+
+                    override fun getItem(position: Int): Fragment =
+                        CoinListFragment.newInstance()
+
+
+                    override fun getCount(): Int =
+                        tabList.size
+
+                    override fun getPageTitle(position: Int): CharSequence? =
+                        getString(tabList[position])
+                }
+                addOnPageChangeListener(
+                    TabLayout.TabLayoutOnPageChangeListener(
+                        tabLayoutMonetaryUnit
                     )
-
-
-                override fun getCount(): Int =
-                    tabList.size
-
-                override fun getPageTitle(position: Int): CharSequence? =
-                    getString(tabList[position])
+                )
             }
-            addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayoutMonetaryUnit))
         }
     }
 }
