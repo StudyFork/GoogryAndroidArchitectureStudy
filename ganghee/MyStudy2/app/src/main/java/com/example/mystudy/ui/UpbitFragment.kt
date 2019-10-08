@@ -3,6 +3,7 @@ package com.example.mystudy.ui
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.viewModels
 import com.example.mystudy.BR
 import com.example.mystudy.R
 import com.example.mystudy.base.BaseFragment
@@ -16,11 +17,7 @@ import com.example.mystudy.viewmodel.UpbitViewModel
 
 class UpbitFragment : BaseFragment<FragmentUpbitBinding>(R.layout.fragment_upbit) {
 
-    private val upbitViewModel by lazy {
-        UpbitViewModel(
-            UpbitRepository.getInstance(UpbitRemoteDataSource)
-        )
-    }
+    private val upbitViewModel by viewModels<UpbitViewModel>()
 
     @SuppressLint("CheckResult")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -34,6 +31,7 @@ class UpbitFragment : BaseFragment<FragmentUpbitBinding>(R.layout.fragment_upbit
     private fun initViewModel() {
         binding.run {
             vm = upbitViewModel
+            lifecycleOwner = this@UpbitFragment
             rvTickers.adapter =
                 object : BaseRecyclerViewAdapter<FormatTickers, RvItemListBinding>(
                     layoutRes = R.layout.rv_item_list,
