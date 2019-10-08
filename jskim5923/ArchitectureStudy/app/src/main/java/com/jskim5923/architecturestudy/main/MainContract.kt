@@ -1,14 +1,14 @@
 package com.jskim5923.architecturestudy.main
 
+import com.jskim5923.architecturestudy.base.BaseContract
+
 interface MainContract {
 
-    interface View {
+    interface View : BaseContract.View {
         fun updateViewpager(marketList: List<String>)
     }
 
-    interface Presenter {
+    interface Presenter : BaseContract.Presenter {
         fun loadMarketList()
-
-        fun clearCompositeDisposable()
     }
 }
