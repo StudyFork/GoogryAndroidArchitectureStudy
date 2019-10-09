@@ -39,9 +39,7 @@ class MainAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getCount() = markets?.size ?: 0
 
-    override fun getPageTitle(position: Int): CharSequence? {
-        return titles?.get(position)
-    }
+    override fun getPageTitle(position: Int) = titles?.get(position)
 
     fun getFragment(position: Int) = fragmentReferences.get(position)
 
