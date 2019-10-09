@@ -14,7 +14,6 @@ abstract class BaseActivity<B : ViewDataBinding>(private val layoutId: Int) : Ap
         binding = DataBindingUtil.setContentView(this, layoutId)
         binding.lifecycleOwner = this
 
-        //setOrientationToPortrait()
     }
 
     private fun setOrientationToPortrait() {
