@@ -8,8 +8,7 @@ class MainViewModelFactory(private val upbitRepository: UpbitRepository) :
     ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return MainViewModel(upbitRepository) as T
-    }
+    override fun <T : ViewModel?> create(modelClass: Class<T>) =
+        MainViewModel(upbitRepository) as T
 
 }
