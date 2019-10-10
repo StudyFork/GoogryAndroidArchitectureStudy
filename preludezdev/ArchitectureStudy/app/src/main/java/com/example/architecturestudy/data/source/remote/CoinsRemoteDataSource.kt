@@ -41,7 +41,8 @@ class CoinsRemoteDataSource(
             .getCoinTickers(markets)
             .enqueue(object : Callback<List<CoinTickerResponse>> {
                 override fun onFailure(call: Call<List<CoinTickerResponse>>, t: Throwable) {
-                    onFail("Failed to get tickers data")
+                    val target = markets.split("-")[0]
+                    onFail("$target 데이터를 요청하는데 실패했습니다")
                 }
 
                 override fun onResponse(

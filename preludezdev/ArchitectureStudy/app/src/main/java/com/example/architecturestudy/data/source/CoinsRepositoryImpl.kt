@@ -1,6 +1,5 @@
 package com.example.architecturestudy.data.source
 
-import android.util.Log
 import com.example.architecturestudy.data.CoinMarketResponse
 import com.example.architecturestudy.data.CoinTickerResponse
 
@@ -33,13 +32,9 @@ class CoinsRepositoryImpl(
                 //현재는 RemoteDataSource 만 연결해준다.
                 coinsRemoteDataSource.getCoinTickers(targetTickers, onSuccess, onFail)
             }
-        }, { onFailCallback(it) })
+        }, { onFail })
 
         // Local 로 데이터 받아오는 기능이 생기면 추가 구현해야함.
-    }
-
-    private fun onFailCallback(errorMsg: String) {
-        Log.d("test", errorMsg)
     }
 
     companion object {
