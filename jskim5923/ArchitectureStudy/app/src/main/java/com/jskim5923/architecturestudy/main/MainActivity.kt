@@ -15,11 +15,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
     }
 
     override fun initView() {
-        binding.run {
-            with(viewPager) {
-                tabLayout.setupWithViewPager(this)
-                adapter = viewpagerAdapter
-            }
+        binding.viewPager.let {
+            binding.tabLayout.setupWithViewPager(it)
+            it.adapter = viewpagerAdapter
         }
         presenter.loadMarketList()
     }
