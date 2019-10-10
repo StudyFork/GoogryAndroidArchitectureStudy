@@ -24,7 +24,7 @@ abstract class BaseFragment<B : ViewDataBinding>(private val layoutId: Int) : Fr
         return binding.root
     }
 
-    protected fun showToastMessage(msg: String) {
+    protected fun showToastMessage(msg: String?) {
         if (!msg.isNullOrEmpty()) {
             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
         }
