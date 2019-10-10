@@ -14,13 +14,13 @@ class CoinsRemoteDataSource(
 
     override fun getAllMarket(
         onSuccess: (data: List<CoinMarketResponse>?) -> Unit,
-        onFail: (errorCode: String) -> Unit
+        onFail: (t: Throwable) -> Unit
     ) {
         coinApiService
             .getAllCoinMarket()
             .enqueue(object : Callback<List<CoinMarketResponse>> {
                 override fun onFailure(call: Call<List<CoinMarketResponse>>, t: Throwable) {
-                    onFail("Failed to get all market data")
+                    onFail(IllegalStateException("데이터를 요청에 실패했습니다"))
                 }
 
                 override fun onResponse(
@@ -35,14 +35,13 @@ class CoinsRemoteDataSource(
     override fun getCoinTickers(
         markets: String,
         onSuccess: (List<CoinTickerResponse>?) -> Unit,
-        onFail: (errorCode: String) -> Unit
+        onFail: (t: Throwable) -> Unit
     ) {
         coinApiService
             .getCoinTickers(markets)
             .enqueue(object : Callback<List<CoinTickerResponse>> {
                 override fun onFailure(call: Call<List<CoinTickerResponse>>, t: Throwable) {
-                    val target = markets.split("-")[0]
-                    onFail("$target 데이터를 요청하는데 실패했습니다")
+                    onFail(IllegalStateException("데이터를 요청에 실패했습니다"))
                 }
 
                 override fun onResponse(
