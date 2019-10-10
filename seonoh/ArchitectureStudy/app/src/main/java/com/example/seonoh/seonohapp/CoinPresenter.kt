@@ -7,26 +7,24 @@ import com.example.seonoh.seonohapp.model.UseCoinModel
 import com.example.seonoh.seonohapp.repository.CoinRepositoryImpl
 import com.example.seonoh.seonohapp.util.CalculateUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class CoinPresenter(
-    private val view: CoinFragmentContract.View
-) : CoinFragmentContract.Presenter {
+     val view: CoinFragmentContract.View
+) : BasePresenter() {
 
     private val coinRepository = CoinRepositoryImpl()
-    private val compositeDisposable = CompositeDisposable()
 
-    override fun loadData(marketName: String) {
+    fun loadData(marketName: String) {
         compositeDisposable.add(
             coinRepository.sendCurrentPriceInfo(marketName)
+                .map {
+                    refineData(it)
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    translateData(it)
-
-                }, { e ->
-                    Log.e("currentPriceInfo", "Network failed!! ${e.message}")
+                .subscribe({ view.setData(it) }, {
+                    Log.e("currentPriceInfo", "Network failed!! ${it.message}")
                 })
         )
     }
@@ -35,28 +33,20 @@ class CoinPresenter(
         compositeDisposable.clear()
     }
 
-    override fun setData(data: ArrayList<UseCoinModel>) {
-        view.initRecyclerView(data)
-    }
-
-    override fun translateData(result: List<CurrentPriceInfoModel>) {
+    private fun refineData(result: List<CurrentPriceInfoModel>): List<UseCoinModel> {
         // 데이터 가공후 모델에 넣음.
         // signedChangeRate textcolor 처리때문에 viewholder에서 진행
         val marketType = if (result.isNotEmpty()) {
             result[0].market.substringBefore("-")
-        } else {
-            ""
-        }
+        } else ""
 
-        val data = result.map {
+        return result.map {
             UseCoinModel(
                 CalculateUtils.setMarketName(it.market),
                 CalculateUtils.filterTrade(it.tradePrice),
                 CalculateUtils.setTradeDiff(it.signedChangeRate),
                 CalculateUtils.setTradeAmount(marketType, it.accTradePrice24h)
             )
-
-        } as ArrayList<UseCoinModel>
-        setData(data)
+        }
     }
 }

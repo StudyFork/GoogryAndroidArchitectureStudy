@@ -10,45 +10,20 @@ import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 
 class CoinMainPresenter(
-    private val view: CoinMainContract.View
-) : CoinMainContract.Presenter {
+     val view: CoinMainContract.View
+) : BasePresenter(){
+
 
     private val coinRepository = CoinRepositoryImpl()
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-
-    override fun loadMarketData() {
-        compositeDisposable.addAll(coinRepository.sendMarket().subscribeOn(Schedulers.io())
+    fun loadData() {
+        compositeDisposable.add(coinRepository.sendMarket()
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                view.setPager(it)
-            }, { e ->
-                if (e is HttpException) {
-                    Log.e("market", "Market Network failed !! ${e.message()}")
-                }
+                view.setData(it)
+            },{
+                Log.e("currentPriceInfo", "Network failed!! ${it.message}")
             }))
-    }
-
-    override fun classifyMarketData(marketData: List<Market>): ArrayList<String> {
-        val conMarketNameList = marketData.map {
-            it.market.substringBefore("-")
-        }.distinct()
-
-        val marketDataList = ArrayList<String>()
-
-        conMarketNameList.forEach { title ->
-
-            marketDataList += (marketData.filter {
-                it.market.substringBefore("-") == title
-            }.joinToString {
-                it.market
-            })
-        }
-
-        return marketDataList
-    }
-
-    override fun clearDisposable() {
-        compositeDisposable.clear()
     }
 }

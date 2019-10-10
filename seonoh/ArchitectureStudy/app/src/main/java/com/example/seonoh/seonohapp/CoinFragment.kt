@@ -5,36 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
+import com.example.seonoh.seonohapp.contract.BaseContract
 import com.example.seonoh.seonohapp.contract.CoinFragmentContract
+import com.example.seonoh.seonohapp.contract.CoinMainContract
 import com.example.seonoh.seonohapp.model.UseCoinModel
 import kotlinx.android.synthetic.main.coin_fragment.*
 
+class CoinFragment : BaseFragment<CoinFragmentContract.Presenter>(
+    R.layout.coin_fragment
+), CoinFragmentContract.View {
 
-class CoinFragment : Fragment(), CoinFragmentContract.View {
-
-    private lateinit var mAdapter: CoinAdapter
+    override val presenter = CoinPresenter(this)
+    private lateinit var fragmentAdapter: CoinAdapter
     private var marketName: String? = null
-    private val presenter by lazy { CoinPresenter(this) }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        return inflater.inflate(R.layout.coin_fragment, container, false)
-    }
-
-    override fun initRecyclerView(data: List<UseCoinModel>) {
-        mAdapter.addCoinData(data)
-    }
-
-    private fun initView() {
-        mAdapter = CoinAdapter()
-        krwRecyclerView.apply {
-            adapter = mAdapter
-        }
-    }
+    override fun setData(data: List<UseCoinModel>) = fragmentAdapter.addCoinData(data)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -49,10 +34,12 @@ class CoinFragment : Fragment(), CoinFragmentContract.View {
         ).show()
     }
 
-    override fun onDestroyView() {
-        presenter.clearDisposable()
-        super.onDestroyView()
+    private fun initView() {
+        fragmentAdapter = CoinAdapter()
+        krwRecyclerView.adapter = fragmentAdapter
     }
+
+    override fun showToast(){}
 
     companion object {
         private const val MARKET = "market"
