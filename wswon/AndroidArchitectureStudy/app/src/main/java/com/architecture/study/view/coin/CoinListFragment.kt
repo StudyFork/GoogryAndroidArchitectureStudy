@@ -22,8 +22,6 @@ class CoinListFragment : BaseFragment<FragmentCoinlistBinding>(R.layout.fragment
             .get(TickerViewModel::class.java)
     }
 
-    private lateinit var monetaryUnitList: List<String>
-
     private val tabList = listOf(
         R.string.monetary_unit_1,
         R.string.monetary_unit_2,
@@ -54,8 +52,7 @@ class CoinListFragment : BaseFragment<FragmentCoinlistBinding>(R.layout.fragment
     }
 
     fun setMonetaryUnitList(monetaryUnitList: List<String>) {
-        this.monetaryUnitList = monetaryUnitList
-        tickerViewModel.getTickerList(this.monetaryUnitList)
+        tickerViewModel.getTickerList(monetaryUnitList)
     }
 
     companion object {
