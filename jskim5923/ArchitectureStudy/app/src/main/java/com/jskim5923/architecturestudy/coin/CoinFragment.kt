@@ -14,7 +14,7 @@ class CoinFragment : BaseFragment<LayoutCoinFragmentBinding>(
 ), CoinContract.View {
     override val presenter = CoinPresenter(this)
 
-    private var coinListAdapter = CoinListAdapter()
+    private val coinListAdapter = CoinListAdapter()
 
     override fun initView() {
         binding.run {
