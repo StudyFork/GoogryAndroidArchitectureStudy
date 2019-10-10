@@ -1,17 +1,12 @@
 package com.example.seonoh.seonohapp
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import com.example.seonoh.seonohapp.contract.BaseContract
 import com.example.seonoh.seonohapp.contract.CoinFragmentContract
-import com.example.seonoh.seonohapp.contract.CoinMainContract
+import com.example.seonoh.seonohapp.databinding.CoinFragmentBinding
 import com.example.seonoh.seonohapp.model.UseCoinModel
-import kotlinx.android.synthetic.main.coin_fragment.*
 
-class CoinFragment : BaseFragment<CoinFragmentContract.Presenter>(
+class CoinFragment : BaseFragment<CoinFragmentContract.Presenter, CoinFragmentBinding>(
     R.layout.coin_fragment
 ), CoinFragmentContract.View {
 
@@ -36,10 +31,10 @@ class CoinFragment : BaseFragment<CoinFragmentContract.Presenter>(
 
     private fun initView() {
         fragmentAdapter = CoinAdapter()
-        krwRecyclerView.adapter = fragmentAdapter
+        binding.krwRecyclerView.adapter = fragmentAdapter
     }
 
-    override fun showToast(){}
+    override fun showToast() {}
 
     companion object {
         private const val MARKET = "market"

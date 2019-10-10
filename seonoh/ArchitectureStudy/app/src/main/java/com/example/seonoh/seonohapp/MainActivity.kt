@@ -2,11 +2,11 @@ package com.example.seonoh.seonohapp
 
 import android.os.Bundle
 import com.example.seonoh.seonohapp.contract.CoinMainContract
+import com.example.seonoh.seonohapp.databinding.ActivityMainBinding
 import com.example.seonoh.seonohapp.model.Market
 import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity<CoinMainContract.Presenter>(
+class MainActivity : BaseActivity<CoinMainContract.Presenter, ActivityMainBinding>(
     R.layout.activity_main
 ), CoinMainContract.View {
 
@@ -22,17 +22,18 @@ class MainActivity : BaseActivity<CoinMainContract.Presenter>(
 
     private fun initView() {
         pagerAdapter = TabPagerAdapter(supportFragmentManager)
-        coinViewPager.run {
-            adapter = pagerAdapter
-            addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
-        }
-
-        tabLayout.run {
-            addTab(tabLayout.newTab().setText("KRW"))
-            addTab(tabLayout.newTab().setText("BTC"))
-            addTab(tabLayout.newTab().setText("ETH"))
-            addTab(tabLayout.newTab().setText("USDT"))
-            addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(coinViewPager))
+        binding.run {
+            coinViewPager.run {
+                adapter = pagerAdapter
+                addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
+            }
+            tabLayout.run {
+                addTab(tabLayout.newTab().setText("KRW"))
+                addTab(tabLayout.newTab().setText("BTC"))
+                addTab(tabLayout.newTab().setText("ETH"))
+                addTab(tabLayout.newTab().setText("USDT"))
+                addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(coinViewPager))
+            }
         }
     }
 
