@@ -1,7 +1,6 @@
 package com.example.architecturestudy.ui.market
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -51,10 +50,8 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
     }
 
     private fun initCallback() {
-        marketViewModel.notificationMsg.observe(this, Observer<String> { msg ->
-            if (!msg.isNullOrEmpty()) {
-                Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
-            }
+        marketViewModel.notificationMsg.observe(this, Observer<String> { errorMsg ->
+            showToastMessage(errorMsg)
         })
     }
 
