@@ -8,13 +8,13 @@ interface CoinsDataSource {
 
     fun getAllMarket(
         onSuccess: (data: List<CoinMarketResponse>?) -> Unit,
-        onFail: (t: Throwable) -> Unit
+        onFail: (errorMsg: String) -> Unit
     )
 
     fun getCoinTickers(
         markets: String,
         onSuccess: (data: List<CoinTickerResponse>?) -> Unit,
-        onFail: (t: Throwable) -> Unit
+        onFail: (errorMsg: String) -> Unit
     )
 
 }

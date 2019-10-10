@@ -8,13 +8,13 @@ interface CoinsRepository {
 
     fun getAllMarket(
         onSuccess: (data: List<CoinMarketResponse>?) -> Unit,
-        onFail: (t: Throwable) -> Unit
+        onFail: (errorMsg: String) -> Unit
     )
 
     fun getCoinTickers(
         market: String,
         onSuccess: (data: List<CoinTickerResponse>?) -> Unit,
-        onFail: (t: Throwable) -> Unit
+        onFail: (errorMsg: String) -> Unit
     )
 
 }

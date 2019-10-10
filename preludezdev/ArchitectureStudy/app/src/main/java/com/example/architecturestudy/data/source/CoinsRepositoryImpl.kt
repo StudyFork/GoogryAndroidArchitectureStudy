@@ -10,7 +10,7 @@ class CoinsRepositoryImpl(
 
     override fun getAllMarket(
         onSuccess: (data: List<CoinMarketResponse>?) -> Unit,
-        onFail: (t: Throwable) -> Unit
+        onFail: (errorMsg: String) -> Unit
     ) {
         // 현재는 RemoteDataSource 만 연결해준다.
         coinsRemoteDataSource.getAllMarket(onSuccess, onFail)
@@ -21,7 +21,7 @@ class CoinsRepositoryImpl(
     override fun getCoinTickers(
         market: String,
         onSuccess: (data: List<CoinTickerResponse>?) -> Unit,
-        onFail: (t: Throwable) -> Unit
+        onFail: (errorMsg: String) -> Unit
     ) {
         getAllMarket({ coinMarketResponses ->
             if (coinMarketResponses != null) {
