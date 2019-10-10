@@ -36,7 +36,7 @@ class MarketViewModel(
                     showToastErrorMessage(it)
                 })
         } else {
-            showToastErrorMessage("$keyMarket 데이터를 불러올 수 없습니다")
+            showToastErrorMessage("데이터를 불러올 수 없습니다 (데이터 요청 키가 없습니다.)")
         }
     }
 
