@@ -1,7 +1,6 @@
 package com.jake.archstudy.ui.tickers
 
 import android.os.Bundle
-import android.view.View
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +14,7 @@ import com.jake.archstudy.network.ApiUtil
 import com.jake.archstudy.ui.tickers.adapter.TickersAdapter
 
 class TickersFragment :
-    BaseFragment<FragmentTickersBinding>(R.layout.fragment_tickers),
+    BaseFragment<FragmentTickersBinding, TickersContract.Presenter>(R.layout.fragment_tickers),
     TickersContract.View {
 
     override val presenter by lazy {
@@ -30,9 +29,8 @@ class TickersFragment :
 
     private val tickersAdapter = TickersAdapter()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        presenter.onCreate()
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         initTickers()
     }
 
