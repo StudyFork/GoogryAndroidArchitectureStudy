@@ -21,7 +21,7 @@ class RetrofitHelper {
         private var INSTANCE: RetrofitHelper? = null
 
         fun getInstance(): RetrofitHelper {
-            return INSTANCE ?: RetrofitHelper()
+            return INSTANCE ?: RetrofitHelper().apply { INSTANCE = this }
         }
     }
 
