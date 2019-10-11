@@ -1,12 +1,11 @@
 package com.jskim5923.architecturestudy.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.jskim5923.architecturestudy.R
+import com.jskim5923.architecturestudy.databinding.ItemCoinListBinding
 import com.jskim5923.architecturestudy.model.Ticker
 
 class CoinListAdapter :
@@ -16,7 +15,8 @@ class CoinListAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinListViewHolder {
         return CoinListViewHolder(
-            LayoutInflater.from(parent.context).inflate(
+            DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
                 R.layout.item_coin_list,
                 parent,
                 false
@@ -37,25 +37,14 @@ class CoinListAdapter :
 
     }
 
-    class CoinListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val coinName: TextView = itemView.findViewById(R.id.tv_coinName)
-
-        private val currentPrice: TextView = itemView.findViewById(R.id.current_price)
-
-        private val diff: TextView = itemView.findViewById(R.id.tv_diff)
-
-        private val tradeVolume: TextView = itemView.findViewById(R.id.tv_tradeVolume)
-
+    class CoinListViewHolder(private val binding: ItemCoinListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Ticker) {
-            coinName.text = item.name
-            currentPrice.text = item.currentPrice
-            with(diff) {
-                text = item.diff
-                setTextColor(ContextCompat.getColor(context, item.diffTextColorId))
+            binding.run {
+                ticker = item
+                executePendingBindings()
             }
-            tradeVolume.text = item.tradeVolume
         }
-
     }
 }
 
