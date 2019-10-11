@@ -37,17 +37,14 @@ class TickerAdapter : RecyclerView.Adapter<TickerAdapter.CoinViewHolder>() {
         binding.root
     ) {
 
-        private val coinNameTextView = binding.itemCoinNameText
-        private val coinNowPriceTextView = binding.itemCoinNowPriceText
-        private val coinPreParePercentTextView = binding.itemCoinPreparePercentText
-        private val coinDealPriceTextView = binding.itemCoinDealPriceText
-
         fun onBindView(tickerFormat: TickerFormat) {
-            coinNameTextView.text = tickerFormat.marketName
-            coinNowPriceTextView.text = tickerFormat.tradePrice
-            coinPreParePercentTextView.text = tickerFormat.changeRate
-            coinPreParePercentTextView.setTextColorRes(tickerFormat.changeColor)
-            coinDealPriceTextView.text = tickerFormat.accTradePrice
+            binding.run {
+                itemCoinNameText.text= tickerFormat.marketName
+                itemCoinNowPriceText.text = tickerFormat.tradePrice
+                itemCoinPreparePercentText.text = tickerFormat.changeRate
+                itemCoinPreparePercentText.setTextColorRes(tickerFormat.changeColor)
+                itemCoinDealPriceText.text = tickerFormat.accTradePrice
+            }
         }
     }
 }
