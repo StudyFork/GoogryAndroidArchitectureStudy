@@ -1,5 +1,8 @@
 package com.architecture.study.network.model
 
+import android.graphics.Color
+import androidx.core.content.ContextCompat
+import com.architecture.study.App
 import com.architecture.study.R
 import com.architecture.study.data.model.Ticker
 import com.google.gson.annotations.SerializedName
@@ -69,11 +72,11 @@ data class TickerResponse(
         if (tradePrice > prevClosingPrice) {
             compareYesterday =
                 DecimalFormat("0.##").format((1 - (prevClosingPrice / tradePrice)) * 10.0) + "%"
-            compareYesterdayTextColor = R.color.colorRed
+            compareYesterdayTextColor = ContextCompat.getColor(App.instance.context(), R.color.colorRed)
         } else {
             compareYesterday =
                 "-" + DecimalFormat("0.##").format((1 - (tradePrice / prevClosingPrice)) * 10.0) + "%"
-            compareYesterdayTextColor = R.color.colorBlue
+            compareYesterdayTextColor = ContextCompat.getColor(App.instance.context(), R.color.colorBlue)
         }
         val transactionAmount = when (market.split("-")[0]) {
             monetaryUnitList[0] -> {
