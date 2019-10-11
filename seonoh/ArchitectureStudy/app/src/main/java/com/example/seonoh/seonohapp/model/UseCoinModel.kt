@@ -3,6 +3,8 @@ package com.example.seonoh.seonohapp.model
 data class UseCoinModel(
     var market: String?,
     var tradePrice: String,
-    var signedChangeRate: Map<String,Any>,
-    val accTradePrice_24h: Map<String,Any>
+    var rate : String,
+    var changeColor : Int,
+    var accTradePrice24hPrice : String,
+    var accTradePrice24hFormat : Int
 )

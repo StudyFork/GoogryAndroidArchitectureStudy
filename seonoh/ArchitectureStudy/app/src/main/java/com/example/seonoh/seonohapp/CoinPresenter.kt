@@ -41,11 +41,18 @@ class CoinPresenter(
         } else ""
 
         return result.map {
+            var rate = CalculateUtils.setTradeDiff(it.signedChangeRate)["rate"].toString()
+            var color = CalculateUtils.setTradeDiff(it.signedChangeRate)["color"].toString().toInt()
+            var totalTradePrice = CalculateUtils.setTradeAmount(marketType, it.accTradePrice24h)["price"].toString()
+            var format = CalculateUtils.setTradeAmount(marketType, it.accTradePrice24h)["format"].toString().toInt()
+
             UseCoinModel(
                 CalculateUtils.setMarketName(it.market),
                 CalculateUtils.filterTrade(it.tradePrice),
-                CalculateUtils.setTradeDiff(it.signedChangeRate),
-                CalculateUtils.setTradeAmount(marketType, it.accTradePrice24h)
+                rate,
+                color,
+                totalTradePrice,
+                format
             )
         }
     }
