@@ -18,7 +18,7 @@ abstract class BaseViewHolder<B : ViewDataBinding>(
     private val binding: B? = DataBindingUtil.bind(itemView)
 
     fun bind(item: Any?) {
-        binding?.apply {
+        binding?.run {
             bindingVariableId?.let {
                 setVariable(it, item)
             }
