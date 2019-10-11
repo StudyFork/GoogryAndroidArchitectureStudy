@@ -5,6 +5,7 @@ data class UseCoinModel(
     var tradePrice: String,
     var rate : String,
     var changeColor : Int,
-    var accTradePrice24hPrice : String,
-    var accTradePrice24hFormat : Int
+    val accTradePrice_24h: Map<String,Any>
+//    var accTradePrice24hPrice : Long,
+//    var accTradePrice24hFormat : Number?
 )
