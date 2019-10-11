@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseRecyclerViewAdapter<ITEM : Any, B : ViewDataBinding>(
     @LayoutRes private val layoutId: Int,
-    private val bindingVariableId: Int? = null
+    private val bindingId: Int? = null
 ) : RecyclerView.Adapter<BaseViewHolder<B>>() {
 
     private val itemList = mutableListOf<ITEM>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<B> =
-        object : BaseViewHolder<B>(layoutId, parent, bindingVariableId) {}
+        object : BaseViewHolder<B>(layoutId, parent, bindingId) {}
 
     override fun getItemCount(): Int = itemList.size
 
