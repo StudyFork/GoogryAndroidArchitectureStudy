@@ -31,7 +31,6 @@ class UpbitFragment : BaseFragment<FragmentUpbitBinding>(R.layout.fragment_upbit
     private fun initViewModel() {
         binding.run {
             vm = upbitViewModel
-            lifecycleOwner = this@UpbitFragment
             rvTickers.adapter =
                 object : BaseRecyclerViewAdapter<FormatTickers, RvItemListBinding>(
                     layoutRes = R.layout.rv_item_list,
