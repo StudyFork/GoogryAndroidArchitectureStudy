@@ -21,7 +21,7 @@ class MarketViewModel(
 
     fun loadData(keyMarket: String?) {
         if (keyMarket != null) {
-            showProgressBar(true) // 프로그래스바 시작
+            showProgressBar()
 
             repository
                 .getCoinTickers(keyMarket, { coinTickerResponses ->
@@ -30,9 +30,9 @@ class MarketViewModel(
                         _coinList.value = coinTickerResponses.map { it.convertTickerIntoCoin() }
                     }
 
-                    showProgressBar(false) // 프로그래스바 종료
+                    hideProgressBar()
                 }, {
-                    showProgressBar(false) // 프로그래스바 종료
+                    hideProgressBar()
                     showToastErrorMessage(it)
                 })
         } else {
@@ -40,12 +40,16 @@ class MarketViewModel(
         }
     }
 
-    private fun showToastErrorMessage(errorMsg: String?) {
+    private fun showToastErrorMessage(errorMsg: String) {
         _notificationMsg.value = errorMsg
     }
 
-    private fun showProgressBar(status: Boolean) {
-        _isProgressed.value = status
+    private fun showProgressBar() {
+        _isProgressed.value = true
+    }
+
+    private fun hideProgressBar() {
+        _isProgressed.value = false
     }
 
 }
