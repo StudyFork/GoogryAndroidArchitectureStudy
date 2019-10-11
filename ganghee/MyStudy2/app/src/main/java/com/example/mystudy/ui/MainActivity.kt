@@ -14,7 +14,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
 
         binding.run {
-            lifecycleOwner = this@MainActivity
             viewPager.adapter = viewPagerAdapter
             tabLayout.setupWithViewPager(binding.viewPager)
         }
