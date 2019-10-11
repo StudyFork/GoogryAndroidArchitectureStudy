@@ -2,7 +2,6 @@ package kr.schoolsharing.coinhelper.tasks
 
 import android.os.Bundle
 import androidx.databinding.library.baseAdapters.BR
-import androidx.recyclerview.widget.LinearLayoutManager
 import kr.schoolsharing.coinhelper.R
 import kr.schoolsharing.coinhelper.base.BaseFragment
 import kr.schoolsharing.coinhelper.base.BaseRecyclerViewAdapter
@@ -23,7 +22,6 @@ class UpbitFragment : BaseFragment<FragmentCoinrecyclerBinding>(R.layout.fragmen
                 BR.item
             ) {}
 
-            layoutManager = LinearLayoutManager(context!!)
             setHasFixedSize(true)
         }
 

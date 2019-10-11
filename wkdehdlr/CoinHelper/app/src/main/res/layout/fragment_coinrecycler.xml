@@ -20,7 +20,8 @@
             android:id="@+id/rv_coin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:items="@{viewModel.tickerList}"/>
+            app:items="@{viewModel.tickerList}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     </FrameLayout>
 
