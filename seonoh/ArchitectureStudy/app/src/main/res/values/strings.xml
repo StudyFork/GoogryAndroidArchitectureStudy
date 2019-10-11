@@ -7,4 +7,8 @@
     <string name="trade_amount_giga_fmt">%,d G</string>
     <string name="empty_market_text">마켓데이터를 불러올 수 없습니다.</string>
     <string name="back_text">뒤로가기를 한번 더 누르시면 앱이 종료됩니다.</string>
+    <string name="coin_name_title">코인명</string>
+    <string name="coin_current_price_title">현재가</string>
+    <string name="coin_dif_title">전일대비</string>
+    <string name="coin_trade_ammount_title">거래대금</string>
 </resources>
