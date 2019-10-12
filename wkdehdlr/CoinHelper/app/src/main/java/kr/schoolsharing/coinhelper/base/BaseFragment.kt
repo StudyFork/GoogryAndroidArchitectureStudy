@@ -10,7 +10,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
 abstract class BaseFragment<B : ViewDataBinding>(
-    @LayoutRes private val layoutId: Int
+    @LayoutRes
+    private val layoutId: Int
 ) :
     Fragment() {
     protected lateinit var binding: B
