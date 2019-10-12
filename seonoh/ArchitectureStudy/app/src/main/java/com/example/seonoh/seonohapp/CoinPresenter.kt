@@ -41,10 +41,14 @@ class CoinPresenter(
         } else ""
 
         return result.map {
+            var rate = CalculateUtils.setTradeDiff(it.signedChangeRate)["rate"].toString()
+            var color = CalculateUtils.setTradeDiff(it.signedChangeRate)["color"].toString().toInt()
+
             UseCoinModel(
                 CalculateUtils.setMarketName(it.market),
                 CalculateUtils.filterTrade(it.tradePrice),
-                CalculateUtils.setTradeDiff(it.signedChangeRate),
+                rate,
+                color,
                 CalculateUtils.setTradeAmount(marketType, it.accTradePrice24h)
             )
         }

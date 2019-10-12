@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="androidx.core.content.ContextCompat"/>
+        <variable
+                name="coinItem"
+                type="com.example.seonoh.seonohapp.model.UseCoinModel"/>
+    </data>
 <androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_margin="6dp"
@@ -18,7 +25,7 @@
                 android:textColor="@color/seonohBlack"
                 android:textStyle="bold"
                 android:textSize="14sp"
-                android:text="BTCFSD"
+                android:text="@{coinItem.market}"
                 android:id="@+id/coinName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
@@ -29,7 +36,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/seonohBlack"
                 android:textSize="14sp"
-                android:text="13,550,000"
+                android:text="@{coinItem.tradePrice}"
                 android:id="@+id/currentPrice"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
@@ -38,9 +45,9 @@
                 android:gravity="right"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:textColor="@color/seonohBlack"
+                android:textColor="@{ContextCompat.getColor(context,coinItem.changeColor)}"
                 android:textSize="14sp"
-                android:text="-2.00%"
+                android:text="@{coinItem.rate}"
                 android:id="@+id/changeRate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
@@ -51,13 +58,11 @@
                 android:textStyle="bold"
                 android:textColor="@color/seonohBlack"
                 android:textSize="14sp"
-                android:text="117.503M"
                 android:id="@+id/totalTradePrice"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
 
-
     </LinearLayout>
 
-
 </androidx.cardview.widget.CardView>
+</layout>
