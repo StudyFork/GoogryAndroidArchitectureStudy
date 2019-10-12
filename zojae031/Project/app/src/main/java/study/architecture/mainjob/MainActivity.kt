@@ -18,7 +18,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         with(binding) {
             pager.adapter = MainPageAdapter(supportFragmentManager)
             viewModel = ViewModelProviders.of(this@MainActivity).get(MainViewModel::class.java)
-            lifecycleOwner = this@MainActivity
         }
         supportActionBar?.elevation = 0.0f
         supportActionBar?.title = resources.getString(R.string.app_title)

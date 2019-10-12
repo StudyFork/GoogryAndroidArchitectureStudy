@@ -33,7 +33,6 @@ class CoinFragment : BaseFragment<FragmentCoinBinding>(R.layout.fragment_coin) {
 
             with(binding) {
                 viewModel = coinViewModel
-                lifecycleOwner = this@CoinFragment
                 recyclerView.adapter = object :
                     BaseRecyclerViewAdapter<ProcessingTicker, ItemTickerBinding>(
                         R.layout.item_ticker,
