@@ -2,6 +2,7 @@ package kr.schoolsharing.coinhelper.tasks
 
 import android.util.Log
 import androidx.databinding.ObservableField
+import androidx.lifecycle.ViewModel
 import kr.schoolsharing.coinhelper.data.Repository
 import kr.schoolsharing.coinhelper.data.UpbitDataSource
 import kr.schoolsharing.coinhelper.model.UpbitItem
@@ -9,7 +10,7 @@ import kr.schoolsharing.coinhelper.model.UpbitMarket
 import kr.schoolsharing.coinhelper.model.UpbitTicker
 import kr.schoolsharing.coinhelper.util.TextEditor
 
-class UpbitViewModel(private val repository: Repository) {
+class UpbitViewModel(private val repository: Repository) : ViewModel() {
 
     val tickerList = ObservableField<List<UpbitItem>>()
 
