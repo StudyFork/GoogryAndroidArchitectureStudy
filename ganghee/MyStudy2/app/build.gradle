@@ -49,4 +49,5 @@ dependencies {
     implementation 'org.jetbrains.anko:anko:0.10.8'
 
     implementation 'androidx.fragment:fragment-ktx:1.1.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 }
