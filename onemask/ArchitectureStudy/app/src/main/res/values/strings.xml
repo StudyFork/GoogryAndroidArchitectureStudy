@@ -7,4 +7,8 @@
     <string name="trade_amount_kilo_fmt">%,d k</string>
     <string name="trade_amount_mega_fmt">%,d M</string>
     <string name="trade_amount_giga_fmt">%,d G</string>
+    <string name="coin_name">코인명</string>
+    <string name="current_price">현재가</string>
+    <string name="before_rate">전일대비</string>
+    <string name="total_trade">거래대금</string>
 </resources>

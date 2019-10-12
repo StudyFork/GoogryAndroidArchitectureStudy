@@ -5,13 +5,14 @@ import android.os.Bundle
 import android.view.View
 import com.android.studyfork.R
 import com.android.studyfork.base.BaseFragment
+import com.android.studyfork.databinding.FragmentTickerListBinding
 import com.android.studyfork.network.model.Ticker
 import com.android.studyfork.ui.adapter.CoinItemAdapter
 import com.android.studyfork.ui.tickerlist.presenter.TickerContract
 import com.android.studyfork.ui.tickerlist.presenter.TickerPresenter
-import kotlinx.android.synthetic.main.fragment_ticker_list.*
 
-class TickerListFragment : BaseFragment<TickerContract.Presenter>(R.layout.fragment_ticker_list),
+class TickerListFragment :
+    BaseFragment<FragmentTickerListBinding, TickerContract.Presenter>(R.layout.fragment_ticker_list),
     TickerContract.View {
 
     private lateinit var coinItemAdapter: CoinItemAdapter
@@ -30,7 +31,7 @@ class TickerListFragment : BaseFragment<TickerContract.Presenter>(R.layout.fragm
 
     private fun setRecyclerView() {
         coinItemAdapter = CoinItemAdapter()
-        recyclerview.apply {
+        binding.recyclerview.apply {
             adapter = coinItemAdapter
             setHasFixedSize(false)
         }
