@@ -6,7 +6,7 @@ import com.test.androidarchitecture.data.Ticker
 import com.test.androidarchitecture.data.TickerFormat
 import com.test.androidarchitecture.data.source.UpbitRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
@@ -20,7 +20,7 @@ class TickerPresenter(
     private val upbitRepository = UpbitRepository
 
     override fun getTicker() {
-        compositeDisposable.add(upbitRepository.getTicker(marketSearch)
+        upbitRepository.getTicker(marketSearch)
             .map { list ->
                 list.asSequence()
                     .map { getCoinFormat(it) }
@@ -33,7 +33,8 @@ class TickerPresenter(
                 }, {
                     view.showToast(it.message.toString())
                 }
-            ))
+            )
+            .addTo(compositeDisposable)
 
     }
 

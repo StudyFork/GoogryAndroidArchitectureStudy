@@ -4,17 +4,17 @@ import com.test.androidarchitecture.R
 import com.test.androidarchitecture.adpter.ViewPagerAdapter
 import com.test.androidarchitecture.base.BaseActivity
 import com.test.androidarchitecture.data.MarketTitle
-import kotlinx.android.synthetic.main.activity_market.*
+import com.test.androidarchitecture.databinding.ActivityMarketBinding
 
-class MarketActivity : BaseActivity<MarketContract.Presenter>(R.layout.activity_market), MarketContract.View {
+class MarketActivity : BaseActivity<MarketContract.Presenter, ActivityMarketBinding>(R.layout.activity_market), MarketContract.View {
 
     private lateinit var viewPagerAdapter: ViewPagerAdapter
     override val presenter = MarketPresenter(this)
 
     override fun start() {
-        main_tabLayout.setupWithViewPager(main_viewPager)
+        binding.mainTabLayout.setupWithViewPager(binding.mainViewPager)
         viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
-        with(main_viewPager) {
+        with(binding.mainViewPager) {
             offscreenPageLimit = 3
             adapter = viewPagerAdapter
         }

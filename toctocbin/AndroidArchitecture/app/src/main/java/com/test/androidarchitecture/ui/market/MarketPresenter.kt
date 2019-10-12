@@ -4,6 +4,7 @@ import com.test.androidarchitecture.base.BasePresenter
 import com.test.androidarchitecture.data.MarketTitle
 import com.test.androidarchitecture.data.source.UpbitRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
 
 class MarketPresenter(
     private val view: MarketContract.View
@@ -13,7 +14,7 @@ class MarketPresenter(
     private val upbitRepository by lazy { UpbitRepository }
 
     override fun getMarketAll() {
-        compositeDisposable.add(upbitRepository.getMarketAll()
+        upbitRepository.getMarketAll()
             .map { list ->
                 list.groupBy { it.market.substringBefore("-") }
                     .asSequence()
@@ -32,7 +33,8 @@ class MarketPresenter(
                 }, {
                     view.showToast(it.message.toString())
                 }
-            ))
+            )
+            .addTo(compositeDisposable)
     }
 
 
