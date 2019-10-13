@@ -4,28 +4,27 @@ import android.os.Bundle
 import com.jskim5923.architecturestudy.R
 import com.jskim5923.architecturestudy.adapter.CoinListAdapter
 import com.jskim5923.architecturestudy.base.BaseFragment
-import com.jskim5923.architecturestudy.coin.CoinContract
-import com.jskim5923.architecturestudy.coin.CoinPresenter
+import com.jskim5923.architecturestudy.coin.CoinViewModel
 import com.jskim5923.architecturestudy.databinding.LayoutCoinFragmentBinding
-import com.jskim5923.architecturestudy.model.Ticker
 
 class CoinFragment : BaseFragment<LayoutCoinFragmentBinding>(
     R.layout.layout_coin_fragment
-), CoinContract.View {
-    override val presenter = CoinPresenter(this)
+) {
+    override val viewModel = CoinViewModel()
 
     private val coinListAdapter = CoinListAdapter()
 
-    override fun initView() {
-        binding.run {
-            recyclerView.adapter = coinListAdapter
-        }
-
-        presenter.getTickerList(arguments?.getString(KEY_MARKET))
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        initView()
+        viewModel.getTickerList(arguments?.getString(KEY_MARKET))
     }
 
-    override fun updateRecyclerView(tickerList: List<Ticker>) {
-        coinListAdapter.updateItem(tickerList)
+    private fun initView() {
+        binding.run {
+            recyclerView.adapter = coinListAdapter
+            coinViewModel = viewModel
+        }
     }
 
     companion object {

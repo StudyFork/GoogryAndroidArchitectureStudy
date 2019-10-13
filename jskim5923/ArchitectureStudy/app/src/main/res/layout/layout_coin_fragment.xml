@@ -6,6 +6,10 @@
 
     <data>
 
+        <variable
+            name="coinViewModel"
+            type="com.jskim5923.architecturestudy.coin.CoinViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,6 +25,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:updateItem="@{coinViewModel.observableTickerList}"
             tools:listitem="@layout/item_coin_list" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
