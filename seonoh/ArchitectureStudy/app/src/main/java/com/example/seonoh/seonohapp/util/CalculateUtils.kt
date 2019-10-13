@@ -1,6 +1,7 @@
 package com.example.seonoh.seonohapp.util
 
 import android.util.Log
+import com.example.seonoh.seonohapp.BaseApplication
 import com.example.seonoh.seonohapp.R
 import java.text.DecimalFormat
 
@@ -33,7 +34,7 @@ object CalculateUtils {
     fun setTradeAmount(
         marketType: String,
         accTradePrice24h: Double
-    ): Map<String, Number> {
+    ): String {
         var totalPriceAmount = accTradePrice24h.toLong()
         val mapValue = mutableMapOf<String, Number>()
         when (marketType) {
@@ -52,7 +53,6 @@ object CalculateUtils {
                         totalPriceAmount /= 1_000_000_000L
                         mapValue["format"] = R.string.trade_amount_giga_fmt
                         mapValue["price"] = totalPriceAmount
-
                     }
                 }
             }
@@ -86,7 +86,7 @@ object CalculateUtils {
             else -> {
                 mapValue["format"] = when {
                     totalPriceAmount < 1_000L -> {
-                         R.string.trade_amount_milli_fmt
+                        R.string.trade_amount_milli_fmt
 
                     }
                     totalPriceAmount < 1_000_000L -> {
@@ -95,7 +95,7 @@ object CalculateUtils {
                     }
                     totalPriceAmount < 1_000_000_000L -> {
                         totalPriceAmount /= 1_000L
-                         R.string.trade_amount_kilo_fmt
+                        R.string.trade_amount_kilo_fmt
 
                     }
                     totalPriceAmount < 1_000_000_000_000L -> {
@@ -115,7 +115,15 @@ object CalculateUtils {
 
             }
         }
-        return mapValue
+        return String.format(
+            BaseApplication.context!!
+                .getString(
+                    mapValue["format"]
+                        .toString()
+                        .toInt()
+                ),
+            mapValue["price"]
+        )
     }
 
     fun setTradeDiff(

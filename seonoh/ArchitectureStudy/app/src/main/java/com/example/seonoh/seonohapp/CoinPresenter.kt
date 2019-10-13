@@ -10,7 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class CoinPresenter(
-     val view: CoinFragmentContract.View
+    val view: CoinFragmentContract.View
 ) : BasePresenter() {
 
     private val coinRepository = CoinRepositoryImpl()
@@ -24,7 +24,7 @@ class CoinPresenter(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ view.setData(it) }, {
-                    Log.e("currentPriceInfo", "Network failed!! ${it.message}")
+                    Log.e("currentPriceInfo", "Fragment Network failed!! ${it.message}")
                 })
         )
     }
