@@ -20,7 +20,6 @@ class CoinListActivity : BaseActivity<ActivityCoinBinding>(R.layout.activity_coi
 
     private val marketViewModel by lazy {
         ViewModelProviders.of(this, MarketViewModelFactory()).get(MarketViewModel::class.java)
-//        MarketViewModel(CoinRepositoryImpl.getInstance(Injection.provideCoinRemoteDataSource()))
     }
 
     private val tabList = listOf(
