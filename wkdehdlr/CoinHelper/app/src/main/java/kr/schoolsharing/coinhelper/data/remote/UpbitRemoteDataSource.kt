@@ -7,23 +7,11 @@ import kr.schoolsharing.coinhelper.network.UpbitService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-object UpbitRemoteDataSource : UpbitDataSource {
-
-    private const val BASE_URL = "https://api.upbit.com/"
-    private val retrofit: Retrofit
+class UpbitRemoteDataSource(
     private val upbitService: UpbitService
+) : UpbitDataSource {
 
-    init {
-        retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        upbitService = retrofit.create(UpbitService::class.java)
-    }
 
     override fun getMarket(callback: UpbitDataSource.GetMarketCallback) {
         upbitService

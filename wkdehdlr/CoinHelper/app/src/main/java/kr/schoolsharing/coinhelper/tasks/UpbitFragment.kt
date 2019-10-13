@@ -2,19 +2,19 @@ package kr.schoolsharing.coinhelper.tasks
 
 import android.os.Bundle
 import androidx.databinding.library.baseAdapters.BR
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import kr.schoolsharing.coinhelper.R
 import kr.schoolsharing.coinhelper.base.BaseFragment
 import kr.schoolsharing.coinhelper.base.BaseRecyclerViewAdapter
-import kr.schoolsharing.coinhelper.data.Repository
 import kr.schoolsharing.coinhelper.databinding.FragmentCoinrecyclerBinding
 import kr.schoolsharing.coinhelper.databinding.MainRvItemBinding
 import kr.schoolsharing.coinhelper.model.UpbitItem
 import kr.schoolsharing.coinhelper.util.Market
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UpbitFragment : BaseFragment<FragmentCoinrecyclerBinding>(R.layout.fragment_coinrecycler) {
+
+
+    val viewModel by viewModel<UpbitViewModel>()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -29,15 +29,16 @@ class UpbitFragment : BaseFragment<FragmentCoinrecyclerBinding>(R.layout.fragmen
         }
 
         val marketName = arguments?.get(Market.NAME.name).toString()
+        viewModel.loadUpbitMarket(marketName)
 //        binding.viewModel = UpbitViewModel(Repository).apply {
 //            loadUpbitMarket(marketName)
 //        }
 
-        ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-                UpbitViewModel(Repository) as T
-        }).get(UpbitViewModel::class.java)
-            .loadUpbitMarket(marketName)
+//        ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+//            override fun <T : ViewModel?> create(modelClass: Class<T>): T =
+//                UpbitViewModel(Repository) as T
+//        }).get(UpbitViewModel::class.java)
+//            .loadUpbitMarket(marketName)
 
     }
 
