@@ -2,10 +2,14 @@ package kr.schoolsharing.coinhelper.util
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import kr.schoolsharing.coinhelper.model.UpbitItem
-import kr.schoolsharing.coinhelper.tasks.UpbitRVAdapter
+import kr.schoolsharing.coinhelper.base.BaseRecyclerViewAdapter
 
 @BindingAdapter("items")
-fun RecyclerView.replaceAll(items: List<UpbitItem>) {
-    (this.adapter as? UpbitRVAdapter)?.setTickerList(items)
+fun RecyclerView.replaceAll(items: List<Any>?) {
+    @Suppress("UNCHECKED_CAST")
+    (adapter as? BaseRecyclerViewAdapter<Any, *>)?.run {
+        if (items != null) {
+            setTickerList(items)
+        }
+    }
 }
