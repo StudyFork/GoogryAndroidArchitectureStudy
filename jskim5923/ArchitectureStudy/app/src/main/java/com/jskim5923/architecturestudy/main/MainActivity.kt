@@ -1,11 +1,10 @@
-package com.jskim5923.architecturestudy.ui
+package com.jskim5923.architecturestudy.main
 
 import android.os.Bundle
 import com.jskim5923.architecturestudy.R
 import com.jskim5923.architecturestudy.adapter.ViewPagerAdapter
 import com.jskim5923.architecturestudy.base.BaseActivity
 import com.jskim5923.architecturestudy.databinding.ActivityMainBinding
-import com.jskim5923.architecturestudy.main.MainViewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override val viewModel = MainViewModel()

@@ -1,10 +1,9 @@
-package com.jskim5923.architecturestudy.ui
+package com.jskim5923.architecturestudy.coin
 
 import android.os.Bundle
 import com.jskim5923.architecturestudy.R
 import com.jskim5923.architecturestudy.adapter.CoinListAdapter
 import com.jskim5923.architecturestudy.base.BaseFragment
-import com.jskim5923.architecturestudy.coin.CoinViewModel
 import com.jskim5923.architecturestudy.databinding.LayoutCoinFragmentBinding
 
 class CoinFragment : BaseFragment<LayoutCoinFragmentBinding>(

@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:background="#FEF2EE"
         android:orientation="vertical"
-        tools:context=".ui.MainActivity">
+        tools:context=".main.MainActivity">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
