@@ -42,6 +42,9 @@ dependencies {
     //kotlin
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 
+    //koin
+    implementation "org.koin:koin-android:$koinVersion"
+
     //room
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
