@@ -15,7 +15,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabIndicatorColor="@color/colorAccent"
+            app:tabSelectedTextColor="@color/colorAccent"
+            app:tabTextAppearance="@style/tab_text">
 
         </com.google.android.material.tabs.TabLayout>
 
@@ -24,52 +27,97 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:drawableEnd="@drawable/ic_arrow_selector"
+            android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="@string/coin_name"
-            app:layout_constraintEnd_toStartOf="@+id/tv_curr_price"
-            app:layout_constraintHorizontal_bias="0.0"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/standard_text_size"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+
+        <ImageView
+            android:id="@+id/iv_arrow_coin_name"
+            android:layout_width="@dimen/standard_iv_arrow_size"
+            android:layout_height="@dimen/standard_iv_arrow_size"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_coin_name"
+            app:layout_constraintStart_toEndOf="@+id/tv_coin_name"
+            app:layout_constraintTop_toTopOf="@+id/tv_coin_name"
+            app:srcCompat="@drawable/ic_arrow_selector" />
 
         <TextView
             android:id="@+id/tv_curr_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:drawableEnd="@drawable/ic_arrow_selector"
+            android:layout_marginEnd="4dp"
             android:gravity="center"
             android:text="@string/curr_price"
-            app:layout_constraintEnd_toStartOf="@+id/tv_price_compare"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/standard_text_size"
+            app:layout_constraintEnd_toStartOf="@+id/iv_arrow_curr_price"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/iv_arrow_coin_name"
             app:layout_constraintTop_toTopOf="@+id/tv_coin_name" />
+
+        <ImageView
+            android:id="@+id/iv_arrow_curr_price"
+            android:layout_width="@dimen/standard_iv_arrow_size"
+            android:layout_height="@dimen/standard_iv_arrow_size"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_curr_price"
+            app:layout_constraintEnd_toStartOf="@+id/tv_price_compare"
+            app:layout_constraintTop_toTopOf="@+id/tv_curr_price"
+            app:srcCompat="@drawable/ic_arrow_selector" />
 
         <TextView
             android:id="@+id/tv_price_compare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:drawableEnd="@drawable/ic_arrow_selector"
+            android:layout_marginEnd="4dp"
             android:gravity="center"
             android:text="@string/price_compare"
-            app:layout_constraintEnd_toStartOf="@+id/tv_total_trade"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/standard_text_size"
+            app:layout_constraintEnd_toStartOf="@+id/iv_arrow_price_compare"
             app:layout_constraintTop_toTopOf="@+id/tv_curr_price" />
+
+        <ImageView
+            android:id="@+id/iv_arrow_price_compare"
+            android:layout_width="@dimen/standard_iv_arrow_size"
+            android:layout_height="@dimen/standard_iv_arrow_size"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_price_compare"
+            app:layout_constraintEnd_toStartOf="@+id/tv_total_trade"
+            app:layout_constraintTop_toTopOf="@+id/tv_price_compare"
+            app:srcCompat="@drawable/ic_arrow_selector" />
 
         <TextView
             android:id="@+id/tv_total_trade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:drawableEnd="@drawable/ic_arrow_selector"
+            android:layout_marginEnd="4dp"
             android:gravity="center"
             android:text="@string/total_trade"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/standard_text_size"
+            app:layout_constraintEnd_toStartOf="@+id/iv_arrow_total_trade"
             app:layout_constraintTop_toTopOf="@+id/tv_price_compare" />
+
+        <ImageView
+            android:id="@+id/iv_arrow_total_trade"
+            android:layout_width="@dimen/standard_iv_arrow_size"
+            android:layout_height="@dimen/standard_iv_arrow_size"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_total_trade"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_total_trade"
+            app:srcCompat="@drawable/ic_arrow_selector" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

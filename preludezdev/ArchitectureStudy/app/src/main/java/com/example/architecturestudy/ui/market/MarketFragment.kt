@@ -1,9 +1,9 @@
 package com.example.architecturestudy.ui.market
 
 import android.os.Bundle
-import android.widget.Toast
-import androidx.databinding.Observable
-import androidx.databinding.ObservableField
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.architecturestudy.R
 import com.example.architecturestudy.base.BaseFragment
 import com.example.architecturestudy.data.source.CoinsRepositoryImpl
@@ -15,13 +15,18 @@ import com.example.architecturestudy.viewmodel.MarketViewModel
 
 class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_market) {
 
+    @Suppress("UNCHECKED_CAST")
     private val marketViewModel by lazy {
-        MarketViewModel(
-            CoinsRepositoryImpl.getInstance(
-                CoinsRemoteDataSource.getInstance(RetrofitHelper.getInstance().coinApiService),
-                CoinsLocalDataSource.getInstance()
-            )
-        )
+        ViewModelProvider(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MarketViewModel(
+                    CoinsRepositoryImpl.getInstance(
+                        CoinsRemoteDataSource.getInstance(RetrofitHelper.getInstance().coinApiService),
+                        CoinsLocalDataSource.getInstance()
+                    )
+                ) as T
+            }
+        }).get(MarketViewModel::class.java)
     }
 
     private val rvAdapter = RecyclerViewAdapter()
@@ -37,7 +42,7 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
     }
 
     private fun initViewModel() {
-        binding.viewModel = marketViewModel // 뷰모델을 레이아웃과 바인딩
+        binding.viewModel = marketViewModel
     }
 
     private fun initRecyclerView() {
@@ -45,13 +50,8 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
     }
 
     private fun initCallback() {
-        marketViewModel.notificationMsg.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                (sender as ObservableField<String>).get()?.let { msg ->
-                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
-                }
-            }
+        marketViewModel.notificationMsg.observe(this, Observer<String> { errorMsg ->
+            showToastMessage(errorMsg)
         })
     }
 
@@ -62,5 +62,4 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
             arguments = Bundle().apply { putString(KEY_MARKET, market) }
         }
     }
-
 }

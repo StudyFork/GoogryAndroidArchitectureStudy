@@ -20,8 +20,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="vertical">
+            android:layout_height="40dp">
 
             <TextView
                 android:id="@+id/tv_market"
@@ -32,7 +31,7 @@
                 android:layout_marginBottom="4dp"
                 android:gravity="start"
                 android:text="@{coin.market}"
-                android:textSize="14sp"
+                android:textSize="@dimen/item_text_size"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +46,7 @@
                 android:layout_marginBottom="4dp"
                 android:gravity="end"
                 android:text="@{coin.tradePrice}"
-                android:textSize="14sp"
+                android:textSize="@dimen/item_text_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_signed_changed_rate"
                 app:layout_constraintStart_toEndOf="@+id/tv_market"
@@ -58,12 +57,12 @@
                 android:layout_width="56dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="4dp"
                 android:gravity="end"
                 android:text="@{coin.signedChangeRate}"
                 android:textColor="@{coin.coinColor}"
-                android:textSize="14sp"
+                android:textSize="@dimen/item_text_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_acc_trade_price_h"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -73,11 +72,11 @@
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="4dp"
                 android:gravity="end"
                 android:text="@{coin.accTradePriceH}"
-                android:textSize="14sp"
+                android:textSize="@dimen/item_text_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

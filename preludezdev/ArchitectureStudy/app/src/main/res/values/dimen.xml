@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="category_text_size">16dp</dimen>
+    <dimen name="standard_text_size">12dp</dimen>
+    <dimen name="item_text_size">12dp</dimen>
+    <dimen name="standard_iv_arrow_size">15dp</dimen>
+</resources>

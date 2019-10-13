@@ -1,6 +1,5 @@
 package com.example.architecturestudy.data.source
 
-import android.util.Log
 import com.example.architecturestudy.data.CoinMarketResponse
 import com.example.architecturestudy.data.CoinTickerResponse
 
@@ -11,7 +10,7 @@ class CoinsRepositoryImpl(
 
     override fun getAllMarket(
         onSuccess: (data: List<CoinMarketResponse>?) -> Unit,
-        onFail: (errorCode: String) -> Unit
+        onFail: (errorMsg: String) -> Unit
     ) {
         // 현재는 RemoteDataSource 만 연결해준다.
         coinsRemoteDataSource.getAllMarket(onSuccess, onFail)
@@ -22,7 +21,7 @@ class CoinsRepositoryImpl(
     override fun getCoinTickers(
         market: String,
         onSuccess: (data: List<CoinTickerResponse>?) -> Unit,
-        onFail: (errorCode: String) -> Unit
+        onFail: (errorMsg: String) -> Unit
     ) {
         getAllMarket({ coinMarketResponses ->
             if (coinMarketResponses != null) {
@@ -33,13 +32,9 @@ class CoinsRepositoryImpl(
                 //현재는 RemoteDataSource 만 연결해준다.
                 coinsRemoteDataSource.getCoinTickers(targetTickers, onSuccess, onFail)
             }
-        }, { onFailCallback(it) })
+        }, { onFail(it) })
 
         // Local 로 데이터 받아오는 기능이 생기면 추가 구현해야함.
-    }
-
-    private fun onFailCallback(errorMsg: String) {
-        Log.d("test", errorMsg)
     }
 
     companion object {
@@ -49,7 +44,10 @@ class CoinsRepositoryImpl(
             coinsRemoteDataSource: CoinsDataSource,
             coinsLocalDataSource: CoinsDataSource
         ): CoinsRepositoryImpl {
-            return INSTANCE ?: CoinsRepositoryImpl(coinsRemoteDataSource, coinsLocalDataSource).apply {
+            return INSTANCE ?: CoinsRepositoryImpl(
+                coinsRemoteDataSource,
+                coinsLocalDataSource
+            ).apply {
                 INSTANCE = this
             }
         }
