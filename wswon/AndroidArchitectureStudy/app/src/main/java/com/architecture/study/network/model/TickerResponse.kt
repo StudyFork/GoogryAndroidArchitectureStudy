@@ -72,11 +72,11 @@ data class TickerResponse(
         if (tradePrice > prevClosingPrice) {
             compareYesterday =
                 DecimalFormat("0.##").format((1 - (prevClosingPrice / tradePrice)) * 10.0) + "%"
-            compareYesterdayTextColor = ContextCompat.getColor(App.instance.context(), R.color.colorRed)
+            compareYesterdayTextColor = R.color.colorRed
         } else {
             compareYesterday =
                 "-" + DecimalFormat("0.##").format((1 - (tradePrice / prevClosingPrice)) * 10.0) + "%"
-            compareYesterdayTextColor = ContextCompat.getColor(App.instance.context(), R.color.colorBlue)
+            compareYesterdayTextColor = R.color.colorBlue
         }
         val transactionAmount = when (market.split("-")[0]) {
             monetaryUnitList[0] -> {

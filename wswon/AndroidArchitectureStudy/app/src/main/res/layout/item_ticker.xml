@@ -44,7 +44,7 @@
             android:layout_height="0dp"
             android:text="@{ticker.compareYesterday}"
             android:textAlignment="textEnd"
-            android:textColor="@{ticker.compareYesterdayTextColor}"
+            compareYesterdayColor="@{ticker.compareYesterdayTextColor}"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/tv_now_price"
