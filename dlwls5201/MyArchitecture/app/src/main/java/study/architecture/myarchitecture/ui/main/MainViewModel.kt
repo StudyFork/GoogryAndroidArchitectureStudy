@@ -1,65 +1,75 @@
 package study.architecture.myarchitecture.ui.main
 
-import androidx.databinding.ObservableField
-import io.reactivex.disposables.CompositeDisposable
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import study.architecture.myarchitecture.base.BaseViewModel
 import study.architecture.myarchitecture.data.repository.UpbitRepository
 import study.architecture.myarchitecture.util.Filter
 import timber.log.Timber
 
 class MainViewModel(
-    private val upbitRepository: UpbitRepository,
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-) {
+    private val upbitRepository: UpbitRepository
+) : BaseViewModel() {
 
-    val titles = ObservableField<Array<String>>()
-    val markets = ObservableField<Array<String>>()
+    private val _titles = MutableLiveData<Array<String>>()
+    private val _markets = MutableLiveData<Array<String>>()
 
-    val pageLimit = ObservableField<Int>()
+    private val _pageLimit = MutableLiveData<Int>()
 
-    val category = ObservableField<Filter.SelectArrow>()
-    val isSelected = ObservableField<Boolean>(false)
+    private val _category = MutableLiveData<Filter.SelectArrow>(Filter.SelectArrow.COIN_NAME)
+    private val _isSelected = MutableLiveData<Boolean>(true)
 
-    val selectField = ObservableField<Pair<Filter.SelectArrow, Boolean>>()
+    private val _selectField = MutableLiveData<Pair<Filter.SelectArrow, Boolean>>()
 
-    fun clearDisposable() {
-        compositeDisposable.clear()
+    val titles: LiveData<Array<String>> get() = _titles
+    val markets: LiveData<Array<String>> get() = _markets
+
+    val pageLimit: LiveData<Int> get() = _pageLimit
+
+    val category: LiveData<Filter.SelectArrow> get() = _category
+    val isSelected: LiveData<Boolean> get() = _isSelected
+
+    val selectField: LiveData<Pair<Filter.SelectArrow, Boolean>> get() = _selectField
+
+    init {
+        loadData()
     }
 
-    fun loadData() {
-        upbitRepository.getGroupedMarkets()
-            .subscribe({ groupMarket ->
+    private fun loadData() {
 
-                val keys = groupMarket.keys
+        addDisposable(
+            upbitRepository.getGroupedMarkets()
+                .subscribe({ groupMarket ->
 
-                titles.set(keys.toTypedArray())
-                pageLimit.set(keys.size)
+                    val keys = groupMarket.keys
 
-                val arrMarkets = Array(keys.size) { "" }
+                    _titles.value = keys.toTypedArray()
+                    _pageLimit.value = keys.size
 
-                for ((index, value) in keys.withIndex()) {
+                    val arrMarkets = Array(keys.size) { "" }
 
-                    arrMarkets[index] = groupMarket
-                        .getValue(value)
-                        .joinToString(separator = ",") { it.market }
+                    for ((index, value) in keys.withIndex()) {
+
+                        arrMarkets[index] = groupMarket
+                            .getValue(value)
+                            .joinToString(separator = ",") { it.market }
+                    }
+
+                    _markets.value = arrMarkets
+
+                }) {
+                    Timber.e(it)
                 }
-
-                markets.set(arrMarkets)
-
-            }) {
-                Timber.e(it)
-            }.also {
-                compositeDisposable.add(it)
-            }
+        )
     }
 
     fun showCategoryArrow(selectArrow: Filter.SelectArrow) {
 
-        this.category.set(selectArrow)
+        _category.value = selectArrow
 
-        val selected = !isSelected.get()!!
-        this.isSelected.set(selected)
+        val selected = !isSelected.value!!
+        _isSelected.value = selected
 
-        selectField.set(Pair(selectArrow, selected))
-
+        _selectField.value = Pair(selectArrow, selected)
     }
 }

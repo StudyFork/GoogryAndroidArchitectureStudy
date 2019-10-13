@@ -1,8 +1,9 @@
 package study.architecture.myarchitecture.ui.tickerlist
 
 import android.view.View
-import androidx.databinding.ObservableField
-import io.reactivex.disposables.CompositeDisposable
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import study.architecture.myarchitecture.base.BaseViewModel
 import study.architecture.myarchitecture.data.repository.UpbitRepository
 import study.architecture.myarchitecture.ui.model.TickerItem
 import study.architecture.myarchitecture.ui.model.mapToPresentation
@@ -11,17 +12,19 @@ import timber.log.Timber
 
 class TickerListViewModel(
     private val upbitRepository: UpbitRepository,
-    private val keyMarket: String,
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-) {
+    private val keyMarket: String
+) : BaseViewModel() {
 
     private val mTickers = mutableListOf<TickerItem>()
 
-    val tickers = ObservableField<MutableList<TickerItem>>()
-    val isProgress = ObservableField<Int>()
+    private val _tickers = MutableLiveData<MutableList<TickerItem>>()
+    private val _isProgress = MutableLiveData<Int>()
 
-    fun detachView() {
-        compositeDisposable.clear()
+    val tickers: LiveData<MutableList<TickerItem>> get() = _tickers
+    val isProgress: LiveData<Int> get() = _isProgress
+
+    init {
+        loadData()
     }
 
     fun sortByField(field: Filter.SelectArrow, order: Int) {
@@ -59,36 +62,32 @@ class TickerListViewModel(
             mTickers.sortByDescending(selector)
         }
 
-        /**
-         * ObservableField의 set()함수는 다른 객체를 넣어줘야 동작이 됩니다.
-         * mTickers를 sorting해도 같은 객체이므로 아래 코드는 1회만 동작되게 됩니다.
-         * 이에 강제로 notifyChange를 호출해 줍니다.
-         */
-        tickers.set(mTickers)
-        tickers.notifyChange()
+        _tickers.value = mTickers
     }
 
-    fun loadData() {
+    private fun loadData() {
+        addDisposable(
+            upbitRepository
+                .getTickers(keyMarket)
+                .doOnSubscribe {
+                    _isProgress.value = View.VISIBLE
+                }
+                .doOnTerminate {
+                    _isProgress.value = View.GONE
+                }
+                .subscribe({
 
-        upbitRepository
-            .getTickers(keyMarket)
-            .doOnSubscribe {
-                isProgress.set(View.VISIBLE)
-            }
-            .doOnTerminate {
-                isProgress.set(View.GONE)
-            }
-            .subscribe({
+                    _tickers.value = it.mapToPresentation().toMutableList()
 
-                tickers.set(it.mapToPresentation().toMutableList())
+                    mTickers.clear()
+                    mTickers.addAll(_tickers.value!!)
 
-                mTickers.clear()
-                mTickers.addAll(tickers.get()!!)
+                    sortByField(Filter.SelectArrow.COIN_NAME, Filter.ASC)
 
-            }) {
-                Timber.e(it)
-            }.also {
-                compositeDisposable.add(it)
-            }
+                }) {
+                    Timber.e(it)
+                }
+
+        )
     }
 }

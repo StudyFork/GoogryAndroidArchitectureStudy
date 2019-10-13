@@ -1,8 +1,8 @@
 package study.architecture.myarchitecture.ui.main
 
 import android.os.Bundle
-import androidx.databinding.Observable
-import androidx.databinding.ObservableField
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.base.BaseActivity
 import study.architecture.myarchitecture.data.Injection
@@ -11,8 +11,12 @@ import study.architecture.myarchitecture.util.Filter
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
+    private val mainViewModelFactory by lazy {
+        MainViewModelFactory(Injection.provideFolderRepository(this))
+    }
+
     private val mainViewModel by lazy {
-        MainViewModel(Injection.provideFolderRepository(this))
+        ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java)
     }
 
     private val mainAdapter: MainAdapter by lazy {
@@ -25,14 +29,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         initViewModel()
         initViewPager()
         initAdapterCallback()
-        mainViewModel.loadData()
     }
-
-    override fun onDestroy() {
-        mainViewModel.clearDisposable()
-        super.onDestroy()
-    }
-
 
     private fun initViewModel() {
         binding.mainModel = mainViewModel
@@ -42,30 +39,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.vpMain.adapter = mainAdapter
     }
 
-    @Suppress("UNCHECKED_CAST")
     private fun initAdapterCallback() {
-        mainViewModel.selectField.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable, propertyId: Int) {
 
-                (sender as ObservableField<Pair<Filter.SelectArrow, Boolean>>).get()?.let {
+        mainViewModel.selectField.observe(this, Observer {
+            val (filter, selected) = it
 
-                    val (filter, selected) = it
-
-                    val order = if (selected) {
-                        Filter.ASC
-                    } else {
-                        Filter.DESC
-                    }
-
-                    for (i in 0 until (mainAdapter.count)) {
-                        mainAdapter.getFragment(i)?.let { fragment ->
-                            fragment.get()?.showTickerListOrderByField(filter, order)
-                        }
-                    }
-                }
+            val order = if (selected) {
+                Filter.ASC
+            } else {
+                Filter.DESC
             }
 
+            for (i in 0 until (mainAdapter.count)) {
+                mainAdapter.getFragment(i)?.let { fragment ->
+                    fragment.get()?.showTickerListOrderByField(filter, order)
+                }
+            }
         })
     }
 }

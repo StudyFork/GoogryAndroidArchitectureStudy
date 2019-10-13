@@ -1,6 +1,7 @@
 package study.architecture.myarchitecture.ui.tickerlist
 
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import org.jetbrains.anko.support.v4.toast
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.base.BaseFragment
@@ -17,23 +18,20 @@ class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.frag
 
         arguments?.let { bundle ->
 
-            tickerViewModel = TickerListViewModel(
-                Injection.provideFolderRepository(requireContext()),
-                bundle.getString(KEY_MARKETS, "")
-            )
-            binding.tickerModel = tickerViewModel
+            tickerViewModel = ViewModelProvider(
+                this,
+                TickerListViewModelFactory(
+                    Injection.provideFolderRepository(requireContext()),
+                    bundle.getString(KEY_MARKETS, "")
+                )
+            ).get(TickerListViewModel::class.java)
 
-            tickerViewModel.loadData()
+            binding.tickerModel = tickerViewModel
 
         } ?: error("arguments is null")
 
         initRecyclerView()
 
-    }
-
-    override fun onDestroyView() {
-        tickerViewModel.detachView()
-        super.onDestroyView()
     }
 
     fun showTickerListOrderByField(field: Filter.SelectArrow, order: Int) {
