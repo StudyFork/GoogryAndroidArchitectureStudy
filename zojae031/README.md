@@ -172,3 +172,44 @@ onPropertyChangeCallback
 
 
 
+# 7주차 2019-09-29
+
+### AAC ViewModel
+
+ViewModel은 Activity에 관련되게 만들어진다.
+
+ViewModel은 어디에 의존하여 동작하는지 결정된다.
+
+OnClear 를 호출하면서 메모리참조를 해제한다 (=onDestroy())
+
+ViewModelProviders를 써야하는 이유 -  fragment들끼리 같은 ViewModel을 공유 할 수 있다.
+
+AAC ViewModel을 쓰면 Shared ViewModel을 사용할 수 있다.
+
+FragmentActivity가 store를 하여 그놈을 참조하여 가져온다.
+
+
+
+### LiveData 
+
+옵저버를 감싼 클래스이다.
+
+액티비티, 프래그먼트, 서비스 관련 생명주기가 살아있을때만 옵저버블 된다.
+
+
+
+### MediatorLiveData
+
+하나의 값이 바뀔때 같이 바뀌어야 하는 값
+
+
+```kotlin
+addSource(_source){
+
+//TODO _source가 변화할때 바뀌는 로직
+
+}
+```
+
+
+
