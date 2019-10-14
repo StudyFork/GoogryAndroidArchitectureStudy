@@ -213,3 +213,36 @@ addSource(_source){
 
 
 
+# 8주차 2019-10-13
+
+안에서 여러번 호출되는것을 분리시킨다. (new...) -> 위로 올린다. 
+
+(해결1) : 합성관계 (전체 객체가 없어지면 부분객체도 없어진다.) composition
+
+의존성 주입 -> 밖에서 생성하여 인자로 넘겨준다
+
+(해결2) :  집약관계 (전체객체가 없어져도 부분객체는 살아있다.)
+
+@Provide : 객체를 생성해서 제공해주는곳
+
+@Module : Provide들을 가지고 있는것
+
+@Inject : 주입하는 것
+
+
+
+single : SingleTon
+
+factory : 달라고 요청할때마다 새로 만든다. (일반 생성)
+
+Qualifiers (식별자)
+
+single(named("mock")) <- 오버로딩 될때 리턴타입 정해주는것.
+
+by : lazy
+
+get : 바로 넣어주는것 
+
+sharedViewModel - 찾아보기
+
+viewModelStore - 찾아보기

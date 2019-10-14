@@ -10,5 +10,4 @@ fun RecyclerView.replaceAll(list: List<Any>?) {
     if (list != null) {
         (this.adapter as? BaseRecyclerViewAdapter<Any, *>)?.updateLists(list)
     }
-
 }
