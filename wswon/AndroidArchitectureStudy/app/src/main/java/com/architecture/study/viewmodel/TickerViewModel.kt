@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.architecture.study.base.BaseViewModel
 import com.architecture.study.data.model.Ticker
 import com.architecture.study.data.repository.CoinRepository
-import com.architecture.study.data.source.CoinRemoteDataSourceListener
+import com.architecture.study.data.source.remote.CoinRemoteDataSourceListener
 import com.architecture.study.network.model.TickerResponse
 
 class TickerViewModel(
@@ -17,7 +17,8 @@ class TickerViewModel(
     fun getTickerList(marketNameList: List<String>) {
         repository.getTickerList(
             marketNameList.joinToString(),
-            object : CoinRemoteDataSourceListener<TickerResponse> {
+            object :
+                CoinRemoteDataSourceListener<TickerResponse> {
                 override fun onSuccess(dataList: List<TickerResponse>) {
                     val convertTickerList = mutableListOf<Ticker>()
                     dataList.map {

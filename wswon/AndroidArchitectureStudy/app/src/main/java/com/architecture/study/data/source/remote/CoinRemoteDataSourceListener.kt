@@ -1,4 +1,4 @@
-package com.architecture.study.data.source
+package com.architecture.study.data.source.remote
 
 interface CoinRemoteDataSourceListener<T> {
     fun onSuccess(dataList: List<T>)

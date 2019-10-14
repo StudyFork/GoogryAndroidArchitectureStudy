@@ -1,7 +1,7 @@
 package com.architecture.study.data.repository
 
-import com.architecture.study.data.source.CoinRemoteDataSource
-import com.architecture.study.data.source.CoinRemoteDataSourceListener
+import com.architecture.study.data.source.remote.CoinRemoteDataSource
+import com.architecture.study.data.source.remote.CoinRemoteDataSourceListener
 import com.architecture.study.network.model.MarketResponse
 import com.architecture.study.network.model.TickerResponse
 
