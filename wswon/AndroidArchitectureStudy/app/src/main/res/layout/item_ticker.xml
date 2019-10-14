@@ -11,7 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:paddingStart="16dp"
-        android:paddingEnd="16dp">
+        android:paddingEnd="16dp"
+        android:background="?android:attr/selectableItemBackground"
+        item="@{ticker}"
+        >
 
         <TextView
             android:id="@+id/tv_coin_name"

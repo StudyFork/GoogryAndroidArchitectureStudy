@@ -1,5 +1,6 @@
 package com.architecture.study.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.architecture.study.base.BaseViewModel
 import com.architecture.study.data.model.Ticker
@@ -14,6 +15,12 @@ class TickerViewModel(
 
     val tickerList = MutableLiveData<List<Ticker>>()
 
+    private val onClick: (ticker: Ticker) -> Unit =
+        { ticker ->
+            Log.d("TickerViewModel", "$ticker")
+        }
+
+
     fun getTickerList(marketNameList: List<String>) {
         repository.getTickerList(
             marketNameList.joinToString(),
@@ -22,7 +29,7 @@ class TickerViewModel(
                 override fun onSuccess(dataList: List<TickerResponse>) {
                     val convertTickerList = mutableListOf<Ticker>()
                     dataList.map {
-                        convertTickerList.add(it.toTicker(monetaryUnitList))
+                        convertTickerList.add(it.toTicker(monetaryUnitList, onClick))
                     }
                     tickerList.value = convertTickerList
                 }

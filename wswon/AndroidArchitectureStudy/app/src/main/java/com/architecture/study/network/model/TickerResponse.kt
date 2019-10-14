@@ -1,8 +1,5 @@
 package com.architecture.study.network.model
 
-import android.graphics.Color
-import androidx.core.content.ContextCompat
-import com.architecture.study.App
 import com.architecture.study.R
 import com.architecture.study.data.model.Ticker
 import com.google.gson.annotations.SerializedName
@@ -63,7 +60,7 @@ data class TickerResponse(
     @SerializedName("trade_volume")
     val tradeVolume: Double
 ) {
-    fun toTicker(monetaryUnitList: List<String>): Ticker {
+    fun toTicker(monetaryUnitList: List<String>, onClick: (ticker: Ticker) -> Unit): Ticker {
         val unitName = market.split("-")[0]
         val coinName = market.split("-")[1]
         val nowPrice = DecimalFormat("0.########").format(tradePrice)
@@ -117,7 +114,8 @@ data class TickerResponse(
             nowPrice,
             compareYesterday,
             compareYesterdayTextColor,
-            transactionAmount
+            transactionAmount,
+            onClick
         )
     }
 }

@@ -6,5 +6,6 @@ data class Ticker(
     val nowPrice: String,
     val compareYesterday: String,
     val compareYesterdayTextColor: Int,
-    val transactionAmount: String
+    val transactionAmount: String,
+    val onClick: (ticker: Ticker) -> Unit
 )
