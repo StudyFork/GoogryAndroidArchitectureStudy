@@ -1,7 +1,6 @@
 package com.example.mystudy.data
 
 
-import com.example.mystudy.util.FormatText
 import com.google.gson.annotations.SerializedName
 
 data class TickerResponse(
@@ -59,19 +58,12 @@ data class TickerResponse(
     val tradeVolume: Double
 ) {
     fun toTicker(): FormatTickers {
-        val toMarket = FormatText.lastMarketName(market)
-        val toTradePrice = FormatText.formatTradePrice(tradePrice)
-        val toSignedChangeRate = FormatText.formatSignedChangeRate(signedChangeRate)
-        val toRateColor = FormatText.formatRateColor(signedChangeRate)
-        val toAccTradePrice24h: String =
-            FormatText.formatAccTradePrice24h(accTradePrice24h, market.split("-")[0])
-
         return FormatTickers(
-            toMarket,
-            toTradePrice,
-            toSignedChangeRate,
-            toAccTradePrice24h,
-            toRateColor
+            market,
+            tradePrice,
+            signedChangeRate,
+            accTradePrice24h,
+            signedChangeRate
         )
     }
 }
