@@ -10,9 +10,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-class UpbitViewModel: BaseViewModel() {
+class UpbitViewModel(
+    private val repository: UpbitRepository
+): BaseViewModel() {
 
-    private val repository: UpbitRepository by lazy { UpbitRepository.getInstance(UpbitRemoteDataSource) }
     val tickerList = ObservableField<List<FormatTickers>>()
 
     fun getTicker(firstMarket: String?) {
