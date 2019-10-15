@@ -4,7 +4,7 @@ import com.example.architecturestudy.data.CoinMarketResponse
 import com.example.architecturestudy.data.CoinTickerResponse
 import com.example.architecturestudy.data.source.CoinsDataSource
 
-class CoinsLocalDataSource : CoinsDataSource {
+class CoinsLocalDataSource private constructor() : CoinsDataSource {
     override fun getAllMarket(
         onSuccess: (data: List<CoinMarketResponse>?) -> Unit,
         onFail: (errorCode: String) -> Unit
@@ -21,7 +21,7 @@ class CoinsLocalDataSource : CoinsDataSource {
     }
 
     companion object {
-        var INSTANCE: CoinsLocalDataSource? = null
+        private var INSTANCE: CoinsLocalDataSource? = null
 
         fun getInstance(): CoinsLocalDataSource {
             return INSTANCE ?: CoinsLocalDataSource().apply { INSTANCE = this }

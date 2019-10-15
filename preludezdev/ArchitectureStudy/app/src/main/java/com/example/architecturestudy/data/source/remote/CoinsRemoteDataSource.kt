@@ -8,7 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CoinsRemoteDataSource(
+class CoinsRemoteDataSource private constructor(
     private val coinApiService: CoinApiService
 ) : CoinsDataSource {
 

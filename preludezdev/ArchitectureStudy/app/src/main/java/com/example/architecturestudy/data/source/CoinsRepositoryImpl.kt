@@ -5,7 +5,7 @@ import com.example.architecturestudy.data.CoinTickerResponse
 import com.example.architecturestudy.data.source.local.CoinsLocalDataSource
 import com.example.architecturestudy.data.source.remote.CoinsRemoteDataSource
 
-class CoinsRepositoryImpl(
+class CoinsRepositoryImpl private constructor(
     private val coinsRemoteDataSource: CoinsRemoteDataSource,
     private val coinsLocalDataSource: CoinsLocalDataSource
 ) : CoinsRepository {

@@ -6,7 +6,7 @@ import com.example.architecturestudy.data.source.remote.CoinsRemoteDataSource
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single { CoinsRepositoryImpl(get(), get()) }
-    single { CoinsRemoteDataSource(get()) }
-    single { CoinsLocalDataSource() }
+    single { CoinsRepositoryImpl.getInstance(get(), get()) }
+    single { CoinsRemoteDataSource.getInstance(get()) }
+    single { CoinsLocalDataSource.getInstance() }
 }
