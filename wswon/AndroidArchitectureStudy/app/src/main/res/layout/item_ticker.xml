@@ -13,7 +13,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:background="?android:attr/selectableItemBackground"
-        item="@{ticker}"
+        android:onClick="@{() -> ticker.onClick.invoke(ticker)}"
         >
 
         <TextView

@@ -81,9 +81,7 @@ class CoinListActivity : BaseActivity<ActivityCoinBinding>(R.layout.activity_coi
                         getString(tabList[position])
                 }
                 addOnPageChangeListener(
-                    TabLayout.TabLayoutOnPageChangeListener(
-                        tabLayoutMonetaryUnit
-                    )
+                    TabLayout.TabLayoutOnPageChangeListener(tabLayoutMonetaryUnit)
                 )
             }
         }
