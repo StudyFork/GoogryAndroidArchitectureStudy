@@ -1,6 +1,6 @@
 package com.architecture.study.viewmodel
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import com.architecture.study.base.BaseViewModel
 import com.architecture.study.data.model.Ticker
 import com.architecture.study.data.repository.CoinRepository
@@ -12,7 +12,7 @@ class TickerViewModel(
     private val monetaryUnitList: List<String>
 ) : BaseViewModel<CoinRepository>(coinRepository) {
 
-    val tickerList = ObservableField<List<Ticker>>()
+    val tickerList = MutableLiveData<List<Ticker>>()
 
     fun getTickerList(marketNameList: List<String>) {
         repository.getTickerList(
@@ -23,15 +23,15 @@ class TickerViewModel(
                     dataList.map {
                         convertTickerList.add(it.toTicker(monetaryUnitList))
                     }
-                    tickerList.set(convertTickerList)
+                    tickerList.value = convertTickerList
                 }
 
                 override fun onEmpty(str: String) {
-                    exceptionMessage.set(str)
+                    exceptionMessage.value = str
                 }
 
                 override fun onFailure(str: String) {
-                    exceptionMessage.set(str)
+                    exceptionMessage.value = str
                 }
             })
     }

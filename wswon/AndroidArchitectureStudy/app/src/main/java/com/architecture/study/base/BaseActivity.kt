@@ -11,5 +11,6 @@ abstract class BaseActivity<B : ViewDataBinding>(private val layoutId: Int) : Ap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutId)
+        binding.lifecycleOwner = this
     }
 }

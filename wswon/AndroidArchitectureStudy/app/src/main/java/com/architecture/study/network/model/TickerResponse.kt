@@ -1,5 +1,8 @@
 package com.architecture.study.network.model
 
+import android.graphics.Color
+import androidx.core.content.ContextCompat
+import com.architecture.study.App
 import com.architecture.study.R
 import com.architecture.study.data.model.Ticker
 import com.google.gson.annotations.SerializedName

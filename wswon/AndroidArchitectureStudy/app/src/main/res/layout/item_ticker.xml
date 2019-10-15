@@ -2,9 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
-        <import type="androidx.core.content.ContextCompat" />
-
         <variable
             name="ticker"
             type="com.architecture.study.data.model.Ticker" />
@@ -47,7 +44,7 @@
             android:layout_height="0dp"
             android:text="@{ticker.compareYesterday}"
             android:textAlignment="textEnd"
-            android:textColor="@{ContextCompat.getColor(context, ticker.compareYesterdayTextColor)}"
+            compareYesterdayColor="@{ticker.compareYesterdayTextColor}"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/tv_now_price"

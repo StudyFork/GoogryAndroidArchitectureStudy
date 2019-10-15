@@ -2,24 +2,24 @@ package com.architecture.study.view.coin
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.databinding.Observable
-import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.architecture.study.R
 import com.architecture.study.base.BaseActivity
 import com.architecture.study.data.repository.CoinRepositoryImpl
 import com.architecture.study.databinding.ActivityCoinBinding
-import com.architecture.study.network.model.MarketResponse
 import com.architecture.study.util.Injection
 import com.architecture.study.viewmodel.MarketViewModel
+import com.architecture.study.viewmodel.factory.MarketViewModelFactory
 import com.google.android.material.tabs.TabLayout
 
 
 class CoinListActivity : BaseActivity<ActivityCoinBinding>(R.layout.activity_coin) {
 
     private val marketViewModel by lazy {
-        MarketViewModel(CoinRepositoryImpl.getInstance(Injection.provideCoinRemoteDataSource()))
+        ViewModelProviders.of(this, MarketViewModelFactory()).get(MarketViewModel::class.java)
     }
 
     private val tabList = listOf(
@@ -34,40 +34,25 @@ class CoinListActivity : BaseActivity<ActivityCoinBinding>(R.layout.activity_coi
         super.onCreate(savedInstanceState)
 
         setTabPager()
-
         marketViewModel.run {
             getMarketList()
 
-            exceptionMessage.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    (sender as? ObservableField<String>)
-                        ?.get()
-                        ?.let {
-                            showMessage(it)
-                        }
-                }
+            exceptionMessage.observe(this@CoinListActivity, Observer {
+                showMessage(it)
             })
 
-            marketList.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    (sender as? ObservableField<List<MarketResponse>>)
-                        ?.get()
-                        ?.let { marketList ->
-                            supportFragmentManager.fragments.forEachIndexed { index, fragment ->
-                                (fragment as? CoinListFragment)?.setMonetaryUnitList(marketList
-                                    .asSequence()
-                                    .filter {
-                                        it.market.split("-")[0] == getString(
-                                            tabList[index]
-                                        )
-                                    }
-                                    .map { it.market }
-                                    .toList()
-                                )
-                            }
+            marketList.observe(this@CoinListActivity, Observer { marketList ->
+                supportFragmentManager.fragments.forEachIndexed { index, fragment ->
+                    (fragment as? CoinListFragment)?.setMonetaryUnitList(marketList
+                        .asSequence()
+                        .filter {
+                            it.market.split("-")[0] == getString(
+                                tabList[index]
+                            )
                         }
+                        .map { it.market }
+                        .toList()
+                    )
                 }
             })
         }

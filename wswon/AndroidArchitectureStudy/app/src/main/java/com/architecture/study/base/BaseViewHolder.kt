@@ -18,7 +18,7 @@ abstract class BaseViewHolder<B : ViewDataBinding>(
         .from(parent?.context)
         .inflate(layoutRes, parent, false)
 ) {
-    val binding: B? = DataBindingUtil.bind(itemView)
+    private val binding: B? = DataBindingUtil.bind(itemView)
 
     fun bind(item: Any?) {
         if (item != null) {

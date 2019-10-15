@@ -2,29 +2,25 @@ package com.architecture.study.view.coin
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.databinding.Observable
-import androidx.databinding.ObservableField
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.architecture.study.BR
 import com.architecture.study.R
 import com.architecture.study.base.BaseAdapter
 import com.architecture.study.base.BaseFragment
 import com.architecture.study.data.model.Ticker
-import com.architecture.study.data.repository.CoinRepositoryImpl
 import com.architecture.study.databinding.FragmentCoinlistBinding
 import com.architecture.study.databinding.ItemTickerBinding
-import com.architecture.study.util.Injection
 import com.architecture.study.viewmodel.TickerViewModel
+import com.architecture.study.viewmodel.factory.TickerViewModelFactory
 
 class CoinListFragment : BaseFragment<FragmentCoinlistBinding>(R.layout.fragment_coinlist) {
 
     private val tickerViewModel by lazy {
-        TickerViewModel(
-            CoinRepositoryImpl.getInstance(Injection.provideCoinRemoteDataSource()),
-            tabList.map { getString(it) }
-        )
+        ViewModelProviders
+            .of(this, TickerViewModelFactory(tabList.map { getString(it) }))
+            .get(TickerViewModel::class.java)
     }
-
-    private lateinit var monetaryUnitList: List<String>
 
     private val tabList = listOf(
         R.string.monetary_unit_1,
@@ -45,16 +41,9 @@ class CoinListFragment : BaseFragment<FragmentCoinlistBinding>(R.layout.fragment
 
         tickerViewModel
             .exceptionMessage
-            .addOnPropertyChangedCallback(
-                object : Observable.OnPropertyChangedCallback() {
-                    override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                        (sender as? ObservableField<String>)
-                            ?.get()
-                            ?.let {
-                                showMessage(it)
-                            }
-                    }
-                })
+            .observe(this@CoinListFragment, Observer {
+                showMessage(it)
+            })
 
     }
 
@@ -63,8 +52,7 @@ class CoinListFragment : BaseFragment<FragmentCoinlistBinding>(R.layout.fragment
     }
 
     fun setMonetaryUnitList(monetaryUnitList: List<String>) {
-        this.monetaryUnitList = monetaryUnitList
-        tickerViewModel.getTickerList(this.monetaryUnitList)
+        tickerViewModel.getTickerList(monetaryUnitList)
     }
 
     companion object {
