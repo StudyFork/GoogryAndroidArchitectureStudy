@@ -1,11 +1,11 @@
 package study.architecture.myarchitecture.ui.tickerlist
 
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
 import org.jetbrains.anko.support.v4.toast
+import org.koin.android.viewmodel.ext.android.getViewModel
+import org.koin.core.parameter.parametersOf
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.base.BaseFragment
-import study.architecture.myarchitecture.data.Injection
 import study.architecture.myarchitecture.databinding.FragmentTickerListBinding
 import study.architecture.myarchitecture.util.Filter
 
@@ -18,14 +18,7 @@ class TickerListFragment : BaseFragment<FragmentTickerListBinding>(R.layout.frag
 
         arguments?.let { bundle ->
 
-            tickerViewModel = ViewModelProvider(
-                this,
-                TickerListViewModelFactory(
-                    Injection.provideFolderRepository(requireContext()),
-                    bundle.getString(KEY_MARKETS, "")
-                )
-            ).get(TickerListViewModel::class.java)
-
+            tickerViewModel = getViewModel { parametersOf(bundle.getString(KEY_MARKETS, "")) }
             binding.tickerModel = tickerViewModel
 
         } ?: error("arguments is null")
