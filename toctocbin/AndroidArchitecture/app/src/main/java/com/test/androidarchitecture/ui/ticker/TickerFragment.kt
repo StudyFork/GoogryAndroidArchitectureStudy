@@ -2,26 +2,36 @@ package com.test.androidarchitecture.ui.ticker
 
 
 import android.os.Bundle
+import android.widget.Toast
+import androidx.databinding.Observable
 import com.test.androidarchitecture.R
 import com.test.androidarchitecture.adpter.TickerAdapter
 import com.test.androidarchitecture.base.BaseFragment
-import com.test.androidarchitecture.data.TickerFormat
 import com.test.androidarchitecture.databinding.FragmentCoinBinding
 
-class TickerFragment :
-    BaseFragment<TickerContract.Presenter, FragmentCoinBinding>(R.layout.fragment_coin),
-    TickerContract.View {
+class TickerFragment : BaseFragment<FragmentCoinBinding, TickerViewModel>(R.layout.fragment_coin){
 
+    override val vm by lazy { TickerViewModel(arguments?.getString(MARKET_SEARCH) ?: "") }
     private val adapter by lazy { TickerAdapter() }
-    override val presenter by lazy { TickerPresenter(this, arguments?.getString(MARKET_SEARCH) ?: "") }
 
-    override fun start() {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         binding.coinRecyclerView.adapter = this.adapter
-        presenter.getTicker()
+        setObservableCallBack()
+        vm.getTicker()
     }
 
-    override fun setTickerData(list: List<TickerFormat>) {
-        adapter.setItem(list)
+    private fun setObservableCallBack(){
+        vm.tickerList.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                vm.tickerList.get()?.let { adapter.setItem(it) }
+            }
+        })
+        vm.toastMessage.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                Toast.makeText(activity, vm.toastMessage.get(), Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     companion object {
