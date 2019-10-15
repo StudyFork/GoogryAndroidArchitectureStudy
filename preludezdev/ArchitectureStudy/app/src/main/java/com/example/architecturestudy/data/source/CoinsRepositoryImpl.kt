@@ -2,10 +2,12 @@ package com.example.architecturestudy.data.source
 
 import com.example.architecturestudy.data.CoinMarketResponse
 import com.example.architecturestudy.data.CoinTickerResponse
+import com.example.architecturestudy.data.source.local.CoinsLocalDataSource
+import com.example.architecturestudy.data.source.remote.CoinsRemoteDataSource
 
 class CoinsRepositoryImpl(
-    private val coinsRemoteDataSource: CoinsDataSource,
-    private val coinsLocalDataSource: CoinsDataSource
+    private val coinsRemoteDataSource: CoinsRemoteDataSource,
+    private val coinsLocalDataSource: CoinsLocalDataSource
 ) : CoinsRepository {
 
     override fun getAllMarket(
@@ -41,8 +43,8 @@ class CoinsRepositoryImpl(
         private var INSTANCE: CoinsRepositoryImpl? = null
 
         fun getInstance(
-            coinsRemoteDataSource: CoinsDataSource,
-            coinsLocalDataSource: CoinsDataSource
+            coinsRemoteDataSource: CoinsRemoteDataSource,
+            coinsLocalDataSource: CoinsLocalDataSource
         ): CoinsRepositoryImpl {
             return INSTANCE ?: CoinsRepositoryImpl(
                 coinsRemoteDataSource,

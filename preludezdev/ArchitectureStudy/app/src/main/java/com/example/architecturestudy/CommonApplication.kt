@@ -9,19 +9,19 @@ import org.koin.core.context.startKoin
 
 class CommonApplication : Application() {
 
+    private val moduleList = listOf(
+        networkModule,
+        repositoryModule,
+        viewModelModule
+    )
+
     override fun onCreate() {
         super.onCreate()
 
         startKoin {
             androidContext(this@CommonApplication)
 
-            modules(
-                listOf(
-                    networkModule,
-                    repositoryModule,
-                    viewModelModule
-                )
-            )
+            modules(moduleList)
         }
     }
 
