@@ -19,8 +19,11 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
         initViewModel()
         initRecyclerView()
         initCallback()
+        loadData()
+    }
 
-        marketViewModel.loadData(arguments?.getString(KEY_MARKET))
+    fun refresh() {
+        loadData()
     }
 
     private fun initViewModel() {
@@ -35,6 +38,10 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
         marketViewModel.notificationMsg.observe(this, Observer<String> { errorMsg ->
             showToastMessage(errorMsg)
         })
+    }
+
+    private fun loadData() {
+        marketViewModel.loadData(arguments?.getString(KEY_MARKET))
     }
 
     companion object {
