@@ -249,8 +249,8 @@ Git에 서툴렀던 제가 다른 개발 부서에 GitFlow에 대해 설명해 �
 - 장진혁 []()
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
 
-- 박태임 []()
-[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+- 박태임 [taeiim](https://github.com/taeiim)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/taeiim)
 
 - 이기원 []()
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
