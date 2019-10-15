@@ -5,22 +5,20 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import io.reactivex.disposables.CompositeDisposable
 
-abstract class BaseActivity<B : ViewDataBinding>
+abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>
 (@LayoutRes private val layoutRes: Int) : AppCompatActivity() {
 
     protected lateinit var binding: B
-    protected lateinit var disposable: CompositeDisposable
+    abstract val viewModel: VM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutRes)
-        onStart()
     }
 
     override fun onDestroy() {
-        disposable.clear()
+        viewModel.clearDispoasble()
         super.onDestroy()
     }
 }
