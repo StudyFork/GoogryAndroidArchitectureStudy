@@ -33,9 +33,14 @@ data class TickerResponse(
 
     override fun toTicker() =
         Ticker(
-            marketName = market.split("-")[1],
+            marketName = market,
             currentTradePrice = tradePrice,
             beforeSignedChangeRate = signedChangeRate,
+            diffTextColorId =  if (signedChangeRate > 0 ){
+                android.R.color.holo_red_dark
+            }else{
+                android.R.color.holo_blue_light
+            },
             totalTrade = accTradePrice24h
         )
 }
