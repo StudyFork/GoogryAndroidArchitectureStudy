@@ -39,7 +39,7 @@
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
             android:gravity="center"
-            android:onClick="@{()-> viewModel.showSortedTypeArrow(Type.COIN_NAME)}"
+            android:onClick="@{()-> viewModel.showSortedTypeArrow(Type.MARKET)}"
             android:orientation="horizontal"
             android:padding="8dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +58,7 @@
                 android:layout_width="@dimen/standard_iv_arrow_size"
                 android:layout_height="@dimen/standard_iv_arrow_size"
                 android:layout_marginStart="4dp"
-                android:visibility="@{viewModel.type.equals(Type.COIN_NAME) ? View.VISIBLE : View.INVISIBLE}"
+                android:visibility="@{viewModel.type.equals(Type.MARKET) ? View.VISIBLE : View.INVISIBLE}"
                 app:isSelected="@{viewModel.isSelected}"
                 app:srcCompat="@drawable/ic_arrow_selector" />
         </LinearLayout>

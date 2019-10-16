@@ -21,7 +21,7 @@ data class CoinTickerResponse(
         val coinName = market.split("-")[1]
 
         //현재가
-        val tradePrice = when {
+        val mTradePrice = when {
             tradePrice > THOUSAND ->
                 Util.convertBigNumberToStdString(tradePrice.toInt())
             tradePrice > 2 ->
@@ -31,13 +31,10 @@ data class CoinTickerResponse(
         }
 
         //전일대비
-        val signedChangeRate = String.format("%.2f", signedChangeRate * 100) + "%"
-
-        //전일대비 색깔 지정
-        val coinColor = if (signedChangeRate.startsWith('-')) Color.BLUE else Color.RED
+        val mSignedChangeRate = String.format("%.2f", signedChangeRate * 100) + "%"
 
         //거래대금
-        val accTradePriceH = when {
+        val mAccTradePriceH = when {
             accTradePriceH > 10 * MILLION -> {
                 Util.convertBigNumberToStdString((accTradePriceH / MILLION).toInt()) + "M"
             }
@@ -52,6 +49,18 @@ data class CoinTickerResponse(
                 String.format("%.3f", accTradePriceH)
         }
 
-        return Coin(coinName, tradePrice, signedChangeRate, accTradePriceH, coinColor)
+        //전일대비 색깔 지정
+        val coinColor = if (mSignedChangeRate.startsWith('-')) Color.BLUE else Color.RED
+
+        return Coin(
+            coinName,
+            mTradePrice,
+            tradePrice,
+            mSignedChangeRate,
+            signedChangeRate,
+            mAccTradePriceH,
+            accTradePriceH,
+            coinColor
+        )
     }
 }

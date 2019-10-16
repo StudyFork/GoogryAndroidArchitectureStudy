@@ -11,9 +11,9 @@ class VpAdapter(fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private val fragmentTitleList = listOf("KRW", "BTC", "ETH", "USDT")
-    val fragmentReferenceMap = HashMap<Int, Fragment>()
+    private val fragmentReferenceMap = HashMap<Int, Fragment>()
 
-    fun getFragment(position: Int) = fragmentReferenceMap[position] as MarketFragment
+    fun getFragment(position: Int) = fragmentReferenceMap[position] as? MarketFragment
 
     override fun getItem(position: Int): Fragment =
         MarketFragment.newInstance(fragmentTitleList[position])

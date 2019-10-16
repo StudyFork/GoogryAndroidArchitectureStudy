@@ -5,12 +5,14 @@ import androidx.lifecycle.Observer
 import com.example.architecturestudy.R
 import com.example.architecturestudy.base.BaseFragment
 import com.example.architecturestudy.databinding.FragmentMarketBinding
+import com.example.architecturestudy.util.Filter
 import com.example.architecturestudy.viewmodel.MarketViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.core.parameter.parametersOf
 
 class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_market) {
 
-    private val marketViewModel: MarketViewModel by viewModel()
+    private lateinit var marketViewModel: MarketViewModel
     private val rvAdapter = RecyclerViewAdapter()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -19,14 +21,18 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
         initViewModel()
         initRecyclerView()
         initCallback()
-        loadData()
     }
 
-    fun refresh() {
-        loadData()
+    fun sortData(type: Filter.Type, order: Filter.Order) {
+        marketViewModel.sortData(type, order)
+    }
+
+    fun refresh(type: Filter.Type, order: Filter.Order) {
+        marketViewModel.loadData(type, order)
     }
 
     private fun initViewModel() {
+        marketViewModel = getViewModel { parametersOf(arguments?.getString(KEY_MARKET)) }
         binding.viewModel = marketViewModel
     }
 
@@ -38,10 +44,6 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
         marketViewModel.notificationMsg.observe(this, Observer<String> { errorMsg ->
             showToastMessage(errorMsg)
         })
-    }
-
-    private fun loadData() {
-        marketViewModel.loadData(arguments?.getString(KEY_MARKET))
     }
 
     companion object {
