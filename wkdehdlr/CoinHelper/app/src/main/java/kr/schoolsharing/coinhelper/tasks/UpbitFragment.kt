@@ -14,7 +14,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class UpbitFragment : BaseFragment<FragmentCoinrecyclerBinding>(R.layout.fragment_coinrecycler) {
 
 
-    val viewModel by viewModel<UpbitViewModel>()
+    private val upbitViewModel by viewModel<UpbitViewModel>()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -29,16 +29,8 @@ class UpbitFragment : BaseFragment<FragmentCoinrecyclerBinding>(R.layout.fragmen
         }
 
         val marketName = arguments?.get(Market.NAME.name).toString()
-        viewModel.loadUpbitMarket(marketName)
-//        binding.viewModel = UpbitViewModel(Repository).apply {
-//            loadUpbitMarket(marketName)
-//        }
-
-//        ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-//            override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-//                UpbitViewModel(Repository) as T
-//        }).get(UpbitViewModel::class.java)
-//            .loadUpbitMarket(marketName)
+        binding.viewModel = upbitViewModel
+        upbitViewModel.loadUpbitMarket(marketName)
 
     }
 
