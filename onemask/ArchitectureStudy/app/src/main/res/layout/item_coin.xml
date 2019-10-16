@@ -1,49 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="androidx.core.content.ContextCompat" />
+
+        <variable
+            name="tickerItem"
+            type="com.android.studyfork.network.model.Ticker" />
+
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="1">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/text_title"
-            tools:text="ETH"
-            android:layout_width="0dp"
-            android:paddingLeft="5dp"
-            android:layout_weight="0.25"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1">
 
-        <TextView
-            android:id="@+id/text_current_price"
-            tools:text="0.12345678"
-            android:layout_width="0dp"
-            android:layout_weight="0.25"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/text_title"
+                tools:text="ETH"
+                android:text="@{tickerItem.getmarketName()}"
+                android:layout_width="0dp"
+                android:paddingLeft="5dp"
+                android:layout_weight="0.25"
+                android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/text_before_day"
-            tools:text="0.00"
-            android:layout_width="0dp"
-            android:layout_weight="0.25"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/text_current_price"
+                android:text="@{tickerItem.getcurrentTradePrice()}"
+                tools:text="0.12345678"
+                android:layout_width="0dp"
+                android:layout_weight="0.25"
+                android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/text_total_trade"
-            tools:text="123,456"
-            android:layout_width="0dp"
-            android:layout_weight="0.25"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/text_before_day"
+                android:textColor="@{ContextCompat.getColor(context, tickerItem.getbeforeColorStatus())}"
+                android:text="@{tickerItem.getbeforeSignedChangeRate()}"
+                tools:text="0.00"
+                android:layout_width="0dp"
+                android:layout_weight="0.25"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/text_total_trade"
+                android:text="@{tickerItem.getTotalTrade()}"
+                tools:text="123,456"
+                android:layout_width="0dp"
+                android:layout_weight="0.25"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray" />
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray" />
-</LinearLayout>
+</layout>
