@@ -9,5 +9,5 @@ import retrofit2.Retrofit
 
 val remoteModule = module {
     single<UpbitApi> { get<Retrofit> { parametersOf("https://api.upbit.com") }.create(UpbitApi::class.java) }
-    single<CoinRemoteDataSource> { CoinRemoteDataSourceImpl.getInstance(get()) }
+    single<CoinRemoteDataSource> { CoinRemoteDataSourceImpl(get()) }
 }

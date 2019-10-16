@@ -5,5 +5,5 @@ import com.architecture.study.data.repository.CoinRepositoryImpl
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single<CoinRepository> { CoinRepositoryImpl.getInstance(get()) }
+    single<CoinRepository> { CoinRepositoryImpl(get()) }
 }

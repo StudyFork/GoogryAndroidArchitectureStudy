@@ -5,7 +5,7 @@ import com.architecture.study.data.source.remote.CoinRemoteDataSourceListener
 import com.architecture.study.network.model.MarketResponse
 import com.architecture.study.network.model.TickerResponse
 
-class CoinRepositoryImpl private constructor(
+class CoinRepositoryImpl (
     private val coinRemoteDataSource: CoinRemoteDataSource
 ) : CoinRepository {
 
@@ -18,14 +18,5 @@ class CoinRepositoryImpl private constructor(
         listener: CoinRemoteDataSourceListener<TickerResponse>
     ) {
         coinRemoteDataSource.getTickerList(marketNames, listener)
-    }
-
-    companion object {
-        private var instance: CoinRepositoryImpl? = null
-        fun getInstance(coinRemoteDataSource: CoinRemoteDataSource): CoinRepositoryImpl =
-            instance ?: CoinRepositoryImpl(coinRemoteDataSource).also {
-                instance = it
-            }
-
     }
 }

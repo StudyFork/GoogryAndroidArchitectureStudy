@@ -7,7 +7,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CoinRemoteDataSourceImpl private constructor(private val upbitApi: UpbitApi) :
+class CoinRemoteDataSourceImpl (private val upbitApi: UpbitApi) :
     CoinRemoteDataSource {
 
     override fun getMarketList(listener: CoinRemoteDataSourceListener<MarketResponse>) {
@@ -59,15 +59,5 @@ class CoinRemoteDataSourceImpl private constructor(private val upbitApi: UpbitAp
                 }
             }
         })
-    }
-
-    companion object {
-        private var instance: CoinRemoteDataSourceImpl? = null
-        fun getInstance(upbitApi: UpbitApi): CoinRemoteDataSourceImpl =
-            instance
-                ?: CoinRemoteDataSourceImpl(upbitApi).also {
-                instance = it
-            }
-
     }
 }

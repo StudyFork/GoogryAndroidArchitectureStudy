@@ -1,6 +1,7 @@
 package com.architecture.study.view.coin
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.architecture.study.BR
@@ -27,6 +28,7 @@ class CoinListFragment : BaseFragment<FragmentCoinlistBinding>(R.layout.fragment
         parametersOf(tabList.map { getString(it) })
     }
 
+    private lateinit var monetaryUnitList: List<String>
 
     @Suppress("UNCHECKED_CAST")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -46,11 +48,20 @@ class CoinListFragment : BaseFragment<FragmentCoinlistBinding>(R.layout.fragment
 
     }
 
+    override fun onResume() {
+        super.onResume()
+//        Log.d("::monetaryUnitList.isInitialized", "${::monetaryUnitList.isInitialized}")
+        if(::monetaryUnitList.isInitialized){
+            tickerViewModel.getTickerList(monetaryUnitList)
+        }
+    }
+
     private fun showMessage(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     fun setMonetaryUnitList(monetaryUnitList: List<String>) {
+        this.monetaryUnitList = monetaryUnitList
         tickerViewModel.getTickerList(monetaryUnitList)
     }
 
