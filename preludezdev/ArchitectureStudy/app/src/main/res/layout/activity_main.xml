@@ -3,6 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.example.architecturestudy.util.Filter.Type" />
+
+        <variable
+            name="viewModel"
+            type="com.example.architecturestudy.viewmodel.MainViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,107 +33,139 @@
 
         </com.google.android.material.tabs.TabLayout>
 
-        <TextView
-            android:id="@+id/tv_coin_name"
+        <LinearLayout
+            android:id="@+id/ll_coin_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
             android:gravity="center"
-            android:text="@string/coin_name"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/standard_text_size"
+            android:onClick="@{()-> viewModel.showSortedTypeArrow(Type.COIN_NAME)}"
+            android:orientation="horizontal"
+            android:padding="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout">
 
-        <ImageView
-            android:id="@+id/iv_arrow_coin_name"
-            android:layout_width="@dimen/standard_iv_arrow_size"
-            android:layout_height="@dimen/standard_iv_arrow_size"
-            android:layout_marginStart="4dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_coin_name"
-            app:layout_constraintStart_toEndOf="@+id/tv_coin_name"
-            app:layout_constraintTop_toTopOf="@+id/tv_coin_name"
-            app:srcCompat="@drawable/ic_arrow_selector" />
+            <TextView
+                android:id="@+id/tv_coin_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/coin_name"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/standard_text_size" />
 
-        <TextView
-            android:id="@+id/tv_curr_price"
+            <ImageView
+                android:id="@+id/iv_arrow_coin_name"
+                android:layout_width="@dimen/standard_iv_arrow_size"
+                android:layout_height="@dimen/standard_iv_arrow_size"
+                android:layout_marginStart="4dp"
+                android:visibility="@{viewModel.type.equals(Type.COIN_NAME) ? View.VISIBLE : View.INVISIBLE}"
+                app:isSelected="@{viewModel.isSelected}"
+                app:srcCompat="@drawable/ic_arrow_selector" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_curr_price"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
+            android:layout_height="40dp"
             android:gravity="center"
-            android:text="@string/curr_price"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/standard_text_size"
-            app:layout_constraintEnd_toStartOf="@+id/iv_arrow_curr_price"
+            android:onClick="@{()-> viewModel.showSortedTypeArrow(Type.TRADE_PRICE)}"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/ll_price_compare"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/iv_arrow_coin_name"
-            app:layout_constraintTop_toTopOf="@+id/tv_coin_name" />
+            app:layout_constraintStart_toEndOf="@+id/ll_coin_name"
+            app:layout_constraintTop_toTopOf="@+id/ll_coin_name">
 
-        <ImageView
-            android:id="@+id/iv_arrow_curr_price"
-            android:layout_width="@dimen/standard_iv_arrow_size"
-            android:layout_height="@dimen/standard_iv_arrow_size"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_curr_price"
-            app:layout_constraintEnd_toStartOf="@+id/tv_price_compare"
-            app:layout_constraintTop_toTopOf="@+id/tv_curr_price"
-            app:srcCompat="@drawable/ic_arrow_selector" />
+            <TextView
+                android:id="@+id/tv_curr_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:gravity="center"
 
-        <TextView
-            android:id="@+id/tv_price_compare"
+                android:text="@string/curr_price"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/standard_text_size" />
+
+            <ImageView
+                android:id="@+id/iv_arrow_curr_price"
+                android:layout_width="@dimen/standard_iv_arrow_size"
+                android:layout_height="@dimen/standard_iv_arrow_size"
+                android:visibility="@{viewModel.type.equals(Type.TRADE_PRICE) ? View.VISIBLE : View.INVISIBLE}"
+                app:isSelected="@{viewModel.isSelected}"
+                app:srcCompat="@drawable/ic_arrow_selector" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_price_compare"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:onClick="@{()-> viewModel.showSortedTypeArrow(Type.SIGNED_CHANGED_RATE)}"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/ll_total_trade"
+            app:layout_constraintTop_toTopOf="@+id/ll_coin_name">
+
+            <TextView
+                android:id="@+id/tv_price_compare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:gravity="center"
+                android:text="@string/price_compare"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/standard_text_size" />
+
+            <ImageView
+                android:id="@+id/iv_arrow_price_compare"
+                android:layout_width="@dimen/standard_iv_arrow_size"
+                android:layout_height="@dimen/standard_iv_arrow_size"
+                android:visibility="@{viewModel.type.equals(Type.SIGNED_CHANGED_RATE) ? View.VISIBLE : View.INVISIBLE}"
+                app:isSelected="@{viewModel.isSelected}"
+                app:srcCompat="@drawable/ic_arrow_selector" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_total_trade"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginEnd="4dp"
             android:gravity="center"
-            android:text="@string/price_compare"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/standard_text_size"
-            app:layout_constraintEnd_toStartOf="@+id/iv_arrow_price_compare"
-            app:layout_constraintTop_toTopOf="@+id/tv_curr_price" />
-
-        <ImageView
-            android:id="@+id/iv_arrow_price_compare"
-            android:layout_width="@dimen/standard_iv_arrow_size"
-            android:layout_height="@dimen/standard_iv_arrow_size"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_price_compare"
-            app:layout_constraintEnd_toStartOf="@+id/tv_total_trade"
-            app:layout_constraintTop_toTopOf="@+id/tv_price_compare"
-            app:srcCompat="@drawable/ic_arrow_selector" />
-
-        <TextView
-            android:id="@+id/tv_total_trade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:gravity="center"
-            android:text="@string/total_trade"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/standard_text_size"
-            app:layout_constraintEnd_toStartOf="@+id/iv_arrow_total_trade"
-            app:layout_constraintTop_toTopOf="@+id/tv_price_compare" />
-
-        <ImageView
-            android:id="@+id/iv_arrow_total_trade"
-            android:layout_width="@dimen/standard_iv_arrow_size"
-            android:layout_height="@dimen/standard_iv_arrow_size"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_total_trade"
+            android:onClick="@{()-> viewModel.showSortedTypeArrow(Type.ACC_TRADE_PRICE_H)}"
+            android:orientation="horizontal"
+            android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_total_trade"
-            app:srcCompat="@drawable/ic_arrow_selector" />
+            app:layout_constraintTop_toTopOf="@+id/ll_coin_name">
+
+            <TextView
+                android:id="@+id/tv_total_trade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:gravity="center"
+                android:text="@string/total_trade"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/standard_text_size" />
+
+            <ImageView
+                android:id="@+id/iv_arrow_total_trade"
+                android:layout_width="@dimen/standard_iv_arrow_size"
+                android:layout_height="@dimen/standard_iv_arrow_size"
+                android:visibility="@{viewModel.type.equals(Type.ACC_TRADE_PRICE_H) ? View.VISIBLE : View.INVISIBLE}"
+                app:isSelected="@{viewModel.isSelected}"
+                app:srcCompat="@drawable/ic_arrow_selector" />
+        </LinearLayout>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_coin_name">
+            app:layout_constraintTop_toBottomOf="@+id/ll_total_trade">
 
         </androidx.viewpager.widget.ViewPager>
 
