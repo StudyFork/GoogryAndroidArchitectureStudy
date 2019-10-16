@@ -12,7 +12,6 @@ class UpbitRemoteDataSource(
     private val upbitService: UpbitService
 ) : UpbitDataSource {
 
-
     override fun getMarket(callback: UpbitDataSource.GetMarketCallback) {
         upbitService
             .getUpBitMarket()

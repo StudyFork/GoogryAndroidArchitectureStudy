@@ -30,7 +30,7 @@ class UpbitViewModel(private val repository: Repository) : ViewModel() {
     }
 
     private fun loadUpbitTicker(marketList: String) {
-        Repository.getTicker(marketList, object : UpbitDataSource.GetTickerCallback {
+        repository.getTicker(marketList, object : UpbitDataSource.GetTickerCallback {
 
             override fun onTickerLoaded(tickers: List<UpbitTicker>) {
 
