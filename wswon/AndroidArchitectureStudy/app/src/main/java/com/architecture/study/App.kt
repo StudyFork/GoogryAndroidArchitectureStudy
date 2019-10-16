@@ -10,19 +10,12 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 class App : Application() {
-    companion object {
-        lateinit var instance: App
-            private set
-    }
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
-        startKoin{
+        startKoin {
             androidContext(this@App)
             modules(listOf(viewModelModule, repositoryModule, remoteModule, networkModule))
         }
     }
-
-    fun context(): Context = applicationContext
 }
