@@ -1,27 +1,27 @@
 package com.jake.archstudy.ui.tickers
 
+import androidx.databinding.ObservableField
 import com.jake.archstudy.R
+import com.jake.archstudy.base.BaseViewModel
+import com.jake.archstudy.data.model.Ticker
 import com.jake.archstudy.data.source.UpbitRepository
 
-class TickersPresenter(
-    private val view: TickersContract.View,
+class TickersViewModel(
     private val repository: UpbitRepository,
     private val marketName: String
-) : TickersContract.Presenter {
+) : BaseViewModel() {
 
-    override fun start() {
-        getTickers()
-    }
+    val tickers = ObservableField<List<Ticker>>()
 
-    private fun getTickers() {
+    fun getTickers() {
         repository.getTicker(
             marketName,
             { response ->
                 val tickers = response.map { it.toTicker() }
-                view.setTickers(tickers)
+                this.tickers.set(tickers)
             },
             {
-                view.showToast(R.string.fail_network)
+                toast.set(R.string.fail_network.toString())
             }
         )
     }
