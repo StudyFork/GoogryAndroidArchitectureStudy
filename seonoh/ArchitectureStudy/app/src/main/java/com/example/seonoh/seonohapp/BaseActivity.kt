@@ -6,23 +6,25 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.example.seonoh.seonohapp.contract.BaseContract
+import io.reactivex.disposables.CompositeDisposable
 
-abstract class BaseActivity<P : BaseContract.Presenter, B : ViewDataBinding>(
+abstract class BaseActivity< B : ViewDataBinding>(
     @LayoutRes
     private val layoutRes: Int
-) : AppCompatActivity(), BaseContract.View<P> {
+) : AppCompatActivity(){
 
     private lateinit var toast: Toast
     protected lateinit var binding : B
+    protected val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layoutRes)
+        toast = Toast.makeText(this,"뒤로가기를 한번 더 누르면 앱이 종료됩니다.",Toast.LENGTH_LONG)
         binding = DataBindingUtil.setContentView(this,layoutRes)
     }
 
-    override fun showToast() {
+    private fun showToast() {
         if (toast.view.isShown) {
             finish()
         } else {
@@ -35,7 +37,7 @@ abstract class BaseActivity<P : BaseContract.Presenter, B : ViewDataBinding>(
     }
 
     override fun onDestroy() {
-        presenter.clearDisposable()
+        compositeDisposable.clear()
         super.onDestroy()
     }
 }
