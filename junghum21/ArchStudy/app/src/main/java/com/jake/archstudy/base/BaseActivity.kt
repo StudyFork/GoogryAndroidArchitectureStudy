@@ -6,22 +6,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.LifecycleOwner
 import com.jake.archstudy.ext.toast
 
-abstract class BaseActivity<B : ViewDataBinding>(
+abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes
     private val layoutRes: Int
-) : AppCompatActivity(), LifecycleOwner {
+) : AppCompatActivity() {
 
     protected lateinit var binding: B
 
-    private val viewModel = BaseViewModel()
+    abstract val viewModel: VM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutRes)
-
+        viewModel.start()
         viewModel.toast.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {

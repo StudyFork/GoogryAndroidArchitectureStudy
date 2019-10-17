@@ -5,22 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import androidx.annotation.StringRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
 import com.jake.archstudy.ext.toast
 
-abstract class BaseFragment<B : ViewDataBinding>(
+abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes
     private val layoutId: Int
-) : Fragment(), LifecycleOwner {
+) : Fragment() {
 
     protected lateinit var binding: B
 
-    private val viewModel = BaseViewModel()
+    abstract val viewModel: VM
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +31,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        viewModel.start()
         viewModel.toast.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {

@@ -1,10 +1,11 @@
 package com.jake.archstudy.base
 
 import androidx.databinding.ObservableField
-import androidx.lifecycle.LifecycleObserver
 
-open class BaseViewModel : LifecycleObserver {
+abstract class BaseViewModel {
 
     val toast = ObservableField<String>()
+
+    abstract fun start()
 
 }
