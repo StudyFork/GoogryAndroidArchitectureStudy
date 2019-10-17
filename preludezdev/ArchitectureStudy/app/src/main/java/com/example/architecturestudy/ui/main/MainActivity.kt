@@ -6,6 +6,7 @@ import androidx.viewpager.widget.ViewPager
 import com.example.architecturestudy.R
 import com.example.architecturestudy.base.BaseActivity
 import com.example.architecturestudy.databinding.ActivityMainBinding
+import com.example.architecturestudy.util.Filter
 import com.example.architecturestudy.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -19,7 +20,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         initViewModel()
         initViewPager()
-        initClickEvent()
+        initEvent()
         initCallback()
     }
 
@@ -35,7 +36,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
     }
 
-    private fun initClickEvent() {
+    private fun initEvent() {
         binding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
             override fun onPageScrolled(
@@ -44,8 +45,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
 
             override fun onPageSelected(position: Int) {
-                vpAdapter.getFragment(position)
-                    ?.refresh(mainViewModel.type.value!!, mainViewModel.order.value!!)
+                refreshData(position, mainViewModel.type.value!!, mainViewModel.order.value!!)
             }
         })
     }
@@ -58,8 +58,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         })
 
         mainViewModel.isReload.observe(this, Observer {
-            vpAdapter.getFragment(binding.viewPager.currentItem)
-                ?.refresh(mainViewModel.type.value!!, mainViewModel.order.value!!)
+            refreshData(
+                binding.viewPager.currentItem,
+                mainViewModel.type.value!!,
+                mainViewModel.order.value!!
+            )
         })
+    }
+
+    private fun refreshData(position: Int, type: Filter.Type, order: Filter.Order) {
+        vpAdapter.getFragment(position)?.refresh(type, order)
     }
 }
