@@ -2,6 +2,15 @@
 <layout
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="vm"
+            type="com.jake.archstudy.ui.tickers.TickersViewModel"
+            />
+
+    </data>
+
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -32,27 +41,27 @@
             <TextView
                 style="@style/ChartColumn"
                 android:layout_width="0dp"
-                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
+                android:gravity="center"
                 android:text="@string/current_price"
                 />
 
             <TextView
                 style="@style/ChartColumn"
                 android:layout_width="0dp"
-                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:gravity="center"
                 android:text="@string/change_rate"
                 />
 
             <TextView
                 style="@style/ChartColumn"
                 android:layout_width="0dp"
-                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
+                android:gravity="center"
                 android:text="@string/trade_price"
                 />
 
@@ -66,6 +75,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTickers"
+            setTickers="@{vm.tickers}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
