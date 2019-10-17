@@ -2,7 +2,7 @@ package study.architecture.myarchitecture.ui.main
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.base.BaseActivity
 import study.architecture.myarchitecture.databinding.ActivityMainBinding

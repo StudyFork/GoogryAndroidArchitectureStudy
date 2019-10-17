@@ -2,7 +2,7 @@ package study.architecture.myarchitecture.ui.tickerlist
 
 import android.os.Bundle
 import org.jetbrains.anko.support.v4.toast
-import org.koin.android.viewmodel.ext.android.getViewModel
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.base.BaseFragment
