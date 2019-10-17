@@ -5,14 +5,20 @@ import com.jake.archstudy.R
 import com.jake.archstudy.base.BaseViewModel
 import com.jake.archstudy.data.model.Market
 import com.jake.archstudy.data.source.UpbitRepository
+import com.jake.archstudy.util.ResourceProvider
 
 class MainViewModel(
-    private val repository: UpbitRepository
+    private val repository: UpbitRepository,
+    private val resourceProvider: ResourceProvider
 ) : BaseViewModel() {
 
     val markets = ObservableField<List<Market>>()
 
-    fun getMarketAll() {
+    override fun start() {
+        getMarketAll()
+    }
+
+    private fun getMarketAll() {
         repository.getMarketAll(
             { response ->
                 val markets = response.asSequence()
@@ -25,7 +31,7 @@ class MainViewModel(
                 this.markets.set(markets)
             },
             {
-                toast.set(R.string.fail_network.toString())
+                toast.set(resourceProvider.getString(R.string.fail_network))
             }
         )
     }

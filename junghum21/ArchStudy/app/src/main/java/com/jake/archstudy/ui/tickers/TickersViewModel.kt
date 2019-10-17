@@ -5,15 +5,21 @@ import com.jake.archstudy.R
 import com.jake.archstudy.base.BaseViewModel
 import com.jake.archstudy.data.model.Ticker
 import com.jake.archstudy.data.source.UpbitRepository
+import com.jake.archstudy.util.ResourceProvider
 
 class TickersViewModel(
     private val repository: UpbitRepository,
-    private val marketName: String
+    private val marketName: String,
+    private val resourceProvider: ResourceProvider
 ) : BaseViewModel() {
 
     val tickers = ObservableField<List<Ticker>>()
 
-    fun getTickers() {
+    override fun start() {
+        getTickers()
+    }
+
+    private fun getTickers() {
         repository.getTicker(
             marketName,
             { response ->
@@ -21,7 +27,7 @@ class TickersViewModel(
                 this.tickers.set(tickers)
             },
             {
-                toast.set(R.string.fail_network.toString())
+                toast.set(resourceProvider.getString(R.string.fail_network))
             }
         )
     }
