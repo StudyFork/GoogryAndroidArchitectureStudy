@@ -2,7 +2,6 @@
 <layout>
     <data>
         <import type="androidx.core.content.ContextCompat"/>
-        <import type="java.util.Map"/>
         <variable
                 name="coinItem"
                 type="com.example.seonoh.seonohapp.model.UseCoinModel"/>
