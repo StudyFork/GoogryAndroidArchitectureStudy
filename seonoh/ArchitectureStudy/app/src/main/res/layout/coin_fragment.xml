@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+        <variable
+                name="coinViewModel"
+                type="com.example.seonoh.seonohapp.model.CoinViewModel"/>
+    </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   xmlns:tools="http://schemas.android.com/tools"
                   xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,6 +13,8 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                app:addCoinItem="@{coinViewModel.coinItem}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="vertical"
                 android:id="@+id/krwRecyclerView"
