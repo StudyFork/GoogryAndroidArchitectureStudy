@@ -18,6 +18,9 @@ class MainViewModel : ViewModel() {
     private val _isSelected = MutableLiveData(true)
     val isSelected: LiveData<Boolean> get() = _isSelected
 
+    private val _isReload = MutableLiveData(true)
+    val isReload: LiveData<Boolean> get() = _isReload
+
     fun showSortedTypeArrow(type: Filter.Type) {
         when (type) {
             _type.value -> {
@@ -31,5 +34,9 @@ class MainViewModel : ViewModel() {
         }
 
         _filter.value = Pair(_type.value!!, _order.value!!)
+    }
+
+    fun reloadData() {
+        _isReload.value = true
     }
 }

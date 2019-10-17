@@ -177,6 +177,7 @@
             android:background="@drawable/bg_oval"
             android:padding="10dp"
             android:src="@drawable/ic_reload"
+            android:onClick="@{()-> viewModel.reloadData()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

@@ -36,11 +36,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun initClickEvent() {
-        binding.ivReload.setOnClickListener {
-            vpAdapter.getFragment(binding.viewPager.currentItem)
-                ?.refresh(mainViewModel.type.value!!, mainViewModel.order.value!!)
-        }
-
         binding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
             override fun onPageScrolled(
@@ -60,6 +55,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             for (position in 0 until vpAdapter.count) {
                 vpAdapter.getFragment(position)?.sortData(it.first, it.second)
             }
+        })
+
+        mainViewModel.isReload.observe(this, Observer {
+            vpAdapter.getFragment(binding.viewPager.currentItem)
+                ?.refresh(mainViewModel.type.value!!, mainViewModel.order.value!!)
         })
     }
 }
