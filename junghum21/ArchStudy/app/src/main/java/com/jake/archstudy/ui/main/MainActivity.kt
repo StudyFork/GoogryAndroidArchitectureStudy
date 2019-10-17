@@ -11,23 +11,26 @@ import com.jake.archstudy.data.source.UpbitRepository
 import com.jake.archstudy.databinding.ActivityMainBinding
 import com.jake.archstudy.network.ApiUtil
 import com.jake.archstudy.ui.tickers.TickersFragment
+import com.jake.archstudy.util.ResourceProviderImpl
 
 class MainActivity :
-    BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
+    BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.activity_main) {
 
-    private val mainViewModel = MainViewModel(
-        UpbitRepository.getInstance(UpbitRemoteDataSource(ApiUtil.getUpbitService()))
-    )
+    override val viewModel by lazy {
+        MainViewModel(
+            UpbitRepository.getInstance(UpbitRemoteDataSource(ApiUtil.getUpbitService())),
+            ResourceProviderImpl(applicationContext)
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initTabLayout()
         observeMarkets()
-        mainViewModel.getMarketAll()
     }
 
     private fun observeMarkets() {
-        mainViewModel.markets.run {
+        viewModel.markets.run {
             addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                     setViewPager(get() ?: return)

@@ -8,15 +8,16 @@ import com.jake.archstudy.data.source.UpbitRemoteDataSource
 import com.jake.archstudy.data.source.UpbitRepository
 import com.jake.archstudy.databinding.FragmentTickersBinding
 import com.jake.archstudy.network.ApiUtil
-import com.jake.archstudy.ui.tickers.adapter.TickersAdapter
+import com.jake.archstudy.util.ResourceProviderImpl
 
 class TickersFragment :
-    BaseFragment<FragmentTickersBinding>(R.layout.fragment_tickers) {
+    BaseFragment<FragmentTickersBinding, TickersViewModel>(R.layout.fragment_tickers) {
 
-    private val tickersViewModel by lazy {
+    override val viewModel by lazy {
         TickersViewModel(
             UpbitRepository.getInstance(UpbitRemoteDataSource(ApiUtil.getUpbitService())),
-            marketName
+            marketName,
+            ResourceProviderImpl(requireContext())
         )
     }
 
@@ -24,12 +25,7 @@ class TickersFragment :
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.run {
-            vm = tickersViewModel
-            lifecycle.addObserver(tickersViewModel)
-            lifecycleOwner = this@TickersFragment
-        }
-        tickersViewModel.getTickers()
+        binding.vm = viewModel
     }
 
     companion object {
