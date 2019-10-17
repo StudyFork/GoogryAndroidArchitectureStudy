@@ -6,7 +6,6 @@ import androidx.viewpager.widget.ViewPager
 import com.example.architecturestudy.R
 import com.example.architecturestudy.base.BaseActivity
 import com.example.architecturestudy.databinding.ActivityMainBinding
-import com.example.architecturestudy.util.Filter
 import com.example.architecturestudy.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -45,7 +44,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
 
             override fun onPageSelected(position: Int) {
-                refreshData(position, mainViewModel.type.value!!, mainViewModel.order.value!!)
+                refreshData(position)
             }
         })
     }
@@ -58,15 +57,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         })
 
         mainViewModel.isReload.observe(this, Observer {
-            refreshData(
-                binding.viewPager.currentItem,
-                mainViewModel.type.value!!,
-                mainViewModel.order.value!!
-            )
+            refreshData(binding.viewPager.currentItem)
         })
     }
 
-    private fun refreshData(position: Int, type: Filter.Type, order: Filter.Order) {
-        vpAdapter.getFragment(position)?.refresh(type, order)
+    private fun refreshData(position: Int) {
+        vpAdapter.getFragment(position)?.refresh(
+            mainViewModel.type.value!!,
+            mainViewModel.order.value!!
+        )
     }
 }
