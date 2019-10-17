@@ -1,28 +1,47 @@
 package com.example.seonoh.seonohapp
 
 import android.os.Bundle
-import com.example.seonoh.seonohapp.contract.CoinMainContract
+import android.util.Log
 import com.example.seonoh.seonohapp.databinding.ActivityMainBinding
+import com.example.seonoh.seonohapp.model.MainViewModel
 import com.example.seonoh.seonohapp.model.Market
+import com.example.seonoh.seonohapp.repository.CoinRepositoryImpl
 import com.google.android.material.tabs.TabLayout
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
-class MainActivity : BaseActivity<CoinMainContract.Presenter, ActivityMainBinding>(
+class MainActivity : BaseActivity<ActivityMainBinding>(
     R.layout.activity_main
-), CoinMainContract.View {
+) {
 
-    override val presenter = CoinMainPresenter(this)
     private lateinit var coinMarketNameList: List<String>
-    private lateinit var pagerAdapter: TabPagerAdapter
+    private var pagerAdapter = TabPagerAdapter(supportFragmentManager)
+    private val coinRepository = CoinRepositoryImpl()
+    private val viewModel = MainViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initView()
-        presenter.loadData()
+        loadData()
+    }
+
+    private fun loadData() {
+        compositeDisposable.add(
+            coinRepository.sendMarket()
+                .map {
+                    viewModel.marketInfo.set(refineData(it))
+                }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({}, {
+                    Log.e("currentPriceInfo", "Main Network failed!! ${it.message}")
+                })
+        )
     }
 
     private fun initView() {
-        pagerAdapter = TabPagerAdapter(supportFragmentManager)
         binding.run {
+            mainViewModel = viewModel
             coinViewPager.run {
                 adapter = pagerAdapter
                 addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
@@ -36,8 +55,6 @@ class MainActivity : BaseActivity<CoinMainContract.Presenter, ActivityMainBindin
             }
         }
     }
-
-    override fun setData(data: List<Market>) = pagerAdapter.setData(refineData(data))
 
     private fun refineData(marketData: List<Market>): List<String> {
 
