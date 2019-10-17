@@ -2,11 +2,8 @@ package com.jake.archstudy.ui.tickers
 
 import android.os.Bundle
 import androidx.core.os.bundleOf
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import com.jake.archstudy.R
 import com.jake.archstudy.base.BaseFragment
-import com.jake.archstudy.data.model.Ticker
 import com.jake.archstudy.data.source.UpbitRemoteDataSource
 import com.jake.archstudy.data.source.UpbitRepository
 import com.jake.archstudy.databinding.FragmentTickersBinding
@@ -14,12 +11,10 @@ import com.jake.archstudy.network.ApiUtil
 import com.jake.archstudy.ui.tickers.adapter.TickersAdapter
 
 class TickersFragment :
-    BaseFragment<FragmentTickersBinding, TickersContract.Presenter>(R.layout.fragment_tickers),
-    TickersContract.View {
+    BaseFragment<FragmentTickersBinding>(R.layout.fragment_tickers) {
 
-    override val presenter by lazy {
-        TickersPresenter(
-            this,
+    private val tickersViewModel by lazy {
+        TickersViewModel(
             UpbitRepository.getInstance(UpbitRemoteDataSource(ApiUtil.getUpbitService())),
             marketName
         )
@@ -27,22 +22,14 @@ class TickersFragment :
 
     private val marketName by lazy { arguments?.getString(ARGS_MARKET_NAME) ?: "" }
 
-    private val tickersAdapter = TickersAdapter()
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        initTickers()
-    }
-
-    private fun initTickers() {
-        binding.rvTickers.run {
-            adapter = tickersAdapter
-            addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
+        binding.run {
+            vm = tickersViewModel
+            lifecycle.addObserver(tickersViewModel)
+            lifecycleOwner = this@TickersFragment
         }
-    }
-
-    override fun setTickers(tickers: List<Ticker>) {
-        tickersAdapter.set(tickers)
+        tickersViewModel.getTickers()
     }
 
     companion object {
