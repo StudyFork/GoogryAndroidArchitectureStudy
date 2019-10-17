@@ -5,17 +5,20 @@ import androidx.databinding.ObservableField
 import com.example.mystudy.base.BaseViewModel
 import com.example.mystudy.data.FormatTickers
 import com.example.mystudy.data.UpbitRepository
+import com.example.mystudy.data.remote.UpbitRemoteDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 class UpbitViewModel(
     private val repository: UpbitRepository
-) : BaseViewModel() {
+): BaseViewModel() {
 
     val tickerList = ObservableField<List<FormatTickers>>()
 
     fun getTicker(firstMarket: String?) {
         repository.getMarket()
+            .repeatWhen { it.delay(5, TimeUnit.SECONDS) }
             .observeOn(Schedulers.newThread())
             .subscribe { it ->
                 repository.getTicker(it)

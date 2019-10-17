@@ -3,6 +3,9 @@ package com.example.mystudy.ui
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.example.mystudy.BR
 import com.example.mystudy.R
 import com.example.mystudy.base.BaseFragment
@@ -17,9 +20,15 @@ import com.example.mystudy.viewmodel.UpbitViewModel
 class UpbitFragment : BaseFragment<FragmentUpbitBinding>(R.layout.fragment_upbit) {
 
     private val upbitViewModel by lazy {
-        UpbitViewModel(
-            UpbitRepository.getInstance(UpbitRemoteDataSource)
-        )
+        ViewModelProviders
+            .of(this, object : ViewModelProvider.Factory {
+                override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                    return UpbitViewModel(
+                        UpbitRepository.getInstance(UpbitRemoteDataSource)
+                    ) as T
+                }
+            })
+            .get(UpbitViewModel::class.java)
     }
 
     @SuppressLint("CheckResult")

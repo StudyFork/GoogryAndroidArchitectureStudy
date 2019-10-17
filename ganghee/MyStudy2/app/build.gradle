@@ -36,7 +36,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    implementation 'com.google.android.material:material:1.1.0-alpha10'
+    implementation 'com.google.android.material:material:1.1.0-beta01'
 
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'
@@ -47,4 +47,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.11'
 
     implementation 'org.jetbrains.anko:anko:0.10.8'
+
+    implementation 'androidx.fragment:fragment-ktx:1.1.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 }
