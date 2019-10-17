@@ -1,34 +1,33 @@
 package com.jake.archstudy.base
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.annotation.LayoutRes
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.LifecycleOwner
 import com.jake.archstudy.ext.toast
 
-abstract class BaseActivity<B : ViewDataBinding, P : BaseContract.Presenter>(
+abstract class BaseActivity<B : ViewDataBinding>(
     @LayoutRes
-    val layoutRes: Int
-) : AppCompatActivity(),
-    BaseContract.View<P> {
+    private val layoutRes: Int
+) : AppCompatActivity(), LifecycleOwner {
 
     protected lateinit var binding: B
+
+    private val viewModel = BaseViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutRes)
-        presenter.start()
-    }
 
-    override fun showToast(
-        @StringRes
-        stringResId: Int,
-        duration: Int
-    ) {
-        toast(stringResId, duration)
+        viewModel.toast.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                toast(viewModel.toast.get() ?: return)
+            }
+        })
     }
 
 }
