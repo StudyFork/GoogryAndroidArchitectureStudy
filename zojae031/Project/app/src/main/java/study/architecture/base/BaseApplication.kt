@@ -6,6 +6,7 @@ import org.koin.core.context.startKoin
 import study.architecture.data.datasource.local.di.localModule
 import study.architecture.data.datasource.remote.di.remoteModule
 import study.architecture.data.di.repositoryModule
+import study.architecture.di.viewModelModule
 
 class BaseApplication : Application() {
     override fun onCreate() {
@@ -13,7 +14,7 @@ class BaseApplication : Application() {
 
         startKoin {
             androidContext(this@BaseApplication)
-            modules(listOf(remoteModule, localModule, repositoryModule))
+            modules(listOf(remoteModule, localModule, repositoryModule, viewModelModule))
         }
 
     }

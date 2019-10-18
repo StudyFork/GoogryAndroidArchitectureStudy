@@ -11,18 +11,16 @@ import study.architecture.util.TextUtil
 import java.util.concurrent.TimeUnit
 
 class CoinViewModel(
-    private val index: CoinFragment.FragIndex,
     private val repository: Repository
 ) : BaseViewModel() {
     private lateinit var marketName: String
 
-    private val dispose: Disposable
+    private lateinit var dispose: Disposable
 
     val lists = MutableLiveData<List<ProcessingTicker>>()
     val loadingState = MutableLiveData<Boolean>()
 
-    init {
-
+    fun getMarkets(index: CoinFragment.FragIndex) {
         repository.getMarkets()
             .map { list ->
                 list.filter { filterData

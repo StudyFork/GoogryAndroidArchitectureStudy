@@ -5,19 +5,19 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.tabs.TabLayout
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import study.architecture.R
 import study.architecture.base.BaseActivity
 import study.architecture.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
-
+    private val mainViewModel by viewModel<MainViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         with(binding) {
             pager.adapter = MainPageAdapter(supportFragmentManager)
-            viewModel = ViewModelProviders.of(this@MainActivity).get(MainViewModel::class.java)
+            viewModel = mainViewModel
         }
         supportActionBar?.elevation = 0.0f
         supportActionBar?.title = resources.getString(R.string.app_title)
