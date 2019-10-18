@@ -2,7 +2,6 @@ package com.test.androidarchitecture.ui.ticker
 
 
 import android.os.Bundle
-import androidx.databinding.Observable
 import com.test.androidarchitecture.R
 import com.test.androidarchitecture.adpter.TickerAdapter
 import com.test.androidarchitecture.base.BaseFragment
@@ -16,16 +15,8 @@ class TickerFragment : BaseFragment<FragmentCoinBinding, TickerViewModel>(R.layo
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.coinRecyclerView.adapter = this.adapter
-        setObservableCallBack()
+        binding.vm = vm
         vm.getTicker()
-    }
-
-    private fun setObservableCallBack(){
-        vm.tickerList.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                vm.tickerList.get()?.let { adapter.setItem(it) }
-            }
-        })
     }
 
     companion object {
