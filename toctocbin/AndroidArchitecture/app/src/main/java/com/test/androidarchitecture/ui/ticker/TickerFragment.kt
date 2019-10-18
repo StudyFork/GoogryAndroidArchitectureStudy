@@ -16,7 +16,6 @@ class TickerFragment : BaseFragment<FragmentCoinBinding, TickerViewModel>(R.layo
         super.onActivityCreated(savedInstanceState)
         binding.coinRecyclerView.adapter = this.adapter
         binding.vm = vm
-        vm.getTicker()
     }
 
     companion object {

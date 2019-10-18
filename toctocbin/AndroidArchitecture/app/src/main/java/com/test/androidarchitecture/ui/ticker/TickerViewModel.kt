@@ -17,6 +17,10 @@ class TickerViewModel(private val marketSearch: String) : BaseViewModel() {
     private val upbitRepository = UpbitRepository
     var tickerList = ObservableField<List<TickerFormat>>()
 
+    init {
+        getTicker()
+    }
+
     fun getTicker() {
         upbitRepository.getTicker(marketSearch)
             .map { list ->

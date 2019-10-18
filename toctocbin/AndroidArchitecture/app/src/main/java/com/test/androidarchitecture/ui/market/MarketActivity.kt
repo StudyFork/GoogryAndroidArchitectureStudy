@@ -22,7 +22,6 @@ class MarketActivity
             offscreenPageLimit = 3
             adapter = viewPagerAdapter
         }
-        vm.getMarketAll()
         setObservableCallBack()
     }
 
