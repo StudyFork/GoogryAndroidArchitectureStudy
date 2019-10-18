@@ -243,8 +243,8 @@ Git에 서툴렀던 제가 다른 개발 부서에 GitFlow에 대해 설명해 �
 
 
 ## 5기
-- 송영제 []()
-[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+- 송영제 [bean628](https://github.com/bean628)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/bean628)
 
 - 장진혁 []()
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
