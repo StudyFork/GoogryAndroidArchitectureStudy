@@ -13,7 +13,6 @@ class CoinHelperApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin {
-            androidLogger()
             androidContext(this@CoinHelperApplication)
             modules(
                 listOf(
