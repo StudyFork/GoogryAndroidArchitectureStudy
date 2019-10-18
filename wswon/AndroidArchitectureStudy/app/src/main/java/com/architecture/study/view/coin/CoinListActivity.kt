@@ -1,12 +1,10 @@
 package com.architecture.study.view.coin
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
-import com.architecture.study.App
 import com.architecture.study.R
 import com.architecture.study.base.BaseActivity
 import com.architecture.study.databinding.ActivityCoinBinding

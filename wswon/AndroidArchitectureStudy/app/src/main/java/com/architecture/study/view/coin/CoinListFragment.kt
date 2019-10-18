@@ -1,7 +1,6 @@
 package com.architecture.study.view.coin
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.architecture.study.BR
@@ -50,7 +49,6 @@ class CoinListFragment : BaseFragment<FragmentCoinlistBinding>(R.layout.fragment
 
     override fun onResume() {
         super.onResume()
-//        Log.d("::monetaryUnitList.isInitialized", "${::monetaryUnitList.isInitialized}")
         if(::monetaryUnitList.isInitialized){
             tickerViewModel.getTickerList(monetaryUnitList)
         }
