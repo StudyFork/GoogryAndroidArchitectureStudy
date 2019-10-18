@@ -8,6 +8,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.example.seonoh.seonohapp.model.BaseViewModel
 import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseFragment<B : ViewDataBinding>(
@@ -17,6 +18,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
 
     protected val compositeDisposable = CompositeDisposable()
     protected lateinit var binding: B
+    abstract val viewModel : BaseViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,7 +29,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
     }
 
     override fun onDestroyView() {
-        compositeDisposable.clear()
+        viewModel.clearCompositeDisposable()
         super.onDestroyView()
     }
 }
