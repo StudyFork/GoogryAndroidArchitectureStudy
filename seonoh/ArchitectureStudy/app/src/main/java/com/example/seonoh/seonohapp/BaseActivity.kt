@@ -6,6 +6,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.example.seonoh.seonohapp.model.BaseViewModel
 import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseActivity< B : ViewDataBinding>(
@@ -15,12 +16,12 @@ abstract class BaseActivity< B : ViewDataBinding>(
 
     private lateinit var toast: Toast
     protected lateinit var binding : B
-    protected val compositeDisposable = CompositeDisposable()
+    abstract val viewModel : BaseViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layoutRes)
-        toast = Toast.makeText(this,"뒤로가기를 한번 더 누르면 앱이 종료됩니다.",Toast.LENGTH_LONG)
+        toast = Toast.makeText(this,resources.getString(R.string.back_text),Toast.LENGTH_LONG)
         binding = DataBindingUtil.setContentView(this,layoutRes)
     }
 
@@ -37,7 +38,7 @@ abstract class BaseActivity< B : ViewDataBinding>(
     }
 
     override fun onDestroy() {
-        compositeDisposable.clear()
+        viewModel.clearCompositeDisposable()
         super.onDestroy()
     }
 }
