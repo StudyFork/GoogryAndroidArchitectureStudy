@@ -15,10 +15,9 @@ class TickerViewModel(
 
     val tickerList = MutableLiveData<List<Ticker>>()
 
-    private val onClick: (ticker: Ticker) -> Unit =
-        { ticker ->
-            Log.d("TickerViewModel", "$ticker")
-        }
+    private val onClick: (ticker: Ticker) -> Unit = { ticker ->
+        Log.d("TickerViewModel", "$ticker")
+    }
 
 
     fun getTickerList(marketNameList: List<String>) {
