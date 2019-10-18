@@ -9,19 +9,18 @@ import androidx.databinding.ViewDataBinding
 abstract class BaseActivity<B : ViewDataBinding>(
     @LayoutRes
     private val layoutRes: Int
-) : AppCompatActivity(), BaseContract.View {
+) : AppCompatActivity() {
     protected lateinit var binding: B
 
-    abstract val presenter: BaseContract.Presenter
+    abstract val viewModel: BaseViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutRes)
-        initView()
     }
 
     override fun onDestroy() {
-        presenter.clearCompositeDisposable()
+        viewModel.clearCompositeDisposable()
         super.onDestroy()
     }
 }

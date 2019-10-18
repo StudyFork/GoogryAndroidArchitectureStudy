@@ -1,28 +1,28 @@
-package com.jskim5923.architecturestudy.ui
+package com.jskim5923.architecturestudy.main
 
+import android.os.Bundle
 import com.jskim5923.architecturestudy.R
 import com.jskim5923.architecturestudy.adapter.ViewPagerAdapter
 import com.jskim5923.architecturestudy.base.BaseActivity
 import com.jskim5923.architecturestudy.databinding.ActivityMainBinding
-import com.jskim5923.architecturestudy.main.MainContract
-import com.jskim5923.architecturestudy.main.MainPresenter
 
-class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), MainContract.View {
-    override val presenter = MainPresenter(this)
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
+    override val viewModel = MainViewModel()
 
     private val viewpagerAdapter by lazy {
         ViewPagerAdapter(supportFragmentManager)
     }
 
-    override fun initView() {
-        binding.viewPager.let {
-            binding.tabLayout.setupWithViewPager(it)
-            it.adapter = viewpagerAdapter
-        }
-        presenter.loadMarketList()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initView()
     }
 
-    override fun updateViewpager(marketList: List<String>) {
-        viewpagerAdapter.updateItem(marketList)
+    private fun initView() {
+        binding.run {
+            tabLayout.setupWithViewPager(viewPager)
+            viewPager.adapter = viewpagerAdapter
+            mainViewModel = viewModel
+        }
     }
 }

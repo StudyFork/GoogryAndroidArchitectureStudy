@@ -2,10 +2,10 @@ package com.jskim5923.architecturestudy.base
 
 import io.reactivex.disposables.CompositeDisposable
 
-abstract class BasePresenter : BaseContract.Presenter {
+abstract class BaseViewModel {
     protected val compositeDisposable = CompositeDisposable()
 
-    override fun clearCompositeDisposable() {
+    fun clearCompositeDisposable() {
         compositeDisposable.clear()
     }
 }

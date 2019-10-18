@@ -3,12 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="mainViewModel"
+            type="com.jskim5923.architecturestudy.main.MainViewModel" />
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FEF2EE"
         android:orientation="vertical"
-        tools:context=".ui.MainActivity">
+        tools:context=".main.MainActivity">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
@@ -75,7 +82,8 @@
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            app:updateItem="@{mainViewModel.marketList}" />
 
 
     </LinearLayout>

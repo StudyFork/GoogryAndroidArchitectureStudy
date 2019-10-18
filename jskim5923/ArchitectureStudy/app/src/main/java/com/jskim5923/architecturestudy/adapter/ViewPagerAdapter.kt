@@ -2,8 +2,8 @@ package com.jskim5923.architecturestudy.adapter
 
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import com.jskim5923.architecturestudy.coin.CoinFragment
 import com.jskim5923.architecturestudy.extension.getCoinCurrency
-import com.jskim5923.architecturestudy.ui.CoinFragment
 
 class ViewPagerAdapter(fm: FragmentManager) :
     FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {

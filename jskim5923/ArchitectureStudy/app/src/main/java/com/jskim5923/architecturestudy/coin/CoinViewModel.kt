@@ -1,14 +1,18 @@
 package com.jskim5923.architecturestudy.coin
 
-import com.jskim5923.architecturestudy.base.BasePresenter
+import androidx.databinding.ObservableField
+import com.jskim5923.architecturestudy.base.BaseViewModel
 import com.jskim5923.architecturestudy.extension.getCoinCurrency
+import com.jskim5923.architecturestudy.model.Ticker
 import com.jskim5923.architecturestudy.model.data.source.Repository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 
-class CoinPresenter(private val view: CoinContract.View) : BasePresenter(), CoinContract.Presenter {
-    override fun getTickerList(market: String?) {
+class CoinViewModel : BaseViewModel() {
+    val observableTickerList = ObservableField<List<Ticker>>(mutableListOf())
+
+    fun getTickerList(market: String?) {
         Repository.getMarketList()
             .subscribeOn(Schedulers.io())
             .flatMap { marketList ->
@@ -30,7 +34,7 @@ class CoinPresenter(private val view: CoinContract.View) : BasePresenter(), Coin
             .toList()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ tickerList ->
-                view.updateRecyclerView(tickerList)
+                observableTickerList.set(tickerList)
             }, { e ->
                 e.printStackTrace()
             })

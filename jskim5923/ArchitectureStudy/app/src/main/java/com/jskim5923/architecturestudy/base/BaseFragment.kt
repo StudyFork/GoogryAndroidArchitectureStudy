@@ -10,12 +10,10 @@ import androidx.fragment.app.Fragment
 
 abstract class BaseFragment<B : ViewDataBinding>(
     private val layoutRes: Int
-) : Fragment(), BaseContract.View {
+) : Fragment() {
     protected lateinit var binding: B
 
-    abstract val presenter: BaseContract.Presenter
-
-    abstract override fun initView()
+    abstract val viewModel: BaseViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,13 +24,8 @@ abstract class BaseFragment<B : ViewDataBinding>(
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        initView()
-    }
-
     override fun onDestroyView() {
-        presenter.clearCompositeDisposable()
+        viewModel.clearCompositeDisposable()
         super.onDestroyView()
     }
 
