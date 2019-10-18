@@ -2,7 +2,6 @@ package com.test.androidarchitecture.ui.ticker
 
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.databinding.Observable
 import com.test.androidarchitecture.R
 import com.test.androidarchitecture.adpter.TickerAdapter
@@ -25,11 +24,6 @@ class TickerFragment : BaseFragment<FragmentCoinBinding, TickerViewModel>(R.layo
         vm.tickerList.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 vm.tickerList.get()?.let { adapter.setItem(it) }
-            }
-        })
-        vm.toastMessage.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                Toast.makeText(activity, vm.toastMessage.get(), Toast.LENGTH_SHORT).show()
             }
         })
     }

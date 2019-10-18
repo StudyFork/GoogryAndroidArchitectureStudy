@@ -11,7 +11,7 @@ class MarketViewModel : BaseViewModel(){
 
     private val upbitRepository = UpbitRepository
     var marketTitle = ObservableField<List<MarketTitle>>()
-    var toastMessage = ObservableField<String>()
+
 
     fun getMarketAll() {
         upbitRepository.getMarketAll()

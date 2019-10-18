@@ -1,7 +1,6 @@
 package com.test.androidarchitecture.ui.market
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.databinding.Observable
 import com.test.androidarchitecture.R
 import com.test.androidarchitecture.adpter.ViewPagerAdapter
@@ -31,11 +30,6 @@ class MarketActivity
         vm.marketTitle.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 vm.marketTitle.get()?.let { viewPagerAdapter.setData(it) }
-            }
-        })
-        vm.toastMessage.addOnPropertyChangedCallback(object  : Observable.OnPropertyChangedCallback(){
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                Toast.makeText(this@MarketActivity, vm.toastMessage.get(), Toast.LENGTH_SHORT).show()
             }
         })
     }
