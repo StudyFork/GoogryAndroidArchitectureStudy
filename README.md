@@ -246,8 +246,8 @@ Git에 서툴렀던 제가 다른 개발 부서에 GitFlow에 대해 설명해 �
 - 송영제 [bean628](https://github.com/bean628)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/bean628)
 
-- 장진혁 []()
-[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+- 장진혁 [ironedler](https://github.com/ironelder)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/ironelder)
 
 - 박태임 []()
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
