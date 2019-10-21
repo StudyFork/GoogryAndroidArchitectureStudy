@@ -5,7 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 val networkModule = module {
-    single<Retrofit> { (url: String) ->
+    factory<Retrofit> { (url: String) ->
         Retrofit.Builder()
             .baseUrl(url)
             .addConverterFactory(GsonConverterFactory.create())
