@@ -27,7 +27,7 @@ class CoinListFragment : BaseFragment<FragmentCoinlistBinding>(R.layout.fragment
         parametersOf(tabList.map { getString(it) })
     }
 
-    private lateinit var monetaryUnitList: List<String>
+    private val monetaryUnitList = mutableListOf<String>()
 
     @Suppress("UNCHECKED_CAST")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -49,7 +49,7 @@ class CoinListFragment : BaseFragment<FragmentCoinlistBinding>(R.layout.fragment
 
     override fun onResume() {
         super.onResume()
-        if(::monetaryUnitList.isInitialized){
+        if(monetaryUnitList.isNotEmpty()){
             tickerViewModel.getTickerList(monetaryUnitList)
         }
     }
@@ -59,7 +59,8 @@ class CoinListFragment : BaseFragment<FragmentCoinlistBinding>(R.layout.fragment
     }
 
     fun setMonetaryUnitList(monetaryUnitList: List<String>) {
-        this.monetaryUnitList = monetaryUnitList
+        this.monetaryUnitList.clear()
+        this.monetaryUnitList.addAll(monetaryUnitList)
         tickerViewModel.getTickerList(monetaryUnitList)
     }
 
