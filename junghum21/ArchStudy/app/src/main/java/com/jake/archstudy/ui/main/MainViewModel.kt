@@ -14,7 +14,7 @@ class MainViewModel(
 
     val markets = ObservableField<List<Market>>()
 
-    override fun start() {
+    init {
         getMarketAll()
     }
 
@@ -35,4 +35,5 @@ class MainViewModel(
             }
         )
     }
+
 }

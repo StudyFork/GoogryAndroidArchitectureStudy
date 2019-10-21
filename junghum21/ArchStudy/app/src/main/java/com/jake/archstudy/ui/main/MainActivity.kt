@@ -27,6 +27,7 @@ class MainActivity :
         super.onCreate(savedInstanceState)
         initTabLayout()
         observeMarkets()
+        binding.vm = viewModel
     }
 
     private fun observeMarkets() {

@@ -6,6 +6,4 @@ abstract class BaseViewModel {
 
     val toast = ObservableField<String>()
 
-    abstract fun start()
-
 }

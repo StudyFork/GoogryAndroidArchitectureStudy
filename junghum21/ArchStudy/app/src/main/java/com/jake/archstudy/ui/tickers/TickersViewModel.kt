@@ -15,7 +15,7 @@ class TickersViewModel(
 
     val tickers = ObservableField<List<Ticker>>()
 
-    override fun start() {
+    init {
         getTickers()
     }
 
