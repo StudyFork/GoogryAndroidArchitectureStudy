@@ -9,7 +9,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
     R.layout.activity_main
 ) {
 
-    private var pagerAdapter = TabPagerAdapter(supportFragmentManager)
+    private val pagerAdapter by lazy { TabPagerAdapter(supportFragmentManager) }
     override val viewModel = MainViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
