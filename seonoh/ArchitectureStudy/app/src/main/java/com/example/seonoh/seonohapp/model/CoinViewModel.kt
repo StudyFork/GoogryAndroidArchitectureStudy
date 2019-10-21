@@ -7,7 +7,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class CoinViewModel : BaseViewModel() {
-    var coinItem = ObservableField<List<UseCoinModel>>()
+    private val coinItem = ObservableField<List<UseCoinModel>>()
 
     fun loadData(marketName: String) {
         compositeDisposable.add(
