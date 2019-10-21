@@ -6,7 +6,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class MainViewModel : BaseViewModel() {
-    var marketInfo = ObservableField<List<String>>()
+    private val marketInfo = ObservableField<List<String>>()
 
     init {
         loadData()
