@@ -2,12 +2,14 @@ package com.example.seonoh.seonohapp.model
 
 import android.util.Log
 import androidx.databinding.ObservableField
+import com.example.seonoh.seonohapp.repository.CoinRepositoryImpl
 import com.example.seonoh.seonohapp.util.CalculateUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class CoinViewModel : BaseViewModel() {
-    private val coinItem = ObservableField<List<UseCoinModel>>()
+    val coinItem = ObservableField<List<UseCoinModel>>()
+    private val coinRepository = CoinRepositoryImpl()
 
     fun loadData(marketName: String) {
         compositeDisposable.add(

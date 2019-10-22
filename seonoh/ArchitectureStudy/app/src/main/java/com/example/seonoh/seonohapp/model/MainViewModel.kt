@@ -2,11 +2,13 @@ package com.example.seonoh.seonohapp.model
 
 import android.util.Log
 import androidx.databinding.ObservableField
+import com.example.seonoh.seonohapp.repository.CoinRepositoryImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class MainViewModel : BaseViewModel() {
-    private val marketInfo = ObservableField<List<String>>()
+    val marketInfo = ObservableField<List<String>>()
+    private val coinRepository = CoinRepositoryImpl()
 
     init {
         loadData()
