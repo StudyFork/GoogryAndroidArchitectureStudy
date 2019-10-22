@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.example.seonoh.seonohapp.model.BaseViewModel
-import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseActivity< B : ViewDataBinding>(
     @LayoutRes
