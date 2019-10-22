@@ -43,7 +43,7 @@ class CoinViewModel : BaseViewModel() {
                 CalculateUtils.filterTrade(it.tradePrice),
                 rate,
                 color,
-                it.accTradePrice24h?.let { CalculateUtils.setTradeAmount(marketType, it) ?: "0" }
+                CalculateUtils.setTradeAmount(marketType, it.accTradePrice24h)
             )
         }
     }
