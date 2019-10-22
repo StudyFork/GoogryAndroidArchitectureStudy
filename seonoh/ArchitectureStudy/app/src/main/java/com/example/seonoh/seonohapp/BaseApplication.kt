@@ -7,10 +7,4 @@ class BaseApplication : Application() {
     companion object {
         var context: Context? = null
     }
-
-    override fun onCreate() {
-        super.onCreate()
-        context = this
-    }
-
 }
