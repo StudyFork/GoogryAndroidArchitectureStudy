@@ -259,7 +259,7 @@ Git에 서툴렀던 제가 다른 개발 부서에 GitFlow에 대해 설명해 �
 - 오준석 [buddman1208](https://github.com/buddman1208)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/buddman1208)
 
-- 김학명 []()
-[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+- 김학명 [developerkhm](https://github.com/developerkhm)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/developerkhm)
 
 
