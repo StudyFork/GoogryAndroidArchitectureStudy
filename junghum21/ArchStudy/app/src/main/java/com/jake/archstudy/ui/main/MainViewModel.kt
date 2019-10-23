@@ -1,15 +1,20 @@
 package com.jake.archstudy.ui.main
 
+import androidx.databinding.ObservableField
 import com.jake.archstudy.R
+import com.jake.archstudy.base.BaseViewModel
 import com.jake.archstudy.data.model.Market
 import com.jake.archstudy.data.source.UpbitRepository
+import com.jake.archstudy.util.ResourceProvider
 
-class MainPresenter(
-    private val view: MainContract.View,
-    private val repository: UpbitRepository
-) : MainContract.Presenter {
+class MainViewModel(
+    private val repository: UpbitRepository,
+    private val resourceProvider: ResourceProvider
+) : BaseViewModel() {
 
-    override fun start() {
+    val markets = ObservableField<List<Market>>()
+
+    init {
         getMarketAll()
     }
 
@@ -23,13 +28,12 @@ class MainPresenter(
                         val markets = map.value.joinToString { it.market }
                         Market(title, markets)
                     }
-                view.setViewPager(markets)
+                this.markets.set(markets)
             },
             {
-                view.showToast(R.string.fail_network)
+                toast.set(resourceProvider.getString(R.string.fail_network))
             }
         )
     }
-
 
 }

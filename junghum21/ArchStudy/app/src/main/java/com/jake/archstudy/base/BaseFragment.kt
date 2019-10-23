@@ -4,21 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.LayoutRes
-import androidx.annotation.StringRes
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.jake.archstudy.ext.toast
 
-abstract class BaseFragment<B : ViewDataBinding, P : BaseContract.Presenter>(
+abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes
     private val layoutId: Int
-) : Fragment(),
-    BaseContract.View<P> {
+) : Fragment() {
 
-    internal lateinit var binding: B
+    protected lateinit var binding: B
+
+    abstract val viewModel: VM
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,15 +31,12 @@ abstract class BaseFragment<B : ViewDataBinding, P : BaseContract.Presenter>(
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        presenter.start()
-    }
-
-    override fun showToast(
-        @StringRes
-        stringResId: Int,
-        duration: Int
-    ) {
-        toast(stringResId, duration)
+        viewModel.toast.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                toast(viewModel.toast.get() ?: return)
+            }
+        })
     }
 
 }
