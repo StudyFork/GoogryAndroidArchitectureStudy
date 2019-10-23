@@ -2,22 +2,15 @@ package study.architecture.myarchitecture.ui.main
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import study.architecture.myarchitecture.R
 import study.architecture.myarchitecture.base.BaseActivity
-import study.architecture.myarchitecture.data.Injection
 import study.architecture.myarchitecture.databinding.ActivityMainBinding
 import study.architecture.myarchitecture.util.Filter
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    private val mainViewModelFactory by lazy {
-        MainViewModelFactory(Injection.provideFolderRepository(this))
-    }
-
-    private val mainViewModel by lazy {
-        ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java)
-    }
+    private val mainViewModel: MainViewModel by viewModel()
 
     private val mainAdapter: MainAdapter by lazy {
         MainAdapter(supportFragmentManager)
