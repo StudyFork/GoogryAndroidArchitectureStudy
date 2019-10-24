@@ -3,6 +3,7 @@ package com.example.seonoh.seonohapp
 import android.os.Bundle
 import com.example.seonoh.seonohapp.databinding.ActivityMainBinding
 import com.example.seonoh.seonohapp.model.MainViewModel
+import com.example.seonoh.seonohapp.repository.CoinRepositoryImpl
 import com.google.android.material.tabs.TabLayout
 
 class MainActivity : BaseActivity<ActivityMainBinding>(
@@ -10,7 +11,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
 ) {
 
     private val pagerAdapter by lazy { TabPagerAdapter(supportFragmentManager) }
-    override val viewModel = MainViewModel()
+    override val viewModel = MainViewModel(CoinRepositoryImpl())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

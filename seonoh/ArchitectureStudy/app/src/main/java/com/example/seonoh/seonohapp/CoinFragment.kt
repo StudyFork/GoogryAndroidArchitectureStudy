@@ -5,12 +5,13 @@ import android.view.View
 import android.widget.Toast
 import com.example.seonoh.seonohapp.databinding.CoinFragmentBinding
 import com.example.seonoh.seonohapp.model.CoinViewModel
+import com.example.seonoh.seonohapp.repository.CoinRepositoryImpl
 
 class CoinFragment : BaseFragment<CoinFragmentBinding>(
     R.layout.coin_fragment
 ) {
 
-    override val viewModel = CoinViewModel()
+    override val viewModel = CoinViewModel(CoinRepositoryImpl())
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

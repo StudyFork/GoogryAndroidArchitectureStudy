@@ -7,9 +7,9 @@ import com.example.seonoh.seonohapp.util.CalculateUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class CoinViewModel : BaseViewModel() {
+class CoinViewModel(repo : CoinRepositoryImpl) : BaseViewModel() {
     val coinItem = ObservableField<List<UseCoinModel>>()
-    private val coinRepository = CoinRepositoryImpl()
+    private val coinRepository = repo
 
     fun loadData(marketName: String) {
         compositeDisposable.add(
