@@ -49,7 +49,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/coin_name"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/standard_text_size" />
+                android:textSize="@dimen/standard_text_size"
+                tools:ignore="spUsage" />
 
             <ImageView
                 android:id="@+id/iv_arrow_coin_name"
@@ -83,7 +84,8 @@
                 android:gravity="center"
                 android:text="@string/curr_price"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/standard_text_size" />
+                android:textSize="@dimen/standard_text_size"
+                tools:ignore="spUsage" />
 
             <ImageView
                 android:id="@+id/iv_arrow_curr_price"
@@ -114,7 +116,8 @@
                 android:gravity="center"
                 android:text="@string/price_compare"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/standard_text_size" />
+                android:textSize="@dimen/standard_text_size"
+                tools:ignore="spUsage" />
 
             <ImageView
                 android:id="@+id/iv_arrow_price_compare"
@@ -146,7 +149,8 @@
                 android:gravity="center"
                 android:text="@string/total_trade"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/standard_text_size" />
+                android:textSize="@dimen/standard_text_size"
+                tools:ignore="spUsage" />
 
             <ImageView
                 android:id="@+id/iv_arrow_total_trade"
