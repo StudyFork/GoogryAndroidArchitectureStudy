@@ -6,19 +6,18 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import study.architecture.data.datasource.remote.RemoteDataSource
 import study.architecture.data.datasource.remote.RemoteDataSourceImpl
-import study.architecture.data.datasource.remote.UpbitApi
 
 val remoteModule = module {
     single<RemoteDataSource> { RemoteDataSourceImpl(get()) }
-    single<UpbitApi> {
+    single { GsonConverterFactory.create() }
+    single { RxJava2CallAdapterFactory.create() }
+    single<Retrofit> {
         Retrofit
             .Builder()
             .baseUrl(RemoteDataSourceImpl.url)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build().create(
-                UpbitApi::
-                class.java
-            )
+            .addConverterFactory(get())
+            .addCallAdapterFactory(get())
+            .build()
     }
+
 }
