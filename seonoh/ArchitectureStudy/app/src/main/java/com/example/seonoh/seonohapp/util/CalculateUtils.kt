@@ -33,89 +33,100 @@ object CalculateUtils {
     fun setTradeAmount(
         marketType: String,
         accTradePrice24h: Double
-    ): Map<String,Number> {
-        var totalPriceAmount = accTradePrice24h.toLong()
-        val mapValue = mutableMapOf<String, Number>()
-        when (marketType) {
+    ): Map<String, Number> {
+        val totalPriceAmount = accTradePrice24h.toLong()
+        return when (marketType) {
             "KRW" -> {
                 when {
                     totalPriceAmount < 1_000_000L -> {
-                        mapValue["format"] = R.string.trade_amount_fmt
-                        mapValue["price"] = totalPriceAmount
+                        mapOf<String, Number>(
+                            "format" to R.string.trade_amount_fmt,
+                            "price" to totalPriceAmount
+                        )
                     }
                     totalPriceAmount < 1_000_000_000_000L -> {
-                        totalPriceAmount /= 1_000_000L
-                        mapValue["format"] = R.string.trade_amount_mega_fmt
-                        mapValue["price"] = totalPriceAmount
+                        mapOf<String, Number>(
+                            "format" to R.string.trade_amount_mega_fmt,
+                            "price" to totalPriceAmount / 1_000_000L
+                        )
                     }
                     else -> {
-                        totalPriceAmount /= 1_000_000_000L
-                        mapValue["format"] = R.string.trade_amount_giga_fmt
-                        mapValue["price"] = totalPriceAmount
+                        mapOf<String, Number>(
+                            "format" to R.string.trade_amount_giga_fmt,
+                            "price" to totalPriceAmount / 1_000_000_000L
+                        )
                     }
                 }
             }
             "BTC", "ETH" -> {
-                mapValue["format"] = R.string.trade_amount_milli_fmt
-                mapValue["price"] = accTradePrice24h
+                mapOf(
+                    "format" to R.string.trade_amount_milli_fmt,
+                    "price" to accTradePrice24h
+                )
             }
             "USDT" -> {
                 when {
                     totalPriceAmount < 1_000_000L -> {
-                        mapValue["format"] = R.string.trade_amount_fmt
-                        mapValue["price"] = totalPriceAmount
+                        mapOf<String, Number>(
+                            "format" to R.string.trade_amount_fmt,
+                            "price" to totalPriceAmount
+                        )
                     }
                     totalPriceAmount < 1_000_000_000L -> {
-                        totalPriceAmount /= 1_000L
-                        mapValue["format"] = R.string.trade_amount_kilo_fmt
-                        mapValue["price"] = totalPriceAmount
+                        mapOf<String, Number>(
+                            "format" to R.string.trade_amount_kilo_fmt,
+                            "price" to totalPriceAmount / 1_000L
+                        )
                     }
                     totalPriceAmount < 1_000_000_000_000L -> {
-                        totalPriceAmount /= 1_000_000L
-                        mapValue["format"] = R.string.trade_amount_mega_fmt
-                        mapValue["price"] = totalPriceAmount
+                        mapOf<String, Number>(
+                            "format" to R.string.trade_amount_mega_fmt,
+                            "price" to totalPriceAmount / 1_000_000L
+                        )
                     }
                     else -> {
-                        totalPriceAmount /= 1_000_000_000L
-                        mapValue["format"] = R.string.trade_amount_giga_fmt
-                        mapValue["price"] = totalPriceAmount
+                        mapOf<String, Number>(
+                            "format" to R.string.trade_amount_giga_fmt,
+                            "price" to totalPriceAmount / 1_000_000_000L
+                        )
                     }
                 }
             }
             else -> {
-                mapValue["format"] = when {
+                when {
                     totalPriceAmount < 1_000L -> {
-                        R.string.trade_amount_milli_fmt
-
+                        mapOf<String, Number>(
+                            "format" to R.string.trade_amount_milli_fmt,
+                            "price" to accTradePrice24h
+                        )
                     }
                     totalPriceAmount < 1_000_000L -> {
-                        R.string.trade_amount_fmt
-
+                        mapOf<String, Number>(
+                            "format" to R.string.trade_amount_fmt,
+                            "price" to totalPriceAmount
+                        )
                     }
                     totalPriceAmount < 1_000_000_000L -> {
-                        totalPriceAmount /= 1_000L
-                        R.string.trade_amount_kilo_fmt
-
+                        mapOf<String, Number>(
+                            "format" to R.string.trade_amount_kilo_fmt,
+                            "price" to totalPriceAmount / 1_000L
+                        )
                     }
                     totalPriceAmount < 1_000_000_000_000L -> {
-                        totalPriceAmount /= 1_000_000L
-                        R.string.trade_amount_mega_fmt
+                        mapOf<String, Number>(
+                            "format" to R.string.trade_amount_mega_fmt,
+                            "price" to totalPriceAmount / 1_000_000L
+                        )
                     }
                     else -> {
-                        totalPriceAmount /= 1_000_000_000L
-                        R.string.trade_amount_giga_fmt
+                        mapOf<String, Number>(
+                            "format" to R.string.trade_amount_giga_fmt,
+                            "price" to totalPriceAmount / 1_000_000_000L
+                        )
                     }
                 }
-                if (totalPriceAmount < 1_000L) {
-                    mapValue["price"] = accTradePrice24h
-                } else {
-                    mapValue["price"] = totalPriceAmount
-                }
-
             }
         }
-
-        return mapValue
     }
 
     fun setTradeDiff(
