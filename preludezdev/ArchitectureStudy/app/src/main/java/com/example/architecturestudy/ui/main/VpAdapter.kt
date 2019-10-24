@@ -1,5 +1,6 @@
 package com.example.architecturestudy.ui.main
 
+import android.util.SparseArray
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -11,7 +12,7 @@ class VpAdapter(fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private val fragmentTitleList = listOf("KRW", "BTC", "ETH", "USDT")
-    private val fragmentReferenceMap = HashMap<Int, Fragment>()
+    private val fragmentReferenceMap = SparseArray<Fragment>()
 
     fun getFragment(position: Int) = fragmentReferenceMap[position] as? MarketFragment
 
@@ -20,7 +21,7 @@ class VpAdapter(fm: FragmentManager) :
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val fragment = super.instantiateItem(container, position) as Fragment
-        fragmentReferenceMap[position] = fragment
+        fragmentReferenceMap.put(position, fragment)
 
         return fragment
     }
