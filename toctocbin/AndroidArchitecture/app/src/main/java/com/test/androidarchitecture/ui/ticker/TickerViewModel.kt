@@ -1,7 +1,8 @@
 package com.test.androidarchitecture.ui.ticker
 
+import androidx.databinding.ObservableField
 import com.test.androidarchitecture.R
-import com.test.androidarchitecture.base.BasePresenter
+import com.test.androidarchitecture.base.BaseViewModel
 import com.test.androidarchitecture.data.Ticker
 import com.test.androidarchitecture.data.TickerFormat
 import com.test.androidarchitecture.data.source.UpbitRepository
@@ -11,15 +12,16 @@ import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
 
-class TickerPresenter(
-    private val view: TickerContract.View,
-    private val marketSearch: String
-) : TickerContract.Presenter,
-    BasePresenter() {
+class TickerViewModel(private val marketSearch: String) : BaseViewModel() {
 
     private val upbitRepository = UpbitRepository
+    var tickerList = ObservableField<List<TickerFormat>>()
 
-    override fun getTicker() {
+    init {
+        getTicker()
+    }
+
+    fun getTicker() {
         upbitRepository.getTicker(marketSearch)
             .map { list ->
                 list.asSequence()
@@ -29,13 +31,12 @@ class TickerPresenter(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    view.setTickerData(it)
+                    tickerList.set(it)
                 }, {
-                    view.showToast(it.message.toString())
+                    toastMessage.set(it.message.toString())
                 }
             )
             .addTo(compositeDisposable)
-
     }
 
     private fun getCoinFormat(ticker: Ticker): TickerFormat {
@@ -62,5 +63,4 @@ class TickerPresenter(
         }
         return TickerFormat(marketName, tradePrice, changeRate, changeColor, accTradePrice)
     }
-
 }

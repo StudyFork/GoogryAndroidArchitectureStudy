@@ -7,16 +7,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
-abstract class BaseFragment<P : BaseContract.Presenter, B : ViewDataBinding>(
+abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes
     private val layoutRes: Int
-) : Fragment(),
-    BaseContract.View<P> {
+) : Fragment(){
 
     protected lateinit var binding: B
+    abstract val vm : VM
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,17 +30,20 @@ abstract class BaseFragment<P : BaseContract.Presenter, B : ViewDataBinding>(
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        start()
+        vm.toastMessage.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                Toast.makeText(activity, vm.toastMessage.get(), Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     override fun onDestroyView() {
-        presenter.clearDisposable()
+        vm.clearDisposable()
         super.onDestroyView()
     }
 
-    override fun showToast(msg: String) {
+    fun showToast(msg: String) {
         Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
     }
 
-    abstract fun start()
 }

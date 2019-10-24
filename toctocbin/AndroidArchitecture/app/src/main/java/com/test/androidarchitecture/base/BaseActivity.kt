@@ -5,29 +5,31 @@ import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
 import androidx.databinding.ViewDataBinding
 
-abstract class BaseActivity<P : BaseContract.Presenter, B : ViewDataBinding>(
+abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes
     private val layoutRes: Int
-) : AppCompatActivity(), BaseContract.View<P> {
+) : AppCompatActivity() {
 
     protected lateinit var binding: B
+    abstract val vm: VM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutRes)
-        start()
+        vm.toastMessage.addOnPropertyChangedCallback(object  : Observable.OnPropertyChangedCallback(){
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                Toast.makeText(this@BaseActivity, vm.toastMessage.get(), Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
+
     override fun onDestroy() {
-        presenter.clearDisposable()
+        vm.clearDisposable()
         super.onDestroy()
     }
 
-    override fun showToast(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-    }
-
-    abstract fun start()
 }

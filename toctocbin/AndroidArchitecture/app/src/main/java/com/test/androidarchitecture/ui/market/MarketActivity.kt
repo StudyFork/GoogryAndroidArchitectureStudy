@@ -1,27 +1,35 @@
 package com.test.androidarchitecture.ui.market
 
+import android.os.Bundle
+import androidx.databinding.Observable
 import com.test.androidarchitecture.R
 import com.test.androidarchitecture.adpter.ViewPagerAdapter
 import com.test.androidarchitecture.base.BaseActivity
-import com.test.androidarchitecture.data.MarketTitle
 import com.test.androidarchitecture.databinding.ActivityMarketBinding
 
-class MarketActivity : BaseActivity<MarketContract.Presenter, ActivityMarketBinding>(R.layout.activity_market), MarketContract.View {
+class MarketActivity
+    : BaseActivity<ActivityMarketBinding, MarketViewModel>(R.layout.activity_market){
 
     private lateinit var viewPagerAdapter: ViewPagerAdapter
-    override val presenter = MarketPresenter(this)
+    override val vm = MarketViewModel()
 
-    override fun start() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         binding.mainTabLayout.setupWithViewPager(binding.mainViewPager)
         viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
         with(binding.mainViewPager) {
             offscreenPageLimit = 3
             adapter = viewPagerAdapter
         }
-        presenter.getMarketAll()
+        setObservableCallBack()
     }
 
-    override fun setViewpagerData(list: List<MarketTitle>) {
-        viewPagerAdapter.setData(list)
+    private fun setObservableCallBack(){
+        vm.marketTitle.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                vm.marketTitle.get()?.let { viewPagerAdapter.setData(it) }
+            }
+        })
     }
 }

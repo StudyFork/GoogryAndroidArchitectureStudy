@@ -5,23 +5,17 @@ import android.os.Bundle
 import com.test.androidarchitecture.R
 import com.test.androidarchitecture.adpter.TickerAdapter
 import com.test.androidarchitecture.base.BaseFragment
-import com.test.androidarchitecture.data.TickerFormat
 import com.test.androidarchitecture.databinding.FragmentCoinBinding
 
-class TickerFragment :
-    BaseFragment<TickerContract.Presenter, FragmentCoinBinding>(R.layout.fragment_coin),
-    TickerContract.View {
+class TickerFragment : BaseFragment<FragmentCoinBinding, TickerViewModel>(R.layout.fragment_coin){
 
+    override val vm by lazy { TickerViewModel(arguments?.getString(MARKET_SEARCH) ?: "") }
     private val adapter by lazy { TickerAdapter() }
-    override val presenter by lazy { TickerPresenter(this, arguments?.getString(MARKET_SEARCH) ?: "") }
 
-    override fun start() {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         binding.coinRecyclerView.adapter = this.adapter
-        presenter.getTicker()
-    }
-
-    override fun setTickerData(list: List<TickerFormat>) {
-        adapter.setItem(list)
+        binding.vm = vm
     }
 
     companion object {

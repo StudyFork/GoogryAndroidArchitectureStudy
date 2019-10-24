@@ -1,19 +1,23 @@
 package com.test.androidarchitecture.ui.market
 
-import com.test.androidarchitecture.base.BasePresenter
+import androidx.databinding.ObservableField
+import com.test.androidarchitecture.base.BaseViewModel
 import com.test.androidarchitecture.data.MarketTitle
 import com.test.androidarchitecture.data.source.UpbitRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 
-class MarketPresenter(
-    private val view: MarketContract.View
-) : MarketContract.Presenter,
-    BasePresenter() {
+class MarketViewModel : BaseViewModel(){
 
-    private val upbitRepository by lazy { UpbitRepository }
+    private val upbitRepository = UpbitRepository
+    var marketTitle = ObservableField<List<MarketTitle>>()
 
-    override fun getMarketAll() {
+    init {
+        getMarketAll()
+    }
+
+
+    fun getMarketAll() {
         upbitRepository.getMarketAll()
             .map { list ->
                 list.groupBy { it.market.substringBefore("-") }
@@ -29,13 +33,11 @@ class MarketPresenter(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    view.setViewpagerData(it)
+                    marketTitle.set(it)
                 }, {
-                    view.showToast(it.message.toString())
+                    toastMessage.set(it.message.toString())
                 }
             )
             .addTo(compositeDisposable)
     }
-
-
 }
