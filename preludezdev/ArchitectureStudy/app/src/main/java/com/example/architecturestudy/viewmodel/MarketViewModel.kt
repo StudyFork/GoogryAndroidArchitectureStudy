@@ -21,7 +21,7 @@ class MarketViewModel(
     private val _notificationMsg = MutableLiveData<String>()
     val notificationMsg: LiveData<String> get() = _notificationMsg
 
-    private var mCoinList = mutableListOf<Coin>()
+    private val localCoinList = mutableListOf<Coin>()
 
     init {
         loadData(Filter.Type.ACC_TRADE_PRICE_H, Filter.Order.ASC)
@@ -34,8 +34,8 @@ class MarketViewModel(
             repository
                 .getCoinTickers(keyMarket, { coinTickerResponses ->
                     if (!coinTickerResponses.isNullOrEmpty()) {
-                        mCoinList.clear()
-                        mCoinList.addAll(coinTickerResponses.map { it.convertTickerIntoCoin() })
+                        localCoinList.clear()
+                        localCoinList.addAll(coinTickerResponses.map { it.convertTickerIntoCoin() })
 
                         sortData(type, order)
                     }
@@ -53,21 +53,21 @@ class MarketViewModel(
     fun sortData(type: Filter.Type, order: Filter.Order) {
         if (order == Filter.Order.ASC) {
             when (type) {
-                Filter.Type.MARKET -> mCoinList.sortByDescending { it.market }
-                Filter.Type.TRADE_PRICE -> mCoinList.sortByDescending { it.tradePriceVal }
-                Filter.Type.SIGNED_CHANGED_RATE -> mCoinList.sortByDescending { it.signedChangeRateVal }
-                Filter.Type.ACC_TRADE_PRICE_H -> mCoinList.sortByDescending { it.accTradePriceHVal }
+                Filter.Type.MARKET -> localCoinList.sortByDescending { it.market }
+                Filter.Type.TRADE_PRICE -> localCoinList.sortByDescending { it.tradePriceVal }
+                Filter.Type.SIGNED_CHANGED_RATE -> localCoinList.sortByDescending { it.signedChangeRateVal }
+                Filter.Type.ACC_TRADE_PRICE_H -> localCoinList.sortByDescending { it.accTradePriceHVal }
             }
         } else {
             when (type) {
-                Filter.Type.MARKET -> mCoinList.sortBy { it.market }
-                Filter.Type.TRADE_PRICE -> mCoinList.sortBy { it.tradePriceVal }
-                Filter.Type.SIGNED_CHANGED_RATE -> mCoinList.sortBy { it.signedChangeRateVal }
-                Filter.Type.ACC_TRADE_PRICE_H -> mCoinList.sortBy { it.accTradePriceHVal }
+                Filter.Type.MARKET -> localCoinList.sortBy { it.market }
+                Filter.Type.TRADE_PRICE -> localCoinList.sortBy { it.tradePriceVal }
+                Filter.Type.SIGNED_CHANGED_RATE -> localCoinList.sortBy { it.signedChangeRateVal }
+                Filter.Type.ACC_TRADE_PRICE_H -> localCoinList.sortBy { it.accTradePriceHVal }
             }
         }
 
-        _coinList.value = mCoinList
+        _coinList.value = localCoinList
     }
 
     private fun showToastErrorMessage(errorMsg: String) {
