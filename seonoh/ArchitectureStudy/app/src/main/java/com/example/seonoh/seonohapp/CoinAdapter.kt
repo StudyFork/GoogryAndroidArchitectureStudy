@@ -22,11 +22,9 @@ class CoinAdapter : RecyclerView.Adapter<CoinItemViewHolder>() {
         )
     }
 
-
-
     override fun getItemCount(): Int = coinData.size
 
-    fun setCoinData(data: List<UseCoinModel>) {
+    fun setCoinData(data: List<UseCoinModel>?) {
         data?.let {
             coinData.run {
                 clear()
