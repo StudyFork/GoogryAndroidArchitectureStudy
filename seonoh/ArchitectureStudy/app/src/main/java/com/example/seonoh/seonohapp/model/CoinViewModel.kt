@@ -7,13 +7,12 @@ import com.example.seonoh.seonohapp.util.CalculateUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class CoinViewModel(repo : CoinRepositoryImpl) : BaseViewModel() {
+class CoinViewModel(private val repo : CoinRepositoryImpl) : BaseViewModel() {
     val coinItem = ObservableField<List<UseCoinModel>>()
-    private val coinRepository = repo
 
     fun loadData(marketName: String) {
         add(
-            coinRepository.sendCurrentPriceInfo(marketName)
+            repo.sendCurrentPriceInfo(marketName)
                 .map {
                     refineData(it)
                 }

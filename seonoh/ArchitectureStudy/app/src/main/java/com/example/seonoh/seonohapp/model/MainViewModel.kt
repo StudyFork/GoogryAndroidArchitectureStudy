@@ -6,9 +6,8 @@ import com.example.seonoh.seonohapp.repository.CoinRepositoryImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class MainViewModel(repo : CoinRepositoryImpl) : BaseViewModel() {
+class MainViewModel(private val repo : CoinRepositoryImpl) : BaseViewModel() {
     val marketInfo = ObservableField<List<String>>()
-    private val mainRepository = repo
 
     init {
         loadData()
@@ -16,7 +15,7 @@ class MainViewModel(repo : CoinRepositoryImpl) : BaseViewModel() {
 
     private fun loadData() {
         add(
-            mainRepository.sendMarket()
+            repo.sendMarket()
                 .map {
                     refineData(it)
                 }
