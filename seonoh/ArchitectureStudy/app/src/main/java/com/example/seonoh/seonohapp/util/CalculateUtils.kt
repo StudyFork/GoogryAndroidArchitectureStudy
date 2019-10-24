@@ -34,7 +34,7 @@ object CalculateUtils {
     fun setTradeAmount(
         marketType: String,
         accTradePrice24h: Double
-    ): String {
+    ): Map<String,Number> {
         var totalPriceAmount = accTradePrice24h.toLong()
         val mapValue = mutableMapOf<String, Number>()
         when (marketType) {
@@ -115,15 +115,8 @@ object CalculateUtils {
 
             }
         }
-        return String.format(
-            BaseApplication.context!!
-                .getString(
-                    mapValue["format"]
-                        .toString()
-                        .toInt()
-                ),
-            mapValue["price"]
-        )
+
+        return mapValue
     }
 
     fun setTradeDiff(

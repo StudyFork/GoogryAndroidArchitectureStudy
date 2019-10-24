@@ -54,12 +54,12 @@
                     android:layout_height="wrap_content"/>
 
             <TextView
+                    changeFormat="@{coinItem.accTradePrice24h}"
                     android:gravity="right"
                     android:layout_weight="1.2"
                     android:textStyle="bold"
                     android:textColor="@color/seonohBlack"
                     android:textSize="14sp"
-                    android:text="@{coinItem.accTradePrice24h}"
                     android:id="@+id/totalTradePrice"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
