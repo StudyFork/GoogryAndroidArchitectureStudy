@@ -8,5 +8,5 @@ import org.koin.dsl.module
 val repositoryModule = module {
     single { CoinsRepositoryImpl(get(), get()) }
     single { CoinsRemoteDataSource(get()) }
-    single { CoinsLocalDataSource.getInstance() }
+    single { CoinsLocalDataSource() }
 }
