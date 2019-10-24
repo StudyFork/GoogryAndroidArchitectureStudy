@@ -25,12 +25,13 @@ class CoinAdapter : RecyclerView.Adapter<CoinItemViewHolder>() {
     override fun getItemCount(): Int = coinData.size
 
     fun setCoinData(data: List<UseCoinModel>?) {
-        data?.let {
+        if (!data.isNullOrEmpty())
+        {
             coinData.run {
                 clear()
                 addAll(data)
+                notifyDataSetChanged()
             }
-            notifyDataSetChanged()
         }
     }
 
