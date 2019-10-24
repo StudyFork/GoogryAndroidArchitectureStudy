@@ -3,7 +3,6 @@ package study.architecture.coinjob
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import study.architecture.base.BaseViewModel
 import study.architecture.data.entity.ProcessingTicker
 import study.architecture.data.repository.Repository
@@ -14,8 +13,6 @@ class CoinViewModel(
     private val repository: Repository
 ) : BaseViewModel() {
     private lateinit var marketName: String
-
-    private lateinit var dispose: Disposable
 
     val lists = MutableLiveData<List<ProcessingTicker>>()
     val loadingState = MutableLiveData<Boolean>()
@@ -40,11 +37,11 @@ class CoinViewModel(
                 },
                 {
                     Log.e("CoinViewModelError", it.message)
-                }).also { dispose = it }
+                }).also { disposable = it }
     }
 
     private fun tickerRequest() {
-        dispose.dispose()
+        disposable.dispose()
         repository.getTickers(marketName)
             .repeatWhen { it.delay(8, TimeUnit.SECONDS) }
             .doOnRequest { loadingState.value = false }
@@ -72,13 +69,9 @@ class CoinViewModel(
     }
 
     override fun onResume() {
-        if (dispose.isDisposed) {
+        if (disposable.isDisposed) {
             tickerRequest()
         }
     }
 
-    override fun onPause() {
-        dispose.dispose()
-        super.onPause()
-    }
 }
