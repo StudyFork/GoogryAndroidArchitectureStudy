@@ -8,7 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CoinsRemoteDataSource private constructor(
+class CoinsRemoteDataSource(
     private val coinApiService: CoinApiService
 ) : CoinsDataSource {
 
@@ -51,14 +51,6 @@ class CoinsRemoteDataSource private constructor(
                     onSuccess(response.body())
                 }
             })
-    }
-
-    companion object {
-        private var INSTANCE: CoinsRemoteDataSource? = null
-
-        fun getInstance(coinApiService: CoinApiService): CoinsRemoteDataSource {
-            return INSTANCE ?: CoinsRemoteDataSource(coinApiService).apply { INSTANCE = this }
-        }
     }
 
 }

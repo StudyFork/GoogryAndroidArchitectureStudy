@@ -5,7 +5,7 @@ import com.example.architecturestudy.data.CoinTickerResponse
 import com.example.architecturestudy.data.source.local.CoinsLocalDataSource
 import com.example.architecturestudy.data.source.remote.CoinsRemoteDataSource
 
-class CoinsRepositoryImpl private constructor(
+class CoinsRepositoryImpl(
     private val coinsRemoteDataSource: CoinsRemoteDataSource,
     private val coinsLocalDataSource: CoinsLocalDataSource
 ) : CoinsRepository {
@@ -37,22 +37,6 @@ class CoinsRepositoryImpl private constructor(
         }, { onFail(it) })
 
         // Local 로 데이터 받아오는 기능이 생기면 추가 구현해야함.
-    }
-
-    companion object {
-        private var INSTANCE: CoinsRepositoryImpl? = null
-
-        fun getInstance(
-            coinsRemoteDataSource: CoinsRemoteDataSource,
-            coinsLocalDataSource: CoinsLocalDataSource
-        ): CoinsRepositoryImpl {
-            return INSTANCE ?: CoinsRepositoryImpl(
-                coinsRemoteDataSource,
-                coinsLocalDataSource
-            ).apply {
-                INSTANCE = this
-            }
-        }
     }
 
 }
