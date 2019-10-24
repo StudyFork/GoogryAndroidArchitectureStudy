@@ -37,41 +37,42 @@ class CoinViewModel(
                 },
                 {
                     Log.e("CoinViewModelError", it.message)
-                }).also { disposable = it }
+                }).also { compositeDisposable.add(it) }
     }
 
     private fun tickerRequest() {
-        disposable.dispose()
-        repository.getTickers(marketName)
-            .repeatWhen { it.delay(8, TimeUnit.SECONDS) }
-            .doOnRequest { loadingState.value = false }
-            .map { list ->
-                list.map { data ->
-                    ProcessingTicker(
-                        TextUtil.getMarketName(data.market),
-                        TextUtil.getTradePrice(data.tradePrice),
-                        TextUtil.getChangeRate(data.signedChangeRate),
-                        TextUtil.getAccTradePrice24h(data.accTradePrice24h),
-                        TextUtil.getColorState(data.signedChangeRate)
-                    )
+        if (::marketName.isInitialized) {
+            repository.getTickers(marketName)
+                .repeatWhen { it.delay(8, TimeUnit.SECONDS) }
+                .doOnRequest { loadingState.value = false }
+                .map { list ->
+                    list.map { data ->
+                        ProcessingTicker(
+                            TextUtil.getMarketName(data.market),
+                            TextUtil.getTradePrice(data.tradePrice),
+                            TextUtil.getChangeRate(data.signedChangeRate),
+                            TextUtil.getAccTradePrice24h(data.accTradePrice24h),
+                            TextUtil.getColorState(data.signedChangeRate)
+                        )
+                    }
                 }
-            }
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { pLists ->
-                    if (!repository.checkNetwork()) Log.e("데이터 연결x", "데이터 최신화 필요")
-                    lists.value = pLists
-                },
-                { e ->
-                    Log.e("CoinViewModel", e.message)
-                }
-            ).also { compositeDisposable.add(it) }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { pLists ->
+                        if (!repository.checkNetwork()) Log.e("데이터 연결x", "데이터 최신화 필요")
+                        lists.value = pLists
+                    },
+                    { e ->
+                        Log.e("CoinViewModel", e.message)
+                    }
+                ).also { compositeDisposable.add(it) }
+        }
     }
 
     override fun onResume() {
-        if (disposable.isDisposed) {
-            tickerRequest()
-        }
+
+        tickerRequest()
+
     }
 
 }

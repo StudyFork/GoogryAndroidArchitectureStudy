@@ -11,11 +11,9 @@ import study.architecture.data.datasource.remote.UpbitApi
 
 val remoteModule = module {
     single<RemoteDataSource> { RemoteDataSourceImpl(get()) }
-
     factory<GsonConverterFactory> { GsonConverterFactory.create() }
     factory<RxJava2CallAdapterFactory> { RxJava2CallAdapterFactory.create() }
     single { get<Retrofit>().create(UpbitApi::class.java) }
-
     single<Retrofit> {
         Retrofit
             .Builder()
