@@ -2,7 +2,6 @@ package com.example.architecturestudy.ui.main
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import androidx.viewpager.widget.ViewPager
 import com.example.architecturestudy.R
 import com.example.architecturestudy.base.BaseActivity
 import com.example.architecturestudy.databinding.ActivityMainBinding
@@ -36,13 +35,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun initEvent() {
-        binding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {}
-            override fun onPageScrolled(
-                position: Int, positionOffset: Float, positionOffsetPixels: Int
-            ) {
-            }
-
+        binding.viewPager.addOnPageChangeListener(object : AbstractOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
                 refreshData(position)
             }
