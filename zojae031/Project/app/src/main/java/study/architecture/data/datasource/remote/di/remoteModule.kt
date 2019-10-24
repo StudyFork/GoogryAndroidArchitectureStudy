@@ -14,7 +14,7 @@ val remoteModule = module {
     factory<GsonConverterFactory> { GsonConverterFactory.create() }
     factory<RxJava2CallAdapterFactory> { RxJava2CallAdapterFactory.create() }
     single { get<Retrofit>().create(UpbitApi::class.java) }
-    single<Retrofit> {
+    single {
         Retrofit
             .Builder()
             .baseUrl(upbitUrl)
