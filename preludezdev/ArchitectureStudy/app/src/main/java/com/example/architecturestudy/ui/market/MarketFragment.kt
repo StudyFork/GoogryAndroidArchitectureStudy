@@ -7,12 +7,14 @@ import com.example.architecturestudy.base.BaseFragment
 import com.example.architecturestudy.databinding.FragmentMarketBinding
 import com.example.architecturestudy.util.Filter
 import com.example.architecturestudy.viewmodel.MarketViewModel
-import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_market) {
 
-    private lateinit var marketViewModel: MarketViewModel
+    private val marketViewModel: MarketViewModel by viewModel {
+        parametersOf(arguments?.getString(KEY_MARKET))
+    }
     private val rvAdapter = RecyclerViewAdapter()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -32,7 +34,6 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
     }
 
     private fun initViewModel() {
-        marketViewModel = getViewModel { parametersOf(arguments?.getString(KEY_MARKET)) }
         binding.viewModel = marketViewModel
     }
 
