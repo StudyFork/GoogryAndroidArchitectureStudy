@@ -26,4 +26,4 @@ val remoteModule = module {
 }
 
 
-const val upbitUrl = "https://api.upbit.com/v1/"
+private const val upbitUrl = "https://api.upbit.com/v1/"
