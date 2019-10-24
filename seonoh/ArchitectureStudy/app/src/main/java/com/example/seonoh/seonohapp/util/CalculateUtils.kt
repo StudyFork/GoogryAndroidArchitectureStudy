@@ -1,7 +1,6 @@
 package com.example.seonoh.seonohapp.util
 
 import android.util.Log
-import com.example.seonoh.seonohapp.BaseApplication
 import com.example.seonoh.seonohapp.R
 import java.text.DecimalFormat
 
