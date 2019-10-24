@@ -8,7 +8,7 @@ import study.architecture.data.repository.Repository
 import study.architecture.data.repository.RepositoryImpl
 
 val repositoryModule = module {
-    single<Repository> { RepositoryImpl.getInstance(get(), get(), get()) }
+    single<Repository> { RepositoryImpl(get(), get(), get()) }
     single {
         androidApplication().getSystemService(
             Context.CONNECTIVITY_SERVICE

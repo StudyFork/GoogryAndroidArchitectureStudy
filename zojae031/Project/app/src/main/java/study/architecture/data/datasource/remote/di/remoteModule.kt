@@ -9,7 +9,7 @@ import study.architecture.data.datasource.remote.RemoteDataSourceImpl
 import study.architecture.data.datasource.remote.UpbitApi
 
 val remoteModule = module {
-    single<RemoteDataSource> { RemoteDataSourceImpl.getInstance(get()) }
+    single<RemoteDataSource> { RemoteDataSourceImpl(get()) }
     single<UpbitApi> {
         Retrofit
             .Builder()

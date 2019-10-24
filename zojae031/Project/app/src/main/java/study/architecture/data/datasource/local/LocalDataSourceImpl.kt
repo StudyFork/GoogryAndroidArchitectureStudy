@@ -30,16 +30,4 @@ class LocalDataSourceImpl(db: CoinDatabase) :
     }
 
 
-    companion object {
-        private var INSTANCE: LocalDataSourceImpl? = null
-        fun getInstance(db: CoinDatabase): LocalDataSourceImpl {
-            if (INSTANCE == null) {
-                INSTANCE =
-                    LocalDataSourceImpl(db)
-            }
-            return INSTANCE!!
-        }
-    }
-
-
 }

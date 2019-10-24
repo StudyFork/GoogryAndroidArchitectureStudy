@@ -8,7 +8,7 @@ import study.architecture.data.entity.Market
 import study.architecture.data.entity.Ticker
 
 
-class RepositoryImpl private constructor(
+class RepositoryImpl(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val manager: ConnectivityManager
@@ -40,22 +40,6 @@ class RepositoryImpl private constructor(
             return false
         }
         return manager.activeNetworkInfo.isConnected
-    }
-
-    companion object {
-        private var INSTANCE: RepositoryImpl? = null
-
-        fun getInstance(
-            remoteDataSource: RemoteDataSource,
-            localDataSource: LocalDataSource,
-            manager: ConnectivityManager
-        ): RepositoryImpl {
-            if (INSTANCE == null) {
-                INSTANCE =
-                    RepositoryImpl(remoteDataSource, localDataSource, manager)
-            }
-            return INSTANCE!!
-        }
     }
 
 }
