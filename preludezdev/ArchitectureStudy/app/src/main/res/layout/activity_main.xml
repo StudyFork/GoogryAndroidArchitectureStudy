@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="android.view.View" />
-
         <import type="com.example.architecturestudy.util.Filter.Type" />
 
         <variable
@@ -58,6 +56,7 @@
                 android:layout_width="@dimen/standard_iv_arrow_size"
                 android:layout_height="@dimen/standard_iv_arrow_size"
                 android:layout_marginStart="4dp"
+                android:contentDescription="@null"
                 android:visibility="@{viewModel.type.equals(Type.MARKET) ? View.VISIBLE : View.INVISIBLE}"
                 app:isSelected="@{viewModel.isSelected}"
                 app:srcCompat="@drawable/ic_arrow_selector" />
@@ -82,7 +81,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
                 android:gravity="center"
-
                 android:text="@string/curr_price"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/standard_text_size" />
@@ -91,6 +89,7 @@
                 android:id="@+id/iv_arrow_curr_price"
                 android:layout_width="@dimen/standard_iv_arrow_size"
                 android:layout_height="@dimen/standard_iv_arrow_size"
+                android:contentDescription="@null"
                 android:visibility="@{viewModel.type.equals(Type.TRADE_PRICE) ? View.VISIBLE : View.INVISIBLE}"
                 app:isSelected="@{viewModel.isSelected}"
                 app:srcCompat="@drawable/ic_arrow_selector" />
@@ -121,6 +120,7 @@
                 android:id="@+id/iv_arrow_price_compare"
                 android:layout_width="@dimen/standard_iv_arrow_size"
                 android:layout_height="@dimen/standard_iv_arrow_size"
+                android:contentDescription="@null"
                 android:visibility="@{viewModel.type.equals(Type.SIGNED_CHANGED_RATE) ? View.VISIBLE : View.INVISIBLE}"
                 app:isSelected="@{viewModel.isSelected}"
                 app:srcCompat="@drawable/ic_arrow_selector" />
@@ -152,6 +152,7 @@
                 android:id="@+id/iv_arrow_total_trade"
                 android:layout_width="@dimen/standard_iv_arrow_size"
                 android:layout_height="@dimen/standard_iv_arrow_size"
+                android:contentDescription="@null"
                 android:visibility="@{viewModel.type.equals(Type.ACC_TRADE_PRICE_H) ? View.VISIBLE : View.INVISIBLE}"
                 app:isSelected="@{viewModel.isSelected}"
                 app:srcCompat="@drawable/ic_arrow_selector" />
@@ -175,9 +176,10 @@
             android:layout_height="50dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/bg_oval"
+            android:contentDescription="@null"
+            android:onClick="@{()-> viewModel.reloadData()}"
             android:padding="10dp"
             android:src="@drawable/ic_reload"
-            android:onClick="@{()-> viewModel.reloadData()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
