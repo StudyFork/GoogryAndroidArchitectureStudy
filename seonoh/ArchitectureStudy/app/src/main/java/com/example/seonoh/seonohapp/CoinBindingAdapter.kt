@@ -15,7 +15,7 @@ fun RecyclerView.addCoinData(data: List<UseCoinModel>?) {
 @BindingAdapter("changeFormat")
 fun TextView.changeStringFormat(mapValue: Map<String, Number>) {
     text = String.format(
-        BaseApplication.context!!
+        resources
             .getString(
                 mapValue["format"]
                     .toString()
