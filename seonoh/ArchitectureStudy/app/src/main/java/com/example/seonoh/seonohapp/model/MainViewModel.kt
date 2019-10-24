@@ -15,7 +15,7 @@ class MainViewModel(repo : CoinRepositoryImpl) : BaseViewModel() {
     }
 
     private fun loadData() {
-        compositeDisposable.add(
+        add(
             mainRepository.sendMarket()
                 .map {
                     refineData(it)

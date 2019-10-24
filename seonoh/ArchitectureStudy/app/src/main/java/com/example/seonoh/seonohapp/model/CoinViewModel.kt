@@ -12,7 +12,7 @@ class CoinViewModel(repo : CoinRepositoryImpl) : BaseViewModel() {
     private val coinRepository = repo
 
     fun loadData(marketName: String) {
-        compositeDisposable.add(
+        add(
             coinRepository.sendCurrentPriceInfo(marketName)
                 .map {
                     refineData(it)
