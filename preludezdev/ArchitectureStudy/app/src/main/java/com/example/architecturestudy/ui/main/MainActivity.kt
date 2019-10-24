@@ -37,7 +37,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun initEvent() {
         binding.viewPager.addOnPageChangeListener(object : AbstractOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
-                refreshData(position)
+                reloadData(position)
             }
         })
     }
@@ -50,12 +50,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         })
 
         mainViewModel.isReload.observe(this, Observer {
-            refreshData(binding.viewPager.currentItem)
+            reloadData(binding.viewPager.currentItem)
         })
     }
 
-    private fun refreshData(position: Int) {
-        vpAdapter.getFragment(position)?.refresh(
+    private fun reloadData(position: Int) {
+        vpAdapter.getFragment(position)?.reload(
             mainViewModel.type.value!!,
             mainViewModel.order.value!!
         )

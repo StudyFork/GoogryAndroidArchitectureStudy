@@ -29,7 +29,7 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
         marketViewModel.sortData(type, order)
     }
 
-    fun refresh(type: Filter.Type, order: Filter.Order) {
+    fun reload(type: Filter.Type, order: Filter.Order) {
         marketViewModel.loadData(type, order)
     }
 
