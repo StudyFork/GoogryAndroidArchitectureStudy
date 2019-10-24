@@ -32,10 +32,6 @@ class CoinFragment : BaseFragment<FragmentCoinBinding>(R.layout.fragment_coin) {
 
     }
 
-    override fun onPause() {
-        coinViewModel.onPause()
-        super.onPause()
-    }
 
     override fun onResume() {
         super.onResume()
