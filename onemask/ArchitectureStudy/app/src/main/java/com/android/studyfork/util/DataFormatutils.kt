@@ -1,3 +1,5 @@
+package com.android.studyfork.util
+
 object DataFormatUtills {
     fun setTradeVolumeText(market: String, accTradePrice24h: Double) =
         when (market.substringBefore("-")) {
