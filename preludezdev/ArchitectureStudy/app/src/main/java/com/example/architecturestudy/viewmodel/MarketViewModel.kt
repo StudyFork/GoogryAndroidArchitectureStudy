@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.architecturestudy.data.Coin
-import com.example.architecturestudy.data.source.CoinsRepositoryImpl
+import com.example.architecturestudy.data.source.CoinsRepository
 import com.example.architecturestudy.util.Filter
 
 class MarketViewModel(
-    private val repository: CoinsRepositoryImpl,
+    private val repository: CoinsRepository,
     private val keyMarket: String?
 ) : ViewModel() {
 
