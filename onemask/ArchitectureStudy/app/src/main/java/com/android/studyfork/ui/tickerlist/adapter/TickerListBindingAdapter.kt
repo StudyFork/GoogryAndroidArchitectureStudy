@@ -8,7 +8,7 @@ import com.android.studyfork.ui.adapter.CoinItemAdapter
 /**
  * created by onemask
  */
-object TickerLIstBindingAdapter {
+object TickerListBindingAdapter {
     @BindingAdapter("updateItem")
     @JvmStatic
     fun RecyclerView.updateTickerList(list :List<Ticker>?) {
