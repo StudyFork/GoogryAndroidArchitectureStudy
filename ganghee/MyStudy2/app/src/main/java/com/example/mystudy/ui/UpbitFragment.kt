@@ -16,20 +16,11 @@ import com.example.mystudy.data.remote.UpbitRemoteDataSource
 import com.example.mystudy.databinding.FragmentUpbitBinding
 import com.example.mystudy.databinding.RvItemListBinding
 import com.example.mystudy.viewmodel.UpbitViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UpbitFragment : BaseFragment<FragmentUpbitBinding>(R.layout.fragment_upbit) {
 
-    private val upbitViewModel by lazy {
-        ViewModelProviders
-            .of(this, object : ViewModelProvider.Factory {
-                override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                    return UpbitViewModel(
-                        UpbitRepository.getInstance(UpbitRemoteDataSource)
-                    ) as T
-                }
-            })
-            .get(UpbitViewModel::class.java)
-    }
+    private val upbitViewModel by viewModel<UpbitViewModel>()
 
     @SuppressLint("CheckResult")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
