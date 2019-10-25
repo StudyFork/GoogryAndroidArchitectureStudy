@@ -14,8 +14,8 @@ class TickerViewModel : BaseViewModel() {
     fun getTicker(market: String) {
         UpbitRepositoryImpl.getTickers(market)
             .map { tickerList ->
-                tickerList.map { ticker ->
-                    ticker::toTicker.invoke()
+                tickerList.map {
+                    it.toTicker()
                 }
             }
             .observeOn(AndroidSchedulers.mainThread())
