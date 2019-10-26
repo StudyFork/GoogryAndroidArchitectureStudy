@@ -24,7 +24,7 @@ class MainViewModel(private val repo: CoinRepositoryImpl) : BaseViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(marketInfo::set, ::handleError)
-            .add()
+            .addCompositeDisposable()
 
     }
 

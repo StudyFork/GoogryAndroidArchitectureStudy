@@ -10,7 +10,7 @@ abstract class BaseViewModel {
         compositeDisposable.clear()
     }
 
-    protected fun Disposable.add() {
-        compositeDisposable.add()
+    protected fun Disposable.addCompositeDisposable() {
+        compositeDisposable.add(this)
     }
 }

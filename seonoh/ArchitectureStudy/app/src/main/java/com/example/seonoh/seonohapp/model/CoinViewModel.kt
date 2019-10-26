@@ -10,20 +10,18 @@ import io.reactivex.schedulers.Schedulers
 class CoinViewModel(private val repo : CoinRepositoryImpl) : BaseViewModel() {
     val coinItem = ObservableField<List<UseCoinModel>>()
 
+    private fun handleError(throwable: Throwable) {
+        Log.e("currentPriceInfo", "Main Network failed!! ${throwable.message}")
+    }
+
     fun loadData(marketName: String) {
-        add(
-            repo.sendCurrentPriceInfo(marketName)
-                .map {
-                    refineData(it)
-                }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    coinItem.set(it)
-                }, {
-                    Log.e("currentPriceInfo", "Fragment Network failed!! ${it.message}")
-                })
-        )
+
+        repo.sendCurrentPriceInfo(marketName)
+            .map(::refineData)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(coinItem::set, ::handleError)
+            .addCompositeDisposable()
     }
 
     private fun refineData(result: List<CurrentPriceInfoModel>): List<UseCoinModel> {
