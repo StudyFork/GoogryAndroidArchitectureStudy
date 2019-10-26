@@ -6,27 +6,26 @@ import com.example.seonoh.seonohapp.repository.CoinRepositoryImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class MainViewModel(private val repo : CoinRepositoryImpl) : BaseViewModel() {
+class MainViewModel(private val repo: CoinRepositoryImpl) : BaseViewModel() {
     val marketInfo = ObservableField<List<String>>()
 
     init {
         loadData()
     }
 
+    private fun handleError(throwable: Throwable) {
+        Log.e("currentPriceInfo", "Main Network failed!! ${throwable.message}")
+    }
+
     private fun loadData() {
-        add(
-            repo.sendMarket()
-                .map {
-                    refineData(it)
-                }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    marketInfo.set(it)
-                }, {
-                    Log.e("currentPriceInfo", "Main Network failed!! ${it.message}")
-                })
-        )
+
+        repo.sendMarket()
+            .map(::refineData)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(marketInfo::set, ::handleError)
+            .add()
+
     }
 
     private fun refineData(marketData: List<Market>): List<String> {
