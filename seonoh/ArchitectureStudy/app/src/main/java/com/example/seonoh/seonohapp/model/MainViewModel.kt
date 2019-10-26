@@ -30,20 +30,15 @@ class MainViewModel(private val repo: CoinRepositoryImpl) : BaseViewModel() {
 
     private fun refineData(marketData: List<Market>): List<String> {
 
-        var coinMarketNameList = marketData.map {
-            it.market.substringBefore("-")
-        }.distinct()
-
         val marketDataList = ArrayList<String>()
 
-        coinMarketNameList.forEach { title ->
+        marketData
+            .groupBy { it.market.substringBefore("-") }
+            .map {
+                val market = it.value.joinToString { it.market }
+                marketDataList += market
+            }
 
-            marketDataList += (marketData.filter {
-                it.market.substringBefore("-") == title
-            }.joinToString(",") {
-                it.market
-            })
-        }
 
         return marketDataList
     }
