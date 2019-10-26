@@ -16,7 +16,6 @@ abstract class BaseFragment<B : ViewDataBinding>(
     private val layoutRes: Int
 ) : Fragment() {
 
-    protected val compositeDisposable = CompositeDisposable()
     protected lateinit var binding: B
     abstract val viewModel : BaseViewModel
 
