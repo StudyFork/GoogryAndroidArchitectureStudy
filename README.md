@@ -216,6 +216,7 @@ Git에 서툴렀던 제가 다른 개발 부서에 GitFlow에 대해 설명해 �
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/ganghee)
 
 - 정태휘 [preludezdev](https://github.com/preludezdev)
+
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/preludezdev)
 
 - 이진성 [dlwls5201](https://github.com/dlwls5201)
@@ -240,3 +241,25 @@ Git에 서툴렀던 제가 다른 개발 부서에 GitFlow에 대해 설명해 �
 
 - 김수연 [onemask](https://github.com/onemask)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/onemask)
+
+
+## 5기
+- 송영제 [bean628](https://github.com/bean628)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/bean628)
+
+- 장진혁 [ironedler](https://github.com/ironelder)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/ironelder)
+
+- 박태임 [taeiim](https://github.com/taeiim)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/taeiim)
+
+- 이기원 [2giwon](https://github.com/2giwon)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2giwon)
+
+- 오준석 [buddman1208](https://github.com/buddman1208)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/buddman1208)
+
+- 김학명 [developerkhm](https://github.com/developerkhm)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/developerkhm)
+
+
