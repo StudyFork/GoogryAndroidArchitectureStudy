@@ -15,7 +15,7 @@ class SearchBlogAndNewsAdapter(private val items: ArrayList<Item>) :
 
     override fun getItemCount() = items.size
 
-    override fun onBindViewHolder(holder: SearchBlogAndNewsAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         val listener = View.OnClickListener { it ->
             val url = Uri.parse(item.link)
@@ -29,11 +29,11 @@ class SearchBlogAndNewsAdapter(private val items: ArrayList<Item>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
-            SearchBlogAndNewsAdapter.ViewHolder {
+            ViewHolder {
         val inflatedView: View =
             LayoutInflater.from(parent.context).inflate(R.layout.item_blog_and_news, parent, false)
 
-        return SearchBlogAndNewsAdapter.ViewHolder(inflatedView)
+        return ViewHolder(inflatedView)
     }
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
