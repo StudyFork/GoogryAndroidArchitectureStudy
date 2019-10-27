@@ -1,7 +1,8 @@
-package com.ironelder.androidarchitecture
+package com.ironelder.androidarchitecture.component
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.ironelder.androidarchitecture.R
 
 class MainActivity : AppCompatActivity() {
 
