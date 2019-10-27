@@ -5,5 +5,6 @@ data class Item(
     val title: String,
     val actor: String,
     val director: String,
-    val link: String
+    val link: String,
+    val description: String
 )
