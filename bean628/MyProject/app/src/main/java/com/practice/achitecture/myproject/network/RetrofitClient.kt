@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 
 class RetrofitClient {
     private val CONNECT_TIMEOUT: Long = 15
-    private val BASE_URL: String = ""
+    private val BASE_URL: String = "https://openapi.naver.com/"
 
     //log를 볼 수 있도록 httpLogginInterceptor를 만듦
     private val okHttpClient: OkHttpClient
@@ -18,7 +18,8 @@ class RetrofitClient {
             val addHeaderInterceptor = Interceptor { chain ->
                 val original = chain.request()
                 val requestBuilder = original.newBuilder()
-                    .addHeader("", "")
+                    .addHeader("X-Naver-Client-Id", "pjKtnD_jiM0jPuKVf0ce")
+                    .addHeader("X-Naver-Client-Secret", "pZfWJLt0Hk")
                 val request = requestBuilder.build()
                 chain.proceed(request)
             }
