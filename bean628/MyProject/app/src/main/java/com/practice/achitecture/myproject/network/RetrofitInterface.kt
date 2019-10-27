@@ -1,0 +1,3 @@
+package com.practice.achitecture.myproject.network
+
+interface RetrofitInterface
