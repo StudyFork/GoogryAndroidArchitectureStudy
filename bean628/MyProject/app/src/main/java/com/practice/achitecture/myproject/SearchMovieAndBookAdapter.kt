@@ -1,9 +1,10 @@
 package com.practice.achitecture.myproject
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.practice.achitecture.myproject.model.Item
@@ -20,7 +21,9 @@ class SearchMovieAndBookAdapter(private val items: ArrayList<Item>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         val listener = View.OnClickListener { it ->
-            Toast.makeText(it.context, "Clicked: ${item.title}", Toast.LENGTH_SHORT).show()
+            val url = Uri.parse(item.link)
+            val intent = Intent(Intent.ACTION_VIEW, url)
+            it.context.startActivity(intent)
         }
         holder.apply {
             bind(listener, item)
