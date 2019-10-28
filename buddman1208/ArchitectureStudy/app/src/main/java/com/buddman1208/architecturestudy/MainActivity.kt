@@ -12,19 +12,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.recyclical.datasource.DataSource
 import com.afollestad.recyclical.datasource.dataSourceTypedOf
 import com.afollestad.recyclical.setup
+import com.buddman1208.architecturestudy.utils.Constants
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     val datas: DataSource<Any> = dataSourceTypedOf()
+    var currentMode: String = Constants.MODE_BLOG
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        initRecyclerView()
         initToolbar()
         initBottomNavigation()
-        initRecyclerView()
     }
 
     private fun initToolbar() {
@@ -34,12 +36,12 @@ class MainActivity : AppCompatActivity() {
             setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
             contentInsetStartWithNavigation = 0
         }
-        updateToolbarTitle(bottomTabView.selectedItemId)
+        setSearchType(bottomTabView.selectedItemId)
     }
 
     private fun initBottomNavigation() {
         bottomTabView.setOnNavigationItemSelectedListener {
-            updateToolbarTitle(it.itemId)
+            setSearchType(it.itemId)
             true
         }
     }
@@ -51,12 +53,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateToolbarTitle(@IdRes itemId: Int) {
-        supportActionBar?.title = when (itemId) {
-            R.id.menuBlog -> "블로그"
-            R.id.menuBook -> "도서"
-            R.id.menuMovie -> "영화"
-            R.id.menuNews -> "뉴스"
+    private fun setSearchType(@IdRes itemId: Int) {
+        currentMode = when (itemId) {
+            R.id.menuBlog -> Constants.MODE_BLOG
+            R.id.menuBook -> Constants.MODE_BOOK
+            R.id.menuMovie -> Constants.MODE_MOVIE
+            R.id.menuNews -> Constants.MODE_NEWS
+            else -> ""
+        }
+        updateToolbarTitle()
+    }
+
+    private fun updateToolbarTitle() {
+        supportActionBar?.title = when (currentMode) {
+            Constants.MODE_BLOG -> "블로그"
+            Constants.MODE_BOOK -> "도서"
+            Constants.MODE_MOVIE -> "영화"
+            Constants.MODE_NEWS -> "뉴스"
             else -> ""
         }
     }
