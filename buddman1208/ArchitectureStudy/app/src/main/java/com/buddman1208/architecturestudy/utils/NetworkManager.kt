@@ -1,5 +1,6 @@
 package com.buddman1208.architecturestudy.utils
 
+import com.buddman1208.architecturestudy.models.CommonResponse
 import io.reactivex.Observable
 import retrofit2.Response
 
@@ -11,5 +12,5 @@ object NetworkManager {
     fun searchByType(
         searchType: String,
         query: String
-    ): Observable<Response<HashMap<String, String>>> = service.searchByType(searchType, query)
+    ): Observable<Response<CommonResponse>> = service.searchByType(searchType, query)
 }
