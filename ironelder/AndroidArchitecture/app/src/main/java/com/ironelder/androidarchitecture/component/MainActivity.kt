@@ -34,9 +34,9 @@ class PagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm)
     override fun getItem(position: Int): Fragment? {
         val fragment = when(position)
         {
-            1 -> TestFragment()
-            2 -> TestFragment()
-            3 -> TestFragment()
+            1 -> BlogFragment()
+            2 -> BlogFragment()
+            3 -> BlogFragment()
             else -> BlogFragment()
         }
         return fragment

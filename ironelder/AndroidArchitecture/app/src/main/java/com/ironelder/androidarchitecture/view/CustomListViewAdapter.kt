@@ -13,14 +13,14 @@ class CustomListViewAdapter(private val context: Context?, private var itemList:
         return CustomItemViewHolder(view)
     }
 
-    override fun getItemCount() = itemList.size
+    override fun getItemCount() = itemList?.size?:0
 
-    fun setItemList(list:ArrayList<Item>){
-        itemList = list
+    fun setItemList(list:ArrayList<Item>?){
+        itemList = list?: arrayListOf()
     }
 
-    open fun addItemList(list:ArrayList<Item>){
-        itemList.addAll(list)
+    open fun addItemList(list:ArrayList<Item>?){
+        itemList.addAll(list?: arrayListOf())
     }
 
     override fun onBindViewHolder(holder: CustomItemViewHolder, position: Int) {
