@@ -34,10 +34,10 @@ class PagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm)
     override fun getItem(position: Int): Fragment? {
         val fragment = when(position)
         {
-            1 -> BlogFragment()
-            2 -> BlogFragment()
-            3 -> BlogFragment()
-            else -> BlogFragment()
+            1 -> MainFragment("news")
+            2 -> MainFragment("book")
+            3 -> MainFragment("movie")
+            else -> MainFragment("blog")
         }
         return fragment
     }
@@ -45,10 +45,10 @@ class PagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm)
     override fun getPageTitle(position: Int): CharSequence? {
         val title = when(position)
         {
-            1 -> "one"
-            2 -> "tow"
-            3 -> "three"
-            else -> "Blog"
+            1 -> "NEWS"
+            2 -> "BOOK"
+            3 -> "MOVIE"
+            else -> "BLOG"
         }
         return title
     }
