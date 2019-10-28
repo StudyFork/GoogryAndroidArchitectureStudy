@@ -4,9 +4,15 @@ import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.afollestad.recyclical.datasource.DataSource
+import com.afollestad.recyclical.datasource.dataSourceTypedOf
+import com.afollestad.recyclical.setup
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    val datas: DataSource<Any> = dataSourceTypedOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -14,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         initToolbar()
         initBottomNavigation()
+        initRecyclerView()
     }
 
     private fun initToolbar() {
@@ -30,6 +37,13 @@ class MainActivity : AppCompatActivity() {
         bottomTabView.setOnNavigationItemSelectedListener {
             updateToolbarTitle(it.itemId)
             true
+        }
+    }
+
+    private fun initRecyclerView() {
+        rvMain.setup {
+            withDataSource(datas)
+            withLayoutManager(LinearLayoutManager(this@MainActivity))
         }
     }
 
