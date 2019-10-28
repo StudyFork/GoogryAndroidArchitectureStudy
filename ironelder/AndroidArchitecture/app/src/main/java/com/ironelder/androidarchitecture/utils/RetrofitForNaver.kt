@@ -19,8 +19,6 @@ object RetrofitForNaver {
 
     fun getSearchForNaver(): SearchForNaver = mRetrofit.create(SearchForNaver::class.java)
 
-//    fun getSearchService(): SearchForKakao = mRetrofit.create(SearchForKakao::class.java)
-
     interface SearchForNaver {
         @Headers("X-Naver-Client-Id: $CLIENT_ID", "X-Naver-Client-Secret: $CLIENT_KEY")
         @GET("v1/search/{type}.json")
