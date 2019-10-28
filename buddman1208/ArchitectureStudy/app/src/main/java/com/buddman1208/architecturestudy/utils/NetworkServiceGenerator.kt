@@ -18,6 +18,16 @@ object NetworkServiceGenerator {
             interceptor.level = HttpLoggingInterceptor.Level.BODY
             addInterceptor(interceptor)
 
+            addInterceptor { chain ->
+                val request = chain.request()
+                    .newBuilder()
+                if (Constants.API_KEY.isNotEmpty())
+                    request.addHeader("X-Naver-Client-Id", Constants.API_KEY)
+                if (Constants.API_KEY_SERECT.isNotEmpty())
+                    request.addHeader("X-Naver-Client-Secret", Constants.API_KEY_SERECT)
+                chain.proceed(request.build())
+            }
+
         }.build()
 
         client(client)
