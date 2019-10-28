@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menuBlog"
+        android:enabled="true"
+        android:icon="@drawable/ic_blog"
+        android:title="@string/blog"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menuNews"
+        android:icon="@drawable/ic_news"
+        android:title="@string/news"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menuMovie"
+        android:enabled="true"
+        android:icon="@drawable/ic_movie"
+        android:title="@string/movie"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menuBook"
+        android:enabled="true"
+        android:icon="@drawable/ic_book"
+        android:title="@string/book"
+        app:showAsAction="ifRoom" />
+</menu>
