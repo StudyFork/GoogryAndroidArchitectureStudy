@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,7 +49,7 @@ class MainFragment : Fragment {
             true
         }
 
-        v.resultListView.adapter = CustomListViewAdapter(context, arrayListOf())
+        v.resultListView.adapter = CustomListViewAdapter(context, arrayListOf(), mType)
         v.resultListView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         v.resultListView.setHasFixedSize(true)
@@ -69,19 +70,15 @@ class MainFragment : Fragment {
 
     private fun searchAction(searchString: String) {
         val retrofitService = RetrofitForNaver.getSearchForNaver()
-        println("mType = $mType")
-        println("searchString = $searchString")
         var result = retrofitService.requestSearchForNaver(mType, searchString)
         result.enqueue(object : Callback<TotalModel> {
             override fun onFailure(call: Call<TotalModel>, t: Throwable) {
-                println("onFailure = ${t.message}")
+                Toast.makeText(context, t.message, Toast.LENGTH_SHORT)
             }
 
             override fun onResponse(call: Call<TotalModel>, response: Response<TotalModel>) {
-                println("onResponse")
                 var resultList = response.body()
                 (view?.resultListView?.adapter as CustomListViewAdapter).setItemList(resultList?.items)
-                (view?.resultListView?.adapter as CustomListViewAdapter).notifyDataSetChanged()
             }
         })
     }

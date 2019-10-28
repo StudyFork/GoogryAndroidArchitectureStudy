@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ironelder.androidarchitecture.data.Item
 
-class CustomListViewAdapter(private val context: Context?, private var itemList: ArrayList<Item>) :
+class CustomListViewAdapter(private val context: Context?, private var itemList: ArrayList<Item>, private val type:String) :
     RecyclerView.Adapter<CustomListViewAdapter.CustomItemViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomItemViewHolder {
-        var view: View = CustomItemView(context)
+        var view: View = CustomItemView(context, type)
         view.layoutParams = RecyclerView.LayoutParams(
             RecyclerView.LayoutParams.MATCH_PARENT,
             RecyclerView.LayoutParams.WRAP_CONTENT
@@ -21,13 +21,16 @@ class CustomListViewAdapter(private val context: Context?, private var itemList:
 
     fun setItemList(list: ArrayList<Item>?) {
         itemList = list ?: arrayListOf()
+        notifyDataSetChanged()
     }
 
     open fun addItemList(list: ArrayList<Item>?) {
         itemList.addAll(list ?: arrayListOf())
+        notifyItemRangeInserted(itemList.size, list?.size?:0)
     }
 
     override fun onBindViewHolder(holder: CustomItemViewHolder, position: Int) {
+        holder.setData(itemList[position])
     }
 
     inner class CustomItemViewHolder : RecyclerView.ViewHolder {
@@ -35,6 +38,10 @@ class CustomListViewAdapter(private val context: Context?, private var itemList:
 
         constructor(v: View) : super(v) {
             mCustomItemView = v as CustomItemView
+        }
+
+        fun setData(item:Item){
+            mCustomItemView.setData(item)
         }
     }
 
