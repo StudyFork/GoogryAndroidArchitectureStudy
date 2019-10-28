@@ -1,0 +1,3 @@
+package com.buddman1208.architecturestudy.utils
+
+interface NetworkAPI
