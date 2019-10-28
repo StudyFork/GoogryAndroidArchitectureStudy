@@ -20,10 +20,12 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainFragment : Fragment {
-    private val mType:String
-    constructor(type:String?){
-        mType = type?:"blog"
+    private val mType: String
+
+    constructor(type: String?) {
+        mType = type ?: "blog"
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

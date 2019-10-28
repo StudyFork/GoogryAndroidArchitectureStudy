@@ -6,21 +6,25 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ironelder.androidarchitecture.data.Item
 
-class CustomListViewAdapter(private val context: Context?, private var itemList: ArrayList<Item>) : RecyclerView.Adapter<CustomListViewAdapter.CustomItemViewHolder>(){
+class CustomListViewAdapter(private val context: Context?, private var itemList: ArrayList<Item>) :
+    RecyclerView.Adapter<CustomListViewAdapter.CustomItemViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomItemViewHolder {
-        var view:View = CustomItemView(context)
-        view.layoutParams = RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT)
+        var view: View = CustomItemView(context)
+        view.layoutParams = RecyclerView.LayoutParams(
+            RecyclerView.LayoutParams.MATCH_PARENT,
+            RecyclerView.LayoutParams.WRAP_CONTENT
+        )
         return CustomItemViewHolder(view)
     }
 
-    override fun getItemCount() = itemList?.size?:0
+    override fun getItemCount() = itemList.size
 
-    fun setItemList(list:ArrayList<Item>?){
-        itemList = list?: arrayListOf()
+    fun setItemList(list: ArrayList<Item>?) {
+        itemList = list ?: arrayListOf()
     }
 
-    open fun addItemList(list:ArrayList<Item>?){
-        itemList.addAll(list?: arrayListOf())
+    open fun addItemList(list: ArrayList<Item>?) {
+        itemList.addAll(list ?: arrayListOf())
     }
 
     override fun onBindViewHolder(holder: CustomItemViewHolder, position: Int) {
@@ -29,7 +33,7 @@ class CustomListViewAdapter(private val context: Context?, private var itemList:
     inner class CustomItemViewHolder : RecyclerView.ViewHolder {
         private val mCustomItemView: CustomItemView
 
-        constructor(v: View):super(v) {
+        constructor(v: View) : super(v) {
             mCustomItemView = v as CustomItemView
         }
     }

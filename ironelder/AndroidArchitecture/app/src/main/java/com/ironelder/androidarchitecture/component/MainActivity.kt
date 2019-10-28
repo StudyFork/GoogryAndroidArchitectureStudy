@@ -23,8 +23,7 @@ class MainActivity : BaseActivity() {
     }
 }
 
-class PagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm)
-{
+class PagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     val PAGE_MAX_CNT = 4
 
     override fun getCount(): Int {
@@ -32,8 +31,7 @@ class PagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm)
     }
 
     override fun getItem(position: Int): Fragment? {
-        val fragment = when(position)
-        {
+        val fragment = when (position) {
             1 -> MainFragment("news")
             2 -> MainFragment("book")
             3 -> MainFragment("movie")
@@ -43,8 +41,7 @@ class PagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm)
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        val title = when(position)
-        {
+        val title = when (position) {
             1 -> "NEWS"
             2 -> "BOOK"
             3 -> "MOVIE"

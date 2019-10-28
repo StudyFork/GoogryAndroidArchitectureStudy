@@ -40,7 +40,7 @@ abstract class BaseActivity : AppCompatActivity() {
         doDestroy()
     }
 
-    open fun doCreate(savedInstanceState: Bundle?){}
+    open fun doCreate(savedInstanceState: Bundle?) {}
     open fun doStart() {}
     open fun doRestart() {}
     open fun doResume() {}
