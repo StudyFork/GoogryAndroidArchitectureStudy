@@ -19,13 +19,17 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class BlogFragment : Fragment() {
+class MainFragment : Fragment {
+    private val mType:String
+    constructor(type:String?){
+        mType = type?:"blog"
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val v = inflater.inflate(R.layout.fragment_blog, container, false)
+        val v = inflater.inflate(R.layout.fragment_main, container, false)
         v.searchButton.setOnClickListener {
             hideKeybaord(it)
             searchAction(v.searchEditText.text.toString())
@@ -63,12 +67,16 @@ class BlogFragment : Fragment() {
 
     private fun searchAction(searchString: String) {
         val retrofitService = RetrofitForNaver.getSearchForNaver()
-        var result = retrofitService.requestSearchForNaver("blog", searchString)
+        println("mType = $mType")
+        println("searchString = $searchString")
+        var result = retrofitService.requestSearchForNaver(mType, searchString)
         result.enqueue(object : Callback<TotalModel> {
             override fun onFailure(call: Call<TotalModel>, t: Throwable) {
+                println("onFailure = ${t.message}")
             }
 
             override fun onResponse(call: Call<TotalModel>, response: Response<TotalModel>) {
+                println("onResponse")
                 var resultList = response.body()
                 (view?.resultListView?.adapter as CustomListViewAdapter).setItemList(resultList?.items)
                 (view?.resultListView?.adapter as CustomListViewAdapter).notifyDataSetChanged()
