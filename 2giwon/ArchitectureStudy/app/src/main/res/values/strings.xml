@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ArchitectureStudy</string>
+    <string name="blog_tab">블로그</string>
+    <string name="news_tab">뉴스</string>
+    <string name="movie_tab">영화</string>
+    <string name="book_tab">책</string>
+    <string name="search_hint">검색</string>
 </resources>
