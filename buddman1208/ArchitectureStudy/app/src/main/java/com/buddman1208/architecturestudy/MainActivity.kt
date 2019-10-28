@@ -1,10 +1,14 @@
 package com.buddman1208.architecturestudy
 
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.recyclical.datasource.DataSource
 import com.afollestad.recyclical.datasource.dataSourceTypedOf
 import com.afollestad.recyclical.setup
@@ -57,4 +61,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+}
+
+class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    val ivThumbnail: ImageView = view.findViewById(R.id.ivThumbnail)
+    val title: TextView = view.findViewById(R.id.tvTitle)
+    val description: TextView = view.findViewById(R.id.tvDescription)
 }
