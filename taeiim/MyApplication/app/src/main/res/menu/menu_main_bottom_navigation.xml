@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/blogItem"
+        android:icon="@drawable/ic_blog"
+        android:title="블로그" />
+    <item
+        android:id="@+id/newsItem"
+        android:icon="@drawable/ic_newspaper"
+        android:title="뉴스" />
+    <item
+        android:id="@+id/movieItem"
+        android:icon="@drawable/ic_movie"
+        android:title="영화" />
+    <item
+        android:id="@+id/bookItem"
+        android:icon="@drawable/ic_book"
+        android:title="책" />
+</menu>
