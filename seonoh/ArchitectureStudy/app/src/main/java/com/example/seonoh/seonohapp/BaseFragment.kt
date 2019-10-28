@@ -8,25 +8,27 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import com.example.seonoh.seonohapp.contract.BaseContract
+import com.example.seonoh.seonohapp.model.BaseViewModel
+import io.reactivex.disposables.CompositeDisposable
 
-abstract class BaseFragment<P : BaseContract.Presenter, B : ViewDataBinding>(
+abstract class BaseFragment<B : ViewDataBinding>(
     @LayoutRes
     private val layoutRes: Int
-) : Fragment(), BaseContract.View<P> {
+) : Fragment() {
 
     protected lateinit var binding: B
+    abstract val viewModel : BaseViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,layoutRes,container,false)
+        binding = DataBindingUtil.inflate(inflater, layoutRes, container, false)
         return binding.root
     }
 
     override fun onDestroyView() {
-        presenter.clearDisposable()
+        viewModel.clearCompositeDisposable()
         super.onDestroyView()
     }
 }

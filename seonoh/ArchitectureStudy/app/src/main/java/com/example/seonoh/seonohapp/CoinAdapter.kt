@@ -24,9 +24,15 @@ class CoinAdapter : RecyclerView.Adapter<CoinItemViewHolder>() {
 
     override fun getItemCount(): Int = coinData.size
 
-    fun addCoinData(data: List<UseCoinModel>) {
-        coinData.addAll(data)
-        notifyDataSetChanged()
+    fun setCoinData(data: List<UseCoinModel>?) {
+        if (!data.isNullOrEmpty())
+        {
+            coinData.run {
+                clear()
+                addAll(data)
+                notifyDataSetChanged()
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: CoinItemViewHolder, position: Int) {

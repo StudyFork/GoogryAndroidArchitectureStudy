@@ -1,40 +1,36 @@
 package com.example.seonoh.seonohapp
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
-import com.example.seonoh.seonohapp.contract.CoinFragmentContract
 import com.example.seonoh.seonohapp.databinding.CoinFragmentBinding
-import com.example.seonoh.seonohapp.model.UseCoinModel
+import com.example.seonoh.seonohapp.model.CoinViewModel
+import com.example.seonoh.seonohapp.repository.CoinRepositoryImpl
 
-class CoinFragment : BaseFragment<CoinFragmentContract.Presenter, CoinFragmentBinding>(
+class CoinFragment : BaseFragment<CoinFragmentBinding>(
     R.layout.coin_fragment
-), CoinFragmentContract.View {
+) {
 
-    override val presenter = CoinPresenter(this)
-    private lateinit var fragmentAdapter: CoinAdapter
-    private var marketName: String? = null
+    override val viewModel = CoinViewModel(CoinRepositoryImpl())
 
-    override fun setData(data: List<UseCoinModel>) = fragmentAdapter.addCoinData(data)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.run {
+            coinViewModel = viewModel
+            krwRecyclerView.adapter = CoinAdapter()
+        }
+        getMarketInfo()
+    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        initView()
-        marketName = arguments?.getString(MARKET)
-        marketName?.let {
-            presenter.loadData(it)
+    private fun getMarketInfo(){
+        arguments?.getString(MARKET)?.let {
+            viewModel.loadData(it)
         } ?: Toast.makeText(
             activity,
             resources.getString(R.string.empty_market_text),
             Toast.LENGTH_LONG
         ).show()
     }
-
-    private fun initView() {
-        fragmentAdapter = CoinAdapter()
-        binding.krwRecyclerView.adapter = fragmentAdapter
-    }
-
-    override fun showToast() {}
 
     companion object {
         private const val MARKET = "market"
@@ -47,4 +43,5 @@ class CoinFragment : BaseFragment<CoinFragmentContract.Presenter, CoinFragmentBi
             return fragment
         }
     }
+
 }

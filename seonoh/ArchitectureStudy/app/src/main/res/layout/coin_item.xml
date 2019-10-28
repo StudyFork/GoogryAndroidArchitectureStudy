@@ -6,63 +6,65 @@
                 name="coinItem"
                 type="com.example.seonoh.seonohapp.model.UseCoinModel"/>
     </data>
-<androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_margin="6dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <LinearLayout
-            android:padding="8dp"
-            android:weightSum="5"
+    <androidx.cardview.widget.CardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_margin="6dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+        <LinearLayout
+                android:padding="8dp"
+                android:weightSum="5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <TextView
-                android:layout_weight="1"
-                android:textColor="@color/seonohBlack"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:text="@{coinItem.market}"
-                android:id="@+id/coinName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
+            <TextView
+                    android:layout_weight="1"
+                    android:textColor="@color/seonohBlack"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:text="@{coinItem.market}"
+                    android:id="@+id/coinName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
 
-        <TextView
-                android:gravity="right"
-                android:layout_weight="1.8"
-                android:textStyle="bold"
-                android:textColor="@color/seonohBlack"
-                android:textSize="14sp"
-                android:text="@{coinItem.tradePrice}"
-                android:id="@+id/currentPrice"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
+            <TextView
+                    android:gravity="right"
+                    android:layout_weight="1.8"
+                    android:textStyle="bold"
+                    android:textColor="@color/seonohBlack"
+                    android:textSize="14sp"
+                    android:text="@{coinItem.tradePrice}"
+                    android:id="@+id/currentPrice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
 
-        <TextView
-                android:gravity="right"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:textColor="@{ContextCompat.getColor(context,coinItem.changeColor)}"
-                android:textSize="14sp"
-                android:text="@{coinItem.rate}"
-                android:id="@+id/changeRate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
+            <TextView
+                    android:gravity="right"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:textColor="@{ContextCompat.getColor(context,coinItem.changeColor)}"
+                    android:textSize="14sp"
+                    android:text="@{coinItem.rate}"
+                    android:id="@+id/changeRate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
 
-        <TextView
-                android:gravity="right"
-                android:layout_weight="1.2"
-                android:textStyle="bold"
-                android:textColor="@color/seonohBlack"
-                android:textSize="14sp"
-                android:id="@+id/totalTradePrice"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
+            <TextView
+                    changeFormat="@{coinItem.accTradePrice24h}"
+                    android:gravity="right"
+                    android:layout_weight="1.2"
+                    android:textStyle="bold"
+                    android:textColor="@color/seonohBlack"
+                    android:textSize="14sp"
+                    android:id="@+id/totalTradePrice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
 
-    </LinearLayout>
+        </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
 </layout>

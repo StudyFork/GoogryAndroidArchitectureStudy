@@ -1,28 +1,26 @@
 package com.example.seonoh.seonohapp
 
 import android.os.Bundle
-import com.example.seonoh.seonohapp.contract.CoinMainContract
 import com.example.seonoh.seonohapp.databinding.ActivityMainBinding
-import com.example.seonoh.seonohapp.model.Market
+import com.example.seonoh.seonohapp.model.MainViewModel
+import com.example.seonoh.seonohapp.repository.CoinRepositoryImpl
 import com.google.android.material.tabs.TabLayout
 
-class MainActivity : BaseActivity<CoinMainContract.Presenter, ActivityMainBinding>(
+class MainActivity : BaseActivity<ActivityMainBinding>(
     R.layout.activity_main
-), CoinMainContract.View {
+) {
 
-    override val presenter = CoinMainPresenter(this)
-    private lateinit var coinMarketNameList: List<String>
-    private lateinit var pagerAdapter: TabPagerAdapter
+    private val pagerAdapter by lazy { TabPagerAdapter(supportFragmentManager) }
+    override val viewModel = MainViewModel(CoinRepositoryImpl())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initView()
-        presenter.loadData()
     }
 
     private fun initView() {
-        pagerAdapter = TabPagerAdapter(supportFragmentManager)
         binding.run {
+            mainViewModel = viewModel
             coinViewPager.run {
                 adapter = pagerAdapter
                 addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
@@ -35,28 +33,6 @@ class MainActivity : BaseActivity<CoinMainContract.Presenter, ActivityMainBindin
                 addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(coinViewPager))
             }
         }
-    }
-
-    override fun setData(data: List<Market>) = pagerAdapter.setData(refineData(data))
-
-    private fun refineData(marketData: List<Market>): List<String> {
-
-        coinMarketNameList = marketData.map {
-            it.market.substringBefore("-")
-        }.distinct()
-
-        val marketDataList = ArrayList<String>()
-
-        coinMarketNameList.forEach { title ->
-
-            marketDataList += (marketData.filter {
-                it.market.substringBefore("-") == title
-            }.joinToString(",") {
-                it.market
-            })
-        }
-
-        return marketDataList
     }
 
 }
