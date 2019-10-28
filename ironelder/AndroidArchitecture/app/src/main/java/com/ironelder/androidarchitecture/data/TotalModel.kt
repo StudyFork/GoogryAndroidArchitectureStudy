@@ -3,7 +3,7 @@ package com.ironelder.androidarchitecture.data
 
 data class TotalModel(
     val display: Int,
-    val items: List<Item>,
+    val items: ArrayList<Item>,
     val lastBuildDate: String,
     val start: Int,
     val total: Int
