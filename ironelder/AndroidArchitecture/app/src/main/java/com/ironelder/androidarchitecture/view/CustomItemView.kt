@@ -7,7 +7,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.text.HtmlCompat
 import com.bumptech.glide.Glide
 import com.ironelder.androidarchitecture.R
-import com.ironelder.androidarchitecture.common.*
+import com.ironelder.androidarchitecture.common.BLOG
+import com.ironelder.androidarchitecture.common.NEWS
 import com.ironelder.androidarchitecture.data.Item
 import kotlinx.android.synthetic.main.item_custom_item_view.view.*
 
@@ -36,7 +37,8 @@ class CustomItemView : ConstraintLayout {
             else -> {
                 itemImage.visibility = View.VISIBLE
                 Glide.with(context).load(item.image).centerCrop()
-                    .placeholder(R.drawable.ic_launcher_background).into(itemImage)
+                    .placeholder(R.drawable.ic_launcher_background)
+                    .error(R.drawable.ic_launcher_background).into(itemImage)
             }
         }
     }
