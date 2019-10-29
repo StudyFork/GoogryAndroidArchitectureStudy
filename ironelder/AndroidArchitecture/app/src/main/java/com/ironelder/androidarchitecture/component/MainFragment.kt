@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ironelder.androidarchitecture.R
+import com.ironelder.androidarchitecture.common.BLOG
 import com.ironelder.androidarchitecture.data.TotalModel
 import com.ironelder.androidarchitecture.utils.RetrofitForNaver
 import com.ironelder.androidarchitecture.view.CustomListViewAdapter
@@ -24,7 +25,7 @@ class MainFragment : Fragment {
     private val mType: String
 
     constructor(type: String?) {
-        mType = type ?: "blog"
+        mType = type ?: BLOG
     }
 
     override fun onCreateView(
