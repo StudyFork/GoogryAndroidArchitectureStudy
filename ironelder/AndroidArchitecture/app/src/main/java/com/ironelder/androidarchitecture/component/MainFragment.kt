@@ -70,11 +70,15 @@ class MainFragment : Fragment {
     }
 
     private fun searchAction(searchString: String) {
+        if(searchString.isNullOrEmpty()){
+            Toast.makeText(context, getString(R.string.msg_empty_search_string), Toast.LENGTH_SHORT).show()
+            return
+        }
         val retrofitService = RetrofitForNaver.getSearchForNaver()
         var result = retrofitService.requestSearchForNaver(mType, searchString)
         result.enqueue(object : Callback<TotalModel> {
             override fun onFailure(call: Call<TotalModel>, t: Throwable) {
-                Toast.makeText(context, t.message, Toast.LENGTH_SHORT)
+                Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
             }
 
             override fun onResponse(call: Call<TotalModel>, response: Response<TotalModel>) {
