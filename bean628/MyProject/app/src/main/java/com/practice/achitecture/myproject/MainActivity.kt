@@ -2,11 +2,9 @@ package com.practice.achitecture.myproject
 
 import android.content.Context
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,17 +29,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btn_search_type_book.setOnClickListener(this)
         btn_search_type_blog.setOnClickListener(this)
         btn_search_type_news.setOnClickListener(this)
-        input_search_sth.setOnEditorActionListener(object : TextView.OnEditorActionListener {
-            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
-                when (actionId) {
-                    EditorInfo.IME_ACTION_SEARCH -> {
-                        search(mSearchType)
-                        return true
-                    }
-                    else -> return false
+        input_search_sth.setOnEditorActionListener { v, actionId, event ->
+            when (actionId) {
+                EditorInfo.IME_ACTION_SEARCH -> {
+                    search(mSearchType)
+                    true
                 }
+                else -> false
             }
-        })
+        }
 
         mRetrofitClient = RetrofitClient()
 
@@ -75,14 +71,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             return
         }
         mSearchType = searchType
-
-        val call: Call<ResultOfSearchingModel> = when (mSearchType) {
-            0 -> mRetrofitClient.retrofitInterface.searchMovie(word)
-            1 -> mRetrofitClient.retrofitInterface.searchBook(word)
-            2 -> mRetrofitClient.retrofitInterface.searchBlog(word)
-            3 -> mRetrofitClient.retrofitInterface.searchNews(word)
-            else -> mRetrofitClient.retrofitInterface.searchMovie(word)
+        val category = when (searchType) {
+            0 -> "movie"
+            1 -> "book"
+            2 -> "blog"
+            3 -> "news"
+            else -> "movie"
         }
+
+        val call: Call<ResultOfSearchingModel> =
+            mRetrofitClient.retrofitInterface.searchSomething(category, word)
 
         call.enqueue(object : Callback<ResultOfSearchingModel> {
             override fun onResponse(

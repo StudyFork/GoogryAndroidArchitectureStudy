@@ -3,27 +3,17 @@ package com.practice.achitecture.myproject.network
 import com.practice.achitecture.myproject.model.ResultOfSearchingModel
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface RetrofitInterface {
 
-    @GET("v1/search/movie.json")
-    fun searchMovie(
-        @Query("query") query: String
-    ): Call<ResultOfSearchingModel>
-
-    @GET("v1/search/book.json")
-    fun searchBook(
-        @Query("query") query: String
-    ): Call<ResultOfSearchingModel>
-
-    @GET("v1/search/blog.json")
-    fun searchBlog(
-        @Query("query") query: String
-    ): Call<ResultOfSearchingModel>
-
-    @GET("v1/search/news.json")
-    fun searchNews(
+    /**
+     * @Path category = movie, book, blog, news 4가지 유형에서 검색할 수 있습니다.
+     */
+    @GET("v1/search/{category}.json")
+    fun searchSomething(
+        @Path("category") category: String,
         @Query("query") query: String
     ): Call<ResultOfSearchingModel>
 
