@@ -51,6 +51,8 @@ class SearchMovieAndBookAdapter(private val items: ArrayList<Item>) :
                     .with(view.context)
                     .load(it)
                     .centerCrop()
+                    .placeholder(R.drawable.drawable_gray)
+                    .error(R.drawable.ic_empty_image)
                     .into(view.iv_main_image)
             }
 
