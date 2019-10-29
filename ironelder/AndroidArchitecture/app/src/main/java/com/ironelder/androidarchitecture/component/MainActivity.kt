@@ -4,49 +4,41 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.viewpager.widget.ViewPager
-import com.google.android.material.tabs.TabLayout
 import com.ironelder.androidarchitecture.R
+import com.ironelder.androidarchitecture.common.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : BaseActivity() {
     override fun doCreate(savedInstanceState: Bundle?) {
         super.doCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val pageAdapter = PagerAdapter(supportFragmentManager)
-        val pager = findViewById<ViewPager>(R.id.viewPager)
-        pager.adapter = pageAdapter
+        viewPager.adapter = PagerAdapter(supportFragmentManager)
+        tabLayout.setupWithViewPager(viewPager)
+    }
 
-        val tab = findViewById<TabLayout>(R.id.tabLayout)
-        tab.setupWithViewPager(pager)
+    inner class PagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+        override fun getCount(): Int {
+            return TAB_MAX_CNT
+        }
 
+        override fun getItem(position: Int): Fragment? {
+            return when (position) {
+                1 -> MainFragment(NEWS)
+                2 -> MainFragment(BOOK)
+                3 -> MainFragment(MOVIE)
+                else -> MainFragment(BLOG)
+            }
+        }
+
+        override fun getPageTitle(position: Int): CharSequence? {
+            return when (position) {
+                1 -> getString(R.string.tab_news)
+                2 -> getString(R.string.tab_book)
+                3 -> getString(R.string.tab_movie)
+                else -> getString(R.string.tab_blog)
+            }
+        }
     }
 }
 
-class PagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
-    val PAGE_MAX_CNT = 4
-
-    override fun getCount(): Int {
-        return PAGE_MAX_CNT
-    }
-
-    override fun getItem(position: Int): Fragment? {
-        val fragment = when (position) {
-            1 -> MainFragment("news")
-            2 -> MainFragment("book")
-            3 -> MainFragment("movie")
-            else -> MainFragment("blog")
-        }
-        return fragment
-    }
-
-    override fun getPageTitle(position: Int): CharSequence? {
-        val title = when (position) {
-            1 -> "NEWS"
-            2 -> "BOOK"
-            3 -> "MOVIE"
-            else -> "BLOG"
-        }
-        return title
-    }
-}
