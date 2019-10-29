@@ -9,10 +9,12 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidstudy.R
 import com.example.androidstudy.R.layout
 import com.example.androidstudy.api.RetrofitBuilder
 import com.example.androidstudy.api.data.TotalModel
+import com.ironelder.androidarchitecture.view.AdapterBlog
 import kotlinx.android.synthetic.main.layout_search_view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -48,8 +50,12 @@ class BlogFragment : Fragment() {
             true
         }
 
-
+        resultRecyclerView.adapter = AdapterBlog(context, arrayListOf(), "blog")
+        resultRecyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        resultRecyclerView.setHasFixedSize(true)
     }
+
 
     private fun apiFetchData() {
         val result = RetrofitBuilder.instance().requestSearchForNaver("blog", "치킨")
