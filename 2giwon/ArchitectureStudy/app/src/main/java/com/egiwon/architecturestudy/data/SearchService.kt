@@ -27,13 +27,11 @@ class SearchService(
 
     fun getContentsList(
         query: String,
-        type: String,
-        naverId: String,
-        naverSecret: String
+        type: String
     ) {
         retrofit.getContentsInfo(
-            naverId,
-            naverSecret,
+            API_ID,
+            API_SECRET,
             type,
             query
         ).enqueue(object : Callback<Content> {
@@ -54,6 +52,10 @@ class SearchService(
                 }
             }
         })
+    }
 
+    companion object {
+        private const val API_ID = "N6fr8OFPNCzX7SVctnkG"
+        private const val API_SECRET = "WHmQ8WtbYf"
     }
 }

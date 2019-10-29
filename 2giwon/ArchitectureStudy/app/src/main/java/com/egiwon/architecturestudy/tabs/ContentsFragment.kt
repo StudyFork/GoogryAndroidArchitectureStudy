@@ -23,9 +23,7 @@ class ContentsFragment(
             context?.let {
                 SearchService(this).getContentsList(
                     et_search.text.toString(),
-                    type,
-                    it.getString(R.string.naver_api_client_id),
-                    it.getString(R.string.naver_api_client_secret)
+                    type
                 )
             }
         }
