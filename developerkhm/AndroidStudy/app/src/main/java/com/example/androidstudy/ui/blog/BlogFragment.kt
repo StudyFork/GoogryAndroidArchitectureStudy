@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import com.example.androidstudy.R
 import com.example.androidstudy.R.layout
 import com.example.androidstudy.api.RetrofitBuilder
 import com.example.androidstudy.api.data.TotalModel
+import kotlinx.android.synthetic.main.layout_search_view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,6 +40,18 @@ class BlogFragment : Fragment() {
 
     private fun init() {
         apiFetchData()
+    }
+
+    private fun setLayout(){
+        searchButton.setOnEditorActionListener { textView, id, keyEvent ->
+            when (id) {
+                EditorInfo.IME_ACTION_SEARCH -> {
+//
+                }
+                else -> false
+            }
+            true
+        }
     }
 
     private fun apiFetchData() {
