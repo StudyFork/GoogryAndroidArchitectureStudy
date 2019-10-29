@@ -5,9 +5,9 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.practice.achitecture.myproject.model.Item
-import com.practice.achitecture.myproject.utils.MyStringUtil
 import kotlinx.android.synthetic.main.item_blog_and_news.view.*
 
 class SearchBlogAndNewsAdapter(private val items: ArrayList<Item>) :
@@ -41,8 +41,10 @@ class SearchBlogAndNewsAdapter(private val items: ArrayList<Item>) :
         private var view: View = v
 
         fun bind(listener: View.OnClickListener, item: Item?) {
-            view.tv_title.text = MyStringUtil.removeHtmlTags(item?.title)
-            view.tv_description.text = MyStringUtil.removeHtmlTags(item?.description)
+            view.tv_title.text =
+                HtmlCompat.fromHtml(item?.title.toString(), HtmlCompat.FROM_HTML_MODE_COMPACT)
+            view.tv_description.text =
+                HtmlCompat.fromHtml(item?.description.toString(), HtmlCompat.FROM_HTML_MODE_COMPACT)
             view.setOnClickListener(listener)
         }
     }

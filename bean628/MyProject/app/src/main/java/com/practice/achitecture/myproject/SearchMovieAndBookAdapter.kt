@@ -5,10 +5,10 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.practice.achitecture.myproject.model.Item
-import com.practice.achitecture.myproject.utils.MyStringUtil
 import kotlinx.android.synthetic.main.item_blog_and_news.view.tv_description
 import kotlinx.android.synthetic.main.item_blog_and_news.view.tv_title
 import kotlinx.android.synthetic.main.item_book_and_movie.view.*
@@ -54,9 +54,12 @@ class SearchMovieAndBookAdapter(private val items: ArrayList<Item>) :
                     .into(view.iv_main_image)
             }
 
-            view.tv_title.text = MyStringUtil.removeHtmlTags(item?.title)
-            view.tv_description.text =
-                MyStringUtil.removeHtmlTags(item?.description ?: item?.director)
+            view.tv_title.text =
+                HtmlCompat.fromHtml(item?.title.toString(), HtmlCompat.FROM_HTML_MODE_COMPACT)
+            view.tv_description.text = HtmlCompat.fromHtml(
+                item?.description ?: item?.director.toString(),
+                HtmlCompat.FROM_HTML_MODE_COMPACT
+            )
             view.setOnClickListener(listener)
         }
     }
