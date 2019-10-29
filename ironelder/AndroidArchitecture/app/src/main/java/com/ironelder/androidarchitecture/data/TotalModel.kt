@@ -14,19 +14,8 @@ data class Item(
     val director: String,
     val image: String,
     val link: String,
-    val pubDate: String,
     val subtitle: String,
     val title: String,
-    val userRating: String,
-    val bloggerlink: String,
-    val bloggername: String,
-    val description: String,
-    val postdate: String,
-    val author: String,
-    val discount: String,
-    val isbn: String,
-    val price: String,
-    val pubdate: String,
-    val publisher: String,
-    val originallink: String
+    val description: String?,
+    val author: String
 )
