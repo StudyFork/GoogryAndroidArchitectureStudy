@@ -4,21 +4,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ViewStub
-        android:id="@+id/stub_search"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_search"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout="@layout/stub_search"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/rv_contents"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintVertical_weight="1">
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:hint="@string/search_hint"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            app:layout_constraintEnd_toStartOf="@id/btn_search"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="7"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/search_hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="3"
+            app:layout_constraintStart_toEndOf="@id/et_search"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_contents"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layoutManager="LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/stub_search" />
+        app:layout_constraintTop_toBottomOf="@id/layout_search"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintVertical_weight="9" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
