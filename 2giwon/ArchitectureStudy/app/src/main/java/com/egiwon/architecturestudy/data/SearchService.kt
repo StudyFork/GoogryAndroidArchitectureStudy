@@ -12,13 +12,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class SearchService(
     val receiver: SearchCallback
-
 ) {
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://openapi.naver.com/v1/")
         .client(
             OkHttpClient.Builder().addInterceptor(
-                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+                HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                }
             ).build()
         )
         .addConverterFactory(GsonConverterFactory.create())
@@ -45,9 +46,7 @@ class SearchService(
                 call: Call<Content>,
                 response: Response<Content>
             ) {
-                val contents = response.body()
-
-                contents?.let {
+                response.body()?.let {
                     receiver.onSuccess(it.items)
                 }
             }
