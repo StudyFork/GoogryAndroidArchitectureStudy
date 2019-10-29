@@ -3,10 +3,6 @@
 
     <string name="naver_api_client_id">N6fr8OFPNCzX7SVctnkG</string>
     <string name="naver_api_client_secret">WHmQ8WtbYf</string>
-    <string name="query_type_blog">blog</string>
-    <string name="query_type_news">news</string>
-    <string name="query_type_movie">movie</string>
-    <string name="query_type_book">book</string>
     <string name="blog_tab">블로그</string>
     <string name="news_tab">뉴스</string>
     <string name="movie_tab">영화</string>
