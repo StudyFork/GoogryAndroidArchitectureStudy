@@ -24,12 +24,7 @@ class BlogFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root: View =
-            inflater.inflate(layout.fragment_movie, container, false)
-        val textView: TextView =
-            root.findViewById(R.id.text_home)
-        textView.text = "blog"
-        return root
+        return inflater.inflate(layout.fragment_blog, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,7 +34,7 @@ class BlogFragment : Fragment() {
     }
 
     private fun init() {
-        apiFetchData()
+        setLayout()
     }
 
     private fun setLayout(){
@@ -52,6 +47,8 @@ class BlogFragment : Fragment() {
             }
             true
         }
+
+
     }
 
     private fun apiFetchData() {
