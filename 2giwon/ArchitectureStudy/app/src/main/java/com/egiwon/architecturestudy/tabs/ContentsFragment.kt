@@ -1,6 +1,7 @@
 package com.egiwon.architecturestudy.tabs
 
 import android.os.Bundle
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.base.BaseFragment
 import com.egiwon.architecturestudy.data.Content
@@ -35,6 +36,13 @@ class ContentsFragment(
         contentsAdapter.setList(searchContents)
 
         rv_contents.adapter = contentsAdapter
+        rv_contents.addItemDecoration(
+            DividerItemDecoration(
+                context,
+                DividerItemDecoration.VERTICAL
+            )
+        )
+
         rv_contents.setHasFixedSize(true)
         (rv_contents.adapter)?.notifyItemInserted(searchContents.size - 1)
     }
