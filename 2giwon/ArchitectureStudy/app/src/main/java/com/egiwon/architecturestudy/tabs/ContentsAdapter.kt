@@ -5,11 +5,14 @@ import android.net.Uri
 import android.os.Build
 import android.text.Html
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.data.Content
 import kotlinx.android.synthetic.main.rv_contents_item.view.*
@@ -45,6 +48,17 @@ class ContentsAdapter : RecyclerView.Adapter<ContentsAdapter.ViewHolder>() {
 
             linkUrl = list[position].link?.let { it }
 
+            list[position].image?.let {
+                holder.imageThumbnail.visibility = View.VISIBLE
+
+                Glide.with(holder.itemView.context)
+                    .load(it)
+                    .apply(RequestOptions.placeholderOf(R.mipmap.ic_launcher))
+                    .into(holder.imageThumbnail)
+
+            } ?: run {
+                holder.imageThumbnail.visibility = View.GONE
+            }
         }
 
         holder.itemView.setOnClickListener {
