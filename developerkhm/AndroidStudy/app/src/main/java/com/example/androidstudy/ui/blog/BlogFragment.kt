@@ -18,7 +18,7 @@ class BlogFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(layout.fragment_search, container, false)
+        return inflater.inflate(layout.fragment_blog, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

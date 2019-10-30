@@ -17,9 +17,9 @@ class BookFragment : Fragment() {
     ): View? {
         val root: View =
             inflater.inflate(layout.fragment_news, container, false)
-        val textView: TextView =
-            root.findViewById(R.id.text_dashboard)
-        textView.text = "book"
+//        val textView: TextView =
+//            root.findViewById(R.id.text_dashboard)
+//        textView.text = "book"
         return root
     }
 }
