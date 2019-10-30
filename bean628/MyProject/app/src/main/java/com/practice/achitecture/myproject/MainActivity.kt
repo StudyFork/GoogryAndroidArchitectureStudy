@@ -89,19 +89,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 call: Call<ResultOfSearchingModel>,
                 response: Response<ResultOfSearchingModel>
             ) {
-                if (response.code() == 200) {
-                    rv_searched_list.adapter = when (this@MainActivity.searchType) {
-                        SEARCH_TYPE_MOVIE, SEARCH_TYPE_BOOK -> SearchMovieAndBookAdapter(
-                            response.body()?.items ?: ArrayList()
-                        )
-                        SEARCH_TYPE_BLOG, SEARCH_TYPE_NEWS -> SearchBlogAndNewsAdapter(
-                            response.body()?.items ?: ArrayList()
-                        )
-                        else -> SearchMovieAndBookAdapter(response.body()?.items ?: ArrayList())
-                    }
+                response.body()?.let {
+                    if (response.code() == 200) {
+                        rv_searched_list.adapter = when (this@MainActivity.searchType) {
+                            SEARCH_TYPE_MOVIE, SEARCH_TYPE_BOOK -> SearchMovieAndBookAdapter(
+                                it.items
+                            )
+                            SEARCH_TYPE_BLOG, SEARCH_TYPE_NEWS -> SearchBlogAndNewsAdapter(
+                                it.items
+                            )
+                            else -> SearchMovieAndBookAdapter(it.items)
+                        }
 
-                    if (rv_searched_list.adapter!!.itemCount == 0) {
-                        Toast.makeText(this@MainActivity, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show()
+                        if (rv_searched_list.adapter!!.itemCount == 0) {
+                            Toast.makeText(this@MainActivity, "검색 결과가 없습니다.", Toast.LENGTH_SHORT)
+                                .show()
+                        }
                     }
                 }
             }
