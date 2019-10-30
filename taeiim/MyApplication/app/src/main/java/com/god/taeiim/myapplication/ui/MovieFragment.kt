@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.god.taeiim.myapplication.R
 import com.god.taeiim.myapplication.api.SearchApi
 import com.god.taeiim.myapplication.api.model.SearchResult
@@ -79,6 +80,20 @@ class MovieFragment : Fragment() {
                     titleTv.text = movie.title!!.fromHtml()
                     subTitleTv.text = movie.pubDate!!.fromHtml()
                     descTv.text = (movie.director + movie.actor).fromHtml()
+
+
+                    with(movie.image) {
+                        if (!this.isNullOrBlank()) {
+                            thumbnailIv.visibility = View.VISIBLE
+                            Glide.with(holder.itemView.context)
+                                .load(this)
+                                .into(thumbnailIv)
+
+                        } else {
+                            thumbnailIv.visibility = View.GONE
+                        }
+                    }
+
                 }
             }
         }
