@@ -19,6 +19,7 @@ abstract class BaseRecyclerViewAdapter<ITEM : Any, B : ViewDataBinding>(
             parent,
             bindingVariableId
         ) {
+
         }
 
 

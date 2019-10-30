@@ -3,7 +3,6 @@ package study.architecture.coinjob
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import study.architecture.base.BaseViewModel
 import study.architecture.data.entity.ProcessingTicker
 import study.architecture.data.repository.Repository
@@ -11,18 +10,15 @@ import study.architecture.util.TextUtil
 import java.util.concurrent.TimeUnit
 
 class CoinViewModel(
-    private val index: CoinFragment.FragIndex,
-    private val repository: Repository
+    private val repository: Repository,
+    private val index: CoinFragment.FragIndex
 ) : BaseViewModel() {
     private lateinit var marketName: String
-
-    private val dispose: Disposable
 
     val lists = MutableLiveData<List<ProcessingTicker>>()
     val loadingState = MutableLiveData<Boolean>()
 
-    init {
-
+    fun getMarkets() {
         repository.getMarkets()
             .map { list ->
                 list.filter { filterData
@@ -42,45 +38,42 @@ class CoinViewModel(
                 },
                 {
                     Log.e("CoinViewModelError", it.message)
-                }).also { dispose = it }
+                }).also { compositeDisposable.add(it) }
     }
 
     private fun tickerRequest() {
-        dispose.dispose()
-        repository.getTickers(marketName)
-            .repeatWhen { it.delay(8, TimeUnit.SECONDS) }
-            .doOnRequest { loadingState.value = false }
-            .map { list ->
-                list.map { data ->
-                    ProcessingTicker(
-                        TextUtil.getMarketName(data.market),
-                        TextUtil.getTradePrice(data.tradePrice),
-                        TextUtil.getChangeRate(data.signedChangeRate),
-                        TextUtil.getAccTradePrice24h(data.accTradePrice24h),
-                        TextUtil.getColorState(data.signedChangeRate)
-                    )
+        if (::marketName.isInitialized) {
+            repository.getTickers(marketName)
+                .repeatWhen { it.delay(8, TimeUnit.SECONDS) }
+                .doOnRequest { loadingState.value = false }
+                .map { list ->
+                    list.map { data ->
+                        ProcessingTicker(
+                            TextUtil.getMarketName(data.market),
+                            TextUtil.getTradePrice(data.tradePrice),
+                            TextUtil.getChangeRate(data.signedChangeRate),
+                            TextUtil.getAccTradePrice24h(data.accTradePrice24h),
+                            TextUtil.getColorState(data.signedChangeRate)
+                        )
+                    }
                 }
-            }
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { pLists ->
-                    if (!repository.checkNetwork()) Log.e("데이터 연결x", "데이터 최신화 필요")
-                    lists.value = pLists
-                },
-                { e ->
-                    Log.e("CoinViewModel", e.message)
-                }
-            ).also { compositeDisposable.add(it) }
-    }
-
-    override fun onResume() {
-        if (dispose.isDisposed) {
-            tickerRequest()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { pLists ->
+                        if (!repository.checkNetwork()) Log.e("데이터 연결x", "데이터 최신화 필요")
+                        lists.value = pLists
+                    },
+                    { e ->
+                        Log.e("CoinViewModel", e.message)
+                    }
+                ).also { compositeDisposable.add(it) }
         }
     }
 
-    override fun onPause() {
-        dispose.dispose()
-        super.onPause()
+    override fun onResume() {
+
+        tickerRequest()
+
     }
+
 }
