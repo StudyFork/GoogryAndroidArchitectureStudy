@@ -53,12 +53,4 @@ class CoinsRemoteDataSource(
             })
     }
 
-    companion object {
-        private var INSTANCE: CoinsRemoteDataSource? = null
-
-        fun getInstance(coinApiService: CoinApiService): CoinsRemoteDataSource {
-            return INSTANCE ?: CoinsRemoteDataSource(coinApiService).apply { INSTANCE = this }
-        }
-    }
-
 }

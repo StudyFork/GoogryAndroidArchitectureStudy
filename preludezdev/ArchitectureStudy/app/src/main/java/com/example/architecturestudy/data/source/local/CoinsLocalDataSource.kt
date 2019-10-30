@@ -20,12 +20,4 @@ class CoinsLocalDataSource : CoinsDataSource {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    companion object {
-        var INSTANCE: CoinsLocalDataSource? = null
-
-        fun getInstance(): CoinsLocalDataSource {
-            return INSTANCE ?: CoinsLocalDataSource().apply { INSTANCE = this }
-        }
-    }
-
 }

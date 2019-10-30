@@ -37,20 +37,4 @@ class CoinsRepositoryImpl(
         // Local 로 데이터 받아오는 기능이 생기면 추가 구현해야함.
     }
 
-    companion object {
-        private var INSTANCE: CoinsRepositoryImpl? = null
-
-        fun getInstance(
-            coinsRemoteDataSource: CoinsDataSource,
-            coinsLocalDataSource: CoinsDataSource
-        ): CoinsRepositoryImpl {
-            return INSTANCE ?: CoinsRepositoryImpl(
-                coinsRemoteDataSource,
-                coinsLocalDataSource
-            ).apply {
-                INSTANCE = this
-            }
-        }
-    }
-
 }

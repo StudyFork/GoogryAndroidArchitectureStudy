@@ -1,5 +1,7 @@
 package com.example.architecturestudy.ui.main
 
+import android.util.SparseArray
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -10,9 +12,25 @@ class VpAdapter(fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private val fragmentTitleList = listOf("KRW", "BTC", "ETH", "USDT")
+    private val fragmentReferenceMap = SparseArray<Fragment>()
+
+    fun getFragment(position: Int) = fragmentReferenceMap[position] as? MarketFragment
 
     override fun getItem(position: Int): Fragment =
         MarketFragment.newInstance(fragmentTitleList[position])
+
+    override fun instantiateItem(container: ViewGroup, position: Int): Any {
+        val fragment = super.instantiateItem(container, position) as Fragment
+        fragmentReferenceMap.put(position, fragment)
+
+        return fragment
+    }
+
+    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+        super.destroyItem(container, position, `object`)
+
+        fragmentReferenceMap.remove(position)
+    }
 
     //뷰페이저에 포함된 전체 Fragment 갯수
     override fun getCount(): Int = fragmentTitleList.size
