@@ -1,6 +1,7 @@
 package com.egiwon.architecturestudy.tabs
 
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.base.BaseFragment
@@ -19,21 +20,6 @@ class ContentsFragment(
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        btn_search.setOnClickListener {
-            context?.let {
-                SearchService(this).getContentsList(
-                    et_search.text.toString(),
-                    type
-                )
-            }
-        }
-    }
-
-    override fun onSuccess(searchContents: List<Content.Item>) {
-        val contentsAdapter = ContentsAdapter()
-        contentsAdapter.setList(searchContents)
-
-        rv_contents.adapter = contentsAdapter
         rv_contents.addItemDecoration(
             DividerItemDecoration(
                 context,
@@ -41,7 +27,35 @@ class ContentsFragment(
             )
         )
 
+        btn_search.setOnClickListener {
+            context?.let {
+                requestSearch()
+            }
+        }
+    }
+
+    private fun requestSearch() {
+        SearchService(this).getContentsList(
+            et_search.text.toString(),
+            type
+        )
+
+        progress_circular.visibility = View.VISIBLE
+    }
+
+    override fun onSuccess(searchContents: List<Content.Item>) {
+        val contentsAdapter = ContentsAdapter(type)
+        contentsAdapter.setList(searchContents)
+
+        rv_contents.adapter = contentsAdapter
+
         rv_contents.setHasFixedSize(true)
         (rv_contents.adapter)?.notifyItemInserted(searchContents.size - 1)
+        progress_circular.visibility = View.GONE
     }
+
+    override fun onFailure(message: String) {
+        progress_circular.visibility = View.GONE
+    }
+
 }
