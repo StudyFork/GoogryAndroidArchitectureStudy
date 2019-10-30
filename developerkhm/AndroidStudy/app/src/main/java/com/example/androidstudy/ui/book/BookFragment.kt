@@ -6,10 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.androidstudy.R
 import com.example.androidstudy.R.layout
 import com.example.androidstudy.ui.base.BaseFragment
 import com.ironelder.androidarchitecture.view.AdapterBlog
