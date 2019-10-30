@@ -2,10 +2,7 @@ package com.ironelder.androidarchitecture.component
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -20,13 +17,11 @@ import kotlinx.android.synthetic.main.layout_search_listview.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import android.view.MenuInflater
+import androidx.appcompat.widget.SearchView
 
-class MainFragment : Fragment {
-    private val mType: String
 
-    constructor(type: String?) {
-        mType = type ?: BLOG
-    }
+class MainFragment(private val mType:String?) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,23 +29,7 @@ class MainFragment : Fragment {
         savedInstanceState: Bundle?
     ): View? {
         val v = inflater.inflate(R.layout.fragment_main, container, false)
-        v.searchButton.setOnClickListener {
-            hideKeybaord(it)
-            searchAction(v.searchEditText.text.toString())
-        }
-
-        v.searchEditText.setOnEditorActionListener { editView, actionId, event ->
-            when (actionId) {
-                EditorInfo.IME_ACTION_SEARCH -> {
-                    hideKeybaord(editView)
-                    searchAction(editView.text.toString())
-                }
-                else -> false
-            }
-            true
-        }
-
-        v.resultListView.adapter = CustomListViewAdapter(context, arrayListOf(), mType)
+        v.resultListView.adapter = CustomListViewAdapter(context, arrayListOf(), mType?: BLOG)
         v.resultListView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         v.resultListView.setHasFixedSize(true)
@@ -60,7 +39,29 @@ class MainFragment : Fragment {
                 LinearLayoutManager(context).orientation
             )
         )
+        setHasOptionsMenu(true)
         return v
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu?.clear()
+        inflater?.inflate(R.menu.search_menu, menu)
+        val searchView = SearchView((context as MainActivity).supportActionBar?.themedContext?:context)
+        menu?.findItem(R.id.action_search)?.apply {
+            setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
+            actionView = searchView
+        }
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchAction(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
     }
 
     private fun hideKeybaord(v: View) {
@@ -69,13 +70,13 @@ class MainFragment : Fragment {
         inputMethodManager.hideSoftInputFromWindow(v.applicationWindowToken, 0)
     }
 
-    private fun searchAction(searchString: String) {
+    private fun searchAction(searchString: String?) {
         if(searchString.isNullOrEmpty()){
             Toast.makeText(context, getString(R.string.msg_empty_search_string), Toast.LENGTH_SHORT).show()
             return
         }
         val retrofitService = RetrofitForNaver.getSearchForNaver()
-        var result = retrofitService.requestSearchForNaver(mType, searchString)
+        var result = retrofitService.requestSearchForNaver(mType?: BLOG, searchString)
         result.enqueue(object : Callback<TotalModel> {
             override fun onFailure(call: Call<TotalModel>, t: Throwable) {
                 Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()

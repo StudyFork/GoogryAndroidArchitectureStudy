@@ -1,12 +1,20 @@
 package com.ironelder.androidarchitecture.component
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.ironelder.androidarchitecture.R
 import com.ironelder.androidarchitecture.common.*
 import kotlinx.android.synthetic.main.activity_main.*
+import android.app.SearchManager
+import android.content.Context
+import androidx.core.view.MenuItemCompat
+
+
 
 
 class MainActivity : BaseActivity() {
