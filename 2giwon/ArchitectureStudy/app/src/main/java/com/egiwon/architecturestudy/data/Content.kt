@@ -10,33 +10,34 @@ class Content(
     @SerializedName("items") var items: List<Item>
 ) {
     data class Item(
+
         @SerializedName("image")
-        val image: String?,
+        val image: String = "",
         @SerializedName("subtitle")
-        val subtitle: String,
+        val subtitle: String = "",
         @SerializedName("pubdate")
-        val pubDate: String,
+        val pubDate: String = "",
         @SerializedName("director")
-        val director: String,
+        val director: String = "",
         @SerializedName("actor")
-        val actor: String,
+        val actor: String = "",
         @SerializedName("userRating")
-        val userRating: Double,
+        val userRating: Double = 0.00,
 
         @SerializedName("bloggerlink")
-        val bloggerlink: String,
+        val bloggerlink: String = "",
         @SerializedName("bloggername")
-        val bloggername: String,
+        val bloggername: String = "",
         @SerializedName("description")
-        val description: String?,
+        val description: String = "",
         @SerializedName("link")
-        val link: String?,
+        val link: String = "",
         @SerializedName("postdate")
-        val postdate: String,
+        val postdate: String = "",
         @SerializedName("title")
-        val title: String?,
+        val title: String = "",
 
         @SerializedName("originallink")
-        val originallink: String
+        val originallink: String = ""
     )
 }
