@@ -17,8 +17,8 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    private var mSearchType: Int = 0    // 0: 영화, 1: 책, 2: 블로그, 3: 뉴스
-    private lateinit var mRetrofitClient: RetrofitClient
+    private var searchType: Int = 0    // 0: 영화, 1: 책, 2: 블로그, 3: 뉴스
+    private lateinit var retrofitClient: RetrofitClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,14 +32,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         input_search_sth.setOnEditorActionListener { v, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_SEARCH -> {
-                    search(mSearchType)
+                    search(searchType)
                     true
                 }
                 else -> false
             }
         }
 
-        mRetrofitClient = RetrofitClient()
+        retrofitClient = RetrofitClient()
 
         rv_searched_list.layoutManager = LinearLayoutManager(this)
     }
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
 
         when (v?.id) {
-            R.id.btn_search -> search(mSearchType)
+            R.id.btn_search -> search(searchType)
             R.id.btn_search_type_movie ->
                 search(0)
             R.id.btn_search_type_book ->
@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             Toast.makeText(this@MainActivity, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
             return
         }
-        mSearchType = searchType
+        this.searchType = searchType
         val category = when (searchType) {
             0 -> "movie"
             1 -> "book"
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         val call: Call<ResultOfSearchingModel> =
-            mRetrofitClient.retrofitInterface.searchSomething(category, word)
+            retrofitClient.retrofitInterface.searchSomething(category, word)
 
         call.enqueue(object : Callback<ResultOfSearchingModel> {
             override fun onResponse(
@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 response: Response<ResultOfSearchingModel>
             ) {
                 if (response.code() == 200) {
-                    rv_searched_list.adapter = when (mSearchType) {
+                    rv_searched_list.adapter = when (this@MainActivity.searchType) {
                         0, 1 -> SearchMovieAndBookAdapter(response.body()?.items ?: ArrayList())
                         2, 3 -> SearchBlogAndNewsAdapter(response.body()?.items ?: ArrayList())
                         else -> SearchMovieAndBookAdapter(response.body()?.items ?: ArrayList())
