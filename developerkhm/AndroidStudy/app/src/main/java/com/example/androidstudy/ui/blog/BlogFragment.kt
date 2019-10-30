@@ -2,6 +2,7 @@ package com.example.androidstudy.ui.blog
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,28 +35,20 @@ class BlogFragment : BaseFragment() {
 
         searchButton.setOnClickListener {
             if (!TextUtils.isEmpty(searchEditText.text.toString())) {
-                apiFetchData(searchEditText.text.toString(),"tttt")
+                apiFetchData(searchEditText.text.toString(), typeArray[0], { response ->
+                    var resultList = response.body()
+                    Log.d("TEST1234", "RESUTL : ${resultList.toString()}")
+                    (resultRecyclerView?.adapter as AdapterBlog).setItemList(resultList?.items)
+                }, {
+
+                })
             }
         }
-
-//        searchButton.setOnEditorActionListener { textView, id, keyEvent ->
-//            when (id) {
-//                EditorInfo.IME_ACTION_SEARCH -> {
-//                    Log.d("TEST1234", "Search : ${textView.text.toString()}")
-//                    if(!TextUtils.isEmpty(textView.text.toString())){
-//                        apiFetchData(textView.text.toString())
-//                    }
-//                }
-//                else -> false
-//            }
-//
-//            true
-//        }
 
         resultRecyclerView.adapter = AdapterBlog(context, arrayListOf(), "blog")
         resultRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-//        resultRecyclerView.setHasFixedSize(true)
+
     }
 
 

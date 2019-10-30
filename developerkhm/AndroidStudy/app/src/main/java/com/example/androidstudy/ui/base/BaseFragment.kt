@@ -76,7 +76,7 @@ open class BaseFragment : Fragment() {
         listener = null
     }
 
-    protected fun apiFetchData(searchStr: String, type : String, success : () -> Unit, fail : () -> Unit) {
+    protected fun apiFetchData(searchStr: String, type : String, success : (Response<TotalModel>) -> Unit, fail : () -> Unit) {
         val result = RetrofitBuilder.instance().requestSearchForNaver(type, searchStr)
         result.enqueue(object : Callback<TotalModel> {
             override fun onFailure(call: Call<TotalModel>, t: Throwable) {
@@ -85,7 +85,7 @@ open class BaseFragment : Fragment() {
             }
 
             override fun onResponse(call: Call<TotalModel>, response: Response<TotalModel>) {
-                success()
+                success(response)
             }
         })
     }
