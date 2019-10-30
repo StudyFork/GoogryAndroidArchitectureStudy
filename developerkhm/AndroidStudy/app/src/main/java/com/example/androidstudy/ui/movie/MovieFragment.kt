@@ -15,11 +15,6 @@ class MovieFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root: View =
-            inflater.inflate(layout.fragment_book, container, false)
-        val textView: TextView =
-            root.findViewById(R.id.text_notifications)
-        textView.text = "movie"
-        return root
+        return inflater.inflate(layout.fragment_movie, container, false)
     }
 }

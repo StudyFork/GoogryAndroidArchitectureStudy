@@ -16,7 +16,7 @@ class BookFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root: View =
-            inflater.inflate(layout.fragment_news, container, false)
+            inflater.inflate(layout.fragment_book, container, false)
 //        val textView: TextView =
 //            root.findViewById(R.id.text_dashboard)
 //        textView.text = "book"
