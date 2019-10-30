@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btn_search_type_book.setOnClickListener(this)
         btn_search_type_blog.setOnClickListener(this)
         btn_search_type_news.setOnClickListener(this)
-        input_search_sth.setOnEditorActionListener { v, actionId, event ->
+        input_search_sth.setOnEditorActionListener { _, actionId, _ ->
             when (actionId) {
                 EditorInfo.IME_ACTION_SEARCH -> {
                     search(searchType)
