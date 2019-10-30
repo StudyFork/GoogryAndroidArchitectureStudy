@@ -40,14 +40,20 @@ class SearchService(
                 if (BuildConfig.DEBUG) {
                     Log.d("RetroFit", "onFailure ${t.message}")
                 }
+
+                receiver.onFailure(t.message!!)
             }
 
             override fun onResponse(
                 call: Call<Content>,
                 response: Response<Content>
             ) {
-                response.body()?.let {
-                    receiver.onSuccess(it.items)
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        receiver.onSuccess(it.items)
+                    }
+                } else {
+                    receiver.onFailure(response.message())
                 }
             }
         })
