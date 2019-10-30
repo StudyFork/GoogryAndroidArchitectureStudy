@@ -5,14 +5,13 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide.init
 import com.example.androidstudy.R.layout
+import com.example.androidstudy.ui.base.BaseFragment
 import com.ironelder.androidarchitecture.view.AdapterBlog
 import kotlinx.android.synthetic.main.layout_search_view.*
 
-class BlogFragment : Fragment(){
+class BlogFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,7 +34,7 @@ class BlogFragment : Fragment(){
 
         searchButton.setOnClickListener {
             if (!TextUtils.isEmpty(searchEditText.text.toString())) {
-                apiFetchData(searchEditText.text.toString())
+                apiFetchData(searchEditText.text.toString(),"tttt")
             }
         }
 

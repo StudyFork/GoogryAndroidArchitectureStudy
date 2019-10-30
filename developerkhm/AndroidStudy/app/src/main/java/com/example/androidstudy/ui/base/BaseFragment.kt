@@ -32,7 +32,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [BaseFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class BaseFragment : Fragment() {
+open class BaseFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -76,17 +76,16 @@ class BaseFragment : Fragment() {
         listener = null
     }
 
-    protected fun apiFetchData(searchStr: String, type : String) {
+    protected fun apiFetchData(searchStr: String, type : String, success : () -> Unit, fail : () -> Unit) {
         val result = RetrofitBuilder.instance().requestSearchForNaver(type, searchStr)
         result.enqueue(object : Callback<TotalModel> {
             override fun onFailure(call: Call<TotalModel>, t: Throwable) {
                 Toast.makeText(context, t.message, Toast.LENGTH_SHORT)
+                fail()
             }
 
             override fun onResponse(call: Call<TotalModel>, response: Response<TotalModel>) {
-                var resultList = response.body()
-                Log.d("TEST1234", "RESUTL : ${resultList.toString()}")
-                (resultRecyclerView?.adapter as AdapterBlog).setItemList(resultList?.items)
+                success()
             }
         })
     }
