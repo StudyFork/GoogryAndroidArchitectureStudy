@@ -8,24 +8,24 @@
     <fragment
         android:id="@+id/navigation_blog"
         android:name="com.example.androidstudy.ui.blog.BlogFragment"
-        android:label="@string/title_home"
+        android:label="@string/title_blog"
         tools:layout="@layout/fragment_blog" />
 
     <fragment
         android:id="@+id/navigation_news"
         android:name="com.example.androidstudy.ui.news.NewsFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_news"
         tools:layout="@layout/fragment_news" />
 
     <fragment
         android:id="@+id/navigation_movie"
         android:name="com.example.androidstudy.ui.movie.MovieFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_movie"
         tools:layout="@layout/fragment_movie" />
 
     <fragment
         android:id="@+id/navigation_book"
         android:name="com.example.androidstudy.ui.book.BookFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_book"
         tools:layout="@layout/fragment_book" />
 </navigation>

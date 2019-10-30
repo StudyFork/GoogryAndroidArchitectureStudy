@@ -1,9 +1,6 @@
 <resources>
     <string name="app_name">AndroidStudy</string>
     <string name="title_activity_main_tab">MainTabActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="title_blog">블로그</string>
     <string name="title_news">뉴스</string>
     <string name="title_movie">영화</string>
