@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">AndroidStudy</string>
+    <string name="title_activity_main_tab">MainTabActivity</string>
+    <string name="title_blog">블로그</string>
+    <string name="title_news">뉴스</string>
+    <string name="title_movie">영화</string>
+    <string name="title_book">책</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_blog">
+
+    <fragment
+        android:id="@+id/navigation_blog"
+        android:name="com.example.androidstudy.ui.blog.BlogFragment"
+        android:label="@string/title_blog"
+        tools:layout="@layout/fragment_blog" />
+
+    <fragment
+        android:id="@+id/navigation_news"
+        android:name="com.example.androidstudy.ui.news.NewsFragment"
+        android:label="@string/title_news"
+        tools:layout="@layout/fragment_news" />
+
+    <fragment
+        android:id="@+id/navigation_movie"
+        android:name="com.example.androidstudy.ui.movie.MovieFragment"
+        android:label="@string/title_movie"
+        tools:layout="@layout/fragment_movie" />
+
+    <fragment
+        android:id="@+id/navigation_book"
+        android:name="com.example.androidstudy.ui.book.BookFragment"
+        android:label="@string/title_book"
+        tools:layout="@layout/fragment_book" />
+</navigation>
