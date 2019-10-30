@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MyProject</string>
+
+    <string name="btn_search">검색</string>
+    <string name="btn_movie">영화</string>
+    <string name="btn_book">책</string>
+    <string name="btn_blog">블로그</string>
+    <string name="btn_news">뉴스</string>
 </resources>
