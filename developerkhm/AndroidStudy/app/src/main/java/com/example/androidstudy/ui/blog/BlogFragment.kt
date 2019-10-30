@@ -18,7 +18,7 @@ class BlogFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(layout.fragment_blog, container, false)
+        return inflater.inflate(layout.fragment_search, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,6 +50,4 @@ class BlogFragment : BaseFragment() {
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
     }
-
-
 }

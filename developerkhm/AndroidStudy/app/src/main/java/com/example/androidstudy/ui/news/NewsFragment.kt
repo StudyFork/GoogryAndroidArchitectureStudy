@@ -15,11 +15,6 @@ class NewsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root: View =
-            inflater.inflate(layout.fragment_news, container, false)
-        val textView: TextView =
-            root.findViewById(R.id.text_dashboard)
-        textView.text = "news"
-        return root
+        return inflater.inflate(layout.fragment_news, container, false)
     }
 }
