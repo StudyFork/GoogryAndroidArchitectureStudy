@@ -10,6 +10,7 @@
     <ImageView
         android:id="@+id/iv_main_image"
         android:layout_width="90dp"
+        android:contentDescription="@string/image_content_description"
         android:layout_height="160dp" />
 
     <LinearLayout
