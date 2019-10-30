@@ -11,6 +11,7 @@ import com.god.taeiim.myapplication.R
 import com.god.taeiim.myapplication.api.SearchApi
 import com.god.taeiim.myapplication.api.model.SearchResult
 import com.god.taeiim.myapplication.api.provideAuthApi
+import com.god.taeiim.myapplication.extensions.fromHtml
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.item_movie.view.*
 import retrofit2.Call
@@ -75,9 +76,9 @@ class MovieFragment : Fragment() {
         override fun onBindViewHolder(holder: MovieListHolder, position: Int) {
             resultList[position].let { movie ->
                 with(holder.itemView) {
-                    titleTv.text = movie.title
-                    subTitleTv.text = movie.pubDate
-                    descTv.text = movie.director + movie.actor
+                    titleTv.text = movie.title!!.fromHtml()
+                    subTitleTv.text = movie.pubDate!!.fromHtml()
+                    descTv.text = (movie.director + movie.actor).fromHtml()
                 }
             }
         }
