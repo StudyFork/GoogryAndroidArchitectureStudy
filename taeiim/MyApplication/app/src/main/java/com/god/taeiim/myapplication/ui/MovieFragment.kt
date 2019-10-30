@@ -16,7 +16,7 @@ import com.god.taeiim.myapplication.api.model.SearchResult
 import com.god.taeiim.myapplication.api.provideAuthApi
 import com.god.taeiim.myapplication.extensions.fromHtml
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.item_movie.view.*
+import kotlinx.android.synthetic.main.item_contents.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -64,7 +64,7 @@ class MovieFragment : Fragment() {
     private inner class MovieAdapter(var resultList: ArrayList<SearchResult.Item>) : RecyclerView.Adapter<MovieListHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieListHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_contents, parent, false)
             return MovieListHolder(view)
         }
 
