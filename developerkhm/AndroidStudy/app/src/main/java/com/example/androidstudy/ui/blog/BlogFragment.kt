@@ -1,16 +1,14 @@
 package com.example.androidstudy.ui.blog
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.androidstudy.R
 import com.example.androidstudy.R.layout
 import com.example.androidstudy.api.RetrofitBuilder
 import com.example.androidstudy.api.data.TotalModel
@@ -39,26 +37,37 @@ class BlogFragment : Fragment() {
         setLayout()
     }
 
-    private fun setLayout(){
-        searchButton.setOnEditorActionListener { textView, id, keyEvent ->
-            when (id) {
-                EditorInfo.IME_ACTION_SEARCH -> {
-//
-                }
-                else -> false
+    private fun setLayout() {
+
+        searchButton.setOnClickListener {
+            if (!TextUtils.isEmpty(searchEditText.text.toString())) {
+                apiFetchData(searchEditText.text.toString())
             }
-            true
         }
+
+//        searchButton.setOnEditorActionListener { textView, id, keyEvent ->
+//            when (id) {
+//                EditorInfo.IME_ACTION_SEARCH -> {
+//                    Log.d("TEST1234", "Search : ${textView.text.toString()}")
+//                    if(!TextUtils.isEmpty(textView.text.toString())){
+//                        apiFetchData(textView.text.toString())
+//                    }
+//                }
+//                else -> false
+//            }
+//
+//            true
+//        }
 
         resultRecyclerView.adapter = AdapterBlog(context, arrayListOf(), "blog")
         resultRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        resultRecyclerView.setHasFixedSize(true)
+//        resultRecyclerView.setHasFixedSize(true)
     }
 
 
-    private fun apiFetchData() {
-        val result = RetrofitBuilder.instance().requestSearchForNaver("blog", "치킨")
+    private fun apiFetchData(str: String) {
+        val result = RetrofitBuilder.instance().requestSearchForNaver("blog", str)
         result.enqueue(object : Callback<TotalModel> {
             override fun onFailure(call: Call<TotalModel>, t: Throwable) {
                 Toast.makeText(context, t.message, Toast.LENGTH_SHORT)
@@ -67,6 +76,7 @@ class BlogFragment : Fragment() {
             override fun onResponse(call: Call<TotalModel>, response: Response<TotalModel>) {
                 var resultList = response.body()
                 Log.d("TEST1234", "RESUTL : ${resultList.toString()}")
+                (resultRecyclerView?.adapter as AdapterBlog).setItemList(resultList?.items)
             }
         })
     }
