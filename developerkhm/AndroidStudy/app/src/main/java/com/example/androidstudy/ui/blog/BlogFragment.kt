@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidstudy.R.layout
 import com.example.androidstudy.ui.base.BaseFragment
@@ -32,22 +33,23 @@ class BlogFragment : BaseFragment() {
     }
 
     private fun setLayout() {
-
         searchButton.setOnClickListener {
-            if (!TextUtils.isEmpty(searchEditText.text.toString())) {
-                apiFetchData(searchEditText.text.toString(), typeArray[0], { response ->
-                    var resultList = response.body()
-                    Log.d("TEST1234", "RESUTL : ${resultList.toString()}")
-                    (resultRecyclerView?.adapter as AdapterBlog).setItemList(resultList?.items)
-                }, {
+            searchEditText.onEditorAction(EditorInfo.IME_ACTION_SEARCH)
+        }
 
-                })
+        searchEditText.setOnEditorActionListener { searchEditText, actionId, event ->
+            when (actionId) {
+                EditorInfo.IME_ACTION_SEARCH -> {
+                    hideKeybaord(searchEditText)
+                    search(searchEditText.text.toString())
+                }
+                else -> false
             }
+            true
         }
 
         resultRecyclerView.adapter = AdapterBlog(context, arrayListOf(), "blog")
         resultRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
     }
 }

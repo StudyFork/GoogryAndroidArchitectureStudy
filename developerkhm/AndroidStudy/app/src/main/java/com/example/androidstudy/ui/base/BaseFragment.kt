@@ -3,11 +3,13 @@ package com.example.androidstudy.ui.base
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import com.example.androidstudy.R
@@ -76,6 +78,18 @@ open class BaseFragment : Fragment() {
         listener = null
     }
 
+    protected fun search(str : String){
+        if (!TextUtils.isEmpty(str)) {
+            apiFetchData(searchEditText.text.toString(), typeArray[0], { response ->
+                var resultList = response.body()
+                Log.d("TEST1234", "RESUTL : ${resultList.toString()}")
+                (resultRecyclerView?.adapter as AdapterBlog).setItemList(resultList?.items)
+            }, {
+
+            })
+        }
+    }
+
     protected fun apiFetchData(searchStr: String, type : String, success : (Response<TotalModel>) -> Unit, fail : () -> Unit) {
         val result = RetrofitBuilder.instance().requestSearchForNaver(type, searchStr)
         result.enqueue(object : Callback<TotalModel> {
@@ -88,6 +102,12 @@ open class BaseFragment : Fragment() {
                 success(response)
             }
         })
+    }
+
+    protected fun hideKeybaord(v: View) {
+        val inputMethodManager =
+            activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(v.applicationWindowToken, 0)
     }
 
     /**
