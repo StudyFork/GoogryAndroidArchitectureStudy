@@ -75,6 +75,7 @@ class ContentsAdapter(
         items.iterator().forEach {
             list.add(it)
         }
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(
