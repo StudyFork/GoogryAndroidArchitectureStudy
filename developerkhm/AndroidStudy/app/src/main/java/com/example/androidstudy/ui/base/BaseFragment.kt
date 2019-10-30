@@ -3,12 +3,21 @@ package com.example.androidstudy.ui.base
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import com.example.androidstudy.R
+import com.example.androidstudy.api.RetrofitBuilder
+import com.example.androidstudy.api.data.TotalModel
+import com.ironelder.androidarchitecture.view.AdapterBlog
+import kotlinx.android.synthetic.main.layout_search_view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,6 +37,8 @@ class BaseFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
+
+    protected val typeArray = arrayOf("blog", "news", "movie", "book")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +74,21 @@ class BaseFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         listener = null
+    }
+
+    protected fun apiFetchData(searchStr: String, type : String) {
+        val result = RetrofitBuilder.instance().requestSearchForNaver(type, searchStr)
+        result.enqueue(object : Callback<TotalModel> {
+            override fun onFailure(call: Call<TotalModel>, t: Throwable) {
+                Toast.makeText(context, t.message, Toast.LENGTH_SHORT)
+            }
+
+            override fun onResponse(call: Call<TotalModel>, response: Response<TotalModel>) {
+                var resultList = response.body()
+                Log.d("TEST1234", "RESUTL : ${resultList.toString()}")
+                (resultRecyclerView?.adapter as AdapterBlog).setItemList(resultList?.items)
+            }
+        })
     }
 
     /**
