@@ -10,6 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.practice.achitecture.myproject.model.ResultOfSearchingModel
 import com.practice.achitecture.myproject.network.RetrofitClient
+import common.SEARCH_TYPE_BLOG
+import common.SEARCH_TYPE_BOOK
+import common.SEARCH_TYPE_MOVIE
+import common.SEARCH_TYPE_NEWS
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -17,7 +21,7 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    private var searchType: Int = 0    // 0: 영화, 1: 책, 2: 블로그, 3: 뉴스
+    private var searchType: Int = SEARCH_TYPE_MOVIE
     private lateinit var retrofitClient: RetrofitClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,13 +53,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         when (v?.id) {
             R.id.btn_search -> search(searchType)
             R.id.btn_search_type_movie ->
-                search(0)
+                search(SEARCH_TYPE_MOVIE)
             R.id.btn_search_type_book ->
-                search(1)
+                search(SEARCH_TYPE_BOOK)
             R.id.btn_search_type_blog ->
-                search(2)
+                search(SEARCH_TYPE_BLOG)
             R.id.btn_search_type_news ->
-                search(3)
+                search(SEARCH_TYPE_NEWS)
         }
 
     }
@@ -72,10 +76,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
         this.searchType = searchType
         val category = when (searchType) {
-            0 -> "movie"
-            1 -> "book"
-            2 -> "blog"
-            3 -> "news"
+            SEARCH_TYPE_MOVIE -> "movie"
+            SEARCH_TYPE_BOOK -> "book"
+            SEARCH_TYPE_BLOG -> "blog"
+            SEARCH_TYPE_NEWS -> "news"
             else -> "movie"
         }
 
@@ -89,8 +93,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             ) {
                 if (response.code() == 200) {
                     rv_searched_list.adapter = when (this@MainActivity.searchType) {
-                        0, 1 -> SearchMovieAndBookAdapter(response.body()?.items ?: ArrayList())
-                        2, 3 -> SearchBlogAndNewsAdapter(response.body()?.items ?: ArrayList())
+                        SEARCH_TYPE_MOVIE, SEARCH_TYPE_BOOK -> SearchMovieAndBookAdapter(
+                            response.body()?.items ?: ArrayList()
+                        )
+                        SEARCH_TYPE_BLOG, SEARCH_TYPE_NEWS -> SearchBlogAndNewsAdapter(
+                            response.body()?.items ?: ArrayList()
+                        )
                         else -> SearchMovieAndBookAdapter(response.body()?.items ?: ArrayList())
                     }
 
