@@ -4,5 +4,10 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
+    <color name="btn_search_background">#03A9F4</color>
+    <color name="btn_text_white">#FFFFFF</color>
+    <color name="bottom_menu_background">#FF6E40</color>
+
     <drawable name="drawable_gray">#818181</drawable>
+
 </resources>
