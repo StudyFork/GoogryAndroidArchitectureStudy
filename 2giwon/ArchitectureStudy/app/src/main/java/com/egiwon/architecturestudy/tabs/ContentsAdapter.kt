@@ -72,6 +72,7 @@ class ContentsAdapter(
     }
 
     fun setList(items: List<Content.Item>) {
+        list.clear()
         items.iterator().forEach {
             list.add(it)
         }
