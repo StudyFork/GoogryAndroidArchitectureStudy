@@ -205,19 +205,34 @@ Git에 서툴렀던 제가 다른 개발 부서에 GitFlow에 대해 설명해 �
 ## 3기
 - 장도익 [wkdehdlr](https://github.com/wkdehdlr)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/wkdehdlr)
-
 - 조재영 [Zojae031](https://github.com/zojae031)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/zojae031)
 
+# 후기
+
+아직도 onCreate에 모든 코드를 우겨넣고 수정할때마다 머리를 쥐어뜯습니까?
+
+그렇다면 지금당장 신청합시다.
+
+1. **코드리뷰를 통한 협업 간접체험**
+   - 팀원들이 모두 유료로 등록하여 듣는 스터디이기 때문에 모두가 열정적인 최고의 학습환경입니다.
+   - 선배기수분들의 코드리뷰로 알지 못하던 부분, 더 깊은 부분까지 생각해볼수 있는 기회를 가집니다.
+2. **MVC -> MVP -> MVVM 세가지 주요 패턴의 장단점 직접 체험하기**
+   - 만약 어느회사를 들어갔는데 특정 패턴만 쓴다 한다면 그 패턴을 공부하기도 벅찰것이며 패턴들의 장단점은 알지 못한 채 적용하기만 급급할것입니다. 모든 패턴을 사용해보고 왜 그 패턴을 사용하는지 숙지하고 사용합시다.
+3. **러닝커브 낮추기**
+   - 새로운 지식을 접목할 때, 익숙하지 않은 정보들은 배우기 어렵습니다. 지식을 습득하는곳에 돈을 아끼지 마세요. 그 돈으로 습득한 지식은 그 이상으로 돌아올 것이라 확신합니다.
+   - 혼자 공부하는것도 고민하고 생각하는 과정에서 도움이 될 수 있습니다. 하지만 함께 공부하면 그 시너지는 배가 될 것입니다.
+
+### 스스로 노력해야 얻는것이 더 많습니다. 
+
+##### *무조건적인 주입식 교육을 원하시는 분들은 팀원에게 피해가 될 수 있습니다.*
+
 - 원우석 [wswon](https://github.com/wswon)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
-
 - 김강희 [ganghee](https://github.com/ganghee)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/ganghee)
-
 - 정태휘 [preludezdev](https://github.com/preludezdev)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/preludezdev)
-
 - 이진성 [dlwls5201](https://github.com/dlwls5201)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/dlwls5201)
 
