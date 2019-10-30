@@ -5,22 +5,17 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.architecture.study.R
 import com.architecture.study.base.BaseActivity
-import com.architecture.study.data.repository.CoinRepositoryImpl
 import com.architecture.study.databinding.ActivityCoinBinding
-import com.architecture.study.util.Injection
 import com.architecture.study.viewmodel.MarketViewModel
-import com.architecture.study.viewmodel.factory.MarketViewModelFactory
 import com.google.android.material.tabs.TabLayout
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class CoinListActivity : BaseActivity<ActivityCoinBinding>(R.layout.activity_coin) {
 
-    private val marketViewModel by lazy {
-        ViewModelProviders.of(this, MarketViewModelFactory()).get(MarketViewModel::class.java)
-    }
+    private val marketViewModel by viewModel<MarketViewModel>()
 
     private val tabList = listOf(
         R.string.monetary_unit_1,
@@ -86,9 +81,7 @@ class CoinListActivity : BaseActivity<ActivityCoinBinding>(R.layout.activity_coi
                         getString(tabList[position])
                 }
                 addOnPageChangeListener(
-                    TabLayout.TabLayoutOnPageChangeListener(
-                        tabLayoutMonetaryUnit
-                    )
+                    TabLayout.TabLayoutOnPageChangeListener(tabLayoutMonetaryUnit)
                 )
             }
         }

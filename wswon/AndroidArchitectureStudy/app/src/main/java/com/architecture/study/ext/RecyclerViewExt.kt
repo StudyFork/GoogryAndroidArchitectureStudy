@@ -10,3 +10,4 @@ fun RecyclerView.replaceAll(list: List<Any>?) {
     @Suppress("UNCHECKED_CAST")
     (adapter as? BaseAdapter<Any, *>)?.replaceAll(list)
 }
+

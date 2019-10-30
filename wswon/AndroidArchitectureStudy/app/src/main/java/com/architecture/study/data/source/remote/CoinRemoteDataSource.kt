@@ -1,4 +1,4 @@
-package com.architecture.study.data.source
+package com.architecture.study.data.source.remote
 
 import com.architecture.study.network.model.MarketResponse
 import com.architecture.study.network.model.TickerResponse

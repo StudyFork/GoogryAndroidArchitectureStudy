@@ -1,4 +1,4 @@
-package com.architecture.study.data.source
+package com.architecture.study.data.source.remote
 
 import com.architecture.study.network.api.UpbitApi
 import com.architecture.study.network.model.MarketResponse
@@ -7,7 +7,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CoinRemoteDataSourceImpl(private val upbitApi: UpbitApi) :
+class CoinRemoteDataSourceImpl (private val upbitApi: UpbitApi) :
     CoinRemoteDataSource {
 
     override fun getMarketList(listener: CoinRemoteDataSourceListener<MarketResponse>) {
@@ -59,14 +59,5 @@ class CoinRemoteDataSourceImpl(private val upbitApi: UpbitApi) :
                 }
             }
         })
-    }
-
-    companion object {
-        private var instance: CoinRemoteDataSourceImpl? = null
-        fun getInstance(upbitApi: UpbitApi): CoinRemoteDataSourceImpl =
-            instance ?: CoinRemoteDataSourceImpl(upbitApi).also {
-                instance = it
-            }
-
     }
 }
