@@ -69,17 +69,6 @@ class ContentsAdapter(
                 .apply(RequestOptions.placeholderOf(R.mipmap.ic_launcher))
                 .into(holder.imageThumbnail)
         }
-
-        holder.itemView.setOnClickListener {
-
-            startActivity(
-                holder.itemView.context,
-                Intent(
-                    Intent.ACTION_VIEW, Uri.parse(holder.linkUrl)
-                ),
-                null
-            )
-        }
     }
 
     fun setList(items: List<Content.Item>) {
@@ -97,6 +86,19 @@ class ContentsAdapter(
         val tvDescription: TextView = itemView.tv_description
         var linkUrl: String? = null
         val imageThumbnail: ImageView = itemView.iv_thumbnail
+
+        init {
+            itemView.setOnClickListener {
+
+                startActivity(
+                    itemView.context,
+                    Intent(
+                        Intent.ACTION_VIEW, Uri.parse(linkUrl)
+                    ),
+                    null
+                )
+            }
+        }
     }
 
     companion object {
