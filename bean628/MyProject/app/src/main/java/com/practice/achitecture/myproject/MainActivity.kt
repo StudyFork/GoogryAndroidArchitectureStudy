@@ -7,7 +7,6 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.practice.achitecture.myproject.model.ResultOfSearchingModel
 import com.practice.achitecture.myproject.network.RetrofitClient
 import common.SEARCH_TYPE_BLOG
@@ -45,7 +44,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         retrofitClient = RetrofitClient()
 
-        rv_searched_list.layoutManager = LinearLayoutManager(this)
     }
 
     override fun onClick(v: View?) {
