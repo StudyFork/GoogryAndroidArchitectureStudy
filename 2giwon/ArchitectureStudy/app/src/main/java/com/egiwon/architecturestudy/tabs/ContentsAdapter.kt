@@ -18,7 +18,9 @@ import com.egiwon.architecturestudy.data.Content
 import kotlinx.android.synthetic.main.rv_contents_item.view.*
 
 
-class ContentsAdapter : RecyclerView.Adapter<ContentsAdapter.ViewHolder>() {
+class ContentsAdapter(
+    private val type: String
+) : RecyclerView.Adapter<ContentsAdapter.ViewHolder>() {
 
     private val list = ArrayList<Content.Item>()
 
@@ -30,35 +32,42 @@ class ContentsAdapter : RecyclerView.Adapter<ContentsAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder) {
 
-            list[position].title?.let {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    tvTitle.text = Html.fromHtml(it, Html.FROM_HTML_MODE_COMPACT)
-                } else {
-                    tvTitle.text = Html.fromHtml(it)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                tvTitle.text =
+                    Html.fromHtml(list[position].title, Html.FROM_HTML_MODE_COMPACT)
+            } else {
+                tvTitle.text = Html.fromHtml(list[position].title)
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                tvDescription.text =
+                    Html.fromHtml(list[position].description, Html.FROM_HTML_MODE_COMPACT)
+            } else {
+                tvDescription.text = Html.fromHtml(list[position].description)
+            }
+
+            linkUrl = list[position].link
+
+            when (type) {
+                "blog", "news" -> holder.imageThumbnail.visibility = View.GONE
+                "movie" -> {
+                    holder.imageThumbnail.visibility = View.VISIBLE
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        tvDescription.text =
+                            Html.fromHtml(list[position].actor, Html.FROM_HTML_MODE_COMPACT)
+                    } else {
+                        tvDescription.text = Html.fromHtml(list[position].actor)
+                    }
                 }
+                "book" -> holder.imageThumbnail.visibility = View.VISIBLE
+                else -> throw IllegalArgumentException()
             }
 
-            list[position].description?.let {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    tvDescription.text = Html.fromHtml(it, Html.FROM_HTML_MODE_COMPACT)
-                } else {
-                    tvDescription.text = Html.fromHtml(it)
-                }
-            }
-
-            linkUrl = list[position].link?.let { it }
-
-            list[position].image?.let {
-                holder.imageThumbnail.visibility = View.VISIBLE
-
-                Glide.with(holder.itemView.context)
-                    .load(it)
-                    .apply(RequestOptions.placeholderOf(R.mipmap.ic_launcher))
-                    .into(holder.imageThumbnail)
-
-            } ?: run {
-                holder.imageThumbnail.visibility = View.GONE
-            }
+            Glide.with(holder.itemView.context)
+                .load(list[position].image)
+                .apply(RequestOptions.placeholderOf(R.mipmap.ic_launcher))
+                .into(holder.imageThumbnail)
         }
 
         holder.itemView.setOnClickListener {
