@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.text.HtmlCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ironelder.androidarchitecture.R
 import com.ironelder.androidarchitecture.common.BLOG
@@ -16,7 +17,10 @@ class CustomItemView(context: Context?, private val mItemType: String) : Constra
 
     init {
         LayoutInflater.from(context).inflate(R.layout.item_custom_item_view, this, true)
-
+        layoutParams = RecyclerView.LayoutParams(
+            RecyclerView.LayoutParams.MATCH_PARENT,
+            RecyclerView.LayoutParams.WRAP_CONTENT
+        )
     }
 
     fun setData(item: Item) {

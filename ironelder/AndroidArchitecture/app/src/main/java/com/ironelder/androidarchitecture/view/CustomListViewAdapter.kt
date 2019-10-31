@@ -16,23 +16,18 @@ class CustomListViewAdapter(
 ) :
     RecyclerView.Adapter<CustomListViewAdapter.CustomItemViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomItemViewHolder {
-        var view: View = CustomItemView(mContext, mType)
-        view.layoutParams = RecyclerView.LayoutParams(
-            RecyclerView.LayoutParams.MATCH_PARENT,
-            RecyclerView.LayoutParams.WRAP_CONTENT
-        )
-        return CustomItemViewHolder(view)
+        return CustomItemViewHolder(CustomItemView(mContext, mType))
     }
 
     override fun getItemCount() = mItemList.size
 
     fun setItemList(list: ArrayList<Item>?) {
-        mItemList?.clear()
+        mItemList.clear()
         mItemList.addAll(list ?: arrayListOf())
         notifyDataSetChanged()
     }
 
-    open fun addItemList(list: ArrayList<Item>?) {
+    fun addItemList(list: ArrayList<Item>?) {
         mItemList.addAll(list ?: arrayListOf())
         notifyItemRangeInserted(mItemList.size, list?.size ?: 0)
     }
