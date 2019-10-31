@@ -30,8 +30,6 @@ class MainFragment(private val mType:String?) : Fragment() {
     ): View? {
         val v = inflater.inflate(R.layout.fragment_main, container, false)
         v.resultListView.adapter = CustomListViewAdapter(context, arrayListOf(), mType?: BLOG)
-        v.resultListView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         v.resultListView.setHasFixedSize(true)
         v.resultListView.addItemDecoration(
             DividerItemDecoration(
