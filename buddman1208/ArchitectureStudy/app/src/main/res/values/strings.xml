@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">ArchitectureStudy</string>
     <string name="search">검색</string>
-    <string name="blog">블로그</string>
-    <string name="news">뉴스</string>
-    <string name="movie">영화</string>
-    <string name="book">도서</string>
+    <string name="menu_blog">블로그</string>
+    <string name="menu_news">뉴스</string>
+    <string name="menu_movie">영화</string>
+    <string name="menu_book">도서</string>
 
     <string name="connect_error">연결 오류가 발생했습니다.</string>
     <string name="hint_input_edittext">검색어를 입력해주세요.</string>
