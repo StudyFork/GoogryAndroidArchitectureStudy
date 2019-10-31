@@ -13,7 +13,7 @@ import com.ironelder.androidarchitecture.common.NEWS
 import com.ironelder.androidarchitecture.data.Item
 import kotlinx.android.synthetic.main.item_custom_item_view.view.*
 
-class CustomItemView(context: Context?, private val mItemType: String) : ConstraintLayout(context) {
+class CustomItemView(context: Context?, private val mItemType: String) : ConstraintLayout(context), ICustomItemView<Item> {
 
     init {
         LayoutInflater.from(context).inflate(R.layout.item_custom_item_view, this, true)
@@ -23,7 +23,7 @@ class CustomItemView(context: Context?, private val mItemType: String) : Constra
         )
     }
 
-    fun setData(item: Item) {
+    override fun setData(item: Item) {
         itemTitle.text = HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
         itemContent.text = HtmlCompat.fromHtml(
             item.description ?: item.director,
@@ -41,4 +41,7 @@ class CustomItemView(context: Context?, private val mItemType: String) : Constra
             }
         }
     }
+}
+interface ICustomItemView<T>{
+    fun setData(item:T)
 }

@@ -2,7 +2,6 @@ package com.ironelder.androidarchitecture.view
 
 import android.content.Intent
 import android.net.Uri
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ironelder.androidarchitecture.data.Item
@@ -35,12 +34,8 @@ class CustomListViewAdapter(
         holder.setData(mItemList[position])
     }
 
-    inner class CustomItemViewHolder : RecyclerView.ViewHolder {
-        private val mCustomItemView: CustomItemView
-
-        constructor(v: View) : super(v) {
-            mCustomItemView = v as CustomItemView
-        }
+    inner class CustomItemViewHolder(v: CustomItemView) : RecyclerView.ViewHolder(v) {
+        private val mCustomItemView: CustomItemView by lazy { v }
 
         fun setData(item: Item) {
             mCustomItemView.setData(item)
