@@ -1,10 +1,9 @@
 package com.god.taeiim.myapplication.api.model
 
 data class SearchResult(
-        var items: List<Item>
+        val items: List<Item>
 ) {
     data class Item(
-            val items: ArrayList<Item>,
             val bloggerlink: String?,
             val bloggername: String?,
             val description: String?,
