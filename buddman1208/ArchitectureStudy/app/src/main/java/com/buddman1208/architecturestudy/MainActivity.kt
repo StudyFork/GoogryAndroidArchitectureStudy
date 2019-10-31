@@ -138,6 +138,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun updateInfoText(info: String) = tvInfo.apply {
+        text = info
+        visibility = if (info.isNotBlank()) View.VISIBLE else View.INVISIBLE
+    }
+
     private fun getData() {
         val query = etQuery.text.toString().trim()
         if (query.isNotBlank()) {
@@ -148,28 +153,34 @@ class MainActivity : AppCompatActivity() {
                     when (it.code()) {
                         200 -> {
                             datas.clear()
-                            when (currentMode) {
-                                Constants.MODE_BLOG, Constants.MODE_NEWS -> {
-                                    datas.addAll(
-                                        it.body()!!.items.map { Gson().fromJson(it, CommonItem::class.java) }
-                                    )
+                            if (it.body()!!.items.isEmpty())
+                                updateInfoText(resources.getString(R.string.list_blank))
+                            else
+                                when (currentMode) {
+                                    Constants.MODE_BLOG, Constants.MODE_NEWS -> {
+                                        datas.addAll(
+                                            it.body()!!.items.map { Gson().fromJson(it, CommonItem::class.java) }
+                                        )
+                                    }
+                                    Constants.MODE_MOVIE -> {
+                                        datas.addAll(
+                                            it.body()!!.items.map { Gson().fromJson(it, MovieItem::class.java) }
+                                        )
+                                    }
+                                    Constants.MODE_BOOK -> {
+                                        datas.addAll(
+                                            it.body()!!.items.map { Gson().fromJson(it, BookItem::class.java) }
+                                        )
+                                    }
                                 }
-                                Constants.MODE_MOVIE -> {
-                                    datas.addAll(
-                                        it.body()!!.items.map { Gson().fromJson(it, MovieItem::class.java) }
-                                    )
-                                }
-                                Constants.MODE_BOOK -> {
-                                    datas.addAll(
-                                        it.body()!!.items.map { Gson().fromJson(it, BookItem::class.java) }
-                                    )
-                                }
-                            }
                         }
                         else -> toast(resources.getString(R.string.connect_error))
                     }
                 }
-        } else datas.clear()
+        } else {
+            datas.clear()
+            updateInfoText(resources.getString(R.string.hint_input_edittext))
+        }
     }
 }
 
