@@ -22,7 +22,6 @@ import retrofit2.Response
 
 class NewsFragment : Fragment() {
     private val api: SearchApi by lazy { provideAuthApi() }
-    private var searchCall: Call<SearchResult>? = null
     private var searchResultList: ArrayList<SearchResult.Item> = ArrayList()
     private val adapter = NewsAdapter(searchResultList)
 
@@ -44,20 +43,22 @@ class NewsFragment : Fragment() {
     }
 
     private fun searchNews(query: String) {
-        searchCall = api.searchContents("news", query)
-        searchCall!!.enqueue(object : Callback<SearchResult> {
+        val searchCall = api.searchContents("news", query)
+        searchCall?.let {
+            it.enqueue(object : Callback<SearchResult> {
 
-            override fun onResponse(call: Call<SearchResult>, response: Response<SearchResult>) {
-                with(adapter) {
-                    setItems(response.body()!!.items as ArrayList<SearchResult.Item>)
-                    notifyDataSetChanged()
+                override fun onResponse(call: Call<SearchResult>, response: Response<SearchResult>) {
+                    with(adapter) {
+                        setItems(response.body()!!.items as ArrayList<SearchResult.Item>)
+                        notifyDataSetChanged()
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<SearchResult>, t: Throwable) {
+                override fun onFailure(call: Call<SearchResult>, t: Throwable) {
 
-            }
-        })
+                }
+            })
+        }
     }
 
     private inner class NewsAdapter(var resultList: ArrayList<SearchResult.Item>) :
