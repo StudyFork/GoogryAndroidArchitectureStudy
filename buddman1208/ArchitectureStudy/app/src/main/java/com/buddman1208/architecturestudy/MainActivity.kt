@@ -2,6 +2,7 @@ package com.buddman1208.architecturestudy
 
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.IdRes
@@ -105,6 +106,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun initView() {
         btnSearch.setOnClickListener { getData() }
+        etQuery.setOnEditorActionListener { _, actionId, _ ->
+            when (actionId) {
+                EditorInfo.IME_ACTION_SEARCH -> getData()
+                else -> {
+                }
+            }
+            true
+        }
     }
 
     private fun setSearchType(@IdRes itemId: Int) {
