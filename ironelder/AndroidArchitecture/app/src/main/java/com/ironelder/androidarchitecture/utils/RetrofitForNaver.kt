@@ -4,6 +4,7 @@ import com.ironelder.androidarchitecture.common.CLIENT_BASE_URL
 import com.ironelder.androidarchitecture.common.CLIENT_ID
 import com.ironelder.androidarchitecture.common.CLIENT_KEY
 import com.ironelder.androidarchitecture.common.CLIENT_TIMEOUT
+import com.ironelder.androidarchitecture.data.ISearchForNaver
 import com.ironelder.androidarchitecture.data.TotalModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -45,10 +46,5 @@ object RetrofitForNaver {
                 .build()
         }
 
-    fun getSearchForNaver(): SearchForNaver = mRetrofit.create(SearchForNaver::class.java)
-
-    interface SearchForNaver {
-        @GET("v1/search/{type}.json")
-        fun requestSearchForNaver(@Path("type") type: String, @Query("query") query: String = "Test"): Call<TotalModel>
-    }
+    fun getSearchForNaver(): ISearchForNaver = mRetrofit.create(ISearchForNaver::class.java)
 }
