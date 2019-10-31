@@ -12,6 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.recyclical.datasource.DataSource
 import com.afollestad.recyclical.datasource.dataSourceTypedOf
 import com.afollestad.recyclical.setup
+import com.afollestad.recyclical.withItem
+import com.buddman1208.architecturestudy.models.BookItem
+import com.buddman1208.architecturestudy.models.CommonItem
+import com.buddman1208.architecturestudy.models.MovieItem
 import com.buddman1208.architecturestudy.utils.Constants
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -50,6 +54,19 @@ class MainActivity : AppCompatActivity() {
         rvMain.setup {
             withDataSource(datas)
             withLayoutManager(LinearLayoutManager(this@MainActivity))
+            withItem<CommonItem, CommonViewHolder>(R.layout.content_common_item) {
+                onBind(::CommonViewHolder) { index, item ->
+                }
+            }
+            withItem<MovieItem, MovieViewHolder>(R.layout.content_movie_item) {
+                onBind(::MovieViewHolder) { index, item ->
+                }
+            }
+            withItem<BookItem, BookViewHolder>(R.layout.content_book_item) {
+                onBind(::BookViewHolder) { index, item ->
+                }
+            }
+
         }
     }
 
@@ -76,8 +93,21 @@ class MainActivity : AppCompatActivity() {
 
 }
 
-class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class CommonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    val tvTitle: TextView = view.findViewById(R.id.tvTitle)
+    val tvDescription: TextView = view.findViewById(R.id.tvDescription)
+}
+
+class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val ivThumbnail: ImageView = view.findViewById(R.id.ivThumbnail)
-    val title: TextView = view.findViewById(R.id.tvTitle)
-    val description: TextView = view.findViewById(R.id.tvDescription)
+    val tvTitle: TextView = view.findViewById(R.id.tvTitle)
+    val tvSubtitleDate: TextView = view.findViewById(R.id.tvSubtitleDate)
+    val tvDirectorActor: TextView = view.findViewById(R.id.tvDirectorActor)
+}
+
+class BookViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    val ivThumbnail: ImageView = view.findViewById(R.id.ivThumbnail)
+    val tvTitle: TextView = view.findViewById(R.id.tvTitle)
+    val tvAuthorPublisherDate: TextView = view.findViewById(R.id.tvAuthorPublisherDate)
+    val tvDescription: TextView = view.findViewById(R.id.tvDescription)
 }
