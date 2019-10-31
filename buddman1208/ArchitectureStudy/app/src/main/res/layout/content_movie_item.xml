@@ -46,6 +46,7 @@
         android:id="@+id/tvDirectorActor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
         android:maxLines="3"
         android:textColor="@color/contentColor"
         android:textSize="14sp"
