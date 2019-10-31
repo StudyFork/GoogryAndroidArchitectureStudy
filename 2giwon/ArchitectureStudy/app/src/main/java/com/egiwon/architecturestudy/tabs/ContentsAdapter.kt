@@ -2,8 +2,6 @@ package com.egiwon.architecturestudy.tabs
 
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.data.Content
+import com.egiwon.architecturestudy.ext.fromHtml
 import kotlinx.android.synthetic.main.rv_contents_item.view.*
 
 
@@ -32,42 +31,29 @@ class ContentsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder) {
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                tvTitle.text =
-                    Html.fromHtml(list[position].title, Html.FROM_HTML_MODE_COMPACT)
-            } else {
-                tvTitle.text = Html.fromHtml(list[position].title)
-            }
+            tvTitle.text =
+                list[position].title.fromHtml()
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                tvDescription.text =
-                    Html.fromHtml(list[position].description, Html.FROM_HTML_MODE_COMPACT)
-            } else {
-                tvDescription.text = Html.fromHtml(list[position].description)
-            }
+            tvDescription.text =
+                (list[position].actor + list[position].description)
+                    .fromHtml()
+
 
             linkUrl = list[position].link
 
             when (type) {
                 "blog", "news" -> holder.imageThumbnail.visibility = View.GONE
-                "movie" -> {
+                "movie", "book" -> {
                     holder.imageThumbnail.visibility = View.VISIBLE
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        tvDescription.text =
-                            Html.fromHtml(list[position].actor, Html.FROM_HTML_MODE_COMPACT)
-                    } else {
-                        tvDescription.text = Html.fromHtml(list[position].actor)
-                    }
+                    Glide.with(holder.itemView.context)
+                        .load(list[position].image)
+                        .apply(RequestOptions.placeholderOf(R.mipmap.ic_launcher))
+                        .into(holder.imageThumbnail)
                 }
-                "book" -> holder.imageThumbnail.visibility = View.VISIBLE
                 else -> throw IllegalArgumentException()
             }
 
-            Glide.with(holder.itemView.context)
-                .load(list[position].image)
-                .apply(RequestOptions.placeholderOf(R.mipmap.ic_launcher))
-                .into(holder.imageThumbnail)
         }
     }
 
