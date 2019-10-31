@@ -1,9 +1,7 @@
 package com.ironelder.androidarchitecture.component
 
-import android.content.Context
 import android.os.Bundle
 import android.view.*
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -13,7 +11,7 @@ import com.ironelder.androidarchitecture.R
 import com.ironelder.androidarchitecture.common.BLOG
 import com.ironelder.androidarchitecture.common.TYPE_KEY
 import com.ironelder.androidarchitecture.data.TotalModel
-import com.ironelder.androidarchitecture.utils.RetrofitForNaver
+import com.ironelder.androidarchitecture.data.RetrofitForNaver
 import com.ironelder.androidarchitecture.view.CustomListViewAdapter
 import kotlinx.android.synthetic.main.layout_search_listview.*
 import retrofit2.Call

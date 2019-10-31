@@ -1,19 +1,13 @@
-package com.ironelder.androidarchitecture.utils
+package com.ironelder.androidarchitecture.data
 
 import com.ironelder.androidarchitecture.common.CLIENT_BASE_URL
 import com.ironelder.androidarchitecture.common.CLIENT_ID
 import com.ironelder.androidarchitecture.common.CLIENT_KEY
 import com.ironelder.androidarchitecture.common.CLIENT_TIMEOUT
-import com.ironelder.androidarchitecture.data.ISearchForNaver
-import com.ironelder.androidarchitecture.data.TotalModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 object RetrofitForNaver {
