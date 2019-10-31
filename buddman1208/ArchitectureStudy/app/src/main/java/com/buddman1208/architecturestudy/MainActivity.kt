@@ -26,8 +26,8 @@ import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity() {
 
-    val datas: DataSource<Any> = dataSourceOf()
-    var currentMode: String = Constants.MODE_BLOG
+    private val datas: DataSource<Any> = dataSourceOf()
+    private var currentMode: String = Constants.MODE_BLOG
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
