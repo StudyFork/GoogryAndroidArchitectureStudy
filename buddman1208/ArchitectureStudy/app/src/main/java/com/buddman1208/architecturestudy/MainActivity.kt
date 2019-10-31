@@ -66,6 +66,12 @@ class MainActivity : AppCompatActivity() {
             }
             withItem<MovieItem, MovieViewHolder>(R.layout.content_movie_item) {
                 onBind(::MovieViewHolder) { index, item ->
+                    tvTitle.text = item.title
+                    tvSubtitleDate.text = "${item.subtitle}, ${item.pubDate}"
+                    tvDirectorActor.text = "감독 ${item.director}, 배우 ${item.actor}"
+                }
+                onClick {
+                    browse(item.link)
                 }
             }
             withItem<BookItem, BookViewHolder>(R.layout.content_book_item) {
