@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,44 +14,46 @@ import com.ironelder.androidarchitecture.common.BLOG
 import com.ironelder.androidarchitecture.data.TotalModel
 import com.ironelder.androidarchitecture.utils.RetrofitForNaver
 import com.ironelder.androidarchitecture.view.CustomListViewAdapter
-import kotlinx.android.synthetic.main.layout_search_listview.view.*
+import kotlinx.android.synthetic.main.layout_search_listview.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import android.view.MenuInflater
-import androidx.appcompat.widget.SearchView
 
 
-class MainFragment(private val mType:String?) : Fragment() {
+class MainFragment(private val mType: String?) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val v = inflater.inflate(R.layout.fragment_main, container, false)
-        v.resultListView.adapter = CustomListViewAdapter(context, arrayListOf(), mType?: BLOG)
-        v.resultListView.setHasFixedSize(true)
-        v.resultListView.addItemDecoration(
+        return inflater.inflate(R.layout.fragment_main, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        resultListView.adapter = CustomListViewAdapter(context, arrayListOf(), mType ?: BLOG)
+        resultListView.setHasFixedSize(true)
+        resultListView.addItemDecoration(
             DividerItemDecoration(
                 context,
                 LinearLayoutManager(context).orientation
             )
         )
         setHasOptionsMenu(true)
-        return v
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        menu?.clear()
-        inflater?.inflate(R.menu.search_menu, menu)
-        val searchView = SearchView((context as MainActivity).supportActionBar?.themedContext?:context)
-        menu?.findItem(R.id.action_search)?.apply {
+        menu.clear()
+        inflater.inflate(R.menu.search_menu, menu)
+        val searchView =
+            SearchView((context as MainActivity).supportActionBar?.themedContext ?: context)
+        menu.findItem(R.id.action_search)?.apply {
             setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
             actionView = searchView
         }
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchAction(query)
                 return false
@@ -69,12 +72,13 @@ class MainFragment(private val mType:String?) : Fragment() {
     }
 
     private fun searchAction(searchString: String?) {
-        if(searchString.isNullOrEmpty()){
-            Toast.makeText(context, getString(R.string.msg_empty_search_string), Toast.LENGTH_SHORT).show()
+        if (searchString.isNullOrEmpty()) {
+            Toast.makeText(context, getString(R.string.msg_empty_search_string), Toast.LENGTH_SHORT)
+                .show()
             return
         }
         val retrofitService = RetrofitForNaver.getSearchForNaver()
-        val result = retrofitService.requestSearchForNaver(mType?: BLOG, searchString)
+        val result = retrofitService.requestSearchForNaver(mType ?: BLOG, searchString)
         result.enqueue(object : Callback<TotalModel> {
             override fun onFailure(call: Call<TotalModel>, t: Throwable) {
                 Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
@@ -82,7 +86,7 @@ class MainFragment(private val mType:String?) : Fragment() {
 
             override fun onResponse(call: Call<TotalModel>, response: Response<TotalModel>) {
                 val resultList = response.body()
-                (view?.resultListView?.adapter as CustomListViewAdapter).setItemList(resultList?.items)
+                (resultListView?.adapter as CustomListViewAdapter).setItemList(resultList?.items)
             }
         })
     }
