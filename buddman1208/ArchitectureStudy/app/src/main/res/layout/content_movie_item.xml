@@ -11,6 +11,7 @@
         android:id="@+id/ivThumbnail"
         android:layout_width="90dp"
         android:layout_height="150dp"
+        android:contentDescription="@null"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
