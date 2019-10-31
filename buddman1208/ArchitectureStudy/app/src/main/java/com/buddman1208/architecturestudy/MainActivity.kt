@@ -129,34 +129,37 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getData() {
-        NetworkManager
-            .searchByType(searchType = currentMode, query = etQuery.text.toString().trim())
-            .subscribeOnIO()
-            .onUI {
-                when (it.code()) {
-                    200 -> {
-                        datas.clear()
-                        when (currentMode) {
-                            Constants.MODE_BLOG, Constants.MODE_NEWS -> {
-                                datas.addAll(
-                                    it.body()!!.items.map { it as CommonItem }
-                                )
-                            }
-                            Constants.MODE_MOVIE -> {
-                                datas.addAll(
-                                    it.body()!!.items.map { it as MovieItem }
-                                )
-                            }
-                            Constants.MODE_BOOK -> {
-                                datas.addAll(
-                                    it.body()!!.items.map { it as BookItem }
-                                )
+        val query = etQuery.text.toString().trim()
+        if (query.isNotBlank()) {
+            NetworkManager
+                .searchByType(searchType = currentMode, query = query)
+                .subscribeOnIO()
+                .onUI {
+                    when (it.code()) {
+                        200 -> {
+                            datas.clear()
+                            when (currentMode) {
+                                Constants.MODE_BLOG, Constants.MODE_NEWS -> {
+                                    datas.addAll(
+                                        it.body()!!.items.map { it as CommonItem }
+                                    )
+                                }
+                                Constants.MODE_MOVIE -> {
+                                    datas.addAll(
+                                        it.body()!!.items.map { it as MovieItem }
+                                    )
+                                }
+                                Constants.MODE_BOOK -> {
+                                    datas.addAll(
+                                        it.body()!!.items.map { it as BookItem }
+                                    )
+                                }
                             }
                         }
+                        else -> toast(resources.getString(R.string.connect_error))
                     }
-                    else -> toast(resources.getString(R.string.connect_error))
                 }
-            }
+        }
     }
 }
 
