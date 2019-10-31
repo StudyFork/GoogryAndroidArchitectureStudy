@@ -51,6 +51,17 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchContainer" />
 
+    <TextView
+        android:id="@+id/tvInfo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@id/bottomTabView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchContainer"
+        tools:text="@string/hint_input_edittext" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomTabView"
         android:layout_width="match_parent"
