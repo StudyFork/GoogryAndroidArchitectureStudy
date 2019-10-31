@@ -18,6 +18,7 @@ import com.buddman1208.architecturestudy.models.CommonItem
 import com.buddman1208.architecturestudy.models.MovieItem
 import com.buddman1208.architecturestudy.utils.Constants
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.browse
 
 class MainActivity : AppCompatActivity() {
 
@@ -56,6 +57,11 @@ class MainActivity : AppCompatActivity() {
             withLayoutManager(LinearLayoutManager(this@MainActivity))
             withItem<CommonItem, CommonViewHolder>(R.layout.content_common_item) {
                 onBind(::CommonViewHolder) { index, item ->
+                    tvTitle.text = item.title
+                    tvDescription.text = item.description
+                }
+                onClick {
+                    browse(item.link)
                 }
             }
             withItem<MovieItem, MovieViewHolder>(R.layout.content_movie_item) {
