@@ -27,7 +27,8 @@ class CustomListViewAdapter(
     override fun getItemCount() = mItemList.size
 
     fun setItemList(list: ArrayList<Item>?) {
-        mItemList = list ?: arrayListOf()
+        mItemList?.clear()
+        mItemList.addAll(list ?: arrayListOf())
         notifyDataSetChanged()
     }
 
