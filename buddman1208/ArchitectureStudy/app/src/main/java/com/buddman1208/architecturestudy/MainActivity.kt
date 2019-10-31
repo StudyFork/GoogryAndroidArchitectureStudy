@@ -164,23 +164,29 @@ class MainActivity : AppCompatActivity() {
                     when (it.code()) {
                         200 -> {
                             datas.clear()
-                            if (it.body()!!.items.isEmpty())
+                            if (it.body()?.items?.isEmpty() == true)
                                 updateInfoText(resources.getString(R.string.list_blank))
                             else
                                 when (currentMode) {
                                     Constants.MODE_BLOG, Constants.MODE_NEWS -> {
                                         datas.addAll(
-                                            it.body()!!.items.map { Gson().fromJson(it, CommonItem::class.java) }
+                                            it.body()?.items?.map {
+                                                Gson().fromJson(it, CommonItem::class.java)
+                                            } ?: listOf()
                                         )
                                     }
                                     Constants.MODE_MOVIE -> {
                                         datas.addAll(
-                                            it.body()!!.items.map { Gson().fromJson(it, MovieItem::class.java) }
+                                            it.body()?.items?.map {
+                                                Gson().fromJson(it, MovieItem::class.java)
+                                            } ?: listOf()
                                         )
                                     }
                                     Constants.MODE_BOOK -> {
                                         datas.addAll(
-                                            it.body()!!.items.map { Gson().fromJson(it, BookItem::class.java) }
+                                            it.body()?.items?.map {
+                                                Gson().fromJson(it, BookItem::class.java)
+                                            } ?: listOf()
                                         )
                                     }
                                 }
