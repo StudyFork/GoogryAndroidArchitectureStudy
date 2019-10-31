@@ -21,6 +21,7 @@ import com.buddman1208.architecturestudy.utils.NetworkManager
 import com.buddman1208.architecturestudy.utils.onUI
 import com.buddman1208.architecturestudy.utils.subscribeOnIO
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.toast
@@ -141,17 +142,17 @@ class MainActivity : AppCompatActivity() {
                             when (currentMode) {
                                 Constants.MODE_BLOG, Constants.MODE_NEWS -> {
                                     datas.addAll(
-                                        it.body()!!.items.map { it as CommonItem }
+                                        it.body()!!.items.map { Gson().fromJson(it, CommonItem::class.java) }
                                     )
                                 }
                                 Constants.MODE_MOVIE -> {
                                     datas.addAll(
-                                        it.body()!!.items.map { it as MovieItem }
+                                        it.body()!!.items.map { Gson().fromJson(it, MovieItem::class.java) }
                                     )
                                 }
                                 Constants.MODE_BOOK -> {
                                     datas.addAll(
-                                        it.body()!!.items.map { it as BookItem }
+                                        it.body()!!.items.map { Gson().fromJson(it, BookItem::class.java) }
                                     )
                                 }
                             }
