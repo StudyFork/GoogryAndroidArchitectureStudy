@@ -27,7 +27,7 @@ class BookFragment : Fragment() {
     private val adapter = BookAdapter(searchResultList)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_main, null)
+        return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -86,13 +86,13 @@ class BookFragment : Fragment() {
 
                     with(book.image) {
                         if (!this.isNullOrBlank()) {
-                            thumbnailIv.visibility = android.view.View.VISIBLE
+                            thumbnailIv.visibility = View.VISIBLE
                             com.bumptech.glide.Glide.with(holder.itemView.context)
                                 .load(this)
                                 .into(thumbnailIv)
 
                         } else {
-                            thumbnailIv.visibility = android.view.View.GONE
+                            thumbnailIv.visibility = View.GONE
                         }
                     }
 
