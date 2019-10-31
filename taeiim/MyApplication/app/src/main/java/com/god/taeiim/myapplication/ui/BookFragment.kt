@@ -22,8 +22,7 @@ import retrofit2.Response
 
 class BookFragment : Fragment() {
     private val api: SearchApi by lazy { provideAuthApi() }
-    private var searchResultList: ArrayList<SearchResult.Item> = ArrayList()
-    private val adapter = BookAdapter(searchResultList)
+    private val adapter = BookAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
@@ -61,8 +60,8 @@ class BookFragment : Fragment() {
         }
     }
 
-    private inner class BookAdapter(var resultList: ArrayList<SearchResult.Item>) :
-        RecyclerView.Adapter<BookListHolder>() {
+    private inner class BookAdapter : RecyclerView.Adapter<BookListHolder>() {
+        private var resultList: ArrayList<SearchResult.Item> = ArrayList()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookListHolder =
             BookListHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_contents, parent, false))

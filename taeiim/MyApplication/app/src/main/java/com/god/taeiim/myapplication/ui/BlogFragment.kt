@@ -22,8 +22,7 @@ import retrofit2.Response
 
 class BlogFragment : Fragment() {
     private val api: SearchApi by lazy { provideAuthApi() }
-    private var searchResultList: ArrayList<SearchResult.Item> = ArrayList()
-    private val adapter = BlogAdapter(searchResultList)
+    private val adapter = BlogAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
@@ -61,8 +60,8 @@ class BlogFragment : Fragment() {
         }
     }
 
-    private inner class BlogAdapter(var resultList: ArrayList<SearchResult.Item>) :
-        RecyclerView.Adapter<BlogListHolder>() {
+    private inner class BlogAdapter : RecyclerView.Adapter<BlogListHolder>() {
+        private var resultList: ArrayList<SearchResult.Item> = ArrayList()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogListHolder =
             BlogListHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_contents, parent, false))

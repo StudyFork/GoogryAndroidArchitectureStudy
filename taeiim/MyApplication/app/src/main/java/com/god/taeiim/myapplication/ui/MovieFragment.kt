@@ -23,8 +23,7 @@ import retrofit2.Response
 
 class MovieFragment : Fragment() {
     private val api: SearchApi by lazy { provideAuthApi() }
-    private var searchResultList: ArrayList<SearchResult.Item> = ArrayList()
-    private val adapter = MovieAdapter(searchResultList)
+    private val adapter = MovieAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
@@ -61,7 +60,8 @@ class MovieFragment : Fragment() {
         }
     }
 
-    private inner class MovieAdapter(var resultList: ArrayList<SearchResult.Item>) : RecyclerView.Adapter<MovieListHolder>() {
+    private inner class MovieAdapter : RecyclerView.Adapter<MovieListHolder>() {
+        private var resultList: ArrayList<SearchResult.Item> = ArrayList()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieListHolder =
             MovieListHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_contents, parent, false))
