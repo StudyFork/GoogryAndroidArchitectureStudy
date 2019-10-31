@@ -25,10 +25,10 @@ class MainActivity : BaseActivity() {
 
         override fun getItem(position: Int): Fragment {
             return when (position) {
-                1 -> MainFragment(NEWS)
-                2 -> MainFragment(BOOK)
-                3 -> MainFragment(MOVIE)
-                else -> MainFragment(BLOG)
+                1 -> MainFragment.newInstance(NEWS)
+                2 -> MainFragment.newInstance(BOOK)
+                3 -> MainFragment.newInstance(MOVIE)
+                else -> MainFragment.newInstance(BLOG)
             }
         }
 

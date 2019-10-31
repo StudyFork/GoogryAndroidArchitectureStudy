@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ironelder.androidarchitecture.R
 import com.ironelder.androidarchitecture.common.BLOG
+import com.ironelder.androidarchitecture.common.TYPE_KEY
 import com.ironelder.androidarchitecture.data.TotalModel
 import com.ironelder.androidarchitecture.utils.RetrofitForNaver
 import com.ironelder.androidarchitecture.view.CustomListViewAdapter
@@ -20,7 +21,20 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class MainFragment(private val mType: String?) : Fragment() {
+class MainFragment : Fragment() {
+    private val mType: String? by lazy {
+        arguments?.getString(TYPE_KEY)
+    }
+
+    companion object {
+        fun newInstance(type:String?): MainFragment {
+            val args = Bundle()
+            args.putString(TYPE_KEY, type)
+            val fragment = MainFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
