@@ -49,8 +49,8 @@ class MovieFragment : Fragment() {
 
                 override fun onResponse(call: Call<SearchResult>, response: Response<SearchResult>) {
                     with(adapter) {
-                        setItems(response.body()!!.items as ArrayList<SearchResult.Item>)
-                        notifyDataSetChanged()
+                        response.body()?.let { setItems(it.items as ArrayList<SearchResult.Item>) }
+                            ?: clearItems()
                     }
                 }
 
@@ -74,6 +74,12 @@ class MovieFragment : Fragment() {
 
         fun setItems(items: ArrayList<SearchResult.Item>) {
             resultList = items
+            notifyDataSetChanged()
+        }
+
+        fun clearItems(){
+            resultList.clear()
+            notifyDataSetChanged()
         }
 
         override fun onBindViewHolder(holder: MovieListHolder, position: Int) {
