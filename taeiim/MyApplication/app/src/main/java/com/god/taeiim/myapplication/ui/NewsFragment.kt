@@ -39,8 +39,7 @@ class NewsFragment : Fragment() {
         }
 
         searchBtn.setOnClickListener {
-            val query = searchEditTv.text.toString()
-            searchNews(query)
+            searchEditTv.text.toString()?.let { searchNews(it) }
         }
     }
 

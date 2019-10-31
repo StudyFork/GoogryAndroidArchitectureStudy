@@ -39,8 +39,7 @@ class BookFragment : Fragment() {
         }
 
         searchBtn.setOnClickListener {
-            val query = searchEditTv.text.toString()
-            searchBook(query)
+            searchEditTv.text.toString()?.let { searchBook(it) }
         }
     }
 

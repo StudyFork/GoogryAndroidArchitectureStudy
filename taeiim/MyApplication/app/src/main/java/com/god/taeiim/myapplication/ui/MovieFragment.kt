@@ -39,8 +39,7 @@ class MovieFragment : Fragment() {
             adapter = this@MovieFragment.adapter
         }
         searchBtn.setOnClickListener {
-            val query = searchEditTv.text.toString()
-            searchMovie(query)
+            searchEditTv.text.toString()?.let { searchMovie(it) }
         }
     }
 

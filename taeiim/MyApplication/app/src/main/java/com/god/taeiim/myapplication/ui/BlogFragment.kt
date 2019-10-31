@@ -39,8 +39,7 @@ class BlogFragment : Fragment() {
         }
 
         searchBtn.setOnClickListener {
-            val query = searchEditTv.text.toString()
-            searchBlog(query)
+            searchEditTv.text.toString()?.let { searchBlog(it) }
         }
     }
 
