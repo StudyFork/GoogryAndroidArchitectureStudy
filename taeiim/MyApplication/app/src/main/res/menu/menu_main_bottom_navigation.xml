@@ -3,17 +3,17 @@
     <item
         android:id="@+id/blogNavigation"
         android:icon="@drawable/ic_blog"
-        android:title="블로그" />
+            android:title="@string/tab_blog" />
     <item
         android:id="@+id/newsNavigation"
         android:icon="@drawable/ic_newspaper"
-        android:title="뉴스" />
+            android:title="@string/tab_news" />
     <item
         android:id="@+id/movieNavigation"
         android:icon="@drawable/ic_movie"
-        android:title="영화" />
+            android:title="@string/tab_movie" />
     <item
         android:id="@+id/bookNavigation"
         android:icon="@drawable/ic_book"
-        android:title="책" />
+            android:title="@string/tab_book" />
 </menu>
