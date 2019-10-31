@@ -9,4 +9,8 @@
     <string name="connect_error">연결 오류가 발생했습니다.</string>
     <string name="hint_input_edittext">검색어를 입력해주세요.</string>
     <string name="list_blank">검색 결과가 없습니다.</string>
+
+    <string name="subtitle_date_format">%1$s, %2$s</string>
+    <string name="director_actor_format">감독 %1$s, 배우 %2$s</string>
+    <string name="author_publisher_date_format">%1$s, %2$s, %3$s</string>
 </resources>

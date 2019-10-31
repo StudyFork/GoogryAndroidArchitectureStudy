@@ -72,8 +72,16 @@ class MainActivity : AppCompatActivity() {
             withItem<MovieItem, MovieViewHolder>(R.layout.content_movie_item) {
                 onBind(::MovieViewHolder) { index, item ->
                     tvTitle.text = item.title.removeHtmlTags()
-                    tvSubtitleDate.text = "${item.subtitle.removeHtmlTags()}, ${item.pubDate.removeHtmlTags()}"
-                    tvDirectorActor.text = "감독 ${item.director.removeHtmlTags()}, 배우 ${item.actor.removeHtmlTags()}"
+                    tvSubtitleDate.text = resources.getString(
+                        R.string.subtitle_date_format,
+                        item.subtitle.removeHtmlTags(),
+                        item.pubDate.removeHtmlTags()
+                    )
+                    tvDirectorActor.text = resources.getString(
+                        R.string.director_actor_format,
+                        item.director.removeHtmlTags(),
+                        item.actor.removeHtmlTags()
+                    )
 
                     Glide.with(this@MainActivity)
                         .load(item.image)
@@ -87,7 +95,12 @@ class MainActivity : AppCompatActivity() {
                 onBind(::BookViewHolder) { index, item ->
                     tvTitle.text = item.title.removeHtmlTags()
                     tvAuthorPublisherDate.text =
-                        "${item.author.removeHtmlTags()}, ${item.publisher.removeHtmlTags()}, ${item.pubdate.removeHtmlTags()}"
+                        resources.getString(
+                            R.string.author_publisher_date_format,
+                            item.author.removeHtmlTags(),
+                            item.publisher.removeHtmlTags(),
+                            item.pubdate.removeHtmlTags()
+                        )
                     tvDescription.text = item.description.removeHtmlTags()
 
                     Glide.with(this@MainActivity)
