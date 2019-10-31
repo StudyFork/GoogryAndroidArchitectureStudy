@@ -7,15 +7,6 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <ImageView
-        android:id="@+id/ivThumbnail"
-        android:layout_width="90dp"
-        android:layout_height="150dp"
-        android:background="#3c3c3c"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
@@ -24,7 +15,8 @@
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintLeft_toRightOf="@id/ivThumbnail"
+        app:layout_constraintBottom_toTopOf="@id/tvDescription"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="This is tltle" />
 
@@ -32,6 +24,8 @@
         android:id="@+id/tvDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="3"
         android:textColor="#90000000"
         android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="@id/tvTitle"
