@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             withDataSource(datas)
             withLayoutManager(LinearLayoutManager(this@MainActivity))
             withItem<CommonItem, CommonViewHolder>(R.layout.content_common_item) {
-                onBind(::CommonViewHolder) { index, item ->
+                onBind(::CommonViewHolder) { _, item ->
                     tvTitle.text = item.title.removeHtmlTags()
                     tvDescription.text = item.description.removeHtmlTags()
                 }
@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             withItem<MovieItem, MovieViewHolder>(R.layout.content_movie_item) {
-                onBind(::MovieViewHolder) { index, item ->
+                onBind(::MovieViewHolder) { _, item ->
                     tvTitle.text = item.title.removeHtmlTags()
                     tvSubtitleDate.text = resources.getString(
                         R.string.subtitle_date_format,
@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             withItem<BookItem, BookViewHolder>(R.layout.content_book_item) {
-                onBind(::BookViewHolder) { index, item ->
+                onBind(::BookViewHolder) { _, item ->
                     tvTitle.text = item.title.removeHtmlTags()
                     tvAuthorPublisherDate.text =
                         resources.getString(
