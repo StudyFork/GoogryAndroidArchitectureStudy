@@ -41,7 +41,7 @@ class MainFragment(private val mType:String?) : Fragment() {
         return v
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         menu?.clear()
         inflater?.inflate(R.menu.search_menu, menu)
@@ -74,14 +74,14 @@ class MainFragment(private val mType:String?) : Fragment() {
             return
         }
         val retrofitService = RetrofitForNaver.getSearchForNaver()
-        var result = retrofitService.requestSearchForNaver(mType?: BLOG, searchString)
+        val result = retrofitService.requestSearchForNaver(mType?: BLOG, searchString)
         result.enqueue(object : Callback<TotalModel> {
             override fun onFailure(call: Call<TotalModel>, t: Throwable) {
                 Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
             }
 
             override fun onResponse(call: Call<TotalModel>, response: Response<TotalModel>) {
-                var resultList = response.body()
+                val resultList = response.body()
                 (view?.resultListView?.adapter as CustomListViewAdapter).setItemList(resultList?.items)
             }
         })

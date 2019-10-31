@@ -1,20 +1,12 @@
 package com.ironelder.androidarchitecture.component
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.ironelder.androidarchitecture.R
 import com.ironelder.androidarchitecture.common.*
 import kotlinx.android.synthetic.main.activity_main.*
-import android.app.SearchManager
-import android.content.Context
-import androidx.core.view.MenuItemCompat
-
-
 
 
 class MainActivity : BaseActivity() {
@@ -25,12 +17,13 @@ class MainActivity : BaseActivity() {
         tabLayout.setupWithViewPager(viewPager)
     }
 
-    inner class PagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+    inner class PagerAdapter(fm: FragmentManager) :
+        FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
         override fun getCount(): Int {
             return TAB_MAX_CNT
         }
 
-        override fun getItem(position: Int): Fragment? {
+        override fun getItem(position: Int): Fragment {
             return when (position) {
                 1 -> MainFragment(NEWS)
                 2 -> MainFragment(BOOK)
