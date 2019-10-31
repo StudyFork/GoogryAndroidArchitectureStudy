@@ -64,10 +64,8 @@ class NewsFragment : Fragment() {
     private inner class NewsAdapter(var resultList: ArrayList<SearchResult.Item>) :
         RecyclerView.Adapter<NewsListHolder>() {
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsListHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_contents, parent, false)
-            return NewsListHolder(view)
-        }
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsListHolder =
+            NewsListHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_contents, parent, false))
 
         override fun getItemCount(): Int {
             return resultList.size

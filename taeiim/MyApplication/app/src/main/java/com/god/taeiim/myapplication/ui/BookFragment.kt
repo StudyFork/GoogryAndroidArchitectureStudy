@@ -64,10 +64,8 @@ class BookFragment : Fragment() {
     private inner class BookAdapter(var resultList: ArrayList<SearchResult.Item>) :
         RecyclerView.Adapter<BookListHolder>() {
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookListHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_contents, parent, false)
-            return BookListHolder(view)
-        }
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookListHolder =
+            BookListHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_contents, parent, false))
 
         override fun getItemCount(): Int {
             return resultList.size

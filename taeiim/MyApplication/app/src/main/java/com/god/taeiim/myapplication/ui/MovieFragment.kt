@@ -63,10 +63,8 @@ class MovieFragment : Fragment() {
 
     private inner class MovieAdapter(var resultList: ArrayList<SearchResult.Item>) : RecyclerView.Adapter<MovieListHolder>() {
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieListHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_contents, parent, false)
-            return MovieListHolder(view)
-        }
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieListHolder =
+            MovieListHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_contents, parent, false))
 
         override fun getItemCount(): Int {
             return resultList.size

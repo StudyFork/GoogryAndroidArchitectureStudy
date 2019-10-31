@@ -64,10 +64,8 @@ class BlogFragment : Fragment() {
     private inner class BlogAdapter(var resultList: ArrayList<SearchResult.Item>) :
         RecyclerView.Adapter<BlogListHolder>() {
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogListHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_contents, parent, false)
-            return BlogListHolder(view)
-        }
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogListHolder =
+            BlogListHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_contents, parent, false))
 
         override fun getItemCount(): Int {
             return resultList.size
