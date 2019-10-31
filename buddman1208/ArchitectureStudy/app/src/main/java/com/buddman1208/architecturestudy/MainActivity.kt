@@ -76,6 +76,12 @@ class MainActivity : AppCompatActivity() {
             }
             withItem<BookItem, BookViewHolder>(R.layout.content_book_item) {
                 onBind(::BookViewHolder) { index, item ->
+                    tvTitle.text = item.title
+                    tvAuthorPublisherDate.text = "${item.author}, ${item.publisher}, ${item.pubdate}"
+                    tvDescription.text = item.description
+                }
+                onClick {
+                    browse(item.link)
                 }
             }
 
