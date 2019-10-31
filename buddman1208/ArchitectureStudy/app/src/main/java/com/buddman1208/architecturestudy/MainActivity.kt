@@ -10,20 +10,24 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.recyclical.datasource.DataSource
-import com.afollestad.recyclical.datasource.dataSourceTypedOf
+import com.afollestad.recyclical.datasource.dataSourceOf
 import com.afollestad.recyclical.setup
 import com.afollestad.recyclical.withItem
 import com.buddman1208.architecturestudy.models.BookItem
 import com.buddman1208.architecturestudy.models.CommonItem
 import com.buddman1208.architecturestudy.models.MovieItem
 import com.buddman1208.architecturestudy.utils.Constants
+import com.buddman1208.architecturestudy.utils.NetworkManager
+import com.buddman1208.architecturestudy.utils.onUI
+import com.buddman1208.architecturestudy.utils.subscribeOnIO
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.browse
+import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity() {
 
-    val datas: DataSource<Any> = dataSourceTypedOf()
+    val datas: DataSource<Any> = dataSourceOf()
     var currentMode: String = Constants.MODE_BLOG
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -106,6 +110,7 @@ class MainActivity : AppCompatActivity() {
             else -> ""
         }
         updateToolbarTitle()
+        getData()
     }
 
     private fun updateToolbarTitle() {
@@ -118,6 +123,36 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun getData() {
+        NetworkManager
+            .searchByType(searchType = currentMode, query = etQuery.text.toString().trim())
+            .subscribeOnIO()
+            .onUI {
+                when (it.code()) {
+                    200 -> {
+                        datas.clear()
+                        when (currentMode) {
+                            Constants.MODE_BLOG, Constants.MODE_NEWS -> {
+                                datas.addAll(
+                                    it.body()!!.items.map { it as CommonItem }
+                                )
+                            }
+                            Constants.MODE_MOVIE -> {
+                                datas.addAll(
+                                    it.body()!!.items.map { it as MovieItem }
+                                )
+                            }
+                            Constants.MODE_BOOK -> {
+                                datas.addAll(
+                                    it.body()!!.items.map { it as BookItem }
+                                )
+                            }
+                        }
+                    }
+                    else -> toast(resources.getString(R.string.connect_error))
+                }
+            }
+    }
 }
 
 class CommonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
