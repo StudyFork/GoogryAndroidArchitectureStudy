@@ -22,9 +22,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MovieFragment : Fragment() {
-    val api: SearchApi by lazy { provideAuthApi() }
-    internal var searchCall: Call<SearchResult>? = null
-    var searchResultList: ArrayList<SearchResult.Item> = ArrayList()
+    private val api: SearchApi by lazy { provideAuthApi() }
+    private var searchCall: Call<SearchResult>? = null
+    private var searchResultList: ArrayList<SearchResult.Item> = ArrayList()
     private val adapter = MovieAdapter(searchResultList)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

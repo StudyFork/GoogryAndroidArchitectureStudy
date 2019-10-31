@@ -23,7 +23,7 @@ import retrofit2.Response
 class NewsFragment : Fragment() {
     private val api: SearchApi by lazy { provideAuthApi() }
     private var searchCall: Call<SearchResult>? = null
-    var searchResultList: ArrayList<SearchResult.Item> = ArrayList()
+    private var searchResultList: ArrayList<SearchResult.Item> = ArrayList()
     private val adapter = NewsAdapter(searchResultList)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
