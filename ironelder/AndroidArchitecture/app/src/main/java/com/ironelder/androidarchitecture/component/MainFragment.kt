@@ -44,7 +44,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        resultListView.adapter = CustomListViewAdapter(context, arrayListOf(), mType ?: BLOG)
+        resultListView.adapter = CustomListViewAdapter(mType ?: BLOG)
         resultListView.setHasFixedSize(true)
         resultListView.addItemDecoration(
             DividerItemDecoration(

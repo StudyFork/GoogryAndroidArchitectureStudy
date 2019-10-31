@@ -1,6 +1,5 @@
 package com.ironelder.androidarchitecture.view
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.View
@@ -10,13 +9,13 @@ import com.ironelder.androidarchitecture.data.Item
 
 
 class CustomListViewAdapter(
-    private val mContext: Context?,
-    private var mItemList: ArrayList<Item>,
     private val mType: String
 ) :
     RecyclerView.Adapter<CustomListViewAdapter.CustomItemViewHolder>() {
+    private var mItemList: ArrayList<Item> = arrayListOf()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomItemViewHolder {
-        return CustomItemViewHolder(CustomItemView(mContext, mType))
+        return CustomItemViewHolder(CustomItemView(parent.context, mType))
     }
 
     override fun getItemCount() = mItemList.size
@@ -46,7 +45,12 @@ class CustomListViewAdapter(
         fun setData(item: Item) {
             mCustomItemView.setData(item)
             mCustomItemView.setOnClickListener {
-                mContext?.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(item.link)))
+                mCustomItemView.context?.startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(item.link)
+                    )
+                )
             }
         }
 
