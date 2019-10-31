@@ -17,10 +17,7 @@ import com.afollestad.recyclical.withItem
 import com.buddman1208.architecturestudy.models.BookItem
 import com.buddman1208.architecturestudy.models.CommonItem
 import com.buddman1208.architecturestudy.models.MovieItem
-import com.buddman1208.architecturestudy.utils.Constants
-import com.buddman1208.architecturestudy.utils.NetworkManager
-import com.buddman1208.architecturestudy.utils.onUI
-import com.buddman1208.architecturestudy.utils.subscribeOnIO
+import com.buddman1208.architecturestudy.utils.*
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
@@ -65,8 +62,8 @@ class MainActivity : AppCompatActivity() {
             withLayoutManager(LinearLayoutManager(this@MainActivity))
             withItem<CommonItem, CommonViewHolder>(R.layout.content_common_item) {
                 onBind(::CommonViewHolder) { index, item ->
-                    tvTitle.text = item.title
-                    tvDescription.text = item.description
+                    tvTitle.text = item.title.removeHtmlTags()
+                    tvDescription.text = item.description.removeHtmlTags()
                 }
                 onClick {
                     browse(item.link)
@@ -74,9 +71,9 @@ class MainActivity : AppCompatActivity() {
             }
             withItem<MovieItem, MovieViewHolder>(R.layout.content_movie_item) {
                 onBind(::MovieViewHolder) { index, item ->
-                    tvTitle.text = item.title
-                    tvSubtitleDate.text = "${item.subtitle}, ${item.pubDate}"
-                    tvDirectorActor.text = "감독 ${item.director}, 배우 ${item.actor}"
+                    tvTitle.text = item.title.removeHtmlTags()
+                    tvSubtitleDate.text = "${item.subtitle.removeHtmlTags()}, ${item.pubDate.removeHtmlTags()}"
+                    tvDirectorActor.text = "감독 ${item.director.removeHtmlTags()}, 배우 ${item.actor.removeHtmlTags()}"
 
                     Glide.with(this@MainActivity)
                         .load(item.image)
@@ -88,9 +85,10 @@ class MainActivity : AppCompatActivity() {
             }
             withItem<BookItem, BookViewHolder>(R.layout.content_book_item) {
                 onBind(::BookViewHolder) { index, item ->
-                    tvTitle.text = item.title
-                    tvAuthorPublisherDate.text = "${item.author}, ${item.publisher}, ${item.pubdate}"
-                    tvDescription.text = item.description
+                    tvTitle.text = item.title.removeHtmlTags()
+                    tvAuthorPublisherDate.text =
+                        "${item.author.removeHtmlTags()}, ${item.publisher.removeHtmlTags()}, ${item.pubdate.removeHtmlTags()}"
+                    tvDescription.text = item.description.removeHtmlTags()
 
                     Glide.with(this@MainActivity)
                         .load(item.image)
