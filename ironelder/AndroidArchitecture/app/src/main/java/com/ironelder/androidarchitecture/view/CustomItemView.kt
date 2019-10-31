@@ -42,6 +42,3 @@ class CustomItemView(context: Context?, private val mItemType: String) : Constra
         }
     }
 }
-interface ICustomItemView<T>{
-    fun setData(item:T)
-}
