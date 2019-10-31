@@ -27,6 +27,9 @@ class ContentsFragment(
             )
         )
 
+        rv_contents.adapter = ContentsAdapter(type)
+        rv_contents.setHasFixedSize(true)
+
         btn_search.setOnClickListener {
             context?.let {
                 requestSearch()
@@ -44,13 +47,9 @@ class ContentsFragment(
     }
 
     override fun onSuccess(searchContents: List<Content.Item>) {
-        val contentsAdapter = ContentsAdapter(type)
-        contentsAdapter.setList(searchContents)
-
-        rv_contents.adapter = contentsAdapter
-
-        rv_contents.setHasFixedSize(true)
-        (rv_contents.adapter)?.notifyItemInserted(searchContents.size - 1)
+        rv_contents.adapter?.let {
+            (it as ContentsAdapter).setList(searchContents)
+        }
         progress_circular.visibility = View.GONE
     }
 
