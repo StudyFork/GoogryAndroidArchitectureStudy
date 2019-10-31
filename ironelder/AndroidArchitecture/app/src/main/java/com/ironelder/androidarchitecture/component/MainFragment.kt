@@ -79,12 +79,6 @@ class MainFragment : Fragment() {
         })
     }
 
-    private fun hideKeybaord(v: View) {
-        val inputMethodManager =
-            activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(v.applicationWindowToken, 0)
-    }
-
     private fun searchAction(searchString: String?) {
         if (searchString.isNullOrEmpty()) {
             Toast.makeText(context, getString(R.string.msg_empty_search_string), Toast.LENGTH_SHORT)
