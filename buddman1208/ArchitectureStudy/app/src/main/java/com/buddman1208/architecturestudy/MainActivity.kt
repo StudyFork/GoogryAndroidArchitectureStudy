@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         initRecyclerView()
         initToolbar()
         initBottomNavigation()
+        initView()
     }
 
     private fun initToolbar() {
@@ -99,6 +100,10 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    private fun initView() {
+        btnSearch.setOnClickListener { getData() }
     }
 
     private fun setSearchType(@IdRes itemId: Int) {
