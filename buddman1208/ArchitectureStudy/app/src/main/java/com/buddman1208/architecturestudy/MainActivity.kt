@@ -160,7 +160,7 @@ class MainActivity : AppCompatActivity() {
                         else -> toast(resources.getString(R.string.connect_error))
                     }
                 }
-        }
+        } else datas.clear()
     }
 }
 
