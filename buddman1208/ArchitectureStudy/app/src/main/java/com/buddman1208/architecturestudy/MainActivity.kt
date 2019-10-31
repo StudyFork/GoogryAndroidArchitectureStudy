@@ -167,6 +167,7 @@ class MainActivity : AppCompatActivity() {
                             if (it.body()?.items?.isEmpty() == true)
                                 updateInfoText(resources.getString(R.string.list_blank))
                             else
+                                updateInfoText("")
                                 when (currentMode) {
                                     Constants.MODE_BLOG, Constants.MODE_NEWS -> {
                                         datas.addAll(
