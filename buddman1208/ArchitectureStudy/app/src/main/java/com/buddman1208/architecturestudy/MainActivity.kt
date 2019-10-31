@@ -84,6 +84,10 @@ class MainActivity : AppCompatActivity() {
                     tvTitle.text = item.title
                     tvAuthorPublisherDate.text = "${item.author}, ${item.publisher}, ${item.pubdate}"
                     tvDescription.text = item.description
+
+                    Glide.with(this@MainActivity)
+                        .load(item.image)
+                        .into(ivThumbnail)
                 }
                 onClick {
                     browse(item.link)
