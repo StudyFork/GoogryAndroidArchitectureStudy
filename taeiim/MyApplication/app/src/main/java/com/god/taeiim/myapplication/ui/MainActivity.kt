@@ -17,27 +17,28 @@ class MainActivity : AppCompatActivity() {
         loadFragment(bottomNavigation.selectedItemId)
     }
 
-    private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        loadFragment(item.itemId)
-        true
-    }
+    private val onNavigationItemSelectedListener =
+        BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            loadFragment(item.itemId)
+            true
+        }
 
     private fun loadFragment(itemId: Int) {
-        val tag = itemId.toString()
-        val fragment = supportFragmentManager.findFragmentByTag(tag) ?: when (itemId) {
+        supportFragmentManager.findFragmentByTag(
+            itemId.toString()
+        ) ?: when (itemId) {
             R.id.blogNavigation -> BlogFragment()
             R.id.newsNavigation -> NewsFragment()
             R.id.movieNavigation -> MovieFragment()
             R.id.bookNavigation -> BookFragment()
             else -> null
-        }
-        fragment?.let { replaceFragment(fragment) }
+        }?.let { replaceFragment(it) }
     }
 
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragmentContainer, fragment, fragment.tag)
-                .commit()
+            .beginTransaction()
+            .replace(R.id.fragmentContainer, fragment, fragment.tag)
+            .commit()
     }
 }
