@@ -1,5 +1,7 @@
 package com.buddman1208.architecturestudy.models
 
+import com.google.gson.JsonObject
+
 data class CommonResponse(
-    val items: List<Any> = listOf()
+    val items: List<JsonObject> = listOf()
 )
