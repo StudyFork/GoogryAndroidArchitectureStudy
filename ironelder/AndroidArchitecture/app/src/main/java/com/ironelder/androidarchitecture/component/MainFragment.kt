@@ -83,7 +83,7 @@ class MainFragment : Fragment() {
                 .show()
             return
         }
-        val retrofitService = RetrofitForNaver.getSearchForNaver()
+        val retrofitService = RetrofitForNaver.searchApi
         val result = retrofitService.requestSearchForNaver(mType ?: BLOG, searchString)
         result.enqueue(object : Callback<TotalModel> {
             override fun onFailure(call: Call<TotalModel>, t: Throwable) {

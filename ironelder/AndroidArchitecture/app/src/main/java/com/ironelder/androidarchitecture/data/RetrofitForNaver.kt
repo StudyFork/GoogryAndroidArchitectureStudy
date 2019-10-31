@@ -31,14 +31,12 @@ object RetrofitForNaver {
             return httpClient.build()
         }
 
-    private val mRetrofit:Retrofit
-        get() {
-            return Retrofit.Builder()
-                .baseUrl(CLIENT_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(mOkHttpClient)
-                .build()
-        }
-
-    fun getSearchForNaver(): ISearchForNaver = mRetrofit.create(ISearchForNaver::class.java)
+    val searchApi:ISearchForNaver by lazy {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(CLIENT_BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(mOkHttpClient)
+            .build()
+        return@lazy retrofit.create(ISearchForNaver::class.java)
+    }
 }
