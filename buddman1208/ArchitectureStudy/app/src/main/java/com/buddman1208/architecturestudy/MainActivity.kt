@@ -17,6 +17,7 @@ import com.buddman1208.architecturestudy.models.BookItem
 import com.buddman1208.architecturestudy.models.CommonItem
 import com.buddman1208.architecturestudy.models.MovieItem
 import com.buddman1208.architecturestudy.utils.Constants
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.browse
 
@@ -69,6 +70,10 @@ class MainActivity : AppCompatActivity() {
                     tvTitle.text = item.title
                     tvSubtitleDate.text = "${item.subtitle}, ${item.pubDate}"
                     tvDirectorActor.text = "감독 ${item.director}, 배우 ${item.actor}"
+
+                    Glide.with(this@MainActivity)
+                        .load(item.image)
+                        .into(ivThumbnail)
                 }
                 onClick {
                     browse(item.link)
