@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.item_blog_view.view.*
 
 class AdapterBlog(
     private val context: Context?,
-    private var itemList: ArrayList<Item>,
+    private var itemList: List<Item>,
     private val type: String
 ) :
     RecyclerView.Adapter<AdapterBlog.CustomItemViewHolder>() {
@@ -72,7 +72,7 @@ class AdapterBlog(
     }
 
     open fun addItemList(list: ArrayList<Item>?) {
-        itemList.addAll(list ?: arrayListOf())
+        (itemList as? ArrayList)?.addAll(list ?: arrayListOf())
         notifyItemRangeInserted(itemList.size, list?.size ?: 0)
     }
 
