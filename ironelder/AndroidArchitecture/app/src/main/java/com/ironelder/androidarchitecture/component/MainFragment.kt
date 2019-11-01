@@ -44,9 +44,9 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        resultListView.adapter = CustomListViewAdapter(mType ?: BLOG)
-        resultListView.setHasFixedSize(true)
-        resultListView.addItemDecoration(
+        rv_resultListView.adapter = CustomListViewAdapter(mType ?: BLOG)
+        rv_resultListView.setHasFixedSize(true)
+        rv_resultListView.addItemDecoration(
             DividerItemDecoration(
                 context,
                 LinearLayoutManager(context).orientation
@@ -92,7 +92,7 @@ class MainFragment : Fragment() {
 
             override fun onResponse(call: Call<TotalModel>, response: Response<TotalModel>) {
                 val resultList = response.body()
-                (resultListView?.adapter as CustomListViewAdapter).setItemList(resultList?.items)
+                (rv_resultListView?.adapter as CustomListViewAdapter).setItemList(resultList?.items)
             }
         })
     }

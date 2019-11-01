@@ -8,7 +8,7 @@
     android:padding="5dp">
 
     <ImageView
-        android:id="@+id/itemImage"
+        android:id="@+id/iv_itemImage"
         android:layout_width="100dp"
         android:layout_height="150dp"
         android:src="@color/colorPrimary"
@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"/>
     <TextView
-        android:id="@+id/itemTitle"
+        android:id="@+id/tv_itemTitle"
         android:layout_width="0dp"
         android:layout_height="25dp"
         tools:text="Title"
@@ -27,9 +27,9 @@
         android:ellipsize="marquee"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/itemImage"/>
+        app:layout_constraintLeft_toRightOf="@id/iv_itemImage"/>
     <TextView
-        android:id="@+id/itemContent"
+        android:id="@+id/tv_itemContent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -38,8 +38,8 @@
         tools:text="Content"
         app:layout_constrainedHeight="true"
         app:layout_constraintVertical_bias="0"
-        app:layout_constraintTop_toBottomOf="@id/itemTitle"
-        app:layout_constraintLeft_toRightOf="@id/itemImage"
+        app:layout_constraintTop_toBottomOf="@id/tv_itemTitle"
+        app:layout_constraintLeft_toRightOf="@id/iv_itemImage"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 

@@ -24,20 +24,20 @@ class CustomItemView(context: Context?, private val mItemType: String) : Constra
     }
 
     override fun setData(item: Item) {
-        itemTitle.text = HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
-        itemContent.text = HtmlCompat.fromHtml(
+        tv_itemTitle.text = HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
+        tv_itemContent.text = HtmlCompat.fromHtml(
             item.description ?: item.director,
             HtmlCompat.FROM_HTML_MODE_COMPACT
         )
         when (mItemType) {
             BLOG, NEWS -> {
-                itemImage.visibility = View.GONE
+                iv_itemImage.visibility = View.GONE
             }
             else -> {
-                itemImage.visibility = View.VISIBLE
+                iv_itemImage.visibility = View.VISIBLE
                 Glide.with(context).load(item.image).centerCrop()
                     .placeholder(R.drawable.ic_launcher_background)
-                    .error(R.drawable.ic_launcher_background).into(itemImage)
+                    .error(R.drawable.ic_launcher_background).into(iv_itemImage)
             }
         }
     }
