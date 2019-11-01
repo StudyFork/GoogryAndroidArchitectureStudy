@@ -1,10 +1,12 @@
 package com.ironelder.androidarchitecture.component
 
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ironelder.androidarchitecture.R
@@ -19,18 +21,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class MainFragment : Fragment() {
+class MainFragment : BaseFragment() {
     private val mType: String? by lazy {
         arguments?.getString(TYPE_KEY)
-    }
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,10 +39,8 @@ class MainFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        menu.clear()
-        inflater.inflate(R.menu.search_menu, menu)
+    override fun doCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.doCreateOptionsMenu(menu, inflater)
         val searchView =
             SearchView((context as MainActivity).supportActionBar?.themedContext ?: context)
         menu.findItem(R.id.action_search)?.apply {
