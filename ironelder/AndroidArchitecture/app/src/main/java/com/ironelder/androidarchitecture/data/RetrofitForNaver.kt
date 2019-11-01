@@ -1,5 +1,6 @@
 package com.ironelder.androidarchitecture.data
 
+import com.ironelder.androidarchitecture.BuildConfig
 import com.ironelder.androidarchitecture.common.CLIENT_BASE_URL
 import com.ironelder.androidarchitecture.common.CLIENT_ID
 import com.ironelder.androidarchitecture.common.CLIENT_KEY
@@ -34,7 +35,8 @@ object RetrofitForNaver {
 
     private fun getLogInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
+            level =
+                if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
         }
     }
 
