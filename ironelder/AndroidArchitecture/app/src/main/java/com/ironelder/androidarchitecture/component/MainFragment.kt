@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ironelder.androidarchitecture.R
 import com.ironelder.androidarchitecture.common.BLOG
 import com.ironelder.androidarchitecture.common.TYPE_KEY
-import com.ironelder.androidarchitecture.data.TotalModel
 import com.ironelder.androidarchitecture.data.RetrofitForNaver
+import com.ironelder.androidarchitecture.data.TotalModel
 import com.ironelder.androidarchitecture.view.CustomListViewAdapter
 import kotlinx.android.synthetic.main.layout_search_listview.*
 import retrofit2.Call
@@ -89,12 +89,12 @@ class MainFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(type:String?): MainFragment {
-            val args = Bundle()
-            args.putString(TYPE_KEY, type)
-            val fragment = MainFragment()
-            fragment.arguments = args
-            return fragment
+        fun newInstance(type: String?): MainFragment {
+            return MainFragment().apply {
+                arguments = Bundle().apply {
+                    putString(TYPE_KEY, type)
+                }
+            }
         }
     }
 }
