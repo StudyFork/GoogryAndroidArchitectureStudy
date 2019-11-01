@@ -15,7 +15,7 @@ import android.widget.Toast
 import com.example.androidstudy.R
 import com.example.androidstudy.api.RetrofitBuilder
 import com.example.androidstudy.api.data.TotalModel
-import com.ironelder.androidarchitecture.view.AdapterBlog
+import com.ironelder.androidarchitecture.view.AdapterSearch
 import kotlinx.android.synthetic.main.layout_search_view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -83,7 +83,7 @@ open class BaseFragment : Fragment() {
             apiFetchData(searchEditText.text.toString(), typeArray[0], { response ->
                 var resultList = response.body()
                 Log.d("TEST1234", "RESUTL : ${resultList.toString()}")
-                (resultRecyclerView?.adapter as AdapterBlog).setItemList(resultList?.items)
+                (resultRecyclerView?.adapter as AdapterSearch).setItemList(resultList?.items)
             }, {
 
             })

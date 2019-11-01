@@ -8,7 +8,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidstudy.R.layout
 import com.example.androidstudy.ui.base.BaseFragment
-import com.ironelder.androidarchitecture.view.AdapterBlog
+import com.ironelder.androidarchitecture.view.AdapterSearch
 import kotlinx.android.synthetic.main.layout_search_view.*
 
 class BookFragment : BaseFragment() {
@@ -49,7 +49,7 @@ class BookFragment : BaseFragment() {
             true
         }
 
-        resultRecyclerView.adapter = AdapterBlog(context, arrayListOf(), "blog")
+        resultRecyclerView.adapter = AdapterSearch(context, arrayListOf(), "blog")
         resultRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 

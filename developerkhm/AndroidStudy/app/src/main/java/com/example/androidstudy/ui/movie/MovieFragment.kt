@@ -1,19 +1,14 @@
 package com.example.androidstudy.ui.movie
 
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.androidstudy.R
 import com.example.androidstudy.R.layout
 import com.example.androidstudy.ui.base.BaseFragment
-import com.ironelder.androidarchitecture.view.AdapterBlog
+import com.ironelder.androidarchitecture.view.AdapterSearch
 import kotlinx.android.synthetic.main.layout_search_view.*
 
 class MovieFragment : BaseFragment() {
@@ -52,7 +47,7 @@ class MovieFragment : BaseFragment() {
             true
         }
 
-        resultRecyclerView.adapter = AdapterBlog(context, arrayListOf(), "blog")
+        resultRecyclerView.adapter = AdapterSearch(context, arrayListOf(), "blog")
         resultRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
