@@ -16,11 +16,22 @@ class SearchService(
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://openapi.naver.com/v1/")
         .client(
-            OkHttpClient.Builder().addInterceptor(
-                HttpLoggingInterceptor().apply {
-                    level = HttpLoggingInterceptor.Level.BODY
+            OkHttpClient.Builder()
+                .addInterceptor(
+                    HttpLoggingInterceptor().apply {
+                        level = HttpLoggingInterceptor.Level.BODY
+                    }
+                )
+                .addInterceptor { chain ->
+                    chain.proceed(
+                        chain.request().newBuilder()
+                            .addHeader("X-Naver-Client-Id", API_ID)
+                            .addHeader("X-Naver-Client-Secret", API_SECRET)
+                            .build()
+                    )
+
                 }
-            ).build()
+                .build()
         )
         .addConverterFactory(GsonConverterFactory.create())
         .build()
@@ -31,8 +42,6 @@ class SearchService(
         type: String
     ) {
         retrofit.getContentsInfo(
-            API_ID,
-            API_SECRET,
             type,
             query
         ).enqueue(object : Callback<Content> {
