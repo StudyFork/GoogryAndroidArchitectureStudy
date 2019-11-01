@@ -24,15 +24,6 @@ class MainFragment : Fragment() {
         arguments?.getString(TYPE_KEY)
     }
 
-    companion object {
-        fun newInstance(type:String?): MainFragment {
-            val args = Bundle()
-            args.putString(TYPE_KEY, type)
-            val fragment = MainFragment()
-            fragment.arguments = args
-            return fragment
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -97,4 +88,13 @@ class MainFragment : Fragment() {
         })
     }
 
+    companion object {
+        fun newInstance(type:String?): MainFragment {
+            val args = Bundle()
+            args.putString(TYPE_KEY, type)
+            val fragment = MainFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 }
