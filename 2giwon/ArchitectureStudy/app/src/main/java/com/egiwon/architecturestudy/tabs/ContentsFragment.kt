@@ -20,15 +20,18 @@ class ContentsFragment(
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        rv_contents.addItemDecoration(
-            DividerItemDecoration(
-                context,
-                DividerItemDecoration.VERTICAL
+        with(rv_contents) {
+            addItemDecoration(
+                DividerItemDecoration(
+                    context,
+                    DividerItemDecoration.VERTICAL
+                )
             )
-        )
 
-        rv_contents.adapter = ContentsAdapter(type)
-        rv_contents.setHasFixedSize(true)
+            adapter = ContentsAdapter(type)
+            setHasFixedSize(true)
+
+        }
 
         btn_search.setOnClickListener {
             context?.let {
@@ -39,8 +42,8 @@ class ContentsFragment(
 
     private fun requestSearch() {
         SearchService(this).getContentsList(
-            et_search.text.toString(),
-            type
+            query = et_search.text.toString(),
+            type = type
         )
 
         progress_circular.visibility = View.VISIBLE
