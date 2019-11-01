@@ -12,7 +12,7 @@ class CustomListViewAdapter(
     private val mType: String
 ) :
     RecyclerView.Adapter<CustomListViewAdapter.CustomItemViewHolder>() {
-    private var mItemList: ArrayList<Item> = arrayListOf()
+    private val mItemList: ArrayList<Item> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomItemViewHolder {
         val customItemView = CustomItemView(parent.context, mType)
@@ -32,7 +32,9 @@ class CustomListViewAdapter(
 
     fun setItemList(list: ArrayList<Item>?) {
         mItemList.clear()
-        mItemList.addAll(list ?: arrayListOf())
+        if(!list.isNullOrEmpty()){
+            mItemList.addAll(list)
+        }
         notifyDataSetChanged()
     }
 
