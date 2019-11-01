@@ -13,12 +13,12 @@ import com.example.androidstudy.api.data.Item
 import kotlinx.android.synthetic.main.item_blog_view.view.*
 
 
-class AdapterBlog(
+class AdapterSearch(
     private val context: Context?,
-    private var itemList: ArrayList<Item>,
+    private var itemList: List<Item>,
     private val type: String
 ) :
-    RecyclerView.Adapter<AdapterBlog.CustomItemViewHolder>() {
+    RecyclerView.Adapter<AdapterSearch.CustomItemViewHolder>() {
 
 
     class ItemViewBlog : ConstraintLayout {
@@ -72,7 +72,7 @@ class AdapterBlog(
     }
 
     open fun addItemList(list: ArrayList<Item>?) {
-        itemList.addAll(list ?: arrayListOf())
+        (itemList as? ArrayList)?.addAll(list ?: arrayListOf())
         notifyItemRangeInserted(itemList.size, list?.size ?: 0)
     }
 

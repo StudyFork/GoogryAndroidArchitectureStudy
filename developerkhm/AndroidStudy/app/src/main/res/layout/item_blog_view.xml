@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:padding="5dp">
 
     <ImageView
@@ -18,7 +18,7 @@
         android:id="@+id/itemTitle"
         android:layout_width="0dp"
         android:layout_height="20dp"
-        android:text="Title"
+        tools:text="Title"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@id/itemImage"/>
@@ -27,7 +27,7 @@
         android:layout_width="0dp"
         android:layout_height="20dp"
         android:layout_marginTop="10dp"
-        android:text="Content"
+        tools:text="Content"
         app:layout_constraintTop_toBottomOf="@id/itemTitle"
         app:layout_constraintLeft_toRightOf="@id/itemImage"
         app:layout_constraintRight_toRightOf="parent"/>
