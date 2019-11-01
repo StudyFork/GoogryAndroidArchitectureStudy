@@ -21,5 +21,12 @@ abstract class BaseFragment : Fragment() {
         doCreateOptionsMenu(menu, inflater)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
+        doViewCreated(view, savedInstanceState)
+    }
+
     open fun doCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {}
+    open fun doViewCreated(view: View, savedInstanceState: Bundle?) {}
 }

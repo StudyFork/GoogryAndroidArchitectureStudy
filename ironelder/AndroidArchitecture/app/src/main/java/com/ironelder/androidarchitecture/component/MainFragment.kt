@@ -26,17 +26,19 @@ class MainFragment : BaseFragment() {
         arguments?.getString(TYPE_KEY)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        rv_resultListView.adapter = CustomListViewAdapter(mType ?: BLOG)
-        rv_resultListView.setHasFixedSize(true)
-        rv_resultListView.addItemDecoration(
-            DividerItemDecoration(
-                context,
-                LinearLayoutManager(context).orientation
+    override fun doViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.doViewCreated(view, savedInstanceState)
+        with(rv_resultListView) {
+            adapter = CustomListViewAdapter(mType ?: BLOG)
+            setHasFixedSize(true)
+            addItemDecoration(
+                DividerItemDecoration(
+                    context,
+                    LinearLayoutManager(context).orientation
+
+                )
             )
-        )
-        setHasOptionsMenu(true)
+        }
     }
 
     override fun doCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
