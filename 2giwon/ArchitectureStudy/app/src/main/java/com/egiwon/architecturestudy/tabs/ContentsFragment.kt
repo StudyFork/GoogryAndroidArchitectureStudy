@@ -50,9 +50,7 @@ class ContentsFragment(
     }
 
     override fun onSuccess(searchContents: List<Content.Item>) {
-        rv_contents.adapter?.let {
-            (it as ContentsAdapter).setList(searchContents)
-        }
+        (rv_contents.adapter as? ContentsAdapter)?.setList(searchContents)
         progress_circular.visibility = View.GONE
     }
 
