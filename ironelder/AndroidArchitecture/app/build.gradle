@@ -28,7 +28,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.appcompat:appcompat:$rootProject.ext.appcompat_version"
     implementation "androidx.core:core-ktx:$rootProject.ext.core_ktx_version"
-    implementation "com.android.support:design:$rootProject.ext.design_version"
+    implementation "com.google.android.material:material:$rootProject.ext.material_version"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.ext.constraintlayout_version"
     implementation "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.ext.converter_gson_version"
