@@ -13,8 +13,10 @@ interface RetrofitService {
      */
     @GET("v1/search/{category}.json")
     fun searchSomething(
-        @Path("category") category: String,
-        @Query("query") query: String
+        @Path("category")
+        category: String,
+        @Query("query")
+        query: String
     ): Call<ResultOfSearchingModel>
 
 }
