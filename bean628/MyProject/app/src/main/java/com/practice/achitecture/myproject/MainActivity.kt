@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                             else -> SearchMovieAndBookAdapter(it.items)
                         }
 
-                        if (rv_searched_list.adapter!!.itemCount == 0) {
+                        if (rv_searched_list.adapter?.itemCount == 0) {
                             Toast.makeText(
                                 this@MainActivity,
                                 getString(R.string.toast_empty_result),
