@@ -14,6 +14,7 @@
         android:textColor="#000000"
         android:textSize="20dp"
         android:textStyle="bold"
+        tools:ignore="SpUsage"
         tools:text="TITLE" />
 
     <TextView
@@ -23,6 +24,7 @@
         android:layout_marginTop="10dp"
         android:textColor="#3F3F3F"
         android:textSize="16dp"
+        tools:ignore="SpUsage"
         tools:text="Description" />
 
 </LinearLayout>

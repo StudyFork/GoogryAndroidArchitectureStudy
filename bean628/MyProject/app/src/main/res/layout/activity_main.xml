@@ -28,7 +28,8 @@
             android:background="@color/btn_search_background"
             android:text="@string/btn_search"
             android:textColor="@color/btn_text_white"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            tools:ignore="SpUsage" />
 
 
     </LinearLayout>
@@ -57,7 +58,8 @@
             android:background="#FF6E40"
             android:text="@string/btn_movie"
             android:textColor="@color/btn_text_white"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            tools:ignore="SpUsage" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_search_type_book"
@@ -79,7 +81,8 @@
             android:background="@color/bottom_menu_background"
             android:text="@string/btn_blog"
             android:textColor="@color/btn_text_white"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            tools:ignore="SpUsage" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_search_type_news"
@@ -89,7 +92,8 @@
             android:background="#FF6E40"
             android:text="@string/btn_news"
             android:textColor="@color/btn_text_white"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            tools:ignore="SpUsage" />
 
     </LinearLayout>
 
