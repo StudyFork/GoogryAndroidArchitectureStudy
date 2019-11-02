@@ -96,9 +96,9 @@ class BookFragment : Fragment() {
         override fun onBindViewHolder(holder: BookListHolder, position: Int) {
             resultList[position].let { book ->
                 with(holder.itemView) {
-                    titleTv.text = book.title?.fromHtml() ?: ""
-                    subTitleTv.text = book.author?.fromHtml() ?: ""
-                    descTv.text = book.description?.fromHtml() ?: ""
+                    titleTv.text = book.title.fromHtml()
+                    subTitleTv.text = book.author.fromHtml()
+                    descTv.text = book.description.fromHtml()
 
                     with(book.image) {
                         if (!this.isNullOrBlank()) {

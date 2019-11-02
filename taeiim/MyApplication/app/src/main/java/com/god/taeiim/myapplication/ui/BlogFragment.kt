@@ -96,9 +96,9 @@ class BlogFragment : Fragment() {
         override fun onBindViewHolder(holder: BlogListHolder, position: Int) {
             resultList[position].let { blog ->
                 with(holder.itemView) {
-                    titleTv.text = blog.title?.fromHtml() ?: ""
-                    subTitleTv.text = blog.postdate?.fromHtml() ?: ""
-                    descTv.text = blog.description?.fromHtml() ?: ""
+                    titleTv.text = blog.title.fromHtml()
+                    subTitleTv.text = blog.postdate.fromHtml()
+                    descTv.text = blog.description.fromHtml()
                 }
                 holder.link = blog.link
             }
