@@ -55,7 +55,7 @@ class MovieFragment : Fragment() {
                     response: Response<SearchResult>
                 ) {
                     with(adapter) {
-                        response.body()?.let { setItems(it.items as ArrayList<SearchResult.Item>) }
+                        response.body()?.let { setItems(it.items) }
                             ?: clearItems()
                     }
                 }
@@ -68,7 +68,7 @@ class MovieFragment : Fragment() {
     }
 
     private inner class MovieAdapter : RecyclerView.Adapter<MovieListHolder>() {
-        private var resultList: ArrayList<SearchResult.Item> = ArrayList()
+        private var resultList = ArrayList<SearchResult.Item>()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieListHolder =
             MovieListHolder(
@@ -83,8 +83,8 @@ class MovieFragment : Fragment() {
             return resultList.size
         }
 
-        fun setItems(items: ArrayList<SearchResult.Item>) {
-            resultList = items
+        fun setItems(items: List<SearchResult.Item>) {
+            resultList.addAll(items)
             notifyDataSetChanged()
         }
 

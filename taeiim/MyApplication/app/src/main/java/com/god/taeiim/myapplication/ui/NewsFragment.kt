@@ -55,7 +55,7 @@ class NewsFragment : Fragment() {
                     response: Response<SearchResult>
                 ) {
                     with(adapter) {
-                        response.body()?.let { setItems(it.items as ArrayList<SearchResult.Item>) }
+                        response.body()?.let { setItems(it.items) }
                             ?: clearItems()
                     }
                 }
@@ -68,7 +68,7 @@ class NewsFragment : Fragment() {
     }
 
     private inner class NewsAdapter : RecyclerView.Adapter<NewsListHolder>() {
-        private var resultList: ArrayList<SearchResult.Item> = ArrayList()
+        private var resultList = ArrayList<SearchResult.Item>()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsListHolder =
             NewsListHolder(
@@ -83,8 +83,8 @@ class NewsFragment : Fragment() {
             return resultList.size
         }
 
-        fun setItems(items: ArrayList<SearchResult.Item>) {
-            resultList = items
+        fun setItems(items: List<SearchResult.Item>) {
+            resultList.addAll(items)
             notifyDataSetChanged()
         }
 

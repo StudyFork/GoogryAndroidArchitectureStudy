@@ -55,7 +55,7 @@ class BookFragment : Fragment() {
                     response: Response<SearchResult>
                 ) {
                     with(adapter) {
-                        response.body()?.let { setItems(it.items as ArrayList<SearchResult.Item>) }
+                        response.body()?.let { setItems(it.items) }
                             ?: clearItems()
                     }
                 }
@@ -68,7 +68,7 @@ class BookFragment : Fragment() {
     }
 
     private inner class BookAdapter : RecyclerView.Adapter<BookListHolder>() {
-        private var resultList: ArrayList<SearchResult.Item> = ArrayList()
+        private var resultList = ArrayList<SearchResult.Item>()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookListHolder =
             BookListHolder(
@@ -83,8 +83,8 @@ class BookFragment : Fragment() {
             return resultList.size
         }
 
-        fun setItems(items: ArrayList<SearchResult.Item>) {
-            resultList = items
+        fun setItems(items: List<SearchResult.Item>) {
+            resultList.addAll(items)
             notifyDataSetChanged()
         }
 
