@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 response: Response<ResultOfSearchingModel>
             ) {
                 response.body()?.let {
-                    if (response.code() == 200) {
+                    if (response.isSuccessful) {
                         rv_searched_list.adapter = when (this@MainActivity.searchType) {
                             SEARCH_TYPE_MOVIE, SEARCH_TYPE_BOOK -> SearchMovieAndBookAdapter(
                                 it.items
