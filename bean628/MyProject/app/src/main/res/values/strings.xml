@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">MyProject</string>
 
+    <string name="toast_empty_word">검색어를 입력해주세요.</string>
+    <string name="toast_empty_result">검색 결과가 없습니다.</string>
     <string name="btn_search">검색</string>
     <string name="btn_movie">영화</string>
     <string name="btn_book">책</string>

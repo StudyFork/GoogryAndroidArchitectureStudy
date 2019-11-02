@@ -69,7 +69,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         val word: String = input_search_sth?.text.toString()
         if (word.isEmpty()) {
-            Toast.makeText(this@MainActivity, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this@MainActivity,
+                getString(R.string.toast_empty_word),
+                Toast.LENGTH_SHORT
+            ).show()
             return
         }
         this.searchType = searchType
@@ -102,7 +106,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         }
 
                         if (rv_searched_list.adapter!!.itemCount == 0) {
-                            Toast.makeText(this@MainActivity, "검색 결과가 없습니다.", Toast.LENGTH_SHORT)
+                            Toast.makeText(
+                                this@MainActivity,
+                                getString(R.string.toast_empty_result),
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
                         }
                     }
