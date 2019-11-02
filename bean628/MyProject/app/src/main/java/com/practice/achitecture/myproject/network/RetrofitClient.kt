@@ -7,12 +7,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-class RetrofitClient {
-    private val CONNECT_TIMEOUT: Long = 15
-    private val BASE_URL: String = "https://openapi.naver.com/"
+class RetrofitClient(private val _baseUrl: String) {
+    private val _connectionTime: Long = 15
 
     //log를 볼 수 있도록 httpLogginInterceptor를 만듦
-    private val okHttpClient: OkHttpClient
+    private val _okHttpClient: OkHttpClient
         get() {
             val httpLoggingInterceptor = HttpLoggingInterceptor()
             val addHeaderInterceptor = Interceptor { chain ->
@@ -25,7 +24,7 @@ class RetrofitClient {
             }
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             return OkHttpClient().newBuilder()
-                .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
+                .connectTimeout(_connectionTime, TimeUnit.SECONDS)
                 .addInterceptor(httpLoggingInterceptor)
                 .addInterceptor(addHeaderInterceptor)
                 .build()
@@ -35,8 +34,8 @@ class RetrofitClient {
     val retrofitInterface: RetrofitService
         get() {
             return Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(okHttpClient) // httpClient연결을 통해 log 확인
+                .baseUrl(_baseUrl)
+                .client(_okHttpClient) // httpClient연결을 통해 log 확인
                 .addConverterFactory(GsonConverterFactory.create()) //Gson을 쓸 수 있도록 Factory생성
                 .build().create(RetrofitService::class.java)
         }

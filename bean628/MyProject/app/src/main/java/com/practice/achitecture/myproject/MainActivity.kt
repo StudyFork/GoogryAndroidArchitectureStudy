@@ -9,10 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.practice.achitecture.myproject.model.ResultOfSearchingModel
 import com.practice.achitecture.myproject.network.RetrofitClient
-import common.SEARCH_TYPE_BLOG
-import common.SEARCH_TYPE_BOOK
-import common.SEARCH_TYPE_MOVIE
-import common.SEARCH_TYPE_NEWS
+import common.*
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -42,7 +39,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
 
-        retrofitClient = RetrofitClient()
+        retrofitClient = RetrofitClient(NAVER_API_BASE_URL)
 
     }
 
