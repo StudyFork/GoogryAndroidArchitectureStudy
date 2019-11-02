@@ -1,5 +1,6 @@
 package com.buddman1208.architecturestudy.utils
 
+import com.buddman1208.architecturestudy.BuildConfig
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -14,9 +15,11 @@ object NetworkServiceGenerator {
 
         val client = OkHttpClient.Builder().apply {
 
-            val interceptor = HttpLoggingInterceptor()
-            interceptor.level = HttpLoggingInterceptor.Level.BODY
-            addInterceptor(interceptor)
+            if (BuildConfig.DEBUG) {
+                val interceptor = HttpLoggingInterceptor()
+                interceptor.level = HttpLoggingInterceptor.Level.BODY
+                addInterceptor(interceptor)
+            }
 
             addInterceptor { chain ->
                 val request = chain.request()
@@ -27,6 +30,7 @@ object NetworkServiceGenerator {
                     request.addHeader("X-Naver-Client-Secret", Constants.API_KEY_SECRET)
                 chain.proceed(request.build())
             }
+
 
         }.build()
 
