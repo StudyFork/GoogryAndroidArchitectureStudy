@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(input_search_sth.windowToken, 0)
 
-        val word: String = input_search_sth.text.toString()
+        val word = input_search_sth.text.toString()
         if (word.isEmpty()) {
             Toast.makeText(
                 this@MainActivity,
