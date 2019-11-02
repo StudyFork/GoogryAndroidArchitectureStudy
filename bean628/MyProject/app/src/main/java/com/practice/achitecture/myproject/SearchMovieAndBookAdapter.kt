@@ -39,29 +39,27 @@ class SearchMovieAndBookAdapter(private val items: ArrayList<Item>) :
         return ViewHolder(inflatedView)
     }
 
-    class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-
-        private var view: View = v
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(listener: View.OnClickListener, item: Item?) {
 
             item?.image?.let {
                 Glide
-                    .with(view.context)
+                    .with(itemView.context)
                     .load(it)
                     .centerCrop()
                     .placeholder(R.drawable.drawable_gray)
                     .error(R.drawable.ic_empty_image)
-                    .into(view.iv_main_image)
+                    .into(itemView.iv_main_image)
             }
 
-            view.tv_title.text =
+            itemView.tv_title.text =
                 HtmlCompat.fromHtml(item?.title.toString(), HtmlCompat.FROM_HTML_MODE_COMPACT)
-            view.tv_description.text = HtmlCompat.fromHtml(
+            itemView.tv_description.text = HtmlCompat.fromHtml(
                 item?.description ?: item?.director.toString(),
                 HtmlCompat.FROM_HTML_MODE_COMPACT
             )
-            view.setOnClickListener(listener)
+            itemView.setOnClickListener(listener)
         }
     }
 }
