@@ -23,8 +23,8 @@ object NetworkServiceGenerator {
                     .newBuilder()
                 if (Constants.API_KEY.isNotEmpty())
                     request.addHeader("X-Naver-Client-Id", Constants.API_KEY)
-                if (Constants.API_KEY_SERECT.isNotEmpty())
-                    request.addHeader("X-Naver-Client-Secret", Constants.API_KEY_SERECT)
+                if (Constants.API_KEY_SECRET.isNotEmpty())
+                    request.addHeader("X-Naver-Client-Secret", Constants.API_KEY_SECRET)
                 chain.proceed(request.build())
             }
 
