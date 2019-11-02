@@ -96,9 +96,9 @@ class NewsFragment : Fragment() {
         override fun onBindViewHolder(holder: NewsListHolder, position: Int) {
             resultList[position].let { news ->
                 with(holder.itemView) {
-                    titleTv.text = news.title!!.fromHtml()
-                    subTitleTv.text = news.pubDate!!.fromHtml()
-                    descTv.text = news.description!!.fromHtml()
+                    titleTv.text = news.title?.fromHtml() ?: ""
+                    subTitleTv.text = news.author?.fromHtml() ?: ""
+                    descTv.text = news.description?.fromHtml() ?: ""
 
                     setOnClickListener {
                         startActivity(

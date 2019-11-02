@@ -96,10 +96,9 @@ class MovieFragment : Fragment() {
         override fun onBindViewHolder(holder: MovieListHolder, position: Int) {
             resultList[position].let { movie ->
                 with(holder.itemView) {
-                    titleTv.text = movie.title!!.fromHtml()
-                    subTitleTv.text = movie.pubDate!!.fromHtml()
-                    descTv.text = (movie.director + movie.actor).fromHtml()
-
+                    titleTv.text = movie.title?.fromHtml() ?: ""
+                    subTitleTv.text = movie.author?.fromHtml() ?: ""
+                    descTv.text = movie.description?.fromHtml() ?: ""
 
                     with(movie.image) {
                         if (!this.isNullOrBlank()) {
