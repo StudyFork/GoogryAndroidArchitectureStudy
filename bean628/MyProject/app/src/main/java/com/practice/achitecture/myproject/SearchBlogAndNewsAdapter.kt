@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.practice.achitecture.myproject.model.SearchedItem
 import kotlinx.android.synthetic.main.item_blog_and_news.view.*
 
-class SearchBlogAndNewsAdapter(private val items: ArrayList<SearchedItem>) :
+class SearchBlogAndNewsAdapter(private val items: List<SearchedItem>) :
     RecyclerView.Adapter<SearchBlogAndNewsAdapter.ViewHolder>() {
 
     override fun getItemCount() = items.size
