@@ -62,8 +62,8 @@ class MainActivity : AppCompatActivity() {
             withLayoutManager(LinearLayoutManager(this@MainActivity))
             withItem<CommonItem, CommonViewHolder>(R.layout.content_common_item) {
                 onBind(::CommonViewHolder) { _, item ->
-                    tvTitle.text = item.title.removeHtmlTags()
-                    tvDescription.text = item.description.removeHtmlTags()
+                    tvTitle.text = item.title.removeHtmlBoldTags()
+                    tvDescription.text = item.description.removeHtmlBoldTags()
                 }
                 onClick {
                     browse(item.link)
@@ -71,16 +71,16 @@ class MainActivity : AppCompatActivity() {
             }
             withItem<MovieItem, MovieViewHolder>(R.layout.content_movie_item) {
                 onBind(::MovieViewHolder) { _, item ->
-                    tvTitle.text = item.title.removeHtmlTags()
+                    tvTitle.text = item.title.removeHtmlBoldTags()
                     tvSubtitleDate.text = resources.getString(
                         R.string.subtitle_date_format,
-                        item.subtitle.removeHtmlTags(),
-                        item.pubDate.removeHtmlTags()
+                        item.subtitle.removeHtmlBoldTags(),
+                        item.pubDate.removeHtmlBoldTags()
                     )
                     tvDirectorActor.text = resources.getString(
                         R.string.director_actor_format,
-                        item.director.removeHtmlTags(),
-                        item.actor.removeHtmlTags()
+                        item.director.removeHtmlBoldTags(),
+                        item.actor.removeHtmlBoldTags()
                     )
 
                     Glide.with(this@MainActivity)
@@ -93,15 +93,15 @@ class MainActivity : AppCompatActivity() {
             }
             withItem<BookItem, BookViewHolder>(R.layout.content_book_item) {
                 onBind(::BookViewHolder) { _, item ->
-                    tvTitle.text = item.title.removeHtmlTags()
+                    tvTitle.text = item.title.removeHtmlBoldTags()
                     tvAuthorPublisherDate.text =
                         resources.getString(
                             R.string.author_publisher_date_format,
-                            item.author.removeHtmlTags(),
-                            item.publisher.removeHtmlTags(),
-                            item.pubdate.removeHtmlTags()
+                            item.author.removeHtmlBoldTags(),
+                            item.publisher.removeHtmlBoldTags(),
+                            item.pubdate.removeHtmlBoldTags()
                         )
-                    tvDescription.text = item.description.removeHtmlTags()
+                    tvDescription.text = item.description.removeHtmlBoldTags()
 
                     Glide.with(this@MainActivity)
                         .load(item.image)
