@@ -1,7 +1,7 @@
 package com.buddman1208.architecturestudy.utils
 
 import com.buddman1208.architecturestudy.models.CommonResponse
-import io.reactivex.Observable
+import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -13,6 +13,6 @@ interface NetworkApi {
     fun searchByType(
         @Path("searchType") searchType: String,
         @Query("query") query: String
-    ): Observable<Response<CommonResponse>>
+    ): Single<Response<CommonResponse>>
 
 }
