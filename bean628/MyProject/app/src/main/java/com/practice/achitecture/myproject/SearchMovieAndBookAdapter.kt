@@ -43,10 +43,10 @@ class SearchMovieAndBookAdapter(private val items: ArrayList<Item>) :
 
         fun bind(listener: View.OnClickListener, item: Item?) {
 
-            item?.image?.let {
+            if (item?.image != null) {
                 Glide
                     .with(itemView.context)
-                    .load(it)
+                    .load(item.image)
                     .centerCrop()
                     .placeholder(R.drawable.drawable_gray)
                     .error(R.drawable.ic_empty_image)
