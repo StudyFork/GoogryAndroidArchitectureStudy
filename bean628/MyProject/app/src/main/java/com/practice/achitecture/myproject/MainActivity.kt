@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             override fun onFailure(call: Call<ResultOfSearchingModel>, t: Throwable) {
-                t.printStackTrace()
+
             }
         })
     }
