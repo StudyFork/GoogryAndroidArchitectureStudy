@@ -1,10 +1,7 @@
 package com.ironelder.androidarchitecture.component
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -24,6 +21,14 @@ import retrofit2.Response
 class MainFragment : BaseFragment() {
     private val mType: String? by lazy {
         arguments?.getString(TYPE_KEY)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
     override fun doViewCreated(view: View, savedInstanceState: Bundle?) {
