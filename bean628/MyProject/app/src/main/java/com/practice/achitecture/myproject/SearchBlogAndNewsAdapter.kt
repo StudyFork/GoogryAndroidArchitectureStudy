@@ -40,11 +40,14 @@ class SearchBlogAndNewsAdapter(private val items: ArrayList<Item>) :
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
         fun bind(listener: View.OnClickListener, item: Item?) {
+            val title = item?.title ?: ""
+            val description = item?.description ?: ""
+
             itemView.setBackgroundColor(Color.WHITE)
             itemView.tv_title.text =
-                HtmlCompat.fromHtml(item?.title.toString(), HtmlCompat.FROM_HTML_MODE_COMPACT)
+                HtmlCompat.fromHtml(title, HtmlCompat.FROM_HTML_MODE_COMPACT)
             itemView.tv_description.text =
-                HtmlCompat.fromHtml(item?.description.toString(), HtmlCompat.FROM_HTML_MODE_COMPACT)
+                HtmlCompat.fromHtml(description, HtmlCompat.FROM_HTML_MODE_COMPACT)
             itemView.setOnClickListener(listener)
         }
     }

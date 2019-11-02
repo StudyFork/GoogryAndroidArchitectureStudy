@@ -53,10 +53,13 @@ class SearchMovieAndBookAdapter(private val items: ArrayList<Item>) :
                     .into(itemView.iv_main_image)
             }
 
+            val title = item?.title ?: ""
+            val content = item?.description ?: item?.director ?: ""
+
             itemView.tv_title.text =
-                HtmlCompat.fromHtml(item?.title.toString(), HtmlCompat.FROM_HTML_MODE_COMPACT)
+                HtmlCompat.fromHtml(title, HtmlCompat.FROM_HTML_MODE_COMPACT)
             itemView.tv_description.text = HtmlCompat.fromHtml(
-                item?.description ?: item?.director.toString(),
+                content,
                 HtmlCompat.FROM_HTML_MODE_COMPACT
             )
             itemView.setOnClickListener(listener)
