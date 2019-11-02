@@ -96,9 +96,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 response.body()?.let {
                     if (response.isSuccessful) {
                         rv_searched_list.adapter = when (this@MainActivity.searchType) {
-                            SEARCH_TYPE_MOVIE, SEARCH_TYPE_BOOK -> SearchMovieAndBookAdapter(it.items)
-                            SEARCH_TYPE_BLOG, SEARCH_TYPE_NEWS -> SearchBlogAndNewsAdapter(it.items)
-                            else -> SearchMovieAndBookAdapter(it.items)
+                            SEARCH_TYPE_MOVIE, SEARCH_TYPE_BOOK -> SearchMovieAndBookAdapter(it.searchedItems)
+                            SEARCH_TYPE_BLOG, SEARCH_TYPE_NEWS -> SearchBlogAndNewsAdapter(it.searchedItems)
+                            else -> SearchMovieAndBookAdapter(it.searchedItems)
                         }
 
                         if (rv_searched_list.adapter?.itemCount == 0) {

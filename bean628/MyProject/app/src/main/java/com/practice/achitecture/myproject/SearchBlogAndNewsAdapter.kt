@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.practice.achitecture.myproject.model.Item
+import com.practice.achitecture.myproject.model.SearchedItem
 import kotlinx.android.synthetic.main.item_blog_and_news.view.*
 
-class SearchBlogAndNewsAdapter(private val items: ArrayList<Item>) :
+class SearchBlogAndNewsAdapter(private val items: ArrayList<SearchedItem>) :
     RecyclerView.Adapter<SearchBlogAndNewsAdapter.ViewHolder>() {
 
     override fun getItemCount() = items.size
@@ -38,7 +38,7 @@ class SearchBlogAndNewsAdapter(private val items: ArrayList<Item>) :
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
-        fun bind(listener: View.OnClickListener, item: Item?) {
+        fun bind(listener: View.OnClickListener, item: SearchedItem?) {
             val title = item?.title ?: ""
             val description = item?.description ?: ""
 

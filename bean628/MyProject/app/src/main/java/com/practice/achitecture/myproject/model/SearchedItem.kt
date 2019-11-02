@@ -1,6 +1,6 @@
 package com.practice.achitecture.myproject.model
 
-data class Item(
+data class SearchedItem(
     val image: String,
     val title: String,
     val actor: String,

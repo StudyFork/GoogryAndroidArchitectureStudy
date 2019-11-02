@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface RetrofitInterface {
+interface RetrofitService {
 
     /**
      * @Path category = movie, book, blog, news 4가지 유형에서 검색할 수 있습니다.

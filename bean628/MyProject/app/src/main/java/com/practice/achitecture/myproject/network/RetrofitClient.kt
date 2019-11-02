@@ -32,12 +32,12 @@ class RetrofitClient {
         }
 
     //retrofit에 각종 값을 setting
-    val retrofitInterface: RetrofitInterface
+    val retrofitInterface: RetrofitService
         get() {
             return Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(okHttpClient) // httpClient연결을 통해 log 확인
                 .addConverterFactory(GsonConverterFactory.create()) //Gson을 쓸 수 있도록 Factory생성
-                .build().create(RetrofitInterface::class.java)
+                .build().create(RetrofitService::class.java)
         }
 }

@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.practice.achitecture.myproject.model.Item
+import com.practice.achitecture.myproject.model.SearchedItem
 import kotlinx.android.synthetic.main.item_blog_and_news.view.tv_description
 import kotlinx.android.synthetic.main.item_blog_and_news.view.tv_title
 import kotlinx.android.synthetic.main.item_book_and_movie.view.*
 
-class SearchMovieAndBookAdapter(private val items: ArrayList<Item>) :
+class SearchMovieAndBookAdapter(private val items: ArrayList<SearchedItem>) :
     RecyclerView.Adapter<SearchMovieAndBookAdapter.ViewHolder>() {
 
     override fun getItemCount() = items.size
@@ -41,7 +41,7 @@ class SearchMovieAndBookAdapter(private val items: ArrayList<Item>) :
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(listener: View.OnClickListener, item: Item?) {
+        fun bind(listener: View.OnClickListener, item: SearchedItem?) {
 
             if (item?.image != null) {
                 Glide
