@@ -29,10 +29,9 @@ class SearchBlogAndNewsAdapter(private val items: ArrayList<Item>) :
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
-            ViewHolder {
-        val inflatedView: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_blog_and_news, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val inflatedView: View = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_blog_and_news, parent, false)
 
         return ViewHolder(inflatedView)
     }
