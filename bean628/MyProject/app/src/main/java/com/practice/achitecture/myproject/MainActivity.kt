@@ -18,7 +18,8 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private var searchType: Int = SEARCH_TYPE_MOVIE
-    private lateinit var retrofitClient: RetrofitClient
+    private val retrofitServiceForNaver =
+        RetrofitClient(NAVER_API_BASE_URL).makeRetrofitServiceForNaver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +40,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
 
-        retrofitClient = RetrofitClient(NAVER_API_BASE_URL)
 
     }
 
@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         val call: Call<ResultOfSearchingModel> =
-            retrofitClient.retrofitInterface.searchSomething(category, word)
+            retrofitServiceForNaver.searchSomething(category, word)
 
         call.enqueue(object : Callback<ResultOfSearchingModel> {
             override fun onResponse(
@@ -93,9 +93,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 response.body()?.let {
                     if (response.isSuccessful) {
                         rv_searched_list.adapter = when (this@MainActivity.searchType) {
-                            SEARCH_TYPE_MOVIE, SEARCH_TYPE_BOOK -> SearchMovieAndBookAdapter(it.searchedItems)
-                            SEARCH_TYPE_BLOG, SEARCH_TYPE_NEWS -> SearchBlogAndNewsAdapter(it.searchedItems)
-                            else -> SearchMovieAndBookAdapter(it.searchedItems)
+                            SEARCH_TYPE_MOVIE, SEARCH_TYPE_BOOK -> SearchMovieAndBookAdapter(it.items)
+                            SEARCH_TYPE_BLOG, SEARCH_TYPE_NEWS -> SearchBlogAndNewsAdapter(it.items)
+                            else -> SearchMovieAndBookAdapter(it.items)
                         }
 
                         if (rv_searched_list.adapter?.itemCount == 0) {
