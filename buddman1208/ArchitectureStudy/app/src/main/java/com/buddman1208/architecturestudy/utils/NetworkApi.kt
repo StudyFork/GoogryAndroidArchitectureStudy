@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface NetworkAPI {
+interface NetworkApi {
 
     @GET("/v1/search/{searchType}.json")
     fun searchByType(

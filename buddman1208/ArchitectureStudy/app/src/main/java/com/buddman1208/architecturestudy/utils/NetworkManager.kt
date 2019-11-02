@@ -7,7 +7,7 @@ import retrofit2.Response
 
 object NetworkManager {
 
-    private var service = NetworkServiceGenerator.createService(NetworkAPI::class.java)
+    private var service = NetworkServiceGenerator.createService(NetworkApi::class.java)
 
     fun searchByType(
         searchType: String,
