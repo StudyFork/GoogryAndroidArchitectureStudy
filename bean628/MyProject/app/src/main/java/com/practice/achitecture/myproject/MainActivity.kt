@@ -46,9 +46,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    override fun onClick(v: View?) {
+    override fun onClick(v: View) {
 
-        when (v?.id) {
+        when (v.id) {
             R.id.btn_search -> search(searchType)
             R.id.btn_search_type_movie ->
                 search(SEARCH_TYPE_MOVIE)
