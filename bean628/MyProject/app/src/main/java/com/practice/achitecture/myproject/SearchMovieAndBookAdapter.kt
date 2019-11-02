@@ -44,8 +44,7 @@ class SearchMovieAndBookAdapter(private val items: List<SearchedItem>) :
         fun bind(listener: View.OnClickListener, item: SearchedItem?) {
 
             if (item?.image != null) {
-                Glide
-                    .with(itemView.context)
+                Glide.with(itemView.context)
                     .load(item.image)
                     .centerCrop()
                     .placeholder(R.drawable.drawable_gray)
