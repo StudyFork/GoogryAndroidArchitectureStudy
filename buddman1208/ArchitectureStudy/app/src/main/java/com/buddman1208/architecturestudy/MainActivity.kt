@@ -23,11 +23,15 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.toast
+import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
 
     private val datas: DataSource<Any> = dataSourceOf()
-    private var currentMode: String = Constants.MODE_BLOG
+    private var currentMode: String by Delegates.observable(Constants.MODE_BLOG) { _, _, newValue ->
+        updateToolbarTitle()
+        getData()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -135,8 +139,6 @@ class MainActivity : AppCompatActivity() {
             R.id.menuNews -> Constants.MODE_NEWS
             else -> ""
         }
-        updateToolbarTitle()
-        getData()
     }
 
     private fun updateToolbarTitle() {
