@@ -3,6 +3,7 @@ package com.ironelder.androidarchitecture.component
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.annotation.LayoutRes
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,13 +24,9 @@ class MainFragment : BaseFragment() {
         arguments?.getString(TYPE_KEY)
     }
 
-    override fun doCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
-    }
+
+    @LayoutRes
+    override val layoutResId = R.layout.fragment_main
 
     override fun doViewCreated(view: View, savedInstanceState: Bundle?) {
         with(rv_resultListView) {
