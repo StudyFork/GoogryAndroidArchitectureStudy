@@ -25,6 +25,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        registerOnClickListener()
+    }
+
+    private fun registerOnClickListener() {
         btn_search.setOnClickListener(this)
         btn_search_type_movie.setOnClickListener(this)
         btn_search_type_book.setOnClickListener(this)
@@ -39,8 +43,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 else -> false
             }
         }
-
-
     }
 
     override fun onClick(v: View) {
