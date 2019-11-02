@@ -151,7 +151,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateInfoText(info: String) = tvInfo.apply {
         text = info
-        visibility = if (info.isNotBlank()) View.VISIBLE else View.INVISIBLE
+        visibility = if (info.isNotBlank()) {
+            View.VISIBLE
+        } else View.INVISIBLE
     }
 
     private fun getData() {
@@ -164,9 +166,9 @@ class MainActivity : AppCompatActivity() {
                     when (it.code()) {
                         200 -> {
                             datas.clear()
-                            if (it.body()?.items?.isEmpty() == true)
+                            if (it.body()?.items?.isEmpty() == true) {
                                 updateInfoText(resources.getString(R.string.list_blank))
-                            else
+                            } else {
                                 updateInfoText("")
                                 when (currentMode) {
                                     Constants.MODE_BLOG, Constants.MODE_NEWS -> {
@@ -191,6 +193,7 @@ class MainActivity : AppCompatActivity() {
                                         )
                                     }
                                 }
+                            }
                         }
                         else -> toast(resources.getString(R.string.connect_error))
                     }
