@@ -9,27 +9,27 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
 fun provideAuthApi(): SearchApi = Retrofit.Builder()
-        .baseUrl("https://openapi.naver.com/v1/")
-        .client(provideOkHttpClient(provideLoggingInterceptor(), AuthInterceptor()))
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-        .create(SearchApi::class.java)
+    .baseUrl("https://openapi.naver.com/v1/")
+    .client(provideOkHttpClient(provideLoggingInterceptor(), AuthInterceptor()))
+    .addConverterFactory(GsonConverterFactory.create())
+    .build()
+    .create(SearchApi::class.java)
 
 
 private fun provideOkHttpClient(
-        interceptor: HttpLoggingInterceptor,
-        authInterceptor: AuthInterceptor?
+    interceptor: HttpLoggingInterceptor,
+    authInterceptor: AuthInterceptor?
 ): OkHttpClient = OkHttpClient.Builder()
-        .run {
-            if (null != authInterceptor) {
-                addInterceptor(authInterceptor)
-            }
-            addInterceptor(interceptor)
-            build()
+    .run {
+        if (null != authInterceptor) {
+            addInterceptor(authInterceptor)
         }
+        addInterceptor(interceptor)
+        build()
+    }
 
 private fun provideLoggingInterceptor(): HttpLoggingInterceptor =
-        HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+    HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
 
 internal class AuthInterceptor() : Interceptor {
     @Throws(IOException::class)

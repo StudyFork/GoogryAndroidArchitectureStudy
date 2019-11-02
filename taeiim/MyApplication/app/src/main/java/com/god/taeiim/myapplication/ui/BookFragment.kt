@@ -24,7 +24,11 @@ class BookFragment : Fragment() {
     private val api: SearchApi by lazy { provideAuthApi() }
     private val adapter = BookAdapter()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
@@ -46,7 +50,10 @@ class BookFragment : Fragment() {
         searchCall?.let {
             it.enqueue(object : Callback<SearchResult> {
 
-                override fun onResponse(call: Call<SearchResult>, response: Response<SearchResult>) {
+                override fun onResponse(
+                    call: Call<SearchResult>,
+                    response: Response<SearchResult>
+                ) {
                     with(adapter) {
                         response.body()?.let { setItems(it.items as ArrayList<SearchResult.Item>) }
                             ?: clearItems()
@@ -64,7 +71,13 @@ class BookFragment : Fragment() {
         private var resultList: ArrayList<SearchResult.Item> = ArrayList()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookListHolder =
-            BookListHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_contents, parent, false))
+            BookListHolder(
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.item_contents,
+                    parent,
+                    false
+                )
+            )
 
         override fun getItemCount(): Int {
             return resultList.size
@@ -75,7 +88,7 @@ class BookFragment : Fragment() {
             notifyDataSetChanged()
         }
 
-        fun clearItems(){
+        fun clearItems() {
             resultList.clear()
             notifyDataSetChanged()
         }
@@ -99,7 +112,14 @@ class BookFragment : Fragment() {
                         }
                     }
 
-                    setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(book.link))) }
+                    setOnClickListener {
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(book.link)
+                            )
+                        )
+                    }
                 }
             }
         }
