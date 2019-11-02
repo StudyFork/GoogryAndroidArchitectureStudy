@@ -111,19 +111,24 @@ class MovieFragment : Fragment() {
                             thumbnailIv.visibility = View.GONE
                         }
                     }
-
-                    setOnClickListener {
-                        startActivity(
-                            Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse(movie.link)
-                            )
-                        )
-                    }
                 }
+                holder.link = movie.link
             }
         }
     }
 
-    private inner class MovieListHolder(view: View) : RecyclerView.ViewHolder(view)
+    private inner class MovieListHolder(view: View) : RecyclerView.ViewHolder(view) {
+        var link: String? = ""
+
+        init {
+            itemView.setOnClickListener {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(link)
+                    )
+                )
+            }
+        }
+    }
 }

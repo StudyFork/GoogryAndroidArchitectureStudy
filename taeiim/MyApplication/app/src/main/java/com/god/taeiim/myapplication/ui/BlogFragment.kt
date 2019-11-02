@@ -99,19 +99,24 @@ class BlogFragment : Fragment() {
                     titleTv.text = blog.title?.fromHtml() ?: ""
                     subTitleTv.text = blog.postdate?.fromHtml() ?: ""
                     descTv.text = blog.description?.fromHtml() ?: ""
-
-                    setOnClickListener {
-                        startActivity(
-                            Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse(blog.link)
-                            )
-                        )
-                    }
                 }
+                holder.link = blog.link
             }
         }
     }
 
-    private inner class BlogListHolder(view: View) : RecyclerView.ViewHolder(view)
+    private inner class BlogListHolder(view: View) : RecyclerView.ViewHolder(view) {
+        var link: String? = ""
+
+        init {
+            itemView.setOnClickListener {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(link)
+                    )
+                )
+            }
+        }
+    }
 }

@@ -99,19 +99,24 @@ class NewsFragment : Fragment() {
                     titleTv.text = news.title?.fromHtml() ?: ""
                     subTitleTv.text = news.author?.fromHtml() ?: ""
                     descTv.text = news.description?.fromHtml() ?: ""
-
-                    setOnClickListener {
-                        startActivity(
-                            Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse(news.link)
-                            )
-                        )
-                    }
                 }
+                holder.link = news.link
             }
         }
     }
 
-    private inner class NewsListHolder(view: View) : RecyclerView.ViewHolder(view)
+    private inner class NewsListHolder(view: View) : RecyclerView.ViewHolder(view) {
+        var link: String? = ""
+
+        init {
+            itemView.setOnClickListener {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(link)
+                    )
+                )
+            }
+        }
+    }
 }

@@ -111,19 +111,24 @@ class BookFragment : Fragment() {
                             thumbnailIv.visibility = View.GONE
                         }
                     }
-
-                    setOnClickListener {
-                        startActivity(
-                            Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse(book.link)
-                            )
-                        )
-                    }
                 }
+                holder.link = book.link
             }
         }
     }
 
-    private inner class BookListHolder(view: View) : RecyclerView.ViewHolder(view)
+    private inner class BookListHolder(view: View) : RecyclerView.ViewHolder(view) {
+        var link: String? = ""
+
+        init {
+            itemView.setOnClickListener {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(link)
+                    )
+                )
+            }
+        }
+    }
 }
