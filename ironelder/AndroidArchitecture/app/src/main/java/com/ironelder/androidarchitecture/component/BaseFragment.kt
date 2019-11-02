@@ -5,14 +5,13 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import com.ironelder.androidarchitecture.R
 
-abstract class BaseFragment : Fragment() {
-
+abstract class BaseFragment(private val mLayoutResId: Int) : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(layoutResId, container, false)
+        return inflater.inflate(mLayoutResId, container, false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -28,7 +27,6 @@ abstract class BaseFragment : Fragment() {
         doViewCreated(view, savedInstanceState)
     }
 
-    abstract val layoutResId: Int
     abstract fun doCreateOptionsMenu(menu: Menu, inflater: MenuInflater)
     abstract fun doViewCreated(view: View, savedInstanceState: Bundle?)
 }
