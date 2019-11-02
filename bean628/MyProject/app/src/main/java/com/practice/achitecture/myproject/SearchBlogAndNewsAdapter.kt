@@ -22,7 +22,7 @@ class SearchBlogAndNewsAdapter(private val items: ArrayList<Item>) :
             val intent = Intent(Intent.ACTION_VIEW, url)
             it.context.startActivity(intent)
         }
-        holder.apply {
+        holder.run {
             bind(listener, item)
             itemView.tag = item
         }
