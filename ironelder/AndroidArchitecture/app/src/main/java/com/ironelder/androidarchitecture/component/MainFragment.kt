@@ -23,7 +23,7 @@ class MainFragment : BaseFragment() {
         arguments?.getString(TYPE_KEY)
     }
 
-    override fun onCreateView(
+    override fun doCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,7 +32,6 @@ class MainFragment : BaseFragment() {
     }
 
     override fun doViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.doViewCreated(view, savedInstanceState)
         with(rv_resultListView) {
             adapter = CustomListViewAdapter(mType ?: BLOG)
             setHasFixedSize(true)
@@ -47,7 +46,6 @@ class MainFragment : BaseFragment() {
     }
 
     override fun doCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.doCreateOptionsMenu(menu, inflater)
         val searchView =
             SearchView((context as MainActivity).supportActionBar?.themedContext ?: context)
         menu.findItem(R.id.action_search)?.apply {

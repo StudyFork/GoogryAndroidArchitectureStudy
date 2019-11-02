@@ -6,6 +6,14 @@ import androidx.fragment.app.Fragment
 import com.ironelder.androidarchitecture.R
 
 abstract class BaseFragment : Fragment() {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return doCreateView(inflater, container, savedInstanceState)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         menu.clear()
@@ -19,6 +27,7 @@ abstract class BaseFragment : Fragment() {
         doViewCreated(view, savedInstanceState)
     }
 
-    open fun doCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {}
-    open fun doViewCreated(view: View, savedInstanceState: Bundle?) {}
+    abstract fun doCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
+    abstract fun doCreateOptionsMenu(menu: Menu, inflater: MenuInflater)
+    abstract fun doViewCreated(view: View, savedInstanceState: Bundle?)
 }
