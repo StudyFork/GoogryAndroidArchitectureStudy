@@ -31,8 +31,7 @@ class SearchMovieAndBookAdapter(private val items: ArrayList<Item>) :
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
-            ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflatedView: View =
             LayoutInflater.from(parent.context).inflate(R.layout.item_book_and_movie, parent, false)
 
