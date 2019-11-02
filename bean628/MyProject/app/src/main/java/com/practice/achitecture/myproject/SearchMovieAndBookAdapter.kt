@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.practice.achitecture.myproject.model.SearchedItem
+import common.GlideWrapper
 import kotlinx.android.synthetic.main.item_blog_and_news.view.tv_description
 import kotlinx.android.synthetic.main.item_blog_and_news.view.tv_title
 import kotlinx.android.synthetic.main.item_book_and_movie.view.*
@@ -44,12 +44,7 @@ class SearchMovieAndBookAdapter(private val items: List<SearchedItem>) :
         fun bind(listener: View.OnClickListener, item: SearchedItem?) {
 
             if (item?.image != null) {
-                Glide.with(itemView.context)
-                    .load(item.image)
-                    .centerCrop()
-                    .placeholder(R.drawable.drawable_gray)
-                    .error(R.drawable.ic_empty_image)
-                    .into(itemView.iv_main_image)
+                GlideWrapper.showImage(itemView.iv_main_image, item.image)
             }
 
             val title = item?.title ?: ""
