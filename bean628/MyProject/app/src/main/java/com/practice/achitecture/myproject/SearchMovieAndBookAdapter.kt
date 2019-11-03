@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.item_book_and_movie.view.*
 
 class SearchMovieAndBookAdapter : RecyclerView.Adapter<SearchMovieAndBookAdapter.ViewHolder>() {
 
-    private var items: List<SearchedItem> = listOf()
+    private var items: ArrayList<SearchedItem> = ArrayList()
 
 
     override fun getItemCount() = items.size
@@ -30,7 +30,8 @@ class SearchMovieAndBookAdapter : RecyclerView.Adapter<SearchMovieAndBookAdapter
     }
 
     fun notifyDataSetChanged(newItems: List<SearchedItem>) {
-        items = newItems
+        items.clear()
+        items.addAll(newItems)
         notifyDataSetChanged()
     }
 

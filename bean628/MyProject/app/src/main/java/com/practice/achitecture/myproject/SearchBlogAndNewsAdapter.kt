@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.item_blog_and_news.view.*
 
 class SearchBlogAndNewsAdapter : RecyclerView.Adapter<SearchBlogAndNewsAdapter.ViewHolder>() {
 
-    private var items: List<SearchedItem> = listOf()
+    private var items: ArrayList<SearchedItem> = arrayListOf()
 
 
     override fun getItemCount() = items.size
@@ -28,7 +28,8 @@ class SearchBlogAndNewsAdapter : RecyclerView.Adapter<SearchBlogAndNewsAdapter.V
     }
 
     fun notifyDataSetChanged(newItems: List<SearchedItem>) {
-        items = newItems
+        items.clear()
+        items.addAll(newItems)
         notifyDataSetChanged()
     }
 
