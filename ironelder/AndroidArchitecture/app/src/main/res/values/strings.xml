@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">AndroidArchitecture</string>
+    <string name="client_id">HZCMoKj79hgAMoqJfBoJ</string>
+    <string name="client_secret">M2G9WywvRE</string>
+    <string name="tab_blog">블로그</string>
+    <string name="tab_news">뉴스</string>
+    <string name="tab_book">책</string>
+    <string name="tab_movie">영화</string>
+    <string name="msg_empty_search_string">검색어를 입력해주세요.</string>
 </resources>
