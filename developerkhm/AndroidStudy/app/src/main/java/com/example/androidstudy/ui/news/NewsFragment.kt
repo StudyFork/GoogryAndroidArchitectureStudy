@@ -1,24 +1,14 @@
 package com.example.androidstudy.ui.news
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.androidstudy.R.layout
 import com.example.androidstudy.ui.base.BaseFragment
 import com.ironelder.androidarchitecture.view.AdapterSearch
 import kotlinx.android.synthetic.main.layout_search_view.*
 
 class NewsFragment : BaseFragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(layout.fragment_news, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

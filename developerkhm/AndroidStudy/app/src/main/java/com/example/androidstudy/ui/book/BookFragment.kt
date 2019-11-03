@@ -1,27 +1,14 @@
 package com.example.androidstudy.ui.book
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.androidstudy.R.layout
 import com.example.androidstudy.ui.base.BaseFragment
 import com.ironelder.androidarchitecture.view.AdapterSearch
 import kotlinx.android.synthetic.main.layout_search_view.*
 
 class BookFragment : BaseFragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val root: View =
-            inflater.inflate(layout.fragment_book, container, false)
-        return root
-    }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
