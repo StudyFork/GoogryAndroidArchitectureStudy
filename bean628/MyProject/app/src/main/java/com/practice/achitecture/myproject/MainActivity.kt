@@ -1,8 +1,6 @@
 package com.practice.achitecture.myproject
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -10,7 +8,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.practice.achitecture.myproject.model.ResultOfSearchingModel
-import com.practice.achitecture.myproject.model.SearchedItem
 import com.practice.achitecture.myproject.network.RetrofitClient
 import common.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -35,16 +32,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initAdapter() {
-        var items: List<SearchedItem> = listOf()
-        searchMovieAndBookAdapter =
-            SearchMovieAndBookAdapter(items) { item: SearchedItem -> searchedItemClicked(item) }
-        searchBlogAndNewsAdapter =
-            SearchBlogAndNewsAdapter(items) { item: SearchedItem -> searchedItemClicked(item) }
+        searchMovieAndBookAdapter = SearchMovieAndBookAdapter()
+        searchBlogAndNewsAdapter = SearchBlogAndNewsAdapter()
     }
 
-    fun searchedItemClicked(item: SearchedItem) {
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(item.link)))
-    }
 
     private fun registerOnClickListener() {
         btn_search.setOnClickListener(this)

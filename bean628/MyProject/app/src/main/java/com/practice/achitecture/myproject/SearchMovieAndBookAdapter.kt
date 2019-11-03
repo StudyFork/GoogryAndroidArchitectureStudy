@@ -13,8 +13,9 @@ import kotlinx.android.synthetic.main.item_blog_and_news.view.tv_description
 import kotlinx.android.synthetic.main.item_blog_and_news.view.tv_title
 import kotlinx.android.synthetic.main.item_book_and_movie.view.*
 
-class SearchMovieAndBookAdapter(private var items: List<SearchedItem>) :
-    RecyclerView.Adapter<SearchMovieAndBookAdapter.ViewHolder>() {
+class SearchMovieAndBookAdapter : RecyclerView.Adapter<SearchMovieAndBookAdapter.ViewHolder>() {
+
+    private var items: List<SearchedItem> = listOf()
 
 
     override fun getItemCount() = items.size
