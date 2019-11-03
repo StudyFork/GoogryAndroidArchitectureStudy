@@ -37,7 +37,7 @@ class MovieFragment : BaseFragment() {
             true
         }
 
-        resultRecyclerView.adapter = AdapterSearch(context, arrayListOf(), "blog")
+        resultRecyclerView.adapter = AdapterSearch(context, arrayListOf(), "movie")
         resultRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
