@@ -8,6 +8,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.practice.achitecture.myproject.model.ResultOfSearchingModel
+import com.practice.achitecture.myproject.model.SearchedItem
 import com.practice.achitecture.myproject.network.RetrofitClient
 import common.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,12 +21,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var searchType: Int = SEARCH_TYPE_MOVIE
     private val retrofitServiceForNaver =
         RetrofitClient(NAVER_API_BASE_URL).makeRetrofitServiceForNaver()
+    private var searchMovieAndBookAdapter: SearchMovieAndBookAdapter? = null
+    private var searchBlogAndNewsAdapter: SearchBlogAndNewsAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         registerOnClickListener()
+        initAdapter()
+    }
+
+    private fun initAdapter() {
+        val items: List<SearchedItem> = listOf()
+        searchMovieAndBookAdapter = SearchMovieAndBookAdapter(items)
+        searchBlogAndNewsAdapter = SearchBlogAndNewsAdapter(items)
     }
 
     private fun registerOnClickListener() {
@@ -94,10 +104,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             ) {
                 response.body()?.let {
                     if (response.isSuccessful) {
-                        rv_searched_list.adapter = when (this@MainActivity.searchType) {
-                            SEARCH_TYPE_MOVIE, SEARCH_TYPE_BOOK -> SearchMovieAndBookAdapter(it.items)
-                            SEARCH_TYPE_BLOG, SEARCH_TYPE_NEWS -> SearchBlogAndNewsAdapter(it.items)
-                            else -> SearchMovieAndBookAdapter(it.items)
+
+                        when (this@MainActivity.searchType) {
+                            SEARCH_TYPE_MOVIE, SEARCH_TYPE_BOOK -> {
+                                searchMovieAndBookAdapter?.notifyDataSetChanged(it.items)
+                                rv_searched_list.adapter = searchMovieAndBookAdapter
+                            }
+                            SEARCH_TYPE_BLOG, SEARCH_TYPE_NEWS -> {
+                                searchBlogAndNewsAdapter?.notifyDataSetChanged(it.items)
+                                rv_searched_list.adapter = searchBlogAndNewsAdapter
+                            }
+                            else -> {
+                                searchMovieAndBookAdapter?.notifyDataSetChanged(it.items)
+                                rv_searched_list.adapter = searchMovieAndBookAdapter
+                            }
                         }
 
                         if (rv_searched_list.adapter?.itemCount == 0) {

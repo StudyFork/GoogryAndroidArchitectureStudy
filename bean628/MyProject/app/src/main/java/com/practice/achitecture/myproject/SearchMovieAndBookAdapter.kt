@@ -13,8 +13,9 @@ import kotlinx.android.synthetic.main.item_blog_and_news.view.tv_description
 import kotlinx.android.synthetic.main.item_blog_and_news.view.tv_title
 import kotlinx.android.synthetic.main.item_book_and_movie.view.*
 
-class SearchMovieAndBookAdapter(private val items: List<SearchedItem>) :
+class SearchMovieAndBookAdapter(private var items: List<SearchedItem>) :
     RecyclerView.Adapter<SearchMovieAndBookAdapter.ViewHolder>() {
+
 
     override fun getItemCount() = items.size
 
@@ -29,6 +30,11 @@ class SearchMovieAndBookAdapter(private val items: List<SearchedItem>) :
             bind(listener, item)
             itemView.tag = item
         }
+    }
+
+    fun notifyDataSetChanged(newItems: List<SearchedItem>) {
+        items = newItems
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

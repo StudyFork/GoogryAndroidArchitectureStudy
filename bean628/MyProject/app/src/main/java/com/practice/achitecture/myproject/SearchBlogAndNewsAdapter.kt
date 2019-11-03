@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.practice.achitecture.myproject.model.SearchedItem
 import kotlinx.android.synthetic.main.item_blog_and_news.view.*
 
-class SearchBlogAndNewsAdapter(private val items: List<SearchedItem>) :
+class SearchBlogAndNewsAdapter(private var items: List<SearchedItem>) :
     RecyclerView.Adapter<SearchBlogAndNewsAdapter.ViewHolder>() {
 
     override fun getItemCount() = items.size
@@ -27,6 +27,11 @@ class SearchBlogAndNewsAdapter(private val items: List<SearchedItem>) :
             bind(listener, item)
             itemView.tag = item
         }
+    }
+
+    fun notifyDataSetChanged(newItems: List<SearchedItem>) {
+        items = newItems
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
