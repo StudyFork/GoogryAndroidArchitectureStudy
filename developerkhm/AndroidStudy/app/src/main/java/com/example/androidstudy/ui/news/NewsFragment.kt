@@ -30,7 +30,7 @@ class NewsFragment : BaseFragment() {
             when (actionId) {
                 EditorInfo.IME_ACTION_SEARCH -> {
                     hideKeybaord(searchEditText)
-                    search(searchEditText.text.toString())
+                    search(searchEditText.text.toString(), typeArray[1])
                 }
                 else -> false
             }

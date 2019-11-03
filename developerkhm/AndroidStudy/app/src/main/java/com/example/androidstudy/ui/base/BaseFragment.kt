@@ -50,9 +50,9 @@ open class BaseFragment : Fragment() {
         return null
     }
 
-    protected fun search(str : String){
+    protected fun search(str : String, typeStr : String){
         if (!TextUtils.isEmpty(str)) {
-            apiFetchData(searchEditText.text.toString(), typeArray[0], { response ->
+            apiFetchData(searchEditText.text.toString(), typeStr, { response ->
                 var resultList = response.body()
                 Log.d("TEST1234", "RESUTL : ${resultList.toString()}")
                 (resultRecyclerView?.adapter as AdapterSearch).setItemList(resultList?.items)
