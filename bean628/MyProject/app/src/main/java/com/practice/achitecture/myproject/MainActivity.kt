@@ -1,6 +1,8 @@
 package com.practice.achitecture.myproject
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -33,9 +35,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initAdapter() {
-        val items: List<SearchedItem> = listOf()
-        searchMovieAndBookAdapter = SearchMovieAndBookAdapter(items)
-        searchBlogAndNewsAdapter = SearchBlogAndNewsAdapter(items)
+        var items: List<SearchedItem> = listOf()
+        searchMovieAndBookAdapter =
+            SearchMovieAndBookAdapter(items) { item: SearchedItem -> searchedItemClicked(item) }
+        searchBlogAndNewsAdapter =
+            SearchBlogAndNewsAdapter(items) { item: SearchedItem -> searchedItemClicked(item) }
+    }
+
+    fun searchedItemClicked(item: SearchedItem) {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(item.link)))
     }
 
     private fun registerOnClickListener() {
