@@ -15,9 +15,6 @@ class MainTabActivity : AppCompatActivity() {
         setContentView(layout.activity_main_tab)
         val navView: BottomNavigationView =
             findViewById(id.nav_view)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-
 
         val appBarConfiguration =
             Builder(
