@@ -22,7 +22,6 @@ import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.browse
-import org.jetbrains.anko.toast
 import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
@@ -165,39 +164,34 @@ class MainActivity : AppCompatActivity() {
                 .searchByType(searchType = currentMode, query = query)
                 .subscribeOnIO()
                 .onUI {
-                    when (it.code()) {
-                        200 -> {
-                            datas.clear()
-                            if (it.body()?.items?.isEmpty() == true) {
-                                updateInfoText(resources.getString(R.string.list_blank))
-                            } else {
-                                updateInfoText("")
-                                when (currentMode) {
-                                    Constants.MODE_BLOG, Constants.MODE_NEWS -> {
-                                        datas.addAll(
-                                            it.body()?.items?.map {
-                                                Gson().fromJson(it, CommonItem::class.java)
-                                            } ?: listOf()
-                                        )
+                    datas.clear()
+                    if (it.items.isEmpty()) {
+                        updateInfoText(resources.getString(R.string.list_blank))
+                    } else {
+                        updateInfoText("")
+                        when (currentMode) {
+                            Constants.MODE_BLOG, Constants.MODE_NEWS -> {
+                                datas.addAll(
+                                    it.items.map {
+                                        Gson().fromJson(it, CommonItem::class.java)
                                     }
-                                    Constants.MODE_MOVIE -> {
-                                        datas.addAll(
-                                            it.body()?.items?.map {
-                                                Gson().fromJson(it, MovieItem::class.java)
-                                            } ?: listOf()
-                                        )
+                                )
+                            }
+                            Constants.MODE_MOVIE -> {
+                                datas.addAll(
+                                    it.items.map {
+                                        Gson().fromJson(it, MovieItem::class.java)
                                     }
-                                    Constants.MODE_BOOK -> {
-                                        datas.addAll(
-                                            it.body()?.items?.map {
-                                                Gson().fromJson(it, BookItem::class.java)
-                                            } ?: listOf()
-                                        )
+                                )
+                            }
+                            Constants.MODE_BOOK -> {
+                                datas.addAll(
+                                    it.items.map {
+                                        Gson().fromJson(it, BookItem::class.java)
                                     }
-                                }
+                                )
                             }
                         }
-                        else -> toast(resources.getString(R.string.connect_error))
                     }
                 }
         } else {
