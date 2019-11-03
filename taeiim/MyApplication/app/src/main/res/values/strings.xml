@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">My Application</string>
+
+    <string name="tab_blog">블로그</string>
+    <string name="tab_news">뉴스</string>
+    <string name="tab_movie">영화</string>
+    <string name="tab_book">책</string>
+
+    <string name="search">검색</string>
 </resources>
