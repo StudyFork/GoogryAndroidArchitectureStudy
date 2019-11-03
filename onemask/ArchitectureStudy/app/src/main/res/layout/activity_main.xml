@@ -4,6 +4,10 @@
 
     <data>
 
+        <variable
+            name="mainViewModel"
+            type="com.android.studyfork.ui.main.viewmodel.MainViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -56,7 +60,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_row">
+            app:layout_constraintTop_toBottomOf="@+id/layout_row"
+            app:updateItem="@{mainViewModel.datas}">
 
         </androidx.viewpager.widget.ViewPager>
 

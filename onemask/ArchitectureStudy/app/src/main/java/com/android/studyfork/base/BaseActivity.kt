@@ -6,19 +6,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 
-abstract class BaseActivity<B : ViewDataBinding, P : BaseContract.Presenter>
-    (@LayoutRes private val layoutRes: Int) : AppCompatActivity(), BaseContract.View<P> {
+abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>
+(@LayoutRes private val layoutRes: Int) : AppCompatActivity() {
 
     protected lateinit var binding: B
+    abstract val viewModel: VM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutRes)
-        onStart()
     }
 
     override fun onDestroy() {
-        presenter.clearDisposable()
+        viewModel.clearDispoasble()
         super.onDestroy()
     }
 }

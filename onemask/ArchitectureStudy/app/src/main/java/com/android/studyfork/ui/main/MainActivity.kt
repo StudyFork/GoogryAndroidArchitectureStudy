@@ -1,15 +1,16 @@
 package com.android.studyfork.ui.main
 
+import android.os.Bundle
 import com.android.studyfork.R
 import com.android.studyfork.base.BaseActivity
 import com.android.studyfork.databinding.ActivityMainBinding
 import com.android.studyfork.ui.main.adapter.ViewPagerAdapter
-import com.android.studyfork.ui.main.presenter.MainContract
-import com.android.studyfork.ui.main.presenter.MainPresenter
+import com.android.studyfork.ui.main.viewmodel.MainViewModel
 
 class MainActivity :
-    BaseActivity<ActivityMainBinding, MainContract.Presenter>(R.layout.activity_main),
-    MainContract.View {
+    BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.activity_main) {
+
+    override val viewModel = MainViewModel()
 
     private val viewPagerAdapter by lazy {
         ViewPagerAdapter(
@@ -17,19 +18,10 @@ class MainActivity :
         )
     }
 
-    override val presenter by lazy { MainPresenter(this) }
-
-    override fun onStart() {
-        super.onStart()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding.mainViewModel = viewModel
         initViewPager()
-        presenter.loadData()
-    }
-
-    override fun setViewPagerData(marketData: Pair<List<String>, List<String>>) {
-        with(viewPagerAdapter) {
-            setTitles(marketData.first.toList())
-            setData(marketData.second)
-        }
     }
 
     private fun initViewPager() {

@@ -6,31 +6,25 @@ import android.view.View
 import com.android.studyfork.R
 import com.android.studyfork.base.BaseFragment
 import com.android.studyfork.databinding.FragmentTickerListBinding
-import com.android.studyfork.network.model.Ticker
 import com.android.studyfork.ui.adapter.CoinItemAdapter
-import com.android.studyfork.ui.tickerlist.presenter.TickerContract
-import com.android.studyfork.ui.tickerlist.presenter.TickerPresenter
+
+import com.android.studyfork.ui.tickerlist.viewmodel.TickerViewModel
 
 class TickerListFragment :
-    BaseFragment<FragmentTickerListBinding, TickerContract.Presenter>(R.layout.fragment_ticker_list),
-    TickerContract.View {
+    BaseFragment<FragmentTickerListBinding, TickerViewModel>(R.layout.fragment_ticker_list) {
 
-    private lateinit var coinItemAdapter: CoinItemAdapter
+    private  val coinItemAdapter=  CoinItemAdapter()
 
-    override val presenter by lazy { TickerPresenter(this) }
+    override val viewModel = TickerViewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.tickerViewModel = viewModel
         setRecyclerView()
         getTicker()
     }
 
-    override fun setData(ticker: List<Ticker>) {
-        coinItemAdapter.setData(ticker)
-    }
-
     private fun setRecyclerView() {
-        coinItemAdapter = CoinItemAdapter()
         binding.recyclerview.apply {
             adapter = coinItemAdapter
             setHasFixedSize(false)
@@ -39,7 +33,7 @@ class TickerListFragment :
 
     private fun getTicker() {
         val market = arguments?.getString(KEY_MARKETS) ?: ""
-        presenter.getTicker(market)
+        viewModel.getTicker(market)
     }
 
     companion object {

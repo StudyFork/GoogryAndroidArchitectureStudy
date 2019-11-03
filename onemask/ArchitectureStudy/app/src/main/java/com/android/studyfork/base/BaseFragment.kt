@@ -9,10 +9,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
-abstract class BaseFragment<B : ViewDataBinding, P : BaseContract.Presenter>(@LayoutRes private val layoutRes: Int) :
-    Fragment(), BaseContract.View<P> {
+abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(@LayoutRes private val layoutRes: Int) :
+    Fragment() {
 
     protected lateinit var binding: B
+    abstract val viewModel: VM
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,7 +25,7 @@ abstract class BaseFragment<B : ViewDataBinding, P : BaseContract.Presenter>(@La
     }
 
     override fun onDestroy() {
-        presenter.clearDisposable()
+        viewModel.clearDispoasble()
         super.onDestroy()
     }
 }
