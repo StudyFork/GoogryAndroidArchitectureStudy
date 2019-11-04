@@ -19,8 +19,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-
-
 open class BaseFragment(var layoutId: Int) : Fragment() {
 
     protected val typeArray = arrayOf("blog", "news", "movie", "book")
@@ -30,16 +28,16 @@ open class BaseFragment(var layoutId: Int) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(layoutId!!, container, false)
+        return inflater.inflate(layoutId, container, false)
     }
 
-    protected fun search(str : String, typeStr : String){
+    protected fun search(str: String, typeStr: String) {
         if (!TextUtils.isEmpty(str)) {
             apiFetchData(searchEditText.text.toString(), typeStr, { response ->
                 var resultList = response.body()
                 Log.d("TEST1234", "RESUTL : ${resultList.toString()}")
 
-                resultList?.let{
+                resultList?.let {
                     (resultRecyclerView?.adapter as AdapterSearch).setItemList(it.items)
                 }
             }, {
@@ -48,7 +46,12 @@ open class BaseFragment(var layoutId: Int) : Fragment() {
         }
     }
 
-    protected fun apiFetchData(searchStr: String, type : String, success : (Response<TotalModel>) -> Unit, fail : () -> Unit) {
+    protected fun apiFetchData(
+        searchStr: String,
+        type: String,
+        success: (Response<TotalModel>) -> Unit,
+        fail: () -> Unit
+    ) {
         val result = RetrofitBuilder.instance().requestSearchForNaver(type, searchStr)
         result.enqueue(object : Callback<TotalModel> {
             override fun onFailure(call: Call<TotalModel>, t: Throwable) {

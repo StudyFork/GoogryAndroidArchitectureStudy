@@ -22,10 +22,10 @@ class AdapterSearch(
 
 
     class ItemViewBlog : ConstraintLayout {
-        val mItemType: String
+        val itemType: String
 
         constructor(context: Context?, type: String) : super(context) {
-            mItemType = type
+            itemType = type
         }
 
         init {
@@ -37,12 +37,12 @@ class AdapterSearch(
             itemTitle.text = HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
 
             itemContent.text = HtmlCompat.fromHtml(
-                item?.description ?: item?.director.toString(),
+                item.description,
                 HtmlCompat.FROM_HTML_MODE_COMPACT
             )
 
 
-            item?.image?.let {
+            item.image.let {
                 Glide
                     .with(context)
                     .load(it)
@@ -74,14 +74,14 @@ class AdapterSearch(
     }
 
     inner class CustomItemViewHolder : RecyclerView.ViewHolder {
-        private val mCustomItemView: ItemViewBlog
+        private val customItemView: ItemViewBlog
 
         constructor(v: View) : super(v) {
-            mCustomItemView = v as ItemViewBlog
+            customItemView = v as ItemViewBlog
         }
 
         fun setData(item: Item) {
-            mCustomItemView.setData(item)
+            customItemView.setData(item)
         }
     }
 }
