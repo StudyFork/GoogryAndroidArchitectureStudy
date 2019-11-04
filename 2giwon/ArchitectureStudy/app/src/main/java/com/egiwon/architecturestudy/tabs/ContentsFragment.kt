@@ -6,13 +6,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.base.BaseFragment
 import com.egiwon.architecturestudy.data.Content
-import com.egiwon.architecturestudy.data.SearchCallback
-import com.egiwon.architecturestudy.data.SearchService
+import com.egiwon.architecturestudy.data.source.NaverDataRepository
+import com.egiwon.architecturestudy.data.source.remote.NaverRemoteDataSource
 import kotlinx.android.synthetic.main.fg_contents.*
 
 class ContentsFragment : BaseFragment(
     R.layout.fg_contents
-), SearchCallback {
+) {
 
     private val type: String by lazy { arguments?.getString(ARG_TYPE, "") ?: "" }
 
@@ -40,21 +40,21 @@ class ContentsFragment : BaseFragment(
     }
 
     private fun requestSearch() {
-        SearchService(this).getContentsList(
+        NaverDataRepository.getContents(
+            type = type,
             query = et_search.text.toString(),
-            type = type
-        )
+            callback = object : NaverRemoteDataSource.Callback {
+                override fun onSuccess(list: List<Content.Item>) {
+                    (rv_contents.adapter as? ContentsAdapter)?.setList(list)
+                    progress_circular.visibility = View.GONE
+                }
+
+                override fun onFailure(throwable: Throwable) {
+                    progress_circular.visibility = View.GONE
+                }
+            })
 
         progress_circular.visibility = View.VISIBLE
-    }
-
-    override fun onSuccess(searchContents: List<Content.Item>) {
-        (rv_contents.adapter as? ContentsAdapter)?.setList(searchContents)
-        progress_circular.visibility = View.GONE
-    }
-
-    override fun onFailure(message: String) {
-        progress_circular.visibility = View.GONE
     }
 
     companion object {
