@@ -2,7 +2,7 @@ package com.egiwon.architecturestudy.data
 
 import com.google.gson.annotations.SerializedName
 
-class Content(
+data class Content(
     @SerializedName("lastBuildDate") var lastBuildDate: String,
     @SerializedName("total") var total: Int,
     @SerializedName("start") var start: Int,
