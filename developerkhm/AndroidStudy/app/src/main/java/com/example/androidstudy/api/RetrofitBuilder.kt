@@ -1,6 +1,6 @@
 package com.example.androidstudy.api
 
-import com.example.androidstudy.api.service.APINaverService
+import com.example.androidstudy.api.service.ApiNaverService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -12,6 +12,6 @@ object RetrofitBuilder {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    fun instance(): APINaverService = retrofit.create(APINaverService::class.java)
+    fun instance(): ApiNaverService = retrofit.create(ApiNaverService::class.java)
 }
 
