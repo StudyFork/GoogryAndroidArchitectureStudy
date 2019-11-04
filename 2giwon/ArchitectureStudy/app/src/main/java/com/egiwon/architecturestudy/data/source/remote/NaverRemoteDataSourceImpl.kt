@@ -1,7 +1,8 @@
-package com.egiwon.architecturestudy.data
+package com.egiwon.architecturestudy.data.source.remote
 
 import android.util.Log
 import com.egiwon.architecturestudy.BuildConfig
+import com.egiwon.architecturestudy.data.Content
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -10,9 +11,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class SearchService(
-    val receiver: SearchCallback
-) {
+object NaverRemoteDataSourceImpl :
+    NaverRemoteDataSource {
+
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://openapi.naver.com/v1/")
         .client(
@@ -29,8 +30,14 @@ class SearchService(
                 .addInterceptor { chain ->
                     chain.proceed(
                         chain.request().newBuilder()
-                            .addHeader("X-Naver-Client-Id", API_ID)
-                            .addHeader("X-Naver-Client-Secret", API_SECRET)
+                            .addHeader(
+                                "X-Naver-Client-Id",
+                                API_ID
+                            )
+                            .addHeader(
+                                "X-Naver-Client-Secret",
+                                API_SECRET
+                            )
                             .build()
                     )
 
@@ -41,20 +48,24 @@ class SearchService(
         .build()
         .create(ContentsService::class.java)
 
-    fun getContentsList(
+
+    override fun getContents(
+        type: String,
         query: String,
-        type: String
+        callback: NaverRemoteDataSource.Callback
     ) {
         retrofit.getContentsInfo(
-            type,
-            query
+            type = type,
+            query = query
         ).enqueue(object : Callback<Content> {
             override fun onFailure(call: Call<Content>, t: Throwable) {
-                if (BuildConfig.DEBUG) {
-                    Log.d("RetroFit", "onFailure ${t.message}")
-                }
+                with(t) {
+                    if (BuildConfig.DEBUG) {
+                        Log.d("RetroFit", "onFailure $message")
+                    }
 
-                receiver.onFailure(t.message!!)
+                    callback.onFailure(throwable = this)
+                }
             }
 
             override fun onResponse(
@@ -63,17 +74,15 @@ class SearchService(
             ) {
                 if (response.isSuccessful) {
                     response.body()?.let {
-                        receiver.onSuccess(it.items)
+                        callback.onSuccess(it.items)
                     }
                 } else {
-                    receiver.onFailure(response.message())
+                    callback.onFailure(Throwable())
                 }
             }
         })
     }
 
-    companion object {
-        private const val API_ID = "N6fr8OFPNCzX7SVctnkG"
-        private const val API_SECRET = "WHmQ8WtbYf"
-    }
+    private const val API_ID = "N6fr8OFPNCzX7SVctnkG"
+    private const val API_SECRET = "WHmQ8WtbYf"
 }
