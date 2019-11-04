@@ -9,16 +9,10 @@ import com.example.androidstudy.ui.base.BaseFragment
 import com.ironelder.androidarchitecture.view.AdapterSearch
 import kotlinx.android.synthetic.main.layout_search_view.*
 
-class NewsFragment : BaseFragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        layoutId = R.layout.fragment_news
-    }
+class NewsFragment : BaseFragment(R.layout.fragment_news) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         init()
     }
 

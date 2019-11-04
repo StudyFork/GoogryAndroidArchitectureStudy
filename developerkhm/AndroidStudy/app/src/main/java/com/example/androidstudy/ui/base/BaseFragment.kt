@@ -10,13 +10,8 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.androidstudy.R
 import com.example.androidstudy.api.RetrofitBuilder
 import com.example.androidstudy.api.data.TotalModel
-import com.example.androidstudy.ui.blog.BlogFragment
-import com.example.androidstudy.ui.book.BookFragment
-import com.example.androidstudy.ui.movie.MovieFragment
-import com.example.androidstudy.ui.news.NewsFragment
 import com.ironelder.androidarchitecture.view.AdapterSearch
 import kotlinx.android.synthetic.main.layout_search_view.*
 import retrofit2.Call
@@ -26,12 +21,9 @@ import retrofit2.Response
 
 
 
-open class BaseFragment : Fragment() {
-
-    protected var layoutId : Int? = null
+open class BaseFragment(var layoutId: Int) : Fragment() {
 
     protected val typeArray = arrayOf("blog", "news", "movie", "book")
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
