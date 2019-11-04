@@ -23,31 +23,22 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+
 
 
 open class BaseFragment : Fragment() {
 
+    protected var layoutId : Int? = null
+
     protected val typeArray = arrayOf("blog", "news", "movie", "book")
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        if(this is BlogFragment){
-            return inflater.inflate(R.layout.fragment_blog, container, false)
-        }else if(this is NewsFragment){
-            return inflater.inflate(R.layout.fragment_news, container, false)
-        }else if(this is MovieFragment){
-            return inflater.inflate(R.layout.fragment_movie, container, false)
-        }else if(this is BookFragment){
-            return inflater.inflate(R.layout.fragment_book, container, false)
-        }
-
-        return null
+        return inflater.inflate(layoutId!!, container, false)
     }
 
     protected fun search(str : String, typeStr : String){
@@ -55,7 +46,7 @@ open class BaseFragment : Fragment() {
             apiFetchData(searchEditText.text.toString(), typeStr, { response ->
                 var resultList = response.body()
                 Log.d("TEST1234", "RESUTL : ${resultList.toString()}")
-                (resultRecyclerView?.adapter as AdapterSearch).setItemList(resultList?.items)
+                (resultRecyclerView?.adapter as AdapterSearch).setItemList(resultList!!.items)
             }, {
 
             })
@@ -80,16 +71,5 @@ open class BaseFragment : Fragment() {
         val inputMethodManager =
             activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(v.applicationWindowToken, 0)
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            BaseFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }
