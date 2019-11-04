@@ -22,7 +22,7 @@ class AdapterSearch(
 
 
     class ItemViewBlog : ConstraintLayout {
-        private val mItemType: String
+        val mItemType: String
 
         constructor(context: Context?, type: String) : super(context) {
             mItemType = type
