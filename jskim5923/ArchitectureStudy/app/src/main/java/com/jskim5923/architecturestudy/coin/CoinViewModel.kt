@@ -1,6 +1,7 @@
 package com.jskim5923.architecturestudy.coin
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.jskim5923.architecturestudy.base.BaseViewModel
 import com.jskim5923.architecturestudy.extension.getCoinCurrency
 import com.jskim5923.architecturestudy.model.Ticker
@@ -10,7 +11,10 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 
 class CoinViewModel : BaseViewModel() {
-    val observableTickerList = ObservableField<List<Ticker>>(mutableListOf())
+    private val _tickerList = MutableLiveData<List<Ticker>>()
+
+    val tickerList: LiveData<List<Ticker>>
+        get() = _tickerList
 
     fun getTickerList(market: String?) {
         Repository.getMarketList()
@@ -34,7 +38,7 @@ class CoinViewModel : BaseViewModel() {
             .toList()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ tickerList ->
-                observableTickerList.set(tickerList)
+                _tickerList.value = tickerList
             }, { e ->
                 e.printStackTrace()
             })
