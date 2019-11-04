@@ -37,7 +37,7 @@ class NewsFragment : BaseFragment() {
             true
         }
 
-        resultRecyclerView.adapter = AdapterSearch(context, arrayListOf(), "blog")
+        resultRecyclerView.adapter = AdapterSearch(context, arrayListOf(), "news")
         resultRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
