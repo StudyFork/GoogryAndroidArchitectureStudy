@@ -7,4 +7,6 @@
     <string name="tab_book">책</string>
 
     <string name="search">검색</string>
+
+    <string name="err_search">검색 실패</string>
 </resources>

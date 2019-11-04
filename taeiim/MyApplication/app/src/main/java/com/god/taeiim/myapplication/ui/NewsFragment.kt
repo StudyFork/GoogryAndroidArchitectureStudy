@@ -6,22 +6,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.god.taeiim.myapplication.R
-import com.god.taeiim.myapplication.api.SearchApi
 import com.god.taeiim.myapplication.api.model.SearchResult
-import com.god.taeiim.myapplication.api.provideAuthApi
+import com.god.taeiim.myapplication.data.NaverRepositoryImpl
 import com.god.taeiim.myapplication.extensions.fromHtml
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.item_contents.view.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class NewsFragment : Fragment() {
-    private val api: SearchApi by lazy { provideAuthApi() }
     private val adapter = NewsAdapter()
 
     override fun onCreateView(
@@ -46,25 +42,21 @@ class NewsFragment : Fragment() {
     }
 
     private fun searchNews(query: String) {
-        val searchCall = api.searchContents("news", query)
-        searchCall?.let {
-            it.enqueue(object : Callback<SearchResult> {
+        NaverRepositoryImpl.getResultData(
+            "news",
+            query,
+            success = { successGetSearchResult(it) },
+            fail = { errorGetSearchResult() }
+        )
+    }
 
-                override fun onResponse(
-                    call: Call<SearchResult>,
-                    response: Response<SearchResult>
-                ) {
-                    with(adapter) {
-                        response.body()?.let { setItems(it.items) }
-                            ?: clearItems()
-                    }
-                }
+    private fun successGetSearchResult(resultList: SearchResult) {
+        adapter.setItems(resultList.items)
+    }
 
-                override fun onFailure(call: Call<SearchResult>, t: Throwable) {
-
-                }
-            })
-        }
+    private fun errorGetSearchResult() {
+        adapter.clearItems()
+        Toast.makeText(context, getString(R.string.err_search), Toast.LENGTH_SHORT).show()
     }
 
     private inner class NewsAdapter : RecyclerView.Adapter<NewsListHolder>() {
