@@ -1,5 +1,6 @@
-package com.egiwon.architecturestudy.data
+package com.egiwon.architecturestudy.data.source.remote
 
+import com.egiwon.architecturestudy.data.Content
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
