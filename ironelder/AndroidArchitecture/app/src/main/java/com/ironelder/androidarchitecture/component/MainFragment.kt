@@ -54,7 +54,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
                     )
                         .show()
                 } else {
-                    SearchDataSrcImpl().getDataForSearch(mType ?: BLOG, query, ::onSuccess, ::onFail)
+                    SearchDataSrcImpl.getDataForSearch(mType ?: BLOG, query, ::onSuccess, ::onFail)
                 }
                 return false
             }
