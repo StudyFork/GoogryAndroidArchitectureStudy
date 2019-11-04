@@ -1,6 +1,7 @@
 package com.jskim5923.architecturestudy.coin
 
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProviders
 import com.jskim5923.architecturestudy.R
 import com.jskim5923.architecturestudy.adapter.CoinListAdapter
 import com.jskim5923.architecturestudy.base.BaseFragment
@@ -9,7 +10,9 @@ import com.jskim5923.architecturestudy.databinding.LayoutCoinFragmentBinding
 class CoinFragment : BaseFragment<LayoutCoinFragmentBinding>(
     R.layout.layout_coin_fragment
 ) {
-    override val viewModel = CoinViewModel()
+    override val viewModel by lazy {
+        ViewModelProviders.of(this)[CoinViewModel::class.java]
+    }
 
     private val coinListAdapter = CoinListAdapter()
 
@@ -21,6 +24,7 @@ class CoinFragment : BaseFragment<LayoutCoinFragmentBinding>(
 
     private fun initView() {
         binding.run {
+            lifecycleOwner = viewLifecycleOwner
             recyclerView.adapter = coinListAdapter
             coinViewModel = viewModel
         }

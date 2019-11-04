@@ -23,10 +23,4 @@ abstract class BaseFragment<B : ViewDataBinding>(
         binding = DataBindingUtil.inflate(inflater, layoutRes, container, false)
         return binding.root
     }
-
-    override fun onDestroyView() {
-        viewModel.clearCompositeDisposable()
-        super.onDestroyView()
-    }
-
 }

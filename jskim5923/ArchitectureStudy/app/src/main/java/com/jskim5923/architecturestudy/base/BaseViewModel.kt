@@ -1,11 +1,13 @@
 package com.jskim5923.architecturestudy.base
 
+import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
 
-abstract class BaseViewModel {
+abstract class BaseViewModel : ViewModel() {
     protected val compositeDisposable = CompositeDisposable()
 
-    fun clearCompositeDisposable() {
+    override fun onCleared() {
+        super.onCleared()
         compositeDisposable.clear()
     }
 }
