@@ -10,12 +10,11 @@ import com.egiwon.architecturestudy.data.SearchCallback
 import com.egiwon.architecturestudy.data.SearchService
 import kotlinx.android.synthetic.main.fg_contents.*
 
-
-class ContentsFragment(
-    private val type: String
-) : BaseFragment(
+class ContentsFragment : BaseFragment(
     R.layout.fg_contents
 ), SearchCallback {
+
+    private val type: String by lazy { arguments?.getString(ARG_TYPE, "") ?: "" }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -58,4 +57,15 @@ class ContentsFragment(
         progress_circular.visibility = View.GONE
     }
 
+    companion object {
+        private const val ARG_TYPE = "type"
+
+        fun newInstance(type: String) =
+            ContentsFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_TYPE, type)
+                }
+            }
+
+    }
 }
