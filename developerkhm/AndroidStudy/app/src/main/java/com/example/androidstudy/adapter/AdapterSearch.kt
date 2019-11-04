@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.item_blog_view.view.*
 
 class AdapterSearch(
     private val context: Context?,
-    private var itemList: List<Item>,
+    private var itemList: ArrayList<Item>,
     private val type: String
 ) :
     RecyclerView.Adapter<AdapterSearch.CustomItemViewHolder>() {
@@ -26,9 +26,6 @@ class AdapterSearch(
 
         constructor(context: Context?, type: String) : super(context) {
             mItemType = type
-//            when (mItemType) {
-//                "blog", "news" -> itemImage.visibility = View.GONE
-//            }
         }
 
         init {
@@ -66,14 +63,10 @@ class AdapterSearch(
 
     override fun getItemCount() = itemList.size
 
-    fun setItemList(list: ArrayList<Item>?) {
-        itemList = list ?: arrayListOf()
+    fun setItemList(list: ArrayList<Item>) {
+        itemList.clear()
+        itemList.addAll(list)
         notifyDataSetChanged()
-    }
-
-    open fun addItemList(list: ArrayList<Item>?) {
-        (itemList as? ArrayList)?.addAll(list ?: arrayListOf())
-        notifyItemRangeInserted(itemList.size, list?.size ?: 0)
     }
 
     override fun onBindViewHolder(holder: CustomItemViewHolder, position: Int) {

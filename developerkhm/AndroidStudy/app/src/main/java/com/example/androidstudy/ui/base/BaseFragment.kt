@@ -55,7 +55,7 @@ open class BaseFragment : Fragment() {
             apiFetchData(searchEditText.text.toString(), typeStr, { response ->
                 var resultList = response.body()
                 Log.d("TEST1234", "RESUTL : ${resultList.toString()}")
-                (resultRecyclerView?.adapter as AdapterSearch).setItemList(resultList?.items)
+                (resultRecyclerView?.adapter as AdapterSearch).setItemList(resultList!!.items)
             }, {
 
             })
