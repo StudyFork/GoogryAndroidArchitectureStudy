@@ -23,31 +23,22 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+
 
 
 open class BaseFragment : Fragment() {
 
+    protected var layoutId : Int? = null
+
     protected val typeArray = arrayOf("blog", "news", "movie", "book")
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        if(this is BlogFragment){
-            return inflater.inflate(R.layout.fragment_blog, container, false)
-        }else if(this is NewsFragment){
-            return inflater.inflate(R.layout.fragment_news, container, false)
-        }else if(this is MovieFragment){
-            return inflater.inflate(R.layout.fragment_movie, container, false)
-        }else if(this is BookFragment){
-            return inflater.inflate(R.layout.fragment_book, container, false)
-        }
-
-        return null
+        return inflater.inflate(layoutId!!, container, false)
     }
 
     protected fun search(str : String, typeStr : String){
