@@ -1,6 +1,6 @@
 package com.test.androidarchitecture.ui.ticker
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import com.test.androidarchitecture.R
 import com.test.androidarchitecture.base.BaseViewModel
 import com.test.androidarchitecture.data.Ticker
@@ -15,7 +15,7 @@ import java.util.*
 class TickerViewModel(private val marketSearch: String) : BaseViewModel() {
 
     private val upbitRepository = UpbitRepository
-    var tickerList = ObservableField<List<TickerFormat>>()
+    var tickerList = MutableLiveData<List<TickerFormat>>()
 
     init {
         getTicker()
@@ -31,7 +31,7 @@ class TickerViewModel(private val marketSearch: String) : BaseViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    tickerList.set(it)
+                    tickerList.value = it
                 }, {
                     toastMessage.set(it.message.toString())
                 }

@@ -14,6 +14,7 @@ class TickerFragment : BaseFragment<FragmentCoinBinding, TickerViewModel>(R.layo
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        binding.lifecycleOwner = this
         binding.coinRecyclerView.adapter = this.adapter
         binding.vm = vm
     }
