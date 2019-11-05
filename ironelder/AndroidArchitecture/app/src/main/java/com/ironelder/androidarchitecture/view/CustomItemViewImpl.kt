@@ -13,8 +13,8 @@ import com.ironelder.androidarchitecture.common.NEWS
 import com.ironelder.androidarchitecture.data.Item
 import kotlinx.android.synthetic.main.item_custom_item_view.view.*
 
-class CustomItemView(context: Context?, private val mItemType: String) : ConstraintLayout(context),
-    ICustomItemView<Item> {
+class CustomItemViewImpl(context: Context?, private val mItemType: String) : ConstraintLayout(context),
+    CustomItemView<Item> {
 
     init {
         LayoutInflater.from(context).inflate(R.layout.item_custom_item_view, this, true)

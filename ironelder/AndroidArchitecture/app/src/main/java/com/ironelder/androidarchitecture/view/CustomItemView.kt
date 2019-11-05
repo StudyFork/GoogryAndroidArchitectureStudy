@@ -1,5 +1,5 @@
 package com.ironelder.androidarchitecture.view
 
-interface ICustomItemView<T> {
+interface CustomItemView<T> {
     fun setData(item: T)
 }

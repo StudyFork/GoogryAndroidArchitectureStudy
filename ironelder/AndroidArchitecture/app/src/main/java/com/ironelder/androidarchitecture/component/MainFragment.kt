@@ -13,8 +13,7 @@ import com.ironelder.androidarchitecture.R
 import com.ironelder.androidarchitecture.common.BLOG
 import com.ironelder.androidarchitecture.common.TYPE_KEY
 import com.ironelder.androidarchitecture.data.TotalModel
-import com.ironelder.androidarchitecture.data.source.ISearchDataSrc
-import com.ironelder.androidarchitecture.data.source.SearchDataSrcImpl
+import com.ironelder.androidarchitecture.data.source.SearchDataSourceImpl
 import com.ironelder.androidarchitecture.view.CustomListViewAdapter
 import kotlinx.android.synthetic.main.layout_search_listview.*
 
@@ -40,7 +39,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
 
     override fun doCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         val searchView =
-            SearchView((context as MainActivity).supportActionBar?.themedContext ?: context)
+            SearchView((context as? MainActivity)?.supportActionBar?.themedContext ?: context)
         menu.findItem(R.id.action_search)?.apply {
             setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
             actionView = searchView
@@ -55,16 +54,12 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
                     )
                         .show()
                 } else {
-                    SearchDataSrcImpl.getDataForSearch(mType ?: BLOG, query, object : ISearchDataSrc.RequestCallback{
-                        override fun onSuccess(result: TotalModel) {
-                            onSuccessed(result)
-                        }
-
-                        override fun onFail(error: String) {
-                            onFailed(error)
-                        }
-
-                    })
+                    SearchDataSourceImpl.getDataForSearch(
+                        mType ?: BLOG,
+                        query,
+                        ::onSuccess,
+                        ::onFail
+                    )
                 }
                 return false
             }
@@ -75,11 +70,11 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
         })
     }
 
-    private fun onSuccessed(result: TotalModel) {
-        (rv_resultListView?.adapter as CustomListViewAdapter).setItemList(result.items)
+    private fun onSuccess(result: TotalModel) {
+        (rv_resultListView?.adapter as? CustomListViewAdapter)?.setItemList(result.items)
     }
 
-    private fun onFailed(msg: String) {
+    private fun onFail(msg: String) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT)
             .show()
     }
