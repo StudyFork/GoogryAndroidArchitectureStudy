@@ -76,6 +76,7 @@ class MovieFragment : Fragment() {
         }
 
         fun setItems(items: List<SearchResult.Item>) {
+            resultList.clear()
             resultList.addAll(items)
             notifyDataSetChanged()
         }
