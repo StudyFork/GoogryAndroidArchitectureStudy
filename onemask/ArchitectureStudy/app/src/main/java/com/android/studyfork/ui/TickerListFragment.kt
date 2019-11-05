@@ -3,31 +3,34 @@ package com.android.studyfork.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.ViewModelProviders
 import com.android.studyfork.R
 import com.android.studyfork.base.BaseFragment
 import com.android.studyfork.databinding.FragmentTickerListBinding
 import com.android.studyfork.ui.adapter.CoinItemAdapter
-
 import com.android.studyfork.ui.tickerlist.viewmodel.TickerViewModel
 
 class TickerListFragment :
     BaseFragment<FragmentTickerListBinding, TickerViewModel>(R.layout.fragment_ticker_list) {
 
-    private  val coinItemAdapter=  CoinItemAdapter()
+    private val coinItemAdapter = CoinItemAdapter()
 
-    override val viewModel = TickerViewModel()
+    override val viewModel by lazy { ViewModelProviders.of(this)[TickerViewModel::class.java] }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.tickerViewModel = viewModel
         setRecyclerView()
         getTicker()
     }
 
     private fun setRecyclerView() {
-        binding.recyclerview.apply {
-            adapter = coinItemAdapter
-            setHasFixedSize(false)
+        binding.run {
+            lifecycleOwner = this@TickerListFragment
+            recyclerview.apply {
+                adapter = coinItemAdapter
+                setHasFixedSize(false)
+            }
+            tickerViewModel = viewModel
         }
     }
 
