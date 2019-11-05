@@ -16,7 +16,7 @@ object NaverDataRepositoryImpl : INaverDataRepository {
         NaverDataImpl.callAPiNaverSearch(type, query).enqueue(object : Callback<TotalModel> {
             override fun onFailure(call: Call<TotalModel>, t: Throwable) {
                 t.message?.let {
-                    fail(it)    //message 에서 ?하면 it이 message 인가?? 헷갈림..
+                    fail(it)
                 }
             }
 
