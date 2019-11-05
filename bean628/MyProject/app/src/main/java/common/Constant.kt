@@ -6,3 +6,5 @@ const val SEARCH_TYPE_MOVIE = 0
 const val SEARCH_TYPE_BOOK = 1
 const val SEARCH_TYPE_BLOG = 2
 const val SEARCH_TYPE_NEWS = 3
+
+const val NETWORK_ERROR_MSG = "네트워크 통신 장애입니다."
