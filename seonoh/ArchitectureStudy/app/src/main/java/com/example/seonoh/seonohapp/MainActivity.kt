@@ -39,10 +39,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
                 addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
             }
             tabLayout.run {
-                addTab(tabLayout.newTab().setText("KRW"))
-                addTab(tabLayout.newTab().setText("BTC"))
-                addTab(tabLayout.newTab().setText("ETH"))
-                addTab(tabLayout.newTab().setText("USDT"))
                 addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(coinViewPager))
             }
         }
