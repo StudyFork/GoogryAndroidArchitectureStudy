@@ -8,20 +8,20 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.example.seonoh.seonohapp.model.BaseViewModel
 
-abstract class BaseActivity< B : ViewDataBinding>(
+abstract class BaseActivity<B : ViewDataBinding>(
     @LayoutRes
     private val layoutRes: Int
-) : AppCompatActivity(){
+) : AppCompatActivity() {
 
     private lateinit var toast: Toast
-    protected lateinit var binding : B
-    abstract val viewModel : BaseViewModel
+    protected lateinit var binding: B
+    abstract val viewModel: BaseViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layoutRes)
-        toast = Toast.makeText(this,resources.getString(R.string.back_text),Toast.LENGTH_LONG)
-        binding = DataBindingUtil.setContentView(this,layoutRes)
+        toast = Toast.makeText(this, resources.getString(R.string.back_text), Toast.LENGTH_LONG)
+        binding = DataBindingUtil.setContentView(this, layoutRes)
     }
 
     private fun showToast() {
@@ -34,10 +34,5 @@ abstract class BaseActivity< B : ViewDataBinding>(
 
     override fun onBackPressed() {
         showToast()
-    }
-
-    override fun onDestroy() {
-        viewModel.clearCompositeDisposable()
-        super.onDestroy()
     }
 }
