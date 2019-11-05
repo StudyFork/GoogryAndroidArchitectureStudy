@@ -6,20 +6,15 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.practice.achitecture.myproject.model.ResultOfSearchingModel
-import com.practice.achitecture.myproject.network.RetrofitClient
+import com.practice.achitecture.myproject.data.source.NaverRepository
+import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSource
+import com.practice.achitecture.myproject.model.SearchedItem
 import common.*
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : BaseActivity(), View.OnClickListener {
 
     private var searchType: Int = SEARCH_TYPE_MOVIE
-    private val retrofitServiceForNaver =
-        RetrofitClient(NAVER_API_BASE_URL).makeRetrofitServiceForNaver()
     private var searchMovieAndBookAdapter: SearchMovieAndBookAdapter? = null
     private var searchBlogAndNewsAdapter: SearchBlogAndNewsAdapter? = null
 
@@ -93,47 +88,27 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             else -> "movie"
         }
 
-        val call: Call<ResultOfSearchingModel> =
-            retrofitServiceForNaver.searchSomething(category, word)
-
-        call.enqueue(object : Callback<ResultOfSearchingModel> {
-            override fun onResponse(
-                call: Call<ResultOfSearchingModel>,
-                response: Response<ResultOfSearchingModel>
-            ) {
-                response.body()?.let {
-                    if (response.isSuccessful) {
-
-                        when (this@MainActivity.searchType) {
-                            SEARCH_TYPE_MOVIE, SEARCH_TYPE_BOOK -> {
-                                searchMovieAndBookAdapter?.notifyDataSetChanged(it.items)
-                                rv_searched_list.adapter = searchMovieAndBookAdapter
-                            }
-                            SEARCH_TYPE_BLOG, SEARCH_TYPE_NEWS -> {
-                                searchBlogAndNewsAdapter?.notifyDataSetChanged(it.items)
-                                rv_searched_list.adapter = searchBlogAndNewsAdapter
-                            }
-                            else -> {
-                                searchMovieAndBookAdapter?.notifyDataSetChanged(it.items)
-                                rv_searched_list.adapter = searchMovieAndBookAdapter
-                            }
+        NaverRepository.searchWordByNaver(
+            category,
+            word,
+            object : NaverRemoteDataSource.GetResultOfSearchingCallBack {
+                override fun onSuccess(items: List<SearchedItem>) {
+                    when (this@MainActivity.searchType) {
+                        SEARCH_TYPE_MOVIE, SEARCH_TYPE_BOOK -> {
+                            searchMovieAndBookAdapter?.notifyDataSetChanged(items)
+                            rv_searched_list.adapter = searchMovieAndBookAdapter
                         }
-
-                        if (rv_searched_list.adapter?.itemCount == 0) {
-                            Toast.makeText(
-                                this@MainActivity,
-                                getString(R.string.toast_empty_result),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                        SEARCH_TYPE_BLOG, SEARCH_TYPE_NEWS -> {
+                            searchBlogAndNewsAdapter?.notifyDataSetChanged(items)
+                            rv_searched_list.adapter = searchBlogAndNewsAdapter
                         }
                     }
                 }
-            }
 
-            override fun onFailure(call: Call<ResultOfSearchingModel>, t: Throwable) {
-
-            }
-        })
+                override fun onFailure(errorMsg: String) {
+                    showToastShort(errorMsg)
+                }
+            })
     }
 
 }
