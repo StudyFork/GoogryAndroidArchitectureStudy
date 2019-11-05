@@ -37,11 +37,6 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
         })
     }
 
-    override fun onDestroyView() {
-        vm.clearDisposable()
-        super.onDestroyView()
-    }
-
     fun showToast(msg: String) {
         Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
     }

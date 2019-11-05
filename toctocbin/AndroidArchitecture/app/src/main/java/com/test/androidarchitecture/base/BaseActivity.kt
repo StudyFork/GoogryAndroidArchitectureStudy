@@ -25,11 +25,4 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
             }
         })
     }
-
-
-    override fun onDestroy() {
-        vm.clearDisposable()
-        super.onDestroy()
-    }
-
 }
