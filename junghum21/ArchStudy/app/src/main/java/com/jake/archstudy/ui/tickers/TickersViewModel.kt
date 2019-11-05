@@ -1,6 +1,7 @@
 package com.jake.archstudy.ui.tickers
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.jake.archstudy.R
 import com.jake.archstudy.base.BaseViewModel
 import com.jake.archstudy.data.model.Ticker
@@ -13,7 +14,9 @@ class TickersViewModel(
     private val resourceProvider: ResourceProvider
 ) : BaseViewModel() {
 
-    val tickers = ObservableField<List<Ticker>>()
+    private val _tickers = MutableLiveData<List<Ticker>>()
+
+    val tickers: LiveData<List<Ticker>> = _tickers
 
     init {
         getTickers()
@@ -24,7 +27,7 @@ class TickersViewModel(
             marketName,
             { response ->
                 val tickers = response.map { it.toTicker() }
-                this.tickers.set(tickers)
+                _tickers.value = tickers
             },
             {
                 toast.set(resourceProvider.getString(R.string.fail_network))
