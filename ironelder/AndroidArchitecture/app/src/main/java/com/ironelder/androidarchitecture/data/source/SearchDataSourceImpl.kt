@@ -1,7 +1,7 @@
 package com.ironelder.androidarchitecture.data.source
 
 import com.ironelder.androidarchitecture.data.TotalModel
-import com.ironelder.androidarchitecture.data.repository.SearchDataRepoImpl
+import com.ironelder.androidarchitecture.data.repository.SearchDataRepositoryImpl
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -13,7 +13,7 @@ object SearchDataSourceImpl : SearchDataSource<TotalModel, String> {
         success: (result: TotalModel) -> Unit,
         fail: (msg: String) -> Unit
     ) {
-        SearchDataRepoImpl.getDataForSearch(type, query).enqueue(object : Callback<TotalModel> {
+        SearchDataRepositoryImpl.getDataForSearch(type, query).enqueue(object : Callback<TotalModel> {
             override fun onFailure(call: Call<TotalModel>, t: Throwable) {
                 t.message?.let(fail)
             }

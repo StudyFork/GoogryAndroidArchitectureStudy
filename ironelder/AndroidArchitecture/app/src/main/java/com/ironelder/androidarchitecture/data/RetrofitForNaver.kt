@@ -14,13 +14,13 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitForNaver {
 
-    val searchApi: ISearchForNaver by lazy {
+    val SEARCH_API: SearchForNaver by lazy {
         val retrofit = Retrofit.Builder()
             .baseUrl(CLIENT_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(mOkHttpClient)
             .build()
-        return@lazy retrofit.create(ISearchForNaver::class.java)
+        return@lazy retrofit.create(SearchForNaver::class.java)
     }
 
     private val mOkHttpClient: OkHttpClient by lazy {
