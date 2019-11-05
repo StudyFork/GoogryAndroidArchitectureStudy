@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitForNaver {
 
-    val SEARCH_API: SearchForNaver by lazy {
+    val searchApi: SearchForNaver by lazy {
         val retrofit = Retrofit.Builder()
             .baseUrl(CLIENT_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
