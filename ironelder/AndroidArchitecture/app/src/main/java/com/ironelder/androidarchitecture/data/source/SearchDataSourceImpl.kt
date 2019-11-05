@@ -6,19 +6,20 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object SearchDataSrcImpl : ISearchDataSrc<TotalModel, String> {
+object SearchDataSourceImpl : SearchDataSource<TotalModel, String> {
     override fun getDataForSearch(
         type: String,
         query: String,
-        result:ISearchDataSrc.RequestCallback
+        success: (result: TotalModel) -> Unit,
+        fail: (msg: String) -> Unit
     ) {
         SearchDataRepoImpl.getDataForSearch(type, query).enqueue(object : Callback<TotalModel> {
             override fun onFailure(call: Call<TotalModel>, t: Throwable) {
-                t.message?.let { result.onFail(it) }
+                t.message?.let(fail)
             }
 
             override fun onResponse(call: Call<TotalModel>, response: Response<TotalModel>) {
-                response.body()?.let{result.onSuccess(it)}
+                response.body()?.let(success)
             }
 
         })
