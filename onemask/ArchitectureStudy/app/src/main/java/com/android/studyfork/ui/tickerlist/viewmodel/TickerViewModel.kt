@@ -1,6 +1,7 @@
 package com.android.studyfork.ui.tickerlist.viewmodel
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.android.studyfork.base.BaseViewModel
 import com.android.studyfork.network.model.Ticker
 import com.android.studyfork.repository.UpbitRepositoryImpl
@@ -9,7 +10,9 @@ import io.reactivex.rxkotlin.addTo
 
 class TickerViewModel : BaseViewModel() {
 
-    val tickerList = ObservableField<List<Ticker>>()
+    private val _tickerList = MutableLiveData<List<Ticker>>()
+    val tickerList : LiveData<List<Ticker>>
+    get() = _tickerList
 
     fun getTicker(market: String) {
         UpbitRepositoryImpl.getTickers(market)
@@ -20,7 +23,7 @@ class TickerViewModel : BaseViewModel() {
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                tickerList.set(it)
+                _tickerList.postValue(it)
             }, { it.printStackTrace() })
             .addTo(disposable)
     }
