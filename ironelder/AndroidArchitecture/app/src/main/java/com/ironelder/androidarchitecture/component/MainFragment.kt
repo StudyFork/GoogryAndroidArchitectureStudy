@@ -13,6 +13,7 @@ import com.ironelder.androidarchitecture.R
 import com.ironelder.androidarchitecture.common.BLOG
 import com.ironelder.androidarchitecture.common.TYPE_KEY
 import com.ironelder.androidarchitecture.data.TotalModel
+import com.ironelder.androidarchitecture.data.source.ISearchDataSrc
 import com.ironelder.androidarchitecture.data.source.SearchDataSrcImpl
 import com.ironelder.androidarchitecture.view.CustomListViewAdapter
 import kotlinx.android.synthetic.main.layout_search_listview.*
@@ -54,7 +55,16 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
                     )
                         .show()
                 } else {
-                    SearchDataSrcImpl.getDataForSearch(mType ?: BLOG, query, ::onSuccess, ::onFail)
+                    SearchDataSrcImpl.getDataForSearch(mType ?: BLOG, query, object : ISearchDataSrc.RequestCallback{
+                        override fun onSuccess(result: TotalModel) {
+                            onSuccessed(result)
+                        }
+
+                        override fun onFail(error: String) {
+                            onFailed(error)
+                        }
+
+                    })
                 }
                 return false
             }
@@ -65,11 +75,11 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
         })
     }
 
-    private fun onSuccess(result: TotalModel) {
+    private fun onSuccessed(result: TotalModel) {
         (rv_resultListView?.adapter as CustomListViewAdapter).setItemList(result.items)
     }
 
-    private fun onFail(msg: String) {
+    private fun onFailed(msg: String) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT)
             .show()
     }

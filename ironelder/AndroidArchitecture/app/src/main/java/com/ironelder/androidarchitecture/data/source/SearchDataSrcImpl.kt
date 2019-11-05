@@ -10,16 +10,15 @@ object SearchDataSrcImpl : ISearchDataSrc<TotalModel, String> {
     override fun getDataForSearch(
         type: String,
         query: String,
-        success: (result: TotalModel) -> Unit,
-        fail: (msg: String) -> Unit
+        result:ISearchDataSrc.RequestCallback
     ) {
         SearchDataRepoImpl.getDataForSearch(type, query).enqueue(object : Callback<TotalModel> {
             override fun onFailure(call: Call<TotalModel>, t: Throwable) {
-                t.message?.let(fail)
+                t.message?.let { result.onFail(it) }
             }
 
             override fun onResponse(call: Call<TotalModel>, response: Response<TotalModel>) {
-                response.body()?.let(success)
+                response.body()?.let{result.onSuccess(it)}
             }
 
         })
