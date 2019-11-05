@@ -22,7 +22,7 @@ ext {
     rxBinding = '2.0.0'
     stetho = '1.5.0'
 
-
+    aacVersion = '2.1.0'
 
 
 }

@@ -39,14 +39,14 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid"
 
-
     // LoggingInterceptor
     implementation('com.github.ihsanbal:LoggingInterceptor:3.0.0') {
         exclude group: 'org.json', module: 'json'
     }
     implementation "com.facebook.stetho:stetho-okhttp3:$stetho"
 
-
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$aacVersion"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
