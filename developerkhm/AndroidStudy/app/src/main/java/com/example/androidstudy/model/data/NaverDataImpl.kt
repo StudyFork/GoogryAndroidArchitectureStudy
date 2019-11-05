@@ -4,7 +4,7 @@ import com.example.androidstudy.api.RetrofitBuilder
 import com.example.androidstudy.api.data.TotalModel
 import retrofit2.Call
 
-object NaverDataRepositoryImpl : INaverDataRepository{
+object NaverDataImpl : INaverData{
     override fun callAPiNaverSearch(type: String, query: String): Call<TotalModel> {
         return RetrofitBuilder.instance().requestSearchForNaver(type, query)
     }
