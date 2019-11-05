@@ -59,4 +59,8 @@ dependencies {
     //rxKotlin
     implementation  'io.reactivex.rxjava2:rxkotlin:2.3.0'
 
+    //lifecycle
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+
+
 }
