@@ -1,6 +1,6 @@
 package com.test.androidarchitecture.ui.market
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import com.test.androidarchitecture.base.BaseViewModel
 import com.test.androidarchitecture.data.MarketTitle
 import com.test.androidarchitecture.data.source.UpbitRepository
@@ -10,7 +10,7 @@ import io.reactivex.rxkotlin.addTo
 class MarketViewModel : BaseViewModel(){
 
     private val upbitRepository = UpbitRepository
-    var marketTitle = ObservableField<List<MarketTitle>>()
+    var marketTitle = MutableLiveData<List<MarketTitle>>()
 
     init {
         getMarketAll()
@@ -33,7 +33,7 @@ class MarketViewModel : BaseViewModel(){
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    marketTitle.set(it)
+                    marketTitle.value = it
                 }, {
                     toastMessage.set(it.message.toString())
                 }

@@ -1,7 +1,7 @@
 package com.test.androidarchitecture.ui.market
 
 import android.os.Bundle
-import androidx.databinding.Observable
+import androidx.lifecycle.Observer
 import com.test.androidarchitecture.R
 import com.test.androidarchitecture.adpter.ViewPagerAdapter
 import com.test.androidarchitecture.base.BaseActivity
@@ -26,10 +26,6 @@ class MarketActivity
     }
 
     private fun setObservableCallBack(){
-        vm.marketTitle.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                vm.marketTitle.get()?.let { viewPagerAdapter.setData(it) }
-            }
-        })
+        vm.marketTitle.observe(this, Observer { viewPagerAdapter.setData(it)  })
     }
 }
