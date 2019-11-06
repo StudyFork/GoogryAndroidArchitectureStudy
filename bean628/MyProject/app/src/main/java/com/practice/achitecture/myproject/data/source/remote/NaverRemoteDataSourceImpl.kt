@@ -1,9 +1,10 @@
 package com.practice.achitecture.myproject.data.source.remote
 
+import android.content.res.Resources
+import com.practice.achitecture.myproject.R
 import com.practice.achitecture.myproject.model.ResultOfSearchingModel
 import com.practice.achitecture.myproject.network.RetrofitClient
 import common.NAVER_API_BASE_URL
-import common.NETWORK_ERROR_MSG
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,12 +32,12 @@ object NaverRemoteDataSourceImpl : NaverRemoteDataSource {
                         callBack.onSuccess(listOf())
                     }
                 } else {
-                    callBack.onFailure(NETWORK_ERROR_MSG)
+                    callBack.onFailure(Resources.getSystem().getString(R.string.toast_network_error_msg))
                 }
             }
 
             override fun onFailure(call: Call<ResultOfSearchingModel>, t: Throwable) {
-                callBack.onFailure(NETWORK_ERROR_MSG)
+                callBack.onFailure(Resources.getSystem().getString(R.string.toast_network_error_msg))
             }
         })
     }
