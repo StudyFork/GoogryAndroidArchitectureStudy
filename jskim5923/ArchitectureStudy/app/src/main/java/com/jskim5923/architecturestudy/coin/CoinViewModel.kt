@@ -39,9 +39,8 @@ class CoinViewModel : BaseViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ tickerList ->
                 _tickerList.value = tickerList
-            }, { e ->
-                e.printStackTrace()
-            })
+            }, {}
+            )
             .addTo(compositeDisposable)
     }
 }

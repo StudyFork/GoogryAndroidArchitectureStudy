@@ -30,9 +30,8 @@ class MainViewModel : BaseViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 _marketList.value = it
-            }, {
-                it.printStackTrace()
-            })
+            }, {}
+            )
             .addTo(compositeDisposable)
     }
 }
