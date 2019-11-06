@@ -93,7 +93,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             word,
             object : NaverRemoteDataSource.GetResultOfSearchingCallBack {
                 override fun onSuccessButEmptyData() {
-                    showToastShort(getString(R.string.toast_empty_result))
+                    this@MainActivity.makeToast(R.string.toast_empty_result)
                 }
 
                 override fun onSuccess(items: List<SearchedItem>) {
@@ -110,7 +110,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 }
 
                 override fun onFailure(errorMsg: String) {
-                    showToastShort(errorMsg)
+                    this@MainActivity.makeToast(errorMsg)
                 }
             })
     }
