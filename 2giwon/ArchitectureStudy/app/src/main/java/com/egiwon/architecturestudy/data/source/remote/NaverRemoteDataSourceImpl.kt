@@ -73,9 +73,11 @@ object NaverRemoteDataSourceImpl :
                 response: Response<Content>
             ) {
                 if (response.isSuccessful) {
+
                     response.body()?.let {
                         callback.onSuccess(it.items)
-                    }
+                    } ?: callback.onFailure(Throwable())
+
                 } else {
                     callback.onFailure(Throwable())
                 }
