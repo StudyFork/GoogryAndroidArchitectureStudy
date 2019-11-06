@@ -19,9 +19,8 @@ abstract class BaseActivity<B : ViewDataBinding>(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layoutRes)
-        toast = Toast.makeText(this, resources.getString(R.string.back_text), Toast.LENGTH_LONG)
         binding = DataBindingUtil.setContentView(this, layoutRes)
+        toast = Toast.makeText(this, resources.getString(R.string.back_text), Toast.LENGTH_LONG)
     }
 
     private fun showToast() {
