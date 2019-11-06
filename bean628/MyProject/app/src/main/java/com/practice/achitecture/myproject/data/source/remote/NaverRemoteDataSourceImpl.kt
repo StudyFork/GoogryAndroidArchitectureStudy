@@ -27,10 +27,12 @@ object NaverRemoteDataSourceImpl : NaverRemoteDataSource {
             ) {
                 if (response.isSuccessful) {
                     response.body()?.items?.let {
-                        callBack.onSuccess(it)
-                    } ?: run {
-                        callBack.onSuccess(listOf())
-                    }
+                        if (it.isEmpty()) {
+                            callBack.onSuccessButEmptyData()
+                        } else {
+                            callBack.onSuccess(it)
+                        }
+                    } ?: callBack.onSuccessButEmptyData()
                 } else {
                     callBack.onFailure(Resources.getSystem().getString(R.string.toast_network_error_msg))
                 }

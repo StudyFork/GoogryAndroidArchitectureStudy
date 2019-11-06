@@ -92,6 +92,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             category,
             word,
             object : NaverRemoteDataSource.GetResultOfSearchingCallBack {
+                override fun onSuccessButEmptyData() {
+                    showToastShort(getString(R.string.toast_empty_result))
+                }
+
                 override fun onSuccess(items: List<SearchedItem>) {
                     when (this@MainActivity.searchType) {
                         SEARCH_TYPE_MOVIE, SEARCH_TYPE_BOOK -> {

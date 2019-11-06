@@ -6,6 +6,7 @@ interface NaverRemoteDataSource {
 
     interface GetResultOfSearchingCallBack {
         fun onSuccess(items: List<SearchedItem>)
+        fun onSuccessButEmptyData()
         fun onFailure(errorMsg: String)
     }
 
