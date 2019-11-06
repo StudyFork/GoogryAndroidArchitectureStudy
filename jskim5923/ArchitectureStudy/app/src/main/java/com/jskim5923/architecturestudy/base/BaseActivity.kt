@@ -17,10 +17,6 @@ abstract class BaseActivity<B : ViewDataBinding>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutRes)
-    }
-
-    override fun onDestroy() {
-        viewModel.clearCompositeDisposable()
-        super.onDestroy()
+        binding.lifecycleOwner = this
     }
 }

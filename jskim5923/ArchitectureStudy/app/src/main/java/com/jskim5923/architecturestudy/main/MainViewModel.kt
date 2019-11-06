@@ -1,6 +1,7 @@
 package com.jskim5923.architecturestudy.main
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.jskim5923.architecturestudy.base.BaseViewModel
 import com.jskim5923.architecturestudy.extension.getCoinCurrency
 import com.jskim5923.architecturestudy.model.data.source.Repository
@@ -9,7 +10,10 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 
 class MainViewModel : BaseViewModel() {
-    val marketList = ObservableField<List<String>>(mutableListOf())
+    private val _marketList = MutableLiveData<List<String>>()
+
+    val marketList: LiveData<List<String>>
+        get() = _marketList
 
     init {
         loadMarketList()
@@ -25,10 +29,9 @@ class MainViewModel : BaseViewModel() {
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                marketList.set(it)
-            }, {
-                it.printStackTrace()
-            })
+                _marketList.value = it
+            }, {}
+            )
             .addTo(compositeDisposable)
     }
 }

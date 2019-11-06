@@ -1,13 +1,16 @@
 package com.jskim5923.architecturestudy.main
 
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProviders
 import com.jskim5923.architecturestudy.R
 import com.jskim5923.architecturestudy.adapter.ViewPagerAdapter
 import com.jskim5923.architecturestudy.base.BaseActivity
 import com.jskim5923.architecturestudy.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
-    override val viewModel = MainViewModel()
+    override val viewModel by lazy {
+        ViewModelProviders.of(this)[MainViewModel::class.java]
+    }
 
     private val viewpagerAdapter by lazy {
         ViewPagerAdapter(supportFragmentManager)

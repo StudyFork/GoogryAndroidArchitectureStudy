@@ -57,5 +57,8 @@ dependencies {
     // Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
+    // AAC-ViewModel and LiveData
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+
 
 }

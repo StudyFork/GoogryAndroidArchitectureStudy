@@ -24,9 +24,8 @@ abstract class BaseFragment<B : ViewDataBinding>(
         return binding.root
     }
 
-    override fun onDestroyView() {
-        viewModel.clearCompositeDisposable()
-        super.onDestroyView()
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        binding.lifecycleOwner = viewLifecycleOwner
     }
-
 }
