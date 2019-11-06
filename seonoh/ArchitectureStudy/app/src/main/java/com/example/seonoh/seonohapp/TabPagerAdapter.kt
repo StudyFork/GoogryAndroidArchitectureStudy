@@ -10,12 +10,14 @@ class TabPagerAdapter(
 
     private val data = mutableListOf<String>()
 
-    fun setData( data: List<String>){
+    fun setData(data: List<String>) {
         this.data.addAll(data)
         notifyDataSetChanged()
     }
 
-    override fun getCount(): Int =  data.size
+    override fun getPageTitle(position: Int): CharSequence? = data[position].substringBefore("-")
+
+    override fun getCount(): Int = data.size
 
     override fun getItem(position: Int): Fragment = CoinFragment.newInstance(data[position])
 
