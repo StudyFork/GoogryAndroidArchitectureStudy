@@ -14,6 +14,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
 
     private val pagerAdapter by lazy { TabPagerAdapter(supportFragmentManager) }
 
+    @Suppress("UNCHECKED_CAST")
     override val viewModel by lazy {
         ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(itemClass: Class<T>): T {

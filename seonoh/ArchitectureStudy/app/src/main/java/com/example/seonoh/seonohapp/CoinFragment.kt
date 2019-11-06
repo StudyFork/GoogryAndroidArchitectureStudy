@@ -13,7 +13,7 @@ import com.example.seonoh.seonohapp.repository.CoinRepositoryImpl
 class CoinFragment : BaseFragment<CoinFragmentBinding>(
     R.layout.coin_fragment
 ) {
-
+    @Suppress("UNCHECKED_CAST")
     override val viewModel by lazy {
         ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(itemClass: Class<T>): T {
