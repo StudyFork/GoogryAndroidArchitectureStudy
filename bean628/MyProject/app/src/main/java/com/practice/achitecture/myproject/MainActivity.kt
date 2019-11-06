@@ -6,8 +6,8 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import com.practice.achitecture.myproject.data.source.NaverRepository
 import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSource
+import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSourceImpl
 import com.practice.achitecture.myproject.model.SearchedItem
 import common.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -88,7 +88,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             else -> "movie"
         }
 
-        NaverRepository.searchWordByNaver(
+        NaverRemoteDataSourceImpl.searchWordByNaver(
             category,
             word,
             object : NaverRemoteDataSource.GetResultOfSearchingCallBack {
