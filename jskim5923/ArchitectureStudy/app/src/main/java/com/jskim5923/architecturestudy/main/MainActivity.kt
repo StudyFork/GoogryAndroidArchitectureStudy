@@ -23,7 +23,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun initView() {
         binding.run {
-            lifecycleOwner = this@MainActivity
             tabLayout.setupWithViewPager(viewPager)
             viewPager.adapter = viewpagerAdapter
             mainViewModel = viewModel
