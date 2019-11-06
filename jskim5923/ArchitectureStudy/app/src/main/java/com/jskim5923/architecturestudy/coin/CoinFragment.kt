@@ -24,7 +24,6 @@ class CoinFragment : BaseFragment<LayoutCoinFragmentBinding>(
 
     private fun initView() {
         binding.run {
-            lifecycleOwner = viewLifecycleOwner
             recyclerView.adapter = coinListAdapter
             coinViewModel = viewModel
         }
