@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.seonoh.seonohapp.databinding.ActivityMainBinding
 import com.example.seonoh.seonohapp.model.MainViewModel
 import com.example.seonoh.seonohapp.repository.CoinRepositoryImpl
-import com.google.android.material.tabs.TabLayout
 
 class MainActivity : BaseActivity<ActivityMainBinding>(
     R.layout.activity_main
@@ -34,13 +33,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
         binding.run {
             lifecycleOwner = this@MainActivity
             mainViewModel = viewModel
-            coinViewPager.run {
-                adapter = pagerAdapter
-                addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
-            }
-            tabLayout.run {
-                addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(coinViewPager))
-            }
+            coinViewPager.adapter = pagerAdapter
+            tabLayout.setupWithViewPager(coinViewPager)
         }
     }
 
