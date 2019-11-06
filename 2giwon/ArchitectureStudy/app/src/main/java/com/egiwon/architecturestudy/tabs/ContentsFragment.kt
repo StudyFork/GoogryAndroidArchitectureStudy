@@ -50,6 +50,7 @@ class ContentsFragment : BaseFragment(
                 }
 
                 override fun onFailure(throwable: Throwable) {
+                    showToast(getString(R.string.callback_fail))
                     progress_circular.visibility = View.GONE
                 }
             })
