@@ -3,11 +3,16 @@ package com.egiwon.architecturestudy.data
 import com.google.gson.annotations.SerializedName
 
 data class Content(
-    @SerializedName("lastBuildDate") var lastBuildDate: String,
-    @SerializedName("total") var total: Int,
-    @SerializedName("start") var start: Int,
-    @SerializedName("display") var display: Int,
-    @SerializedName("items") var items: List<Item>
+    @SerializedName("lastBuildDate")
+    val lastBuildDate: String,
+    @SerializedName("total")
+    val total: Int,
+    @SerializedName("start")
+    val start: Int,
+    @SerializedName("display")
+    val display: Int,
+    @SerializedName("items")
+    val items: List<Item>
 ) {
     data class Item(
 

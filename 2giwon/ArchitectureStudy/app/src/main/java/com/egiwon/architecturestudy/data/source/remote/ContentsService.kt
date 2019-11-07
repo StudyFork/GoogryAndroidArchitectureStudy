@@ -9,7 +9,9 @@ import retrofit2.http.Query
 interface ContentsService {
     @GET("search/{type}.json")
     fun getContentsInfo(
-        @Path("type") type: String,
-        @Query("query") query: String
+        @Path("type")
+        type: String,
+        @Query("query")
+        query: String
     ): Call<Content>
 }
