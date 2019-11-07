@@ -2,6 +2,7 @@ package com.test.androidarchitecture.ui.market
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.test.androidarchitecture.R
 import com.test.androidarchitecture.adpter.ViewPagerAdapter
 import com.test.androidarchitecture.base.BaseActivity
@@ -11,7 +12,7 @@ class MarketActivity
     : BaseActivity<ActivityMarketBinding, MarketViewModel>(R.layout.activity_market){
 
     private lateinit var viewPagerAdapter: ViewPagerAdapter
-    override val vm = MarketViewModel()
+    override val vm by lazy { ViewModelProviders.of(this).get(MarketViewModel::class.java) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
