@@ -1,21 +1,20 @@
 package com.egiwon.architecturestudy.data.source
 
 import com.egiwon.architecturestudy.data.Content
-import com.egiwon.architecturestudy.data.source.remote.NaverRemoteDataSource
-import com.egiwon.architecturestudy.data.source.remote.NaverRemoteDataSourceImpl
 
-object NaverDataRepository : NaverRemoteDataSource {
+class NaverDataRepository(
+    private val naverRemoteDataSource: NaverDataSource
+) : NaverDataSource {
 
-    private val naverRemoteDataSource = NaverRemoteDataSourceImpl
     override fun getContents(
         type: String,
         query: String,
-        callback: NaverRemoteDataSource.Callback
+        callback: NaverDataSource.Callback
     ) {
         naverRemoteDataSource.getContents(
             type,
             query,
-            object : NaverRemoteDataSource.Callback {
+            object : NaverDataSource.Callback {
                 override fun onSuccess(list: List<Content.Item>) {
                     callback.onSuccess(list)
                 }
@@ -24,5 +23,14 @@ object NaverDataRepository : NaverRemoteDataSource {
                     callback.onFailure(throwable)
                 }
             })
+    }
+
+    companion object {
+        private var instance: NaverDataRepository? = null
+
+        fun getInstance(naverDataSource: NaverDataSource): NaverDataRepository =
+            instance ?: NaverDataRepository(naverDataSource).apply {
+                instance = this
+            }
     }
 }

@@ -7,6 +7,7 @@ import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.base.BaseFragment
 import com.egiwon.architecturestudy.data.Content
 import com.egiwon.architecturestudy.data.source.NaverDataRepository
+import com.egiwon.architecturestudy.data.source.NaverDataSource
 import com.egiwon.architecturestudy.data.source.remote.NaverRemoteDataSource
 import kotlinx.android.synthetic.main.fg_contents.*
 
@@ -40,10 +41,12 @@ class ContentsFragment : BaseFragment(
     }
 
     private fun requestSearch() {
-        NaverDataRepository.getContents(
+        NaverDataRepository.getInstance(
+            NaverRemoteDataSource.getInstance()
+        ).getContents(
             type = type,
             query = et_search.text.toString(),
-            callback = object : NaverRemoteDataSource.Callback {
+            callback = object : NaverDataSource.Callback {
                 override fun onSuccess(list: List<Content.Item>) {
                     (rv_contents.adapter as? ContentsAdapter)?.setList(list)
                     progress_circular.visibility = View.GONE
