@@ -10,8 +10,7 @@ class NaverDataRepository(
         type: String,
         query: String,
         callback: NaverDataSource.Callback
-    ) {
-        naverRemoteDataSource.getContents(
+    ) = naverRemoteDataSource.getContents(
             type,
             query,
             object : NaverDataSource.Callback {
@@ -23,7 +22,7 @@ class NaverDataRepository(
                     callback.onFailure(throwable)
                 }
             })
-    }
+
 
     companion object {
         private var instance: NaverDataRepository? = null
