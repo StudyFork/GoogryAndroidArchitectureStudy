@@ -25,7 +25,6 @@ class TickerListFragment :
 
     private fun setRecyclerView() {
         binding.run {
-            lifecycleOwner = this@TickerListFragment
             recyclerview.apply {
                 adapter = coinItemAdapter
                 setHasFixedSize(false)
