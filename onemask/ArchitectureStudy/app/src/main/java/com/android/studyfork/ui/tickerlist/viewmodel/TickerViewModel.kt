@@ -11,8 +11,8 @@ import io.reactivex.rxkotlin.addTo
 class TickerViewModel : BaseViewModel() {
 
     private val _tickerList = MutableLiveData<List<Ticker>>()
-    val tickerList : LiveData<List<Ticker>>
-    get() = _tickerList
+    val tickerList: LiveData<List<Ticker>>
+        get() = _tickerList
 
     fun getTicker(market: String) {
         UpbitRepositoryImpl.getTickers(market)
