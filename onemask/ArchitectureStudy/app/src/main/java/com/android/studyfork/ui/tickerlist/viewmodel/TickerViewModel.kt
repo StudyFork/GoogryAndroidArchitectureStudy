@@ -8,7 +8,7 @@ import com.android.studyfork.repository.UpbitRepositoryImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 
-class TickerViewModel : BaseViewModel() {
+class TickerViewModel(private val market: String) : BaseViewModel() {
 
     private val _tickerList = MutableLiveData<List<Ticker>>()
     val tickerList: LiveData<List<Ticker>>
