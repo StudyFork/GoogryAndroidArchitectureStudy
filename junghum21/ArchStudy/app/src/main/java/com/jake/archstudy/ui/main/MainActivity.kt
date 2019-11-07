@@ -35,10 +35,7 @@ class MainActivity :
         super.onCreate(savedInstanceState)
         initTabLayout()
         observeMarkets()
-        binding.run {
-            vm = viewModel
-            lifecycleOwner = this@MainActivity
-        }
+        binding.vm = viewModel
     }
 
     private fun observeMarkets() {

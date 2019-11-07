@@ -33,10 +33,7 @@ class TickersFragment :
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.run {
-            vm = viewModel
-            lifecycleOwner = viewLifecycleOwner
-        }
+        binding.vm = viewModel
     }
 
     companion object {
