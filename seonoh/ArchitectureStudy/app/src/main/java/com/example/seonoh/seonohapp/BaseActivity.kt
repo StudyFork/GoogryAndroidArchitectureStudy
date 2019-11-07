@@ -20,6 +20,7 @@ abstract class BaseActivity<B : ViewDataBinding>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutRes)
+        binding.lifecycleOwner = this
         toast = Toast.makeText(this, resources.getString(R.string.back_text), Toast.LENGTH_LONG)
     }
 

@@ -27,7 +27,6 @@ class CoinFragment : BaseFragment<CoinFragmentBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.run {
-            lifecycleOwner = viewLifecycleOwner
             coinViewModel = viewModel
             krwRecyclerView.adapter = CoinAdapter()
         }
