@@ -14,7 +14,11 @@ class TickerViewModel : BaseViewModel() {
     val tickerList: LiveData<List<Ticker>>
         get() = _tickerList
 
-    fun getTicker(market: String) {
+    init {
+        getTicker()
+    }
+
+    fun getTicker() {
         UpbitRepositoryImpl.getTickers(market)
             .map { tickerList ->
                 tickerList.map {
