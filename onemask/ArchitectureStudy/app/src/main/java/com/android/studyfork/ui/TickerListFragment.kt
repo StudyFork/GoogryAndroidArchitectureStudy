@@ -32,7 +32,6 @@ class TickerListFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setRecyclerView()
-        getTicker()
     }
 
     private fun setRecyclerView() {
@@ -43,11 +42,6 @@ class TickerListFragment :
             }
             tickerViewModel = viewModel
         }
-    }
-
-    private fun getTicker() {
-        val market = arguments?.getString(KEY_MARKETS) ?: ""
-        viewModel.getTicker(market)
     }
 
     companion object {
