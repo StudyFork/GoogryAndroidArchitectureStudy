@@ -37,7 +37,7 @@ class MarketViewModel : BaseViewModel() {
                 {
                     _marketTitle.value = it
                 }, {
-                    toastMessage.set(it.message.toString())
+                    _toastMessage.value = it.message.toString()
                 }
             )
             .addTo(compositeDisposable)
