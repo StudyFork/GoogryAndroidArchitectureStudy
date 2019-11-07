@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.jake.archstudy.ext.toast
 
 abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
@@ -31,12 +31,8 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.toast.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                toast(viewModel.toast.get() ?: return)
-            }
-        })
+        binding.lifecycleOwner = viewLifecycleOwner
+        viewModel.toast.observe(viewLifecycleOwner, Observer { toast(it) })
     }
 
 }

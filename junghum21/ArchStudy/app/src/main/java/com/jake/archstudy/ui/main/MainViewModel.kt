@@ -32,8 +32,8 @@ class MainViewModel(
                     }
                 _markets.value = markets
             },
-            {
-                toast.set(resourceProvider.getString(R.string.fail_network))
+            failure = {
+                _toast.value = resourceProvider.getString(R.string.fail_network)
             }
         )
     }

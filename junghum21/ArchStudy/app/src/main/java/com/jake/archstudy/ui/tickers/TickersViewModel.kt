@@ -15,7 +15,6 @@ class TickersViewModel(
 ) : BaseViewModel() {
 
     private val _tickers = MutableLiveData<List<Ticker>>()
-
     val tickers: LiveData<List<Ticker>> = _tickers
 
     init {
@@ -24,13 +23,13 @@ class TickersViewModel(
 
     private fun getTickers() {
         repository.getTicker(
-            marketName,
-            { response ->
+            markets = marketName,
+            success = { response ->
                 val tickers = response.map { it.toTicker() }
                 _tickers.value = tickers
             },
-            {
-                toast.set(resourceProvider.getString(R.string.fail_network))
+            failure = {
+                _toast.value = resourceProvider.getString(R.string.fail_network)
             }
         )
     }
