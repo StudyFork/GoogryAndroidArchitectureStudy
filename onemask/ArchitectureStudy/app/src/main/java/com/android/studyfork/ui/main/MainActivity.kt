@@ -30,7 +30,6 @@ class MainActivity :
 
     private fun initViewPager() {
         binding.run {
-            lifecycleOwner = this@MainActivity
             pagerContent.adapter = viewPagerAdapter
             layoutTab.setupWithViewPager(this.pagerContent)
             pagerContent.offscreenPageLimit = 3
