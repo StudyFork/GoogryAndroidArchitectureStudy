@@ -22,12 +22,12 @@ class NaverRemoteDataSource : NaverDataSource {
         ).enqueue(object : Callback<Content> {
 
             override fun onFailure(call: Call<Content>, t: Throwable) {
-                with(t) {
+                t.let {
                     if (BuildConfig.DEBUG) {
-                        Log.d("RetroFit", "onFailure $message")
+                        Log.d("RetroFit", "onFailure ${it.message}")
                     }
 
-                    callback.onFailure(throwable = this)
+                    callback.onFailure(it)
                 }
             }
 
