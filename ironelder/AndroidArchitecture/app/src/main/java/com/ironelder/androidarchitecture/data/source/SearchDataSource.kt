@@ -1,10 +1,12 @@
 package com.ironelder.androidarchitecture.data.source
 
-interface SearchDataSource<T, R> {
+import com.ironelder.androidarchitecture.data.TotalModel
+
+interface SearchDataSource{
     fun getDataForSearch(
         type: String,
         query: String,
-        success: (result: T) -> Unit,
-        fail: (msg: R) -> Unit
+        success: (result: TotalModel) -> Unit,
+        fail: (msg: String) -> Unit
     )
 }
