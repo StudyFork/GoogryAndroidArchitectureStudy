@@ -28,12 +28,11 @@ class ViewPagerAdapter(fragmentManager: FragmentManager) :
 
     override fun getPageTitle(position: Int): CharSequence? = titles[position]
 
-    fun setTitles(titles: List<String>) {
-        this.titles = titles
-    }
-
-    fun setData(items: List<String>) {
-        this.marketDataSet = items
+    fun setData(items: Pair<List<String>, List<String>>) {
+        items.let {
+            this.titles = it.first.toList()
+            this.marketDataSet = items.second
+        }
         notifyDataSetChanged()
     }
 
