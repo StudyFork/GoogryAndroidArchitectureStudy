@@ -45,7 +45,7 @@ class TickerListFragment :
     }
 
     companion object {
-        const val KEY_MARKETS = "markets"
+        const val KEY_MARKETS = "KEY_MARKETS"
         fun newInstance(tickers: String) = TickerListFragment().apply {
             arguments = Bundle().apply {
                 putString(KEY_MARKETS, tickers)
