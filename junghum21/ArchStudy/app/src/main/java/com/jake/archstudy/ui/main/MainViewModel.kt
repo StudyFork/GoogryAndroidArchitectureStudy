@@ -22,7 +22,7 @@ class MainViewModel(
 
     private fun getMarketAll() {
         repository.getMarketAll(
-            { response ->
+            success = { response ->
                 val markets = response.asSequence()
                     .groupBy { it.market.substringBefore("-") }
                     .map { map ->
