@@ -1,9 +1,10 @@
 package com.god.taeiim.myapplication.data
 
 import com.god.taeiim.myapplication.api.model.SearchResult
+import com.god.taeiim.myapplication.data.source.NaverDataSource
 import com.god.taeiim.myapplication.data.source.NaverRemoteDataSourceImpl
 
-object NaverRepositoryImpl : NaverRepository {
+object NaverRepositoryImpl : NaverDataSource {
     override fun getResultData(
         searchType: String,
         query: String,

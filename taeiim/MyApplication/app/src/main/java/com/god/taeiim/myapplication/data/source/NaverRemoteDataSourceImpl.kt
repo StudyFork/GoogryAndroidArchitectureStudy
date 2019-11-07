@@ -6,7 +6,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object NaverRemoteDataSourceImpl : NaverRemoteDataSource {
+object NaverRemoteDataSourceImpl : NaverDataSource {
     override fun getResultData(
         searchType: String,
         query: String,

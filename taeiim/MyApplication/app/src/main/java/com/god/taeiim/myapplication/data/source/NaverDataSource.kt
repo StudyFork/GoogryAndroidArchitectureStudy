@@ -2,7 +2,7 @@ package com.god.taeiim.myapplication.data.source
 
 import com.god.taeiim.myapplication.api.model.SearchResult
 
-interface NaverRemoteDataSource {
+interface NaverDataSource {
     fun getResultData(
         searchType: String,
         query: String,
