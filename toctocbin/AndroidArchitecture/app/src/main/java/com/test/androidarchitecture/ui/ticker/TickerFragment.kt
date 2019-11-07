@@ -7,15 +7,13 @@ import com.test.androidarchitecture.adpter.TickerAdapter
 import com.test.androidarchitecture.base.BaseFragment
 import com.test.androidarchitecture.databinding.FragmentCoinBinding
 
-class TickerFragment : BaseFragment<FragmentCoinBinding, TickerViewModel>(R.layout.fragment_coin){
+class TickerFragment : BaseFragment<FragmentCoinBinding, TickerViewModel>(R.layout.fragment_coin) {
 
     override val vm by lazy { TickerViewModel(arguments?.getString(MARKET_SEARCH) ?: "") }
-    private val adapter by lazy { TickerAdapter() }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.lifecycleOwner = this
-        binding.coinRecyclerView.adapter = this.adapter
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.vm = vm
     }
 
