@@ -11,7 +11,7 @@ import io.reactivex.rxkotlin.addTo
 class MarketViewModel : BaseViewModel() {
 
     private val upbitRepository = UpbitRepository
-    var _marketTitle = MutableLiveData<List<MarketTitle>>()
+    private var _marketTitle = MutableLiveData<List<MarketTitle>>()
     var marketTitle: LiveData<List<MarketTitle>> = _marketTitle
 
     init {
