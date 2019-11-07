@@ -37,9 +37,15 @@ class NaverRemoteDataSource : NaverDataSource {
             ) {
                 if (response.isSuccessful) {
 
-                    response.body()?.let {
-                        callback.onSuccess(it.items)
-                    } ?: callback.onFailure(Throwable())
+                    if (response.body() != null) {
+
+                        callback.onSuccess(
+                            response.body()!!.items
+                        )
+
+                    } else {
+                        callback.onFailure(Throwable())
+                    }
 
                 } else {
                     callback.onFailure(Throwable())
