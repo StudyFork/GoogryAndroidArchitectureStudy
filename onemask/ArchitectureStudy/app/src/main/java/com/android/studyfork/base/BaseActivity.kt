@@ -17,9 +17,4 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>
         binding = DataBindingUtil.setContentView(this, layoutRes)
         binding.lifecycleOwner = this
     }
-
-    override fun onDestroy() {
-        viewModel.clearDispoasble()
-        super.onDestroy()
-    }
 }

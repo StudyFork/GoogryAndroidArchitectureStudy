@@ -25,8 +25,4 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(@LayoutRes 
         return binding.root
     }
 
-    override fun onDestroy() {
-        viewModel.clearDispoasble()
-        super.onDestroy()
-    }
 }
