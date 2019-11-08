@@ -6,16 +6,16 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.base.BaseFragment
 import com.egiwon.architecturestudy.data.Content
-import com.egiwon.architecturestudy.data.SearchCallback
-import com.egiwon.architecturestudy.data.SearchService
+import com.egiwon.architecturestudy.data.source.NaverDataRepository
+import com.egiwon.architecturestudy.data.source.NaverDataSource
+import com.egiwon.architecturestudy.data.source.remote.NaverRemoteDataSource
 import kotlinx.android.synthetic.main.fg_contents.*
 
-
-class ContentsFragment(
-    private val type: String
-) : BaseFragment(
+class ContentsFragment : BaseFragment(
     R.layout.fg_contents
-), SearchCallback {
+) {
+
+    private val type: String by lazy { arguments?.getString(ARG_TYPE, "") ?: "" }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -41,21 +41,35 @@ class ContentsFragment(
     }
 
     private fun requestSearch() {
-        SearchService(this).getContentsList(
+        NaverDataRepository.getInstance(
+            NaverRemoteDataSource.getInstance()
+        ).getContents(
+            type = type,
             query = et_search.text.toString(),
-            type = type
-        )
+            callback = object : NaverDataSource.Callback {
+                override fun onSuccess(list: List<Content.Item>) {
+                    (rv_contents.adapter as? ContentsAdapter)?.setList(list)
+                    progress_circular.visibility = View.GONE
+                }
+
+                override fun onFailure(throwable: Throwable) {
+                    showToast(getString(R.string.callback_fail))
+                    progress_circular.visibility = View.GONE
+                }
+            })
 
         progress_circular.visibility = View.VISIBLE
     }
 
-    override fun onSuccess(searchContents: List<Content.Item>) {
-        (rv_contents.adapter as? ContentsAdapter)?.setList(searchContents)
-        progress_circular.visibility = View.GONE
-    }
+    companion object {
+        private const val ARG_TYPE = "type"
 
-    override fun onFailure(message: String) {
-        progress_circular.visibility = View.GONE
-    }
+        fun newInstance(type: String) =
+            ContentsFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_TYPE, type)
+                }
+            }
 
+    }
 }
