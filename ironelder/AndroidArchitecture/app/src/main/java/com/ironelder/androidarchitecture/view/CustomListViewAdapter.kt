@@ -2,7 +2,6 @@ package com.ironelder.androidarchitecture.view
 
 import android.content.Intent
 import android.net.Uri
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ironelder.androidarchitecture.data.Item
@@ -15,7 +14,7 @@ class CustomListViewAdapter(
     private val mItemList: ArrayList<Item> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomItemViewHolder {
-        val customItemView = CustomItemView(parent.context, mType)
+        val customItemView = CustomItemViewImpl(parent.context, mType)
         val customItemViewHolder = CustomItemViewHolder(customItemView)
         customItemView.setOnClickListener {
             parent.context.startActivity(
@@ -32,7 +31,7 @@ class CustomListViewAdapter(
 
     fun setItemList(list: ArrayList<Item>?) {
         mItemList.clear()
-        if(!list.isNullOrEmpty()){
+        if (!list.isNullOrEmpty()) {
             mItemList.addAll(list)
         }
         notifyDataSetChanged()
@@ -47,11 +46,11 @@ class CustomListViewAdapter(
         holder.setData(mItemList[position])
     }
 
-    inner class CustomItemViewHolder(v: CustomItemView) : RecyclerView.ViewHolder(v) {
-        private val mCustomItemView: CustomItemView by lazy { v }
+    inner class CustomItemViewHolder(v: CustomItemViewImpl) : RecyclerView.ViewHolder(v) {
+        private val mCustomItemViewImpl: CustomItemViewImpl by lazy { v }
 
         fun setData(item: Item) {
-            mCustomItemView.setData(item)
+            mCustomItemViewImpl.setData(item)
         }
 
     }

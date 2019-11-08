@@ -12,13 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ironelder.androidarchitecture.R
 import com.ironelder.androidarchitecture.common.BLOG
 import com.ironelder.androidarchitecture.common.TYPE_KEY
-import com.ironelder.androidarchitecture.data.RetrofitForNaver
 import com.ironelder.androidarchitecture.data.TotalModel
+import com.ironelder.androidarchitecture.data.source.SearchDataSourceImpl
 import com.ironelder.androidarchitecture.view.CustomListViewAdapter
 import kotlinx.android.synthetic.main.layout_search_listview.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class MainFragment : BaseFragment(R.layout.fragment_main) {
@@ -42,14 +39,28 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
 
     override fun doCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         val searchView =
-            SearchView((context as MainActivity).supportActionBar?.themedContext ?: context)
+            SearchView((context as? MainActivity)?.supportActionBar?.themedContext ?: context)
         menu.findItem(R.id.action_search)?.apply {
             setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
             actionView = searchView
         }
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                searchAction(query)
+                if (query.isNullOrEmpty()) {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.msg_empty_search_string),
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                } else {
+                    SearchDataSourceImpl.getDataForSearch(
+                        mType ?: BLOG,
+                        query,
+                        ::onSuccess,
+                        ::onFail
+                    )
+                }
                 return false
             }
 
@@ -59,24 +70,13 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
         })
     }
 
-    private fun searchAction(searchString: String?) {
-        if (searchString.isNullOrEmpty()) {
-            Toast.makeText(context, getString(R.string.msg_empty_search_string), Toast.LENGTH_SHORT)
-                .show()
-            return
-        }
-        val retrofitService = RetrofitForNaver.searchApi
-        val result = retrofitService.requestSearchForNaver(mType ?: BLOG, searchString)
-        result.enqueue(object : Callback<TotalModel> {
-            override fun onFailure(call: Call<TotalModel>, t: Throwable) {
-                Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
-            }
+    private fun onSuccess(result: TotalModel) {
+        (rv_resultListView?.adapter as? CustomListViewAdapter)?.setItemList(result.items)
+    }
 
-            override fun onResponse(call: Call<TotalModel>, response: Response<TotalModel>) {
-                val resultList = response.body()
-                (rv_resultListView?.adapter as CustomListViewAdapter).setItemList(resultList?.items)
-            }
-        })
+    private fun onFail(msg: String) {
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT)
+            .show()
     }
 
     companion object {
