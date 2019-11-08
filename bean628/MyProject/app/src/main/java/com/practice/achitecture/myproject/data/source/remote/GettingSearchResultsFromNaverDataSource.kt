@@ -2,7 +2,7 @@ package com.practice.achitecture.myproject.data.source.remote
 
 import com.practice.achitecture.myproject.model.SearchedItem
 
-interface NaverRemoteDataSource {
+interface GettingSearchResultsFromNaverDataSource {
 
     interface GetResultOfSearchingCallBack {
         fun onSuccess(items: List<SearchedItem>)

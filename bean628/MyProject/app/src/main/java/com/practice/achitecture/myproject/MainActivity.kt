@@ -7,7 +7,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSource
+import com.practice.achitecture.myproject.data.source.remote.GettingSearchResultsFromNaverDataSource
 import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSourceImpl
 import com.practice.achitecture.myproject.model.SearchedItem
 import common.SEARCH_TYPE_BLOG
@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         NaverRemoteDataSourceImpl.searchWordByNaver(
             category,
             word,
-            object : NaverRemoteDataSource.GetResultOfSearchingCallBack {
+            object : GettingSearchResultsFromNaverDataSource.GetResultOfSearchingCallBack {
                 override fun onSuccessButEmptyData() {
                     this@MainActivity.makeToast(R.string.toast_empty_result)
                 }

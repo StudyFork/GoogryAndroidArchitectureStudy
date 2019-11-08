@@ -9,14 +9,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object NaverRemoteDataSourceImpl : NaverRemoteDataSource {
+object NaverRemoteDataSourceImpl : GettingSearchResultsFromNaverDataSource {
 
     private val naverApiService = RetrofitClient(NAVER_API_BASE_URL).makeRetrofitServiceForNaver()
 
     override fun searchWordByNaver(
         category: String,
         word: String,
-        callBack: NaverRemoteDataSource.GetResultOfSearchingCallBack
+        callBack: GettingSearchResultsFromNaverDataSource.GetResultOfSearchingCallBack
     ) {
         val call = naverApiService.searchSomething(category, word)
         //To change body of created functions use File | Settings | File Templates.
