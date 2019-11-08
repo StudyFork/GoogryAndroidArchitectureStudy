@@ -32,7 +32,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
 
     private fun initView() {
         binding.run {
-            lifecycleOwner = this@MainActivity
             mainViewModel = viewModel
             coinViewPager.adapter = pagerAdapter
             tabLayout.setupWithViewPager(coinViewPager)
