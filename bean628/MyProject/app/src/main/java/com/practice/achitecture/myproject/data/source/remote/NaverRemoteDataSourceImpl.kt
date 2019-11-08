@@ -43,7 +43,7 @@ object NaverRemoteDataSourceImpl : GettingSearchResultsFromNaverDataSource {
             }
 
             override fun onFailure(call: Call<ResultOfSearchingModel>, t: Throwable) {
-                callBack.onFailure(Resources.getSystem().getString(R.string.toast_network_error_msg))
+                callBack.onFailure(t.message.toString())
             }
         })
     }
