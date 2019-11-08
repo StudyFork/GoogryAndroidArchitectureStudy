@@ -26,13 +26,17 @@ object NaverRemoteDataSourceImpl : NaverRemoteDataSource {
                 response: Response<ResultOfSearchingModel>
             ) {
                 if (response.isSuccessful) {
-                    response.body()?.items?.let {
-                        if (it.isEmpty()) {
+                    val body = response.body()
+                    if (body != null) {
+                        if (body.items.isEmpty()) {
                             callBack.onSuccessButEmptyData()
                         } else {
-                            callBack.onSuccess(it)
+                            callBack.onSuccess(response.body()!!.items)
                         }
-                    } ?: callBack.onSuccessButEmptyData()
+                    } else {
+                        callBack.onSuccessButEmptyData()
+                    }
+
                 } else {
                     callBack.onFailure(Resources.getSystem().getString(R.string.toast_network_error_msg))
                 }
