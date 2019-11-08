@@ -11,8 +11,7 @@ object MainBindingAdapter {
     @JvmStatic
     fun ViewPager.updateItem(pairItem: Pair<List<String>, List<String>>?) {
         pairItem?.let {
-            (adapter as? ViewPagerAdapter)?.setTitles(it.first.toList())
-            (adapter as? ViewPagerAdapter)?.setData(it.second)
+            (adapter as? ViewPagerAdapter)?.setData(pairItem)
         }
     }
 }

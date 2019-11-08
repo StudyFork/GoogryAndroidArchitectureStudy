@@ -26,16 +26,13 @@ class ViewPagerAdapter(fragmentManager: FragmentManager) :
         super.destroyItem(container, position, `object`)
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
-        return titles[position]
-    }
+    override fun getPageTitle(position: Int): CharSequence? = titles[position]
 
-    fun setTitles(titles: List<String>) {
-        this.titles = titles
-    }
-
-    fun setData(items: List<String>) {
-        this.marketDataSet = items
+    fun setData(items: Pair<List<String>, List<String>>) {
+        items.let {
+            this.titles = it.first.toList()
+            this.marketDataSet = items.second
+        }
         notifyDataSetChanged()
     }
 
