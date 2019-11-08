@@ -27,10 +27,10 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.findFragmentByTag(
             itemId.toString()
         ) ?: when (itemId) {
-            R.id.blogNavigation -> BlogFragment()
-            R.id.newsNavigation -> NewsFragment()
-            R.id.movieNavigation -> MovieFragment()
-            R.id.bookNavigation -> BookFragment()
+            R.id.blogNavigation -> ContentsFragment("blog")
+            R.id.newsNavigation -> ContentsFragment("news")
+            R.id.movieNavigation -> ContentsFragment("movie")
+            R.id.bookNavigation -> ContentsFragment("book")
             else -> null
         }?.let { replaceFragment(it) }
     }
