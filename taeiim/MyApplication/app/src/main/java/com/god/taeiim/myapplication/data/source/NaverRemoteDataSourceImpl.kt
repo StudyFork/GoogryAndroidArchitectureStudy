@@ -5,6 +5,7 @@ import com.god.taeiim.myapplication.api.provideAuthApi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.IllegalStateException
 
 object NaverRemoteDataSourceImpl : NaverDataSource {
     override fun getResultData(
@@ -19,11 +20,13 @@ object NaverRemoteDataSourceImpl : NaverDataSource {
                     call: Call<SearchResult>,
                     response: Response<SearchResult>
                 ) {
-                    response.body()?.let { result -> success(result) } ?: fail(Throwable())
+                    val result = response.body()
+                    if (result != null) success(result)
+                    else fail(throw IllegalStateException())
                 }
 
                 override fun onFailure(call: Call<SearchResult>, t: Throwable) {
-                    fail(t)
+                    fail(throw IllegalStateException())
                 }
             })
         }
