@@ -12,8 +12,9 @@ import com.god.taeiim.myapplication.api.model.SearchResult
 import com.god.taeiim.myapplication.data.NaverRepositoryImpl
 import kotlinx.android.synthetic.main.fragment_main.*
 
-class ContentsFragment(val searchType : String) : Fragment() {
-    private val adapter = SearchResultRecyclerAdapter()
+class ContentsFragment : Fragment() {
+    private lateinit var adapter: SearchResultRecyclerAdapter
+    private var searchType = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,6 +26,11 @@ class ContentsFragment(val searchType : String) : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        arguments?.getString(ARG_TYPE)?.let {
+            searchType = it
+        }
+        adapter = SearchResultRecyclerAdapter(searchType)
 
         with(searchResultRecyclerView) {
             layoutManager = LinearLayoutManager(context)
@@ -38,20 +44,31 @@ class ContentsFragment(val searchType : String) : Fragment() {
 
     private fun searchBlog(query: String) {
         NaverRepositoryImpl.getResultData(
-            searchType,
+            arguments?.getString(ARG_TYPE, "") ?: "",
             query,
-            success = { successGetSearchResult(it) },
-            fail = { errorGetSearchResult() }
+            success = { refreshItems(it) },
+            fail = { clearItems() }
         )
     }
 
-    private fun successGetSearchResult(resultList: SearchResult) {
+    private fun refreshItems(resultList: SearchResult) {
         adapter.setItems(resultList.items)
     }
 
-    private fun errorGetSearchResult() {
+    private fun clearItems() {
         adapter.clearItems()
         Toast.makeText(context, getString(R.string.err_search), Toast.LENGTH_SHORT).show()
     }
 
+    companion object {
+        private const val ARG_TYPE = ""
+
+        fun newInstance(type: String) =
+            ContentsFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_TYPE, type)
+                }
+            }
+
+    }
 }

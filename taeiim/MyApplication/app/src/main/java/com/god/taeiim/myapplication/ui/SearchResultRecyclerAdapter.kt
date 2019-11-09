@@ -8,11 +8,14 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.god.taeiim.myapplication.R
+import com.god.taeiim.myapplication.Tabs
 import com.god.taeiim.myapplication.api.model.SearchResult
 import com.god.taeiim.myapplication.extensions.fromHtml
+import com.god.taeiim.myapplication.getSearchType
 import kotlinx.android.synthetic.main.item_contents.view.*
 
-class SearchResultRecyclerAdapter : RecyclerView.Adapter<SearchResultRecyclerAdapter.ViewHolder>() {
+class SearchResultRecyclerAdapter(private val searchType: String) :
+    RecyclerView.Adapter<SearchResultRecyclerAdapter.ViewHolder>() {
     private var resultList = ArrayList<SearchResult.Item>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
@@ -40,13 +43,44 @@ class SearchResultRecyclerAdapter : RecyclerView.Adapter<SearchResultRecyclerAda
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        resultList[position].let { blog ->
+        resultList[position].let { item ->
             with(holder.itemView) {
-                titleTv.text = blog.title.fromHtml()
-                subTitleTv.text = blog.postdate.fromHtml()
-                descTv.text = blog.description.fromHtml()
+                titleTv.text = item.title.fromHtml()
+                descTv.text = item.description.fromHtml()
+
+                when (searchType) {
+                    getSearchType(Tabs.MOVIE), getSearchType(Tabs.BOOK) -> {
+                        with(item.image) {
+                            if (!this.isNullOrBlank()) {
+                                thumbnailIv.visibility = View.VISIBLE
+                                com.bumptech.glide.Glide.with(holder.itemView.context)
+                                    .load(this)
+                                    .into(thumbnailIv)
+
+                            } else {
+                                thumbnailIv.visibility = View.GONE
+                            }
+                        }
+                    }
+                }
+
+                when (searchType) {
+                    getSearchType(Tabs.BLOG) -> {
+                        subTitleTv.text = item.postdate.fromHtml()
+                    }
+                    getSearchType(Tabs.NEWS) -> {
+                        subTitleTv.visibility = View.GONE
+                    }
+                    getSearchType(Tabs.MOVIE) -> {
+                        subTitleTv.text = item.pubDate.fromHtml()
+                        descTv.text = (item.director + item.actor).fromHtml()
+                    }
+                    getSearchType(Tabs.BOOK) -> {
+                        subTitleTv.text = item.author.fromHtml()
+                    }
+                }
             }
-            holder.link = blog.link
+            holder.link = item.link
         }
     }
 
@@ -57,10 +91,7 @@ class SearchResultRecyclerAdapter : RecyclerView.Adapter<SearchResultRecyclerAda
             itemView.setOnClickListener {
                 startActivity(
                     itemView.context,
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(link)
-                    ),
+                    Intent(Intent.ACTION_VIEW, Uri.parse(link)),
                     null
                 )
             }
