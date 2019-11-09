@@ -6,9 +6,7 @@ interface NaverRemoteDataSource {
 
     interface GettingResultOfSearchingCallBack {
         fun onSuccess(items: List<SearchedItem>)
-        fun onSuccessButEmptyData()
         fun onFailure(throwable: Throwable)
-        fun onFailure(stringResId: Int)
     }
 
     fun searchWordByNaver(

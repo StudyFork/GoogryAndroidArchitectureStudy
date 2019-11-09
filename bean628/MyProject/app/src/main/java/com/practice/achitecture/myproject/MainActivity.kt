@@ -11,6 +11,7 @@ import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSour
 import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSourceImpl
 import com.practice.achitecture.myproject.model.SearchedItem
 import com.practice.achitecture.myproject.network.RetrofitClient
+import com.practice.achitecture.myproject.network.retrofitErrorHandler
 import common.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -95,9 +96,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             category,
             word,
             object : NaverRemoteDataSource.GettingResultOfSearchingCallBack {
-                override fun onSuccessButEmptyData() {
-                    this@MainActivity.makeToast(R.string.toast_empty_result)
-                }
 
                 override fun onSuccess(items: List<SearchedItem>) {
                     when (this@MainActivity.searchType) {
@@ -113,11 +111,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
 
                 override fun onFailure(throwable: Throwable) {
-                    this@MainActivity.makeToast(throwable.message.toString())
-                }
-
-                override fun onFailure(stringResId: Int) {
-                    this@MainActivity.makeToast(stringResId)
+                    retrofitErrorHandler(this@MainActivity, throwable)
                 }
             })
     }

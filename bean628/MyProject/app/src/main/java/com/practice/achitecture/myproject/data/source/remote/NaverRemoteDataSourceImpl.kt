@@ -2,6 +2,8 @@ package com.practice.achitecture.myproject.data.source.remote
 
 import com.practice.achitecture.myproject.R
 import com.practice.achitecture.myproject.model.ResultOfSearchingModel
+import com.practice.achitecture.myproject.network.EmptyDataException
+import com.practice.achitecture.myproject.network.ResponseNotSuccessException
 import com.practice.achitecture.myproject.network.RetrofitService
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,16 +25,16 @@ class NaverRemoteDataSourceImpl(private val naverApiService: RetrofitService) :
                 response: Response<ResultOfSearchingModel>
             ) {
                 if (!response.isSuccessful) {
-                    callBack.onFailure(R.string.toast_network_error_msg)
+                    callBack.onFailure(ResponseNotSuccessException(R.string.toast_network_error_msg))
                     return
                 }
                 val body = response.body()
                 if (body == null) {
-                    callBack.onSuccessButEmptyData()
+                    callBack.onFailure(EmptyDataException(R.string.toast_empty_result))
                     return
                 }
                 body.items.ifEmpty {
-                    callBack.onSuccessButEmptyData()
+                    callBack.onFailure(EmptyDataException(R.string.toast_empty_result))
                     return
                 }
                 callBack.onSuccess(body.items)
