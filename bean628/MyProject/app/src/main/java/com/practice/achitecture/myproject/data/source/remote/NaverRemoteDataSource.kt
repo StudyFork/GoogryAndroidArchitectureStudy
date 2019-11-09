@@ -8,6 +8,7 @@ interface NaverRemoteDataSource {
         fun onSuccess(items: List<SearchedItem>)
         fun onSuccessButEmptyData()
         fun onFailure(errorMsg: String)
+        fun onFailure(stringResId: Int)
     }
 
     fun searchWordByNaver(

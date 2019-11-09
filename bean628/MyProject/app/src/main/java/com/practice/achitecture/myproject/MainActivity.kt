@@ -116,6 +116,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 override fun onFailure(errorMsg: String) {
                     this@MainActivity.makeToast(errorMsg)
                 }
+
+                override fun onFailure(stringResId: Int) {
+                    this@MainActivity.makeToast(stringResId)
+                }
             })
     }
 

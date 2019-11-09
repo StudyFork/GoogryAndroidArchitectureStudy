@@ -1,6 +1,5 @@
 package com.practice.achitecture.myproject.data.source.remote
 
-import android.content.res.Resources
 import com.practice.achitecture.myproject.R
 import com.practice.achitecture.myproject.model.ResultOfSearchingModel
 import com.practice.achitecture.myproject.network.RetrofitService
@@ -36,7 +35,7 @@ class NaverRemoteDataSourceImpl(private val naverApiService: RetrofitService) :
                     }
 
                 } else {
-                    callBack.onFailure(Resources.getSystem().getString(R.string.toast_network_error_msg))
+                    callBack.onFailure(R.string.toast_network_error_msg)
                 }
             }
 
