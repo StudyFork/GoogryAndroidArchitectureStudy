@@ -2,9 +2,9 @@ package com.practice.achitecture.myproject.data.source.remote
 
 import com.practice.achitecture.myproject.model.SearchedItem
 
-interface GettingSearchResultsFromNaverDataSource {
+interface NaverRemoteDataSource {
 
-    interface GetResultOfSearchingCallBack {
+    interface GettingResultOfSearchingCallBack {
         fun onSuccess(items: List<SearchedItem>)
         fun onSuccessButEmptyData()
         fun onFailure(errorMsg: String)
@@ -13,7 +13,7 @@ interface GettingSearchResultsFromNaverDataSource {
     fun searchWordByNaver(
         category: String,
         word: String,
-        callBack: GetResultOfSearchingCallBack
+        callBack: GettingResultOfSearchingCallBack
     )
 
 }
