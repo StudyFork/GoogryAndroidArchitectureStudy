@@ -41,11 +41,7 @@ class MainActivity :
     private fun observeMarkets() {
         viewModel.markets.observe(
             this,
-            object : Observer<List<Market>?> {
-                override fun onChanged(t: List<Market>?) {
-                    setViewPager(t ?: return)
-                }
-            }
+            Observer { setViewPager(it) }
         )
     }
 
