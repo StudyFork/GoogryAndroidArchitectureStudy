@@ -1,6 +1,7 @@
 package com.buddman1208.architecturestudy
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
@@ -16,12 +17,16 @@ import com.afollestad.recyclical.setup
 import com.afollestad.recyclical.withItem
 import com.buddman1208.architecturestudy.models.BookItem
 import com.buddman1208.architecturestudy.models.CommonItem
+import com.buddman1208.architecturestudy.models.CommonResponse
 import com.buddman1208.architecturestudy.models.MovieItem
-import com.buddman1208.architecturestudy.utils.*
+import com.buddman1208.architecturestudy.repo.NaverDataRepositoryImpl
+import com.buddman1208.architecturestudy.utils.Constants
+import com.buddman1208.architecturestudy.utils.removeHtmlBoldTags
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.browse
+import org.jetbrains.anko.toast
 import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
@@ -160,44 +165,54 @@ class MainActivity : AppCompatActivity() {
     private fun getData() {
         val query = etQuery.text.toString().trim()
         if (query.isNotBlank()) {
-            NetworkManager
-                .searchByType(searchType = currentMode, query = query)
-                .subscribeOnIO()
-                .onUI {
-                    datas.clear()
-                    if (it.items.isEmpty()) {
-                        updateInfoText(resources.getString(R.string.list_blank))
-                    } else {
-                        updateInfoText("")
-                        when (currentMode) {
-                            Constants.MODE_BLOG, Constants.MODE_NEWS -> {
-                                datas.addAll(
-                                    it.items.map {
-                                        Gson().fromJson(it, CommonItem::class.java)
-                                    }
-                                )
-                            }
-                            Constants.MODE_MOVIE -> {
-                                datas.addAll(
-                                    it.items.map {
-                                        Gson().fromJson(it, MovieItem::class.java)
-                                    }
-                                )
-                            }
-                            Constants.MODE_BOOK -> {
-                                datas.addAll(
-                                    it.items.map {
-                                        Gson().fromJson(it, BookItem::class.java)
-                                    }
-                                )
-                            }
-                        }
-                    }
-                }
+            NaverDataRepositoryImpl
+                .searchByTypeFromNaver(
+                    searchType = currentMode,
+                    query = query,
+                    onSuccess = ::onDataSuccess,
+                    onFailure = ::onDataFailure
+                )
         } else {
             datas.clear()
             updateInfoText(resources.getString(R.string.hint_input_edittext))
         }
+    }
+
+    private fun onDataSuccess(it: CommonResponse) {
+        datas.clear()
+        if (it.items.isEmpty()) {
+            updateInfoText(resources.getString(R.string.list_blank))
+        } else {
+            updateInfoText("")
+            when (currentMode) {
+                Constants.MODE_BLOG, Constants.MODE_NEWS -> {
+                    datas.addAll(
+                        it.items.map {
+                            Gson().fromJson(it, CommonItem::class.java)
+                        }
+                    )
+                }
+                Constants.MODE_MOVIE -> {
+                    datas.addAll(
+                        it.items.map {
+                            Gson().fromJson(it, MovieItem::class.java)
+                        }
+                    )
+                }
+                Constants.MODE_BOOK -> {
+                    datas.addAll(
+                        it.items.map {
+                            Gson().fromJson(it, BookItem::class.java)
+                        }
+                    )
+                }
+            }
+        }
+    }
+
+    private fun onDataFailure(it: Throwable) {
+        toast(resources.getString(R.string.connect_error))
+        Log.e("MainActivity", it.message ?: "")
     }
 }
 
