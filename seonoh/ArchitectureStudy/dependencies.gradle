@@ -14,14 +14,17 @@ ext {
     realmPluginVersion = '4.3.3'
     googleServiceVersion = '3.2.0'
 
+//    Net
     okhttp = '3.9.0'
     retrofit = '2.3.0'
 
+//    Rx
     rxjava2 = '2.1.3'
     rxAndroid = '2.0.1'
     rxBinding = '2.0.0'
     stetho = '1.5.0'
 
+//    AAC
     aacVersion = '2.1.0'
 
 
