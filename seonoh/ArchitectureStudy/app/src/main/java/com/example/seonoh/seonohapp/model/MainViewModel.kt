@@ -18,6 +18,7 @@ class MainViewModel(private val repo: CoinRepositoryImpl) : BaseViewModel() {
     }
 
     private fun handleError(throwable: Throwable) {
+
         Log.e("currentPriceInfo", "Main Network failed!! ${throwable.message}")
     }
 

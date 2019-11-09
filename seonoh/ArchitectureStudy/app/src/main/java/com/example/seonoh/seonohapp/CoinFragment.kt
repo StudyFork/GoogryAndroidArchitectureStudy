@@ -16,11 +16,10 @@ class CoinFragment : BaseFragment<CoinFragmentBinding>(
     @Suppress("UNCHECKED_CAST")
     override val viewModel by lazy {
         ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(itemClass: Class<T>): T {
-                return CoinViewModel(
+            override fun <T : ViewModel?> create(itemClass: Class<T>): T =
+                 CoinViewModel(
                     CoinRepositoryImpl()
                 ) as T
-            }
         }).get(CoinViewModel::class.java)
     }
 
