@@ -113,8 +113,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }
 
-                override fun onFailure(errorMsg: String) {
-                    this@MainActivity.makeToast(errorMsg)
+                override fun onFailure(throwable: Throwable) {
+                    this@MainActivity.makeToast(throwable.message.toString())
                 }
 
                 override fun onFailure(stringResId: Int) {

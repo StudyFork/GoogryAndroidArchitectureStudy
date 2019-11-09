@@ -39,7 +39,7 @@ class NaverRemoteDataSourceImpl(private val naverApiService: RetrofitService) :
             }
 
             override fun onFailure(call: Call<ResultOfSearchingModel>, t: Throwable) {
-                callBack.onFailure(t.message.toString())
+                callBack.onFailure(t)
             }
         })
     }
