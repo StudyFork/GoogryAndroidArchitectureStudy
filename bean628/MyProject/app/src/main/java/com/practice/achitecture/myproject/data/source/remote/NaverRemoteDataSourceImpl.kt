@@ -22,21 +22,20 @@ class NaverRemoteDataSourceImpl(private val naverApiService: RetrofitService) :
                 call: Call<ResultOfSearchingModel>,
                 response: Response<ResultOfSearchingModel>
             ) {
-                if (response.isSuccessful) {
-                    val body = response.body()
-                    if (body != null) {
-                        if (body.items.isEmpty()) {
-                            callBack.onSuccessButEmptyData()
-                        } else {
-                            callBack.onSuccess(response.body()!!.items)
-                        }
-                    } else {
-                        callBack.onSuccessButEmptyData()
-                    }
-
-                } else {
+                if (!response.isSuccessful) {
                     callBack.onFailure(R.string.toast_network_error_msg)
+                    return
                 }
+                val body = response.body()
+                if (body == null) {
+                    callBack.onSuccessButEmptyData()
+                    return
+                }
+                body.items.ifEmpty {
+                    callBack.onSuccessButEmptyData()
+                    return
+                }
+                callBack.onSuccess(body.items)
             }
 
             override fun onFailure(call: Call<ResultOfSearchingModel>, t: Throwable) {
