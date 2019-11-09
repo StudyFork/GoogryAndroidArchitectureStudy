@@ -15,7 +15,6 @@ class SearchBlogAndNewsAdapter : RecyclerView.Adapter<SearchBlogAndNewsAdapter.V
 
     private var items: ArrayList<SearchedItem> = arrayListOf()
 
-
     override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

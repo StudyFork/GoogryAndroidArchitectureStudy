@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         searchBlogAndNewsAdapter = SearchBlogAndNewsAdapter()
     }
 
-
     private fun registerOnClickListener() {
         btn_search.setOnClickListener(this)
         btn_search_type_movie.setOnClickListener(this)

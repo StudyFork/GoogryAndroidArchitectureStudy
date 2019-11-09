@@ -44,5 +44,4 @@ class NaverRemoteDataSourceImpl(private val naverApiService: RetrofitService) :
         })
     }
 
-
 }
