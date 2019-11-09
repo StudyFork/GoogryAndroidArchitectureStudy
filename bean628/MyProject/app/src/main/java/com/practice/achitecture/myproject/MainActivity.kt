@@ -10,10 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSource
 import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSourceImpl
 import com.practice.achitecture.myproject.model.SearchedItem
-import common.SEARCH_TYPE_BLOG
-import common.SEARCH_TYPE_BOOK
-import common.SEARCH_TYPE_MOVIE
-import common.SEARCH_TYPE_NEWS
+import com.practice.achitecture.myproject.network.RetrofitClient
+import common.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -21,6 +19,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var searchType: Int = SEARCH_TYPE_MOVIE
     private var searchMovieAndBookAdapter: SearchMovieAndBookAdapter? = null
     private var searchBlogAndNewsAdapter: SearchBlogAndNewsAdapter? = null
+    private var naverRemoteDataSourceImpl =
+        NaverRemoteDataSourceImpl(RetrofitClient(NAVER_API_BASE_URL).makeRetrofitServiceForNaver())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             else -> "movie"
         }
 
-        NaverRemoteDataSourceImpl.searchWordByNaver(
+        naverRemoteDataSourceImpl.searchWordByNaver(
             category,
             word,
             object : NaverRemoteDataSource.GettingResultOfSearchingCallBack {
