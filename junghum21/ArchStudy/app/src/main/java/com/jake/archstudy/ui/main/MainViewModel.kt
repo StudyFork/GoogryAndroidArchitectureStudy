@@ -26,9 +26,8 @@ class MainViewModel(
                 val markets = response.asSequence()
                     .groupBy { it.market.substringBefore("-") }
                     .map { map ->
-                        val title = map.key
-                        val markets = map.value.joinToString { it.market }
-                        Market(title, markets)
+                        val (title, market) = map.key to map.value.joinToString { it.market }
+                        Market(title, market)
                     }
                 _markets.value = markets
             },
