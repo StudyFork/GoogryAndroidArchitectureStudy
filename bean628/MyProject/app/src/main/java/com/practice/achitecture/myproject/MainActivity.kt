@@ -6,22 +6,27 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSource
-import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSourceImpl
+import com.practice.achitecture.myproject.data.source.remote.NaverRepository
+import com.practice.achitecture.myproject.main.MainContract
+import com.practice.achitecture.myproject.main.MainPresenter
 import com.practice.achitecture.myproject.model.SearchedItem
-import com.practice.achitecture.myproject.network.RetrofitClient
 import com.practice.achitecture.myproject.network.retrofitErrorHandler
-import common.*
+import common.SEARCH_TYPE_BLOG
+import common.SEARCH_TYPE_BOOK
+import common.SEARCH_TYPE_MOVIE
+import common.SEARCH_TYPE_NEWS
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : BaseActivity(),
+    View.OnClickListener,
+    MainContract.View {
+
+    override lateinit var presenter: MainContract.Presenter
 
     private var searchType: Int = SEARCH_TYPE_MOVIE
     private var searchMovieAndBookAdapter: SearchMovieAndBookAdapter? = null
     private var searchBlogAndNewsAdapter: SearchBlogAndNewsAdapter? = null
-    private val naverRemoteDataSource =
-        NaverRemoteDataSourceImpl(RetrofitClient(NAVER_API_BASE_URL).makeRetrofitServiceForNaver())
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +34,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         registerOnClickListener()
         initAdapter()
+
+        presenter = MainPresenter(this, NaverRepository)
     }
 
     private fun initAdapter() {
@@ -92,28 +99,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             else -> "movie"
         }
 
-        naverRemoteDataSource.searchWordByNaver(
-            category,
-            word,
-            object : NaverRemoteDataSource.GettingResultOfSearchingCallBack {
+        presenter.searchWordByNaver(category, word)
+    }
 
-                override fun onSuccess(items: List<SearchedItem>) {
-                    when (this@MainActivity.searchType) {
-                        SEARCH_TYPE_MOVIE, SEARCH_TYPE_BOOK -> {
-                            searchMovieAndBookAdapter?.notifyDataSetChanged(items)
-                            rv_searched_list.adapter = searchMovieAndBookAdapter
-                        }
-                        SEARCH_TYPE_BLOG, SEARCH_TYPE_NEWS -> {
-                            searchBlogAndNewsAdapter?.notifyDataSetChanged(items)
-                            rv_searched_list.adapter = searchBlogAndNewsAdapter
-                        }
-                    }
-                }
 
-                override fun onFailure(throwable: Throwable) {
-                    retrofitErrorHandler(this@MainActivity, throwable)
-                }
-            })
+    override fun searchingOnSuccess(items: List<SearchedItem>) {
+        when (this@MainActivity.searchType) {
+            SEARCH_TYPE_MOVIE, SEARCH_TYPE_BOOK -> {
+                searchMovieAndBookAdapter?.notifyDataSetChanged(items)
+                rv_searched_list.adapter = searchMovieAndBookAdapter
+            }
+            SEARCH_TYPE_BLOG, SEARCH_TYPE_NEWS -> {
+                searchBlogAndNewsAdapter?.notifyDataSetChanged(items)
+                rv_searched_list.adapter = searchBlogAndNewsAdapter
+            }
+        }
+    }
+
+    override fun searchingOnFailure(throwable: Throwable) {
+        retrofitErrorHandler(this@MainActivity, throwable)
     }
 
 }
