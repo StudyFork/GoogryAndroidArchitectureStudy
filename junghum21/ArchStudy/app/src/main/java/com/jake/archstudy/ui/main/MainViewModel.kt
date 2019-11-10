@@ -33,7 +33,7 @@ class MainViewModel(
                 _markets.value = markets
             },
             failure = {
-                _toast.value = resourceProvider.getString(R.string.fail_network)
+                toast(resourceProvider.getString(R.string.fail_network))
             }
         )
     }
