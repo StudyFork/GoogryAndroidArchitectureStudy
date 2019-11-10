@@ -3,6 +3,7 @@
 
     <string name="toast_empty_word">검색어를 입력해주세요.</string>
     <string name="toast_empty_result">검색 결과가 없습니다.</string>
+    <string name="toast_network_error_msg">네트워크 통신 장애입니다.</string>
     <string name="btn_search">검색</string>
     <string name="btn_movie">영화</string>
     <string name="btn_book">책</string>
@@ -10,4 +11,5 @@
     <string name="btn_news">뉴스</string>
 
     <string name="image_content_description">영화 포스터 또는 책 표지 이미지입니다.</string>
+
 </resources>

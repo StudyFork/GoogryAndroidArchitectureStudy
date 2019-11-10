@@ -17,7 +17,6 @@ class SearchMovieAndBookAdapter : RecyclerView.Adapter<SearchMovieAndBookAdapter
 
     private var items: ArrayList<SearchedItem> = ArrayList()
 
-
     override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
