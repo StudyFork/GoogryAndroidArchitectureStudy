@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import com.practice.achitecture.myproject.BaseActivity
 import com.practice.achitecture.myproject.R
 import com.practice.achitecture.myproject.data.source.remote.NaverRepository
+import com.practice.achitecture.myproject.makeToast
 import com.practice.achitecture.myproject.model.SearchedItem
 import com.practice.achitecture.myproject.network.retrofitErrorHandler
 import common.SEARCH_TYPE_BLOG
@@ -85,11 +85,7 @@ class MainActivity : BaseActivity(),
 
         val word = input_search_sth.text.toString()
         if (word.isEmpty()) {
-            Toast.makeText(
-                this@MainActivity,
-                getString(R.string.toast_empty_word),
-                Toast.LENGTH_SHORT
-            ).show()
+            makeToast(R.string.toast_empty_word)
             return
         }
         this.searchType = searchType
