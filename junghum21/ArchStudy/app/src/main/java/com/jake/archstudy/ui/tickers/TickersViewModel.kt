@@ -25,8 +25,7 @@ class TickersViewModel(
         repository.getTicker(
             markets = marketName,
             success = { response ->
-                val tickers = response.map { it.toTicker() }
-                _tickers.value = tickers
+                _tickers.value = response.map { it.toTicker() }
             },
             failure = {
                 _toast.value = resourceProvider.getString(R.string.fail_network)
