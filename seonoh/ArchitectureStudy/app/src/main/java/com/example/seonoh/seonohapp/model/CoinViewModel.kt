@@ -1,26 +1,31 @@
 package com.example.seonoh.seonohapp.model
 
 import android.util.Log
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.seonoh.seonohapp.repository.CoinRepositoryImpl
 import com.example.seonoh.seonohapp.util.CalculateUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class CoinViewModel(private val repo : CoinRepositoryImpl) : BaseViewModel() {
-    val coinItem = ObservableField<List<UseCoinModel>>()
+class CoinViewModel(private val repo: CoinRepositoryImpl) : BaseViewModel() {
+    private val _coinItem = MutableLiveData<List<UseCoinModel>>()
+
+    val coinItem: LiveData<List<UseCoinModel>>
+        get() = _coinItem
 
     private fun handleError(throwable: Throwable) {
         Log.e("currentPriceInfo", "Main Network failed!! ${throwable.message}")
     }
 
     fun loadData(marketName: String) {
-
         repo.sendCurrentPriceInfo(marketName)
             .map(::refineData)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(coinItem::set, ::handleError)
+            .subscribe({
+                _coinItem.value = it
+            }, ::handleError)
             .addCompositeDisposable()
     }
 
