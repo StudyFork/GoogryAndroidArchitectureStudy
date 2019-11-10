@@ -13,9 +13,7 @@ interface MainContract {
     }
 
     interface Presenter : BasePresenter {
-
         fun searchWordByNaver(category: String, word: String)
-
     }
 
 }

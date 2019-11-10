@@ -1,8 +1,6 @@
 package com.practice.achitecture.myproject.main
 
-import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +10,8 @@ import com.practice.achitecture.myproject.R
 import com.practice.achitecture.myproject.model.SearchedItem
 import kotlinx.android.synthetic.main.item_blog_and_news.view.*
 
-class SearchBlogAndNewsAdapter : RecyclerView.Adapter<SearchBlogAndNewsAdapter.ViewHolder>() {
+class SearchBlogAndNewsAdapter(private val searchedItemClickListener: SearchedItemClickListener) :
+    RecyclerView.Adapter<SearchBlogAndNewsAdapter.ViewHolder>() {
 
     private var items: ArrayList<SearchedItem> = arrayListOf()
 
@@ -39,12 +38,7 @@ class SearchBlogAndNewsAdapter : RecyclerView.Adapter<SearchBlogAndNewsAdapter.V
         val viewHolder =
             ViewHolder(inflatedView)
         inflatedView.setOnClickListener {
-            parent.context.startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(items[viewHolder.adapterPosition].link)
-                )
-            )
+            searchedItemClickListener.onItemClick(items[viewHolder.adapterPosition])
         }
 
         return viewHolder

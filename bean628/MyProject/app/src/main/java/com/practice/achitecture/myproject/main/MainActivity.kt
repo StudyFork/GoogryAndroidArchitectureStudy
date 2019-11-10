@@ -1,6 +1,8 @@
 package com.practice.achitecture.myproject.main
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -26,7 +28,12 @@ class MainActivity : BaseActivity(),
     private var searchType: Int = SEARCH_TYPE_MOVIE
     private var searchMovieAndBookAdapter: SearchMovieAndBookAdapter? = null
     private var searchBlogAndNewsAdapter: SearchBlogAndNewsAdapter? = null
-
+    private val searchedItemListener: SearchedItemClickListener =
+        object : SearchedItemClickListener {
+            override fun onItemClick(item: SearchedItem) {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(item.link)))
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +47,9 @@ class MainActivity : BaseActivity(),
 
     private fun initAdapter() {
         searchMovieAndBookAdapter =
-            SearchMovieAndBookAdapter()
+            SearchMovieAndBookAdapter(searchedItemListener)
         searchBlogAndNewsAdapter =
-            SearchBlogAndNewsAdapter()
+            SearchBlogAndNewsAdapter(searchedItemListener)
     }
 
     private fun registerOnClickListener() {

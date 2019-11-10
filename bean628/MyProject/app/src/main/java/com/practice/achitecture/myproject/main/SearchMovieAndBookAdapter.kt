@@ -1,7 +1,5 @@
 package com.practice.achitecture.myproject.main
 
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +12,8 @@ import kotlinx.android.synthetic.main.item_blog_and_news.view.tv_description
 import kotlinx.android.synthetic.main.item_blog_and_news.view.tv_title
 import kotlinx.android.synthetic.main.item_book_and_movie.view.*
 
-class SearchMovieAndBookAdapter : RecyclerView.Adapter<SearchMovieAndBookAdapter.ViewHolder>() {
+class SearchMovieAndBookAdapter(private val searchedItemClickListener: SearchedItemClickListener) :
+    RecyclerView.Adapter<SearchMovieAndBookAdapter.ViewHolder>() {
 
     private var items: ArrayList<SearchedItem> = ArrayList()
 
@@ -43,12 +42,7 @@ class SearchMovieAndBookAdapter : RecyclerView.Adapter<SearchMovieAndBookAdapter
                 inflatedView
             )
         inflatedView.setOnClickListener {
-            parent.context.startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(items[viewHolder.adapterPosition].link)
-                )
-            )
+            searchedItemClickListener.onItemClick(items[viewHolder.adapterPosition])
         }
 
         return viewHolder
