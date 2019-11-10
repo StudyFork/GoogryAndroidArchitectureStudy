@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var searchType: Int = SEARCH_TYPE_MOVIE
     private var searchMovieAndBookAdapter: SearchMovieAndBookAdapter? = null
     private var searchBlogAndNewsAdapter: SearchBlogAndNewsAdapter? = null
-    private var naverRemoteDataSourceImpl =
+    private val naverRemoteDataSource =
         NaverRemoteDataSourceImpl(RetrofitClient(NAVER_API_BASE_URL).makeRetrofitServiceForNaver())
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             else -> "movie"
         }
 
-        naverRemoteDataSourceImpl.searchWordByNaver(
+        naverRemoteDataSource.searchWordByNaver(
             category,
             word,
             object : NaverRemoteDataSource.GettingResultOfSearchingCallBack {
