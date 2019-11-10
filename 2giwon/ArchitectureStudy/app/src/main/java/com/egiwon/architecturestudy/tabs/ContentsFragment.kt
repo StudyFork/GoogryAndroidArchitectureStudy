@@ -7,13 +7,19 @@ import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.base.BaseFragment
 import com.egiwon.architecturestudy.data.Content
 import com.egiwon.architecturestudy.data.source.NaverDataRepository
-import com.egiwon.architecturestudy.data.source.NaverDataSource
 import com.egiwon.architecturestudy.data.source.remote.NaverRemoteDataSource
 import kotlinx.android.synthetic.main.fg_contents.*
 
 class ContentsFragment : BaseFragment(
     R.layout.fg_contents
-) {
+), ContentsContract.View {
+
+    override val presenter: ContentsContract.Presenter =
+        ContentsPresenter(
+            this,
+            NaverDataRepository(NaverRemoteDataSource())
+        )
+
 
     private val type: String by lazy { arguments?.getString(ARG_TYPE, "") ?: "" }
 
@@ -40,23 +46,22 @@ class ContentsFragment : BaseFragment(
         }
     }
 
-    private fun requestSearch() {
-        NaverDataRepository.getInstance(
-            NaverRemoteDataSource.getInstance()
-        ).getContents(
-            type = type,
-            query = et_search.text.toString(),
-            callback = object : NaverDataSource.Callback {
-                override fun onSuccess(list: List<Content.Item>) {
-                    (rv_contents.adapter as? ContentsAdapter)?.setList(list)
-                    progress_circular.visibility = View.GONE
-                }
+    override fun onUpdateUi(content: List<Content.Item>) {
+        (rv_contents.adapter as? ContentsAdapter)?.setList(content)
+        progress_circular.visibility = View.GONE
 
-                override fun onFailure(throwable: Throwable) {
-                    showToast(getString(R.string.callback_fail))
-                    progress_circular.visibility = View.GONE
-                }
-            })
+    }
+
+    override fun onFail(throwable: Throwable) {
+        showToast(getString(R.string.callback_fail))
+        progress_circular.visibility = View.GONE
+    }
+
+    private fun requestSearch() {
+        presenter.loadContents(
+            type,
+            et_search.text.toString()
+        )
 
         progress_circular.visibility = View.VISIBLE
     }
