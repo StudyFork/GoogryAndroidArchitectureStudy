@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/btn_text_white"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".main.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

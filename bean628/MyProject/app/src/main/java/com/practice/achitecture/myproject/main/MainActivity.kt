@@ -1,4 +1,4 @@
-package com.practice.achitecture.myproject
+package com.practice.achitecture.myproject.main
 
 import android.content.Context
 import android.os.Bundle
@@ -6,9 +6,9 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import com.practice.achitecture.myproject.BaseActivity
+import com.practice.achitecture.myproject.R
 import com.practice.achitecture.myproject.data.source.remote.NaverRepository
-import com.practice.achitecture.myproject.main.MainContract
-import com.practice.achitecture.myproject.main.MainPresenter
 import com.practice.achitecture.myproject.model.SearchedItem
 import com.practice.achitecture.myproject.network.retrofitErrorHandler
 import common.SEARCH_TYPE_BLOG
@@ -39,8 +39,10 @@ class MainActivity : BaseActivity(),
     }
 
     private fun initAdapter() {
-        searchMovieAndBookAdapter = SearchMovieAndBookAdapter()
-        searchBlogAndNewsAdapter = SearchBlogAndNewsAdapter()
+        searchMovieAndBookAdapter =
+            SearchMovieAndBookAdapter()
+        searchBlogAndNewsAdapter =
+            SearchBlogAndNewsAdapter()
     }
 
     private fun registerOnClickListener() {

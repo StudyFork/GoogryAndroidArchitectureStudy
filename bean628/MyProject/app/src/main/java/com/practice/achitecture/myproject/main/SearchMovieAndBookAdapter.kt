@@ -1,19 +1,22 @@
-package com.practice.achitecture.myproject
+package com.practice.achitecture.myproject.main
 
 import android.content.Intent
-import android.graphics.Color
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.practice.achitecture.myproject.R
 import com.practice.achitecture.myproject.model.SearchedItem
-import kotlinx.android.synthetic.main.item_blog_and_news.view.*
+import common.GlideWrapper
+import kotlinx.android.synthetic.main.item_blog_and_news.view.tv_description
+import kotlinx.android.synthetic.main.item_blog_and_news.view.tv_title
+import kotlinx.android.synthetic.main.item_book_and_movie.view.*
 
-class SearchBlogAndNewsAdapter : RecyclerView.Adapter<SearchBlogAndNewsAdapter.ViewHolder>() {
+class SearchMovieAndBookAdapter : RecyclerView.Adapter<SearchMovieAndBookAdapter.ViewHolder>() {
 
-    private var items: ArrayList<SearchedItem> = arrayListOf()
+    private var items: ArrayList<SearchedItem> = ArrayList()
 
     override fun getItemCount() = items.size
 
@@ -34,8 +37,11 @@ class SearchBlogAndNewsAdapter : RecyclerView.Adapter<SearchBlogAndNewsAdapter.V
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflatedView: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_blog_and_news, parent, false)
-        val viewHolder = ViewHolder(inflatedView)
+            .inflate(R.layout.item_book_and_movie, parent, false)
+        val viewHolder =
+            ViewHolder(
+                inflatedView
+            )
         inflatedView.setOnClickListener {
             parent.context.startActivity(
                 Intent(
@@ -48,17 +54,21 @@ class SearchBlogAndNewsAdapter : RecyclerView.Adapter<SearchBlogAndNewsAdapter.V
         return viewHolder
     }
 
-    class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(item: SearchedItem?) {
-            val title = item?.title ?: ""
-            val description = item?.description ?: ""
 
-            itemView.setBackgroundColor(Color.WHITE)
+            if (item?.image != null) {
+                GlideWrapper.showImage(itemView.iv_main_image, item.image)
+            }
+
+            val title = item?.title ?: ""
+            val content = item?.description ?: item?.director ?: ""
+
             itemView.tv_title.text =
                 HtmlCompat.fromHtml(title, HtmlCompat.FROM_HTML_MODE_COMPACT)
             itemView.tv_description.text =
-                HtmlCompat.fromHtml(description, HtmlCompat.FROM_HTML_MODE_COMPACT)
+                HtmlCompat.fromHtml(content, HtmlCompat.FROM_HTML_MODE_COMPACT)
         }
     }
 }
