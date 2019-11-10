@@ -6,7 +6,10 @@ import androidx.lifecycle.ViewModel
 
 abstract class BaseViewModel : ViewModel() {
 
-    protected val _toast = MutableLiveData<String>()
+    private val _toast = MutableLiveData<String>()
     val toast: LiveData<String> = _toast
 
+    fun toast(message: String) {
+        _toast.value = message
+    }
 }
