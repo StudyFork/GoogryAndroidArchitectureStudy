@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.god.taeiim.myapplication.R
 import com.god.taeiim.myapplication.api.model.SearchResult
 import com.god.taeiim.myapplication.data.NaverRepositoryImpl
@@ -20,9 +19,7 @@ class ContentsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
-    }
+    ): View? = inflater.inflate(R.layout.fragment_main, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -31,23 +28,19 @@ class ContentsFragment : Fragment() {
             searchType = it
         }
         adapter = SearchResultRecyclerAdapter(searchType)
-
-        with(searchResultRecyclerView) {
-            layoutManager = LinearLayoutManager(context)
-            adapter = this@ContentsFragment.adapter
-        }
+        searchResultRecyclerView.adapter = this@ContentsFragment.adapter
 
         searchBtn.setOnClickListener {
-            searchEditTv.text.toString()?.let { searchBlog(it) }
+            searchEditTv.text.toString().let { searchBlog(it) }
         }
     }
 
     private fun searchBlog(query: String) {
         NaverRepositoryImpl.getResultData(
-            arguments?.getString(ARG_TYPE, "") ?: "",
+            searchType,
             query,
             success = { refreshItems(it) },
-            fail = { clearItems() }
+            fail = { failToSearch() }
         )
     }
 
@@ -55,7 +48,7 @@ class ContentsFragment : Fragment() {
         adapter.setItems(resultList.items)
     }
 
-    private fun clearItems() {
+    private fun failToSearch() {
         adapter.clearItems()
         Toast.makeText(context, getString(R.string.err_search), Toast.LENGTH_SHORT).show()
     }

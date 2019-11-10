@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.god.taeiim.myapplication.R
 import com.god.taeiim.myapplication.Tabs
 import com.god.taeiim.myapplication.api.model.SearchResult
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.item_contents.view.*
 
 class SearchResultRecyclerAdapter(private val searchType: String) :
     RecyclerView.Adapter<SearchResultRecyclerAdapter.ViewHolder>() {
-    private var resultList = ArrayList<SearchResult.Item>()
+    private val resultList = mutableListOf<SearchResult.Item>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(
@@ -27,9 +28,7 @@ class SearchResultRecyclerAdapter(private val searchType: String) :
             )
         )
 
-    override fun getItemCount(): Int {
-        return resultList.size
-    }
+    override fun getItemCount(): Int = resultList.size
 
     fun setItems(items: List<SearchResult.Item>) {
         resultList.clear()
@@ -49,22 +48,6 @@ class SearchResultRecyclerAdapter(private val searchType: String) :
                 descTv.text = item.description.fromHtml()
 
                 when (searchType) {
-                    getSearchType(Tabs.MOVIE), getSearchType(Tabs.BOOK) -> {
-                        with(item.image) {
-                            if (!this.isNullOrBlank()) {
-                                thumbnailIv.visibility = View.VISIBLE
-                                com.bumptech.glide.Glide.with(holder.itemView.context)
-                                    .load(this)
-                                    .into(thumbnailIv)
-
-                            } else {
-                                thumbnailIv.visibility = View.GONE
-                            }
-                        }
-                    }
-                }
-
-                when (searchType) {
                     getSearchType(Tabs.BLOG) -> {
                         subTitleTv.text = item.postdate.fromHtml()
                     }
@@ -72,15 +55,34 @@ class SearchResultRecyclerAdapter(private val searchType: String) :
                         subTitleTv.visibility = View.GONE
                     }
                     getSearchType(Tabs.MOVIE) -> {
+                        setImage(item, holder)
                         subTitleTv.text = item.pubDate.fromHtml()
                         descTv.text = (item.director + item.actor).fromHtml()
                     }
                     getSearchType(Tabs.BOOK) -> {
+                        setImage(item, holder)
                         subTitleTv.text = item.author.fromHtml()
                     }
                 }
             }
             holder.link = item.link
+        }
+    }
+
+    private fun View.setImage(
+        item: SearchResult.Item,
+        holder: ViewHolder
+    ) {
+        with(item.image) {
+            if (!this.isNullOrBlank()) {
+                thumbnailIv.visibility = View.VISIBLE
+                Glide.with(holder.itemView.context)
+                    .load(this)
+                    .into(thumbnailIv)
+
+            } else {
+                thumbnailIv.visibility = View.GONE
+            }
         }
     }
 
