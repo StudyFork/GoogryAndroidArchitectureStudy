@@ -13,10 +13,9 @@ import com.test.androidarchitecture.databinding.FragmentCoinBinding
 class TickerFragment : BaseFragment<FragmentCoinBinding, TickerViewModel>(R.layout.fragment_coin) {
 
     override val vm by lazy {
-        ViewModelProviders.of(this, object : ViewModelProvider.Factory{
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return TickerViewModel(arguments?.getString(MARKET_SEARCH) ?: "") as T
-            }
+        ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T =
+                TickerViewModel(arguments?.getString(MARKET_SEARCH) ?: "") as T
         }).get(TickerViewModel::class.java)
     }
 
