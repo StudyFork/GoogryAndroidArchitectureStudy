@@ -12,10 +12,9 @@ import com.god.taeiim.myapplication.R
 import com.god.taeiim.myapplication.Tabs
 import com.god.taeiim.myapplication.api.model.SearchResult
 import com.god.taeiim.myapplication.extensions.fromHtml
-import com.god.taeiim.myapplication.getSearchType
 import kotlinx.android.synthetic.main.item_contents.view.*
 
-class SearchResultRecyclerAdapter(private val searchType: String) :
+class SearchResultRecyclerAdapter(private val tab: Tabs) :
     RecyclerView.Adapter<SearchResultRecyclerAdapter.ViewHolder>() {
     private val resultList = mutableListOf<SearchResult.Item>()
 
@@ -47,19 +46,19 @@ class SearchResultRecyclerAdapter(private val searchType: String) :
                 titleTv.text = item.title.fromHtml()
                 descTv.text = item.description.fromHtml()
 
-                when (searchType) {
-                    getSearchType(Tabs.BLOG) -> {
+                when (tab) {
+                    Tabs.BLOG -> {
                         subTitleTv.text = item.postdate.fromHtml()
                     }
-                    getSearchType(Tabs.NEWS) -> {
+                    Tabs.NEWS -> {
                         subTitleTv.visibility = View.GONE
                     }
-                    getSearchType(Tabs.MOVIE) -> {
+                    Tabs.MOVIE -> {
                         setImage(item, holder)
                         subTitleTv.text = item.pubDate.fromHtml()
                         descTv.text = (item.director + item.actor).fromHtml()
                     }
-                    getSearchType(Tabs.BOOK) -> {
+                    Tabs.BOOK -> {
                         setImage(item, holder)
                         subTitleTv.text = item.author.fromHtml()
                     }

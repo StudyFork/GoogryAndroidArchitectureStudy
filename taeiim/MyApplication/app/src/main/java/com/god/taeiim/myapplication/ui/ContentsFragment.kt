@@ -7,13 +7,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.god.taeiim.myapplication.R
+import com.god.taeiim.myapplication.Tabs
 import com.god.taeiim.myapplication.api.model.SearchResult
 import com.god.taeiim.myapplication.data.NaverRepositoryImpl
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class ContentsFragment : Fragment() {
     private lateinit var adapter: SearchResultRecyclerAdapter
-    private var searchType = ""
+    private lateinit var searchType: Tabs
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,20 +25,20 @@ class ContentsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        arguments?.getString(ARG_TYPE)?.let {
-            searchType = it
+        arguments?.getSerializable(ARG_TYPE)?.let {
+            searchType = it as Tabs
         }
         adapter = SearchResultRecyclerAdapter(searchType)
         searchResultRecyclerView.adapter = this@ContentsFragment.adapter
 
         searchBtn.setOnClickListener {
-            searchEditTv.text.toString().let { searchBlog(it) }
+            searchEditTv.text.toString().let { searchContents(it) }
         }
     }
 
-    private fun searchBlog(query: String) {
+    private fun searchContents(query: String) {
         NaverRepositoryImpl.getResultData(
-            searchType,
+            searchType.name,
             query,
             success = { refreshItems(it) },
             fail = { failToSearch() }
@@ -54,12 +55,12 @@ class ContentsFragment : Fragment() {
     }
 
     companion object {
-        private const val ARG_TYPE = ""
+        private const val ARG_TYPE = "type"
 
-        fun newInstance(type: String) =
+        fun newInstance(type: Tabs) =
             ContentsFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_TYPE, type)
+                    putSerializable(ARG_TYPE, type)
                 }
             }
 
