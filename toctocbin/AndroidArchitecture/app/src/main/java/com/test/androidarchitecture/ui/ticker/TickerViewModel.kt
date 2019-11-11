@@ -16,8 +16,8 @@ import java.util.*
 class TickerViewModel(private val marketSearch: String) : BaseViewModel() {
 
     private val upbitRepository = UpbitRepository
-    private var _tickerList = MutableLiveData<List<TickerFormat>>()
-    var tickerList : LiveData<List<TickerFormat>> = _tickerList
+    private val _tickerList = MutableLiveData<List<TickerFormat>>()
+    val tickerList : LiveData<List<TickerFormat>> = _tickerList
 
     init {
         getTicker()
