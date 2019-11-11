@@ -9,7 +9,7 @@ abstract class BaseViewModel : ViewModel() {
     private val _toast = MutableLiveData<String>()
     val toast: LiveData<String> = _toast
 
-    fun toast(message: String) {
+    fun showToast(message: String) {
         _toast.value = message
     }
 }

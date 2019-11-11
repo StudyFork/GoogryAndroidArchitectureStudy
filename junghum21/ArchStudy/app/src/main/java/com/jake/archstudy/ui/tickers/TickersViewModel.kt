@@ -28,7 +28,7 @@ class TickersViewModel(
                 _tickers.value = response.map { it.toTicker() }
             },
             failure = {
-                toast(resourceProvider.getString(R.string.fail_network))
+                showToast(resourceProvider.getString(R.string.fail_network))
             }
         )
     }
