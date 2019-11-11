@@ -1,4 +1,4 @@
-package com.ironelder.androidarchitecture.component
+package com.ironelder.androidarchitecture.view
 
 import android.os.Bundle
 import android.view.*

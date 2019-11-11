@@ -1,4 +1,4 @@
-package com.ironelder.androidarchitecture.view
+package com.ironelder.androidarchitecture.ui
 
 import android.content.Context
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.ironelder.androidarchitecture.component
+package com.ironelder.androidarchitecture.view.mainview
 
 import android.os.Bundle
 import android.view.Menu
@@ -12,9 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ironelder.androidarchitecture.R
 import com.ironelder.androidarchitecture.common.BLOG
 import com.ironelder.androidarchitecture.common.TYPE_KEY
+import com.ironelder.androidarchitecture.view.BaseFragment
 import com.ironelder.androidarchitecture.data.TotalModel
 import com.ironelder.androidarchitecture.data.source.SearchDataSourceImpl
-import com.ironelder.androidarchitecture.view.CustomListViewAdapter
+import com.ironelder.androidarchitecture.component.CustomListViewAdapter
 import kotlinx.android.synthetic.main.layout_search_listview.*
 
 
@@ -25,7 +26,8 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
 
     override fun doViewCreated(view: View, savedInstanceState: Bundle?) {
         with(rv_resultListView) {
-            adapter = CustomListViewAdapter(mType ?: BLOG)
+            adapter =
+                CustomListViewAdapter(mType ?: BLOG)
             setHasFixedSize(true)
             addItemDecoration(
                 DividerItemDecoration(

@@ -1,4 +1,4 @@
-package com.ironelder.androidarchitecture.component
+package com.ironelder.androidarchitecture.view.mainview
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -26,10 +26,18 @@ class MainActivity : AppCompatActivity() {
 
         override fun getItem(position: Int): Fragment {
             return when (position) {
-                1 -> MainFragment.newInstance(NEWS)
-                2 -> MainFragment.newInstance(BOOK)
-                3 -> MainFragment.newInstance(MOVIE)
-                else -> MainFragment.newInstance(BLOG)
+                1 -> MainFragment.newInstance(
+                    NEWS
+                )
+                2 -> MainFragment.newInstance(
+                    BOOK
+                )
+                3 -> MainFragment.newInstance(
+                    MOVIE
+                )
+                else -> MainFragment.newInstance(
+                    BLOG
+                )
             }
         }
 
