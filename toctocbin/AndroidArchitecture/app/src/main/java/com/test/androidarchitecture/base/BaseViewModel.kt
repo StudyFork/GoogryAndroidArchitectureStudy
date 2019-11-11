@@ -8,11 +8,16 @@ import io.reactivex.disposables.CompositeDisposable
 abstract class BaseViewModel : ViewModel() {
 
     protected val compositeDisposable = CompositeDisposable()
-    protected val _toastMessage = MutableLiveData<String>()
+    private val _toastMessage = MutableLiveData<String>()
     val toastMessage: LiveData<String> = _toastMessage
 
     override fun onCleared() {
         compositeDisposable.clear()
         super.onCleared()
+    }
+
+
+    fun setToastMessage(s: String){
+        _toastMessage.value = s
     }
 }
