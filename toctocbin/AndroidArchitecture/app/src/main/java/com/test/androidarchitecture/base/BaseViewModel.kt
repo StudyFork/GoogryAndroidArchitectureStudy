@@ -17,7 +17,7 @@ abstract class BaseViewModel : ViewModel() {
     }
 
 
-    fun setToastMessage(s: String){
+    fun showToastMessage(s: String){
         _toastMessage.value = s
     }
 }

@@ -35,7 +35,7 @@ class TickerViewModel(private val marketSearch: String) : BaseViewModel() {
                 {
                     _tickerList.value = it
                 }, {
-                    setToastMessage(it.message.toString())
+                    showToastMessage(it.message.toString())
                 }
             )
             .addTo(compositeDisposable)
