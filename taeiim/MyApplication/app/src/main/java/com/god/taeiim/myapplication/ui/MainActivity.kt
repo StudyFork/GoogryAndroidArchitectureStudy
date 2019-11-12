@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.god.taeiim.myapplication.R
+import com.god.taeiim.myapplication.Tabs
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -27,10 +28,10 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.findFragmentByTag(
             itemId.toString()
         ) ?: when (itemId) {
-            R.id.blogNavigation -> BlogFragment()
-            R.id.newsNavigation -> NewsFragment()
-            R.id.movieNavigation -> MovieFragment()
-            R.id.bookNavigation -> BookFragment()
+            R.id.blogNavigation -> ContentsFragment.newInstance(Tabs.BLOG)
+            R.id.newsNavigation -> ContentsFragment.newInstance(Tabs.NEWS)
+            R.id.movieNavigation -> ContentsFragment.newInstance(Tabs.MOVIE)
+            R.id.bookNavigation -> ContentsFragment.newInstance(Tabs.BOOK)
             else -> null
         }?.let { replaceFragment(it) }
     }
