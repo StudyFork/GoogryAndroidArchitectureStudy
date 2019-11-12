@@ -31,7 +31,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        vm.toastMessage.observe(this, Observer {
+        vm.toastMessage.observe(viewLifecycleOwner, Observer {
             Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
         })
     }
