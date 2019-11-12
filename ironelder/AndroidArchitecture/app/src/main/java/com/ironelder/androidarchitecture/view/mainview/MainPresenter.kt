@@ -6,8 +6,12 @@ import com.ironelder.androidarchitecture.data.source.SearchDataSourceImpl
 class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
     override fun search(
         type: String,
-        query: String
+        query: String,
+        defaultMsg:String
     ) {
+        if(query.isNullOrEmpty()){
+            view.showErrorMessage(defaultMsg)
+        }
         view.showLoading()
         SearchDataSourceImpl.getDataForSearch(
             type,

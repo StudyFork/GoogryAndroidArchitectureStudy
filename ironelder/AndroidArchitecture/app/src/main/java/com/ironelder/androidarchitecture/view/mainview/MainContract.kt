@@ -14,7 +14,8 @@ interface MainContract {
     interface Presenter {
         fun search(
             type: String,
-            query: String
+            query: String,
+            defaultMsg: String
         )
 
     }
