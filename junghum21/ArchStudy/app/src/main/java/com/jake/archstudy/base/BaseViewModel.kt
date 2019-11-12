@@ -1,9 +1,15 @@
 package com.jake.archstudy.base
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 
-abstract class BaseViewModel {
+abstract class BaseViewModel : ViewModel() {
 
-    val toast = ObservableField<String>()
+    private val _toast = MutableLiveData<String>()
+    val toast: LiveData<String> = _toast
 
+    fun showToast(message: String) {
+        _toast.value = message
+    }
 }

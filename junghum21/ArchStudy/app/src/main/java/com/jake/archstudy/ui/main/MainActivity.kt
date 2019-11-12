@@ -1,8 +1,11 @@
 package com.jake.archstudy.ui.main
 
 import android.os.Bundle
-import androidx.databinding.Observable
 import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.jake.archstudy.R
 import com.jake.archstudy.base.BaseActivity
 import com.jake.archstudy.data.model.Market
@@ -17,10 +20,15 @@ class MainActivity :
     BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.activity_main) {
 
     override val viewModel by lazy {
-        MainViewModel(
-            UpbitRepository.getInstance(UpbitRemoteDataSource(ApiUtil.getUpbitService())),
-            ResourceProviderImpl(applicationContext)
-        )
+        @Suppress("UNCHECKED_CAST")
+        ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MainViewModel(
+                    UpbitRepository.getInstance(UpbitRemoteDataSource(ApiUtil.getUpbitService())),
+                    ResourceProviderImpl(applicationContext)
+                ) as T
+            }
+        }).get(MainViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,13 +39,10 @@ class MainActivity :
     }
 
     private fun observeMarkets() {
-        viewModel.markets.run {
-            addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    setViewPager(get() ?: return)
-                }
-            })
-        }
+        viewModel.markets.observe(
+            this,
+            Observer { setViewPager(it) }
+        )
     }
 
     private fun setViewPager(markets: List<Market>) {

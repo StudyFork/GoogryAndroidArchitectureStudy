@@ -1,6 +1,7 @@
 package com.jake.archstudy.ui.main
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.jake.archstudy.R
 import com.jake.archstudy.base.BaseViewModel
 import com.jake.archstudy.data.model.Market
@@ -12,7 +13,8 @@ class MainViewModel(
     private val resourceProvider: ResourceProvider
 ) : BaseViewModel() {
 
-    val markets = ObservableField<List<Market>>()
+    private val _markets = MutableLiveData<List<Market>>()
+    val markets: LiveData<List<Market>> = _markets
 
     init {
         getMarketAll()
@@ -20,18 +22,17 @@ class MainViewModel(
 
     private fun getMarketAll() {
         repository.getMarketAll(
-            { response ->
+            success = { response ->
                 val markets = response.asSequence()
                     .groupBy { it.market.substringBefore("-") }
                     .map { map ->
-                        val title = map.key
-                        val markets = map.value.joinToString { it.market }
-                        Market(title, markets)
+                        val (title, market) = map.key to map.value.joinToString { it.market }
+                        Market(title, market)
                     }
-                this.markets.set(markets)
+                _markets.value = markets
             },
-            {
-                toast.set(resourceProvider.getString(R.string.fail_network))
+            failure = {
+                showToast(resourceProvider.getString(R.string.fail_network))
             }
         )
     }
