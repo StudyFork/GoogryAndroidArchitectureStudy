@@ -1,15 +1,21 @@
 package com.ironelder.androidarchitecture.view.mainview
 
+import com.ironelder.androidarchitecture.data.ResultItem
+
 interface MainContract {
-    interface View{
-        fun onDataChanged()
-        fun showErrorMessage()
+    interface View {
+        fun onDataChanged(result: ArrayList<ResultItem>)
+        fun showErrorMessage(msg: String)
+        fun showNoSearchData()
         fun showLoading()
         fun hideLoading()
-        fun openBrowser()
     }
+
     interface Presenter {
-        fun search()
-        fun clickItem()
+        fun search(
+            type: String,
+            query: String
+        )
+
     }
 }

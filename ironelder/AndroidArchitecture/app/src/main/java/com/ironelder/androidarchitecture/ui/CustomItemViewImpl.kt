@@ -10,11 +10,12 @@ import com.bumptech.glide.Glide
 import com.ironelder.androidarchitecture.R
 import com.ironelder.androidarchitecture.common.BLOG
 import com.ironelder.androidarchitecture.common.NEWS
-import com.ironelder.androidarchitecture.data.Item
+import com.ironelder.androidarchitecture.data.ResultItem
 import kotlinx.android.synthetic.main.item_custom_item_view.view.*
 
-class CustomItemViewImpl(context: Context?, private val mItemType: String) : ConstraintLayout(context),
-    CustomItemView<Item> {
+class CustomItemViewImpl(context: Context?, private val mItemType: String) :
+    ConstraintLayout(context),
+    CustomItemView<ResultItem> {
 
     init {
         LayoutInflater.from(context).inflate(R.layout.item_custom_item_view, this, true)
@@ -24,7 +25,7 @@ class CustomItemViewImpl(context: Context?, private val mItemType: String) : Con
         )
     }
 
-    override fun setData(item: Item) {
+    override fun setData(item: ResultItem) {
         tv_itemTitle.text = HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
         tv_itemContent.text = HtmlCompat.fromHtml(
             item.description ?: item.director,

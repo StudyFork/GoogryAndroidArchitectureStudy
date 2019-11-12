@@ -12,16 +12,43 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ironelder.androidarchitecture.R
 import com.ironelder.androidarchitecture.common.BLOG
 import com.ironelder.androidarchitecture.common.TYPE_KEY
-import com.ironelder.androidarchitecture.view.BaseFragment
+import com.ironelder.androidarchitecture.component.CustomListViewAdapter
+import com.ironelder.androidarchitecture.data.ResultItem
 import com.ironelder.androidarchitecture.data.TotalModel
 import com.ironelder.androidarchitecture.data.source.SearchDataSourceImpl
-import com.ironelder.androidarchitecture.component.CustomListViewAdapter
+import com.ironelder.androidarchitecture.view.BaseFragment
+import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.layout_search_listview.*
 
 
-class MainFragment : BaseFragment(R.layout.fragment_main) {
+class MainFragment : BaseFragment(R.layout.fragment_main), MainContract.View {
+    override fun showNoSearchData() {
+        noSearchLayout.visibility = View.VISIBLE
+    }
+
+    override fun onDataChanged(result: ArrayList<ResultItem>) {
+        (rv_resultListView?.adapter as? CustomListViewAdapter)?.setItemList(result)
+    }
+
+    override fun showErrorMessage(msg: String) {
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT)
+            .show()
+    }
+
+    override fun showLoading() {
+        loadingLayout.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        loadingLayout.visibility = View.GONE
+    }
+
     private val mType: String? by lazy {
         arguments?.getString(TYPE_KEY)
+    }
+
+    private val mPresenter: MainPresenter? by lazy {
+        MainPresenter(this)
     }
 
     override fun doViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,7 +60,6 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
                 DividerItemDecoration(
                     context,
                     LinearLayoutManager(context).orientation
-
                 )
             )
         }

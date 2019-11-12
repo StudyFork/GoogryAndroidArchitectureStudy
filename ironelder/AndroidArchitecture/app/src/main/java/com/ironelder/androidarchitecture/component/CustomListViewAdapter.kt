@@ -4,7 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.ironelder.androidarchitecture.data.Item
+import com.ironelder.androidarchitecture.data.ResultItem
 import com.ironelder.androidarchitecture.ui.CustomItemViewImpl
 
 
@@ -12,7 +12,7 @@ class CustomListViewAdapter(
     private val mType: String
 ) :
     RecyclerView.Adapter<CustomListViewAdapter.CustomItemViewHolder>() {
-    private val mItemList: ArrayList<Item> = arrayListOf()
+    private val mItemList: ArrayList<ResultItem> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomItemViewHolder {
         val customItemView =
@@ -31,7 +31,7 @@ class CustomListViewAdapter(
 
     override fun getItemCount() = mItemList.size
 
-    fun setItemList(list: ArrayList<Item>?) {
+    fun setItemList(list: ArrayList<ResultItem>?) {
         mItemList.clear()
         if (!list.isNullOrEmpty()) {
             mItemList.addAll(list)
@@ -39,7 +39,7 @@ class CustomListViewAdapter(
         notifyDataSetChanged()
     }
 
-    fun addItemList(list: ArrayList<Item>?) {
+    fun addItemList(list: ArrayList<ResultItem>?) {
         mItemList.addAll(list ?: arrayListOf())
         notifyItemRangeInserted(mItemList.size, list?.size ?: 0)
     }
@@ -51,7 +51,7 @@ class CustomListViewAdapter(
     inner class CustomItemViewHolder(v: CustomItemViewImpl) : RecyclerView.ViewHolder(v) {
         private val mCustomItemViewImpl: CustomItemViewImpl by lazy { v }
 
-        fun setData(item: Item) {
+        fun setData(item: ResultItem) {
             mCustomItemViewImpl.setData(item)
         }
 
