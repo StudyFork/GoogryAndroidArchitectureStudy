@@ -3,6 +3,7 @@ package com.egiwon.architecturestudy.tabs
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.base.BaseFragment
 import com.egiwon.architecturestudy.data.Content
@@ -21,7 +22,10 @@ class ContentsFragment : BaseFragment(
         )
 
 
-    private val type: String by lazy { arguments?.getString(ARG_TYPE, "") ?: "" }
+    private val type: Tab by lazy {
+        arguments?.get(ARG_TYPE) as? Tab
+            ?: throw IllegalArgumentException()
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -34,9 +38,7 @@ class ContentsFragment : BaseFragment(
                 )
             )
 
-            adapter = ContentsAdapter(type)
-            setHasFixedSize(true)
-
+            setAdapter()
         }
 
         btn_search.setOnClickListener {
@@ -45,6 +47,15 @@ class ContentsFragment : BaseFragment(
             }
         }
     }
+
+    private fun RecyclerView.setAdapter() {
+        try {
+            adapter = ContentsAdapter(type)
+            setHasFixedSize(true)
+        } catch (ignore: Exception) {
+        }
+    }
+
 
     override fun onUpdateUi(content: List<Content.Item>) {
         (rv_contents.adapter as? ContentsAdapter)?.setList(content)
@@ -59,7 +70,7 @@ class ContentsFragment : BaseFragment(
 
     private fun requestSearch() {
         presenter.loadContents(
-            type,
+            type.toString(),
             et_search.text.toString()
         )
 
@@ -69,10 +80,10 @@ class ContentsFragment : BaseFragment(
     companion object {
         private const val ARG_TYPE = "type"
 
-        fun newInstance(type: String) =
+        fun newInstance(type: Tab) =
             ContentsFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_TYPE, type)
+                    putSerializable(ARG_TYPE, type)
                 }
             }
 
