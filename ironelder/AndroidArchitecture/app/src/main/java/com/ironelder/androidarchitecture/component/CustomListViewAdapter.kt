@@ -39,6 +39,11 @@ class CustomListViewAdapter(
         notifyDataSetChanged()
     }
 
+    fun clearItemList(){
+        mItemList.clear()
+        notifyDataSetChanged()
+    }
+
     fun addItemList(list: ArrayList<ResultItem>?) {
         mItemList.addAll(list ?: arrayListOf())
         notifyItemRangeInserted(mItemList.size, list?.size ?: 0)

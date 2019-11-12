@@ -14,34 +14,12 @@ import com.ironelder.androidarchitecture.common.BLOG
 import com.ironelder.androidarchitecture.common.TYPE_KEY
 import com.ironelder.androidarchitecture.component.CustomListViewAdapter
 import com.ironelder.androidarchitecture.data.ResultItem
-import com.ironelder.androidarchitecture.data.TotalModel
-import com.ironelder.androidarchitecture.data.source.SearchDataSourceImpl
 import com.ironelder.androidarchitecture.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.layout_search_listview.*
 
 
 class MainFragment : BaseFragment(R.layout.fragment_main), MainContract.View {
-    override fun showNoSearchData() {
-        noSearchLayout.visibility = View.VISIBLE
-    }
-
-    override fun onDataChanged(result: ArrayList<ResultItem>) {
-        (rv_resultListView?.adapter as? CustomListViewAdapter)?.setItemList(result)
-    }
-
-    override fun showErrorMessage(msg: String) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT)
-            .show()
-    }
-
-    override fun showLoading() {
-        loadingLayout.visibility = View.VISIBLE
-    }
-
-    override fun hideLoading() {
-        loadingLayout.visibility = View.GONE
-    }
 
     private val mType: String? by lazy {
         arguments?.getString(TYPE_KEY)
@@ -49,6 +27,28 @@ class MainFragment : BaseFragment(R.layout.fragment_main), MainContract.View {
 
     private val mPresenter: MainPresenter? by lazy {
         MainPresenter(this)
+    }
+
+    override fun showNoSearchData() {
+        (rv_resultListView?.adapter as? CustomListViewAdapter)?.clearItemList()
+        customInfoView.noSearchDate()
+    }
+
+    override fun onDataChanged(result: ArrayList<ResultItem>) {
+        (rv_resultListView?.adapter as? CustomListViewAdapter)?.setItemList(result)
+    }
+
+    override fun showErrorMessage(msg: String?) {
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT)
+            .show()
+    }
+
+    override fun showLoading() {
+        customInfoView.startLoading()
+    }
+
+    override fun hideLoading() {
+        customInfoView.stopLoading()
     }
 
     override fun doViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -74,21 +74,11 @@ class MainFragment : BaseFragment(R.layout.fragment_main), MainContract.View {
         }
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query.isNullOrEmpty()) {
-                    Toast.makeText(
-                        context,
-                        getString(R.string.msg_empty_search_string),
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-                } else {
-                    SearchDataSourceImpl.getDataForSearch(
-                        mType ?: BLOG,
-                        query,
-                        ::onSuccess,
-                        ::onFail
-                    )
-                }
+                mPresenter?.search(
+                    mType ?: BLOG,
+                    query,
+                    getString(R.string.msg_empty_search_string)
+                )
                 return false
             }
 
@@ -96,15 +86,6 @@ class MainFragment : BaseFragment(R.layout.fragment_main), MainContract.View {
                 return false
             }
         })
-    }
-
-    private fun onSuccess(result: TotalModel) {
-        (rv_resultListView?.adapter as? CustomListViewAdapter)?.setItemList(result.items)
-    }
-
-    private fun onFail(msg: String) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT)
-            .show()
     }
 
     companion object {
