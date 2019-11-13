@@ -1,16 +1,23 @@
-package com.ironelder.androidarchitecture.view
+package com.ironelder.androidarchitecture.view.baseview
 
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import com.ironelder.androidarchitecture.R
 
-abstract class BaseFragment(private val mLayoutResId: Int) : Fragment() {
+abstract class BaseFragment<in VIEW : BaseContract.View, PRESENTER : BaseContract.Presenter<VIEW>>(
+    private val mLayoutResId: Int
+) : Fragment() {
+    protected var presenter: PRESENTER? = null
+        private set
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        presenter = onCreatePresenter()
+        presenter?.attachView(this as VIEW)
         return inflater.inflate(mLayoutResId, container, false)
     }
 
@@ -27,6 +34,12 @@ abstract class BaseFragment(private val mLayoutResId: Int) : Fragment() {
         doViewCreated(view, savedInstanceState)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter?.detachView()
+    }
+
+    abstract fun onCreatePresenter(): PRESENTER?
     abstract fun doCreateOptionsMenu(menu: Menu, inflater: MenuInflater)
     abstract fun doViewCreated(view: View, savedInstanceState: Bundle?)
 }

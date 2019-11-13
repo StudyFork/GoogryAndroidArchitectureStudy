@@ -14,19 +14,18 @@ import com.ironelder.androidarchitecture.common.BLOG
 import com.ironelder.androidarchitecture.common.TYPE_KEY
 import com.ironelder.androidarchitecture.component.CustomListViewAdapter
 import com.ironelder.androidarchitecture.data.ResultItem
-import com.ironelder.androidarchitecture.view.BaseFragment
+import com.ironelder.androidarchitecture.view.baseview.BaseFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.layout_search_listview.*
 
 
-class MainFragment : BaseFragment(R.layout.fragment_main), MainContract.View {
+class MainFragment :
+    BaseFragment<MainContract.View, MainContract.Presenter>(R.layout.fragment_main),
+    MainContract.View {
+    override fun onCreatePresenter() = MainPresenter()
 
     private val mType: String? by lazy {
         arguments?.getString(TYPE_KEY)
-    }
-
-    private val mPresenter: MainPresenter? by lazy {
-        MainPresenter(this)
     }
 
     override fun showNoSearchData() {
@@ -74,7 +73,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main), MainContract.View {
         }
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                mPresenter?.search(
+                presenter?.search(
                     mType ?: BLOG,
                     query,
                     getString(R.string.msg_empty_search_string)

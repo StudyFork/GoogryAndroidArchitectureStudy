@@ -2,17 +2,18 @@ package com.ironelder.androidarchitecture.view.mainview
 
 import com.ironelder.androidarchitecture.data.TotalModel
 import com.ironelder.androidarchitecture.data.source.SearchDataSourceImpl
+import com.ironelder.androidarchitecture.view.baseview.BasePresenter
 
-class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
+class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter {
     override fun search(
         type: String,
         query: String?,
-        defaultMsg:String?
+        defaultMsg: String?
     ) {
-        if(query.isNullOrEmpty()){
-            view.showErrorMessage(defaultMsg)
+        if (query.isNullOrEmpty()) {
+            view?.showErrorMessage(defaultMsg)
         } else {
-            view.showLoading()
+            view?.showLoading()
             SearchDataSourceImpl.getDataForSearch(
                 type,
                 query,
@@ -23,16 +24,16 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
     }
 
     private fun onSuccess(result: TotalModel) {
-        view.hideLoading()
+        view?.hideLoading()
         if (result.items.isNullOrEmpty()) {
-            view.showNoSearchData()
+            view?.showNoSearchData()
         } else {
-            view.onDataChanged(result.items)
+            view?.onDataChanged(result.items)
         }
     }
 
     private fun onFail(msg: String) {
-        view.hideLoading()
-        view.showErrorMessage(msg)
+        view?.hideLoading()
+        view?.showErrorMessage(msg)
     }
 }
