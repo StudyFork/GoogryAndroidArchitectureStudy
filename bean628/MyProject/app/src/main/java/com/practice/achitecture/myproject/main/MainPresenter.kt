@@ -6,12 +6,11 @@ import com.practice.achitecture.myproject.model.SearchedItem
 
 
 class MainPresenter(
-    private val view: MainContract.View,
-    private val repository: NaverRepository
+    private val view: MainContract.View
 ) : MainContract.Presenter {
 
     override fun searchWordByNaver(category: String, word: String) {
-        repository.searchWordByNaver(
+        NaverRepository.searchWordByNaver(
             category,
             word,
             object : NaverRemoteDataSource.GettingResultOfSearchingCallBack {

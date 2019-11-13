@@ -9,7 +9,6 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import com.practice.achitecture.myproject.BaseActivity
 import com.practice.achitecture.myproject.R
-import com.practice.achitecture.myproject.data.source.remote.NaverRepository
 import com.practice.achitecture.myproject.makeToast
 import com.practice.achitecture.myproject.model.SearchedItem
 import com.practice.achitecture.myproject.network.retrofitErrorHandler
@@ -42,7 +41,7 @@ class MainActivity : BaseActivity(),
         registerOnClickListener()
         initAdapter()
 
-        presenter = MainPresenter(this, NaverRepository)
+        presenter = MainPresenter(this)
     }
 
     private fun initAdapter() {
