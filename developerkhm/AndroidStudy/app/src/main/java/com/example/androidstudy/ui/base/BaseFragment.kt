@@ -35,11 +35,7 @@ open class BaseFragment(var layoutId: Int) : Fragment() {
                 typeStr,
                 searchEditText.text.toString(),
                 { result ->
-
-                    result.let {
-                        (resultRecyclerView?.adapter as AdapterSearch).setItemList(it.items)
-                    }
-
+                    (resultRecyclerView?.adapter as AdapterSearch).setItemList(result.items)
                 },
                 { errMsg ->
                     Toast.makeText(context, errMsg, Toast.LENGTH_SHORT)
