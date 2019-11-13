@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 
 abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes
@@ -25,21 +25,15 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, layoutRes, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        vm.toastMessage.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                Toast.makeText(activity, vm.toastMessage.get(), Toast.LENGTH_SHORT).show()
-            }
+        vm.toastMessage.observe(viewLifecycleOwner, Observer {
+            Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
         })
-    }
-
-    override fun onDestroyView() {
-        vm.clearDisposable()
-        super.onDestroyView()
     }
 
     fun showToast(msg: String) {

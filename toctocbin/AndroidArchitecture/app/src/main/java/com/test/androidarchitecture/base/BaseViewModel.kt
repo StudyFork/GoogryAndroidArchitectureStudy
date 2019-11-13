@@ -1,14 +1,23 @@
 package com.test.androidarchitecture.base
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
 
-abstract class BaseViewModel {
+abstract class BaseViewModel : ViewModel() {
 
     protected val compositeDisposable = CompositeDisposable()
-    val toastMessage = ObservableField<String>()
+    private val _toastMessage = MutableLiveData<String>()
+    val toastMessage: LiveData<String> = _toastMessage
 
-    fun clearDisposable() {
+    override fun onCleared() {
         compositeDisposable.clear()
+        super.onCleared()
+    }
+
+
+    fun showToastMessage(s: String){
+        _toastMessage.value = s
     }
 }
