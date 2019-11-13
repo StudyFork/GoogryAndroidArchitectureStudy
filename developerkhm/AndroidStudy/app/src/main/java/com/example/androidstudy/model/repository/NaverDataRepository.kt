@@ -2,7 +2,7 @@ package com.example.androidstudy.model.repository
 
 import com.example.androidstudy.api.data.TotalModel
 
-interface INaverDataRepository {
+interface NaverDataRepository {
     fun getNaverSearchData(
         type: String,
         query: String,
