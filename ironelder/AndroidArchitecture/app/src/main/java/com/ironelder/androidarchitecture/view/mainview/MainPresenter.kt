@@ -11,9 +11,9 @@ class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter
         defaultMsg: String?
     ) {
         if (query.isNullOrEmpty()) {
-            view?.showErrorMessage(defaultMsg)
+            view.showErrorMessage(defaultMsg)
         } else {
-            view?.showLoading()
+            view.showLoading()
             SearchDataSourceImpl.getDataForSearch(
                 type,
                 query,
@@ -24,16 +24,16 @@ class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter
     }
 
     private fun onSuccess(result: TotalModel) {
-        view?.hideLoading()
+        view.hideLoading()
         if (result.items.isNullOrEmpty()) {
-            view?.showNoSearchData()
+            view.showNoSearchData()
         } else {
-            view?.onDataChanged(result.items)
+            view.onDataChanged(result.items)
         }
     }
 
     private fun onFail(msg: String) {
-        view?.hideLoading()
-        view?.showErrorMessage(msg)
+        view.hideLoading()
+        view.showErrorMessage(msg)
     }
 }
