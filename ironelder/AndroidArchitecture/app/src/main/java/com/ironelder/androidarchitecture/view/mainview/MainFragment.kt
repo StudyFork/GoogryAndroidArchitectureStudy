@@ -73,7 +73,8 @@ class MainFragment :
         }
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                presenter?.search(
+                searchView.clearFocus()
+                presenter.search(
                     mType ?: BLOG,
                     query,
                     getString(R.string.msg_empty_search_string)

@@ -39,7 +39,7 @@ class CustomListViewAdapter(
         notifyDataSetChanged()
     }
 
-    fun clearItemList(){
+    fun clearItemList() {
         mItemList.clear()
         notifyDataSetChanged()
     }
