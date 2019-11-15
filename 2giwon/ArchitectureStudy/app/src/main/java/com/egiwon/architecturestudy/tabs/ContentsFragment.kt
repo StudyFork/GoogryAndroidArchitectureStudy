@@ -18,7 +18,8 @@ class ContentsFragment : BaseFragment(
     override val presenter: ContentsContract.Presenter =
         ContentsPresenter(
             this,
-            NaverDataRepository(NaverRemoteDataSource())
+            NaverDataRepository.getInstance(NaverRemoteDataSource.getInstance())
+
         )
 
 
