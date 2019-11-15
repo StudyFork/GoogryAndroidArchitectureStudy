@@ -1,7 +1,6 @@
 package com.test.androidarchitecture.ui.market
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -16,7 +15,6 @@ class MarketActivity
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-//    override val vm by viewModels<MarketViewModel> { viewModelFactory }
     override val vm : MarketViewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(MarketViewModel::class.java) }
     private lateinit var viewPagerAdapter: ViewPagerAdapter
 
