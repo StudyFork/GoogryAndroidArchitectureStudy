@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.egiwon.architecturestudy.tabs.ContentsFragment
-import com.egiwon.architecturestudy.tabs.Tab
 
 class PagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(
     fm,

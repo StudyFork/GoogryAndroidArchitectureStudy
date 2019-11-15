@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
 import com.egiwon.architecturestudy.R
+import com.egiwon.architecturestudy.Tab
 import com.egiwon.architecturestudy.base.BaseViewHolder
 import com.egiwon.architecturestudy.data.Content
 import com.egiwon.architecturestudy.ext.fromHtml

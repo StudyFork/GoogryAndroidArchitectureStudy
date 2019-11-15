@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.egiwon.architecturestudy.R
+import com.egiwon.architecturestudy.Tab
 import com.egiwon.architecturestudy.base.BaseFragment
 import com.egiwon.architecturestudy.data.Content
 import com.egiwon.architecturestudy.data.source.NaverDataRepository
@@ -22,7 +23,7 @@ class ContentsFragment : BaseFragment(
         )
 
 
-    private val type: Tab by lazy {
+    private val tab: Tab by lazy {
         arguments?.get(ARG_TYPE) as? Tab
             ?: throw IllegalArgumentException()
     }
@@ -50,7 +51,7 @@ class ContentsFragment : BaseFragment(
 
     private fun RecyclerView.setAdapter() {
         try {
-            adapter = ContentsAdapter(type)
+            adapter = ContentsAdapter(tab)
             setHasFixedSize(true)
         } catch (ignore: Exception) {
         }
@@ -70,7 +71,7 @@ class ContentsFragment : BaseFragment(
 
     private fun requestSearch() {
         presenter.loadContents(
-            type.toString(),
+            tab.name,
             et_search.text.toString()
         )
 
