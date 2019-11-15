@@ -14,7 +14,8 @@ import javax.inject.Singleton
         ApplicationModule::class,
         MarketModule::class,
         NetworkModule::class,
-        AndroidSupportInjectionModule::class
+        AndroidSupportInjectionModule::class,
+        TickerModule::class
     ]
 )
 interface AppComponent : AndroidInjector<UpbitApplication> {

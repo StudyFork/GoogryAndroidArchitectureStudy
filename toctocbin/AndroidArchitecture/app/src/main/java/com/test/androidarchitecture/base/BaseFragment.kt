@@ -10,11 +10,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import dagger.android.support.DaggerFragment
 
 abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes
     private val layoutRes: Int
-) : Fragment(){
+) : DaggerFragment(){
 
     protected lateinit var binding: B
     abstract val vm : VM

@@ -12,14 +12,18 @@ import io.reactivex.rxkotlin.addTo
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
+import javax.inject.Inject
 
-class TickerViewModel(private val marketSearch: String) : BaseViewModel() {
+class TickerViewModel @Inject constructor(
+    private val upbitRepository: UpbitRepository
+    ) : BaseViewModel() {
 
-    private val upbitRepository = UpbitRepository
     private val _tickerList = MutableLiveData<List<TickerFormat>>()
     val tickerList : LiveData<List<TickerFormat>> = _tickerList
+    private var marketSearch: String = ""
 
-    init {
+    fun start(marketSearch: String){
+        this.marketSearch = marketSearch
         getTicker()
     }
 
