@@ -8,7 +8,7 @@ import com.ironelder.androidarchitecture.R
 
 abstract class BaseFragment<in VIEW : BaseContract.View, PRESENTER : BaseContract.Presenter<VIEW>>(
     private val mLayoutResId: Int
-) : Fragment(){
+) : Fragment(), BaseContract.View {
 
     override fun onCreateView(
         inflater: LayoutInflater,
