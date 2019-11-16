@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.layout_search_listview.*
 class MainFragment :
     BaseFragment<MainContract.View, MainContract.Presenter>(R.layout.fragment_main),
     MainContract.View {
-    override fun onCreatePresenter() = MainPresenter()
+    override val presenter = MainPresenter()
 
     private val mType: String? by lazy {
         arguments?.getString(TYPE_KEY)

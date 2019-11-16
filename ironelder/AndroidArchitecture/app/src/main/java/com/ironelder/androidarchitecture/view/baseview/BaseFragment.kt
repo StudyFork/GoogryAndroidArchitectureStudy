@@ -8,17 +8,13 @@ import com.ironelder.androidarchitecture.R
 
 abstract class BaseFragment<in VIEW : BaseContract.View, PRESENTER : BaseContract.Presenter<VIEW>>(
     private val mLayoutResId: Int
-) : Fragment() {
-    protected lateinit var presenter: PRESENTER
-        private set
-
+) : Fragment(){
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        presenter = onCreatePresenter()
         @Suppress("UNCHECKED_CAST")
         presenter.attachView(this as VIEW)
         return inflater.inflate(mLayoutResId, container, false)
@@ -42,7 +38,7 @@ abstract class BaseFragment<in VIEW : BaseContract.View, PRESENTER : BaseContrac
         presenter.detachView()
     }
 
-    abstract fun onCreatePresenter(): PRESENTER
+    abstract val presenter: PRESENTER
     abstract fun doCreateOptionsMenu(menu: Menu, inflater: MenuInflater)
     abstract fun doViewCreated(view: View, savedInstanceState: Bundle?)
 }
