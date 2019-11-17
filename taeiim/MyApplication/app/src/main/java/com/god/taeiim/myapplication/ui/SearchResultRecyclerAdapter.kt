@@ -92,22 +92,15 @@ class SearchResultRecyclerAdapter(private val tab: Tabs) :
         }
     }
 
-    private fun View.setImage(
-        item: SearchResult.Item
-    ) {
+    private fun View.setImage(item: SearchResult.Item) {
         with(item.image) {
-            if (!this.isNullOrBlank()) {
-                thumbnailIv.visibility = View.VISIBLE
-                thumbnailIv.loadImage(this)
-
-            } else {
-                thumbnailIv.visibility = View.GONE
-            }
+            thumbnailIv.visibility = View.VISIBLE
+            thumbnailIv.loadImage(this)
         }
     }
 
     abstract class BaseViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var link: String? = ""
+        private var link: String? = ""
 
         abstract fun bind(item: T)
 
