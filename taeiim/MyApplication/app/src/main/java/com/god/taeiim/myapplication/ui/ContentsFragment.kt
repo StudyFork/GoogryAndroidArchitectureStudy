@@ -32,7 +32,12 @@ class ContentsFragment : Fragment(), ContentsContract.View {
         searchResultRecyclerView.adapter = this@ContentsFragment.adapter
 
         searchBtn.setOnClickListener {
-            searchEditTv.text.toString().let { presenter.searchContents(searchType.name, it) }
+searchBtn.setOnClickListener {
+            presenter.searchContents(
+                searchType.name,
+                searchEditTv.text.toString()
+            )
+        }
         }
     }
 
