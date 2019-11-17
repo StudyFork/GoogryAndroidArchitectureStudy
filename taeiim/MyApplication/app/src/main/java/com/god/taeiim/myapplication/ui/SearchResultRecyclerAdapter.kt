@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.god.taeiim.myapplication.R
 import com.god.taeiim.myapplication.Tabs
 import com.god.taeiim.myapplication.api.model.SearchResult
 import com.god.taeiim.myapplication.extensions.fromHtml
+import com.god.taeiim.myapplication.extensions.loadImage
 import kotlinx.android.synthetic.main.item_contents.view.*
 
 class SearchResultRecyclerAdapter(private val tab: Tabs) :
@@ -75,7 +75,7 @@ class SearchResultRecyclerAdapter(private val tab: Tabs) :
 
     inner class MovieViewHolder(itemView: View) : BaseViewHolder<SearchResult.Item>(itemView) {
         override fun bind(item: SearchResult.Item) {
-            itemView.setImage(item, this.itemView)
+            itemView.setImage(item)
             with(itemView) {
                 item.commonBind()
                 subTitleTv.text = item.pubDate.fromHtml()
@@ -87,21 +87,18 @@ class SearchResultRecyclerAdapter(private val tab: Tabs) :
     inner class BookViewHolder(itemView: View) : BaseViewHolder<SearchResult.Item>(itemView) {
         override fun bind(item: SearchResult.Item) {
             item.commonBind()
-            itemView.setImage(item, this.itemView)
+            itemView.setImage(item)
             itemView.subTitleTv.text = item.author.fromHtml()
         }
     }
 
     private fun View.setImage(
-        item: SearchResult.Item,
-        itemView: View
+        item: SearchResult.Item
     ) {
         with(item.image) {
             if (!this.isNullOrBlank()) {
                 thumbnailIv.visibility = View.VISIBLE
-                Glide.with(itemView)
-                    .load(this)
-                    .into(thumbnailIv)
+                thumbnailIv.loadImage(this)
 
             } else {
                 thumbnailIv.visibility = View.GONE
