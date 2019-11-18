@@ -1,6 +1,5 @@
 package com.egiwon.architecturestudy.base
 
-interface BasePresenter {
-
-    fun start()
+abstract class BasePresenter : BaseContract.Presenter {
+    abstract fun start()
 }
