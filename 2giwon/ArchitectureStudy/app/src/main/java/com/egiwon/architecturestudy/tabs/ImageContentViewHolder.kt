@@ -2,7 +2,6 @@ package com.egiwon.architecturestudy.tabs
 
 import android.view.ViewGroup
 import android.widget.ImageView
-import com.bumptech.glide.request.RequestOptions
 import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.base.BaseContentViewHolder
 import com.egiwon.architecturestudy.data.Content
@@ -20,10 +19,9 @@ class ImageContentViewHolder(
     override fun <T> bind(item: T) {
         (item as? Content.Item)?.run {
             bind()
-            imageThumbnail.loadAsync(
-                image,
-                RequestOptions.placeholderOf(R.mipmap.ic_launcher)
-            )
+            imageThumbnail.loadAsync(image) {
+                placeholder(R.mipmap.ic_launcher)
+            }
         }
     }
 
