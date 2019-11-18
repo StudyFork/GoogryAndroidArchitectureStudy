@@ -74,8 +74,17 @@
 - 조재영 []()
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
 
-- 원우석 []()
-[](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+- 원우석 [wswon](https://github.com/wswon)
+  [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/wswon)
+
+  저는 회사에서 안드로이드 개발을 하는 중 Architecture에 대한 필요성을 느끼게 되어서 시작하였습니다.
+  처음에는 고민을 많이 했지만 지금 와서는 시작하기를 참 잘했다 싶습니다.
+  스터디를 통해서 또 코드리뷰 과정을 통해 배운것을 가지고 실제로 업무에 적용하고 나니, 방대한 Code가 정리라는 것이 되기 시작했고,
+  수정사항 하나가 생기면 이곳저곳 터졌던 프로그램이 이제는 좀 더 유연한 유지보수를 할 수 있게 되더라고요.
+  현재는 3기 스터디원 분들과 다른 스터디를 따로 진행 하는 등 좋은 사람도 알아가고, 실력도 이전보다는 확실히 늘었다고 생각이 듭니다.
+
+  좋은 사수 밑에서 배울 수 없는 신입분들 혹은 회사에서 혼자 개발하는 분들에게 적극 추천합니다.
+  9주동안 코드리뷰 남겨주신 석준님 현석님 강희님께 감사합니다. 많이 배워가는 시간이었습니다.
 
 - 김강희 []()
 [](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
