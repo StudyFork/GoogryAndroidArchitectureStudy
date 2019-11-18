@@ -1,5 +1,6 @@
 package com.egiwon.architecturestudy.tabs
 
+import com.egiwon.architecturestudy.base.BasePresenter
 import com.egiwon.architecturestudy.data.Content
 import com.egiwon.architecturestudy.data.source.NaverDataRepository
 import com.egiwon.architecturestudy.data.source.NaverDataSource
@@ -7,7 +8,7 @@ import com.egiwon.architecturestudy.data.source.NaverDataSource
 class ContentsPresenter(
     val contentsView: ContentsContract.View,
     val naverDataRepository: NaverDataRepository
-) : ContentsContract.Presenter {
+) : BasePresenter(), ContentsContract.Presenter {
 
     override fun loadContents(
         type: String,
@@ -29,5 +30,4 @@ class ContentsPresenter(
     }
 
     override fun start() = Unit
-
 }

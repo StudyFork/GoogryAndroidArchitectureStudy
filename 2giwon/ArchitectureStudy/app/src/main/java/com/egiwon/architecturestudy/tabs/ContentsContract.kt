@@ -1,16 +1,16 @@
 package com.egiwon.architecturestudy.tabs
 
+import com.egiwon.architecturestudy.base.BaseContract
 import com.egiwon.architecturestudy.base.BasePresenter
-import com.egiwon.architecturestudy.base.BaseView
 import com.egiwon.architecturestudy.data.Content
 
 interface ContentsContract {
-    interface View : BaseView<Presenter> {
-        fun onUpdateUi(content: List<Content.Item>)
+    interface View : BaseContract.View<BasePresenter> {
+        fun onUpdateUi(contents: List<Content.Item>)
         fun onFail(throwable: Throwable)
     }
 
-    interface Presenter : BasePresenter {
+    interface Presenter : BaseContract.Presenter {
         fun loadContents(type: String, query: String)
     }
 }
