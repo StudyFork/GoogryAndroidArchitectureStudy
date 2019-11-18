@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 abstract class BaseFragment(
     @LayoutRes
     private val resource: Int
-) : Fragment() {
+) : Fragment(), BaseView<BasePresenter> {
 
     override fun onCreateView(
         inflater: LayoutInflater,

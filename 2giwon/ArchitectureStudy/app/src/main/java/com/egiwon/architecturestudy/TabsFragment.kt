@@ -2,10 +2,11 @@ package com.egiwon.architecturestudy
 
 import android.os.Bundle
 import com.egiwon.architecturestudy.base.BaseFragment
+import com.egiwon.architecturestudy.base.BasePresenter
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fg_tabs.*
 
-class TabsFragment : BaseFragment(
+class TabsFragment(override val presenter: BasePresenter) : BaseFragment(
     R.layout.fg_tabs
 ) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
