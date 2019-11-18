@@ -6,8 +6,8 @@ import com.egiwon.architecturestudy.data.source.NaverDataRepository
 import com.egiwon.architecturestudy.data.source.NaverDataSource
 
 class ContentsPresenter(
-    val contentsView: ContentsContract.View,
-    val naverDataRepository: NaverDataRepository
+    private val contentsView: ContentsContract.View,
+    private val naverDataRepository: NaverDataRepository
 ) : BasePresenter(), ContentsContract.Presenter {
 
     override fun loadContents(
