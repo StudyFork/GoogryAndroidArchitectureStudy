@@ -14,19 +14,26 @@ class ContentsPresenter(
         type: String,
         query: String
     ) {
-        naverDataRepository.getContents(
-            type = type,
-            query = query,
-            callback = object : NaverDataSource.Callback {
-                override fun onSuccess(list: List<Content.Item>) {
-                    contentsView.onUpdateUi(list)
-                }
+        if (query.isBlank()) {
+            contentsView.onFail(Throwable())
+        } else {
+            naverDataRepository.getContents(
+                type = type,
+                query = query,
+                callback = object : NaverDataSource.Callback {
+                    override fun onSuccess(resultList: List<Content.Item>) {
+                        with(resultList) {
+                            check(isNotEmpty())
+                            contentsView.onUpdateUi(this)
+                        }
+                    }
 
-                override fun onFailure(throwable: Throwable) {
-                    contentsView.onFail(throwable)
+                    override fun onFailure(throwable: Throwable) {
+                        contentsView.onFail(throwable)
+                    }
                 }
-            }
-        )
+            )
+        }
     }
 
     override fun start() = Unit

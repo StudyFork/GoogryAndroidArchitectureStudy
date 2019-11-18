@@ -60,14 +60,19 @@ class ContentsFragment : BaseFragment(
     }
 
 
-    override fun onUpdateUi(content: List<Content.Item>) {
-        (rv_contents.adapter as? ContentsAdapter)?.setList(content)
+    override fun onUpdateUi(resultList: List<Content.Item>) {
+        (rv_contents.adapter as? ContentsAdapter)?.setList(resultList)
         progress_circular.visibility = View.GONE
 
     }
 
     override fun onFail(throwable: Throwable) {
-        showToast(getString(R.string.callback_fail))
+        try {
+            showToast(getString(R.string.callback_fail))
+        } catch (exception: IllegalStateException) {
+            showToast(getString(R.string.callback_empty_fail))
+        }
+
         progress_circular.visibility = View.GONE
     }
 
