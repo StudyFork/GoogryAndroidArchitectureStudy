@@ -7,4 +7,5 @@
     <string name="tab_book">책</string>
     <string name="tab_movie">영화</string>
     <string name="msg_empty_search_string">검색어를 입력해주세요.</string>
+    <string name="msg_no_search_datas">검색 결과가 존재하지 않습니다.</string>
 </resources>

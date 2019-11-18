@@ -1,4 +1,4 @@
-package com.ironelder.androidarchitecture.component
+package com.ironelder.androidarchitecture.view.mainview
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -7,10 +7,11 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.ironelder.androidarchitecture.R
 import com.ironelder.androidarchitecture.common.*
+import com.ironelder.androidarchitecture.view.baseview.BaseContract
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -26,10 +27,18 @@ class MainActivity : AppCompatActivity() {
 
         override fun getItem(position: Int): Fragment {
             return when (position) {
-                1 -> MainFragment.newInstance(NEWS)
-                2 -> MainFragment.newInstance(BOOK)
-                3 -> MainFragment.newInstance(MOVIE)
-                else -> MainFragment.newInstance(BLOG)
+                1 -> MainFragment.newInstance(
+                    NEWS
+                )
+                2 -> MainFragment.newInstance(
+                    BOOK
+                )
+                3 -> MainFragment.newInstance(
+                    MOVIE
+                )
+                else -> MainFragment.newInstance(
+                    BLOG
+                )
             }
         }
 

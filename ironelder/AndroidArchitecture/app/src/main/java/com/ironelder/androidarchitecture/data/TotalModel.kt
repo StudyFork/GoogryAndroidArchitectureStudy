@@ -3,13 +3,13 @@ package com.ironelder.androidarchitecture.data
 
 data class TotalModel(
     val display: Int,
-    val items: ArrayList<Item>,
+    val items: ArrayList<ResultItem>,
     val lastBuildDate: String,
     val start: Int,
     val total: Int
 )
 
-data class Item(
+data class ResultItem(
     val actor: String,
     val director: String,
     val image: String,
