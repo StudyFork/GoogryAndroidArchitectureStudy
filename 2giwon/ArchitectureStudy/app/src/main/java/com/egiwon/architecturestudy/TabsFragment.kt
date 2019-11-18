@@ -6,9 +6,11 @@ import com.egiwon.architecturestudy.base.BasePresenter
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fg_tabs.*
 
-class TabsFragment(override val presenter: BasePresenter) : BaseFragment(
+class TabsFragment : BaseFragment(
     R.layout.fg_tabs
 ) {
+    override val presenter: BasePresenter = TabsPresenter()
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initViewPager()
