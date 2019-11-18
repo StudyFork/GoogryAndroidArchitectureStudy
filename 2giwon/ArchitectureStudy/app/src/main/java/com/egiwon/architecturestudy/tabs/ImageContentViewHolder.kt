@@ -3,12 +3,12 @@ package com.egiwon.architecturestudy.tabs
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.egiwon.architecturestudy.R
-import com.egiwon.architecturestudy.base.BaseViewHolder
+import com.egiwon.architecturestudy.base.BaseContentViewHolder
 import kotlinx.android.synthetic.main.rv_contents_item.view.*
 
-class ImageViewHolder(
+class ImageContentViewHolder(
     parent: ViewGroup
-) : BaseViewHolder(
+) : BaseContentViewHolder(
     parent,
     R.layout.rv_contents_item
 ) {

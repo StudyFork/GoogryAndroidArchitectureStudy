@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
 import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.Tab
-import com.egiwon.architecturestudy.base.BaseViewHolder
+import com.egiwon.architecturestudy.base.BaseContentViewHolder
 import com.egiwon.architecturestudy.data.Content
 import com.egiwon.architecturestudy.ext.fromHtml
 import com.egiwon.architecturestudy.ext.loadAsync
@@ -16,14 +16,14 @@ import com.egiwon.architecturestudy.ext.loadAsync
 
 class ContentsAdapter(
     private val tab: Tab
-) : RecyclerView.Adapter<BaseViewHolder>() {
+) : RecyclerView.Adapter<BaseContentViewHolder>() {
 
     private val list = ArrayList<Content.Item>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseContentViewHolder =
         when (viewType) {
-            Tab.BLOG.ordinal, Tab.NEWS.ordinal -> TextViewHolder(parent)
-            Tab.MOVIE.ordinal, Tab.BOOK.ordinal -> ImageViewHolder(parent)
+            Tab.BLOG.ordinal, Tab.NEWS.ordinal -> TextContentViewHolder(parent)
+            Tab.MOVIE.ordinal, Tab.BOOK.ordinal -> ImageContentViewHolder(parent)
             else -> throw IllegalArgumentException()
         }.also { viewHolder ->
             viewHolder.itemView.setOnClickListener {
@@ -42,8 +42,8 @@ class ContentsAdapter(
 
     override fun getItemCount(): Int = list.size
 
-    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        with(holder) {
+    override fun onBindViewHolder(holderContent: BaseContentViewHolder, position: Int) {
+        with(holderContent) {
 
             tvTitle.text =
                 list[position].title.fromHtml()
@@ -55,14 +55,14 @@ class ContentsAdapter(
 
             linkUrl = list[position].link
 
-            (holder as? ImageViewHolder)?.run {
-                loadImage(holder, position)
+            (holderContent as? ImageContentViewHolder)?.run {
+                loadImage(holderContent, position)
             }
         }
     }
 
     private fun loadImage(
-        holder: ImageViewHolder,
+        holder: ImageContentViewHolder,
         position: Int
     ) {
         holder.imageThumbnail.loadAsync(

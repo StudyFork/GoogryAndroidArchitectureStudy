@@ -7,7 +7,7 @@ import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.rv_contents_item.view.*
 
-abstract class BaseViewHolder(
+abstract class BaseContentViewHolder(
     parent: ViewGroup,
     @LayoutRes
     private val resourceId: Int
