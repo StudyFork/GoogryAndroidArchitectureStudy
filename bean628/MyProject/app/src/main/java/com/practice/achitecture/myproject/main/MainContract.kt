@@ -8,13 +8,14 @@ interface MainContract {
 
     interface View :
         BaseView<Presenter> {
-        fun searchingOnSuccess(items: List<SearchedItem>)
+        fun searchingBlogOrNewsOnSuccess(items: List<SearchedItem>)
+        fun searchingMovieOrBookOnSuccess(items: List<SearchedItem>)
         fun searchingOnFailure(throwable: Throwable)
         fun isEmpty()
     }
 
     interface Presenter : BasePresenter {
-        fun searchWordByNaver(category: String, word: String)
+        fun searchWordByNaver(searchType: Int, category: String, word: String)
         fun searchIfNotEmpty(word: String, searchType: Int)
     }
 

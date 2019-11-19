@@ -23,18 +23,25 @@ class MainPresenter(
                 SEARCH_TYPE_NEWS -> "news"
                 else -> "movie"
             }
-            this.searchWordByNaver(category, word)
+            this.searchWordByNaver(searchType, category, word)
         }
     }
 
-    override fun searchWordByNaver(category: String, word: String) {
+    override fun searchWordByNaver(searchType: Int, category: String, word: String) {
         NaverRepository.searchWordByNaver(
             category,
             word,
             object : NaverRemoteDataSource.GettingResultOfSearchingCallBack {
 
                 override fun onSuccess(items: List<SearchedItem>) {
-                    view.searchingOnSuccess(items)
+                    when (searchType) {
+                        SEARCH_TYPE_MOVIE, SEARCH_TYPE_BOOK -> {
+                            view.searchingBlogOrNewsOnSuccess(items)
+                        }
+                        SEARCH_TYPE_BLOG, SEARCH_TYPE_NEWS -> {
+                            view.searchingMovieOrBookOnSuccess(items)
+                        }
+                    }
                 }
 
                 override fun onFailure(throwable: Throwable) {
