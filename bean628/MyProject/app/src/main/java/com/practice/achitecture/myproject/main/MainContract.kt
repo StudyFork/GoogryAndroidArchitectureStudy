@@ -8,8 +8,8 @@ interface MainContract {
 
     interface View :
         BaseView<Presenter> {
-        fun searchingBlogOrNewsOnSuccess(items: List<SearchedItem>)
-        fun searchingMovieOrBookOnSuccess(items: List<SearchedItem>)
+        fun showSearchResultBlogOrNews(items: List<SearchedItem>)
+        fun showSearchResultMovieOrBook(items: List<SearchedItem>)
         fun searchingOnFailure(throwable: Throwable)
         fun isEmpty()
     }

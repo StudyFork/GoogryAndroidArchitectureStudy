@@ -36,10 +36,10 @@ class MainPresenter(
                 override fun onSuccess(items: List<SearchedItem>) {
                     when (searchType) {
                         SEARCH_TYPE_MOVIE, SEARCH_TYPE_BOOK -> {
-                            view.searchingBlogOrNewsOnSuccess(items)
+                            view.showSearchResultMovieOrBook(items)
                         }
                         SEARCH_TYPE_BLOG, SEARCH_TYPE_NEWS -> {
-                            view.searchingMovieOrBookOnSuccess(items)
+                            view.showSearchResultBlogOrNews(items)
                         }
                     }
                 }

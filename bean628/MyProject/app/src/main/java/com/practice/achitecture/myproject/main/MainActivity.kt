@@ -98,14 +98,14 @@ class MainActivity : BaseActivity(),
         makeToast(R.string.toast_empty_word)
     }
 
-    override fun searchingBlogOrNewsOnSuccess(items: List<SearchedItem>) {
-        searchMovieAndBookAdapter?.notifyDataSetChanged(items)
-        rv_searched_list.adapter = searchMovieAndBookAdapter
-    }
-
-    override fun searchingMovieOrBookOnSuccess(items: List<SearchedItem>) {
+    override fun showSearchResultBlogOrNews(items: List<SearchedItem>) {
         searchBlogAndNewsAdapter?.notifyDataSetChanged(items)
         rv_searched_list.adapter = searchBlogAndNewsAdapter
+    }
+
+    override fun showSearchResultMovieOrBook(items: List<SearchedItem>) {
+        searchMovieAndBookAdapter?.notifyDataSetChanged(items)
+        rv_searched_list.adapter = searchMovieAndBookAdapter
     }
 
     override fun searchingOnFailure(throwable: Throwable) {
