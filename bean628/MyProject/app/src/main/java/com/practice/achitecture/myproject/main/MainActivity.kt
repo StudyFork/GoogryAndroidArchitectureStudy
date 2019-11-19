@@ -90,22 +90,13 @@ class MainActivity : BaseActivity(),
         imm.hideSoftInputFromWindow(input_search_sth.windowToken, 0)
 
         val word = input_search_sth.text.toString()
-        if (word.isEmpty()) {
-            makeToast(R.string.toast_empty_word)
-            return
-        }
         this.searchType = searchType
-        val category = when (searchType) {
-            SEARCH_TYPE_MOVIE -> "movie"
-            SEARCH_TYPE_BOOK -> "book"
-            SEARCH_TYPE_BLOG -> "blog"
-            SEARCH_TYPE_NEWS -> "news"
-            else -> "movie"
-        }
-
-        presenter.searchWordByNaver(category, word)
+        presenter.searchIfNotEmpty(word, searchType)
     }
 
+    override fun isEmpty() {
+        makeToast(R.string.toast_empty_word)
+    }
 
     override fun searchingOnSuccess(items: List<SearchedItem>) {
         when (this@MainActivity.searchType) {

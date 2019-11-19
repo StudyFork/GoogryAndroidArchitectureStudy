@@ -10,10 +10,12 @@ interface MainContract {
         BaseView<Presenter> {
         fun searchingOnSuccess(items: List<SearchedItem>)
         fun searchingOnFailure(throwable: Throwable)
+        fun isEmpty()
     }
 
     interface Presenter : BasePresenter {
         fun searchWordByNaver(category: String, word: String)
+        fun searchIfNotEmpty(word: String, searchType: Int)
     }
 
 }
