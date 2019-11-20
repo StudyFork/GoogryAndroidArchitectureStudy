@@ -303,7 +303,7 @@ MVC -> MVP -> MVVM 아키텍처를 배우는 것도 도움이 되었지만 무�
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
 
 - 안현호 [dksush](https://github.com/dksush)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/dksush0828)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/dksush)
 
 - 박찬호 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
