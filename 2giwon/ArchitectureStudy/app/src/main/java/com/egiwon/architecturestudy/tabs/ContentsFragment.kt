@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.Tab
 import com.egiwon.architecturestudy.base.BaseFragment
-import com.egiwon.architecturestudy.base.BasePresenter
 import com.egiwon.architecturestudy.data.Content
 import com.egiwon.architecturestudy.data.source.NaverDataRepository
 import com.egiwon.architecturestudy.data.source.remote.NaverRemoteDataSource
@@ -17,7 +16,7 @@ class ContentsFragment : BaseFragment(
     R.layout.fg_contents
 ), ContentsContract.View {
 
-    override val presenter: BasePresenter =
+    private val presenter: ContentsContract.Presenter =
         ContentsPresenter(
             this,
             NaverDataRepository.getInstance(NaverRemoteDataSource.getInstance())
