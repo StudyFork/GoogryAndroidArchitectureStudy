@@ -296,7 +296,7 @@ MVC -> MVP -> MVVM 아키텍처를 배우는 것도 도움이 되었지만 무�
 
 
 ## 6기
-- 이민재 [](https://github.com/JayYi)
+- 이민재 [JayYi](https://github.com/JayYi)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/JayYi)
 
 - 이용준 [](https://github.com/)
