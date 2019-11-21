@@ -4,9 +4,14 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
-fun ImageView.loadAsync(url: String?, block: RequestOptions.() -> RequestOptions) =
+fun ImageView.loadAsync(url: String?, block: RequestOptions.() -> RequestOptions) {
+
+    val option = RequestOptions()
+    option.block()
+
     Glide.with(context)
         .load(url)
-        .apply(block.invoke(RequestOptions()))
+        .apply(option)
         .into(this)
+}
 
