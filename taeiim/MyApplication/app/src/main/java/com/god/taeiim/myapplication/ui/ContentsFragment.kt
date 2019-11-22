@@ -48,6 +48,11 @@ class ContentsFragment : Fragment(), ContentsContract.View {
         Toast.makeText(context, getString(R.string.err_search), Toast.LENGTH_SHORT).show()
     }
 
+    override fun blankSearchQuery() {
+        adapter.clearItems()
+        Toast.makeText(context, getString(R.string.blank_search), Toast.LENGTH_SHORT).show()
+    }
+
     companion object {
         private const val ARG_TYPE = "type"
 
