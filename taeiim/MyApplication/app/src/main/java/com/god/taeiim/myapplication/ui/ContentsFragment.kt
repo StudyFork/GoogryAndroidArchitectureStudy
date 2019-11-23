@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment
 import com.god.taeiim.myapplication.R
 import com.god.taeiim.myapplication.Tabs
 import com.god.taeiim.myapplication.api.model.SearchResult
-import com.god.taeiim.myapplication.data.NaverRepositoryImpl
 import kotlinx.android.synthetic.main.fragment_main.*
 
-class ContentsFragment : Fragment() {
+class ContentsFragment : Fragment(), ContentsContract.View {
+    private val presenter by lazy { ContentsPresenter(this) }
     private lateinit var adapter: SearchResultRecyclerAdapter
     private lateinit var searchType: Tabs
 
@@ -32,26 +32,25 @@ class ContentsFragment : Fragment() {
         searchResultRecyclerView.adapter = this@ContentsFragment.adapter
 
         searchBtn.setOnClickListener {
-            searchContents(searchEditTv.text.toString())
+            presenter.searchContents(
+                searchType.name,
+                searchEditTv.text.toString()
+            )
         }
     }
 
-    private fun searchContents(query: String) {
-        NaverRepositoryImpl.getResultData(
-            searchType.name,
-            query,
-            success = { refreshItems(it) },
-            fail = { failToSearch() }
-        )
-    }
-
-    private fun refreshItems(resultList: SearchResult) {
+    override fun updateItems(resultList: SearchResult) {
         adapter.setItems(resultList.items)
     }
 
-    private fun failToSearch() {
+    override fun failToSearch() {
         adapter.clearItems()
         Toast.makeText(context, getString(R.string.err_search), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun blankSearchQuery() {
+        adapter.clearItems()
+        Toast.makeText(context, getString(R.string.blank_search), Toast.LENGTH_SHORT).show()
     }
 
     companion object {
