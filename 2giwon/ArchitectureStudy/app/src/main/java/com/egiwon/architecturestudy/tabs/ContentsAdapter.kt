@@ -3,17 +3,20 @@ package com.egiwon.architecturestudy.tabs
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.egiwon.architecturestudy.Tab
-import com.egiwon.architecturestudy.base.BaseContentViewHolder
+import com.egiwon.architecturestudy.base.BaseViewHolder
 import com.egiwon.architecturestudy.data.Content
 
 
 class ContentsAdapter(
     private val tab: Tab
-) : RecyclerView.Adapter<BaseContentViewHolder>() {
+) : RecyclerView.Adapter<BaseViewHolder<Content.Item>>() {
 
     private val list = ArrayList<Content.Item>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseContentViewHolder =
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): BaseViewHolder<Content.Item> =
         when (viewType) {
             Tab.BLOG.ordinal, Tab.NEWS.ordinal -> TextContentViewHolder(parent)
             Tab.MOVIE.ordinal, Tab.BOOK.ordinal -> ImageContentViewHolder(parent)
@@ -23,7 +26,7 @@ class ContentsAdapter(
 
     override fun getItemCount(): Int = list.size
 
-    override fun onBindViewHolder(holderContent: BaseContentViewHolder, position: Int) =
+    override fun onBindViewHolder(holderContent: BaseViewHolder<Content.Item>, position: Int) =
         holderContent.bind(list[position])
 
 
