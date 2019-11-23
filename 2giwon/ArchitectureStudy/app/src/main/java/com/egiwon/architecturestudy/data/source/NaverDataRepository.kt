@@ -9,19 +9,14 @@ class NaverDataRepository(
     override fun getContents(
         type: String,
         query: String,
-        callback: NaverDataSource.Callback
+        onSuccess: (resultList: List<Content.Item>) -> Unit,
+        onFailure: (throwable: Throwable) -> Unit
     ) = naverRemoteDataSource.getContents(
             type,
             query,
-            object : NaverDataSource.Callback {
-                override fun onSuccess(list: List<Content.Item>) {
-                    callback.onSuccess(list)
-                }
-
-                override fun onFailure(throwable: Throwable) {
-                    callback.onFailure(throwable)
-                }
-            })
+        onSuccess,
+        onFailure
+    )
 
 
     companion object {
