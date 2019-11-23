@@ -6,7 +6,7 @@ import com.egiwon.architecturestudy.data.Content
 
 interface ContentsContract {
     interface View : BaseContract.View<BasePresenter> {
-        fun onUpdateUi(contents: List<Content.Item>)
+        fun onUpdateUi(resultList: List<Content.Item>)
         fun onFail(throwable: Throwable)
     }
 
