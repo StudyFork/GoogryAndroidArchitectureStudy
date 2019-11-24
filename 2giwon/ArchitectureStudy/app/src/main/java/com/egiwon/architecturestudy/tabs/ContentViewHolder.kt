@@ -11,7 +11,7 @@ import com.egiwon.architecturestudy.data.Content
 import com.egiwon.architecturestudy.ext.fromHtml
 import kotlinx.android.synthetic.main.rv_contents_item.view.*
 
-open class ContentViewHolder(
+abstract class ContentViewHolder(
     parent: ViewGroup,
     @LayoutRes
     private val resourceId: Int
