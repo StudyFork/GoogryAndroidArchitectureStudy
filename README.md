@@ -311,8 +311,8 @@ MVC -> MVP -> MVVM 아키텍처를 배우는 것도 도움이 되었지만 무�
 - 전지훈 [jjunji](https://github.com/jjunji)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/jjunji)
 
-- 서수형 [](https://github.com/)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+- 서수형 [doubleclutch30](https://github.com/doubleclutch30)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/doubleclutch30)
 
 
 
