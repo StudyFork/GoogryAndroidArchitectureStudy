@@ -39,6 +39,7 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.ext.rxandroid_version"
     implementation "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxjava_version"
     implementation "com.jakewharton.rxbinding3:rxbinding:$rootProject.ext.rxbinding_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.retrofit_rx2adapter_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.ext.glide_compiler_version"
     testImplementation "junit:junit:$rootProject.ext.junit_version"
     androidTestImplementation "androidx.test:runner:$rootProject.ext.test_runner_version"
