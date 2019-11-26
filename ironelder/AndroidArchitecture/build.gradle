@@ -46,6 +46,9 @@ ext{
     junit_version = "4.12"
     test_runner_version = "1.2.0"
     espresso_core_version = "3.2.0"
+    rxandroid_version="2.1.1"
+    rxjava_version="2.2.15"
+    rxbinding_version="3.1.0"
 }
 
 task clean(type: Delete) {
