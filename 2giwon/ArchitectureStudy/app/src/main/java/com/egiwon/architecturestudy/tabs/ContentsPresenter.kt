@@ -1,9 +1,7 @@
 package com.egiwon.architecturestudy.tabs
 
 import com.egiwon.architecturestudy.base.BasePresenter
-import com.egiwon.architecturestudy.data.Content
 import com.egiwon.architecturestudy.data.source.NaverDataRepository
-import com.egiwon.architecturestudy.data.source.NaverDataSource
 
 class ContentsPresenter(
     private val contentsView: ContentsContract.View,
@@ -20,17 +18,14 @@ class ContentsPresenter(
             naverDataRepository.getContents(
                 type = type,
                 query = query,
-                callback = object : NaverDataSource.Callback {
-                    override fun onSuccess(resultList: List<Content.Item>) {
-                        with(resultList) {
-                            check(isNotEmpty())
-                            contentsView.onUpdateUi(this)
-                        }
+                onSuccess = {
+                    with(it) {
+                        check(isNotEmpty())
+                        contentsView.onUpdateUi(this)
                     }
-
-                    override fun onFailure(throwable: Throwable) {
-                        contentsView.onFail(throwable)
-                    }
+                },
+                onFailure = {
+                    contentsView.onFail(it)
                 }
             )
         }

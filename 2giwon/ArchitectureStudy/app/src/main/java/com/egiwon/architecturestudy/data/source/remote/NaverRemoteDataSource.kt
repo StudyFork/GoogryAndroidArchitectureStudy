@@ -14,7 +14,8 @@ class NaverRemoteDataSource : NaverDataSource {
     override fun getContents(
         type: String,
         query: String,
-        callback: NaverDataSource.Callback
+        onSuccess: (resultList: List<Content.Item>) -> Unit,
+        onFailure: (throwable: Throwable) -> Unit
     ) {
         RetrofitApi.retrofit.getContentsInfo(
             type = type,
@@ -27,7 +28,7 @@ class NaverRemoteDataSource : NaverDataSource {
                         Log.d("RetroFit", "onFailure ${it.message}")
                     }
 
-                    callback.onFailure(it)
+                    onFailure(it)
                 }
             }
 
@@ -36,19 +37,17 @@ class NaverRemoteDataSource : NaverDataSource {
                 response: Response<Content>
             ) {
                 if (response.isSuccessful) {
-
                     if (response.body() != null) {
-
-                        callback.onSuccess(
+                        onSuccess(
                             response.body()!!.items
                         )
 
                     } else {
-                        callback.onFailure(Throwable())
+                        onFailure(Throwable())
                     }
 
                 } else {
-                    callback.onFailure(Throwable())
+                    onFailure(Throwable())
                 }
             }
         })
