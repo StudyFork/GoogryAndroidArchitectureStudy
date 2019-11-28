@@ -11,7 +11,7 @@ object SearchDataRepositoryImpl : SearchDataRepository {
     }
 
 
-    override fun getDataForSearchWithAdapter(type: String, query: String): Single<TotalModel> {
+    override fun getDataForSearchWithAdapter(type: String, query: String?): Single<TotalModel> {
         return RetrofitForNaver.searchApi.requestSearchForNaverWithAdapter(type, query)
     }
 }

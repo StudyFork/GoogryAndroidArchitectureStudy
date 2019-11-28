@@ -6,5 +6,5 @@ import retrofit2.Call
 
 interface SearchDataRepository {
     fun getDataForSearch(type: String, query: String): Call<TotalModel>
-    fun getDataForSearchWithAdapter(type: String, query: String): Single<TotalModel>
+    fun getDataForSearchWithAdapter(type: String, query: String?): Single<TotalModel>
 }
