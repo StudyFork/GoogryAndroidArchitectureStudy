@@ -11,7 +11,9 @@ import androidx.fragment.app.Fragment
 abstract class BaseFragment(
     @LayoutRes
     private val resource: Int
-) : Fragment(), BaseContract.View<BasePresenter> {
+) : Fragment(), BaseContract.View {
+
+    private val basePresenter: BaseContract.Presenter = BasePresenter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,4 +31,13 @@ abstract class BaseFragment(
         ).show()
     }
 
+    override fun onPause() {
+        super.onPause()
+        basePresenter.clearDisposable()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        basePresenter.disposeDisposable()
+    }
 }

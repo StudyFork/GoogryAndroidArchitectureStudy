@@ -1,22 +1,17 @@
 package com.egiwon.architecturestudy.base
 
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 
-abstract class BasePresenter : BaseContract.Presenter {
-    private val compositeDisposable = CompositeDisposable()
+open class BasePresenter : BaseContract.Presenter {
+    override val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    protected fun clearDisposable() {
+    override fun clearDisposable() {
         compositeDisposable.clear()
     }
 
-    protected fun disposeDisposable() {
+    override fun disposeDisposable() {
         if (!compositeDisposable.isDisposed) {
             compositeDisposable.dispose()
         }
-    }
-
-    protected fun addDisposable(disposable: Disposable) {
-        compositeDisposable.add(disposable)
     }
 }
