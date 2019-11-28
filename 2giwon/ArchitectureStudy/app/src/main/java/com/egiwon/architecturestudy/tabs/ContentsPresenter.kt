@@ -31,5 +31,4 @@ class ContentsPresenter(
         }
     }
 
-    override fun start() = Unit
 }
