@@ -13,5 +13,5 @@ interface SearchForNaver {
     fun requestSearchForNaver(@Path("type") type: String, @Query("query") query: String = "Test"): Call<TotalModel>
 
     @GET("v1/search/{type}.json")
-    fun requestSearchForNaverWithAdapter(@Path("type") type: String, @Query("query") query: String = "Test"): Single<TotalModel>
+    fun requestSearchForNaverWithAdapter(@Path("type") type: String, @Query("query") query: String? = "Test"): Single<TotalModel>
 }
