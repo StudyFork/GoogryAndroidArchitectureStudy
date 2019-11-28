@@ -1,7 +1,9 @@
 package com.ironelder.androidarchitecture.view.mainview
 
 import com.ironelder.androidarchitecture.data.ResultItem
+import com.ironelder.androidarchitecture.data.TotalModel
 import com.ironelder.androidarchitecture.view.baseview.BaseContract
+import io.reactivex.Single
 
 interface MainContract {
     interface View : BaseContract.View {
@@ -18,5 +20,10 @@ interface MainContract {
             query: String?,
             defaultMsg: String?
         )
+
+        fun searchWithAdapter(
+            type: String,
+            query: String?
+        ):Single<TotalModel>
     }
 }

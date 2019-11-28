@@ -3,6 +3,7 @@ package com.ironelder.androidarchitecture.view.mainview
 import com.ironelder.androidarchitecture.data.TotalModel
 import com.ironelder.androidarchitecture.data.source.SearchDataSourceImpl
 import com.ironelder.androidarchitecture.view.baseview.BasePresenter
+import io.reactivex.Single
 
 class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter {
     override fun search(
@@ -23,7 +24,12 @@ class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter
         }
     }
 
-    private fun onSuccess(result: TotalModel) {
+    override fun searchWithAdapter(type: String, query: String?): Single<TotalModel> {
+        view.showLoading()
+        return SearchDataSourceImpl.getDataForSearchWithAdapter(type, query)
+    }
+
+    fun onSuccess(result: TotalModel) {
         view.hideLoading()
         if (result.items.isNullOrEmpty()) {
             view.showNoSearchData()
@@ -32,8 +38,13 @@ class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter
         }
     }
 
-    private fun onFail(msg: String) {
+    fun onFail(msg: String) {
         view.hideLoading()
         view.showErrorMessage(msg)
+    }
+
+    fun onError(t: Throwable) {
+        view.hideLoading()
+        view.showErrorMessage(t.message)
     }
 }
