@@ -26,7 +26,6 @@ class NaverRemoteDataSource : NaverDataSource {
                     onFailure(it)
             })
 
-
     companion object {
         private var instance: NaverRemoteDataSource? = null
 
