@@ -19,7 +19,6 @@ class NaverRemoteDataSource : NaverDataSource {
         ).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
-
     companion object {
         private var instance: NaverRemoteDataSource? = null
 
