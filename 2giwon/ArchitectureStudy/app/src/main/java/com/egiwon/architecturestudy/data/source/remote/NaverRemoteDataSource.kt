@@ -23,7 +23,7 @@ class NaverRemoteDataSource : NaverDataSource {
             .subscribe({
                 onSuccess(it.items)
             }, {
-                    onFailure(it)
+                onFailure(it)
             })
 
 

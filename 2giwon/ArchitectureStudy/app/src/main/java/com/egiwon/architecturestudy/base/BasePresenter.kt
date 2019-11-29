@@ -10,8 +10,6 @@ open class BasePresenter : BaseContract.Presenter {
     }
 
     override fun disposeDisposable() {
-        if (!compositeDisposable.isDisposed) {
-            compositeDisposable.dispose()
-        }
+        compositeDisposable.dispose()
     }
 }
