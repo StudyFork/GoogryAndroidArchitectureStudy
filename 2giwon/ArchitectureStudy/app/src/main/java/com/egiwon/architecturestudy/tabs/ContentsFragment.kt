@@ -84,6 +84,16 @@ class ContentsFragment : BaseFragment(
         progress_circular.visibility = View.VISIBLE
     }
 
+    override fun onPause() {
+        presenter.clearDisposable()
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        presenter.disposeDisposable()
+        super.onDestroy()
+    }
+
     companion object {
         private const val ARG_TYPE = "type"
 

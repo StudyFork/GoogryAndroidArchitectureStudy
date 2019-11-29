@@ -17,17 +17,15 @@ class ContentsPresenter(
         } else {
             naverDataRepository.getContents(
                 type = type,
-                query = query,
-                onSuccess = {
-                    with(it) {
-                        check(isNotEmpty())
-                        contentsView.onUpdateUi(this)
-                    }
-                },
-                onFailure = {
-                    contentsView.onFail(it)
+                query = query
+            ).subscribe({
+                with(it.items) {
+                    check(isNotEmpty())
+                    contentsView.onUpdateUi(this)
                 }
-            )
+            }, {
+                contentsView.onFail(it)
+            }).addDisposable()
         }
     }
 

@@ -13,8 +13,6 @@ abstract class BaseFragment(
     private val resource: Int
 ) : Fragment(), BaseContract.View {
 
-    private val basePresenter: BaseContract.Presenter = BasePresenter()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,13 +29,4 @@ abstract class BaseFragment(
         ).show()
     }
 
-    override fun onPause() {
-        super.onPause()
-        basePresenter.clearDisposable()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        basePresenter.disposeDisposable()
-    }
 }
