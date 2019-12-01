@@ -4,6 +4,7 @@ package wooooooak.com.studyapp.ui.blog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
@@ -47,6 +48,7 @@ class BlogListAdapter(private val fragmentActivity: FragmentActivity) :
                 val response = naverApi.getBlogs(title, DISPLAY_LIST_COUNT, null)
                 submitList(response.blogs)
             } catch (e: Exception) {
+                Toast.makeText(fragmentActivity, e.toString(), Toast.LENGTH_SHORT).show()
             } finally {
                 textOnEditTextView = title
             }
@@ -62,7 +64,7 @@ class BlogListAdapter(private val fragmentActivity: FragmentActivity) :
                     submitList(list)
                 }
             } catch (e: Exception) {
-
+                Toast.makeText(fragmentActivity, e.toString(), Toast.LENGTH_SHORT).show()
             }
         }
     }

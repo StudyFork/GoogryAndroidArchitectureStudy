@@ -1,9 +1,9 @@
 package wooooooak.com.studyapp.ui.movie
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
@@ -47,8 +47,7 @@ class MovieListAdapter(private val fragmentActivity: FragmentActivity) :
                 val response = naverApi.getMovies(title, DISPLAY_LIST_COUNT, null)
                 submitList(response.movies)
             } catch (e: Exception) {
-                Log.d("MovieFragment", e.toString())
-                Log.d("MovieFragment", e.message.toString())
+                Toast.makeText(fragmentActivity, e.toString(), Toast.LENGTH_SHORT).show()
             } finally {
                 textOnEditTextView = title
             }
@@ -64,7 +63,7 @@ class MovieListAdapter(private val fragmentActivity: FragmentActivity) :
                     submitList(list)
                 }
             } catch (e: Exception) {
-
+                Toast.makeText(fragmentActivity, e.toString(), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -89,5 +88,5 @@ private class DiffCallback : DiffUtil.ItemCallback<Movie>() {
         oldItem == newItem
 
     override fun areContentsTheSame(oldItem: Movie, newItem: Movie) =
-        oldItem.image == newItem.image
+        oldItem == newItem
 }

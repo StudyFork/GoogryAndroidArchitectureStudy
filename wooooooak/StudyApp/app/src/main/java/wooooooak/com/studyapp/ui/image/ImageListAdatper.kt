@@ -1,9 +1,9 @@
 package wooooooak.com.studyapp.ui.image
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
@@ -47,8 +47,7 @@ class ImageListAdapter(private val fragmentActivity: FragmentActivity) :
                 val response = naverApi.getImages(title, DISPLAY_LIST_COUNT, null)
                 submitList(response.images)
             } catch (e: Exception) {
-                Log.d("MovieFragment", e.toString())
-                Log.d("MovieFragment", e.message.toString())
+                Toast.makeText(fragmentActivity, e.toString(), Toast.LENGTH_SHORT).show()
             } finally {
                 textOnEditTextView = title
             }
@@ -64,7 +63,7 @@ class ImageListAdapter(private val fragmentActivity: FragmentActivity) :
                     submitList(list)
                 }
             } catch (e: Exception) {
-
+                Toast.makeText(fragmentActivity, e.toString(), Toast.LENGTH_SHORT).show()
             }
         }
     }
