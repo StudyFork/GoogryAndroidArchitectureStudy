@@ -10,8 +10,12 @@ data class Movie(
     val director: String,
     val actor: String,
     val pubDate: String,
-    val userRating: String
-)
+    @SerializedName("userRating")
+    private val _userRating: String
+) {
+    val userRating: Float
+        get() = _userRating.toFloat() / 2
+}
 
 data class ResponseMovies(
     val display: Int,
