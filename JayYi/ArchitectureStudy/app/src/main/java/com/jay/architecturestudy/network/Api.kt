@@ -1,5 +1,6 @@
 package com.jay.architecturestudy.network
 
+import com.jay.architecturestudy.model.ResponseBlog
 import com.jay.architecturestudy.model.ResponseImages
 import com.jay.architecturestudy.model.ResponseMovies
 import retrofit2.Call
@@ -16,6 +17,13 @@ object Api {
     fun getImages(keyword: String): Call<ResponseImages> {
         return ApiClient.getApiService()
             .getImages(
+                query = keyword
+            )
+    }
+
+    fun getBlog(keyword: String): Call<ResponseBlog> {
+        return ApiClient.getApiService()
+            .getBlog(
                 query = keyword
             )
     }
