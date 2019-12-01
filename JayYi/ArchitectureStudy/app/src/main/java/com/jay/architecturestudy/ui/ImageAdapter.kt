@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.model.Image
 import kotlinx.android.synthetic.main.list_item_image.view.*
-import kotlinx.android.synthetic.main.list_item_movie.view.*
 
 internal class ImageAdapter(private val context: Context) : RecyclerView.Adapter<ImageHolder>() {
     private var data = arrayListOf<Image>()
