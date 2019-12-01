@@ -1,7 +1,7 @@
 package com.egiwon.architecturestudy.data.source.remote
 
 import com.egiwon.architecturestudy.data.Content
-import retrofit2.Call
+import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -13,5 +13,5 @@ interface ContentsService {
         type: String,
         @Query("query")
         query: String
-    ): Call<Content>
+    ): Single<Content>
 }

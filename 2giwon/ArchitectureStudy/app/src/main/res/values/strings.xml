@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">ArchitectureStudy</string>
-    <string name="callback_fail">불러오기 실패</string>
-    <string name="callback_empty_fail">검색 결과가 없습니다.</string>
+    <string name="error_load_fail">불러오기 실패</string>
+    <string name="error_empty_fail">검색 결과가 없습니다.</string>
 
     <string name="blog_tab">블로그</string>
     <string name="news_tab">뉴스</string>
     <string name="movie_tab">영화</string>
     <string name="book_tab">책</string>
     <string name="search_hint">검색</string>
+    <string name="type_is_null">Type is Null</string>
+    <string name="error_query_empty">검색어를 입력해주세요</string>
 </resources>
