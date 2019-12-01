@@ -1,27 +1,38 @@
-package com.practice.achitecture.myproject
+package com.practice.achitecture.myproject.main
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSource
-import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSourceImpl
+import com.practice.achitecture.myproject.BaseActivity
+import com.practice.achitecture.myproject.R
+import com.practice.achitecture.myproject.makeToast
 import com.practice.achitecture.myproject.model.SearchedItem
-import com.practice.achitecture.myproject.network.RetrofitClient
 import com.practice.achitecture.myproject.network.retrofitErrorHandler
-import common.*
+import common.SEARCH_TYPE_BLOG
+import common.SEARCH_TYPE_BOOK
+import common.SEARCH_TYPE_MOVIE
+import common.SEARCH_TYPE_NEWS
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : BaseActivity(),
+    View.OnClickListener,
+    MainContract.View {
+
+    override lateinit var presenter: MainContract.Presenter
 
     private var searchType: Int = SEARCH_TYPE_MOVIE
     private var searchMovieAndBookAdapter: SearchMovieAndBookAdapter? = null
     private var searchBlogAndNewsAdapter: SearchBlogAndNewsAdapter? = null
-    private val naverRemoteDataSource =
-        NaverRemoteDataSourceImpl(RetrofitClient(NAVER_API_BASE_URL).makeRetrofitServiceForNaver())
+    private val searchedItemListener: SearchedItemClickListener =
+        object : SearchedItemClickListener {
+            override fun onItemClick(item: SearchedItem) {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(item.link)))
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,11 +40,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         registerOnClickListener()
         initAdapter()
+
+        presenter = MainPresenter(this)
     }
 
     private fun initAdapter() {
-        searchMovieAndBookAdapter = SearchMovieAndBookAdapter()
-        searchBlogAndNewsAdapter = SearchBlogAndNewsAdapter()
+        searchMovieAndBookAdapter =
+            SearchMovieAndBookAdapter(searchedItemListener)
+        searchBlogAndNewsAdapter =
+            SearchBlogAndNewsAdapter(searchedItemListener)
     }
 
     private fun registerOnClickListener() {
@@ -75,45 +90,26 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         imm.hideSoftInputFromWindow(input_search_sth.windowToken, 0)
 
         val word = input_search_sth.text.toString()
-        if (word.isEmpty()) {
-            Toast.makeText(
-                this@MainActivity,
-                getString(R.string.toast_empty_word),
-                Toast.LENGTH_SHORT
-            ).show()
-            return
-        }
         this.searchType = searchType
-        val category = when (searchType) {
-            SEARCH_TYPE_MOVIE -> "movie"
-            SEARCH_TYPE_BOOK -> "book"
-            SEARCH_TYPE_BLOG -> "blog"
-            SEARCH_TYPE_NEWS -> "news"
-            else -> "movie"
-        }
+        presenter.searchIfNotEmpty(word, searchType)
+    }
 
-        naverRemoteDataSource.searchWordByNaver(
-            category,
-            word,
-            object : NaverRemoteDataSource.GettingResultOfSearchingCallBack {
+    override fun isEmpty() {
+        makeToast(R.string.toast_empty_word)
+    }
 
-                override fun onSuccess(items: List<SearchedItem>) {
-                    when (this@MainActivity.searchType) {
-                        SEARCH_TYPE_MOVIE, SEARCH_TYPE_BOOK -> {
-                            searchMovieAndBookAdapter?.notifyDataSetChanged(items)
-                            rv_searched_list.adapter = searchMovieAndBookAdapter
-                        }
-                        SEARCH_TYPE_BLOG, SEARCH_TYPE_NEWS -> {
-                            searchBlogAndNewsAdapter?.notifyDataSetChanged(items)
-                            rv_searched_list.adapter = searchBlogAndNewsAdapter
-                        }
-                    }
-                }
+    override fun showSearchResultBlogOrNews(items: List<SearchedItem>) {
+        searchBlogAndNewsAdapter?.notifyDataSetChanged(items)
+        rv_searched_list.adapter = searchBlogAndNewsAdapter
+    }
 
-                override fun onFailure(throwable: Throwable) {
-                    retrofitErrorHandler(this@MainActivity, throwable)
-                }
-            })
+    override fun showSearchResultMovieOrBook(items: List<SearchedItem>) {
+        searchMovieAndBookAdapter?.notifyDataSetChanged(items)
+        rv_searched_list.adapter = searchMovieAndBookAdapter
+    }
+
+    override fun searchingOnFailure(throwable: Throwable) {
+        retrofitErrorHandler(this@MainActivity, throwable)
     }
 
 }
