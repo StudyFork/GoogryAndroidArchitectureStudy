@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.jay.architecturestudy.ui.ImageFragment
 import com.jay.architecturestudy.ui.MovieFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -75,7 +76,7 @@ class MainActivity : AppCompatActivity() {
 
     inner class PagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         private val fragments = arrayListOf(
-            MovieFragment()
+            MovieFragment(), ImageFragment()
         )
 
         override fun getItem(position: Int): Fragment {
