@@ -8,5 +8,6 @@
     <color name="deepOrange">#F68657</color>
     <color name="semiBlack">#383A3F</color>
     <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
 
 </resources>

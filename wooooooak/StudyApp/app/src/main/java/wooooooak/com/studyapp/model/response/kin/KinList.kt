@@ -10,7 +10,7 @@ data class KinList(
     @SerializedName("display")
     val display: Int,
     @SerializedName("items")
-    val blogs: List<Kin>
+    val kins: List<Kin>
 )
 
 data class Kin(

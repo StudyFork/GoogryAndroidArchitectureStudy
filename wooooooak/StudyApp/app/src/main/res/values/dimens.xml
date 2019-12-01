@@ -3,4 +3,5 @@
     <dimen name="bottom_navigation_bar_height">60dp</dimen>
     <dimen name="default_page_margin">16dp</dimen>
     <dimen name="text_input_height">50dp</dimen>
+    <dimen name="list_card_elevation">5dp</dimen>
 </resources>
