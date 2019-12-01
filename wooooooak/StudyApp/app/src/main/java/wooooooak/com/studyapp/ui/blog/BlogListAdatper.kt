@@ -1,31 +1,26 @@
 package wooooooak.com.studyapp.ui.blog
 
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_blog.view.*
 import kotlinx.android.synthetic.main.item_image.view.title
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import wooooooak.com.studyapp.R
 import wooooooak.com.studyapp.common.constants.DISPLAY_LIST_COUNT
 import wooooooak.com.studyapp.common.constants.PAGING_OFFSET
 import wooooooak.com.studyapp.common.ext.startWebView
 import wooooooak.com.studyapp.model.response.blog.Blog
 import wooooooak.com.studyapp.naverApi
-import wooooooak.com.studyapp.ui.base.Searchable
+import wooooooak.com.studyapp.ui.base.BaseSearchListAdapter
 
-class BlogListAdapter(private val fragmentActivity: FragmentActivity) :
-    ListAdapter<Blog, BlogListAdapter.BlogViewHolder>(DiffCallback()), Searchable {
-
-    private var textOnEditTextView = ""
+class BlogSearchListAdapter(private val fragmentActivity: FragmentActivity) :
+    BaseSearchListAdapter<Blog, BlogSearchListAdapter.BlogViewHolder>(fragmentActivity, DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = BlogViewHolder(
         LayoutInflater
@@ -39,35 +34,18 @@ class BlogListAdapter(private val fragmentActivity: FragmentActivity) :
                 fragmentActivity.startWebView(blog.link)
             })
         }
-        if (position > itemCount - PAGING_OFFSET) loadMore()
+        if (position > itemCount - PAGING_OFFSET) loadMore(itemCount)
     }
 
-    override fun searchByTitle(title: String) {
-        fragmentActivity.lifecycleScope.launch {
-            try {
-                val response = naverApi.getBlogs(title, DISPLAY_LIST_COUNT, null)
-                submitList(response.blogs)
-            } catch (e: Exception) {
-                Toast.makeText(fragmentActivity, e.toString(), Toast.LENGTH_SHORT).show()
-            } finally {
-                textOnEditTextView = title
-            }
+    override suspend fun initItemListByTitleAsync(title: String): List<Blog> =
+        withContext(Dispatchers.IO) {
+            naverApi.getBlogs(title, DISPLAY_LIST_COUNT, null).blogs
         }
-    }
 
-    private fun loadMore() {
-        fragmentActivity.lifecycleScope.launch {
-            try {
-                val response = naverApi.getBlogs(textOnEditTextView, DISPLAY_LIST_COUNT, itemCount + 1)
-                currentList.toMutableList().let { list ->
-                    list.addAll(response.blogs)
-                    submitList(list)
-                }
-            } catch (e: Exception) {
-                Toast.makeText(fragmentActivity, e.toString(), Toast.LENGTH_SHORT).show()
-            }
+    override suspend fun getMoreItemListFromStartIndexAsync(title: String, startIndex: Int): List<Blog> =
+        withContext(Dispatchers.IO) {
+            naverApi.getBlogs(title, DISPLAY_LIST_COUNT, startIndex).blogs
         }
-    }
 
     inner class BlogViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(blog: Blog, onClickItem: View.OnClickListener) {
@@ -79,6 +57,7 @@ class BlogListAdapter(private val fragmentActivity: FragmentActivity) :
             }
         }
     }
+
 }
 
 private class DiffCallback : DiffUtil.ItemCallback<Blog>() {

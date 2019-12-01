@@ -3,29 +3,26 @@ package wooooooak.com.studyapp.ui.kin
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_blog.view.description
 import kotlinx.android.synthetic.main.item_image.view.title
 import kotlinx.android.synthetic.main.item_kin.view.*
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import wooooooak.com.studyapp.R
 import wooooooak.com.studyapp.common.constants.DISPLAY_LIST_COUNT
 import wooooooak.com.studyapp.common.constants.PAGING_OFFSET
 import wooooooak.com.studyapp.common.ext.startWebView
 import wooooooak.com.studyapp.model.response.kin.Kin
 import wooooooak.com.studyapp.naverApi
+import wooooooak.com.studyapp.ui.base.BaseSearchListAdapter
 import wooooooak.com.studyapp.ui.base.Searchable
 
 class KinListAdapter(private val fragmentActivity: FragmentActivity) :
-    ListAdapter<Kin, KinListAdapter.KinViewHolder>(DiffCallback()), Searchable {
-
-    private var textOnEditTextView = ""
+    BaseSearchListAdapter<Kin, KinListAdapter.KinViewHolder>(fragmentActivity, DiffCallback()), Searchable {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = KinViewHolder(
         LayoutInflater
@@ -39,35 +36,17 @@ class KinListAdapter(private val fragmentActivity: FragmentActivity) :
                 fragmentActivity.startWebView(kin.link)
             })
         }
-        if (position > itemCount - PAGING_OFFSET) loadMore()
+        if (position > itemCount - PAGING_OFFSET) loadMore(itemCount)
     }
 
-    override fun searchByTitle(title: String) {
-        fragmentActivity.lifecycleScope.launch {
-            try {
-                val response = naverApi.getKins(title, DISPLAY_LIST_COUNT, null)
-                submitList(response.kins)
-            } catch (e: Exception) {
-                Toast.makeText(fragmentActivity, e.toString(), Toast.LENGTH_SHORT).show()
-            } finally {
-                textOnEditTextView = title
-            }
-        }
+    override suspend fun initItemListByTitleAsync(title: String) = withContext(Dispatchers.IO) {
+        naverApi.getKins(title, DISPLAY_LIST_COUNT, null).kins
     }
 
-    private fun loadMore() {
-        fragmentActivity.lifecycleScope.launch {
-            try {
-                val response = naverApi.getKins(textOnEditTextView, DISPLAY_LIST_COUNT, itemCount + 1)
-                currentList.toMutableList().let { list ->
-                    list.addAll(response.kins)
-                    submitList(list)
-                }
-            } catch (e: Exception) {
-                Toast.makeText(fragmentActivity, e.toString(), Toast.LENGTH_SHORT).show()
-            }
+    override suspend fun getMoreItemListFromStartIndexAsync(title: String, startIndex: Int) =
+        withContext(Dispatchers.IO) {
+            naverApi.getKins(title, DISPLAY_LIST_COUNT, startIndex).kins
         }
-    }
 
     inner class KinViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(kin: Kin, onClickItem: View.OnClickListener) {
@@ -78,7 +57,6 @@ class KinListAdapter(private val fragmentActivity: FragmentActivity) :
             }
         }
     }
-
 }
 
 private class DiffCallback : DiffUtil.ItemCallback<Kin>() {

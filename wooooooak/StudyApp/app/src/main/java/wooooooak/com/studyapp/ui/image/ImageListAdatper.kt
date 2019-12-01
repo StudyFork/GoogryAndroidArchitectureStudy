@@ -3,28 +3,25 @@ package wooooooak.com.studyapp.ui.image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import kotlinx.android.synthetic.main.item_image.view.*
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import wooooooak.com.studyapp.R
 import wooooooak.com.studyapp.common.constants.DISPLAY_LIST_COUNT
 import wooooooak.com.studyapp.common.constants.PAGING_OFFSET
 import wooooooak.com.studyapp.common.ext.startWebView
 import wooooooak.com.studyapp.model.response.image.Image
 import wooooooak.com.studyapp.naverApi
+import wooooooak.com.studyapp.ui.base.BaseSearchListAdapter
 import wooooooak.com.studyapp.ui.base.Searchable
 
 class ImageListAdapter(private val fragmentActivity: FragmentActivity) :
-    ListAdapter<Image, ImageListAdapter.ImageViewHolder>(DiffCallback()), Searchable {
-
-    private var textOnEditTextView = ""
+    BaseSearchListAdapter<Image, ImageListAdapter.ImageViewHolder>(fragmentActivity, DiffCallback()), Searchable {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ImageViewHolder(
         LayoutInflater
@@ -38,35 +35,18 @@ class ImageListAdapter(private val fragmentActivity: FragmentActivity) :
                 fragmentActivity.startWebView(image.link)
             })
         }
-        if (position > itemCount - PAGING_OFFSET) loadMore()
+        if (position > itemCount - PAGING_OFFSET) loadMore(itemCount)
     }
 
-    override fun searchByTitle(title: String) {
-        fragmentActivity.lifecycleScope.launch {
-            try {
-                val response = naverApi.getImages(title, DISPLAY_LIST_COUNT, null)
-                submitList(response.images)
-            } catch (e: Exception) {
-                Toast.makeText(fragmentActivity, e.toString(), Toast.LENGTH_SHORT).show()
-            } finally {
-                textOnEditTextView = title
-            }
+    override suspend fun initItemListByTitleAsync(title: String) =
+        withContext(Dispatchers.IO) {
+            naverApi.getImages(title, DISPLAY_LIST_COUNT, null).images
         }
-    }
 
-    private fun loadMore() {
-        fragmentActivity.lifecycleScope.launch {
-            try {
-                val response = naverApi.getImages(textOnEditTextView, DISPLAY_LIST_COUNT, itemCount + 1)
-                currentList.toMutableList().let { list ->
-                    list.addAll(response.images)
-                    submitList(list)
-                }
-            } catch (e: Exception) {
-                Toast.makeText(fragmentActivity, e.toString(), Toast.LENGTH_SHORT).show()
-            }
+    override suspend fun getMoreItemListFromStartIndexAsync(title: String, startIndex: Int) =
+        withContext(Dispatchers.IO) {
+            naverApi.getImages(title, DISPLAY_LIST_COUNT, startIndex).images
         }
-    }
 
     inner class ImageViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(image: Image, onClickItem: View.OnClickListener) {
@@ -77,7 +57,6 @@ class ImageListAdapter(private val fragmentActivity: FragmentActivity) :
             }
         }
     }
-
 }
 
 private class DiffCallback : DiffUtil.ItemCallback<Image>() {
