@@ -8,25 +8,30 @@ import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 
-abstract class BaseFragment(
-    @LayoutRes
-    private val resource: Int
+abstract class BaseFragment<P : BaseContract.Presenter>(
+    @LayoutRes private val layoutResId: Int
 ) : Fragment(), BaseContract.View {
+
+    abstract val presenter: P
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(resource, container, false)
+        return inflater.inflate(layoutResId, container, false)
     }
 
-    fun showToast(text: String) {
-        Toast.makeText(
-            context,
-            text,
-            Toast.LENGTH_SHORT
-        ).show()
+    override fun onDestroyView() {
+        presenter.clearDisposable()
+        super.onDestroyView()
     }
 
+    override fun showToast(text: String) {
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showToast(textResId: Int) {
+        showToast(getString(textResId))
+    }
 }

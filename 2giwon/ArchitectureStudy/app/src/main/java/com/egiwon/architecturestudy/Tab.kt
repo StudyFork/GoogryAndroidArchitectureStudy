@@ -1,9 +1,12 @@
 package com.egiwon.architecturestudy
 
-enum class Tab {
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+enum class Tab : Parcelable {
     BLOG,
     NEWS,
     MOVIE,
     BOOK;
-
 }

@@ -1,7 +1,10 @@
 package com.egiwon.architecturestudy.tabs
 
+import com.egiwon.architecturestudy.Tab
 import com.egiwon.architecturestudy.base.BasePresenter
 import com.egiwon.architecturestudy.data.source.NaverDataRepository
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class ContentsPresenter(
     private val contentsView: ContentsContract.View,
@@ -9,23 +12,36 @@ class ContentsPresenter(
 ) : BasePresenter(), ContentsContract.Presenter {
 
     override fun loadContents(
-        type: String,
+        type: Tab,
         query: String
     ) {
         if (query.isBlank()) {
-            contentsView.onFail(Throwable())
+            contentsView.showErrorQueryEmpty()
         } else {
             naverDataRepository.getContents(
-                type = type,
+                type = type.name,
                 query = query
-            ).subscribe({
-                with(it.items) {
-                    check(isNotEmpty())
-                    contentsView.onUpdateUi(this)
+            ).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe {
+                    contentsView.showLoading()
                 }
-            }, {
-                contentsView.onFail(it)
-            }).addDisposable()
+                .doAfterTerminate {
+                    contentsView.hideLoading()
+                }
+                .subscribe({
+                    with(it.items) {
+                        if (isNullOrEmpty()) {
+                            contentsView.showErrorResultEmpty()
+                        } else {
+                            contentsView.showQueryResult(this)
+                        }
+                    }
+
+                }, {
+                    contentsView.showErrorLoadFail()
+                }).addDisposable()
+
         }
     }
 

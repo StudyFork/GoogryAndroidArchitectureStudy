@@ -4,7 +4,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
 abstract class BasePresenter : BaseContract.Presenter {
-    override val compositeDisposable: CompositeDisposable = CompositeDisposable()
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     protected fun Disposable.addDisposable() {
         compositeDisposable.add(this)
@@ -12,9 +12,5 @@ abstract class BasePresenter : BaseContract.Presenter {
 
     override fun clearDisposable() {
         compositeDisposable.clear()
-    }
-
-    override fun disposeDisposable() {
-        compositeDisposable.dispose()
     }
 }

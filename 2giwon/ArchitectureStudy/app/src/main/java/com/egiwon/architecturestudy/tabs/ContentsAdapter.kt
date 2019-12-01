@@ -6,20 +6,14 @@ import com.egiwon.architecturestudy.Tab
 import com.egiwon.architecturestudy.data.Content
 
 
-class ContentsAdapter(
-    private val tab: Tab
-) : RecyclerView.Adapter<ContentViewHolder>() {
+class ContentsAdapter(private val tab: Tab) : RecyclerView.Adapter<ContentViewHolder>() {
 
     private val list = ArrayList<Content.Item>()
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): ContentViewHolder =
-        when (viewType) {
-            Tab.BLOG.ordinal, Tab.NEWS.ordinal -> TextContentViewHolder(parent)
-            Tab.MOVIE.ordinal, Tab.BOOK.ordinal -> ImageContentViewHolder(parent)
-            else -> throw IllegalArgumentException()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentViewHolder =
+        when (Tab.values()[viewType]) {
+            Tab.BLOG, Tab.NEWS -> ContentViewHolder(parent)
+            Tab.MOVIE, Tab.BOOK -> ImageContentViewHolder(parent)
         }
 
 
