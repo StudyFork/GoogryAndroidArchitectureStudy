@@ -22,8 +22,10 @@ import com.buddman1208.architecturestudy.models.MovieItem
 import com.buddman1208.architecturestudy.repo.NaverDataRepositoryImpl
 import com.buddman1208.architecturestudy.utils.Constants
 import com.buddman1208.architecturestudy.utils.removeHtmlBoldTags
+import com.buddman1208.architecturestudy.utils.subscribeOnIO
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.toast
@@ -168,10 +170,16 @@ class MainActivity : AppCompatActivity() {
             NaverDataRepositoryImpl
                 .searchByTypeFromNaver(
                     searchType = currentMode,
-                    query = query,
-                    onSuccess = ::onDataSuccess,
-                    onFailure = ::onDataFailure
+                    query = query
                 )
+                .subscribeOnIO()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { onDataSuccess(it) },
+                    { onDataFailure(it) }
+                )
+
+
         } else {
             datas.clear()
             updateInfoText(resources.getString(R.string.hint_input_edittext))
