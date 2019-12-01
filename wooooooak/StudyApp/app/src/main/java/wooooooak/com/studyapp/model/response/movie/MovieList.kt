@@ -20,6 +20,13 @@ data class Movie(
     val subtitle: String,
     @SerializedName("pubDate")
     val pubDate: String,
+    @SerializedName("director")
+    val director: String,
+    @SerializedName("actor")
+    val actor: String,
     @SerializedName("userRating")
+    val _userRating: Float
+) {
     val userRating: Float
-)
+        get() = _userRating / 2
+}

@@ -74,6 +74,9 @@ class MovieListAdapter(private val fragmentActivity: FragmentActivity) :
             with(view) {
                 movie_title.text = HtmlCompat.fromHtml(movie.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
                 movie_image.load(movie.image)
+                rating_bar.rating = movie.userRating
+                director.text = HtmlCompat.fromHtml(movie.director, HtmlCompat.FROM_HTML_MODE_COMPACT)
+                actors.text = HtmlCompat.fromHtml(movie.actor, HtmlCompat.FROM_HTML_MODE_COMPACT)
                 movie_card.setOnClickListener(onClickItem)
             }
         }
