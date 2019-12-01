@@ -18,13 +18,12 @@ class MainActivity : AppCompatActivity() {
         view_pager.adapter = MainViewPagerAdapter(this)
         view_pager.isUserInputEnabled = false
 
-
         bottom_nav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.navigation_movie -> view_pager.currentItem = PAGE_MOVIE
-                R.id.navigation_blog -> view_pager.currentItem = PAGE_BLOG
-                R.id.navigation_image -> view_pager.currentItem = PAGE_IMAGE
-                R.id.navigation_kin -> view_pager.currentItem = PAGE_KIN
+                R.id.navigation_movie -> view_pager.setCurrentItem(PAGE_MOVIE, false)
+                R.id.navigation_blog -> view_pager.setCurrentItem(PAGE_BLOG, false)
+                R.id.navigation_image -> view_pager.setCurrentItem(PAGE_IMAGE, false)
+                R.id.navigation_kin -> view_pager.setCurrentItem(PAGE_KIN, false)
             }
             true
         }
