@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">ArchitectureStudy</string>
     <string name="action_settings">Settings</string>
+    <string name="menu_title_image">Image</string>
+    <string name="menu_title_movie">Movie</string>
+    <string name="menu_title_blog">Blog</string>
+    <string name="menu_title_kin">지식IN</string>
+    <string name="search">검색</string>
 </resources>
