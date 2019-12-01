@@ -2,6 +2,7 @@ package com.jay.architecturestudy.network.service
 
 import com.jay.architecturestudy.model.ResponseBlog
 import com.jay.architecturestudy.model.ResponseImages
+import com.jay.architecturestudy.model.ResponseKin
 import com.jay.architecturestudy.model.ResponseMovies
 import retrofit2.Call
 import retrofit2.http.GET
@@ -23,4 +24,9 @@ interface ApiService {
     fun getBlog(
         @Query("query") query: String
     ): Call<ResponseBlog>
+
+    @GET("v1/search/kin.json")
+    fun getKin(
+        @Query("query") query: String
+    ): Call<ResponseKin>
 }
