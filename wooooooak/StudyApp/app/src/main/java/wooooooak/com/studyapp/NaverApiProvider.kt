@@ -6,7 +6,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import wooooooak.com.studyapp.model.request.NaverRequestApi
+import wooooooak.com.studyapp.api.NaverRequestApi
 
 val naverApi: NaverRequestApi
     get() = Retrofit.Builder()

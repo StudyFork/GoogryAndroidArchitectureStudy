@@ -1,4 +1,4 @@
-package wooooooak.com.studyapp.model.request
+package wooooooak.com.studyapp.api
 
 import retrofit2.http.GET
 import retrofit2.http.Query
