@@ -2,21 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_movie"
-        android:icon="@android:drawable/ic_menu_call"
+        android:icon="@drawable/ic_movie_black_24dp"
         android:title="Movie" />
 
     <item
         android:id="@+id/navigation_blog"
-        android:icon="@android:drawable/ic_menu_camera"
+        android:icon="@drawable/ic_web_black_24dp"
         android:title="Blog" />
 
     <item
         android:id="@+id/navigation_image"
-        android:icon="@android:drawable/ic_menu_edit"
+        android:icon="@drawable/ic_image_black_24dp"
         android:title="Image" />
 
     <item
         android:id="@+id/navigation_kin"
-        android:icon="@android:drawable/ic_menu_help"
+        android:icon="@drawable/ic_question_answer_black_24dp"
         android:title="Kin" />
 </menu>
