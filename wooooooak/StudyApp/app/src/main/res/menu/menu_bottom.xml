@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_movie"
+        android:icon="@android:drawable/ic_menu_call"
+        android:title="Movie" />
+
+    <item
+        android:id="@+id/navigation_blog"
+        android:icon="@android:drawable/ic_menu_camera"
+        android:title="Blog" />
+
+    <item
+        android:id="@+id/navigation_image"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="Image" />
+
+    <item
+        android:id="@+id/navigation_kin"
+        android:icon="@android:drawable/ic_menu_help"
+        android:title="Kin" />
+</menu>
