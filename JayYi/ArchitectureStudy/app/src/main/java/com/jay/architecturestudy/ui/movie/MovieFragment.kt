@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.model.ResponseMovies
 import com.jay.architecturestudy.network.Api
+import com.jay.architecturestudy.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragemnt_movie.*
 import kotlinx.android.synthetic.main.view_search.*
 import retrofit2.Call
@@ -19,7 +20,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class MovieFragment : Fragment() {
+class MovieFragment : BaseFragment() {
 
     private lateinit var movieAdapter: MovieAdapter
 
@@ -58,7 +59,8 @@ class MovieFragment : Fragment() {
         }
     }
 
-    private fun search(keyword: String) {
+
+    override fun search(keyword: String) {
         Api.getMovies(keyword)
             .enqueue(object : Callback<ResponseMovies> {
                 override fun onFailure(call: Call<ResponseMovies>, t: Throwable) {

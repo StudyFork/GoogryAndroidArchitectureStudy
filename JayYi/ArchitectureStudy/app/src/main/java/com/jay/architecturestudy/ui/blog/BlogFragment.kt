@@ -12,13 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.model.ResponseBlog
 import com.jay.architecturestudy.network.Api
+import com.jay.architecturestudy.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragemnt_movie.*
 import kotlinx.android.synthetic.main.view_search.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class BlogFragment : Fragment() {
+class BlogFragment : BaseFragment() {
     private lateinit var blogAdapter: BlogAdapter
 
     override fun onCreateView(
@@ -57,7 +58,7 @@ class BlogFragment : Fragment() {
         }
     }
 
-    private fun search(keyword: String) {
+    override fun search(keyword: String) {
         Api.getBlog(keyword)
             .enqueue(object : Callback<ResponseBlog> {
                 override fun onFailure(call: Call<ResponseBlog>, t: Throwable) {

@@ -12,13 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.model.ResponseKin
 import com.jay.architecturestudy.network.Api
+import com.jay.architecturestudy.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragemnt_movie.*
 import kotlinx.android.synthetic.main.view_search.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class KinFragment : Fragment() {
+class KinFragment : BaseFragment() {
     private lateinit var kinAdapter: KinAdapter
 
     override fun onCreateView(
@@ -57,7 +58,7 @@ class KinFragment : Fragment() {
         }
     }
 
-    private fun search(keyword: String) {
+    override fun search(keyword: String) {
         Api.getKin(keyword)
             .enqueue(object : Callback<ResponseKin> {
                 override fun onFailure(call: Call<ResponseKin>, t: Throwable) {

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.model.ResponseImages
 import com.jay.architecturestudy.network.Api
+import com.jay.architecturestudy.ui.BaseFragment
 import com.jay.architecturestudy.util.toPx
 import com.jay.architecturestudy.widget.SpacesItemDecoration
 import kotlinx.android.synthetic.main.fragemnt_movie.*
@@ -20,7 +21,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ImageFragment : Fragment() {
+class ImageFragment : BaseFragment() {
 
     private lateinit var imageAdapter: ImageAdapter
 
@@ -55,7 +56,7 @@ class ImageFragment : Fragment() {
         }
     }
 
-    private fun search(keyword: String) {
+    override fun search(keyword: String) {
         Api.getImages(keyword)
             .enqueue(object : Callback<ResponseImages> {
                 override fun onFailure(call: Call<ResponseImages>, t: Throwable) {
