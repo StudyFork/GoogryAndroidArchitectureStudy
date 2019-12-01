@@ -1,4 +1,4 @@
-package com.jay.architecturestudy.ui
+package com.jay.architecturestudy.ui.image
 
 import android.content.Context
 import android.content.Intent
@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.model.Image
+import com.jay.architecturestudy.ui.WebViewActivity
 import kotlinx.android.synthetic.main.list_item_image.view.*
 
 internal class ImageAdapter(private val context: Context) : RecyclerView.Adapter<ImageHolder>() {

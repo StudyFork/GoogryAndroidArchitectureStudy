@@ -1,4 +1,4 @@
-package com.jay.architecturestudy.ui
+package com.jay.architecturestudy.ui.image
 
 import android.os.Bundle
 import android.util.Log

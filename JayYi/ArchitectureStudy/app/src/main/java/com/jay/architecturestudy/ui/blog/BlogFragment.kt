@@ -1,4 +1,4 @@
-package com.jay.architecturestudy.ui
+package com.jay.architecturestudy.ui.blog
 
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jay.architecturestudy.R
-import com.jay.architecturestudy.model.ResponseMovies
+import com.jay.architecturestudy.model.ResponseBlog
 import com.jay.architecturestudy.network.Api
 import kotlinx.android.synthetic.main.fragemnt_movie.*
 import kotlinx.android.synthetic.main.view_search.*
@@ -18,17 +18,15 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
-class MovieFragment : Fragment() {
-
-    private lateinit var movieAdapter: MovieAdapter
+class BlogFragment : Fragment() {
+    private lateinit var blogAdapter: BlogAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragemnt_movie, container, false)
+        return inflater.inflate(R.layout.fragemnt_blog, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,8 +39,9 @@ class MovieFragment : Fragment() {
                 search(keyword)
             }
         }
+
         activity?.let { activity ->
-            movieAdapter = MovieAdapter(activity)
+            blogAdapter = BlogAdapter(activity)
                 .also {
                     recycler_view.apply {
                         adapter = it
@@ -59,19 +58,19 @@ class MovieFragment : Fragment() {
     }
 
     private fun search(keyword: String) {
-        Api.getMovies(keyword)
-            .enqueue(object : Callback<ResponseMovies> {
-                override fun onFailure(call: Call<ResponseMovies>, t: Throwable) {
-                    Log.e("Movie", "error=${t.message}")
+        Api.getBlog(keyword)
+            .enqueue(object : Callback<ResponseBlog> {
+                override fun onFailure(call: Call<ResponseBlog>, t: Throwable) {
+                    Log.e("Blog", "error=${t.message}")
                 }
 
                 override fun onResponse(
-                    call: Call<ResponseMovies>,
-                    response: Response<ResponseMovies>
+                    call: Call<ResponseBlog>,
+                    response: Response<ResponseBlog>
                 ) {
                     if (response.isSuccessful) {
                         val body = response.body() ?: return
-                        movieAdapter.setData(body.movies)
+                        blogAdapter.setData(body.blogs)
                     }
                 }
 

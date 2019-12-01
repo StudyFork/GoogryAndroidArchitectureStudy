@@ -1,4 +1,4 @@
-package com.jay.architecturestudy.ui
+package com.jay.architecturestudy.ui.blog
 
 import android.content.Context
 import android.content.Intent
@@ -9,6 +9,7 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.model.Blog
+import com.jay.architecturestudy.ui.WebViewActivity
 import kotlinx.android.synthetic.main.list_item_blog.view.*
 
 

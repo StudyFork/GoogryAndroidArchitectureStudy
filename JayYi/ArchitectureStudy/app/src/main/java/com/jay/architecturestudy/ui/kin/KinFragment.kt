@@ -1,4 +1,4 @@
-package com.jay.architecturestudy.ui
+package com.jay.architecturestudy.ui.kin
 
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jay.architecturestudy.R
-import com.jay.architecturestudy.model.ResponseBlog
+import com.jay.architecturestudy.model.ResponseKin
 import com.jay.architecturestudy.network.Api
 import kotlinx.android.synthetic.main.fragemnt_movie.*
 import kotlinx.android.synthetic.main.view_search.*
@@ -18,15 +18,15 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class BlogFragment : Fragment() {
-    private lateinit var blogAdapter: BlogAdapter
+class KinFragment : Fragment() {
+    private lateinit var kinAdapter: KinAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragemnt_blog, container, false)
+        return inflater.inflate(R.layout.fragemnt_kin, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,7 +41,7 @@ class BlogFragment : Fragment() {
         }
 
         activity?.let { activity ->
-            blogAdapter = BlogAdapter(activity)
+            kinAdapter = KinAdapter(activity)
                 .also {
                     recycler_view.apply {
                         adapter = it
@@ -58,19 +58,19 @@ class BlogFragment : Fragment() {
     }
 
     private fun search(keyword: String) {
-        Api.getBlog(keyword)
-            .enqueue(object : Callback<ResponseBlog> {
-                override fun onFailure(call: Call<ResponseBlog>, t: Throwable) {
-                    Log.e("Blog", "error=${t.message}")
+        Api.getKin(keyword)
+            .enqueue(object : Callback<ResponseKin> {
+                override fun onFailure(call: Call<ResponseKin>, t: Throwable) {
+                    Log.e("Kin", "error=${t.message}")
                 }
 
                 override fun onResponse(
-                    call: Call<ResponseBlog>,
-                    response: Response<ResponseBlog>
+                    call: Call<ResponseKin>,
+                    response: Response<ResponseKin>
                 ) {
                     if (response.isSuccessful) {
                         val body = response.body() ?: return
-                        blogAdapter.setData(body.blogs)
+                        kinAdapter.setData(body.kins)
                     }
                 }
 

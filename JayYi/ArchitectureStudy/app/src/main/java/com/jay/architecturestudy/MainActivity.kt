@@ -1,18 +1,16 @@
 package com.jay.architecturestudy
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.jay.architecturestudy.ui.BlogFragment
-import com.jay.architecturestudy.ui.ImageFragment
-import com.jay.architecturestudy.ui.KinFragment
-import com.jay.architecturestudy.ui.MovieFragment
+import com.jay.architecturestudy.ui.blog.BlogFragment
+import com.jay.architecturestudy.ui.image.ImageFragment
+import com.jay.architecturestudy.ui.kin.KinFragment
+import com.jay.architecturestudy.ui.movie.MovieFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -78,7 +76,8 @@ class MainActivity : AppCompatActivity() {
 
     inner class PagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         private val fragments = arrayListOf(
-            MovieFragment(), ImageFragment(), BlogFragment(), KinFragment()
+            MovieFragment(), ImageFragment(),
+            BlogFragment(), KinFragment()
         )
 
         override fun getItem(position: Int): Fragment {
