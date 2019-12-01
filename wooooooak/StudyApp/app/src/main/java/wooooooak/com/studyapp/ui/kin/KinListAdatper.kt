@@ -22,7 +22,7 @@ import wooooooak.com.studyapp.ui.base.BaseSearchListAdapter
 import wooooooak.com.studyapp.ui.base.Searchable
 
 class KinListAdapter(private val fragmentActivity: FragmentActivity) :
-    BaseSearchListAdapter<Kin, KinListAdapter.KinViewHolder>(fragmentActivity, DiffCallback()), Searchable {
+    BaseSearchListAdapter<Kin, KinListAdapter.KinViewHolder>(fragmentActivity, DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = KinViewHolder(
         LayoutInflater

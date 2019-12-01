@@ -21,7 +21,7 @@ import wooooooak.com.studyapp.ui.base.BaseSearchListAdapter
 import wooooooak.com.studyapp.ui.base.Searchable
 
 class ImageListAdapter(private val fragmentActivity: FragmentActivity) :
-    BaseSearchListAdapter<Image, ImageListAdapter.ImageViewHolder>(fragmentActivity, DiffCallback()), Searchable {
+    BaseSearchListAdapter<Image, ImageListAdapter.ImageViewHolder>(fragmentActivity, DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ImageViewHolder(
         LayoutInflater

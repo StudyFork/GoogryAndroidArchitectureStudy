@@ -21,7 +21,7 @@ import wooooooak.com.studyapp.ui.base.BaseSearchListAdapter
 import wooooooak.com.studyapp.ui.base.Searchable
 
 class MovieListAdapter(private val fragmentActivity: FragmentActivity) :
-    BaseSearchListAdapter<Movie, MovieListAdapter.MovieViewHolder>(fragmentActivity, DiffCallback()), Searchable {
+    BaseSearchListAdapter<Movie, MovieListAdapter.MovieViewHolder>(fragmentActivity, DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MovieViewHolder(
         LayoutInflater
