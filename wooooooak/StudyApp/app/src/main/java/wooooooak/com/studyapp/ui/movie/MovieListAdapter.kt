@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
-import androidx.lifecycle.LifecycleOwner
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -16,11 +16,12 @@ import kotlinx.coroutines.launch
 import wooooooak.com.studyapp.R
 import wooooooak.com.studyapp.common.constants.DISPLAY_LIST_COUNT
 import wooooooak.com.studyapp.common.constants.PAGING_OFFSET
+import wooooooak.com.studyapp.common.ext.startWebView
 import wooooooak.com.studyapp.model.response.movie.Movie
 import wooooooak.com.studyapp.naverApi
 import wooooooak.com.studyapp.ui.base.Searchable
 
-class MovieListAdapter(private val lifecycleOwner: LifecycleOwner) :
+class MovieListAdapter(private val fragmentActivity: FragmentActivity) :
     ListAdapter<Movie, MovieListAdapter.MovieViewHolder>(DiffCallback()), Searchable {
 
     private var textOnEditTextView = ""
@@ -32,14 +33,16 @@ class MovieListAdapter(private val lifecycleOwner: LifecycleOwner) :
     )
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        getItem(position)?.let {
-            holder.bind(it)
+        getItem(position)?.let { movie ->
+            holder.bind(movie, View.OnClickListener {
+                fragmentActivity.startWebView(movie.link)
+            })
         }
         if (position > itemCount - PAGING_OFFSET) loadMore()
     }
 
     override fun searchByTitle(title: String) {
-        lifecycleOwner.lifecycleScope.launch {
+        fragmentActivity.lifecycleScope.launch {
             try {
                 val response = naverApi.getMovies(title, DISPLAY_LIST_COUNT, null)
                 submitList(response.movies)
@@ -53,7 +56,7 @@ class MovieListAdapter(private val lifecycleOwner: LifecycleOwner) :
     }
 
     private fun loadMore() {
-        lifecycleOwner.lifecycleScope.launch {
+        fragmentActivity.lifecycleScope.launch {
             try {
                 val response = naverApi.getMovies(textOnEditTextView, DISPLAY_LIST_COUNT, itemCount + 1)
                 currentList.toMutableList().let { list ->
@@ -67,9 +70,12 @@ class MovieListAdapter(private val lifecycleOwner: LifecycleOwner) :
     }
 
     inner class MovieViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(movie: Movie) {
-            view.movie_title.text = HtmlCompat.fromHtml(movie.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
-            view.movie_image.load(movie.image)
+        fun bind(movie: Movie, onClickItem: View.OnClickListener) {
+            with(view) {
+                movie_title.text = HtmlCompat.fromHtml(movie.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
+                movie_image.load(movie.image)
+                movie_card.setOnClickListener(onClickItem)
+            }
         }
     }
 

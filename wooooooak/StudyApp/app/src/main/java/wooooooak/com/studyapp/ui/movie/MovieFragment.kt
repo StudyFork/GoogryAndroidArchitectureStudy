@@ -23,7 +23,7 @@ class MovieFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_movie, container, false)
         movieListView = view.list_view
-        movieListView.adapter = MovieListAdapter(viewLifecycleOwner)
+        movieListView.adapter = MovieListAdapter(this.requireActivity())
         searchButton = view.search_button
         inputTextView = view.edit_text
 

@@ -10,7 +10,7 @@ class ImageFragment(
 ) : BaseSearchFragment() {
 
     override fun setListViewAdapter(listView: RecyclerView) {
-        listView.adapter = ImageListAdapter(this)
+        listView.adapter = ImageListAdapter(requireActivity())
     }
 
 }

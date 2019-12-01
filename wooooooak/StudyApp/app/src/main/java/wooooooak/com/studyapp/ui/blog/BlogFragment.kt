@@ -7,7 +7,7 @@ import wooooooak.com.studyapp.ui.base.BaseSearchFragment
 class BlogFragment(override val layoutId: Int = R.layout.fragment_blog) : BaseSearchFragment() {
 
     override fun setListViewAdapter(listView: RecyclerView) {
-        listView.adapter = BlogListAdapter(this)
+        listView.adapter = BlogListAdapter(requireActivity())
     }
 
 }
