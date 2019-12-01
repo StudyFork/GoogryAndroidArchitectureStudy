@@ -1,9 +1,10 @@
 package com.egiwon.architecturestudy.tabs
 
+import com.egiwon.architecturestudy.Tab
 import com.egiwon.architecturestudy.base.BasePresenter
-import com.egiwon.architecturestudy.data.Content
 import com.egiwon.architecturestudy.data.source.NaverDataRepository
-import com.egiwon.architecturestudy.data.source.NaverDataSource
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class ContentsPresenter(
     private val contentsView: ContentsContract.View,
@@ -11,30 +12,37 @@ class ContentsPresenter(
 ) : BasePresenter(), ContentsContract.Presenter {
 
     override fun loadContents(
-        type: String,
+        type: Tab,
         query: String
     ) {
         if (query.isBlank()) {
-            contentsView.onFail(Throwable())
+            contentsView.showErrorQueryEmpty()
         } else {
             naverDataRepository.getContents(
-                type = type,
-                query = query,
-                callback = object : NaverDataSource.Callback {
-                    override fun onSuccess(resultList: List<Content.Item>) {
-                        with(resultList) {
-                            check(isNotEmpty())
-                            contentsView.onUpdateUi(this)
+                type = type.name,
+                query = query
+            ).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe {
+                    contentsView.showLoading()
+                }
+                .doAfterTerminate {
+                    contentsView.hideLoading()
+                }
+                .subscribe({
+                    with(it.items) {
+                        if (isNullOrEmpty()) {
+                            contentsView.showErrorResultEmpty()
+                        } else {
+                            contentsView.showQueryResult(this)
                         }
                     }
 
-                    override fun onFailure(throwable: Throwable) {
-                        contentsView.onFail(throwable)
-                    }
-                }
-            )
+                }, {
+                    contentsView.showErrorLoadFail()
+                }).addDisposable()
+
         }
     }
 
-    override fun start() = Unit
 }

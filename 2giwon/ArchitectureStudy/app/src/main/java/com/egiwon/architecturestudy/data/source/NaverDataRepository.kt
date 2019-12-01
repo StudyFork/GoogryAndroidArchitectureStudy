@@ -1,28 +1,9 @@
 package com.egiwon.architecturestudy.data.source
 
-import com.egiwon.architecturestudy.data.Content
+class NaverDataRepository(private val naverRemoteDataSource: NaverDataSource) : NaverDataSource {
 
-class NaverDataRepository(
-    private val naverRemoteDataSource: NaverDataSource
-) : NaverDataSource {
-
-    override fun getContents(
-        type: String,
-        query: String,
-        callback: NaverDataSource.Callback
-    ) = naverRemoteDataSource.getContents(
-            type,
-            query,
-            object : NaverDataSource.Callback {
-                override fun onSuccess(list: List<Content.Item>) {
-                    callback.onSuccess(list)
-                }
-
-                override fun onFailure(throwable: Throwable) {
-                    callback.onFailure(throwable)
-                }
-            })
-
+    override fun getContents(type: String, query: String) =
+        naverRemoteDataSource.getContents(type, query)
 
     companion object {
         private var instance: NaverDataRepository? = null

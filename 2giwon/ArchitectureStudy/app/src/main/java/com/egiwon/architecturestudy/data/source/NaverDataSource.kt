@@ -1,17 +1,8 @@
 package com.egiwon.architecturestudy.data.source
 
 import com.egiwon.architecturestudy.data.Content
+import io.reactivex.Single
 
 interface NaverDataSource {
-
-    interface Callback {
-        fun onSuccess(list: List<Content.Item>)
-        fun onFailure(throwable: Throwable)
-    }
-
-    fun getContents(
-        type: String,
-        query: String,
-        callback: Callback
-    )
+    fun getContents(type: String, query: String): Single<Content>
 }
