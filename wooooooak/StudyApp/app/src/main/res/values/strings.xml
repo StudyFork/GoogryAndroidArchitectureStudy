@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">StudyApp</string>
+    <string name="input_blog_title">블로그 제목을 입력하세요.</string>
+    <string name="search">search!</string>
+    <string name="input_image_title">이미지 제목을 입력하세요.</string>
+    <string name="input_kin_title">지식인 검색</string>
+    <string name="input_movie_title">영화 제목을 입력하세요.</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
