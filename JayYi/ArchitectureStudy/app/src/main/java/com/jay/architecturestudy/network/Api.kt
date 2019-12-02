@@ -8,31 +8,30 @@ import retrofit2.Call
 
 object Api {
 
-    fun getMovies(keyword: String) : Call<ResponseMovies> {
-        return ApiClient.getApiService()
+    fun getMovies(keyword: String) : Call<ResponseMovies> =
+        ApiClient.getApiService()
             .getMovies(
                 query = keyword
             )
-    }
 
-    fun getImages(keyword: String): Call<ResponseImages> {
-        return ApiClient.getApiService()
+
+    fun getImages(keyword: String): Call<ResponseImages> =
+        ApiClient.getApiService()
             .getImages(
                 query = keyword
             )
-    }
 
-    fun getBlog(keyword: String): Call<ResponseBlog> {
-        return ApiClient.getApiService()
+
+    fun getBlog(keyword: String): Call<ResponseBlog> =
+        ApiClient.getApiService()
             .getBlog(
                 query = keyword
             )
-    }
 
-    fun getKin(keyword: String): Call<ResponseKin> {
-        return ApiClient.getApiService()
+
+    fun getKin(keyword: String): Call<ResponseKin> =
+        ApiClient.getApiService()
             .getKin(
                 query = keyword
             )
-    }
 }
