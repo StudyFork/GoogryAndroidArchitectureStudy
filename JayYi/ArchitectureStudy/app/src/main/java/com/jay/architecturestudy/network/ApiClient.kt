@@ -12,7 +12,7 @@ import java.io.IOException
 import java.nio.charset.Charset
 import java.util.concurrent.TimeUnit
 
-internal object ApiClient {
+object ApiClient {
     private const val READ_TIMEOUT_SECONDS = 30
     private const val WRITE_TIMEOUT_SECONDS = 10
     private const val CONNECTION_TIMEOUT_SECONDS = 30
