@@ -8,6 +8,8 @@ import com.example.androidarchitecture.fragment.BlogFragment
 import com.example.androidarchitecture.fragment.ImageFragment
 import com.example.androidarchitecture.fragment.KinFragment
 import com.example.androidarchitecture.fragment.MovieFragment
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,7 +18,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // 반드시 탭보다 먼저 선언.
         pager.adapter = ViewPagerAdapter(this)
+
+        tab_layout.tabGravity =TabLayout.GRAVITY_FILL
+        TabLayoutMediator(tab_layout, pager, object :TabLayoutMediator.TabConfigurationStrategy{
+            override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
+                when(position){
+                    0-> tab.text = "Movie"
+                    1-> tab.text = "Image"
+                    2-> tab.text = "Blog"
+                    3-> tab.text = "Kin"
+                }
+            }
+
+        }).attach()
 
     }
 
@@ -28,4 +44,6 @@ class MainActivity : AppCompatActivity() {
         override fun getItemCount() = fragmentList.size
         override fun createFragment(position: Int) = fragmentList[position]
     }
+
+
 }
