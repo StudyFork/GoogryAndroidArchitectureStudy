@@ -1,16 +1,13 @@
 package com.example.kotlinapplication.network
 
+import com.example.kotlinapplication.model.ResponseItems
+import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.Query
 
 interface RetrofitService {
-    /*val clientId :String = "o4YDMUoQQ3B5C1aJtX2g"
-    val clientScret :String = "FrW3bUTwCa"*/
-//    @Headers({
-//        "X-Naver-Client-Id:o4YDMUoQQ3B5C1aJtX2g",
-//
-//    })
-//    @GET("shop")
 
-
+    @GET("movie.json")
+    fun GET_MOVIE_CALL(@Query("query") query:String): Single<ResponseItems>
 }
