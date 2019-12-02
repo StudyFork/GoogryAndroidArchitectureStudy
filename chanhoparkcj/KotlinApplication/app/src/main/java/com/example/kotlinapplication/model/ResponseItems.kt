@@ -1,4 +1,7 @@
 package com.example.kotlinapplication.model
 
-class ResponseItems {
-}
+
+
+data class ResponseItems (
+    var items:List<MovieItems>
+)
