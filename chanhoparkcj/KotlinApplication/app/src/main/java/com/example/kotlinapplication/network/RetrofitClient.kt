@@ -5,7 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class SearchRetrofit{
+class RetrofitClient{
     companion object{
        /* val clientId :String = "o4YDMUoQQ3B5C1aJtX2g"
         val clientScret :String = "FrW3bUTwCa"*/
