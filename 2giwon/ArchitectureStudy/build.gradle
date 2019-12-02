@@ -28,6 +28,9 @@ buildscript {
         rxandroid_version = '2.1.1'
         rxjava_version = '2.1.9'
 
+        // room
+        room_version = '2.2.2'
+
         // Test
         jnit_version = '4.12'
         test_ext_version = '1.1.1'
