@@ -32,15 +32,6 @@ class KinFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        search_btn.setOnClickListener {
-            val keyword = search_editor.text.toString().trim()
-            if (keyword.isBlank()) {
-                Toast.makeText(activity, "검색어를 입력해주세요", Toast.LENGTH_SHORT).show()
-            } else {
-                search(keyword)
-            }
-        }
-
         activity?.let { activity ->
             kinAdapter = KinAdapter(activity)
                 .also {
