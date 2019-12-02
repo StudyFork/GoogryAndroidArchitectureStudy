@@ -14,7 +14,6 @@ import com.jay.architecturestudy.model.Movie
 import com.jay.architecturestudy.ui.WebViewActivity
 import com.jay.architecturestudy.ui.WebViewActivity.Companion.EXTRA_URL
 import kotlinx.android.synthetic.main.list_item_movie.view.*
-import java.lang.Exception
 
 internal class MovieAdapter(private val context: Context) : RecyclerView.Adapter<MovieHolder>() {
     private val data = arrayListOf<Movie>()

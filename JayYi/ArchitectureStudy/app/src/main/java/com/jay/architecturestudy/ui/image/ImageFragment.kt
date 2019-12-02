@@ -5,8 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.jay.architecturestudy.R
@@ -16,7 +14,6 @@ import com.jay.architecturestudy.ui.BaseFragment
 import com.jay.architecturestudy.util.toPx
 import com.jay.architecturestudy.widget.SpacesItemDecoration
 import kotlinx.android.synthetic.main.fragemnt_movie.*
-import kotlinx.android.synthetic.main.view_search.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
