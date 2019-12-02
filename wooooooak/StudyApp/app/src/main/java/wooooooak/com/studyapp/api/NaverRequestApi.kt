@@ -9,28 +9,28 @@ import wooooooak.com.studyapp.model.response.movie.MovieList
 
 interface NaverRequestApi {
 
-    @GET("movie.json")
+    @GET("v1/search/movie.json")
     suspend fun getMovies(
         @Query("query") query: String,
         @Query("display") display: Int?,
         @Query("start") start: Int?
     ): MovieList
 
-    @GET("blog.json")
+    @GET("v1/search/blog.json")
     suspend fun getBlogs(
         @Query("query") query: String,
         @Query("display") display: Int?,
         @Query("start") start: Int?
     ): BlogList
 
-    @GET("image.json")
+    @GET("v1/search/image.json")
     suspend fun getImages(
         @Query("query") query: String,
         @Query("display") display: Int?,
         @Query("start") start: Int?
     ): ImageList
 
-    @GET("kin.json")
+    @GET("v1/search/kin.json")
     suspend fun getKins(
         @Query("query") query: String,
         @Query("display") display: Int?,
