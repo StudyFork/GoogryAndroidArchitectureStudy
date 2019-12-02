@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.list_item_movie.view.*
 import java.lang.Exception
 
 internal class MovieAdapter(private val context: Context) : RecyclerView.Adapter<MovieHolder>() {
-    private var data = arrayListOf<Movie>()
+    private val data = arrayListOf<Movie>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.list_item_movie, parent, false)

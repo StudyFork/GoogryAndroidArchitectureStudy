@@ -14,7 +14,7 @@ import com.jay.architecturestudy.ui.WebViewActivity
 import kotlinx.android.synthetic.main.list_item_image.view.*
 
 internal class ImageAdapter(private val context: Context) : RecyclerView.Adapter<ImageHolder>() {
-    private var data = arrayListOf<Image>()
+    private val data = arrayListOf<Image>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.list_item_image, parent, false)

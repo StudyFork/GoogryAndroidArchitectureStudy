@@ -13,7 +13,7 @@ import com.jay.architecturestudy.ui.WebViewActivity
 import kotlinx.android.synthetic.main.list_item_kin.view.*
 
 internal class KinAdapter(private val context: Context) : RecyclerView.Adapter<KinHolder>() {
-    private var data = arrayListOf<Kin>()
+    private val data = arrayListOf<Kin>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KinHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.list_item_kin, parent, false)
