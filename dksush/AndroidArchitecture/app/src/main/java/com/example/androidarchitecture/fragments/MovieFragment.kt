@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidarchitecture.R
-import com.example.androidarchitecture.WebviewActivirt
+import com.example.androidarchitecture.activitys.WebviewActivity
 import com.example.androidarchitecture.adapters.movieAdapter
 import com.example.androidarchitecture.apis.Api
 import com.example.androidarchitecture.apis.Api.Companion.base_url
@@ -78,7 +78,7 @@ class MovieFragment : Fragment() {
         recycle.adapter =
             movieAdapter(movie, activity!!, object : movieAdapter.OnItemClickListener {
                 override fun onItemClick(link: String) {
-                    val intent = Intent(context, WebviewActivirt::class.java)
+                    val intent = Intent(context, WebviewActivity::class.java)
                     intent.putExtra("link", link)
                     context?.startActivity(intent)
                 }

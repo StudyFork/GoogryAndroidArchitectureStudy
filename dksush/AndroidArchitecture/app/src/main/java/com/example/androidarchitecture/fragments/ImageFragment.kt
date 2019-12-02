@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidarchitecture.R
-import com.example.androidarchitecture.WebviewActivirt
-import com.example.androidarchitecture.adapters.ImageAdapter
+import com.example.androidarchitecture.activitys.WebviewActivity
+import com.example.androidarchitecture.adapters.imageAdpater
 import com.example.androidarchitecture.apis.Api
 import com.example.androidarchitecture.apis.NetworkUtil
 import com.example.androidarchitecture.models.ImageData
@@ -75,9 +75,9 @@ class ImageFragment : Fragment() {
 
     private fun setList(image: ArrayList<Image_item>) {
         recycle.adapter =
-            ImageAdapter(image, activity!!, object : ImageAdapter.OnItemClickListener {
+            imageAdpater(image, activity!!, object : imageAdpater.OnItemClickListener {
                 override fun onItemClick(link: String) {
-                    val intent = Intent(context, WebviewActivirt::class.java)
+                    val intent = Intent(context, WebviewActivity::class.java)
                     intent.putExtra("link", link)
                     context?.startActivity(intent)
                 }

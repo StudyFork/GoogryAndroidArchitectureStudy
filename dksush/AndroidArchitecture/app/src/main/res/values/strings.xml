@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AndroidArchitecture</string>
+    <string name="search">검색</string>
+    <string name="input_movie_title">영화를 검색하세요.</string>
+    <string name="input_image_title">이미지를 검색하세요.</string>
+    <string name="input_blog_title">블로그를 검색하세요.</string>
+    <string name="input_kin_title">kin을 검색하세요.</string>
 </resources>
