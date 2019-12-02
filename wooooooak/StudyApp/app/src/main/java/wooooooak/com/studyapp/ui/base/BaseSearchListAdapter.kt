@@ -35,9 +35,9 @@ abstract class BaseSearchListAdapter<T, H : RecyclerView.ViewHolder>(
         fragmentActivity.lifecycleScope.launch {
             try {
                 val addedList = getMoreItemListFromStartIndexAsync(textOnEditTextView, itemCount + 1)
-                currentList.toMutableList().let { list ->
-                    list.addAll(addedList)
-                    submitList(list)
+                currentList.toMutableList().run {
+                    addAll(addedList)
+                    submitList(this)
                 }
             } catch (e: Exception) {
                 Toast.makeText(fragmentActivity, e.message, Toast.LENGTH_SHORT).show()
