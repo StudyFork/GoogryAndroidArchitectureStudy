@@ -24,7 +24,7 @@ class IntroActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         //화면에 들어 왔을 경우 예약 걸어주기
-        handler.postDelayed(r,4000)
+        handler.postDelayed(r, 4000)
     }
 
     override fun onPause() {
