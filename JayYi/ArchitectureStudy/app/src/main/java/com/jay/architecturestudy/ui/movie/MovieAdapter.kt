@@ -43,11 +43,8 @@ internal class MovieAdapter(private val context: Context) : RecyclerView.Adapter
 internal class MovieHolder(
     private val view: View
 ) : RecyclerView.ViewHolder(view) {
-    private lateinit var model: Movie
 
     fun bind(model: Movie) {
-        this.model = model
-
         with(view) {
             movie_title.text = HtmlCompat.fromHtml(model.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
             movie_director.text = model.director

@@ -39,11 +39,8 @@ internal class KinAdapter(private val context: Context) : RecyclerView.Adapter<K
 internal class KinHolder(
     private val view: View
 ) : RecyclerView.ViewHolder(view) {
-    private lateinit var model: Kin
 
     fun bind(model: Kin) {
-        this.model = model
-
         with(view) {
             kin_title.text = HtmlCompat.fromHtml(model.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
             kin_description.text = HtmlCompat.fromHtml(model.description, HtmlCompat.FROM_HTML_MODE_COMPACT)
