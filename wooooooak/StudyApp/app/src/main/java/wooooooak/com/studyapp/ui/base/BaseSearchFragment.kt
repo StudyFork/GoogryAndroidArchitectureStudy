@@ -37,12 +37,10 @@ abstract class BaseSearchFragment : Fragment() {
     abstract fun setListViewAdapter(listView: RecyclerView)
 
     protected open fun fetchSearchedList() {
-        val adapter = listView.adapter
+        val adapter = listView.adapter ?: return
         val inputText = inputTextView.text.toString()
-        adapter?.let {
-            if (it is Searchable && inputText.isNotEmpty()) {
-                it.searchByTitle(inputText)
-            }
+        if (adapter is Searchable && inputText.isNotEmpty()) {
+            adapter.searchByTitle(inputText)
         }
     }
 
