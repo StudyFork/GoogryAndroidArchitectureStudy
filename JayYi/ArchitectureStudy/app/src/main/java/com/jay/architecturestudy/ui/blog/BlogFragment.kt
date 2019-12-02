@@ -35,7 +35,7 @@ class BlogFragment : BaseFragment() {
         activity?.let { activity ->
             blogAdapter = BlogAdapter(activity)
                 .also {
-                    recycler_view.apply {
+                    recycler_view.run {
                         adapter = it
                         layoutManager = LinearLayoutManager(activity)
                         addItemDecoration(

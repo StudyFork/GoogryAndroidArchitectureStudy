@@ -35,7 +35,7 @@ class KinFragment : BaseFragment() {
         activity?.let { activity ->
             kinAdapter = KinAdapter(activity)
                 .also {
-                    recycler_view.apply {
+                    recycler_view.run {
                         adapter = it
                         layoutManager = LinearLayoutManager(activity)
                         addItemDecoration(

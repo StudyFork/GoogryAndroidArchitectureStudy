@@ -37,7 +37,7 @@ class MovieFragment : BaseFragment() {
         activity?.let { activity ->
             movieAdapter = MovieAdapter(activity)
                 .also {
-                    recycler_view.apply {
+                    recycler_view.run {
                         adapter = it
                         layoutManager = LinearLayoutManager(activity)
                         addItemDecoration(

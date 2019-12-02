@@ -38,7 +38,7 @@ class ImageFragment : BaseFragment() {
         activity?.let { activity ->
             imageAdapter = ImageAdapter(activity)
                 .also {
-                    recycler_view.apply {
+                    recycler_view.run {
                         adapter = it
                         layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
                         addItemDecoration(SpacesItemDecoration(12.toPx(), 6.toPx(), 11.toPx()))
