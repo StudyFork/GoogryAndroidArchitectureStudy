@@ -8,6 +8,7 @@ import okhttp3.Response
 import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.io.IOException
 import java.nio.charset.Charset
 import java.util.concurrent.TimeUnit
@@ -19,15 +20,9 @@ object ApiClient {
 
     private const val baseApiUrl = "https://openapi.naver.com"
 
-    private var apiService: ApiService? = null
+    private val apiService: ApiService = getRetrofit(baseApiUrl).create()
 
-    fun getApiService(): ApiService {
-        val service = apiService
-            ?: getRetrofit(baseApiUrl)
-                .create(ApiService::class.java)
-        apiService = service
-        return service
-    }
+    fun getApiService() = apiService
 
     private fun getRetrofit(baseUrl: String): Retrofit {
         val builder = OkHttpClient.Builder()
