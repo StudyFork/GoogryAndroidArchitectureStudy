@@ -17,7 +17,10 @@ class WebviewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_webview)
 
-        webViewUrl = intent?.extras?.getString(URL) ?: ""
+        webViewUrl = intent?.extras?.getString(URL) ?: kotlin.run {
+            finish()
+            return
+        }
         initWebView()
     }
 
