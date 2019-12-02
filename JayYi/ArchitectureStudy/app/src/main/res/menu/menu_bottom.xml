@@ -3,21 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_movie"
-        app:showAsAction="ifRoom"
-        android:title="@string/menu_title_movie" />
+        android:icon="@drawable/ic_videocam_black_24dp"
+        android:title="@string/menu_title_movie"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/menu_image"
-        app:showAsAction="ifRoom"
-        android:title="@string/menu_title_image" />
+        android:icon="@drawable/ic_image_black_24dp"
+        android:title="@string/menu_title_image"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/menu_blog"
-        app:showAsAction="ifRoom"
-        android:title="@string/menu_title_blog" />
+        android:icon="@drawable/ic_forum_black_24dp"
+        android:title="@string/menu_title_blog"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/menu_kin"
-        app:showAsAction="ifRoom"
-        android:title="@string/menu_title_kin" />
+        android:icon="@drawable/ic_school_black_24dp"
+        android:title="@string/menu_title_kin"
+        app:showAsAction="ifRoom" />
 </menu>
