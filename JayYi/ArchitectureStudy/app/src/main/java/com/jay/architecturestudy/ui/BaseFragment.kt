@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import com.jay.architecturestudy.R
 import kotlinx.android.synthetic.main.view_search.*
 
-open class BaseFragment(private val layoutId: Int) : Fragment() {
+abstract class BaseFragment(private val layoutId: Int) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
