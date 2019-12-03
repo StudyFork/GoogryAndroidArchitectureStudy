@@ -23,8 +23,10 @@ abstract class BaseSearchFragment(
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        fragmentView = inflater.inflate(layoutId, container, false)
+    ): View? = inflater.inflate(layoutId, container, false)
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         recyclerView = fragmentView.list_view
         setListViewAdapter(recyclerView)
         inputTextView = fragmentView.edit_text
@@ -32,7 +34,6 @@ abstract class BaseSearchFragment(
         searchButton.setOnClickListener {
             fetchSearchedList()
         }
-        return fragmentView
     }
 
     abstract fun setListViewAdapter(listView: RecyclerView)
@@ -44,6 +45,5 @@ abstract class BaseSearchFragment(
             adapter.searchByTitle(inputText)
         }
     }
-
 
 }
