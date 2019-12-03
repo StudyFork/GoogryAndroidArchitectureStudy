@@ -3,6 +3,7 @@ package com.ironelder.androidarchitecture.data.source
 import com.ironelder.androidarchitecture.data.TotalModel
 import com.ironelder.androidarchitecture.data.repository.SearchDataRepositoryImpl
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,10 +28,4 @@ object SearchDataSourceImpl : SearchDataSource {
             })
     }
 
-    override fun getDataForSearchWithAdapter(
-        type: String,
-        query: String?
-    ): Single<TotalModel> {
-        return SearchDataRepositoryImpl.getDataForSearchWithAdapter(type, query)
-    }
 }

@@ -15,10 +15,6 @@ import com.ironelder.androidarchitecture.common.TYPE_KEY
 import com.ironelder.androidarchitecture.component.CustomListViewAdapter
 import com.ironelder.androidarchitecture.data.ResultItem
 import com.ironelder.androidarchitecture.view.baseview.BaseFragment
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.layout_search_listview.*
 
@@ -26,7 +22,6 @@ import kotlinx.android.synthetic.main.layout_search_listview.*
 class MainFragment :
     BaseFragment<MainContract.View, MainContract.Presenter>(R.layout.fragment_main),
     MainContract.View {
-    override val disposeBag = CompositeDisposable()
     override val presenter = MainPresenter()
 
     private val mType: String? by lazy {
@@ -79,18 +74,10 @@ class MainFragment :
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchView.clearFocus()
-//                presenter.search(
-//                    mType ?: BLOG,
-//                    query,
-//                    getString(R.string.msg_empty_search_string)
-//                )
-                val disposable: Disposable = presenter.searchWithAdapter(
+                presenter.searchWithAdapter(
                     mType ?: BLOG,
                     query
-                ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ presenter.onSuccess(it) }, { presenter.onError(it) })
-
-                disposeBag.add(disposable)
+                )
                 return false
             }
 

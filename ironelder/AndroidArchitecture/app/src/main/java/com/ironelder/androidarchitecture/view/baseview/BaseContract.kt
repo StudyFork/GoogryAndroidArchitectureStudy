@@ -6,5 +6,6 @@ interface BaseContract {
     interface Presenter<in VIEW : View> {
         fun attachView(view: VIEW)
         fun detachView()
+        fun clearDisposable()
     }
 }
