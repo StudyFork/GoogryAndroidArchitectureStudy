@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.jay.architecturestudy.R
-import com.jay.architecturestudy.model.ResponseImages
+import com.jay.architecturestudy.model.Image
+import com.jay.architecturestudy.model.ResponseNaverQuery
 import com.jay.architecturestudy.network.Api
 import com.jay.architecturestudy.ui.BaseFragment
 import com.jay.architecturestudy.util.toPx
@@ -46,18 +47,18 @@ class ImageFragment : BaseFragment() {
 
     override fun search(keyword: String) {
         Api.getImages(keyword)
-            .enqueue(object : Callback<ResponseImages> {
-                override fun onFailure(call: Call<ResponseImages>, t: Throwable) {
+            .enqueue(object : Callback<ResponseNaverQuery<Image>> {
+                override fun onFailure(call: Call<ResponseNaverQuery<Image>>, t: Throwable) {
                     Log.e("Image", "error=${t.message}")
                 }
 
                 override fun onResponse(
-                    call: Call<ResponseImages>,
-                    response: Response<ResponseImages>
+                    call: Call<ResponseNaverQuery<Image>>,
+                    response: Response<ResponseNaverQuery<Image>>
                 ) {
                     if (response.isSuccessful) {
                         val body = response.body() ?: return
-                        imageAdapter.setData(body.images)
+                        imageAdapter.setData(body.items)
                     }
                 }
 

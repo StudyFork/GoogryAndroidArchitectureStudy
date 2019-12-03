@@ -1,9 +1,6 @@
 package com.jay.architecturestudy.network.service
 
-import com.jay.architecturestudy.model.ResponseBlog
-import com.jay.architecturestudy.model.ResponseImages
-import com.jay.architecturestudy.model.ResponseKin
-import com.jay.architecturestudy.model.ResponseMovies
+import com.jay.architecturestudy.model.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -13,20 +10,20 @@ interface ApiService {
     @GET("v1/search/movie.json")
     fun getMovies(
         @Query("query") query: String
-    ): Call<ResponseMovies>
+    ): Call<ResponseNaverQuery<Movie>>
 
     @GET("v1/search/image.json")
     fun getImages(
         @Query("query") query: String
-    ): Call<ResponseImages>
+    ): Call<ResponseNaverQuery<Image>>
 
     @GET("v1/search/blog.json")
     fun getBlog(
         @Query("query") query: String
-    ): Call<ResponseBlog>
+    ): Call<ResponseNaverQuery<Blog>>
 
     @GET("v1/search/kin.json")
     fun getKin(
         @Query("query") query: String
-    ): Call<ResponseKin>
+    ): Call<ResponseNaverQuery<Kin>>
 }

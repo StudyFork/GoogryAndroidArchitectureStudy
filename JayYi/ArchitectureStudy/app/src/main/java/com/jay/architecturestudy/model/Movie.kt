@@ -17,10 +17,3 @@ data class Movie(
         get() = _userRating.toFloat() / 2
 }
 
-data class ResponseMovies(
-    val display: Int,
-    val lastBuildDate: String,
-    val start: Int,
-    val total: Int,
-    @SerializedName("items") val movies: List<Movie>
-)

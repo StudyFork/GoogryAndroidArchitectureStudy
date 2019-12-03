@@ -1,36 +1,33 @@
 package com.jay.architecturestudy.network
 
-import com.jay.architecturestudy.model.ResponseBlog
-import com.jay.architecturestudy.model.ResponseImages
-import com.jay.architecturestudy.model.ResponseKin
-import com.jay.architecturestudy.model.ResponseMovies
+import com.jay.architecturestudy.model.*
 import retrofit2.Call
 
 object Api {
 
-    fun getMovies(keyword: String) : Call<ResponseMovies> =
-        ApiClient.getApiService()
+    fun getMovies(keyword: String): Call<ResponseNaverQuery<Movie>> =
+        ApiClient.apiService
             .getMovies(
                 query = keyword
             )
 
 
-    fun getImages(keyword: String): Call<ResponseImages> =
-        ApiClient.getApiService()
+    fun getImages(keyword: String): Call<ResponseNaverQuery<Image>> =
+        ApiClient.apiService
             .getImages(
                 query = keyword
             )
 
 
-    fun getBlog(keyword: String): Call<ResponseBlog> =
-        ApiClient.getApiService()
+    fun getBlog(keyword: String): Call<ResponseNaverQuery<Blog>> =
+        ApiClient.apiService
             .getBlog(
                 query = keyword
             )
 
 
-    fun getKin(keyword: String): Call<ResponseKin> =
-        ApiClient.getApiService()
+    fun getKin(keyword: String): Call<ResponseNaverQuery<Kin>> =
+        ApiClient.apiService
             .getKin(
                 query = keyword
             )

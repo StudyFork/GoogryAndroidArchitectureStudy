@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jay.architecturestudy.R
-import com.jay.architecturestudy.model.ResponseMovies
+import com.jay.architecturestudy.model.Movie
+import com.jay.architecturestudy.model.ResponseNaverQuery
 import com.jay.architecturestudy.network.Api
 import com.jay.architecturestudy.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragemnt_movie.*
@@ -51,18 +52,18 @@ class MovieFragment : BaseFragment() {
 
     override fun search(keyword: String) {
         Api.getMovies(keyword)
-            .enqueue(object : Callback<ResponseMovies> {
-                override fun onFailure(call: Call<ResponseMovies>, t: Throwable) {
+            .enqueue(object : Callback<ResponseNaverQuery<Movie>> {
+                override fun onFailure(call: Call<ResponseNaverQuery<Movie>>, t: Throwable) {
                     Log.e("Movie", "error=${t.message}")
                 }
 
                 override fun onResponse(
-                    call: Call<ResponseMovies>,
-                    response: Response<ResponseMovies>
+                    call: Call<ResponseNaverQuery<Movie>>,
+                    response: Response<ResponseNaverQuery<Movie>>
                 ) {
                     if (response.isSuccessful) {
                         val body = response.body() ?: return
-                        movieAdapter.setData(body.movies)
+                        movieAdapter.setData(body.items)
                     }
                 }
 

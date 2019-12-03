@@ -12,13 +12,3 @@ data class Blog(
     val postdate: String,
     val title: String
 )
-
-data class ResponseBlog(
-    val display: Int,
-    @SerializedName("items")
-    val blogs: List<Blog>,
-    val lastBuildDate: String,
-    val start: Int,
-    val total: Int
-)
-

@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jay.architecturestudy.R
-import com.jay.architecturestudy.model.ResponseKin
+import com.jay.architecturestudy.model.Kin
+import com.jay.architecturestudy.model.ResponseNaverQuery
 import com.jay.architecturestudy.network.Api
 import com.jay.architecturestudy.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragemnt_movie.*
@@ -48,18 +49,18 @@ class KinFragment : BaseFragment() {
 
     override fun search(keyword: String) {
         Api.getKin(keyword)
-            .enqueue(object : Callback<ResponseKin> {
-                override fun onFailure(call: Call<ResponseKin>, t: Throwable) {
+            .enqueue(object : Callback<ResponseNaverQuery<Kin>> {
+                override fun onFailure(call: Call<ResponseNaverQuery<Kin>>, t: Throwable) {
                     Log.e("Kin", "error=${t.message}")
                 }
 
                 override fun onResponse(
-                    call: Call<ResponseKin>,
-                    response: Response<ResponseKin>
+                    call: Call<ResponseNaverQuery<Kin>>,
+                    response: Response<ResponseNaverQuery<Kin>>
                 ) {
                     if (response.isSuccessful) {
                         val body = response.body() ?: return
-                        kinAdapter.setData(body.kins)
+                        kinAdapter.setData(body.items)
                     }
                 }
 

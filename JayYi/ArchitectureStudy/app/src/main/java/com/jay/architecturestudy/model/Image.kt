@@ -11,13 +11,3 @@ data class Image(
     val thumbnail: String,
     val title: String
 )
-
-data class ResponseImages(
-    val display: Int,
-    @SerializedName("items")
-    val images: List<Image>,
-    val lastBuildDate: String,
-    val start: Int,
-    val total: Int
-)
-

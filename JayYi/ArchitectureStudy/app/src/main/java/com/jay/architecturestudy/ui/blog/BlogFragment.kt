@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jay.architecturestudy.R
-import com.jay.architecturestudy.model.ResponseBlog
+import com.jay.architecturestudy.model.Blog
+import com.jay.architecturestudy.model.ResponseNaverQuery
 import com.jay.architecturestudy.network.Api
 import com.jay.architecturestudy.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragemnt_movie.*
@@ -48,18 +49,18 @@ class BlogFragment : BaseFragment() {
 
     override fun search(keyword: String) {
         Api.getBlog(keyword)
-            .enqueue(object : Callback<ResponseBlog> {
-                override fun onFailure(call: Call<ResponseBlog>, t: Throwable) {
+            .enqueue(object : Callback<ResponseNaverQuery<Blog>> {
+                override fun onFailure(call: Call<ResponseNaverQuery<Blog>>, t: Throwable) {
                     Log.e("Blog", "error=${t.message}")
                 }
 
                 override fun onResponse(
-                    call: Call<ResponseBlog>,
-                    response: Response<ResponseBlog>
+                    call: Call<ResponseNaverQuery<Blog>>,
+                    response: Response<ResponseNaverQuery<Blog>>
                 ) {
                     if (response.isSuccessful) {
                         val body = response.body() ?: return
-                        blogAdapter.setData(body.blogs)
+                        blogAdapter.setData(body.items)
                     }
                 }
 
