@@ -1,7 +1,6 @@
 package com.example.androidarchitecture.fragment
 
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,12 +13,8 @@ import com.example.androidarchitecture.apis.Api
 import com.example.androidarchitecture.apis.Api.Companion.base_url
 import com.example.androidarchitecture.apis.NetworkUtil
 import com.example.androidarchitecture.models.BlogData
-import com.example.androidarchitecture.models.MovieData
 import com.example.androidarchitecture.models.ResponseBlog
-import com.example.androidarchitecture.models.ResponseMovie
-import com.example.androidarchitecture.ui.WebviewActivity
 import com.example.androidarchitecture.ui.blog.blogAdapter
-import com.example.androidarchitecture.ui.movie.movieAdapter
 import kotlinx.android.synthetic.main.fragment_movie.*
 import retrofit2.Call
 import retrofit2.Response
@@ -69,15 +64,7 @@ class BlogFragment : Fragment() {
 
     private fun setList(blog: List<ResponseBlog>) {
         recycle.adapter =
-            blogAdapter(blog, activity!!, object : blogAdapter.OnItemClickListener {
-
-                override fun onItemClick(link: String) {
-                    Intent(context, WebviewActivity::class.java).apply {
-                        putExtra("link", link)
-                    }.run {
-                        context?.startActivity(this) }
-                }
-            })
+            blogAdapter(blog)
         recycle.layoutManager = LinearLayoutManager(activity)
         recycle.addItemDecoration(
             DividerItemDecoration(

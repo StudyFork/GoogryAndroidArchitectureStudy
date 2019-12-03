@@ -1,7 +1,6 @@
 package com.example.androidarchitecture.fragment
 
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,7 +13,6 @@ import com.example.androidarchitecture.apis.Api
 import com.example.androidarchitecture.apis.NetworkUtil
 import com.example.androidarchitecture.models.KinData
 import com.example.androidarchitecture.models.ResponseKin
-import com.example.androidarchitecture.ui.WebviewActivity
 import com.example.androidarchitecture.ui.kin.kinAdapter
 import kotlinx.android.synthetic.main.fragment_movie.*
 import retrofit2.Call
@@ -68,17 +66,7 @@ class KinFragment : Fragment() {
 
     private fun setList(kin: List<ResponseKin>) {
         recycle.adapter =
-            kinAdapter(
-                kin,
-                activity!!,
-                object : kinAdapter.OnItemClickListener {
-                    override fun onItemClick(link: String) {
-                        Intent(context, WebviewActivity::class.java).apply {
-                            putExtra("link", link)
-                        }.run { context?.startActivity(this) }
-
-                    }
-                })
+            kinAdapter(kin)
         recycle.layoutManager = LinearLayoutManager(activity)
 
     }

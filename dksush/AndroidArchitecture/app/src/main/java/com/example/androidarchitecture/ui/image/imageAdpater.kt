@@ -1,6 +1,7 @@
 package com.example.androidarchitecture.ui.image
 
-import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,19 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidarchitecture.R
 import com.example.androidarchitecture.models.ResponseImage
+import com.example.androidarchitecture.ui.WebviewActivity
 import kotlinx.android.synthetic.main.item_image.view.*
 
-class imageAdpater (
-    val items:List<ResponseImage>,
-    val mContext: Context,
-    val mOnItemClickListener: OnItemClickListener
+class imageAdpater(
+    val items: List<ResponseImage>
 ) :
     RecyclerView.Adapter<imageAdpater.ImageHolder>() {
-
-
-    interface OnItemClickListener {
-        fun onItemClick(link: String)
-    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
@@ -33,21 +28,31 @@ class imageAdpater (
     }
 
     override fun onBindViewHolder(holder: ImageHolder, position: Int) {
-        val Image_item = items.get(position)
-        holder.itemView.image_title.text = Image_item.title
-
-        if (Image_item.thumbnail != null) {
-            Glide.with(mContext)
-                .load(Image_item.thumbnail)
-                .into(holder.itemView.image_thum)
-        }
-
-        holder.itemView.setOnClickListener {
-            mOnItemClickListener.let { it.onItemClick(Image_item.link) }
-        }
+        holder.bind(items[position])
     }
 
 
-    inner class ImageHolder(view: View) : RecyclerView.ViewHolder(view)
+    inner class ImageHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+        fun bind(model: ResponseImage) {
+            with(view) {
+                image_title.text = model.title
+                try {
+                    Glide.with(this)
+                        .load(model.thumbnail)
+                        .into(image_thum)
+                } catch (e: Exception) {
+                    Log.v("imageAdpater", e.message)
+                }
+
+
+                setOnClickListener() {
+                    Intent(context, WebviewActivity::class.java).apply {
+                        putExtra("link", model.link)
+                    }.run { context.startActivity(this) }
+                }
+
+            }
+        }
+    }
 
 }
