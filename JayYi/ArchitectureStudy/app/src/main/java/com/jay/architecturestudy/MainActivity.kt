@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onPageSelected(position: Int) {
-            bottom_navigation.menu.getItem(position).setChecked(true)
+            bottom_navigation.menu.getItem(position).isChecked = true
         }
 
     }
