@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class BlogData (
     @SerializedName("items")
-    val images: List<ResponseBlog>
+    val blogs: List<ResponseBlog>
 
 )
 

@@ -1,26 +1,41 @@
 package com.example.androidarchitecture.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.appcompat.app.AppCompatActivity
 import com.example.androidarchitecture.R
 import kotlinx.android.synthetic.main.activity_webview.*
 
 class WebviewActivity : AppCompatActivity() {
 
+
+    private lateinit var url: String
+    private lateinit var Webview: WebView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_webview)
 
-        webview.webViewClient = WebViewClient()
-        val settings = webview.settings
-        settings.javaScriptEnabled = true
-        settings.domStorageEnabled = true
+
+        url = intent.getStringExtra("link")
+            ?: run {
+                finish()
+                return
+            }
 
 
-        val intent = intent
-        Log.v("dksush", intent.getStringExtra("link"));
-        webview.loadUrl(intent.getStringExtra("link"))
+        Webview = webview.apply {
+            webViewClient = WebViewClient()
+            settings.run {
+                javaScriptEnabled = true
+                domStorageEnabled = true
+            }
+        }
+
+        Webview.loadUrl(url)
+
+
     }
+
 }

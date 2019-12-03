@@ -58,7 +58,7 @@ class BlogFragment : Fragment() {
 
             override fun onResponse(call: Call<BlogData>, response: Response<BlogData>) {
                 if (response.isSuccessful){
-                    response.body()?.images?.let { setList(it) }
+                    response.body()?.blogs?.let { setList(it) }
                 }
             }
 
