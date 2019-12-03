@@ -20,9 +20,7 @@ object ApiClient {
 
     private const val baseApiUrl = "https://openapi.naver.com"
 
-    private val apiService: ApiService = getRetrofit(baseApiUrl).create()
-
-    fun getApiService() = apiService
+    val apiService: ApiService = getRetrofit(baseApiUrl).create()
 
     private fun getRetrofit(baseUrl: String): Retrofit {
         val builder = OkHttpClient.Builder()
@@ -44,8 +42,6 @@ internal class HeaderInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val original = chain.request()
         val request = original.newBuilder().apply {
-            addHeader("Accept", "application/json")
-            addHeader("Content-Type", "application/json")
             addHeader("X-Naver-Client-Id", "P8gzwMjtR8JUN2GPMjil")
             addHeader("X-Naver-Client-Secret", "RUgmzQWH2g")
         }.build()
