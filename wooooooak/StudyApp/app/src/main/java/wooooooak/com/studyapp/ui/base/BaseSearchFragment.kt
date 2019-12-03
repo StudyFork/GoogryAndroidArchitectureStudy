@@ -16,7 +16,7 @@ abstract class BaseSearchFragment(
 ) : Fragment() {
 
     private lateinit var fragmentView: View
-    private lateinit var listView: RecyclerView
+    private lateinit var recyclerView: RecyclerView
     private lateinit var searchButton: Button
     private lateinit var inputTextView: TextInputEditText
 
@@ -25,8 +25,8 @@ abstract class BaseSearchFragment(
         savedInstanceState: Bundle?
     ): View? {
         fragmentView = inflater.inflate(layoutId, container, false)
-        listView = fragmentView.list_view
-        setListViewAdapter(listView)
+        recyclerView = fragmentView.list_view
+        setListViewAdapter(recyclerView)
         inputTextView = fragmentView.edit_text
         searchButton = fragmentView.search_button
         searchButton.setOnClickListener {
@@ -38,7 +38,7 @@ abstract class BaseSearchFragment(
     abstract fun setListViewAdapter(listView: RecyclerView)
 
     protected open fun fetchSearchedList() {
-        val adapter = listView.adapter ?: return
+        val adapter = recyclerView.adapter ?: return
         val inputText = inputTextView.text.toString()
         if (adapter is Searchable && inputText.isNotEmpty()) {
             adapter.searchByTitle(inputText)
