@@ -5,10 +5,10 @@ import com.google.gson.annotations.SerializedName
 data class ImageData(
 
     @SerializedName("items")
-    val images: List<Image_item>
+    val images: List<ResponseImage>
 )
 
-data class Image_item(
+data class ResponseImage(
     @SerializedName("title")
     val title: String,
     @SerializedName("link")

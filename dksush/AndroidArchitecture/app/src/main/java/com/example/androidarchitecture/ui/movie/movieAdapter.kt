@@ -1,4 +1,4 @@
-package com.example.androidarchitecture.adapters
+package com.example.androidarchitecture.ui.movie
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidarchitecture.R
-import com.example.androidarchitecture.models.Movie
+import com.example.androidarchitecture.models.ResponseMovie
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class movieAdapter(
-    val items: ArrayList<Movie>,
+    val items: List<ResponseMovie>,
     val mContext: Context,
     val mOnItemClickListener: OnItemClickListener
 ) : RecyclerView.Adapter<movieAdapter.movieHolder>() {

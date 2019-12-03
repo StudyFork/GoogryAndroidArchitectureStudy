@@ -1,4 +1,4 @@
-package com.example.androidarchitecture.adapters
+package com.example.androidarchitecture.ui.image
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidarchitecture.R
-import com.example.androidarchitecture.models.Image_item
+import com.example.androidarchitecture.models.ResponseImage
 import kotlinx.android.synthetic.main.item_image.view.*
 
 class imageAdpater (
-    val items: ArrayList<Image_item>,
+    val items:List<ResponseImage>,
     val mContext: Context,
     val mOnItemClickListener: OnItemClickListener
 ) :

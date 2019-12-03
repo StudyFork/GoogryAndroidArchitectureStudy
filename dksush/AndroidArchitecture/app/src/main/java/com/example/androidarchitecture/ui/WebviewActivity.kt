@@ -1,7 +1,8 @@
-package com.example.androidarchitecture.activitys
+package com.example.androidarchitecture.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.webkit.WebViewClient
 import com.example.androidarchitecture.R
 import kotlinx.android.synthetic.main.activity_webview.*
@@ -19,6 +20,7 @@ class WebviewActivity : AppCompatActivity() {
 
 
         val intent = intent
+        Log.v("dksush", intent.getStringExtra("link"));
         webview.loadUrl(intent.getStringExtra("link"))
     }
 }

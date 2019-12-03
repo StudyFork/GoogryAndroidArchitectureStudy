@@ -1,5 +1,6 @@
 package com.example.androidarchitecture.apis
 
+import com.example.androidarchitecture.models.BlogData
 import com.example.androidarchitecture.models.ImageData
 import com.example.androidarchitecture.models.MovieData
 import retrofit2.Call
@@ -33,7 +34,7 @@ interface Api {
         @Query("query") query: String,
         @Query("start") start: Int,
         @Query("display") display: Int
-    ): Call<MovieData>
+    ): Call<BlogData>
 
 
     @GET("kin.json")

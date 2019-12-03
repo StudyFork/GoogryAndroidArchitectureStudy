@@ -3,18 +3,19 @@ package com.example.androidarchitecture.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidarchitecture.R
-import com.example.androidarchitecture.activitys.WebviewActivity
-import com.example.androidarchitecture.adapters.imageAdpater
+import com.example.androidarchitecture.ui.WebviewActivity
+import com.example.androidarchitecture.ui.image.imageAdpater
 import com.example.androidarchitecture.apis.Api
 import com.example.androidarchitecture.apis.NetworkUtil
 import com.example.androidarchitecture.models.ImageData
-import com.example.androidarchitecture.models.Image_item
+import com.example.androidarchitecture.models.ResponseImage
 import kotlinx.android.synthetic.main.fragment_movie.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 class ImageFragment : Fragment() {
 
-    private var mArrData: ArrayList<Image_item>? = null
+    private var mArrData: ArrayList<ResponseImage>? = null
 
 
     override fun onCreateView(
@@ -41,9 +42,8 @@ class ImageFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         btn_search.setOnClickListener {
-            if (input_text != null) {
+            if (edit_text != null) {
                 requestImageList(edit_text.text.toString())
-
             }
         }
     }
@@ -55,33 +55,34 @@ class ImageFragment : Fragment() {
         val imageInfo = api.getImagelist(text, 1, 10)
         imageInfo.enqueue(object : Callback<ImageData> {
             override fun onFailure(call: Call<ImageData>, t: Throwable) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                Log.v("dksush_error", t.toString())
             }
 
             override fun onResponse(call: Call<ImageData>, response: Response<ImageData>) {
-                if (response.code() == 200) {
-                    mArrData = ArrayList()
+                if (response.isSuccessful){
                     response.body()?.images?.let {
-                        for (info in it) {
-                            mArrData?.add(info)
-                        }
-                        mArrData?.let { setList(it) }
+                        setList(it)
                     }
                 }
+
             }
         })
 
     }
 
-    private fun setList(image: ArrayList<Image_item>) {
+    private fun setList(image: List<ResponseImage>) {
         recycle.adapter =
-            imageAdpater(image, activity!!, object : imageAdpater.OnItemClickListener {
-                override fun onItemClick(link: String) {
-                    val intent = Intent(context, WebviewActivity::class.java)
-                    intent.putExtra("link", link)
-                    context?.startActivity(intent)
-                }
-            })
+            imageAdpater(
+                image,
+                activity!!,
+                object : imageAdpater.OnItemClickListener {
+                    override fun onItemClick(link: String) {
+                        Intent(context, WebviewActivity::class.java).apply {
+                            putExtra("link", link)
+                        }.run { context?.startActivity(this) }
+
+                    }
+                })
         recycle.layoutManager = LinearLayoutManager(activity)
 
     }

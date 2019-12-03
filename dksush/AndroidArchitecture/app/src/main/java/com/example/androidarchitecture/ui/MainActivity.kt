@@ -1,9 +1,10 @@
-package com.example.androidarchitecture
+package com.example.androidarchitecture.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.androidarchitecture.R
 import com.example.androidarchitecture.fragment.BlogFragment
 import com.example.androidarchitecture.fragment.ImageFragment
 import com.example.androidarchitecture.fragment.KinFragment

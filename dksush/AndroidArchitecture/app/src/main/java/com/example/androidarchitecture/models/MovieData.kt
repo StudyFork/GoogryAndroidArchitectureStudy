@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName
 data class MovieData(
 
     @SerializedName("items")
-    val movies: List<Movie>
+    val movies: List<ResponseMovie>
 
 
 )
 
 
-data class Movie(
+data class ResponseMovie(
     @SerializedName("title")
     val title: String,
     @SerializedName("link")
