@@ -22,10 +22,8 @@ object RetrofitClient {
             builder.addInterceptor { chain: Interceptor.Chain ->
                 val original = chain.request()
                 val request = original.newBuilder()
-                    .addHeader("Content-Type","application/json")
                     .addHeader("X-Naver-Client-Id", "o4YDMUoQQ3B5C1aJtX2g")
                     .addHeader("X-Naver-Client-Secret", "FrW3bUTwCa")
-                    .method(original.method(),original.body())
                     .build()
                 chain.proceed(request)
 

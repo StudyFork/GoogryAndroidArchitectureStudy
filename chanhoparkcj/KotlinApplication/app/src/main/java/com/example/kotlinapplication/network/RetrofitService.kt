@@ -9,5 +9,5 @@ import retrofit2.http.Query
 interface RetrofitService {
 
     @GET("movie.json")
-    fun GET_MOVIE_CALL(@Query("query") query:String): Single<ResponseItems>
+    fun GET_MOVIE_CALL(@Query("query") query: String): Single<ResponseItems>
 }
