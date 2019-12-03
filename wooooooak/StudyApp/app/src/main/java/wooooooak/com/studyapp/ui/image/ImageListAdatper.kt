@@ -40,12 +40,12 @@ class ImageListAdapter(private val fragmentActivity: FragmentActivity) :
 
     override suspend fun initItemListByTitleAsync(title: String) =
         withContext(Dispatchers.IO) {
-            naverApi.getImages(title, DISPLAY_LIST_COUNT, null).images
+            naverApi.getImages(title, DISPLAY_LIST_COUNT, null).items
         }
 
     override suspend fun getMoreItemListFromStartIndexAsync(title: String, startIndex: Int) =
         withContext(Dispatchers.IO) {
-            naverApi.getImages(title, DISPLAY_LIST_COUNT, startIndex).images
+            naverApi.getImages(title, DISPLAY_LIST_COUNT, startIndex).items
         }
 
     inner class ImageViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {

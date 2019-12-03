@@ -39,12 +39,12 @@ class MovieListAdapter(private val fragmentActivity: FragmentActivity) :
     }
 
     override suspend fun initItemListByTitleAsync(title: String) = withContext(Dispatchers.IO) {
-        naverApi.getMovies(title, DISPLAY_LIST_COUNT, null).movies
+        naverApi.getMovies(title, DISPLAY_LIST_COUNT, null).items
     }
 
     override suspend fun getMoreItemListFromStartIndexAsync(title: String, startIndex: Int) =
         withContext(Dispatchers.IO) {
-            naverApi.getMovies(title, DISPLAY_LIST_COUNT, startIndex).movies
+            naverApi.getMovies(title, DISPLAY_LIST_COUNT, startIndex).items
         }
 
     inner class MovieViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {

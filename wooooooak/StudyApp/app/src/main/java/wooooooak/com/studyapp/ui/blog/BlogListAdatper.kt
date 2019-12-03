@@ -39,12 +39,12 @@ class BlogSearchListAdapter(private val fragmentActivity: FragmentActivity) :
 
     override suspend fun initItemListByTitleAsync(title: String): List<Blog> =
         withContext(Dispatchers.IO) {
-            naverApi.getBlogs(title, DISPLAY_LIST_COUNT, null).blogs
+            naverApi.getBlogs(title, DISPLAY_LIST_COUNT, null).items
         }
 
     override suspend fun getMoreItemListFromStartIndexAsync(title: String, startIndex: Int): List<Blog> =
         withContext(Dispatchers.IO) {
-            naverApi.getBlogs(title, DISPLAY_LIST_COUNT, startIndex).blogs
+            naverApi.getBlogs(title, DISPLAY_LIST_COUNT, startIndex).items
         }
 
     inner class BlogViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {

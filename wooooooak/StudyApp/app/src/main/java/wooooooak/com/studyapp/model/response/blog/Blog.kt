@@ -2,16 +2,6 @@ package wooooooak.com.studyapp.model.response.blog
 
 import com.google.gson.annotations.SerializedName
 
-data class BlogList(
-    @SerializedName("lastBuildDate")
-    val lastBuildDate: String,
-    @SerializedName("total")
-    val total: Int,
-    @SerializedName("display")
-    val display: Int,
-    @SerializedName("items")
-    val blogs: List<Blog>
-)
 
 data class Blog(
     @SerializedName("title")

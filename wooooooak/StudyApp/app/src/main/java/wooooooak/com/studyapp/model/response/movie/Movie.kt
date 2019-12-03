@@ -2,12 +2,6 @@ package wooooooak.com.studyapp.model.response.movie
 
 import com.google.gson.annotations.SerializedName
 
-data class MovieList(
-    @SerializedName("lastBuildDate")
-    val lastBuildDate: String,
-    @SerializedName("items")
-    val movies: List<Movie>
-)
 
 data class Movie(
     @SerializedName("title")

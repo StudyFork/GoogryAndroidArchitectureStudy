@@ -40,12 +40,12 @@ class KinListAdapter(private val fragmentActivity: FragmentActivity) :
     }
 
     override suspend fun initItemListByTitleAsync(title: String) = withContext(Dispatchers.IO) {
-        naverApi.getKins(title, DISPLAY_LIST_COUNT, null).kins
+        naverApi.getKins(title, DISPLAY_LIST_COUNT, null).items
     }
 
     override suspend fun getMoreItemListFromStartIndexAsync(title: String, startIndex: Int) =
         withContext(Dispatchers.IO) {
-            naverApi.getKins(title, DISPLAY_LIST_COUNT, startIndex).kins
+            naverApi.getKins(title, DISPLAY_LIST_COUNT, startIndex).items
         }
 
     inner class KinViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
