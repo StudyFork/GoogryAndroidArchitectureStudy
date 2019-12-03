@@ -315,5 +315,22 @@ MVC -> MVP -> MVVM 아키텍처를 배우는 것도 도움이 되었지만 무�
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/doubleclutch30)
 
 
+## 7기
+- 안현호 [](https://github.com/)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
 
+- 양승희 [](https://github.com/)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+
+- 김찬영 [](https://github.com/)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+
+- 손유정 [](https://github.com/)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+
+- 박시원 [](https://github.com/)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+
+- 전재웅 [](https://github.com/)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
 
