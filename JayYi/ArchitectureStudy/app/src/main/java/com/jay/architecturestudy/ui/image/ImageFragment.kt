@@ -2,9 +2,7 @@ package com.jay.architecturestudy.ui.image
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.jay.architecturestudy.R
@@ -19,17 +17,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ImageFragment : BaseFragment() {
+class ImageFragment(layoutId: Int = R.layout.fragemnt_image) : BaseFragment(layoutId) {
 
     private lateinit var imageAdapter: ImageAdapter
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragemnt_image, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

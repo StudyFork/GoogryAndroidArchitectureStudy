@@ -17,16 +17,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class KinFragment : BaseFragment() {
-    private lateinit var kinAdapter: KinAdapter
+class KinFragment(layoutId: Int = R.layout.fragemnt_kin) : BaseFragment(layoutId) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragemnt_kin, container, false)
-    }
+    private lateinit var kinAdapter: KinAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

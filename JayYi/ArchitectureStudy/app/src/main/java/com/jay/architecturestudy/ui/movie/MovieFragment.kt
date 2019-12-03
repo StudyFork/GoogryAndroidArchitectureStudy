@@ -18,17 +18,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class MovieFragment : BaseFragment() {
+class MovieFragment(layoutId: Int = R.layout.fragemnt_movie) : BaseFragment(layoutId) {
 
     private lateinit var movieAdapter: MovieAdapter
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragemnt_movie, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,7 +40,6 @@ class MovieFragment : BaseFragment() {
                 }
         }
     }
-
 
     override fun search(keyword: String) {
         Api.getMovies(keyword)

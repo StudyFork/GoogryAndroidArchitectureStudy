@@ -17,16 +17,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class BlogFragment : BaseFragment() {
-    private lateinit var blogAdapter: BlogAdapter
+class BlogFragment(layoutId: Int = R.layout.fragemnt_blog) : BaseFragment(layoutId) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragemnt_blog, container, false)
-    }
+    private lateinit var blogAdapter: BlogAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
