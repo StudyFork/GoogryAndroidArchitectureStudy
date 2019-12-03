@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/tabMovie"
+        android:icon="@drawable/ic_movie"
+        android:title="movie">
+    </item>
+
+    <item
+        android:id="@+id/tabImage"
+        android:icon="@drawable/ic_image"
+        android:title="image">
+    </item>
+
+    <item
+        android:id="@+id/tabBlog"
+        android:icon="@drawable/ic_blog"
+        android:title="blog">
+    </item>
+
+    <item
+        android:id="@+id/tabKin"
+        android:icon="@drawable/ic_in"
+        android:title="kin">
+    </item>
+</menu>
