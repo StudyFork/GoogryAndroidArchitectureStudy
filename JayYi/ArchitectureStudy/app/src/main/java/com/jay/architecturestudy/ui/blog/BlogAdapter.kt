@@ -44,7 +44,8 @@ internal class BlogHolder(
     fun bind(model: Blog) {
         with(view) {
             blog_title.text = HtmlCompat.fromHtml(model.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
-            blog_description.text = HtmlCompat.fromHtml(model.description, HtmlCompat.FROM_HTML_MODE_COMPACT)
+            blog_description.text =
+                HtmlCompat.fromHtml(model.description, HtmlCompat.FROM_HTML_MODE_COMPACT)
             blog_owner.text = model.bloggerName
             blog_postdate.text = model.postdate
 

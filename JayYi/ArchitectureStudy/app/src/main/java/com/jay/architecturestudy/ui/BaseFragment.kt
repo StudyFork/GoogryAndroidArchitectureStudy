@@ -26,7 +26,8 @@ abstract class BaseFragment(private val layoutId: Int) : Fragment() {
         search_btn.setOnClickListener {
             val keyword = search_editor.text.toString().trim()
             if (keyword.isBlank()) {
-                Toast.makeText(activity, getString(R.string.warn_input_keyword), Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, getString(R.string.warn_input_keyword), Toast.LENGTH_SHORT)
+                    .show()
             } else {
                 hideKeyboard()
                 search(keyword)

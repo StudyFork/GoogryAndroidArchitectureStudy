@@ -10,7 +10,12 @@ class SpacesItemDecoration(
     private val firstTop: Int = 0
 ) : RecyclerView.ItemDecoration() {
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
         outRect.bottom = bottom
         outRect.left = spacing
         outRect.right = spacing

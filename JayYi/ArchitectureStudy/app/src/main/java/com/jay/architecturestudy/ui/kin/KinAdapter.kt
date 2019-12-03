@@ -43,7 +43,8 @@ internal class KinHolder(
     fun bind(model: Kin) {
         with(view) {
             kin_title.text = HtmlCompat.fromHtml(model.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
-            kin_description.text = HtmlCompat.fromHtml(model.description, HtmlCompat.FROM_HTML_MODE_COMPACT)
+            kin_description.text =
+                HtmlCompat.fromHtml(model.description, HtmlCompat.FROM_HTML_MODE_COMPACT)
 
             setOnClickListener {
                 val context = view.context
