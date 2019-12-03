@@ -11,9 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_image.view.*
 
-abstract class BaseSearchFragment : Fragment() {
+abstract class BaseSearchFragment(
+    private val layoutId: Int
+) : Fragment() {
 
-    abstract val layoutId: Int
     private lateinit var fragmentView: View
     private lateinit var listView: RecyclerView
     private lateinit var searchButton: Button

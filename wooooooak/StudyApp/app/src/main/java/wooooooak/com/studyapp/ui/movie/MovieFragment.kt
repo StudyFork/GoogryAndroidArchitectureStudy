@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import wooooooak.com.studyapp.R
 import wooooooak.com.studyapp.ui.base.BaseSearchFragment
 
-class MovieFragment(override val layoutId: Int = R.layout.fragment_movie) : BaseSearchFragment() {
+class MovieFragment(layoutId: Int = R.layout.fragment_movie) : BaseSearchFragment(layoutId) {
 
     override fun setListViewAdapter(listView: RecyclerView) {
         listView.adapter = MovieListAdapter(requireActivity())

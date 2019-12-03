@@ -6,8 +6,8 @@ import wooooooak.com.studyapp.ui.base.BaseSearchFragment
 
 
 class ImageFragment(
-    override val layoutId: Int = R.layout.fragment_image
-) : BaseSearchFragment() {
+    layoutId: Int = R.layout.fragment_image
+) : BaseSearchFragment(layoutId) {
 
     override fun setListViewAdapter(listView: RecyclerView) {
         listView.adapter = ImageListAdapter(requireActivity())

@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import wooooooak.com.studyapp.R
 import wooooooak.com.studyapp.ui.base.BaseSearchFragment
 
-class KinFragment(override val layoutId: Int = R.layout.fragment_kin) : BaseSearchFragment() {
+class KinFragment(layoutId: Int = R.layout.fragment_kin) : BaseSearchFragment(layoutId) {
 
     override fun setListViewAdapter(listView: RecyclerView) {
         listView.adapter = KinListAdapter(requireActivity())
