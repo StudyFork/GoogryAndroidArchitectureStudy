@@ -47,9 +47,9 @@ class BlogSearchListAdapter(private val fragmentActivity: FragmentActivity) :
             naverApi.getBlogs(title, DISPLAY_LIST_COUNT, startIndex).items
         }
 
-    inner class BlogViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    inner class BlogViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(blog: Blog, onClickItem: View.OnClickListener) {
-            with(view) {
+            with(itemView) {
                 title.text = HtmlCompat.fromHtml(blog.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
                 description.text = HtmlCompat.fromHtml(blog.description, HtmlCompat.FROM_HTML_MODE_COMPACT)
                 blogger_name.text = blog.bloggerName

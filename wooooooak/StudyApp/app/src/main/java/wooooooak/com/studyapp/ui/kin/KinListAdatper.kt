@@ -19,7 +19,6 @@ import wooooooak.com.studyapp.common.ext.startWebView
 import wooooooak.com.studyapp.model.response.kin.Kin
 import wooooooak.com.studyapp.naverApi
 import wooooooak.com.studyapp.ui.base.BaseSearchListAdapter
-import wooooooak.com.studyapp.ui.base.Searchable
 
 class KinListAdapter(private val fragmentActivity: FragmentActivity) :
     BaseSearchListAdapter<Kin, KinListAdapter.KinViewHolder>(fragmentActivity, DiffCallback()) {
@@ -48,9 +47,9 @@ class KinListAdapter(private val fragmentActivity: FragmentActivity) :
             naverApi.getKins(title, DISPLAY_LIST_COUNT, startIndex).items
         }
 
-    inner class KinViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    inner class KinViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(kin: Kin, onClickItem: View.OnClickListener) {
-            with(view) {
+            with(itemView) {
                 title.text = HtmlCompat.fromHtml(kin.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
                 description.text = HtmlCompat.fromHtml(kin.description, HtmlCompat.FROM_HTML_MODE_COMPACT)
                 kin_card.setOnClickListener(onClickItem)

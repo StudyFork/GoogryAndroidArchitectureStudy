@@ -18,7 +18,6 @@ import wooooooak.com.studyapp.common.ext.startWebView
 import wooooooak.com.studyapp.model.response.image.Image
 import wooooooak.com.studyapp.naverApi
 import wooooooak.com.studyapp.ui.base.BaseSearchListAdapter
-import wooooooak.com.studyapp.ui.base.Searchable
 
 class ImageListAdapter(private val fragmentActivity: FragmentActivity) :
     BaseSearchListAdapter<Image, ImageListAdapter.ImageViewHolder>(fragmentActivity, DiffCallback()) {
@@ -48,9 +47,9 @@ class ImageListAdapter(private val fragmentActivity: FragmentActivity) :
             naverApi.getImages(title, DISPLAY_LIST_COUNT, startIndex).items
         }
 
-    inner class ImageViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    inner class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(image: Image, onClickItem: View.OnClickListener) {
-            with(view) {
+            with(itemView) {
                 title.text = HtmlCompat.fromHtml(image.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
                 image_view.load(image.thumbnail)
                 image_card.setOnClickListener(onClickItem)

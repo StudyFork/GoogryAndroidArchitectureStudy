@@ -18,7 +18,6 @@ import wooooooak.com.studyapp.common.ext.startWebView
 import wooooooak.com.studyapp.model.response.movie.Movie
 import wooooooak.com.studyapp.naverApi
 import wooooooak.com.studyapp.ui.base.BaseSearchListAdapter
-import wooooooak.com.studyapp.ui.base.Searchable
 
 class MovieListAdapter(private val fragmentActivity: FragmentActivity) :
     BaseSearchListAdapter<Movie, MovieListAdapter.MovieViewHolder>(fragmentActivity, DiffCallback()) {
@@ -47,9 +46,9 @@ class MovieListAdapter(private val fragmentActivity: FragmentActivity) :
             naverApi.getMovies(title, DISPLAY_LIST_COUNT, startIndex).items
         }
 
-    inner class MovieViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    inner class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(movie: Movie, onClickItem: View.OnClickListener) {
-            with(view) {
+            with(itemView) {
                 movie_title.text = HtmlCompat.fromHtml(movie.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
                 movie_image.load(movie.image)
                 rating_bar.rating = movie.userRating
