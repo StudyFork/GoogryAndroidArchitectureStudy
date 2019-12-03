@@ -15,7 +15,6 @@ abstract class BaseSearchFragment(
     private val layoutId: Int
 ) : Fragment() {
 
-    private lateinit var fragmentView: View
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchButton: Button
     private lateinit var inputTextView: TextInputEditText
@@ -27,12 +26,14 @@ abstract class BaseSearchFragment(
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        recyclerView = fragmentView.list_view
-        setListViewAdapter(recyclerView)
-        inputTextView = fragmentView.edit_text
-        searchButton = fragmentView.search_button
-        searchButton.setOnClickListener {
-            fetchSearchedList()
+        view?.run {
+            recyclerView = list_view
+            setListViewAdapter(recyclerView)
+            inputTextView = edit_text
+            searchButton = search_button
+            searchButton.setOnClickListener {
+                fetchSearchedList()
+            }
         }
     }
 
