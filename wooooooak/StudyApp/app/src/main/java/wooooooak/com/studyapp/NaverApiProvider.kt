@@ -1,6 +1,5 @@
 package wooooooak.com.studyapp
 
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -11,7 +10,6 @@ import wooooooak.com.studyapp.api.NaverRequestApi
 val naverApi: NaverRequestApi
     get() = Retrofit.Builder()
         .baseUrl("https://openapi.naver.com/")
-        .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .addConverterFactory(GsonConverterFactory.create())
         .client(naverOkHttpClient)
         .build()
