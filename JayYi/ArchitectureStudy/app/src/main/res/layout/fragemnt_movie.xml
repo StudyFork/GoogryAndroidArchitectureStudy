@@ -6,9 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
+    <com.jay.architecturestudy.widget.NaverSearchBarView
         android:id="@+id/search_bar"
-        layout="@layout/view_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

@@ -35,6 +35,10 @@ class KinFragment(layoutId: Int = R.layout.fragemnt_kin) : BaseFragment(layoutId
                     }
                 }
         }
+
+        search_bar.onClickAction = { keyword ->
+            search(keyword)
+        }
     }
 
     override fun search(keyword: String) {

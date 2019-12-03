@@ -36,6 +36,10 @@ class MovieFragment(layoutId: Int = R.layout.fragemnt_movie) : BaseFragment(layo
                     }
                 }
         }
+
+        search_bar.onClickAction = { keyword ->
+            search(keyword)
+        }
     }
 
     override fun search(keyword: String) {

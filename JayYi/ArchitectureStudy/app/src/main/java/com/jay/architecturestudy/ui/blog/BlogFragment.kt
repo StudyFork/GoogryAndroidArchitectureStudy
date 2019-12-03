@@ -2,9 +2,6 @@ package com.jay.architecturestudy.ui.blog
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jay.architecturestudy.R
@@ -37,6 +34,10 @@ class BlogFragment(layoutId: Int = R.layout.fragemnt_blog) : BaseFragment(layout
                         )
                     }
                 }
+        }
+
+        search_bar.onClickAction = { keyword ->
+            search(keyword)
         }
     }
 

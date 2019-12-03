@@ -32,7 +32,12 @@ class ImageFragment(layoutId: Int = R.layout.fragemnt_image) : BaseFragment(layo
                     }
                 }
         }
+
+        search_bar.onClickAction = { keyword ->
+            search(keyword)
+        }
     }
+
     override fun search(keyword: String) {
         Api.getImages(keyword)
             .enqueue(object : Callback<ResponseNaverQuery<Image>> {
