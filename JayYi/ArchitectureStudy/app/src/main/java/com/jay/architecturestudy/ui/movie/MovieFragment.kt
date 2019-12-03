@@ -2,9 +2,6 @@ package com.jay.architecturestudy.ui.movie
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jay.architecturestudy.R
@@ -22,8 +19,8 @@ class MovieFragment(layoutId: Int = R.layout.fragemnt_movie) : BaseFragment(layo
 
     private lateinit var movieAdapter: MovieAdapter
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         activity?.let { activity ->
             movieAdapter = MovieAdapter(activity)
                 .also {

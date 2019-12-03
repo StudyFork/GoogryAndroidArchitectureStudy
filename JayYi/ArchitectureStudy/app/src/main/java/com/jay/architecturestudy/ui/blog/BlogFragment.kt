@@ -21,8 +21,8 @@ class BlogFragment(layoutId: Int = R.layout.fragemnt_blog) : BaseFragment(layout
 
     private lateinit var blogAdapter: BlogAdapter
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         activity?.let { activity ->
             blogAdapter = BlogAdapter(activity)
                 .also {

@@ -2,7 +2,6 @@ package com.jay.architecturestudy.ui.image
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.jay.architecturestudy.R
@@ -21,8 +20,8 @@ class ImageFragment(layoutId: Int = R.layout.fragemnt_image) : BaseFragment(layo
 
     private lateinit var imageAdapter: ImageAdapter
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         activity?.let { activity ->
             imageAdapter = ImageAdapter(activity)
                 .also {
@@ -34,7 +33,6 @@ class ImageFragment(layoutId: Int = R.layout.fragemnt_image) : BaseFragment(layo
                 }
         }
     }
-
     override fun search(keyword: String) {
         Api.getImages(keyword)
             .enqueue(object : Callback<ResponseNaverQuery<Image>> {
