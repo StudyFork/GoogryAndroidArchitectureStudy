@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         app:layout_constraintStart_toEndOf="@+id/blog_owner"
         app:layout_constraintTop_toBottomOf="@+id/blog_description"
         tools:text="20191013"
