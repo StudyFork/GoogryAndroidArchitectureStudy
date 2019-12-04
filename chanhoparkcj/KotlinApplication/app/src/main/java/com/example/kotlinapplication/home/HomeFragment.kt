@@ -81,8 +81,7 @@ class HomeFragment : Fragment(), ListNaverAdapter.ItemListener {
     private fun handleResponse(res: ResponseItems) {
         mResult = res
         Log.e("test", res.items.toString())
-        mAdapter = ListNaverAdapter(res.items, context)
-        mAdapter!!.setListener(this)
+        mAdapter = ListNaverAdapter(this,res.items, context)
         mHomeRecyclerView!!.layoutManager = LinearLayoutManager(
             activity, RecyclerView.VERTICAL, false
         )

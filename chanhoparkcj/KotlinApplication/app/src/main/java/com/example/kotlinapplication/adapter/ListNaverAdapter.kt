@@ -8,7 +8,7 @@ import com.example.kotlinapplication.R
 import com.example.kotlinapplication.adapter.viewholder.ListViewHolder
 import com.example.kotlinapplication.model.MovieItems
 
-class ListNaverAdapter(val items: List<MovieItems>, val context: Context?) :
+class ListNaverAdapter(val listener:ItemListener,val items: List<MovieItems>, val context: Context?) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var mListener: ItemListener? = null
@@ -32,10 +32,6 @@ class ListNaverAdapter(val items: List<MovieItems>, val context: Context?) :
         if (holder is ListViewHolder) {
             holder.bind(items.get(position), mListener)
         }
-    }
-
-    fun setListener(listener: ItemListener?) {
-        mListener = listener
     }
 
     interface ItemListener {
