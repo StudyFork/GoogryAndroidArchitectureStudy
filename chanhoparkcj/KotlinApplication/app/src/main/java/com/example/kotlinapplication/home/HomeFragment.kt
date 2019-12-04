@@ -5,17 +5,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ListAdapter
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import com.example.kotlinapplication.R
 import com.example.kotlinapplication.adapter.ListNaverAdapter
 import com.example.kotlinapplication.model.MovieItems
@@ -24,14 +20,10 @@ import com.example.kotlinapplication.network.RetrofitClient.client
 import com.example.kotlinapplication.network.RetrofitService
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.schedulers.Schedulers.io
-import java.net.URI
-import java.util.*
+import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragment : Fragment(), ListNaverAdapter.ItemListener {
-    private var mHomeSearchBtn: Button? = null
-    private var mHomeSearchEdit: EditText? = null
-    private var mHomeRecyclerView: RecyclerView? = null
     private var mService: RetrofitService? = null
     private var mResult: ResponseItems? = null
     private var mAdapter: ListNaverAdapter? = null
@@ -45,9 +37,6 @@ class HomeFragment : Fragment(), ListNaverAdapter.ItemListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mHomeSearchBtn = view.findViewById(R.id.home_search_btn)
-        mHomeRecyclerView = view.findViewById(R.id.home_recyclerview)
-        mHomeSearchEdit = view.findViewById(R.id.home_search_edit)
         mService = client!!.create(RetrofitService::class.java)
         start()
     }
@@ -57,16 +46,16 @@ class HomeFragment : Fragment(), ListNaverAdapter.ItemListener {
     }
 
     private fun buttonClick() {
-        mHomeSearchBtn!!.setOnClickListener {
-            if (mHomeSearchEdit!!.text.isEmpty()) {
+        home_search_btn.setOnClickListener {
+            if (home_search_edit.text.isEmpty()) {
                 Toast.makeText(context, "검색어를 입력하세요", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(
                     context,
-                    "검색어 :" + mHomeSearchEdit!!.text.toString(),
+                    "검색어 :" + home_search_edit.text.toString(),
                     Toast.LENGTH_SHORT
                 ).show()
-                loadMovieData(mHomeSearchEdit!!.text.toString())
+                loadMovieData(home_search_edit.text.toString())
             }
         }
     }
@@ -82,10 +71,10 @@ class HomeFragment : Fragment(), ListNaverAdapter.ItemListener {
         mResult = res
         Log.e("test", res.items.toString())
         mAdapter = ListNaverAdapter(this, res.items, context)
-        mHomeRecyclerView!!.layoutManager = LinearLayoutManager(
+        home_recyclerview.layoutManager = LinearLayoutManager(
             activity, RecyclerView.VERTICAL, false
         )
-        mHomeRecyclerView!!.adapter = mAdapter
+        home_recyclerview.adapter = mAdapter
     }
 
 
