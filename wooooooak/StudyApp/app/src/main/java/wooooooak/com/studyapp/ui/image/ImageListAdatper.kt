@@ -13,7 +13,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import wooooooak.com.studyapp.R
 import wooooooak.com.studyapp.common.constants.DISPLAY_LIST_COUNT
-import wooooooak.com.studyapp.common.constants.PAGING_OFFSET
 import wooooooak.com.studyapp.common.ext.startWebView
 import wooooooak.com.studyapp.model.response.image.Image
 import wooooooak.com.studyapp.naverApi
@@ -28,13 +27,12 @@ class ImageListAdapter(private val fragmentActivity: FragmentActivity) :
             .inflate(R.layout.item_image, parent, false)
     )
 
-    override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
+    override fun bindItemViewHolder(holder: ImageViewHolder, position: Int) {
         getItem(position)?.let { image ->
             holder.bind(image, View.OnClickListener {
                 fragmentActivity.startWebView(image.link)
             })
         }
-        if (position > itemCount - PAGING_OFFSET) loadMore(itemCount)
     }
 
     override suspend fun initItemListByTitleAsync(title: String) =

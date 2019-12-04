@@ -14,7 +14,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import wooooooak.com.studyapp.R
 import wooooooak.com.studyapp.common.constants.DISPLAY_LIST_COUNT
-import wooooooak.com.studyapp.common.constants.PAGING_OFFSET
 import wooooooak.com.studyapp.common.ext.startWebView
 import wooooooak.com.studyapp.model.response.kin.Kin
 import wooooooak.com.studyapp.naverApi
@@ -29,13 +28,12 @@ class KinListAdapter(private val fragmentActivity: FragmentActivity) :
             .inflate(R.layout.item_kin, parent, false)
     )
 
-    override fun onBindViewHolder(holder: KinViewHolder, position: Int) {
+    override fun bindItemViewHolder(holder: KinViewHolder, position: Int) {
         getItem(position)?.let { kin ->
             holder.bind(kin, View.OnClickListener {
                 fragmentActivity.startWebView(kin.link)
             })
         }
-        if (position > itemCount - PAGING_OFFSET) loadMore(itemCount)
     }
 
     override suspend fun initItemListByTitleAsync(title: String) = withContext(Dispatchers.IO) {

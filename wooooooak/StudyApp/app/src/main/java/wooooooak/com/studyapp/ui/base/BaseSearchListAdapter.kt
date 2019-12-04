@@ -17,6 +17,11 @@ abstract class BaseSearchListAdapter<T, H : RecyclerView.ViewHolder>(
 
     private var textOnEditTextView = ""
 
+    override fun onBindViewHolder(holder: H, position: Int) {
+        bindItemViewHolder(holder, position)
+        if (position == itemCount - 1) loadMore(itemCount)
+    }
+
     override fun searchByTitle(title: String) {
         fragmentActivity.lifecycleScope.launch {
             try {
@@ -45,6 +50,7 @@ abstract class BaseSearchListAdapter<T, H : RecyclerView.ViewHolder>(
         }
     }
 
+    protected abstract fun bindItemViewHolder(holder: H, position: Int)
     protected abstract suspend fun initItemListByTitleAsync(title: String): List<T>
     protected abstract suspend fun getMoreItemListFromStartIndexAsync(title: String, startIndex: Int): List<T>
 }

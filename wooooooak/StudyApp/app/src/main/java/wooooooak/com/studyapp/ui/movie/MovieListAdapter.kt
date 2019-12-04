@@ -13,7 +13,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import wooooooak.com.studyapp.R
 import wooooooak.com.studyapp.common.constants.DISPLAY_LIST_COUNT
-import wooooooak.com.studyapp.common.constants.PAGING_OFFSET
 import wooooooak.com.studyapp.common.ext.startWebView
 import wooooooak.com.studyapp.model.response.movie.Movie
 import wooooooak.com.studyapp.naverApi
@@ -28,13 +27,12 @@ class MovieListAdapter(private val fragmentActivity: FragmentActivity) :
             .inflate(R.layout.item_moive, parent, false)
     )
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+    override fun bindItemViewHolder(holder: MovieViewHolder, position: Int) {
         getItem(position)?.let { movie ->
             holder.bind(movie, View.OnClickListener {
                 fragmentActivity.startWebView(movie.link)
             })
         }
-        if (position > itemCount - PAGING_OFFSET) loadMore(itemCount)
     }
 
     override suspend fun initItemListByTitleAsync(title: String) = withContext(Dispatchers.IO) {
