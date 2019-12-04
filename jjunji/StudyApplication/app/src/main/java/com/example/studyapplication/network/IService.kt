@@ -13,11 +13,11 @@ interface IService {
     fun getMovieList(@Query("query") query : String) : Call<MovieList>
 
     @GET("search/image.json")
-    fun getImageList() : Call<ImageList>
+    fun getImageList(@Query("query") query : String) : Call<ImageList>
 
     @GET("search/blog.json")
-    fun getBlogList() : Call<BlogList>
+    fun getBlogList(@Query("query") query : String) : Call<BlogList>
 
     @GET("search/kin.json")
-    fun getKinList() : Call<KinList>
+    fun getKinList(@Query("query") query : String) : Call<KinList>
 }
