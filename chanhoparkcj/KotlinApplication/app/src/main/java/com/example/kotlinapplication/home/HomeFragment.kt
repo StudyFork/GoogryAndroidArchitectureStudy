@@ -81,7 +81,7 @@ class HomeFragment : Fragment(), ListNaverAdapter.ItemListener {
     private fun handleResponse(res: ResponseItems) {
         mResult = res
         Log.e("test", res.items.toString())
-        mAdapter = ListNaverAdapter(this,res.items, context)
+        mAdapter = ListNaverAdapter(this, res.items, context)
         mHomeRecyclerView!!.layoutManager = LinearLayoutManager(
             activity, RecyclerView.VERTICAL, false
         )
@@ -96,7 +96,7 @@ class HomeFragment : Fragment(), ListNaverAdapter.ItemListener {
     override fun onItemClick(movieItems: MovieItems) {
         Toast.makeText(activity, movieItems.link, Toast.LENGTH_SHORT).show()
         val uri: Uri = Uri.parse(movieItems.link)
-        val intent: Intent = Intent(Intent.ACTION_VIEW, uri)
+        val intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)
 
     }
