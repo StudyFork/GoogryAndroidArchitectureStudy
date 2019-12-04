@@ -1,0 +1,31 @@
+package com.example.studyapplication.movie.adapter
+
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.example.studyapplication.R
+import com.example.studyapplication.vo.MovieList
+import kotlinx.android.synthetic.main.item_movie.view.*
+
+class MovieAdapter(var arrMovieInfo : Array<MovieList.MovieInfo>) : RecyclerView.Adapter<MovieHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
+        val inflater : LayoutInflater = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val view : View = inflater.inflate(R.layout.item_movie, parent, false)
+
+        return MovieHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: MovieHolder, position: Int) {
+        holder.itemView.tvTitle.text = arrMovieInfo[position].title
+        holder.itemView.tvDirector.text = arrMovieInfo[position].director
+        holder.itemView.tvActor.text = arrMovieInfo[position].actor
+
+    }
+
+    override fun getItemCount(): Int {
+        return arrMovieInfo.size
+    }
+}
