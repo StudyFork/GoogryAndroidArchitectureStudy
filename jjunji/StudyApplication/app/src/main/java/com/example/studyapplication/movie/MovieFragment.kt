@@ -33,6 +33,7 @@ class MovieFragment : Fragment() {
         return view
     }
 
+    // 검색 버튼 클릭 리스너
     private fun btnSearchClickListener() : View.OnClickListener {
         return View.OnClickListener {
             val movieTitle = etQuery.text.toString()
@@ -40,6 +41,7 @@ class MovieFragment : Fragment() {
         }
     }
 
+    // 영화 검색 요청
     private fun requestSearchMovie(title : String) {
         Remote.get(ApiClient.getService().getMovieList(title), object : IConn {
             override fun <T> success(result: T) {
@@ -54,6 +56,7 @@ class MovieFragment : Fragment() {
         })
     }
 
+    // recyclerView 세팅
     private fun setAdapter(response : MovieList) {
         recyclerView.adapter = MovieAdapter(response.arrMovieInfo)
         recyclerView.layoutManager = LinearLayoutManager(mContext)

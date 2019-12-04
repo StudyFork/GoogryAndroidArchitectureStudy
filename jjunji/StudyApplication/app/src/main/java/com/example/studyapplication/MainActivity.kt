@@ -22,18 +22,21 @@ class MainActivity : AppCompatActivity() {
         bottomView.setOnNavigationItemSelectedListener(tabSelectedListener())
     }
 
+    // 영화 검색 화면 노출
     private fun showMovieFragment() {
         fragmentManager.beginTransaction()
             .add(R.id.frameLayout, MovieFragment.newInstance())
             .commitAllowingStateLoss()
     }
 
+    // 화면 교체
     private fun replaceFragment(fragment : Fragment) {
         fragmentManager.beginTransaction()
             .replace(R.id.frameLayout, fragment)
             .commitAllowingStateLoss()
     }
 
+    // 탭 클릭 리스너
     private fun tabSelectedListener(): BottomNavigationView.OnNavigationItemSelectedListener {
         return BottomNavigationView.OnNavigationItemSelectedListener { tab ->
             when (tab.itemId) {

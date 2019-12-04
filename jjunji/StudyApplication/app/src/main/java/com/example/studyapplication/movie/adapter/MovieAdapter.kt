@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.studyapplication.R
 import com.example.studyapplication.vo.MovieList
 import kotlinx.android.synthetic.main.item_movie.view.*
@@ -23,6 +25,9 @@ class MovieAdapter(var arrMovieInfo : Array<MovieList.MovieInfo>) : RecyclerView
         holder.itemView.tvDirector.text = arrMovieInfo[position].director
         holder.itemView.tvActor.text = arrMovieInfo[position].actor
 
+        Glide.with(holder.itemView).load(arrMovieInfo[position].image)
+            .apply(RequestOptions.centerCropTransform())
+            .into(holder.itemView.ivImage)
     }
 
     override fun getItemCount(): Int {
