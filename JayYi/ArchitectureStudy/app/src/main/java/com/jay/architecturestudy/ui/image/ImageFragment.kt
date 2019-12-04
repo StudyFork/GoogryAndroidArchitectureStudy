@@ -22,15 +22,13 @@ class ImageFragment(layoutId: Int = R.layout.fragemnt_image) : BaseFragment(layo
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        activity?.let { activity ->
+        activity?.let {
             imageAdapter = ImageAdapter()
-                .also {
-                    recycler_view.run {
-                        adapter = it
-                        layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
-                        addItemDecoration(SpacesItemDecoration(12.toPx(), 6.toPx(), 11.toPx()))
-                    }
-                }
+            recycler_view.run {
+                adapter = imageAdapter
+                layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
+                addItemDecoration(SpacesItemDecoration(12.toPx(), 6.toPx(), 11.toPx()))
+            }
         }
 
         search_bar.onClickAction = { keyword ->

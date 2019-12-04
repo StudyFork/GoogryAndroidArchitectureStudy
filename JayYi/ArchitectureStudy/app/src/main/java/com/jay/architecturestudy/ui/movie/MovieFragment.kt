@@ -23,18 +23,16 @@ class MovieFragment(layoutId: Int = R.layout.fragemnt_movie) : BaseFragment(layo
         super.onActivityCreated(savedInstanceState)
         activity?.let { activity ->
             movieAdapter = MovieAdapter()
-                .also {
-                    recycler_view.run {
-                        adapter = it
-                        layoutManager = LinearLayoutManager(activity)
-                        addItemDecoration(
-                            DividerItemDecoration(
-                                activity,
-                                DividerItemDecoration.VERTICAL
-                            )
-                        )
-                    }
-                }
+            recycler_view.run {
+                adapter = movieAdapter
+                layoutManager = LinearLayoutManager(activity)
+                addItemDecoration(
+                    DividerItemDecoration(
+                        activity,
+                        DividerItemDecoration.VERTICAL
+                    )
+                )
+            }
         }
 
         search_bar.onClickAction = { keyword ->

@@ -22,18 +22,16 @@ class KinFragment(layoutId: Int = R.layout.fragemnt_kin) : BaseFragment(layoutId
         super.onActivityCreated(savedInstanceState)
         activity?.let { activity ->
             kinAdapter = KinAdapter()
-                .also {
-                    recycler_view.run {
-                        adapter = it
-                        layoutManager = LinearLayoutManager(activity)
-                        addItemDecoration(
-                            DividerItemDecoration(
-                                activity,
-                                DividerItemDecoration.VERTICAL
-                            )
-                        )
-                    }
-                }
+            recycler_view.run {
+                adapter = kinAdapter
+                layoutManager = LinearLayoutManager(activity)
+                addItemDecoration(
+                    DividerItemDecoration(
+                        activity,
+                        DividerItemDecoration.VERTICAL
+                    )
+                )
+            }
         }
 
         search_bar.onClickAction = { keyword ->

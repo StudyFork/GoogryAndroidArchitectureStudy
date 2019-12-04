@@ -22,18 +22,16 @@ class BlogFragment(layoutId: Int = R.layout.fragemnt_blog) : BaseFragment(layout
         super.onActivityCreated(savedInstanceState)
         activity?.let { activity ->
             blogAdapter = BlogAdapter()
-                .also {
-                    recycler_view.run {
-                        adapter = it
-                        layoutManager = LinearLayoutManager(activity)
-                        addItemDecoration(
-                            DividerItemDecoration(
-                                activity,
-                                DividerItemDecoration.VERTICAL
-                            )
-                        )
-                    }
-                }
+            recycler_view.run {
+                adapter = blogAdapter
+                layoutManager = LinearLayoutManager(activity)
+                addItemDecoration(
+                    DividerItemDecoration(
+                        activity,
+                        DividerItemDecoration.VERTICAL
+                    )
+                )
+            }
         }
 
         search_bar.onClickAction = { keyword ->
