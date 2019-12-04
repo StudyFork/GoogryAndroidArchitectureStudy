@@ -5,13 +5,15 @@ import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
+
 class ApiClient {
     companion object {
-        private const val BASE_URL = "https://openapi.naver.com/v1"
+        private const val BASE_URL = "https://openapi.naver.com/v1/"
         private var retrofit : Retrofit? = null
 
         fun getService() : IService {
@@ -44,6 +46,7 @@ class ApiClient {
                 .writeTimeout(10, TimeUnit.SECONDS)
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .addInterceptor(headerInterceptor())
+                .addInterceptor(httpLoggingInterceptor())
                 .build()
         }
 
@@ -57,6 +60,12 @@ class ApiClient {
                     return chain.proceed(request)
                 }
             }
+        }
+
+        private fun httpLoggingInterceptor() : Interceptor {
+            val interceptor = HttpLoggingInterceptor()
+            interceptor.level = HttpLoggingInterceptor.Level.HEADERS
+            return interceptor
         }
     }
 }

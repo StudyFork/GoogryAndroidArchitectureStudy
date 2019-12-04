@@ -15,6 +15,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.7"
             android:layout_marginLeft="10dp"
+            android:singleLine="true"
             android:hint="영화 검색" />
 
         <Button
