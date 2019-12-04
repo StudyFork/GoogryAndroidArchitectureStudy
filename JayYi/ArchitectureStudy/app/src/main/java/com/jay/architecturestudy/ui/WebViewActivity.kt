@@ -8,14 +8,11 @@ import com.jay.architecturestudy.R
 import kotlinx.android.synthetic.main.activity_web_view.*
 
 class WebViewActivity : AppCompatActivity() {
-    private lateinit var url: String
-    private lateinit var webView: WebView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web_view)
 
-        url = intent.getStringExtra(EXTRA_URL)
+        val url = intent.getStringExtra(EXTRA_URL)
             ?: run {
                 // 전달된 값이 없으면 activity 종료
                 finish()
@@ -24,7 +21,7 @@ class WebViewActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        webView = web_view.apply {
+        val webView = web_view.apply {
             webViewClient = WebViewClient()
             settings.run {
                 displayZoomControls = true
