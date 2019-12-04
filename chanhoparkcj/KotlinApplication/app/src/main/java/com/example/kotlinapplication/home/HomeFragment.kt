@@ -71,10 +71,12 @@ class HomeFragment : Fragment(), ListNaverAdapter.ItemListener {
         mResult = res
         Log.e("test", res.items.toString())
         mAdapter = ListNaverAdapter(this, res.items, context)
-        home_recyclerview.layoutManager = LinearLayoutManager(
-            activity, RecyclerView.VERTICAL, false
-        )
-        home_recyclerview.adapter = mAdapter
+        with(home_recyclerview) {
+            layoutManager = LinearLayoutManager(
+                activity, RecyclerView.VERTICAL, false
+            )
+            adapter = mAdapter
+        }
     }
 
 

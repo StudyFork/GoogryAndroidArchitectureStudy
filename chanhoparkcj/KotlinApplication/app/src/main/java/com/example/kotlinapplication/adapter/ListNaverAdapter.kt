@@ -8,10 +8,10 @@ import com.example.kotlinapplication.R
 import com.example.kotlinapplication.adapter.viewholder.ListViewHolder
 import com.example.kotlinapplication.model.MovieItems
 
-class ListNaverAdapter(val listener:ItemListener,val items: List<MovieItems>, val context: Context?) :
+class ListNaverAdapter(listener: ItemListener, val items: List<MovieItems>, val context: Context?) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var mListener: ItemListener? = null
+    private var mListener: ItemListener = listener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         return ListViewHolder(
