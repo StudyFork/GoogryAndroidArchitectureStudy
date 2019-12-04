@@ -38,11 +38,11 @@ internal class ImageAdapter(private val context: Context) : RecyclerView.Adapter
 }
 
 internal class ImageHolder(
-    private val view: View
+    view: View
 ) : RecyclerView.ViewHolder(view) {
 
     fun bind(model: Image) {
-        with(view) {
+        with(itemView) {
             image_title.text = model.title
 
             try {

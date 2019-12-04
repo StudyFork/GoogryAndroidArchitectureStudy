@@ -38,11 +38,11 @@ internal class BlogAdapter(private val context: Context) : RecyclerView.Adapter<
 }
 
 internal class BlogHolder(
-    private val view: View
+    view: View
 ) : RecyclerView.ViewHolder(view) {
 
     fun bind(model: Blog) {
-        with(view) {
+        with(itemView) {
             blog_title.text = HtmlCompat.fromHtml(model.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
             blog_description.text =
                 HtmlCompat.fromHtml(model.description, HtmlCompat.FROM_HTML_MODE_COMPACT)
