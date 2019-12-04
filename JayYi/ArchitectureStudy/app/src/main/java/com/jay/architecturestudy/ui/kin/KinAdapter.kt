@@ -1,6 +1,5 @@
 package com.jay.architecturestudy.ui.kin
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -12,11 +11,12 @@ import com.jay.architecturestudy.model.Kin
 import com.jay.architecturestudy.ui.WebViewActivity
 import kotlinx.android.synthetic.main.list_item_kin.view.*
 
-internal class KinAdapter(private val context: Context) : RecyclerView.Adapter<KinHolder>() {
+internal class KinAdapter : RecyclerView.Adapter<KinHolder>() {
     private val data = arrayListOf<Kin>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KinHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.list_item_kin, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.list_item_kin, parent, false)
         return KinHolder(view)
     }
 

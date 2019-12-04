@@ -1,6 +1,5 @@
 package com.jay.architecturestudy.ui.blog
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -13,11 +12,11 @@ import com.jay.architecturestudy.ui.WebViewActivity
 import kotlinx.android.synthetic.main.list_item_blog.view.*
 
 
-internal class BlogAdapter(private val context: Context) : RecyclerView.Adapter<BlogHolder>() {
+internal class BlogAdapter : RecyclerView.Adapter<BlogHolder>() {
     private val data = arrayListOf<Blog>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.list_item_blog, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_blog, parent, false)
         return BlogHolder(view)
     }
 

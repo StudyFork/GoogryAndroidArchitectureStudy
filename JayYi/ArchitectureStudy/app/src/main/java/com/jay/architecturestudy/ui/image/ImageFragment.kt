@@ -23,7 +23,7 @@ class ImageFragment(layoutId: Int = R.layout.fragemnt_image) : BaseFragment(layo
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity?.let { activity ->
-            imageAdapter = ImageAdapter(activity)
+            imageAdapter = ImageAdapter()
                 .also {
                     recycler_view.run {
                         adapter = it

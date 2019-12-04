@@ -1,6 +1,5 @@
 package com.jay.architecturestudy.ui.movie
 
-import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,11 +14,11 @@ import com.jay.architecturestudy.ui.WebViewActivity
 import com.jay.architecturestudy.ui.WebViewActivity.Companion.EXTRA_URL
 import kotlinx.android.synthetic.main.list_item_movie.view.*
 
-internal class MovieAdapter(private val context: Context) : RecyclerView.Adapter<MovieHolder>() {
+internal class MovieAdapter : RecyclerView.Adapter<MovieHolder>() {
     private val data = arrayListOf<Movie>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.list_item_movie, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_movie, parent, false)
         return MovieHolder(view)
     }
 

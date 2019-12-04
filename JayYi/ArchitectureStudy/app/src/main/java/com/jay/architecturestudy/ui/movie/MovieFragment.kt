@@ -22,7 +22,7 @@ class MovieFragment(layoutId: Int = R.layout.fragemnt_movie) : BaseFragment(layo
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity?.let { activity ->
-            movieAdapter = MovieAdapter(activity)
+            movieAdapter = MovieAdapter()
                 .also {
                     recycler_view.run {
                         adapter = it

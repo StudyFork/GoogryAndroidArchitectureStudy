@@ -21,7 +21,7 @@ class BlogFragment(layoutId: Int = R.layout.fragemnt_blog) : BaseFragment(layout
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity?.let { activity ->
-            blogAdapter = BlogAdapter(activity)
+            blogAdapter = BlogAdapter()
                 .also {
                     recycler_view.run {
                         adapter = it

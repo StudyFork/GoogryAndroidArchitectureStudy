@@ -21,7 +21,7 @@ class KinFragment(layoutId: Int = R.layout.fragemnt_kin) : BaseFragment(layoutId
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity?.let { activity ->
-            kinAdapter = KinAdapter(activity)
+            kinAdapter = KinAdapter()
                 .also {
                     recycler_view.run {
                         adapter = it

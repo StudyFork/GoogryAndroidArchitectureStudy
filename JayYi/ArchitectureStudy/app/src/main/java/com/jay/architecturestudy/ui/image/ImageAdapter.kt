@@ -1,6 +1,5 @@
 package com.jay.architecturestudy.ui.image
 
-import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,11 +12,11 @@ import com.jay.architecturestudy.model.Image
 import com.jay.architecturestudy.ui.WebViewActivity
 import kotlinx.android.synthetic.main.list_item_image.view.*
 
-internal class ImageAdapter(private val context: Context) : RecyclerView.Adapter<ImageHolder>() {
+internal class ImageAdapter : RecyclerView.Adapter<ImageHolder>() {
     private val data = arrayListOf<Image>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.list_item_image, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_image, parent, false)
         return ImageHolder(view)
     }
 
