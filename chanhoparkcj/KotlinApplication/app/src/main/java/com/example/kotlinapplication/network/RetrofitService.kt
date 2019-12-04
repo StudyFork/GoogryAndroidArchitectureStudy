@@ -3,7 +3,6 @@ package com.example.kotlinapplication.network
 import com.example.kotlinapplication.model.ResponseItems
 import io.reactivex.Single
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.Query
 
 interface RetrofitService {

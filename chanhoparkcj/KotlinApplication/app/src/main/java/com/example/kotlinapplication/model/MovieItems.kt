@@ -1,7 +1,5 @@
 package com.example.kotlinapplication.model
 
-import com.google.gson.annotations.SerializedName
-
 data class MovieItems(
     val title: String,
     val link: String,

@@ -16,6 +16,7 @@ class ListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         if (!item.image.equals("")) {
             Picasso.get()
                 .load(item.image)
+                .resize(300,450)
                 .into(mView.movie_item_image)
         }
         mView.movie_item_user_rating.rating = item.userRating.toFloat()

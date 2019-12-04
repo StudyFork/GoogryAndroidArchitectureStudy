@@ -1,7 +1,7 @@
 package com.example.kotlinapplication
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlinapplication.home.HomeFragment
 
 class MainActivity : AppCompatActivity() {
