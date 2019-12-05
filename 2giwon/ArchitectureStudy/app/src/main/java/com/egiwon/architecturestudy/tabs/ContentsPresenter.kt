@@ -45,4 +45,11 @@ class ContentsPresenter(
         }
     }
 
+    override fun getCacheContents(type: Tab) {
+        naverDataRepository.getCache(type.name)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                contentsView.showCacheContents(it.contentItems, it.query)
+            }, {}).addDisposable()
+    }
 }

@@ -14,9 +14,15 @@ interface ContentsContract : BaseContract {
 
         fun showErrorResultEmpty()
 
+        fun showCacheContents(
+            resultList: List<ContentItem>,
+            query: String
+        )
     }
 
     interface Presenter : BaseContract.Presenter {
         fun loadContents(type: Tab, query: String)
+
+        fun getCacheContents(type: Tab)
     }
 }

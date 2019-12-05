@@ -18,7 +18,7 @@ class ContentsFragment : BaseFragment<ContentsContract.Presenter>(
     R.layout.fg_contents
 ), ContentsContract.View {
 
-    override val presenter: ContentsContract.Presenter =
+    override val presenter: ContentsContract.Presenter by lazy {
         ContentsPresenter(
             this,
             NaverDataRepositoryImpl.getInstance(
@@ -28,6 +28,12 @@ class ContentsFragment : BaseFragment<ContentsContract.Presenter>(
                 )
             )
         )
+    }
+
+    override fun onResume() {
+        presenter.getCacheContents(tab)
+        super.onResume()
+    }
 
     private val tab: Tab by lazy {
         arguments?.get(ARG_TYPE) as? Tab
@@ -69,6 +75,14 @@ class ContentsFragment : BaseFragment<ContentsContract.Presenter>(
 
     override fun showErrorResultEmpty() {
         showToast(getString(R.string.error_empty_fail))
+    }
+
+    override fun showCacheContents(
+        resultList: List<ContentItem>,
+        query: String
+    ) {
+        showQueryResult(resultList)
+        et_search.setText(query)
     }
 
     override fun showLoading() {
