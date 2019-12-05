@@ -1,20 +1,18 @@
 package com.jay.architecturestudy.ui.movie
 
-import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.model.Movie
-import com.jay.architecturestudy.ui.WebViewActivity
-import com.jay.architecturestudy.ui.WebViewActivity.Companion.EXTRA_URL
+import com.jay.architecturestudy.ui.BaseAdapter
+import com.jay.architecturestudy.ui.BaseViewHolder
 import kotlinx.android.synthetic.main.list_item_movie.view.*
 
-internal class MovieAdapter : RecyclerView.Adapter<MovieHolder>() {
+internal class MovieAdapter : BaseAdapter<Movie, MovieHolder>() {
     private val data = arrayListOf<Movie>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
@@ -22,50 +20,33 @@ internal class MovieAdapter : RecyclerView.Adapter<MovieHolder>() {
         return MovieHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return data.size
-    }
-
-    override fun onBindViewHolder(holder: MovieHolder, position: Int) {
-        holder.bind(data[position])
-    }
-
-    fun setData(movies: List<Movie>) {
+    override fun setData(items: List<Movie>) {
+        super.setData(items)
         data.clear()
-        data.addAll(movies)
+        data.addAll(items)
         notifyDataSetChanged()
     }
-
 }
 
 internal class MovieHolder(
     view: View
-) : RecyclerView.ViewHolder(view) {
+) : BaseViewHolder<Movie>(view) {
 
-    fun bind(model: Movie) {
+    override fun bind(item: Movie) {
         with(itemView) {
-            movie_title.text = HtmlCompat.fromHtml(model.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
-            movie_director.text = model.director
-            movie_actor.text = model.actor
+            movie_title.text = HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
+            movie_director.text = item.director
+            movie_actor.text = item.actor
 
             try {
                 Glide.with(this)
-                    .load(model.image)
+                    .load(item.image)
                     .into(movie_poster)
             } catch (e: Exception) {
                 Log.e("MovieAdapter", "error=${e.message}")
             }
 
-            user_rating.rating = model.userRating
-
-            setOnClickListener {
-                val context = view.context
-                Intent(context, WebViewActivity::class.java).apply {
-                    putExtra(EXTRA_URL, model.link)
-                }.run {
-                    context.startActivity(this)
-                }
-            }
+            user_rating.rating = item.userRating
         }
     }
 }
