@@ -10,7 +10,7 @@ import io.reactivex.Maybe
 @Dao
 interface ContentDao {
 
-    @Query("SELECT * FROM contents WHERE (type LIKE :type) ORDER BY id ASC LIMIT 1")
+    @Query("SELECT * FROM contents WHERE (type LIKE :type) ORDER BY id DESC LIMIT 1")
     fun getContentCache(type: String): Maybe<Content>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
