@@ -7,17 +7,23 @@ import androidx.lifecycle.ViewModelProviders
 import com.android.studyfork.R
 import com.android.studyfork.base.BaseFragment
 import com.android.studyfork.databinding.FragmentTickerListBinding
+import com.android.studyfork.repository.UpbitRepositoryImpl
 import com.android.studyfork.ui.adapter.CoinItemAdapter
 import com.android.studyfork.ui.tickerlist.viewmodel.TickerViewModel
 import com.android.studyfork.ui.tickerlist.viewmodel.TickerViewModelFactory
+import javax.inject.Inject
 
 class TickerListFragment :
     BaseFragment<FragmentTickerListBinding, TickerViewModel>(R.layout.fragment_ticker_list) {
+
+    @Inject
+    lateinit var upbitRepositoryImpl: UpbitRepositoryImpl
 
     private val coinItemAdapter = CoinItemAdapter()
 
     private val viewModelFactory by lazy {
         TickerViewModelFactory(
+            upbitRepositoryImpl,
             arguments?.getString(KEY_MARKETS) ?: ""
         )
     }
