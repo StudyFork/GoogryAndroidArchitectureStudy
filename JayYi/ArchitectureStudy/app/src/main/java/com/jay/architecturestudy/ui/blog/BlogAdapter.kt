@@ -1,17 +1,18 @@
 package com.jay.architecturestudy.ui.blog
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.model.Blog
-import com.jay.architecturestudy.ui.BaseAdapter
-import com.jay.architecturestudy.ui.BaseViewHolder
+import com.jay.architecturestudy.ui.WebViewActivity
 import kotlinx.android.synthetic.main.list_item_blog.view.*
 
 
-internal class BlogAdapter : BaseAdapter<Blog, BlogHolder>() {
+internal class BlogAdapter : RecyclerView.Adapter<BlogHolder>() {
     private val data = arrayListOf<Blog>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogHolder {
@@ -19,25 +20,42 @@ internal class BlogAdapter : BaseAdapter<Blog, BlogHolder>() {
         return BlogHolder(view)
     }
 
-    override fun setData(items: List<Blog>) {
-        super.setData(items)
+    override fun getItemCount(): Int {
+        return data.size
+    }
+
+    override fun onBindViewHolder(holder: BlogHolder, position: Int) {
+        holder.bind(data[position])
+    }
+
+    fun setData(blogs: List<Blog>) {
         data.clear()
-        data.addAll(items)
+        data.addAll(blogs)
         notifyDataSetChanged()
     }
+
 }
 
 internal class BlogHolder(
     view: View
-) : BaseViewHolder<Blog>(view) {
+) : RecyclerView.ViewHolder(view) {
 
-    override fun bind(item: Blog) {
+    fun bind(model: Blog) {
         with(itemView) {
-            blog_title.text = HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
+            blog_title.text = HtmlCompat.fromHtml(model.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
             blog_description.text =
-                HtmlCompat.fromHtml(item.description, HtmlCompat.FROM_HTML_MODE_COMPACT)
-            blog_owner.text = item.bloggerName
-            blog_postdate.text = item.postdate
+                HtmlCompat.fromHtml(model.description, HtmlCompat.FROM_HTML_MODE_COMPACT)
+            blog_owner.text = model.bloggerName
+            blog_postdate.text = model.postdate
+
+            setOnClickListener {
+                val context = view.context
+                Intent(context, WebViewActivity::class.java).apply {
+                    putExtra(WebViewActivity.EXTRA_URL, model.link)
+                }.run {
+                    context.startActivity(this)
+                }
+            }
         }
     }
 }
