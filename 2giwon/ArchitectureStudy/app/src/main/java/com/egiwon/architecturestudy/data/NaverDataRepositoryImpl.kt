@@ -9,8 +9,22 @@ class NaverDataRepositoryImpl(
     private val naverLocalDataSource: NaverDataSource.Local
 ) : NaverDataRepository {
 
+    private fun loadRemoteContents(type: String, query: String): Single<ContentResponse> =
+        naverRemoteDataSource.getContents(type, query).doAfterSuccess { response ->
+            naverLocalDataSource.saveContents(
+                type,
+                query,
+                response
+            )
+        }
+
     override fun getContents(type: String, query: String): Single<ContentResponse> =
-        naverRemoteDataSource.getContents(type, query)
+        loadRemoteContents(type, query)
+
+
+    override fun getCache(type: String): Single<ContentResponse> =
+        naverLocalDataSource.getCacheContents(type)
+
 
     companion object {
         private var instance: NaverDataRepositoryImpl? = null
