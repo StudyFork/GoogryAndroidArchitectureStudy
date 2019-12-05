@@ -14,7 +14,6 @@ import com.jay.architecturestudy.util.startWebView
 import kotlinx.android.synthetic.main.list_item_movie.view.*
 
 internal class MovieAdapter : BaseAdapter<Movie, MovieHolder>() {
-    private val data = arrayListOf<Movie>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_movie, parent, false)
