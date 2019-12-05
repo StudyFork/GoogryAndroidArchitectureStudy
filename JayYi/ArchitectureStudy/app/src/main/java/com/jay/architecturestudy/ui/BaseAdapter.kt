@@ -15,7 +15,9 @@ abstract class BaseAdapter<T, H : BaseViewHolder<T>>(
         items.size
 
     open fun setData(items: List<T>) {
+        this.items.clear()
         this.items.addAll(items)
+        notifyDataSetChanged()
     }
 }
 

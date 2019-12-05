@@ -12,18 +12,10 @@ import com.jay.architecturestudy.util.startWebView
 import kotlinx.android.synthetic.main.list_item_kin.view.*
 
 internal class KinAdapter : BaseAdapter<Kin, KinHolder>() {
-    private val data = arrayListOf<Kin>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KinHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_kin, parent, false)
         return KinHolder(view)
-    }
-
-    override fun setData(items: List<Kin>) {
-        super.setData(items)
-        this.data.clear()
-        this.data.addAll(data)
-        notifyDataSetChanged()
     }
 }
 

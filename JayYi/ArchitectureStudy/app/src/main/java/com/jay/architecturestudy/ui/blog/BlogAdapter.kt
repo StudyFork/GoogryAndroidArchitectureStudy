@@ -13,19 +13,12 @@ import kotlinx.android.synthetic.main.list_item_blog.view.*
 
 
 internal class BlogAdapter : BaseAdapter<Blog, BlogHolder>() {
-    private val data = arrayListOf<Blog>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_blog, parent, false)
         return BlogHolder(view)
     }
 
-    override fun setData(items: List<Blog>) {
-        super.setData(items)
-        data.clear()
-        data.addAll(items)
-        notifyDataSetChanged()
-    }
 }
 
 internal class BlogHolder(

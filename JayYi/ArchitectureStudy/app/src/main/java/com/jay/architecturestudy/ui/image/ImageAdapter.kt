@@ -13,19 +13,12 @@ import com.jay.architecturestudy.util.startWebView
 import kotlinx.android.synthetic.main.list_item_image.view.*
 
 internal class ImageAdapter : BaseAdapter<Image, ImageHolder>() {
-    private val data = arrayListOf<Image>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_image, parent, false)
         return ImageHolder(view)
     }
 
-    override fun setData(items: List<Image>) {
-        super.setData(items)
-        this.data.clear()
-        this.data.addAll(data)
-        notifyDataSetChanged()
-    }
 }
 
 internal class ImageHolder(

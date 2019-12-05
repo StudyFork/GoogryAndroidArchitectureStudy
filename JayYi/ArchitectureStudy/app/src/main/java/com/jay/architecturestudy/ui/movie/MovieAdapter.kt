@@ -20,13 +20,6 @@ internal class MovieAdapter : BaseAdapter<Movie, MovieHolder>() {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_movie, parent, false)
         return MovieHolder(view)
     }
-
-    override fun setData(items: List<Movie>) {
-        super.setData(items)
-        data.clear()
-        data.addAll(items)
-        notifyDataSetChanged()
-    }
 }
 
 internal class MovieHolder(
