@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitApi {
     val retrofit: ContentsService = Retrofit.Builder()
-        .baseUrl("https://openapi.naver.com/v1/")
+        .baseUrl("https://openapi.naver.com/")
         .client(
             OkHttpClient.Builder()
                 .addInterceptor(
