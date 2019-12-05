@@ -40,8 +40,16 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxjava_version"
     implementation "com.jakewharton.rxbinding3:rxbinding:$rootProject.ext.rxbinding_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.retrofit_rx2adapter_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycle_version"
+    implementation "androidx.room:room-runtime:$rootProject.room_version"
+    implementation "androidx.room:room-ktx:$rootProject.room_version"
+    implementation "androidx.room:room-rxjava2:$rootProject.room_version"
+    implementation "androidx.room:room-guava:$rootProject.room_version"
+    annotationProcessor "androidx.room:room-compiler:$rootProject.room_version" // For Kotlin use kapt instead of annotationProcessor
     annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.ext.glide_compiler_version"
     testImplementation "junit:junit:$rootProject.ext.junit_version"
+    testImplementation "androidx.room:room-testing:$rootProject.room_version"
     androidTestImplementation "androidx.test:runner:$rootProject.ext.test_runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.ext.espresso_core_version"
 }
