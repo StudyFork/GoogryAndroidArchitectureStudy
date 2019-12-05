@@ -1,6 +1,5 @@
 package com.android.studyfork.dagger.module
 
-import com.android.studyfork.network.api.UpbitService
 import com.android.studyfork.network.source.UpbitApi
 import dagger.Module
 import dagger.Provides

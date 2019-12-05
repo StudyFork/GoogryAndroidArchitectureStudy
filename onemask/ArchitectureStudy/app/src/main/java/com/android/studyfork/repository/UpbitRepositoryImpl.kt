@@ -8,16 +8,14 @@ import io.reactivex.schedulers.Schedulers
 /**
  * created by onemask
  */
-object UpbitRepositoryImpl
-    : UpbitRepository {
-
+class UpbitRepositoryImpl : UpbitRepository {
     override fun getMarketAll() =
         UpbitDataSourceImpl.getMarketAll()
-            .flatMap {  markets->
+            .flatMap { markets ->
                 val marketNamesMap = markets
                     .groupBy {
                         val idx = it.market.indexOf("-")
-                        it.market.substring(0,idx)
+                        it.market.substring(0, idx)
                     }
                 Single.just(marketNamesMap)
             }
