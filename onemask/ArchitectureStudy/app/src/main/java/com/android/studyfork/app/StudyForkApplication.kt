@@ -1,7 +1,6 @@
 package com.android.studyfork.app
 
 import android.app.Application
-import androidx.fragment.app.Fragment
 import com.android.studyfork.dagger.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -13,7 +12,7 @@ import javax.inject.Inject
 class StudyForkApplication : Application(), HasAndroidInjector {
 
     @Inject
-    lateinit var activityInjector: DispatchingAndroidInjector<Any>
+    lateinit var DispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     override fun onCreate() {
         super.onCreate()
@@ -33,8 +32,6 @@ class StudyForkApplication : Application(), HasAndroidInjector {
         Timber.plant(Timber.DebugTree())
     }
 
-    override fun androidInjector(): AndroidInjector<Any> = activityInjector
-
-
+    override fun androidInjector(): AndroidInjector<Any> = DispatchingAndroidInjector
 
 }
