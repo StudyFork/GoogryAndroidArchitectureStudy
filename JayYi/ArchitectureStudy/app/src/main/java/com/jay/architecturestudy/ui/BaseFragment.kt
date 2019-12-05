@@ -21,6 +21,5 @@ abstract class BaseFragment(private val layoutId: Int) : Fragment() {
         return inflater.inflate(layoutId, container, false)
     }
 
-    open fun search(keyword: String) {
-    }
+    abstract fun search(keyword: String)
 }
