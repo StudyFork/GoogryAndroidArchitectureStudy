@@ -1,30 +1,29 @@
 package com.ironelder.androidarchitecture.view.mainview
 
 import com.ironelder.androidarchitecture.data.TotalModel
-import com.ironelder.androidarchitecture.data.source.SearchDataSourceImpl
+import com.ironelder.androidarchitecture.data.repository.SearchDataRepositoryImpl
 import com.ironelder.androidarchitecture.view.baseview.BasePresenter
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter {
-    override fun search(
-        type: String,
-        query: String?,
-        defaultMsg: String?
-    ) {
-        if (query.isNullOrEmpty()) {
-            view.showErrorMessage(defaultMsg)
-        } else {
-            view.showLoading()
-            SearchDataSourceImpl.getDataForSearch(
-                type,
-                query,
-                ::onSuccess,
-                ::onFail
-            )
-        }
+
+    override fun searchWithAdapter(type: String, query: String?) {
+        SearchDataRepositoryImpl.getDataForSearch(type, query)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe {
+                view.showLoading()
+            }
+            .doAfterTerminate {
+                view.hideLoading()
+            }
+            .subscribe(::onSuccess, ::onError)
+            .addDisposable()
     }
 
     private fun onSuccess(result: TotalModel) {
-        view.hideLoading()
         if (result.items.isNullOrEmpty()) {
             view.showNoSearchData()
         } else {
@@ -32,8 +31,8 @@ class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter
         }
     }
 
-    private fun onFail(msg: String) {
-        view.hideLoading()
-        view.showErrorMessage(msg)
+    private fun onError(t: Throwable) {
+        println(t.message)
+        view.showErrorMessage(t.message)
     }
 }

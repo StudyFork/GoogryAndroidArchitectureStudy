@@ -46,7 +46,7 @@ class CustomListViewAdapter(
 
     fun addItemList(list: ArrayList<ResultItem>?) {
         mItemList.addAll(list ?: arrayListOf())
-        notifyItemRangeInserted(mItemList.size, list?.size ?: 0)
+        notifyItemRangeInserted(mItemList.size - 1, list?.size ?: 0)
     }
 
     override fun onBindViewHolder(holder: CustomItemViewHolder, position: Int) {

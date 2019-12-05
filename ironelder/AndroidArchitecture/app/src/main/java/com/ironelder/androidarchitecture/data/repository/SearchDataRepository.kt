@@ -1,8 +1,13 @@
 package com.ironelder.androidarchitecture.data.repository
 
 import com.ironelder.androidarchitecture.data.TotalModel
-import retrofit2.Call
+import io.reactivex.Single
 
 interface SearchDataRepository {
-    fun getDataForSearch(type: String, query: String): Call<TotalModel>
+
+    fun getDataForSearch(
+        type: String,
+        query: String?
+    ):Single<TotalModel>
+
 }

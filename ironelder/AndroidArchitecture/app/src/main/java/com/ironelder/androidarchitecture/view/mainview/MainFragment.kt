@@ -6,7 +6,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.annotation.NonNull
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -75,10 +74,9 @@ class MainFragment :
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchView.clearFocus()
-                presenter.search(
+                presenter.searchWithAdapter(
                     mType ?: BLOG,
-                    query,
-                    getString(R.string.msg_empty_search_string)
+                    query
                 )
                 return false
             }

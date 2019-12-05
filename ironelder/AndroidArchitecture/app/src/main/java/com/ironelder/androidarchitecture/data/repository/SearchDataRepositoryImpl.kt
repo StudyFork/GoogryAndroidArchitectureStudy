@@ -1,11 +1,16 @@
 package com.ironelder.androidarchitecture.data.repository
 
-import com.ironelder.androidarchitecture.data.RetrofitForNaver
 import com.ironelder.androidarchitecture.data.TotalModel
-import retrofit2.Call
+import com.ironelder.androidarchitecture.data.source.SearchDataSourceImpl
+import io.reactivex.Single
 
 object SearchDataRepositoryImpl : SearchDataRepository {
-    override fun getDataForSearch(type: String, query: String): Call<TotalModel> {
-        return RetrofitForNaver.searchApi.requestSearchForNaver(type, query)
+
+    override fun getDataForSearch(
+        type: String,
+        query: String?
+    ):Single<TotalModel> {
+        return SearchDataSourceImpl.getDataForSearchWithAdapter(type, query)
     }
+
 }
