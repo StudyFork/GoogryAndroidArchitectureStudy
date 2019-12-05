@@ -3,7 +3,6 @@ package com.jay.architecturestudy.ui.blog
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.model.Blog
 import com.jay.architecturestudy.model.ResponseNaverQuery
@@ -24,7 +23,6 @@ class BlogFragment() : BaseFragment(R.layout.fragemnt_blog) {
             blogAdapter = BlogAdapter()
             recycler_view.run {
                 adapter = blogAdapter
-                layoutManager = LinearLayoutManager(activity)
                 addItemDecoration(
                     DividerItemDecoration(
                         activity,

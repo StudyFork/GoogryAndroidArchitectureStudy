@@ -3,7 +3,6 @@ package com.jay.architecturestudy.ui.movie
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.model.Movie
 import com.jay.architecturestudy.model.ResponseNaverQuery
@@ -25,7 +24,6 @@ class MovieFragment() : BaseFragment(R.layout.fragemnt_movie) {
             movieAdapter = MovieAdapter()
             recycler_view.run {
                 adapter = movieAdapter
-                layoutManager = LinearLayoutManager(activity)
                 addItemDecoration(
                     DividerItemDecoration(
                         activity,

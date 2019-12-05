@@ -3,7 +3,6 @@ package com.jay.architecturestudy.ui.kin
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.model.Kin
 import com.jay.architecturestudy.model.ResponseNaverQuery
@@ -24,7 +23,6 @@ class KinFragment() : BaseFragment(R.layout.fragemnt_kin) {
             kinAdapter = KinAdapter()
             recycler_view.run {
                 adapter = kinAdapter
-                layoutManager = LinearLayoutManager(activity)
                 addItemDecoration(
                     DividerItemDecoration(
                         activity,
