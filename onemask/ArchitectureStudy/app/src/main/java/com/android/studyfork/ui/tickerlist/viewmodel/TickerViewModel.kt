@@ -7,8 +7,12 @@ import com.android.studyfork.network.model.Ticker
 import com.android.studyfork.repository.UpbitRepositoryImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
+import javax.inject.Inject
 
-class TickerViewModel(private val market: String) : BaseViewModel() {
+class TickerViewModel @Inject constructor(
+    private val repository: UpbitRepositoryImpl,
+    private val market: String
+) : BaseViewModel() {
 
     private val _tickerList = MutableLiveData<List<Ticker>>()
     val tickerList: LiveData<List<Ticker>>
@@ -19,7 +23,7 @@ class TickerViewModel(private val market: String) : BaseViewModel() {
     }
 
     fun getTicker() {
-        UpbitRepositoryImpl.getTickers(market)
+        repository.getTickers(market)
             .map { tickerList ->
                 tickerList.map {
                     it.toTicker()
@@ -32,4 +36,3 @@ class TickerViewModel(private val market: String) : BaseViewModel() {
             .addTo(disposable)
     }
 }
-
