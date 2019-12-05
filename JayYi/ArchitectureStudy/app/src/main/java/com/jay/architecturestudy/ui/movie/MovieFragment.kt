@@ -15,7 +15,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class MovieFragment(layoutId: Int = R.layout.fragemnt_movie) : BaseFragment(layoutId) {
+class MovieFragment() : BaseFragment(R.layout.fragemnt_movie) {
 
     private lateinit var movieAdapter: MovieAdapter
 

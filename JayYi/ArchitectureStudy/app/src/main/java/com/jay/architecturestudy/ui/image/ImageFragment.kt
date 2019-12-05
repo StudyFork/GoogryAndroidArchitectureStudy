@@ -16,7 +16,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ImageFragment(layoutId: Int = R.layout.fragemnt_image) : BaseFragment(layoutId) {
+class ImageFragment() : BaseFragment(R.layout.fragemnt_image) {
 
     private lateinit var imageAdapter: ImageAdapter
 
