@@ -10,12 +10,7 @@ import io.reactivex.schedulers.Schedulers
 class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter {
 
     override fun searchWithAdapter(type: String, query: String?) {
-        SearchDataRepositoryImpl.getDataForSearch(type, query, ::getObservable)
-    }
-
-    private fun getObservable(observable:Single<TotalModel>){
-
-        observable
+        SearchDataRepositoryImpl.getDataForSearch(type, query)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
@@ -26,7 +21,6 @@ class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter
             }
             .subscribe(::onSuccess, ::onError)
             .addDisposable()
-
     }
 
     private fun onSuccess(result: TotalModel) {

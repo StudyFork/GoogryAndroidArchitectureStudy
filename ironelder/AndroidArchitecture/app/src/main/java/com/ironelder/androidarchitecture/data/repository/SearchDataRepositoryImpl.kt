@@ -8,10 +8,9 @@ object SearchDataRepositoryImpl : SearchDataRepository {
 
     override fun getDataForSearch(
         type: String,
-        query: String?,
-        observable: (observable: Single<TotalModel>) -> Unit
-    ) {
-        observable(SearchDataSourceImpl.getDataForSearchWithAdapter(type, query))
+        query: String?
+    ):Single<TotalModel> {
+        return SearchDataSourceImpl.getDataForSearchWithAdapter(type, query)
     }
 
 }

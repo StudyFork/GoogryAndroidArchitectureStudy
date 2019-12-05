@@ -7,8 +7,7 @@ interface SearchDataRepository {
 
     fun getDataForSearch(
         type: String,
-        query: String?,
-        observable: (observable: Single<TotalModel>) -> Unit
-    )
+        query: String?
+    ):Single<TotalModel>
 
 }
