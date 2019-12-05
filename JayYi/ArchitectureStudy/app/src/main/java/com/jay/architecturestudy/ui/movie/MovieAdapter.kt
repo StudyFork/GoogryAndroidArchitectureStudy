@@ -10,6 +10,7 @@ import com.jay.architecturestudy.R
 import com.jay.architecturestudy.model.Movie
 import com.jay.architecturestudy.ui.BaseAdapter
 import com.jay.architecturestudy.ui.BaseViewHolder
+import com.jay.architecturestudy.util.startWebView
 import kotlinx.android.synthetic.main.list_item_movie.view.*
 
 internal class MovieAdapter : BaseAdapter<Movie, MovieHolder>() {
@@ -31,8 +32,17 @@ internal class MovieAdapter : BaseAdapter<Movie, MovieHolder>() {
 internal class MovieHolder(
     view: View
 ) : BaseViewHolder<Movie>(view) {
+    lateinit var item: Movie
+
+    init {
+        itemView.setOnClickListener { view ->
+            view.startWebView(item.link)
+        }
+    }
 
     override fun bind(item: Movie) {
+        this.item = item
+
         with(itemView) {
             movie_title.text = HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
             movie_director.text = item.director

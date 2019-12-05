@@ -8,6 +8,7 @@ import com.jay.architecturestudy.R
 import com.jay.architecturestudy.model.Kin
 import com.jay.architecturestudy.ui.BaseAdapter
 import com.jay.architecturestudy.ui.BaseViewHolder
+import com.jay.architecturestudy.util.startWebView
 import kotlinx.android.synthetic.main.list_item_kin.view.*
 
 internal class KinAdapter : BaseAdapter<Kin, KinHolder>() {
@@ -29,8 +30,17 @@ internal class KinAdapter : BaseAdapter<Kin, KinHolder>() {
 internal class KinHolder(
     view: View
 ) : BaseViewHolder<Kin>(view) {
+    lateinit var item: Kin
+
+    init {
+        itemView.setOnClickListener { view ->
+            view.startWebView(item.link)
+        }
+    }
 
     override fun bind(item: Kin) {
+        this.item = item
+        
         with(itemView) {
             kin_title.text = HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
             kin_description.text =

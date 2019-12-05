@@ -8,6 +8,7 @@ import com.jay.architecturestudy.R
 import com.jay.architecturestudy.model.Blog
 import com.jay.architecturestudy.ui.BaseAdapter
 import com.jay.architecturestudy.ui.BaseViewHolder
+import com.jay.architecturestudy.util.startWebView
 import kotlinx.android.synthetic.main.list_item_blog.view.*
 
 
@@ -30,8 +31,17 @@ internal class BlogAdapter : BaseAdapter<Blog, BlogHolder>() {
 internal class BlogHolder(
     view: View
 ) : BaseViewHolder<Blog>(view) {
+    lateinit var item: Blog
+
+    init {
+        itemView.setOnClickListener { view ->
+            view.startWebView(item.link)
+        }
+    }
 
     override fun bind(item: Blog) {
+        this.item = item
+
         with(itemView) {
             blog_title.text = HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
             blog_description.text =

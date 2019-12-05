@@ -9,6 +9,7 @@ import com.jay.architecturestudy.R
 import com.jay.architecturestudy.model.Image
 import com.jay.architecturestudy.ui.BaseAdapter
 import com.jay.architecturestudy.ui.BaseViewHolder
+import com.jay.architecturestudy.util.startWebView
 import kotlinx.android.synthetic.main.list_item_image.view.*
 
 internal class ImageAdapter : BaseAdapter<Image, ImageHolder>() {
@@ -30,8 +31,17 @@ internal class ImageAdapter : BaseAdapter<Image, ImageHolder>() {
 internal class ImageHolder(
     view: View
 ) : BaseViewHolder<Image>(view) {
+    lateinit var item: Image
+
+    init {
+        itemView.setOnClickListener { view ->
+            view.startWebView(item.link)
+        }
+    }
 
     override fun bind(item: Image) {
+        this.item = item
+
         with(itemView) {
             image_title.text = item.title
 
