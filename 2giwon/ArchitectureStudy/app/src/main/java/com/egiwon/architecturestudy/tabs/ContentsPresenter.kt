@@ -2,7 +2,7 @@ package com.egiwon.architecturestudy.tabs
 
 import com.egiwon.architecturestudy.Tab
 import com.egiwon.architecturestudy.base.BasePresenter
-import com.egiwon.architecturestudy.data.source.NaverDataRepository
+import com.egiwon.architecturestudy.data.NaverDataRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -30,11 +30,11 @@ class ContentsPresenter(
                     contentsView.hideLoading()
                 }
                 .subscribe({
-                    with(it.items) {
-                        if (isNullOrEmpty()) {
+                    with(it) {
+                        if (contentItems.isNullOrEmpty()) {
                             contentsView.showErrorResultEmpty()
                         } else {
-                            contentsView.showQueryResult(this)
+                            contentsView.showQueryResult(this.contentItems)
                         }
                     }
 
