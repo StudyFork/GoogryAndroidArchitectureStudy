@@ -13,55 +13,34 @@ import java.net.UnknownHostException
 class NetworkUtil {
 
     companion object {
-        private var SAFE_DNS: Dns? = Dns { hostname ->
-            try {
-                return@Dns Dns.SYSTEM.lookup(hostname)
-            } catch (e: IllegalArgumentException) {
-                // Hack. See https://github.com/square/okhttp/issues/3345
-                throw UnknownHostException(e.message)
-            } catch (e: NullPointerException) {
-                // Hack. See https://github.com/square/okhttp/issues/3345
-                throw UnknownHostException(e.message)
-            } catch (e: Exception) {
-                // Hack. See https://github.com/square/okhttp/issues/3345
-                throw UnknownHostException(e.message)
+
+        private val SAFE_DNS: Dns by lazy {
+            Dns { hostname ->
+                try {
+                    return@Dns Dns.SYSTEM.lookup(hostname)
+                } catch (e: IllegalArgumentException) {
+                    // Hack. See https://github.com/square/okhttp/issues/3345
+                    throw UnknownHostException(e.message)
+                } catch (e: NullPointerException) {
+                    // Hack. See https://github.com/square/okhttp/issues/3345
+                    throw UnknownHostException(e.message)
+                } catch (e: Exception) {
+                    // Hack. See https://github.com/square/okhttp/issues/3345
+                    throw UnknownHostException(e.message)
+                }
             }
         }
 
-        private var okHttpClient: OkHttpClient? = OkHttpClient.Builder()
-            .dns(SAFE_DNS)
-            .addInterceptor(appInterceptor())
-            .build()
+
+        private val okHttpClient: OkHttpClient by lazy {
+            OkHttpClient.Builder()
+                .dns(SAFE_DNS)
+                .addInterceptor(appInterceptor())
+                .build()
+        }
 
         fun getRetrofit(baseUrl: String, factory: Converter.Factory?): Retrofit {
-
-            if (okHttpClient == null) {
-                if (SAFE_DNS == null) {
-                    SAFE_DNS = Dns { hostname ->
-                        try {
-                            return@Dns Dns.SYSTEM.lookup(hostname)
-                        } catch (e: IllegalArgumentException) {
-                            // Hack. See https://github.com/square/okhttp/issues/3345
-                            throw UnknownHostException(e.message)
-                        } catch (e: NullPointerException) {
-                            // Hack. See https://github.com/square/okhttp/issues/3345
-                            throw UnknownHostException(e.message)
-                        } catch (e: Exception) {
-                            // Hack. See https://github.com/square/okhttp/issues/3345
-                            throw UnknownHostException(e.message)
-                        }
-                    }
-                }
-
-                okHttpClient = OkHttpClient.Builder()
-                    //                    .addInterceptor(new LoggingInterceptor())
-                    .dns(SAFE_DNS)
-                    .addInterceptor(appInterceptor())
-                    .build()
-            }
-
             var retrofit: Retrofit
-
             try {
                 if (factory == null) {
                     retrofit = Retrofit.Builder().client(okHttpClient)
@@ -90,10 +69,8 @@ class NetworkUtil {
             return retrofit
         }
 
-
         // 인터셉터.
         class appInterceptor : Interceptor {
-
             @Throws(IOException::class)
             override fun intercept(chain: Interceptor.Chain): Response {
                 val mRequest = chain.request()
@@ -101,7 +78,6 @@ class NetworkUtil {
                     .addHeader("X-Naver-Client-Id", "Cjj07G06ms2sCWlKWezF")
                     .addHeader("X-Naver-Client-Secret", "4v_hXcCSrz")
                     .build()
-
                 return chain.proceed(newmequest)
             }
         }
