@@ -11,7 +11,7 @@ import retrofit2.http.Query
 interface Api {
 
     companion object {
-        val BASE_URL: String = "https://openapi.naver.com/"
+        const val BASE_URL: String = "https://openapi.naver.com/"
     }
 
 
