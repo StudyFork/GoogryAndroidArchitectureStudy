@@ -23,18 +23,14 @@ class MainActivity : AppCompatActivity() {
         pager.adapter = ViewPagerAdapter(this)
 
         tab_layout.tabGravity =TabLayout.GRAVITY_FILL
-        TabLayoutMediator(tab_layout, pager, object :TabLayoutMediator.TabConfigurationStrategy{
-            override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
-                when(position){
-                    0-> tab.text = "Movie"
-                    1-> tab.text = "Image"
-                    2-> tab.text = "Blog"
-                    3-> tab.text = "Kin"
-                }
+        TabLayoutMediator(tab_layout, pager, TabLayoutMediator.TabConfigurationStrategy{tab, position ->
+            when(position){
+                0-> tab.text = "Movie"
+                1-> tab.text = "Image"
+                2-> tab.text = "Blog"
+                3-> tab.text = "Kin"
             }
-
         }).attach()
-
     }
 
 
