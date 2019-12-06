@@ -316,7 +316,7 @@ MVC -> MVP -> MVVM 아키텍처를 배우는 것도 도움이 되었지만 무�
 
 
 ## 7기
-- 안현호 [](https://github.com/AhnHyeonho)
+- 안현호 [AhnHyeonho](https://github.com/AhnHyeonho)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/AhnHyeonho)
 - 양승희 [seunghee63](https://github.com/seunghee63)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/seunghee63)
