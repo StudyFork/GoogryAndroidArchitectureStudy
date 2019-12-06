@@ -1,5 +1,6 @@
 package com.example.androidarchitecture.ui.image
 
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,28 +13,47 @@ import com.example.androidarchitecture.models.ResponseImage
 import com.example.androidarchitecture.ui.WebviewActivity
 import kotlinx.android.synthetic.main.item_image.view.*
 
-class imageAdpater(
-    val items: List<ResponseImage>
-) :
-    RecyclerView.Adapter<imageAdpater.ImageHolder>() {
+class ImageAdapter(val context: Context) :
+    RecyclerView.Adapter<ImageAdapter.ImageHolder>() {
 
+
+    private val data = arrayListOf<ResponseImage>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_image, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.item_image, parent, false)
         return ImageHolder(view)
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return data.size
     }
 
     override fun onBindViewHolder(holder: ImageHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(data[position])
     }
 
 
+    fun setData(items: List<ResponseImage>) {
+        data.clear()
+        data.addAll(items)
+        notifyDataSetChanged()
+    }
+
     inner class ImageHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+        lateinit var model: ResponseImage
+
+        init {
+            view.setOnClickListener {
+                Intent(context, WebviewActivity::class.java).apply {
+                    // 어플라이 끝에 그러니까 run 자리에서 뱉는건, intent 객체.  안에 애들은 객체를 뱉기전에 값넣기 혹은 초기화 작업시 좋다.
+                    putExtra("link", model.link)
+                }.run { context.startActivity(this) }
+            }
+        }
+
+
         fun bind(model: ResponseImage) {
+            this.model = model
             with(view) {
                 image_title.text = model.title
                 try {
@@ -41,15 +61,9 @@ class imageAdpater(
                         .load(model.thumbnail)
                         .into(image_thum)
                 } catch (e: Exception) {
-                    Log.v("imageAdpater", e.message)
+                    Log.v("ImageAdapter", e.message!!)
                 }
 
-
-                setOnClickListener() {
-                    Intent(context, WebviewActivity::class.java).apply {
-                        putExtra("link", model.link)
-                    }.run { context.startActivity(this) }
-                }
 
             }
         }

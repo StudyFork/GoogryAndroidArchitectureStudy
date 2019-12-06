@@ -41,7 +41,6 @@ object NetworkUtil {
     fun getApiService() = apiService
 
     fun getRetrofit(baseUrl: String): Retrofit {
-        Log.v("dksush", "몇번찍나")
         return try {
             Retrofit.Builder().client(okHttpClient)
                 .baseUrl(baseUrl)

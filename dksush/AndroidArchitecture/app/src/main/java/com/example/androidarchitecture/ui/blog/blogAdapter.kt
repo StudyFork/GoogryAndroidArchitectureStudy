@@ -1,5 +1,6 @@
 package com.example.androidarchitecture.ui.blog
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -10,42 +11,53 @@ import com.example.androidarchitecture.models.ResponseBlog
 import com.example.androidarchitecture.ui.WebviewActivity
 import kotlinx.android.synthetic.main.item_blog.view.*
 
+class BlogAdapter(private val context: Context) : RecyclerView.Adapter<BlogAdapter.BlogHolder>() {
 
-class blogAdapter(
-    val items: List<ResponseBlog>
-) : RecyclerView.Adapter<blogAdapter.blogHolder>() {
+    private val data = arrayListOf<ResponseBlog>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): blogHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_blog, parent, false)
-        return blogHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogHolder {
+        val view = LayoutInflater.from(context).inflate(R.layout.item_blog, parent, false)
+        return BlogHolder(view)
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return data.size
     }
 
-    override fun onBindViewHolder(holder: blogHolder, position: Int) {
-        holder.bind(items[position])
+    override fun onBindViewHolder(holder: BlogHolder, position: Int) {
+        holder.bind(data[position])
 
 
     }
 
-    inner class blogHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    fun setData(items: List<ResponseBlog>) {
+        data.clear()
+        data.addAll(items)
+        notifyDataSetChanged()
+    }
+
+    inner class BlogHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+        lateinit var model: ResponseBlog
+
+        init {
+            view.setOnClickListener() {
+                Intent(context, WebviewActivity::class.java).apply {
+                    putExtra("link", model.link)
+                }.run { context.startActivity(this) }
+            }
+        }
+
+
         fun bind(model: ResponseBlog) {
+            this.model = model
             with(view) {
                 blog_title.text = model.title
                 blog_description.text = model.description
                 blog_owner.text = model.bloggerName
                 blog_postdate.text = model.postdate
 
-                setOnClickListener() {
-                    Intent(context, WebviewActivity::class.java).apply {
-                        putExtra("link", model.link)
-                    }.run { context.startActivity(this) }
-                }
             }
         }
 
     }
-
 }
