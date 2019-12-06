@@ -40,7 +40,7 @@ object NetworkUtil {
     private val apiService: Api = getRetrofit(BASE_URL).create()
     fun getApiService() = apiService
 
-    fun getRetrofit(baseUrl: String): Retrofit {
+    private fun getRetrofit(baseUrl: String): Retrofit {
         return try {
             Retrofit.Builder().client(okHttpClient)
                 .baseUrl(baseUrl)
