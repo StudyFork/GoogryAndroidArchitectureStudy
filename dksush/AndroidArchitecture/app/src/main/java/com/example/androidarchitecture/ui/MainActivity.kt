@@ -5,10 +5,10 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.androidarchitecture.R
-import com.example.androidarchitecture.fragment.BlogFragment
-import com.example.androidarchitecture.fragment.ImageFragment
-import com.example.androidarchitecture.fragment.KinFragment
-import com.example.androidarchitecture.fragment.MovieFragment
+import com.example.androidarchitecture.ui.blog.BlogFragment
+import com.example.androidarchitecture.ui.image.ImageFragment
+import com.example.androidarchitecture.ui.kin.KinFragment
+import com.example.androidarchitecture.ui.movie.MovieFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*

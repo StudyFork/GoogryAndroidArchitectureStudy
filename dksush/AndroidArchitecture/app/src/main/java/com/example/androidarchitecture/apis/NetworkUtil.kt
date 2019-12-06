@@ -1,11 +1,14 @@
 package com.example.androidarchitecture.apis
 
+import android.util.Log
+import com.example.androidarchitecture.apis.Api.Companion.BASE_URL
 import okhttp3.Dns
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.io.IOException
 import java.net.UnknownHostException
 
@@ -33,12 +36,19 @@ object NetworkUtil {
             .build()
     }
 
+
+    private val apiService: Api = getRetrofit(BASE_URL).create()
+    fun getApiService() = apiService
+
     fun getRetrofit(baseUrl: String): Retrofit {
+        Log.v("dksush", "몇번찍나")
         return try {
             Retrofit.Builder().client(okHttpClient)
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
+
+
         } catch (e: Exception) {
             e.printStackTrace()
             Retrofit.Builder()
@@ -60,5 +70,7 @@ object NetworkUtil {
             return chain.proceed(newRequest)
         }
     }
+
+
 
 }

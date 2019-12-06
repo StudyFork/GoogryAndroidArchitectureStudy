@@ -11,35 +11,35 @@ import retrofit2.http.Query
 interface Api {
 
     companion object {
-        val base_url: String = "https://openapi.naver.com/v1/search/"
+        val BASE_URL: String = "https://openapi.naver.com/"
     }
 
 
-    @GET("movie.json")
-    fun getMovielist(
+    @GET("v1/search/movie.json")
+    fun getMovieList(
         @Query("query") query: String,
         @Query("start") start: Int,
         @Query("display") display: Int
     ): Call<MovieData>
 
-    @GET("image")
-    fun getImagelist(
+    @GET("v1/search/image")
+    fun getImageList(
         @Query("query") query: String,
         @Query("start") start: Int,
         @Query("display") display: Int
     ): Call<ImageData>
 
 
-    @GET("blog.json")
-    fun getBloglist(
+    @GET("v1/search/blog.json")
+    fun getBlogList(
         @Query("query") query: String,
         @Query("start") start: Int,
         @Query("display") display: Int
     ): Call<BlogData>
 
 
-    @GET("kin.json")
-    fun getKinlist(
+    @GET("v1/search/kin.json")
+    fun getKinList(
         @Query("query") query: String,
         @Query("start") start: Int,
         @Query("display") display: Int
