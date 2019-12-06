@@ -63,7 +63,7 @@ class ImageFragment : Fragment() {
 
 
     private fun requestImageList(text: String) {
-        NetworkUtil.getApiService().getImageList(text, 1, 10)
+        NetworkUtil.apiService.getImageList(text, 1, 10)
             .enqueue(object : Callback<ImageData> {
                 override fun onFailure(call: Call<ImageData>, t: Throwable) {
                     Log.v("dksush_error", t.toString())

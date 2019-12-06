@@ -37,8 +37,7 @@ object NetworkUtil {
     }
 
 
-    private val apiService: Api = getRetrofit(BASE_URL).create()
-    fun getApiService() = apiService
+    val apiService: Api = getRetrofit(BASE_URL).create()
 
     private fun getRetrofit(baseUrl: String): Retrofit {
         return try {

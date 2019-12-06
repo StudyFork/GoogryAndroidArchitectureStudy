@@ -58,7 +58,7 @@ class KinFragment : Fragment() {
     }
 
     private fun requestKinList(text: String) {
-        NetworkUtil.getApiService().getKinList(text, 1, 10)
+        NetworkUtil.apiService.getKinList(text, 1, 10)
             .enqueue(object : Callback<KinData> {
                 override fun onFailure(call: Call<KinData>, t: Throwable) {
                     Log.v("dksush_error", t.toString())

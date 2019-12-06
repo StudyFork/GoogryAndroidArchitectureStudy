@@ -58,7 +58,7 @@ class MovieFragment : Fragment() {
     }
 
     private fun requestMovieList(text: String) {
-        NetworkUtil.getApiService().getMovieList(text, 1, 10)
+        NetworkUtil.apiService.getMovieList(text, 1, 10)
             .enqueue(object : retrofit2.Callback<MovieData> {
                 override fun onFailure(call: Call<MovieData>, t: Throwable) {
                     Log.v("dksush_error", t.toString())

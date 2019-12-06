@@ -56,7 +56,7 @@ class BlogFragment : Fragment() {
 
 
     private fun requestBlogList(text: String) {
-        NetworkUtil.getApiService().getBlogList(text, 1, 10)
+        NetworkUtil.apiService.getBlogList(text, 1, 10)
             .enqueue(object : retrofit2.Callback<BlogData> {
                 override fun onFailure(call: Call<BlogData>, t: Throwable) {
                 }
