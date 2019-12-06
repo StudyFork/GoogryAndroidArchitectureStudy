@@ -37,7 +37,6 @@ class MovieFragment : Fragment() {
             movieAdapter = MovieAdapter(it)
                 .also {
                     recycle.adapter = it
-                    recycle.layoutManager = LinearLayoutManager(activity)
                     recycle.addItemDecoration(
                         DividerItemDecoration(
                             activity,

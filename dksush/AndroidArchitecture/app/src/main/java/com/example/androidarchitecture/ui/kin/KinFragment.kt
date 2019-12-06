@@ -40,7 +40,6 @@ class KinFragment : Fragment() {
             kinAdapter = KinAdapter(it)
                 .also {
                     recycle.adapter = it
-                    recycle.layoutManager = LinearLayoutManager(activity)
                     recycle.addItemDecoration(
                         DividerItemDecoration(
                             activity,

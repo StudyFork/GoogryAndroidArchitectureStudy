@@ -41,7 +41,6 @@ class ImageFragment : Fragment() {
             imageAdapter = ImageAdapter(it)
                 .also {
                     recycle.adapter = it
-                    recycle.layoutManager = LinearLayoutManager(activity)
                     recycle.addItemDecoration(
                         DividerItemDecoration(
                             activity,
