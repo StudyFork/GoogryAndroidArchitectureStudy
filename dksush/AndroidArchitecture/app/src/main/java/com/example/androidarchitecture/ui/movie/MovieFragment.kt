@@ -50,7 +50,7 @@ class MovieFragment : Fragment() {
 
 
         btn_search.setOnClickListener {
-            if (input_text != null) {
+            if (edit_text != null) {
                 requestMovieList(edit_text.text.toString())
 
             }

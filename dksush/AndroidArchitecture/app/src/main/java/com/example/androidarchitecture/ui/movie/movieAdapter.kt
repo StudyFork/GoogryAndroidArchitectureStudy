@@ -14,7 +14,7 @@ import com.example.androidarchitecture.models.ResponseMovie
 import com.example.androidarchitecture.ui.WebviewActivity
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieAdapter(val context: Context) : RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
+class MovieAdapter (val context: Context) : RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
 
 
     private val data = arrayListOf<ResponseMovie>()

@@ -11,7 +11,7 @@ import com.example.androidarchitecture.models.ResponseKin
 import com.example.androidarchitecture.ui.WebviewActivity
 import kotlinx.android.synthetic.main.item_blog.view.*
 
-class KinAdapter(
+class KinAdapter (
     val context: Context
 ) : RecyclerView.Adapter<KinAdapter.KinHolder>() {
 
