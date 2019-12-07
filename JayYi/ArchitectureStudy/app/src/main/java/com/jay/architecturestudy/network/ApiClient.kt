@@ -2,15 +2,14 @@ package com.jay.architecturestudy.network
 
 import android.util.Log
 import com.jay.architecturestudy.network.service.ApiService
+import com.jay.architecturestudy.util.peekBody
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
-import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import java.io.IOException
-import java.nio.charset.Charset
 import java.util.concurrent.TimeUnit
 
 object ApiClient {
