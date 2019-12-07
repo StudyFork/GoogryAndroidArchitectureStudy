@@ -26,7 +26,6 @@ class ImageFragment() : BaseFragment(R.layout.fragemnt_image) {
             imageAdapter = ImageAdapter()
             recycler_view.run {
                 adapter = imageAdapter
-                layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
                 addItemDecoration(SpacesItemDecoration(12.toPx(), 6.toPx(), 11.toPx()))
             }
         }
