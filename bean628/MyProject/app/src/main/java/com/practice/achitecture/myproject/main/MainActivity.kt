@@ -7,8 +7,8 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import com.practice.achitecture.myproject.BaseActivity
 import com.practice.achitecture.myproject.R
+import com.practice.achitecture.myproject.base.BaseActivity
 import com.practice.achitecture.myproject.makeToast
 import com.practice.achitecture.myproject.model.SearchedItem
 import com.practice.achitecture.myproject.network.retrofitErrorHandler
@@ -18,11 +18,19 @@ import common.SEARCH_TYPE_MOVIE
 import common.SEARCH_TYPE_NEWS
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity(),
+class MainActivity : BaseActivity<MainContract.Presenter>(),
     View.OnClickListener,
     MainContract.View {
 
-    override lateinit var presenter: MainContract.Presenter
+    override fun showLoading() {
+        progress_bar.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        progress_bar.visibility = View.GONE
+    }
+
+    override val presenter: MainContract.Presenter = MainPresenter(this)
 
     private var searchType: Int = SEARCH_TYPE_MOVIE
     private var searchMovieAndBookAdapter: SearchMovieAndBookAdapter? = null
@@ -40,15 +48,11 @@ class MainActivity : BaseActivity(),
 
         registerOnClickListener()
         initAdapter()
-
-        presenter = MainPresenter(this)
     }
 
     private fun initAdapter() {
-        searchMovieAndBookAdapter =
-            SearchMovieAndBookAdapter(searchedItemListener)
-        searchBlogAndNewsAdapter =
-            SearchBlogAndNewsAdapter(searchedItemListener)
+        searchMovieAndBookAdapter = SearchMovieAndBookAdapter(searchedItemListener)
+        searchBlogAndNewsAdapter = SearchBlogAndNewsAdapter(searchedItemListener)
     }
 
     private fun registerOnClickListener() {

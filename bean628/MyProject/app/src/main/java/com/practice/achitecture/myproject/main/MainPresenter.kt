@@ -12,6 +12,8 @@ import common.SEARCH_TYPE_NEWS
 class MainPresenter(
     private val view: MainContract.View
 ) : MainContract.Presenter {
+
+
     override fun searchIfNotEmpty(word: String, searchType: Int) {
         if (word.isEmpty()) {
             view.isEmpty()
