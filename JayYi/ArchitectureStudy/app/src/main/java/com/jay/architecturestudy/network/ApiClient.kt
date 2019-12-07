@@ -52,6 +52,8 @@ internal class HeaderInterceptor : Interceptor {
             Log.i("ApiClient", "res=${response}, body=${getPeekBody(response.body())}")
         }
 
+        NetworkException.create(response)?.run { throw this }
+
         return response
     }
 
