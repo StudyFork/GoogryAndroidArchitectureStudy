@@ -1,39 +1,90 @@
 package com.jay.architecturestudy
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
-
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.jay.architecturestudy.ui.blog.BlogFragment
+import com.jay.architecturestudy.ui.image.ImageFragment
+import com.jay.architecturestudy.ui.kin.KinFragment
+import com.jay.architecturestudy.ui.movie.MovieFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    private val pagerAdapter = PagerAdapter(supportFragmentManager)
+
+    private val navigationItemSelectedListener =
+        BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.menu_movie -> {
+                    setPageWithIndex(0)
+                    true
+                }
+                R.id.menu_image -> {
+                    setPageWithIndex(1)
+                    true
+                }
+                R.id.menu_blog -> {
+                    setPageWithIndex(2)
+                    true
+                }
+                R.id.menu_kin -> {
+                    setPageWithIndex(3)
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
+        }
+
+    private val pageChangeListener = object : ViewPager.OnPageChangeListener {
+        override fun onPageScrollStateChanged(state: Int) {
+        }
+
+        override fun onPageScrolled(
+            position: Int,
+            positionOffset: Float,
+            positionOffsetPixels: Int
+        ) {
+        }
+
+        override fun onPageSelected(position: Int) {
+            bottom_navigation.menu.getItem(position).isChecked = true
+        }
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+        bottom_navigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener)
+        view_pager.adapter = pagerAdapter
+        view_pager.addOnPageChangeListener(pageChangeListener)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
+    private fun setPageWithIndex(index: Int) {
+        view_pager?.currentItem = index
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
+    inner class PagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+        private val fragments = arrayListOf(
+            MovieFragment(), ImageFragment(),
+            BlogFragment(), KinFragment()
+        )
+
+        override fun getItem(position: Int): Fragment =
+            fragments[position]
+
+        override fun getCount(): Int =
+            fragments.size
+
     }
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/blog_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="규현이 보러 슈퍼쇼8 다녀왔어용"
+        />
+
+    <TextView
+        android:id="@+id/blog_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:maxLines="4"
+        android:ellipsize="end"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/blog_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="스포되는 건 다음에 올릴게용 특리더가 스포는 올리지말래서 ㅋㅋㅋ 여튼 조규현은 아이돌이었슴돠ㅜㅜ 규현이 몇년만에 아이돌로 돌아옴ㅜㅠㅜ 2016년이후로 아이돌로 무대 센터로 서있는거 보니ㅠㅠ 너무..."
+        />
+
+    <TextView
+        android:id="@+id/blog_owner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/blog_description"
+        tools:text="순간이 아닌 영원으로♡"
+        />
+
+    <TextView
+        android:id="@+id/blog_postdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toEndOf="@+id/blog_owner"
+        app:layout_constraintTop_toBottomOf="@+id/blog_description"
+        tools:text="20191013"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
