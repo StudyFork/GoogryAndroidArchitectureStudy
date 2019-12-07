@@ -14,7 +14,6 @@ import javax.inject.Singleton
 @Module(includes = [ApplicationModuleBinds::class])
 object ApplicationModule {
 
-    @Qualifier
     @Retention(AnnotationRetention.RUNTIME)
     annotation class RemoteDataSource
 
