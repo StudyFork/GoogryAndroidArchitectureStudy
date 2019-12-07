@@ -4,7 +4,7 @@ import javax.inject.Inject
 
 
 class UpbitRepositoryImpl @Inject constructor(
-    private val upbitRemoteDataSourceImpl : UpbitRemoteDataSourceImpl
+    private val upbitRemoteDataSourceImpl : UpbitRemoteDataSource
 ): UpbitRepository {
 
     override fun getMarketAll() = upbitRemoteDataSourceImpl.getMarketAll()
