@@ -8,8 +8,9 @@ import com.jskim5923.architecturestudy.model.data.source.Repository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class MainViewModel(
+class MainViewModel @Inject constructor(
     private val repository: Repository
 ) : BaseViewModel() {
     private val _marketList = MutableLiveData<List<String>>()
