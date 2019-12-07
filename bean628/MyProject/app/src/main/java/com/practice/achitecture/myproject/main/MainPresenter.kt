@@ -30,12 +30,14 @@ class MainPresenter(
     }
 
     override fun searchWordByNaver(searchType: Int, category: String, word: String) {
+        view.showLoading()
         NaverRepository.searchWordByNaver(
             category,
             word,
             object : NaverRemoteDataSource.GettingResultOfSearchingCallBack {
 
                 override fun onSuccess(items: List<SearchedItem>) {
+                    view.hideLoading()
                     when (searchType) {
                         SEARCH_TYPE_MOVIE, SEARCH_TYPE_BOOK -> {
                             view.showSearchResultMovieOrBook(items)
@@ -47,6 +49,7 @@ class MainPresenter(
                 }
 
                 override fun onFailure(throwable: Throwable) {
+                    view.hideLoading()
                     view.searchingOnFailure(throwable)
                 }
             })

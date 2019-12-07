@@ -22,14 +22,6 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
     View.OnClickListener,
     MainContract.View {
 
-    override fun showLoading() {
-        progress_bar.visibility = View.VISIBLE
-    }
-
-    override fun hideLoading() {
-        progress_bar.visibility = View.GONE
-    }
-
     override val presenter: MainContract.Presenter = MainPresenter(this)
 
     private var searchType: Int = SEARCH_TYPE_MOVIE
