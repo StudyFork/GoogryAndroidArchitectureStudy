@@ -49,20 +49,11 @@ internal class HeaderInterceptor : Interceptor {
         val response = chain.proceed(request)
         val statusCode = response.code()
         if (statusCode == 200) {
-            Log.i("ApiClient", "res=${response}, body=${getPeekBody(response.body())}")
+            Log.i("ApiClient", "res=${response}, body=${response.peekBody()}")
         }
 
         NetworkException.create(response)?.run { throw this }
 
         return response
-    }
-
-    private fun getPeekBody(body: ResponseBody?): String {
-        return body?.let {
-            val source = it.source()
-            source.request(Long.MAX_VALUE)
-            val buffer = source.buffer()
-            buffer.clone().readString(Charset.forName("UTF-8"))
-        } ?: ""
     }
 }
