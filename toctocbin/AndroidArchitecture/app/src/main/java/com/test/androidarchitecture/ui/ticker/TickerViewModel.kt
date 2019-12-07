@@ -6,7 +6,7 @@ import com.test.androidarchitecture.R
 import com.test.androidarchitecture.base.BaseViewModel
 import com.test.androidarchitecture.data.Ticker
 import com.test.androidarchitecture.data.TickerFormat
-import com.test.androidarchitecture.data.source.UpbitRepository
+import com.test.androidarchitecture.data.source.UpbitRepositoryImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import java.text.DecimalFormat
@@ -15,7 +15,7 @@ import java.util.*
 import javax.inject.Inject
 
 class TickerViewModel @Inject constructor(
-    private val upbitRepository: UpbitRepository
+    private val upbitRepositoryImpl: UpbitRepositoryImpl
     ) : BaseViewModel() {
 
     private val _tickerList = MutableLiveData<List<TickerFormat>>()
@@ -28,7 +28,7 @@ class TickerViewModel @Inject constructor(
     }
 
     fun getTicker() {
-        upbitRepository.getTicker(marketSearch)
+        upbitRepositoryImpl.getTicker(marketSearch)
             .map { list ->
                 list.asSequence()
                     .map { getCoinFormat(it) }

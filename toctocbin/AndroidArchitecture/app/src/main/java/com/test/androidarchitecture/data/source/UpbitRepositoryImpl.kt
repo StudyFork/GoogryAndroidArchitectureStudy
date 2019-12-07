@@ -3,9 +3,9 @@ package com.test.androidarchitecture.data.source
 import javax.inject.Inject
 
 
-class UpbitRepository @Inject constructor(
+class UpbitRepositoryImpl @Inject constructor(
     private val upbitRemoteDataSourceImpl : UpbitRemoteDataSourceImpl
-): UpbitRemoteDataSource {
+): UpbitRepository {
 
     override fun getMarketAll() = upbitRemoteDataSourceImpl.getMarketAll()
 

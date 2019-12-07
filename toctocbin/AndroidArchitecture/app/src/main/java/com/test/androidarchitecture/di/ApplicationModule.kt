@@ -3,6 +3,7 @@ package com.test.androidarchitecture.di
 import com.test.androidarchitecture.data.source.UpbitRemoteDataSource
 import com.test.androidarchitecture.data.source.UpbitRemoteDataSourceImpl
 import com.test.androidarchitecture.data.source.UpbitRepository
+import com.test.androidarchitecture.data.source.UpbitRepositoryImpl
 import com.test.androidarchitecture.network.RetrofitService
 import dagger.Binds
 import dagger.Module
@@ -31,5 +32,5 @@ abstract class ApplicationModuleBinds {
 
     @Singleton
     @Binds
-    abstract fun bindUpbitRepository(upbitRepository: UpbitRepository): UpbitRemoteDataSource
+    abstract fun bindUpbitRepository(upbitRepositoryImpl: UpbitRepositoryImpl): UpbitRepository
 }
