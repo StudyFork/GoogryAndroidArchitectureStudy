@@ -22,7 +22,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:hint="@string/input_search_hint"
                 android:imeOptions="actionSearch"
+                android:importantForAutofill="no"
                 android:inputType="text" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -74,7 +76,8 @@
                 android:background="#FF6E40"
                 android:text="@string/btn_book"
                 android:textColor="@color/btn_text_white"
-                android:textSize="16dp" />
+                android:textSize="16dp"
+                tools:ignore="SpUsage" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_search_type_blog"

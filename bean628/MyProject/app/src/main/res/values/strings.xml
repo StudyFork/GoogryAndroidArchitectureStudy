@@ -11,5 +11,6 @@
     <string name="btn_news">뉴스</string>
 
     <string name="image_content_description">영화 포스터 또는 책 표지 이미지입니다.</string>
+    <string name="input_search_hint">검색어를 입력해주세요.</string>
 
 </resources>
