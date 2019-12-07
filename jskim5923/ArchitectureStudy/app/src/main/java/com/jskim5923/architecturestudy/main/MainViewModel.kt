@@ -9,7 +9,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 
-class MainViewModel : BaseViewModel() {
+class MainViewModel(
+    private val repository: Repository
+) : BaseViewModel() {
     private val _marketList = MutableLiveData<List<String>>()
 
     val marketList: LiveData<List<String>>
@@ -20,7 +22,7 @@ class MainViewModel : BaseViewModel() {
     }
 
     private fun loadMarketList() {
-        Repository.getMarketList()
+        repository.getMarketList()
             .subscribeOn(Schedulers.io())
             .map { marketList ->
                 marketList.map {

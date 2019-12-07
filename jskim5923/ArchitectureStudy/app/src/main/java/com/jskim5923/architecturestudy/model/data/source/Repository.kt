@@ -1,7 +1,11 @@
 package com.jskim5923.architecturestudy.model.data.source
 
-object Repository : RemoteDataSource {
-    override fun getMarketList() = RemoteDataSourceImpl.getMarketList()
+import com.jskim5923.architecturestudy.model.Market
+import com.jskim5923.architecturestudy.model.TickerResponse
+import io.reactivex.Single
 
-    override fun getTicker(markets: String) = RemoteDataSourceImpl.getTicker(markets)
+interface Repository {
+    fun getMarketList(): Single<List<Market>>
+
+    fun getTicker(markets: String): Single<List<TickerResponse>>
 }

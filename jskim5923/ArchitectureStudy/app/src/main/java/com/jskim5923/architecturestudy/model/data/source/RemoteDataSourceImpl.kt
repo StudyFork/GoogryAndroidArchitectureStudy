@@ -1,10 +1,8 @@
 package com.jskim5923.architecturestudy.model.data.source
 
-import com.jskim5923.architecturestudy.api.ApiManager
+import com.jskim5923.architecturestudy.api.CoinApi
 
-object RemoteDataSourceImpl : RemoteDataSource {
-    private val api = ApiManager.coinApi
-
+class RemoteDataSourceImpl(private val api: CoinApi) : RemoteDataSource {
     override fun getMarketList() = api.getMarketList()
 
     override fun getTicker(markets: String) = api.getTicker(markets)

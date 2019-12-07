@@ -10,17 +10,17 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 
-class CoinViewModel : BaseViewModel() {
+class CoinViewModel(private val repository: Repository) : BaseViewModel() {
     private val _tickerList = MutableLiveData<List<Ticker>>()
 
     val tickerList: LiveData<List<Ticker>>
         get() = _tickerList
 
     fun getTickerList(market: String?) {
-        Repository.getMarketList()
+        repository.getMarketList()
             .subscribeOn(Schedulers.io())
             .flatMap { marketList ->
-                Repository.getTicker(
+                repository.getTicker(
                     marketList.asSequence()
                         .filter {
                             it.market.getCoinCurrency() == market
