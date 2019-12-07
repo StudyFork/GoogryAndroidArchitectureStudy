@@ -9,8 +9,9 @@ import com.jskim5923.architecturestudy.model.data.source.Repository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class CoinViewModel(private val repository: Repository) : BaseViewModel() {
+class CoinViewModel @Inject constructor(private val repository: Repository) : BaseViewModel() {
     private val _tickerList = MutableLiveData<List<Ticker>>()
 
     val tickerList: LiveData<List<Ticker>>
