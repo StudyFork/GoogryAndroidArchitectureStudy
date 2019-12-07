@@ -11,6 +11,7 @@ import com.example.androidarchitecture.models.ResponseBlog
 import com.example.androidarchitecture.ui.WebviewActivity
 import kotlinx.android.synthetic.main.item_blog.view.*
 
+
 class BlogAdapter : RecyclerView.Adapter<BlogAdapter.BlogHolder>() {
 
     private val data = arrayListOf<ResponseBlog>()
