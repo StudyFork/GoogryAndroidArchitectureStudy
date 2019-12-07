@@ -41,7 +41,11 @@ class NaverSearchRepositoryImpl : NaverSearchRepository {
         success: (ResponseBlog) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        naverSearchRemoteDataSource.getBlog(
+            keyword = keyword,
+            success = success,
+            fail = fail
+        )
     }
 
     override fun getKin(
