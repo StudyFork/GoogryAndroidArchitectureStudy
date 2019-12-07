@@ -15,12 +15,11 @@ import javax.inject.Singleton
     NetworkModule::class,
     ApplicationModuleBinds::class
 ])
-object ApplicationModule {
+class ApplicationModule {
 
     @Retention(AnnotationRetention.RUNTIME)
     annotation class RemoteDataSource
 
-    @JvmStatic
     @Singleton
     @RemoteDataSource
     @Provides
