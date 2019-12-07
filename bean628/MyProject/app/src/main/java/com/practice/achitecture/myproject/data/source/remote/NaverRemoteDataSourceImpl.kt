@@ -1,6 +1,8 @@
 package com.practice.achitecture.myproject.data.source.remote
 
 import com.practice.achitecture.myproject.R
+import com.practice.achitecture.myproject.data.source.NaverDataSource
+import com.practice.achitecture.myproject.enum.SearchType
 import com.practice.achitecture.myproject.model.ResultOfSearchingModel
 import com.practice.achitecture.myproject.network.EmptyDataException
 import com.practice.achitecture.myproject.network.ResponseNotSuccessException
@@ -10,14 +12,14 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class NaverRemoteDataSourceImpl(private val naverApiService: RetrofitService) :
-    NaverRemoteDataSource {
+    NaverDataSource {
 
     override fun searchWordByNaver(
-        category: String,
+        searchType: SearchType,
         word: String,
-        callBack: NaverRemoteDataSource.GettingResultOfSearchingCallBack
+        callBack: NaverDataSource.GettingResultOfSearchingCallBack
     ) {
-        val call = naverApiService.searchSomething(category, word)
+        val call = naverApiService.searchSomething(searchType.value, word)
         //To change body of created functions use File | Settings | File Templates.
         call.enqueue(object : Callback<ResultOfSearchingModel> {
             override fun onResponse(

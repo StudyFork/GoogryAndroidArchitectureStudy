@@ -14,8 +14,9 @@ interface MainContract {
     }
 
     interface Presenter : BaseContract.Presenter {
-        fun searchWordByNaver(searchType: SearchType, category: String, word: String)
+        fun searchWordByNaver(searchType: SearchType, word: String)
         fun searchIfNotEmpty(word: String, searchType: SearchType)
+        fun loadCache()
     }
 
 }

@@ -1,7 +1,7 @@
 package com.practice.achitecture.myproject.main
 
-import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSource
-import com.practice.achitecture.myproject.data.source.remote.NaverRepository
+import com.practice.achitecture.myproject.data.source.NaverDataSource
+import com.practice.achitecture.myproject.data.source.NaverRepository
 import com.practice.achitecture.myproject.enum.SearchType
 import com.practice.achitecture.myproject.model.SearchedItem
 
@@ -10,27 +10,20 @@ class MainPresenter(
     private val view: MainContract.View
 ) : MainContract.Presenter {
 
-
     override fun searchIfNotEmpty(word: String, searchType: SearchType) {
         if (word.isEmpty()) {
             view.isEmpty()
         } else {
-            val category = when (searchType) {
-                SearchType.MOVIE -> "movie"
-                SearchType.BOOK -> "book"
-                SearchType.BLOG -> "blog"
-                SearchType.NEWS -> "news"
-            }
-            this.searchWordByNaver(searchType, category, word)
+            this.searchWordByNaver(searchType, word)
         }
     }
 
-    override fun searchWordByNaver(searchType: SearchType, category: String, word: String) {
+    override fun searchWordByNaver(searchType: SearchType, word: String) {
         view.showLoading()
         NaverRepository.searchWordByNaver(
-            category,
+            searchType,
             word,
-            object : NaverRemoteDataSource.GettingResultOfSearchingCallBack {
+            object : NaverDataSource.GettingResultOfSearchingCallBack {
 
                 override fun onSuccess(items: List<SearchedItem>) {
                     view.hideLoading()
@@ -49,6 +42,20 @@ class MainPresenter(
                     view.searchingOnFailure(throwable)
                 }
             })
+    }
+
+    override fun loadCache() {
+        val lastSearchType = NaverRepository.getLastSearchType()
+        if (lastSearchType != null) {
+            when (lastSearchType) {
+                SearchType.MOVIE, SearchType.BOOK -> {
+                    view.showSearchResultMovieOrBook(NaverRepository.getCache(lastSearchType))
+                }
+                SearchType.BLOG, SearchType.NEWS -> {
+                    view.showSearchResultBlogOrNews(NaverRepository.getCache(lastSearchType))
+                }
+            }
+        }
     }
 
 }

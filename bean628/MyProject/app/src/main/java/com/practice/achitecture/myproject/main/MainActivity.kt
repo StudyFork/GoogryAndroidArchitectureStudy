@@ -36,6 +36,8 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
 
         registerOnClickListener()
         initAdapter()
+        presenter.loadCache()
+
     }
 
     private fun initAdapter() {
