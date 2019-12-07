@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidarchitecture.R
-import com.example.androidarchitecture.models.ResponseImage
+import com.example.androidarchitecture.models.ImageData
 import com.example.androidarchitecture.ui.WebviewActivity
 import kotlinx.android.synthetic.main.item_image.view.*
 
@@ -17,7 +17,7 @@ class ImageAdapter :
     RecyclerView.Adapter<ImageAdapter.ImageHolder>() {
 
 
-    private val data = arrayListOf<ResponseImage>()
+    private val data = arrayListOf<ImageData>()
     private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
@@ -34,14 +34,14 @@ class ImageAdapter :
     }
 
 
-    fun setData(items: List<ResponseImage>) {
+    fun setData(items: List<ImageData>) {
         data.clear()
         data.addAll(items)
         notifyDataSetChanged()
     }
 
     inner class ImageHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        lateinit var model: ResponseImage
+        lateinit var model: ImageData
 
         init {
             view.setOnClickListener {
@@ -53,7 +53,7 @@ class ImageAdapter :
         }
 
 
-        fun bind(model: ResponseImage) {
+        fun bind(model: ImageData) {
             this.model = model
             with(view) {
                 image_title.text = model.title

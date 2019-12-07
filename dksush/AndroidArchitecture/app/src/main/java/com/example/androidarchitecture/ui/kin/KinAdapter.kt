@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidarchitecture.R
-import com.example.androidarchitecture.models.ResponseKin
+import com.example.androidarchitecture.models.KinData
 import com.example.androidarchitecture.ui.WebviewActivity
 import kotlinx.android.synthetic.main.item_blog.view.*
 
 class KinAdapter : RecyclerView.Adapter<KinAdapter.KinHolder>() {
 
-    private val data = arrayListOf<ResponseKin>()
+    private val data = arrayListOf<KinData>()
     private lateinit var context: Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KinHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_kin, parent, false)
@@ -29,7 +29,7 @@ class KinAdapter : RecyclerView.Adapter<KinAdapter.KinHolder>() {
         holder.bind(data[position])
     }
 
-    fun setData(item: List<ResponseKin>) {
+    fun setData(item: List<KinData>) {
         data.clear()
         data.addAll(item)
         notifyDataSetChanged()
@@ -37,7 +37,7 @@ class KinAdapter : RecyclerView.Adapter<KinAdapter.KinHolder>() {
     }
 
     inner class KinHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        lateinit var item: ResponseKin
+        lateinit var item: KinData
         init {
             view.setOnClickListener(){
                 Intent(context, WebviewActivity::class.java).apply {
@@ -47,7 +47,7 @@ class KinAdapter : RecyclerView.Adapter<KinAdapter.KinHolder>() {
             }
         }
 
-        fun bind(item: ResponseKin) {
+        fun bind(item: KinData) {
             this.item = item
             with(view) {
                 blog_title.text = item.title

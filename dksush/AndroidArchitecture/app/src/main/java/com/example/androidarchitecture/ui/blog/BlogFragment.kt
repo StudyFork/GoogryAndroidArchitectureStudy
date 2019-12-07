@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidarchitecture.R
 import com.example.androidarchitecture.apis.NetworkUtil
 import com.example.androidarchitecture.models.BlogData
+import com.example.androidarchitecture.models.NaverQueryResponse
 import kotlinx.android.synthetic.main.fragment_movie.*
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 
 /**
@@ -56,19 +58,19 @@ class BlogFragment : Fragment() {
 
     private fun requestBlogList(text: String) {
         NetworkUtil.apiService.getBlogList(text, 1, 10)
-            .enqueue(object : retrofit2.Callback<BlogData> {
-                override fun onFailure(call: Call<BlogData>, t: Throwable) {
+            .enqueue(object : Callback<NaverQueryResponse<BlogData>> {
+                override fun onFailure(call: Call<NaverQueryResponse<BlogData>>, t: Throwable) {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 }
 
-                override fun onResponse(call: Call<BlogData>, response: Response<BlogData>) {
+                override fun onResponse(call: Call<NaverQueryResponse<BlogData>>, response: Response<NaverQueryResponse<BlogData>>) {
                     if (response.isSuccessful) {
-                        val body = response.body()?.blogs ?: return
+                        val body = response.body()?.items ?: return
                         blogAdapter.setData(body)
-
                     }
                 }
-
             })
+
     }
 
 

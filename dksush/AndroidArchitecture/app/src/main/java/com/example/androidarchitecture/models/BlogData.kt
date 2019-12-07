@@ -2,13 +2,7 @@ package com.example.androidarchitecture.models
 
 import com.google.gson.annotations.SerializedName
 
-data class BlogData (
-    @SerializedName("items")
-    val blogs: List<ResponseBlog>
-
-)
-
-data class ResponseBlog(
+data class BlogData(
     @SerializedName("bloggerlink")
     val bloggerLink: String,
     @SerializedName("bloggername")

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidarchitecture.R
 import com.example.androidarchitecture.apis.NetworkUtil
 import com.example.androidarchitecture.models.ImageData
+import com.example.androidarchitecture.models.NaverQueryResponse
 import kotlinx.android.synthetic.main.fragment_movie.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -52,7 +53,6 @@ class ImageFragment : Fragment() {
 
 
 
-
         btn_search.setOnClickListener {
             if (edit_text != null) {
                 requestImageList(edit_text.text.toString())
@@ -63,14 +63,14 @@ class ImageFragment : Fragment() {
 
     private fun requestImageList(text: String) {
         NetworkUtil.apiService.getImageList(text, 1, 10)
-            .enqueue(object : Callback<ImageData> {
-                override fun onFailure(call: Call<ImageData>, t: Throwable) {
-                    Log.v("dksush_error", t.toString())
+            .enqueue(object : Callback<NaverQueryResponse<ImageData>> {
+                override fun onFailure(call: Call<NaverQueryResponse<ImageData>>, t: Throwable) {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 }
 
-                override fun onResponse(call: Call<ImageData>, response: Response<ImageData>) {
+                override fun onResponse(call: Call<NaverQueryResponse<ImageData>>, response: Response<NaverQueryResponse<ImageData>>) {
                     if (response.isSuccessful) {
-                        val body = response.body()?.images ?: return
+                        val body = response.body()?.items ?: return
                         imageAdapter.setData(body)
                     }
                 }

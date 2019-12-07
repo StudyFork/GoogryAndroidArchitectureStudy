@@ -7,14 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidarchitecture.R
-import com.example.androidarchitecture.models.ResponseBlog
+import com.example.androidarchitecture.models.BlogData
 import com.example.androidarchitecture.ui.WebviewActivity
 import kotlinx.android.synthetic.main.item_blog.view.*
 
 
 class BlogAdapter : RecyclerView.Adapter<BlogAdapter.BlogHolder>() {
 
-    private val data = arrayListOf<ResponseBlog>()
+    private val data = arrayListOf<BlogData>()
     private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogHolder {
@@ -33,14 +33,14 @@ class BlogAdapter : RecyclerView.Adapter<BlogAdapter.BlogHolder>() {
 
     }
 
-    fun setData(items: List<ResponseBlog>) {
+    fun setData(items: List<BlogData>) {
         data.clear()
         data.addAll(items)
         notifyDataSetChanged()
     }
 
     inner class BlogHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        lateinit var model: ResponseBlog
+        lateinit var model: BlogData
 
         init {
             view.setOnClickListener {
@@ -51,7 +51,7 @@ class BlogAdapter : RecyclerView.Adapter<BlogAdapter.BlogHolder>() {
         }
 
 
-        fun bind(model: ResponseBlog) {
+        fun bind(model: BlogData) {
             this.model = model
             with(view) {
                 blog_title.text = model.title

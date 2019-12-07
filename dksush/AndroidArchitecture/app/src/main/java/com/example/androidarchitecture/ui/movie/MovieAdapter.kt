@@ -10,14 +10,14 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidarchitecture.R
-import com.example.androidarchitecture.models.ResponseMovie
+import com.example.androidarchitecture.models.MovieData
 import com.example.androidarchitecture.ui.WebviewActivity
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter  : RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
 
 
-    private val data = arrayListOf<ResponseMovie>()
+    private val data = arrayListOf<MovieData>()
     private lateinit var context: Context
 
     override fun getItemCount(): Int {
@@ -38,7 +38,7 @@ class MovieAdapter  : RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
     }
 
 
-    fun setData(items: List<ResponseMovie>) {
+    fun setData(items: List<MovieData>) {
         data.clear()
         data.addAll(items)
         notifyDataSetChanged()
@@ -49,7 +49,7 @@ class MovieAdapter  : RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
 
     inner class MovieHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
-        lateinit var model: ResponseMovie
+        lateinit var model: MovieData
 
         init { // 클릭 리스너 한번만 세팅.
             view.setOnClickListener() {
@@ -59,7 +59,7 @@ class MovieAdapter  : RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
             }
         }
 
-        fun bind(model: ResponseMovie) {
+        fun bind(model: MovieData) {
             this.model = model
 
             with(view) {

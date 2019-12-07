@@ -1,9 +1,6 @@
 package com.example.androidarchitecture.apis
 
-import com.example.androidarchitecture.models.BlogData
-import com.example.androidarchitecture.models.ImageData
-import com.example.androidarchitecture.models.KinData
-import com.example.androidarchitecture.models.MovieData
+import com.example.androidarchitecture.models.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -20,14 +17,14 @@ interface Api {
         @Query("query") query: String,
         @Query("start") start: Int,
         @Query("display") display: Int
-    ): Call<MovieData>
+    ): Call<NaverQueryResponse<MovieData>>
 
     @GET("v1/search/image")
     fun getImageList(
         @Query("query") query: String,
         @Query("start") start: Int,
         @Query("display") display: Int
-    ): Call<ImageData>
+    ): Call<NaverQueryResponse<ImageData>>
 
 
     @GET("v1/search/blog.json")
@@ -35,7 +32,7 @@ interface Api {
         @Query("query") query: String,
         @Query("start") start: Int,
         @Query("display") display: Int
-    ): Call<BlogData>
+    ): Call<NaverQueryResponse<BlogData>>
 
 
     @GET("v1/search/kin.json")
@@ -43,7 +40,7 @@ interface Api {
         @Query("query") query: String,
         @Query("start") start: Int,
         @Query("display") display: Int
-    ): Call<KinData>
+    ): Call<NaverQueryResponse<KinData>>
 
 
 }

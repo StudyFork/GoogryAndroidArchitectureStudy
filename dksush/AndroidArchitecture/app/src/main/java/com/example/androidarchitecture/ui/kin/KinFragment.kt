@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidarchitecture.R
 import com.example.androidarchitecture.apis.NetworkUtil
 import com.example.androidarchitecture.models.KinData
+import com.example.androidarchitecture.models.NaverQueryResponse
 import kotlinx.android.synthetic.main.fragment_movie.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -58,18 +59,17 @@ class KinFragment : Fragment() {
 
     private fun requestKinList(text: String) {
         NetworkUtil.apiService.getKinList(text, 1, 10)
-            .enqueue(object : Callback<KinData> {
-                override fun onFailure(call: Call<KinData>, t: Throwable) {
-                    Log.v("dksush_error", t.toString())
+            .enqueue(object :Callback<NaverQueryResponse<KinData>>{
+                override fun onFailure(call: Call<NaverQueryResponse<KinData>>, t: Throwable) {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 }
 
-                override fun onResponse(call: Call<KinData>, response: Response<KinData>) {
+                override fun onResponse(call: Call<NaverQueryResponse<KinData>>, response: Response<NaverQueryResponse<KinData>>) {
                     if (response.isSuccessful) {
-                        val body = response.body()?.kins ?: return
+                        val body = response.body()?.items ?: return
                         kinAdapter.setData(body)
                     }
                 }
-
             })
 
 
