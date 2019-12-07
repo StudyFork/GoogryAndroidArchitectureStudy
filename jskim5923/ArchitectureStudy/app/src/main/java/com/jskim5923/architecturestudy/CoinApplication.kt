@@ -1,9 +1,13 @@
 package com.jskim5923.architecturestudy
 
-import android.app.Application
+import com.jskim5923.architecturestudy.di.DaggerAppComponent
+import dagger.android.DaggerApplication
 import timber.log.Timber
 
-class CoinApplication : Application() {
+class CoinApplication : DaggerApplication() {
+    override fun applicationInjector() =
+        DaggerAppComponent.builder().application(this).build()
+
     override fun onCreate() {
         super.onCreate()
         Timber.plant(object : Timber.DebugTree() {
