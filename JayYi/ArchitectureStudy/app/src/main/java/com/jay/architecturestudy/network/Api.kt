@@ -1,6 +1,6 @@
 package com.jay.architecturestudy.network
 
-import com.jay.architecturestudy.model.*
+import com.jay.architecturestudy.data.model.*
 import retrofit2.Call
 
 object Api {

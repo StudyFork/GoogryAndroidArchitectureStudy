@@ -1,4 +1,4 @@
-package com.jay.architecturestudy.model
+package com.jay.architecturestudy.data.model
 
 import com.google.gson.annotations.SerializedName
 

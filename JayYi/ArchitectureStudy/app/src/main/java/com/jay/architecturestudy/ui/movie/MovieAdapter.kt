@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
 import com.bumptech.glide.Glide
 import com.jay.architecturestudy.R
-import com.jay.architecturestudy.model.Movie
+import com.jay.architecturestudy.data.model.Movie
 import com.jay.architecturestudy.ui.BaseAdapter
 import com.jay.architecturestudy.ui.BaseViewHolder
 import com.jay.architecturestudy.util.startWebView

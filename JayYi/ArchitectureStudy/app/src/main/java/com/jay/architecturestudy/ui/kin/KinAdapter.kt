@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
 import com.jay.architecturestudy.R
-import com.jay.architecturestudy.model.Kin
+import com.jay.architecturestudy.data.model.Kin
 import com.jay.architecturestudy.ui.BaseAdapter
 import com.jay.architecturestudy.ui.BaseViewHolder
 import com.jay.architecturestudy.util.startWebView

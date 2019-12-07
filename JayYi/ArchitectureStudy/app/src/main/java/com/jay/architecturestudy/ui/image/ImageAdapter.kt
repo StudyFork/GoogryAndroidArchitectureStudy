@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.jay.architecturestudy.R
-import com.jay.architecturestudy.model.Image
+import com.jay.architecturestudy.data.model.Image
 import com.jay.architecturestudy.ui.BaseAdapter
 import com.jay.architecturestudy.ui.BaseViewHolder
 import com.jay.architecturestudy.util.startWebView

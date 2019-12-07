@@ -5,8 +5,8 @@ import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.jay.architecturestudy.R
-import com.jay.architecturestudy.model.Image
-import com.jay.architecturestudy.model.ResponseNaverQuery
+import com.jay.architecturestudy.data.model.Image
+import com.jay.architecturestudy.data.model.ResponseNaverQuery
 import com.jay.architecturestudy.network.Api
 import com.jay.architecturestudy.ui.BaseFragment
 import com.jay.architecturestudy.util.toPx

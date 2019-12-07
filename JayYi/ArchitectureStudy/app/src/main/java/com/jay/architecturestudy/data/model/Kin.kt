@@ -1,4 +1,4 @@
-package com.jay.architecturestudy.model
+package com.jay.architecturestudy.data.model
 
 data class Kin(
     val description: String,

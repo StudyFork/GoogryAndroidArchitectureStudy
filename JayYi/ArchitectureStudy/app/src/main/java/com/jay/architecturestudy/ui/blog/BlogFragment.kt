@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
-import com.jay.architecturestudy.model.Blog
-import com.jay.architecturestudy.model.ResponseNaverQuery
+import com.jay.architecturestudy.data.model.Blog
+import com.jay.architecturestudy.data.model.ResponseNaverQuery
 import com.jay.architecturestudy.network.Api
 import com.jay.architecturestudy.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragemnt_movie.*
