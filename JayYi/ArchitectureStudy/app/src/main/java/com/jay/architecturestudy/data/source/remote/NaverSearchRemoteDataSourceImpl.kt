@@ -37,7 +37,21 @@ class NaverSearchRemoteDataSourceImpl : NaverSearchRemoteDataSource {
         success: (ResponseImage) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Api.getImages(keyword)
+            .enqueue(object : Callback<ResponseNaverQuery<Image>> {
+                override fun onFailure(call: Call<ResponseNaverQuery<Image>>, t: Throwable) {
+                    fail(t)
+                }
+
+                override fun onResponse(
+                    call: Call<ResponseNaverQuery<Image>>,
+                    response: Response<ResponseNaverQuery<Image>>
+                ) {
+                    if (response.isSuccessful) {
+                        response.body()?.let { success(ResponseImage(it.items)) }
+                    }
+                }
+            })
     }
 
     override fun getBlog(
