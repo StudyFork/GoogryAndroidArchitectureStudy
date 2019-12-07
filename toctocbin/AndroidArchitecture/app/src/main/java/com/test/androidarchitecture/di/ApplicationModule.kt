@@ -11,7 +11,10 @@ import dagger.Provides
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
-@Module(includes = [ApplicationModuleBinds::class])
+@Module(includes = [
+    NetworkModule::class,
+    ApplicationModuleBinds::class
+])
 object ApplicationModule {
 
     @Retention(AnnotationRetention.RUNTIME)

@@ -14,7 +14,6 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         ApplicationModule::class,
         MarketModule::class,
-        NetworkModule::class,
         TickerModule::class
     ]
 )
