@@ -18,7 +18,7 @@ import common.SEARCH_TYPE_MOVIE
 import common.SEARCH_TYPE_NEWS
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity<MainContract.Presenter>(),
+class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main),
     View.OnClickListener,
     MainContract.View {
 
@@ -44,7 +44,6 @@ class MainActivity : BaseActivity<MainContract.Presenter>(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         registerOnClickListener()
         initAdapter()

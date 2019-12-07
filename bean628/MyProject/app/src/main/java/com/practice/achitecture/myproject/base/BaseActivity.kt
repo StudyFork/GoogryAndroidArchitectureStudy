@@ -1,9 +1,11 @@
 package com.practice.achitecture.myproject.base
 
 import android.widget.Toast
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 
-abstract class BaseActivity<P : BaseContract.Presenter> : AppCompatActivity(), BaseContract.View {
+abstract class BaseActivity<P : BaseContract.Presenter>(@LayoutRes contentLayoutId: Int) :
+    AppCompatActivity(contentLayoutId), BaseContract.View {
 
     abstract val presenter: P
 
