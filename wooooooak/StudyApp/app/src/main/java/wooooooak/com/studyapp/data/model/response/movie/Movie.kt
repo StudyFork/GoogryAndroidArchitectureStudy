@@ -1,4 +1,4 @@
-package wooooooak.com.studyapp.model.response.movie
+package wooooooak.com.studyapp.data.model.response.movie
 
 import com.google.gson.annotations.SerializedName
 
