@@ -53,7 +53,11 @@ class NaverSearchRepositoryImpl : NaverSearchRepository {
         success: (ResponseKin) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        naverSearchRemoteDataSource.getKin(
+            keyword = keyword,
+            success = success,
+            fail = fail
+        )
     }
 
 }
