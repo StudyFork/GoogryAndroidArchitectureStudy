@@ -1,6 +1,7 @@
 package com.practice.achitecture.myproject.main
 
 import com.practice.achitecture.myproject.base.BaseContract
+import com.practice.achitecture.myproject.enum.SearchType
 import com.practice.achitecture.myproject.model.SearchedItem
 
 interface MainContract {
@@ -13,8 +14,8 @@ interface MainContract {
     }
 
     interface Presenter : BaseContract.Presenter {
-        fun searchWordByNaver(searchType: Int, category: String, word: String)
-        fun searchIfNotEmpty(word: String, searchType: Int)
+        fun searchWordByNaver(searchType: SearchType, category: String, word: String)
+        fun searchIfNotEmpty(word: String, searchType: SearchType)
     }
 
 }

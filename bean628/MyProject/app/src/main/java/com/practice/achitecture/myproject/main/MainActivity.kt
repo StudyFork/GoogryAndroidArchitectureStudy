@@ -9,13 +9,10 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import com.practice.achitecture.myproject.R
 import com.practice.achitecture.myproject.base.BaseActivity
+import com.practice.achitecture.myproject.enum.SearchType
 import com.practice.achitecture.myproject.makeToast
 import com.practice.achitecture.myproject.model.SearchedItem
 import com.practice.achitecture.myproject.network.retrofitErrorHandler
-import common.SEARCH_TYPE_BLOG
-import common.SEARCH_TYPE_BOOK
-import common.SEARCH_TYPE_MOVIE
-import common.SEARCH_TYPE_NEWS
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main),
@@ -24,7 +21,7 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
 
     override val presenter: MainContract.Presenter = MainPresenter(this)
 
-    private var searchType: Int = SEARCH_TYPE_MOVIE
+    private var searchType: SearchType = SearchType.MOVIE
     private var searchMovieAndBookAdapter: SearchMovieAndBookAdapter? = null
     private var searchBlogAndNewsAdapter: SearchBlogAndNewsAdapter? = null
     private val searchedItemListener: SearchedItemClickListener =
@@ -66,20 +63,20 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
     override fun onClick(v: View) {
 
         when (v.id) {
-            R.id.btn_search -> search(searchType)
+            R.id.btn_search -> search(SearchType.MOVIE)
             R.id.btn_search_type_movie ->
-                search(SEARCH_TYPE_MOVIE)
+                search(SearchType.MOVIE)
             R.id.btn_search_type_book ->
-                search(SEARCH_TYPE_BOOK)
+                search(SearchType.BOOK)
             R.id.btn_search_type_blog ->
-                search(SEARCH_TYPE_BLOG)
+                search(SearchType.BLOG)
             R.id.btn_search_type_news ->
-                search(SEARCH_TYPE_NEWS)
+                search(SearchType.NEWS)
         }
 
     }
 
-    private fun search(searchType: Int) {
+    private fun search(searchType: SearchType) {
         val imm: InputMethodManager =
             getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(input_search_sth.windowToken, 0)
@@ -106,5 +103,6 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
     override fun searchingOnFailure(throwable: Throwable) {
         retrofitErrorHandler(this@MainActivity, throwable)
     }
+
 
 }
