@@ -11,10 +11,10 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [
+        AndroidSupportInjectionModule::class,
         ApplicationModule::class,
         MarketModule::class,
         NetworkModule::class,
-        AndroidSupportInjectionModule::class,
         TickerModule::class
     ]
 )
