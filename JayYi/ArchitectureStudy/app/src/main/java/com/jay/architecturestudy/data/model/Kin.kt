@@ -5,3 +5,8 @@ data class Kin(
     val link: String,
     val title: String
 )
+
+
+data class ResponseKin(
+    val kins: List<Kin>
+)

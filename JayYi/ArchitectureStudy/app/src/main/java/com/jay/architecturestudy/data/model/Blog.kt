@@ -12,3 +12,7 @@ data class Blog(
     val postdate: String,
     val title: String
 )
+
+data class ResponseBlog(
+    val blogs: List<Blog>
+)

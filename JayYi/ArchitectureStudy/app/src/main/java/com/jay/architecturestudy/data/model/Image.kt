@@ -11,3 +11,7 @@ data class Image(
     val thumbnail: String,
     val title: String
 )
+
+data class ResponseImage(
+    val images: List<Image>
+)

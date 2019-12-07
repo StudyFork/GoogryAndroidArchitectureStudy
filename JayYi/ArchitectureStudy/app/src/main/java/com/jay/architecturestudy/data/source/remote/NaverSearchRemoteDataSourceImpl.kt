@@ -1,24 +1,41 @@
 package com.jay.architecturestudy.data.source.remote
 
-import com.jay.architecturestudy.data.model.Blog
-import com.jay.architecturestudy.data.model.Image
-import com.jay.architecturestudy.data.model.Kin
-import com.jay.architecturestudy.data.model.Movie
+import android.util.Log
+import com.jay.architecturestudy.data.model.*
+import com.jay.architecturestudy.network.Api
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class NaverSearchRemoteDataSourceImpl : NaverSearchRemoteDataSource {
-    override fun getMovie(keyword: String, success: (Movie) -> Unit, fail: (Throwable) -> Unit) {
+    override fun getMovie(
+        keyword: String,
+        success: (ResponseMovie) -> Unit,
+        fail: (Throwable) -> Unit
+    ) {
+    }
+
+    override fun getImage(
+        keyword: String,
+        success: (ResponseImage) -> Unit,
+        fail: (Throwable) -> Unit
+    ) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getImage(keyword: String, success: (Image) -> Unit, fail: (Throwable) -> Unit) {
+    override fun getBlog(
+        keyword: String,
+        success: (ResponseBlog) -> Unit,
+        fail: (Throwable) -> Unit
+    ) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getBlog(keyword: String, success: (Blog) -> Unit, fail: (Throwable) -> Unit) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getKin(keyword: String, success: (Kin) -> Unit, fail: (Throwable) -> Unit) {
+    override fun getKin(
+        keyword: String,
+        success: (ResponseKin) -> Unit,
+        fail: (Throwable) -> Unit
+    ) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

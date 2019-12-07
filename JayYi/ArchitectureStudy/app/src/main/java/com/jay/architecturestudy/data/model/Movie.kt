@@ -17,3 +17,8 @@ data class Movie(
         get() = _userRating.toFloat() / 2
 }
 
+data class ResponseMovie(
+    val movies: List<Movie>
+)
+
+
