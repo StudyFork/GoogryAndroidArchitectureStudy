@@ -10,6 +10,7 @@
         android:orientation="horizontal">
 
         <EditText
+            android:background="null"
             android:id="@+id/etQuery"
             android:layout_width="0dp"
             android:layout_height="match_parent"

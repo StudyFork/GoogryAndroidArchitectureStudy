@@ -4,10 +4,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.example.studyapplication.blog.BlogFragment
-import com.example.studyapplication.image.ImageFragment
-import com.example.studyapplication.kin.KinFragment
-import com.example.studyapplication.movie.MovieFragment
+import com.example.studyapplication.main.blog.BlogFragment
+import com.example.studyapplication.main.image.ImageFragment
+import com.example.studyapplication.main.kin.KinFragment
+import com.example.studyapplication.main.movie.MovieFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 

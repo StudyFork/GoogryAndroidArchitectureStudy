@@ -1,4 +1,4 @@
-package com.example.studyapplication.kin.adapter
+package com.example.studyapplication.main.kin.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

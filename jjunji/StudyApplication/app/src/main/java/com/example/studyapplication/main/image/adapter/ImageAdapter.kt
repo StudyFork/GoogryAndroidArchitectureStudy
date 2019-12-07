@@ -1,4 +1,4 @@
-package com.example.studyapplication.image.adapter
+package com.example.studyapplication.main.image.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

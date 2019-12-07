@@ -1,4 +1,4 @@
-package com.example.studyapplication.blog
+package com.example.studyapplication.main.blog
 
 import android.content.Context
 import android.os.Bundle
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studyapplication.R
-import com.example.studyapplication.blog.adapter.BlogAdapter
+import com.example.studyapplication.main.blog.adapter.BlogAdapter
 import com.example.studyapplication.network.ApiClient
 import com.example.studyapplication.network.IConn
 import com.example.studyapplication.network.Remote

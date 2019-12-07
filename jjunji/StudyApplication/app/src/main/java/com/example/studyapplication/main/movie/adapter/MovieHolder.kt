@@ -1,4 +1,4 @@
-package com.example.studyapplication.movie.adapter
+package com.example.studyapplication.main.movie.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

@@ -1,4 +1,4 @@
-package com.example.studyapplication.blog.adapter
+package com.example.studyapplication.main.blog.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
