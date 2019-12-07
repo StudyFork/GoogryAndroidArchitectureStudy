@@ -1,6 +1,5 @@
 package com.jay.architecturestudy.data.source.remote
 
-import android.util.Log
 import com.jay.architecturestudy.data.model.*
 import com.jay.architecturestudy.network.Api
 import retrofit2.Call
@@ -16,7 +15,6 @@ class NaverSearchRemoteDataSourceImpl : NaverSearchRemoteDataSource {
         Api.getMovies(keyword)
             .enqueue(object : Callback<ResponseNaverQuery<Movie>> {
                 override fun onFailure(call: Call<ResponseNaverQuery<Movie>>, t: Throwable) {
-                    Log.e("Movie", "error=${t.message}")
                     fail(t)
                 }
 
