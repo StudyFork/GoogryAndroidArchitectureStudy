@@ -13,7 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class BlogFragment() : BaseFragment(R.layout.fragemnt_blog) {
+class BlogFragment : BaseFragment(R.layout.fragemnt_blog) {
 
     private lateinit var blogAdapter: BlogAdapter
 

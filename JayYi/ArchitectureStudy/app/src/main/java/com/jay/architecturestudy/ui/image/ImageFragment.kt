@@ -2,8 +2,6 @@ package com.jay.architecturestudy.ui.image
 
 import android.os.Bundle
 import android.util.Log
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Image
 import com.jay.architecturestudy.data.model.ResponseNaverQuery
@@ -16,7 +14,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ImageFragment() : BaseFragment(R.layout.fragemnt_image) {
+class ImageFragment : BaseFragment(R.layout.fragemnt_image) {
 
     private lateinit var imageAdapter: ImageAdapter
 

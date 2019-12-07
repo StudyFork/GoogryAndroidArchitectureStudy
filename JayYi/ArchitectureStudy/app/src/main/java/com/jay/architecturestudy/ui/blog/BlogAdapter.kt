@@ -15,7 +15,8 @@ import kotlinx.android.synthetic.main.list_item_blog.view.*
 internal class BlogAdapter : BaseAdapter<Blog, BlogHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_blog, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.list_item_blog, parent, false)
         return BlogHolder(view)
     }
 

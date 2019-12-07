@@ -13,7 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class KinFragment() : BaseFragment(R.layout.fragemnt_kin) {
+class KinFragment : BaseFragment(R.layout.fragemnt_kin) {
 
     private lateinit var kinAdapter: KinAdapter
 

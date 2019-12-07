@@ -15,7 +15,8 @@ import kotlinx.android.synthetic.main.list_item_image.view.*
 internal class ImageAdapter : BaseAdapter<Image, ImageHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_image, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.list_item_image, parent, false)
         return ImageHolder(view)
     }
 
