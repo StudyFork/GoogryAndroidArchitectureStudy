@@ -34,7 +34,7 @@ class MovieFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         activity?.let {
-            movieAdapter = MovieAdapter(it)
+            movieAdapter = MovieAdapter()
                 .also {
                     recycle.adapter = it
                     recycle.addItemDecoration(

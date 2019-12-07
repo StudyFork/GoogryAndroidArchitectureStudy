@@ -35,7 +35,7 @@ class BlogFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         activity?.let {
-            blogAdapter = BlogAdapter(it)
+            blogAdapter = BlogAdapter()
                 .also {
                     recycle.adapter = it
                     recycle.addItemDecoration(

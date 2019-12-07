@@ -11,12 +11,14 @@ import com.example.androidarchitecture.models.ResponseBlog
 import com.example.androidarchitecture.ui.WebviewActivity
 import kotlinx.android.synthetic.main.item_blog.view.*
 
-class BlogAdapter(private val context: Context) : RecyclerView.Adapter<BlogAdapter.BlogHolder>() {
+class BlogAdapter : RecyclerView.Adapter<BlogAdapter.BlogHolder>() {
 
     private val data = arrayListOf<ResponseBlog>()
+    private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_blog, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_blog, parent, false)
+        this.context = parent.context
         return BlogHolder(view)
     }
 
@@ -40,7 +42,7 @@ class BlogAdapter(private val context: Context) : RecyclerView.Adapter<BlogAdapt
         lateinit var model: ResponseBlog
 
         init {
-            view.setOnClickListener() {
+            view.setOnClickListener {
                 Intent(context, WebviewActivity::class.java).apply {
                     putExtra("link", model.link)
                 }.run { context.startActivity(this) }

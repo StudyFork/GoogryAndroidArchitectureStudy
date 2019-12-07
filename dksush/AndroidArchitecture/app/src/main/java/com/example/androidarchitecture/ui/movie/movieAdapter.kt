@@ -14,10 +14,11 @@ import com.example.androidarchitecture.models.ResponseMovie
 import com.example.androidarchitecture.ui.WebviewActivity
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieAdapter (val context: Context) : RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
+class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
 
 
     private val data = arrayListOf<ResponseMovie>()
+    private lateinit var context: Context
 
     override fun getItemCount(): Int {
         return data.size
@@ -25,7 +26,8 @@ class MovieAdapter (val context: Context) : RecyclerView.Adapter<MovieAdapter.Mo
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
+        this.context = parent.context
         return MovieHolder(view)
     }
 

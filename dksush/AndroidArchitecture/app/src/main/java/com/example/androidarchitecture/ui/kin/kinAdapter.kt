@@ -11,13 +11,13 @@ import com.example.androidarchitecture.models.ResponseKin
 import com.example.androidarchitecture.ui.WebviewActivity
 import kotlinx.android.synthetic.main.item_blog.view.*
 
-class KinAdapter (
-    val context: Context
-) : RecyclerView.Adapter<KinAdapter.KinHolder>() {
+class KinAdapter : RecyclerView.Adapter<KinAdapter.KinHolder>() {
 
     private val data = arrayListOf<ResponseKin>()
+    private lateinit var context: Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KinHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_kin, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_kin, parent, false)
+        this.context = parent.context
         return KinHolder(view)
     }
 

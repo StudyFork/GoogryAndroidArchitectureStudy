@@ -38,7 +38,7 @@ class ImageFragment : Fragment() {
 
 
         activity?.let {
-            imageAdapter = ImageAdapter(it)
+            imageAdapter = ImageAdapter()
                 .also {
                     recycle.adapter = it
                     recycle.addItemDecoration(

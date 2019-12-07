@@ -37,7 +37,7 @@ class KinFragment : Fragment() {
 
 
         activity?.let {
-            kinAdapter = KinAdapter(it)
+            kinAdapter = KinAdapter()
                 .also {
                     recycle.adapter = it
                     recycle.addItemDecoration(
