@@ -13,6 +13,23 @@ class NaverSearchRemoteDataSourceImpl : NaverSearchRemoteDataSource {
         success: (ResponseMovie) -> Unit,
         fail: (Throwable) -> Unit
     ) {
+        Api.getMovies(keyword)
+            .enqueue(object : Callback<ResponseNaverQuery<Movie>> {
+                override fun onFailure(call: Call<ResponseNaverQuery<Movie>>, t: Throwable) {
+                    Log.e("Movie", "error=${t.message}")
+                    fail(t)
+                }
+
+                override fun onResponse(
+                    call: Call<ResponseNaverQuery<Movie>>,
+                    response: Response<ResponseNaverQuery<Movie>>
+                ) {
+                    if (response.isSuccessful) {
+                        response.body()?.let { success(ResponseMovie(it.items)) }
+                    }
+                }
+
+            })
     }
 
     override fun getImage(

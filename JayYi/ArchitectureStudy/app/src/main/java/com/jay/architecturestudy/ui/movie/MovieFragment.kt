@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Movie
 import com.jay.architecturestudy.data.model.ResponseNaverQuery
+import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.network.Api
 import com.jay.architecturestudy.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragemnt_movie.*
@@ -17,6 +18,10 @@ import retrofit2.Response
 class MovieFragment : BaseFragment(R.layout.fragemnt_movie) {
 
     private lateinit var movieAdapter: MovieAdapter
+
+    private val naverSearchRepository by lazy {
+        NaverSearchRepositoryImpl()
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -39,22 +44,14 @@ class MovieFragment : BaseFragment(R.layout.fragemnt_movie) {
     }
 
     override fun search(keyword: String) {
-        Api.getMovies(keyword)
-            .enqueue(object : Callback<ResponseNaverQuery<Movie>> {
-                override fun onFailure(call: Call<ResponseNaverQuery<Movie>>, t: Throwable) {
-                    Log.e("Movie", "error=${t.message}")
-                }
-
-                override fun onResponse(
-                    call: Call<ResponseNaverQuery<Movie>>,
-                    response: Response<ResponseNaverQuery<Movie>>
-                ) {
-                    if (response.isSuccessful) {
-                        val body = response.body() ?: return
-                        movieAdapter.setData(body.items)
-                    }
-                }
-
-            })
+        naverSearchRepository.getMovie(
+            keyword = keyword,
+            success = { responseMovie ->
+                movieAdapter.setData(responseMovie.movies)
+            },
+            fail = { e ->
+                Log.e("Movie", "error=${e.message}")
+            }
+        )
     }
 }
