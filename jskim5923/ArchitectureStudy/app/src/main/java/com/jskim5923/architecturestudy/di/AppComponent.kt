@@ -13,7 +13,8 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AndroidInjectionModule::class,
-        AndroidSupportInjectionModule::class
+        AndroidSupportInjectionModule::class,
+        AppModule::class
     ]
 )
 interface AppComponent : AndroidInjector<CoinApplication> {
