@@ -63,7 +63,7 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
     override fun onClick(v: View) {
 
         when (v.id) {
-            R.id.btn_search -> search(SearchType.MOVIE)
+            R.id.btn_search -> search(searchType)
             R.id.btn_search_type_movie ->
                 search(SearchType.MOVIE)
             R.id.btn_search_type_book ->
