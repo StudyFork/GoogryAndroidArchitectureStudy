@@ -9,17 +9,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import kotlinx.android.synthetic.main.item_image.view.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import wooooooak.com.studyapp.R
-import wooooooak.com.studyapp.common.constants.DISPLAY_LIST_COUNT
 import wooooooak.com.studyapp.common.ext.startWebView
-import wooooooak.com.studyapp.model.response.image.Image
-import wooooooak.com.studyapp.naverApi
+import wooooooak.com.studyapp.data.model.repository.NaverApiRepositoryImpl
+import wooooooak.com.studyapp.data.model.response.image.Image
 import wooooooak.com.studyapp.ui.base.BaseSearchListAdapter
 
 class ImageListAdapter(private val fragmentActivity: FragmentActivity) :
     BaseSearchListAdapter<Image, ImageListAdapter.ImageViewHolder>(fragmentActivity, DiffCallback()) {
+
+    private val naverApiRepository = NaverApiRepositoryImpl()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ImageViewHolder(
         LayoutInflater
@@ -36,14 +35,10 @@ class ImageListAdapter(private val fragmentActivity: FragmentActivity) :
     }
 
     override suspend fun initItemListByTitleAsync(title: String) =
-        withContext(Dispatchers.IO) {
-            naverApi.getImages(title, DISPLAY_LIST_COUNT, null).items
-        }
+        naverApiRepository.getImageList(title, null)
 
     override suspend fun getMoreItemListFromStartIndexAsync(title: String, startIndex: Int) =
-        withContext(Dispatchers.IO) {
-            naverApi.getImages(title, DISPLAY_LIST_COUNT, startIndex).items
-        }
+        naverApiRepository.getImageList(title, startIndex)
 
     inner class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(image: Image, onClickItem: View.OnClickListener) {
