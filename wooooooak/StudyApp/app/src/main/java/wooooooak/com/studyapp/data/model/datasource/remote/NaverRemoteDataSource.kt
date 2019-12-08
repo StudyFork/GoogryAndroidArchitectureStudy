@@ -6,11 +6,11 @@ import wooooooak.com.studyapp.data.model.response.kin.Kin
 import wooooooak.com.studyapp.data.model.response.movie.Movie
 
 interface NaverRemoteDataSource {
-    suspend fun getBlogList(title: String, startIndex: Int?): List<Blog>
+    suspend fun getBlogList(title: String, startIndex: Int? = 0): List<Blog>
 
-    suspend fun getImageList(title: String, startIndex: Int?): List<Image>
+    suspend fun getImageList(title: String, startIndex: Int? = 0): List<Image>
 
-    suspend fun getMovieList(title: String, startIndex: Int?): List<Movie>
+    suspend fun getMovieList(title: String, startIndex: Int? = 0): List<Movie>
 
-    suspend fun getKinList(title: String, startIndex: Int?): List<Kin>
+    suspend fun getKinList(title: String, startIndex: Int? = 0): List<Kin>
 }

@@ -35,7 +35,7 @@ class ImageListAdapter(private val fragmentActivity: FragmentActivity) :
     }
 
     override suspend fun initItemListByTitleAsync(title: String) =
-        naverApiRepository.getImageList(title, null)
+        naverApiRepository.getImageList(title)
 
     override suspend fun getMoreItemListFromStartIndexAsync(title: String, startIndex: Int) =
         naverApiRepository.getImageList(title, startIndex)

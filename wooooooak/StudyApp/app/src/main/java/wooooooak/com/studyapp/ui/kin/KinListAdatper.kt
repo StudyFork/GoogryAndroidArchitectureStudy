@@ -36,7 +36,7 @@ class KinListAdapter(private val fragmentActivity: FragmentActivity) :
     }
 
     override suspend fun initItemListByTitleAsync(title: String) =
-        naverApiRepository.getKinList(title, null)
+        naverApiRepository.getKinList(title)
 
     override suspend fun getMoreItemListFromStartIndexAsync(title: String, startIndex: Int) =
         naverApiRepository.getKinList(title, startIndex)

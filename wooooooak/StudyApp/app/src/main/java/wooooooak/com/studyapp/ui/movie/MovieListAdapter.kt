@@ -35,7 +35,7 @@ class MovieListAdapter(private val fragmentActivity: FragmentActivity) :
     }
 
     override suspend fun initItemListByTitleAsync(title: String) =
-        naverApiRepository.getMovieList(title, null)
+        naverApiRepository.getMovieList(title)
 
     override suspend fun getMoreItemListFromStartIndexAsync(title: String, startIndex: Int) =
         naverApiRepository.getMovieList(title, startIndex)

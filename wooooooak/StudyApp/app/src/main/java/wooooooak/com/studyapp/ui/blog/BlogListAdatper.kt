@@ -35,7 +35,7 @@ class BlogSearchListAdapter(private val fragmentActivity: FragmentActivity) :
     }
 
     override suspend fun initItemListByTitleAsync(title: String): List<Blog> =
-        naverApiRepository.getBlogList(title, null)
+        naverApiRepository.getBlogList(title)
 
     override suspend fun getMoreItemListFromStartIndexAsync(title: String, startIndex: Int): List<Blog> =
         naverApiRepository.getBlogList(title, startIndex)
