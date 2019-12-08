@@ -13,7 +13,7 @@ class ListMovieAdapter(
     RecyclerView.Adapter<MovieViewHolder>() {
 
 
-    private lateinit var items: List<MovieItems>
+    private val items= arrayListOf<MovieItems>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(
@@ -39,7 +39,9 @@ class ListMovieAdapter(
     }
 
     fun addAllItems(ListItems: List<MovieItems>) {
-        items = ListItems
+        items.clear()
+        items.addAll(ListItems)
+        notifyDataSetChanged()
     }
 
     interface ItemListener {

@@ -12,7 +12,7 @@ class ListImageAdapter(
 ) :
     RecyclerView.Adapter<ImageViewHolder>() {
 
-    private lateinit var items: List<ImageItems>
+    private val items= arrayListOf<ImageItems>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         return ImageViewHolder(
@@ -38,7 +38,9 @@ class ListImageAdapter(
     }
 
     fun addAllItems(listItems: List<ImageItems>) {
-        items = listItems
+        items.clear()
+        items.addAll(listItems)
+        notifyDataSetChanged()
     }
 
     interface ItemListener {

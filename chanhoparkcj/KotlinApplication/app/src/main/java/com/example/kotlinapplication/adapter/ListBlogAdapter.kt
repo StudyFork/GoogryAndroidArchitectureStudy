@@ -12,7 +12,7 @@ class ListBlogAdapter(
 ) :
     RecyclerView.Adapter<BlogViewHolder>() {
 
-    private lateinit var items: List<BlogItems>
+    private val items= arrayListOf<BlogItems>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogViewHolder {
         return BlogViewHolder(
@@ -38,7 +38,9 @@ class ListBlogAdapter(
     }
 
     fun addAllItems(blogList: List<BlogItems>) {
-        items = blogList
+        items.clear()
+        items.addAll(blogList)
+        notifyDataSetChanged()
     }
 
     interface ItemListener {
