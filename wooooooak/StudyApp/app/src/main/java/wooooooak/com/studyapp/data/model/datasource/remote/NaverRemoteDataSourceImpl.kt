@@ -5,7 +5,7 @@ import wooooooak.com.studyapp.naverApi
 
 class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
 
-    override suspend fun getBlogList(title: String, startIndex: Int? = 0) =
+    override suspend fun getBlogList(title: String, startIndex: Int?) =
         naverApi.getBlogs(title, DISPLAY_LIST_COUNT, startIndex).items
 
     override suspend fun getImageList(title: String, startIndex: Int?) =
