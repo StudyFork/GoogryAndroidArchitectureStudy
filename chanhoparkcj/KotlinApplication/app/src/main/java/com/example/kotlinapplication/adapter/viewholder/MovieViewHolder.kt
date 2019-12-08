@@ -13,7 +13,9 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun bind(item: MovieItems, listener: ListMovieAdapter.ItemListener?) {
         itemView.movie_item_layout.setOnClickListener {
-            listener!!.onMovieItemClick(item)
+            listener?.let {
+                it.onMovieItemClick(item)
+            }
         }
         if (item.image.isNotEmpty()) {
             Picasso.get()

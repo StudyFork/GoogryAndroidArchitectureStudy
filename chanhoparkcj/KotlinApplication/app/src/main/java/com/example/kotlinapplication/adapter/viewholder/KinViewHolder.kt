@@ -11,7 +11,9 @@ import kotlinx.android.synthetic.main.kin_list_item.view.*
 class KinViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(item: KinItems, listener: ListKinAdapter.ItemListener?) {
         itemView.kin_item_layout.setOnClickListener {
-            listener!!.onKinItemClick(item)
+            listener?.let {
+                it.onKinItemClick(item)
+            }
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
