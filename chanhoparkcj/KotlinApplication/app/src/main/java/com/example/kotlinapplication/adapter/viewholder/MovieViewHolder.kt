@@ -12,6 +12,9 @@ import kotlinx.android.synthetic.main.movie_list_item.view.*
 class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun bind(item: MovieItems, listener: ListMovieAdapter.ItemListener?) {
+        itemView.movie_item_layout.setOnClickListener {
+            listener!!.onMovieItemClick(item)
+        }
         if (item.image.isNotEmpty()) {
             Picasso.get()
                 .load(item.image)
@@ -29,9 +32,6 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             itemView.movie_item_pubDate.text = item.pubDate
             itemView.movie_item_director.text = item.director
             itemView.movie_item_actor.text = item.actor
-        }
-        itemView.movie_item_layout.setOnClickListener {
-            listener!!.onMovieItemClick(item)
         }
 
 

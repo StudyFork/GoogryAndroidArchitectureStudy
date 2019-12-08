@@ -11,6 +11,9 @@ import kotlinx.android.synthetic.main.blog_list_item.view.*
 class BlogViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(item: BlogItems, listener: ListBlogAdapter.ItemListener?) {
 
+        itemView.blogger_item_layout.setOnClickListener {
+            listener!!.onBlogItemClick(item)
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             itemView.blogger_item_title.text = Html.fromHtml(item.title, 0)
@@ -23,9 +26,6 @@ class BlogViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             itemView.blogger_item_bloggername.text = item.bloggername
             itemView.blogger_item_bloggerlink.text = item.bloggerlink
 
-        }
-        itemView.blogger_item_layout.setOnClickListener {
-            listener!!.onBlogItemClick(item)
         }
 
 

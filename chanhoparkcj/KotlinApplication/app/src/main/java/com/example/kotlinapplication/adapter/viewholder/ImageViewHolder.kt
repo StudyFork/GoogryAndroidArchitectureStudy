@@ -9,14 +9,14 @@ import kotlinx.android.synthetic.main.image_list_item.view.*
 
 class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(item: ImageItems, listener: ListImageAdapter.ItemListener?) {
+        itemView.image_item_layout.setOnClickListener {
+            listener!!.onImageItemClick(item)
+        }
         if (item.thumbnail.isNotBlank()) {
             Picasso.get()
                 .load(item.thumbnail)
                 .resize(300, 450)
                 .into(itemView.image_item_thumbnail)
-        }
-        itemView.image_item_layout.setOnClickListener {
-            listener!!.onImageItemClick(item)
         }
     }
 }
