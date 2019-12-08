@@ -1,26 +1,24 @@
 package com.example.kotlinapplication.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplication.R
-import com.example.kotlinapplication.adapter.viewholder.MovieViewHolder
-import com.example.kotlinapplication.model.MovieItems
+import com.example.kotlinapplication.adapter.viewholder.BlogViewHolder
+import com.example.kotlinapplication.model.BlogItems
 
 class ListBlogAdapter(
-    listener: ItemListener,
-    val items: List<MovieItems>,
-    val context: Context?
+    listener: ItemListener
 ) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<BlogViewHolder>() {
+
+    private lateinit var items: List<BlogItems>
 
     private var mListener: ItemListener = listener
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return MovieViewHolder(
-            LayoutInflater.from(context).inflate(
-                R.layout.movie_list_item,
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogViewHolder {
+        return BlogViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.blog_list_item,
                 parent,
                 false
             )
@@ -34,14 +32,18 @@ class ListBlogAdapter(
     }
 
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is MovieViewHolder) {
-            holder.bind(items.get(position), mListener)
-        }
+    override fun onBindViewHolder(holder: BlogViewHolder, position: Int) {
+
+        holder.bind(items.get(position), mListener)
+
+    }
+
+    fun addAllItems(blogList: List<BlogItems>) {
+        items = blogList
     }
 
     interface ItemListener {
-        fun onMovieItemClick(movieItems: MovieItems)
+        fun onBlogItemClick(blogItems: BlogItems)
     }
 
 
