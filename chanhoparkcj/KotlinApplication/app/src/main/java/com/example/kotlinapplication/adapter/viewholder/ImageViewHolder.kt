@@ -1,39 +1,22 @@
 package com.example.kotlinapplication.adapter.viewholder
 
-import android.os.Build
-import android.text.Html
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.example.kotlinapplication.adapter.ListMovieAdapter
-import com.example.kotlinapplication.model.MovieItems
+import com.example.kotlinapplication.adapter.ListImageAdapter
+import com.example.kotlinapplication.model.ImageItems
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.movie_list_item.view.*
+import kotlinx.android.synthetic.main.image_list_item.view.*
 
 class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    private val mView: View = view
-    fun bind(item: MovieItems, listener: ListMovieAdapter.ItemListener?) {
-        if (!item.image.equals("")) {
+    fun bind(item: ImageItems, listener: ListImageAdapter.ItemListener?) {
+        if (!item.thumbnail.isEmpty()) {
             Picasso.get()
-                .load(item.image)
+                .load(item.thumbnail)
                 .resize(300, 450)
-                .into(mView.movie_item_image)
+                .into(itemView.image_item_thumbnail)
         }
-        mView.movie_item_user_rating.rating = item.userRating.toFloat()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            mView.movie_item_title.text = Html.fromHtml(item.title, 0)
-            mView.movie_item_pubDate.text = Html.fromHtml(item.pubDate, 0)
-            mView.movie_item_director.text = Html.fromHtml(item.director, 0)
-            mView.movie_item_actor.text = Html.fromHtml(item.actor, 0)
-        } else {
-            mView.movie_item_title.text = item.title
-            mView.movie_item_pubDate.text = item.pubDate
-            mView.movie_item_director.text = item.director
-            mView.movie_item_actor.text = item.actor
+        itemView.image_item_layout.setOnClickListener {
+            listener!!.onImageItemClick(item)
         }
-        mView.movie_item_layout.setOnClickListener {
-            listener!!.onMovieItemClick(item)
-        }
-
-
     }
 }

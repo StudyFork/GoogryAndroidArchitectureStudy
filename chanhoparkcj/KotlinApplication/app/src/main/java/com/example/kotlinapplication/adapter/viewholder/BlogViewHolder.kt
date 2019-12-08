@@ -4,34 +4,28 @@ import android.os.Build
 import android.text.Html
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.example.kotlinapplication.adapter.ListMovieAdapter
-import com.example.kotlinapplication.model.MovieItems
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.movie_list_item.view.*
+import com.example.kotlinapplication.adapter.ListBlogAdapter
+import com.example.kotlinapplication.model.BlogItems
+import kotlinx.android.synthetic.main.blog_list_item.view.*
 
-class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    private val mView: View = view
-    fun bind(item: MovieItems, listener: ListMovieAdapter.ItemListener?) {
-        if (!item.image.equals("")) {
-            Picasso.get()
-                .load(item.image)
-                .resize(300, 450)
-                .into(mView.movie_item_image)
-        }
-        mView.movie_item_user_rating.rating = item.userRating.toFloat()
+class BlogViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    fun bind(item: BlogItems, listener: ListBlogAdapter.ItemListener?) {
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            mView.movie_item_title.text = Html.fromHtml(item.title, 0)
-            mView.movie_item_pubDate.text = Html.fromHtml(item.pubDate, 0)
-            mView.movie_item_director.text = Html.fromHtml(item.director, 0)
-            mView.movie_item_actor.text = Html.fromHtml(item.actor, 0)
+            itemView.blogger_item_title.text = Html.fromHtml(item.title, 0)
+            itemView.blogger_item_bloggername.text = Html.fromHtml(item.bloggername, 0)
+            itemView.blogger_item_bloggerlink.text = Html.fromHtml(item.bloggerlink, 0)
+            itemView.blogger_item_description.text = Html.fromHtml(item.description, 0)
         } else {
-            mView.movie_item_title.text = item.title
-            mView.movie_item_pubDate.text = item.pubDate
-            mView.movie_item_director.text = item.director
-            mView.movie_item_actor.text = item.actor
+            itemView.blogger_item_description.text = item.description
+            itemView.blogger_item_title.text = item.title
+            itemView.blogger_item_bloggername.text = item.bloggername
+            itemView.blogger_item_bloggerlink.text = item.bloggerlink
+
         }
-        mView.movie_item_layout.setOnClickListener {
-            listener!!.onMovieItemClick(item)
+        itemView.blogger_item_layout.setOnClickListener {
+            listener!!.onBlogItemClick(item)
         }
 
 
