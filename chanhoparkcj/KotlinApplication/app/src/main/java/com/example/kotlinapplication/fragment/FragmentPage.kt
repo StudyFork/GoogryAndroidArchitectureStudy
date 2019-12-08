@@ -92,19 +92,19 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
             "영화" -> mService!!.GET_MOVIE_CALL(query)
                 .observeOn(mainThread())
                 .subscribeOn(io())
-                .subscribe(this::handleResponseMovie, this::HandleError)
+                .subscribe(this::handleResponseMovie, this::handleError)
             "이미지" -> mService!!.GET_IMAGE_CALL(query)
                 .observeOn(mainThread())
                 .subscribeOn(io())
-                .subscribe(this::handleResponseImage, this::HandleError)
+                .subscribe(this::handleResponseImage, this::handleError)
             "블로그" -> mService!!.GET_BLOG_CALL(query)
                 .observeOn(mainThread())
                 .subscribeOn(io())
-                .subscribe(this::handleResponseBlog, this::HandleError)
+                .subscribe(this::handleResponseBlog, this::handleError)
             "지식인" -> mService!!.GET_KIN_CALL(query)
                 .observeOn(mainThread())
                 .subscribeOn(io())
-                .subscribe(this::handleResponseKin, this::HandleError)
+                .subscribe(this::handleResponseKin, this::handleError)
             else -> {
                 Log.d("Error", "error")
             }
@@ -162,7 +162,7 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
     }
 
 
-    private fun HandleError(error: Throwable) {
+    private fun handleError(error: Throwable) {
         Log.d(TAG, "Error ${error.localizedMessage}")
     }
 
