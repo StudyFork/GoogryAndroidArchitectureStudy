@@ -1,9 +1,7 @@
 package com.example.kotlinapplication.model
 
-data class ImageItems(
+data class KinItems(
     val title: String,
     val link: String,
-    val thumbnail: String,
-    val sizeheight: String,
-    val sizewidth: String
+    val description: String
 )

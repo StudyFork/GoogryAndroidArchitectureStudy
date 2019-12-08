@@ -1,32 +1,21 @@
 package com.example.kotlinapplication.home
 
-import android.content.ContentValues.TAG
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
 import com.example.kotlinapplication.R
-import com.example.kotlinapplication.adapter.ListNaverAdapter
-import com.example.kotlinapplication.model.MovieItems
-import com.example.kotlinapplication.model.ResponseItems
-import com.example.kotlinapplication.network.RetrofitClient.client
-import com.example.kotlinapplication.network.RetrofitService
-import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
-import io.reactivex.schedulers.Schedulers.io
+import com.example.kotlinapplication.adapter.PagerAdapter
+import com.example.kotlinapplication.fragment.FragmentPage
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
-class HomeFragment : Fragment(), ListNaverAdapter.ItemListener {
-    private var mService: RetrofitService? = null
-    private var mResult: ResponseItems? = null
-    private var mAdapter: ListNaverAdapter? = null
+class HomeFragment : Fragment() {
+    private lateinit var tabs: TabLayout
+    private lateinit var viewpager: ViewPager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,58 +26,28 @@ class HomeFragment : Fragment(), ListNaverAdapter.ItemListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mService = client!!.create(RetrofitService::class.java)
         start()
     }
 
     private fun start() {
-        buttonClick()
+        setUpViewPager()
     }
 
-    private fun buttonClick() {
-        home_search_btn.setOnClickListener {
-            if (home_search_edit.text.isEmpty()) {
-                Toast.makeText(context, "검색어를 입력하세요", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(
-                    context,
-                    "검색어 :" + home_search_edit.text.toString(),
-                    Toast.LENGTH_SHORT
-                ).show()
-                loadMovieData(home_search_edit.text.toString())
-            }
-        }
-    }
+    private fun setUpViewPager() {
+        val adapter = PagerAdapter(activity!!.supportFragmentManager)
+        adapter.addFragment(FragmentPage.newInstance("영화"), "영화")
+        adapter.addFragment(FragmentPage.newInstance("이미지"), "이미지")
+        adapter.addFragment(FragmentPage.newInstance("블로그"), "블로그")
+        adapter.addFragment(FragmentPage.newInstance("지식인"), "지식인")
 
-    fun loadMovieData(query: String) {
-        mService!!.GET_MOVIE_CALL(query)
-            .observeOn(mainThread())
-            .subscribeOn(io())
-            .subscribe(this::handleResponse, this::HandleError)
-    }
+        viewpager = home_viewpager
+        viewpager.offscreenPageLimit = 4
+        viewpager.adapter = adapter
 
-    private fun handleResponse(res: ResponseItems) {
-        mResult = res
-        Log.e("test", res.items.toString())
-        mAdapter = ListNaverAdapter(this, res.items, context)
-        with(home_recyclerview) {
-            layoutManager = LinearLayoutManager(
-                activity, RecyclerView.VERTICAL, false
-            )
-            adapter = mAdapter
-        }
+        tabs = home_tab
+        tabs.setupWithViewPager(viewpager)
+
     }
 
 
-    private fun HandleError(error: Throwable) {
-        Log.d(TAG, "Error ${error.localizedMessage}")
-    }
-
-    override fun onItemClick(movieItems: MovieItems) {
-        Toast.makeText(activity, movieItems.link, Toast.LENGTH_SHORT).show()
-        val uri: Uri = Uri.parse(movieItems.link)
-        val intent = Intent(Intent.ACTION_VIEW, uri)
-        startActivity(intent)
-
-    }
 }

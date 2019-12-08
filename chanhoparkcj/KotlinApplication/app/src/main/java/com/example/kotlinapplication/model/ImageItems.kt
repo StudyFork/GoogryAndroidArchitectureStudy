@@ -1,12 +1,9 @@
 package com.example.kotlinapplication.model
 
-data class MovieItems(
+data class ImageItems(
     val title: String,
     val link: String,
-    val image: String,
-    val subtitle: String,
-    val pubDate: String,
-    val director: String,
-    val actor: String,
-    val userRating: Float
+    val thumbnail: String,
+    val sizeheight: String,
+    val sizewidth: String
 )
