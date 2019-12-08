@@ -60,7 +60,7 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
 
 
         start()
-        buttonClick()
+        setUpBuuttonClickListener()
     }
 
     private fun start() {
@@ -71,7 +71,7 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
     }
 
 
-    private fun buttonClick() {
+    private fun setUpBuuttonClickListener() {
         home_search_btn.setOnClickListener {
             if (home_search_edit.text.isEmpty()) {
                 Toast.makeText(context, "검색어를 입력하세요", Toast.LENGTH_SHORT).show()
