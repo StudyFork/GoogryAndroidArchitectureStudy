@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
 object RetrofitClient {
     private const val API_BASE_URL = "https://openapi.naver.com/"
 
-    private var retrofit: Retrofit? = null
+    private lateinit var retrofit: Retrofit
 
     val client: Retrofit?
         get() {
