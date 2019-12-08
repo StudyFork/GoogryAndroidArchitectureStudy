@@ -35,7 +35,7 @@ class ListMovieAdapter(
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
 
-        holder.bind(items.get(position), mListener)
+        holder.bind(items[position], mListener)
 
     }
 

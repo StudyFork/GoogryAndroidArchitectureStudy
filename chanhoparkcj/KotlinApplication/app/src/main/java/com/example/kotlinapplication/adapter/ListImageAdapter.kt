@@ -34,7 +34,7 @@ class ListImageAdapter(
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
 
-        holder.bind(items.get(position), mListener)
+        holder.bind(items[position], mListener)
 
     }
 

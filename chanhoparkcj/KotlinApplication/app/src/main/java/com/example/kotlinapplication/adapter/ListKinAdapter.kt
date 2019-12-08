@@ -34,7 +34,7 @@ class ListKinAdapter(
 
 
     override fun onBindViewHolder(holder: KinViewHolder, position: Int) {
-        holder.bind(items.get(position), mListener)
+        holder.bind(items[position], mListener)
 
     }
 

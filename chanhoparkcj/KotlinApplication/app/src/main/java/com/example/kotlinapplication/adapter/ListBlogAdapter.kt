@@ -34,7 +34,7 @@ class ListBlogAdapter(
 
     override fun onBindViewHolder(holder: BlogViewHolder, position: Int) {
 
-        holder.bind(items.get(position), mListener)
+        holder.bind(items[position], mListener)
 
     }
 
