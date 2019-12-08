@@ -87,7 +87,7 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
 
     }
 
-    fun loadMovieData(type: String?, query: String) {
+    private fun loadMovieData(type: String?, query: String) {
         when (type) {
             "영화" -> mService!!.GET_MOVIE_CALL(query)
                 .observeOn(mainThread())
