@@ -8,12 +8,11 @@ import com.example.kotlinapplication.adapter.viewholder.KinViewHolder
 import com.example.kotlinapplication.model.KinItems
 
 class ListKinAdapter(
-    listener: ItemListener
+    val listener: ItemListener
 
 ) :
     RecyclerView.Adapter<KinViewHolder>() {
 
-    private var listener: ItemListener = listener
     private lateinit var items: List<KinItems>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KinViewHolder {

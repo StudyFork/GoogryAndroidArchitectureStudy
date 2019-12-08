@@ -8,12 +8,11 @@ import com.example.kotlinapplication.adapter.viewholder.ImageViewHolder
 import com.example.kotlinapplication.model.ImageItems
 
 class ListImageAdapter(
-    listener: ItemListener
+    val listener: ItemListener
 ) :
     RecyclerView.Adapter<ImageViewHolder>() {
 
     private lateinit var items: List<ImageItems>
-    private var listener: ItemListener = listener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         return ImageViewHolder(

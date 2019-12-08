@@ -8,13 +8,12 @@ import com.example.kotlinapplication.adapter.viewholder.BlogViewHolder
 import com.example.kotlinapplication.model.BlogItems
 
 class ListBlogAdapter(
-    listener: ItemListener
+    val listener: ItemListener
 ) :
     RecyclerView.Adapter<BlogViewHolder>() {
 
     private lateinit var items: List<BlogItems>
 
-    private var mListener: ItemListener = listener
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogViewHolder {
         return BlogViewHolder(
             LayoutInflater.from(parent.context).inflate(
@@ -34,7 +33,7 @@ class ListBlogAdapter(
 
     override fun onBindViewHolder(holder: BlogViewHolder, position: Int) {
 
-        holder.bind(items[position], mListener)
+        holder.bind(items[position], listener)
 
     }
 

@@ -8,13 +8,12 @@ import com.example.kotlinapplication.adapter.viewholder.MovieViewHolder
 import com.example.kotlinapplication.model.MovieItems
 
 class ListMovieAdapter(
-    listener: ItemListener
+    val listener: ItemListener
 ) :
     RecyclerView.Adapter<MovieViewHolder>() {
 
 
     private lateinit var items: List<MovieItems>
-    private var listener: ItemListener = listener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(
