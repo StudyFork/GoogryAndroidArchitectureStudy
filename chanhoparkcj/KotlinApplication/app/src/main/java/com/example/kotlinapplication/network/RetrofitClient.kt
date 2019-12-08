@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
-    val API_BASE_URL = "https://openapi.naver.com/v1/search/"
+    private const val API_BASE_URL = "https://openapi.naver.com/"
 
     private var retrofit: Retrofit? = null
 
