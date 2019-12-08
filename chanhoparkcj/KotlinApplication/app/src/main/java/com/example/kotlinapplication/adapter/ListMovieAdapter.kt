@@ -14,7 +14,7 @@ class ListMovieAdapter(
 
 
     private lateinit var items: List<MovieItems>
-    private var mListener: ItemListener = listener
+    private var listener: ItemListener = listener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(
@@ -35,7 +35,7 @@ class ListMovieAdapter(
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
 
-        holder.bind(items[position], mListener)
+        holder.bind(items[position], listener)
 
     }
 

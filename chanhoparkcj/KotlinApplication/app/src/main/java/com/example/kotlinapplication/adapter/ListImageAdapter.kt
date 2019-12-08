@@ -13,7 +13,7 @@ class ListImageAdapter(
     RecyclerView.Adapter<ImageViewHolder>() {
 
     private lateinit var items: List<ImageItems>
-    private var mListener: ItemListener = listener
+    private var listener: ItemListener = listener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         return ImageViewHolder(
@@ -34,7 +34,7 @@ class ListImageAdapter(
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
 
-        holder.bind(items[position], mListener)
+        holder.bind(items[position], listener)
 
     }
 

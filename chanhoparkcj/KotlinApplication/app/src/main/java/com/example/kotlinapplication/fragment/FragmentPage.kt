@@ -28,11 +28,11 @@ import kotlinx.android.synthetic.main.fragment_page.*
 
 class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter.ItemListener,
     ListBlogAdapter.ItemListener, ListKinAdapter.ItemListener {
-    private var mService: RetrofitService? = null
-    private var mMovieAdapter: ListMovieAdapter? = null
-    private var mBlogAdapter: ListBlogAdapter? = null
-    private var mImageAdapter: ListImageAdapter? = null
-    private var mKinAdapter: ListKinAdapter? = null
+    private var service: RetrofitService? = null
+    private var movieAdapter: ListMovieAdapter? = null
+    private var blogAdapter: ListBlogAdapter? = null
+    private var imageAdapter: ListImageAdapter? = null
+    private var kinAdapter: ListKinAdapter? = null
 
     private var type: String? = null
 
@@ -64,14 +64,14 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
     }
 
     private fun start() {
-        mService = RetrofitClient.client!!.create(RetrofitService::class.java)
+        service = RetrofitClient.client!!.create(RetrofitService::class.java)
         type = arguments?.getString(EXTRA_MESSAGE)
         home_search_btn.text = type + " 검색"
 
-        mImageAdapter = ListImageAdapter(this)
-        mMovieAdapter = ListMovieAdapter(this)
-        mBlogAdapter = ListBlogAdapter(this)
-        mKinAdapter = ListKinAdapter(this)
+        imageAdapter = ListImageAdapter(this)
+        movieAdapter = ListMovieAdapter(this)
+        blogAdapter = ListBlogAdapter(this)
+        kinAdapter = ListKinAdapter(this)
 
 
     }
@@ -95,19 +95,19 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
 
     private fun loadMovieData(type: String?, query: String) {
         when (type) {
-            "영화" -> mService!!.getMovieCall(query)
+            "영화" -> service!!.getMovieCall(query)
                 .observeOn(mainThread())
                 .subscribeOn(io())
                 .subscribe(this::handleResponseMovie, this::handleError)
-            "이미지" -> mService!!.getImageCall(query)
+            "이미지" -> service!!.getImageCall(query)
                 .observeOn(mainThread())
                 .subscribeOn(io())
                 .subscribe(this::handleResponseImage, this::handleError)
-            "블로그" -> mService!!.getBlogCall(query)
+            "블로그" -> service!!.getBlogCall(query)
                 .observeOn(mainThread())
                 .subscribeOn(io())
                 .subscribe(this::handleResponseBlog, this::handleError)
-            "지식인" -> mService!!.getKinCall(query)
+            "지식인" -> service!!.getKinCall(query)
                 .observeOn(mainThread())
                 .subscribeOn(io())
                 .subscribe(this::handleResponseKin, this::handleError)
@@ -119,43 +119,43 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
     }
 
     private fun handleResponseMovie(res: ResponseItems<MovieItems>) {
-        mMovieAdapter?.addAllItems(res.items)
+        movieAdapter?.addAllItems(res.items)
         with(home_recyclerview) {
             layoutManager = LinearLayoutManager(
                 activity, RecyclerView.VERTICAL, false
             )
-            adapter = mMovieAdapter
+            adapter = movieAdapter
         }
 
     }
 
     private fun handleResponseImage(res: ResponseItems<ImageItems>) {
-        mImageAdapter?.addAllItems(res.items)
+        imageAdapter?.addAllItems(res.items)
         with(home_recyclerview) {
             layoutManager = LinearLayoutManager(
                 activity, RecyclerView.VERTICAL, false
             )
-            adapter = mImageAdapter
+            adapter = imageAdapter
         }
     }
 
     private fun handleResponseBlog(res: ResponseItems<BlogItems>) {
-        mBlogAdapter?.addAllItems(res.items)
+        blogAdapter?.addAllItems(res.items)
         with(home_recyclerview) {
             layoutManager = LinearLayoutManager(
                 activity, RecyclerView.VERTICAL, false
             )
-            adapter = mBlogAdapter
+            adapter = blogAdapter
         }
     }
 
     private fun handleResponseKin(res: ResponseItems<KinItems>) {
-        mKinAdapter?.addAllItems(res.items)
+        kinAdapter?.addAllItems(res.items)
         with(home_recyclerview) {
             layoutManager = LinearLayoutManager(
                 activity, RecyclerView.VERTICAL, false
             )
-            adapter = mKinAdapter
+            adapter = kinAdapter
         }
     }
 
