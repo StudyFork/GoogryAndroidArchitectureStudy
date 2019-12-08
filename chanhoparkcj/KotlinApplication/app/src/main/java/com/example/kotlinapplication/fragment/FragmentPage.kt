@@ -95,19 +95,19 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
 
     private fun loadMovieData(type: String?, query: String) {
         when (type) {
-            "영화" -> mService!!.GET_MOVIE_CALL(query)
+            "영화" -> mService!!.getMovieCall(query)
                 .observeOn(mainThread())
                 .subscribeOn(io())
                 .subscribe(this::handleResponseMovie, this::handleError)
-            "이미지" -> mService!!.GET_IMAGE_CALL(query)
+            "이미지" -> mService!!.getImageCall(query)
                 .observeOn(mainThread())
                 .subscribeOn(io())
                 .subscribe(this::handleResponseImage, this::handleError)
-            "블로그" -> mService!!.GET_BLOG_CALL(query)
+            "블로그" -> mService!!.getBlogCall(query)
                 .observeOn(mainThread())
                 .subscribeOn(io())
                 .subscribe(this::handleResponseBlog, this::handleError)
-            "지식인" -> mService!!.GET_KIN_CALL(query)
+            "지식인" -> mService!!.getKinCall(query)
                 .observeOn(mainThread())
                 .subscribeOn(io())
                 .subscribe(this::handleResponseKin, this::handleError)
