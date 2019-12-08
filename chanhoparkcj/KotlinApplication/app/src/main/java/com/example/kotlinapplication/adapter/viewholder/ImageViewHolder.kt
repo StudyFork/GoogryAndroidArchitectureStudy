@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.image_list_item.view.*
 
 class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(item: ImageItems, listener: ListImageAdapter.ItemListener?) {
-        if (!item.thumbnail.isEmpty()) {
+        if (item.thumbnail.isNotBlank()) {
             Picasso.get()
                 .load(item.thumbnail)
                 .resize(300, 450)

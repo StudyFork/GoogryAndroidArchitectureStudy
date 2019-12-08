@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.movie_list_item.view.*
 class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun bind(item: MovieItems, listener: ListMovieAdapter.ItemListener?) {
-        if (!item.image.equals("")) {
+        if (item.image.isNotEmpty()) {
             Picasso.get()
                 .load(item.image)
                 .resize(300, 450)
