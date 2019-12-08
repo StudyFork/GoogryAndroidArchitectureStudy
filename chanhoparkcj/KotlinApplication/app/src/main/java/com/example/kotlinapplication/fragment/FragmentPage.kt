@@ -68,6 +68,12 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
         type = arguments?.getString(EXTRA_MESSAGE)
         home_search_btn.text = type + " 검색"
 
+        mImageAdapter = ListImageAdapter(this)
+        mMovieAdapter = ListMovieAdapter(this)
+        mBlogAdapter = ListBlogAdapter(this)
+        mKinAdapter = ListKinAdapter(this)
+
+
     }
 
 
@@ -113,8 +119,6 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
     }
 
     private fun handleResponseMovie(res: ResponseItems<MovieItems>) {
-        Log.e("test", res.items.toString())
-        mMovieAdapter = ListMovieAdapter(this)
         mMovieAdapter?.addAllItems(res.items)
         with(home_recyclerview) {
             layoutManager = LinearLayoutManager(
@@ -126,8 +130,6 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
     }
 
     private fun handleResponseImage(res: ResponseItems<ImageItems>) {
-        Log.e("test", res.items.toString())
-        mImageAdapter = ListImageAdapter(this)
         mImageAdapter?.addAllItems(res.items)
         with(home_recyclerview) {
             layoutManager = LinearLayoutManager(
@@ -138,8 +140,6 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
     }
 
     private fun handleResponseBlog(res: ResponseItems<BlogItems>) {
-        Log.e("test", res.items.toString())
-        mBlogAdapter = ListBlogAdapter(this)
         mBlogAdapter?.addAllItems(res.items)
         with(home_recyclerview) {
             layoutManager = LinearLayoutManager(
@@ -150,8 +150,6 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
     }
 
     private fun handleResponseKin(res: ResponseItems<KinItems>) {
-        Log.e("test", res.items.toString())
-        mKinAdapter = ListKinAdapter(this)
         mKinAdapter?.addAllItems(res.items)
         with(home_recyclerview) {
             layoutManager = LinearLayoutManager(
