@@ -64,7 +64,7 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
     }
 
     private fun start() {
-        service = RetrofitClient.client!!.create(RetrofitService::class.java)
+        service = RetrofitClient.client.create(RetrofitService::class.java)
         type = arguments?.getString(EXTRA_MESSAGE)
         home_search_btn.text = type + " 검색"
 
