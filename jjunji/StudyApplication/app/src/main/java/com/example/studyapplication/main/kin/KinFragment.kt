@@ -27,10 +27,14 @@ class KinFragment  : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view : View = inflater.inflate(R.layout.fragment_kin, container, false)
-        view.btnSearch.setOnClickListener(btnSearchClickListener())
         mContext = view.context
 
         return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        btnSearch.setOnClickListener(btnSearchClickListener())
     }
 
     // 검색 버튼 클릭 리스너
