@@ -5,8 +5,8 @@ import com.example.seonoh.seonohapp.model.Market
 import io.reactivex.Single
 
 
-interface CoinDataSource{
+interface CoinDataSource {
 
-    fun getMarket() : Single<List<Market>>
-    fun getCurrentPriceInfo(marketNameList : String) : Single<List<CurrentPriceInfoModel>>
+    fun getMarket(): Single<List<Market>>
+    fun getCurrentPriceInfo(marketNameList: String): Single<List<CurrentPriceInfoModel>>
 }
