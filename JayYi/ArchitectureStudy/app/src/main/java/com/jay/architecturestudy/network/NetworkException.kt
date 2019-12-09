@@ -21,9 +21,7 @@ class NetworkException(
 
             try {
                 Gson().fromJson(body, NaverErrorBody::class.java)?.let {
-                    if (!it.errorCode.isBlank() || it.errorMessage != null) {
-                        return NetworkException(response.code(), it.errorCode, it.errorMessage)
-                    }
+                    return NetworkException(response.code(), it.errorCode, it.errorMessage)
                 }
             } catch (e: Exception) {
                 Log.e("NetworkException", "error=%s", e)
