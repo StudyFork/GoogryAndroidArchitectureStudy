@@ -1,12 +1,12 @@
 package com.example.seonoh.seonohapp
 
 import android.os.Bundle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.seonoh.seonohapp.databinding.ActivityMainBinding
+import com.example.seonoh.seonohapp.di.MainViewModelFactory
 import com.example.seonoh.seonohapp.model.MainViewModel
 import com.example.seonoh.seonohapp.repository.CoinRepositoryImpl
+import javax.inject.Inject
 
 class MainActivity : BaseActivity<ActivityMainBinding>(
     R.layout.activity_main
@@ -14,16 +14,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
 
     private val pagerAdapter by lazy { TabPagerAdapter(supportFragmentManager) }
 
+
+    @Inject
+    lateinit var coinRepositoryImpl: CoinRepositoryImpl
+
+    private val viewModelFactory by lazy {
+        MainViewModelFactory(coinRepositoryImpl)
+    }
+
     @Suppress("UNCHECKED_CAST")
     override val viewModel by lazy {
-        ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(itemClass: Class<T>): T {
-                return MainViewModel(
-                    CoinRepositoryImpl()
-                ) as T
-            }
-        }).get(MainViewModel::class.java)
+        ViewModelProviders.of(
+            this,
+            viewModelFactory
+        )[MainViewModel::class.java]
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
