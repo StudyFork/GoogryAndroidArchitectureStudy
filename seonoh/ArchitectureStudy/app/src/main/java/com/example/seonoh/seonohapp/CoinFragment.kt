@@ -3,24 +3,31 @@ package com.example.seonoh.seonohapp
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.seonoh.seonohapp.databinding.CoinFragmentBinding
+import com.example.seonoh.seonohapp.di.CoinFragmentViewModelFactory
 import com.example.seonoh.seonohapp.model.CoinViewModel
 import com.example.seonoh.seonohapp.repository.CoinRepositoryImpl
+import javax.inject.Inject
 
 class CoinFragment : BaseFragment<CoinFragmentBinding>(
     R.layout.coin_fragment
 ) {
-    @Suppress("UNCHECKED_CAST")
+
+    @Inject
+    lateinit var coinRepositoryImpl: CoinRepositoryImpl
+
+    private val viewModelFactory by lazy {
+        CoinFragmentViewModelFactory(
+            coinRepositoryImpl
+        )
+    }
+
     override val viewModel by lazy {
-        ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(itemClass: Class<T>): T =
-                 CoinViewModel(
-                    CoinRepositoryImpl()
-                ) as T
-        }).get(CoinViewModel::class.java)
+        ViewModelProviders.of(
+            this,
+            viewModelFactory
+        )[CoinViewModel::class.java]
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
