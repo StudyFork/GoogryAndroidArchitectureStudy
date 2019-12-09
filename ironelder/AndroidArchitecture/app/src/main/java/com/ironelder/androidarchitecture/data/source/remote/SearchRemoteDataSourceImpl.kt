@@ -5,7 +5,7 @@ import com.ironelder.androidarchitecture.data.TotalModel
 import com.ironelder.androidarchitecture.data.source.SearchDataSource
 import io.reactivex.Single
 
-object SearchDataRemoteSourceImpl :
+object SearchRemoteDataSourceImpl :
     SearchDataSource {
 
     override fun getDataForSearch(type: String, query: String?): Single<TotalModel> {
