@@ -322,8 +322,8 @@ MVC -> MVP -> MVVM 아키텍처를 배우는 것도 도움이 되었지만 무�
 - 양승희 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
 
-- 김찬영 [](https://github.com/)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
+- 김찬영 [ghkdua1829](https://github.com/ghkdua1829)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/ghkdua1829)
 
 - 손유정 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/)
