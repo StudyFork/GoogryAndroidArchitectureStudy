@@ -1,5 +1,15 @@
 package com.ironelder.androidarchitecture.data
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "searchResult")
+data class SearchResult(
+    @PrimaryKey
+    val type:String,
+    val search:String,
+    val result:String
+)
 
 data class TotalModel(
     val display: Int,

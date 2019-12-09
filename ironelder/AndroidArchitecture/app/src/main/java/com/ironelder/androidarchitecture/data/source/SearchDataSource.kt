@@ -5,6 +5,6 @@ import io.reactivex.Single
 
 interface SearchDataSource{
 
-    fun getDataForSearchWithAdapter(type: String, query: String?): Single<TotalModel>
+    fun getDataForSearch(type: String, query: String?): Single<TotalModel>
 
 }

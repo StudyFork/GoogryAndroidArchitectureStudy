@@ -1,8 +1,11 @@
+apply plugin: "kotlin-kapt"
+
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -46,7 +49,7 @@ dependencies {
     implementation "androidx.room:room-ktx:$rootProject.room_version"
     implementation "androidx.room:room-rxjava2:$rootProject.room_version"
     implementation "androidx.room:room-guava:$rootProject.room_version"
-    annotationProcessor "androidx.room:room-compiler:$rootProject.room_version" // For Kotlin use kapt instead of annotationProcessor
+    kapt "androidx.room:room-compiler:$rootProject.room_version" // For Kotlin use kapt instead of annotationProcessor
     annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.ext.glide_compiler_version"
     testImplementation "junit:junit:$rootProject.ext.junit_version"
     testImplementation "androidx.room:room-testing:$rootProject.room_version"

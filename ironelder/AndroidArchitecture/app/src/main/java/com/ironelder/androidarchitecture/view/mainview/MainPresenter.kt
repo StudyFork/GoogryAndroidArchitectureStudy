@@ -1,16 +1,15 @@
 package com.ironelder.androidarchitecture.view.mainview
 
 import com.ironelder.androidarchitecture.data.TotalModel
-import com.ironelder.androidarchitecture.data.repository.SearchDataRepositoryImpl
+import com.ironelder.androidarchitecture.data.repository.remote.SearchRemoteDataRepositoryImpl
 import com.ironelder.androidarchitecture.view.baseview.BasePresenter
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter {
 
     override fun searchWithAdapter(type: String, query: String?) {
-        SearchDataRepositoryImpl.getDataForSearch(type, query)
+        SearchRemoteDataRepositoryImpl.getDataForSearch(type, query)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
@@ -32,7 +31,6 @@ class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter
     }
 
     private fun onError(t: Throwable) {
-        println(t.message)
         view.showErrorMessage(t.message)
     }
 }
