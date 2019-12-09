@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidarchitecture.R
-import com.example.androidarchitecture.models.ImageData
+import com.example.androidarchitecture.data.response.ImageData
 import com.example.androidarchitecture.ui.WebviewActivity
 import kotlinx.android.synthetic.main.item_image.view.*
 

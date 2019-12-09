@@ -1,6 +1,6 @@
 package com.example.androidarchitecture.apis
 
-import com.example.androidarchitecture.models.*
+import com.example.androidarchitecture.data.response.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

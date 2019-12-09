@@ -2,17 +2,17 @@ package com.example.androidarchitecture.ui.image
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidarchitecture.R
 import com.example.androidarchitecture.apis.NetworkUtil
-import com.example.androidarchitecture.models.ImageData
-import com.example.androidarchitecture.models.NaverQueryResponse
+import com.example.androidarchitecture.data.repository.NaverRepo
+import com.example.androidarchitecture.data.repository.NaverRepoInterface
+import com.example.androidarchitecture.data.response.ImageData
+import com.example.androidarchitecture.data.response.NaverQueryResponse
 import kotlinx.android.synthetic.main.fragment_movie.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,6 +24,9 @@ import retrofit2.Response
 class ImageFragment : Fragment() {
 
     private lateinit var imageAdapter: ImageAdapter
+    private val naverRepoInterface: NaverRepoInterface by lazy {
+        NaverRepo()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,20 +65,12 @@ class ImageFragment : Fragment() {
 
 
     private fun requestImageList(text: String) {
-        NetworkUtil.apiService.getImageList(text, 1, 10)
-            .enqueue(object : Callback<NaverQueryResponse<ImageData>> {
-                override fun onFailure(call: Call<NaverQueryResponse<ImageData>>, t: Throwable) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                }
+        naverRepoInterface.getImage(text, 1, 10,
+            success = {
+                imageAdapter.setData(it)
+            }, fail = {
 
-                override fun onResponse(call: Call<NaverQueryResponse<ImageData>>, response: Response<NaverQueryResponse<ImageData>>) {
-                    if (response.isSuccessful) {
-                        val body = response.body()?.items ?: return
-                        imageAdapter.setData(body)
-                    }
-                }
             })
-
 
     }
 

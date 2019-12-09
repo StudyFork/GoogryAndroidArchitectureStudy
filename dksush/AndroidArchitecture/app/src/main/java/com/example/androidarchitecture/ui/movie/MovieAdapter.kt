@@ -10,7 +10,7 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidarchitecture.R
-import com.example.androidarchitecture.models.MovieData
+import com.example.androidarchitecture.data.response.MovieData
 import com.example.androidarchitecture.ui.WebviewActivity
 import kotlinx.android.synthetic.main.item_movie.view.*
 
