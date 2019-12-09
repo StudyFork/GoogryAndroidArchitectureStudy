@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/movie_item_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/movie_item_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/movie_item_image">
+
+        <TextView
+            android:id="@+id/movie_item_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="제목" />
+
+        <RatingBar
+            android:id="@+id/movie_item_user_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1" />
+
+        <TextView
+            android:id="@+id/movie_item_pubDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="제작년도" />
+
+        <TextView
+            android:id="@+id/movie_item_director"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="영화감독" />
+
+        <TextView
+            android:id="@+id/movie_item_actor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="영화 출연 배우" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
