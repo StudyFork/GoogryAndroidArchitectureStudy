@@ -27,5 +27,8 @@ ext {
 //    AAC
     aacVersion = '2.1.0'
 
+//    Dagger
+    daggerVersion = "2.25.2"
+
 
 }
