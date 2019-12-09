@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.item_blog.view.*
 class BlogAdapter(var arrBlogInfo : Array<BlogList.BlogInfo>) : RecyclerView.Adapter<BlogHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogHolder {
-        val inflater : LayoutInflater = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater = LayoutInflater.from(parent.context)
         val view : View = inflater.inflate(R.layout.item_blog, parent, false)
 
         return BlogHolder(view)

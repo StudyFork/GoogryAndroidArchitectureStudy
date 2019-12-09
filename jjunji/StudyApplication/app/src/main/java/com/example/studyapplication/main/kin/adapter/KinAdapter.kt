@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.item_kin.view.*
 class KinAdapter(var arrKinInfo : Array<KinList.KinInfo>) : RecyclerView.Adapter<KinHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KinHolder {
-        val inflater : LayoutInflater = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater = LayoutInflater.from(parent.context)
         val view : View = inflater.inflate(R.layout.item_kin, parent, false)
 
         return KinHolder(view)

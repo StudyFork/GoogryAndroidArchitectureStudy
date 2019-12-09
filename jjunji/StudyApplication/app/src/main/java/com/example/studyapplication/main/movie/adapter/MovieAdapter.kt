@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.item_movie.view.*
 class MovieAdapter(var arrMovieInfo : Array<MovieList.MovieInfo>) : RecyclerView.Adapter<MovieHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
-        val inflater : LayoutInflater = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater = LayoutInflater.from(parent.context)
         val view : View = inflater.inflate(R.layout.item_movie, parent, false)
 
         return MovieHolder(view)

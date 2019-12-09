@@ -1,6 +1,5 @@
 package com.example.studyapplication.main.image.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,7 @@ import kotlinx.android.synthetic.main.item_image.view.*
 class ImageAdapter (var arrImageInfo : Array<ImageList.ImageInfo>) : RecyclerView.Adapter<ImageHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
-        val inflater : LayoutInflater = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater = LayoutInflater.from(parent.context)
         val view : View = inflater.inflate(R.layout.item_image, parent, false)
 
         return ImageHolder(view)
