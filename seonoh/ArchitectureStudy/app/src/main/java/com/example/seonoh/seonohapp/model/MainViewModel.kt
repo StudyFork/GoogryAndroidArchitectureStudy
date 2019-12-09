@@ -6,8 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import com.example.seonoh.seonohapp.repository.CoinRepositoryImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class MainViewModel(private val repo: CoinRepositoryImpl) : BaseViewModel() {
+class MainViewModel @Inject constructor(private val repo: CoinRepositoryImpl) : BaseViewModel() {
     private val _marketInfo = MutableLiveData<List<String>>()
 
     val marketInfo: LiveData<List<String>>
@@ -18,7 +19,6 @@ class MainViewModel(private val repo: CoinRepositoryImpl) : BaseViewModel() {
     }
 
     private fun handleError(throwable: Throwable) {
-
         Log.e("currentPriceInfo", "Main Network failed!! ${throwable.message}")
     }
 
