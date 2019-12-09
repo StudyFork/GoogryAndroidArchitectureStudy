@@ -7,8 +7,11 @@ import com.example.seonoh.seonohapp.repository.CoinRepositoryImpl
 import com.example.seonoh.seonohapp.util.CalculateUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class CoinViewModel(private val repo: CoinRepositoryImpl) : BaseViewModel() {
+class CoinViewModel @Inject constructor(private val repo: CoinRepositoryImpl) : BaseViewModel() {
+
+
     private val _coinItem = MutableLiveData<List<UseCoinModel>>()
 
     val coinItem: LiveData<List<UseCoinModel>>
