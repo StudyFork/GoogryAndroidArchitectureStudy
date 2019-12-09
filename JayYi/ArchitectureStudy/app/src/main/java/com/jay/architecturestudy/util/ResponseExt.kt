@@ -8,6 +8,6 @@ fun Response.peekBody(): String? {
         val source = it.source()
         source.request(Long.MAX_VALUE)
         val buffer = source.buffer()
-        return buffer.clone().readString(Charset.forName("UTF-8"))
-    }
+        buffer.clone().readString(Charset.forName("UTF-8"))
+    } ?: null
 }
