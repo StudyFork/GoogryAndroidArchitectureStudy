@@ -9,6 +9,7 @@ import com.ironelder.androidarchitecture.data.dao.SearchResultDao
 
 @Database(entities = [(SearchResult::class)], version = 1)
 abstract class SearchResultDatabase : RoomDatabase() {
+
     abstract fun SearchResultDao(): SearchResultDao
 
     companion object {
@@ -25,9 +26,6 @@ abstract class SearchResultDatabase : RoomDatabase() {
             }
             return INSTANCE
         }
-
-        fun destroyInstance() {
-            INSTANCE = null
-        }
     }
+
 }
