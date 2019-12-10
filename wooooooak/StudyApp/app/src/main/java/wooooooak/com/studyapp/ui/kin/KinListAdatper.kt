@@ -10,17 +10,16 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_blog.view.description
 import kotlinx.android.synthetic.main.item_image.view.title
 import kotlinx.android.synthetic.main.item_kin.view.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import wooooooak.com.studyapp.R
-import wooooooak.com.studyapp.common.constants.DISPLAY_LIST_COUNT
 import wooooooak.com.studyapp.common.ext.startWebView
-import wooooooak.com.studyapp.model.response.kin.Kin
-import wooooooak.com.studyapp.naverApi
+import wooooooak.com.studyapp.data.model.repository.NaverApiRepositoryImpl
+import wooooooak.com.studyapp.data.model.response.kin.Kin
 import wooooooak.com.studyapp.ui.base.BaseSearchListAdapter
 
 class KinListAdapter(private val fragmentActivity: FragmentActivity) :
     BaseSearchListAdapter<Kin, KinListAdapter.KinViewHolder>(fragmentActivity, DiffCallback()) {
+
+    private val naverApiRepository = NaverApiRepositoryImpl()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = KinViewHolder(
         LayoutInflater
@@ -36,14 +35,11 @@ class KinListAdapter(private val fragmentActivity: FragmentActivity) :
         }
     }
 
-    override suspend fun initItemListByTitleAsync(title: String) = withContext(Dispatchers.IO) {
-        naverApi.getKins(title, DISPLAY_LIST_COUNT, null).items
-    }
+    override suspend fun initItemListByTitleAsync(title: String) =
+        naverApiRepository.getKinList(title)
 
     override suspend fun getMoreItemListFromStartIndexAsync(title: String, startIndex: Int) =
-        withContext(Dispatchers.IO) {
-            naverApi.getKins(title, DISPLAY_LIST_COUNT, startIndex).items
-        }
+        naverApiRepository.getKinList(title, startIndex)
 
     inner class KinViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(kin: Kin, onClickItem: View.OnClickListener) {

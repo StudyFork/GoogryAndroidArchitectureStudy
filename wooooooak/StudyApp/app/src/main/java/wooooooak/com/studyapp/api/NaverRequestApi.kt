@@ -2,11 +2,11 @@ package wooooooak.com.studyapp.api
 
 import retrofit2.http.GET
 import retrofit2.http.Query
-import wooooooak.com.studyapp.model.response.base.NaverQueryResponse
-import wooooooak.com.studyapp.model.response.blog.Blog
-import wooooooak.com.studyapp.model.response.image.Image
-import wooooooak.com.studyapp.model.response.kin.Kin
-import wooooooak.com.studyapp.model.response.movie.Movie
+import wooooooak.com.studyapp.data.model.response.base.NaverQueryResponse
+import wooooooak.com.studyapp.data.model.response.blog.Blog
+import wooooooak.com.studyapp.data.model.response.image.Image
+import wooooooak.com.studyapp.data.model.response.kin.Kin
+import wooooooak.com.studyapp.data.model.response.movie.Movie
 
 interface NaverRequestApi {
 

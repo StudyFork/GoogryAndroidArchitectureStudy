@@ -35,8 +35,7 @@ abstract class BaseSearchListAdapter<T, H : RecyclerView.ViewHolder>(
         }
     }
 
-    // 데이터를 더 가져오기 위해 현재 아이템 갯수 필요
-    protected fun loadMore(itemCount: Int) {
+    private fun loadMore(itemCount: Int) {
         fragmentActivity.lifecycleScope.launch {
             try {
                 val addedList = getMoreItemListFromStartIndexAsync(textOnEditTextView, itemCount + 1)

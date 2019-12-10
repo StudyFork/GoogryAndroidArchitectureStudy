@@ -9,17 +9,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_blog.view.*
 import kotlinx.android.synthetic.main.item_image.view.title
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import wooooooak.com.studyapp.R
-import wooooooak.com.studyapp.common.constants.DISPLAY_LIST_COUNT
 import wooooooak.com.studyapp.common.ext.startWebView
-import wooooooak.com.studyapp.model.response.blog.Blog
-import wooooooak.com.studyapp.naverApi
+import wooooooak.com.studyapp.data.model.repository.NaverApiRepositoryImpl
+import wooooooak.com.studyapp.data.model.response.blog.Blog
 import wooooooak.com.studyapp.ui.base.BaseSearchListAdapter
 
 class BlogSearchListAdapter(private val fragmentActivity: FragmentActivity) :
     BaseSearchListAdapter<Blog, BlogSearchListAdapter.BlogViewHolder>(fragmentActivity, DiffCallback()) {
+
+    private val naverApiRepository = NaverApiRepositoryImpl()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = BlogViewHolder(
         LayoutInflater
@@ -36,14 +35,10 @@ class BlogSearchListAdapter(private val fragmentActivity: FragmentActivity) :
     }
 
     override suspend fun initItemListByTitleAsync(title: String): List<Blog> =
-        withContext(Dispatchers.IO) {
-            naverApi.getBlogs(title, DISPLAY_LIST_COUNT, null).items
-        }
+        naverApiRepository.getBlogList(title)
 
     override suspend fun getMoreItemListFromStartIndexAsync(title: String, startIndex: Int): List<Blog> =
-        withContext(Dispatchers.IO) {
-            naverApi.getBlogs(title, DISPLAY_LIST_COUNT, startIndex).items
-        }
+        naverApiRepository.getBlogList(title, startIndex)
 
     inner class BlogViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(blog: Blog, onClickItem: View.OnClickListener) {

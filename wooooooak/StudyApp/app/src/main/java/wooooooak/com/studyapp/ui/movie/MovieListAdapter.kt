@@ -9,17 +9,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import kotlinx.android.synthetic.main.item_moive.view.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import wooooooak.com.studyapp.R
-import wooooooak.com.studyapp.common.constants.DISPLAY_LIST_COUNT
 import wooooooak.com.studyapp.common.ext.startWebView
-import wooooooak.com.studyapp.model.response.movie.Movie
-import wooooooak.com.studyapp.naverApi
+import wooooooak.com.studyapp.data.model.repository.NaverApiRepositoryImpl
+import wooooooak.com.studyapp.data.model.response.movie.Movie
 import wooooooak.com.studyapp.ui.base.BaseSearchListAdapter
 
 class MovieListAdapter(private val fragmentActivity: FragmentActivity) :
     BaseSearchListAdapter<Movie, MovieListAdapter.MovieViewHolder>(fragmentActivity, DiffCallback()) {
+
+    private val naverApiRepository = NaverApiRepositoryImpl()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MovieViewHolder(
         LayoutInflater
@@ -35,14 +34,12 @@ class MovieListAdapter(private val fragmentActivity: FragmentActivity) :
         }
     }
 
-    override suspend fun initItemListByTitleAsync(title: String) = withContext(Dispatchers.IO) {
-        naverApi.getMovies(title, DISPLAY_LIST_COUNT, null).items
-    }
+    override suspend fun initItemListByTitleAsync(title: String) =
+        naverApiRepository.getMovieList(title)
 
     override suspend fun getMoreItemListFromStartIndexAsync(title: String, startIndex: Int) =
-        withContext(Dispatchers.IO) {
-            naverApi.getMovies(title, DISPLAY_LIST_COUNT, startIndex).items
-        }
+        naverApiRepository.getMovieList(title, startIndex)
+
 
     inner class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(movie: Movie, onClickItem: View.OnClickListener) {
