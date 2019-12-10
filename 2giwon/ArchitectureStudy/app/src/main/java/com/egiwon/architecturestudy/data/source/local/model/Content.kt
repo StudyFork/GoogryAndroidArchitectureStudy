@@ -6,8 +6,7 @@ import com.egiwon.architecturestudy.data.source.remote.response.ContentItem
 
 @Entity(tableName = "contents")
 data class Content(
-    @PrimaryKey
-    val id: Long,
+    @PrimaryKey val id: Long,
     val list: List<ContentItem>,
     val type: String,
     val query: String
