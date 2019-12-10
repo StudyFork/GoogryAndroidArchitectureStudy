@@ -1,8 +1,12 @@
 package com.god.taeiim.myapplication.ui
 
-import com.god.taeiim.myapplication.data.NaverRepositoryImpl
+import com.god.taeiim.myapplication.data.source.NaverRepositoryImpl
 
 class ContentsPresenter(private val view: ContentsContract.View) : ContentsContract.Presenter {
+
+    override fun start() {
+
+    }
 
     override fun searchContents(searchType: String, query: String) {
         if (query.isBlank()) {
