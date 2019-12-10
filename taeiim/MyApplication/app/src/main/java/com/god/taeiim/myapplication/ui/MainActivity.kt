@@ -5,10 +5,11 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.god.taeiim.myapplication.R
 import com.god.taeiim.myapplication.Tabs
+import com.god.taeiim.myapplication.base.BaseActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
