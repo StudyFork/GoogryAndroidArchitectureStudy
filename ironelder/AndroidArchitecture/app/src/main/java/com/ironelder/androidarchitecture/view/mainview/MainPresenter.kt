@@ -53,6 +53,7 @@ class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter
         CoroutineScope(Dispatchers.IO).launch {
             searchResultDao?.insertSearchResult(
                 SearchResult(
+                    null,
                     type,
                     searchWord,
                     Gson().toJson(items)
