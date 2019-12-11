@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "searchResult")
 data class SearchResult(
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name="id")
     val id: Long?,
     @ColumnInfo(name="type")
     val type:String,

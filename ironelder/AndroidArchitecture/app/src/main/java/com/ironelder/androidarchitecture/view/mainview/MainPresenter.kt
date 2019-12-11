@@ -63,7 +63,7 @@ class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter
     }
 
     override fun getSearchResultToRoom(searchResultDao: SearchResultDao?, type: String) {
-        searchResultDao?.getSearchResult(type)?.subscribeOn(Schedulers.io())
+        searchResultDao?.getLastSearchResult(type)?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())?.subscribe({
                 view.onLoadFromDatabase(
                     it.search,

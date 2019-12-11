@@ -1,6 +1,5 @@
 package com.ironelder.androidarchitecture.data.dao
 
-import android.database.Cursor
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -12,9 +11,9 @@ import io.reactivex.Single
 interface SearchResultDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertSearchResult(vararg searchResult:SearchResult)
+    fun insertSearchResult(vararg searchResult: SearchResult)
 
-    @Query("SELECT * FROM searchResult WHERE type = :type")
-    fun getSearchResult(type:String): Single<SearchResult>
+    @Query("SELECT * FROM searchResult WHERE id = (SELECT IFNULL(MAX(id),0) as id FROM searchResult WHERE type=:type)")
+    fun getLastSearchResult(type: String): Single<SearchResult>
 
 }
