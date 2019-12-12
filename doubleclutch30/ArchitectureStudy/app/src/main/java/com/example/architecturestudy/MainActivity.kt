@@ -3,6 +3,7 @@ package com.example.architecturestudy
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.example.architecturestudy.ui.PagerAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.example.architecturestudy.ui.blog.BlogFragment
 import com.example.architecturestudy.ui.image.ImageFragment
@@ -15,6 +16,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val adapter = PagerAdapter(supportFragmentManager)
+        viewPager.adapter = adapter
+
 
         bottom_navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
@@ -53,4 +58,5 @@ class MainActivity : AppCompatActivity() {
          fragmentTransaction.replace(R.id.fragmentContainer, fragment)
          fragmentTransaction.commit()
      }
+
 }
