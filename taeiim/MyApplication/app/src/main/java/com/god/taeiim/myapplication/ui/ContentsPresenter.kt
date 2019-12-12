@@ -20,10 +20,13 @@ class ContentsPresenter(
             view.blankSearchQuery()
 
         } else {
-            NaverRepositoryImpl.getResultData(
+            naverRepository.getResultData(
                 searchType,
                 query,
-                success = { view.updateItems(it) },
+                success = {
+                    view.updateItems(it.items)
+                    naverRepository.saveSearchResult(SearchHistory(it.items, searchType, query))
+                },
                 fail = { view.failToSearch() }
             )
         }
