@@ -46,6 +46,8 @@ class ContentsFragment : BaseFragment(), ContentsContract.View {
         adapter = SearchResultRecyclerAdapter(searchType)
         searchResultRecyclerView.adapter = this@ContentsFragment.adapter
 
+        updateSearchHistoryItems()
+
         searchBtn.setOnClickListener {
             presenter.searchContents(
                 searchType.name,
@@ -54,8 +56,12 @@ class ContentsFragment : BaseFragment(), ContentsContract.View {
         }
     }
 
-    override fun updateItems(resultList: SearchResult) {
-        adapter.setItems(resultList.items)
+    override fun updateSearchHistoryItems() {
+        presenter.getLastSearchHistory(searchType.name)
+    }
+
+    override fun updateItems(resultList: List<SearchResult.Item>) {
+        adapter.setItems(resultList)
     }
 
     override fun failToSearch() {
