@@ -1,8 +1,15 @@
 package com.god.taeiim.myapplication.ui
 
-import com.god.taeiim.myapplication.data.source.NaverRepositoryImpl
+import com.god.taeiim.myapplication.data.SearchHistory
+import com.god.taeiim.myapplication.data.source.NaverRepository
 
-class ContentsPresenter(private val view: ContentsContract.View) : ContentsContract.Presenter {
+class ContentsPresenter(
+    private val naverRepository: NaverRepository,
+    private val view: ContentsContract.View
+) : ContentsContract.Presenter {
+    init {
+        view.presenter = this
+    }
 
     override fun start() {
 

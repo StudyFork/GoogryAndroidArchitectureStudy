@@ -9,9 +9,14 @@ import com.god.taeiim.myapplication.R
 import com.god.taeiim.myapplication.Tabs
 import com.god.taeiim.myapplication.api.model.SearchResult
 import com.god.taeiim.myapplication.base.BaseFragment
+import com.god.taeiim.myapplication.data.source.NaverRepositoryImpl
+import com.god.taeiim.myapplication.data.source.local.NaverLocalDataSourceImpl
+import com.god.taeiim.myapplication.data.source.local.SearchHistoryDatabase
+import com.god.taeiim.myapplication.data.source.remote.NaverRemoteDataSourceImpl
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class ContentsFragment : BaseFragment(), ContentsContract.View {
+
     override lateinit var presenter: ContentsContract.Presenter
     private lateinit var adapter: SearchResultRecyclerAdapter
     private lateinit var searchType: Tabs
@@ -25,7 +30,14 @@ class ContentsFragment : BaseFragment(), ContentsContract.View {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        presenter = ContentsPresenter(this)
+        presenter = ContentsPresenter(
+            NaverRepositoryImpl.getInstance(
+                NaverRemoteDataSourceImpl,
+                NaverLocalDataSourceImpl.getInstance(
+                    SearchHistoryDatabase.getInstance(requireActivity().applicationContext).taskDao()
+                )
+            ), this
+        )
 
         arguments?.getSerializable(ARG_TYPE)?.let {
             searchType = it as Tabs
