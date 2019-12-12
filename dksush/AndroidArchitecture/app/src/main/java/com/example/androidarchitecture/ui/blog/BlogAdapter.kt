@@ -5,16 +5,17 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
 import com.example.androidarchitecture.R
 import com.example.androidarchitecture.data.response.BlogData
 import com.example.androidarchitecture.ui.WebviewActivity
+import com.example.androidarchitecture.ui.base.BaseRecyclerAdapter
+import com.example.androidarchitecture.ui.base.BaseViewHolder
 import kotlinx.android.synthetic.main.item_blog.view.*
 
 
-class BlogAdapter : RecyclerView.Adapter<BlogAdapter.BlogHolder>() {
+class BlogAdapter : BaseRecyclerAdapter<BlogData, BlogAdapter.BlogHolder>(DiffCallback()) {
 
-    private val data = arrayListOf<BlogData>()
     private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogHolder {
@@ -23,44 +24,40 @@ class BlogAdapter : RecyclerView.Adapter<BlogAdapter.BlogHolder>() {
         return BlogHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return data.size
-    }
-
-    override fun onBindViewHolder(holder: BlogHolder, position: Int) {
-        holder.bind(data[position])
-
-
-    }
-
-    fun setData(items: List<BlogData>) {
-        data.clear()
-        data.addAll(items)
-        notifyDataSetChanged()
-    }
-
-    inner class BlogHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        lateinit var model: BlogData
+    inner class BlogHolder(view: View) : BaseViewHolder<BlogData>(view) {
+        lateinit var item: BlogData
 
         init {
             view.setOnClickListener {
                 Intent(context, WebviewActivity::class.java).apply {
-                    putExtra("link", model.link)
+                    putExtra("link", item.link)
                 }.run { context.startActivity(this) }
             }
         }
 
-
-        fun bind(model: BlogData) {
-            this.model = model
-            with(view) {
-                blog_title.text = model.title
-                blog_description.text = model.description
-                blog_owner.text = model.bloggerName
-                blog_postdate.text = model.postdate
+        override fun bind(item: BlogData) {
+            this.item = item
+            with(itemView) {
+                blog_title.text = item.title
+                blog_description.text = item.description
+                blog_owner.text = item.bloggerName
+                blog_postdate.text = item.postdate
 
             }
         }
 
+
     }
+}
+
+private class DiffCallback : DiffUtil.ItemCallback<BlogData>() {
+    override fun areItemsTheSame(oldItem: BlogData, newItem: BlogData): Boolean {
+        return oldItem == newItem
+
+    }
+
+    override fun areContentsTheSame(oldItem: BlogData, newItem: BlogData): Boolean {
+        return oldItem == newItem
+    }
+
 }

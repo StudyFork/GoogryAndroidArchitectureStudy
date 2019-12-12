@@ -2,7 +2,6 @@ package com.example.androidarchitecture.ui.movie
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,10 +59,8 @@ class MovieFragment : Fragment() {
     private fun requestMovieList(text: String) {
         naverRepoInterface.getMovie(text, 1, 10,
             success = {
-                Log.v("dksush", it[0].actor)
                 movieAdapter.setData(it)
             }, fail = {
-                Log.v("dksush", it.toString())
             })
 
     }
