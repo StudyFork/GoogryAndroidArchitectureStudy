@@ -1,12 +1,14 @@
-package com.god.taeiim.myapplication.data.source
+package com.god.taeiim.myapplication.data.source.remote
 
 import com.god.taeiim.myapplication.api.model.SearchResult
 import com.god.taeiim.myapplication.api.provideAuthApi
+import com.god.taeiim.myapplication.data.source.NaverDataSource
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object NaverRemoteDataSourceImpl : NaverDataSource {
+object NaverRemoteDataSourceImpl : NaverDataSource.RemoteDataSource {
+
     override fun getResultData(
         searchType: String,
         query: String,
@@ -20,7 +22,7 @@ object NaverRemoteDataSourceImpl : NaverDataSource {
                     response: Response<SearchResult>
                 ) {
                     val result = response.body()
-                    if (result != null) success(result)
+                    if (result != null && result.items.isNotEmpty()) success(result)
                     else fail(IllegalStateException())
                 }
 
@@ -29,4 +31,5 @@ object NaverRemoteDataSourceImpl : NaverDataSource {
                 }
             })
     }
+
 }
