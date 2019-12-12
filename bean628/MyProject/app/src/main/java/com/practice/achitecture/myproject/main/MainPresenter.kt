@@ -10,6 +10,10 @@ class MainPresenter(
     private val view: MainContract.View
 ) : MainContract.Presenter {
 
+    override fun setCacheFilePathToRepository(cacheFilePath: String) {
+        NaverRepository.cacheFilePath = cacheFilePath
+    }
+
     override fun searchIfNotEmpty(word: String, searchType: SearchType) {
         if (word.isEmpty()) {
             view.isEmpty()

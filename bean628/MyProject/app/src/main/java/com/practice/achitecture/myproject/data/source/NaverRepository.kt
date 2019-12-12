@@ -20,7 +20,7 @@ object NaverRepository : NaverDataSource {
     private val naverLocalDataSource = NaverLocalDataSourceImpl()
 
 
-    private const val CACHE_FILE_PATH = "/data/user/0/com.practice.achitecture.myproject/cache/"
+    var cacheFilePath = ""
 
     // 앱 첫 실행 시 가장 마지막으로 검색한 리스트를 불러옵니다.
     fun getLastSearchType(): SearchType? {
@@ -29,7 +29,7 @@ object NaverRepository : NaverDataSource {
         var cacheFile: File
 
         for (searchType in SearchType.values()) {
-            cacheFile = File(CACHE_FILE_PATH + searchType.value + ".json")
+            cacheFile = File(cacheFilePath + searchType.value + ".json")
             if (cacheFile.exists()) {
                 if (lastTime == null) {
                     lastTime = cacheFile.lastModified()
@@ -47,7 +47,7 @@ object NaverRepository : NaverDataSource {
     }
 
     fun getCache(searchType: SearchType): List<SearchedItem> {
-        val cacheFile = File(CACHE_FILE_PATH + searchType.value + ".json")
+        val cacheFile = File(cacheFilePath + searchType.value + ".json")
         if (cacheFile.exists()) {
             val gson = Gson()
             val arrayTutorialType = object : TypeToken<List<SearchedItem>>() {}.type
@@ -59,11 +59,11 @@ object NaverRepository : NaverDataSource {
 
     @SuppressLint("SdCardPath")
     private fun setCache(searchType: SearchType, list: List<SearchedItem>) {
-        val cachePath = File(CACHE_FILE_PATH)
+        val cachePath = File(cacheFilePath)
         if (!cachePath.exists()) {
             cachePath.mkdirs()
         }
-        val cacheFile = File(CACHE_FILE_PATH + searchType.value + ".json")
+        val cacheFile = File(cacheFilePath + searchType.value + ".json")
         cacheFile.writeText(Gson().toJson(list))
     }
 
