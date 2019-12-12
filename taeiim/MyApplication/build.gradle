@@ -26,6 +26,9 @@ buildscript {
         //Glide
         glide_version = '4.10.0'
 
+        // room
+        room_version = '2.2.2'
+
     }
 
     repositories {
