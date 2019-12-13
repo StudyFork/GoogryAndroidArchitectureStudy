@@ -11,8 +11,6 @@ import javax.inject.Inject
 
 class TickerFragment : BaseFragment<FragmentCoinBinding, TickerViewModel>(R.layout.fragment_coin) {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
     override val vm : TickerViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory)
             .get(TickerViewModel::class.java)
