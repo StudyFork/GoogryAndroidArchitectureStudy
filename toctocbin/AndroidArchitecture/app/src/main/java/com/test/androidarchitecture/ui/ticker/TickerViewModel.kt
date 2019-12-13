@@ -6,6 +6,7 @@ import com.test.androidarchitecture.R
 import com.test.androidarchitecture.base.BaseViewModel
 import com.test.androidarchitecture.data.Ticker
 import com.test.androidarchitecture.data.TickerFormat
+import com.test.androidarchitecture.data.source.UpbitRepository
 import com.test.androidarchitecture.data.source.UpbitRepositoryImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
@@ -15,7 +16,7 @@ import java.util.*
 import javax.inject.Inject
 
 class TickerViewModel @Inject constructor(
-    private val upbitRepositoryImpl: UpbitRepositoryImpl
+    private val upbitRepositoryImpl: UpbitRepository
     ) : BaseViewModel() {
 
     private val _tickerList = MutableLiveData<List<TickerFormat>>()
