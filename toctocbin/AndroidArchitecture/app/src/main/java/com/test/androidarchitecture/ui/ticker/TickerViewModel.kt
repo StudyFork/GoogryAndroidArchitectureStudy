@@ -27,7 +27,7 @@ class TickerViewModel @Inject constructor(
         getTicker()
     }
 
-    fun getTicker() {
+    private fun getTicker() {
         upbitRepositoryImpl.getTicker(marketSearch)
             .map { list ->
                 list.asSequence()

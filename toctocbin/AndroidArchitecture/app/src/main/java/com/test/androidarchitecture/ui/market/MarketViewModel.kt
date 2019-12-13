@@ -20,7 +20,7 @@ class MarketViewModel @Inject constructor(
         getMarketAll()
     }
 
-    fun getMarketAll() {
+    private fun getMarketAll() {
         upbitRepositoryImpl.getMarketAll()
             .map { list ->
                 list.groupBy { it.market.substringBefore("-") }
