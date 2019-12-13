@@ -2,13 +2,11 @@ package com.test.androidarchitecture.ui.market
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.test.androidarchitecture.R
 import com.test.androidarchitecture.adpter.ViewPagerAdapter
 import com.test.androidarchitecture.base.BaseActivity
 import com.test.androidarchitecture.databinding.ActivityMarketBinding
-import javax.inject.Inject
 
 class MarketActivity
     : BaseActivity<ActivityMarketBinding, MarketViewModel>(R.layout.activity_market) {

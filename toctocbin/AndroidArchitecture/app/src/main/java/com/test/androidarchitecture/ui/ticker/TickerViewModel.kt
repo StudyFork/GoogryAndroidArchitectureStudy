@@ -7,7 +7,6 @@ import com.test.androidarchitecture.base.BaseViewModel
 import com.test.androidarchitecture.data.Ticker
 import com.test.androidarchitecture.data.TickerFormat
 import com.test.androidarchitecture.data.source.UpbitRepository
-import com.test.androidarchitecture.data.source.UpbitRepositoryImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import java.text.DecimalFormat

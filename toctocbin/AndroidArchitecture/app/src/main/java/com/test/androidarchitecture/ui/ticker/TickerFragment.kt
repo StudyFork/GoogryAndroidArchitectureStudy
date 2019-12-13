@@ -2,12 +2,10 @@ package com.test.androidarchitecture.ui.ticker
 
 
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.test.androidarchitecture.R
 import com.test.androidarchitecture.base.BaseFragment
 import com.test.androidarchitecture.databinding.FragmentCoinBinding
-import javax.inject.Inject
 
 class TickerFragment : BaseFragment<FragmentCoinBinding, TickerViewModel>(R.layout.fragment_coin) {
 

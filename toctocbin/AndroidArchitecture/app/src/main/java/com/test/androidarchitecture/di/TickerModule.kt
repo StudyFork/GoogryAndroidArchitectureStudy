@@ -1,8 +1,6 @@
 package com.test.androidarchitecture.di
 
 import androidx.lifecycle.ViewModel
-import com.test.androidarchitecture.ui.market.MarketActivity
-import com.test.androidarchitecture.ui.market.MarketViewModel
 import com.test.androidarchitecture.ui.ticker.TickerFragment
 import com.test.androidarchitecture.ui.ticker.TickerViewModel
 import dagger.Binds
