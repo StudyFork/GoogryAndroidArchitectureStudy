@@ -13,8 +13,6 @@ import javax.inject.Inject
 class MarketActivity
     : BaseActivity<ActivityMarketBinding, MarketViewModel>(R.layout.activity_market) {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
     override val vm: MarketViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory)
             .get(MarketViewModel::class.java)
