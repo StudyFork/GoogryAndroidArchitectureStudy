@@ -1,5 +1,6 @@
 package com.test.androidarchitecture.di
 
+import com.test.androidarchitecture.BuildConfig
 import com.test.androidarchitecture.network.RetrofitService
 import dagger.Module
 import dagger.Provides
@@ -18,13 +19,17 @@ class NetworkModule {
     @Singleton
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
         val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        if (BuildConfig.DEBUG) {
+            interceptor.level = HttpLoggingInterceptor.Level.BODY
+        } else {
+            interceptor.level = HttpLoggingInterceptor.Level.NONE
+        }
         return interceptor
     }
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(interceptor : HttpLoggingInterceptor): OkHttpClient {
+    fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
         val builder = OkHttpClient.Builder()
         builder.addInterceptor(interceptor)
             .connectTimeout(20, TimeUnit.SECONDS)
@@ -55,7 +60,11 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory, rxJava2CallAdapterFactory: RxJava2CallAdapterFactory): Retrofit {
+    fun provideRetrofit(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory,
+        rxJava2CallAdapterFactory: RxJava2CallAdapterFactory
+    ): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://api.upbit.com/")
             .addConverterFactory(gsonConverterFactory)
