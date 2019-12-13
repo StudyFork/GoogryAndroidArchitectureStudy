@@ -15,7 +15,10 @@ class MarketActivity
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    override val vm : MarketViewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(MarketViewModel::class.java) }
+    override val vm: MarketViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory)
+            .get(MarketViewModel::class.java)
+    }
     private lateinit var viewPagerAdapter: ViewPagerAdapter
 
 
