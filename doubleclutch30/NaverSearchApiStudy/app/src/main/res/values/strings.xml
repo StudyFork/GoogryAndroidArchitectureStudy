@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">NaverSearchApiStudy</string>
+
+    <string name="Movie">Home Fragment</string>
+    <string name="Blog">Sport Fragment</string>
+    <string name="Kin">Movie Fragment</string>
+</resources>

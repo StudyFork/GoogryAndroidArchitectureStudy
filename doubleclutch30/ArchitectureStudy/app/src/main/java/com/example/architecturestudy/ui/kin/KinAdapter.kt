@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.architecturestudy.R
 import com.example.architecturestudy.model.ImageItems
 import com.example.architecturestudy.model.KinItems
+import com.example.architecturestudy.ui.startWebView
 import kotlinx.android.synthetic.main.item_kin.view.*
 
 class KinAdapter(val items : List<KinItems>) : RecyclerView.Adapter<KinAdapter.KinHolder>() {
@@ -35,7 +36,17 @@ class KinAdapter(val items : List<KinItems>) : RecyclerView.Adapter<KinAdapter.K
     }
 
     class KinHolder(view : View) : RecyclerView.ViewHolder(view) {
+        lateinit var item: KinItems
+
+        init {
+            itemView.setOnClickListener { view ->
+                view.startWebView(item.link)
+            }
+        }
+
         fun bind(item: KinItems) {
+            this.item = item
+
             with(itemView) {
                 kin_title.text = HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
                 kin_contents.text = HtmlCompat.fromHtml(item.description, HtmlCompat.FROM_HTML_MODE_COMPACT)

@@ -8,6 +8,7 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.architecturestudy.R
 import com.example.architecturestudy.model.BlogItems
+import com.example.architecturestudy.ui.startWebView
 import kotlinx.android.synthetic.main.item_blog.view.*
 
 
@@ -25,7 +26,6 @@ class BlogAdapter(val items : List<BlogItems>) : RecyclerView.Adapter<BlogAdapte
 
     }
 
-
     override fun onBindViewHolder(holder: BlogHolder, position: Int) {
         holder.bind(items[position])
     }
@@ -39,7 +39,17 @@ class BlogAdapter(val items : List<BlogItems>) : RecyclerView.Adapter<BlogAdapte
 
     class BlogHolder(view : View) : RecyclerView.ViewHolder(view)  {
 
+        lateinit var item : BlogItems
+
+        init {
+            itemView.setOnClickListener { view ->
+                view.startWebView(item.link)
+            }
+        }
+
         fun bind(item : BlogItems) {
+            this.item = item
+
             with(itemView) {
                 blog_title.text = HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
                 Log.i("Blog", "title =${blog_title.text}")

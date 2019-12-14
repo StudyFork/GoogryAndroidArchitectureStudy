@@ -9,6 +9,7 @@ import com.example.architecturestudy.R
 import com.example.architecturestudy.model.BlogItems
 import com.example.architecturestudy.model.ImageData
 import com.example.architecturestudy.model.ImageItems
+import com.example.architecturestudy.ui.startWebView
 import kotlinx.android.synthetic.main.item_image.view.*
 import java.lang.Exception
 
@@ -38,9 +39,18 @@ class ImageAdapter(val items : List<ImageItems>) : RecyclerView.Adapter<ImageAda
 
     class ImageHolder(view : View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(item : ImageItems) {
-            with(itemView) {
+        lateinit var item: ImageItems
 
+        init {
+            itemView.setOnClickListener { view ->
+                view.startWebView(item.link)
+            }
+        }
+
+        fun bind(item : ImageItems) {
+            this.item = item
+
+            with(itemView) {
                 try {
                     Glide.with(this).load(item.thumbnail).into(img_image)
                 } catch (e : Exception) {
