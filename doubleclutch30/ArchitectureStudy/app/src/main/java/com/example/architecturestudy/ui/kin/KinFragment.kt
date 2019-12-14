@@ -21,6 +21,8 @@ class KinFragment : Fragment() {
 
     val restClient: Api = ApiClient.getRetrofitService(Api::class.java)
 
+    private lateinit var kinAdapter: KinAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,12 +57,15 @@ class KinFragment : Fragment() {
     }
 
     private fun kinListAdapter(kin : List<KinItems>) {
-        recycleview.adapter = KinAdapter(kin)
+        kinAdapter =  KinAdapter(kin)
+        recycleview.adapter = kinAdapter
         recycleview.layoutManager = LinearLayoutManager(activity)
         recycleview.addItemDecoration(
             DividerItemDecoration(
                 activity, DividerItemDecoration.VERTICAL
             )
         )
+
+        kinAdapter.upDate(kin)
     }
 }

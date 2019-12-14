@@ -21,6 +21,8 @@ class MovieFragment : Fragment() {
 
     val restClient: Api = ApiClient.getRetrofitService(Api::class.java)
 
+    private lateinit var movieAdapter : MovieAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,6 +40,7 @@ class MovieFragment : Fragment() {
             }
         }
     }
+
 
 
     private fun searchMovieList(keyWord: String) {
@@ -58,8 +61,8 @@ class MovieFragment : Fragment() {
     }
 
     private fun movieListAdapter(movie: List<MovieItems>) {
-
-        recycleview.adapter = MovieAdapter(movie)
+        movieAdapter = MovieAdapter(movie)
+        recycleview.adapter = movieAdapter
         recycleview.layoutManager = LinearLayoutManager(activity)
         recycleview.addItemDecoration(
             DividerItemDecoration(
@@ -67,5 +70,7 @@ class MovieFragment : Fragment() {
             )
         )
 
+
+        movieAdapter.upDate(movie)
     }
 }

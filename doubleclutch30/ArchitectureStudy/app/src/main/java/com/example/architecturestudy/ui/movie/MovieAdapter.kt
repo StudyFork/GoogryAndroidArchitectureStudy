@@ -30,6 +30,8 @@ class MovieAdapter(val items : List<MovieItems>) : RecyclerView.Adapter<MovieAda
         holder.bind(items[position])
     }
 
+
+
     fun upDate(movieList : List<MovieItems>) {
         this.movieList.clear()
         this.movieList.addAll(movieList)

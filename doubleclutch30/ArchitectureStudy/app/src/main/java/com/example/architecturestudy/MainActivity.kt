@@ -21,6 +21,8 @@ class MainActivity : AppCompatActivity() {
         viewPager.adapter = adapter
 
 
+        replaceFragment(MovieFragment())
+
         bottom_navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
 

@@ -21,6 +21,8 @@ class ImageFragment : Fragment() {
 
     val restClient: Api = ApiClient.getRetrofitService(Api::class.java)
 
+    private lateinit var imageAdapter: ImageAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,7 +56,8 @@ class ImageFragment : Fragment() {
     }
 
     private fun imageListAdapter(image : List<ImageItems>) {
-        recycleview.adapter = ImageAdapter(image)
+        imageAdapter = ImageAdapter(image)
+        recycleview.adapter = imageAdapter
         recycleview.layoutManager = LinearLayoutManager(activity)
         recycleview.addItemDecoration(
             DividerItemDecoration(
@@ -62,5 +65,6 @@ class ImageFragment : Fragment() {
             )
         )
 
+        imageAdapter.upDate(image)
     }
 }

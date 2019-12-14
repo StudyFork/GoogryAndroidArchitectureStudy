@@ -21,6 +21,8 @@ class BlogFragment : Fragment() {
 
     val restClient: Api = ApiClient.getRetrofitService(Api::class.java)
 
+    private lateinit var blogAdapter: BlogAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,7 +60,8 @@ class BlogFragment : Fragment() {
 
 
     private fun blogListAdapter(blog: List<BlogItems>) {
-        recycleview.adapter = BlogAdapter(blog)
+        blogAdapter = BlogAdapter(blog)
+        recycleview.adapter = blogAdapter
         recycleview.layoutManager = LinearLayoutManager(activity)
         recycleview.addItemDecoration(
             DividerItemDecoration(
@@ -66,5 +69,6 @@ class BlogFragment : Fragment() {
             )
         )
 
+        blogAdapter.upDate(blog)
     }
 }
