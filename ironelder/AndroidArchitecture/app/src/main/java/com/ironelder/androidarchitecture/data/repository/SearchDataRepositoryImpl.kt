@@ -10,14 +10,14 @@ import io.reactivex.Single
 object SearchDataRepositoryImpl :
     SearchDataRepository {
 
-    override fun getDataForSearchToRemote(
+    override fun getRemoteSearchData(
         type: String,
         query: String?
     ): Single<TotalModel> {
         return RemoteSearchDataSourceImpl.getDataForSearch(type, query)
     }
 
-    override fun getDataForSearchToLocal(context: Context, type: String): Single<SearchResult>? {
+    override fun getLocalSearchData(context: Context, type: String): Single<SearchResult>? {
         return LocalSearchDataSourceImpl.getLocalDataForSearch(context, type)
     }
 

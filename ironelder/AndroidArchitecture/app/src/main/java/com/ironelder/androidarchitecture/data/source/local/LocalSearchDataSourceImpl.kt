@@ -11,6 +11,7 @@ object LocalSearchDataSourceImpl :
         context: Context,
         type: String
     ): Single<SearchResult>? {
-        return SearchResultDatabase.getInstance(context)?.SearchResultDao()?.getLastSearchResult(type)
+        return SearchResultDatabase.getInstance(context)?.SearchResultDao()
+            ?.getLastSearchResult(type)
     }
 }

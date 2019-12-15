@@ -7,14 +7,14 @@ import io.reactivex.Single
 
 interface SearchDataRepository {
 
-    fun getDataForSearchToRemote(
+    fun getRemoteSearchData(
         type: String,
         query: String?
-    ):Single<TotalModel>
+    ): Single<TotalModel>
 
-    fun getDataForSearchToLocal(
+    fun getLocalSearchData(
         context: Context,
         type: String
-    ):Single<SearchResult>?
+    ): Single<SearchResult>?
 
 }

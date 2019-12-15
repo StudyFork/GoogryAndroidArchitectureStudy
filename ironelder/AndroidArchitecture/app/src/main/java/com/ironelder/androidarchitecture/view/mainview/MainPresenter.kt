@@ -1,5 +1,6 @@
 package com.ironelder.androidarchitecture.view.mainview
 
+import android.content.Context
 import android.util.Log
 import com.google.gson.Gson
 import com.ironelder.androidarchitecture.data.ResultItem
@@ -19,7 +20,7 @@ class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter
     private val LOG_TAG = MainPresenter::class.java.toString()
 
     override fun searchWithAdapter(type: String, query: String?) {
-        SearchDataRepositoryImpl.getDataForSearchToRemote(type, query)
+        SearchDataRepositoryImpl.getRemoteSearchData(type, query)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
@@ -62,8 +63,8 @@ class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter
         }
     }
 
-    override fun getSearchResultToRoom(searchResultDao: SearchResultDao?, type: String) {
-        searchResultDao?.getLastSearchResult(type)?.subscribeOn(Schedulers.io())
+    override fun getSearchResultToRoom(context: Context, type: String) {
+        SearchDataRepositoryImpl.getLocalSearchData(context, type)?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())?.subscribe({
                 view.onLoadFromDatabase(
                     it.search,

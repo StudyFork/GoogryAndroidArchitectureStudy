@@ -43,7 +43,7 @@ class MainFragment :
         presenter.setSearchResultToRoom(
             SearchResultDatabase.getInstance(
                 context?.applicationContext ?: (this.activity as Context).applicationContext
-            )?.SearchResultDao(), mType ?: BLOG, mSearchWord?:"", result
+            )?.SearchResultDao(), mType ?: BLOG, mSearchWord ?: "", result
         )
     }
 
@@ -81,9 +81,7 @@ class MainFragment :
 
     override fun doLoadFromDatabase() {
         presenter.getSearchResultToRoom(
-            SearchResultDatabase.getInstance(
-                context?.applicationContext ?: (this.activity as Context).applicationContext
-            )?.SearchResultDao(),
+            context?.applicationContext ?: (this.activity as Context).applicationContext,
             mType ?: BLOG
         )
     }
@@ -110,9 +108,9 @@ class MainFragment :
                 return false
             }
         })
-        searchView.setOnSearchClickListener(object : View.OnClickListener{
+        searchView.setOnSearchClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                if(!mSearchWord.isNullOrEmpty()){
+                if (!mSearchWord.isNullOrEmpty()) {
                     searchView.setQuery(mSearchWord, false)
                 }
             }
