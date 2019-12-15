@@ -49,7 +49,6 @@ class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter
         searchWord: String,
         items: ArrayList<ResultItem>
     ) {
-
         CoroutineScope(Dispatchers.IO).launch {
             SearchDataRepositoryImpl.setLocalSearchData(context, type, searchWord, items)
         }

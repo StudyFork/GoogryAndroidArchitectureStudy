@@ -108,14 +108,11 @@ class MainFragment :
                 return false
             }
         })
-        searchView.setOnSearchClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                if (!mSearchWord.isNullOrEmpty()) {
-                    searchView.setQuery(mSearchWord, false)
-                }
+        searchView.setOnSearchClickListener {
+            if (!mSearchWord.isNullOrEmpty()) {
+                searchView.setQuery(mSearchWord, false)
             }
-
-        })
+        }
     }
 
     companion object {
