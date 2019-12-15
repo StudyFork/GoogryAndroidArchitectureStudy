@@ -16,4 +16,6 @@ interface SearchResultDao {
     @Query("SELECT * FROM searchResult WHERE id = (SELECT IFNULL(MAX(id),0) as id FROM searchResult WHERE type=:type)")
     fun getLastSearchResult(type: String): Single<SearchResult>
 
+    @Query("SELECT search FROM searchResult WHERE type=:type")
+    fun getSearchWordList(type: String): Single<List<String>>
 }

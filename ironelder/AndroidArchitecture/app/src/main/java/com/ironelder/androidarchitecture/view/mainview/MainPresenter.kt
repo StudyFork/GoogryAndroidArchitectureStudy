@@ -6,7 +6,7 @@ import com.ironelder.androidarchitecture.data.ResultItem
 import com.ironelder.androidarchitecture.data.SearchResult
 import com.ironelder.androidarchitecture.data.TotalModel
 import com.ironelder.androidarchitecture.data.dao.SearchResultDao
-import com.ironelder.androidarchitecture.data.repository.remote.SearchRemoteDataRepositoryImpl
+import com.ironelder.androidarchitecture.data.repository.SearchDataRepositoryImpl
 import com.ironelder.androidarchitecture.view.baseview.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -19,7 +19,7 @@ class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter
     private val LOG_TAG = MainPresenter::class.java.toString()
 
     override fun searchWithAdapter(type: String, query: String?) {
-        SearchRemoteDataRepositoryImpl.getDataForSearch(type, query)
+        SearchDataRepositoryImpl.getDataForSearchToRemote(type, query)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
