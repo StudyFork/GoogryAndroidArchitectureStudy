@@ -7,7 +7,7 @@ import io.reactivex.Single
 object RemoteSearchDataSourceImpl :
     RemoteSearchDataSource {
 
-    override fun getDataForSearch(type: String, query: String?): Single<TotalModel> {
+    override fun getRemoteSearchData(type: String, query: String?): Single<TotalModel> {
         return RetrofitForNaver.searchApi.requestSearchForNaverWithAdapter(type, query)
     }
 

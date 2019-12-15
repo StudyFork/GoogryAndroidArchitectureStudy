@@ -4,9 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.google.gson.Gson
 import com.ironelder.androidarchitecture.data.ResultItem
-import com.ironelder.androidarchitecture.data.SearchResult
 import com.ironelder.androidarchitecture.data.TotalModel
-import com.ironelder.androidarchitecture.data.dao.SearchResultDao
 import com.ironelder.androidarchitecture.data.repository.SearchDataRepositoryImpl
 import com.ironelder.androidarchitecture.view.baseview.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -46,20 +44,14 @@ class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter
     }
 
     override fun setSearchResultToRoom(
-        searchResultDao: SearchResultDao?,
+        context: Context,
         type: String,
         searchWord: String,
         items: ArrayList<ResultItem>
     ) {
+
         CoroutineScope(Dispatchers.IO).launch {
-            searchResultDao?.insertSearchResult(
-                SearchResult(
-                    null,
-                    type,
-                    searchWord,
-                    Gson().toJson(items)
-                )
-            )
+            SearchDataRepositoryImpl.setLocalSearchData(context, type, searchWord, items)
         }
     }
 

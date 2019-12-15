@@ -6,6 +6,11 @@ import io.reactivex.Single
 
 interface LocalSearchDataSource {
 
-    fun getLocalDataForSearch(context: Context, type: String): Single<SearchResult>?
+    fun getLocalSearchData(context: Context, type: String): Single<SearchResult>?
+
+    fun setLocalSearchData(
+        context: Context,
+        searchResult: SearchResult
+    )
 
 }

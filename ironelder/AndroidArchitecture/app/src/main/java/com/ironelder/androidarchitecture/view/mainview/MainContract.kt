@@ -2,7 +2,6 @@ package com.ironelder.androidarchitecture.view.mainview
 
 import android.content.Context
 import com.ironelder.androidarchitecture.data.ResultItem
-import com.ironelder.androidarchitecture.data.dao.SearchResultDao
 import com.ironelder.androidarchitecture.view.baseview.BaseContract
 
 interface MainContract {
@@ -24,7 +23,7 @@ interface MainContract {
         )
 
         fun setSearchResultToRoom(
-            searchResultDao: SearchResultDao?,
+            context: Context,
             type: String,
             searchWord: String,
             items: ArrayList<ResultItem>

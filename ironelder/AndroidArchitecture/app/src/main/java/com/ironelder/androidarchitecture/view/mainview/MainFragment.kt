@@ -15,7 +15,6 @@ import com.ironelder.androidarchitecture.common.BLOG
 import com.ironelder.androidarchitecture.common.TYPE_KEY
 import com.ironelder.androidarchitecture.component.CustomListViewAdapter
 import com.ironelder.androidarchitecture.data.ResultItem
-import com.ironelder.androidarchitecture.data.database.SearchResultDatabase
 import com.ironelder.androidarchitecture.view.baseview.BaseFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.layout_search_listview.*
@@ -41,9 +40,10 @@ class MainFragment :
     override fun onDataChanged(result: ArrayList<ResultItem>) {
         (rv_resultListView?.adapter as? CustomListViewAdapter)?.setItemList(result)
         presenter.setSearchResultToRoom(
-            SearchResultDatabase.getInstance(
-                context?.applicationContext ?: (this.activity as Context).applicationContext
-            )?.SearchResultDao(), mType ?: BLOG, mSearchWord ?: "", result
+            context?.applicationContext ?: (this.activity as Context).applicationContext,
+            mType ?: BLOG,
+            mSearchWord ?: "",
+            result
         )
     }
 

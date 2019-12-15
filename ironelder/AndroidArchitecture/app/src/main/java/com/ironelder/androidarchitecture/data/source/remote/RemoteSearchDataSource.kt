@@ -5,6 +5,6 @@ import io.reactivex.Single
 
 interface RemoteSearchDataSource {
 
-    fun getDataForSearch(type: String, query: String?): Single<TotalModel>
+    fun getRemoteSearchData(type: String, query: String?): Single<TotalModel>
 
 }
