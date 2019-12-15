@@ -1,12 +1,11 @@
 package com.example.studyapplication.main.blog.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studyapplication.R
-import com.example.studyapplication.vo.BlogList
+import com.example.studyapplication.data.model.BlogList
 import kotlinx.android.synthetic.main.item_blog.view.*
 
 class BlogAdapter(var arrBlogInfo : Array<BlogList.BlogInfo>) : RecyclerView.Adapter<BlogHolder>() {

@@ -1,12 +1,11 @@
 package com.example.studyapplication.main.kin.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studyapplication.R
-import com.example.studyapplication.vo.KinList
+import com.example.studyapplication.data.model.KinList
 import kotlinx.android.synthetic.main.item_kin.view.*
 
 class KinAdapter(var arrKinInfo : Array<KinList.KinInfo>) : RecyclerView.Adapter<KinHolder>() {

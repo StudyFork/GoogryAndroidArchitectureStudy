@@ -12,9 +12,8 @@ import com.example.studyapplication.main.kin.adapter.KinAdapter
 import com.example.studyapplication.network.ApiClient
 import com.example.studyapplication.network.IConn
 import com.example.studyapplication.network.Remote
-import com.example.studyapplication.vo.KinList
+import com.example.studyapplication.data.model.KinList
 import kotlinx.android.synthetic.main.fragment_kin.*
-import kotlinx.android.synthetic.main.fragment_kin.view.*
 
 class KinFragment  : Fragment() {
     lateinit var mContext : Context

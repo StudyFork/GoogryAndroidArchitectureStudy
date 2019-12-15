@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.studyapplication.R
-import com.example.studyapplication.vo.ImageList
+import com.example.studyapplication.data.model.ImageList
 import kotlinx.android.synthetic.main.item_blog.view.tvTitle
 import kotlinx.android.synthetic.main.item_image.view.*
 

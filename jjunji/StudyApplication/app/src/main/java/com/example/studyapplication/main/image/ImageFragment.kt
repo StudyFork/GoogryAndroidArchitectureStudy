@@ -12,9 +12,8 @@ import com.example.studyapplication.main.image.adapter.ImageAdapter
 import com.example.studyapplication.network.ApiClient
 import com.example.studyapplication.network.IConn
 import com.example.studyapplication.network.Remote
-import com.example.studyapplication.vo.ImageList
+import com.example.studyapplication.data.model.ImageList
 import kotlinx.android.synthetic.main.fragment_image.*
-import kotlinx.android.synthetic.main.fragment_movie.view.*
 
 class ImageFragment : Fragment() {
     lateinit var mContext : Context

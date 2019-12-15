@@ -12,9 +12,8 @@ import com.example.studyapplication.main.movie.adapter.MovieAdapter
 import com.example.studyapplication.network.ApiClient
 import com.example.studyapplication.network.IConn
 import com.example.studyapplication.network.Remote
-import com.example.studyapplication.vo.MovieList
+import com.example.studyapplication.data.model.MovieList
 import kotlinx.android.synthetic.main.fragment_movie.*
-import kotlinx.android.synthetic.main.fragment_movie.view.*
 
 class MovieFragment : Fragment() {
     lateinit var mContext : Context

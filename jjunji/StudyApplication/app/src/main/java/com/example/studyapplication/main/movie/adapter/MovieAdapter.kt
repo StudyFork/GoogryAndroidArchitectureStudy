@@ -1,6 +1,5 @@
 package com.example.studyapplication.main.movie.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.studyapplication.R
-import com.example.studyapplication.vo.MovieList
+import com.example.studyapplication.data.model.MovieList
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter(var arrMovieInfo : Array<MovieList.MovieInfo>) : RecyclerView.Adapter<MovieHolder>() {
