@@ -12,7 +12,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private val fragmentManager : FragmentManager = supportFragmentManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,14 +23,14 @@ class MainActivity : AppCompatActivity() {
 
     // 영화 검색 화면 노출
     private fun showMovieFragment() {
-        fragmentManager.beginTransaction()
+        supportFragmentManager.beginTransaction()
             .add(R.id.frameLayout, MovieFragment.newInstance())
             .commitAllowingStateLoss()
     }
 
     // 화면 교체
     private fun replaceFragment(fragment : Fragment) {
-        fragmentManager.beginTransaction()
+        supportFragmentManager.beginTransaction()
             .replace(R.id.frameLayout, fragment)
             .commitAllowingStateLoss()
     }

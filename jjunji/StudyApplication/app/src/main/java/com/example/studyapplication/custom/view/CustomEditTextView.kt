@@ -6,45 +6,28 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.Log
-import android.view.MotionEvent
 import android.view.View
-import android.view.View.OnTouchListener
 import android.widget.EditText
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.example.studyapplication.R
 
-class CustomEditTextView : EditText, View.OnFocusChangeListener {
-    private var clearDrawable : Drawable
+class CustomEditTextView
+@JvmOverloads
+constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    EditText(context, attrs, defStyleAttr), View.OnFocusChangeListener {
 
-    constructor(context: Context) : super(context)
-    constructor(context : Context, attrs : AttributeSet) : super(context, attrs)
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr : Int) : super(context, attrs, defStyleAttr)
+    private var clearDrawable : Drawable
 
     init {
         this.setBackgroundResource(R.drawable.border)
         this.addTextChangedListener(textWatcher())
-//        this.setOnTouchListener(touchListener())
         this.onFocusChangeListener = this
 
         val tempDrawable : Drawable = ContextCompat.getDrawable(context, R.drawable.ic_clear)!!
         clearDrawable = DrawableCompat.wrap(tempDrawable)
         DrawableCompat.setTintList(clearDrawable, hintTextColors)
         clearDrawable.setBounds(0, 0, clearDrawable.intrinsicWidth, clearDrawable.intrinsicHeight)
-    }
-
-    private fun touchListener() : OnTouchListener {
-        return OnTouchListener { _, event ->
-            val x = event.x
-
-            if (clearDrawable.isVisible && x > width - paddingRight - clearDrawable.intrinsicWidth) {
-                if (event.action == MotionEvent.ACTION_UP) {
-                    error = null
-                    text = null
-                }
-            }
-            true
-        }
     }
 
     private fun textWatcher() : TextWatcher {
