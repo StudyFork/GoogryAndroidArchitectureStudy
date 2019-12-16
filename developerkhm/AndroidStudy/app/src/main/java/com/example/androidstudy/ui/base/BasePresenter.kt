@@ -1,4 +1,7 @@
 package com.example.androidstudy.ui.base
 
-class BasePresenter {
+class BasePresenter(view : BaseContract.View) : BaseContract.Presenter {
+    override fun search(type: String, query: String?) {
+
+    }
 }
