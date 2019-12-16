@@ -10,7 +10,7 @@ interface BaseContract {
         fun showNoSearchData()
         fun showLoading()
         fun hideLoading()
-        fun hideKeyboard(view: View)
+        fun hideKeyboard(view: android.view.View)
     }
 
     interface Presenter {

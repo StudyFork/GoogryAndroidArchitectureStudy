@@ -52,9 +52,9 @@ open class BaseFragment(var layoutId: Int) : Fragment(), BaseContract.View {
 
     }
 
-    override fun hideKeyboard(view: BaseContract.View) {
+    override fun hideKeyboard(view: View) {
         val inputMethodManager =
             activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(v.applicationWindowToken, 0)
+        inputMethodManager.hideSoftInputFromWindow(view.applicationWindowToken, 0)
     }
 }
