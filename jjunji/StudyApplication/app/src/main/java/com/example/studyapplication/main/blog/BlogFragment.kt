@@ -1,6 +1,5 @@
 package com.example.studyapplication.main.blog
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,20 +13,10 @@ import com.example.studyapplication.network.IConn
 import com.example.studyapplication.network.Remote
 import com.example.studyapplication.vo.BlogList
 import kotlinx.android.synthetic.main.fragment_blog.*
-import kotlinx.android.synthetic.main.fragment_blog.view.*
 
 class BlogFragment : Fragment() {
-    lateinit var mContext : Context
-
-    companion object {
-        fun newInstance() : BlogFragment {
-            return BlogFragment()
-        }
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view : View = inflater.inflate(R.layout.fragment_blog, container, false)
-        mContext = view.context
 
         return view
     }
@@ -64,6 +53,11 @@ class BlogFragment : Fragment() {
     // recyclerView 세팅
     private fun setAdapter(response : BlogList) {
         recyclerView.adapter = BlogAdapter(response.arrBlogInfo)
-        recyclerView.layoutManager = LinearLayoutManager(mContext)
+    }
+
+    companion object {
+        fun newInstance() : BlogFragment {
+            return BlogFragment()
+        }
     }
 }

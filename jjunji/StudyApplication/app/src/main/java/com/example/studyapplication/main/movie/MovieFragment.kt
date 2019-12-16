@@ -1,6 +1,5 @@
 package com.example.studyapplication.main.movie
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,22 +13,10 @@ import com.example.studyapplication.network.IConn
 import com.example.studyapplication.network.Remote
 import com.example.studyapplication.vo.MovieList
 import kotlinx.android.synthetic.main.fragment_movie.*
-import kotlinx.android.synthetic.main.fragment_movie.view.*
 
 class MovieFragment : Fragment() {
-    lateinit var mContext : Context
-
-    companion object {
-        fun newInstance() : MovieFragment {
-            return MovieFragment()
-        }
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_movie, container, false)
-        mContext = view.context
-
-        return view
+        return inflater.inflate(R.layout.fragment_movie, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -63,6 +50,11 @@ class MovieFragment : Fragment() {
     // recyclerView 세팅
     private fun setAdapter(response : MovieList) {
         recyclerView.adapter = MovieAdapter(response.arrMovieInfo)
-        recyclerView.layoutManager = LinearLayoutManager(mContext)
+    }
+
+    companion object {
+        fun newInstance() : MovieFragment {
+            return MovieFragment()
+        }
     }
 }
