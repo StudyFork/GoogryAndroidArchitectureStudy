@@ -1,6 +1,6 @@
 package com.example.studyapplication.network
 
-interface IConn {
+interface Conn {
     fun <T> success(result : T)
     fun failed()
 }

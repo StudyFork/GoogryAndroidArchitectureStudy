@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.studyapplication.R
 import com.example.studyapplication.main.image.adapter.ImageAdapter
 import com.example.studyapplication.network.ApiClient
-import com.example.studyapplication.network.IConn
+import com.example.studyapplication.network.Conn
 import com.example.studyapplication.network.Remote
 import com.example.studyapplication.vo.ImageList
 import kotlinx.android.synthetic.main.fragment_image.*
@@ -34,7 +34,7 @@ class ImageFragment : Fragment() {
 
     // 이미지 검색 요청
     private fun requestSearchBlog(title : String) {
-        Remote.get(ApiClient.getService().getImageList(title), object : IConn {
+        Remote.get(ApiClient.getService().getImageList(title), object : Conn {
             override fun <T> success(result: T) {
                 val imageList : ImageList? = result as ImageList
                 imageList?.let {
