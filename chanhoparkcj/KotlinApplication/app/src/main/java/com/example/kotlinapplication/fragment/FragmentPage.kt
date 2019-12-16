@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplication.R
@@ -19,6 +20,8 @@ import com.example.kotlinapplication.adapter.ListImageAdapter
 import com.example.kotlinapplication.adapter.ListKinAdapter
 import com.example.kotlinapplication.adapter.ListMovieAdapter
 import com.example.kotlinapplication.model.*
+import com.example.kotlinapplication.model.repository.DataRepository
+import com.example.kotlinapplication.model.repository.DataRepositoryImpl
 import com.example.kotlinapplication.network.RetrofitClient
 import com.example.kotlinapplication.network.RetrofitService
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
@@ -28,13 +31,12 @@ import kotlinx.android.synthetic.main.fragment_page.*
 
 class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter.ItemListener,
     ListBlogAdapter.ItemListener, ListKinAdapter.ItemListener {
-    private var service: RetrofitService? = null
     private var movieAdapter: ListMovieAdapter? = null
     private var blogAdapter: ListBlogAdapter? = null
     private var imageAdapter: ListImageAdapter? = null
     private var kinAdapter: ListKinAdapter? = null
-
     private var type: String? = null
+    private lateinit var dataRepository:DataRepositoryImpl
 
     companion object {
         fun newInstance(message: String): FragmentPage {
@@ -57,23 +59,19 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         start()
         setUpBuuttonClickListener()
+        viewModelListener()
     }
 
     private fun start() {
-        service = RetrofitClient.client.create(RetrofitService::class.java)
+        dataRepository = DataRepositoryImpl()
         type = arguments?.getString(EXTRA_MESSAGE)
         home_search_btn.text = type + " 검색"
-
         imageAdapter = ListImageAdapter(this)
         movieAdapter = ListMovieAdapter(this)
         blogAdapter = ListBlogAdapter(this)
         kinAdapter = ListKinAdapter(this)
-
-
     }
 
 
@@ -95,73 +93,45 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
 
     private fun loadMovieData(type: String?, query: String) {
         when (type) {
-            "영화" -> service!!.getMovieCall(query)
-                .observeOn(mainThread())
-                .subscribeOn(io())
-                .subscribe(this::handleResponseMovie, this::handleError)
-            "이미지" -> service!!.getImageCall(query)
-                .observeOn(mainThread())
-                .subscribeOn(io())
-                .subscribe(this::handleResponseImage, this::handleError)
-            "블로그" -> service!!.getBlogCall(query)
-                .observeOn(mainThread())
-                .subscribeOn(io())
-                .subscribe(this::handleResponseBlog, this::handleError)
-            "지식인" -> service!!.getKinCall(query)
-                .observeOn(mainThread())
-                .subscribeOn(io())
-                .subscribe(this::handleResponseKin, this::handleError)
+            "영화" -> dataRepository.remote.getMovieCall(query)
+            "이미지" -> dataRepository.remote.getImageCall(query)
+            "블로그" -> dataRepository.remote.getBlogCall(query)
+            "지식인" -> dataRepository.remote.getKinCall(query)
             else -> {
                 Log.d("Error", "error")
             }
         }
 
     }
-
-    private fun handleResponseMovie(res: ResponseItems<MovieItems>) {
-        movieAdapter?.addAllItems(res.items)
-        with(home_recyclerview) {
-            layoutManager = LinearLayoutManager(
-                activity, RecyclerView.VERTICAL, false
-            )
-            adapter = movieAdapter
-        }
-
-    }
-
-    private fun handleResponseImage(res: ResponseItems<ImageItems>) {
-        imageAdapter?.addAllItems(res.items)
-        with(home_recyclerview) {
-            layoutManager = LinearLayoutManager(
-                activity, RecyclerView.VERTICAL, false
-            )
-            adapter = imageAdapter
-        }
-    }
-
-    private fun handleResponseBlog(res: ResponseItems<BlogItems>) {
-        blogAdapter?.addAllItems(res.items)
-        with(home_recyclerview) {
-            layoutManager = LinearLayoutManager(
-                activity, RecyclerView.VERTICAL, false
-            )
-            adapter = blogAdapter
-        }
-    }
-
-    private fun handleResponseKin(res: ResponseItems<KinItems>) {
-        kinAdapter?.addAllItems(res.items)
-        with(home_recyclerview) {
-            layoutManager = LinearLayoutManager(
-                activity, RecyclerView.VERTICAL, false
-            )
-            adapter = kinAdapter
-        }
-    }
-
-
-    private fun handleError(error: Throwable) {
-        Log.d(TAG, "Error ${error.localizedMessage}")
+    private fun viewModelListener(){
+        dataRepository.remote.movieList.observe(this, Observer {
+            movieAdapter?.addAllItems(it)
+            with(home_recyclerview){
+                layoutManager = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
+                adapter = movieAdapter
+            }
+        })
+        dataRepository.remote.imageList.observe(this, Observer {
+            imageAdapter?.addAllItems(it)
+            with(home_recyclerview){
+                layoutManager = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
+                adapter = imageAdapter
+            }
+        })
+        dataRepository.remote.blogList.observe(this, Observer {
+            blogAdapter?.addAllItems(it)
+            with(home_recyclerview){
+                layoutManager = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
+                adapter = blogAdapter
+            }
+        })
+        dataRepository.remote.kinList.observe(this, Observer {
+            kinAdapter?.addAllItems(it)
+            with(home_recyclerview){
+                layoutManager = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
+                adapter = kinAdapter
+            }
+        })
     }
 
     override fun onMovieItemClick(movieItems: MovieItems) {

@@ -18,5 +18,4 @@ interface RetrofitService {
 
     @GET("v1/search/kin.json")
     fun getKinCall(@Query("query") query: String): Single<ResponseItems<KinItems>>
-
 }
