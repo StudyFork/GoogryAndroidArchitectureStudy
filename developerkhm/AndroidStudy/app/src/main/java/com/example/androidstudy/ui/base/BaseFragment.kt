@@ -6,15 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.androidstudy.api.data.Item
+import com.ironelder.androidarchitecture.view.AdapterSearch
+import kotlinx.android.synthetic.main.layout_search_view.*
 
 
 open class BaseFragment(var layoutId: Int) : Fragment(), BaseContract.View {
 
     protected val typeArray = arrayOf("blog", "news", "movie", "book")
 
-    protected lateinit var basePresenter : BasePresenter
+    protected lateinit var basePresenter: BasePresenter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,11 +32,12 @@ open class BaseFragment(var layoutId: Int) : Fragment(), BaseContract.View {
 
 
     override fun onDataChanged(result: ArrayList<Item>) {
-
+        (resultRecyclerView?.adapter as AdapterSearch).setItemList(result)
     }
 
     override fun showErrorMessage(msg: String?) {
-
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT)
+            .show()
     }
 
     override fun showNoSearchData() {
