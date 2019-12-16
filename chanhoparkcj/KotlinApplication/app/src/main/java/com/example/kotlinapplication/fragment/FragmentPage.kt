@@ -1,6 +1,5 @@
 package com.example.kotlinapplication.fragment
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -19,13 +18,11 @@ import com.example.kotlinapplication.adapter.ListBlogAdapter
 import com.example.kotlinapplication.adapter.ListImageAdapter
 import com.example.kotlinapplication.adapter.ListKinAdapter
 import com.example.kotlinapplication.adapter.ListMovieAdapter
-import com.example.kotlinapplication.model.*
-import com.example.kotlinapplication.model.repository.DataRepository
+import com.example.kotlinapplication.model.BlogItems
+import com.example.kotlinapplication.model.ImageItems
+import com.example.kotlinapplication.model.KinItems
+import com.example.kotlinapplication.model.MovieItems
 import com.example.kotlinapplication.model.repository.DataRepositoryImpl
-import com.example.kotlinapplication.network.RetrofitClient
-import com.example.kotlinapplication.network.RetrofitService
-import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
-import io.reactivex.schedulers.Schedulers.io
 import kotlinx.android.synthetic.main.fragment_page.*
 
 
@@ -36,7 +33,7 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
     private var imageAdapter: ListImageAdapter? = null
     private var kinAdapter: ListKinAdapter? = null
     private var type: String? = null
-    private lateinit var dataRepository:DataRepositoryImpl
+    private lateinit var dataRepository: DataRepositoryImpl
 
     companion object {
         fun newInstance(message: String): FragmentPage {
@@ -103,32 +100,33 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
         }
 
     }
-    private fun viewModelListener(){
+
+    private fun viewModelListener() {
         dataRepository.remote.movieList.observe(this, Observer {
             movieAdapter?.addAllItems(it)
-            with(home_recyclerview){
-                layoutManager = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
+            with(home_recyclerview) {
+                layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
                 adapter = movieAdapter
             }
         })
         dataRepository.remote.imageList.observe(this, Observer {
             imageAdapter?.addAllItems(it)
-            with(home_recyclerview){
-                layoutManager = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
+            with(home_recyclerview) {
+                layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
                 adapter = imageAdapter
             }
         })
         dataRepository.remote.blogList.observe(this, Observer {
             blogAdapter?.addAllItems(it)
-            with(home_recyclerview){
-                layoutManager = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
+            with(home_recyclerview) {
+                layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
                 adapter = blogAdapter
             }
         })
         dataRepository.remote.kinList.observe(this, Observer {
             kinAdapter?.addAllItems(it)
-            with(home_recyclerview){
-                layoutManager = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
+            with(home_recyclerview) {
+                layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
                 adapter = kinAdapter
             }
         })

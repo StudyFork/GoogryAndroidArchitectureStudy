@@ -13,7 +13,7 @@ class ListKinAdapter(
 ) :
     RecyclerView.Adapter<KinViewHolder>() {
 
-    private val items= arrayListOf<KinItems>()
+    private val items = arrayListOf<KinItems>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KinViewHolder {
         return KinViewHolder(
