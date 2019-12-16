@@ -4,7 +4,7 @@ import com.example.androidstudy.model.repository.NaverDataRepositoryImpl
 
 class BasePresenter(val view : BaseContract.View) : BaseContract.Presenter {
 
-    override fun search(type: String, query: String?) {
+    override fun search(query: String?, type: String) {
             NaverDataRepositoryImpl.getNaverSearchData(
                 type,
                 query!!,

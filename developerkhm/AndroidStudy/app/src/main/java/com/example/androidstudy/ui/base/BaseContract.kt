@@ -14,8 +14,8 @@ interface BaseContract {
 
     interface Presenter {
         fun search(
-            type: String,
-            query: String?
+            query: String?,
+            type: String
         )
     }
 }

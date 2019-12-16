@@ -45,4 +45,5 @@ open class BaseFragment(var layoutId: Int) : Fragment(), BaseContract.View {
     override fun hideLoading() {
 
     }
+
 }
