@@ -13,25 +13,18 @@ import java.util.concurrent.TimeUnit
 
 object ApiClient {
     private const val BASE_URL = "https://openapi.naver.com/"
-    private var retrofit: Retrofit? = null
+    private val retrofit by lazy { getClient() }
 
     fun getService(): Service {
-        return getClient()!!.create(Service::class.java)
+        return retrofit!!.create(Service::class.java)
     }
 
     private fun getClient(): Retrofit? {
-        if (retrofit == null) {
-            synchronized(this) {
-                if (retrofit == null) {
-                    retrofit = Retrofit.Builder()
-                        .baseUrl(BASE_URL)
-                        .client(okHttpClient())
-                        .addConverterFactory(GsonConverterFactory.create(gson()))
-                        .build()
-                }
-            }
-        }
-        return retrofit
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(okHttpClient())
+            .addConverterFactory(GsonConverterFactory.create(gson()))
+            .build()
     }
 
     private fun gson(): Gson {
