@@ -14,16 +14,18 @@ import com.example.studyapplication.vo.BlogList
 import kotlinx.android.synthetic.main.fragment_blog.*
 
 class BlogFragment : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view : View = inflater.inflate(R.layout.fragment_blog, container, false)
+    lateinit var blogAdapter: BlogAdapter
 
-        return view
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_blog, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         btnSearch.setOnClickListener(btnSearchClickListener())
+        blogAdapter = BlogAdapter()
+        recyclerView.adapter = blogAdapter
     }
 
     // 검색 버튼 클릭 리스너
@@ -40,18 +42,13 @@ class BlogFragment : Fragment() {
             override fun <T> success(result: T) {
                 val blogList : BlogList? = result as BlogList
                 blogList?.let {
-                    setAdapter(it)
+                    blogAdapter.addItem(blogList.arrBlogInfo)
                 }
             }
 
             override fun failed() {
             }
         })
-    }
-
-    // recyclerView 세팅
-    private fun setAdapter(response : BlogList) {
-        recyclerView.adapter = BlogAdapter(response.arrBlogInfo)
     }
 
     companion object {

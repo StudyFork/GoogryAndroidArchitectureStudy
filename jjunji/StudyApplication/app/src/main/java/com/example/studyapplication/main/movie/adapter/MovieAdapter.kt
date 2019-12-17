@@ -1,6 +1,5 @@
 package com.example.studyapplication.main.movie.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +8,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.studyapplication.R
 import com.example.studyapplication.vo.MovieList
-import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieAdapter(var arrMovieInfo : Array<MovieList.MovieInfo>) : RecyclerView.Adapter<MovieHolder>() {
+class MovieAdapter : RecyclerView.Adapter<MovieHolder>() {
+    private var arrMovieInfo : MutableList<MovieList.MovieInfo> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -21,16 +20,26 @@ class MovieAdapter(var arrMovieInfo : Array<MovieList.MovieInfo>) : RecyclerView
     }
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
-        holder.itemView.tvTitle.text = arrMovieInfo[position].title
-        holder.itemView.tvDirector.text = arrMovieInfo[position].director
-        holder.itemView.tvActor.text = arrMovieInfo[position].actor
+        arrMovieInfo[position].let {
+            with(holder) {
+                tvTitle.text = it.title
+                tvDirector.text = it.director
+                tvActor.text = it.actor
 
-        Glide.with(holder.itemView).load(arrMovieInfo[position].image)
-            .apply(RequestOptions.centerCropTransform())
-            .into(holder.itemView.ivImage)
+                Glide.with(holder.itemView).load(it.image)
+                    .apply(RequestOptions.centerCropTransform())
+                    .into(ivImage)
+            }
+        }
     }
 
     override fun getItemCount(): Int {
         return arrMovieInfo.size
+    }
+
+    fun addItem(items: Array<MovieList.MovieInfo>) {
+        arrMovieInfo.clear()
+        arrMovieInfo.addAll(items)
+        notifyDataSetChanged()
     }
 }

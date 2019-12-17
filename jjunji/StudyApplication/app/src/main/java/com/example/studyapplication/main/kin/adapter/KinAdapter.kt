@@ -1,15 +1,14 @@
 package com.example.studyapplication.main.kin.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studyapplication.R
 import com.example.studyapplication.vo.KinList
-import kotlinx.android.synthetic.main.item_kin.view.*
 
-class KinAdapter(var arrKinInfo : Array<KinList.KinInfo>) : RecyclerView.Adapter<KinHolder>() {
+class KinAdapter : RecyclerView.Adapter<KinHolder>() {
+    private var arrKinInfo : MutableList<KinList.KinInfo> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KinHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -19,12 +18,21 @@ class KinAdapter(var arrKinInfo : Array<KinList.KinInfo>) : RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(holder: KinHolder, position: Int) {
-        holder.itemView.tvTitle.text = arrKinInfo[position].title
-        holder.itemView.tvDescription.text = arrKinInfo[position].description
+        arrKinInfo[position].let {
+            with(holder) {
+                tvTitle.text = it.title
+                tvDescription.text = it.description
+            }
+        }
     }
 
     override fun getItemCount(): Int {
         return arrKinInfo.size
     }
 
+    fun addItem(items: Array<KinList.KinInfo>) {
+        arrKinInfo.clear()
+        arrKinInfo.addAll(items)
+        notifyDataSetChanged()
+    }
 }

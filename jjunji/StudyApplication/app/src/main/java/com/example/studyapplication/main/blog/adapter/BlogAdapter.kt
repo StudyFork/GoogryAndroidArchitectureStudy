@@ -1,15 +1,14 @@
 package com.example.studyapplication.main.blog.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studyapplication.R
 import com.example.studyapplication.vo.BlogList
-import kotlinx.android.synthetic.main.item_blog.view.*
 
-class BlogAdapter(var arrBlogInfo : Array<BlogList.BlogInfo>) : RecyclerView.Adapter<BlogHolder>() {
+class BlogAdapter : RecyclerView.Adapter<BlogHolder>() {
+    private var arrBlogInfo : MutableList<BlogList.BlogInfo> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -19,12 +18,22 @@ class BlogAdapter(var arrBlogInfo : Array<BlogList.BlogInfo>) : RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holder: BlogHolder, position: Int) {
-        holder.itemView.tvTitle.text = arrBlogInfo[position].title
-        holder.itemView.tvDescription.text = arrBlogInfo[position].description
-        holder.itemView.tvBloggername.text = arrBlogInfo[position].bloggername
+        arrBlogInfo[position].let { item ->
+            with(holder) {
+                tvTitle.text = item.title
+                tvDescription.text = item.description
+                tvBloggername.text = item.bloggername
+            }
+        }
     }
 
     override fun getItemCount(): Int {
         return arrBlogInfo.size
+    }
+
+    fun addItem(items: Array<BlogList.BlogInfo>) {
+        arrBlogInfo.clear()
+        arrBlogInfo.addAll(items)
+        notifyDataSetChanged()
     }
 }

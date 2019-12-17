@@ -14,6 +14,8 @@ import com.example.studyapplication.vo.KinList
 import kotlinx.android.synthetic.main.fragment_kin.*
 
 class KinFragment  : Fragment() {
+    lateinit var kinAdapter: KinAdapter
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_kin, container, false)
     }
@@ -21,6 +23,8 @@ class KinFragment  : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         btnSearch.setOnClickListener(btnSearchClickListener())
+        kinAdapter = KinAdapter()
+        recyclerView.adapter = kinAdapter
     }
 
     // 검색 버튼 클릭 리스너
@@ -37,18 +41,13 @@ class KinFragment  : Fragment() {
             override fun <T> success(result: T) {
                 val kinList : KinList? = result as KinList
                 kinList?.let {
-                    setAdapter(it)
+                    kinAdapter.addItem(kinList.arrKinInfo)
                 }
             }
 
             override fun failed() {
             }
         })
-    }
-
-    // recyclerView 세팅
-    private fun setAdapter(response : KinList) {
-        recyclerView.adapter = KinAdapter(response.arrKinInfo)
     }
 
     companion object {

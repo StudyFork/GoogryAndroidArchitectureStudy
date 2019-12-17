@@ -14,6 +14,8 @@ import com.example.studyapplication.vo.MovieList
 import kotlinx.android.synthetic.main.fragment_movie.*
 
 class MovieFragment : Fragment() {
+    lateinit var movieAdapter : MovieAdapter
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_movie, container, false)
     }
@@ -21,6 +23,8 @@ class MovieFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         btnSearch.setOnClickListener(btnSearchClickListener())
+        movieAdapter = MovieAdapter()
+        recyclerView.adapter = movieAdapter
     }
 
     // 검색 버튼 클릭 리스너
@@ -37,18 +41,13 @@ class MovieFragment : Fragment() {
             override fun <T> success(result: T) {
                 val movieList : MovieList? = result as MovieList
                 movieList?.let {
-                    setAdapter(it)
+                    movieAdapter.addItem(movieList.arrMovieInfo)
                 }
             }
 
             override fun failed() {
             }
         })
-    }
-
-    // recyclerView 세팅
-    private fun setAdapter(response : MovieList) {
-        recyclerView.adapter = MovieAdapter(response.arrMovieInfo)
     }
 
     companion object {

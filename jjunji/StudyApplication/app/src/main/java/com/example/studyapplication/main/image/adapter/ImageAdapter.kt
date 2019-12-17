@@ -8,10 +8,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.studyapplication.R
 import com.example.studyapplication.vo.ImageList
-import kotlinx.android.synthetic.main.item_blog.view.tvTitle
-import kotlinx.android.synthetic.main.item_image.view.*
 
-class ImageAdapter (var arrImageInfo : Array<ImageList.ImageInfo>) : RecyclerView.Adapter<ImageHolder>() {
+class ImageAdapter : RecyclerView.Adapter<ImageHolder>() {
+    private var arrImageInfo : MutableList<ImageList.ImageInfo> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -21,15 +20,23 @@ class ImageAdapter (var arrImageInfo : Array<ImageList.ImageInfo>) : RecyclerVie
     }
 
     override fun onBindViewHolder(holder: ImageHolder, position: Int) {
-        holder.itemView.tvTitle.text = arrImageInfo[position].title
-
-        Glide.with(holder.itemView).load(arrImageInfo[position].link)
-            .apply(RequestOptions.centerCropTransform())
-            .into(holder.itemView.ivImage)
+        arrImageInfo[position].let {
+            with(holder) {
+                tvTitle.text = it.title
+                Glide.with(holder.itemView).load(it.link)
+                    .apply(RequestOptions.centerCropTransform())
+                    .into(ivImage)
+            }
+        }
     }
 
     override fun getItemCount(): Int {
         return arrImageInfo.size
     }
 
+    fun addItem(items: Array<ImageList.ImageInfo>) {
+        arrImageInfo.clear()
+        arrImageInfo.addAll(items)
+        notifyDataSetChanged()
+    }
 }

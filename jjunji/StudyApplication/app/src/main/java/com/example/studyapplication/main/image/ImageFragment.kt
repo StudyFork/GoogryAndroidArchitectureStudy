@@ -14,6 +14,7 @@ import com.example.studyapplication.vo.ImageList
 import kotlinx.android.synthetic.main.fragment_image.*
 
 class ImageFragment : Fragment() {
+    lateinit var imageAdapter: ImageAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_image, container, false)
@@ -22,6 +23,8 @@ class ImageFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         btnSearch.setOnClickListener(btnSearchClickListener())
+        imageAdapter = ImageAdapter()
+        recyclerView.adapter = imageAdapter
     }
 
     // 검색 버튼 클릭 리스너
@@ -38,18 +41,13 @@ class ImageFragment : Fragment() {
             override fun <T> success(result: T) {
                 val imageList : ImageList? = result as ImageList
                 imageList?.let {
-                    setAdapter(it)
+                    imageAdapter.addItem(imageList.arrImageInfo)
                 }
             }
 
             override fun failed() {
             }
         })
-    }
-
-    // recyclerView 세팅
-    private fun setAdapter(response : ImageList) {
-        recyclerView.adapter = ImageAdapter(response.arrImageInfo)
     }
 
     companion object {
