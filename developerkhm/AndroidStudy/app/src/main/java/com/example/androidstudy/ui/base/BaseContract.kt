@@ -18,5 +18,6 @@ interface BaseContract {
             query: String?,
             type: String
         )
+        fun clearDisposable()
     }
 }
