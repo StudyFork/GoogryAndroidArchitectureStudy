@@ -1,12 +1,13 @@
 package com.test.androidarchitecture.data.source
 
+import com.test.androidarchitecture.data.Market
+import com.test.androidarchitecture.data.Ticker
+import io.reactivex.Single
 
-object UpbitRepository : UpbitRemoteDataSource {
+interface UpbitRepository {
 
-    private val upbitRemoteDataSourceImpl = UpbitRemoteDataSourceImpl
+    fun getMarketAll(): Single<List<Market>>
 
-    override fun getMarketAll() = upbitRemoteDataSourceImpl.getMarketAll()
-
-    override fun getTicker(marketSearch: String) = upbitRemoteDataSourceImpl.getTicker(marketSearch)
+    fun getTicker(marketSearch: String): Single<List<Ticker>>
 
 }

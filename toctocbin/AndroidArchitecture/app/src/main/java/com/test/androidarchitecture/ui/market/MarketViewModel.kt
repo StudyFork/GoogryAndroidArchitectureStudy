@@ -7,10 +7,12 @@ import com.test.androidarchitecture.data.MarketTitle
 import com.test.androidarchitecture.data.source.UpbitRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
+import javax.inject.Inject
 
-class MarketViewModel : BaseViewModel() {
+class MarketViewModel @Inject constructor(
+    private val upbitRepositoryImpl : UpbitRepository
+) : BaseViewModel() {
 
-    private val upbitRepository = UpbitRepository
     private val _marketTitle = MutableLiveData<List<MarketTitle>>()
     var marketTitle: LiveData<List<MarketTitle>> = _marketTitle
 
@@ -18,9 +20,8 @@ class MarketViewModel : BaseViewModel() {
         getMarketAll()
     }
 
-
-    fun getMarketAll() {
-        upbitRepository.getMarketAll()
+    private fun getMarketAll() {
+        upbitRepositoryImpl.getMarketAll()
             .map { list ->
                 list.groupBy { it.market.substringBefore("-") }
                     .asSequence()

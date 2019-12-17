@@ -9,10 +9,13 @@ import com.test.androidarchitecture.base.BaseActivity
 import com.test.androidarchitecture.databinding.ActivityMarketBinding
 
 class MarketActivity
-    : BaseActivity<ActivityMarketBinding, MarketViewModel>(R.layout.activity_market){
+    : BaseActivity<ActivityMarketBinding, MarketViewModel>(R.layout.activity_market) {
 
+    override val vm: MarketViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory)
+            .get(MarketViewModel::class.java)
+    }
     private lateinit var viewPagerAdapter: ViewPagerAdapter
-    override val vm by lazy { ViewModelProviders.of(this).get(MarketViewModel::class.java) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +29,7 @@ class MarketActivity
         setObservableCallBack()
     }
 
-    private fun setObservableCallBack(){
-        vm.marketTitle.observe(this, Observer { viewPagerAdapter.setData(it)  })
+    private fun setObservableCallBack() {
+        vm.marketTitle.observe(this, Observer { viewPagerAdapter.setData(it) })
     }
 }

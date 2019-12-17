@@ -12,19 +12,23 @@ import io.reactivex.rxkotlin.addTo
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
+import javax.inject.Inject
 
-class TickerViewModel(private val marketSearch: String) : BaseViewModel() {
+class TickerViewModel @Inject constructor(
+    private val upbitRepositoryImpl: UpbitRepository
+    ) : BaseViewModel() {
 
-    private val upbitRepository = UpbitRepository
     private val _tickerList = MutableLiveData<List<TickerFormat>>()
     val tickerList : LiveData<List<TickerFormat>> = _tickerList
+    private var marketSearch: String = ""
 
-    init {
+    fun start(marketSearch: String){
+        this.marketSearch = marketSearch
         getTicker()
     }
 
-    fun getTicker() {
-        upbitRepository.getTicker(marketSearch)
+    private fun getTicker() {
+        upbitRepositoryImpl.getTicker(marketSearch)
             .map { list ->
                 list.asSequence()
                     .map { getCoinFormat(it) }
