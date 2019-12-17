@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.util.hideKeyboard
-import kotlinx.android.synthetic.main.view_search.*
 import kotlinx.android.synthetic.main.view_search.view.*
 
 class NaverSearchBarView @JvmOverloads constructor(
@@ -31,7 +30,11 @@ class NaverSearchBarView @JvmOverloads constructor(
             }
             val keyword = search_editor.text.toString().trim()
             if (keyword.isBlank()) {
-                Toast.makeText(context, context.getString(R.string.warn_input_keyword), Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.warn_input_keyword),
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             } else {
                 hideKeyboard()

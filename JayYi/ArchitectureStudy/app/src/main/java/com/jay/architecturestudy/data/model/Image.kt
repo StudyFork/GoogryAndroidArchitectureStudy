@@ -1,4 +1,4 @@
-package com.jay.architecturestudy.model
+package com.jay.architecturestudy.data.model
 
 import com.google.gson.annotations.SerializedName
 
@@ -10,4 +10,8 @@ data class Image(
     val sizeWidth: String,
     val thumbnail: String,
     val title: String
+)
+
+data class ResponseImage(
+    val images: List<Image>
 )

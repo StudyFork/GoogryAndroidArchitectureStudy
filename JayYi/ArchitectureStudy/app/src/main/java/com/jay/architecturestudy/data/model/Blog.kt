@@ -1,4 +1,4 @@
-package com.jay.architecturestudy.model
+package com.jay.architecturestudy.data.model
 
 import com.google.gson.annotations.SerializedName
 
@@ -11,4 +11,8 @@ data class Blog(
     val link: String,
     val postdate: String,
     val title: String
+)
+
+data class ResponseBlog(
+    val blogs: List<Blog>
 )

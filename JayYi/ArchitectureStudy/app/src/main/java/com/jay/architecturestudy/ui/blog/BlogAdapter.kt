@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
 import com.jay.architecturestudy.R
-import com.jay.architecturestudy.model.Blog
+import com.jay.architecturestudy.data.model.Blog
 import com.jay.architecturestudy.ui.BaseAdapter
 import com.jay.architecturestudy.ui.BaseViewHolder
 import com.jay.architecturestudy.util.startWebView
@@ -15,7 +15,8 @@ import kotlinx.android.synthetic.main.list_item_blog.view.*
 internal class BlogAdapter : BaseAdapter<Blog, BlogHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_blog, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.list_item_blog, parent, false)
         return BlogHolder(view)
     }
 

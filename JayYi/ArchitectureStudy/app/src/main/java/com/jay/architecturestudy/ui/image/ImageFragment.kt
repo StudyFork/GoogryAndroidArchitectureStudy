@@ -2,11 +2,10 @@ package com.jay.architecturestudy.ui.image
 
 import android.os.Bundle
 import android.util.Log
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.jay.architecturestudy.R
-import com.jay.architecturestudy.model.Image
-import com.jay.architecturestudy.model.ResponseNaverQuery
+import com.jay.architecturestudy.data.model.Image
+import com.jay.architecturestudy.data.model.ResponseNaverQuery
+import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.network.Api
 import com.jay.architecturestudy.ui.BaseFragment
 import com.jay.architecturestudy.util.toPx
@@ -16,9 +15,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ImageFragment() : BaseFragment(R.layout.fragemnt_image) {
+class ImageFragment : BaseFragment(R.layout.fragemnt_image) {
 
     private lateinit var imageAdapter: ImageAdapter
+
+    private val naverSearchRepository by lazy {
+        NaverSearchRepositoryImpl()
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -26,7 +29,6 @@ class ImageFragment() : BaseFragment(R.layout.fragemnt_image) {
             imageAdapter = ImageAdapter()
             recycler_view.run {
                 adapter = imageAdapter
-                layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
                 addItemDecoration(SpacesItemDecoration(12.toPx(), 6.toPx(), 11.toPx()))
             }
         }
@@ -37,22 +39,14 @@ class ImageFragment() : BaseFragment(R.layout.fragemnt_image) {
     }
 
     override fun search(keyword: String) {
-        Api.getImages(keyword)
-            .enqueue(object : Callback<ResponseNaverQuery<Image>> {
-                override fun onFailure(call: Call<ResponseNaverQuery<Image>>, t: Throwable) {
-                    Log.e("Image", "error=${t.message}")
-                }
-
-                override fun onResponse(
-                    call: Call<ResponseNaverQuery<Image>>,
-                    response: Response<ResponseNaverQuery<Image>>
-                ) {
-                    if (response.isSuccessful) {
-                        val body = response.body() ?: return
-                        imageAdapter.setData(body.items)
-                    }
-                }
-
-            })
+        naverSearchRepository.getImage(
+            keyword = keyword,
+            success = {responseImage ->
+                imageAdapter.setData(responseImage.images)
+            },
+            fail = { e ->
+                Log.e("Image", "error=${e.message}")
+            }
+        )
     }
 }

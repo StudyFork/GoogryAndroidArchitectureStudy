@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.jay.architecturestudy.R
-import com.jay.architecturestudy.model.Image
+import com.jay.architecturestudy.data.model.Image
 import com.jay.architecturestudy.ui.BaseAdapter
 import com.jay.architecturestudy.ui.BaseViewHolder
 import com.jay.architecturestudy.util.startWebView
@@ -15,7 +15,8 @@ import kotlinx.android.synthetic.main.list_item_image.view.*
 internal class ImageAdapter : BaseAdapter<Image, ImageHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_image, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.list_item_image, parent, false)
         return ImageHolder(view)
     }
 

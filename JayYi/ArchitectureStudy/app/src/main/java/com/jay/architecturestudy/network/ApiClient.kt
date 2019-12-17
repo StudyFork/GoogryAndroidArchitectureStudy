@@ -2,15 +2,14 @@ package com.jay.architecturestudy.network
 
 import android.util.Log
 import com.jay.architecturestudy.network.service.ApiService
+import com.jay.architecturestudy.util.peekBody
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
-import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import java.io.IOException
-import java.nio.charset.Charset
 import java.util.concurrent.TimeUnit
 
 object ApiClient {
@@ -49,18 +48,11 @@ internal class HeaderInterceptor : Interceptor {
         val response = chain.proceed(request)
         val statusCode = response.code()
         if (statusCode == 200) {
-            Log.i("ApiClient", "res=${response}, body=${getPeekBody(response.body())}")
+            Log.i("ApiClient", "res=${response}, body=${response.peekBody()}")
         }
 
-        return response
-    }
+        NetworkException.create(response)?.run { throw this }
 
-    private fun getPeekBody(body: ResponseBody?): String {
-        return body?.let {
-            val source = it.source()
-            source.request(Long.MAX_VALUE)
-            val buffer = source.buffer()
-            buffer.clone().readString(Charset.forName("UTF-8"))
-        } ?: ""
+        return response
     }
 }
