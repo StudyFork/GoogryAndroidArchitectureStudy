@@ -10,7 +10,7 @@ import com.example.studyapplication.R
 import com.example.studyapplication.vo.ImageList
 
 class ImageAdapter : RecyclerView.Adapter<ImageHolder>() {
-    private var arrImageInfo : MutableList<ImageList.ImageInfo> = mutableListOf()
+    private val arrImageInfo : MutableList<ImageList.ImageInfo> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -34,7 +34,7 @@ class ImageAdapter : RecyclerView.Adapter<ImageHolder>() {
         return arrImageInfo.size
     }
 
-    fun addItem(items: Array<ImageList.ImageInfo>) {
+    fun resetItem(items: Array<ImageList.ImageInfo>) {
         arrImageInfo.clear()
         arrImageInfo.addAll(items)
         notifyDataSetChanged()

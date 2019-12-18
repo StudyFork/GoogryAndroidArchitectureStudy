@@ -10,7 +10,7 @@ import com.example.studyapplication.R
 import com.example.studyapplication.vo.MovieList
 
 class MovieAdapter : RecyclerView.Adapter<MovieHolder>() {
-    private var arrMovieInfo : MutableList<MovieList.MovieInfo> = mutableListOf()
+    private val arrMovieInfo : MutableList<MovieList.MovieInfo> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -37,7 +37,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieHolder>() {
         return arrMovieInfo.size
     }
 
-    fun addItem(items: Array<MovieList.MovieInfo>) {
+    fun resetItem(items: Array<MovieList.MovieInfo>) {
         arrMovieInfo.clear()
         arrMovieInfo.addAll(items)
         notifyDataSetChanged()

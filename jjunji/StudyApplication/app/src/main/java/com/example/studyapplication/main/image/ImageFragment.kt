@@ -41,7 +41,7 @@ class ImageFragment : Fragment() {
             override fun <T> success(result: T) {
                 val imageList : ImageList? = result as ImageList
                 imageList?.let {
-                    imageAdapter.addItem(imageList.arrImageInfo)
+                    imageAdapter.resetItem(imageList.arrImageInfo)
                 }
             }
 

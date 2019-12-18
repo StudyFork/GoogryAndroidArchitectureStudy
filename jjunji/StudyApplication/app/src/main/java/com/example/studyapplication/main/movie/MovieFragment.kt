@@ -41,7 +41,7 @@ class MovieFragment : Fragment() {
             override fun <T> success(result: T) {
                 val movieList : MovieList? = result as MovieList
                 movieList?.let {
-                    movieAdapter.addItem(movieList.arrMovieInfo)
+                    movieAdapter.resetItem(movieList.arrMovieInfo)
                 }
             }
 

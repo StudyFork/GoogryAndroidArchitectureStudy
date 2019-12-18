@@ -8,7 +8,7 @@ import com.example.studyapplication.R
 import com.example.studyapplication.vo.KinList
 
 class KinAdapter : RecyclerView.Adapter<KinHolder>() {
-    private var arrKinInfo : MutableList<KinList.KinInfo> = mutableListOf()
+    private val arrKinInfo : MutableList<KinList.KinInfo> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KinHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -30,7 +30,7 @@ class KinAdapter : RecyclerView.Adapter<KinHolder>() {
         return arrKinInfo.size
     }
 
-    fun addItem(items: Array<KinList.KinInfo>) {
+    fun resetItem(items: Array<KinList.KinInfo>) {
         arrKinInfo.clear()
         arrKinInfo.addAll(items)
         notifyDataSetChanged()

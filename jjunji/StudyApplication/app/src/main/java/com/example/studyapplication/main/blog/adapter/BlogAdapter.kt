@@ -8,7 +8,7 @@ import com.example.studyapplication.R
 import com.example.studyapplication.vo.BlogList
 
 class BlogAdapter : RecyclerView.Adapter<BlogHolder>() {
-    private var arrBlogInfo : MutableList<BlogList.BlogInfo> = mutableListOf()
+    private val arrBlogInfo : MutableList<BlogList.BlogInfo> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -31,7 +31,7 @@ class BlogAdapter : RecyclerView.Adapter<BlogHolder>() {
         return arrBlogInfo.size
     }
 
-    fun addItem(items: Array<BlogList.BlogInfo>) {
+    fun resetItem(items: Array<BlogList.BlogInfo>) {
         arrBlogInfo.clear()
         arrBlogInfo.addAll(items)
         notifyDataSetChanged()

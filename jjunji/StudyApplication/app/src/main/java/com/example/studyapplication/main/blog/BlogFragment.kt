@@ -42,7 +42,7 @@ class BlogFragment : Fragment() {
             override fun <T> success(result: T) {
                 val blogList : BlogList? = result as BlogList
                 blogList?.let {
-                    blogAdapter.addItem(blogList.arrBlogInfo)
+                    blogAdapter.resetItem(blogList.arrBlogInfo)
                 }
             }
 

@@ -41,7 +41,7 @@ class KinFragment  : Fragment() {
             override fun <T> success(result: T) {
                 val kinList : KinList? = result as KinList
                 kinList?.let {
-                    kinAdapter.addItem(kinList.arrKinInfo)
+                    kinAdapter.resetItem(kinList.arrKinInfo)
                 }
             }
 
