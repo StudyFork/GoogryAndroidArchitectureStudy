@@ -6,15 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.studyapplication.R
+import com.example.studyapplication.data.datasource.remote.NaverRemoteDataSourceImpl
 import com.example.studyapplication.main.image.adapter.ImageAdapter
 import com.example.studyapplication.network.ApiClient
 import com.example.studyapplication.network.Conn
 import com.example.studyapplication.network.Remote
 import com.example.studyapplication.data.model.SearchImageResult
+import com.example.studyapplication.data.repository.NaverSearchRepository
+import com.example.studyapplication.data.repository.NaverSearchRepositoryImpl
 import kotlinx.android.synthetic.main.fragment_image.*
 
 class ImageFragment : Fragment() {
     lateinit var imageAdapter: ImageAdapter
+    val repository : NaverSearchRepository = NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_image, container, false)
@@ -47,6 +51,20 @@ class ImageFragment : Fragment() {
 
             override fun failed() {
             }
+        })
+
+        repository.getImageList(title, object : Conn {
+            override fun <T> success(result: T) {
+                val searchData : SearchImageResult? = result as SearchImageResult
+                searchData?.let {
+                    imageAdapter.resetItem(searchData.arrImageInfo)
+                }
+            }
+
+            override fun failed() {
+
+            }
+
         })
     }
 

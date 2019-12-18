@@ -2,7 +2,7 @@ package com.example.studyapplication.data.model
 
 import com.google.gson.annotations.SerializedName
 
-class SearchBlogResult : SearchData {
+class SearchBlogResult {
     @SerializedName("items")
     val arrBlogInfo = emptyArray<BlogInfo>()
 

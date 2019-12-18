@@ -8,4 +8,7 @@ interface NaverSearchRepository {
 
     // 블로그 조회 결과 가져오기
     fun getBlogList(query: String, conn : Conn)
+
+    // 이미지 검색 결과 가져오기
+    fun getImageList(query: String, conn : Conn)
 }
