@@ -1,9 +1,6 @@
 package com.example.studyapplication.network
 
-import com.example.studyapplication.data.model.SearchBlogResult
-import com.example.studyapplication.data.model.SearchImageResult
-import com.example.studyapplication.data.model.SearchKinResult
-import com.example.studyapplication.data.model.SearchMovieResult
+import com.example.studyapplication.data.model.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

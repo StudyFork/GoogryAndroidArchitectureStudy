@@ -9,4 +9,8 @@ class NaverSearchRepositoryImpl(private val remoteDataSource: NaverRemoteDataSou
         remoteDataSource.getMovieList(query, conn)
     }
 
+    override fun getBlogList(query: String, conn: Conn) {
+        remoteDataSource.getBlogList(query, conn)
+    }
+
 }
