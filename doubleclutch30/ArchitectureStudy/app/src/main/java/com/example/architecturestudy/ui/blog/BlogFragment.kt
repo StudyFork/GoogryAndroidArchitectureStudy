@@ -69,6 +69,6 @@ class BlogFragment : Fragment() {
             )
         )
 
-        blogAdapter.upDate(blog)
+        blogAdapter.update(blog)
     }
 }

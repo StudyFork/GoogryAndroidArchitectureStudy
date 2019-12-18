@@ -66,6 +66,6 @@ class KinFragment : Fragment() {
             )
         )
 
-        kinAdapter.upDate(kin)
+        kinAdapter.update(kin)
     }
 }

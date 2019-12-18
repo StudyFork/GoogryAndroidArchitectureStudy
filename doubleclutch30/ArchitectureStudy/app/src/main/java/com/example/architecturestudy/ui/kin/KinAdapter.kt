@@ -29,7 +29,7 @@ class KinAdapter : RecyclerView.Adapter<KinAdapter.KinHolder>() {
         holder.bind(kinItem[position])
     }
 
-    fun upDate(kinList : List<KinItems>) {
+    fun update(kinList : List<KinItems>) {
         this.kinItem.clear()
         this.kinItem.addAll(kinList)
         notifyDataSetChanged()

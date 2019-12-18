@@ -29,7 +29,7 @@ class BlogAdapter : RecyclerView.Adapter<BlogAdapter.BlogHolder>(){
         holder.bind(blogItem[position])
     }
 
-    fun upDate(blogList : List<BlogItems>) {
+    fun update(blogList : List<BlogItems>) {
         this.blogItem.clear()
         this.blogItem.addAll(blogList)
         notifyDataSetChanged()

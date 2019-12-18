@@ -32,7 +32,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
 
 
 
-    fun upDate(movieList : List<MovieItems>) {
+    fun update(movieList : List<MovieItems>) {
         this.movieItem.clear()
         this.movieItem.addAll(movieList)
         notifyDataSetChanged()

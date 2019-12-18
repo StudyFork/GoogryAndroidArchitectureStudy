@@ -31,7 +31,7 @@ class ImageAdapter() : RecyclerView.Adapter<ImageAdapter.ImageHolder>() {
         holder.bind(imageItem[position])
     }
 
-    fun upDate(imageList : List<ImageItems>) {
+    fun update(imageList : List<ImageItems>) {
         this.imageItem.clear()
         this.imageItem.addAll(imageList)
         notifyDataSetChanged()

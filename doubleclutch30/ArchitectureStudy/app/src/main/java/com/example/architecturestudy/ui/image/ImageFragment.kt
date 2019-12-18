@@ -65,6 +65,6 @@ class ImageFragment : Fragment() {
             )
         )
 
-        imageAdapter.upDate(image)
+        imageAdapter.update(image)
     }
 }

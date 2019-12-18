@@ -71,6 +71,6 @@ class MovieFragment : Fragment() {
         )
 
 
-        movieAdapter.upDate(movie)
+        movieAdapter.update(movie)
     }
 }
