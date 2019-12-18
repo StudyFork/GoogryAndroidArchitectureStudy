@@ -8,7 +8,7 @@ import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
 import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.base.BaseViewHolder
-import com.egiwon.architecturestudy.data.Content
+import com.egiwon.architecturestudy.data.source.remote.response.ContentItem
 import com.egiwon.architecturestudy.ext.fromHtml
 import kotlinx.android.synthetic.main.rv_contents_item.view.*
 
@@ -16,7 +16,7 @@ open class ContentViewHolder(
     parent: ViewGroup,
     @LayoutRes
     private val resourceId: Int = R.layout.rv_text_contents_item
-) : BaseViewHolder<Content.Item>(
+) : BaseViewHolder<ContentItem>(
     parent,
     resourceId
 ) {
@@ -38,7 +38,7 @@ open class ContentViewHolder(
         }
     }
 
-    override fun bind(item: Content.Item) {
+    override fun bind(item: ContentItem) {
         with(item) {
             tvDescription.text = (actor + description).fromHtml()
             tvTitle.text = title.fromHtml()

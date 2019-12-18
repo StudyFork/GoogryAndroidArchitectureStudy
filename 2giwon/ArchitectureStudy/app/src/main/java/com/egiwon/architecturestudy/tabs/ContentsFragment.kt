@@ -7,22 +7,33 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.Tab
 import com.egiwon.architecturestudy.base.BaseFragment
-import com.egiwon.architecturestudy.data.Content
-import com.egiwon.architecturestudy.data.source.NaverDataRepository
+import com.egiwon.architecturestudy.data.NaverDataRepositoryImpl
+import com.egiwon.architecturestudy.data.source.local.ContentDataBase
+import com.egiwon.architecturestudy.data.source.local.NaverLocalDataSource
 import com.egiwon.architecturestudy.data.source.remote.NaverRemoteDataSource
+import com.egiwon.architecturestudy.data.source.remote.response.ContentItem
 import kotlinx.android.synthetic.main.fg_contents.*
 
 class ContentsFragment : BaseFragment<ContentsContract.Presenter>(
     R.layout.fg_contents
 ), ContentsContract.View {
 
-    override val presenter: ContentsContract.Presenter = ContentsPresenter(
-        this,
-        NaverDataRepository.getInstance(
-            NaverRemoteDataSource.getInstance()
-
+    override val presenter: ContentsContract.Presenter by lazy {
+        ContentsPresenter(
+            this,
+            NaverDataRepositoryImpl.getInstance(
+                NaverRemoteDataSource.getInstance(),
+                NaverLocalDataSource.getInstance(
+                    ContentDataBase.getInstance(requireActivity().applicationContext).contentDao()
+                )
+            )
         )
-    )
+    }
+
+    override fun onResume() {
+        presenter.getCacheContents(tab)
+        super.onResume()
+    }
 
     private val tab: Tab by lazy {
         arguments?.get(ARG_TYPE) as? Tab
@@ -47,9 +58,10 @@ class ContentsFragment : BaseFragment<ContentsContract.Presenter>(
         btn_search.setOnClickListener {
             presenter.loadContents(tab, et_search.text.toString())
         }
+
     }
 
-    override fun showQueryResult(resultList: List<Content.Item>) {
+    override fun showQueryResult(resultList: List<ContentItem>) {
         (rv_contents.adapter as? ContentsAdapter)?.setList(resultList)
     }
 
@@ -63,6 +75,14 @@ class ContentsFragment : BaseFragment<ContentsContract.Presenter>(
 
     override fun showErrorResultEmpty() {
         showToast(getString(R.string.error_empty_fail))
+    }
+
+    override fun showCacheContents(
+        resultList: List<ContentItem>,
+        query: String
+    ) {
+        showQueryResult(resultList)
+        et_search.setText(query)
     }
 
     override fun showLoading() {
