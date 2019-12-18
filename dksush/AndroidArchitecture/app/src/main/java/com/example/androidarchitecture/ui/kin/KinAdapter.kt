@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidarchitecture.R
-import com.example.androidarchitecture.models.KinData
+import com.example.androidarchitecture.data.response.KinData
 import com.example.androidarchitecture.ui.WebviewActivity
 import kotlinx.android.synthetic.main.item_blog.view.*
 

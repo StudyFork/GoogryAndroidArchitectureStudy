@@ -2,17 +2,17 @@ package com.example.androidarchitecture.ui.kin
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidarchitecture.R
 import com.example.androidarchitecture.apis.NetworkUtil
-import com.example.androidarchitecture.models.KinData
-import com.example.androidarchitecture.models.NaverQueryResponse
+import com.example.androidarchitecture.data.repository.NaverRepo
+import com.example.androidarchitecture.data.repository.NaverRepoInterface
+import com.example.androidarchitecture.data.response.KinData
+import com.example.androidarchitecture.data.response.NaverQueryResponse
 import kotlinx.android.synthetic.main.fragment_movie.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,6 +24,9 @@ import retrofit2.Response
 class KinFragment : Fragment() {
 
     private lateinit var kinAdapter: KinAdapter
+    private val naverRepoInterface: NaverRepoInterface by lazy {
+        NaverRepo()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,20 +61,13 @@ class KinFragment : Fragment() {
     }
 
     private fun requestKinList(text: String) {
-        NetworkUtil.apiService.getKinList(text, 1, 10)
-            .enqueue(object :Callback<NaverQueryResponse<KinData>>{
-                override fun onFailure(call: Call<NaverQueryResponse<KinData>>, t: Throwable) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                }
+        naverRepoInterface.getKin(text, 1, 10,
+            success = {
+                kinAdapter.setData(it)
+            },
+            fail = {
 
-                override fun onResponse(call: Call<NaverQueryResponse<KinData>>, response: Response<NaverQueryResponse<KinData>>) {
-                    if (response.isSuccessful) {
-                        val body = response.body()?.items ?: return
-                        kinAdapter.setData(body)
-                    }
-                }
             })
-
 
     }
 

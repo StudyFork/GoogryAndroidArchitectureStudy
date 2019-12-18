@@ -1,4 +1,4 @@
-package com.example.androidarchitecture.models
+package com.example.androidarchitecture.data.response
 
 data class KinData(
     val description: String,
