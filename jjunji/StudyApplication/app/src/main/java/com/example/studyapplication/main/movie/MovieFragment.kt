@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.studyapplication.R
 import com.example.studyapplication.data.datasource.remote.NaverRemoteDataSourceImpl
-import com.example.studyapplication.data.model.MovieList
+import com.example.studyapplication.data.model.SearchMovieResult
 import com.example.studyapplication.data.repository.NaverSearchRepository
 import com.example.studyapplication.data.repository.NaverSearchRepositoryImpl
 import com.example.studyapplication.main.movie.adapter.MovieAdapter
@@ -46,9 +46,9 @@ class MovieFragment : Fragment() {
     private fun requestSearchMovie(title: String) {
         repository.getMovieList(title, object : Conn {
             override fun <T> success(result: T) {
-                val movieList: MovieList? = result as MovieList
-                movieList?.let {
-                    movieAdapter.resetItem(movieList.arrMovieInfo)
+                val searchData : SearchMovieResult? = result as SearchMovieResult
+                searchData?.let {
+                    movieAdapter.resetItem(searchData.arrMovieInfo)
                 }
             }
 

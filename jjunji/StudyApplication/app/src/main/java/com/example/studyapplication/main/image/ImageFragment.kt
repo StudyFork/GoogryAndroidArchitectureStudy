@@ -10,7 +10,7 @@ import com.example.studyapplication.main.image.adapter.ImageAdapter
 import com.example.studyapplication.network.ApiClient
 import com.example.studyapplication.network.Conn
 import com.example.studyapplication.network.Remote
-import com.example.studyapplication.data.model.ImageList
+import com.example.studyapplication.data.model.SearchImageResult
 import kotlinx.android.synthetic.main.fragment_image.*
 
 class ImageFragment : Fragment() {
@@ -39,9 +39,9 @@ class ImageFragment : Fragment() {
     private fun requestSearchBlog(title : String) {
         Remote.get(ApiClient.getService().getImageList(title), object : Conn {
             override fun <T> success(result: T) {
-                val imageList : ImageList? = result as ImageList
-                imageList?.let {
-                    imageAdapter.resetItem(imageList.arrImageInfo)
+                val searchData : SearchImageResult? = result as SearchImageResult
+                searchData?.let {
+                    imageAdapter.resetItem(searchData.arrImageInfo)
                 }
             }
 

@@ -10,7 +10,7 @@ import com.example.studyapplication.main.kin.adapter.KinAdapter
 import com.example.studyapplication.network.ApiClient
 import com.example.studyapplication.network.Conn
 import com.example.studyapplication.network.Remote
-import com.example.studyapplication.data.model.KinList
+import com.example.studyapplication.data.model.SearchKinResult
 import kotlinx.android.synthetic.main.fragment_kin.*
 
 class KinFragment  : Fragment() {
@@ -39,9 +39,9 @@ class KinFragment  : Fragment() {
     private fun requestSearchKin(title : String) {
         Remote.get(ApiClient.getService().getKinList(title), object : Conn {
             override fun <T> success(result: T) {
-                val kinList : KinList? = result as KinList
-                kinList?.let {
-                    kinAdapter.resetItem(kinList.arrKinInfo)
+                val searchData : SearchKinResult? = result as SearchKinResult
+                searchData?.let {
+                    kinAdapter.resetItem(searchData.arrKinInfo)
                 }
             }
 

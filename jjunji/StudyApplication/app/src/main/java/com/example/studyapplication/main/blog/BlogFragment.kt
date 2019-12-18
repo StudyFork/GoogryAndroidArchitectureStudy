@@ -10,7 +10,7 @@ import com.example.studyapplication.main.blog.adapter.BlogAdapter
 import com.example.studyapplication.network.ApiClient
 import com.example.studyapplication.network.Conn
 import com.example.studyapplication.network.Remote
-import com.example.studyapplication.data.model.BlogList
+import com.example.studyapplication.data.model.SearchBlogResult
 import kotlinx.android.synthetic.main.fragment_blog.*
 
 class BlogFragment : Fragment() {
@@ -40,9 +40,9 @@ class BlogFragment : Fragment() {
     private fun requestSearchBlog(title : String) {
         Remote.get(ApiClient.getService().getBlogList(title), object : Conn {
             override fun <T> success(result: T) {
-                val blogList : BlogList? = result as BlogList
-                blogList?.let {
-                    blogAdapter.resetItem(blogList.arrBlogInfo)
+                val searchData : SearchBlogResult? = result as SearchBlogResult
+                searchData?.let {
+                    blogAdapter.resetItem(searchData.arrBlogInfo)
                 }
             }
 

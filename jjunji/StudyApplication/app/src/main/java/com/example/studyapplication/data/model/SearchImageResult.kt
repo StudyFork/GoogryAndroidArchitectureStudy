@@ -2,13 +2,13 @@ package com.example.studyapplication.data.model
 
 import com.google.gson.annotations.SerializedName
 
-class KinList {
+class SearchImageResult {
     @SerializedName("items")
-    val arrKinInfo = emptyArray<KinInfo>()
+    val arrImageInfo = emptyArray<ImageInfo>()
 
-    data class KinInfo (
-        var title : String,
+    data class ImageInfo(
+        var thumbnail : String,
         var link : String,
-        var description : String
+        var title : String
     )
 }

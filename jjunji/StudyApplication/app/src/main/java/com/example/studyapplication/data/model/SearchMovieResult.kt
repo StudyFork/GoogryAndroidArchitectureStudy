@@ -2,7 +2,7 @@ package com.example.studyapplication.data.model
 
 import com.google.gson.annotations.SerializedName
 
-class MovieList {
+class SearchMovieResult {
     @SerializedName("items")
     val arrMovieInfo = emptyArray<MovieInfo>()
 
