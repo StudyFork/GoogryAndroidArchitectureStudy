@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_image.*
 
 class ImageFragment : Fragment() {
     lateinit var imageAdapter: ImageAdapter
-    val repository : NaverSearchRepository = NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())
+    private val repository : NaverSearchRepository = NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_image, container, false)

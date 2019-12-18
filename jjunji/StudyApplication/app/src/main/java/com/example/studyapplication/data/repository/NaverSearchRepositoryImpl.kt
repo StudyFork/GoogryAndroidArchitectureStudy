@@ -17,4 +17,8 @@ class NaverSearchRepositoryImpl(private val remoteDataSource: NaverRemoteDataSou
         remoteDataSource.getImageList(query, conn)
     }
 
+    override fun getKinList(title: String, conn: Conn) {
+        remoteDataSource.getKinList(title, conn)
+    }
+
 }

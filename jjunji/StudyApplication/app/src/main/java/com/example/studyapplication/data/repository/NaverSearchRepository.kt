@@ -11,4 +11,7 @@ interface NaverSearchRepository {
 
     // 이미지 검색 결과 가져오기
     fun getImageList(query: String, conn : Conn)
+
+    // 지식인 검색 결과 가져오기
+    fun getKinList(title : String, conn : Conn)
 }

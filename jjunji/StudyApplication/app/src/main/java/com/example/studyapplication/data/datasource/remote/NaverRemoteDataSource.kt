@@ -6,4 +6,5 @@ interface NaverRemoteDataSource {
     fun getMovieList(title : String, conn : Conn)
     fun getBlogList(title : String, conn : Conn)
     fun getImageList(title : String, conn : Conn)
+    fun getKinList(title : String, conn : Conn)
 }

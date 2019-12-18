@@ -6,15 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.studyapplication.R
+import com.example.studyapplication.data.datasource.remote.NaverRemoteDataSourceImpl
 import com.example.studyapplication.main.kin.adapter.KinAdapter
 import com.example.studyapplication.network.ApiClient
 import com.example.studyapplication.network.Conn
 import com.example.studyapplication.network.Remote
 import com.example.studyapplication.data.model.SearchKinResult
+import com.example.studyapplication.data.repository.NaverSearchRepository
+import com.example.studyapplication.data.repository.NaverSearchRepositoryImpl
 import kotlinx.android.synthetic.main.fragment_kin.*
 
 class KinFragment  : Fragment() {
     lateinit var kinAdapter: KinAdapter
+    private val repository : NaverSearchRepository = NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_kin, container, false)
@@ -37,7 +41,7 @@ class KinFragment  : Fragment() {
 
     // 지식인 검색 요청
     private fun requestSearchKin(title : String) {
-        Remote.get(ApiClient.getService().getKinList(title), object : Conn {
+        repository.getKinList(title, object : Conn {
             override fun <T> success(result: T) {
                 val searchData : SearchKinResult? = result as SearchKinResult
                 searchData?.let {
@@ -46,7 +50,9 @@ class KinFragment  : Fragment() {
             }
 
             override fun failed() {
+
             }
+
         })
     }
 

@@ -41,4 +41,16 @@ class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
         })
     }
 
+    override fun getKinList(title: String, conn: Conn) {
+        Remote.get(ApiClient.getService().getKinList(title), object : Conn {
+            override fun <T> success(result: T) {
+                conn.success(result)
+            }
+
+            override fun failed() {
+                conn.failed()
+            }
+        })
+    }
+
 }
