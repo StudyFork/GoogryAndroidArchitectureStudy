@@ -17,22 +17,6 @@ object ApiClient {
     private val retrofit: Retrofit
 
 
-    private class HeaderSettingInterceptor : Interceptor {
-        override fun intercept(chain: Interceptor.Chain): Response {
-            val chainRequest = chain.request()
-            val request = chainRequest.newBuilder().apply {
-                addHeader("X-Naver-Client-Id", "tr6M7jBKez2OeO2BOXSg")
-                addHeader("X-Naver-Client-Secret", "S_DUMEv030")
-            }.build()
-
-            val response = chain.proceed(request)
-            Log.i("ApiClient", "res=${response}")
-
-            return chain.proceed(request)
-        }
-
-    }
-
     init {
 
         val httplogging = HttpLoggingInterceptor()
@@ -54,6 +38,24 @@ object ApiClient {
         }.build()
 
     }
+
+    private class HeaderSettingInterceptor : Interceptor {
+        override fun intercept(chain: Interceptor.Chain): Response {
+            val chainRequest = chain.request()
+            val request = chainRequest.newBuilder().apply {
+                addHeader("X-Naver-Client-Id", "tr6M7jBKez2OeO2BOXSg")
+                addHeader("X-Naver-Client-Secret", "S_DUMEv030")
+            }.build()
+
+            val response = chain.proceed(request)
+            Log.i("ApiClient", "res=${response}")
+
+            return chain.proceed(request)
+        }
+
+    }
+
+
 
     internal fun <T> getRetrofitService(restClass: Class<T>): T {
         return retrofit.create(restClass)
