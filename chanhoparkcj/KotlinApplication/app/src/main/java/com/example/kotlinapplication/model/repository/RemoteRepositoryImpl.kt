@@ -12,26 +12,18 @@ import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 
 class RemoteRepositoryImpl {
-    private var service: RetrofitService
-    var movieList: MutableLiveData<List<MovieItems>>
-    var imageList: MutableLiveData<List<ImageItems>>
-    var blogList: MutableLiveData<List<BlogItems>>
-    var kinList: MutableLiveData<List<KinItems>>
-
-    init {
-        service = RetrofitClient.client.create(RetrofitService::class.java)
-        movieList = MutableLiveData()
-        imageList = MutableLiveData()
-        blogList = MutableLiveData()
-        kinList = MutableLiveData()
-    }
+    private var service: RetrofitService = RetrofitClient.client.create(RetrofitService::class.java)
+    val movieList: MutableLiveData<List<MovieItems>> = MutableLiveData()
+    val imageList: MutableLiveData<List<ImageItems>> = MutableLiveData()
+    val blogList: MutableLiveData<List<BlogItems>> = MutableLiveData()
+    val kinList:MutableLiveData<List<KinItems>> = MutableLiveData()
 
     fun getMovieCall(query: String) {
         service.getMovieCall(query)
             .subscribeOn(Schedulers.io())
             .observeOn(mainThread())
             .subscribe(Consumer {
-                if (!it.items.isEmpty()) {
+                if (it.items.isNotEmpty()) {
                     movieList.value = it.items
                 }
             })
@@ -42,7 +34,7 @@ class RemoteRepositoryImpl {
             .subscribeOn(Schedulers.io())
             .observeOn(mainThread())
             .subscribe(Consumer {
-                if (!it.items.isEmpty()) {
+                if (it.items.isNotEmpty()) {
                     imageList.value = it.items
                 }
             })
@@ -53,7 +45,7 @@ class RemoteRepositoryImpl {
             .subscribeOn(Schedulers.io())
             .observeOn(mainThread())
             .subscribe(Consumer {
-                if (!it.items.isEmpty()) {
+                if (it.items.isNotEmpty()) {
                     blogList.value = it.items
                 }
             })
@@ -64,7 +56,7 @@ class RemoteRepositoryImpl {
             .subscribeOn(Schedulers.io())
             .observeOn(mainThread())
             .subscribe(Consumer {
-                if (!it.items.isEmpty()) {
+                if (!it.items.isNotEmpty()) {
                     kinList.value = it.items
                 }
             })

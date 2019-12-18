@@ -28,12 +28,13 @@ import kotlinx.android.synthetic.main.fragment_page.*
 
 class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter.ItemListener,
     ListBlogAdapter.ItemListener, ListKinAdapter.ItemListener {
-    private var movieAdapter: ListMovieAdapter? = null
-    private var blogAdapter: ListBlogAdapter? = null
-    private var imageAdapter: ListImageAdapter? = null
-    private var kinAdapter: ListKinAdapter? = null
-    private var type: String? = null
+    private lateinit var movieAdapter: ListMovieAdapter
+    private lateinit var blogAdapter: ListBlogAdapter
+    private lateinit var imageAdapter: ListImageAdapter
+    private lateinit var kinAdapter: ListKinAdapter
+    private lateinit var linearLayoutManager:LinearLayoutManager
     private lateinit var dataRepository: DataRepositoryImpl
+    private var type: String?=null
 
     companion object {
         fun newInstance(message: String): FragmentPage {
@@ -69,6 +70,10 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
         movieAdapter = ListMovieAdapter(this)
         blogAdapter = ListBlogAdapter(this)
         kinAdapter = ListKinAdapter(this)
+        linearLayoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+        with(home_recyclerview){
+            layoutManager = linearLayoutManager
+        }
     }
 
 
@@ -104,29 +109,25 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
     private fun viewModelListener() {
         dataRepository.remote.movieList.observe(this, Observer {
             movieAdapter?.addAllItems(it)
-            with(home_recyclerview) {
-                layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+            with(home_recyclerview){
                 adapter = movieAdapter
             }
         })
         dataRepository.remote.imageList.observe(this, Observer {
             imageAdapter?.addAllItems(it)
-            with(home_recyclerview) {
-                layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+            with(home_recyclerview){
                 adapter = imageAdapter
             }
         })
         dataRepository.remote.blogList.observe(this, Observer {
             blogAdapter?.addAllItems(it)
-            with(home_recyclerview) {
-                layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+            with(home_recyclerview){
                 adapter = blogAdapter
             }
         })
         dataRepository.remote.kinList.observe(this, Observer {
             kinAdapter?.addAllItems(it)
-            with(home_recyclerview) {
-                layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+            with(home_recyclerview){
                 adapter = kinAdapter
             }
         })

@@ -1,11 +1,7 @@
 package com.example.kotlinapplication.model.repository
 
 class DataRepositoryImpl : DataRepository {
-    var remote: RemoteRepositoryImpl
-
-    init {
-        remote = RemoteRepositoryImpl()
-    }
+    val remote: RemoteRepositoryImpl=RemoteRepositoryImpl()
 
     override fun getMovieResources(query: String) {
         remote.getMovieCall(query)
