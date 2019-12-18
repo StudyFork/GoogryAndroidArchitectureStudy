@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studyapplication.R
-import com.example.studyapplication.vo.KinList
+import com.example.studyapplication.data.model.KinList
 
 class KinAdapter : RecyclerView.Adapter<KinHolder>() {
     private val arrKinInfo : MutableList<KinList.KinInfo> = mutableListOf()

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.studyapplication.R
-import com.example.studyapplication.vo.MovieList
+import com.example.studyapplication.data.model.MovieList
 
 class MovieAdapter : RecyclerView.Adapter<MovieHolder>() {
     private val arrMovieInfo : MutableList<MovieList.MovieInfo> = mutableListOf()

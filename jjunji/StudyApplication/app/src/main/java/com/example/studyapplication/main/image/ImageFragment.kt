@@ -10,7 +10,7 @@ import com.example.studyapplication.main.image.adapter.ImageAdapter
 import com.example.studyapplication.network.ApiClient
 import com.example.studyapplication.network.Conn
 import com.example.studyapplication.network.Remote
-import com.example.studyapplication.vo.ImageList
+import com.example.studyapplication.data.model.ImageList
 import kotlinx.android.synthetic.main.fragment_image.*
 
 class ImageFragment : Fragment() {

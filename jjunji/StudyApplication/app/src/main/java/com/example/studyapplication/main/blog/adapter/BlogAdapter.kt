@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studyapplication.R
-import com.example.studyapplication.vo.BlogList
+import com.example.studyapplication.data.model.BlogList
 
 class BlogAdapter : RecyclerView.Adapter<BlogHolder>() {
     private val arrBlogInfo : MutableList<BlogList.BlogInfo> = mutableListOf()

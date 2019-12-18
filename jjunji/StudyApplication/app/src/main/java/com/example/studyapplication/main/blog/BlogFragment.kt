@@ -10,7 +10,7 @@ import com.example.studyapplication.main.blog.adapter.BlogAdapter
 import com.example.studyapplication.network.ApiClient
 import com.example.studyapplication.network.Conn
 import com.example.studyapplication.network.Remote
-import com.example.studyapplication.vo.BlogList
+import com.example.studyapplication.data.model.BlogList
 import kotlinx.android.synthetic.main.fragment_blog.*
 
 class BlogFragment : Fragment() {
