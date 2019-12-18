@@ -7,12 +7,9 @@ import com.practice.achitecture.myproject.model.SearchedItem
 
 
 class MainPresenter(
-    private val view: MainContract.View
+    private val view: MainContract.View,
+    private val naverRepository: NaverRepository
 ) : MainContract.Presenter {
-
-    override fun setCacheFilePathToRepository(cacheFilePath: String) {
-        NaverRepository.cacheFilePath = cacheFilePath
-    }
 
     override fun searchIfNotEmpty(word: String, searchType: SearchType) {
         if (word.isEmpty()) {
@@ -24,7 +21,7 @@ class MainPresenter(
 
     override fun searchWordByNaver(searchType: SearchType, word: String) {
         view.showLoading()
-        NaverRepository.searchWordByNaver(
+        naverRepository.searchWordByNaver(
             searchType,
             word,
             object : NaverDataSource.GettingResultOfSearchingCallBack {
@@ -49,14 +46,14 @@ class MainPresenter(
     }
 
     override fun loadCache() {
-        val lastSearchType = NaverRepository.getLastSearchType()
+        val lastSearchType = naverRepository.getLastSearchType()
         if (lastSearchType != null) {
             when (lastSearchType) {
                 SearchType.MOVIE, SearchType.BOOK -> {
-                    view.showSearchResultMovieOrBook(NaverRepository.getCache(lastSearchType))
+                    view.showSearchResultMovieOrBook(naverRepository.getCache(lastSearchType))
                 }
                 SearchType.BLOG, SearchType.NEWS -> {
-                    view.showSearchResultBlogOrNews(NaverRepository.getCache(lastSearchType))
+                    view.showSearchResultBlogOrNews(naverRepository.getCache(lastSearchType))
                 }
             }
         }

@@ -7,20 +7,13 @@ import com.practice.achitecture.myproject.data.source.local.NaverLocalDataSource
 import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSourceImpl
 import com.practice.achitecture.myproject.enum.SearchType
 import com.practice.achitecture.myproject.model.SearchedItem
-import com.practice.achitecture.myproject.network.RetrofitClient
-import common.NAVER_API_BASE_URL
 import java.io.File
 
-object NaverRepository : NaverDataSource {
-
-    private val naverRemoteDataSource = NaverRemoteDataSourceImpl(
-        RetrofitClient(NAVER_API_BASE_URL).makeRetrofitServiceForNaver()
-    )
-
-    private val naverLocalDataSource = NaverLocalDataSourceImpl()
-
-
-    var cacheFilePath = ""
+class NaverRepository(
+    private val naverRemoteDataSource: NaverRemoteDataSourceImpl,
+    private val naverLocalDataSource: NaverLocalDataSourceImpl,
+    private val cacheFilePath: String
+) : NaverDataSource {
 
     // 앱 첫 실행 시 가장 마지막으로 검색한 리스트를 불러옵니다.
     fun getLastSearchType(): SearchType? {
@@ -87,8 +80,24 @@ object NaverRepository : NaverDataSource {
                 }
 
             })
-
     }
 
 
+    companion object {
+
+        private var INSTANCE: NaverRepository? = null
+
+        fun getInstance(
+            naverRemoteDataSource: NaverRemoteDataSourceImpl,
+            naverLocalDataSource: NaverLocalDataSourceImpl,
+            cacheDirPath: String
+        ): NaverRepository {
+            return INSTANCE ?: NaverRepository(
+                naverRemoteDataSource,
+                naverLocalDataSource,
+                cacheDirPath
+            ).apply { INSTANCE = this }
+        }
+
+    }
 }

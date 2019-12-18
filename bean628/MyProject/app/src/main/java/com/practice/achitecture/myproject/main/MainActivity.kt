@@ -9,17 +9,31 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import com.practice.achitecture.myproject.R
 import com.practice.achitecture.myproject.base.BaseActivity
+import com.practice.achitecture.myproject.data.source.NaverRepository
+import com.practice.achitecture.myproject.data.source.local.NaverLocalDataSourceImpl
+import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSourceImpl
 import com.practice.achitecture.myproject.enum.SearchType
 import com.practice.achitecture.myproject.makeToast
 import com.practice.achitecture.myproject.model.SearchedItem
+import com.practice.achitecture.myproject.network.RetrofitClient
 import com.practice.achitecture.myproject.network.retrofitErrorHandler
+import common.NAVER_API_BASE_URL
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main),
     View.OnClickListener,
     MainContract.View {
 
-    override val presenter: MainContract.Presenter = MainPresenter(this)
+    override val presenter: MainContract.Presenter by lazy {
+        MainPresenter(
+            this,
+            NaverRepository.getInstance(
+                NaverRemoteDataSourceImpl(RetrofitClient(NAVER_API_BASE_URL).makeRetrofitServiceForNaver()),
+                NaverLocalDataSourceImpl(),
+                this.cacheDir.absolutePath
+            )
+        )
+    }
 
     private var searchType: SearchType = SearchType.MOVIE
     private var searchMovieAndBookAdapter: SearchMovieAndBookAdapter? = null
@@ -33,10 +47,8 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         registerOnClickListener()
         initAdapter()
-        presenter.setCacheFilePathToRepository(cacheDir.absolutePath + "/")
         presenter.loadCache()
     }
 
@@ -75,7 +87,6 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
             R.id.btn_search_type_news ->
                 search(SearchType.NEWS)
         }
-
     }
 
     private fun search(searchType: SearchType) {

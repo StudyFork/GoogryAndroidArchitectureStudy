@@ -17,7 +17,6 @@ interface MainContract {
         fun searchWordByNaver(searchType: SearchType, word: String)
         fun searchIfNotEmpty(word: String, searchType: SearchType)
         fun loadCache()
-        fun setCacheFilePathToRepository(cacheFilePath: String)
     }
 
 }
