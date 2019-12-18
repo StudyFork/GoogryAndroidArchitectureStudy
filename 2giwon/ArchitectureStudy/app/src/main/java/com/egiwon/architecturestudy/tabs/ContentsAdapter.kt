@@ -3,12 +3,12 @@ package com.egiwon.architecturestudy.tabs
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.egiwon.architecturestudy.Tab
-import com.egiwon.architecturestudy.data.Content
+import com.egiwon.architecturestudy.data.source.remote.response.ContentItem
 
 
 class ContentsAdapter(private val tab: Tab) : RecyclerView.Adapter<ContentViewHolder>() {
 
-    private val list = ArrayList<Content.Item>()
+    private val list = ArrayList<ContentItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentViewHolder =
         when (Tab.values()[viewType]) {
@@ -23,7 +23,7 @@ class ContentsAdapter(private val tab: Tab) : RecyclerView.Adapter<ContentViewHo
         holderContent.bind(list[position])
 
 
-    fun setList(items: List<Content.Item>) {
+    fun setList(items: List<ContentItem>) {
         with(list) {
             clear()
             addAll(items)
