@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplication.R
@@ -65,12 +66,37 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
         dataRepository = DataRepositoryImpl()
         type = arguments?.getString(EXTRA_MESSAGE)
         home_search_btn.text = type + " 검색"
-        imageAdapter = ListImageAdapter(this)
-        movieAdapter = ListMovieAdapter(this)
-        blogAdapter = ListBlogAdapter(this)
-        kinAdapter = ListKinAdapter(this)
+        when(type){
+            "영화" -> {
+                movieAdapter = ListMovieAdapter(this)
+                with(home_recyclerview) {
+                    layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+                    adapter = movieAdapter
+                }
+            }
+            "이미지" -> {
+                imageAdapter = ListImageAdapter(this)
+                with(home_recyclerview) {
+                    layoutManager = GridLayoutManager(activity,4)
+                    adapter = imageAdapter
+                }
+            }
+            "블로그" -> {
+                blogAdapter = ListBlogAdapter(this)
+                with(home_recyclerview) {
+                    layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+                    adapter = blogAdapter
+                }
+            }
+            "지식인" ->{
+                kinAdapter = ListKinAdapter(this)
+                with(home_recyclerview) {
+                    layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+                    adapter = kinAdapter
+                }
+            }
+        }
     }
-
 
     private fun setUpBuuttonClickListener() {
         home_search_btn.setOnClickListener {
@@ -104,31 +130,15 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
     private fun viewModelListener() {
         dataRepository.remote.movieList.observe(this, Observer {
             movieAdapter?.addAllItems(it)
-            with(home_recyclerview) {
-                layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-                adapter = movieAdapter
-            }
         })
         dataRepository.remote.imageList.observe(this, Observer {
             imageAdapter?.addAllItems(it)
-            with(home_recyclerview) {
-                layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-                adapter = imageAdapter
-            }
         })
         dataRepository.remote.blogList.observe(this, Observer {
             blogAdapter?.addAllItems(it)
-            with(home_recyclerview) {
-                layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-                adapter = blogAdapter
-            }
         })
         dataRepository.remote.kinList.observe(this, Observer {
             kinAdapter?.addAllItems(it)
-            with(home_recyclerview) {
-                layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-                adapter = kinAdapter
-            }
         })
     }
 

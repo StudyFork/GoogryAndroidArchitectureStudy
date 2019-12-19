@@ -13,7 +13,7 @@ object RetrofitClient {
 
     private lateinit var retrofit: Retrofit
 
-    val client: Retrofit by lazy {
+    val client: RetrofitService by lazy {
         val builder = OkHttpClient.Builder()
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -37,6 +37,6 @@ object RetrofitClient {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okHttpClient)
             .build()
-        return@lazy retrofit
+        return@lazy retrofit.create(RetrofitService::class.java)
     }
 }

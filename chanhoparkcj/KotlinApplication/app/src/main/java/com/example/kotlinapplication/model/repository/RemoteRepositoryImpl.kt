@@ -12,14 +12,13 @@ import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 
 class RemoteRepositoryImpl {
-    private var service: RetrofitService
+    private var service: RetrofitService= RetrofitClient.client
     var movieList: MutableLiveData<List<MovieItems>>
     var imageList: MutableLiveData<List<ImageItems>>
     var blogList: MutableLiveData<List<BlogItems>>
     var kinList: MutableLiveData<List<KinItems>>
 
     init {
-        service = RetrofitClient.client.create(RetrofitService::class.java)
         movieList = MutableLiveData()
         imageList = MutableLiveData()
         blogList = MutableLiveData()
