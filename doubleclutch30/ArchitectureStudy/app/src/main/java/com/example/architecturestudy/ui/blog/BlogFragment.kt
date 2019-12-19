@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.R
 import com.example.architecturestudy.model.BlogData
-import com.example.architecturestudy.model.BlogItems
 import com.example.architecturestudy.network.Api
 import com.example.architecturestudy.network.ApiClient
 import kotlinx.android.synthetic.main.fragment_blog.*
@@ -28,6 +27,7 @@ class BlogFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        blogAdapter = BlogAdapter()
         return inflater.inflate(R.layout.fragment_blog, container, false)
     }
 
@@ -50,25 +50,24 @@ class BlogFragment : Fragment() {
 
             override fun onResponse(call: Call<BlogData>, response: Response<BlogData>) {
                 if(response.isSuccessful) {
-                    response.body()?.items?.let { blogListAdapter(it) }
+                    response.body()?.items?.let {
+                        blogListAdapter()
+                        blogAdapter.update(it)
+                    }
                 }
             }
         })
-
     }
 
 
 
-    private fun blogListAdapter(blog: List<BlogItems>) {
-        blogAdapter = BlogAdapter()
-        recycleview.adapter = blogAdapter
-        recycleview.layoutManager = LinearLayoutManager(activity)
-        recycleview.addItemDecoration(
-            DividerItemDecoration(
-                activity, DividerItemDecoration.VERTICAL
+    private fun blogListAdapter() {
+        recycleview.apply {
+            adapter = blogAdapter
+            layoutManager = LinearLayoutManager(activity)
+            addItemDecoration(
+                DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
             )
-        )
-
-        blogAdapter.update(blog)
+        }
     }
 }

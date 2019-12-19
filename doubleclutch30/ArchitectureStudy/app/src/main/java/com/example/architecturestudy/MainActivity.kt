@@ -15,11 +15,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         replaceFragment(MovieFragment())
-
         bottom_navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
     }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -30,7 +27,7 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bottom_nav_blog -> {
-                println("Blog")
+                println("Blog   ")
                 replaceFragment(BlogFragment())
                 return@OnNavigationItemSelectedListener true
             }

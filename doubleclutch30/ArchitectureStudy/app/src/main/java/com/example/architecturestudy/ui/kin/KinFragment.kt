@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.R
 import com.example.architecturestudy.model.KinData
-import com.example.architecturestudy.model.KinItems
 import com.example.architecturestudy.network.Api
 import com.example.architecturestudy.network.ApiClient
 import kotlinx.android.synthetic.main.fragment_kin.*
@@ -28,6 +27,7 @@ class KinFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        kinAdapter =  KinAdapter()
         return inflater.inflate(R.layout.fragment_kin, container, false)
     }
 
@@ -50,22 +50,22 @@ class KinFragment : Fragment() {
 
             override fun onResponse(call: Call<KinData>, response: Response<KinData>) {
                 if(response.isSuccessful) {
-                    response.body()?.items?.let { kinListAdapter(it) }
+                    response.body()?.items?.let {
+                        kinListAdapter()
+                        kinAdapter.update(it)
+                    }
                 }
             }
         })
     }
 
-    private fun kinListAdapter(kin : List<KinItems>) {
-        kinAdapter =  KinAdapter()
-        recycleview.adapter = kinAdapter
-        recycleview.layoutManager = LinearLayoutManager(activity)
-        recycleview.addItemDecoration(
-            DividerItemDecoration(
-                activity, DividerItemDecoration.VERTICAL
+    private fun kinListAdapter() {
+        recycleview.apply {
+            adapter = kinAdapter
+            layoutManager = LinearLayoutManager(activity)
+            addItemDecoration(
+                DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
             )
-        )
-
-        kinAdapter.update(kin)
+        }
     }
 }

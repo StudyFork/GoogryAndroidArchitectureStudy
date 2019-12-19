@@ -13,7 +13,7 @@ import com.example.architecturestudy.ui.startWebView
 import kotlinx.android.synthetic.main.item_image.view.*
 import java.lang.Exception
 
-class ImageAdapter() : RecyclerView.Adapter<ImageAdapter.ImageHolder>() {
+class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ImageHolder>() {
 
     private val imageItem : MutableList<ImageItems> = mutableListOf()
 

@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.R
 import com.example.architecturestudy.model.ImageData
-import com.example.architecturestudy.model.ImageItems
 import com.example.architecturestudy.network.Api
 import com.example.architecturestudy.network.ApiClient
 import kotlinx.android.synthetic.main.fragment_image.*
@@ -28,6 +27,7 @@ class ImageFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        imageAdapter = ImageAdapter()
         return inflater.inflate(R.layout.fragment_image, container, false)
     }
 
@@ -49,22 +49,20 @@ class ImageFragment : Fragment() {
 
             override fun onResponse(call: Call<ImageData>, response: Response<ImageData>) {
                 if(response.isSuccessful) {
-                    response.body()?.items?.let { imageListAdapter(it) }
+                    response.body()?.items?.let {
+                        imageListAdapter()
+                        imageAdapter.update(it)
+                    }
                 }
             }
         })
     }
 
-    private fun imageListAdapter(image : List<ImageItems>) {
-        imageAdapter = ImageAdapter()
-        recycleview.adapter = imageAdapter
-        recycleview.layoutManager = LinearLayoutManager(activity)
-        recycleview.addItemDecoration(
-            DividerItemDecoration(
-                activity, DividerItemDecoration.VERTICAL
-            )
-        )
-
-        imageAdapter.update(image)
+    private fun imageListAdapter() {
+        recycleview.apply {
+            adapter = imageAdapter
+            layoutManager = LinearLayoutManager(activity)
+            addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+        }
     }
 }

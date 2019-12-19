@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.R
 import com.example.architecturestudy.model.MovieData
-import com.example.architecturestudy.model.MovieItems
 import com.example.architecturestudy.network.Api
 import com.example.architecturestudy.network.ApiClient
 import kotlinx.android.synthetic.main.fragment_movie.*
@@ -28,6 +27,7 @@ class MovieFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        movieAdapter = MovieAdapter()
         return inflater.inflate(R.layout.fragment_movie, container, false)
     }
 
@@ -42,7 +42,6 @@ class MovieFragment : Fragment() {
     }
 
 
-
     private fun searchMovieList(keyWord: String) {
         restClient.requestMovies(keyWord).enqueue(object : Callback<MovieData> {
 
@@ -52,25 +51,22 @@ class MovieFragment : Fragment() {
 
             override fun onResponse(call: Call<MovieData>, response: Response<MovieData>) {
                 if(response.isSuccessful) {
-                    response.body()?.items?.let { movieListAdapter(it) }
-
+                    response.body()?.items?.let {
+                        movieListAdapter()
+                        movieAdapter.update(it)
+                    }
                 }
             }
         })
-
     }
 
-    private fun movieListAdapter(movie: List<MovieItems>) {
-        movieAdapter = MovieAdapter()
-        recycleview.adapter = movieAdapter
-        recycleview.layoutManager = LinearLayoutManager(activity)
-        recycleview.addItemDecoration(
-            DividerItemDecoration(
-                activity, DividerItemDecoration.VERTICAL
+    private fun movieListAdapter() {
+        recycleview.apply {
+            adapter = movieAdapter
+            layoutManager = LinearLayoutManager(activity)
+            addItemDecoration(
+                DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
             )
-        )
-
-
-        movieAdapter.update(movie)
+        }
     }
 }

@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.architecturestudy.R
-import com.example.architecturestudy.model.ImageItems
 import com.example.architecturestudy.model.KinItems
 import com.example.architecturestudy.ui.startWebView
 import kotlinx.android.synthetic.main.item_kin.view.*
