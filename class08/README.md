@@ -8,7 +8,7 @@
 - 서승환 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class08/)
 
-- 고수민 [](https://github.com/)
+- 고수민 [SuminGo](https://github.com/L91519)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class08/)
 
 - 유광우 [](https://github.com/)
