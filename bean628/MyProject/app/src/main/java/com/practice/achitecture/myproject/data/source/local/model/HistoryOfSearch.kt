@@ -1,4 +1,4 @@
-package com.practice.achitecture.myproject.data.source
+package com.practice.achitecture.myproject.data.source.local.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

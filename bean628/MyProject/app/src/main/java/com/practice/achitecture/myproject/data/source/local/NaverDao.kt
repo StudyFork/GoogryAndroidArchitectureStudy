@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.practice.achitecture.myproject.data.source.HistoryOfSearch
+import com.practice.achitecture.myproject.data.source.local.model.HistoryOfSearch
 
 @Dao
 interface NaverDao {
