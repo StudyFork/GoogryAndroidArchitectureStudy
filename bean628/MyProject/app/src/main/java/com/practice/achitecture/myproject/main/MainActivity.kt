@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import com.practice.achitecture.myproject.R
 import com.practice.achitecture.myproject.base.BaseActivity
 import com.practice.achitecture.myproject.data.source.NaverRepository
+import com.practice.achitecture.myproject.data.source.local.NaverDatabase
 import com.practice.achitecture.myproject.data.source.local.NaverLocalDataSourceImpl
 import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSourceImpl
 import com.practice.achitecture.myproject.enum.SearchType
@@ -17,6 +18,7 @@ import com.practice.achitecture.myproject.makeToast
 import com.practice.achitecture.myproject.model.SearchedItem
 import com.practice.achitecture.myproject.network.RetrofitClient
 import com.practice.achitecture.myproject.network.retrofitErrorHandler
+import com.practice.achitecture.myproject.util.AppExecutors
 import common.NAVER_API_BASE_URL
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -29,7 +31,10 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
             this,
             NaverRepository.getInstance(
                 NaverRemoteDataSourceImpl(RetrofitClient(NAVER_API_BASE_URL).makeRetrofitServiceForNaver()),
-                NaverLocalDataSourceImpl(),
+                NaverLocalDataSourceImpl.getInstance(
+                    AppExecutors(),
+                    NaverDatabase.getInstance(applicationContext).naverDao()
+                ),
                 this.cacheDir.absolutePath
             )
         )

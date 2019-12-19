@@ -2,8 +2,13 @@ package com.practice.achitecture.myproject.data.source.local
 
 import com.practice.achitecture.myproject.data.source.NaverDataSource
 import com.practice.achitecture.myproject.enum.SearchType
+import com.practice.achitecture.myproject.util.AppExecutors
 
-class NaverLocalDataSourceImpl : NaverDataSource {
+class NaverLocalDataSourceImpl private constructor(
+    val appExcutors: AppExecutors,
+    val naverDao: NaverDao
+) : NaverDataSource {
+
     override fun searchWordByNaver(
         searchType: SearchType,
         word: String,
@@ -13,5 +18,18 @@ class NaverLocalDataSourceImpl : NaverDataSource {
         //         할 때 Room 사용과 함께 쓸 계획입니다.
     }
 
+
+    companion object {
+        private var INSTANCE: NaverLocalDataSourceImpl? = null
+
+        fun getInstance(appExcutors: AppExecutors, naverDao: NaverDao): NaverLocalDataSourceImpl {
+            if (INSTANCE == null) {
+                synchronized(NaverLocalDataSourceImpl::javaClass) {
+                    INSTANCE = NaverLocalDataSourceImpl(appExcutors, naverDao)
+                }
+            }
+            return INSTANCE!!
+        }
+    }
 
 }
