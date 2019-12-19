@@ -5,13 +5,11 @@ import android.util.Log
 import com.google.gson.Gson
 import com.ironelder.androidarchitecture.data.ResultItem
 import com.ironelder.androidarchitecture.data.TotalModel
+import com.ironelder.androidarchitecture.data.database.SearchResultDatabase
 import com.ironelder.androidarchitecture.data.repository.SearchDataRepositoryImpl
 import com.ironelder.androidarchitecture.view.baseview.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter {
 
@@ -20,7 +18,11 @@ class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter
     override fun searchWithAdapter(
         context: Context, type: String, query: String?
     ) {
-        SearchDataRepositoryImpl.getRemoteSearchData(context, type, query)
+        SearchDataRepositoryImpl.getRemoteSearchData(
+            type,
+            query,
+            SearchResultDatabase.getInstance(context)
+        )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
@@ -46,7 +48,8 @@ class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter
     }
 
     override fun getSearchResultToRoom(context: Context, type: String) {
-        SearchDataRepositoryImpl.getLocalSearchData(context, type)?.subscribeOn(Schedulers.io())
+        SearchDataRepositoryImpl.getLocalSearchData(type, SearchResultDatabase.getInstance(context))
+            ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())?.subscribe({
                 view.onLoadFromDatabase(
                     it.search,

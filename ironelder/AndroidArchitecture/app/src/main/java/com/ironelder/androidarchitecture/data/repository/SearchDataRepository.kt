@@ -4,19 +4,20 @@ import android.content.Context
 import com.ironelder.androidarchitecture.data.ResultItem
 import com.ironelder.androidarchitecture.data.SearchResult
 import com.ironelder.androidarchitecture.data.TotalModel
+import com.ironelder.androidarchitecture.data.database.SearchResultDatabase
 import io.reactivex.Single
 
 interface SearchDataRepository {
 
     fun getRemoteSearchData(
-        context: Context,
         type: String,
-        query: String?
+        query: String?,
+        database: SearchResultDatabase?
     ): Single<TotalModel>
 
     fun getLocalSearchData(
-        context: Context,
-        type: String
+        type: String,
+        database: SearchResultDatabase?
     ): Single<SearchResult>?
 
 }

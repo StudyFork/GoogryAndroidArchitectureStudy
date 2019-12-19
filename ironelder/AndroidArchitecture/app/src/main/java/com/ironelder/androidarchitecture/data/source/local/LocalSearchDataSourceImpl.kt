@@ -24,4 +24,8 @@ object LocalSearchDataSourceImpl :
             ?.insertSearchResult(searchResult)
     }
 
+    fun getLocalSearchDataBase(context: Context): SearchResultDatabase?{
+        return SearchResultDatabase.getInstance(context)
+    }
+
 }
