@@ -24,13 +24,12 @@ class RemoteRepositoryImpl {
         blogList = MutableLiveData()
         kinList = MutableLiveData()
     }
-
     fun getMovieCall(query: String) {
         service.getMovieCall(query)
             .subscribeOn(Schedulers.io())
             .observeOn(mainThread())
             .subscribe(Consumer {
-                if (!it.items.isEmpty()) {
+                if (it.items.isNotEmpty()) {
                     movieList.value = it.items
                 }
             })
@@ -41,7 +40,7 @@ class RemoteRepositoryImpl {
             .subscribeOn(Schedulers.io())
             .observeOn(mainThread())
             .subscribe(Consumer {
-                if (!it.items.isEmpty()) {
+                if (it.items.isNotEmpty()) {
                     imageList.value = it.items
                 }
             })
@@ -52,7 +51,7 @@ class RemoteRepositoryImpl {
             .subscribeOn(Schedulers.io())
             .observeOn(mainThread())
             .subscribe(Consumer {
-                if (!it.items.isEmpty()) {
+                if (it.items.isNotEmpty()) {
                     blogList.value = it.items
                 }
             })
@@ -63,7 +62,7 @@ class RemoteRepositoryImpl {
             .subscribeOn(Schedulers.io())
             .observeOn(mainThread())
             .subscribe(Consumer {
-                if (!it.items.isEmpty()) {
+                if (!it.items.isNotEmpty()) {
                     kinList.value = it.items
                 }
             })

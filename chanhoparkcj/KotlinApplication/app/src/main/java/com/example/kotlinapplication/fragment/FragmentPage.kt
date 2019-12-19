@@ -29,12 +29,13 @@ import kotlinx.android.synthetic.main.fragment_page.*
 
 class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter.ItemListener,
     ListBlogAdapter.ItemListener, ListKinAdapter.ItemListener {
-    private var movieAdapter: ListMovieAdapter? = null
-    private var blogAdapter: ListBlogAdapter? = null
-    private var imageAdapter: ListImageAdapter? = null
-    private var kinAdapter: ListKinAdapter? = null
-    private var type: String? = null
+    private lateinit var movieAdapter: ListMovieAdapter
+    private lateinit var blogAdapter: ListBlogAdapter
+    private lateinit var imageAdapter: ListImageAdapter
+    private lateinit var kinAdapter: ListKinAdapter
+    private lateinit var linearLayoutManager:LinearLayoutManager
     private lateinit var dataRepository: DataRepositoryImpl
+    private var type: String?=null
 
     companion object {
         fun newInstance(message: String): FragmentPage {
