@@ -18,15 +18,9 @@ interface MainContract {
     interface Presenter : BaseContract.Presenter<View> {
 
         fun searchWithAdapter(
-            type: String,
-            query: String?
-        )
-
-        fun setSearchResultToRoom(
             context: Context,
             type: String,
-            searchWord: String,
-            items: ArrayList<ResultItem>
+            query: String?
         )
 
         fun getSearchResultToRoom(context: Context, type: String)

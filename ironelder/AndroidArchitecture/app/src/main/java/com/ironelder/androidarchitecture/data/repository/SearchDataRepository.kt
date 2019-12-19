@@ -9,6 +9,7 @@ import io.reactivex.Single
 interface SearchDataRepository {
 
     fun getRemoteSearchData(
+        context: Context,
         type: String,
         query: String?
     ): Single<TotalModel>
@@ -17,12 +18,5 @@ interface SearchDataRepository {
         context: Context,
         type: String
     ): Single<SearchResult>?
-
-    fun setLocalSearchData(
-        context: Context,
-        type: String,
-        searchWord: String,
-        items: ArrayList<ResultItem>
-    )
 
 }

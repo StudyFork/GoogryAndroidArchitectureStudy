@@ -39,12 +39,6 @@ class MainFragment :
 
     override fun onDataChanged(result: ArrayList<ResultItem>) {
         (rv_resultListView?.adapter as? CustomListViewAdapter)?.setItemList(result)
-        presenter.setSearchResultToRoom(
-            context?.applicationContext ?: (this.activity as Context).applicationContext,
-            mType ?: BLOG,
-            mSearchWord ?: "",
-            result
-        )
     }
 
     override fun showErrorMessage(msg: String?) {
@@ -98,6 +92,7 @@ class MainFragment :
                 mSearchWord = query ?: ""
                 searchView.clearFocus()
                 presenter.searchWithAdapter(
+                    context?.applicationContext ?: (activity as Context).applicationContext,
                     mType ?: BLOG,
                     query
                 )

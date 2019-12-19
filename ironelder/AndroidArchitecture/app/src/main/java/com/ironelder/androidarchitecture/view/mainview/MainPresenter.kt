@@ -17,8 +17,10 @@ class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter
 
     private val LOG_TAG = MainPresenter::class.java.toString()
 
-    override fun searchWithAdapter(type: String, query: String?) {
-        SearchDataRepositoryImpl.getRemoteSearchData(type, query)
+    override fun searchWithAdapter(
+        context: Context, type: String, query: String?
+    ) {
+        SearchDataRepositoryImpl.getRemoteSearchData(context, type, query)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
@@ -41,17 +43,6 @@ class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter
 
     private fun onError(t: Throwable) {
         view.showErrorMessage(t.message)
-    }
-
-    override fun setSearchResultToRoom(
-        context: Context,
-        type: String,
-        searchWord: String,
-        items: ArrayList<ResultItem>
-    ) {
-        CoroutineScope(Dispatchers.IO).launch {
-            SearchDataRepositoryImpl.setLocalSearchData(context, type, searchWord, items)
-        }
     }
 
     override fun getSearchResultToRoom(context: Context, type: String) {
