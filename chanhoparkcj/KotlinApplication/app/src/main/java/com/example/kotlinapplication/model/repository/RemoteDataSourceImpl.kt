@@ -1,10 +1,5 @@
 package com.example.kotlinapplication.model.repository
 
-import androidx.lifecycle.MutableLiveData
-import com.example.kotlinapplication.model.BlogItems
-import com.example.kotlinapplication.model.ImageItems
-import com.example.kotlinapplication.model.KinItems
-import com.example.kotlinapplication.model.MovieItems
 import com.example.kotlinapplication.network.RetrofitClient
 import com.example.kotlinapplication.network.RetrofitService
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
