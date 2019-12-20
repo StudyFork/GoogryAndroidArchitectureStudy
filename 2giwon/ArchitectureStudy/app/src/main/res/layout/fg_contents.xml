@@ -65,4 +65,10 @@
         app:layout_constraintVertical_weight="9"
         tools:listitem="@layout/rv_contents_item" />
 
+    <fragment
+        android:id="@+id/history_sheet"
+        android:name="com.egiwon.architecturestudy.tabs.bottomsheet.HistorySheetFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fg_history_sheet" />
 </androidx.constraintlayout.widget.ConstraintLayout>

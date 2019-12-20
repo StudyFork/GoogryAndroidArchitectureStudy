@@ -10,4 +10,6 @@
     <string name="search_hint">검색</string>
     <string name="type_is_null">Type is Null</string>
     <string name="error_query_empty">검색어를 입력해주세요</string>
+    <string name="search_history_prompt">검색 기록</string>
+    <string name="layout_error_params">Invalid view layout params</string>
 </resources>
