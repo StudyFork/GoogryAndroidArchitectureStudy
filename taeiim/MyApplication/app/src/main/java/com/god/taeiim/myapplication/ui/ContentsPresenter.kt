@@ -7,9 +7,6 @@ class ContentsPresenter(
     private val naverRepository: NaverRepository,
     private val view: ContentsContract.View
 ) : ContentsContract.Presenter {
-    init {
-        view.presenter = this
-    }
 
     override fun start() {
 
