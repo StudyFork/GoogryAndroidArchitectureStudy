@@ -1,26 +1,24 @@
 package com.example.kotlinapplication.model.repository
 
-class DataRepositoryImpl(listener:DataRepository.response) : DataRepository.call {
-    private val remote: RemoteDataSourceImpl=RemoteDataSourceImpl(listener)
+import com.example.kotlinapplication.model.*
+import io.reactivex.Single
 
-    override fun callMovieResources(query: String) {
-        remote.getMovieCall(query)
+class DataRepositoryImpl : DataRepository {
+    private val remote: RemoteDataSourceImpl = RemoteDataSourceImpl()
+
+    override fun callImageResources(query: String): Single<ResponseItems<ImageItems>> {
+        return remote.getImageCall(query)
     }
 
-    override fun callImageResources(query: String) {
-        remote.getImageCall(query)
+    override fun callBlogResources(query: String): Single<ResponseItems<BlogItems>> {
+        return remote.getBlogCall(query)
     }
 
-    override fun callBlogResources(query: String) {
-        remote.getBlogCall(query)
+    override fun callKinResources(query: String): Single<ResponseItems<KinItems>> {
+        return remote.getKinCall(query)
     }
 
-    override fun callKinResources(query: String) {
-        remote.getKinCall(query)
+    override fun callMovieResources(query: String): Single<ResponseItems<MovieItems>> {
+        return remote.getMovieCall(query)
     }
-
-
-
-
-
 }

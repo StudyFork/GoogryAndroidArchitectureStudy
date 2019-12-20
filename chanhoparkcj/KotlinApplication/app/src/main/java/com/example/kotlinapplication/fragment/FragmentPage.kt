@@ -22,13 +22,13 @@ import com.example.kotlinapplication.model.BlogItems
 import com.example.kotlinapplication.model.ImageItems
 import com.example.kotlinapplication.model.KinItems
 import com.example.kotlinapplication.model.MovieItems
-import com.example.kotlinapplication.model.repository.DataRepository
 import com.example.kotlinapplication.model.repository.DataRepositoryImpl
+import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.fragment_page.*
 
 
 class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter.ItemListener,
-    ListBlogAdapter.ItemListener, ListKinAdapter.ItemListener, DataRepository.response {
+    ListBlogAdapter.ItemListener, ListKinAdapter.ItemListener {
     private lateinit var movieAdapter: ListMovieAdapter
     private lateinit var blogAdapter: ListBlogAdapter
     private lateinit var imageAdapter: ListImageAdapter
@@ -62,7 +62,7 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
     }
 
     private fun start() {
-        dataRepositoryImpl = DataRepositoryImpl(this)
+        dataRepositoryImpl = DataRepositoryImpl()
         type = arguments?.getString(EXTRA_MESSAGE)
         home_search_btn.text = type + " 검색"
         when (type) {
@@ -115,10 +115,18 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
 
     private fun loadMovieData(type: String?, query: String) {
         when (type) {
-            "영화" -> dataRepositoryImpl.callMovieResources(query)
-            "이미지" -> dataRepositoryImpl.callImageResources(query)
-            "블로그" -> dataRepositoryImpl.callBlogResources(query)
-            "지식인" -> dataRepositoryImpl.callKinResources(query)
+            "영화" -> dataRepositoryImpl.callMovieResources(query).subscribe(Consumer {
+                movieAdapter?.addAllItems(it.items)
+            })
+            "이미지" -> dataRepositoryImpl.callImageResources(query).subscribe(Consumer {
+                imageAdapter?.addAllItems(it.items)
+            })
+            "블로그" -> dataRepositoryImpl.callBlogResources(query).subscribe(Consumer {
+                blogAdapter?.addAllItems(it.items)
+            })
+            "지식인" -> dataRepositoryImpl.callKinResources(query).subscribe(Consumer {
+                kinAdapter?.addAllItems(it.items)
+            })
             else -> {
                 Log.d("Error", "error")
             }
@@ -152,21 +160,5 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
         val uri: Uri = Uri.parse(kinItems.link)
         val intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)
-    }
-
-    override fun responseMovieResources(movieList: List<MovieItems>) {
-        movieAdapter?.addAllItems(movieList)
-    }
-
-    override fun responseImageResources(imageList: List<ImageItems>) {
-        imageAdapter?.addAllItems(imageList)
-    }
-
-    override fun responseBlogResources(blogList: List<BlogItems>) {
-        blogAdapter?.addAllItems(blogList)
-    }
-
-    override fun responseKinResources(kinList: List<KinItems>) {
-        kinAdapter?.addAllItems(kinList)
     }
 }
