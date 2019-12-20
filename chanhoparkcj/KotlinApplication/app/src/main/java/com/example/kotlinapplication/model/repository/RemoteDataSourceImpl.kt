@@ -11,26 +11,17 @@ import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 
-class RemoteRepositoryImpl {
+class RemoteDataSourceImpl(listener:DataRepository.response) {
     private var service: RetrofitService= RetrofitClient.client
-    var movieList: MutableLiveData<List<MovieItems>>
-    var imageList: MutableLiveData<List<ImageItems>>
-    var blogList: MutableLiveData<List<BlogItems>>
-    var kinList: MutableLiveData<List<KinItems>>
+    private var response :DataRepository.response = listener
 
-    init {
-        movieList = MutableLiveData()
-        imageList = MutableLiveData()
-        blogList = MutableLiveData()
-        kinList = MutableLiveData()
-    }
     fun getMovieCall(query: String) {
         service.getMovieCall(query)
             .subscribeOn(Schedulers.io())
             .observeOn(mainThread())
             .subscribe(Consumer {
                 if (it.items.isNotEmpty()) {
-                    movieList.value = it.items
+                    response.responseMovieResources(it.items)
                 }
             })
     }
@@ -41,7 +32,7 @@ class RemoteRepositoryImpl {
             .observeOn(mainThread())
             .subscribe(Consumer {
                 if (it.items.isNotEmpty()) {
-                    imageList.value = it.items
+                    response.responseImageResources(it.items)
                 }
             })
     }
@@ -52,7 +43,7 @@ class RemoteRepositoryImpl {
             .observeOn(mainThread())
             .subscribe(Consumer {
                 if (it.items.isNotEmpty()) {
-                    blogList.value = it.items
+                    response.responseBlogResources(it.items)
                 }
             })
     }
@@ -63,7 +54,7 @@ class RemoteRepositoryImpl {
             .observeOn(mainThread())
             .subscribe(Consumer {
                 if (!it.items.isNotEmpty()) {
-                    kinList.value = it.items
+                    response.responseKinResources(it.items)
                 }
             })
     }
