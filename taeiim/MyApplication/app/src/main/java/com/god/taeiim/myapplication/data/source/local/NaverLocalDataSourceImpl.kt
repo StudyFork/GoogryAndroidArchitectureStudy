@@ -16,7 +16,6 @@ class NaverLocalDataSourceImpl private constructor(private val searchHistoryDao:
     companion object {
         private var INSTANCE: NaverLocalDataSourceImpl? = null
 
-        @JvmStatic
         fun getInstance(searchHistoryDao: SearchHistoryDao): NaverLocalDataSourceImpl {
             if (INSTANCE == null) {
                 synchronized(NaverLocalDataSourceImpl::javaClass) {

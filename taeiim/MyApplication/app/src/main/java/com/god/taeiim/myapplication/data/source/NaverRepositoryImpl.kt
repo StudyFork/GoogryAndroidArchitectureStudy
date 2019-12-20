@@ -28,7 +28,6 @@ class NaverRepositoryImpl private constructor(
 
         private var INSTANCE: NaverRepositoryImpl? = null
 
-        @JvmStatic
         fun getInstance(
             tasksRemoteDataSource: NaverDataSource.RemoteDataSource,
             tasksLocalDataSource: NaverDataSource.LocalDataSource
