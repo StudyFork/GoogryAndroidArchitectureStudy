@@ -8,7 +8,7 @@
 - 서승환 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class08/)
 
-- 고수민 [SuminGo](https://github.com/L91519)
+- 고수민 [L91519](https://github.com/L91519)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class08/)
 
 - 유광우 [](https://github.com/)
@@ -16,3 +16,4 @@
 
 - 김민호 [Minoyam](https://github.com/Minoyam)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class08/Minoyam)
+
