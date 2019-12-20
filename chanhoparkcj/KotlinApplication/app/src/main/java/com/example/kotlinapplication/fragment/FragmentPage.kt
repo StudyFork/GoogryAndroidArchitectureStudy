@@ -23,19 +23,19 @@ import com.example.kotlinapplication.model.BlogItems
 import com.example.kotlinapplication.model.ImageItems
 import com.example.kotlinapplication.model.KinItems
 import com.example.kotlinapplication.model.MovieItems
+import com.example.kotlinapplication.model.repository.DataRepository
 import com.example.kotlinapplication.model.repository.DataRepositoryImpl
 import kotlinx.android.synthetic.main.fragment_page.*
 
 
 class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter.ItemListener,
-    ListBlogAdapter.ItemListener, ListKinAdapter.ItemListener {
+    ListBlogAdapter.ItemListener, ListKinAdapter.ItemListener, DataRepository.response {
     private lateinit var movieAdapter: ListMovieAdapter
     private lateinit var blogAdapter: ListBlogAdapter
     private lateinit var imageAdapter: ListImageAdapter
     private lateinit var kinAdapter: ListKinAdapter
-    private lateinit var linearLayoutManager:LinearLayoutManager
-    private lateinit var dataRepository: DataRepositoryImpl
-    private var type: String?=null
+    private lateinit var dataRepositoryImpl: DataRepositoryImpl
+    private var type: String? = null
 
     companion object {
         fun newInstance(message: String): FragmentPage {
@@ -60,14 +60,13 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
         super.onViewCreated(view, savedInstanceState)
         start()
         setUpBuuttonClickListener()
-        viewModelListener()
     }
 
     private fun start() {
-        dataRepository = DataRepositoryImpl()
+        dataRepositoryImpl = DataRepositoryImpl(this)
         type = arguments?.getString(EXTRA_MESSAGE)
         home_search_btn.text = type + " 검색"
-        when(type){
+        when (type) {
             "영화" -> {
                 movieAdapter = ListMovieAdapter(this)
                 with(home_recyclerview) {
@@ -78,7 +77,7 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
             "이미지" -> {
                 imageAdapter = ListImageAdapter(this)
                 with(home_recyclerview) {
-                    layoutManager = GridLayoutManager(activity,4)
+                    layoutManager = GridLayoutManager(activity, 4)
                     adapter = imageAdapter
                 }
             }
@@ -89,7 +88,7 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
                     adapter = blogAdapter
                 }
             }
-            "지식인" ->{
+            "지식인" -> {
                 kinAdapter = ListKinAdapter(this)
                 with(home_recyclerview) {
                     layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
@@ -117,30 +116,15 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
 
     private fun loadMovieData(type: String?, query: String) {
         when (type) {
-            "영화" -> dataRepository.remote.getMovieCall(query)
-            "이미지" -> dataRepository.remote.getImageCall(query)
-            "블로그" -> dataRepository.remote.getBlogCall(query)
-            "지식인" -> dataRepository.remote.getKinCall(query)
+            "영화" -> dataRepositoryImpl.callMovieResources(query)
+            "이미지" -> dataRepositoryImpl.callImageResources(query)
+            "블로그" -> dataRepositoryImpl.callBlogResources(query)
+            "지식인" -> dataRepositoryImpl.callKinResources(query)
             else -> {
                 Log.d("Error", "error")
             }
         }
 
-    }
-
-    private fun viewModelListener() {
-        dataRepository.remote.movieList.observe(this, Observer {
-            movieAdapter?.addAllItems(it)
-        })
-        dataRepository.remote.imageList.observe(this, Observer {
-            imageAdapter?.addAllItems(it)
-        })
-        dataRepository.remote.blogList.observe(this, Observer {
-            blogAdapter?.addAllItems(it)
-        })
-        dataRepository.remote.kinList.observe(this, Observer {
-            kinAdapter?.addAllItems(it)
-        })
     }
 
     override fun onMovieItemClick(movieItems: MovieItems) {
@@ -170,5 +154,21 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
         val uri: Uri = Uri.parse(kinItems.link)
         val intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)
+    }
+
+    override fun responseMovieResources(movieList: List<MovieItems>) {
+        movieAdapter?.addAllItems(movieList)
+    }
+
+    override fun responseImageResources(imageList: List<ImageItems>) {
+        imageAdapter?.addAllItems(imageList)
+    }
+
+    override fun responseBlogResources(blogList: List<BlogItems>) {
+        blogAdapter?.addAllItems(blogList)
+    }
+
+    override fun responseKinResources(kinList: List<KinItems>) {
+        kinAdapter?.addAllItems(kinList)
     }
 }
