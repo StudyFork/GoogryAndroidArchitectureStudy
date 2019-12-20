@@ -34,9 +34,8 @@ class ContentsPresenter(
 
     override fun getLastSearchHistory(searchType: String) {
         naverRepository.getLastSearchResultData(searchType)
-            .let {
-                if (it != null)
-                    view.updateItems(it.resultList)
+            ?.let {
+                view.updateItems(it.resultList)
             }
     }
 
