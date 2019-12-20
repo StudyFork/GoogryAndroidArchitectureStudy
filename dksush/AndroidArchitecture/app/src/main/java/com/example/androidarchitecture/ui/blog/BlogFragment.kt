@@ -25,9 +25,7 @@ import retrofit2.Response
 class BlogFragment : Fragment() {
 
     private lateinit var blogAdapter: BlogAdapter
-    private val naverRepoInterface : NaverRepoInterface by lazy {
-        NaverRepo()
-    }
+    private val naverRepo = NaverRepo()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,7 +61,7 @@ class BlogFragment : Fragment() {
 
     private fun requestBlogList(text: String) {
 
-        naverRepoInterface.getBlog(text,1,10,
+        naverRepo.getBlog(text,1,10,
             success = {
                 blogAdapter.setData(it)
             }, fail = {

@@ -8,15 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.androidarchitecture.R
-import com.example.androidarchitecture.apis.NetworkUtil
 import com.example.androidarchitecture.data.repository.NaverRepo
-import com.example.androidarchitecture.data.repository.NaverRepoInterface
-import com.example.androidarchitecture.data.response.ImageData
-import com.example.androidarchitecture.data.response.NaverQueryResponse
 import kotlinx.android.synthetic.main.fragment_movie.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 /**
  * A simple [Fragment] subclass.
@@ -24,9 +17,7 @@ import retrofit2.Response
 class ImageFragment : Fragment() {
 
     private lateinit var imageAdapter: ImageAdapter
-    private val naverRepoInterface: NaverRepoInterface by lazy {
-        NaverRepo()
-    }
+    private val naverRepo = NaverRepo()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,7 +56,7 @@ class ImageFragment : Fragment() {
 
 
     private fun requestImageList(text: String) {
-        naverRepoInterface.getImage(text, 1, 10,
+        naverRepo.getImage(text, 1, 10,
             success = {
                 imageAdapter.setData(it)
             }, fail = {

@@ -1,16 +1,14 @@
 package com.example.androidarchitecture.data.repository
 
 import com.example.androidarchitecture.data.datasource.remote.NaverRemoteDs
-import com.example.androidarchitecture.data.datasource.remote.NaverRemoteDsInterface
 import com.example.androidarchitecture.data.response.BlogData
 import com.example.androidarchitecture.data.response.ImageData
 import com.example.androidarchitecture.data.response.KinData
 import com.example.androidarchitecture.data.response.MovieData
 
 class NaverRepo : NaverRepoInterface {
-    override val naverRemoteDsInterface: NaverRemoteDsInterface by lazy {
-        NaverRemoteDs()
-    }
+    private val naverRemoteDs = NaverRemoteDs()
+
 
     override fun getMovie(
         query: String,
@@ -19,7 +17,7 @@ class NaverRepo : NaverRepoInterface {
         success: (List<MovieData>) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        naverRemoteDsInterface.getMovie(query, start, display, success, fail)
+        naverRemoteDs.getMovie(query, start, display, success, fail)
     }
 
     override fun getBlog(
@@ -29,7 +27,7 @@ class NaverRepo : NaverRepoInterface {
         success: (List<BlogData>) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        naverRemoteDsInterface.getBlog(query, start, display, success, fail)
+        naverRemoteDs.getBlog(query, start, display, success, fail)
     }
 
     override fun getImage(
@@ -39,7 +37,7 @@ class NaverRepo : NaverRepoInterface {
         success: (List<ImageData>) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        naverRemoteDsInterface.getImage(query, start, display, success, fail)
+        naverRemoteDs.getImage(query, start, display, success, fail)
     }
 
     override fun getKin(
@@ -49,7 +47,7 @@ class NaverRepo : NaverRepoInterface {
         success: (List<KinData>) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        naverRemoteDsInterface.getKin(query, start, display, success, fail)
+        naverRemoteDs.getKin(query, start, display, success, fail)
     }
 
 

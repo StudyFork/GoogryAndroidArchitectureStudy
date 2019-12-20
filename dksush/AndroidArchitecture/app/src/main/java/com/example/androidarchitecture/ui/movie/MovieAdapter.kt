@@ -28,7 +28,6 @@ class MovieAdapter : BaseRecyclerAdapter<MovieData, MovieAdapter.MovieHolder>(Di
 
     inner class MovieHolder(view: View) : BaseViewHolder<MovieData>(view){
         lateinit var item : MovieData
-
         init {
             itemView.setOnClickListener {
                 Intent(context, WebviewActivity::class.java).apply {

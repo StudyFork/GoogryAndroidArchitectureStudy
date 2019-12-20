@@ -22,6 +22,12 @@ abstract class BaseRecyclerAdapter<T, H : BaseViewHolder<T>>(diffCallback: DiffU
         this.items.clear()
         this.items.addAll(items)
         submitList(items)
+
+//        currentList.run {
+//            clear()
+//            addAll(this)
+//            submitList(this)
+//        }
     }
 }
 
