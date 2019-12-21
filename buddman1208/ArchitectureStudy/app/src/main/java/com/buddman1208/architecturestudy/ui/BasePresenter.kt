@@ -23,6 +23,8 @@ class BasePresenter(val view : BaseContract.View) : BaseContract.Presenter {
                 )
                 .subscribeOnIO()
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { view.showLoading() }
+                .doAfterSuccess { view.hideLoading() }
                 .subscribe(
                     { onDataSuccess(it) },
                     { onDataFailure(it) }
