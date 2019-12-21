@@ -36,12 +36,36 @@ import kotlin.properties.Delegates
 class MainActivity : AppCompatActivity(), BaseContract.View {
 
 
-    override fun updateData(data: CommonResponse) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun showNoResult() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun updateData(it: CommonResponse) {
+        datas.clear()
+        if (it.items.isEmpty()) {
+            updateInfoText(resources.getString(R.string.list_blank))
+        } else {
+            updateInfoText("")
+            when (currentMode) {
+                Constants.MODE_BLOG, Constants.MODE_NEWS -> {
+                    datas.addAll(
+                        it.items.map {
+                            Gson().fromJson(it, CommonItem::class.java)
+                        }
+                    )
+                }
+                Constants.MODE_MOVIE -> {
+                    datas.addAll(
+                        it.items.map {
+                            Gson().fromJson(it, MovieItem::class.java)
+                        }
+                    )
+                }
+                Constants.MODE_BOOK -> {
+                    datas.addAll(
+                        it.items.map {
+                            Gson().fromJson(it, BookItem::class.java)
+                        }
+                    )
+                }
+            }
+        }
     }
 
     override fun showError(errorType: ErrorType) {
@@ -210,38 +234,6 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
         } else {
             datas.clear()
             updateInfoText(resources.getString(R.string.hint_input_edittext))
-        }
-    }
-
-    private fun onDataSuccess(it: CommonResponse) {
-        datas.clear()
-        if (it.items.isEmpty()) {
-            updateInfoText(resources.getString(R.string.list_blank))
-        } else {
-            updateInfoText("")
-            when (currentMode) {
-                Constants.MODE_BLOG, Constants.MODE_NEWS -> {
-                    datas.addAll(
-                        it.items.map {
-                            Gson().fromJson(it, CommonItem::class.java)
-                        }
-                    )
-                }
-                Constants.MODE_MOVIE -> {
-                    datas.addAll(
-                        it.items.map {
-                            Gson().fromJson(it, MovieItem::class.java)
-                        }
-                    )
-                }
-                Constants.MODE_BOOK -> {
-                    datas.addAll(
-                        it.items.map {
-                            Gson().fromJson(it, BookItem::class.java)
-                        }
-                    )
-                }
-            }
         }
     }
 
