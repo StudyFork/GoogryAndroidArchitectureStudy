@@ -1,4 +1,4 @@
-package com.example.architecturestudy.model
+package com.example.architecturestudy.data.model
 
 import com.google.gson.annotations.SerializedName
 

@@ -6,9 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.architecturestudy.R
-import com.example.architecturestudy.model.BlogItems
-import com.example.architecturestudy.model.ImageData
-import com.example.architecturestudy.model.ImageItems
+import com.example.architecturestudy.data.model.ImageItems
 import com.example.architecturestudy.ui.startWebView
 import kotlinx.android.synthetic.main.item_image.view.*
 import java.lang.Exception
