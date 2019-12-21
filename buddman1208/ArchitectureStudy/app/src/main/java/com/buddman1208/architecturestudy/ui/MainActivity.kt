@@ -1,4 +1,4 @@
-package com.buddman1208.architecturestudy
+package com.buddman1208.architecturestudy.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +15,7 @@ import com.afollestad.recyclical.datasource.DataSource
 import com.afollestad.recyclical.datasource.dataSourceOf
 import com.afollestad.recyclical.setup
 import com.afollestad.recyclical.withItem
+import com.buddman1208.architecturestudy.R
 import com.buddman1208.architecturestudy.models.BookItem
 import com.buddman1208.architecturestudy.models.CommonItem
 import com.buddman1208.architecturestudy.models.CommonResponse
@@ -53,7 +54,9 @@ class MainActivity : AppCompatActivity() {
         toolbar.apply {
             setSupportActionBar(this)
             setTitleTextColor(ContextCompat.getColor(applicationContext, android.R.color.white))
-            setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
+            setBackgroundColor(ContextCompat.getColor(applicationContext,
+                R.color.colorPrimary
+            ))
             contentInsetStartWithNavigation = 0
         }
         setSearchType(bottomTabView.selectedItemId)
