@@ -4,13 +4,14 @@ import android.util.Log
 import com.buddman1208.architecturestudy.models.CommonResponse
 import com.buddman1208.architecturestudy.repo.NaverDataRepositoryImpl
 import com.buddman1208.architecturestudy.utils.ErrorType
+import com.buddman1208.architecturestudy.utils.addToCompositeDisposable
 import com.buddman1208.architecturestudy.utils.subscribeOnIO
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
 class BasePresenter(val view : BaseContract.View) : BaseContract.Presenter {
 
-    val disposables : CompositeDisposable = CompositeDisposable()
+    private val disposables : CompositeDisposable = CompositeDisposable()
 
     override fun searchByQuery(query: String, type: String) {
         val query = query.trim()
@@ -26,7 +27,7 @@ class BasePresenter(val view : BaseContract.View) : BaseContract.Presenter {
                     { onDataSuccess(it) },
                     { onDataFailure(it) }
                 )
-
+                .addToCompositeDisposable(disposables)
 
         } else {
             view.showError(ErrorType.NO_QUERY)
