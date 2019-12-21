@@ -6,5 +6,7 @@ import io.reactivex.Single
 interface NaverDataRepository {
     fun getContents(type: String, query: String): Single<ContentResponse>
 
+    fun getContentQuerys(type: String): Single<List<String>>
+
     fun getCache(type: String): Single<ContentResponse>
 }

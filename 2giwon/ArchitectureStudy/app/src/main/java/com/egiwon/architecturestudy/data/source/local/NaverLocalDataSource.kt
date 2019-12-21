@@ -17,6 +17,12 @@ class NaverLocalDataSource(
             .toSingle()
             .subscribeOn(Schedulers.io())
 
+    override fun getContentQuerys(type: String): Single<List<String>> =
+        contentDao.getContentQuery(type)
+            .onErrorReturn { emptyList() }
+            .toSingle()
+            .subscribeOn(Schedulers.io())
+
     override fun saveContents(type: String, query: String, response: ContentResponse) =
         contentDao.insertContent(
             Content(
@@ -26,6 +32,7 @@ class NaverLocalDataSource(
                 query
             )
         )
+
 
     companion object {
         private var instance: NaverLocalDataSource? = null
