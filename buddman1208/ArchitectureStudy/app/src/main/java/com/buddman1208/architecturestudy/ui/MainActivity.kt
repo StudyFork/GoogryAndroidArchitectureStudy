@@ -1,7 +1,6 @@
 package com.buddman1208.architecturestudy.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
@@ -20,21 +19,16 @@ import com.buddman1208.architecturestudy.models.BookItem
 import com.buddman1208.architecturestudy.models.CommonItem
 import com.buddman1208.architecturestudy.models.CommonResponse
 import com.buddman1208.architecturestudy.models.MovieItem
-import com.buddman1208.architecturestudy.repo.NaverDataRepositoryImpl
 import com.buddman1208.architecturestudy.utils.Constants
 import com.buddman1208.architecturestudy.utils.ErrorType
 import com.buddman1208.architecturestudy.utils.removeHtmlBoldTags
-import com.buddman1208.architecturestudy.utils.subscribeOnIO
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
-import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.browse
-import org.jetbrains.anko.toast
 import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity(), BaseContract.View {
-
 
     override fun updateData(it: CommonResponse) {
         datas.clear()
@@ -91,7 +85,7 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
     private val datas: DataSource<Any> = dataSourceOf()
     private var currentMode: String by Delegates.observable(Constants.MODE_BLOG) { _, _, newValue ->
         updateToolbarTitle()
-        getData()
+        search()
     }
 
     private val presenter: BasePresenter by lazy { BasePresenter(this) }
@@ -188,10 +182,10 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
     }
 
     private fun initView() {
-        btnSearch.setOnClickListener { getData() }
+        btnSearch.setOnClickListener { search() }
         etQuery.setOnEditorActionListener { _, actionId, _ ->
             when (actionId) {
-                EditorInfo.IME_ACTION_SEARCH -> getData()
+                EditorInfo.IME_ACTION_SEARCH -> search()
                 else -> {
                 }
             }
@@ -226,32 +220,9 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
         } else View.INVISIBLE
     }
 
-    private fun getData() {
-        val query = etQuery.text.toString().trim()
-        if (query.isNotBlank()) {
-            NaverDataRepositoryImpl
-                .searchByTypeFromNaver(
-                    searchType = currentMode,
-                    query = query
-                )
-                .subscribeOnIO()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { onDataSuccess(it) },
-                    { onDataFailure(it) }
-                )
+    private fun getQuery() = etQuery.text.toString().trim()
 
-
-        } else {
-            datas.clear()
-            updateInfoText(resources.getString(R.string.hint_input_edittext))
-        }
-    }
-
-    private fun onDataFailure(it: Throwable) {
-        toast(resources.getString(R.string.connect_error))
-        Log.e("MainActivity", it.message ?: "")
-    }
+    private fun search() = presenter.searchByQuery(getQuery(), currentMode)
 }
 
 class CommonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
