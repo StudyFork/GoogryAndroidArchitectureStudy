@@ -1,5 +1,7 @@
 package com.buddman1208.architecturestudy.ui
 
+import android.util.Log
+import com.buddman1208.architecturestudy.models.CommonResponse
 import com.buddman1208.architecturestudy.repo.NaverDataRepositoryImpl
 import com.buddman1208.architecturestudy.utils.subscribeOnIO
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,18 +19,27 @@ class BasePresenter(val view : BaseContract.View) : BaseContract.Presenter {
                 .subscribeOnIO()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    {
-                        // TODO : onSuccess
-                    },
-                    {
-                        // TODO : onFailure
-                    }
+                    { onDataSuccess(it) },
+                    { onDataFailure(it) }
                 )
 
 
         } else {
             // TODO : Must show blank query error
         }
+    }
+
+    private fun onDataSuccess(it: CommonResponse) {
+        if (it.items.isEmpty()) {
+            view.showNoResult()
+        } else {
+            view.updateData(it)
+        }
+    }
+
+    private fun onDataFailure(it: Throwable) {
+        view.showConnectionError()
+        Log.e("asdf", it.localizedMessage)
     }
 
 }
