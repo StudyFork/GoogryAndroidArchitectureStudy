@@ -22,14 +22,11 @@ class ListImageAdapter(
                 false
             )
         )
-
-
     }
 
     override fun getItemCount(): Int {
         return items.size
     }
-
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
 

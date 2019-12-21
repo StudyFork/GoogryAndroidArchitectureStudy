@@ -22,19 +22,14 @@ class ListBlogAdapter(
                 false
             )
         )
-
-
     }
 
     override fun getItemCount(): Int {
         return items.size
     }
 
-
     override fun onBindViewHolder(holder: BlogViewHolder, position: Int) {
-
         holder.bind(items[position], listener)
-
     }
 
     fun addAllItems(blogList: List<BlogItems>) {
