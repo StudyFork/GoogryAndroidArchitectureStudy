@@ -35,7 +35,7 @@ class ContentsFragment : BaseFragment<ContentsContract.Presenter>(
         super.onResume()
     }
 
-    private val tab: Tab by lazy {
+    val tab: Tab by lazy {
         arguments?.get(ARG_TYPE) as? Tab
             ?: error(getString(R.string.type_is_null))
     }
@@ -60,6 +60,7 @@ class ContentsFragment : BaseFragment<ContentsContract.Presenter>(
         }
 
     }
+
 
     override fun showQueryResult(resultList: List<ContentItem>) {
         (rv_contents.adapter as? ContentsAdapter)?.setList(resultList)
