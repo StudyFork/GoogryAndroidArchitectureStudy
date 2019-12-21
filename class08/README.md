@@ -15,5 +15,4 @@
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class08/YKW93)
 
 - 김민호 [Minoyam](https://github.com/Minoyam)
-<<<<<<< HEAD
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class08/Minoyam)
