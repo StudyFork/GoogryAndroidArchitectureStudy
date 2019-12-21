@@ -1,5 +1,6 @@
 package com.example.architecturestudy.data.source.remote
 
+import com.example.architecturestudy.data.model.BlogData
 import com.example.architecturestudy.data.model.MovieData
 import com.example.architecturestudy.data.model.MovieItems
 import com.example.architecturestudy.network.Api
@@ -12,7 +13,6 @@ class NaverSearchRemoteDataSourceImpl : NaverSearchRemoteDataSource {
 
     val restClient: Api = ApiClient.getRetrofitService(Api::class.java)
 
-
     override fun getMovie(keyword: String, success: (MovieData) -> Unit, fail: (Throwable) -> Unit) {
         restClient.requestMovies(keyword).enqueue(object : Callback<MovieData> {
             override fun onFailure(call: Call<MovieData>, t: Throwable) {
@@ -23,6 +23,22 @@ class NaverSearchRemoteDataSourceImpl : NaverSearchRemoteDataSource {
                 if(response.isSuccessful) {
                     response.body()?.items?.let {
                         success(MovieData(it))
+                    }
+                }
+            }
+        })
+    }
+
+    override fun getBlog(keyword: String, success: (BlogData) -> Unit, fail: (Throwable) -> Unit) {
+        restClient.requestBlog(keyword).enqueue(object : Callback<BlogData> {
+            override fun onFailure(call: Call<BlogData>, t: Throwable) {
+                fail(t)
+            }
+
+            override fun onResponse(call: Call<BlogData>, response: Response<BlogData>) {
+                if(response.isSuccessful) {
+                    response.body()?.items?.let {
+                        success(BlogData(it))
                     }
                 }
             }
