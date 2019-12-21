@@ -15,6 +15,7 @@ import com.ironelder.androidarchitecture.common.BLOG
 import com.ironelder.androidarchitecture.common.TYPE_KEY
 import com.ironelder.androidarchitecture.component.CustomListViewAdapter
 import com.ironelder.androidarchitecture.data.ResultItem
+import com.ironelder.androidarchitecture.data.database.SearchResultDatabase
 import com.ironelder.androidarchitecture.view.baseview.BaseFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.layout_search_listview.*
@@ -75,8 +76,10 @@ class MainFragment :
 
     override fun doLoadFromDatabase() {
         presenter.getSearchResultToRoom(
-            context?.applicationContext ?: (this.activity as Context).applicationContext,
-            mType ?: BLOG
+            mType ?: BLOG,
+            SearchResultDatabase.getInstance(
+                context?.applicationContext ?: (activity as Context).applicationContext
+            )
         )
     }
 
@@ -92,9 +95,11 @@ class MainFragment :
                 mSearchWord = query ?: ""
                 searchView.clearFocus()
                 presenter.searchWithAdapter(
-                    context?.applicationContext ?: (activity as Context).applicationContext,
                     mType ?: BLOG,
-                    query
+                    query,
+                    SearchResultDatabase.getInstance(
+                        context?.applicationContext ?: (activity as Context).applicationContext
+                    )
                 )
                 return false
             }

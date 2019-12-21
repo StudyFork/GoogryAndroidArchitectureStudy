@@ -1,7 +1,7 @@
 package com.ironelder.androidarchitecture.view.mainview
 
-import android.content.Context
 import com.ironelder.androidarchitecture.data.ResultItem
+import com.ironelder.androidarchitecture.data.database.SearchResultDatabase
 import com.ironelder.androidarchitecture.view.baseview.BaseContract
 
 interface MainContract {
@@ -13,19 +13,25 @@ interface MainContract {
         fun showNoSearchData()
         fun showLoading()
         fun hideLoading()
-        fun onLoadFromDatabase(searchWord: String, result: ArrayList<ResultItem>)
+        fun onLoadFromDatabase(
+            searchWord: String,
+            result: ArrayList<ResultItem>
+        )
 
     }
 
     interface Presenter : BaseContract.Presenter<View> {
 
         fun searchWithAdapter(
-            context: Context,
             type: String,
-            query: String?
+            query: String?,
+            searchResultDatabase: SearchResultDatabase?
         )
 
-        fun getSearchResultToRoom(context: Context, type: String)
+        fun getSearchResultToRoom(
+            type: String,
+            searchResultDatabase: SearchResultDatabase?
+        )
 
     }
 

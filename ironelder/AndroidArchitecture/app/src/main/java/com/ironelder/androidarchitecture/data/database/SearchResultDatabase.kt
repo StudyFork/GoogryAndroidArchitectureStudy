@@ -18,8 +18,10 @@ abstract class SearchResultDatabase : RoomDatabase() {
         fun getInstance(context: Context): SearchResultDatabase? {
             if (INSTANCE == null) {
                 synchronized(SearchResultDatabase::class) {
-                    INSTANCE = Room.databaseBuilder(context.applicationContext,
-                        SearchResultDatabase::class.java, "searchData.db")
+                    INSTANCE = Room.databaseBuilder(
+                        context.applicationContext,
+                        SearchResultDatabase::class.java, "searchData.db"
+                    )
                         .fallbackToDestructiveMigration()
                         .build()
                 }
