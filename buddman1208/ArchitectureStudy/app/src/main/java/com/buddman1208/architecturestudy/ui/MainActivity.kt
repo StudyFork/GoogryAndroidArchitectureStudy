@@ -31,59 +31,6 @@ import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity(), BaseContract.View {
 
-    override fun updateData(it: CommonResponse) {
-        datas.clear()
-        if (it.items.isEmpty()) {
-            updateInfoText(resources.getString(R.string.list_blank))
-        } else {
-            updateInfoText("")
-            when (currentMode) {
-                Constants.MODE_BLOG, Constants.MODE_NEWS -> {
-                    datas.addAll(
-                        it.items.map {
-                            Gson().fromJson(it, CommonItem::class.java)
-                        }
-                    )
-                }
-                Constants.MODE_MOVIE -> {
-                    datas.addAll(
-                        it.items.map {
-                            Gson().fromJson(it, MovieItem::class.java)
-                        }
-                    )
-                }
-                Constants.MODE_BOOK -> {
-                    datas.addAll(
-                        it.items.map {
-                            Gson().fromJson(it, BookItem::class.java)
-                        }
-                    )
-                }
-            }
-        }
-    }
-
-    override fun showError(errorType: ErrorType) {
-        datas.clear()
-        updateInfoText(
-            resources.getString(
-                when (errorType) {
-                    ErrorType.CONNECTION_ERROR -> R.string.connect_error
-                    ErrorType.NO_QUERY -> R.string.hint_input_edittext
-                    ErrorType.NO_RESULT-> R.string.list_blank
-                }
-            )
-        )
-    }
-
-    override fun showLoading() {
-        loadingDialog.show()
-    }
-
-    override fun hideLoading() {
-        loadingDialog.dismiss()
-    }
-
     private val datas: DataSource<Any> = dataSourceOf()
     private var currentMode: String by Delegates.observable(Constants.MODE_BLOG) { _, _, newValue ->
         updateToolbarTitle()
@@ -200,6 +147,59 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
             }
             true
         }
+    }
+
+    override fun updateData(it: CommonResponse) {
+        datas.clear()
+        if (it.items.isEmpty()) {
+            updateInfoText(resources.getString(R.string.list_blank))
+        } else {
+            updateInfoText("")
+            when (currentMode) {
+                Constants.MODE_BLOG, Constants.MODE_NEWS -> {
+                    datas.addAll(
+                        it.items.map {
+                            Gson().fromJson(it, CommonItem::class.java)
+                        }
+                    )
+                }
+                Constants.MODE_MOVIE -> {
+                    datas.addAll(
+                        it.items.map {
+                            Gson().fromJson(it, MovieItem::class.java)
+                        }
+                    )
+                }
+                Constants.MODE_BOOK -> {
+                    datas.addAll(
+                        it.items.map {
+                            Gson().fromJson(it, BookItem::class.java)
+                        }
+                    )
+                }
+            }
+        }
+    }
+
+    override fun showError(errorType: ErrorType) {
+        datas.clear()
+        updateInfoText(
+            resources.getString(
+                when (errorType) {
+                    ErrorType.CONNECTION_ERROR -> R.string.connect_error
+                    ErrorType.NO_QUERY -> R.string.hint_input_edittext
+                    ErrorType.NO_RESULT-> R.string.list_blank
+                }
+            )
+        )
+    }
+
+    override fun showLoading() {
+        loadingDialog.show()
+    }
+
+    override fun hideLoading() {
+        loadingDialog.dismiss()
     }
 
     private fun setSearchType(@IdRes itemId: Int) {
