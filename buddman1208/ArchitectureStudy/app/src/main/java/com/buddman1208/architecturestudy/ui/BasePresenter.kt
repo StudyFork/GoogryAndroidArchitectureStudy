@@ -38,7 +38,7 @@ class BasePresenter(val view : BaseContract.View) : BaseContract.Presenter {
 
     private fun onDataSuccess(it: CommonResponse) {
         if (it.items.isEmpty()) {
-            view.showNoResult()
+            view.showError(ErrorType.NO_RESULT)
         } else {
             view.updateData(it)
         }

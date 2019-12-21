@@ -8,7 +8,6 @@ interface BaseContract {
     interface View {
 
         fun updateData(data: CommonResponse)
-        fun showNoResult()
         fun showError(errorType : ErrorType)
         fun showLoading()
         fun hideLoading()
