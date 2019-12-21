@@ -64,6 +64,7 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
     }
 
     override fun showError(errorType: ErrorType) {
+        datas.clear()
         updateInfoText(
             resources.getString(
                 when (errorType) {
