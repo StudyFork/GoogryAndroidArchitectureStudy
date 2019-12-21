@@ -1,15 +1,17 @@
 package com.practice.achitecture.myproject.base
 
 import android.view.View
+import android.widget.ProgressBar
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import com.practice.achitecture.myproject.R
 import com.practice.achitecture.myproject.makeToast
-import kotlinx.android.synthetic.main.activity_main.*
 
 abstract class BaseActivity<P : BaseContract.Presenter>(@LayoutRes contentLayoutId: Int) :
     AppCompatActivity(contentLayoutId), BaseContract.View {
 
     abstract val presenter: P
+    private var progressBar: ProgressBar = this.findViewById(R.id.progress_bar)
 
     override fun showToast(message: String) {
         this.makeToast(message)
@@ -20,10 +22,10 @@ abstract class BaseActivity<P : BaseContract.Presenter>(@LayoutRes contentLayout
     }
 
     override fun showLoading() {
-        progress_bar?.visibility = View.VISIBLE
+        progressBar.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
-        progress_bar?.visibility = View.GONE
+        progressBar.visibility = View.GONE
     }
 }
