@@ -13,30 +13,30 @@ object RetrofitClient {
 
     private lateinit var retrofit: Retrofit
 
-    val client: Retrofit by lazy {
+    val client: RetrofitService by lazy {
         val builder = OkHttpClient.Builder()
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         builder.addInterceptor { chain: Interceptor.Chain ->
             val original = chain.request()
             val request = original.newBuilder()
-                    .addHeader("X-Naver-Client-Id", "o4YDMUoQQ3B5C1aJtX2g")
-                    .addHeader("X-Naver-Client-Secret", "FrW3bUTwCa")
-                    .build()
+                .addHeader("X-Naver-Client-Id", "o4YDMUoQQ3B5C1aJtX2g")
+                .addHeader("X-Naver-Client-Secret", "FrW3bUTwCa")
+                .build()
             chain.proceed(request)
 
         }
         builder.addInterceptor(interceptor)
         val okHttpClient =
-                builder.connectTimeout(20, TimeUnit.SECONDS)
-                        .writeTimeout(20, TimeUnit.SECONDS)
-                        .readTimeout(30, TimeUnit.SECONDS).build()
+            builder.connectTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS).build()
         retrofit = Retrofit.Builder()
-                .baseUrl(API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(okHttpClient)
-                .build()
-        return@lazy retrofit
+            .baseUrl(API_BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .client(okHttpClient)
+            .build()
+        return@lazy retrofit.create(RetrofitService::class.java)
     }
 }

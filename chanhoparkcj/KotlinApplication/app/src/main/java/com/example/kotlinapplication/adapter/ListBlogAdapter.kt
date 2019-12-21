@@ -12,7 +12,7 @@ class ListBlogAdapter(
 ) :
     RecyclerView.Adapter<BlogViewHolder>() {
 
-    private val items= arrayListOf<BlogItems>()
+    private val items = arrayListOf<BlogItems>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogViewHolder {
         return BlogViewHolder(
