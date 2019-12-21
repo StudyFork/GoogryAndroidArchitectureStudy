@@ -26,7 +26,7 @@ class BasePresenter(val view : BaseContract.View) : BaseContract.Presenter {
 
 
         } else {
-            // TODO : Must show blank query error
+            view.showError(ErrorType.NO_QUERY)
         }
     }
 
