@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.studyapplication.R
-import com.example.studyapplication.vo.MovieList
+import com.example.studyapplication.data.model.SearchMovieResult
 
 class MovieAdapter : RecyclerView.Adapter<MovieHolder>() {
-    private val arrMovieInfo : MutableList<MovieList.MovieInfo> = mutableListOf()
+    private val arrMovieInfo : MutableList<SearchMovieResult.MovieInfo> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -37,7 +37,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieHolder>() {
         return arrMovieInfo.size
     }
 
-    fun resetItem(items: Array<MovieList.MovieInfo>) {
+    fun resetItem(items: Array<SearchMovieResult.MovieInfo>) {
         arrMovieInfo.clear()
         arrMovieInfo.addAll(items)
         notifyDataSetChanged()

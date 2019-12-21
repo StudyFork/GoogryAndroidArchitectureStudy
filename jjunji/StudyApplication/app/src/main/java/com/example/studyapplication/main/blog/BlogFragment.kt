@@ -6,15 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.studyapplication.R
+import com.example.studyapplication.data.datasource.remote.NaverRemoteDataSourceImpl
+import com.example.studyapplication.data.model.SearchBlogResult
+import com.example.studyapplication.data.model.SearchMovieResult
+import com.example.studyapplication.data.repository.NaverSearchRepository
+import com.example.studyapplication.data.repository.NaverSearchRepositoryImpl
 import com.example.studyapplication.main.blog.adapter.BlogAdapter
 import com.example.studyapplication.network.ApiClient
 import com.example.studyapplication.network.Conn
 import com.example.studyapplication.network.Remote
-import com.example.studyapplication.vo.BlogList
 import kotlinx.android.synthetic.main.fragment_blog.*
 
 class BlogFragment : Fragment() {
     lateinit var blogAdapter: BlogAdapter
+    private val repository: NaverSearchRepository =
+        NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_blog, container, false)
@@ -38,15 +44,16 @@ class BlogFragment : Fragment() {
 
     // 영화 검색 요청
     private fun requestSearchBlog(title : String) {
-        Remote.get(ApiClient.getService().getBlogList(title), object : Conn {
+        repository.getBlogList(title, object : Conn {
             override fun <T> success(result: T) {
-                val blogList : BlogList? = result as BlogList
-                blogList?.let {
-                    blogAdapter.resetItem(blogList.arrBlogInfo)
+                val searchData : SearchBlogResult? = result as SearchBlogResult
+                searchData?.let {
+                    blogAdapter.resetItem(searchData.arrBlogInfo)
                 }
             }
 
             override fun failed() {
+
             }
         })
     }

@@ -6,17 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.studyapplication.R
+import com.example.studyapplication.data.datasource.remote.NaverRemoteDataSourceImpl
+import com.example.studyapplication.data.model.SearchMovieResult
+import com.example.studyapplication.data.repository.NaverSearchRepository
+import com.example.studyapplication.data.repository.NaverSearchRepositoryImpl
 import com.example.studyapplication.main.movie.adapter.MovieAdapter
-import com.example.studyapplication.network.ApiClient
 import com.example.studyapplication.network.Conn
-import com.example.studyapplication.network.Remote
-import com.example.studyapplication.vo.MovieList
 import kotlinx.android.synthetic.main.fragment_movie.*
 
 class MovieFragment : Fragment() {
-    lateinit var movieAdapter : MovieAdapter
+    lateinit var movieAdapter: MovieAdapter
+    private val repository: NaverSearchRepository =
+        NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_movie, container, false)
     }
 
@@ -28,7 +35,7 @@ class MovieFragment : Fragment() {
     }
 
     // 검색 버튼 클릭 리스너
-    private fun btnSearchClickListener() : View.OnClickListener {
+    private fun btnSearchClickListener(): View.OnClickListener {
         return View.OnClickListener {
             val movieTitle = etQuery.text.toString()
             requestSearchMovie(movieTitle)
@@ -36,22 +43,23 @@ class MovieFragment : Fragment() {
     }
 
     // 영화 검색 요청
-    private fun requestSearchMovie(title : String) {
-        Remote.get(ApiClient.getService().getMovieList(title), object : Conn {
+    private fun requestSearchMovie(title: String) {
+        repository.getMovieList(title, object : Conn {
             override fun <T> success(result: T) {
-                val movieList : MovieList? = result as MovieList
-                movieList?.let {
-                    movieAdapter.resetItem(movieList.arrMovieInfo)
+                val searchData : SearchMovieResult? = result as SearchMovieResult
+                searchData?.let {
+                    movieAdapter.resetItem(searchData.arrMovieInfo)
                 }
             }
 
             override fun failed() {
+                TODO()
             }
         })
     }
 
     companion object {
-        fun newInstance() : MovieFragment {
+        fun newInstance(): MovieFragment {
             return MovieFragment()
         }
     }

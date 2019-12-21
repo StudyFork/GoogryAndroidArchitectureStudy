@@ -5,10 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studyapplication.R
-import com.example.studyapplication.vo.BlogList
+import com.example.studyapplication.data.model.SearchBlogResult
 
 class BlogAdapter : RecyclerView.Adapter<BlogHolder>() {
-    private val arrBlogInfo : MutableList<BlogList.BlogInfo> = mutableListOf()
+    private val arrBlogInfo : MutableList<SearchBlogResult.BlogInfo> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -31,7 +31,7 @@ class BlogAdapter : RecyclerView.Adapter<BlogHolder>() {
         return arrBlogInfo.size
     }
 
-    fun resetItem(items: Array<BlogList.BlogInfo>) {
+    fun resetItem(items: Array<SearchBlogResult.BlogInfo>) {
         arrBlogInfo.clear()
         arrBlogInfo.addAll(items)
         notifyDataSetChanged()

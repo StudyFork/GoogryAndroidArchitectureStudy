@@ -1,8 +1,8 @@
-package com.example.studyapplication.vo
+package com.example.studyapplication.data.model
 
 import com.google.gson.annotations.SerializedName
 
-class ImageList {
+class SearchImageResult {
     @SerializedName("items")
     val arrImageInfo = emptyArray<ImageInfo>()
 
