@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.R
 import com.example.architecturestudy.data.model.MovieData
+import com.example.architecturestudy.data.model.MovieItems
+import com.example.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.example.architecturestudy.network.Api
 import com.example.architecturestudy.network.ApiClient
 import kotlinx.android.synthetic.main.fragment_movie.*
@@ -22,42 +24,60 @@ class MovieFragment : Fragment() {
 
     private lateinit var movieAdapter : MovieAdapter
 
+    private val naverSearchRepository by lazy { NaverSearchRepositoryImpl() }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        movieAdapter = MovieAdapter()
         return inflater.inflate(R.layout.fragment_movie, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        movieAdapter = MovieAdapter()
+
+        recycleview.apply {
+            adapter = movieAdapter
+            layoutManager = LinearLayoutManager(activity)
+            addItemDecoration(
+                DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
+            )
+        }
+
         btn_search.setOnClickListener {
             if(input_text != null) {
                 val edit = edit_text.text.toString()
-                searchMovieList(edit)
+                searchMovie(edit)
             }
         }
     }
 
 
-    private fun searchMovieList(keyWord: String) {
-        restClient.requestMovies(keyWord).enqueue(object : Callback<MovieData> {
+    private fun searchMovie(keyword: String) {
 
-            override fun onFailure(call: Call<MovieData>, t: Throwable) {
-                error(message = t.toString())
-            }
-
-            override fun onResponse(call: Call<MovieData>, response: Response<MovieData>) {
-                if(response.isSuccessful) {
-                    response.body()?.items?.let {
-                        movieListAdapter()
-                        movieAdapter.update(it)
-                    }
-                }
-            }
-        })
+        naverSearchRepository.getMovie(
+            keyword = keyword,
+            success = { responseMovie -> movieAdapter.update(responseMovie.items) },
+            fail = { e -> error(message = e.toString()) }
+        )
+//        restClient.requestMovies(keyWord).enqueue(object : Callback<MovieData> {
+//
+//            override fun onFailure(call: Call<MovieData>, t: Throwable) {
+//                error(message = t.toString())
+//            }
+//
+//            override fun onResponse(call: Call<MovieData>, response: Response<MovieData>) {
+//                if(response.isSuccessful) {
+//                    response.body()?.items?.let {
+////                        movieListAdapter()
+//                        movieAdapter.update(it)
+//                    }
+//                }
+//            }
+//        })
     }
 
     private fun movieListAdapter() {

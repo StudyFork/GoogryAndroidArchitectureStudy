@@ -4,6 +4,6 @@ import com.example.architecturestudy.data.model.MovieData
 
 interface NaverSearchRemoteDataSource {
 
-    fun getMovie(keyword : String, success : (MovieData) -> Unit, fail : Unit)
+    fun getMovie(keyword : String, success : (MovieData) -> Unit, fail : (Throwable) -> Unit)
 
 }

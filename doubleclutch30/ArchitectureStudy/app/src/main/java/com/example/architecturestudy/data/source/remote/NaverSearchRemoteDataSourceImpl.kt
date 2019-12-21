@@ -13,10 +13,10 @@ class NaverSearchRemoteDataSourceImpl : NaverSearchRemoteDataSource {
     val restClient: Api = ApiClient.getRetrofitService(Api::class.java)
 
 
-    override fun getMovie(keyword: String, success: (MovieData) -> Unit, fail: Unit) {
+    override fun getMovie(keyword: String, success: (MovieData) -> Unit, fail: (Throwable) -> Unit) {
         restClient.requestMovies(keyword).enqueue(object : Callback<MovieData> {
             override fun onFailure(call: Call<MovieData>, t: Throwable) {
-                error(message = t.toString())
+                fail(t)
             }
 
             override fun onResponse(call: Call<MovieData>, response: Response<MovieData>) {
