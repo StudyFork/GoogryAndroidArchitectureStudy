@@ -12,7 +12,7 @@ abstract class BaseActivity<P : BaseContract.Presenter>(@LayoutRes contentLayout
     AppCompatActivity(contentLayoutId), BaseContract.View {
 
     abstract val presenter: P
-    private lateinit var progressBar: ProgressBar
+    open var progressBar: ProgressBar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,10 +28,10 @@ abstract class BaseActivity<P : BaseContract.Presenter>(@LayoutRes contentLayout
     }
 
     override fun showLoading() {
-        progressBar.visibility = View.VISIBLE
+        progressBar?.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
-        progressBar.visibility = View.GONE
+        progressBar?.visibility = View.GONE
     }
 }
