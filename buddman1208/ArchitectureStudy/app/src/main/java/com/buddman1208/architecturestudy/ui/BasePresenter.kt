@@ -1,8 +1,9 @@
 package com.buddman1208.architecturestudy.ui
 
-class BasePresenter : BaseContract.Presenter {
+class BasePresenter(val view : BaseContract.View) : BaseContract.Presenter {
 
     override fun searchByQuery(query: String, type: String) {
+
     }
 
 }
