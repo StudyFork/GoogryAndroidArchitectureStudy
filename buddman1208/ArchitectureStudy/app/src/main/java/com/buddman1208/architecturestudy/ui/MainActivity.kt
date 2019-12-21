@@ -35,6 +35,7 @@ import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity(), BaseContract.View {
 
+
     override fun updateData(data: CommonResponse) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -60,6 +61,8 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
         updateToolbarTitle()
         getData()
     }
+
+    private val presenter : BasePresenter by lazy { BasePresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
