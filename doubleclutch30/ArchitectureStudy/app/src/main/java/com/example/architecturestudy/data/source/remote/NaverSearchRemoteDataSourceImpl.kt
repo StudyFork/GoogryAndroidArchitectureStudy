@@ -1,9 +1,6 @@
 package com.example.architecturestudy.data.source.remote
 
-import com.example.architecturestudy.data.model.BlogData
-import com.example.architecturestudy.data.model.KinData
-import com.example.architecturestudy.data.model.MovieData
-import com.example.architecturestudy.data.model.MovieItems
+import com.example.architecturestudy.data.model.*
 import com.example.architecturestudy.network.Api
 import com.example.architecturestudy.network.ApiClient
 import retrofit2.Call
@@ -56,6 +53,22 @@ class NaverSearchRemoteDataSourceImpl : NaverSearchRemoteDataSource {
                 if(response.isSuccessful) {
                     response.body()?.items?.let {
                         success(KinData(it))
+                    }
+                }
+            }
+        })
+    }
+
+    override fun getImage(keyword: String, success: (ImageData) -> Unit, fail: (Throwable) -> Unit) {
+        restClient.requestImage(keyword).enqueue(object : Callback<ImageData> {
+            override fun onFailure(call: Call<ImageData>, t: Throwable) {
+                fail(t)
+            }
+
+            override fun onResponse(call: Call<ImageData>, response: Response<ImageData>) {
+                if(response.isSuccessful) {
+                    response.body()?.items?.let {
+                        success(ImageData(it))
                     }
                 }
             }
