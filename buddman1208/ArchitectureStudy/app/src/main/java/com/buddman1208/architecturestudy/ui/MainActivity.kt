@@ -22,6 +22,7 @@ import com.buddman1208.architecturestudy.models.CommonResponse
 import com.buddman1208.architecturestudy.models.MovieItem
 import com.buddman1208.architecturestudy.repo.NaverDataRepositoryImpl
 import com.buddman1208.architecturestudy.utils.Constants
+import com.buddman1208.architecturestudy.utils.ErrorType
 import com.buddman1208.architecturestudy.utils.removeHtmlBoldTags
 import com.buddman1208.architecturestudy.utils.subscribeOnIO
 import com.bumptech.glide.Glide
@@ -32,7 +33,27 @@ import org.jetbrains.anko.browse
 import org.jetbrains.anko.toast
 import kotlin.properties.Delegates
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), BaseContract.View {
+
+    override fun updateData(data: CommonResponse) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showNoResult() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showError(errorType: ErrorType) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showLoading() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun hideLoading() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     private val datas: DataSource<Any> = dataSourceOf()
     private var currentMode: String by Delegates.observable(Constants.MODE_BLOG) { _, _, newValue ->
