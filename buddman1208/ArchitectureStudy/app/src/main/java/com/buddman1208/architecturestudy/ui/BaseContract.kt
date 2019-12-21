@@ -1,6 +1,7 @@
 package com.buddman1208.architecturestudy.ui
 
 import com.buddman1208.architecturestudy.models.CommonResponse
+import com.buddman1208.architecturestudy.utils.ErrorType
 
 interface BaseContract {
 
@@ -8,8 +9,7 @@ interface BaseContract {
 
         fun updateData(data: CommonResponse)
         fun showNoResult()
-        fun showError(msg : String = "")
-        fun showConnectionError(msg : String = "")
+        fun showError(errorType : ErrorType)
         fun showLoading()
         fun hideLoading()
 
