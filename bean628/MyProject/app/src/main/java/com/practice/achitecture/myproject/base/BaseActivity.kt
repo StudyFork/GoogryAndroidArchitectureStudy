@@ -1,5 +1,6 @@
 package com.practice.achitecture.myproject.base
 
+import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import androidx.annotation.LayoutRes
@@ -11,7 +12,12 @@ abstract class BaseActivity<P : BaseContract.Presenter>(@LayoutRes contentLayout
     AppCompatActivity(contentLayoutId), BaseContract.View {
 
     abstract val presenter: P
-    private var progressBar: ProgressBar = this.findViewById(R.id.progress_bar)
+    private lateinit var progressBar: ProgressBar
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        progressBar = this.findViewById(R.id.progress_bar)
+    }
 
     override fun showToast(message: String) {
         this.makeToast(message)
