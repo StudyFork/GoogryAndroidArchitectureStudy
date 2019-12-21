@@ -26,7 +26,7 @@
             android:inputType="text"
             app:layout_constraintEnd_toStartOf="@id/btn_search"
             app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintHorizontal_weight="7"
+            app:layout_constraintHorizontal_weight="8"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,7 +38,7 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             android:text="@string/search_hint"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="3"
+            app:layout_constraintHorizontal_weight="2"
             app:layout_constraintStart_toEndOf="@id/et_search"
             app:layout_constraintTop_toTopOf="parent" />
 
