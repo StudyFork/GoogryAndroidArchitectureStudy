@@ -33,9 +33,9 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
                 NaverRemoteDataSourceImpl(RetrofitClient(NAVER_API_BASE_URL).makeRetrofitServiceForNaver()),
                 NaverLocalDataSourceImpl.getInstance(
                     AppExecutors(),
-                    NaverDatabase.getInstance(applicationContext).naverDao()
-                ),
-                this.cacheDir.absolutePath
+                    NaverDatabase.getInstance(applicationContext).naverDao(),
+                    this.cacheDir.absolutePath
+                )
             )
         )
     }
