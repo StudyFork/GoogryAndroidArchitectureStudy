@@ -69,7 +69,15 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
     }
 
     override fun showError(errorType: ErrorType) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        updateInfoText(
+            resources.getString(
+                when (errorType) {
+                    ErrorType.CONNECTION_ERROR -> R.string.connect_error
+                    ErrorType.NO_QUERY -> R.string.hint_input_edittext
+                    ErrorType.NO_RESULT-> R.string.list_blank
+                }
+            )
+        )
     }
 
     override fun showLoading() {
@@ -86,7 +94,7 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
         getData()
     }
 
-    private val presenter : BasePresenter by lazy { BasePresenter(this) }
+    private val presenter: BasePresenter by lazy { BasePresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,9 +110,12 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
         toolbar.apply {
             setSupportActionBar(this)
             setTitleTextColor(ContextCompat.getColor(applicationContext, android.R.color.white))
-            setBackgroundColor(ContextCompat.getColor(applicationContext,
-                R.color.colorPrimary
-            ))
+            setBackgroundColor(
+                ContextCompat.getColor(
+                    applicationContext,
+                    R.color.colorPrimary
+                )
+            )
             contentInsetStartWithNavigation = 0
         }
         setSearchType(bottomTabView.selectedItemId)
