@@ -9,6 +9,7 @@ interface BaseContract {
         fun updateData(data: CommonResponse)
         fun showNoResult()
         fun showError(msg : String = "")
+        fun showConnectionError(msg : String = "")
         fun showLoading()
         fun hideLoading()
 
