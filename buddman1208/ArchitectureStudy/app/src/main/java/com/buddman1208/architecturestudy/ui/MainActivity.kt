@@ -1,5 +1,6 @@
 package com.buddman1208.architecturestudy.ui
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -75,11 +76,11 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
     }
 
     override fun showLoading() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        loadingDialog.show()
     }
 
     override fun hideLoading() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        loadingDialog.dismiss()
     }
 
     private val datas: DataSource<Any> = dataSourceOf()
@@ -89,6 +90,13 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
     }
 
     private val presenter: BasePresenter by lazy { BasePresenter(this) }
+
+    private val loadingDialog : ProgressDialog by lazy {
+        ProgressDialog(this@MainActivity).apply {
+            setProgressStyle(ProgressDialog.STYLE_SPINNER)
+            setMessage("Loading...")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
