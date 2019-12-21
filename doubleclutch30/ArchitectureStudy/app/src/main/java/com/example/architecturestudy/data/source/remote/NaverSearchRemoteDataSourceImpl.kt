@@ -1,6 +1,7 @@
 package com.example.architecturestudy.data.source.remote
 
 import com.example.architecturestudy.data.model.BlogData
+import com.example.architecturestudy.data.model.KinData
 import com.example.architecturestudy.data.model.MovieData
 import com.example.architecturestudy.data.model.MovieItems
 import com.example.architecturestudy.network.Api
@@ -39,6 +40,22 @@ class NaverSearchRemoteDataSourceImpl : NaverSearchRemoteDataSource {
                 if(response.isSuccessful) {
                     response.body()?.items?.let {
                         success(BlogData(it))
+                    }
+                }
+            }
+        })
+    }
+
+    override fun getKin(keyword: String, success: (KinData) -> Unit, fail: (Throwable) -> Unit) {
+        restClient.requestKin(keyword).enqueue(object : Callback<KinData> {
+            override fun onFailure(call: Call<KinData>, t: Throwable) {
+                fail(t)
+            }
+
+            override fun onResponse(call: Call<KinData>, response: Response<KinData>) {
+                if(response.isSuccessful) {
+                    response.body()?.items?.let {
+                        success(KinData(it))
                     }
                 }
             }

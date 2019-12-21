@@ -1,6 +1,7 @@
 package com.example.architecturestudy.data.source.remote
 
 import com.example.architecturestudy.data.model.BlogData
+import com.example.architecturestudy.data.model.KinData
 import com.example.architecturestudy.data.model.MovieData
 
 interface NaverSearchRemoteDataSource {
@@ -9,6 +10,6 @@ interface NaverSearchRemoteDataSource {
 
     fun getBlog(keyword: String, success: (BlogData) -> Unit, fail: (Throwable) -> Unit)
 
-
+    fun getKin(keyword: String, success: (KinData) -> Unit, fail: (Throwable) -> Unit)
 
 }

@@ -1,6 +1,7 @@
 package com.example.architecturestudy.data.repository
 
 import com.example.architecturestudy.data.model.BlogData
+import com.example.architecturestudy.data.model.KinData
 import com.example.architecturestudy.data.model.MovieData
 import com.example.architecturestudy.data.source.remote.NaverSearchRemoteDataSource
 import com.example.architecturestudy.data.source.remote.NaverSearchRemoteDataSourceImpl
@@ -21,6 +22,14 @@ class NaverSearchRepositoryImpl : NaverSearchRepository {
 
     override fun getBlog(keyword: String, success: (BlogData) -> Unit, fail: (Throwable) -> Unit) {
         naverSearchRemoteDataSource.getBlog(
+            keyword = keyword,
+            success = success,
+            fail = fail
+        )
+    }
+
+    override fun getKin(keyword: String, success: (KinData) -> Unit, fail: (Throwable) -> Unit) {
+        naverSearchRemoteDataSource.getKin(
             keyword = keyword,
             success = success,
             fail = fail
