@@ -3,17 +3,44 @@ package com.egiwon.architecturestudy.tabs.bottomsheet
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.core.view.doOnLayout
-import androidx.fragment.app.Fragment
 import com.egiwon.architecturestudy.R
+import com.egiwon.architecturestudy.Tab
+import com.egiwon.architecturestudy.base.BaseFragment
+import com.egiwon.architecturestudy.data.NaverDataRepositoryImpl
+import com.egiwon.architecturestudy.data.source.local.ContentDataBase
+import com.egiwon.architecturestudy.data.source.local.NaverLocalDataSource
+import com.egiwon.architecturestudy.data.source.remote.NaverRemoteDataSource
 import com.egiwon.architecturestudy.ext.addCallback
 import com.egiwon.architecturestudy.ext.doOnApplyWindowInsets
+import com.egiwon.architecturestudy.tabs.ContentsFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 import kotlinx.android.synthetic.main.fg_history_sheet.*
 
-class HistorySheetFragment : Fragment(R.layout.fg_history_sheet) {
+class HistorySheetFragment :
+    BaseFragment<HistoryContract.Presenter>(R.layout.fg_history_sheet),
+    HistoryContract.View {
+
+    override val presenter: HistoryContract.Presenter by lazy {
+        HistoryPresenter(
+            this,
+            NaverDataRepositoryImpl.getInstance(
+                NaverRemoteDataSource.getInstance(),
+                NaverLocalDataSource.getInstance(
+                    ContentDataBase.getInstance(requireActivity().applicationContext).contentDao()
+                )
+            )
+        )
+    }
+
+    private val onClick: (Int) -> Unit = {
+
+    }
+
+    private val historyAdapter = HistoryAdapter(onClick)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,6 +77,11 @@ class HistorySheetFragment : Fragment(R.layout.fg_history_sheet) {
                 behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
                     override fun onStateChanged(bottomSheet: View, newState: Int) {
                         backCallback.isEnabled = newState == BottomSheetBehavior.STATE_EXPANDED
+                        if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+                            (parentFragment as? ContentsFragment)?.tab?.let { tab ->
+                                presenter.getSearchQueryHistory(tab)
+                            }
+                        }
                     }
 
                     override fun onSlide(bottomSheet: View, slideOffset: Float) {
@@ -78,16 +110,33 @@ class HistorySheetFragment : Fragment(R.layout.fg_history_sheet) {
                 history_sheet.doOnApplyWindowInsets { _, insets, _, _ ->
                     behavior.peekHeight = peek + insets.systemWindowInsetBottom
                 }
-                collapse_historylist.setOnClickListener {
-                    behavior.state = BottomSheetBehavior.STATE_COLLAPSED
-                }
-                sheet_expand.setOnClickListener {
-                    behavior.state = BottomSheetBehavior.STATE_EXPANDED
-                }
 
+            }// end of doLayout
+            collapse_historylist.setOnClickListener {
+                behavior.state = BottomSheetBehavior.STATE_COLLAPSED
             }
-        }
+            sheet_expand.setOnClickListener {
+                behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            }
+            history_list.adapter = HistoryAdapter(onClick)
+
+        }   // end of apply
 
     }
 
+    override fun showSearchQueryHistory(history: List<String>) {
+        (history_list.adapter as? HistoryAdapter)?.setList(history)
+    }
+
+    override fun showLoading() = Unit
+    override fun hideLoading() = Unit
+
+    companion object {
+        private const val ARG_TYPE = "ARG_TYPE"
+
+        fun newInstance(type: Tab) = HistorySheetFragment().apply {
+            arguments = bundleOf(ARG_TYPE to type)
+        }
+
+    }
 }
