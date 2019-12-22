@@ -36,8 +36,12 @@ class HistorySheetFragment :
         )
     }
 
-    private val onClick: (Int) -> Unit = {
+    private val onClick: (String) -> Unit = { query ->
+        getTab()?.let { tab ->
+            (parentFragment as? ContentsFragment)?.loadContentsByHistoryQuery(tab, query)
+        }
 
+        BottomSheetBehavior.from(history_sheet).state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
     private val historyAdapter = HistoryAdapter(onClick)
@@ -78,7 +82,7 @@ class HistorySheetFragment :
                     override fun onStateChanged(bottomSheet: View, newState: Int) {
                         backCallback.isEnabled = newState == BottomSheetBehavior.STATE_EXPANDED
                         if (newState == BottomSheetBehavior.STATE_EXPANDED) {
-                            (parentFragment as? ContentsFragment)?.tab?.let { tab ->
+                            getTab()?.let { tab ->
                                 presenter.getSearchQueryHistory(tab)
                             }
                         }
@@ -118,11 +122,13 @@ class HistorySheetFragment :
             sheet_expand.setOnClickListener {
                 behavior.state = BottomSheetBehavior.STATE_EXPANDED
             }
-            history_list.adapter = HistoryAdapter(onClick)
+            history_list.adapter = historyAdapter
 
         }   // end of apply
 
     }
+
+    private fun getTab(): Tab? = (parentFragment as? ContentsFragment)?.tab
 
     override fun showSearchQueryHistory(history: List<String>) {
         (history_list.adapter as? HistoryAdapter)?.setList(history)

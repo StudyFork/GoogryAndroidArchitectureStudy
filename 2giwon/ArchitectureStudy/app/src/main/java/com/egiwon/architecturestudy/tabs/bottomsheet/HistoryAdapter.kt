@@ -8,7 +8,7 @@ import com.egiwon.architecturestudy.base.BaseViewHolder
 import kotlinx.android.synthetic.main.search_history_item.view.*
 
 class HistoryAdapter(
-    private val onClick: (Int) -> Unit
+    private val onClick: (String) -> Unit
 ) : RecyclerView.Adapter<HistoryViewHolder>() {
 
     private val list = ArrayList<String>()
@@ -16,7 +16,7 @@ class HistoryAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder =
         HistoryViewHolder(parent).apply {
             itemView.setOnClickListener {
-                onClick(adapterPosition)
+                onClick(list[adapterPosition])
             }
         }
 
