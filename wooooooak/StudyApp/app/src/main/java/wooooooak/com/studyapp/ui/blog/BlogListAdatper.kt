@@ -4,21 +4,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_blog.view.*
 import kotlinx.android.synthetic.main.item_image.view.title
 import wooooooak.com.studyapp.R
-import wooooooak.com.studyapp.common.ext.startWebView
-import wooooooak.com.studyapp.data.model.repository.NaverApiRepositoryImpl
 import wooooooak.com.studyapp.data.model.response.blog.Blog
 import wooooooak.com.studyapp.ui.base.BaseSearchListAdapter
 
-class BlogSearchListAdapter(private val fragmentActivity: FragmentActivity) :
-    BaseSearchListAdapter<Blog, BlogSearchListAdapter.BlogViewHolder>(fragmentActivity, DiffCallback()) {
-
-    private val naverApiRepository = NaverApiRepositoryImpl()
+class BlogSearchListAdapter(
+    private val itemListener: ItemListener<Blog>
+) :
+    BaseSearchListAdapter<Blog, BlogSearchListAdapter.BlogViewHolder>(itemListener, DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = BlogViewHolder(
         LayoutInflater
@@ -29,16 +26,10 @@ class BlogSearchListAdapter(private val fragmentActivity: FragmentActivity) :
     override fun bindItemViewHolder(holder: BlogViewHolder, position: Int) {
         getItem(position)?.let { blog ->
             holder.bind(blog, View.OnClickListener {
-                fragmentActivity.startWebView(blog.link)
+                itemListener.renderWebView(blog.link)
             })
         }
     }
-
-    override suspend fun initItemListByTitleAsync(title: String): List<Blog> =
-        naverApiRepository.getBlogList(title)
-
-    override suspend fun getMoreItemListFromStartIndexAsync(title: String, startIndex: Int): List<Blog> =
-        naverApiRepository.getBlogList(title, startIndex)
 
     inner class BlogViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(blog: Blog, onClickItem: View.OnClickListener) {

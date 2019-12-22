@@ -2,7 +2,7 @@ package wooooooak.com.studyapp.data.model.repository
 
 import wooooooak.com.studyapp.data.model.datasource.remote.NaverRemoteDataSourceImpl
 
-class NaverApiRepositoryImpl : NaverApiRepository {
+object NaverApiRepositoryImpl : NaverApiRepository {
     private val naverRemoteDataSource = NaverRemoteDataSourceImpl()
 
     override suspend fun getBlogList(title: String, startIndex: Int?) =
