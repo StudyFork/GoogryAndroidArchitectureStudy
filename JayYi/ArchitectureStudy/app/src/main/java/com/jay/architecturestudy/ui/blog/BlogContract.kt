@@ -5,10 +5,8 @@ import com.jay.architecturestudy.ui.BaseContract
 
 interface BlogContract {
 
-    interface View : BaseContract.View<Presenter, Blog> {
-    }
+    interface View : BaseContract.View<Presenter, Blog>
 
-    interface Presenter : BaseContract.Presenter {
-    }
+    interface Presenter : BaseContract.Presenter
 
 }

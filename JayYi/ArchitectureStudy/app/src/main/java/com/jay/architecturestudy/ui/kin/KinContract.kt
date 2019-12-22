@@ -4,9 +4,7 @@ import com.jay.architecturestudy.data.model.Kin
 import com.jay.architecturestudy.ui.BaseContract
 
 interface KinContract {
-    interface View: BaseContract.View<Presenter, Kin> {
-    }
+    interface View : BaseContract.View<Presenter, Kin>
 
-    interface Presenter: BaseContract.Presenter {
-    }
+    interface Presenter : BaseContract.Presenter
 }
