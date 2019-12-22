@@ -29,21 +29,23 @@ class RecyclerViewAdapter(private val movies: Movies) :
         holder.bindItems(movies.items[position])
     }
 
-
+    //MovieView 재사용하는 Holder
     class MovieHolder(internal val movieView: View) : RecyclerView.ViewHolder(movieView) {
         @SuppressLint("SetTextI18n")
         fun bindItems(data: Movie) {
-            //
+
+            //image 바인딩
             Glide.with(movieView.context).load(data.image)
                 .apply(RequestOptions().override(300, 450))
                 .apply(RequestOptions.centerCropTransform())
                 .into(movieView.movie_image)
 
+            // userRating(별점)의 경우 단순 문자열로 전달됨. 이를 실수형으로 변환한 뒤 10점만점을 별 5개 기준으로 변경하기 위해 2로 나누고 이를 기반으로 ratingBar(별점)의 값을 변경한다.
             itemView.movie_grade.rating = data.userRating.toFloat() / 2
             itemView.movie_releaseDate.text = data.pubDate
             itemView.movie_title.text = stripHtml(data.title)
-            itemView.movie_director.text = "감독 ${data.director}"
-            itemView.movie_actor.text = "출연 ${data.actor}"
+            itemView.movie_director.text = data.director
+            itemView.movie_actor.text = data.actor
 
             //클릭시 웹사이트 연결
             itemView.setOnClickListener {
@@ -56,4 +58,6 @@ class RecyclerViewAdapter(private val movies: Movies) :
 }
 
 // 검색어와 일치하는 부분은 태그로 감싸져 오는 제목 String에서 HTML Tag를 제거하는 method
-fun stripHtml(html: String): String { return Html.fromHtml(html).toString() }
+fun stripHtml(html: String): String {
+    return Html.fromHtml(html).toString()
+}
