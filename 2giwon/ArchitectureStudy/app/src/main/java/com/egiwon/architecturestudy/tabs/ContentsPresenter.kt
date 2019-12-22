@@ -30,14 +30,11 @@ class ContentsPresenter(
                     contentsView.hideLoading()
                 }
                 .subscribe({
-                    with(it) {
-                        if (contentItems.isNullOrEmpty()) {
-                            contentsView.showErrorResultEmpty()
-                        } else {
-                            contentsView.showQueryResult(this.contentItems)
-                        }
+                    if (it.contentItems.isNullOrEmpty()) {
+                        contentsView.showErrorResultEmpty()
+                    } else {
+                        contentsView.showQueryResult(it.contentItems)
                     }
-
                 }, {
                     contentsView.showErrorLoadFail()
                 }).addDisposable()
@@ -52,4 +49,16 @@ class ContentsPresenter(
                 contentsView.showCacheContents(it.contentItems, it.query)
             }, {}).addDisposable()
     }
+
+    override fun loadContentsByHistory(type: Tab, query: String) {
+        naverDataRepository.getContentsByHistory(type.name, query)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                contentsView.showQueryHistoryResult(it.contentItems, it.query)
+                loadContents(type, query)
+            }, {
+                contentsView.showErrorLoadFail()
+            }).addDisposable()
+    }
+
 }

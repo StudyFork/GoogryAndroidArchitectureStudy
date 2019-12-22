@@ -61,9 +61,16 @@ class ContentsFragment : BaseFragment<ContentsContract.Presenter>(
 
     }
 
-
     override fun showQueryResult(resultList: List<ContentItem>) {
         (rv_contents.adapter as? ContentsAdapter)?.setList(resultList)
+    }
+
+    override fun showQueryHistoryResult(
+        resultList: List<ContentItem>,
+        query: String
+    ) {
+        showQueryResult(resultList)
+        et_search.setText(query)
     }
 
     override fun showErrorQueryEmpty() {
@@ -92,6 +99,10 @@ class ContentsFragment : BaseFragment<ContentsContract.Presenter>(
 
     override fun hideLoading() {
         progress_circular.visibility = View.GONE
+    }
+
+    fun loadContentsByHistoryQuery(type: Tab, query: String) {
+        presenter.loadContentsByHistory(type, query)
     }
 
     companion object {
