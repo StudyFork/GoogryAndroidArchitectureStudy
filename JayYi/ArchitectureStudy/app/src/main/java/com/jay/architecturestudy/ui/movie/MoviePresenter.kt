@@ -1,11 +1,13 @@
 package com.jay.architecturestudy.ui.movie
 
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
+import com.jay.architecturestudy.ui.BasePresenter
 
-class MoviePresenter (
-    private val view: MovieContract.View,
-    private val repository: NaverSearchRepositoryImpl
-): MovieContract.Presenter {
+class MoviePresenter(
+    override val view: MovieContract.View,
+    override val repository: NaverSearchRepositoryImpl
+) : BasePresenter(view, repository), MovieContract.Presenter {
+
     override fun search(keyword: String) {
         repository.getMovie(
             keyword = keyword,
@@ -13,8 +15,7 @@ class MoviePresenter (
                 view.updateResult(responseMovie.movies)
             },
             fail = { e ->
-                val message = e.message ?: return@getMovie
-                view.showErrorMessage(message)
+                handlerError(e)
             }
         )
     }

@@ -1,11 +1,12 @@
 package com.jay.architecturestudy.ui.kin
 
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
+import com.jay.architecturestudy.ui.BasePresenter
 
-class KinPresenter (
-    private val view: KinContract.View,
-    private val repository: NaverSearchRepositoryImpl
-): KinContract.Presenter {
+class KinPresenter(
+    override val view: KinContract.View,
+    override val repository: NaverSearchRepositoryImpl
+) : BasePresenter(view, repository), KinContract.Presenter {
 
     override fun search(keyword: String) {
         repository.getKin(
@@ -14,8 +15,7 @@ class KinPresenter (
                 view.updateResult(responseKin.kins)
             },
             fail = { e ->
-                val message = e.message ?: return@getKin
-                view.showErrorMessage(message)
+                handlerError(e)
             }
         )
     }

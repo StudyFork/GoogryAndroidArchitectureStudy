@@ -1,11 +1,12 @@
 package com.jay.architecturestudy.ui.blog
 
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
+import com.jay.architecturestudy.ui.BasePresenter
 
 class BlogPresenter(
-    private val view: BlogContract.View,
-    private val repository: NaverSearchRepositoryImpl
-) : BlogContract.Presenter {
+    override val view: BlogContract.View,
+    override val repository: NaverSearchRepositoryImpl
+) : BasePresenter(view, repository), BlogContract.Presenter {
 
     override fun search(keyword: String) {
         repository.getBlog(
@@ -14,8 +15,7 @@ class BlogPresenter(
                 view.updateResult(responseBlog.blogs)
             },
             fail = { e ->
-                val message = e.message ?: return@getBlog
-                view.showErrorMessage(message)
+                handlerError(e)
             }
         )
     }
