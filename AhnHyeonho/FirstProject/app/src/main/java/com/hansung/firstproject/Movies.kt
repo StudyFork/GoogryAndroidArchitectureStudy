@@ -1,7 +1,5 @@
 package com.hansung.firstproject
 
-import android.graphics.Movie
-
 data class Movies(
     val lastBuildDate: String,
     val total: Long,
