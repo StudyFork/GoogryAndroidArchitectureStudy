@@ -1,0 +1,19 @@
+package com.jay.architecturestudy.ui
+
+import com.jay.architecturestudy.data.model.Blog
+
+interface BaseContract {
+
+    interface View<T, H> {
+        var presenter: T
+
+        fun updateResult(result: List<H>)
+
+        fun showErrorMessage(message: String)
+    }
+
+    interface Presenter {
+        fun search(keyword: String)
+    }
+
+}
