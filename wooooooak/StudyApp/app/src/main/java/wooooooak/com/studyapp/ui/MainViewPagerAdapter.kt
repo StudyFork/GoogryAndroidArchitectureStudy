@@ -12,7 +12,6 @@ class MainViewPagerAdapter(
     fragmentActivity: FragmentActivity
 ) : FragmentStateAdapter(fragmentActivity) {
 
-    //    private val fragmentList = listOf(BlogFragment())
     private val fragmentList = listOf(MovieFragment(), BlogFragment(), ImageFragment(), KinFragment())
 
     override fun getItemCount() = fragmentList.size
