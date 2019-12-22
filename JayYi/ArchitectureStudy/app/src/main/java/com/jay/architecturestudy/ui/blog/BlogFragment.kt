@@ -6,7 +6,6 @@ import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Blog
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseFragment
-import com.jay.architecturestudy.util.showToastMessage
 import kotlinx.android.synthetic.main.fragemnt_movie.*
 
 class BlogFragment : BaseFragment(R.layout.fragemnt_blog), BlogContract.View {
@@ -46,9 +45,5 @@ class BlogFragment : BaseFragment(R.layout.fragemnt_blog), BlogContract.View {
 
     override fun updateResult(blogs: List<Blog>) {
         blogAdapter.setData(blogs)
-    }
-
-    override fun showErrorMessage(message: String) {
-        context?.showToastMessage(message)
     }
 }

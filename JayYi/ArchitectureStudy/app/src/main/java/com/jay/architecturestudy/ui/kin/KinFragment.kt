@@ -6,7 +6,6 @@ import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Kin
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseFragment
-import com.jay.architecturestudy.util.showToastMessage
 import kotlinx.android.synthetic.main.fragemnt_movie.*
 
 class KinFragment : BaseFragment(R.layout.fragemnt_kin), KinContract.View {
@@ -46,9 +45,5 @@ class KinFragment : BaseFragment(R.layout.fragemnt_kin), KinContract.View {
 
     override fun updateResult(result: List<Kin>) {
         kinAdapter.setData(result)
-    }
-
-    override fun showErrorMessage(message: String) {
-        context?.showToastMessage(message)
     }
 }

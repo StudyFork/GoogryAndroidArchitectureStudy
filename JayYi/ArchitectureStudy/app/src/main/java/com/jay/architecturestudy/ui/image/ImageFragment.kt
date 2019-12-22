@@ -5,7 +5,6 @@ import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Image
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseFragment
-import com.jay.architecturestudy.util.showToastMessage
 import com.jay.architecturestudy.util.toPx
 import com.jay.architecturestudy.widget.SpacesItemDecoration
 import kotlinx.android.synthetic.main.fragemnt_movie.*
@@ -42,9 +41,5 @@ class ImageFragment : BaseFragment(R.layout.fragemnt_image), ImageContract.View 
 
     override fun updateResult(result: List<Image>) {
         imageAdapter.setData(result)
-    }
-
-    override fun showErrorMessage(message: String) {
-        context?.showToastMessage(message)
     }
 }
