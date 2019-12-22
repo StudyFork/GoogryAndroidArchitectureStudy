@@ -2,19 +2,20 @@ package com.jay.architecturestudy.ui.blog
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Blog
-import com.jay.architecturestudy.data.model.ResponseNaverQuery
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
-import com.jay.architecturestudy.network.Api
 import com.jay.architecturestudy.ui.BaseFragment
+import kotlinx.android.synthetic.main.fragemnt_blog.*
 import kotlinx.android.synthetic.main.fragemnt_movie.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.android.synthetic.main.fragemnt_movie.recycler_view
+import kotlinx.android.synthetic.main.fragemnt_movie.search_bar
 
-class BlogFragment : BaseFragment(R.layout.fragemnt_blog) {
+class BlogFragment : BaseFragment(R.layout.fragemnt_blog), BlogContract.View {
+    override lateinit var presenter: BlogContract.Presenter
 
     private lateinit var blogAdapter: BlogAdapter
 
@@ -40,17 +41,19 @@ class BlogFragment : BaseFragment(R.layout.fragemnt_blog) {
         search_bar.onClickAction = { keyword ->
             search(keyword)
         }
+
+        presenter = BlogPresenter(this, naverSearchRepository)
     }
 
     override fun search(keyword: String) {
-        naverSearchRepository.getBlog(
-            keyword = keyword,
-            success = { responseBlog ->
-                blogAdapter.setData(responseBlog.blogs)
-            },
-            fail = { e ->
-                Log.e("Blog", "error=${e.message}")
-            }
-        )
+        presenter.search(keyword)
+    }
+
+    override fun updateResult(blogs: List<Blog>) {
+        blogAdapter.setData(blogs)
+    }
+
+    override fun showErrorMessage(message: String) {
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 }
