@@ -2,6 +2,7 @@ package com.jay.architecturestudy.ui.kin
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Kin
@@ -14,7 +15,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class KinFragment : BaseFragment(R.layout.fragemnt_kin) {
+class KinFragment : BaseFragment(R.layout.fragemnt_kin), KinContract.View {
+    override lateinit var presenter: KinContract.Presenter
 
     private lateinit var kinAdapter: KinAdapter
 
@@ -40,17 +42,19 @@ class KinFragment : BaseFragment(R.layout.fragemnt_kin) {
         search_bar.onClickAction = { keyword ->
             search(keyword)
         }
+
+        presenter = KinPresenter(this, naverSearchRepository)
     }
 
     override fun search(keyword: String) {
-        naverSearchRepository.getKin(
-            keyword = keyword,
-            success = { responseKin ->
-                kinAdapter.setData(responseKin.kins)
-            },
-            fail = {e ->
-                Log.e("Kin", "error=${e.message}")
-            }
-        )
+        presenter.search(keyword)
+    }
+
+    override fun updateResult(result: List<Kin>) {
+        kinAdapter.setData(result)
+    }
+
+    override fun showErrorMessage(message: String) {
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 }
