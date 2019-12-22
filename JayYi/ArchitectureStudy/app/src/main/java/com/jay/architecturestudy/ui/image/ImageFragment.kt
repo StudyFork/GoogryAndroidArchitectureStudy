@@ -1,20 +1,14 @@
 package com.jay.architecturestudy.ui.image
 
 import android.os.Bundle
-import android.util.Log
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Image
-import com.jay.architecturestudy.data.model.ResponseNaverQuery
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
-import com.jay.architecturestudy.network.Api
 import com.jay.architecturestudy.ui.BaseFragment
 import com.jay.architecturestudy.util.showToastMessage
 import com.jay.architecturestudy.util.toPx
 import com.jay.architecturestudy.widget.SpacesItemDecoration
 import kotlinx.android.synthetic.main.fragemnt_movie.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class ImageFragment : BaseFragment(R.layout.fragemnt_image), ImageContract.View {
     override lateinit var presenter: ImageContract.Presenter
