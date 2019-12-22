@@ -17,12 +17,13 @@ class BlogAdapter : RecyclerView.Adapter<BlogAdapter.BlogHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_blog, parent, false)
-        return BlogHolder(view)
+        return BlogHolder(view).apply {
+            itemView.setOnClickListener { v -> v.startWebView(blogItem[adapterPosition].link) }
+        }
     }
 
     override fun getItemCount(): Int {
         return blogItem.size
-
     }
 
     override fun onBindViewHolder(holder: BlogHolder, position: Int) {
@@ -35,20 +36,9 @@ class BlogAdapter : RecyclerView.Adapter<BlogAdapter.BlogHolder>(){
         notifyDataSetChanged()
     }
 
-
     class BlogHolder(view : View) : RecyclerView.ViewHolder(view)  {
 
-        lateinit var item : BlogItems
-
-        init {
-            itemView.setOnClickListener { view ->
-                view.startWebView(item.link)
-            }
-        }
-
         fun bind(item : BlogItems) {
-            this.item = item
-
             with(itemView) {
                 blog_title.text = HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
                 blog_contents.text = HtmlCompat.fromHtml(item.description, HtmlCompat.FROM_HTML_MODE_COMPACT)

@@ -17,7 +17,9 @@ class KinAdapter : RecyclerView.Adapter<KinAdapter.KinHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KinHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_kin, parent, false)
-        return KinHolder(view)
+        return KinHolder(view).apply {
+            itemView.setOnClickListener { v -> v.startWebView(kinItem[adapterPosition].link) }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -35,23 +37,12 @@ class KinAdapter : RecyclerView.Adapter<KinAdapter.KinHolder>() {
     }
 
     class KinHolder(view : View) : RecyclerView.ViewHolder(view) {
-        lateinit var item: KinItems
-
-        init {
-            itemView.setOnClickListener { view ->
-                view.startWebView(item.link)
-            }
-        }
 
         fun bind(item: KinItems) {
-            this.item = item
-
             with(itemView) {
                 kin_title.text = HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
                 kin_contents.text = HtmlCompat.fromHtml(item.description, HtmlCompat.FROM_HTML_MODE_COMPACT)
-
             }
-
         }
     }
 }

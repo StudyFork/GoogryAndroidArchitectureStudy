@@ -9,16 +9,16 @@ import com.example.architecturestudy.R
 import com.example.architecturestudy.data.model.ImageItems
 import com.example.architecturestudy.ui.startWebView
 import kotlinx.android.synthetic.main.item_image.view.*
-import java.lang.Exception
 
 class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ImageHolder>() {
 
     private val imageItem : MutableList<ImageItems> = mutableListOf()
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_image, parent, false)
-        return ImageHolder(view)
+        return ImageHolder(view).apply {
+            itemView.setOnClickListener { v -> v.startWebView(imageItem[adapterPosition].link) }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -37,17 +37,7 @@ class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ImageHolder>() {
 
     class ImageHolder(view : View) : RecyclerView.ViewHolder(view) {
 
-        lateinit var item: ImageItems
-
-        init {
-            itemView.setOnClickListener { view ->
-                view.startWebView(item.link)
-            }
-        }
-
         fun bind(item : ImageItems) {
-            this.item = item
-
             with(itemView) {
                 try {
                     Glide.with(this).load(item.thumbnail).into(img_image)
