@@ -1,5 +1,5 @@
 # 8기
-- 안창환 [devLibCH](https://github.com/)
+- 안창환 [devLibCH](https://github.com/devLibCH)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class08/devLibCH)
 
 - 박현우 [](https://github.com/)
