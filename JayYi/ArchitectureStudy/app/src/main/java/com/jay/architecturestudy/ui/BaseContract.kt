@@ -1,7 +1,5 @@
 package com.jay.architecturestudy.ui
 
-import com.jay.architecturestudy.data.model.Blog
-
 interface BaseContract {
 
     interface View<T, H> {
