@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.architecturestudy.Injection
 import com.example.architecturestudy.R
-import com.example.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import kotlinx.android.synthetic.main.fragment_kin.*
 
 class KinFragment : Fragment() {
 
     private lateinit var kinAdapter: KinAdapter
 
-    private val naverSearchRepository by lazy { NaverSearchRepositoryImpl() }
+    private val naverSearchRepository by lazy { Injection.provideNaverSearchRepository()}
 
     override fun onCreateView(
         inflater: LayoutInflater,

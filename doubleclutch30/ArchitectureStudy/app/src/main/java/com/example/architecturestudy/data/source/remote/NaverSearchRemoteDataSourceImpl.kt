@@ -1,15 +1,15 @@
 package com.example.architecturestudy.data.source.remote
 
-import com.example.architecturestudy.data.model.*
+import com.example.architecturestudy.data.model.BlogData
+import com.example.architecturestudy.data.model.ImageData
+import com.example.architecturestudy.data.model.KinData
+import com.example.architecturestudy.data.model.MovieData
 import com.example.architecturestudy.network.Api
-import com.example.architecturestudy.network.ApiClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NaverSearchRemoteDataSourceImpl : NaverSearchRemoteDataSource {
-
-    val restClient: Api = ApiClient.api
+class NaverSearchRemoteDataSourceImpl(private val restClient: Api) : NaverSearchRemoteDataSource {
 
     override fun getMovie(keyword: String, success: (MovieData) -> Unit, fail: (Throwable) -> Unit) {
         restClient.requestMovies(keyword).enqueue(object : Callback<MovieData> {

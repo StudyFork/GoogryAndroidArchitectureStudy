@@ -5,13 +5,11 @@ import com.example.architecturestudy.data.model.ImageData
 import com.example.architecturestudy.data.model.KinData
 import com.example.architecturestudy.data.model.MovieData
 import com.example.architecturestudy.data.source.remote.NaverSearchRemoteDataSource
-import com.example.architecturestudy.data.source.remote.NaverSearchRemoteDataSourceImpl
 
-class NaverSearchRepositoryImpl : NaverSearchRepository {
+class NaverSearchRepositoryImpl(
+    private val naverSearchRemoteDataSource: NaverSearchRemoteDataSource
+) : NaverSearchRepository {
 
-    override val naverSearchRemoteDataSource: NaverSearchRemoteDataSource by lazy {
-        NaverSearchRemoteDataSourceImpl()
-    }
 
     override fun getMovie(keyword: String, success: (MovieData) -> Unit, fail: (Throwable) -> Unit) {
         naverSearchRemoteDataSource.getMovie(
