@@ -15,6 +15,8 @@ interface NaverDataSource {
 
         fun getContentQuerys(type: String): Single<List<String>>
 
+        fun getContents(type: String, query: String): Single<ContentResponse>
+
         fun saveContents(type: String, query: String, response: ContentResponse): Completable
     }
 
