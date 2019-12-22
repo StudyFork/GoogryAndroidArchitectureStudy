@@ -50,7 +50,7 @@ class KinFragment : Fragment() {
 
         naverSearchRepository.getKin(
             keyword = keyword,
-            success = { responseKin -> kinAdapter.update(responseKin.items) },
+            success = { kinAdapter.update(it) },
             fail = { e -> error(message = e.toString()) }
         )
     }

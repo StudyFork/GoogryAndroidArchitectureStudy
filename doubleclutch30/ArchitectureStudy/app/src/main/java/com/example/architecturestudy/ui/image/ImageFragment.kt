@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.Injection
 import com.example.architecturestudy.R
+import com.example.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import kotlinx.android.synthetic.main.fragment_image.*
 
 class ImageFragment : Fragment() {
@@ -48,7 +49,7 @@ class ImageFragment : Fragment() {
     private fun searchImageList(keyword : String) {
         naverSearchRepository.getImage(
             keyword = keyword,
-            success = { responseImage -> imageAdapter.update(responseImage.items) },
+            success = { imageAdapter.update(it) },
             fail = { e -> error(message = e.toString()) }
         )
     }

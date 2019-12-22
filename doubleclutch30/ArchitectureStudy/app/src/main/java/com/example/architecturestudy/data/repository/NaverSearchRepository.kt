@@ -1,14 +1,13 @@
 package com.example.architecturestudy.data.repository
 
-import com.example.architecturestudy.network.response.BlogData
-import com.example.architecturestudy.network.response.ImageData
-import com.example.architecturestudy.network.response.KinData
-import com.example.architecturestudy.network.response.MovieData
+import com.example.architecturestudy.data.model.BlogItems
+import com.example.architecturestudy.data.model.ImageItems
+import com.example.architecturestudy.data.model.KinItems
+import com.example.architecturestudy.data.model.MovieItems
 
 interface NaverSearchRepository  {
-    fun getMovie(keyword : String, success : (MovieData) -> Unit, fail : (Throwable) -> Unit)
-    fun getBlog(keyword: String, success: (BlogData) -> Unit, fail: (Throwable) -> Unit)
-    fun getKin(keyword: String, success: (KinData) -> Unit, fail: (Throwable) -> Unit)
-    fun getImage(keyword: String, success: (ImageData) -> Unit, fail: (Throwable) -> Unit)
-
+    fun getMovie(keyword: String, success: (List<MovieItems>) -> Unit, fail: (Throwable) -> Unit)
+    fun getBlog(keyword: String, success: (List<BlogItems>) -> Unit, fail: (Throwable) -> Unit)
+    fun getKin(keyword: String, success: (List<KinItems>) -> Unit, fail: (Throwable) -> Unit)
+    fun getImage(keyword: String, success: (List<ImageItems>) -> Unit, fail: (Throwable) -> Unit)
 }

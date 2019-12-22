@@ -50,8 +50,8 @@ class BlogFragment : Fragment() {
     private fun searchBlogList(keyWord: String) {
 
         naverSearchRepository.getBlog(
-            keyword= keyWord,
-            success = { responseBlog -> blogAdapter.update(responseBlog.items) },
+            keyword = keyWord,
+            success = { blogAdapter.update(it) },
             fail = { e -> error(message = e.toString())}
         )
     }

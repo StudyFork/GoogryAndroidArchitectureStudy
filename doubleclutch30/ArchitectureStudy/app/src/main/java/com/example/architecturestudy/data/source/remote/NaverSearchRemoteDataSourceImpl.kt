@@ -1,5 +1,9 @@
 package com.example.architecturestudy.data.source.remote
 
+import com.example.architecturestudy.data.model.BlogItems
+import com.example.architecturestudy.data.model.ImageItems
+import com.example.architecturestudy.data.model.KinItems
+import com.example.architecturestudy.data.model.MovieItems
 import com.example.architecturestudy.network.response.BlogData
 import com.example.architecturestudy.network.response.ImageData
 import com.example.architecturestudy.network.response.KinData
@@ -11,7 +15,7 @@ import retrofit2.Response
 
 class NaverSearchRemoteDataSourceImpl(private val restClient: Api) : NaverSearchRemoteDataSource {
 
-    override fun getMovie(keyword: String, success: (MovieData) -> Unit, fail: (Throwable) -> Unit) {
+    override fun getMovie(keyword: String, success: (List<MovieItems>) -> Unit, fail: (Throwable) -> Unit) {
         restClient.requestMovies(keyword).enqueue(object : Callback<MovieData> {
             override fun onFailure(call: Call<MovieData>, t: Throwable) {
                 fail(t)
@@ -21,9 +25,7 @@ class NaverSearchRemoteDataSourceImpl(private val restClient: Api) : NaverSearch
                 if(response.isSuccessful) {
                     response.body()?.items?.let {
                         success(
-                            MovieData(
-                                it
-                            )
+                            it
                         )
                     }
                 }
@@ -31,7 +33,7 @@ class NaverSearchRemoteDataSourceImpl(private val restClient: Api) : NaverSearch
         })
     }
 
-    override fun getBlog(keyword: String, success: (BlogData) -> Unit, fail: (Throwable) -> Unit) {
+    override fun getBlog(keyword: String, success: (List<BlogItems>) -> Unit, fail: (Throwable) -> Unit) {
         restClient.requestBlog(keyword).enqueue(object : Callback<BlogData> {
             override fun onFailure(call: Call<BlogData>, t: Throwable) {
                 fail(t)
@@ -41,9 +43,7 @@ class NaverSearchRemoteDataSourceImpl(private val restClient: Api) : NaverSearch
                 if(response.isSuccessful) {
                     response.body()?.items?.let {
                         success(
-                            BlogData(
-                                it
-                            )
+                            it
                         )
                     }
                 }
@@ -51,7 +51,7 @@ class NaverSearchRemoteDataSourceImpl(private val restClient: Api) : NaverSearch
         })
     }
 
-    override fun getKin(keyword: String, success: (KinData) -> Unit, fail: (Throwable) -> Unit) {
+    override fun getKin(keyword: String, success: (List<KinItems>) -> Unit, fail: (Throwable) -> Unit) {
         restClient.requestKin(keyword).enqueue(object : Callback<KinData> {
             override fun onFailure(call: Call<KinData>, t: Throwable) {
                 fail(t)
@@ -61,9 +61,7 @@ class NaverSearchRemoteDataSourceImpl(private val restClient: Api) : NaverSearch
                 if(response.isSuccessful) {
                     response.body()?.items?.let {
                         success(
-                            KinData(
-                                it
-                            )
+                            it
                         )
                     }
                 }
@@ -71,7 +69,7 @@ class NaverSearchRemoteDataSourceImpl(private val restClient: Api) : NaverSearch
         })
     }
 
-    override fun getImage(keyword: String, success: (ImageData) -> Unit, fail: (Throwable) -> Unit)
+    override fun getImage(keyword: String, success: (List<ImageItems>) -> Unit, fail: (Throwable) -> Unit)
     {
         restClient.requestImage(keyword).enqueue(object : Callback<ImageData> {
             override fun onFailure(call: Call<ImageData>, t: Throwable) {
@@ -82,9 +80,7 @@ class NaverSearchRemoteDataSourceImpl(private val restClient: Api) : NaverSearch
                 if(response.isSuccessful) {
                     response.body()?.items?.let {
                         success(
-                            ImageData(
-                                it
-                            )
+                            it
                         )
                     }
                 }

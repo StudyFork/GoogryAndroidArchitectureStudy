@@ -51,7 +51,7 @@ class MovieFragment : Fragment() {
 
         naverSearchRepository.getMovie(
             keyword = keyword,
-            success = { responseMovie -> movieAdapter.update(responseMovie.items) },
+            success = { movieAdapter.update(it) },
             fail = { e -> error(message = e.toString()) }
         )
     }
