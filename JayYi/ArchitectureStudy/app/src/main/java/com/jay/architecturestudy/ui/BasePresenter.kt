@@ -7,7 +7,7 @@ abstract class BasePresenter (
     protected open val repository: NaverSearchRepository
 ): BaseContract.Presenter {
 
-    override fun handlerError(e: Throwable) {
+    override fun handleError(e: Throwable) {
         val message = e.message ?: return
         view.showErrorMessage(message)
     }

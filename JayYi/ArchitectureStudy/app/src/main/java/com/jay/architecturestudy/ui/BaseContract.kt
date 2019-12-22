@@ -13,7 +13,7 @@ interface BaseContract {
     interface Presenter {
         fun search(keyword: String)
 
-        fun handlerError(e: Throwable)
+        fun handleError(e: Throwable)
     }
 
 }

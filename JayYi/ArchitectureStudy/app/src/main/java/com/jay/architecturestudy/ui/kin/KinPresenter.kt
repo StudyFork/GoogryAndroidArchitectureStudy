@@ -15,7 +15,7 @@ class KinPresenter(
                 view.updateResult(responseKin.kins)
             },
             fail = { e ->
-                handlerError(e)
+                handleError(e)
             }
         )
     }

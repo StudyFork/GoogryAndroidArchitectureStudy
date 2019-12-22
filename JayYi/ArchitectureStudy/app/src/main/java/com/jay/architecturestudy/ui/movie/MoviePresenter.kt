@@ -15,7 +15,7 @@ class MoviePresenter(
                 view.updateResult(responseMovie.movies)
             },
             fail = { e ->
-                handlerError(e)
+                handleError(e)
             }
         )
     }

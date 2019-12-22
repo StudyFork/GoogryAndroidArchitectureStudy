@@ -15,7 +15,7 @@ class BlogPresenter(
                 view.updateResult(responseBlog.blogs)
             },
             fail = { e ->
-                handlerError(e)
+                handleError(e)
             }
         )
     }

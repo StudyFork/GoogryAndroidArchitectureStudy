@@ -15,7 +15,7 @@ class ImagePresenter(
                 view.updateResult(responseImage.images)
             },
             fail = { e ->
-                handlerError(e)
+                handleError(e)
             }
         )
     }
