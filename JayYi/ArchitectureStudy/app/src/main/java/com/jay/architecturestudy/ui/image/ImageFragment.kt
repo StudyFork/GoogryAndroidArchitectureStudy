@@ -2,6 +2,7 @@ package com.jay.architecturestudy.ui.image
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Image
 import com.jay.architecturestudy.data.model.ResponseNaverQuery
@@ -15,7 +16,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ImageFragment : BaseFragment(R.layout.fragemnt_image) {
+class ImageFragment : BaseFragment(R.layout.fragemnt_image), ImageContract.View {
+    override lateinit var presenter: ImageContract.Presenter
 
     private lateinit var imageAdapter: ImageAdapter
 
@@ -36,17 +38,19 @@ class ImageFragment : BaseFragment(R.layout.fragemnt_image) {
         search_bar.onClickAction = { keyword ->
             search(keyword)
         }
+
+        presenter = ImagePresenter(this, naverSearchRepository)
     }
 
     override fun search(keyword: String) {
-        naverSearchRepository.getImage(
-            keyword = keyword,
-            success = {responseImage ->
-                imageAdapter.setData(responseImage.images)
-            },
-            fail = { e ->
-                Log.e("Image", "error=${e.message}")
-            }
-        )
+        presenter.search(keyword)
+    }
+
+    override fun updateResult(result: List<Image>) {
+        imageAdapter.setData(result)
+    }
+
+    override fun showErrorMessage(message: String) {
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 }
