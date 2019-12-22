@@ -8,16 +8,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.androidarchitecture.R
+import com.example.androidarchitecture.common.toast
 import com.example.androidarchitecture.data.repository.NaverRepo
+import com.example.androidarchitecture.data.response.ImageData
+import com.example.androidarchitecture.ui.base.NaverContract
 import kotlinx.android.synthetic.main.fragment_movie.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class ImageFragment : Fragment() {
+class ImageFragment : Fragment(), NaverContract.View<ImageData> {
 
     private lateinit var imageAdapter: ImageAdapter
-    private val naverRepo = NaverRepo()
+    private val presenter by lazy { ImagePresent(this, NaverRepo) }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,20 +53,18 @@ class ImageFragment : Fragment() {
 
         btn_search.setOnClickListener {
             if (edit_text != null) {
-                requestImageList(edit_text.text.toString())
+                presenter.requestList(edit_text.text.toString())
             }
         }
     }
 
 
-    private fun requestImageList(text: String) {
-        naverRepo.getImage(text, 1, 10,
-            success = {
-                imageAdapter.setData(it)
-            }, fail = {
+    override fun renderItems(items: List<ImageData>) {
+        imageAdapter.setData(items)
+    }
 
-            })
-
+    override fun errorToast(msg: String?) {
+        msg?.let { requireContext().toast(it) }
     }
 
 }

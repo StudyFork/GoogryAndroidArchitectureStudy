@@ -1,21 +1,20 @@
-package com.example.androidarchitecture.ui.movie
+package com.example.androidarchitecture.ui.image
 
 import com.example.androidarchitecture.data.repository.NaverRepoInterface
-import com.example.androidarchitecture.data.response.MovieData
+import com.example.androidarchitecture.data.response.ImageData
 import com.example.androidarchitecture.ui.base.NaverContract
 
-class MoviePresenter(
-    private val view: NaverContract.View<MovieData>,
+class ImagePresent(
+    private val view: NaverContract.View<ImageData>,
     private val repoInterface: NaverRepoInterface
-) :
-    NaverContract.Presenter {
+) : NaverContract.Presenter {
     override fun requestList(text: String) {
-        repoInterface.getMovie(text, 1, 10,
+        repoInterface.getImage(text, 1, 10,
             success = {
                 view.renderItems(it)
             }, fail = {
                 view.errorToast(it.toString())
-
             })
+
     }
 }

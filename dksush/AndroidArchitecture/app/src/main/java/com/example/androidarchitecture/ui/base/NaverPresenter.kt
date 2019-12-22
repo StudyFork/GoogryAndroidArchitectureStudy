@@ -1,6 +1,6 @@
 package com.example.androidarchitecture.ui.base
 
-interface NaverPresenter<T> {
+interface NaverPresenter {
     fun requestList(text : String)
 
 }

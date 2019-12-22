@@ -2,30 +2,25 @@ package com.example.androidarchitecture.ui.blog
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.androidarchitecture.R
-import com.example.androidarchitecture.apis.NetworkUtil
+import com.example.androidarchitecture.common.toast
 import com.example.androidarchitecture.data.repository.NaverRepo
-import com.example.androidarchitecture.data.repository.NaverRepoInterface
 import com.example.androidarchitecture.data.response.BlogData
-import com.example.androidarchitecture.data.response.NaverQueryResponse
+import com.example.androidarchitecture.ui.base.NaverContract
 import kotlinx.android.synthetic.main.fragment_movie.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 /**
  * A simple [Fragment] subclass.
  */
-class BlogFragment : Fragment() {
+class BlogFragment : Fragment(), NaverContract.View<BlogData> {
 
     private lateinit var blogAdapter: BlogAdapter
-    private val naverRepo = NaverRepo()
+    private val presenter by lazy { BlogPresenter(this, NaverRepo) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,20 +49,17 @@ class BlogFragment : Fragment() {
 
 
         btn_search.setOnClickListener {
-            requestBlogList(edit_text.text.toString())
+            presenter.requestList(edit_text.text.toString())
         }
     }
 
 
-    private fun requestBlogList(text: String) {
+    override fun renderItems(items: List<BlogData>) {
+        blogAdapter.setData(items)
+    }
 
-        naverRepo.getBlog(text,1,10,
-            success = {
-                blogAdapter.setData(it)
-            }, fail = {
-                Log.v("dksush", it.toString())
-            })
-
+    override fun errorToast(msg: String?) {
+        msg?.let { requireContext().toast(msg) }
     }
 
 
