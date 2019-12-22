@@ -1,6 +1,6 @@
 # 8기
-- 안창환 [](https://github.com/)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class08/)
+- 안창환 [devLibCH](https://github.com/)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class08/devLibCH)
 
 - 박현우 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class08/)
