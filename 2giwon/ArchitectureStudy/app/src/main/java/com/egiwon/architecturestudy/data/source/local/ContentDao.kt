@@ -17,6 +17,9 @@ interface ContentDao {
     @Query("SELECT `query` FROM contents WHERE (type LIKE :type) ORDER BY id DESC")
     fun getContentQuery(type: String): Maybe<List<String>>
 
+    @Query("SELECT * FROM contents WHERE (type LIKE :type) AND (`query` LIKE :query)")
+    fun getContents(type: String, query: String): Maybe<Content>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertContent(content: Content): Completable
 
