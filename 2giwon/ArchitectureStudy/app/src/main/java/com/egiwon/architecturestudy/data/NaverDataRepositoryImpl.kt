@@ -26,6 +26,9 @@ class NaverDataRepositoryImpl(
     override fun getContents(type: String, query: String): Single<ContentResponse> =
         loadRemoteContents(type, query)
 
+    override fun getContentsByHistory(type: String, query: String): Single<ContentResponse> =
+        naverLocalDataSource.getContents(type, query)
+
     override fun getContentQuerys(type: String): Single<List<String>> =
         naverLocalDataSource.getContentQuerys(type)
 
