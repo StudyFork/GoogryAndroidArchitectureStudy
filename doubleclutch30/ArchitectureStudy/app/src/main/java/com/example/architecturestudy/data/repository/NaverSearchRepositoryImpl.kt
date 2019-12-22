@@ -1,9 +1,9 @@
 package com.example.architecturestudy.data.repository
 
-import com.example.architecturestudy.data.model.BlogData
-import com.example.architecturestudy.data.model.ImageData
-import com.example.architecturestudy.data.model.KinData
-import com.example.architecturestudy.data.model.MovieData
+import com.example.architecturestudy.network.response.BlogData
+import com.example.architecturestudy.network.response.ImageData
+import com.example.architecturestudy.network.response.KinData
+import com.example.architecturestudy.network.response.MovieData
 import com.example.architecturestudy.data.source.remote.NaverSearchRemoteDataSource
 
 class NaverSearchRepositoryImpl(

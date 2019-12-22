@@ -1,9 +1,9 @@
 package com.example.architecturestudy.data.source.remote
 
-import com.example.architecturestudy.data.model.BlogData
-import com.example.architecturestudy.data.model.ImageData
-import com.example.architecturestudy.data.model.KinData
-import com.example.architecturestudy.data.model.MovieData
+import com.example.architecturestudy.network.response.BlogData
+import com.example.architecturestudy.network.response.ImageData
+import com.example.architecturestudy.network.response.KinData
+import com.example.architecturestudy.network.response.MovieData
 import com.example.architecturestudy.network.Api
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,7 +20,11 @@ class NaverSearchRemoteDataSourceImpl(private val restClient: Api) : NaverSearch
             override fun onResponse(call: Call<MovieData>, response: Response<MovieData>) {
                 if(response.isSuccessful) {
                     response.body()?.items?.let {
-                        success(MovieData(it))
+                        success(
+                            MovieData(
+                                it
+                            )
+                        )
                     }
                 }
             }
@@ -36,7 +40,11 @@ class NaverSearchRemoteDataSourceImpl(private val restClient: Api) : NaverSearch
             override fun onResponse(call: Call<BlogData>, response: Response<BlogData>) {
                 if(response.isSuccessful) {
                     response.body()?.items?.let {
-                        success(BlogData(it))
+                        success(
+                            BlogData(
+                                it
+                            )
+                        )
                     }
                 }
             }
@@ -52,7 +60,11 @@ class NaverSearchRemoteDataSourceImpl(private val restClient: Api) : NaverSearch
             override fun onResponse(call: Call<KinData>, response: Response<KinData>) {
                 if(response.isSuccessful) {
                     response.body()?.items?.let {
-                        success(KinData(it))
+                        success(
+                            KinData(
+                                it
+                            )
+                        )
                     }
                 }
             }
@@ -69,7 +81,11 @@ class NaverSearchRemoteDataSourceImpl(private val restClient: Api) : NaverSearch
             override fun onResponse(call: Call<ImageData>, response: Response<ImageData>) {
                 if(response.isSuccessful) {
                     response.body()?.items?.let {
-                        success(ImageData(it))
+                        success(
+                            ImageData(
+                                it
+                            )
+                        )
                     }
                 }
             }

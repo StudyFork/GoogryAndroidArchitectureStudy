@@ -2,8 +2,6 @@ package com.example.architecturestudy.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class BlogData (val items : List<BlogItems>)
-
 data class BlogItems(
 
     @SerializedName("title")

@@ -2,8 +2,6 @@ package com.example.architecturestudy.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ImageData (val items : List<ImageItems>)
-
 data class ImageItems(
 
     @SerializedName("thumbnail")
