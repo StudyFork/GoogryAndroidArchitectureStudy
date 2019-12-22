@@ -23,6 +23,14 @@ class NaverLocalDataSource(
             .toSingle()
             .subscribeOn(Schedulers.io())
 
+    override fun getContents(type: String, query: String): Single<ContentResponse> =
+        contentDao.getContents(type, query)
+            .onErrorReturn { Content.empty(type, query) }
+            .map { ContentResponse(it.query, it.list) }
+            .toSingle()
+            .subscribeOn(Schedulers.io())
+
+
     override fun saveContents(type: String, query: String, response: ContentResponse) =
         contentDao.insertContent(
             Content(
