@@ -2,7 +2,6 @@ package com.jay.architecturestudy.ui.movie
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Movie
@@ -10,6 +9,7 @@ import com.jay.architecturestudy.data.model.ResponseNaverQuery
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.network.Api
 import com.jay.architecturestudy.ui.BaseFragment
+import com.jay.architecturestudy.util.showToastMessage
 import kotlinx.android.synthetic.main.fragemnt_movie.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -56,6 +56,6 @@ class MovieFragment : BaseFragment(R.layout.fragemnt_movie), MovieContract.View 
     }
 
     override fun showErrorMessage(message: String) {
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+        context?.showToastMessage(message)
     }
 }
