@@ -9,7 +9,7 @@ import retrofit2.Response
 
 class NaverSearchRemoteDataSourceImpl : NaverSearchRemoteDataSource {
 
-    val restClient: Api = ApiClient.getRetrofitService(Api::class.java)
+    val restClient: Api = ApiClient.api
 
     override fun getMovie(keyword: String, success: (MovieData) -> Unit, fail: (Throwable) -> Unit) {
         restClient.requestMovies(keyword).enqueue(object : Callback<MovieData> {
@@ -59,7 +59,8 @@ class NaverSearchRemoteDataSourceImpl : NaverSearchRemoteDataSource {
         })
     }
 
-    override fun getImage(keyword: String, success: (ImageData) -> Unit, fail: (Throwable) -> Unit) {
+    override fun getImage(keyword: String, success: (ImageData) -> Unit, fail: (Throwable) -> Unit)
+    {
         restClient.requestImage(keyword).enqueue(object : Callback<ImageData> {
             override fun onFailure(call: Call<ImageData>, t: Throwable) {
                 fail(t)
