@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.androidarchitecture.R
+import com.example.androidarchitecture.common.toast
 import com.example.androidarchitecture.data.repository.NaverRepo
 import com.example.androidarchitecture.data.response.MovieData
 import com.example.androidarchitecture.ui.base.NaverContract
@@ -60,8 +61,7 @@ class MovieFragment : Fragment(), NaverContract.View<MovieData> {
     }
 
     override fun errorToast(msg: String?) {
-
-        Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
+        msg?.let { requireContext().toast(it) }
     }
 
 
