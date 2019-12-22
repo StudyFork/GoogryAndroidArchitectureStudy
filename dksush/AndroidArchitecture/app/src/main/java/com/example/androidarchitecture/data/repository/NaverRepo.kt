@@ -6,9 +6,8 @@ import com.example.androidarchitecture.data.response.ImageData
 import com.example.androidarchitecture.data.response.KinData
 import com.example.androidarchitecture.data.response.MovieData
 
-class NaverRepo : NaverRepoInterface {
+object NaverRepo : NaverRepoInterface {
     private val naverRemoteDs = NaverRemoteDs()
-
 
     override fun getMovie(
         query: String,
