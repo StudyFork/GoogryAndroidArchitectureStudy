@@ -8,7 +8,7 @@ data class Movie(
     @SerializedName("title")
     val title: String,
     @SerializedName("userRating")
-    val rating: Int,
+    val rating: Float,
     @SerializedName("pubDate")
     val pubDate:String,
     @SerializedName("director")
