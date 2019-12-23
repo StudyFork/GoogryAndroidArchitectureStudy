@@ -26,7 +26,7 @@ class ResultMovieListRecyclerAdapter(
         val movie = list[position]
         with(holder as MovieViewHolder) {
             title.text = movie.title
-            rating.rating = movie.userRating
+            rating.rating = movie.userRating / 2f
             releaseDate.text = movie.releaseDate
             director.text = movie.director
             actor.text = movie.actor
