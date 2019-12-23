@@ -21,6 +21,7 @@
         android:id="@+id/titleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/posterImageView"
@@ -31,6 +32,7 @@
         style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:isIndicator="false"
         android:numStars="5"
         android:stepSize="0.1"
@@ -41,6 +43,7 @@
         android:id="@+id/releaseDateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         app:layout_constraintStart_toEndOf="@id/posterImageView"
         app:layout_constraintTop_toBottomOf="@id/gradeRatingBar" />
 
@@ -48,6 +51,7 @@
         android:id="@+id/directorTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/posterImageView"
         app:layout_constraintTop_toBottomOf="@id/releaseDateTextView" />
@@ -56,6 +60,7 @@
         android:id="@+id/actorsTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/posterImageView"
         app:layout_constraintTop_toBottomOf="@id/directorTextView" />
