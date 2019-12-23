@@ -1,5 +1,6 @@
 package com.onit.googlearchitecturestudy
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             ArrayList(),
             object : ResultMovieListRecyclerAdapter.MovieViewHolder.ClickListener {
                 override fun clickViewHolder(position: Int) {
-
+                    clickMovieItem(position)
                 }
             })
 
@@ -44,6 +45,13 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context)
             adapter = resultMovieListRecyclerAdapter
         }
+    }
+
+    private fun clickMovieItem(position: Int) {
+        val intent = Intent(this, MovieInformationActivity::class.java).apply {
+            putExtra("movieURL", resultMovieListRecyclerAdapter.getMovieURL(position))
+        }
+        startActivity(intent)
     }
 
     private fun clickSearchButton() {

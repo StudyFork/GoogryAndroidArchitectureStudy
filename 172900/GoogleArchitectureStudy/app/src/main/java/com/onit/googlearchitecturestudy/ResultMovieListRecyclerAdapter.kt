@@ -40,6 +40,10 @@ class ResultMovieListRecyclerAdapter(
         notifyDataSetChanged()
     }
 
+    fun getMovieURL(position: Int): String {
+        return list[position].link
+    }
+
     class MovieViewHolder(itemView: View, private val listener: ClickListener) :
         RecyclerView.ViewHolder(itemView) {
 
