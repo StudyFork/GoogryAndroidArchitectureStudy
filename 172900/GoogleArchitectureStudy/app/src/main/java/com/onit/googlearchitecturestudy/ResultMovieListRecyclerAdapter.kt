@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.holder_movie.view.*
 
 class ResultMovieListRecyclerAdapter(
@@ -30,6 +31,7 @@ class ResultMovieListRecyclerAdapter(
             releaseDate.text = movie.releaseDate
             director.text = movie.director
             actor.text = movie.actor
+            Glide.with(itemView).load(movie.posterImage).into(poster)
         }
     }
 
