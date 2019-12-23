@@ -14,6 +14,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var resultMovieListRecyclerAdapter: ResultMovieListRecyclerAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -30,15 +32,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setRecyclerView() {
+        resultMovieListRecyclerAdapter = ResultMovieListRecyclerAdapter(
+            ArrayList(),
+            object : ResultMovieListRecyclerAdapter.MovieViewHolder.ClickListener {
+                override fun clickViewHolder(position: Int) {
+
+                }
+            })
+
         with(resultMovieListRecyclerView) {
             layoutManager = LinearLayoutManager(context)
-            adapter = ResultMovieListRecyclerAdapter(
-                ArrayList(),
-                object : ResultMovieListRecyclerAdapter.MovieViewHolder.ClickListener {
-                    override fun clickViewHolder(position: Int) {
-
-                    }
-                })
+            adapter = resultMovieListRecyclerAdapter
         }
     }
 
@@ -46,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             val movieList =
                 withContext(Dispatchers.IO) { searchMovieList(searchFieldEditText.text.toString()) }
+            resultMovieListRecyclerAdapter.setMovieList(movieList)
         }
     }
 
