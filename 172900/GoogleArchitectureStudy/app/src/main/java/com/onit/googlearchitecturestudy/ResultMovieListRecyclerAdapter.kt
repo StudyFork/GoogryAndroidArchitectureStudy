@@ -33,6 +33,11 @@ class ResultMovieListRecyclerAdapter(
         }
     }
 
+    fun setMovieList(newMovieList: List<Movie>) {
+        list = newMovieList
+        notifyDataSetChanged()
+    }
+
     class MovieViewHolder(itemView: View, private val listener: ClickListener) :
         RecyclerView.ViewHolder(itemView) {
 
