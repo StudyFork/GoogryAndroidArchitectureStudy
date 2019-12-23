@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.holder_movie.view.*
 
 class ResultMovieListRecyclerAdapter(
-    private val list: ArrayList<Movie>,
+    private var list: List<Movie>,
     private val listener: MovieViewHolder.ClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
