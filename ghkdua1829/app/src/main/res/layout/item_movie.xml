@@ -18,7 +18,7 @@
 
     <TextView
         android:id="@+id/rv_item_tv_movie_title"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:text="영화 제목"
@@ -32,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:numStars="5"
+        android:stepSize="0.5"
         app:layout_constraintStart_toStartOf="@id/rv_item_tv_movie_title"
         app:layout_constraintTop_toBottomOf="@id/rv_item_tv_movie_title" />
 
@@ -55,11 +56,11 @@
 
     <TextView
         android:id="@+id/rv_item_tv_movie_actor"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="배우"
         app:layout_constraintStart_toStartOf="@id/rv_item_tv_movie_title"
-        app:layout_constraintTop_toBottomOf="@id/rv_item_tv_movie_director"/>
+        app:layout_constraintTop_toBottomOf="@id/rv_item_tv_movie_director" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
