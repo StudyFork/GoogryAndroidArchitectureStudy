@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Handnew04</string>
+    <string name="main_btn_search">검색</string>
 </resources>
