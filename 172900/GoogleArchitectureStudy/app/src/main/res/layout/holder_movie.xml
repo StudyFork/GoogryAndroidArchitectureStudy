@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:isIndicator="false"
         android:numStars="5"
+        android:stepSize="0.1"
         app:layout_constraintStart_toEndOf="@id/posterImageView"
         app:layout_constraintTop_toBottomOf="@id/titleTextView" />
 
