@@ -1,6 +1,8 @@
 package com.example.architecture_project.feature.movie
 
+import android.content.Intent
 import android.text.Html
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.RatingBar
@@ -9,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.architecture_project.R
 import com.example.architecture_project.data.Movie
-import kotlinx.android.synthetic.main.item_movie.view.*
+import com.example.architecture_project.feature.search.WebviewActivity
 
 class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -23,9 +25,17 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(data: Movie) {
         Glide.with(itemView).load(data.image).into(image)
         title.setText(Html.fromHtml(data.title))
-        userRating.rating = data.rating/2
+        userRating.rating = data.rating / 2
         pubDate.text = data.pubDate
         director.text = data.director
         actor.text = data.actor
+
+        itemView.setOnClickListener {
+            Log.e("link is ", data.link)
+            val go_webview = Intent(itemView.context, WebviewActivity::class.java)
+            go_webview.putExtra("url", data.link)
+            itemView.context.startActivity(go_webview)
+        }
+
     }
 }

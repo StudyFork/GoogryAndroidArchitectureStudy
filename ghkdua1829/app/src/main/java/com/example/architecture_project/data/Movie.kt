@@ -14,5 +14,7 @@ data class Movie(
     @SerializedName("director")
     val director: String,
     @SerializedName("actor")
-    val actor: String
+    val actor: String,
+    @SerializedName("link")
+    val link:String
 )
