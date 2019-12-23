@@ -2,9 +2,13 @@ package com.siwon.prj
 
 import retrofit2.http.GET
 import retrofit2.http.Header
-import retrofit2.http.Headers
+import retrofit2.http.Query
 
 interface MovieSearchService {
-    @GET("query{inputMovieName}")
-    fun search()
+    @GET("/v1/search/movie.json")
+    fun search(
+        @Header("X-Naver-Client-Id") Client_Id: String,
+        @Header("X-Naver-Client-Secret") Client_Secret: String,
+        @Query("query") input: String
+    ): ArrayList<Movie>
 }
