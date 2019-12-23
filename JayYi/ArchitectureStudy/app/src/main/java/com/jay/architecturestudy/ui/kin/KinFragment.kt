@@ -9,7 +9,9 @@ import com.jay.architecturestudy.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragemnt_movie.*
 
 class KinFragment : BaseFragment(R.layout.fragemnt_kin), KinContract.View {
-    override lateinit var presenter: KinContract.Presenter
+    override val presenter: KinContract.Presenter by lazy {
+        KinPresenter(this, naverSearchRepository)
+    }
 
     private lateinit var kinAdapter: KinAdapter
 
@@ -35,8 +37,6 @@ class KinFragment : BaseFragment(R.layout.fragemnt_kin), KinContract.View {
         search_bar.onClickAction = { keyword ->
             search(keyword)
         }
-
-        presenter = KinPresenter(this, naverSearchRepository)
     }
 
     override fun search(keyword: String) {

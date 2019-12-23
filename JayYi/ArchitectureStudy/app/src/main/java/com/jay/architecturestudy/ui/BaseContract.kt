@@ -3,7 +3,7 @@ package com.jay.architecturestudy.ui
 interface BaseContract {
 
     interface View<T, H> {
-        var presenter: T
+        val presenter: T
 
         fun updateResult(result: List<H>)
 

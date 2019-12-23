@@ -9,7 +9,9 @@ import com.jay.architecturestudy.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragemnt_movie.*
 
 class BlogFragment : BaseFragment(R.layout.fragemnt_blog), BlogContract.View {
-    override lateinit var presenter: BlogContract.Presenter
+    override val presenter: BlogContract.Presenter by lazy {
+        BlogPresenter(this, naverSearchRepository)
+    }
 
     private lateinit var blogAdapter: BlogAdapter
 
@@ -35,8 +37,6 @@ class BlogFragment : BaseFragment(R.layout.fragemnt_blog), BlogContract.View {
         search_bar.onClickAction = { keyword ->
             search(keyword)
         }
-
-        presenter = BlogPresenter(this, naverSearchRepository)
     }
 
     override fun search(keyword: String) {

@@ -10,7 +10,9 @@ import kotlinx.android.synthetic.main.fragemnt_movie.*
 
 
 class MovieFragment : BaseFragment(R.layout.fragemnt_movie), MovieContract.View {
-    override lateinit var presenter: MovieContract.Presenter
+    override val presenter: MovieContract.Presenter by lazy {
+        MoviePresenter(this, naverSearchRepository)
+    }
 
     private lateinit var movieAdapter: MovieAdapter
 
@@ -36,8 +38,6 @@ class MovieFragment : BaseFragment(R.layout.fragemnt_movie), MovieContract.View 
         search_bar.onClickAction = { keyword ->
             search(keyword)
         }
-
-        presenter = MoviePresenter(this, naverSearchRepository)
     }
 
     override fun search(keyword: String) {

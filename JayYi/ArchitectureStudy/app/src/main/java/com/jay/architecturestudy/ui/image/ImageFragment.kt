@@ -10,7 +10,9 @@ import com.jay.architecturestudy.widget.SpacesItemDecoration
 import kotlinx.android.synthetic.main.fragemnt_movie.*
 
 class ImageFragment : BaseFragment(R.layout.fragemnt_image), ImageContract.View {
-    override lateinit var presenter: ImageContract.Presenter
+    override val presenter: ImageContract.Presenter by lazy {
+        ImagePresenter(this, naverSearchRepository)
+    }
 
     private lateinit var imageAdapter: ImageAdapter
 
@@ -31,8 +33,6 @@ class ImageFragment : BaseFragment(R.layout.fragemnt_image), ImageContract.View 
         search_bar.onClickAction = { keyword ->
             search(keyword)
         }
-
-        presenter = ImagePresenter(this, naverSearchRepository)
     }
 
     override fun search(keyword: String) {
