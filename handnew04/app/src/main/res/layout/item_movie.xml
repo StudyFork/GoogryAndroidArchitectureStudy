@@ -34,8 +34,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tb_userRating"
-        app:layout_constraintTop_toBottomOf="@+id/tb_userRating" />
+        app:layout_constraintStart_toStartOf="@+id/rb_userRating"
+        app:layout_constraintTop_toBottomOf="@+id/rb_userRating" />
 
     <TextView
         android:id="@+id/tv_movieDirector"
@@ -57,7 +57,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_movieDirector" />
 
     <RatingBar
-        android:id="@+id/tb_userRating"
+        android:id="@+id/rb_userRating"
         style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
