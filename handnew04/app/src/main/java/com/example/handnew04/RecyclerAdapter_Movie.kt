@@ -1,6 +1,8 @@
 package com.example.handnew04
 
 import android.content.Context
+import android.os.Build
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 
-class RecyclerAdapter_Movie(private val context: Context) : RecyclerView.Adapter<RecyclerAdapter_Movie.ViewHolder>() {
-    private lateinit var movies: ArrayList<NaverMovie_Response>
+class RecyclerAdapter_Movie(private val context: Context) :
+    RecyclerView.Adapter<RecyclerAdapter_Movie.ViewHolder>() {
+    private var movies: ArrayList<items> = ArrayList()
 
-    fun setItemList(movies : ArrayList<NaverMovie_Response>) {
+    fun setItemList(movies: ArrayList<items>) {
         this.movies = movies
         notifyDataSetChanged()
     }
@@ -32,16 +35,27 @@ class RecyclerAdapter_Movie(private val context: Context) : RecyclerView.Adapter
         val item = movies.get(position)
 
         holder.iv_Image?.let { Glide.with(context).load(item.image).into(it) }
-        holder.tv_title?.text = item.title
-        holder.tv_pubDate?.text = item.pubDate.toString()
-        holder.tv_director?.text = item.director
-        holder.tv_actors?.text = item.actor
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            holder.tv_title?.text = Html.fromHtml(item.title, Html.FROM_HTML_MODE_LEGACY)
+            holder.tv_pubDate?.text = Html.fromHtml(item.pubDate, Html.FROM_HTML_MODE_LEGACY)
+            holder.tv_director?.text = Html.fromHtml(item.director, Html.FROM_HTML_MODE_LEGACY)
+            holder.tv_actors?.text = Html.fromHtml(item.actor, Html.FROM_HTML_MODE_LEGACY)
+        } else {
+            holder.tv_title?.text = Html.fromHtml(item.title)
+            holder.tv_pubDate?.text = Html.fromHtml(item.pubDate)
+            holder.tv_director?.text = Html.fromHtml(item.director)
+            holder.tv_actors?.text = Html.fromHtml(item.actor)
+        }
+
         holder.rb_userRating?.rating = item.userRating.toFloat()
 
         holder.itemView.setOnClickListener {
             itemClickListner.onClick(it, position)
         }
     }
+
+    fun getMovieLink(position: Int): String = movies.get(position).link
+
 
     interface ItemClickListener {
         fun onClick(view: View, position: Int)

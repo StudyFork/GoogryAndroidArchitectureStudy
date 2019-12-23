@@ -2,4 +2,5 @@
     <string name="app_name">Handnew04</string>
     <string name="main_btn_search">검색</string>
     <string name="movie_image">movie Image</string>
+    <string name="movieLink">movieLink</string>
 </resources>
