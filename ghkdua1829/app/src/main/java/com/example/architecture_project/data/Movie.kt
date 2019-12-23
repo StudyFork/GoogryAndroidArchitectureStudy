@@ -3,14 +3,16 @@ package com.example.architecture_project.data
 import com.google.gson.annotations.SerializedName
 
 data class Movie(
-    @SerializedName("")
+    @SerializedName("image")
     val image: String,
-    @SerializedName("")
+    @SerializedName("title")
     val title: String,
-    @SerializedName("")
-    val star: Int,
-    @SerializedName("")
+    @SerializedName("userRating")
+    val rating: Int,
+    @SerializedName("pubDate")
+    val pubDate:String,
+    @SerializedName("director")
     val director: String,
-    @SerializedName("")
-    val desc: String
+    @SerializedName("actor")
+    val actor: String
 )
