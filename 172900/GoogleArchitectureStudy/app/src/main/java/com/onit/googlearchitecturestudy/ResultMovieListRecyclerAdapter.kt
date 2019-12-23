@@ -1,5 +1,6 @@
 package com.onit.googlearchitecturestudy
 
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +27,7 @@ class ResultMovieListRecyclerAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val movie = list[position]
         with(holder as MovieViewHolder) {
-            title.text = movie.title
+            title.text = movie.title.removeTag()
             rating.rating = movie.userRating / 2f
             releaseDate.text = movie.releaseDate
             director.text = movie.director
@@ -64,5 +65,9 @@ class ResultMovieListRecyclerAdapter(
         interface ClickListener {
             fun clickViewHolder(position: Int)
         }
+    }
+
+    private fun String.removeTag(): String {
+        return Html.fromHtml(this).toString()
     }
 }
