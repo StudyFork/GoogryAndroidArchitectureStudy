@@ -2,12 +2,12 @@ package com.example.androidarchitecture.ui.image
 
 import com.example.androidarchitecture.data.repository.NaverRepoInterface
 import com.example.androidarchitecture.data.response.ImageData
-import com.example.androidarchitecture.ui.base.NaverContract
+import com.example.androidarchitecture.ui.base.BaseContract
 
 class ImagePresent(
-    private val view: NaverContract.View<ImageData>,
+    private val view: BaseContract.View<ImageData>,
     private val repoInterface: NaverRepoInterface
-) : NaverContract.Presenter {
+) : BaseContract.Presenter {
     override fun requestList(text: String) {
         repoInterface.getImage(text, 1, 10,
             success = {

@@ -2,12 +2,12 @@ package com.example.androidarchitecture.ui.kin
 
 import com.example.androidarchitecture.data.repository.NaverRepoInterface
 import com.example.androidarchitecture.data.response.KinData
-import com.example.androidarchitecture.ui.base.NaverContract
+import com.example.androidarchitecture.ui.base.BaseContract
 
 class KinPresent(
-    private val view: NaverContract.View<KinData>,
+    private val view: BaseContract.View<KinData>,
     private val repoInterface: NaverRepoInterface
-) : NaverContract.Presenter {
+) : BaseContract.Presenter {
     override fun requestList(text: String) {
         repoInterface.getKin(text, 1, 10,
             success = {
