@@ -1,16 +1,27 @@
 package com.ironelder.androidarchitecture.view.mainview
 
+import android.util.Log
+import com.google.gson.Gson
+import com.ironelder.androidarchitecture.data.ResultItem
 import com.ironelder.androidarchitecture.data.TotalModel
+import com.ironelder.androidarchitecture.data.database.SearchResultDatabase
 import com.ironelder.androidarchitecture.data.repository.SearchDataRepositoryImpl
 import com.ironelder.androidarchitecture.view.baseview.BasePresenter
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter {
 
-    override fun searchWithAdapter(type: String, query: String?) {
-        SearchDataRepositoryImpl.getDataForSearch(type, query)
+    private val LOG_TAG = MainPresenter::class.java.toString()
+
+    override fun searchWithAdapter(
+        type: String, query: String?, searchResultDatabase: SearchResultDatabase?
+    ) {
+        SearchDataRepositoryImpl.getRemoteSearchData(
+            type,
+            query,
+            searchResultDatabase
+        )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
@@ -32,7 +43,25 @@ class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter
     }
 
     private fun onError(t: Throwable) {
-        println(t.message)
         view.showErrorMessage(t.message)
     }
+
+    override fun getSearchResultToRoom(
+        type: String,
+        searchResultDatabase: SearchResultDatabase?
+    ) {
+        SearchDataRepositoryImpl.getLocalSearchData(type, searchResultDatabase)
+            ?.subscribeOn(Schedulers.io())
+            ?.observeOn(AndroidSchedulers.mainThread())?.subscribe({
+                view.onLoadFromDatabase(
+                    it.search,
+                    Gson().fromJson(
+                        it.result,
+                        Array<ResultItem>::class.java
+                    ).toCollection(ArrayList())
+                )
+            }, { t: Throwable? -> Log.w(LOG_TAG, t?.message ?: "DataBase $type Not Save Data") })
+            ?.addDisposable()
+    }
+
 }

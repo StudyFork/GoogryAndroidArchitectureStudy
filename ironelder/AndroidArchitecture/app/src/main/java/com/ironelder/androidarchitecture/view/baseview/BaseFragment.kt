@@ -32,6 +32,7 @@ abstract class BaseFragment<in VIEW : BaseContract.View, PRESENTER : BaseContrac
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         doViewCreated(view, savedInstanceState)
+        doLoadFromDatabase()
     }
 
     override fun onDestroy() {
@@ -42,4 +43,6 @@ abstract class BaseFragment<in VIEW : BaseContract.View, PRESENTER : BaseContrac
     abstract val presenter: PRESENTER
     abstract fun doCreateOptionsMenu(menu: Menu, inflater: MenuInflater)
     abstract fun doViewCreated(view: View, savedInstanceState: Bundle?)
+    abstract fun doLoadFromDatabase()
+
 }
