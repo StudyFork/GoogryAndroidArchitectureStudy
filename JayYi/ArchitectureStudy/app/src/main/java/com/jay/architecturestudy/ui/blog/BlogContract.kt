@@ -1,12 +1,12 @@
 package com.jay.architecturestudy.ui.blog
 
 import com.jay.architecturestudy.data.model.Blog
-import com.jay.architecturestudy.ui.BaseContract
+import com.jay.architecturestudy.ui.BaseSearchContract
 
 interface BlogContract {
 
-    interface View : BaseContract.View<Presenter, Blog>
+    interface View : BaseSearchContract.View<Presenter, Blog>
 
-    interface Presenter : BaseContract.Presenter
+    interface Presenter : BaseSearchContract.Presenter
 
 }

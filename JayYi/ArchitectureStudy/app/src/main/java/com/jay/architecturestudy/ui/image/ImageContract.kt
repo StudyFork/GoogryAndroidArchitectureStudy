@@ -1,10 +1,10 @@
 package com.jay.architecturestudy.ui.image
 
 import com.jay.architecturestudy.data.model.Image
-import com.jay.architecturestudy.ui.BaseContract
+import com.jay.architecturestudy.ui.BaseSearchContract
 
 interface ImageContract {
-    interface View : BaseContract.View<Presenter, Image>
+    interface View : BaseSearchContract.View<Presenter, Image>
 
-    interface Presenter : BaseContract.Presenter
+    interface Presenter : BaseSearchContract.Presenter
 }

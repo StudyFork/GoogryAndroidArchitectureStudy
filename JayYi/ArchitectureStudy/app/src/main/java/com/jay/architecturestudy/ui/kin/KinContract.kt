@@ -1,10 +1,10 @@
 package com.jay.architecturestudy.ui.kin
 
 import com.jay.architecturestudy.data.model.Kin
-import com.jay.architecturestudy.ui.BaseContract
+import com.jay.architecturestudy.ui.BaseSearchContract
 
 interface KinContract {
-    interface View : BaseContract.View<Presenter, Kin>
+    interface View : BaseSearchContract.View<Presenter, Kin>
 
-    interface Presenter : BaseContract.Presenter
+    interface Presenter : BaseSearchContract.Presenter
 }

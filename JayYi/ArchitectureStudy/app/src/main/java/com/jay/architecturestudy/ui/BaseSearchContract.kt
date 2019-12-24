@@ -1,6 +1,6 @@
 package com.jay.architecturestudy.ui
 
-interface BaseContract {
+interface BaseSearchContract {
 
     interface View<T, H> {
         val presenter: T
