@@ -14,6 +14,7 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize"
+            android:theme="@style/Theme.Contents"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

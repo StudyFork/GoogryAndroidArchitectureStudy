@@ -35,7 +35,7 @@ class ContentsFragment : BaseFragment<ContentsContract.Presenter>(
         super.onResume()
     }
 
-    private val tab: Tab by lazy {
+    val tab: Tab by lazy {
         arguments?.get(ARG_TYPE) as? Tab
             ?: error(getString(R.string.type_is_null))
     }
@@ -65,6 +65,14 @@ class ContentsFragment : BaseFragment<ContentsContract.Presenter>(
         (rv_contents.adapter as? ContentsAdapter)?.setList(resultList)
     }
 
+    override fun showQueryHistoryResult(
+        resultList: List<ContentItem>,
+        query: String
+    ) {
+        showQueryResult(resultList)
+        et_search.setText(query)
+    }
+
     override fun showErrorQueryEmpty() {
         showToast(getString(R.string.error_query_empty))
     }
@@ -91,6 +99,10 @@ class ContentsFragment : BaseFragment<ContentsContract.Presenter>(
 
     override fun hideLoading() {
         progress_circular.visibility = View.GONE
+    }
+
+    fun loadContentsByHistoryQuery(type: Tab, query: String) {
+        presenter.loadContentsByHistory(type, query)
     }
 
     companion object {
