@@ -2,4 +2,9 @@
     <string name="app_name">Architecture_Project</string>
     <string name="api_Id">Ega4tpqIyDDMBsf8nb7O</string>
     <string name="api_Secret">GinlKHXc11</string>
+    <string name="movie_title">영화제목</string>
+    <string name="movie_pubDate">개봉년도</string>
+    <string name="movie_director">감독</string>
+    <string name="movie_actor">배우</string>
+
 </resources>
