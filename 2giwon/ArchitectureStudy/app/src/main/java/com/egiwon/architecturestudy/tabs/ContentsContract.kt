@@ -8,6 +8,11 @@ interface ContentsContract : BaseContract {
     interface View : BaseContract.View {
         fun showQueryResult(resultList: List<ContentItem>)
 
+        fun showQueryHistoryResult(
+            resultList: List<ContentItem>,
+            query: String
+        )
+
         fun showErrorQueryEmpty()
 
         fun showErrorLoadFail()
@@ -24,5 +29,7 @@ interface ContentsContract : BaseContract {
         fun loadContents(type: Tab, query: String)
 
         fun getCacheContents(type: Tab)
+
+        fun loadContentsByHistory(type: Tab, query: String)
     }
 }

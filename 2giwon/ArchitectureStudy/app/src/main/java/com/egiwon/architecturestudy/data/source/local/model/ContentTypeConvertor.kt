@@ -19,7 +19,7 @@ class ContentTypeConvertor {
     }
 
     @TypeConverter
-    fun toString(movies: List<ContentItem>): String {
-        return gson.toJson(movies)
+    fun toString(contents: List<ContentItem>): String {
+        return gson.toJson(contents)
     }
 }

@@ -26,17 +26,19 @@
             android:inputType="text"
             app:layout_constraintEnd_toStartOf="@id/btn_search"
             app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintHorizontal_weight="7"
+            app:layout_constraintHorizontal_weight="8"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_search"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             android:text="@string/search_hint"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="3"
+            app:layout_constraintHorizontal_weight="2"
             app:layout_constraintStart_toEndOf="@id/et_search"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,4 +67,10 @@
         app:layout_constraintVertical_weight="9"
         tools:listitem="@layout/rv_contents_item" />
 
+    <fragment
+        android:id="@+id/history_sheet"
+        android:name="com.egiwon.architecturestudy.tabs.bottomsheet.HistorySheetFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fg_history_sheet" />
 </androidx.constraintlayout.widget.ConstraintLayout>

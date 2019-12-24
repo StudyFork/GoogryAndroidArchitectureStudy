@@ -68,6 +68,8 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"
 
+    implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
+
     // Test
     testImplementation "junit:junit:$jnit_version"
     androidTestImplementation "androidx.test.ext:junit:$test_ext_version"

@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#537FA6</color>
+    <color name="colorPrimaryDark">#537A</color>
+    <color name="colorAccent">#BF7449</color>
+    <color name="textColorPrimary">#442C2E</color>
+    <color name="toolbarIconColor">@color/textColorPrimary</color>
+
+    <color name="history_200">#FEA341</color>
+    <color name="history_500">#537FA6</color>
+    <color name="history_600">#BF7449</color>
+    <color name="history_font_color">#FFFFFF</color>
+    <color name="history_dark_primary">#24191c</color>
 </resources>

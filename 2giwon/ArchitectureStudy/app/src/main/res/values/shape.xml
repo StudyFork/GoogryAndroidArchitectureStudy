@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Shape Appearance for medium components like cards, alert dialogs-->
+    <style name="ShapeAppearance.Owl.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">0px</item>
+    </style>
+
+    <style name="ShapeAppearance.History.MinimizedSheet" parent="ShapeAppearance.Owl.MediumComponent">
+        <item name="cornerSizeTopLeft">@dimen/minimized_sheet_top_left_radius</item>
+    </style>
+
+</resources>
