@@ -11,13 +11,13 @@ import com.example.androidarchitecture.R
 import com.example.androidarchitecture.common.toast
 import com.example.androidarchitecture.data.repository.NaverRepoImpl
 import com.example.androidarchitecture.data.response.BlogData
-import com.example.androidarchitecture.ui.base.BaseContract
+import com.example.androidarchitecture.ui.base.ItemContract
 import kotlinx.android.synthetic.main.fragment_movie.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class BlogFragment : Fragment(), BaseContract.View<BlogData> {
+class BlogFragment : Fragment(), ItemContract.View<BlogData> {
 
     private lateinit var blogAdapter: BlogAdapter
     private val presenter by lazy { BlogPresenter(this, NaverRepoImpl) }
