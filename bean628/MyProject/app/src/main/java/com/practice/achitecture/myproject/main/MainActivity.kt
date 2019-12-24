@@ -7,24 +7,40 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import com.practice.achitecture.myproject.BaseActivity
 import com.practice.achitecture.myproject.R
+import com.practice.achitecture.myproject.base.BaseActivity
+import com.practice.achitecture.myproject.data.source.NaverRepository
+import com.practice.achitecture.myproject.data.source.local.NaverDatabase
+import com.practice.achitecture.myproject.data.source.local.NaverLocalDataSourceImpl
+import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSourceImpl
+import com.practice.achitecture.myproject.enum.SearchType
 import com.practice.achitecture.myproject.makeToast
 import com.practice.achitecture.myproject.model.SearchedItem
+import com.practice.achitecture.myproject.network.RetrofitClient
 import com.practice.achitecture.myproject.network.retrofitErrorHandler
-import common.SEARCH_TYPE_BLOG
-import common.SEARCH_TYPE_BOOK
-import common.SEARCH_TYPE_MOVIE
-import common.SEARCH_TYPE_NEWS
+import com.practice.achitecture.myproject.util.AppExecutors
+import common.NAVER_API_BASE_URL
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity(),
+class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main),
     View.OnClickListener,
     MainContract.View {
 
-    override lateinit var presenter: MainContract.Presenter
+    override val presenter: MainContract.Presenter by lazy {
+        MainPresenter(
+            this,
+            NaverRepository.getInstance(
+                NaverRemoteDataSourceImpl(RetrofitClient(NAVER_API_BASE_URL).makeRetrofitServiceForNaver()),
+                NaverLocalDataSourceImpl.getInstance(
+                    AppExecutors(),
+                    NaverDatabase.getInstance(applicationContext).naverDao(),
+                    this.cacheDir.absolutePath
+                )
+            )
+        )
+    }
 
-    private var searchType: Int = SEARCH_TYPE_MOVIE
+    private var searchType: SearchType = SearchType.MOVIE
     private var searchMovieAndBookAdapter: SearchMovieAndBookAdapter? = null
     private var searchBlogAndNewsAdapter: SearchBlogAndNewsAdapter? = null
     private val searchedItemListener: SearchedItemClickListener =
@@ -36,19 +52,14 @@ class MainActivity : BaseActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
         registerOnClickListener()
         initAdapter()
-
-        presenter = MainPresenter(this)
+        presenter.loadCache()
     }
 
     private fun initAdapter() {
-        searchMovieAndBookAdapter =
-            SearchMovieAndBookAdapter(searchedItemListener)
-        searchBlogAndNewsAdapter =
-            SearchBlogAndNewsAdapter(searchedItemListener)
+        searchMovieAndBookAdapter = SearchMovieAndBookAdapter(searchedItemListener)
+        searchBlogAndNewsAdapter = SearchBlogAndNewsAdapter(searchedItemListener)
     }
 
     private fun registerOnClickListener() {
@@ -73,18 +84,17 @@ class MainActivity : BaseActivity(),
         when (v.id) {
             R.id.btn_search -> search(searchType)
             R.id.btn_search_type_movie ->
-                search(SEARCH_TYPE_MOVIE)
+                search(SearchType.MOVIE)
             R.id.btn_search_type_book ->
-                search(SEARCH_TYPE_BOOK)
+                search(SearchType.BOOK)
             R.id.btn_search_type_blog ->
-                search(SEARCH_TYPE_BLOG)
+                search(SearchType.BLOG)
             R.id.btn_search_type_news ->
-                search(SEARCH_TYPE_NEWS)
+                search(SearchType.NEWS)
         }
-
     }
 
-    private fun search(searchType: Int) {
+    private fun search(searchType: SearchType) {
         val imm: InputMethodManager =
             getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(input_search_sth.windowToken, 0)
@@ -111,5 +121,6 @@ class MainActivity : BaseActivity(),
     override fun searchingOnFailure(throwable: Throwable) {
         retrofitErrorHandler(this@MainActivity, throwable)
     }
+
 
 }

@@ -1,53 +1,62 @@
 package com.practice.achitecture.myproject.main
 
-import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSource
-import com.practice.achitecture.myproject.data.source.remote.NaverRepository
+import com.practice.achitecture.myproject.data.source.NaverDataSource
+import com.practice.achitecture.myproject.data.source.NaverRepository
+import com.practice.achitecture.myproject.enum.SearchType
 import com.practice.achitecture.myproject.model.SearchedItem
-import common.SEARCH_TYPE_BLOG
-import common.SEARCH_TYPE_BOOK
-import common.SEARCH_TYPE_MOVIE
-import common.SEARCH_TYPE_NEWS
 
 
 class MainPresenter(
-    private val view: MainContract.View
+    private val view: MainContract.View,
+    private val naverRepository: NaverRepository
 ) : MainContract.Presenter {
-    override fun searchIfNotEmpty(word: String, searchType: Int) {
+
+    override fun searchIfNotEmpty(word: String, searchType: SearchType) {
         if (word.isEmpty()) {
             view.isEmpty()
         } else {
-            val category = when (searchType) {
-                SEARCH_TYPE_MOVIE -> "movie"
-                SEARCH_TYPE_BOOK -> "book"
-                SEARCH_TYPE_BLOG -> "blog"
-                SEARCH_TYPE_NEWS -> "news"
-                else -> "movie"
-            }
-            this.searchWordByNaver(searchType, category, word)
+            this.searchWordByNaver(searchType, word)
         }
     }
 
-    override fun searchWordByNaver(searchType: Int, category: String, word: String) {
-        NaverRepository.searchWordByNaver(
-            category,
+    override fun searchWordByNaver(searchType: SearchType, word: String) {
+        view.showLoading()
+        naverRepository.searchWordByNaver(
+            searchType,
             word,
-            object : NaverRemoteDataSource.GettingResultOfSearchingCallBack {
+            object : NaverDataSource.GettingResultOfSearchingCallBack {
 
                 override fun onSuccess(items: List<SearchedItem>) {
+                    view.hideLoading()
                     when (searchType) {
-                        SEARCH_TYPE_MOVIE, SEARCH_TYPE_BOOK -> {
+                        SearchType.MOVIE, SearchType.BOOK -> {
                             view.showSearchResultMovieOrBook(items)
                         }
-                        SEARCH_TYPE_BLOG, SEARCH_TYPE_NEWS -> {
+                        SearchType.BLOG, SearchType.NEWS -> {
                             view.showSearchResultBlogOrNews(items)
                         }
                     }
                 }
 
                 override fun onFailure(throwable: Throwable) {
+                    view.hideLoading()
                     view.searchingOnFailure(throwable)
                 }
             })
+    }
+
+    override fun loadCache() {
+        val lastSearchType = naverRepository.getLastSearchType()
+        if (lastSearchType != null) {
+            when (lastSearchType) {
+                SearchType.MOVIE, SearchType.BOOK -> {
+                    view.showSearchResultMovieOrBook(naverRepository.getCache(lastSearchType))
+                }
+                SearchType.BLOG, SearchType.NEWS -> {
+                    view.showSearchResultBlogOrNews(naverRepository.getCache(lastSearchType))
+                }
+            }
+        }
     }
 
 }

@@ -1,8 +1,9 @@
-package com.practice.achitecture.myproject.data.source.remote
+package com.practice.achitecture.myproject.data.source
 
+import com.practice.achitecture.myproject.enum.SearchType
 import com.practice.achitecture.myproject.model.SearchedItem
 
-interface NaverRemoteDataSource {
+interface NaverDataSource {
 
     interface GettingResultOfSearchingCallBack {
         fun onSuccess(items: List<SearchedItem>)
@@ -10,7 +11,7 @@ interface NaverRemoteDataSource {
     }
 
     fun searchWordByNaver(
-        category: String,
+        searchType: SearchType,
         word: String,
         callBack: GettingResultOfSearchingCallBack
     )
