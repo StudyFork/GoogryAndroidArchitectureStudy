@@ -51,16 +51,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun searchMovie(inputText: String) {
-        val URL = "https://openapi.naver.com"
-        val searchLimit = 100
-
-        val retrofit = Retrofit.Builder()
+    object retrofitBuild_naver {
+        private val URL = "https://openapi.naver.com"
+        val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
 
-        val retrofitService: RetrofitService = retrofit.create(RetrofitService::class.java)
+    private fun searchMovie(inputText: String) {
+        val searchLimit = 100
+
+        val retrofitService: RetrofitService =
+            retrofitBuild_naver.retrofit.create(RetrofitService::class.java)
 
         retrofitService.requestSearchMovie(inputText, searchLimit)
             .enqueue(object : Callback<NaverMovie_Response> {
