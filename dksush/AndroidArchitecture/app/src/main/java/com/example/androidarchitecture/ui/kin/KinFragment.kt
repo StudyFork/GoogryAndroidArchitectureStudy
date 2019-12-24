@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_movie.*
 class KinFragment : Fragment() {
 
     private lateinit var kinAdapter: KinAdapter
-    private val naverRepo = NaverRepo()
+    private val naverRepo = NaverRepo
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
