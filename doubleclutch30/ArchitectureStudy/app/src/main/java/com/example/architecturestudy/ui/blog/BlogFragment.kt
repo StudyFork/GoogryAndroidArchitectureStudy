@@ -17,7 +17,6 @@ class BlogFragment : Fragment() {
 
     private val naverSearchRepository by lazy { Injection.provideNaverSearchRepository()}
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,9 +25,8 @@ class BlogFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_blog, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         blogAdapter = BlogAdapter()
 
         recycleview.apply {

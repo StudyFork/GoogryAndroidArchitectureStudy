@@ -18,7 +18,6 @@ class ImageFragment : Fragment() {
 
     private val naverSearchRepository by lazy { Injection.provideNaverSearchRepository()}
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,9 +26,8 @@ class ImageFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_image, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         imageAdapter = ImageAdapter()
 
         recycleview.apply {
