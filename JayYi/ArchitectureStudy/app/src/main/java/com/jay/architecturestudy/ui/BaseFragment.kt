@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.jay.architecturestudy.util.showToastMessage
 
-abstract class BaseFragment(private val layoutId: Int) : Fragment() {
+abstract class BaseFragment(
+    private val layoutId: Int
+) : Fragment(), BaseContract.View {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -19,7 +21,7 @@ abstract class BaseFragment(private val layoutId: Int) : Fragment() {
 
     abstract fun search(keyword: String)
 
-    fun showErrorMessage(message: String) {
+    override fun showErrorMessage(message: String) {
         context?.showToastMessage(message)
     }
 }
