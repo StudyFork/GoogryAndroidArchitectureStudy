@@ -5,8 +5,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseRecyclerAdapter<T, H : BaseViewHolder<T>>(diffCallback: DiffUtil.ItemCallback<T>)
-    : ListAdapter<T,H>(diffCallback) {
+abstract class BaseRecyclerAdapter<T, H : BaseViewHolder<T>>(diffCallback: DiffUtil.ItemCallback<T>) :
+    ListAdapter<T, H>(diffCallback) {
 
     private val items: MutableList<T> = mutableListOf()
 
@@ -23,11 +23,6 @@ abstract class BaseRecyclerAdapter<T, H : BaseViewHolder<T>>(diffCallback: DiffU
         this.items.addAll(items)
         submitList(items)
 
-//        currentList.run {
-//            clear()
-//            addAll(this)
-//            submitList(this)
-//        }
     }
 }
 

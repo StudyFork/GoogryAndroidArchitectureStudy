@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.androidarchitecture.R
 import com.example.androidarchitecture.common.toast
-import com.example.androidarchitecture.data.repository.NaverRepo
+import com.example.androidarchitecture.data.repository.NaverRepoImpl
 import com.example.androidarchitecture.data.response.ImageData
 import com.example.androidarchitecture.ui.base.NaverContract
 import kotlinx.android.synthetic.main.fragment_movie.*
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_movie.*
 class ImageFragment : Fragment(), NaverContract.View<ImageData> {
 
     private lateinit var imageAdapter: ImageAdapter
-    private val presenter by lazy { ImagePresent(this, NaverRepo) }
+    private val presenter by lazy { ImagePresent(this, NaverRepoImpl) }
 
 
     override fun onCreateView(

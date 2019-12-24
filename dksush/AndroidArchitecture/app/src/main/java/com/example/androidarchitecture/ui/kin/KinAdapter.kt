@@ -38,8 +38,9 @@ class KinAdapter : RecyclerView.Adapter<KinAdapter.KinHolder>() {
 
     inner class KinHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         lateinit var item: KinData
+
         init {
-            view.setOnClickListener(){
+            view.setOnClickListener() {
                 Intent(context, WebviewActivity::class.java).apply {
                     putExtra("link", item.link)
                 }.run { context.startActivity(this) }

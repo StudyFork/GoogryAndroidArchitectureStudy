@@ -12,9 +12,9 @@ class BlogPresenter(
     override fun requestList(text: String) {
         repoInterface.getBlog(text, 1, 10,
             success = {
-            view.renderItems(it)
-        }, fail = {
-            view.errorToast(it.toString())
-        })
+                view.renderItems(it)
+            }, fail = {
+                view.errorToast(it.toString())
+            })
     }
 }

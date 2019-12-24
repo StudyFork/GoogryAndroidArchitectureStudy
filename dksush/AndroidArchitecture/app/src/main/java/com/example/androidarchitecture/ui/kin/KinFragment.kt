@@ -8,16 +8,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.androidarchitecture.R
-import com.example.androidarchitecture.data.repository.NaverRepo
+import com.example.androidarchitecture.common.toast
+import com.example.androidarchitecture.data.repository.NaverRepoImpl
+import com.example.androidarchitecture.data.response.KinData
+import com.example.androidarchitecture.ui.base.NaverContract
 import kotlinx.android.synthetic.main.fragment_movie.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class KinFragment : Fragment() {
+class KinFragment : Fragment(), NaverContract.View<KinData> {
+
 
     private lateinit var kinAdapter: KinAdapter
-    private val naverRepo = NaverRepo
+    private val presenter by lazy { KinPresent(this, NaverRepoImpl) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,20 +50,18 @@ class KinFragment : Fragment() {
 
         btn_search.setOnClickListener {
             if (edit_text != null) {
-                requestKinList(edit_text.text.toString())
+                presenter.requestList(edit_text.text.toString())
             }
         }
     }
 
-    private fun requestKinList(text: String) {
-        naverRepo.getKin(text, 1, 10,
-            success = {
-                kinAdapter.setData(it)
-            },
-            fail = {
 
-            })
+    override fun renderItems(items: List<KinData>) {
+        kinAdapter.setData(items)
+    }
 
+    override fun errorToast(msg: String?) {
+        msg?.let { requireContext().toast(it) }
     }
 
 

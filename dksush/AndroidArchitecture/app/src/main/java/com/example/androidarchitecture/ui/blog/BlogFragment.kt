@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.androidarchitecture.R
 import com.example.androidarchitecture.common.toast
-import com.example.androidarchitecture.data.repository.NaverRepo
+import com.example.androidarchitecture.data.repository.NaverRepoImpl
 import com.example.androidarchitecture.data.response.BlogData
 import com.example.androidarchitecture.ui.base.NaverContract
 import kotlinx.android.synthetic.main.fragment_movie.*
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_movie.*
 class BlogFragment : Fragment(), NaverContract.View<BlogData> {
 
     private lateinit var blogAdapter: BlogAdapter
-    private val presenter by lazy { BlogPresenter(this, NaverRepo) }
+    private val presenter by lazy { BlogPresenter(this, NaverRepoImpl) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
