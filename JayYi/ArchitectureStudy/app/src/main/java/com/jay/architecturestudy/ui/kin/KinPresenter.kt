@@ -1,12 +1,12 @@
 package com.jay.architecturestudy.ui.kin
 
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
-import com.jay.architecturestudy.ui.BasePresenter
+import com.jay.architecturestudy.ui.BaseSearchPresenter
 
 class KinPresenter(
     override val view: KinContract.View,
     override val repository: NaverSearchRepositoryImpl
-) : BasePresenter(view, repository), KinContract.Presenter {
+) : BaseSearchPresenter(view, repository), KinContract.Presenter {
 
     override fun search(keyword: String) {
         repository.getKin(

@@ -2,7 +2,7 @@ package com.jay.architecturestudy.ui
 
 import com.jay.architecturestudy.data.repository.NaverSearchRepository
 
-abstract class BasePresenter(
+abstract class BaseSearchPresenter(
     protected open val view: BaseSearchContract.View<*, *>,
     protected open val repository: NaverSearchRepository
 ) : BaseSearchContract.Presenter {
