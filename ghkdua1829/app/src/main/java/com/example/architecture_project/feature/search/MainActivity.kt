@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onResponse(call: Call<NaverApi>, response: Response<NaverApi>) {
                     if (response.isSuccessful) {
-                        Log.e("A ", response.toString())
+                        Log.e("result is ", response.toString())
                         val movie = response.body()!!
                         MovieAdapter.data = movie.item
                         MovieAdapter.notifyDataSetChanged()
