@@ -53,7 +53,7 @@
             android:textColor="@color/colorBlack" />
 
         <TextView
-            android:id="@+id/tv_rv_movie_item_info"
+            android:id="@+id/tv_rv_movie_item_actor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="출연|지인가|모르|겠다"

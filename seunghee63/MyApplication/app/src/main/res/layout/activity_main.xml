@@ -37,7 +37,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cl_main_act_search_container" />
+        app:layout_constraintTop_toBottomOf="@+id/cl_main_act_search_container"
+        tools:itemCount="10"
+        tools:listitem="@layout/rv_movie_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
