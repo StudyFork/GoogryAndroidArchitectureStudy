@@ -2,53 +2,37 @@ package com.egiwon.architecturestudy.tabs.bottomsheet
 
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import androidx.recyclerview.widget.RecyclerView
 import com.egiwon.architecturestudy.R
-import com.egiwon.architecturestudy.base.BaseViewHolder
-import kotlinx.android.synthetic.main.search_history_item.view.*
+import com.egiwon.architecturestudy.base.BaseRecyclerView
+import com.egiwon.architecturestudy.databinding.SearchHistoryItemBinding
 
 class HistoryAdapter(
-    private val onClick: (String) -> Unit
-) : RecyclerView.Adapter<HistoryViewHolder>() {
-
-    private val list = ArrayList<String>()
+    private val onClick: (String) -> Unit,
+    @LayoutRes private val layoutRes: Int = R.layout.search_history_item
+) : BaseRecyclerView.Adapter<String, SearchHistoryItemBinding>(
+    layoutRes
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder =
         HistoryViewHolder(parent).apply {
             itemView.setOnClickListener {
-                onClick(list[adapterPosition])
+                onClick(getItem(adapterPosition) ?: "")
             }
         }
 
+    inner class HistoryViewHolder(
+        parent: ViewGroup
+    ) : BaseRecyclerView.BaseViewHolder<SearchHistoryItemBinding>(
+        parent,
+        layoutRes
+    ) {
 
-    override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) =
-        holder.bind(list[position])
-
-    override fun getItemCount(): Int = list.size
-
-    fun setList(history: List<String>) {
-        list.run {
-            clear()
-            addAll(history)
+        override fun onBindViewHolder(item: Any?) {
+            binding.query.text = (item as? String) ?: ""
+            super.onBindViewHolder(item)
         }
-
-        notifyDataSetChanged()
-    }
-}
-
-class HistoryViewHolder(
-    parent: ViewGroup,
-    @LayoutRes
-    private val resourceId: Int = R.layout.search_history_item
-) : BaseViewHolder<String>(
-    parent,
-    resourceId
-) {
-    private val tvQuery = itemView.query
-
-    override fun bind(item: String) {
-        tvQuery.text = item
     }
 
 }
+
 

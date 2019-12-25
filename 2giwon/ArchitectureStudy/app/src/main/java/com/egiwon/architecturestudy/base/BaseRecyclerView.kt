@@ -38,6 +38,8 @@ abstract class BaseRecyclerView {
         override fun onBindViewHolder(holder: BaseViewHolder<B>, position: Int) =
             holder.onBindViewHolder(items[position])
 
+        protected fun getItem(position: Int): A? = items.getOrNull(position)
+
         fun replaceAll(items: List<A>?) {
             this.items.run {
                 clear()
