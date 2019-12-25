@@ -12,9 +12,9 @@ import com.egiwon.architecturestudy.data.source.local.ContentDataBase
 import com.egiwon.architecturestudy.data.source.local.NaverLocalDataSource
 import com.egiwon.architecturestudy.data.source.remote.NaverRemoteDataSource
 import com.egiwon.architecturestudy.data.source.remote.response.ContentItem
-import kotlinx.android.synthetic.main.fg_contents.*
+import com.egiwon.architecturestudy.databinding.FgContentsBinding
 
-class ContentsFragment : BaseFragment<ContentsContract.Presenter>(
+class ContentsFragment : BaseFragment<FgContentsBinding, ContentsContract.Presenter>(
     R.layout.fg_contents
 ), ContentsContract.View {
 
@@ -43,26 +43,24 @@ class ContentsFragment : BaseFragment<ContentsContract.Presenter>(
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        with(rv_contents) {
-            addItemDecoration(
+        with(binding) {
+            rvContents.addItemDecoration(
                 DividerItemDecoration(
                     context,
                     DividerItemDecoration.VERTICAL
                 )
             )
 
-            adapter = ContentsAdapter(tab)
-            setHasFixedSize(true)
-        }
+            rvContents.adapter = ContentsAdapter(tab)
 
-        btn_search.setOnClickListener {
-            presenter.loadContents(tab, et_search.text.toString())
+            btnSearch.setOnClickListener {
+                presenter.loadContents(tab, etSearch.text.toString())
+            }
         }
-
     }
 
     override fun showQueryResult(resultList: List<ContentItem>) {
-        (rv_contents.adapter as? ContentsAdapter)?.setList(resultList)
+        (binding.rvContents.adapter as? ContentsAdapter)?.replaceAll(resultList)
     }
 
     override fun showQueryHistoryResult(
@@ -70,7 +68,7 @@ class ContentsFragment : BaseFragment<ContentsContract.Presenter>(
         query: String
     ) {
         showQueryResult(resultList)
-        et_search.setText(query)
+        binding.etSearch.setText(query)
     }
 
     override fun showErrorQueryEmpty() {
@@ -90,15 +88,15 @@ class ContentsFragment : BaseFragment<ContentsContract.Presenter>(
         query: String
     ) {
         showQueryResult(resultList)
-        et_search.setText(query)
+        binding.etSearch.setText(query)
     }
 
     override fun showLoading() {
-        progress_circular.visibility = View.VISIBLE
+        binding.progressCircular.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
-        progress_circular.visibility = View.GONE
+        binding.progressCircular.visibility = View.GONE
     }
 
     fun loadContentsByHistoryQuery(type: Tab, query: String) {
