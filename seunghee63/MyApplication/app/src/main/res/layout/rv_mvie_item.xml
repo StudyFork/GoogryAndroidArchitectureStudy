@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_rv_movie_item_image"
+        android:layout_width="132dp"
+        android:layout_height="200dp"
+        android:layout_margin="8dp"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/ll_rv_movie_item_contents"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_rv_movie_item_image"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_rv_movie_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="영화제목"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/rb_rv_movie_item_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_rv_movie_item_pub_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2018"
+            android:textColor="@color/colorBlack" />
+
+        <TextView
+            android:id="@+id/tv_rv_movie_item_director"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="감독|"
+            android:textColor="@color/colorBlack" />
+
+        <TextView
+            android:id="@+id/tv_rv_movie_item_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="출연|지인가|모르|겠다"
+            android:textColor="@color/colorBlack" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
