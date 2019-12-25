@@ -23,11 +23,7 @@ class NaverSearchRemoteDataSourceImpl(private val restClient: Api) : NaverSearch
 
             override fun onResponse(call: Call<MovieData>, response: Response<MovieData>) {
                 if(response.isSuccessful) {
-                    response.body()?.items?.let {
-                        success(
-                            it
-                        )
-                    }
+                    success(response.body()?.items ?: emptyList())
                 }
             }
         })
@@ -41,11 +37,7 @@ class NaverSearchRemoteDataSourceImpl(private val restClient: Api) : NaverSearch
 
             override fun onResponse(call: Call<BlogData>, response: Response<BlogData>) {
                 if(response.isSuccessful) {
-                    response.body()?.items?.let {
-                        success(
-                            it
-                        )
-                    }
+                    success(response.body()?.items ?: emptyList())
                 }
             }
         })
@@ -59,11 +51,7 @@ class NaverSearchRemoteDataSourceImpl(private val restClient: Api) : NaverSearch
 
             override fun onResponse(call: Call<KinData>, response: Response<KinData>) {
                 if(response.isSuccessful) {
-                    response.body()?.items?.let {
-                        success(
-                            it
-                        )
-                    }
+                    success(response.body()?.items ?: emptyList())
                 }
             }
         })
@@ -78,11 +66,7 @@ class NaverSearchRemoteDataSourceImpl(private val restClient: Api) : NaverSearch
 
             override fun onResponse(call: Call<ImageData>, response: Response<ImageData>) {
                 if(response.isSuccessful) {
-                    response.body()?.items?.let {
-                        success(
-                            it
-                        )
-                    }
+                    success(response.body()?.items ?: emptyList())
                 }
             }
         })
