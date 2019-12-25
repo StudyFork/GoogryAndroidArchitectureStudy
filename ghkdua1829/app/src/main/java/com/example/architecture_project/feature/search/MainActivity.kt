@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     fun Call_Movie(keyword: String) {
         MovieRecyclerView = findViewById(R.id.rv_movie)
-        MovieAdapter = MovieAdapter(this)
+        MovieAdapter = MovieAdapter()
         MovieRecyclerView.adapter = MovieAdapter
         MovieRecyclerView.layoutManager = LinearLayoutManager(this)
 
