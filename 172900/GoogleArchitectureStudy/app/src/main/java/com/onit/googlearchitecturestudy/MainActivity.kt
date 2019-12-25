@@ -3,6 +3,7 @@ package com.onit.googlearchitecturestudy
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -61,6 +62,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun clickSearchButton() {
         CoroutineScope(Dispatchers.Main).launch {
+            loadingProgressBar.visibility = View.VISIBLE
+
             val response =
                 withContext(Dispatchers.IO) { searchMovieList(searchFieldEditText.text.toString()) }
 
@@ -68,13 +71,15 @@ class MainActivity : AppCompatActivity() {
                 val movieList = response.body()?.movies
                 if (movieList == null) {
                     Toast.makeText(applicationContext, "검색결과가 없습니다.", Toast.LENGTH_LONG).show()
-                    return@launch
+                } else {
+                    resultMovieListRecyclerAdapter.setMovieList(movieList)
                 }
-                resultMovieListRecyclerAdapter.setMovieList(movieList)
             } else {
                 Log.e("MainActivity", "네이버 API요청에 실패했습니다. responseCode = ${response.code()}")
                 Toast.makeText(applicationContext, "네트워크가 불안정합니다.", Toast.LENGTH_LONG).show()
             }
+
+            loadingProgressBar.visibility = View.GONE
         }
     }
 
