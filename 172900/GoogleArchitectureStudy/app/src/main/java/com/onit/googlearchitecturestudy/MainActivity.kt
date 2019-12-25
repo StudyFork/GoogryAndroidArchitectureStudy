@@ -16,6 +16,8 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+const val MOVIE_URL = "movieURL"
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var resultMovieListRecyclerAdapter: ResultMovieListRecyclerAdapter
@@ -52,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun clickMovieItem(position: Int) {
         val intent = Intent(this, MovieInformationActivity::class.java).apply {
-            putExtra("movieURL", resultMovieListRecyclerAdapter.getMovieURL(position))
+            putExtra(MOVIE_URL, resultMovieListRecyclerAdapter.getMovieURL(position))
         }
         startActivity(intent)
     }

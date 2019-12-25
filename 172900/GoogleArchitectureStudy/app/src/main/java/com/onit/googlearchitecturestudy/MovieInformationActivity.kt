@@ -17,7 +17,7 @@ class MovieInformationActivity : AppCompatActivity() {
 
     private fun init() {
         movieInformationWebView.webViewClient = WebViewClient()
-        movieInformationWebView.loadUrl(intent.getStringExtra("movieURL"))
+        movieInformationWebView.loadUrl(intent.getStringExtra(MOVIE_URL))
         with(movieInformationWebView.settings) {
             setSupportMultipleWindows(false)
             useWideViewPort = true
