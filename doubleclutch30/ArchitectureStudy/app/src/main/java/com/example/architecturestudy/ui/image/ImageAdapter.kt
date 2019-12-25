@@ -39,11 +39,10 @@ class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ImageHolder>() {
 
         fun bind(item : ImageItem) {
             with(itemView) {
-                try {
-                    Glide.with(this).load(item.thumbnail).into(img_image)
-                } catch (e : Exception) {
-                    error(message = e.toString())
-                }
+                Glide.with(this).
+                    load(item.thumbnail).
+                    error(R.drawable.ic_launcher_background).
+                    into(img_image)
             }
         }
 
