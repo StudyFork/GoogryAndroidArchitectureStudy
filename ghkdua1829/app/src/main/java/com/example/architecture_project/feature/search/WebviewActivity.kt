@@ -20,10 +20,12 @@ class WebviewActivity : AppCompatActivity() {
         wvMovie = findViewById(R.id.wb_page)
         wvMovie.webViewClient = WebViewClient()
         var webViewSettings = wvMovie.settings
-        webViewSettings.javaScriptEnabled = true
-        webViewSettings.setSupportMultipleWindows(false)
-        webViewSettings.useWideViewPort = true
-        webViewSettings.setSupportZoom(false)
+        webViewSettings.run {
+            javaScriptEnabled=true
+            setSupportMultipleWindows(false)
+            useWideViewPort = true
+            setSupportZoom(false)
+        }
         wvMovie.loadUrl(intent.getStringExtra(URL))
     }
 }
