@@ -1,12 +1,10 @@
-package com.practice.achitecture.myproject.main
+package com.practice.achitecture.myproject.history
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
+import androidx.annotation.StringRes
 import com.practice.achitecture.myproject.R
 import com.practice.achitecture.myproject.base.BaseActivity
 import com.practice.achitecture.myproject.data.source.NaverRepository
@@ -14,22 +12,22 @@ import com.practice.achitecture.myproject.data.source.local.NaverDatabase
 import com.practice.achitecture.myproject.data.source.local.NaverLocalDataSourceImpl
 import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSourceImpl
 import com.practice.achitecture.myproject.enum.SearchType
-import com.practice.achitecture.myproject.history.HistoryActivity
+import com.practice.achitecture.myproject.main.SearchBlogAndNewsAdapter
+import com.practice.achitecture.myproject.main.SearchMovieAndBookAdapter
+import com.practice.achitecture.myproject.main.SearchedItemClickListener
 import com.practice.achitecture.myproject.makeToast
 import com.practice.achitecture.myproject.model.SearchedItem
 import com.practice.achitecture.myproject.network.RetrofitClient
-import com.practice.achitecture.myproject.network.errorHandler
-import com.practice.achitecture.myproject.openActivity
 import com.practice.achitecture.myproject.util.AppExecutors
 import common.NAVER_API_BASE_URL
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main),
+class HistoryActivity : BaseActivity<HistoryContract.Presenter>(R.layout.activity_history),
     View.OnClickListener,
-    MainContract.View {
+    HistoryContract.View {
 
-    override val presenter: MainContract.Presenter by lazy {
-        MainPresenter(
+    override val presenter: HistoryContract.Presenter by lazy {
+        HistoryPresenter(
             this,
             NaverRepository.getInstance(
                 NaverRemoteDataSourceImpl(RetrofitClient(NAVER_API_BASE_URL).makeRetrofitServiceForNaver()),
@@ -42,7 +40,6 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
         )
     }
 
-    private var searchType: SearchType = SearchType.MOVIE
     private var searchMovieAndBookAdapter: SearchMovieAndBookAdapter? = null
     private var searchBlogAndNewsAdapter: SearchBlogAndNewsAdapter? = null
     private val searchedItemListener: SearchedItemClickListener =
@@ -56,7 +53,7 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
         super.onCreate(savedInstanceState)
         registerOnClickListener()
         initAdapter()
-        presenter.loadCache()
+        presenter.loadHistory(SearchType.MOVIE)
     }
 
     private fun initAdapter() {
@@ -65,51 +62,10 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
     }
 
     private fun registerOnClickListener() {
-        btn_search.setOnClickListener(this)
-        btn_history.setOnClickListener(this)
         btn_search_type_movie.setOnClickListener(this)
         btn_search_type_book.setOnClickListener(this)
         btn_search_type_blog.setOnClickListener(this)
         btn_search_type_news.setOnClickListener(this)
-        input_search_sth.setOnEditorActionListener { _, actionId, _ ->
-            when (actionId) {
-                EditorInfo.IME_ACTION_SEARCH -> {
-                    search(searchType)
-                    true
-                }
-                else -> false
-            }
-        }
-    }
-
-    override fun onClick(v: View) {
-
-        when (v.id) {
-            R.id.btn_search -> search(searchType)
-            R.id.btn_history -> this.openActivity(HistoryActivity::class.java)
-            R.id.btn_search_type_movie ->
-                search(SearchType.MOVIE)
-            R.id.btn_search_type_book ->
-                search(SearchType.BOOK)
-            R.id.btn_search_type_blog ->
-                search(SearchType.BLOG)
-            R.id.btn_search_type_news ->
-                search(SearchType.NEWS)
-        }
-    }
-
-    private fun search(searchType: SearchType) {
-        val imm: InputMethodManager =
-            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(input_search_sth.windowToken, 0)
-
-        val word = input_search_sth.text.toString()
-        this.searchType = searchType
-        presenter.searchIfNotEmpty(word, searchType)
-    }
-
-    override fun searchWordEmpty() {
-        makeToast(R.string.toast_empty_word)
     }
 
     override fun showSearchResultBlogOrNews(items: List<SearchedItem>) {
@@ -122,9 +78,21 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
         rv_searched_list.adapter = searchMovieAndBookAdapter
     }
 
-    override fun searchingOnFailure(throwable: Throwable) {
-        errorHandler(this@MainActivity, throwable)
+    override fun historyEmpty(@StringRes stringId: Int) {
+        makeToast(stringId)
     }
 
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.btn_search_type_movie ->
+                presenter.loadHistory(SearchType.MOVIE)
+            R.id.btn_search_type_book ->
+                presenter.loadHistory(SearchType.BOOK)
+            R.id.btn_search_type_blog ->
+                presenter.loadHistory(SearchType.BLOG)
+            R.id.btn_search_type_news ->
+                presenter.loadHistory(SearchType.NEWS)
+        }
+    }
 
 }

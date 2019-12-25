@@ -14,10 +14,17 @@ import retrofit2.Response
 class NaverRemoteDataSourceImpl(private val naverApiService: RetrofitService) :
     NaverDataSource {
 
+    override fun loadHistoryOfSearch(
+        searchType: SearchType,
+        callback: NaverDataSource.LoadHistoryOfSearchCallback
+    ) {
+        // remote에서는 쓰이지 않음
+    }
+
     override fun searchWordByNaver(
         searchType: SearchType,
         word: String,
-        callBack: NaverDataSource.GettingResultOfSearchingCallBack
+        callback: NaverDataSource.GettingResultOfSearchingCallback
     ) {
         val call = naverApiService.searchSomething(searchType.value, word)
         //To change body of created functions use File | Settings | File Templates.
@@ -27,23 +34,23 @@ class NaverRemoteDataSourceImpl(private val naverApiService: RetrofitService) :
                 response: Response<ResultOfSearchingModel>
             ) {
                 if (!response.isSuccessful) {
-                    callBack.onFailure(ResponseNotSuccessException(R.string.toast_network_error_msg))
+                    callback.onFailure(ResponseNotSuccessException(R.string.toast_network_error_msg))
                     return
                 }
                 val body = response.body()
                 if (body == null) {
-                    callBack.onFailure(EmptyDataException(R.string.toast_empty_result))
+                    callback.onFailure(EmptyDataException(R.string.toast_empty_result))
                     return
                 }
                 body.items.ifEmpty {
-                    callBack.onFailure(EmptyDataException(R.string.toast_empty_result))
+                    callback.onFailure(EmptyDataException(R.string.toast_empty_result))
                     return
                 }
-                callBack.onSuccess(body.items)
+                callback.onSuccess(body.items)
             }
 
             override fun onFailure(call: Call<ResultOfSearchingModel>, t: Throwable) {
-                callBack.onFailure(t)
+                callback.onFailure(t)
             }
         })
     }
