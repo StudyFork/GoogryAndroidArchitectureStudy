@@ -23,18 +23,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btn_search.setOnClickListener {
-            Call_Movie(et_search.text.toString())
-        }
-    }
-
-    fun Call_Movie(keyword: String) {
         movieRecyclerView = findViewById(R.id.rv_movie)
         movieAdapter = MovieAdapter()
         movieRecyclerView.adapter = movieAdapter
         movieRecyclerView.layoutManager = LinearLayoutManager(this)
 
+        btn_search.setOnClickListener {
+            callMovie(et_search.text.toString())
+        }
+    }
 
+    private fun callMovie(keyword: String) {
         val call: Call<NaverApi> =
             NaverSevicelmpl.service.getMovie("Ega4tpqIyDDMBsf8nb7O", "GinlKHXc11", keyword)
 
