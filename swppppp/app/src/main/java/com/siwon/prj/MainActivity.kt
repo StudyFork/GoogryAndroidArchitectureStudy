@@ -1,5 +1,6 @@
 package com.siwon.prj
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -90,7 +91,9 @@ class MainActivity : AppCompatActivity() {
             holder.itemView.setOnClickListener {
                 val toast = Toast.makeText(this@MainActivity, "웹뷰로 이동", Toast.LENGTH_SHORT)
                 toast.show()
-                
+                val detailWebview = Intent(this@MainActivity, DetailWebview::class.java)
+                detailWebview.putExtra("link", items[position].link)
+                startActivity(detailWebview)
             }
         }
 
