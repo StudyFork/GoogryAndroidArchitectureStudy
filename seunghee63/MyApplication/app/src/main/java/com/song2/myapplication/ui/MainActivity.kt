@@ -1,7 +1,8 @@
-package com.song2.myapplication
+package com.song2.myapplication.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.song2.myapplication.R
 
 class MainActivity : AppCompatActivity() {
 
