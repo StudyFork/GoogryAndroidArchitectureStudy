@@ -8,6 +8,10 @@ import com.example.architecture_project.R
 
 class WebviewActivity : AppCompatActivity() {
 
+    companion object{
+        private const val URL="url"
+    }
+
     lateinit var wv_movie: WebView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +24,6 @@ class WebviewActivity : AppCompatActivity() {
         webview_settings.setSupportMultipleWindows(false)
         webview_settings.useWideViewPort = true
         webview_settings.setSupportZoom(false)
-        wv_movie.loadUrl(intent.getStringExtra("url"))
+        wv_movie.loadUrl(intent.getStringExtra(URL))
     }
 }
