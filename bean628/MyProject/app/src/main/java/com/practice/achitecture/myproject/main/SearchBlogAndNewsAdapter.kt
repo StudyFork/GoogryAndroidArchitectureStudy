@@ -1,14 +1,12 @@
 package com.practice.achitecture.myproject.main
 
-import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.text.HtmlCompat
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.practice.achitecture.myproject.R
+import com.practice.achitecture.myproject.databinding.ItemBlogAndNewsBinding
 import com.practice.achitecture.myproject.model.SearchedItem
-import kotlinx.android.synthetic.main.item_blog_and_news.view.*
 
 class SearchBlogAndNewsAdapter(private val searchedItemClickListener: SearchedItemClickListener) :
     RecyclerView.Adapter<SearchBlogAndNewsAdapter.ViewHolder>() {
@@ -33,28 +31,28 @@ class SearchBlogAndNewsAdapter(private val searchedItemClickListener: SearchedIt
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflatedView: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_blog_and_news, parent, false)
-        val viewHolder =
-            ViewHolder(inflatedView)
-        inflatedView.setOnClickListener {
-            searchedItemClickListener.onItemClick(items[viewHolder.adapterPosition])
-        }
 
-        return viewHolder
+        return ViewHolder(
+            DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                R.layout.item_blog_and_news,
+                parent,
+                false
+            )
+        )
     }
 
-    class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+    inner class ViewHolder(private val binding: ItemBlogAndNewsBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: SearchedItem?) {
-            val title = item?.title ?: ""
-            val description = item?.description ?: ""
-
-            itemView.setBackgroundColor(Color.WHITE)
-            itemView.tv_title.text =
-                HtmlCompat.fromHtml(title, HtmlCompat.FROM_HTML_MODE_COMPACT)
-            itemView.tv_description.text =
-                HtmlCompat.fromHtml(description, HtmlCompat.FROM_HTML_MODE_COMPACT)
+        fun bind(data: SearchedItem) {
+            binding.run {
+                item = data
+                root.setOnClickListener {
+                    searchedItemClickListener.onItemClick(items[this@ViewHolder.adapterPosition])
+                }
+                executePendingBindings()
+            }
         }
     }
 }
