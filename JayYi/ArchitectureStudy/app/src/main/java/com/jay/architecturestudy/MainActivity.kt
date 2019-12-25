@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     inner class PagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
-        private val fragments = arrayListOf(
+        private val fragments = arrayListOf<Fragment>(
             MovieFragment(), ImageFragment(),
             BlogFragment(), KinFragment()
         )

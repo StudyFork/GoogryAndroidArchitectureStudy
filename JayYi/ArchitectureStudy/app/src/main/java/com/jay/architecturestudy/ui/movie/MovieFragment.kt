@@ -1,21 +1,18 @@
 package com.jay.architecturestudy.ui.movie
 
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Movie
-import com.jay.architecturestudy.data.model.ResponseNaverQuery
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
-import com.jay.architecturestudy.network.Api
 import com.jay.architecturestudy.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragemnt_movie.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
-class MovieFragment : BaseFragment(R.layout.fragemnt_movie) {
+class MovieFragment : BaseFragment(R.layout.fragemnt_movie), MovieContract.View {
+    override val presenter: MovieContract.Presenter by lazy {
+        MoviePresenter(this, naverSearchRepository)
+    }
 
     private lateinit var movieAdapter: MovieAdapter
 
@@ -44,14 +41,10 @@ class MovieFragment : BaseFragment(R.layout.fragemnt_movie) {
     }
 
     override fun search(keyword: String) {
-        naverSearchRepository.getMovie(
-            keyword = keyword,
-            success = { responseMovie ->
-                movieAdapter.setData(responseMovie.movies)
-            },
-            fail = { e ->
-                Log.e("Movie", "error=${e.message}")
-            }
-        )
+        presenter.search(keyword)
+    }
+
+    override fun updateResult(result: List<Movie>) {
+        movieAdapter.setData(result)
     }
 }

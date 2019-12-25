@@ -5,14 +5,13 @@ import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.jay.architecturestudy.util.peekBody
 import okhttp3.Response
-import java.lang.Exception
 
 class NetworkException(
     val statusCode: Int,
     val code: String,
     override val message: String,
     cause: Throwable? = null
-): RuntimeException(message, cause) {
+) : RuntimeException(message, cause) {
 
     companion object {
         fun create(response: Response): NetworkException? {
