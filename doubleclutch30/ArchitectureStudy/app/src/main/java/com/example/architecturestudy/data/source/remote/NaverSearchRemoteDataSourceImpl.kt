@@ -1,9 +1,9 @@
 package com.example.architecturestudy.data.source.remote
 
-import com.example.architecturestudy.data.model.BlogItems
-import com.example.architecturestudy.data.model.ImageItems
-import com.example.architecturestudy.data.model.KinItems
-import com.example.architecturestudy.data.model.MovieItems
+import com.example.architecturestudy.data.model.BlogItem
+import com.example.architecturestudy.data.model.ImageItem
+import com.example.architecturestudy.data.model.KinItem
+import com.example.architecturestudy.data.model.MovieItem
 import com.example.architecturestudy.network.response.BlogData
 import com.example.architecturestudy.network.response.ImageData
 import com.example.architecturestudy.network.response.KinData
@@ -15,7 +15,7 @@ import retrofit2.Response
 
 class NaverSearchRemoteDataSourceImpl(private val restClient: Api) : NaverSearchRemoteDataSource {
 
-    override fun getMovie(keyword: String, success: (List<MovieItems>) -> Unit, fail: (Throwable) -> Unit) {
+    override fun getMovie(keyword: String, success: (List<MovieItem>) -> Unit, fail: (Throwable) -> Unit) {
         restClient.requestMovies(keyword).enqueue(object : Callback<MovieData> {
             override fun onFailure(call: Call<MovieData>, t: Throwable) {
                 fail(t)
@@ -29,7 +29,7 @@ class NaverSearchRemoteDataSourceImpl(private val restClient: Api) : NaverSearch
         })
     }
 
-    override fun getBlog(keyword: String, success: (List<BlogItems>) -> Unit, fail: (Throwable) -> Unit) {
+    override fun getBlog(keyword: String, success: (List<BlogItem>) -> Unit, fail: (Throwable) -> Unit) {
         restClient.requestBlog(keyword).enqueue(object : Callback<BlogData> {
             override fun onFailure(call: Call<BlogData>, t: Throwable) {
                 fail(t)
@@ -43,7 +43,7 @@ class NaverSearchRemoteDataSourceImpl(private val restClient: Api) : NaverSearch
         })
     }
 
-    override fun getKin(keyword: String, success: (List<KinItems>) -> Unit, fail: (Throwable) -> Unit) {
+    override fun getKin(keyword: String, success: (List<KinItem>) -> Unit, fail: (Throwable) -> Unit) {
         restClient.requestKin(keyword).enqueue(object : Callback<KinData> {
             override fun onFailure(call: Call<KinData>, t: Throwable) {
                 fail(t)
@@ -57,7 +57,7 @@ class NaverSearchRemoteDataSourceImpl(private val restClient: Api) : NaverSearch
         })
     }
 
-    override fun getImage(keyword: String, success: (List<ImageItems>) -> Unit, fail: (Throwable) -> Unit)
+    override fun getImage(keyword: String, success: (List<ImageItem>) -> Unit, fail: (Throwable) -> Unit)
     {
         restClient.requestImage(keyword).enqueue(object : Callback<ImageData> {
             override fun onFailure(call: Call<ImageData>, t: Throwable) {

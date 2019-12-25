@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.architecturestudy.R
-import com.example.architecturestudy.data.model.KinItems
+import com.example.architecturestudy.data.model.KinItem
 import com.example.architecturestudy.ui.startWebView
 import kotlinx.android.synthetic.main.item_kin.view.*
 
 class KinAdapter : RecyclerView.Adapter<KinAdapter.KinHolder>() {
 
-    private val kinItem : MutableList<KinItems> = mutableListOf()
+    private val kinItem : MutableList<KinItem> = mutableListOf()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KinHolder {
@@ -30,7 +30,7 @@ class KinAdapter : RecyclerView.Adapter<KinAdapter.KinHolder>() {
         holder.bind(kinItem[position])
     }
 
-    fun update(kinList : List<KinItems>) {
+    fun update(kinList : List<KinItem>) {
         this.kinItem.clear()
         this.kinItem.addAll(kinList)
         notifyDataSetChanged()
@@ -38,7 +38,7 @@ class KinAdapter : RecyclerView.Adapter<KinAdapter.KinHolder>() {
 
     class KinHolder(view : View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(item: KinItems) {
+        fun bind(item: KinItem) {
             with(itemView) {
                 kin_title.text = HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
                 kin_contents.text = HtmlCompat.fromHtml(item.description, HtmlCompat.FROM_HTML_MODE_COMPACT)

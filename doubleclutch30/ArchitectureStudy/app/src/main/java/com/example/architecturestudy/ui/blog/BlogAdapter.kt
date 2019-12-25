@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.architecturestudy.R
-import com.example.architecturestudy.data.model.BlogItems
+import com.example.architecturestudy.data.model.BlogItem
 import com.example.architecturestudy.ui.startWebView
 import kotlinx.android.synthetic.main.item_blog.view.*
 
 
 class BlogAdapter : RecyclerView.Adapter<BlogAdapter.BlogHolder>(){
 
-    private val blogItem : MutableList<BlogItems> = mutableListOf()
+    private val blogItem : MutableList<BlogItem> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_blog, parent, false)
@@ -30,7 +30,7 @@ class BlogAdapter : RecyclerView.Adapter<BlogAdapter.BlogHolder>(){
         holder.bind(blogItem[position])
     }
 
-    fun update(blogList : List<BlogItems>) {
+    fun update(blogList : List<BlogItem>) {
         this.blogItem.clear()
         this.blogItem.addAll(blogList)
         notifyDataSetChanged()
@@ -38,7 +38,7 @@ class BlogAdapter : RecyclerView.Adapter<BlogAdapter.BlogHolder>(){
 
     class BlogHolder(view : View) : RecyclerView.ViewHolder(view)  {
 
-        fun bind(item : BlogItems) {
+        fun bind(item : BlogItem) {
             with(itemView) {
                 blog_title.text = HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
                 blog_contents.text = HtmlCompat.fromHtml(item.description, HtmlCompat.FROM_HTML_MODE_COMPACT)

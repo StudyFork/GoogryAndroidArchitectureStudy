@@ -1,17 +1,16 @@
 package com.example.architecturestudy.data.repository
 
-import com.example.architecturestudy.data.model.BlogItems
-import com.example.architecturestudy.data.model.ImageItems
-import com.example.architecturestudy.data.model.KinItems
-import com.example.architecturestudy.data.model.MovieItems
-import com.example.architecturestudy.network.response.MovieData
+import com.example.architecturestudy.data.model.BlogItem
+import com.example.architecturestudy.data.model.ImageItem
+import com.example.architecturestudy.data.model.KinItem
+import com.example.architecturestudy.data.model.MovieItem
 import com.example.architecturestudy.data.source.remote.NaverSearchRemoteDataSource
 
 class NaverSearchRepositoryImpl(
     private val naverSearchRemoteDataSource: NaverSearchRemoteDataSource
 ) : NaverSearchRepository {
 
-    override fun getMovie(keyword: String, success: (List<MovieItems>) -> Unit, fail: (Throwable) -> Unit) {
+    override fun getMovie(keyword: String, success: (List<MovieItem>) -> Unit, fail: (Throwable) -> Unit) {
         naverSearchRemoteDataSource.getMovie(
             keyword = keyword,
             success = success,
@@ -19,7 +18,7 @@ class NaverSearchRepositoryImpl(
         )
     }
 
-    override fun getBlog(keyword: String, success: (List<BlogItems>) -> Unit, fail: (Throwable) -> Unit) {
+    override fun getBlog(keyword: String, success: (List<BlogItem>) -> Unit, fail: (Throwable) -> Unit) {
         naverSearchRemoteDataSource.getBlog(
             keyword = keyword,
             success = success,
@@ -27,7 +26,7 @@ class NaverSearchRepositoryImpl(
         )
     }
 
-    override fun getKin(keyword: String, success: (List<KinItems>) -> Unit, fail: (Throwable) -> Unit) {
+    override fun getKin(keyword: String, success: (List<KinItem>) -> Unit, fail: (Throwable) -> Unit) {
         naverSearchRemoteDataSource.getKin(
             keyword = keyword,
             success = success,
@@ -35,7 +34,7 @@ class NaverSearchRepositoryImpl(
         )
     }
 
-    override fun getImage(keyword: String, success: (List<ImageItems>) -> Unit, fail: (Throwable) -> Unit) {
+    override fun getImage(keyword: String, success: (List<ImageItem>) -> Unit, fail: (Throwable) -> Unit) {
         naverSearchRemoteDataSource.getImage(
             keyword = keyword,
             success = success,

@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.architecturestudy.R
-import com.example.architecturestudy.data.model.ImageItems
+import com.example.architecturestudy.data.model.ImageItem
 import com.example.architecturestudy.ui.startWebView
 import kotlinx.android.synthetic.main.item_image.view.*
 
 class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ImageHolder>() {
 
-    private val imageItem : MutableList<ImageItems> = mutableListOf()
+    private val imageItem : MutableList<ImageItem> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_image, parent, false)
@@ -29,7 +29,7 @@ class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ImageHolder>() {
         holder.bind(imageItem[position])
     }
 
-    fun update(imageList : List<ImageItems>) {
+    fun update(imageList : List<ImageItem>) {
         this.imageItem.clear()
         this.imageItem.addAll(imageList)
         notifyDataSetChanged()
@@ -37,7 +37,7 @@ class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ImageHolder>() {
 
     class ImageHolder(view : View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(item : ImageItems) {
+        fun bind(item : ImageItem) {
             with(itemView) {
                 try {
                     Glide.with(this).load(item.thumbnail).into(img_image)
