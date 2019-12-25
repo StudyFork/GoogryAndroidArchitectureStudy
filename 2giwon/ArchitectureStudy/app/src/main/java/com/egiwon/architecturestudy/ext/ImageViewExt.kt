@@ -1,10 +1,12 @@
 package com.egiwon.architecturestudy.ext
 
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
-fun ImageView.loadAsync(url: String?, block: RequestOptions.() -> RequestOptions) {
+fun ImageView.loadUrl(url: String?, block: RequestOptions.() -> RequestOptions) {
 
     val option = RequestOptions()
     option.block()
