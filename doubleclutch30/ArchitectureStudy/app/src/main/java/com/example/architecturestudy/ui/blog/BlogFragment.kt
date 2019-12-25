@@ -27,7 +27,7 @@ class BlogFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        blogAdapter = BlogAdapter()
+         blogAdapter = BlogAdapter()
 
         recycleview.apply {
             adapter = blogAdapter
