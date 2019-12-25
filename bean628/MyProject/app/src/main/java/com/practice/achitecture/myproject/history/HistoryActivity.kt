@@ -11,6 +11,7 @@ import com.practice.achitecture.myproject.data.source.NaverRepository
 import com.practice.achitecture.myproject.data.source.local.NaverDatabase
 import com.practice.achitecture.myproject.data.source.local.NaverLocalDataSourceImpl
 import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSourceImpl
+import com.practice.achitecture.myproject.databinding.ActivityHistoryBinding
 import com.practice.achitecture.myproject.enum.SearchType
 import com.practice.achitecture.myproject.main.SearchBlogAndNewsAdapter
 import com.practice.achitecture.myproject.main.SearchMovieAndBookAdapter
@@ -20,9 +21,9 @@ import com.practice.achitecture.myproject.model.SearchedItem
 import com.practice.achitecture.myproject.network.RetrofitClient
 import com.practice.achitecture.myproject.util.AppExecutors
 import common.NAVER_API_BASE_URL
-import kotlinx.android.synthetic.main.activity_main.*
 
-class HistoryActivity : BaseActivity<HistoryContract.Presenter>(R.layout.activity_history),
+class HistoryActivity :
+    BaseActivity<HistoryContract.Presenter, ActivityHistoryBinding>(R.layout.activity_history),
     View.OnClickListener,
     HistoryContract.View {
 
@@ -62,20 +63,20 @@ class HistoryActivity : BaseActivity<HistoryContract.Presenter>(R.layout.activit
     }
 
     private fun registerOnClickListener() {
-        btn_search_type_movie.setOnClickListener(this)
-        btn_search_type_book.setOnClickListener(this)
-        btn_search_type_blog.setOnClickListener(this)
-        btn_search_type_news.setOnClickListener(this)
+        binding.btnSearchTypeMovie.setOnClickListener(this)
+        binding.btnSearchTypeBook.setOnClickListener(this)
+        binding.btnSearchTypeBlog.setOnClickListener(this)
+        binding.btnSearchTypeNews.setOnClickListener(this)
     }
 
     override fun showSearchResultBlogOrNews(items: List<SearchedItem>) {
         searchBlogAndNewsAdapter?.notifyDataSetChanged(items)
-        rv_searched_list.adapter = searchBlogAndNewsAdapter
+        binding.rvSearchedList.adapter = searchBlogAndNewsAdapter
     }
 
     override fun showSearchResultMovieOrBook(items: List<SearchedItem>) {
         searchMovieAndBookAdapter?.notifyDataSetChanged(items)
-        rv_searched_list.adapter = searchMovieAndBookAdapter
+        binding.rvSearchedList.adapter = searchMovieAndBookAdapter
     }
 
     override fun historyEmpty(@StringRes stringId: Int) {

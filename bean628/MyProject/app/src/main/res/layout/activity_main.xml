@@ -1,125 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <data>
+
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/btn_text_white"
-        android:orientation="vertical"
-        tools:context=".main.MainActivity">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:background="@color/btn_text_white"
+            android:orientation="vertical"
+            tools:context=".main.MainActivity">
 
-            <EditText
-                android:id="@+id/input_search_sth"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/input_search_sth"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:hint="@string/input_search_hint"
+                    android:imeOptions="actionSearch"
+                    android:importantForAutofill="no"
+                    android:inputType="text" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/btn_search_background"
+                    android:text="@string/btn_search"
+                    android:textColor="@color/btn_text_white"
+                    android:textSize="16dp"
+                    tools:ignore="SpUsage" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_history"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:text="@string/btn_history"
+                    android:textColor="@color/btn_text_white"
+                    android:textSize="16dp"
+                    tools:ignore="SpUsage" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_searched_list"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
-                android:hint="@string/input_search_hint"
-                android:imeOptions="actionSearch"
-                android:importantForAutofill="no"
-                android:inputType="text" />
+                android:clipToPadding="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/btn_search_background"
-                android:text="@string/btn_search"
-                android:textColor="@color/btn_text_white"
-                android:textSize="16dp"
-                tools:ignore="SpUsage" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_history"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:text="@string/btn_history"
-                android:textColor="@color/btn_text_white"
-                android:textSize="16dp"
-                tools:ignore="SpUsage" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_search_type_movie"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="#FF6E40"
+                    android:text="@string/btn_movie"
+                    android:textColor="@color/btn_text_white"
+                    android:textSize="16dp"
+                    tools:ignore="SpUsage" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_search_type_book"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="#FF6E40"
+                    android:text="@string/btn_book"
+                    android:textColor="@color/btn_text_white"
+                    android:textSize="16dp"
+                    tools:ignore="SpUsage" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_search_type_blog"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@color/bottom_menu_background"
+                    android:text="@string/btn_blog"
+                    android:textColor="@color/btn_text_white"
+                    android:textSize="16dp"
+                    tools:ignore="SpUsage" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_search_type_news"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#FF6E40"
+                    android:text="@string/btn_news"
+                    android:textColor="@color/btn_text_white"
+                    android:textSize="16dp"
+                    tools:ignore="SpUsage" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_searched_list"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:clipToPadding="false"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_search_type_movie"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:background="#FF6E40"
-                android:text="@string/btn_movie"
-                android:textColor="@color/btn_text_white"
-                android:textSize="16dp"
-                tools:ignore="SpUsage" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_search_type_book"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:background="#FF6E40"
-                android:text="@string/btn_book"
-                android:textColor="@color/btn_text_white"
-                android:textSize="16dp"
-                tools:ignore="SpUsage" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_search_type_blog"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:background="@color/bottom_menu_background"
-                android:text="@string/btn_blog"
-                android:textColor="@color/btn_text_white"
-                android:textSize="16dp"
-                tools:ignore="SpUsage" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_search_type_news"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#FF6E40"
-                android:text="@string/btn_news"
-                android:textColor="@color/btn_text_white"
-                android:textSize="16dp"
-                tools:ignore="SpUsage" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone" />
-
-</FrameLayout>
+    </FrameLayout>
+</layout>

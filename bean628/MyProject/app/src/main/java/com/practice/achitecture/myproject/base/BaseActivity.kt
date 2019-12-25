@@ -5,14 +5,20 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import com.practice.achitecture.myproject.R
 import com.practice.achitecture.myproject.makeToast
 
-abstract class BaseActivity<P : BaseContract.Presenter>(@LayoutRes contentLayoutId: Int) :
-    AppCompatActivity(contentLayoutId), BaseContract.View {
+abstract class BaseActivity<P : BaseContract.Presenter, DB : ViewDataBinding>(@LayoutRes contentLayoutId: Int) :
+    AppCompatActivity(), BaseContract.View {
 
     abstract val presenter: P
     open var progressBar: ProgressBar? = null
+
+    open val binding by lazy {
+        DataBindingUtil.setContentView(this, contentLayoutId) as DB
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
