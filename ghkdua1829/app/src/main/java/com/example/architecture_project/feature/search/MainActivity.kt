@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         Log.e("result is ", response.toString())
                         val movie = response.body()!!
-                        MovieAdapter.data = movie.item
+                        MovieAdapter.setMovieItemList(movie.item)
                         MovieAdapter.notifyDataSetChanged()
                     }
                 }

@@ -8,7 +8,12 @@ import com.example.architecture_project.R
 import com.example.architecture_project.data.Movie
 
 class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
-    var data = listOf<Movie>()
+    private var movieData:ArrayList<Movie> = ArrayList()
+
+    fun setMovieItemList(movieData:ArrayList<Movie>){
+        this.movieData=movieData
+        notifyDataSetChanged()
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
 
@@ -16,10 +21,10 @@ class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return movieData.size
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(data[position])
+        holder.bind(movieData[position])
     }
 }

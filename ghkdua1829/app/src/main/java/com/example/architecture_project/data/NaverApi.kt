@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class NaverApi(
     @SerializedName("items")
-    val item:List<Movie>
+    val item:ArrayList<Movie>
 )
