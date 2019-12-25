@@ -1,9 +1,11 @@
 package com.onit.googlearchitecturestudy
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -61,6 +63,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun clickSearchButton() {
+        hideKeyboard()
+
         CoroutineScope(Dispatchers.Main).launch {
             loadingProgressBar.visibility = View.VISIBLE
 
@@ -93,5 +97,13 @@ class MainActivity : AppCompatActivity() {
             Config.NAVER_API_CLIENT_SECRET,
             searchWord
         ).await()
+    }
+
+    private fun hideKeyboard() {
+        val view = this.currentFocus
+        view?.let { v ->
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            imm?.hideSoftInputFromWindow(v.windowToken, 0)
+        }
     }
 }
