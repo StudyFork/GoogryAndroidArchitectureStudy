@@ -7,15 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ListAdapter
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_image.view.*
+import kotlinx.coroutines.launch
+import wooooooak.com.studyapp.common.ext.startWebView
+import wooooooak.com.studyapp.common.ext.toast
 
-abstract class BaseSearchFragment(
+abstract class ItemSearchFragment<T>(
     private val layoutId: Int
-) : Fragment() {
+) : Fragment(), ItemContract.View<T> {
 
-    private lateinit var recyclerView: RecyclerView
+    abstract val adapter: ListAdapter<T, *>
     private lateinit var searchButton: Button
     private lateinit var inputTextView: TextInputEditText
 
@@ -27,23 +31,29 @@ abstract class BaseSearchFragment(
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         view?.run {
-            recyclerView = list_view
-            setListViewAdapter(recyclerView)
+            list_view.adapter = adapter
             inputTextView = edit_text
             searchButton = search_button
             searchButton.setOnClickListener {
-                fetchSearchedList()
+                lifecycleScope.launch {
+                    initItemsByTitle(inputTextView.text.toString())
+                }
             }
         }
     }
 
-    abstract fun setListViewAdapter(listView: RecyclerView)
-
-    protected open fun fetchSearchedList() {
-        val inputText = inputTextView.text.toString()
-        if (inputText.isNotEmpty()) {
-            (recyclerView.adapter as? Searchable)?.searchByTitle(inputText)
-        }
+    override fun renderItems(items: List<T>) {
+        adapter.submitList(items)
     }
+
+    override fun renderWebView(url: String) {
+        requireContext().startWebView(url)
+    }
+
+    override fun renderErrorToast(message: String?) {
+        message?.let { requireContext().toast(it) }
+    }
+
+    abstract fun initItemsByTitle(title: String)
 
 }

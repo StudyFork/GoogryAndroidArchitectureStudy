@@ -4,21 +4,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import kotlinx.android.synthetic.main.item_moive.view.*
 import wooooooak.com.studyapp.R
-import wooooooak.com.studyapp.common.ext.startWebView
-import wooooooak.com.studyapp.data.model.repository.NaverApiRepositoryImpl
 import wooooooak.com.studyapp.data.model.response.movie.Movie
 import wooooooak.com.studyapp.ui.base.BaseSearchListAdapter
 
-class MovieListAdapter(private val fragmentActivity: FragmentActivity) :
-    BaseSearchListAdapter<Movie, MovieListAdapter.MovieViewHolder>(fragmentActivity, DiffCallback()) {
-
-    private val naverApiRepository = NaverApiRepositoryImpl()
+class MovieListAdapter(
+    private val itemListener: ItemListener<Movie>
+) :
+    BaseSearchListAdapter<Movie, MovieListAdapter.MovieViewHolder>(itemListener, DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MovieViewHolder(
         LayoutInflater
@@ -29,16 +26,10 @@ class MovieListAdapter(private val fragmentActivity: FragmentActivity) :
     override fun bindItemViewHolder(holder: MovieViewHolder, position: Int) {
         getItem(position)?.let { movie ->
             holder.bind(movie, View.OnClickListener {
-                fragmentActivity.startWebView(movie.link)
+                itemListener.renderWebView(movie.link)
             })
         }
     }
-
-    override suspend fun initItemListByTitleAsync(title: String) =
-        naverApiRepository.getMovieList(title)
-
-    override suspend fun getMoreItemListFromStartIndexAsync(title: String, startIndex: Int) =
-        naverApiRepository.getMovieList(title, startIndex)
 
 
     inner class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
