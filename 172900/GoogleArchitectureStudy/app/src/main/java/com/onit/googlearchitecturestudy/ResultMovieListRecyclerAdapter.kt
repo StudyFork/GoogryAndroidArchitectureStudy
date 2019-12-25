@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.holder_movie.view.*
 
 class ResultMovieListRecyclerAdapter(
-    private var list: List<Movie>,
+    private var list: ArrayList<Movie>,
     private val listener: MovieViewHolder.ClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -37,7 +37,10 @@ class ResultMovieListRecyclerAdapter(
     }
 
     fun setMovieList(newMovieList: List<Movie>) {
-        list = newMovieList
+        with(list) {
+            clear()
+            addAll(newMovieList)
+        }
         notifyDataSetChanged()
     }
 
