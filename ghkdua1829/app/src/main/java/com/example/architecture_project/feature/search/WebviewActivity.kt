@@ -12,18 +12,18 @@ class WebviewActivity : AppCompatActivity() {
         private const val URL="url"
     }
 
-    lateinit var wv_movie: WebView
+    lateinit var wvMovie: WebView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_webview)
 
-        wv_movie = findViewById(R.id.wb_page)
-        wv_movie.webViewClient = WebViewClient()
-        var webview_settings = wv_movie.settings
-        webview_settings.javaScriptEnabled = true
-        webview_settings.setSupportMultipleWindows(false)
-        webview_settings.useWideViewPort = true
-        webview_settings.setSupportZoom(false)
-        wv_movie.loadUrl(intent.getStringExtra(URL))
+        wvMovie = findViewById(R.id.wb_page)
+        wvMovie.webViewClient = WebViewClient()
+        var webViewSettings = wvMovie.settings
+        webViewSettings.javaScriptEnabled = true
+        webViewSettings.setSupportMultipleWindows(false)
+        webViewSettings.useWideViewPort = true
+        webViewSettings.setSupportZoom(false)
+        wvMovie.loadUrl(intent.getStringExtra(URL))
     }
 }

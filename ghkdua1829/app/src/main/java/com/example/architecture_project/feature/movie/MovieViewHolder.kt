@@ -32,9 +32,9 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         itemView.setOnClickListener {
             Log.e("link is ", data.link)
-            val go_webview = Intent(itemView.context, WebviewActivity::class.java)
-            go_webview.putExtra("url", data.link)
-            itemView.context.startActivity(go_webview)
+            val goWebView = Intent(itemView.context, WebviewActivity::class.java)
+            goWebView.putExtra("url", data.link)
+            itemView.context.startActivity(goWebView)
         }
 
     }

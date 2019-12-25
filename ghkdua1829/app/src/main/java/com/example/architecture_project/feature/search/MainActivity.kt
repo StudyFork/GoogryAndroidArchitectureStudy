@@ -16,8 +16,8 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var MovieRecyclerView: RecyclerView
-    private lateinit var MovieAdapter: MovieAdapter
+    private lateinit var movieRecyclerView: RecyclerView
+    private lateinit var movieAdapter: MovieAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +29,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun Call_Movie(keyword: String) {
-        MovieRecyclerView = findViewById(R.id.rv_movie)
-        MovieAdapter = MovieAdapter()
-        MovieRecyclerView.adapter = MovieAdapter
-        MovieRecyclerView.layoutManager = LinearLayoutManager(this)
+        movieRecyclerView = findViewById(R.id.rv_movie)
+        movieAdapter = MovieAdapter()
+        movieRecyclerView.adapter = movieAdapter
+        movieRecyclerView.layoutManager = LinearLayoutManager(this)
 
 
         val call: Call<NaverApi> =
@@ -48,8 +48,8 @@ class MainActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         Log.e("result is ", response.toString())
                         val movie = response.body()!!
-                        MovieAdapter.setMovieItemList(movie.item)
-                        MovieAdapter.notifyDataSetChanged()
+                        movieAdapter.setMovieItemList(movie.item)
+                        movieAdapter.notifyDataSetChanged()
                     }
                 }
             }
