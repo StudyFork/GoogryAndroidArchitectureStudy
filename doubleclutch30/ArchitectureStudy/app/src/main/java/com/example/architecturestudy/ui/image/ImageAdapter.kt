@@ -6,21 +6,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.architecturestudy.R
-import com.example.architecturestudy.model.BlogItems
-import com.example.architecturestudy.model.ImageData
-import com.example.architecturestudy.model.ImageItems
+import com.example.architecturestudy.data.model.ImageItem
 import com.example.architecturestudy.ui.startWebView
 import kotlinx.android.synthetic.main.item_image.view.*
-import java.lang.Exception
 
 class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ImageHolder>() {
 
-    private val imageItem : MutableList<ImageItems> = mutableListOf()
-
+    private val imageItem : MutableList<ImageItem> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_image, parent, false)
-        return ImageHolder(view)
+        return ImageHolder(view).apply {
+            itemView.setOnClickListener { v -> v.startWebView(imageItem[adapterPosition].link) }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -31,7 +29,7 @@ class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ImageHolder>() {
         holder.bind(imageItem[position])
     }
 
-    fun update(imageList : List<ImageItems>) {
+    fun update(imageList : List<ImageItem>) {
         this.imageItem.clear()
         this.imageItem.addAll(imageList)
         notifyDataSetChanged()
@@ -39,23 +37,12 @@ class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ImageHolder>() {
 
     class ImageHolder(view : View) : RecyclerView.ViewHolder(view) {
 
-        lateinit var item: ImageItems
-
-        init {
-            itemView.setOnClickListener { view ->
-                view.startWebView(item.link)
-            }
-        }
-
-        fun bind(item : ImageItems) {
-            this.item = item
-
+        fun bind(item : ImageItem) {
             with(itemView) {
-                try {
-                    Glide.with(this).load(item.thumbnail).into(img_image)
-                } catch (e : Exception) {
-                    error(message = e.toString())
-                }
+                Glide.with(this).
+                    load(item.thumbnail).
+                    error(R.drawable.ic_launcher_background).
+                    into(img_image)
             }
         }
 

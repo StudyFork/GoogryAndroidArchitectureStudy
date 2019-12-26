@@ -6,18 +6,20 @@ import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.architecturestudy.R
-import com.example.architecturestudy.model.KinItems
+import com.example.architecturestudy.data.model.KinItem
 import com.example.architecturestudy.ui.startWebView
 import kotlinx.android.synthetic.main.item_kin.view.*
 
 class KinAdapter : RecyclerView.Adapter<KinAdapter.KinHolder>() {
 
-    private val kinItem : MutableList<KinItems> = mutableListOf()
+    private val kinItem : MutableList<KinItem> = mutableListOf()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KinHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_kin, parent, false)
-        return KinHolder(view)
+        return KinHolder(view).apply {
+            itemView.setOnClickListener { v -> v.startWebView(kinItem[adapterPosition].link) }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -28,30 +30,19 @@ class KinAdapter : RecyclerView.Adapter<KinAdapter.KinHolder>() {
         holder.bind(kinItem[position])
     }
 
-    fun update(kinList : List<KinItems>) {
+    fun update(kinList : List<KinItem>) {
         this.kinItem.clear()
         this.kinItem.addAll(kinList)
         notifyDataSetChanged()
     }
 
     class KinHolder(view : View) : RecyclerView.ViewHolder(view) {
-        lateinit var item: KinItems
 
-        init {
-            itemView.setOnClickListener { view ->
-                view.startWebView(item.link)
-            }
-        }
-
-        fun bind(item: KinItems) {
-            this.item = item
-
+        fun bind(item: KinItem) {
             with(itemView) {
                 kin_title.text = HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
                 kin_contents.text = HtmlCompat.fromHtml(item.description, HtmlCompat.FROM_HTML_MODE_COMPACT)
-
             }
-
         }
     }
 }

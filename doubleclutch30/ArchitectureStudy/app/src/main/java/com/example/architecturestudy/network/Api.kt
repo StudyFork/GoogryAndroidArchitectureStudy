@@ -1,9 +1,9 @@
 package com.example.architecturestudy.network
 
-import com.example.architecturestudy.model.BlogData
-import com.example.architecturestudy.model.ImageData
-import com.example.architecturestudy.model.KinData
-import com.example.architecturestudy.model.MovieData
+import com.example.architecturestudy.network.response.BlogData
+import com.example.architecturestudy.network.response.ImageData
+import com.example.architecturestudy.network.response.KinData
+import com.example.architecturestudy.network.response.MovieData
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

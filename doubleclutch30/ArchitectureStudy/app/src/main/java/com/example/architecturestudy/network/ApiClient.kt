@@ -11,33 +11,36 @@ import java.util.concurrent.TimeUnit
 
 object ApiClient {
 
-    private val ALL_TIMEOUT = 10L
-    private val BASE_URL = "https://openapi.naver.com"
-    private val okHttpClient : OkHttpClient
-    private val retrofit: Retrofit
+    private const val ALL_TIMEOUT = 10L
+    private const val BASE_URL = "https://openapi.naver.com"
+    private val retrofit: Retrofit = createRetrofit(BASE_URL)
 
+    val api : Api = retrofit.create(Api::class.java)
 
-    init {
+    private fun createRetrofit(url : String) : Retrofit {
+        return Retrofit.Builder().apply {
+            baseUrl(url)
+            client(createOkHttpClient())
+            addConverterFactory(GsonConverterFactory.create())
 
-        val httplogging = HttpLoggingInterceptor()
-        httplogging.level = HttpLoggingInterceptor.Level.BODY
+        }.build()
+    }
 
-        okHttpClient = OkHttpClient().newBuilder().apply {
-            addInterceptor(httplogging)
+    private fun createOkHttpClient() : OkHttpClient {
+        return OkHttpClient().newBuilder().apply {
+            addInterceptor(createHttpLoggingInterceptor())
             addInterceptor(HeaderSettingInterceptor())
             connectTimeout(ALL_TIMEOUT, TimeUnit.SECONDS)
 
         }.build()
-
-
-        retrofit = Retrofit.Builder().apply {
-            baseUrl(BASE_URL)
-            client(okHttpClient)
-            addConverterFactory(GsonConverterFactory.create())
-
-        }.build()
-
     }
+
+    private fun createHttpLoggingInterceptor() : Interceptor {
+        return  HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+    }
+
 
     private class HeaderSettingInterceptor : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response {
@@ -50,12 +53,9 @@ object ApiClient {
             val response = chain.proceed(request)
             Log.i("ApiClient", "res=${response}")
 
-            return chain.proceed(request)
+            return response
         }
-
     }
-
-
 
     internal fun <T> getRetrofitService(restClass: Class<T>): T {
         return retrofit.create(restClass)

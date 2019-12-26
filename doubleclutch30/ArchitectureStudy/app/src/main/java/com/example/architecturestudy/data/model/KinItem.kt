@@ -1,10 +1,8 @@
-package com.example.architecturestudy.model
+package com.example.architecturestudy.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class KinData (val items : List<KinItems>)
-
-data class KinItems(
+data class KinItem(
 
     @SerializedName("title")
     val title : String,
@@ -12,5 +10,4 @@ data class KinItems(
     val description : String,
     @SerializedName("link")
     val link : String
-
 )
