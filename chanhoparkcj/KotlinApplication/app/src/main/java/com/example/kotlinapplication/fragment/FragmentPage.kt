@@ -144,19 +144,19 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
     }
 
     override fun resultMovie(movieItems: List<MovieItems>) {
-        movieAdapter?.addAllItems(movieItems)
+        movieAdapter.addAllItems(movieItems)
     }
 
     override fun resultImage(imageItems: List<ImageItems>) {
-        imageAdapter?.addAllItems(imageItems)
+        imageAdapter.addAllItems(imageItems)
     }
 
     override fun resultBlog(blogItems: List<BlogItems>) {
-        blogAdapter?.addAllItems(blogItems)
+        blogAdapter.addAllItems(blogItems)
     }
 
     override fun resultKin(kinItems: List<KinItems>) {
-        kinAdapter?.addAllItems(kinItems)
+        kinAdapter.addAllItems(kinItems)
     }
 
     override fun resultError(message: String) {
