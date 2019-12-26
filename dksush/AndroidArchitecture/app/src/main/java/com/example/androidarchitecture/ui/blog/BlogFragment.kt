@@ -31,8 +31,8 @@ class BlogFragment : Fragment(), ItemContract.View<BlogData> {
         return inflater.inflate(R.layout.fragment_blog, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         activity?.let {
             blogAdapter = BlogAdapter()

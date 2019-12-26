@@ -31,10 +31,8 @@ class ImageFragment : Fragment(), ItemContract.View<ImageData> {
         return inflater.inflate(R.layout.fragment_image, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         activity?.let {
             imageAdapter = ImageAdapter()
@@ -48,7 +46,6 @@ class ImageFragment : Fragment(), ItemContract.View<ImageData> {
                     )
                 }
         }
-
 
 
         btn_search.setOnClickListener {
