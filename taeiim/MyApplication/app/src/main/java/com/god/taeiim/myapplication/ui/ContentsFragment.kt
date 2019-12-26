@@ -1,9 +1,6 @@
 package com.god.taeiim.myapplication.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import com.god.taeiim.myapplication.R
 import com.god.taeiim.myapplication.Tabs
@@ -13,9 +10,10 @@ import com.god.taeiim.myapplication.data.source.NaverRepositoryImpl
 import com.god.taeiim.myapplication.data.source.local.NaverLocalDataSourceImpl
 import com.god.taeiim.myapplication.data.source.local.SearchHistoryDatabase
 import com.god.taeiim.myapplication.data.source.remote.NaverRemoteDataSourceImpl
-import kotlinx.android.synthetic.main.fragment_main.*
+import com.god.taeiim.myapplication.databinding.FragmentMainBinding
 
-class ContentsFragment : BaseFragment(), ContentsContract.View {
+class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
+    ContentsContract.View {
 
     override lateinit var presenter: ContentsContract.Presenter
     private lateinit var adapter: SearchResultRecyclerAdapter
@@ -25,12 +23,6 @@ class ContentsFragment : BaseFragment(), ContentsContract.View {
         super.onResume()
         presenter.start()
     }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_main, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -53,12 +45,6 @@ class ContentsFragment : BaseFragment(), ContentsContract.View {
 
         updateSearchHistoryItems()
 
-        searchBtn.setOnClickListener {
-            presenter.searchContents(
-                searchType.name,
-                searchEditTv.text.toString()
-            )
-        }
     }
 
     override fun updateSearchHistoryItems() {
