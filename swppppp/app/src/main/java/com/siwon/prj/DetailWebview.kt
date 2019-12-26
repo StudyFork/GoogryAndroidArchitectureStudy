@@ -15,11 +15,13 @@ class DetailWebview : AppCompatActivity() {
         val webview = webview
         webview.webViewClient = WebViewClient()
         var webviewSetting = webview.settings
-        webviewSetting.javaScriptEnabled = true
-        webviewSetting.domStorageEnabled = true
-        webviewSetting.setSupportMultipleWindows(false)
-        webviewSetting.javaScriptCanOpenWindowsAutomatically = false
-        webviewSetting.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
+        webviewSetting.apply {
+            javaScriptEnabled = true
+            domStorageEnabled = true
+            setSupportMultipleWindows(false)
+            javaScriptCanOpenWindowsAutomatically = false
+            layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
+        }
         webview.loadUrl(intent.getStringExtra("link"))
     }
 }
