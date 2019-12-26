@@ -34,18 +34,24 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUpViewPager() {
-        val adapter = PagerAdapter(activity!!.supportFragmentManager)
-        adapter.addFragment(FragmentPage.newInstance("영화"), "영화")
-        adapter.addFragment(FragmentPage.newInstance("이미지"), "이미지")
-        adapter.addFragment(FragmentPage.newInstance("블로그"), "블로그")
-        adapter.addFragment(FragmentPage.newInstance("지식인"), "지식인")
-
+        val pagerAdapter = PagerAdapter(activity!!.supportFragmentManager)
+        with(pagerAdapter){
+            addFragment(FragmentPage.newInstance("영화"), "영화")
+            addFragment(FragmentPage.newInstance("이미지"), "이미지")
+            addFragment(FragmentPage.newInstance("블로그"), "블로그")
+            addFragment(FragmentPage.newInstance("지식인"), "지식인")
+        }
         viewpager = home_viewpager
-        viewpager.offscreenPageLimit = 4
-        viewpager.adapter = adapter
+        with(viewpager){
+            offscreenPageLimit = 4
+            adapter = pagerAdapter
+        }
 
         tabs = home_tab
-        tabs.setupWithViewPager(viewpager)
+        with(tabs){
+            setupWithViewPager(viewpager)
+        }
+
 
     }
 
