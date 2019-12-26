@@ -1,4 +1,4 @@
-package com.example.kotlinapplication.home
+package com.example.kotlinapplication
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
-import com.example.kotlinapplication.R
 import com.example.kotlinapplication.adapter.PagerAdapter
-import com.example.kotlinapplication.fragment.PageFragment
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_home.*
 

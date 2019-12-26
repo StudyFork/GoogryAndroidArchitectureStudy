@@ -1,11 +1,8 @@
-package com.example.kotlinapplication.fragment
+package com.example.kotlinapplication
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

@@ -2,7 +2,6 @@ package com.example.kotlinapplication
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.kotlinapplication.home.HomeFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,6 +13,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun start() {
         val manager = supportFragmentManager
-        manager.beginTransaction().replace(R.id.main_container, HomeFragment()).commit()
+        manager.beginTransaction().replace(R.id.main_container,
+            HomeFragment()
+        ).commit()
     }
 }
