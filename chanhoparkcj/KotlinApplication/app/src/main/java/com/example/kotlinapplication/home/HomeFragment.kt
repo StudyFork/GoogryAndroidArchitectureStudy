@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.example.kotlinapplication.R
 import com.example.kotlinapplication.adapter.PagerAdapter
-import com.example.kotlinapplication.fragment.FragmentPage
+import com.example.kotlinapplication.fragment.PageFragment
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -36,10 +36,10 @@ class HomeFragment : Fragment() {
     private fun setUpViewPager() {
         val pagerAdapter = PagerAdapter(activity!!.supportFragmentManager)
         with(pagerAdapter){
-            addFragment(FragmentPage.newInstance("영화"), "영화")
-            addFragment(FragmentPage.newInstance("이미지"), "이미지")
-            addFragment(FragmentPage.newInstance("블로그"), "블로그")
-            addFragment(FragmentPage.newInstance("지식인"), "지식인")
+            addFragment(PageFragment.newInstance("영화"), "영화")
+            addFragment(PageFragment.newInstance("이미지"), "이미지")
+            addFragment(PageFragment.newInstance("블로그"), "블로그")
+            addFragment(PageFragment.newInstance("지식인"), "지식인")
         }
         viewpager = home_viewpager
         with(viewpager){

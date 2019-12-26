@@ -4,21 +4,18 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.AlarmClock.EXTRA_MESSAGE
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.kotlinapplication.R
 import com.example.kotlinapplication.adapter.ListBlogAdapter
 import com.example.kotlinapplication.adapter.ListImageAdapter
 import com.example.kotlinapplication.adapter.ListKinAdapter
 import com.example.kotlinapplication.adapter.ListMovieAdapter
 import com.example.kotlinapplication.contract.Contract
 import com.example.kotlinapplication.contract.Presenter
+import com.example.kotlinapplication.extension.baseFragment
 import com.example.kotlinapplication.model.BlogItem
 import com.example.kotlinapplication.model.ImageItem
 import com.example.kotlinapplication.model.KinItem
@@ -26,7 +23,7 @@ import com.example.kotlinapplication.model.MovieItem
 import kotlinx.android.synthetic.main.fragment_page.*
 
 
-class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter.ItemListener,
+class PageFragment : baseFragment(), ListMovieAdapter.ItemListener, ListImageAdapter.ItemListener,
     ListBlogAdapter.ItemListener, ListKinAdapter.ItemListener, Contract.View {
 
     private lateinit var movieAdapter: ListMovieAdapter
@@ -39,21 +36,13 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
 
     companion object {
 
-        fun newInstance(message: String): FragmentPage {
-            val f = FragmentPage()
+        fun newInstance(message: String): PageFragment {
+            val f = PageFragment()
             val bdl = Bundle(1)
             bdl.putString(EXTRA_MESSAGE, message)
             f.arguments = bdl
             return f
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_page, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,7 +55,7 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
     private fun start() {
         presenter = Presenter(this)
         type = arguments?.getString(EXTRA_MESSAGE)
-        home_search_btn.text = type + " 검색"
+        home_search_btn.text ="$type 검색"
         when (type) {
             "영화" -> {
                 movieAdapter = ListMovieAdapter(this)
@@ -102,13 +91,9 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
     private fun setUpBuuttonClickListener() {
         home_search_btn.setOnClickListener {
             if (home_search_edit.text.isEmpty()) {
-                Toast.makeText(context, "검색어를 입력하세요", Toast.LENGTH_SHORT).show()
+                toast("검색어를 입력하세요")
             } else {
-                Toast.makeText(
-                    context,
-                    "검색어 :" + home_search_edit.text.toString(),
-                    Toast.LENGTH_SHORT
-                ).show()
+                toast("검색어 :${home_search_edit.text}")
                 presenter.loadData(type, home_search_edit.text.toString())
             }
         }
@@ -116,31 +101,23 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
     }
 
     override fun onMovieItemClick(movieItems: MovieItem) {
-        Toast.makeText(activity, movieItems.link, Toast.LENGTH_SHORT).show()
-        val uri: Uri = Uri.parse(movieItems.link)
-        val intent = Intent(Intent.ACTION_VIEW, uri)
-        startActivity(intent)
+        toast(movieItems.link)
+        webLink(movieItems.link)
     }
 
     override fun onImageItemClick(imageItems: ImageItem) {
-        Toast.makeText(activity, imageItems.link, Toast.LENGTH_SHORT).show()
-        val uri: Uri = Uri.parse(imageItems.link)
-        val intent = Intent(Intent.ACTION_VIEW, uri)
-        startActivity(intent)
+        toast(imageItems.link)
+        webLink(imageItems.link)
     }
 
     override fun onBlogItemClick(blogItems: BlogItem) {
-        Toast.makeText(activity, blogItems.link, Toast.LENGTH_SHORT).show()
-        val uri: Uri = Uri.parse(blogItems.link)
-        val intent = Intent(Intent.ACTION_VIEW, uri)
-        startActivity(intent)
+        toast(blogItems.link)
+        webLink(blogItems.link)
     }
 
     override fun onKinItemClick(kinItems: KinItem) {
-        Toast.makeText(activity, kinItems.link, Toast.LENGTH_SHORT).show()
-        val uri: Uri = Uri.parse(kinItems.link)
-        val intent = Intent(Intent.ACTION_VIEW, uri)
-        startActivity(intent)
+        toast(kinItems.link)
+        webLink(kinItems.link)
     }
 
     override fun resultMovie(movieItems: List<MovieItem>) {
@@ -160,6 +137,6 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
     }
 
     override fun resultError(message: String) {
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+        toast(message)
     }
 }
