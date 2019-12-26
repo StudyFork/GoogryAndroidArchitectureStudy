@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
     private val CLIENT_ID = "KjLtxBCCy8ZTWORQ7uas"
     private val CLIENT_SECRET = "PHBD6IlPgd"
     private val BASE_URL = "https://openapi.naver.com"
-    lateinit var movies: ArrayList<Movie>
     lateinit var retrofit: Retrofit
     lateinit var apiService: MovieSearchService
 
@@ -53,8 +52,7 @@ class MainActivity : AppCompatActivity() {
 
                     override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
                         Log.i("로그로그", "####응답: ${response.body().toString()}\n ${response.message()}")
-                        movies = response.body()!!.movies
-                        val adapter = MovieListAdapter(movies)
+                        val adapter = MovieListAdapter(response.body()!!.movies)
                         list.layoutManager = LinearLayoutManager(this@MainActivity)
                         list.adapter = adapter
                     }
