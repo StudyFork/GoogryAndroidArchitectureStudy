@@ -5,12 +5,10 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.example.architecture_project.R
+import com.example.architecture_project.`object`.ObjectCollection.URL
 
 class WebviewActivity : AppCompatActivity() {
 
-    companion object{
-        private const val URL="url"
-    }
 
     lateinit var wvMovie: WebView
     override fun onCreate(savedInstanceState: Bundle?) {
