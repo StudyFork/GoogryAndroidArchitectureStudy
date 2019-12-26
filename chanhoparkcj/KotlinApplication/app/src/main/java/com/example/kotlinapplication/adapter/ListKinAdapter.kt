@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplication.R
 import com.example.kotlinapplication.adapter.viewholder.KinViewHolder
-import com.example.kotlinapplication.model.KinItem
+import com.example.kotlinapplication.data.KinItem
 
 class ListKinAdapter(
     val listener: ItemListener

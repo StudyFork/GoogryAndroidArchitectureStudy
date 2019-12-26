@@ -1,6 +1,6 @@
 package com.example.kotlinapplication.network
 
-import com.example.kotlinapplication.model.*
+import com.example.kotlinapplication.data.*
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

@@ -5,7 +5,7 @@ import android.text.Html
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplication.adapter.ListKinAdapter
-import com.example.kotlinapplication.model.KinItem
+import com.example.kotlinapplication.data.KinItem
 import kotlinx.android.synthetic.main.kin_list_item.view.*
 
 class KinViewHolder(view: View) : RecyclerView.ViewHolder(view) {

@@ -1,4 +1,4 @@
-package com.example.kotlinapplication
+package com.example.kotlinapplication.view.home
 
 import android.os.Bundle
 import android.provider.AlarmClock.EXTRA_MESSAGE
@@ -10,13 +10,13 @@ import com.example.kotlinapplication.adapter.ListBlogAdapter
 import com.example.kotlinapplication.adapter.ListImageAdapter
 import com.example.kotlinapplication.adapter.ListKinAdapter
 import com.example.kotlinapplication.adapter.ListMovieAdapter
-import com.example.kotlinapplication.contract.Contract
-import com.example.kotlinapplication.contract.Presenter
-import com.example.kotlinapplication.extension.baseFragment
-import com.example.kotlinapplication.model.BlogItem
-import com.example.kotlinapplication.model.ImageItem
-import com.example.kotlinapplication.model.KinItem
-import com.example.kotlinapplication.model.MovieItem
+import com.example.kotlinapplication.view.home.presenter.Contract
+import com.example.kotlinapplication.view.home.presenter.Presenter
+import com.example.kotlinapplication.util.baseFragment
+import com.example.kotlinapplication.data.BlogItem
+import com.example.kotlinapplication.data.ImageItem
+import com.example.kotlinapplication.data.KinItem
+import com.example.kotlinapplication.data.MovieItem
 import kotlinx.android.synthetic.main.fragment_page.*
 
 

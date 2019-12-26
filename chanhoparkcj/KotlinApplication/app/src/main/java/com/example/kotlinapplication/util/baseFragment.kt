@@ -1,4 +1,4 @@
-package com.example.kotlinapplication.extension
+package com.example.kotlinapplication.util
 
 import android.content.Intent
 import android.net.Uri

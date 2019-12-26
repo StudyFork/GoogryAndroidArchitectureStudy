@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplication.R
 import com.example.kotlinapplication.adapter.viewholder.MovieViewHolder
-import com.example.kotlinapplication.model.MovieItem
+import com.example.kotlinapplication.data.MovieItem
 
 class ListMovieAdapter(
     val listener: ItemListener

@@ -5,7 +5,7 @@ import android.text.Html
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplication.adapter.ListMovieAdapter
-import com.example.kotlinapplication.model.MovieItem
+import com.example.kotlinapplication.data.MovieItem
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.movie_list_item.view.*
 

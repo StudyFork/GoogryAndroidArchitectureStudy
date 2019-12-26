@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplication.R
 import com.example.kotlinapplication.adapter.viewholder.ImageViewHolder
-import com.example.kotlinapplication.model.ImageItem
+import com.example.kotlinapplication.data.ImageItem
 
 class ListImageAdapter(
     val listener: ItemListener

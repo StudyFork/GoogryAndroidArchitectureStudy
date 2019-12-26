@@ -1,9 +1,9 @@
-package com.example.kotlinapplication.contract
+package com.example.kotlinapplication.view.home.presenter
 
-import com.example.kotlinapplication.model.BlogItem
-import com.example.kotlinapplication.model.ImageItem
-import com.example.kotlinapplication.model.KinItem
-import com.example.kotlinapplication.model.MovieItem
+import com.example.kotlinapplication.data.BlogItem
+import com.example.kotlinapplication.data.ImageItem
+import com.example.kotlinapplication.data.KinItem
+import com.example.kotlinapplication.data.MovieItem
 
 interface Contract {
     interface Presenter{

@@ -3,7 +3,7 @@ package com.example.kotlinapplication.adapter.viewholder
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplication.adapter.ListImageAdapter
-import com.example.kotlinapplication.model.ImageItem
+import com.example.kotlinapplication.data.ImageItem
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.image_list_item.view.*
 

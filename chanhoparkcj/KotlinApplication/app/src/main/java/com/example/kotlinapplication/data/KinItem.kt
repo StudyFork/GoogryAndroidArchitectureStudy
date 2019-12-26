@@ -1,4 +1,4 @@
-package com.example.kotlinapplication.model
+package com.example.kotlinapplication.data
 
 data class KinItem(
     val title: String,

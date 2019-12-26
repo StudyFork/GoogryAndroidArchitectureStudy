@@ -1,4 +1,4 @@
-package com.example.kotlinapplication.model.repository
+package com.example.kotlinapplication.data.repository
 
 class DataRepositoryImpl : DataRepository {
     private val remote: RemoteDataSource = RemoteDataSource()

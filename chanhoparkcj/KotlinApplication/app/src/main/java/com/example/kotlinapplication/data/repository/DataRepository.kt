@@ -1,6 +1,6 @@
-package com.example.kotlinapplication.model.repository
+package com.example.kotlinapplication.data.repository
 
-import com.example.kotlinapplication.model.*
+import com.example.kotlinapplication.data.*
 import io.reactivex.Single
 
 interface DataRepository {

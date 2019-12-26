@@ -1,8 +1,9 @@
-package com.example.kotlinapplication.contract
+package com.example.kotlinapplication.view.home.presenter
 
-import com.example.kotlinapplication.model.repository.DataRepositoryImpl
+import com.example.kotlinapplication.data.repository.DataRepositoryImpl
 
-class Presenter(listener: Contract.View) : Contract.Presenter {
+class Presenter(listener: Contract.View) :
+    Contract.Presenter {
     private val view: Contract.View = listener
     private val dataRepositoryImpl: DataRepositoryImpl = DataRepositoryImpl()
 

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplication.R
 import com.example.kotlinapplication.adapter.viewholder.BlogViewHolder
-import com.example.kotlinapplication.model.BlogItem
+import com.example.kotlinapplication.data.BlogItem
 
 class ListBlogAdapter(
     val listener: ItemListener

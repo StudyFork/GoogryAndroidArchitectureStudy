@@ -5,7 +5,7 @@ import android.text.Html
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplication.adapter.ListBlogAdapter
-import com.example.kotlinapplication.model.BlogItem
+import com.example.kotlinapplication.data.BlogItem
 import kotlinx.android.synthetic.main.blog_list_item.view.*
 
 class BlogViewHolder(view: View) : RecyclerView.ViewHolder(view) {
