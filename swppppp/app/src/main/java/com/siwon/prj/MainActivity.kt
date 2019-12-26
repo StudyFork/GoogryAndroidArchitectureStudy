@@ -55,8 +55,7 @@ class MainActivity : AppCompatActivity() {
                     override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
                         Log.i("로그로그", "####응답: ${response.body().toString()}\n ${response.message()}")
                         mAdapter.set(response.body()!!.movies)
-                        list.layoutManager = LinearLayoutManager(this@MainActivity)
-                        list.adapter = mAdapter
+                        movieListRv.adapter = mAdapter
                     }
                 })
             }
