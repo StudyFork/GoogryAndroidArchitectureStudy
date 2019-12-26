@@ -18,7 +18,7 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var movieRecyclerView: RecyclerView
+    private lateinit var movieRecyclerView: RecyclerView   //수정완료
     private lateinit var movieAdapter: MovieAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
