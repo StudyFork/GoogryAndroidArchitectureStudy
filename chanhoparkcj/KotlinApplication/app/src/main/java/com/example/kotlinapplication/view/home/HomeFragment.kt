@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragment : Fragment() {
-    private lateinit var tabs: TabLayout
     private lateinit var viewpager: ViewPager
 
     override fun onCreateView(
@@ -45,13 +44,7 @@ class HomeFragment : Fragment() {
             offscreenPageLimit = 4
             adapter = pagerAdapter
         }
-
-        tabs = home_tab
-        with(tabs){
-            setupWithViewPager(viewpager)
-        }
-
-
+        home_tab.setupWithViewPager(viewpager)
     }
 
 
