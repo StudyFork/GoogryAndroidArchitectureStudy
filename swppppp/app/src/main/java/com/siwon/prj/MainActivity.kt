@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         apiServiceSet()
-        mAdapter = MovieListAdapter()
+        mAdapter = MovieListAdapter({link:String -> itemClick(link)})
 
         // 검색버튼
         search_btn.setOnClickListener {
@@ -71,8 +71,16 @@ class MainActivity : AppCompatActivity() {
         apiService = retrofit.create(MovieSearchService::class.java)
     }
 
+    fun itemClick(link: String){
+        val toast = Toast.makeText(this@MainActivity, "웹뷰로 이동", Toast.LENGTH_SHORT)
+        toast.show()
+        val detailWebview = Intent(this@MainActivity, DetailWebview::class.java)
+        detailWebview.putExtra("link", link)
+        startActivity(detailWebview)
+    }
+
     // 영화리스트 어댑터
-    inner class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.movieHolder>() {
+    inner class MovieListAdapter(val clickListener: (String) -> Unit) : RecyclerView.Adapter<MovieListAdapter.movieHolder>() {
         lateinit var items : ArrayList<Movie>
 
         fun set(items: ArrayList<Movie>) {
@@ -86,25 +94,20 @@ class MainActivity : AppCompatActivity() {
         override fun getItemCount(): Int = items.size
 
         override fun onBindViewHolder(holder: movieHolder, position: Int) {
-            holder.bind(items[position])
-            holder.itemView.setOnClickListener {
-                val toast = Toast.makeText(this@MainActivity, "웹뷰로 이동", Toast.LENGTH_SHORT)
-                toast.show()
-                val detailWebview = Intent(this@MainActivity, DetailWebview::class.java)
-                detailWebview.putExtra("link", items[position].link)
-                startActivity(detailWebview)
-            }
+            holder.bind(items[position], clickListener)
         }
 
         inner class movieHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-            fun bind(item: Movie){
+            fun bind(item: Movie, clickListener: (String) -> Unit){
                 Glide.with(itemView).load(item.image).into(itemView.findViewById(R.id.img_view))
                 itemView.findViewById<TextView>(R.id.movie_name).text = item.title
                 itemView.findViewById<RatingBar>(R.id.score).rating = item.userRating.toFloat()/2f
                 itemView.findViewById<TextView>(R.id.pub_date).text = item.pubDate
                 itemView.findViewById<TextView>(R.id.director).text = item.director
                 itemView.findViewById<TextView>(R.id.actor).text = item.actor
+
+                itemView.setOnClickListener { clickListener(item.link) }
             }
         }
 
