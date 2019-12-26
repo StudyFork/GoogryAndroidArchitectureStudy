@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplication.R
 import com.example.kotlinapplication.adapter.viewholder.KinViewHolder
-import com.example.kotlinapplication.model.KinItems
+import com.example.kotlinapplication.model.KinItem
 
 class ListKinAdapter(
     val listener: ItemListener
@@ -13,7 +13,7 @@ class ListKinAdapter(
 ) :
     RecyclerView.Adapter<KinViewHolder>() {
 
-    private val items = arrayListOf<KinItems>()
+    private val items = arrayListOf<KinItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KinViewHolder {
         return KinViewHolder(
@@ -37,14 +37,14 @@ class ListKinAdapter(
 
     }
 
-    fun addAllItems(ListItems: List<KinItems>) {
+    fun addAllItems(ListItems: List<KinItem>) {
         items.clear()
         items.addAll(ListItems)
         notifyDataSetChanged()
     }
 
     interface ItemListener {
-        fun onKinItemClick(kinItems: KinItems)
+        fun onKinItemClick(kinItems: KinItem)
     }
 
 

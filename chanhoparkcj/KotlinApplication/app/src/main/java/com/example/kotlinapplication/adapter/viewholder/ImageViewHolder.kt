@@ -3,12 +3,12 @@ package com.example.kotlinapplication.adapter.viewholder
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplication.adapter.ListImageAdapter
-import com.example.kotlinapplication.model.ImageItems
+import com.example.kotlinapplication.model.ImageItem
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.image_list_item.view.*
 
 class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    fun bind(item: ImageItems, listener: ListImageAdapter.ItemListener?) {
+    fun bind(item: ImageItem, listener: ListImageAdapter.ItemListener?) {
         itemView.image_item_layout.setOnClickListener {
             listener?.let {
                 it.onImageItemClick(item)

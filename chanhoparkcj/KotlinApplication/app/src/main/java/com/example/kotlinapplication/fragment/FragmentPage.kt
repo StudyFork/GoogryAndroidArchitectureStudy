@@ -19,10 +19,10 @@ import com.example.kotlinapplication.adapter.ListKinAdapter
 import com.example.kotlinapplication.adapter.ListMovieAdapter
 import com.example.kotlinapplication.contract.Contract
 import com.example.kotlinapplication.contract.Presenter
-import com.example.kotlinapplication.model.BlogItems
-import com.example.kotlinapplication.model.ImageItems
-import com.example.kotlinapplication.model.KinItems
-import com.example.kotlinapplication.model.MovieItems
+import com.example.kotlinapplication.model.BlogItem
+import com.example.kotlinapplication.model.ImageItem
+import com.example.kotlinapplication.model.KinItem
+import com.example.kotlinapplication.model.MovieItem
 import kotlinx.android.synthetic.main.fragment_page.*
 
 
@@ -115,47 +115,47 @@ class FragmentPage : Fragment(), ListMovieAdapter.ItemListener, ListImageAdapter
 
     }
 
-    override fun onMovieItemClick(movieItems: MovieItems) {
+    override fun onMovieItemClick(movieItems: MovieItem) {
         Toast.makeText(activity, movieItems.link, Toast.LENGTH_SHORT).show()
         val uri: Uri = Uri.parse(movieItems.link)
         val intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)
     }
 
-    override fun onImageItemClick(imageItems: ImageItems) {
+    override fun onImageItemClick(imageItems: ImageItem) {
         Toast.makeText(activity, imageItems.link, Toast.LENGTH_SHORT).show()
         val uri: Uri = Uri.parse(imageItems.link)
         val intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)
     }
 
-    override fun onBlogItemClick(blogItems: BlogItems) {
+    override fun onBlogItemClick(blogItems: BlogItem) {
         Toast.makeText(activity, blogItems.link, Toast.LENGTH_SHORT).show()
         val uri: Uri = Uri.parse(blogItems.link)
         val intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)
     }
 
-    override fun onKinItemClick(kinItems: KinItems) {
+    override fun onKinItemClick(kinItems: KinItem) {
         Toast.makeText(activity, kinItems.link, Toast.LENGTH_SHORT).show()
         val uri: Uri = Uri.parse(kinItems.link)
         val intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)
     }
 
-    override fun resultMovie(movieItems: List<MovieItems>) {
+    override fun resultMovie(movieItems: List<MovieItem>) {
         movieAdapter.addAllItems(movieItems)
     }
 
-    override fun resultImage(imageItems: List<ImageItems>) {
+    override fun resultImage(imageItems: List<ImageItem>) {
         imageAdapter.addAllItems(imageItems)
     }
 
-    override fun resultBlog(blogItems: List<BlogItems>) {
+    override fun resultBlog(blogItems: List<BlogItem>) {
         blogAdapter.addAllItems(blogItems)
     }
 
-    override fun resultKin(kinItems: List<KinItems>) {
+    override fun resultKin(kinItems: List<KinItem>) {
         kinAdapter.addAllItems(kinItems)
     }
 

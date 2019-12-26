@@ -5,14 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplication.R
 import com.example.kotlinapplication.adapter.viewholder.MovieViewHolder
-import com.example.kotlinapplication.model.MovieItems
+import com.example.kotlinapplication.model.MovieItem
 
 class ListMovieAdapter(
     val listener: ItemListener
 ) :
     RecyclerView.Adapter<MovieViewHolder>() {
 
-    private val items = arrayListOf<MovieItems>()
+    private val items = arrayListOf<MovieItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(
@@ -37,14 +37,14 @@ class ListMovieAdapter(
 
     }
 
-    fun addAllItems(ListItems: List<MovieItems>) {
+    fun addAllItems(ListItems: List<MovieItem>) {
         items.clear()
         items.addAll(ListItems)
         notifyDataSetChanged()
     }
 
     interface ItemListener {
-        fun onMovieItemClick(movieItems: MovieItems)
+        fun onMovieItemClick(movieItems: MovieItem)
     }
 
 

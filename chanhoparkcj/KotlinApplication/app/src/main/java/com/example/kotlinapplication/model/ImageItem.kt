@@ -1,6 +1,6 @@
 package com.example.kotlinapplication.model
 
-data class ImageItems(
+data class ImageItem(
     val title: String,
     val link: String,
     val thumbnail: String,

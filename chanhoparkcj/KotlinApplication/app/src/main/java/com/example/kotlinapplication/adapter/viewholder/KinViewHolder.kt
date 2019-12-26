@@ -5,11 +5,11 @@ import android.text.Html
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplication.adapter.ListKinAdapter
-import com.example.kotlinapplication.model.KinItems
+import com.example.kotlinapplication.model.KinItem
 import kotlinx.android.synthetic.main.kin_list_item.view.*
 
 class KinViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    fun bind(item: KinItems, listener: ListKinAdapter.ItemListener?) {
+    fun bind(item: KinItem, listener: ListKinAdapter.ItemListener?) {
         itemView.kin_item_layout.setOnClickListener {
             listener?.let {
                 it.onKinItemClick(item)

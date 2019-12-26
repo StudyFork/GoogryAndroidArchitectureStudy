@@ -8,14 +8,14 @@ import retrofit2.http.Query
 interface RetrofitService {
 
     @GET("v1/search/movie.json")
-    fun getMovieCall(@Query("query") query: String): Single<ResponseItems<MovieItems>>
+    fun getMovieCall(@Query("query") query: String): Single<ResponseItems<MovieItem>>
 
     @GET("v1/search/image")
-    fun getImageCall(@Query("query") query: String): Single<ResponseItems<ImageItems>>
+    fun getImageCall(@Query("query") query: String): Single<ResponseItems<ImageItem>>
 
     @GET("v1/search/blog.json")
-    fun getBlogCall(@Query("query") query: String): Single<ResponseItems<BlogItems>>
+    fun getBlogCall(@Query("query") query: String): Single<ResponseItems<BlogItem>>
 
     @GET("v1/search/kin.json")
-    fun getKinCall(@Query("query") query: String): Single<ResponseItems<KinItems>>
+    fun getKinCall(@Query("query") query: String): Single<ResponseItems<KinItem>>
 }

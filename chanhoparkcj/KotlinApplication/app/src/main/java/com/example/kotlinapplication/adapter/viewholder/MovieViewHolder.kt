@@ -5,13 +5,13 @@ import android.text.Html
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplication.adapter.ListMovieAdapter
-import com.example.kotlinapplication.model.MovieItems
+import com.example.kotlinapplication.model.MovieItem
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.movie_list_item.view.*
 
 class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    fun bind(item: MovieItems, listener: ListMovieAdapter.ItemListener?) {
+    fun bind(item: MovieItem, listener: ListMovieAdapter.ItemListener?) {
         itemView.movie_item_layout.setOnClickListener {
             listener?.let {
                 it.onMovieItemClick(item)

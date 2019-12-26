@@ -5,11 +5,11 @@ import android.text.Html
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplication.adapter.ListBlogAdapter
-import com.example.kotlinapplication.model.BlogItems
+import com.example.kotlinapplication.model.BlogItem
 import kotlinx.android.synthetic.main.blog_list_item.view.*
 
 class BlogViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    fun bind(item: BlogItems, listener: ListBlogAdapter.ItemListener?) {
+    fun bind(item: BlogItem, listener: ListBlogAdapter.ItemListener?) {
 
         itemView.blogger_item_layout.setOnClickListener {
             listener?.let {

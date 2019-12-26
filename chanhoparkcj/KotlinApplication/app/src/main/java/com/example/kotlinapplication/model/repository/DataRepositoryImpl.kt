@@ -6,19 +6,19 @@ import io.reactivex.Single
 class DataRepositoryImpl : DataRepository {
     private val remote: RemoteDataSourceImpl = RemoteDataSourceImpl()
 
-    override fun callImageResources(query: String): Single<ResponseItems<ImageItems>> {
+    override fun callImageResources(query: String): Single<ResponseItems<ImageItem>> {
         return remote.getImageCall(query)
     }
 
-    override fun callBlogResources(query: String): Single<ResponseItems<BlogItems>> {
+    override fun callBlogResources(query: String): Single<ResponseItems<BlogItem>> {
         return remote.getBlogCall(query)
     }
 
-    override fun callKinResources(query: String): Single<ResponseItems<KinItems>> {
+    override fun callKinResources(query: String): Single<ResponseItems<KinItem>> {
         return remote.getKinCall(query)
     }
 
-    override fun callMovieResources(query: String): Single<ResponseItems<MovieItems>> {
+    override fun callMovieResources(query: String): Single<ResponseItems<MovieItem>> {
         return remote.getMovieCall(query)
     }
 }

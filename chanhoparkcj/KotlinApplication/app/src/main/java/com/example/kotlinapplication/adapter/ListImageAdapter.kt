@@ -5,14 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplication.R
 import com.example.kotlinapplication.adapter.viewholder.ImageViewHolder
-import com.example.kotlinapplication.model.ImageItems
+import com.example.kotlinapplication.model.ImageItem
 
 class ListImageAdapter(
     val listener: ItemListener
 ) :
     RecyclerView.Adapter<ImageViewHolder>() {
 
-    private val items = arrayListOf<ImageItems>()
+    private val items = arrayListOf<ImageItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         return ImageViewHolder(
@@ -34,14 +34,14 @@ class ListImageAdapter(
 
     }
 
-    fun addAllItems(listItems: List<ImageItems>) {
+    fun addAllItems(listItems: List<ImageItem>) {
         items.clear()
         items.addAll(listItems)
         notifyDataSetChanged()
     }
 
     interface ItemListener {
-        fun onImageItemClick(imageItems: ImageItems)
+        fun onImageItemClick(imageItems: ImageItem)
     }
 
 
