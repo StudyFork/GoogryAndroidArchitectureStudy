@@ -29,9 +29,7 @@ class ListImageAdapter(
     }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-
         holder.bind(items[position], listener)
-
     }
 
     fun addAllItems(listItems: List<ImageItem>) {

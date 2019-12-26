@@ -10,18 +10,20 @@ import kotlinx.android.synthetic.main.kin_list_item.view.*
 
 class KinViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(item: KinItem, listener: ListKinAdapter.ItemListener?) {
-        itemView.kin_item_layout.setOnClickListener {
-            listener?.let {
-                it.onKinItemClick(item)
+        with(itemView) {
+            kin_item_layout.setOnClickListener {
+                listener?.let {
+                    it.onKinItemClick(item)
+                }
             }
-        }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            itemView.kin_item_title.text = Html.fromHtml(item.title, 0)
-            itemView.kin_item_description.text = Html.fromHtml(item.description, 0)
-        } else {
-            itemView.kin_item_title.text = item.title
-            itemView.kin_item_description.text = item.description
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                kin_item_title.text = Html.fromHtml(item.title, 0)
+                kin_item_description.text = Html.fromHtml(item.description, 0)
+            } else {
+                kin_item_title.text = item.title
+                kin_item_description.text = item.description
+            }
         }
     }
 

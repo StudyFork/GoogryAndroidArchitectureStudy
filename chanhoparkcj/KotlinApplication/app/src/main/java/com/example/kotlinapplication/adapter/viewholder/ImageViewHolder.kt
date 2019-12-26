@@ -9,16 +9,18 @@ import kotlinx.android.synthetic.main.image_list_item.view.*
 
 class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(item: ImageItem, listener: ListImageAdapter.ItemListener?) {
-        itemView.image_item_layout.setOnClickListener {
-            listener?.let {
-                it.onImageItemClick(item)
+        with(itemView){
+            image_item_layout.setOnClickListener {
+                listener?.let {
+                    it.onImageItemClick(item)
+                }
             }
-        }
-        if (item.thumbnail.isNotBlank()) {
-            Picasso.get()
-                .load(item.thumbnail)
-                .resize(300, 450)
-                .into(itemView.image_item_thumbnail)
+            if (item.thumbnail.isNotBlank()) {
+                Picasso.get()
+                    .load(item.thumbnail)
+                    .resize(300, 450)
+                    .into(image_item_thumbnail)
+            }
         }
     }
 }
