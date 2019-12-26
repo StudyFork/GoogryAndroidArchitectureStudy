@@ -10,10 +10,10 @@ interface Contract {
         fun loadData(type: String?, query: String)
     }
     interface View{
-        fun resultMovie(movieItems:List<MovieItem>)
-        fun resultImage(imageItems:List<ImageItem>)
-        fun resultBlog(blogItems:List<BlogItem>)
-        fun resultKin(kinItems:List<KinItem>)
-        fun resultError(message:String)
+        fun getMovie(movieItems:List<MovieItem>)
+        fun getImage(imageItems:List<ImageItem>)
+        fun getBlog(blogItems:List<BlogItem>)
+        fun getKin(kinItems:List<KinItem>)
+        fun getError(message:String)
     }
 }

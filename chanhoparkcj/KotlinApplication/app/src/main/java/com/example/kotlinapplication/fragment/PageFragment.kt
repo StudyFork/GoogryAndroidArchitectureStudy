@@ -120,23 +120,23 @@ class PageFragment : baseFragment(), ListMovieAdapter.ItemListener, ListImageAda
         webLink(kinItems.link)
     }
 
-    override fun resultMovie(movieItems: List<MovieItem>) {
+    override fun getMovie(movieItems: List<MovieItem>) {
         movieAdapter.addAllItems(movieItems)
     }
 
-    override fun resultImage(imageItems: List<ImageItem>) {
+    override fun getImage(imageItems: List<ImageItem>) {
         imageAdapter.addAllItems(imageItems)
     }
 
-    override fun resultBlog(blogItems: List<BlogItem>) {
+    override fun getBlog(blogItems: List<BlogItem>) {
         blogAdapter.addAllItems(blogItems)
     }
 
-    override fun resultKin(kinItems: List<KinItem>) {
+    override fun getKin(kinItems: List<KinItem>) {
         kinAdapter.addAllItems(kinItems)
     }
 
-    override fun resultError(message: String) {
+    override fun getError(message: String) {
         toast(message)
     }
 }
