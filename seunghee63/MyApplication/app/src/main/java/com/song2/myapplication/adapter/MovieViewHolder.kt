@@ -3,6 +3,7 @@ package com.song2.myapplication.adapter
 import android.content.Intent
 import android.net.Uri
 import android.text.Html
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.RatingBar
@@ -27,11 +28,12 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         pubDate.text = movieData.pubDate
         actor.text = movieData.actor
         director.text = movieData.director
-
         rating.numStars = movieData.userRating!!.toInt() / 2
+
         Glide.with(itemView.context).load(movieData.image) to image
 
         itemView.setOnClickListener {
+            Log.e("geg",movieData.image)
             val context = it.context
             val url = movieData.link
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))

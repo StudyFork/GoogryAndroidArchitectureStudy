@@ -1,6 +1,5 @@
 package com.song2.myapplication.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.song2.myapplication.R
 import com.song2.myapplication.data.MovieData
 
-class MovieAdapter() : RecyclerView.Adapter<MovieViewHolder>() {
+class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
 
     var data = arrayListOf<MovieData>()
 

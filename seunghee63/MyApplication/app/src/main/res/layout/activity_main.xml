@@ -26,7 +26,7 @@
             android:id="@+id/btn_main_act_search_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:text="검색"
+            android:text="@string/search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

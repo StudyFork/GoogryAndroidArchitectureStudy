@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             adapter = movieAdapter
         }
 
-        movieRepository.getMovieData(config.clientId, config.secret, keyword,30)
+        movieRepository.getMovieData(config.clientId, config.secret, keyword, 30)
             .enqueue(object : Callback<GetMovieDataResponse> {
                 override fun onFailure(call: Call<GetMovieDataResponse>, t: Throwable) {
                     Log.e("실패", t.toString())
@@ -59,12 +59,6 @@ class MainActivity : AppCompatActivity() {
                         rv_main_act_movie_list.apply {
                             movieAdapter.notifyDataSetChanged()
                         }
-/*
-                        movieAdapter.apply {
-                            data = dataList
-                        }*/
-
-                        Log.e("데이터확인",response.body().toString())
                         Log.e("성공", dataList.toString())
                     }
                 }
