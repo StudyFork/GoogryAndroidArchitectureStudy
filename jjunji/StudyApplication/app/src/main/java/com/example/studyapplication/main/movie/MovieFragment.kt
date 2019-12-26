@@ -11,13 +11,16 @@ import com.example.studyapplication.data.model.SearchMovieResult
 import com.example.studyapplication.data.repository.NaverSearchRepository
 import com.example.studyapplication.data.repository.NaverSearchRepositoryImpl
 import com.example.studyapplication.main.movie.adapter.MovieAdapter
-import com.example.studyapplication.network.Conn
 import kotlinx.android.synthetic.main.fragment_movie.*
 
-class MovieFragment : Fragment() {
+class MovieFragment : Fragment(), Contract.View {
     lateinit var movieAdapter: MovieAdapter
-    private val repository: NaverSearchRepository =
-        NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())
+    private val repository: NaverSearchRepository = NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())
+    private lateinit var presenter : Contract.UserActions
+
+//    private val presenter by lazy {
+//        Presenter(this, repository)
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,6 +32,8 @@ class MovieFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        presenter = Presenter(this, repository)
+
         btnSearch.setOnClickListener(btnSearchClickListener())
         movieAdapter = MovieAdapter()
         recyclerView.adapter = movieAdapter
@@ -38,29 +43,33 @@ class MovieFragment : Fragment() {
     private fun btnSearchClickListener(): View.OnClickListener {
         return View.OnClickListener {
             val movieTitle = etQuery.text.toString()
-            requestSearchMovie(movieTitle)
+            presenter.clickSearchButton(movieTitle)
         }
     }
 
-    // 영화 검색 요청
-    private fun requestSearchMovie(title: String) {
-        repository.getMovieList(title, object : Conn {
-            override fun <T> success(result: T) {
-                val searchData : SearchMovieResult? = result as SearchMovieResult
-                searchData?.let {
-                    movieAdapter.resetItem(searchData.arrMovieInfo)
-                }
-            }
-
-            override fun failed() {
-                TODO()
-            }
-        })
-    }
+//    // 영화 검색 요청
+//    private fun requestSearchMovie(title: String) {
+//        repository.getMovieList(title, object : Conn {
+//            override fun <T> success(result: T) {
+//                val searchData : SearchMovieResult? = result as SearchMovieResult
+//                searchData?.let {
+//                    movieAdapter.resetItem(searchData.arrMovieInfo)
+//                }
+//            }
+//
+//            override fun failed() {
+//                TODO()
+//            }
+//        })
+//    }
 
     companion object {
         fun newInstance(): MovieFragment {
             return MovieFragment()
         }
+    }
+
+    override fun showList(items: Array<SearchMovieResult.MovieInfo>) {
+        movieAdapter.resetItem(items)
     }
 }
