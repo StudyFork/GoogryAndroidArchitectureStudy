@@ -15,7 +15,16 @@ import com.god.taeiim.myapplication.databinding.FragmentMainBinding
 class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
     ContentsContract.View {
 
-    override lateinit var presenter: ContentsContract.Presenter
+    override val presenter: ContentsContract.Presenter by lazy {
+        ContentsPresenter(
+            NaverRepositoryImpl.getInstance(
+                NaverRemoteDataSourceImpl,
+                NaverLocalDataSourceImpl.getInstance(
+                    SearchHistoryDatabase.getInstance(requireActivity().applicationContext).taskDao()
+                )
+            ), this
+        )
+    }
     private lateinit var adapter: SearchResultRecyclerAdapter
     private lateinit var searchType: Tabs
 
@@ -26,15 +35,6 @@ class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_mai
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        presenter = ContentsPresenter(
-            NaverRepositoryImpl.getInstance(
-                NaverRemoteDataSourceImpl,
-                NaverLocalDataSourceImpl.getInstance(
-                    SearchHistoryDatabase.getInstance(requireActivity().applicationContext).taskDao()
-                )
-            ), this
-        )
 
         arguments?.getSerializable(ARG_TYPE)?.let {
             searchType = it as Tabs

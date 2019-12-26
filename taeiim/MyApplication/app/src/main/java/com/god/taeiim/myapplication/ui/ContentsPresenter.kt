@@ -7,9 +7,6 @@ class ContentsPresenter(
     private val naverRepository: NaverRepository,
     private val view: ContentsContract.View
 ) : ContentsContract.Presenter {
-    init {
-        view.presenter = this
-    }
 
     override fun start() {
 
@@ -34,9 +31,8 @@ class ContentsPresenter(
 
     override fun getLastSearchHistory(searchType: String) {
         naverRepository.getLastSearchResultData(searchType)
-            .let {
-                if (it != null)
-                    view.updateItems(it.resultList)
+            ?.let {
+                view.updateItems(it.resultList)
             }
     }
 
