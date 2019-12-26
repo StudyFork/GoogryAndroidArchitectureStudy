@@ -1,9 +1,11 @@
 package com.example.architecturestudy.ui.blog
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -50,7 +52,10 @@ class BlogFragment : Fragment() {
         naverSearchRepository.getBlog(
             keyword = keyWord,
             success = { blogAdapter.update(it) },
-            fail = { e -> error(message = e.toString())}
+            fail = {e ->
+                Log.e("test11", e.toString())
+                Toast.makeText(activity, e.toString(), Toast.LENGTH_SHORT)
+            }
         )
     }
 }
