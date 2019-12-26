@@ -13,15 +13,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun start() {
-        onChangeNavMenu("home")
-    }
-
-    private fun onChangeNavMenu(menu: String) {
-        when (menu) {
-            "home" -> {
-                val manager = supportFragmentManager
-                manager.beginTransaction().replace(R.id.main_container, HomeFragment()).commit()
-            }
-        }
+        val manager = supportFragmentManager
+        manager.beginTransaction().replace(R.id.main_container, HomeFragment()).commit()
     }
 }
