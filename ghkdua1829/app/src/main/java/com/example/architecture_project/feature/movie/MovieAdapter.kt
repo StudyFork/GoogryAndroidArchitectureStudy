@@ -14,7 +14,7 @@ import com.example.architecture_project.data.Movie
 
 class MovieAdapter(private val clickListener: MovieViewHolder.ItemClickListener) :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
-    private var movieData: ArrayList<Movie> = ArrayList()
+    private val movieData: ArrayList<Movie> = ArrayList()
 
     fun setMovieItemList(newMovieData: ArrayList<Movie>) {
         with(movieData) {
