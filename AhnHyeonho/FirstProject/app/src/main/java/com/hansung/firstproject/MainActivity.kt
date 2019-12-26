@@ -20,8 +20,8 @@ import java.net.URLEncoder
 
 class MainActivity : AppCompatActivity() {
 
-    private val clientId = "nIzAnUTyE8HlkA34saCR" // naver 검색API 사용을 위한 Client ID
-    private val clientSecret = "SVd8sHWiui" //naver 검색API 사용을 위한 Client Secret
+    private val clientId = getString(R.string.client_id) // naver 검색API 사용을 위한 Client ID
+    private val clientSecret = getString(R.string.client_secret) //naver 검색API 사용을 위한 Client Secret
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
