@@ -2,6 +2,8 @@ package com.hansung.firstproject
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Looper
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -29,8 +31,8 @@ class MainActivity : AppCompatActivity() {
 
             // 입력값이 없을 때 처리
             if (editText_search.text.isEmpty()) {
-                Toast.makeText(this, "검색어를 입력해주세요", Toast.LENGTH_SHORT)
-                //return@setOnClickListener
+                Toast.makeText(this, "검색어를 입력해주세요", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             } else {
                 //레이아웃매니저 설정
                 recycler_view_movies.layoutManager =
@@ -85,7 +87,10 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call?, e: IOException?) {
-                println("Failed to execute request")
+                Looper.prepare()
+                Toast.makeText(applicationContext, "인터넷 연결을 확인하세요", Toast.LENGTH_SHORT).show()
+                Log.d("error", "Failed to execute request")
+                Looper.loop()
             }
         })
     }
