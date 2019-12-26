@@ -7,5 +7,5 @@ data class MovieData(
     var pubDate : String?,
     var director : String?,
     var actor : String?,
-    var userRating : String?
+    var userRating : Double?
 )
