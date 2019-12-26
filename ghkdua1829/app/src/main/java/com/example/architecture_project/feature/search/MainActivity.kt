@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
         movieRecyclerView.adapter = movieAdapter
-        movieRecyclerView.layoutManager = LinearLayoutManager(this)
 
         btn_search.setOnClickListener {
             callMovie(et_search.text.toString())
