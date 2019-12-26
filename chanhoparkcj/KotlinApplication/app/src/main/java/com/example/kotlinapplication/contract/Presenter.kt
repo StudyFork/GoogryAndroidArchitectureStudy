@@ -3,8 +3,8 @@ package com.example.kotlinapplication.contract
 import com.example.kotlinapplication.model.repository.DataRepositoryImpl
 
 class Presenter(listener: Contract.View) : Contract.Presenter {
-    private var view: Contract.View = listener
-    private var dataRepositoryImpl: DataRepositoryImpl = DataRepositoryImpl()
+    private val view: Contract.View = listener
+    private val dataRepositoryImpl: DataRepositoryImpl = DataRepositoryImpl()
 
     override fun loadData(type: String?, query: String) {
         when (type) {
