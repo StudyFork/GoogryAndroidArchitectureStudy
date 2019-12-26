@@ -33,11 +33,11 @@ class MainActivity : AppCompatActivity() {
                 //return@setOnClickListener
             } else {
                 //레이아웃매니저 설정
-                recyclerView_movies.layoutManager =
+                recycler_view_movies.layoutManager =
                     LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-                recyclerView_movies.setHasFixedSize(true)
+                recycler_view_movies.setHasFixedSize(true)
                 // movie 항목별 구분선 추가
-                recyclerView_movies.addItemDecoration(
+                recycler_view_movies.addItemDecoration(
                     DividerItemDecoration(
                         this,
                         LinearLayoutManager.VERTICAL
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
 
                 //어답터를 연결
                 runOnUiThread {
-                    recyclerView_movies.adapter = RecyclerViewAdapter(movies)
+                    recycler_view_movies.adapter = RecyclerViewAdapter(movies)
                 }
             }
 
