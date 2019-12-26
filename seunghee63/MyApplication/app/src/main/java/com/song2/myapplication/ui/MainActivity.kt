@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     private val movieRepository: MovieRepository = MovieRepository()
 
-    private val movieAdapter by lazy { MovieAdapter(context = this@MainActivity) }
+    private val movieAdapter by lazy { MovieAdapter() }
     private var dataList = arrayListOf<MovieData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_main_act_search_btn.setOnClickListener {
-
             setMovieRecyclerView(et_main_act_search.text.toString())
         }
     }
@@ -49,21 +48,22 @@ class MainActivity : AppCompatActivity() {
                     response: Response<GetMovieDataResponse>
                 ) {
                     if (response.isSuccessful) {
+
                         dataList = response.body()!!.items
+
+                        Log.e("데이터확인",response.body().toString())
                         Log.e("성공", dataList.toString())
-
-                        rv_main_act_movie_list.apply {
-                            movieAdapter.notifyDataSetChanged()
-                        }
-
-                        movieAdapter.apply {
-                            data = dataList
-                        }
-
                     }
                 }
             })
 
+        rv_main_act_movie_list.apply {
+            movieAdapter.notifyDataSetChanged()
+        }
+
+        movieAdapter.apply {
+            data = dataList
+        }
 
     }
 }

@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.song2.myapplication.R
 import com.song2.myapplication.data.MovieData
 
-class MovieAdapter(private val context: Context) : RecyclerView.Adapter<MovieViewHolder>() {
+class MovieAdapter() : RecyclerView.Adapter<MovieViewHolder>() {
 
     var data = arrayListOf<MovieData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view: View = LayoutInflater
-            .from(context)
+            .from(parent.context)
             .inflate(R.layout.rv_movie_item, parent, false)
         return MovieViewHolder(view)
     }
