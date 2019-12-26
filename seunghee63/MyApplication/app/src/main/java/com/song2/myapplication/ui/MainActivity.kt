@@ -9,6 +9,7 @@ import com.song2.myapplication.adapter.MovieAdapter
 import com.song2.myapplication.data.GetMovieDataResponse
 import com.song2.myapplication.data.MovieData
 import com.song2.myapplication.data.MovieRepository
+import com.song2.myapplication.util.config
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,11 +26,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        rv_main_act_movie_list.apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = movieAdapter
-        }
-
         btn_main_act_search_btn.setOnClickListener {
             setMovieRecyclerView(et_main_act_search.text.toString())
         }
@@ -37,7 +33,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun setMovieRecyclerView(keyword: String) {
 
-        movieRepository.getMovieData("GfOFFsmzkftQckscd3tQ", "vFdaiBLAfj", keyword,30)
+        movieAdapter.apply {
+            data = dataList
+        }
+
+        rv_main_act_movie_list.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = movieAdapter
+        }
+
+        movieRepository.getMovieData(config.clientId, config.secret, keyword,30)
             .enqueue(object : Callback<GetMovieDataResponse> {
                 override fun onFailure(call: Call<GetMovieDataResponse>, t: Throwable) {
                     Log.e("실패", t.toString())
@@ -51,19 +56,18 @@ class MainActivity : AppCompatActivity() {
 
                         dataList = response.body()!!.items
 
+                        rv_main_act_movie_list.apply {
+                            movieAdapter.notifyDataSetChanged()
+                        }
+/*
+                        movieAdapter.apply {
+                            data = dataList
+                        }*/
+
                         Log.e("데이터확인",response.body().toString())
                         Log.e("성공", dataList.toString())
                     }
                 }
             })
-
-        rv_main_act_movie_list.apply {
-            movieAdapter.notifyDataSetChanged()
-        }
-
-        movieAdapter.apply {
-            data = dataList
-        }
-
     }
 }
