@@ -87,7 +87,7 @@ class PageFragment : baseFragment(), ListMovieAdapter.ItemListener, ListImageAda
 
     private fun setUpBuuttonClickListener() {
         home_search_btn.setOnClickListener {
-            if (home_search_edit.text.isEmpty()) {
+            if (home_search_edit.text.trim().isEmpty()) {
                 toast("검색어를 입력하세요")
             } else {
                 toast("검색어 :${home_search_edit.text}")
