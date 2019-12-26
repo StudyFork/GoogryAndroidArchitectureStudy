@@ -38,14 +38,14 @@ class RecyclerViewAdapter(private val movies: Movies) :
             Glide.with(movieView.context).load(data.image)
                 .apply(RequestOptions().override(300, 450))
                 .apply(RequestOptions.centerCropTransform())
-                .into(movieView.movie_image)
+                .into(movieView.posterimage_movieitem)
 
             // userRating(별점)의 경우 단순 문자열로 전달됨. 이를 실수형으로 변환한 뒤 10점만점을 별 5개 기준으로 변경하기 위해 2로 나누고 이를 기반으로 ratingBar(별점)의 값을 변경한다.
-            itemView.movie_grade.rating = data.userRating.toFloat() / 2
-            itemView.movie_releaseDate.text = data.pubDate
-            itemView.movie_title.text = stripHtml(data.title)
-            itemView.movie_director.text = data.director
-            itemView.movie_actor.text = data.actor
+            itemView.grade_movieitem.rating = data.userRating.toFloat() / 2
+            itemView.releasedate_movieitem.text = data.pubDate
+            itemView.title_movieitem.text = stripHtml(data.title)
+            itemView.director_movieitem.text = data.director
+            itemView.actor_movieitem.text = data.actor
 
             //클릭시 웹사이트 연결
             itemView.setOnClickListener {

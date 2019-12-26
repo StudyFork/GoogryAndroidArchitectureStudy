@@ -8,7 +8,7 @@
     android:paddingEnd="10sp">
 
     <ImageView
-        android:id="@+id/movie_image"
+        android:id="@+id/posterimage_movieitem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -23,7 +23,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/movie_title"
+            android:id="@+id/title_movieitem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5sp"
@@ -33,7 +33,7 @@
             android:textStyle="bold" />
 
         <RatingBar
-            android:id="@+id/movie_grade"
+            android:id="@+id/grade_movieitem"
             style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             android:stepSize="0.5" />
 
         <TextView
-            android:id="@+id/movie_releaseDate"
+            android:id="@+id/releasedate_movieitem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5sp"
@@ -51,7 +51,7 @@
             android:textColor="#000000" />
 
         <TextView
-            android:id="@+id/movie_director"
+            android:id="@+id/director_movieitem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5sp"
@@ -59,7 +59,7 @@
             android:textColor="#000000" />
 
         <TextView
-            android:id="@+id/movie_actor"
+            android:id="@+id/actor_movieitem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5sp"
