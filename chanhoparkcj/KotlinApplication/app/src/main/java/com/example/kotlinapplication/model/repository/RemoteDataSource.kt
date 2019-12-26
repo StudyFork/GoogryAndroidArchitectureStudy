@@ -7,7 +7,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.schedulers.Schedulers
 
-class RemoteDataSourceImpl {
+class RemoteDataSource {
     private var service: RetrofitService = RetrofitClient.client
 
     fun getMovieCall(query: String): Single<ResponseItems<MovieItem>> {
