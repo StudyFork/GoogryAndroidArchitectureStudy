@@ -28,11 +28,12 @@ class MainActivity : AppCompatActivity() {
             tab_layout,
             pager,
             TabLayoutMediator.TabConfigurationStrategy { tab, position ->
-                when (position) {
-                    0 -> tab.text = "Movie"
-                    1 -> tab.text = "Image"
-                    2 -> tab.text = "Blog"
-                    3 -> tab.text = "Kin"
+                tab.text = when (position) {
+                    0 -> "Movie"
+                    1 -> "Image"
+                    2 -> "Blog"
+                    3 -> "Kin"
+                    else -> ""
                 }
             }).attach()
     }
