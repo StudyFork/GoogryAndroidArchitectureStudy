@@ -41,7 +41,6 @@ class HomeFragment : Fragment() {
         }
         viewpager = home_viewpager
         with(viewpager){
-            offscreenPageLimit = 4
             adapter = pagerAdapter
         }
         home_tab.setupWithViewPager(viewpager)
