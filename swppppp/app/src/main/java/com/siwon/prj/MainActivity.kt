@@ -27,12 +27,14 @@ class MainActivity : AppCompatActivity() {
     private val BASE_URL = "https://openapi.naver.com"
     lateinit var retrofit: Retrofit
     lateinit var apiService: MovieSearchService
+    lateinit var mAdapter: MovieListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         apiServiceSet()
+        mAdapter = MovieListAdapter()
 
         // 검색버튼
         search_btn.setOnClickListener {
@@ -52,9 +54,9 @@ class MainActivity : AppCompatActivity() {
 
                     override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
                         Log.i("로그로그", "####응답: ${response.body().toString()}\n ${response.message()}")
-                        val adapter = MovieListAdapter(response.body()!!.movies)
+                        mAdapter.set(response.body()!!.movies)
                         list.layoutManager = LinearLayoutManager(this@MainActivity)
-                        list.adapter = adapter
+                        list.adapter = mAdapter
                     }
                 })
             }
@@ -71,10 +73,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     // 영화리스트 어댑터
-    inner class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.movieHolder> {
-        val items : ArrayList<Movie>
+    inner class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.movieHolder>() {
+        lateinit var items : ArrayList<Movie>
 
-        constructor(items: ArrayList<Movie>) {
+        fun set(items: ArrayList<Movie>) {
             this.items = items
             notifyDataSetChanged()
         }
