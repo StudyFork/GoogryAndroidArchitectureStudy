@@ -22,19 +22,14 @@ class ListMovieAdapter(
                 false
             )
         )
-
-
     }
 
     override fun getItemCount(): Int {
         return items.size
     }
 
-
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-
         holder.bind(items[position], listener)
-
     }
 
     fun addAllItems(ListItems: List<MovieItem>) {
