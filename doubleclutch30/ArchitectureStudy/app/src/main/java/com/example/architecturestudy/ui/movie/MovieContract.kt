@@ -2,11 +2,12 @@ package com.example.architecturestudy.ui.movie
 
 interface MovieContract {
 
-    interface MovieView {
-        fun showError(message : String)
+    interface View {
+        fun showErrorMessage(message : String)
     }
 
     interface MoviePresent {
-        fun activeError(error : Throwable)
+        fun searchMovie(keyword : String)
+        fun taskError(error : Throwable)
     }
 }
