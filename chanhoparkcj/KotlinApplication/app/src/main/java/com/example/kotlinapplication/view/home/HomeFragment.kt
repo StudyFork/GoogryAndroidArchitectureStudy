@@ -33,10 +33,10 @@ class HomeFragment : Fragment() {
     private fun setUpViewPager() {
         val pagerAdapter = PagerAdapter(activity!!.supportFragmentManager)
         with(pagerAdapter) {
-            addFragment(PageFragment.newInstance(0), "영화")
-            addFragment(PageFragment.newInstance(1), "이미지")
-            addFragment(PageFragment.newInstance(2), "블로그")
-            addFragment(PageFragment.newInstance(3), "지식인")
+            addFragment(PageFragment.newInstance(PageFragment.MOVIE_VIEW), "영화")
+            addFragment(PageFragment.newInstance(PageFragment.IMAGE_VIEW), "이미지")
+            addFragment(PageFragment.newInstance(PageFragment.BLOG_VIEW), "블로그")
+            addFragment(PageFragment.newInstance(PageFragment.KIN_VIEW), "지식인")
         }
         viewpager = home_viewpager
         with(viewpager) {
