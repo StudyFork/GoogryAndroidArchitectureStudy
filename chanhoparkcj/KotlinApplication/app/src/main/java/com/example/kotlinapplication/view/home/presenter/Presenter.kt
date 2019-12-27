@@ -1,24 +1,25 @@
 package com.example.kotlinapplication.view.home.presenter
 
 import com.example.kotlinapplication.data.repository.DataRepositoryImpl
+import com.example.kotlinapplication.view.home.PageFragment
 
 class Presenter(listener: Contract.View) :
     Contract.Presenter {
     private val view: Contract.View = listener
     private val dataRepositoryImpl: DataRepositoryImpl = DataRepositoryImpl()
 
-    override fun loadData(type: String?, query: String) {
+    override fun loadData(type: Int?, query: String) {
         when (type) {
-            "영화" -> dataRepositoryImpl.callMovieResources(query).subscribe(
+            PageFragment.MOVIE_VIEW -> dataRepositoryImpl.callMovieResources(query).subscribe(
                 { datas -> view.getMovie(datas.items) },
                 { errorMessage -> view.getError("error 에러" + errorMessage) })
-            "이미지" -> dataRepositoryImpl.callImageResources(query).subscribe(
+            PageFragment.IMAGE_VIEW -> dataRepositoryImpl.callImageResources(query).subscribe(
                 { datas -> view.getImage(datas.items) },
                 { errorMessage -> view.getError("error 에러" + errorMessage) })
-            "블로그" -> dataRepositoryImpl.callBlogResources(query).subscribe(
+            PageFragment.BLOG_VIEW -> dataRepositoryImpl.callBlogResources(query).subscribe(
                 { datas -> view.getBlog(datas.items) },
                 { errorMessage -> view.getError("error 에러" + errorMessage) })
-            "지식인" -> dataRepositoryImpl.callKinResources(query).subscribe(
+            PageFragment.KIN_VIEW -> dataRepositoryImpl.callKinResources(query).subscribe(
                 { datas -> view.getKin(datas.items) },
                 { errorMessage -> view.getError("error 에러" + errorMessage) })
             else -> {

@@ -12,7 +12,7 @@ import com.example.kotlinapplication.adapter.ListKinAdapter
 import com.example.kotlinapplication.adapter.ListMovieAdapter
 import com.example.kotlinapplication.view.home.presenter.Contract
 import com.example.kotlinapplication.view.home.presenter.Presenter
-import com.example.kotlinapplication.util.baseFragment
+import com.example.kotlinapplication.util.BaseFragment
 import com.example.kotlinapplication.data.BlogItem
 import com.example.kotlinapplication.data.ImageItem
 import com.example.kotlinapplication.data.KinItem
@@ -20,7 +20,7 @@ import com.example.kotlinapplication.data.MovieItem
 import kotlinx.android.synthetic.main.fragment_page.*
 
 
-class PageFragment : baseFragment(), ListMovieAdapter.ItemListener, ListImageAdapter.ItemListener,
+class PageFragment : BaseFragment(), ListMovieAdapter.ItemListener, ListImageAdapter.ItemListener,
     ListBlogAdapter.ItemListener, ListKinAdapter.ItemListener, Contract.View {
 
     private lateinit var movieAdapter: ListMovieAdapter
@@ -28,15 +28,20 @@ class PageFragment : baseFragment(), ListMovieAdapter.ItemListener, ListImageAda
     private lateinit var imageAdapter: ListImageAdapter
     private lateinit var kinAdapter: ListKinAdapter
 
-    private var type: String? = null
+    private var type: Int? = null
     private lateinit var presenter: Presenter
 
     companion object {
 
-        fun newInstance(message: String): PageFragment {
+        val MOVIE_VIEW = 0
+        val IMAGE_VIEW = 1
+        val BLOG_VIEW = 2
+        val KIN_VIEW = 3
+
+        fun newInstance(message: Int): PageFragment {
             val f = PageFragment()
             val bdl = Bundle(1)
-            bdl.putString(EXTRA_MESSAGE, message)
+            bdl.putInt(EXTRA_MESSAGE, message)
             f.arguments = bdl
             return f
         }
@@ -51,31 +56,31 @@ class PageFragment : baseFragment(), ListMovieAdapter.ItemListener, ListImageAda
 
     private fun start() {
         presenter = Presenter(this)
-        type = arguments?.getString(EXTRA_MESSAGE)
+        type = arguments?.getInt(EXTRA_MESSAGE)
         home_search_btn.text ="$type 검색"
         when (type) {
-            "영화" -> {
+            MOVIE_VIEW-> {
                 movieAdapter = ListMovieAdapter(this)
                 with(home_recyclerview) {
                     layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
                     adapter = movieAdapter
                 }
             }
-            "이미지" -> {
+            IMAGE_VIEW-> {
                 imageAdapter = ListImageAdapter(this)
                 with(home_recyclerview) {
                     layoutManager = GridLayoutManager(activity, 4)
                     adapter = imageAdapter
                 }
             }
-            "블로그" -> {
+            BLOG_VIEW-> {
                 blogAdapter = ListBlogAdapter(this)
                 with(home_recyclerview) {
                     layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
                     adapter = blogAdapter
                 }
             }
-            "지식인" -> {
+            KIN_VIEW-> {
                 kinAdapter = ListKinAdapter(this)
                 with(home_recyclerview) {
                     layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)

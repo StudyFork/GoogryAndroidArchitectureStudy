@@ -6,14 +6,15 @@ import com.example.kotlinapplication.data.KinItem
 import com.example.kotlinapplication.data.MovieItem
 
 interface Contract {
-    interface Presenter{
-        fun loadData(type: String?, query: String)
+    interface Presenter {
+        fun loadData(type: Int?, query: String)
     }
-    interface View{
-        fun getMovie(movieItems:List<MovieItem>)
-        fun getImage(imageItems:List<ImageItem>)
-        fun getBlog(blogItems:List<BlogItem>)
-        fun getKin(kinItems:List<KinItem>)
-        fun getError(message:String)
+
+    interface View {
+        fun getMovie(movieItems: List<MovieItem>)
+        fun getImage(imageItems: List<ImageItem>)
+        fun getBlog(blogItems: List<BlogItem>)
+        fun getKin(kinItems: List<KinItem>)
+        fun getError(message: String)
     }
 }

@@ -2,8 +2,8 @@ package com.example.kotlinapplication.view.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.kotlinapplication.view.home.HomeFragment
 import com.example.kotlinapplication.R
+import com.example.kotlinapplication.view.home.HomeFragment
 
 class MainActivity : AppCompatActivity() {
 
