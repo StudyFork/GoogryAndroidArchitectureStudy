@@ -26,4 +26,8 @@ class MovieInformationActivity : AppCompatActivity() {
             javaScriptEnabled = true
         }
     }
+
+    companion object {
+        const val MOVIE_URL = "movieURL"
+    }
 }
