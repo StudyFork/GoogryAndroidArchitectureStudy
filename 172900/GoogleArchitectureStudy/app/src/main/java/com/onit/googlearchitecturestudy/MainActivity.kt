@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private suspend fun searchMovieList(searchWord: String): Response<Movies> {
-        return NetworkService.naverAPIService.getMovieList(searchWord)
+        return NetworkService.naverApiService.getMovieList(searchWord)
     }
 
     private fun hideKeyboard() {

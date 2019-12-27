@@ -3,7 +3,7 @@ package com.onit.googlearchitecturestudy
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class NaverAPIInterceptor : Interceptor {
+class NaverApiInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request().newBuilder()
             .header("X-Naver-Client-Id", Config.NAVER_API_CLIENT_ID)

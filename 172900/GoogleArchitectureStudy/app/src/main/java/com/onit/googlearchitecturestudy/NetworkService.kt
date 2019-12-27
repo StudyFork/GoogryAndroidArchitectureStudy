@@ -5,11 +5,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkService {
-    val naverAPIService: NaverAPIService = Retrofit.Builder().apply {
+    val naverApiService: NaverApiService = Retrofit.Builder().apply {
         baseUrl(Config.NAVER_API_BASE_URL)
         addConverterFactory(GsonConverterFactory.create())
         client(OkHttpClient.Builder().apply {
-            interceptors().add(NaverAPIInterceptor())
+            interceptors().add(NaverApiInterceptor())
         }.build())
-    }.build().create(NaverAPIService::class.java)
+    }.build().create(NaverApiService::class.java)
 }
