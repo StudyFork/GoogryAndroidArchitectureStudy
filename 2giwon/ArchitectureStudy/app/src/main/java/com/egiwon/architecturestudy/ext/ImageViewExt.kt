@@ -7,7 +7,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 fun ImageView.loadUrl(url: String?, block: RequestOptions.() -> RequestOptions) {
-
     val option = RequestOptions()
     option.block()
 
@@ -17,3 +16,9 @@ fun ImageView.loadUrl(url: String?, block: RequestOptions.() -> RequestOptions) 
         .into(this)
 }
 
+@BindingAdapter("loadUrl", "placeHolder")
+fun ImageView.loadUrl(url: String?, placeholder: Drawable) {
+    loadUrl(url) {
+        placeholder(placeholder)
+    }
+}

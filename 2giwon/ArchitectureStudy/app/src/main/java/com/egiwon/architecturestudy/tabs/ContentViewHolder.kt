@@ -1,17 +1,11 @@
 package com.egiwon.architecturestudy.tabs
 
-import android.content.Intent
-import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import androidx.core.content.ContextCompat
-import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.base.BaseRecyclerView
 import com.egiwon.architecturestudy.data.source.remote.response.ContentItem
 import com.egiwon.architecturestudy.databinding.RvContentsItemBinding
-import com.egiwon.architecturestudy.ext.fromHtml
-import com.egiwon.architecturestudy.ext.loadUrl
 
 class ContentViewHolder(
     parent: ViewGroup,
@@ -20,34 +14,16 @@ class ContentViewHolder(
     parent,
     layoutRes
 ) {
-    private var linkUrl: String? = null
-
-    init {
-
-        itemView.setOnClickListener {
-            linkUrl?.let { url ->
-                ContextCompat.startActivity(
-                    it.context,
-                    Intent(
-                        Intent.ACTION_VIEW, Uri.parse(url)
-                    ),
-                    null
-                )
-            }
-        }
-    }
-
     override fun onBindViewHolder(item: Any?) {
         (item as? ContentItem)?.let {
             with(item) {
-                binding.tvDescription.text = (actor + description).fromHtml()
-                binding.tvTitle.text = title.fromHtml()
-                binding.ivThumbnail.loadUrl(image) {
-                    placeholder(R.mipmap.ic_launcher)
-                }
-                linkUrl = link
+                binding.description = (actor + description)
+                binding.title = title
+                binding.image = image
+                binding.url = link
             }
         }
+        super.onBindViewHolder(item)
     }
 
     fun thumbnailVisible(visible: Boolean) {

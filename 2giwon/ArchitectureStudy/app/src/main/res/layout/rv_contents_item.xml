@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data></data>
+    <data>
+
+        <variable
+            name="description"
+            type="String" />
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="image"
+            type="String" />
+
+        <variable
+            name="url"
+            type="String" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        bind:onClick="@{url}"
         tools:context=".tabs.ContentsAdapter">
 
         <ImageView
@@ -16,12 +35,13 @@
             android:layout_height="match_parent"
             android:layout_margin="4dp"
             android:scaleType="fitCenter"
+            bind:loadUrl="@{image}"
+            bind:placeHolder="@{@drawable/ic_launcher_foreground}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/layout_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_text"
@@ -40,6 +60,7 @@
                 android:singleLine="true"
                 android:textSize="16sp"
                 android:textStyle="bold"
+                bind:setTextHtml="@{title}"
                 app:layout_constraintBottom_toTopOf="@id/tv_description"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -54,6 +75,7 @@
                 android:gravity="center_vertical"
                 android:maxLines="2"
                 android:textSize="13sp"
+                bind:setTextHtml="@{description}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_title"

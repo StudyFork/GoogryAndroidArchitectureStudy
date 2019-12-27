@@ -1,24 +1,26 @@
 package com.egiwon.architecturestudy.ext
 
+import android.content.Intent
+import android.content.res.ColorStateList
+import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
+import androidx.databinding.BindingAdapter
 import com.egiwon.architecturestudy.R
 
 fun View.doOnApplyWindowInsets(
     block: (View, WindowInsets, InitialPadding, InitialMargin) -> Unit
 ) {
-    // Create a snapshot of the view's padding & margin states
     val initialPadding = recordInitialPaddingForView(this)
     val initialMargin = recordInitialMarginForView(this)
-    // Set an actual OnApplyWindowInsetsListener which proxies to the given
-    // lambda, also passing in the original padding & margin states
+
     setOnApplyWindowInsetsListener { v, insets ->
         block(v, insets, initialPadding, initialMargin)
-        // Always return the insets, so that children can also use them
         insets
     }
-    // request some insets
     requestApplyInsetsWhenAttached()
 }
 
@@ -39,11 +41,8 @@ private fun recordInitialMarginForView(view: View): InitialMargin {
 
 fun View.requestApplyInsetsWhenAttached() {
     if (isAttachedToWindow) {
-        // We're already attached, just request as normal
         requestApplyInsets()
     } else {
-        // We're not attached to the hierarchy, add a listener to
-        // request when we are
         addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
             override fun onViewAttachedToWindow(v: View) {
                 v.removeOnAttachStateChangeListener(this)
@@ -54,3 +53,26 @@ fun View.requestApplyInsetsWhenAttached() {
         })
     }
 }
+
+fun View.getColor(@ColorRes colorRes: Int): Int = context.getColor(colorRes)
+
+fun View.getColorStateList(@ColorRes colorRes: Int): ColorStateList =
+    context.getColorStateList(colorRes)
+
+@BindingAdapter("onClick")
+fun View.startWebBrowser(url: String) {
+    setOnClickListener {
+        url.let { url ->
+            ContextCompat.startActivity(
+                context,
+                Intent(
+                    Intent.ACTION_VIEW, Uri.parse(url)
+                ),
+                null
+            )
+        }
+    }
+
+}
+
+
