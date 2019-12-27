@@ -14,6 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -81,12 +82,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private suspend fun searchMovieList(searchWord: String): Response<Movies> {
+        val client = OkHttpClient.Builder().apply {
+            interceptors().add(NaverAPIInterceptor())
+        }.build()
         return Retrofit.Builder().apply {
             baseUrl(Config.NAVER_API_BASE_URL)
             addConverterFactory(GsonConverterFactory.create())
+            client(client)
         }.build().create(NaverAPIService::class.java).getMovieList(
-            Config.NAVER_API_CLIENT_ID,
-            Config.NAVER_API_CLIENT_SECRET,
             searchWord
         )
     }
