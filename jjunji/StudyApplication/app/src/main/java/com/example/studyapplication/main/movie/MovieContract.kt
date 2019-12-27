@@ -2,7 +2,7 @@ package com.example.studyapplication.main.movie
 
 import com.example.studyapplication.data.model.SearchMovieResult
 
-interface Contract {
+interface MovieContract {
     interface View {
         fun showList(items: Array<SearchMovieResult.MovieInfo>)
     }

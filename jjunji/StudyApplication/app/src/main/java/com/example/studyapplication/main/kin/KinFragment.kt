@@ -8,16 +8,14 @@ import androidx.fragment.app.Fragment
 import com.example.studyapplication.R
 import com.example.studyapplication.data.datasource.remote.NaverRemoteDataSourceImpl
 import com.example.studyapplication.main.kin.adapter.KinAdapter
-import com.example.studyapplication.network.ApiClient
-import com.example.studyapplication.network.Conn
-import com.example.studyapplication.network.Remote
 import com.example.studyapplication.data.model.SearchKinResult
 import com.example.studyapplication.data.repository.NaverSearchRepository
 import com.example.studyapplication.data.repository.NaverSearchRepositoryImpl
 import kotlinx.android.synthetic.main.fragment_kin.*
 
-class KinFragment  : Fragment() {
-    lateinit var kinAdapter: KinAdapter
+class KinFragment  : Fragment(), KinContract.View {
+    private lateinit var presenter: KinContract.UserActions
+    private lateinit var kinAdapter: KinAdapter
     private val repository : NaverSearchRepository = NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -26,6 +24,8 @@ class KinFragment  : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        presenter = KinPresenter(this, repository)
+
         btnSearch.setOnClickListener(btnSearchClickListener())
         kinAdapter = KinAdapter()
         recyclerView.adapter = kinAdapter
@@ -35,25 +35,12 @@ class KinFragment  : Fragment() {
     private fun btnSearchClickListener() : View.OnClickListener {
         return View.OnClickListener {
             val kinTitle = etQuery.text.toString()
-            requestSearchKin(kinTitle)
+            presenter.clickSearchButton(kinTitle)
         }
     }
 
-    // 지식인 검색 요청
-    private fun requestSearchKin(title : String) {
-        repository.getKinList(title, object : Conn {
-            override fun <T> success(result: T) {
-                val searchData : SearchKinResult? = result as SearchKinResult
-                searchData?.let {
-                    kinAdapter.resetItem(searchData.arrKinInfo)
-                }
-            }
-
-            override fun failed() {
-
-            }
-
-        })
+    override fun showList(items: Array<SearchKinResult.KinInfo>) {
+        kinAdapter.resetItem(items)
     }
 
     companion object {

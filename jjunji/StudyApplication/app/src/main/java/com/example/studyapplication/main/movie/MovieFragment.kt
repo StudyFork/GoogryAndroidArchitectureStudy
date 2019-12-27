@@ -13,14 +13,10 @@ import com.example.studyapplication.data.repository.NaverSearchRepositoryImpl
 import com.example.studyapplication.main.movie.adapter.MovieAdapter
 import kotlinx.android.synthetic.main.fragment_movie.*
 
-class MovieFragment : Fragment(), Contract.View {
-    lateinit var movieAdapter: MovieAdapter
+class MovieFragment : Fragment(), MovieContract.View {
+    private lateinit var movieAdapter: MovieAdapter
+    private lateinit var presenter : MovieContract.UserActions
     private val repository: NaverSearchRepository = NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())
-    private lateinit var presenter : Contract.UserActions
-
-//    private val presenter by lazy {
-//        Presenter(this, repository)
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +28,7 @@ class MovieFragment : Fragment(), Contract.View {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        presenter = Presenter(this, repository)
+        presenter = MoviePresenter(this, repository)
 
         btnSearch.setOnClickListener(btnSearchClickListener())
         movieAdapter = MovieAdapter()
@@ -47,21 +43,9 @@ class MovieFragment : Fragment(), Contract.View {
         }
     }
 
-//    // 영화 검색 요청
-//    private fun requestSearchMovie(title: String) {
-//        repository.getMovieList(title, object : Conn {
-//            override fun <T> success(result: T) {
-//                val searchData : SearchMovieResult? = result as SearchMovieResult
-//                searchData?.let {
-//                    movieAdapter.resetItem(searchData.arrMovieInfo)
-//                }
-//            }
-//
-//            override fun failed() {
-//                TODO()
-//            }
-//        })
-//    }
+    override fun showList(items: Array<SearchMovieResult.MovieInfo>) {
+        movieAdapter.resetItem(items)
+    }
 
     companion object {
         fun newInstance(): MovieFragment {
@@ -69,7 +53,4 @@ class MovieFragment : Fragment(), Contract.View {
         }
     }
 
-    override fun showList(items: Array<SearchMovieResult.MovieInfo>) {
-        movieAdapter.resetItem(items)
-    }
 }

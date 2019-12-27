@@ -8,19 +8,15 @@ import androidx.fragment.app.Fragment
 import com.example.studyapplication.R
 import com.example.studyapplication.data.datasource.remote.NaverRemoteDataSourceImpl
 import com.example.studyapplication.data.model.SearchBlogResult
-import com.example.studyapplication.data.model.SearchMovieResult
 import com.example.studyapplication.data.repository.NaverSearchRepository
 import com.example.studyapplication.data.repository.NaverSearchRepositoryImpl
 import com.example.studyapplication.main.blog.adapter.BlogAdapter
-import com.example.studyapplication.network.ApiClient
-import com.example.studyapplication.network.Conn
-import com.example.studyapplication.network.Remote
 import kotlinx.android.synthetic.main.fragment_blog.*
 
-class BlogFragment : Fragment() {
-    lateinit var blogAdapter: BlogAdapter
-    private val repository: NaverSearchRepository =
-        NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())
+class BlogFragment : Fragment(), BlogContract.View {
+    private val repository: NaverSearchRepository = NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())
+    private lateinit var blogAdapter: BlogAdapter
+    private lateinit var presenter : BlogContract.UserActions
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_blog, container, false)
@@ -28,6 +24,10 @@ class BlogFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        presenter = BlogPresenter(
+            this,
+            repository
+        )
 
         btnSearch.setOnClickListener(btnSearchClickListener())
         blogAdapter = BlogAdapter()
@@ -38,24 +38,12 @@ class BlogFragment : Fragment() {
     private fun btnSearchClickListener() : View.OnClickListener {
         return View.OnClickListener {
             val blogTitle = etQuery.text.toString()
-            requestSearchBlog(blogTitle)
+            presenter.clickSearchButton(blogTitle)
         }
     }
 
-    // 영화 검색 요청
-    private fun requestSearchBlog(title : String) {
-        repository.getBlogList(title, object : Conn {
-            override fun <T> success(result: T) {
-                val searchData : SearchBlogResult? = result as SearchBlogResult
-                searchData?.let {
-                    blogAdapter.resetItem(searchData.arrBlogInfo)
-                }
-            }
-
-            override fun failed() {
-
-            }
-        })
+    override fun showList(items: Array<SearchBlogResult.BlogInfo>) {
+        blogAdapter.resetItem(items)
     }
 
     companion object {
