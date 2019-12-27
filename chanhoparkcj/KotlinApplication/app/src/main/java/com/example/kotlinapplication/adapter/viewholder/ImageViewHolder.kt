@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.image_list_item.view.*
 
 class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(item: ImageItem, listener: ListImageAdapter.ItemListener?) {
-        with(itemView){
+        with(itemView) {
             image_item_layout.setOnClickListener {
                 listener?.let {
                     it.onImageItemClick(item)

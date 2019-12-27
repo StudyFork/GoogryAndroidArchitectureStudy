@@ -10,13 +10,13 @@ import com.example.kotlinapplication.adapter.ListBlogAdapter
 import com.example.kotlinapplication.adapter.ListImageAdapter
 import com.example.kotlinapplication.adapter.ListKinAdapter
 import com.example.kotlinapplication.adapter.ListMovieAdapter
-import com.example.kotlinapplication.view.home.presenter.Contract
-import com.example.kotlinapplication.view.home.presenter.Presenter
-import com.example.kotlinapplication.util.BaseFragment
 import com.example.kotlinapplication.data.BlogItem
 import com.example.kotlinapplication.data.ImageItem
 import com.example.kotlinapplication.data.KinItem
 import com.example.kotlinapplication.data.MovieItem
+import com.example.kotlinapplication.util.BaseFragment
+import com.example.kotlinapplication.view.home.presenter.Contract
+import com.example.kotlinapplication.view.home.presenter.Presenter
 import kotlinx.android.synthetic.main.fragment_page.*
 
 
@@ -40,30 +40,30 @@ class PageFragment : BaseFragment(), ListMovieAdapter.ItemListener, ListImageAda
     private fun start() {
         presenter = Presenter(this)
         type = arguments?.getInt(EXTRA_MESSAGE)
-        home_search_btn.text ="$type 검색"
+        home_search_btn.text = "$type 검색"
         when (type) {
-            MOVIE_VIEW-> {
+            MOVIE_VIEW -> {
                 movieAdapter = ListMovieAdapter(this)
                 with(home_recyclerview) {
                     layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
                     adapter = movieAdapter
                 }
             }
-            IMAGE_VIEW-> {
+            IMAGE_VIEW -> {
                 imageAdapter = ListImageAdapter(this)
                 with(home_recyclerview) {
                     layoutManager = GridLayoutManager(activity, 4)
                     adapter = imageAdapter
                 }
             }
-            BLOG_VIEW-> {
+            BLOG_VIEW -> {
                 blogAdapter = ListBlogAdapter(this)
                 with(home_recyclerview) {
                     layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
                     adapter = blogAdapter
                 }
             }
-            KIN_VIEW-> {
+            KIN_VIEW -> {
                 kinAdapter = ListKinAdapter(this)
                 with(home_recyclerview) {
                     layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)

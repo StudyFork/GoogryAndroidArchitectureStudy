@@ -20,7 +20,7 @@ open class BaseFragment : Fragment() {
     }
 
     fun toast(message: String) {
-        Toast.makeText(activity, message,Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 
     fun webLink(message: String) {
