@@ -8,7 +8,6 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.onit.googlearchitecturestudy.MovieInformationActivity.Companion.MOVIE_URL
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
@@ -85,12 +84,11 @@ class MainActivity : AppCompatActivity() {
         return Retrofit.Builder().apply {
             baseUrl(Config.NAVER_API_BASE_URL)
             addConverterFactory(GsonConverterFactory.create())
-            addCallAdapterFactory(CoroutineCallAdapterFactory())
         }.build().create(NaverAPIService::class.java).getMovieList(
             Config.NAVER_API_CLIENT_ID,
             Config.NAVER_API_CLIENT_SECRET,
             searchWord
-        ).await()
+        )
     }
 
     private fun hideKeyboard() {
