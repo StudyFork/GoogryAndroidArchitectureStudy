@@ -16,7 +16,7 @@ class RecyclerViewAdapter(private val movies: Movies) :
     RecyclerView.Adapter<RecyclerViewAdapter.MovieHolder>() {
 
     //영화 아이템의 갯수 가져오기
-    override fun getItemCount() = movies.items.size
+    override fun getItemCount() = movies.items!!.size
 
     // ViewHolder를 생성하고 View를 붙여주는 method
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
@@ -26,11 +26,11 @@ class RecyclerViewAdapter(private val movies: Movies) :
 
     //재활용 되는 View가 호출하여 실행되는 메소드, 뷰 홀더를 전달하고 Adapter는 position 의 데이터를 결합
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
-        holder.bindItems(movies.items[position])
+        holder.bindItems(movies.items!![position])
     }
 
     //MovieView 재사용하는 Holder
-    class MovieHolder(internal val movieView: View) : RecyclerView.ViewHolder(movieView) {
+    class MovieHolder(private val movieView: View) : RecyclerView.ViewHolder(movieView) {
         @SuppressLint("SetTextI18n")
         fun bindItems(data: Movie) {
 
@@ -41,9 +41,9 @@ class RecyclerViewAdapter(private val movies: Movies) :
                 .into(movieView.posterimage_movieitem)
 
             // userRating(별점)의 경우 단순 문자열로 전달됨. 이를 실수형으로 변환한 뒤 10점만점을 별 5개 기준으로 변경하기 위해 2로 나누고 이를 기반으로 ratingBar(별점)의 값을 변경한다.
-            itemView.grade_movieitem.rating = data.userRating.toFloat() / 2
+            itemView.grade_movieitem.rating = data.userRating!!.toFloat() / 2
             itemView.releasedate_movieitem.text = data.pubDate
-            itemView.title_movieitem.text = stripHtml(data.title)
+            itemView.title_movieitem.text = stripHtml(data.title!!)
             itemView.director_movieitem.text = data.director
             itemView.actor_movieitem.text = data.actor
 

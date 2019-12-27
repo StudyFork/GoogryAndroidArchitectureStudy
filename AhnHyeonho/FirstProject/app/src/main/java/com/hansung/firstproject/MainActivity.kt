@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
             override fun onFailure(call: Call?, e: IOException?) {
                 Looper.prepare()
                 Toast.makeText(applicationContext, "인터넷 연결을 확인하세요", Toast.LENGTH_SHORT).show()
-                Log.d("error", "Failed to execute request")
+                e?.printStackTrace()
                 Looper.loop()
             }
         })
