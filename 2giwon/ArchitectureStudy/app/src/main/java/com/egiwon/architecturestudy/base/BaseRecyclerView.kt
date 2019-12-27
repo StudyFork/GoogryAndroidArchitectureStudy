@@ -18,7 +18,9 @@ abstract class BaseRecyclerView {
     ) {
         protected val binding: B = DataBindingUtil.bind(itemView)!!
 
-        open fun onBindViewHolder(item: Any?) = Unit
+        open fun onBindViewHolder(item: Any?) {
+            binding.executePendingBindings()
+        }
     }
 
     abstract class Adapter<A : Any, B : ViewDataBinding>(
