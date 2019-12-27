@@ -9,9 +9,10 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.holder_movie.view.*
 
 class ResultMovieListRecyclerAdapter(
-    private var list: ArrayList<Movie>,
     private val listener: MovieViewHolder.ClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private val list: ArrayList<Movie> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val itemView = LayoutInflater.from(parent.context)

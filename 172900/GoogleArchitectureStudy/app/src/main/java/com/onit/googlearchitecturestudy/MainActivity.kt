@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun setRecyclerView() {
         resultMovieListRecyclerAdapter = ResultMovieListRecyclerAdapter(
-            ArrayList(),
             object : ResultMovieListRecyclerAdapter.MovieViewHolder.ClickListener {
                 override fun clickViewHolder(position: Int) {
                     clickMovieItem(position)
