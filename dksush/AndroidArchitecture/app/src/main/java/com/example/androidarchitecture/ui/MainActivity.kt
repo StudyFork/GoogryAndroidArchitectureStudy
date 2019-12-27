@@ -1,7 +1,8 @@
 package com.example.androidarchitecture.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.androidarchitecture.R
@@ -22,15 +23,19 @@ class MainActivity : AppCompatActivity() {
         // 반드시 탭보다 먼저 선언.
         pager.adapter = ViewPagerAdapter(this)
 
-        tab_layout.tabGravity =TabLayout.GRAVITY_FILL
-        TabLayoutMediator(tab_layout, pager, TabLayoutMediator.TabConfigurationStrategy{tab, position ->
-            when(position){
-                0-> tab.text = "Movie"
-                1-> tab.text = "Image"
-                2-> tab.text = "Blog"
-                3-> tab.text = "Kin"
-            }
-        }).attach()
+        tab_layout.tabGravity = TabLayout.GRAVITY_FILL
+        TabLayoutMediator(
+            tab_layout,
+            pager,
+            TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+                tab.text = when (position) {
+                    0 -> "Movie"
+                    1 -> "Image"
+                    2 -> "Blog"
+                    3 -> "Kin"
+                    else -> ""
+                }
+            }).attach()
     }
 
 
@@ -39,8 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         private val fragmentList = listOf(MovieFragment(), ImageFragment(), BlogFragment(), KinFragment())
         override fun getItemCount() = fragmentList.size
-        override fun createFragment(position: Int) = fragmentList[position]
+        override fun createFragment(position: Int) = fragmentList[position] as Fragment
     }
-
 
 }

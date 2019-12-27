@@ -8,25 +8,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.androidarchitecture.R
-import com.example.androidarchitecture.apis.NetworkUtil
-import com.example.androidarchitecture.data.repository.NaverRepo
-import com.example.androidarchitecture.data.repository.NaverRepoInterface
+import com.example.androidarchitecture.common.toast
+import com.example.androidarchitecture.data.repository.NaverRepoImpl
 import com.example.androidarchitecture.data.response.KinData
-import com.example.androidarchitecture.data.response.NaverQueryResponse
+import com.example.androidarchitecture.ui.base.ItemContract
 import kotlinx.android.synthetic.main.fragment_movie.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 /**
  * A simple [Fragment] subclass.
  */
-class KinFragment : Fragment() {
+class KinFragment : Fragment(), ItemContract.View<KinData> {
+
 
     private lateinit var kinAdapter: KinAdapter
-    private val naverRepoInterface: NaverRepoInterface by lazy {
-        NaverRepo()
-    }
+    private val presenter by lazy { KinPresent(this, NaverRepoImpl) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,9 +31,8 @@ class KinFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_kin, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         activity?.let {
             kinAdapter = KinAdapter()
@@ -55,20 +49,18 @@ class KinFragment : Fragment() {
 
         btn_search.setOnClickListener {
             if (edit_text != null) {
-                requestKinList(edit_text.text.toString())
+                presenter.requestList(edit_text.text.toString())
             }
         }
     }
 
-    private fun requestKinList(text: String) {
-        naverRepoInterface.getKin(text, 1, 10,
-            success = {
-                kinAdapter.setData(it)
-            },
-            fail = {
 
-            })
+    override fun renderItems(items: List<KinData>) {
+        kinAdapter.setData(items)
+    }
 
+    override fun errorToast(msg: String?) {
+        msg?.let { requireContext().toast(it) }
     }
 
 

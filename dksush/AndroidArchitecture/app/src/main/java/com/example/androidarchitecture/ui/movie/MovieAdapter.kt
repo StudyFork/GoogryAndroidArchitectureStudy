@@ -16,7 +16,7 @@ import com.example.androidarchitecture.ui.base.BaseRecyclerAdapter
 import com.example.androidarchitecture.ui.base.BaseViewHolder
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieAdapter : BaseRecyclerAdapter<MovieData, MovieAdapter.MovieHolder>(DiffCallback()){
+class MovieAdapter : BaseRecyclerAdapter<MovieData, MovieAdapter.MovieHolder>(DiffCallback()) {
 
     private lateinit var context: Context
 
@@ -26,8 +26,8 @@ class MovieAdapter : BaseRecyclerAdapter<MovieData, MovieAdapter.MovieHolder>(Di
         return MovieHolder(view)
     }
 
-    inner class MovieHolder(view: View) : BaseViewHolder<MovieData>(view){
-        lateinit var item : MovieData
+    inner class MovieHolder(view: View) : BaseViewHolder<MovieData>(view) {
+        lateinit var item: MovieData
 
         init {
             itemView.setOnClickListener {
@@ -39,7 +39,7 @@ class MovieAdapter : BaseRecyclerAdapter<MovieData, MovieAdapter.MovieHolder>(Di
 
         override fun bind(item: MovieData) {
             this.item = item
-            with(itemView){
+            with(itemView) {
                 movie_title.text =
                     HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
                 director.text = item.director
