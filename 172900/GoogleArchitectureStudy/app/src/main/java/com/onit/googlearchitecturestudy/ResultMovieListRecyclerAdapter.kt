@@ -10,11 +10,11 @@ import kotlinx.android.synthetic.main.holder_movie.view.*
 
 class ResultMovieListRecyclerAdapter(
     private val listener: MovieViewHolder.ClickListener
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<ResultMovieListRecyclerAdapter.MovieViewHolder>() {
 
     private val list: ArrayList<Movie> = ArrayList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.holder_movie, parent, false)
 
@@ -25,9 +25,9 @@ class ResultMovieListRecyclerAdapter(
         return list.size
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = list[position]
-        with(holder as MovieViewHolder) {
+        with(holder) {
             title.text = movie.title.removeTag()
             rating.rating = movie.userRating / 2f
             releaseDate.text = movie.releaseDate
