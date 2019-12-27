@@ -22,7 +22,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/editText_search"
+                android:id="@+id/et_search"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
