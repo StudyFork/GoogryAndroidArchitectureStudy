@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
 
             fun bind(item: Movie, clickListener: (String) -> Unit){
                 Glide.with(itemView).load(item.image).into(itemView.findViewById(R.id.img_view))
-                itemView.findViewById<TextView>(R.id.movie_name).text = item.title
+                itemView.findViewById<TextView>(R.id.movie_name).text = item.title.replace("<b>", "\"").replace("</b>", "\"")
                 itemView.findViewById<RatingBar>(R.id.score).rating = item.userRating.toFloat()/2f
                 itemView.findViewById<TextView>(R.id.pub_date).text = item.pubDate
                 itemView.findViewById<TextView>(R.id.director).text = item.director
