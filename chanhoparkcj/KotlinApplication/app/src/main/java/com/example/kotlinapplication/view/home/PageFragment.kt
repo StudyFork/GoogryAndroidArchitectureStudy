@@ -130,4 +130,19 @@ class PageFragment : BaseFragment(), ListMovieAdapter.ItemListener, ListImageAda
         toast(message)
     }
 
+    companion object {
+
+        const val MOVIE_VIEW = 0
+        const val IMAGE_VIEW = 1
+        const val BLOG_VIEW = 2
+        const val KIN_VIEW = 3
+
+        fun newInstance(message: Int): PageFragment {
+            val pageFragment = PageFragment()
+            val bundle = Bundle(1)
+            bundle.putInt(EXTRA_MESSAGE, message)
+            pageFragment.arguments = bundle
+            return pageFragment
+        }
+    }
 }
