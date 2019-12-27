@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun callMovie(keyword: String) {   //수정완료
         val call: Call<NaverApi> =
-            NaverSevicelmpl.service.getMovie("Ega4tpqIyDDMBsf8nb7O", "GinlKHXc11", keyword)
+            NaverSevicelmpl.service.getMovie( keyword)
 
         call.enqueue(
             object : Callback<NaverApi> {

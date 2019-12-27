@@ -10,8 +10,6 @@ interface NaverService {
 
     @GET("/v1/search/movie.json")
     fun getMovie(
-        @Header("X-Naver-Client-Id") Client_Id: String,
-        @Header("X-Naver-Client-Secret") Client_Secret: String,
         @Query("query") keyword: String
     ): Call<NaverApi>
 }
