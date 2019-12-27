@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.holder_movie.view.*
 
 class ResultMovieListRecyclerAdapter(
-    private val listener: MovieViewHolder.ClickListener
+    private val listener: ClickListener
 ) : RecyclerView.Adapter<ResultMovieListRecyclerAdapter.MovieViewHolder>() {
 
     private val list: ArrayList<Movie> = ArrayList()
@@ -27,14 +27,7 @@ class ResultMovieListRecyclerAdapter(
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = list[position]
-        with(holder) {
-            title.text = movie.title.removeTag()
-            rating.rating = movie.userRating / 2f
-            releaseDate.text = movie.releaseDate
-            director.text = movie.director
-            actor.text = movie.actor
-            Glide.with(itemView).load(movie.posterImage).into(poster)
-        }
+        holder.bind(movie)
     }
 
     fun setMovieList(newMovieList: List<Movie>) {
@@ -49,15 +42,8 @@ class ResultMovieListRecyclerAdapter(
         return list[position].link
     }
 
-    class MovieViewHolder(itemView: View, private val listener: ClickListener) :
+    inner class MovieViewHolder(itemView: View, private val listener: ClickListener) :
         RecyclerView.ViewHolder(itemView) {
-
-        var poster = itemView.posterImageView
-        var title = itemView.titleTextView
-        var rating = itemView.gradeRatingBar
-        var releaseDate = itemView.releaseDateTextView
-        var director = itemView.directorTextView
-        var actor = itemView.actorsTextView
 
         init {
             itemView.setOnClickListener {
@@ -65,12 +51,23 @@ class ResultMovieListRecyclerAdapter(
             }
         }
 
-        interface ClickListener {
-            fun clickViewHolder(position: Int)
+        fun bind(movie: Movie) {
+            with(itemView) {
+                titleTextView.text = movie.title.removeTag()
+                gradeRatingBar.rating = movie.userRating / 2f
+                releaseDateTextView.text = movie.releaseDate
+                directorTextView.text = movie.director
+                actorsTextView.text = movie.actor
+                Glide.with(this).load(movie.posterImage).into(posterImageView)
+            }
         }
     }
 
     private fun String.removeTag(): String {
         return Html.fromHtml(this).toString()
+    }
+
+    interface ClickListener {
+        fun clickViewHolder(position: Int)
     }
 }
