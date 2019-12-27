@@ -31,28 +31,11 @@ class PageFragment : BaseFragment(), ListMovieAdapter.ItemListener, ListImageAda
     private var type: Int? = null
     private lateinit var presenter: Presenter
 
-    companion object {
-
-        val MOVIE_VIEW = 0
-        val IMAGE_VIEW = 1
-        val BLOG_VIEW = 2
-        val KIN_VIEW = 3
-
-        fun newInstance(message: Int): PageFragment {
-            val f = PageFragment()
-            val bdl = Bundle(1)
-            bdl.putInt(EXTRA_MESSAGE, message)
-            f.arguments = bdl
-            return f
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         start()
         setUpBuuttonClickListener()
     }
-
 
     private fun start() {
         presenter = Presenter(this)
@@ -89,6 +72,7 @@ class PageFragment : BaseFragment(), ListMovieAdapter.ItemListener, ListImageAda
             }
         }
     }
+
 
     private fun setUpBuuttonClickListener() {
         home_search_btn.setOnClickListener {
@@ -140,5 +124,21 @@ class PageFragment : BaseFragment(), ListMovieAdapter.ItemListener, ListImageAda
 
     override fun getError(message: String) {
         toast(message)
+    }
+
+    companion object {
+
+        val MOVIE_VIEW = 0
+        val IMAGE_VIEW = 1
+        val BLOG_VIEW = 2
+        val KIN_VIEW = 3
+
+        fun newInstance(message: Int): PageFragment {
+            val pageFragment = PageFragment()
+            val bundle = Bundle(1)
+            bundle.putInt(EXTRA_MESSAGE, message)
+            pageFragment.arguments = bundle
+            return pageFragment
+        }
     }
 }
