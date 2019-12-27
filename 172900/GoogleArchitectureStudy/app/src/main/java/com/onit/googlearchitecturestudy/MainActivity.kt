@@ -8,7 +8,6 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.onit.googlearchitecturestudy.MovieInformationActivity.Companion.MOVIE_URL
 import kotlinx.android.synthetic.main.activity_main.*
@@ -47,11 +46,7 @@ class MainActivity : AppCompatActivity() {
                     clickMovieItem(position)
                 }
             })
-
-        with(resultMovieListRecyclerView) {
-            layoutManager = LinearLayoutManager(context)
-            adapter = resultMovieListRecyclerAdapter
-        }
+        resultMovieListRecyclerView.adapter = resultMovieListRecyclerAdapter
     }
 
     private fun clickMovieItem(position: Int) {
