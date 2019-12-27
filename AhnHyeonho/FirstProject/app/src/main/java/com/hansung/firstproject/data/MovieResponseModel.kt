@@ -1,10 +1,10 @@
-package com.hansung.firstproject.network
+package com.hansung.firstproject.data
 
 
-// 검색된 결과에 대한 여러 Movie들에 대한 data class
+// 검색된 결과를 받아올 data class
 data class MovieResponseModel(
     val total: Int?,
     val start: Int?,
-    val items: List<MovieRepoModel>?
+    val items: List<MovieModel>?
 )
 
