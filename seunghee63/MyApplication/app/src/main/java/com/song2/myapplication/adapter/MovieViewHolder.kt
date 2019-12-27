@@ -28,7 +28,7 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         pubDate.text = movieData.pubDate
         actor.text = movieData.actor
         director.text = movieData.director
-        rating.numStars = movieData.userRating!!.toInt() / 2
+        rating.rating = (movieData.userRating!!/2).toFloat()
 
         Glide.with(itemView.context).load(movieData.image) to image
 
