@@ -132,10 +132,10 @@ class PageFragment : BaseFragment(), ListMovieAdapter.ItemListener, ListImageAda
 
     companion object {
 
-        val MOVIE_VIEW = 0
-        val IMAGE_VIEW = 1
-        val BLOG_VIEW = 2
-        val KIN_VIEW = 3
+        const val MOVIE_VIEW = 0
+        const val IMAGE_VIEW = 1
+        const val BLOG_VIEW = 2
+        const val KIN_VIEW = 3
 
         fun newInstance(message: Int): PageFragment {
             val pageFragment = PageFragment()
