@@ -52,7 +52,6 @@ class ResultMovieListRecyclerAdapter(
     class MovieViewHolder(itemView: View, private val listener: ClickListener) :
         RecyclerView.ViewHolder(itemView) {
 
-        private val movieViewHolder = itemView.movieHolder
         var poster = itemView.posterImageView
         var title = itemView.titleTextView
         var rating = itemView.gradeRatingBar
@@ -61,7 +60,7 @@ class ResultMovieListRecyclerAdapter(
         var actor = itemView.actorsTextView
 
         init {
-            movieViewHolder.setOnClickListener {
+            itemView.setOnClickListener {
                 listener.clickViewHolder(adapterPosition)
             }
         }
