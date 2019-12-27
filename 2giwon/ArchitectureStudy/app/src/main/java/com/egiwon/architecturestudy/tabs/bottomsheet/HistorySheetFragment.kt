@@ -3,7 +3,6 @@ package com.egiwon.architecturestudy.tabs.bottomsheet
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
-import androidx.core.os.bundleOf
 import androidx.core.view.doOnLayout
 import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.Tab
@@ -110,10 +109,9 @@ class HistorySheetFragment :
                                 )
                             )
 
+                            binding.slideOffset = slideOffset
                             historylistIcon.alpha = lerp(1f, 0f, 0f, 0.15f, slideOffset)
                             sheetExpand.alpha = lerp(1f, 0f, 0f, 0.15f, slideOffset)
-                            sheetExpand.visibility =
-                                if (slideOffset < 0.5) View.VISIBLE else View.GONE
                             historylistTitle.alpha = lerp(0f, 1f, 0.2f, 0.8f, slideOffset)
                             collapseHistorylist.alpha = lerp(0f, 1f, 0.2f, 0.8f, slideOffset)
                             historylistTitleDivider.alpha = lerp(0f, 1f, 0.2f, 0.8f, slideOffset)
@@ -147,13 +145,4 @@ class HistorySheetFragment :
 
     override fun showLoading() = Unit
     override fun hideLoading() = Unit
-
-    companion object {
-        private const val ARG_TYPE = "ARG_TYPE"
-
-        fun newInstance(type: Tab) = HistorySheetFragment().apply {
-            arguments = bundleOf(ARG_TYPE to type)
-        }
-
-    }
 }

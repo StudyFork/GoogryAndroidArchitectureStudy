@@ -3,6 +3,9 @@
 
     <data>
 
+        <variable
+            name="query"
+            type="String" />
     </data>
 
     <LinearLayout
@@ -11,12 +14,13 @@
         android:orientation="vertical">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/query"
+            android:id="@+id/tv_query"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:textAlignment="center"
             android:textColor="@color/history_font_color"
+            android:text="@{query}"
             android:textSize="15dp" />
     </LinearLayout>
 </layout>

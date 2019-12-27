@@ -5,6 +5,11 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="slideOffset"
+            type="float" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -67,6 +72,7 @@
                 android:layout_height="0dp"
                 android:foreground="@drawable/sheet_expand"
                 android:theme="@style/ThemeOverlay.MaterialComponents.Light"
+                android:visibility="@{slideOffset &lt; 0.5 ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
