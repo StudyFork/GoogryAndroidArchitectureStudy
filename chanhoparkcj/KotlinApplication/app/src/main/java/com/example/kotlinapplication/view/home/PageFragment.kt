@@ -40,9 +40,10 @@ class PageFragment : BaseFragment(), ListMovieAdapter.ItemListener, ListImageAda
     private fun start() {
         presenter = Presenter(this)
         type = arguments?.getInt(EXTRA_MESSAGE)
-        home_search_btn.text = "$type 검색"
+
         when (type) {
             MOVIE_VIEW -> {
+                home_search_btn.text = "영화 검색"
                 movieAdapter = ListMovieAdapter(this)
                 with(home_recyclerview) {
                     layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
@@ -50,6 +51,7 @@ class PageFragment : BaseFragment(), ListMovieAdapter.ItemListener, ListImageAda
                 }
             }
             IMAGE_VIEW -> {
+                home_search_btn.text = "이미지 검색"
                 imageAdapter = ListImageAdapter(this)
                 with(home_recyclerview) {
                     layoutManager = GridLayoutManager(activity, 4)
@@ -57,6 +59,7 @@ class PageFragment : BaseFragment(), ListMovieAdapter.ItemListener, ListImageAda
                 }
             }
             BLOG_VIEW -> {
+                home_search_btn.text = "블로그 검색"
                 blogAdapter = ListBlogAdapter(this)
                 with(home_recyclerview) {
                     layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
@@ -64,6 +67,7 @@ class PageFragment : BaseFragment(), ListMovieAdapter.ItemListener, ListImageAda
                 }
             }
             KIN_VIEW -> {
+                home_search_btn.text = "지식인 검색"
                 kinAdapter = ListKinAdapter(this)
                 with(home_recyclerview) {
                     layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
