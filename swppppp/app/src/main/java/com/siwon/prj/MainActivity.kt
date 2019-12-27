@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
                     override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
                         Log.i("로그로그", "####응답: ${response.body().toString()}\n ${response.message()}")
-                        mAdapter.set(response.body()!!.movies)
+                        mAdapter.setItems(response.body()!!.movies)
                         movieListRv.adapter = mAdapter
                     }
                 })
@@ -81,10 +81,11 @@ class MainActivity : AppCompatActivity() {
 
     // 영화리스트 어댑터
     inner class MovieListAdapter(val clickListener: (String) -> Unit) : RecyclerView.Adapter<MovieListAdapter.movieHolder>() {
-        lateinit var items : ArrayList<Movie>
+        private val items = ArrayList<Movie>()
 
-        fun set(items: ArrayList<Movie>) {
-            this.items = items
+        fun setItems(items: ArrayList<Movie>) {
+            this.items.clear()
+            this.items.addAll(items)
             notifyDataSetChanged()
         }
 
