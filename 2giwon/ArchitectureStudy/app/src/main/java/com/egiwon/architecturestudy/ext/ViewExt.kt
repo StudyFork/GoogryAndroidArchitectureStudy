@@ -60,7 +60,7 @@ fun View.getColorStateList(@ColorRes colorRes: Int): ColorStateList =
     context.getColorStateList(colorRes)
 
 @BindingAdapter("onClick")
-fun View.startWebBrowser(url: String) {
+fun View.onClick(url: String) {
     setOnClickListener {
         url.let { url ->
             ContextCompat.startActivity(
@@ -74,5 +74,3 @@ fun View.startWebBrowser(url: String) {
     }
 
 }
-
-
