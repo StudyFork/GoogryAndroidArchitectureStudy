@@ -16,12 +16,7 @@ class ContentViewHolder(
 ) {
     override fun onBindViewHolder(item: Any?) {
         (item as? ContentItem)?.let {
-            with(item) {
-                binding.description = (actor + description)
-                binding.title = title
-                binding.image = image
-                binding.url = link
-            }
+            binding.contentItem = it
         }
         super.onBindViewHolder(item)
     }
