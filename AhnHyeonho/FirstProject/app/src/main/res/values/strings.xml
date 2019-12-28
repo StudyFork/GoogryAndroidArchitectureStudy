@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">FirstProject</string>
+    <string name="app_name">부스트캠프 사전과제</string>
+    <string name="btn_search">검색</string>
 </resources>
