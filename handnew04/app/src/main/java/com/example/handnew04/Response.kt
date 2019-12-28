@@ -1,6 +1,6 @@
 package com.example.handnew04
 
-data class NaverMovie_Response(
+data class NaverMovieResponse(
     var items: List<items>
 )
 

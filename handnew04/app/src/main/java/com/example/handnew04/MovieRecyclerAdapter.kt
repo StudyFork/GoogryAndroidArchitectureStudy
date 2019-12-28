@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 
-class RecyclerAdapter_Movie(private val context: Context) :
-    RecyclerView.Adapter<RecyclerAdapter_Movie.ViewHolder>() {
+class MovieRecyclerAdapter(private val context: Context) :
+    RecyclerView.Adapter<MovieRecyclerAdapter.ViewHolder>() {
     private var movies: ArrayList<items> = ArrayList()
 
     fun setItemList(movies: ArrayList<items>) {

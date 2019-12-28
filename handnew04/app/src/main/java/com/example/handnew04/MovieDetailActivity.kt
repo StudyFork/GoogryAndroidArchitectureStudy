@@ -14,13 +14,13 @@ class MovieDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
         supportActionBar?.hide()
-        webViewInit()
+        initWebView()
     }
 
     fun getMovieLink(): String? = intent.getStringExtra(getString(R.string.movieLink))
 
     @SuppressLint("ObsoleteSdkInt", "SetJavaScriptEnabled")
-    private fun webViewInit() {
+    private fun initWebView() {
         val movieWebView = findViewById<View>(R.id.wb_movieDetail) as WebView
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

@@ -12,6 +12,6 @@ interface RetrofitService {
     fun requestSearchMovie(
         @Query("query") inputText: String,
         @Query("display") limit: Int
-    ): Call<NaverMovie_Response>
+    ): Call<NaverMovieResponse>
 
 }

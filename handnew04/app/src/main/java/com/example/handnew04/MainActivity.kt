@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 class MainActivity : AppCompatActivity() {
-    lateinit var recycler_Adapter: RecyclerAdapter_Movie
+    lateinit var recyclerAdapter: MovieRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,20 +26,20 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun initailize() {
-        recycler_Adapter = RecyclerAdapter_Movie(this)
-        recycler_Adapter.setItemClickListener(object : RecyclerAdapter_Movie.ItemClickListener {
+        recyclerAdapter = MovieRecyclerAdapter(this)
+        recyclerAdapter.setItemClickListener(object : MovieRecyclerAdapter.ItemClickListener {
             override fun onClick(view: View, position: Int) {
                 val nextIntent = Intent(this@MainActivity, MovieDetailActivity::class.java)
                 nextIntent.putExtra(
                     getString(R.string.movieLink),
-                    recycler_Adapter.getMovieLink(position)
+                    recyclerAdapter.getMovieLink(position)
                 )
                 startActivity(nextIntent)
             }
         })
 
 
-        rcv_movies.adapter = recycler_Adapter
+        rcv_movies.adapter = recyclerAdapter
     }
 
     private fun setEventHandler() {
@@ -50,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    object retrofitBuild_naver {
+    object buildRetrofitToNaver {
         private val URL = "https://openapi.naver.com"
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(URL)
@@ -62,21 +61,21 @@ class MainActivity : AppCompatActivity() {
         val searchLimit = 100
 
         val retrofitService: RetrofitService =
-            retrofitBuild_naver.retrofit.create(RetrofitService::class.java)
+            buildRetrofitToNaver.retrofit.create(RetrofitService::class.java)
 
         retrofitService.requestSearchMovie(inputText, searchLimit)
-            .enqueue(object : Callback<NaverMovie_Response> {
-                override fun onFailure(call: Call<NaverMovie_Response>, t: Throwable) {
+            .enqueue(object : Callback<NaverMovieResponse> {
+                override fun onFailure(call: Call<NaverMovieResponse>, t: Throwable) {
                     Log.i("error", t.message)
                 }
 
                 override fun onResponse(
-                    call: Call<NaverMovie_Response>,
-                    response: Response<NaverMovie_Response>
+                    call: Call<NaverMovieResponse>,
+                    response: Response<NaverMovieResponse>
                 ) {
                     if (response.isSuccessful) {
                         val movieResponse = response.body()
-                        recycler_Adapter.setItemList(movieResponse?.items as ArrayList<items>)
+                        recyclerAdapter.setItemList(movieResponse?.items as ArrayList<items>)
                     }
                 }
 
