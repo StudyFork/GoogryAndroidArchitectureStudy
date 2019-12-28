@@ -1,8 +1,8 @@
 package com.song2.myapplication.data
 
 data class MovieDataResponse (
-    var lastBuildDate : String?,
-    var total : Int?,
-    var start : Int?,
-    var items : ArrayList<MovieData>
+    private val lastBuildDate : String?,
+    private val total : Int?,
+    private val start : Int?,
+    private val items : ArrayList<MovieData>
 )
