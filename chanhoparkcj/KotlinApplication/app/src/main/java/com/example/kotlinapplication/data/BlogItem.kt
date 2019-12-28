@@ -1,6 +1,6 @@
-package com.example.kotlinapplication.model
+package com.example.kotlinapplication.data
 
-data class BlogItems(
+data class BlogItem(
     val title: String,
     val link: String,
     val description: String,

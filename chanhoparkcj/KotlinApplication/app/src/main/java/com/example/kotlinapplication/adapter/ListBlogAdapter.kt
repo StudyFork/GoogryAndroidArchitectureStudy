@@ -5,14 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplication.R
 import com.example.kotlinapplication.adapter.viewholder.BlogViewHolder
-import com.example.kotlinapplication.model.BlogItems
+import com.example.kotlinapplication.data.BlogItem
 
 class ListBlogAdapter(
     val listener: ItemListener
 ) :
     RecyclerView.Adapter<BlogViewHolder>() {
 
-    private val items = arrayListOf<BlogItems>()
+    private val items = arrayListOf<BlogItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogViewHolder {
         return BlogViewHolder(
@@ -22,29 +22,24 @@ class ListBlogAdapter(
                 false
             )
         )
-
-
     }
 
     override fun getItemCount(): Int {
         return items.size
     }
 
-
     override fun onBindViewHolder(holder: BlogViewHolder, position: Int) {
-
         holder.bind(items[position], listener)
-
     }
 
-    fun addAllItems(blogList: List<BlogItems>) {
+    fun addAllItems(blogList: List<BlogItem>) {
         items.clear()
         items.addAll(blogList)
         notifyDataSetChanged()
     }
 
     interface ItemListener {
-        fun onBlogItemClick(blogItems: BlogItems)
+        fun onBlogItemClick(blogItems: BlogItem)
     }
 
 

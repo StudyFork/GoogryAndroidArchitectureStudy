@@ -1,6 +1,6 @@
-package com.example.kotlinapplication.model
+package com.example.kotlinapplication.data
 
-data class MovieItems(
+data class MovieItem(
     val title: String,
     val link: String,
     val image: String,
