@@ -1,13 +1,13 @@
 package com.example.architecturestudy
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.example.architecturestudy.ui.blog.BlogFragment
 import com.example.architecturestudy.ui.image.ImageFragment
 import com.example.architecturestudy.ui.kin.KinFragment
 import com.example.architecturestudy.ui.movie.MovieFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
