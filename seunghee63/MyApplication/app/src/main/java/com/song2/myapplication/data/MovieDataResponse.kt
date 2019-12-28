@@ -1,6 +1,6 @@
 package com.song2.myapplication.data
 
-data class GetMovieDataResponse (
+data class MovieDataResponse (
     var lastBuildDate : String?,
     var total : Int?,
     var start : Int?,

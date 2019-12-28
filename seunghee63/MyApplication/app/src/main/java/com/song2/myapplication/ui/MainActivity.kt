@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.song2.myapplication.R
 import com.song2.myapplication.adapter.MovieAdapter
-import com.song2.myapplication.data.GetMovieDataResponse
+import com.song2.myapplication.data.MovieDataResponse
 import com.song2.myapplication.data.MovieData
 import com.song2.myapplication.data.MovieRepository
 import com.song2.myapplication.util.config
@@ -43,14 +43,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         movieRepository.getMovieData(config.clientId, config.secret, keyword, 30)
-            .enqueue(object : Callback<GetMovieDataResponse> {
-                override fun onFailure(call: Call<GetMovieDataResponse>, t: Throwable) {
+            .enqueue(object : Callback<MovieDataResponse> {
+                override fun onFailure(call: Call<MovieDataResponse>, t: Throwable) {
                     Log.e("실패", t.toString())
                 }
 
                 override fun onResponse(
-                    call: Call<GetMovieDataResponse>,
-                    response: Response<GetMovieDataResponse>
+                    call: Call<MovieDataResponse>,
+                    response: Response<MovieDataResponse>
                 ) {
                     if (response.isSuccessful) {
 

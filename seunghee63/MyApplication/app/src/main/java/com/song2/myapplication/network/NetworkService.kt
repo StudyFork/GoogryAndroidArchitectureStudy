@@ -1,6 +1,6 @@
 package com.song2.myapplication.network
 
-import com.song2.myapplication.data.GetMovieDataResponse
+import com.song2.myapplication.data.MovieDataResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -15,5 +15,5 @@ interface NetworkService{
         @Header("X-Naver-Client-Secret") secret: String,
         @Query("query") query : String,
         @Query("display") display : Int
-    ) : Call<GetMovieDataResponse>
+    ) : Call<MovieDataResponse>
 }
