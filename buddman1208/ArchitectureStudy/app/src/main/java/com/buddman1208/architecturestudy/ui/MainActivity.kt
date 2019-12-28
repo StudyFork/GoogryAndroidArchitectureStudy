@@ -1,6 +1,5 @@
 package com.buddman1208.architecturestudy.ui
 
-import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -38,13 +37,6 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
     }
 
     private val presenter: BasePresenter by lazy { BasePresenter(this) }
-
-    private val loadingDialog : ProgressDialog by lazy {
-        ProgressDialog(this@MainActivity).apply {
-            setProgressStyle(ProgressDialog.STYLE_SPINNER)
-            setMessage("Loading...")
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -195,11 +187,12 @@ class MainActivity : AppCompatActivity(), BaseContract.View {
     }
 
     override fun showLoading() {
-        loadingDialog.show()
+        updateInfoText("")
+        pbProgress.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
-        loadingDialog.dismiss()
+        pbProgress.visibility = View.GONE
     }
 
     private fun setSearchType(@IdRes itemId: Int) {
