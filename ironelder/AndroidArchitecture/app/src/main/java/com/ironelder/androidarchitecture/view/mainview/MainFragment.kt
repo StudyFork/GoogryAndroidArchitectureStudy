@@ -63,7 +63,7 @@ class MainFragment :
     override fun doViewCreated(view: View, savedInstanceState: Bundle?) {
         with(rv_resultListView) {
             adapter =
-                CustomListViewAdapter(mType ?: BLOG)
+                CustomListViewAdapter()
             setHasFixedSize(true)
             addItemDecoration(
                 DividerItemDecoration(

@@ -8,9 +8,7 @@ import com.ironelder.androidarchitecture.data.ResultItem
 import com.ironelder.androidarchitecture.ui.CustomItemViewImpl
 
 
-class CustomListViewAdapter(
-    private val mType: String
-) :
+class CustomListViewAdapter() :
     RecyclerView.Adapter<CustomListViewAdapter.CustomItemViewHolder>() {
     private val mItemList: ArrayList<ResultItem> = arrayListOf()
 
