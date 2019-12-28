@@ -4,5 +4,5 @@ data class MovieDataResponse(
     val lastBuildDate: String?,
     val total: Int?,
     val start: Int?,
-    val items: ArrayList<MovieData>
+    val items: List<MovieData>
 )

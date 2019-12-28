@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     private val movieRepository: MovieRepository = MovieRepository()
 
     private val movieAdapter by lazy { MovieAdapter() }
-    private var dataList = arrayListOf<MovieData>()
+    private var dataList = listOf<MovieData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
