@@ -41,7 +41,6 @@ class MainActivity : AppCompatActivity() {
 
 
         rcv_movies.adapter = recycler_Adapter
-        rcv_movies.layoutManager = LinearLayoutManager(this)
     }
 
     private fun setEventHandler() {
