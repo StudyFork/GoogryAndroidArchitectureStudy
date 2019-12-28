@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun initailize() {
-        recyclerAdapter = MovieRecyclerAdapter(this)
+        recyclerAdapter = MovieRecyclerAdapter()
         recyclerAdapter.setItemClickListener(object : MovieRecyclerAdapter.ItemClickListener {
             override fun onClick(view: View, position: Int) {
                 val nextIntent = Intent(this@MainActivity, MovieDetailActivity::class.java)
@@ -49,11 +50,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    object okHttpClient {
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor(AppInterceptor())
+            .build()
+    }
+
     object buildRetrofitToNaver {
         private val URL = "https://openapi.naver.com"
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(URL)
             .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient.okHttpClient)
             .build()
     }
 
