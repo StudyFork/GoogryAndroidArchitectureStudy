@@ -2,7 +2,7 @@ package com.example.architecturestudy.ui.movie
 
 import com.example.architecturestudy.Injection
 
-class MoviePresent(val view : MovieContract.View) : MovieContract.Present {
+class MoviePresenter(val view : MovieContract.View) : MovieContract.Present {
 
         private val repository by lazy { Injection.provideNaverSearchRepository() }
 

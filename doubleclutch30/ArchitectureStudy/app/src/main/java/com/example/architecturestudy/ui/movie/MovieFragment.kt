@@ -15,7 +15,7 @@ class MovieFragment : Fragment(), MovieContract.View {
     private lateinit var movieAdapter: MovieAdapter
 
     private val present : MovieContract.Present by lazy {
-        MoviePresent(this)
+        MoviePresenter(this)
     }
 
     override fun onCreateView(
@@ -58,5 +58,4 @@ class MovieFragment : Fragment(), MovieContract.View {
     override fun showResult(item: List<MovieItem>) {
         movieAdapter.update(item)
     }
-
 }
