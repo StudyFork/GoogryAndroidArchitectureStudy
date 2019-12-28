@@ -14,10 +14,11 @@ import com.bumptech.glide.Glide
 
 class MovieRecyclerAdapter :
     RecyclerView.Adapter<MovieRecyclerAdapter.ViewHolder>() {
-    private var movies: ArrayList<items> = ArrayList()
+    private val movies: ArrayList<items> = ArrayList()
 
     fun setItemList(movies: ArrayList<items>) {
-        this.movies = movies
+        this.movies.clear()
+        this.movies.addAll(movies)
         notifyDataSetChanged()
     }
 
