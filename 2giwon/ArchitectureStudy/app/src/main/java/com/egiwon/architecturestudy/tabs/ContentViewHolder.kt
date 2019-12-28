@@ -21,7 +21,7 @@ class ContentViewHolder(
         super.onBindViewHolder(item)
     }
 
-    fun thumbnailVisible(visible: Boolean) {
+    fun setThumbnailVisible(visible: Boolean) {
         binding.ivThumbnail.visibility = if (visible) View.VISIBLE else View.GONE
     }
 

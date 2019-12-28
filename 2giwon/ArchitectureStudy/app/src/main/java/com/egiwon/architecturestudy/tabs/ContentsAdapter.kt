@@ -21,7 +21,7 @@ class ContentsAdapter(
         viewType: Int
     ): ContentViewHolder =
         ContentViewHolder(parent, layoutRes).apply {
-            thumbnailVisible(
+            setThumbnailVisible(
                 Tab.values()[viewType] == Tab.BOOK ||
                         Tab.values()[viewType] == Tab.MOVIE
             )
