@@ -12,4 +12,4 @@
 ### [5기](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class05)
 ### [6기](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class06)
 ### [7기](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class07)
-### [8기](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class07)
+### [8기](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class08)
