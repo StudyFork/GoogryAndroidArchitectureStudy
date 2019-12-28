@@ -16,7 +16,7 @@ class CustomListViewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomItemViewHolder {
         val customItemView =
-            CustomItemViewImpl(parent.context, mType)
+            CustomItemViewImpl(parent.context)
         val customItemViewHolder = CustomItemViewHolder(customItemView)
         customItemView.setOnClickListener {
             parent.context.startActivity(

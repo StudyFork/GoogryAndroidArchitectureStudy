@@ -12,7 +12,7 @@ import com.ironelder.androidarchitecture.databinding.ItemCustomItemViewBinding
 
 
 @SuppressLint("ViewConstructor")
-class CustomItemViewImpl(context: Context?, private val mItemType: String) :
+class CustomItemViewImpl(context: Context?) :
     ConstraintLayout(context),
     CustomItemView<ResultItem> {
 
