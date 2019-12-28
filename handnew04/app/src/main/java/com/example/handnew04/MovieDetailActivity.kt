@@ -17,10 +17,7 @@ class MovieDetailActivity : AppCompatActivity() {
         webViewInit()
     }
 
-    fun getMovieLink(): String? {
-        if (intent.hasExtra(getString(R.string.movieLink))) return intent.getStringExtra(getString(R.string.movieLink))
-        return null
-    }
+    fun getMovieLink(): String? = intent.getStringExtra(getString(R.string.movieLink))
 
     @SuppressLint("ObsoleteSdkInt", "SetJavaScriptEnabled")
     private fun webViewInit() {
