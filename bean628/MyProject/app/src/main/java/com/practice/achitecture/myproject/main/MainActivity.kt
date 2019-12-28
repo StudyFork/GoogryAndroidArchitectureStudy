@@ -1,14 +1,12 @@
 package com.practice.achitecture.myproject.main
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import com.practice.achitecture.myproject.R
-import com.practice.achitecture.myproject.base.BaseActivity
+import com.practice.achitecture.myproject.base.BaseNaverSearchActivity
 import com.practice.achitecture.myproject.data.source.NaverRepository
 import com.practice.achitecture.myproject.data.source.local.NaverDatabase
 import com.practice.achitecture.myproject.data.source.local.NaverLocalDataSourceImpl
@@ -25,7 +23,7 @@ import com.practice.achitecture.myproject.util.AppExecutors
 import common.NAVER_API_BASE_URL
 
 class MainActivity :
-    BaseActivity<MainContract.Presenter, ActivityMainBinding>(R.layout.activity_main),
+    BaseNaverSearchActivity<MainContract.Presenter, ActivityMainBinding>(R.layout.activity_main),
     View.OnClickListener,
     MainContract.View {
 
@@ -43,26 +41,10 @@ class MainActivity :
         )
     }
 
-    private var searchType: SearchType = SearchType.MOVIE
-    private var searchMovieAndBookAdapter: SearchMovieAndBookAdapter? = null
-    private var searchBlogAndNewsAdapter: SearchBlogAndNewsAdapter? = null
-    private val searchedItemListener: SearchedItemClickListener =
-        object : SearchedItemClickListener {
-            override fun onItemClick(item: SearchedItem) {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(item.link)))
-            }
-        }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         registerOnClickListener()
-        initAdapter()
         presenter.loadCache()
-    }
-
-    private fun initAdapter() {
-        searchMovieAndBookAdapter = SearchMovieAndBookAdapter(searchedItemListener)
-        searchBlogAndNewsAdapter = SearchBlogAndNewsAdapter(searchedItemListener)
     }
 
     private fun registerOnClickListener() {

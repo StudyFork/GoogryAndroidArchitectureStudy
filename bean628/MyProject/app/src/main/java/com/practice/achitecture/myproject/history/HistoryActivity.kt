@@ -1,21 +1,16 @@
 package com.practice.achitecture.myproject.history
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.StringRes
 import com.practice.achitecture.myproject.R
-import com.practice.achitecture.myproject.base.BaseActivity
+import com.practice.achitecture.myproject.base.BaseNaverSearchActivity
 import com.practice.achitecture.myproject.data.source.NaverRepository
 import com.practice.achitecture.myproject.data.source.local.NaverDatabase
 import com.practice.achitecture.myproject.data.source.local.NaverLocalDataSourceImpl
 import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSourceImpl
 import com.practice.achitecture.myproject.databinding.ActivityHistoryBinding
 import com.practice.achitecture.myproject.enum.SearchType
-import com.practice.achitecture.myproject.main.SearchBlogAndNewsAdapter
-import com.practice.achitecture.myproject.main.SearchMovieAndBookAdapter
-import com.practice.achitecture.myproject.main.SearchedItemClickListener
 import com.practice.achitecture.myproject.makeToast
 import com.practice.achitecture.myproject.model.SearchedItem
 import com.practice.achitecture.myproject.network.RetrofitClient
@@ -23,7 +18,7 @@ import com.practice.achitecture.myproject.util.AppExecutors
 import common.NAVER_API_BASE_URL
 
 class HistoryActivity :
-    BaseActivity<HistoryContract.Presenter, ActivityHistoryBinding>(R.layout.activity_history),
+    BaseNaverSearchActivity<HistoryContract.Presenter, ActivityHistoryBinding>(R.layout.activity_history),
     View.OnClickListener,
     HistoryContract.View {
 
@@ -41,25 +36,10 @@ class HistoryActivity :
         )
     }
 
-    private var searchMovieAndBookAdapter: SearchMovieAndBookAdapter? = null
-    private var searchBlogAndNewsAdapter: SearchBlogAndNewsAdapter? = null
-    private val searchedItemListener: SearchedItemClickListener =
-        object : SearchedItemClickListener {
-            override fun onItemClick(item: SearchedItem) {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(item.link)))
-            }
-        }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         registerOnClickListener()
-        initAdapter()
         presenter.loadHistory(SearchType.MOVIE)
-    }
-
-    private fun initAdapter() {
-        searchMovieAndBookAdapter = SearchMovieAndBookAdapter(searchedItemListener)
-        searchBlogAndNewsAdapter = SearchBlogAndNewsAdapter(searchedItemListener)
     }
 
     private fun registerOnClickListener() {
