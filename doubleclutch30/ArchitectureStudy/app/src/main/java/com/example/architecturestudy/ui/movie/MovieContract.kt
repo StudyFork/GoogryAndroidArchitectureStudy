@@ -9,7 +9,7 @@ interface MovieContract {
         fun showResult(item: List<MovieItem>)
     }
 
-    interface Present {
+    interface Presenter {
         fun searchMovie(keyword : String)
         fun taskError(error : Throwable)
     }

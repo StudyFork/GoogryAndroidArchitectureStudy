@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_movie.*
 class MovieFragment : Fragment(), MovieContract.View {
     private lateinit var movieAdapter: MovieAdapter
 
-    private val present : MovieContract.Present by lazy {
+    private val presenter : MovieContract.Presenter by lazy {
         MoviePresenter(this)
     }
 
@@ -47,12 +47,12 @@ class MovieFragment : Fragment(), MovieContract.View {
     }
 
     private fun searchMovie(keyword: String) {
-        present.searchMovie(keyword)
+        presenter.searchMovie(keyword)
     }
 
 
     override fun showErrorMessage(message: String) {
-        present.taskError(error(message))
+        presenter.taskError(error(message))
     }
 
     override fun showResult(item: List<MovieItem>) {
