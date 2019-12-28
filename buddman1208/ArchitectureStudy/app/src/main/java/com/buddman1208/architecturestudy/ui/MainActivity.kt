@@ -1,7 +1,6 @@
-package com.buddman1208.architecturestudy
+package com.buddman1208.architecturestudy.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
@@ -15,29 +14,29 @@ import com.afollestad.recyclical.datasource.DataSource
 import com.afollestad.recyclical.datasource.dataSourceOf
 import com.afollestad.recyclical.setup
 import com.afollestad.recyclical.withItem
+import com.buddman1208.architecturestudy.R
 import com.buddman1208.architecturestudy.models.BookItem
 import com.buddman1208.architecturestudy.models.CommonItem
 import com.buddman1208.architecturestudy.models.CommonResponse
 import com.buddman1208.architecturestudy.models.MovieItem
-import com.buddman1208.architecturestudy.repo.NaverDataRepositoryImpl
 import com.buddman1208.architecturestudy.utils.Constants
+import com.buddman1208.architecturestudy.utils.ErrorType
 import com.buddman1208.architecturestudy.utils.removeHtmlBoldTags
-import com.buddman1208.architecturestudy.utils.subscribeOnIO
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
-import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.browse
-import org.jetbrains.anko.toast
 import kotlin.properties.Delegates
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), BaseContract.View {
 
     private val datas: DataSource<Any> = dataSourceOf()
     private var currentMode: String by Delegates.observable(Constants.MODE_BLOG) { _, _, newValue ->
         updateToolbarTitle()
-        getData()
+        search()
     }
+
+    private val presenter: BasePresenter by lazy { BasePresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +52,12 @@ class MainActivity : AppCompatActivity() {
         toolbar.apply {
             setSupportActionBar(this)
             setTitleTextColor(ContextCompat.getColor(applicationContext, android.R.color.white))
-            setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
+            setBackgroundColor(
+                ContextCompat.getColor(
+                    applicationContext,
+                    R.color.colorPrimary
+                )
+            )
             contentInsetStartWithNavigation = 0
         }
         setSearchType(bottomTabView.selectedItemId)
@@ -126,10 +130,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        btnSearch.setOnClickListener { getData() }
+        btnSearch.setOnClickListener { search() }
         etQuery.setOnEditorActionListener { _, actionId, _ ->
             when (actionId) {
-                EditorInfo.IME_ACTION_SEARCH -> getData()
+                EditorInfo.IME_ACTION_SEARCH -> search()
                 else -> {
                 }
             }
@@ -137,56 +141,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setSearchType(@IdRes itemId: Int) {
-        currentMode = when (itemId) {
-            R.id.menuBlog -> Constants.MODE_BLOG
-            R.id.menuBook -> Constants.MODE_BOOK
-            R.id.menuMovie -> Constants.MODE_MOVIE
-            R.id.menuNews -> Constants.MODE_NEWS
-            else -> ""
-        }
-    }
-
-    private fun updateToolbarTitle() {
-        supportActionBar?.title = when (currentMode) {
-            Constants.MODE_BLOG -> "블로그"
-            Constants.MODE_BOOK -> "도서"
-            Constants.MODE_MOVIE -> "영화"
-            Constants.MODE_NEWS -> "뉴스"
-            else -> ""
-        }
-    }
-
-    private fun updateInfoText(info: String) = tvInfo.apply {
-        text = info
-        visibility = if (info.isNotBlank()) {
-            View.VISIBLE
-        } else View.INVISIBLE
-    }
-
-    private fun getData() {
-        val query = etQuery.text.toString().trim()
-        if (query.isNotBlank()) {
-            NaverDataRepositoryImpl
-                .searchByTypeFromNaver(
-                    searchType = currentMode,
-                    query = query
-                )
-                .subscribeOnIO()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { onDataSuccess(it) },
-                    { onDataFailure(it) }
-                )
-
-
-        } else {
-            datas.clear()
-            updateInfoText(resources.getString(R.string.hint_input_edittext))
-        }
-    }
-
-    private fun onDataSuccess(it: CommonResponse) {
+    override fun updateData(it: CommonResponse) {
         datas.clear()
         if (it.items.isEmpty()) {
             updateInfoText(resources.getString(R.string.list_blank))
@@ -218,10 +173,58 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun onDataFailure(it: Throwable) {
-        toast(resources.getString(R.string.connect_error))
-        Log.e("MainActivity", it.message ?: "")
+    override fun showError(errorType: ErrorType) {
+        datas.clear()
+        updateInfoText(
+            resources.getString(
+                when (errorType) {
+                    ErrorType.CONNECTION_ERROR -> R.string.connect_error
+                    ErrorType.NO_QUERY -> R.string.hint_input_edittext
+                    ErrorType.NO_RESULT-> R.string.list_blank
+                }
+            )
+        )
     }
+
+    override fun showLoading() {
+        updateInfoText("")
+        pbProgress.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        pbProgress.visibility = View.GONE
+    }
+
+    private fun setSearchType(@IdRes itemId: Int) {
+        currentMode = when (itemId) {
+            R.id.menuBlog -> Constants.MODE_BLOG
+            R.id.menuBook -> Constants.MODE_BOOK
+            R.id.menuMovie -> Constants.MODE_MOVIE
+            R.id.menuNews -> Constants.MODE_NEWS
+            else -> ""
+        }
+    }
+
+    private fun updateToolbarTitle() {
+        supportActionBar?.title = when (currentMode) {
+            Constants.MODE_BLOG -> "블로그"
+            Constants.MODE_BOOK -> "도서"
+            Constants.MODE_MOVIE -> "영화"
+            Constants.MODE_NEWS -> "뉴스"
+            else -> ""
+        }
+    }
+
+    private fun updateInfoText(info: String) = tvInfo.apply {
+        text = info
+        visibility = if (info.isNotBlank()) {
+            View.VISIBLE
+        } else View.INVISIBLE
+    }
+
+    private fun getQuery() = etQuery.text.toString().trim()
+
+    private fun search() = presenter.searchByQuery(getQuery(), currentMode)
 }
 
 class CommonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
