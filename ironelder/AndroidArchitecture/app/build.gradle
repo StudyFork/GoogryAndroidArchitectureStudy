@@ -8,6 +8,7 @@ apply plugin: 'kotlin-android-extensions'
 
 
 android {
+
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
@@ -18,12 +19,18 @@ android {
         versionName rootProject.ext.versionName
         testInstrumentationRunner rootProject.ext.versionName
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
+
 }
 
 dependencies {
