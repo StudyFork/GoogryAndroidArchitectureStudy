@@ -11,14 +11,17 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.Injection
 import com.example.architecturestudy.R
+import com.example.architecturestudy.data.model.ImageItem
 import com.example.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import kotlinx.android.synthetic.main.fragment_image.*
 
-class ImageFragment : Fragment() {
+class ImageFragment : Fragment(), ImageContract.View {
 
     private lateinit var imageAdapter: ImageAdapter
 
-    private val naverSearchRepository by lazy { Injection.provideNaverSearchRepository()}
+    private val presenter : ImageContract.Presenter by lazy {
+        ImagePresenter(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,13 +50,14 @@ class ImageFragment : Fragment() {
     }
 
     private fun searchImageList(keyword : String) {
-        naverSearchRepository.getImage(
-            keyword = keyword,
-            success = { imageAdapter.update(it) },
-            fail = {e ->
-                Log.e("test11", e.toString())
-                Toast.makeText(activity, e.toString(), Toast.LENGTH_SHORT)
-            }
-        )
+        presenter.taskSearch(keyword)
+    }
+
+    override fun showResult(item: List<ImageItem>) {
+        imageAdapter.update(item)
+    }
+
+    override fun showErrorMessage(messeage: String) {
+        presenter.taskError(error(messeage))
     }
 }
