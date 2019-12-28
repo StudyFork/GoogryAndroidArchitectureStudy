@@ -11,13 +11,16 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.Injection
 import com.example.architecturestudy.R
+import com.example.architecturestudy.data.model.BlogItem
 import kotlinx.android.synthetic.main.fragment_blog.*
 
-class BlogFragment : Fragment() {
+class BlogFragment : Fragment(), BlogContract.View {
 
     private lateinit var blogAdapter: BlogAdapter
 
-    private val naverSearchRepository by lazy { Injection.provideNaverSearchRepository()}
+    private val presenter : BlogContract.Presenter by lazy {
+        BlogPresenter(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,14 +51,14 @@ class BlogFragment : Fragment() {
     }
 
     private fun searchBlogList(keyWord: String) {
+        presenter.taskSearch(keyWord)
+    }
 
-        naverSearchRepository.getBlog(
-            keyword = keyWord,
-            success = { blogAdapter.update(it) },
-            fail = {e ->
-                Log.e("test11", e.toString())
-                Toast.makeText(activity, e.toString(), Toast.LENGTH_SHORT)
-            }
-        )
+    override fun showErrorMessage(message: String) {
+        presenter.taskError(error(message))
+    }
+
+    override fun showResult(item: List<BlogItem>) {
+        blogAdapter.update(item)
     }
 }
