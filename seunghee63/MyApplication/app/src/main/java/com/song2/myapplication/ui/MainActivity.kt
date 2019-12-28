@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.song2.myapplication.R
 import com.song2.myapplication.adapter.MovieAdapter
-import com.song2.myapplication.data.MovieDataResponse
 import com.song2.myapplication.data.MovieData
+import com.song2.myapplication.data.MovieDataResponse
 import com.song2.myapplication.data.MovieRepository
 import com.song2.myapplication.util.config
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,12 +26,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setMovieRecyclerView()
+
         btn_main_act_search_btn.setOnClickListener {
-            setMovieRecyclerView(et_main_act_search.text.toString())
+            getMovieData(et_main_act_search.text.toString())
         }
     }
 
-    private fun setMovieRecyclerView(keyword: String) {
+    private fun setMovieRecyclerView() {
 
         movieAdapter.apply {
             data = dataList
@@ -41,6 +43,10 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = movieAdapter
         }
+
+    }
+
+    private fun getMovieData(keyword: String) {
 
         movieRepository.getMovieData(config.clientId, config.secret, keyword, 30)
             .enqueue(object : Callback<MovieDataResponse> {
@@ -56,12 +62,19 @@ class MainActivity : AppCompatActivity() {
 
                         dataList = response.body()!!.items
 
+                        movieAdapter.apply {
+                            data = dataList
+                        }
+
                         rv_main_act_movie_list.apply {
                             movieAdapter.notifyDataSetChanged()
                         }
+
                         Log.e("성공", dataList.toString())
                     }
                 }
             })
+
+
     }
 }
