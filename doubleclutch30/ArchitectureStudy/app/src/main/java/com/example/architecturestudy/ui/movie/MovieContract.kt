@@ -6,7 +6,7 @@ interface MovieContract {
         fun showErrorMessage(message : String)
     }
 
-    interface MoviePresent {
+    interface Present {
         fun searchMovie(keyword : String)
         fun taskError(error : Throwable)
     }
