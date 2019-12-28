@@ -35,22 +35,24 @@ class MovieRecyclerAdapter :
         val item = movies.get(position)
 
         holder.iv_Image?.let { Glide.with(holder.itemView.context).load(item.image).into(it) }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            holder.tv_title?.text = Html.fromHtml(item.title, Html.FROM_HTML_MODE_LEGACY)
-            holder.tv_pubDate?.text = Html.fromHtml(item.pubDate, Html.FROM_HTML_MODE_LEGACY)
-            holder.tv_director?.text = Html.fromHtml(item.director, Html.FROM_HTML_MODE_LEGACY)
-            holder.tv_actors?.text = Html.fromHtml(item.actor, Html.FROM_HTML_MODE_LEGACY)
-        } else {
-            holder.tv_title?.text = Html.fromHtml(item.title)
-            holder.tv_pubDate?.text = Html.fromHtml(item.pubDate)
-            holder.tv_director?.text = Html.fromHtml(item.director)
-            holder.tv_actors?.text = Html.fromHtml(item.actor)
-        }
+
+        holder.tv_title?.text = getHtlmText(item.title)
+        holder.tv_pubDate?.text = getHtlmText(item.pubDate)
+        holder.tv_director?.text = getHtlmText(item.director)
+        holder.tv_actors?.text = getHtlmText(item.actor)
 
         holder.rb_userRating?.rating = item.userRating.toFloat()
 
         holder.itemView.setOnClickListener {
             itemClickListner.onClick(it, position)
+        }
+    }
+
+    private fun getHtlmText(inputText: String): String {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(inputText, Html.FROM_HTML_MODE_LEGACY).toString()
+        } else {
+            Html.fromHtml(inputText).toString()
         }
     }
 
