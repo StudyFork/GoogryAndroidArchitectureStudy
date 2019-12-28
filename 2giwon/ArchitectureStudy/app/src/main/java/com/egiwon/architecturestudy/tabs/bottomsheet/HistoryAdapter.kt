@@ -26,10 +26,8 @@ class HistoryAdapter(
         parent,
         layoutRes
     ) {
-
-        override fun onBindViewHolder(item: Any?) {
+        override fun bindItem(item: Any?) {
             binding.query = (item as? String) ?: ""
-            super.onBindViewHolder(item)
         }
     }
 }

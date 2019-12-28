@@ -14,15 +14,15 @@ class ContentViewHolder(
     parent,
     layoutRes
 ) {
-    override fun onBindViewHolder(item: Any?) {
-        (item as? ContentItem)?.let {
-            binding.contentItem = it
-        }
-        super.onBindViewHolder(item)
-    }
 
     fun setThumbnailVisible(visible: Boolean) {
         binding.ivThumbnail.visibility = if (visible) View.VISIBLE else View.GONE
+    }
+
+    override fun bindItem(item: Any?) {
+        (item as? ContentItem)?.let {
+            binding.contentItem = it
+        }
     }
 
 }

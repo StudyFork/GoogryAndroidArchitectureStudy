@@ -18,9 +18,12 @@ abstract class BaseRecyclerView {
     ) {
         protected val binding: B = DataBindingUtil.bind(itemView)!!
 
-        open fun onBindViewHolder(item: Any?) {
+        fun onBindViewHolder(item: Any?) {
+            bindItem(item)
             binding.executePendingBindings()
         }
+
+        abstract fun bindItem(item: Any?)
     }
 
     abstract class Adapter<A, B : ViewDataBinding>(
@@ -30,15 +33,15 @@ abstract class BaseRecyclerView {
         private val items = mutableListOf<A>()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<B> =
-            object : BaseViewHolder<B>(
-                parent,
-                layoutResId
-            ) {}
+            object : BaseViewHolder<B>(parent, layoutResId) {
+                override fun bindItem(item: Any?) = Unit
+            }
 
         override fun getItemCount(): Int = items.size
 
-        override fun onBindViewHolder(holder: BaseViewHolder<B>, position: Int) =
+        override fun onBindViewHolder(holder: BaseViewHolder<B>, position: Int) {
             holder.onBindViewHolder(items[position])
+        }
 
         protected fun getItem(position: Int): A? = items.getOrNull(position)
 
