@@ -14,8 +14,6 @@ import com.egiwon.architecturestudy.data.source.remote.NaverRemoteDataSource
 import com.egiwon.architecturestudy.databinding.FgHistorySheetBinding
 import com.egiwon.architecturestudy.ext.addCallback
 import com.egiwon.architecturestudy.ext.doOnApplyWindowInsets
-import com.egiwon.architecturestudy.ext.getColor
-import com.egiwon.architecturestudy.ext.getColorStateList
 import com.egiwon.architecturestudy.tabs.ContentsFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.shape.MaterialShapeDrawable
@@ -62,9 +60,9 @@ class HistorySheetFragment :
                         behavior.state = BottomSheetBehavior.STATE_COLLAPSED
                     }
 
-                val historyStartColor = historySheet.getColor(R.color.history_200)
+                val historyStartColor = historySheet.context.getColor(R.color.history_200)
                 val historyEndColor =
-                    historySheet.getColorStateList(R.color.history_200).defaultColor
+                    historySheet.context.getColorStateList(R.color.history_200).defaultColor
 
                 val sheetBackground = MaterialShapeDrawable(
                     ShapeAppearanceModel.builder(

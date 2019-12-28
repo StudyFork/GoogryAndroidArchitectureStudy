@@ -1,12 +1,10 @@
 package com.egiwon.architecturestudy.ext
 
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
-import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.egiwon.architecturestudy.R
@@ -53,11 +51,6 @@ fun View.requestApplyInsetsWhenAttached() {
         })
     }
 }
-
-fun View.getColor(@ColorRes colorRes: Int): Int = context.getColor(colorRes)
-
-fun View.getColorStateList(@ColorRes colorRes: Int): ColorStateList =
-    context.getColorStateList(colorRes)
 
 @BindingAdapter("onClick")
 fun View.onClick(url: String) {
