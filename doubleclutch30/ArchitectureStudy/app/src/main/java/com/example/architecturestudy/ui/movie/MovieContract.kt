@@ -1,9 +1,12 @@
 package com.example.architecturestudy.ui.movie
 
+import com.example.architecturestudy.data.model.MovieItem
+
 interface MovieContract {
 
     interface View {
         fun showErrorMessage(message : String)
+        fun showResult(item: List<MovieItem>)
     }
 
     interface Present {

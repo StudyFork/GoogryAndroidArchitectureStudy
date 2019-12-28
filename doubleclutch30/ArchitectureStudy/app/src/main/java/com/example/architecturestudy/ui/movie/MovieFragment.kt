@@ -8,13 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.R
+import com.example.architecturestudy.data.model.MovieItem
 import kotlinx.android.synthetic.main.fragment_movie.*
 
 class MovieFragment : Fragment(), MovieContract.View {
     private lateinit var movieAdapter: MovieAdapter
 
     private val present : MovieContract.Present by lazy {
-        MoviePresent(this, movieAdapter)
+        MoviePresent(this)
     }
 
     override fun onCreateView(
@@ -49,8 +50,13 @@ class MovieFragment : Fragment(), MovieContract.View {
         present.searchMovie(keyword)
     }
 
+
     override fun showErrorMessage(message: String) {
         present.taskError(error(message))
+    }
+
+    override fun showResult(item: List<MovieItem>) {
+        movieAdapter.update(item)
     }
 
 }
