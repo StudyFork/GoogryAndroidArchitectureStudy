@@ -1,9 +1,9 @@
 package com.song2.myapplication.data
 
-import com.song2.myapplication.network.NetworkServiceImpl.service
+import com.song2.myapplication.network.NetworkServiceImpl
 import retrofit2.Call
 
 class MovieRepository{
     fun getMovieData(clientId: String, secret : String, keyword : String , cnt : Int): Call<MovieDataResponse> =
-        service.getMovieSearch(clientId, secret, keyword, cnt)
+        NetworkServiceImpl.service.getMovieSearch(clientId, secret, keyword, cnt)
 }
