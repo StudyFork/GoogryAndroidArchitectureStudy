@@ -23,7 +23,7 @@ abstract class BaseRecyclerView {
         }
     }
 
-    abstract class Adapter<A : Any, B : ViewDataBinding>(
+    abstract class Adapter<A, B : ViewDataBinding>(
         @LayoutRes private val layoutResId: Int
     ) : RecyclerView.Adapter<BaseViewHolder<B>>() {
 
