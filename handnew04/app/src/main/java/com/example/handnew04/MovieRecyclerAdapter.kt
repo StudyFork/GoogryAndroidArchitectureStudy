@@ -1,6 +1,5 @@
 package com.example.handnew04
 
-import android.content.Context
 import android.os.Build
 import android.text.Html
 import android.view.LayoutInflater
@@ -13,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 
-class MovieRecyclerAdapter(private val context: Context) :
+class MovieRecyclerAdapter :
     RecyclerView.Adapter<MovieRecyclerAdapter.ViewHolder>() {
     private var movies: ArrayList<items> = ArrayList()
 
@@ -23,7 +22,7 @@ class MovieRecyclerAdapter(private val context: Context) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
         return ViewHolder(view)
     }
 
@@ -34,7 +33,7 @@ class MovieRecyclerAdapter(private val context: Context) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = movies.get(position)
 
-        holder.iv_Image?.let { Glide.with(context).load(item.image).into(it) }
+        holder.iv_Image?.let { Glide.with(holder.itemView.context).load(item.image).into(it) }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             holder.tv_title?.text = Html.fromHtml(item.title, Html.FROM_HTML_MODE_LEGACY)
             holder.tv_pubDate?.text = Html.fromHtml(item.pubDate, Html.FROM_HTML_MODE_LEGACY)
