@@ -32,31 +32,6 @@ class NaverApiRepositoryImpl(
             naverLocalDataSource.lastKinTitle = value
         }
 
-//    override var lastBlogPage: Int
-//        get() = naverLocalDataSource.lastBlogPage
-//        set(value) {
-//            naverLocalDataSource.lastBlogPage = value
-//        }
-//
-//    override var lastImagePage: Int
-//        get() = naverLocalDataSource.lastImagePage
-//        set(value) {
-//            naverLocalDataSource.lastImagePage = value
-//        }
-//
-//    override var lastMoviePage: Int
-//        get() = naverLocalDataSource.lastMoviePage
-//        set(value) {
-//            naverLocalDataSource.lastMoviePage = value
-//        }
-//
-//    override var lastKinPage: Int
-//        get() = naverLocalDataSource.lastKinPage
-//        set(value) {
-//            naverLocalDataSource.lastKinPage = value
-//        }
-
-
     override suspend fun getBlogList(title: String, startIndex: Int?, cached: Boolean) = if (cached) {
         naverLocalDataSource.getBlogList()
     } else {
@@ -80,7 +55,7 @@ class NaverApiRepositoryImpl(
                 naverLocalDataSource.clearImageList()
             }
         }
-        val imageList = naverRemoteDataSource.getImageList(lastBlogTitle, startIndex)
+        val imageList = naverRemoteDataSource.getImageList(lastImageTitle, startIndex)
         naverLocalDataSource.saveImageList(imageList)
         imageList
     }

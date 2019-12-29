@@ -9,7 +9,7 @@ import wooooooak.com.studyapp.data.model.database.AppDataBase
 import wooooooak.com.studyapp.data.model.datasource.local.NaverLocalDataSourceImpl
 import wooooooak.com.studyapp.data.model.repository.NaverApiRepositoryImpl
 import wooooooak.com.studyapp.data.model.response.kin.Kin
-import wooooooak.com.studyapp.data.model.sharedpreference.SharedPreferneceManager
+import wooooooak.com.studyapp.data.model.sharedpreference.SharedPreferenceManager
 import wooooooak.com.studyapp.ui.base.BaseSearchListAdapter
 import wooooooak.com.studyapp.ui.base.ItemSearchFragment
 
@@ -30,7 +30,7 @@ class KinFragment : ItemSearchFragment<Kin>(R.layout.fragment_kin) {
     private val presenter by lazy {
         KinPresenter(
             this, NaverApiRepositoryImpl(
-                NaverLocalDataSourceImpl(SharedPreferneceManager(requireContext()), AppDataBase(requireContext()))
+                NaverLocalDataSourceImpl(SharedPreferenceManager(requireContext()), AppDataBase(requireContext()))
             )
         )
     }

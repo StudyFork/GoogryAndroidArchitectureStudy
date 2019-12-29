@@ -5,10 +5,10 @@ import wooooooak.com.studyapp.data.model.response.blog.Blog
 import wooooooak.com.studyapp.data.model.response.image.Image
 import wooooooak.com.studyapp.data.model.response.kin.Kin
 import wooooooak.com.studyapp.data.model.response.movie.Movie
-import wooooooak.com.studyapp.data.model.sharedpreference.SharedPreferneceManager
+import wooooooak.com.studyapp.data.model.sharedpreference.SharedPreferenceManager
 
 class NaverLocalDataSourceImpl(
-    private val preferenceManager: SharedPreferneceManager,
+    private val preferenceManager: SharedPreferenceManager,
     dataBase: AppDataBase
 ) : NaverLocalDataSource {
     private val blogDao = dataBase.blogDao()
@@ -39,31 +39,6 @@ class NaverLocalDataSourceImpl(
         set(value) {
             preferenceManager.kinSearchTitle = value
         }
-
-//    override var lastBlogPage: Int
-//        get() = preferneceManager.lastBlogPage
-//        set(value) {
-//            preferneceManager.lastBlogPage = value
-//        }
-//
-//    override var lastImagePage: Int
-//        get() = preferneceManager.lastImagePage
-//        set(value) {
-//            preferneceManager.lastImagePage = value
-//        }
-//
-//    override var lastMoviePage: Int
-//        get() = preferneceManager.lastMoviePage
-//        set(value) {
-//            preferneceManager.lastMoviePage = value
-//        }
-//
-//    override var lastKinPage: Int
-//        get() = preferneceManager.lastKinPage
-//        set(value) {
-//            preferneceManager.lastKinPage = value
-//        }
-
 
     override suspend fun getBlogList() = blogDao.getAll()
 

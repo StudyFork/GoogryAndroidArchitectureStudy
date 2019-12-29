@@ -15,12 +15,15 @@ class ImagePresenter(
     override suspend fun fetchItemsWithNewTitle(title: String, cached: Boolean) {
         try {
             when {
-                cached || title.isNotBlank() -> view.renderItems(
-                    naverApiRepository.getImageList(
-                        title,
-                        cached = cached
-                    )
-                )
+                cached || title.isNotBlank() -> {
+                    val items = naverApiRepository.getImageList(title, cached = cached)
+                    if (items.isEmpty()) {
+                        view.renderListEmptyView(true)
+                    } else {
+                        view.renderListEmptyView(false)
+                        view.renderItems(items)
+                    }
+                }
                 else -> view.renderEmptyTitleErrorToast()
             }
             view.setTitle(userInputTitle)

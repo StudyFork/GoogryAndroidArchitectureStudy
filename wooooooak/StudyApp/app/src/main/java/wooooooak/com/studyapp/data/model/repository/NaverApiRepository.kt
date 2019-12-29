@@ -10,10 +10,6 @@ interface NaverApiRepository {
     var lastImageTitle: String
     var lastMovieTitle: String
     var lastKinTitle: String
-//    var lastBlogPage: Int
-//    var lastImagePage: Int
-//    var lastMoviePage: Int
-//    var lastKinPage: Int
 
     suspend fun getBlogList(title: String, startIndex: Int? = 1, cached: Boolean = false): List<Blog>
 

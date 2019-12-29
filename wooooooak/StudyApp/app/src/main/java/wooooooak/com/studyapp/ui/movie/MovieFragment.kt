@@ -8,7 +8,7 @@ import wooooooak.com.studyapp.data.model.database.AppDataBase
 import wooooooak.com.studyapp.data.model.datasource.local.NaverLocalDataSourceImpl
 import wooooooak.com.studyapp.data.model.repository.NaverApiRepositoryImpl
 import wooooooak.com.studyapp.data.model.response.movie.Movie
-import wooooooak.com.studyapp.data.model.sharedpreference.SharedPreferneceManager
+import wooooooak.com.studyapp.data.model.sharedpreference.SharedPreferenceManager
 import wooooooak.com.studyapp.ui.base.BaseSearchListAdapter
 import wooooooak.com.studyapp.ui.base.ItemSearchFragment
 
@@ -29,7 +29,7 @@ class MovieFragment : ItemSearchFragment<Movie>(R.layout.fragment_movie) {
     private val presenter by lazy {
         MoviePresenter(
             this, NaverApiRepositoryImpl(
-                NaverLocalDataSourceImpl(SharedPreferneceManager(requireContext()), AppDataBase(requireContext()))
+                NaverLocalDataSourceImpl(SharedPreferenceManager(requireContext()), AppDataBase(requireContext()))
             )
         )
     }

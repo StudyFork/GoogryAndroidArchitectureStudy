@@ -15,7 +15,15 @@ class KinPresenter(
     override suspend fun fetchItemsWithNewTitle(title: String, cached: Boolean) {
         try {
             when {
-                cached || title.isNotBlank() -> view.renderItems(naverApiRepository.getKinList(title, cached = cached))
+                cached || title.isNotBlank() -> {
+                    val items = naverApiRepository.getKinList(title, cached = cached)
+                    if (items.isEmpty()) {
+                        view.renderListEmptyView(true)
+                    } else {
+                        view.renderListEmptyView(false)
+                        view.renderItems(items)
+                    }
+                }
                 else -> view.renderEmptyTitleErrorToast()
             }
             view.setTitle(userInputTitle)

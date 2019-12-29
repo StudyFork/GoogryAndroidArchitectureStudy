@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ListAdapter
@@ -23,6 +24,7 @@ abstract class ItemSearchFragment<T>(
     abstract val adapter: ListAdapter<T, *>
     private lateinit var searchButton: Button
     private lateinit var inputTextView: TextInputEditText
+    private lateinit var emptyListView: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +37,7 @@ abstract class ItemSearchFragment<T>(
             list_view.adapter = adapter
             inputTextView = edit_text
             searchButton = search_button
+            emptyListView = empty_list_view
             searchButton.setOnClickListener {
                 lifecycleScope.launch {
                     initItemsByTitle(inputTextView.text.toString())
@@ -63,6 +66,10 @@ abstract class ItemSearchFragment<T>(
 
     override fun setTitle(title: String) {
         inputTextView.setText(title)
+    }
+
+    override fun renderListEmptyView(shouldRender: Boolean) {
+        emptyListView.visibility = if (shouldRender) View.VISIBLE else View.GONE
     }
 
     abstract fun initItemsByTitle(title: String, cached: Boolean = false)

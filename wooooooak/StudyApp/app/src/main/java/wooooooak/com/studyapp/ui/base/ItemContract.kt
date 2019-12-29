@@ -11,6 +11,8 @@ interface ItemContract {
         fun renderErrorToast(message: String?)
 
         fun renderEmptyTitleErrorToast()
+
+        fun renderListEmptyView(shouldRender: Boolean)
     }
 
     interface Presenter<T> {

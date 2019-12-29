@@ -10,10 +10,6 @@ interface NaverLocalDataSource {
     var lastImageTitle: String
     var lastMovieTitle: String
     var lastKinTitle: String
-//    var lastBlogPage: Int
-//    var lastImagePage: Int
-//    var lastMoviePage: Int
-//    var lastKinPage: Int
 
     suspend fun getBlogList(): List<Blog>
 

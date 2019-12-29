@@ -8,7 +8,7 @@ import wooooooak.com.studyapp.data.model.database.AppDataBase
 import wooooooak.com.studyapp.data.model.datasource.local.NaverLocalDataSourceImpl
 import wooooooak.com.studyapp.data.model.repository.NaverApiRepositoryImpl
 import wooooooak.com.studyapp.data.model.response.blog.Blog
-import wooooooak.com.studyapp.data.model.sharedpreference.SharedPreferneceManager
+import wooooooak.com.studyapp.data.model.sharedpreference.SharedPreferenceManager
 import wooooooak.com.studyapp.ui.base.BaseSearchListAdapter
 import wooooooak.com.studyapp.ui.base.ItemSearchFragment
 
@@ -29,7 +29,7 @@ class BlogFragment : ItemSearchFragment<Blog>(R.layout.fragment_blog) {
     private val presenter by lazy {
         BlogPresenter(
             this, NaverApiRepositoryImpl(
-                NaverLocalDataSourceImpl(SharedPreferneceManager(requireContext()), AppDataBase(requireContext()))
+                NaverLocalDataSourceImpl(SharedPreferenceManager(requireContext()), AppDataBase(requireContext()))
             )
         )
     }
