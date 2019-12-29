@@ -1,6 +1,7 @@
 package com.ironelder.androidarchitecture.view.mainview
 
 import android.util.Log
+import androidx.databinding.ObservableArrayList
 import com.google.gson.Gson
 import com.ironelder.androidarchitecture.data.ResultItem
 import com.ironelder.androidarchitecture.data.TotalModel
@@ -58,7 +59,7 @@ class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter
                     Gson().fromJson(
                         it.result,
                         Array<ResultItem>::class.java
-                    ).toCollection(ArrayList())
+                    ).toCollection(ObservableArrayList())
                 )
             }, { t: Throwable? -> Log.w(LOG_TAG, t?.message ?: "DataBase $type Not Save Data") })
             ?.addDisposable()

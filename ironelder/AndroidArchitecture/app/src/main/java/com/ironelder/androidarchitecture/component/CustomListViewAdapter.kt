@@ -1,30 +1,48 @@
 package com.ironelder.androidarchitecture.component
 
-import android.content.Intent
-import android.net.Uri
+import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.ironelder.androidarchitecture.R
 import com.ironelder.androidarchitecture.data.ResultItem
-import com.ironelder.androidarchitecture.ui.CustomItemViewImpl
+import com.ironelder.androidarchitecture.databinding.ItemCustomItemViewBinding
 
 
-class CustomListViewAdapter() :
+class CustomListViewAdapter :
     RecyclerView.Adapter<CustomListViewAdapter.CustomItemViewHolder>() {
     private val mItemList: ArrayList<ResultItem> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomItemViewHolder {
-        val customItemView =
-            CustomItemViewImpl(parent.context)
-        val customItemViewHolder = CustomItemViewHolder(customItemView)
-        customItemView.setOnClickListener {
-            parent.context.startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(mItemList[customItemViewHolder.adapterPosition].link)
-                )
-            )
-        }
-        return customItemViewHolder
+//        val customItemView =
+//            CustomItemViewImpl(parent.context)
+//        val customItemViewHolder = CustomItemViewHolder(customItemView)
+//        customItemView.setOnClickListener {
+//            parent.context.startActivity(
+//                Intent(
+//                    Intent.ACTION_VIEW,
+//                    Uri.parse(mItemList[customItemViewHolder.adapterPosition].link)
+//                )
+//            )
+//        }
+//        return customItemViewHolder
+        val binding:ItemCustomItemViewBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.item_custom_item_view,
+            parent,
+            false
+        )
+
+//        val customItemViewHolder = CustomItemViewHolder(customItemView)
+//        customItemView.setOnClickListener {
+//            parent.context.startActivity(
+//                Intent(
+//                    Intent.ACTION_VIEW,
+//                    Uri.parse(mItemList[customItemViewHolder.adapterPosition].link)
+//                )
+//            )
+//        }
+        return CustomItemViewHolder(binding)
     }
 
     override fun getItemCount() = mItemList.size
@@ -48,15 +66,12 @@ class CustomListViewAdapter() :
     }
 
     override fun onBindViewHolder(holder: CustomItemViewHolder, position: Int) {
-        holder.setData(mItemList[position])
+        holder.binding.item = mItemList[position]
     }
 
-    inner class CustomItemViewHolder(v: CustomItemViewImpl) : RecyclerView.ViewHolder(v) {
-        private val mCustomItemViewImpl: CustomItemViewImpl by lazy { v }
-
-        fun setData(item: ResultItem) {
-            mCustomItemViewImpl.setData(item)
-        }
-
+    inner class CustomItemViewHolder(binding: ItemCustomItemViewBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val binding: ItemCustomItemViewBinding = binding
     }
+
 }

@@ -2,14 +2,17 @@ package com.ironelder.androidarchitecture.view.baseview
 
 import android.os.Bundle
 import android.view.*
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.ironelder.androidarchitecture.R
-import io.reactivex.disposables.CompositeDisposable
 
 
-abstract class BaseFragment<in VIEW : BaseContract.View, PRESENTER : BaseContract.Presenter<VIEW>>(
+abstract class BaseFragment<in VIEW : BaseContract.View, BINDING : ViewDataBinding, PRESENTER : BaseContract.Presenter<VIEW>>(
     private val mLayoutResId: Int
 ) : Fragment(), BaseContract.View {
+
+    lateinit var binding: BINDING
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -18,7 +21,8 @@ abstract class BaseFragment<in VIEW : BaseContract.View, PRESENTER : BaseContrac
     ): View? {
         @Suppress("UNCHECKED_CAST")
         presenter.attachView(this as VIEW)
-        return inflater.inflate(mLayoutResId, container, false)
+        binding = DataBindingUtil.inflate(inflater, mLayoutResId, container, false)
+        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -39,7 +43,6 @@ abstract class BaseFragment<in VIEW : BaseContract.View, PRESENTER : BaseContrac
         super.onDestroy()
         presenter.detachView()
     }
-
     abstract val presenter: PRESENTER
     abstract fun doCreateOptionsMenu(menu: Menu, inflater: MenuInflater)
     abstract fun doViewCreated(view: View, savedInstanceState: Bundle?)
