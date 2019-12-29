@@ -4,5 +4,5 @@ import com.onit.googlearchitecturestudy.Movies
 import retrofit2.Response
 
 interface MovieRepository {
-    fun getMovieList(): Response<Movies>
+    suspend fun getMovieList(keyword: String): Response<Movies>
 }
