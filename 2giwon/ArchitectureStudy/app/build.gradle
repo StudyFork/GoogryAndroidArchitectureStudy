@@ -7,11 +7,11 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.egiwon.architecturestudy"
         minSdkVersion 23
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -35,6 +35,10 @@ android {
 
     androidExtensions {
         experimental = true
+    }
+
+    dataBinding {
+        enabled = true
     }
 }
 
@@ -68,6 +72,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"
 
+    // animation
     implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
 
     // Test

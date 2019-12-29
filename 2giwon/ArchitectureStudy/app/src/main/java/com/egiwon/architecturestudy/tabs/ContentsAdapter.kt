@@ -1,35 +1,31 @@
 package com.egiwon.architecturestudy.tabs
 
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.annotation.LayoutRes
+import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.Tab
+import com.egiwon.architecturestudy.base.BaseRecyclerView
 import com.egiwon.architecturestudy.data.source.remote.response.ContentItem
+import com.egiwon.architecturestudy.databinding.RvContentsItemBinding
 
 
-class ContentsAdapter(private val tab: Tab) : RecyclerView.Adapter<ContentViewHolder>() {
+class ContentsAdapter(
+    private val tab: Tab,
+    @LayoutRes private val layoutRes: Int = R.layout.rv_contents_item
+) : BaseRecyclerView.Adapter<ContentItem, RvContentsItemBinding>(
+    layoutRes
+) {
 
-    private val list = ArrayList<ContentItem>()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentViewHolder =
-        when (Tab.values()[viewType]) {
-            Tab.BLOG, Tab.NEWS -> ContentViewHolder(parent)
-            Tab.MOVIE, Tab.BOOK -> ImageContentViewHolder(parent)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ContentViewHolder =
+        ContentViewHolder(parent, layoutRes).apply {
+            setThumbnailVisible(
+                Tab.values()[viewType] == Tab.BOOK ||
+                        Tab.values()[viewType] == Tab.MOVIE
+            )
         }
-
-
-    override fun getItemCount(): Int = list.size
-
-    override fun onBindViewHolder(holderContent: ContentViewHolder, position: Int) =
-        holderContent.bind(list[position])
-
-
-    fun setList(items: List<ContentItem>) {
-        with(list) {
-            clear()
-            addAll(items)
-        }
-        notifyDataSetChanged()
-    }
 
     override fun getItemViewType(position: Int): Int = tab.ordinal
 }
