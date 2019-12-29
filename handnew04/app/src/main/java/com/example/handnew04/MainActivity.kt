@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.handnew04.data.remote.MovieAppInterceptor
+import com.example.handnew04.data.remote.RetrofitService
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -52,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
     object okHttpClient {
         val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(AppInterceptor())
+            .addInterceptor(MovieAppInterceptor())
             .build()
     }
 
