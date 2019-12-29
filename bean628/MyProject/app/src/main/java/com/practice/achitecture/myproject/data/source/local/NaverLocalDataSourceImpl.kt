@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.practice.achitecture.myproject.data.source.NaverDataSource
+import com.practice.achitecture.myproject.data.source.local.model.HistoryOfSearch
 import com.practice.achitecture.myproject.enum.SearchType
 import com.practice.achitecture.myproject.model.SearchedItem
 import com.practice.achitecture.myproject.util.AppExecutors
@@ -15,14 +16,47 @@ class NaverLocalDataSourceImpl private constructor(
     val cacheFilePath: String
 ) : NaverDataSource {
 
+    override fun loadHistoryOfSearch(
+        searchType: SearchType,
+        callback: NaverDataSource.LoadHistoryOfSearchCallback
+    ) {
+        appExcutors.diskIO.execute {
+            //            val historyOfSearch = naverDao.getHistoryOfSearchCache(searchType.value)
+            val historyOfSearchList = naverDao.getHistoryOfSearchList(searchType.value)
+            val resultList: ArrayList<SearchedItem> = arrayListOf()
+
+            if (historyOfSearchList != null && historyOfSearchList.isNotEmpty()) {
+                for (item in historyOfSearchList) {
+                    if (item.searchedItemList.isNotEmpty()) {
+                        resultList.addAll(item.searchedItemList)
+                    }
+                }
+            }
+
+            appExcutors.mainThread.execute {
+                if (resultList == null || resultList.isEmpty()) {
+                    callback.onEmptyData()
+                } else {
+                    callback.onLoadSuccess(items = resultList)
+                }
+            }
+        }
+    }
+
     override fun searchWordByNaver(
         searchType: SearchType,
         word: String,
-        callBack: NaverDataSource.GettingResultOfSearchingCallBack
+        callback: NaverDataSource.GettingResultOfSearchingCallback
     ) {
-        // TODO : 4.1 추가 과제 검색했던 결과 히스토리 (검색할때마다 저장해서 히스토리를 남김)
-        //         할 때 Room 사용과 함께 쓸 계획입니다.
+        // local에서는 쓰이지 않음
     }
+
+    fun saveSearchedListInRoom(searchType: SearchType, word: String, list: List<SearchedItem>) {
+        appExcutors.diskIO.execute {
+            naverDao.insertResultOfSearch(HistoryOfSearch(searchType.value, word, list))
+        }
+    }
+
 
     // 앱 첫 실행 시 가장 마지막으로 검색한 리스트를 불러옵니다.
     fun getLastSearchType(): SearchType? {
@@ -47,6 +81,7 @@ class NaverLocalDataSourceImpl private constructor(
         }
         return lastSearchType
     }
+
 
     fun getCache(searchType: SearchType): List<SearchedItem> {
         val cacheFile = File(cacheFilePath + searchType.value + ".json")

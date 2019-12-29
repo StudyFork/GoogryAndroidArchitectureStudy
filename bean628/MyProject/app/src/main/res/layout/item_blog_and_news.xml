@@ -1,30 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#FFFFFF"
-    android:orientation="vertical"
-    android:padding="10dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
+    <data>
+
+        <import type="androidx.core.text.HtmlCompat" />
+
+        <variable
+            name="item"
+            type="com.practice.achitecture.myproject.model.SearchedItem" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        tools:ignore="SpUsage"
-        tools:text="TITLE" />
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-    <TextView
-        android:id="@+id/tv_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textColor="#3F3F3F"
-        android:textSize="16dp"
-        tools:ignore="SpUsage"
-        tools:text="Description" />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{HtmlCompat.fromHtml(item.title,HtmlCompat.FROM_HTML_MODE_COMPACT)}"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            tools:ignore="SpUsage"
+            tools:text="TITLE" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@{HtmlCompat.fromHtml(item.description,HtmlCompat.FROM_HTML_MODE_COMPACT)}"
+            android:textColor="#3F3F3F"
+            android:textSize="16dp"
+            tools:ignore="SpUsage"
+            tools:text="Description" />
+
+    </LinearLayout>
+</layout>

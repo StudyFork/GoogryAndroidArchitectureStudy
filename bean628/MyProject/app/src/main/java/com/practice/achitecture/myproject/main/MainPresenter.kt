@@ -13,7 +13,7 @@ class MainPresenter(
 
     override fun searchIfNotEmpty(word: String, searchType: SearchType) {
         if (word.isEmpty()) {
-            view.isEmpty()
+            view.searchWordEmpty()
         } else {
             this.searchWordByNaver(searchType, word)
         }
@@ -24,7 +24,7 @@ class MainPresenter(
         naverRepository.searchWordByNaver(
             searchType,
             word,
-            object : NaverDataSource.GettingResultOfSearchingCallBack {
+            object : NaverDataSource.GettingResultOfSearchingCallback {
 
                 override fun onSuccess(items: List<SearchedItem>) {
                     view.hideLoading()

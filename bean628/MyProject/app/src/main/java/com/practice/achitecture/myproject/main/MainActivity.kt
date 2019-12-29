@@ -1,28 +1,29 @@
 package com.practice.achitecture.myproject.main
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import com.practice.achitecture.myproject.R
-import com.practice.achitecture.myproject.base.BaseActivity
+import com.practice.achitecture.myproject.base.BaseNaverSearchActivity
 import com.practice.achitecture.myproject.data.source.NaverRepository
 import com.practice.achitecture.myproject.data.source.local.NaverDatabase
 import com.practice.achitecture.myproject.data.source.local.NaverLocalDataSourceImpl
 import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSourceImpl
+import com.practice.achitecture.myproject.databinding.ActivityMainBinding
 import com.practice.achitecture.myproject.enum.SearchType
+import com.practice.achitecture.myproject.history.HistoryActivity
 import com.practice.achitecture.myproject.makeToast
 import com.practice.achitecture.myproject.model.SearchedItem
 import com.practice.achitecture.myproject.network.RetrofitClient
-import com.practice.achitecture.myproject.network.retrofitErrorHandler
+import com.practice.achitecture.myproject.network.errorHandler
+import com.practice.achitecture.myproject.openActivity
 import com.practice.achitecture.myproject.util.AppExecutors
 import common.NAVER_API_BASE_URL
-import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main),
+class MainActivity :
+    BaseNaverSearchActivity<MainContract.Presenter, ActivityMainBinding>(R.layout.activity_main),
     View.OnClickListener,
     MainContract.View {
 
@@ -40,35 +41,20 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
         )
     }
 
-    private var searchType: SearchType = SearchType.MOVIE
-    private var searchMovieAndBookAdapter: SearchMovieAndBookAdapter? = null
-    private var searchBlogAndNewsAdapter: SearchBlogAndNewsAdapter? = null
-    private val searchedItemListener: SearchedItemClickListener =
-        object : SearchedItemClickListener {
-            override fun onItemClick(item: SearchedItem) {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(item.link)))
-            }
-        }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         registerOnClickListener()
-        initAdapter()
         presenter.loadCache()
     }
 
-    private fun initAdapter() {
-        searchMovieAndBookAdapter = SearchMovieAndBookAdapter(searchedItemListener)
-        searchBlogAndNewsAdapter = SearchBlogAndNewsAdapter(searchedItemListener)
-    }
-
     private fun registerOnClickListener() {
-        btn_search.setOnClickListener(this)
-        btn_search_type_movie.setOnClickListener(this)
-        btn_search_type_book.setOnClickListener(this)
-        btn_search_type_blog.setOnClickListener(this)
-        btn_search_type_news.setOnClickListener(this)
-        input_search_sth.setOnEditorActionListener { _, actionId, _ ->
+        binding.btnSearch.setOnClickListener(this)
+        binding.btnHistory.setOnClickListener(this)
+        binding.btnSearchTypeMovie.setOnClickListener(this)
+        binding.btnSearchTypeBook.setOnClickListener(this)
+        binding.btnSearchTypeBlog.setOnClickListener(this)
+        binding.btnSearchTypeNews.setOnClickListener(this)
+        binding.inputSearchSth.setOnEditorActionListener { _, actionId, _ ->
             when (actionId) {
                 EditorInfo.IME_ACTION_SEARCH -> {
                     search(searchType)
@@ -83,6 +69,7 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
 
         when (v.id) {
             R.id.btn_search -> search(searchType)
+            R.id.btn_history -> this.openActivity(HistoryActivity::class.java)
             R.id.btn_search_type_movie ->
                 search(SearchType.MOVIE)
             R.id.btn_search_type_book ->
@@ -97,29 +84,29 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
     private fun search(searchType: SearchType) {
         val imm: InputMethodManager =
             getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(input_search_sth.windowToken, 0)
+        imm.hideSoftInputFromWindow(binding.inputSearchSth.windowToken, 0)
 
-        val word = input_search_sth.text.toString()
+        val word = binding.inputSearchSth.text.toString()
         this.searchType = searchType
         presenter.searchIfNotEmpty(word, searchType)
     }
 
-    override fun isEmpty() {
+    override fun searchWordEmpty() {
         makeToast(R.string.toast_empty_word)
     }
 
     override fun showSearchResultBlogOrNews(items: List<SearchedItem>) {
         searchBlogAndNewsAdapter?.notifyDataSetChanged(items)
-        rv_searched_list.adapter = searchBlogAndNewsAdapter
+        binding.rvSearchedList.adapter = searchBlogAndNewsAdapter
     }
 
     override fun showSearchResultMovieOrBook(items: List<SearchedItem>) {
         searchMovieAndBookAdapter?.notifyDataSetChanged(items)
-        rv_searched_list.adapter = searchMovieAndBookAdapter
+        binding.rvSearchedList.adapter = searchMovieAndBookAdapter
     }
 
     override fun searchingOnFailure(throwable: Throwable) {
-        retrofitErrorHandler(this@MainActivity, throwable)
+        errorHandler(this@MainActivity, throwable)
     }
 
 

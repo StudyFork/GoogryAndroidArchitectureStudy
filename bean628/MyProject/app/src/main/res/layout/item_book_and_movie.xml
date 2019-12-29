@@ -1,55 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#FFFFFF"
-    android:orientation="horizontal"
-    android:padding="10dp">
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/iv_main_image"
-        android:layout_width="90dp"
-        android:layout_height="160dp"
-        android:contentDescription="@string/image_content_description"
-        tools:ignore="SpUsage" />
+    <data>
+
+        <import type="androidx.core.text.HtmlCompat" />
+
+        <variable
+            name="item"
+            type="com.practice.achitecture.myproject.model.SearchedItem" />
+    </data>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:orientation="vertical">
+        android:background="#FFFFFF"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
-        <TextView
-            android:id="@+id/tv_title"
+        <ImageView
+            android:id="@+id/iv_main_image"
+            android:layout_width="90dp"
+            android:layout_height="160dp"
+            android:contentDescription="@string/image_content_description"
+            bind:setImageUrl="@{item.image}"
+            tools:ignore="SpUsage" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            tools:ignore="SpUsage"
-            tools:text="TITLE" />
+            android:layout_marginStart="16dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_director"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textColor="#3F3F3F"
-            android:textSize="16dp"
-            tools:ignore="SpUsage"
-            tools:text="Director" />
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{HtmlCompat.fromHtml(item.title,HtmlCompat.FROM_HTML_MODE_COMPACT)}"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                tools:ignore="SpUsage"
+                tools:text="TITLE" />
 
-        <TextView
-            android:id="@+id/tv_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textColor="#3F3F3F"
-            android:textSize="16dp"
-            tools:ignore="SpUsage"
-            tools:text="Description" />
+            <TextView
+                android:id="@+id/tv_director"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="#3F3F3F"
+                android:textSize="16dp"
+                tools:ignore="SpUsage"
+                tools:text="Director" />
+
+            <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@{HtmlCompat.fromHtml(item.director ?? item.description,HtmlCompat.FROM_HTML_MODE_COMPACT)}"
+                android:textColor="#3F3F3F"
+                android:textSize="16dp"
+                tools:ignore="SpUsage"
+                tools:text="Description" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</layout>

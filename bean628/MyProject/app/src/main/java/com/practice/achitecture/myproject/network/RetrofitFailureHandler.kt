@@ -8,7 +8,7 @@ class EmptyDataException(errorMsgResStringId: Int) : Exception(errorMsgResString
 class ResponseNotSuccessException(errorMsgResStringId: Int) :
     Exception(errorMsgResStringId.toString())
 
-fun retrofitErrorHandler(activity: AppCompatActivity, e: Throwable) {
+fun errorHandler(activity: AppCompatActivity, e: Throwable) {
     val message = e.message.toString()
     if (message.isDigitsOnly()) {
         activity.makeToast(activity.getString(message.toInt()))
