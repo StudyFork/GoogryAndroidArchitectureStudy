@@ -14,8 +14,8 @@ class MoviePresenter (val view: MovieContract.View, private val repository: Nave
                 }
             }
 
-            override fun failed() {
-                TODO()
+            override fun failed(errorMessage: String) {
+                view.toastErrorConnFailed(errorMessage)
             }
         })
     }

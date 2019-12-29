@@ -2,5 +2,5 @@ package com.example.studyapplication.network
 
 interface Conn {
     fun <T> success(result : T)
-    fun failed()
+    fun failed(errorMessage : String)
 }

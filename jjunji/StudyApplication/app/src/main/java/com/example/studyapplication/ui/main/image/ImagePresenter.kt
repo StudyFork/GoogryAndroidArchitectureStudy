@@ -12,8 +12,8 @@ class ImagePresenter (val view : ImageContract.View, private val repository: Nav
                 searchData?.let { view.showList(searchData.arrImageInfo) }
             }
 
-            override fun failed() {
-
+            override fun failed(errorMessage: String) {
+                view.toastErrorConnFailed(errorMessage)
             }
         })
     }

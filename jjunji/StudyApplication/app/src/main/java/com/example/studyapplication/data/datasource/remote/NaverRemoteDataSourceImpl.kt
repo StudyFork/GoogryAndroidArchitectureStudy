@@ -12,9 +12,10 @@ class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
                 conn.success(result)
             }
 
-            override fun failed() {
-                conn.failed()
+            override fun failed(errorMessage: String) {
+                conn.failed(errorMessage)
             }
+
         })
     }
 
@@ -24,8 +25,8 @@ class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
                 conn.success(result)
             }
 
-            override fun failed() {
-                conn.failed()
+            override fun failed(errorMessage: String) {
+                conn.failed(errorMessage)
             }
         })
     }
@@ -36,8 +37,8 @@ class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
                 conn.success(result)
             }
 
-            override fun failed() {
-                conn.failed()
+            override fun failed(errorMessage: String) {
+                conn.failed(errorMessage)
             }
         })
     }
@@ -48,8 +49,8 @@ class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
                 conn.success(result)
             }
 
-            override fun failed() {
-                conn.failed()
+            override fun failed(errorMessage: String) {
+                conn.failed(errorMessage)
             }
         })
     }

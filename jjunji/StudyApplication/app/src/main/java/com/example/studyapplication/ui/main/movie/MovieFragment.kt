@@ -1,7 +1,9 @@
 package com.example.studyapplication.ui.main.movie
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import com.example.studyapplication.R
 import com.example.studyapplication.data.datasource.remote.NaverRemoteDataSourceImpl
 import com.example.studyapplication.data.model.SearchMovieResult
@@ -35,6 +37,11 @@ class MovieFragment : SearchFragment(R.layout.fragment_movie), MovieContract.Vie
 
     override fun showList(items: Array<SearchMovieResult.MovieInfo>) {
         movieAdapter.resetItem(items)
+    }
+
+    @SuppressLint("ShowToast")
+    override fun toastErrorConnFailed(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT)
     }
 
 }

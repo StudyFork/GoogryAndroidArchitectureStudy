@@ -1,7 +1,9 @@
 package com.example.studyapplication.ui.main.kin
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import com.example.studyapplication.R
 import com.example.studyapplication.data.datasource.remote.NaverRemoteDataSourceImpl
 import com.example.studyapplication.ui.main.kin.adapter.KinAdapter
@@ -35,5 +37,10 @@ class KinFragment  : SearchFragment(R.layout.fragment_kin), KinContract.View {
 
     override fun showList(items: Array<SearchKinResult.KinInfo>) {
         kinAdapter.resetItem(items)
+    }
+
+    @SuppressLint("ShowToast")
+    override fun toastErrorConnFailed(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT)
     }
 }

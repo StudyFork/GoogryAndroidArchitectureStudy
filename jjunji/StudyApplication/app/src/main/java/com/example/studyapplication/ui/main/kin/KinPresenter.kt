@@ -12,10 +12,9 @@ class KinPresenter(val view  : KinContract.View, private val repository: NaverSe
                 searchData?.let { view.showList(searchData.arrKinInfo) }
             }
 
-            override fun failed() {
-
+            override fun failed(errorMessage: String) {
+                view.toastErrorConnFailed(errorMessage)
             }
-
         })
     }
 

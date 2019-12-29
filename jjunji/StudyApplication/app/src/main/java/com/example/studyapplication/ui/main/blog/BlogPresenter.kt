@@ -14,10 +14,9 @@ class BlogPresenter(val view : BlogContract.View, private val repository: NaverS
                 }
             }
 
-            override fun failed() {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            override fun failed(errorMessage: String) {
+                view.toastErrorConnFailed(errorMessage)
             }
-
         })
     }
 }

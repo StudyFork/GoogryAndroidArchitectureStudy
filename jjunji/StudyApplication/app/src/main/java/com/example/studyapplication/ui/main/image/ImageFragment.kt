@@ -1,7 +1,9 @@
 package com.example.studyapplication.ui.main.image
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import com.example.studyapplication.R
 import com.example.studyapplication.data.datasource.remote.NaverRemoteDataSourceImpl
 import com.example.studyapplication.ui.main.image.adapter.ImageAdapter
@@ -37,4 +39,8 @@ class ImageFragment : SearchFragment(R.layout.fragment_image), ImageContract.Vie
         imageAdapter.resetItem(items)
     }
 
+    @SuppressLint("ShowToast")
+    override fun toastErrorConnFailed(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT)
+    }
 }
