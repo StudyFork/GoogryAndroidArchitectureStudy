@@ -38,12 +38,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setRecyclerView() {
-        resultMovieListRecyclerAdapter = ResultMovieListRecyclerAdapter(
-            object : ResultMovieListRecyclerAdapter.ClickListener {
-                override fun clickViewHolder(position: Int) {
-                    clickMovieItem(position)
-                }
-            })
+        resultMovieListRecyclerAdapter =
+            ResultMovieListRecyclerAdapter { position -> clickMovieItem(position) }
         resultMovieListRecyclerView.adapter = resultMovieListRecyclerAdapter
     }
 
