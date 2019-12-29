@@ -8,11 +8,11 @@ import wooooooak.com.studyapp.data.model.response.blog.Blog
 @Dao
 interface BlogDao {
     @Insert
-    fun insertAll(movies: List<Blog>)
+    suspend fun insertAll(movies: List<Blog>)
 
     @Query("SELECT * from blog")
-    fun getAll(): List<Blog>
+    suspend fun getAll(): List<Blog>
 
     @Query("DELETE from blog")
-    fun clearAll()
+    suspend fun clearAll()
 }

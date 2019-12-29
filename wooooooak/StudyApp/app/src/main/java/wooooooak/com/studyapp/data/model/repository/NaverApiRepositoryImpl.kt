@@ -1,20 +1,117 @@
 package wooooooak.com.studyapp.data.model.repository
 
+import wooooooak.com.studyapp.data.model.datasource.local.NaverLocalDataSource
 import wooooooak.com.studyapp.data.model.datasource.remote.NaverRemoteDataSourceImpl
 
-object NaverApiRepositoryImpl : NaverApiRepository {
+class NaverApiRepositoryImpl(
+    private val naverLocalDataSource: NaverLocalDataSource
+) : NaverApiRepository {
     private val naverRemoteDataSource = NaverRemoteDataSourceImpl()
 
-    override suspend fun getBlogList(title: String, startIndex: Int?) =
-        naverRemoteDataSource.getBlogList(title, startIndex)
+    override var lastBlogTitle: String
+        get() = naverLocalDataSource.lastBlogTitle
+        set(value) {
+            naverLocalDataSource.lastBlogTitle = value
+        }
 
-    override suspend fun getImageList(title: String, startIndex: Int?) =
-        naverRemoteDataSource.getImageList(title, startIndex)
+    override var lastImageTitle: String
+        get() = naverLocalDataSource.lastImageTitle
+        set(value) {
+            naverLocalDataSource.lastImageTitle = value
+        }
 
-    override suspend fun getMovieList(title: String, startIndex: Int?) =
-        naverRemoteDataSource.getMovieList(title, startIndex)
+    override var lastMovieTitle: String
+        get() = naverLocalDataSource.lastMovieTitle
+        set(value) {
+            naverLocalDataSource.lastMovieTitle = value
+        }
 
-    override suspend fun getKinList(title: String, startIndex: Int?) =
-        naverRemoteDataSource.getKinList(title, startIndex)
+    override var lastKinTitle: String
+        get() = naverLocalDataSource.lastKinTitle
+        set(value) {
+            naverLocalDataSource.lastKinTitle = value
+        }
+
+//    override var lastBlogPage: Int
+//        get() = naverLocalDataSource.lastBlogPage
+//        set(value) {
+//            naverLocalDataSource.lastBlogPage = value
+//        }
+//
+//    override var lastImagePage: Int
+//        get() = naverLocalDataSource.lastImagePage
+//        set(value) {
+//            naverLocalDataSource.lastImagePage = value
+//        }
+//
+//    override var lastMoviePage: Int
+//        get() = naverLocalDataSource.lastMoviePage
+//        set(value) {
+//            naverLocalDataSource.lastMoviePage = value
+//        }
+//
+//    override var lastKinPage: Int
+//        get() = naverLocalDataSource.lastKinPage
+//        set(value) {
+//            naverLocalDataSource.lastKinPage = value
+//        }
+
+
+    override suspend fun getBlogList(title: String, startIndex: Int?, cached: Boolean) = if (cached) {
+        naverLocalDataSource.getBlogList()
+    } else {
+        lastBlogTitle = title
+        startIndex?.let {
+            if (it <= 1) {
+                naverLocalDataSource.clearBlogList()
+            }
+        }
+        val blogList = naverRemoteDataSource.getBlogList(lastBlogTitle, startIndex)
+        naverLocalDataSource.saveBlogList(blogList)
+        blogList
+    }
+
+    override suspend fun getImageList(title: String, startIndex: Int?, cached: Boolean) = if (cached) {
+        naverLocalDataSource.getImageList()
+    } else {
+        lastImageTitle = title
+        startIndex?.let {
+            if (it <= 1) {
+                naverLocalDataSource.clearImageList()
+            }
+        }
+        val imageList = naverRemoteDataSource.getImageList(lastBlogTitle, startIndex)
+        naverLocalDataSource.saveImageList(imageList)
+        imageList
+    }
+
+    override suspend fun getMovieList(title: String, startIndex: Int?, cached: Boolean) = if (cached) {
+        naverLocalDataSource.getMovieList()
+    } else {
+        lastMovieTitle = title
+        startIndex?.let {
+            if (it <= 1) {
+                naverLocalDataSource.clearMovieList()
+            }
+        }
+        val movieList = naverRemoteDataSource.getMovieList(lastMovieTitle, startIndex)
+        naverLocalDataSource.saveMovieList(movieList)
+        movieList
+
+    }
+
+    override suspend fun getKinList(title: String, startIndex: Int?, cached: Boolean) = if (cached) {
+        naverLocalDataSource.getKinList()
+    } else {
+        lastKinTitle = title
+        startIndex?.let {
+            if (it <= 1) {
+                naverLocalDataSource.clearKinList()
+            }
+        }
+        val kinList = naverRemoteDataSource.getKinList(lastKinTitle, startIndex)
+        naverLocalDataSource.saveKinList(kinList)
+        kinList
+    }
 
 }

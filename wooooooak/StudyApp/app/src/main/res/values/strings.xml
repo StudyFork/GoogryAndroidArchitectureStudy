@@ -5,5 +5,6 @@
     <string name="input_image_title">이미지 제목을 입력하세요.</string>
     <string name="input_kin_title">지식인 검색</string>
     <string name="input_movie_title">영화 제목을 입력하세요.</string>
+    <string name="error_empty_title">검색어가 비어있습니다.</string>
 
 </resources>

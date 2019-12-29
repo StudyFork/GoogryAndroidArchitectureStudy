@@ -9,14 +9,16 @@ class BlogPresenter(
     private val naverApiRepository: NaverApiRepository
 ) : ItemContract.Presenter<Blog> {
 
-    private var userInputTitle = ""
+    private val userInputTitle
+        get() = naverApiRepository.lastBlogTitle
 
-    override suspend fun fetchItemsWithNewTitle(title: String) {
+    override suspend fun fetchItemsWithNewTitle(title: String, cached: Boolean) {
         try {
-            if (title.isNotBlank()) {
-                view.renderItems(naverApiRepository.getBlogList(title))
-                userInputTitle = title
+            when {
+                cached || title.isNotBlank() -> view.renderItems(naverApiRepository.getBlogList(title, cached = cached))
+                else -> view.renderEmptyTitleErrorToast()
             }
+            view.setTitle(userInputTitle)
         } catch (e: Exception) {
             view.renderErrorToast(e.localizedMessage)
         }

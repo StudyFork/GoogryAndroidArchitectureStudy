@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_image.view.*
 import kotlinx.coroutines.launch
+import wooooooak.com.studyapp.R
 import wooooooak.com.studyapp.common.ext.startWebView
 import wooooooak.com.studyapp.common.ext.toast
 
@@ -39,7 +40,9 @@ abstract class ItemSearchFragment<T>(
                     initItemsByTitle(inputTextView.text.toString())
                 }
             }
+            initItemsByTitle(inputTextView.text.toString(), true)
         }
+
     }
 
     override fun renderItems(items: List<T>) {
@@ -54,6 +57,14 @@ abstract class ItemSearchFragment<T>(
         message?.let { requireContext().toast(it) }
     }
 
-    abstract fun initItemsByTitle(title: String)
+    override fun renderEmptyTitleErrorToast() {
+        requireContext().toast(resources.getString(R.string.error_empty_title))
+    }
+
+    override fun setTitle(title: String) {
+        inputTextView.setText(title)
+    }
+
+    abstract fun initItemsByTitle(title: String, cached: Boolean = false)
 
 }

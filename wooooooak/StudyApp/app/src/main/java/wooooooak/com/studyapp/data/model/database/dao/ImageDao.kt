@@ -8,11 +8,11 @@ import wooooooak.com.studyapp.data.model.response.image.Image
 @Dao
 interface ImageDao {
     @Insert
-    fun insertAll(movies: List<Image>)
+    suspend fun insertAll(movies: List<Image>)
 
     @Query("SELECT * from image")
-    fun getAll(): List<Image>
+    suspend fun getAll(): List<Image>
 
     @Query("DELETE from image")
-    fun clearAll()
+    suspend fun clearAll()
 }

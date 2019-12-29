@@ -30,7 +30,9 @@ abstract class AppDataBase : RoomDatabase() {
         @Volatile
         private var instance: AppDataBase? = null
 
-        operator fun invoke(context: Context) = instance ?: synchronized(this) {
+        private val lock = Any()
+
+        operator fun invoke(context: Context) = instance ?: synchronized(lock) {
             instance ?: buildDatabase(context).also { instance = it }
         }
 

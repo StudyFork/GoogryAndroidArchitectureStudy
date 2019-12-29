@@ -8,11 +8,11 @@ import wooooooak.com.studyapp.data.model.response.kin.Kin
 @Dao
 interface KinDao {
     @Insert
-    fun insertAll(movies: List<Kin>)
+    suspend fun insertAll(movies: List<Kin>)
 
     @Query("SELECT * from kin")
-    fun getAll(): List<Kin>
+    suspend fun getAll(): List<Kin>
 
     @Query("DELETE from kin")
-    fun clearAll()
+    suspend fun clearAll()
 }

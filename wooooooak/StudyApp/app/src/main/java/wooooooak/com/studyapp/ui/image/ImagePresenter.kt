@@ -9,14 +9,21 @@ class ImagePresenter(
     private val naverApiRepository: NaverApiRepository
 ) : ItemContract.Presenter<Image> {
 
-    private var userInputTitle = ""
+    private val userInputTitle
+        get() = naverApiRepository.lastImageTitle
 
-    override suspend fun fetchItemsWithNewTitle(title: String) {
+    override suspend fun fetchItemsWithNewTitle(title: String, cached: Boolean) {
         try {
-            if (title.isNotBlank()) {
-                view.renderItems(naverApiRepository.getImageList(title))
-                userInputTitle = title
+            when {
+                cached || title.isNotBlank() -> view.renderItems(
+                    naverApiRepository.getImageList(
+                        title,
+                        cached = cached
+                    )
+                )
+                else -> view.renderEmptyTitleErrorToast()
             }
+            view.setTitle(userInputTitle)
         } catch (e: Exception) {
             view.renderErrorToast(e.localizedMessage)
         }
