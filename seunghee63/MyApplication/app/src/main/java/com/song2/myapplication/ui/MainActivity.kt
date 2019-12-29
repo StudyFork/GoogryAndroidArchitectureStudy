@@ -6,10 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.song2.myapplication.R
 import com.song2.myapplication.adapter.MovieAdapter
-import com.song2.myapplication.data.MovieData
 import com.song2.myapplication.data.MovieDataResponse
 import com.song2.myapplication.data.MovieRepository
-import com.song2.myapplication.util.config
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,7 +18,6 @@ class MainActivity : AppCompatActivity() {
     private val movieRepository: MovieRepository = MovieRepository()
 
     private val movieAdapter by lazy { MovieAdapter() }
-    private var dataList = listOf<MovieData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,10 +31,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setMovieRecyclerView() {
-
-        movieAdapter.apply {
-            data = dataList
-        }
 
         rv_main_act_movie_list.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
@@ -60,17 +53,15 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     if (response.isSuccessful) {
 
-                        dataList = response.body()!!.items
-
                         movieAdapter.apply {
-                            data = dataList
+                            data = response.body()!!.items
                         }
 
                         rv_main_act_movie_list.apply {
                             movieAdapter.notifyDataSetChanged()
                         }
 
-                        Log.e("성공", dataList.toString())
+                        Log.e("성공", response.body()!!.items.toString())
                     }
                 }
             })
