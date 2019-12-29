@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.ironelder.androidarchitecture.R
 import com.ironelder.androidarchitecture.component.CustomListViewAdapter
 import com.ironelder.androidarchitecture.data.ResultItem
+import com.ironelder.androidarchitecture.ui.CustomInfoView
 
 @BindingAdapter("setImageViewVisible")
 fun setImageViewVisible(view: ImageView, url:String?){
@@ -30,8 +31,15 @@ fun loadImageUrl(view: ImageView, url: String?) {
 
 @BindingAdapter("setListItems")
 fun setListItems(view:RecyclerView, items:ObservableArrayList<ResultItem>?){
-    if(!items.isNullOrEmpty()){
-        val adapter:CustomListViewAdapter = view.adapter as CustomListViewAdapter
-        adapter.setItemList(items)
+    val adapter:CustomListViewAdapter = view.adapter as CustomListViewAdapter
+    adapter.setItemList(items)
+}
+
+@BindingAdapter("showNoSearchData")
+fun showNoSearchData(view:CustomInfoView, items: ObservableArrayList<ResultItem>?){
+    if(items.isNullOrEmpty()){
+        view.noSearchData()
+    } else {
+        view.reset()
     }
 }
