@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getMovieData(keyword: String) {
 
-        movieRepository.getMovieData(config.clientId, config.secret, keyword, 30)
+        movieRepository.getMovieData(keyword, 30)
             .enqueue(object : Callback<MovieDataResponse> {
                 override fun onFailure(call: Call<MovieDataResponse>, t: Throwable) {
                     Log.e("실패", t.toString())

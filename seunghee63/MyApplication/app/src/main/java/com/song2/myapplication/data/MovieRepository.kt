@@ -4,6 +4,6 @@ import com.song2.myapplication.network.NetworkServiceImpl
 import retrofit2.Call
 
 class MovieRepository{
-    fun getMovieData(clientId: String, secret : String, keyword : String , cnt : Int): Call<MovieDataResponse> =
-        NetworkServiceImpl.service.getMovieSearch(clientId, secret, keyword, cnt)
+    fun getMovieData(keyword : String , cnt : Int): Call<MovieDataResponse> =
+        NetworkServiceImpl.service.getMovieSearch(keyword, cnt)
 }
