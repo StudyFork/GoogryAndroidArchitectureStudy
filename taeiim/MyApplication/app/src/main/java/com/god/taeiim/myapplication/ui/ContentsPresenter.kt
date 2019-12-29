@@ -23,10 +23,7 @@ class ContentsPresenter(
             naverRepository.getResultData(
                 searchType,
                 query,
-                success = {
-                    view.updateItems(it.items)
-                    naverRepository.saveSearchResult(SearchHistory(it.items, searchType, query))
-                },
+                success = { view.updateItems(it.items) },
                 fail = { view.failToSearch() }
             )
         }

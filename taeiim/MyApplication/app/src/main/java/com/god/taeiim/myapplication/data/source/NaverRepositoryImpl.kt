@@ -14,7 +14,10 @@ class NaverRepositoryImpl private constructor(
         success: (results: SearchResult) -> Unit,
         fail: (t: Throwable) -> Unit
     ) {
-        naverRemote.getResultData(searchType, query, success, fail)
+        naverRemote.getResultData(searchType, query, {
+            saveSearchResult(SearchHistory(it.items, searchType, query))
+            success(it)
+        }, fail)
     }
 
     override fun getLastSearchResultData(searchType: String): SearchHistory =
