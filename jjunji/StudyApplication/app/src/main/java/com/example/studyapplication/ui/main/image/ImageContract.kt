@@ -7,7 +7,7 @@ interface ImageContract {
         fun showList(items: Array<SearchImageResult.ImageInfo>)
     }
 
-    interface UserActions {
+    interface Presenter {
         fun clickSearchButton(query : String)
     }
 

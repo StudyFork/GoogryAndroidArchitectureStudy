@@ -7,7 +7,7 @@ interface MovieContract {
         fun showList(items: Array<SearchMovieResult.MovieInfo>)
     }
 
-    interface UserActions {
+    interface Presenter {
         fun clickSearchButton(query : String)
     }
 }

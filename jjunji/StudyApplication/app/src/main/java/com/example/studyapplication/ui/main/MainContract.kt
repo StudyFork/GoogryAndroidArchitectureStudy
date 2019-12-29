@@ -9,7 +9,7 @@ interface MainContract {
         fun showSearchFragment(fragment : SearchFragment)
     }
 
-    interface UserAction {
+    interface Presenter {
         fun init()
         fun clickTab(id : Int)
     }

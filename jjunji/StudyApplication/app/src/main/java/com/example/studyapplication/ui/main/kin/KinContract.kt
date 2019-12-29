@@ -7,7 +7,7 @@ interface KinContract {
         fun showList(items: Array<SearchKinResult.KinInfo>)
     }
 
-    interface UserActions {
+    interface Presenter {
         fun clickSearchButton(query : String)
     }
 }

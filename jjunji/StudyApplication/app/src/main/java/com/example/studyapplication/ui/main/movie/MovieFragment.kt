@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_movie.*
 
 class MovieFragment : SearchFragment(R.layout.fragment_movie), MovieContract.View {
     private lateinit var movieAdapter: MovieAdapter
-    private lateinit var presenter : MovieContract.UserActions
+    private lateinit var presenter : MovieContract.Presenter
     private val repository: NaverSearchRepository = NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

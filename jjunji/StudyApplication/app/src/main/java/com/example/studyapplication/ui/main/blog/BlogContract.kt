@@ -7,7 +7,7 @@ interface BlogContract {
         fun showList(items: Array<SearchBlogResult.BlogInfo>)
     }
 
-    interface UserActions {
+    interface Presenter {
         fun clickSearchButton(query : String)
     }
 }

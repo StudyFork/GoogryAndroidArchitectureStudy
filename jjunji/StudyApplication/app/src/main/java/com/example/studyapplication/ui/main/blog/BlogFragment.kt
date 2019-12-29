@@ -1,10 +1,7 @@
 package com.example.studyapplication.ui.main.blog
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.example.studyapplication.R
 import com.example.studyapplication.data.datasource.remote.NaverRemoteDataSourceImpl
 import com.example.studyapplication.data.model.SearchBlogResult
@@ -17,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_blog.*
 class BlogFragment : SearchFragment(R.layout.fragment_blog), BlogContract.View {
     private val repository: NaverSearchRepository = NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())
     private lateinit var blogAdapter: BlogAdapter
-    private lateinit var presenter : BlogContract.UserActions
+    private lateinit var presenter : BlogContract.Presenter
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

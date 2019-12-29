@@ -4,7 +4,7 @@ import com.example.studyapplication.data.model.SearchBlogResult
 import com.example.studyapplication.data.repository.NaverSearchRepository
 import com.example.studyapplication.network.Conn
 
-class BlogPresenter(val view : BlogContract.View, private val repository: NaverSearchRepository) : BlogContract.UserActions {
+class BlogPresenter(val view : BlogContract.View, private val repository: NaverSearchRepository) : BlogContract.Presenter {
     override fun clickSearchButton(query: String) {
         repository.getBlogList(query, object : Conn {
             override fun <T> success(result: T) {

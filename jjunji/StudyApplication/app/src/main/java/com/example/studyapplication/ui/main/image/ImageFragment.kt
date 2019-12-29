@@ -1,10 +1,7 @@
 package com.example.studyapplication.ui.main.image
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.example.studyapplication.R
 import com.example.studyapplication.data.datasource.remote.NaverRemoteDataSourceImpl
 import com.example.studyapplication.ui.main.image.adapter.ImageAdapter
@@ -15,7 +12,7 @@ import com.example.studyapplication.ui.base.SearchFragment
 import kotlinx.android.synthetic.main.fragment_image.*
 
 class ImageFragment : SearchFragment(R.layout.fragment_image), ImageContract.View {
-    private lateinit var presenter: ImageContract.UserActions
+    private lateinit var presenter: ImageContract.Presenter
     private lateinit var imageAdapter: ImageAdapter
     private val repository : NaverSearchRepository = NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())
 

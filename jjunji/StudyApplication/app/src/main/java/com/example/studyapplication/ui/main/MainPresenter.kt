@@ -7,7 +7,7 @@ import com.example.studyapplication.ui.main.image.ImageFragment
 import com.example.studyapplication.ui.main.kin.KinFragment
 import com.example.studyapplication.ui.main.movie.MovieFragment
 
-class MainPresenter(val view : MainContract.View) : MainContract.UserAction {
+class MainPresenter(val view : MainContract.View) : MainContract.Presenter {
     override fun init() {
         view.showSearchFragment(MovieFragment())
     }
