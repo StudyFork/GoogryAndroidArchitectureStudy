@@ -4,12 +4,21 @@
 
     <data>
 
-        <import type="androidx.databinding.ObservableArrayList"/>
-        <import type="com.ironelder.androidarchitecture.data.ResultItem"/>
+        <import type="androidx.databinding.ObservableArrayList" />
+
+        <import type="androidx.databinding.ObservableField" />
+
+        <import type="android.view.View"/>
+
+        <import type="com.ironelder.androidarchitecture.data.ResultItem" />
 
         <variable
             name="items"
             type="ObservableArrayList&lt;ResultItem&gt;" />
+
+        <variable
+            name="showProgress"
+            type="Boolean" />
 
     </data>
 
@@ -28,10 +37,27 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.ironelder.androidarchitecture.ui.CustomInfoView
-            android:id="@+id/customInfoView"
+        <ProgressBar
+            android:id="@+id/pb_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{showProgress ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tv_noSearchData"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="@color/colorCustomInfoViewLayoutBg"
+            android:gravity="center"
+            android:text="@string/msg_no_search_datas"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:visibility="@{items.size() == 0 ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

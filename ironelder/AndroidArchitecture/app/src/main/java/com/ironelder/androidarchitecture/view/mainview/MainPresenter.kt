@@ -36,11 +36,7 @@ class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter
     }
 
     private fun onSuccess(result: TotalModel) {
-        if (result.items.isNullOrEmpty()) {
-            view.showNoSearchData()
-        } else {
-            view.onDataChanged(result.items)
-        }
+        view.onDataChanged(result.items)
     }
 
     private fun onError(t: Throwable) {

@@ -66,12 +66,15 @@ class CustomListViewAdapter :
     }
 
     override fun onBindViewHolder(holder: CustomItemViewHolder, position: Int) {
-        holder.binding.item = mItemList[position]
+        holder.bind(mItemList[position])
     }
 
     inner class CustomItemViewHolder(binding: ItemCustomItemViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val binding: ItemCustomItemViewBinding = binding
+        private val binding: ItemCustomItemViewBinding = binding
+        fun bind(item:ResultItem){
+            binding.item = item
+        }
     }
 
 }

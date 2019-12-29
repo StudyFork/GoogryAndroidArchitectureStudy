@@ -20,7 +20,6 @@ import com.ironelder.androidarchitecture.data.ResultItem
 import com.ironelder.androidarchitecture.data.database.SearchResultDatabase
 import com.ironelder.androidarchitecture.databinding.FragmentMainBinding
 import com.ironelder.androidarchitecture.view.baseview.BaseFragment
-import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.layout_search_listview.*
 
 
@@ -38,7 +37,6 @@ class MainFragment :
 
     override fun showNoSearchData() {
         (rv_resultListView?.adapter as? CustomListViewAdapter)?.clearItemList()
-        customInfoView.noSearchDate()
     }
 
     override fun onDataChanged(result: ObservableArrayList<ResultItem>) {
@@ -51,11 +49,11 @@ class MainFragment :
     }
 
     override fun showLoading() {
-        customInfoView.startLoading()
+        (binding as FragmentMainBinding).showProgress = true
     }
 
     override fun hideLoading() {
-        customInfoView.stopLoading()
+        (binding as FragmentMainBinding).showProgress = false
     }
 
     override fun onLoadFromDatabase(searchWord: String, result: ObservableArrayList<ResultItem>) {
