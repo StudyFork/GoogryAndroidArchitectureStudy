@@ -42,6 +42,6 @@ fun setFragmentPageAdapter(viewpager: ViewPager, activity: MainActivity) {
 }
 
 @BindingAdapter("setViewPager")
-fun setViewPager(layout:TabLayout, viewpager: ViewPager){
+fun setViewPager(layout: TabLayout, viewpager: ViewPager) {
     layout.setupWithViewPager(viewpager)
 }

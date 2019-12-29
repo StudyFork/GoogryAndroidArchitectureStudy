@@ -22,10 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
         binding.activity = this@MainActivity
-//        viewPager.adapter = PagerAdapter(supportFragmentManager)
-//        tabLayout.setupWithViewPager(viewPager)
     }
 
     inner class PagerAdapter(fm: FragmentManager) :

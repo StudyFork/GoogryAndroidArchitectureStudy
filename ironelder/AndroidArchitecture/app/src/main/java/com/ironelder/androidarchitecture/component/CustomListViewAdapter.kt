@@ -1,5 +1,7 @@
 package com.ironelder.androidarchitecture.component
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -14,34 +16,13 @@ class CustomListViewAdapter :
     private val mItemList: ArrayList<ResultItem> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomItemViewHolder {
-//        val customItemView =
-//            CustomItemViewImpl(parent.context)
-//        val customItemViewHolder = CustomItemViewHolder(customItemView)
-//        customItemView.setOnClickListener {
-//            parent.context.startActivity(
-//                Intent(
-//                    Intent.ACTION_VIEW,
-//                    Uri.parse(mItemList[customItemViewHolder.adapterPosition].link)
-//                )
-//            )
-//        }
-//        return customItemViewHolder
-        val binding:ItemCustomItemViewBinding = DataBindingUtil.inflate(
+        val binding: ItemCustomItemViewBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
             R.layout.item_custom_item_view,
             parent,
             false
         )
 
-//        val customItemViewHolder = CustomItemViewHolder(customItemView)
-//        customItemView.setOnClickListener {
-//            parent.context.startActivity(
-//                Intent(
-//                    Intent.ACTION_VIEW,
-//                    Uri.parse(mItemList[customItemViewHolder.adapterPosition].link)
-//                )
-//            )
-//        }
         return CustomItemViewHolder(binding)
     }
 
@@ -64,11 +45,17 @@ class CustomListViewAdapter :
         holder.bind(mItemList[position])
     }
 
-    inner class CustomItemViewHolder(private val binding: ItemCustomItemViewBinding) :
+    class CustomItemViewHolder(private val binding: ItemCustomItemViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item:ResultItem){
+        fun bind(item: ResultItem) {
             binding.item = item
+            binding.root.setOnClickListener {
+                binding.root.context.startActivity(
+                    Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
+                )
+            }
         }
+
     }
 
 }
