@@ -55,11 +55,6 @@ class CustomListViewAdapter :
         notifyDataSetChanged()
     }
 
-    fun clearItemList() {
-        mItemList.clear()
-        notifyDataSetChanged()
-    }
-
     fun addItemList(list: ArrayList<ResultItem>?) {
         mItemList.addAll(list ?: arrayListOf())
         notifyItemRangeInserted(mItemList.size - 1, list?.size ?: 0)
@@ -69,9 +64,8 @@ class CustomListViewAdapter :
         holder.bind(mItemList[position])
     }
 
-    inner class CustomItemViewHolder(binding: ItemCustomItemViewBinding) :
+    inner class CustomItemViewHolder(private val binding: ItemCustomItemViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private val binding: ItemCustomItemViewBinding = binding
         fun bind(item:ResultItem){
             binding.item = item
         }

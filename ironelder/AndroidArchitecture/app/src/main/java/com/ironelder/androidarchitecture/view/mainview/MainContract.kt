@@ -11,7 +11,6 @@ interface MainContract {
 
         fun onDataChanged(result: ObservableArrayList<ResultItem>)
         fun showErrorMessage(msg: String?)
-        fun showNoSearchData()
         fun showLoading()
         fun hideLoading()
         fun onLoadFromDatabase(

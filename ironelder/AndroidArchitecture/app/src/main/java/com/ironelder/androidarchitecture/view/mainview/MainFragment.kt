@@ -20,7 +20,6 @@ import com.ironelder.androidarchitecture.data.ResultItem
 import com.ironelder.androidarchitecture.data.database.SearchResultDatabase
 import com.ironelder.androidarchitecture.databinding.FragmentMainBinding
 import com.ironelder.androidarchitecture.view.baseview.BaseFragment
-import kotlinx.android.synthetic.main.layout_search_listview.*
 
 
 class MainFragment :
@@ -34,10 +33,6 @@ class MainFragment :
     }
 
     private var mSearchWord: String? = null
-
-    override fun showNoSearchData() {
-        (rv_resultListView?.adapter as? CustomListViewAdapter)?.clearItemList()
-    }
 
     override fun onDataChanged(result: ObservableArrayList<ResultItem>) {
         (binding as FragmentMainBinding).items = result
