@@ -4,7 +4,7 @@ import com.song2.myapplication.util.config
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class ReceivedCookiesInterceptor : Interceptor {
+class CookiesInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
 
         val builder = chain.request().newBuilder()

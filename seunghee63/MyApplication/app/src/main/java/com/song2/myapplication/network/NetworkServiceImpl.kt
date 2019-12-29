@@ -1,6 +1,6 @@
 package com.song2.myapplication.network
 
-import com.song2.myapplication.data.cookies.ReceivedCookiesInterceptor
+import com.song2.myapplication.data.cookies.CookiesInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -9,8 +9,8 @@ object NetworkServiceImpl {
     private const val BASE_URL = "https://openapi.naver.com"
 
     val okhttpClient: OkHttpClient = OkHttpClient.Builder()
-        .addInterceptor(ReceivedCookiesInterceptor())
-        .addNetworkInterceptor(ReceivedCookiesInterceptor())
+        .addInterceptor(CookiesInterceptor())
+        .addNetworkInterceptor(CookiesInterceptor())
         .build()
 
     private val retrofit: Retrofit = Retrofit.Builder()
