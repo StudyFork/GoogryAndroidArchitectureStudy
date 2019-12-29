@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/img_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_launcher_background"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/movie_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/img_view"
+        app:layout_constraintTop_toTopOf="@id/img_view"
+        tools:text="영화이름"
+        android:textSize="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="3dp"
+        android:textColor="#000"/>
+    <androidx.appcompat.widget.AppCompatRatingBar
+        android:id="@+id/score"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        tools:rating="3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/movie_name"
+        app:layout_constraintTop_toBottomOf="@id/movie_name"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/pub_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/movie_name"
+        app:layout_constraintTop_toBottomOf="@id/score"
+        tools:text="2019"
+        android:textColor="#000"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/director"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/movie_name"
+        app:layout_constraintTop_toBottomOf="@id/pub_date"
+        tools:text="감독이름"
+        android:textColor="#000"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/actor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/movie_name"
+        app:layout_constraintTop_toBottomOf="@id/director"
+        tools:text="배우1|배우2|배우3"
+        android:textColor="#000"/>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
