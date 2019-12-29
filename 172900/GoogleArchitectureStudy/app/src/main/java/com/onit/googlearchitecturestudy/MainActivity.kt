@@ -9,15 +9,17 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.onit.googlearchitecturestudy.MovieInformationActivity.Companion.MOVIE_URL
+import com.onit.googlearchitecturestudy.data.repository.MovieRepository
+import com.onit.googlearchitecturestudy.data.repository.MovieRepositoryImpl
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
+    private val movieRepositroy: MovieRepository = MovieRepositoryImpl()
     private lateinit var resultMovieListRecyclerAdapter: ResultMovieListRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,8 +60,9 @@ class MainActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             loadingProgressBar.visibility = View.VISIBLE
 
+            val searchKeyword = searchFieldEditText.text.toString()
             val response =
-                withContext(Dispatchers.IO) { searchMovieList(searchFieldEditText.text.toString()) }
+                withContext(Dispatchers.IO) { movieRepositroy.getMovieList(searchKeyword) }
 
             if (response.isSuccessful) {
                 val movieList = response.body()?.movies
@@ -75,10 +78,6 @@ class MainActivity : AppCompatActivity() {
 
             loadingProgressBar.visibility = View.GONE
         }
-    }
-
-    private suspend fun searchMovieList(searchWord: String): Response<Movies> {
-        return NetworkService.naverApiService.getMovieList(searchWord)
     }
 
     private fun hideKeyboard() {
