@@ -1,48 +1,27 @@
 package com.egiwon.architecturestudy.tabs
 
-import android.content.Intent
-import android.net.Uri
+import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.annotation.LayoutRes
-import androidx.core.content.ContextCompat
-import com.egiwon.architecturestudy.R
-import com.egiwon.architecturestudy.base.BaseViewHolder
+import com.egiwon.architecturestudy.base.BaseRecyclerView
 import com.egiwon.architecturestudy.data.source.remote.response.ContentItem
-import com.egiwon.architecturestudy.ext.fromHtml
-import kotlinx.android.synthetic.main.rv_contents_item.view.*
+import com.egiwon.architecturestudy.databinding.RvContentsItemBinding
 
-open class ContentViewHolder(
+class ContentViewHolder(
     parent: ViewGroup,
-    @LayoutRes
-    private val resourceId: Int = R.layout.rv_text_contents_item
-) : BaseViewHolder<ContentItem>(
+    @LayoutRes private val layoutRes: Int
+) : BaseRecyclerView.BaseViewHolder<RvContentsItemBinding>(
     parent,
-    resourceId
+    layoutRes
 ) {
-    private val tvTitle: TextView = itemView.tv_title
-    private val tvDescription: TextView = itemView.tv_description
-    private var linkUrl: String? = null
 
-    init {
-        itemView.setOnClickListener {
-            linkUrl?.let { url ->
-                ContextCompat.startActivity(
-                    it.context,
-                    Intent(
-                        Intent.ACTION_VIEW, Uri.parse(url)
-                    ),
-                    null
-                )
-            }
-        }
+    fun setThumbnailVisible(visible: Boolean) {
+        binding.ivThumbnail.visibility = if (visible) View.VISIBLE else View.GONE
     }
 
-    override fun bind(item: ContentItem) {
-        with(item) {
-            tvDescription.text = (actor + description).fromHtml()
-            tvTitle.text = title.fromHtml()
-            linkUrl = link
+    override fun bindItem(item: Any?) {
+        (item as? ContentItem)?.let {
+            binding.contentItem = it
         }
     }
 

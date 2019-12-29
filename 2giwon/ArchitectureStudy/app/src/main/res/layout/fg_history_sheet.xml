@@ -1,92 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:theme="@style/Theme.Contents.history"
-    tools:targetApi="o">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/history_sheet"
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="slideOffset"
+            type="float" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:behavior_peekHeight="56dp"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+        android:theme="@style/Theme.Contents.history"
+        tools:targetApi="o">
 
-        <ImageView
-            android:id="@+id/historylist_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/grid_3"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_history"
-            app:tint="@color/history_font_color"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/history_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:behavior_peekHeight="56dp"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-        <TextView
-            android:id="@+id/historylist_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:alpha="0"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:lines="1"
-            android:minHeight="?attr/actionBarSize"
-            android:paddingHorizontal="@dimen/grid_2"
-            android:text="@string/search_history_prompt"
-            android:textAppearance="?attr/textAppearanceSubtitle1"
-            android:textColor="@color/history_font_color"
-            app:layout_constraintEnd_toStartOf="@id/collapse_historylist"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/historylist_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/grid_3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_history"
+                app:tint="@color/history_font_color" />
 
-        <ImageView
-            android:id="@+id/collapse_historylist"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:alpha="0"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="@dimen/grid_2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/historylist_title"
-            app:layout_constraintTop_toTopOf="@id/historylist_title"
-            app:srcCompat="@drawable/ic_arrow_down"
-            app:tint="@color/history_font_color"/>
+            <TextView
+                android:id="@+id/historylist_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:alpha="0"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:lines="1"
+                android:minHeight="?attr/actionBarSize"
+                android:paddingHorizontal="@dimen/grid_2"
+                android:text="@string/search_history_prompt"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
+                android:textColor="@color/history_font_color"
+                app:layout_constraintEnd_toStartOf="@id/collapse_historylist"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:id="@+id/sheet_expand"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:foreground="@drawable/sheet_expand"
-            android:theme="@style/ThemeOverlay.MaterialComponents.Light"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            <ImageView
+                android:id="@+id/collapse_historylist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="@dimen/grid_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/historylist_title"
+                app:layout_constraintTop_toTopOf="@id/historylist_title"
+                app:srcCompat="@drawable/ic_arrow_down"
+                app:tint="@color/history_font_color" />
 
-        <View
-            android:id="@+id/historylist_title_divider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:alpha="0"
-            android:background="@drawable/divider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/historylist_title"/>
+            <View
+                android:id="@+id/sheet_expand"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:foreground="@drawable/sheet_expand"
+                android:theme="@style/ThemeOverlay.MaterialComponents.Light"
+                android:visibility="@{slideOffset &lt; 0.5 ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/history_list"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:alpha="0"
-            android:clipToPadding="false"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/historylist_title_divider" />
+            <View
+                android:id="@+id/historylist_title_divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:alpha="0"
+                android:background="@drawable/divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/historylist_title" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/history_list"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha="0"
+                android:clipToPadding="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/historylist_title_divider" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
