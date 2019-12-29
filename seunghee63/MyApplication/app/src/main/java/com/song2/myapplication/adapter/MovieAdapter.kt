@@ -9,7 +9,15 @@ import com.song2.myapplication.data.MovieData
 
 class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
 
-    var data = listOf<MovieData>()
+    private val data = ArrayList<MovieData>()
+
+    fun setMovieList(newMovieList: List<MovieData>) {
+        with(data) {
+            clear()
+            addAll(newMovieList)
+        }
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view: View = LayoutInflater

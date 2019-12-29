@@ -53,13 +53,7 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     if (response.isSuccessful) {
 
-                        movieAdapter.apply {
-                            data = response.body()!!.items
-                        }
-
-                        rv_main_act_movie_list.apply {
-                            movieAdapter.notifyDataSetChanged()
-                        }
+                        movieAdapter.setMovieList(response.body()!!.items)
 
                         Log.e("성공", response.body()!!.items.toString())
                     }
