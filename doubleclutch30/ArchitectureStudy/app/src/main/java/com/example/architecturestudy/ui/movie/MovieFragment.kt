@@ -41,15 +41,10 @@ class MovieFragment : Fragment(), MovieContract.View {
         btn_search.setOnClickListener {
             if(input_text != null) {
                 val edit = edit_text.text.toString()
-                searchMovie(edit)
+                presenter.searchMovie(edit)
             }
         }
     }
-
-    private fun searchMovie(keyword: String) {
-        presenter.searchMovie(keyword)
-    }
-
 
     override fun showErrorMessage(message: String) {
         presenter.taskError(error(message))

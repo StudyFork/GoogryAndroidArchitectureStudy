@@ -40,13 +40,9 @@ class ImageFragment : Fragment(), ImageContract.View {
         btn_search.setOnClickListener {
             if(input_text != null) {
                 val edit = edit_text.text.toString()
-                searchImageList(edit)
+                presenter.taskSearch(edit)
             }
         }
-    }
-
-    private fun searchImageList(keyword : String) {
-        presenter.taskSearch(keyword)
     }
 
     override fun showResult(item: List<ImageItem>) {

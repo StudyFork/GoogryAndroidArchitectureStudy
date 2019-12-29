@@ -42,13 +42,9 @@ class BlogFragment : Fragment(), BlogContract.View {
         btn_search.setOnClickListener {
             if(input_text != null) {
                 val edit = edit_text.text.toString()
-                searchBlogList(edit)
+                presenter.taskSearch(edit)
             }
         }
-    }
-
-    private fun searchBlogList(keyWord: String) {
-        presenter.taskSearch(keyWord)
     }
 
     override fun showErrorMessage(message: String) {

@@ -42,13 +42,9 @@ class KinFragment : Fragment(), KinContract.View {
         btn_search.setOnClickListener {
             if(input_text != null) {
                 val edit = edit_text.text.toString()
-                searchKinList(edit)
+                presenter.taskSearch(edit)
             }
         }
-    }
-
-    private fun searchKinList(keyword : String) {
-        presenter.taskSearch(keyword)
     }
 
     override fun showResult(item: List<KinItem>) {
