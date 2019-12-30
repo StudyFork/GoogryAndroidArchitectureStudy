@@ -7,6 +7,9 @@ interface BaseContract {
     }
 
     interface Presenter {
+        fun subscribe()
+        fun unsubscribe()
+
         fun handleError(e: Throwable)
     }
 
