@@ -35,6 +35,10 @@ open class BaseFragment(var layoutId: Int) : Fragment(), BaseContract.View {
         (resultRecyclerView?.adapter as AdapterSearch).setItemList(result)
     }
 
+    override fun onDataLoadLocal(query: String, result: ArrayList<Item>) {
+        (resultRecyclerView?.adapter as AdapterSearch).setItemList(result)
+    }
+
     override fun showErrorMessage(msg: String?) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT)
             .show()
