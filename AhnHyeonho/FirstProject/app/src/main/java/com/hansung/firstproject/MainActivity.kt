@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hansung.firstproject.adapter.RecyclerViewAdapter
+import com.hansung.firstproject.data.MovieModel
 import com.hansung.firstproject.data.MovieResponseModel
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
@@ -22,12 +23,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var clientId: String // naver 검색API 사용을 위한 Client ID
     private lateinit var clientSecret: String //naver 검색API 사용을 위한 Client Secret
     private val searchResult: SearchResult = SearchResult()
+    private val adapter:RecyclerViewAdapter<MovieModel> = RecyclerViewAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("ahn", "MainActivity onCreate...")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        recycler_view_movies.adapter = adapter
 
         clientId = getString(R.string.client_id)
         clientSecret = getString(R.string.client_secret)
@@ -81,7 +83,10 @@ class MainActivity : AppCompatActivity() {
                     //To change body of created functions use File | Settings | File Templates.
                     if (response.isSuccessful) {
                         //올바르게 통신이 왔으면
-                        recycler_view_movies.adapter = RecyclerViewAdapter(response.body()!!.items)
+                        //recycler_view_movies.adapter = RecyclerViewAdapter(response.body()!!.items)
+                        response.body()?.items?.run {
+                            adapter.addItems(this)
+                        }
                     } else {
                         Toast.makeText(applicationContext, "인터넷 연결을 확인하세요", Toast.LENGTH_SHORT)
                             .show()
