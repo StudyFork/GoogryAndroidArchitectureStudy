@@ -27,6 +27,9 @@ abstract class SearchResultDatabase : RoomDatabase() {
             }
             return INSTANCE
         }
-    }
 
+        fun destroyInstance() {
+            INSTANCE = null
+        }
+    }
 }

@@ -7,6 +7,7 @@ import androidx.navigation.ui.AppBarConfiguration.Builder
 import androidx.navigation.ui.NavigationUI
 import com.example.androidstudy.R.id
 import com.example.androidstudy.R.layout
+import com.example.androidstudy.database.SearchResultDatabase
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainTabActivity : AppCompatActivity() {
@@ -15,6 +16,8 @@ class MainTabActivity : AppCompatActivity() {
         setContentView(layout.activity_main_tab)
         val navView: BottomNavigationView =
             findViewById(id.nav_view)
+
+        SearchResultDatabase.getInstance(applicationContext)
 
         val appBarConfiguration =
             Builder(
@@ -35,5 +38,10 @@ class MainTabActivity : AppCompatActivity() {
             appBarConfiguration
         )
         NavigationUI.setupWithNavController(navView, navController)
+    }
+
+    override fun onDestroy() {
+        SearchResultDatabase.destroyInstance()
+        super.onDestroy()
     }
 }
