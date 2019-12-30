@@ -42,10 +42,6 @@ class MovieRecyclerAdapter :
         holder.tv_actors?.text = getHtlmText(item.actor)
 
         holder.rb_userRating?.rating = item.userRating.toFloat()
-
-        holder.itemView.setOnClickListener {
-            itemClickListner.onClick(it, position)
-        }
     }
 
     private fun getHtlmText(inputText: String): String {
@@ -80,5 +76,10 @@ class MovieRecyclerAdapter :
         val tv_actors = itemView?.findViewById<TextView>(R.id.tv_movieActors)
         val rb_userRating = itemView?.findViewById<RatingBar>(R.id.rb_userRating)
 
+        init {
+            itemView?.setOnClickListener {
+                itemClickListner.onClick(it, adapterPosition)
+            }
+        }
     }
 }
