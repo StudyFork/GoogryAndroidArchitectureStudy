@@ -5,19 +5,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.example.handnew04.data.remote.MovieAppInterceptor
-import com.example.handnew04.data.remote.RetrofitService
+import com.example.handnew04.data.MovieRepository
+import com.example.handnew04.data.items
 import kotlinx.android.synthetic.main.activity_main.*
-import okhttp3.OkHttpClient
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 
 class MainActivity : AppCompatActivity() {
     lateinit var recyclerAdapter: MovieRecyclerAdapter
+    lateinit var movieRepository: MovieRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +24,8 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun initailize() {
+        movieRepository = MovieRepository()
+
         recyclerAdapter = MovieRecyclerAdapter()
         recyclerAdapter.setItemClickListener(object : MovieRecyclerAdapter.ItemClickListener {
             override fun onClick(view: View, position: Int) {
@@ -41,7 +38,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-
         rcv_movies.adapter = recyclerAdapter
     }
 
@@ -52,20 +48,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    object okHttpClient {
-        val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(MovieAppInterceptor())
-            .build()
-    }
-
-    object buildRetrofitToNaver {
-        private val URL = "https://openapi.naver.com"
-        val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl(URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient.okHttpClient)
-            .build()
-    }
 
     private fun searchMovie(inputText: String) {
         val searchLimit = 100

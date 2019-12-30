@@ -2,6 +2,7 @@ package com.example.handnew04.data.remote
 
 import okhttp3.Interceptor
 import okhttp3.Response
+import okhttp3.logging.HttpLoggingInterceptor
 import java.io.IOException
 
 class MovieAppInterceptor : Interceptor {
@@ -15,3 +16,9 @@ class MovieAppInterceptor : Interceptor {
         return chain.proceed(newRequest)
     }
 }
+
+fun initLogInterceptor(): HttpLoggingInterceptor {
+    val interceptor = HttpLoggingInterceptor()
+    return interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+}
+
