@@ -6,7 +6,7 @@ import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Movie
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseFragment
-import kotlinx.android.synthetic.main.fragemnt_movie.*
+import kotlinx.android.synthetic.main.fragment_movie.*
 
 
 class MovieFragment : BaseFragment(R.layout.fragment_movie), MovieContract.View {

@@ -7,7 +7,7 @@ import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseFragment
 import com.jay.architecturestudy.util.toPx
 import com.jay.architecturestudy.widget.SpacesItemDecoration
-import kotlinx.android.synthetic.main.fragemnt_movie.*
+import kotlinx.android.synthetic.main.fragment_image.*
 
 class ImageFragment : BaseFragment(R.layout.fragment_image), ImageContract.View {
     override val presenter: ImageContract.Presenter by lazy {
