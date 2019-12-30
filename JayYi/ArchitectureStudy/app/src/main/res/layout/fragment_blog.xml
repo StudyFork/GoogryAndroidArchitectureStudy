@@ -23,7 +23,7 @@
         app:layout_constraintTop_toBottomOf="@+id/search_bar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/fragemnt_blog"
+        tools:listitem="@layout/list_item_blog"
         tools:visibility="gone"
         />
 
