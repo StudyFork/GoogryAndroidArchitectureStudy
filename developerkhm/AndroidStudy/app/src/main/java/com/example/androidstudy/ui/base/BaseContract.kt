@@ -1,6 +1,6 @@
 package com.example.androidstudy.ui.base
 
-import com.example.androidstudy.api.data.Item
+import com.example.androidstudy.model.data.Item
 
 interface BaseContract {
 

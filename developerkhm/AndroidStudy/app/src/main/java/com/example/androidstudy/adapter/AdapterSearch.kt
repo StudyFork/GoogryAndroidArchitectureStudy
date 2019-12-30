@@ -9,7 +9,7 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidstudy.R
-import com.example.androidstudy.api.data.Item
+import com.example.androidstudy.model.data.Item
 import kotlinx.android.synthetic.main.item_blog_view.view.*
 
 

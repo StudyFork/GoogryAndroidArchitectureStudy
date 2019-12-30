@@ -1,6 +1,6 @@
 package com.example.androidstudy.model.repository
 
-import com.example.androidstudy.api.data.TotalModel
+import com.example.androidstudy.model.data.TotalModel
 import com.example.androidstudy.model.source.NaverRemoteDataSourceImpl
 import io.reactivex.Single
 

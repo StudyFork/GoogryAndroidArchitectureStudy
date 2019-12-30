@@ -1,6 +1,6 @@
 package com.example.androidstudy.api.service
 
-import com.example.androidstudy.api.data.TotalModel
+import com.example.androidstudy.model.data.TotalModel
 import com.example.androidstudy.common.CLIENT_ID
 import com.example.androidstudy.common.CLIENT_KEY
 import io.reactivex.Single

@@ -1,6 +1,6 @@
 package com.example.androidstudy.ui.base
 
-import com.example.androidstudy.api.data.TotalModel
+import com.example.androidstudy.model.data.TotalModel
 import com.example.androidstudy.model.repository.NaverDataRepositoryImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

@@ -1,4 +1,4 @@
-package com.example.androidstudy.api.data
+package com.example.androidstudy.model.data
 
 
 data class TotalModel(
