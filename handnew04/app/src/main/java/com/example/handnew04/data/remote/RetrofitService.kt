@@ -1,6 +1,6 @@
 package com.example.handnew04.data.remote
 
-import com.example.handnew04.NaverMovieResponse
+import com.example.handnew04.data.NaverMovieResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
