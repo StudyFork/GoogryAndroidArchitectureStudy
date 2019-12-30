@@ -36,12 +36,12 @@ class NaverApiRepositoryImpl(
         naverLocalDataSource.getBlogList()
     } else {
         lastBlogTitle = title
+        val blogList = naverRemoteDataSource.getBlogList(lastBlogTitle, startIndex)
         startIndex?.let {
             if (it <= 1) {
                 naverLocalDataSource.clearBlogList()
             }
         }
-        val blogList = naverRemoteDataSource.getBlogList(lastBlogTitle, startIndex)
         naverLocalDataSource.saveBlogList(blogList)
         blogList
     }
@@ -50,12 +50,12 @@ class NaverApiRepositoryImpl(
         naverLocalDataSource.getImageList()
     } else {
         lastImageTitle = title
+        val imageList = naverRemoteDataSource.getImageList(lastImageTitle, startIndex)
         startIndex?.let {
             if (it <= 1) {
                 naverLocalDataSource.clearImageList()
             }
         }
-        val imageList = naverRemoteDataSource.getImageList(lastImageTitle, startIndex)
         naverLocalDataSource.saveImageList(imageList)
         imageList
     }
@@ -64,12 +64,12 @@ class NaverApiRepositoryImpl(
         naverLocalDataSource.getMovieList()
     } else {
         lastMovieTitle = title
+        val movieList = naverRemoteDataSource.getMovieList(lastMovieTitle, startIndex)
         startIndex?.let {
             if (it <= 1) {
                 naverLocalDataSource.clearMovieList()
             }
         }
-        val movieList = naverRemoteDataSource.getMovieList(lastMovieTitle, startIndex)
         naverLocalDataSource.saveMovieList(movieList)
         movieList
 
@@ -79,12 +79,12 @@ class NaverApiRepositoryImpl(
         naverLocalDataSource.getKinList()
     } else {
         lastKinTitle = title
+        val kinList = naverRemoteDataSource.getKinList(lastKinTitle, startIndex)
         startIndex?.let {
             if (it <= 1) {
                 naverLocalDataSource.clearKinList()
             }
         }
-        val kinList = naverRemoteDataSource.getKinList(lastKinTitle, startIndex)
         naverLocalDataSource.saveKinList(kinList)
         kinList
     }
