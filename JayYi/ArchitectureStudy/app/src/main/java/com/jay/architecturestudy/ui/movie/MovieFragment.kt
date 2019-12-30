@@ -9,7 +9,7 @@ import com.jay.architecturestudy.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragemnt_movie.*
 
 
-class MovieFragment : BaseFragment(R.layout.fragemnt_movie), MovieContract.View {
+class MovieFragment : BaseFragment(R.layout.fragment_movie), MovieContract.View {
     override val presenter: MovieContract.Presenter by lazy {
         MoviePresenter(this, naverSearchRepository)
     }

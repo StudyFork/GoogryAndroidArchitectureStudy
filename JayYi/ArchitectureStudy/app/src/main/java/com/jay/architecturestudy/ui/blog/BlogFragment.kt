@@ -8,7 +8,7 @@ import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragemnt_movie.*
 
-class BlogFragment : BaseFragment(R.layout.fragemnt_blog), BlogContract.View {
+class BlogFragment : BaseFragment(R.layout.fragment_blog), BlogContract.View {
     override val presenter: BlogContract.Presenter by lazy {
         BlogPresenter(this, naverSearchRepository)
     }

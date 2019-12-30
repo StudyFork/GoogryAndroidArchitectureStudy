@@ -8,7 +8,7 @@ import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragemnt_movie.*
 
-class KinFragment : BaseFragment(R.layout.fragemnt_kin), KinContract.View {
+class KinFragment : BaseFragment(R.layout.fragment_kin), KinContract.View {
     override val presenter: KinContract.Presenter by lazy {
         KinPresenter(this, naverSearchRepository)
     }
