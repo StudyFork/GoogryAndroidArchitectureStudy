@@ -10,13 +10,12 @@ class BlogPresenter(
 
     override fun search(keyword: String) {
         repository.getBlog(
-            keyword = keyword,
-            success = { responseBlog ->
-                view.updateResult(responseBlog.blogs)
-            },
-            fail = { e ->
-                handleError(e)
-            }
+            keyword = keyword
         )
+            .subscribe({ responseBlog ->
+                view.updateResult(responseBlog.blogs)
+            }, { e ->
+                handleError(e)
+            })
     }
 }

@@ -10,13 +10,12 @@ class KinPresenter(
 
     override fun search(keyword: String) {
         repository.getKin(
-            keyword = keyword,
-            success = { responseKin ->
-                view.updateResult(responseKin.kins)
-            },
-            fail = { e ->
-                handleError(e)
-            }
+            keyword = keyword
         )
+            .subscribe({ responseKin ->
+                view.updateResult(responseKin.kins)
+            }, { e ->
+                handleError(e)
+            })
     }
 }

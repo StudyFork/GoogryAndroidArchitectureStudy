@@ -10,13 +10,12 @@ class MoviePresenter(
 
     override fun search(keyword: String) {
         repository.getMovie(
-            keyword = keyword,
-            success = { responseMovie ->
-                view.updateResult(responseMovie.movies)
-            },
-            fail = { e ->
-                handleError(e)
-            }
+            keyword = keyword
         )
+            .subscribe({ responseMovie ->
+                view.updateResult(responseMovie.movies)
+            }, { e ->
+                handleError(e)
+            })
     }
 }

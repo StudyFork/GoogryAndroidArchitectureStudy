@@ -1,11 +1,9 @@
 package com.jay.architecturestudy.data.repository
 
-import com.jay.architecturestudy.data.model.ResponseBlog
-import com.jay.architecturestudy.data.model.ResponseImage
-import com.jay.architecturestudy.data.model.ResponseKin
-import com.jay.architecturestudy.data.model.ResponseMovie
+import com.jay.architecturestudy.data.model.*
 import com.jay.architecturestudy.data.source.remote.NaverSearchRemoteDataSource
 import com.jay.architecturestudy.data.source.remote.NaverSearchRemoteDataSourceImpl
+import io.reactivex.Single
 
 class NaverSearchRepositoryImpl : NaverSearchRepository {
     override val naverSearchRemoteDataSource: NaverSearchRemoteDataSource by lazy {
@@ -13,51 +11,32 @@ class NaverSearchRepositoryImpl : NaverSearchRepository {
     }
 
     override fun getMovie(
-        keyword: String,
-        success: (ResponseMovie) -> Unit,
-        fail: (Throwable) -> Unit
-    ) {
+        keyword: String
+    ) : Single<ResponseMovie> =
         naverSearchRemoteDataSource.getMovie(
-            keyword = keyword,
-            success = success,
-            fail = fail
+            keyword = keyword
         )
-    }
+
 
     override fun getImage(
-        keyword: String,
-        success: (ResponseImage) -> Unit,
-        fail: (Throwable) -> Unit
-    ) {
+        keyword: String
+    ) : Single<ResponseImage> =
         naverSearchRemoteDataSource.getImage(
-            keyword = keyword,
-            success = success,
-            fail = fail
+            keyword = keyword
         )
-    }
 
     override fun getBlog(
-        keyword: String,
-        success: (ResponseBlog) -> Unit,
-        fail: (Throwable) -> Unit
-    ) {
+        keyword: String
+    ) : Single<ResponseBlog> =
         naverSearchRemoteDataSource.getBlog(
-            keyword = keyword,
-            success = success,
-            fail = fail
+            keyword = keyword
         )
-    }
 
     override fun getKin(
-        keyword: String,
-        success: (ResponseKin) -> Unit,
-        fail: (Throwable) -> Unit
-    ) {
+        keyword: String
+    ) : Single<ResponseKin> =
         naverSearchRemoteDataSource.getKin(
-            keyword = keyword,
-            success = success,
-            fail = fail
+            keyword = keyword
         )
-    }
 
 }

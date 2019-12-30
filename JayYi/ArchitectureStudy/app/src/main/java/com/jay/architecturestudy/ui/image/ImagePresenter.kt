@@ -10,13 +10,12 @@ class ImagePresenter(
 
     override fun search(keyword: String) {
         repository.getImage(
-            keyword = keyword,
-            success = { responseImage ->
-                view.updateResult(responseImage.images)
-            },
-            fail = { e ->
-                handleError(e)
-            }
+            keyword = keyword
         )
+            .subscribe({ responseImage ->
+                view.updateResult(responseImage.images)
+            }, { e ->
+                handleError(e)
+            })
     }
 }
