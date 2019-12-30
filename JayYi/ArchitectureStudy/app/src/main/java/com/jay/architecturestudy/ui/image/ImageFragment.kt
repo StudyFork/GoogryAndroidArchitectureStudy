@@ -35,6 +35,11 @@ class ImageFragment : BaseFragment(R.layout.fragemnt_image), ImageContract.View 
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        presenter.unsubscribe()
+    }
+
     override fun search(keyword: String) {
         presenter.search(keyword)
     }

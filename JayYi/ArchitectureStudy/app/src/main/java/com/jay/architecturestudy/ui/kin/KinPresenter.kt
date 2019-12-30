@@ -2,6 +2,7 @@ package com.jay.architecturestudy.ui.kin
 
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseSearchPresenter
+import com.jay.architecturestudy.util.addTo
 
 class KinPresenter(
     override val view: KinContract.View,
@@ -17,5 +18,6 @@ class KinPresenter(
             }, { e ->
                 handleError(e)
             })
+            .addTo(disposables)
     }
 }

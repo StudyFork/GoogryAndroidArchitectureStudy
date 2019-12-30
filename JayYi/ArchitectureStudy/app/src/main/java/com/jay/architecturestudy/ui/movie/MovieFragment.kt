@@ -40,6 +40,11 @@ class MovieFragment : BaseFragment(R.layout.fragemnt_movie), MovieContract.View 
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        presenter.unsubscribe()
+    }
+
     override fun search(keyword: String) {
         presenter.search(keyword)
     }

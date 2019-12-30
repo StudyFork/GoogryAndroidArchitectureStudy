@@ -2,6 +2,7 @@ package com.jay.architecturestudy.ui.movie
 
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseSearchPresenter
+import com.jay.architecturestudy.util.addTo
 
 class MoviePresenter(
     override val view: MovieContract.View,
@@ -17,5 +18,6 @@ class MoviePresenter(
             }, { e ->
                 handleError(e)
             })
+            .addTo(disposables)
     }
 }

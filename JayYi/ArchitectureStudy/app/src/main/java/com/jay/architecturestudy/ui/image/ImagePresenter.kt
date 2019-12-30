@@ -2,6 +2,7 @@ package com.jay.architecturestudy.ui.image
 
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseSearchPresenter
+import com.jay.architecturestudy.util.addTo
 
 class ImagePresenter(
     override val view: ImageContract.View,
@@ -17,5 +18,6 @@ class ImagePresenter(
             }, { e ->
                 handleError(e)
             })
+            .addTo(disposables)
     }
 }

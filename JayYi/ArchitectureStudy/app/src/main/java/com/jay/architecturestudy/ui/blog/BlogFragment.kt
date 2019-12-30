@@ -39,6 +39,11 @@ class BlogFragment : BaseFragment(R.layout.fragemnt_blog), BlogContract.View {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        presenter.unsubscribe()
+    }
+
     override fun search(keyword: String) {
         presenter.search(keyword)
     }

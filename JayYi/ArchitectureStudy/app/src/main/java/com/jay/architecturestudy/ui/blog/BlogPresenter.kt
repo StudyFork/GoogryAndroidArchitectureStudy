@@ -2,6 +2,7 @@ package com.jay.architecturestudy.ui.blog
 
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseSearchPresenter
+import com.jay.architecturestudy.util.addTo
 
 class BlogPresenter(
     override val view: BlogContract.View,
@@ -17,5 +18,6 @@ class BlogPresenter(
             }, { e ->
                 handleError(e)
             })
+            .addTo(disposables)
     }
 }
