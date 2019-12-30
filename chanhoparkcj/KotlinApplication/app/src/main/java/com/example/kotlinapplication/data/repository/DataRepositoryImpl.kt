@@ -1,7 +1,10 @@
 package com.example.kotlinapplication.data.repository
 
+import com.example.kotlinapplication.data.source.remote.RemoteDataSourceImpl
+
 class DataRepositoryImpl : DataRepository {
-    private val remote: RemoteDataSource = RemoteDataSource()
+    private val remote: RemoteDataSourceImpl =
+        RemoteDataSourceImpl()
 
     override fun callImageResources(query: String) = remote.getImageCall(query)
 
