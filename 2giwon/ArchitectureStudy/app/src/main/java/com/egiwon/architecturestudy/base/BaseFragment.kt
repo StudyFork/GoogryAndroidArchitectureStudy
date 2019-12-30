@@ -10,11 +10,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
-abstract class BaseFragment<B : ViewDataBinding, P : BaseContract.Presenter>(
+abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes private val layoutResId: Int
-) : Fragment(), BaseContract.View {
+) : Fragment() {
 
-    abstract val presenter: P
+//    abstract val presenter: P
+
+    protected abstract val viewModel: VM
 
     protected lateinit var binding: B
         private set
@@ -25,19 +27,16 @@ abstract class BaseFragment<B : ViewDataBinding, P : BaseContract.Presenter>(
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, layoutResId, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
-    override fun onDestroyView() {
-        presenter.clearDisposable()
-        super.onDestroyView()
-    }
 
-    override fun showToast(text: String) {
+    fun showToast(text: String) {
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
     }
 
-    override fun showToast(textResId: Int) {
+    fun showToast(textResId: Int) {
         showToast(getString(textResId))
     }
 }
