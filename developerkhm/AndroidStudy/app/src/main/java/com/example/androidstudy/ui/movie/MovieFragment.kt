@@ -29,8 +29,7 @@ class MovieFragment : BaseFragment(R.layout.fragment_movie) {
         searchEditText.setOnEditorActionListener { searchEditText, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_SEARCH -> {
-                    hideKeybaord(searchEditText)
-                    search(searchEditText.text.toString(), typeArray[2])
+                    basePresenter.search(searchEditText.text.toString(), typeArray[2])
                 }
                 else -> false
             }

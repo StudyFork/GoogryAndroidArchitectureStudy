@@ -28,8 +28,7 @@ class BlogFragment : BaseFragment(R.layout.fragment_blog) {
         searchEditText.setOnEditorActionListener { searchEditText, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_SEARCH -> {
-                    hideKeybaord(searchEditText)
-                    search(searchEditText.text.toString(), typeArray[0])
+                    basePresenter.search(searchEditText.text.toString(), typeArray[0])
                 }
                 else -> false
             }

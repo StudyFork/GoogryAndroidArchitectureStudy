@@ -29,8 +29,7 @@ class NewsFragment : BaseFragment(R.layout.fragment_news) {
         searchEditText.setOnEditorActionListener { searchEditText, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_SEARCH -> {
-                    hideKeybaord(searchEditText)
-                    search(searchEditText.text.toString(), typeArray[1])
+                    basePresenter.search(searchEditText.text.toString(), typeArray[1])
                 }
                 else -> false
             }

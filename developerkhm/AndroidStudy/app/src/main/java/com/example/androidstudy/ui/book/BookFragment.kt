@@ -29,8 +29,7 @@ class BookFragment : BaseFragment(R.layout.fragment_book) {
         searchEditText.setOnEditorActionListener { searchEditText, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_SEARCH -> {
-                    hideKeybaord(searchEditText)
-                    search(searchEditText.text.toString(), typeArray[3])
+                    basePresenter.search(searchEditText.text.toString(), typeArray[3])
                 }
                 else -> false
             }
