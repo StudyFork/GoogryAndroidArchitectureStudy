@@ -14,7 +14,15 @@ class ImagePresenter(
             keyword = keyword
         )
             .subscribe({ responseImage ->
-                view.updateResult(responseImage.images)
+                val images = responseImage.images
+                if (images.isEmpty()) {
+                    view.hideResultListView()
+                    view.showEmptyResultView()
+                } else {
+                    view.hideEmptyResultView()
+                    view.showResultListView()
+                }
+                view.updateResult(images)
             }, { e ->
                 handleError(e)
             })

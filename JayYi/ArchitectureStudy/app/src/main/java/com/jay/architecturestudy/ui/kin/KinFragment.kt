@@ -1,6 +1,7 @@
 package com.jay.architecturestudy.ui.kin
 
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Kin
@@ -44,11 +45,31 @@ class KinFragment : BaseFragment(R.layout.fragment_kin), KinContract.View {
         presenter.unsubscribe()
     }
 
+    override fun showEmptyResultView() {
+        empty_result_view.visibility = View.VISIBLE
+    }
+
+    override fun showResultListView() {
+        recycler_view.visibility = View.VISIBLE
+    }
+
+    override fun hideEmptyResultView() {
+        empty_result_view.visibility = View.GONE
+    }
+
+    override fun hideResultListView() {
+        recycler_view.visibility = View.GONE
+    }
+
     override fun search(keyword: String) {
         presenter.search(keyword)
     }
 
     override fun updateResult(result: List<Kin>) {
-        kinAdapter.setData(result)
+        if (result.isEmpty()) {
+            kinAdapter.clear()
+        } else {
+            kinAdapter.setData(result)
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.jay.architecturestudy.ui.blog
 
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Blog
@@ -42,6 +43,22 @@ class BlogFragment : BaseFragment(R.layout.fragment_blog), BlogContract.View {
     override fun onDestroyView() {
         super.onDestroyView()
         presenter.unsubscribe()
+    }
+
+    override fun showEmptyResultView() {
+        empty_result_view.visibility = View.VISIBLE
+    }
+
+    override fun showResultListView() {
+        recycler_view.visibility = View.VISIBLE
+    }
+
+    override fun hideEmptyResultView() {
+        empty_result_view.visibility = View.GONE
+    }
+
+    override fun hideResultListView() {
+        recycler_view.visibility = View.GONE
     }
 
     override fun search(keyword: String) {

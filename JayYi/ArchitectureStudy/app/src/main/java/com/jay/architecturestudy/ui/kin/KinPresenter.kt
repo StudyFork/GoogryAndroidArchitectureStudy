@@ -14,7 +14,15 @@ class KinPresenter(
             keyword = keyword
         )
             .subscribe({ responseKin ->
-                view.updateResult(responseKin.kins)
+                val kins = responseKin.kins
+                if (kins.isEmpty()) {
+                    view.hideResultListView()
+                    view.showEmptyResultView()
+                } else {
+                    view.hideEmptyResultView()
+                    view.showResultListView()
+                }
+                view.updateResult(kins)
             }, { e ->
                 handleError(e)
             })
