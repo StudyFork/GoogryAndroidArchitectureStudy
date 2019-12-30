@@ -15,4 +15,8 @@ interface NaverDataRepository {
         type: String,
         database: SearchResultDatabase?
     ): Single<SearchResultEntity>?
+
+    fun setLocalSearchData(
+
+    )
 }

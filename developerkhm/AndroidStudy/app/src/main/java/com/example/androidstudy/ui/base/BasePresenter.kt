@@ -3,6 +3,7 @@ package com.example.androidstudy.ui.base
 import android.util.Log
 import com.example.androidstudy.database.SearchResultDatabase
 import com.example.androidstudy.model.data.Item
+import com.example.androidstudy.model.data.SearchResultEntity
 import com.example.androidstudy.model.data.TotalModel
 import com.example.androidstudy.model.repository.NaverDataRepositoryImpl
 import com.google.gson.Gson
@@ -27,9 +28,16 @@ class BasePresenter(val view : BaseContract.View) : BaseContract.Presenter {
                 .doAfterTerminate {
                     view.hideLoading()
                 }
+                .doAfterSuccess{
+
+                }
                 .subscribe(::onSuccess, ::onError)
                 .addDisposable()
         }
+
+    override fun insertSeachResult(vararg searchResult: SearchResultEntity){
+
+    }
 
     override fun searchLocal(type: String, searchResultDatabase: SearchResultDatabase?) {
         NaverDataRepositoryImpl.getLocalSearchData(type, searchResultDatabase)

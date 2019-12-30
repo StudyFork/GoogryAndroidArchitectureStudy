@@ -2,6 +2,7 @@ package com.example.androidstudy.ui.base
 
 import com.example.androidstudy.database.SearchResultDatabase
 import com.example.androidstudy.model.data.Item
+import com.example.androidstudy.model.data.SearchResultEntity
 
 interface BaseContract {
 
@@ -24,6 +25,8 @@ interface BaseContract {
             type: String,
             searchResultDatabase: SearchResultDatabase?
         )
+
+        fun insertSeachResult(vararg searchResult: SearchResultEntity)
 
         fun clearDisposable()
     }

@@ -20,4 +20,8 @@ object NaverDataRepositoryImpl : NaverDataRepository {
     ): Single<SearchResultEntity>? {
         return database?.SearchResultDao()?.getLastSearchResult(type)
     }
+
+    override fun setLocalSearchData() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
