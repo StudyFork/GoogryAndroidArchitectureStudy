@@ -28,17 +28,21 @@ abstract class AppDataBase : RoomDatabase() {
 
     companion object {
         @Volatile
-        private var instance: AppDataBase? = null
+        private var INSTANCE: AppDataBase? = null
 
-        private val lock = Any()
-
-        operator fun invoke(context: Context) = instance ?: synchronized(lock) {
-            instance ?: buildDatabase(context).also { instance = it }
+        fun getDatabase(context: Context): AppDataBase {
+            return INSTANCE ?: kotlin.run {
+                synchronized(this) {
+                    val instance = Room.databaseBuilder(
+                        context.applicationContext,
+                        AppDataBase::class.java,
+                        "word_database"
+                    ).build()
+                    INSTANCE = instance
+                    instance
+                }
+            }
         }
 
-        private fun buildDatabase(context: Context) = Room.databaseBuilder(
-            context,
-            AppDataBase::class.java, "study_app.db"
-        ).build()
     }
 }

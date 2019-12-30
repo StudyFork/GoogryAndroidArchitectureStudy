@@ -29,7 +29,10 @@ class ImageFragment : ItemSearchFragment<Image>(R.layout.fragment_image) {
     private val presenter by lazy {
         ImagePresenter(
             this, NaverApiRepositoryImpl(
-                NaverLocalDataSourceImpl(SharedPreferenceManager(requireContext()), AppDataBase(requireContext()))
+                NaverLocalDataSourceImpl(
+                    SharedPreferenceManager(requireContext()),
+                    AppDataBase.getDatabase(requireContext())
+                )
             )
         )
     }

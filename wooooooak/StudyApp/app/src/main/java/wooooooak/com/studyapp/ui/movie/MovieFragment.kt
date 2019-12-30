@@ -29,7 +29,10 @@ class MovieFragment : ItemSearchFragment<Movie>(R.layout.fragment_movie) {
     private val presenter by lazy {
         MoviePresenter(
             this, NaverApiRepositoryImpl(
-                NaverLocalDataSourceImpl(SharedPreferenceManager(requireContext()), AppDataBase(requireContext()))
+                NaverLocalDataSourceImpl(
+                    SharedPreferenceManager(requireContext()),
+                    AppDataBase.getDatabase(requireContext())
+                )
             )
         )
     }

@@ -30,7 +30,10 @@ class KinFragment : ItemSearchFragment<Kin>(R.layout.fragment_kin) {
     private val presenter by lazy {
         KinPresenter(
             this, NaverApiRepositoryImpl(
-                NaverLocalDataSourceImpl(SharedPreferenceManager(requireContext()), AppDataBase(requireContext()))
+                NaverLocalDataSourceImpl(
+                    SharedPreferenceManager(requireContext()),
+                    AppDataBase.getDatabase(requireContext())
+                )
             )
         )
     }

@@ -29,7 +29,10 @@ class BlogFragment : ItemSearchFragment<Blog>(R.layout.fragment_blog) {
     private val presenter by lazy {
         BlogPresenter(
             this, NaverApiRepositoryImpl(
-                NaverLocalDataSourceImpl(SharedPreferenceManager(requireContext()), AppDataBase(requireContext()))
+                NaverLocalDataSourceImpl(
+                    SharedPreferenceManager(requireContext()),
+                    AppDataBase.getDatabase(requireContext())
+                )
             )
         )
     }
