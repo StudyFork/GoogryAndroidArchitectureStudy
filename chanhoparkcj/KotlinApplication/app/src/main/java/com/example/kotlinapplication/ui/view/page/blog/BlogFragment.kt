@@ -35,7 +35,12 @@ class BlogFragment : BaseFragment(R.layout.fragment_page), PageContract.View<Blo
 
     private fun setUpBuuttonClickListener() {
         home_search_btn.setOnClickListener {
-
+            if (home_search_edit.text.isBlank()) {
+                toast("검색어를 입력하세요")
+            } else {
+                toast("검색어 :${home_search_edit.text}")
+                presenter.loadData(home_search_edit.text.toString())
+            }
         }
     }
 
