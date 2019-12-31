@@ -1,16 +1,15 @@
 package com.example.kotlinapplication.data.source.remote
 
 import com.example.kotlinapplication.data.model.*
-import com.example.kotlinapplication.data.source.remote.RemoteDataSource
 import com.example.kotlinapplication.network.RetrofitClient
-import com.example.kotlinapplication.network.RetrofitService
+import com.example.kotlinapplication.network.NaverApi
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.schedulers.Schedulers
 
 class RemoteDataSourceImpl :
     RemoteDataSource {
-    private val service: RetrofitService = RetrofitClient.client
+    private val service: NaverApi = RetrofitClient.client
 
     override fun getMovieCall(query: String): Single<ResponseItems<MovieItem>> {
         return service.getMovieCall(query)

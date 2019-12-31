@@ -25,7 +25,7 @@ class ImageViewHolder(parent: ViewGroup, private val listener: (ImageItem) -> Un
     }
 
     fun bind(item: ImageItem) {
-        this.item=item
+        this.item = item
         with(itemView) {
             if (item.thumbnail.isNotBlank()) {
                 Picasso.get()

@@ -20,16 +20,15 @@ class MovieFragment : BaseFragment(R.layout.fragment_page), PageContract.View<Mo
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Hawk.init(context).build()
         start()
         setUpBuuttonClickListener()
     }
 
     private fun start() {
         presenter = MoviePresenter(this)
-        home_search_btn.text = "블로그 검색"
+        button_home_search.text = "블로그 검색"
         movieAdapter = MovieAdapter(this::onMovieItemClick)
-        with(home_recyclerview) {
+        with(recyclerview_home) {
             layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
             adapter = movieAdapter
             checkHistoryItems()
@@ -40,30 +39,34 @@ class MovieFragment : BaseFragment(R.layout.fragment_page), PageContract.View<Mo
         if (Hawk.get("movieList", null) != null) {
             movieList = Hawk.get("movieList")
             movieAdapter.resetItems(movieList)
+            setEmptyView(false)
+        } else {
+            setEmptyView(true)
         }
     }
 
     private fun setUpBuuttonClickListener() {
-        home_search_btn.setOnClickListener {
-            if (home_search_edit.text.isBlank()) {
+        button_home_search.setOnClickListener {
+            if (edittext_home_searchedit.text.isBlank()) {
                 toast("검색어를 입력하세요")
             } else {
-                toast("검색어 :${home_search_edit.text}")
-                presenter.loadData(home_search_edit.text.toString())
+                toast("검색어 :${edittext_home_searchedit.text}")
+                presenter.loadData(edittext_home_searchedit.text.toString())
             }
         }
     }
 
-
     override fun getItems(items: List<MovieItem>) {
-        movieList = items
-        Hawk.put("movieList",movieList)
-        movieAdapter.resetItems(items)
-    }
-
-    private fun onMovieItemClick(movieItems: MovieItem) {
-        toast(movieItems.link)
-        webLink(movieItems.link)
+        if (items.size == 0) {
+            setEmptyView(true)
+            Hawk.put("movieList", null)
+            movieAdapter.removeAll()
+        } else {
+            setEmptyView(false)
+            movieList = items
+            movieAdapter.resetItems(items)
+            Hawk.put("movieList", movieList)
+        }
     }
 
     override fun getError(message: String) = toast(message)

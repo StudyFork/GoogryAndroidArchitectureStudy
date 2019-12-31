@@ -1,23 +1,14 @@
 package com.example.kotlinapplication.ui.view.page.movie
 
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplication.data.model.MovieItem
+import com.example.kotlinapplication.ui.base.BaseAdapter
 
-class MovieAdapter(private val listener: (MovieItem)->Unit) :
+class MovieAdapter(private val listener: (MovieItem) -> Unit) :
+    BaseAdapter<MovieItem, MovieViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder =
+        MovieViewHolder(parent, listener)
 
-    RecyclerView.Adapter<MovieViewHolder>() {
-    private val items = mutableListOf<MovieItem>()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder =MovieViewHolder(parent,listener)
-
-    override fun getItemCount(): Int =items.size
-
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) = holder.bind(items[position])
-
-    fun resetItems(ListItems: List<MovieItem>) {
-        items.clear()
-        items.addAll(ListItems)
-        notifyDataSetChanged()
-    }
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) =
+        holder.bind(items[position])
 }

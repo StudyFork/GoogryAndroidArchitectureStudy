@@ -14,13 +14,13 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        home_tab.setupWithViewPager(home_viewpager)
-        home_viewpager.adapter = PagerAdapter(activity!!.supportFragmentManager)
+        tablayout_home.setupWithViewPager(viewpager_home)
+        viewpager_home.adapter = PagerAdapter(activity!!.supportFragmentManager)
             .apply {
-            addFragment(MovieFragment(), "영화")
-            addFragment(ImageFragment(), "이미지")
-            addFragment(BlogFragment(), "블로그")
-            addFragment(KinFragment(), "지식인")
-        }
+                addFragment(MovieFragment(), "영화")
+                addFragment(ImageFragment(), "이미지")
+                addFragment(BlogFragment(), "블로그")
+                addFragment(KinFragment(), "지식인")
+            }
     }
 }

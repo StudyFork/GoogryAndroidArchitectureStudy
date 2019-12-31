@@ -19,47 +19,53 @@ class ImageFragment : BaseFragment(R.layout.fragment_page), PageContract.View<Im
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Hawk.init(context).build()
         start()
         setUpBuuttonClickListener()
     }
 
     private fun start() {
         presenter = ImagePresenter(this)
-        home_search_btn.text = "블로그 검색"
+        button_home_search.text = "블로그 검색"
         ImageAdapter = ImageAdapter(this::onImageItemClick)
-        with(home_recyclerview) {
-            layoutManager = GridLayoutManager(activity,3)
+        with(recyclerview_home) {
+            layoutManager = GridLayoutManager(activity, 3)
             adapter = ImageAdapter
             checkHistoryItems()
         }
     }
-    private fun checkHistoryItems(){
-        if(Hawk.get("imageList",null)!=null){
+
+    private fun checkHistoryItems() {
+        if (Hawk.get("imageList", null) != null) {
             imageList = Hawk.get("imageList")
             ImageAdapter.resetItems(imageList)
+            setEmptyView(false)
+        } else {
+            setEmptyView(true)
         }
     }
 
-    private fun setUpBuuttonClickListener() = home_search_btn.setOnClickListener {
-        if (home_search_edit.text.isBlank()) {
+    private fun setUpBuuttonClickListener() = button_home_search.setOnClickListener {
+        if (edittext_home_searchedit.text.isBlank()) {
             toast("검색어를 입력하세요")
         } else {
-            toast("검색어 :${home_search_edit.text}")
-            presenter.loadData(home_search_edit.text.toString())
+            toast("검색어 :${edittext_home_searchedit.text}")
+            presenter.loadData(edittext_home_searchedit.text.toString())
         }
     }
 
     override fun getItems(items: List<ImageItem>) {
-        imageList = items
-        Hawk.put("imageList",imageList)
-        ImageAdapter.resetItems(items)
+        if (items.size == 0) {
+            setEmptyView(true)
+            Hawk.put("imageList", null)
+            ImageAdapter.removeAll()
+        } else {
+            setEmptyView(false)
+            imageList = items
+            ImageAdapter.resetItems(items)
+            Hawk.put("imageList", imageList)
+        }
     }
 
-    private fun onImageItemClick(imageItems: ImageItem) {
-        toast(imageItems.link)
-        webLink(imageItems.link)
-    }
 
     override fun getError(message: String) = toast(message)
 

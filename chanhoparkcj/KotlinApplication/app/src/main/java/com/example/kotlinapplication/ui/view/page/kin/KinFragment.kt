@@ -21,47 +21,53 @@ class KinFragment : BaseFragment(R.layout.fragment_page), PageContract.View<KinI
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Hawk.init(context).build()
         start()
         setUpBuuttonClickListener()
     }
 
     private fun start() {
         presenter = KinPresenter(this)
-        home_search_btn.text = "블로그 검색"
+        button_home_search.text = "블로그 검색"
         kinAdapter = KinAdapter(this::onKinItemClick)
-        with(home_recyclerview) {
+        with(recyclerview_home) {
             layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
             adapter = kinAdapter
             checkHistoryItems()
         }
     }
-    private fun checkHistoryItems(){
-        if(Hawk.get("kinList",null)!=null){
+
+    private fun checkHistoryItems() {
+        if (Hawk.get("kinList", null) != null) {
             kinList = Hawk.get("kinList")
             kinAdapter.resetItems(kinList)
+            setEmptyView(false)
+        } else {
+            setEmptyView(true)
         }
     }
-    private fun setUpBuuttonClickListener() = home_search_btn.setOnClickListener {
-        if (home_search_edit.text.isBlank()) {
+
+    private fun setUpBuuttonClickListener() = button_home_search.setOnClickListener {
+        if (edittext_home_searchedit.text.isBlank()) {
             toast("검색어를 입력하세요")
         } else {
-            toast("검색어 :${home_search_edit.text}")
-            presenter.loadData(home_search_edit.text.toString())
+            toast("검색어 :${edittext_home_searchedit.text}")
+            presenter.loadData(edittext_home_searchedit.text.toString())
         }
     }
 
     override fun getItems(items: List<KinItem>) {
-        kinList = items
-        Hawk.put("kinList",kinList)
-        kinAdapter.resetItems(items)
+        if (items.size == 0) {
+            setEmptyView(true)
+            Hawk.put("kinList", null)
+            kinAdapter.removeAll()
+        } else {
+            setEmptyView(false)
+            kinList = items
+            kinAdapter.resetItems(items)
+            Hawk.put("kinList", kinList)
+        }
     }
 
-    private fun onKinItemClick(kinItems: KinItem) {
-        toast(kinItems.link)
-        webLink(kinItems.link)
-    }
-
-    override fun getError(message: String) =  toast(message)
+    override fun getError(message: String) = toast(message)
 
 }

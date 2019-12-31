@@ -20,16 +20,15 @@ class BlogFragment : BaseFragment(R.layout.fragment_page), PageContract.View<Blo
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Hawk.init(context).build()
         start()
         setUpBuuttonClickListener()
     }
 
     private fun start() {
         presenter = BlogPresenter(this)
-        home_search_btn.text = "블로그 검색"
+        button_home_search.text = "블로그 검색"
         blogAdapter = BlogAdapter(this::onBlogItemClick)
-        with(home_recyclerview) {
+        with(recyclerview_home) {
             layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
             adapter = blogAdapter
             checkHistoryItems()
@@ -40,32 +39,35 @@ class BlogFragment : BaseFragment(R.layout.fragment_page), PageContract.View<Blo
         if (Hawk.get("blogList", null) != null) {
             blogList = Hawk.get("blogList")
             blogAdapter.resetItems(blogList)
+            setEmptyView(false)
+        } else {
+            setEmptyView(true)
         }
     }
 
     private fun setUpBuuttonClickListener() {
-        home_search_btn.setOnClickListener {
-            if (home_search_edit.text.isBlank()) {
+        button_home_search.setOnClickListener {
+            if (edittext_home_searchedit.text.isBlank()) {
                 toast("검색어를 입력하세요")
             } else {
-                toast("검색어 :${home_search_edit.text}")
-                presenter.loadData(home_search_edit.text.toString())
+                toast("검색어 :${edittext_home_searchedit.text}")
+                presenter.loadData(edittext_home_searchedit.text.toString())
             }
         }
     }
 
-    private fun onBlogItemClick(blogItems: BlogItem) {
-        toast(blogItems.link)
-        webLink(blogItems.link)
-    }
-
     override fun getItems(items: List<BlogItem>) {
-        blogList = items
-        Hawk.put("blogList", blogList)
-        blogAdapter.resetItems(items)
+        if (items.size == 0) {
+            setEmptyView(true)
+            Hawk.put("blogList", null)
+            blogAdapter.removeAll()
+        } else {
+            setEmptyView(false)
+            blogList = items
+            blogAdapter.resetItems(items)
+            Hawk.put("blogList", blogList)
+        }
     }
 
-    override fun getError(message: String) {
-        toast(message)
-    }
+    override fun getError(message: String) = toast(message)
 }

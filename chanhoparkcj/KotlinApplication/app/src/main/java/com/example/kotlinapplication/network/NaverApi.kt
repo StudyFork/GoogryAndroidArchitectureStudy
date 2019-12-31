@@ -5,7 +5,7 @@ import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface RetrofitService {
+interface NaverApi {
 
     @GET("v1/search/movie.json")
     fun getMovieCall(@Query("query") query: String): Single<ResponseItems<MovieItem>>
