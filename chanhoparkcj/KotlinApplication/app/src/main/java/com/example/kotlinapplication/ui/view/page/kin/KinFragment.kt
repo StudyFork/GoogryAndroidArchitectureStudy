@@ -9,6 +9,7 @@ import com.example.kotlinapplication.data.model.KinItem
 import com.example.kotlinapplication.ui.base.BaseFragment
 import com.example.kotlinapplication.ui.view.home.presenter.KinPresenter
 import com.example.kotlinapplication.ui.view.page.PageContract
+import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.fragment_page.*
 
 
@@ -20,6 +21,7 @@ class KinFragment : BaseFragment(R.layout.fragment_page), PageContract.View<KinI
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Hawk.init(context).build()
         start()
         setUpBuuttonClickListener()
     }
@@ -31,9 +33,15 @@ class KinFragment : BaseFragment(R.layout.fragment_page), PageContract.View<KinI
         with(home_recyclerview) {
             layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
             adapter = kinAdapter
+            checkHistoryItems()
         }
     }
-
+    private fun checkHistoryItems(){
+        if(Hawk.get("kinList",null)!=null){
+            kinList = Hawk.get("kinList")
+            kinAdapter.resetItems(kinList)
+        }
+    }
     private fun setUpBuuttonClickListener() = home_search_btn.setOnClickListener {
         if (home_search_edit.text.isBlank()) {
             toast("검색어를 입력하세요")
@@ -45,6 +53,7 @@ class KinFragment : BaseFragment(R.layout.fragment_page), PageContract.View<KinI
 
     override fun getItems(items: List<KinItem>) {
         kinList = items
+        Hawk.put("kinList",kinList)
         kinAdapter.resetItems(items)
     }
 

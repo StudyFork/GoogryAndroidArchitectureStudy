@@ -19,6 +19,7 @@ abstract class BaseFragment(resource: Int) : Fragment() {
     ): View? = inflater.inflate(layout, container, false)
 
 
+
     fun toast(message: String) =Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
 
 

@@ -9,6 +9,7 @@ import com.example.kotlinapplication.data.model.BlogItem
 import com.example.kotlinapplication.ui.base.BaseFragment
 import com.example.kotlinapplication.ui.view.home.presenter.BlogPresenter
 import com.example.kotlinapplication.ui.view.page.PageContract
+import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.fragment_page.*
 
 
@@ -19,6 +20,7 @@ class BlogFragment : BaseFragment(R.layout.fragment_page), PageContract.View<Blo
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Hawk.init(context).build()
         start()
         setUpBuuttonClickListener()
     }
@@ -30,6 +32,14 @@ class BlogFragment : BaseFragment(R.layout.fragment_page), PageContract.View<Blo
         with(home_recyclerview) {
             layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
             adapter = blogAdapter
+            checkHistoryItems()
+        }
+    }
+
+    private fun checkHistoryItems() {
+        if (Hawk.get("blogList", null) != null) {
+            blogList = Hawk.get("blogList")
+            blogAdapter.resetItems(blogList)
         }
     }
 
@@ -51,6 +61,7 @@ class BlogFragment : BaseFragment(R.layout.fragment_page), PageContract.View<Blo
 
     override fun getItems(items: List<BlogItem>) {
         blogList = items
+        Hawk.put("blogList", blogList)
         blogAdapter.resetItems(items)
     }
 

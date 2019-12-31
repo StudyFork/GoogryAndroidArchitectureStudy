@@ -9,6 +9,7 @@ import com.example.kotlinapplication.data.model.MovieItem
 import com.example.kotlinapplication.ui.base.BaseFragment
 import com.example.kotlinapplication.ui.view.home.presenter.MoviePresenter
 import com.example.kotlinapplication.ui.view.page.PageContract
+import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.fragment_page.*
 
 
@@ -19,6 +20,7 @@ class MovieFragment : BaseFragment(R.layout.fragment_page), PageContract.View<Mo
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Hawk.init(context).build()
         start()
         setUpBuuttonClickListener()
     }
@@ -30,6 +32,14 @@ class MovieFragment : BaseFragment(R.layout.fragment_page), PageContract.View<Mo
         with(home_recyclerview) {
             layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
             adapter = movieAdapter
+            checkHistoryItems()
+        }
+    }
+
+    private fun checkHistoryItems() {
+        if (Hawk.get("movieList", null) != null) {
+            movieList = Hawk.get("movieList")
+            movieAdapter.resetItems(movieList)
         }
     }
 
@@ -44,8 +54,10 @@ class MovieFragment : BaseFragment(R.layout.fragment_page), PageContract.View<Mo
         }
     }
 
+
     override fun getItems(items: List<MovieItem>) {
         movieList = items
+        Hawk.put("movieList",movieList)
         movieAdapter.resetItems(items)
     }
 

@@ -8,16 +8,18 @@ import com.example.kotlinapplication.data.model.ImageItem
 import com.example.kotlinapplication.ui.base.BaseFragment
 import com.example.kotlinapplication.ui.view.home.presenter.ImagePresenter
 import com.example.kotlinapplication.ui.view.page.PageContract
+import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.fragment_page.*
 
 
 class ImageFragment : BaseFragment(R.layout.fragment_page), PageContract.View<ImageItem> {
     private lateinit var ImageAdapter: ImageAdapter
     private lateinit var presenter: ImagePresenter
-    private lateinit var ImageList: List<ImageItem>
+    private lateinit var imageList: List<ImageItem>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Hawk.init(context).build()
         start()
         setUpBuuttonClickListener()
     }
@@ -29,6 +31,13 @@ class ImageFragment : BaseFragment(R.layout.fragment_page), PageContract.View<Im
         with(home_recyclerview) {
             layoutManager = GridLayoutManager(activity,3)
             adapter = ImageAdapter
+            checkHistoryItems()
+        }
+    }
+    private fun checkHistoryItems(){
+        if(Hawk.get("imageList",null)!=null){
+            imageList = Hawk.get("imageList")
+            ImageAdapter.resetItems(imageList)
         }
     }
 
@@ -42,7 +51,8 @@ class ImageFragment : BaseFragment(R.layout.fragment_page), PageContract.View<Im
     }
 
     override fun getItems(items: List<ImageItem>) {
-        ImageList = items
+        imageList = items
+        Hawk.put("imageList",imageList)
         ImageAdapter.resetItems(items)
     }
 
