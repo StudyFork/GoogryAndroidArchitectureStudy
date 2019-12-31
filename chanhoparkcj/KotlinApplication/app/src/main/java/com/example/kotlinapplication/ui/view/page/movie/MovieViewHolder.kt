@@ -24,6 +24,7 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                     it.onMovieItemClick(item)
                 }
             }
+
             movie_item_user_rating.rating = item.userRating.toFloat()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 movie_item_title.text = Html.fromHtml(item.title, 0)
