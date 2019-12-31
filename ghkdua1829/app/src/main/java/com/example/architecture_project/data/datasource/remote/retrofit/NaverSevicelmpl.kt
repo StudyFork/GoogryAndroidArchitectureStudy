@@ -1,4 +1,4 @@
-package com.example.architecture_project.server
+package com.example.architecture_project.data.datasource.remote.retrofit
 
 import com.example.architecture_project.intercepter.CookiesIntercepter
 import okhttp3.OkHttpClient
@@ -10,10 +10,14 @@ object NaverSevicelmpl {
 
     val okhttpClient: OkHttpClient = OkHttpClient.Builder().addInterceptor(CookiesIntercepter())
         .addNetworkInterceptor(CookiesIntercepter()).build()
-    private val retrofit: Retrofit = Retrofit.Builder().baseUrl(BASE_URL).client(okhttpClient)
+    private val retrofit: Retrofit = Retrofit.Builder().baseUrl(BASE_URL).client(
+        okhttpClient
+    )
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
 
-    val service: NaverService = retrofit.create(NaverService::class.java)
+    val service: NaverService = retrofit.create(
+        NaverService::class.java
+    )
 }
