@@ -12,8 +12,8 @@ import com.example.kotlinapplication.ui.view.page.PageContract
 import kotlinx.android.synthetic.main.fragment_page.*
 
 
-class MovieFragment : BaseFragment(R.layout.fragment_page), MovieListAdapter.ItemListener, PageContract.View<MovieItem> {
-    private lateinit var movieAdapter: MovieListAdapter
+class MovieFragment : BaseFragment(R.layout.fragment_page), PageContract.View<MovieItem> {
+    private lateinit var movieAdapter: MovieAdapter
     private lateinit var presenter: MoviePresenter
     private lateinit var movieList: List<MovieItem>
 
@@ -26,7 +26,7 @@ class MovieFragment : BaseFragment(R.layout.fragment_page), MovieListAdapter.Ite
     private fun start() {
         presenter = MoviePresenter(this)
         home_search_btn.text = "블로그 검색"
-        movieAdapter = MovieListAdapter(this)
+        movieAdapter = MovieAdapter(this::onMovieItemClick)
         with(home_recyclerview) {
             layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
             adapter = movieAdapter
@@ -43,18 +43,17 @@ class MovieFragment : BaseFragment(R.layout.fragment_page), MovieListAdapter.Ite
             }
         }
     }
+
     override fun getItems(items: List<MovieItem>) {
         movieList = items
-        movieAdapter.addAllItems(items)
+        movieAdapter.resetItems(items)
     }
 
-    override fun onMovieItemClick(movieItems: MovieItem) {
+    private fun onMovieItemClick(movieItems: MovieItem) {
         toast(movieItems.link)
         webLink(movieItems.link)
     }
 
+    override fun getError(message: String) = toast(message)
 
-    override fun getError(message: String) {
-        toast(message)
-    }
 }

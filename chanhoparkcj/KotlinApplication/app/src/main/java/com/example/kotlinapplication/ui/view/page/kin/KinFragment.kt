@@ -12,10 +12,9 @@ import com.example.kotlinapplication.ui.view.page.PageContract
 import kotlinx.android.synthetic.main.fragment_page.*
 
 
-class KinFragment : BaseFragment(R.layout.fragment_page), KinListAdapter.ItemListener, PageContract.View<KinItem> {
+class KinFragment : BaseFragment(R.layout.fragment_page), PageContract.View<KinItem> {
 
-
-    private lateinit var kinAdapter: KinListAdapter
+    private lateinit var kinAdapter: KinAdapter
     private lateinit var presenter: KinPresenter
     private lateinit var kinList: List<KinItem>
 
@@ -28,32 +27,32 @@ class KinFragment : BaseFragment(R.layout.fragment_page), KinListAdapter.ItemLis
     private fun start() {
         presenter = KinPresenter(this)
         home_search_btn.text = "블로그 검색"
-        kinAdapter = KinListAdapter(this)
+        kinAdapter = KinAdapter(this::onKinItemClick)
         with(home_recyclerview) {
             layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
             adapter = kinAdapter
         }
     }
 
-    private fun setUpBuuttonClickListener() {
-        home_search_btn.setOnClickListener {
-            if (home_search_edit.text.isBlank()) {
-                toast("검색어를 입력하세요")
-            } else {
-                toast("검색어 :${home_search_edit.text}")
-                presenter.loadData(home_search_edit.text.toString())
-            }
+    private fun setUpBuuttonClickListener() = home_search_btn.setOnClickListener {
+        if (home_search_edit.text.isBlank()) {
+            toast("검색어를 입력하세요")
+        } else {
+            toast("검색어 :${home_search_edit.text}")
+            presenter.loadData(home_search_edit.text.toString())
         }
     }
+
     override fun getItems(items: List<KinItem>) {
         kinList = items
-        kinAdapter.addAllItems(items)
+        kinAdapter.resetItems(items)
     }
-    override fun onKinItemClick(kinItems: KinItem) {
+
+    private fun onKinItemClick(kinItems: KinItem) {
         toast(kinItems.link)
         webLink(kinItems.link)
     }
-    override fun getError(message: String) {
-        toast(message)
-    }
+
+    override fun getError(message: String) =  toast(message)
+
 }

@@ -12,8 +12,8 @@ import com.example.kotlinapplication.ui.view.page.PageContract
 import kotlinx.android.synthetic.main.fragment_page.*
 
 
-class BlogFragment : BaseFragment(R.layout.fragment_page), ListBlogAdapter.ItemListener, PageContract.View<BlogItem> {
-    private lateinit var blogAdapter: ListBlogAdapter
+class BlogFragment : BaseFragment(R.layout.fragment_page), PageContract.View<BlogItem> {
+    private lateinit var blogAdapter: BlogAdapter
     private lateinit var presenter: BlogPresenter
     private lateinit var blogList: List<BlogItem>
 
@@ -26,7 +26,7 @@ class BlogFragment : BaseFragment(R.layout.fragment_page), ListBlogAdapter.ItemL
     private fun start() {
         presenter = BlogPresenter(this)
         home_search_btn.text = "블로그 검색"
-        blogAdapter = ListBlogAdapter(this)
+        blogAdapter = BlogAdapter(this::onBlogItemClick)
         with(home_recyclerview) {
             layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
             adapter = blogAdapter
@@ -44,13 +44,14 @@ class BlogFragment : BaseFragment(R.layout.fragment_page), ListBlogAdapter.ItemL
         }
     }
 
-    override fun onBlogItemClick(blogItems: BlogItem) {
+    private fun onBlogItemClick(blogItems: BlogItem) {
         toast(blogItems.link)
         webLink(blogItems.link)
     }
+
     override fun getItems(items: List<BlogItem>) {
         blogList = items
-        blogAdapter.addAllItems(items)
+        blogAdapter.resetItems(items)
     }
 
     override fun getError(message: String) {

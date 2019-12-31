@@ -1,42 +1,43 @@
 package com.example.kotlinapplication.ui.view.page.movie
 
-import android.os.Build
-import android.text.Html
-import android.view.View
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kotlinapplication.R
 import com.example.kotlinapplication.data.model.MovieItem
+import com.example.kotlinapplication.extension.getHtmlText
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.movie_list_item.view.*
+import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class MovieViewHolder(parent: ViewGroup, listener: (MovieItem) -> Unit) : RecyclerView.ViewHolder(
+    LayoutInflater.from(parent.context).inflate(
+        R.layout.item_movie,
+        parent,
+        false
+    )
+) {
+    private lateinit var item: MovieItem
 
-    fun bind(item: MovieItem, listener: MovieListAdapter.ItemListener?) {
+    init {
+        itemView.setOnClickListener { listener(item) }
+    }
 
+    fun bind(item: MovieItem) {
+        this.item = item
         with(itemView) {
             if (item.image.isNotEmpty()) {
                 Picasso.get()
                     .load(item.image)
                     .resize(300, 450)
-                    .into(movie_item_image)
-            }
-            movie_item_layout.setOnClickListener {
-                listener?.let {
-                    it.onMovieItemClick(item)
-                }
+                    .into(imageview_movie)
             }
 
-            movie_item_user_rating.rating = item.userRating.toFloat()
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                movie_item_title.text = Html.fromHtml(item.title, 0)
-                movie_item_pubDate.text = Html.fromHtml(item.pubDate, 0)
-                movie_item_director.text = Html.fromHtml(item.director, 0)
-                movie_item_actor.text = Html.fromHtml(item.actor, 0)
-            } else {
-                movie_item_title.text = item.title
-                movie_item_pubDate.text = item.pubDate
-                movie_item_director.text = item.director
-                movie_item_actor.text = item.actor
-            }
+            ratingbar_movie.rating = item.userRating
+            textview_movie_title.text = item.title.getHtmlText()
+            textview_movie_pubDate.text = item.pubDate.getHtmlText()
+            textview_movie_director.text = item.director.getHtmlText()
+            textview_movie_actor.text = item.actor.getHtmlText()
+
         }
 
 

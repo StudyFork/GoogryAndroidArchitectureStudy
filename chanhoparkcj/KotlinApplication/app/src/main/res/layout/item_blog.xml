@@ -18,25 +18,25 @@
         >
 
         <TextView
-            android:id="@+id/blogger_item_title"
+            android:id="@+id/textview_blog_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="제목" />
 
         <TextView
-            android:id="@+id/blogger_item_description"
+            android:id="@+id/textview_blog_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="검색 결과 요약 내용 " />
 
         <TextView
-            android:id="@+id/blogger_item_bloggername"
+            android:id="@+id/textview_blog_bloggername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="블로거 이름" />
 
         <TextView
-            android:id="@+id/blogger_item_bloggerlink"
+            android:id="@+id/textview_blog_bloggerlink"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="블로거 링크" />

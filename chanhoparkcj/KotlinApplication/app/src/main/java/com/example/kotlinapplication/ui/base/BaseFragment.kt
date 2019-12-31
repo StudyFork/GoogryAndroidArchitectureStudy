@@ -16,13 +16,11 @@ abstract class BaseFragment(resource: Int) : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(layout, container, false)
-    }
+    ): View? = inflater.inflate(layout, container, false)
 
-    fun toast(message: String) {
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
-    }
+
+    fun toast(message: String) =Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+
 
     fun webLink(message: String) {
         val uri: Uri = Uri.parse(message)

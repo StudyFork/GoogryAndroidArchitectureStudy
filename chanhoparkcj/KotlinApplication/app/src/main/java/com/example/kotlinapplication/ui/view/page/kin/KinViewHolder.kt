@@ -1,29 +1,29 @@
 package com.example.kotlinapplication.ui.view.page.kin
 
-import android.os.Build
-import android.text.Html
-import android.view.View
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kotlinapplication.R
 import com.example.kotlinapplication.data.model.KinItem
-import kotlinx.android.synthetic.main.kin_list_item.view.*
+import com.example.kotlinapplication.extension.getHtmlText
+import kotlinx.android.synthetic.main.item_kin.view.*
 
-class KinViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    fun bind(item: KinItem, listener: KinListAdapter.ItemListener?) {
-        with(itemView) {
-            kin_item_layout.setOnClickListener {
-                listener?.let {
-                    it.onKinItemClick(item)
-                }
-            }
+class KinViewHolder(parent:ViewGroup,private val listener:(KinItem)->Unit) :
+    RecyclerView.ViewHolder( LayoutInflater.from(parent.context).inflate(R.layout.item_kin,parent,false)) {
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                kin_item_title.text = Html.fromHtml(item.title, 0)
-                kin_item_description.text = Html.fromHtml(item.description, 0)
-            } else {
-                kin_item_title.text = item.title
-                kin_item_description.text = item.description
-            }
+    private lateinit var item: KinItem
+
+    init {
+        itemView.setOnClickListener {
+            listener(item)
         }
     }
 
+    fun bind(item: KinItem) {
+        this.item = item
+        with(itemView){
+            textview_kin_title.text = item.title.getHtmlText()
+            textview_kin_description.text=item.description.getHtmlText()
+        }
+    }
 }
