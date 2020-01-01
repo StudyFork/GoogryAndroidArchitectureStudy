@@ -7,6 +7,7 @@ import com.jay.architecturestudy.data.model.Blog
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseSearchPresenter
 import com.jay.architecturestudy.util.addTo
+import com.jay.architecturestudy.util.singleIoMainThread
 import com.jay.architecturestudy.util.then
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -68,6 +69,7 @@ class BlogPresenter(
                 repository.saveBlogKeyword(keyword)
                 it.blogs
             }
+            .compose(singleIoMainThread())
             .subscribe({ blogs ->
                 if (blogs.isEmpty()) {
                     view.hideResultListView()

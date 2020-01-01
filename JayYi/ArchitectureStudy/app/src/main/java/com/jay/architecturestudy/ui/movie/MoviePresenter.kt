@@ -71,6 +71,7 @@ class MoviePresenter(
                 repository.saveMovieKeyword(keyword)
                 it.movies
             }
+            .compose(singleIoMainThread())
             .subscribe({ movies ->
                 if (movies.isEmpty()) {
                     view.hideResultListView()

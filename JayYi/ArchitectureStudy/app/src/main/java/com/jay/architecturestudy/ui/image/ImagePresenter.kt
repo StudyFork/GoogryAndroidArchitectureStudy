@@ -6,6 +6,7 @@ import com.jay.architecturestudy.data.model.Image
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseSearchPresenter
 import com.jay.architecturestudy.util.addTo
+import com.jay.architecturestudy.util.singleIoMainThread
 import com.jay.architecturestudy.util.then
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -66,6 +67,7 @@ class ImagePresenter(
                 repository.saveImageKeyword(keyword)
                 it.images
             }
+            .compose(singleIoMainThread())
             .subscribe({ images ->
                 if (images.isEmpty()) {
                     view.hideResultListView()

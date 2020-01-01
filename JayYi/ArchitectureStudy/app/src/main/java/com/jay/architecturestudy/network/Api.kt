@@ -14,8 +14,6 @@ object Api {
                 query = keyword
             )
             .map { ResponseMovie(it.items) }
-            .compose(commonNetwork())
-
 
     fun getImages(keyword: String): Single<ResponseImage> =
         ApiClient.apiService
@@ -23,7 +21,6 @@ object Api {
                 query = keyword
             )
             .map { ResponseImage(it.items) }
-            .compose(commonNetwork())
 
     fun getBlog(keyword: String): Single<ResponseBlog> =
         ApiClient.apiService
@@ -31,7 +28,6 @@ object Api {
                 query = keyword
             )
             .map { ResponseBlog(it.items) }
-            .compose(commonNetwork())
 
     fun getKin(keyword: String): Single<ResponseKin> =
         ApiClient.apiService
@@ -39,10 +35,5 @@ object Api {
                 query = keyword
             )
             .map { ResponseKin(it.items) }
-            .compose(commonNetwork())
 
-    private fun <T> commonNetwork(): SingleTransformer<T, T> = SingleTransformer { upstream ->
-        upstream
-            .compose(singleIoMainThread())
-    }
 }
