@@ -9,18 +9,23 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes private val layoutResId: Int
 ) : Fragment() {
-
-//    abstract val presenter: P
 
     protected abstract val viewModel: VM
 
     protected lateinit var binding: B
         private set
 
+    private val compositeDisposable = CompositeDisposable()
+
+    protected fun Disposable.addDisposable() {
+        compositeDisposable.add(this)
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,6 +36,10 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
         return binding.root
     }
 
+    override fun onDestroyView() {
+        compositeDisposable.clear()
+        super.onDestroyView()
+    }
 
     fun showToast(text: String) {
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
