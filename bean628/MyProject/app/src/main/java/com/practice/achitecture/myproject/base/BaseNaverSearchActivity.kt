@@ -5,14 +5,14 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
-import com.practice.achitecture.myproject.enum.SearchType
+import com.practice.achitecture.myproject.enums.SearchType
 import com.practice.achitecture.myproject.main.SearchBlogAndNewsAdapter
 import com.practice.achitecture.myproject.main.SearchMovieAndBookAdapter
 import com.practice.achitecture.myproject.main.SearchedItemClickListener
 import com.practice.achitecture.myproject.model.SearchedItem
 
-abstract class BaseNaverSearchActivity<P : BaseContract.Presenter, DB : ViewDataBinding>(@LayoutRes contentLayoutId: Int) :
-    BaseActivity<P, DB>(contentLayoutId) {
+abstract class BaseNaverSearchActivity<DB : ViewDataBinding>(@LayoutRes contentLayoutId: Int) :
+    BaseActivity<DB>(contentLayoutId) {
 
     open var searchType: SearchType = SearchType.MOVIE
     open var searchMovieAndBookAdapter: SearchMovieAndBookAdapter? = null

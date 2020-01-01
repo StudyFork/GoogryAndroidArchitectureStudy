@@ -1,4 +1,4 @@
-package com.practice.achitecture.myproject.enum
+package com.practice.achitecture.myproject.enums
 
 enum class SearchType(val value: String) {
     MOVIE("movie"),

@@ -10,10 +10,9 @@ import androidx.databinding.ViewDataBinding
 import com.practice.achitecture.myproject.R
 import com.practice.achitecture.myproject.makeToast
 
-abstract class BaseActivity<P : BaseContract.Presenter, DB : ViewDataBinding>(@LayoutRes contentLayoutId: Int) :
+abstract class BaseActivity<DB : ViewDataBinding>(@LayoutRes contentLayoutId: Int) :
     AppCompatActivity(), BaseContract.View {
 
-    abstract val presenter: P
     open var progressBar: ProgressBar? = null
 
     open val binding by lazy {
@@ -22,7 +21,7 @@ abstract class BaseActivity<P : BaseContract.Presenter, DB : ViewDataBinding>(@L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        progressBar = this.findViewById(R.id.progress_bar)
+        progressBar = binding.root.findViewById(R.id.progress_bar)
     }
 
     override fun showToast(message: String) {
