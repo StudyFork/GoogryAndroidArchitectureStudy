@@ -1,9 +1,10 @@
-package com.siwon.prj
+package com.siwon.prj.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.webkit.WebSettings
 import android.webkit.WebViewClient
+import com.siwon.prj.R
 import kotlinx.android.synthetic.main.activity_detail_webview.*
 
 class DetailWebview : AppCompatActivity() {

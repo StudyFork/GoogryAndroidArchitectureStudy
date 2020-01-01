@@ -3,6 +3,7 @@ package com.siwon.prj
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.siwon.prj.model.Movie
 
 // 클릭리스너를 nallable하게 받아
 class MovieAdapter(val clickListener: (String) -> Unit) : RecyclerView.Adapter<MovieHolder>() {

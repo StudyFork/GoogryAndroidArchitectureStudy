@@ -1,4 +1,4 @@
-package com.siwon.prj
+package com.siwon.prj.model
 
 import com.google.gson.annotations.SerializedName
 
