@@ -11,25 +11,9 @@ import com.hansung.firstproject.data.MovieModel
 import kotlinx.android.synthetic.main.movie_item.view.*
 
 
-
-
-
 //MovieView 재사용하는 Holder
 @Suppress("DEPRECATION")
 class MovieHolder(private val movieView: View) : RecyclerView.ViewHolder(movieView) {
-
-    // private var item:T? = null
-
-    /* fun bind(item: T){
-        this.item = item
-    }
-
-    init {
-        t
-    }
-
-    */
-
     fun bindItems(data: MovieModel) {
         //image 바인딩
         Glide.with(movieView.context).load(data.image)
