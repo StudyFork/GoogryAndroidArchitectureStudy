@@ -10,11 +10,11 @@ import com.hansung.firstproject.data.MovieModel
 class RecyclerViewAdapter<T> : RecyclerView.Adapter<MovieHolder>() {
     private val items: ArrayList<T> = arrayListOf()
 
-   fun addItems(_item: ArrayList<T>){
+    fun addItems(_item: ArrayList<T>) {
         items.addAll(_item)
     }
 
-    fun clearItems(){
+    fun clearItems() {
         items.clear()
     }
 
