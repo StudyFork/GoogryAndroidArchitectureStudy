@@ -21,6 +21,14 @@ class NaverSearchBarView @JvmOverloads constructor(
 
     var onClickAction: ((String) -> Unit)? = null
 
+    var keyword: String? = null
+        set(value) {
+            if (field != value) {
+                field = value
+                search_editor.setText(value)
+            }
+        }
+
     init {
         LayoutInflater.from(context).inflate(R.layout.view_search, this, true)
 

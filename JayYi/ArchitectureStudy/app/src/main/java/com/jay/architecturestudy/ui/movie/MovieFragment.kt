@@ -7,6 +7,7 @@ import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Movie
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseFragment
+import com.jay.architecturestudy.util.then
 import kotlinx.android.synthetic.main.fragment_movie.*
 
 
@@ -35,6 +36,7 @@ class MovieFragment : BaseFragment(R.layout.fragment_movie), MovieContract.View 
         search_bar.onClickAction = { keyword ->
             search(keyword)
         }
+        presenter.subscribe()
     }
 
     override fun onDestroyView() {
@@ -43,7 +45,18 @@ class MovieFragment : BaseFragment(R.layout.fragment_movie), MovieContract.View 
     }
 
     override fun updateUi(keyword: String, movies: List<Movie>) {
-        
+        keyword.isNotBlank().then {
+            search_bar.keyword = keyword
+
+            if (movies.isEmpty()) {
+                hideResultListView()
+                showEmptyResultView()
+            } else {
+                hideEmptyResultView()
+                showResultListView()
+                movieAdapter.setData(movies)
+            }
+        }
     }
 
     override fun search(keyword: String) {
