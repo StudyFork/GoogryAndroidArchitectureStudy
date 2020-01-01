@@ -5,6 +5,8 @@ interface BaseSearchContract {
     interface View<T, H>: BaseContract.View {
         val presenter: T
 
+        fun updateUi(keyword: String, data: List<H>)
+
         fun showEmptyResultView()
         fun showResultListView()
 
