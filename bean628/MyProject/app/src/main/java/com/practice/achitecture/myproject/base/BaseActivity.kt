@@ -11,7 +11,7 @@ import com.practice.achitecture.myproject.R
 import com.practice.achitecture.myproject.makeToast
 
 abstract class BaseActivity<DB : ViewDataBinding>(@LayoutRes contentLayoutId: Int) :
-    AppCompatActivity(), BaseContract.View {
+    AppCompatActivity() {
 
     open var progressBar: ProgressBar? = null
 
@@ -24,19 +24,19 @@ abstract class BaseActivity<DB : ViewDataBinding>(@LayoutRes contentLayoutId: In
         progressBar = binding.root.findViewById(R.id.progress_bar)
     }
 
-    override fun showToast(message: String) {
+    fun showToast(message: String) {
         this.makeToast(message)
     }
 
-    override fun showToast(stringResId: Int) {
+    fun showToast(stringResId: Int) {
         this.makeToast(stringResId)
     }
 
-    override fun showLoading() {
+    fun showLoading() {
         progressBar?.visibility = View.VISIBLE
     }
 
-    override fun hideLoading() {
+    fun hideLoading() {
         progressBar?.visibility = View.GONE
     }
 }
