@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "blog")
 data class BlogEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Int = 0,
     @ColumnInfo(name = "blogger_link")
     val bloggerLink: String,
     @ColumnInfo(name = "blogger_name")

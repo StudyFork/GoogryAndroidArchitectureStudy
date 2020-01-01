@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "image")
 data class ImageEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Int = 0,
     val link: String,
     @ColumnInfo(name = "size_height")
     val sizeHeight: String,
