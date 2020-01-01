@@ -42,6 +42,10 @@ class MovieFragment : BaseFragment(R.layout.fragment_movie), MovieContract.View 
         presenter.unsubscribe()
     }
 
+    override fun updateUi(keyword: String, movies: List<Movie>) {
+        
+    }
+
     override fun search(keyword: String) {
         presenter.search(keyword)
     }
