@@ -6,6 +6,7 @@ import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Image
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseFragment
+import com.jay.architecturestudy.util.then
 import com.jay.architecturestudy.util.toPx
 import com.jay.architecturestudy.widget.SpacesItemDecoration
 import kotlinx.android.synthetic.main.fragment_image.*
@@ -30,11 +31,28 @@ class ImageFragment : BaseFragment(R.layout.fragment_image), ImageContract.View 
         search_bar.onClickAction = { keyword ->
             search(keyword)
         }
+
+        presenter.subscribe()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         presenter.unsubscribe()
+    }
+
+    override fun updateUi(keyword: String, images: List<Image>) {
+        keyword.isNotBlank().then {
+            search_bar.keyword = keyword
+
+            if (images.isEmpty()) {
+                hideResultListView()
+                showEmptyResultView()
+            } else {
+                hideEmptyResultView()
+                showResultListView()
+                imageAdapter.setData(images)
+            }
+        }
     }
 
     override fun showEmptyResultView() {
