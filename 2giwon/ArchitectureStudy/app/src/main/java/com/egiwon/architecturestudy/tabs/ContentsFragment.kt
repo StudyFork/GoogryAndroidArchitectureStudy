@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.Tab
@@ -61,33 +62,37 @@ class ContentsFragment : BaseFragment<FgContentsBinding, ContentsViewModel>(
         subscribeObservables()
     }
 
+    private inline fun <T : ViewModel> T.asObservable(block: T.() -> Unit) = block()
+
     private fun subscribeObservables() {
-        viewModel.asSearchQueryListObservable()
-            .subscribe({
-                (binding.rvContents.adapter as? ContentsAdapter)?.replaceAll(it)
-            }, {
-                showErrorLoadFail()
-            }).addDisposable()
+        viewModel.asObservable {
+            asSearchQueryListObservable()
+                .subscribe({
+                    (binding.rvContents.adapter as? ContentsAdapter)?.replaceAll(it)
+                }, {
+                    showErrorLoadFail()
+                }).addDisposable()
 
-        viewModel.asSearchEmptyQueryErrorObservable()
-            .subscribe {
-                showErrorQueryEmpty()
-            }.addDisposable()
+            asSearchEmptyQueryErrorObservable()
+                .subscribe {
+                    showErrorQueryEmpty()
+                }.addDisposable()
 
-        viewModel.asShowLoadingProgressBarObservable()
-            .subscribe { show ->
-                if (show) showLoading() else hideLoading()
-            }.addDisposable()
+            asShowLoadingProgressBarObservable()
+                .subscribe { show ->
+                    if (show) showLoading() else hideLoading()
+                }.addDisposable()
 
-        viewModel.asSearchQueryResultEmptyListObservable()
-            .subscribe {
-                showErrorResultEmpty()
-            }.addDisposable()
+            asSearchQueryResultEmptyListObservable()
+                .subscribe {
+                    showErrorResultEmpty()
+                }.addDisposable()
 
-        viewModel.asSearchQueryObservable()
-            .subscribe {
-                binding.etSearch.setText(it)
-            }.addDisposable()
+            asSearchQueryObservable()
+                .subscribe {
+                    binding.etSearch.setText(it)
+                }.addDisposable()
+        }
     }
 
     private fun showErrorQueryEmpty() {
