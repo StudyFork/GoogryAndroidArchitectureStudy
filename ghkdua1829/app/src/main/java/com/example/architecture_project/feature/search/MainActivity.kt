@@ -44,24 +44,5 @@ class MainActivity : AppCompatActivity() {
 
     private fun callMovie(keyword: String) {   //수정완료
         naverRepository.getMovieData(keyword,success = {movieAdapter.setMovieItemList(it.item)},fail = {Log.e("error is",it.toString())})
-//        val call: Call<NaverApi> =
-//            NaverSevicelmpl.service.getMovie( keyword)
-//
-//        call.enqueue(
-//            object : Callback<NaverApi> {
-//                override fun onFailure(call: Call<NaverApi>, t: Throwable) {
-//                    Log.e("error is ", t.toString())
-//                }
-//
-//                override fun onResponse(call: Call<NaverApi>, response: Response<NaverApi>) {
-//                    if (response.isSuccessful) {
-//                        Log.e("result is ", response.toString())
-//                        val movie = response.body()!!
-//                        movieAdapter.setMovieItemList(movie.item)
-//                        movieAdapter.notifyDataSetChanged()
-//                    }
-//                }
-//            }
-//        )
     }
 }
