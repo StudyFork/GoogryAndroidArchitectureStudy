@@ -11,19 +11,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hansung.firstproject.adapter.RecyclerViewAdapter
 import com.hansung.firstproject.data.MovieModel
-import com.hansung.firstproject.data.MovieResponseModel
+import com.hansung.firstproject.data.repository.NaverRepository
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var clientId: String // naver 검색API 사용을 위한 Client ID
     private lateinit var clientSecret: String //naver 검색API 사용을 위한 Client Secret
-    private val searchResult: SearchResult = SearchResult()
-    private val adapter:RecyclerViewAdapter<MovieModel> = RecyclerViewAdapter()
+    private val adapter: RecyclerViewAdapter<MovieModel> = RecyclerViewAdapter()
+    private val naverRepository: NaverRepository =
+        NaverRepository().getInstance() // Repository 생성
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("ahn", "MainActivity onCreate...")
@@ -68,31 +66,15 @@ class MainActivity : AppCompatActivity() {
 
     // 검색 메소드
     private fun doSearch(keyword: String) {
-        searchResult.getResult(clientId, clientSecret, keyword, 100)
-            .enqueue(object : Callback<MovieResponseModel> {
-                override fun onFailure(call: Call<MovieResponseModel>, t: Throwable) {
-                    //To change body of created functions use File | Settings | File Templates.
-                    Toast.makeText(applicationContext, "인터넷 연결을 확인하세요", Toast.LENGTH_SHORT)
-                        .show()
-                }
-
-                override fun onResponse(
-                    call: Call<MovieResponseModel>,
-                    response: Response<MovieResponseModel>
-                ) {
-                    //To change body of created functions use File | Settings | File Templates.
-                    if (response.isSuccessful) {
-                        //올바르게 통신이 왔으면
-                        //recycler_view_movies.adapter = RecyclerViewAdapter(response.body()!!.items)
-                        response.body()?.items?.run {
-                            adapter.addItems(this)
-                        }
-                    } else {
-                        Toast.makeText(applicationContext, "인터넷 연결을 확인하세요", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-
-                }
+        naverRepository.getMoviesData(keyword, clientId, clientSecret,
+            success = {
+                adapter.addItems(it.items)
+                adapter.notifyDataSetChanged()
+            },
+            fail = {
+                Toast.makeText(applicationContext, "인터넷 연결을 확인하세요", Toast.LENGTH_SHORT)
+                    .show()
+                Log.e("ahn", "인터넷 연결 오류", it)
             })
     }
 
