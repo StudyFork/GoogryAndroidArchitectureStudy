@@ -25,6 +25,11 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickL
     private val pubDate: TextView = view.findViewById(R.id.tv_rv_movie_item_pub_date)
     private val actor: TextView = view.findViewById(R.id.tv_rv_movie_item_actor)
 
+    init{
+        //itemView.
+
+    }
+
     override fun onClick(view: View?) {
         val pos = adapterPosition
         Log.e("position",pos.toString())
@@ -42,7 +47,7 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickL
         director.text = movieData.director
         rating.rating = (movieData.userRating!! / 2).toFloat()
 
-        Glide.with(itemView.context).load(movieData.image) to image
+        Glide.with(itemView.context).load(movieData.image).into(image)
 
         onClick(itemView)
 /*
