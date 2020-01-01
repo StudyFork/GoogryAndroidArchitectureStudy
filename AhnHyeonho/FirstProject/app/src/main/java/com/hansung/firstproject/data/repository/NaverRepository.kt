@@ -8,13 +8,12 @@ class NaverRepository {
 
     private var _INSTANCE: NaverRepository? = null
 
-    private var naverRemoteDataSource: NaverRemoteDataSource? = null
+    private var naverRemoteDataSource: NaverRemoteDataSource =
+        NaverRemoteDataSourceImpl().getInstance()
 
-    fun getInstance(dataSource: NaverRemoteDataSource): NaverRepository {
-        if (_INSTANCE == null) {
+    fun getInstance(): NaverRepository {
+        if (_INSTANCE == null)
             _INSTANCE = NaverRepository()
-            naverRemoteDataSource = dataSource
-        }
         return _INSTANCE!!
     }
 
