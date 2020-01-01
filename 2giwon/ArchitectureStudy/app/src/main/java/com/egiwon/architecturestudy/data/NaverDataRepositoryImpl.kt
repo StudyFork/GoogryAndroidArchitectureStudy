@@ -12,14 +12,14 @@ class NaverDataRepositoryImpl(
     private fun loadRemoteContents(type: String, query: String): Single<ContentResponse> =
         naverRemoteDataSource.getContents(type, query)
             .flatMap { response ->
-                if (response.contentItems.isNotEmpty()) {
+                if (!response.contentItems.isNullOrEmpty()) {
                     naverLocalDataSource.saveContents(
                         type,
                         query,
                         response
-                    ).toSingleDefault(response)
+                    ).toSingle { response }
                 } else {
-                    Single.error(Throwable())
+                    Single.fromCallable { ContentResponse.empty(query) }
                 }
             }
 

@@ -7,7 +7,12 @@ data class ContentResponse(
     val query: String,
     @SerializedName("items")
     val contentItems: List<ContentItem>
-)
+) {
+    companion object {
+        fun empty(query: String): ContentResponse =
+            ContentResponse(query, emptyList())
+    }
+}
 
 @Keep
 data class ContentItem(
