@@ -1,6 +1,7 @@
 package com.hansung.firstproject.network
 
-import com.hansung.firstproject.R
+import com.hansung.firstproject.data.MovieResponseModel
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -10,5 +11,13 @@ object NaverApiServiceImpl {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val naverSearchService = retrofit.create(NaverApiService::class.java)
+    private val naverSearchService: NaverApiService = retrofit.create(NaverApiService::class.java)
+
+    fun getResult(
+        clientId: String,
+        clientSecret: String,
+        keyword: String,
+        display: Int
+    ): Call<MovieResponseModel> =
+        naverSearchService.getRepoList(clientId, clientSecret, keyword, display)
 }
