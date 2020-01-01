@@ -17,11 +17,12 @@ import com.ironelder.androidarchitecture.common.TYPE_KEY
 import com.ironelder.androidarchitecture.component.CustomListViewAdapter
 import com.ironelder.androidarchitecture.data.ResultItem
 import com.ironelder.androidarchitecture.data.database.SearchResultDatabase
+import com.ironelder.androidarchitecture.databinding.FragmentMainBinding
 import com.ironelder.androidarchitecture.view.baseview.BaseFragment
 
 
 class MainFragment :
-    BaseFragment<MainContract.View, MainContract.Presenter>(R.layout.fragment_main),
+    BaseFragment<MainContract.View, FragmentMainBinding, MainContract.Presenter>(R.layout.fragment_main),
     MainContract.View {
 
     override val presenter = MainPresenter()
