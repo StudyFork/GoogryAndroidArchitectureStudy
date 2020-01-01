@@ -12,16 +12,18 @@ class DetailWebview : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_webview)
 
-        val webview = webview
-        webview.webViewClient = WebViewClient()
-        var webviewSetting = webview.settings
-        webviewSetting.apply {
-            javaScriptEnabled = true
-            domStorageEnabled = true
-            setSupportMultipleWindows(false)
-            javaScriptCanOpenWindowsAutomatically = false
-            layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
+//        val webview = webview -->필요없어..
+        // scope 함수 이용해서 더ㅓ 깔끔하게 가능
+        with(webview){
+            webViewClient = WebViewClient()
+            settings.apply {
+                javaScriptEnabled = true
+                domStorageEnabled = true
+                setSupportMultipleWindows(false)
+                javaScriptCanOpenWindowsAutomatically = false
+                layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
+            }
+            loadUrl(intent.getStringExtra("link"))
         }
-        webview.loadUrl(intent.getStringExtra("link"))
     }
 }
