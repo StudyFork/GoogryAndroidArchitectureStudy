@@ -11,6 +11,7 @@ import com.jay.architecturestudy.data.model.Blog
 import com.jay.architecturestudy.data.model.Image
 import com.jay.architecturestudy.data.model.Kin
 import com.jay.architecturestudy.data.model.Movie
+import com.jay.architecturestudy.data.source.local.NaverSearchLocalDataSource.Companion.PREFS_KEY_BLOG
 import com.jay.architecturestudy.data.source.local.NaverSearchLocalDataSource.Companion.PREFS_KEY_MOVIE
 import io.reactivex.Single
 
@@ -140,7 +141,9 @@ class NaverSearchLocalDataSourceImpl(
     }
 
     override fun saveBlogKeyword(keyword: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        sharedPreferences.edit()
+            .putString(PREFS_KEY_BLOG, keyword)
+            .apply()
     }
 
     override fun saveKinKeyword(keyword: String) {
@@ -155,9 +158,8 @@ class NaverSearchLocalDataSourceImpl(
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getLatestBlogKeyword(): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getLatestBlogKeyword(): String =
+        sharedPreferences.getString(PREFS_KEY_BLOG, "") ?: ""
 
     override fun getLatestKinKeyword(): String {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

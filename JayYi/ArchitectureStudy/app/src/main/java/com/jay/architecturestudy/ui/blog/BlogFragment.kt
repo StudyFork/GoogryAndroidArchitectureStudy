@@ -7,6 +7,7 @@ import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Blog
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseFragment
+import com.jay.architecturestudy.util.then
 import kotlinx.android.synthetic.main.fragment_blog.*
 
 class BlogFragment : BaseFragment(R.layout.fragment_blog), BlogContract.View {
@@ -34,11 +35,29 @@ class BlogFragment : BaseFragment(R.layout.fragment_blog), BlogContract.View {
         search_bar.onClickAction = { keyword ->
             search(keyword)
         }
+
+        presenter.subscribe()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         presenter.unsubscribe()
+    }
+
+    override fun updateUi(keyword: String, blogs: List<Blog>) {
+        keyword.isNotBlank().then {
+            search_bar.keyword = keyword
+
+            if (blogs.isEmpty()) {
+                hideResultListView()
+                showEmptyResultView()
+            } else {
+                hideEmptyResultView()
+                showResultListView()
+                blogAdapter.setData(blogs)
+            }
+
+        }
     }
 
     override fun showEmptyResultView() {
