@@ -17,10 +17,6 @@ class MovieFragment : BaseFragment(R.layout.fragment_movie), MovieContract.View 
 
     private lateinit var movieAdapter: MovieAdapter
 
-    private val naverSearchRepository by lazy {
-        NaverSearchRepositoryImpl()
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity?.let { activity ->

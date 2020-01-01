@@ -17,10 +17,6 @@ class ImageFragment : BaseFragment(R.layout.fragment_image), ImageContract.View 
 
     private lateinit var imageAdapter: ImageAdapter
 
-    private val naverSearchRepository by lazy {
-        NaverSearchRepositoryImpl()
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity?.let {

@@ -16,10 +16,6 @@ class BlogFragment : BaseFragment(R.layout.fragment_blog), BlogContract.View {
 
     private lateinit var blogAdapter: BlogAdapter
 
-    private val naverSearchRepository by lazy {
-        NaverSearchRepositoryImpl()
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity?.let { activity ->

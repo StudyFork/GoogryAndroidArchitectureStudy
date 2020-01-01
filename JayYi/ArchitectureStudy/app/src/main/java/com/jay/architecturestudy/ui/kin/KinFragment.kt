@@ -16,10 +16,6 @@ class KinFragment : BaseFragment(R.layout.fragment_kin), KinContract.View {
 
     private lateinit var kinAdapter: KinAdapter
 
-    private val naverSearchRepository by lazy {
-        NaverSearchRepositoryImpl()
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity?.let { activity ->
