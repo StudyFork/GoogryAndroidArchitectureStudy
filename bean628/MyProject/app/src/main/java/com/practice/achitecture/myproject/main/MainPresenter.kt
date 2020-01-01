@@ -2,7 +2,7 @@ package com.practice.achitecture.myproject.main
 
 import com.practice.achitecture.myproject.data.source.NaverDataSource
 import com.practice.achitecture.myproject.data.source.NaverRepository
-import com.practice.achitecture.myproject.enum.SearchType
+import com.practice.achitecture.myproject.enums.SearchType
 import com.practice.achitecture.myproject.model.SearchedItem
 
 

@@ -5,7 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.practice.achitecture.myproject.data.source.NaverDataSource
 import com.practice.achitecture.myproject.data.source.local.model.HistoryOfSearch
-import com.practice.achitecture.myproject.enum.SearchType
+import com.practice.achitecture.myproject.enums.SearchType
 import com.practice.achitecture.myproject.model.SearchedItem
 import com.practice.achitecture.myproject.util.AppExecutors
 import java.io.File
@@ -21,7 +21,7 @@ class NaverLocalDataSourceImpl private constructor(
         callback: NaverDataSource.LoadHistoryOfSearchCallback
     ) {
         appExcutors.diskIO.execute {
-            //            val historyOfSearch = naverDao.getHistoryOfSearchCache(searchType.value)
+            //            val historyOfSearch = naverDao.getHistoryOfSearchCache(lastSearchType.value)
             val historyOfSearchList = naverDao.getHistoryOfSearchList(searchType.value)
             val resultList: ArrayList<SearchedItem> = arrayListOf()
 

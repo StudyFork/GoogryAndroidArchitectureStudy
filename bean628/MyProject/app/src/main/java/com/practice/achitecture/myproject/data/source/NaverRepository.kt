@@ -2,7 +2,7 @@ package com.practice.achitecture.myproject.data.source
 
 import com.practice.achitecture.myproject.data.source.local.NaverLocalDataSourceImpl
 import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSourceImpl
-import com.practice.achitecture.myproject.enum.SearchType
+import com.practice.achitecture.myproject.enums.SearchType
 import com.practice.achitecture.myproject.model.SearchedItem
 
 class NaverRepository(

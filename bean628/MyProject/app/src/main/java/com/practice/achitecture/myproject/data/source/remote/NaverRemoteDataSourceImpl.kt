@@ -2,7 +2,7 @@ package com.practice.achitecture.myproject.data.source.remote
 
 import com.practice.achitecture.myproject.R
 import com.practice.achitecture.myproject.data.source.NaverDataSource
-import com.practice.achitecture.myproject.enum.SearchType
+import com.practice.achitecture.myproject.enums.SearchType
 import com.practice.achitecture.myproject.model.ResultOfSearchingModel
 import com.practice.achitecture.myproject.network.EmptyDataException
 import com.practice.achitecture.myproject.network.ResponseNotSuccessException

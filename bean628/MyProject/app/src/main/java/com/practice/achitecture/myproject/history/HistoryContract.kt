@@ -2,7 +2,7 @@ package com.practice.achitecture.myproject.history
 
 import androidx.annotation.StringRes
 import com.practice.achitecture.myproject.base.BaseContract
-import com.practice.achitecture.myproject.enum.SearchType
+import com.practice.achitecture.myproject.enums.SearchType
 import com.practice.achitecture.myproject.model.SearchedItem
 
 interface HistoryContract {
