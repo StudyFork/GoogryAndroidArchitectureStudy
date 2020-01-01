@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.doOnLayout
+import androidx.fragment.app.viewModels
 import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.Tab
 import com.egiwon.architecturestudy.base.BaseFragment
@@ -20,13 +21,12 @@ import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 
 class HistorySheetFragment :
-    BaseFragment<FgHistorySheetBinding, HistoryContract.Presenter>(
+    BaseFragment<FgHistorySheetBinding, HistoryViewModel>(
         R.layout.fg_history_sheet
-    ), HistoryContract.View {
+    ) {
 
-    override val presenter: HistoryContract.Presenter by lazy {
-        HistoryPresenter(
-            this,
+    override val viewModel: HistoryViewModel by viewModels {
+        HistoryViewModelFactory(
             NaverDataRepositoryImpl.getInstance(
                 NaverRemoteDataSource.getInstance(),
                 NaverLocalDataSource.getInstance(
@@ -38,7 +38,7 @@ class HistorySheetFragment :
 
     private val onClick: (String) -> Unit = { query ->
         getTab()?.let { tab ->
-            (parentFragment as? ContentsFragment)?.loadContentsByHistoryQuery(tab, query)
+            (requireParentFragment() as? ContentsFragment)?.loadContentsByHistoryQuery(tab, query)
         }
 
         BottomSheetBehavior.from(binding.historySheet).state = BottomSheetBehavior.STATE_COLLAPSED
@@ -88,7 +88,7 @@ class HistorySheetFragment :
                             backCallback.isEnabled = newState == BottomSheetBehavior.STATE_EXPANDED
                             if (newState == BottomSheetBehavior.STATE_EXPANDED) {
                                 getTab()?.let { tab ->
-                                    presenter.getSearchQueryHistory(tab)
+                                    viewModel.getSearchQueryHistory(tab)
                                 }
                             }
                         }
@@ -107,13 +107,14 @@ class HistorySheetFragment :
                                 )
                             )
 
-                            binding.slideOffset = slideOffset
                             historylistIcon.alpha = lerp(1f, 0f, 0f, 0.15f, slideOffset)
                             sheetExpand.alpha = lerp(1f, 0f, 0f, 0.15f, slideOffset)
                             historylistTitle.alpha = lerp(0f, 1f, 0.2f, 0.8f, slideOffset)
                             collapseHistorylist.alpha = lerp(0f, 1f, 0.2f, 0.8f, slideOffset)
                             historylistTitleDivider.alpha = lerp(0f, 1f, 0.2f, 0.8f, slideOffset)
                             historyList.alpha = lerp(0f, 1f, 0.2f, 0.8f, slideOffset)
+                            sheetExpand.visibility =
+                                if (slideOffset < 0.5f) View.VISIBLE else View.GONE
                         }
                     })
                     historySheet.doOnApplyWindowInsets { _, insets, _, _ ->
@@ -133,14 +134,19 @@ class HistorySheetFragment :
 
         } // end of apply
 
+        subscribeObservables()
     }
 
-    private fun getTab(): Tab? = (parentFragment as? ContentsFragment)?.tab
+    private fun getTab(): Tab? = (requireParentFragment() as? ContentsFragment)?.tab
 
-    override fun showSearchQueryHistory(history: List<String>) {
+    private fun subscribeObservables() {
+        viewModel.asSearchHistoryResultListObservable().subscribe({
+            showSearchQueryHistory(it)
+        }, {}).addDisposable()
+    }
+
+    private fun showSearchQueryHistory(history: List<String>) {
         (binding.historyList.adapter as? HistoryAdapter)?.replaceAll(history)
     }
 
-    override fun showLoading() = Unit
-    override fun hideLoading() = Unit
 }
