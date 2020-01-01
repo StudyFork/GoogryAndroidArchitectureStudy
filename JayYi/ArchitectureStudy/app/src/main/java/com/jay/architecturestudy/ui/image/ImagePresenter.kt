@@ -44,7 +44,7 @@ class ImagePresenter(
         )
             .map {
                 // 기존 결과 삭제
-                updateBlogResult { repository.clearBlogResult() }
+                updateBlogResult { repository.clearImageResult() }
                 it.images.isNotEmpty().then {
                     val imageList = arrayListOf<ImageEntity>()
                     it.images.mapTo(imageList) { image ->
