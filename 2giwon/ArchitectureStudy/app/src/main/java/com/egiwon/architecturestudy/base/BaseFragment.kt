@@ -26,6 +26,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     protected fun Disposable.addDisposable() {
         compositeDisposable.add(this)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
