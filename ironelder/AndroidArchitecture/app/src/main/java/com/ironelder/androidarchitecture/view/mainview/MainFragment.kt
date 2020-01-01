@@ -9,7 +9,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.ObservableArrayList
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ironelder.androidarchitecture.R
@@ -18,12 +17,11 @@ import com.ironelder.androidarchitecture.common.TYPE_KEY
 import com.ironelder.androidarchitecture.component.CustomListViewAdapter
 import com.ironelder.androidarchitecture.data.ResultItem
 import com.ironelder.androidarchitecture.data.database.SearchResultDatabase
-import com.ironelder.androidarchitecture.databinding.FragmentMainBinding
 import com.ironelder.androidarchitecture.view.baseview.BaseFragment
 
 
 class MainFragment :
-    BaseFragment<MainContract.View, ViewDataBinding, MainContract.Presenter>(R.layout.fragment_main),
+    BaseFragment<MainContract.View, MainContract.Presenter>(R.layout.fragment_main),
     MainContract.View {
 
     override val presenter = MainPresenter()
@@ -35,7 +33,7 @@ class MainFragment :
     private var mSearchWord: String? = null
 
     override fun onDataChanged(result: ObservableArrayList<ResultItem>) {
-        (binding as FragmentMainBinding).items = result
+        binding.items = result
     }
 
     override fun showErrorMessage(msg: String?) {
@@ -44,20 +42,20 @@ class MainFragment :
     }
 
     override fun showLoading() {
-        (binding as FragmentMainBinding).showProgress = true
+        binding.showProgress = true
     }
 
     override fun hideLoading() {
-        (binding as FragmentMainBinding).showProgress = false
+        binding.showProgress = false
     }
 
     override fun onLoadFromDatabase(searchWord: String, result: ObservableArrayList<ResultItem>) {
         mSearchWord = searchWord
-        (binding as FragmentMainBinding).items = result
+        binding.items = result
     }
 
     override fun doViewCreated(view: View, savedInstanceState: Bundle?) {
-        with((binding as FragmentMainBinding).searchLayout.rvResultListView) {
+        with(binding.searchLayout.rvResultListView) {
             adapter =
                 CustomListViewAdapter()
             setHasFixedSize(true)
