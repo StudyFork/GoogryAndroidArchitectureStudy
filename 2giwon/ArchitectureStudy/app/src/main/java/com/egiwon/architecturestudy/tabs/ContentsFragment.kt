@@ -3,6 +3,7 @@ package com.egiwon.architecturestudy.tabs
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.Tab
@@ -11,27 +12,26 @@ import com.egiwon.architecturestudy.data.NaverDataRepositoryImpl
 import com.egiwon.architecturestudy.data.source.local.ContentDataBase
 import com.egiwon.architecturestudy.data.source.local.NaverLocalDataSource
 import com.egiwon.architecturestudy.data.source.remote.NaverRemoteDataSource
-import com.egiwon.architecturestudy.data.source.remote.response.ContentItem
 import com.egiwon.architecturestudy.databinding.FgContentsBinding
 
-class ContentsFragment : BaseFragment<FgContentsBinding, ContentsContract.Presenter>(
+class ContentsFragment : BaseFragment<FgContentsBinding, ContentsViewModel>(
     R.layout.fg_contents
-), ContentsContract.View {
+) {
 
-    override val presenter: ContentsContract.Presenter by lazy {
-        ContentsPresenter(
-            this,
+    override val viewModel: ContentsViewModel by viewModels {
+        ContentsViewModelFactory(
             NaverDataRepositoryImpl.getInstance(
                 NaverRemoteDataSource.getInstance(),
                 NaverLocalDataSource.getInstance(
-                    ContentDataBase.getInstance(requireActivity().applicationContext).contentDao()
+                    ContentDataBase.getInstance(requireContext()).contentDao()
                 )
             )
         )
     }
 
     override fun onResume() {
-        presenter.getCacheContents(tab)
+
+        viewModel.getCacheContents(tab)
         super.onResume()
     }
 
@@ -54,53 +54,64 @@ class ContentsFragment : BaseFragment<FgContentsBinding, ContentsContract.Presen
             rvContents.adapter = ContentsAdapter(tab)
 
             btnSearch.setOnClickListener {
-                presenter.loadContents(tab, etSearch.text.toString())
+                viewModel.loadContents(tab, etSearch.text.toString())
             }
         }
+
+        subscribeObservables()
     }
 
-    override fun showQueryResult(resultList: List<ContentItem>) {
-        (binding.rvContents.adapter as? ContentsAdapter)?.replaceAll(resultList)
+    private fun subscribeObservables() {
+        viewModel.asSearchQueryListObservable()
+            .subscribe({
+                (binding.rvContents.adapter as? ContentsAdapter)?.replaceAll(it)
+            }, {
+                showErrorLoadFail()
+            }).addDisposable()
+
+        viewModel.asSearchEmptyQueryErrorObservable()
+            .subscribe {
+                showErrorQueryEmpty()
+            }.addDisposable()
+
+        viewModel.asShowLoadingProgressBarObservable()
+            .subscribe { show ->
+                if (show) showLoading() else hideLoading()
+            }.addDisposable()
+
+        viewModel.asSearchQueryResultEmptyListObservable()
+            .subscribe {
+                showErrorResultEmpty()
+            }.addDisposable()
+
+        viewModel.asSearchQueryObservable()
+            .subscribe {
+                binding.etSearch.setText(it)
+            }.addDisposable()
     }
 
-    override fun showQueryHistoryResult(
-        resultList: List<ContentItem>,
-        query: String
-    ) {
-        showQueryResult(resultList)
-        binding.etSearch.setText(query)
-    }
-
-    override fun showErrorQueryEmpty() {
+    private fun showErrorQueryEmpty() {
         showToast(getString(R.string.error_query_empty))
     }
 
-    override fun showErrorLoadFail() {
+    private fun showErrorLoadFail() {
         showToast(getString(R.string.error_load_fail))
     }
 
-    override fun showErrorResultEmpty() {
+    private fun showErrorResultEmpty() {
         showToast(getString(R.string.error_empty_fail))
     }
 
-    override fun showCacheContents(
-        resultList: List<ContentItem>,
-        query: String
-    ) {
-        showQueryResult(resultList)
-        binding.etSearch.setText(query)
-    }
-
-    override fun showLoading() {
+    private fun showLoading() {
         binding.progressCircular.visibility = View.VISIBLE
     }
 
-    override fun hideLoading() {
+    private fun hideLoading() {
         binding.progressCircular.visibility = View.GONE
     }
 
     fun loadContentsByHistoryQuery(type: Tab, query: String) {
-        presenter.loadContentsByHistory(type, query)
+        viewModel.loadContentsByHistory(type, query)
     }
 
     companion object {
