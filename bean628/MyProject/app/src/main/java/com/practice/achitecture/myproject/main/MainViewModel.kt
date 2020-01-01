@@ -4,44 +4,17 @@ import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import com.practice.achitecture.myproject.R
+import com.practice.achitecture.myproject.base.BaseNaverSearchViewModel
 import com.practice.achitecture.myproject.data.source.NaverDataSource
 import com.practice.achitecture.myproject.data.source.NaverRepository
 import com.practice.achitecture.myproject.enums.SearchType
 import com.practice.achitecture.myproject.model.SearchedItem
 import kotlin.properties.Delegates
 
-class MainViewModel constructor(private val naverRepository: NaverRepository) {
+class MainViewModel constructor(private val naverRepository: NaverRepository) :
+    BaseNaverSearchViewModel() {
 
     var query: String by Delegates.observable("") { property, oldValue, newValue -> }
-
-    var lastSearchType: SearchType = SearchType.MOVIE
-
-    var progressBarIsShowing: Boolean by Delegates.observable(false) { property, oldValue, newValue ->
-        if (newValue) {
-            hideSoftKeyboardObserver?.invoke()
-        }
-        showProgressBarObserver?.invoke(newValue)
-    }
-
-    var showProgressBarObserver: ((Boolean) -> Unit)? = null
-
-    var hideSoftKeyboardObserver: (() -> Unit)? = null
-
-    var movieOrBookItems: List<SearchedItem> by Delegates.observable(arrayListOf()) { property, oldValue, newValue ->
-        movieOrBookItemsObserver?.invoke(newValue)
-    }
-    var movieOrBookItemsObserver: ((List<SearchedItem>) -> Unit)? = null
-
-    var blogOrNewsItems: List<SearchedItem> by Delegates.observable(arrayListOf()) { property, oldValue, newValue ->
-        blogOrNewsItemsObserver?.invoke(newValue)
-    }
-    var blogOrNewsItemsObserver: ((List<SearchedItem>) -> Unit)? = null
-
-    var stringMessageId: Int by Delegates.observable(-999) { property, oldValue, newValue ->
-        stringMessageIdObserver?.invoke(newValue)
-    }
-
-    var stringMessageIdObserver: ((Int) -> Unit)? = null
 
     var queryEmptyObserver: (() -> Unit)? = null
 
