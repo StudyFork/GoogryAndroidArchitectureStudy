@@ -11,6 +11,7 @@ class RecyclerViewAdapter<T> : RecyclerView.Adapter<MovieHolder>() {
     private val items: ArrayList<T> = arrayListOf()
 
     fun addItems(_item: ArrayList<T>) {
+        clearItems()
         items.addAll(_item)
     }
 
