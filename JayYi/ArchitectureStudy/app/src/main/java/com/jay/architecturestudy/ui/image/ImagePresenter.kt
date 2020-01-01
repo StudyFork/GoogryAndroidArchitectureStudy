@@ -32,7 +32,7 @@ class ImagePresenter(
                     view.updateUi(lastKeyword, it)
                 }, { e ->
                     val message = e.message ?: return@subscribe
-                    Log.e("blog", message)
+                    Log.e("image", message)
                 })
                 .addTo(disposables)
         }
