@@ -7,6 +7,7 @@ import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Kin
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseFragment
+import com.jay.architecturestudy.util.then
 import kotlinx.android.synthetic.main.fragment_kin.*
 
 class KinFragment : BaseFragment(R.layout.fragment_kin), KinContract.View {
@@ -34,11 +35,28 @@ class KinFragment : BaseFragment(R.layout.fragment_kin), KinContract.View {
         search_bar.onClickAction = { keyword ->
             search(keyword)
         }
+
+        presenter.subscribe()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         presenter.unsubscribe()
+    }
+
+    override fun updateUi(keyword: String, kins: List<Kin>) {
+        keyword.isNotBlank().then {
+            search_bar.keyword = keyword
+
+            if (kins.isEmpty()) {
+                hideResultListView()
+                showEmptyResultView()
+            } else {
+                hideEmptyResultView()
+                showResultListView()
+                kinAdapter.setData(kins)
+            }
+        }
     }
 
     override fun showEmptyResultView() {
