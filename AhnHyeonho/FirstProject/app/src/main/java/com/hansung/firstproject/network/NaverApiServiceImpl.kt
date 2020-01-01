@@ -10,5 +10,5 @@ object NaverApiServiceImpl {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val service = retrofit.create(NaverApiService::class.java)
+    val naverSearchService = retrofit.create(NaverApiService::class.java)
 }
