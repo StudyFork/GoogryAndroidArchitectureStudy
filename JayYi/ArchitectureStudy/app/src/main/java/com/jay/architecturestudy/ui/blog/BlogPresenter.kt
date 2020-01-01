@@ -3,11 +3,13 @@ package com.jay.architecturestudy.ui.blog
 import android.util.Log
 import com.jay.architecturestudy.data.database.entity.BlogEntity
 import com.jay.architecturestudy.data.database.entity.MovieEntity
+import com.jay.architecturestudy.data.model.Blog
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseSearchPresenter
 import com.jay.architecturestudy.util.addTo
 import com.jay.architecturestudy.util.then
 import io.reactivex.Completable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -18,24 +20,26 @@ class BlogPresenter(
 
     override fun subscribe() {
         super.subscribe()
-        loadData()
+        val lastKeyword = repository.getLatestBlogKeyword()
+        loadBlogSearchHistory(
+            keyword = lastKeyword
+        )
+            .subscribe({
+                view.updateUi(it.first, it.second)
+            }, { e ->
+                val message = e.message ?: return@subscribe
+                Log.e("blog", message)
+            })
     }
 
-    private fun loadData() {
-        val lastKeyword = repository.getLatestBlogKeyword()
-        if (lastKeyword.isBlank()) {
-            view.updateUi(lastKeyword, emptyList())
+    private fun loadBlogSearchHistory(keyword: String) : Single<Pair<String, List<Blog>>> {
+        return if (keyword.isBlank()) {
+            Single.just(Pair(keyword, emptyList()))
         } else {
             repository.getLatestBlogResult()
+                .map { Pair(keyword, it) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    view.updateUi(lastKeyword, it)
-                }, { e ->
-                    val message = e.message ?: return@subscribe
-                    Log.e("blog", message)
-                })
-                .addTo(disposables)
         }
     }
 

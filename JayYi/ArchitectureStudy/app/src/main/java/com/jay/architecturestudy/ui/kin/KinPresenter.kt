@@ -3,11 +3,13 @@ package com.jay.architecturestudy.ui.kin
 import android.util.Log
 import com.jay.architecturestudy.data.database.entity.ImageEntity
 import com.jay.architecturestudy.data.database.entity.KinEntity
+import com.jay.architecturestudy.data.model.Kin
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseSearchPresenter
 import com.jay.architecturestudy.util.addTo
 import com.jay.architecturestudy.util.then
 import io.reactivex.Completable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -18,24 +20,27 @@ class KinPresenter(
 
     override fun subscribe() {
         super.subscribe()
-        loadData()
+        val lastKeyword = repository.getLatestKinKeyword()
+        loadKinSearchHistory(
+            keyword = lastKeyword
+        )
+            .subscribe({
+                view.updateUi(it.first, it.second)
+            }, { e ->
+                val message = e.message ?: return@subscribe
+                Log.e("kin", message)
+            })
+            .addTo(disposables)
     }
 
-    private fun loadData() {
-        val lastKeyword = repository.getLatestKinKeyword()
-        if (lastKeyword.isBlank()) {
-            view.updateUi(lastKeyword, emptyList())
+    private fun loadKinSearchHistory(keyword: String) : Single<Pair<String, List<Kin>>> {
+        return if (keyword.isBlank()) {
+            Single.just(Pair(keyword, emptyList()))
         } else {
             repository.getLatestKinResult()
+                .map { Pair(keyword, it) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    view.updateUi(lastKeyword, it)
-                }, { e ->
-                    val message = e.message ?: return@subscribe
-                    Log.e("kin", message)
-                })
-                .addTo(disposables)
         }
     }
 
