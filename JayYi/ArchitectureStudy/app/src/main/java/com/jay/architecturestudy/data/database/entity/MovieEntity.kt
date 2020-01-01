@@ -16,5 +16,5 @@ data class MovieEntity(
     val actor: String,
     val pubDate: String,
     @ColumnInfo(name = "user_rating")
-    val userRating: String
+    val userRating: Float
 )
