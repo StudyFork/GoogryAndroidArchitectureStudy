@@ -44,7 +44,7 @@ class MoviePresenter(
         )
             .map {
                 // 기존 결과 삭제
-                updateMovieResult { repository.clearMovieResult() }
+                clearSearchHistory { repository.clearMovieResult() }
                 it.movies.isNotEmpty().then {
                     val movieList = arrayListOf<MovieEntity>()
                     it.movies.mapTo(movieList) { movie ->
@@ -59,10 +59,8 @@ class MoviePresenter(
                             userRating = movie.userRating
                         )
                     }
-                    updateMovieResult {
-                        // 최신 결과 저장
-                        repository.saveMovieResult(movieList)
-                    }
+                    // 최신 결과 저장
+                    updateSearchHistory { repository.saveMovieResult(movieList) }
                 }
                 repository.saveMovieKeyword(keyword)
                 it.movies
@@ -80,12 +78,5 @@ class MoviePresenter(
                 handleError(e)
             })
             .addTo(disposables)
-    }
-
-    private fun updateMovieResult(func: () -> Unit) {
-        Completable.fromCallable(func)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe()
     }
 }

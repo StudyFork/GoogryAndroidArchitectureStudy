@@ -45,7 +45,7 @@ class KinPresenter(
         )
             .map {
                 // 기존 결과 삭제
-                updateKinResult { repository.clearKinResult() }
+                clearSearchHistory { repository.clearKinResult() }
                 it.kins.isNotEmpty().then {
                     val kinList = arrayListOf<KinEntity>()
                     it.kins.mapTo(kinList) { kin ->
@@ -55,10 +55,8 @@ class KinPresenter(
                             title = kin.title
                         )
                     }
-                    updateKinResult {
-                        // 최신 결과 저장
-                        repository.saveKinResult(kinList)
-                    }
+                    // 최신 결과 저장
+                    updateSearchHistory { repository.saveKinResult(kinList) }
                 }
                 repository.saveKinKeyword(keyword)
                 it.kins
@@ -78,10 +76,4 @@ class KinPresenter(
             .addTo(disposables)
     }
 
-    private fun updateKinResult(func: () -> Unit) {
-        Completable.fromCallable(func)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe()
-    }
 }

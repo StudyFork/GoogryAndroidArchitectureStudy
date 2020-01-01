@@ -45,7 +45,7 @@ class BlogPresenter(
         )
             .map {
                 // 기존 결과 삭제
-                updateBlogResult { repository.clearBlogResult() }
+                clearSearchHistory { repository.clearBlogResult() }
                 it.blogs.isNotEmpty().then {
                     val blogList = arrayListOf<BlogEntity>()
                     it.blogs.mapTo(blogList) { blog ->
@@ -58,10 +58,8 @@ class BlogPresenter(
                             title = blog.title
                         )
                     }
-                    updateBlogResult {
-                        // 최신 결과 저장
-                        repository.saveBlogResult(blogList)
-                    }
+                    // 최신 결과 저장
+                    updateSearchHistory { repository.saveBlogResult(blogList) }
                 }
                 repository.saveBlogKeyword(keyword)
                 it.blogs
@@ -81,10 +79,4 @@ class BlogPresenter(
             .addTo(disposables)
     }
 
-    private fun updateBlogResult(func: () -> Unit) {
-        Completable.fromCallable(func)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe()
-    }
 }

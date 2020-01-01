@@ -44,7 +44,7 @@ class ImagePresenter(
         )
             .map {
                 // 기존 결과 삭제
-                updateBlogResult { repository.clearImageResult() }
+                clearSearchHistory { repository.clearImageResult() }
                 it.images.isNotEmpty().then {
                     val imageList = arrayListOf<ImageEntity>()
                     it.images.mapTo(imageList) { image ->
@@ -56,10 +56,8 @@ class ImagePresenter(
                             title = image.title
                         )
                     }
-                    updateBlogResult {
-                        // 최신 결과 저장
-                        repository.saveImageResult(imageList)
-                    }
+                    // 최신 결과 저장
+                    updateSearchHistory { repository.saveImageResult(imageList) }
                 }
                 repository.saveImageKeyword(keyword)
                 it.images
@@ -79,10 +77,4 @@ class ImagePresenter(
             .addTo(disposables)
     }
 
-    private fun updateBlogResult(func: () -> Unit) {
-        Completable.fromCallable(func)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe()
-    }
 }
