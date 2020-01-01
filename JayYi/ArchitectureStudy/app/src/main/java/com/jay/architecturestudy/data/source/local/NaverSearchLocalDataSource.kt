@@ -1,5 +1,7 @@
 package com.jay.architecturestudy.data.source.local
 
+import com.jay.architecturestudy.data.database.SearchHistoryDatabase
+
 interface NaverSearchLocalDataSource {
-    // TODO: 추후 작성
+    val searchHistoryDatabase: SearchHistoryDatabase
 }
