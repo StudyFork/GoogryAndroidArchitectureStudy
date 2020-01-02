@@ -36,7 +36,7 @@ class NaverSearchBarView @JvmOverloads constructor(
             if (System.currentTimeMillis() - lastClickTime < debounceTime) {
                 return@setOnClickListener
             }
-            val keyword = search_editor.text.toString().trim()
+            val keyword = search_editor.text.toString()
             if (keyword.isBlank()) {
                 Toast.makeText(
                     context,
