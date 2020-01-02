@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.databinding.ObservableArrayList
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ironelder.androidarchitecture.R
@@ -16,13 +17,12 @@ import com.ironelder.androidarchitecture.common.TYPE_KEY
 import com.ironelder.androidarchitecture.component.CustomListViewAdapter
 import com.ironelder.androidarchitecture.data.ResultItem
 import com.ironelder.androidarchitecture.data.database.SearchResultDatabase
+import com.ironelder.androidarchitecture.databinding.FragmentMainBinding
 import com.ironelder.androidarchitecture.view.baseview.BaseFragment
-import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.layout_search_listview.*
 
 
 class MainFragment :
-    BaseFragment<MainContract.View, MainContract.Presenter>(R.layout.fragment_main),
+    BaseFragment<MainContract.View, FragmentMainBinding, MainContract.Presenter>(R.layout.fragment_main),
     MainContract.View {
 
     override val presenter = MainPresenter()
@@ -33,13 +33,8 @@ class MainFragment :
 
     private var mSearchWord: String? = null
 
-    override fun showNoSearchData() {
-        (rv_resultListView?.adapter as? CustomListViewAdapter)?.clearItemList()
-        customInfoView.noSearchDate()
-    }
-
-    override fun onDataChanged(result: ArrayList<ResultItem>) {
-        (rv_resultListView?.adapter as? CustomListViewAdapter)?.setItemList(result)
+    override fun onDataChanged(result: ObservableArrayList<ResultItem>) {
+        binding.items = result
     }
 
     override fun showErrorMessage(msg: String?) {
@@ -48,22 +43,22 @@ class MainFragment :
     }
 
     override fun showLoading() {
-        customInfoView.startLoading()
+        binding.showProgress = true
     }
 
     override fun hideLoading() {
-        customInfoView.stopLoading()
+        binding.showProgress = false
     }
 
-    override fun onLoadFromDatabase(searchWord: String, result: ArrayList<ResultItem>) {
+    override fun onLoadFromDatabase(searchWord: String, result: ObservableArrayList<ResultItem>) {
         mSearchWord = searchWord
-        (rv_resultListView?.adapter as? CustomListViewAdapter)?.setItemList(result)
+        binding.items = result
     }
 
     override fun doViewCreated(view: View, savedInstanceState: Bundle?) {
-        with(rv_resultListView) {
+        with(binding.searchLayout.rvResultListView) {
             adapter =
-                CustomListViewAdapter(mType ?: BLOG)
+                CustomListViewAdapter()
             setHasFixedSize(true)
             addItemDecoration(
                 DividerItemDecoration(

@@ -2,21 +2,27 @@ package com.ironelder.androidarchitecture.view.mainview
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.ironelder.androidarchitecture.R
 import com.ironelder.androidarchitecture.common.*
-import com.ironelder.androidarchitecture.view.baseview.BaseContract
-import kotlinx.android.synthetic.main.activity_main.*
+import com.ironelder.androidarchitecture.databinding.ActivityMainBinding
 
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
+
+    private val binding: ActivityMainBinding by lazy {
+        DataBindingUtil.setContentView<ActivityMainBinding>(
+            this@MainActivity,
+            R.layout.activity_main
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        viewPager.adapter = PagerAdapter(supportFragmentManager)
-        tabLayout.setupWithViewPager(viewPager)
+        binding.activity = this@MainActivity
     }
 
     inner class PagerAdapter(fm: FragmentManager) :
