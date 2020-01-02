@@ -2,6 +2,7 @@
 <layout>
 
     <data>
+
         <variable
             name="item"
             type="com.example.androidstudy.model.data.Item" />
@@ -22,16 +23,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:setImageId="@{item.image}"/>
+            app:setImageId="@{item.image}" />
 
         <TextView
             android:id="@+id/itemTitle"
             android:layout_width="0dp"
             android:layout_height="20dp"
+            android:text="@{item.title}"
             app:layout_constraintLeft_toRightOf="@id/itemImage"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@{item.title}"
             tools:text="Title" />
 
         <TextView
@@ -39,10 +40,10 @@
             android:layout_width="0dp"
             android:layout_height="20dp"
             android:layout_marginTop="10dp"
+            android:text="@{item.description}"
             app:layout_constraintLeft_toRightOf="@id/itemImage"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/itemTitle"
-            android:text="@{item.description}"
             tools:text="Content" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

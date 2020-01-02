@@ -5,7 +5,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
 @BindingAdapter("setImageId")
-fun setImageResource(v: ImageView, resId: Int?){
+fun setImageResource(v: ImageView, resId: String?) {
     resId.let {
         Glide
             .with(v.context)
