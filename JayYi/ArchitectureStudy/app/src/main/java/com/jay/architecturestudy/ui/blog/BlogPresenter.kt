@@ -2,17 +2,13 @@ package com.jay.architecturestudy.ui.blog
 
 import android.util.Log
 import com.jay.architecturestudy.data.database.entity.BlogEntity
-import com.jay.architecturestudy.data.database.entity.MovieEntity
 import com.jay.architecturestudy.data.model.Blog
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseSearchPresenter
 import com.jay.architecturestudy.util.addTo
 import com.jay.architecturestudy.util.singleIoMainThread
 import com.jay.architecturestudy.util.then
-import io.reactivex.Completable
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 class BlogPresenter(
     override val view: BlogContract.View,
@@ -38,8 +34,7 @@ class BlogPresenter(
         } else {
             repository.getLatestBlogResult()
                 .map { Pair(keyword, it) }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(singleIoMainThread())
         }
     }
 

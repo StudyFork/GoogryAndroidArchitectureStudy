@@ -1,7 +1,6 @@
 package com.jay.architecturestudy.ui.kin
 
 import android.util.Log
-import com.jay.architecturestudy.data.database.entity.ImageEntity
 import com.jay.architecturestudy.data.database.entity.KinEntity
 import com.jay.architecturestudy.data.model.Kin
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
@@ -9,10 +8,7 @@ import com.jay.architecturestudy.ui.BaseSearchPresenter
 import com.jay.architecturestudy.util.addTo
 import com.jay.architecturestudy.util.singleIoMainThread
 import com.jay.architecturestudy.util.then
-import io.reactivex.Completable
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 class KinPresenter(
     override val view: KinContract.View,
@@ -39,8 +35,7 @@ class KinPresenter(
         } else {
             repository.getLatestKinResult()
                 .map { Pair(keyword, it) }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(singleIoMainThread())
         }
     }
 

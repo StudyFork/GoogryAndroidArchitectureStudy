@@ -8,10 +8,7 @@ import com.jay.architecturestudy.ui.BaseSearchPresenter
 import com.jay.architecturestudy.util.addTo
 import com.jay.architecturestudy.util.singleIoMainThread
 import com.jay.architecturestudy.util.then
-import io.reactivex.Completable
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 class MoviePresenter(
     override val view: MovieContract.View,
@@ -38,8 +35,7 @@ class MoviePresenter(
         } else {
             repository.getLatestMovieResult()
                 .map { Pair(keyword, it) }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(singleIoMainThread())
         }
     }
 

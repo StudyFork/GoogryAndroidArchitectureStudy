@@ -9,8 +9,6 @@ import com.jay.architecturestudy.util.addTo
 import com.jay.architecturestudy.util.singleIoMainThread
 import com.jay.architecturestudy.util.then
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 class ImagePresenter(
     override val view: ImageContract.View,
@@ -37,8 +35,7 @@ class ImagePresenter(
         } else {
             repository.getLatestImageResult()
                 .map { Pair(keyword, it) }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(singleIoMainThread())
         }
     }
 
