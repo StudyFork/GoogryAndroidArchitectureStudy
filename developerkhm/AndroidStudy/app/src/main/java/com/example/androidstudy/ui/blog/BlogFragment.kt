@@ -5,10 +5,11 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidstudy.R
+import com.example.androidstudy.databinding.FragmentBlogBinding
 import com.example.androidstudy.ui.base.BaseFragment
 import com.ironelder.androidarchitecture.view.AdapterSearch
 
-class BlogFragment : BaseFragment(R.layout.fragment_blog) {
+class BlogFragment : BaseFragment<FragmentBlogBinding>(R.layout.fragment_blog) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

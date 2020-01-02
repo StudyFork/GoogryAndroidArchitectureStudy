@@ -5,10 +5,11 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidstudy.R
+import com.example.androidstudy.databinding.FragmentNewsBinding
 import com.example.androidstudy.ui.base.BaseFragment
 import com.ironelder.androidarchitecture.view.AdapterSearch
 
-class NewsFragment : BaseFragment(R.layout.fragment_news) {
+class NewsFragment : BaseFragment<FragmentNewsBinding>(R.layout.fragment_news) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

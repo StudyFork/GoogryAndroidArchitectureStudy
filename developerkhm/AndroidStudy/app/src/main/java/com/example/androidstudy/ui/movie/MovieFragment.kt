@@ -5,10 +5,11 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidstudy.R
+import com.example.androidstudy.databinding.FragmentMovieBinding
 import com.example.androidstudy.ui.base.BaseFragment
 import com.ironelder.androidarchitecture.view.AdapterSearch
 
-class MovieFragment : BaseFragment(R.layout.fragment_movie) {
+class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
