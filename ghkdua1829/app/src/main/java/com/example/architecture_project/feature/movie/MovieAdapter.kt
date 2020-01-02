@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.architecture_project.R
-import com.example.architecture_project.data.Movie
+import com.example.architecture_project.data.model.Movie
 
 class MovieAdapter(private val clickListener: MovieViewHolder.ItemClickListener) :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
