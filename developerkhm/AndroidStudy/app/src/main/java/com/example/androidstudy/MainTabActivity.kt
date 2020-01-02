@@ -10,7 +10,6 @@ import com.example.androidstudy.R.id
 import com.example.androidstudy.R.layout
 import com.example.androidstudy.database.SearchResultDatabase
 import com.example.androidstudy.databinding.ActivityMainTabBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainTabActivity : AppCompatActivity() {
 
@@ -19,7 +18,7 @@ class MainTabActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView<ActivityMainTabBinding>(this@MainTabActivity, layout.activity_main_tab)
+        binding = DataBindingUtil.setContentView(this@MainTabActivity, layout.activity_main_tab)
 
         SearchResultDatabase.getInstance(applicationContext)
 
