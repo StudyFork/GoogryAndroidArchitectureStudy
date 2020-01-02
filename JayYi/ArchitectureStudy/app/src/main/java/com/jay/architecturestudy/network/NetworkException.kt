@@ -23,7 +23,7 @@ class NetworkException(
                     return NetworkException(response.code(), it.errorCode, it.errorMessage)
                 }
             } catch (e: Exception) {
-                Log.e("NetworkException", "error=%s", e)
+                Log.e("NetworkException", "error=${e}")
             }
             return null
         }
