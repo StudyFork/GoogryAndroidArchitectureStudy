@@ -20,7 +20,6 @@ class BlogPresenter(
 ) : BaseSearchPresenter(view, repository), BlogContract.Presenter {
 
     override fun subscribe() {
-        super.subscribe()
         val lastKeyword = repository.getLatestBlogKeyword()
         loadBlogSearchHistory(
             keyword = lastKeyword

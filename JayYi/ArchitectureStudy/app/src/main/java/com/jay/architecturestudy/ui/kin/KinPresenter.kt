@@ -20,7 +20,6 @@ class KinPresenter(
 ) : BaseSearchPresenter(view, repository), KinContract.Presenter {
 
     override fun subscribe() {
-        super.subscribe()
         val lastKeyword = repository.getLatestKinKeyword()
         loadKinSearchHistory(
             keyword = lastKeyword

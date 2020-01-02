@@ -19,7 +19,6 @@ class MoviePresenter(
 ) : BaseSearchPresenter(view, repository), MovieContract.Presenter {
 
     override fun subscribe() {
-        super.subscribe()
         val lastKeyword = repository.getLatestMovieKeyword()
         loadMovieSearchHistory(
             keyword = lastKeyword

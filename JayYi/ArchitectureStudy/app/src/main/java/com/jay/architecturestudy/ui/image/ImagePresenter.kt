@@ -18,7 +18,6 @@ class ImagePresenter(
 ) : BaseSearchPresenter(view, repository), ImageContract.Presenter {
 
     override fun subscribe() {
-        super.subscribe()
         val lastKeyword = repository.getLatestImageKeyword()
         loadImageSearchHistory(
             keyword = lastKeyword
