@@ -79,7 +79,11 @@ class BlogFragment : BaseFragment(R.layout.fragment_blog), BlogContract.View {
         presenter.search(keyword)
     }
 
-    override fun updateResult(blogs: List<Blog>) {
-        blogAdapter.setData(blogs)
+    override fun updateResult(result: List<Blog>) {
+        if (result.isEmpty()) {
+            blogAdapter.clear()
+        } else {
+            blogAdapter.setData(result)
+        }
     }
 }

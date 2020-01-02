@@ -75,6 +75,10 @@ class ImageFragment : BaseFragment(R.layout.fragment_image), ImageContract.View 
     }
 
     override fun updateResult(result: List<Image>) {
-        imageAdapter.setData(result)
+        if (result.isEmpty()) {
+            imageAdapter.clear()
+        } else {
+            imageAdapter.setData(result)
+        }
     }
 }
