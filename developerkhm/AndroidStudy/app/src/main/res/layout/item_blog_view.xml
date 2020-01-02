@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+        <variable
+            name="item"
+            type="com.example.androidstudy.model.data.Item" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -15,7 +21,8 @@
             android:src="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:setImageId="@{item.image}"/>
 
         <TextView
             android:id="@+id/itemTitle"
@@ -24,6 +31,7 @@
             app:layout_constraintLeft_toRightOf="@id/itemImage"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:text="@{item.title}"
             tools:text="Title" />
 
         <TextView
@@ -34,6 +42,7 @@
             app:layout_constraintLeft_toRightOf="@id/itemImage"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/itemTitle"
+            android:text="@{item.description}"
             tools:text="Content" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
