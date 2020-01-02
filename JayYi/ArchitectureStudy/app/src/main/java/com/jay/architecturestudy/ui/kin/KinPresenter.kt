@@ -67,7 +67,7 @@ class KinPresenter(
             .addTo(disposables)
     }
 
-    private fun ensureKinEntityList(kins: List<Kin>) : List<KinEntity> =
+    private fun ensureKinEntityList(kins: List<Kin>): List<KinEntity> =
         arrayListOf<KinEntity>().apply {
             kins.mapTo(this) { kin ->
                 KinEntity(

@@ -14,7 +14,7 @@ abstract class BaseSearchPresenter(
     override fun unsubscribe() {
         disposables.clear()
     }
-    
+
     override fun handleError(e: Throwable) {
         val message = e.message ?: return
         view.showErrorMessage(message)

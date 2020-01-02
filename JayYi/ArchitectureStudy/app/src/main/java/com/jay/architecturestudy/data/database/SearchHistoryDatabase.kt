@@ -31,7 +31,7 @@ abstract class SearchHistoryDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: SearchHistoryDatabase? = null
 
-        fun getInstance(context: Context):SearchHistoryDatabase =
+        fun getInstance(context: Context): SearchHistoryDatabase =
             INSTANCE ?: synchronized(this) {
                 buildDatabase(context).also { INSTANCE = it }
             }

@@ -67,7 +67,7 @@ class ImagePresenter(
             .addTo(disposables)
     }
 
-    private fun ensureImageEntityList(images: List<Image>) : List<ImageEntity> =
+    private fun ensureImageEntityList(images: List<Image>): List<ImageEntity> =
         arrayListOf<ImageEntity>().apply {
             images.mapTo(this) { image ->
                 ImageEntity(
@@ -97,7 +97,7 @@ class ImagePresenter(
         } ?: run {
             firstCall
                 .andThen(secondCall)
-                .toSingle {images }
+                .toSingle { images }
         }
     }
 }

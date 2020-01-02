@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Image
-import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseFragment
 import com.jay.architecturestudy.util.then
 import com.jay.architecturestudy.util.toPx

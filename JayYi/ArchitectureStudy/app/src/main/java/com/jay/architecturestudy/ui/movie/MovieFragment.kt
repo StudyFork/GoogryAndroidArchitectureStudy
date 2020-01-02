@@ -5,7 +5,6 @@ import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Movie
-import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseFragment
 import com.jay.architecturestudy.util.then
 import kotlinx.android.synthetic.main.fragment_movie.*

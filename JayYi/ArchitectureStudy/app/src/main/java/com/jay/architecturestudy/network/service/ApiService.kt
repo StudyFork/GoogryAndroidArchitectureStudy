@@ -2,7 +2,6 @@ package com.jay.architecturestudy.network.service
 
 import com.jay.architecturestudy.data.model.*
 import io.reactivex.Single
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 

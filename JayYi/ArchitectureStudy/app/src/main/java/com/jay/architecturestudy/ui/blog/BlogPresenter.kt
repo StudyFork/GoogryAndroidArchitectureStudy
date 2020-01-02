@@ -66,7 +66,7 @@ class BlogPresenter(
             .addTo(disposables)
     }
 
-    private fun ensureBlogEntityList(blogs: List<Blog>) : List<BlogEntity> =
+    private fun ensureBlogEntityList(blogs: List<Blog>): List<BlogEntity> =
         arrayListOf<BlogEntity>().apply {
             blogs.mapTo(this) { blog ->
                 BlogEntity(

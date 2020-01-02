@@ -1,10 +1,10 @@
 package com.jay.architecturestudy.network
 
-import com.jay.architecturestudy.data.model.*
-import com.jay.architecturestudy.util.singleIoMainThread
+import com.jay.architecturestudy.data.model.ResponseBlog
+import com.jay.architecturestudy.data.model.ResponseImage
+import com.jay.architecturestudy.data.model.ResponseKin
+import com.jay.architecturestudy.data.model.ResponseMovie
 import io.reactivex.Single
-import io.reactivex.SingleTransformer
-import retrofit2.Call
 
 object Api {
 

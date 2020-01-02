@@ -14,15 +14,15 @@ import io.reactivex.Single
 
 interface NaverSearchLocalDataSource {
     val searchHistoryDatabase: SearchHistoryDatabase
-    val sharedPreferences : SharedPreferences
+    val sharedPreferences: SharedPreferences
 
-    fun getMovie() : Single<List<Movie>>
+    fun getMovie(): Single<List<Movie>>
 
-    fun getImage() : Single<List<Image>>
+    fun getImage(): Single<List<Image>>
 
-    fun getBlog() : Single<List<Blog>>
+    fun getBlog(): Single<List<Blog>>
 
-    fun getKin() : Single<List<Kin>>
+    fun getKin(): Single<List<Kin>>
 
     fun saveMovieResult(movies: List<MovieEntity>)
 
@@ -48,13 +48,13 @@ interface NaverSearchLocalDataSource {
 
     fun saveKinKeyword(keyword: String)
 
-    fun getLatestMovieKeyword() : String
+    fun getLatestMovieKeyword(): String
 
-    fun getLatestImageKeyword() : String
+    fun getLatestImageKeyword(): String
 
-    fun getLatestBlogKeyword() : String
+    fun getLatestBlogKeyword(): String
 
-    fun getLatestKinKeyword() : String
+    fun getLatestKinKeyword(): String
 
     fun clearMovieKeyword()
 

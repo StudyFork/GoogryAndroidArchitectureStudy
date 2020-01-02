@@ -5,28 +5,27 @@ import com.jay.architecturestudy.data.database.entity.ImageEntity
 import com.jay.architecturestudy.data.database.entity.KinEntity
 import com.jay.architecturestudy.data.database.entity.MovieEntity
 import com.jay.architecturestudy.data.model.*
-import io.reactivex.Flowable
 import io.reactivex.Single
 
 interface NaverSearchRepository {
 
-    fun getMovie(keyword: String) : Single<ResponseMovie>
+    fun getMovie(keyword: String): Single<ResponseMovie>
 
-    fun getImage(keyword: String) : Single<ResponseImage>
+    fun getImage(keyword: String): Single<ResponseImage>
 
-    fun getBlog(keyword: String) : Single<ResponseBlog>
+    fun getBlog(keyword: String): Single<ResponseBlog>
 
-    fun getKin(keyword: String) : Single<ResponseKin>
+    fun getKin(keyword: String): Single<ResponseKin>
 
-    fun getLatestMovieResult() : Single<List<Movie>>
+    fun getLatestMovieResult(): Single<List<Movie>>
 
-    fun getLatestImageResult() : Single<List<Image>>
+    fun getLatestImageResult(): Single<List<Image>>
 
-    fun getLatestBlogResult() : Single<List<Blog>>
+    fun getLatestBlogResult(): Single<List<Blog>>
 
-    fun getLatestKinResult() : Single<List<Kin>>
+    fun getLatestKinResult(): Single<List<Kin>>
 
-    fun saveMovieResult(movies : List<MovieEntity>)
+    fun saveMovieResult(movies: List<MovieEntity>)
 
     fun saveImageResult(images: List<ImageEntity>)
 
@@ -50,13 +49,13 @@ interface NaverSearchRepository {
 
     fun saveKinKeyword(keyword: String)
 
-    fun getLatestMovieKeyword() : String
+    fun getLatestMovieKeyword(): String
 
-    fun getLatestImageKeyword() : String
+    fun getLatestImageKeyword(): String
 
-    fun getLatestBlogKeyword() : String
+    fun getLatestBlogKeyword(): String
 
-    fun getLatestKinKeyword() : String
+    fun getLatestKinKeyword(): String
 
     fun clearMovieKeyword()
 

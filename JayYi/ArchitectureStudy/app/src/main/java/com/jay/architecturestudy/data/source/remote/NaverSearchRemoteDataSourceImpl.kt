@@ -11,22 +11,22 @@ class NaverSearchRemoteDataSourceImpl : NaverSearchRemoteDataSource {
 
     override fun getMovie(
         keyword: String
-    ) : Single<ResponseMovie> =
+    ): Single<ResponseMovie> =
         Api.getMovies(keyword)
 
     override fun getImage(
         keyword: String
-    ) : Single<ResponseImage> =
+    ): Single<ResponseImage> =
         Api.getImages(keyword)
 
     override fun getBlog(
         keyword: String
-    ) : Single<ResponseBlog> =
+    ): Single<ResponseBlog> =
         Api.getBlog(keyword)
 
     override fun getKin(
         keyword: String
-    ) : Single<ResponseKin> =
+    ): Single<ResponseKin> =
         Api.getKin(keyword)
 
 }

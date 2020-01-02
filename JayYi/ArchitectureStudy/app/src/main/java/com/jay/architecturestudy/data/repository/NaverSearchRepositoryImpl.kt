@@ -7,7 +7,6 @@ import com.jay.architecturestudy.data.database.entity.MovieEntity
 import com.jay.architecturestudy.data.model.*
 import com.jay.architecturestudy.data.source.local.NaverSearchLocalDataSource
 import com.jay.architecturestudy.data.source.remote.NaverSearchRemoteDataSource
-import io.reactivex.Flowable
 import io.reactivex.Single
 
 class NaverSearchRepositoryImpl(
@@ -17,7 +16,7 @@ class NaverSearchRepositoryImpl(
 
     override fun getMovie(
         keyword: String
-    ) : Single<ResponseMovie> =
+    ): Single<ResponseMovie> =
         naverSearchRemoteDataSource.getMovie(
             keyword = keyword
         )
@@ -25,21 +24,21 @@ class NaverSearchRepositoryImpl(
 
     override fun getImage(
         keyword: String
-    ) : Single<ResponseImage> =
+    ): Single<ResponseImage> =
         naverSearchRemoteDataSource.getImage(
             keyword = keyword
         )
 
     override fun getBlog(
         keyword: String
-    ) : Single<ResponseBlog> =
+    ): Single<ResponseBlog> =
         naverSearchRemoteDataSource.getBlog(
             keyword = keyword
         )
 
     override fun getKin(
         keyword: String
-    ) : Single<ResponseKin> =
+    ): Single<ResponseKin> =
         naverSearchRemoteDataSource.getKin(
             keyword = keyword
         )
