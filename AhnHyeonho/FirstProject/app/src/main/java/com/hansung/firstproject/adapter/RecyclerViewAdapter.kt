@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hansung.firstproject.R
 import com.hansung.firstproject.data.MovieModel
 
-abstract class BaseRecyclerViewAdapter<T> : RecyclerView.Adapter<MovieHolder>() {
-    protected val items: ArrayList<T> = arrayListOf()
+class RecyclerViewAdapter<T> : RecyclerView.Adapter<MovieHolder>() {
+    private val items: ArrayList<T> = arrayListOf()
 
     fun addItems(_item: ArrayList<T>) {
         clearItems()
