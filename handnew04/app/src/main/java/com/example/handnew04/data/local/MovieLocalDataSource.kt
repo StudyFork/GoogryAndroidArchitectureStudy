@@ -1,5 +1,5 @@
 package com.example.handnew04.data.local
 
-interface MovieLocalDataResource {
+interface MovieLocalDataSource {
     fun getMovieData()
 }

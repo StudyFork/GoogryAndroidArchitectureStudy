@@ -1,14 +1,14 @@
 package com.example.handnew04.data
 
-import com.example.handnew04.data.local.MovieLocalDataResource
-import com.example.handnew04.data.local.MovieLocalDataResourceImpl
-import com.example.handnew04.data.remote.MovieRemoteDataResource
-import com.example.handnew04.data.remote.MovieRemoteDataResourceImpl
+import com.example.handnew04.data.local.MovieLocalDataSource
+import com.example.handnew04.data.local.MovieLocalDataSourceImpl
+import com.example.handnew04.data.remote.MovieRemoteDataSource
+import com.example.handnew04.data.remote.MovieRemoteDataSourceImpl
 
 class MovieRepository {
-    private var movieLocalDataResource: MovieLocalDataResource = MovieLocalDataResourceImpl()
-    private var movieRemoteDataResource: MovieRemoteDataResource = MovieRemoteDataResourceImpl()
+    private var movieLocalDataSource: MovieLocalDataSource = MovieLocalDataSourceImpl()
+    private var movieRemoteDataSource: MovieRemoteDataSource = MovieRemoteDataSourceImpl()
 
     fun getMovieData(query: String, success: (NaverMovieResponse) -> Unit, fail: (Throwable) -> Unit) =
-        movieRemoteDataResource.getMovieData(query, success, fail)
+        movieRemoteDataSource.getMovieData(query, success, fail)
 }
