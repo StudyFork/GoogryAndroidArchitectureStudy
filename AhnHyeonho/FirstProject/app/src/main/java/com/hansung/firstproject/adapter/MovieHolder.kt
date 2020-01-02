@@ -3,10 +3,12 @@ package com.hansung.firstproject.adapter
 import android.content.Intent
 import android.net.Uri
 import android.text.Html
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.hansung.firstproject.MovieInformationActivity
 import com.hansung.firstproject.data.MovieModel
 import kotlinx.android.synthetic.main.movie_item.view.*
 
@@ -31,7 +33,9 @@ class MovieHolder(private val movieView: View) : RecyclerView.ViewHolder(movieVi
             //클릭시 웹사이트 연결
             setOnClickListener {
                 val webPage = Uri.parse(data.link)
-                val webIntent = Intent(Intent.ACTION_VIEW, webPage)
+                val webIntent = Intent(context, MovieInformationActivity::class.java).apply {
+                    putExtra("WEB_PAGE", webPage.toString())
+                }
                 movieView.context.startActivity(webIntent)
             }
         }
