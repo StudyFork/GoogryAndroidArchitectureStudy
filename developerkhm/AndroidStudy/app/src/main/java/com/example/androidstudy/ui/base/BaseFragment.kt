@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.example.androidstudy.database.SearchResultDatabase
 import com.example.androidstudy.model.data.Item
 import com.ironelder.androidarchitecture.view.AdapterSearch
 import kotlinx.android.synthetic.main.layout_search_view.*
-import androidx.databinding.ViewDataBinding
 
 
 open class BaseFragment<B : ViewDataBinding>(var layoutId: Int) : Fragment(), BaseContract.View {

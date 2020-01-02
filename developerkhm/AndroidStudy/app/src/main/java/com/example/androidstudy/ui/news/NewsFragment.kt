@@ -3,7 +3,6 @@ package com.example.androidstudy.ui.news
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidstudy.R
 import com.example.androidstudy.databinding.FragmentNewsBinding
 import com.example.androidstudy.ui.base.BaseFragment
@@ -22,11 +21,11 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>(R.layout.fragment_news) {
 
     private fun setLayout() {
 
-        searchButton.setOnClickListener {
-            searchEditText.onEditorAction(EditorInfo.IME_ACTION_SEARCH)
-        }
+        binding
 
-        searchEditText.setOnEditorActionListener { searchEditText, actionId, event ->
+        binding.searchLayout.searchEditText.onEditorAction(EditorInfo.IME_ACTION_SEARCH)
+
+        binding.searchLayout.searchEditText.setOnEditorActionListener { searchEditText, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_SEARCH -> {
                     basePresenter.search(searchEditText.text.toString(), typeArray[1])
@@ -36,10 +35,8 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>(R.layout.fragment_news) {
             true
         }
 
-        resultRecyclerView.adapter = AdapterSearch(context, arrayListOf(), "news")
-        resultRecyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
+        binding.searchLayout.resultRecyclerView.adapter =
+            AdapterSearch(context, arrayListOf(), "news")
     }
 
 }

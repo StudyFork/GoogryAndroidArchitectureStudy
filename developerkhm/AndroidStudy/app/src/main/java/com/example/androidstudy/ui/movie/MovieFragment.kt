@@ -3,7 +3,6 @@ package com.example.androidstudy.ui.movie
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidstudy.R
 import com.example.androidstudy.databinding.FragmentMovieBinding
 import com.example.androidstudy.ui.base.BaseFragment
@@ -22,11 +21,9 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie
 
     private fun setLayout() {
 
-        searchButton.setOnClickListener {
-            searchEditText.onEditorAction(EditorInfo.IME_ACTION_SEARCH)
-        }
+        binding.searchLayout.searchEditText.onEditorAction(EditorInfo.IME_ACTION_SEARCH)
 
-        searchEditText.setOnEditorActionListener { searchEditText, actionId, event ->
+        binding.searchLayout.searchEditText.setOnEditorActionListener { searchEditText, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_SEARCH -> {
                     basePresenter.search(searchEditText.text.toString(), typeArray[2])
@@ -36,9 +33,8 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie
             true
         }
 
-        resultRecyclerView.adapter = AdapterSearch(context, arrayListOf(), "movie")
-        resultRecyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.searchLayout.resultRecyclerView.adapter =
+            AdapterSearch(context, arrayListOf(), "movie")
 
     }
 }

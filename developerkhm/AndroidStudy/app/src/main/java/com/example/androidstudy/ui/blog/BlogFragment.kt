@@ -3,7 +3,6 @@ package com.example.androidstudy.ui.blog
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidstudy.R
 import com.example.androidstudy.databinding.FragmentBlogBinding
 import com.example.androidstudy.ui.base.BaseFragment
@@ -21,11 +20,9 @@ class BlogFragment : BaseFragment<FragmentBlogBinding>(R.layout.fragment_blog) {
     }
 
     private fun setLayout() {
-        searchButton.setOnClickListener {
-            searchEditText.onEditorAction(EditorInfo.IME_ACTION_SEARCH)
-        }
+        binding.searchLayout.searchEditText.onEditorAction(EditorInfo.IME_ACTION_SEARCH)
 
-        searchEditText.setOnEditorActionListener { searchEditText, actionId, event ->
+        binding.searchLayout.searchEditText.setOnEditorActionListener { searchEditText, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_SEARCH -> {
                     basePresenter.search(searchEditText.text.toString(), typeArray[0])
@@ -35,8 +32,7 @@ class BlogFragment : BaseFragment<FragmentBlogBinding>(R.layout.fragment_blog) {
             true
         }
 
-        resultRecyclerView.adapter = AdapterSearch(context, arrayListOf(), "blog")
-        resultRecyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.searchLayout.resultRecyclerView.adapter =
+            AdapterSearch(context, arrayListOf(), "blog")
     }
 }
