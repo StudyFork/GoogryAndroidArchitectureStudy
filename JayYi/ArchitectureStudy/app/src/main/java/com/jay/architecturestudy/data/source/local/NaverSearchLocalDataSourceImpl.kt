@@ -15,6 +15,7 @@ import com.jay.architecturestudy.data.source.local.NaverSearchLocalDataSource.Co
 import com.jay.architecturestudy.data.source.local.NaverSearchLocalDataSource.Companion.PREFS_KEY_IMAGE
 import com.jay.architecturestudy.data.source.local.NaverSearchLocalDataSource.Companion.PREFS_KEY_KIN
 import com.jay.architecturestudy.data.source.local.NaverSearchLocalDataSource.Companion.PREFS_KEY_MOVIE
+import com.jay.architecturestudy.data.source.local.NaverSearchLocalDataSource.Companion.PREFS_NAME
 import io.reactivex.Single
 
 class NaverSearchLocalDataSourceImpl(
@@ -26,7 +27,7 @@ class NaverSearchLocalDataSourceImpl(
     }
 
     override val sharedPreferences: SharedPreferences by lazy {
-        context.getSharedPreferences("search_history", Context.MODE_PRIVATE)
+        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
 
 
