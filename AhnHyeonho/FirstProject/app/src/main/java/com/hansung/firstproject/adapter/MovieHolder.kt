@@ -3,7 +3,6 @@ package com.hansung.firstproject.adapter
 import android.content.Intent
 import android.net.Uri
 import android.text.Html
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide

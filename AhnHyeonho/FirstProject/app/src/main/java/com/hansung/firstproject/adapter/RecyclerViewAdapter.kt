@@ -7,15 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hansung.firstproject.R
 import com.hansung.firstproject.data.MovieModel
 
-class RecyclerViewAdapter<T> : RecyclerView.Adapter<MovieHolder>() {
-    private val items: ArrayList<T> = arrayListOf()
+abstract class BaseRecyclerViewAdapter<T> : RecyclerView.Adapter<MovieHolder>() {
+    protected val items: ArrayList<T> = arrayListOf()
 
     fun addItems(_item: ArrayList<T>) {
         clearItems()
         items.addAll(_item)
     }
 
-    fun clearItems() {
+    private fun clearItems() {
         items.clear()
     }
 
@@ -31,8 +31,9 @@ class RecyclerViewAdapter<T> : RecyclerView.Adapter<MovieHolder>() {
 
     //재활용 되는 View가 호출하여 실행되는 메소드, 뷰 홀더를 전달하고 Adapter는 position 의 데이터를 결합
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
-        (items[position] as MovieModel).run {
-            holder.bindItems(this)
+        var item = items[position]
+        if (item is MovieModel) {
+            holder.bindItems(item)
         }
     }
 }
