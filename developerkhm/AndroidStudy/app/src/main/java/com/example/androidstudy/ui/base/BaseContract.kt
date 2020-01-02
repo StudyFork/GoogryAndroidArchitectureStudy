@@ -23,8 +23,7 @@ interface BaseContract {
             type: String
         )
         fun searchLocal(
-            type: String,
-            searchResultDatabase: SearchResultDatabase?
+            type: String
         )
 
         fun insertSeachResult(searchResultDatabase: SearchResultDatabase?, searchResult: SearchResultEntity)

@@ -21,8 +21,4 @@ object NaverLocalDataSourceImpl : NaverLocalDataSource{
         SearchResultDatabase.getInstance(context)?.SearchResultDao()
             ?.insertSearchResult(searchResult)
     }
-
-    fun getLocalSearchDataBase(context: Context): SearchResultDatabase?{
-        return SearchResultDatabase.getInstance(context)
-    }
 }

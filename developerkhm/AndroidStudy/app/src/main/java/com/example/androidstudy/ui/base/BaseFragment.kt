@@ -31,7 +31,6 @@ open class BaseFragment(var layoutId: Int) : Fragment(), BaseContract.View {
         return inflater.inflate(layoutId, container, false)
     }
 
-
     override fun onDataChanged(result: ArrayList<Item>) {
         (resultRecyclerView?.adapter as AdapterSearch).setItemList(result)
     }

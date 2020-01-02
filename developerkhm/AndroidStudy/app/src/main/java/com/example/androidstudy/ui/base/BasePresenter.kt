@@ -1,5 +1,5 @@
 package com.example.androidstudy.ui.base
-ßß
+
 import com.example.androidstudy.database.SearchResultDatabase
 import com.example.androidstudy.model.data.Item
 import com.example.androidstudy.model.data.SearchResultEntity
@@ -38,8 +38,8 @@ class BasePresenter(val view : BaseContract.View) : BaseContract.Presenter {
         NaverDataRepositoryImpl.setLocalSearchData(searchResultDatabase, searchResult)
     }
 
-    override fun searchLocal(type: String, searchResultDatabase: SearchResultDatabase?) {
-        NaverDataRepositoryImpl.getLocalSearchData(type, searchResultDatabase)
+    override fun searchLocal(type: String) {
+        NaverDataRepositoryImpl.getLocalSearchData(type, view.loadLocalDatabase())
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())?.subscribe({
                 view.onDataLoadLocal(
