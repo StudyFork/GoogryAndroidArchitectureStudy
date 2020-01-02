@@ -3,7 +3,7 @@ package com.example.studyapplication.ui.main
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.studyapplication.R
-import com.example.studyapplication.ui.base.SearchFragment
+import com.example.studyapplication.ui.base.BaseFragment
 import com.example.studyapplication.ui.main.movie.MovieFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), MainContract.Vie
             .commitAllowingStateLoss()
     }
 
-    override fun showSearchFragment(fragment: SearchFragment) {
+    override fun showSearchFragment(fragment: BaseFragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.frameLayout, fragment)
             .commitAllowingStateLoss()

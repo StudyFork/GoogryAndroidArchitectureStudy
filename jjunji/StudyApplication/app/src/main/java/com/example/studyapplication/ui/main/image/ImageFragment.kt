@@ -10,10 +10,10 @@ import com.example.studyapplication.ui.main.image.adapter.ImageAdapter
 import com.example.studyapplication.data.model.SearchImageResult
 import com.example.studyapplication.data.repository.NaverSearchRepository
 import com.example.studyapplication.data.repository.NaverSearchRepositoryImpl
-import com.example.studyapplication.ui.base.SearchFragment
+import com.example.studyapplication.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_image.*
 
-class ImageFragment : SearchFragment(R.layout.fragment_image), ImageContract.View {
+class ImageFragment : BaseFragment(R.layout.fragment_image), ImageContract.View {
     private lateinit var presenter: ImageContract.Presenter
     private lateinit var imageAdapter: ImageAdapter
     private val repository : NaverSearchRepository = NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())

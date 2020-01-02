@@ -2,6 +2,7 @@ package com.example.studyapplication.ui.main.blog
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.example.studyapplication.R
@@ -9,11 +10,11 @@ import com.example.studyapplication.data.datasource.remote.NaverRemoteDataSource
 import com.example.studyapplication.data.model.SearchBlogResult
 import com.example.studyapplication.data.repository.NaverSearchRepository
 import com.example.studyapplication.data.repository.NaverSearchRepositoryImpl
-import com.example.studyapplication.ui.base.SearchFragment
+import com.example.studyapplication.ui.base.BaseFragment
 import com.example.studyapplication.ui.main.blog.adapter.BlogAdapter
 import kotlinx.android.synthetic.main.fragment_blog.*
 
-class BlogFragment : SearchFragment(R.layout.fragment_blog), BlogContract.View {
+class BlogFragment : BaseFragment(R.layout.fragment_blog), BlogContract.View {
     private val repository: NaverSearchRepository = NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())
     private lateinit var blogAdapter: BlogAdapter
     private lateinit var presenter : BlogContract.Presenter
@@ -41,6 +42,7 @@ class BlogFragment : SearchFragment(R.layout.fragment_blog), BlogContract.View {
 
     @SuppressLint("ShowToast")
     override fun toastErrorConnFailed(message: String) {
+        Log.e("", ">>> toastErrorConnFailed() ")
         Toast.makeText(context, message, Toast.LENGTH_SHORT)
     }
 

@@ -9,11 +9,11 @@ import com.example.studyapplication.data.datasource.remote.NaverRemoteDataSource
 import com.example.studyapplication.data.model.SearchMovieResult
 import com.example.studyapplication.data.repository.NaverSearchRepository
 import com.example.studyapplication.data.repository.NaverSearchRepositoryImpl
-import com.example.studyapplication.ui.base.SearchFragment
+import com.example.studyapplication.ui.base.BaseFragment
 import com.example.studyapplication.ui.main.movie.adapter.MovieAdapter
 import kotlinx.android.synthetic.main.fragment_movie.*
 
-class MovieFragment : SearchFragment(R.layout.fragment_movie), MovieContract.View {
+class MovieFragment : BaseFragment(R.layout.fragment_movie), MovieContract.View {
     private lateinit var movieAdapter: MovieAdapter
     private lateinit var presenter : MovieContract.Presenter
     private val repository: NaverSearchRepository = NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())

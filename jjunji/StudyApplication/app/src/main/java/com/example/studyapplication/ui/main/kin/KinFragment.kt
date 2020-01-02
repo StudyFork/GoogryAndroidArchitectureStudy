@@ -10,10 +10,10 @@ import com.example.studyapplication.ui.main.kin.adapter.KinAdapter
 import com.example.studyapplication.data.model.SearchKinResult
 import com.example.studyapplication.data.repository.NaverSearchRepository
 import com.example.studyapplication.data.repository.NaverSearchRepositoryImpl
-import com.example.studyapplication.ui.base.SearchFragment
+import com.example.studyapplication.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_kin.*
 
-class KinFragment  : SearchFragment(R.layout.fragment_kin), KinContract.View {
+class KinFragment  : BaseFragment(R.layout.fragment_kin), KinContract.View {
     private lateinit var presenter: KinContract.Presenter
     private lateinit var kinAdapter: KinAdapter
     private val repository : NaverSearchRepository = NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())
