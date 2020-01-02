@@ -9,6 +9,7 @@ interface BaseContract {
     interface View {
         fun onDataChanged(result: ArrayList<Item>)
         fun onDataLoadLocal(query: String, result: ArrayList<Item>)
+        fun loadLocalDatabase(): SearchResultDatabase?
         fun showErrorMessage(msg: String?)
         fun showNoSearchData()
         fun showLoading()
@@ -26,7 +27,7 @@ interface BaseContract {
             searchResultDatabase: SearchResultDatabase?
         )
 
-        fun insertSeachResult(vararg searchResult: SearchResultEntity)
+        fun insertSeachResult(searchResultDatabase: SearchResultDatabase?, searchResult: SearchResultEntity)
 
         fun clearDisposable()
     }

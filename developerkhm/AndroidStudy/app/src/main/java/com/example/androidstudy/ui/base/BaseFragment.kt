@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.androidstudy.database.SearchResultDatabase
 import com.example.androidstudy.model.data.Item
 import com.ironelder.androidarchitecture.view.AdapterSearch
 import kotlinx.android.synthetic.main.layout_search_view.*
@@ -37,6 +38,10 @@ open class BaseFragment(var layoutId: Int) : Fragment(), BaseContract.View {
 
     override fun onDataLoadLocal(query: String, result: ArrayList<Item>) {
         (resultRecyclerView?.adapter as AdapterSearch).setItemList(result)
+    }
+
+    override fun loadLocalDatabase() : SearchResultDatabase? {
+        return SearchResultDatabase.getInstance(context?.applicationContext ?: (activity as Context).applicationContext)
     }
 
     override fun showErrorMessage(msg: String?) {

@@ -1,6 +1,5 @@
 package com.example.androidstudy.ui.base
-
-import android.util.Log
+ßß
 import com.example.androidstudy.database.SearchResultDatabase
 import com.example.androidstudy.model.data.Item
 import com.example.androidstudy.model.data.SearchResultEntity
@@ -29,14 +28,14 @@ class BasePresenter(val view : BaseContract.View) : BaseContract.Presenter {
                     view.hideLoading()
                 }
                 .doAfterSuccess{
-
+                    insertSeachResult(view.loadLocalDatabase(), SearchResultEntity(null, type, query, Gson().toJson(it?.items)))
                 }
                 .subscribe(::onSuccess, ::onError)
                 .addDisposable()
         }
 
-    override fun insertSeachResult(vararg searchResult: SearchResultEntity){
-
+    override fun insertSeachResult(searchResultDatabase: SearchResultDatabase?, searchResult: SearchResultEntity){
+        NaverDataRepositoryImpl.setLocalSearchData(searchResultDatabase, searchResult)
     }
 
     override fun searchLocal(type: String, searchResultDatabase: SearchResultDatabase?) {

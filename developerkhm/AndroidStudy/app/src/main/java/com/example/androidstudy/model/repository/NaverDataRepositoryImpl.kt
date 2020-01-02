@@ -21,7 +21,7 @@ object NaverDataRepositoryImpl : NaverDataRepository {
         return database?.SearchResultDao()?.getLastSearchResult(type)
     }
 
-    override fun setLocalSearchData() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun setLocalSearchData(database: SearchResultDatabase?, searchResultEntity: SearchResultEntity) {
+        database?.SearchResultDao()?.insertSearchResult(searchResultEntity)
     }
 }
