@@ -22,11 +22,15 @@ interface BaseContract {
             query: String?,
             type: String
         )
+
         fun searchLocal(
             type: String
         )
 
-        fun insertSeachResult(searchResultDatabase: SearchResultDatabase?, searchResult: SearchResultEntity)
+        fun insertSeachResult(
+            searchResultDatabase: SearchResultDatabase?,
+            searchResult: SearchResultEntity
+        )
 
         fun clearDisposable()
     }

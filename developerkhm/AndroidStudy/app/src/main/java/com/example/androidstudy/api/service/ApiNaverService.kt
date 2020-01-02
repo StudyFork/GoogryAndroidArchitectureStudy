@@ -1,8 +1,8 @@
 package com.example.androidstudy.api.service
 
-import com.example.androidstudy.model.data.TotalModel
 import com.example.androidstudy.common.CLIENT_ID
 import com.example.androidstudy.common.CLIENT_KEY
+import com.example.androidstudy.model.data.TotalModel
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Headers

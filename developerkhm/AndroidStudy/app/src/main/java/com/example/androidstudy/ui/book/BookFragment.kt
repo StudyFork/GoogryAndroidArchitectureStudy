@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidstudy.R
 import com.example.androidstudy.ui.base.BaseFragment
 import com.ironelder.androidarchitecture.view.AdapterSearch
-import kotlinx.android.synthetic.main.layout_search_view.*
 
 class BookFragment : BaseFragment(R.layout.fragment_book) {
 

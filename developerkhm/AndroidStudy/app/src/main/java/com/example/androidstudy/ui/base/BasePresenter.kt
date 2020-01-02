@@ -11,30 +11,37 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class BasePresenter(val view : BaseContract.View) : BaseContract.Presenter {
+class BasePresenter(val view: BaseContract.View) : BaseContract.Presenter {
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun search(query: String?, type: String) {
-            NaverDataRepositoryImpl.getNaverSearchData(
-                type,
-                query!!)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe {
-                    view.showLoading()
-                }
-                .doAfterTerminate {
-                    view.hideLoading()
-                }
-                .doAfterSuccess{
-                    insertSeachResult(view.loadLocalDatabase(), SearchResultEntity(null, type, query, Gson().toJson(it?.items)))
-                }
-                .subscribe(::onSuccess, ::onError)
-                .addDisposable()
-        }
+        NaverDataRepositoryImpl.getNaverSearchData(
+            type,
+            query!!
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe {
+                view.showLoading()
+            }
+            .doAfterTerminate {
+                view.hideLoading()
+            }
+            .doAfterSuccess {
+                insertSeachResult(
+                    view.loadLocalDatabase(),
+                    SearchResultEntity(null, type, query, Gson().toJson(it?.items))
+                )
+            }
+            .subscribe(::onSuccess, ::onError)
+            .addDisposable()
+    }
 
-    override fun insertSeachResult(searchResultDatabase: SearchResultDatabase?, searchResult: SearchResultEntity){
+    override fun insertSeachResult(
+        searchResultDatabase: SearchResultDatabase?,
+        searchResult: SearchResultEntity
+    ) {
         NaverDataRepositoryImpl.setLocalSearchData(searchResultDatabase, searchResult)
     }
 

@@ -7,17 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.androidstudy.database.SearchResultDatabase
 import com.example.androidstudy.model.data.Item
 import com.ironelder.androidarchitecture.view.AdapterSearch
 import kotlinx.android.synthetic.main.layout_search_view.*
+import androidx.databinding.ViewDataBinding
 
 
-open class BaseFragment(var layoutId: Int) : Fragment(), BaseContract.View {
+open class BaseFragment<B : ViewDataBinding>(var layoutId: Int) : Fragment(), BaseContract.View {
 
     protected val typeArray = arrayOf("blog", "news", "movie", "book")
 
+    protected lateinit var binding: B
     protected lateinit var basePresenter: BasePresenter
 
     override fun onCreateView(
@@ -27,8 +30,9 @@ open class BaseFragment(var layoutId: Int) : Fragment(), BaseContract.View {
     ): View? {
 
         basePresenter = BasePresenter(this)
+        binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
 
-        return inflater.inflate(layoutId, container, false)
+        return binding.root
     }
 
     override fun onDataChanged(result: ArrayList<Item>) {
@@ -39,8 +43,10 @@ open class BaseFragment(var layoutId: Int) : Fragment(), BaseContract.View {
         (resultRecyclerView?.adapter as AdapterSearch).setItemList(result)
     }
 
-    override fun loadLocalDatabase() : SearchResultDatabase? {
-        return SearchResultDatabase.getInstance(context?.applicationContext ?: (activity as Context).applicationContext)
+    override fun loadLocalDatabase(): SearchResultDatabase? {
+        return SearchResultDatabase.getInstance(
+            context?.applicationContext ?: (activity as Context).applicationContext
+        )
     }
 
     override fun showErrorMessage(msg: String?) {

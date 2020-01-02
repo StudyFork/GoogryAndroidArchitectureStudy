@@ -5,7 +5,7 @@ import com.example.androidstudy.database.SearchResultDatabase
 import com.example.androidstudy.model.data.SearchResultEntity
 import io.reactivex.Single
 
-object NaverLocalDataSourceImpl : NaverLocalDataSource{
+object NaverLocalDataSourceImpl : NaverLocalDataSource {
     override fun getLocalSearchData(
         context: Context,
         type: String

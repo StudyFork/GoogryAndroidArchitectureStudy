@@ -11,7 +11,7 @@ object NaverDataRepositoryImpl : NaverDataRepository {
         type: String,
         query: String
     ): Single<TotalModel> {
-       return NaverRemoteDataSourceImpl.callAPiNaverSearch(type, query)
+        return NaverRemoteDataSourceImpl.callAPiNaverSearch(type, query)
     }
 
     override fun getLocalSearchData(
@@ -21,7 +21,10 @@ object NaverDataRepositoryImpl : NaverDataRepository {
         return database?.SearchResultDao()?.getLastSearchResult(type)
     }
 
-    override fun setLocalSearchData(database: SearchResultDatabase?, searchResultEntity: SearchResultEntity) {
+    override fun setLocalSearchData(
+        database: SearchResultDatabase?,
+        searchResultEntity: SearchResultEntity
+    ) {
         database?.SearchResultDao()?.insertSearchResult(searchResultEntity)
     }
 }
