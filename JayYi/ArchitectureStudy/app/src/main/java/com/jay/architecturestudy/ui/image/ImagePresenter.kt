@@ -31,16 +31,6 @@ class ImagePresenter(
         }
     }
 
-    private fun loadImageSearchHistory(keyword: String) : Single<Pair<String, List<Image>>> {
-        return if (keyword.isBlank()) {
-            Single.just(Pair(keyword, emptyList()))
-        } else {
-            repository.getLatestImageResult()
-                .map { Pair(keyword, it) }
-                .compose(singleIoMainThread())
-        }
-    }
-
     override fun search(keyword: String) {
         repository.getImage(
             keyword = keyword
