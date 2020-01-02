@@ -2,7 +2,7 @@ package com.example.handnew04.data.remote
 
 import com.example.handnew04.data.NaverMovieResponse
 
-interface MovieRemoteDataResource {
+interface MovieRemoteDataSource {
     fun getMovieData(
         query: String,
         success: (NaverMovieResponse) -> Unit,
