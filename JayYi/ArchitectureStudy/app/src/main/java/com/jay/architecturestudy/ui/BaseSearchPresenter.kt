@@ -11,9 +11,6 @@ abstract class BaseSearchPresenter(
 
     protected val disposables = CompositeDisposable()
 
-    override fun subscribe() {
-    }
-
     override fun unsubscribe() {
         disposables.clear()
     }
