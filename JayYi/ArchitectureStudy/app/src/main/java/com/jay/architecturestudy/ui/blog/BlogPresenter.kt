@@ -8,6 +8,7 @@ import com.jay.architecturestudy.ui.BaseSearchPresenter
 import com.jay.architecturestudy.util.addTo
 import com.jay.architecturestudy.util.singleIoMainThread
 import com.jay.architecturestudy.util.then
+import io.reactivex.Completable
 import io.reactivex.Single
 
 class BlogPresenter(
@@ -33,26 +34,21 @@ class BlogPresenter(
         repository.getBlog(
             keyword = keyword
         )
-            .map {
-                // 기존 결과 삭제
-                clearSearchHistory { repository.clearBlogResult() }
-                it.blogs.isNotEmpty().then {
-                    val blogList = arrayListOf<BlogEntity>()
-                    it.blogs.mapTo(blogList) { blog ->
-                        BlogEntity(
-                            bloggerLink = blog.bloggerLink,
-                            bloggerName = blog.bloggerName,
-                            description = blog.description,
-                            link = blog.link,
-                            postdate = blog.postdate,
-                            title = blog.title
-                        )
-                    }
-                    // 최신 결과 저장
-                    updateSearchHistory { repository.saveBlogResult(blogList) }
+            .flatMap {
+                if (it.blogs.isEmpty()) {
+                    updateBlogSearchHistory(
+                        it.blogs,
+                        fun1 = { repository.clearBlogResult() },
+                        fun2 = { repository.saveBlogKeyword(keyword) }
+                    )
+                } else {
+                    val blogList = ensureBlogEntityList(it.blogs)
+                    updateBlogSearchHistory(
+                        it.blogs,
+                        fun1 = { repository.clearBlogResult() },
+                        fun2 = { repository.saveBlogKeyword(keyword) },
+                        fun3 = { repository.saveBlogResult(blogList) })
                 }
-                repository.saveBlogKeyword(keyword)
-                it.blogs
             }
             .compose(singleIoMainThread())
             .subscribe({ blogs ->
@@ -68,6 +64,41 @@ class BlogPresenter(
                 handleError(e)
             })
             .addTo(disposables)
+    }
+
+    private fun ensureBlogEntityList(blogs: List<Blog>) : List<BlogEntity> =
+        arrayListOf<BlogEntity>().apply {
+            blogs.mapTo(this) { blog ->
+                BlogEntity(
+                    bloggerLink = blog.bloggerLink,
+                    bloggerName = blog.bloggerName,
+                    description = blog.description,
+                    link = blog.link,
+                    postdate = blog.postdate,
+                    title = blog.title
+                )
+            }
+        }
+
+    private fun updateBlogSearchHistory(
+        blogs: List<Blog>,
+        fun1: () -> Unit,
+        fun2: () -> Unit,
+        fun3: (() -> Unit)? = null
+    ): Single<List<Blog>> {
+        val firstCall = Completable.fromCallable(fun1)
+        val secondCall = Completable.fromCallable(fun2)
+        return fun3?.let { call ->
+            val thirdCall = Completable.fromCallable(call)
+            firstCall
+                .andThen(secondCall)
+                .andThen(thirdCall)
+                .toSingle { blogs }
+        } ?: run {
+            firstCall
+                .andThen(secondCall)
+                .toSingle { blogs }
+        }
     }
 
 }

@@ -8,6 +8,7 @@ import com.jay.architecturestudy.ui.BaseSearchPresenter
 import com.jay.architecturestudy.util.addTo
 import com.jay.architecturestudy.util.singleIoMainThread
 import com.jay.architecturestudy.util.then
+import io.reactivex.Completable
 import io.reactivex.Single
 
 class KinPresenter(
@@ -34,23 +35,21 @@ class KinPresenter(
         repository.getKin(
             keyword = keyword
         )
-            .map {
-                // 기존 결과 삭제
-                clearSearchHistory { repository.clearKinResult() }
-                it.kins.isNotEmpty().then {
-                    val kinList = arrayListOf<KinEntity>()
-                    it.kins.mapTo(kinList) { kin ->
-                        KinEntity(
-                            description = kin.description,
-                            link = kin.link,
-                            title = kin.title
-                        )
-                    }
-                    // 최신 결과 저장
-                    updateSearchHistory { repository.saveKinResult(kinList) }
+            .flatMap {
+                if (it.kins.isEmpty()) {
+                    updateKinSearchHistory(
+                        it.kins,
+                        fun1 = { repository.clearKinResult() },
+                        fun2 = { repository.saveKinKeyword(keyword) }
+                    )
+                } else {
+                    val kinList = ensureKinEntityList(it.kins)
+                    updateKinSearchHistory(
+                        it.kins,
+                        fun1 = { repository.clearKinResult() },
+                        fun2 = { repository.saveKinKeyword(keyword) },
+                        fun3 = { repository.saveKinResult(kinList) })
                 }
-                repository.saveKinKeyword(keyword)
-                it.kins
             }
             .compose(singleIoMainThread())
             .subscribe({ kins ->
@@ -68,4 +67,36 @@ class KinPresenter(
             .addTo(disposables)
     }
 
+    private fun ensureKinEntityList(kins: List<Kin>) : List<KinEntity> =
+        arrayListOf<KinEntity>().apply {
+            kins.mapTo(this) { kin ->
+                KinEntity(
+                    description = kin.description,
+                    link = kin.link,
+                    title = kin.title
+                )
+            }
+        }
+
+
+    private fun updateKinSearchHistory(
+        kins: List<Kin>,
+        fun1: () -> Unit,
+        fun2: () -> Unit,
+        fun3: (() -> Unit)? = null
+    ): Single<List<Kin>> {
+        val firstCall = Completable.fromCallable(fun1)
+        val secondCall = Completable.fromCallable(fun2)
+        return fun3?.let { call ->
+            val thirdCall = Completable.fromCallable(call)
+            firstCall
+                .andThen(secondCall)
+                .andThen(thirdCall)
+                .toSingle { kins }
+        } ?: run {
+            firstCall
+                .andThen(secondCall)
+                .toSingle { kins }
+        }
+    }
 }

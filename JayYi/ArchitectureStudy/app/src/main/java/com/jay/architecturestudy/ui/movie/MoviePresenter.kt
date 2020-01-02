@@ -2,11 +2,14 @@ package com.jay.architecturestudy.ui.movie
 
 import android.util.Log
 import com.jay.architecturestudy.data.database.entity.MovieEntity
+import com.jay.architecturestudy.data.model.Movie
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseSearchPresenter
 import com.jay.architecturestudy.util.addTo
 import com.jay.architecturestudy.util.singleIoMainThread
 import com.jay.architecturestudy.util.then
+import io.reactivex.Completable
+import io.reactivex.Single
 
 class MoviePresenter(
     override val view: MovieContract.View,
@@ -33,28 +36,21 @@ class MoviePresenter(
         repository.getMovie(
             keyword = keyword
         )
-            .map {
-                // 기존 결과 삭제
-                clearSearchHistory { repository.clearMovieResult() }
-                it.movies.isNotEmpty().then {
-                    val movieList = arrayListOf<MovieEntity>()
-                    it.movies.mapTo(movieList) { movie ->
-                        MovieEntity(
-                            title = movie.title,
-                            link =  movie.link,
-                            image = movie.image,
-                            subtitle = movie.subtitle,
-                            director = movie.director,
-                            actor = movie.actor,
-                            pubDate = movie.pubDate,
-                            userRating = movie.userRating
-                        )
-                    }
-                    // 최신 결과 저장
-                    updateSearchHistory { repository.saveMovieResult(movieList) }
+            .flatMap {
+                if (it.movies.isEmpty()) {
+                    updateMovieSearchHistory(
+                        it.movies,
+                        fun1 = { repository.clearMovieResult() },
+                        fun2 = { repository.saveMovieKeyword(keyword) }
+                    )
+                } else {
+                    val movieList = ensureMovieEntityList(it.movies)
+                    updateMovieSearchHistory(
+                        it.movies,
+                        fun1 = { repository.clearMovieResult() },
+                        fun2 = { repository.saveMovieKeyword(keyword) },
+                        fun3 = { repository.saveMovieResult(movieList) })
                 }
-                repository.saveMovieKeyword(keyword)
-                it.movies
             }
             .compose(singleIoMainThread())
             .subscribe({ movies ->
@@ -70,5 +66,42 @@ class MoviePresenter(
                 handleError(e)
             })
             .addTo(disposables)
+    }
+
+    private fun ensureMovieEntityList(movies: List<Movie>): List<MovieEntity> =
+        arrayListOf<MovieEntity>().apply {
+            movies.mapTo(this) { movie ->
+                MovieEntity(
+                    title = movie.title,
+                    link = movie.link,
+                    image = movie.image,
+                    subtitle = movie.subtitle,
+                    director = movie.director,
+                    actor = movie.actor,
+                    pubDate = movie.pubDate,
+                    userRating = movie.userRating
+                )
+            }
+        }
+
+    private fun updateMovieSearchHistory(
+        movies: List<Movie>,
+        fun1: () -> Unit,
+        fun2: () -> Unit,
+        fun3: (() -> Unit)? = null
+    ): Single<List<Movie>> {
+        val firstCall = Completable.fromCallable(fun1)
+        val secondCall = Completable.fromCallable(fun2)
+        return fun3?.let { call ->
+            val thirdCall = Completable.fromCallable(call)
+            firstCall
+                .andThen(secondCall)
+                .andThen(thirdCall)
+                .toSingle { movies }
+        } ?: run {
+            firstCall
+                .andThen(secondCall)
+                .toSingle { movies }
+        }
     }
 }

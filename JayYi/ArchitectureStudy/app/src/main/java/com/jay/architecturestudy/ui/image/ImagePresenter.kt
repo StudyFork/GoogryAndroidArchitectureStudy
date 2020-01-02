@@ -8,6 +8,7 @@ import com.jay.architecturestudy.ui.BaseSearchPresenter
 import com.jay.architecturestudy.util.addTo
 import com.jay.architecturestudy.util.singleIoMainThread
 import com.jay.architecturestudy.util.then
+import io.reactivex.Completable
 import io.reactivex.Single
 
 class ImagePresenter(
@@ -44,25 +45,21 @@ class ImagePresenter(
         repository.getImage(
             keyword = keyword
         )
-            .map {
-                // 기존 결과 삭제
-                clearSearchHistory { repository.clearImageResult() }
-                it.images.isNotEmpty().then {
-                    val imageList = arrayListOf<ImageEntity>()
-                    it.images.mapTo(imageList) { image ->
-                        ImageEntity(
-                           link = image.link,
-                            sizeWidth = image.sizeWidth,
-                            sizeHeight = image.sizeHeight,
-                            thumbnail = image.thumbnail,
-                            title = image.title
-                        )
-                    }
-                    // 최신 결과 저장
-                    updateSearchHistory { repository.saveImageResult(imageList) }
+            .flatMap {
+                if (it.images.isEmpty()) {
+                    updateImageSearchHistory(
+                        it.images,
+                        fun1 = { repository.clearImageResult() },
+                        fun2 = { repository.saveImageKeyword(keyword) }
+                    )
+                } else {
+                    val imageList = ensureImageEntityList(it.images)
+                    updateImageSearchHistory(
+                        it.images,
+                        fun1 = { repository.clearImageResult() },
+                        fun2 = { repository.saveImageKeyword(keyword) },
+                        fun3 = { repository.saveImageResult(imageList) })
                 }
-                repository.saveImageKeyword(keyword)
-                it.images
             }
             .compose(singleIoMainThread())
             .subscribe({ images ->
@@ -80,4 +77,37 @@ class ImagePresenter(
             .addTo(disposables)
     }
 
+    private fun ensureImageEntityList(images: List<Image>) : List<ImageEntity> =
+        arrayListOf<ImageEntity>().apply {
+            images.mapTo(this) { image ->
+                ImageEntity(
+                    link = image.link,
+                    sizeWidth = image.sizeWidth,
+                    sizeHeight = image.sizeHeight,
+                    thumbnail = image.thumbnail,
+                    title = image.title
+                )
+            }
+        }
+
+    private fun updateImageSearchHistory(
+        images: List<Image>,
+        fun1: () -> Unit,
+        fun2: () -> Unit,
+        fun3: (() -> Unit)? = null
+    ): Single<List<Image>> {
+        val firstCall = Completable.fromCallable(fun1)
+        val secondCall = Completable.fromCallable(fun2)
+        return fun3?.let { call ->
+            val thirdCall = Completable.fromCallable(call)
+            firstCall
+                .andThen(secondCall)
+                .andThen(thirdCall)
+                .toSingle { images }
+        } ?: run {
+            firstCall
+                .andThen(secondCall)
+                .toSingle {images }
+        }
+    }
 }
