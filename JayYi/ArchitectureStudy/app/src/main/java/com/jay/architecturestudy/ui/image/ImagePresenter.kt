@@ -17,16 +17,17 @@ class ImagePresenter(
 
     override fun subscribe() {
         val lastKeyword = repository.getLatestImageKeyword()
-        loadImageSearchHistory(
-            keyword = lastKeyword
-        )
-            .subscribe({
-                view.updateUi(it.first, it.second)
-            }, { e ->
-                val message = e.message ?: return@subscribe
-                Log.e("image", message)
-            })
-            .addTo(disposables)
+        lastKeyword.isNotBlank().then {
+            repository.getLatestImageResult()
+                .compose(singleIoMainThread())
+                .subscribe({
+                    view.updateUi(lastKeyword, it)
+                }, { e ->
+                    val message = e.message ?: return@subscribe
+                    Log.e("image", message)
+                })
+                .addTo(disposables)
+        }
     }
 
     private fun loadImageSearchHistory(keyword: String) : Single<Pair<String, List<Image>>> {

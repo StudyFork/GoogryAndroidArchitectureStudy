@@ -17,24 +17,15 @@ class BlogPresenter(
 
     override fun subscribe() {
         val lastKeyword = repository.getLatestBlogKeyword()
-        loadBlogSearchHistory(
-            keyword = lastKeyword
-        )
-            .subscribe({
-                view.updateUi(it.first, it.second)
-            }, { e ->
-                val message = e.message ?: return@subscribe
-                Log.e("blog", message)
-            })
-    }
-
-    private fun loadBlogSearchHistory(keyword: String) : Single<Pair<String, List<Blog>>> {
-        return if (keyword.isBlank()) {
-            Single.just(Pair(keyword, emptyList()))
-        } else {
+        lastKeyword.isNotBlank().then {
             repository.getLatestBlogResult()
-                .map { Pair(keyword, it) }
                 .compose(singleIoMainThread())
+                .subscribe({
+                    view.updateUi(lastKeyword, it)
+                }, { e ->
+                    val message = e.message ?: return@subscribe
+                    Log.e("blog", message)
+                })
         }
     }
 

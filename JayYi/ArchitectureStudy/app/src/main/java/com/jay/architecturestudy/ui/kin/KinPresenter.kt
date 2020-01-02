@@ -17,25 +17,16 @@ class KinPresenter(
 
     override fun subscribe() {
         val lastKeyword = repository.getLatestKinKeyword()
-        loadKinSearchHistory(
-            keyword = lastKeyword
-        )
-            .subscribe({
-                view.updateUi(it.first, it.second)
-            }, { e ->
-                val message = e.message ?: return@subscribe
-                Log.e("kin", message)
-            })
-            .addTo(disposables)
-    }
-
-    private fun loadKinSearchHistory(keyword: String) : Single<Pair<String, List<Kin>>> {
-        return if (keyword.isBlank()) {
-            Single.just(Pair(keyword, emptyList()))
-        } else {
+        lastKeyword.isNotBlank().then {
             repository.getLatestKinResult()
-                .map { Pair(keyword, it) }
                 .compose(singleIoMainThread())
+                .subscribe({
+                    view.updateUi(lastKeyword, it)
+                }, { e ->
+                    val message = e.message ?: return@subscribe
+                    Log.e("kin", message)
+                })
+                .addTo(disposables)
         }
     }
 
