@@ -2,20 +2,24 @@ package com.example.androidstudy
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration.Builder
 import androidx.navigation.ui.NavigationUI
 import com.example.androidstudy.R.id
 import com.example.androidstudy.R.layout
 import com.example.androidstudy.database.SearchResultDatabase
+import com.example.androidstudy.databinding.ActivityMainTabBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainTabActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainTabBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layout.activity_main_tab)
-        val navView: BottomNavigationView =
-            findViewById(id.nav_view)
+
+        binding = DataBindingUtil.setContentView<ActivityMainTabBinding>(this@MainTabActivity, layout.activity_main_tab)
 
         SearchResultDatabase.getInstance(applicationContext)
 
@@ -37,7 +41,7 @@ class MainTabActivity : AppCompatActivity() {
             navController,
             appBarConfiguration
         )
-        NavigationUI.setupWithNavController(navView, navController)
+        NavigationUI.setupWithNavController(binding.navView, navController)
     }
 
     override fun onDestroy() {
