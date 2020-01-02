@@ -9,14 +9,24 @@ class MoviePresenter(
     private val naverApiRepository: NaverApiRepository
 ) : ItemContract.Presenter<Movie> {
 
-    private var userInputTitle = ""
+    private val userInputTitle
+        get() = naverApiRepository.lastMovieTitle
 
-    override suspend fun fetchItemsWithNewTitle(title: String) {
+    override suspend fun fetchItemsWithNewTitle(title: String, cached: Boolean) {
         try {
-            if (title.isNotBlank()) {
-                view.renderItems(naverApiRepository.getMovieList(title))
-                userInputTitle = title
+            when {
+                cached || title.isNotBlank() -> {
+                    val items = naverApiRepository.getMovieList(title, cached = cached)
+                    if (items.isEmpty()) {
+                        view.renderListEmptyView(true)
+                    } else {
+                        view.renderListEmptyView(false)
+                        view.renderItems(items)
+                    }
+                }
+                else -> view.renderEmptyTitleErrorToast()
             }
+            view.setTitle(userInputTitle)
         } catch (e: Exception) {
             view.renderErrorToast(e.localizedMessage)
         }

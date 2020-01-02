@@ -1,9 +1,13 @@
 package wooooooak.com.studyapp.data.model.response.movie
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-
+@Entity
 data class Movie(
+    @PrimaryKey(autoGenerate = true)
+    val id: Long,
     @SerializedName("title")
     val title: String,
     @SerializedName("link")
@@ -19,8 +23,8 @@ data class Movie(
     @SerializedName("actor")
     val actor: String,
     @SerializedName("userRating")
-    val _userRating: Float
+    val rating: Float
 ) {
     val userRating: Float
-        get() = _userRating / 2
+        get() = rating / 2
 }

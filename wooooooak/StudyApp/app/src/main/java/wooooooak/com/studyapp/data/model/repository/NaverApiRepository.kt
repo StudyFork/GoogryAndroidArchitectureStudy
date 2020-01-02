@@ -6,11 +6,16 @@ import wooooooak.com.studyapp.data.model.response.kin.Kin
 import wooooooak.com.studyapp.data.model.response.movie.Movie
 
 interface NaverApiRepository {
-    suspend fun getBlogList(title: String, startIndex: Int? = 1): List<Blog>
+    var lastBlogTitle: String
+    var lastImageTitle: String
+    var lastMovieTitle: String
+    var lastKinTitle: String
 
-    suspend fun getImageList(title: String, startIndex: Int? = 1): List<Image>
+    suspend fun getBlogList(title: String, startIndex: Int? = 1, cached: Boolean = false): List<Blog>
 
-    suspend fun getMovieList(title: String, startIndex: Int? = 1): List<Movie>
+    suspend fun getImageList(title: String, startIndex: Int? = 1, cached: Boolean = false): List<Image>
 
-    suspend fun getKinList(title: String, startIndex: Int? = 1): List<Kin>
+    suspend fun getMovieList(title: String, startIndex: Int? = 1, cached: Boolean = false): List<Movie>
+
+    suspend fun getKinList(title: String, startIndex: Int? = 1, cached: Boolean = false): List<Kin>
 }

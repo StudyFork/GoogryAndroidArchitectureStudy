@@ -9,14 +9,24 @@ class KinPresenter(
     private val naverApiRepository: NaverApiRepository
 ) : ItemContract.Presenter<Kin> {
 
-    private var userInputTitle = ""
+    private val userInputTitle
+        get() = naverApiRepository.lastKinTitle
 
-    override suspend fun fetchItemsWithNewTitle(title: String) {
+    override suspend fun fetchItemsWithNewTitle(title: String, cached: Boolean) {
         try {
-            if (title.isNotBlank()) {
-                userInputTitle = title
-                view.renderItems(naverApiRepository.getKinList(userInputTitle))
+            when {
+                cached || title.isNotBlank() -> {
+                    val items = naverApiRepository.getKinList(title, cached = cached)
+                    if (items.isEmpty()) {
+                        view.renderListEmptyView(true)
+                    } else {
+                        view.renderListEmptyView(false)
+                        view.renderItems(items)
+                    }
+                }
+                else -> view.renderEmptyTitleErrorToast()
             }
+            view.setTitle(userInputTitle)
         } catch (e: Exception) {
             view.renderErrorToast(e.localizedMessage)
         }
