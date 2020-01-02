@@ -37,8 +37,8 @@ class KinFragment : BaseFragment(R.layout.fragment_page), PageContract.View<KinI
     }
 
     private fun checkHistoryItems() {
-        if (Hawk.get("kinList", null) != null) {
-            kinList = Hawk.get("kinList")
+        if (presenter.getLocalItems().isNotEmpty()) {
+            kinList = presenter.getLocalItems()
             kinAdapter.resetItems(kinList)
             setEmptyView(false)
         } else {
@@ -58,13 +58,13 @@ class KinFragment : BaseFragment(R.layout.fragment_page), PageContract.View<KinI
     override fun getItems(items: List<KinItem>) {
         if (items.size == 0) {
             setEmptyView(true)
-            Hawk.put("kinList", null)
+            presenter.setLocalData(items)
             kinAdapter.removeAll()
         } else {
             setEmptyView(false)
             kinList = items
             kinAdapter.resetItems(items)
-            Hawk.put("kinList", kinList)
+            presenter.setLocalData(items)
         }
     }
 

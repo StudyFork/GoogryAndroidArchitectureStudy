@@ -35,8 +35,8 @@ class ImageFragment : BaseFragment(R.layout.fragment_page), PageContract.View<Im
     }
 
     private fun checkHistoryItems() {
-        if (Hawk.get("imageList", null) != null) {
-            imageList = Hawk.get("imageList")
+        if (presenter.getLocalItems().isNotEmpty()) {
+            imageList = presenter.getLocalItems()
             ImageAdapter.resetItems(imageList)
             setEmptyView(false)
         } else {
@@ -56,13 +56,13 @@ class ImageFragment : BaseFragment(R.layout.fragment_page), PageContract.View<Im
     override fun getItems(items: List<ImageItem>) {
         if (items.size == 0) {
             setEmptyView(true)
-            Hawk.put("imageList", null)
+            presenter.setLocalData(items)
             ImageAdapter.removeAll()
         } else {
             setEmptyView(false)
             imageList = items
             ImageAdapter.resetItems(items)
-            Hawk.put("imageList", imageList)
+            presenter.setLocalData(items)
         }
     }
 

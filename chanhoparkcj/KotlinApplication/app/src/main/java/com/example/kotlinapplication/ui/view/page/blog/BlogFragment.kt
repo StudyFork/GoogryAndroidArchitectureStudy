@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.fragment_page.*
 
 
 class BlogFragment : BaseFragment(R.layout.fragment_page), PageContract.View<BlogItem> {
+
     private lateinit var blogAdapter: BlogAdapter
     private lateinit var presenter: BlogPresenter
     private lateinit var blogList: List<BlogItem>
@@ -36,8 +37,8 @@ class BlogFragment : BaseFragment(R.layout.fragment_page), PageContract.View<Blo
     }
 
     private fun checkHistoryItems() {
-        if (Hawk.get("blogList", null) != null) {
-            blogList = Hawk.get("blogList")
+        if (presenter.getLocalItems().isNotEmpty()) {
+            blogList = presenter.getLocalItems()
             blogAdapter.resetItems(blogList)
             setEmptyView(false)
         } else {
@@ -59,15 +60,17 @@ class BlogFragment : BaseFragment(R.layout.fragment_page), PageContract.View<Blo
     override fun getItems(items: List<BlogItem>) {
         if (items.size == 0) {
             setEmptyView(true)
-            Hawk.put("blogList", null)
+            presenter.setLocalData(items)
             blogAdapter.removeAll()
         } else {
             setEmptyView(false)
             blogList = items
             blogAdapter.resetItems(items)
-            Hawk.put("blogList", blogList)
+            presenter.setLocalData(items)
         }
     }
 
     override fun getError(message: String) = toast(message)
+
+
 }

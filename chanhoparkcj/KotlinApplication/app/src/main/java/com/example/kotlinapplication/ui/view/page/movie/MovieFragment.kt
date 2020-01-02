@@ -36,8 +36,8 @@ class MovieFragment : BaseFragment(R.layout.fragment_page), PageContract.View<Mo
     }
 
     private fun checkHistoryItems() {
-        if (Hawk.get("movieList", null) != null) {
-            movieList = Hawk.get("movieList")
+        if (presenter.getLocalItems().isNotEmpty()) {
+            movieList = presenter.getLocalItems()
             movieAdapter.resetItems(movieList)
             setEmptyView(false)
         } else {
@@ -59,13 +59,13 @@ class MovieFragment : BaseFragment(R.layout.fragment_page), PageContract.View<Mo
     override fun getItems(items: List<MovieItem>) {
         if (items.size == 0) {
             setEmptyView(true)
-            Hawk.put("movieList", null)
+            presenter.setLocalData(items)
             movieAdapter.removeAll()
         } else {
             setEmptyView(false)
             movieList = items
             movieAdapter.resetItems(items)
-            Hawk.put("movieList", movieList)
+            presenter.setLocalData(items)
         }
     }
 
