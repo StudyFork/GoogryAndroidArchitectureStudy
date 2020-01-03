@@ -1,12 +1,20 @@
 package com.example.androidstudy.model.repository
 
-import com.example.androidstudy.api.data.TotalModel
+import com.example.androidstudy.database.SearchResultDatabase
+import com.example.androidstudy.model.data.SearchResultEntity
+import com.example.androidstudy.model.data.TotalModel
+import io.reactivex.Single
 
 interface NaverDataRepository {
     fun getNaverSearchData(
         type: String,
-        query: String,
-        success: (result: TotalModel) -> Unit,
-        fail: (msg: String) -> Unit
-    )
+        query: String
+    ): Single<TotalModel>
+
+    fun getLocalSearchData(
+        type: String,
+        database: SearchResultDatabase?
+    ): Single<SearchResultEntity>?
+
+    fun setLocalSearchData(database: SearchResultDatabase?, searchResultEntity: SearchResultEntity)
 }

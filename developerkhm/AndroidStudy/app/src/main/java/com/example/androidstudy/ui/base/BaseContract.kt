@@ -1,11 +1,15 @@
 package com.example.androidstudy.ui.base
 
-import com.example.androidstudy.api.data.Item
+import com.example.androidstudy.database.SearchResultDatabase
+import com.example.androidstudy.model.data.Item
+import com.example.androidstudy.model.data.SearchResultEntity
 
 interface BaseContract {
 
     interface View {
         fun onDataChanged(result: ArrayList<Item>)
+        fun onDataLoadLocal(query: String, result: ArrayList<Item>)
+        fun loadLocalDatabase(): SearchResultDatabase?
         fun showErrorMessage(msg: String?)
         fun showNoSearchData()
         fun showLoading()
@@ -18,5 +22,16 @@ interface BaseContract {
             query: String?,
             type: String
         )
+
+        fun searchLocal(
+            type: String
+        )
+
+        fun insertSeachResult(
+            searchResultDatabase: SearchResultDatabase?,
+            searchResult: SearchResultEntity
+        )
+
+        fun clearDisposable()
     }
 }

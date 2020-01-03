@@ -1,30 +1,30 @@
 package com.example.androidstudy.model.repository
 
-import com.example.androidstudy.api.data.TotalModel
-import com.example.androidstudy.model.data.NaverRemoteDataImpl
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.androidstudy.database.SearchResultDatabase
+import com.example.androidstudy.model.data.SearchResultEntity
+import com.example.androidstudy.model.data.TotalModel
+import com.example.androidstudy.model.source.NaverRemoteDataSourceImpl
+import io.reactivex.Single
 
 object NaverDataRepositoryImpl : NaverDataRepository {
     override fun getNaverSearchData(
         type: String,
-        query: String,
-        success: (result: TotalModel) -> Unit,
-        fail: (msg: String) -> Unit
-    ) {
-        NaverRemoteDataImpl.callAPiNaverSearch(type, query).enqueue(object : Callback<TotalModel> {
-            override fun onFailure(call: Call<TotalModel>, t: Throwable) {
-                t.message?.let {
-                    fail(it)
-                }
-            }
+        query: String
+    ): Single<TotalModel> {
+        return NaverRemoteDataSourceImpl.callAPiNaverSearch(type, query)
+    }
 
-            override fun onResponse(call: Call<TotalModel>, response: Response<TotalModel>) {
-                response.body()?.let {
-                    success(it)
-                }
-            }
-        })
+    override fun getLocalSearchData(
+        type: String,
+        database: SearchResultDatabase?
+    ): Single<SearchResultEntity>? {
+        return database?.SearchResultDao()?.getLastSearchResult(type)
+    }
+
+    override fun setLocalSearchData(
+        database: SearchResultDatabase?,
+        searchResultEntity: SearchResultEntity
+    ) {
+        database?.SearchResultDao()?.insertSearchResult(searchResultEntity)
     }
 }
