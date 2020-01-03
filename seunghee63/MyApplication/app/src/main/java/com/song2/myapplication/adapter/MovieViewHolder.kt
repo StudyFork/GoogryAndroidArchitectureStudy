@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.song2.myapplication.R
-import com.song2.myapplication.data.MovieData
+import com.song2.myapplication.source.MovieData
 
 
 

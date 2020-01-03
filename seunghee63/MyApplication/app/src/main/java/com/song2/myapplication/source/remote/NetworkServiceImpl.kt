@@ -1,6 +1,5 @@
-package com.song2.myapplication.network
+package com.song2.myapplication.source.remote
 
-import com.song2.myapplication.data.cookies.CookiesInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

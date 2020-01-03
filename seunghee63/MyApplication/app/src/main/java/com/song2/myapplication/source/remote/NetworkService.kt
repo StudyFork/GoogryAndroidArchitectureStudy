@@ -1,6 +1,6 @@
-package com.song2.myapplication.network
+package com.song2.myapplication.source.remote
 
-import com.song2.myapplication.data.MovieDataResponse
+import com.song2.myapplication.source.MovieDataResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

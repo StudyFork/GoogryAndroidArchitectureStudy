@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.song2.myapplication.R
 import com.song2.myapplication.adapter.MovieAdapter
-import com.song2.myapplication.data.MovieDataResponse
-import com.song2.myapplication.data.MovieRepository
+import com.song2.myapplication.source.MovieDataResponse
+import com.song2.myapplication.repository.MovieRepository
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,7 +15,8 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    private val movieRepository: MovieRepository = MovieRepository()
+    private val movieRepository: MovieRepository =
+        MovieRepository()
 
     private val movieAdapter by lazy { MovieAdapter() }
 

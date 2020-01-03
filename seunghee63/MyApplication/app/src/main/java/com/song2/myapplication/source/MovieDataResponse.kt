@@ -1,4 +1,4 @@
-package com.song2.myapplication.data
+package com.song2.myapplication.source
 
 data class MovieDataResponse(
     val lastBuildDate: String?,
