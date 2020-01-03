@@ -18,7 +18,7 @@ class BaseViewModel {
 
     lateinit var type : String
     var query : ObservableField<String> = ObservableField()
-    var searchResult : ObservableField<ArrayList<Item>> = ObservableField()
+    var searchResult : ObservableField<List<Item>> = ObservableField()
 
     var onLoading : ObservableField<Boolean> = ObservableField()
     var noDataError : ObservableField<String> = ObservableField()
@@ -40,6 +40,8 @@ class BaseViewModel {
 //                    view.loadLocalDatabase(),
 //                    SearchResultEntity(null, type, query, Gson().toJson(it?.items))
 //                )
+
+                searchResult.set(it?.items)
             }
             .subscribe(::onSuccess, ::onError)
 //            .addDisposable()

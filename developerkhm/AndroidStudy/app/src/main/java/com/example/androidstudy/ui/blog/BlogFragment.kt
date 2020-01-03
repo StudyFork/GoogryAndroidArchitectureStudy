@@ -12,7 +12,7 @@ import java.util.*
 
 class BlogFragment : BaseFragment<FragmentBlogBinding>(R.layout.fragment_blog) {
 
-    private lateinit var viewModel : BaseViewModel
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -20,30 +20,8 @@ class BlogFragment : BaseFragment<FragmentBlogBinding>(R.layout.fragment_blog) {
     }
 
     private fun init() {
-
-        //TODO ViewModel이 여러개 뷰를 가질 수 있지만 화면당 하나의 뷰모델이 맞는건가 싶어서?
-        //검색에 사용할, type를 주 생성자로 해줘야 하는지? 이렇게 하는게 좋은지... 모르...???
-
-        viewModel = BaseViewModel()
         viewModel.type = typeArray[0]
         binding.vm = viewModel
-
-
-
-        viewModel.onLoading.addOnPropertyChangedCallback(object : androidx.databinding.Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(p0: androidx.databinding.Observable?, p1: Int) {
-
-                viewModel.onLoading.get().let {
-                    if(it!!){
-                        //TODO 로딩중~~
-                    }else{
-                        //TODO 로딩 아님~~~
-                    }
-                }
-           }
-        })
-
-        viewModel.noDataError.addOnPropertyChangedCallback()
 
         setLayout()
     }

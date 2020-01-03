@@ -2,7 +2,11 @@ package com.example.androidstudy.adapter
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.androidstudy.model.data.Item
+import com.ironelder.androidarchitecture.view.AdapterSearch
+import kotlinx.android.synthetic.main.layout_search_view.*
 
 @BindingAdapter("setImageId")
 fun setImageResource(v: ImageView, resId: String?) {
@@ -13,4 +17,9 @@ fun setImageResource(v: ImageView, resId: String?) {
             .centerCrop()
             .into(v)
     }
+}
+
+@BindingAdapter("replaceAll")
+fun setItems(r: RecyclerView, items: List<Item>){
+    (r?.adapter as AdapterSearch).setItemList(items)
 }

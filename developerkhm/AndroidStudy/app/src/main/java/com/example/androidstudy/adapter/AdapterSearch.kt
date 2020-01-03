@@ -32,7 +32,7 @@ class AdapterSearch(
 
     override fun getItemCount() = itemList.size
 
-    fun setItemList(list: ArrayList<Item>) {
+    fun setItemList(list: List<Item>) {
         itemList.clear()
         itemList.addAll(list)
         notifyDataSetChanged()

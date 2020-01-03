@@ -22,6 +22,7 @@ open class BaseFragment<B : ViewDataBinding>(var layoutId: Int) : Fragment(), Ba
 
     protected lateinit var binding: B
     protected lateinit var basePresenter: BasePresenter
+    protected val viewModel : BaseViewModel = BaseViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +34,33 @@ open class BaseFragment<B : ViewDataBinding>(var layoutId: Int) : Fragment(), Ba
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
 
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        viewModel.onLoading.addOnPropertyChangedCallback(object : androidx.databinding.Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(p0: androidx.databinding.Observable?, p1: Int) {
+
+                viewModel.onLoading.get().let {
+                    if(it!!){
+                        //TODO 로딩중~~
+                    }else{
+                        //TODO 로딩 아님~~~
+                    }
+                }
+            }
+        })
+
+        viewModel.noDataError.addOnPropertyChangedCallback(object : androidx.databinding.Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(p0: androidx.databinding.Observable?, p1: Int) {
+
+                viewModel.noDataError.get().let {
+                    if(!it.isNullOrEmpty()) Toast.makeText(context, "에러!!!!!!!~~~", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+
     }
 
     override fun onDataChanged(result: ArrayList<Item>) {
