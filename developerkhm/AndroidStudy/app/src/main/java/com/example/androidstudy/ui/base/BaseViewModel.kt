@@ -11,10 +11,14 @@ import com.example.androidstudy.model.data.TotalModel
 import com.example.androidstudy.model.repository.NaverDataRepositoryImpl
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
 class BaseViewModel {
+
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     lateinit var type : String
     lateinit var database: SearchResultDatabase
@@ -46,7 +50,7 @@ class BaseViewModel {
                 searchResult.set(it?.items)
             }
             .subscribe(::onSuccess, ::onError)
-//            .addDisposable()
+            .addDisposable()
     }
 
     private fun onSuccess(result: TotalModel) {
@@ -74,6 +78,10 @@ class BaseViewModel {
             }
         }
         return false
+    }
+
+    private fun Disposable.addDisposable() {
+        compositeDisposable.add(this)
     }
 
 }
