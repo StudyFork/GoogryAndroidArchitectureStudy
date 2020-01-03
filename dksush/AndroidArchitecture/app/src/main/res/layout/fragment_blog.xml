@@ -45,4 +45,20 @@
         app:layout_constraintVertical_bias="0.0"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
+
+    <TextView
+        android:id="@+id/tv_empty_itme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/empty_item"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="30dp"
+        android:visibility="visible"
+
+
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

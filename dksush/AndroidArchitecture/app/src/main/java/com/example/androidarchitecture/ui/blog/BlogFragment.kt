@@ -10,7 +10,11 @@ import com.example.androidarchitecture.R
 import com.example.androidarchitecture.common.toast
 import com.example.androidarchitecture.data.response.BlogData
 import com.example.androidarchitecture.ui.base.BaseSearchFragment
+import kotlinx.android.synthetic.main.fragment_blog.*
 import kotlinx.android.synthetic.main.fragment_movie.*
+import kotlinx.android.synthetic.main.fragment_movie.btn_search
+import kotlinx.android.synthetic.main.fragment_movie.edit_text
+import kotlinx.android.synthetic.main.fragment_movie.recycle
 import kotlinx.coroutines.launch
 
 /**
@@ -58,6 +62,14 @@ class BlogFragment : BaseSearchFragment(R.layout.fragment_blog), BlogContract.Vi
 
     override fun blankInputText() {
         requireContext().toast(getString(R.string.black_input_text))
+    }
+
+    override fun inputKeyword(msg: String?) {
+        edit_text.setText(msg)
+    }
+
+    override fun goneEmptyText() {
+        tv_empty_itme.visibility = View.GONE
     }
 
 

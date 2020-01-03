@@ -2,7 +2,6 @@ package com.example.androidarchitecture.data.datasource.local
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import com.example.androidarchitecture.common.StringConst.Companion.PREF_KEY
 import com.example.androidarchitecture.common.StringConst.Companion.PREF_KEY_BLOG
 import com.example.androidarchitecture.data.datasource.database.SearchHistDatabase
@@ -27,25 +26,9 @@ class NaverLocalDataSourceIml(private val context: Context) : NaverLocalDataSour
         }
 
 
-
-
-
     }
 
     override suspend fun getBlogHist(): List<BlogData> = searchHistyDatabase.blofDao().getAll()
-
-    //override fun getBlogHist(): List<BlogData> =searchHistyDatabase.blofDao().getAll()
-//        CoroutineScope(Dispatchers.IO).launch {
-//            searchHistyDatabase.blofDao().getAll()
-//        }
-
-        //searchHistyDatabase.blofDao().getAll()
-
-
-
-
-
-    // override fun getBlogHist(): List<BlogData> = searchHistyDatabase.blofDao().getAll()
 
 
     override fun saveBlogKeyword(keyword: String) {

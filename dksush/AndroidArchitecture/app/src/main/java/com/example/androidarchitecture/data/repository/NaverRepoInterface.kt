@@ -44,4 +44,5 @@ interface NaverRepoInterface {
     )
 
     fun saveBlogKeyword(text: String)
+    fun getBlogKeyword() : String
 }

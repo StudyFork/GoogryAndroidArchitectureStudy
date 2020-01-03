@@ -5,6 +5,9 @@ interface BlogContract {
         fun renderItems(items: List<T>)
         fun errorToast(msg: String?)
         fun blankInputText()
+        fun inputKeyword(msg: String?)
+        fun goneEmptyText()
+
     }
 
     interface Presenter{

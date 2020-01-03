@@ -15,9 +15,12 @@ class BlogPresenter(
     override suspend fun requestSearchHist() {
         naverRepositroy.getBlogHist().let {
             if(it.isEmpty()){
-                Log.v("dksush", "sdf")
+
             }else{
+                view.goneEmptyText()
                 view.renderItems(it)
+                view.inputKeyword(naverRepositroy.getBlogKeyword())
+
             }
 
 

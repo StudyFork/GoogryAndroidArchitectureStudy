@@ -66,5 +66,9 @@ class NaverRepoImpl(
         naverLocalDs.saveBlogKeyword(text)
     }
 
+    override fun getBlogKeyword(): String =
+        naverLocalDs.getBlogKeyword()
+
+
 
 }
