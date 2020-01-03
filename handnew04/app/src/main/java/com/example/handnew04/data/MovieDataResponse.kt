@@ -1,4 +1,4 @@
-package com.example.handnew04
+package com.example.handnew04.data
 
 data class NaverMovieResponse(
     var items: List<items>
