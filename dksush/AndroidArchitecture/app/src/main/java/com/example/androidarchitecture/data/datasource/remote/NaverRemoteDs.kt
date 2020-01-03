@@ -8,11 +8,13 @@ import retrofit2.Response
 
 class NaverRemoteDs :
     NaverRemoteDsInterface {
+
+
     override fun getBlog(
         query: String,
         start: Int,
         display: Int,
-        success: (List<BlogData>) -> Unit,
+        success: (result: List<BlogData>) -> Unit,
         fail: (Throwable) -> Unit
     ) {
         NetworkUtil.apiService.getBlogList(query, start, display)
@@ -30,6 +32,7 @@ class NaverRemoteDs :
                 }
             })
     }
+
 
     override fun getImage(
         query: String,
@@ -80,6 +83,8 @@ class NaverRemoteDs :
                 }
             })
     }
+
+
 
     override fun getMovie(
         query: String,

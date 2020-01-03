@@ -6,6 +6,17 @@ import com.example.androidarchitecture.data.response.KinData
 import com.example.androidarchitecture.data.response.MovieData
 
 interface NaverRepoInterface {
+
+    suspend fun getBlogHist() : List<BlogData>
+
+    fun getBlog(
+        query: String,
+        start: Int,
+        display: Int,
+        success: (result : List<BlogData>) -> Unit,
+        fail: (Throwable) -> Unit
+    )
+
     fun getMovie(
         query: String,
         start: Int,
@@ -14,13 +25,7 @@ interface NaverRepoInterface {
         fail: (Throwable) -> Unit
     )
 
-    fun getBlog(
-        query: String,
-        start: Int,
-        display: Int,
-        success: (List<BlogData>) -> Unit,
-        fail: (Throwable) -> Unit
-    )
+
 
     fun getImage(
         query: String,
@@ -37,4 +42,6 @@ interface NaverRepoInterface {
         success: (List<KinData>) -> Unit,
         fail: (Throwable) -> Unit
     )
+
+    fun saveBlogKeyword(text: String)
 }

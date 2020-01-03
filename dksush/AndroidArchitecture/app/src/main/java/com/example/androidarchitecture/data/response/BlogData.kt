@@ -1,8 +1,13 @@
 package com.example.androidarchitecture.data.response
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "blog")
 data class BlogData(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     @SerializedName("bloggerlink")
     val bloggerLink: String,
     @SerializedName("bloggername")
@@ -11,4 +16,9 @@ data class BlogData(
     val link: String,
     val postdate: String,
     val title: String
+)
+
+data class ResponseBlog(
+    val blogs: List<BlogData>
+
 )
