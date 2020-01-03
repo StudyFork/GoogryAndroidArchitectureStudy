@@ -33,6 +33,9 @@ open class BaseFragment<B : ViewDataBinding>(var layoutId: Int) : Fragment(), Ba
         basePresenter = BasePresenter(this)
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
 
+        viewModel.database = SearchResultDatabase.getInstance(
+            context?.applicationContext ?: (activity as Context).applicationContext)!!
+
         return binding.root
     }
 

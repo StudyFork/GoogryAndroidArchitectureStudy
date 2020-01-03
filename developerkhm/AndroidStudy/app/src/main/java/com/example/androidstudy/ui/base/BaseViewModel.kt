@@ -17,6 +17,8 @@ import java.util.*
 class BaseViewModel {
 
     lateinit var type : String
+    lateinit var database: SearchResultDatabase
+
     var query : ObservableField<String> = ObservableField()
     var searchResult : ObservableField<List<Item>> = ObservableField()
 
@@ -36,10 +38,10 @@ class BaseViewModel {
                 onLoading.set(false)
             }
             .doAfterSuccess {
-//                insertSeachResult(
-//                    view.loadLocalDatabase(),
-//                    SearchResultEntity(null, type, query, Gson().toJson(it?.items))
-//                )
+                insertSeachResult(
+                    database,
+                    SearchResultEntity(null, type, query, Gson().toJson(it?.items))
+                )
 
                 searchResult.set(it?.items)
             }
