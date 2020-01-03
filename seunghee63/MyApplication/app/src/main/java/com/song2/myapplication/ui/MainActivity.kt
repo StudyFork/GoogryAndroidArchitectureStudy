@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.song2.myapplication.R
 import com.song2.myapplication.adapter.MovieAdapter
 import com.song2.myapplication.source.MovieDataResponse
-import com.song2.myapplication.repository.MovieRepository
+import com.song2.myapplication.source.MovieRepository
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback

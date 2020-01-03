@@ -1,4 +1,4 @@
-package com.song2.myapplication.repository
+package com.song2.myapplication.source
 
 import com.song2.myapplication.source.MovieDataResponse
 import com.song2.myapplication.source.remote.NetworkServiceImpl
