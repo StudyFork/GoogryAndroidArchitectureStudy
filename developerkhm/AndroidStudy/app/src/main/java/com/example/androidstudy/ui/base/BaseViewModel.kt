@@ -14,25 +14,25 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 
 class BaseViewModel {
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    lateinit var type : String
+    lateinit var type: String
     lateinit var database: SearchResultDatabase
 
-    var query : ObservableField<String> = ObservableField()
-    var searchResult : ObservableField<List<Item>> = ObservableField()
+    var query: ObservableField<String> = ObservableField()
+    var searchResult: ObservableField<List<Item>> = ObservableField()
 
-    var onLoading : ObservableField<Boolean> = ObservableField()
-    var noDataError : ObservableField<String> = ObservableField()
+    var onLoading: ObservableField<Boolean> = ObservableField()
+    var noDataError: ObservableField<String> = ObservableField()
 
     private fun search(query: String?, type: String) {
         NaverDataRepositoryImpl.getNaverSearchData(
             type,
-            query!!)
+            query!!
+        )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
@@ -58,21 +58,23 @@ class BaseViewModel {
             noDataError.set("데이터가 없습니다.")
         } else {
             noDataError.set("")
-//            view.onDataChanged(result.items)
         }
     }
 
     private fun onError(t: Throwable) {
         println(t.message)
-//        view.showErrorMessage(t.message)
+        noDataError.set(t.message)
     }
 
-    fun insertSeachResult(searchResultDatabase: SearchResultDatabase?, searchResult: SearchResultEntity) {
+    private fun insertSeachResult(
+        searchResultDatabase: SearchResultDatabase?,
+        searchResult: SearchResultEntity
+    ) {
         NaverDataRepositoryImpl.setLocalSearchData(searchResultDatabase, searchResult)
     }
 
-    fun onEditorActionClicked(view: TextView, actionId: Int?, event: KeyEvent?) : Boolean {
-        when(actionId) {
+    fun onEditorActionClicked(view: TextView, actionId: Int?, event: KeyEvent?): Boolean {
+        when (actionId) {
             EditorInfo.IME_ACTION_SEARCH -> {
                 search(view.text.toString(), this.type)
             }

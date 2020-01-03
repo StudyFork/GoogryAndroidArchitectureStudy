@@ -2,6 +2,7 @@
 <layout>
 
     <data>
+
         <variable
             name="vm"
             type="com.example.androidstudy.ui.base.BaseViewModel" />

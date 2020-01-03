@@ -6,13 +6,9 @@ import android.view.inputmethod.EditorInfo
 import com.example.androidstudy.R
 import com.example.androidstudy.databinding.FragmentBlogBinding
 import com.example.androidstudy.ui.base.BaseFragment
-import com.example.androidstudy.ui.base.BaseViewModel
 import com.ironelder.androidarchitecture.view.AdapterSearch
-import java.util.*
 
 class BlogFragment : BaseFragment<FragmentBlogBinding>(R.layout.fragment_blog) {
-
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,6 +40,3 @@ class BlogFragment : BaseFragment<FragmentBlogBinding>(R.layout.fragment_blog) {
     }
 }
 
-private fun Observable.addOnPropertyChangedCallback(function: () -> Unit) {
-
-}
