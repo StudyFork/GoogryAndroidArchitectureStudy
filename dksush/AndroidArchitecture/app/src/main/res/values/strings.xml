@@ -5,4 +5,5 @@
     <string name="input_image_title">이미지를 검색하세요.</string>
     <string name="input_blog_title">블로그를 검색하세요.</string>
     <string name="input_kin_title">kin을 검색하세요.</string>
+    <string name="black_input_text">검색어를 입력해 주세요..</string>
 </resources>
