@@ -11,25 +11,17 @@ import com.example.androidarchitecture.R
 import com.example.androidarchitecture.common.toast
 import com.example.androidarchitecture.data.repository.NaverRepoImpl
 import com.example.androidarchitecture.data.response.MovieData
+import com.example.androidarchitecture.ui.base.BaseSearchFragment
 import com.example.androidarchitecture.ui.base.ItemContract
 import kotlinx.android.synthetic.main.fragment_movie.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class MovieFragment : Fragment(), ItemContract.View<MovieData> {
+class MovieFragment : BaseSearchFragment(R.layout.fragment_movie), ItemContract.View<MovieData> {
 
     private lateinit var movieAdapter: MovieAdapter
-    private val presenter by lazy { MoviePresenter(this, NaverRepoImpl) }
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_movie, container, false)
-    }
+    private val presenter by lazy { MoviePresenter(this, naverSearchRepository) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

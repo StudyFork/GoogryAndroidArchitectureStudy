@@ -11,16 +11,17 @@ import com.example.androidarchitecture.R
 import com.example.androidarchitecture.common.toast
 import com.example.androidarchitecture.data.repository.NaverRepoImpl
 import com.example.androidarchitecture.data.response.ImageData
+import com.example.androidarchitecture.ui.base.BaseSearchFragment
 import com.example.androidarchitecture.ui.base.ItemContract
 import kotlinx.android.synthetic.main.fragment_movie.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class ImageFragment : Fragment(), ItemContract.View<ImageData> {
+class ImageFragment : BaseSearchFragment(R.layout.fragment_image), ItemContract.View<ImageData> {
 
     private lateinit var imageAdapter: ImageAdapter
-    private val presenter by lazy { ImagePresent(this, NaverRepoImpl) }
+    private val presenter by lazy { ImagePresent(this,naverSearchRepository) }
 
 
     override fun onCreateView(
