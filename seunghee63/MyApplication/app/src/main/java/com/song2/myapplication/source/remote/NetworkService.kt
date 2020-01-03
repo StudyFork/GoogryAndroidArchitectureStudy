@@ -5,12 +5,12 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface NetworkService{
+interface NetworkService {
 
     // 영화 검색 API
     @GET("/v1/search/movie.json")
     fun getMovieSearch(
-        @Query("query") query : String,
-        @Query("display") display : Int
-    ) : Call<MovieDataResponse>
+        @Query("query") query: String,
+        @Query("display") display: Int
+    ): Call<MovieDataResponse>
 }

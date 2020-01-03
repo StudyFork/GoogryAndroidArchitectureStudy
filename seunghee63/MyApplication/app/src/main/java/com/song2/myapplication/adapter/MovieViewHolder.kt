@@ -14,11 +14,10 @@ import com.song2.myapplication.R
 import com.song2.myapplication.source.MovieData
 
 
-
 @Suppress("DEPRECATION")
 class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
 
-    lateinit var tempData : MovieData
+    lateinit var tempData: MovieData
 
     private val image: ImageView = view.findViewById(R.id.iv_rv_movie_item_image)
     private val title: TextView = view.findViewById(R.id.tv_rv_movie_item_title)
@@ -30,7 +29,7 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickL
 
     override fun onClick(view: View?) {
         val pos = adapterPosition
-        Log.e("position",pos.toString())
+        Log.e("position", pos.toString())
 
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(tempData.link))
         this.itemView.context.startActivity(intent)
