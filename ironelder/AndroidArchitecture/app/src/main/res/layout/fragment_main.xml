@@ -4,21 +4,7 @@
 
     <data>
 
-        <import type="androidx.databinding.ObservableArrayList" />
-
-        <import type="androidx.databinding.ObservableField" />
-
         <import type="android.view.View"/>
-
-        <import type="com.ironelder.androidarchitecture.data.ResultItem" />
-
-        <variable
-            name="items"
-            type="ObservableArrayList&lt;ResultItem&gt;" />
-
-        <variable
-            name="showProgress"
-            type="Boolean" />
 
         <variable
             name="mainViewModel"
