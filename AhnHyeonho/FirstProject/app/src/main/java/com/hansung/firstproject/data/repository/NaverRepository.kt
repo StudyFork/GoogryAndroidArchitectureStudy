@@ -3,16 +3,21 @@ package com.hansung.firstproject.data.repository
 import com.hansung.firstproject.data.MovieResponseModel
 import com.hansung.firstproject.data.source.remote.NaverRemoteDataSource
 
-class NaverRepository(dataSource: NaverRemoteDataSource) {
+class NaverRepository private constructor() {
 
-    private var _INSTANCE: NaverRepository? = null
+    companion object {
+        @Volatile
+        private var _INSTANCE: NaverRepository? = null
+        private lateinit var dataSource: NaverRemoteDataSource
 
-    private var naverRemoteDataSource: NaverRemoteDataSource = dataSource
-
-    fun getInstance(): NaverRepository {
-        if (_INSTANCE == null)
-            _INSTANCE = NaverRepository(naverRemoteDataSource)
-        return _INSTANCE!!
+        @JvmStatic
+        fun getInstance(dataSource: NaverRemoteDataSource): NaverRepository =
+            _INSTANCE ?: synchronized(this) {
+                _INSTANCE ?: NaverRepository().also {
+                    _INSTANCE = it
+                    this.dataSource = dataSource
+                }
+            }
     }
 
     fun getMoviesData(
@@ -22,6 +27,6 @@ class NaverRepository(dataSource: NaverRemoteDataSource) {
         success: (MovieResponseModel) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        naverRemoteDataSource.getMoviesData(title, clientId, clientSecret, success, fail)
+        dataSource.getMoviesData(title, clientId, clientSecret, success, fail)
     }
 }

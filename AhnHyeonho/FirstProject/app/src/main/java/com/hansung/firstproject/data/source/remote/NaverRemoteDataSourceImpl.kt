@@ -5,14 +5,20 @@ import com.hansung.firstproject.data.source.remote.api.NaverApiServiceImpl
 import retrofit2.Call
 import retrofit2.Response
 
-class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
 
-    private var _INSTANCE: NaverRemoteDataSourceImpl? = null
+class NaverRemoteDataSourceImpl private constructor() : NaverRemoteDataSource {
 
-    fun getInstance(): NaverRemoteDataSourceImpl {
-        if (_INSTANCE == null)
-            _INSTANCE = NaverRemoteDataSourceImpl()
-        return _INSTANCE!!
+    companion object {
+        @Volatile
+        private var _INSTANCE: NaverRemoteDataSourceImpl? = null
+
+        @JvmStatic
+        fun getInstance(): NaverRemoteDataSourceImpl =
+            _INSTANCE ?: synchronized(this) {
+                _INSTANCE ?: NaverRemoteDataSourceImpl().also {
+                    _INSTANCE = it
+                }
+            }
     }
 
     override fun getMoviesData(
