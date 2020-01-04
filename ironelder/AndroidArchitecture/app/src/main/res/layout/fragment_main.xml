@@ -20,6 +20,10 @@
             name="showProgress"
             type="Boolean" />
 
+        <variable
+            name="mainViewModel"
+            type="com.ironelder.androidarchitecture.view.mainview.MainViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,7 +35,7 @@
             layout="@layout/layout_search_listview"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:items="@{items}"
+            app:items="@{mainViewModel.searchResultList}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -41,7 +45,7 @@
             android:id="@+id/pb_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{showProgress ? View.VISIBLE : View.GONE}"
+            android:visibility="@{mainViewModel.showProgressBar ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -57,7 +61,7 @@
             android:text="@string/msg_no_search_datas"
             android:textSize="25sp"
             android:textStyle="bold"
-            android:visibility="@{items.size() == 0 ? View.VISIBLE : View.GONE}"
+            android:visibility="@{mainViewModel.searchResultList.size() == 0 ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

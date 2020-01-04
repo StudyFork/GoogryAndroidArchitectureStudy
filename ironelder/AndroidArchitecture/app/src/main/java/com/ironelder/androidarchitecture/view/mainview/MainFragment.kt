@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.databinding.Observable
 import androidx.databinding.ObservableArrayList
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -56,6 +57,7 @@ class MainFragment :
     }
 
     override fun doViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.mainViewModel = MainViewModel()
         with(binding.searchLayout.rvResultListView) {
             adapter =
                 CustomListViewAdapter()
@@ -67,15 +69,31 @@ class MainFragment :
                 )
             )
         }
+        binding.mainViewModel.let {
+            it?.searchQuery?.addOnPropertyChangedCallback(object :
+                Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    it.searchWithAdapter(
+                        mType ?: BLOG,
+                        it.searchQuery.get(),
+                        SearchResultDatabase.getInstance(
+                            context?.applicationContext ?: (activity as Context).applicationContext
+                        )
+                    )
+                }
+            })
+        }
     }
 
     override fun doLoadFromDatabase() {
-        presenter.getSearchResultToRoom(
-            mType ?: BLOG,
-            SearchResultDatabase.getInstance(
-                context?.applicationContext ?: (activity as Context).applicationContext
+        binding.mainViewModel.let {
+            it?.getSearchResultToRoom(
+                mType ?: BLOG,
+                SearchResultDatabase.getInstance(
+                    context?.applicationContext ?: (activity as Context).applicationContext
+                )
             )
-        )
+        }
     }
 
     override fun doCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -88,14 +106,10 @@ class MainFragment :
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 mSearchWord = query ?: ""
+                binding.mainViewModel.let {
+                    it?.searchQuery?.set(query ?: "")
+                }
                 searchView.clearFocus()
-                presenter.searchWithAdapter(
-                    mType ?: BLOG,
-                    query,
-                    SearchResultDatabase.getInstance(
-                        context?.applicationContext ?: (activity as Context).applicationContext
-                    )
-                )
                 return false
             }
 
@@ -104,8 +118,8 @@ class MainFragment :
             }
         })
         searchView.setOnSearchClickListener {
-            if (!mSearchWord.isNullOrEmpty()) {
-                searchView.setQuery(mSearchWord, false)
+            if (!binding.mainViewModel?.searchQuery?.get().isNullOrEmpty()) {
+                searchView.setQuery(binding.mainViewModel?.searchQuery?.get(), false)
             }
         }
     }
