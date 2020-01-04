@@ -1,4 +1,4 @@
-package com.cnm.homework.network
+package com.cnm.homework.network.model
 
 
 import com.google.gson.annotations.SerializedName
@@ -31,6 +31,6 @@ data class NaverResponse(
         @SerializedName("title")
         val title: String,
         @SerializedName("userRating")
-        val userRating: String
+        val userRating: Float
     )
 }
