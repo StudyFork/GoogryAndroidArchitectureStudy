@@ -1,8 +1,6 @@
 package com.hansung.firstproject.data.source.remote
 
-import com.hansung.firstproject.data.MovieModel
 import com.hansung.firstproject.data.MovieResponseModel
-import com.hansung.firstproject.network.NaverApiServiceImpl
 
 interface NaverRemoteDataSource {
     fun getMoviesData(

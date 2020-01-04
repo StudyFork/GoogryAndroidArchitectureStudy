@@ -1,7 +1,7 @@
 package com.hansung.firstproject.data.source.remote
 
 import com.hansung.firstproject.data.MovieResponseModel
-import com.hansung.firstproject.network.NaverApiServiceImpl
+import com.hansung.firstproject.data.source.remote.api.NaverApiServiceImpl
 import retrofit2.Call
 import retrofit2.Response
 

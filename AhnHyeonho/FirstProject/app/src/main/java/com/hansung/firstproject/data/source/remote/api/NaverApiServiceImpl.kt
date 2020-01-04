@@ -1,4 +1,4 @@
-package com.hansung.firstproject.network
+package com.hansung.firstproject.data.source.remote.api
 
 import com.hansung.firstproject.data.MovieResponseModel
 import retrofit2.Call
