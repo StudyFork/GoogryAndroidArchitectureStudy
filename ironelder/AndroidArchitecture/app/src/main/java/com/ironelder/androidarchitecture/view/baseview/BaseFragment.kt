@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.ironelder.androidarchitecture.R
 
 
-abstract class BaseFragment<in VIEW : BaseContract.View, BINDING:ViewDataBinding, PRESENTER : BaseContract.Presenter<VIEW>>(
+abstract class BaseFragment<in VIEW : BaseContract.View, BINDING : ViewDataBinding, PRESENTER : BaseContract.Presenter<VIEW>>(
     private val mLayoutResId: Int
 ) : Fragment(), BaseContract.View {
 
@@ -43,6 +43,7 @@ abstract class BaseFragment<in VIEW : BaseContract.View, BINDING:ViewDataBinding
         super.onDestroy()
         presenter.detachView()
     }
+
     abstract val presenter: PRESENTER
     abstract fun doCreateOptionsMenu(menu: Menu, inflater: MenuInflater)
     abstract fun doViewCreated(view: View, savedInstanceState: Bundle?)
