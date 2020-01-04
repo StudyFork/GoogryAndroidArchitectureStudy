@@ -11,10 +11,11 @@ import com.example.studyapplication.data.model.SearchBlogResult
 import com.example.studyapplication.data.repository.NaverSearchRepository
 import com.example.studyapplication.data.repository.NaverSearchRepositoryImpl
 import com.example.studyapplication.ui.base.BaseFragment
+import com.example.studyapplication.ui.main.base.BaseSearchFragment
 import com.example.studyapplication.ui.main.blog.adapter.BlogAdapter
 import kotlinx.android.synthetic.main.fragment_blog.*
 
-class BlogFragment : BaseFragment(R.layout.fragment_blog), BlogContract.View {
+class BlogFragment : BaseSearchFragment(R.layout.fragment_blog) {
     private val repository: NaverSearchRepository = NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())
     private lateinit var blogAdapter: BlogAdapter
     private lateinit var presenter : BlogContract.Presenter
@@ -40,10 +41,10 @@ class BlogFragment : BaseFragment(R.layout.fragment_blog), BlogContract.View {
         blogAdapter.resetItem(items)
     }
 
-    @SuppressLint("ShowToast")
-    override fun toastErrorConnFailed(message: String) {
-        Log.e("", ">>> toastErrorConnFailed() ")
-        Toast.makeText(context, message, Toast.LENGTH_SHORT)
-    }
+//    @SuppressLint("ShowToast")
+//    override fun toastErrorConnFailed(message: String) {
+//        Log.e("", ">>> toastErrorConnFailed() ")
+//        Toast.makeText(context, message, Toast.LENGTH_SHORT)
+//    }
 
 }
