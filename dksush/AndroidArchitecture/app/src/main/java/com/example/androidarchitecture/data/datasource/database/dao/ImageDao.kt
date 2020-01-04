@@ -9,7 +9,7 @@ import com.example.androidarchitecture.data.response.MovieData
 
 @Dao
 interface ImageDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     suspend fun insertAll(image: List<ImageData>)
 
     @Query("SELECT * from image")

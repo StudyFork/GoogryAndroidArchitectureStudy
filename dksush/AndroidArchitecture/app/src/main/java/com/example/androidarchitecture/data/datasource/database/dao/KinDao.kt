@@ -10,7 +10,7 @@ import com.example.androidarchitecture.data.response.KinData
 @Dao
 interface KinDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     suspend fun insertAll(kin: List<KinData>)
 
     @Query("SELECT * from kin")

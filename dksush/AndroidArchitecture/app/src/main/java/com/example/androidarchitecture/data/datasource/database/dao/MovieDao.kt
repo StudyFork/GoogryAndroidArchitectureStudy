@@ -9,7 +9,7 @@ import com.example.androidarchitecture.data.response.MovieData
 @Dao
 interface MovieDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     suspend fun insertAll(movie: List<MovieData>)
 
     @Query("SELECT * from movie")

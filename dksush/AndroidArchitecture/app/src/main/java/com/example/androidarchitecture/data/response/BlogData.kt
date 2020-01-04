@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 @Entity(tableName = "blog")
 data class BlogData(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    val id: Long,
     @SerializedName("bloggerlink")
     val bloggerLink: String,
     @SerializedName("bloggername")
@@ -18,7 +18,7 @@ data class BlogData(
     val title: String
 )
 
-data class ResponseBlog(
-    val blogs: List<BlogData>
-
-)
+//data class ResponseBlog(
+//    val blogs: List<BlogData>
+//
+//)

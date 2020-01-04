@@ -10,7 +10,7 @@ import io.reactivex.Single
 @Dao
 interface BlogDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     suspend fun insertAll(blogs: List<BlogData>)
 
     @Query("SELECT * from blog")
