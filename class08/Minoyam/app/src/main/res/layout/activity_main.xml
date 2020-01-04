@@ -16,7 +16,9 @@
             android:id="@+id/et_movie_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:imeOptions="actionSearch"
+            android:inputType="text" />
 
         <Button
             android:id="@+id/bt_movie_search"
@@ -32,4 +34,11 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="3"
         tools:listitem="@layout/item_movie" />
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/pb_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
 </LinearLayout>
