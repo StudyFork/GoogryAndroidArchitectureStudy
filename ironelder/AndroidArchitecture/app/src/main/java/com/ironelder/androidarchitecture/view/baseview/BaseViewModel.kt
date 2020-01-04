@@ -11,7 +11,7 @@ abstract class BaseViewModel {
         compositeDisposable.add(this)
     }
 
-    protected fun clearDisposable() {
+    open fun clearDisposable() {
         compositeDisposable.clear()
     }
 }
