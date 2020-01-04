@@ -15,7 +15,7 @@ import com.ironelder.androidarchitecture.ui.CustomPagerAdapter
 import com.ironelder.androidarchitecture.view.mainview.MainActivity
 
 @BindingAdapter("setImageViewVisible")
-fun setImageViewVisible(view: ImageView, url: String?) {
+fun setImageViewVisible(view: View, url: String?) {
     if (url == null) {
         view.visibility = View.GONE
     } else {
