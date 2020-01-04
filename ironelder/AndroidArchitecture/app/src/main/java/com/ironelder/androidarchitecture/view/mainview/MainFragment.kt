@@ -23,7 +23,7 @@ import com.ironelder.androidarchitecture.view.baseview.BaseFragment
 
 
 class MainFragment :
-    BaseFragment<MainContract.View, FragmentMainBinding, MainContract.Presenter>(R.layout.fragment_main) {
+    BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private val mType: String? by lazy {
         arguments?.getString(TYPE_KEY)
