@@ -1,10 +1,12 @@
 package com.cnm.homework.ui
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cnm.homework.R
@@ -24,13 +26,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         rv_content.adapter = movieAdapter
-
         bt_movie_search.setOnClickListener {
+
+            et_movie_search.hideKeyboard()
             if (et_movie_search.text.toString() != "") {
                 val query = et_movie_search.text.toString()
                 movieListSearch(query)
             } else {
-                Toast.makeText(this, "제목을 입력해주세요", Toast.LENGTH_SHORT).show()
+                toastShow("제목을 입력해주세요")
             }
         }
         et_movie_search.setOnEditorActionListener { _, i, _ ->
@@ -50,7 +53,13 @@ class MainActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 hideProgress()
-                movieAdapter.setItem(it.items)
+                if (it.total != 0) {
+                    movieAdapter.setItem(it.items)
+                    rv_content.scrollToPosition(0)
+                } else {
+                    toastShow("검색 결과가 없습니다.")
+                }
+
             })
     }
 
@@ -67,4 +76,11 @@ class MainActivity : AppCompatActivity() {
         pb_loading.visibility = View.GONE
     }
 
+    private fun View.hideKeyboard() {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
+    }
+
+    private fun toastShow(content: String) =
+        Toast.makeText(this, content, Toast.LENGTH_SHORT).show()
 }

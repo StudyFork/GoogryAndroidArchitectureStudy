@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/layout_background"
     android:orientation="horizontal">
 
     <ImageView
@@ -22,6 +23,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
             tools:text="엑스맨: 다크 피닉스" />
 
         <androidx.appcompat.widget.AppCompatRatingBar
