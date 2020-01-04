@@ -1,19 +1,17 @@
 package com.example.studyapplication.ui.main.image
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import com.example.studyapplication.R
 import com.example.studyapplication.data.datasource.remote.NaverRemoteDataSourceImpl
 import com.example.studyapplication.data.model.ImageInfo
 import com.example.studyapplication.data.repository.NaverSearchRepository
 import com.example.studyapplication.data.repository.NaverSearchRepositoryImpl
-import com.example.studyapplication.ui.base.BaseFragment
+import com.example.studyapplication.ui.main.base.BaseSearchFragment
 import com.example.studyapplication.ui.main.image.adapter.ImageAdapter
 import kotlinx.android.synthetic.main.fragment_image.*
 
-class ImageFragment : BaseFragment(R.layout.fragment_image), ImageContract.View {
+class ImageFragment : BaseSearchFragment(R.layout.fragment_image), ImageContract.View {
     private lateinit var presenter: ImageContract.Presenter
     private lateinit var imageAdapter: ImageAdapter
     private val repository: NaverSearchRepository =
@@ -38,10 +36,5 @@ class ImageFragment : BaseFragment(R.layout.fragment_image), ImageContract.View 
 
     override fun showList(items: ArrayList<ImageInfo>) {
         imageAdapter.resetItem(items)
-    }
-
-    @SuppressLint("ShowToast")
-    override fun toastErrorConnFailed(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT)
     }
 }
