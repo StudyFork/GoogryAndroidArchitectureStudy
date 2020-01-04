@@ -23,37 +23,10 @@ import com.ironelder.androidarchitecture.view.baseview.BaseFragment
 
 
 class MainFragment :
-    BaseFragment<MainContract.View, FragmentMainBinding, MainContract.Presenter>(R.layout.fragment_main),
-    MainContract.View {
-
-    override val presenter = MainPresenter()
+    BaseFragment<MainContract.View, FragmentMainBinding, MainContract.Presenter>(R.layout.fragment_main) {
 
     private val mType: String? by lazy {
         arguments?.getString(TYPE_KEY)
-    }
-
-    private var mSearchWord: String? = null
-
-    override fun onDataChanged(result: ObservableArrayList<ResultItem>) {
-        binding.items = result
-    }
-
-    override fun showErrorMessage(msg: String?) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT)
-            .show()
-    }
-
-    override fun showLoading() {
-        binding.showProgress = true
-    }
-
-    override fun hideLoading() {
-        binding.showProgress = false
-    }
-
-    override fun onLoadFromDatabase(searchWord: String, result: ObservableArrayList<ResultItem>) {
-        mSearchWord = searchWord
-        binding.items = result
     }
 
     override fun doViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -105,7 +78,6 @@ class MainFragment :
         }
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                mSearchWord = query ?: ""
                 binding.mainViewModel.let {
                     it?.searchQuery?.set(query ?: "")
                 }
@@ -121,6 +93,13 @@ class MainFragment :
             if (!binding.mainViewModel?.searchQuery?.get().isNullOrEmpty()) {
                 searchView.setQuery(binding.mainViewModel?.searchQuery?.get(), false)
             }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.mainViewModel.let {
+            it?.clearDisposable()
         }
     }
 
