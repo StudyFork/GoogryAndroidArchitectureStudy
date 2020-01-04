@@ -6,12 +6,26 @@ import com.example.androidarchitecture.ui.base.ItemContract
 
 class ImagePresent(
     private val view: ItemContract.View<ImageData>,
-    private val repoInterface: NaverRepoInterface
+    private val naverRepositroy: NaverRepoInterface
 ) : ItemContract.Presenter {
+    override suspend fun requestSearchHist() {
+        naverRepositroy.getImageHist().let {
+            if (it.isNotEmpty()) {
+                view.goneEmptyText()
+                view.renderItems(it)
+                view.inputKeyword(naverRepositroy.getImageKeyword())
+
+            }
+        }
+    }
+
     override fun requestList(text: String) {
-        repoInterface.getImage(text, 1, 10,
+        naverRepositroy.saveImageKeyword(text)
+        naverRepositroy.getImage(
+            text, 1, 10,
             success = {
                 view.renderItems(it)
+                view.goneEmptyText()
             }, fail = {
                 view.errorToast(it.toString())
             })

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.androidarchitecture.R
 import com.example.androidarchitecture.common.toast
@@ -14,6 +15,7 @@ import com.example.androidarchitecture.data.response.KinData
 import com.example.androidarchitecture.ui.base.BaseSearchFragment
 import com.example.androidarchitecture.ui.base.ItemContract
 import kotlinx.android.synthetic.main.fragment_movie.*
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass.
@@ -23,14 +25,6 @@ class KinFragment : BaseSearchFragment(R.layout.fragment_kin), ItemContract.View
 
     private lateinit var kinAdapter: KinAdapter
     private val presenter by lazy { KinPresent(this, naverSearchRepository) }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_kin, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,10 +42,13 @@ class KinFragment : BaseSearchFragment(R.layout.fragment_kin), ItemContract.View
                 }
         }
 
+        lifecycleScope.launch {
+            presenter.requestSearchHist()
+        }
+
         btn_search.setOnClickListener {
-            if (edit_text != null) {
-                presenter.requestList(edit_text.text.toString())
-            }
+            presenter.requestList(edit_text.text.toString())
+
         }
     }
 
@@ -62,6 +59,18 @@ class KinFragment : BaseSearchFragment(R.layout.fragment_kin), ItemContract.View
 
     override fun errorToast(msg: String?) {
         msg?.let { requireContext().toast(it) }
+    }
+
+    override fun blankInputText() {
+        requireContext().toast(getString(R.string.black_input_text))
+    }
+
+    override fun inputKeyword(msg: String?) {
+        edit_text.setText(msg)
+    }
+
+    override fun goneEmptyText() {
+        tv_empty_itme.visibility = View.GONE
     }
 
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.androidarchitecture.R
 import com.example.androidarchitecture.common.toast
@@ -14,14 +15,16 @@ import com.example.androidarchitecture.data.response.ImageData
 import com.example.androidarchitecture.ui.base.BaseSearchFragment
 import com.example.androidarchitecture.ui.base.ItemContract
 import kotlinx.android.synthetic.main.fragment_movie.*
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass.
  */
 class ImageFragment : BaseSearchFragment(R.layout.fragment_image), ItemContract.View<ImageData> {
 
+
     private lateinit var imageAdapter: ImageAdapter
-    private val presenter by lazy { ImagePresent(this,naverSearchRepository) }
+    private val presenter by lazy { ImagePresent(this, naverSearchRepository) }
 
 
     override fun onCreateView(
@@ -49,6 +52,10 @@ class ImageFragment : BaseSearchFragment(R.layout.fragment_image), ItemContract.
         }
 
 
+        lifecycleScope.launch {
+            presenter.requestSearchHist()
+        }
+
         btn_search.setOnClickListener {
             if (edit_text != null) {
                 presenter.requestList(edit_text.text.toString())
@@ -63,6 +70,18 @@ class ImageFragment : BaseSearchFragment(R.layout.fragment_image), ItemContract.
 
     override fun errorToast(msg: String?) {
         msg?.let { requireContext().toast(it) }
+    }
+
+    override fun blankInputText() {
+        requireContext().toast(getString(R.string.black_input_text))
+    }
+
+    override fun inputKeyword(msg: String?) {
+        edit_text.setText(msg)
+    }
+
+    override fun goneEmptyText() {
+        tv_empty_itme.visibility = View.GONE
     }
 
 }

@@ -14,17 +14,15 @@ class BlogPresenter(
 
     override suspend fun requestSearchHist() {
         naverRepositroy.getBlogHist().let {
-            if(it.isEmpty()){
-
-            }else{
+            if (it.isNotEmpty()) {
                 view.goneEmptyText()
                 view.renderItems(it)
                 view.inputKeyword(naverRepositroy.getBlogKeyword())
 
             }
-
-
         }
+
+
     }
 
     override fun requestList(text: String) {
@@ -34,6 +32,7 @@ class BlogPresenter(
             naverRepositroy.saveBlogKeyword(text) // 검색어 쉐어드에 저장.
             naverRepositroy.getBlog(text, 1, 10,
                 success = {
+                    view.goneEmptyText()
                     view.renderItems(it)
                 }, fail = {
                     view.errorToast(it.toString())
