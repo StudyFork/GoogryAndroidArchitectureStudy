@@ -10,7 +10,7 @@ interface MovieContract {
     }
 
     interface Presenter {
-        fun searchMovie(keyword : String)
+        fun taskSearch(keyword : String)
         fun taskError(error : Throwable)
     }
 }
