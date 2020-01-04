@@ -1,9 +1,9 @@
 package com.jay.architecturestudy.data.repository
 
-import com.jay.architecturestudy.data.database.entity.BlogEntity
-import com.jay.architecturestudy.data.database.entity.ImageEntity
-import com.jay.architecturestudy.data.database.entity.KinEntity
-import com.jay.architecturestudy.data.database.entity.MovieEntity
+import com.jay.architecturestudy.data.database.entity.BlogItemEntity
+import com.jay.architecturestudy.data.database.entity.ImageItemEntity
+import com.jay.architecturestudy.data.database.entity.KinItemEntity
+import com.jay.architecturestudy.data.database.entity.MovieItemEntity
 import com.jay.architecturestudy.data.model.*
 import com.jay.architecturestudy.data.source.local.NaverSearchLocalDataSource
 import com.jay.architecturestudy.data.source.remote.NaverSearchRemoteDataSource
@@ -128,10 +128,10 @@ class NaverSearchRepositoryImpl(
         }
     }
 
-    private fun ensureMovieEntityList(movies: List<Movie>): List<MovieEntity> =
-        arrayListOf<MovieEntity>().apply {
+    private fun ensureMovieEntityList(movies: List<Movie>): List<MovieItemEntity> =
+        arrayListOf<MovieItemEntity>().apply {
             movies.mapTo(this) { movie ->
-                MovieEntity(
+                MovieItemEntity(
                     title = movie.title,
                     link = movie.link,
                     image = movie.image,
@@ -171,10 +171,10 @@ class NaverSearchRepositoryImpl(
     }
 
 
-    private fun ensureImageEntityList(images: List<Image>): List<ImageEntity> =
-        arrayListOf<ImageEntity>().apply {
+    private fun ensureImageEntityList(images: List<Image>): List<ImageItemEntity> =
+        arrayListOf<ImageItemEntity>().apply {
             images.mapTo(this) { image ->
-                ImageEntity(
+                ImageItemEntity(
                     link = image.link,
                     sizeWidth = image.sizeWidth,
                     sizeHeight = image.sizeHeight,
@@ -207,10 +207,10 @@ class NaverSearchRepositoryImpl(
         }
     }
 
-    private fun ensureBlogEntityList(blogs: List<Blog>): List<BlogEntity> =
-        arrayListOf<BlogEntity>().apply {
+    private fun ensureBlogEntityList(blogs: List<Blog>): List<BlogItemEntity> =
+        arrayListOf<BlogItemEntity>().apply {
             blogs.mapTo(this) { blog ->
-                BlogEntity(
+                BlogItemEntity(
                     bloggerLink = blog.bloggerLink,
                     bloggerName = blog.bloggerName,
                     description = blog.description,
@@ -244,10 +244,10 @@ class NaverSearchRepositoryImpl(
         }
     }
 
-    private fun ensureKinEntityList(kins: List<Kin>): List<KinEntity> =
-        arrayListOf<KinEntity>().apply {
+    private fun ensureKinEntityList(kins: List<Kin>): List<KinItemEntity> =
+        arrayListOf<KinItemEntity>().apply {
             kins.mapTo(this) { kin ->
-                KinEntity(
+                KinItemEntity(
                     description = kin.description,
                     link = kin.link,
                     title = kin.title

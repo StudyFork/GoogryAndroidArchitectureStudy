@@ -17,13 +17,14 @@ data class Movie(
         get() = _userRating.toFloat() / 2
 }
 
-data class ResponseMovie(
-    val movies: List<Movie>
-)
-
 data class MovieRepo(
     val keyword: String,
     val movies: List<Movie>
 )
+
+data class ResponseMovie(
+    val movies: List<Movie>
+)
+
 
 

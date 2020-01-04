@@ -8,13 +8,13 @@ import com.jay.architecturestudy.data.database.dao.BlogDao
 import com.jay.architecturestudy.data.database.dao.ImageDao
 import com.jay.architecturestudy.data.database.dao.KinDao
 import com.jay.architecturestudy.data.database.dao.MovieDao
-import com.jay.architecturestudy.data.database.entity.BlogEntity
-import com.jay.architecturestudy.data.database.entity.ImageEntity
-import com.jay.architecturestudy.data.database.entity.KinEntity
-import com.jay.architecturestudy.data.database.entity.MovieEntity
+import com.jay.architecturestudy.data.database.entity.BlogItemEntity
+import com.jay.architecturestudy.data.database.entity.ImageItemEntity
+import com.jay.architecturestudy.data.database.entity.KinItemEntity
+import com.jay.architecturestudy.data.database.entity.MovieItemEntity
 
 @Database(
-    entities = [BlogEntity::class, ImageEntity::class, KinEntity::class, MovieEntity::class],
+    entities = [BlogItemEntity::class, ImageItemEntity::class, KinItemEntity::class, MovieItemEntity::class],
     version = 1
 )
 

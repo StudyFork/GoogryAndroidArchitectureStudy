@@ -2,10 +2,10 @@ package com.jay.architecturestudy.data.source.local
 
 import android.content.SharedPreferences
 import com.jay.architecturestudy.data.database.SearchHistoryDatabase
-import com.jay.architecturestudy.data.database.entity.BlogEntity
-import com.jay.architecturestudy.data.database.entity.ImageEntity
-import com.jay.architecturestudy.data.database.entity.KinEntity
-import com.jay.architecturestudy.data.database.entity.MovieEntity
+import com.jay.architecturestudy.data.database.entity.BlogItemEntity
+import com.jay.architecturestudy.data.database.entity.ImageItemEntity
+import com.jay.architecturestudy.data.database.entity.KinItemEntity
+import com.jay.architecturestudy.data.database.entity.MovieItemEntity
 import com.jay.architecturestudy.data.model.Blog
 import com.jay.architecturestudy.data.model.Image
 import com.jay.architecturestudy.data.model.Kin
@@ -24,13 +24,13 @@ interface NaverSearchLocalDataSource {
 
     fun getKin(): Single<List<Kin>>
 
-    fun saveMovieResult(movies: List<MovieEntity>)
+    fun saveMovieResult(movies: List<MovieItemEntity>)
 
-    fun saveImageResult(images: List<ImageEntity>)
+    fun saveImageResult(images: List<ImageItemEntity>)
 
-    fun saveBlogResult(blogs: List<BlogEntity>)
+    fun saveBlogResult(blogs: List<BlogItemEntity>)
 
-    fun saveKinResult(kins: List<KinEntity>)
+    fun saveKinResult(kins: List<KinItemEntity>)
 
     fun clearMovieResult()
 

@@ -4,10 +4,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.jay.architecturestudy.MainApplication
 import com.jay.architecturestudy.data.database.SearchHistoryDatabase
-import com.jay.architecturestudy.data.database.entity.BlogEntity
-import com.jay.architecturestudy.data.database.entity.ImageEntity
-import com.jay.architecturestudy.data.database.entity.KinEntity
-import com.jay.architecturestudy.data.database.entity.MovieEntity
+import com.jay.architecturestudy.data.database.entity.BlogItemEntity
+import com.jay.architecturestudy.data.database.entity.ImageItemEntity
+import com.jay.architecturestudy.data.database.entity.KinItemEntity
+import com.jay.architecturestudy.data.database.entity.MovieItemEntity
 import com.jay.architecturestudy.data.model.Blog
 import com.jay.architecturestudy.data.model.Image
 import com.jay.architecturestudy.data.model.Kin
@@ -104,19 +104,19 @@ object NaverSearchLocalDataSourceImpl : NaverSearchLocalDataSource {
                 kins
             }
 
-    override fun saveMovieResult(movies: List<MovieEntity>) {
+    override fun saveMovieResult(movies: List<MovieItemEntity>) {
         searchHistoryDatabase.movieDao().insertAll(movies)
     }
 
-    override fun saveImageResult(images: List<ImageEntity>) {
+    override fun saveImageResult(images: List<ImageItemEntity>) {
         searchHistoryDatabase.imageDao().insertAll(images)
     }
 
-    override fun saveBlogResult(blogs: List<BlogEntity>) {
+    override fun saveBlogResult(blogs: List<BlogItemEntity>) {
         searchHistoryDatabase.blogDao().insertAll(blogs)
     }
 
-    override fun saveKinResult(kins: List<KinEntity>) {
+    override fun saveKinResult(kins: List<KinItemEntity>) {
         searchHistoryDatabase.kinDao().insertAll(kins)
     }
 
