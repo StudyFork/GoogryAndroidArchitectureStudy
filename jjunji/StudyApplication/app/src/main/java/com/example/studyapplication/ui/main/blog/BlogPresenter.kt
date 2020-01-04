@@ -20,7 +20,7 @@ class BlogPresenter(
             }
 
             override fun failed(e: Throwable) {
-                view.toastErrorConnFailed(e.message)
+                onRequestFailed(e)
             }
         })
     }

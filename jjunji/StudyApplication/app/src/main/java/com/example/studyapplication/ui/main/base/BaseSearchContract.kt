@@ -2,7 +2,7 @@ package com.example.studyapplication.ui.main.base
 
 interface BaseSearchContract {
     interface View {
-        fun toastErrorConnFailed(message : String)
+        fun toastErrorMessage(message : String)
     }
 
     interface Presenter {

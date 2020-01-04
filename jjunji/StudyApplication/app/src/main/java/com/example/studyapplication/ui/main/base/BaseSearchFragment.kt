@@ -1,6 +1,8 @@
 package com.example.studyapplication.ui.main.base
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import com.example.studyapplication.ui.base.BaseFragment
 
@@ -9,15 +11,9 @@ open class BaseSearchFragment(
     : BaseFragment(fragmentId),
     BaseSearchContract.View {
 
-    private lateinit var presenter : BaseSearchContract.Presenter
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        presenter = BaseSearchPresenter(this)
-    }
-
-    override fun toastErrorConnFailed(message: String) {
-
+    @SuppressLint("ShowToast")
+    override fun toastErrorMessage(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT)
     }
 
 

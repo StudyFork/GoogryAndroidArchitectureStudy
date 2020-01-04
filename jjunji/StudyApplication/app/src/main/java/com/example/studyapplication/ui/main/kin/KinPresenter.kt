@@ -12,9 +12,13 @@ class KinPresenter(val view  : KinContract.View, private val repository: NaverSe
                 searchData?.let { view.showList(searchData.arrKinInfo) }
             }
 
-            override fun failed(errorMessage: String) {
-                view.toastErrorConnFailed(errorMessage)
+            override fun failed(e: Throwable) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
+
+//            override fun failed(errorMessage: String) {
+//                view.toastErrorConnFailed(errorMessage)
+//            }
         })
     }
 
