@@ -9,14 +9,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.Observable
-import androidx.databinding.ObservableArrayList
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ironelder.androidarchitecture.R
 import com.ironelder.androidarchitecture.common.BLOG
 import com.ironelder.androidarchitecture.common.TYPE_KEY
 import com.ironelder.androidarchitecture.component.CustomListViewAdapter
-import com.ironelder.androidarchitecture.data.ResultItem
 import com.ironelder.androidarchitecture.data.database.SearchResultDatabase
 import com.ironelder.androidarchitecture.databinding.FragmentMainBinding
 import com.ironelder.androidarchitecture.view.baseview.BaseFragment
@@ -54,6 +52,16 @@ class MainFragment :
                         )
                     )
                 }
+            })
+            it?.notifyErrorMessage?.addOnPropertyChangedCallback(object :
+                Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    if (!it.notifyErrorMessage.get().isNullOrEmpty()) {
+                        Toast.makeText(context, it.notifyErrorMessage.get(), Toast.LENGTH_LONG)
+                            .show()
+                    }
+                }
+
             })
         }
     }
