@@ -7,14 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.studyapplication.R
-import com.example.studyapplication.data.model.SearchImageResult
+import com.example.studyapplication.data.model.ImageInfo
 
 class ImageAdapter : RecyclerView.Adapter<ImageHolder>() {
-    private val arrImageInfo : MutableList<SearchImageResult.ImageInfo> = mutableListOf()
+    private val arrImageInfo: MutableList<ImageInfo> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view : View = inflater.inflate(R.layout.item_image, parent, false)
+        val view: View = inflater.inflate(R.layout.item_image, parent, false)
 
         return ImageHolder(view)
     }
@@ -34,7 +34,7 @@ class ImageAdapter : RecyclerView.Adapter<ImageHolder>() {
         return arrImageInfo.size
     }
 
-    fun resetItem(items: Array<SearchImageResult.ImageInfo>) {
+    fun resetItem(items: ArrayList<ImageInfo>) {
         arrImageInfo.clear()
         arrImageInfo.addAll(items)
         notifyDataSetChanged()

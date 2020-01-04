@@ -35,7 +35,7 @@ class MovieFragment : BaseFragment(R.layout.fragment_movie), MovieContract.View 
         }
     }
 
-    override fun showList(items: Array<MovieInfo.MovieInfo>) {
+    override fun showList(items: ArrayList<MovieInfo>) {
         movieAdapter.resetItem(items)
     }
 

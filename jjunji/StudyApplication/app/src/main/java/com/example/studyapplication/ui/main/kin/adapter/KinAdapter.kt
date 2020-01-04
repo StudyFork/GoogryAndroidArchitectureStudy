@@ -5,14 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studyapplication.R
-import com.example.studyapplication.data.model.SearchKinResult
+import com.example.studyapplication.data.model.KinInfo
 
 class KinAdapter : RecyclerView.Adapter<KinHolder>() {
-    private val arrKinInfo : MutableList<SearchKinResult.KinInfo> = mutableListOf()
+    private val arrKinInfo: MutableList<KinInfo> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KinHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view : View = inflater.inflate(R.layout.item_kin, parent, false)
+        val view: View = inflater.inflate(R.layout.item_kin, parent, false)
 
         return KinHolder(view)
     }
@@ -30,7 +30,7 @@ class KinAdapter : RecyclerView.Adapter<KinHolder>() {
         return arrKinInfo.size
     }
 
-    fun resetItem(items: Array<SearchKinResult.KinInfo>) {
+    fun resetItem(items: ArrayList<KinInfo>) {
         arrKinInfo.clear()
         arrKinInfo.addAll(items)
         notifyDataSetChanged()

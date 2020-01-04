@@ -6,8 +6,8 @@ import android.view.View
 import android.widget.Toast
 import com.example.studyapplication.R
 import com.example.studyapplication.data.datasource.remote.NaverRemoteDataSourceImpl
+import com.example.studyapplication.data.model.KinInfo
 import com.example.studyapplication.ui.main.kin.adapter.KinAdapter
-import com.example.studyapplication.data.model.SearchKinResult
 import com.example.studyapplication.data.repository.NaverSearchRepository
 import com.example.studyapplication.data.repository.NaverSearchRepositoryImpl
 import com.example.studyapplication.ui.base.BaseFragment
@@ -35,7 +35,7 @@ class KinFragment  : BaseFragment(R.layout.fragment_kin), KinContract.View {
         }
     }
 
-    override fun showList(items: Array<SearchKinResult.KinInfo>) {
+    override fun showList(items: ArrayList<KinInfo>) {
         kinAdapter.resetItem(items)
     }
 
