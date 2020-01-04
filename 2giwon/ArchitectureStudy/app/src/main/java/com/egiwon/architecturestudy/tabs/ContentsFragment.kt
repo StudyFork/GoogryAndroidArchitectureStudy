@@ -42,8 +42,8 @@ class ContentsFragment : BaseFragment<FgContentsBinding, ContentsViewModel>(
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         with(binding) {
+            vm = viewModel
             rvContents.addItemDecoration(
                 DividerItemDecoration(
                     context,
@@ -54,7 +54,7 @@ class ContentsFragment : BaseFragment<FgContentsBinding, ContentsViewModel>(
             rvContents.adapter = ContentsAdapter(tab)
 
             btnSearch.setOnClickListener {
-                viewModel.loadContents(tab, etSearch.text.toString())
+                viewModel.loadContents(tab)
             }
         }
 
@@ -82,11 +82,6 @@ class ContentsFragment : BaseFragment<FgContentsBinding, ContentsViewModel>(
         asSearchQueryResultEmptyListObservable()
             .subscribe {
                 showErrorResultEmpty()
-            }.addDisposable()
-
-        asSearchQueryObservable()
-            .subscribe {
-                binding.etSearch.setText(it)
             }.addDisposable()
 
     }

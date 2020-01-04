@@ -1,5 +1,6 @@
 package com.egiwon.architecturestudy.tabs
 
+import androidx.databinding.ObservableField
 import com.egiwon.architecturestudy.Tab
 import com.egiwon.architecturestudy.base.BaseViewModel
 import com.egiwon.architecturestudy.data.NaverDataRepository
@@ -13,15 +14,15 @@ class ContentsViewModel(
     private val naverDataRepository: NaverDataRepository
 ) : BaseViewModel() {
 
-    private var searchQueryResultList: BehaviorSubject<List<ContentItem>> = BehaviorSubject.create()
+    private val searchQueryResultList: BehaviorSubject<List<ContentItem>> = BehaviorSubject.create()
 
     private val searchQueryEmptyError: BehaviorSubject<Unit> = BehaviorSubject.create()
 
     private val showLoadingProgressBar: BehaviorSubject<Boolean> = BehaviorSubject.create()
 
-    private val searchQuery: BehaviorSubject<String> = BehaviorSubject.create()
-
     private val searchQueryResultEmptyList: BehaviorSubject<Unit> = BehaviorSubject.create()
+
+    var query = ObservableField<String>()
 
     fun asSearchQueryListObservable(): Observable<List<ContentItem>> =
         searchQueryResultList.observeOn(AndroidSchedulers.mainThread())
@@ -32,19 +33,16 @@ class ContentsViewModel(
     fun asShowLoadingProgressBarObservable(): Observable<Boolean> =
         showLoadingProgressBar.observeOn(AndroidSchedulers.mainThread())
 
-    fun asSearchQueryObservable(): Observable<String> =
-        searchQuery.observeOn(AndroidSchedulers.mainThread())
-
     fun asSearchQueryResultEmptyListObservable(): Observable<Unit> =
         searchQueryResultEmptyList.observeOn(AndroidSchedulers.mainThread())
 
-    fun loadContents(type: Tab, query: String) {
-        if (query.isBlank()) {
+    fun loadContents(type: Tab) {
+        if (query.get().isNullOrBlank()) {
             searchQueryEmptyError.onNext(Unit)
         } else {
             naverDataRepository.getContents(
                 type = type.name,
-                query = query
+                query = query.get()!!
             ).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe {
@@ -71,7 +69,7 @@ class ContentsViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 searchQueryResultList.onNext(it.contentItems)
-                searchQuery.onNext(it.query)
+                this.query.set(it.query)
             }, {}).addDisposable()
     }
 
@@ -80,8 +78,8 @@ class ContentsViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 searchQueryResultList.onNext(it.contentItems)
-                searchQuery.onNext(it.query)
-                loadContents(type, query)
+                this.query.set(it.query)
+                loadContents(type)
             }, {
                 searchQueryResultList.onError(it)
             }).addDisposable()
