@@ -14,18 +14,10 @@ abstract class BaseFragment(
     private val layoutId: Int
 ) : Fragment(), BaseContract.View {
 
-    private val naverSearchRemoteDataSource by lazy {
-        NaverSearchRemoteDataSourceImpl()
-    }
-
-    private val naverSearchLocalDataSource by lazy {
-        NaverSearchLocalDataSourceImpl(activity!!)
-    }
-
     val naverSearchRepository by lazy {
         NaverSearchRepositoryImpl(
-            naverSearchRemoteDataSource = naverSearchRemoteDataSource,
-            naverSearchLocalDataSource = naverSearchLocalDataSource
+            naverSearchRemoteDataSource = NaverSearchRemoteDataSourceImpl,
+            naverSearchLocalDataSource = NaverSearchLocalDataSourceImpl
         )
     }
 

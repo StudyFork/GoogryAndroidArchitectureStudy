@@ -2,6 +2,7 @@ package com.jay.architecturestudy.data.source.local
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.jay.architecturestudy.MainApplication
 import com.jay.architecturestudy.data.database.SearchHistoryDatabase
 import com.jay.architecturestudy.data.database.entity.BlogEntity
 import com.jay.architecturestudy.data.database.entity.ImageEntity
@@ -18,9 +19,10 @@ import com.jay.architecturestudy.data.source.local.NaverSearchLocalDataSource.Co
 import com.jay.architecturestudy.data.source.local.NaverSearchLocalDataSource.Companion.PREFS_NAME
 import io.reactivex.Single
 
-class NaverSearchLocalDataSourceImpl(
+object NaverSearchLocalDataSourceImpl : NaverSearchLocalDataSource {
+
     private val context: Context
-) : NaverSearchLocalDataSource {
+        get() = MainApplication.instance
 
     override val searchHistoryDatabase: SearchHistoryDatabase by lazy {
         SearchHistoryDatabase.getInstance(context)
@@ -30,23 +32,23 @@ class NaverSearchLocalDataSourceImpl(
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
 
-
     override fun getMovie(): Single<List<Movie>> =
         searchHistoryDatabase.movieDao()
             .getAll()
             .map {
-                val movies = arrayListOf<Movie>()
-                it.mapTo(movies) { entity ->
-                    Movie(
-                        title = entity.title,
-                        link = entity.link,
-                        subtitle = entity.subtitle,
-                        actor = entity.actor,
-                        pubDate = entity.pubDate,
-                        _userRating = (entity.userRating * 2.toFloat()).toString(),
-                        image = entity.image,
-                        director = entity.director
-                    )
+                val movies = arrayListOf<Movie>().apply {
+                    it.mapTo(this) { entity ->
+                        Movie(
+                            title = entity.title,
+                            link = entity.link,
+                            subtitle = entity.subtitle,
+                            actor = entity.actor,
+                            pubDate = entity.pubDate,
+                            _userRating = (entity.userRating * 2.toFloat()).toString(),
+                            image = entity.image,
+                            director = entity.director
+                        )
+                    }
                 }
                 movies
             }
@@ -55,15 +57,16 @@ class NaverSearchLocalDataSourceImpl(
         searchHistoryDatabase.imageDao()
             .getAll()
             .map {
-                val images = arrayListOf<Image>()
-                it.mapTo(images) { entity ->
-                    Image(
-                        link = entity.link,
-                        sizeHeight = entity.sizeHeight,
-                        sizeWidth = entity.sizeWidth,
-                        thumbnail = entity.thumbnail,
-                        title = entity.title
-                    )
+                val images = arrayListOf<Image>().apply {
+                    it.mapTo(this) { entity ->
+                        Image(
+                            link = entity.link,
+                            sizeHeight = entity.sizeHeight,
+                            sizeWidth = entity.sizeWidth,
+                            thumbnail = entity.thumbnail,
+                            title = entity.title
+                        )
+                    }
                 }
                 images
             }
