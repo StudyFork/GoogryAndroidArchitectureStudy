@@ -3,7 +3,6 @@ package com.hansung.firstproject.adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hansung.firstproject.R
-import com.hansung.firstproject.data.MovieModel
 
 class RecyclerViewAdapter<T> : RecyclerView.Adapter<MovieHolder>() {
     private val items: ArrayList<T> = arrayListOf()
@@ -26,9 +25,6 @@ class RecyclerViewAdapter<T> : RecyclerView.Adapter<MovieHolder>() {
 
     //재활용 되는 View가 호출하여 실행되는 메소드, 뷰 홀더를 전달하고 Adapter는 position 의 데이터를 결합
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
-        val item = items[position]
-        if (item is MovieModel) {
-            holder.bindItems(item)
-        }
+        holder.bindItems(items[position])
     }
 }
