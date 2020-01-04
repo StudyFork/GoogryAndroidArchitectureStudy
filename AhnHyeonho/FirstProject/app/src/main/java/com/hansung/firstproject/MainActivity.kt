@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hansung.firstproject.adapter.RecyclerViewAdapter
 import com.hansung.firstproject.data.MovieModel
 import com.hansung.firstproject.data.repository.NaverRepository
+import com.hansung.firstproject.data.source.remote.NaverRemoteDataSource
+import com.hansung.firstproject.data.source.remote.NaverRemoteDataSourceImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -20,8 +22,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var clientId: String // naver 검색API 사용을 위한 Client ID
     private lateinit var clientSecret: String //naver 검색API 사용을 위한 Client Secret
     private val adapter: RecyclerViewAdapter<MovieModel> = RecyclerViewAdapter()
+    private val naverRemoteDataSource: NaverRemoteDataSource =
+        NaverRemoteDataSourceImpl().getInstance()
+
     private val naverRepository: NaverRepository =
-        NaverRepository().getInstance() // Repository 생성
+        NaverRepository(naverRemoteDataSource).getInstance() // Repository 생성
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("ahn", "MainActivity onCreate...")

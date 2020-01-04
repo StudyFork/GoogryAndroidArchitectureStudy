@@ -2,18 +2,16 @@ package com.hansung.firstproject.data.repository
 
 import com.hansung.firstproject.data.MovieResponseModel
 import com.hansung.firstproject.data.source.remote.NaverRemoteDataSource
-import com.hansung.firstproject.data.source.remote.NaverRemoteDataSourceImpl
 
-class NaverRepository {
+class NaverRepository(dataSource: NaverRemoteDataSource) {
 
     private var _INSTANCE: NaverRepository? = null
 
-    private var naverRemoteDataSource: NaverRemoteDataSource =
-        NaverRemoteDataSourceImpl().getInstance()
+    private var naverRemoteDataSource: NaverRemoteDataSource = dataSource
 
     fun getInstance(): NaverRepository {
         if (_INSTANCE == null)
-            _INSTANCE = NaverRepository()
+            _INSTANCE = NaverRepository(naverRemoteDataSource)
         return _INSTANCE!!
     }
 
