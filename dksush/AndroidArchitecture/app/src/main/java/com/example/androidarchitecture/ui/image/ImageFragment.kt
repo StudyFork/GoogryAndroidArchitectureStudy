@@ -10,7 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.androidarchitecture.R
 import com.example.androidarchitecture.common.toast
-import com.example.androidarchitecture.data.repository.NaverRepoImpl
 import com.example.androidarchitecture.data.response.ImageData
 import com.example.androidarchitecture.ui.base.BaseSearchFragment
 import com.example.androidarchitecture.ui.base.ItemContract

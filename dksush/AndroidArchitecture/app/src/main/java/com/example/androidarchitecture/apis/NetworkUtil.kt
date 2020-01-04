@@ -1,6 +1,5 @@
 package com.example.androidarchitecture.apis
 
-import android.util.Log
 import com.example.androidarchitecture.apis.Api.Companion.BASE_URL
 import okhttp3.Dns
 import okhttp3.Interceptor

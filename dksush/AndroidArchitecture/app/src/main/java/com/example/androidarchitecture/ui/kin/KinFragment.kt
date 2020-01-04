@@ -2,15 +2,12 @@ package com.example.androidarchitecture.ui.kin
 
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.androidarchitecture.R
 import com.example.androidarchitecture.common.toast
-import com.example.androidarchitecture.data.repository.NaverRepoImpl
 import com.example.androidarchitecture.data.response.KinData
 import com.example.androidarchitecture.ui.base.BaseSearchFragment
 import com.example.androidarchitecture.ui.base.ItemContract

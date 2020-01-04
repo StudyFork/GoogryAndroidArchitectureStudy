@@ -1,7 +1,6 @@
 package com.example.androidarchitecture.ui.movie
 
 import android.text.TextUtils
-import android.util.Log
 import com.example.androidarchitecture.data.repository.NaverRepoInterface
 import com.example.androidarchitecture.data.response.MovieData
 import com.example.androidarchitecture.ui.base.ItemContract

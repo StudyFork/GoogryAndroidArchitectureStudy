@@ -1,7 +1,6 @@
 package com.example.androidarchitecture.ui.blog
 
 import android.text.TextUtils
-import android.util.Log
 import com.example.androidarchitecture.data.repository.NaverRepoInterface
 import com.example.androidarchitecture.data.response.BlogData
 
