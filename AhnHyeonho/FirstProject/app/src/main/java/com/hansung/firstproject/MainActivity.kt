@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hansung.firstproject.adapter.RecyclerViewAdapter
 import com.hansung.firstproject.data.MovieModel
 import com.hansung.firstproject.data.repository.NaverRepository
-import com.hansung.firstproject.data.source.remote.NaverRemoteDataSource
 import com.hansung.firstproject.data.source.remote.NaverRemoteDataSourceImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -21,11 +20,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var clientId: String // naver 검색API 사용을 위한 Client ID
     private lateinit var clientSecret: String //naver 검색API 사용을 위한 Client Secret
     private val adapter: RecyclerViewAdapter<MovieModel> = RecyclerViewAdapter()
-    private val naverRemoteDataSource: NaverRemoteDataSource =
-        NaverRemoteDataSourceImpl().getInstance()
 
+    private val naverRemoteDataSource = NaverRemoteDataSourceImpl.getInstance() // dataSource 생성
     private val naverRepository: NaverRepository =
-        NaverRepository(naverRemoteDataSource).getInstance() // Repository 생성
+        NaverRepository.getInstance(naverRemoteDataSource) // Repository 생성
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +40,8 @@ class MainActivity : AppCompatActivity() {
         btn_search.setOnClickListener {
             // 입력값이 없을 때
             if (et_search.text.isEmpty()) {
-                Toast.makeText(this, getString(R.string.empty_keword_message), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.empty_keword_message), Toast.LENGTH_SHORT)
+                    .show()
                 return@setOnClickListener
             } else {
                 // 입력값이 있을 때
