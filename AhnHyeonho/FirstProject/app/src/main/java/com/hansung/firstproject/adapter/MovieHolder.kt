@@ -15,6 +15,20 @@ import kotlinx.android.synthetic.main.movie_item.view.*
 //MovieView 재사용하는 Holder
 @Suppress("DEPRECATION")
 class MovieHolder(private val movieView: View) : RecyclerView.ViewHolder(movieView) {
+    private lateinit var webPage: Uri
+
+    init {
+        itemView.setOnClickListener {
+            val webIntent = Intent(
+                movieView.context,
+                MovieInformationActivity::class.java
+            ).apply {
+                putExtra("WEB_PAGE", webPage.toString())
+            }
+            movieView.context.startActivity(webIntent)
+        }
+    }
+
     fun bindItems(data: MovieModel) {
         //image 바인딩
         with(itemView) {
@@ -29,14 +43,8 @@ class MovieHolder(private val movieView: View) : RecyclerView.ViewHolder(movieVi
             Glide.with(context).load(data.image).apply(RequestOptions().override(300, 450))
                 .apply(RequestOptions.centerCropTransform()).into(posterimage_movieitem)
 
-            //클릭시 웹사이트 연결
-            setOnClickListener {
-                val webPage = Uri.parse(data.link)
-                val webIntent = Intent(context, MovieInformationActivity::class.java).apply {
-                    putExtra("WEB_PAGE", webPage.toString())
-                }
-                movieView.context.startActivity(webIntent)
-            }
+            //클릭시 웹사이트 연결을 위한 uri 바인딩
+            webPage = Uri.parse(data.link)
         }
     }
 }
