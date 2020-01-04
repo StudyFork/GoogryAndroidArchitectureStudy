@@ -1,6 +1,8 @@
 package com.hansung.firstproject
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +28,13 @@ class MovieInformationActivity : AppCompatActivity() {
                 setSupportZoom(false)
                 javaScriptEnabled = true
             }
+        }
+    }
+
+    companion object {
+        const val TAG = "WEB_PAGE"
+        fun getIntent(context: Context): Intent {
+            return Intent(context, MovieInformationActivity::class.java)
         }
     }
 }

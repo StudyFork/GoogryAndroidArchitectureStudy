@@ -1,6 +1,5 @@
 package com.hansung.firstproject.adapter
 
-import android.content.Intent
 import android.net.Uri
 import android.text.Html
 import android.view.View
@@ -19,13 +18,9 @@ open class MovieHolder(layoutId: Int, parents: ViewGroup) :
 
     init {
         itemView.setOnClickListener {
-            val webIntent = Intent(
-                it.context,
-                MovieInformationActivity::class.java
-            ).apply {
-                putExtra("WEB_PAGE", webPage.toString())
-            }
-            it.context.startActivity(webIntent)
+            MovieInformationActivity.getIntent(it.context).apply {
+                putExtra(MovieInformationActivity.TAG, webPage.toString())
+            }.also(itemView.context::startActivity)
         }
     }
 
