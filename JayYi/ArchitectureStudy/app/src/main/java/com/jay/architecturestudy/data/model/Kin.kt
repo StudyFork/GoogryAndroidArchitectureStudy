@@ -6,11 +6,11 @@ data class Kin(
     val title: String
 )
 
-data class KinRepo(
-    val keyword: String,
+data class ResponseKin(
     val kins: List<Kin>
 )
 
-data class ResponseKin(
+data class KinRepo(
+    val keyword: String,
     val kins: List<Kin>
 )

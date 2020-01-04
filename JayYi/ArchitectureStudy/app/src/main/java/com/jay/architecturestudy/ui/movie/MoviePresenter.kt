@@ -1,10 +1,15 @@
 package com.jay.architecturestudy.ui.movie
 
 import android.util.Log
+import com.jay.architecturestudy.data.database.entity.MovieEntity
+import com.jay.architecturestudy.data.model.Movie
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseSearchPresenter
 import com.jay.architecturestudy.util.addTo
 import com.jay.architecturestudy.util.singleIoMainThread
+import com.jay.architecturestudy.util.then
+import io.reactivex.Completable
+import io.reactivex.Single
 
 class MoviePresenter(
     override val view: MovieContract.View,

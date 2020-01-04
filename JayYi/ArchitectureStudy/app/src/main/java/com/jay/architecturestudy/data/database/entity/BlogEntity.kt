@@ -4,15 +4,16 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "image")
-data class ImageItemEntity(
+@Entity(tableName = "blog")
+data class BlogEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
+    @ColumnInfo(name = "blogger_link")
+    val bloggerLink: String,
+    @ColumnInfo(name = "blogger_name")
+    val bloggerName: String,
+    val description: String,
     val link: String,
-    @ColumnInfo(name = "size_height")
-    val sizeHeight: String,
-    @ColumnInfo(name = "size_width")
-    val sizeWidth: String,
-    val thumbnail: String,
+    val postdate: String,
     val title: String
 )
