@@ -1,58 +1,40 @@
 package com.example.kotlinapplication.data.source.local
 
-import com.example.kotlinapplication.data.model.BlogItem
-import com.example.kotlinapplication.data.model.ImageItem
-import com.example.kotlinapplication.data.model.KinItem
-import com.example.kotlinapplication.data.model.MovieItem
+import com.example.kotlinapplication.data.model.*
 import com.orhanobut.hawk.Hawk
+import io.reactivex.Single
 
 class LocalDataSourceImpl : LocalDataSource {
-    override fun getMovieCall(): List<MovieItem> {
-        if (Hawk.get("movieList", null) != null) {
-            return Hawk.get("movieList")
-        } else {
-            return emptyList()
-        }
+    override fun setMovieCall(list: Single<ResponseItems<MovieItem>>) {
+        list.subscribe(
+            { datas -> Hawk.put("movieList",datas.items)}
+        )
     }
 
-    override fun getImageCall(): List<ImageItem> {
-        if (Hawk.get("imageList", null) != null) {
-            return Hawk.get("imageList")
-        } else {
-            return emptyList()
-        }
+    override fun setImageCall(list: Single<ResponseItems<ImageItem>>) {
+        list.subscribe(
+            { datas -> Hawk.put("imageList",datas.items)}
+        )
     }
 
-    override fun getBlogCall(): List<BlogItem> {
-        if (Hawk.get("blogList", null) != null) {
-            return Hawk.get("blogList")
-        } else {
-            return emptyList()
-        }
+    override fun setBlogCall(list: Single<ResponseItems<BlogItem>>) {
+        list.subscribe(
+            { datas -> Hawk.put("blogList",datas.items)}
+        )
     }
 
-    override fun getKinCall(): List<KinItem> {
-        if (Hawk.get("kinList", null) != null) {
-            return Hawk.get("kinList")
-        } else {
-            return emptyList()
-        }
+    override fun setKinCall(list: Single<ResponseItems<KinItem>>) {
+        list.subscribe(
+            { datas -> Hawk.put("kinList",datas.items)}
+        )
     }
 
-    override fun setMovieCall(list: List<MovieItem>) {
-        Hawk.put("movieList", list)
-    }
+    override fun getMovieCall(): List<MovieItem> = Hawk.get("movieList", emptyList())
 
-    override fun setImageCall(list: List<ImageItem>) {
-        Hawk.put("imageList", list)
-    }
+    override fun getImageCall(): List<ImageItem> =Hawk.get("imageList", emptyList())
 
-    override fun setBlogCall(list: List<BlogItem>) {
-        Hawk.put("blogList", list)
-    }
+    override fun getBlogCall(): List<BlogItem> =Hawk.get("blogList", emptyList())
 
-    override fun setKinCall(list: List<KinItem>) {
-        Hawk.put("kinList", list)
-    }
+    override fun getKinCall(): List<KinItem> =Hawk.get("kinList", emptyList())
 
 }

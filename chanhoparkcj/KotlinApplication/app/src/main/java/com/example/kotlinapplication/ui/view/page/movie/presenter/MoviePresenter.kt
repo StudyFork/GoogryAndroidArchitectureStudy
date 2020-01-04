@@ -19,8 +19,6 @@ class MoviePresenter(listener: PageContract.View<MovieItem>) :
             { datas -> view.getItems(datas.items) },
             { errorMessage -> view.getError("error 에러" + errorMessage) })
     }
-    override fun setLocalData(items: List<MovieItem>) {
-        localDataRepositoryImpl.setMovieCall(items)
-    }
+
     override fun getLocalItems():List<MovieItem> = localDataRepositoryImpl.getMovieCall()
 }

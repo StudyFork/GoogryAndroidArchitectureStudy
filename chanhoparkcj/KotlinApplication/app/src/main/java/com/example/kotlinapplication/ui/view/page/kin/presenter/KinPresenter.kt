@@ -16,8 +16,5 @@ class KinPresenter(listener: PageContract.View<KinItem>) :
             { datas -> view.getItems(datas.items) },
             { errorMessage -> view.getError("error 에러" + errorMessage) })
     }
-    override fun setLocalData(items: List<KinItem>) {
-        localDataRepositoryImpl.setKinCall(items)
-    }
-    override fun getLocalItems():List<KinItem> = localDataRepositoryImpl.getKinCall()
+    override fun getLocalItems():List<KinItem>? = localDataRepositoryImpl.getKinCall()
 }

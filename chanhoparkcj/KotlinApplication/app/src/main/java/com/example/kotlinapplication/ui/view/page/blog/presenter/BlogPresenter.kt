@@ -17,8 +17,5 @@ class BlogPresenter(listener: PageContract.View<BlogItem>) :
             { datas -> view.getItems(datas.items) },
             { errorMessage -> view.getError("error 에러" + errorMessage) })
     }
-    override fun setLocalData(items: List<BlogItem>) {
-        localDataRepositoryImpl.setBlogCall(items)
-    }
     override fun getLocalItems():List<BlogItem> = localDataRepositoryImpl.getBlogCall()
 }

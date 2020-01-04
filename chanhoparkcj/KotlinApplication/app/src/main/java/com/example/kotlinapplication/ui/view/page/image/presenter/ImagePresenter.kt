@@ -7,9 +7,6 @@ import com.example.kotlinapplication.ui.view.page.PageContract
 
 class ImagePresenter(listener: PageContract.View<ImageItem>) :
     PageContract.Presenter<ImageItem> {
-    override fun setLocalData(items: List<ImageItem>) {
-        localDataRepositoryImpl.setImageCall(items)
-    }
 
     override fun getLocalItems(): List<ImageItem> = localDataRepositoryImpl.getImageCall()
 

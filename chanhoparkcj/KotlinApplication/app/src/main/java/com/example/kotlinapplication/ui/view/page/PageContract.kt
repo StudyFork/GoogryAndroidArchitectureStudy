@@ -3,7 +3,6 @@ package com.example.kotlinapplication.ui.view.page
 interface PageContract {
     interface Presenter<T> {
         fun loadData(query: String)
-        fun setLocalData(items:List<T>)
         fun getLocalItems():List<T>?
     }
 
