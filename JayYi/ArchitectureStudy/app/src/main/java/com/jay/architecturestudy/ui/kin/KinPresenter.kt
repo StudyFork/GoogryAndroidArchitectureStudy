@@ -17,18 +17,15 @@ class KinPresenter(
 ) : BaseSearchPresenter(view, repository), KinContract.Presenter {
 
     override fun subscribe() {
-        val lastKeyword = repository.getLatestKinKeyword()
-        lastKeyword.isNotBlank().then {
-            repository.getLatestKinResult()
-                .compose(singleIoMainThread())
-                .subscribe({
-                    view.updateUi(lastKeyword, it)
-                }, { e ->
-                    val message = e.message ?: return@subscribe
-                    Log.e("kin", message)
-                })
-                .addTo(disposables)
-        }
+        repository.getLatestKinResult()
+            .compose(singleIoMainThread())
+            .subscribe({
+                view.updateUi(it.keyword, it.kins)
+            }, { e ->
+                val message = e.message ?: return@subscribe
+                Log.e("kin", message)
+            })
+            .addTo(disposables)
     }
 
     override fun search(keyword: String) {
@@ -42,7 +39,8 @@ class KinPresenter(
                 )
             }
             .compose(singleIoMainThread())
-            .subscribe({ kins ->
+            .subscribe({ kinRepo ->
+                val kins = kinRepo.kins
                 if (kins.isEmpty()) {
                     view.hideResultListView()
                     view.showEmptyResultView()

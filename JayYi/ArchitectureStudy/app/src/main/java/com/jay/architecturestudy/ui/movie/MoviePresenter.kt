@@ -17,19 +17,15 @@ class MoviePresenter(
 ) : BaseSearchPresenter(view, repository), MovieContract.Presenter {
 
     override fun subscribe() {
-        val lastKeyword = repository.getLatestMovieKeyword()
-        lastKeyword.isNotBlank().then {
-            repository.getLatestMovieResult()
-                .compose(singleIoMainThread())
-                .subscribe({
-                    view.updateUi(lastKeyword, it)
-                }, { e ->
-                    val message = e.message ?: return@subscribe
-                    Log.e("movie", message)
-                })
-                .addTo(disposables)
-        }
-
+        repository.getLatestMovieResult()
+            .compose(singleIoMainThread())
+            .subscribe({
+                view.updateUi(it.keyword, it.movies)
+            }, { e ->
+                val message = e.message ?: return@subscribe
+                Log.e("movie", message)
+            })
+            .addTo(disposables)
     }
 
     override fun search(keyword: String) {
@@ -43,7 +39,8 @@ class MoviePresenter(
                 )
             }
             .compose(singleIoMainThread())
-            .subscribe({ movies ->
+            .subscribe({ movieRepo ->
+                val movies = movieRepo.movies
                 if (movies.isEmpty()) {
                     view.hideResultListView()
                     view.showEmptyResultView()

@@ -17,17 +17,14 @@ class BlogPresenter(
 ) : BaseSearchPresenter(view, repository), BlogContract.Presenter {
 
     override fun subscribe() {
-        val lastKeyword = repository.getLatestBlogKeyword()
-        lastKeyword.isNotBlank().then {
-            repository.getLatestBlogResult()
-                .compose(singleIoMainThread())
-                .subscribe({
-                    view.updateUi(lastKeyword, it)
-                }, { e ->
-                    val message = e.message ?: return@subscribe
-                    Log.e("blog", message)
-                })
-        }
+        repository.getLatestBlogResult()
+            .compose(singleIoMainThread())
+            .subscribe({
+                view.updateUi(it.keyword, it.blogs)
+            }, { e ->
+                val message = e.message ?: return@subscribe
+                Log.e("blog", message)
+            })
     }
 
     override fun search(keyword: String) {
@@ -41,7 +38,8 @@ class BlogPresenter(
                 )
             }
             .compose(singleIoMainThread())
-            .subscribe({ blogs ->
+            .subscribe({ blogRepo ->
+                val blogs = blogRepo.blogs
                 if (blogs.isEmpty()) {
                     view.hideResultListView()
                     view.showEmptyResultView()

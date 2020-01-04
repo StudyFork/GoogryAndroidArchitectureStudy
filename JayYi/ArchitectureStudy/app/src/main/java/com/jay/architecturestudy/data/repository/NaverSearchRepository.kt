@@ -5,36 +5,28 @@ import io.reactivex.Single
 
 interface NaverSearchRepository {
 
-    fun getMovie(keyword: String): Single<ResponseMovie>
+    fun getMovie(keyword: String): Single<MovieRepo>
 
-    fun getImage(keyword: String): Single<ResponseImage>
+    fun getImage(keyword: String): Single<ImageRepo>
 
-    fun getBlog(keyword: String): Single<ResponseBlog>
+    fun getBlog(keyword: String): Single<BlogRepo>
 
-    fun getKin(keyword: String): Single<ResponseKin>
+    fun getKin(keyword: String): Single<KinRepo>
 
-    fun getLatestMovieResult(): Single<List<Movie>>
+    fun getLatestMovieResult(): Single<MovieRepo>
 
-    fun getLatestImageResult(): Single<List<Image>>
+    fun getLatestImageResult(): Single<ImageRepo>
 
-    fun getLatestBlogResult(): Single<List<Blog>>
+    fun getLatestBlogResult(): Single<BlogRepo>
 
-    fun getLatestKinResult(): Single<List<Kin>>
+    fun getLatestKinResult(): Single<KinRepo>
 
-    fun refreshMovieSearchHistory(keyword: String, movies: List<Movie>): Single<List<Movie>>
+    fun refreshMovieSearchHistory(keyword: String, movies: List<Movie>): Single<MovieRepo>
 
-    fun refreshImageSearchHistory(keyword: String, images: List<Image>): Single<List<Image>>
+    fun refreshImageSearchHistory(keyword: String, images: List<Image>): Single<ImageRepo>
 
-    fun refreshBlogSearchHistory(keyword: String, blogs: List<Blog>): Single<List<Blog>>
+    fun refreshBlogSearchHistory(keyword: String, blogs: List<Blog>): Single<BlogRepo>
 
-    fun refreshKinSearchHistory(keyword: String, kins: List<Kin>): Single<List<Kin>>
-
-    fun getLatestMovieKeyword(): String
-
-    fun getLatestImageKeyword(): String
-
-    fun getLatestBlogKeyword(): String
-
-    fun getLatestKinKeyword(): String
+    fun refreshKinSearchHistory(keyword: String, kins: List<Kin>): Single<KinRepo>
 
 }

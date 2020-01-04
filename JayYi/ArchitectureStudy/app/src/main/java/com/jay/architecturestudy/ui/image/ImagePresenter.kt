@@ -17,18 +17,15 @@ class ImagePresenter(
 ) : BaseSearchPresenter(view, repository), ImageContract.Presenter {
 
     override fun subscribe() {
-        val lastKeyword = repository.getLatestImageKeyword()
-        lastKeyword.isNotBlank().then {
-            repository.getLatestImageResult()
-                .compose(singleIoMainThread())
-                .subscribe({
-                    view.updateUi(lastKeyword, it)
-                }, { e ->
-                    val message = e.message ?: return@subscribe
-                    Log.e("image", message)
-                })
-                .addTo(disposables)
-        }
+        repository.getLatestImageResult()
+            .compose(singleIoMainThread())
+            .subscribe({
+                view.updateUi(it.keyword, it.images)
+            }, { e ->
+                val message = e.message ?: return@subscribe
+                Log.e("image", message)
+            })
+            .addTo(disposables)
     }
 
     override fun search(keyword: String) {
@@ -42,7 +39,8 @@ class ImagePresenter(
                 )
             }
             .compose(singleIoMainThread())
-            .subscribe({ images ->
+            .subscribe({ imageRepo ->
+                val images = imageRepo.images
                 if (images.isEmpty()) {
                     view.hideResultListView()
                     view.showEmptyResultView()

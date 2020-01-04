@@ -17,55 +17,106 @@ class NaverSearchRepositoryImpl(
 
     override fun getMovie(
         keyword: String
-    ): Single<ResponseMovie> =
+    ): Single<MovieRepo> =
         naverSearchRemoteDataSource.getMovie(
             keyword = keyword
         )
-
+            .map {
+                MovieRepo(
+                    keyword = keyword,
+                    movies = it.movies
+                )
+            }
 
     override fun getImage(
         keyword: String
-    ): Single<ResponseImage> =
+    ): Single<ImageRepo> =
         naverSearchRemoteDataSource.getImage(
             keyword = keyword
         )
+            .map {
+                ImageRepo(
+                    keyword = keyword,
+                    images = it.images
+                )
+            }
 
     override fun getBlog(
         keyword: String
-    ): Single<ResponseBlog> =
+    ): Single<BlogRepo> =
         naverSearchRemoteDataSource.getBlog(
             keyword = keyword
         )
+            .map {
+                BlogRepo(
+                    keyword = keyword,
+                    blogs = it.blogs
+                )
+            }
 
     override fun getKin(
         keyword: String
-    ): Single<ResponseKin> =
+    ): Single<KinRepo> =
         naverSearchRemoteDataSource.getKin(
             keyword = keyword
         )
+            .map {
+                KinRepo(
+                    keyword = keyword,
+                    kins = it.kins
+                )
+            }
 
-    override fun getLatestMovieResult(): Single<List<Movie>> =
+    override fun getLatestMovieResult(): Single<MovieRepo> =
         naverSearchLocalDataSource.getMovie()
+            .map {
+                MovieRepo(
+                    keyword = naverSearchLocalDataSource.getLatestMovieKeyword(),
+                    movies = it)
+            }
 
-    override fun getLatestImageResult(): Single<List<Image>> =
+    override fun getLatestImageResult(): Single<ImageRepo> =
         naverSearchLocalDataSource.getImage()
+            .map {
+                ImageRepo(
+                    keyword = naverSearchLocalDataSource.getLatestImageKeyword(),
+                    images = it
+                )
+            }
 
-    override fun getLatestBlogResult(): Single<List<Blog>> =
+    override fun getLatestBlogResult(): Single<BlogRepo> =
         naverSearchLocalDataSource.getBlog()
+            .map {
+                BlogRepo(
+                    keyword = naverSearchLocalDataSource.getLatestBlogKeyword(),
+                    blogs = it
+                )
+            }
 
-    override fun getLatestKinResult(): Single<List<Kin>> =
+    override fun getLatestKinResult(): Single<KinRepo> =
         naverSearchLocalDataSource.getKin()
+            .map {
+                KinRepo(
+                    keyword = naverSearchLocalDataSource.getLatestKinKeyword(),
+                    kins = it
+                )
+            }
 
     override fun refreshMovieSearchHistory(
         keyword: String,
         movies: List<Movie>
-    ): Single<List<Movie>> =
-        if (movies.isEmpty()) {
+    ): Single<MovieRepo> {
+        val movieRepo = MovieRepo(
+            keyword = keyword,
+            movies = movies
+        )
+
+        return if (movies.isEmpty()) {
             updateSearchHistory(
                 fun1 = { naverSearchLocalDataSource.clearMovieResult() },
                 fun2 = { naverSearchLocalDataSource.saveMovieKeyword(keyword) }
             )
-                .toSingle { movies }
+                .toSingle { movieRepo }
         } else {
             val movieList = ensureMovieEntityList(movies)
             updateSearchHistory(
@@ -73,8 +124,9 @@ class NaverSearchRepositoryImpl(
                 fun2 = { naverSearchLocalDataSource.saveMovieKeyword(keyword) },
                 fun3 = { naverSearchLocalDataSource.saveMovieResult(movieList) }
             )
-                .toSingle { movies }
+                .toSingle { movieRepo }
         }
+    }
 
     private fun ensureMovieEntityList(movies: List<Movie>): List<MovieEntity> =
         arrayListOf<MovieEntity>().apply {
@@ -95,13 +147,18 @@ class NaverSearchRepositoryImpl(
     override fun refreshImageSearchHistory(
         keyword: String,
         images: List<Image>
-    ): Single<List<Image>> =
-        if (images.isEmpty()) {
+    ): Single<ImageRepo> {
+        val imageRepo = ImageRepo(
+            keyword = keyword,
+            images = images
+        )
+
+        return if (images.isEmpty()) {
             updateSearchHistory(
                 fun1 = { naverSearchLocalDataSource.clearImageResult() },
                 fun2 = { naverSearchLocalDataSource.saveImageKeyword(keyword) }
             )
-                .toSingle { images }
+                .toSingle { imageRepo }
         } else {
             val imageList = ensureImageEntityList(images)
             updateSearchHistory(
@@ -109,8 +166,10 @@ class NaverSearchRepositoryImpl(
                 fun2 = { naverSearchLocalDataSource.saveImageKeyword(keyword) },
                 fun3 = { naverSearchLocalDataSource.saveImageResult(imageList) }
             )
-                .toSingle { images }
+                .toSingle { imageRepo }
         }
+    }
+
 
     private fun ensureImageEntityList(images: List<Image>): List<ImageEntity> =
         arrayListOf<ImageEntity>().apply {
@@ -125,13 +184,18 @@ class NaverSearchRepositoryImpl(
             }
         }
 
-    override fun refreshBlogSearchHistory(keyword: String, blogs: List<Blog>): Single<List<Blog>> =
-        if (blogs.isEmpty()) {
+    override fun refreshBlogSearchHistory(keyword: String, blogs: List<Blog>): Single<BlogRepo> {
+        val blogRepo = BlogRepo(
+            keyword = keyword,
+            blogs = blogs
+        )
+
+        return if (blogs.isEmpty()) {
             updateSearchHistory(
                 fun1 = { naverSearchLocalDataSource.clearBlogResult() },
                 fun2 = { naverSearchLocalDataSource.saveBlogKeyword(keyword) }
             )
-                .toSingle { blogs }
+                .toSingle { blogRepo }
         } else {
             val blogList = ensureBlogEntityList(blogs)
             updateSearchHistory(
@@ -139,8 +203,9 @@ class NaverSearchRepositoryImpl(
                 fun2 = { naverSearchLocalDataSource.saveBlogKeyword(keyword) },
                 fun3 = { naverSearchLocalDataSource.saveBlogResult(blogList) }
             )
-                .toSingle { blogs }
+                .toSingle { blogRepo }
         }
+    }
 
     private fun ensureBlogEntityList(blogs: List<Blog>): List<BlogEntity> =
         arrayListOf<BlogEntity>().apply {
@@ -156,13 +221,18 @@ class NaverSearchRepositoryImpl(
             }
         }
 
-    override fun refreshKinSearchHistory(keyword: String, kins: List<Kin>): Single<List<Kin>> =
-        if (kins.isEmpty()) {
+    override fun refreshKinSearchHistory(keyword: String, kins: List<Kin>): Single<KinRepo> {
+        val kinRepo = KinRepo(
+            keyword = keyword,
+            kins = kins
+        )
+
+        return if (kins.isEmpty()) {
             updateSearchHistory(
                 fun1 = { naverSearchLocalDataSource.clearKinResult() },
                 fun2 = { naverSearchLocalDataSource.saveKinKeyword(keyword) }
             )
-                .toSingle { kins }
+                .toSingle { kinRepo }
         } else {
             val kinList = ensureKinEntityList(kins)
             updateSearchHistory(
@@ -170,8 +240,9 @@ class NaverSearchRepositoryImpl(
                 fun2 = { naverSearchLocalDataSource.saveKinKeyword(keyword) },
                 fun3 = { naverSearchLocalDataSource.saveKinResult(kinList) }
             )
-                .toSingle { kins }
+                .toSingle { kinRepo }
         }
+    }
 
     private fun ensureKinEntityList(kins: List<Kin>): List<KinEntity> =
         arrayListOf<KinEntity>().apply {
@@ -183,19 +254,6 @@ class NaverSearchRepositoryImpl(
                 )
             }
         }
-
-    override fun getLatestMovieKeyword(): String =
-        naverSearchLocalDataSource.getLatestMovieKeyword()
-
-    override fun getLatestImageKeyword(): String =
-        naverSearchLocalDataSource.getLatestImageKeyword()
-
-
-    override fun getLatestBlogKeyword(): String =
-        naverSearchLocalDataSource.getLatestBlogKeyword()
-
-    override fun getLatestKinKeyword(): String =
-        naverSearchLocalDataSource.getLatestKinKeyword()
 
     private fun updateSearchHistory(
         fun1: () -> Unit,

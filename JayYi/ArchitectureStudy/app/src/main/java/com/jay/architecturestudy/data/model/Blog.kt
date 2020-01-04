@@ -16,3 +16,8 @@ data class Blog(
 data class ResponseBlog(
     val blogs: List<Blog>
 )
+
+data class BlogRepo(
+    val keyword: String,
+    val blogs: List<Blog>
+)

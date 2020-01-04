@@ -15,3 +15,8 @@ data class Image(
 data class ResponseImage(
     val images: List<Image>
 )
+
+data class ImageRepo(
+    val keyword: String,
+    val images: List<Image>
+)
