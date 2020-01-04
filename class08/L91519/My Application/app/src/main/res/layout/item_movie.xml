@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/iv_movie"
+        android:layout_width="100dp"
+        android:layout_height="160dp"
+        android:layout_margin="5dp"
+        android:background="@android:color/black"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_movie_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:text="액스맨 : 다크 피닉스"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintHorizontal_bias="0.01"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/iv_movie"
+        app:layout_constraintTop_toTopOf="@id/iv_movie"/>
+
+    <RatingBar
+        android:id="@+id/rating_bar_movie"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginBottom="5dp"
+        android:numStars="5"
+        android:rating="4.5"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
+        app:layout_constraintTop_toBottomOf="@id/tv_movie_title"
+        app:layout_constraintLeft_toRightOf="@id/iv_movie"/>
+
+    <TextView
+        android:id="@+id/tv_movie_director"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:textColor="@android:color/black"
+        android:textSize="18dp"
+        android:text="사이먼 킨버그"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintLeft_toRightOf="@id/iv_movie"
+        app:layout_constraintTop_toBottomOf="@id/rating_bar_movie"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.01"/>
+
+    <TextView
+        android:id="@+id/tv_movie_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:textColor="@android:color/black"
+        android:textSize="18dp"
+        android:text="@string/dummy_text"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintLeft_toRightOf="@id/iv_movie"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_movie_director"
+        app:layout_constraintHorizontal_bias="0.01"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
