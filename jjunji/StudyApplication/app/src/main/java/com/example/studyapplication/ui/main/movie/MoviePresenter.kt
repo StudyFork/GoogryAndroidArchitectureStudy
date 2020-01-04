@@ -1,6 +1,6 @@
 package com.example.studyapplication.ui.main.movie
 
-import com.example.studyapplication.data.model.SearchMovieResult
+import com.example.studyapplication.data.model.MovieInfo
 import com.example.studyapplication.data.repository.NaverSearchRepository
 import com.example.studyapplication.network.Conn
 
@@ -8,7 +8,7 @@ class MoviePresenter (val view: MovieContract.View, private val repository: Nave
     override fun clickSearchButton(query: String) {
         repository.getMovieList(query, object : Conn {
             override fun <T> success(result: T) {
-                val searchData : SearchMovieResult? = result as SearchMovieResult
+                val searchData : MovieInfo? = result as MovieInfo
                 searchData?.let {
                     view.showList(searchData.arrMovieInfo)
                 }
@@ -17,10 +17,6 @@ class MoviePresenter (val view: MovieContract.View, private val repository: Nave
             override fun failed(e: Throwable) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
-
-//            override fun failed(errorMessage: String) {
-//                view.toastErrorConnFailed(errorMessage)
-//            }
         })
     }
 

@@ -1,6 +1,7 @@
 package com.example.studyapplication.ui.main.blog
 
-import com.example.studyapplication.data.model.SearchBlogResult
+import com.example.studyapplication.data.model.BlogInfo
+import com.example.studyapplication.data.model.SearchResult
 import com.example.studyapplication.data.repository.NaverSearchRepository
 import com.example.studyapplication.network.Conn
 import com.example.studyapplication.ui.main.base.BaseSearchPresenter
@@ -13,9 +14,11 @@ class BlogPresenter(
     override fun clickSearchButton(query: String) {
         repository.getBlogList(query, object : Conn {
             override fun <T> success(result: T) {
-                val searchData: SearchBlogResult? = result as SearchBlogResult
-                searchData?.let {
-                    view.showList(searchData.arrBlogInfo)
+                // SearchResult<BlogInfo>
+
+                val searchData : SearchResult<BlogInfo> = result as SearchResult<BlogInfo>
+                searchData.let {
+                    view.showList(searchData.arrItem)
                 }
             }
 

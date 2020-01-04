@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.Toast
 import com.example.studyapplication.R
 import com.example.studyapplication.data.datasource.remote.NaverRemoteDataSourceImpl
-import com.example.studyapplication.data.model.SearchMovieResult
+import com.example.studyapplication.data.model.MovieInfo
 import com.example.studyapplication.data.repository.NaverSearchRepository
 import com.example.studyapplication.data.repository.NaverSearchRepositoryImpl
 import com.example.studyapplication.ui.base.BaseFragment
@@ -35,7 +35,7 @@ class MovieFragment : BaseFragment(R.layout.fragment_movie), MovieContract.View 
         }
     }
 
-    override fun showList(items: Array<SearchMovieResult.MovieInfo>) {
+    override fun showList(items: Array<MovieInfo.MovieInfo>) {
         movieAdapter.resetItem(items)
     }
 

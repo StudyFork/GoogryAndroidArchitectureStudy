@@ -13,7 +13,7 @@ open class BaseSearchFragment(
 
     @SuppressLint("ShowToast")
     override fun toastErrorMessage(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT)
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
 

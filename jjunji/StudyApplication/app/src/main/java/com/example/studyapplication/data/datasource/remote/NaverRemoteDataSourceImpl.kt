@@ -8,16 +8,15 @@ import com.example.studyapplication.network.Remote
 class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
 
     override fun getMovieList(title : String, conn : Conn) {
-//        Remote.get(ApiClient.getService().getMovieList(title), object : Conn {
-//            override fun <T> success(result: T) {
-//                conn.success(result)
-//            }
-//
-//            override fun failed(errorMessage: String) {
-//                conn.failed(errorMessage)
-//            }
-//
-//        })
+        Remote.get(ApiClient.getService().getMovieList(title), object : Conn {
+            override fun <T> success(result: T) {
+                conn.success(result)
+            }
+
+            override fun failed(e: Throwable) {
+                conn.failed(e)
+            }
+        })
     }
 
     override fun getBlogList(title: String, conn: Conn) {
@@ -35,27 +34,26 @@ class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
     }
 
     override fun getImageList(title: String, conn: Conn) {
-//        Remote.get(ApiClient.getService().getImageList(title), object : Conn {
-//            override fun <T> success(result: T) {
-//                conn.success(result)
-//            }
-//
-//            override fun failed(errorMessage: String) {
-//                conn.failed(errorMessage)
-//            }
-//        })
+        Remote.get(ApiClient.getService().getImageList(title), object : Conn {
+            override fun <T> success(result: T) {
+                conn.success(result)
+            }
+
+            override fun failed(e: Throwable) {
+                conn.failed(e)
+            }
+        })
     }
 
     override fun getKinList(title: String, conn: Conn) {
-//        Remote.get(ApiClient.getService().getKinList(title), object : Conn {
-//            override fun <T> success(result: T) {
-//                conn.success(result)
-//            }
-//
-//            override fun failed(errorMessage: String) {
-//                conn.failed(errorMessage)
-//            }
-//        })
-    }
+        Remote.get(ApiClient.getService().getKinList(title), object : Conn {
+            override fun <T> success(result: T) {
+                conn.success(result)
+            }
 
+            override fun failed(e: Throwable) {
+                conn.failed(e)
+            }
+        })
+    }
 }

@@ -1,10 +1,10 @@
 package com.example.studyapplication.ui.main.movie
 
-import com.example.studyapplication.data.model.SearchMovieResult
+import com.example.studyapplication.data.model.MovieInfo
 
 interface MovieContract {
     interface View {
-        fun showList(items: Array<SearchMovieResult.MovieInfo>)
+        fun showList(items: Array<MovieInfo.MovieInfo>)
         fun toastErrorConnFailed(message : String)
     }
 
