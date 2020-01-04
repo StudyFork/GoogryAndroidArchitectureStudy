@@ -74,8 +74,10 @@ class MainActivity : AppCompatActivity() {
     private fun doSearch(keyword: String) {
         naverRepository.getMoviesData(keyword, clientId, clientSecret,
             success = {
-                adapter.addItems(it.items)
-                adapter.notifyDataSetChanged()
+                adapter.run {
+                    addItems(it.items)
+                    notifyDataSetChanged()
+                }
             },
             fail = {
                 Toast.makeText(applicationContext, "인터넷 연결을 확인하세요", Toast.LENGTH_SHORT)
