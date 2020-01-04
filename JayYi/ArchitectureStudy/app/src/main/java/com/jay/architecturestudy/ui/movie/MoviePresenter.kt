@@ -37,20 +37,10 @@ class MoviePresenter(
             keyword = keyword
         )
             .flatMap {
-                if (it.movies.isEmpty()) {
-                    updateMovieSearchHistory(
-                        it.movies,
-                        fun1 = { repository.clearMovieResult() },
-                        fun2 = { repository.saveMovieKeyword(keyword) }
-                    )
-                } else {
-                    val movieList = ensureMovieEntityList(it.movies)
-                    updateMovieSearchHistory(
-                        it.movies,
-                        fun1 = { repository.clearMovieResult() },
-                        fun2 = { repository.saveMovieKeyword(keyword) },
-                        fun3 = { repository.saveMovieResult(movieList) })
-                }
+                repository.refreshMovieSearchHistory(
+                    keyword = keyword,
+                    movies = it.movies
+                )
             }
             .compose(singleIoMainThread())
             .subscribe({ movies ->
@@ -68,40 +58,4 @@ class MoviePresenter(
             .addTo(disposables)
     }
 
-    private fun ensureMovieEntityList(movies: List<Movie>): List<MovieEntity> =
-        arrayListOf<MovieEntity>().apply {
-            movies.mapTo(this) { movie ->
-                MovieEntity(
-                    title = movie.title,
-                    link = movie.link,
-                    image = movie.image,
-                    subtitle = movie.subtitle,
-                    director = movie.director,
-                    actor = movie.actor,
-                    pubDate = movie.pubDate,
-                    userRating = movie.userRating
-                )
-            }
-        }
-
-    private fun updateMovieSearchHistory(
-        movies: List<Movie>,
-        fun1: () -> Unit,
-        fun2: () -> Unit,
-        fun3: (() -> Unit)? = null
-    ): Single<List<Movie>> {
-        val firstCall = Completable.fromCallable(fun1)
-        val secondCall = Completable.fromCallable(fun2)
-        return fun3?.let { call ->
-            val thirdCall = Completable.fromCallable(call)
-            firstCall
-                .andThen(secondCall)
-                .andThen(thirdCall)
-                .toSingle { movies }
-        } ?: run {
-            firstCall
-                .andThen(secondCall)
-                .toSingle { movies }
-        }
-    }
 }

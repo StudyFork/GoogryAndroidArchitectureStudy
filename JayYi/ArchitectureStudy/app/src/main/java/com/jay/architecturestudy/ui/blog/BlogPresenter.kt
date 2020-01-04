@@ -35,20 +35,10 @@ class BlogPresenter(
             keyword = keyword
         )
             .flatMap {
-                if (it.blogs.isEmpty()) {
-                    updateBlogSearchHistory(
-                        it.blogs,
-                        fun1 = { repository.clearBlogResult() },
-                        fun2 = { repository.saveBlogKeyword(keyword) }
-                    )
-                } else {
-                    val blogList = ensureBlogEntityList(it.blogs)
-                    updateBlogSearchHistory(
-                        it.blogs,
-                        fun1 = { repository.clearBlogResult() },
-                        fun2 = { repository.saveBlogKeyword(keyword) },
-                        fun3 = { repository.saveBlogResult(blogList) })
-                }
+                repository.refreshBlogSearchHistory(
+                    keyword = keyword,
+                    blogs = it.blogs
+                )
             }
             .compose(singleIoMainThread())
             .subscribe({ blogs ->
@@ -64,41 +54,6 @@ class BlogPresenter(
                 handleError(e)
             })
             .addTo(disposables)
-    }
-
-    private fun ensureBlogEntityList(blogs: List<Blog>): List<BlogEntity> =
-        arrayListOf<BlogEntity>().apply {
-            blogs.mapTo(this) { blog ->
-                BlogEntity(
-                    bloggerLink = blog.bloggerLink,
-                    bloggerName = blog.bloggerName,
-                    description = blog.description,
-                    link = blog.link,
-                    postdate = blog.postdate,
-                    title = blog.title
-                )
-            }
-        }
-
-    private fun updateBlogSearchHistory(
-        blogs: List<Blog>,
-        fun1: () -> Unit,
-        fun2: () -> Unit,
-        fun3: (() -> Unit)? = null
-    ): Single<List<Blog>> {
-        val firstCall = Completable.fromCallable(fun1)
-        val secondCall = Completable.fromCallable(fun2)
-        return fun3?.let { call ->
-            val thirdCall = Completable.fromCallable(call)
-            firstCall
-                .andThen(secondCall)
-                .andThen(thirdCall)
-                .toSingle { blogs }
-        } ?: run {
-            firstCall
-                .andThen(secondCall)
-                .toSingle { blogs }
-        }
     }
 
 }

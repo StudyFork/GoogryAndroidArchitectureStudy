@@ -36,20 +36,10 @@ class ImagePresenter(
             keyword = keyword
         )
             .flatMap {
-                if (it.images.isEmpty()) {
-                    updateImageSearchHistory(
-                        it.images,
-                        fun1 = { repository.clearImageResult() },
-                        fun2 = { repository.saveImageKeyword(keyword) }
-                    )
-                } else {
-                    val imageList = ensureImageEntityList(it.images)
-                    updateImageSearchHistory(
-                        it.images,
-                        fun1 = { repository.clearImageResult() },
-                        fun2 = { repository.saveImageKeyword(keyword) },
-                        fun3 = { repository.saveImageResult(imageList) })
-                }
+                repository.refreshImageSearchHistory(
+                    keyword = keyword,
+                    images = it.images
+                )
             }
             .compose(singleIoMainThread())
             .subscribe({ images ->
@@ -67,37 +57,4 @@ class ImagePresenter(
             .addTo(disposables)
     }
 
-    private fun ensureImageEntityList(images: List<Image>): List<ImageEntity> =
-        arrayListOf<ImageEntity>().apply {
-            images.mapTo(this) { image ->
-                ImageEntity(
-                    link = image.link,
-                    sizeWidth = image.sizeWidth,
-                    sizeHeight = image.sizeHeight,
-                    thumbnail = image.thumbnail,
-                    title = image.title
-                )
-            }
-        }
-
-    private fun updateImageSearchHistory(
-        images: List<Image>,
-        fun1: () -> Unit,
-        fun2: () -> Unit,
-        fun3: (() -> Unit)? = null
-    ): Single<List<Image>> {
-        val firstCall = Completable.fromCallable(fun1)
-        val secondCall = Completable.fromCallable(fun2)
-        return fun3?.let { call ->
-            val thirdCall = Completable.fromCallable(call)
-            firstCall
-                .andThen(secondCall)
-                .andThen(thirdCall)
-                .toSingle { images }
-        } ?: run {
-            firstCall
-                .andThen(secondCall)
-                .toSingle { images }
-        }
-    }
 }

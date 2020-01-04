@@ -1,9 +1,5 @@
 package com.jay.architecturestudy.data.repository
 
-import com.jay.architecturestudy.data.database.entity.BlogEntity
-import com.jay.architecturestudy.data.database.entity.ImageEntity
-import com.jay.architecturestudy.data.database.entity.KinEntity
-import com.jay.architecturestudy.data.database.entity.MovieEntity
 import com.jay.architecturestudy.data.model.*
 import io.reactivex.Single
 
@@ -25,29 +21,13 @@ interface NaverSearchRepository {
 
     fun getLatestKinResult(): Single<List<Kin>>
 
-    fun saveMovieResult(movies: List<MovieEntity>)
+    fun refreshMovieSearchHistory(keyword: String, movies: List<Movie>): Single<List<Movie>>
 
-    fun saveImageResult(images: List<ImageEntity>)
+    fun refreshImageSearchHistory(keyword: String, images: List<Image>): Single<List<Image>>
 
-    fun saveBlogResult(blogs: List<BlogEntity>)
+    fun refreshBlogSearchHistory(keyword: String, blogs: List<Blog>): Single<List<Blog>>
 
-    fun saveKinResult(kins: List<KinEntity>)
-
-    fun clearMovieResult()
-
-    fun clearImageResult()
-
-    fun clearBlogResult()
-
-    fun clearKinResult()
-
-    fun saveMovieKeyword(keyword: String)
-
-    fun saveImageKeyword(keyword: String)
-
-    fun saveBlogKeyword(keyword: String)
-
-    fun saveKinKeyword(keyword: String)
+    fun refreshKinSearchHistory(keyword: String, kins: List<Kin>): Single<List<Kin>>
 
     fun getLatestMovieKeyword(): String
 
@@ -56,13 +36,5 @@ interface NaverSearchRepository {
     fun getLatestBlogKeyword(): String
 
     fun getLatestKinKeyword(): String
-
-    fun clearMovieKeyword()
-
-    fun clearImageKeyword()
-
-    fun clearBlogKeyword()
-
-    fun clearKinKeyword()
 
 }
