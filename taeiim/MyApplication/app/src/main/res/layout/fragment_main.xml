@@ -4,6 +4,9 @@
 
     <data>
 
+        <variable
+                name="fg"
+                type="com.god.taeiim.myapplication.ui.ContentsFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,6 +36,7 @@
                 android:id="@+id/searchResultRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:adapter="@{fg.searchResultAdapter}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/searchEditTv" />

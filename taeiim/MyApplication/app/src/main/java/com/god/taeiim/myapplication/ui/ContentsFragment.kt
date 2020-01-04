@@ -2,6 +2,7 @@ package com.god.taeiim.myapplication.ui
 
 import android.os.Bundle
 import android.widget.Toast
+import com.god.taeiim.myapplication.BR
 import com.god.taeiim.myapplication.R
 import com.god.taeiim.myapplication.Tabs
 import com.god.taeiim.myapplication.api.model.SearchResult
@@ -11,6 +12,7 @@ import com.god.taeiim.myapplication.data.source.local.NaverLocalDataSourceImpl
 import com.god.taeiim.myapplication.data.source.local.SearchHistoryDatabase
 import com.god.taeiim.myapplication.data.source.remote.NaverRemoteDataSourceImpl
 import com.god.taeiim.myapplication.databinding.FragmentMainBinding
+import com.god.taeiim.myapplication.databinding.ItemContentsBinding
 
 class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
     ContentsContract.View {
@@ -25,7 +27,8 @@ class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_mai
             ), this
         )
     }
-    private lateinit var adapter: SearchResultRecyclerAdapter
+
+    lateinit var searchResultAdapter: SearchResultRecyclerAdapter<SearchResult.Item, ItemContentsBinding>
     private lateinit var searchType: Tabs
 
     override fun onResume() {
@@ -35,16 +38,23 @@ class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_mai
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        binding.setVariable(BR.fg, this)
 
         arguments?.getSerializable(ARG_TYPE)?.let {
             searchType = it as Tabs
         }
 
-        adapter = SearchResultRecyclerAdapter(searchType)
-        searchResultRecyclerView.adapter = this@ContentsFragment.adapter
+        searchResultAdapter =
+            SearchResultRecyclerAdapter(searchType, R.layout.item_contents, BR.item)
+        binding.searchResultRecyclerView.adapter = searchResultAdapter
 
         updateSearchHistoryItems()
 
+        with(binding) {
+            searchBtn.setOnClickListener {
+                presenter.searchContents(searchType.name, searchEditTv.text.toString())
+            }
+        }
     }
 
     override fun updateSearchHistoryItems() {
@@ -52,16 +62,16 @@ class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_mai
     }
 
     override fun updateItems(resultList: List<SearchResult.Item>) {
-        adapter.setItems(resultList)
+        searchResultAdapter.updateItems(resultList)
     }
 
     override fun failToSearch() {
-        adapter.clearItems()
+        searchResultAdapter.clearItems()
         Toast.makeText(context, getString(R.string.err_search), Toast.LENGTH_SHORT).show()
     }
 
     override fun blankSearchQuery() {
-        adapter.clearItems()
+        searchResultAdapter.clearItems()
         Toast.makeText(context, getString(R.string.blank_search), Toast.LENGTH_SHORT).show()
     }
 
