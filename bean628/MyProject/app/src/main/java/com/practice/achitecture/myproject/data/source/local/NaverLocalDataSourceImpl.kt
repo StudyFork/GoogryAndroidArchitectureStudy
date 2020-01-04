@@ -2,12 +2,12 @@ package com.practice.achitecture.myproject.data.source.local
 
 import android.annotation.SuppressLint
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.practice.achitecture.myproject.data.source.NaverDataSource
 import com.practice.achitecture.myproject.data.source.local.model.HistoryOfSearch
 import com.practice.achitecture.myproject.enums.SearchType
 import com.practice.achitecture.myproject.model.SearchedItem
 import com.practice.achitecture.myproject.util.AppExecutors
+import org.json.JSONObject
 import java.io.File
 
 class NaverLocalDataSourceImpl private constructor(
@@ -83,25 +83,28 @@ class NaverLocalDataSourceImpl private constructor(
     }
 
 
-    fun getCache(searchType: SearchType): List<SearchedItem> {
+    fun getCache(searchType: SearchType): String {
         val cacheFile = File(cacheFilePath + searchType.value + ".json")
         if (cacheFile.exists()) {
-            val gson = Gson()
-            val arrayTutorialType = object : TypeToken<List<SearchedItem>>() {}.type
-            return gson.fromJson(cacheFile.readText(), arrayTutorialType)
+//            val gson = Gson()
+//            val arrayTutorialType = object : TypeToken<JSONObject>() {}.type
+            return cacheFile.readText()
         } else {
-            return emptyList()
+            return "{}"
         }
     }
 
     @SuppressLint("SdCardPath")
-    fun setCache(searchType: SearchType, list: List<SearchedItem>) {
+    fun setCache(searchType: SearchType, word: String, list: List<SearchedItem>) {
         val cachePath = File(cacheFilePath)
         if (!cachePath.exists()) {
             cachePath.mkdirs()
         }
         val cacheFile = File(cacheFilePath + searchType.value + ".json")
-        cacheFile.writeText(Gson().toJson(list))
+        val jsonObj = JSONObject()
+        jsonObj.put("word", Gson().toJson(word))
+        jsonObj.put("list", Gson().toJson(list))
+        cacheFile.writeText(Gson().toJson(jsonObj))
     }
 
     companion object {
