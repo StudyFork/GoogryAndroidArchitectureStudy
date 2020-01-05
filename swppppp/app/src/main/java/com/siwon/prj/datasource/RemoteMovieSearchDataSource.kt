@@ -8,11 +8,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-interface MovieSearchDataSource {
+interface RemoteMovieSearchDataSource {
     fun searchMovies(query: String, success: (ArrayList<Movie>) -> Unit, fail: (Throwable) -> Unit)
 }
 
-class MovieSearchDataSourceImpl : MovieSearchDataSource {
+class RemoteMovieSearchDataSourceImpl : RemoteMovieSearchDataSource {
 
     override fun searchMovies(
         query: String,
