@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         search_button.setOnClickListener {
             fetchJson(search_editText.text.toString())
 
-
         }
 
 
@@ -78,6 +77,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call, e: IOException) {
                 println("Failed to execute request")
+
             }
 
         })
