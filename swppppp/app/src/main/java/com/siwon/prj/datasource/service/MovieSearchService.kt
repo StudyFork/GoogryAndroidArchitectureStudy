@@ -20,11 +20,10 @@ interface MovieSearchService {
 
 object MovieSearchServiceImpl{
 
-    val retrofit = Retrofit.Builder()
+    private val retrofit = Retrofit.Builder()
         .baseUrl(ApiInfo.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val service: MovieSearchService = retrofit.create(
-        MovieSearchService::class.java)
+    val service: MovieSearchService = retrofit.create(MovieSearchService::class.java)
 }
