@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         toast = Toast.makeText(this, "", Toast.LENGTH_SHORT)
         adapter = MovieAdapter { link: String -> itemClick(link) }
+        movieListRv.adapter = adapter
         repository = MovieSearchRepositoryImpl()
 
         // 검색버튼
@@ -50,7 +51,6 @@ class MainActivity : AppCompatActivity() {
         repository.searchMovies(input,
             success = {
                 adapter.setItems(it)
-                movieListRv.adapter = adapter
             },
             fail = {
                 Log.e("에러", "에러메시지: ${it.message}")
