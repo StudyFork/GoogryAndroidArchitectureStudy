@@ -1,9 +1,9 @@
 package com.egiwon.architecturestudy.tabs
 
 import android.os.Bundle
-import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.Tab
@@ -20,6 +20,7 @@ class ContentsFragment : BaseFragment<FgContentsBinding, ContentsViewModel>(
 
     override val viewModel: ContentsViewModel by viewModels {
         ContentsViewModelFactory(
+            tab,
             NaverDataRepositoryImpl.getInstance(
                 NaverRemoteDataSource.getInstance(),
                 NaverLocalDataSource.getInstance(
@@ -30,8 +31,7 @@ class ContentsFragment : BaseFragment<FgContentsBinding, ContentsViewModel>(
     }
 
     override fun onResume() {
-
-        viewModel.getCacheContents(tab)
+        viewModel.getCacheContents()
         super.onResume()
     }
 
@@ -52,37 +52,23 @@ class ContentsFragment : BaseFragment<FgContentsBinding, ContentsViewModel>(
             )
 
             rvContents.adapter = ContentsAdapter(tab)
-
-            btnSearch.setOnClickListener {
-                viewModel.loadContents(tab)
-            }
         }
 
-        viewModel.subscribeObservables()
+        viewModel.setObserves()
     }
 
-    private fun ContentsViewModel.subscribeObservables() {
-        asSearchQueryListObservable()
-            .subscribe({
-                (binding.rvContents.adapter as? ContentsAdapter)?.replaceAll(it)
-            }, {
-                showErrorLoadFail()
-            }).addDisposable()
+    private fun ContentsViewModel.setObserves() {
+        isSearchResultListEmpty.observe(viewLifecycleOwner, Observer {
+            if (it) showErrorResultEmpty()
+        })
 
-        asSearchEmptyQueryErrorObservable()
-            .subscribe {
-                showErrorQueryEmpty()
-            }.addDisposable()
+        errorSearchQueryResult.observe(viewLifecycleOwner, Observer {
+            showErrorLoadFail()
+        })
 
-        asShowLoadingProgressBarObservable()
-            .subscribe { show ->
-                if (show) showLoading() else hideLoading()
-            }.addDisposable()
-
-        asSearchQueryResultEmptyListObservable()
-            .subscribe {
-                showErrorResultEmpty()
-            }.addDisposable()
+        errorQueryEmpty.observe(viewLifecycleOwner, Observer {
+            showErrorQueryEmpty()
+        })
 
     }
 
@@ -98,16 +84,9 @@ class ContentsFragment : BaseFragment<FgContentsBinding, ContentsViewModel>(
         showToast(getString(R.string.error_empty_fail))
     }
 
-    private fun showLoading() {
-        binding.progressCircular.visibility = View.VISIBLE
-    }
 
-    private fun hideLoading() {
-        binding.progressCircular.visibility = View.GONE
-    }
-
-    fun loadContentsByHistoryQuery(type: Tab, query: String) {
-        viewModel.loadContentsByHistory(type, query)
+    fun loadContentsByHistoryQuery(query: String) {
+        viewModel.loadContentsByHistory(query)
     }
 
     companion object {
