@@ -22,6 +22,7 @@ class MainPresenter(
                 fail = {
                     view.showErrorInternetDisconnect()
                 })
+            view.removeKeyboard()
         }
     }
 }
