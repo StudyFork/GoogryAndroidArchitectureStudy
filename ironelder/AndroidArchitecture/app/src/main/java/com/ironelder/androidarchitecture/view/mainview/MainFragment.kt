@@ -28,19 +28,7 @@ class MainFragment :
     }
 
     override fun doViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.mainViewModel = MainViewModel()
-        with(binding.searchLayout.rvResultListView) {
-            adapter =
-                CustomListViewAdapter()
-            setHasFixedSize(true)
-            addItemDecoration(
-                DividerItemDecoration(
-                    context,
-                    LinearLayoutManager(context).orientation
-                )
-            )
-        }
-        binding.mainViewModel?.apply {
+        binding.mainViewModel = MainViewModel().apply {
             searchQuery.addOnPropertyChangedCallback(object :
                 Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
@@ -63,6 +51,17 @@ class MainFragment :
                 }
 
             })
+        }
+        with(binding.searchLayout.rvResultListView) {
+            adapter =
+                CustomListViewAdapter()
+            setHasFixedSize(true)
+            addItemDecoration(
+                DividerItemDecoration(
+                    context,
+                    LinearLayoutManager(context).orientation
+                )
+            )
         }
     }
 
