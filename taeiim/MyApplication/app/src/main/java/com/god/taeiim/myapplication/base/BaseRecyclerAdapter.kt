@@ -6,7 +6,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
 
-open class BaseRecyclerAdapter<ITEM : Any, B : ViewDataBinding>(
+open class BaseRecyclerAdapter<ITEM, B : ViewDataBinding>(
     @LayoutRes val layoutResId: Int,
     val bindingVariableId: Int? = null
 ) : RecyclerView.Adapter<BaseViewHolder<B>>() {
