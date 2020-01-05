@@ -9,5 +9,5 @@ abstract class BaseViewHolder<T>(@LayoutRes layoutId: Int, parents: ViewGroup) :
     RecyclerView.ViewHolder(
         LayoutInflater.from(parents.context).inflate(layoutId, parents, false)
     ) {
-    abstract fun <T> bindItems(item: T)
+    abstract fun bindItems(item: T)
 }
