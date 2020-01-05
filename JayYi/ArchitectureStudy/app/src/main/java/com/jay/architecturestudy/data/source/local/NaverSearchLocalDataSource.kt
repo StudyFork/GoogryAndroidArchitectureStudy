@@ -6,23 +6,20 @@ import com.jay.architecturestudy.data.database.entity.BlogEntity
 import com.jay.architecturestudy.data.database.entity.ImageEntity
 import com.jay.architecturestudy.data.database.entity.KinEntity
 import com.jay.architecturestudy.data.database.entity.MovieEntity
-import com.jay.architecturestudy.data.model.Blog
-import com.jay.architecturestudy.data.model.Image
-import com.jay.architecturestudy.data.model.Kin
-import com.jay.architecturestudy.data.model.Movie
+import com.jay.architecturestudy.data.model.*
 import io.reactivex.Single
 
 interface NaverSearchLocalDataSource {
     val searchHistoryDatabase: SearchHistoryDatabase
     val sharedPreferences: SharedPreferences
 
-    fun getMovie(): Single<List<Movie>>
+    fun getMovie(): Single<MovieLocalData>
 
-    fun getImage(): Single<List<Image>>
+    fun getImage(): Single<ImageLocalData>
 
-    fun getBlog(): Single<List<Blog>>
+    fun getBlog(): Single<BlogLocalData>
 
-    fun getKin(): Single<List<Kin>>
+    fun getKin(): Single<KinLocalData>
 
     fun saveMovieResult(movies: List<MovieEntity>)
 

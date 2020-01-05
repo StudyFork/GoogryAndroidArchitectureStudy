@@ -1,9 +1,9 @@
 package com.jay.architecturestudy.data.repository
 
-import com.jay.architecturestudy.data.database.entity.BlogEntity
-import com.jay.architecturestudy.data.database.entity.ImageEntity
-import com.jay.architecturestudy.data.database.entity.KinEntity
-import com.jay.architecturestudy.data.database.entity.MovieEntity
+import com.jay.architecturestudy.data.mapper.BlogDataMapper
+import com.jay.architecturestudy.data.mapper.ImageDataMapper
+import com.jay.architecturestudy.data.mapper.KinDataMapper
+import com.jay.architecturestudy.data.mapper.MovieDataMapper
 import com.jay.architecturestudy.data.model.*
 import com.jay.architecturestudy.data.source.local.NaverSearchLocalDataSource
 import com.jay.architecturestudy.data.source.remote.NaverSearchRemoteDataSource
@@ -72,7 +72,10 @@ class NaverSearchRepositoryImpl(
             .map {
                 MovieRepo(
                     keyword = naverSearchLocalDataSource.getLatestMovieKeyword(),
-                    movies = it)
+                    movies = it.movies.map { entity ->
+                        MovieDataMapper.reverseMap(entity)
+                    }
+                )
             }
 
     override fun getLatestImageResult(): Single<ImageRepo> =
@@ -80,7 +83,9 @@ class NaverSearchRepositoryImpl(
             .map {
                 ImageRepo(
                     keyword = naverSearchLocalDataSource.getLatestImageKeyword(),
-                    images = it
+                    images = it.images.map { entity ->
+                        ImageDataMapper.reverseMap(entity)
+                    }
                 )
             }
 
@@ -89,7 +94,9 @@ class NaverSearchRepositoryImpl(
             .map {
                 BlogRepo(
                     keyword = naverSearchLocalDataSource.getLatestBlogKeyword(),
-                    blogs = it
+                    blogs = it.blogs.map { entity ->
+                        BlogDataMapper.reverseMap(entity)
+                    }
                 )
             }
 
@@ -98,7 +105,9 @@ class NaverSearchRepositoryImpl(
             .map {
                 KinRepo(
                     keyword = naverSearchLocalDataSource.getLatestKinKeyword(),
-                    kins = it
+                    kins = it.kins.map { entity ->
+                        KinDataMapper.reverseMap(entity)
+                    }
                 )
             }
 
@@ -118,31 +127,18 @@ class NaverSearchRepositoryImpl(
             )
                 .toSingle { movieRepo }
         } else {
-            val movieList = ensureMovieEntityList(movies)
             updateSearchHistory(
                 fun1 = { naverSearchLocalDataSource.clearMovieResult() },
                 fun2 = { naverSearchLocalDataSource.saveMovieKeyword(keyword) },
-                fun3 = { naverSearchLocalDataSource.saveMovieResult(movieList) }
+                fun3 = {
+                    naverSearchLocalDataSource.saveMovieResult(
+                        movies.map { MovieDataMapper.map(it) }
+                    )
+                }
             )
                 .toSingle { movieRepo }
         }
     }
-
-    private fun ensureMovieEntityList(movies: List<Movie>): List<MovieEntity> =
-        arrayListOf<MovieEntity>().apply {
-            movies.mapTo(this) { movie ->
-                MovieEntity(
-                    title = movie.title,
-                    link = movie.link,
-                    image = movie.image,
-                    subtitle = movie.subtitle,
-                    director = movie.director,
-                    actor = movie.actor,
-                    pubDate = movie.pubDate,
-                    userRating = movie.userRating
-                )
-            }
-        }
 
     override fun refreshImageSearchHistory(
         keyword: String,
@@ -160,29 +156,18 @@ class NaverSearchRepositoryImpl(
             )
                 .toSingle { imageRepo }
         } else {
-            val imageList = ensureImageEntityList(images)
             updateSearchHistory(
                 fun1 = { naverSearchLocalDataSource.clearImageResult() },
                 fun2 = { naverSearchLocalDataSource.saveImageKeyword(keyword) },
-                fun3 = { naverSearchLocalDataSource.saveImageResult(imageList) }
+                fun3 = {
+                    naverSearchLocalDataSource.saveImageResult(
+                        images.map { ImageDataMapper.map(it) }
+                    )
+                }
             )
                 .toSingle { imageRepo }
         }
     }
-
-
-    private fun ensureImageEntityList(images: List<Image>): List<ImageEntity> =
-        arrayListOf<ImageEntity>().apply {
-            images.mapTo(this) { image ->
-                ImageEntity(
-                    link = image.link,
-                    sizeWidth = image.sizeWidth,
-                    sizeHeight = image.sizeHeight,
-                    thumbnail = image.thumbnail,
-                    title = image.title
-                )
-            }
-        }
 
     override fun refreshBlogSearchHistory(keyword: String, blogs: List<Blog>): Single<BlogRepo> {
         val blogRepo = BlogRepo(
@@ -197,29 +182,18 @@ class NaverSearchRepositoryImpl(
             )
                 .toSingle { blogRepo }
         } else {
-            val blogList = ensureBlogEntityList(blogs)
             updateSearchHistory(
                 fun1 = { naverSearchLocalDataSource.clearBlogResult() },
                 fun2 = { naverSearchLocalDataSource.saveBlogKeyword(keyword) },
-                fun3 = { naverSearchLocalDataSource.saveBlogResult(blogList) }
+                fun3 = {
+                    naverSearchLocalDataSource.saveBlogResult(
+                        blogs.map { BlogDataMapper.map(it) }
+                    )
+                }
             )
                 .toSingle { blogRepo }
         }
     }
-
-    private fun ensureBlogEntityList(blogs: List<Blog>): List<BlogEntity> =
-        arrayListOf<BlogEntity>().apply {
-            blogs.mapTo(this) { blog ->
-                BlogEntity(
-                    bloggerLink = blog.bloggerLink,
-                    bloggerName = blog.bloggerName,
-                    description = blog.description,
-                    link = blog.link,
-                    postdate = blog.postdate,
-                    title = blog.title
-                )
-            }
-        }
 
     override fun refreshKinSearchHistory(keyword: String, kins: List<Kin>): Single<KinRepo> {
         val kinRepo = KinRepo(
@@ -234,26 +208,18 @@ class NaverSearchRepositoryImpl(
             )
                 .toSingle { kinRepo }
         } else {
-            val kinList = ensureKinEntityList(kins)
             updateSearchHistory(
                 fun1 = { naverSearchLocalDataSource.clearKinResult() },
                 fun2 = { naverSearchLocalDataSource.saveKinKeyword(keyword) },
-                fun3 = { naverSearchLocalDataSource.saveKinResult(kinList) }
+                fun3 = {
+                    naverSearchLocalDataSource.saveKinResult(
+                        kins.map { KinDataMapper.map(it) }
+                    )
+                }
             )
                 .toSingle { kinRepo }
         }
     }
-
-    private fun ensureKinEntityList(kins: List<Kin>): List<KinEntity> =
-        arrayListOf<KinEntity>().apply {
-            kins.mapTo(this) { kin ->
-                KinEntity(
-                    description = kin.description,
-                    link = kin.link,
-                    title = kin.title
-                )
-            }
-        }
 
     private fun updateSearchHistory(
         fun1: () -> Unit,
