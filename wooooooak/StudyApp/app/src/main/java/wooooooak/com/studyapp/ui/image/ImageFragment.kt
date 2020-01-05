@@ -1,5 +1,7 @@
 package wooooooak.com.studyapp.ui.image
 
+import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import wooooooak.com.studyapp.R
@@ -9,10 +11,11 @@ import wooooooak.com.studyapp.data.model.datasource.local.NaverLocalDataSourceIm
 import wooooooak.com.studyapp.data.model.repository.NaverApiRepositoryImpl
 import wooooooak.com.studyapp.data.model.response.image.Image
 import wooooooak.com.studyapp.data.model.sharedpreference.SharedPreferenceManager
+import wooooooak.com.studyapp.databinding.FragmentImageBinding
 import wooooooak.com.studyapp.ui.base.BaseSearchListAdapter
 import wooooooak.com.studyapp.ui.base.ItemSearchFragment
 
-class ImageFragment : ItemSearchFragment<Image>(R.layout.fragment_image) {
+class ImageFragment : ItemSearchFragment<Image, FragmentImageBinding>(R.layout.fragment_image) {
 
     override val adapter = ImageListAdapter(object : BaseSearchListAdapter.ItemListener<Image> {
         override fun loadMoreItems(list: List<Image>, index: Int) {
@@ -35,6 +38,24 @@ class ImageFragment : ItemSearchFragment<Image>(R.layout.fragment_image) {
                 )
             )
         )
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        with(binding) {
+            listAdapter = adapter
+            title = userInputTitle
+            fragment = this@ImageFragment
+        }
+    }
+
+    override fun renderListEmptyView(shouldRender: Boolean) {
+        binding.isListEmpty = shouldRender
+        binding.executePendingBindings()
+    }
+
+    override fun setTitle(title: String) {
+        binding.title = title
+        binding.executePendingBindings()
     }
 
     override fun initItemsByTitle(title: String, cached: Boolean) {

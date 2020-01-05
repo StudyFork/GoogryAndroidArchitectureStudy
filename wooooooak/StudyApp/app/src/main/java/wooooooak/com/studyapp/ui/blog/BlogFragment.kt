@@ -1,5 +1,7 @@
 package wooooooak.com.studyapp.ui.blog
 
+import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import wooooooak.com.studyapp.R
@@ -9,10 +11,11 @@ import wooooooak.com.studyapp.data.model.datasource.local.NaverLocalDataSourceIm
 import wooooooak.com.studyapp.data.model.repository.NaverApiRepositoryImpl
 import wooooooak.com.studyapp.data.model.response.blog.Blog
 import wooooooak.com.studyapp.data.model.sharedpreference.SharedPreferenceManager
+import wooooooak.com.studyapp.databinding.FragmentBlogBinding
 import wooooooak.com.studyapp.ui.base.BaseSearchListAdapter
 import wooooooak.com.studyapp.ui.base.ItemSearchFragment
 
-class BlogFragment : ItemSearchFragment<Blog>(R.layout.fragment_blog) {
+class BlogFragment : ItemSearchFragment<Blog, FragmentBlogBinding>(R.layout.fragment_blog) {
 
     override val adapter = BlogSearchListAdapter(object : BaseSearchListAdapter.ItemListener<Blog> {
         override fun loadMoreItems(list: List<Blog>, index: Int) {
@@ -35,6 +38,25 @@ class BlogFragment : ItemSearchFragment<Blog>(R.layout.fragment_blog) {
                 )
             )
         )
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        with(binding) {
+            listAdapter = adapter
+            title = userInputTitle
+            fragment = this@BlogFragment
+            executePendingBindings()
+        }
+    }
+
+    override fun renderListEmptyView(shouldRender: Boolean) {
+        binding.isListEmpty = shouldRender
+        binding.executePendingBindings()
+    }
+
+    override fun setTitle(title: String) {
+        binding.title = title
+        binding.executePendingBindings()
     }
 
     override fun initItemsByTitle(title: String, cached: Boolean) {
