@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'              // 코틀린 플러그인 적용
 apply plugin: 'kotlin-android-extensions'   // 코틀린 익스텐션 사용
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -53,3 +54,6 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.1.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
 }
+
+// RealmDB
+apply plugin: 'realm-android'
