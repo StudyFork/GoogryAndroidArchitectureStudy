@@ -14,6 +14,7 @@ data class BlogEntity(
     val bloggerName: String,
     val description: String,
     val link: String,
+    @ColumnInfo(name = "post_date")
     val postdate: String,
     val title: String
 )

@@ -14,6 +14,7 @@ data class MovieEntity(
     val subtitle: String,
     val director: String,
     val actor: String,
+    @ColumnInfo(name = "pub_date")
     val pubDate: String,
     @ColumnInfo(name = "user_rating")
     val userRating: Float
