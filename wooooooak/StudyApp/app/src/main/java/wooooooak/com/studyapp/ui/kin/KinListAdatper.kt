@@ -3,14 +3,10 @@ package wooooooak.com.studyapp.ui.kin
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_blog.view.description
-import kotlinx.android.synthetic.main.item_image.view.title
-import kotlinx.android.synthetic.main.item_kin.view.*
-import wooooooak.com.studyapp.R
 import wooooooak.com.studyapp.data.model.response.kin.Kin
+import wooooooak.com.studyapp.databinding.ItemKinBinding
 import wooooooak.com.studyapp.ui.base.BaseSearchListAdapter
 
 class KinListAdapter(
@@ -18,11 +14,10 @@ class KinListAdapter(
 ) :
     BaseSearchListAdapter<Kin, KinListAdapter.KinViewHolder>(itemListener, DiffCallback()) {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = KinViewHolder(
-        LayoutInflater
-            .from(parent.context)
-            .inflate(R.layout.item_kin, parent, false)
+        ItemKinBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
     )
 
     override fun bindItemViewHolder(holder: KinViewHolder, position: Int) {
@@ -33,12 +28,12 @@ class KinListAdapter(
         }
     }
 
-    inner class KinViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(kin: Kin, onClickItem: View.OnClickListener) {
-            with(itemView) {
-                title.text = HtmlCompat.fromHtml(kin.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
-                description.text = HtmlCompat.fromHtml(kin.description, HtmlCompat.FROM_HTML_MODE_COMPACT)
-                kin_card.setOnClickListener(onClickItem)
+    inner class KinViewHolder(private val binding: ItemKinBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(kin: Kin, _onClickItemListener: View.OnClickListener) {
+            with(binding) {
+                item = kin
+                onClickItemListener = _onClickItemListener
+                executePendingBindings()
             }
         }
     }
