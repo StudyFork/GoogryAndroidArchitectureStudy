@@ -18,12 +18,12 @@ interface MovieSearchService {
     ): Call<Movies>
 }
 
-object MovieSearchServiceImpl{
-
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(ApiInfo.BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-    val service: MovieSearchService = retrofit.create(MovieSearchService::class.java)
-}
+//object MovieSearchServiceImpl{
+//
+//    private val retrofit = Retrofit.Builder()
+//        .baseUrl(ApiInfo.BASE_URL)
+//        .addConverterFactory(GsonConverterFactory.create())
+//        .build()
+//
+//    val service: MovieSearchService = retrofit.create(MovieSearchService::class.java)
+//}
