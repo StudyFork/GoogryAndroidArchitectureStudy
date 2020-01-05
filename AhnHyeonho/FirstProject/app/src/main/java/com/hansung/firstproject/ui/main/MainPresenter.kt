@@ -6,8 +6,11 @@ class MainPresenter(
     private val view: MainContract.View,
     private val repository: NaverRepository
 ) : MainContract.Presenter {
-    override fun doSearch(keyword: String) {
+    override fun init() {
+        view.initRecyclerView()
+    }
 
+    override fun doSearch(keyword: String) {
         if (keyword.isEmpty()) {
             view.showErrorKeywordEmpty()
         } else {

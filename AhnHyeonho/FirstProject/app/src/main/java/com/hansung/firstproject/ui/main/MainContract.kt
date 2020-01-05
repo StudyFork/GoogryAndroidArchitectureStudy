@@ -16,6 +16,7 @@ interface MainContract {
     }
 
     interface Presenter {
+        fun init()
         fun doSearch(keyword: String)
     }
 }

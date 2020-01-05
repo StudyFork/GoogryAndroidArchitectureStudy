@@ -21,8 +21,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     private lateinit var presenter: MainContract.Presenter
 
-    private lateinit var clientId: String // naver 검색API 사용을 위한 Client ID
-    private lateinit var clientSecret: String //naver 검색API 사용을 위한 Client Secret
     private val adapter: RecyclerViewAdapter<MovieModel> = RecyclerViewAdapter()
 
     private val naverRepository by lazy {
@@ -38,38 +36,25 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // presenter initialize
         presenter = MainPresenter(
             this,
             naverRepository
-        )
+        ).also { it.init() }
 
-        recycler_view_movies.adapter = adapter
-
-        clientId = getString(R.string.client_id)
-        clientSecret = getString(R.string.client_secret)
-
-        // recyclerView 초기화
+        // recyclerView initialize
         initRecyclerView()
 
         btn_search.setOnClickListener {
             // 입력값이 없을 때
             presenter.doSearch(et_search.text.toString())
-
-            /*
-            if (et_search.text.isEmpty()) {
-
-                return@setOnClickListener
-            } else {
-                // 입력값이 있을 때
-                doSearch(et_search.text.toString())
-                //키보드 제거
-                removeKeyboard()
-            }*/
         }
     }
 
     // recyclerView 초기화 메소드
     override fun initRecyclerView() {
+        recycler_view_movies.adapter = adapter
         recycler_view_movies.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         recycler_view_movies.setHasFixedSize(true)
         // movie 항목별 구분선 추가
@@ -80,7 +65,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             )
         )
     }
-
 
     //키보드 제거 메소드
     override fun removeKeyboard() =
