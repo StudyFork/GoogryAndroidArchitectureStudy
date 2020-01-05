@@ -15,13 +15,16 @@ class MovieAdapter(val clickListener: (String) -> Unit) : RecyclerView.Adapter<M
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder
-            = MovieHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
+        val holder = MovieHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
+        holder.itemView.setOnClickListener { clickListener(_items[holder.adapterPosition].link) }
+        return holder
+    }
 
     override fun getItemCount(): Int = _items.size
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int)
-            = holder.bind(_items[position], clickListener)
+            = holder.bind(_items[position]/*, clickListener*/)
 
 }
 
