@@ -38,7 +38,6 @@ class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_mai
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.fg = this
 
         arguments?.getSerializable(ARG_TYPE)?.let {
             searchType = it as Tabs
