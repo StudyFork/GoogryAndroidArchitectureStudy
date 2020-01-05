@@ -1,5 +1,3 @@
 package com.example.archstudy
 
-class Movie (){
-
-}
+data class Movie(val actor: String?, val image: String?, val director: String?, val subtitle: String?, val link: String?, val title: String?, val pubDate: String?, val userRating: String?)
