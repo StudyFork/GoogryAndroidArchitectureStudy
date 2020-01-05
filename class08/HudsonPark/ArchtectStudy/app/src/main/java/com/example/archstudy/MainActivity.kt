@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import java.net.URLEncoder
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +30,9 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "검색어를 다시 입력해주세요.", Toast.LENGTH_SHORT).show()
             } else {
                 // 네이버 영화 정보 API 요청
+                getQueryResult(edtQuery.text.toString()).let {
+                    rvMovieList.adapter = MovieListAdapter(it) // 결과값 어댑터에 전달
+                }
             }
         }
     }
@@ -39,18 +43,13 @@ class MainActivity : AppCompatActivity() {
         rvMovieList = findViewById(R.id.rvMovieList)
     }
 
-    private fun getQueryResult(): List<Movie>{
-
-        var movieList = mutableListOf<Movie>()
+    private fun getQueryResult(query : String): List<Movie>{
 
 
 
 
 
 
-
-
-
-        return movieList
+        return mutableListOf()
     }
 }
