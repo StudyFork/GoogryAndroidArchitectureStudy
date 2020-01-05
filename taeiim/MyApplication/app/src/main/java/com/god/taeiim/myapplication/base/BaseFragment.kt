@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 
 abstract class BaseFragment<B : ViewDataBinding>(
     @LayoutRes private val layoutResId: Int
-) : Fragment(layoutResId) {
+) : Fragment() {
 
     protected lateinit var binding: B
 
