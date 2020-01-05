@@ -7,20 +7,6 @@ import retrofit2.Response
 
 
 class NaverRemoteDataSourceImpl private constructor() : NaverRemoteDataSource {
-
-    companion object {
-        @Volatile
-        private var _INSTANCE: NaverRemoteDataSourceImpl? = null
-
-        @JvmStatic
-        fun getInstance(): NaverRemoteDataSourceImpl =
-            _INSTANCE ?: synchronized(this) {
-                _INSTANCE ?: NaverRemoteDataSourceImpl().also {
-                    _INSTANCE = it
-                }
-            }
-    }
-
     override fun getMoviesData(
         title: String,
         clientId: String,
@@ -43,5 +29,18 @@ class NaverRemoteDataSourceImpl private constructor() : NaverRemoteDataSource {
                     }
                 }
             })
+    }
+
+    companion object {
+        @Volatile
+        private var _INSTANCE: NaverRemoteDataSourceImpl? = null
+
+        @JvmStatic
+        fun getInstance(): NaverRemoteDataSourceImpl =
+            _INSTANCE ?: synchronized(this) {
+                _INSTANCE ?: NaverRemoteDataSourceImpl().also {
+                    _INSTANCE = it
+                }
+            }
     }
 }
