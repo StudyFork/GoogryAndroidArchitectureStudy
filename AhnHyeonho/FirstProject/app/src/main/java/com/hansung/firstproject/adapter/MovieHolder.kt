@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.hansung.firstproject.MovieInformationActivity
+import com.hansung.firstproject.ui.movieinformation.MovieInformationActivity
 import com.hansung.firstproject.data.MovieModel
 import kotlinx.android.synthetic.main.movie_item.view.*
 

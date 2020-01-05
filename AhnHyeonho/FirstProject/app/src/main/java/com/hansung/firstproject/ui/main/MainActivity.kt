@@ -16,7 +16,6 @@ import com.hansung.firstproject.data.repository.NaverRepository
 import com.hansung.firstproject.data.source.remote.NaverRemoteDataSourceImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class MainActivity : AppCompatActivity(), MainContract.View {
 
     private lateinit var presenter: MainContract.Presenter
