@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.holder_movie.view.*
 
 class ResultMovieListRecyclerAdapter(
-    private val listener: ClickListener
+    private val listener: (Int) -> Unit
 ) : RecyclerView.Adapter<ResultMovieListRecyclerAdapter.MovieViewHolder>() {
 
     private val list: ArrayList<Movie> = ArrayList()
@@ -42,12 +42,12 @@ class ResultMovieListRecyclerAdapter(
         return list[position].link
     }
 
-    inner class MovieViewHolder(itemView: View, private val listener: ClickListener) :
+    inner class MovieViewHolder(itemView: View, clickListener: (Int) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
 
         init {
             itemView.setOnClickListener {
-                listener.clickViewHolder(adapterPosition)
+                clickListener(adapterPosition)
             }
         }
 
@@ -65,9 +65,5 @@ class ResultMovieListRecyclerAdapter(
 
     private fun String.removeTag(): String {
         return Html.fromHtml(this).toString()
-    }
-
-    interface ClickListener {
-        fun clickViewHolder(position: Int)
     }
 }
