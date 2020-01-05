@@ -2,7 +2,6 @@ package com.hansung.firstproject
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -10,24 +9,27 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hansung.firstproject.adapter.RecyclerViewAdapter
-import com.hansung.firstproject.data.MovieResponseModel
+import com.hansung.firstproject.data.MovieModel
+import com.hansung.firstproject.data.repository.NaverRepository
+import com.hansung.firstproject.data.source.remote.NaverRemoteDataSourceImpl
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var clientId: String // naver 검색API 사용을 위한 Client ID
     private lateinit var clientSecret: String //naver 검색API 사용을 위한 Client Secret
-    private val searchResult: SearchResult = SearchResult()
+    private val adapter: RecyclerViewAdapter<MovieModel> = RecyclerViewAdapter()
+
+    private val naverRemoteDataSource = NaverRemoteDataSourceImpl.getInstance() // dataSource 생성
+    private val naverRepository: NaverRepository =
+        NaverRepository.getInstance(naverRemoteDataSource) // Repository 생성
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d("ahn", "MainActivity onCreate...")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        recycler_view_movies.adapter = adapter
 
         clientId = getString(R.string.client_id)
         clientSecret = getString(R.string.client_secret)
@@ -38,8 +40,8 @@ class MainActivity : AppCompatActivity() {
         btn_search.setOnClickListener {
             // 입력값이 없을 때
             if (et_search.text.isEmpty()) {
-                Log.d("ahn", "검색어 누락")
-                Toast.makeText(this, "검색어를 입력해주세요", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.empty_keword_message), Toast.LENGTH_SHORT)
+                    .show()
                 return@setOnClickListener
             } else {
                 // 입력값이 있을 때
@@ -66,28 +68,20 @@ class MainActivity : AppCompatActivity() {
 
     // 검색 메소드
     private fun doSearch(keyword: String) {
-        searchResult.getResult(clientId, clientSecret, keyword, 100)
-            .enqueue(object : Callback<MovieResponseModel> {
-                override fun onFailure(call: Call<MovieResponseModel>, t: Throwable) {
-                    //To change body of created functions use File | Settings | File Templates.
-                    Toast.makeText(applicationContext, "인터넷 연결을 확인하세요", Toast.LENGTH_SHORT)
-                        .show()
+        naverRepository.getMoviesData(keyword, clientId, clientSecret,
+            success = {
+                adapter.run {
+                    addItems(it.items)
+                    notifyDataSetChanged()
                 }
-
-                override fun onResponse(
-                    call: Call<MovieResponseModel>,
-                    response: Response<MovieResponseModel>
-                ) {
-                    //To change body of created functions use File | Settings | File Templates.
-                    if (response.isSuccessful) {
-                        //올바르게 통신이 왔으면
-                        recycler_view_movies.adapter = RecyclerViewAdapter(response.body()!!.items)
-                    } else {
-                        Toast.makeText(applicationContext, "인터넷 연결을 확인하세요", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-
-                }
+            },
+            fail = {
+                Toast.makeText(
+                    applicationContext,
+                    getString(R.string.internet_error_message),
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
             })
     }
 
