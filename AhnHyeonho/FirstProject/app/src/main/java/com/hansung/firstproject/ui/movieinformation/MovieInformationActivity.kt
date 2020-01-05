@@ -1,4 +1,4 @@
-package com.hansung.firstproject.ui.information
+package com.hansung.firstproject.ui.movieinformation
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -9,7 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.hansung.firstproject.R
 import kotlinx.android.synthetic.main.activity_movie_information.*
 
-class MovieInformationActivity : AppCompatActivity() {
+class MovieInformationActivity : AppCompatActivity(), MovieInformationContract.View {
+
+    private lateinit var presenter: MovieInformationContract.Presenter
 
     private lateinit var webPageUrl: String
 
@@ -18,8 +20,23 @@ class MovieInformationActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_information)
-        webPageUrl = intent.getStringExtra("WEB_PAGE")
+        presenter = MovieInformationPresenter(this).also { it.readUrl() }
 
+        presenter.loadWebView()
+    }
+    
+    companion object {
+        const val TAG = "WEB_PAGE"
+        fun getIntent(context: Context): Intent {
+            return Intent(context, MovieInformationActivity::class.java)
+        }
+    }
+
+    override fun readUrl() {
+        webPageUrl = intent.getStringExtra("WEB_PAGE")
+    }
+
+    override fun loadWebView() {
         with(movieInformationWebView) {
             webViewClient = WebViewClient()
             loadUrl(webPageUrl)
@@ -29,13 +46,6 @@ class MovieInformationActivity : AppCompatActivity() {
                 setSupportZoom(false)
                 javaScriptEnabled = true
             }
-        }
-    }
-
-    companion object {
-        const val TAG = "WEB_PAGE"
-        fun getIntent(context: Context): Intent {
-            return Intent(context, MovieInformationActivity::class.java)
         }
     }
 }
