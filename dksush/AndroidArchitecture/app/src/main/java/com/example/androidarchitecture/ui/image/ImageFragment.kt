@@ -14,7 +14,6 @@ import com.example.androidarchitecture.data.response.ImageData
 import com.example.androidarchitecture.databinding.FragmentImageBinding
 import com.example.androidarchitecture.ui.base.BaseSearchFragment
 import com.example.androidarchitecture.ui.base.ItemContract
-import kotlinx.android.synthetic.main.fragment_movie.*
 import kotlinx.coroutines.launch
 
 /**
@@ -42,8 +41,8 @@ class ImageFragment : BaseSearchFragment<FragmentImageBinding>(R.layout.fragment
         activity?.let {
             imageAdapter = ImageAdapter()
                 .also {
-                    recycle.adapter = it
-                    recycle.addItemDecoration(
+                    binding.recycle.adapter = it
+                    binding.recycle.addItemDecoration(
                         DividerItemDecoration(
                             activity,
                             DividerItemDecoration.VERTICAL
@@ -57,10 +56,9 @@ class ImageFragment : BaseSearchFragment<FragmentImageBinding>(R.layout.fragment
             presenter.requestSearchHist()
         }
 
-        btn_search.setOnClickListener {
-            if (edit_text != null) {
-                presenter.requestList(edit_text.text.toString())
-            }
+        binding.btnSearch.setOnClickListener {
+            presenter.requestList(binding.editText.text.toString())
+
         }
     }
 
@@ -78,11 +76,11 @@ class ImageFragment : BaseSearchFragment<FragmentImageBinding>(R.layout.fragment
     }
 
     override fun inputKeyword(msg: String?) {
-        edit_text.setText(msg)
+        binding.editText.setText(msg)
     }
 
     override fun goneEmptyText() {
-        tv_empty_itme.visibility = View.GONE
+        binding.editText.visibility = View.GONE
     }
 
 }

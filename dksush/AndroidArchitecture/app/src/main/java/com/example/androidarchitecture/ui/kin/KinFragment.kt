@@ -12,7 +12,6 @@ import com.example.androidarchitecture.data.response.KinData
 import com.example.androidarchitecture.databinding.FragmentKinBinding
 import com.example.androidarchitecture.ui.base.BaseSearchFragment
 import com.example.androidarchitecture.ui.base.ItemContract
-import kotlinx.android.synthetic.main.fragment_movie.*
 import kotlinx.coroutines.launch
 
 /**
@@ -31,8 +30,8 @@ class KinFragment : BaseSearchFragment<FragmentKinBinding>(R.layout.fragment_kin
         activity?.let {
             kinAdapter = KinAdapter()
                 .also {
-                    recycle.adapter = it
-                    recycle.addItemDecoration(
+                    binding.recycle.adapter = it
+                    binding.recycle.addItemDecoration(
                         DividerItemDecoration(
                             activity,
                             DividerItemDecoration.VERTICAL
@@ -45,8 +44,8 @@ class KinFragment : BaseSearchFragment<FragmentKinBinding>(R.layout.fragment_kin
             presenter.requestSearchHist()
         }
 
-        btn_search.setOnClickListener {
-            presenter.requestList(edit_text.text.toString())
+        binding.btnSearch.setOnClickListener {
+            presenter.requestList(binding.editText.text.toString())
 
         }
     }
@@ -65,11 +64,11 @@ class KinFragment : BaseSearchFragment<FragmentKinBinding>(R.layout.fragment_kin
     }
 
     override fun inputKeyword(msg: String?) {
-        edit_text.setText(msg)
+        binding.editText.setText(msg)
     }
 
     override fun goneEmptyText() {
-        tv_empty_itme.visibility = View.GONE
+        binding.tvEmptyItme.visibility = View.GONE
     }
 
 

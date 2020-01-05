@@ -11,7 +11,6 @@ import com.example.androidarchitecture.common.toast
 import com.example.androidarchitecture.data.response.BlogData
 import com.example.androidarchitecture.databinding.FragmentBlogBinding
 import com.example.androidarchitecture.ui.base.BaseSearchFragment
-import kotlinx.android.synthetic.main.fragment_blog.*
 import kotlinx.coroutines.launch
 
 /**
@@ -30,8 +29,8 @@ class BlogFragment : BaseSearchFragment<FragmentBlogBinding>(R.layout.fragment_b
         activity?.let {
             blogAdapter = BlogAdapter()
                 .also {
-                    recycle.adapter = it
-                    recycle.addItemDecoration(
+                    binding.recycle.adapter = it
+                    binding.recycle.addItemDecoration(
                         DividerItemDecoration(
                             activity,
                             DividerItemDecoration.VERTICAL
@@ -44,9 +43,13 @@ class BlogFragment : BaseSearchFragment<FragmentBlogBinding>(R.layout.fragment_b
             presenter.requestSearchHist()
         }
 
-        btn_search.setOnClickListener {
-            presenter.requestList(edit_text.text.toString())
-        }
+//        binding.btnSearch.setOnClickListener {
+//            presenter.requestList(binding.editText.text.toString())
+//        }
+    }
+
+    fun btnSearch() {
+        presenter.requestList(binding.editText.text.toString())
     }
 
 
@@ -63,11 +66,11 @@ class BlogFragment : BaseSearchFragment<FragmentBlogBinding>(R.layout.fragment_b
     }
 
     override fun inputKeyword(msg: String?) {
-        edit_text.setText(msg)
+        binding.editText.setText(msg)
     }
 
     override fun goneEmptyText() {
-        tv_empty_itme.visibility = View.GONE
+        binding.tvEmptyItme.visibility = View.GONE
     }
 
 

@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.example.androidarchitecture.R
 import com.example.androidarchitecture.data.response.BlogData
+import com.example.androidarchitecture.databinding.ItemBlogBinding
 import com.example.androidarchitecture.ui.WebviewActivity
 import com.example.androidarchitecture.ui.base.BaseRecyclerAdapter
 import com.example.androidarchitecture.ui.base.BaseViewHolder
-import kotlinx.android.synthetic.main.item_blog.view.*
+
 
 
 class BlogAdapter : BaseRecyclerAdapter<BlogData, BlogAdapter.BlogHolder>(DiffCallback()) {
@@ -19,9 +20,11 @@ class BlogAdapter : BaseRecyclerAdapter<BlogData, BlogAdapter.BlogHolder>(DiffCa
     private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_blog, parent, false)
+        val view = ItemBlogBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+//        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_blog, parent, false)
         this.context = parent.context
-        return BlogHolder(view)
+        return BlogHolder(view.root)
     }
 
     inner class BlogHolder(view: View) : BaseViewHolder<BlogData>(view) {
