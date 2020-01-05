@@ -10,7 +10,7 @@ import com.ironelder.androidarchitecture.R
 
 abstract class BaseFragment<BINDING : ViewDataBinding>(
     private val mLayoutResId: Int
-) : Fragment(), BaseContract.View {
+) : Fragment() {
 
     protected lateinit var binding: BINDING
 
@@ -19,7 +19,6 @@ abstract class BaseFragment<BINDING : ViewDataBinding>(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        @Suppress("UNCHECKED_CAST")
         binding = DataBindingUtil.inflate(inflater, mLayoutResId, container, false)
         return binding.root
     }
