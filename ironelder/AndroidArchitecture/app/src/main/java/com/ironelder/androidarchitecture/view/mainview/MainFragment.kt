@@ -40,24 +40,24 @@ class MainFragment :
                 )
             )
         }
-        binding.mainViewModel.let {
-            it?.searchQuery?.addOnPropertyChangedCallback(object :
+        binding.mainViewModel?.apply {
+            searchQuery.addOnPropertyChangedCallback(object :
                 Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    it.searchWithAdapter(
+                    searchWithAdapter(
                         mType ?: BLOG,
-                        it.searchQuery.get(),
+                        searchQuery.get(),
                         SearchResultDatabase.getInstance(
                             context?.applicationContext ?: (activity as Context).applicationContext
                         )
                     )
                 }
             })
-            it?.notifyErrorMessage?.addOnPropertyChangedCallback(object :
+            notifyErrorMessage.addOnPropertyChangedCallback(object :
                 Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    if (!it.notifyErrorMessage.get().isNullOrEmpty()) {
-                        Toast.makeText(context, it.notifyErrorMessage.get(), Toast.LENGTH_LONG)
+                    if (!notifyErrorMessage.get().isNullOrEmpty()) {
+                        Toast.makeText(context, notifyErrorMessage.get(), Toast.LENGTH_LONG)
                             .show()
                     }
                 }
@@ -67,8 +67,8 @@ class MainFragment :
     }
 
     override fun doLoadFromDatabase() {
-        binding.mainViewModel.let {
-            it?.getSearchResultToRoom(
+        binding.mainViewModel?.apply {
+            getSearchResultToRoom(
                 mType ?: BLOG,
                 SearchResultDatabase.getInstance(
                     context?.applicationContext ?: (activity as Context).applicationContext
@@ -86,8 +86,8 @@ class MainFragment :
         }
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                binding.mainViewModel.let {
-                    it?.searchQuery?.set(query ?: "")
+                binding.mainViewModel?.apply {
+                    searchQuery.set(query ?: "")
                 }
                 searchView.clearFocus()
                 return false
@@ -106,8 +106,8 @@ class MainFragment :
 
     override fun onDestroy() {
         super.onDestroy()
-        binding.mainViewModel.let {
-            it?.clearDisposable()
+        binding.mainViewModel?.apply {
+            clearDisposable()
         }
     }
 
