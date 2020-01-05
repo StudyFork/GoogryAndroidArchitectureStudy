@@ -1,6 +1,7 @@
 package com.god.taeiim.myapplication.ui
 
 import com.god.taeiim.myapplication.api.model.SearchResult
+import com.god.taeiim.myapplication.api.model.SearchResultShow
 import com.god.taeiim.myapplication.base.BasePresenter
 import com.god.taeiim.myapplication.base.BaseView
 
@@ -11,7 +12,7 @@ interface ContentsContract {
 
         fun blankSearchQuery()
 
-        fun updateItems(resultList: List<SearchResult.Item>)
+        fun updateItems(resultList: List<SearchResultShow.Item>)
 
         fun updateSearchHistoryItems()
 
@@ -23,5 +24,9 @@ interface ContentsContract {
 
         fun getLastSearchHistory(searchType: String)
 
+        fun searchResultShowWrapper(
+            searchType: String,
+            searchResult: SearchResult
+        ): SearchResultShow
     }
 }

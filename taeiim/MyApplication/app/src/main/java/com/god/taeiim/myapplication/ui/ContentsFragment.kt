@@ -5,7 +5,7 @@ import android.widget.Toast
 import com.god.taeiim.myapplication.BR
 import com.god.taeiim.myapplication.R
 import com.god.taeiim.myapplication.Tabs
-import com.god.taeiim.myapplication.api.model.SearchResult
+import com.god.taeiim.myapplication.api.model.SearchResultShow
 import com.god.taeiim.myapplication.base.BaseFragment
 import com.god.taeiim.myapplication.data.source.NaverRepositoryImpl
 import com.god.taeiim.myapplication.data.source.local.NaverLocalDataSourceImpl
@@ -28,7 +28,7 @@ class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_mai
         )
     }
 
-    lateinit var searchResultAdapter: SearchResultRecyclerAdapter<SearchResult.Item, ItemContentsBinding>
+    lateinit var searchResultAdapter: SearchResultRecyclerAdapter<SearchResultShow.Item, ItemContentsBinding>
     private lateinit var searchType: Tabs
 
     override fun onResume() {
@@ -38,7 +38,7 @@ class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_mai
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.setVariable(BR.fg, this)
+        binding.fg = this
 
         arguments?.getSerializable(ARG_TYPE)?.let {
             searchType = it as Tabs
@@ -61,7 +61,7 @@ class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_mai
         presenter.getLastSearchHistory(searchType.name)
     }
 
-    override fun updateItems(resultList: List<SearchResult.Item>) {
+    override fun updateItems(resultList: List<SearchResultShow.Item>) {
         searchResultAdapter.updateItems(resultList)
     }
 

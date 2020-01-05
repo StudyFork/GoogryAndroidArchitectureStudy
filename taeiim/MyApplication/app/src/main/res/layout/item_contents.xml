@@ -10,7 +10,7 @@
 
         <variable
                 name="item"
-                type="com.god.taeiim.myapplication.api.model.SearchResult.Item" />
+                type="com.god.taeiim.myapplication.api.model.SearchResultShow.Item" />
 
     </data>
 
