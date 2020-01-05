@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hansung.firstproject.R
 import com.hansung.firstproject.data.MovieModel
 
-class RecyclerViewAdapter : RecyclerView.Adapter<MovieHolder>() {
+class RecyclerViewAdapter<T> : RecyclerView.Adapter<MovieHolder>() {
     private val items: ArrayList<MovieModel> = arrayListOf()
 
     fun addItems(_item: ArrayList<MovieModel>) {
