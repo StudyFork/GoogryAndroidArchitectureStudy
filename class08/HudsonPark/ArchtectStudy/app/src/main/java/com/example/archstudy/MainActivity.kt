@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "검색어를 다시 입력해주세요.", Toast.LENGTH_SHORT).show()
             } else {
                 // 네이버 영화 정보 API 요청
-                getQueryResult(edtQuery.text.toString()).let {
+                getQueryResult(query).let {
                     rvMovieList.adapter = MovieListAdapter(it) // 결과값 어댑터에 전달
                 }
             }
@@ -44,10 +44,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getQueryResult(query : String): List<Movie>{
-
-
-
-
 
 
         return mutableListOf()
