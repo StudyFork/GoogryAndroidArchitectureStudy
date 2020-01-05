@@ -2,4 +2,5 @@
     <string name="app_name">ArchitectureStudy</string>
 
     <string name="search">검색</string>
+    <string name="empty_data_notice">검색 결과가 없습니다.</string>
 </resources>

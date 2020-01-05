@@ -2,6 +2,7 @@ package com.studyfork.architecturestudy
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.reactivex.disposables.CompositeDisposable
@@ -44,7 +45,11 @@ class MainActivity : AppCompatActivity() {
                     pb_loading_view.visibility = View.GONE
                 }
                 .subscribe({
-                    movieResultRVAdapter.setItems(it.items)
+                    if (it.total != 0) {
+                        movieResultRVAdapter.setItems(it.items)
+                    } else {
+                        Toast.makeText(baseContext, getString(R.string.empty_data_notice), Toast.LENGTH_SHORT).show()
+                    }
                 }, {
                     it.printStackTrace()
                 })
