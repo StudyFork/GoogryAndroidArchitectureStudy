@@ -1,6 +1,5 @@
 package com.example.archstudy
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +37,7 @@ class MovieListAdapter(private val movieList: List<Movie>) :
 
         fun bind(data : Movie){
 
-            Glide.with(itemView.context).load(data.image).into(ivThumbnail)
+            Glide.with(itemView.context).load(data.image ?: R.drawable.img_empty).into(ivThumbnail)
             tvTitle.text = data.title ?: nullMessage
             ratingMovie.numStars = data.userRating?.toInt() ?: 0
             tvReleaseYear.text = data.pubDate ?: nullMessage
