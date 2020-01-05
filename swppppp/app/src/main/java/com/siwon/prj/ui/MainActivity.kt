@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     lateinit var repository: MovieSearchRepository
-    lateinit var mAdapter: MovieAdapter
+    lateinit var adapter: MovieAdapter
     var toast: Toast? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         toast = Toast.makeText(this, "", Toast.LENGTH_SHORT)
-        mAdapter = MovieAdapter { link: String -> itemClick(link) }
+        adapter = MovieAdapter { link: String -> itemClick(link) }
         repository = MovieSearchRepositoryImpl()
 
         // 검색버튼
@@ -49,8 +49,8 @@ class MainActivity : AppCompatActivity() {
     fun getMovies(input: String) {
         repository.searchMovies(input,
             success = {
-                mAdapter.setItems(it)
-                movieListRv.adapter = mAdapter
+                adapter.setItems(it)
+                movieListRv.adapter = adapter
             },
             fail = {
                 Log.e("에러", "에러메시지: ${it.message}")
