@@ -17,16 +17,13 @@ class BlogPresenter(
             when {
                 cached || title.isNotBlank() -> {
                     val items = naverApiRepository.getBlogList(title, cached = cached)
-                    if (items.isEmpty()) {
-                        view.renderListEmptyView(true)
-                    } else {
-                        view.renderListEmptyView(false)
-                        view.renderItems(items)
-                    }
+                    view.renderListEmptyView(items.isEmpty())
+                    view.renderItems(items)
+                    view.setTitle(userInputTitle)
                 }
                 else -> view.renderEmptyTitleErrorToast()
             }
-            view.setTitle(userInputTitle)
+//            view.setTitle(userInputTitle)
         } catch (e: Exception) {
             view.renderErrorToast(e.localizedMessage)
         }

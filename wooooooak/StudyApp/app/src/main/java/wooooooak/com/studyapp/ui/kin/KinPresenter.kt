@@ -17,16 +17,12 @@ class KinPresenter(
             when {
                 cached || title.isNotBlank() -> {
                     val items = naverApiRepository.getKinList(title, cached = cached)
-                    if (items.isEmpty()) {
-                        view.renderListEmptyView(true)
-                    } else {
-                        view.renderListEmptyView(false)
-                        view.renderItems(items)
-                    }
+                    view.renderListEmptyView(items.isEmpty())
+                    view.renderItems(items)
+                    view.setTitle(userInputTitle)
                 }
                 else -> view.renderEmptyTitleErrorToast()
             }
-            view.setTitle(userInputTitle)
         } catch (e: Exception) {
             view.renderErrorToast(e.localizedMessage)
         }
