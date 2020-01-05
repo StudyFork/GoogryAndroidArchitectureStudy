@@ -1,87 +1,85 @@
 package com.egiwon.architecturestudy.tabs
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.egiwon.architecturestudy.Tab
 import com.egiwon.architecturestudy.base.BaseViewModel
 import com.egiwon.architecturestudy.data.NaverDataRepository
 import com.egiwon.architecturestudy.data.source.remote.response.ContentItem
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.BehaviorSubject
 
 class ContentsViewModel(
+    private val tab: Tab,
     private val naverDataRepository: NaverDataRepository
 ) : BaseViewModel() {
 
-    private val searchQueryResultList: BehaviorSubject<List<ContentItem>> = BehaviorSubject.create()
+    private val _searchQueryResultList = MutableLiveData<List<ContentItem>>()
 
-    private val searchQueryEmptyError: BehaviorSubject<Unit> = BehaviorSubject.create()
+    private val _isShowLoadingProgressBar = MutableLiveData<Boolean>()
 
-    private val showLoadingProgressBar: BehaviorSubject<Boolean> = BehaviorSubject.create()
+    private val _errorSearchQueryResult = MutableLiveData<Throwable>()
 
-    private val searchQueryResultEmptyList: BehaviorSubject<Unit> = BehaviorSubject.create()
+    private val _errorQueryEmpty = MutableLiveData<Throwable>()
 
-    var query = ObservableField<String>()
+    val isSearchResultListEmpty: LiveData<Boolean> =
+        Transformations.map(_searchQueryResultList) {
+            it.isNullOrEmpty()
+        }
 
-    fun asSearchQueryListObservable(): Observable<List<ContentItem>> =
-        searchQueryResultList.observeOn(AndroidSchedulers.mainThread())
+    val searchQuery = MutableLiveData<String>()
 
-    fun asSearchEmptyQueryErrorObservable(): Observable<Unit> =
-        searchQueryEmptyError.observeOn(AndroidSchedulers.mainThread())
+    val searchQueryResultList: LiveData<List<ContentItem>> get() = _searchQueryResultList
 
-    fun asShowLoadingProgressBarObservable(): Observable<Boolean> =
-        showLoadingProgressBar.observeOn(AndroidSchedulers.mainThread())
+    val isShowLoadingProgressBar: LiveData<Boolean> get() = _isShowLoadingProgressBar
 
-    fun asSearchQueryResultEmptyListObservable(): Observable<Unit> =
-        searchQueryResultEmptyList.observeOn(AndroidSchedulers.mainThread())
+    val errorSearchQueryResult: LiveData<Throwable> get() = _errorSearchQueryResult
 
-    fun loadContents(type: Tab) {
-        if (query.get().isNullOrBlank()) {
-            searchQueryEmptyError.onNext(Unit)
+    val errorQueryEmpty: LiveData<Throwable> get() = _errorQueryEmpty
+
+    fun loadContents() {
+        if (searchQuery.value.isNullOrBlank()) {
+            _errorQueryEmpty.value = Throwable()
         } else {
             naverDataRepository.getContents(
-                type = type.name,
-                query = query.get()!!
+                type = tab.name,
+                query = searchQuery.value!!
             ).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe {
-                    showLoadingProgressBar.onNext(true)
+                    _isShowLoadingProgressBar.value = true
                 }
                 .doAfterTerminate {
-                    showLoadingProgressBar.onNext(false)
+                    _isShowLoadingProgressBar.value = false
                 }
                 .subscribe({
-                    if (it.contentItems.isNullOrEmpty()) {
-                        searchQueryResultEmptyList.onNext(Unit)
-                    } else {
-                        searchQueryResultList.onNext(it.contentItems)
-                    }
+                    _searchQueryResultList.value = it.contentItems
                 }, {
-                    searchQueryResultList.onError(it)
+                    _errorSearchQueryResult.value = it
                 }).addDisposable()
 
         }
     }
 
-    fun getCacheContents(type: Tab) {
-        naverDataRepository.getCache(type.name)
+    fun getCacheContents() {
+        naverDataRepository.getCache(tab.name)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                searchQueryResultList.onNext(it.contentItems)
-                this.query.set(it.query)
+                _searchQueryResultList.value = it.contentItems
+                searchQuery.value = it.query
             }, {}).addDisposable()
     }
 
-    fun loadContentsByHistory(type: Tab, query: String) {
-        naverDataRepository.getContentsByHistory(type.name, query)
+    fun loadContentsByHistory(query: String) {
+        naverDataRepository.getContentsByHistory(tab.name, query)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                searchQueryResultList.onNext(it.contentItems)
-                this.query.set(it.query)
-                loadContents(type)
+                _searchQueryResultList.value = it.contentItems
+                searchQuery.value = it.query
+                loadContents()
             }, {
-                searchQueryResultList.onError(it)
+                _errorSearchQueryResult.value = it
             }).addDisposable()
     }
 
