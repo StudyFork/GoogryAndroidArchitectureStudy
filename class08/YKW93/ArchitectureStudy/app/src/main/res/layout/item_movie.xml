@@ -30,7 +30,6 @@
                 android:id="@+id/tv_movie_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:textColor="@android:color/black"
                 tools:text="엑스맨"/>
 
