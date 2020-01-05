@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_margin="@dimen/item_margin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/ivThumbNail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:src="@drawable/ic_launcher_background" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/item_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_marginTop="@dimen/text_margin_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/movie_name"
+            tools:text="영화 이름" />
+
+        <RatingBar
+            android:id="@+id/ratingMovie"
+            android:layout_marginTop="@dimen/text_margin_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            style="?android:attr/ratingBarStyleIndicator" />
+
+        <TextView
+            android:id="@+id/tvReleaseYear"
+            android:layout_marginTop="@dimen/text_margin_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/movie_release_year"
+            tools:text="2019" />
+
+        <TextView
+            android:id="@+id/tvDirector"
+            android:layout_marginTop="@dimen/text_margin_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/movie_release_year"
+            tools:text="사이먼 킨버그" />
+
+        <TextView
+            android:id="@+id/tvActors"
+            android:layout_marginTop="@dimen/text_margin_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/movie_release_year"
+            tools:text="사이먼 킨버그" />
+    </LinearLayout>
+</LinearLayout>
