@@ -1,6 +1,7 @@
 package com.studyfork.architecturestudy
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.reactivex.disposables.CompositeDisposable
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         setMovieRecyclerView()
 
         btn_search.setOnClickListener {
+            CommonUtils.hideKeyboard(baseContext, it)
             getMovieList(edit_movie_search.text.toString())
         }
     }
@@ -35,6 +37,12 @@ class MainActivity : AppCompatActivity() {
         compositeDisposable.add(
             ApiClient.getService().getMovieList(query)
                 .compose(RxUtils.applySchedulers())
+                .doOnSubscribe {
+                    pb_loading_view.visibility = View.VISIBLE
+                }
+                .doAfterTerminate {
+                    pb_loading_view.visibility = View.GONE
+                }
                 .subscribe({
                     movieResultRVAdapter.setItems(it.items)
                 }, {
