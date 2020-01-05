@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var edtQuery: EditText
     private lateinit var btnSearch: Button
-    private lateinit var rvMovieList : RecyclerView
+    private lateinit var rvMovieList: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,5 +37,20 @@ class MainActivity : AppCompatActivity() {
         edtQuery = findViewById(R.id.edtQuery)
         btnSearch = findViewById(R.id.btnSearch)
         rvMovieList = findViewById(R.id.rvMovieList)
+    }
+
+    private fun getQueryResult(): List<Movie>{
+
+        var movieList = mutableListOf<Movie>()
+
+
+
+
+
+
+
+
+
+        return movieList
     }
 }
