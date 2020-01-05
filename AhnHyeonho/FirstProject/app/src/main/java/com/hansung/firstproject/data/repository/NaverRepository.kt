@@ -7,12 +7,10 @@ class NaverRepository private constructor() {
 
     fun getMoviesData(
         title: String,
-        clientId: String,
-        clientSecret: String,
         success: (MovieResponseModel) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        dataSource.getMoviesData(title, clientId, clientSecret, success, fail)
+        dataSource.getMoviesData(title, success, fail)
     }
 
     companion object {

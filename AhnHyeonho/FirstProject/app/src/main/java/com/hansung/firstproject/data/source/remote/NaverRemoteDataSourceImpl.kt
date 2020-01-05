@@ -6,11 +6,10 @@ import retrofit2.Call
 import retrofit2.Response
 
 
-class NaverRemoteDataSourceImpl private constructor() : NaverRemoteDataSource {
+class NaverRemoteDataSourceImpl private constructor(private val clientId: String, private val clientSecret: String) : NaverRemoteDataSource {
+
     override fun getMoviesData(
         title: String,
-        clientId: String,
-        clientSecret: String,
         onResponse: (MovieResponseModel) -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
@@ -36,9 +35,9 @@ class NaverRemoteDataSourceImpl private constructor() : NaverRemoteDataSource {
         private var _INSTANCE: NaverRemoteDataSourceImpl? = null
 
         @JvmStatic
-        fun getInstance(): NaverRemoteDataSourceImpl =
+        fun getInstance(clientId: String, clientSecret: String): NaverRemoteDataSourceImpl =
             _INSTANCE ?: synchronized(this) {
-                _INSTANCE ?: NaverRemoteDataSourceImpl().also {
+                _INSTANCE ?: NaverRemoteDataSourceImpl(clientId,clientSecret).also {
                     _INSTANCE = it
                 }
             }
