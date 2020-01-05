@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-        <import type="android.view.View" />
-
         <variable
-            name="slideOffset"
-            type="float" />
+            name="vm"
+            type="com.egiwon.architecturestudy.tabs.bottomsheet.HistoryViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -30,6 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/grid_3"
+                android:contentDescription="@null"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_history"
@@ -59,6 +59,7 @@
                 android:layout_height="wrap_content"
                 android:alpha="0"
                 android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@null"
                 android:padding="@dimen/grid_2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/historylist_title"
@@ -72,7 +73,6 @@
                 android:layout_height="0dp"
                 android:foreground="@drawable/sheet_expand"
                 android:theme="@style/ThemeOverlay.MaterialComponents.Light"
-                android:visibility="@{slideOffset &lt; 0.5 ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -98,7 +98,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/historylist_title_divider" />
+                app:layout_constraintTop_toBottomOf="@id/historylist_title_divider"
+                bind:replaceAll="@{vm.searchHistoryResult}"
+                bind:setHasFixedSize="@{true}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
