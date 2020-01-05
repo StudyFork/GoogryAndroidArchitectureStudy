@@ -20,27 +20,24 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 
-class HistorySheetFragment :
-    BaseFragment<FgHistorySheetBinding, HistoryViewModel>(
-        R.layout.fg_history_sheet
-    ) {
+class HistorySheetFragment : BaseFragment<FgHistorySheetBinding, HistoryViewModel>(
+    R.layout.fg_history_sheet
+) {
 
     override val viewModel: HistoryViewModel by viewModels {
         HistoryViewModelFactory(
+            getTab(),
             NaverDataRepositoryImpl.getInstance(
                 NaverRemoteDataSource.getInstance(),
                 NaverLocalDataSource.getInstance(
-                    ContentDataBase.getInstance(requireActivity().applicationContext).contentDao()
+                    ContentDataBase.getInstance(requireContext()).contentDao()
                 )
             )
         )
     }
 
     private val onClick: (String) -> Unit = { query ->
-        getTab()?.let { tab ->
-            (requireParentFragment() as? ContentsFragment)?.loadContentsByHistoryQuery(tab, query)
-        }
-
+        (requireParentFragment() as? ContentsFragment)?.loadContentsByHistoryQuery(query)
         BottomSheetBehavior.from(binding.historySheet).state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
@@ -51,6 +48,7 @@ class HistorySheetFragment :
 
         view.apply {
             with(binding) {
+                vm = viewModel
                 val behavior = BottomSheetBehavior.from(historySheet)
                 val backCallback =
                     requireActivity().onBackPressedDispatcher.addCallback(
@@ -87,9 +85,7 @@ class HistorySheetFragment :
                         override fun onStateChanged(bottomSheet: View, newState: Int) {
                             backCallback.isEnabled = newState == BottomSheetBehavior.STATE_EXPANDED
                             if (newState == BottomSheetBehavior.STATE_EXPANDED) {
-                                getTab()?.let { tab ->
-                                    viewModel.getSearchQueryHistory(tab)
-                                }
+                                viewModel.getSearchQueryHistory()
                             }
                         }
 
@@ -134,19 +130,11 @@ class HistorySheetFragment :
 
         } // end of apply
 
-        subscribeObservables()
     }
 
-    private fun getTab(): Tab? = (requireParentFragment() as? ContentsFragment)?.tab
-
-    private fun subscribeObservables() {
-        viewModel.asSearchHistoryResultListObservable().subscribe({
-            showSearchQueryHistory(it)
-        }, {}).addDisposable()
-    }
-
-    private fun showSearchQueryHistory(history: List<String>) {
-        (binding.historyList.adapter as? HistoryAdapter)?.replaceAll(history)
-    }
-
+    private fun getTab(): Tab =
+        (requireParentFragment() as? ContentsFragment)?.tab
+            ?: error(
+                getString(R.string.type_is_null)
+            )
 }

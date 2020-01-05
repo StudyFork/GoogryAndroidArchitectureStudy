@@ -1,26 +1,26 @@
 package com.egiwon.architecturestudy.tabs.bottomsheet
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.egiwon.architecturestudy.Tab
 import com.egiwon.architecturestudy.base.BaseViewModel
 import com.egiwon.architecturestudy.data.NaverDataRepository
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.subjects.BehaviorSubject
 
 class HistoryViewModel(
+    private val tab: Tab,
     private val naverDataRepository: NaverDataRepository
 ) : BaseViewModel() {
 
-    private val searchHistoryResultList: BehaviorSubject<List<String>> = BehaviorSubject.create()
+    private val _searchHistoryResult = MutableLiveData<List<String>>()
 
-    fun asSearchHistoryResultListObservable(): Observable<List<String>> =
-        searchHistoryResultList.observeOn(AndroidSchedulers.mainThread())
+    val searchHistoryResult: LiveData<List<String>> get() = _searchHistoryResult
 
-    fun getSearchQueryHistory(tab: Tab) =
+    fun getSearchQueryHistory() =
         naverDataRepository.getContentQuerys(tab.name)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                searchHistoryResultList.onNext(it)
+                _searchHistoryResult.value = it
             }, {}).addDisposable()
 
 }
