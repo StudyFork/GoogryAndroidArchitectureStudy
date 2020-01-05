@@ -28,20 +28,9 @@ class MainActivity : AppCompatActivity() {
         // 검색버튼
         search_btn.setOnClickListener {
             if (edit_text_input.text.isNullOrBlank()) {
-                // scope함수중에 null체크해주는거 사용
-                // with는 확장함수개념 null 체크안돼
-                toast?.let {
-                    it.setText("검색어를 입력해주세요.")
-                    it.show()
-                }
-                // 토스트 재활용 가능하도록..!!
-                // 토스트 보다는 스낵바 사용
+                toastMsg("검색어를 입력해 주세요.")
             }else{
-                toast?.let {
-                    it.setText("입력한 겁색어: ${edit_text_input.text.toString()}")
-                    it.show()
-                }
-
+                toastMsg("입력한 겁색어: ${edit_text_input.text.toString()}")
                 getMovies(edit_text_input.text.toString())
             }
         }
@@ -61,5 +50,13 @@ class MainActivity : AppCompatActivity() {
         val detailWebview = Intent(this@MainActivity, DetailWebview::class.java)
         detailWebview.putExtra("link", link)
         startActivity(detailWebview)
+    }
+
+    fun toastMsg(msg: String) {
+        toast?.let {
+            it.setText(msg)
+            it.duration = Toast.LENGTH_SHORT
+            it.show()
+        }
     }
 }
