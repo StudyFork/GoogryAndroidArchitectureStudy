@@ -1,24 +1,45 @@
 package com.example.myapplication
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.model.MovieResult
+import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieRecyclerViewAdpater : RecyclerView.Adapter<MovieRecyclerViewAdpater.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieRecyclerViewAdpater.ViewHolder {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+class MovieRecyclerViewAdpater: RecyclerView.Adapter<MovieRecyclerViewAdpater.MovieViewHolder>() {
+
+    private val results = mutableListOf<MovieResult.Item>()
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieRecyclerViewAdpater.MovieViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_movie, parent, false)
+
+        return MovieViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+        fun bind(item: MovieResult.Item) {
+            itemView.iv_movie.setBackgroundColor(0)
+            itemView.tv_movie_detail.setText("detail")
+            itemView.tv_movie_director.setText(item.director)
+            itemView.tv_movie_title.setText(item.subtitle)
+
+        }
     }
 
-    override fun onBindViewHolder(holder: MovieRecyclerViewAdpater.ViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getItemCount() = results.size
+
+    override fun onBindViewHolder(holder: MovieRecyclerViewAdpater.MovieViewHolder, position: Int) {
+        val element = results[position]
+        holder.bind(element)
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    fun setItems(itmes: List<MovieResult.Item>)
     {
-
+        results.clear()
+        results.addAll(itmes)
+        notifyDataSetChanged()
     }
+
 }
