@@ -10,9 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieResultRVAdapter : RecyclerView.Adapter<MovieResultRVAdapter.MovieResultVH>() {
+class MovieResultRVAdapter(val itemClick: (movieLink: String) -> Unit) :
+    RecyclerView.Adapter<MovieResultRVAdapter.MovieResultVH>() {
 
-    private val items = mutableListOf<MovieResponse.Item>()
+    val items = mutableListOf<MovieResponse.Item>()
 
     fun setItems(items: List<MovieResponse.Item>) {
         this.items.clear()
@@ -33,6 +34,12 @@ class MovieResultRVAdapter : RecyclerView.Adapter<MovieResultRVAdapter.MovieResu
 
 
     inner class MovieResultVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        init {
+            itemView.setOnClickListener {
+                itemClick(items[adapterPosition].link)
+            }
+        }
 
         fun bind(item: MovieResponse.Item) {
             Glide.with(itemView.context).load(item.image).into(itemView.iv_movie_image)

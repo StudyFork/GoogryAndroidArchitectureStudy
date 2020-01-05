@@ -1,5 +1,7 @@
 package com.studyfork.architecturestudy
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -13,7 +15,9 @@ class MainActivity : AppCompatActivity() {
     private val compositeDisposable = CompositeDisposable()
 
     private val movieResultRVAdapter: MovieResultRVAdapter by lazy {
-        MovieResultRVAdapter()
+        MovieResultRVAdapter {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it)))
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setMovieRecyclerView() {
-        rv_movie_list.apply {
+        rv_movie_list.run {
             layoutManager = LinearLayoutManager(baseContext)
             adapter = movieResultRVAdapter
         }
