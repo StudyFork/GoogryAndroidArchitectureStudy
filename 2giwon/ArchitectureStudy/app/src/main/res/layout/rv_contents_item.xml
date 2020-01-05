@@ -6,6 +6,14 @@
 
     <data>
 
+        <import type="com.egiwon.architecturestudy.Tab" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewType"
+            type="Integer" />
+
         <variable
             name="contentItem"
             type="com.egiwon.architecturestudy.data.source.remote.response.ContentItem" />
@@ -23,6 +31,7 @@
             android:layout_height="match_parent"
             android:layout_margin="4dp"
             android:scaleType="fitCenter"
+            android:visibility="@{viewType == Tab.BLOG.ordinal() || viewType == Tab.NEWS.ordinal() ? View.GONE : View.VISIBLE}"
             bind:loadUrl="@{contentItem.image}"
             bind:placeHolder="@{@drawable/ic_launcher_foreground}"
             app:layout_constraintBottom_toBottomOf="parent"

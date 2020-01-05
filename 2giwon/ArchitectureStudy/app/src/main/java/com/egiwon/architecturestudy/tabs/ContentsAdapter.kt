@@ -20,12 +20,7 @@ class ContentsAdapter(
         parent: ViewGroup,
         viewType: Int
     ): ContentViewHolder =
-        ContentViewHolder(parent, layoutRes).apply {
-            setThumbnailVisible(
-                Tab.values()[viewType] == Tab.BOOK ||
-                        Tab.values()[viewType] == Tab.MOVIE
-            )
-        }
+        ContentViewHolder(viewType, parent, layoutRes)
 
     override fun getItemViewType(position: Int): Int = tab.ordinal
 }
