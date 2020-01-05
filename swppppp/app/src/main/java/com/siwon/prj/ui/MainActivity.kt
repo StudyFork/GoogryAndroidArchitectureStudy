@@ -7,12 +7,12 @@ import android.util.Log
 import android.widget.Toast
 import com.siwon.prj.*
 import com.siwon.prj.repository.MovieSearchRepository
-import com.siwon.prj.repository.MovieSearchRepositoryImpl
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var repository: MovieSearchRepository
+    val repository: MovieSearchRepository by inject()
     lateinit var adapter: MovieAdapter
     var toast: Toast? = null
 
@@ -21,9 +21,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         toast = Toast.makeText(this, "", Toast.LENGTH_SHORT)
-        adapter = MovieAdapter { link: String -> itemClick(link) }
+        adapter = MovieAdapter { link: String ->
+            itemClick(link)
+        }
         movieListRv.adapter = adapter
-        repository = MovieSearchRepositoryImpl()
+//        repository = MovieSearchRepositoryImpl()
 
         // 검색버튼
         search_btn.setOnClickListener {
@@ -39,7 +41,8 @@ class MainActivity : AppCompatActivity() {
     fun getMovies(input: String) {
         repository.searchMovies(input,
             success = {
-                adapter.setItems(it)
+                adapter.setItem(it)
+//                adapter.setItems(it)
             },
             fail = {
                 Log.e("에러", "에러메시지: ${it.message}")

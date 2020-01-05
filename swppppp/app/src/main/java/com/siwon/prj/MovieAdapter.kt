@@ -2,30 +2,17 @@ package com.siwon.prj
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import com.siwon.prj.common.adapter.BaseRecyclerViewAdapter
 import com.siwon.prj.model.Movie
 
-// 클릭리스너를 nallable하게 받아
-class MovieAdapter(val clickListener: (String) -> Unit) : RecyclerView.Adapter<MovieHolder>() {
-    private val _items = ArrayList<Movie>()
-
-    fun setItems(items: ArrayList<Movie>) {
-        _items.clear()
-        _items.addAll(items)
-        notifyDataSetChanged()
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
-        val holder = MovieHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
-        holder.itemView.setOnClickListener { clickListener(_items[holder.adapterPosition].link) }
-        return holder
-    }
-
-    override fun getItemCount(): Int = _items.size
-
-    override fun onBindViewHolder(holder: MovieHolder, position: Int)
-            = holder.bind(_items[position]/*, clickListener*/)
-
+class MovieAdapter(private val clickListener: ((String) -> Unit)? = null) : BaseRecyclerViewAdapter<Movie>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        MovieHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.list_item, parent, false)
+        ) { position ->
+            getPositionItem(position)?.also {
+                clickListener?.let { clickListener -> clickListener(it.link) }
+            }
+        }
 }
-
-// Generic 사용해서 base어댑터 만듦 -> 상속받아서 구현해보기!!!!
