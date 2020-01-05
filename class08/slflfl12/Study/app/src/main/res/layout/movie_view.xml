@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="100dp"
+            android:layout_height="160dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/title_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="제목"
+            android:textSize="20dp"
+            app:layout_constraintStart_toEndOf="@id/image_view"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/rating_bar"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:isIndicator="false"
+            android:numStars="5"
+            android:stepSize="0.1"
+            app:layout_constraintStart_toEndOf="@id/image_view"
+            app:layout_constraintTop_toBottomOf="@+id/title_view" />
+
+        <TextView
+            android:id="@+id/pubdate_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="년도"
+            app:layout_constraintStart_toEndOf="@id/image_view"
+            app:layout_constraintTop_toBottomOf="@id/rating_bar" />
+
+        <TextView
+            android:id="@+id/director_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="감독"
+            app:layout_constraintStart_toEndOf="@id/image_view"
+            app:layout_constraintTop_toBottomOf="@id/pubdate_view" />
+
+        <TextView
+            android:id="@+id/actor_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="배우들"
+            app:layout_constraintStart_toEndOf="@id/image_view"
+            app:layout_constraintTop_toBottomOf="@id/director_view" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
