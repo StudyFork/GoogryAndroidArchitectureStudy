@@ -16,6 +16,8 @@ interface MainContract : BaseContract {
 
         fun showMovieDetailActivity(position : Int)
 
+        fun showFailSearchMovie(message : String?)
+
         fun getContext() : Context
     }
 
