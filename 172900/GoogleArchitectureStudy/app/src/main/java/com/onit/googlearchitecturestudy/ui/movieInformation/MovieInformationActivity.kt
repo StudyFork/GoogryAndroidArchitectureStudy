@@ -1,8 +1,9 @@
-package com.onit.googlearchitecturestudy
+package com.onit.googlearchitecturestudy.ui.movieInformation
 
 import android.os.Bundle
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import com.onit.googlearchitecturestudy.R
 import kotlinx.android.synthetic.main.activity_movie_information.*
 
 class MovieInformationActivity : AppCompatActivity() {

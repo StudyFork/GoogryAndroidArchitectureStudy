@@ -1,4 +1,4 @@
-package com.onit.googlearchitecturestudy
+package com.onit.googlearchitecturestudy.ui.main
 
 import android.text.Html
 import android.view.LayoutInflater
@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.onit.googlearchitecturestudy.Movie
+import com.onit.googlearchitecturestudy.R
 import kotlinx.android.synthetic.main.holder_movie.view.*
 
 class ResultMovieListRecyclerAdapter(

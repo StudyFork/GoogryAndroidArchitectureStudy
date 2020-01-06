@@ -1,4 +1,4 @@
-package com.onit.googlearchitecturestudy
+package com.onit.googlearchitecturestudy.ui.main
 
 import android.content.Context
 import android.content.Intent
@@ -8,9 +8,11 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.onit.googlearchitecturestudy.MovieInformationActivity.Companion.MOVIE_URL
+import com.onit.googlearchitecturestudy.R
 import com.onit.googlearchitecturestudy.data.repository.MovieRepository
 import com.onit.googlearchitecturestudy.data.repository.MovieRepositoryImpl
+import com.onit.googlearchitecturestudy.ui.movieInformation.MovieInformationActivity
+import com.onit.googlearchitecturestudy.ui.movieInformation.MovieInformationActivity.Companion.MOVIE_URL
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -39,7 +41,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun setRecyclerView() {
         resultMovieListRecyclerAdapter =
-            ResultMovieListRecyclerAdapter { position -> clickMovieItem(position) }
+            ResultMovieListRecyclerAdapter { position ->
+                clickMovieItem(
+                    position
+                )
+            }
         resultMovieListRecyclerView.adapter = resultMovieListRecyclerAdapter
     }
 
