@@ -14,6 +14,7 @@ import com.cnm.homework.network.NetworkHelper
 import com.cnm.homework.network.model.NaverResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -46,21 +47,37 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable.clear()
+    }
+
 
     private fun movieListSearch(query: String) {
-        showProgress()
+
         disposable.add(NetworkHelper.naverApi.getNaverMovie(query)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
+            .compose {
+                it.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+            }.doOnSubscribe {
+                showProgress()
+            }
+            .doAfterTerminate {
                 hideProgress()
+            }
+            .subscribe({
                 if (it.total != 0) {
                     movieAdapter.setItem(it.items)
                     rv_content.scrollToPosition(0)
                 } else {
                     toastShow("검색 결과가 없습니다.")
                 }
-
+            }, {
+                it.printStackTrace()
             })
+
+
+        )
     }
 
     private fun showMovieDetail(item: NaverResponse.Item) {
