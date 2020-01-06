@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
     lateinit var recyclerAdapter: MovieRecyclerAdapter
-    val presenter : MainContract.Presenter = MainPresenter(this)
+    val presenter: MainContract.Presenter = MainPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +32,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         recyclerAdapter.setItemClickListener(object :
             MovieRecyclerAdapter.ItemClickListener {
             override fun onClick(view: View, position: Int) {
-
+                //TODO 클릭 리스너 처리를 어떻게 해야 할지 잘 모르겠습니다.
+                showMovieDetailActivity(position)
             }
         })
 
@@ -62,7 +63,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         recyclerAdapter.setItemList(data.items as ArrayList<items>)
     }
 
-    override fun showMovieDetailActivity(position : Int) {
+    override fun showMovieDetailActivity(position: Int) {
         val nextIntent = Intent(this@MainActivity, MovieDetailActivity::class.java)
         nextIntent.putExtra(
             getString(R.string.movieLink),
@@ -72,7 +73,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun showFailSearchMovie(message: String?) {
-       Toast.makeText(this@MainActivity, "검색에 실패하였습니다. MSG : $message", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@MainActivity, "검색에 실패하였습니다. MSG : $message", Toast.LENGTH_SHORT).show()
     }
 
 

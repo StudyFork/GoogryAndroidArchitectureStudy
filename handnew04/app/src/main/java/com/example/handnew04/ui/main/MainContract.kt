@@ -12,20 +12,20 @@ interface MainContract : BaseContract {
 
         fun showNotConnectedNetwork()
 
-        fun showSuccessSearchMovie(data : NaverMovieResponse)
+        fun showSuccessSearchMovie(data: NaverMovieResponse)
 
-        fun showMovieDetailActivity(position : Int)
+        fun showMovieDetailActivity(position: Int)
 
-        fun showFailSearchMovie(message : String?)
+        fun showFailSearchMovie(message: String?)
 
-        fun getContext() : Context
+        fun getContext(): Context
     }
 
     interface Presenter {
-        fun serchMovie(inputText : String)
+        fun serchMovie(inputText: String)
 
-        fun checkInputQuery() : Boolean
+        fun checkInputQuery(): Boolean
 
-        fun checkConnectedNetwork() : Boolean
+        fun checkConnectedNetwork(): Boolean
     }
 }

@@ -9,6 +9,10 @@ object MovieRepository {
     private var movieLocalDataSource: MovieLocalDataSource = MovieLocalDataSourceImpl()
     private var movieRemoteDataSource: MovieRemoteDataSource = MovieRemoteDataSourceImpl()
 
-    fun getMovieData(query: String, success: (NaverMovieResponse) -> Unit, fail: (Throwable) -> Unit) =
+    fun getMovieData(
+        query: String,
+        success: (NaverMovieResponse) -> Unit,
+        fail: (Throwable) -> Unit
+    ) =
         movieRemoteDataSource.getMovieData(query, success, fail)
 }
