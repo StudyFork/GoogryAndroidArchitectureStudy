@@ -13,7 +13,7 @@ import com.example.handnew04.data.items
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainContract.View {
     lateinit var recyclerAdapter: MovieRecyclerAdapter
     lateinit var movieRepository: MovieRepository
 
@@ -57,5 +57,25 @@ class MainActivity : AppCompatActivity() {
         movieRepository.getMovieData(inputText
             , success = { recyclerAdapter.setItemList(it.items as ArrayList<items>) },
             fail = { Log.e("NaverMovieApi Fail ", it.message) })
+    }
+
+    override fun showEmptyResult() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showInputLengthZero() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showNotConnectedNetwork() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showSuccessSearchMovie() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showMovieDetailActivity() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
