@@ -17,8 +17,3 @@ data class BlogData(
     val postdate: String,
     val title: String
 )
-
-//data class ResponseBlog(
-//    val blogs: List<BlogData>
-//
-//)

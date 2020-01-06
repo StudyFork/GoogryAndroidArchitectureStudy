@@ -18,7 +18,13 @@ class BlogAdapter : BaseRecyclerAdapter<BlogData, BlogAdapter.BlogHolder>(DiffCa
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogHolder {
         context = parent.context
-        return BlogHolder(ItemBlogBinding.inflate(LayoutInflater.from(parent.context), parent,false))
+        return BlogHolder(
+            ItemBlogBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     inner class BlogHolder(private val binding: ItemBlogBinding) :

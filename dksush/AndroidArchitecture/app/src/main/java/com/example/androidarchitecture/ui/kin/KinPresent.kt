@@ -12,7 +12,7 @@ class KinPresent(
     override suspend fun requestSearchHist() {
         naverRepositroy.getKinHist().let {
             if (it.isNotEmpty()) {
-                view.goneEmptyText()
+                view.isListEmpty(it.isEmpty())
                 view.renderItems(it)
                 view.inputKeyword(naverRepositroy.getKinKeyword())
             }
@@ -27,13 +27,12 @@ class KinPresent(
             naverRepositroy.saveKinKeyword(text)
             naverRepositroy.getKin(text, 1, 10,
                 success = {
-                    view.goneEmptyText()
+                    view.isListEmpty(false)
                     view.renderItems(it)
                 }, fail = {
                     view.errorToast(it.toString())
                 })
         }
-
 
 
     }

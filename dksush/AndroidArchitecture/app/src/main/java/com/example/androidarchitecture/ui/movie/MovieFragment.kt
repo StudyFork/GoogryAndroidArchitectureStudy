@@ -25,32 +25,33 @@ class MovieFragment : BaseSearchFragment<FragmentMovieBinding>(R.layout.fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//
-//        activity?.let {
-//            movieAdapter = MovieAdapter()
-//                .also {
-//                    binding.recycle.adapter = it
-//                    binding.recycle.addItemDecoration(
-//                        DividerItemDecoration(
-//                            activity,
-//                            DividerItemDecoration.VERTICAL
-//                        )
-//                    )
-//                }
-//        }
-//
-//        lifecycleScope.launch {
-//            presenter.requestSearchHist()
-//        }
-//
-//        binding.btnSearch.setOnClickListener {
-//            presenter.requestList(binding.editText.text.toString())
-//
-//        }
+
+        activity?.let {
+            movieAdapter = MovieAdapter()
+                .also {
+                    binding.recycle.adapter = it
+                    binding.recycle.addItemDecoration(
+                        DividerItemDecoration(
+                            activity,
+                            DividerItemDecoration.VERTICAL
+                        )
+                    )
+                }
+        }
+
+        lifecycleScope.launch {
+            presenter.requestSearchHist()
+        }
+
+        binding.btnSearch.setOnClickListener {
+            presenter.requestList(binding.editText.text.toString())
+
+        }
     }
 
     override fun renderItems(items: List<MovieData>) {
         movieAdapter.setData(items)
+        binding.executePendingBindings()
     }
 
     override fun errorToast(msg: String?) {
@@ -62,11 +63,12 @@ class MovieFragment : BaseSearchFragment<FragmentMovieBinding>(R.layout.fragment
     }
 
     override fun inputKeyword(msg: String?) {
-        binding.editText.setText(msg)
+        binding.lastInputText = msg
     }
 
-    override fun goneEmptyText() {
-        binding.tvEmptyItme.visibility = View.GONE
+    override fun isListEmpty(visible: Boolean) {
+        binding.isListEmpty = visible
+
     }
 
 

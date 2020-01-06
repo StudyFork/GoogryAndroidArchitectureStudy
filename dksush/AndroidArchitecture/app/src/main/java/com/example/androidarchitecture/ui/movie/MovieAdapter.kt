@@ -2,15 +2,11 @@ package com.example.androidarchitecture.ui.movie
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.DiffUtil
-import com.bumptech.glide.Glide
-import com.example.androidarchitecture.R
 import com.example.androidarchitecture.data.response.MovieData
+import com.example.androidarchitecture.databinding.ItemMovieBinding
 import com.example.androidarchitecture.ui.WebviewActivity
 import com.example.androidarchitecture.ui.base.BaseRecyclerAdapter
 import com.example.androidarchitecture.ui.base.BaseViewHolder
@@ -22,15 +18,21 @@ class MovieAdapter : BaseRecyclerAdapter<MovieData, MovieAdapter.MovieHolder>(Di
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
         context = parent.context
-        val view = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false)
-        return MovieHolder(view)
+        return MovieHolder(
+            ItemMovieBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
-    inner class MovieHolder(view: View) : BaseViewHolder<MovieData>(view) {
+    inner class MovieHolder(private val binding: ItemMovieBinding) :
+        BaseViewHolder<MovieData>(binding.root) {
         lateinit var item: MovieData
 
         init {
-            itemView.setOnClickListener {
+            binding.setOnClick {
                 Intent(context, WebviewActivity::class.java).apply {
                     putExtra("link", item.link)
                 }.run { context.startActivity(this) }
@@ -39,23 +41,11 @@ class MovieAdapter : BaseRecyclerAdapter<MovieData, MovieAdapter.MovieHolder>(Di
 
         override fun bind(item: MovieData) {
             this.item = item
-//            with(itemView) {
-//                movie_title.text =
-//                    HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
-//                director.text = item.director
-//                actors.text = item.actor
-//                pubDate.text = item.pubDate
-//                rating_star.rating = item.userRating
-//
-//                try {
-//                    Glide.with(this)
-//                        .load(item.image)
-//                        .into(movie_image)
-//                } catch (e: Exception) {
-//                    Log.v("MovieAdapter", e.message!!)
-//                }
-//
-//            }
+            with(binding) {
+                items = item
+                executePendingBindings()
+
+            }
         }
 
     }

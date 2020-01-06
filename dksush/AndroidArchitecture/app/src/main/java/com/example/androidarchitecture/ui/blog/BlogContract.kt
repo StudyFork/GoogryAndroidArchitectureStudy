@@ -6,11 +6,11 @@ interface BlogContract {
         fun errorToast(msg: String?)
         fun blankInputText()
         fun inputKeyword(msg: String?)
-        fun isListEmpty(visible : Boolean)
+        fun isListEmpty(visible: Boolean)
 
     }
 
-    interface Presenter{
+    interface Presenter {
         suspend fun requestSearchHist()
         fun requestList(text: String)
 

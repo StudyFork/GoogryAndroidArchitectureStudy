@@ -5,6 +5,16 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="isListEmpty"
+            type="Boolean" />
+
+        <variable
+            name="lastInputText"
+            type="String" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +35,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="@{lastInputText}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -57,7 +68,7 @@
             android:layout_height="wrap_content"
             android:text="@string/empty_item"
             android:textSize="30dp"
-            android:visibility="visible"
+            android:visibility="@{isListEmpty ?View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

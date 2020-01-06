@@ -45,7 +45,9 @@ class MainActivity : AppCompatActivity() {
     class ViewPagerAdapter(fragmentActivity: FragmentActivity) :
         FragmentStateAdapter(fragmentActivity) {
 
-        private val fragmentList = listOf(MovieFragment(), ImageFragment(), BlogFragment(), KinFragment())
+        private val fragmentList =
+            listOf(MovieFragment(), ImageFragment(), BlogFragment(), KinFragment())
+
         override fun getItemCount() = fragmentList.size
         override fun createFragment(position: Int) = fragmentList[position] as Fragment
     }

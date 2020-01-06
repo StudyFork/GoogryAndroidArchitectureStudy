@@ -11,7 +11,7 @@ class ImagePresent(
     override suspend fun requestSearchHist() {
         naverRepositroy.getImageHist().let {
             if (it.isNotEmpty()) {
-                view.goneEmptyText()
+                view.isListEmpty(it.isEmpty())
                 view.renderItems(it)
                 view.inputKeyword(naverRepositroy.getImageKeyword())
 
@@ -24,8 +24,8 @@ class ImagePresent(
         naverRepositroy.getImage(
             text, 1, 10,
             success = {
+                view.isListEmpty(false)
                 view.renderItems(it)
-                view.goneEmptyText()
             }, fail = {
                 view.errorToast(it.toString())
             })

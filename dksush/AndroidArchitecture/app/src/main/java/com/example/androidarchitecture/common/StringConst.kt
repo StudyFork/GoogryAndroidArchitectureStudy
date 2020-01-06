@@ -2,7 +2,7 @@ package com.example.androidarchitecture.common
 
 class StringConst {
 
-    companion object{
+    companion object {
         const val PREF_KEY = "pref_key"
         const val PREF_KEY_MOVIE = "movie"
         const val PREF_KEY_BLOG = "blog"

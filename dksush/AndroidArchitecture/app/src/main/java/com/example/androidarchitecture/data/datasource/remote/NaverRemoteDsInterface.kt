@@ -12,18 +12,9 @@ interface NaverRemoteDsInterface {
         query: String,
         start: Int,
         display: Int,
-        success: (result : List<BlogData>) -> Unit,
+        success: (result: List<BlogData>) -> Unit,
         fail: (Throwable) -> Unit
     )
-
-//    fun getBlog(
-//        query: String,
-//        start: Int,
-//        display: Int,
-//        success: (List<BlogData>) -> Unit,
-//        fail: (Throwable) -> Unit
-//    )
-
 
     fun getMovie(
         query: String,

@@ -2,7 +2,6 @@ package com.example.androidarchitecture.ui.blog
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -44,12 +43,10 @@ class BlogFragment : BaseSearchFragment<FragmentBlogBinding>(R.layout.fragment_b
             presenter.requestSearchHist()
         }
 
-    }
+        binding.btnSearch.setOnClickListener {
+            presenter.requestList(binding.editText.text.toString())
+        }
 
-
-    fun btnSearch() {
-        Log.v("dksush", "클릭")
-        presenter.requestList(binding.editText.text.toString())
     }
 
     override fun renderItems(items: List<BlogData>) {
@@ -67,7 +64,6 @@ class BlogFragment : BaseSearchFragment<FragmentBlogBinding>(R.layout.fragment_b
 
     override fun inputKeyword(msg: String?) {
         binding.lastInputText = msg
-        binding.editText.setText(msg)
     }
 
     override fun isListEmpty(visible: Boolean) {

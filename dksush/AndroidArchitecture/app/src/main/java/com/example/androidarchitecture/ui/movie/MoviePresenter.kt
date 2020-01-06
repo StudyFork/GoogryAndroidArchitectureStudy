@@ -14,6 +14,7 @@ class MoviePresenter(
     override suspend fun requestSearchHist() {
         naverRepositroy.getMovieHist().let {
             if (it.isNotEmpty()) {
+                view.isListEmpty(it.isEmpty())
                 view.renderItems(it)
                 view.inputKeyword(naverRepositroy.getMoiveKeyword())
 
@@ -31,8 +32,8 @@ class MoviePresenter(
             naverRepositroy.saveMovieKeyword(text)
             naverRepositroy.getMovie(text, 1, 10,
                 success = {
+                    view.isListEmpty(false)
                     view.renderItems(it)
-                    view.goneEmptyText()
                 }, fail = {
                     view.errorToast(it.toString())
 

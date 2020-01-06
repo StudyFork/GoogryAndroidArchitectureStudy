@@ -17,11 +17,10 @@ interface NaverLocalDataSourceInterface {
     fun saveKinHist(kin: List<KinData>)
 
 
-    suspend fun getBlogHist() : List<BlogData>
+    suspend fun getBlogHist(): List<BlogData>
     suspend fun getMovieHist(): List<MovieData>
     suspend fun getImageHist(): List<ImageData>
     suspend fun getKinHist(): List<KinData>
-
 
 
     fun saveBlogKeyword(keyword: String)

@@ -11,7 +11,7 @@ interface NaverRepoInterface {
         query: String,
         start: Int,
         display: Int,
-        success: (result : List<BlogData>) -> Unit,
+        success: (result: List<BlogData>) -> Unit,
         fail: (Throwable) -> Unit
     )
 
@@ -22,7 +22,6 @@ interface NaverRepoInterface {
         success: (result: List<MovieData>) -> Unit,
         fail: (Throwable) -> Unit
     )
-
 
 
     fun getImage(
@@ -48,7 +47,7 @@ interface NaverRepoInterface {
 
 
     fun saveBlogKeyword(text: String)
-    fun getBlogKeyword() : String
+    fun getBlogKeyword(): String
     fun saveMovieKeyword(text: String)
     fun getMoiveKeyword(): String
     fun saveImageKeyword(text: String)

@@ -85,7 +85,6 @@ class NaverRemoteDs :
     }
 
 
-
     override fun getMovie(
         query: String,
         start: Int,
