@@ -1,4 +1,4 @@
-package com.example.handnew04.data.remote
+package com.example.handnew04.network
 
 import com.example.handnew04.data.NaverMovieResponse
 import retrofit2.Call
