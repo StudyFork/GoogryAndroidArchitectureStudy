@@ -4,12 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import java.text.SimpleDateFormat
 
-class MovieListAdapter(private val movieList: List<Movie>) :
+class MovieListAdapter(private val movieList: List<Items>) :
     RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,6 +29,7 @@ class MovieListAdapter(private val movieList: List<Movie>) :
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        private val layoutItem = itemView.findViewById<LinearLayout>(R.id.layoutItem)
         private val ivThumbnail = itemView.findViewById<ImageView>(R.id.ivThumbNail)
         private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
         private val ratingMovie = itemView.findViewById<RatingBar>(R.id.ratingMovie)
@@ -34,15 +37,21 @@ class MovieListAdapter(private val movieList: List<Movie>) :
         private val tvDirector = itemView.findViewById<TextView>(R.id.tvDirector)
         private val tvActors = itemView.findViewById<TextView>(R.id.tvActors)
         private val nullMessage = "데이터가 없습니다."
+        private var clickPosition = -1
 
-        fun bind(data : Movie){
+        fun bind(data : Items){
 
-            Glide.with(itemView.context).load(data.image ?: R.drawable.img_empty).into(ivThumbnail)
-            tvTitle.text = data.title ?: nullMessage
-            ratingMovie.numStars = data.userRating?.toInt() ?: 0
-            tvReleaseYear.text = data.pubDate ?: nullMessage
-            tvDirector.text = data.director ?: nullMessage
-            tvActors.text = data.actor ?: nullMessage
+            Glide.with(itemView.context).load(data.image).into(ivThumbnail)
+            tvTitle.text = data.title
+            ratingMovie.numStars = data.userRating
+            tvReleaseYear.text = SimpleDateFormat("yyyy").format(data.pubDate) ?: nullMessage
+            tvDirector.text = data.director
+            tvActors.text = data.actor
+
+            // 아이템 클릭시
+            layoutItem.setOnClickListener {
+                clickPosition = adapterPosition
+            }
         }
     }
 
