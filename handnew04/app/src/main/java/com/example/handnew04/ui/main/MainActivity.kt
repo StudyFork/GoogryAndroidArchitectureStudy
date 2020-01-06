@@ -13,8 +13,9 @@ import com.example.handnew04.ui.movie.MovieDetailActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity(val presenter: MainContract.Presenter) : AppCompatActivity(), MainContract.View {
+class MainActivity : AppCompatActivity(), MainContract.View {
     lateinit var recyclerAdapter: MovieRecyclerAdapter
+    val presenter : MainContract.Presenter = MainPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +55,7 @@ class MainActivity(val presenter: MainContract.Presenter) : AppCompatActivity(),
     }
 
     override fun showNotConnectedNetwork() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(this@MainActivity, "인터넷 연결을 확인해주세요.", Toast.LENGTH_SHORT).show()
     }
 
     override fun showSuccessSearchMovie(data: NaverMovieResponse) {
@@ -69,6 +70,11 @@ class MainActivity(val presenter: MainContract.Presenter) : AppCompatActivity(),
         )
         startActivity(nextIntent)
     }
+
+    override fun showFailSearchMovie(message: String?) {
+       Toast.makeText(this@MainActivity, "검색에 실패하였습니다. MSG : $message", Toast.LENGTH_SHORT).show()
+    }
+
 
     override fun getContext() = this@MainActivity
 }
