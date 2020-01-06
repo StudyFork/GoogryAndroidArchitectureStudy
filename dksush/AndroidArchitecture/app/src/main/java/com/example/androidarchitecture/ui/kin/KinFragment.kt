@@ -27,27 +27,27 @@ class KinFragment : BaseSearchFragment<FragmentKinBinding>(R.layout.fragment_kin
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activity?.let {
-            kinAdapter = KinAdapter()
-                .also {
-                    binding.recycle.adapter = it
-                    binding.recycle.addItemDecoration(
-                        DividerItemDecoration(
-                            activity,
-                            DividerItemDecoration.VERTICAL
-                        )
-                    )
-                }
-        }
-
-        lifecycleScope.launch {
-            presenter.requestSearchHist()
-        }
-
-        binding.btnSearch.setOnClickListener {
-            presenter.requestList(binding.editText.text.toString())
-
-        }
+//        activity?.let {
+//            kinAdapter = KinAdapter()
+//                .also {
+//                    binding.recycle.adapter = it
+//                    binding.recycle.addItemDecoration(
+//                        DividerItemDecoration(
+//                            activity,
+//                            DividerItemDecoration.VERTICAL
+//                        )
+//                    )
+//                }
+//        }
+//
+//        lifecycleScope.launch {
+//            presenter.requestSearchHist()
+//        }
+//
+//        binding.btnSearch.setOnClickListener {
+//            presenter.requestList(binding.editText.text.toString())
+//
+//        }
     }
 
 

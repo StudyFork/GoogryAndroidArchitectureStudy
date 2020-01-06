@@ -38,28 +38,28 @@ class ImageFragment : BaseSearchFragment<FragmentImageBinding>(R.layout.fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activity?.let {
-            imageAdapter = ImageAdapter()
-                .also {
-                    binding.recycle.adapter = it
-                    binding.recycle.addItemDecoration(
-                        DividerItemDecoration(
-                            activity,
-                            DividerItemDecoration.VERTICAL
-                        )
-                    )
-                }
-        }
-
-
-        lifecycleScope.launch {
-            presenter.requestSearchHist()
-        }
-
-        binding.btnSearch.setOnClickListener {
-            presenter.requestList(binding.editText.text.toString())
-
-        }
+//        activity?.let {
+//            imageAdapter = ImageAdapter()
+//                .also {
+//                    binding.recycle.adapter = it
+//                    binding.recycle.addItemDecoration(
+//                        DividerItemDecoration(
+//                            activity,
+//                            DividerItemDecoration.VERTICAL
+//                        )
+//                    )
+//                }
+//        }
+//
+//
+//        lifecycleScope.launch {
+//            presenter.requestSearchHist()
+//        }
+//
+//        binding.btnSearch.setOnClickListener {
+//            presenter.requestList(binding.editText.text.toString())
+//
+//        }
     }
 
 

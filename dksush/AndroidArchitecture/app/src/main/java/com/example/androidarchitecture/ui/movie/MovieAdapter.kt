@@ -14,7 +14,7 @@ import com.example.androidarchitecture.data.response.MovieData
 import com.example.androidarchitecture.ui.WebviewActivity
 import com.example.androidarchitecture.ui.base.BaseRecyclerAdapter
 import com.example.androidarchitecture.ui.base.BaseViewHolder
-import kotlinx.android.synthetic.main.item_movie.view.*
+
 
 class MovieAdapter : BaseRecyclerAdapter<MovieData, MovieAdapter.MovieHolder>(DiffCallback()) {
 
@@ -39,23 +39,23 @@ class MovieAdapter : BaseRecyclerAdapter<MovieData, MovieAdapter.MovieHolder>(Di
 
         override fun bind(item: MovieData) {
             this.item = item
-            with(itemView) {
-                movie_title.text =
-                    HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
-                director.text = item.director
-                actors.text = item.actor
-                pubDate.text = item.pubDate
-                rating_star.rating = item.userRating
-
-                try {
-                    Glide.with(this)
-                        .load(item.image)
-                        .into(movie_image)
-                } catch (e: Exception) {
-                    Log.v("MovieAdapter", e.message!!)
-                }
-
-            }
+//            with(itemView) {
+//                movie_title.text =
+//                    HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
+//                director.text = item.director
+//                actors.text = item.actor
+//                pubDate.text = item.pubDate
+//                rating_star.rating = item.userRating
+//
+//                try {
+//                    Glide.with(this)
+//                        .load(item.image)
+//                        .into(movie_image)
+//                } catch (e: Exception) {
+//                    Log.v("MovieAdapter", e.message!!)
+//                }
+//
+//            }
         }
 
     }

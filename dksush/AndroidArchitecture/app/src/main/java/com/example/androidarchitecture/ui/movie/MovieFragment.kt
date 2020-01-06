@@ -25,28 +25,28 @@ class MovieFragment : BaseSearchFragment<FragmentMovieBinding>(R.layout.fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        activity?.let {
-            movieAdapter = MovieAdapter()
-                .also {
-                    binding.recycle.adapter = it
-                    binding.recycle.addItemDecoration(
-                        DividerItemDecoration(
-                            activity,
-                            DividerItemDecoration.VERTICAL
-                        )
-                    )
-                }
-        }
-
-        lifecycleScope.launch {
-            presenter.requestSearchHist()
-        }
-
-        binding.btnSearch.setOnClickListener {
-            presenter.requestList(binding.editText.text.toString())
-
-        }
+//
+//        activity?.let {
+//            movieAdapter = MovieAdapter()
+//                .also {
+//                    binding.recycle.adapter = it
+//                    binding.recycle.addItemDecoration(
+//                        DividerItemDecoration(
+//                            activity,
+//                            DividerItemDecoration.VERTICAL
+//                        )
+//                    )
+//                }
+//        }
+//
+//        lifecycleScope.launch {
+//            presenter.requestSearchHist()
+//        }
+//
+//        binding.btnSearch.setOnClickListener {
+//            presenter.requestList(binding.editText.text.toString())
+//
+//        }
     }
 
     override fun renderItems(items: List<MovieData>) {

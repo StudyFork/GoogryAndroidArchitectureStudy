@@ -6,7 +6,7 @@ interface BlogContract {
         fun errorToast(msg: String?)
         fun blankInputText()
         fun inputKeyword(msg: String?)
-        fun goneEmptyText()
+        fun isListEmpty(visible : Boolean)
 
     }
 

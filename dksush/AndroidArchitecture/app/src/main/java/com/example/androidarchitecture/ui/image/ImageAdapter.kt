@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.androidarchitecture.R
 import com.example.androidarchitecture.data.response.ImageData
 import com.example.androidarchitecture.ui.WebviewActivity
-import kotlinx.android.synthetic.main.item_image.view.*
+
 
 class ImageAdapter :
     RecyclerView.Adapter<ImageAdapter.ImageHolder>() {
@@ -21,6 +21,7 @@ class ImageAdapter :
     private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
+        context = parent.context
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_image, parent, false)
         return ImageHolder(view)
     }
@@ -55,18 +56,18 @@ class ImageAdapter :
 
         fun bind(model: ImageData) {
             this.model = model
-            with(view) {
-                image_title.text = model.title
-                try {
-                    Glide.with(this)
-                        .load(model.thumbnail)
-                        .into(image_thum)
-                } catch (e: Exception) {
-                    Log.v("ImageAdapter", e.message!!)
-                }
-
-
-            }
+//            with(view) {
+//                image_title.text = model.title
+//                try {
+//                    Glide.with(this)
+//                        .load(model.thumbnail)
+//                        .into(image_thum)
+//                } catch (e: Exception) {
+//                    Log.v("ImageAdapter", e.message!!)
+//                }
+//
+//
+//            }
         }
     }
 

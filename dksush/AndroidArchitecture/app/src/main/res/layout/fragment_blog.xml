@@ -5,9 +5,19 @@
 
     <data>
 
+        <import type="android.view.View"/>
+
         <variable
             name="fragment"
             type="com.example.androidarchitecture.ui.blog.BlogFragment" />
+        
+        <variable
+            name="isListEmpty"
+            type="Boolean" />
+
+        <variable
+            name="lastInputText"
+            type="String" />
 
     </data>
 
@@ -29,7 +39,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="@{lastInputText}"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -41,7 +53,9 @@
             app:layout_constraintBottom_toBottomOf="@id/input_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/input_text"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{()->fragment.btnSearch()}"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycle"
@@ -62,11 +76,12 @@
             android:layout_height="wrap_content"
             android:text="@string/empty_item"
             android:textSize="30dp"
-            android:visibility="visible"
+            android:visibility="@{isListEmpty ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

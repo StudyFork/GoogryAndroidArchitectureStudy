@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.androidarchitecture.R
 import com.example.androidarchitecture.data.response.KinData
 import com.example.androidarchitecture.ui.WebviewActivity
-import kotlinx.android.synthetic.main.item_blog.view.*
+
 
 class KinAdapter : RecyclerView.Adapter<KinAdapter.KinHolder>() {
 
@@ -50,10 +50,10 @@ class KinAdapter : RecyclerView.Adapter<KinAdapter.KinHolder>() {
 
         fun bind(item: KinData) {
             this.item = item
-            with(view) {
-                blog_title.text = item.title
-                blog_description.text = item.description
-            }
+//            with(view) {
+//                blog_title.text = item.title
+//                blog_description.text = item.description
+//            }
         }
 
     }
