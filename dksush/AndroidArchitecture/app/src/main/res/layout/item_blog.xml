@@ -5,12 +5,22 @@
 
     <data>
 
+        <variable
+            name="items"
+            type="com.example.androidarchitecture.data.response.BlogData" />
+
+        <variable
+            name="onClick"
+            type="android.view.View.OnClickListener" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:onClick="@{onClick}"
+        >
 
         <TextView
             android:id="@+id/blog_title"
@@ -18,6 +28,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
+            app:htmlText="@{items.title}"
             android:textSize="17dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -32,6 +43,7 @@
             android:layout_marginTop="10dp"
             android:ellipsize="end"
             android:maxLines="4"
+            app:htmlText="@{items.description}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/blog_title"
@@ -42,6 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            app:htmlText="@{items.bloggerName}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/blog_description"
             tools:text="오너" />
@@ -52,6 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
+            app:htmlText="@{items.postdate}"
             app:layout_constraintStart_toEndOf="@+id/blog_owner"
             app:layout_constraintTop_toBottomOf="@+id/blog_description"
             tools:text="20191111" />

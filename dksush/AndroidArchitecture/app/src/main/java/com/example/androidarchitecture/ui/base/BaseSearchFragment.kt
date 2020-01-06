@@ -37,7 +37,7 @@ abstract class BaseSearchFragment<B : ViewDataBinding>(private val layoutId: Int
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
+        binding = DataBindingUtil.inflate(layoutInflater, layoutId, null, false)
         return binding.root
     }
 

@@ -43,18 +43,15 @@ class BlogFragment : BaseSearchFragment<FragmentBlogBinding>(R.layout.fragment_b
             presenter.requestSearchHist()
         }
 
-//        binding.btnSearch.setOnClickListener {
-//            presenter.requestList(binding.editText.text.toString())
-//        }
-    }
-
-    fun btnSearch() {
-        presenter.requestList(binding.editText.text.toString())
+        binding.btnSearch.setOnClickListener {
+            presenter.requestList(binding.editText.text.toString())
+        }
     }
 
 
     override fun renderItems(items: List<BlogData>) {
         blogAdapter.setData(items)
+        binding.executePendingBindings()
     }
 
     override fun errorToast(msg: String?) {

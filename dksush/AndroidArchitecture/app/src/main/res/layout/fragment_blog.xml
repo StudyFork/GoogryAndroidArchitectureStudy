@@ -41,7 +41,6 @@
             app:layout_constraintBottom_toBottomOf="@id/input_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/input_text"
-            android:onClick="@{()->fragment.btnSearch()}"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
