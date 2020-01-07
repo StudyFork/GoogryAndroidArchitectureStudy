@@ -1,24 +1,12 @@
 package com.practice.achitecture.myproject.base
 
-import kotlin.properties.Delegates
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 
-open class BaseViewModel {
+open class BaseViewModel : ViewModel() {
 
-    var progressBarIsShowing: Boolean by Delegates.observable(false) { property, oldValue, newValue ->
-        if (newValue) {
-            hideSoftKeyboardObserver?.invoke()
-        }
-        showProgressBarObserver?.invoke(newValue)
-    }
-
-    var showProgressBarObserver: ((Boolean) -> Unit)? = null
-
-    var hideSoftKeyboardObserver: (() -> Unit)? = null
-
-    var stringMessageId: Int by Delegates.observable(-999) { property, oldValue, newValue ->
-        stringMessageIdObserver?.invoke(newValue)
-    }
-
-    var stringMessageIdObserver: ((Int) -> Unit)? = null
+    val eventProgressBarIsShowing = MutableLiveData<Boolean>(false)
+    var eventHideSoftKeyboard = MutableLiveData<Boolean>(false)
+    var eventStringMessageId = MutableLiveData<Int>(-999)
 
 }

@@ -11,33 +11,38 @@ class HistoryViewModel constructor(private val naverRepository: NaverRepository)
     BaseNaverSearchViewModel() {
 
     fun loadHistory(searchType: SearchType) {
-        lastSearchType = searchType
+        lastSearchType.value = searchType
         loadHistory()
     }
 
     fun loadHistory() {
-        naverRepository.loadHistoryOfSearch(
-            lastSearchType,
-            object : NaverDataSource.LoadHistoryOfSearchCallback {
-                override fun onLoadSuccess(items: List<SearchedItem>) {
-                    when (lastSearchType) {
-                        SearchType.MOVIE, SearchType.BOOK -> {
-                            movieOrBookItems = items
-                        }
-                        SearchType.BLOG, SearchType.NEWS -> {
-                            blogOrNewsItems = items
+        if (lastSearchType.value != null) {
+            naverRepository.loadHistoryOfSearch(
+                lastSearchType.value!!,
+                object : NaverDataSource.LoadHistoryOfSearchCallback {
+                    override fun onLoadSuccess(items: List<SearchedItem>) {
+                        when (lastSearchType.value) {
+                            SearchType.MOVIE, SearchType.BOOK -> {
+                                movieOrBookItems.value = items
+                            }
+                            SearchType.BLOG, SearchType.NEWS -> {
+                                blogOrNewsItems.value = items
+                            }
                         }
                     }
-                }
 
-                override fun onEmptyData() {
-                    stringMessageId = when (lastSearchType) {
-                        SearchType.MOVIE -> R.string.toast_empty_movie_search_history
-                        SearchType.BOOK -> R.string.toast_empty_book_search_history
-                        SearchType.BLOG -> R.string.toast_empty_blog_search_history
-                        SearchType.NEWS -> R.string.toast_empty_news_search_history
+                    override fun onEmptyData() {
+                        if (lastSearchType.value != null) {
+                            eventStringMessageId.value = when (lastSearchType.value!!) {
+                                SearchType.MOVIE -> R.string.toast_empty_movie_search_history
+                                SearchType.BOOK -> R.string.toast_empty_book_search_history
+                                SearchType.BLOG -> R.string.toast_empty_blog_search_history
+                                SearchType.NEWS -> R.string.toast_empty_news_search_history
+                            }
+                        }
+
                     }
-                }
-            })
+                })
+        }
     }
 }

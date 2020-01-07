@@ -51,9 +51,9 @@ class NaverLocalDataSourceImpl private constructor(
         // local에서는 쓰이지 않음
     }
 
-    fun saveSearchedListInRoom(searchType: SearchType, word: String, list: List<SearchedItem>) {
+    fun saveSearchedListInRoom(searchType: SearchType?, word: String?, list: List<SearchedItem>) {
         appExcutors.diskIO.execute {
-            naverDao.insertResultOfSearch(HistoryOfSearch(searchType.value, word, list))
+            naverDao.insertResultOfSearch(HistoryOfSearch(searchType?.value, word, list))
         }
     }
 
@@ -95,16 +95,16 @@ class NaverLocalDataSourceImpl private constructor(
     }
 
     @SuppressLint("SdCardPath")
-    fun setCache(searchType: SearchType, word: String, list: List<SearchedItem>) {
+    fun setCache(searchType: SearchType?, word: String?, list: List<SearchedItem>) {
         val cachePath = File(cacheFilePath)
         if (!cachePath.exists()) {
             cachePath.mkdirs()
         }
-        val cacheFile = File(cacheFilePath + searchType.value + ".json")
+        val cacheFile = File(cacheFilePath + searchType?.value + ".json")
         val jsonObj = JSONObject()
         jsonObj.put("word", Gson().toJson(word))
         jsonObj.put("list", Gson().toJson(list))
-        cacheFile.writeText(Gson().toJson(jsonObj))
+        cacheFile.writeText(jsonObj.toString())
     }
 
     companion object {
