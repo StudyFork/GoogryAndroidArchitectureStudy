@@ -1,24 +1,21 @@
 package com.jay.architecturestudy.ui.movie
 
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Movie
-import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseFragment
-import kotlinx.android.synthetic.main.fragemnt_movie.*
+import com.jay.architecturestudy.util.then
+import kotlinx.android.synthetic.main.fragment_movie.*
 
 
-class MovieFragment : BaseFragment(R.layout.fragemnt_movie), MovieContract.View {
+class MovieFragment : BaseFragment(R.layout.fragment_movie), MovieContract.View {
     override val presenter: MovieContract.Presenter by lazy {
         MoviePresenter(this, naverSearchRepository)
     }
 
     private lateinit var movieAdapter: MovieAdapter
-
-    private val naverSearchRepository by lazy {
-        NaverSearchRepositoryImpl()
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -38,13 +35,54 @@ class MovieFragment : BaseFragment(R.layout.fragemnt_movie), MovieContract.View 
         search_bar.onClickAction = { keyword ->
             search(keyword)
         }
+        presenter.subscribe()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        presenter.unsubscribe()
+    }
+
+    override fun updateUi(keyword: String, movies: List<Movie>) {
+        keyword.isNotBlank().then {
+            search_bar.keyword = keyword
+
+            if (movies.isEmpty()) {
+                hideResultListView()
+                showEmptyResultView()
+            } else {
+                hideEmptyResultView()
+                showResultListView()
+                movieAdapter.setData(movies)
+            }
+        }
     }
 
     override fun search(keyword: String) {
         presenter.search(keyword)
     }
 
+    override fun showEmptyResultView() {
+        empty_result_view.visibility = View.VISIBLE
+    }
+
+    override fun showResultListView() {
+        recycler_view.visibility = View.VISIBLE
+    }
+
+    override fun hideEmptyResultView() {
+        empty_result_view.visibility = View.GONE
+    }
+
+    override fun hideResultListView() {
+        recycler_view.visibility = View.GONE
+    }
+
     override fun updateResult(result: List<Movie>) {
-        movieAdapter.setData(result)
+        if (result.isEmpty()) {
+            movieAdapter.clear()
+        } else {
+            movieAdapter.setData(result)
+        }
     }
 }

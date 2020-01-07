@@ -7,4 +7,5 @@
     <string name="menu_title_kin">지식IN</string>
     <string name="search">검색</string>
     <string name="warn_input_keyword">검색어를 입력해주세요!</string>
+    <string name="error_empty_result">검색결과가 없습니다.</string>
 </resources>

@@ -1,20 +1,32 @@
 package com.jay.architecturestudy.data.repository
 
-import com.jay.architecturestudy.data.model.ResponseBlog
-import com.jay.architecturestudy.data.model.ResponseImage
-import com.jay.architecturestudy.data.model.ResponseKin
-import com.jay.architecturestudy.data.model.ResponseMovie
-import com.jay.architecturestudy.data.source.remote.NaverSearchRemoteDataSource
+import com.jay.architecturestudy.data.model.*
+import io.reactivex.Single
 
 interface NaverSearchRepository {
 
-    val naverSearchRemoteDataSource: NaverSearchRemoteDataSource
+    fun getMovie(keyword: String): Single<MovieRepo>
 
-    fun getMovie(keyword: String, success: (ResponseMovie) -> Unit, fail: (Throwable) -> Unit)
+    fun getImage(keyword: String): Single<ImageRepo>
 
-    fun getImage(keyword: String, success: (ResponseImage) -> Unit, fail: (Throwable) -> Unit)
+    fun getBlog(keyword: String): Single<BlogRepo>
 
-    fun getBlog(keyword: String, success: (ResponseBlog) -> Unit, fail: (Throwable) -> Unit)
+    fun getKin(keyword: String): Single<KinRepo>
 
-    fun getKin(keyword: String, success: (ResponseKin) -> Unit, fail: (Throwable) -> Unit)
+    fun getLatestMovieResult(): Single<MovieRepo>
+
+    fun getLatestImageResult(): Single<ImageRepo>
+
+    fun getLatestBlogResult(): Single<BlogRepo>
+
+    fun getLatestKinResult(): Single<KinRepo>
+
+    fun refreshMovieSearchHistory(keyword: String, movies: List<Movie>): Single<MovieRepo>
+
+    fun refreshImageSearchHistory(keyword: String, images: List<Image>): Single<ImageRepo>
+
+    fun refreshBlogSearchHistory(keyword: String, blogs: List<Blog>): Single<BlogRepo>
+
+    fun refreshKinSearchHistory(keyword: String, kins: List<Kin>): Single<KinRepo>
+
 }

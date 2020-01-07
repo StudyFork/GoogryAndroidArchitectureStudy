@@ -1,6 +1,7 @@
 package com.jay.architecturestudy.data.model
 
 import com.google.gson.annotations.SerializedName
+import com.jay.architecturestudy.data.database.entity.MovieEntity
 
 data class Movie(
     val title: String,
@@ -17,8 +18,19 @@ data class Movie(
         get() = _userRating.toFloat() / 2
 }
 
+data class MovieRepo(
+    val keyword: String,
+    val movies: List<Movie>
+)
+
 data class ResponseMovie(
     val movies: List<Movie>
 )
+
+data class MovieLocalData(
+    val movies: List<MovieEntity>
+)
+
+
 
 
