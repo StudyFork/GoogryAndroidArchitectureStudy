@@ -14,6 +14,11 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
     override fun searchMovies(keyword: String) {
         view.hideKeyBoard()
 
+        if (keyword.isBlank()) {
+            view.showToastMessage("검색어를 입력해주세요.")
+            return
+        }
+
         CoroutineScope(Dispatchers.Main).launch {
             view.showLoadingProgressBar()
 
