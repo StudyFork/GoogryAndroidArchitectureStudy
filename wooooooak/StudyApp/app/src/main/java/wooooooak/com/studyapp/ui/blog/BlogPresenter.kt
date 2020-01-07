@@ -23,7 +23,6 @@ class BlogPresenter(
                 }
                 else -> view.renderEmptyTitleErrorToast()
             }
-//            view.setTitle(userInputTitle)
         } catch (e: Exception) {
             view.renderErrorToast(e.localizedMessage)
         }
