@@ -18,23 +18,39 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 @Suppress("DEPRECATION")
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainContract.View {
 
     private lateinit var imm: InputMethodManager
     private val movieRepository by lazy { MovieRepositoryImpl() }
     private val movieAdapter by lazy { MovieAdapter() }
 
+    private lateinit var presenter : MainContract.Presenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setKeyboardFunc()
+        presenter = MainPresenter(this)
 
+
+        setKeyboardFunc()
         setMovieRecyclerView()
 
         btn_main_act_search_btn.setOnClickListener {
             getMovieData(et_main_act_search.text.toString())
         }
+    }
+
+    override fun shoeGetMovieSuccess() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showMovieNotExist() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showGetMoreData() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun setMovieRecyclerView() {

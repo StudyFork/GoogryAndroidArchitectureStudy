@@ -8,6 +8,6 @@ interface MainContract {
     }
 
     interface Presenter {
-        fun getMovie()
+        fun getMovie(keyword : String)
     }
 }
