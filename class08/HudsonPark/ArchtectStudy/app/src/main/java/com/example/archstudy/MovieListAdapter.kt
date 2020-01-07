@@ -62,10 +62,10 @@ class MovieListAdapter(private var movieList: List<Item>) :
 
         private fun loadImage(image: String) {
 
-            if (image != null) {
+            if (image != null && image.trim().isNotEmpty()) {
                 Log.d("img", "Image loaded")
                 Glide.with(itemView.context).load(image).override(600, 1000).into(ivThumbnail)
-            } else if (!(image.contains("http://"))) { //error using image.isEmpty()
+            } else {
                 Log.d("img", "No_Img")
                 Glide.with(itemView.context).load(R.drawable.no_image).override(600, 1000)
                     .into(ivThumbnail)
