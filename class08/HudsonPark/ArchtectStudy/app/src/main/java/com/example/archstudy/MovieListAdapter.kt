@@ -1,5 +1,8 @@
 package com.example.archstudy
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,9 +17,12 @@ import com.bumptech.glide.Glide
 class MovieListAdapter(private var movieList: List<Item>) :
     RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
 
+    private lateinit var context : Context
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        this.context = parent.context
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(view,context)
     }
 
     override fun getItemCount(): Int = movieList.size
@@ -26,7 +32,7 @@ class MovieListAdapter(private var movieList: List<Item>) :
         holder.bind(movieList[position])
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View, private val context : Context) : RecyclerView.ViewHolder(itemView) {
 
         private val layoutItem = itemView.findViewById<ConstraintLayout>(R.id.layoutItem)
         private val ivThumbnail = itemView.findViewById<ImageView>(R.id.ivThumbNail)
@@ -45,28 +51,35 @@ class MovieListAdapter(private var movieList: List<Item>) :
                 setTitle(title)
                 ratingMovie.rating = userRating.toFloat() / 2
                 tvReleaseYear.text = pubDate
-                tvDirector.text = director
-                tvActors.text = actor
-            }
+                setDirector(director)
+                setActors(actor)
 
-            // 아이템 클릭시
-            layoutItem.setOnClickListener {
-                clickPosition = adapterPosition
-                Log.d("click", "눌려진 아이템 : $clickPosition")
+                layoutItem.setOnClickListener {
+                    clickPosition = adapterPosition
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+                    context.startActivity(intent)
+                }
             }
         }
+
 
         private fun setTitle(title: String) {
             tvTitle.text = title
         }
 
+        private fun setDirector(director: String) {
+            tvDirector.text = director
+        }
+
+        private fun setActors(actors: String) {
+            tvActors.text = actors
+        }
+
         private fun loadImage(image: String) {
 
             if (image != null && image.trim().isNotEmpty()) {
-                Log.d("img", "Image loaded")
                 Glide.with(itemView.context).load(image).override(600, 1000).into(ivThumbnail)
             } else {
-                Log.d("img", "No_Img")
                 Glide.with(itemView.context).load(R.drawable.no_image).override(600, 1000)
                     .into(ivThumbnail)
             }
