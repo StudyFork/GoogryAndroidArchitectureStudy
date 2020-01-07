@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
@@ -29,7 +30,7 @@ class MovieListAdapter(private var movieList: List<Item>) :
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val layoutItem = itemView.findViewById<LinearLayout>(R.id.layoutItem)
+        private val layoutItem = itemView.findViewById<ConstraintLayout>(R.id.layoutItem)
         private val ivThumbnail = itemView.findViewById<ImageView>(R.id.ivThumbNail)
         private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
         private val ratingMovie = itemView.findViewById<RatingBar>(R.id.ratingMovie)
