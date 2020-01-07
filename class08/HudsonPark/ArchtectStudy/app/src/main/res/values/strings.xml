@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">MovieSearching App</string>
-    <string name="api_address">https://openapi.naver.com/v1/search/movie.json</string>
+    <string name="api_address">https://openapi.naver.com/</string>
 </resources>

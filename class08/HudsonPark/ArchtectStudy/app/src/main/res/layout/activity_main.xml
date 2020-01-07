@@ -17,6 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="5"
+            android:maxLines="1"
             android:hint="영화 이름을 입력하세요." />
 
         <Button
@@ -31,7 +32,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMovieList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 </LinearLayout>
