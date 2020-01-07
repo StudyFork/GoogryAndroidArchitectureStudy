@@ -27,3 +27,5 @@ fun View.startWebView(url: String) {
 fun View.setVisible(visible: Boolean) {
     visibility = if (visible) VISIBLE else GONE
 }
+
+

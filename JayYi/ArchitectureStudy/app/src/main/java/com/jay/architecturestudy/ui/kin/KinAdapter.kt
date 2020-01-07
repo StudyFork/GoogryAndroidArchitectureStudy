@@ -1,28 +1,31 @@
 package com.jay.architecturestudy.ui.kin
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.text.HtmlCompat
+import androidx.databinding.DataBindingUtil
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Kin
+import com.jay.architecturestudy.databinding.ListItemKinBinding
 import com.jay.architecturestudy.ui.BaseAdapter
 import com.jay.architecturestudy.ui.BaseViewHolder
 import com.jay.architecturestudy.util.startWebView
-import kotlinx.android.synthetic.main.list_item_kin.view.*
 
 internal class KinAdapter : BaseAdapter<Kin, KinHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KinHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.list_item_kin, parent, false)
-        return KinHolder(view)
+        val binding = DataBindingUtil.inflate<ListItemKinBinding>(
+            LayoutInflater.from(parent.context),
+            R.layout.list_item_kin,
+            parent,
+            false
+        )
+        return KinHolder(binding)
     }
 }
 
 internal class KinHolder(
-    view: View
-) : BaseViewHolder<Kin>(view) {
+    val binding: ListItemKinBinding
+) : BaseViewHolder<Kin>(binding) {
     lateinit var item: Kin
 
     init {
@@ -34,10 +37,8 @@ internal class KinHolder(
     override fun bind(item: Kin) {
         this.item = item
 
-        with(itemView) {
-            kin_title.text = HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
-            kin_description.text =
-                HtmlCompat.fromHtml(item.description, HtmlCompat.FROM_HTML_MODE_COMPACT)
-        }
+        binding.description = item.description
+        binding.title = item.title
+        binding.invalidateAll()
     }
 }
