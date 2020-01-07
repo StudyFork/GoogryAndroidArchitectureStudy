@@ -27,19 +27,11 @@ class ImageFragment : BaseSearchFragment<FragmentImageBinding>(R.layout.fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activity?.let {
+        binding.recycle.run {
             imageAdapter = ImageAdapter()
-                .also {
-                    binding.recycle.adapter = it
-                    binding.recycle.addItemDecoration(
-                        DividerItemDecoration(
-                            activity,
-                            DividerItemDecoration.VERTICAL
-                        )
-                    )
-                }
+            adapter = imageAdapter
+            addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         }
-
 
         lifecycleScope.launch {
             presenter.requestSearchHist()

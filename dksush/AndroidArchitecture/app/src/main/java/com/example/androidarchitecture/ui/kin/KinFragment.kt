@@ -24,17 +24,11 @@ class KinFragment : BaseSearchFragment<FragmentKinBinding>(R.layout.fragment_kin
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity?.let {
+
+        binding.recycle.run {
             kinAdapter = KinAdapter()
-                .also {
-                    binding.recycle.adapter = it
-                    binding.recycle.addItemDecoration(
-                        DividerItemDecoration(
-                            activity,
-                            DividerItemDecoration.VERTICAL
-                        )
-                    )
-                }
+            adapter = kinAdapter
+            addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         }
 
         lifecycleScope.launch {

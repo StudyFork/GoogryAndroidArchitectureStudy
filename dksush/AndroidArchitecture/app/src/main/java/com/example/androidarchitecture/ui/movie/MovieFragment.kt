@@ -26,17 +26,11 @@ class MovieFragment : BaseSearchFragment<FragmentMovieBinding>(R.layout.fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activity?.let {
+
+        binding.recycle.run {
             movieAdapter = MovieAdapter()
-                .also {
-                    binding.recycle.adapter = it
-                    binding.recycle.addItemDecoration(
-                        DividerItemDecoration(
-                            activity,
-                            DividerItemDecoration.VERTICAL
-                        )
-                    )
-                }
+            adapter = movieAdapter
+            addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         }
 
         lifecycleScope.launch {

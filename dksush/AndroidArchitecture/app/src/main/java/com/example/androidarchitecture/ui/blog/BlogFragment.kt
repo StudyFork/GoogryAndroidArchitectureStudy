@@ -26,18 +26,13 @@ class BlogFragment : BaseSearchFragment<FragmentBlogBinding>(R.layout.fragment_b
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activity?.let {
+
+        binding.recycle.run {
             blogAdapter = BlogAdapter()
-                .also {
-                    binding.recycle.adapter = it
-                    binding.recycle.addItemDecoration(
-                        DividerItemDecoration(
-                            activity,
-                            DividerItemDecoration.VERTICAL
-                        )
-                    )
-                }
+            adapter = blogAdapter
+            addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         }
+
 
         lifecycleScope.launch {
             presenter.requestSearchHist()
