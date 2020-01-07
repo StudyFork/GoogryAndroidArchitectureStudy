@@ -8,8 +8,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
 
-    fun getService(): ApiService = retrofit.create(ApiService::class.java)
-
     private val okHttpClient =
         OkHttpClient.Builder()
             .addInterceptor {
@@ -30,5 +28,7 @@ object ApiClient {
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
+
+    fun getService(): ApiService = retrofit.create(ApiService::class.java)
 
 }
