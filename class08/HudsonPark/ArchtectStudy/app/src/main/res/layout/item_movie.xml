@@ -1,71 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layoutItem"
-    android:orientation="horizontal"
     android:layout_margin="@dimen/item_margin"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/ivThumbNail"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            android:scaleType="fitXY"
-            tools:src="@drawable/ic_launcher_background" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <ImageView
+        android:id="@+id/ivThumbNail"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_launcher_background" />
 
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginLeft="@dimen/item_margin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivThumbNail"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/tvTitle"
-            android:layout_marginTop="@dimen/text_margin_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/text_margin_top"
             android:textSize="@dimen/movie_name"
+            android:textStyle="bold"
             tools:text="영화 이름" />
 
         <RatingBar
             android:id="@+id/ratingMovie"
-            android:layout_marginTop="@dimen/text_margin_top"
+            style="?android:attr/ratingBarStyleIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:numStars="5"
-            style="?android:attr/ratingBarStyleIndicator" />
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/text_margin_top"
+            android:numStars="5" />
 
         <TextView
             android:id="@+id/tvReleaseYear"
-            android:layout_marginTop="@dimen/text_margin_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="@dimen/text_margin_top"
             android:textSize="@dimen/movie_release_year"
             tools:text="2019" />
 
         <TextView
             android:id="@+id/tvDirector"
-            android:layout_marginTop="@dimen/text_margin_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="@dimen/text_margin_top"
             android:textSize="@dimen/movie_release_year"
             tools:text="사이먼 킨버그" />
 
         <TextView
             android:id="@+id/tvActors"
-            android:layout_marginTop="@dimen/text_margin_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="@dimen/text_margin_top"
             android:textSize="@dimen/movie_release_year"
             tools:text="사이먼 킨버그" />
     </LinearLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
