@@ -1,6 +1,7 @@
 package com.practice.achitecture.myproject.history
 
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import com.practice.achitecture.myproject.R
 import com.practice.achitecture.myproject.base.BaseNaverSearchActivity
 import com.practice.achitecture.myproject.data.source.NaverRepository
@@ -8,7 +9,6 @@ import com.practice.achitecture.myproject.data.source.local.NaverDatabase
 import com.practice.achitecture.myproject.data.source.local.NaverLocalDataSourceImpl
 import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSourceImpl
 import com.practice.achitecture.myproject.databinding.ActivityHistoryBinding
-import com.practice.achitecture.myproject.makeToast
 import com.practice.achitecture.myproject.network.RetrofitClient
 import com.practice.achitecture.myproject.util.AppExecutors
 import common.NAVER_API_BASE_URL
@@ -28,21 +28,26 @@ class HistoryActivity : BaseNaverSearchActivity<ActivityHistoryBinding>(R.layout
                 )
             )
         ).apply {
-            movieOrBookItemsObserver = {
+            movieOrBookItems.observe(this@HistoryActivity, Observer {
                 searchMovieAndBookAdapter?.notifyDataSetChanged(it)
                 binding.rvSearchedList.adapter = searchMovieAndBookAdapter
-            }
+            })
 
-            blogOrNewsItemsObserver = {
+            blogOrNewsItems.observe(this@HistoryActivity, Observer {
                 searchBlogAndNewsAdapter?.notifyDataSetChanged(it)
                 binding.rvSearchedList.adapter = searchBlogAndNewsAdapter
-            }
+            })
 
-            stringMessageIdObserver = {
-                makeToast(it)
-            }
+            eventStringMessageId.observe(this@HistoryActivity, Observer {
+                if (it != -999) {
+                    showToast(it)
+                }
+            })
+
+            loadHistory()
         }
-        historyViewModel.loadHistory()
+
+        binding.lifecycleOwner = this
         binding.viewModel = historyViewModel
 
     }
