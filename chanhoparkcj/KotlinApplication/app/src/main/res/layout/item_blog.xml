@@ -1,46 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/blogger_item_layout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
 
-    <LinearLayout
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="blog"
+            type="com.example.kotlinapplication.data.model.BlogItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/blogger_item_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textview_blog_title"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="제목" />
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textview_blog_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="검색 결과 요약 내용 " />
+            <TextView
+                android:id="@+id/textview_blog_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:setFormat="@{blog.title}" />
 
-        <TextView
-            android:id="@+id/textview_blog_bloggername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="블로거 이름" />
+            <TextView
+                android:id="@+id/textview_blog_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:setFormat="@{blog.description}" />
 
-        <TextView
-            android:id="@+id/textview_blog_bloggerlink"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="블로거 링크" />
+            <TextView
+                android:id="@+id/textview_blog_bloggername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:setFormat="@{blog.bloggername}" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textview_blog_bloggerlink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:setFormat="@{blog.bloggerlink}" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -6,14 +6,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplication.R
 import com.example.kotlinapplication.data.model.BlogItem
-import com.example.kotlinapplication.ui.base.BaseFragment
+import com.example.kotlinapplication.ui.base.BaseBindingFragment
 import com.example.kotlinapplication.ui.view.home.presenter.BlogPresenter
 import com.example.kotlinapplication.ui.view.page.PageContract
-import com.orhanobut.hawk.Hawk
-import kotlinx.android.synthetic.main.fragment_page.*
 
 
-class BlogFragment : BaseFragment(R.layout.fragment_page), PageContract.View<BlogItem> {
+class BlogFragment : BaseBindingFragment(R.layout.fragment_page), PageContract.View<BlogItem> {
 
     private lateinit var blogAdapter: BlogAdapter
     private lateinit var presenter: BlogPresenter
@@ -27,9 +25,9 @@ class BlogFragment : BaseFragment(R.layout.fragment_page), PageContract.View<Blo
 
     private fun start() {
         presenter = BlogPresenter(this)
-        button_home_search.text = "블로그 검색"
+        binding.buttonHomeSearch.text = "블로그 검색"
         blogAdapter = BlogAdapter(this::onBlogItemClick)
-        with(recyclerview_home) {
+        with(binding.recyclerviewHome) {
             layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
             adapter = blogAdapter
             checkHistoryItems()
@@ -37,8 +35,8 @@ class BlogFragment : BaseFragment(R.layout.fragment_page), PageContract.View<Blo
     }
 
     private fun checkHistoryItems() {
-        if (presenter.getLocalItems()!!.isNotEmpty()) {
-            blogList = presenter.getLocalItems()!!
+        if (presenter.getLocalItems().isNotEmpty()) {
+            blogList = presenter.getLocalItems()
             blogAdapter.resetItems(blogList)
             setEmptyView(false)
         } else {
@@ -47,14 +45,19 @@ class BlogFragment : BaseFragment(R.layout.fragment_page), PageContract.View<Blo
     }
 
     private fun setUpBuuttonClickListener() {
-        button_home_search.setOnClickListener {
-            if (edittext_home_searchedit.text.isBlank()) {
+        binding.buttonHomeSearch.setOnClickListener {
+            if (binding.edittextHomeSearchedit.text.isBlank()) {
                 toast("검색어를 입력하세요")
             } else {
-                toast("검색어 :${edittext_home_searchedit.text}")
-                presenter.loadData(edittext_home_searchedit.text.toString())
+                toast("검색어 :${binding.edittextHomeSearchedit.text}")
+                presenter.loadData(binding.edittextHomeSearchedit.text.toString())
             }
         }
+    }
+
+    private fun onBlogItemClick(blogItems: BlogItem) {
+        toast(blogItems.link)
+        webLink(blogItems.link)
     }
 
     override fun getItems(items: List<BlogItem>) {
