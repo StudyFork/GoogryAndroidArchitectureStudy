@@ -9,14 +9,16 @@ import com.jay.architecturestudy.ui.BaseSearchContract
 import com.jay.architecturestudy.util.then
 
 
-class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie), MovieContract.View {
+class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie),
+    MovieContract.View {
     override val presenter: MovieContract.Presenter by lazy {
         MoviePresenter(this, naverSearchRepository)
     }
 
     private lateinit var movieAdapter: MovieAdapter
 
-    override var viewType: BaseSearchContract.ViewType = BaseSearchContract.ViewType.VIEW_SEARCH_BEFORE
+    override var viewType: BaseSearchContract.ViewType =
+        BaseSearchContract.ViewType.VIEW_SEARCH_BEFORE
         set(value) {
             if (field != value) {
                 binding.viewType = field

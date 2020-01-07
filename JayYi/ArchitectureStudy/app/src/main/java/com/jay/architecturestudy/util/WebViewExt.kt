@@ -1,7 +1,6 @@
 package com.jay.architecturestudy.util
 
 import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.databinding.BindingAdapter
 
 @BindingAdapter("loadUrl")

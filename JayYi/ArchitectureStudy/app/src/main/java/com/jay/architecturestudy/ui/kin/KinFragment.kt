@@ -16,7 +16,8 @@ class KinFragment : BaseFragment<FragmentKinBinding>(R.layout.fragment_kin), Kin
 
     private lateinit var kinAdapter: KinAdapter
 
-    override var viewType: BaseSearchContract.ViewType = BaseSearchContract.ViewType.VIEW_SEARCH_BEFORE
+    override var viewType: BaseSearchContract.ViewType =
+        BaseSearchContract.ViewType.VIEW_SEARCH_BEFORE
         set(value) {
             if (field != value) {
                 binding.viewType = field

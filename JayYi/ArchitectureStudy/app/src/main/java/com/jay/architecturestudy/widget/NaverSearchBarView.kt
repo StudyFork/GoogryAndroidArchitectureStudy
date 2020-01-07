@@ -17,7 +17,12 @@ class NaverSearchBarView @JvmOverloads constructor(
     defStyle: Int = 0
 ) : ConstraintLayout(context, attrs, defStyle), SearchButtonClickListener {
 
-    private val binding: ViewSearchBinding = DataBindingUtil.inflate<ViewSearchBinding>(LayoutInflater.from(context), R.layout.view_search, this, true)
+    private val binding: ViewSearchBinding = DataBindingUtil.inflate<ViewSearchBinding>(
+        LayoutInflater.from(context),
+        R.layout.view_search,
+        this,
+        true
+    )
 
     private val debounceTime: Long = 600L
 

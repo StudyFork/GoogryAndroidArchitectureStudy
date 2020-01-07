@@ -15,7 +15,8 @@ class BlogFragment : BaseFragment<FragmentBlogBinding>(R.layout.fragment_blog), 
 
     private lateinit var blogAdapter: BlogAdapter
 
-    override var viewType: BaseSearchContract.ViewType = BaseSearchContract.ViewType.VIEW_SEARCH_BEFORE
+    override var viewType: BaseSearchContract.ViewType =
+        BaseSearchContract.ViewType.VIEW_SEARCH_BEFORE
         set(value) {
             if (field != value) {
                 binding.viewType = field

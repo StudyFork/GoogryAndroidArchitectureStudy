@@ -23,5 +23,5 @@ object BlogDataMapper : Mapper<Blog, BlogEntity> {
             postdate = output.postdate,
             title = output.title
         )
-        
+
 }

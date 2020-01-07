@@ -12,7 +12,7 @@ import com.jay.architecturestudy.data.source.local.NaverSearchLocalDataSourceImp
 import com.jay.architecturestudy.data.source.remote.NaverSearchRemoteDataSourceImpl
 import com.jay.architecturestudy.util.showToastMessage
 
-abstract class BaseFragment<T: ViewDataBinding>(
+abstract class BaseFragment<T : ViewDataBinding>(
     private val layoutId: Int
 ) : Fragment(), BaseContract.View {
 

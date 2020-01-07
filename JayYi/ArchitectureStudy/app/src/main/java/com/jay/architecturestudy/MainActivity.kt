@@ -67,7 +67,9 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setSupportActionBar(binding.toolbar)
 
-        binding.main.bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener)
+        binding.main.bottomNavigation.setOnNavigationItemSelectedListener(
+            navigationItemSelectedListener
+        )
         binding.main.viewPager.adapter = pagerAdapter
         binding.main.viewPager.addOnPageChangeListener(pageChangeListener)
     }
