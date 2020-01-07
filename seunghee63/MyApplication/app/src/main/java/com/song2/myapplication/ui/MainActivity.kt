@@ -6,18 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.song2.myapplication.R
 import com.song2.myapplication.adapter.MovieAdapter
-import com.song2.myapplication.source.MovieDataResponse
-import com.song2.myapplication.source.MovieRepository
+import com.song2.myapplication.source.MovieRepositoryImpl
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    private val movieRepository: MovieRepository =
-        MovieRepository()
-
+    private val movieRepository by lazy { MovieRepositoryImpl() }
     private val movieAdapter by lazy { MovieAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,25 +36,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun getMovieData(keyword: String) {
 
-        movieRepository.getMovieData(keyword, 30)
-            .enqueue(object : Callback<MovieDataResponse> {
-                override fun onFailure(call: Call<MovieDataResponse>, t: Throwable) {
-                    Log.e("실패", t.toString())
-                }
-
-                override fun onResponse(
-                    call: Call<MovieDataResponse>,
-                    response: Response<MovieDataResponse>
-                ) {
-                    if (response.isSuccessful) {
-
-                        movieAdapter.setMovieList(response.body()!!.items)
-
-                        Log.e("성공", response.body()!!.items.toString())
-                    }
-                }
-            })
-
-
+        movieRepository.getMovieData(keyword, 30,
+            onSuccess = { movieAdapter.setMovieList(it) },
+            onFailure = { Log.e("실패", it.toString()) }
+        )
     }
 }
