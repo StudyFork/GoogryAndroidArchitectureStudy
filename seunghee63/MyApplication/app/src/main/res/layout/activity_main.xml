@@ -16,6 +16,8 @@
 
         <EditText
             android:id="@+id/et_main_act_search"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_main_act_search_btn"
