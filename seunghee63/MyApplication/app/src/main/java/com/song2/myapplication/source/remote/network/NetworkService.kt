@@ -1,4 +1,4 @@
-package com.song2.myapplication.source.remote
+package com.song2.myapplication.source.remote.network
 
 import com.song2.myapplication.source.MovieDataResponse
 import retrofit2.Call

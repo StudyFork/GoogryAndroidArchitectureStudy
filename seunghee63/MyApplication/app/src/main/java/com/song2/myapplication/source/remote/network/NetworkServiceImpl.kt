@@ -1,4 +1,4 @@
-package com.song2.myapplication.source.remote
+package com.song2.myapplication.source.remote.network
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -18,5 +18,7 @@ object NetworkServiceImpl {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val service: NetworkService = retrofit.create(NetworkService::class.java)
+    val service: NetworkService = retrofit.create(
+        NetworkService::class.java
+    )
 }

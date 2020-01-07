@@ -1,6 +1,6 @@
 package com.song2.myapplication.source
 
-import com.song2.myapplication.source.remote.NetworkServiceImpl
+import com.song2.myapplication.source.remote.network.NetworkServiceImpl
 import retrofit2.Call
 
 class MovieRepository {
