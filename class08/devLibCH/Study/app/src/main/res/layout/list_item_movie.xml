@@ -4,6 +4,10 @@
     <data>
 
         <variable
+            name="adapter"
+            type="app.ch.study.view.MovieAdapter" />
+
+        <variable
             name="item"
             type="app.ch.study.data.db.entitiy.MovieModel" />
 
@@ -15,6 +19,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="@{() -> adapter.itemClick(item.link)}"
         android:orientation="vertical"
         android:padding="20dp">
 

@@ -11,8 +11,11 @@ import app.ch.study.data.db.entitiy.MovieModel
 import app.ch.study.databinding.ListItemMovieBinding
 import com.bumptech.glide.Glide
 
-class MovieAdapter(private val context: Context, private val list: ArrayList<MovieModel>) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MovieAdapter(
+    private val context: Context,
+    private val list: ArrayList<MovieModel>,
+    private val listener: EventListener
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun replaceAll(items: ArrayList<MovieModel>) {
         items.let {
@@ -31,6 +34,10 @@ class MovieAdapter(private val context: Context, private val list: ArrayList<Mov
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
         (holder as MovieViewHolder).onBindViewHolder(list[position])
 
+    fun itemClick(url: String) {
+        listener.itemClick(url)
+    }
+
     inner class MovieViewHolder(
         context: Context, view: Int, parent: ViewGroup
     ) : RecyclerView.ViewHolder(
@@ -40,6 +47,7 @@ class MovieAdapter(private val context: Context, private val list: ArrayList<Mov
 
         fun onBindViewHolder(item: MovieModel) {
             binding?.setVariable(BR.item, item)
+            binding?.setVariable(BR.adapter, this@MovieAdapter)
 
             binding?.ivPoster?.let {
                 Glide
@@ -49,6 +57,10 @@ class MovieAdapter(private val context: Context, private val list: ArrayList<Mov
                     .into(it)
             }
         }
+    }
+
+    interface EventListener {
+        fun itemClick(url: String)
     }
 
 }

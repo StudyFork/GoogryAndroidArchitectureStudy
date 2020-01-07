@@ -1,5 +1,6 @@
 package app.ch.study.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -12,7 +13,7 @@ import app.ch.study.viewmodel.MovieViewModel
 import app.ch.study.viewmodel.MovieViewModelFactory
 import org.koin.android.ext.android.inject
 
-class MainActivity : BaseActivity<ActivityMainBinding>() {
+class MainActivity : BaseActivity<ActivityMainBinding>(), MovieAdapter.EventListener {
 
     private val movieViewModelFactory: MovieViewModelFactory by inject()
 
@@ -43,7 +44,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             list ->
 
             if(adapter == null) {
-                adapter = MovieAdapter(this, list as ArrayList<MovieModel>)
+                adapter = MovieAdapter(this, list as ArrayList<MovieModel>, this)
                 binding.rvMovie?.adapter = adapter
             } else {
                 adapter?.replaceAll(list as ArrayList<MovieModel>)
@@ -55,5 +56,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     fun searchMovie() {
         val name = binding.etSearch.text.toString()
         binding.viewModel?.searchMovie(name)
+    }
+
+    override fun itemClick(url: String) {
+        val intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra("url", url)
+        startActivity(intent)
     }
 }
