@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         setMovieRecyclerView()
 
         btn_search.setOnClickListener {
-            CommonUtils.hideKeyboard(baseContext, it)
+            currentFocus?.hideKeyboard()
             getMovieList(edit_movie_search.text.toString())
         }
     }
