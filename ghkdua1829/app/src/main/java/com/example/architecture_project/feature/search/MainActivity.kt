@@ -7,14 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.architecture_project.R
 import com.example.architecture_project.`object`.ObjectCollection.URL
-import com.example.architecture_project.data.model.NaverApi
-import com.example.architecture_project.feature.movie.MovieAdapter
-import com.example.architecture_project.data.datasource.remote.retrofit.NaverSevicelmpl
 import com.example.architecture_project.data.repository.NaverRepository
+import com.example.architecture_project.feature.movie.MovieAdapter
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,11 +23,11 @@ class MainActivity : AppCompatActivity() {
 
         naverRepository = NaverRepository()
         movieRecyclerView = findViewById(R.id.rv_movie)
-        movieAdapter = MovieAdapter(object :MovieAdapter.MovieViewHolder.ItemClickListener{
+        movieAdapter = MovieAdapter(object : MovieAdapter.MovieViewHolder.ItemClickListener {
             override fun onItemClick(position: Int) {
                 val goWebView = Intent(this@MainActivity, WebviewActivity::class.java)
-            goWebView.putExtra(URL, movieAdapter.getMovieLink(position))
-            startActivity(goWebView)
+                goWebView.putExtra(URL, movieAdapter.getMovieLink(position))
+                startActivity(goWebView)
             }
         })
         movieRecyclerView.adapter = movieAdapter
@@ -43,6 +38,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun callMovie(keyword: String) {   //수정완료
-        naverRepository.getMovieData(keyword,success = {movieAdapter.setMovieItemList(it.item)},fail = {Log.e("error is",it.toString())})
+        naverRepository.getMovieData(
+            keyword,
+            success = { movieAdapter.setMovieItemList(it.item) },
+            fail = { Log.e("error is", it.toString()) })
     }
 }
