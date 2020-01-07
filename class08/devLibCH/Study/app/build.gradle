@@ -3,7 +3,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -76,7 +75,11 @@ dependencies {
     implementation 'gun0912.ted:tedpermission-rx2:2.2.2'
 
     //recycler view
-    implementation 'com.dino.library:simplerecyclerview:0.2.1'
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
