@@ -42,12 +42,14 @@ class MovieResultRVAdapter(val itemClick: (movieLink: String) -> Unit) :
         }
 
         fun bind(item: MovieResponse.Item) {
-            Glide.with(itemView.context).load(item.image).into(itemView.iv_movie_image)
-            itemView.tv_movie_name.text = item.title.getHtmlText()
-            itemView.rb_movie_rating.rating = item.userRating / 2f
-            itemView.tv_movie_publish_date.text = item.pubDate
-            itemView.tv_movie_director.text = item.director
-            itemView.tv_movie_actor.text = item.actor
+            with(itemView) {
+                Glide.with(context).load(item.image).into(iv_movie_image)
+                tv_movie_name.text = item.title.getHtmlText()
+                rb_movie_rating.rating = item.userRating / 2f
+                tv_movie_publish_date.text = item.pubDate
+                tv_movie_director.text = item.director
+                tv_movie_actor.text = item.actor
+            }
         }
     }
 
