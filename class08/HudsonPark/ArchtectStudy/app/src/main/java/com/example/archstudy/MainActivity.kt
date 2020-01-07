@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                 showToast("검색어를 다시 입력해주세요.")
             } else {
                 // 네이버 영화 정보 API 요청
-                showToast("요청하신 내용 : $query")
+                showToast("요청하신 관련 영화 : $query")
                 requestMovieList(query)
                 rvMovieList.adapter?.notifyDataSetChanged()
             }

@@ -5,13 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import java.text.SimpleDateFormat
 
 class MovieListAdapter(private var movieList: List<Item>) :
     RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
@@ -42,15 +40,9 @@ class MovieListAdapter(private var movieList: List<Item>) :
         fun bind(data: Item) {
 
             with(data) {
-                Log.d("img","image : $image, title : $title")
-                if (image != null) {
-                    Log.d("img","Image loaded")
-                    Glide.with(itemView.context).load(image).override(600, 1000).into(ivThumbnail)
-                } else if(!(data.image.contains("http://"))){ //error using image.isEmpty()
-                    Log.d("img","No_Img")
-                    Glide.with(itemView.context).load(R.drawable.no_image).override(600, 1000).into(ivThumbnail)
-                }
-                tvTitle.text = title
+                Log.d("img", "image : $image, title : $title")
+                loadImage(image)
+                setTitle(title)
                 ratingMovie.rating = userRating.toFloat() / 2
                 tvReleaseYear.text = pubDate
                 tvDirector.text = director
@@ -60,7 +52,23 @@ class MovieListAdapter(private var movieList: List<Item>) :
             // 아이템 클릭시
             layoutItem.setOnClickListener {
                 clickPosition = adapterPosition
-                Log.d("click","눌려진 아이템 : $clickPosition")
+                Log.d("click", "눌려진 아이템 : $clickPosition")
+            }
+        }
+
+        private fun setTitle(title: String) {
+            tvTitle.text = title
+        }
+
+        private fun loadImage(image: String) {
+
+            if (image != null) {
+                Log.d("img", "Image loaded")
+                Glide.with(itemView.context).load(image).override(600, 1000).into(ivThumbnail)
+            } else if (!(image.contains("http://"))) { //error using image.isEmpty()
+                Log.d("img", "No_Img")
+                Glide.with(itemView.context).load(R.drawable.no_image).override(600, 1000)
+                    .into(ivThumbnail)
             }
         }
     }
