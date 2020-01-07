@@ -48,9 +48,6 @@ class MainFragment :
                             .show()
                     }
                 })
-                searchResultList.observe(this@MainFragment, Observer {
-
-                })
             }
         with(binding.searchLayout.rvResultListView) {
             adapter =
@@ -100,13 +97,6 @@ class MainFragment :
             if (!binding.mainViewModel?.searchQuery?.value.isNullOrEmpty()) {
                 searchView.setQuery(binding.mainViewModel?.searchQuery?.value, false)
             }
-        }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        binding.mainViewModel?.apply {
-            clearDisposable()
         }
     }
 
