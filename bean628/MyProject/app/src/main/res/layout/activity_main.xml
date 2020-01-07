@@ -7,6 +7,8 @@
 
         <import type="com.practice.achitecture.myproject.enums.SearchType" />
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.practice.achitecture.myproject.main.MainViewModel" />
@@ -139,7 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone" />
+            android:visibility="@{viewModel.eventProgressBarIsShowing? View.VISIBLE : View.GONE}" />
 
     </FrameLayout>
 </layout>

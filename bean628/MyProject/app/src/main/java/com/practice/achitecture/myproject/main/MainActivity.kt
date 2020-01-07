@@ -1,6 +1,9 @@
 package com.practice.achitecture.myproject.main
 
 import android.os.Bundle
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.practice.achitecture.myproject.R
 import com.practice.achitecture.myproject.base.BaseNaverSearchActivity
 import com.practice.achitecture.myproject.data.source.NaverRepository
@@ -21,41 +24,67 @@ class MainActivity : BaseNaverSearchActivity<ActivityMainBinding>(R.layout.activ
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        var mainViewModel = MainViewModel(
-            NaverRepository.getInstance(
-                NaverRemoteDataSourceImpl(RetrofitClient(NAVER_API_BASE_URL).makeRetrofitServiceForNaver()),
-                NaverLocalDataSourceImpl.getInstance(
-                    AppExecutors(),
-                    NaverDatabase.getInstance(this.applicationContext).naverDao(),
-                    this.cacheDir.absolutePath
-                )
-            )
-        ).apply {
-            queryEmptyObserver = { makeToast(R.string.toast_empty_word) }
-            showProgressBarObserver = {
+        val mainViewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MainViewModel(
+                    NaverRepository.getInstance(
+                        NaverRemoteDataSourceImpl(RetrofitClient(NAVER_API_BASE_URL).makeRetrofitServiceForNaver()),
+                        NaverLocalDataSourceImpl.getInstance(
+                            AppExecutors(),
+                            NaverDatabase.getInstance(this@MainActivity.applicationContext).naverDao(),
+                            this@MainActivity.cacheDir.absolutePath
+                        )
+                    )
+                ) as T
+            }
+        })[MainViewModel::class.java]
+
+        mainViewModel.run {
+            eventQueryEmpty.observe(this@MainActivity, Observer {
                 if (it) {
-                    showLoading()
-                } else {
-                    hideLoading()
+                    makeToast(R.string.toast_empty_word)
+                    this.eventQueryEmpty.value = false
                 }
-            }
-            hideSoftKeyboardObserver =
-                { this@MainActivity.hideSoftKeyboard(binding.inputSearchSth) }
-            movieOrBookItemsObserver = {
-                searchMovieAndBookAdapter?.notifyDataSetChanged(it)
-                binding.rvSearchedList.adapter = searchMovieAndBookAdapter
-            }
-            blogOrNewsItemsObserver = {
-                searchBlogAndNewsAdapter?.notifyDataSetChanged(it)
-                binding.rvSearchedList.adapter = searchBlogAndNewsAdapter
-            }
-            stringMessageIdObserver = {
-                showToast(it)
-            }
-            goToHistoryActivityObserver = { openActivity(HistoryActivity::class.java) }
+            })
+
+            eventHideSoftKeyboard.observe(this@MainActivity, Observer {
+                if (it) {
+                    this@MainActivity.hideSoftKeyboard(binding.inputSearchSth)
+                    eventHideSoftKeyboard.value = false
+                }
+            })
+
+            blogOrNewsItems.observe(this@MainActivity, Observer {
+                if (it.isNotEmpty()) {
+                    searchBlogAndNewsAdapter?.notifyDataSetChanged(it)
+                    binding.rvSearchedList.adapter = searchBlogAndNewsAdapter
+                }
+            })
+
+            movieOrBookItems.observe(this@MainActivity, Observer {
+                if (it.isNotEmpty()) {
+                    searchMovieAndBookAdapter?.notifyDataSetChanged(it)
+                    binding.rvSearchedList.adapter = searchMovieAndBookAdapter
+                }
+            })
+
+            eventStringMessageId.observe(this@MainActivity, Observer {
+                if (it != -999) {
+                    showToast(it)
+                }
+            })
+
+            eventGoToHistoryActivity.observe(this@MainActivity, Observer {
+                if (it) {
+                    openActivity(HistoryActivity::class.java)
+                    eventGoToHistoryActivity.value = false
+                }
+            })
+
+            loadCache()
         }
 
-        mainViewModel.loadCache()
+        binding.lifecycleOwner = this
         binding.viewModel = mainViewModel
 
     }
