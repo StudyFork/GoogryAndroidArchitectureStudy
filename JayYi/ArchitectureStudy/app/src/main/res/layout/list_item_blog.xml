@@ -7,12 +7,18 @@
         <variable
             name="blog"
             type="com.jay.architecturestudy.data.model.Blog" />
+
+        <variable
+            name="clickEvent"
+            type="com.jay.architecturestudy.ui.OnItemClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:clickable="true"
+        android:onClick="@{(v) -> clickEvent.onClick(v, blog.link)}">
 
         <TextView
             android:id="@+id/blog_title"

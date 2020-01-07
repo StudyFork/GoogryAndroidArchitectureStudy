@@ -1,6 +1,7 @@
 package com.jay.architecturestudy.ui.movie
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.jay.architecturestudy.R
@@ -8,6 +9,7 @@ import com.jay.architecturestudy.data.model.Movie
 import com.jay.architecturestudy.databinding.ListItemMovieBinding
 import com.jay.architecturestudy.ui.BaseAdapter
 import com.jay.architecturestudy.ui.BaseViewHolder
+import com.jay.architecturestudy.ui.OnItemClickListener
 import com.jay.architecturestudy.util.startWebView
 
 internal class MovieAdapter : BaseAdapter<Movie, MovieHolder>() {
@@ -25,20 +27,20 @@ internal class MovieAdapter : BaseAdapter<Movie, MovieHolder>() {
 
 internal class MovieHolder(
     val binding: ListItemMovieBinding
-) : BaseViewHolder<Movie>(binding) {
-    lateinit var item: Movie
+) : BaseViewHolder<Movie>(binding), OnItemClickListener {
 
     init {
-        itemView.setOnClickListener { view ->
-            view.startWebView(item.link)
-        }
+        binding.clickEvent = this
     }
 
     override fun bind(item: Movie) {
-        this.item = item
         with(binding) {
             movie = item
             executePendingBindings()
         }
+    }
+
+    override fun onClick(v: View, url: String) {
+        v.startWebView(url)
     }
 }

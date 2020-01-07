@@ -1,6 +1,7 @@
 package com.jay.architecturestudy.ui.blog
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.jay.architecturestudy.R
@@ -8,6 +9,7 @@ import com.jay.architecturestudy.data.model.Blog
 import com.jay.architecturestudy.databinding.ListItemBlogBinding
 import com.jay.architecturestudy.ui.BaseAdapter
 import com.jay.architecturestudy.ui.BaseViewHolder
+import com.jay.architecturestudy.ui.OnItemClickListener
 import com.jay.architecturestudy.util.startWebView
 
 
@@ -27,20 +29,20 @@ internal class BlogAdapter : BaseAdapter<Blog, BlogHolder>() {
 
 internal class BlogHolder(
     val binding: ListItemBlogBinding
-) : BaseViewHolder<Blog>(binding) {
-    lateinit var item: Blog
+) : BaseViewHolder<Blog>(binding), OnItemClickListener {
 
     init {
-        itemView.setOnClickListener { view ->
-            view.startWebView(item.link)
-        }
+        binding.clickEvent = this
     }
 
     override fun bind(item: Blog) {
-        this.item = item
         with(binding) {
             blog = item
             executePendingBindings()
         }
+    }
+
+    override fun onClick(v: View, url: String) {
+        v.startWebView(url)
     }
 }

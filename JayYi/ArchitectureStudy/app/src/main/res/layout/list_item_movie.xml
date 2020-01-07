@@ -8,13 +8,19 @@
             name="movie"
             type="com.jay.architecturestudy.data.model.Movie" />
 
+        <variable
+            name="clickEvent"
+            type="com.jay.architecturestudy.ui.OnItemClickListener" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:clickable="true"
+        android:onClick="@{(v) -> clickEvent.onClick(v, movie.link)}">
 
         <ImageView
             android:id="@+id/movie_poster"

@@ -1,6 +1,7 @@
 package com.jay.architecturestudy.ui.image
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.jay.architecturestudy.R
@@ -8,6 +9,7 @@ import com.jay.architecturestudy.data.model.Image
 import com.jay.architecturestudy.databinding.ListItemImageBinding
 import com.jay.architecturestudy.ui.BaseAdapter
 import com.jay.architecturestudy.ui.BaseViewHolder
+import com.jay.architecturestudy.ui.OnItemClickListener
 import com.jay.architecturestudy.util.startWebView
 
 internal class ImageAdapter : BaseAdapter<Image, ImageHolder>() {
@@ -26,23 +28,22 @@ internal class ImageAdapter : BaseAdapter<Image, ImageHolder>() {
 
 internal class ImageHolder(
     val binding: ListItemImageBinding
-) : BaseViewHolder<Image>(binding) {
-    lateinit var item: Image
+) : BaseViewHolder<Image>(binding), OnItemClickListener {
 
     init {
-        itemView.setOnClickListener { view ->
-            view.startWebView(item.link)
-        }
+        binding.clickEvent = this
     }
 
     override fun bind(item: Image) {
-        this.item = item
-
         with(binding) {
             title = item.title
             imageUrl = item.thumbnail
-            imageThumbnail
+            url = item.link
             executePendingBindings()
         }
+    }
+
+    override fun onClick(v: View, url: String) {
+        v.startWebView(url)
     }
 }
