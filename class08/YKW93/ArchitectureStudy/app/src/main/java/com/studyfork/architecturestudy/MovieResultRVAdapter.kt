@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.item_movie.view.*
 class MovieResultRVAdapter(val itemClick: (movieLink: String) -> Unit) :
     RecyclerView.Adapter<MovieResultRVAdapter.MovieResultVH>() {
 
-    val items = mutableListOf<MovieResponse.Item>()
+    private val items = mutableListOf<MovieResponse.Item>()
 
     fun setItems(items: List<MovieResponse.Item>) {
         this.items.clear()
