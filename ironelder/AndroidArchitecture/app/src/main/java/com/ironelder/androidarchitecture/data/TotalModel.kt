@@ -1,6 +1,5 @@
 package com.ironelder.androidarchitecture.data
 
-import androidx.databinding.ObservableArrayList
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -20,7 +19,7 @@ data class SearchResult(
 
 data class TotalModel(
     val display: Int,
-    val items: ObservableArrayList<ResultItem>,
+    val items: ArrayList<ResultItem>,
     val lastBuildDate: String,
     val start: Int,
     val total: Int
