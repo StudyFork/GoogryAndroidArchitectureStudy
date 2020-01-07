@@ -29,6 +29,5 @@ object ApiClient {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
-    fun getService(): ApiService = retrofit.create(ApiService::class.java)
-
+    val apiService: ApiService = retrofit.create(ApiService::class.java)
 }
