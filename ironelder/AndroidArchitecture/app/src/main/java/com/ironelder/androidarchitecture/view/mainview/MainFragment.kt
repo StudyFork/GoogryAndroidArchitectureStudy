@@ -8,7 +8,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
-import androidx.databinding.Observable
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ironelder.androidarchitecture.R
@@ -28,30 +29,29 @@ class MainFragment :
     }
 
     override fun doViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.mainViewModel = MainViewModel().apply {
-            searchQuery.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+        binding.lifecycleOwner = this@MainFragment
+        binding.mainViewModel =
+            ViewModelProviders.of(this@MainFragment)[MainViewModel::class.java].apply {
+                searchQuery.observe(this@MainFragment, Observer {
                     searchWithAdapter(
                         mType ?: BLOG,
-                        searchQuery.get(),
+                        it,
                         SearchResultDatabase.getInstance(
-                            context?.applicationContext ?: (activity as Context).applicationContext
+                            context?.applicationContext
+                                ?: (activity as Context).applicationContext
                         )
                     )
-                }
-            })
-            notifyErrorMessage.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    if (!notifyErrorMessage.get().isNullOrEmpty()) {
-                        Toast.makeText(context, notifyErrorMessage.get(), Toast.LENGTH_LONG)
+                })
+                notifyErrorMessage.observe(this@MainFragment, Observer {
+                    if (!it.isNullOrEmpty()) {
+                        Toast.makeText(context, it, Toast.LENGTH_LONG)
                             .show()
                     }
-                }
+                })
+                searchResultList.observe(this@MainFragment, Observer {
 
-            })
-        }
+                })
+            }
         with(binding.searchLayout.rvResultListView) {
             adapter =
                 CustomListViewAdapter()
@@ -86,7 +86,7 @@ class MainFragment :
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 binding.mainViewModel?.apply {
-                    searchQuery.set(query ?: "")
+                    searchQuery.value = query ?: ""
                 }
                 searchView.clearFocus()
                 return false
@@ -97,8 +97,8 @@ class MainFragment :
             }
         })
         searchView.setOnSearchClickListener {
-            if (!binding.mainViewModel?.searchQuery?.get().isNullOrEmpty()) {
-                searchView.setQuery(binding.mainViewModel?.searchQuery?.get(), false)
+            if (!binding.mainViewModel?.searchQuery?.value.isNullOrEmpty()) {
+                searchView.setQuery(binding.mainViewModel?.searchQuery?.value, false)
             }
         }
     }
