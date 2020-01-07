@@ -12,6 +12,10 @@
             name="view"
             type="com.jay.architecturestudy.widget.NaverSearchBarView" />
 
+        <variable
+            name="clickEvent"
+            type="com.jay.architecturestudy.widget.SearchButtonClickListener" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,6 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/search"
+            android:onClick="@{(v) -> clickEvent.onClick(v, searchEditor.getText().toString())}"
             app:layout_constraintStart_toEndOf="@+id/search_editor"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
