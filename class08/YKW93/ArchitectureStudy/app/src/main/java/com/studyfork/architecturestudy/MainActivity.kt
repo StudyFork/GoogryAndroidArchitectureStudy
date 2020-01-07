@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     private fun getMovieList(query: String) {
         compositeDisposable.add(
             ApiClient.apiService.getMovieList(query)
-                .compose(RxUtils.applySchedulers())
+                .applySchedulers()
                 .doOnSubscribe {
                     pb_loading_view.visibility = View.VISIBLE
                 }
