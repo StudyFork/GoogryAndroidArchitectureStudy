@@ -31,7 +31,7 @@ fun loadImageUrl(view: ImageView, url: String?) {
 }
 
 @BindingAdapter("setListItems")
-fun setListItems(view: RecyclerView, items: ObservableArrayList<ResultItem>?) {
+fun setListItems(view: RecyclerView, items: List<ResultItem>?) {
     val adapter: CustomListViewAdapter = view.adapter as CustomListViewAdapter
     adapter.setItemList(items)
 }

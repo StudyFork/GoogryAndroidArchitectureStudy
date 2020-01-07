@@ -28,7 +28,7 @@ class CustomListViewAdapter :
 
     override fun getItemCount() = mItemList.size
 
-    fun setItemList(list: ArrayList<ResultItem>?) {
+    fun setItemList(list: List<ResultItem>?) {
         mItemList.clear()
         if (!list.isNullOrEmpty()) {
             mItemList.addAll(list)

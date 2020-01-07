@@ -5,12 +5,12 @@
 
     <data>
 
-        <import type="androidx.databinding.ObservableArrayList"/>
+        <import type="java.util.List"/>
         <import type="com.ironelder.androidarchitecture.data.ResultItem"/>
 
         <variable
             name="items"
-            type="ObservableArrayList&lt;ResultItem&gt;" />
+            type="List&lt;ResultItem&gt;" />
 
     </data>
 
