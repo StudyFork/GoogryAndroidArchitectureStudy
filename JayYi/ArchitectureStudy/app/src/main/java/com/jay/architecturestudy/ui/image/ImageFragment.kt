@@ -7,8 +7,6 @@ import com.jay.architecturestudy.databinding.FragmentImageBinding
 import com.jay.architecturestudy.ui.BaseFragment
 import com.jay.architecturestudy.ui.BaseSearchContract
 import com.jay.architecturestudy.util.then
-import com.jay.architecturestudy.util.toPx
-import com.jay.architecturestudy.widget.SpacesItemDecoration
 
 class ImageFragment : BaseFragment<FragmentImageBinding>(R.layout.fragment_image),
     ImageContract.View {
@@ -33,7 +31,6 @@ class ImageFragment : BaseFragment<FragmentImageBinding>(R.layout.fragment_image
             imageAdapter = ImageAdapter()
             binding.recyclerView.run {
                 adapter = imageAdapter
-                addItemDecoration(SpacesItemDecoration(12.toPx(), 6.toPx(), 11.toPx()))
             }
         }
 

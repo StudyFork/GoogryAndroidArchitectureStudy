@@ -1,7 +1,6 @@
 package com.jay.architecturestudy.ui.movie
 
 import android.os.Bundle
-import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Movie
 import com.jay.architecturestudy.databinding.FragmentMovieBinding
@@ -21,6 +20,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie
         set(value) {
             if (field != value) {
                 binding.viewType = field
+                binding.invalidateAll()
             }
         }
 
@@ -30,12 +30,6 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie
             movieAdapter = MovieAdapter()
             binding.recyclerView.run {
                 adapter = movieAdapter
-                addItemDecoration(
-                    DividerItemDecoration(
-                        activity,
-                        DividerItemDecoration.VERTICAL
-                    )
-                )
             }
         }
 

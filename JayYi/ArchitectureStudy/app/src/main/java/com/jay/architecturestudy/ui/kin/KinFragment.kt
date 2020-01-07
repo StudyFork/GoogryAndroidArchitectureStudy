@@ -1,7 +1,6 @@
 package com.jay.architecturestudy.ui.kin
 
 import android.os.Bundle
-import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Kin
 import com.jay.architecturestudy.databinding.FragmentKinBinding
@@ -31,12 +30,6 @@ class KinFragment : BaseFragment<FragmentKinBinding>(R.layout.fragment_kin), Kin
             kinAdapter = KinAdapter()
             binding.recyclerView.run {
                 adapter = kinAdapter
-                addItemDecoration(
-                    DividerItemDecoration(
-                        activity,
-                        DividerItemDecoration.VERTICAL
-                    )
-                )
             }
         }
 

@@ -1,7 +1,6 @@
 package com.jay.architecturestudy.ui.blog
 
 import android.os.Bundle
-import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Blog
 import com.jay.architecturestudy.databinding.FragmentBlogBinding
@@ -20,6 +19,7 @@ class BlogFragment : BaseFragment<FragmentBlogBinding>(R.layout.fragment_blog), 
         set(value) {
             if (field != value) {
                 binding.viewType = field
+                binding.invalidateAll()
             }
         }
 
@@ -29,12 +29,6 @@ class BlogFragment : BaseFragment<FragmentBlogBinding>(R.layout.fragment_blog), 
             blogAdapter = BlogAdapter()
             binding.recyclerView.run {
                 adapter = blogAdapter
-                addItemDecoration(
-                    DividerItemDecoration(
-                        activity,
-                        DividerItemDecoration.VERTICAL
-                    )
-                )
             }
         }
 
