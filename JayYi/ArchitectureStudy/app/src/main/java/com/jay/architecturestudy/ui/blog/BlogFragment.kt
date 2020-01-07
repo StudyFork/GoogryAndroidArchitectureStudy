@@ -1,15 +1,15 @@
 package com.jay.architecturestudy.ui.blog
 
 import android.os.Bundle
-import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Blog
+import com.jay.architecturestudy.databinding.FragmentBlogBinding
 import com.jay.architecturestudy.ui.BaseFragment
+import com.jay.architecturestudy.ui.BaseSearchContract
 import com.jay.architecturestudy.util.then
-import kotlinx.android.synthetic.main.fragment_blog.*
 
-class BlogFragment : BaseFragment(R.layout.fragment_blog), BlogContract.View {
+class BlogFragment : BaseFragment<FragmentBlogBinding>(R.layout.fragment_blog), BlogContract.View {
     override val presenter: BlogContract.Presenter by lazy {
         BlogPresenter(this, naverSearchRepository)
     }
@@ -20,7 +20,7 @@ class BlogFragment : BaseFragment(R.layout.fragment_blog), BlogContract.View {
         super.onActivityCreated(savedInstanceState)
         activity?.let { activity ->
             blogAdapter = BlogAdapter()
-            recycler_view.run {
+            binding.recyclerView.run {
                 adapter = blogAdapter
                 addItemDecoration(
                     DividerItemDecoration(
@@ -31,7 +31,7 @@ class BlogFragment : BaseFragment(R.layout.fragment_blog), BlogContract.View {
             }
         }
 
-        search_bar.onClickAction = { keyword ->
+        binding.searchBar.onClickAction = { keyword ->
             search(keyword)
         }
 
@@ -55,6 +55,7 @@ class BlogFragment : BaseFragment(R.layout.fragment_blog), BlogContract.View {
                 showResultListView()
                 blogAdapter.setData(blogs)
             }
+            binding.searchBar.keyword = keyword
 
         }
     }

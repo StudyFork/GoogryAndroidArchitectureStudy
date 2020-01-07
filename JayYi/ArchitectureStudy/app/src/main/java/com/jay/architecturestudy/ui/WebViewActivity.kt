@@ -1,15 +1,17 @@
 package com.jay.architecturestudy.ui
 
 import android.os.Bundle
-import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.jay.architecturestudy.R
-import kotlinx.android.synthetic.main.activity_web_view.*
+import com.jay.architecturestudy.databinding.ActivityWebViewBinding
 
 class WebViewActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityWebViewBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_web_view)
 
         val url = intent.getStringExtra(EXTRA_URL)
             ?: run {
@@ -18,19 +20,10 @@ class WebViewActivity : AppCompatActivity() {
                 return
             }
 
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_web_view)
+        binding.url = url
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        val webView = web_view.apply {
-            webViewClient = WebViewClient()
-            settings.run {
-                displayZoomControls = true
-                useWideViewPort = true
-                javaScriptEnabled = true
-                domStorageEnabled = true
-            }
-        }
-        webView.loadUrl(url)
-
     }
 
     override fun onSupportNavigateUp(): Boolean {

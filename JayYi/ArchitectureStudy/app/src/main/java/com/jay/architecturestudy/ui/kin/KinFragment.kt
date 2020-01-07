@@ -1,15 +1,16 @@
 package com.jay.architecturestudy.ui.kin
 
 import android.os.Bundle
-import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Kin
+import com.jay.architecturestudy.databinding.FragmentKinBinding
 import com.jay.architecturestudy.ui.BaseFragment
+import com.jay.architecturestudy.ui.BaseSearchContract
 import com.jay.architecturestudy.util.then
-import kotlinx.android.synthetic.main.fragment_kin.*
 
-class KinFragment : BaseFragment(R.layout.fragment_kin), KinContract.View {
+
+class KinFragment : BaseFragment<FragmentKinBinding>(R.layout.fragment_kin), KinContract.View {
     override val presenter: KinContract.Presenter by lazy {
         KinPresenter(this, naverSearchRepository)
     }
@@ -20,7 +21,7 @@ class KinFragment : BaseFragment(R.layout.fragment_kin), KinContract.View {
         super.onActivityCreated(savedInstanceState)
         activity?.let { activity ->
             kinAdapter = KinAdapter()
-            recycler_view.run {
+            binding.recyclerView.run {
                 adapter = kinAdapter
                 addItemDecoration(
                     DividerItemDecoration(
@@ -31,7 +32,7 @@ class KinFragment : BaseFragment(R.layout.fragment_kin), KinContract.View {
             }
         }
 
-        search_bar.onClickAction = { keyword ->
+        binding.searchBar.onClickAction = { keyword ->
             search(keyword)
         }
 
@@ -45,7 +46,7 @@ class KinFragment : BaseFragment(R.layout.fragment_kin), KinContract.View {
 
     override fun updateUi(keyword: String, kins: List<Kin>) {
         keyword.isNotBlank().then {
-            search_bar.keyword = keyword
+            binding.searchBar.keyword = keyword
 
             if (kins.isEmpty()) {
                 hideResultListView()

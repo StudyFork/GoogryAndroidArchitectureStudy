@@ -1,16 +1,16 @@
 package com.jay.architecturestudy.ui.movie
 
 import android.os.Bundle
-import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Movie
+import com.jay.architecturestudy.databinding.FragmentMovieBinding
 import com.jay.architecturestudy.ui.BaseFragment
+import com.jay.architecturestudy.ui.BaseSearchContract
 import com.jay.architecturestudy.util.then
-import kotlinx.android.synthetic.main.fragment_movie.*
 
 
-class MovieFragment : BaseFragment(R.layout.fragment_movie), MovieContract.View {
+class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie), MovieContract.View {
     override val presenter: MovieContract.Presenter by lazy {
         MoviePresenter(this, naverSearchRepository)
     }
@@ -21,7 +21,7 @@ class MovieFragment : BaseFragment(R.layout.fragment_movie), MovieContract.View 
         super.onActivityCreated(savedInstanceState)
         activity?.let { activity ->
             movieAdapter = MovieAdapter()
-            recycler_view.run {
+            binding.recyclerView.run {
                 adapter = movieAdapter
                 addItemDecoration(
                     DividerItemDecoration(
@@ -32,7 +32,7 @@ class MovieFragment : BaseFragment(R.layout.fragment_movie), MovieContract.View 
             }
         }
 
-        search_bar.onClickAction = { keyword ->
+        binding.searchBar.onClickAction = { keyword ->
             search(keyword)
         }
         presenter.subscribe()
@@ -45,7 +45,7 @@ class MovieFragment : BaseFragment(R.layout.fragment_movie), MovieContract.View 
 
     override fun updateUi(keyword: String, movies: List<Movie>) {
         keyword.isNotBlank().then {
-            search_bar.keyword = keyword
+            binding.searchBar.keyword = keyword
 
             if (movies.isEmpty()) {
                 hideResultListView()
