@@ -4,7 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        
+        <import type="com.jay.architecturestudy.ui.BaseSearchContract.ViewType"
+            />
+
+        <variable
+            name="viewType"
+            type="com.jay.architecturestudy.ui.BaseSearchContract.ViewType"
+            />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +24,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -29,7 +36,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/list_item_kin"
-            tools:visibility="gone" />
+            tools:visibility="gone"
+            visible="@{viewType == ViewType.VIEW_SEARCH_NO_RESULT ? false : true}"
+            />
 
         <TextView
             android:id="@+id/empty_result_view"
@@ -42,7 +51,9 @@
             android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/search_bar"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:visibility="visible" />
+            tools:visibility="visible"
+            visible="@{viewType == ViewType.VIEW_SEARCH_NO_RESULT ? true : false}"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
