@@ -1,6 +1,6 @@
 package com.song2.myapplication.source.remote
 
-import com.song2.myapplication.source.MovieDataResponse
+import com.song2.myapplication.source.MovieData
 
 
 interface MovieRemoteDataSourceImpl {
@@ -8,7 +8,7 @@ interface MovieRemoteDataSourceImpl {
     fun getMovieData(
         keyword: String,
         display: Int,
-        onSuccess: (MovieDataResponse) -> Unit,
+        onSuccess: (List<MovieData>) -> Unit,
         onFailure: (Throwable) -> Unit
     )
 
