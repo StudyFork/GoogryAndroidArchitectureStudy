@@ -12,5 +12,5 @@ data class MovieModel(
     @ColumnInfo(name = "pubDate") var pubDate: String,
     @ColumnInfo(name = "director") var director: String,
     @ColumnInfo(name = "actor") var actor: String,
-    @ColumnInfo(name = "userRating") var userRating: String
+    @ColumnInfo(name = "userRating") var userRating: Float
 )

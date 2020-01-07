@@ -1,14 +1,13 @@
 package app.ch.study.data.remote.api
 
-import app.ch.study.data.db.entitiy.MovieModel
+import app.ch.study.data.remote.response.MovieResponse
 import io.reactivex.Single
-import okhttp3.ResponseBody
 import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface WebApi {
 
     @GET("/v1/search/movie.json")
-    fun searchMovie(@Path("query") query: String?): Single<List<MovieModel>>
+    fun searchMovie(@Query("query") query: String?): Single<MovieResponse>
 
 }
