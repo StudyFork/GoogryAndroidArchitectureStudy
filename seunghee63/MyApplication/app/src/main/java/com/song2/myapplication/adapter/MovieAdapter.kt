@@ -1,5 +1,6 @@
 package com.song2.myapplication.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +13,10 @@ class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
     private val data = ArrayList<MovieData>()
 
     fun setMovieList(newMovieList: List<MovieData>) {
+        Log.e("setMovieList 데이터1", newMovieList.toString())
         with(data) {
             clear()
+            Log.e("setMovieList 데이터", newMovieList.toString())
             addAll(newMovieList)
         }
         notifyDataSetChanged()

@@ -12,7 +12,6 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
             onSuccess = {
 
                 // TODO : 무한스크롤 예외처리
-                view.showMovieNotExist(it.count())
                 view.showGetMovieSuccess(it)
 
             },

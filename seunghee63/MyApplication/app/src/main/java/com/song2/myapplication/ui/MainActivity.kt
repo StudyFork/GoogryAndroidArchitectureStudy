@@ -23,14 +23,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private lateinit var imm: InputMethodManager
     private val movieRepository by lazy { MovieRepositoryImpl() }
     private val movieAdapter by lazy { MovieAdapter() }
-
-    private lateinit var presenter : MainContract.Presenter
+    private val presenter: MainContract.Presenter by lazy { MainPresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        presenter = MainPresenter(this)
 
         setKeyboardFunc()
         setMovieRecyclerView()
@@ -40,19 +37,18 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         }
     }
 
-    override fun showGetMovieFailure(e : Throwable) {
-        Log.e("통신 실패",e.toString())
+    override fun showGetMovieFailure(e: Throwable) {
+        Log.e("통신 실패", e.toString())
     }
 
-    override fun showMovieNotExist(cnt : Int) {
-        if (cnt == 0) {
+    override fun showGetMovieSuccess(movieDataList: List<MovieData>) {
+
+        if (movieDataList.count() == 0) {
             tv_main_act_movie_list.visibility = View.VISIBLE
         } else {
             tv_main_act_movie_list.visibility = View.GONE
         }
-    }
 
-    override fun showGetMovieSuccess(movieDataList: List<MovieData>) {
         imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(et_main_act_search.windowToken, 0)
 
@@ -81,7 +77,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     private fun addMovieData(keyword: String) {
-        //TODO : 이전 데이터에 이어서 추가로 데이터를 받아오는 방법에 대한 기능 구현
+        //TODO : 무한스크롤 - 이전 데이터에 이어서 추가로 데이터를 받아오는 방법에 대한 기능 구현
         movieRepository.getMovieData(keyword, 20,
             onSuccess = { movieAdapter.addItem(it) },
             onFailure = { Log.e("실패", it.toString()) }
