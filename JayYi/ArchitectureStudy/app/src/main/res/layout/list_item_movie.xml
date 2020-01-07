@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:text="@{movie.title}"
+            android:textFromHtml="@{movie.title}"
             app:layout_constraintStart_toEndOf="@+id/movie_poster"
             app:layout_constraintTop_toTopOf="@+id/movie_poster"
             tools:text="기생충" />
