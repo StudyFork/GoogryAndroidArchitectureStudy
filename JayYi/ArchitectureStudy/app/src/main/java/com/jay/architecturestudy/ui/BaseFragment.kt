@@ -18,6 +18,8 @@ abstract class BaseFragment<T: ViewDataBinding>(
 
     lateinit var binding: T
 
+    abstract var viewType: BaseSearchContract.ViewType
+
     val naverSearchRepository by lazy {
         NaverSearchRepositoryImpl(
             naverSearchRemoteDataSource = NaverSearchRemoteDataSourceImpl,

@@ -17,6 +17,13 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie
 
     private lateinit var movieAdapter: MovieAdapter
 
+    override var viewType: BaseSearchContract.ViewType = BaseSearchContract.ViewType.VIEW_SEARCH_BEFORE
+        set(value) {
+            if (field != value) {
+                binding.viewType = field
+            }
+        }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity?.let { activity ->
@@ -47,14 +54,16 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie
         keyword.isNotBlank().then {
             binding.searchBar.keyword = keyword
 
-            if (movies.isEmpty()) {
-                hideResultListView()
-                showEmptyResultView()
-            } else {
-                hideEmptyResultView()
-                showResultListView()
+            movies.isNotEmpty().then {
                 movieAdapter.setData(movies)
             }
+
+            viewType = when {
+                movies.isEmpty() -> BaseSearchContract.ViewType.VIEW_SEARCH_NO_RESULT
+                else -> BaseSearchContract.ViewType.VIEW_SEARCH_SUCCESS
+            }
+
+            binding.invalidateAll()
         }
     }
 
@@ -62,27 +71,18 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie
         presenter.search(keyword)
     }
 
-    override fun showEmptyResultView() {
-        empty_result_view.visibility = View.VISIBLE
-    }
-
-    override fun showResultListView() {
-        recycler_view.visibility = View.VISIBLE
-    }
-
-    override fun hideEmptyResultView() {
-        empty_result_view.visibility = View.GONE
-    }
-
-    override fun hideResultListView() {
-        recycler_view.visibility = View.GONE
-    }
-
     override fun updateResult(result: List<Movie>) {
+        viewType = when {
+            result.isEmpty() -> BaseSearchContract.ViewType.VIEW_SEARCH_NO_RESULT
+            else -> BaseSearchContract.ViewType.VIEW_SEARCH_SUCCESS
+        }
+
         if (result.isEmpty()) {
             movieAdapter.clear()
         } else {
             movieAdapter.setData(result)
         }
+
+        binding.invalidateAll()
     }
 }

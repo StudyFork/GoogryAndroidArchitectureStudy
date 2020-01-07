@@ -42,11 +42,7 @@ class ImagePresenter(
             .subscribe({ imageRepo ->
                 val images = imageRepo.images
                 if (images.isEmpty()) {
-                    view.hideResultListView()
-                    view.showEmptyResultView()
                 } else {
-                    view.hideEmptyResultView()
-                    view.showResultListView()
                 }
                 view.updateResult(images)
             }, { e ->

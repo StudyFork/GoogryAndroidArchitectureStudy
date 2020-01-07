@@ -16,6 +16,13 @@ class BlogFragment : BaseFragment<FragmentBlogBinding>(R.layout.fragment_blog), 
 
     private lateinit var blogAdapter: BlogAdapter
 
+    override var viewType: BaseSearchContract.ViewType = BaseSearchContract.ViewType.VIEW_SEARCH_BEFORE
+        set(value) {
+            if (field != value) {
+                binding.viewType = field
+            }
+        }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity?.let { activity ->
@@ -45,35 +52,19 @@ class BlogFragment : BaseFragment<FragmentBlogBinding>(R.layout.fragment_blog), 
 
     override fun updateUi(keyword: String, blogs: List<Blog>) {
         keyword.isNotBlank().then {
-            search_bar.keyword = keyword
-
-            if (blogs.isEmpty()) {
-                hideResultListView()
-                showEmptyResultView()
-            } else {
-                hideEmptyResultView()
-                showResultListView()
-                blogAdapter.setData(blogs)
-            }
             binding.searchBar.keyword = keyword
 
+            viewType = when {
+                blogs.isEmpty() -> BaseSearchContract.ViewType.VIEW_SEARCH_NO_RESULT
+                else -> BaseSearchContract.ViewType.VIEW_SEARCH_SUCCESS
+            }
+
+            blogs.isNotEmpty().then {
+                blogAdapter.setData(blogs)
+            }
+
+            binding.invalidateAll()
         }
-    }
-
-    override fun showEmptyResultView() {
-        empty_result_view.visibility = View.VISIBLE
-    }
-
-    override fun showResultListView() {
-        recycler_view.visibility = View.VISIBLE
-    }
-
-    override fun hideEmptyResultView() {
-        empty_result_view.visibility = View.GONE
-    }
-
-    override fun hideResultListView() {
-        recycler_view.visibility = View.GONE
     }
 
     override fun search(keyword: String) {
@@ -81,10 +72,17 @@ class BlogFragment : BaseFragment<FragmentBlogBinding>(R.layout.fragment_blog), 
     }
 
     override fun updateResult(result: List<Blog>) {
+        viewType = when {
+            result.isEmpty() -> BaseSearchContract.ViewType.VIEW_SEARCH_NO_RESULT
+            else -> BaseSearchContract.ViewType.VIEW_SEARCH_SUCCESS
+        }
+
         if (result.isEmpty()) {
             blogAdapter.clear()
         } else {
             blogAdapter.setData(result)
         }
+
+        binding.invalidateAll()
     }
 }

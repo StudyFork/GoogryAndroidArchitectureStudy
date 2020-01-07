@@ -18,6 +18,15 @@ class ImageFragment : BaseFragment<FragmentImageBinding>(R.layout.fragment_image
 
     private lateinit var imageAdapter: ImageAdapter
 
+    override var viewType: BaseSearchContract.ViewType =
+        BaseSearchContract.ViewType.VIEW_SEARCH_BEFORE
+        set(value) {
+            if (field != value) {
+                binding.viewType = field
+                binding.invalidateAll()
+            }
+        }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity?.let {
@@ -44,32 +53,17 @@ class ImageFragment : BaseFragment<FragmentImageBinding>(R.layout.fragment_image
         keyword.isNotBlank().then {
             binding.searchBar.keyword = keyword
 
+            viewType = when {
+                images.isEmpty() -> BaseSearchContract.ViewType.VIEW_SEARCH_NO_RESULT
+                else -> BaseSearchContract.ViewType.VIEW_SEARCH_SUCCESS
+            }
 
-            if (images.isEmpty()) {
-                hideResultListView()
-                showEmptyResultView()
-            } else {
-                hideEmptyResultView()
-                showResultListView()
+            images.isNotEmpty().then {
                 imageAdapter.setData(images)
             }
+
+            binding.invalidateAll()
         }
-    }
-
-    override fun showEmptyResultView() {
-        empty_result_view.visibility = View.VISIBLE
-    }
-
-    override fun showResultListView() {
-        recycler_view.visibility = View.VISIBLE
-    }
-
-    override fun hideEmptyResultView() {
-        empty_result_view.visibility = View.GONE
-    }
-
-    override fun hideResultListView() {
-        recycler_view.visibility = View.GONE
     }
 
     override fun search(keyword: String) {
@@ -77,10 +71,17 @@ class ImageFragment : BaseFragment<FragmentImageBinding>(R.layout.fragment_image
     }
 
     override fun updateResult(result: List<Image>) {
+        viewType = when {
+            result.isEmpty() -> BaseSearchContract.ViewType.VIEW_SEARCH_NO_RESULT
+            else -> BaseSearchContract.ViewType.VIEW_SEARCH_SUCCESS
+        }
+
         if (result.isEmpty()) {
             imageAdapter.clear()
         } else {
             imageAdapter.setData(result)
         }
+
+        binding.invalidateAll()
     }
 }

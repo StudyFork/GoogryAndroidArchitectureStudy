@@ -17,6 +17,14 @@ class KinFragment : BaseFragment<FragmentKinBinding>(R.layout.fragment_kin), Kin
 
     private lateinit var kinAdapter: KinAdapter
 
+    override var viewType: BaseSearchContract.ViewType = BaseSearchContract.ViewType.VIEW_SEARCH_BEFORE
+        set(value) {
+            if (field != value) {
+                binding.viewType = field
+                binding.invalidateAll()
+            }
+        }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity?.let { activity ->
@@ -48,31 +56,17 @@ class KinFragment : BaseFragment<FragmentKinBinding>(R.layout.fragment_kin), Kin
         keyword.isNotBlank().then {
             binding.searchBar.keyword = keyword
 
-            if (kins.isEmpty()) {
-                hideResultListView()
-                showEmptyResultView()
-            } else {
-                hideEmptyResultView()
-                showResultListView()
+            kins.isNotEmpty().then {
                 kinAdapter.setData(kins)
             }
+
+            viewType = when {
+                kins.isEmpty() -> BaseSearchContract.ViewType.VIEW_SEARCH_NO_RESULT
+                else -> BaseSearchContract.ViewType.VIEW_SEARCH_SUCCESS
+            }
+
+            binding.invalidateAll()
         }
-    }
-
-    override fun showEmptyResultView() {
-        empty_result_view.visibility = View.VISIBLE
-    }
-
-    override fun showResultListView() {
-        recycler_view.visibility = View.VISIBLE
-    }
-
-    override fun hideEmptyResultView() {
-        empty_result_view.visibility = View.GONE
-    }
-
-    override fun hideResultListView() {
-        recycler_view.visibility = View.GONE
     }
 
     override fun search(keyword: String) {
@@ -80,10 +74,17 @@ class KinFragment : BaseFragment<FragmentKinBinding>(R.layout.fragment_kin), Kin
     }
 
     override fun updateResult(result: List<Kin>) {
+        viewType = when {
+            result.isEmpty() -> BaseSearchContract.ViewType.VIEW_SEARCH_NO_RESULT
+            else -> BaseSearchContract.ViewType.VIEW_SEARCH_SUCCESS
+        }
+
         if (result.isEmpty()) {
             kinAdapter.clear()
         } else {
             kinAdapter.setData(result)
         }
+
+        binding.invalidateAll()
     }
 }

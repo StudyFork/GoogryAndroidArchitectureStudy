@@ -42,11 +42,7 @@ class KinPresenter(
             .subscribe({ kinRepo ->
                 val kins = kinRepo.kins
                 if (kins.isEmpty()) {
-                    view.hideResultListView()
-                    view.showEmptyResultView()
                 } else {
-                    view.hideEmptyResultView()
-                    view.showResultListView()
                 }
                 view.updateResult(kins)
             }, { e ->
