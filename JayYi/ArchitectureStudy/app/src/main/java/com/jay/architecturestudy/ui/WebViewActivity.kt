@@ -1,6 +1,7 @@
 package com.jay.architecturestudy.ui
 
 import android.os.Bundle
+import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.jay.architecturestudy.R
@@ -20,10 +21,20 @@ class WebViewActivity : AppCompatActivity() {
                 return
             }
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_web_view)
-        binding.url = url
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_web_view)
+        binding.webView.run {
+            webViewClient = WebViewClient()
+            settings.run {
+                displayZoomControls = true
+                useWideViewPort = true
+                javaScriptEnabled = true
+                domStorageEnabled = true
+            }
+        }
+        binding.url = url
+        binding.invalidateAll()
     }
 
     override fun onSupportNavigateUp(): Boolean {
