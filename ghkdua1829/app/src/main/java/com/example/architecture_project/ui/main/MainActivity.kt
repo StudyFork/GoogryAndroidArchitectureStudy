@@ -1,4 +1,4 @@
-package com.example.architecture_project.feature.search
+package com.example.architecture_project.ui.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,14 +10,17 @@ import com.example.architecture_project.`object`.ObjectCollection.URL
 import com.example.architecture_project.data.model.NaverApi
 import com.example.architecture_project.data.repository.NaverRepository
 import com.example.architecture_project.feature.movie.MovieAdapter
+import com.example.architecture_project.feature.search.WebviewActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), MainContract.View {
+class MainActivity : AppCompatActivity(),
+    MainContract.View {
 
     private lateinit var movieRecyclerView: RecyclerView   //수정완료
     private lateinit var movieAdapter: MovieAdapter
     private lateinit var naverRepository: NaverRepository
-    val presenter: MainContract.Presenter = MainPresenter(this)
+    val presenter: MainContract.Presenter =
+        MainPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +58,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         Toast.makeText(this, "유효하지 않는 키워드입니다.", Toast.LENGTH_SHORT).show()
     }
 
-    override fun showResult(data:NaverApi) {
+    override fun showResult(data: NaverApi) {
         movieAdapter.setMovieItemList(data.item)
     }
 
