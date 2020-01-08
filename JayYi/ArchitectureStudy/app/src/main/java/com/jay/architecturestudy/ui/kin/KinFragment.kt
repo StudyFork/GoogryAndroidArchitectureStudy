@@ -1,6 +1,7 @@
 package com.jay.architecturestudy.ui.kin
 
 import android.os.Bundle
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Kin
 import com.jay.architecturestudy.databinding.FragmentKinBinding
@@ -22,15 +23,24 @@ class KinFragment : BaseFragment<FragmentKinBinding>(R.layout.fragment_kin), Kin
             if (field != value) {
                 field = value
                 binding.viewType = value
-                binding.invalidateAll()
+                binding.executePendingBindings()
             }
         }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        kinAdapter = KinAdapter()
-        binding.recyclerView.adapter = kinAdapter
+        activity?.let { activity ->
+            kinAdapter = KinAdapter()
+            binding.recyclerView.run {
+                adapter = kinAdapter
+                addItemDecoration(
+                    DividerItemDecoration(
+                        activity,
+                        DividerItemDecoration.VERTICAL
+                    )
+                )
+            }
+        }
 
         binding.searchBar.onClickAction = { keyword ->
             search(keyword)
@@ -57,7 +67,7 @@ class KinFragment : BaseFragment<FragmentKinBinding>(R.layout.fragment_kin), Kin
                 else -> BaseSearchContract.ViewType.VIEW_SEARCH_SUCCESS
             }
 
-            binding.invalidateAll()
+            binding.executePendingBindings()
         }
     }
 

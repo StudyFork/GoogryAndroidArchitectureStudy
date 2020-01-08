@@ -1,6 +1,7 @@
 package com.jay.architecturestudy.ui.movie
 
 import android.os.Bundle
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Movie
 import com.jay.architecturestudy.databinding.FragmentMovieBinding
@@ -29,9 +30,18 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        movieAdapter = MovieAdapter()
-        binding.recyclerView.adapter = movieAdapter
+        activity?.let { activity ->
+            movieAdapter = MovieAdapter()
+            binding.recyclerView.run {
+                adapter = movieAdapter
+                addItemDecoration(
+                    DividerItemDecoration(
+                        activity,
+                        DividerItemDecoration.VERTICAL
+                    )
+                )
+            }
+        }
 
         binding.searchBar.onClickAction = { keyword ->
             search(keyword)

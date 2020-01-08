@@ -1,6 +1,7 @@
 package com.jay.architecturestudy.ui.blog
 
 import android.os.Bundle
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Blog
 import com.jay.architecturestudy.databinding.FragmentBlogBinding
@@ -27,9 +28,18 @@ class BlogFragment : BaseFragment<FragmentBlogBinding>(R.layout.fragment_blog), 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        blogAdapter = BlogAdapter()
-        binding.recyclerView.adapter = blogAdapter
+        activity?.let { activity ->
+            blogAdapter = BlogAdapter()
+            binding.recyclerView.run {
+                adapter = blogAdapter
+                addItemDecoration(
+                    DividerItemDecoration(
+                        activity,
+                        DividerItemDecoration.VERTICAL
+                    )
+                )
+            }
+        }
 
         binding.searchBar.onClickAction = { keyword ->
             search(keyword)

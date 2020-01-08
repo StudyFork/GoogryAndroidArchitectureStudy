@@ -38,7 +38,6 @@
             app:layout_constraintTop_toBottomOf="@+id/search_bar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:divider_item_decoration="@{DividerItemDecoration.VERTICAL}"
             tools:listitem="@layout/list_item_blog"
             tools:visibility="gone"
             visible="@{viewType == ViewType.VIEW_SEARCH_NO_RESULT ? false : true}"
