@@ -70,8 +70,12 @@ class MainActivity : AppCompatActivity() {
         binding.main.bottomNavigation.setOnNavigationItemSelectedListener(
             navigationItemSelectedListener
         )
-        binding.main.viewPager.adapter = pagerAdapter
-        binding.main.viewPager.addOnPageChangeListener(pageChangeListener)
+        
+        binding.main.viewPager.run {
+            adapter = pagerAdapter
+            addOnPageChangeListener(pageChangeListener)
+        }
+
     }
 
     private fun setPageWithIndex(index: Int) {
