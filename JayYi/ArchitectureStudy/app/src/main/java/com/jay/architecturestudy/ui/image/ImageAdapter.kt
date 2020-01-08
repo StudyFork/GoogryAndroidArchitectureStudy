@@ -15,9 +15,8 @@ import com.jay.architecturestudy.util.startWebView
 internal class ImageAdapter : BaseAdapter<Image, ImageHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
-        val binding = DataBindingUtil.inflate<ListItemImageBinding>(
+        val binding = ListItemImageBinding.inflate(
             LayoutInflater.from(parent.context),
-            R.layout.list_item_image,
             parent,
             false
         )

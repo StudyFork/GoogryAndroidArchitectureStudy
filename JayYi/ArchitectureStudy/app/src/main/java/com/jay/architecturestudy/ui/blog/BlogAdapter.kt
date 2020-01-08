@@ -16,9 +16,8 @@ import com.jay.architecturestudy.util.startWebView
 internal class BlogAdapter : BaseAdapter<Blog, BlogHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogHolder {
-        val binding = DataBindingUtil.inflate<ListItemBlogBinding>(
+        val binding = ListItemBlogBinding.inflate(
             LayoutInflater.from(parent.context),
-            R.layout.list_item_blog,
             parent,
             false
         )

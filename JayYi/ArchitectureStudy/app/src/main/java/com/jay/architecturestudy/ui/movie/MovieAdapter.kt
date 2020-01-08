@@ -15,9 +15,8 @@ import com.jay.architecturestudy.util.startWebView
 internal class MovieAdapter : BaseAdapter<Movie, MovieHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
-        val binding = DataBindingUtil.inflate<ListItemMovieBinding>(
+        val binding = ListItemMovieBinding.inflate(
             LayoutInflater.from(parent.context),
-            R.layout.list_item_movie,
             parent,
             false
         )

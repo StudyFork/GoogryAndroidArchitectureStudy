@@ -15,9 +15,8 @@ import com.jay.architecturestudy.util.startWebView
 internal class KinAdapter : BaseAdapter<Kin, KinHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KinHolder {
-        val binding = DataBindingUtil.inflate<ListItemKinBinding>(
+        val binding = ListItemKinBinding.inflate(
             LayoutInflater.from(parent.context),
-            R.layout.list_item_kin,
             parent,
             false
         )
