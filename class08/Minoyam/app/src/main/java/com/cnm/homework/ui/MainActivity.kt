@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         bt_movie_search.setOnClickListener {
 
             et_movie_search.hideKeyboard()
-            if (et_movie_search.text.toString() != "") {
+            if (et_movie_search.text.toString().isNotEmpty()) {
                 val query = et_movie_search.text.toString()
                 movieListSearch(query)
             } else {
@@ -48,18 +48,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         disposable.clear()
+        super.onDestroy()
     }
 
 
     private fun movieListSearch(query: String) {
 
         disposable.add(NetworkHelper.naverApi.getNaverMovie(query)
-            .compose {
-                it.subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-            }.doOnSubscribe {
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe {
                 showProgress()
             }
             .doAfterTerminate {
