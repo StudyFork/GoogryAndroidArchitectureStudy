@@ -27,8 +27,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:onClick="@{(v) -> clickEvent.onClick(v, url)}">
+        android:onClick="@{(v) -> clickEvent.onClick(v, url)}"
+        >
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"

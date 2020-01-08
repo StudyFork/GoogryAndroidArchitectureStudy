@@ -26,8 +26,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:clickable="true"
-        android:onClick="@{(v) -> clickEvent.onClick(v, url)}">
+        android:onClick="@{(v) -> clickEvent.onClick(v, url)}"
+        >
 
         <TextView
             android:id="@+id/kin_title"
