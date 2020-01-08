@@ -10,14 +10,15 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
 
         movieRepository.getMovieData(keyword, 20,
             onSuccess = {
+
                 // TODO : 무한스크롤 예외처리
-                if (it.count() == 0) {
-                    view.showMovieNotExist()
-                } else {
-                    view.shoeGetMovieSuccess()
-                }
+                view.showMovieNotExist(it.count())
+                view.showGetMovieSuccess(it)
+
             },
-            onFailure = {}
+            onFailure = {
+                view.showGetMovieFailure(it)
+            }
         )
     }
 }

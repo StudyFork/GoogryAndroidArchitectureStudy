@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.song2.myapplication.R
 import com.song2.myapplication.adapter.MovieAdapter
+import com.song2.myapplication.source.MovieData
 import com.song2.myapplication.source.MovieRepositoryImpl
 import kotlinx.android.synthetic.main.activity_main.*
-
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(), MainContract.View {
@@ -32,24 +32,34 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         presenter = MainPresenter(this)
 
-
         setKeyboardFunc()
         setMovieRecyclerView()
 
         btn_main_act_search_btn.setOnClickListener {
-            getMovieData(et_main_act_search.text.toString())
+            presenter.getMovie(btn_main_act_search_btn.text.toString())
         }
     }
 
-    override fun shoeGetMovieSuccess() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showGetMovieFailure(e : Throwable) {
+        Log.e("통신 실패",e.toString())
     }
 
-    override fun showMovieNotExist() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showMovieNotExist(cnt : Int) {
+        if (cnt == 0) {
+            tv_main_act_movie_list.visibility = View.VISIBLE
+        } else {
+            tv_main_act_movie_list.visibility = View.GONE
+        }
     }
 
-    override fun showGetMoreData() {
+    override fun showGetMovieSuccess(movieDataList: List<MovieData>) {
+        imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(et_main_act_search.windowToken, 0)
+
+        movieAdapter.setMovieList(movieDataList)
+    }
+
+    override fun showGetMoreData(movieDataList: List<MovieData>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -70,20 +80,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     }
 
-    private fun getMovieData(keyword: String) {
-
-        imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(et_main_act_search.windowToken, 0)
-
-        movieRepository.getMovieData(keyword, 20,
-            onSuccess = {
-                setNoResult(it.count())
-                movieAdapter.setMovieList(it)
-            },
-            onFailure = { Log.e("실패", it.toString()) }
-        )
-    }
-
     private fun addMovieData(keyword: String) {
         //TODO : 이전 데이터에 이어서 추가로 데이터를 받아오는 방법에 대한 기능 구현
         movieRepository.getMovieData(keyword, 20,
@@ -92,21 +88,13 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         )
     }
 
-    private fun setNoResult(cnt: Int) {
-        if (cnt == 0) {
-            tv_main_act_movie_list.visibility = View.VISIBLE
-        } else {
-            tv_main_act_movie_list.visibility = View.GONE
-        }
-    }
-
     private fun setKeyboardFunc() {
 
         et_main_act_search.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
                 when (actionId) {
                     EditorInfo.IME_ACTION_SEARCH -> {
-                        getMovieData(et_main_act_search.text.toString())
+                        presenter.getMovie(et_main_act_search.text.toString())
                     }
                     else ->
                         return false
