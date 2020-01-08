@@ -11,7 +11,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="10dp">
 
-        <com.example.studyapplication.custom.view.CustomEditTextView
+        <EditText
             android:id="@+id/etQuery"
             android:layout_width="0dp"
             android:layout_height="match_parent"

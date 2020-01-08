@@ -11,12 +11,12 @@ object Remote {
                 if (response.isSuccessful) {
                     callback.success(response.body())
                 } else {
-                    callback.failed()
+                    callback.failed(Throwable(response.message()))
                 }
             }
 
             override fun onFailure(call: Call<T>, t: Throwable) {
-                callback.failed()
+                callback.failed(t)
             }
         })
     }
