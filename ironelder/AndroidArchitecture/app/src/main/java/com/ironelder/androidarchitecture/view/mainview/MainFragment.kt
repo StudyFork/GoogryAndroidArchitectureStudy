@@ -34,17 +34,7 @@ class MainFragment :
     override fun doActivityCreated(savedInstanceState: Bundle?) {
         binding.mainViewModel =
             ViewModelProviders.of(this@MainFragment)[MainViewModel::class.java].apply {
-                searchQuery.observe(this@MainFragment, Observer {
-                    searchWithAdapter(
-                        mType ?: BLOG,
-                        it,
-                        SearchResultDatabase.getInstance(
-                            context?.applicationContext
-                                ?: (activity as Context).applicationContext
-                        )
-                    )
-                })
-                notifyErrorMessage.observe(this@MainFragment, Observer {
+                notifyErrorMessage.observe(viewLifecycleOwner, Observer {
                     if (!it.isNullOrEmpty()) {
                         Toast.makeText(context, it, Toast.LENGTH_LONG)
                             .show()
@@ -86,6 +76,13 @@ class MainFragment :
             override fun onQueryTextSubmit(query: String?): Boolean {
                 binding.mainViewModel?.apply {
                     searchQuery.value = query ?: ""
+                    searchWithAdapter(
+                        mType ?: BLOG,
+                        SearchResultDatabase.getInstance(
+                            context?.applicationContext
+                                ?: (activity as Context).applicationContext
+                        )
+                    )
                 }
                 searchView.clearFocus()
                 return false

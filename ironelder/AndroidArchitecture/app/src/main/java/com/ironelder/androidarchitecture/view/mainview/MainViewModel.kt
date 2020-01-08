@@ -19,13 +19,12 @@ class MainViewModel : BaseViewModel() {
     val searchQuery = MutableLiveData<String>()
     val searchResultList = MutableLiveData<List<ResultItem>>()
 
-
     fun searchWithAdapter(
-        type: String, query: String?, searchResultDatabase: SearchResultDatabase?
+        type: String, searchResultDatabase: SearchResultDatabase?
     ) {
         SearchDataRepositoryImpl.getRemoteSearchData(
             type,
-            query,
+            searchQuery.value,
             searchResultDatabase
         )
             .subscribeOn(Schedulers.io())
