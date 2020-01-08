@@ -2,7 +2,7 @@ package com.practice.achitecture.myproject.data.source
 
 import com.practice.achitecture.myproject.data.source.local.NaverLocalDataSourceImpl
 import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSourceImpl
-import com.practice.achitecture.myproject.enum.SearchType
+import com.practice.achitecture.myproject.enums.SearchType
 import com.practice.achitecture.myproject.model.SearchedItem
 
 class NaverRepository(
@@ -27,7 +27,7 @@ class NaverRepository(
             word,
             object : NaverDataSource.GettingResultOfSearchingCallback {
                 override fun onSuccess(items: List<SearchedItem>) {
-                    naverLocalDataSource.setCache(searchType, items) // 카테고리별 마지막 검색 캐시 저장
+                    naverLocalDataSource.setCache(searchType, word, items) // 카테고리별 마지막 검색 캐시 저장
                     naverLocalDataSource.saveSearchedListInRoom(searchType, word, items) // 검색 기록 저장
                     callback.onSuccess(items)
                 }
@@ -43,7 +43,7 @@ class NaverRepository(
         return naverLocalDataSource.getLastSearchType()
     }
 
-    fun getCache(searchType: SearchType): List<SearchedItem> {
+    fun getCache(searchType: SearchType): String {
         return naverLocalDataSource.getCache(searchType)
     }
 

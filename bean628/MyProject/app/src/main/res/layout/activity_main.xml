@@ -5,6 +5,11 @@
 
     <data>
 
+        <import type="com.practice.achitecture.myproject.enums.SearchType" />
+
+        <variable
+            name="viewModel"
+            type="com.practice.achitecture.myproject.main.MainViewModel" />
     </data>
 
     <FrameLayout
@@ -31,13 +36,16 @@
                     android:hint="@string/input_search_hint"
                     android:imeOptions="actionSearch"
                     android:importantForAutofill="no"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:onEditorAction="@{(view,actionId,event)-> viewModel.onEditorAction(view,actionId,event)}"
+                    android:text="@={viewModel.query}" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_search"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/btn_search_background"
+                    android:onClick="@{()-> viewModel.search()}"
                     android:text="@string/btn_search"
                     android:textColor="@color/btn_text_white"
                     android:textSize="16dp"
@@ -48,6 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
+                    android:onClick="@{()->viewModel.goToHistoryActivity()}"
                     android:text="@string/btn_history"
                     android:textColor="@color/btn_text_white"
                     android:textSize="16dp"
@@ -77,6 +86,7 @@
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:background="#FF6E40"
+                    android:onClick="@{()-> viewModel.search(SearchType.MOVIE)}"
                     android:text="@string/btn_movie"
                     android:textColor="@color/btn_text_white"
                     android:textSize="16dp"
@@ -89,6 +99,7 @@
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:background="#FF6E40"
+                    android:onClick="@{()-> viewModel.search(SearchType.BOOK)}"
                     android:text="@string/btn_book"
                     android:textColor="@color/btn_text_white"
                     android:textSize="16dp"
@@ -101,6 +112,7 @@
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:background="@color/bottom_menu_background"
+                    android:onClick="@{()-> viewModel.search(SearchType.BLOG)}"
                     android:text="@string/btn_blog"
                     android:textColor="@color/btn_text_white"
                     android:textSize="16dp"
@@ -112,6 +124,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#FF6E40"
+                    android:onClick="@{()-> viewModel.search(SearchType.NEWS)}"
                     android:text="@string/btn_news"
                     android:textColor="@color/btn_text_white"
                     android:textSize="16dp"
