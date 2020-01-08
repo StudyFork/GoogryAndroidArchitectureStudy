@@ -10,17 +10,21 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.model.MovieResult
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieRecyclerViewAdpater(val itemClick: (movieDetail: String) -> Unit): RecyclerView.Adapter<MovieRecyclerViewAdpater.MovieViewHolder>() {
+class MovieRecyclerViewAdpater(val itemClick: (movieDetail: String) -> Unit) :
+    RecyclerView.Adapter<MovieRecyclerViewAdpater.MovieViewHolder>() {
 
     private val results = mutableListOf<MovieResult.Item>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieRecyclerViewAdpater.MovieViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): MovieRecyclerViewAdpater.MovieViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_movie, parent, false)
         return MovieViewHolder(view)
     }
 
-    inner class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(item: MovieResult.Item) {
             with(itemView)
@@ -45,8 +49,7 @@ class MovieRecyclerViewAdpater(val itemClick: (movieDetail: String) -> Unit): Re
         holder.bind(element)
     }
 
-    fun setItems(items: List<MovieResult.Item>)
-    {
+    fun setItems(items: List<MovieResult.Item>) {
         results.clear()
         results.addAll(items)
         notifyDataSetChanged()

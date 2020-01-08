@@ -11,15 +11,14 @@ object ApiClient {
     val TIMEOUT: Long = 15
 
     private val okHttpClient: OkHttpClient
-    get()
-    {
-        val httpLoggingInterceptor = HttpLoggingInterceptor()
-        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        return OkHttpClient().newBuilder()
-            .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
-            .addInterceptor(httpLoggingInterceptor)
-            .build()
-    }
+        get() {
+            val httpLoggingInterceptor = HttpLoggingInterceptor()
+            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+            return OkHttpClient().newBuilder()
+                .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
+                .addInterceptor(httpLoggingInterceptor)
+                .build()
+        }
 
     private val retrofit =
         Retrofit.Builder()

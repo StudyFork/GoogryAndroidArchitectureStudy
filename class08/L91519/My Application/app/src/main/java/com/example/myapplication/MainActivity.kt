@@ -17,8 +17,10 @@ class MainActivity : AppCompatActivity() {
     val clientId = "iUus1XfFW9mDHFp7chUz"
     val cliendPw = "rJ_ZOUhfVD"
     val adapter = MovieRecyclerViewAdpater() { link ->
-        startActivity(Intent(applicationContext, MovieDatailActivity::class.java)
-            .putExtra("link", link))
+        startActivity(
+            Intent(applicationContext, MovieDatailActivity::class.java)
+                .putExtra("link", link)
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,10 +36,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun findMovie(query: String)
-    {
-        ApiClient.getService().searchMovie(query).enqueue(object: Callback<MovieResult>
-        {
+    private fun findMovie(query: String) {
+        ApiClient.getService().searchMovie(query).enqueue(object : Callback<MovieResult> {
             override fun onFailure(call: Call<MovieResult>, t: Throwable) {
                 print("fail")
             }
