@@ -1,7 +1,8 @@
 package com.example.archstudy
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
@@ -19,8 +20,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var edtQuery: EditText
     private lateinit var btnSearch: Button
     private lateinit var rvMovieList: RecyclerView
+    private lateinit var rvMovieAdapter: MovieListAdapter
     private var movieData : List<Item> = emptyList()
-    private var query = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             hideKeyboard()
             disableButton()
             // 검색 버튼 클릭 시
-            query = edtQuery.text.toString()
+            var query = edtQuery.text.toString()
             if (query.isEmpty()) {
                 showToast("검색어를 다시 입력해주세요.")
             } else {
@@ -47,6 +48,7 @@ class MainActivity : AppCompatActivity() {
             clearQuery()
             activateButton()
         }
+
     }
 
     private fun initView() {
@@ -56,7 +58,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun refreshRecycler(data : List<Item>) {
-        rvMovieList.adapter = MovieListAdapter(data)
+        rvMovieAdapter = MovieListAdapter(data,object : MovieListAdapter.ItemClickListener {
+            override fun onItemClick(url: String) {
+                startActivity(Intent(Intent.ACTION_VIEW,Uri.parse(url)))
+            }
+        })
+
+        rvMovieList.adapter = rvMovieAdapter
     }
 
     private fun requestMovieList(query: String) {
@@ -79,10 +87,13 @@ class MainActivity : AppCompatActivity() {
                         response: Response<Movie>
                     ) {
 
-                        if (response.isSuccessful) {
-                            movieData = response.body()!!.items
-                            refreshRecycler(movieData)
+                        with(response) {
+                            if (isSuccessful && body() != null) {
+                                movieData = body()!!.items
+                                refreshRecycler(movieData)
+                            }
                         }
+
                     }
                 })
         }
@@ -100,12 +111,12 @@ class MainActivity : AppCompatActivity() {
         btnSearch.isClickable = false
     }
 
-    private fun clearQuery(){
+    private fun clearQuery() {
         edtQuery.text.clear()
     }
 
-    private fun hideKeyboard(){
+    private fun hideKeyboard() {
         val inputManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        inputManager.hideSoftInputFromWindow(edtQuery.windowToken,0)
+        inputManager.hideSoftInputFromWindow(edtQuery.windowToken, 0)
     }
 }

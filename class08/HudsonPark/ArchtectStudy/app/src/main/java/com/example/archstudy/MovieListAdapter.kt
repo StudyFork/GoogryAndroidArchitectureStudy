@@ -1,8 +1,5 @@
 package com.example.archstudy
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,25 +11,24 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class MovieListAdapter(private var movieList: List<Item>) :
+class MovieListAdapter(private var movieList: List<Item>, private var listener: ItemClickListener) :
     RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
 
-    private lateinit var context : Context
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        this.context = parent.context
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
-        return ViewHolder(view,context)
+        return ViewHolder(view)
     }
 
     override fun getItemCount(): Int = movieList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.bind(movieList[position])
+        with(holder) {
+            bind(movieList[position],listener)
+        }
     }
 
-    class ViewHolder(itemView: View, private val context : Context) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val layoutItem = itemView.findViewById<ConstraintLayout>(R.id.layoutItem)
         private val ivThumbnail = itemView.findViewById<ImageView>(R.id.ivThumbNail)
@@ -41,9 +37,8 @@ class MovieListAdapter(private var movieList: List<Item>) :
         private val tvReleaseYear = itemView.findViewById<TextView>(R.id.tvReleaseYear)
         private val tvDirector = itemView.findViewById<TextView>(R.id.tvDirector)
         private val tvActors = itemView.findViewById<TextView>(R.id.tvActors)
-        private var clickPosition = -1
 
-        fun bind(data: Item) {
+        fun bind(data: Item, listener: ItemClickListener) {
 
             with(data) {
                 Log.d("img", "image : $image, title : $title")
@@ -54,14 +49,13 @@ class MovieListAdapter(private var movieList: List<Item>) :
                 setDirector(director)
                 setActors(actor)
 
+                // 아이템 클릭 시 호출될 커스텀 리스너 정의
                 layoutItem.setOnClickListener {
-                    clickPosition = adapterPosition
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
-                    context.startActivity(intent)
+                    listener.onItemClick(link)
                 }
             }
-        }
 
+        }
 
         private fun setTitle(title: String) {
             tvTitle.text = title
@@ -77,12 +71,22 @@ class MovieListAdapter(private var movieList: List<Item>) :
 
         private fun loadImage(image: String) {
 
-            if (image != null && image.trim().isNotEmpty()) {
-                Glide.with(itemView.context).load(image).override(600, 1000).into(ivThumbnail)
+            if (image.trim().isNotEmpty()) {
+                Glide.with(itemView.context)
+                    .load(image)
+                    .override(600, 1000)
+                    .into(ivThumbnail)
             } else {
-                Glide.with(itemView.context).load(R.drawable.no_image).override(600, 1000)
+                Glide.with(itemView.context)
+                    .load(R.drawable.no_image)
+                    .override(600, 1000)
                     .into(ivThumbnail)
             }
         }
     }
+
+    interface ItemClickListener {
+        fun onItemClick(url: String)
+    }
+
 }
