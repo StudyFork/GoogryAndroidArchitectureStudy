@@ -29,7 +29,9 @@ class MainFragment :
     }
 
     override fun doViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.lifecycleOwner = this@MainFragment
+    }
+
+    override fun doActivityCreated(savedInstanceState: Bundle?) {
         binding.mainViewModel =
             ViewModelProviders.of(this@MainFragment)[MainViewModel::class.java].apply {
                 searchQuery.observe(this@MainFragment, Observer {

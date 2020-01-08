@@ -34,11 +34,18 @@ abstract class BaseFragment<BINDING : ViewDataBinding>(
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         doViewCreated(view, savedInstanceState)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        binding.lifecycleOwner = viewLifecycleOwner
+        doActivityCreated(savedInstanceState)
         doLoadFromDatabase()
     }
 
     abstract fun doCreateOptionsMenu(menu: Menu, inflater: MenuInflater)
     abstract fun doViewCreated(view: View, savedInstanceState: Bundle?)
+    abstract fun doActivityCreated(savedInstanceState: Bundle?)
     abstract fun doLoadFromDatabase()
 
 }
