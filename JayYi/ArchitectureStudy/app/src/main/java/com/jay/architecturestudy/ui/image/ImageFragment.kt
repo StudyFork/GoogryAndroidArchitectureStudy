@@ -28,12 +28,9 @@ class ImageFragment : BaseFragment<FragmentImageBinding>(R.layout.fragment_image
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        activity?.let {
-            imageAdapter = ImageAdapter()
-            binding.recyclerView.run {
-                adapter = imageAdapter
-            }
-        }
+
+        imageAdapter = ImageAdapter()
+        binding.recyclerView.adapter = imageAdapter
 
         binding.searchBar.onClickAction = { keyword ->
             search(keyword)

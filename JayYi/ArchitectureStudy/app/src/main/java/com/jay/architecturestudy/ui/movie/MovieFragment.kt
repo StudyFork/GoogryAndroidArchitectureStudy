@@ -29,12 +29,9 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        activity?.let { activity ->
-            movieAdapter = MovieAdapter()
-            binding.recyclerView.run {
-                adapter = movieAdapter
-            }
-        }
+
+        movieAdapter = MovieAdapter()
+        binding.recyclerView.adapter = movieAdapter
 
         binding.searchBar.onClickAction = { keyword ->
             search(keyword)

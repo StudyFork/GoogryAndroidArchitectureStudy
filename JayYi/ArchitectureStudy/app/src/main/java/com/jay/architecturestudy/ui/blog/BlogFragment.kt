@@ -27,12 +27,9 @@ class BlogFragment : BaseFragment<FragmentBlogBinding>(R.layout.fragment_blog), 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        activity?.let { activity ->
-            blogAdapter = BlogAdapter()
-            binding.recyclerView.run {
-                adapter = blogAdapter
-            }
-        }
+
+        blogAdapter = BlogAdapter()
+        binding.recyclerView.adapter = blogAdapter
 
         binding.searchBar.onClickAction = { keyword ->
             search(keyword)

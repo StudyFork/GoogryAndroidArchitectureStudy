@@ -28,12 +28,9 @@ class KinFragment : BaseFragment<FragmentKinBinding>(R.layout.fragment_kin), Kin
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        activity?.let { activity ->
-            kinAdapter = KinAdapter()
-            binding.recyclerView.run {
-                adapter = kinAdapter
-            }
-        }
+
+        kinAdapter = KinAdapter()
+        binding.recyclerView.adapter = kinAdapter
 
         binding.searchBar.onClickAction = { keyword ->
             search(keyword)
