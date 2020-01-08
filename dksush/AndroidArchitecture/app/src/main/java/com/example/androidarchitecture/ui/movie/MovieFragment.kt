@@ -10,14 +10,14 @@ import com.example.androidarchitecture.R
 import com.example.androidarchitecture.common.toast
 import com.example.androidarchitecture.data.response.MovieData
 import com.example.androidarchitecture.databinding.FragmentMovieBinding
-import com.example.androidarchitecture.ui.base.BaseSearchFragment
+import com.example.androidarchitecture.ui.base.BaseFragment
 import com.example.androidarchitecture.ui.base.ItemContract
 import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass.
  */
-class MovieFragment : BaseSearchFragment<FragmentMovieBinding>(R.layout.fragment_movie),
+class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie),
     ItemContract.View<MovieData> {
 
     private lateinit var movieAdapter: MovieAdapter

@@ -10,14 +10,14 @@ import com.example.androidarchitecture.R
 import com.example.androidarchitecture.common.toast
 import com.example.androidarchitecture.data.response.ImageData
 import com.example.androidarchitecture.databinding.FragmentImageBinding
-import com.example.androidarchitecture.ui.base.BaseSearchFragment
+import com.example.androidarchitecture.ui.base.BaseFragment
 import com.example.androidarchitecture.ui.base.ItemContract
 import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass.
  */
-class ImageFragment : BaseSearchFragment<FragmentImageBinding>(R.layout.fragment_image),
+class ImageFragment : BaseFragment<FragmentImageBinding>(R.layout.fragment_image),
     ItemContract.View<ImageData> {
 
 

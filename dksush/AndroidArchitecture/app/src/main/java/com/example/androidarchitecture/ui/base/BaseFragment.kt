@@ -11,7 +11,7 @@ import com.example.androidarchitecture.data.datasource.local.NaverLocalDataSourc
 import com.example.androidarchitecture.data.datasource.remote.NaverRemoteDs
 import com.example.androidarchitecture.data.repository.NaverRepoImpl
 
-abstract class BaseSearchFragment<B : ViewDataBinding>(private val layoutId: Int) : Fragment() {
+abstract class BaseFragment<B : ViewDataBinding>(private val layoutId: Int) : Fragment() {
 
 
     protected lateinit var binding: B

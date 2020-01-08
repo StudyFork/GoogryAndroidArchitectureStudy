@@ -10,13 +10,13 @@ import com.example.androidarchitecture.R
 import com.example.androidarchitecture.common.toast
 import com.example.androidarchitecture.data.response.BlogData
 import com.example.androidarchitecture.databinding.FragmentBlogBinding
-import com.example.androidarchitecture.ui.base.BaseSearchFragment
+import com.example.androidarchitecture.ui.base.BaseFragment
 import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass.
  */
-class BlogFragment : BaseSearchFragment<FragmentBlogBinding>(R.layout.fragment_blog),
+class BlogFragment : BaseFragment<FragmentBlogBinding>(R.layout.fragment_blog),
     BlogContract.View<BlogData> {
 
     private lateinit var blogAdapter: BlogAdapter
