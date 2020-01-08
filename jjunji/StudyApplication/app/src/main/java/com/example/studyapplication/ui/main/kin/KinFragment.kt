@@ -3,6 +3,7 @@ package com.example.studyapplication.ui.main.kin
 import android.os.Bundle
 import android.view.View
 import com.example.studyapplication.R
+import com.example.studyapplication.data.datasource.local.NaverLocalDataSourceImpl
 import com.example.studyapplication.data.datasource.remote.NaverRemoteDataSourceImpl
 import com.example.studyapplication.data.model.KinInfo
 import com.example.studyapplication.data.repository.NaverSearchRepository
@@ -15,7 +16,7 @@ class KinFragment : BaseSearchFragment(R.layout.fragment_kin), KinContract.View 
     private lateinit var presenter: KinContract.Presenter
     private lateinit var kinAdapter: KinAdapter
     private val repository: NaverSearchRepository =
-        NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())
+        NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl(), NaverLocalDataSourceImpl())
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

@@ -3,6 +3,7 @@ package com.example.studyapplication.ui.main.blog
 import android.os.Bundle
 import android.view.View
 import com.example.studyapplication.R
+import com.example.studyapplication.data.datasource.local.NaverLocalDataSourceImpl
 import com.example.studyapplication.data.datasource.remote.NaverRemoteDataSourceImpl
 import com.example.studyapplication.data.model.BlogInfo
 import com.example.studyapplication.data.repository.NaverSearchRepository
@@ -13,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_blog.*
 
 class BlogFragment : BaseSearchFragment(R.layout.fragment_blog), BlogContract.View {
     private val repository: NaverSearchRepository =
-        NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())
+        NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl(), NaverLocalDataSourceImpl())
     private lateinit var blogAdapter: BlogAdapter
     private lateinit var presenter: BlogContract.Presenter
 

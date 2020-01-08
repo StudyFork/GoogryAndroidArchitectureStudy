@@ -6,7 +6,6 @@ buildscript {
     repositories {
         google()
         jcenter()
-        
     }
 
     dependencies {
@@ -14,7 +13,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        
+
         // RealmDB
         classpath "io.realm:realm-gradle-plugin:3.5.0"
     }

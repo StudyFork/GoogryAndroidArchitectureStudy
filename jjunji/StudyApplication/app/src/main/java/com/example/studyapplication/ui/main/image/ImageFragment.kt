@@ -3,6 +3,7 @@ package com.example.studyapplication.ui.main.image
 import android.os.Bundle
 import android.view.View
 import com.example.studyapplication.R
+import com.example.studyapplication.data.datasource.local.NaverLocalDataSourceImpl
 import com.example.studyapplication.data.datasource.remote.NaverRemoteDataSourceImpl
 import com.example.studyapplication.data.model.ImageInfo
 import com.example.studyapplication.data.repository.NaverSearchRepository
@@ -15,7 +16,7 @@ class ImageFragment : BaseSearchFragment(R.layout.fragment_image), ImageContract
     private lateinit var presenter: ImageContract.Presenter
     private lateinit var imageAdapter: ImageAdapter
     private val repository: NaverSearchRepository =
-        NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())
+        NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl(), NaverLocalDataSourceImpl())
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
