@@ -1,11 +1,12 @@
 package com.siwon.prj.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import com.siwon.prj.*
+import androidx.appcompat.app.AppCompatActivity
+import com.siwon.prj.MovieAdapter
+import com.siwon.prj.R
 import com.siwon.prj.repository.MovieSearchRepository
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         search_btn.setOnClickListener {
             if (edit_text_input.text.isNullOrBlank()) {
                 toastMsg("검색어를 입력해 주세요.")
-            }else{
+            } else {
                 toastMsg("입력한 겁색어: ${edit_text_input.text.toString()}")
                 getMovies(edit_text_input.text.toString())
             }
@@ -49,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
-    fun itemClick(link: String){
+    fun itemClick(link: String) {
         val detailWebview = Intent(this@MainActivity, DetailWebview::class.java)
         detailWebview.putExtra("link", link)
         startActivity(detailWebview)
