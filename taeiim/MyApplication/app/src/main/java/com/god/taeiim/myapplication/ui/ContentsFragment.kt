@@ -51,13 +51,13 @@ class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_mai
 
         with(binding) {
             searchBtn.setOnClickListener {
-                presenter.searchContents(searchType.name, searchEditTv.text.toString())
+                presenter.searchContents(searchType, searchEditTv.text.toString())
             }
         }
     }
 
     override fun updateSearchHistoryItems() {
-        presenter.getLastSearchHistory(searchType.name)
+        presenter.getLastSearchHistory(searchType)
     }
 
     override fun updateItems(resultList: List<SearchResultShow.Item>) {

@@ -15,7 +15,7 @@ class ContentsPresenter(
 
     }
 
-    override fun searchContents(searchType: String, query: String) {
+    override fun searchContents(searchType: Tabs, query: String) {
         if (query.isBlank()) {
             view.blankSearchQuery()
 
@@ -25,14 +25,14 @@ class ContentsPresenter(
                 query,
                 success = {
                     view.updateItems(searchResultShowWrapper(searchType, it).items)
-                    naverRepository.saveSearchResult(SearchHistory(it.items, searchType, query))
+                    naverRepository.saveSearchResult(SearchHistory(it.items, searchType.name, query))
                 },
                 fail = { view.failToSearch() }
             )
         }
     }
 
-    override fun getLastSearchHistory(searchType: String) {
+    override fun getLastSearchHistory(searchType: Tabs) {
         naverRepository.getLastSearchResultData(searchType)
             ?.let {
                 view.updateItems(
@@ -45,7 +45,7 @@ class ContentsPresenter(
     }
 
     override fun searchResultShowWrapper(
-        searchType: String,
+        searchType: Tabs,
         searchResult: SearchResult
     ): SearchResultShow {
         val searchResultShow = SearchResultShow(searchResult.items.map {
@@ -55,13 +55,13 @@ class ContentsPresenter(
         searchResult.items.map { item: SearchResult.Item ->
             searchResultShow.items.map {
                 when (searchType) {
-                    Tabs.BLOG.name -> it.subtitle = item.postdate
-                    Tabs.NEWS.name -> it.subtitle = item.pubDate
-                    Tabs.MOVIE.name -> {
+                    Tabs.BLOG -> it.subtitle = item.postdate
+                    Tabs.NEWS -> it.subtitle = item.pubDate
+                    Tabs.MOVIE -> {
                         it.subtitle = item.pubDate
                         it.description = (item.director + item.actor)
                     }
-                    Tabs.BOOK.name -> it.subtitle = item.author
+                    Tabs.BOOK -> it.subtitle = item.author
                     else -> it
                 }
             }

@@ -1,5 +1,6 @@
 package com.god.taeiim.myapplication.ui
 
+import com.god.taeiim.myapplication.Tabs
 import com.god.taeiim.myapplication.api.model.SearchResult
 import com.god.taeiim.myapplication.api.model.SearchResultShow
 import com.god.taeiim.myapplication.base.BasePresenter
@@ -20,12 +21,12 @@ interface ContentsContract {
 
     interface Presenter : BasePresenter {
 
-        fun searchContents(searchType: String, query: String)
+        fun searchContents(searchType: Tabs, query: String)
 
-        fun getLastSearchHistory(searchType: String)
+        fun getLastSearchHistory(searchType: Tabs)
 
         fun searchResultShowWrapper(
-            searchType: String,
+            searchType: Tabs,
             searchResult: SearchResult
         ): SearchResultShow
     }
