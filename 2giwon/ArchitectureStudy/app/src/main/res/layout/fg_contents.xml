@@ -6,6 +6,11 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.egiwon.architecturestudy.tabs.ContentsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,6 +36,7 @@
                 android:hint="@string/search_hint"
                 android:importantForAutofill="no"
                 android:inputType="text"
+                android:text="@={vm.searchQuery}"
                 app:layout_constraintEnd_toStartOf="@id/btn_search"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintHorizontal_weight="8"
@@ -44,6 +50,7 @@
                 android:layout_height="match_parent"
                 android:text="@string/search_hint"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                android:onClick="@{() -> vm.loadContents()}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_weight="2"
                 app:layout_constraintStart_toEndOf="@id/et_search"
@@ -55,7 +62,7 @@
             android:id="@+id/progress_circular"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:visibility="gone"
+            android:visibility="@{vm.isShowLoadingProgressBar() ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,6 +79,7 @@
             app:layout_constraintTop_toBottomOf="@id/layout_search"
             app:layout_constraintVertical_chainStyle="spread"
             app:layout_constraintVertical_weight="9"
+            bind:replaceAll="@{vm.searchQueryResultList}"
             bind:setHasFixedSize="@{true}"
             tools:listitem="@layout/rv_contents_item" />
 

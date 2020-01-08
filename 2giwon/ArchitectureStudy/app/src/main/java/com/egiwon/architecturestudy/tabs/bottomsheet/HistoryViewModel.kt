@@ -1,20 +1,26 @@
 package com.egiwon.architecturestudy.tabs.bottomsheet
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.egiwon.architecturestudy.Tab
-import com.egiwon.architecturestudy.base.BasePresenter
+import com.egiwon.architecturestudy.base.BaseViewModel
 import com.egiwon.architecturestudy.data.NaverDataRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class HistoryPresenter(
-    private val historyView: HistoryContract.View,
+class HistoryViewModel(
+    private val tab: Tab,
     private val naverDataRepository: NaverDataRepository
-) : BasePresenter(), HistoryContract.Presenter {
+) : BaseViewModel() {
 
-    override fun getSearchQueryHistory(tab: Tab) =
+    private val _searchHistoryResult = MutableLiveData<List<String>>()
+
+    val searchHistoryResult: LiveData<List<String>> get() = _searchHistoryResult
+
+    fun getSearchQueryHistory() =
         naverDataRepository.getContentQuerys(tab.name)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                historyView.showSearchQueryHistory(it)
+                _searchHistoryResult.value = it
             }, {}).addDisposable()
 
 }
