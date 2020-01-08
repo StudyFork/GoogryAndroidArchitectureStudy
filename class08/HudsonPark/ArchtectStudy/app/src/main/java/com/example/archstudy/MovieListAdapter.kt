@@ -12,7 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class MovieListAdapter(private var movieList: List<Item>, @Nullable private var listener: ItemClickListener?) :
+class MovieListAdapter(private var movieList: List<Item>, @Nullable private var listener: ItemClickListener) :
     RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,12 +22,8 @@ class MovieListAdapter(private var movieList: List<Item>, @Nullable private var 
 
     override fun getItemCount(): Int = movieList.size
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-        with(holder) {
-            bind(movieList[position], listener!!)
-        }
-    }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
+        holder.bind(movieList[position], listener)
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
