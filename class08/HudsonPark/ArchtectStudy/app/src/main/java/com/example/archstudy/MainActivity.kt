@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var edtQuery: EditText
     private lateinit var btnSearch: Button
     private lateinit var rvMovieList: RecyclerView
-    private lateinit var rvMovieAdapter: MovieListAdapter
+    private lateinit var rvMovieAdapter : MovieListAdapter
     private var movieData : List<Item> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +63,6 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(Intent.ACTION_VIEW,Uri.parse(url)))
             }
         })
-
         rvMovieList.adapter = rvMovieAdapter
     }
 
