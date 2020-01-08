@@ -38,7 +38,7 @@ class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_mai
 
         arguments?.getSerializable(ARG_TYPE)?.let {
             searchType = it as Tabs
-            vm.searchType = searchType.name
+            vm.searchType = searchType
         }
 
         searchResultAdapter =
@@ -72,7 +72,7 @@ class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_mai
     }
 
     private fun updateSearchHistoryItems() {
-        vm.getLastSearchHistory(searchType.name)
+        vm.getLastSearchHistory(searchType)
     }
 
     private fun updateItems(resultList: List<SearchResultShow.Item>) {

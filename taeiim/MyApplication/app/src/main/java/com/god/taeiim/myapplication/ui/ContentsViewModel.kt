@@ -12,7 +12,7 @@ class ContentsViewModel(
 ) {
     val query = ObservableField<String>()
     val searchResultList = ObservableField<List<SearchResultShow.Item>>()
-    var searchType = ""
+    var searchType = Tabs.BLOG
 
     fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         query.set(s.toString())
@@ -29,11 +29,7 @@ class ContentsViewModel(
                 success = {
                     searchResultList.set(searchResultShowWrapper(searchType, it).items)
                     naverRepository.saveSearchResult(
-                        SearchHistory(
-                            it.items,
-                            searchType,
-                            getQueryStr()
-                        )
+                        SearchHistory(it.items, searchType.name, getQueryStr())
                     )
                 },
                 fail = {
@@ -47,7 +43,7 @@ class ContentsViewModel(
         return query.get() ?: ""
     }
 
-    fun getLastSearchHistory(searchType: String) {
+    fun getLastSearchHistory(searchType: Tabs) {
         naverRepository.getLastSearchResultData(searchType)
             ?.let {
                 searchResultList.set(
@@ -60,7 +56,7 @@ class ContentsViewModel(
     }
 
     private fun searchResultShowWrapper(
-        searchType: String,
+        searchType: Tabs,
         searchResult: SearchResult
     ): SearchResultShow {
         val searchResultShow = SearchResultShow(searchResult.items.map {
@@ -70,14 +66,13 @@ class ContentsViewModel(
         searchResult.items.map { item: SearchResult.Item ->
             searchResultShow.items.map {
                 when (searchType) {
-                    Tabs.BLOG.name -> it.subtitle = item.postdate
-                    Tabs.NEWS.name -> it.subtitle = item.pubDate
-                    Tabs.MOVIE.name -> {
+                    Tabs.BLOG -> it.subtitle = item.postdate
+                    Tabs.NEWS -> it.subtitle = item.pubDate
+                    Tabs.MOVIE -> {
                         it.subtitle = item.pubDate
                         it.description = (item.director + item.actor)
                     }
-                    Tabs.BOOK.name -> it.subtitle = item.author
-                    else -> it
+                    Tabs.BOOK -> it.subtitle = item.author
                 }
             }
         }

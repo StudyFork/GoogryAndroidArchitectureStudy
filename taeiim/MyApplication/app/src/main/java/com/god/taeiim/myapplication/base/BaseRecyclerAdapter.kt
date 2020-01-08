@@ -25,7 +25,8 @@ open class BaseRecyclerAdapter<ITEM, B : ViewDataBinding>(
     override fun onBindViewHolder(holder: BaseViewHolder<B>, position: Int) =
         holder.onBindViewHolder(items[position])
 
-    protected fun getItem(position: Int): ITEM? = items.getOrNull(position)
+    protected fun getItem(position: Int): ITEM =
+        items.getOrNull(position) ?: throw ArrayIndexOutOfBoundsException()
 
     fun updateItems(items: List<ITEM>?) {
         this.items.run {

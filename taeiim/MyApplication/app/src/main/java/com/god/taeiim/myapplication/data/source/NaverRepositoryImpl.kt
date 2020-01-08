@@ -1,5 +1,6 @@
 package com.god.taeiim.myapplication.data.source
 
+import com.god.taeiim.myapplication.Tabs
 import com.god.taeiim.myapplication.api.model.SearchResult
 import com.god.taeiim.myapplication.data.SearchHistory
 
@@ -9,16 +10,16 @@ class NaverRepositoryImpl private constructor(
 ) : NaverRepository {
 
     override fun getResultData(
-        searchType: String,
+        searchType: Tabs,
         query: String,
         success: (results: SearchResult) -> Unit,
         fail: (t: Throwable) -> Unit
     ) {
-        naverRemote.getResultData(searchType, query, success, fail)
+        naverRemote.getResultData(searchType.name, query, success, fail)
     }
 
-    override fun getLastSearchResultData(searchType: String): SearchHistory =
-        naverLocal.getLastSearchResultData(searchType)
+    override fun getLastSearchResultData(searchType: Tabs): SearchHistory =
+        naverLocal.getLastSearchResultData(searchType.name)
 
     override fun saveSearchResult(searchHistory: SearchHistory) {
         naverLocal.saveSearchResult(searchHistory)
