@@ -19,7 +19,8 @@ class BlogFragment : BaseFragment<FragmentBlogBinding>(R.layout.fragment_blog), 
         BaseSearchContract.ViewType.VIEW_SEARCH_BEFORE
         set(value) {
             if (field != value) {
-                binding.viewType = field
+                field = value
+                binding.viewType = value
                 binding.invalidateAll()
             }
         }

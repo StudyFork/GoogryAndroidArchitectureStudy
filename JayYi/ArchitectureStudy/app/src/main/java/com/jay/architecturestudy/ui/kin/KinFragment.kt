@@ -20,7 +20,8 @@ class KinFragment : BaseFragment<FragmentKinBinding>(R.layout.fragment_kin), Kin
         BaseSearchContract.ViewType.VIEW_SEARCH_BEFORE
         set(value) {
             if (field != value) {
-                binding.viewType = field
+                field = value
+                binding.viewType = value
                 binding.invalidateAll()
             }
         }
