@@ -27,7 +27,7 @@ class MovieAdapter(private val onClickAction: (NaverResponse.Item) -> Unit) :
     override fun getItemCount(): Int = movieItems.size
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.Bind(movieItems[position])
+        holder.bind(movieItems[position])
     }
 
     inner class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -38,7 +38,7 @@ class MovieAdapter(private val onClickAction: (NaverResponse.Item) -> Unit) :
             }
         }
 
-        fun Bind(movieItem: NaverResponse.Item) {
+        fun bind(movieItem: NaverResponse.Item) {
             with(itemView)
             {
                 Glide.with(this)
