@@ -87,9 +87,11 @@ class MainActivity : AppCompatActivity() {
                     ) {
 
                         with(response) {
+
                             if (isSuccessful && body() != null) {
                                 movieData = body()!!.items
                                 refreshRecycler(movieData)
+
                             }
                         }
 
