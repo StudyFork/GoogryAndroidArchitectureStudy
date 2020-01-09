@@ -56,15 +56,6 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
                 pubdate_view.text = movie.pubDate
                 director_view.text = movie.director
                 actor_view.text = movie.actor
-
-
-                itemView.setOnClickListener {
-                    var context = it.context
-                    var intent = Intent(context, DetailActivity::class.java)
-                    intent.putExtra("url", movie.link.toString())
-
-                    context.startActivity(intent)
-                }
             }
         }
     }
