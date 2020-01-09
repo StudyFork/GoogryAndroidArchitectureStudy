@@ -3,9 +3,7 @@ package com.example.study
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.study.databinding.ActivityMainBinding
 import com.example.study.model.Movie
 import com.example.study.model.NaverSearch
 import com.google.gson.GsonBuilder
@@ -17,14 +15,13 @@ import java.net.URLEncoder
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
     private val movieAdapter = MovieAdapter()
     val clientId = "AZeVMtYlsaS7bdr8W7PX"
     val clientSecret = "a7hDdCsKST"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setContentView(R.layout.activity_main)
         recycler_view.layoutManager = LinearLayoutManager(this)
         recycler_view.adapter = movieAdapter
         search_button.setOnClickListener {

@@ -8,9 +8,6 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
 
-    dataBinding {
-        enabled = true
-    }
     defaultConfig {
         applicationId "com.example.study"
         minSdkVersion 28
