@@ -7,11 +7,12 @@ interface MainContract {
         fun showGetMovieSuccess(movieDataList : List<MovieData>)
         fun showGetMovieFailure(e : Throwable)
 
-        fun showGetMoreData(movieDataList : List<MovieData>)
+        fun showGetMoreDataSuccess(movieDataList : List<MovieData>)
     }
 
     interface Presenter {
         fun getMovie(keyword : String)
+        fun getMoreMovie(keyword: String)
 
     }
 }

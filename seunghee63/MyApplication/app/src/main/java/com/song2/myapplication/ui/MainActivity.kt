@@ -14,14 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.song2.myapplication.R
 import com.song2.myapplication.adapter.MovieAdapter
 import com.song2.myapplication.source.MovieData
-import com.song2.myapplication.source.MovieRepositoryImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(), MainContract.View {
 
     private lateinit var imm: InputMethodManager
-    private val movieRepository by lazy { MovieRepositoryImpl() }
     private val movieAdapter by lazy { MovieAdapter() }
     private val presenter: MainContract.Presenter by lazy { MainPresenter(this) }
 
@@ -35,10 +33,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         btn_main_act_search_btn.setOnClickListener {
             presenter.getMovie(btn_main_act_search_btn.text.toString())
         }
-    }
-
-    override fun showGetMovieFailure(e: Throwable) {
-        Log.e("통신 실패", e.toString())
     }
 
     override fun showGetMovieSuccess(movieDataList: List<MovieData>) {
@@ -55,8 +49,13 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         movieAdapter.setMovieList(movieDataList)
     }
 
-    override fun showGetMoreData(movieDataList: List<MovieData>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showGetMovieFailure(e: Throwable) {
+        Log.e("통신 실패", e.toString())
+    }
+
+    //무한스크롤
+    override fun showGetMoreDataSuccess(movieDataList: List<MovieData>) {
+        movieAdapter.addItem(movieDataList)
     }
 
     private fun setMovieRecyclerView() {
@@ -69,19 +68,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         rv_main_act_movie_list.setOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if (!rv_main_act_movie_list.canScrollVertically(1)) {
-                    addMovieData(et_main_act_search.text.toString())
+                    presenter.getMoreMovie(et_main_act_search.text.toString())
                 }
             }
         })
-
-    }
-
-    private fun addMovieData(keyword: String) {
-        //TODO : 무한스크롤 - 이전 데이터에 이어서 추가로 데이터를 받아오는 방법에 대한 기능 구현
-        movieRepository.getMovieData(keyword, 20,
-            onSuccess = { movieAdapter.addItem(it) },
-            onFailure = { Log.e("실패", it.toString()) }
-        )
     }
 
     private fun setKeyboardFunc() {
