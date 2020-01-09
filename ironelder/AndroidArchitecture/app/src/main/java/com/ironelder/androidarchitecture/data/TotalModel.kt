@@ -7,14 +7,14 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "searchResult")
 data class SearchResult(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name="id")
+    @ColumnInfo(name = "id")
     val id: Long?,
-    @ColumnInfo(name="type")
-    val type:String,
-    @ColumnInfo(name="search")
-    val search:String,
-    @ColumnInfo(name="result")
-    val result:String
+    @ColumnInfo(name = "type")
+    val type: String,
+    @ColumnInfo(name = "search")
+    val search: String,
+    @ColumnInfo(name = "result")
+    val result: String
 )
 
 data class TotalModel(

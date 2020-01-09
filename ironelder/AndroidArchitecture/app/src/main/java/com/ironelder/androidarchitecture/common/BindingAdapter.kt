@@ -3,7 +3,6 @@ package com.ironelder.androidarchitecture.common
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import androidx.databinding.ObservableArrayList
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
