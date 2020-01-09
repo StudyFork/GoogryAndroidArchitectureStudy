@@ -7,7 +7,10 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
-
+    compileOptions {
+        targetCompatibility = "8"
+        sourceCompatibility = "8"
+    }
     defaultConfig {
         applicationId "com.example.study"
         minSdkVersion 28
@@ -39,4 +42,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.7.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
 }

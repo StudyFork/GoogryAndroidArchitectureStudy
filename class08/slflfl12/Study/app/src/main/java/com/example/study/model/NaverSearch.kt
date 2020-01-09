@@ -1,9 +1,8 @@
 package com.example.study.model
 
+import com.google.gson.annotations.SerializedName
+
 data class NaverSearch(
-    val display: Int,
-    val items: List<Movie>,
-    val lastBuildDate: String,
-    val start: Int,
-    val total: Int
+    @SerializedName("items")
+    val items: List<Movie>
 )
