@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.architecture_project.R
 import com.example.architecture_project.`object`.ObjectCollection.URL
 import com.example.architecture_project.data.model.NaverApi
-import com.example.architecture_project.data.repository.NaverRepository
 import com.example.architecture_project.feature.movie.MovieAdapter
 import com.example.architecture_project.feature.search.WebviewActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -18,7 +17,6 @@ class MainActivity : AppCompatActivity(),
 
     private lateinit var movieRecyclerView: RecyclerView   //수정완료
     private lateinit var movieAdapter: MovieAdapter
-    private lateinit var naverRepository: NaverRepository
     val presenter: MainContract.Presenter =
         MainPresenter(this)
 
@@ -26,7 +24,6 @@ class MainActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        naverRepository = NaverRepository()
         movieRecyclerView = findViewById(R.id.rv_movie)
         movieAdapter = MovieAdapter(object : MovieAdapter.MovieViewHolder.ItemClickListener {
             override fun onItemClick(position: Int) {
@@ -46,11 +43,11 @@ class MainActivity : AppCompatActivity(),
         presenter.getMovieData(keyword)
     }
 
-    override fun noShowResult() {
+    override fun showNoResult() {
         Toast.makeText(this, "검색결과가 없습니다.", Toast.LENGTH_SHORT).show()
     }
 
-    override fun noKeyword() {
+    override fun showNotExistKeyword() {
         Toast.makeText(this, "검색어를 입력하세요.", Toast.LENGTH_SHORT).show()
     }
 
@@ -62,4 +59,7 @@ class MainActivity : AppCompatActivity(),
         movieAdapter.setMovieItemList(data.item)
     }
 
+    override fun showDataNum(num: Int) {
+        Toast.makeText(this, "총 "+num+"개가 검색되었습니다.", Toast.LENGTH_SHORT).show()
+    }
 }
