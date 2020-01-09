@@ -12,7 +12,7 @@ object LocalSearchDataSourceImpl :
         context: Context,
         type: String
     ): Single<SearchResult>? {
-        return SearchResultDatabase.getInstance(context)?.SearchResultDao()
+        return SearchResultDatabase.getInstance(context)?.searchResultDao()
             ?.getLastSearchResult(type)
     }
 
@@ -20,7 +20,7 @@ object LocalSearchDataSourceImpl :
         context: Context,
         searchResult: SearchResult
     ) {
-        SearchResultDatabase.getInstance(context)?.SearchResultDao()
+        SearchResultDatabase.getInstance(context)?.searchResultDao()
             ?.insertSearchResult(searchResult)
     }
 

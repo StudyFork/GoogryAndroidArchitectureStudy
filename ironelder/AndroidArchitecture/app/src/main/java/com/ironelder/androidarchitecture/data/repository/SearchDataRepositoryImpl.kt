@@ -17,7 +17,7 @@ object SearchDataRepositoryImpl :
     ): Single<TotalModel> {
         return RemoteSearchDataSourceImpl.getRemoteSearchData(type, query)
             .doAfterSuccess { result: TotalModel? ->
-                database?.SearchResultDao()
+                database?.searchResultDao()
                     ?.insertSearchResult(
                         SearchResult(
                             null,
@@ -33,7 +33,7 @@ object SearchDataRepositoryImpl :
         type: String,
         database: SearchResultDatabase?
     ): Single<SearchResult>? {
-        return database?.SearchResultDao()?.getLastSearchResult(type)
+        return database?.searchResultDao()?.getLastSearchResult(type)
     }
 
 }

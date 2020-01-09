@@ -10,7 +10,7 @@ import com.ironelder.androidarchitecture.data.dao.SearchResultDao
 @Database(entities = [(SearchResult::class)], version = 1)
 abstract class SearchResultDatabase : RoomDatabase() {
 
-    abstract fun SearchResultDao(): SearchResultDao
+    abstract fun searchResultDao(): SearchResultDao
 
     companion object {
         private var INSTANCE: SearchResultDatabase? = null
