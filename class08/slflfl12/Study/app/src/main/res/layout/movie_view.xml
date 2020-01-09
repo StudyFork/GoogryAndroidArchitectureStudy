@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="제목"
+            android:text="@string/title"
             android:textSize="20dp"
             app:layout_constraintStart_toEndOf="@id/image_view"
             app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="년도"
+            android:text="@string/pub_date"
             app:layout_constraintStart_toEndOf="@id/image_view"
             app:layout_constraintTop_toBottomOf="@id/rating_bar" />
 
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="감독"
+            android:text="@string/director"
             app:layout_constraintStart_toEndOf="@id/image_view"
             app:layout_constraintTop_toBottomOf="@id/pubdate_view" />
 
@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="배우들"
+            android:text="@string/actor"
             app:layout_constraintStart_toEndOf="@id/image_view"
             app:layout_constraintTop_toBottomOf="@id/director_view" />
 
