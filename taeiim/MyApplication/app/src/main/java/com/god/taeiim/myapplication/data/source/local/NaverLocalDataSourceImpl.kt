@@ -18,12 +18,12 @@ class NaverLocalDataSourceImpl private constructor(private val searchHistoryDao:
         private var INSTANCE: NaverLocalDataSourceImpl? = null
 
         fun getInstance(searchHistoryDao: SearchHistoryDao): NaverLocalDataSourceImpl {
-            if (INSTANCE == null) {
-                synchronized(NaverLocalDataSourceImpl::javaClass) {
+            synchronized(NaverLocalDataSourceImpl::javaClass) {
+                if (INSTANCE == null) {
                     INSTANCE = NaverLocalDataSourceImpl(searchHistoryDao)
                 }
+                return INSTANCE!!
             }
-            return INSTANCE!!
         }
     }
 

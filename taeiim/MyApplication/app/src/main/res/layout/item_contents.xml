@@ -1,52 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-            android:id="@+id/thumbnailIv"
-            android:layout_width="50dp"
-            android:layout_height="70dp"
-            android:scaleType="fitCenter"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:visibility="gone"/>
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+                name="item"
+                type="com.god.taeiim.myapplication.api.model.SearchResultShow.Item" />
+
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toEndOf="@id/thumbnailIv">
-
-        <TextView
-            android:id="@+id/titleTv"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="제목" />
+            android:padding="16dp"
+            bind:intentLinkOnClick="@{item.link}">
 
-        <TextView
-            android:id="@+id/subTitleTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/titleTv"
-            tools:text="소제목" />
+        <ImageView
+                android:id="@+id/thumbnailIv"
+                android:layout_width="50dp"
+                android:layout_height="70dp"
+                android:scaleType="fitCenter"
+                android:visibility="@{item.image.length()>0 ? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                bind:loadUrl="@{item.image}" />
 
-        <TextView
-            android:id="@+id/descTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/subTitleTv"
-            tools:text="요약" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toEndOf="@id/thumbnailIv">
+
+            <TextView
+                    android:id="@+id/titleTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    bind:setTextHtml="@{item.title}"
+                    tools:text="제목" />
+
+            <TextView
+                    android:id="@+id/subTitleTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/titleTv"
+                    bind:setTextHtml="@{item.subtitle}"
+                    tools:text="소제목" />
+
+            <TextView
+                    android:id="@+id/descTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/subTitleTv"
+                    bind:setTextHtml="@{item.description}"
+                    tools:text="요약" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

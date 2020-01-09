@@ -1,41 +1,24 @@
 package com.god.taeiim.myapplication.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import com.god.taeiim.myapplication.BR
 import com.god.taeiim.myapplication.R
 import com.god.taeiim.myapplication.Tabs
-import com.god.taeiim.myapplication.api.model.SearchResult
+import com.god.taeiim.myapplication.api.model.SearchResultShow
 import com.god.taeiim.myapplication.base.BaseFragment
 import com.god.taeiim.myapplication.data.source.NaverRepositoryImpl
 import com.god.taeiim.myapplication.data.source.local.NaverLocalDataSourceImpl
 import com.god.taeiim.myapplication.data.source.local.SearchHistoryDatabase
 import com.god.taeiim.myapplication.data.source.remote.NaverRemoteDataSourceImpl
-import kotlinx.android.synthetic.main.fragment_main.*
+import com.god.taeiim.myapplication.databinding.FragmentMainBinding
+import com.god.taeiim.myapplication.databinding.ItemContentsBinding
 
-class ContentsFragment : BaseFragment(), ContentsContract.View {
+class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
+    ContentsContract.View {
 
-    override lateinit var presenter: ContentsContract.Presenter
-    private lateinit var adapter: SearchResultRecyclerAdapter
-    private lateinit var searchType: Tabs
-
-    override fun onResume() {
-        super.onResume()
-        presenter.start()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_main, container, false)
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        presenter = ContentsPresenter(
+    override val presenter: ContentsContract.Presenter by lazy {
+        ContentsPresenter(
             NaverRepositoryImpl.getInstance(
                 NaverRemoteDataSourceImpl,
                 NaverLocalDataSourceImpl.getInstance(
@@ -43,39 +26,51 @@ class ContentsFragment : BaseFragment(), ContentsContract.View {
                 )
             ), this
         )
+    }
+
+    lateinit var searchResultAdapter: SearchResultRecyclerAdapter<SearchResultShow.Item, ItemContentsBinding>
+    private lateinit var searchType: Tabs
+
+    override fun onResume() {
+        super.onResume()
+        presenter.start()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
         arguments?.getSerializable(ARG_TYPE)?.let {
             searchType = it as Tabs
         }
 
-        adapter = SearchResultRecyclerAdapter(searchType)
-        searchResultRecyclerView.adapter = this@ContentsFragment.adapter
+        searchResultAdapter =
+            SearchResultRecyclerAdapter(searchType, R.layout.item_contents, BR.item)
+        binding.searchResultRecyclerView.adapter = searchResultAdapter
 
         updateSearchHistoryItems()
 
-        searchBtn.setOnClickListener {
-            presenter.searchContents(
-                searchType.name,
-                searchEditTv.text.toString()
-            )
+        with(binding) {
+            searchBtn.setOnClickListener {
+                presenter.searchContents(searchType, searchEditTv.text.toString())
+            }
         }
     }
 
     override fun updateSearchHistoryItems() {
-        presenter.getLastSearchHistory(searchType.name)
+        presenter.getLastSearchHistory(searchType)
     }
 
-    override fun updateItems(resultList: List<SearchResult.Item>) {
-        adapter.setItems(resultList)
+    override fun updateItems(resultList: List<SearchResultShow.Item>) {
+        searchResultAdapter.updateItems(resultList)
     }
 
     override fun failToSearch() {
-        adapter.clearItems()
+        searchResultAdapter.clearItems()
         Toast.makeText(context, getString(R.string.err_search), Toast.LENGTH_SHORT).show()
     }
 
     override fun blankSearchQuery() {
-        adapter.clearItems()
+        searchResultAdapter.clearItems()
         Toast.makeText(context, getString(R.string.blank_search), Toast.LENGTH_SHORT).show()
     }
 
