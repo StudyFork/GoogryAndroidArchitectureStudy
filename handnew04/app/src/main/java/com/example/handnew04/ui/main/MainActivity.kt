@@ -76,6 +76,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         Toast.makeText(this@MainActivity, "검색에 실패하였습니다. MSG : $message", Toast.LENGTH_SHORT).show()
     }
 
+    override fun showLoading() {
+        pb_searchLoading.visibility = View.VISIBLE
+    }
 
-    override fun getContext() = this@MainActivity
+    override fun hideLoading() {
+        pb_searchLoading.visibility = View.GONE
+    }
 }

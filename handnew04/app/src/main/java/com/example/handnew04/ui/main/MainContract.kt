@@ -5,7 +5,7 @@ import com.example.handnew04.data.NaverMovieResponse
 import com.example.handnew04.ui.base.BaseContract
 
 interface MainContract : BaseContract {
-    interface View {
+    interface View : BaseContract.View {
         fun showEmptyResult()
 
         fun showInputLengthZero()
@@ -21,7 +21,7 @@ interface MainContract : BaseContract {
         fun getContext(): Context
     }
 
-    interface Presenter {
+    interface Presenter : BaseContract.Presenter {
         fun serchMovie(inputText: String)
 
         fun checkInputQuery(): Boolean
