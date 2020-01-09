@@ -59,7 +59,7 @@ class MainFragment :
             getSearchResultToRoom(
                 mType ?: BLOG,
                 SearchResultDatabase.getInstance(
-                    context?.applicationContext ?: (activity as Context).applicationContext
+                    context?.applicationContext ?: (activity as? Context)?.applicationContext!!
                 )
             )
         }
