@@ -49,6 +49,7 @@ class MovieListAdapter(private var movieList: List<Item>, @Nullable private var 
                 // 아이템 클릭 시 호출될 커스텀 리스너 정의
                 layoutItem.setOnClickListener {
                     listener.onItemClick(link)
+
                 }
             }
 
@@ -69,11 +70,13 @@ class MovieListAdapter(private var movieList: List<Item>, @Nullable private var 
         private fun loadImage(image: String) {
 
             if (image.trim().isNotEmpty()) {
+
                 Glide.with(itemView.context)
                     .load(image)
                     .override(600, 1000)
                     .into(ivThumbnail)
             } else {
+
                 Glide.with(itemView.context)
                     .load(R.drawable.no_image)
                     .override(600, 1000)
