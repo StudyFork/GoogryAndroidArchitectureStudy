@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.ironelder.androidarchitecture.data.ResultItem
 import com.ironelder.androidarchitecture.data.TotalModel
-import com.ironelder.androidarchitecture.data.database.SearchResultDatabase
+import com.ironelder.androidarchitecture.data.dao.SearchResultDao
 import com.ironelder.androidarchitecture.data.repository.SearchDataRepositoryImpl
 import com.ironelder.androidarchitecture.view.baseview.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -20,12 +20,12 @@ class MainViewModel : BaseViewModel() {
     val searchResultList = MutableLiveData<List<ResultItem>>()
 
     fun searchWithAdapter(
-        type: String, searchResultDatabase: SearchResultDatabase?
+        type: String, searchResultDao: SearchResultDao
     ) {
         SearchDataRepositoryImpl.getRemoteSearchData(
             type,
             searchQuery.value.toString(),
-            searchResultDatabase
+            searchResultDao
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -49,9 +49,9 @@ class MainViewModel : BaseViewModel() {
 
     fun getSearchResultToRoom(
         type: String,
-        searchResultDatabase: SearchResultDatabase?
+        searchResultDao: SearchResultDao
     ) {
-        SearchDataRepositoryImpl.getLocalSearchData(type, searchResultDatabase)
+        SearchDataRepositoryImpl.getLocalSearchData(type, searchResultDao)
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())?.subscribe({
                 val test = Gson().fromJson(

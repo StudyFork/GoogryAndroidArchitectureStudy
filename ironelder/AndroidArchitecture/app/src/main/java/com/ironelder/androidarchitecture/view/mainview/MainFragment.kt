@@ -60,7 +60,7 @@ class MainFragment :
                 mType ?: BLOG,
                 SearchResultDatabase.getInstance(
                     context?.applicationContext ?: (activity as? Context)?.applicationContext!!
-                )
+                ).searchResultDao()
             )
         }
     }
@@ -81,7 +81,7 @@ class MainFragment :
                         SearchResultDatabase.getInstance(
                             context?.applicationContext
                                 ?: (activity as? Context)?.applicationContext!!
-                        )
+                        ).searchResultDao()
                     )
                 }
                 searchView.clearFocus()

@@ -1,16 +1,15 @@
 package com.ironelder.androidarchitecture.data.source.local
 
-import android.content.Context
 import com.ironelder.androidarchitecture.data.SearchResult
+import com.ironelder.androidarchitecture.data.dao.SearchResultDao
 import io.reactivex.Single
 
 interface LocalSearchDataSource {
 
-    fun getLocalSearchData(context: Context, type: String): Single<SearchResult>?
+    fun getLocalSearchData(searchResultDao: SearchResultDao, type: String): Single<SearchResult>?
 
     fun setLocalSearchData(
-        context: Context,
-        searchResult: SearchResult
+        searchResultDao: SearchResultDao, searchResult: SearchResult
     )
 
 }
