@@ -18,6 +18,10 @@ abstract class BaseRecyclerViewAdapter<T>: RecyclerView.Adapter<BaseViewHolder<T
 
     fun getPositionItem(position: Int) = _items.getOrNull(position)
 
+    fun clearItemList() {
+        _items.clear()
+        notifyDataSetChanged()
+    }
     // add, delete...etc
 
 }
