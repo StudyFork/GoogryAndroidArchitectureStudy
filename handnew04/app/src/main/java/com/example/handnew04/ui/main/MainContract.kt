@@ -1,6 +1,5 @@
 package com.example.handnew04.ui.main
 
-import android.content.Context
 import com.example.handnew04.data.NaverMovieResponse
 import com.example.handnew04.ui.base.BaseContract
 
@@ -17,8 +16,6 @@ interface MainContract : BaseContract {
         fun showMovieDetailActivity(position: Int)
 
         fun showFailSearchMovie(message: String?)
-
-        fun getContext(): Context
     }
 
     interface Presenter : BaseContract.Presenter {
@@ -26,6 +23,6 @@ interface MainContract : BaseContract {
 
         fun checkInputQuery(): Boolean
 
-        fun checkConnectedNetwork(): Boolean
+        fun isConnectedNetwork(): Boolean
     }
 }

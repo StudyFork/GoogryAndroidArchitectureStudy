@@ -1,5 +1,6 @@
 package com.example.handnew04.ui.main
 
+import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -9,13 +10,19 @@ import com.example.handnew04.R
 import com.example.handnew04.adapter.MovieRecyclerAdapter
 import com.example.handnew04.data.NaverMovieResponse
 import com.example.handnew04.data.items
+import com.example.handnew04.network.NetworkManager
 import com.example.handnew04.ui.movie.MovieDetailActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(), MainContract.View {
     lateinit var recyclerAdapter: MovieRecyclerAdapter
-    val presenter: MainContract.Presenter = MainPresenter(this)
+    val presenter: MainContract.Presenter by lazy {
+        MainPresenter(
+            this,
+            NetworkManager(this@MainActivity.application)
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
