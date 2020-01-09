@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -45,11 +46,11 @@ class ImageFragment : Fragment(), ImageContract.View {
         }
     }
 
-    override fun showResult(item: List<ImageItem>) {
-        imageAdapter.update(item)
+    override fun showErrorMessage(message: String) {
+        Toast.makeText(this.activity, message, Toast.LENGTH_SHORT)
     }
 
-    override fun showErrorMessage(messeage: String) {
-        presenter.taskError(error(messeage))
+    override fun showResult(item: List<ImageItem>) {
+        imageAdapter.update(item)
     }
 }

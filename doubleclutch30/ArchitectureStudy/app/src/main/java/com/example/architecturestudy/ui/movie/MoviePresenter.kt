@@ -10,12 +10,7 @@ class MoviePresenter(val view : MovieContract.View) : MovieContract.Presenter {
                 repository.getMovie(
                         keyword = keyword,
                         success = {view.showResult(it)},
-                        fail = {e -> taskError(e)}
+                        fail = {e -> view.showErrorMessage(e.toString())}
                 )
-        }
-
-        override fun taskError(error: Throwable) {
-                val msg = error.message.toString()
-                view.showErrorMessage(msg)
         }
 }

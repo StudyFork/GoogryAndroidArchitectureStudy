@@ -11,6 +11,5 @@ interface MovieContract {
 
     interface Presenter {
         fun taskSearch(keyword : String)
-        fun taskError(error : Throwable)
     }
 }

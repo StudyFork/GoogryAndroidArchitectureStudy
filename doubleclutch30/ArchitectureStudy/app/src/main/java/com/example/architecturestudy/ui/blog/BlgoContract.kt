@@ -10,7 +10,6 @@ interface BlogContract {
     }
 
     interface Presenter {
-        fun taskError(error : Throwable)
         fun taskSearch(keyword : String)
     }
 }
