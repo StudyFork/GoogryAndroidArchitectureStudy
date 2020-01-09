@@ -1,7 +1,8 @@
-package com.siwon.prj
+package com.siwon.prj.movie_adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.siwon.prj.R
 import com.siwon.prj.common.adapter.BaseRecyclerViewAdapter
 import com.siwon.prj.model.Movie
 

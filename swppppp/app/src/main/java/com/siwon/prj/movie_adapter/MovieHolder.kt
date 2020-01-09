@@ -1,9 +1,10 @@
-package com.siwon.prj
+package com.siwon.prj.movie_adapter
 
 import android.view.View
 import android.widget.RatingBar
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.siwon.prj.R
 import com.siwon.prj.common.adapter.BaseViewHolder
 import com.siwon.prj.model.Movie
 
