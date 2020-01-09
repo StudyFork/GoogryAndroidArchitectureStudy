@@ -18,10 +18,10 @@ import java.util.concurrent.TimeUnit
 
 object WebApiTask {
 
-    private var Interface: WebApi? = null
+    private var apiInterface: WebApi? = null
 
     fun getInstance(context: Context): WebApi {
-        if (Interface == null) {
+        if (apiInterface == null) {
             val params = WebApiParams(context)
 
             val httpLoggingInterceptor = HttpLoggingInterceptor()
@@ -50,10 +50,10 @@ object WebApiTask {
                 .addConverterFactory(GsonConverterFactory.create(Gson()))
                 .build()
 
-            Interface = retrofit.create(WebApi::class.java)
+            apiInterface = retrofit.create(WebApi::class.java)
         }
 
-        return Interface!!
+        return apiInterface!!
     }
 
     private fun cookie(): CookieManager {
