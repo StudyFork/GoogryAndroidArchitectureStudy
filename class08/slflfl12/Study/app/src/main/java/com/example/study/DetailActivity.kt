@@ -19,7 +19,5 @@ class DetailActivity : AppCompatActivity() {
 
         webview.settings.javaScriptEnabled
         webview.loadUrl(url)
-
-
     }
 }

@@ -31,8 +31,6 @@ class MainActivity : AppCompatActivity() {
             fetchJson(search_editText.text.toString())
 
         }
-
-
     }
 
     fun fetchJson(title: String) {
@@ -61,25 +59,16 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body?.string()
                 println("Success to execute request : $body")
-
-
                 val gson = GsonBuilder().create()
-
                 val NaverSearch = gson.fromJson(body, NaverSearch::class.java)
-
-
-
                 runOnUiThread {
                     movieAdapter.setItem(NaverSearch.items)
                 }
-
             }
 
             override fun onFailure(call: Call, e: IOException) {
                 println("Failed to execute request")
-
             }
-
         })
     }
 
