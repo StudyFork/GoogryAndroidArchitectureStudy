@@ -1,5 +1,6 @@
 package com.example.study
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,9 +21,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         recycler_view.adapter = movieAdapter
-        
+
         search_button.setOnClickListener {
             getMovieList(search_editText.text.toString())
+        }
+
+        movieAdapter.setOnItemClickListener { movie ->
+            var intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra("url", movie.link.toString())
+
+            this.startActivity(intent)
         }
     }
 

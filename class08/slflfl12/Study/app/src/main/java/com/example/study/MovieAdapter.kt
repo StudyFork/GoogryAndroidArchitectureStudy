@@ -12,9 +12,14 @@ import kotlinx.android.synthetic.main.movie_view.view.*
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     private val movies = mutableListOf<Movie>()
+    private var onItemClickListener : OnItemClickListener?  = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_view, parent, false)
+        val holder = MovieViewHolder(view)
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.onItemClickListener(movies[holder.adapterPosition])
+        }
         return MovieViewHolder(view)
     }
 
@@ -23,6 +28,14 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         holder.bind(movies[position])
     }
 
+    fun setOnItemClickListener(listener: (Movie) -> Unit) {
+        onItemClickListener = object : OnItemClickListener {
+            override fun onItemClickListener(movie: Movie) {
+                listener(movie)
+            }
+
+        }
+    }
 
     fun setItem(item: List<Movie>) {
         movies.clear()
