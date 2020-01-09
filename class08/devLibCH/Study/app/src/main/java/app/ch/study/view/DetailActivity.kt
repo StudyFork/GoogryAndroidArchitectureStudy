@@ -1,26 +1,27 @@
 package app.ch.study.view
 
 import android.os.Bundle
+import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.appcompat.app.AppCompatActivity
 import app.ch.study.R
-import app.ch.study.core.BaseActivity
-import app.ch.study.databinding.ActivityDetailBinding
 
-class DetailActivity : BaseActivity<ActivityDetailBinding>() {
-
-    override fun getLayoutResId(): Int = R.layout.activity_detail
+class DetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_detail)
 
-        val settings = binding.wbDetail.settings
+        val wbDetail: WebView = findViewById(R.id.wb_detail)
+
+        val settings = wbDetail.settings
         settings.javaScriptEnabled = true
 
-        binding.wbDetail.webViewClient = WebViewClient()
+        wbDetail.webViewClient = WebViewClient()
 
         val url = intent.getStringExtra("url")
         url?.let {
-            binding.wbDetail.loadUrl(it)
+            wbDetail.loadUrl(it)
         }
     }
 

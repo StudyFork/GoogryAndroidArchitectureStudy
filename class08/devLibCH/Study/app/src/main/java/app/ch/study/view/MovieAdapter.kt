@@ -1,14 +1,18 @@
 package app.ch.study.view
 
 import android.content.Context
+import android.os.Build
+import android.text.Html
+import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
+import android.widget.ImageView
+import android.widget.RatingBar
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import app.ch.study.BR
 import app.ch.study.R
-import app.ch.study.data.db.entitiy.MovieModel
-import app.ch.study.databinding.ListItemMovieBinding
+import app.ch.study.data.remote.response.MovieModel
 import com.bumptech.glide.Glide
 
 class MovieAdapter(
@@ -34,28 +38,45 @@ class MovieAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
         (holder as MovieViewHolder).onBindViewHolder(list[position])
 
-    fun itemClick(url: String) {
-        listener.itemClick(url)
-    }
-
     inner class MovieViewHolder(
-        context: Context, view: Int, parent: ViewGroup
+        context: Context,
+        view: Int,
+        parent: ViewGroup
     ) : RecyclerView.ViewHolder(
         LayoutInflater.from(context).inflate(view, parent, false)
     ) {
-        private val binding: ListItemMovieBinding? = DataBindingUtil.bind(itemView)
 
         fun onBindViewHolder(item: MovieModel) {
-            binding?.setVariable(BR.item, item)
-            binding?.setVariable(BR.adapter, this@MovieAdapter)
+            val itemParent: ConstraintLayout = itemView.findViewById(R.id.v_item)
+            val ivPoster: ImageView = itemView.findViewById(R.id.iv_poster)
+            val tvName: TextView = itemView.findViewById(R.id.tv_name)
+            val rbUserRating: RatingBar = itemView.findViewById(R.id.rb_user_rating)
+            val tvPubDate: TextView = itemView.findViewById(R.id.tv_pub_date)
+            val tvDirector: TextView = itemView.findViewById(R.id.tv_director)
+            val tvActor: TextView = itemView.findViewById(R.id.tv_actor)
 
-            binding?.ivPoster?.let {
-                Glide
-                    .with(context)
-                    .load(item.image)
-                    .centerCrop()
-                    .into(it)
+            tvName.text = fromHtml(item.title)
+            rbUserRating.rating = item.userRating / 2F
+            tvPubDate.text = item.pubDate
+            tvDirector.text = item.director
+            tvActor.text = item.actor
+
+            Glide
+                .with(context)
+                .load(item.image)
+                .centerCrop()
+                .into(ivPoster)
+
+            itemParent.setOnClickListener {
+                listener.itemClick(item.link)
             }
+        }
+
+        private fun fromHtml(source: String): Spanned {
+            return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N)
+                Html.fromHtml(source)
+            else
+                Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY)
         }
     }
 

@@ -2,65 +2,100 @@ package app.ch.study.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import app.ch.study.R
-import app.ch.study.core.BaseActivity
-import app.ch.study.data.db.entitiy.MovieModel
-import app.ch.study.databinding.ActivityMainBinding
-import app.ch.study.viewmodel.MovieViewModel
-import app.ch.study.viewmodel.MovieViewModelFactory
-import org.koin.android.ext.android.inject
+import app.ch.study.data.remote.api.WebApiDefine
+import app.ch.study.data.remote.api.WebApiTask
+import app.ch.study.data.remote.response.MovieModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import retrofit2.HttpException
 
-class MainActivity : BaseActivity<ActivityMainBinding>(), MovieAdapter.EventListener {
+class MainActivity : AppCompatActivity(), MovieAdapter.EventListener {
 
-    private val movieViewModelFactory: MovieViewModelFactory by inject()
-
+    private val compositeDisposable = CompositeDisposable()
     private var adapter: MovieAdapter? = null
 
-    override fun getLayoutResId(): Int = R.layout.activity_main
+    lateinit var rvMovie: RecyclerView
+    lateinit var etSearch: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding.view = this
-        binding.lifecycleOwner = this
+        setContentView(R.layout.activity_main)
 
         initEvent()
     }
 
-    private fun initEvent() {
-        val movieViewModel = ViewModelProviders.of(this, movieViewModelFactory).get(
-            MovieViewModel::class.java)
-
-        binding.viewModel = movieViewModel
-
-        movieViewModel.error.observe(this, Observer {
-            error -> Toast.makeText(this, error, Toast.LENGTH_LONG).show()
-        })
-
-        movieViewModel.movieList.observe(this, Observer {
-            list ->
-
-            if(adapter == null) {
-                adapter = MovieAdapter(this, list as ArrayList<MovieModel>, this)
-                binding.rvMovie?.adapter = adapter
-            } else {
-                adapter?.replaceAll(list as ArrayList<MovieModel>)
-                adapter?.notifyDataSetChanged()
-            }
-        })
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable.clear()
     }
 
-    fun searchMovie() {
-        val name = binding.etSearch.text.toString()
-        binding.viewModel?.searchMovie(name)
+    private fun initEvent() {
+        val btnSearch: Button = findViewById(R.id.btn_search)
+        rvMovie = findViewById(R.id.rv_movie)
+        etSearch = findViewById(R.id.et_search)
+
+        btnSearch.setOnClickListener {
+            val name = etSearch.text.toString()
+            searchMovie(name)
+        }
+    }
+
+    private fun searchMovie(name: String) {
+        if (name.isEmpty()) {
+            Toast.makeText(this, "검색어를 입력하세요.", Toast.LENGTH_LONG).show()
+            return
+        }
+
+        val search = WebApiTask.getInstance(this).searchMovie(name)
+
+        addDisposable(
+            search
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response ->
+                    val list = response.items
+
+                    if (adapter == null) {
+                        adapter = MovieAdapter(this, list as ArrayList<MovieModel>, this)
+                        rvMovie.adapter = adapter
+                    } else {
+                        adapter?.replaceAll(list as ArrayList<MovieModel>)
+                        adapter?.notifyDataSetChanged()
+                    }
+                }, {
+                    val error = handleError(it)
+                    Toast.makeText(this, error, Toast.LENGTH_LONG).show()
+                })
+        )
     }
 
     override fun itemClick(url: String) {
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra("url", url)
         startActivity(intent)
+    }
+
+    private fun addDisposable(disposable: Disposable) {
+        compositeDisposable.add(disposable)
+    }
+
+    private fun handleError(e: Throwable): String {
+        if (e is HttpException) {
+            val code = e.code()
+            WebApiDefine.showErrorLog(code)
+        } else {
+            Log.e("HttpErrorHandler", e.toString())
+        }
+
+        return ((e as? Exception)?.message) ?: ""
     }
 }
