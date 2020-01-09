@@ -73,14 +73,14 @@ class MainFragment :
             actionView = searchView
         }
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
+            override fun onQueryTextSubmit(query: String): Boolean {
                 binding.mainViewModel?.apply {
-                    searchQuery.value = query ?: ""
+                    searchQuery.value = query
                     searchWithAdapter(
                         mType ?: BLOG,
                         SearchResultDatabase.getInstance(
                             context?.applicationContext
-                                ?: (activity as Context).applicationContext
+                                ?: (activity as? Context)?.applicationContext!!
                         )
                     )
                 }

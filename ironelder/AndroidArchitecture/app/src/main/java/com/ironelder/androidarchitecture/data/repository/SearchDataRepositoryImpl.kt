@@ -12,7 +12,7 @@ object SearchDataRepositoryImpl :
 
     override fun getRemoteSearchData(
         type: String,
-        query: String?,
+        query: String,
         database: SearchResultDatabase?
     ): Single<TotalModel> {
         return RemoteSearchDataSourceImpl.getRemoteSearchData(type, query)
@@ -22,7 +22,7 @@ object SearchDataRepositoryImpl :
                         SearchResult(
                             null,
                             type,
-                            query ?: "",
+                            query,
                             Gson().toJson(result?.items)
                         )
                     )

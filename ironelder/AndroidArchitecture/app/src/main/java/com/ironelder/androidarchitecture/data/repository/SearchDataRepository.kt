@@ -11,7 +11,7 @@ interface SearchDataRepository {
 
     fun getRemoteSearchData(
         type: String,
-        query: String?,
+        query: String,
         database: SearchResultDatabase?
     ): Single<TotalModel>
 

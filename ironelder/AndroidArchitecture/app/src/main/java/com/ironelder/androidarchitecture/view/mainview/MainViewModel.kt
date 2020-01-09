@@ -24,7 +24,7 @@ class MainViewModel : BaseViewModel() {
     ) {
         SearchDataRepositoryImpl.getRemoteSearchData(
             type,
-            searchQuery.value,
+            searchQuery.value.toString(),
             searchResultDatabase
         )
             .subscribeOn(Schedulers.io())
