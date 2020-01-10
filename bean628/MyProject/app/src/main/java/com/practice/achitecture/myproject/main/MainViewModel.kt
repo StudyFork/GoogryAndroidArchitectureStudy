@@ -79,27 +79,25 @@ class MainViewModel constructor(private val naverRepository: NaverRepository) :
 
     fun loadCache() {
         val lastSearchType = naverRepository.getLastSearchType()
-        if (lastSearchType != null) {
-            var jsonParser = JsonParser()
-            var jsonObject =
-                jsonParser.parse(naverRepository.getCache(lastSearchType)) as JsonObject
-            if (!jsonObject.get("word").isJsonNull && !jsonObject.get("list").isJsonNull) {
-                val gson = Gson()
-                val searchedItemListType = object : TypeToken<List<SearchedItem>>() {}.type
-                query.value = jsonObject.get("word").asString.replace("\"", "")
-                when (lastSearchType) {
-                    SearchType.MOVIE, SearchType.BOOK -> {
-                        movieOrBookItems.value =
-                            gson.fromJson(jsonObject.get("list").asString, searchedItemListType)
-                    }
-                    SearchType.BLOG, SearchType.NEWS -> {
-                        blogOrNewsItems.value =
-                            gson.fromJson(jsonObject.get("list").asString, searchedItemListType)
-                    }
+        val jsonParser = JsonParser()
+        val jsonObject = jsonParser.parse(naverRepository.getCache(lastSearchType)) as JsonObject
+
+        if (jsonObject.has("word") && jsonObject.has("list")) {
+            val gson = Gson()
+            val searchedItemListType = object : TypeToken<List<SearchedItem>>() {}.type
+            query.value = jsonObject.get("word").asString.replace("\"", "")
+            when (lastSearchType) {
+                SearchType.MOVIE, SearchType.BOOK -> {
+                    movieOrBookItems.value =
+                        gson.fromJson(jsonObject.get("list").asString, searchedItemListType)
+                }
+                SearchType.BLOG, SearchType.NEWS -> {
+                    blogOrNewsItems.value =
+                        gson.fromJson(jsonObject.get("list").asString, searchedItemListType)
                 }
             }
-//            }
         }
+//            }
     }
 
 }

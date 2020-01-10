@@ -51,16 +51,16 @@ class NaverLocalDataSourceImpl private constructor(
         // local에서는 쓰이지 않음
     }
 
-    fun saveSearchedListInRoom(searchType: SearchType?, word: String?, list: List<SearchedItem>) {
+    fun saveSearchedListInRoom(searchType: SearchType, word: String, list: List<SearchedItem>) {
         appExcutors.diskIO.execute {
-            naverDao.insertResultOfSearch(HistoryOfSearch(searchType?.value, word, list))
+            naverDao.insertResultOfSearch(HistoryOfSearch(searchType.value, word, list))
         }
     }
 
 
     // 앱 첫 실행 시 가장 마지막으로 검색한 리스트를 불러옵니다.
-    fun getLastSearchType(): SearchType? {
-        var lastSearchType: SearchType? = null
+    fun getLastSearchType(): SearchType {
+        var lastSearchType: SearchType = SearchType.MOVIE
         var lastTime: Long? = null
         var cacheFile: File
 
@@ -95,12 +95,12 @@ class NaverLocalDataSourceImpl private constructor(
     }
 
     @SuppressLint("SdCardPath")
-    fun setCache(searchType: SearchType?, word: String?, list: List<SearchedItem>) {
+    fun setCache(searchType: SearchType, word: String, list: List<SearchedItem>) {
         val cachePath = File(cacheFilePath)
         if (!cachePath.exists()) {
             cachePath.mkdirs()
         }
-        val cacheFile = File(cacheFilePath + searchType?.value + ".json")
+        val cacheFile = File(cacheFilePath + searchType.value + ".json")
         val jsonObj = JSONObject()
         jsonObj.put("word", Gson().toJson(word))
         jsonObj.put("list", Gson().toJson(list))

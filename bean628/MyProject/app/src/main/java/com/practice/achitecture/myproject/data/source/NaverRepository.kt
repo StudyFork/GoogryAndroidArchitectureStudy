@@ -39,7 +39,7 @@ class NaverRepository(
             })
     }
 
-    fun getLastSearchType(): SearchType? {
+    fun getLastSearchType(): SearchType {
         return naverLocalDataSource.getLastSearchType()
     }
 
