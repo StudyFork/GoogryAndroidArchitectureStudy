@@ -5,6 +5,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import app.ch.study.R
+import app.ch.study.data.common.EXTRA_URL
 
 class DetailActivity : AppCompatActivity() {
 
@@ -19,7 +20,7 @@ class DetailActivity : AppCompatActivity() {
 
         wbDetail.webViewClient = WebViewClient()
 
-        val url = intent.getStringExtra("url")
+        val url = intent.getStringExtra(EXTRA_URL)
         url?.let {
             wbDetail.loadUrl(it)
         }
