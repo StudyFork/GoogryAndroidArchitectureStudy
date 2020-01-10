@@ -8,9 +8,10 @@ class NaverRepository private constructor() {
     fun getMoviesData(
         title: String,
         success: (MovieResponseModel) -> Unit,
-        fail: (Throwable) -> Unit
+        fail: (Throwable) -> Unit,
+        isEmptyList: () -> Unit
     ) {
-        dataSource.getMoviesData(title, success, fail)
+        dataSource.getMoviesData(title, success, fail, isEmptyList)
     }
 
     companion object {

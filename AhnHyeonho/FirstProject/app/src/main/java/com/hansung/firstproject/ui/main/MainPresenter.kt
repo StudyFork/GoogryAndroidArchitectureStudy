@@ -15,13 +15,18 @@ class MainPresenter(
             view.showErrorKeywordEmpty()
         } else {
             // 검색 메소드
-            repository.getMoviesData(keyword,
+            repository.getMoviesData(
+                keyword,
                 success = {
                     view.addItemToAdapter(it)
                 },
                 fail = {
                     view.showErrorInternetDisconnect()
-                })
+                },
+                isEmptyList = {
+                    view.showErrorEmptyList()
+                }
+            )
             view.removeKeyboard()
         }
     }

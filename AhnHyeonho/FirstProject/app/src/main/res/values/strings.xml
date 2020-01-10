@@ -3,4 +3,5 @@
     <string name="btn_search">검색</string>
     <string name="internet_error_message">인터넷 연결을 확인하세요.</string>
     <string name="empty_keword_message">검색어를 입력하세요.</string>
+    <string name="empty_list_message">검색 결과가 없습니다</string>
 </resources>

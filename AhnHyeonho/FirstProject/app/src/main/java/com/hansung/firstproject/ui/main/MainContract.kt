@@ -12,6 +12,8 @@ interface MainContract {
 
         fun showErrorInternetDisconnect()
 
+        fun showErrorEmptyList()
+
         fun addItemToAdapter(response: MovieResponseModel)
     }
 

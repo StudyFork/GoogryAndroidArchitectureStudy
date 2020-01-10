@@ -18,29 +18,26 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
-    private lateinit var presenter: MainContract.Presenter
-
-    private val adapter: RecyclerViewAdapter<MovieModel> = RecyclerViewAdapter()
-
-    private val naverRepository by lazy {
-        NaverRepository.getInstance(
-            NaverRemoteDataSourceImpl.getInstance(
-                getString(R.string.client_id),
-                getString(R.string.client_secret)
+    private val presenter by lazy {
+        MainPresenter(
+            this,
+            NaverRepository.getInstance(
+                NaverRemoteDataSourceImpl.getInstance(
+                    getString(R.string.client_id),
+                    getString(R.string.client_secret)
+                )
             )
         )
-
     }
+
+    private val adapter: RecyclerViewAdapter<MovieModel> = RecyclerViewAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         // presenter initialize
-        presenter = MainPresenter(
-            this,
-            naverRepository
-        ).also { it.init() }
+        presenter.init()
 
         // recyclerView initialize
         initRecyclerView()
@@ -78,6 +75,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun showErrorInternetDisconnect() {
         Toast.makeText(this, getString(R.string.internet_error_message), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showErrorEmptyList() {
+        Toast.makeText(this, getString(R.string.empty_list_message), Toast.LENGTH_SHORT).show()
     }
 
     override fun addItemToAdapter(response: MovieResponseModel) {

@@ -6,12 +6,16 @@ import retrofit2.Call
 import retrofit2.Response
 
 
-class NaverRemoteDataSourceImpl private constructor(private val clientId: String, private val clientSecret: String) : NaverRemoteDataSource {
+class NaverRemoteDataSourceImpl private constructor(
+    private val clientId: String,
+    private val clientSecret: String
+) : NaverRemoteDataSource {
 
     override fun getMoviesData(
         title: String,
         onResponse: (MovieResponseModel) -> Unit,
-        onFailure: (Throwable) -> Unit
+        onFailure: (Throwable) -> Unit,
+        isEmptyList: () -> Unit
     ) {
         NaverApiServiceImpl.getResult(clientId, clientSecret, title, 100)
             .enqueue(object : retrofit2.Callback<MovieResponseModel> {
@@ -23,8 +27,12 @@ class NaverRemoteDataSourceImpl private constructor(private val clientId: String
                     call: Call<MovieResponseModel>,
                     response: Response<MovieResponseModel>
                 ) {
+
                     if (response.isSuccessful) {
-                        onResponse(response.body()!!)
+                        if (response.body()!!.display == 0) {
+                            isEmptyList()
+                        } else
+                            onResponse(response.body()!!)
                     }
                 }
             })
@@ -37,7 +45,7 @@ class NaverRemoteDataSourceImpl private constructor(private val clientId: String
         @JvmStatic
         fun getInstance(clientId: String, clientSecret: String): NaverRemoteDataSourceImpl =
             _INSTANCE ?: synchronized(this) {
-                _INSTANCE ?: NaverRemoteDataSourceImpl(clientId,clientSecret).also {
+                _INSTANCE ?: NaverRemoteDataSourceImpl(clientId, clientSecret).also {
                     _INSTANCE = it
                 }
             }
