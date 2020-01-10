@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView() // 뷰 초기화
-        refreshRecycler(movieData) // 리사이클러 뷰 초기화 및 설정
         initEvent() // 이벤트 처리
     }
 
@@ -43,7 +42,6 @@ class MainActivity : AppCompatActivity() {
                 // 네이버 영화 정보 API 요청
                 showToast("요청하신 관련 영화 : $query")
                 requestMovieList(query)
-                rvMovieList.adapter?.notifyDataSetChanged()
             }
             clearQuery()
             activateButton()
@@ -88,10 +86,10 @@ class MainActivity : AppCompatActivity() {
 
                         with(response) {
 
-                            if (isSuccessful && body() != null) {
+                            if (isSuccessful && body() != null && rvMovieList.adapter != null) {
                                 movieData = body()!!.items
                                 refreshRecycler(movieData)
-
+                                rvMovieList.adapter?.notifyDataSetChanged()
                             }
                         }
 
