@@ -2,19 +2,21 @@ package com.jay.architecturestudy
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.jay.architecturestudy.databinding.ActivityMainBinding
 import com.jay.architecturestudy.ui.blog.BlogFragment
 import com.jay.architecturestudy.ui.image.ImageFragment
 import com.jay.architecturestudy.ui.kin.KinFragment
 import com.jay.architecturestudy.ui.movie.MovieFragment
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
 
     private val pagerAdapter = PagerAdapter(supportFragmentManager)
 
@@ -55,23 +57,29 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onPageSelected(position: Int) {
-            bottom_navigation.menu.getItem(position).isChecked = true
+            binding.main.bottomNavigation.menu.getItem(position).isChecked = true
         }
 
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setSupportActionBar(binding.toolbar)
 
-        bottom_navigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener)
-        view_pager.adapter = pagerAdapter
-        view_pager.addOnPageChangeListener(pageChangeListener)
+        binding.main.bottomNavigation.setOnNavigationItemSelectedListener(
+            navigationItemSelectedListener
+        )
+        
+        binding.main.viewPager.run {
+            adapter = pagerAdapter
+            addOnPageChangeListener(pageChangeListener)
+        }
+
     }
 
     private fun setPageWithIndex(index: Int) {
-        view_pager?.currentItem = index
+        binding.main.viewPager.currentItem = index
     }
 
     inner class PagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {

@@ -1,26 +1,37 @@
 package com.jay.architecturestudy.ui.kin
 
 import android.os.Bundle
-import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Kin
+import com.jay.architecturestudy.databinding.FragmentKinBinding
 import com.jay.architecturestudy.ui.BaseFragment
+import com.jay.architecturestudy.ui.BaseSearchContract
 import com.jay.architecturestudy.util.then
-import kotlinx.android.synthetic.main.fragment_kin.*
 
-class KinFragment : BaseFragment(R.layout.fragment_kin), KinContract.View {
+
+class KinFragment : BaseFragment<FragmentKinBinding>(R.layout.fragment_kin), KinContract.View {
     override val presenter: KinContract.Presenter by lazy {
         KinPresenter(this, naverSearchRepository)
     }
 
     private lateinit var kinAdapter: KinAdapter
 
+    override var viewType: BaseSearchContract.ViewType =
+        BaseSearchContract.ViewType.VIEW_SEARCH_BEFORE
+        set(value) {
+            if (field != value) {
+                field = value
+                binding.viewType = value
+                binding.executePendingBindings()
+            }
+        }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity?.let { activity ->
             kinAdapter = KinAdapter()
-            recycler_view.run {
+            binding.recyclerView.run {
                 adapter = kinAdapter
                 addItemDecoration(
                     DividerItemDecoration(
@@ -31,7 +42,7 @@ class KinFragment : BaseFragment(R.layout.fragment_kin), KinContract.View {
             }
         }
 
-        search_bar.onClickAction = { keyword ->
+        binding.searchBar.onClickAction = { keyword ->
             search(keyword)
         }
 
@@ -45,33 +56,19 @@ class KinFragment : BaseFragment(R.layout.fragment_kin), KinContract.View {
 
     override fun updateUi(keyword: String, kins: List<Kin>) {
         keyword.isNotBlank().then {
-            search_bar.keyword = keyword
+            binding.searchBar.keyword = keyword
 
-            if (kins.isEmpty()) {
-                hideResultListView()
-                showEmptyResultView()
-            } else {
-                hideEmptyResultView()
-                showResultListView()
+            kins.isNotEmpty().then {
                 kinAdapter.setData(kins)
             }
+
+            viewType = when {
+                kins.isEmpty() -> BaseSearchContract.ViewType.VIEW_SEARCH_NO_RESULT
+                else -> BaseSearchContract.ViewType.VIEW_SEARCH_SUCCESS
+            }
+
+            binding.executePendingBindings()
         }
-    }
-
-    override fun showEmptyResultView() {
-        empty_result_view.visibility = View.VISIBLE
-    }
-
-    override fun showResultListView() {
-        recycler_view.visibility = View.VISIBLE
-    }
-
-    override fun hideEmptyResultView() {
-        empty_result_view.visibility = View.GONE
-    }
-
-    override fun hideResultListView() {
-        recycler_view.visibility = View.GONE
     }
 
     override fun search(keyword: String) {
@@ -79,10 +76,17 @@ class KinFragment : BaseFragment(R.layout.fragment_kin), KinContract.View {
     }
 
     override fun updateResult(result: List<Kin>) {
+        viewType = when {
+            result.isEmpty() -> BaseSearchContract.ViewType.VIEW_SEARCH_NO_RESULT
+            else -> BaseSearchContract.ViewType.VIEW_SEARCH_SUCCESS
+        }
+
         if (result.isEmpty()) {
             kinAdapter.clear()
         } else {
             kinAdapter.setData(result)
         }
+
+        binding.invalidateAll()
     }
 }

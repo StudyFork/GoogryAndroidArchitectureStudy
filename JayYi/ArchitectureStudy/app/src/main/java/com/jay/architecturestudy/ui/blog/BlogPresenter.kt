@@ -1,15 +1,10 @@
 package com.jay.architecturestudy.ui.blog
 
 import android.util.Log
-import com.jay.architecturestudy.data.database.entity.BlogEntity
-import com.jay.architecturestudy.data.model.Blog
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseSearchPresenter
 import com.jay.architecturestudy.util.addTo
 import com.jay.architecturestudy.util.singleIoMainThread
-import com.jay.architecturestudy.util.then
-import io.reactivex.Completable
-import io.reactivex.Single
 
 class BlogPresenter(
     override val view: BlogContract.View,
@@ -41,11 +36,7 @@ class BlogPresenter(
             .subscribe({ blogRepo ->
                 val blogs = blogRepo.blogs
                 if (blogs.isEmpty()) {
-                    view.hideResultListView()
-                    view.showEmptyResultView()
                 } else {
-                    view.hideEmptyResultView()
-                    view.showResultListView()
                 }
                 view.updateResult(blogs)
             }, { e ->

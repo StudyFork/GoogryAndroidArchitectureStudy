@@ -1,6 +1,7 @@
 package com.jay.architecturestudy.ui
 
 import android.view.View
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseAdapter<T, H : BaseViewHolder<T>> : RecyclerView.Adapter<H>() {
@@ -27,7 +28,11 @@ abstract class BaseAdapter<T, H : BaseViewHolder<T>> : RecyclerView.Adapter<H>()
 
 
 abstract class BaseViewHolder<T>(
-    itemView: View
-) : RecyclerView.ViewHolder(itemView) {
+    binding: ViewDataBinding
+) : RecyclerView.ViewHolder(binding.root) {
     abstract fun bind(item: T)
+}
+
+interface OnItemClickListener {
+    fun onClick(v: View, url: String)
 }

@@ -1,15 +1,10 @@
 package com.jay.architecturestudy.ui.kin
 
 import android.util.Log
-import com.jay.architecturestudy.data.database.entity.KinEntity
-import com.jay.architecturestudy.data.model.Kin
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseSearchPresenter
 import com.jay.architecturestudy.util.addTo
 import com.jay.architecturestudy.util.singleIoMainThread
-import com.jay.architecturestudy.util.then
-import io.reactivex.Completable
-import io.reactivex.Single
 
 class KinPresenter(
     override val view: KinContract.View,
@@ -42,11 +37,7 @@ class KinPresenter(
             .subscribe({ kinRepo ->
                 val kins = kinRepo.kins
                 if (kins.isEmpty()) {
-                    view.hideResultListView()
-                    view.showEmptyResultView()
                 } else {
-                    view.hideEmptyResultView()
-                    view.showResultListView()
                 }
                 view.updateResult(kins)
             }, { e ->

@@ -1,15 +1,10 @@
 package com.jay.architecturestudy.ui.image
 
 import android.util.Log
-import com.jay.architecturestudy.data.database.entity.ImageEntity
-import com.jay.architecturestudy.data.model.Image
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.ui.BaseSearchPresenter
 import com.jay.architecturestudy.util.addTo
 import com.jay.architecturestudy.util.singleIoMainThread
-import com.jay.architecturestudy.util.then
-import io.reactivex.Completable
-import io.reactivex.Single
 
 class ImagePresenter(
     override val view: ImageContract.View,
@@ -42,11 +37,7 @@ class ImagePresenter(
             .subscribe({ imageRepo ->
                 val images = imageRepo.images
                 if (images.isEmpty()) {
-                    view.hideResultListView()
-                    view.showEmptyResultView()
                 } else {
-                    view.hideEmptyResultView()
-                    view.showResultListView()
                 }
                 view.updateResult(images)
             }, { e ->

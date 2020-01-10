@@ -12,7 +12,7 @@ object ImageDataMapper : Mapper<Image, ImageEntity> {
             thumbnail = input.thumbnail,
             title = input.title
         )
-    
+
     override fun reverseMap(output: ImageEntity): Image =
         Image(
             link = output.link,

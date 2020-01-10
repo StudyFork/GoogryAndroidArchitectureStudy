@@ -1,45 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <com.jay.architecturestudy.widget.NaverSearchBarView
-        android:id="@+id/search_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+    <data>
+        <import type="com.jay.architecturestudy.ui.BaseSearchContract.ViewType"
+            />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/search_bar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-        app:spanCount="2"
-        tools:listitem="@layout/list_item_image"
-        tools:visibility="gone"
-        />
+        <variable
+            name="viewType"
+            type="com.jay.architecturestudy.ui.BaseSearchContract.ViewType"
+            />
+    </data>
 
-    <TextView
-        android:id="@+id/empty_result_view"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="@string/error_empty_result"
-        android:textSize="25dp"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/search_bar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:visibility="visible"
-        />
+        android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.jay.architecturestudy.widget.NaverSearchBarView
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/search_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            app:spanCount="2"
+            tools:listitem="@layout/list_item_image"
+            tools:visibility="gone"
+            visible="@{viewType == ViewType.VIEW_SEARCH_NO_RESULT ? false : true}"
+            />
+
+        <TextView
+            android:id="@+id/empty_result_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/error_empty_result"
+            android:textSize="25dp"
+            app:layout_constraintTop_toBottomOf="@+id/search_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:visibility="visible"
+            visible="@{viewType == ViewType.VIEW_SEARCH_NO_RESULT ? true : false}"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

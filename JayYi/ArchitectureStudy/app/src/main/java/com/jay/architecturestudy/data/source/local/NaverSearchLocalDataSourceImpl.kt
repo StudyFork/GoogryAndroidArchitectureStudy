@@ -8,7 +8,10 @@ import com.jay.architecturestudy.data.database.entity.BlogEntity
 import com.jay.architecturestudy.data.database.entity.ImageEntity
 import com.jay.architecturestudy.data.database.entity.KinEntity
 import com.jay.architecturestudy.data.database.entity.MovieEntity
-import com.jay.architecturestudy.data.model.*
+import com.jay.architecturestudy.data.model.BlogLocalData
+import com.jay.architecturestudy.data.model.ImageLocalData
+import com.jay.architecturestudy.data.model.KinLocalData
+import com.jay.architecturestudy.data.model.MovieLocalData
 import com.jay.architecturestudy.data.source.local.NaverSearchLocalDataSource.Companion.PREFS_KEY_BLOG
 import com.jay.architecturestudy.data.source.local.NaverSearchLocalDataSource.Companion.PREFS_KEY_IMAGE
 import com.jay.architecturestudy.data.source.local.NaverSearchLocalDataSource.Companion.PREFS_KEY_KIN

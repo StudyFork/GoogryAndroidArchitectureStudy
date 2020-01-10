@@ -1,51 +1,48 @@
 package com.jay.architecturestudy.ui.image
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
+import androidx.databinding.DataBindingUtil
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Image
+import com.jay.architecturestudy.databinding.ListItemImageBinding
 import com.jay.architecturestudy.ui.BaseAdapter
 import com.jay.architecturestudy.ui.BaseViewHolder
+import com.jay.architecturestudy.ui.OnItemClickListener
 import com.jay.architecturestudy.util.startWebView
-import kotlinx.android.synthetic.main.list_item_image.view.*
 
 internal class ImageAdapter : BaseAdapter<Image, ImageHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.list_item_image, parent, false)
-        return ImageHolder(view)
+        val binding = ListItemImageBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return ImageHolder(binding)
     }
 
 }
 
 internal class ImageHolder(
-    view: View
-) : BaseViewHolder<Image>(view) {
-    lateinit var item: Image
+    val binding: ListItemImageBinding
+) : BaseViewHolder<Image>(binding), OnItemClickListener {
 
     init {
-        itemView.setOnClickListener { view ->
-            view.startWebView(item.link)
-        }
+        binding.clickEvent = this
     }
 
     override fun bind(item: Image) {
-        this.item = item
-
-        with(itemView) {
-            image_title.text = item.title
-
-            try {
-                Glide.with(this)
-                    .load(item.thumbnail)
-                    .into(image_thumbnail)
-            } catch (e: Exception) {
-                Log.e("MovieAdapter", "error=${e.message}")
-            }
+        with(binding) {
+            title = item.title
+            imageUrl = item.thumbnail
+            url = item.link
+            executePendingBindings()
         }
+    }
+
+    override fun onClick(v: View, url: String) {
+        v.startWebView(url)
     }
 }

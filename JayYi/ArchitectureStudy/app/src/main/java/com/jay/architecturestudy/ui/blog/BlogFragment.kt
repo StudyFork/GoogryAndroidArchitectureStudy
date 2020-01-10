@@ -1,26 +1,36 @@
 package com.jay.architecturestudy.ui.blog
 
 import android.os.Bundle
-import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Blog
+import com.jay.architecturestudy.databinding.FragmentBlogBinding
 import com.jay.architecturestudy.ui.BaseFragment
+import com.jay.architecturestudy.ui.BaseSearchContract
 import com.jay.architecturestudy.util.then
-import kotlinx.android.synthetic.main.fragment_blog.*
 
-class BlogFragment : BaseFragment(R.layout.fragment_blog), BlogContract.View {
+class BlogFragment : BaseFragment<FragmentBlogBinding>(R.layout.fragment_blog), BlogContract.View {
     override val presenter: BlogContract.Presenter by lazy {
         BlogPresenter(this, naverSearchRepository)
     }
 
     private lateinit var blogAdapter: BlogAdapter
 
+    override var viewType: BaseSearchContract.ViewType =
+        BaseSearchContract.ViewType.VIEW_SEARCH_BEFORE
+        set(value) {
+            if (field != value) {
+                field = value
+                binding.viewType = value
+                binding.invalidateAll()
+            }
+        }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity?.let { activity ->
             blogAdapter = BlogAdapter()
-            recycler_view.run {
+            binding.recyclerView.run {
                 adapter = blogAdapter
                 addItemDecoration(
                     DividerItemDecoration(
@@ -31,7 +41,7 @@ class BlogFragment : BaseFragment(R.layout.fragment_blog), BlogContract.View {
             }
         }
 
-        search_bar.onClickAction = { keyword ->
+        binding.searchBar.onClickAction = { keyword ->
             search(keyword)
         }
 
@@ -45,34 +55,19 @@ class BlogFragment : BaseFragment(R.layout.fragment_blog), BlogContract.View {
 
     override fun updateUi(keyword: String, blogs: List<Blog>) {
         keyword.isNotBlank().then {
-            search_bar.keyword = keyword
+            binding.searchBar.keyword = keyword
 
-            if (blogs.isEmpty()) {
-                hideResultListView()
-                showEmptyResultView()
-            } else {
-                hideEmptyResultView()
-                showResultListView()
+            viewType = when {
+                blogs.isEmpty() -> BaseSearchContract.ViewType.VIEW_SEARCH_NO_RESULT
+                else -> BaseSearchContract.ViewType.VIEW_SEARCH_SUCCESS
+            }
+
+            blogs.isNotEmpty().then {
                 blogAdapter.setData(blogs)
             }
 
+            binding.invalidateAll()
         }
-    }
-
-    override fun showEmptyResultView() {
-        empty_result_view.visibility = View.VISIBLE
-    }
-
-    override fun showResultListView() {
-        recycler_view.visibility = View.VISIBLE
-    }
-
-    override fun hideEmptyResultView() {
-        empty_result_view.visibility = View.GONE
-    }
-
-    override fun hideResultListView() {
-        recycler_view.visibility = View.GONE
     }
 
     override fun search(keyword: String) {
@@ -80,10 +75,17 @@ class BlogFragment : BaseFragment(R.layout.fragment_blog), BlogContract.View {
     }
 
     override fun updateResult(result: List<Blog>) {
+        viewType = when {
+            result.isEmpty() -> BaseSearchContract.ViewType.VIEW_SEARCH_NO_RESULT
+            else -> BaseSearchContract.ViewType.VIEW_SEARCH_SUCCESS
+        }
+
         if (result.isEmpty()) {
             blogAdapter.clear()
         } else {
             blogAdapter.setData(result)
         }
+
+        binding.invalidateAll()
     }
 }
