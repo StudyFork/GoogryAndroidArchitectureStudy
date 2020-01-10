@@ -1,6 +1,5 @@
 package com.example.androidarchitecture.ui.image
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,19 +17,19 @@ class ImageAdapter :
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ImageHolder(
-        ItemImageBinding.inflate(LayoutInflater.from(parent.context), parent, false), parent.context
+        ItemImageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
-    inner class ImageHolder(private val binding: ItemImageBinding, private val context: Context) :
+    inner class ImageHolder(private val binding: ItemImageBinding) :
         BaseViewHolder<ImageData>(binding.root) {
-        lateinit var item: ImageData
+        private lateinit var item: ImageData
 
         init {
             binding.setOnClick {
-                Intent(context, WebviewActivity::class.java).apply {
-                    // apply 끝에 그러니까 run 자리에서 뱉는건, intent 객체.  안에 애들은 객체를 뱉기전에 값넣기 혹은 초기화 작업시 좋다.
+                Intent(it.context, WebviewActivity::class.java).apply {
                     putExtra("link", item.link)
-                }.run { context.startActivity(this) }
+                }.run { it.context.startActivity(this)
+                }
             }
         }
 

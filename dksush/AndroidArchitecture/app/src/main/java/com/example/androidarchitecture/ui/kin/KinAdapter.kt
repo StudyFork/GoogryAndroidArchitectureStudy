@@ -1,6 +1,5 @@
 package com.example.androidarchitecture.ui.kin
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -15,18 +14,18 @@ import com.example.androidarchitecture.ui.base.BaseViewHolder
 class KinAdapter : BaseRecyclerAdapter<KinData, KinAdapter.KinHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = KinHolder(
-        ItemKinBinding.inflate(LayoutInflater.from(parent.context), parent, false), parent.context
+        ItemKinBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
-    inner class KinHolder(private val binding: ItemKinBinding, private val context: Context) :
+    inner class KinHolder(private val binding: ItemKinBinding) :
         BaseViewHolder<KinData>(binding.root) {
-        lateinit var item: KinData
+        private lateinit var item: KinData
 
         init {
             binding.setOnClick {
-                Intent(context, WebviewActivity::class.java).apply {
+                Intent(it.context, WebviewActivity::class.java).apply {
                     putExtra("link", item.link)
-                }.run { context.startActivity(this) }
+                }.run { it.context.startActivity(this) }
 
             }
         }

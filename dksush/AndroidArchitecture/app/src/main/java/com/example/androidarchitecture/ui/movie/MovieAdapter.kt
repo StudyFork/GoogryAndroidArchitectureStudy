@@ -15,18 +15,18 @@ import com.example.androidarchitecture.ui.base.BaseViewHolder
 class MovieAdapter : BaseRecyclerAdapter<MovieData, MovieAdapter.MovieHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MovieHolder(
-        ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false), parent.context
+        ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
-    inner class MovieHolder(private val binding: ItemMovieBinding, private val context: Context) :
+    inner class MovieHolder(private val binding: ItemMovieBinding) :
         BaseViewHolder<MovieData>(binding.root) {
-        lateinit var item: MovieData
+        private lateinit var item: MovieData
 
         init {
             binding.setOnClick {
-                Intent(context, WebviewActivity::class.java).apply {
+                Intent(it.context, WebviewActivity::class.java).apply {
                     putExtra("link", item.link)
-                }.run { context.startActivity(this) }
+                }.run { it.context.startActivity(this) }
             }
         }
 

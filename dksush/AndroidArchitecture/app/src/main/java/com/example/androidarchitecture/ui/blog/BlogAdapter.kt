@@ -15,17 +15,17 @@ import com.example.androidarchitecture.ui.base.BaseViewHolder
 class BlogAdapter : BaseRecyclerAdapter<BlogData, BlogAdapter.BlogHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = BlogHolder(
-        ItemBlogBinding.inflate(LayoutInflater.from(parent.context), parent, false), parent.context)
+        ItemBlogBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
-    inner class BlogHolder(private val binding: ItemBlogBinding, private val context: Context) :
+    inner class BlogHolder(private val binding: ItemBlogBinding) :
         BaseViewHolder<BlogData>(binding.root) {
-        lateinit var item: BlogData
+        private lateinit var item: BlogData
 
         init {
             binding.setOnClick {
-                Intent(context, WebviewActivity::class.java).apply {
+                Intent(it.context, WebviewActivity::class.java).apply {
                     putExtra("link", item.link)
-                }.run { context.startActivity(this) }
+                }.run { it.context.startActivity(this) }
             }
         }
 
