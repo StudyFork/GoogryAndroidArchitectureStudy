@@ -16,9 +16,10 @@ import app.ch.study.data.remote.response.MovieModel
 import com.bumptech.glide.Glide
 
 class MovieAdapter(
-    private val list: ArrayList<MovieModel>,
     private val listener: EventListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private val list: ArrayList<MovieModel> = ArrayList()
 
     fun replaceAll(items: ArrayList<MovieModel>) {
         items.let {
