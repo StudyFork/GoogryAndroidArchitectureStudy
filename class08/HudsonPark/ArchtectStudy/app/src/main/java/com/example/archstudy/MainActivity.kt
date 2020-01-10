@@ -20,14 +20,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var edtQuery: EditText
     private lateinit var btnSearch: Button
     private lateinit var rvMovieList: RecyclerView
-    private lateinit var rvMovieAdapter : MovieListAdapter
-    private var movieData : List<Item> = emptyList()
+    private lateinit var rvMovieAdapter: MovieListAdapter
+    private lateinit var movieData: ArrayList<Item>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView() // 뷰 초기화
-        refreshRecycler(movieData) // 리사이클러 뷰 초기화 및 설정
         initEvent() // 이벤트 처리
     }
 
@@ -40,10 +39,9 @@ class MainActivity : AppCompatActivity() {
             if (query.isEmpty()) {
                 showToast("검색어를 다시 입력해주세요.")
             } else {
-                // 네이버 영화 정보 API 요청
                 showToast("요청하신 관련 영화 : $query")
-                requestMovieList(query)
-                rvMovieList.adapter?.notifyDataSetChanged()
+                requestMovieList(query) // 네이버 영화 정보 API 요청
+
             }
             clearQuery()
             activateButton()
@@ -55,12 +53,10 @@ class MainActivity : AppCompatActivity() {
         edtQuery = findViewById(R.id.edtQuery)
         btnSearch = findViewById(R.id.btnSearch)
         rvMovieList = findViewById(R.id.rvMovieList)
-    }
-
-    private fun refreshRecycler(data : List<Item>) {
-        rvMovieAdapter = MovieListAdapter(data,object : MovieListAdapter.ItemClickListener {
-            override fun onItemClick(url: String) {
-                startActivity(Intent(Intent.ACTION_VIEW,Uri.parse(url)))
+        movieData = arrayListOf()
+        rvMovieAdapter = MovieListAdapter(movieData, object : MovieListAdapter.ItemClickListener {
+            override fun onItemClick(url : String) {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
             }
         })
         rvMovieList.adapter = rvMovieAdapter
@@ -75,22 +71,24 @@ class MainActivity : AppCompatActivity() {
 
         retrofit.create(RetrofitService::class.java).apply {
             this.getMovieList(BuildConfig.API_CLIENT_ID, BuildConfig.API_CLIENT_SECRET, query)
-                .enqueue(object : Callback<Movie> {
+                .enqueue(object : Callback<Data> {
 
-                    override fun onFailure(call: Call<Movie>, t: Throwable) {
+                    override fun onFailure(call: Call<Data>, t: Throwable) {
                         showToast("통신 에러가 발생하였습니다 error : ${t.message}")
                     }
 
                     override fun onResponse(
-                        call: Call<Movie>,
-                        response: Response<Movie>
+                        call: Call<Data>,
+                        response: Response<Data>
                     ) {
 
                         with(response) {
 
                             if (isSuccessful && body() != null) {
-                                movieData = body()!!.items
-                                refreshRecycler(movieData)
+                                val updateList = body()!!.items
+                                movieData.clear()
+                                movieData.addAll(updateList)
+                                rvMovieList.adapter?.notifyDataSetChanged()
                             }
                         }
 

@@ -12,5 +12,5 @@ interface RetrofitService {
         @Header("X-Naver-Client-Id") clientId : String,
         @Header("X-Naver-Client-Secret") clientSecret : String,
         @Query("query") query : String
-    ) : Call<Movie>
+    ) : Call<Data>
 }
