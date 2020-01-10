@@ -16,7 +16,6 @@ import app.ch.study.data.remote.response.MovieModel
 import com.bumptech.glide.Glide
 
 class MovieAdapter(
-    private val context: Context,
     private val list: ArrayList<MovieModel>,
     private val listener: EventListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -62,7 +61,7 @@ class MovieAdapter(
             tvActor.text = item.actor
 
             Glide
-                .with(context)
+                .with(itemView.context)
                 .load(item.image)
                 .centerCrop()
                 .into(ivPoster)
