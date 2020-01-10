@@ -9,5 +9,8 @@ class StringConst {
         const val PREF_KEY_IMAGE = "image"
         const val PREF_KEY_KIN = "kin"
 
+
+        const val INTENT_KEY_LINK = "link"
+
     }
 }

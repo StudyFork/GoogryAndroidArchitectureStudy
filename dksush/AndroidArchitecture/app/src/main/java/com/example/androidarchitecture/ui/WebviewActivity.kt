@@ -6,6 +6,7 @@ import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.androidarchitecture.R
+import com.example.androidarchitecture.common.StringConst.Companion.INTENT_KEY_LINK
 import com.example.androidarchitecture.databinding.ActivityWebviewBinding
 
 class WebviewActivity : AppCompatActivity() {
@@ -18,7 +19,7 @@ class WebviewActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_webview)
 
 
-        val url = intent.getStringExtra("link")
+        val url = intent.getStringExtra(INTENT_KEY_LINK)
             ?: run {
                 finish()
                 return

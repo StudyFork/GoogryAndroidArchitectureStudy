@@ -1,10 +1,10 @@
 package com.example.androidarchitecture.ui.blog
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import com.example.androidarchitecture.common.StringConst
 import com.example.androidarchitecture.data.response.BlogData
 import com.example.androidarchitecture.databinding.ItemBlogBinding
 import com.example.androidarchitecture.ui.WebviewActivity
@@ -24,7 +24,7 @@ class BlogAdapter : BaseRecyclerAdapter<BlogData, BlogAdapter.BlogHolder>(DiffCa
         init {
             binding.setOnClick {
                 Intent(it.context, WebviewActivity::class.java).apply {
-                    putExtra("link", item.link)
+                    putExtra(StringConst.INTENT_KEY_LINK, item.link)
                 }.run { it.context.startActivity(this) }
             }
         }

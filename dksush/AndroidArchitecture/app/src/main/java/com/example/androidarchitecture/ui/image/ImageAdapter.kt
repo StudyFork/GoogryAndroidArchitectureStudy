@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import com.example.androidarchitecture.common.StringConst.Companion.INTENT_KEY_LINK
 import com.example.androidarchitecture.data.response.ImageData
 import com.example.androidarchitecture.databinding.ItemImageBinding
 import com.example.androidarchitecture.ui.WebviewActivity
@@ -13,8 +14,6 @@ import com.example.androidarchitecture.ui.base.BaseViewHolder
 
 class ImageAdapter :
     BaseRecyclerAdapter<ImageData, ImageAdapter.ImageHolder>(DiffCallback()) {
-
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ImageHolder(
         ItemImageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -27,7 +26,7 @@ class ImageAdapter :
         init {
             binding.setOnClick {
                 Intent(it.context, WebviewActivity::class.java).apply {
-                    putExtra("link", item.link)
+                    putExtra(INTENT_KEY_LINK, item.link)
                 }.run { it.context.startActivity(this)
                 }
             }

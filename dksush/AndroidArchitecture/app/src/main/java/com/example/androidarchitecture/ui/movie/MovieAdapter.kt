@@ -1,10 +1,10 @@
 package com.example.androidarchitecture.ui.movie
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import com.example.androidarchitecture.common.StringConst
 import com.example.androidarchitecture.data.response.MovieData
 import com.example.androidarchitecture.databinding.ItemMovieBinding
 import com.example.androidarchitecture.ui.WebviewActivity
@@ -25,7 +25,7 @@ class MovieAdapter : BaseRecyclerAdapter<MovieData, MovieAdapter.MovieHolder>(Di
         init {
             binding.setOnClick {
                 Intent(it.context, WebviewActivity::class.java).apply {
-                    putExtra("link", item.link)
+                    putExtra(StringConst.INTENT_KEY_LINK, item.link)
                 }.run { it.context.startActivity(this) }
             }
         }

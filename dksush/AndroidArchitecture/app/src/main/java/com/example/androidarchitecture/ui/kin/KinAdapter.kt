@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import com.example.androidarchitecture.common.StringConst.Companion.INTENT_KEY_LINK
 import com.example.androidarchitecture.data.response.KinData
 import com.example.androidarchitecture.databinding.ItemKinBinding
 import com.example.androidarchitecture.ui.WebviewActivity
@@ -24,7 +25,7 @@ class KinAdapter : BaseRecyclerAdapter<KinData, KinAdapter.KinHolder>(DiffCallba
         init {
             binding.setOnClick {
                 Intent(it.context, WebviewActivity::class.java).apply {
-                    putExtra("link", item.link)
+                    putExtra(INTENT_KEY_LINK, item.link)
                 }.run { it.context.startActivity(this) }
 
             }
