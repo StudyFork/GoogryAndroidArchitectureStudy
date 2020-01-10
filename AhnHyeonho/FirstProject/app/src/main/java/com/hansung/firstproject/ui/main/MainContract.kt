@@ -4,8 +4,6 @@ import com.hansung.firstproject.data.MovieResponseModel
 
 interface MainContract {
     interface View {
-        fun initRecyclerView()
-
         fun removeKeyboard(): Boolean
 
         fun showErrorKeywordEmpty()
@@ -18,7 +16,6 @@ interface MainContract {
     }
 
     interface Presenter {
-        fun init()
         fun doSearch(keyword: String)
     }
 }

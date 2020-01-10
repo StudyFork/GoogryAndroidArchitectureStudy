@@ -36,9 +36,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // presenter initialize
-        presenter.init()
-
         // recyclerView initialize
         initRecyclerView()
 
@@ -49,7 +46,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     // recyclerView 초기화 메소드
-    override fun initRecyclerView() {
+    private fun initRecyclerView() {
         recycler_view_movies.adapter = adapter
         recycler_view_movies.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         recycler_view_movies.setHasFixedSize(true)
