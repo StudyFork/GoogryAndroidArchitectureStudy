@@ -14,20 +14,11 @@ import com.example.androidarchitecture.ui.base.BaseViewHolder
 
 class MovieAdapter : BaseRecyclerAdapter<MovieData, MovieAdapter.MovieHolder>(DiffCallback()) {
 
-    private lateinit var context: Context
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MovieHolder(
+        ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false), parent.context
+    )
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
-        context = parent.context
-        return MovieHolder(
-            ItemMovieBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
-    }
-
-    inner class MovieHolder(private val binding: ItemMovieBinding) :
+    inner class MovieHolder(private val binding: ItemMovieBinding, private val context: Context) :
         BaseViewHolder<MovieData>(binding.root) {
         lateinit var item: MovieData
 

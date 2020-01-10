@@ -14,20 +14,10 @@ import com.example.androidarchitecture.ui.base.BaseViewHolder
 
 class BlogAdapter : BaseRecyclerAdapter<BlogData, BlogAdapter.BlogHolder>(DiffCallback()) {
 
-    private lateinit var context: Context
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = BlogHolder(
+        ItemBlogBinding.inflate(LayoutInflater.from(parent.context), parent, false), parent.context)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogHolder {
-        context = parent.context
-        return BlogHolder(
-            ItemBlogBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
-    }
-
-    inner class BlogHolder(private val binding: ItemBlogBinding) :
+    inner class BlogHolder(private val binding: ItemBlogBinding, private val context: Context) :
         BaseViewHolder<BlogData>(binding.root) {
         lateinit var item: BlogData
 

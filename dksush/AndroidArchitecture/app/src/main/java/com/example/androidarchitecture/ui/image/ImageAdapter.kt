@@ -15,20 +15,13 @@ import com.example.androidarchitecture.ui.base.BaseViewHolder
 class ImageAdapter :
     BaseRecyclerAdapter<ImageData, ImageAdapter.ImageHolder>(DiffCallback()) {
 
-    private lateinit var context: Context
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
-        context = parent.context
-        return ImageHolder(
-            ItemImageBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
-    }
 
-    inner class ImageHolder(private val binding: ItemImageBinding) :
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ImageHolder(
+        ItemImageBinding.inflate(LayoutInflater.from(parent.context), parent, false), parent.context
+    )
+
+    inner class ImageHolder(private val binding: ItemImageBinding, private val context: Context) :
         BaseViewHolder<ImageData>(binding.root) {
         lateinit var item: ImageData
 

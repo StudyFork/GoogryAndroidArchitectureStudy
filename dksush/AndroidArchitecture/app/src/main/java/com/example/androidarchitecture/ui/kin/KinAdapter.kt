@@ -13,13 +13,12 @@ import com.example.androidarchitecture.ui.base.BaseViewHolder
 
 
 class KinAdapter : BaseRecyclerAdapter<KinData, KinAdapter.KinHolder>(DiffCallback()) {
-    private lateinit var context: Context
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KinHolder {
-        this.context = parent.context
-        return KinHolder(ItemKinBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-    }
 
-    inner class KinHolder(private val binding: ItemKinBinding) :
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = KinHolder(
+        ItemKinBinding.inflate(LayoutInflater.from(parent.context), parent, false), parent.context
+    )
+
+    inner class KinHolder(private val binding: ItemKinBinding, private val context: Context) :
         BaseViewHolder<KinData>(binding.root) {
         lateinit var item: KinData
 
