@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.practice.achitecture.myproject.R
-import com.practice.achitecture.myproject.makeToast
+import com.practice.achitecture.myproject.ext.makeToast
 
 abstract class BaseActivity<DB : ViewDataBinding>(@LayoutRes contentLayoutId: Int) :
     AppCompatActivity() {

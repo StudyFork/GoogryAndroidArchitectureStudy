@@ -14,14 +14,15 @@ import com.practice.achitecture.myproject.base.BaseNaverSearchViewModel
 import com.practice.achitecture.myproject.data.source.NaverDataSource
 import com.practice.achitecture.myproject.data.source.NaverRepository
 import com.practice.achitecture.myproject.enums.SearchType
+import com.practice.achitecture.myproject.ext.default
 import com.practice.achitecture.myproject.model.SearchedItem
 
 class MainViewModel constructor(private val naverRepository: NaverRepository) :
     BaseNaverSearchViewModel() {
 
-    val query = MutableLiveData<String>("")
-    val eventQueryEmpty = MutableLiveData<Boolean>(false)
-    val eventGoToHistoryActivity = MutableLiveData<Boolean>(false)
+    val query = MutableLiveData<String>().default("")
+    val eventQueryEmpty = MutableLiveData<Boolean>().default(false)
+    val eventGoToHistoryActivity = MutableLiveData<Boolean>().default(false)
 
     fun search(searchType: SearchType) {
         lastSearchType.value = searchType

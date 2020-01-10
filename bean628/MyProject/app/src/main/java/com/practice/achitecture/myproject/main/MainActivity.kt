@@ -11,11 +11,11 @@ import com.practice.achitecture.myproject.data.source.local.NaverDatabase
 import com.practice.achitecture.myproject.data.source.local.NaverLocalDataSourceImpl
 import com.practice.achitecture.myproject.data.source.remote.NaverRemoteDataSourceImpl
 import com.practice.achitecture.myproject.databinding.ActivityMainBinding
-import com.practice.achitecture.myproject.hideSoftKeyboard
+import com.practice.achitecture.myproject.ext.hideSoftKeyboard
+import com.practice.achitecture.myproject.ext.makeToast
+import com.practice.achitecture.myproject.ext.openActivity
 import com.practice.achitecture.myproject.history.HistoryActivity
-import com.practice.achitecture.myproject.makeToast
 import com.practice.achitecture.myproject.network.RetrofitClient
-import com.practice.achitecture.myproject.openActivity
 import com.practice.achitecture.myproject.util.AppExecutors
 import common.NAVER_API_BASE_URL
 

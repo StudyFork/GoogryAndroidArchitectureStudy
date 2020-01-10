@@ -1,4 +1,4 @@
-package com.practice.achitecture.myproject
+package com.practice.achitecture.myproject.ext
 
 import android.content.Context
 import android.content.Intent
