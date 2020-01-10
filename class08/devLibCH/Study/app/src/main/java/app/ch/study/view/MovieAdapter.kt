@@ -9,15 +9,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import app.ch.study.R
 import app.ch.study.data.remote.response.MovieModel
 import com.bumptech.glide.Glide
 
-class MovieAdapter(
-    private val listener: EventListener
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MovieAdapter(private val itemClick: (String) -> Unit) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val list: ArrayList<MovieModel> = ArrayList()
 
@@ -32,8 +30,16 @@ class MovieAdapter(
 
     override fun getItemCount(): Int = list.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        MovieViewHolder(parent.context, R.layout.list_item_movie, parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val holder = MovieViewHolder(parent.context, R.layout.list_item_movie, parent)
+
+        holder.itemView.setOnClickListener {
+            val item = list[holder.adapterPosition]
+            itemClick(item.link)
+        }
+
+        return holder
+    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
         (holder as MovieViewHolder).onBindViewHolder(list[position])
@@ -47,7 +53,6 @@ class MovieAdapter(
     ) {
 
         fun onBindViewHolder(item: MovieModel) {
-            val itemParent: ConstraintLayout = itemView.findViewById(R.id.v_item)
             val ivPoster: ImageView = itemView.findViewById(R.id.iv_poster)
             val tvName: TextView = itemView.findViewById(R.id.tv_name)
             val rbUserRating: RatingBar = itemView.findViewById(R.id.rb_user_rating)
@@ -66,10 +71,6 @@ class MovieAdapter(
                 .load(item.image)
                 .centerCrop()
                 .into(ivPoster)
-
-            itemParent.setOnClickListener {
-                listener.itemClick(item.link)
-            }
         }
 
         private fun fromHtml(source: String): Spanned {
@@ -78,10 +79,6 @@ class MovieAdapter(
             else
                 Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY)
         }
-    }
-
-    interface EventListener {
-        fun itemClick(url: String)
     }
 
 }

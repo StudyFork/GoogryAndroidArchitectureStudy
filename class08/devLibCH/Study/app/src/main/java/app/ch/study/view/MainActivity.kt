@@ -19,7 +19,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 
-class MainActivity : AppCompatActivity(), MovieAdapter.EventListener {
+class MainActivity : AppCompatActivity() {
 
     private val compositeDisposable = CompositeDisposable()
     private var adapter: MovieAdapter? = null
@@ -44,7 +44,14 @@ class MainActivity : AppCompatActivity(), MovieAdapter.EventListener {
         rvMovie = findViewById(R.id.rv_movie)
         etSearch = findViewById(R.id.et_search)
 
-        adapter = MovieAdapter(this)
+        adapter = MovieAdapter {
+                url ->
+
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra(EXTRA_URL, url)
+            startActivity(intent)
+        }
+
         rvMovie.adapter = adapter
 
         btnSearch.setOnClickListener {
@@ -75,12 +82,6 @@ class MainActivity : AppCompatActivity(), MovieAdapter.EventListener {
                     Toast.makeText(this, error, Toast.LENGTH_LONG).show()
                 })
         )
-    }
-
-    override fun itemClick(url: String) {
-        val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra(EXTRA_URL, url)
-        startActivity(intent)
     }
 
     private fun addDisposable(disposable: Disposable) {
