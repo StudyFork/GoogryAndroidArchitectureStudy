@@ -6,9 +6,7 @@
     </shared>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5f95eac5-a813-4224-9fad-ebe2e6e706ac" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/FirstProject/app/src/main/java/com/hansung/firstproject/ui/main/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/FirstProject/app/src/main/java/com/hansung/firstproject/ui/main/MainActivity.kt" afterDir="false" />
-    </list>
+    <list default="true" id="5f95eac5-a813-4224-9fad-ebe2e6e706ac" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +39,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="317" />
+    <option name="x" value="316" />
     <option name="y" value="-5" />
     <option name="width" value="1205" />
     <option name="height" value="1055" />
@@ -52,9 +50,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">

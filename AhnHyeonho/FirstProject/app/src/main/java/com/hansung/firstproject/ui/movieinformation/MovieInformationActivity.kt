@@ -24,16 +24,9 @@ class MovieInformationActivity : AppCompatActivity(), MovieInformationContract.V
 
         presenter.loadWebView()
     }
-    
-    companion object {
-        const val TAG = "WEB_PAGE"
-        fun getIntent(context: Context): Intent {
-            return Intent(context, MovieInformationActivity::class.java)
-        }
-    }
 
     override fun readUrl() {
-        webPageUrl = intent.getStringExtra("WEB_PAGE")
+        webPageUrl = intent.getStringExtra(TAG)
     }
 
     override fun loadWebView() {
@@ -48,4 +41,12 @@ class MovieInformationActivity : AppCompatActivity(), MovieInformationContract.V
             }
         }
     }
+
+    companion object {
+        const val TAG = "WEB_PAGE"
+        fun getIntent(context: Context): Intent {
+            return Intent(context, MovieInformationActivity::class.java)
+        }
+    }
+
 }
