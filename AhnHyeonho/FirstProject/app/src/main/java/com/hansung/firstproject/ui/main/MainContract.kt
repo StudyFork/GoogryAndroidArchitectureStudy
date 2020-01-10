@@ -8,7 +8,7 @@ interface MainContract {
 
         fun showErrorKeywordEmpty()
 
-        fun showErrorInternetDisconnect()
+        fun showErrorByErrorMessage(errorMessage: String)
 
         fun showErrorEmptyList()
 

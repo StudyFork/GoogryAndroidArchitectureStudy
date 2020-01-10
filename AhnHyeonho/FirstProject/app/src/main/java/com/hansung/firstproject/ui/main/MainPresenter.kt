@@ -18,7 +18,7 @@ class MainPresenter(
                     view.addItemToAdapter(it)
                 },
                 fail = {
-                    view.showErrorInternetDisconnect()
+                    view.showErrorByErrorMessage(it.message!!)
                 },
                 isEmptyList = {
                     view.showErrorEmptyList()

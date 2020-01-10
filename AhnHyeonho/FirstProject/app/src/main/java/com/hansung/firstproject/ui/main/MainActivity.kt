@@ -23,8 +23,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             this,
             NaverRepository.getInstance(
                 NaverRemoteDataSourceImpl.getInstance(
-                    getString(R.string.client_id),
-                    getString(R.string.client_secret)
+                    resources
                 )
             )
         )
@@ -70,8 +69,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         Toast.makeText(this, getString(R.string.empty_keword_message), Toast.LENGTH_SHORT).show()
     }
 
-    override fun showErrorInternetDisconnect() {
-        Toast.makeText(this, getString(R.string.internet_error_message), Toast.LENGTH_SHORT).show()
+    override fun showErrorByErrorMessage(errorMessage: String) {
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
     }
 
     override fun showErrorEmptyList() {
