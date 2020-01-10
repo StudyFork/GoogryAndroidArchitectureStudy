@@ -5,12 +5,13 @@
 
     <data>
 
-        <import type="androidx.databinding.ObservableArrayList"/>
-        <import type="com.ironelder.androidarchitecture.data.ResultItem"/>
+        <import type="java.util.List" />
+
+        <import type="com.ironelder.androidarchitecture.data.ResultItem" />
 
         <variable
             name="items"
-            type="ObservableArrayList&lt;ResultItem&gt;" />
+            type="List&lt;ResultItem&gt;" />
 
     </data>
 
@@ -23,13 +24,13 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
-            tools:listitem="@layout/item_custom_item_view"
-            app:setListItems="@{items}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:setListItems="@{items}"
+            tools:listitem="@layout/item_custom_item_view" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -3,7 +3,8 @@ package com.ironelder.androidarchitecture.data.repository
 import com.google.gson.Gson
 import com.ironelder.androidarchitecture.data.SearchResult
 import com.ironelder.androidarchitecture.data.TotalModel
-import com.ironelder.androidarchitecture.data.database.SearchResultDatabase
+import com.ironelder.androidarchitecture.data.dao.SearchResultDao
+import com.ironelder.androidarchitecture.data.source.local.LocalSearchDataSourceImpl
 import com.ironelder.androidarchitecture.data.source.remote.RemoteSearchDataSourceImpl
 import io.reactivex.Single
 
@@ -12,28 +13,27 @@ object SearchDataRepositoryImpl :
 
     override fun getRemoteSearchData(
         type: String,
-        query: String?,
-        database: SearchResultDatabase?
+        query: String,
+        searchResultDao: SearchResultDao
     ): Single<TotalModel> {
         return RemoteSearchDataSourceImpl.getRemoteSearchData(type, query)
             .doAfterSuccess { result: TotalModel? ->
-                database?.SearchResultDao()
-                    ?.insertSearchResult(
-                        SearchResult(
-                            null,
-                            type,
-                            query ?: "",
-                            Gson().toJson(result?.items)
-                        )
+                LocalSearchDataSourceImpl.setLocalSearchData(
+                    searchResultDao, SearchResult(
+                        null,
+                        type,
+                        query,
+                        Gson().toJson(result?.items)
                     )
+                )
             }
     }
 
     override fun getLocalSearchData(
         type: String,
-        database: SearchResultDatabase?
+        searchResultDao: SearchResultDao
     ): Single<SearchResult>? {
-        return database?.SearchResultDao()?.getLastSearchResult(type)
+        return LocalSearchDataSourceImpl.getLocalSearchData(searchResultDao, type)
     }
 
 }

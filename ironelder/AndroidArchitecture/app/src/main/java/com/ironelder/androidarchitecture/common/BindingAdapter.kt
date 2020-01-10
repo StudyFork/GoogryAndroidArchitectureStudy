@@ -3,7 +3,6 @@ package com.ironelder.androidarchitecture.common
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import androidx.databinding.ObservableArrayList
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
@@ -15,7 +14,7 @@ import com.ironelder.androidarchitecture.ui.CustomPagerAdapter
 import com.ironelder.androidarchitecture.view.mainview.MainActivity
 
 @BindingAdapter("setImageViewVisible")
-fun setImageViewVisible(view: ImageView, url: String?) {
+fun setImageViewVisible(view: View, url: String?) {
     if (url == null) {
         view.visibility = View.GONE
     } else {
@@ -31,7 +30,7 @@ fun loadImageUrl(view: ImageView, url: String?) {
 }
 
 @BindingAdapter("setListItems")
-fun setListItems(view: RecyclerView, items: ObservableArrayList<ResultItem>?) {
+fun setListItems(view: RecyclerView, items: List<ResultItem>?) {
     val adapter: CustomListViewAdapter = view.adapter as CustomListViewAdapter
     adapter.setItemList(items)
 }

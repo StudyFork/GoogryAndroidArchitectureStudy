@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import com.ironelder.androidarchitecture.R
 
 
-abstract class BaseFragment<in VIEW : BaseContract.View, BINDING:ViewDataBinding, PRESENTER : BaseContract.Presenter<VIEW>>(
+abstract class BaseFragment<BINDING : ViewDataBinding>(
     private val mLayoutResId: Int
-) : Fragment(), BaseContract.View {
+) : Fragment() {
 
     protected lateinit var binding: BINDING
 
@@ -19,8 +19,6 @@ abstract class BaseFragment<in VIEW : BaseContract.View, BINDING:ViewDataBinding
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        @Suppress("UNCHECKED_CAST")
-        presenter.attachView(this as VIEW)
         binding = DataBindingUtil.inflate(inflater, mLayoutResId, container, false)
         return binding.root
     }
@@ -36,16 +34,18 @@ abstract class BaseFragment<in VIEW : BaseContract.View, BINDING:ViewDataBinding
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         doViewCreated(view, savedInstanceState)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        binding.lifecycleOwner = viewLifecycleOwner
+        doActivityCreated(savedInstanceState)
         doLoadFromDatabase()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        presenter.detachView()
-    }
-    abstract val presenter: PRESENTER
     abstract fun doCreateOptionsMenu(menu: Menu, inflater: MenuInflater)
     abstract fun doViewCreated(view: View, savedInstanceState: Bundle?)
+    abstract fun doActivityCreated(savedInstanceState: Bundle?)
     abstract fun doLoadFromDatabase()
 
 }

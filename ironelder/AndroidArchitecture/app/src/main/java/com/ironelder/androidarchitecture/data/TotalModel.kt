@@ -1,6 +1,5 @@
 package com.ironelder.androidarchitecture.data
 
-import androidx.databinding.ObservableArrayList
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -8,19 +7,19 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "searchResult")
 data class SearchResult(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name="id")
+    @ColumnInfo(name = "id")
     val id: Long?,
-    @ColumnInfo(name="type")
-    val type:String,
-    @ColumnInfo(name="search")
-    val search:String,
-    @ColumnInfo(name="result")
-    val result:String
+    @ColumnInfo(name = "type")
+    val type: String,
+    @ColumnInfo(name = "search")
+    val search: String,
+    @ColumnInfo(name = "result")
+    val result: String
 )
 
 data class TotalModel(
     val display: Int,
-    val items: ObservableArrayList<ResultItem>,
+    val items: ArrayList<ResultItem>,
     val lastBuildDate: String,
     val start: Int,
     val total: Int

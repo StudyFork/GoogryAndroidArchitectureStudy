@@ -8,54 +8,39 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
-import androidx.databinding.ObservableArrayList
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ironelder.androidarchitecture.R
 import com.ironelder.androidarchitecture.common.BLOG
 import com.ironelder.androidarchitecture.common.TYPE_KEY
 import com.ironelder.androidarchitecture.component.CustomListViewAdapter
-import com.ironelder.androidarchitecture.data.ResultItem
 import com.ironelder.androidarchitecture.data.database.SearchResultDatabase
 import com.ironelder.androidarchitecture.databinding.FragmentMainBinding
 import com.ironelder.androidarchitecture.view.baseview.BaseFragment
 
 
 class MainFragment :
-    BaseFragment<MainContract.View, FragmentMainBinding, MainContract.Presenter>(R.layout.fragment_main),
-    MainContract.View {
-
-    override val presenter = MainPresenter()
+    BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private val mType: String? by lazy {
         arguments?.getString(TYPE_KEY)
     }
 
-    private var mSearchWord: String? = null
-
-    override fun onDataChanged(result: ObservableArrayList<ResultItem>) {
-        binding.items = result
-    }
-
-    override fun showErrorMessage(msg: String?) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT)
-            .show()
-    }
-
-    override fun showLoading() {
-        binding.showProgress = true
-    }
-
-    override fun hideLoading() {
-        binding.showProgress = false
-    }
-
-    override fun onLoadFromDatabase(searchWord: String, result: ObservableArrayList<ResultItem>) {
-        mSearchWord = searchWord
-        binding.items = result
-    }
-
     override fun doViewCreated(view: View, savedInstanceState: Bundle?) {
+    }
+
+    override fun doActivityCreated(savedInstanceState: Bundle?) {
+        binding.mainViewModel =
+            ViewModelProviders.of(this@MainFragment)[MainViewModel::class.java].apply {
+                notifyErrorMessage.observe(viewLifecycleOwner, Observer {
+                    if (!it.isNullOrEmpty()) {
+                        Toast.makeText(context, it, Toast.LENGTH_LONG)
+                            .show()
+                    }
+                })
+            }
         with(binding.searchLayout.rvResultListView) {
             adapter =
                 CustomListViewAdapter()
@@ -70,12 +55,14 @@ class MainFragment :
     }
 
     override fun doLoadFromDatabase() {
-        presenter.getSearchResultToRoom(
-            mType ?: BLOG,
-            SearchResultDatabase.getInstance(
-                context?.applicationContext ?: (activity as Context).applicationContext
+        binding.mainViewModel?.apply {
+            getSearchResultToRoom(
+                mType ?: BLOG,
+                SearchResultDatabase.getInstance(
+                    context?.applicationContext ?: (activity as? Context)?.applicationContext!!
+                ).searchResultDao()
             )
-        )
+        }
     }
 
     override fun doCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -86,16 +73,18 @@ class MainFragment :
             actionView = searchView
         }
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                mSearchWord = query ?: ""
-                searchView.clearFocus()
-                presenter.searchWithAdapter(
-                    mType ?: BLOG,
-                    query,
-                    SearchResultDatabase.getInstance(
-                        context?.applicationContext ?: (activity as Context).applicationContext
+            override fun onQueryTextSubmit(query: String): Boolean {
+                binding.mainViewModel?.apply {
+                    searchQuery.value = query
+                    searchWithAdapter(
+                        mType ?: BLOG,
+                        SearchResultDatabase.getInstance(
+                            context?.applicationContext
+                                ?: (activity as? Context)?.applicationContext!!
+                        ).searchResultDao()
                     )
-                )
+                }
+                searchView.clearFocus()
                 return false
             }
 
@@ -104,8 +93,8 @@ class MainFragment :
             }
         })
         searchView.setOnSearchClickListener {
-            if (!mSearchWord.isNullOrEmpty()) {
-                searchView.setQuery(mSearchWord, false)
+            if (!binding.mainViewModel?.searchQuery?.value.isNullOrEmpty()) {
+                searchView.setQuery(binding.mainViewModel?.searchQuery?.value, false)
             }
         }
     }
