@@ -1,4 +1,4 @@
-package com.example.handnew04.data.remote
+package com.example.handnew04.network
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

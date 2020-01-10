@@ -1,4 +1,4 @@
-package com.example.handnew04
+package com.example.handnew04.ui.movie
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -7,6 +7,7 @@ import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import com.example.handnew04.R
 
 class MovieDetailActivity : AppCompatActivity() {
 

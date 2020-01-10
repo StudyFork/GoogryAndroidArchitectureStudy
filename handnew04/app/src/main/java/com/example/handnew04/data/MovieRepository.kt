@@ -5,10 +5,14 @@ import com.example.handnew04.data.local.MovieLocalDataSourceImpl
 import com.example.handnew04.data.remote.MovieRemoteDataSource
 import com.example.handnew04.data.remote.MovieRemoteDataSourceImpl
 
-class MovieRepository {
+object MovieRepository {
     private var movieLocalDataSource: MovieLocalDataSource = MovieLocalDataSourceImpl()
     private var movieRemoteDataSource: MovieRemoteDataSource = MovieRemoteDataSourceImpl()
 
-    fun getMovieData(query: String, success: (NaverMovieResponse) -> Unit, fail: (Throwable) -> Unit) =
+    fun getMovieData(
+        query: String,
+        success: (NaverMovieResponse) -> Unit,
+        fail: (Throwable) -> Unit
+    ) =
         movieRemoteDataSource.getMovieData(query, success, fail)
 }

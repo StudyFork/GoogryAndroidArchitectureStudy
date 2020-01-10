@@ -1,4 +1,4 @@
-package com.example.handnew04.data.remote
+package com.example.handnew04.network
 
 import okhttp3.Interceptor
 import okhttp3.Response
