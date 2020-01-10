@@ -1,7 +1,6 @@
 package com.example.architecturestudy.ui.kin
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,15 +8,17 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.architecturestudy.Injection
 import com.example.architecturestudy.R
+import com.example.architecturestudy.data.model.KinItem
 import kotlinx.android.synthetic.main.fragment_kin.*
 
-class KinFragment : Fragment() {
+class KinFragment : Fragment(), KinContract.View {
 
     private lateinit var kinAdapter: KinAdapter
 
-    private val naverSearchRepository by lazy { Injection.provideNaverSearchRepository()}
+    private val presenter : KinContract.Presenter by lazy {
+        KinPresenter(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,20 +43,16 @@ class KinFragment : Fragment() {
         btn_search.setOnClickListener {
             if(input_text != null) {
                 val edit = edit_text.text.toString()
-                searchKinList(edit)
+                presenter.taskSearch(edit)
             }
         }
     }
 
-    private fun searchKinList(keyword : String) {
+    override fun showErrorMessage(message: String) {
+        Toast.makeText(this.activity, message, Toast.LENGTH_SHORT)
+    }
 
-        naverSearchRepository.getKin(
-            keyword = keyword,
-            success = { kinAdapter.update(it) },
-            fail = {e ->
-                Log.e("test11", e.toString())
-                Toast.makeText(activity, e.toString(), Toast.LENGTH_SHORT)
-            }
-        )
+    override fun showResult(item: List<KinItem>) {
+        kinAdapter.update(item)
     }
 }
