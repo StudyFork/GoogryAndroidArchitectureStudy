@@ -44,6 +44,9 @@ class MainActivity : AppCompatActivity(), MovieAdapter.EventListener {
         rvMovie = findViewById(R.id.rv_movie)
         etSearch = findViewById(R.id.et_search)
 
+        adapter = MovieAdapter(this)
+        rvMovie.adapter = adapter
+
         btnSearch.setOnClickListener {
             val name = etSearch.text.toString()
             searchMovie(name)
@@ -65,13 +68,8 @@ class MainActivity : AppCompatActivity(), MovieAdapter.EventListener {
                 .subscribe({ response ->
                     val list = response.items
 
-                    if (adapter == null) {
-                        adapter = MovieAdapter(this, list as ArrayList<MovieModel>, this)
-                        rvMovie.adapter = adapter
-                    } else {
-                        adapter?.replaceAll(list as ArrayList<MovieModel>)
-                        adapter?.notifyDataSetChanged()
-                    }
+                    adapter?.replaceAll(list as ArrayList<MovieModel>)
+                    adapter?.notifyDataSetChanged()
                 }, {
                     val error = handleError(it)
                     Toast.makeText(this, error, Toast.LENGTH_LONG).show()
