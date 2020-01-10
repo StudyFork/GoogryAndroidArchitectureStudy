@@ -1,8 +1,6 @@
 package com.example.androidarchitecture.data.datasource.local
 
-import android.content.Context
 import android.content.SharedPreferences
-import com.example.androidarchitecture.common.StringConst.Companion.PREF_KEY
 import com.example.androidarchitecture.common.StringConst.Companion.PREF_KEY_BLOG
 import com.example.androidarchitecture.common.StringConst.Companion.PREF_KEY_IMAGE
 import com.example.androidarchitecture.common.StringConst.Companion.PREF_KEY_KIN
@@ -16,14 +14,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class NaverLocalDataSourceIml(private val context: Context) : NaverLocalDataSourceInterface {
-
-    override val spm: SharedPreferences by lazy {
-        context.getSharedPreferences(PREF_KEY, 0)
-    }
-    override val searchHistyDatabase: SearchHistDatabase by lazy {
-        SearchHistDatabase.getInstance(context)
-    }
+class NaverLocalDataSourceIml(
+    private val spm: SharedPreferences,
+    private val searchHistyDatabase: SearchHistDatabase
+) : NaverLocalDataSourceInterface {
 
 
     override fun saveBlogHist(blog: List<BlogData>) {

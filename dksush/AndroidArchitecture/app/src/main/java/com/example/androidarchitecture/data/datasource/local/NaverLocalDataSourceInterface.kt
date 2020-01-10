@@ -1,15 +1,11 @@
 package com.example.androidarchitecture.data.datasource.local
 
-import android.content.SharedPreferences
-import com.example.androidarchitecture.data.datasource.database.SearchHistDatabase
 import com.example.androidarchitecture.data.response.BlogData
 import com.example.androidarchitecture.data.response.ImageData
 import com.example.androidarchitecture.data.response.KinData
 import com.example.androidarchitecture.data.response.MovieData
 
 interface NaverLocalDataSourceInterface {
-    val spm: SharedPreferences
-    val searchHistyDatabase: SearchHistDatabase
 
     fun saveBlogHist(blog: List<BlogData>)
     fun saveMovieHist(movie: List<MovieData>)
