@@ -1,15 +1,14 @@
 package com.example.architecturestudy.ui
 
-import com.example.architecturestudy.data.model.ImageItem
+import androidx.fragment.app.Fragment
 
 interface MainContract {
 
     interface View {
-        fun showResult(item : List<ImageItem>)
-        fun showErrorMessage(message : String)
+        fun showFragment(fragment: Fragment)
     }
 
     interface Presenter {
-        fun taskSearch(keyword : String)
+        fun start()
     }
 }
