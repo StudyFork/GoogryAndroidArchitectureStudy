@@ -17,17 +17,19 @@ class MovieListAdapter(private var movieList: List<Item>, @Nullable private var 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
+        view.setOnClickListener {
+
+        }
         return ViewHolder(view)
     }
 
     override fun getItemCount(): Int = movieList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-        holder.bind(movieList[position], listener)
+        holder.bind(movieList[position])
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val layoutItem = itemView.findViewById<ConstraintLayout>(R.id.layoutItem)
         private val ivThumbnail = itemView.findViewById<ImageView>(R.id.ivThumbNail)
         private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
         private val ratingMovie = itemView.findViewById<RatingBar>(R.id.ratingMovie)
@@ -35,36 +37,18 @@ class MovieListAdapter(private var movieList: List<Item>, @Nullable private var 
         private val tvDirector = itemView.findViewById<TextView>(R.id.tvDirector)
         private val tvActors = itemView.findViewById<TextView>(R.id.tvActors)
 
-        fun bind(data: Item, listener: ItemClickListener) {
+        fun bind(data: Item) {
 
             with(data) {
                 Log.d("img", "image : $image, title : $title")
-                loadImage(image)
-                setTitle(title)
+                tvTitle.text = title
                 ratingMovie.rating = userRating.toFloat() / 2
                 tvReleaseYear.text = pubDate
-                setDirector(director)
-                setActors(actor)
-
-
-                // 아이템 클릭 시 호출될 커스텀 리스너 정의
-                layoutItem.setOnClickListener {
-                    listener.onItemClick(link)
-                }
+                tvDirector.text = director
+                tvActors.text = actor
+                loadImage(image)
             }
 
-        }
-
-        private fun setTitle(title: String) {
-            tvTitle.text = title
-        }
-
-        private fun setDirector(director: String) {
-            tvDirector.text = director
-        }
-
-        private fun setActors(actors: String) {
-            tvActors.text = actors
         }
 
         private fun loadImage(image: String) {
