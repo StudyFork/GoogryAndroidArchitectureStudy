@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import app.ch.study.R
+import app.ch.study.data.common.EXTRA_URL
 import app.ch.study.data.remote.api.WebApiDefine
 import app.ch.study.data.remote.api.WebApiTask
 import app.ch.study.data.remote.response.MovieModel
@@ -80,7 +81,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.EventListener {
 
     override fun itemClick(url: String) {
         val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra("url", url)
+        intent.putExtra(EXTRA_URL, url)
         startActivity(intent)
     }
 
