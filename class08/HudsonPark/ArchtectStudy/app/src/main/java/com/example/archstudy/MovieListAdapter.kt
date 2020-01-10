@@ -15,11 +15,15 @@ class MovieListAdapter(private var movieList: ArrayList<Item>, @Nullable private
     RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
-        view.setOnClickListener {
 
+        val holder = ViewHolder(LayoutInflater
+            .from(parent.context)
+            .inflate(R.layout.item_movie, parent, false))
+
+        holder.itemView.setOnClickListener {
+            listener.onItemClick(movieList[holder.adapterPosition].link)
         }
-        return ViewHolder(view)
+        return holder
     }
 
     override fun getItemCount(): Int = movieList.size
