@@ -1,9 +1,7 @@
 package com.example.myapplication
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.model.MovieResult
@@ -14,13 +12,8 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    val clientId = "iUus1XfFW9mDHFp7chUz"
-    val cliendPw = "rJ_ZOUhfVD"
     val adapter = MovieRecyclerViewAdpater() { link ->
-        startActivity(
-            Intent(applicationContext, MovieDatailActivity::class.java)
-                .putExtra("link", link)
-        )
+        webview_detail_movie.loadUrl(link)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
