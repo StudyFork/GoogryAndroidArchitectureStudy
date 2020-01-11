@@ -1,4 +1,4 @@
-package com.example.archstudy
+package com.example.archstudy.ui
 
 import android.content.Intent
 import android.net.Uri
@@ -9,6 +9,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.archstudy.*
+import com.example.archstudy.network.RetrofitService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         initView() // 뷰 초기화
         initEvent() // 이벤트 처리
+
     }
 
     private fun initEvent() {
@@ -54,11 +57,13 @@ class MainActivity : AppCompatActivity() {
         btnSearch = findViewById(R.id.btnSearch)
         rvMovieList = findViewById(R.id.rvMovieList)
         movieData = arrayListOf()
-        rvMovieAdapter = MovieListAdapter(movieData, object : MovieListAdapter.ItemClickListener {
-            override fun onItemClick(url : String) {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-            }
-        })
+        rvMovieAdapter = MovieListAdapter(
+            movieData,
+            object : MovieListAdapter.ItemClickListener {
+                override fun onItemClick(url: String) {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                }
+            })
         rvMovieList.adapter = rvMovieAdapter
     }
 
@@ -70,7 +75,9 @@ class MainActivity : AppCompatActivity() {
             .build()
 
         retrofit.create(RetrofitService::class.java).apply {
-            this.getMovieList(BuildConfig.API_CLIENT_ID, BuildConfig.API_CLIENT_SECRET, query)
+            this.getMovieList(
+                BuildConfig.API_CLIENT_ID,
+                BuildConfig.API_CLIENT_SECRET, query)
                 .enqueue(object : Callback<Data> {
 
                     override fun onFailure(call: Call<Data>, t: Throwable) {

@@ -1,5 +1,6 @@
-package com.example.archstudy
+package com.example.archstudy.network
 
+import com.example.archstudy.Data
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
