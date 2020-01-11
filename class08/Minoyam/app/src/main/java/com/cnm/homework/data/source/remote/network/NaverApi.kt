@@ -1,6 +1,6 @@
 package com.cnm.homework.network
 
-import com.cnm.homework.network.model.NaverResponse
+import com.cnm.homework.data.model.NaverResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

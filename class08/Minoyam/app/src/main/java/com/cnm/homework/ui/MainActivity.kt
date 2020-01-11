@@ -12,7 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.cnm.homework.R
 import com.cnm.homework.data.repository.NaverQueryRepositoryImpl
 import com.cnm.homework.data.source.remote.NaverQueryRemoteDataSourceImpl
-import com.cnm.homework.network.model.NaverResponse
+import com.cnm.homework.data.model.NaverResponse
+import com.cnm.homework.data.source.remote.NaverQueryRemoteDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -56,9 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun movieListSearch(query: String) {
 
-        disposable.add(NaverQueryRepositoryImpl(NaverQueryRemoteDataSourceImpl()).getNaverMovie(
-            query
-        )
+        disposable.add(NaverQueryRepositoryImpl.getInstance(NaverQueryRemoteDataSourceImpl()).getNaverMovie(query)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {

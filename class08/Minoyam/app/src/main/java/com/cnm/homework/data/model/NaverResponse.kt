@@ -1,4 +1,4 @@
-package com.cnm.homework.network.model
+package com.cnm.homework.data.model
 
 
 import com.google.gson.annotations.SerializedName
