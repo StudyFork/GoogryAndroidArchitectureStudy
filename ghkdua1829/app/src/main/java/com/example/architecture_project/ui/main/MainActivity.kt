@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(),
         Toast.makeText(this, "검색어를 입력하세요.", Toast.LENGTH_SHORT).show()
     }
 
-    override fun notAvailableKeyword() {
+    override fun showNotAvailableKeyword() {
         Toast.makeText(this, "유효하지 않는 키워드입니다.", Toast.LENGTH_SHORT).show()
     }
 

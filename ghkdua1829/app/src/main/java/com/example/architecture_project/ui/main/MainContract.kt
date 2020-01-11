@@ -5,7 +5,7 @@ import com.example.architecture_project.data.model.NaverApi
 interface MainContract {
     interface View {
         fun showNoResult()
-        fun notAvailableKeyword()
+        fun showNotAvailableKeyword()
         fun showResult(data: NaverApi)
         fun showNotExistKeyword()
         fun showDataNum(num:Int)

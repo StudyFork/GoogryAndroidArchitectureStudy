@@ -10,7 +10,7 @@ class MainPresenter(val view: MainContract.View) :
 
     override fun getMovieData(keyword: String) {
         if (keyword.contains("@")) {
-            view.notAvailableKeyword()
+            view.showNotAvailableKeyword()
             return
         }
         if (keyword.equals("")) {
