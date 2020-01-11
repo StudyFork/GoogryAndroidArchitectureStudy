@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //replaceFragment(MovieFragment())
         presenter.start()
         bottom_navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
@@ -58,5 +57,4 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         fragmentTransaction.replace(R.id.fragmentContainer, fragment)
         fragmentTransaction.commit()
     }
-
 }
