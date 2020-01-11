@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 data class NaverApi(
     val total : Int,
     @SerializedName("items")
-    val item: ArrayList<Movie>
+    val item: List<Movie>
 )
