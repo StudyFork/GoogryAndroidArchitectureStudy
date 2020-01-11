@@ -1,7 +1,7 @@
 package com.cnm.homework.data.source.remote
 
-import com.cnm.homework.data.model.NaverResponse
 import com.cnm.homework.data.source.remote.network.NetworkHelper
+import com.cnm.homework.network.model.NaverResponse
 import io.reactivex.Single
 
 class NaverQueryRemoteDataSourceImpl : NaverQueryRemoteDataSource

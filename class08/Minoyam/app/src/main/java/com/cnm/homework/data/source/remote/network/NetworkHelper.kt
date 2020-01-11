@@ -1,6 +1,7 @@
-package com.cnm.homework.network
+package com.cnm.homework.data.source.remote.network
 
 import com.cnm.homework.BuildConfig
+import com.cnm.homework.network.NaverApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

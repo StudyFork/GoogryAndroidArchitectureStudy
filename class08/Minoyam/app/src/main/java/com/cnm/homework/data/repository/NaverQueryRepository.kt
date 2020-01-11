@@ -1,6 +1,6 @@
 package com.cnm.homework.data.repository
 
-import com.cnm.homework.data.model.NaverResponse
+import com.cnm.homework.network.model.NaverResponse
 import io.reactivex.Single
 
 interface NaverQueryRepository {
