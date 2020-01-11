@@ -19,16 +19,16 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            resValue "string", "server_url", "https://openapi.naver.com"
-            resValue "string", "client_id", "610zQukfpS6Y7LQflqWZ"
-            resValue "string", "client_secret", "ndzyi6Qphn"
+            buildConfigField "String", "serverUrl", "https://openapi.naver.com"
+            buildConfigField "String", "clientId", "610zQukfpS6Y7LQflqWZ"
+            buildConfigField "String", "clientSecret", "ndzyi6Qphn"
         }
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            resValue "string", "server_url", "https://openapi.naver.com"
-            resValue "string", "client_id", "610zQukfpS6Y7LQflqWZ"
-            resValue "string", "client_secret", "ndzyi6Qphn"
+            buildConfigField "String", "serverUrl", "https://openapi.naver.com"
+            buildConfigField "String", "clientId", "610zQukfpS6Y7LQflqWZ"
+            buildConfigField "String", "clientSecret", "ndzyi6Qphn"
         }
     }
 }

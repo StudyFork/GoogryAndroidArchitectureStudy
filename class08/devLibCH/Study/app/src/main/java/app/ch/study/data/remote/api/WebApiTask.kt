@@ -1,6 +1,6 @@
 package app.ch.study.data.remote.api
 
-import android.content.Context
+import app.ch.study.BuildConfig
 import app.ch.study.data.remote.api.WebApiDefine.CONNECT_TIMEOUT
 import app.ch.study.data.remote.api.WebApiDefine.READ_TIMEOUT
 import app.ch.study.data.remote.api.WebApiDefine.WRITE_TIMEOUT
@@ -20,12 +20,9 @@ object WebApiTask {
 
     private var apiInterface: WebApi? = null
 
-    fun getInstance(context: Context): WebApi {
+    fun getInstance(): WebApi {
         if (apiInterface == null) {
-            val params = WebApiParams(context)
-
-            val httpLoggingInterceptor = HttpLoggingInterceptor()
-            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+            val params = WebApiParams()
 
             val requestInterceptor = StudyRequestInterceptor(params)
 
@@ -37,12 +34,18 @@ object WebApiTask {
                 .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS) //쓰기 타임아웃 시간 설정
                 .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS) //읽기 타임아웃 시간 설정
                 .cookieJar(JavaNetCookieJar(cookieManager))
-                .addInterceptor(httpLoggingInterceptor)
                 .addInterceptor(requestInterceptor)
+
+            if(BuildConfig.DEBUG) {
+                val httpLoggingInterceptor = HttpLoggingInterceptor()
+                httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
+                builder.addInterceptor(httpLoggingInterceptor)
+            }
 
             val client = builder.build()
 
-            val baseUrl = WebApiDefine.HOST_IP(context)
+            val baseUrl = WebApiDefine.HOST_IP()
             val retrofit = Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(client)

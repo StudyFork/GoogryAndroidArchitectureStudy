@@ -1,12 +1,11 @@
 package app.ch.study.data.remote.api
 
-import android.content.Context
 import android.util.Log
-import app.ch.study.R
+import app.ch.study.BuildConfig
 
 object WebApiDefine {
 
-    fun HOST_IP(context: Context): String = context.getString(R.string.server_url)
+    fun HOST_IP(): String = BuildConfig.serverUrl
 
     const val CONNECT_TIMEOUT = 15L
     const val WRITE_TIMEOUT = 15L
