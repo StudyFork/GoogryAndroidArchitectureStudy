@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        val search = WebApiTask.getInstance(this).searchMovie(name)
+        val search = WebApiTask.getInstance().searchMovie(name)
 
         addDisposable(
             search
