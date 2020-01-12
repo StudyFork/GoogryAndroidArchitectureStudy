@@ -19,7 +19,18 @@ class MovieRecyclerViewAdpater(val itemClick: (movieDetail: String) -> Unit) :
     ): MovieRecyclerViewAdpater.MovieViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_movie, parent, false)
-        return MovieViewHolder(view)
+
+        val holder = MovieViewHolder(
+            LayoutInflater
+                .from(parent.context)
+                .inflate(R.layout.item_movie, parent, false)
+        )
+
+        holder.itemView.setOnClickListener {
+            itemClick(results[holder.adapterPosition].link)
+        }
+
+        return holder
     }
 
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -34,9 +45,7 @@ class MovieRecyclerViewAdpater(val itemClick: (movieDetail: String) -> Unit) :
                 tv_actor.text = item.actor
                 rating_bar_movie.rating = item.userRating / 2f
             }
-            itemView.setOnClickListener {
-                itemClick(item.link)
-            }
+
         }
     }
 
