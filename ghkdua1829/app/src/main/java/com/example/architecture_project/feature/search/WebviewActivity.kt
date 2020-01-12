@@ -19,7 +19,7 @@ class WebviewActivity : AppCompatActivity() {
         wvMovie.webViewClient = WebViewClient()
         var webViewSettings = wvMovie.settings
         webViewSettings.run {
-            javaScriptEnabled=true
+            javaScriptEnabled = true
             setSupportMultipleWindows(false)
             useWideViewPort = true
             setSupportZoom(false)

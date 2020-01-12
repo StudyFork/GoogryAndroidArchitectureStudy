@@ -4,16 +4,15 @@ import com.example.architecture_project.data.datasource.remote.retrofit.NaverSev
 import com.example.architecture_project.data.model.NaverApi
 import retrofit2.Call
 import retrofit2.Response
-import javax.security.auth.callback.Callback
 
-class NaverRemoteDataSourceImpl :NaverRemoteDataSource {
+class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
     override fun getMovieData(
         title: String,
         success: (NaverApi) -> Unit,
         fail: (Throwable) -> Unit
     ) {
         NaverSevicelmpl.service.getMovie(title).enqueue(
-            object :  retrofit2.Callback<NaverApi> {
+            object : retrofit2.Callback<NaverApi> {
                 override fun onFailure(call: Call<NaverApi>, t: Throwable) {
                     fail(t)
                 }
