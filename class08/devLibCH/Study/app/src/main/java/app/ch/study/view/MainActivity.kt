@@ -12,7 +12,6 @@ import app.ch.study.R
 import app.ch.study.data.common.EXTRA_URL
 import app.ch.study.data.remote.api.WebApiDefine
 import app.ch.study.data.remote.api.WebApiTask
-import app.ch.study.data.remote.response.MovieModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -22,7 +21,7 @@ import retrofit2.HttpException
 class MainActivity : AppCompatActivity() {
 
     private val compositeDisposable = CompositeDisposable()
-    private var adapter: MovieAdapter? = null
+    private lateinit var adapter: MovieAdapter
 
     lateinit var rvMovie: RecyclerView
     lateinit var etSearch: EditText
@@ -74,9 +73,7 @@ class MainActivity : AppCompatActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
                     val list = response.items
-
-                    adapter?.replaceAll(list as ArrayList<MovieModel>)
-                    adapter?.notifyDataSetChanged()
+                    adapter.replaceAll(list)
                 }, {
                     val error = handleError(it)
                     Toast.makeText(this, error, Toast.LENGTH_LONG).show()
