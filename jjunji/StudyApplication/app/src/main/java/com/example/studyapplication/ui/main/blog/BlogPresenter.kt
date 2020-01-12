@@ -16,15 +16,28 @@ class BlogPresenter(
             override fun <T> success(result: T) {
                 // SearchResult<BlogInfo>
 
-                val searchData : SearchResult<BlogInfo> = result as SearchResult<BlogInfo>
+                val searchData: SearchResult<BlogInfo> = result as SearchResult<BlogInfo>
                 searchData.let {
                     view.showList(searchData.arrItem)
+                    repository.saveBlogList(searchData.arrItem)
                 }
             }
 
             override fun failed(e: Throwable) {
                 onRequestFailed(e)
+                repository.deleteMovieList()
             }
         })
+    }
+
+    override fun checkCacheData() {
+        repository.getCacheBlogList(
+            success = {
+                if (it.size > 0) {
+                    view.showList(it)
+                }
+            },
+            failed = { onRequestFailed(it) }
+        )
     }
 }

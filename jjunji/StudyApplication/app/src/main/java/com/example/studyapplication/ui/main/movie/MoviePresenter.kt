@@ -29,7 +29,7 @@ class MoviePresenter(
         })
     }
 
-    override fun showCacheData() {
+    override fun checkCacheData() {
         repository.getCacheMovieList(
             success = {
                 if (it.size > 0) {

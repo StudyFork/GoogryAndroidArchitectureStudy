@@ -9,7 +9,7 @@ interface MovieContract {
     }
 
     interface Presenter : BaseSearchContract.Presenter {
-        fun showCacheData()
+        fun checkCacheData()
         fun clickSearchButton(query: String)
     }
 }

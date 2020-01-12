@@ -2,6 +2,9 @@ package com.example.studyapplication.data.repository
 
 import com.example.studyapplication.data.datasource.local.NaverLocalDataSource
 import com.example.studyapplication.data.datasource.remote.NaverRemoteDataSource
+import com.example.studyapplication.data.model.BlogInfo
+import com.example.studyapplication.data.model.ImageInfo
+import com.example.studyapplication.data.model.KinInfo
 import com.example.studyapplication.data.model.MovieInfo
 import com.example.studyapplication.network.Conn
 
@@ -30,16 +33,16 @@ class NaverSearchRepositoryImpl(
         localDataSource.saveMovieList(arrItem)
     }
 
-    override fun saveBlogList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun saveBlogList(arrItem: ArrayList<BlogInfo>) {
+        localDataSource.saveBlogList(arrItem)
     }
 
-    override fun saveImageList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun saveImageList(arrItem: ArrayList<ImageInfo>) {
+        localDataSource.saveImageList(arrItem)
     }
 
-    override fun saveKinList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun saveKinList(arrItem: ArrayList<KinInfo>) {
+        localDataSource.saveKinList(arrItem)
     }
 
     override fun deleteMovieList() {
@@ -63,6 +66,27 @@ class NaverSearchRepositoryImpl(
         failed: (Throwable) -> Unit
     ) {
         localDataSource.getCacheMovieList(success, failed)
+    }
+
+    override fun getCacheBlogList(
+        success: (ArrayList<BlogInfo>) -> Unit,
+        failed: (Throwable) -> Unit
+    ) {
+        localDataSource.getCacheBlogList(success, failed)
+    }
+
+    override fun getCacheImageList(
+        success: (ArrayList<ImageInfo>) -> Unit,
+        failed: (Throwable) -> Unit
+    ) {
+        localDataSource.getCacheImageList(success, failed)
+    }
+
+    override fun getCacheKinList(
+        success: (ArrayList<KinInfo>) -> Unit,
+        failed: (Throwable) -> Unit
+    ) {
+        localDataSource.getCacheKinList(success, failed)
     }
 
 }

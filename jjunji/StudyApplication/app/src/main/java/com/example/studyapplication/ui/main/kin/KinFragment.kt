@@ -25,6 +25,8 @@ class KinFragment : BaseSearchFragment(R.layout.fragment_kin), KinContract.View 
         btnSearch.setOnClickListener(btnSearchClickListener())
         kinAdapter = KinAdapter()
         recyclerView.adapter = kinAdapter
+
+        presenter.checkCacheData()
     }
 
     // 검색 버튼 클릭 리스너

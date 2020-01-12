@@ -10,5 +10,6 @@ interface KinContract {
 
     interface Presenter : BaseSearchContract.Presenter {
         fun clickSearchButton(query: String)
+        fun checkCacheData()
     }
 }

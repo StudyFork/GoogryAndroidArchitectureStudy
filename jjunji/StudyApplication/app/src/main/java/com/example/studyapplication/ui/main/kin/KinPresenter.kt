@@ -16,13 +16,28 @@ class KinPresenter(
         repository.getKinList(query, object : Conn {
             override fun <T> success(result: T) {
                 val searchData: SearchResult<KinInfo> = result as SearchResult<KinInfo>
-                searchData.let { view.showList(searchData.arrItem) }
+                searchData.let {
+                    view.showList(searchData.arrItem)
+                    repository.saveKinList(searchData.arrItem)
+                }
             }
 
             override fun failed(e: Throwable) {
                 onRequestFailed(e)
+                repository.deleteImageList()
             }
         })
+    }
+
+    override fun checkCacheData() {
+        repository.getCacheKinList(
+            success = {
+                if (it.size > 0) {
+                    view.showList(it)
+                }
+            },
+            failed = { onRequestFailed(it) }
+        )
     }
 
 }

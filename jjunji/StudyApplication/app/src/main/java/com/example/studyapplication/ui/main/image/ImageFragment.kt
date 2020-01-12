@@ -25,6 +25,8 @@ class ImageFragment : BaseSearchFragment(R.layout.fragment_image), ImageContract
         btnSearch.setOnClickListener(btnSearchClickListener())
         imageAdapter = ImageAdapter()
         recyclerView.adapter = imageAdapter
+
+        presenter.checkCacheData()
     }
 
     // 검색 버튼 클릭 리스너

@@ -1,5 +1,8 @@
 package com.example.studyapplication.data.repository
 
+import com.example.studyapplication.data.model.BlogInfo
+import com.example.studyapplication.data.model.ImageInfo
+import com.example.studyapplication.data.model.KinInfo
 import com.example.studyapplication.data.model.MovieInfo
 import com.example.studyapplication.network.Conn
 
@@ -18,22 +21,19 @@ interface NaverSearchRepository {
 
     /* 데이터 저장 */
     fun saveMovieList(arrItem: ArrayList<MovieInfo>)
-
-    fun saveBlogList()
-
-    fun saveImageList()
-
-    fun saveKinList()
+    fun saveBlogList(arrItem: ArrayList<BlogInfo>)
+    fun saveImageList(arrItem: ArrayList<ImageInfo>)
+    fun saveKinList(arrItem: ArrayList<KinInfo>)
 
     /* 데이터 삭제 */
     fun deleteMovieList()
-
     fun deleteBlogList()
-
     fun deleteImageList()
-
     fun deleteKinList()
 
     /* 캐시 데이터 받기 */
     fun getCacheMovieList(success : (ArrayList<MovieInfo>) -> Unit, failed : (Throwable) -> Unit)
+    fun getCacheBlogList(success : (ArrayList<BlogInfo>) -> Unit, failed : (Throwable) -> Unit)
+    fun getCacheImageList(success : (ArrayList<ImageInfo>) -> Unit, failed : (Throwable) -> Unit)
+    fun getCacheKinList(success : (ArrayList<KinInfo>) -> Unit, failed : (Throwable) -> Unit)
 }

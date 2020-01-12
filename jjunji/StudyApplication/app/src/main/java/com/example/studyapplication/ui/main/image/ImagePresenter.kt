@@ -16,14 +16,29 @@ class ImagePresenter(
         repository.getImageList(query, object : Conn {
             override fun <T> success(result: T) {
                 val searchData: SearchResult<ImageInfo> = result as SearchResult<ImageInfo>
-                searchData.let { view.showList(searchData.arrItem) }
+                searchData.let {
+                    view.showList(searchData.arrItem)
+                    repository.saveImageList(searchData.arrItem)
+                }
             }
 
             override fun failed(e: Throwable) {
                 onRequestFailed(e)
+                repository.deleteImageList()
             }
 
         })
+    }
+
+    override fun checkCacheData() {
+        repository.getCacheImageList(
+            success = {
+                if (it.size > 0) {
+                    view.showList(it)
+                }
+            },
+            failed = { onRequestFailed(it) }
+        )
     }
 
 }

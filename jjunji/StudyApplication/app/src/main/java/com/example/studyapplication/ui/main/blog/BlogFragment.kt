@@ -25,6 +25,8 @@ class BlogFragment : BaseSearchFragment(R.layout.fragment_blog), BlogContract.Vi
         btnSearch.setOnClickListener(btnSearchClickListener())
         blogAdapter = BlogAdapter()
         recyclerView.adapter = blogAdapter
+
+        presenter.checkCacheData()
     }
 
     // 검색 버튼 클릭 리스너
