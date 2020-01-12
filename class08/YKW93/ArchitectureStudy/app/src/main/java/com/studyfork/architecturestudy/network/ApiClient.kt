@@ -1,4 +1,4 @@
-package com.studyfork.architecturestudy.data.network
+package com.studyfork.architecturestudy.network
 
 import com.studyfork.architecturestudy.BuildConfig
 import okhttp3.OkHttpClient

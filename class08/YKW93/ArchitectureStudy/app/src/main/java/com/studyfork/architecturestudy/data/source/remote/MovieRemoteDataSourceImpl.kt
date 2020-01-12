@@ -1,7 +1,7 @@
 package com.studyfork.architecturestudy.data.source.remote
 
 import com.studyfork.architecturestudy.data.model.MovieResponse
-import com.studyfork.architecturestudy.data.network.ApiClient
+import com.studyfork.architecturestudy.network.ApiClient
 import com.studyfork.architecturestudy.extension.applySchedulers
 import io.reactivex.disposables.Disposable
 
