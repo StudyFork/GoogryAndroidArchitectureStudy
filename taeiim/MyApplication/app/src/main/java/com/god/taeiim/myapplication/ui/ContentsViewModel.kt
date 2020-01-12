@@ -10,12 +10,12 @@ import com.god.taeiim.myapplication.data.source.NaverRepository
 class ContentsViewModel(
     private val naverRepository: NaverRepository
 ) {
-    val query = ObservableField<String>()
     val searchResultList = ObservableField<List<SearchResultShow.Item>>()
+    var query = ""
     var searchType = Tabs.BLOG
 
     fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-        query.set(s.toString())
+        query = s.toString()
     }
 
     fun searchContents() {
@@ -40,7 +40,7 @@ class ContentsViewModel(
     }
 
     fun getQueryStr(): String {
-        return query.get() ?: ""
+        return query
     }
 
     fun getLastSearchHistory(searchType: Tabs) {
