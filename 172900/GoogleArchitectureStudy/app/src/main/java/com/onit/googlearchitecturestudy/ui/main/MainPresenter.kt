@@ -2,14 +2,15 @@ package com.onit.googlearchitecturestudy.ui.main
 
 import android.util.Log
 import com.onit.googlearchitecturestudy.data.repository.MovieRepository
-import com.onit.googlearchitecturestudy.data.repository.MovieRepositoryImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
-    private val movieRepositroy: MovieRepository = MovieRepositoryImpl()
+class MainPresenter(
+    private val view: MainContract.View,
+    private val movieRepositroy: MovieRepository
+) : MainContract.Presenter {
 
     override fun searchMovies(keyword: String) {
         view.hideKeyBoard()
