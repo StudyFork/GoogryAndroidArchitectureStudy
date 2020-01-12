@@ -10,7 +10,7 @@ import com.practice.achitecture.myproject.util.AppExecutors
 import org.json.JSONObject
 import java.io.File
 
-class NaverLocalDataSourceImpl private constructor(
+class NaverLocalDataSourceImpl constructor(
     val appExcutors: AppExecutors,
     val naverDao: NaverDao,
     val cacheFilePath: String
