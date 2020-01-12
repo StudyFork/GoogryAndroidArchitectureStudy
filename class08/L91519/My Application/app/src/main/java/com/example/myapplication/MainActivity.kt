@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         rv_movie_list.adapter = adapter
-        rv_movie_list.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rv_movie_list.hasFixedSize()
 
         btn_movie_search.setOnClickListener {
