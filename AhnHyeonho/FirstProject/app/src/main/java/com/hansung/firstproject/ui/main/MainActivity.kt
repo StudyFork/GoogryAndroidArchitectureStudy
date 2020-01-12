@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hansung.firstproject.R
 import com.hansung.firstproject.adapter.RecyclerViewAdapter
+import com.hansung.firstproject.data.ErrorStringResource
 import com.hansung.firstproject.data.MovieModel
 import com.hansung.firstproject.data.MovieResponseModel
 import com.hansung.firstproject.data.repository.NaverRepository
@@ -23,7 +24,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             this,
             NaverRepository.getInstance(
                 NaverRemoteDataSourceImpl.getInstance(
-                    resources
+                    Pair<String, String>(
+                        getString(R.string.client_id),
+                        getString(R.string.client_secret)
+                    )
                 )
             )
         )
@@ -66,11 +70,12 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         )
 
     override fun showErrorKeywordEmpty() {
-        Toast.makeText(this, getString(R.string.empty_keword_message), Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.empty_keyword_message), Toast.LENGTH_SHORT).show()
     }
 
     override fun showErrorByErrorMessage(errorMessage: String) {
-        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+        //ErrorStringResource.valueOf(errorMessage)
+        Toast.makeText(this, ErrorStringResource.valueOf(errorMessage).resId, Toast.LENGTH_SHORT).show()
     }
 
     override fun showErrorEmptyList() {

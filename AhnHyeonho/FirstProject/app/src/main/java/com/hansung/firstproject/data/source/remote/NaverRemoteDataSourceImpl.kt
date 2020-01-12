@@ -1,7 +1,6 @@
 package com.hansung.firstproject.data.source.remote
 
-import android.content.res.Resources
-import com.hansung.firstproject.R
+import com.hansung.firstproject.data.ErrorStringResource
 import com.hansung.firstproject.data.MovieResponseModel
 import com.hansung.firstproject.data.source.remote.api.NaverApiServiceImpl
 import retrofit2.Call
@@ -10,7 +9,7 @@ import java.net.UnknownHostException
 
 
 class NaverRemoteDataSourceImpl private constructor(
-    private val stringRes: Resources
+    private val clientInfo: Pair<String, String>
 ) : NaverRemoteDataSource {
 
     override fun getMoviesData(
@@ -20,15 +19,15 @@ class NaverRemoteDataSourceImpl private constructor(
         isEmptyList: () -> Unit
     ) {
         NaverApiServiceImpl.getResult(
-            stringRes.getString(R.string.client_id),
-            stringRes.getString(R.string.client_secret),
+            clientInfo.first,
+            clientInfo.second,
             title,
             100
         )
             .enqueue(object : retrofit2.Callback<MovieResponseModel> {
                 override fun onFailure(call: Call<MovieResponseModel>, t: Throwable) {
                     when (t) {
-                        is UnknownHostException -> onFailure(Throwable(stringRes.getString(R.string.internet_error_message)))
+                        is UnknownHostException -> onFailure(Throwable(ErrorStringResource.INTERNET_ERROR.name))
                         is Exception -> onFailure(t)
                     }
                 }
@@ -46,9 +45,9 @@ class NaverRemoteDataSourceImpl private constructor(
                     } else {
                         response.code().let {
                             when (it) {
-                                400 -> onFailure(Throwable(stringRes.getString(R.string.error_message_400)))
-                                401 -> onFailure(Throwable(stringRes.getString(R.string.error_message_401)))
-                                500 -> onFailure(Throwable(stringRes.getString(R.string.error_message_500)))
+                                400 -> onFailure(Throwable(ErrorStringResource.ERROR_CODE_400.name))
+                                401 -> onFailure(Throwable(ErrorStringResource.ERROR_CODE_401.name))
+                                500 -> onFailure(Throwable(ErrorStringResource.ERROR_CODE_500.name))
                             }
                         }
                     }
@@ -61,9 +60,11 @@ class NaverRemoteDataSourceImpl private constructor(
         private var _INSTANCE: NaverRemoteDataSourceImpl? = null
 
         @JvmStatic
-        fun getInstance(stringRes: Resources): NaverRemoteDataSourceImpl =
+        fun getInstance(
+            clientInfo: Pair<String, String>
+        ): NaverRemoteDataSourceImpl =
             _INSTANCE ?: synchronized(this) {
-                _INSTANCE ?: NaverRemoteDataSourceImpl(stringRes).also {
+                _INSTANCE ?: NaverRemoteDataSourceImpl(clientInfo).also {
                     _INSTANCE = it
                 }
             }

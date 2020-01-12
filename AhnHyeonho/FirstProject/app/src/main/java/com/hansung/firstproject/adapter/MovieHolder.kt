@@ -40,6 +40,9 @@ open class MovieHolder(layoutId: Int, parents: ViewGroup) :
             Glide.with(context).load(item.image).apply(RequestOptions().override(300, 450))
                 .apply(RequestOptions.centerCropTransform()).into(posterimage_movieitem)
 
+            // binding.item = item // 이 형식으로 진행 되게 끔...
+
+
             //클릭시 웹사이트 연결을 위한 uri 바인딩
             webPage = Uri.parse(item.link)
         }
