@@ -1,6 +1,6 @@
-package com.example.study
+package com.example.study.data.datasource.remote.network
 
-import com.example.study.model.NaverSearch
+import com.example.study.data.model.NaverSearch
 import retrofit2.Call
 import retrofit2.http.*
 

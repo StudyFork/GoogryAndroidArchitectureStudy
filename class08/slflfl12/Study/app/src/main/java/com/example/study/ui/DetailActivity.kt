@@ -1,8 +1,8 @@
-package com.example.study
+package com.example.study.ui
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.study.R
 
 import kotlinx.android.synthetic.main.activity_detail.*
 

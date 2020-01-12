@@ -1,12 +1,12 @@
-package com.example.study
+package com.example.study.ui
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.study.model.Movie
+import com.example.study.R
+import com.example.study.data.model.Movie
 import kotlinx.android.synthetic.main.movie_view.view.*
 
 
