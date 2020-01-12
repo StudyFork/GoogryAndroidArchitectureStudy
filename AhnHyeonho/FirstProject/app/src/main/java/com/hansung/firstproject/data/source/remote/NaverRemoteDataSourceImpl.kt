@@ -38,9 +38,9 @@ class NaverRemoteDataSourceImpl private constructor(
                 ) {
 
                     if (response.isSuccessful) {
-                        if (response.body()!!.display == 0) {
+                        if (response.body()!!.display == 0)
                             isEmptyList()
-                        } else
+                        else
                             onResponse(response.body()!!)
                     } else {
                         response.code().let {
