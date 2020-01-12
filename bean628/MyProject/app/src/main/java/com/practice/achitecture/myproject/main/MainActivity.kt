@@ -39,7 +39,7 @@ class MainActivity : BaseNaverSearchActivity<ActivityMainBinding>(R.layout.activ
             }
         })[MainViewModel::class.java]
 
-        binding.rvSearchedList.adapter = searchMovieAndBookAdapter
+        binding.rvSearchedList.adapter = searchNaverAdapter
 
         mainViewModel.run {
             eventQueryEmpty.observe(this@MainActivity, Observer {

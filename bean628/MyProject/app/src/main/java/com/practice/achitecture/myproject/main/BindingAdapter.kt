@@ -20,7 +20,7 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("bind:setItemList", "bind:setSearchType")
     fun setItemList(view: RecyclerView, itemList: List<SearchedItem>, searchType: SearchType) {
-        (view.adapter as SearchMovieAndBookAdapter).searchType = searchType
-        (view.adapter as SearchMovieAndBookAdapter).notifyDataSetChanged(itemList)
+        (view.adapter as SearchNaverAdapter).searchType = searchType
+        (view.adapter as SearchNaverAdapter).notifyDataSetChanged(itemList)
     }
 }

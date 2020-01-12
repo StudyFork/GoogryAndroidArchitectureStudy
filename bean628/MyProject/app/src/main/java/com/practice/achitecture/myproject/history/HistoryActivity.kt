@@ -28,7 +28,7 @@ class HistoryActivity : BaseNaverSearchActivity<ActivityHistoryBinding>(R.layout
                 )
             )
         ).apply {
-            binding.rvSearchedList.adapter = searchMovieAndBookAdapter
+            binding.rvSearchedList.adapter = searchNaverAdapter
 
             eventStringMessageId.observe(this@HistoryActivity, Observer {
                 if (it != -999) {

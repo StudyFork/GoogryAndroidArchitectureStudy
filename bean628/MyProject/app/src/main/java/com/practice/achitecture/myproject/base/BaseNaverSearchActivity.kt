@@ -4,14 +4,13 @@ import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
 import com.practice.achitecture.myproject.enums.SearchType
-import com.practice.achitecture.myproject.main.SearchMovieAndBookAdapter
+import com.practice.achitecture.myproject.main.SearchNaverAdapter
 
 abstract class BaseNaverSearchActivity<DB : ViewDataBinding>(@LayoutRes contentLayoutId: Int) :
     BaseActivity<DB>(contentLayoutId) {
 
     open var searchType: SearchType = SearchType.MOVIE
-    open var searchMovieAndBookAdapter: SearchMovieAndBookAdapter? = null
-//    open var searchBlogAndNewsAdapter: SearchBlogAndNewsAdapter? = null
+    open var searchNaverAdapter: SearchNaverAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,8 +18,7 @@ abstract class BaseNaverSearchActivity<DB : ViewDataBinding>(@LayoutRes contentL
     }
 
     private fun initAdapter() {
-        searchMovieAndBookAdapter = SearchMovieAndBookAdapter()
-//        searchBlogAndNewsAdapter = SearchBlogAndNewsAdapter()
+        searchNaverAdapter = SearchNaverAdapter()
     }
 
 

@@ -12,8 +12,8 @@ import com.practice.achitecture.myproject.databinding.ItemBookAndMovieBinding
 import com.practice.achitecture.myproject.enums.SearchType
 import com.practice.achitecture.myproject.model.SearchedItem
 
-class SearchMovieAndBookAdapter :
-    RecyclerView.Adapter<SearchMovieAndBookAdapter.ViewHolder>() {
+class SearchNaverAdapter :
+    RecyclerView.Adapter<SearchNaverAdapter.ViewHolder>() {
 
     private val items: ArrayList<SearchedItem> = ArrayList()
     var searchType: SearchType = SearchType.MOVIE
