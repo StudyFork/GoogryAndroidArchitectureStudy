@@ -17,9 +17,6 @@ class MovieRecyclerViewAdpater(val itemClick: (movieDetail: String) -> Unit) :
         parent: ViewGroup,
         viewType: Int
     ): MovieRecyclerViewAdpater.MovieViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_movie, parent, false)
-
         val holder = MovieViewHolder(
             LayoutInflater
                 .from(parent.context)
