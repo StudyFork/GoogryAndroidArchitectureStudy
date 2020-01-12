@@ -36,7 +36,7 @@ object WebApiTask {
                 .cookieJar(JavaNetCookieJar(cookieManager))
                 .addInterceptor(requestInterceptor)
 
-            if(BuildConfig.DEBUG) {
+            if (BuildConfig.DEBUG) {
                 val httpLoggingInterceptor = HttpLoggingInterceptor()
                 httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
