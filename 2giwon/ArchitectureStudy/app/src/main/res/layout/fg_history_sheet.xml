@@ -8,7 +8,7 @@
 
         <variable
             name="vm"
-            type="com.egiwon.architecturestudy.tabs.bottomsheet.HistoryViewModel" />
+            type="com.egiwon.architecturestudy.ui.tabs.bottomsheet.HistoryViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

@@ -10,7 +10,7 @@
 
         <variable
             name="vm"
-            type="com.egiwon.architecturestudy.tabs.ContentsViewModel" />
+            type="com.egiwon.architecturestudy.ui.tabs.ContentsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
