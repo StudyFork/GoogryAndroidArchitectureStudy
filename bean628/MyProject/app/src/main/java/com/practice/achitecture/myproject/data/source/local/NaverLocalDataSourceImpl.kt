@@ -59,8 +59,8 @@ class NaverLocalDataSourceImpl private constructor(
 
 
     // 앱 첫 실행 시 가장 마지막으로 검색한 리스트를 불러옵니다.
-    fun getLastSearchType(): SearchType? {
-        var lastSearchType: SearchType? = null
+    fun getLastSearchType(): SearchType {
+        var lastSearchType: SearchType = SearchType.MOVIE
         var lastTime: Long? = null
         var cacheFile: File
 
@@ -104,7 +104,7 @@ class NaverLocalDataSourceImpl private constructor(
         val jsonObj = JSONObject()
         jsonObj.put("word", Gson().toJson(word))
         jsonObj.put("list", Gson().toJson(list))
-        cacheFile.writeText(Gson().toJson(jsonObj))
+        cacheFile.writeText(jsonObj.toString())
     }
 
     companion object {

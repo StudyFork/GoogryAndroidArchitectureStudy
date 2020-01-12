@@ -1,65 +1,64 @@
 package com.practice.achitecture.myproject.main
 
+import android.text.TextUtils
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
 import com.practice.achitecture.myproject.R
 import com.practice.achitecture.myproject.base.BaseNaverSearchViewModel
 import com.practice.achitecture.myproject.data.source.NaverDataSource
 import com.practice.achitecture.myproject.data.source.NaverRepository
 import com.practice.achitecture.myproject.enums.SearchType
+import com.practice.achitecture.myproject.ext.default
 import com.practice.achitecture.myproject.model.SearchedItem
-import org.json.JSONObject
-import kotlin.properties.Delegates
 
 class MainViewModel constructor(private val naverRepository: NaverRepository) :
     BaseNaverSearchViewModel() {
 
-    var query: String by Delegates.observable("") { property, oldValue, newValue -> }
-
-    var queryEmptyObserver: (() -> Unit)? = null
-
-    var goToHistoryActivityObserver: (() -> Unit)? = null
-
+    val query = MutableLiveData<String>().default("")
+    val eventQueryEmpty = MutableLiveData<Boolean>().default(false)
+    val eventGoToHistoryActivity = MutableLiveData<Boolean>().default(false)
 
     fun search(searchType: SearchType) {
-        lastSearchType = searchType
+        lastSearchType.value = searchType
         search()
     }
 
     fun search() {
-        if (query.isEmpty()) {
-            queryEmptyObserver?.invoke()
+        if (TextUtils.isEmpty(query.value)) {
+            eventQueryEmpty.value = true
         } else {
-            progressBarIsShowing = true
-            naverRepository.searchWordByNaver(
-                lastSearchType,
-                query,
-                object : NaverDataSource.GettingResultOfSearchingCallback {
-                    override fun onSuccess(items: List<SearchedItem>) {
-                        progressBarIsShowing = false
-                        when (lastSearchType) {
-                            SearchType.MOVIE, SearchType.BOOK -> {
-                                this@MainViewModel.movieOrBookItems = items
-                            }
-                            SearchType.BLOG, SearchType.NEWS -> {
-                                this@MainViewModel.blogOrNewsItems = items
-                            }
+            eventHideSoftKeyboard.value = true
+            eventProgressBarIsShowing.value = true
+            if (lastSearchType.value != null && query.value != null) {
+                naverRepository.searchWordByNaver(
+                    lastSearchType.value!!,
+                    query.value!!,
+                    object : NaverDataSource.GettingResultOfSearchingCallback {
+                        override fun onSuccess(items: List<SearchedItem>) {
+                            eventProgressBarIsShowing.value = false
+                            this@MainViewModel.movieOrBookItems.value = items
                         }
-                    }
 
-                    override fun onFailure(throwable: Throwable) {
-                        progressBarIsShowing = false
-                        stringMessageId = R.string.toast_network_error_msg
-                    }
-                })
+                        override fun onFailure(throwable: Throwable) {
+                            eventProgressBarIsShowing.value = false
+                            eventStringMessageId.value = R.string.toast_network_error_msg
+                        }
+                    })
+            } else {
+                eventProgressBarIsShowing.value = false
+            }
         }
+
     }
 
     fun goToHistoryActivity() {
-        goToHistoryActivityObserver?.invoke()
+        eventGoToHistoryActivity.value = true
     }
 
     fun onEditorAction(tv: TextView, actionId: Int, event: KeyEvent?): Boolean {
@@ -74,26 +73,15 @@ class MainViewModel constructor(private val naverRepository: NaverRepository) :
 
     fun loadCache() {
         val lastSearchType = naverRepository.getLastSearchType()
-        if (lastSearchType != null) {
-            var jsonObject = JSONObject(naverRepository.getCache(lastSearchType))
-            if (!jsonObject.isNull("nameValuePairs")) {
-                jsonObject = JSONObject(jsonObject.getString("nameValuePairs"))
-                if (!jsonObject.isNull("word") && !jsonObject.isNull("list")) {
-                    val gson = Gson()
-                    val searchedItemListType = object : TypeToken<List<SearchedItem>>() {}.type
-                    query = jsonObject.getString("word").replace("\"", "")
-                    when (lastSearchType) {
-                        SearchType.MOVIE, SearchType.BOOK -> {
-                            movieOrBookItems =
-                                gson.fromJson(jsonObject.getString("list"), searchedItemListType)
-                        }
-                        SearchType.BLOG, SearchType.NEWS -> {
-                            blogOrNewsItems =
-                                gson.fromJson(jsonObject.getString("list"), searchedItemListType)
-                        }
-                    }
-                }
-            }
+        val jsonParser = JsonParser()
+        val jsonObject = jsonParser.parse(naverRepository.getCache(lastSearchType)) as JsonObject
+
+        if (jsonObject.has("word") && jsonObject.has("list")) {
+            val gson = Gson()
+            val searchedItemListType = object : TypeToken<List<SearchedItem>>() {}.type
+            query.value = jsonObject.get("word").asString.replace("\"", "")
+            movieOrBookItems.value =
+                gson.fromJson(jsonObject.get("list").asString, searchedItemListType)
         }
     }
 

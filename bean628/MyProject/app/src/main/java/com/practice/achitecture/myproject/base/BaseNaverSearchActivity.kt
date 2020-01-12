@@ -1,28 +1,16 @@
 package com.practice.achitecture.myproject.base
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
 import com.practice.achitecture.myproject.enums.SearchType
-import com.practice.achitecture.myproject.main.SearchBlogAndNewsAdapter
-import com.practice.achitecture.myproject.main.SearchMovieAndBookAdapter
-import com.practice.achitecture.myproject.main.SearchedItemClickListener
-import com.practice.achitecture.myproject.model.SearchedItem
+import com.practice.achitecture.myproject.main.SearchNaverAdapter
 
 abstract class BaseNaverSearchActivity<DB : ViewDataBinding>(@LayoutRes contentLayoutId: Int) :
     BaseActivity<DB>(contentLayoutId) {
 
     open var searchType: SearchType = SearchType.MOVIE
-    open var searchMovieAndBookAdapter: SearchMovieAndBookAdapter? = null
-    open var searchBlogAndNewsAdapter: SearchBlogAndNewsAdapter? = null
-    private val searchedItemListener: SearchedItemClickListener =
-        object : SearchedItemClickListener {
-            override fun onItemClick(item: SearchedItem) {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(item.link)))
-            }
-        }
+    open var searchNaverAdapter: SearchNaverAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +18,7 @@ abstract class BaseNaverSearchActivity<DB : ViewDataBinding>(@LayoutRes contentL
     }
 
     private fun initAdapter() {
-        searchMovieAndBookAdapter = SearchMovieAndBookAdapter(searchedItemListener)
-        searchBlogAndNewsAdapter = SearchBlogAndNewsAdapter(searchedItemListener)
+        searchNaverAdapter = SearchNaverAdapter()
     }
 
 

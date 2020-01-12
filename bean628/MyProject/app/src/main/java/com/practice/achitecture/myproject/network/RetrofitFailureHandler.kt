@@ -2,7 +2,7 @@ package com.practice.achitecture.myproject.network
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.isDigitsOnly
-import com.practice.achitecture.myproject.makeToast
+import com.practice.achitecture.myproject.ext.makeToast
 
 class EmptyDataException(errorMsgResStringId: Int) : Exception(errorMsgResStringId.toString())
 class ResponseNotSuccessException(errorMsgResStringId: Int) :

@@ -6,8 +6,8 @@ import com.practice.achitecture.myproject.model.SearchedItem
 
 @Entity(tableName = "historyOfSearch")
 data class HistoryOfSearch constructor(
-    val category: String,
-    val query: String,
+    val category: String?,
+    val query: String?,
     val searchedItemList: List<SearchedItem>
 ) {
     @PrimaryKey(autoGenerate = true)
