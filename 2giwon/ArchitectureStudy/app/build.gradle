@@ -76,6 +76,9 @@ dependencies {
     // animation
     implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
 
+    // koin
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+
     // Test
     testImplementation "junit:junit:$jnit_version"
     androidTestImplementation "androidx.test.ext:junit:$test_ext_version"
