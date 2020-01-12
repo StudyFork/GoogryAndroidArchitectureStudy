@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="internet_error_message">인터넷 연결을 확인하세요.</string>
-    <string name="empty_keword_message">검색어를 입력하세요.</string>
+    <string name="empty_keyword_message">검색어를 입력하세요.</string>
     <string name="empty_list_message">검색 결과가 없습니다</string>
     <string name="error_message_400">잘못된 API 요청입니다.\n[error code: 400]</string>
     <string name="error_message_401">인증되지 않은 접근입니다.\n[error code: 401]</string>
