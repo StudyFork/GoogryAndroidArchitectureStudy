@@ -2,33 +2,20 @@ package com.egiwon.architecturestudy.ui.tabs
 
 import android.os.Bundle
 import androidx.core.os.bundleOf
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.base.BaseFragment
-import com.egiwon.architecturestudy.data.NaverDataRepositoryImpl
-import com.egiwon.architecturestudy.data.source.local.ContentDataBase
-import com.egiwon.architecturestudy.data.source.local.NaverLocalDataSource
-import com.egiwon.architecturestudy.data.source.remote.NaverRemoteDataSource
 import com.egiwon.architecturestudy.databinding.FgContentsBinding
 import com.egiwon.architecturestudy.ui.Tab
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class ContentsFragment : BaseFragment<FgContentsBinding, ContentsViewModel>(
     R.layout.fg_contents
 ) {
 
-    override val viewModel: ContentsViewModel by viewModels {
-        ContentsViewModelFactory(
-            tab,
-            NaverDataRepositoryImpl.getInstance(
-                NaverRemoteDataSource.getInstance(),
-                NaverLocalDataSource.getInstance(
-                    ContentDataBase.getInstance(requireContext()).contentDao()
-                )
-            )
-        )
-    }
+    override val viewModel: ContentsViewModel by viewModel { parametersOf(tab) }
 
     override fun onResume() {
         viewModel.getCacheContents()
@@ -42,8 +29,9 @@ class ContentsFragment : BaseFragment<FgContentsBinding, ContentsViewModel>(
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        with(binding) {
-            vm = viewModel
+
+        bind {
+            vm = this@ContentsFragment.viewModel
             rvContents.addItemDecoration(
                 DividerItemDecoration(
                     context,
@@ -54,34 +42,9 @@ class ContentsFragment : BaseFragment<FgContentsBinding, ContentsViewModel>(
             rvContents.adapter = ContentsAdapter(tab)
         }
 
-        viewModel.setObserves()
-    }
-
-    private fun ContentsViewModel.setObserves() {
-        isSearchResultListEmpty.observe(viewLifecycleOwner, Observer {
-            if (it) showErrorResultEmpty()
+        viewModel.isResultEmptyError.observe(viewLifecycleOwner, Observer { empty ->
+            if (empty) showToast(R.string.error_empty_fail)
         })
-
-        errorSearchQueryResult.observe(viewLifecycleOwner, Observer {
-            showErrorLoadFail()
-        })
-
-        errorQueryEmpty.observe(viewLifecycleOwner, Observer {
-            showErrorQueryEmpty()
-        })
-
-    }
-
-    private fun showErrorQueryEmpty() {
-        showToast(getString(R.string.error_query_empty))
-    }
-
-    private fun showErrorLoadFail() {
-        showToast(getString(R.string.error_load_fail))
-    }
-
-    private fun showErrorResultEmpty() {
-        showToast(getString(R.string.error_empty_fail))
     }
 
 

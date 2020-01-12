@@ -1,0 +1,55 @@
+package com.egiwon.architecturestudy.di
+
+import com.egiwon.architecturestudy.BuildConfig
+import com.egiwon.architecturestudy.data.source.remote.ContentsService
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
+
+val networkModule = module {
+    single(named("remote")) {
+        Retrofit.Builder()
+            .baseUrl("https://openapi.naver.com/")
+            .client(
+                OkHttpClient.Builder()
+                    .addInterceptor(
+                        HttpLoggingInterceptor().apply {
+                            level = if (BuildConfig.DEBUG) {
+                                HttpLoggingInterceptor.Level.BODY
+                            } else {
+                                HttpLoggingInterceptor.Level.NONE
+                            }
+                        }
+                    )
+                    .addInterceptor { chain ->
+                        chain.proceed(
+                            chain.request().newBuilder()
+                                .addHeader(
+                                    "X-Naver-Client-Id",
+                                    API_ID
+                                )
+                                .addHeader(
+                                    "X-Naver-Client-Secret",
+                                    API_SECRET
+                                )
+                                .build()
+                        )
+
+                    }
+                    .build()
+            )
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ContentsService::class.java)
+    }
+
+
+}
+
+private const val API_ID = "N6fr8OFPNCzX7SVctnkG"
+private const val API_SECRET = "WHmQ8WtbYf"
