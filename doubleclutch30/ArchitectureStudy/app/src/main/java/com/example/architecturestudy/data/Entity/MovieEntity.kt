@@ -2,9 +2,12 @@ package com.example.architecturestudy.data.Entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "Movie")
 data class MovieEntity (
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     @ColumnInfo(name = "title")
     val title: String = "",
     @ColumnInfo(name = "link")

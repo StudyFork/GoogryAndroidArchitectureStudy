@@ -5,14 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.R
 import com.example.architecturestudy.data.model.KinItem
+import com.example.architecturestudy.databinding.FragmentKinBinding
 import kotlinx.android.synthetic.main.fragment_kin.*
 
 class KinFragment : Fragment(), KinContract.View {
+
+    private lateinit var binding: FragmentKinBinding
 
     private lateinit var kinAdapter: KinAdapter
 
@@ -25,14 +29,20 @@ class KinFragment : Fragment(), KinContract.View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_kin, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_kin,
+            container,
+            false
+        )
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         kinAdapter =  KinAdapter()
 
-        recycleview.apply {
+        binding.recycleview.apply {
             adapter = kinAdapter
             layoutManager = LinearLayoutManager(activity)
             addItemDecoration(
@@ -40,7 +50,7 @@ class KinFragment : Fragment(), KinContract.View {
             )
         }
 
-        btn_search.setOnClickListener {
+        binding.btnSearch.setOnClickListener {
             if(input_text != null) {
                 val edit = edit_text.text.toString()
                 presenter.taskSearch(edit)
