@@ -16,27 +16,21 @@ class ContentsViewModel(
 ) : BaseViewModel() {
 
     private val _searchQueryResultList = MutableLiveData<List<ContentItem>>()
-
-    private val _isShowLoadingProgressBar = MutableLiveData<Boolean>()
-
-    private val _errorSearchQueryResult = MutableLiveData<Throwable>()
-
-    private val _errorQueryEmpty = MutableLiveData<Throwable>()
-
-    val isSearchResultListEmpty: LiveData<Boolean> =
-        Transformations.map(_searchQueryResultList) {
-            it.isNullOrEmpty()
-        }
-
-    val searchQuery = MutableLiveData<String>()
-
     val searchQueryResultList: LiveData<List<ContentItem>> get() = _searchQueryResultList
 
+    private val _isShowLoadingProgressBar = MutableLiveData<Boolean>()
     val isShowLoadingProgressBar: LiveData<Boolean> get() = _isShowLoadingProgressBar
 
+    private val _errorSearchQueryResult = MutableLiveData<Throwable>()
     val errorSearchQueryResult: LiveData<Throwable> get() = _errorSearchQueryResult
 
+    private val _errorQueryEmpty = MutableLiveData<Throwable>()
     val errorQueryEmpty: LiveData<Throwable> get() = _errorQueryEmpty
+
+    val isSearchResultListEmpty: LiveData<Boolean> =
+        Transformations.map(_searchQueryResultList) { it.isNullOrEmpty() }
+
+    val searchQuery = MutableLiveData<String>()
 
     fun loadContents() {
         if (searchQuery.value.isNullOrBlank()) {
