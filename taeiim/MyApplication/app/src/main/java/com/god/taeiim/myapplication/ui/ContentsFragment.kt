@@ -45,8 +45,8 @@ class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_mai
             SearchResultRecyclerAdapter(searchType, R.layout.item_contents, BR.item)
         binding.searchResultRecyclerView.adapter = searchResultAdapter
 
-        updateSearchHistoryItems()
         addObserveProperty()
+        updateSearchHistoryItems()
 
     }
 
