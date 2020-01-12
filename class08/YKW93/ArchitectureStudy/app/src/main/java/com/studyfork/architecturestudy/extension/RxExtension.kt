@@ -1,4 +1,4 @@
-package com.studyfork.architecturestudy
+package com.studyfork.architecturestudy.extension
 
 import io.reactivex.Scheduler
 import io.reactivex.Single

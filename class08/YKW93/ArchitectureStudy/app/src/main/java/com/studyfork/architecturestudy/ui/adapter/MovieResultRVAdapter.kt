@@ -1,4 +1,4 @@
-package com.studyfork.architecturestudy
+package com.studyfork.architecturestudy.ui.adapter
 
 import android.os.Build
 import android.text.Html
@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.studyfork.architecturestudy.R
+import com.studyfork.architecturestudy.data.model.MovieResponse
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieResultRVAdapter(val itemClick: (movieLink: String) -> Unit) :

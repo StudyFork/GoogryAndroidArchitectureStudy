@@ -1,4 +1,4 @@
-package com.studyfork.architecturestudy
+package com.studyfork.architecturestudy.ui.activity
 
 import android.content.Intent
 import android.net.Uri
@@ -7,6 +7,11 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.studyfork.architecturestudy.ui.adapter.MovieResultRVAdapter
+import com.studyfork.architecturestudy.R
+import com.studyfork.architecturestudy.extension.applySchedulers
+import com.studyfork.architecturestudy.data.network.ApiClient
+import com.studyfork.architecturestudy.extension.hideKeyboard
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 
