@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.example.study.R
 import com.example.study.data.datasource.remote.network.NaverApiService
 import com.example.study.data.model.Movie
-import com.example.study.data.model.NaverSearch
+import com.example.study.data.model.NaverSearchResponse
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Retrofit
 import retrofit2.Response
@@ -43,15 +43,15 @@ class MainActivity : AppCompatActivity() {
 
         val retrofitService = retrofit.create(NaverApiService::class.java).apply {
             this.getMovieList("AZeVMtYlsaS7bdr8W7PX", "a7hDdCsKST", query)
-                .enqueue(object : Callback<NaverSearch> {
+                .enqueue(object : Callback<NaverSearchResponse> {
 
-                    override fun onFailure(call: Call<NaverSearch>, t: Throwable) {
+                    override fun onFailure(call: Call<NaverSearchResponse>, t: Throwable) {
                         println("network error")
                     }
 
                     override fun onResponse(
-                        call: Call<NaverSearch>,
-                        response: Response<NaverSearch>
+                        call: Call<NaverSearchResponse>,
+                        response: Response<NaverSearchResponse>
                     ) {
                         if (response.isSuccessful) {
                             println("성공")

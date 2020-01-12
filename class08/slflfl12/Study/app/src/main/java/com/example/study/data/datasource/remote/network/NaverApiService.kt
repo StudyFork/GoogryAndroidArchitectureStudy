@@ -1,6 +1,6 @@
 package com.example.study.data.datasource.remote.network
 
-import com.example.study.data.model.NaverSearch
+import com.example.study.data.model.NaverSearchResponse
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -10,5 +10,5 @@ interface NaverApiService {
         @Header("X-Naver-Client-Id") clientId: String,
         @Header("X-Naver-Client-Secret") clientSecret: String,
         @Query("query") query: String
-    ) : Call<NaverSearch>
+    ) : Call<NaverSearchResponse>
 }
