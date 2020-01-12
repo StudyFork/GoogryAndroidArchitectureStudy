@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Study</string>
+
+    <string name="title">제목</string>
+
+    <string name="pub_date">날짜</string>
+
+    <string name="director">감독</string>
+
+    <string name="actor">배우</string>
 </resources>
