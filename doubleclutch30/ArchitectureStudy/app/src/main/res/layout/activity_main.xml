@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="text"
+            type="String" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
