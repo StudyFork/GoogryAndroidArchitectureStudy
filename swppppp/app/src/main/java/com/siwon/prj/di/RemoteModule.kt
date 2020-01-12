@@ -6,6 +6,9 @@ import com.siwon.prj.datasource.service.MovieSearchService
 import com.siwon.prj.model.ApiInfo
 import com.siwon.prj.repository.MovieSearchRepository
 import com.siwon.prj.repository.MovieSearchRepositoryImpl
+import com.siwon.prj.view.presenter.MainContract
+import com.siwon.prj.view.presenter.MainPresenter
+import org.koin.dsl.bind
 import org.koin.dsl.module
 import retrofit2.Converter
 import retrofit2.Retrofit
@@ -29,4 +32,8 @@ val remotemodule = module {
     single<MovieSearchRepository>{
         MovieSearchRepositoryImpl(get())
     }
+
+    factory<MainContract.Presenter> {
+        (view: MainContract.View) -> MainPresenter(view, get())
+    } bind MainContract.Presenter::class
 }

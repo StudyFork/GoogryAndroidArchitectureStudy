@@ -4,9 +4,9 @@ import com.siwon.prj.repository.MovieSearchRepository
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
-class MainPresenter(private val view: MainContract.View) : MainContract.Presenter, KoinComponent {
+class MainPresenter(private val view: MainContract.View, private val repository: MovieSearchRepository) : MainContract.Presenter, KoinComponent {
 
-    val repository: MovieSearchRepository by inject()
+//    val repository: MovieSearchRepository by inject()
 
     override fun getSearchResult(input: String) {
         // 입력값 없는경우

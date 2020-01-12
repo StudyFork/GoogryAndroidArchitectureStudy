@@ -13,10 +13,14 @@ import com.siwon.prj.movie_adapter.MovieAdapter
 import com.siwon.prj.R
 import com.siwon.prj.model.Movie
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
-    private val present: MainContract.Presenter = MainPresenter(this)
+//    private val present: MainContract.Presenter = MainPresenter(this)
+    private val present: MainContract.Presenter by inject{ parametersOf(this)}
+
     lateinit var adapter: MovieAdapter
     var toast: Toast? = null
 
