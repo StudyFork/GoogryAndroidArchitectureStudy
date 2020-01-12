@@ -3,6 +3,7 @@ package com.egiwon.architecturestudy.ui.tabs
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.base.BaseViewModel
 import com.egiwon.architecturestudy.data.NaverDataRepository
 import com.egiwon.architecturestudy.data.source.remote.response.ContentItem
@@ -21,20 +22,14 @@ class ContentsViewModel(
     private val _isShowLoadingProgressBar = MutableLiveData<Boolean>()
     val isShowLoadingProgressBar: LiveData<Boolean> get() = _isShowLoadingProgressBar
 
-    private val _errorSearchQueryResult = MutableLiveData<Throwable>()
-    val errorSearchQueryResult: LiveData<Throwable> get() = _errorSearchQueryResult
-
-    private val _errorQueryEmpty = MutableLiveData<Throwable>()
-    val errorQueryEmpty: LiveData<Throwable> get() = _errorQueryEmpty
-
-    val isSearchResultListEmpty: LiveData<Boolean> =
-        Transformations.map(_searchQueryResultList) { it.isNullOrEmpty() }
-
     val searchQuery = MutableLiveData<String>()
+
+    val isResultEmptyError: LiveData<Boolean> =
+        Transformations.map(searchQueryResultList) { it.isNullOrEmpty() }
 
     fun loadContents() {
         if (searchQuery.value.isNullOrBlank()) {
-            _errorQueryEmpty.value = Throwable()
+            errorText.value = (R.string.error_query_empty)
         } else {
             naverDataRepository.getContents(
                 type = tab.name,
@@ -50,7 +45,7 @@ class ContentsViewModel(
                 .subscribe({
                     _searchQueryResultList.value = it.contentItems
                 }, {
-                    _errorSearchQueryResult.value = it
+                    errorText.value = R.string.error_load_fail
                 }).addDisposable()
 
         }
@@ -73,7 +68,7 @@ class ContentsViewModel(
                 searchQuery.value = it.query
                 loadContents()
             }, {
-                _errorSearchQueryResult.value = it
+                errorText.value = R.string.error_load_fail
             }).addDisposable()
     }
 
