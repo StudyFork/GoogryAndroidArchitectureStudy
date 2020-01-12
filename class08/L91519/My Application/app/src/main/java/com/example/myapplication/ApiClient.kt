@@ -7,8 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object ApiClient {
-    val BASE_URL = "https://openapi.naver.com/v1/"
-    val TIMEOUT: Long = 15
+    private val BASE_URL = "https://openapi.naver.com/v1/"
+    private val TIMEOUT: Long = 15
 
     private val okHttpClient: OkHttpClient
         get() {
@@ -27,5 +27,5 @@ object ApiClient {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-    fun getService(): MovieApi = retrofit.create(MovieApi::class.java)
+    val getService: MovieApi = retrofit.create(MovieApi::class.java)
 }
