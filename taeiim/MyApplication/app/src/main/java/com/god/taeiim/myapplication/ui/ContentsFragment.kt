@@ -51,15 +51,28 @@ class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_mai
     }
 
     private fun addObserveProperty() {
-        val updateListCallback = object : Observable.OnPropertyChangedCallback() {
+        vm.searchResultList.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(observable: Observable, i: Int) {
                 vm.searchResultList.get()?.let {
                     updateItems(it)
                 } ?: failToSearch()
             }
-        }
+        })
 
-        vm.searchResultList.addOnPropertyChangedCallback(updateListCallback)
+        vm.errorQueryBlank.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                blankSearchQuery()
+            }
+        })
+
+        vm.errorFailSearch.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                failToSearch()
+            }
+        })
     }
 
     private fun updateSearchHistoryItems() {

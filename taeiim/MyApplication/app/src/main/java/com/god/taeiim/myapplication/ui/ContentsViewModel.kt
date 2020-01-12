@@ -11,6 +11,8 @@ class ContentsViewModel(
     private val naverRepository: NaverRepository
 ) {
     val searchResultList = ObservableField<List<SearchResultShow.Item>>()
+    val errorQueryBlank = ObservableField<Throwable>()
+    val errorFailSearch = ObservableField<Throwable>()
     var query = ""
     var searchType = Tabs.BLOG
 
@@ -20,7 +22,7 @@ class ContentsViewModel(
 
     fun searchContents() {
         if (getQueryStr().isBlank()) {
-            searchResultList.set(null)
+            errorQueryBlank.set(Throwable())
 
         } else {
             naverRepository.getResultData(
@@ -33,7 +35,7 @@ class ContentsViewModel(
                     )
                 },
                 fail = {
-                    searchResultList.set(null)
+                    errorFailSearch.set(it)
                 }
             )
         }
