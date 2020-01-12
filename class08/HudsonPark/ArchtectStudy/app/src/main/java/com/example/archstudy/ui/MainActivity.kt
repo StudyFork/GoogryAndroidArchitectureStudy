@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnSearch: Button
     private lateinit var rvMovieList: RecyclerView
     private lateinit var rvMovieAdapter: MovieListAdapter
-    private lateinit var movieData: ArrayList<Item>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,10 +55,7 @@ class MainActivity : AppCompatActivity() {
         edtQuery = findViewById(R.id.edtQuery)
         btnSearch = findViewById(R.id.btnSearch)
         rvMovieList = findViewById(R.id.rvMovieList)
-        movieData = arrayListOf()
-        rvMovieAdapter = MovieListAdapter(
-            movieData,
-            object : MovieListAdapter.ItemClickListener {
+        rvMovieAdapter = MovieListAdapter(object : MovieListAdapter.ItemClickListener {
                 override fun onItemClick(url: String) {
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
                 }
@@ -77,7 +73,8 @@ class MainActivity : AppCompatActivity() {
         retrofit.create(RetrofitService::class.java).apply {
             this.getMovieList(
                 BuildConfig.API_CLIENT_ID,
-                BuildConfig.API_CLIENT_SECRET, query)
+                BuildConfig.API_CLIENT_SECRET, query
+            )
                 .enqueue(object : Callback<Data> {
 
                     override fun onFailure(call: Call<Data>, t: Throwable) {
@@ -93,8 +90,7 @@ class MainActivity : AppCompatActivity() {
 
                             if (isSuccessful && body() != null) {
                                 val updateList = body()!!.items
-                                movieData.clear()
-                                movieData.addAll(updateList)
+                                rvMovieAdapter.setData(updateList as ArrayList<Item>)
                                 rvMovieList.adapter?.notifyDataSetChanged()
                             }
                         }

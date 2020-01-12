@@ -11,10 +11,10 @@ import androidx.annotation.Nullable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class MovieListAdapter(movieList: ArrayList<Item>, @Nullable private var listener: ItemClickListener) :
+class MovieListAdapter(@Nullable private var listener: ItemClickListener) :
     RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
 
-    private var list = movieList
+    private var list = mutableListOf<Item>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val holder = ViewHolder(LayoutInflater
@@ -31,6 +31,10 @@ class MovieListAdapter(movieList: ArrayList<Item>, @Nullable private var listene
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         holder.bind(list[position])
+
+    fun setData(movieList: ArrayList<Item>){
+        this.list = movieList
+    }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
