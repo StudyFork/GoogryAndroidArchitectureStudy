@@ -52,7 +52,8 @@ ext{
     rxjava_version="2.2.15"
     rxbinding_version="3.1.0"
     lifecycle_version = "2.1.0"
-    room_version = "2.2.2"
+    room_version = "2.2.3"
+    koin_version = "2.0.1"
 }
 
 task clean(type: Delete) {
