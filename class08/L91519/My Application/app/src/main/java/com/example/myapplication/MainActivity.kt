@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun findMovie(query: String) {
-        ApiClient.getService().searchMovie(query).enqueue(object : Callback<MovieResult> {
+        ApiClient.getService.searchMovie(query).enqueue(object : Callback<MovieResult> {
             override fun onFailure(call: Call<MovieResult>, t: Throwable) {
                 print("fail")
             }
@@ -38,7 +38,12 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<MovieResult>, response: Response<MovieResult>) {
                 //recyclerview data init
                 print("sucess")
-                adapter.setItems(response.body()?.items as ArrayList<MovieResult.Item>)
+
+                with(adapter){
+                    response.body()?.let {
+                        setItems(it.items as ArrayList<MovieResult.Item>)
+                    }
+                }
             }
 
         })
