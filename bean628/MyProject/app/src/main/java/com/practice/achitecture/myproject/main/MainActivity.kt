@@ -39,6 +39,8 @@ class MainActivity : BaseNaverSearchActivity<ActivityMainBinding>(R.layout.activ
             }
         })[MainViewModel::class.java]
 
+        binding.rvSearchedList.adapter = searchMovieAndBookAdapter
+
         mainViewModel.run {
             eventQueryEmpty.observe(this@MainActivity, Observer {
                 if (it) {
@@ -51,20 +53,6 @@ class MainActivity : BaseNaverSearchActivity<ActivityMainBinding>(R.layout.activ
                 if (it) {
                     this@MainActivity.hideSoftKeyboard(binding.inputSearchSth)
                     eventHideSoftKeyboard.value = false
-                }
-            })
-
-            blogOrNewsItems.observe(this@MainActivity, Observer {
-                if (it.isNotEmpty()) {
-                    searchBlogAndNewsAdapter?.notifyDataSetChanged(it)
-                    binding.rvSearchedList.adapter = searchBlogAndNewsAdapter
-                }
-            })
-
-            movieOrBookItems.observe(this@MainActivity, Observer {
-                if (it.isNotEmpty()) {
-                    searchMovieAndBookAdapter?.notifyDataSetChanged(it)
-                    binding.rvSearchedList.adapter = searchMovieAndBookAdapter
                 }
             })
 

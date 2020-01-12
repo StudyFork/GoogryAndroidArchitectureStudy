@@ -1,17 +1,22 @@
 package com.practice.achitecture.myproject.main
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.practice.achitecture.myproject.R
 import com.practice.achitecture.myproject.databinding.ItemBookAndMovieBinding
+import com.practice.achitecture.myproject.enums.SearchType
 import com.practice.achitecture.myproject.model.SearchedItem
 
-class SearchMovieAndBookAdapter(private val searchedItemClickListener: SearchedItemClickListener) :
+class SearchMovieAndBookAdapter :
     RecyclerView.Adapter<SearchMovieAndBookAdapter.ViewHolder>() {
 
-    private var items: ArrayList<SearchedItem> = ArrayList()
+    private val items: ArrayList<SearchedItem> = ArrayList()
+    var searchType: SearchType = SearchType.MOVIE
 
     override fun getItemCount() = items.size
 
@@ -26,7 +31,9 @@ class SearchMovieAndBookAdapter(private val searchedItemClickListener: SearchedI
 
     fun notifyDataSetChanged(newItems: List<SearchedItem>) {
         items.clear()
-        items.addAll(newItems)
+        if (!newItems.isNullOrEmpty()) {
+            items.addAll(newItems)
+        }
         notifyDataSetChanged()
     }
 
@@ -41,6 +48,7 @@ class SearchMovieAndBookAdapter(private val searchedItemClickListener: SearchedI
         )
     }
 
+
     inner class ViewHolder(private val binding: ItemBookAndMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -48,7 +56,11 @@ class SearchMovieAndBookAdapter(private val searchedItemClickListener: SearchedI
             binding.run {
                 item = data
                 root.setOnClickListener {
-                    searchedItemClickListener.onItemClick(items[this@ViewHolder.adapterPosition])
+                    root.context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(data.link)))
+                }
+                when (searchType) {
+                    SearchType.MOVIE, SearchType.BOOK -> ivMainImage.visibility = View.VISIBLE
+                    SearchType.BLOG, SearchType.NEWS -> ivMainImage.visibility = View.GONE
                 }
                 executePendingBindings()
             }

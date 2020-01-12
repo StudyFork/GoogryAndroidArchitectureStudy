@@ -6,8 +6,7 @@ import com.practice.achitecture.myproject.model.SearchedItem
 
 open class BaseNaverSearchViewModel : BaseViewModel() {
 
-    var lastSearchType = MutableLiveData<SearchType>(SearchType.MOVIE)
-    var movieOrBookItems = MutableLiveData<List<SearchedItem>>(emptyList())
-    var blogOrNewsItems = MutableLiveData<List<SearchedItem>>(emptyList())
+    val lastSearchType = MutableLiveData<SearchType>(SearchType.MOVIE)
+    val movieOrBookItems = MutableLiveData<List<SearchedItem>>(emptyList())
 
 }

@@ -28,15 +28,7 @@ class HistoryActivity : BaseNaverSearchActivity<ActivityHistoryBinding>(R.layout
                 )
             )
         ).apply {
-            movieOrBookItems.observe(this@HistoryActivity, Observer {
-                searchMovieAndBookAdapter?.notifyDataSetChanged(it)
-                binding.rvSearchedList.adapter = searchMovieAndBookAdapter
-            })
-
-            blogOrNewsItems.observe(this@HistoryActivity, Observer {
-                searchBlogAndNewsAdapter?.notifyDataSetChanged(it)
-                binding.rvSearchedList.adapter = searchBlogAndNewsAdapter
-            })
+            binding.rvSearchedList.adapter = searchMovieAndBookAdapter
 
             eventStringMessageId.observe(this@HistoryActivity, Observer {
                 if (it != -999) {

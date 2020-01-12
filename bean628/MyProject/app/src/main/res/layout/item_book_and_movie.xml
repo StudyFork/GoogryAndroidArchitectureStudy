@@ -24,7 +24,7 @@
             android:layout_width="90dp"
             android:layout_height="160dp"
             android:contentDescription="@string/image_content_description"
-            bind:setImageUrl="@{item.image}"
+            bind:setImageUrl="@{item.image != null ? item.image : ``}"
             tools:ignore="SpUsage" />
 
         <LinearLayout

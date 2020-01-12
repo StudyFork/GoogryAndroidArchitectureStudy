@@ -42,14 +42,7 @@ class MainViewModel constructor(private val naverRepository: NaverRepository) :
                     object : NaverDataSource.GettingResultOfSearchingCallback {
                         override fun onSuccess(items: List<SearchedItem>) {
                             eventProgressBarIsShowing.value = false
-                            when (lastSearchType.value) {
-                                SearchType.MOVIE, SearchType.BOOK -> {
-                                    this@MainViewModel.movieOrBookItems.value = items
-                                }
-                                SearchType.BLOG, SearchType.NEWS -> {
-                                    this@MainViewModel.blogOrNewsItems.value = items
-                                }
-                            }
+                            this@MainViewModel.movieOrBookItems.value = items
                         }
 
                         override fun onFailure(throwable: Throwable) {
@@ -87,18 +80,9 @@ class MainViewModel constructor(private val naverRepository: NaverRepository) :
             val gson = Gson()
             val searchedItemListType = object : TypeToken<List<SearchedItem>>() {}.type
             query.value = jsonObject.get("word").asString.replace("\"", "")
-            when (lastSearchType) {
-                SearchType.MOVIE, SearchType.BOOK -> {
-                    movieOrBookItems.value =
-                        gson.fromJson(jsonObject.get("list").asString, searchedItemListType)
-                }
-                SearchType.BLOG, SearchType.NEWS -> {
-                    blogOrNewsItems.value =
-                        gson.fromJson(jsonObject.get("list").asString, searchedItemListType)
-                }
-            }
+            movieOrBookItems.value =
+                gson.fromJson(jsonObject.get("list").asString, searchedItemListType)
         }
-//            }
     }
 
 }

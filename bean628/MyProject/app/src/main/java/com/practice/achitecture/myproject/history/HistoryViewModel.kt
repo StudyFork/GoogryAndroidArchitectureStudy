@@ -21,14 +21,7 @@ class HistoryViewModel constructor(private val naverRepository: NaverRepository)
                 lastSearchType.value!!,
                 object : NaverDataSource.LoadHistoryOfSearchCallback {
                     override fun onLoadSuccess(items: List<SearchedItem>) {
-                        when (lastSearchType.value) {
-                            SearchType.MOVIE, SearchType.BOOK -> {
-                                movieOrBookItems.value = items
-                            }
-                            SearchType.BLOG, SearchType.NEWS -> {
-                                blogOrNewsItems.value = items
-                            }
-                        }
+                        movieOrBookItems.value = items
                     }
 
                     override fun onEmptyData() {
