@@ -48,15 +48,6 @@ class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_mai
         updateSearchHistoryItems()
         addObserveProperty()
 
-        with(binding) {
-            searchBtn.setOnClickListener {
-                if (vm?.getQueryStr()!!.isBlank()) {
-                    blankSearchQuery()
-                } else {
-                    vm?.searchContents()
-                }
-            }
-        }
     }
 
     private fun addObserveProperty() {
