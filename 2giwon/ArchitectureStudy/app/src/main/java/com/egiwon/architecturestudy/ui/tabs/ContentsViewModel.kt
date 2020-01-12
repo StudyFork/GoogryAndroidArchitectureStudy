@@ -1,12 +1,12 @@
-package com.egiwon.architecturestudy.tabs
+package com.egiwon.architecturestudy.ui.tabs
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.egiwon.architecturestudy.Tab
 import com.egiwon.architecturestudy.base.BaseViewModel
 import com.egiwon.architecturestudy.data.NaverDataRepository
 import com.egiwon.architecturestudy.data.source.remote.response.ContentItem
+import com.egiwon.architecturestudy.ui.Tab
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 

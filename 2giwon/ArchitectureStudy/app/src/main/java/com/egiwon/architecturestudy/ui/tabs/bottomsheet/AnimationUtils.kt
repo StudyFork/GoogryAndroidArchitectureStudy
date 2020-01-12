@@ -1,4 +1,4 @@
-package com.egiwon.architecturestudy.tabs.bottomsheet
+package com.egiwon.architecturestudy.ui.tabs.bottomsheet
 
 import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange

@@ -16,7 +16,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".tabs.ContentsFragment">
+        tools:context=".ui.tabs.ContentsFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_search"
@@ -85,7 +85,7 @@
 
         <fragment
             android:id="@+id/history_sheet"
-            android:name="com.egiwon.architecturestudy.tabs.bottomsheet.HistorySheetFragment"
+            android:name="com.egiwon.architecturestudy.ui.tabs.bottomsheet.HistorySheetFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout="@layout/fg_history_sheet" />

@@ -1,4 +1,4 @@
-package com.egiwon.architecturestudy
+package com.egiwon.architecturestudy.ui
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

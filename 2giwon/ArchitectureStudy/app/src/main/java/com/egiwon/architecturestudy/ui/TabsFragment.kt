@@ -1,7 +1,8 @@
-package com.egiwon.architecturestudy
+package com.egiwon.architecturestudy.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.egiwon.architecturestudy.R
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fg_tabs.*
 
@@ -13,7 +14,11 @@ class TabsFragment : Fragment(R.layout.fg_tabs) {
 
     private fun initViewPager() {
         vp_contents.apply {
-            adapter = fragmentManager?.let { PagerAdapter(it) }
+            adapter = fragmentManager?.let {
+                PagerAdapter(
+                    it
+                )
+            }
             addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tl_search))
         }
 

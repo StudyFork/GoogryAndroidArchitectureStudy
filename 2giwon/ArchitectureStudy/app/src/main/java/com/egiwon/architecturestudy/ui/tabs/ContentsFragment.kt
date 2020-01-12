@@ -1,4 +1,4 @@
-package com.egiwon.architecturestudy.tabs
+package com.egiwon.architecturestudy.ui.tabs
 
 import android.os.Bundle
 import androidx.core.os.bundleOf
@@ -6,13 +6,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.egiwon.architecturestudy.R
-import com.egiwon.architecturestudy.Tab
 import com.egiwon.architecturestudy.base.BaseFragment
 import com.egiwon.architecturestudy.data.NaverDataRepositoryImpl
 import com.egiwon.architecturestudy.data.source.local.ContentDataBase
 import com.egiwon.architecturestudy.data.source.local.NaverLocalDataSource
 import com.egiwon.architecturestudy.data.source.remote.NaverRemoteDataSource
 import com.egiwon.architecturestudy.databinding.FgContentsBinding
+import com.egiwon.architecturestudy.ui.Tab
 
 class ContentsFragment : BaseFragment<FgContentsBinding, ContentsViewModel>(
     R.layout.fg_contents

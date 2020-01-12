@@ -1,4 +1,4 @@
-package com.egiwon.architecturestudy.tabs.bottomsheet
+package com.egiwon.architecturestudy.ui.tabs.bottomsheet
 
 import android.content.res.ColorStateList
 import android.os.Bundle
@@ -6,7 +6,6 @@ import android.view.View
 import androidx.core.view.doOnLayout
 import androidx.fragment.app.viewModels
 import com.egiwon.architecturestudy.R
-import com.egiwon.architecturestudy.Tab
 import com.egiwon.architecturestudy.base.BaseFragment
 import com.egiwon.architecturestudy.data.NaverDataRepositoryImpl
 import com.egiwon.architecturestudy.data.source.local.ContentDataBase
@@ -15,7 +14,8 @@ import com.egiwon.architecturestudy.data.source.remote.NaverRemoteDataSource
 import com.egiwon.architecturestudy.databinding.FgHistorySheetBinding
 import com.egiwon.architecturestudy.ext.addCallback
 import com.egiwon.architecturestudy.ext.doOnApplyWindowInsets
-import com.egiwon.architecturestudy.tabs.ContentsFragment
+import com.egiwon.architecturestudy.ui.Tab
+import com.egiwon.architecturestudy.ui.tabs.ContentsFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
