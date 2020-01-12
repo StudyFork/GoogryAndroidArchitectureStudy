@@ -4,24 +4,28 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.example.androidarchitecture.R
-import kotlinx.android.synthetic.main.activity_webview.*
+import com.example.androidarchitecture.common.StringConst.Companion.INTENT_KEY_LINK
+import com.example.androidarchitecture.databinding.ActivityWebviewBinding
 
 class WebviewActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityWebviewBinding
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_webview)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_webview)
 
 
-        val url = intent.getStringExtra("link")
+        val url = intent.getStringExtra(INTENT_KEY_LINK)
             ?: run {
                 finish()
                 return
             }
 
-        webview.apply {
+        binding.webview.apply {
             webViewClient = WebViewClient()
             settings.run {
                 javaScriptEnabled = true
@@ -29,7 +33,7 @@ class WebviewActivity : AppCompatActivity() {
             }
         }
 
-        webview.loadUrl(url)
+        binding.webview.loadUrl(url)
 
     }
 
