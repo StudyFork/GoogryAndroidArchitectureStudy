@@ -32,8 +32,10 @@ class MovieListAdapter(@Nullable private var listener: ItemClickListener) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         holder.bind(list[position])
 
-    fun setData(movieList: ArrayList<Item>){
-        this.list = movieList
+    fun setAllData(movieList: ArrayList<Item>){
+        list.clear()
+        list.addAll(movieList)
+        notifyDataSetChanged()
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -62,7 +64,6 @@ class MovieListAdapter(@Nullable private var listener: ItemClickListener) :
         private fun loadImage(image: String) {
 
             if (image.trim().isNotEmpty()) {
-
                 Glide.with(itemView.context)
                     .load(image)
                     .override(600, 1000)

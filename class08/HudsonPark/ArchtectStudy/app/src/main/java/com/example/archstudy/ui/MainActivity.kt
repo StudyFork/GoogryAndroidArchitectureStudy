@@ -90,8 +90,7 @@ class MainActivity : AppCompatActivity() {
 
                             if (isSuccessful && body() != null) {
                                 val updateList = body()!!.items
-                                rvMovieAdapter.setData(updateList as ArrayList<Item>)
-                                rvMovieList.adapter?.notifyDataSetChanged()
+                                rvMovieAdapter.setAllData(updateList as ArrayList<Item>)
                             }
                         }
 
