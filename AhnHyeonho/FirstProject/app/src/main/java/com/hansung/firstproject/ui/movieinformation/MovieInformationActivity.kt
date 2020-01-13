@@ -1,4 +1,4 @@
-package com.hansung.firstproject
+package com.hansung.firstproject.ui.movieinformation
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,9 +6,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import com.hansung.firstproject.R
 import kotlinx.android.synthetic.main.activity_movie_information.*
 
-class MovieInformationActivity : AppCompatActivity() {
+class MovieInformationActivity : AppCompatActivity(), MovieInformationContract.View {
+
+    private lateinit var presenter: MovieInformationContract.Presenter
 
     private lateinit var webPageUrl: String
 
@@ -17,8 +20,16 @@ class MovieInformationActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_information)
-        webPageUrl = intent.getStringExtra("WEB_PAGE")
+        presenter = MovieInformationPresenter(this).also { it.readUrl() }
 
+        presenter.loadWebView()
+    }
+
+    override fun readUrl() {
+        webPageUrl = intent.getStringExtra(TAG)
+    }
+
+    override fun loadWebView() {
         with(movieInformationWebView) {
             webViewClient = WebViewClient()
             loadUrl(webPageUrl)
@@ -37,4 +48,5 @@ class MovieInformationActivity : AppCompatActivity() {
             return Intent(context, MovieInformationActivity::class.java)
         }
     }
+
 }
