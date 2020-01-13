@@ -9,8 +9,8 @@ class StudyRequestInterceptor(private val webApiParams: WebApiParams) : Intercep
     override fun intercept(chain: Interceptor.Chain): Response {
         val original = chain.request()
 
-        val token = webApiParams.getClientToken()?:""
-        val secret  = webApiParams.getClientSecret()?:""
+        val token = webApiParams.getClientToken()
+        val secret  = webApiParams.getClientSecret()
 
         val requestBuilder = original.newBuilder()
                 .header("X-Naver-Client-Id", token)
