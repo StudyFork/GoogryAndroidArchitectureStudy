@@ -1,16 +1,18 @@
 package com.example.study.data.repository
 
+import com.example.study.data.datasource.remote.NaverSearchRemoteDatasource
+import com.example.study.data.datasource.remote.NaverSearchRemoteDatasourceImpl
 import com.example.study.data.model.NaverSearchResponse
 
-class NaverSearchRepositoryImpl : NaverSearchRepository {
+object NaverSearchRepositoryImpl : NaverSearchRepository {
 
-    private val naverSearchRepository : NaverSearchRepository = NaverSearchRepositoryImpl()
+    private val naverSearchRemoteDatasource: NaverSearchRemoteDatasource = NaverSearchRemoteDatasourceImpl()
 
     override fun getMovies(
         query: String,
         success: (NaverSearchResponse) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        naverSearchRepository.getMovies(query, success, fail)
+        naverSearchRemoteDatasource.getMovies(query, success, fail)
     }
 }
