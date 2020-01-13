@@ -1,9 +1,10 @@
 package app.ch.study.data.repository
 
-import app.ch.study.data.remote.response.MovieModel
-import io.reactivex.Single
+import app.ch.study.data.remote.response.MovieResponse
+import io.reactivex.Observable
 
 interface NaverQueryRepository {
 
-    fun searchMovie() : Single<MutableList<MovieModel>>
+    fun searchMovie(query: String) : Observable<MovieResponse>
+
 }
