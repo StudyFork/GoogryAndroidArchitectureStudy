@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(), MainContract.View {
 
-    private lateinit var imm: InputMethodManager
+    private val imm: InputMethodManager by lazy { getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
     private val movieAdapter by lazy { MovieAdapter() }
     private val presenter: MainContract.Presenter by lazy { MainPresenter(this) }
 
@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             tv_main_act_movie_list.visibility = View.GONE
         }
 
-        imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(et_main_act_search.windowToken, 0)
 
         movieAdapter.addItem(movieDataList)
