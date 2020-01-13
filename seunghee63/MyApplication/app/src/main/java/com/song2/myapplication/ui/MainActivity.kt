@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         btn_main_act_search_btn.setOnClickListener {
 
-            if(et_main_act_search.text.toString() != ""){
+            if (et_main_act_search.text.toString() != "") {
                 movieAdapter.clearData()
                 presenter.getMovie(et_main_act_search.text.toString())
             }
@@ -40,12 +40,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun showGetMovieSuccess(movieDataList: List<MovieData>) {
-
-        if (movieDataList.count() == 0) {
-            tv_main_act_movie_list.visibility = View.VISIBLE
-        } else {
-            tv_main_act_movie_list.visibility = View.GONE
-        }
 
         imm.hideSoftInputFromWindow(et_main_act_search.windowToken, 0)
 
@@ -55,6 +49,15 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun showGetMovieFailure(e: Throwable) {
         Log.e("통신 실패", e.toString())
     }
+
+    override fun setResultVisible() {
+        tv_main_act_movie_list.visibility = View.GONE
+    }
+
+    override fun setResultGone() {
+        tv_main_act_movie_list.visibility = View.VISIBLE
+    }
+
 
     override fun getListCnt(): Int {
         return movieAdapter.itemCount

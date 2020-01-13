@@ -7,6 +7,9 @@ interface MainContract {
         fun showGetMovieSuccess(movieDataList : List<MovieData>)
         fun showGetMovieFailure(e : Throwable)
 
+        fun setResultVisible()
+        fun setResultGone()
+
         fun getListCnt() : Int
     }
 

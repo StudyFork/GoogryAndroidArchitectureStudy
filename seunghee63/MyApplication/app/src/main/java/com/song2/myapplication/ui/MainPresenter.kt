@@ -16,6 +16,13 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
 
         movieRepository.getMovieData(keyword, 20, init,
             onSuccess = {
+
+                if (it.count() == 0){
+                    view.setResultGone()
+                }else{
+                    view.setResultVisible()
+                }
+
                 view.showGetMovieSuccess(it)
             },
             onFailure = {
