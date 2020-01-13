@@ -1,17 +1,17 @@
 package com.song2.myapplication.source
 
-import com.song2.myapplication.source.remote.MovieRemoteDataSource
+import com.song2.myapplication.source.remote.MovieRemoteDataSourceImpl
 
 class MovieRepositoryImpl : MovieRepository {
 
     override fun getMovieData(
         keyword: String,
         cnt: Int,
-        start : Int,
+        start: Int,
         onSuccess: (List<MovieData>) -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
-        MovieRemoteDataSource.getMovieData(
+        MovieRemoteDataSourceImpl.getMovieData(
             keyword = keyword,
             display = cnt,
             start = start,

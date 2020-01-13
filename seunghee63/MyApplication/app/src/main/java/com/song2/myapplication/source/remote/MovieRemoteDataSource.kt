@@ -6,7 +6,7 @@ import com.song2.myapplication.source.remote.network.NetworkServiceImpl
 import retrofit2.Call
 import retrofit2.Response
 
-object MovieRemoteDataSource : MovieRemoteDataSourceImpl {
+object MovieRemoteDataSourceImpl : MovieRemoteDataSource {
 
     private val network = NetworkServiceImpl.service
 

@@ -3,7 +3,7 @@ package com.song2.myapplication.source.remote
 import com.song2.myapplication.source.MovieData
 
 
-interface MovieRemoteDataSourceImpl {
+interface MovieRemoteDataSource {
 
     fun getMovieData(
         keyword: String,
