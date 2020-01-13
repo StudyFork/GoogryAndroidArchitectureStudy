@@ -17,6 +17,7 @@ android {
 
         buildConfigField "String", "API_CLIENT_ID", project.properties["API_CLIENT_ID"] ?: "\"NOT_FOUND\""
         buildConfigField "String", "API_CLIENT_SECRET", project.properties["API_CLIENT_SECRET"] ?: "\"NOT_FOUND\""
+        buildConfigField "String", "API_URI", project.properties["API_URI"] ?: "\"NOT_FOUND\""
     }
     buildTypes {
         release {

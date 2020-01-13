@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                 showToast("검색어를 다시 입력해주세요.")
             } else {
                 showToast("요청하신 관련 영화 : $query")
-                requestMovieList(query) // 네이버 영화 정보 API 요청
+                // Todo : REMOTE 에 네이버 영화 데이터 요청
 
             }
             clearQuery()
@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
+
         edtQuery = findViewById(R.id.edtQuery)
         btnSearch = findViewById(R.id.btnSearch)
         rvMovieList = findViewById(R.id.rvMovieList)
@@ -63,42 +64,6 @@ class MainActivity : AppCompatActivity() {
         rvMovieList.adapter = rvMovieAdapter
     }
 
-    private fun requestMovieList(query: String) {
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl(getString(R.string.api_address))
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        retrofit.create(RetrofitService::class.java).apply {
-            this.getMovieList(
-                BuildConfig.API_CLIENT_ID,
-                BuildConfig.API_CLIENT_SECRET, query
-            )
-                .enqueue(object : Callback<Data> {
-
-                    override fun onFailure(call: Call<Data>, t: Throwable) {
-                        showToast("통신 에러가 발생하였습니다 error : ${t.message}")
-                    }
-
-                    override fun onResponse(
-                        call: Call<Data>,
-                        response: Response<Data>
-                    ) {
-
-                        with(response) {
-
-                            if (isSuccessful && body() != null) {
-                                val updateList = body()!!.items
-                                rvMovieAdapter.setData(updateList as ArrayList<Item>)
-                                rvMovieList.adapter?.notifyDataSetChanged()
-                            }
-                        }
-
-                    }
-                })
-        }
-    }
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
