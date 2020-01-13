@@ -9,7 +9,7 @@ import com.practice.achitecture.myproject.ext.hideSoftKeyboard
 import com.practice.achitecture.myproject.ext.makeToast
 import com.practice.achitecture.myproject.ext.openActivity
 import com.practice.achitecture.myproject.history.HistoryActivity
-import org.koin.android.viewmodel.ext.android.getViewModel
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class MainActivity : BaseNaverSearchActivity<ActivityMainBinding>(R.layout.activity_main) {
 

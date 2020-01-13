@@ -5,7 +5,7 @@ import androidx.lifecycle.Observer
 import com.practice.achitecture.myproject.R
 import com.practice.achitecture.myproject.base.BaseNaverSearchActivity
 import com.practice.achitecture.myproject.databinding.ActivityHistoryBinding
-import org.koin.android.viewmodel.ext.android.getViewModel
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class HistoryActivity : BaseNaverSearchActivity<ActivityHistoryBinding>(R.layout.activity_history) {
 
