@@ -20,6 +20,7 @@ class NaverQueryRepositoryImple(
                 .searchMovie(query)
                 .doOnSuccess {
                     naverQueryLocalDataSource.saveMovieList(it.items)
+                    naverQueryLocalDataSource.saveSearchQuery(query)
                 }
             )
             .toObservable()

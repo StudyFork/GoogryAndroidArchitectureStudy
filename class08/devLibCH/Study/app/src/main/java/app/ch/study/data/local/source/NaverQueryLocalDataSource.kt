@@ -9,4 +9,6 @@ interface NaverQueryLocalDataSource {
 
     fun saveMovieList(movieList: MutableList<MovieModel>)
 
+    fun saveSearchQuery(query: String)
+
 }

@@ -30,4 +30,8 @@ class NaverQueryLocalDataSourceImpl : NaverQueryLocalDataSource {
         LocalDataManager.getInstance(App.context)?.saveMovieList(jsonList)
     }
 
+    override fun saveSearchQuery(query: String) {
+        LocalDataManager.getInstance(App.context)?.saveSearchQuery(query)
+    }
+
 }
