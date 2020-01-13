@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="item_margin">16dp</dimen>
+    <dimen name="movie_name">24dp</dimen>
+    <dimen name="movie_release_year">16dp</dimen>
+    <dimen name="text_margin_top">8dp</dimen>
+</resources>

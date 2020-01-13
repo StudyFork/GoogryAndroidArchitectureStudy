@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">ArchStudy</string>
+    <string name="app_name">MovieSearching App</string>
+    <string name="api_address">https://openapi.naver.com/</string>
 </resources>
