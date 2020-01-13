@@ -1,6 +1,5 @@
 package com.song2.myapplication.source.remote
 
-import android.util.Log
 import com.song2.myapplication.source.MovieData
 import com.song2.myapplication.source.MovieDataResponse
 import com.song2.myapplication.source.remote.network.NetworkServiceImpl
@@ -14,7 +13,7 @@ object MovieRemoteDataSource : MovieRemoteDataSourceImpl {
     override fun getMovieData(
         keyword: String,
         display: Int,
-        start : Int,
+        start: Int,
         onSuccess: (List<MovieData>) -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
@@ -28,8 +27,6 @@ object MovieRemoteDataSource : MovieRemoteDataSourceImpl {
                     call: Call<MovieDataResponse>,
                     response: Response<MovieDataResponse>
                 ) {
-
-                    Log.e("getMovieData ::","key: "+keyword.toString()+" display: "+display.toString()+" start: "+start.toString())
                     onSuccess(response.body()!!.items)
                 }
 

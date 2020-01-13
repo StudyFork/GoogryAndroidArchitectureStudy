@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object NetworkServiceImpl {
     private const val BASE_URL = "https://openapi.naver.com"
 
-    val okhttpClient: OkHttpClient = OkHttpClient.Builder()
+    private val okhttpClient: OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(CookiesInterceptor())
         .addNetworkInterceptor(CookiesInterceptor())
         .build()

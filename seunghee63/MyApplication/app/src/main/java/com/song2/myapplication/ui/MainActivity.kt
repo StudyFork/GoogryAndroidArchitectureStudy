@@ -31,8 +31,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         setMovieRecyclerView()
 
         btn_main_act_search_btn.setOnClickListener {
-            movieAdapter.clearData()
-            presenter.getMovie(et_main_act_search.text.toString())
+
+            if(et_main_act_search.text.toString() != ""){
+                movieAdapter.clearData()
+                presenter.getMovie(et_main_act_search.text.toString())
+            }
         }
     }
 
