@@ -1,17 +1,15 @@
-package com.example.androidarchitecture.ui.base
+package com.example.androidarchitecture.ui.movie
 
 import android.text.TextUtils
 import androidx.databinding.ObservableField
 import com.example.androidarchitecture.data.repository.NaverRepoInterface
-import com.example.androidarchitecture.data.response.BlogData
+import com.example.androidarchitecture.data.response.MovieData
 
-class BaseVIewModel(
-    private val naverRepositroy: NaverRepoInterface
-) {
+class MovieViewModel(private val naverRepositroy: NaverRepoInterface) {
 
-    var inputKeyword = naverRepositroy.getBlogKeyword()
-    val blankInputText = ObservableField<Any>() //get,set 자동생성? //ObservableField 를 이용해 xml 에 바인딩 할 수 있는 클래스를 만듬
-    val renderItems = ObservableField<List<BlogData>>()
+    var inputKeyword = naverRepositroy.getMoiveKeyword()
+    val blankInputText = ObservableField<Any>()
+    val renderItems = ObservableField<List<MovieData>>()
     val errorToast = ObservableField<Throwable>()
     val isListEmpty = ObservableField<Boolean>()
 
@@ -22,7 +20,7 @@ class BaseVIewModel(
 
 
     suspend fun requestSearchHist() {
-        naverRepositroy.getBlogHist().let {
+        naverRepositroy.getMovieHist().let {
             if (it.isNotEmpty()) {
                 isListEmpty.set(it.isEmpty())
                 renderItems.set(it)
@@ -37,8 +35,8 @@ class BaseVIewModel(
         if (TextUtils.isEmpty(inputKeyword)) {
             blankInputText.set(Any())
         } else {
-            naverRepositroy.saveBlogKeyword(inputKeyword) // 검색어 쉐어드에 저장.
-            naverRepositroy.getBlog(inputKeyword, 1, 10,
+            naverRepositroy.saveMovieKeyword(inputKeyword) // 검색어 쉐어드에 저장.
+            naverRepositroy.getMovie(inputKeyword, 1, 10,
                 success = {
                     isListEmpty.set(false)
                     renderItems.set(it)
@@ -47,6 +45,4 @@ class BaseVIewModel(
                 })
         }
     }
-
-
 }

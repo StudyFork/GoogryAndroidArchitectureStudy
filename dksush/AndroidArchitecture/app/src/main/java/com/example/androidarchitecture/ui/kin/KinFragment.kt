@@ -3,27 +3,28 @@ package com.example.androidarchitecture.ui.kin
 
 import android.os.Bundle
 import android.view.View
+import androidx.databinding.Observable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.androidarchitecture.R
 import com.example.androidarchitecture.common.toast
-import com.example.androidarchitecture.data.response.KinData
 import com.example.androidarchitecture.databinding.FragmentKinBinding
 import com.example.androidarchitecture.ui.base.BaseFragment
-import com.example.androidarchitecture.ui.base.ItemContract
 import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass.
  */
-class KinFragment : BaseFragment<FragmentKinBinding>(R.layout.fragment_kin),
-    ItemContract.View<KinData> {
+class KinFragment : BaseFragment<FragmentKinBinding>(R.layout.fragment_kin) {
     private lateinit var kinAdapter: KinAdapter
-    private val presenter by lazy { KinPresent(this, naverSearchRepository) }
+    private val vm by lazy { KinViewModel(naverSearchRepository) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        binding.vm = vm
 
         binding.recycle.run {
             kinAdapter = KinAdapter()
@@ -32,36 +33,49 @@ class KinFragment : BaseFragment<FragmentKinBinding>(R.layout.fragment_kin),
         }
 
         lifecycleScope.launch {
-            presenter.requestSearchHist()
+            vm.requestSearchHist()
         }
 
-        binding.btnSearch.setOnClickListener {
-            presenter.requestList(binding.editText.text.toString())
-
-        }
+        observeListener()
     }
 
 
-    override fun renderItems(items: List<KinData>) {
-        kinAdapter.setData(items)
-        binding.executePendingBindings()
-    }
+    private fun observeListener() {
+        vm.blankInputText.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                requireContext().toast(getString(R.string.black_input_text))
+            }
 
-    override fun errorToast(msg: String?) {
-        msg?.let { requireContext().toast(it) }
-    }
+        })
 
-    override fun blankInputText() {
-        requireContext().toast(getString(R.string.black_input_text))
-    }
+        vm.renderItems.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                vm.renderItems.get()?.let {
+                    kinAdapter.setData(it)
+                }
+            }
 
-    override fun inputKeyword(msg: String?) {
-        binding.lastInputText = msg
-    }
+        })
 
+        vm.errorToast.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                requireContext().toast(vm.errorToast.get().toString())
+            }
 
-    override fun isListEmpty(visible: Boolean) {
-        binding.isListEmpty = visible
+        })
+
+        vm.isListEmpty.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                binding.isListEmpty = vm.isListEmpty.get()
+
+            }
+
+        })
+
     }
 
 
