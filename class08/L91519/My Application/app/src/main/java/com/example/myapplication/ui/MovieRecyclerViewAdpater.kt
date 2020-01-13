@@ -1,11 +1,12 @@
-package com.example.myapplication
+package com.example.myapplication.ui
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.myapplication.model.MovieResult
+import com.example.myapplication.R
+import com.example.myapplication.data.model.MovieResult
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieRecyclerViewAdpater(val itemClick: (movieDetail: String) -> Unit) :
@@ -16,7 +17,7 @@ class MovieRecyclerViewAdpater(val itemClick: (movieDetail: String) -> Unit) :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MovieRecyclerViewAdpater.MovieViewHolder {
+    ): MovieViewHolder {
         val holder = MovieViewHolder(
             LayoutInflater
                 .from(parent.context)
@@ -48,7 +49,7 @@ class MovieRecyclerViewAdpater(val itemClick: (movieDetail: String) -> Unit) :
 
     override fun getItemCount() = results.size
 
-    override fun onBindViewHolder(holder: MovieRecyclerViewAdpater.MovieViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val element = results[position]
         holder.bind(element)
     }
