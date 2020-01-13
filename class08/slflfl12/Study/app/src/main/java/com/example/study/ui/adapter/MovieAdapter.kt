@@ -1,4 +1,4 @@
-package com.example.study.ui
+package com.example.study.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +29,8 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     }
 
     fun setOnItemClickListener(listener: (Movie) -> Unit) {
-        onItemClickListener = object : OnItemClickListener {
+        onItemClickListener = object :
+            OnItemClickListener {
             override fun onItemClickListener(movie: Movie) {
                 listener(movie)
             }
