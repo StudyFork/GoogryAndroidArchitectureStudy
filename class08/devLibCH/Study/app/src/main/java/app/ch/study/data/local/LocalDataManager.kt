@@ -26,6 +26,14 @@ open class LocalDataManager(context: Context) {
         editor.apply()
     }
 
-    fun searchMovieList(): String = prefs.getString("contactId", "") ?: ""
+    fun searchMovieList(): String = prefs.getString("movieList", "") ?: ""
+
+    fun saveSearchQuery(query: String) {
+        val editor = prefs.edit()
+        editor.putString("query", query)
+        editor.apply()
+    }
+
+    fun getQuery(): String = prefs.getString("query", "") ?: ""
 
 }
