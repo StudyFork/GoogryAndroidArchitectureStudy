@@ -11,12 +11,8 @@ class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
 
     private val data = ArrayList<MovieData>()
 
-    fun initMovieList(newMovieList: List<MovieData>) {
-        with(data) {
-            clear()
-            addAll(newMovieList)
-        }
-        notifyDataSetChanged()
+    fun clearData() {
+        data.clear()
     }
 
     fun addItem(newMovieList: List<MovieData>) {

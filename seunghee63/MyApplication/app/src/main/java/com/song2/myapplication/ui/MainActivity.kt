@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         setMovieRecyclerView()
 
         btn_main_act_search_btn.setOnClickListener {
+            movieAdapter.clearData()
             presenter.getMovie(btn_main_act_search_btn.text.toString())
         }
     }
@@ -67,7 +68,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         rv_main_act_movie_list.setOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if (!rv_main_act_movie_list.canScrollVertically(-1)) {
-                    Log.e("리스트의 마지막",movieAdapter.itemCount.toString())
                     presenter.getMovie(et_main_act_search.text.toString())
                 }
             }
@@ -80,6 +80,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
                 when (actionId) {
                     EditorInfo.IME_ACTION_SEARCH -> {
+                        movieAdapter.clearData()
                         presenter.getMovie(et_main_act_search.text.toString())
                     }
                     else ->
