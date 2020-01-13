@@ -10,8 +10,8 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.song2.myapplication.R
 import com.song2.myapplication.source.MovieData
+import kotlinx.android.synthetic.main.rv_movie_item.view.*
 
 
 @Suppress("DEPRECATION")
@@ -19,12 +19,12 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickL
 
     lateinit var tempData: MovieData
 
-    private val image: ImageView = view.findViewById(R.id.iv_rv_movie_item_image)
-    private val title: TextView = view.findViewById(R.id.tv_rv_movie_item_title)
-    private val rating: RatingBar = view.findViewById(R.id.rb_rv_movie_item_rating)
-    private val director: TextView = view.findViewById(R.id.tv_rv_movie_item_director)
-    private val pubDate: TextView = view.findViewById(R.id.tv_rv_movie_item_pub_date)
-    private val actor: TextView = view.findViewById(R.id.tv_rv_movie_item_actor)
+    private val image: ImageView = view.iv_rv_movie_item_image
+    private val title: TextView = view.tv_rv_movie_item_title
+    private val rating: RatingBar = view.rb_rv_movie_item_rating
+    private val director: TextView = view.tv_rv_movie_item_director
+    private val pubDate: TextView = view.tv_rv_movie_item_pub_date
+    private val actor: TextView = view.tv_rv_movie_item_actor
 
 
     override fun onClick(view: View?) {
