@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         btn_main_act_search_btn.setOnClickListener {
             movieAdapter.clearData()
-            presenter.getMovie(btn_main_act_search_btn.text.toString())
+            presenter.getMovie(et_main_act_search.text.toString())
         }
     }
 
