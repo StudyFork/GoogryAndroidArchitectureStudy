@@ -10,12 +10,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import app.ch.study.R
 import app.ch.study.data.common.EXTRA_URL
+import app.ch.study.data.local.LocalDataManager
+import app.ch.study.data.local.source.NaverQueryLocalDataSourceImpl
 import app.ch.study.data.remote.api.WebApiDefine
 import app.ch.study.data.remote.api.WebApiTask
-import io.reactivex.android.schedulers.AndroidSchedulers
+import app.ch.study.data.remote.source.NaverQueryRemoteDataSourceImpl
+import app.ch.study.data.repository.NaverQueryRepositoryImple
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 
 class MainActivity : AppCompatActivity() {
@@ -25,12 +27,19 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var rvMovie: RecyclerView
     lateinit var etSearch: EditText
+    lateinit var repository: NaverQueryRepositoryImple
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         initEvent()
+
+        val query = (LocalDataManager.getInstance(this)?.getQuery())?:""
+        if(query.isNotEmpty()) {
+            etSearch.setText(query)
+            searchMovie(query)
+        }
     }
 
     override fun onDestroy() {
@@ -53,6 +62,10 @@ class MainActivity : AppCompatActivity() {
 
         rvMovie.adapter = adapter
 
+        val local = NaverQueryLocalDataSourceImpl()
+        val remote = NaverQueryRemoteDataSourceImpl(WebApiTask.getInstance())
+        repository = NaverQueryRepositoryImple(local, remote)
+
         btnSearch.setOnClickListener {
             val name = etSearch.text.toString()
             searchMovie(name)
@@ -65,12 +78,10 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        val search = WebApiTask.getInstance().searchMovie(name)
+        val search = repository.searchMovie(name)
 
         addDisposable(
             search
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
                     val list = response.items
                     adapter.replaceAll(list)
