@@ -8,6 +8,7 @@ interface MovieRemoteDataSourceImpl {
     fun getMovieData(
         keyword: String,
         display: Int,
+        start : Int,
         onSuccess: (List<MovieData>) -> Unit,
         onFailure: (Throwable) -> Unit
     )

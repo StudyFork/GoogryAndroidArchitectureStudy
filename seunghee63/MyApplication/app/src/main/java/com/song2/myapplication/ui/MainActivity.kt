@@ -46,16 +46,15 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(et_main_act_search.windowToken, 0)
 
-        movieAdapter.setMovieList(movieDataList)
+        movieAdapter.addItem(movieDataList)
     }
 
     override fun showGetMovieFailure(e: Throwable) {
         Log.e("통신 실패", e.toString())
     }
 
-    //무한스크롤
-    override fun showGetMoreDataSuccess(movieDataList: List<MovieData>) {
-        movieAdapter.addItem(movieDataList)
+    override fun getListCnt(): Int {
+        return movieAdapter.itemCount
     }
 
     private fun setMovieRecyclerView() {
@@ -67,8 +66,9 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         rv_main_act_movie_list.setOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                if (!rv_main_act_movie_list.canScrollVertically(1)) {
-                    presenter.getMoreMovie(et_main_act_search.text.toString())
+                if (!rv_main_act_movie_list.canScrollVertically(-1)) {
+                    Log.e("리스트의 마지막",movieAdapter.itemCount.toString())
+                    presenter.getMovie(et_main_act_search.text.toString())
                 }
             }
         })

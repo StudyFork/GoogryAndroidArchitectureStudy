@@ -13,4 +13,12 @@ interface NetworkService {
         @Query("query") query: String,
         @Query("display") display: Int
     ): Call<MovieDataResponse>
+
+    // 영화 검색 API
+    @GET("/v1/search/movie.json")
+    fun getMoreMovieSearch(
+        @Query("query") query: String,
+        @Query("display") display: Int,
+        @Query("start") start: Int
+    ): Call<MovieDataResponse>
 }
