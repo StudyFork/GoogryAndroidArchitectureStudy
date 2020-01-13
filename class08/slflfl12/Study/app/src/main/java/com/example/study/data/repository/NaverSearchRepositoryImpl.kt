@@ -4,7 +4,7 @@ import com.example.study.data.datasource.remote.NaverSearchRemoteDatasource
 import com.example.study.data.datasource.remote.NaverSearchRemoteDatasourceImpl
 import com.example.study.data.model.NaverSearchResponse
 
-object NaverSearchRepositoryImpl : NaverSearchRepository {
+class NaverSearchRepositoryImpl : NaverSearchRepository {
 
     private val naverSearchRemoteDatasource: NaverSearchRemoteDatasource = NaverSearchRemoteDatasourceImpl()
 

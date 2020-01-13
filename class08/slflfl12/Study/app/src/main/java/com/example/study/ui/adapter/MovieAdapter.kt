@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.movie_view.view.*
 
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+
     private val movies = mutableListOf<Movie>()
     private var onItemClickListener : OnItemClickListener?  = null
 
