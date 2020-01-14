@@ -44,7 +44,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getMovieList(query: String) {
-        naverSearchRepository.getMovies(query, success = { movieAdapter.setItem(it.items)}, fail = { Log.e("error is ", it.toString())})
+        naverSearchRepository.getMovies(query,
+            success = { movieAdapter.setItem(it.items)},
+            fail = { Log.e("error is ", it.toString())}
+        )
     }
 }
 
