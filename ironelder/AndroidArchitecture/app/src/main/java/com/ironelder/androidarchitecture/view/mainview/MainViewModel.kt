@@ -11,7 +11,7 @@ import com.ironelder.androidarchitecture.view.baseview.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class MainViewModel : BaseViewModel() {
+class MainViewModel(private val searchDataRepositoryImpl: SearchDataRepositoryImpl) : BaseViewModel() {
     private val LOG_TAG = MainViewModel::class.java.toString()
 
     val showProgressBar = MutableLiveData<Boolean>(false)
@@ -22,7 +22,7 @@ class MainViewModel : BaseViewModel() {
     fun searchWithAdapter(
         type: String, searchResultDao: SearchResultDao
     ) {
-        SearchDataRepositoryImpl.getRemoteSearchData(
+        searchDataRepositoryImpl.getRemoteSearchData(
             type,
             searchQuery.value.toString(),
             searchResultDao
@@ -51,7 +51,7 @@ class MainViewModel : BaseViewModel() {
         type: String,
         searchResultDao: SearchResultDao
     ) {
-        SearchDataRepositoryImpl.getLocalSearchData(type, searchResultDao)
+        searchDataRepositoryImpl.getLocalSearchData(type, searchResultDao)
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())?.subscribe({
                 val test = Gson().fromJson(
