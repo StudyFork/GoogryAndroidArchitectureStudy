@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ import com.hansung.firstproject.data.MovieModel
 import com.hansung.firstproject.data.MovieResponseModel
 import com.hansung.firstproject.data.repository.NaverRepository
 import com.hansung.firstproject.data.source.remote.NaverRemoteDataSourceImpl
+import com.hansung.firstproject.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
@@ -34,17 +36,20 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     private val adapter: RecyclerViewAdapter<MovieModel> = RecyclerViewAdapter()
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        //setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         // recyclerView initialize
         initRecyclerView()
 
-        btn_search.setOnClickListener {
-            // 입력값이 없을 때
-            presenter.doSearch(et_search.text.toString())
+        with(binding) {
+            btnSearch.setOnClickListener {
+                presenter.doSearch(etSearch.text.toString())
+            }
         }
     }
 
@@ -75,7 +80,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun showErrorByErrorMessage(errorMessage: String) {
         //ErrorStringResource.valueOf(errorMessage)
-        Toast.makeText(this, ErrorStringResource.valueOf(errorMessage).resId, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, ErrorStringResource.valueOf(errorMessage).resId, Toast.LENGTH_SHORT)
+            .show()
     }
 
     override fun showErrorEmptyList() {
