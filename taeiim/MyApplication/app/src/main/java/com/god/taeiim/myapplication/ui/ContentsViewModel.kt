@@ -1,41 +1,54 @@
 package com.god.taeiim.myapplication.ui
 
+import androidx.databinding.ObservableField
 import com.god.taeiim.myapplication.Tabs
 import com.god.taeiim.myapplication.api.model.SearchResult
 import com.god.taeiim.myapplication.api.model.SearchResultShow
 import com.god.taeiim.myapplication.data.SearchHistory
 import com.god.taeiim.myapplication.data.source.NaverRepository
 
-class ContentsPresenter(
-    private val naverRepository: NaverRepository,
-    private val view: ContentsContract.View
-) : ContentsContract.Presenter {
+class ContentsViewModel(
+    private val naverRepository: NaverRepository
+) {
+    val searchResultList = ObservableField<List<SearchResultShow.Item>>()
+    val errorQueryBlank = ObservableField<Throwable>()
+    val errorFailSearch = ObservableField<Throwable>()
+    var query = ""
+    var searchType = Tabs.BLOG
 
-    override fun start() {
-
+    fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+        query = s.toString()
     }
 
-    override fun searchContents(searchType: Tabs, query: String) {
-        if (query.isBlank()) {
-            view.blankSearchQuery()
+    fun searchContents() {
+        if (getQueryStr().isBlank()) {
+            errorQueryBlank.set(Throwable())
 
         } else {
             naverRepository.getResultData(
                 searchType,
-                query,
+                getQueryStr(),
                 success = {
-                    view.updateItems(searchResultShowWrapper(searchType, it).items)
-                    naverRepository.saveSearchResult(SearchHistory(it.items, searchType.name, query))
+                    searchResultList.set(searchResultShowWrapper(searchType, it).items)
+                    naverRepository.saveSearchResult(
+                        SearchHistory(it.items, searchType.name, getQueryStr())
+                    )
                 },
-                fail = { view.failToSearch() }
+                fail = {
+                    errorFailSearch.set(it)
+                }
             )
         }
     }
 
-    override fun getLastSearchHistory(searchType: Tabs) {
+    fun getQueryStr(): String {
+        return query
+    }
+
+    fun getLastSearchHistory(searchType: Tabs) {
         naverRepository.getLastSearchResultData(searchType)
             ?.let {
-                view.updateItems(
+                searchResultList.set(
                     searchResultShowWrapper(
                         searchType,
                         SearchResult(it.resultList)
@@ -44,7 +57,7 @@ class ContentsPresenter(
             }
     }
 
-    override fun searchResultShowWrapper(
+    private fun searchResultShowWrapper(
         searchType: Tabs,
         searchResult: SearchResult
     ): SearchResultShow {
@@ -62,7 +75,6 @@ class ContentsPresenter(
                         it.description = (item.director + item.actor)
                     }
                     Tabs.BOOK -> it.subtitle = item.author
-                    else -> it
                 }
             }
         }

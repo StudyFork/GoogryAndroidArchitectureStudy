@@ -2,6 +2,7 @@ package com.god.taeiim.myapplication.ui
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.databinding.Observable
 import com.god.taeiim.myapplication.BR
 import com.god.taeiim.myapplication.R
 import com.god.taeiim.myapplication.Tabs
@@ -14,62 +15,80 @@ import com.god.taeiim.myapplication.data.source.remote.NaverRemoteDataSourceImpl
 import com.god.taeiim.myapplication.databinding.FragmentMainBinding
 import com.god.taeiim.myapplication.databinding.ItemContentsBinding
 
-class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
-    ContentsContract.View {
+class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
-    override val presenter: ContentsContract.Presenter by lazy {
-        ContentsPresenter(
+    private val vm: ContentsViewModel by lazy {
+        ContentsViewModel(
             NaverRepositoryImpl.getInstance(
                 NaverRemoteDataSourceImpl,
                 NaverLocalDataSourceImpl.getInstance(
                     SearchHistoryDatabase.getInstance(requireActivity().applicationContext).taskDao()
                 )
-            ), this
+            )
         )
     }
 
     lateinit var searchResultAdapter: SearchResultRecyclerAdapter<SearchResultShow.Item, ItemContentsBinding>
     private lateinit var searchType: Tabs
 
-    override fun onResume() {
-        super.onResume()
-        presenter.start()
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        binding.vm = vm
+
         arguments?.getSerializable(ARG_TYPE)?.let {
             searchType = it as Tabs
+            vm.searchType = searchType
         }
 
         searchResultAdapter =
             SearchResultRecyclerAdapter(searchType, R.layout.item_contents, BR.item)
         binding.searchResultRecyclerView.adapter = searchResultAdapter
 
+        addObserveProperty()
         updateSearchHistoryItems()
 
-        with(binding) {
-            searchBtn.setOnClickListener {
-                presenter.searchContents(searchType, searchEditTv.text.toString())
+    }
+
+    private fun addObserveProperty() {
+        vm.searchResultList.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(observable: Observable, i: Int) {
+                vm.searchResultList.get()?.let {
+                    updateItems(it)
+                } ?: failToSearch()
             }
-        }
+        })
+
+        vm.errorQueryBlank.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                blankSearchQuery()
+            }
+        })
+
+        vm.errorFailSearch.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                failToSearch()
+            }
+        })
     }
 
-    override fun updateSearchHistoryItems() {
-        presenter.getLastSearchHistory(searchType)
+    private fun updateSearchHistoryItems() {
+        vm.getLastSearchHistory(searchType)
     }
 
-    override fun updateItems(resultList: List<SearchResultShow.Item>) {
+    private fun updateItems(resultList: List<SearchResultShow.Item>) {
         searchResultAdapter.updateItems(resultList)
     }
 
-    override fun failToSearch() {
+    private fun failToSearch() {
         searchResultAdapter.clearItems()
         Toast.makeText(context, getString(R.string.err_search), Toast.LENGTH_SHORT).show()
     }
 
-    override fun blankSearchQuery() {
+    private fun blankSearchQuery() {
         searchResultAdapter.clearItems()
         Toast.makeText(context, getString(R.string.blank_search), Toast.LENGTH_SHORT).show()
     }
