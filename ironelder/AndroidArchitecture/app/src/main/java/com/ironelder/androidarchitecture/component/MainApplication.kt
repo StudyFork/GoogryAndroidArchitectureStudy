@@ -14,15 +14,15 @@ import org.koin.dsl.module
 
 class MainApplication : Application() {
 
-    val veiwModelModule: Module = module {
+    private val veiwModelModule: Module = module {
         single { MainViewModel(get()) }
     }
 
-    val repositoryModule: Module = module {
+    private val repositoryModule: Module = module {
         single { SearchDataRepositoryImpl(get()) }
     }
 
-    val dataSourceModule: Module = module {
+    private val dataSourceModule: Module = module {
         single { SearchResultDatabase.getInstance(androidApplication()) }
         single { LocalSearchDataSourceImpl(get()) }
         single { RemoteSearchDataSourceImpl }
