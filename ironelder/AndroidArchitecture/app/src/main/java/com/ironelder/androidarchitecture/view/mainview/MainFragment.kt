@@ -9,7 +9,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ironelder.androidarchitecture.R
@@ -19,6 +18,7 @@ import com.ironelder.androidarchitecture.component.CustomListViewAdapter
 import com.ironelder.androidarchitecture.data.database.SearchResultDatabase
 import com.ironelder.androidarchitecture.databinding.FragmentMainBinding
 import com.ironelder.androidarchitecture.view.baseview.BaseFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainFragment :
@@ -28,19 +28,20 @@ class MainFragment :
         arguments?.getString(TYPE_KEY)
     }
 
+    private val mainViewModel:MainViewModel by viewModel()
+
     override fun doViewCreated(view: View, savedInstanceState: Bundle?) {
     }
 
     override fun doActivityCreated(savedInstanceState: Bundle?) {
-        binding.mainViewModel =
-            ViewModelProviders.of(this@MainFragment)[MainViewModel::class.java].apply {
-                notifyErrorMessage.observe(viewLifecycleOwner, Observer {
-                    if (!it.isNullOrEmpty()) {
-                        Toast.makeText(context, it, Toast.LENGTH_LONG)
-                            .show()
-                    }
-                })
-            }
+        binding.mainViewModel = mainViewModel.apply {
+            notifyErrorMessage.observe(viewLifecycleOwner, Observer {
+                if (!it.isNullOrEmpty()) {
+                    Toast.makeText(context, it, Toast.LENGTH_LONG)
+                        .show()
+                }
+            })
+        }
         with(binding.searchLayout.rvResultListView) {
             adapter =
                 CustomListViewAdapter()
