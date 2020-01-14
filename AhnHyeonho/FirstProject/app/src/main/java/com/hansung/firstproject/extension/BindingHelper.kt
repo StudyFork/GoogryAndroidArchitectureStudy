@@ -25,5 +25,6 @@ fun RatingBar.setStrRating(userRating: String) {
 
 @TargetApi(Build.VERSION_CODES.N)
 @BindingAdapter(value = ["setTitle"])
-fun TextView.setStrTitle(title: String) =
-    Html.fromHtml(title, Html.FROM_HTML_MODE_LEGACY)!!
+fun TextView.setTitle(title: String) {
+    this.text = Html.fromHtml(title, Html.FROM_HTML_MODE_LEGACY)
+}
