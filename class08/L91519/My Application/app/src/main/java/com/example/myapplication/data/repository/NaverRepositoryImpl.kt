@@ -7,10 +7,9 @@ object NaverRepositoryImpl : NaverRepository {
 
     override fun getResultData(
         query: String,
-        success: (results: MovieResult) -> Unit,
-        fail: (t: Throwable) -> Unit
+        success: (MovieResult) -> Unit,
+        fail: (Throwable) -> Unit
     ) {
         NaverRemoteDataImpl.getResultData(query, success, fail)
     }
-
 }

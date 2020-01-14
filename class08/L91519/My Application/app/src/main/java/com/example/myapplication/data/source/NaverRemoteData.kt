@@ -6,7 +6,7 @@ interface NaverRemoteData {
 
     fun getResultData(
         query: String,
-        success: (results: MovieResult) -> Unit,
-        fail: (t: Throwable) -> Unit
+        success: (MovieResult) -> Unit,
+        fail: (Throwable) -> Unit
     )
 }

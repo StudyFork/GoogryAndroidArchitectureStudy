@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         NaverRepositoryImpl.getResultData(query,
             success = {adapter.setItems(it.items)},
-            fail = { Toast.makeText(applicationContext, getString(R.string.movie_not_found), Toast.LENGTH_SHORT).show()})
+            fail = { Toast.makeText(applicationContext, it.message, Toast.LENGTH_SHORT).show()})
 
     }
 }

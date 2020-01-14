@@ -9,8 +9,8 @@ import retrofit2.Response
 object NaverRemoteDataImpl : NaverRemoteData {
     override fun getResultData(
         query: String,
-        success: (results: MovieResult) -> Unit,
-        fail: (t: Throwable) -> Unit
+        success: (MovieResult) -> Unit,
+        fail: (Throwable) -> Unit
     ) {
         ApiClient.getService.searchMovie(query).enqueue(object : Callback<MovieResult> {
             override fun onFailure(call: Call<MovieResult>, t: Throwable) {
