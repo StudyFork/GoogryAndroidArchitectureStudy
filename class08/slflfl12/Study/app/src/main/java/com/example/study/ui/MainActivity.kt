@@ -20,7 +20,7 @@ import retrofit2.Callback
 
 class MainActivity : AppCompatActivity() {
 
-    private var movieAdapter = MovieAdapter()
+    private val movieAdapter = MovieAdapter()
     private lateinit var naverSearchRepository: NaverSearchRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
