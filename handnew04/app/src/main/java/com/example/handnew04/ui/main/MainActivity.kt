@@ -1,6 +1,5 @@
 package com.example.handnew04.ui.main
 
-import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
