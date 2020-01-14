@@ -8,7 +8,7 @@ import com.ironelder.androidarchitecture.data.source.local.LocalSearchDataSource
 import com.ironelder.androidarchitecture.data.source.remote.RemoteSearchDataSourceImpl
 import io.reactivex.Single
 
-object SearchDataRepositoryImpl :
+class SearchDataRepositoryImpl(private val localSearchDataSourceImpl: LocalSearchDataSourceImpl) :
     SearchDataRepository {
 
     override fun getRemoteSearchData(
@@ -18,8 +18,8 @@ object SearchDataRepositoryImpl :
     ): Single<TotalModel> {
         return RemoteSearchDataSourceImpl.getRemoteSearchData(type, query)
             .doAfterSuccess { result: TotalModel? ->
-                LocalSearchDataSourceImpl.setLocalSearchData(
-                    searchResultDao, SearchResult(
+                localSearchDataSourceImpl.setLocalSearchData(
+                    SearchResult(
                         null,
                         type,
                         query,
@@ -33,7 +33,7 @@ object SearchDataRepositoryImpl :
         type: String,
         searchResultDao: SearchResultDao
     ): Single<SearchResult>? {
-        return LocalSearchDataSourceImpl.getLocalSearchData(searchResultDao, type)
+        return localSearchDataSourceImpl.getLocalSearchData(type)
     }
 
 }
