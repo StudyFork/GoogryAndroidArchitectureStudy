@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseAdapter<T, B : ViewDataBinding> : RecyclerView.Adapter<BaseViewHolder<T>>() {
 
-
     private val items: ArrayList<T> = arrayListOf()
 
     fun addItems(_item: ArrayList<T>) {

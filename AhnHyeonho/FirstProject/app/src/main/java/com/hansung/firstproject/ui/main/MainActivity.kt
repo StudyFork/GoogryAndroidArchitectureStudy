@@ -77,7 +77,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun showErrorByErrorMessage(errorMessage: String) {
-        //ErrorStringResource.valueOf(errorMessage)
         Toast.makeText(this, ErrorStringResource.valueOf(errorMessage).resId, Toast.LENGTH_SHORT)
             .show()
     }

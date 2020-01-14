@@ -26,8 +26,7 @@ open class MovieHolder(private val binding: MovieItemBinding) :
 
         //클릭시 웹사이트 연결을 위한 uri 바인딩
         webPage = Uri.parse(item.link)
-
-        /*이런식으로 넣어주는게 맞는지...?*/
+        
         binding.apply {
             this.item = item
         }.run {
