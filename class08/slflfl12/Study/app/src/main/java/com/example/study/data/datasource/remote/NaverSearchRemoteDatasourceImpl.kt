@@ -24,8 +24,8 @@ class NaverSearchRemoteDatasourceImpl : NaverSearchRemoteDatasource {
                     call: Call<NaverSearchResponse>,
                     response: Response<NaverSearchResponse>
                 ) {
-                    if(response.isSuccessful) {
-                        success(response.body()!!)
+                    response.body()?.let{
+                        success(it)
                     }
                 }
             })
