@@ -5,10 +5,13 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface NaverApiService {
+
+    @Headers(
+        "X-Naver-Clinet-Id: AZeVMtYlsaS7bdr8W7PX",
+        "X-Naver-Client-Secret: a7hDdCsKST"
+    )
     @GET("v1/search/movie.json")
     fun getMovieList(
-        @Header("X-Naver-Client-Id") clientId: String,
-        @Header("X-Naver-Client-Secret") clientSecret: String,
         @Query("query") query: String
     ) : Call<NaverSearchResponse>
 }

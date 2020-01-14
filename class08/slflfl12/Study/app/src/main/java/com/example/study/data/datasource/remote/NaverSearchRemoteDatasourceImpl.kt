@@ -9,15 +9,12 @@ import retrofit2.Response
 
 class NaverSearchRemoteDatasourceImpl : NaverSearchRemoteDatasource {
 
-    private val clientId = "AZeVMtYlsaS7bdr8W7PX"
-    private val clientSecret = "a7hDdCsKST"
-
     override fun getMovies(
         query: String,
         success: (NaverSearchResponse) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        NaverApiServiceImpl.naverRetrofitService.getMovieList(clientId, clientSecret, query)
+        NaverApiServiceImpl.naverRetrofitService.getMovieList(query)
             .enqueue(object: Callback<NaverSearchResponse> {
                 override fun onFailure(call: Call<NaverSearchResponse>, t: Throwable) {
                     fail(t)
@@ -33,4 +30,6 @@ class NaverSearchRemoteDatasourceImpl : NaverSearchRemoteDatasource {
                 }
             })
     }
+
+
 }
