@@ -10,9 +10,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hansung.firstproject.R
-import com.hansung.firstproject.adapter.RecyclerViewAdapter
+import com.hansung.firstproject.adapter.MovieItemAdapter
 import com.hansung.firstproject.data.ErrorStringResource
-import com.hansung.firstproject.data.MovieModel
 import com.hansung.firstproject.data.MovieResponseModel
 import com.hansung.firstproject.data.repository.NaverRepository
 import com.hansung.firstproject.data.source.remote.NaverRemoteDataSourceImpl
@@ -35,12 +34,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         )
     }
 
-    private val adapter: RecyclerViewAdapter<MovieModel> = RecyclerViewAdapter()
+    private val adapter: MovieItemAdapter = MovieItemAdapter()
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_main)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         // recyclerView initialize
