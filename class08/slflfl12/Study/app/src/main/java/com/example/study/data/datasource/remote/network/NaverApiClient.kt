@@ -6,7 +6,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object NaverApiServiceImpl {
+object NaverApiClient {
     private val BASE_URL = "https://openapi.naver.com/"
 
     private val okHttpClient:OkHttpClient = OkHttpClient().newBuilder() //.build() 해야 OkHttpClient가 됨

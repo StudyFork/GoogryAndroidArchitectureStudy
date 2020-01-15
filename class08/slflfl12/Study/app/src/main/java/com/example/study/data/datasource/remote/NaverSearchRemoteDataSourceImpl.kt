@@ -1,6 +1,6 @@
 package com.example.study.data.datasource.remote
 
-import com.example.study.data.datasource.remote.network.NaverApiServiceImpl
+import com.example.study.data.datasource.remote.network.NaverApiClient
 import com.example.study.data.model.NaverSearchResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -13,7 +13,7 @@ class NaverSearchRemoteDataSourceImpl : NaverSearchRemoteDataSource {
         success: (NaverSearchResponse) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        NaverApiServiceImpl.naverRetrofitService.getMovieList(query)
+        NaverApiClient.naverRetrofitService.getMovieList(query)
             .enqueue(object : Callback<NaverSearchResponse> {
                 override fun onFailure(call: Call<NaverSearchResponse>, t: Throwable) {
                     fail(t)
