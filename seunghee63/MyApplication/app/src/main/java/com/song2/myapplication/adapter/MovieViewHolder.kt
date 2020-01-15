@@ -10,19 +10,20 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.song2.myapplication.databinding.RvMovieItemBinding
 import com.song2.myapplication.source.MovieData
 
 @Suppress("DEPRECATION")
-class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+class MovieViewHolder(private val binding: RvMovieItemBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
     lateinit var tempData: MovieData
 
-    private val image: ImageView = view.iv_rv_movie_item_image
-    private val title: TextView = view.tv_rv_movie_item_title
-    private val rating: RatingBar = view.rb_rv_movie_item_rating
-    private val director: TextView = view.tv_rv_movie_item_director
-    private val pubDate: TextView = view.tv_rv_movie_item_pub_date
-    private val actor: TextView = view.tv_rv_movie_item_actor
+    private val image: ImageView = binding.ivRvMovieItemImage
+    private val title: TextView = binding.tvRvMovieItemTitle
+    private val rating: RatingBar = binding.rbRvMovieItemRating
+    private val director: TextView = binding.tvRvMovieItemDirector
+    private val pubDate: TextView = binding.tvRvMovieItemPubDate
+    private val actor: TextView = binding.tvRvMovieItemActor
 
 
     override fun onClick(view: View?) {

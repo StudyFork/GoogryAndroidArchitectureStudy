@@ -28,13 +28,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        setKeyboardFunc()
-        setMovieRecyclerView()
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        setKeyboardFunc()
+        setMovieRecyclerView()
 
         binding.btnMainActSearchBtn.setOnClickListener {
 
