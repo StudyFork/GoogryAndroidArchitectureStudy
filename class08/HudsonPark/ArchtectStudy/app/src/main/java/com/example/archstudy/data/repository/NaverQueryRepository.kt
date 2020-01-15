@@ -1,10 +1,9 @@
 package com.example.archstudy.data.repository
 
-import com.example.archstudy.Item
-import com.example.archstudy.data.source.local.NaverQueryLocalDataSource
-import com.example.archstudy.data.source.remote.NaverQueryRemoteDataSource
+import com.example.archstudy.MovieData
+import retrofit2.Call
 
 interface NaverQueryRepository {
-    fun getRemoteData(remoteData : NaverQueryRemoteDataSource) : List<Item>
-    fun getLocalData(localData : NaverQueryLocalDataSource) : List<Item>
+    fun requestRemoteData(query: String): Call<MovieData>
+    fun requestLocalData(query: String) : MovieData
 }

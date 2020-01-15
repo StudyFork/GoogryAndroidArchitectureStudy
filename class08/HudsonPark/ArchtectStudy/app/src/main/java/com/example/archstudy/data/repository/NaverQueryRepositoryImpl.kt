@@ -1,14 +1,27 @@
 package com.example.archstudy.data.repository
 
-import com.example.archstudy.Item
-import com.example.archstudy.data.source.local.NaverQueryLocalDataSource
-import com.example.archstudy.data.source.remote.NaverQueryRemoteDataSource
+import com.example.archstudy.MovieData
+import com.example.archstudy.data.source.local.NaverQueryLocalDataSourceImpl
+import com.example.archstudy.data.source.remote.NaverQueryRemoteDataSourceImpl
+import retrofit2.Call
 
-class NaverQueryRepositoryImpl(private val query: String) : NaverQueryRepository {
+class NaverQueryRepositoryImpl
+    : NaverQueryRepository {
 
-    override fun getRemoteData(remoteData: NaverQueryRemoteDataSource): List<Item> =
-        remoteData.getMovie(query)
+    private lateinit var naverQueryLocalDataSource: NaverQueryLocalDataSourceImpl
+    private lateinit var naverQueryRemoteDataSource: NaverQueryRemoteDataSourceImpl
 
-    override fun getLocalData(localData: NaverQueryLocalDataSource): List<Item> =
-        localData.getMovie(query)
+    override fun requestRemoteData(query: String): Call<MovieData> {
+        naverQueryRemoteDataSource = NaverQueryRemoteDataSourceImpl()
+        return naverQueryRemoteDataSource.getMovie(query)
+    }
+
+    override fun requestLocalData(query: String) : MovieData{
+        return MovieData(0, mutableListOf(),0,0)
+    }
+
+
+
+
 }
+

@@ -3,19 +3,20 @@ package com.example.archstudy.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.archstudy.*
-import com.example.archstudy.network.RetrofitService
+import com.example.archstudy.Item
+import com.example.archstudy.MovieData
+import com.example.archstudy.R
+import com.example.archstudy.data.repository.NaverQueryRepositoryImpl
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,8 +43,7 @@ class MainActivity : AppCompatActivity() {
                 showToast("검색어를 다시 입력해주세요.")
             } else {
                 showToast("요청하신 관련 영화 : $query")
-                // Todo : REMOTE 에 네이버 영화 데이터 요청
-
+                requestRemoteData(query)
             }
             clearQuery()
             activateButton()
@@ -56,12 +56,30 @@ class MainActivity : AppCompatActivity() {
         edtQuery = findViewById(R.id.edtQuery)
         btnSearch = findViewById(R.id.btnSearch)
         rvMovieList = findViewById(R.id.rvMovieList)
-        rvMovieAdapter = MovieListAdapter(object : MovieListAdapter.ItemClickListener {
-                override fun onItemClick(url: String) {
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-                }
-            })
+        rvMovieAdapter = MovieListAdapter(object :
+            MovieListAdapter.ItemClickListener {
+            override fun onItemClick(url: String) {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+            }
+        })
         rvMovieList.adapter = rvMovieAdapter
+    }
+
+    private fun requestRemoteData(query: String) {
+        val remoteData = NaverQueryRepositoryImpl().requestRemoteData(query)
+        remoteData.enqueue(object : Callback<MovieData> {
+
+            override fun onFailure(call: Call<MovieData>, t: Throwable) {
+                showToast("에러 메시지 : ${t.message.toString()}")
+            }
+
+            override fun onResponse(call: Call<MovieData>, response: Response<MovieData>) {
+                Log.d("movieData", response.body().toString())
+                if (response.body() != null) {
+                    rvMovieAdapter.setAllData(response.body()?.items as MutableList<Item>)
+                }
+            }
+        })
     }
 
 

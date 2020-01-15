@@ -1,4 +1,4 @@
-package com.example.archstudy
+package com.example.archstudy.ui
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +10,8 @@ import android.widget.TextView
 import androidx.annotation.Nullable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.archstudy.Item
+import com.example.archstudy.R
 
 class MovieListAdapter(@Nullable private var listener: ItemClickListener) :
     RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
@@ -17,9 +19,11 @@ class MovieListAdapter(@Nullable private var listener: ItemClickListener) :
     private var list = mutableListOf<Item>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val holder = ViewHolder(LayoutInflater
-            .from(parent.context)
-            .inflate(R.layout.item_movie, parent, false))
+        val holder = ViewHolder(
+            LayoutInflater
+                .from(parent.context)
+                .inflate(R.layout.item_movie, parent, false)
+        )
 
         holder.itemView.setOnClickListener {
             listener.onItemClick(list[holder.adapterPosition].link)
@@ -32,8 +36,10 @@ class MovieListAdapter(@Nullable private var listener: ItemClickListener) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         holder.bind(list[position])
 
-    fun setData(movieList: ArrayList<Item>){
-        this.list = movieList
+    fun setAllData(movieList: MutableList<Item>){
+        list.clear()
+        list.addAll(movieList)
+        notifyDataSetChanged()
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
