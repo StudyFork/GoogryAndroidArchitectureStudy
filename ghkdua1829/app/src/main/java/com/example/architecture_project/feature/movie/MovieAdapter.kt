@@ -16,7 +16,7 @@ class MovieAdapter(private val clickListener: MovieViewHolder.ItemClickListener)
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     private val movieData: ArrayList<Movie> = ArrayList()
 
-    fun setMovieItemList(newMovieData: ArrayList<Movie>) {
+    fun setMovieItemList(newMovieData: List<Movie>) {
         with(movieData) {
             clear()
             addAll(newMovieData)

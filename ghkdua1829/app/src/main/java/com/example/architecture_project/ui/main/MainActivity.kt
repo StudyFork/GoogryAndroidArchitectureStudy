@@ -4,13 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.architecture_project.R
 import com.example.architecture_project.`object`.ObjectCollection.URL
 import com.example.architecture_project.data.model.NaverApi
+import com.example.architecture_project.databinding.ActivityMainBinding
 import com.example.architecture_project.feature.movie.MovieAdapter
 import com.example.architecture_project.feature.search.WebviewActivity
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(),
     MainContract.View {
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val binding: ActivityMainBinding =DataBindingUtil.setContentView(this,R.layout.activity_main)
 
         movieRecyclerView = findViewById(R.id.rv_movie)
         movieAdapter = MovieAdapter(object : MovieAdapter.MovieViewHolder.ItemClickListener {
@@ -33,13 +34,13 @@ class MainActivity : AppCompatActivity(),
             }
         })
         movieRecyclerView.adapter = movieAdapter
-
-        btn_search.setOnClickListener {
-            callMovie(et_search.text.toString())
+//
+        binding.btnSearch.setOnClickListener {
+            callMovie(binding.etSearch.text.toString())
         }
     }
 
-    private fun callMovie(keyword: String) {   //수정완료
+    fun callMovie(keyword: String) {   //수정완료
         presenter.getMovieData(keyword)
     }
 
@@ -60,6 +61,6 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun showDataNum(num: Int) {
-        Toast.makeText(this, "총 "+num+"개가 검색되었습니다.", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "총 " + num + "개가 검색되었습니다.", Toast.LENGTH_SHORT).show()
     }
 }
