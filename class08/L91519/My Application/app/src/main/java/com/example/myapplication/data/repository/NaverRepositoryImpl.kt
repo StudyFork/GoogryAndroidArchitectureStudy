@@ -1,7 +1,7 @@
 package com.example.myapplication.data.repository
 
 import com.example.myapplication.data.model.MovieResult
-import com.example.myapplication.data.source.NaverRemoteDataImpl
+import com.example.myapplication.data.source.NaverRemoteDataSourceImpl
 
 object NaverRepositoryImpl : NaverRepository {
 
@@ -10,6 +10,6 @@ object NaverRepositoryImpl : NaverRepository {
         success: (MovieResult) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        NaverRemoteDataImpl.getResultData(query, success, fail)
+        NaverRemoteDataSourceImpl.getResultData(query, success, fail)
     }
 }
