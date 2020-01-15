@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.handnew04.R
 import com.example.handnew04.adapter.MovieRecyclerAdapter
 import com.example.handnew04.data.NaverMovieResponse
-import com.example.handnew04.data.items
+import com.example.handnew04.data.MovieData
 import com.example.handnew04.databinding.ActivityMainBinding
 import com.example.handnew04.network.NetworkManager
 import com.example.handnew04.ui.movie.MovieDetailActivity
@@ -33,6 +33,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             this, R.layout.activity_main
         )
 
+        binding.activity = this@MainActivity
+
         initailize()
     }
 
@@ -42,7 +44,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         recyclerAdapter.setItemClickListener(object :
             MovieRecyclerAdapter.ItemClickListener {
-            override fun onClick(view: View, position: Int) {
+            override fun onClick(position: Int) {
                 showMovieDetailActivity(position)
             }
         })
@@ -68,7 +70,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun showSuccessSearchMovie(data: NaverMovieResponse) {
-        recyclerAdapter.setItemList(data.items as ArrayList<items>)
+        recyclerAdapter.setItemList(data.items as ArrayList<MovieData>)
     }
 
     override fun showMovieDetailActivity(position: Int) {
