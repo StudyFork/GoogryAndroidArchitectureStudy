@@ -26,13 +26,13 @@ class MainActivity : AppCompatActivity() {
 
     private val movieAdapter = MovieAdapter(::showMovieDetail)
     private val disposable = CompositeDisposable()
-    private val localDao: LocalDao by lazy {
-        val db = LocalDatabase.getInstance(this)!!
-        db.localDao()
-    }
-    private val todos: LiveData<List<LocalEntity>> by lazy {
-        localDao.loadLocal()
-    }
+//    private val localDao: LocalDao by lazy {
+//        val db = LocalDatabase.getInstance(this)!!
+//        db.localDao()
+//    }
+//    private val local: LiveData<List<LocalEntity>> by lazy {
+//        localDao.loadLocal()
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
