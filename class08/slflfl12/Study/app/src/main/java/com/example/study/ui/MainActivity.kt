@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
 
         recycler_view.adapter = movieAdapter
 
-
         search_button.setOnClickListener {
             getMovieList(search_editText.text.toString())
         }

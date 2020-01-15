@@ -29,6 +29,4 @@ class NaverSearchRemoteDataSourceImpl : NaverSearchRemoteDataSource {
                 }
             })
     }
-
-
 }

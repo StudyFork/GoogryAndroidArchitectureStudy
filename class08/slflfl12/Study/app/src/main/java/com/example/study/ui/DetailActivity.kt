@@ -20,9 +20,7 @@ class DetailActivity : AppCompatActivity() {
         movie_url?.let {
             webview.loadUrl(it)
         }
-
     }
-
     companion object {
         const val MOVIE_URL = "movie_url"
     }

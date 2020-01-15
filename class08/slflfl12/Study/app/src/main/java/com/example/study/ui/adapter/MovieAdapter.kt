@@ -35,7 +35,6 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
             override fun onItemClickListener(movie: Movie) {
                 listener(movie)
             }
-
         }
     }
 
