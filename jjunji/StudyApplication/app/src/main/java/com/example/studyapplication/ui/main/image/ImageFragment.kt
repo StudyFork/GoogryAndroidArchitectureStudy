@@ -11,6 +11,11 @@ import com.example.studyapplication.data.repository.NaverSearchRepositoryImpl
 import com.example.studyapplication.ui.main.base.BaseSearchFragment
 import com.example.studyapplication.ui.main.image.adapter.ImageAdapter
 import kotlinx.android.synthetic.main.fragment_image.*
+import kotlinx.android.synthetic.main.fragment_image.btnSearch
+import kotlinx.android.synthetic.main.fragment_image.etQuery
+import kotlinx.android.synthetic.main.fragment_image.recyclerView
+import kotlinx.android.synthetic.main.fragment_image.tvEmpty
+import kotlinx.android.synthetic.main.fragment_movie.*
 
 class ImageFragment : BaseSearchFragment(R.layout.fragment_image), ImageContract.View {
     private lateinit var presenter: ImageContract.Presenter
@@ -38,6 +43,18 @@ class ImageFragment : BaseSearchFragment(R.layout.fragment_image), ImageContract
     }
 
     override fun showList(items: ArrayList<ImageInfo>) {
+        if (tvEmpty.visibility == View.VISIBLE) {
+            tvEmpty.visibility = View.GONE
+            recyclerView.visibility = View.VISIBLE
+        }
+
         imageAdapter.resetItem(items)
+    }
+
+    override fun showEmptyView() {
+        if(recyclerView.visibility == View.VISIBLE) {
+            recyclerView.visibility = View.GONE
+        }
+        tvEmpty.visibility = View.VISIBLE
     }
 }

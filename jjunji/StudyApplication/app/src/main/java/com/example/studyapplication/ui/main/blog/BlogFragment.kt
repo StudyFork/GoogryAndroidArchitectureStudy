@@ -38,7 +38,18 @@ class BlogFragment : BaseSearchFragment(R.layout.fragment_blog), BlogContract.Vi
     }
 
     override fun showList(items: ArrayList<BlogInfo>) {
+        if (tvEmpty.visibility == View.VISIBLE) {
+            tvEmpty.visibility = View.GONE
+            recyclerView.visibility = View.VISIBLE
+        }
         blogAdapter.resetItem(items)
+    }
+
+    override fun showEmptyView() {
+        if (recyclerView.visibility == View.VISIBLE) {
+            recyclerView.visibility = View.GONE
+        }
+        tvEmpty.visibility = View.VISIBLE
     }
 
 }

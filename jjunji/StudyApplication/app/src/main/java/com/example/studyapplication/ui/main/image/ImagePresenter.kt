@@ -19,8 +19,13 @@ class ImagePresenter(
                     override fun <T> success(result: T) {
                         val searchData: SearchResult<ImageInfo> = result as SearchResult<ImageInfo>
                         searchData.let {
-                            view.showList(searchData.arrItem)
-                            repository.saveImageList(searchData.arrItem)
+                            if(searchData.arrItem.size == 0) {
+                                repository.deleteImageList()
+                                view.showEmptyView()
+                            } else {
+                                view.showList(searchData.arrItem)
+                                repository.saveImageList(searchData.arrItem)
+                            }
                         }
                     }
 

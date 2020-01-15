@@ -19,8 +19,6 @@ class MoviePresenter(
                     override fun <T> success(result: T) {
                         val searchData: SearchResult<MovieInfo> = result as SearchResult<MovieInfo>
                         searchData.let {
-
-                            searchData.arrItem.clear()
                             if (searchData.arrItem.size == 0) {
                                 repository.deleteMovieList()
                                 view.showEmptyView()

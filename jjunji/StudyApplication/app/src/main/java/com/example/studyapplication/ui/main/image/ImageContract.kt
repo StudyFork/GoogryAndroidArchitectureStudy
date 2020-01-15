@@ -6,6 +6,7 @@ import com.example.studyapplication.ui.main.base.BaseSearchContract
 interface ImageContract {
     interface View : BaseSearchContract.View {
         fun showList(items: ArrayList<ImageInfo>)
+        fun showEmptyView()
     }
 
     interface Presenter : BaseSearchContract.Presenter {
