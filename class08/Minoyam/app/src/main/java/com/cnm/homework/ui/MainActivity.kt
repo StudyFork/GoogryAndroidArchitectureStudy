@@ -9,17 +9,11 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LiveData
 import com.cnm.homework.R
 import com.cnm.homework.data.model.NaverResponse
 import com.cnm.homework.data.repository.NaverQueryRepositoryImpl
-import com.cnm.homework.data.source.local.db.LocalDao
-import com.cnm.homework.data.source.local.db.LocalDatabase
-import com.cnm.homework.data.source.local.db.LocalEntity
 import com.cnm.homework.data.source.remote.NaverQueryRemoteDataSourceImpl
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -75,8 +69,6 @@ class MainActivity : AppCompatActivity() {
         disposable.add(NaverQueryRepositoryImpl.getInstance(
             NaverQueryRemoteDataSourceImpl()
         ).getNaverMovie(query)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
                 showProgress()
             }
