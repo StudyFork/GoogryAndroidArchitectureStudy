@@ -1,9 +1,11 @@
 package com.siwon.prj.common.extension
 
+import android.os.Build
+import android.text.Html
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
-import androidx.appcompat.widget.AppCompatTextView
+import androidx.annotation.RequiresApi
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
@@ -18,12 +20,11 @@ fun RatingBar.str2Score(score: String) {
     rating = score.toFloat() / 2f
 }
 
+@RequiresApi(Build.VERSION_CODES.N)
 @BindingAdapter("rmTag")
-fun AppCompatTextView.rmTag(txt: String) {
-    text = txt.replace("<b>", "[").replace("</b>", "]")
+fun TextView.rmTag(txt: String) {
+    text = txt.formatHtml()
 }
 
-@BindingAdapter("rmOr")
-fun TextView.rmOr(txt: String) {
-    text = txt.replace("|", ", ")
-}
+@RequiresApi(Build.VERSION_CODES.N)
+fun String.formatHtml(): String = Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY).toString()
