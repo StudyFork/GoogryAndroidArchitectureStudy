@@ -1,6 +1,6 @@
 package com.siwon.prj.view.presenter
 
-import com.siwon.prj.model.Movie
+import com.siwon.prj.common.model.Movie
 
 interface MainContract {
     interface View {
@@ -9,7 +9,6 @@ interface MainContract {
         fun emptyResult()
         fun serviceErr(erMsg: String)
         fun hideKeyboard()
-        fun toastMsg(msg: String)
     }
 
     interface  Presenter {
