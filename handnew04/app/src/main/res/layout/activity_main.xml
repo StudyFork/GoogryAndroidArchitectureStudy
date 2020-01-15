@@ -39,7 +39,7 @@
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/et_searchBar"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{activity::searchButtonClick}"/>
+            android:onClick="@{()-> activity.searchButtonClick()}"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_movies"
