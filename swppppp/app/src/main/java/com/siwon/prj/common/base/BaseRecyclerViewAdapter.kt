@@ -1,8 +1,9 @@
-package com.siwon.prj.common.adapter
+package com.siwon.prj.common.base
 
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseRecyclerViewAdapter<T>: RecyclerView.Adapter<BaseViewHolder<T>>(){
+abstract class BaseRecyclerViewAdapter<T, B : ViewDataBinding>: RecyclerView.Adapter<BaseViewHolder<T>>(){
     private val _items: MutableList<T> = mutableListOf()
 
     override fun getItemCount(): Int = _items.size

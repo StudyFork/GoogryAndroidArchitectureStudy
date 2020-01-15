@@ -1,9 +1,9 @@
-package com.siwon.prj.datasource
+package com.siwon.prj.common.remote.datasource
 
-import com.siwon.prj.datasource.service.MovieSearchServiceImpl
-import com.siwon.prj.model.ApiInfo
-import com.siwon.prj.model.Movie
-import com.siwon.prj.model.Movies
+import com.siwon.prj.common.remote.datasource.service.MovieSearchServiceImpl
+import com.siwon.prj.common.model.ApiInfo
+import com.siwon.prj.common.model.Movie
+import com.siwon.prj.common.model.Movies
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -1,8 +1,8 @@
 package com.siwon.prj.repository
 
-import com.siwon.prj.datasource.RemoteMovieSearchDataSource
-import com.siwon.prj.datasource.RemoteMovieSearchDataSourceImpl
-import com.siwon.prj.model.Movie
+import com.siwon.prj.common.remote.datasource.RemoteMovieSearchDataSource
+import com.siwon.prj.common.remote.datasource.RemoteMovieSearchDataSourceImpl
+import com.siwon.prj.common.model.Movie
 
 class MovieSearchRepositoryImpl(/*val dataSorceRemote: RemoteMovieSearchDataSource*/): MovieSearchRepository {
 

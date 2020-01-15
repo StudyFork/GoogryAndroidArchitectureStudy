@@ -1,9 +1,9 @@
 //package com.siwon.prj.di
 //
-//import com.siwon.prj.datasource.RemoteMovieSearchDataSource
-//import com.siwon.prj.datasource.RemoteMovieSearchDataSourceImpl
-//import com.siwon.prj.datasource.service.MovieSearchService
-//import com.siwon.prj.model.ApiInfo
+//import com.siwon.prj.common.remote.datasource.RemoteMovieSearchDataSource
+//import com.siwon.prj.common.remote.datasource.RemoteMovieSearchDataSourceImpl
+//import com.siwon.prj.common.remote.datasource.service.MovieSearchService
+//import com.siwon.prj.common.model.ApiInfo
 //import com.siwon.prj.repository.MovieSearchRepository
 //import com.siwon.prj.repository.MovieSearchRepositoryImpl
 //import com.siwon.prj.view.presenter.MainContract
