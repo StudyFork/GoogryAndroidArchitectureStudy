@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.studyfork.architecturestudy.R
 import com.studyfork.architecturestudy.data.repository.MovieRepositoryImpl
+import com.studyfork.architecturestudy.data.source.remote.MovieRemoteDataSourceImpl
 import com.studyfork.architecturestudy.extension.hideKeyboard
 import com.studyfork.architecturestudy.ui.adapter.MovieResultRVAdapter
 import io.reactivex.disposables.CompositeDisposable
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     private val compositeDisposable = CompositeDisposable()
 
     private val movieRepositoryImpl: MovieRepositoryImpl by lazy {
-        MovieRepositoryImpl()
+        MovieRepositoryImpl(MovieRemoteDataSourceImpl())
     }
 
     private val movieResultRVAdapter: MovieResultRVAdapter by lazy {

@@ -4,9 +4,7 @@ import com.studyfork.architecturestudy.data.model.MovieResponse
 import com.studyfork.architecturestudy.data.source.remote.MovieRemoteDataSourceImpl
 import io.reactivex.disposables.Disposable
 
-class MovieRepositoryImpl : MovieRepository {
-
-    private val movieRemoteDataSourceImpl: MovieRemoteDataSourceImpl = MovieRemoteDataSourceImpl()
+class MovieRepositoryImpl(private val movieRemoteDataSourceImpl: MovieRemoteDataSourceImpl) : MovieRepository {
 
     override fun getMovieList(
         query: String,
