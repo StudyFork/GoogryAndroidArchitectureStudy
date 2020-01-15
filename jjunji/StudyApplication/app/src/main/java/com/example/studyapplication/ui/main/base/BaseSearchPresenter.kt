@@ -7,4 +7,13 @@ open class BaseSearchPresenter(
     override fun onRequestFailed(e: Throwable) {
         e.message?.let { view.toastErrorMessage(it) }
     }
+
+    override fun checkQueryValid(query: String, validQuery: (Boolean) -> Unit) {
+        if(query.isEmpty()) {
+            view.toastEmptyQueryMessage()
+            validQuery(false)
+        } else {
+            validQuery(true)
+        }
+    }
 }

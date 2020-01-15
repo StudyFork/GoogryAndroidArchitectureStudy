@@ -34,6 +34,8 @@ class MovieFragment : BaseSearchFragment(R.layout.fragment_movie), MovieContract
         return View.OnClickListener {
             val movieTitle = etQuery.text.toString()
             presenter.clickSearchButton(movieTitle)
+            presenter
+
         }
     }
 

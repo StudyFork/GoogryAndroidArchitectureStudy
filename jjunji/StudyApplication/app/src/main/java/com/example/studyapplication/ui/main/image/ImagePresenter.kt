@@ -13,20 +13,24 @@ class ImagePresenter(
     BaseSearchPresenter(view) {
 
     override fun clickSearchButton(query: String) {
-        repository.getImageList(query, object : Conn {
-            override fun <T> success(result: T) {
-                val searchData: SearchResult<ImageInfo> = result as SearchResult<ImageInfo>
-                searchData.let {
-                    view.showList(searchData.arrItem)
-                    repository.saveImageList(searchData.arrItem)
-                }
-            }
+        checkQueryValid(query, validQuery = {
+            if (it) {
+                repository.getImageList(query, object : Conn {
+                    override fun <T> success(result: T) {
+                        val searchData: SearchResult<ImageInfo> = result as SearchResult<ImageInfo>
+                        searchData.let {
+                            view.showList(searchData.arrItem)
+                            repository.saveImageList(searchData.arrItem)
+                        }
+                    }
 
-            override fun failed(e: Throwable) {
-                onRequestFailed(e)
-                repository.deleteImageList()
-            }
+                    override fun failed(e: Throwable) {
+                        onRequestFailed(e)
+                        repository.deleteImageList()
+                    }
 
+                })
+            }
         })
     }
 

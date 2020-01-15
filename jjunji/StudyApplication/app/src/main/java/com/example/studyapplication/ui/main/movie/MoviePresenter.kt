@@ -13,18 +13,22 @@ class MoviePresenter(
     BaseSearchPresenter(view) {
 
     override fun clickSearchButton(query: String) {
-        repository.getMovieList(query, object : Conn {
-            override fun <T> success(result: T) {
-                val searchData: SearchResult<MovieInfo> = result as SearchResult<MovieInfo>
-                searchData.let {
-                    repository.saveMovieList(searchData.arrItem)
-                    view.showList(searchData.arrItem)
-                }
-            }
+        checkQueryValid(query, validQuery = {
+            if(it) {
+                repository.getMovieList(query, object : Conn {
+                    override fun <T> success(result: T) {
+                        val searchData: SearchResult<MovieInfo> = result as SearchResult<MovieInfo>
+                        searchData.let {
+                            repository.saveMovieList(searchData.arrItem)
+                            view.showList(searchData.arrItem)
+                        }
+                    }
 
-            override fun failed(e: Throwable) {
-                onRequestFailed(e)
-                repository.deleteMovieList()
+                    override fun failed(e: Throwable) {
+                        onRequestFailed(e)
+                        repository.deleteMovieList()
+                    }
+                })
             }
         })
     }
