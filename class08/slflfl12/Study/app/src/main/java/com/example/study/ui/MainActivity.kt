@@ -21,14 +21,13 @@ import retrofit2.Callback
 class MainActivity : AppCompatActivity() {
 
     private val movieAdapter = MovieAdapter()
-    private lateinit var naverSearchRepository: NaverSearchRepository
+    private val naverSearchRepository: NaverSearchRepository = NaverSearchRepositoryImpl()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         recycler_view.adapter = movieAdapter
-        naverSearchRepository = NaverSearchRepositoryImpl()
 
 
         search_button.setOnClickListener {
