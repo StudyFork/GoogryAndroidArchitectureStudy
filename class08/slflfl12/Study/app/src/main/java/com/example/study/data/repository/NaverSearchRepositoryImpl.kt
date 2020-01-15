@@ -6,7 +6,8 @@ import com.example.study.data.model.NaverSearchResponse
 
 class NaverSearchRepositoryImpl : NaverSearchRepository {
 
-    private val naverSearchRemoteDatasource: NaverSearchRemoteDatasource = NaverSearchRemoteDatasourceImpl()
+    private val naverSearchRemoteDatasource: NaverSearchRemoteDatasource =
+        NaverSearchRemoteDatasourceImpl()
 
     override fun getMovies(
         query: String,

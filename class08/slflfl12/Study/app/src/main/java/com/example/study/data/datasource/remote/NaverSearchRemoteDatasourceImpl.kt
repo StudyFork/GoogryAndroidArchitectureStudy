@@ -15,7 +15,7 @@ class NaverSearchRemoteDatasourceImpl : NaverSearchRemoteDatasource {
         fail: (Throwable) -> Unit
     ) {
         NaverApiServiceImpl.naverRetrofitService.getMovieList(query)
-            .enqueue(object: Callback<NaverSearchResponse> {
+            .enqueue(object : Callback<NaverSearchResponse> {
                 override fun onFailure(call: Call<NaverSearchResponse>, t: Throwable) {
                     fail(t)
                 }
@@ -24,7 +24,7 @@ class NaverSearchRemoteDatasourceImpl : NaverSearchRemoteDatasource {
                     call: Call<NaverSearchResponse>,
                     response: Response<NaverSearchResponse>
                 ) {
-                    response.body()?.let{
+                    response.body()?.let {
                         success(it)
                     }
                 }
