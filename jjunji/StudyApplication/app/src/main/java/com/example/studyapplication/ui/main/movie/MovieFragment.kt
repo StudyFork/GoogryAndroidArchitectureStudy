@@ -34,13 +34,22 @@ class MovieFragment : BaseSearchFragment(R.layout.fragment_movie), MovieContract
         return View.OnClickListener {
             val movieTitle = etQuery.text.toString()
             presenter.clickSearchButton(movieTitle)
-            presenter
-
         }
     }
 
     override fun showList(items: ArrayList<MovieInfo>) {
+        if (tvEmpty.visibility == View.VISIBLE) {
+            tvEmpty.visibility = View.GONE
+            recyclerView.visibility = View.VISIBLE
+        }
         movieAdapter.resetItem(items)
+    }
+
+    override fun showEmptyView() {
+        if(recyclerView.visibility == View.VISIBLE) {
+            recyclerView.visibility = View.GONE
+        }
+        tvEmpty.visibility = View.VISIBLE
     }
 
 }

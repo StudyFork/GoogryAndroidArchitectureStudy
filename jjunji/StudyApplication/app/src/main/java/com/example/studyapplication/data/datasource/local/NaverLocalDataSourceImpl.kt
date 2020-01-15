@@ -10,6 +10,7 @@ import com.example.studyapplication.data.model.cache.CacheKin
 import com.example.studyapplication.data.model.cache.CacheMovie
 import com.example.studyapplication.util.MyLogger
 import io.realm.Realm
+import io.realm.RealmResults
 
 class NaverLocalDataSourceImpl : NaverLocalDataSource {
 
@@ -150,19 +151,51 @@ class NaverLocalDataSourceImpl : NaverLocalDataSource {
     }
 
     override fun deleteMovieList() {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        val realm : Realm = Realm.getDefaultInstance()
+        try {
+            val result: RealmResults<CacheMovie> = realm.where(CacheMovie::class.java).findAll()
+            realm.executeTransaction { result.deleteAllFromRealm() }
+        } catch (e: Exception) {
+            e.message?.let { MyLogger.e(it) }
+        } finally {
+            realm.close()
+        }
     }
 
     override fun deleteImageList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val realm : Realm = Realm.getDefaultInstance()
+        try {
+            val result: RealmResults<CacheImage> = realm.where(CacheImage::class.java).findAll()
+            realm.executeTransaction { result.deleteAllFromRealm() }
+        } catch (e: Exception) {
+            e.message?.let { MyLogger.e(it) }
+        } finally {
+            realm.close()
+        }
     }
 
     override fun deleteBlogList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val realm : Realm = Realm.getDefaultInstance()
+        try {
+            val result: RealmResults<CacheBlog> = realm.where(CacheBlog::class.java).findAll()
+            realm.executeTransaction { result.deleteAllFromRealm() }
+        } catch (e: Exception) {
+            e.message?.let { MyLogger.e(it) }
+        } finally {
+            realm.close()
+        }
     }
 
     override fun deleteKinList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val realm : Realm = Realm.getDefaultInstance()
+        try {
+            val result: RealmResults<CacheKin> = realm.where(CacheKin::class.java).findAll()
+            realm.executeTransaction { result.deleteAllFromRealm() }
+        } catch (e: Exception) {
+            e.message?.let { MyLogger.e(it) }
+        } finally {
+            realm.close()
+        }
     }
 
 }

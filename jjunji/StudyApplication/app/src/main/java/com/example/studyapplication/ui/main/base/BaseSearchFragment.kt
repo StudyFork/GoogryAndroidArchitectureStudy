@@ -19,5 +19,4 @@ open class BaseSearchFragment(
     override fun toastEmptyQueryMessage() {
         Toast.makeText(context, getString(R.string.error_message_empty_query), Toast.LENGTH_SHORT).show()
     }
-
 }

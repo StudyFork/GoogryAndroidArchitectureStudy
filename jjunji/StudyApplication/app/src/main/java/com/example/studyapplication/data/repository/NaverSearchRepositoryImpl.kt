@@ -46,19 +46,19 @@ class NaverSearchRepositoryImpl(
     }
 
     override fun deleteMovieList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        localDataSource.deleteMovieList()
     }
 
     override fun deleteBlogList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        localDataSource.deleteBlogList()
     }
 
     override fun deleteImageList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        localDataSource.deleteImageList()
     }
 
     override fun deleteKinList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        localDataSource.deleteKinList()
     }
 
     override fun getCacheMovieList(
