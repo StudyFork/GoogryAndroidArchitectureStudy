@@ -1,6 +1,7 @@
 package com.egiwon.architecturestudy.ui.tabs
 
 import android.os.Bundle
+import android.view.View
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -27,8 +28,8 @@ class ContentsFragment : BaseFragment<FgContentsBinding, ContentsViewModel>(
             ?: error(getString(R.string.type_is_null))
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         bind {
             vm = this@ContentsFragment.viewModel
