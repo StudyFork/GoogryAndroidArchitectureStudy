@@ -1,12 +1,11 @@
 package com.siwon.prj.view.presenter
 
 import com.siwon.prj.repository.MovieSearchRepository
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import com.siwon.prj.repository.MovieSearchRepositoryImpl
 
-class MainPresenter(private val view: MainContract.View, private val repository: MovieSearchRepository) : MainContract.Presenter, KoinComponent {
+class MainPresenter(private val view: MainContract.View) : MainContract.Presenter{
 
-//    val repository: MovieSearchRepository by inject()
+    val repository: MovieSearchRepository = MovieSearchRepositoryImpl()
 
     override fun getSearchResult(input: String) {
         // 입력값 없는경우
