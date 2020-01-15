@@ -11,8 +11,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.song2.myapplication.source.MovieData
-import kotlinx.android.synthetic.main.rv_movie_item.view.*
-
 
 @Suppress("DEPRECATION")
 class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {

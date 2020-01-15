@@ -1,62 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data></data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_main_act_search_container"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        tools:context=".ui.MainActivity">
 
-        <EditText
-            android:id="@+id/et_main_act_search"
-            android:imeOptions="actionSearch"
-            android:inputType="text"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_main_act_search_btn"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btn_main_act_search_btn"
-            android:layout_width="80dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_main_act_search_container"
+            android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:text="@string/search"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/et_main_act_search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                app:layout_constraintEnd_toStartOf="@+id/btn_main_act_search_btn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btn_main_act_search_btn"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:text="@string/search"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_main_act_movie_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_main_act_search_container"
+            tools:itemCount="10"
+            tools:listitem="@layout/rv_movie_item" />
+
+        <TextView
+            android:id="@+id/tv_main_act_movie_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:padding="30dp"
+            android:text="검색 결과가 없습니다."
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_main_act_search_container" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_main_act_movie_list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cl_main_act_search_container"
-        tools:itemCount="10"
-        tools:listitem="@layout/rv_movie_item" />
-
-    <TextView
-        android:id="@+id/tv_main_act_movie_list"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:padding="30dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:text="검색 결과가 없습니다."
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cl_main_act_search_container"/>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
