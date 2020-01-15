@@ -9,11 +9,14 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
 import com.cnm.homework.R
-import com.cnm.homework.data.repository.NaverQueryRepositoryImpl
-import com.cnm.homework.data.source.remote.NaverQueryRemoteDataSourceImpl
 import com.cnm.homework.data.model.NaverResponse
-import com.cnm.homework.data.source.remote.NaverQueryRemoteDataSource
+import com.cnm.homework.data.repository.NaverQueryRepositoryImpl
+import com.cnm.homework.data.source.local.db.LocalDao
+import com.cnm.homework.data.source.local.db.LocalDatabase
+import com.cnm.homework.data.source.local.db.LocalEntity
+import com.cnm.homework.data.source.remote.NaverQueryRemoteDataSourceImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -23,12 +26,19 @@ class MainActivity : AppCompatActivity() {
 
     private val movieAdapter = MovieAdapter(::showMovieDetail)
     private val disposable = CompositeDisposable()
+    private val localDao: LocalDao by lazy {
+        val db = LocalDatabase.getInstance(this)!!
+        db.localDao()
+    }
+    private val todos: LiveData<List<LocalEntity>> by lazy {
+        localDao.loadLocal()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         rv_content.adapter = movieAdapter
+
         bt_movie_search.setOnClickListener {
 
             et_movie_search.hideKeyboard()
@@ -55,9 +65,16 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+//    private fun beforeMovieListSearch() {
+//        NaverQueryRepositoryImpl.getInstance(NaverQueryLocalDataSourceImpl).getCacheMovie()
+//
+//    }
+
     private fun movieListSearch(query: String) {
 
-        disposable.add(NaverQueryRepositoryImpl.getInstance(NaverQueryRemoteDataSourceImpl()).getNaverMovie(query)
+        disposable.add(NaverQueryRepositoryImpl.getInstance(
+            NaverQueryRemoteDataSourceImpl()
+        ).getNaverMovie(query)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
