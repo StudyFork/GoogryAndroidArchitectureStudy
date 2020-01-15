@@ -9,7 +9,7 @@ import com.onit.googlearchitecturestudy.R
 import com.onit.googlearchitecturestudy.databinding.HolderMovieBinding
 
 class ResultMovieListRecyclerAdapter(
-    private val listener: (Int) -> Unit
+    private val listener: ClickMovieListener
 ) : RecyclerView.Adapter<ResultMovieListRecyclerAdapter.MovieViewHolder>() {
 
     private val list: ArrayList<Movie> = ArrayList()
@@ -49,7 +49,7 @@ class ResultMovieListRecyclerAdapter(
 
     inner class MovieViewHolder(
         private val binding: HolderMovieBinding,
-        clickListener: (Int) -> Unit
+        clickListener: ClickMovieListener
     ) :
         RecyclerView.ViewHolder(binding.root) {
 

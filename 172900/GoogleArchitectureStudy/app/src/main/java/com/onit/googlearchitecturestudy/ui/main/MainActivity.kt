@@ -15,6 +15,8 @@ import com.onit.googlearchitecturestudy.ui.movieInformation.MovieInformationActi
 import com.onit.googlearchitecturestudy.ui.movieInformation.MovieInformationActivity.Companion.MOVIE_URL
 import kotlinx.android.synthetic.main.activity_main.*
 
+typealias ClickMovieListener = (Int) -> Unit
+
 class MainActivity : AppCompatActivity(), MainContract.View {
 
     private lateinit var resultMovieListRecyclerAdapter: ResultMovieListRecyclerAdapter
@@ -59,19 +61,13 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     private fun setRecyclerView() {
-        resultMovieListRecyclerAdapter =
-            ResultMovieListRecyclerAdapter { position ->
-                clickMovieItem(
-                    position
-                )
-            }
+        resultMovieListRecyclerAdapter = ResultMovieListRecyclerAdapter(clickMovieListener)
         resultMovieListRecyclerView.adapter = resultMovieListRecyclerAdapter
     }
 
-    private fun clickMovieItem(position: Int) {
-        val intent = Intent(this, MovieInformationActivity::class.java).apply {
+    private val clickMovieListener: ClickMovieListener = { position ->
+        Intent(this, MovieInformationActivity::class.java).apply {
             putExtra(MOVIE_URL, resultMovieListRecyclerAdapter.getMovieURL(position))
-        }
-        startActivity(intent)
+        }.run { startActivity(this) }
     }
 }
