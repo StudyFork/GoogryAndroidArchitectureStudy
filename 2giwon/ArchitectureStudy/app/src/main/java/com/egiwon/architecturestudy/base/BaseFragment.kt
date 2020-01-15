@@ -37,7 +37,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
         )
     }
 
-    fun showToast(text: String) {
+    private fun showToast(text: String) {
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
     }
 
