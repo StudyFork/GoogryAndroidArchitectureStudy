@@ -13,12 +13,8 @@ class TabsFragment : Fragment(R.layout.fg_tabs) {
     }
 
     private fun initViewPager() {
-        vp_contents.apply {
-            adapter = fragmentManager?.let {
-                PagerAdapter(
-                    it
-                )
-            }
+        vp_contents.run {
+            adapter = fragmentManager?.let { PagerAdapter(it) }
             addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tl_search))
         }
 
