@@ -1,13 +1,12 @@
 package com.example.study.data.datasource.remote
 
-import android.util.Log
 import com.example.study.data.datasource.remote.network.NaverApiServiceImpl
 import com.example.study.data.model.NaverSearchResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NaverSearchRemoteDatasourceImpl : NaverSearchRemoteDatasource {
+class NaverSearchRemoteDataSourceImpl : NaverSearchRemoteDataSource {
 
     override fun getMovies(
         query: String,
