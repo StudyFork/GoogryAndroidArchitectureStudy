@@ -35,8 +35,7 @@
                 android:id="@+id/edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onTextChanged="@{vm::onTextChanged}"
-                android:text="@{vm.inputKeyword}" />
+                android:text="@={vm.inputKeyword}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button

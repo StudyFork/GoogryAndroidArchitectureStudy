@@ -13,12 +13,6 @@ class ImageViewModel(private val naverRepositroy: NaverRepoInterface) {
     val errorToast = ObservableField<Throwable>()
     val isListEmpty = ObservableField<Boolean>(true)
 
-
-    fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        inputKeyword = s.toString()
-    }
-
-
     suspend fun requestSearchHist() {
         naverRepositroy.getImageHist().let {
             if (it.isNotEmpty()) {
