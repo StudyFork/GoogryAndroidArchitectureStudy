@@ -7,9 +7,6 @@
         <variable
             name="movie"
             type="com.example.handnew04.data.MovieData" />
-        <variable
-            name="adapter"
-            type="com.example.handnew04.adapter.MovieRecyclerAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
