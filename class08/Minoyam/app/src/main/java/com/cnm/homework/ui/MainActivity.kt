@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.cnm.homework.R
 import com.cnm.homework.data.model.NaverResponse
 import com.cnm.homework.data.repository.NaverQueryRepositoryImpl
+import com.cnm.homework.data.source.local.NaverQueryLocalDataSourceImpl
+import com.cnm.homework.data.source.local.db.LocalDao
+import com.cnm.homework.data.source.local.db.LocalDatabase
 import com.cnm.homework.data.source.remote.NaverQueryRemoteDataSourceImpl
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,22 +23,24 @@ class MainActivity : AppCompatActivity() {
 
     private val movieAdapter = MovieAdapter(::showMovieDetail)
     private val disposable = CompositeDisposable()
-    private val naverQueryRepositoryImpl: NaverQueryRepositoryImpl by lazy {
-        NaverQueryRepositoryImpl(NaverQueryRemoteDataSourceImpl())
+    private val localDao: LocalDao by lazy {
+        val db = LocalDatabase.getInstance(this)!!
+        db.localDao()
     }
-//    private val localDao: LocalDao by lazy {
-//        val db = LocalDatabase.getInstance(this)!!
-//        db.localDao()
-//    }
-//    private val local: LiveData<List<LocalEntity>> by lazy {
-//        localDao.loadLocal()
-//    }
+    private val naverQueryRepositoryImpl: NaverQueryRepositoryImpl by lazy {
+        NaverQueryRepositoryImpl(
+            NaverQueryRemoteDataSourceImpl(),
+            NaverQueryLocalDataSourceImpl(localDao)
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         rv_content.adapter = movieAdapter
-
+        if (movieAdapter.movieItems.isEmpty()) {
+            beforeMovieListSearch()
+        }
         bt_movie_search.setOnClickListener {
 
             et_movie_search.hideKeyboard()
@@ -62,10 +67,13 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-//    private fun beforeMovieListSearch() {
-//        NaverQueryRepositoryImpl.getInstance(NaverQueryLocalDataSourceImpl).getCacheMovie()
-//
-//    }
+    private fun beforeMovieListSearch() {
+        val repoItem = mutableListOf<NaverResponse.Item>()
+            .apply {
+                naverQueryRepositoryImpl.loadLocal().forEach { this.add(it.repo) }
+            }
+        movieAdapter.setItem(repoItem)
+    }
 
     private fun movieListSearch(query: String) {
 

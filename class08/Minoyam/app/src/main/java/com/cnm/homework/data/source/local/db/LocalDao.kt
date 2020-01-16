@@ -1,6 +1,5 @@
 package com.cnm.homework.data.source.local.db
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -12,5 +11,5 @@ interface LocalDao {
     fun insertLocal(localEntity: LocalEntity)
 
     @Query("SELECT * FROM local ")
-    fun loadLocal(): LiveData<List<LocalEntity>>
+    fun loadLocal(): List<LocalEntity>
 }
