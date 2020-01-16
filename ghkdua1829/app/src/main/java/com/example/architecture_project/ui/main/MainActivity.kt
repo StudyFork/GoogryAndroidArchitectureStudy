@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.RecyclerView
 import com.example.architecture_project.R
 import com.example.architecture_project.`object`.ObjectCollection.URL
 import com.example.architecture_project.data.model.NaverApi
@@ -16,16 +15,15 @@ import com.example.architecture_project.feature.search.WebviewActivity
 class MainActivity : AppCompatActivity(),
     MainContract.View {
 
-    private lateinit var movieRecyclerView: RecyclerView   //수정완료
     private lateinit var movieAdapter: MovieAdapter
-    val presenter: MainContract.Presenter =
-        MainPresenter(this)
+    val presenter: MainContract.Presenter = MainPresenter(this)
+    lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: ActivityMainBinding =DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        movieRecyclerView = findViewById(R.id.rv_movie)
+        binding.mainActivity = this@MainActivity
         movieAdapter = MovieAdapter(object : MovieAdapter.MovieViewHolder.ItemClickListener {
             override fun onItemClick(position: Int) {
                 val goWebView = Intent(this@MainActivity, WebviewActivity::class.java)
@@ -33,15 +31,18 @@ class MainActivity : AppCompatActivity(),
                 startActivity(goWebView)
             }
         })
-        movieRecyclerView.adapter = movieAdapter
-//
-        binding.btnSearch.setOnClickListener {
-            callMovie(binding.etSearch.text.toString())
-        }
+        binding.rvMovie.adapter = movieAdapter
+
+
     }
 
-    fun callMovie(keyword: String) {   //수정완료
-        presenter.getMovieData(keyword)
+//    fun searchMovie() {
+//        Toast.makeText(this, binding.etSearch.text.toString(), Toast.LENGTH_SHORT).show()
+//        callMovie(binding.etSearch.text.toString())
+//    }
+
+    fun callMovie() {   //수정완료
+        presenter.getMovieData(binding.etSearch.text.toString())
     }
 
     override fun showNoResult() {
