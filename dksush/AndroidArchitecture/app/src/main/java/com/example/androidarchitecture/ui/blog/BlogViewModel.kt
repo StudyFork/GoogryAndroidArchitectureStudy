@@ -10,7 +10,7 @@ class BlogViewModel(
 ) {
 
     var inputKeyword = naverRepositroy.getBlogKeyword()
-    val blankInputText = ObservableField<Any>() //get,set 자동생성? //ObservableField 를 이용해 xml 에 바인딩 할 수 있는 클래스를 만듬
+    val blankInputText = ObservableField<Unit>() //get,set 자동생성? //ObservableField 를 이용해 xml 에 바인딩 할 수 있는 클래스를 만듬
     val renderItems = ObservableField<List<BlogData>>()
     val errorToast = ObservableField<Throwable>()
     val isListEmpty = ObservableField<Boolean>(true)
@@ -35,7 +35,7 @@ class BlogViewModel(
 
     fun onBtnSearch() {
         if (TextUtils.isEmpty(inputKeyword)) {
-            blankInputText.set(Any())
+            blankInputText.set(Unit)
         } else {
             naverRepositroy.saveBlogKeyword(inputKeyword) // 검색어 쉐어드에 저장.
             naverRepositroy.getBlog(inputKeyword, 1, 10,

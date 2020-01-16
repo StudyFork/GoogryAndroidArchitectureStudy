@@ -8,7 +8,7 @@ import com.example.androidarchitecture.data.response.ImageData
 class ImageViewModel(private val naverRepositroy: NaverRepoInterface) {
 
     var inputKeyword = naverRepositroy.getImageKeyword()
-    val blankInputText = ObservableField<Any>()
+    val blankInputText = ObservableField<Unit>()
     val renderItems = ObservableField<List<ImageData>>()
     val errorToast = ObservableField<Throwable>()
     val isListEmpty = ObservableField<Boolean>(true)
@@ -33,7 +33,7 @@ class ImageViewModel(private val naverRepositroy: NaverRepoInterface) {
 
     fun onBtnSearch() {
         if (TextUtils.isEmpty(inputKeyword)) {
-            blankInputText.set(Any())
+            blankInputText.set(Unit)
         } else {
             naverRepositroy.saveImageKeyword(inputKeyword) // 검색어 쉐어드에 저장.
             naverRepositroy.getImage(inputKeyword, 1, 10,

@@ -8,7 +8,7 @@ import com.example.androidarchitecture.data.response.KinData
 class KinViewModel(private val naverRepositroy: NaverRepoInterface) {
 
     var inputKeyword = naverRepositroy.getKinKeyword()
-    val blankInputText = ObservableField<Any>()
+    val blankInputText = ObservableField<Unit>()
     val renderItems = ObservableField<List<KinData>>()
     val errorToast = ObservableField<Throwable>()
     val isListEmpty = ObservableField<Boolean>(true)
@@ -33,7 +33,7 @@ class KinViewModel(private val naverRepositroy: NaverRepoInterface) {
 
     fun onBtnSearch() {
         if (TextUtils.isEmpty(inputKeyword)) {
-            blankInputText.set(Any())
+            blankInputText.set(Unit)
         } else {
             naverRepositroy.saveKinKeyword(inputKeyword) // 검색어 쉐어드에 저장.
             naverRepositroy.getKin(inputKeyword, 1, 10,
