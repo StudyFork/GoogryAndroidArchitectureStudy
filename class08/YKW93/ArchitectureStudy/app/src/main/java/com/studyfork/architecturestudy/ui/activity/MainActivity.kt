@@ -1,4 +1,4 @@
-package com.studyfork.architecturestudy
+package com.studyfork.architecturestudy.ui.activity
 
 import android.content.Intent
 import android.net.Uri
@@ -7,12 +7,21 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.studyfork.architecturestudy.R
+import com.studyfork.architecturestudy.data.repository.MovieRepositoryImpl
+import com.studyfork.architecturestudy.data.source.remote.MovieRemoteDataSourceImpl
+import com.studyfork.architecturestudy.extension.hideKeyboard
+import com.studyfork.architecturestudy.ui.adapter.MovieResultRVAdapter
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     private val compositeDisposable = CompositeDisposable()
+
+    private val movieRepositoryImpl: MovieRepositoryImpl by lazy {
+        MovieRepositoryImpl(MovieRemoteDataSourceImpl())
+    }
 
     private val movieResultRVAdapter: MovieResultRVAdapter by lazy {
         MovieResultRVAdapter {
@@ -40,23 +49,23 @@ class MainActivity : AppCompatActivity() {
 
     private fun getMovieList(query: String) {
         compositeDisposable.add(
-            ApiClient.apiService.getMovieList(query)
-                .applySchedulers()
-                .doOnSubscribe {
+            movieRepositoryImpl.getMovieList(query, {
+                if (it) {
                     pb_loading_view.visibility = View.VISIBLE
-                }
-                .doAfterTerminate {
+                } else {
                     pb_loading_view.visibility = View.GONE
                 }
-                .subscribe({
-                    if (it.total != 0) {
-                        movieResultRVAdapter.setItems(it.items)
-                    } else {
-                        Toast.makeText(baseContext, getString(R.string.empty_data_notice), Toast.LENGTH_SHORT).show()
-                    }
-                }, {
-                    it.printStackTrace()
-                })
+
+            }, {
+                if (it.total != 0) {
+                    movieResultRVAdapter.setItems(it.items)
+                } else {
+                    Toast.makeText(baseContext, getString(R.string.empty_data_notice), Toast.LENGTH_SHORT).show()
+                }
+
+            }, {
+                it.printStackTrace()
+            })
         )
     }
 

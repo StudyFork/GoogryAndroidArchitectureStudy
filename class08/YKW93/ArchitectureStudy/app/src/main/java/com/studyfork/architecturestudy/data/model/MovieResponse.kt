@@ -1,4 +1,4 @@
-package com.studyfork.architecturestudy
+package com.studyfork.architecturestudy.data.model
 
 
 import com.google.gson.annotations.SerializedName

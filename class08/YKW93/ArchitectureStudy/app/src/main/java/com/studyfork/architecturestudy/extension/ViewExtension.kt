@@ -1,4 +1,4 @@
-package com.studyfork.architecturestudy
+package com.studyfork.architecturestudy.extension
 
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.view.View

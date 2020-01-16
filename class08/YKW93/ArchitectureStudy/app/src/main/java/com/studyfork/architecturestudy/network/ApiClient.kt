@@ -1,5 +1,6 @@
-package com.studyfork.architecturestudy
+package com.studyfork.architecturestudy.network
 
+import com.studyfork.architecturestudy.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -35,5 +36,6 @@ object ApiClient {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
-    val apiService: ApiService = retrofit.create(ApiService::class.java)
+    val apiService: ApiService = retrofit.create(
+        ApiService::class.java)
 }
