@@ -49,16 +49,6 @@ class KinFragment : BaseFragment<FragmentKinBinding>(R.layout.fragment_kin) {
 
         })
 
-        vm.renderItems.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                vm.renderItems.get()?.let {
-                    kinAdapter.setData(it)
-                }
-            }
-
-        })
-
         vm.errorToast.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {

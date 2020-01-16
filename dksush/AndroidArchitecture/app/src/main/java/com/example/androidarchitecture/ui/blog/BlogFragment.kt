@@ -54,16 +54,6 @@ class BlogFragment : BaseFragment<FragmentBlogBinding>(R.layout.fragment_blog) {
 
         })
 
-        vm.renderItems.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                vm.renderItems.get()?.let {
-                    blogAdapter.setData(it)
-                }
-            }
-
-        })
-
         vm.errorToast.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {

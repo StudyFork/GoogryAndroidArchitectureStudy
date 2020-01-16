@@ -50,16 +50,6 @@ class ImageFragment : BaseFragment<FragmentImageBinding>(R.layout.fragment_image
 
         })
 
-        vm.renderItems.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                vm.renderItems.get()?.let {
-                    imageAdapter.setData(it)
-                }
-            }
-
-        })
-
         vm.errorToast.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {

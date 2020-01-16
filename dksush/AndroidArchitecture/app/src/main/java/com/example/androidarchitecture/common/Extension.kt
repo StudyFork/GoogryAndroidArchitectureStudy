@@ -7,7 +7,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.androidarchitecture.ui.base.BaseRecyclerAdapter
+import com.example.androidarchitecture.ui.base.BaseViewHolder
+
 
 @SuppressLint("ShowToast")
 fun Context.toast(msg: String) {
@@ -25,4 +29,14 @@ fun bindImage(view: ImageView, res: String) {
     Glide.with(view.context)
         .load(res)
         .into(view)
+}
+
+@Suppress("UNCHECKED_CAST")
+@BindingAdapter("setData")
+fun RecyclerView.setData(items: List<Any>?) {
+    (this.adapter as? BaseRecyclerAdapter<Any, BaseViewHolder<Any>>)?.run {
+        items?.let {
+            setData(items)
+        }
+    }
 }

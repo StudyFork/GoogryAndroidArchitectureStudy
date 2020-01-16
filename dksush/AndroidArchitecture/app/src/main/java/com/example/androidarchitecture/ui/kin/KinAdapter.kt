@@ -44,11 +44,11 @@ class KinAdapter : BaseRecyclerAdapter<KinData, KinAdapter.KinHolder>(DiffCallba
 
     private class DiffCallback : DiffUtil.ItemCallback<KinData>() {
         override fun areItemsTheSame(oldItem: KinData, newItem: KinData): Boolean {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItem: KinData, newItem: KinData): Boolean {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            return oldItem == newItem
         }
 
     }
