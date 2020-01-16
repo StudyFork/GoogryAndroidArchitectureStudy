@@ -2,7 +2,10 @@ package com.hansung.firstproject.ui.main
 
 import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -43,6 +46,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         // recyclerView initialize
         initRecyclerView()
+        // keyboard function
+        setKeyboardSearchFunc()
 
         with(binding) {
             btnSearch.setOnClickListener {
@@ -90,5 +95,20 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             addItems(response.items)
             notifyDataSetChanged()
         }
+    }
+
+    private fun setKeyboardSearchFunc() {
+        binding.etSearch.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+            override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
+                when (actionId) {
+                    EditorInfo.IME_ACTION_SEARCH -> {
+                        presenter.doSearch(binding.etSearch.text.toString())
+                    }
+                    else ->
+                        return false
+                }
+                return true
+            }
+        })
     }
 }
