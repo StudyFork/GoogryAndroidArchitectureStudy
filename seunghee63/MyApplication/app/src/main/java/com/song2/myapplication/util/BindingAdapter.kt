@@ -14,5 +14,5 @@ fun setPosterImage(view: ImageView, imageUrl: String?) {
 
 @BindingAdapter("setRating")
 fun setRatingValue(view: RatingBar, userRating: Double?) {
-    //view.rating = (userRating!! / 2).toFloat()
+    view.rating = (userRating!! / 2).toFloat()
 }
