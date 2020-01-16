@@ -62,15 +62,6 @@ class BlogFragment : BaseFragment<FragmentBlogBinding>(R.layout.fragment_blog) {
 
         })
 
-        vm.isListEmpty.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                binding.isListEmpty = vm.isListEmpty.get()
-
-            }
-
-        })
-
     }
 
 

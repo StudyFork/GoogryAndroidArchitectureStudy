@@ -58,15 +58,6 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie
 
         })
 
-        vm.isListEmpty.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                binding.isListEmpty = vm.isListEmpty.get()
-
-            }
-
-        })
-
     }
 
 

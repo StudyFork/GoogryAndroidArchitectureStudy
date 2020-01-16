@@ -11,7 +11,7 @@ class KinViewModel(private val naverRepositroy: NaverRepoInterface) {
     val blankInputText = ObservableField<Any>()
     val renderItems = ObservableField<List<KinData>>()
     val errorToast = ObservableField<Throwable>()
-    val isListEmpty = ObservableField<Boolean>()
+    val isListEmpty = ObservableField<Boolean>(true)
 
 
     fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {

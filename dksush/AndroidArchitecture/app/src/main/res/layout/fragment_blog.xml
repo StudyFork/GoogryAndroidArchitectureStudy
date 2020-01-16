@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:text="@string/empty_item"
             android:textSize="30dp"
-            android:visibility="@{isListEmpty ? View.VISIBLE : View.INVISIBLE}"
+            android:visibility="@{vm.isListEmpty()? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
