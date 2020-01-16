@@ -17,14 +17,15 @@ import com.bumptech.glide.Glide
 class MovieAdapter(private val itemClick: (String) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val list: ArrayList<MovieModel> = ArrayList()
+    private val list = mutableListOf<MovieModel>()
 
-    fun replaceAll(items: ArrayList<MovieModel>) {
+    fun replaceAll(items: MutableList<MovieModel>) {
         items.let {
             this.list.run {
                 clear()
                 addAll(it)
             }
+            notifyDataSetChanged()
         }
     }
 
