@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="movie"
+            type="com.song2.myapplication.source.MovieData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,6 +18,7 @@
             android:layout_width="132dp"
             android:layout_height="200dp"
             android:layout_margin="8dp"
+            setImage="@{movie.image}"
             android:src="@color/colorBlack"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:text="영화제목"
+            android:text="@{movie.title}"
             android:textColor="@color/colorBlack"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/iv_rv_movie_item_image"
@@ -36,6 +39,7 @@
         <androidx.appcompat.widget.AppCompatRatingBar
             android:id="@+id/rb_rv_movie_item_rating"
             style="@style/Base.Widget.AppCompat.RatingBar.Small"
+            setRating="@{movie.userRating}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -50,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="2018"
+            android:text="@{movie.pubDate}"
             android:textColor="@color/colorBlack"
             app:layout_constraintStart_toEndOf="@+id/iv_rv_movie_item_image"
             app:layout_constraintTop_toBottomOf="@+id/rb_rv_movie_item_rating" />
@@ -61,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="감독|"
+            android:text="@{movie.director}"
             android:textColor="@color/colorBlack"
             app:layout_constraintStart_toEndOf="@+id/iv_rv_movie_item_image"
             app:layout_constraintTop_toBottomOf="@+id/tv_rv_movie_item_pub_date" />
@@ -72,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="배우1 | 배우2 | 배우3 | 베우4"
+            android:text="@{movie.actor}"
             android:textColor="@color/colorBlack"
             app:layout_constraintStart_toEndOf="@+id/iv_rv_movie_item_image"
             app:layout_constraintTop_toBottomOf="@+id/tv_rv_movie_item_director" />
