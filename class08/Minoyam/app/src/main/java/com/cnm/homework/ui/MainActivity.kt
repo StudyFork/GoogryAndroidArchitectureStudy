@@ -20,6 +20,9 @@ class MainActivity : AppCompatActivity() {
 
     private val movieAdapter = MovieAdapter(::showMovieDetail)
     private val disposable = CompositeDisposable()
+    private val naverQueryRepositoryImpl: NaverQueryRepositoryImpl by lazy {
+        NaverQueryRepositoryImpl(NaverQueryRemoteDataSourceImpl())
+    }
 //    private val localDao: LocalDao by lazy {
 //        val db = LocalDatabase.getInstance(this)!!
 //        db.localDao()
@@ -66,9 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun movieListSearch(query: String) {
 
-        disposable.add(NaverQueryRepositoryImpl.getInstance(
-            NaverQueryRemoteDataSourceImpl()
-        ).getNaverMovie(query)
+        disposable.add(naverQueryRepositoryImpl.getNaverMovie(query)
             .doOnSubscribe {
                 showProgress()
             }

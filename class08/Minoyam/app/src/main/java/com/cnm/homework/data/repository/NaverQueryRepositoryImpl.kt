@@ -25,15 +25,5 @@ class NaverQueryRepositoryImpl(
 //    }
 
 
-    companion object {
-        private var INSTANCE: NaverQueryRepositoryImpl? = null
 
-        fun getInstance(
-            remoteDataSource: NaverQueryRemoteDataSource
-//            localDataSource: NaverQueryLocalDataSource
-        ): NaverQueryRepository =
-            INSTANCE ?: NaverQueryRepositoryImpl(remoteDataSource).apply {
-                INSTANCE = this
-            }
-    }
 }
