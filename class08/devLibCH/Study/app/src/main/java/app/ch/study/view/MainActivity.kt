@@ -15,7 +15,7 @@ import app.ch.study.data.local.source.NaverQueryLocalDataSourceImpl
 import app.ch.study.data.remote.api.WebApiDefine
 import app.ch.study.data.remote.api.WebApiTask
 import app.ch.study.data.remote.source.NaverQueryRemoteDataSourceImpl
-import app.ch.study.data.repository.NaverQueryRepositoryImple
+import app.ch.study.data.repository.NaverQueryRepositoryImpl
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import retrofit2.HttpException
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var rvMovie: RecyclerView
     lateinit var etSearch: EditText
-    lateinit var repository: NaverQueryRepositoryImple
+    lateinit var repository: NaverQueryRepositoryImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
         val local = NaverQueryLocalDataSourceImpl()
         val remote = NaverQueryRemoteDataSourceImpl(WebApiTask.getInstance())
-        repository = NaverQueryRepositoryImple(local, remote)
+        repository = NaverQueryRepositoryImpl(local, remote)
 
         btnSearch.setOnClickListener {
             val name = etSearch.text.toString()

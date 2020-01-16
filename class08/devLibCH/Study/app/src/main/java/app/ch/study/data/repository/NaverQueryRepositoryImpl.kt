@@ -6,7 +6,7 @@ import app.ch.study.data.remote.source.NaverQueryRemoteDataSourceImpl
 import io.reactivex.Observable
 import io.reactivex.Single
 
-class NaverQueryRepositoryImple(
+class NaverQueryRepositoryImpl(
     private val naverQueryLocalDataSource: NaverQueryLocalDataSourceImpl,
     private val naverQueryRemoteDataSource: NaverQueryRemoteDataSourceImpl
 ) : NaverQueryRepository {
