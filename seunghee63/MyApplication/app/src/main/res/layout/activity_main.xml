@@ -16,6 +16,8 @@
 
         <EditText
             android:id="@+id/et_main_act_search"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_main_act_search_btn"
@@ -42,5 +44,19 @@
         app:layout_constraintTop_toBottomOf="@+id/cl_main_act_search_container"
         tools:itemCount="10"
         tools:listitem="@layout/rv_movie_item" />
+
+    <TextView
+        android:id="@+id/tv_main_act_movie_list"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:padding="30dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="검색 결과가 없습니다."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_main_act_search_container"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

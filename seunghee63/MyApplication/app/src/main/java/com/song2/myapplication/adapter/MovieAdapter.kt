@@ -5,15 +5,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.song2.myapplication.R
-import com.song2.myapplication.data.MovieData
+import com.song2.myapplication.source.MovieData
 
 class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
 
     private val data = ArrayList<MovieData>()
 
-    fun setMovieList(newMovieList: List<MovieData>) {
+    fun clearData() {
+        data.clear()
+    }
+
+    fun addItem(newMovieList: List<MovieData>) {
         with(data) {
-            clear()
             addAll(newMovieList)
         }
         notifyDataSetChanged()

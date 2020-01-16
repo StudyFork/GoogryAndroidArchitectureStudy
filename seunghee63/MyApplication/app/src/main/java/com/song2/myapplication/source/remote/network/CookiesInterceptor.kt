@@ -1,4 +1,4 @@
-package com.song2.myapplication.data.cookies
+package com.song2.myapplication.source.remote.network
 
 import com.song2.myapplication.util.config
 import okhttp3.Interceptor
