@@ -6,7 +6,6 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.parameter.parametersOf
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.CallAdapter
 import retrofit2.Converter
@@ -39,23 +38,25 @@ val networkModule = module {
     single<Converter.Factory> {
         GsonConverterFactory.create()
     }
-    single {
-        ContentsService::class.java
-    }
+
     factory {
         OkHttpClient.Builder()
             .addInterceptor(get<Interceptor>())
             .addInterceptor { get { parametersOf(it) } }
             .build()
     }
-    single(named("remote")) {
+
+    single<Retrofit> {
         Retrofit.Builder()
             .baseUrl("https://openapi.naver.com/")
             .client(get<OkHttpClient>())
             .addCallAdapterFactory(get())
             .addConverterFactory(get())
             .build()
-            .create(get<Class<ContentsService>>())
+
+    }
+    single {
+        get<Retrofit>().create(ContentsService::class.java)
     }
 }
 
