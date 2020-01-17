@@ -74,7 +74,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun movieListSearch(query: String) {
 
+
         disposable.add(naverQueryRepositoryImpl.getNaverMovie(query)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
                 showProgress()
             }
