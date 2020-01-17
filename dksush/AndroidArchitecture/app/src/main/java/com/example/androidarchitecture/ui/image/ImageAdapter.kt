@@ -45,11 +45,11 @@ class ImageAdapter :
 
     private class DiffCallback : DiffUtil.ItemCallback<ImageData>() {
         override fun areItemsTheSame(oldItem: ImageData, newItem: ImageData): Boolean {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItem: ImageData, newItem: ImageData): Boolean {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            return oldItem == newItem
         }
 
     }

@@ -12,9 +12,8 @@
             type="Boolean" />
 
         <variable
-            name="lastInputText"
-            type="String" />
-
+            name="vm"
+            type="com.example.androidarchitecture.ui.image.ImageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,7 +35,7 @@
                 android:id="@+id/edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{lastInputText}" />
+                android:text="@={vm.inputKeyword}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -48,7 +47,9 @@
             app:layout_constraintBottom_toBottomOf="@id/input_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/input_text"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{()->vm.onBtnSearch()}"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycle"
@@ -60,7 +61,8 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input_text"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            setData="@{vm.renderItems}"/>
 
         <TextView
             android:id="@+id/tv_empty_itme"
@@ -68,7 +70,7 @@
             android:layout_height="wrap_content"
             android:text="@string/empty_item"
             android:textSize="30dp"
-            android:visibility="@{isListEmpty ? View.VISIBLE : View.INVISIBLE}"
+            android:visibility="@{vm.isListEmpty ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
