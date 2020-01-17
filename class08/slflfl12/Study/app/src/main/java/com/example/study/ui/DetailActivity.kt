@@ -16,9 +16,9 @@ class DetailActivity : AppCompatActivity() {
         var intent = getIntent()
         var movieUrl = intent.getStringExtra(MOVIE_URL)
 
-        webview.settings.javaScriptEnabled
+        wv_detail.settings.javaScriptEnabled
         movieUrl?.let {
-            webview.loadUrl(it)
+            wv_detail.loadUrl(it)
         }
     }
     companion object {

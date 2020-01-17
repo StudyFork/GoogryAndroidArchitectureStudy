@@ -8,4 +8,6 @@
     <string name="director">감독</string>
 
     <string name="actor">배우</string>
+
+    <string name="btn_search">검색</string>
 </resources>

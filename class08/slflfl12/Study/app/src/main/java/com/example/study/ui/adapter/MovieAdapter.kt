@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.study.R
 import com.example.study.data.model.Movie
-import kotlinx.android.synthetic.main.movie_view.view.*
+import kotlinx.android.synthetic.main.movie_item.view.*
 
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
@@ -16,7 +16,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     private var onItemClickListener : OnItemClickListener?  = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_view, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
         val holder = MovieViewHolder(view)
         holder.itemView.setOnClickListener {
             onItemClickListener?.onItemClickListener(movies[holder.adapterPosition])
@@ -51,12 +51,12 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
             with(itemView) {
                 Glide.with(context)
                     .load(movie.image)
-                    .into(image_view)
-                title_view.text = movie.title
-                rating_bar.rating = movie.userRating.toFloat() / 2
-                pubdate_view.text = movie.pubDate
-                director_view.text = movie.director
-                actor_view.text = movie.actor
+                    .into(iv_movie_image)
+                tv_title.text = movie.title
+                rb_movie_rating.rating = movie.userRating.toFloat() / 2
+                tv_pubdate.text = movie.pubDate
+                tv_director.text = movie.director
+                tv_actor.text = movie.actor
             }
         }
     }

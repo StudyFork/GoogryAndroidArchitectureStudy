@@ -31,10 +31,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        recycler_view.adapter = movieAdapter
+        rv_movie_list.adapter = movieAdapter
 
-        search_button.setOnClickListener {
-            getMovieList(search_editText.text.toString())
+        btn_search.setOnClickListener {
+            getMovieList(et_movie_search.text.toString())
         }
 
         movieAdapter.setOnItemClickListener { movie ->
