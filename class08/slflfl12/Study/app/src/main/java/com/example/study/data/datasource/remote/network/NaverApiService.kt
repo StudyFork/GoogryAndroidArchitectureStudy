@@ -15,5 +15,5 @@ interface NaverApiService {
     @GET("v1/search/movie.json")
     fun getMovieList(
         @Query("query") query: String
-    ) : Single<NaverSearchResponse>
+    ): Single<NaverSearchResponse>
 }

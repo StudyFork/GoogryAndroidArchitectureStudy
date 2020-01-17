@@ -58,16 +58,20 @@ class MainActivity : AppCompatActivity() {
                 hideProgress()
             }
             .subscribe({
-                it?.let{
-                    if(it.items.isNotEmpty())
+                it?.let {
+                    if (it.items.isNotEmpty())
                         movieAdapter.setItem(it.items)
                     else
-                        Toast.makeText(this@MainActivity, R.string.error_message, Toast.LENGTH_SHORT ).show()
-            }
+                        Toast.makeText(
+                            this@MainActivity,
+                            R.string.error_message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                }
             }, {
                 it.printStackTrace()
             })
-            )
+        )
 
     }
 

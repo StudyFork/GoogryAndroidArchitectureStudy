@@ -21,6 +21,7 @@ class DetailActivity : AppCompatActivity() {
             wv_detail.loadUrl(it)
         }
     }
+
     companion object {
         const val MOVIE_URL = "movieUrl"
     }

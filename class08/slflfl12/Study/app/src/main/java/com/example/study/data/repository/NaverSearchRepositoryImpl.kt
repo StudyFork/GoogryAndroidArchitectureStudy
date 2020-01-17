@@ -10,7 +10,7 @@ class NaverSearchRepositoryImpl : NaverSearchRepository {
     private val naverSearchRemoteDataSource: NaverSearchRemoteDataSource =
         NaverSearchRemoteDataSourceImpl()
 
-    override fun getMovies(query: String) : Single<NaverSearchResponse> {
+    override fun getMovies(query: String): Single<NaverSearchResponse> {
         return naverSearchRemoteDataSource.getMovies(query)
     }
 }
