@@ -11,6 +11,9 @@ import com.example.study.data.model.Movie
 import com.example.study.data.model.NaverSearchResponse
 import com.example.study.data.repository.NaverSearchRepository
 import com.example.study.data.repository.NaverSearchRepositoryImpl
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Retrofit
 import retrofit2.Response
@@ -22,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     private val movieAdapter = MovieAdapter()
     private val naverSearchRepository: NaverSearchRepository = NaverSearchRepositoryImpl()
+    private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,10 +46,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getMovieList(query: String) {
-        naverSearchRepository.getMovies(query,
-            success = { movieAdapter.setItem(it.items) },
-            fail = { Log.e("error is ", it.toString()) }
-        )
+        compositeDisposable.add(naverSearchRepository.getMovies(query)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                movieAdapter.setItem(it.items)
+            }, {
+                it.printStackTrace()
+            })
+            )
+
     }
 }
 
