@@ -68,10 +68,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun beforeMovieListSearch() {
-        val repoItem = mutableListOf<NaverResponse.Item>()
-            .apply {
-                naverQueryRepositoryImpl.loadLocal().forEach { this.add(it.repo) }
-            }
+        val repoItem = naverQueryRepositoryImpl.loadLocal()
         movieAdapter.setItem(repoItem)
     }
 

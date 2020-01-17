@@ -22,9 +22,11 @@ class NaverQueryRepositoryImpl(
     override fun saveCacheMovie(localEntity: LocalEntity): Single<Unit> =
         localDataSoure.saveCacheMovie(localEntity)
 
-    override fun loadLocal(): List<LocalEntity> {
-        return localDataSoure.loadLocal()
+    override fun loadLocal(): List<NaverResponse.Item> {
+        return mutableListOf<NaverResponse.Item>()
+            .apply {
+                localDataSoure.loadLocal().forEach { add(it.repo) }
+            }
     }
-
 
 }

@@ -9,7 +9,7 @@ interface NaverQueryRepository {
 
     fun saveCacheMovie(localEntity: LocalEntity): Single<Unit>
 
-    fun loadLocal(): List<LocalEntity>
+    fun loadLocal(): List<NaverResponse.Item>
 
 
 }
