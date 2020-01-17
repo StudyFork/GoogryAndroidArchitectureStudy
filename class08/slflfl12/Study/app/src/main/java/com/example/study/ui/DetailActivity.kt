@@ -22,6 +22,6 @@ class DetailActivity : AppCompatActivity() {
         }
     }
     companion object {
-        const val MOVIE_URL = "movie_url"
+        const val MOVIE_URL = "movieUrl"
     }
 }

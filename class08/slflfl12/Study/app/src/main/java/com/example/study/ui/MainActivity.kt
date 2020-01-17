@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         movieAdapter.setOnItemClickListener { movie ->
             var intent = Intent(this, DetailActivity::class.java)
-            intent.putExtra("movie_url", movie.link.toString())
+            intent.putExtra("movieUrl", movie.link.toString())
 
             this.startActivity(intent)
         }
