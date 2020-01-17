@@ -49,14 +49,14 @@ class MovieRecyclerAdapter :
 
 
     inner class ViewHolder(val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movieData: MovieData) {
-            binding.movie = movieData
-        }
-
         init {
             binding.root.setOnClickListener(View.OnClickListener {
                 itemClickListner.onClick(adapterPosition)
             })
+        }
+
+        fun bind(movieData: MovieData) {
+            binding.movie = movieData
         }
     }
 }
