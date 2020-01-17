@@ -20,7 +20,7 @@ class WebviewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_webview)
 
         binding.wbPage.webViewClient = WebViewClient()
-        var webViewSettings = binding.wbPage.settings
+        val webViewSettings = binding.wbPage.settings
         webViewSettings.run {
             javaScriptEnabled = true
             setSupportMultipleWindows(false)
