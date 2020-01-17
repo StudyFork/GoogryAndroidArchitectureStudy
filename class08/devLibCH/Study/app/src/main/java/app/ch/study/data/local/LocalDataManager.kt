@@ -1,12 +1,8 @@
 package app.ch.study.data.local
 
-import android.content.Context
 import android.content.SharedPreferences
 
-open class LocalDataManager(context: Context) {
-
-    private val prefs: SharedPreferences =
-        context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
+open class LocalDataManager(private val prefs: SharedPreferences) {
 
     fun saveMovieList(list: String) {
         val editor = prefs.edit()
@@ -27,9 +23,9 @@ open class LocalDataManager(context: Context) {
     companion object {
         private var staticSharedPrefer: LocalDataManager? = null
 
-        fun getInstance(context: Context): LocalDataManager {
+        fun getInstance(prefs: SharedPreferences): LocalDataManager {
             if (staticSharedPrefer == null)
-                staticSharedPrefer = LocalDataManager(context)
+                staticSharedPrefer = LocalDataManager(prefs)
 
             return staticSharedPrefer!!
         }

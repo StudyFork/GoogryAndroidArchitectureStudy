@@ -1,5 +1,6 @@
 package app.ch.study.view
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import app.ch.study.R
 import app.ch.study.data.common.EXTRA_URL
+import app.ch.study.data.common.PREF_NAME
 import app.ch.study.data.local.LocalDataManager
 import app.ch.study.data.local.source.NaverQueryLocalDataSourceImpl
 import app.ch.study.data.remote.api.WebApiDefine
@@ -25,9 +27,9 @@ class MainActivity : AppCompatActivity() {
     private val compositeDisposable = CompositeDisposable()
     private lateinit var adapter: MovieAdapter
 
-    lateinit var rvMovie: RecyclerView
-    lateinit var etSearch: EditText
-    lateinit var repository: NaverQueryRepositoryImpl
+    private lateinit var rvMovie: RecyclerView
+    private lateinit var etSearch: EditText
+    private lateinit var repository: NaverQueryRepositoryImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +37,8 @@ class MainActivity : AppCompatActivity() {
 
         initEvent()
 
-        val query = (LocalDataManager.getInstance(this)?.getQuery())?:""
+        val prefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val query = (LocalDataManager.getInstance(prefs).getQuery())
         if(query.isNotEmpty()) {
             etSearch.setText(query)
             searchMovie(query)
@@ -62,7 +65,8 @@ class MainActivity : AppCompatActivity() {
 
         rvMovie.adapter = adapter
 
-        val local = NaverQueryLocalDataSourceImpl(LocalDataManager.getInstance(this))
+        val prefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val local = NaverQueryLocalDataSourceImpl(LocalDataManager.getInstance(prefs))
         val remote = NaverQueryRemoteDataSourceImpl(WebApiTask.getInstance())
         repository = NaverQueryRepositoryImpl(local, remote)
 
