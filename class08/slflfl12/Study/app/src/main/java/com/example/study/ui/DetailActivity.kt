@@ -14,10 +14,10 @@ class DetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         var intent = getIntent()
-        var movie_url = intent.getStringExtra(MOVIE_URL)
+        var movieUrl = intent.getStringExtra(MOVIE_URL)
 
         webview.settings.javaScriptEnabled
-        movie_url?.let {
+        movieUrl?.let {
             webview.loadUrl(it)
         }
     }
