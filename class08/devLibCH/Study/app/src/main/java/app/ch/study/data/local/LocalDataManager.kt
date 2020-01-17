@@ -27,12 +27,11 @@ open class LocalDataManager(context: Context) {
     companion object {
         private var staticSharedPrefer: LocalDataManager? = null
 
-        fun getInstance(context: Context): LocalDataManager? {
+        fun getInstance(context: Context): LocalDataManager {
             if (staticSharedPrefer == null)
-                staticSharedPrefer =
-                    LocalDataManager(context)
+                staticSharedPrefer = LocalDataManager(context)
 
-            return staticSharedPrefer
+            return staticSharedPrefer!!
         }
     }
 

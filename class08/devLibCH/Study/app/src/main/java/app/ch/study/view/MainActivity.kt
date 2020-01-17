@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 
         rvMovie.adapter = adapter
 
-        val local = NaverQueryLocalDataSourceImpl()
+        val local = NaverQueryLocalDataSourceImpl(LocalDataManager.getInstance(this))
         val remote = NaverQueryRemoteDataSourceImpl(WebApiTask.getInstance())
         repository = NaverQueryRepositoryImpl(local, remote)
 
