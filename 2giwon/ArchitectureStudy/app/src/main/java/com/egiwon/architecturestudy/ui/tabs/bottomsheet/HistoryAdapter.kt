@@ -1,4 +1,4 @@
-package com.egiwon.architecturestudy.tabs.bottomsheet
+package com.egiwon.architecturestudy.ui.tabs.bottomsheet
 
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes

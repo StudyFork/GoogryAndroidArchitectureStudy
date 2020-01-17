@@ -1,10 +1,10 @@
-package com.egiwon.architecturestudy.tabs.bottomsheet
+package com.egiwon.architecturestudy.ui.tabs.bottomsheet
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.egiwon.architecturestudy.Tab
 import com.egiwon.architecturestudy.base.BaseViewModel
 import com.egiwon.architecturestudy.data.NaverDataRepository
+import com.egiwon.architecturestudy.ui.Tab
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 class HistoryViewModel(

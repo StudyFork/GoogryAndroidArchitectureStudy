@@ -1,4 +1,4 @@
-package com.egiwon.architecturestudy.tabs
+package com.egiwon.architecturestudy.ui.tabs
 
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes

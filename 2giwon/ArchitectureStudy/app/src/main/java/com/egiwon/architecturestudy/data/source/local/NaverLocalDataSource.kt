@@ -41,13 +41,4 @@ class NaverLocalDataSource(
             )
         )
 
-
-    companion object {
-        private var instance: NaverLocalDataSource? = null
-
-        fun getInstance(contentDao: ContentDao) = instance ?: NaverLocalDataSource(contentDao)
-            .apply { instance = this }
-
-    }
-
 }

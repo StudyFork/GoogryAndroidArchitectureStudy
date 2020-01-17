@@ -1,12 +1,12 @@
-package com.egiwon.architecturestudy.tabs
+package com.egiwon.architecturestudy.ui.tabs
 
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import com.egiwon.architecturestudy.R
-import com.egiwon.architecturestudy.Tab
 import com.egiwon.architecturestudy.base.BaseRecyclerView
 import com.egiwon.architecturestudy.data.source.remote.response.ContentItem
 import com.egiwon.architecturestudy.databinding.RvContentsItemBinding
+import com.egiwon.architecturestudy.ui.Tab
 
 
 class ContentsAdapter(

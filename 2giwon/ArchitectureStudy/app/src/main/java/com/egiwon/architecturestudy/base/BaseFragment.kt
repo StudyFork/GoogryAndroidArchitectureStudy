@@ -9,6 +9,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 
 abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes private val layoutResId: Int
@@ -26,14 +27,25 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     ): View? {
         binding = DataBindingUtil.inflate(inflater, layoutResId, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
+        addObserve()
         return binding.root
     }
 
-    fun showToast(text: String) {
+    private fun addObserve() {
+        viewModel.errorTextResId.observe(
+            viewLifecycleOwner, Observer { showToast(it) }
+        )
+    }
+
+    private fun showToast(text: String) {
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
     }
 
-    fun showToast(textResId: Int) {
+    protected fun showToast(textResId: Int) {
         showToast(getString(textResId))
+    }
+
+    protected fun bind(action: B.() -> Unit) {
+        binding.run(action)
     }
 }

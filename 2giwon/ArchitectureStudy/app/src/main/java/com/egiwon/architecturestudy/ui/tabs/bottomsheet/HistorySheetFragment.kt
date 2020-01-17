@@ -1,40 +1,27 @@
-package com.egiwon.architecturestudy.tabs.bottomsheet
+package com.egiwon.architecturestudy.ui.tabs.bottomsheet
 
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.doOnLayout
-import androidx.fragment.app.viewModels
 import com.egiwon.architecturestudy.R
-import com.egiwon.architecturestudy.Tab
 import com.egiwon.architecturestudy.base.BaseFragment
-import com.egiwon.architecturestudy.data.NaverDataRepositoryImpl
-import com.egiwon.architecturestudy.data.source.local.ContentDataBase
-import com.egiwon.architecturestudy.data.source.local.NaverLocalDataSource
-import com.egiwon.architecturestudy.data.source.remote.NaverRemoteDataSource
 import com.egiwon.architecturestudy.databinding.FgHistorySheetBinding
 import com.egiwon.architecturestudy.ext.addCallback
 import com.egiwon.architecturestudy.ext.doOnApplyWindowInsets
-import com.egiwon.architecturestudy.tabs.ContentsFragment
+import com.egiwon.architecturestudy.ui.Tab
+import com.egiwon.architecturestudy.ui.tabs.ContentsFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class HistorySheetFragment : BaseFragment<FgHistorySheetBinding, HistoryViewModel>(
     R.layout.fg_history_sheet
 ) {
 
-    override val viewModel: HistoryViewModel by viewModels {
-        HistoryViewModelFactory(
-            getTab(),
-            NaverDataRepositoryImpl.getInstance(
-                NaverRemoteDataSource.getInstance(),
-                NaverLocalDataSource.getInstance(
-                    ContentDataBase.getInstance(requireContext()).contentDao()
-                )
-            )
-        )
-    }
+    override val viewModel: HistoryViewModel by viewModel { parametersOf(getTab()) }
 
     private val onClick: (String) -> Unit = { query ->
         (requireParentFragment() as? ContentsFragment)?.loadContentsByHistoryQuery(query)
@@ -47,8 +34,8 @@ class HistorySheetFragment : BaseFragment<FgHistorySheetBinding, HistoryViewMode
         super.onViewCreated(view, savedInstanceState)
 
         view.apply {
-            with(binding) {
-                vm = viewModel
+            bind {
+                vm = this@HistorySheetFragment.viewModel
                 val behavior = BottomSheetBehavior.from(historySheet)
                 val backCallback =
                     requireActivity().onBackPressedDispatcher.addCallback(
@@ -134,7 +121,5 @@ class HistorySheetFragment : BaseFragment<FgHistorySheetBinding, HistoryViewMode
 
     private fun getTab(): Tab =
         (requireParentFragment() as? ContentsFragment)?.tab
-            ?: error(
-                getString(R.string.type_is_null)
-            )
+            ?: error(getString(R.string.type_is_null))
 }

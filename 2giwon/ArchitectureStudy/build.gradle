@@ -31,6 +31,9 @@ buildscript {
         // room
         room_version = '2.2.2'
 
+        // koin
+        koin_version = '2.1.0-alpha-8'
+
         // Test
         jnit_version = '4.12'
         test_ext_version = '1.1.1'

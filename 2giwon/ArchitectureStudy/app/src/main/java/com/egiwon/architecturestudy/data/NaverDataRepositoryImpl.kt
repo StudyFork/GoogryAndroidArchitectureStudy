@@ -32,20 +32,4 @@ class NaverDataRepositoryImpl(
     override fun getCache(type: String): Single<ContentResponse> =
         naverLocalDataSource.getCacheContents(type)
 
-
-    companion object {
-        private var instance: NaverDataRepositoryImpl? = null
-
-        fun getInstance(
-            naverDataSource: NaverDataSource.Remote,
-            naverLocalDataSource: NaverDataSource.Local
-        ): NaverDataRepositoryImpl =
-            instance
-                ?: NaverDataRepositoryImpl(
-                    naverDataSource,
-                    naverLocalDataSource
-                ).apply {
-                    instance = this
-                }
-    }
 }

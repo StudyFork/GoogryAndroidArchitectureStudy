@@ -1,12 +1,13 @@
-package com.egiwon.architecturestudy.tabs
+package com.egiwon.architecturestudy.ui.tabs
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.egiwon.architecturestudy.Tab
+import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.base.BaseViewModel
 import com.egiwon.architecturestudy.data.NaverDataRepository
 import com.egiwon.architecturestudy.data.source.remote.response.ContentItem
+import com.egiwon.architecturestudy.ui.Tab
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -16,31 +17,19 @@ class ContentsViewModel(
 ) : BaseViewModel() {
 
     private val _searchQueryResultList = MutableLiveData<List<ContentItem>>()
+    val searchQueryResultList: LiveData<List<ContentItem>> get() = _searchQueryResultList
 
     private val _isShowLoadingProgressBar = MutableLiveData<Boolean>()
-
-    private val _errorSearchQueryResult = MutableLiveData<Throwable>()
-
-    private val _errorQueryEmpty = MutableLiveData<Throwable>()
-
-    val isSearchResultListEmpty: LiveData<Boolean> =
-        Transformations.map(_searchQueryResultList) {
-            it.isNullOrEmpty()
-        }
+    val isShowLoadingProgressBar: LiveData<Boolean> get() = _isShowLoadingProgressBar
 
     val searchQuery = MutableLiveData<String>()
 
-    val searchQueryResultList: LiveData<List<ContentItem>> get() = _searchQueryResultList
-
-    val isShowLoadingProgressBar: LiveData<Boolean> get() = _isShowLoadingProgressBar
-
-    val errorSearchQueryResult: LiveData<Throwable> get() = _errorSearchQueryResult
-
-    val errorQueryEmpty: LiveData<Throwable> get() = _errorQueryEmpty
+    val isResultEmptyError: LiveData<Boolean> =
+        Transformations.map(searchQueryResultList) { it.isNullOrEmpty() }
 
     fun loadContents() {
         if (searchQuery.value.isNullOrBlank()) {
-            _errorQueryEmpty.value = Throwable()
+            mutableErrorTextResId.value = (R.string.error_query_empty)
         } else {
             naverDataRepository.getContents(
                 type = tab.name,
@@ -56,7 +45,7 @@ class ContentsViewModel(
                 .subscribe({
                     _searchQueryResultList.value = it.contentItems
                 }, {
-                    _errorSearchQueryResult.value = it
+                    mutableErrorTextResId.value = R.string.error_load_fail
                 }).addDisposable()
 
         }
@@ -79,7 +68,7 @@ class ContentsViewModel(
                 searchQuery.value = it.query
                 loadContents()
             }, {
-                _errorSearchQueryResult.value = it
+                mutableErrorTextResId.value = R.string.error_load_fail
             }).addDisposable()
     }
 
