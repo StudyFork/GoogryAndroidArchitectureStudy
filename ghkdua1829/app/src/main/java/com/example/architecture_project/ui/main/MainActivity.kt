@@ -36,11 +36,6 @@ class MainActivity : AppCompatActivity(),
 
     }
 
-//    fun searchMovie() {
-//        Toast.makeText(this, binding.etSearch.text.toString(), Toast.LENGTH_SHORT).show()
-//        callMovie(binding.etSearch.text.toString())
-//    }
-
     fun callMovie() {   //수정완료
         presenter.getMovieData(binding.etSearch.text.toString())
     }
