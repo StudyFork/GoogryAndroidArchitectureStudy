@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         )
     }
 
-    private val adapter: MovieItemAdapter = MovieItemAdapter()
+    private val movieItemAdapter: MovieItemAdapter = MovieItemAdapter()
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,16 +58,17 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     // recyclerView 초기화 메소드
     private fun initRecyclerView() {
-        recycler_view_movies.adapter = adapter
-        recycler_view_movies.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        recycler_view_movies.setHasFixedSize(true)
-        // movie 항목별 구분선 추가
-        recycler_view_movies.addItemDecoration(
-            DividerItemDecoration(
-                this,
-                LinearLayoutManager.VERTICAL
+        with(recycler_view_movies) {
+            adapter = movieItemAdapter
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            setHasFixedSize(true)
+            addItemDecoration(
+                DividerItemDecoration(
+                    context,
+                    LinearLayoutManager.VERTICAL
+                )
             )
-        )
+        }
     }
 
     //키보드 제거 메소드
@@ -91,7 +92,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun addItemToAdapter(response: MovieResponseModel) {
-        adapter.run {
+        movieItemAdapter.run {
             addItems(response.items)
             notifyDataSetChanged()
         }
