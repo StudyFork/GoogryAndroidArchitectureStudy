@@ -3,10 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,7 +30,8 @@
                     android:layout_weight="2"
                     android:ems="10"
                     android:imeOptions="actionSearch"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:autofillHints="" />
 
                 <Button
                     android:id="@+id/btn_search"
