@@ -29,7 +29,7 @@ class ContentsViewModel(
 
     fun loadContents() {
         if (searchQuery.value.isNullOrBlank()) {
-            mutableErrorText.value = (R.string.error_query_empty)
+            mutableErrorTextResId.value = (R.string.error_query_empty)
         } else {
             naverDataRepository.getContents(
                 type = tab.name,
@@ -45,7 +45,7 @@ class ContentsViewModel(
                 .subscribe({
                     _searchQueryResultList.value = it.contentItems
                 }, {
-                    mutableErrorText.value = R.string.error_load_fail
+                    mutableErrorTextResId.value = R.string.error_load_fail
                 }).addDisposable()
 
         }
@@ -68,7 +68,7 @@ class ContentsViewModel(
                 searchQuery.value = it.query
                 loadContents()
             }, {
-                mutableErrorText.value = R.string.error_load_fail
+                mutableErrorTextResId.value = R.string.error_load_fail
             }).addDisposable()
     }
 

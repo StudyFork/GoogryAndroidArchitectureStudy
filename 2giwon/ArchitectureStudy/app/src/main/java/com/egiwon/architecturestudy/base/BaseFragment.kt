@@ -32,7 +32,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     }
 
     private fun addObserve() {
-        viewModel.errorText.observe(
+        viewModel.errorTextResId.observe(
             viewLifecycleOwner, Observer { showToast(it) }
         )
     }
