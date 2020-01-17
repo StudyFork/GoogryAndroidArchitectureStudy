@@ -7,8 +7,9 @@
 
     <fragment
         android:id="@+id/fg_search_item"
-        android:name="com.egiwon.architecturestudy.ui.TabsFragment"
+        android:name="com.egiwon.architecturestudy.ui.TabFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:layout="@layout/fg_tab" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
