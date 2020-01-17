@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import com.example.study.R
 import com.example.study.ui.adapter.MovieAdapter
 import com.example.study.data.datasource.remote.network.NaverApiService
@@ -49,13 +51,32 @@ class MainActivity : AppCompatActivity() {
         compositeDisposable.add(naverSearchRepository.getMovies(query)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe {
+                showProgress()
+            }
+            .doAfterTerminate {
+                hideProgress()
+            }
             .subscribe({
-                movieAdapter.setItem(it.items)
+                it?.let{
+                    if(it.items.isNotEmpty())
+                        movieAdapter.setItem(it.items)
+                    else
+                        Toast.makeText(this@MainActivity, R.string.error_message, Toast.LENGTH_SHORT ).show()
+            }
             }, {
                 it.printStackTrace()
             })
             )
 
+    }
+
+    private fun showProgress() {
+        pb_loading.visibility = View.VISIBLE
+    }
+
+    private fun hideProgress() {
+        pb_loading.visibility = View.GONE
     }
 }
 

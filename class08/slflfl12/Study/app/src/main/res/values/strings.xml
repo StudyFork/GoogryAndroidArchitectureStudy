@@ -10,4 +10,6 @@
     <string name="actor">배우</string>
 
     <string name="btn_search">검색</string>
+
+    <string name="error_message">검색 결과가 없습니다</string>
 </resources>
