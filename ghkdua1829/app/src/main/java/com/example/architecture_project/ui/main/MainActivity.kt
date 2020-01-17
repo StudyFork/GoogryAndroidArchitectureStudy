@@ -4,27 +4,26 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
+import androidx.databinding.DataBindingUtil
 import com.example.architecture_project.R
 import com.example.architecture_project.`object`.ObjectCollection.URL
 import com.example.architecture_project.data.model.NaverApi
+import com.example.architecture_project.databinding.ActivityMainBinding
 import com.example.architecture_project.feature.movie.MovieAdapter
 import com.example.architecture_project.feature.search.WebviewActivity
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(),
     MainContract.View {
 
-    private lateinit var movieRecyclerView: RecyclerView   //수정완료
     private lateinit var movieAdapter: MovieAdapter
-    val presenter: MainContract.Presenter =
-        MainPresenter(this)
+    val presenter: MainContract.Presenter = MainPresenter(this)
+    lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        movieRecyclerView = findViewById(R.id.rv_movie)
+        binding.mainActivity = this@MainActivity
         movieAdapter = MovieAdapter(object : MovieAdapter.MovieViewHolder.ItemClickListener {
             override fun onItemClick(position: Int) {
                 val goWebView = Intent(this@MainActivity, WebviewActivity::class.java)
@@ -32,15 +31,13 @@ class MainActivity : AppCompatActivity(),
                 startActivity(goWebView)
             }
         })
-        movieRecyclerView.adapter = movieAdapter
+        binding.rvMovie.adapter = movieAdapter
 
-        btn_search.setOnClickListener {
-            callMovie(et_search.text.toString())
-        }
+
     }
 
-    private fun callMovie(keyword: String) {   //수정완료
-        presenter.getMovieData(keyword)
+    fun callMovie() {   //수정완료
+        presenter.getMovieData(binding.etSearch.text.toString())
     }
 
     override fun showNoResult() {
@@ -60,6 +57,6 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun showDataNum(num: Int) {
-        Toast.makeText(this, "총 "+num+"개가 검색되었습니다.", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "총 " + num + "개가 검색되었습니다.", Toast.LENGTH_SHORT).show()
     }
 }
