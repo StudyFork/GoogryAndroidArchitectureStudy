@@ -1,14 +1,14 @@
 package com.cnm.homework.data.repository
 
 import com.cnm.homework.data.model.NaverResponse
-import com.cnm.homework.data.source.local.NaverQueryLocalDataSourceImpl
+import com.cnm.homework.data.source.local.NaverQueryLocalDataSource
 import com.cnm.homework.data.source.local.db.LocalEntity
-import com.cnm.homework.data.source.remote.NaverQueryRemoteDataSourceImpl
+import com.cnm.homework.data.source.remote.NaverQueryRemoteDataSource
 import io.reactivex.Single
 
 class NaverQueryRepositoryImpl(
-    private val remoteDataSource: NaverQueryRemoteDataSourceImpl,
-    private val localDataSoure: NaverQueryLocalDataSourceImpl
+    private val remoteDataSource: NaverQueryRemoteDataSource,
+    private val localDataSoure: NaverQueryLocalDataSource
 ) : NaverQueryRepository {
 
 
