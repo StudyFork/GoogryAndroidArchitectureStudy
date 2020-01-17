@@ -10,23 +10,20 @@ class NaverDataRepositoryImpl(
 ) : NaverDataRepository {
 
     private fun loadRemoteContents(type: String, query: String): Single<ContentResponse> =
-        naverRemoteDataSource.getContents(type, query)
-            .doOnSuccess { response ->
-                naverLocalDataSource.saveContents(
-                    type,
-                    query,
-                    response
-                ).toSingle { response }
+        naverRemoteDataSource.getRemoteContents(type, query)
+            .flatMap { response ->
+                naverLocalDataSource.saveContents(type, query, response)
+                    .toSingle { response }
             }
 
     override fun getContents(type: String, query: String): Single<ContentResponse> =
         loadRemoteContents(type, query)
 
     override fun getContentsByHistory(type: String, query: String): Single<ContentResponse> =
-        naverLocalDataSource.getContents(type, query)
+        naverLocalDataSource.getLocalContents(type, query)
 
-    override fun getContentQuerys(type: String): Single<List<String>> =
-        naverLocalDataSource.getContentQuerys(type)
+    override fun getContentQueries(type: String): Single<List<String>> =
+        naverLocalDataSource.getContentQueries(type)
 
 
     override fun getCache(type: String): Single<ContentResponse> =

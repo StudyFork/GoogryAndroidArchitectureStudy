@@ -12,11 +12,11 @@ import com.egiwon.architecturestudy.ui.Tab
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class ContentsFragment : BaseFragment<FgContentsBinding, ContentsViewModel>(
+class ContentFragment : BaseFragment<FgContentsBinding, ContentViewModel>(
     R.layout.fg_contents
 ) {
 
-    override val viewModel: ContentsViewModel by viewModel { parametersOf(tab) }
+    override val viewModel: ContentViewModel by viewModel { parametersOf(tab) }
 
     override fun onResume() {
         viewModel.getCacheContents()
@@ -32,7 +32,7 @@ class ContentsFragment : BaseFragment<FgContentsBinding, ContentsViewModel>(
         super.onViewCreated(view, savedInstanceState)
 
         bind {
-            vm = this@ContentsFragment.viewModel
+            vm = this@ContentFragment.viewModel
             rvContents.addItemDecoration(
                 DividerItemDecoration(
                     context,
@@ -40,7 +40,7 @@ class ContentsFragment : BaseFragment<FgContentsBinding, ContentsViewModel>(
                 )
             )
 
-            rvContents.adapter = ContentsAdapter(tab)
+            rvContents.adapter = ContentAdapter(tab)
         }
 
         viewModel.isResultEmptyError.observe(viewLifecycleOwner, Observer { empty ->
@@ -56,7 +56,7 @@ class ContentsFragment : BaseFragment<FgContentsBinding, ContentsViewModel>(
     companion object {
         private const val ARG_TYPE = "ARG_TYPE"
 
-        fun newInstance(type: Tab) = ContentsFragment().apply {
+        fun newInstance(type: Tab) = ContentFragment().apply {
             arguments = bundleOf(ARG_TYPE to type)
         }
 

@@ -11,7 +11,7 @@ import com.egiwon.architecturestudy.ui.Tab
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class ContentsViewModel(
+class ContentViewModel(
     private val tab: Tab,
     private val naverDataRepository: NaverDataRepository
 ) : BaseViewModel() {

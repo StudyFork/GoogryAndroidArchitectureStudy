@@ -17,7 +17,7 @@ class HistoryViewModel(
     val searchHistoryResult: LiveData<List<String>> get() = _searchHistoryResult
 
     fun getSearchQueryHistory() =
-        naverDataRepository.getContentQuerys(tab.name)
+        naverDataRepository.getContentQueries(tab.name)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 _searchHistoryResult.value = it

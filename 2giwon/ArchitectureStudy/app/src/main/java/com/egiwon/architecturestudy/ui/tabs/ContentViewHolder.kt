@@ -4,13 +4,13 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import com.egiwon.architecturestudy.base.BaseRecyclerView
 import com.egiwon.architecturestudy.data.source.remote.response.ContentItem
-import com.egiwon.architecturestudy.databinding.RvContentsItemBinding
+import com.egiwon.architecturestudy.databinding.RvContentItemBinding
 
 class ContentViewHolder(
     private val viewType: Int,
     parent: ViewGroup,
     @LayoutRes private val layoutRes: Int
-) : BaseRecyclerView.BaseViewHolder<RvContentsItemBinding>(
+) : BaseRecyclerView.BaseViewHolder<RvContentItemBinding>(
     parent,
     layoutRes
 ) {

@@ -5,14 +5,14 @@ import androidx.annotation.LayoutRes
 import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.base.BaseRecyclerView
 import com.egiwon.architecturestudy.data.source.remote.response.ContentItem
-import com.egiwon.architecturestudy.databinding.RvContentsItemBinding
+import com.egiwon.architecturestudy.databinding.RvContentItemBinding
 import com.egiwon.architecturestudy.ui.Tab
 
 
-class ContentsAdapter(
+class ContentAdapter(
     private val tab: Tab,
-    @LayoutRes private val layoutRes: Int = R.layout.rv_contents_item
-) : BaseRecyclerView.Adapter<ContentItem, RvContentsItemBinding>(
+    @LayoutRes private val layoutRes: Int = R.layout.rv_content_item
+) : BaseRecyclerView.Adapter<ContentItem, RvContentItemBinding>(
     layoutRes
 ) {
 

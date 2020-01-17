@@ -1,7 +1,7 @@
 package com.egiwon.architecturestudy.di
 
 import com.egiwon.architecturestudy.BuildConfig
-import com.egiwon.architecturestudy.data.source.remote.ContentsService
+import com.egiwon.architecturestudy.data.source.remote.ContentService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -56,7 +56,7 @@ val networkModule = module {
 
     }
     single {
-        get<Retrofit>().create(ContentsService::class.java)
+        get<Retrofit>().create(ContentService::class.java)
     }
 }
 

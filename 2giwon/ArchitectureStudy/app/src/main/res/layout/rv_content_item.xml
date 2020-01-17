@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         bind:onClick="@{contentItem.link}"
-        tools:context=".ui.tabs.ContentsAdapter">
+        tools:context=".ui.tabs.ContentAdapter">
 
         <ImageView
             android:id="@+id/iv_thumbnail"
