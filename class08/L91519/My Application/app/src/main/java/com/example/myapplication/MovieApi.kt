@@ -1,8 +1,7 @@
 package com.example.myapplication
 
-import com.example.myapplication.model.MovieResult
+import com.example.myapplication.data.model.MovieResult
 import retrofit2.Call
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query

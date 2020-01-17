@@ -4,4 +4,6 @@
     <string name="dummy_text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, </string>
 
     <string name="director_name">Gosumin Taeim</string>
+
+    <string name="movie_not_found">Movie Not Found</string>
 </resources>
