@@ -18,10 +18,10 @@
 
         <ImageView
             android:id="@+id/posterimage_movieitem"
+            loadUrl="@{item.image}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            loadUrl="@{item.image}"
             android:padding="5sp"
             tools:srcCompat="@tools:sample/avatars" />
 
@@ -33,10 +33,10 @@
 
             <TextView
                 android:id="@+id/title_movieitem"
+                setTitle="@{item.title}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5sp"
-                setTitle="@{item.title}"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -44,12 +44,12 @@
             <RatingBar
                 android:id="@+id/grade_movieitem"
                 style="@style/Widget.AppCompat.RatingBar.Small"
+                setRating="@{item.userRating}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
                 android:numStars="5"
                 android:progressTint="#E91E63"
-                setRating="@{item.userRating}"
                 android:stepSize="0.5" />
 
             <TextView
