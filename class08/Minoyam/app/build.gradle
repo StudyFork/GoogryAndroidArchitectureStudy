@@ -51,6 +51,16 @@ dependencies {
 //    okhttp3
     implementation("com.squareup.okhttp3:logging-interceptor:4.2.1")
 
+    // Room
+    implementation "androidx.room:room-runtime:2.2.3"
+    kapt "androidx.room:room-compiler:2.2.3"
+    kaptTest "androidx.room:room-testing:2.2.3"
+
+    // Lifecycle
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0-rc03"
+
     kapt 'com.github.bumptech.glide:compiler:4.10.0'
+
 
 }

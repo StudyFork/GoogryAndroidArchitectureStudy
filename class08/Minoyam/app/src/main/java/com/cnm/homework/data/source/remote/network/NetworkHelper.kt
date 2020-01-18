@@ -1,4 +1,4 @@
-package com.cnm.homework.network
+package com.cnm.homework.data.source.remote.network
 
 import com.cnm.homework.BuildConfig
 import okhttp3.OkHttpClient
