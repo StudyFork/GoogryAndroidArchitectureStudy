@@ -19,7 +19,6 @@ import com.hansung.firstproject.data.MovieResponseModel
 import com.hansung.firstproject.data.repository.NaverRepository
 import com.hansung.firstproject.data.source.remote.NaverRemoteDataSourceImpl
 import com.hansung.firstproject.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
@@ -58,7 +57,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     // recyclerView 초기화 메소드
     private fun initRecyclerView() {
-        with(recycler_view_movies) {
+        with(binding.recyclerViewMovies) {
             adapter = movieItemAdapter
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             setHasFixedSize(true)
@@ -74,7 +73,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     //키보드 제거 메소드
     override fun removeKeyboard() =
         (this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-            et_search.windowToken,
+            binding.etSearch.windowToken,
             0
         )
 
