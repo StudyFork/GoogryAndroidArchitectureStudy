@@ -8,6 +8,5 @@ import io.reactivex.Single
 class NaverQueryRemoteDataSourceImpl : NaverQueryRemoteDataSource {
     override fun getNaverMovie(query: String): Single<NaverResponse> {
         return NetworkHelper.naverApi.getNaverMovie(query)
-            .applySchedulers()
     }
 }

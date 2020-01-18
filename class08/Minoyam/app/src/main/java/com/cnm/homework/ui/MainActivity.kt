@@ -4,12 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cnm.homework.R
+import com.cnm.homework.applySchedulers
 import com.cnm.homework.data.model.NaverResponse
 import com.cnm.homework.data.repository.NaverQueryRepositoryImpl
 import com.cnm.homework.data.source.local.NaverQueryLocalDataSourceImpl
@@ -27,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         val db = LocalDatabase.getInstance(this)!!
         db.localDao()
     }
+//    private val presenter : MainContract.Presenter by lazy { MainPresenter(this@MainActivity) }
+
     private val naverQueryRepositoryImpl: NaverQueryRepositoryImpl by lazy {
         NaverQueryRepositoryImpl(
             NaverQueryRemoteDataSourceImpl(),
@@ -37,12 +41,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         rv_content.adapter = movieAdapter
         if (movieAdapter.movieItems.isEmpty()) {
-            beforeMovieListSearch()
+            val r = Runnable { beforeMovieListSearch() }
+            val thread = Thread(r)
+            thread.start()
         }
         bt_movie_search.setOnClickListener {
-
+// 버튼 클릭시 presenter의 함수 호출
             et_movie_search.hideKeyboard()
             if (et_movie_search.text.toString().isNotEmpty()) {
                 val query = et_movie_search.text.toString()
@@ -69,15 +76,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun beforeMovieListSearch() {
         val repoItem = naverQueryRepositoryImpl.loadLocal()
+        Log.e("log","$repoItem")
+        runOnUiThread {
         movieAdapter.setItem(repoItem)
+        }
     }
 
     private fun movieListSearch(query: String) {
 
 
         disposable.add(naverQueryRepositoryImpl.getNaverMovie(query)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .applySchedulers()
             .doOnSubscribe {
                 showProgress()
             }
