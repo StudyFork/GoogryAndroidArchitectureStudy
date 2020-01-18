@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 abstract class BaseActivity<P : BaseContract.Presenter>(@LayoutRes resId: Int) :
     AppCompatActivity(resId) {
 
-    abstract var presenter: P
-    abstract var pbLoading: FrameLayout?
+    abstract val presenter: P
+    abstract val pbLoading: FrameLayout?
 
     fun showLoading() {
         pbLoading?.visibility = View.VISIBLE
