@@ -7,13 +7,15 @@ import android.os.Bundle
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.hansung.firstproject.R
-import kotlinx.android.synthetic.main.activity_movie_information.*
+import com.hansung.firstproject.databinding.ActivityMovieInformationBinding
 
 class MovieInformationActivity : AppCompatActivity(), MovieInformationContract.View {
 
     private lateinit var presenter: MovieInformationContract.Presenter
 
     private lateinit var webPageUrl: String
+
+    private lateinit var binding: ActivityMovieInformationBinding
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +32,8 @@ class MovieInformationActivity : AppCompatActivity(), MovieInformationContract.V
     }
 
     override fun loadWebView() {
-        with(movieInformationWebView) {
+
+        with(binding.movieInformationWebView) {
             webViewClient = WebViewClient()
             loadUrl(webPageUrl)
             with(settings) {
@@ -48,5 +51,4 @@ class MovieInformationActivity : AppCompatActivity(), MovieInformationContract.V
             return Intent(context, MovieInformationActivity::class.java)
         }
     }
-
 }
