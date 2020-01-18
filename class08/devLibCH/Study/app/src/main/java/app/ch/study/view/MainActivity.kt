@@ -1,5 +1,6 @@
 package app.ch.study.view
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,28 +11,38 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import app.ch.study.R
 import app.ch.study.data.common.EXTRA_URL
+import app.ch.study.data.common.PREF_NAME
+import app.ch.study.data.local.LocalDataManager
+import app.ch.study.data.local.source.NaverQueryLocalDataSourceImpl
 import app.ch.study.data.remote.api.WebApiDefine
 import app.ch.study.data.remote.api.WebApiTask
-import app.ch.study.data.remote.response.MovieModel
-import io.reactivex.android.schedulers.AndroidSchedulers
+import app.ch.study.data.remote.source.NaverQueryRemoteDataSourceImpl
+import app.ch.study.data.repository.NaverQueryRepositoryImpl
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 
 class MainActivity : AppCompatActivity() {
 
     private val compositeDisposable = CompositeDisposable()
-    private var adapter: MovieAdapter? = null
+    private lateinit var adapter: MovieAdapter
 
-    lateinit var rvMovie: RecyclerView
-    lateinit var etSearch: EditText
+    private lateinit var rvMovie: RecyclerView
+    private lateinit var etSearch: EditText
+    private lateinit var repository: NaverQueryRepositoryImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         initEvent()
+
+        val prefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val query = (LocalDataManager.getInstance(prefs).getQuery())
+        if(query.isNotEmpty()) {
+            etSearch.setText(query)
+            searchMovie(query)
+        }
     }
 
     override fun onDestroy() {
@@ -54,6 +65,11 @@ class MainActivity : AppCompatActivity() {
 
         rvMovie.adapter = adapter
 
+        val prefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val local = NaverQueryLocalDataSourceImpl(LocalDataManager.getInstance(prefs))
+        val remote = NaverQueryRemoteDataSourceImpl(WebApiTask.getInstance())
+        repository = NaverQueryRepositoryImpl(local, remote)
+
         btnSearch.setOnClickListener {
             val name = etSearch.text.toString()
             searchMovie(name)
@@ -66,17 +82,13 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        val search = WebApiTask.getInstance().searchMovie(name)
+        val search = repository.searchMovie(name)
 
         addDisposable(
             search
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
                     val list = response.items
-
-                    adapter?.replaceAll(list as ArrayList<MovieModel>)
-                    adapter?.notifyDataSetChanged()
+                    adapter.replaceAll(list)
                 }, {
                     val error = handleError(it)
                     Toast.makeText(this, error, Toast.LENGTH_LONG).show()

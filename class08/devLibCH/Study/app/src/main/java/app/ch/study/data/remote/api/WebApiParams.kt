@@ -4,6 +4,6 @@ import app.ch.study.BuildConfig
 import app.ch.study.data.remote.parse.Authorization
 
 class WebApiParams : Authorization {
-    override fun getClientToken(): String =  BuildConfig.clientId
-    override fun getClientSecret(): String = BuildConfig.clientSecret
+    override fun getClientToken(): String =  BuildConfig.CLIENT_ID
+    override fun getClientSecret(): String = BuildConfig.CLIENT_SECRET
 }

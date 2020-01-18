@@ -5,7 +5,7 @@ import app.ch.study.BuildConfig
 
 object WebApiDefine {
 
-    fun HOST_IP(): String = BuildConfig.serverUrl
+    fun HOST_IP(): String = BuildConfig.SERVER_URL
 
     const val CONNECT_TIMEOUT = 15L
     const val WRITE_TIMEOUT = 15L
