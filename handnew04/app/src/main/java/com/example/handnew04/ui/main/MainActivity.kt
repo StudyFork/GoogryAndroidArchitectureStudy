@@ -1,22 +1,24 @@
 package com.example.handnew04.ui.main
 
-import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.example.handnew04.R
 import com.example.handnew04.adapter.MovieRecyclerAdapter
 import com.example.handnew04.data.NaverMovieResponse
-import com.example.handnew04.data.items
+import com.example.handnew04.data.MovieData
+import com.example.handnew04.databinding.ActivityMainBinding
 import com.example.handnew04.network.NetworkManager
 import com.example.handnew04.ui.movie.MovieDetailActivity
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(), MainContract.View {
     lateinit var recyclerAdapter: MovieRecyclerAdapter
+    lateinit var binding: ActivityMainBinding
+
     val presenter: MainContract.Presenter by lazy {
         MainPresenter(
             this,
@@ -26,10 +28,14 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = DataBindingUtil.setContentView(
+            this, R.layout.activity_main
+        )
+
+        binding.activity = this@MainActivity
 
         initailize()
-        setEventHandler()
     }
 
 
@@ -38,20 +44,17 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         recyclerAdapter.setItemClickListener(object :
             MovieRecyclerAdapter.ItemClickListener {
-            override fun onClick(view: View, position: Int) {
-                //TODO 클릭 리스너 처리를 어떻게 해야 할지 잘 모르겠습니다.
+            override fun onClick(position: Int) {
                 showMovieDetailActivity(position)
             }
         })
 
-        rcv_movies.adapter = recyclerAdapter
+        binding.rcvMovies.adapter = recyclerAdapter
     }
 
-    private fun setEventHandler() {
-        btn_searchButton.setOnClickListener {
-            val inputText = et_searchBar.text.toString()
-            presenter.serchMovie(inputText)
-        }
+    fun searchButtonClick() {
+        val inputText = binding.etSearchBar.text.toString()
+        presenter.serchMovie(inputText)
     }
 
     override fun showEmptyResult() {
@@ -67,7 +70,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun showSuccessSearchMovie(data: NaverMovieResponse) {
-        recyclerAdapter.setItemList(data.items as ArrayList<items>)
+        recyclerAdapter.setItemList(data.items as ArrayList<MovieData>)
     }
 
     override fun showMovieDetailActivity(position: Int) {
@@ -84,10 +87,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun showLoading() {
-        pb_searchLoading.visibility = View.VISIBLE
+        binding.isLoadingVisible = true
     }
 
     override fun hideLoading() {
-        pb_searchLoading.visibility = View.GONE
+        binding.isLoadingVisible = false
     }
 }

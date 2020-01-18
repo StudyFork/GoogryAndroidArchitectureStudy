@@ -1,10 +1,10 @@
 package com.example.handnew04.data
 
 data class NaverMovieResponse(
-    var items: List<items>
+    var items: List<MovieData>
 )
 
-data class items(
+data class MovieData(
     val title: String,
     val link: String,
     val image: String,

@@ -1,32 +1,26 @@
 package com.example.handnew04.adapter
 
-import android.os.Build
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.handnew04.R
-import com.example.handnew04.data.items
+import com.example.handnew04.data.MovieData
+import com.example.handnew04.databinding.ItemMovieBinding
 
 
 class MovieRecyclerAdapter :
     RecyclerView.Adapter<MovieRecyclerAdapter.ViewHolder>() {
-    private val movies: ArrayList<items> = ArrayList()
+    private val movies: ArrayList<MovieData> = ArrayList()
 
-    fun setItemList(movies: ArrayList<items>) {
+    fun setItemList(movies: ArrayList<MovieData>) {
         this.movies.clear()
         this.movies.addAll(movies)
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
-        return ViewHolder(view)
+        val binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context))
+        return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -35,34 +29,18 @@ class MovieRecyclerAdapter :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = movies.get(position)
-
-        holder.iv_Image?.let { Glide.with(holder.itemView.context).load(item.image).into(it) }
-
-        holder.tv_title?.text = getHtlmText(item.title)
-        holder.tv_pubDate?.text = getHtlmText(item.pubDate)
-        holder.tv_director?.text = getHtlmText(item.director)
-        holder.tv_actors?.text = getHtlmText(item.actor)
-
-        holder.rb_userRating?.rating = item.userRating.toFloat()
-    }
-
-    private fun getHtlmText(inputText: String): String {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Html.fromHtml(inputText, Html.FROM_HTML_MODE_LEGACY).toString()
-        } else {
-            Html.fromHtml(inputText).toString()
-        }
+        holder.bind(item)
     }
 
     fun getMovieLink(position: Int): String = movies.get(position).link
 
 
     interface ItemClickListener {
-        fun onClick(view: View, position: Int)
+        fun onClick(position: Int)
     }
 
 
-    private lateinit var itemClickListner: ItemClickListener
+    lateinit var itemClickListner: ItemClickListener
 
 
     fun setItemClickListener(itemClickListener: ItemClickListener) {
@@ -70,18 +48,15 @@ class MovieRecyclerAdapter :
     }
 
 
-    inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
-        val iv_Image = itemView?.findViewById<ImageView>(R.id.iv_movieImage)
-        val tv_title = itemView?.findViewById<TextView>(R.id.tv_movieTitle)
-        val tv_pubDate = itemView?.findViewById<TextView>(R.id.tv_moviePubDate)
-        val tv_director = itemView?.findViewById<TextView>(R.id.tv_movieDirector)
-        val tv_actors = itemView?.findViewById<TextView>(R.id.tv_movieActors)
-        val rb_userRating = itemView?.findViewById<RatingBar>(R.id.rb_userRating)
-
+    inner class ViewHolder(val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
-            itemView?.setOnClickListener {
-                itemClickListner.onClick(it, adapterPosition)
-            }
+            binding.root.setOnClickListener(View.OnClickListener {
+                itemClickListner.onClick(adapterPosition)
+            })
+        }
+
+        fun bind(movieData: MovieData) {
+            binding.movie = movieData
         }
     }
 }
