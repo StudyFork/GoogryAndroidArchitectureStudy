@@ -28,10 +28,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
+                    android:autofillHints=""
                     android:ems="10"
                     android:imeOptions="actionSearch"
-                    android:inputType="textPersonName"
-                    android:autofillHints="" />
+                    android:inputType="textPersonName" />
 
                 <Button
                     android:id="@+id/btn_search"
