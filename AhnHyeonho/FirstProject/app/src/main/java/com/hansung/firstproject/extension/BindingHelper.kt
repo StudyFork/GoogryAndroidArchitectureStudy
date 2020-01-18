@@ -8,14 +8,15 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.hansung.firstproject.R
 
 
 @BindingAdapter(value = ["loadUrl"])
 fun ImageView.loadUrl(url: String) =
     Glide.with(context)
         .load(url)
-        .apply(RequestOptions().override(300, 450))
-        .apply(RequestOptions.centerCropTransform())
+        .apply(RequestOptions().override(300, 450).fitCenter())
+        .error(R.drawable.default_poster)
         .into(this)
 
 @BindingAdapter(value = ["setRating"])
