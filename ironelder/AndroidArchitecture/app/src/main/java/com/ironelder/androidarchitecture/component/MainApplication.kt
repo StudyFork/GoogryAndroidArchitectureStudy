@@ -1,6 +1,7 @@
 package com.ironelder.androidarchitecture.component
 
 import android.app.Application
+import com.ironelder.androidarchitecture.data.RetrofitForNaver
 import com.ironelder.androidarchitecture.data.database.SearchResultDatabase
 import com.ironelder.androidarchitecture.data.repository.SearchDataRepositoryImpl
 import com.ironelder.androidarchitecture.data.source.local.LocalSearchDataSourceImpl
@@ -14,18 +15,22 @@ import org.koin.dsl.module
 
 class MainApplication : Application() {
 
-    private val veiwModelModule: Module = module {
+    private val viewModelModule: Module = module {
         single { MainViewModel(get()) }
     }
 
     private val repositoryModule: Module = module {
-        single { SearchDataRepositoryImpl(get()) }
+        single { SearchDataRepositoryImpl(get(), get()) }
     }
 
     private val dataSourceModule: Module = module {
         single { SearchResultDatabase.getInstance(androidApplication()) }
         single { LocalSearchDataSourceImpl(get()) }
-        single { RemoteSearchDataSourceImpl }
+        single { RemoteSearchDataSourceImpl(get()) }
+    }
+
+    private val serviceModule: Module = module {
+        single { RetrofitForNaver() }
     }
 
 
@@ -37,7 +42,7 @@ class MainApplication : Application() {
     private fun initialized() {
         startKoin {
             androidContext(this@MainApplication)
-            modules(listOf(dataSourceModule, repositoryModule, veiwModelModule))
+            modules(listOf(serviceModule, dataSourceModule, repositoryModule, viewModelModule))
         }
     }
 

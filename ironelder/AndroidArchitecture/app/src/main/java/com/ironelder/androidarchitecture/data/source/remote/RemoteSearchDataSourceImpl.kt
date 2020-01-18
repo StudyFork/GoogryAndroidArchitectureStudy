@@ -4,11 +4,11 @@ import com.ironelder.androidarchitecture.data.RetrofitForNaver
 import com.ironelder.androidarchitecture.data.TotalModel
 import io.reactivex.Single
 
-object RemoteSearchDataSourceImpl :
+class RemoteSearchDataSourceImpl(private val retrofitServie:RetrofitForNaver) :
     RemoteSearchDataSource {
 
     override fun getRemoteSearchData(type: String, query: String?): Single<TotalModel> {
-        return RetrofitForNaver.searchApi.requestSearchForNaverWithAdapter(type, query)
+        return retrofitServie.searchApi.requestSearchForNaverWithAdapter(type, query)
     }
 
 }
