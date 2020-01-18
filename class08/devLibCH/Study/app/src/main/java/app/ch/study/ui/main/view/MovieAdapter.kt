@@ -1,4 +1,4 @@
-package app.ch.study.view
+package app.ch.study.ui.main.view
 
 import android.content.Context
 import android.os.Build
@@ -44,6 +44,10 @@ class MovieAdapter(private val itemClick: (String) -> Unit) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
         (holder as MovieViewHolder).onBindViewHolder(list[position])
+
+    fun clear() {
+        list.clear()
+    }
 
     inner class MovieViewHolder(
         context: Context,
