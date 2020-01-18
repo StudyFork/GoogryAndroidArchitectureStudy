@@ -1,4 +1,4 @@
-package app.ch.study.view
+package app.ch.study.ui.detail
 
 import android.os.Bundle
 import android.webkit.WebView
