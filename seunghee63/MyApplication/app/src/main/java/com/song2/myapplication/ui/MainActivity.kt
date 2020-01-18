@@ -34,11 +34,12 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         setKeyboardFunc()
         setMovieRecyclerView()
 
-        binding.btnMainActSearchBtn.setOnClickListener {
-
-            if (binding.etMainActSearch.text.toString() != "") {
-                movieAdapter.clearData()
-                presenter.getMovie(binding.etMainActSearch.text.toString())
+        with(binding){
+            btnMainActSearchBtn.setOnClickListener {
+                if (etMainActSearch.text.toString() != "") {
+                    movieAdapter.clearData()
+                    presenter.getMovie(etMainActSearch.text.toString())
+                }
             }
         }
     }
@@ -69,18 +70,22 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     private fun setMovieRecyclerView() {
 
-        binding.rvMainActMovieList.apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = movieAdapter
+        with(binding){
+            rvMainActMovieList.apply {
+                layoutManager = LinearLayoutManager(this@MainActivity)
+                adapter = movieAdapter
+            }
+
+            rvMainActMovieList.setOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    if (!rvMainActMovieList.canScrollVertically(-1)) {
+                        presenter.getMovie(etMainActSearch.text.toString())
+                    }
+                }
+            })
         }
 
-        binding.rvMainActMovieList.setOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                if (!binding.rvMainActMovieList.canScrollVertically(-1)) {
-                    presenter.getMovie(binding.etMainActSearch.text.toString())
-                }
-            }
-        })
+
     }
 
     private fun setKeyboardFunc() {
