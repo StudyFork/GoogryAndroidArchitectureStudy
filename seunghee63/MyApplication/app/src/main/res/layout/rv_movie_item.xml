@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:text="@{movie.title}"
+            setTitle="@{movie.title}"
             android:textColor="@color/colorBlack"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/iv_rv_movie_item_image"
