@@ -4,11 +4,13 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.siwon.prj"
-        minSdkVersion 28
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -27,6 +29,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -43,4 +48,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.7.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.0'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
+
+    // 의존성 주입을 위한 koin
+//    implementation 'org.koin:koin-android:2.0.1'
+//    implementation 'org.koin:koin-androidx-viewmodel:2.0.1'
 }

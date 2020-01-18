@@ -1,4 +1,4 @@
-package com.siwon.prj.model
+package com.siwon.prj.common.model
 
 object ApiInfo {
     const val CLIENT_ID = "KjLtxBCCy8ZTWORQ7uas"

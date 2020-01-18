@@ -1,4 +1,4 @@
-package com.siwon.prj.ui
+package com.siwon.prj.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

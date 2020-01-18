@@ -1,7 +1,7 @@
-package com.siwon.prj.datasource.service
+package com.siwon.prj.common.remote.datasource.service
 
-import com.siwon.prj.model.ApiInfo
-import com.siwon.prj.model.Movies
+import com.siwon.prj.common.model.ApiInfo
+import com.siwon.prj.common.model.Movies
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -18,13 +18,10 @@ interface MovieSearchService {
     ): Call<Movies>
 }
 
-object MovieSearchServiceImpl{
-
+object MovieSearchServiceImpl {
     val retrofit = Retrofit.Builder()
         .baseUrl(ApiInfo.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-
-    val service: MovieSearchService = retrofit.create(
-        MovieSearchService::class.java)
+    val service: MovieSearchService = retrofit.create(MovieSearchService::class.java)
 }
