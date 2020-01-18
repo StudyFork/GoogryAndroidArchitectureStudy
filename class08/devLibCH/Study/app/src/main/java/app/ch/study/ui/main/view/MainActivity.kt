@@ -1,5 +1,6 @@
 package app.ch.study.ui.main.view
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import app.ch.study.R
 import app.ch.study.core.BaseActivity
 import app.ch.study.data.common.EXTRA_URL
+import app.ch.study.data.common.PREF_NAME
 import app.ch.study.data.local.LocalDataManager
 import app.ch.study.data.remote.response.MovieModel
 import app.ch.study.ui.detail.DetailActivity
@@ -19,7 +21,11 @@ import app.ch.study.ui.main.presenter.MainPresenter
 
 class MainActivity : BaseActivity<MainPresenter>(R.layout.activity_main), MainContract.View {
 
-    override val presenter: MainPresenter by lazy { MainPresenter(this@MainActivity) }
+    override val presenter: MainPresenter by lazy {
+        val prefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val localDataManager = LocalDataManager.getInstance(prefs)
+        MainPresenter(this@MainActivity, localDataManager)
+    }
 
     override var pbLoading: FrameLayout
         get() = findViewById(R.id.pb_loading)
@@ -42,7 +48,9 @@ class MainActivity : BaseActivity<MainPresenter>(R.layout.activity_main), MainCo
 
         initEvent()
 
-        val name = (LocalDataManager.getInstance(this)?.getQuery()) ?: ""
+        val prefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val localDataManager = LocalDataManager.getInstance(prefs)
+        val name = localDataManager.getQuery()
         if (name.isNotEmpty()) {
             etSearch.setText(name)
             presenter.searchMovie(name)

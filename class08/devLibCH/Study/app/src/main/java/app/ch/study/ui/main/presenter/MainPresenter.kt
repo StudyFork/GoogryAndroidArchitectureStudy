@@ -1,14 +1,18 @@
 package app.ch.study.ui.main.presenter
 
 import app.ch.study.core.BasePresenter
+import app.ch.study.data.local.LocalDataManager
 import app.ch.study.data.local.source.NaverQueryLocalDataSourceImpl
 import app.ch.study.data.remote.api.WebApiTask
 import app.ch.study.data.remote.source.NaverQueryRemoteDataSourceImpl
-import app.ch.study.data.repository.NaverQueryRepositoryImple
+import app.ch.study.data.repository.NaverQueryRepositoryImpl
 
-class MainPresenter(private val view: MainContract.View) : BasePresenter(), MainContract.Presenter {
+class MainPresenter(
+    private val view: MainContract.View,
+    private val localDataManager: LocalDataManager
+) : BasePresenter(), MainContract.Presenter {
 
-    private lateinit var repository: NaverQueryRepositoryImple
+    private lateinit var repository: NaverQueryRepositoryImpl
 
     override fun searchMovie(name: String) {
         if (name.isEmpty()) {
@@ -16,9 +20,9 @@ class MainPresenter(private val view: MainContract.View) : BasePresenter(), Main
             return
         }
 
-        val local = NaverQueryLocalDataSourceImpl()
+        val local = NaverQueryLocalDataSourceImpl(localDataManager)
         val remote = NaverQueryRemoteDataSourceImpl(WebApiTask.getInstance())
-        repository = NaverQueryRepositoryImple(local, remote)
+        repository = NaverQueryRepositoryImpl(local, remote)
 
         val search = repository.searchMovie(name)
 
@@ -32,7 +36,7 @@ class MainPresenter(private val view: MainContract.View) : BasePresenter(), Main
             .subscribe({ response ->
                 val list = response.items
 
-                if(list.isEmpty()) {
+                if (list.isEmpty()) {
                     view.showEmptyResult()
                     return@subscribe
                 }
@@ -41,6 +45,7 @@ class MainPresenter(private val view: MainContract.View) : BasePresenter(), Main
             }, {
                 val error = handleError(it)
                 view.showError(error)
-            }))
+            })
+        )
     }
 }

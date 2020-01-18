@@ -1,16 +1,16 @@
 package app.ch.study.data.local.source
 
-import app.ch.study.core.App
 import app.ch.study.data.local.LocalDataManager
 import app.ch.study.data.remote.response.MovieModel
 import app.ch.study.data.remote.response.MovieResponse
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class NaverQueryLocalDataSourceImpl : NaverQueryLocalDataSource {
+class NaverQueryLocalDataSourceImpl(private val localDataManager: LocalDataManager) :
+    NaverQueryLocalDataSource {
 
     override fun searchMovie(): MovieResponse {
-        val jsonList = LocalDataManager.getInstance(App.context)?.searchMovieList() ?: ""
+        val jsonList = localDataManager.searchMovieList()
         val response = MovieResponse()
 
         if (jsonList.isNotEmpty()) {
@@ -27,11 +27,11 @@ class NaverQueryLocalDataSourceImpl : NaverQueryLocalDataSource {
     override fun saveMovieList(movieList: MutableList<MovieModel>) {
         val gson = Gson()
         val jsonList = gson.toJson(movieList)
-        LocalDataManager.getInstance(App.context)?.saveMovieList(jsonList)
+        localDataManager.saveMovieList(jsonList)
     }
 
     override fun saveSearchQuery(query: String) {
-        LocalDataManager.getInstance(App.context)?.saveSearchQuery(query)
+        localDataManager.saveSearchQuery(query)
     }
 
 }
