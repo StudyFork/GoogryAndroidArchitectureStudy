@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private val movieAdapter = MovieAdapter()
-    private val naverSearchRepository: NaverSearchRepository = NaverSearchRepositoryImpl()
+    private val naverSearchRepository: NaverSearchRepository = NaverSearchRepositoryImpl.getInstance()
     private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
