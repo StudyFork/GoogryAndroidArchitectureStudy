@@ -2,20 +2,23 @@ package com.hansung.firstproject.ui.main
 
 import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hansung.firstproject.R
-import com.hansung.firstproject.adapter.RecyclerViewAdapter
+import com.hansung.firstproject.adapter.MovieItemAdapter
 import com.hansung.firstproject.data.ErrorStringResource
-import com.hansung.firstproject.data.MovieModel
 import com.hansung.firstproject.data.MovieResponseModel
 import com.hansung.firstproject.data.repository.NaverRepository
 import com.hansung.firstproject.data.source.remote.NaverRemoteDataSourceImpl
-import kotlinx.android.synthetic.main.activity_main.*
+import com.hansung.firstproject.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
@@ -33,39 +36,44 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         )
     }
 
-    private val adapter: RecyclerViewAdapter<MovieModel> = RecyclerViewAdapter()
+    private val movieItemAdapter: MovieItemAdapter = MovieItemAdapter()
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         // recyclerView initialize
         initRecyclerView()
+        // keyboard function
+        setKeyboardSearchFunc()
 
-        btn_search.setOnClickListener {
-            // 입력값이 없을 때
-            presenter.doSearch(et_search.text.toString())
+        with(binding) {
+            btnSearch.setOnClickListener {
+                presenter.doSearch(etSearch.text.toString())
+            }
         }
     }
 
     // recyclerView 초기화 메소드
     private fun initRecyclerView() {
-        recycler_view_movies.adapter = adapter
-        recycler_view_movies.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        recycler_view_movies.setHasFixedSize(true)
-        // movie 항목별 구분선 추가
-        recycler_view_movies.addItemDecoration(
-            DividerItemDecoration(
-                this,
-                LinearLayoutManager.VERTICAL
+        with(binding.recyclerViewMovies) {
+            adapter = movieItemAdapter
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            setHasFixedSize(true)
+            addItemDecoration(
+                DividerItemDecoration(
+                    context,
+                    LinearLayoutManager.VERTICAL
+                )
             )
-        )
+        }
     }
 
     //키보드 제거 메소드
     override fun removeKeyboard() =
         (this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-            et_search.windowToken,
+            binding.etSearch.windowToken,
             0
         )
 
@@ -74,8 +82,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun showErrorByErrorMessage(errorMessage: String) {
-        //ErrorStringResource.valueOf(errorMessage)
-        Toast.makeText(this, ErrorStringResource.valueOf(errorMessage).resId, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, ErrorStringResource.valueOf(errorMessage).resId, Toast.LENGTH_SHORT)
+            .show()
     }
 
     override fun showErrorEmptyList() {
@@ -83,9 +91,24 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun addItemToAdapter(response: MovieResponseModel) {
-        adapter.run {
+        movieItemAdapter.run {
             addItems(response.items)
             notifyDataSetChanged()
         }
+    }
+
+    private fun setKeyboardSearchFunc() {
+        binding.etSearch.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+            override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
+                when (actionId) {
+                    EditorInfo.IME_ACTION_SEARCH -> {
+                        presenter.doSearch(binding.etSearch.text.toString())
+                    }
+                    else ->
+                        return false
+                }
+                return true
+            }
+        })
     }
 }
