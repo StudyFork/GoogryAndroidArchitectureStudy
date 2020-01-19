@@ -12,9 +12,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainConstract.View {
 
-    val adapter =
+    private val presenter by lazy { MainPresenter(this) }
+    private val adapter =
         MovieRecyclerViewAdpater() { link ->
             webview_detail_movie.loadUrl(link)
         }
@@ -31,12 +32,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun findMovie(query: String) {
+    override fun updateMovieRecycler(items: List<MovieResult.Item>) {
+        adapter.setItems(items)
+    }
 
-        NaverRepositoryImpl.getResultData(query,
-            success = {adapter.setItems(it.items)},
-            fail = { Toast.makeText(applicationContext, it.message, Toast.LENGTH_SHORT).show()})
+    override fun failMovieGet(msg: String)
+    {
+        Toast.makeText(applicationContext, msg, Toast.LENGTH_SHORT).show()
+    }
 
+    override fun findMovie(query: String) {
+        presenter.findMovie(query)
     }
 }
 
