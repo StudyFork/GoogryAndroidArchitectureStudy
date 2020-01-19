@@ -1,27 +1,19 @@
-package com.example.study.ui
+package com.example.study.ui.main
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.example.study.R
 import com.example.study.ui.adapter.MovieAdapter
-import com.example.study.data.datasource.remote.network.NaverApiService
-import com.example.study.data.model.Movie
-import com.example.study.data.model.NaverSearchResponse
 import com.example.study.data.repository.NaverSearchRepository
 import com.example.study.data.repository.NaverSearchRepositoryImpl
+import com.example.study.ui.detail.DetailActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Retrofit
-import retrofit2.Response
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.Call
-import retrofit2.Callback
 
 class MainActivity : AppCompatActivity() {
 
