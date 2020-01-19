@@ -1,26 +1,29 @@
 package com.onit.googlearchitecturestudy.ui.main
 
-import android.text.Html
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.onit.googlearchitecturestudy.Movie
 import com.onit.googlearchitecturestudy.R
-import kotlinx.android.synthetic.main.holder_movie.view.*
+import com.onit.googlearchitecturestudy.databinding.HolderMovieBinding
 
 class ResultMovieListRecyclerAdapter(
-    private val listener: (Int) -> Unit
+    private val listener: ClickMovieListener
 ) : RecyclerView.Adapter<ResultMovieListRecyclerAdapter.MovieViewHolder>() {
 
     private val list: ArrayList<Movie> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.holder_movie, parent, false)
 
-        return MovieViewHolder(itemView, listener)
+        val binding = DataBindingUtil.inflate<HolderMovieBinding>(
+            LayoutInflater.from(parent.context),
+            R.layout.holder_movie,
+            parent,
+            false
+        )
+
+        return MovieViewHolder(binding, listener)
     }
 
     override fun getItemCount(): Int {
@@ -44,28 +47,19 @@ class ResultMovieListRecyclerAdapter(
         return list[position].link
     }
 
-    inner class MovieViewHolder(itemView: View, clickListener: (Int) -> Unit) :
-        RecyclerView.ViewHolder(itemView) {
+    inner class MovieViewHolder(
+        private val binding: HolderMovieBinding,
+        clickListener: ClickMovieListener
+    ) :
+        RecyclerView.ViewHolder(binding.root) {
 
         init {
-            itemView.setOnClickListener {
-                clickListener(adapterPosition)
-            }
+            binding.onClick = { clickListener(adapterPosition) }
         }
 
         fun bind(movie: Movie) {
-            with(itemView) {
-                titleTextView.text = movie.title.removeTag()
-                gradeRatingBar.rating = movie.userRating / 2f
-                releaseDateTextView.text = movie.releaseDate
-                directorTextView.text = movie.director
-                actorsTextView.text = movie.actor
-                Glide.with(this).load(movie.posterImage).into(posterImageView)
-            }
+            binding.movie = movie
+            binding.executePendingBindings()
         }
-    }
-
-    private fun String.removeTag(): String {
-        return Html.fromHtml(this).toString()
     }
 }

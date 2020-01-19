@@ -7,22 +7,28 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.onit.googlearchitecturestudy.Movie
 import com.onit.googlearchitecturestudy.R
+import com.onit.googlearchitecturestudy.databinding.ActivityMainBinding
 import com.onit.googlearchitecturestudy.ui.movieInformation.MovieInformationActivity
 import com.onit.googlearchitecturestudy.ui.movieInformation.MovieInformationActivity.Companion.MOVIE_URL
 import kotlinx.android.synthetic.main.activity_main.*
+
+typealias ClickMovieListener = (Int) -> Unit
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
     private lateinit var resultMovieListRecyclerAdapter: ResultMovieListRecyclerAdapter
     private lateinit var presenter: MainContract.Presenter
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)!!
         presenter = MainPresenter(this)
+        binding.presenter = presenter
         init()
     }
 
@@ -51,26 +57,17 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     private fun init() {
-        searchButton.setOnClickListener {
-            presenter.searchMovies(searchFieldEditText.text.toString())
-        }
         setRecyclerView()
     }
 
     private fun setRecyclerView() {
-        resultMovieListRecyclerAdapter =
-            ResultMovieListRecyclerAdapter { position ->
-                clickMovieItem(
-                    position
-                )
-            }
+        resultMovieListRecyclerAdapter = ResultMovieListRecyclerAdapter(clickMovieListener)
         resultMovieListRecyclerView.adapter = resultMovieListRecyclerAdapter
     }
 
-    private fun clickMovieItem(position: Int) {
-        val intent = Intent(this, MovieInformationActivity::class.java).apply {
+    private val clickMovieListener: ClickMovieListener = { position ->
+        Intent(this, MovieInformationActivity::class.java).apply {
             putExtra(MOVIE_URL, resultMovieListRecyclerAdapter.getMovieURL(position))
-        }
-        startActivity(intent)
+        }.run { startActivity(this) }
     }
 }
