@@ -1,4 +1,4 @@
-package com.example.archstudy.ui
+package com.example.archstudy.ui.main
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,13 +10,13 @@ import android.widget.TextView
 import androidx.annotation.Nullable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.archstudy.Item
+import com.example.archstudy.data.source.local.MovieData
 import com.example.archstudy.R
 
 class MovieListAdapter(@Nullable private var listener: ItemClickListener) :
     RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
 
-    private var list = mutableListOf<Item>()
+    private var list = mutableListOf<MovieData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val holder = ViewHolder(
@@ -36,7 +36,7 @@ class MovieListAdapter(@Nullable private var listener: ItemClickListener) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         holder.bind(list[position])
 
-    fun setAllData(movieList: MutableList<Item>){
+    fun setAllData(movieList: MutableList<MovieData>){
         list.clear()
         list.addAll(movieList)
         notifyDataSetChanged()
@@ -51,7 +51,7 @@ class MovieListAdapter(@Nullable private var listener: ItemClickListener) :
         private val tvDirector = itemView.findViewById<TextView>(R.id.tvDirector)
         private val tvActors = itemView.findViewById<TextView>(R.id.tvActors)
 
-        fun bind(data: Item) {
+        fun bind(data: MovieData) {
 
             with(data) {
                 Log.d("img", "image : $image, title : $title")

@@ -1,6 +1,6 @@
 package com.example.archstudy.network
 
-import com.example.archstudy.MovieData
+import com.example.archstudy.MovieDataResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -13,5 +13,5 @@ interface NaverMovieService {
         @Header("X-Naver-Client-Id") clientId : String,
         @Header("X-Naver-Client-Secret") clientSecret : String,
         @Query("query") query : String
-    ) : Call<MovieData>
+    ) : Call<MovieDataResponse>
 }

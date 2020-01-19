@@ -1,11 +1,20 @@
 package com.example.archstudy.data.source.local
 
-import com.example.archstudy.MovieData
+class NaverQueryLocalDataSourceImpl(private val itemDao: ItemDao?,
+                                    private val searchWordDao: SearchWordDao?) : NaverQueryLocalDataSource {
 
-class NaverQueryLocalDataSourceImpl : NaverQueryLocalDataSource {
-
-    override fun getMovie(query: String): MovieData {
-        // TODO : Room에서 저장된 데이터 가져오기
-        return MovieData(0, mutableListOf(),0,0)
+    override fun requestSearchWord(): String {
+        return searchWordDao?.getSearchWord()?:""
     }
+
+    override fun requestLocalData(query: String): MutableList<MovieData>? {
+        return itemDao?.getLocalData()
+    }
+
+    override fun insertLocalData(query: String, list: MutableList<MovieData>) {
+        val searchWord = SearchWord(0, query)
+        itemDao?.insertAll(list)
+        searchWordDao?.insertSearchWord(searchWord)
+    }
+
 }

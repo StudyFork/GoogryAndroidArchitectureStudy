@@ -6,11 +6,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitHelper {
 
-    private val retrofit: Retrofit
     val apiService: NaverMovieService
 
     init {
-        retrofit = Retrofit.Builder()
+        val retrofit = Retrofit.Builder()
             .baseUrl(BuildConfig.API_URI)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -20,8 +19,8 @@ class RetrofitHelper {
 
     companion object {
 
-        private var INSTANCE : RetrofitHelper? = null
+        private var INSTANCE: RetrofitHelper? = null
 
-        fun getInstance() : RetrofitHelper = INSTANCE ?: RetrofitHelper()
+        fun getInstance(): RetrofitHelper = INSTANCE ?: RetrofitHelper()
     }
 }

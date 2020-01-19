@@ -1,7 +1,7 @@
 package com.example.archstudy.data.source.local
 
-import com.example.archstudy.MovieData
-
 interface NaverQueryLocalDataSource {
-    fun getMovie(query: String): MovieData
+    fun requestSearchWord(): String
+    fun requestLocalData(query: String): MutableList<MovieData>?
+    fun insertLocalData(query: String, list: MutableList<MovieData>): Unit?
 }

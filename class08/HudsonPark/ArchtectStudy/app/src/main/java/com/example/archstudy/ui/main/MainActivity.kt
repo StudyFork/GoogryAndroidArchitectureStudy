@@ -1,19 +1,21 @@
-package com.example.archstudy.ui
+package com.example.archstudy.ui.main
 
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.archstudy.Item
-import com.example.archstudy.MovieData
+import com.example.archstudy.data.source.local.MovieData
+import com.example.archstudy.MovieDataResponse
 import com.example.archstudy.R
 import com.example.archstudy.data.repository.NaverQueryRepositoryImpl
+import com.example.archstudy.data.source.local.AppDatabase
+import com.example.archstudy.data.source.local.NaverQueryLocalDataSourceImpl
+import com.example.archstudy.data.source.remote.NaverQueryRemoteDataSourceImpl
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,13 +26,25 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnSearch: Button
     private lateinit var rvMovieList: RecyclerView
     private lateinit var rvMovieAdapter: MovieListAdapter
+    private lateinit var repositoryImpl: NaverQueryRepositoryImpl
+    private var query = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initData() // 데이터 초기화
         initView() // 뷰 초기화
+        val localQuery = getSharedPreference()
         initEvent() // 이벤트 처리
 
+    }
+
+    private fun initData() {
+        val itemDao = AppDatabase.getInstance(this)?.localItemDao()
+        val searchWordDao = AppDatabase.getInstance(this)?.searchWordDao()
+        val localData = NaverQueryLocalDataSourceImpl(itemDao, searchWordDao)
+        val remoteData = NaverQueryRemoteDataSourceImpl()
+        repositoryImpl = NaverQueryRepositoryImpl(localData, remoteData)
     }
 
     private fun initEvent() {
@@ -38,17 +52,15 @@ class MainActivity : AppCompatActivity() {
             hideKeyboard()
             disableButton()
             // 검색 버튼 클릭 시
-            var query = edtQuery.text.toString()
+            query = edtQuery.text.toString()
             if (query.isEmpty()) {
                 showToast("검색어를 다시 입력해주세요.")
             } else {
                 showToast("요청하신 관련 영화 : $query")
                 requestRemoteData(query)
             }
-            clearQuery()
             activateButton()
         }
-
     }
 
     private fun initView() {
@@ -67,19 +79,32 @@ class MainActivity : AppCompatActivity() {
 
     private fun requestRemoteData(query: String) {
         val remoteData = NaverQueryRepositoryImpl().requestRemoteData(query)
-        remoteData.enqueue(object : Callback<MovieData> {
+        val localDta = NaverQueryLocalDataSourceImpl
+        remoteData.enqueue(object : Callback<MovieDataResponse> {
 
-            override fun onFailure(call: Call<MovieData>, t: Throwable) {
+            override fun onFailure(call: Call<MovieDataResponse>, t: Throwable) {
                 showToast("에러 메시지 : ${t.message.toString()}")
             }
 
-            override fun onResponse(call: Call<MovieData>, response: Response<MovieData>) {
-                Log.d("movieData", response.body().toString())
+            override fun onResponse(call: Call<MovieDataResponse>, response: Response<MovieDataResponse>) {
                 if (response.body() != null) {
-                    rvMovieAdapter.setAllData(response.body()?.items as MutableList<Item>)
+                    val items = response.body()?.items as MutableList<MovieData>
+                    rvMovieAdapter.setAllData(items)
+                    insertLocalDB(query, items) //  내부 DB에 저장
                 }
             }
         })
+    }
+
+    private fun requestLocalData(query: String) {
+        val localList = mutableListOf<MovieData>()
+
+
+        rvMovieAdapter.setAllData(localList)
+    }
+
+    private fun insertLocalDB(query: String, data: MutableList<MovieData>) {
+        repositoryImpl.insertLocalData(query, data, this)
     }
 
 
@@ -95,12 +120,29 @@ class MainActivity : AppCompatActivity() {
         btnSearch.isClickable = false
     }
 
-    private fun clearQuery() {
-        edtQuery.text.clear()
-    }
-
     private fun hideKeyboard() {
         val inputManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(edtQuery.windowToken, 0)
+    }
+
+    // 최근 검색한 쿼리 SharedPreference 에 저장하기
+    private fun setSharedPreference(query: String) {
+        val sharedPreference = getSharedPreferences("localData", MODE_PRIVATE)
+        val editor = sharedPreference.edit()
+        editor.putString("query", query)
+        editor.commit()
+    }
+
+    // 로컬 DB에 요청할 쿼리 얻기
+    private fun getSharedPreference(): String? {
+        val sharedPreference = getSharedPreferences("localData", MODE_PRIVATE)
+        return sharedPreference.getString("query", null)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (query.isNotEmpty()) {
+            setSharedPreference(query)
+        }
     }
 }
