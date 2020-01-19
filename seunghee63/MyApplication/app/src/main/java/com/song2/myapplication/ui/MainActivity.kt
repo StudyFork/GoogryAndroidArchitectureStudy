@@ -9,12 +9,13 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.song2.myapplication.R
 import com.song2.myapplication.adapter.MovieAdapter
+import com.song2.myapplication.databinding.ActivityMainBinding
 import com.song2.myapplication.source.MovieData
-import kotlinx.android.synthetic.main.activity_main.*
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(), MainContract.View {
@@ -23,25 +24,29 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private val movieAdapter by lazy { MovieAdapter() }
     private val presenter: MainContract.Presenter by lazy { MainPresenter(this) }
 
+    private lateinit var binding : ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         setKeyboardFunc()
         setMovieRecyclerView()
 
-        btn_main_act_search_btn.setOnClickListener {
-
-            if (et_main_act_search.text.toString() != "") {
-                movieAdapter.clearData()
-                presenter.getMovie(et_main_act_search.text.toString())
+        with(binding){
+            btnMainActSearchBtn.setOnClickListener {
+                if (etMainActSearch.text.toString() != "") {
+                    movieAdapter.clearData()
+                    presenter.getMovie(etMainActSearch.text.toString())
+                }
             }
         }
     }
 
     override fun showGetMovieSuccess(movieDataList: List<MovieData>) {
 
-        imm.hideSoftInputFromWindow(et_main_act_search.windowToken, 0)
+        imm.hideSoftInputFromWindow(binding.etMainActSearch.windowToken, 0)
 
         movieAdapter.addItem(movieDataList)
     }
@@ -51,11 +56,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun setResultVisible() {
-        tv_main_act_movie_list.visibility = View.GONE
+        binding.tvMainActMovieList.visibility = View.GONE
     }
 
     override fun setResultGone() {
-        tv_main_act_movie_list.visibility = View.VISIBLE
+        binding.tvMainActMovieList.visibility = View.VISIBLE
     }
 
 
@@ -65,28 +70,32 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     private fun setMovieRecyclerView() {
 
-        rv_main_act_movie_list.apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = movieAdapter
+        with(binding){
+            rvMainActMovieList.apply {
+                layoutManager = LinearLayoutManager(this@MainActivity)
+                adapter = movieAdapter
+            }
+
+            rvMainActMovieList.setOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    if (!rvMainActMovieList.canScrollVertically(-1)) {
+                        presenter.getMovie(etMainActSearch.text.toString())
+                    }
+                }
+            })
         }
 
-        rv_main_act_movie_list.setOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                if (!rv_main_act_movie_list.canScrollVertically(-1)) {
-                    presenter.getMovie(et_main_act_search.text.toString())
-                }
-            }
-        })
+
     }
 
     private fun setKeyboardFunc() {
 
-        et_main_act_search.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+        binding.etMainActSearch.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
                 when (actionId) {
                     EditorInfo.IME_ACTION_SEARCH -> {
                         movieAdapter.clearData()
-                        presenter.getMovie(et_main_act_search.text.toString())
+                        presenter.getMovie(binding.etMainActSearch.text.toString())
                     }
                     else ->
                         return false

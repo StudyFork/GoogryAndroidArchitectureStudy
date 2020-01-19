@@ -1,75 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/iv_rv_movie_item_image"
-        android:layout_width="132dp"
-        android:layout_height="200dp"
-        android:layout_margin="8dp"
-        android:src="@color/colorBlack"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
+        <variable
+            name="movie"
+            type="com.song2.myapplication.source.MovieData" />
+    </data>
 
-    <TextView
-        android:id="@+id/tv_rv_movie_item_title"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="영화제목"
-        android:textColor="@color/colorBlack"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/iv_rv_movie_item_image"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatRatingBar
-        android:id="@+id/rb_rv_movie_item_rating"
-        style="@style/Base.Widget.AppCompat.RatingBar.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:stepSize="0.5"
-        app:layout_constraintStart_toEndOf="@+id/iv_rv_movie_item_image"
-        app:layout_constraintTop_toBottomOf="@+id/tv_rv_movie_item_title" />
+        <ImageView
+            android:id="@+id/iv_rv_movie_item_image"
+            android:layout_width="132dp"
+            android:layout_height="200dp"
+            android:layout_margin="8dp"
+            setImage="@{movie.image}"
+            android:src="@color/colorBlack"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_rv_movie_item_pub_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="2018"
-        android:textColor="@color/colorBlack"
-        app:layout_constraintStart_toEndOf="@+id/iv_rv_movie_item_image"
-        app:layout_constraintTop_toBottomOf="@+id/rb_rv_movie_item_rating" />
+        <TextView
+            android:id="@+id/tv_rv_movie_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            setTitle="@{movie.title}"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/iv_rv_movie_item_image"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_rv_movie_item_director"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="감독|"
-        android:textColor="@color/colorBlack"
-        app:layout_constraintStart_toEndOf="@+id/iv_rv_movie_item_image"
-        app:layout_constraintTop_toBottomOf="@+id/tv_rv_movie_item_pub_date" />
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/rb_rv_movie_item_rating"
+            style="@style/Base.Widget.AppCompat.RatingBar.Small"
+            setRating="@{movie.userRating}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:stepSize="0.5"
+            app:layout_constraintStart_toEndOf="@+id/iv_rv_movie_item_image"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rv_movie_item_title" />
 
-    <TextView
-        android:id="@+id/tv_rv_movie_item_actor"
-        android:layout_width="246dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="배우1 | 배우2 | 배우3 | 베우4"
-        android:textColor="@color/colorBlack"
-        app:layout_constraintStart_toEndOf="@+id/iv_rv_movie_item_image"
-        app:layout_constraintTop_toBottomOf="@+id/tv_rv_movie_item_director" />
+        <TextView
+            android:id="@+id/tv_rv_movie_item_pub_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{movie.pubDate}"
+            android:textColor="@color/colorBlack"
+            app:layout_constraintStart_toEndOf="@+id/iv_rv_movie_item_image"
+            app:layout_constraintTop_toBottomOf="@+id/rb_rv_movie_item_rating" />
+
+        <TextView
+            android:id="@+id/tv_rv_movie_item_director"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{movie.director}"
+            android:textColor="@color/colorBlack"
+            app:layout_constraintStart_toEndOf="@+id/iv_rv_movie_item_image"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rv_movie_item_pub_date" />
+
+        <TextView
+            android:id="@+id/tv_rv_movie_item_actor"
+            android:layout_width="246dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{movie.actor}"
+            android:textColor="@color/colorBlack"
+            app:layout_constraintStart_toEndOf="@+id/iv_rv_movie_item_image"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rv_movie_item_director" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
