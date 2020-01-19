@@ -6,12 +6,12 @@ import com.google.gson.Gson
 import com.ironelder.androidarchitecture.data.ResultItem
 import com.ironelder.androidarchitecture.data.TotalModel
 import com.ironelder.androidarchitecture.data.dao.SearchResultDao
-import com.ironelder.androidarchitecture.data.repository.SearchDataRepositoryImpl
+import com.ironelder.androidarchitecture.data.repository.SearchDataRepository
 import com.ironelder.androidarchitecture.view.baseview.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class MainViewModel(private val searchDataRepositoryImpl: SearchDataRepositoryImpl) : BaseViewModel() {
+class MainViewModel(private val searchDataRepositoryImpl: SearchDataRepository) : BaseViewModel() {
     private val LOG_TAG = MainViewModel::class.java.toString()
 
     val showProgressBar = MutableLiveData<Boolean>(false)

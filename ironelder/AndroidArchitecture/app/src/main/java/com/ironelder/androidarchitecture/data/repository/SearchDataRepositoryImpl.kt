@@ -4,11 +4,15 @@ import com.google.gson.Gson
 import com.ironelder.androidarchitecture.data.SearchResult
 import com.ironelder.androidarchitecture.data.TotalModel
 import com.ironelder.androidarchitecture.data.dao.SearchResultDao
-import com.ironelder.androidarchitecture.data.source.local.LocalSearchDataSourceImpl
+import com.ironelder.androidarchitecture.data.source.local.LocalSearchDataSource
+import com.ironelder.androidarchitecture.data.source.remote.RemoteSearchDataSource
 import com.ironelder.androidarchitecture.data.source.remote.RemoteSearchDataSourceImpl
 import io.reactivex.Single
 
-class SearchDataRepositoryImpl(private val localSearchDataSourceImpl: LocalSearchDataSourceImpl) :
+class SearchDataRepositoryImpl(
+    private val localSearchDataSourceImpl: LocalSearchDataSource,
+    private val remoteSearchDataSourceImpl: RemoteSearchDataSource
+) :
     SearchDataRepository {
 
     override fun getRemoteSearchData(
@@ -16,7 +20,7 @@ class SearchDataRepositoryImpl(private val localSearchDataSourceImpl: LocalSearc
         query: String,
         searchResultDao: SearchResultDao
     ): Single<TotalModel> {
-        return RemoteSearchDataSourceImpl.getRemoteSearchData(type, query)
+        return remoteSearchDataSourceImpl.getRemoteSearchData(type, query)
             .doAfterSuccess { result: TotalModel? ->
                 localSearchDataSourceImpl.setLocalSearchData(
                     SearchResult(

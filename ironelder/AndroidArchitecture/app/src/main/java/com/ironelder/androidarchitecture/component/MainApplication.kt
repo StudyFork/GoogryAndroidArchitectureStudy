@@ -3,8 +3,11 @@ package com.ironelder.androidarchitecture.component
 import android.app.Application
 import com.ironelder.androidarchitecture.data.RetrofitForNaver
 import com.ironelder.androidarchitecture.data.database.SearchResultDatabase
+import com.ironelder.androidarchitecture.data.repository.SearchDataRepository
 import com.ironelder.androidarchitecture.data.repository.SearchDataRepositoryImpl
+import com.ironelder.androidarchitecture.data.source.local.LocalSearchDataSource
 import com.ironelder.androidarchitecture.data.source.local.LocalSearchDataSourceImpl
+import com.ironelder.androidarchitecture.data.source.remote.RemoteSearchDataSource
 import com.ironelder.androidarchitecture.data.source.remote.RemoteSearchDataSourceImpl
 import com.ironelder.androidarchitecture.view.mainview.MainViewModel
 import org.koin.android.ext.koin.androidApplication
@@ -20,13 +23,13 @@ class MainApplication : Application() {
     }
 
     private val repositoryModule: Module = module {
-        single { SearchDataRepositoryImpl(get(), get()) }
+        single<SearchDataRepository> { SearchDataRepositoryImpl(get(), get()) }
     }
 
     private val dataSourceModule: Module = module {
         single { SearchResultDatabase.getInstance(androidApplication()) }
-        single { LocalSearchDataSourceImpl(get()) }
-        single { RemoteSearchDataSourceImpl(get()) }
+        single<LocalSearchDataSource> { LocalSearchDataSourceImpl(get()) }
+        single<RemoteSearchDataSource> { RemoteSearchDataSourceImpl(get()) }
     }
 
     private val serviceModule: Module = module {
