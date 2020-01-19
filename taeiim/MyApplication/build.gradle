@@ -28,6 +28,8 @@ buildscript {
         // room
         room_version = '2.2.2'
 
+        // LifeCycle (ViewModel)
+        lifecycle_version = '2.1.0'
     }
 
     repositories {
