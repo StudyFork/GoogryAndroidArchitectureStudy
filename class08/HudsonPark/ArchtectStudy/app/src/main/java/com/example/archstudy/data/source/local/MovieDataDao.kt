@@ -6,12 +6,12 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-interface ItemDao {
+interface MovieDataDao {
     @Query("SELECT * FROM MovieData")
     fun getLocalData() : MutableList<MovieData>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun setLocalData(localItem: LocalItem)
+    fun setLocalData(movieData: MovieData)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(list: MutableList<MovieData>)

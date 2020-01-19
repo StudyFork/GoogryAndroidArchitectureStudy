@@ -5,10 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [LocalItem::class, SearchWord::class], version = 1)
+@Database(entities = [MovieData::class, SearchWord::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     // 데이터베이스와 연결되는 DAO
-    abstract fun localItemDao(): ItemDao
+    abstract fun localMovieDao(): MovieDataDao
 
     abstract fun searchWordDao(): SearchWordDao
 

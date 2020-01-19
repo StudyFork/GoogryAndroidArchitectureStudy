@@ -13,5 +13,5 @@ data class MovieData(
     @ColumnInfo(name = "link") val link : String,
     @ColumnInfo(name = "pubDate") val pubDate : String,
     @ColumnInfo(name = "subtitle") val subtitle : String,
-    @ColumnInfo(name = "userRating") val userRating : Long
+    @ColumnInfo(name = "userRating") val userRating : String
 )

@@ -3,6 +3,7 @@ package com.example.archstudy.ui.main
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
@@ -19,32 +20,42 @@ import com.example.archstudy.data.source.remote.NaverQueryRemoteDataSourceImpl
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
+    // View
     private lateinit var edtQuery: EditText
     private lateinit var btnSearch: Button
     private lateinit var rvMovieList: RecyclerView
     private lateinit var rvMovieAdapter: MovieListAdapter
+    // Data
     private lateinit var repositoryImpl: NaverQueryRepositoryImpl
+    private lateinit var localData: NaverQueryLocalDataSourceImpl
+    private lateinit var remoteData: NaverQueryRemoteDataSourceImpl
     private var query = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        initData() // 데이터 초기화
         initView() // 뷰 초기화
-        val localQuery = getSharedPreference()
+        initData() // 데이터 초기화
         initEvent() // 이벤트 처리
 
     }
 
     private fun initData() {
-        val itemDao = AppDatabase.getInstance(this)?.localItemDao()
+        val itemDao = AppDatabase.getInstance(this)?.localMovieDao()
         val searchWordDao = AppDatabase.getInstance(this)?.searchWordDao()
-        val localData = NaverQueryLocalDataSourceImpl(itemDao, searchWordDao)
-        val remoteData = NaverQueryRemoteDataSourceImpl()
+        localData = NaverQueryLocalDataSourceImpl(itemDao, searchWordDao)
+        remoteData = NaverQueryRemoteDataSourceImpl()
         repositoryImpl = NaverQueryRepositoryImpl(localData, remoteData)
+
+        val history = getSharedPreference()
+
+        if (history != null) {
+            requestLocalData(history!!)
+        }
     }
 
     private fun initEvent() {
@@ -53,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             disableButton()
             // 검색 버튼 클릭 시
             query = edtQuery.text.toString()
-            if (query.isEmpty()) {
+            if (query.isNullOrEmpty()) {
                 showToast("검색어를 다시 입력해주세요.")
             } else {
                 showToast("요청하신 관련 영화 : $query")
@@ -77,34 +88,48 @@ class MainActivity : AppCompatActivity() {
         rvMovieList.adapter = rvMovieAdapter
     }
 
+    // 사용자가 입력한 검색어로 네이버 영화 검색 API에서 데이터 얻어오기
     private fun requestRemoteData(query: String) {
-        val remoteData = NaverQueryRepositoryImpl().requestRemoteData(query)
-        val localDta = NaverQueryLocalDataSourceImpl
-        remoteData.enqueue(object : Callback<MovieDataResponse> {
 
-            override fun onFailure(call: Call<MovieDataResponse>, t: Throwable) {
-                showToast("에러 메시지 : ${t.message.toString()}")
-            }
+        repositoryImpl
+            .requestRemoteData(query)
+            .enqueue(object : Callback<MovieDataResponse> {
 
-            override fun onResponse(call: Call<MovieDataResponse>, response: Response<MovieDataResponse>) {
-                if (response.body() != null) {
-                    val items = response.body()?.items as MutableList<MovieData>
-                    rvMovieAdapter.setAllData(items)
-                    insertLocalDB(query, items) //  내부 DB에 저장
+                override fun onFailure(call: Call<MovieDataResponse>, t: Throwable) {
+                    showToast("에러 메시지 : ${t.message.toString()}")
                 }
-            }
-        })
+
+                override fun onResponse(
+                    call: Call<MovieDataResponse>,
+                    response: Response<MovieDataResponse>
+                ) {
+                    if (response.body() != null) {
+                        val items = response.body()?.items as MutableList<MovieData>
+                        rvMovieAdapter.setAllData(items) // Remote Data를
+                        insertLocalData(query, items) //  내부 DB에 저장
+                    }
+                }
+            })
     }
 
     private fun requestLocalData(query: String) {
-        val localList = mutableListOf<MovieData>()
 
+        try {
+            // 최근 검색한 query 를 PK로 하여 LocalDB에서 데이터 비동기로 얻어오기
+            val requestResult = repositoryImpl
+                .RequestLocalDataAsync(query!!)
+                .execute()
+                .get()
 
-        rvMovieAdapter.setAllData(localList)
+            rvMovieAdapter.setAllData(requestResult) // Local Data 세팅
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
-    private fun insertLocalDB(query: String, data: MutableList<MovieData>) {
-        repositoryImpl.insertLocalData(query, data, this)
+    private fun insertLocalData(query: String, data: MutableList<MovieData>) {
+        repositoryImpl.InsertLocalDataAsync(query, data).execute()
     }
 
 
@@ -129,6 +154,7 @@ class MainActivity : AppCompatActivity() {
     private fun setSharedPreference(query: String) {
         val sharedPreference = getSharedPreferences("localData", MODE_PRIVATE)
         val editor = sharedPreference.edit()
+        Log.d("local", "setSharedPreference.query : $query")
         editor.putString("query", query)
         editor.commit()
     }
@@ -139,10 +165,9 @@ class MainActivity : AppCompatActivity() {
         return sharedPreference.getString("query", null)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        if (query.isNotEmpty()) {
-            setSharedPreference(query)
-        }
+    override fun onStop() {
+        super.onStop()
+        Log.d("local", "onStop() : $query")
+        setSharedPreference(query)
     }
 }
