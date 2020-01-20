@@ -1,16 +1,18 @@
-package com.egiwon.architecturestudy.data.source.remote.response
+package com.egiwon.remote.response
 
 import androidx.annotation.Keep
+import com.egiwon.data.model.ContentEntity
+import com.egiwon.data.model.ContentItem
 import com.google.gson.annotations.SerializedName
 
 data class ContentResponse(
-    val query: String,
+    var query: String,
     @SerializedName("items")
-    val contentItems: List<ContentItem>
+    val contentResponseItems: List<ContentResponseItem>
 )
 
 @Keep
-data class ContentItem(
+data class ContentResponseItem(
 
     @SerializedName("image")
     val image: String = "",
@@ -41,3 +43,18 @@ data class ContentItem(
     @SerializedName("originallink")
     val originallink: String = ""
 )
+
+
+fun ContentResponse.mapToContentEntity(): ContentEntity =
+    ContentEntity(
+        query = query,
+        contentItems = contentResponseItems.map {
+            ContentItem(
+                image = it.image,
+                actor = it.actor,
+                description = it.description,
+                title = it.title,
+                link = it.link
+            )
+        }
+    )
