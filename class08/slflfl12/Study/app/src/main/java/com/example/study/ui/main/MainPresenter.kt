@@ -1,12 +1,6 @@
 package com.example.study.ui.main
 
-import android.widget.Toast
-import com.example.study.R
-import com.example.study.data.model.Movie
-import com.example.study.data.model.NaverSearchResponse
-import com.example.study.data.repository.NaverSearchRepository
 import com.example.study.data.repository.NaverSearchRepositoryImpl
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -28,7 +22,6 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
                 view.hideProgress()
             }
             .subscribe({
-
                 it?.let {
                     if (it.items.isNotEmpty()) {
                         view.showMovieList(it.items)

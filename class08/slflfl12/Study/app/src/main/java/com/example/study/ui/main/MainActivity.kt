@@ -8,13 +8,7 @@ import android.widget.Toast
 import com.example.study.R
 import com.example.study.data.model.Movie
 import com.example.study.ui.adapter.MovieAdapter
-import com.example.study.data.repository.NaverSearchRepository
-import com.example.study.data.repository.NaverSearchRepositoryImpl
 import com.example.study.ui.detail.DetailActivity
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
@@ -50,16 +44,16 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         presenter.getMovies(query)
     }
 
+    override fun updateMovieList(items: List<Movie>) {
+        movieAdapter.setItem(items)
+    }
+
     override fun showProgress() {
         pb_loading.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
         pb_loading.visibility = View.GONE
-    }
-
-    override fun showMovieList(items: List<Movie>) {
-        movieAdapter.setItem(items)
     }
 
     override fun showErrorQueryEmpty() {
