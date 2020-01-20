@@ -1,8 +1,8 @@
-package com.egiwon.architecturestudy.data.source.local.model
+package com.egiwon.local.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.egiwon.architecturestudy.data.source.remote.response.ContentItem
+import com.egiwon.data.model.ContentItem
 
 @Entity(tableName = "contents")
 data class Content(
@@ -11,7 +11,6 @@ data class Content(
     val type: String,
     val query: String
 ) {
-
     companion object {
         fun empty(type: String, query: String): Content =
             Content(System.currentTimeMillis(), emptyList(), type, query)
