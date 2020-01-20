@@ -1,5 +1,6 @@
 package com.example.archstudy.ui
 
+import android.content.ClipData
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,7 +11,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.archstudy.*
-import com.example.archstudy.network.RetrofitService
+import com.example.archstudy.data.source.local.MovieData
+import com.example.archstudy.network.NaverMovieService
+import com.example.archstudy.ui.main.MovieListAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -70,27 +73,27 @@ class MainActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        retrofit.create(RetrofitService::class.java).apply {
+        retrofit.create(NaverMovieService::class.java).apply {
             this.getMovieList(
                 BuildConfig.API_CLIENT_ID,
                 BuildConfig.API_CLIENT_SECRET, query
             )
-                .enqueue(object : Callback<Data> {
+                .enqueue(object : Callback<MovieDataResponse> {
 
-                    override fun onFailure(call: Call<Data>, t: Throwable) {
+                    override fun onFailure(call: Call<MovieDataResponse>, t: Throwable) {
                         showToast("통신 에러가 발생하였습니다 error : ${t.message}")
                     }
 
                     override fun onResponse(
-                        call: Call<Data>,
-                        response: Response<Data>
+                        call: Call<MovieDataResponse>,
+                        response: Response<MovieDataResponse>
                     ) {
 
                         with(response) {
 
                             if (isSuccessful && body() != null) {
                                 val updateList = body()!!.items
-                                rvMovieAdapter.setAllData(updateList as ArrayList<Item>)
+                                rvMovieAdapter.setAllData(updateList as ArrayList<MovieData>)
                             }
                         }
 
