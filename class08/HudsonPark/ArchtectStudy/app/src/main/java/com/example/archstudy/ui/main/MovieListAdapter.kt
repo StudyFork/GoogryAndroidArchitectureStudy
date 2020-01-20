@@ -1,5 +1,7 @@
 package com.example.archstudy.ui.main
 
+import android.os.Build
+import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -55,7 +57,8 @@ class MovieListAdapter(@Nullable private var listener: ItemClickListener) :
 
             with(data) {
                 Log.d("img", "image : $image, title : $title")
-                tvTitle.text = title
+                val convertedText = htmlToString(title)
+                tvTitle.text = convertedText
                 ratingMovie.rating = userRating.toFloat() / 2
                 tvReleaseYear.text = pubDate
                 tvDirector.text = director
@@ -79,6 +82,16 @@ class MovieListAdapter(@Nullable private var listener: ItemClickListener) :
                     .load(R.drawable.no_image)
                     .override(600, 1000)
                     .into(ivThumbnail)
+            }
+        }
+
+        private fun htmlToString(htmlText : String) : String {
+            // Android N Version 이상의 경우
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+                Html.fromHtml(htmlText,Html.FROM_HTML_MODE_LEGACY).toString()
+            } else {
+                // 그 외
+                Html.fromHtml(htmlText).toString()
             }
         }
     }
