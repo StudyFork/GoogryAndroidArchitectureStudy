@@ -1,7 +1,7 @@
-package com.egiwon.architecturestudy.data.source.local.model
+package com.egiwon.local.model
 
 import androidx.room.TypeConverter
-import com.egiwon.architecturestudy.data.source.remote.response.ContentItem
+import com.egiwon.data.model.ContentItem
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

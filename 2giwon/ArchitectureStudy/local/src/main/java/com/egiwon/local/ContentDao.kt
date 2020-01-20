@@ -1,10 +1,10 @@
-package com.egiwon.architecturestudy.data.source.local
+package com.egiwon.local
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.egiwon.architecturestudy.data.source.local.model.Content
+import com.egiwon.local.model.Content
 import io.reactivex.Completable
 import io.reactivex.Maybe
 

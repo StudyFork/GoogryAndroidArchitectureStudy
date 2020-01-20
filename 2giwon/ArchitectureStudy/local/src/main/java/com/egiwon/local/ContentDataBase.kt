@@ -1,10 +1,10 @@
-package com.egiwon.architecturestudy.data.source.local
+package com.egiwon.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.egiwon.architecturestudy.data.source.local.model.Content
-import com.egiwon.architecturestudy.data.source.local.model.ContentTypeConvertor
+import com.egiwon.local.model.Content
+import com.egiwon.local.model.ContentTypeConvertor
 
 @Database(
     entities = [Content::class],

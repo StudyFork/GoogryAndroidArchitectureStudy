@@ -1,19 +1,20 @@
-package com.egiwon.architecturestudy.data.source.local
+package com.egiwon.local.source.impl
 
-import com.egiwon.architecturestudy.data.source.NaverDataSource
-import com.egiwon.architecturestudy.data.source.local.model.Content
-import com.egiwon.architecturestudy.data.source.remote.response.ContentResponse
+import com.egiwon.data.NaverLocalDataSource
+import com.egiwon.data.model.ContentEntity
+import com.egiwon.local.ContentDao
+import com.egiwon.local.model.Content
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
-class NaverLocalDataSource(
+class NaverLocalDataSourceImpl(
     private val contentDao: ContentDao
-) : NaverDataSource.Local {
+) : NaverLocalDataSource {
 
-    override fun getCacheContents(type: String): Single<ContentResponse> =
+    override fun getCacheContents(type: String): Single<ContentEntity> =
         contentDao.getContentCache(type)
             .onErrorReturn { Content.empty(type, "") }
-            .map { ContentResponse(it.query, it.list) }
+            .map { ContentEntity(it.query, it.list) }
             .toSingle()
             .subscribeOn(Schedulers.io())
 
@@ -23,14 +24,14 @@ class NaverLocalDataSource(
             .toSingle()
             .subscribeOn(Schedulers.io())
 
-    override fun getLocalContents(type: String, query: String): Single<ContentResponse> =
+    override fun getLocalContents(type: String, query: String): Single<ContentEntity> =
         contentDao.getContents(type, query)
             .onErrorReturn { Content.empty(type, query) }
-            .map { ContentResponse(it.query, it.list) }
+            .map { ContentEntity(it.query, it.list) }
             .toSingle()
             .subscribeOn(Schedulers.io())
 
-    override fun saveContents(type: String, query: String, response: ContentResponse) =
+    override fun saveContents(type: String, query: String, response: ContentEntity) =
         contentDao.insertContent(
             Content(
                 System.currentTimeMillis(),
@@ -39,5 +40,4 @@ class NaverLocalDataSource(
                 query
             )
         )
-
 }
