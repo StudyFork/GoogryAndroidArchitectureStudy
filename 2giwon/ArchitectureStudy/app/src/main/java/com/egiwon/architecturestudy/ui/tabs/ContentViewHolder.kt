@@ -3,8 +3,8 @@ package com.egiwon.architecturestudy.ui.tabs
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import com.egiwon.architecturestudy.base.BaseRecyclerView
-import com.egiwon.architecturestudy.data.source.remote.response.ContentItem
 import com.egiwon.architecturestudy.databinding.RvContentItemBinding
+import com.egiwon.data.model.ContentItem
 
 class ContentViewHolder(
     private val viewType: Int,

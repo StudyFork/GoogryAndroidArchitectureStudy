@@ -4,9 +4,9 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.base.BaseRecyclerView
-import com.egiwon.architecturestudy.data.source.remote.response.ContentItem
 import com.egiwon.architecturestudy.databinding.RvContentItemBinding
 import com.egiwon.architecturestudy.ui.Tab
+import com.egiwon.data.model.ContentItem
 
 
 class ContentAdapter(

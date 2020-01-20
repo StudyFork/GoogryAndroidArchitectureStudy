@@ -5,11 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.egiwon.architecturestudy.R
 import com.egiwon.architecturestudy.base.BaseViewModel
-import com.egiwon.architecturestudy.data.NaverDataRepository
-import com.egiwon.architecturestudy.data.source.remote.response.ContentItem
 import com.egiwon.architecturestudy.ui.Tab
+import com.egiwon.data.NaverDataRepository
+import com.egiwon.data.model.ContentItem
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 class ContentViewModel(
     private val tab: Tab,
@@ -34,8 +33,7 @@ class ContentViewModel(
             naverDataRepository.getContents(
                 type = tab.name,
                 query = searchQuery.value!!
-            ).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+            ).observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe {
                     _isShowLoadingProgressBar.value = true
                 }

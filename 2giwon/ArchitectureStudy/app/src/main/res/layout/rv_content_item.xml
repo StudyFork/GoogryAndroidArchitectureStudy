@@ -16,7 +16,7 @@
 
         <variable
             name="contentItem"
-            type="com.egiwon.architecturestudy.data.source.remote.response.ContentItem" />
+            type="com.egiwon.data.model.ContentItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
