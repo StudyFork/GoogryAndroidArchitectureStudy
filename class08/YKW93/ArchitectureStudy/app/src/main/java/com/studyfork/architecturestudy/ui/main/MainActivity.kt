@@ -1,4 +1,4 @@
-package com.studyfork.architecturestudy.ui.activity
+package com.studyfork.architecturestudy.ui.main
 
 import android.content.Intent
 import android.net.Uri
