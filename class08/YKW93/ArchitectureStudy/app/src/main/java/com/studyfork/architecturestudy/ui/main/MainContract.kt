@@ -5,9 +5,15 @@ import com.studyfork.architecturestudy.data.model.MovieResponse
 interface MainContract {
 
     interface View {
-        // view 에서 하는 역할을 구현
+        fun showLoading()
+        fun hideLoading()
+        fun showMovieList(items: MovieResponse)
+        fun showErrorEmptyQuery()
+        fun showErrorEmptyResult()
     }
+
     interface Presenter {
-        // presenter 에서 하는 역할을 구현
+        fun getMovieList(query: String)
+        fun onViewDetached()
     }
 }

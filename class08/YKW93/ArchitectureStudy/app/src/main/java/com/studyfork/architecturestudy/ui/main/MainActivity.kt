@@ -8,19 +8,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.studyfork.architecturestudy.R
-import com.studyfork.architecturestudy.data.repository.MovieRepositoryImpl
-import com.studyfork.architecturestudy.data.source.remote.MovieRemoteDataSourceImpl
+import com.studyfork.architecturestudy.data.model.MovieResponse
 import com.studyfork.architecturestudy.extension.hideKeyboard
 import com.studyfork.architecturestudy.ui.adapter.MovieResultRVAdapter
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainContract.View {
 
-    private val compositeDisposable = CompositeDisposable()
-
-    private val movieRepositoryImpl: MovieRepositoryImpl by lazy {
-        MovieRepositoryImpl(MovieRemoteDataSourceImpl())
+    private val presenter: MainPresenter by lazy {
+        MainPresenter(this)
     }
 
     private val movieResultRVAdapter: MovieResultRVAdapter by lazy {
@@ -36,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         btn_search.setOnClickListener {
             currentFocus?.hideKeyboard()
-            getMovieList(edit_movie_search.text.toString())
+            presenter.getMovieList(edit_movie_search.text.toString())
         }
     }
 
@@ -47,30 +43,28 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getMovieList(query: String) {
-        compositeDisposable.add(
-            movieRepositoryImpl.getMovieList(query, {
-                if (it) {
-                    pb_loading_view.visibility = View.VISIBLE
-                } else {
-                    pb_loading_view.visibility = View.GONE
-                }
+    override fun showMovieList(items: MovieResponse) {
+        movieResultRVAdapter.setItems(items.items)
+    }
 
-            }, {
-                if (it.total != 0) {
-                    movieResultRVAdapter.setItems(it.items)
-                } else {
-                    Toast.makeText(baseContext, getString(R.string.empty_data_notice), Toast.LENGTH_SHORT).show()
-                }
+    override fun showErrorEmptyQuery() {
+        Toast.makeText(baseContext, getString(R.string.empty_query_notice), Toast.LENGTH_SHORT).show()
+    }
 
-            }, {
-                it.printStackTrace()
-            })
-        )
+    override fun showErrorEmptyResult() {
+        Toast.makeText(baseContext, getString(R.string.empty_data_notice), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showLoading() {
+        pb_loading_view.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        pb_loading_view.visibility = View.GONE
     }
 
     override fun onDestroy() {
-        compositeDisposable.clear()
+        presenter.onViewDetached()
         super.onDestroy()
     }
 }
