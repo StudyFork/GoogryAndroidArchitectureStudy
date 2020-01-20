@@ -1,7 +1,7 @@
-package com.egiwon.architecturestudy.di
+package com.egiwon.remote.di
 
-import com.egiwon.architecturestudy.BuildConfig
-import com.egiwon.architecturestudy.data.source.remote.ContentService
+import com.egiwon.remote.BuildConfig
+import com.egiwon.remote.service.ContentService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
