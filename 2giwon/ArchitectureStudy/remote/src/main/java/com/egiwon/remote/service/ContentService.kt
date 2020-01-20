@@ -1,6 +1,6 @@
-package com.egiwon.architecturestudy.data.source.remote
+package com.egiwon.remote.service
 
-import com.egiwon.architecturestudy.data.source.remote.response.ContentResponse
+import com.egiwon.remote.response.ContentResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
