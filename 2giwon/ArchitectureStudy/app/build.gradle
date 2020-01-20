@@ -83,4 +83,8 @@ dependencies {
     testImplementation "junit:junit:$jnit_version"
     androidTestImplementation "androidx.test.ext:junit:$test_ext_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+
+    implementation project(":data")
+    implementation project(":remote")
+    implementation project(":local")
 }
