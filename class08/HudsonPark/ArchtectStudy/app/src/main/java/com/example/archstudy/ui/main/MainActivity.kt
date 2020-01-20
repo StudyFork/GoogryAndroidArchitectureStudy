@@ -138,11 +138,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun activateButton() {
-        btnSearch.isClickable = true
+        btnSearch.isEnabled = true
     }
 
     private fun disableButton() {
-        btnSearch.isClickable = false
+        btnSearch.isEnabled = false
     }
 
     private fun hideKeyboard() {
