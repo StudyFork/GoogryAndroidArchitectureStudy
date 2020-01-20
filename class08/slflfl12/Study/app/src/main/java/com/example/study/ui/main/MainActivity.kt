@@ -6,20 +6,23 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.example.study.R
+import com.example.study.data.model.Movie
 import com.example.study.ui.adapter.MovieAdapter
 import com.example.study.data.repository.NaverSearchRepository
 import com.example.study.data.repository.NaverSearchRepositoryImpl
 import com.example.study.ui.detail.DetailActivity
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainContract.View {
 
     private val movieAdapter = MovieAdapter()
-    private val naverSearchRepository: NaverSearchRepository = NaverSearchRepositoryImpl.getInstance()
-    private val compositeDisposable = CompositeDisposable()
+    private val presenter: MainContract.Presenter by lazy {
+        MainPresenter(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +31,11 @@ class MainActivity : AppCompatActivity() {
         rv_movie_list.adapter = movieAdapter
 
         btn_search.setOnClickListener {
-            getMovieList(et_movie_search.text.toString())
+            if (et_movie_search.text.isNullOrEmpty()) {
+                showErrorQueryEmpty()
+            } else {
+                getMovieList(et_movie_search.text.toString())
+            }
         }
 
         movieAdapter.setOnItemClickListener { movie ->
@@ -40,40 +47,32 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getMovieList(query: String) {
-        compositeDisposable.add(naverSearchRepository.getMovies(query)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe {
-                showProgress()
-            }
-            .doAfterTerminate {
-                hideProgress()
-            }
-            .subscribe({
-                it?.let {
-                    if (it.items.isNotEmpty()) {
-                        movieAdapter.setItem(it.items)
-                    } else {
-                        Toast.makeText(
-                            this@MainActivity,
-                            R.string.error_message,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-            }, {
-                it.printStackTrace()
-            })
-        )
-
+        presenter.getMovies(query)
     }
 
-    private fun showProgress() {
+    override fun showProgress() {
         pb_loading.visibility = View.VISIBLE
     }
 
-    private fun hideProgress() {
+    override fun hideProgress() {
         pb_loading.visibility = View.GONE
+    }
+
+    override fun showMovieList(items: List<Movie>) {
+        movieAdapter.setItem(items)
+    }
+
+    override fun showErrorQueryEmpty() {
+        Toast.makeText(this@MainActivity, R.string.empty_query_message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showErrorEmptyResult() {
+        Toast.makeText(this@MainActivity, R.string.empty_result_message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroy() {
+        presenter.clearDisposable()
+        super.onDestroy()
     }
 }
 

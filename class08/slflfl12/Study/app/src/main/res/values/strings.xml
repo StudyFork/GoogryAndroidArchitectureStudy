@@ -11,5 +11,7 @@
 
     <string name="btn_search">검색</string>
 
-    <string name="error_message">검색 결과가 없습니다</string>
+    <string name="empty_result_message">검색 결과가 없습니다</string>
+
+    <string name="empty_query_message">빈칸을 입력할 수 없습니다</string>
 </resources>
