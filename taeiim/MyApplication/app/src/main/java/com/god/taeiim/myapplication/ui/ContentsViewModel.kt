@@ -1,6 +1,7 @@
 package com.god.taeiim.myapplication.ui
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.god.taeiim.myapplication.Tabs
 import com.god.taeiim.myapplication.api.model.SearchResult
 import com.god.taeiim.myapplication.api.model.SearchResultShow
@@ -8,52 +9,55 @@ import com.god.taeiim.myapplication.data.SearchHistory
 import com.god.taeiim.myapplication.data.source.NaverRepository
 
 class ContentsViewModel(
+    private val searchType: Tabs,
     private val naverRepository: NaverRepository
-) {
-    val searchResultList = ObservableField<List<SearchResultShow.Item>>()
-    val errorQueryBlank = ObservableField<Throwable>()
-    val errorFailSearch = ObservableField<Throwable>()
-    var query = ""
-    var searchType = Tabs.BLOG
+) : ViewModel() {
+
+    private val _searchResultList = MutableLiveData<List<SearchResultShow.Item>>()
+    private val _errorQueryBlank = MutableLiveData<Throwable>()
+    private val _errorFailSearch = MutableLiveData<Throwable>()
+    val searchResultList get() = _searchResultList
+    val errorQueryBlank get() = _errorQueryBlank
+    val errorFailSearch get() = _errorFailSearch
+    val query = MutableLiveData<String>()
 
     fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-        query = s.toString()
+        query.value = s.toString()
     }
 
     fun searchContents() {
         if (getQueryStr().isBlank()) {
-            errorQueryBlank.set(Throwable())
+            errorQueryBlank.value = Throwable()
 
         } else {
             naverRepository.getResultData(
                 searchType,
                 getQueryStr(),
                 success = {
-                    searchResultList.set(searchResultShowWrapper(searchType, it).items)
+                    searchResultList.value = searchResultShowWrapper(searchType, it).items
                     naverRepository.saveSearchResult(
                         SearchHistory(it.items, searchType.name, getQueryStr())
                     )
                 },
                 fail = {
-                    errorFailSearch.set(it)
+                    errorFailSearch.value = it
                 }
             )
         }
     }
 
-    fun getQueryStr(): String {
-        return query
+    private fun getQueryStr(): String {
+        return query.value.toString()
     }
 
-    fun getLastSearchHistory(searchType: Tabs) {
+    fun getLastSearchHistory() {
         naverRepository.getLastSearchResultData(searchType)
             ?.let {
-                searchResultList.set(
-                    searchResultShowWrapper(
-                        searchType,
-                        SearchResult(it.resultList)
-                    ).items
-                )
+                searchResultList.value = searchResultShowWrapper(
+                    searchType,
+                    SearchResult(it.resultList)
+                ).items
+                query.value = it.query
             }
     }
 

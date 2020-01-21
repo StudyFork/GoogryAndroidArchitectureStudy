@@ -2,7 +2,9 @@ package com.god.taeiim.myapplication.ui
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.databinding.Observable
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.god.taeiim.myapplication.BR
 import com.god.taeiim.myapplication.R
 import com.god.taeiim.myapplication.Tabs
@@ -17,66 +19,58 @@ import com.god.taeiim.myapplication.databinding.ItemContentsBinding
 
 class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
-    private val vm: ContentsViewModel by lazy {
-        ContentsViewModel(
-            NaverRepositoryImpl.getInstance(
-                NaverRemoteDataSourceImpl,
-                NaverLocalDataSourceImpl.getInstance(
-                    SearchHistoryDatabase.getInstance(requireActivity().applicationContext).taskDao()
-                )
-            )
-        )
-    }
-
+    private lateinit var vm: ContentsViewModel
     lateinit var searchResultAdapter: SearchResultRecyclerAdapter<SearchResultShow.Item, ItemContentsBinding>
-    private lateinit var searchType: Tabs
+    private val searchType by lazy {
+        arguments?.get(ARG_TYPE) as? Tabs ?: error("SearchType is Null")
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        binding.vm = vm
+        vm = ViewModelProvider(this@ContentsFragment, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return ContentsViewModel(
+                    searchType,
+                    NaverRepositoryImpl.getInstance(
+                        NaverRemoteDataSourceImpl,
+                        NaverLocalDataSourceImpl.getInstance(
+                            SearchHistoryDatabase.getInstance(requireContext()).taskDao()
+                        )
+                    )
+                ) as T
+            }
+        })[ContentsViewModel::class.java]
 
-        arguments?.getSerializable(ARG_TYPE)?.let {
-            searchType = it as Tabs
-            vm.searchType = searchType
-        }
+        binding.vm = vm
+        binding.lifecycleOwner = this
+
 
         searchResultAdapter =
             SearchResultRecyclerAdapter(searchType, R.layout.item_contents, BR.item)
         binding.searchResultRecyclerView.adapter = searchResultAdapter
 
-        addObserveProperty()
+        vm.setObserves()
         updateSearchHistoryItems()
 
     }
 
-    private fun addObserveProperty() {
-        vm.searchResultList.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(observable: Observable, i: Int) {
-                vm.searchResultList.get()?.let {
-                    updateItems(it)
-                } ?: failToSearch()
-            }
+    private fun ContentsViewModel.setObserves() {
+        searchResultList.observe(viewLifecycleOwner, Observer {
+            it?.let { updateItems(it) } ?: failToSearch()
         })
 
-        vm.errorQueryBlank.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                blankSearchQuery()
-            }
+        errorQueryBlank.observe(viewLifecycleOwner, Observer {
+            blankSearchQuery()
         })
 
-        vm.errorFailSearch.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                failToSearch()
-            }
+        errorFailSearch.observe(viewLifecycleOwner, Observer {
+            failToSearch()
         })
     }
 
     private fun updateSearchHistoryItems() {
-        vm.getLastSearchHistory(searchType)
+        vm.getLastSearchHistory()
     }
 
     private fun updateItems(resultList: List<SearchResultShow.Item>) {
