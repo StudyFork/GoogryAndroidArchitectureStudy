@@ -5,16 +5,8 @@
 
     <data>
         <variable
-            name="keyword"
-            type="String" />
-
-        <variable
-            name="view"
-            type="com.jay.architecturestudy.widget.NaverSearchBarView" />
-
-        <variable
-            name="clickEvent"
-            type="com.jay.architecturestudy.widget.SearchButtonClickListener" />
+            name="vm"
+            type="com.jay.architecturestudy.ui.BaseViewModel" />
 
     </data>
 
@@ -28,7 +20,7 @@
             android:layout_height="0dp"
             android:layout_marginRight="10dp"
             android:gravity="center|left"
-            android:text="@{keyword}"
+            android:text="@={vm.keyword}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/search_btn"
@@ -40,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/search"
-            android:onClick="@{(v) -> clickEvent.onClick(v, searchEditor.getText().toString())}"
+            android:onClick="@{(v) -> vm.onClick(v, vm.keyword)}"
             app:layout_constraintStart_toEndOf="@+id/search_editor"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
