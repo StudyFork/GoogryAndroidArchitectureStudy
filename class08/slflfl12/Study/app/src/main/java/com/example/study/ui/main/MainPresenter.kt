@@ -24,7 +24,8 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
             .subscribe({
                 it?.let {
                     if (it.items.isNotEmpty()) {
-                        view.showMovieList(it.items)
+                        view.updateMovieList(it.items)
+                        view.hideKeyboard()
                     } else {
                         view.showErrorEmptyResult()
                     }

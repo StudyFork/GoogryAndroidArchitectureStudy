@@ -7,13 +7,12 @@ import io.reactivex.disposables.Disposable
 
 interface BaseContract {
 
-    //공용으로 쓰일 View 함수들
     interface View {
         fun showProgress()
         fun hideProgress()
+        fun hideKeyboard()
     }
 
-    //공용으로 쓰일 Presenter 함수들
     interface Presenter {
         fun addDisposable(disposable: Disposable)
         fun clearDisposable()

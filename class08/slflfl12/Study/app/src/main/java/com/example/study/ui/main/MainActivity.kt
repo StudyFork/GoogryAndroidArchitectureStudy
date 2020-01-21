@@ -1,9 +1,12 @@
 package com.example.study.ui.main
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.example.study.R
 import com.example.study.data.model.Movie
@@ -64,6 +67,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         Toast.makeText(this@MainActivity, R.string.empty_result_message, Toast.LENGTH_SHORT).show()
     }
 
+    override fun hideKeyboard() {
+        (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).run {
+            hideSoftInputFromWindow(et_movie_search.windowToken, 0)
+        }
+    }
     override fun onDestroy() {
         presenter.clearDisposable()
         super.onDestroy()

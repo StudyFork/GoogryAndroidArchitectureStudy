@@ -1,5 +1,6 @@
 package com.example.study.ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,7 @@ import kotlinx.android.synthetic.main.movie_item.view.*
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     private val movies = mutableListOf<Movie>()
-    private var onItemClickListener : OnItemClickListener?  = null
+    private var onItemClickListener: OnItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
@@ -21,7 +22,8 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         holder.itemView.setOnClickListener {
             onItemClickListener?.onItemClickListener(movies[holder.adapterPosition])
         }
-        return MovieViewHolder(view)
+
+        return holder
     }
 
 
@@ -58,6 +60,8 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
                 tv_director.text = movie.director
                 tv_actor.text = movie.actor
             }
+            Log.d("bind()", this.adapterPosition.toString())
+
         }
     }
 
