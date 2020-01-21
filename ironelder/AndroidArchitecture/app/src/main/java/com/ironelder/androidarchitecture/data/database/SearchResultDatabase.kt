@@ -25,6 +25,7 @@ abstract class SearchResultDatabase : RoomDatabase() {
                     .fallbackToDestructiveMigration()
                     .build().also { INSTANCE = it }
             }
+
     }
 
 }
