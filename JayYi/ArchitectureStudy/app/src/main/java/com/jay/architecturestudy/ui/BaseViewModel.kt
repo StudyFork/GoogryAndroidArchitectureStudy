@@ -38,9 +38,7 @@ abstract class BaseViewModel<T>(
     }
 
     fun onCleared() {
-        compositeDisposable?.let {
-            it.clear()
-        }
+        compositeDisposable.clear()
     }
 }
 
