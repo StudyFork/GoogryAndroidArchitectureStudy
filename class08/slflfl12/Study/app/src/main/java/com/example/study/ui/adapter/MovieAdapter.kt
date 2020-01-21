@@ -60,8 +60,6 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
                 tv_director.text = movie.director
                 tv_actor.text = movie.actor
             }
-            Log.d("bind()", this.adapterPosition.toString())
-
         }
     }
 

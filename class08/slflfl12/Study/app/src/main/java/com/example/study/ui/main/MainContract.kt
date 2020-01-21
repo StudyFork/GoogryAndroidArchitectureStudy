@@ -11,7 +11,7 @@ interface MainContract {
         fun showErrorEmptyResult()
     }
 
-    interface Presenter : BaseContract.Presenter{
+    interface Presenter : BaseContract.Presenter {
         fun getMovies(query: String)
     }
 

@@ -20,7 +20,6 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
         movieUrl?.let {
             showDetailView(movieUrl)
         }
-
     }
 
     override fun showDetailView(movieUrl: String) {

@@ -6,9 +6,5 @@ interface DetailContract {
         fun showDetailView(movieUrl: String)
     }
 
-    interface Presenter {
-
-    }
-
-
+    interface Presenter {}
 }

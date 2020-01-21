@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             hideSoftInputFromWindow(et_movie_search.windowToken, 0)
         }
     }
+
     override fun onDestroy() {
         presenter.clearDisposable()
         super.onDestroy()
