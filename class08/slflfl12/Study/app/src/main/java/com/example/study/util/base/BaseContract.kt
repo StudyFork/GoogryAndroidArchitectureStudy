@@ -1,4 +1,4 @@
-package com.example.study.ui.base
+package com.example.study.util.base
 
 import com.example.study.data.model.Movie
 import io.reactivex.Single

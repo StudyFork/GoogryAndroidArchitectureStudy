@@ -1,7 +1,7 @@
 package com.example.study.ui.main
 
 import com.example.study.data.model.Movie
-import com.example.study.ui.base.BaseContract
+import com.example.study.util.base.BaseContract
 
 interface MainContract {
 
