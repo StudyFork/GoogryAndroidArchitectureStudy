@@ -65,7 +65,10 @@ fun haveContentsChanged(
     return false
 }
 
-@BindingAdapter("bind:setItem")
-fun RecyclerView.setItem (item : Any) {
-    if (adapter is MovieRecyclerAdapter) (adapter as MovieRecyclerAdapter).setItemList(item as ArrayList<MovieData>)
+@BindingAdapter("replaceAll")
+fun RecyclerView.replaceAll(item: List<MovieData>?) {
+    if (item != null) {
+        if (item.isNotEmpty())
+            (adapter as MovieRecyclerAdapter)?.run { setItemList(item as ArrayList<MovieData>) }
+    }
 }
