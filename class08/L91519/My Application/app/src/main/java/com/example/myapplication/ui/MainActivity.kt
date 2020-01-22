@@ -3,16 +3,11 @@ package com.example.myapplication.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.example.myapplication.ApiClient
 import com.example.myapplication.R
 import com.example.myapplication.data.model.MovieResult
-import com.example.myapplication.data.repository.NaverRepositoryImpl
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-class MainActivity : AppCompatActivity(), MainConstract.View {
+class MainActivity : AppCompatActivity(), MainContract.View {
 
     private val presenter by lazy { MainPresenter(this) }
     private val adapter =
@@ -36,13 +31,20 @@ class MainActivity : AppCompatActivity(), MainConstract.View {
         adapter.setItems(items)
     }
 
-    override fun failMovieGet(msg: String)
-    {
+    override fun failMovieGet(msg: String) {
         Toast.makeText(applicationContext, msg, Toast.LENGTH_SHORT).show()
     }
 
     override fun findMovie(query: String) {
         presenter.findMovie(query)
+    }
+
+    override fun queryNone() {
+        Toast.makeText(applicationContext, getString(R.string.query_none), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun resultNone() {
+        Toast.makeText(applicationContext, getString(R.string.result_none), Toast.LENGTH_SHORT).show()
     }
 }
 
