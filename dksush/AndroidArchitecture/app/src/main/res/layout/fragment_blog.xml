@@ -8,19 +8,6 @@
         <import type="android.view.View" />
 
         <variable
-            name="fragment"
-            type="com.example.androidarchitecture.ui.blog.BlogFragment" />
-
-        <variable
-            name="isListEmpty"
-            type="Boolean" />
-
-        <variable
-            name="lastInputText"
-            type="String" />
-
-
-        <variable
             name="vm"
             type="com.example.androidarchitecture.ui.blog.BlogViewModel" />
 
