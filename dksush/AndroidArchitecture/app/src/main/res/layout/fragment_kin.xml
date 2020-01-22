@@ -8,10 +8,6 @@
         <import type="android.view.View" />
 
         <variable
-            name="isListEmpty"
-            type="Boolean" />
-
-        <variable
             name="vm"
             type="com.example.androidarchitecture.ui.kin.KinViewModel" />
 

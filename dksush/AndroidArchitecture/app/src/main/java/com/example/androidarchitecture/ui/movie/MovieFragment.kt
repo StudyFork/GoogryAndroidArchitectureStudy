@@ -3,8 +3,8 @@ package com.example.androidarchitecture.ui.movie
 
 import android.os.Bundle
 import android.view.View
-import androidx.databinding.Observable
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.androidarchitecture.R
@@ -25,6 +25,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie
         super.onViewCreated(view, savedInstanceState)
 
         binding.vm = vm
+        binding.lifecycleOwner = this
 
         binding.recycle.run {
             movieAdapter = MovieAdapter()
@@ -42,20 +43,13 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie
     }
 
     private fun observeListener() {
-        vm.blankInputText.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                requireContext().toast(getString(R.string.black_input_text))
-            }
-
+        vm.blankInputText.observe(this, Observer {
+            requireContext().toast(getString(R.string.black_input_text))
         })
 
-        vm.errorToast.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                requireContext().toast(vm.errorToast.get().toString())
-            }
 
+        vm.errorToast.observe(this, Observer {
+            requireContext().toast(it.toString())
         })
 
     }
