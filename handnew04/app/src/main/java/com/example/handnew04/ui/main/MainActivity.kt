@@ -17,13 +17,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var recyclerAdapter: MovieRecyclerAdapter
     lateinit var binding: ActivityMainBinding
 
-/*    val presenter: MainContract.Presenter by lazy {
-        MainPresenter(
-            this,
-            NetworkManager(this@MainActivity.application)
-        )
-    }*/
-
     val viewModel: MainViewModel by lazy { MainViewModel(NetworkManager(this@MainActivity.application)) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +53,6 @@ class MainActivity : AppCompatActivity() {
 
     fun searchButtonClick() {
         val inputText = binding.etSearchBar.text.toString()
-        //presenter.serchMovie(inputText)
         viewModel.serchMovie(inputText)
     }
 
@@ -120,41 +112,4 @@ class MainActivity : AppCompatActivity() {
     private fun showFailSearchMovie(message: String?) {
         Toast.makeText(this@MainActivity, "검색에 실패하였습니다. MSG : $message", Toast.LENGTH_SHORT).show()
     }
-
-    /*  override fun showEmptyResult() {
-          Toast.makeText(this@MainActivity, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show()
-      }
-
-      override fun showInputLengthZero() {
-          Toast.makeText(this@MainActivity, "검색어를 입력해주세요", Toast.LENGTH_SHORT).show()
-      }
-
-      override fun showNotConnectedNetwork() {
-          Toast.makeText(this@MainActivity, "인터넷 연결을 확인해주세요.", Toast.LENGTH_SHORT).show()
-      }
-
-      override fun showSuccessSearchMovie(data: NaverMovieResponse) {
-          recyclerAdapter.setItemList(data.items as ArrayList<MovieData>)
-      }
-
-      override fun showMovieDetailActivity(position: Int) {
-          val nextIntent = Intent(this@MainActivity, MovieDetailActivity::class.java)
-          nextIntent.putExtra(
-              getString(R.string.movieLink),
-              recyclerAdapter.getMovieLink(position)
-          )
-          startActivity(nextIntent)
-      }
-
-      override fun showFailSearchMovie(message: String?) {
-          Toast.makeText(this@MainActivity, "검색에 실패하였습니다. MSG : $message", Toast.LENGTH_SHORT).show()
-      }
-
-      override fun showLoading() {
-          binding.isLoadingVisible = true
-      }
-
-      override fun hideLoading() {
-          binding.isLoadingVisible = false
-      }*/
 }
