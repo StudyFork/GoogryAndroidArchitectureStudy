@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
 
@@ -12,6 +13,10 @@
         <variable
             name="isLoadingVisible"
             type="Boolean" />
+
+        <variable
+            name="viewModel"
+            type="com.example.handnew04.ui.main.MainViewModel" />
 
         <import type="android.view.View" />
     </data>
@@ -53,14 +58,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_searchBar" />
+            app:layout_constraintTop_toBottomOf="@+id/et_searchBar"
+            bind:setItem="@{viewModel.movieData}"/>
 
         <ProgressBar
             android:id="@+id/pb_searchLoading"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{isLoadingVisible ? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewModel.isLoading() ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
