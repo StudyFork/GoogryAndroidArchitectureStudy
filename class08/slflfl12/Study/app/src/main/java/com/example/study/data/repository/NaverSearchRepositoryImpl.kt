@@ -3,12 +3,14 @@ package com.example.study.data.repository
 import com.example.study.data.source.remote.NaverSearchRemoteDataSource
 import com.example.study.data.source.remote.NaverSearchRemoteDataSourceImpl
 import com.example.study.data.model.NaverSearchResponse
+import com.example.study.data.source.local.NaverSearchLocalDataSource
 import io.reactivex.Single
 
-class NaverSearchRepositoryImpl private constructor() : NaverSearchRepository {
+class NaverSearchRepositoryImpl private constructor(
+    private val naverSearchRemoteDataSource: NaverSearchRemoteDataSource,
+    private val naverSearchLocalDataSource: NaverSearchLocalDataSource
+) : NaverSearchRepository {
 
-    private val naverSearchRemoteDataSource: NaverSearchRemoteDataSource =
-        NaverSearchRemoteDataSourceImpl()
 
     override fun getMovies(query: String): Single<NaverSearchResponse> {
         return naverSearchRemoteDataSource.getMovies(query)
@@ -17,9 +19,10 @@ class NaverSearchRepositoryImpl private constructor() : NaverSearchRepository {
     companion object {
         private var instance: NaverSearchRepositoryImpl? = null
 
-        fun getInstance(): NaverSearchRepositoryImpl =
+        fun getInstance(naverSearchRemoteDataSource: NaverSearchRemoteDataSource,
+                        naverSearchLocalDataSource: NaverSearchLocalDataSource): NaverSearchRepositoryImpl =
             instance ?: synchronized(this) {
-                instance ?: NaverSearchRepositoryImpl().also { instance = it}
+                instance ?: NaverSearchRepositoryImpl(naverSearchRemoteDataSource, naverSearchLocalDataSource).also { instance = it }
             }
     }
 }
