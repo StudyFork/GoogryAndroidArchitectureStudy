@@ -13,6 +13,7 @@ import com.example.study.data.model.Movie
 import com.example.study.data.repository.NaverSearchRepository
 import com.example.study.data.repository.NaverSearchRepositoryImpl
 import com.example.study.data.source.local.NaverSearchLocalDataSourceImpl
+import com.example.study.data.source.local.SearchResultDatabase
 import com.example.study.data.source.remote.NaverSearchRemoteDataSourceImpl
 import com.example.study.ui.adapter.MovieAdapter
 import com.example.study.ui.detail.DetailActivity
@@ -22,7 +23,12 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     private val movieAdapter = MovieAdapter()
     private val presenter: MainContract.Presenter by lazy {
-        MainPresenter(this, NaverSearchRepositoryImpl.getInstance(NaverSearchLocalDataSourceImpl.getInstance(), NaverSearchRemoteDataSourceImpl.getInstance()))
+        MainPresenter(
+            this, NaverSearchRepositoryImpl.getInstance(
+                NaverSearchLocalDataSourceImpl.getInstance(SearchResultDatabase.getInstance(this@MainActivity.applicationContext).searchResultDao())
+                , NaverSearchRemoteDataSourceImpl.getInstance()
+            )
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
