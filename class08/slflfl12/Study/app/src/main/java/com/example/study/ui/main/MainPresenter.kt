@@ -1,14 +1,17 @@
 package com.example.study.ui.main
 
+import com.example.study.data.repository.NaverSearchRepository
 import com.example.study.data.repository.NaverSearchRepositoryImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
+class MainPresenter(
+    private val view: MainContract.View,
+    private val naverSearchRepository: NaverSearchRepository
+) : MainContract.Presenter {
 
-    private val naverSearchRepository = NaverSearchRepositoryImpl.getInstance()
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun getMovies(query: String) {

@@ -10,6 +10,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.example.study.R
 import com.example.study.data.model.Movie
+import com.example.study.data.repository.NaverSearchRepository
+import com.example.study.data.repository.NaverSearchRepositoryImpl
+import com.example.study.data.source.local.NaverSearchLocalDataSourceImpl
+import com.example.study.data.source.remote.NaverSearchRemoteDataSourceImpl
 import com.example.study.ui.adapter.MovieAdapter
 import com.example.study.ui.detail.DetailActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -18,7 +22,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     private val movieAdapter = MovieAdapter()
     private val presenter: MainContract.Presenter by lazy {
-        MainPresenter(this)
+        MainPresenter(this, NaverSearchRepositoryImpl.getInstance(NaverSearchLocalDataSourceImpl.getInstance(), NaverSearchRemoteDataSourceImpl.getInstance()))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

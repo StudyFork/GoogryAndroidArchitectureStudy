@@ -11,4 +11,15 @@ class NaverSearchLocalDataSourceImpl : NaverSearchLocalDataSource {
     override fun getRecentSearchResult(): SearchResult {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    companion object {
+        private var instance : NaverSearchLocalDataSourceImpl? = null
+
+        fun getInstance(): NaverSearchLocalDataSourceImpl {
+            instance ?: synchronized(NaverSearchLocalDataSourceImpl::javaClass) {
+                instance ?: NaverSearchLocalDataSourceImpl().also { instance = it}
+            }
+            return instance!!
+        }
+    }
 }

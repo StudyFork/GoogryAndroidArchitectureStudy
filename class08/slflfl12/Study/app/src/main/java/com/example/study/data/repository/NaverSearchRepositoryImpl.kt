@@ -7,8 +7,8 @@ import com.example.study.data.source.local.NaverSearchLocalDataSource
 import io.reactivex.Single
 
 class NaverSearchRepositoryImpl private constructor(
-    private val naverSearchRemoteDataSource: NaverSearchRemoteDataSource,
-    private val naverSearchLocalDataSource: NaverSearchLocalDataSource
+    private val naverSearchLocalDataSource: NaverSearchLocalDataSource,
+    private val naverSearchRemoteDataSource: NaverSearchRemoteDataSource
 ) : NaverSearchRepository {
 
 
@@ -19,10 +19,15 @@ class NaverSearchRepositoryImpl private constructor(
     companion object {
         private var instance: NaverSearchRepositoryImpl? = null
 
-        fun getInstance(naverSearchRemoteDataSource: NaverSearchRemoteDataSource,
-                        naverSearchLocalDataSource: NaverSearchLocalDataSource): NaverSearchRepositoryImpl =
+        fun getInstance(
+            naverSearchLocalDataSource: NaverSearchLocalDataSource,
+            naverSearchRemoteDataSource: NaverSearchRemoteDataSource
+        ): NaverSearchRepositoryImpl =
             instance ?: synchronized(this) {
-                instance ?: NaverSearchRepositoryImpl(naverSearchRemoteDataSource, naverSearchLocalDataSource).also { instance = it }
+                instance ?: NaverSearchRepositoryImpl(
+                    naverSearchLocalDataSource,
+                    naverSearchRemoteDataSource
+                ).also { instance = it }
             }
     }
 }
