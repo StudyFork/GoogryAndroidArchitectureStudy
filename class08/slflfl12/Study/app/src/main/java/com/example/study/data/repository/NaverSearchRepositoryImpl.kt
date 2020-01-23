@@ -1,7 +1,7 @@
 package com.example.study.data.repository
 
-import com.example.study.data.datasource.remote.NaverSearchRemoteDataSource
-import com.example.study.data.datasource.remote.NaverSearchRemoteDataSourceImpl
+import com.example.study.data.source.remote.NaverSearchRemoteDataSource
+import com.example.study.data.source.remote.NaverSearchRemoteDataSourceImpl
 import com.example.study.data.model.NaverSearchResponse
 import io.reactivex.Single
 

@@ -1,4 +1,4 @@
-package com.example.study.data.datasource.remote.network
+package com.example.study.data.source.remote.network
 
 import com.example.study.data.model.NaverSearchResponse
 import io.reactivex.Single

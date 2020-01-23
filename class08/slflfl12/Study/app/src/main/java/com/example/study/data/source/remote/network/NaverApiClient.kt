@@ -1,4 +1,4 @@
-package com.example.study.data.datasource.remote.network
+package com.example.study.data.source.remote.network
 
 import com.example.study.interceptor.ApplicationInterceptor
 import okhttp3.OkHttpClient
@@ -25,7 +25,8 @@ object NaverApiClient {
         .client(okHttpClient)
         .build()
 
-    val naverRetrofitService = retrofit.create(NaverApiService::class.java)
+    val naverRetrofitService = retrofit.create(
+        NaverApiService::class.java)
 
 
 }
