@@ -14,4 +14,7 @@ interface SearchResultDao {
 
     @Query("SELECT * FROM searchresult ORDER BY id DESC LIMIT 1")
     fun getRecentSearchResult(): SearchResult
+
+    @Query("SELECT * FROM searchresult ORDER BY id DESC")
+    fun getAllSearchResult(): List<SearchResult>
 }

@@ -44,12 +44,18 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             }
         }
 
+        getRecentSearchResult()
+
         movieAdapter.setOnItemClickListener { movie ->
             var intent = Intent(this, DetailActivity::class.java)
             intent.putExtra(DetailActivity.MOVIE_URL, movie.link.toString())
 
             this.startActivity(intent)
         }
+    }
+
+    private fun getRecentSearchResult() {
+        presenter.getRecentSearchResult()
     }
 
     private fun getMovieList(query: String) {
