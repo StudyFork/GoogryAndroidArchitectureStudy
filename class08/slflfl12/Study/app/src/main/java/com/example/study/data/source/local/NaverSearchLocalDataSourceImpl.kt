@@ -2,22 +2,24 @@ package com.example.study.data.source.local
 
 import com.example.study.data.source.local.model.SearchResult
 
-class NaverSearchLocalDataSourceImpl : NaverSearchLocalDataSource {
+class NaverSearchLocalDataSourceImpl private constructor(
+    private val naverResultDao: SearchResultDao
+) : NaverSearchLocalDataSource {
 
     override fun addSearchResult(searchResult: SearchResult) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        naverResultDao.addSearchResult(searchResult)
     }
 
     override fun getRecentSearchResult(): SearchResult {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return naverResultDao.getRecentSearchResult()
     }
 
     companion object {
-        private var instance : NaverSearchLocalDataSourceImpl? = null
+        private var instance: NaverSearchLocalDataSourceImpl? = null
 
         fun getInstance(): NaverSearchLocalDataSourceImpl {
             instance ?: synchronized(NaverSearchLocalDataSourceImpl::javaClass) {
-                instance ?: NaverSearchLocalDataSourceImpl().also { instance = it}
+                instance ?: NaverSearchLocalDataSourceImpl().also { instance = it }
             }
             return instance!!
         }
