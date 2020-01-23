@@ -2,6 +2,7 @@ package com.example.study.ui.main
 
 import com.example.study.data.repository.NaverSearchRepository
 import com.example.study.data.repository.NaverSearchRepositoryImpl
+import com.example.study.data.source.local.model.SearchResult
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
