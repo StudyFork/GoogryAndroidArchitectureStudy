@@ -33,7 +33,6 @@ class MainPresenter(
                         view.updateMovieList(it.items)
                         view.hideKeyboard()
                         naverSearchRepository.addSearchResult(SearchResult(Gson().toJson(it.items)))
-                        Log.d("gg", naverSearchRepository.getRecentSearchResult().resultItems)
                     } else {
                         view.showErrorEmptyResult()
                     }
