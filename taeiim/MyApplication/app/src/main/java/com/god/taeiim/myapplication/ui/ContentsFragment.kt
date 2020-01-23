@@ -19,16 +19,8 @@ import com.god.taeiim.myapplication.databinding.ItemContentsBinding
 
 class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
-    private lateinit var vm: ContentsViewModel
-    lateinit var searchResultAdapter: SearchResultRecyclerAdapter<SearchResultShow.Item, ItemContentsBinding>
-    private val searchType by lazy {
-        arguments?.get(ARG_TYPE) as? Tabs ?: error("SearchType is Null")
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        vm = ViewModelProvider(this@ContentsFragment, object : ViewModelProvider.Factory {
+    private val vm: ContentsViewModel by lazy {
+        ViewModelProvider(this@ContentsFragment, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return ContentsViewModel(
                     searchType,
@@ -41,6 +33,15 @@ class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_mai
                 ) as T
             }
         })[ContentsViewModel::class.java]
+    }
+
+    lateinit var searchResultAdapter: SearchResultRecyclerAdapter<SearchResultShow.Item, ItemContentsBinding>
+    private val searchType by lazy {
+        arguments?.get(ARG_TYPE) as? Tabs ?: error("SearchType is Null")
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
         binding.vm = vm
         binding.lifecycleOwner = this
@@ -56,17 +57,15 @@ class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_mai
     }
 
     private fun ContentsViewModel.setObserves() {
-        searchResultList.observe(viewLifecycleOwner, Observer {
-            it?.let { updateItems(it) } ?: failToSearch()
-        })
+        searchResultList.observe(viewLifecycleOwner, Observer { updateItems(it) })
 
-        errorQueryBlank.observe(viewLifecycleOwner, Observer {
-            blankSearchQuery()
-        })
+        errorFailSearch.observe(viewLifecycleOwner, Observer { failToSearch() })
 
-        errorFailSearch.observe(viewLifecycleOwner, Observer {
-            failToSearch()
-        })
+        errorQueryBlank.observe(viewLifecycleOwner, Observer { blankSearchQuery() })
+
+        errorResultEmpty.observe(
+            viewLifecycleOwner,
+            Observer { empty -> if (empty) blankSearchResult() })
     }
 
     private fun updateSearchHistoryItems() {
@@ -80,6 +79,11 @@ class ContentsFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_mai
     private fun failToSearch() {
         searchResultAdapter.clearItems()
         Toast.makeText(context, getString(R.string.err_search), Toast.LENGTH_SHORT).show()
+    }
+
+    private fun blankSearchResult() {
+        searchResultAdapter.clearItems()
+        Toast.makeText(context, getString(R.string.blank_search_result), Toast.LENGTH_SHORT).show()
     }
 
     private fun blankSearchQuery() {

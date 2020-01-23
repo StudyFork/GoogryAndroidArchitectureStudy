@@ -1,6 +1,8 @@
 package com.god.taeiim.myapplication.ui
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.god.taeiim.myapplication.Tabs
 import com.god.taeiim.myapplication.api.model.SearchResult
@@ -16,9 +18,13 @@ class ContentsViewModel(
     private val _searchResultList = MutableLiveData<List<SearchResultShow.Item>>()
     private val _errorQueryBlank = MutableLiveData<Throwable>()
     private val _errorFailSearch = MutableLiveData<Throwable>()
+
     val searchResultList get() = _searchResultList
+    val errorResultEmpty: LiveData<Boolean> =
+        Transformations.map(searchResultList) { it.isNullOrEmpty() }
     val errorQueryBlank get() = _errorQueryBlank
     val errorFailSearch get() = _errorFailSearch
+
     val query = MutableLiveData<String>()
 
     fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -27,20 +33,19 @@ class ContentsViewModel(
 
     fun searchContents() {
         if (getQueryStr().isBlank()) {
-            errorQueryBlank.value = Throwable()
-
+            _errorQueryBlank.value = Throwable()
         } else {
             naverRepository.getResultData(
                 searchType,
                 getQueryStr(),
                 success = {
-                    searchResultList.value = searchResultShowWrapper(searchType, it).items
+                    _searchResultList.value = searchResultShowWrapper(searchType, it).items
                     naverRepository.saveSearchResult(
                         SearchHistory(it.items, searchType.name, getQueryStr())
                     )
                 },
                 fail = {
-                    errorFailSearch.value = it
+                    _errorFailSearch.value = it
                 }
             )
         }

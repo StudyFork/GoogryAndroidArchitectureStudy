@@ -22,7 +22,7 @@ object NaverRemoteDataSourceImpl : NaverDataSource.RemoteDataSource {
                     response: Response<SearchResult>
                 ) {
                     val result = response.body()
-                    if (result != null && result.items.isNotEmpty()) success(result)
+                    if (result != null) success(result)
                     else fail(IllegalStateException())
                 }
 
