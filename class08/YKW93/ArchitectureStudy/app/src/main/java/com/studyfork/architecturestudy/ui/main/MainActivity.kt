@@ -3,27 +3,29 @@ package com.studyfork.architecturestudy.ui.main
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.studyfork.architecturestudy.R
+import com.studyfork.architecturestudy.base.BaseActivity
 import com.studyfork.architecturestudy.data.model.MovieResponse
 import com.studyfork.architecturestudy.extension.hideKeyboard
 import com.studyfork.architecturestudy.ui.adapter.MovieResultRVAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), MainContract.View {
-
-    private val presenter: MainPresenter by lazy {
-        MainPresenter(this)
-    }
+class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
 
     private val movieResultRVAdapter: MovieResultRVAdapter by lazy {
         MovieResultRVAdapter {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it)))
         }
     }
+
+    override val presenter: MainPresenter
+        get() = MainPresenter(this)
+
+    override val progressBar: ProgressBar
+        get() = pb_loading_view
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,13 +35,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         btn_search.setOnClickListener {
             currentFocus?.hideKeyboard()
             presenter.getMovieList(edit_movie_search.text.toString())
-        }
-    }
-
-    private fun setMovieRecyclerView() {
-        rv_movie_list.run {
-            layoutManager = LinearLayoutManager(baseContext)
-            adapter = movieResultRVAdapter
         }
     }
 
@@ -55,16 +50,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         Toast.makeText(baseContext, getString(R.string.empty_data_notice), Toast.LENGTH_SHORT).show()
     }
 
-    override fun showLoading() {
-        pb_loading_view.visibility = View.VISIBLE
-    }
-
-    override fun hideLoading() {
-        pb_loading_view.visibility = View.GONE
-    }
-
-    override fun onDestroy() {
-        presenter.onViewDetached()
-        super.onDestroy()
+    private fun setMovieRecyclerView() {
+        rv_movie_list.run {
+            layoutManager = LinearLayoutManager(baseContext)
+            adapter = movieResultRVAdapter
+        }
     }
 }

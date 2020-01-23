@@ -1,12 +1,10 @@
 package com.studyfork.architecturestudy.ui.main
 
+import com.studyfork.architecturestudy.base.BasePresenter
 import com.studyfork.architecturestudy.data.repository.MovieRepositoryImpl
 import com.studyfork.architecturestudy.data.source.remote.MovieRemoteDataSourceImpl
-import io.reactivex.disposables.CompositeDisposable
 
-class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
-
-    private val compositeDisposable = CompositeDisposable()
+class MainPresenter(private val view: MainContract.View) : MainContract.Presenter, BasePresenter() {
 
     private val movieRepositoryImpl: MovieRepositoryImpl by lazy {
         MovieRepositoryImpl(MovieRemoteDataSourceImpl())
@@ -17,13 +15,9 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
             view.showErrorEmptyQuery()
             return
         }
-        compositeDisposable.add(
+        subscribe(
             movieRepositoryImpl.getMovieList(query, {
-                if (it) {
-                    view.showLoading()
-                } else {
-                    view.hideLoading()
-                }
+                view.setLoadingVisible(it)
             }, {
                 if (it.total != 0) {
                     view.showMovieList(it)
@@ -36,9 +30,4 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
             })
         )
     }
-
-    override fun onViewDetached() {
-        compositeDisposable.clear()
-    }
-
 }
