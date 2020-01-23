@@ -16,10 +16,10 @@ abstract class SearchResultDatabase : RoomDatabase() {
 
         private var instance: SearchResultDatabase? = null
 
-        fun getInstance(context: Context): SearchResultDatabase {
+        fun getInstance(context: Context): SearchResultDatabase? {
 
-            instance ?: synchronized(SearchResultDatabase::class.java) {
-                instance ?: Room.databaseBuilder(context, SearchResultDatabase::class.java, "SearchResult.db").build()
+            instance ?: synchronized(SearchResultDatabase::class) {
+                instance ?: Room.databaseBuilder(context.applicationContext, SearchResultDatabase::class.java, "SearchResult.db").allowMainThreadQueries().build().apply { instance = this}
             }
 
             return instance!!

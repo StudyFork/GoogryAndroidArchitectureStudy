@@ -29,12 +29,8 @@ class NaverSearchRepositoryImpl private constructor(
         fun getInstance(
             naverSearchLocalDataSource: NaverSearchLocalDataSource,
             naverSearchRemoteDataSource: NaverSearchRemoteDataSource
-        ): NaverSearchRepositoryImpl =
-            instance ?: synchronized(this) {
-                instance ?: NaverSearchRepositoryImpl(
-                    naverSearchLocalDataSource,
-                    naverSearchRemoteDataSource
-                ).also { instance = it }
-            }
+        ): NaverSearchRepositoryImpl {
+            return instance ?: NaverSearchRepositoryImpl(naverSearchLocalDataSource, naverSearchRemoteDataSource).apply { instance = this}
+        }
     }
 }

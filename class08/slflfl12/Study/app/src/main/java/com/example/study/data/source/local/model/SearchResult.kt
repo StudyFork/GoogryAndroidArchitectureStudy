@@ -9,10 +9,10 @@ import com.example.study.data.model.Movie
 data class SearchResult(
 
     @ColumnInfo(name="result_items")
-    val resultItems: List<Movie>,
+    val resultItems: String,
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name= "query")
+    @ColumnInfo(name= "id")
     val id: Long = 0
 
 

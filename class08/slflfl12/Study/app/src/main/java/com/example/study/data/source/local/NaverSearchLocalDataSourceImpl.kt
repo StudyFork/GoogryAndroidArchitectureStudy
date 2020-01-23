@@ -1,6 +1,7 @@
 package com.example.study.data.source.local
 
 import com.example.study.data.source.local.model.SearchResult
+import com.google.gson.Gson
 
 class NaverSearchLocalDataSourceImpl private constructor(
     private val naverResultDao: SearchResultDao
