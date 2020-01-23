@@ -3,7 +3,6 @@ package com.example.study.ui.main
 import android.util.Log
 import com.example.study.data.model.Movie
 import com.example.study.data.repository.NaverSearchRepository
-import com.example.study.data.repository.NaverSearchRepositoryImpl
 import com.example.study.data.source.local.model.SearchResult
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -47,8 +46,13 @@ class MainPresenter(
 
     override fun getRecentSearchResult() {
         naverSearchRepository.getRecentSearchResult()?.let {
-            if(it != null){
-                view.updateMovieList(Gson().fromJson(it.resultItems, Array<Movie>::class.java).asList())
+            if (it != null) {
+                view.updateMovieList(
+                    Gson().fromJson(
+                        it.resultItems,
+                        Array<Movie>::class.java
+                    ).asList()
+                )
             }
         }
     }

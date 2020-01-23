@@ -9,7 +9,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.example.study.R
 import com.example.study.data.model.Movie
-import com.example.study.data.repository.NaverSearchRepository
 import com.example.study.data.repository.NaverSearchRepositoryImpl
 import com.example.study.data.source.local.NaverSearchLocalDataSourceImpl
 import com.example.study.data.source.local.SearchResultDatabase
