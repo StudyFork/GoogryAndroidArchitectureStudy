@@ -1,5 +1,6 @@
 package com.example.architecturestudy.data.model
 
+import com.example.architecturestudy.data.local.Entity.MovieEntity
 import com.google.gson.annotations.SerializedName
 
 data class MovieItem(
@@ -11,11 +12,21 @@ data class MovieItem(
     @SerializedName("image")
     val image: String,
     @SerializedName("year")
-    val year: String,
+    val year: String?,
     @SerializedName("director")
     val director: String,
     @SerializedName("actor")
     val actor: String,
     @SerializedName("userRating")
-    val rating: Float
-)
+    val rating: Float?
+) {
+    fun toEntity() = MovieEntity(
+        title = title,
+        link = link,
+        image = image,
+        year = year ?: "",
+        director = director,
+        actor = actor,
+        rating = rating
+    )
+}

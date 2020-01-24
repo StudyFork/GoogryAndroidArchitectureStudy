@@ -10,6 +10,6 @@ interface MovieContract {
     }
 
     interface Presenter {
-        fun taskSearch(keyword : String)
+        fun taskSearch(isNetwork: Boolean, keyword : String)
     }
 }
