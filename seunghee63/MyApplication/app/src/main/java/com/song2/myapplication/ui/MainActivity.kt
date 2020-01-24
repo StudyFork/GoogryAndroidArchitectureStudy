@@ -63,11 +63,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         binding.tvMainActMovieList.visibility = View.VISIBLE
     }
 
-
-    override fun getListCnt(): Int {
-        return movieAdapter.itemCount
-    }
-
     private fun setMovieRecyclerView() {
 
         with(binding){

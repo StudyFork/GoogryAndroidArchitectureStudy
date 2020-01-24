@@ -9,8 +9,6 @@ interface MainContract {
 
         fun setResultVisible()
         fun setResultGone()
-
-        fun getListCnt() : Int
     }
 
     interface Presenter {
