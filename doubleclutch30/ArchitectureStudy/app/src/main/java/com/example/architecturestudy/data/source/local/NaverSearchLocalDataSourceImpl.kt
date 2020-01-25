@@ -2,6 +2,8 @@ package com.example.architecturestudy.data.source.local
 
 import android.util.Log
 import com.example.architecturestudy.data.local.Entity.BlogEntity
+import com.example.architecturestudy.data.local.Entity.ImageEntity
+import com.example.architecturestudy.data.local.Entity.KinEntity
 import com.example.architecturestudy.data.local.Entity.MovieEntity
 import com.example.architecturestudy.data.local.NaverDataBase
 import java.util.concurrent.*
@@ -56,5 +58,51 @@ class NaverSearchLocalDataSourceImpl(
         executor.submit {
             naverDataBase.blogDao().deleteAll()
         }
+    }
+
+    override fun saveKinItems(items: List<KinEntity>) {
+        executor.submit {
+            naverDataBase.kinDao().inserAll(items as? List<KinEntity> ?: emptyList())
+        }
+    }
+
+    override fun getKiItems(
+        success: (items: List<KinEntity>) -> Unit,
+        fail: (Throwable) -> Unit
+    ) {
+        val future: Future<List<KinEntity>> = executor.submit(Callable<List<KinEntity>> {
+            return@Callable naverDataBase.kinDao().getAll()
+        })
+        val list = future.get()
+        success((list) ?: emptyList())
+    }
+
+    override fun deleteKin(items: List<KinEntity>) {
+        executor.submit {
+            naverDataBase.kinDao().deleteAll()
+        }
+    }
+
+    override fun saveImageItems(items: List<ImageEntity>) {
+        executor.submit {
+            naverDataBase.imageDao().inserAll(items as? List<ImageEntity> ?: emptyList())
+        }
+    }
+
+    override fun deleteImage(items: List<ImageEntity>) {
+        executor.submit {
+            naverDataBase.imageDao().deleteAll()
+        }
+    }
+
+    override fun getImageItems(
+        success: (items: List<ImageEntity>) -> Unit,
+        fail: (Throwable) -> Unit
+    ) {
+        val future: Future<List<ImageEntity>> = executor.submit(Callable<List<ImageEntity>> {
+            return@Callable naverDataBase.imageDao().getAll()
+        })
+        val list = future.get()
+        success((list) ?: emptyList())
     }
 }

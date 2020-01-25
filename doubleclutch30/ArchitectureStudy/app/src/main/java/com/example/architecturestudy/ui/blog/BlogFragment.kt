@@ -39,7 +39,7 @@ class BlogFragment : Fragment(), BlogContract.View {
         super.onViewCreated(view, savedInstanceState)
          blogAdapter = BlogAdapter()
 
-        // 화면 켯을 때 이전 데이터 가져
+        // 화면 켯을 때 이전 데이터 가져옴
         presenter.getLastData()
 
         recycleview.apply {

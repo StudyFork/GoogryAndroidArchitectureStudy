@@ -1,5 +1,8 @@
 package com.example.architecturestudy.ui.image
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,15 +45,30 @@ class ImageFragment : Fragment(), ImageContract.View {
             addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         }
 
+        presenter.getLastData()
+
         btn_search.setOnClickListener {
             if(input_text != null) {
                 val edit = edit_text.text.toString()
-                presenter.taskSearch(edit)
+                presenter.apply {
+                    val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+                    val activeNetwork: NetworkInfo? = cm?.activeNetworkInfo
+                    val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
+
+                    taskSearch(
+                        isNetWork = isConnected,
+                        keyword = edit
+                    )
+                }
             }
         }
     }
 
     override fun showErrorMessage(message: String) {
+        Toast.makeText(this.activity, message, Toast.LENGTH_SHORT)
+    }
+
+    override fun showEmpty(message: String) {
         Toast.makeText(this.activity, message, Toast.LENGTH_SHORT)
     }
 

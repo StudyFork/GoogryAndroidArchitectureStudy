@@ -7,9 +7,11 @@ interface KinContract {
     interface View {
         fun showResult(item : List<KinItem>)
         fun showErrorMessage(message : String)
+        fun showEmpty(message: String)
     }
 
     interface Presenter {
-        fun taskSearch(keyword: String)
+        fun taskSearch(isNetwork: Boolean, keyword: String)
+        fun getLastData()
     }
 }

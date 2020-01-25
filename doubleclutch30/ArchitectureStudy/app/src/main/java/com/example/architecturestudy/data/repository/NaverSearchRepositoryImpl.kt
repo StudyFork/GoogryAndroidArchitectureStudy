@@ -108,25 +108,98 @@ class NaverSearchRepositoryImpl(
     }
 
     override fun getKin(
+        isNetwork: Boolean,
         keyword: String,
         success: (List<KinItem>) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        naverSearchRemoteDataSource.getKin(
-            keyword = keyword,
-            success = success,
+        if(isNetwork) {
+            naverSearchRemoteDataSource.getKin(
+                keyword = keyword,
+                success = {
+                    naverSearchLocalDataSource.saveKinItems(items = it.map { it.toEntity() })
+                    success(it)
+                },
+                fail = fail
+            )
+        } else {
+            naverSearchLocalDataSource.getKiItems(
+                 success = {
+                     if(it.isNotEmpty()) {
+                        naverSearchLocalDataSource.deleteKin(it)
+                         success(it.map { it.toItem() })
+                         return@getKiItems
+                     } else {
+                         fail(Throwable("empty List"))
+                     }
+                 },
+                fail = fail
+            )
+        }
+    }
+
+    override fun getLastKin(
+        success: (List<KinItem>) -> Unit,
+        fail: (Throwable) -> Unit) {
+        naverSearchLocalDataSource.getKiItems(
+            success = {
+                if(it.isNotEmpty()) {
+                    naverSearchLocalDataSource.deleteKin(it)
+                    success(it.map { it.toItem() })
+                    return@getKiItems
+                } else {
+                    fail(Throwable("empty list"))
+                }
+            },
             fail = fail
         )
     }
 
     override fun getImage(
+        isNetwork: Boolean,
         keyword: String,
         success: (List<ImageItem>) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        naverSearchRemoteDataSource.getImage(
-            keyword = keyword,
-            success = success,
+        if(isNetwork) {
+            naverSearchRemoteDataSource.getImage(
+                keyword = keyword,
+                success = {
+                    naverSearchLocalDataSource.saveImageItems(it.map { it.toEntity() })
+                    success(it)
+                },
+                fail = fail
+            )
+        } else {
+            naverSearchLocalDataSource.getImageItems(
+                success = {
+                    if(it.isNotEmpty()) {
+                        naverSearchLocalDataSource.deleteImage(it)
+                        success(it.map { it.toItem() })
+                        return@getImageItems
+                    } else {
+                        fail(Throwable("empty list"))
+                    }
+                },
+                fail = fail
+            )
+        }
+
+    }
+
+    override fun getLastImage(
+        success: (List<ImageItem>) -> Unit,
+        fail: (Throwable) -> Unit) {
+        naverSearchLocalDataSource.getImageItems(
+            success = {
+                if(it.isNotEmpty()) {
+                    naverSearchLocalDataSource.deleteImage(it)
+                    success(it.map { it.toItem() })
+                    return@getImageItems
+                } else {
+                    fail(Throwable("empty list"))
+                }
+            },
             fail = fail
         )
     }

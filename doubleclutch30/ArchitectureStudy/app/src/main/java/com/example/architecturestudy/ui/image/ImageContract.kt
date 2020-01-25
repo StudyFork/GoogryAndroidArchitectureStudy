@@ -7,9 +7,11 @@ interface ImageContract {
     interface View {
         fun showResult(item : List<ImageItem>)
         fun showErrorMessage(message : String)
+        fun showEmpty(message: String)
     }
 
     interface Presenter {
-        fun taskSearch(keyword : String)
+        fun taskSearch(isNetWork: Boolean, keyword: String)
+        fun getLastData()
     }
 }
