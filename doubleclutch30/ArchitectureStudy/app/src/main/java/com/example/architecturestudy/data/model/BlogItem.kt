@@ -1,5 +1,7 @@
 package com.example.architecturestudy.data.model
 
+import com.example.architecturestudy.data.local.Entity.BlogEntity
+import com.example.architecturestudy.data.local.Entity.MovieEntity
 import com.google.gson.annotations.SerializedName
 
 data class BlogItem(
@@ -14,4 +16,12 @@ data class BlogItem(
     val link : String ,
     @SerializedName("postdate")
     val postdate : String
-)
+) {
+    fun toEntity() = BlogEntity(
+        title = title,
+        description = description,
+        bloggername = bloggername,
+        link = link,
+        postdate = postdate
+    )
+}

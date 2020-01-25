@@ -6,7 +6,7 @@ import com.example.architecturestudy.data.local.Entity.MovieEntity
 @Dao
 interface MovieDao {
     @Query("SELECT * FROM movie")
-    fun getAll(): List<MovieEntity>
+    fun getAll() : List<MovieEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(movieItem: List<MovieEntity>)

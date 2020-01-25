@@ -7,9 +7,11 @@ interface MovieContract {
     interface View {
         fun showErrorMessage(message : String)
         fun showResult(item: List<MovieItem>)
+        fun showEmpty(message: String)
     }
 
     interface Presenter {
         fun taskSearch(isNetwork: Boolean, keyword : String)
+        fun getLastData()
     }
 }

@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.architecturestudy.Injection
 import com.example.architecturestudy.R
 import com.example.architecturestudy.data.model.ImageItem
 import kotlinx.android.synthetic.main.fragment_image.*
@@ -17,7 +18,10 @@ class ImageFragment : Fragment(), ImageContract.View {
     private lateinit var imageAdapter: ImageAdapter
 
     private val presenter : ImageContract.Presenter by lazy {
-        ImagePresenter(this)
+        ImagePresenter(
+            view = this,
+            repository = context?.let { Injection.provideNaverSearchRepository(it) }
+        )
     }
 
     override fun onCreateView(

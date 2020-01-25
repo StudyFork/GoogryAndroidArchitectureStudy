@@ -23,7 +23,8 @@ class MovieFragment : Fragment(), MovieContract.View {
     private val presenter: MovieContract.Presenter by lazy {
         MoviePresenter(
             this,
-            context?.let { Injection.provideNaverSearchRepository(it) })
+            context?.let { Injection.provideNaverSearchRepository(it) }
+        )
     }
 
     override fun onCreateView(
@@ -45,6 +46,7 @@ class MovieFragment : Fragment(), MovieContract.View {
                 DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
             )
         }
+        presenter.getLastData()
 
         btn_search.setOnClickListener {
             if (input_text != null) {
@@ -60,7 +62,6 @@ class MovieFragment : Fragment(), MovieContract.View {
                         isNetwork = isConnected,
                         keyword = edit
                     )
-
                 }
             }
         }
@@ -70,8 +71,11 @@ class MovieFragment : Fragment(), MovieContract.View {
         Toast.makeText(this.activity, message, Toast.LENGTH_SHORT)
     }
 
+    override fun showEmpty(message: String) {
+        Toast.makeText(this.activity, message, Toast.LENGTH_SHORT)
+    }
+
     override fun showResult(item: List<MovieItem>) {
-        Log.d("test11", "item ; $item}")
         movieAdapter.update(item)
     }
 }

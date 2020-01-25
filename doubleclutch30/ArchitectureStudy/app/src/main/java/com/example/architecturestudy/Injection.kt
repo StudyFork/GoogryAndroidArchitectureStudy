@@ -20,7 +20,6 @@ object Injection {
                 ApiClient.api
             ),
             NaverSearchLocalDataSourceImpl(
-                AppExecutor(),
                 NaverDataBase.getInstance(context)
             )
         )

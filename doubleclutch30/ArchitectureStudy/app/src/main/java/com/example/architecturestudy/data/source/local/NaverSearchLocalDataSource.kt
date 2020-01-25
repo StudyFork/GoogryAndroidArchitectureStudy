@@ -1,12 +1,25 @@
 package com.example.architecturestudy.data.source.local
 
+import com.example.architecturestudy.data.local.Entity.BlogEntity
+import com.example.architecturestudy.data.local.Entity.MovieEntity
+
 interface NaverSearchLocalDataSource {
 
-    fun <T> saveSearchItems(items: List<T>)
+    fun saveMovieItems(items: List<MovieEntity>)
 
-    fun <T> getSearchItems(
-        keyword: String?,
-        success: (items: List<T>) -> Unit,
+    fun getMovieItems(
+        success: (items: List<MovieEntity>) -> Unit,
         fail: (Throwable) -> Unit
     )
+
+    fun deleteMovie(items: List<MovieEntity>)
+
+    fun saveBlogItems(items: List<BlogEntity>)
+
+    fun getBlogItems(
+        success: (items: List<BlogEntity>) -> Unit,
+        fail: (Throwable) -> Unit
+    )
+
+    fun deleteBlog(items: List<BlogEntity>)
 }
