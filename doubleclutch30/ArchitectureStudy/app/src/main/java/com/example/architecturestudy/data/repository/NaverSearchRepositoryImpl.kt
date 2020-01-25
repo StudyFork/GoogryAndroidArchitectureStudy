@@ -1,7 +1,5 @@
 package com.example.architecturestudy.data.repository
 
-import com.example.architecturestudy.data.local.Entity.BlogEntity
-import com.example.architecturestudy.data.local.Entity.MovieEntity
 import com.example.architecturestudy.data.model.BlogItem
 import com.example.architecturestudy.data.model.ImageItem
 import com.example.architecturestudy.data.model.KinItem

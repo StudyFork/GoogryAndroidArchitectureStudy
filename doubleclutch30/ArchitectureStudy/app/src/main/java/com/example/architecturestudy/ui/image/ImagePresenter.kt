@@ -1,6 +1,5 @@
 package com.example.architecturestudy.ui.image
 
-import com.example.architecturestudy.Injection
 import com.example.architecturestudy.data.repository.NaverSearchRepository
 
 class ImagePresenter(

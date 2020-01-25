@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.architecturestudy.data.local.Entity.ImageEntity
-import com.example.architecturestudy.data.local.Entity.KinEntity
 
 @Dao
 interface ImageDao {

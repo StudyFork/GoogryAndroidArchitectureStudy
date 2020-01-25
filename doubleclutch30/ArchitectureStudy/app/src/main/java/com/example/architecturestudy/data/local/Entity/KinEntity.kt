@@ -2,7 +2,6 @@ package com.example.architecturestudy.data.local.Entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.architecturestudy.data.model.BlogItem
 import com.example.architecturestudy.data.model.KinItem
 
 @Entity(tableName = "kin")

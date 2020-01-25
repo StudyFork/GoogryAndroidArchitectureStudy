@@ -1,6 +1,9 @@
 package com.example.architecturestudy.data.local.Dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.example.architecturestudy.data.local.Entity.BlogEntity
 
 @Dao

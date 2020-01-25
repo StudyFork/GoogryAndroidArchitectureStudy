@@ -4,7 +4,6 @@ import com.example.architecturestudy.data.local.Entity.BlogEntity
 import com.example.architecturestudy.data.local.Entity.ImageEntity
 import com.example.architecturestudy.data.local.Entity.KinEntity
 import com.example.architecturestudy.data.local.Entity.MovieEntity
-import com.example.architecturestudy.data.model.KinItem
 
 interface NaverSearchLocalDataSource {
 

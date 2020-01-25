@@ -1,7 +1,5 @@
 package com.example.architecturestudy.ui.movie
 
-import com.example.architecturestudy.Injection
-import com.example.architecturestudy.data.model.MovieItem
 import com.example.architecturestudy.data.repository.NaverSearchRepository
 
 class MoviePresenter(

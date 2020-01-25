@@ -1,6 +1,5 @@
 package com.example.architecturestudy.ui.kin
 
-import com.example.architecturestudy.Injection
 import com.example.architecturestudy.data.repository.NaverSearchRepository
 
 class KinPresenter(

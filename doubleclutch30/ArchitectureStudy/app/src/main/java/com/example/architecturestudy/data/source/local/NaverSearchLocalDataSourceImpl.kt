@@ -1,12 +1,13 @@
 package com.example.architecturestudy.data.source.local
 
-import android.util.Log
 import com.example.architecturestudy.data.local.Entity.BlogEntity
 import com.example.architecturestudy.data.local.Entity.ImageEntity
 import com.example.architecturestudy.data.local.Entity.KinEntity
 import com.example.architecturestudy.data.local.Entity.MovieEntity
 import com.example.architecturestudy.data.local.NaverDataBase
-import java.util.concurrent.*
+import java.util.concurrent.Callable
+import java.util.concurrent.Executors
+import java.util.concurrent.Future
 
 class NaverSearchLocalDataSourceImpl(
         private val naverDataBase: NaverDataBase
