@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.architecture_project.feature.movie
 
 import android.text.Html
