@@ -6,7 +6,7 @@ import com.example.architecture_project.data.model.Movie
 import com.example.architecture_project.data.model.NaverApi
 import com.example.architecture_project.data.repository.NaverRepository
 
-class MainViewModel() {
+class MainViewModel {
 
     val naverRepository: NaverRepository = NaverRepository()
     var hasWrongChar: ObservableField<Boolean> = ObservableField()
@@ -33,7 +33,7 @@ class MainViewModel() {
                 movieData.set(it.item)
             }
         }, fail = {
-            Log.e("error is :",it.toString())
+            Log.e("error is :", it.toString())
             errorToast.set(it)
         })
     }

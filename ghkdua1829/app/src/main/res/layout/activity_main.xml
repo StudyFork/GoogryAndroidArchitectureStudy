@@ -10,7 +10,7 @@
         <variable
             name="searchKeyword"
             type="String" />
-        
+
         <variable
             name="vm"
             type="com.example.architecture_project.ui.main.MainViewModel" />
@@ -54,8 +54,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_movie"
-            android:layout_width="0dp"
             setData="@{vm.movieData}"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"

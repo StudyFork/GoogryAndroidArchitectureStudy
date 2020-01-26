@@ -32,7 +32,7 @@ fun RecyclerView.setData(movieData: List<Any>?) {
         null -> {
         }
         else -> {
-            if(movieData.isNotEmpty())
+            if (movieData.isNotEmpty())
                 (this.adapter as MovieAdapter).setMovieItemList(movieData as List<Movie>)
         }
     }
