@@ -17,9 +17,11 @@ class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
         data.clear()
     }
 
-    fun addItem(newMovieList: List<MovieData>) {
+    fun addItem(newMovieList: List<MovieData>?) {
+        if (newMovieList == null) return
+
         with(data) {
-            addAll(newMovieList)
+            addAll(newMovieList!!)
         }
         notifyDataSetChanged()
     }

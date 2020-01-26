@@ -1,6 +1,5 @@
 package com.song2.myapplication.ui
 
-import android.util.Log
 import com.song2.myapplication.source.MovieRepositoryImpl
 
 class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
@@ -9,20 +8,20 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
 
     override fun getMovie(keyword: String) {
 
-        fun refresh(){
+        fun refresh() {
             paging = 1
         }
 
-        if (preKeyword != keyword){
+        if (preKeyword != keyword) {
             refresh()
         }
 
         movieRepository.getMovieData(keyword, GETMOVIECNT, paging++ * GETMOVIECNT,
             onSuccess = {
 
-                if (it.count() == 0){
+                if (it.count() == 0) {
                     view.setResultGone()
-                }else{
+                } else {
                     view.setResultVisible()
                 }
 
@@ -36,7 +35,7 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
         )
     }
 
-    companion object{
+    companion object {
         var preKeyword = ""
         var paging = 1
         val GETMOVIECNT = 20

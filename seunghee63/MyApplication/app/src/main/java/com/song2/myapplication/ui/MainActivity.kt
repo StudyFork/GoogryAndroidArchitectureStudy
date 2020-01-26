@@ -16,13 +16,14 @@ import com.song2.myapplication.R
 import com.song2.myapplication.adapter.MovieAdapter
 import com.song2.myapplication.databinding.ActivityMainBinding
 import com.song2.myapplication.source.MovieData
+import com.song2.myapplication.source.MovieRepositoryImpl
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(), MainContract.View {
 
     private val imm: InputMethodManager by lazy { getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
     private val movieAdapter by lazy { MovieAdapter() }
-    private val presenter: MainContract.Presenter by lazy { MainPresenter(this) }
+    private val viewModel : MainViewModel by lazy { MainViewModel(MovieRepositoryImpl()) }
 
     private lateinit var binding : ActivityMainBinding
 
@@ -31,6 +32,9 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        binding.lifecycleOwner = this
+        binding.vm = viewModel
+
         setKeyboardFunc()
         setMovieRecyclerView()
 
@@ -38,10 +42,12 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             btnMainActSearchBtn.setOnClickListener {
                 if (etMainActSearch.text.toString() != "") {
                     movieAdapter.clearData()
-                    presenter.getMovie(etMainActSearch.text.toString())
+                    viewModel.getMovie(etMainActSearch.text.toString())
                 }
             }
         }
+
+
     }
 
     override fun showGetMovieSuccess(movieDataList: List<MovieData>) {
@@ -74,7 +80,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             rvMainActMovieList.setOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     if (!rvMainActMovieList.canScrollVertically(-1)) {
-                        presenter.getMovie(etMainActSearch.text.toString())
+                        viewModel.getMovie(etMainActSearch.text.toString())
                     }
                 }
             })
@@ -90,7 +96,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 when (actionId) {
                     EditorInfo.IME_ACTION_SEARCH -> {
                         movieAdapter.clearData()
-                        presenter.getMovie(binding.etMainActSearch.text.toString())
+                        viewModel.getMovie(binding.etMainActSearch.text.toString())
                     }
                     else ->
                         return false

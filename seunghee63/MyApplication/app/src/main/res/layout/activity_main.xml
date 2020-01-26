@@ -3,7 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data></data>
+    <data>
+        <variable
+            name="vm"
+            type="com.song2.myapplication.ui.MainViewModel" />
+        <import type="android.view.View" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -46,8 +51,10 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_main_act_search_container"
-            tools:itemCount="10"
-            tools:listitem="@layout/rv_movie_item" />
+            tools:itemCount="3"
+            tools:listitem="@layout/rv_movie_item"
+            setMovieData="@{vm.movieData}"
+            />
 
         <TextView
             android:id="@+id/tv_main_act_movie_list"
@@ -56,7 +63,7 @@
             android:gravity="center"
             android:padding="30dp"
             android:text="검색 결과가 없습니다."
-            android:visibility="gone"
+            android:visibility="@{vm.visibleResult ?  View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
