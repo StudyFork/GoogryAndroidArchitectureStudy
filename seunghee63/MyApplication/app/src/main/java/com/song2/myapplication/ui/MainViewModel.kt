@@ -1,11 +1,14 @@
 package com.song2.myapplication.ui
 
+import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.song2.myapplication.source.MovieData
 import com.song2.myapplication.source.MovieRepository
 
 class MainViewModel(private val repo: MovieRepository) : ViewModel() {
+
+    val MAINVIEWMODEL = "mainViewModel :"
 
     var movieData: ObservableField<List<MovieData>> = ObservableField()
     var visibleResult : ObservableField<Boolean> = ObservableField()
@@ -20,9 +23,10 @@ class MainViewModel(private val repo: MovieRepository) : ViewModel() {
 
                 if (it.count() > 0) visibleResult.set(true)
                 else visibleResult.set(false)
+
             },
             onFailure = {
-                // visible 처리
+                Log.e(MAINVIEWMODEL,it.toString())
             }
         )
     }
