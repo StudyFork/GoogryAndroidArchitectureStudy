@@ -10,9 +10,7 @@ import androidx.databinding.DataBindingUtil
 import com.hansung.firstproject.R
 import com.hansung.firstproject.databinding.ActivityMovieInformationBinding
 
-class MovieInformationActivity : AppCompatActivity(), MovieInformationContract.View {
-
-    private lateinit var presenter: MovieInformationContract.Presenter
+class MovieInformationActivity : AppCompatActivity() {
 
     private lateinit var webPageUrl: String
 
@@ -26,16 +24,16 @@ class MovieInformationActivity : AppCompatActivity(), MovieInformationContract.V
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_information)
 
-        presenter = MovieInformationPresenter(this).also { it.readUrl() }
-
-        presenter.loadWebView()
+        readUrl()
+        loadWebView()
     }
 
-    override fun readUrl() {
+    private fun readUrl() {
         webPageUrl = intent.getStringExtra(TAG)
     }
 
-    override fun loadWebView() {
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun loadWebView() {
 
         with(binding.movieInformationWebView) {
             webViewClient = WebViewClient()
