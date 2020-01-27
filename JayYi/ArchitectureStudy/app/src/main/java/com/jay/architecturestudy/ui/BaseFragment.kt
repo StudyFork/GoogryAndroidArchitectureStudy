@@ -39,8 +39,8 @@ abstract class BaseFragment<T : ViewDataBinding, VM: BaseViewModel<*>>(
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         viewModel.errorMsg.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {

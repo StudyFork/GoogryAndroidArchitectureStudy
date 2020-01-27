@@ -1,12 +1,11 @@
 package com.jay.architecturestudy.ui.kin
 
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
-import com.jay.architecturestudy.data.model.Kin
 import com.jay.architecturestudy.databinding.FragmentKinBinding
 import com.jay.architecturestudy.ui.BaseFragment
-import com.jay.architecturestudy.util.then
 
 
 class KinFragment : BaseFragment<FragmentKinBinding, KinViewModel>(R.layout.fragment_kin) {
@@ -17,8 +16,8 @@ class KinFragment : BaseFragment<FragmentKinBinding, KinViewModel>(R.layout.frag
 
     private lateinit var kinAdapter: KinAdapter
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         activity?.let { activity ->
             kinAdapter = KinAdapter()
             binding.recyclerView.run {
@@ -34,6 +33,7 @@ class KinFragment : BaseFragment<FragmentKinBinding, KinViewModel>(R.layout.frag
 
         binding.vm = viewModel
         viewModel.init()
+
     }
 
     override fun onDestroyView() {

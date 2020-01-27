@@ -1,11 +1,10 @@
 package com.jay.architecturestudy.ui.image
 
 import android.os.Bundle
+import android.view.View
 import com.jay.architecturestudy.R
-import com.jay.architecturestudy.data.model.Image
 import com.jay.architecturestudy.databinding.FragmentImageBinding
 import com.jay.architecturestudy.ui.BaseFragment
-import com.jay.architecturestudy.util.then
 import com.jay.architecturestudy.util.toPx
 import com.jay.architecturestudy.widget.SpacesItemDecoration
 
@@ -16,8 +15,8 @@ class ImageFragment : BaseFragment<FragmentImageBinding, ImageViewModel>(R.layou
 
     private lateinit var imageAdapter: ImageAdapter
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         activity?.let {
             imageAdapter = ImageAdapter()
             binding.recyclerView.run {

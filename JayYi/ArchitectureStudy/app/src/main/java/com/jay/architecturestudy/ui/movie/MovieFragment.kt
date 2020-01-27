@@ -1,6 +1,7 @@
 package com.jay.architecturestudy.ui.movie
 
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.databinding.FragmentMovieBinding
@@ -15,8 +16,8 @@ class MovieFragment : BaseFragment<FragmentMovieBinding, MovieViewModel>(R.layou
 
     private lateinit var movieAdapter: MovieAdapter
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         activity?.let { activity ->
             movieAdapter = MovieAdapter()
             binding.recyclerView.run {
