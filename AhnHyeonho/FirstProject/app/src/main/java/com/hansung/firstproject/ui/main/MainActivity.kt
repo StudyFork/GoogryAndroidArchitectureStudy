@@ -20,22 +20,7 @@ import com.hansung.firstproject.data.repository.NaverRepository
 import com.hansung.firstproject.data.source.remote.NaverRemoteDataSourceImpl
 import com.hansung.firstproject.databinding.ActivityMainBinding
 
-//class MainActivity : AppCompatActivity(), MainContract.View {
 class MainActivity : AppCompatActivity() {
-
-    /*private val presenter by lazy {
-        MainPresenter(
-            this,
-            NaverRepository.getInstance(
-                NaverRemoteDataSourceImpl.getInstance(
-                    Pair<String, String>(
-                        getString(R.string.client_id),
-                        getString(R.string.client_secret)
-                    )
-                )
-            )
-        )
-    }*/
 
     private var movieItemAdapter: MovieItemAdapter = MovieItemAdapter()
     private lateinit var binding: ActivityMainBinding
@@ -59,10 +44,6 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         with(binding) {
-            /*btnSearch.setOnClickListener {
-                //presenter.doSearch(etSearch.text.toString())
-                viewModel!!.doSearch(etSearch.text.toString())
-            }*/
             mainActivity = this@MainActivity
             vm = viewModel
         }
@@ -114,19 +95,11 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, getString(R.string.empty_list_message), Toast.LENGTH_SHORT).show()
     }
 
-    /*override fun addItemToAdapter(response: MovieResponseModel) {
-        movieItemAdapter.run {
-            addItems(response.items)
-            notifyDataSetChanged()
-        }
-    }*/
-
     private fun setKeyboardSearchFunc() {
         binding.etSearch.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
                 when (actionId) {
                     EditorInfo.IME_ACTION_SEARCH -> {
-                        //presenter.doSearch(binding.etSearch.text.toString())
                         viewModel.doSearch(binding.etSearch.text.toString())
                     }
                     else ->
@@ -136,7 +109,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
 
     private fun initObserveCallback() {
         with(viewModel) {
