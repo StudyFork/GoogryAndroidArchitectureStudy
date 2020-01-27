@@ -13,8 +13,6 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class MainActivity : BaseNaverSearchActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-//    val remote : NaverRemoteDataSourceImpl by inject()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

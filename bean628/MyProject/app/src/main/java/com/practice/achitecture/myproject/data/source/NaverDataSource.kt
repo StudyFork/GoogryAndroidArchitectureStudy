@@ -26,4 +26,12 @@ interface NaverDataSource {
         callback: LoadHistoryOfSearchCallback
     )
 
+    fun getLastSearchType(): SearchType
+
+    fun getCache(searchType: SearchType): String
+
+    fun setCache(searchType: SearchType, word: String, list: List<SearchedItem>)
+
+    fun saveSearchedListInRoom(searchType: SearchType, word: String, list: List<SearchedItem>)
+
 }

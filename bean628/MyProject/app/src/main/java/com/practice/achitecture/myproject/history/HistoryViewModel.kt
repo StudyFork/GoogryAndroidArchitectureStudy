@@ -3,11 +3,10 @@ package com.practice.achitecture.myproject.history
 import com.practice.achitecture.myproject.R
 import com.practice.achitecture.myproject.base.BaseNaverSearchViewModel
 import com.practice.achitecture.myproject.data.source.NaverDataSource
-import com.practice.achitecture.myproject.data.source.NaverRepository
 import com.practice.achitecture.myproject.enums.SearchType
 import com.practice.achitecture.myproject.model.SearchedItem
 
-class HistoryViewModel constructor(private val naverRepository: NaverRepository) :
+class HistoryViewModel constructor(private val naverRepository: NaverDataSource) :
     BaseNaverSearchViewModel() {
 
     fun loadHistory(searchType: SearchType) {
