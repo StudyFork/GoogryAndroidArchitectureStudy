@@ -30,12 +30,6 @@ class ImageViewModel(
         repository.getImage(
             keyword = keyword
         )
-            .flatMap {
-                repository.refreshImageSearchHistory(
-                    keyword = keyword,
-                    images = it.images
-                )
-            }
             .compose(singleIoMainThread())
             .subscribe({ imageRepo ->
                 viewType.set(

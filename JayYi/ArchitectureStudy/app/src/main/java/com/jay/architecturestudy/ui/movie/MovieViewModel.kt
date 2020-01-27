@@ -30,12 +30,6 @@ class MovieViewModel(
         repository.getMovie(
             keyword = keyword
         )
-            .flatMap {
-                repository.refreshMovieSearchHistory(
-                    keyword = keyword,
-                    movies = it.movies
-                )
-            }
             .compose(singleIoMainThread())
             .subscribe({ movieRepo ->
                 viewType.set(

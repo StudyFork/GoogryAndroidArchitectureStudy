@@ -30,12 +30,6 @@ class KinViewModel(
         repository.getKin(
             keyword = keyword
         )
-            .flatMap {
-                repository.refreshKinSearchHistory(
-                    keyword = keyword,
-                    kins = it.kins
-                )
-            }
             .compose(singleIoMainThread())
             .subscribe({ kinRepo ->
                 viewType.set(

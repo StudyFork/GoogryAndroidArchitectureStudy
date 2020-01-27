@@ -2,7 +2,6 @@ package com.jay.architecturestudy.ui.blog
 
 import androidx.databinding.ObservableField
 import com.jay.architecturestudy.data.model.Blog
-import com.jay.architecturestudy.data.model.Image
 import com.jay.architecturestudy.data.repository.NaverSearchRepository
 import com.jay.architecturestudy.ui.BaseViewModel
 import com.jay.architecturestudy.ui.ViewType
@@ -31,12 +30,6 @@ class BlogViewModel(
         repository.getBlog(
             keyword = keyword
         )
-            .flatMap {
-                repository.refreshBlogSearchHistory(
-                    keyword = keyword,
-                    blogs = it.blogs
-                )
-            }
             .compose(singleIoMainThread())
             .subscribe({ blogRepo ->
                 viewType.set(

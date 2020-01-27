@@ -27,6 +27,12 @@ class NaverSearchRepositoryImpl(
                     movies = it.movies
                 )
             }
+            .flatMap {
+                refreshMovieSearchHistory(
+                    keyword = keyword,
+                    movies = it.movies
+                )
+            }
 
     override fun getImage(
         keyword: String
@@ -36,6 +42,12 @@ class NaverSearchRepositoryImpl(
         )
             .map {
                 ImageRepo(
+                    keyword = keyword,
+                    images = it.images
+                )
+            }
+            .flatMap {
+                refreshImageSearchHistory(
                     keyword = keyword,
                     images = it.images
                 )
@@ -53,6 +65,12 @@ class NaverSearchRepositoryImpl(
                     blogs = it.blogs
                 )
             }
+            .flatMap {
+                refreshBlogSearchHistory(
+                    keyword = keyword,
+                    blogs = it.blogs
+                )
+            }
 
     override fun getKin(
         keyword: String
@@ -62,6 +80,12 @@ class NaverSearchRepositoryImpl(
         )
             .map {
                 KinRepo(
+                    keyword = keyword,
+                    kins = it.kins
+                )
+            }
+            .flatMap {
+                refreshKinSearchHistory(
                     keyword = keyword,
                     kins = it.kins
                 )
