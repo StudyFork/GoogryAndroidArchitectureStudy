@@ -7,7 +7,7 @@ import com.google.gson.reflect.TypeToken
 
 class LocalConverters {
     companion object {
-        val gson = Gson()
+        private val gson = Gson()
 
         @JvmStatic
         @TypeConverter

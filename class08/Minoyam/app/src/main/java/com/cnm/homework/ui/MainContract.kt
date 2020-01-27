@@ -1,25 +1,31 @@
 package com.cnm.homework.ui
 
+import android.content.Context
+import com.cnm.homework.data.model.NaverResponse
+
 interface MainContract {
 
-    interface View{
-        fun showLoading()
-//
-        fun hideLoading()
-//        fun showMovieList(items : List<>) 리스트: 아이템
-//        adpater.resetAll(items) <- mainActivity에 넣어야됨
-//          fl.empty.isvisible = false
-//          rv_content.isVisible = true
+    interface View {
+        fun showProgress()
+
+        fun hideProgress()
+
+        fun setItem(items: List<NaverResponse.Item>)
+
         fun showErrorEmptyQuery()
-//
+
         fun showErrorEmtpyResult()
-//        fl.empty를 보여주고
-//        rv_content를 false
+
+        fun getContext(): Context
 
     }
 
     interface Presenter {
-        fun query(query : String)
+        fun movieListSearch(query: String)
+
+        fun disposableClear()
+
+        fun loadMovieList(): List<NaverResponse.Item>
     }
 
 }
