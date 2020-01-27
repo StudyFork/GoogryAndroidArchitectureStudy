@@ -3,8 +3,8 @@ package com.egiwon.architecturestudy.ui.tabs.bottomsheet
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.egiwon.architecturestudy.base.BaseViewModel
-import com.egiwon.architecturestudy.data.NaverDataRepository
 import com.egiwon.architecturestudy.ui.Tab
+import com.egiwon.data.NaverDataRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 class HistoryViewModel(
@@ -17,7 +17,7 @@ class HistoryViewModel(
     val searchHistoryResult: LiveData<List<String>> get() = _searchHistoryResult
 
     fun getSearchQueryHistory() =
-        naverDataRepository.getContentQuerys(tab.name)
+        naverDataRepository.getContentQueries(tab.name)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 _searchHistoryResult.value = it

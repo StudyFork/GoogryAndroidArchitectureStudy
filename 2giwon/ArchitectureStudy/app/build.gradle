@@ -6,22 +6,11 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
-android {
-    compileSdkVersion 29
-    defaultConfig {
-        applicationId "com.egiwon.architecturestudy"
-        minSdkVersion 23
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
+apply from: "$rootDir/android_commons.gradle"
+apply from: "$rootDir/android_default_feature.gradle"
+apply from: "$rootDir/android_features.gradle"
+
+android{
 
     afterEvaluate {
         tasks.matching {
@@ -43,44 +32,15 @@ android {
 }
 
 dependencies {
-    // Default
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    // AndroidX
-    implementation "com.google.android.material:material:$material_version"
-    implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
-
-    // Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$gson_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3_version"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_rxjava2_version"
-
-    // Glide
-    implementation "com.github.bumptech.glide:glide:$glide_version"
-
-    // Kotlin Extension
-    implementation "androidx.core:core-ktx:$ktx_version"
-    implementation "androidx.fragment:fragment-ktx:$ktx_version"
-
-    // rxJava
-    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
-    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
-
-    // Room
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-    implementation "androidx.room:room-rxjava2:$room_version"
-
-    // animation
-    implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
-
-    // koin
-    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+    implementation project(":data")
+    implementation project(":remote")
+    implementation project(":local")
 
     // Test
     testImplementation "junit:junit:$jnit_version"
     androidTestImplementation "androidx.test.ext:junit:$test_ext_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+
+
 }
+

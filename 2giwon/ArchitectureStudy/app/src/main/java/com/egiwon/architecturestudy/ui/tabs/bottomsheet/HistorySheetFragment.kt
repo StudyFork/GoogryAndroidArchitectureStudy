@@ -10,7 +10,7 @@ import com.egiwon.architecturestudy.databinding.FgHistorySheetBinding
 import com.egiwon.architecturestudy.ext.addCallback
 import com.egiwon.architecturestudy.ext.doOnApplyWindowInsets
 import com.egiwon.architecturestudy.ui.Tab
-import com.egiwon.architecturestudy.ui.tabs.ContentsFragment
+import com.egiwon.architecturestudy.ui.tabs.ContentFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
@@ -24,7 +24,7 @@ class HistorySheetFragment : BaseFragment<FgHistorySheetBinding, HistoryViewMode
     override val viewModel: HistoryViewModel by viewModel { parametersOf(getTab()) }
 
     private val onClick: (String) -> Unit = { query ->
-        (requireParentFragment() as? ContentsFragment)?.loadContentsByHistoryQuery(query)
+        (requireParentFragment() as? ContentFragment)?.loadContentsByHistoryQuery(query)
         BottomSheetBehavior.from(binding.historySheet).state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
@@ -120,6 +120,6 @@ class HistorySheetFragment : BaseFragment<FgHistorySheetBinding, HistoryViewMode
     }
 
     private fun getTab(): Tab =
-        (requireParentFragment() as? ContentsFragment)?.tab
+        (requireParentFragment() as? ContentFragment)?.tab
             ?: error(getString(R.string.type_is_null))
 }

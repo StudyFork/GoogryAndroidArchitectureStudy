@@ -12,9 +12,7 @@ fun lerp(
     endValue: Float,
     @FloatRange(from = 0.0, fromInclusive = true, to = 1.0, toInclusive = true)
     fraction: Float
-): Float {
-    return startValue + fraction * (endValue - startValue)
-}
+): Float = startValue + fraction * (endValue - startValue)
 
 
 /**
@@ -77,10 +75,8 @@ fun lerpArgb(
     @ColorInt endColor: Int,
     @FloatRange(from = 0.0, fromInclusive = true, to = 1.0, toInclusive = true)
     fraction: Float
-): Int {
-    return ArgbEvaluatorCompat.getInstance().evaluate(
-        fraction,
-        startColor,
-        endColor
-    )
-}
+): Int = ArgbEvaluatorCompat.getInstance().evaluate(
+    fraction,
+    startColor,
+    endColor
+)
