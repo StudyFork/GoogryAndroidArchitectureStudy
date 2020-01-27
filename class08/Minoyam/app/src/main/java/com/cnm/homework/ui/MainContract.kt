@@ -14,10 +14,11 @@ interface MainContract {
 
         fun showErrorEmptyQuery()
 
-        fun showErrorEmtpyResult()
+        fun showErrorEmptyResult()
 
-        fun getContext(): Context
+        fun showEmptyLayout()
 
+        fun hideEmptyLayout()
     }
 
     interface Presenter {

@@ -15,10 +15,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
-
     private val movieAdapter = MovieAdapter(::showMovieDetail)
 
-    private val presenter: MainContract.Presenter by lazy { MainPresenter(this@MainActivity) }
+    private val presenter: MainContract.Presenter by lazy { MainPresenter(this@MainActivity,this@MainActivity) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,16 +73,21 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun hideProgress() {
         pb_loading.visibility = View.GONE
     }
+    override fun showEmptyLayout() {
+        rv_content.visibility = View.GONE
+        fl_empty.visibility = View.VISIBLE
+    }
 
-    override fun showErrorEmtpyResult() =
+    override fun hideEmptyLayout() {
+        rv_content.visibility = View.VISIBLE
+        fl_empty.visibility = View.GONE
+    }
+
+    override fun showErrorEmptyResult() =
         Toast.makeText(this, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show()
-
 
     override fun showErrorEmptyQuery() =
         Toast.makeText(this, "제목을 입력해주세요", Toast.LENGTH_SHORT).show()
-
-
-    override fun getContext(): Context = this@MainActivity
 
     private fun View.hideKeyboard() {
         val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

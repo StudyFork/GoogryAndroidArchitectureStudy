@@ -9,10 +9,11 @@ import com.cnm.homework.data.source.local.db.LocalDatabase
 import com.cnm.homework.data.source.remote.NaverQueryRemoteDataSourceImpl
 import io.reactivex.disposables.CompositeDisposable
 
-class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
+class MainPresenter(private val view: MainContract.View, private val context: Context) :
+    MainContract.Presenter {
 
     private val localDao: LocalDao by lazy {
-        val db = LocalDatabase.getInstance(view.getContext())!!
+        val db = LocalDatabase.getInstance(context)!!
         db.localDao()
     }
     private val naverQueryRepositoryImpl: NaverQueryRepositoryImpl by lazy {
@@ -36,15 +37,17 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
                 .subscribe({
                     if (it.total != 0) {
                         view.setItem(it.items)
+                        view.hideEmptyLayout()
                     } else {
-                        view.showErrorEmtpyResult()
+                        view.showErrorEmptyResult()
+                        view.showEmptyLayout()
                     }
                 }, {
                     it.printStackTrace()
                 })
             )
         } else {
-            view.showErrorEmtpyResult()
+            view.showErrorEmptyQuery()
         }
     }
 
