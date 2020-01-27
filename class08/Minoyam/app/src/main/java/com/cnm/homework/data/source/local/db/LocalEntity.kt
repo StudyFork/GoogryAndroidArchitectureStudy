@@ -7,7 +7,7 @@ import com.cnm.homework.data.model.NaverResponse
 
 @Entity(tableName = "local")
 data class LocalEntity(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     var id: Long,
     @TypeConverters(LocalConverters::class)
     var repo: List<NaverResponse.Item>

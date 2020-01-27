@@ -17,7 +17,12 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     private val movieAdapter = MovieAdapter(::showMovieDetail)
 
-    private val presenter: MainContract.Presenter by lazy { MainPresenter(this@MainActivity,this@MainActivity) }
+    private val presenter: MainContract.Presenter by lazy {
+        MainPresenter(
+            this@MainActivity,
+            this@MainActivity
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,10 +56,12 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         super.onDestroy()
     }
 
-    private fun beforeMovieListSearch() =
+    private fun beforeMovieListSearch() {
+        val repoItem = presenter.loadMovieList()
         runOnUiThread {
-            movieAdapter.setItem(presenter.loadMovieList())
+            movieAdapter.setItem(repoItem)
         }
+    }
 
     private fun showMovieDetail(item: NaverResponse.Item) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
@@ -73,6 +80,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun hideProgress() {
         pb_loading.visibility = View.GONE
     }
+
     override fun showEmptyLayout() {
         rv_content.visibility = View.GONE
         fl_empty.visibility = View.VISIBLE

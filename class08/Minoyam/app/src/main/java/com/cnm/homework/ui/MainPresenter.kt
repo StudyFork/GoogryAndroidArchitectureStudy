@@ -1,5 +1,6 @@
 package com.cnm.homework.ui
 
+import android.content.Context
 import com.cnm.homework.applySchedulers
 import com.cnm.homework.data.model.NaverResponse
 import com.cnm.homework.data.repository.NaverQueryRepositoryImpl
