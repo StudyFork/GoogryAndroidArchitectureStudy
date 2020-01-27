@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         )
     }*/
 
-    private val movieItemAdapter: MovieItemAdapter = MovieItemAdapter()
+    private var movieItemAdapter: MovieItemAdapter = MovieItemAdapter()
     private lateinit var binding: ActivityMainBinding
 
     private val viewModel: MainViewModel by lazy {
@@ -55,22 +55,23 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        with(binding) {
+            /*btnSearch.setOnClickListener {
+                //presenter.doSearch(etSearch.text.toString())
+                viewModel!!.doSearch(etSearch.text.toString())
+            }*/
+            mainActivity = this@MainActivity
+            vm = viewModel
+        }
 
         // recyclerView initialize
         initRecyclerView()
         // keyboard function
         setKeyboardSearchFunc()
-
         initObserveCallback()
-
-
-        /*with(binding) {
-            btnSearch.setOnClickListener {
-                //presenter.doSearch(etSearch.text.toString())
-                viewModel!!.doSearch(etSearch.text.toString())
-            }
-        }*/
     }
 
     // recyclerView 초기화 메소드
@@ -88,8 +89,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun btnSearchClick(){
-        viewModel!!.doSearch(binding.etSearch.text.toString())
+    fun btnSearchClick() {
+        viewModel.doSearch(binding.etSearch.text.toString())
     }
 
 
