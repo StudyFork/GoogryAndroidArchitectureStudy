@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
         binding.rvMovie.adapter = movieAdapter
-        ObservableData()
+        addObservableData()
 
     }
 
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, "총 " + num + "개가 검색되었습니다.", Toast.LENGTH_SHORT).show()
     }
 
-    private fun ObservableData() {
+    private fun addObservableData() {
         vm.isEmptyMovieData.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
