@@ -3,6 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="mainActivity"
+            type="com.hansung.firstproject.ui.main.MainActivity" />
+
+        <variable
+            name="vm"
+            type="com.hansung.firstproject.ui.main.MainViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -38,11 +52,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:onClick="@{()-> mainActivity.btnSearchClick()}"
                     android:text="@string/btn_search" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_movies"
+                refreshMovieData="@{vm.movieData}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
