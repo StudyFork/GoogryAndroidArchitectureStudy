@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.hansung.firstproject.R
 import com.hansung.firstproject.databinding.ActivityMovieInformationBinding
 
@@ -22,6 +23,9 @@ class MovieInformationActivity : AppCompatActivity(), MovieInformationContract.V
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_information)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_information)
+
         presenter = MovieInformationPresenter(this).also { it.readUrl() }
 
         presenter.loadWebView()
