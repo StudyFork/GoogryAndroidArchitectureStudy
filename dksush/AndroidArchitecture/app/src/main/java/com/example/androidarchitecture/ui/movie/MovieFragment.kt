@@ -43,12 +43,12 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie
     }
 
     private fun observeListener() {
-        vm.blankInputText.observe(this, Observer {
+        vm.blankInputText.observe(viewLifecycleOwner, Observer {
             requireContext().toast(getString(R.string.black_input_text))
         })
 
 
-        vm.errorToast.observe(this, Observer {
+        vm.errorToast.observe(viewLifecycleOwner, Observer {
             requireContext().toast(it.toString())
         })
 

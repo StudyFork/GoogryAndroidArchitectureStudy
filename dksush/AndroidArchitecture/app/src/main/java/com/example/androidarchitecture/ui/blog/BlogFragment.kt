@@ -47,12 +47,15 @@ class BlogFragment : BaseFragment<FragmentBlogBinding>(R.layout.fragment_blog) {
     }
 
     private fun observeListener() {
-        vm.blankInputText.observe(this, Observer {
+        // Fragment 에서 observe 는 this 가 아니라 viewLifecycleOwner.
+        // Fragment의 구성이 변경되는 동안 destroy 를 안타고 destroyview 까지만 탈 수 있다.
+        // 고로 뷰는 파과되었지만, 해당 프래그먼트의 인스턴스는 남아있고, 다시 해당 프레그먼트를 불러올시, 동일한 observer 가 생길 수 있다.
+        vm.blankInputText.observe(viewLifecycleOwner, Observer {
             requireContext().toast(getString(R.string.black_input_text))
         })
 
 
-        vm.errorToast.observe(this, Observer {
+        vm.errorToast.observe(viewLifecycleOwner, Observer {
             requireContext().toast(it.toString())
         })
 
