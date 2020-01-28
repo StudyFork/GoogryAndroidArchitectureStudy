@@ -51,11 +51,6 @@ class MainActivity : AppCompatActivity() {
         binding.viewModel = viewModel
     }
 
-    fun searchButtonClick() {
-        val inputText = binding.etSearchBar.text.toString()
-        viewModel.serchMovie(inputText)
-    }
-
     private fun initObserveCallBack() {
         with(viewModel) {
             isEmptyResult.addOnPropertyChangedCallback(object :

@@ -13,8 +13,10 @@ class MainViewModel(val networkManager: NetworkManager) {
     var isInputTextLengthZero: ObservableField<Boolean> = ObservableField()
     var isEmptyResult: ObservableField<Boolean> = ObservableField()
     var failMessage: ObservableField<String> = ObservableField()
+    var inputText: ObservableField<String> = ObservableField("")
 
-    fun serchMovie(inputText: String) {
+    fun serchMovie() {
+        Log.i("text", inputText.get().toString())
         isLoading.set(true)
 
         if (!isConnectedNetwork()) {
@@ -23,9 +25,10 @@ class MainViewModel(val networkManager: NetworkManager) {
             return
         }
 
-        if (!checkInputQuery(inputText)) return
+        if (!checkInputQuery()) return
 
-        MovieRepository.getMovieData(inputText
+        MovieRepository.getMovieData(
+            inputText.get().toString()
             , success = {
                 if (it.items.isEmpty()) isEmptyResult.set(true)
                 else movieData.set(it.items)
@@ -40,11 +43,15 @@ class MainViewModel(val networkManager: NetworkManager) {
 
     fun isConnectedNetwork(): Boolean = networkManager.checkNetworkConnect()
 
-    fun checkInputQuery(inputText: String): Boolean {
-        return if (inputText.isEmpty()) {
+    fun checkInputQuery(): Boolean {
+        return if (inputText.get()!!.isEmpty()) {
             isInputTextLengthZero.set(true)
             isLoading.set(false)
             false
         } else true
+    }
+
+    fun searchButtonClick() {
+        serchMovie()
     }
 }
