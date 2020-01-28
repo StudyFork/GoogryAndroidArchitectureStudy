@@ -24,10 +24,9 @@ class NaverSearchRepositoryImpl(
                 keyword = keyword,
                 success = {
                     if(it.isNotEmpty()) {
-                        naverSearchLocalDataSource.deleteMovie(it.map { it.toEntity() })
+                        naverSearchLocalDataSource.deleteMovie()
                         naverSearchLocalDataSource.saveMovieItems(it.map { it.toEntity() })
                         success(it)
-                        Log.e("isConnected", "$it")
                     }
                 },
                 fail = fail
@@ -72,7 +71,7 @@ class NaverSearchRepositoryImpl(
                 keyword = keyword,
                 success = {
                     if(it.isNotEmpty()) {
-                        naverSearchLocalDataSource.deleteBlog(it.map { it.toEntity() })
+                        naverSearchLocalDataSource.deleteBlog()
                         naverSearchLocalDataSource.saveBlogItems(it.map { it.toEntity() })
                         success(it)
                     }
@@ -117,7 +116,7 @@ class NaverSearchRepositoryImpl(
                 keyword = keyword,
                 success = {
                     if(it.isNotEmpty()) {
-                        naverSearchLocalDataSource.deleteKin(it.map { it.toEntity() })
+                        naverSearchLocalDataSource.deleteKin()
                         naverSearchLocalDataSource.saveKinItems(it.map { it.toEntity() })
                         success(it)
                     }
@@ -164,7 +163,7 @@ class NaverSearchRepositoryImpl(
                 keyword = keyword,
                 success = {
                     if(it.isNotEmpty()) {
-                        naverSearchLocalDataSource.deleteImage(it.map { it.toEntity() })
+                        naverSearchLocalDataSource.deleteImage()
                         naverSearchLocalDataSource.saveImageItems(it.map { it.toEntity() })
                         success(it)
                     }

@@ -12,10 +12,10 @@ interface NaverSearchLocalDataSource {
     fun saveKinItems(items: List<KinEntity>)
     fun saveImageItems(items: List<ImageEntity>)
 
-    fun deleteMovie(items: List<MovieEntity>)
-    fun deleteBlog(items: List<BlogEntity>)
-    fun deleteKin(items: List<KinEntity>)
-    fun deleteImage(items: List<ImageEntity>)
+    fun deleteMovie()
+    fun deleteBlog()
+    fun deleteKin()
+    fun deleteImage()
 
     fun getMovieItems(
         success: (items: List<MovieEntity>) -> Unit,

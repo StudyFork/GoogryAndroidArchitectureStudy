@@ -32,7 +32,7 @@ class NaverSearchLocalDataSourceImpl(
         success((list) ?: emptyList())
     }
 
-    override fun deleteMovie(items: List<MovieEntity>) {
+    override fun deleteMovie() {
         executor.submit {
             naverDataBase.movieDao().deleteAll()
         }
@@ -55,7 +55,7 @@ class NaverSearchLocalDataSourceImpl(
         success((list) ?: emptyList())
     }
 
-    override fun deleteBlog(items: List<BlogEntity>) {
+    override fun deleteBlog() {
         executor.submit {
             naverDataBase.blogDao().deleteAll()
         }
@@ -78,7 +78,7 @@ class NaverSearchLocalDataSourceImpl(
         success((list) ?: emptyList())
     }
 
-    override fun deleteKin(items: List<KinEntity>) {
+    override fun deleteKin() {
         executor.submit {
             naverDataBase.kinDao().deleteAll()
         }
@@ -90,7 +90,7 @@ class NaverSearchLocalDataSourceImpl(
         }
     }
 
-    override fun deleteImage(items: List<ImageEntity>) {
+    override fun deleteImage() {
         executor.submit {
             naverDataBase.imageDao().deleteAll()
         }
