@@ -22,9 +22,11 @@ class NaverSearchRepositoryImpl(
             naverSearchRemoteDataSource.getMovie(
                 keyword = keyword,
                 success = {
-                    // 로컬 저장
-                    naverSearchLocalDataSource.saveMovieItems(items = it.map { it.toEntity() })
-                    success(it)
+                    if(it.isNotEmpty()) {
+                        naverSearchLocalDataSource.deleteMovie(it.map { it.toEntity() })
+                        naverSearchLocalDataSource.saveMovieItems(it.map { it.toEntity() })
+                        success(it)
+                    }
                 },
                 fail = fail
             )
@@ -32,7 +34,6 @@ class NaverSearchRepositoryImpl(
             naverSearchLocalDataSource.getMovieItems(
                 success = {
                     if (it.isNotEmpty()) {
-                        naverSearchLocalDataSource.deleteMovie(it)
                         success(it.map { it.toItem() })
                         return@getMovieItems
                     } else {
@@ -50,7 +51,6 @@ class NaverSearchRepositoryImpl(
             naverSearchLocalDataSource.getMovieItems(
                 success = {
                     if(it.isNotEmpty()) {
-                        naverSearchLocalDataSource.deleteMovie(it)
                         success(it.map { it.toItem() })
                         return@getMovieItems
                     } else {
@@ -71,8 +71,11 @@ class NaverSearchRepositoryImpl(
             naverSearchRemoteDataSource.getBlog(
                 keyword = keyword,
                 success = {
-                    naverSearchLocalDataSource.saveBlogItems(items = it.map { it.toEntity() })
-                    success(it)
+                    if(it.isNotEmpty()) {
+                        naverSearchLocalDataSource.deleteBlog(it.map { it.toEntity() })
+                        naverSearchLocalDataSource.saveBlogItems(it.map { it.toEntity() })
+                        success(it)
+                    }
                 },
                 fail = fail
             )
@@ -80,7 +83,6 @@ class NaverSearchRepositoryImpl(
             naverSearchLocalDataSource.getBlogItems(
                 success = {
                     if (it.isNotEmpty()) {
-                        naverSearchLocalDataSource.deleteBlog(it)
                         success(it.map { it.toItem() })
                         return@getBlogItems
                     } else {
@@ -96,7 +98,6 @@ class NaverSearchRepositoryImpl(
         naverSearchLocalDataSource.getBlogItems(
             success = {
                 if(it.isNotEmpty()) {
-                    naverSearchLocalDataSource.deleteBlog(it)
                     success(it.map { it.toItem() })
                     return@getBlogItems
                 } else {
@@ -117,8 +118,11 @@ class NaverSearchRepositoryImpl(
             naverSearchRemoteDataSource.getKin(
                 keyword = keyword,
                 success = {
-                    naverSearchLocalDataSource.saveKinItems(items = it.map { it.toEntity() })
-                    success(it)
+                    if(it.isNotEmpty()) {
+                        naverSearchLocalDataSource.deleteKin(it.map { it.toEntity() })
+                        naverSearchLocalDataSource.saveKinItems(it.map { it.toEntity() })
+                        success(it)
+                    }
                 },
                 fail = fail
             )
@@ -126,7 +130,6 @@ class NaverSearchRepositoryImpl(
             naverSearchLocalDataSource.getKiItems(
                  success = {
                      if(it.isNotEmpty()) {
-                        naverSearchLocalDataSource.deleteKin(it)
                          success(it.map { it.toItem() })
                          return@getKiItems
                      } else {
@@ -144,7 +147,6 @@ class NaverSearchRepositoryImpl(
         naverSearchLocalDataSource.getKiItems(
             success = {
                 if(it.isNotEmpty()) {
-                    naverSearchLocalDataSource.deleteKin(it)
                     success(it.map { it.toItem() })
                     return@getKiItems
                 } else {
@@ -165,8 +167,12 @@ class NaverSearchRepositoryImpl(
             naverSearchRemoteDataSource.getImage(
                 keyword = keyword,
                 success = {
-                    naverSearchLocalDataSource.saveImageItems(it.map { it.toEntity() })
-                    success(it)
+                    if(it.isNotEmpty()) {
+                        naverSearchLocalDataSource.deleteImage(it.map { it.toEntity() })
+                        naverSearchLocalDataSource.saveImageItems(it.map { it.toEntity() })
+                        success(it)
+                    }
+
                 },
                 fail = fail
             )
@@ -174,7 +180,6 @@ class NaverSearchRepositoryImpl(
             naverSearchLocalDataSource.getImageItems(
                 success = {
                     if(it.isNotEmpty()) {
-                        naverSearchLocalDataSource.deleteImage(it)
                         success(it.map { it.toItem() })
                         return@getImageItems
                     } else {
@@ -193,7 +198,6 @@ class NaverSearchRepositoryImpl(
         naverSearchLocalDataSource.getImageItems(
             success = {
                 if(it.isNotEmpty()) {
-                    naverSearchLocalDataSource.deleteImage(it)
                     success(it.map { it.toItem() })
                     return@getImageItems
                 } else {
