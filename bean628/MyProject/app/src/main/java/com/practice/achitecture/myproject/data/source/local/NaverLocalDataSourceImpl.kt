@@ -10,7 +10,7 @@ import com.practice.achitecture.myproject.util.AppExecutors
 import org.json.JSONObject
 import java.io.File
 
-class NaverLocalDataSourceImpl private constructor(
+class NaverLocalDataSourceImpl constructor(
     val appExcutors: AppExecutors,
     val naverDao: NaverDao,
     val cacheFilePath: String
@@ -51,7 +51,7 @@ class NaverLocalDataSourceImpl private constructor(
         // local에서는 쓰이지 않음
     }
 
-    fun saveSearchedListInRoom(searchType: SearchType, word: String, list: List<SearchedItem>) {
+    override fun saveSearchedListInRoom(searchType: SearchType, word: String, list: List<SearchedItem>) {
         appExcutors.diskIO.execute {
             naverDao.insertResultOfSearch(HistoryOfSearch(searchType.value, word, list))
         }
@@ -59,7 +59,7 @@ class NaverLocalDataSourceImpl private constructor(
 
 
     // 앱 첫 실행 시 가장 마지막으로 검색한 리스트를 불러옵니다.
-    fun getLastSearchType(): SearchType {
+    override fun getLastSearchType(): SearchType {
         var lastSearchType: SearchType = SearchType.MOVIE
         var lastTime: Long? = null
         var cacheFile: File
@@ -83,7 +83,7 @@ class NaverLocalDataSourceImpl private constructor(
     }
 
 
-    fun getCache(searchType: SearchType): String {
+    override fun getCache(searchType: SearchType): String {
         val cacheFile = File(cacheFilePath + searchType.value + ".json")
         if (cacheFile.exists()) {
 //            val gson = Gson()
@@ -95,7 +95,7 @@ class NaverLocalDataSourceImpl private constructor(
     }
 
     @SuppressLint("SdCardPath")
-    fun setCache(searchType: SearchType, word: String, list: List<SearchedItem>) {
+    override fun setCache(searchType: SearchType, word: String, list: List<SearchedItem>) {
         val cachePath = File(cacheFilePath)
         if (!cachePath.exists()) {
             cachePath.mkdirs()

@@ -6,9 +6,18 @@ import com.practice.achitecture.myproject.enums.SearchType
 import com.practice.achitecture.myproject.model.SearchedItem
 
 class NaverRepository(
-    private val naverRemoteDataSource: NaverRemoteDataSourceImpl,
-    private val naverLocalDataSource: NaverLocalDataSourceImpl
+    private val naverRemoteDataSource: NaverDataSource,
+    private val naverLocalDataSource: NaverDataSource
 ) : NaverDataSource {
+
+
+    override fun setCache(searchType: SearchType, word: String, list: List<SearchedItem>) {
+        naverLocalDataSource.setCache(searchType, word, list) // 카테고리별 마지막 검색 캐시 저장
+    }
+
+    override fun saveSearchedListInRoom(searchType: SearchType, word: String, list: List<SearchedItem>) {
+        naverLocalDataSource.setCache(searchType, word, list) // 카테고리별 마지막 검색 캐시 저장
+    }
 
     override fun loadHistoryOfSearch(
         searchType: SearchType,
@@ -27,6 +36,8 @@ class NaverRepository(
             word,
             object : NaverDataSource.GettingResultOfSearchingCallback {
                 override fun onSuccess(items: List<SearchedItem>) {
+                    setCache(searchType, word, items)
+                    saveSearchedListInRoom(searchType, word, items)
                     naverLocalDataSource.setCache(searchType, word, items) // 카테고리별 마지막 검색 캐시 저장
                     naverLocalDataSource.saveSearchedListInRoom(searchType, word, items) // 검색 기록 저장
                     callback.onSuccess(items)
@@ -39,11 +50,12 @@ class NaverRepository(
             })
     }
 
-    fun getLastSearchType(): SearchType {
+
+    override fun getLastSearchType(): SearchType {
         return naverLocalDataSource.getLastSearchType()
     }
 
-    fun getCache(searchType: SearchType): String {
+    override fun getCache(searchType: SearchType): String {
         return naverLocalDataSource.getCache(searchType)
     }
 

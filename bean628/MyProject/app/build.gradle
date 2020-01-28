@@ -54,6 +54,9 @@ dependencies {
     implementation "androidx.room:room-ktx:2.2.2"
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:2.1.0"
+    // Koin for Android - Scope feature
+    // include koin-android-scope & koin-android
+    implementation 'org.koin:koin-androidx-viewmodel:2.0.1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'

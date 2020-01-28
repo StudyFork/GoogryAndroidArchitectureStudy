@@ -4,6 +4,7 @@ import com.practice.achitecture.myproject.R
 import com.practice.achitecture.myproject.data.source.NaverDataSource
 import com.practice.achitecture.myproject.enums.SearchType
 import com.practice.achitecture.myproject.model.ResultOfSearchingModel
+import com.practice.achitecture.myproject.model.SearchedItem
 import com.practice.achitecture.myproject.network.EmptyDataException
 import com.practice.achitecture.myproject.network.ResponseNotSuccessException
 import com.practice.achitecture.myproject.network.RetrofitService
@@ -55,4 +56,21 @@ class NaverRemoteDataSourceImpl(private val naverApiService: RetrofitService) :
         })
     }
 
+
+    // Remote에서는 사용하지 않는 함수들입니다.
+    override fun getLastSearchType(): SearchType {
+        TODO("not implemented")
+    }
+
+    override fun getCache(searchType: SearchType): String {
+        TODO("not implemented")
+    }
+
+    override fun setCache(searchType: SearchType, word: String, list: List<SearchedItem>) {
+        TODO("not implemented")
+    }
+
+    override fun saveSearchedListInRoom(searchType: SearchType, word: String, list: List<SearchedItem>) {
+        TODO("not implemented")
+    }
 }
