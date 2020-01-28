@@ -1,5 +1,6 @@
 package com.example.architecturestudy.data.repository
 
+import android.util.Log
 import com.example.architecturestudy.data.model.BlogItem
 import com.example.architecturestudy.data.model.ImageItem
 import com.example.architecturestudy.data.model.KinItem
@@ -26,6 +27,7 @@ class NaverSearchRepositoryImpl(
                         naverSearchLocalDataSource.deleteMovie(it.map { it.toEntity() })
                         naverSearchLocalDataSource.saveMovieItems(it.map { it.toEntity() })
                         success(it)
+                        Log.e("isConnected", "$it")
                     }
                 },
                 fail = fail
@@ -35,7 +37,6 @@ class NaverSearchRepositoryImpl(
                 success = {
                     if (it.isNotEmpty()) {
                         success(it.map { it.toItem() })
-                        return@getMovieItems
                     } else {
                         fail(Throwable("empty data"))
                     }
@@ -52,7 +53,6 @@ class NaverSearchRepositoryImpl(
                 success = {
                     if(it.isNotEmpty()) {
                         success(it.map { it.toItem() })
-                        return@getMovieItems
                     } else {
                         fail(Throwable("empty data"))
                     }
@@ -84,7 +84,6 @@ class NaverSearchRepositoryImpl(
                 success = {
                     if (it.isNotEmpty()) {
                         success(it.map { it.toItem() })
-                        return@getBlogItems
                     } else {
                         fail(Throwable("empty data"))
                     }
@@ -99,7 +98,6 @@ class NaverSearchRepositoryImpl(
             success = {
                 if(it.isNotEmpty()) {
                     success(it.map { it.toItem() })
-                    return@getBlogItems
                 } else {
                     fail(Throwable("empty data"))
                 }
@@ -131,7 +129,6 @@ class NaverSearchRepositoryImpl(
                  success = {
                      if(it.isNotEmpty()) {
                          success(it.map { it.toItem() })
-                         return@getKiItems
                      } else {
                          fail(Throwable("empty data"))
                      }
@@ -148,7 +145,6 @@ class NaverSearchRepositoryImpl(
             success = {
                 if(it.isNotEmpty()) {
                     success(it.map { it.toItem() })
-                    return@getKiItems
                 } else {
                     fail(Throwable("empty data"))
                 }
@@ -181,7 +177,6 @@ class NaverSearchRepositoryImpl(
                 success = {
                     if(it.isNotEmpty()) {
                         success(it.map { it.toItem() })
-                        return@getImageItems
                     } else {
                         fail(Throwable("empty data"))
                     }
@@ -199,7 +194,6 @@ class NaverSearchRepositoryImpl(
             success = {
                 if(it.isNotEmpty()) {
                     success(it.map { it.toItem() })
-                    return@getImageItems
                 } else {
                     fail(Throwable("empty data"))
                 }
