@@ -53,18 +53,10 @@ class BlogFragment : Fragment(), BlogContract.View {
         btn_search.setOnClickListener {
             if(input_text != null) {
                 val edit = edit_text.text.toString()
-                presenter.apply {
-                    val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
-                    val activeNetwork: NetworkInfo? = cm?.activeNetworkInfo
-                    val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
-
-                    Log.e("isConnected", "$isConnected")
-
-                    taskSearch(
-                        isNetWork = isConnected,
+                presenter.taskSearch(
+                        isNetWork = isOnline(),
                         keyword = edit
                     )
-                }
             }
         }
     }
@@ -79,5 +71,11 @@ class BlogFragment : Fragment(), BlogContract.View {
 
     override fun showResult(item: List<BlogItem>) {
         blogAdapter.update(item)
+    }
+
+    private fun isOnline(): Boolean {
+        val connMgr = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo: NetworkInfo? = connMgr.activeNetworkInfo
+        return networkInfo?.isConnected == true
     }
 }

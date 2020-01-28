@@ -50,16 +50,11 @@ class ImageFragment : Fragment(), ImageContract.View {
         btn_search.setOnClickListener {
             if(input_text != null) {
                 val edit = edit_text.text.toString()
-                presenter.apply {
-                    val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
-                    val activeNetwork: NetworkInfo? = cm?.activeNetworkInfo
-                    val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
-
-                    taskSearch(
-                        isNetWork = isConnected,
+                presenter.taskSearch(
+                        isNetWork = isOnline(),
                         keyword = edit
                     )
-                }
+
             }
         }
     }
@@ -74,5 +69,11 @@ class ImageFragment : Fragment(), ImageContract.View {
 
     override fun showResult(item: List<ImageItem>) {
         imageAdapter.update(item)
+    }
+
+    private fun isOnline(): Boolean {
+        val connMgr = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo: NetworkInfo? = connMgr.activeNetworkInfo
+        return networkInfo?.isConnected == true
     }
 }

@@ -51,18 +51,15 @@ class MovieFragment : Fragment(), MovieContract.View {
         btn_search.setOnClickListener {
             if (input_text != null) {
                 val edit = edit_text.text.toString()
-                presenter.apply {
-                    val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
-                    val activeNetwork: NetworkInfo? = cm?.activeNetworkInfo
-                    val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
 
-                    Log.e("isConnected", "$isConnected")
+                val isConnect = isOnline()
 
-                    taskSearch(
-                        isNetwork = isConnected,
+                Log.e("isConnected", "$isConnect")
+
+                presenter.taskSearch(
+                        isNetwork = isOnline(),
                         keyword = edit
                     )
-                }
             }
         }
     }
@@ -77,5 +74,11 @@ class MovieFragment : Fragment(), MovieContract.View {
 
     override fun showResult(item: List<MovieItem>) {
         movieAdapter.update(item)
+    }
+
+    private fun isOnline(): Boolean {
+        val connMgr = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo: NetworkInfo? = connMgr.activeNetworkInfo
+        return networkInfo?.isConnected == true
     }
 }

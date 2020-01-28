@@ -52,16 +52,11 @@ class KinFragment : Fragment(), KinContract.View {
         btn_search.setOnClickListener {
             if(input_text != null) {
                 val edit = edit_text.text.toString()
-                presenter.apply {
-                    val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
-                    val activeNetwork: NetworkInfo? = cm?.activeNetworkInfo
-                    val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
-
-                    taskSearch(
-                        isNetwork = isConnected,
+                presenter.taskSearch(
+                        isNetwork = isOnline(),
                         keyword = edit
                     )
-                }
+
             }
         }
     }
@@ -76,5 +71,11 @@ class KinFragment : Fragment(), KinContract.View {
 
     override fun showResult(item: List<KinItem>) {
         kinAdapter.update(item)
+    }
+
+    private fun isOnline(): Boolean {
+        val connMgr = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo: NetworkInfo? = connMgr.activeNetworkInfo
+        return networkInfo?.isConnected == true
     }
 }
