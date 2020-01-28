@@ -19,7 +19,7 @@ class KinPresenter(
     override fun getLastData() {
         repository?.getLastKin(
             success = { view.showResult(it) },
-            fail = { view.showEmpty("empty data") }
+            fail = { e -> view.showEmpty(e.toString()) }
         )
     }
 }

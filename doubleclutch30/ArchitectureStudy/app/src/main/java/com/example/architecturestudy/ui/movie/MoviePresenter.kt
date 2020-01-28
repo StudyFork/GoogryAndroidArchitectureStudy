@@ -18,7 +18,7 @@ class MoviePresenter(
     override fun getLastData() {
         repository?.getLastMovie(
             success = { view.showResult(it) },
-            fail = { view.showEmpty("empty data") }
+            fail = { e -> view.showEmpty(e.toString()) }
         )
     }
 }

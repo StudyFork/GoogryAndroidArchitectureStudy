@@ -35,8 +35,9 @@ class NaverSearchRepositoryImpl(
                         naverSearchLocalDataSource.deleteMovie(it)
                         success(it.map { it.toItem() })
                         return@getMovieItems
+                    } else {
+                        fail(Throwable("empty data"))
                     }
-                    fail(Throwable("empty list"))
                 },
                 fail = fail
             )
@@ -82,8 +83,9 @@ class NaverSearchRepositoryImpl(
                         naverSearchLocalDataSource.deleteBlog(it)
                         success(it.map { it.toItem() })
                         return@getBlogItems
+                    } else {
+                        fail(Throwable("empty data"))
                     }
-                    fail(Throwable("empty list"))
                 },
                 fail = fail
             )
@@ -98,7 +100,7 @@ class NaverSearchRepositoryImpl(
                     success(it.map { it.toItem() })
                     return@getBlogItems
                 } else {
-                    fail(Throwable("empty list"))
+                    fail(Throwable("empty data"))
                 }
             },
             fail = fail
@@ -128,7 +130,7 @@ class NaverSearchRepositoryImpl(
                          success(it.map { it.toItem() })
                          return@getKiItems
                      } else {
-                         fail(Throwable("empty List"))
+                         fail(Throwable("empty data"))
                      }
                  },
                 fail = fail
@@ -146,7 +148,7 @@ class NaverSearchRepositoryImpl(
                     success(it.map { it.toItem() })
                     return@getKiItems
                 } else {
-                    fail(Throwable("empty list"))
+                    fail(Throwable("empty data"))
                 }
             },
             fail = fail
@@ -176,7 +178,7 @@ class NaverSearchRepositoryImpl(
                         success(it.map { it.toItem() })
                         return@getImageItems
                     } else {
-                        fail(Throwable("empty list"))
+                        fail(Throwable("empty data"))
                     }
                 },
                 fail = fail
@@ -195,7 +197,7 @@ class NaverSearchRepositoryImpl(
                     success(it.map { it.toItem() })
                     return@getImageItems
                 } else {
-                    fail(Throwable("empty list"))
+                    fail(Throwable("empty data"))
                 }
             },
             fail = fail

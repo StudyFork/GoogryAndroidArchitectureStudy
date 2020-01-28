@@ -70,11 +70,11 @@ class BlogFragment : Fragment(), BlogContract.View {
     }
 
     override fun showErrorMessage(message: String) {
-        Toast.makeText(this.activity, message, Toast.LENGTH_SHORT)
+        Toast.makeText(this.activity, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun showEmpty(message: String) {
-        Toast.makeText(this.activity, message, Toast.LENGTH_SHORT)
+        Toast.makeText(this.activity, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun showResult(item: List<BlogItem>) {

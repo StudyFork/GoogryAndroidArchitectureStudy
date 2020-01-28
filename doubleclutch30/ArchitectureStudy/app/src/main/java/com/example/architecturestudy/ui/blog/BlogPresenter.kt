@@ -18,7 +18,7 @@ class BlogPresenter(
     override fun getLastData() {
         repository?.getLastBlog(
             success = { view.showResult(it) },
-            fail = { view.showEmpty("empty data") }
+            fail = {  message -> view.showEmpty(message.toString()) }
         )
     }
-}
+}   
