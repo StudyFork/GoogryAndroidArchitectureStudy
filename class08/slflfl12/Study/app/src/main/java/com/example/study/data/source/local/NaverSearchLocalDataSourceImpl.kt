@@ -18,10 +18,10 @@ class NaverSearchLocalDataSourceImpl private constructor(
         private var instance: NaverSearchLocalDataSourceImpl? = null
 
         fun getInstance(naverResultDao: SearchResultDao): NaverSearchLocalDataSourceImpl {
-            instance ?: synchronized(NaverSearchLocalDataSourceImpl::javaClass) {
+            return instance ?: synchronized(NaverSearchLocalDataSourceImpl::javaClass) {
                 instance ?: NaverSearchLocalDataSourceImpl(naverResultDao).also { instance = it }
             }
-            return instance!!
+
         }
     }
 }
