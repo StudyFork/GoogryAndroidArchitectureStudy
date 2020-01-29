@@ -4,7 +4,8 @@ import io.reactivex.disposables.Disposable
 
 interface BaseContract {
     interface View {
-        fun setLoadingVisible(visible: Boolean)
+        fun showLoading()
+        fun hideLoading()
     }
 
     interface Presenter {

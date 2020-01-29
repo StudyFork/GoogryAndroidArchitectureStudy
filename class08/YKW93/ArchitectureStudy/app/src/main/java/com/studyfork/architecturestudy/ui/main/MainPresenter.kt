@@ -17,7 +17,11 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
         }
         subscribe(
             movieRepositoryImpl.getMovieList(query, {
-                view.setLoadingVisible(it)
+                if (it) {
+                    view.showLoading()
+                } else {
+                    view.hideLoading()
+                }
             }, {
                 if (it.total != 0) {
                     view.showMovieList(it)

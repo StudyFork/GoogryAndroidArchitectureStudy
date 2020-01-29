@@ -15,11 +15,11 @@ abstract class BaseActivity<P : BasePresenter> : AppCompatActivity(), BaseContra
         super.onDestroy()
     }
 
-    override fun setLoadingVisible(visible: Boolean) {
-        if (visible) {
-            pb_loading_view.visibility = View.VISIBLE
-        } else {
-            pb_loading_view.visibility = View.GONE
-        }
+    override fun showLoading() {
+        pb_loading_view.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        pb_loading_view.visibility = View.GONE
     }
 }
