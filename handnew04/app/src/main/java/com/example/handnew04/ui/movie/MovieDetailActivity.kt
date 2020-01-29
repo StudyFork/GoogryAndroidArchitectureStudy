@@ -3,6 +3,7 @@ package com.example.handnew04.ui.movie
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +21,12 @@ class MovieDetailActivity : AppCompatActivity() {
         initWebView()
     }
 
-    fun getMovieLink(): String? = intent.getStringExtra(getString(R.string.movieLink))
+    fun getMovieLink(): String {
+        //TODO link 는 제대로 넘어오는데 네이버 영화 예매 에서 페이지를 찾을 수 없다고 나옵니다.
+        val link = intent.getStringExtra(getString(R.string.movieLink))
+        Log.i("왜 페이지를 찾을 수 없는지 모르겠습니다.", link)
+        return intent.getStringExtra(getString(R.string.movieLink))
+    }
 
     @SuppressLint("ObsoleteSdkInt", "SetJavaScriptEnabled")
     private fun initWebView() {

@@ -7,7 +7,9 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.handnew04.data.MovieData
 
 @BindingAdapter("bind:bindImage")
 fun bindImage(imageView: ImageView, imageUri: String) {
@@ -61,4 +63,10 @@ fun haveContentsChanged(
         }
     }
     return false
+}
+
+@BindingAdapter("replaceAll")
+fun RecyclerView.replaceAll(item: List<MovieData>?) {
+    if (!item.isNullOrEmpty())
+        (adapter as MovieRecyclerAdapter).setItemList(item as ArrayList<MovieData>)
 }

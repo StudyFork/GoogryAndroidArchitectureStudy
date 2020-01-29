@@ -28,11 +28,11 @@ class MovieRecyclerAdapter :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = movies.get(position)
+        val item = movies[position]
         holder.bind(item)
     }
 
-    fun getMovieLink(position: Int): String = movies.get(position).link
+    fun getMovieLink(position: Int): String = movies[position].link
 
 
     interface ItemClickListener {
