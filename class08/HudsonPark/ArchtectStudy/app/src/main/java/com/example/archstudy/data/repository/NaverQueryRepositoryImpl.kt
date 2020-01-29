@@ -7,15 +7,38 @@ import com.example.archstudy.data.source.local.MovieData
 import com.example.archstudy.data.source.local.NaverQueryLocalDataSourceImpl
 import com.example.archstudy.data.source.remote.NaverQueryRemoteDataSourceImpl
 import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class NaverQueryRepositoryImpl(
     private val naverQueryLocalDataSource: NaverQueryLocalDataSourceImpl,
     private val naverQueryRemoteDataSource: NaverQueryRemoteDataSourceImpl
 ) : NaverQueryRepository {
 
+    override fun requestRemoteData(
+        query: String,
+        successCallback: (MutableList<MovieData>) -> Unit,
+        failCallback: (Throwable) -> Unit
+    ) {
 
-    override fun requestRemoteData(query: String): Call<MovieDataResponse> {
-        return naverQueryRemoteDataSource.getMovie(query)
+        naverQueryRemoteDataSource.getMovie(query).apply {
+            this.enqueue(object : Callback<MovieDataResponse> {
+
+                override fun onFailure(call: Call<MovieDataResponse>, t: Throwable) {
+                    failCallback(t)
+                }
+
+                override fun onResponse(
+                    call: Call<MovieDataResponse>,
+                    response: Response<MovieDataResponse>
+                ) {
+                    if (response.body() != null) {
+                        val items = response.body()?.items as MutableList<MovieData>
+                        successCallback(items)
+                    }
+                }
+            })
+        }
     }
 
     override fun requestLocalData(
@@ -34,6 +57,16 @@ class NaverQueryRepositoryImpl(
         override fun doInBackground(vararg param: Unit?): MutableList<MovieData>? {
             Log.d("Async", "RequestLocalDataAsync.doInBackground()")
             val result = requestLocalData(query)
+            Log.d("Async", "Request Result : $result")
+            return result
+        }
+    }
+
+    inner class RequestLocalQueryAsync() : AsyncTask<Unit,Unit,String>(){
+
+        override fun doInBackground(vararg p0: Unit?): String {
+            Log.d("Async", "RequestLocalQueryAsync.doInBackground()")
+            val result = naverQueryLocalDataSource.requestSearchWord()
             Log.d("Async", "Request Result : $result")
             return result
         }

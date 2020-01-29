@@ -5,7 +5,11 @@ import com.example.archstudy.data.source.local.MovieData
 import retrofit2.Call
 
 interface NaverQueryRepository {
-    fun requestRemoteData(query: String): Call<MovieDataResponse>
     fun requestLocalData(query: String) : MutableList<MovieData>?
     fun insertLocalData(query: String, data : List<MovieData>)
+    fun requestRemoteData(
+        query: String,
+        successCallback: (MutableList<MovieData>) -> Unit,
+        failCallback: (Throwable) -> Unit
+    )
 }
