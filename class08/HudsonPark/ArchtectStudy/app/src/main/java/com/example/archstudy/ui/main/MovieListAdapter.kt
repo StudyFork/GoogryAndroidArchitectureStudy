@@ -71,7 +71,6 @@ class MovieListAdapter(@Nullable private var listener: ItemClickListener) :
         private fun loadImage(image: String) {
 
             if (image.trim().isNotEmpty()) {
-
                 Glide.with(itemView.context)
                     .load(image)
                     .override(600, 1000)
