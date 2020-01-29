@@ -15,10 +15,10 @@ class NaverSearchRemoteDataSourceImpl :
         private var instance : NaverSearchRemoteDataSourceImpl? = null
 
         fun getInstance(): NaverSearchRemoteDataSourceImpl {
-            instance ?: synchronized(NaverSearchRemoteDataSourceImpl::javaClass) {
+            return instance ?: synchronized(NaverSearchRemoteDataSourceImpl::javaClass) {
                 instance ?: NaverSearchRemoteDataSourceImpl().also { instance = it}
             }
-            return instance!!
+
         }
     }
 }
