@@ -3,7 +3,6 @@ package com.studyfork.architecturestudy.base
 import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
 
 abstract class BaseActivity<P : BasePresenter> : AppCompatActivity(), BaseContract.View {
 
@@ -16,10 +15,10 @@ abstract class BaseActivity<P : BasePresenter> : AppCompatActivity(), BaseContra
     }
 
     override fun showLoading() {
-        pb_loading_view.visibility = View.VISIBLE
+        progressBar.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
-        pb_loading_view.visibility = View.GONE
+        progressBar.visibility = View.GONE
     }
 }

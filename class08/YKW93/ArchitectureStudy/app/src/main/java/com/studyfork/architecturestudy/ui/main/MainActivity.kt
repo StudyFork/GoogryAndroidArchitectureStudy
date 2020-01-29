@@ -21,8 +21,7 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
         }
     }
 
-    override val presenter: MainPresenter
-        get() = MainPresenter(this)
+    override val presenter: MainPresenter = MainPresenter(this)
 
     override val progressBar: ProgressBar
         get() = pb_loading_view
