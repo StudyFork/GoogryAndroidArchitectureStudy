@@ -10,7 +10,7 @@ abstract class BaseActivity<P : BasePresenter> : AppCompatActivity(), BaseContra
     abstract val progressBar: ProgressBar
 
     override fun onDestroy() {
-        presenter.unsubscribe()
+        presenter.clearDisposable()
         super.onDestroy()
     }
 

@@ -15,23 +15,22 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
             view.showErrorEmptyQuery()
             return
         }
-        subscribe(
-            movieRepositoryImpl.getMovieList(query, {
-                if (it) {
-                    view.showLoading()
-                } else {
-                    view.hideLoading()
-                }
-            }, {
-                if (it.total != 0) {
-                    view.showMovieList(it)
-                } else {
-                    view.showErrorEmptyResult()
-                }
 
-            }, {
-                it.printStackTrace()
-            })
-        )
+        movieRepositoryImpl.getMovieList(query, {
+            if (it) {
+                view.showLoading()
+            } else {
+                view.hideLoading()
+            }
+        }, {
+            if (it.total != 0) {
+                view.showMovieList(it)
+            } else {
+                view.showErrorEmptyResult()
+            }
+
+        }, {
+            it.printStackTrace()
+        }).addDisposable()
     }
 }

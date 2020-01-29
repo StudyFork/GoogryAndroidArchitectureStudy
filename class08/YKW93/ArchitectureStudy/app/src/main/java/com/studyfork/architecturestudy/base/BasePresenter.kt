@@ -9,11 +9,11 @@ open class BasePresenter : BaseContract.Presenter {
         CompositeDisposable()
     }
 
-    override fun subscribe(disposable: Disposable) {
-        compositeDisposable.add(disposable)
+    override fun Disposable.addDisposable() {
+        compositeDisposable.add(this)
     }
 
-    override fun unsubscribe() {
+    override fun clearDisposable() {
         compositeDisposable.clear()
     }
 }

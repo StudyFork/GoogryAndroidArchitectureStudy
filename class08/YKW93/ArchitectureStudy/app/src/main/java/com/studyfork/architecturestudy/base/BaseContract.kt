@@ -9,7 +9,7 @@ interface BaseContract {
     }
 
     interface Presenter {
-        fun subscribe(disposable: Disposable)
-        fun unsubscribe()
+        fun Disposable.addDisposable()
+        fun clearDisposable()
     }
 }
