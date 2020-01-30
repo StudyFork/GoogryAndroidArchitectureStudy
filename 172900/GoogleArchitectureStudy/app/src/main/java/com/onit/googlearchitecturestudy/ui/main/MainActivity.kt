@@ -8,6 +8,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
 import com.onit.googlearchitecturestudy.Movie
 import com.onit.googlearchitecturestudy.R
 import com.onit.googlearchitecturestudy.databinding.ActivityMainBinding
@@ -22,11 +23,13 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private lateinit var resultMovieListRecyclerAdapter: ResultMovieListRecyclerAdapter
     private lateinit var presenter: MainContract.Presenter
     private lateinit var binding: ActivityMainBinding
+    private val viewModel: MainViewModel by lazy { MainViewModel() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)!!
+        binding.viewModel = viewModel
         presenter = MainPresenter(this)
         binding.presenter = presenter
         init()
@@ -58,11 +61,28 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     private fun init() {
         setRecyclerView()
+        setViewModelCallback()
     }
 
     private fun setRecyclerView() {
         resultMovieListRecyclerAdapter = ResultMovieListRecyclerAdapter(clickMovieListener)
         resultMovieListRecyclerView.adapter = resultMovieListRecyclerAdapter
+    }
+
+    private fun setViewModelCallback() {
+        with(viewModel) {
+            toastMessage.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    showToastMessage(toastMessage.get() ?: "")
+                }
+            })
+
+            hideKeyBoard.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    hideKeyBoard()
+                }
+            })
+        }
     }
 
     private val clickMovieListener: ClickMovieListener = { position ->
