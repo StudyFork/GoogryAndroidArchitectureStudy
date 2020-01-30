@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.study.data.model.Movie
 import com.example.study.data.repository.NaverSearchRepository
 import com.example.study.data.source.local.model.SearchResult
+import com.example.study.util.extension.plusAssign
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -18,7 +19,7 @@ class MainPresenter(
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun getMovies(query: String) {
-        addDisposable(naverSearchRepository.getMovies(query)
+        compositeDisposable += (naverSearchRepository.getMovies(query)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
@@ -56,9 +57,6 @@ class MainPresenter(
         }
     }
 
-    override fun addDisposable(disposable: Disposable) {
-        compositeDisposable.add(disposable)
-    }
 
     override fun clearDisposable() {
         compositeDisposable.clear()

@@ -14,7 +14,6 @@ interface BaseContract {
     }
 
     interface Presenter {
-        fun addDisposable(disposable: Disposable)
         fun clearDisposable()
     }
 }
