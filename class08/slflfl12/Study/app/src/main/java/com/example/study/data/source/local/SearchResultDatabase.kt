@@ -18,11 +18,11 @@ abstract class SearchResultDatabase : RoomDatabase() {
 
         fun getInstance(context: Context): SearchResultDatabase? {
 
-            instance ?: synchronized(SearchResultDatabase::class) {
+            return instance ?: synchronized(SearchResultDatabase::class) {
                 instance ?: Room.databaseBuilder(context.applicationContext, SearchResultDatabase::class.java, "SearchResult.db").allowMainThreadQueries().build().apply { instance = this}
             }
 
-            return instance!!
+
         }
     }
 }
