@@ -5,13 +5,6 @@
 
     <data>
         <import type="android.view.View" />
-        <variable
-            name="presenter"
-            type="com.onit.googlearchitecturestudy.ui.main.MainContract.Presenter"/>
-
-        <variable
-            name="searchString"
-            type="String"/>
 
         <variable
             name="viewModel"

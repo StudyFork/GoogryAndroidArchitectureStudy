@@ -3,13 +3,11 @@ package com.onit.googlearchitecturestudy.ui.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
-import com.onit.googlearchitecturestudy.Movie
 import com.onit.googlearchitecturestudy.R
 import com.onit.googlearchitecturestudy.databinding.ActivityMainBinding
 import com.onit.googlearchitecturestudy.ui.movieInformation.MovieInformationActivity
@@ -18,10 +16,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 typealias ClickMovieListener = (Int) -> Unit
 
-class MainActivity : AppCompatActivity(), MainContract.View {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var resultMovieListRecyclerAdapter: ResultMovieListRecyclerAdapter
-    private lateinit var presenter: MainContract.Presenter
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by lazy { MainViewModel() }
 
@@ -30,12 +27,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)!!
         binding.viewModel = viewModel
-        presenter = MainPresenter(this)
-        binding.presenter = presenter
+
         init()
     }
 
-    override fun hideKeyBoard() {
+    fun hideKeyBoard() {
         val view = this.currentFocus
         view?.let { v ->
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
@@ -43,20 +39,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         }
     }
 
-    override fun showLoadingProgressBar() {
-        loadingProgressBar.visibility = View.VISIBLE
-    }
-
-    override fun hideLoadingProgressBar() {
-        loadingProgressBar.visibility = View.GONE
-    }
-
-    override fun showToastMessage(message: String, option: Int) {
+    fun showToastMessage(message: String, option: Int) {
         Toast.makeText(applicationContext, message, option).show()
-    }
-
-    override fun setMovieList(movieList: List<Movie>) {
-        resultMovieListRecyclerAdapter.setMovieList(movieList)
     }
 
     private fun init() {
@@ -71,13 +55,15 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     private fun setViewModelCallback() {
         with(viewModel) {
-            toastMessage.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            toastMessage.addOnPropertyChangedCallback(object :
+                Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    showToastMessage(toastMessage.get() ?: "")
+                    showToastMessage(toastMessage.get() ?: "", Toast.LENGTH_SHORT)
                 }
             })
 
-            hideKeyBoard.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            hideKeyBoard.addOnPropertyChangedCallback(object :
+                Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                     hideKeyBoard()
                 }
