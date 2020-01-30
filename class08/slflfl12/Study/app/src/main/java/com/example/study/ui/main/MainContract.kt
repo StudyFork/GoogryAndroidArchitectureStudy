@@ -1,6 +1,7 @@
 package com.example.study.ui.main
 
 import com.example.study.data.model.Movie
+import com.example.study.data.source.local.SearchResultDatabase
 import com.example.study.util.base.BaseContract
 
 interface MainContract {
@@ -12,7 +13,7 @@ interface MainContract {
     }
 
     interface Presenter : BaseContract.Presenter {
-        fun getMovies(query: String)
+        fun getMovies(query: String, searchResultDatabase: SearchResultDatabase)
         fun getRecentSearchResult()
     }
 

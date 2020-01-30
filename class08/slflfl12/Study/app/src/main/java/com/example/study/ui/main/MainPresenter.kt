@@ -3,6 +3,7 @@ package com.example.study.ui.main
 import android.util.Log
 import com.example.study.data.model.Movie
 import com.example.study.data.repository.NaverSearchRepository
+import com.example.study.data.source.local.SearchResultDatabase
 import com.example.study.data.source.local.model.SearchResult
 import com.example.study.util.extension.plusAssign
 import com.google.gson.Gson
@@ -18,8 +19,9 @@ class MainPresenter(
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    override fun getMovies(query: String) {
-        compositeDisposable += (naverSearchRepository.getMovies(query)
+
+    override fun getMovies(query: String, searchResultDatabase: SearchResultDatabase) {
+        compositeDisposable += (naverSearchRepository.getMovies(query, searchResultDatabase)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
@@ -33,7 +35,6 @@ class MainPresenter(
                     if (it.items.isNotEmpty()) {
                         view.updateMovieList(it.items)
                         view.hideKeyboard()
-                        naverSearchRepository.addSearchResult(SearchResult(Gson().toJson(it.items)))
                     } else {
                         view.showErrorEmptyResult()
                     }
