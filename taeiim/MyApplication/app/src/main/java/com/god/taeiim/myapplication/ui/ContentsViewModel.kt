@@ -19,12 +19,11 @@ class ContentsViewModel(
     private val _errorQueryBlank = MutableLiveData<Throwable>()
     private val _errorFailSearch = MutableLiveData<Throwable>()
 
-    val searchResultList get() = _searchResultList
+    val searchResultList: LiveData<List<SearchResultShow.Item>> get() = _searchResultList
     val errorResultEmpty: LiveData<Boolean> =
         Transformations.map(searchResultList) { it.isNullOrEmpty() }
-    val errorQueryBlank get() = _errorQueryBlank
-    val errorFailSearch get() = _errorFailSearch
-
+    val errorQueryBlank: LiveData<Throwable> get() = _errorQueryBlank
+    val errorFailSearch: LiveData<Throwable> get() = _errorFailSearch
     val query = MutableLiveData<String>()
 
     fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -32,16 +31,16 @@ class ContentsViewModel(
     }
 
     fun searchContents() {
-        if (getQueryStr().isBlank()) {
+        if (query.value.toString().isBlank()) {
             _errorQueryBlank.value = Throwable()
         } else {
             naverRepository.getResultData(
                 searchType,
-                getQueryStr(),
+                query.value.toString(),
                 success = {
                     _searchResultList.value = searchResultShowWrapper(searchType, it).items
                     naverRepository.saveSearchResult(
-                        SearchHistory(it.items, searchType.name, getQueryStr())
+                        SearchHistory(it.items, searchType.name, query.value.toString())
                     )
                 },
                 fail = {
@@ -51,14 +50,10 @@ class ContentsViewModel(
         }
     }
 
-    private fun getQueryStr(): String {
-        return query.value.toString()
-    }
-
     fun getLastSearchHistory() {
         naverRepository.getLastSearchResultData(searchType)
             ?.let {
-                searchResultList.value = searchResultShowWrapper(
+                _searchResultList.value = searchResultShowWrapper(
                     searchType,
                     SearchResult(it.resultList)
                 ).items
