@@ -2,7 +2,6 @@ package com.song2.myapplication.adapter
 
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.song2.myapplication.databinding.RvMovieItemBinding

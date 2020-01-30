@@ -1,6 +1,7 @@
 package com.song2.myapplication.util
 
 import android.text.Html
+import android.view.View
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
@@ -28,9 +29,14 @@ fun setMovieTitle(view: TextView, movieTitle: String?) {
 }
 
 @BindingAdapter("setMovieData")
-fun setMovieData(view : RecyclerView, movieData : List<MovieData>?){
+fun setMovieData(view: RecyclerView, movieData: List<MovieData>?) {
 
     (view.adapter as MovieAdapter).run {
         addItem(movieData)
     }
+}
+
+@BindingAdapter("setSystemKeyboard")
+fun hideSystemKeyboard(view: View, hasData: Boolean) {
+
 }

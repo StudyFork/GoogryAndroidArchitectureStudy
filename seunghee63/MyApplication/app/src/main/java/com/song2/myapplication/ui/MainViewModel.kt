@@ -11,9 +11,9 @@ class MainViewModel(private val repo: MovieRepository) : ViewModel() {
     val MAINVIEWMODEL = "mainViewModel :"
 
     var movieData: ObservableField<List<MovieData>> = ObservableField()
-    var visibleResult : ObservableField<Boolean> = ObservableField()
+    var visibleResult: ObservableField<Boolean> = ObservableField()
 
-    fun getMovie(keyword : String){
+    fun getMovie(keyword: String) {
         repo.getMovieData(keyword,
             GETMOVIECNT,
             paging++ * GETMOVIECNT,
@@ -26,12 +26,12 @@ class MainViewModel(private val repo: MovieRepository) : ViewModel() {
 
             },
             onFailure = {
-                Log.e(MAINVIEWMODEL,it.toString())
+                Log.e(MAINVIEWMODEL, it.toString())
             }
         )
     }
 
-    companion object{
+    companion object {
         var preKeyword = ""
         var paging = 1
         val GETMOVIECNT = 20
