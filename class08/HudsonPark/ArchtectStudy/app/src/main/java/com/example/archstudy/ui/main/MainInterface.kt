@@ -11,8 +11,9 @@ interface MainInterface {
     }
 
     interface Presenter {
-        fun getRemoteDatabyQuery(query : String) : MutableList<MovieDataResponse>
-        fun getLocalQuery() : String
-        fun getLocalData(query: String) : MutableList<MovieData>
+
+        fun getRemoteDatabyQuery(query : String?) : MutableList<MovieDataResponse>?
+        fun getLocalQuery() : String?
+        fun getLocalData(query: String?) : MutableList<MovieData>?
     }
 }
