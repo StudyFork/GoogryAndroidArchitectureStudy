@@ -11,16 +11,22 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cnm.homework.R
 import com.cnm.homework.data.model.NaverResponse
+import com.cnm.homework.data.source.local.db.LocalDao
+import com.cnm.homework.data.source.local.db.LocalDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
     private val movieAdapter = MovieAdapter(::showMovieDetail)
 
+    private val localDao: LocalDao by lazy {
+        val db = LocalDatabase.getInstance(this)!!
+        db.localDao()
+    }
     private val presenter: MainContract.Presenter by lazy {
         MainPresenter(
             this@MainActivity,
-            this@MainActivity
+            localDao
         )
     }
 
