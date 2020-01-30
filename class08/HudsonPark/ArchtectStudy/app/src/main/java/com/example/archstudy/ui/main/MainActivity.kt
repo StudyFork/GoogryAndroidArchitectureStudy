@@ -17,7 +17,8 @@ import com.example.archstudy.data.source.local.MovieData
 import com.example.archstudy.data.source.local.NaverQueryLocalDataSourceImpl
 import com.example.archstudy.data.source.remote.NaverQueryRemoteDataSourceImpl
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainInterface.View {
+
 
     // View
     private lateinit var edtQuery: EditText
@@ -36,6 +37,14 @@ class MainActivity : AppCompatActivity() {
         initView() // 뷰 초기화
         initData() // 데이터 초기화
         initEvent() // 이벤트 처리
+
+    }
+
+    override fun showErrorMessage(msg: Throwable) {
+
+    }
+
+    override fun showDataList(dataList: MutableList<MovieData>) {
 
     }
 
