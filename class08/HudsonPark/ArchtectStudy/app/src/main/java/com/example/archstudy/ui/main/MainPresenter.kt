@@ -10,9 +10,21 @@ import com.example.archstudy.data.source.remote.NaverQueryRemoteDataSourceImpl
 class MainPresenter : MainInterface.Presenter {
 
     private var mView: MainInterface.View? = null
+    private var naverQueryRepositoryImpl : NaverQueryRepositoryImpl
+
+    init {
+        var context: Context? = mView?.let { it.getApplicationContext() }
+
+        val localMovieDao = AppDatabase.getInstance(context!!)?.localMovieDao()
+        val searchWordDao = AppDatabase.getInstance(context!!)?.searchWordDao()
+        val localData = NaverQueryLocalDataSourceImpl(localMovieDao, searchWordDao)
+        val remoteData = NaverQueryRemoteDataSourceImpl()
+        naverQueryRepositoryImpl = NaverQueryRepositoryImpl(localData,remoteData)
+    }
 
     override fun bindView(view: MainInterface.View) {
         this.mView = view
+
     }
 
     override fun unBindView() {
@@ -36,21 +48,10 @@ class MainPresenter : MainInterface.Presenter {
 
             // query 가 비어있거나 null 값이 아닐 경우 로컬 DB에 데이터 요청
         } else {
-            initNaverQueryRepository().apply {
+            naverQueryRepositoryImpl.apply {
                 val result = RequestLocalDataAsync(query).execute().get()
                 mView?.showDataList(result)
             }
         }
-    }
-
-    private fun initNaverQueryRepository(): NaverQueryRepositoryImpl {
-        var context: Context? = mView?.let { it.getApplicationContext() }
-
-        val localMovieDao = AppDatabase.getInstance(context!!)?.localMovieDao()
-        val searchWordDao = AppDatabase.getInstance(context!!)?.searchWordDao()
-        val localData = NaverQueryLocalDataSourceImpl(localMovieDao, searchWordDao)
-        val remoteData = NaverQueryRemoteDataSourceImpl()
-
-        return NaverQueryRepositoryImpl(localData, remoteData)
     }
 }
