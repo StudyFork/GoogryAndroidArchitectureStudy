@@ -1,9 +1,7 @@
 package com.jay.architecturestudy.ui
 
 import android.view.View
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.jay.architecturestudy.data.repository.NaverSearchRepository
 import com.jay.architecturestudy.util.hideKeyboard
