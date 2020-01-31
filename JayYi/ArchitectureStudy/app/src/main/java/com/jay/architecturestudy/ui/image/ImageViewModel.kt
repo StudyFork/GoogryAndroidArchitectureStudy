@@ -28,6 +28,7 @@ class ImageViewModel(
     override fun init() {
         repository.getLatestImageResult()
             .compose(singleIoMainThread())
+            .filter { it.keyword.isNotBlank() && it.images.isNotEmpty() }
             .subscribe({
                 keyword.value = it.keyword
                 _data.value = it.images

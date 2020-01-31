@@ -29,6 +29,7 @@ class MovieViewModel(
         repository.
             getLatestMovieResult()
             .compose(singleIoMainThread())
+            .filter { it.keyword.isNotBlank() && it.movies.isNotEmpty() }
             .subscribe({
                 keyword.value = it.keyword
                 _data.value = it.movies

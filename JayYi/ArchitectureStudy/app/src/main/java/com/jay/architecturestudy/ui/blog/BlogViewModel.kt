@@ -28,6 +28,7 @@ class BlogViewModel(
     override fun init() {
         repository.getLatestBlogResult()
             .compose(singleIoMainThread())
+            .filter { it.keyword.isNotBlank() && it.blogs.isNotEmpty() }
             .subscribe({
                 keyword.value = it.keyword
                 _data.value = it.blogs

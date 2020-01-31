@@ -28,6 +28,7 @@ class KinViewModel(
     override fun init() {
         repository.getLatestKinResult()
             .compose(singleIoMainThread())
+            .filter { it.keyword.isNotBlank() && it.kins.isNotEmpty() }
             .subscribe({
                 keyword.value = it.keyword
                 _data.value = it.kins
