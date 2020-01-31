@@ -3,6 +3,7 @@ package com.example.archstudy.ui.main
 import android.content.Context
 import com.example.archstudy.data.repository.NaverQueryRepositoryImpl
 import com.example.archstudy.data.source.local.AppDatabase
+import com.example.archstudy.data.source.local.MovieData
 import com.example.archstudy.data.source.local.NaverQueryLocalDataSourceImpl
 import com.example.archstudy.data.source.remote.NaverQueryRemoteDataSourceImpl
 
@@ -33,10 +34,11 @@ class MainPresenter : MainInterface.Presenter {
         if (query.isNullOrEmpty()) {
             mView?.showErrorMessage(Throwable("검색어가 비었거나 문제가 있습니다. 다시 입력해주세요"))
 
-            // query가 비어있거나 null 값이 아닐 경우 로컬 DB에 데이터 요청
+            // query 가 비어있거나 null 값이 아닐 경우 로컬 DB에 데이터 요청
         } else {
             initNaverQueryRepository().apply {
-                RequestLocalQueryAsync().execute().get()
+                val result = RequestLocalDataAsync(query).execute().get()
+                mView?.showDataList(result)
             }
         }
     }
