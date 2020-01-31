@@ -39,10 +39,6 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
         initEvent() // 이벤트 처리
     }
 
-    override fun getApplicationContext(): Context {
-        return applicationContext
-    }
-
     override fun showMessage(msg: String) {
         showToast(msg)
     }
@@ -57,7 +53,8 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
     }
 
     override fun initPresenter() {
-        presenter = MainPresenter()
+        presenter = MainPresenter(applicationContext)
+        presenter.bindView(this)
     }
 
     private fun initData() {

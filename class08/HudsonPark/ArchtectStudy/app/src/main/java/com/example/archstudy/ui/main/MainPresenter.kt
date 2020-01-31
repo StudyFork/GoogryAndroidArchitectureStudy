@@ -7,16 +7,15 @@ import com.example.archstudy.data.source.local.MovieData
 import com.example.archstudy.data.source.local.NaverQueryLocalDataSourceImpl
 import com.example.archstudy.data.source.remote.NaverQueryRemoteDataSourceImpl
 
-class MainPresenter : MainInterface.Presenter {
+class MainPresenter(private var mContext : Context?) : MainInterface.Presenter {
 
     private var mView: MainInterface.View? = null
     private var naverQueryRepositoryImpl: NaverQueryRepositoryImpl
 
     init {
-        var context: Context? = mView?.let { it.getApplicationContext() }
 
-        val localMovieDao = AppDatabase.getInstance(context!!)?.localMovieDao()
-        val searchWordDao = AppDatabase.getInstance(context!!)?.searchWordDao()
+        val localMovieDao = AppDatabase.getInstance(mContext!!)?.localMovieDao()
+        val searchWordDao = AppDatabase.getInstance(mContext!!)?.searchWordDao()
         val localData = NaverQueryLocalDataSourceImpl(localMovieDao, searchWordDao)
         val remoteData = NaverQueryRemoteDataSourceImpl()
         naverQueryRepositoryImpl = NaverQueryRepositoryImpl(localData, remoteData)
