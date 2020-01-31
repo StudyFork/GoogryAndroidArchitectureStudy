@@ -1,5 +1,6 @@
 package com.example.archstudy.ui.main
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -19,7 +20,6 @@ import com.example.archstudy.data.source.remote.NaverQueryRemoteDataSourceImpl
 
 class MainActivity : AppCompatActivity(), MainInterface.View {
 
-
     // View
     private lateinit var edtQuery: EditText
     private lateinit var btnSearch: Button
@@ -30,29 +30,46 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
     private lateinit var localData: NaverQueryLocalDataSourceImpl
     private lateinit var remoteData: NaverQueryRemoteDataSourceImpl
     private var query = ""
+    // Presenter
+    private lateinit var presenter: MainInterface.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView() // 뷰 초기화
+        initPresenter() // 프레젠터 초기화
         initData() // 데이터 초기화
         initEvent() // 이벤트 처리
+    }
 
+    override fun getApplicationContext(): Context {
+        return applicationContext
+    }
+
+    override fun showMessage(msg: String) {
+        showToast(msg)
     }
 
     override fun showErrorMessage(msg: Throwable) {
-
+        showToast(msg.toString())
     }
 
     override fun showDataList(dataList: MutableList<MovieData>) {
+        rvMovieAdapter.setAllData(dataList)
+    }
 
+    override fun initPresenter() {
+        presenter = MainPresenter()
     }
 
     private fun initData() {
         Log.d("init", "initData()")
-        val itemDao = AppDatabase.getInstance(this)?.localMovieDao()
+        val localMovieDao = AppDatabase.getInstance(this)?.localMovieDao()
         val searchWordDao = AppDatabase.getInstance(this)?.searchWordDao()
-        localData = NaverQueryLocalDataSourceImpl(itemDao, searchWordDao)
+
+        val query = presenter.getLocalQuery()
+
+        localData = NaverQueryLocalDataSourceImpl(localMovieDao, searchWordDao)
         remoteData = NaverQueryRemoteDataSourceImpl()
         repositoryImpl = NaverQueryRepositoryImpl(localData, remoteData)
 
@@ -89,6 +106,9 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
         edtQuery = findViewById(R.id.edtQuery)
         btnSearch = findViewById(R.id.btnSearch)
         rvMovieList = findViewById(R.id.rvMovieList)
+        // Presenter 초기화
+        presenter = MainPresenter()
+
         rvMovieAdapter = MovieListAdapter(object :
             MovieListAdapter.ItemClickListener {
             override fun onItemClick(url: String) {
@@ -101,6 +121,7 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
     // 사용자가 입력한 검색어로 네이버 영화 검색 API에서 데이터 얻어오기
     private fun requestRemoteData(query: String) {
         Log.d("init", "requestRemoteData()")
+        presenter.getRemoteDataByQuery(query)
         repositoryImpl
             .requestRemoteData(query, successCallback = {
                 rvMovieAdapter.setAllData(it) // Remote Data를 adapter의 item으로 세팅
@@ -116,10 +137,11 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
         Log.d("init", "requestLocalData()")
         try {
             // 최근 검색한 query 를 PK로 하여 LocalDB에서 데이터 비동기로 얻어오기
-            val requestResult = repositoryImpl
-                .RequestLocalDataAsync(query)
-                .execute()
-                .get()
+            val requestResult =
+                repositoryImpl
+                    .RequestLocalDataAsync(query)
+                    .execute()
+                    .get()
 
             rvMovieAdapter.setAllData(requestResult) // Local Data 세팅
 
@@ -129,7 +151,11 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
     }
 
     private fun insertLocalData(query: String, data: MutableList<MovieData>) {
-        repositoryImpl.InsertLocalDataAsync(query, data).execute()
+
+
+        repositoryImpl
+            .InsertLocalDataAsync(query, data)
+            .execute()
     }
 
 

@@ -1,19 +1,19 @@
 package com.example.archstudy.ui.main
 
-import com.example.archstudy.MovieDataResponse
+import com.example.archstudy.base.BasePresenter
+import com.example.archstudy.base.BaseView
 import com.example.archstudy.data.source.local.MovieData
 
 interface MainInterface {
 
-    interface View {
-        fun showErrorMessage(msg : Throwable)
+    interface View  : BaseView{
+        fun initPresenter()
         fun showDataList(dataList : MutableList<MovieData>)
     }
 
-    interface Presenter {
-
-        fun getRemoteDatabyQuery(query : String?) : MutableList<MovieDataResponse>?
+    interface Presenter : BasePresenter<View>{
+        fun getRemoteDataByQuery(query : String?)
         fun getLocalQuery() : String?
-        fun getLocalData(query: String?) : MutableList<MovieData>?
+        fun getLocalData(query: String?)
     }
 }
