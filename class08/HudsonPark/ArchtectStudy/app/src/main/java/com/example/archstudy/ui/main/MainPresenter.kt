@@ -70,6 +70,6 @@ class MainPresenter : MainInterface.Presenter {
     }
 
     override fun insertData(query: String, data: MutableList<MovieData>) {
-
+        naverQueryRepositoryImpl.InsertLocalDataAsync(query,data).execute()
     }
 }
