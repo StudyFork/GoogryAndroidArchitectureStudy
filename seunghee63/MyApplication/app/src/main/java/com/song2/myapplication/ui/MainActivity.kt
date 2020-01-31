@@ -49,7 +49,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showGetMovieSuccess() {
-        //??? 어떻게 처리하지???
         imm.hideSoftInputFromWindow(binding.etMainActSearch.windowToken, 0)
     }
 
