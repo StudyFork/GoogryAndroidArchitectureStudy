@@ -36,8 +36,11 @@ class MainPresenter : MainInterface.Presenter {
     }
 
     override fun getLocalQuery(): String? {
-
-        return ""
+        var localQuery: String
+        naverQueryRepositoryImpl.apply {
+            localQuery = RequestLocalQueryAsync().execute().get() ?: ""
+        }
+        return localQuery
     }
 
     override fun getLocalData(query: String?) {
@@ -45,7 +48,6 @@ class MainPresenter : MainInterface.Presenter {
         // 검색어가 null 이거나 비었을 경우 오류 메세지 출력
         if (query.isNullOrEmpty()) {
             mView?.showErrorMessage(Throwable("최근 검색한 결과가 없습니다."))
-
             // query 가 비어있거나 null 값이 아닐 경우 로컬 DB에 데이터 요청
         } else {
             naverQueryRepositoryImpl.apply {
