@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
 
     // 사용자가 입력한 검색어로 네이버 영화 검색 API에서 데이터 얻어오기
     private fun requestRemoteData(query: String) {
-
+        presenter.getRemoteDataByQuery(query)
     }
 
     private fun requestLocalData(query: String) {
