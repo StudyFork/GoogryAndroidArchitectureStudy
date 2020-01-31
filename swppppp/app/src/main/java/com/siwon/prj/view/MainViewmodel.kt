@@ -4,8 +4,9 @@ import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
 import com.siwon.prj.common.model.Movie
 import com.siwon.prj.repository.MovieSearchRepository
+import com.siwon.prj.repository.MovieSearchRepositoryImpl
 
-class MainViewmodel(private val repository: MovieSearchRepository) {
+class MainViewmodel {
     /**
      *
     fun showResult(result: ArrayList<Movie>)
@@ -15,6 +16,7 @@ class MainViewmodel(private val repository: MovieSearchRepository) {
     fun hideKeyboard()
 
      */
+    private val repository: MovieSearchRepository = MovieSearchRepositoryImpl()
 
     // 검색 결과리스트
     val searchResult: ObservableArrayList<Movie> = ObservableArrayList()
@@ -35,14 +37,15 @@ class MainViewmodel(private val repository: MovieSearchRepository) {
                 success = { result ->
                     result.let {
                         if (it.isNotEmpty()) {
-                            searchResult.clone()
+//                            searchResult.clone()
+                            searchResult.clear()
                             searchResult.addAll(it)
-                            isKeyboardVisible.set(false)
+                            isResultEmpty.set(false)
                         } else {
                             // TODO: 검색결과 없는경우 처리 --> 검색결과 없음 이미지 visible
                             isResultEmpty.set(true)
-                            isKeyboardVisible.set(false)
                         }
+                        isKeyboardVisible.set(false)
                     }
                 },
                 fail = {
