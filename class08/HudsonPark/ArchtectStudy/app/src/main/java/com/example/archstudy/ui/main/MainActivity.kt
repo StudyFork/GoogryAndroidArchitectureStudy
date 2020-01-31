@@ -1,6 +1,5 @@
 package com.example.archstudy.ui.main
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -12,11 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.archstudy.R
-import com.example.archstudy.data.repository.NaverQueryRepositoryImpl
-import com.example.archstudy.data.source.local.AppDatabase
 import com.example.archstudy.data.source.local.MovieData
-import com.example.archstudy.data.source.local.NaverQueryLocalDataSourceImpl
-import com.example.archstudy.data.source.remote.NaverQueryRemoteDataSourceImpl
 
 class MainActivity : AppCompatActivity(), MainInterface.View {
 
