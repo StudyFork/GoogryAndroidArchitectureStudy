@@ -1,24 +1,29 @@
 package com.jay.architecturestudy.ui
 
 import android.view.View
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
 import com.jay.architecturestudy.data.repository.NaverSearchRepository
 import com.jay.architecturestudy.util.hideKeyboard
+import com.jay.architecturestudy.util.then
 import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseViewModel<T>(
     protected open val repository: NaverSearchRepository
-) {
-    val viewType = ObservableField<ViewType>(ViewType.VIEW_SEARCH_BEFORE)
-    val errorMsg = ObservableField<String?>()
-    val keyword = ObservableField<String?>()
-    val invalidKeyword = ObservableField<Boolean>()
+): ViewModel() {
+    val errorMsg = MutableLiveData<String>()
+    val keyword = MutableLiveData<String>()
+
+    val invalidKeyword = MutableLiveData<Boolean>()
+
     protected val compositeDisposable = CompositeDisposable()
 
     private val debounceTime: Long = 600L
     private var lastClickTime: Long = 0
 
-    abstract val data: ObservableField<List<T>>
+    abstract val _data: MutableLiveData<List<T>>
 
     abstract fun search(keyword: String)
 
@@ -28,23 +33,22 @@ abstract class BaseViewModel<T>(
         if (System.currentTimeMillis() - lastClickTime < debounceTime) {
             return
         }
-        if (keyword.isBlank()) {
-            invalidKeyword.set(true)
-        } else {
-            invalidKeyword.set(false)
+
+        invalidKeyword.value = keyword.isBlank()
+        keyword.isNotBlank().then {
             v.hideKeyboard()
             search(keyword)
         }
     }
 
-    fun onCleared() {
+    public override fun onCleared() {
+        super.onCleared()
         compositeDisposable.clear()
     }
 }
 
 enum class ViewType(type: Int) {
-    VIEW_SEARCH_BEFORE(0),
-    VIEW_SEARCH_SUCCESS(1),
-    VIEW_SEARCH_NO_RESULT(2),
+    VIEW_SEARCH_RESULT(0),
+    VIEW_SEARCH_NO_RESULT(1),
     ;
 }

@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
 import com.jay.architecturestudy.data.source.local.NaverSearchLocalDataSourceImpl
@@ -42,31 +43,22 @@ abstract class BaseFragment<T : ViewDataBinding, VM: BaseViewModel<*>>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.errorMsg.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                val message = viewModel.errorMsg.get() ?: return
-                showErrorMessage(message)
-                viewModel.errorMsg.set(null)
+        viewModel.errorMsg.observe(viewLifecycleOwner, Observer {
+            it.isNotBlank().then {
+                showErrorMessage(it)
             }
         })
 
-        viewModel.invalidKeyword.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                val invalid = viewModel.invalidKeyword.get() ?: return
-                invalid.then {
-                    context?.let {
-                        showErrorMessage(it.getString(R.string.warn_input_keyword))
-                    }
-                    viewModel.invalidKeyword.set(false)
+        viewModel.invalidKeyword.observe(viewLifecycleOwner, Observer {
+            it.then {
+                context?.let { context ->
+                    showErrorMessage(context.getString(R.string.warn_input_keyword))
                 }
             }
-
         })
     }
 
-    fun showErrorMessage(message: String) {
+    private fun showErrorMessage(message: String) {
         context?.showToastMessage(message)
     }
 }
