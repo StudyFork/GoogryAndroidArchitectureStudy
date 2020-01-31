@@ -50,7 +50,7 @@ class MainViewmodel {
                 },
                 fail = {
                     // TODO: 검실패한 경우 처리
-                    toastMsg.set("검색오류\n\n${it.message}\n입니다!")
+                    toastMsg.set("검색오류\n${it.message}\n입니다!")
                 })
         }
     }
