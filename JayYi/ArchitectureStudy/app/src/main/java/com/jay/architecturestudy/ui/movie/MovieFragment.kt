@@ -2,6 +2,9 @@ package com.jay.architecturestudy.ui.movie
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.databinding.FragmentMovieBinding
@@ -11,7 +14,14 @@ import com.jay.architecturestudy.ui.BaseFragment
 class MovieFragment : BaseFragment<FragmentMovieBinding, MovieViewModel>(R.layout.fragment_movie) {
 
     override val viewModel: MovieViewModel by lazy {
-        MovieViewModel(naverSearchRepository)
+        ViewModelProviders.of(this@MovieFragment, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MovieViewModel(
+                    naverSearchRepository
+                ) as T
+            }
+
+        })[MovieViewModel::class.java]
     }
 
     private lateinit var movieAdapter: MovieAdapter
@@ -32,6 +42,8 @@ class MovieFragment : BaseFragment<FragmentMovieBinding, MovieViewModel>(R.layou
         }
 
         binding.vm = viewModel
+        binding.lifecycleOwner = this
+
         viewModel.init()
     }
 

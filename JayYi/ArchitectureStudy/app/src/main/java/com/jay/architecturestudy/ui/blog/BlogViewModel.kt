@@ -1,6 +1,8 @@
 package com.jay.architecturestudy.ui.blog
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.jay.architecturestudy.data.model.Blog
 import com.jay.architecturestudy.data.repository.NaverSearchRepository
 import com.jay.architecturestudy.ui.BaseViewModel
@@ -11,17 +13,27 @@ import com.jay.architecturestudy.util.singleIoMainThread
 class BlogViewModel(
     override val repository: NaverSearchRepository
 ): BaseViewModel<Blog>(repository) {
-    override val data: ObservableField<List<Blog>> = ObservableField()
+    override val _data: MutableLiveData<List<Blog>> = MutableLiveData()
+    val data: LiveData<List<Blog>>
+        get() = _data
+
+    val viewType = Transformations.map(data) { list ->
+        if (list.isNotEmpty()) {
+            ViewType.VIEW_SEARCH_RESULT
+        } else {
+            ViewType.VIEW_SEARCH_NO_RESULT
+        }
+    }
 
     override fun init() {
         repository.getLatestBlogResult()
             .compose(singleIoMainThread())
             .subscribe({
-                keyword.set(it.keyword)
-                data.set(it.blogs)
+                keyword.value = it.keyword
+                _data.value = it.blogs
             }, { e ->
                 val message = e.message ?: return@subscribe
-                errorMsg.set(message)
+                errorMsg.value = message
             })
             .addTo(compositeDisposable)
     }
@@ -32,17 +44,10 @@ class BlogViewModel(
         )
             .compose(singleIoMainThread())
             .subscribe({ blogRepo ->
-                viewType.set(
-                    if (blogRepo.blogs.isEmpty()) {
-                        ViewType.VIEW_SEARCH_NO_RESULT
-                    } else {
-                        ViewType.VIEW_SEARCH_SUCCESS
-                    }
-                )
-                data.set(blogRepo.blogs)
+                _data.value = blogRepo.blogs
             }, { e ->
                 val message = e.message ?: return@subscribe
-                errorMsg.set(message)
+                errorMsg.value = message
             })
             .addTo(compositeDisposable)
     }
