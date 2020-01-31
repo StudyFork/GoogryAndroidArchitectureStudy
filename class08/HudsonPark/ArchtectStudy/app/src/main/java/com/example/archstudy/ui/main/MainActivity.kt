@@ -25,10 +25,7 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
     private lateinit var btnSearch: Button
     private lateinit var rvMovieList: RecyclerView
     private lateinit var rvMovieAdapter: MovieListAdapter
-    // Data
-    private lateinit var repositoryImpl: NaverQueryRepositoryImpl
-    private lateinit var localData: NaverQueryLocalDataSourceImpl
-    private lateinit var remoteData: NaverQueryRemoteDataSourceImpl
+
     private var query = ""
     // Presenter
     private lateinit var presenter: MainInterface.Presenter
@@ -63,25 +60,7 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
     }
 
     private fun initData() {
-        Log.d("init", "initData()")
-        val localMovieDao = AppDatabase.getInstance(this)?.localMovieDao()
-        val searchWordDao = AppDatabase.getInstance(this)?.searchWordDao()
 
-        val query = presenter.getLocalQuery()
-
-        localData = NaverQueryLocalDataSourceImpl(localMovieDao, searchWordDao)
-        remoteData = NaverQueryRemoteDataSourceImpl()
-        repositoryImpl = NaverQueryRepositoryImpl(localData, remoteData)
-
-        var history =
-            repositoryImpl
-                .RequestLocalQueryAsync()
-                .execute()
-                .get()
-
-        if (history != null) {
-            requestLocalData(history)
-        }
     }
 
     private fun initEvent() {
@@ -91,12 +70,7 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
             disableButton()
             // 검색 버튼 클릭 시
             query = edtQuery.text.toString()
-            if (query.isNullOrEmpty()) {
-                showToast("검색어를 다시 입력해주세요.")
-            } else {
-                showToast("요청하신 관련 영화 : $query")
-                requestRemoteData(query)
-            }
+
             activateButton()
         }
     }
@@ -120,42 +94,16 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
 
     // 사용자가 입력한 검색어로 네이버 영화 검색 API에서 데이터 얻어오기
     private fun requestRemoteData(query: String) {
-        Log.d("init", "requestRemoteData()")
-        presenter.getRemoteDataByQuery(query)
-        repositoryImpl
-            .requestRemoteData(query, successCallback = {
-                rvMovieAdapter.setAllData(it) // Remote Data를 adapter의 item으로 세팅
-                insertLocalData(query, it) //  해당 데이터를 내부 DB에 저장
-
-            }, failCallback = {
-                showToast(it.message.toString())
-            })
 
     }
 
     private fun requestLocalData(query: String) {
         Log.d("init", "requestLocalData()")
-        try {
-            // 최근 검색한 query 를 PK로 하여 LocalDB에서 데이터 비동기로 얻어오기
-            val requestResult =
-                repositoryImpl
-                    .RequestLocalDataAsync(query)
-                    .execute()
-                    .get()
 
-            rvMovieAdapter.setAllData(requestResult) // Local Data 세팅
-
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
     }
 
     private fun insertLocalData(query: String, data: MutableList<MovieData>) {
 
-
-        repositoryImpl
-            .InsertLocalDataAsync(query, data)
-            .execute()
     }
 
 
