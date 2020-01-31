@@ -80,8 +80,6 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
         edtQuery = findViewById(R.id.edtQuery)
         btnSearch = findViewById(R.id.btnSearch)
         rvMovieList = findViewById(R.id.rvMovieList)
-        // Presenter 초기화
-        presenter = MainPresenter()
 
         rvMovieAdapter = MovieListAdapter(object :
             MovieListAdapter.ItemClickListener {
