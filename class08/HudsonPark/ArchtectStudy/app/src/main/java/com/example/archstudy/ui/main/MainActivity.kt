@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
 
     override fun showDataList(dataList: MutableList<MovieData>) {
         rvMovieAdapter.setAllData(dataList)
+        insertLocalData(query,dataList)
     }
 
     override fun initPresenter() {
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
     }
 
     private fun initData() {
-
+        requestLocalData()
     }
 
     private fun initEvent() {
@@ -70,6 +71,7 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
             disableButton()
             // 검색 버튼 클릭 시
             query = edtQuery.text.toString()
+            requestRemoteData(query)
 
             activateButton()
         }
