@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
     }
 
     private fun insertLocalData(query: String, data: MutableList<MovieData>) {
-
+        presenter.insertData(query,data)
     }
 
 
