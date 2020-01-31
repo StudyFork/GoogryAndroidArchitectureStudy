@@ -44,8 +44,10 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         with(binding) {
-            mainActivity = this@MainActivity
             vm = viewModel
+            btnSearch.setOnClickListener{
+                btnSearchClick()
+            }
         }
 
         // recyclerView initialize

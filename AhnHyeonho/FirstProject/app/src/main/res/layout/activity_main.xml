@@ -6,10 +6,6 @@
     <data>
 
         <variable
-            name="mainActivity"
-            type="com.hansung.firstproject.ui.main.MainActivity" />
-
-        <variable
             name="vm"
             type="com.hansung.firstproject.ui.main.MainViewModel" />
 
@@ -52,7 +48,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:onClick="@{()-> mainActivity.btnSearchClick()}"
                     android:text="@string/btn_search" />
             </LinearLayout>
 
