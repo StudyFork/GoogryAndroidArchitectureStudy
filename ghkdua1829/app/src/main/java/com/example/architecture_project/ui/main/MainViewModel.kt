@@ -29,7 +29,7 @@ class MainViewModel {
             if (it.item.isEmpty()) {
                 isEmptyMovieData.set(true)
             } else {
-                getMovieDataNum(it)
+                setMovieDataNum(it)
                 movieData.set(it.item)
             }
         }, fail = {
@@ -38,7 +38,7 @@ class MainViewModel {
         })
     }
 
-    fun getMovieDataNum(data: NaverApi) {
+    fun setMovieDataNum(data: NaverApi) {
         movieDataNum.set(data.total)
     }
 }
