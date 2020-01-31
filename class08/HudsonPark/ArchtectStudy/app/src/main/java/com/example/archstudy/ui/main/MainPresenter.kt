@@ -33,6 +33,18 @@ class MainPresenter : MainInterface.Presenter {
 
     override fun getRemoteDataByQuery(query: String?) {
 
+        if (query.isNullOrEmpty()) {
+            return
+        }
+
+        naverQueryRepositoryImpl.requestRemoteData(query, successCallback = {
+            // Remote Data 요청이 성공했을 경우 MainActivity에 데이터 전달
+            mView?.showDataList(it)
+
+        }, failCallback = {
+            // Remote Data 요청이 실패했을 경우 에러 메시지 출력
+            mView?.showErrorMessage(it)
+        })
     }
 
     override fun getLocalQuery(): String? {
