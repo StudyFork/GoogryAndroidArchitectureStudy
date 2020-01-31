@@ -15,5 +15,6 @@ interface MainInterface {
         fun getRemoteDataByQuery(query : String?)
         fun getLocalQuery() : String?
         fun getLocalData(query: String?)
+        fun insertData(query : String, data : MutableList<MovieData>)
     }
 }

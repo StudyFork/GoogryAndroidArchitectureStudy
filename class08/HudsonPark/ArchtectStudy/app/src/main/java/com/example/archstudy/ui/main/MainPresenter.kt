@@ -10,7 +10,7 @@ import com.example.archstudy.data.source.remote.NaverQueryRemoteDataSourceImpl
 class MainPresenter : MainInterface.Presenter {
 
     private var mView: MainInterface.View? = null
-    private var naverQueryRepositoryImpl : NaverQueryRepositoryImpl
+    private var naverQueryRepositoryImpl: NaverQueryRepositoryImpl
 
     init {
         var context: Context? = mView?.let { it.getApplicationContext() }
@@ -19,7 +19,7 @@ class MainPresenter : MainInterface.Presenter {
         val searchWordDao = AppDatabase.getInstance(context!!)?.searchWordDao()
         val localData = NaverQueryLocalDataSourceImpl(localMovieDao, searchWordDao)
         val remoteData = NaverQueryRemoteDataSourceImpl()
-        naverQueryRepositoryImpl = NaverQueryRepositoryImpl(localData,remoteData)
+        naverQueryRepositoryImpl = NaverQueryRepositoryImpl(localData, remoteData)
     }
 
     override fun bindView(view: MainInterface.View) {
@@ -44,7 +44,7 @@ class MainPresenter : MainInterface.Presenter {
 
         // 검색어가 null 이거나 비었을 경우 오류 메세지 출력
         if (query.isNullOrEmpty()) {
-            mView?.showErrorMessage(Throwable("검색어가 비었거나 문제가 있습니다. 다시 입력해주세요"))
+            mView?.showErrorMessage(Throwable("최근 검색한 결과가 없습니다."))
 
             // query 가 비어있거나 null 값이 아닐 경우 로컬 DB에 데이터 요청
         } else {
@@ -53,5 +53,9 @@ class MainPresenter : MainInterface.Presenter {
                 mView?.showDataList(result)
             }
         }
+    }
+
+    override fun insertData(query: String, data: MutableList<MovieData>) {
+
     }
 }
