@@ -95,9 +95,10 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
         presenter.getRemoteDataByQuery(query)
     }
 
-    private fun requestLocalData(query: String) {
+    private fun requestLocalData() {
         Log.d("init", "requestLocalData()")
-
+        val localQuery = presenter.getLocalQuery()
+        presenter.getLocalData(localQuery)
     }
 
     private fun insertLocalData(query: String, data: MutableList<MovieData>) {
