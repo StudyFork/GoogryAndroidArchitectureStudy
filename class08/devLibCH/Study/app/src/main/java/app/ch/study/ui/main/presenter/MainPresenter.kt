@@ -26,7 +26,7 @@ class MainPresenter(
 
         val search = repository.searchMovie(name)
 
-        addDisposable(search
+        search
             .doOnSubscribe {
                 view.showLoading()
             }
@@ -46,6 +46,6 @@ class MainPresenter(
                 val error = handleError(it)
                 view.showError(error)
             })
-        )
+            .addTo(compositeDisposable)
     }
 }

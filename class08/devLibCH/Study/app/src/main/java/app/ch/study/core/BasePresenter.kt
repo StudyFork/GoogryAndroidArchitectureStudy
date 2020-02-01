@@ -8,14 +8,17 @@ import retrofit2.HttpException
 
 abstract class BasePresenter : BaseContract.Presenter {
 
-    private val compositeDisposable = CompositeDisposable()
+    val compositeDisposable = CompositeDisposable()
 
-    override fun addDisposable(disposable: Disposable) =
-        compositeDisposable.add(disposable)
-
-    override fun clearDisposable() {
-        compositeDisposable.clear()
+    operator fun CompositeDisposable.plus(disposable: Disposable) {
+        add(disposable)
     }
+
+    fun Disposable.addTo(androidDisposable: CompositeDisposable): Disposable
+            = apply { androidDisposable.add(this) }
+
+    override fun clearDisposable() =
+        compositeDisposable.clear()
 
     override fun handleError(e: Throwable): String {
         if (e is HttpException) {
