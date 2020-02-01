@@ -9,20 +9,18 @@ import app.ch.study.data.repository.NaverQueryRepositoryImpl
 
 class MainPresenter(
     private val view: MainContract.View,
-    private val localDataManager: LocalDataManager
+    localDataManager: LocalDataManager
 ) : BasePresenter(), MainContract.Presenter {
 
-    private lateinit var repository: NaverQueryRepositoryImpl
+    private val local = NaverQueryLocalDataSourceImpl(localDataManager)
+    private val remote = NaverQueryRemoteDataSourceImpl(WebApiTask.getInstance())
+    private var repository = NaverQueryRepositoryImpl(local, remote)
 
     override fun searchMovie(name: String) {
         if (name.isEmpty()) {
             view.showEmptyResult()
             return
         }
-
-        val local = NaverQueryLocalDataSourceImpl(localDataManager)
-        val remote = NaverQueryRemoteDataSourceImpl(WebApiTask.getInstance())
-        repository = NaverQueryRepositoryImpl(local, remote)
 
         val search = repository.searchMovie(name)
 
