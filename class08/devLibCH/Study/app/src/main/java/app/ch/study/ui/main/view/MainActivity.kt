@@ -27,9 +27,9 @@ class MainActivity : BaseActivity<MainPresenter>(R.layout.activity_main), MainCo
         MainPresenter(this@MainActivity, localDataManager)
     }
 
-    override var pbLoading: FrameLayout
-        get() = findViewById(R.id.pb_loading)
-        set(_) {}
+    override val pbLoading: FrameLayout by lazy {
+        findViewById<FrameLayout>(R.id.pb_loading)
+    }
 
     private val adapter: MovieAdapter by lazy {
         MovieAdapter { url ->
