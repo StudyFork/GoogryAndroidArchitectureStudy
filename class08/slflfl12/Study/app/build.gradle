@@ -22,7 +22,9 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
                 arguments << ["dagger.gradle.incremental": "true"]
+                arguments = ["room.incremental":"true"]
             }
         }
     }

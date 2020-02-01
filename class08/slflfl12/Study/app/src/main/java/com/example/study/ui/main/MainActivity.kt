@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     private fun getMovieList(query: String) {
-        presenter.getMovies(query, SearchResultDatabase.getInstance(this@MainActivity)!!)
+        presenter.getMovies(query)
     }
 
     override fun updateMovieList(items: List<Movie>) {

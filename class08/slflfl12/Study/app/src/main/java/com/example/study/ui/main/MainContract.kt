@@ -13,7 +13,7 @@ interface MainContract {
     }
 
     interface Presenter : BaseContract.Presenter {
-        fun getMovies(query: String, searchResultDatabase: SearchResultDatabase)
+        fun getMovies(query: String)
         fun getRecentSearchResult()
     }
 

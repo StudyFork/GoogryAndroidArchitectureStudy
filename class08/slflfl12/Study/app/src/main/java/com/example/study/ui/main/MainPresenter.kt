@@ -20,8 +20,8 @@ class MainPresenter(
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
 
-    override fun getMovies(query: String, searchResultDatabase: SearchResultDatabase) {
-        compositeDisposable += (naverSearchRepository.getMovies(query, searchResultDatabase)
+    override fun getMovies(query: String) {
+        compositeDisposable += (naverSearchRepository.getMovies(query)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
@@ -48,6 +48,7 @@ class MainPresenter(
     override fun getRecentSearchResult() {
         naverSearchRepository.getRecentSearchResult()?.let {
             if (it != null) {
+                Log.d("aa", it.toString())
                 view.updateMovieList(
                     Gson().fromJson(
                         it.resultItems,

@@ -7,7 +7,7 @@ import io.reactivex.Single
 
 interface NaverSearchRepository {
     //remote
-    fun getMovies(query: String, searchResultDatabase: SearchResultDatabase): Single<NaverSearchResponse>
+    fun getMovies(query: String): Single<NaverSearchResponse>
 
     //local
     fun addSearchResult(searchResult: SearchResult)

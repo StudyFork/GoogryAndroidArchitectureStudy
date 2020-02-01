@@ -11,12 +11,9 @@ class NaverSearchRemoteDataSourceImpl :
     NaverSearchRemoteDataSource {
 
     override fun getMovies(
-        query: String,
-        searchResultDatabase: SearchResultDatabase
+        query: String
     ): Single<NaverSearchResponse> {
         return NaverApiClient.naverRetrofitService.getMovieList(query)
-            .doAfterSuccess { searchResult ->
-                searchResultDatabase.searchResultDao().addSearchResult(SearchResult(Gson().toJson(searchResult))) }
     }
 
     companion object {

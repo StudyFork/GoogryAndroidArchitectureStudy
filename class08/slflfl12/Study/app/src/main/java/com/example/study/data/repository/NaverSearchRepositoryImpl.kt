@@ -5,6 +5,7 @@ import com.example.study.data.model.NaverSearchResponse
 import com.example.study.data.source.local.NaverSearchLocalDataSource
 import com.example.study.data.source.local.SearchResultDatabase
 import com.example.study.data.source.local.model.SearchResult
+import com.google.gson.Gson
 import io.reactivex.Single
 
 class NaverSearchRepositoryImpl private constructor(
@@ -13,8 +14,9 @@ class NaverSearchRepositoryImpl private constructor(
 ) : NaverSearchRepository {
 
 
-    override fun getMovies(query: String, searchResultDatabase: SearchResultDatabase): Single<NaverSearchResponse> {
-        return naverSearchRemoteDataSource.getMovies(query, searchResultDatabase)
+    override fun getMovies(query: String): Single<NaverSearchResponse> {
+        return naverSearchRemoteDataSource.getMovies(query).doAfterSuccess { searchResult ->
+            addSearchResult(SearchResult(Gson().toJson(searchResult))) }
     }
 
     override fun addSearchResult(searchResult: SearchResult) =
