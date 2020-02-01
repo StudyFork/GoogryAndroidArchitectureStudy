@@ -42,13 +42,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
-        with(binding) {
-            vm = viewModel
-            btnSearch.setOnClickListener{
-                btnSearchClick()
-            }
-        }
+        binding.vm = viewModel
 
         // recyclerView initialize
         initRecyclerView()
@@ -71,11 +65,6 @@ class MainActivity : AppCompatActivity() {
             )
         }
     }
-
-    fun btnSearchClick() {
-        viewModel.doSearch(binding.etSearch.text.toString())
-    }
-
 
     //키보드 제거 메소드
     fun removeKeyboard() =
@@ -102,7 +91,7 @@ class MainActivity : AppCompatActivity() {
             override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
                 when (actionId) {
                     EditorInfo.IME_ACTION_SEARCH -> {
-                        viewModel.doSearch(binding.etSearch.text.toString())
+                        viewModel.doSearch()
                     }
                     else ->
                         return false

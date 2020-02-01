@@ -41,13 +41,15 @@
                     android:autofillHints=""
                     android:ems="10"
                     android:imeOptions="actionSearch"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:text="@={vm.keyword}" />
 
                 <Button
                     android:id="@+id/btn_search"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:onClick="@{()->vm.doSearch()}"
                     android:text="@string/btn_search" />
             </LinearLayout>
 
