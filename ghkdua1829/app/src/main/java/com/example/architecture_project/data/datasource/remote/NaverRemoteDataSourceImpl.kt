@@ -8,17 +8,17 @@ import retrofit2.Response
 class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
     override fun getMovieData(
         title: String,
-        success: (NaverApi) -> Unit,
-        fail: (Throwable) -> Unit
+        onResponse: (NaverApi) -> Unit,
+        onFailure: (Throwable) -> Unit
     ) {
         NaverSevicelmpl.service.getMovie(title).enqueue(
             object : retrofit2.Callback<NaverApi> {
                 override fun onFailure(call: Call<NaverApi>, t: Throwable) {
-                    fail(t)
+                    onFailure(t)
                 }
 
                 override fun onResponse(call: Call<NaverApi>, response: Response<NaverApi>) {
-                    success(response.body()!!)
+                    onResponse(response.body()!!)
                 }
 
             }
