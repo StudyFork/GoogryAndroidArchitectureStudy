@@ -7,7 +7,7 @@ import io.reactivex.Single
 interface NaverQueryRepository {
     fun getNaverMovie(query: String): Single<NaverResponse>
 
-    fun saveCacheMovie(localEntity: LocalEntity): Single<Unit>
+    fun saveCacheMovie(localEntity: LocalEntity)
 
     fun loadLocal(): List<NaverResponse.Item>
 

@@ -11,45 +11,41 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cnm.homework.R
 import com.cnm.homework.data.model.NaverResponse
-import com.cnm.homework.data.repository.NaverQueryRepositoryImpl
-import com.cnm.homework.data.source.local.NaverQueryLocalDataSourceImpl
 import com.cnm.homework.data.source.local.db.LocalDao
 import com.cnm.homework.data.source.local.db.LocalDatabase
-import com.cnm.homework.data.source.remote.NaverQueryRemoteDataSourceImpl
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainContract.View {
 
     private val movieAdapter = MovieAdapter(::showMovieDetail)
-    private val disposable = CompositeDisposable()
+
     private val localDao: LocalDao by lazy {
         val db = LocalDatabase.getInstance(this)!!
         db.localDao()
     }
-    private val naverQueryRepositoryImpl: NaverQueryRepositoryImpl by lazy {
-        NaverQueryRepositoryImpl(
-            NaverQueryRemoteDataSourceImpl(),
-            NaverQueryLocalDataSourceImpl(localDao)
+    private val presenter: MainContract.Presenter by lazy {
+        MainPresenter(
+            this@MainActivity,
+            localDao
         )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        rv_content.adapter = movieAdapter
-        if (movieAdapter.movieItems.isEmpty()) {
-            beforeMovieListSearch()
-        }
-        bt_movie_search.setOnClickListener {
 
+        rv_content.adapter = movieAdapter
+
+        if (movieAdapter.movieItems.isEmpty()) {
+            val r = Runnable { beforeMovieListSearch() }
+            val thread = Thread(r)
+            thread.start()
+        }
+
+        bt_movie_search.setOnClickListener {
             et_movie_search.hideKeyboard()
-            if (et_movie_search.text.toString().isNotEmpty()) {
-                val query = et_movie_search.text.toString()
-                movieListSearch(query)
-            } else {
-                toastShow("제목을 입력해주세요")
-            }
+            val query = et_movie_search.text.toString()
+            presenter.movieListSearch(query)
         }
         et_movie_search.setOnEditorActionListener { _, i, _ ->
             when (i) {
@@ -62,41 +58,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        disposable.clear()
+        presenter.disposableClear()
         super.onDestroy()
     }
 
-
     private fun beforeMovieListSearch() {
-        val repoItem = naverQueryRepositoryImpl.loadLocal()
-        movieAdapter.setItem(repoItem)
-    }
-
-    private fun movieListSearch(query: String) {
-
-
-        disposable.add(naverQueryRepositoryImpl.getNaverMovie(query)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe {
-                showProgress()
-            }
-            .doAfterTerminate {
-                hideProgress()
-            }
-            .subscribe({
-                if (it.total != 0) {
-                    movieAdapter.setItem(it.items)
-                    rv_content.scrollToPosition(0)
-                } else {
-                    toastShow("검색 결과가 없습니다.")
-                }
-            }, {
-                it.printStackTrace()
-            })
-
-
-        )
+        val repoItem = presenter.loadMovieList()
+        runOnUiThread {
+            movieAdapter.setItem(repoItem)
+        }
     }
 
     private fun showMovieDetail(item: NaverResponse.Item) {
@@ -104,19 +74,38 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun showProgress() {
+    override fun setItem(items: List<NaverResponse.Item>) {
+        movieAdapter.setItem(items)
+        rv_content.scrollToPosition(0)
+    }
+
+    override fun showProgress() {
         pb_loading.visibility = View.VISIBLE
     }
 
-    private fun hideProgress() {
+    override fun hideProgress() {
         pb_loading.visibility = View.GONE
     }
+
+    override fun showEmptyLayout() {
+        rv_content.visibility = View.GONE
+        fl_empty.visibility = View.VISIBLE
+    }
+
+    override fun hideEmptyLayout() {
+        rv_content.visibility = View.VISIBLE
+        fl_empty.visibility = View.GONE
+    }
+
+    override fun showErrorEmptyResult() =
+        Toast.makeText(this, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show()
+
+    override fun showErrorEmptyQuery() =
+        Toast.makeText(this, "제목을 입력해주세요", Toast.LENGTH_SHORT).show()
 
     private fun View.hideKeyboard() {
         val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(windowToken, 0)
     }
 
-    private fun toastShow(content: String) =
-        Toast.makeText(this, content, Toast.LENGTH_SHORT).show()
 }

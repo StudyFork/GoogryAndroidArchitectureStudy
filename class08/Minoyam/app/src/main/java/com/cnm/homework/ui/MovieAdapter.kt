@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cnm.homework.R
 import com.cnm.homework.data.model.NaverResponse
-import com.cnm.homework.data.source.local.db.LocalEntity
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter(private val onClickAction: (NaverResponse.Item) -> Unit) :
@@ -28,9 +27,9 @@ class MovieAdapter(private val onClickAction: (NaverResponse.Item) -> Unit) :
 
     override fun getItemCount(): Int = movieItems.size
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) =
         holder.bind(movieItems[position])
-    }
+
 
     inner class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         init {

@@ -8,25 +8,27 @@ import io.reactivex.Single
 
 class NaverQueryRepositoryImpl(
     private val remoteDataSource: NaverQueryRemoteDataSource,
-    private val localDataSoure: NaverQueryLocalDataSource
+    private val localDataSource: NaverQueryLocalDataSource
 ) : NaverQueryRepository {
 
 
     override fun getNaverMovie(query: String): Single<NaverResponse> =
         remoteDataSource.getNaverMovie(query)
             .doOnSuccess {
-                saveCacheMovie(LocalEntity(it.items[0]))
+                saveCacheMovie(LocalEntity(0, it.items))
             }
 
 
-    override fun saveCacheMovie(localEntity: LocalEntity): Single<Unit> =
-        localDataSoure.saveCacheMovie(localEntity)
+    override fun saveCacheMovie(localEntity: LocalEntity) =
+        localDataSource.saveCacheMovie(localEntity)
 
-    override fun loadLocal(): List<NaverResponse.Item> {
-        return mutableListOf<NaverResponse.Item>()
+    override fun loadLocal(): List<NaverResponse.Item> =
+        mutableListOf<NaverResponse.Item>()
             .apply {
-                localDataSoure.loadLocal().forEach { add(it.repo) }
+                localDataSource.loadLocal().map {
+                    this.addAll(it.repo)
+                }
             }
-    }
+
 
 }
