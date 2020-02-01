@@ -6,16 +6,16 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 
 abstract class BaseActivity<P : BaseContract.Presenter>(@LayoutRes resId: Int) :
-    AppCompatActivity(resId) {
+    AppCompatActivity(resId), BaseContract.View {
 
     abstract val presenter: P
     abstract val pbLoading: FrameLayout?
 
-    fun showLoading() {
+    override fun showLoading() {
         pbLoading?.visibility = View.VISIBLE
     }
 
-    fun hideLoading() {
+    override fun hideLoading() {
         pbLoading?.visibility = View.GONE
     }
 
