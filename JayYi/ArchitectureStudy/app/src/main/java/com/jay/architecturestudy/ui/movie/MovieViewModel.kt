@@ -1,6 +1,8 @@
 package com.jay.architecturestudy.ui.movie
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.jay.architecturestudy.data.model.Movie
 import com.jay.architecturestudy.data.repository.NaverSearchRepository
 import com.jay.architecturestudy.ui.BaseViewModel
@@ -11,17 +13,30 @@ import com.jay.architecturestudy.util.singleIoMainThread
 class MovieViewModel(
     override val repository: NaverSearchRepository
 ): BaseViewModel<Movie>(repository) {
-    override val data: ObservableField<List<Movie>> = ObservableField()
+    override val _data: MutableLiveData<List<Movie>> = MutableLiveData()
+    val data: LiveData<List<Movie>>
+        get() = _data
+
+    val viewType = Transformations.map(data) { list ->
+        if (list.isNotEmpty()) {
+            ViewType.VIEW_SEARCH_RESULT
+        } else {
+            ViewType.VIEW_SEARCH_NO_RESULT
+        }
+    }
 
     override fun init() {
-        repository.getLatestMovieResult()
+        repository.
+            getLatestMovieResult()
             .compose(singleIoMainThread())
+            .filter { it.keyword.isNotBlank() && it.movies.isNotEmpty() }
             .subscribe({
-                keyword.set(it.keyword)
-                data.set(it.movies)
+                keyword.value = it.keyword
+                _data.value = it.movies
             }, { e ->
                 val message = e.message ?: return@subscribe
-                errorMsg.set(message)
+                errorMsg.value = message
+                _data.value = null
             })
             .addTo(compositeDisposable)
     }
@@ -32,17 +47,10 @@ class MovieViewModel(
         )
             .compose(singleIoMainThread())
             .subscribe({ movieRepo ->
-                viewType.set(
-                    if (movieRepo.movies.isEmpty()) {
-                        ViewType.VIEW_SEARCH_NO_RESULT
-                    } else {
-                        ViewType.VIEW_SEARCH_SUCCESS
-                    }
-                )
-                data.set(movieRepo.movies)
+                _data.value = movieRepo.movies
             }, { e ->
                 val message = e.message ?: return@subscribe
-                errorMsg.set(message)
+                errorMsg.value = message
             })
             .addTo(compositeDisposable)
     }
