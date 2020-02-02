@@ -24,11 +24,13 @@ class MainViewmodel {
     val isResultEmpty: ObservableField<Boolean> = ObservableField()
     // 오류 및 안내 토스트메시지
     val toastMsg: ObservableField<String> = ObservableField()
+    // input값
+    var userInput: ObservableField<String> = ObservableField()
     // 키보드visibility
     val isKeyboardVisible: ObservableField<Boolean> = ObservableField(true)
 
-
-    fun searchMovie(input: String) {
+    fun searchMovie() {
+        val input = userInput.get()
         if (input.isNullOrBlank()) {
             // TODO: 입력값 없는경우 처리 --> toastMsg로 '검색어를 입력해 주세요!'
             toastMsg.set("검색어를 입력해 주세요!")

@@ -42,11 +42,6 @@ class MainActivity :
             }
         })
 
-        // 검색버튼
-        binding.searchBtn.setOnClickListener {
-            vm.searchMovie(edit_text_input.text.toString())
-        }
-
         binding.editTextInput.setOnClickListener {
             vm.isKeyboardVisible.set(true)
         }
