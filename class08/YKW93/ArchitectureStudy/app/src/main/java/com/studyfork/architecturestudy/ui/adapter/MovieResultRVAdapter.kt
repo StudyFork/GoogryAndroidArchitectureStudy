@@ -4,13 +4,12 @@ import android.os.Build
 import android.text.Html
 import android.text.Spanned
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.studyfork.architecturestudy.R
 import com.studyfork.architecturestudy.data.model.MovieResponse
-import kotlinx.android.synthetic.main.item_movie.view.*
+import com.studyfork.architecturestudy.databinding.ItemMovieBinding
 
 class MovieResultRVAdapter(val itemClick: (movieLink: String) -> Unit) :
     RecyclerView.Adapter<MovieResultRVAdapter.MovieResultVH>() {
@@ -24,8 +23,9 @@ class MovieResultRVAdapter(val itemClick: (movieLink: String) -> Unit) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieResultVH {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
-        return MovieResultVH(view)
+        val binding: ItemMovieBinding =
+            ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MovieResultVH(binding)
     }
 
     override fun getItemCount(): Int = items.size
@@ -34,23 +34,23 @@ class MovieResultRVAdapter(val itemClick: (movieLink: String) -> Unit) :
         holder.bind(this.items[position])
     }
 
-
-    inner class MovieResultVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MovieResultVH(@NonNull private val binding: ItemMovieBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         init {
-            itemView.setOnClickListener {
+            binding.root.setOnClickListener {
                 itemClick(items[adapterPosition].link)
             }
         }
 
         fun bind(item: MovieResponse.Item) {
-            with(itemView) {
-                Glide.with(context).load(item.image).into(iv_movie_image)
-                tv_movie_name.text = item.title.getHtmlText()
-                rb_movie_rating.rating = item.userRating / 2f
-                tv_movie_publish_date.text = item.pubDate
-                tv_movie_director.text = item.director
-                tv_movie_actor.text = item.actor
+            with(binding) {
+                Glide.with(root.context).load(item.image).into(ivMovieImage)
+                tvMovieName.text = item.title.getHtmlText()
+                rbMovieRating.rating = item.userRating / 2f
+                tvMoviePublishDate.text = item.pubDate
+                tvMovieDirector.text = item.director
+                tvMovieActor.text = item.actor
             }
         }
     }

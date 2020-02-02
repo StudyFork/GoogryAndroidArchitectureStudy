@@ -9,11 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.studyfork.architecturestudy.R
 import com.studyfork.architecturestudy.base.BaseActivity
 import com.studyfork.architecturestudy.data.model.MovieResponse
+import com.studyfork.architecturestudy.databinding.ActivityMainBinding
 import com.studyfork.architecturestudy.extension.hideKeyboard
 import com.studyfork.architecturestudy.ui.adapter.MovieResultRVAdapter
-import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
+class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(R.layout.activity_main),
+    MainContract.View {
 
     private val movieResultRVAdapter: MovieResultRVAdapter by lazy {
         MovieResultRVAdapter {
@@ -24,16 +25,15 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
     override val presenter: MainPresenter = MainPresenter(this)
 
     override val progressBar: ProgressBar
-        get() = pb_loading_view
+        get() = binding.pbLoadingView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         setMovieRecyclerView()
 
-        btn_search.setOnClickListener {
+        binding.btnSearch.setOnClickListener {
             currentFocus?.hideKeyboard()
-            presenter.getMovieList(edit_movie_search.text.toString())
+            presenter.getMovieList(binding.editMovieSearch.text.toString())
         }
     }
 
@@ -42,15 +42,17 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
     }
 
     override fun showErrorEmptyQuery() {
-        Toast.makeText(baseContext, getString(R.string.empty_query_notice), Toast.LENGTH_SHORT).show()
+        Toast.makeText(baseContext, getString(R.string.empty_query_notice), Toast.LENGTH_SHORT)
+            .show()
     }
 
     override fun showErrorEmptyResult() {
-        Toast.makeText(baseContext, getString(R.string.empty_data_notice), Toast.LENGTH_SHORT).show()
+        Toast.makeText(baseContext, getString(R.string.empty_data_notice), Toast.LENGTH_SHORT)
+            .show()
     }
 
     private fun setMovieRecyclerView() {
-        rv_movie_list.run {
+        binding.rvMovieList.run {
             layoutManager = LinearLayoutManager(baseContext)
             adapter = movieResultRVAdapter
         }
