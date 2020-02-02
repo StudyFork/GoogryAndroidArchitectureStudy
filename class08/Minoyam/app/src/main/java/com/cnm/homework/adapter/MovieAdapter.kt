@@ -1,4 +1,4 @@
-package com.cnm.homework.ui
+package com.cnm.homework.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -35,7 +35,8 @@ class MovieAdapter(private val onClickAction: (NaverResponse.Item) -> Unit) :
         holder.bind(movieItems[position])
 
 
-    inner class MovieViewHolder(binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MovieViewHolder(private val binding: ItemMovieBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         init {
             itemView.setOnClickListener {
                 val item = movieItems[adapterPosition]
@@ -44,17 +45,7 @@ class MovieAdapter(private val onClickAction: (NaverResponse.Item) -> Unit) :
         }
 
         fun bind(movieItem: NaverResponse.Item) {
-//            with(itemView)
-//            {
-//                Glide.with(this)
-//                    .load(movieItem.image)
-//                    .into(iv_movie_image)
-//                tv_movie_title.text = movieItem.title
-//                rb_movie_rating.rating = movieItem.userRating / 2
-//                tv_movie_pub_date.text = movieItem.pubDate
-//                tv_movie_director.text = movieItem.director
-//                tv_movie_actor.text = movieItem.actor
-//            }
+            binding.items = movieItem
         }
     }
 }
