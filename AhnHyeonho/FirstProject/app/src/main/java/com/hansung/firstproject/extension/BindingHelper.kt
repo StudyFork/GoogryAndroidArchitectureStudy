@@ -6,9 +6,12 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.hansung.firstproject.R
+import com.hansung.firstproject.adapter.MovieItemAdapter
+import com.hansung.firstproject.data.MovieModel
 
 
 @BindingAdapter(value = ["loadUrl"])
@@ -31,4 +34,13 @@ fun TextView.setTitle(title: String) {
     } else {
         this.text = Html.fromHtml(title, Html.FROM_HTML_MODE_LEGACY)
     }
+}
+
+@BindingAdapter(value = ["refreshMovieData"])
+fun RecyclerView.refreshMovieData(items: ArrayList<MovieModel>) {
+    (adapter as MovieItemAdapter).run {
+        addItems(items)
+        notifyDataSetChanged()
+    }
+
 }

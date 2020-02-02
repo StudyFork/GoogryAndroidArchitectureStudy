@@ -3,6 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="vm"
+            type="com.hansung.firstproject.ui.main.MainViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -31,18 +41,21 @@
                     android:autofillHints=""
                     android:ems="10"
                     android:imeOptions="actionSearch"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:text="@={vm.keyword}" />
 
                 <Button
                     android:id="@+id/btn_search"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:onClick="@{()->vm.doSearch()}"
                     android:text="@string/btn_search" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_movies"
+                refreshMovieData="@{vm.movieData}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
