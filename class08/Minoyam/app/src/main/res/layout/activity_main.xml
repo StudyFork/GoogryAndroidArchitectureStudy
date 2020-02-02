@@ -47,7 +47,7 @@
                 android:id="@+id/bt_movie_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() ->activity.buttonClick()}"
+                android:onClick="@{() -> activity.buttonClick()}"
                 android:text="검색" />
         </LinearLayout>
 

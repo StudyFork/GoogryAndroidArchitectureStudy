@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.cnm.homework.R
+import com.cnm.homework.adapter.MovieAdapter
 import com.cnm.homework.data.model.NaverResponse
 import com.cnm.homework.data.source.local.db.LocalDao
 import com.cnm.homework.data.source.local.db.LocalDatabase
@@ -36,6 +38,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.rvContent.adapter = movieAdapter
+        binding.activity = this@MainActivity
 
         if (movieAdapter.movieItems.isEmpty()) {
             val r = Runnable { beforeMovieListSearch() }
