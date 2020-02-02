@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="vm"
+            type="com.siwon.prj.view.MainViewmodel" />
+    </data>
+    
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,6 +20,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="영화 제목을 입력하세요."
+            android:text="@={vm.userInput}"
             android:textSize="20dp"
             app:layout_constraintEnd_toStartOf="@+id/search_btn"
             app:layout_constraintStart_toStartOf="parent"
@@ -22,6 +30,7 @@
             android:id="@+id/search_btn"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> vm.searchMovie()}"
             android:text="검색"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,6 +40,8 @@
             android:id="@+id/movieListRv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:visibility="@{vm.isResultEmpty() ? View.GONE : View.VISIBLE}"
+            setMovieResult="@{vm.searchResult}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_text_input"
@@ -44,7 +55,8 @@
             android:drawableTop="@drawable/icon_noti"
             android:text="검색결과가 없습니다"
             android:textSize="20dp"
-            android:visibility="gone"
+            tools:visibility="gone"
+            android:visibility="@{vm.isResultEmpty() ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
