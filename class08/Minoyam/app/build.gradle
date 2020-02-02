@@ -3,7 +3,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 29
@@ -25,6 +24,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    android{
+        dataBinding{
+            enabled = true
+        }
+    }
 }
 
 dependencies {
@@ -38,7 +42,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
 //    리사이클러뷰
-    implementation "com.google.android.material:material:1.2.0-alpha03"
+    implementation "com.google.android.material:material:1.2.0-alpha04"
 //    retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.7.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
@@ -54,11 +58,11 @@ dependencies {
     // Room
     implementation "androidx.room:room-runtime:2.2.3"
     kapt "androidx.room:room-compiler:2.2.3"
-    kaptTest "androidx.room:room-testing:2.2.3"
+    kaptTest "androidx.ro   om:room-testing:2.2.3"
 
     // Lifecycle
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
-    implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0-rc03"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0"
 
     kapt 'com.github.bumptech.glide:compiler:4.10.0'
 
