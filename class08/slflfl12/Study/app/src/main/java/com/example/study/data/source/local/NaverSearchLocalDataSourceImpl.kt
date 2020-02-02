@@ -10,7 +10,7 @@ class NaverSearchLocalDataSourceImpl private constructor(
         naverResultDao.addSearchResult(searchResult)
     }
 
-    override fun getRecentSearchResult(): SearchResult {
+    override fun getRecentSearchResult(): SearchResult? {
         return naverResultDao.getRecentSearchResult()
     }
 

@@ -12,9 +12,12 @@ interface SearchResultDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addSearchResult(searchResult: SearchResult)
 
-    @Query("SELECT * FROM searchresult ORDER BY id DESC LIMIT 1")
-    fun getRecentSearchResult(): SearchResult
+    @Query("SELECT * FROM searchresult ORDER BY id DESC LIMIT 1 ")
+    fun getRecentSearchResult(): SearchResult?
 
     @Query("SELECT * FROM searchresult ORDER BY id DESC")
     fun getAllSearchResult(): List<SearchResult>
+
+    @Query("DELETE FROM searchresult")
+    fun deleteAllResult()
 }

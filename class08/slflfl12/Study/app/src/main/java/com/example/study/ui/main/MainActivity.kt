@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 getMovieList(et_movie_search.text.toString())
             }
         }
-
         getRecentSearchResult()
 
         movieAdapter.setOnItemClickListener { movie ->

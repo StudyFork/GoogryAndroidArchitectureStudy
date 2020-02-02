@@ -30,6 +30,7 @@ class MainPresenter(
             .doAfterTerminate {
                 view.hideProgress()
             }
+
             .subscribe({
                 it?.let {
                     if (it.items.isNotEmpty()) {
@@ -42,20 +43,12 @@ class MainPresenter(
             }, {
                 it.printStackTrace()
             })
-        )
+                )
     }
 
     override fun getRecentSearchResult() {
         naverSearchRepository.getRecentSearchResult()?.let {
-            if (it != null) {
-                Log.d("aa", it.toString())
-                view.updateMovieList(
-                    Gson().fromJson(
-                        it.resultItems,
-                        Array<Movie>::class.java
-                    ).asList()
-                )
-            }
+                view.updateMovieList(it)
         }
     }
 

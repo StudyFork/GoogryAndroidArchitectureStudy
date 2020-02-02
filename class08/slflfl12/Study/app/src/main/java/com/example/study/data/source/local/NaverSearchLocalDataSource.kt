@@ -6,5 +6,5 @@ interface NaverSearchLocalDataSource {
 
     fun addSearchResult(searchResult: SearchResult)
 
-    fun getRecentSearchResult(): SearchResult
+    fun getRecentSearchResult(): SearchResult?
 }
