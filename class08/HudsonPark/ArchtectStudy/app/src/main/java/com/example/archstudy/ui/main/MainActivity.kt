@@ -47,14 +47,19 @@ class MainActivity : AppCompatActivity() {
         remoteData = NaverQueryRemoteDataSourceImpl()
         repositoryImpl = NaverQueryRepositoryImpl(localData, remoteData)
 
-        var history =
-            repositoryImpl
-                .RequestLocalQueryAsync()
-                .execute()
-                .get()
+        try {
+            var history =
+                repositoryImpl
+                    .RequestLocalQueryAsync()
+                    .execute()
+                    .get()
+            Log.d("init","history : $history")
 
-        if (history != null) {
-            requestLocalData(history)
+            if (history != null) {
+                requestLocalData(history)
+            }
+        } catch (e : Exception){
+            e.printStackTrace()
         }
     }
 
@@ -89,13 +94,13 @@ class MainActivity : AppCompatActivity() {
         rvMovieList.adapter = rvMovieAdapter
     }
 
-    // 사용자가 입력한 검색어로 네이버 영화 검색 API에서 데이터 얻어오기
+    // 사용자가 입력한 검색어로 네이버 영화 검색 API 에서 데이터 얻어오기
     private fun requestRemoteData(query: String) {
         Log.d("init", "requestRemoteData()")
         repositoryImpl
             .requestRemoteData(query, successCallback = {
                 rvMovieAdapter.setAllData(it) // Remote Data를 adapter의 item으로 세팅
-                insertLocalData(query, it) //  해당 데이터를 내부 DB에 저장
+
 
             }, failCallback = {
                 showToast(it.message.toString())
@@ -105,13 +110,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun requestLocalData(query: String) {
         Log.d("init", "requestLocalData()")
+        Log.d("init","requestLocalData.query : $query")
         try {
             // 최근 검색한 query 를 PK로 하여 LocalDB에서 데이터 비동기로 얻어오기
-            val requestResult = repositoryImpl
+            var requestResult =
+                repositoryImpl
                 .RequestLocalDataAsync(query)
                 .execute()
                 .get()
+            Log.d("init","query : $query")
+            Log.d("init","requestResult : $requestResult")
 
+            // 최근 검색 순대로 정렬
+            requestResult = requestResult.asReversed()
             rvMovieAdapter.setAllData(requestResult) // Local Data 세팅
 
         } catch (e: Exception) {
@@ -119,9 +130,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun insertLocalData(query: String, data: MutableList<MovieData>) {
-        repositoryImpl.InsertLocalDataAsync(query, data).execute()
-    }
+//    private fun insertLocalData(query: String, data: MutableList<MovieData>) {
+//        repositoryImpl.InsertLocalDataAsync(query, data).execute()
+//    }
 
 
     private fun showToast(message: String) {
