@@ -43,7 +43,6 @@ class MovieAdapter(private val onClickAction: (NaverResponse.Item) -> Unit) :
                 onClickAction(item)
             }
         }
-
         fun bind(movieItem: NaverResponse.Item) {
             binding.items = movieItem
         }

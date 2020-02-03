@@ -3,7 +3,6 @@ package com.cnm.homework.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -43,15 +42,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             thread.start()
         }
 
-
-        binding.etMovieSearch.setOnEditorActionListener { _, i, _ ->
-            when (i) {
-                EditorInfo.IME_ACTION_SEARCH -> {
-                    binding.btMovieSearch.performClick()
-                }
-            }
-            true
-        }
     }
 
     fun buttonClick() {
