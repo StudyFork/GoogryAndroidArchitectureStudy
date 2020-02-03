@@ -9,7 +9,7 @@ interface MainContract {
 
         fun failMovieGet(msg: String)
 
-        fun findMovie(query: String)
+        fun findMovie()
 
         fun queryNone()
 

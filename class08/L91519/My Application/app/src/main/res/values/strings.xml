@@ -10,4 +10,6 @@
     <string name="query_none">"영화 제목을 입력해주세요"</string>
 
     <string name="result_none">"검색결과가 없습니다"</string>
+
+    <string name="search">"검색"</string>
 </resources>
