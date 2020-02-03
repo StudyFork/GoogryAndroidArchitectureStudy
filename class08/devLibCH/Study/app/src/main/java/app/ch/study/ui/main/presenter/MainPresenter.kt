@@ -44,6 +44,6 @@ class MainPresenter(
                 val error = handleError(it)
                 view.showError(error)
             })
-            .addTo(compositeDisposable)
+            .addToDisposable()
     }
 }
