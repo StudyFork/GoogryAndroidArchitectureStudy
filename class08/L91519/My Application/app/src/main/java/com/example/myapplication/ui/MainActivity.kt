@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         adapter = MovieRecyclerViewAdpater() { link ->
             binding.webviewDetailMovie.loadUrl(link)
         }
+
+        binding.rvMovieList.adapter = adapter
     }
 
     override fun updateMovieRecycler(items: List<MovieResult.Item>) {
