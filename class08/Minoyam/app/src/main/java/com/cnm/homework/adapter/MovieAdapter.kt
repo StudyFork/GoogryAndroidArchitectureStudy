@@ -13,7 +13,6 @@ class MovieAdapter(private val onClickAction: (NaverResponse.Item) -> Unit) :
     val movieItems = mutableListOf<NaverResponse.Item>()
 
     fun setItem(item: List<NaverResponse.Item>) {
-
         movieItems.clear()
         movieItems.addAll(item)
         notifyDataSetChanged()
@@ -33,7 +32,6 @@ class MovieAdapter(private val onClickAction: (NaverResponse.Item) -> Unit) :
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) =
         holder.bind(movieItems[position])
-
 
     inner class MovieViewHolder(private val binding: ItemMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {

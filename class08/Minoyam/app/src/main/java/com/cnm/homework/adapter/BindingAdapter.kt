@@ -1,8 +1,6 @@
 package com.cnm.homework.adapter
 
-import android.app.Activity
 import android.view.inputmethod.EditorInfo
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RatingBar
@@ -21,8 +19,7 @@ fun bindRating(ratingBar: RatingBar, rating: Float) {
 }
 
 @BindingAdapter("bind:bindOnEditorActionListener")
-fun bindOnEditorActionListener(editText: EditText,activity: MainActivity)
-{
+fun bindOnEditorActionListener(editText: EditText, activity: MainActivity) {
     editText.setOnEditorActionListener { _, i, _ ->
         when (i) {
             EditorInfo.IME_ACTION_SEARCH -> {

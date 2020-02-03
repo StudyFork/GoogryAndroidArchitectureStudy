@@ -100,5 +100,4 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun showErrorEmptyQuery() =
         Toast.makeText(this, "제목을 입력해주세요", Toast.LENGTH_SHORT).show()
 
-
 }
