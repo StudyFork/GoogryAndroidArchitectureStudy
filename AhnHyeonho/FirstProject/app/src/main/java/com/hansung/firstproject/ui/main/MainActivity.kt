@@ -42,7 +42,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.vm = viewModel
+
+        with(binding){
+            vm = viewModel
+            lifecycleOwner = this@MainActivity
+        }
 
         // recyclerView initialize
         initRecyclerView()

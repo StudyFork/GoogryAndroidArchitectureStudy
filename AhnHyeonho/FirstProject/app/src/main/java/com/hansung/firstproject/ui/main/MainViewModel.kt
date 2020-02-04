@@ -2,10 +2,11 @@ package com.hansung.firstproject.ui.main
 
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
+import androidx.lifecycle.ViewModel
 import com.hansung.firstproject.data.MovieModel
 import com.hansung.firstproject.data.repository.NaverRepository
 
-class MainViewModel(private val repository: NaverRepository) {
+class MainViewModel(private val repository: NaverRepository) : ViewModel(){
 
     val movieData: ObservableArrayList<MovieModel> = ObservableArrayList()
     var keyword = ObservableField<String>("")
