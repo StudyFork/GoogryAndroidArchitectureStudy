@@ -1,5 +1,7 @@
 package com.example.myapplication.ui
 
+import com.example.myapplication.Movie
+import com.example.myapplication.MovieDatabase
 import com.example.myapplication.data.model.MovieResult
 
 interface MainContract {
@@ -24,8 +26,10 @@ interface MainContract {
     {
         fun findMovie(query: String)
 
-        fun resentData()
+        fun resentData(db: MovieDatabase)
 
-        fun saveCache()
+        fun saveCache(db: MovieDatabase, movies: List<MovieResult.Item>)
+
+        fun delMovies(db: MovieDatabase)
     }
 }

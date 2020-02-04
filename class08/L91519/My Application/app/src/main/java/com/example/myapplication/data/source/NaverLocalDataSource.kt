@@ -1,12 +1,14 @@
 package com.example.myapplication.data.source
 
-import com.example.myapplication.data.model.MovieResult
+import com.example.myapplication.Movie
+import com.example.myapplication.MovieDatabase
 
 interface NaverLocalDataSource {
     fun getResentData(
-        success: (MovieResult) -> Unit,
-        fail: (Throwable) -> Unit
+        db: MovieDatabase
     )
 
-    fun saveCache()
+    fun saveCache(db: MovieDatabase, movies: List<Movie>)
+
+    fun delMovie(db: MovieDatabase)
 }
