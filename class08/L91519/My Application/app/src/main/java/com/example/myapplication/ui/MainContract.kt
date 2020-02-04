@@ -14,10 +14,18 @@ interface MainContract {
         fun queryNone()
 
         fun resultNone()
+
+        fun resentData()
+
+        fun saceCache()
     }
 
     interface Presenter
     {
         fun findMovie(query: String)
+
+        fun resentData()
+
+        fun saveCache()
     }
 }

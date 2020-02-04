@@ -24,6 +24,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         }
 
         binding.rvMovieList.adapter = adapter
+
+        resentData()
     }
 
     override fun updateMovieRecycler(items: List<MovieResult.Item>) {
@@ -46,6 +48,14 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun resultNone() {
         Toast.makeText(applicationContext, getString(R.string.result_none), Toast.LENGTH_SHORT)
             .show()
+    }
+
+    override fun resentData() {
+        presenter.resentData()
+    }
+
+    override fun saceCache() {
+
     }
 }
 

@@ -7,14 +7,32 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
         query?:view.queryNone()
         NaverRepositoryImpl.getResultData(query,
             success = {
-                if (it.items == null) {
+                if (it.items.isEmpty()) {
                     view.resultNone()
                 } else {
                     view.updateMovieRecycler(it.items)
+                    saveCache()
                 }
             },
             fail = { view.failMovieGet(it.message.toString()) })
 
 
     }
+
+    override fun resentData() {
+        NaverRepositoryImpl.getResentData(
+            success = {
+
+            },
+            fail = {
+
+            }
+        )
+    }
+
+    override fun saveCache() {
+
+    }
+
+
 }
