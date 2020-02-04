@@ -3,6 +3,7 @@ package com.studyfork.architecturestudy.ui.main
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,11 +31,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(R.layout.a
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setMovieRecyclerView()
-
-        binding.setListener {
-            currentFocus?.hideKeyboard()
-            presenter.getMovieList(binding.editMovieSearch.text.toString())
-        }
+        binding.activity = this@MainActivity
     }
 
     override fun showMovieList(items: MovieResponse) {
@@ -55,6 +52,15 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(R.layout.a
         binding.rvMovieList.run {
             layoutManager = LinearLayoutManager(baseContext)
             adapter = movieResultRVAdapter
+        }
+    }
+
+    fun onClick(view: View) {
+        when(view.id) {
+            R.id.btn_search -> {
+                currentFocus?.hideKeyboard()
+                presenter.getMovieList(binding.editMovieSearch.text.toString())
+            }
         }
     }
 }

@@ -6,8 +6,8 @@
     <data>
 
         <variable
-                name="listener"
-                type="android.view.View.OnClickListener" />
+                name="activity"
+                type="com.studyfork.architecturestudy.ui.main.MainActivity" />
 
     </data>
 
@@ -29,7 +29,7 @@
                 android:id="@+id/btn_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{(view) -> listener.onClick(view)}"
+                android:onClick="@{activity::onClick}"
                 android:text="@string/search"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/edit_movie_search"
