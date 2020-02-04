@@ -36,7 +36,7 @@ class MovieAdapter(private val onClickAction: (NaverResponse.Item) -> Unit) :
     inner class MovieViewHolder(private val binding: ItemMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
         init {
-            itemView.setOnClickListener {
+            binding.root.setOnClickListener {
                 val item = movieItems[adapterPosition]
                 onClickAction(item)
             }
