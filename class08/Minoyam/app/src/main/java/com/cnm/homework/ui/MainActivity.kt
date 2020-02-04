@@ -28,11 +28,12 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             localDao
         )
     }
-    private lateinit var binding: ActivityMainBinding
+    private val binding by lazy {
+        DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.rvContent.adapter = movieAdapter
         binding.activity = this@MainActivity
 
