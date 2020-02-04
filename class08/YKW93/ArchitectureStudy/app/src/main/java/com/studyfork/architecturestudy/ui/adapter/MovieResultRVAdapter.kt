@@ -1,17 +1,13 @@
 package com.studyfork.architecturestudy.ui.adapter
 
-import android.os.Build
-import android.text.Html
-import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.studyfork.architecturestudy.data.model.MovieResponse
 import com.studyfork.architecturestudy.databinding.ItemMovieBinding
 
-class MovieResultRVAdapter(val itemClick: (movieLink: String) -> Unit) :
+class MovieResultRVAdapter(private val itemClick: (movieLink: String) -> Unit) :
     RecyclerView.Adapter<MovieResultRVAdapter.MovieResultVH>() {
 
     private val items = mutableListOf<MovieResponse.Item>()
@@ -25,6 +21,11 @@ class MovieResultRVAdapter(val itemClick: (movieLink: String) -> Unit) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieResultVH {
         val binding: ItemMovieBinding =
             ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+        binding.root.setOnClickListener {
+            binding.movie?.link?.let(itemClick)
+        }
+
         return MovieResultVH(binding)
     }
 
@@ -37,29 +38,8 @@ class MovieResultRVAdapter(val itemClick: (movieLink: String) -> Unit) :
     inner class MovieResultVH(@NonNull private val binding: ItemMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        init {
-            binding.root.setOnClickListener {
-                itemClick(items[adapterPosition].link)
-            }
-        }
-
         fun bind(item: MovieResponse.Item) {
-            with(binding) {
-                Glide.with(root.context).load(item.image).into(ivMovieImage)
-                tvMovieName.text = item.title.getHtmlText()
-                rbMovieRating.rating = item.userRating / 2f
-                tvMoviePublishDate.text = item.pubDate
-                tvMovieDirector.text = item.director
-                tvMovieActor.text = item.actor
-            }
-        }
-    }
-
-    private fun String.getHtmlText(): Spanned {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY)
-        } else {
-            Html.fromHtml(this)
+            binding.movie = item
         }
     }
 }
