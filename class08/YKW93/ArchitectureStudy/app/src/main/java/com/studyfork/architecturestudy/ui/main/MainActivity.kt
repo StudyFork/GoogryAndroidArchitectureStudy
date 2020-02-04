@@ -31,7 +31,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(R.layout.a
         super.onCreate(savedInstanceState)
         setMovieRecyclerView()
 
-        binding.btnSearch.setOnClickListener {
+        binding.setListener {
             currentFocus?.hideKeyboard()
             presenter.getMovieList(binding.editMovieSearch.text.toString())
         }
