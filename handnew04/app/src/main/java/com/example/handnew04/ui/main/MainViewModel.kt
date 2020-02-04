@@ -1,52 +1,52 @@
 package com.example.handnew04.ui.main
 
 import android.util.Log
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.handnew04.data.MovieData
 import com.example.handnew04.data.MovieRepository
 import com.example.handnew04.network.NetworkManager
 
-class MainViewModel(val networkManager: NetworkManager) {
-    var movieData: ObservableField<List<MovieData>> = ObservableField()
-    var isLoading: ObservableField<Boolean> = ObservableField()
-    var isNetworkRunning: ObservableField<Boolean> = ObservableField()
-    var isInputTextLengthZero: ObservableField<Boolean> = ObservableField()
-    var isEmptyResult: ObservableField<Boolean> = ObservableField()
-    var failMessage: ObservableField<String> = ObservableField()
-    var inputText: ObservableField<String> = ObservableField("")
+class MainViewModel(val networkManager: NetworkManager) : ViewModel() {
+    var movieData = MutableLiveData<List<MovieData>>()
+    var isLoading = MutableLiveData<Boolean>()
+    var isNetworkRunning = MutableLiveData<Boolean>()
+    var isInputTextLengthZero = MutableLiveData<Boolean>()
+    var isEmptyResult = MutableLiveData<Boolean>()
+    var failMessage = MutableLiveData<String>()
+    var inputText = MutableLiveData<String>()
 
     fun serchMovie() {
-        Log.i("text", inputText.get().toString())
-        isLoading.set(true)
+        isLoading.value = true
 
         if (!isConnectedNetwork()) {
-            isNetworkRunning.set(false)
-            isLoading.set(false)
+            isNetworkRunning.value = false
+            isLoading.value = false
             return
         }
 
         if (!checkInputQuery()) return
 
         MovieRepository.getMovieData(
-            inputText.get().toString()
+            inputText.value.toString()
             , success = {
-                if (it.items.isEmpty()) isEmptyResult.set(true)
-                else movieData.set(it.items)
+                if (it.items.isEmpty()) isEmptyResult.value = true
+                else movieData.value = it.items
             },
             fail = {
                 Log.e("NaverMovieApi Fail ", it.message)
-                failMessage.set(it.message)
+                failMessage.value = it.message
             })
 
-        isLoading.set(false)
+        isLoading.value = false
     }
 
     fun isConnectedNetwork(): Boolean = networkManager.checkNetworkConnect()
 
     fun checkInputQuery(): Boolean {
-        return if (inputText.get()!!.isEmpty()) {
-            isInputTextLengthZero.set(true)
-            isLoading.set(false)
+        return if (inputText.value.toString().isEmpty()) {
+            isInputTextLengthZero.value = true
+            isLoading.value = false
             false
         } else true
     }
