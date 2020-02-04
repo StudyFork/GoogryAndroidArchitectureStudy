@@ -18,13 +18,15 @@ class MainViewModel {
     val movieList: ObservableField<List<Movie>> = ObservableField()
     val searchString: ObservableField<String> = ObservableField("")
 
-    fun searchMovies(keyword: String) {
+    fun searchMovies() {
         with(hideKeyBoard) {
             set(true)
             notifyChange()
         }
 
-        if (keyword.isBlank()) {
+        val keyword = searchString.get()
+
+        if (keyword.isNullOrBlank()) {
             with(toastMessage) {
                 set("검색어를 입력해주세요.")
                 notifyChange()
