@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.databinding.FragmentKinBinding
 import com.jay.architecturestudy.ui.BaseFragment
-import com.jay.architecturestudy.ui.movie.MovieViewModel
 
 
 class KinFragment : BaseFragment<FragmentKinBinding, KinViewModel>(R.layout.fragment_kin) {
@@ -44,8 +43,8 @@ class KinFragment : BaseFragment<FragmentKinBinding, KinViewModel>(R.layout.frag
 
         binding.vm = viewModel
         binding.lifecycleOwner = this
-        viewModel.init()
 
+        viewModel.init()
     }
 
     override fun onDestroyView() {

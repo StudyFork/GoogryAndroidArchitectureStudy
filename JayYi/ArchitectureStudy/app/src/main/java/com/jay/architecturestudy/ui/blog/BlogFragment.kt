@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.databinding.FragmentBlogBinding
 import com.jay.architecturestudy.ui.BaseFragment
-import com.jay.architecturestudy.ui.movie.MovieViewModel
 
 class BlogFragment : BaseFragment<FragmentBlogBinding, BlogViewModel>(R.layout.fragment_blog) {
     override val viewModel: BlogViewModel by lazy {
@@ -39,8 +38,10 @@ class BlogFragment : BaseFragment<FragmentBlogBinding, BlogViewModel>(R.layout.f
                 )
             }
         }
+
         binding.vm = viewModel
         binding.lifecycleOwner = this
+
         viewModel.init()
     }
 

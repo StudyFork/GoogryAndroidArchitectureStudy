@@ -12,7 +12,7 @@ import com.jay.architecturestudy.util.singleIoMainThread
 
 class MovieViewModel(
     override val repository: NaverSearchRepository
-): BaseViewModel<Movie>(repository) {
+) : BaseViewModel<Movie>(repository) {
     override val _data: MutableLiveData<List<Movie>> = MutableLiveData()
     val data: LiveData<List<Movie>>
         get() = _data
@@ -26,8 +26,7 @@ class MovieViewModel(
     }
 
     override fun init() {
-        repository.
-            getLatestMovieResult()
+        repository.getLatestMovieResult()
             .compose(singleIoMainThread())
             .filter { it.keyword.isNotBlank() && it.movies.isNotEmpty() }
             .subscribe({
@@ -35,7 +34,7 @@ class MovieViewModel(
                 _data.value = it.movies
             }, { e ->
                 val message = e.message ?: return@subscribe
-                errorMsg.value = message
+                _errorMsg.value = message
                 _data.value = null
             })
             .addTo(compositeDisposable)
@@ -50,7 +49,7 @@ class MovieViewModel(
                 _data.value = movieRepo.movies
             }, { e ->
                 val message = e.message ?: return@subscribe
-                errorMsg.value = message
+                _errorMsg.value = message
             })
             .addTo(compositeDisposable)
     }

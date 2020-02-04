@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.jay.architecturestudy.R
 import com.jay.architecturestudy.databinding.FragmentImageBinding
 import com.jay.architecturestudy.ui.BaseFragment
-import com.jay.architecturestudy.ui.movie.MovieViewModel
 import com.jay.architecturestudy.util.toPx
 import com.jay.architecturestudy.widget.SpacesItemDecoration
 
@@ -35,8 +34,10 @@ class ImageFragment : BaseFragment<FragmentImageBinding, ImageViewModel>(R.layou
                 addItemDecoration(SpacesItemDecoration(12.toPx(), 6.toPx(), 11.toPx()))
             }
         }
+
         binding.vm = viewModel
         binding.lifecycleOwner = this
+
         viewModel.init()
     }
 

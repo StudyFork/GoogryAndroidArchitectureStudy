@@ -3,8 +3,6 @@ package com.jay.architecturestudy.ui.kin
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import com.jay.architecturestudy.R
 import com.jay.architecturestudy.data.model.Kin
 import com.jay.architecturestudy.databinding.ListItemKinBinding
 import com.jay.architecturestudy.ui.BaseAdapter

@@ -12,7 +12,7 @@ import com.jay.architecturestudy.util.singleIoMainThread
 
 class BlogViewModel(
     override val repository: NaverSearchRepository
-): BaseViewModel<Blog>(repository) {
+) : BaseViewModel<Blog>(repository) {
     override val _data: MutableLiveData<List<Blog>> = MutableLiveData()
     val data: LiveData<List<Blog>>
         get() = _data
@@ -34,7 +34,7 @@ class BlogViewModel(
                 _data.value = it.blogs
             }, { e ->
                 val message = e.message ?: return@subscribe
-                errorMsg.value = message
+                _errorMsg.value = message
             })
             .addTo(compositeDisposable)
     }
@@ -48,7 +48,7 @@ class BlogViewModel(
                 _data.value = blogRepo.blogs
             }, { e ->
                 val message = e.message ?: return@subscribe
-                errorMsg.value = message
+                _errorMsg.value = message
             })
             .addTo(compositeDisposable)
     }

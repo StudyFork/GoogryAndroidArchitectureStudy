@@ -12,7 +12,7 @@ import com.jay.architecturestudy.util.singleIoMainThread
 
 class KinViewModel(
     override val repository: NaverSearchRepository
-): BaseViewModel<Kin>(repository) {
+) : BaseViewModel<Kin>(repository) {
     override val _data: MutableLiveData<List<Kin>> = MutableLiveData()
     val data: LiveData<List<Kin>>
         get() = _data
@@ -34,7 +34,7 @@ class KinViewModel(
                 _data.value = it.kins
             }, { e ->
                 val message = e.message ?: return@subscribe
-                errorMsg.value = message
+                _errorMsg.value = message
             })
             .addTo(compositeDisposable)
     }
@@ -48,7 +48,7 @@ class KinViewModel(
                 _data.value = kinRepo.kins
             }, { e ->
                 val message = e.message ?: return@subscribe
-                errorMsg.value = message
+                _errorMsg.value = message
             })
             .addTo(compositeDisposable)
     }

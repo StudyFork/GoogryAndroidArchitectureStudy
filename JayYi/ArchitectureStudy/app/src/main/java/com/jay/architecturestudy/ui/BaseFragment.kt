@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,7 +15,7 @@ import com.jay.architecturestudy.data.source.remote.NaverSearchRemoteDataSourceI
 import com.jay.architecturestudy.util.showToastMessage
 import com.jay.architecturestudy.util.then
 
-abstract class BaseFragment<T : ViewDataBinding, VM: BaseViewModel<*>>(
+abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel<*>>(
     private val layoutId: Int
 ) : Fragment() {
 
@@ -43,9 +42,11 @@ abstract class BaseFragment<T : ViewDataBinding, VM: BaseViewModel<*>>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.errorMsg.observe(viewLifecycleOwner, Observer {
-            it.isNotBlank().then {
-                showErrorMessage(it)
+        viewModel.errorMsg.observe(viewLifecycleOwner, Observer { msg ->
+            msg?.let {
+                it.isNotBlank().then {
+                    showErrorMessage(it)
+                }
             }
         })
 

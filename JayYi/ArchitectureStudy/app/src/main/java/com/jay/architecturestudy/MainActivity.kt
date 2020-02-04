@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         binding.main.bottomNavigation.setOnNavigationItemSelectedListener(
             navigationItemSelectedListener
         )
-        
+
         binding.main.viewPager.run {
             adapter = pagerAdapter
             addOnPageChangeListener(pageChangeListener)
