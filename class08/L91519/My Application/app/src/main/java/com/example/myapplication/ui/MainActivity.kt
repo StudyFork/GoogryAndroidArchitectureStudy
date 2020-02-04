@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.room.Room
-import com.example.myapplication.MovieDatabase
 import com.example.myapplication.R
 import com.example.myapplication.data.model.MovieResult
 import com.example.myapplication.databinding.ActivityMainBinding
@@ -15,7 +14,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private val presenter by lazy { MainPresenter(this) }
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: MovieRecyclerViewAdpater
-    private lateinit var db: MovieDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,19 +25,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         }
 
         binding.rvMovieList.adapter = adapter
-
-        db = Room.databaseBuilder(
-            applicationContext,
-            MovieDatabase::class.java, "Movies"
-        ).build()
-
-        resentData()
     }
 
     override fun updateMovieRecycler(items: List<MovieResult.Item>) {
         adapter.setItems(items)
-        presenter.delMovies(db)
-        presenter.saveCache(db, items)
     }
 
     override fun failMovieGet(msg: String) {
@@ -60,12 +49,5 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             .show()
     }
 
-    override fun resentData() {
-        presenter.resentData()
-    }
-
-    override fun saceCache() {
-
-    }
 }
 

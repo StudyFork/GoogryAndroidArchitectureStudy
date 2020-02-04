@@ -9,14 +9,4 @@ interface NaverRepository {
         success: (results: MovieResult) -> Unit,
         fail: (t: Throwable) -> Unit
     )
-
-    fun getResentData(
-        success: (results: MovieResult) -> Unit,
-        fail: (t: Throwable) -> Unit
-    )
-
-    fun saveCache(
-        success: () -> Unit,
-        fail: (t: Throwable) -> Unit
-    )
 }
