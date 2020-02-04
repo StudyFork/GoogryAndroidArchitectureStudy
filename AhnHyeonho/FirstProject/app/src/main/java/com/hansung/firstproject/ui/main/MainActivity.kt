@@ -9,7 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        with(binding){
+        with(binding) {
             vm = viewModel
             lifecycleOwner = this@MainActivity
         }
@@ -71,22 +71,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     //키보드 제거 메소드
-    fun removeKeyboard() =
+    private fun removeKeyboard() =
         (this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
             binding.etSearch.windowToken,
             0
         )
 
-    fun showErrorKeywordEmpty() {
+    private fun showErrorKeywordEmpty() {
         Toast.makeText(this, getString(R.string.empty_keyword_message), Toast.LENGTH_SHORT).show()
     }
 
-    fun showErrorByErrorMessage(errorMessage: String) {
+    private fun showErrorByErrorMessage(errorMessage: String) {
         Toast.makeText(this, ErrorStringResource.valueOf(errorMessage).resId, Toast.LENGTH_SHORT)
             .show()
     }
 
-    fun showErrorEmptyList() {
+    private fun showErrorEmptyList() {
         Toast.makeText(this, getString(R.string.empty_list_message), Toast.LENGTH_SHORT).show()
     }
 
@@ -107,35 +107,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun initObserveCallback() {
         with(viewModel) {
-            showError.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    showErrorByErrorMessage(showError.toString())
-                }
-            })
+            movieData.run {
+                observe(this@MainActivity, Observer {
+                    movieItemAdapter.addItems(it)
+                    movieItemAdapter.notifyDataSetChanged()
+                })
+            }
 
-            isEmptyResult.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    showErrorEmptyList()
-                    isEmptyResult.set(false)
-                }
-            })
+            showError.run {
+                observe(this@MainActivity, Observer {
+                    showErrorByErrorMessage(it.toString())
+                })
+            }
 
-            showKeywordEmptyError.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    showErrorKeywordEmpty()
-                    showKeywordEmptyError.set(false)
-                }
-            })
+            isEmptyResult.observe(this@MainActivity, Observer { showErrorEmptyList() })
 
-            hideKeyboard.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    removeKeyboard()
-                    hideKeyboard.set(false)
-                }
-            })
+            showKeywordEmptyError.observe(this@MainActivity, Observer { showErrorKeywordEmpty() })
+
+            hideKeyboard.observe(this@MainActivity, Observer { removeKeyboard() })
         }
     }
 }
