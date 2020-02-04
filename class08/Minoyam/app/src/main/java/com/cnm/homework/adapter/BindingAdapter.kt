@@ -9,8 +9,11 @@ import com.bumptech.glide.Glide
 import com.cnm.homework.ui.MainActivity
 
 @BindingAdapter("bind:bindImage")
-fun bindImage(imageView: ImageView, imageUri: String) {
-    Glide.with(imageView.context).load(imageUri).into(imageView)
+fun bindImage(imageView: ImageView, imageUri: String?) {
+    imageUri?.let {
+        Glide.with(imageView.context).load(imageUri).into(imageView)
+    }
+
 }
 
 @BindingAdapter("bind:bindRating")
