@@ -64,9 +64,3 @@ fun haveContentsChanged(
     }
     return false
 }
-
-@BindingAdapter("replaceAll")
-fun RecyclerView.replaceAll(item: List<MovieData>?) {
-    if (!item.isNullOrEmpty())
-        (adapter as MovieRecyclerAdapter).setItemList(item as ArrayList<MovieData>)
-}
