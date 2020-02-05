@@ -1,6 +1,7 @@
 package com.example.androidarchitecture.ui.image
 
 import android.text.TextUtils
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.androidarchitecture.data.repository.NaverRepoInterface
 import com.example.androidarchitecture.data.response.ImageData
@@ -8,7 +9,8 @@ import com.example.androidarchitecture.data.response.ImageData
 class ImageViewModel(private val naverRepositroy: NaverRepoInterface) {
 
     private val _renderItems = MutableLiveData<List<ImageData>>()
-    val renderItems get() = _renderItems
+    val renderItems:LiveData<List<ImageData>> get() = _renderItems
+
     val isListEmpty = MutableLiveData<Boolean>(true)
     val blankInputText = MutableLiveData<Unit>()
     val errorToast = MutableLiveData<Throwable>()

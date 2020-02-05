@@ -1,6 +1,7 @@
 package com.example.androidarchitecture.ui.kin
 
 import android.text.TextUtils
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.androidarchitecture.data.repository.NaverRepoInterface
 import com.example.androidarchitecture.data.response.KinData
@@ -9,7 +10,8 @@ class KinViewModel(private val naverRepositroy: NaverRepoInterface) {
 
 
     private val _renderItems = MutableLiveData<List<KinData>>()
-    val renderItems get() = _renderItems
+    val renderItems:LiveData<List<KinData>> get() = _renderItems
+
     val isListEmpty = MutableLiveData<Boolean>(true)
     val blankInputText = MutableLiveData<Unit>()
     val errorToast = MutableLiveData<Throwable>()

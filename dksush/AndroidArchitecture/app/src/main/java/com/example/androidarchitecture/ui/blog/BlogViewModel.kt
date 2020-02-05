@@ -1,6 +1,7 @@
 package com.example.androidarchitecture.ui.blog
 
 import android.text.TextUtils
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.androidarchitecture.data.repository.NaverRepoInterface
@@ -9,7 +10,8 @@ import com.example.androidarchitecture.data.response.BlogData
 class BlogViewModel(private val naverRepositroy: NaverRepoInterface) : ViewModel() {
 
     private val _renderItems = MutableLiveData<List<BlogData>>()
-    val renderItems get() = _renderItems
+    val renderItems: LiveData<List<BlogData>> get() = _renderItems
+
     val isListEmpty = MutableLiveData<Boolean>(true)
     val blankInputText = MutableLiveData<Unit>()
     val errorToast = MutableLiveData<Throwable>()

@@ -1,6 +1,7 @@
 package com.example.androidarchitecture.ui.movie
 
 import android.text.TextUtils
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.androidarchitecture.data.repository.NaverRepoInterface
 import com.example.androidarchitecture.data.response.MovieData
@@ -8,7 +9,8 @@ import com.example.androidarchitecture.data.response.MovieData
 class MovieViewModel(private val naverRepositroy: NaverRepoInterface) {
 
     private val _renderItems = MutableLiveData<List<MovieData>>()
-    val renderItems get() = _renderItems
+    val renderItems:LiveData<List<MovieData>> get() = _renderItems
+
     val isListEmpty = MutableLiveData<Boolean>(true)
     val blankInputText = MutableLiveData<Unit>()
     val errorToast = MutableLiveData<Throwable>()
