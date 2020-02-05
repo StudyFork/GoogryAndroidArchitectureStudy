@@ -38,8 +38,8 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
         showToast(msg)
     }
 
-    override fun showErrorMessage(msg: Throwable) {
-        showToast(msg.toString())
+    override fun showErrorMessage(errrorMessage: Throwable) {
+        showToast(errrorMessage.toString())
     }
 
     override fun showDataList(dataList: MutableList<MovieData>) {
@@ -64,7 +64,6 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
             // 검색 버튼 클릭 시
             query = edtQuery.text.toString()
             requestRemoteData(query)
-
             activateButton()
         }
     }

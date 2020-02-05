@@ -7,7 +7,7 @@ import com.example.archstudy.data.source.local.MovieData
 import com.example.archstudy.data.source.local.NaverQueryLocalDataSourceImpl
 import com.example.archstudy.data.source.remote.NaverQueryRemoteDataSourceImpl
 
-class MainPresenter(private var mContext : Context?) : MainInterface.Presenter {
+class MainPresenter(mContext : Context?) : MainInterface.Presenter {
 
     private var mView: MainInterface.View? = null
     private var naverQueryRepositoryImpl: NaverQueryRepositoryImpl
@@ -63,7 +63,7 @@ class MainPresenter(private var mContext : Context?) : MainInterface.Presenter {
         } else {
             naverQueryRepositoryImpl.apply {
                 val result = RequestLocalDataAsync(query).execute().get()
-                mView?.showDataList(result)
+                mView?.showDataList(result.asReversed())
             }
         }
     }
