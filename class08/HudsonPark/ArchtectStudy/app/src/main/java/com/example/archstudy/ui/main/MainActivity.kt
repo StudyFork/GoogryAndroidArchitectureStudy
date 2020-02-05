@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
         rvMovieList.adapter = rvMovieAdapter
     }
 
-    // 사용자가 입력한 검색어로 네이버 영화 검색 API에서 데이터 얻어오기
+    // 사용자가 입력한 검색어로 네이버 영화 검색 API 에서 데이터 얻어오기
     private fun requestRemoteData(query: String) {
         presenter.getRemoteDataByQuery(query)
     }
@@ -97,6 +97,31 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
     private fun insertLocalData(query: String, data: MutableList<MovieData>) {
         presenter.insertData(query,data)
     }
+
+        Log.d("init","requestLocalData.query : $query")
+        try {
+            // 최근 검색한 query 를 PK로 하여 LocalDB에서 데이터 비동기로 얻어오기
+            var requestResult =
+                repositoryImpl
+                .RequestLocalDataAsync(query)
+                .execute()
+                .get()
+            Log.d("init","query : $query")
+            Log.d("init","requestResult : $requestResult")
+
+            // 최근 검색 순대로 정렬
+            requestResult = requestResult.asReversed()
+            rvMovieAdapter.setAllData(requestResult) // Local Data 세팅
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+//    private fun insertLocalData(query: String, data: MutableList<MovieData>) {
+//        repositoryImpl.InsertLocalDataAsync(query, data).execute()
+//    }
+
 
 
     private fun showToast(message: String) {
