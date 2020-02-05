@@ -31,6 +31,10 @@ android {
             buildConfigField "String", "CLIENT_SECRET", "\"ndzyi6Qphn\""
         }
     }
+
+    dataBinding {
+        enabled true
+    }
 }
 
 dependencies {
