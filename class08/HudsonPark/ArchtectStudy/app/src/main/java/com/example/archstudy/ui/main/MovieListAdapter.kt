@@ -1,5 +1,7 @@
-package com.example.archstudy
+package com.example.archstudy.ui.main
 
+import android.os.Build
+import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,16 +12,20 @@ import android.widget.TextView
 import androidx.annotation.Nullable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.archstudy.data.source.local.MovieData
+import com.example.archstudy.R
 
 class MovieListAdapter(@Nullable private var listener: ItemClickListener) :
     RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
 
-    private var list = mutableListOf<Item>()
+    private var list = mutableListOf<MovieData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val holder = ViewHolder(LayoutInflater
-            .from(parent.context)
-            .inflate(R.layout.item_movie, parent, false))
+        val holder = ViewHolder(
+            LayoutInflater
+                .from(parent.context)
+                .inflate(R.layout.item_movie, parent, false)
+        )
 
         holder.itemView.setOnClickListener {
             listener.onItemClick(list[holder.adapterPosition].link)
@@ -32,7 +38,7 @@ class MovieListAdapter(@Nullable private var listener: ItemClickListener) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         holder.bind(list[position])
 
-    fun setAllData(movieList: ArrayList<Item>){
+    fun setAllData(movieList: MutableList<MovieData>){
         list.clear()
         list.addAll(movieList)
         notifyDataSetChanged()
@@ -47,11 +53,12 @@ class MovieListAdapter(@Nullable private var listener: ItemClickListener) :
         private val tvDirector = itemView.findViewById<TextView>(R.id.tvDirector)
         private val tvActors = itemView.findViewById<TextView>(R.id.tvActors)
 
-        fun bind(data: Item) {
+        fun bind(data: MovieData) {
 
             with(data) {
                 Log.d("img", "image : $image, title : $title")
-                tvTitle.text = title
+                val convertedText = htmlToString(title)
+                tvTitle.text = convertedText
                 ratingMovie.rating = userRating.toFloat() / 2
                 tvReleaseYear.text = pubDate
                 tvDirector.text = director
@@ -74,6 +81,16 @@ class MovieListAdapter(@Nullable private var listener: ItemClickListener) :
                     .load(R.drawable.no_image)
                     .override(600, 1000)
                     .into(ivThumbnail)
+            }
+        }
+
+        private fun htmlToString(htmlText : String) : String {
+            // Android N Version 이상의 경우
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+                Html.fromHtml(htmlText,Html.FROM_HTML_MODE_LEGACY).toString()
+            } else {
+                // 그 외
+                Html.fromHtml(htmlText).toString()
             }
         }
     }
