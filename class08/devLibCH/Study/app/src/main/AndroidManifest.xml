@@ -17,11 +17,11 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".view.DetailActivity"
+            android:name=".ui.detail.DetailActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".view.MainActivity"
+            android:name=".ui.main.view.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
