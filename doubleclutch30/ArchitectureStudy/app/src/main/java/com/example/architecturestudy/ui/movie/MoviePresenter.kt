@@ -1,16 +1,24 @@
 package com.example.architecturestudy.ui.movie
 
-import com.example.architecturestudy.Injection
+import com.example.architecturestudy.data.repository.NaverSearchRepository
 
-class MoviePresenter(val view : MovieContract.View) : MovieContract.Presenter {
+class MoviePresenter(
+    val view: MovieContract.View,
+    private val repository: NaverSearchRepository?
+) : MovieContract.Presenter {
+    override fun taskSearch(isNetwork: Boolean, keyword: String) {
+        repository?.getMovie(
+            isNetwork = isNetwork,
+            keyword = keyword,
+            success = { view.showResult(it) },
+            fail = { e -> view.showErrorMessage(e.toString()) }
+        )
+    }
 
-        private val repository by lazy { Injection.provideNaverSearchRepository() }
-
-        override fun taskSearch(keyword: String) {
-                repository.getMovie(
-                        keyword = keyword,
-                        success = {view.showResult(it)},
-                        fail = {e -> view.showErrorMessage(e.toString())}
-                )
-        }
+    override fun getLastData() {
+        repository?.getLastMovie(
+            success = { view.showResult(it) },
+            fail = { e -> view.showEmpty(e.toString()) }
+        )
+    }
 }

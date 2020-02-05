@@ -48,7 +48,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
 
                 Glide.with(this).load(item.image).error(R.drawable.ic_launcher_background).into(movie_image)
 
-                movie_rating.rating = item.rating
+                movie_rating.rating = item.rating ?: 0f
             }
         }
     }

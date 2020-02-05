@@ -7,9 +7,11 @@ interface BlogContract {
     interface View {
         fun showErrorMessage(message : String)
         fun showResult(item : List<BlogItem>)
+        fun showEmpty(message: String)
     }
 
     interface Presenter {
-        fun taskSearch(keyword : String)
+        fun taskSearch(isNetWork: Boolean, keyword : String)
+        fun getLastData()
     }
 }
