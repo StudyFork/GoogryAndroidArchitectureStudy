@@ -6,7 +6,6 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import com.cnm.homework.ui.MainActivity
 
 @BindingAdapter("bind:bindImage")
 fun bindImage(imageView: ImageView, imageUri: String?) {
@@ -22,11 +21,11 @@ fun bindRating(ratingBar: RatingBar, rating: Float) {
 }
 
 @BindingAdapter("bind:bindOnEditorActionListener")
-fun bindOnEditorActionListener(editText: EditText, activity: MainActivity) {
+fun bindOnEditorActionListener(editText: EditText, click: (() -> Unit)) {
     editText.setOnEditorActionListener { _, i, _ ->
         when (i) {
             EditorInfo.IME_ACTION_SEARCH -> {
-                activity.buttonClick()
+                click()
             }
         }
         true
