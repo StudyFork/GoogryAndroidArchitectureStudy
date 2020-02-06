@@ -1,44 +1,45 @@
 package com.example.architecture_project.ui.main
 
 import android.util.Log
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.architecture_project.data.model.Movie
 import com.example.architecture_project.data.model.NaverApi
 import com.example.architecture_project.data.repository.NaverRepository
 
-class MainViewModel {
+class MainViewModel : ViewModel() {
 
     val naverRepository: NaverRepository = NaverRepository()
-    var hasWrongChar: ObservableField<Boolean> = ObservableField()
-    var isEmptyKeyword: ObservableField<Boolean> = ObservableField()
-    var isEmptyMovieData: ObservableField<Boolean> = ObservableField()
-    var movieData: ObservableField<List<Movie>> = ObservableField()
-    var errorToast: ObservableField<Throwable> = ObservableField()
-    var movieDataNum: ObservableField<Int> = ObservableField()
+    var hasWrongChar = MutableLiveData<Boolean>()
+    var isEmptyKeyword = MutableLiveData<Boolean>()
+    var isEmptyMovieData = MutableLiveData<Boolean>()
+    var movieData = MutableLiveData<List<Movie>>()
+    var errorToast = MutableLiveData<Throwable>()
+    var movieDataNum = MutableLiveData<Int>()
 
     fun getMovieData(keyword: String) {
         if (keyword.contains("@")) {
-            hasWrongChar.set(true)
+            hasWrongChar.value = true
             return
         }
         if (keyword.equals("")) {
-            isEmptyKeyword.set(true)
+            isEmptyKeyword.value = true
             return
         }
         naverRepository.getMovieData(keyword, success = {
             if (it.item.isEmpty()) {
-                isEmptyMovieData.set(true)
+                isEmptyMovieData.value = true
             } else {
                 setMovieDataNum(it)
-                movieData.set(it.item)
+                movieData.value = it.item
             }
         }, fail = {
             Log.e("error is :", it.toString())
-            errorToast.set(it)
+            errorToast.value = it
         })
     }
 
     fun setMovieDataNum(data: NaverApi) {
-        movieDataNum.set(data.total)
+        movieDataNum.value = data.total
     }
 }
