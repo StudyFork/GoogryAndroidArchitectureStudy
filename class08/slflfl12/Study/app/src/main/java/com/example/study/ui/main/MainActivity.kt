@@ -15,7 +15,6 @@ import com.example.study.data.source.local.SearchResultDatabase
 import com.example.study.data.source.remote.NaverSearchRemoteDataSourceImpl
 import com.example.study.ui.adapter.MovieAdapter
 import com.example.study.ui.detail.DetailActivity
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
