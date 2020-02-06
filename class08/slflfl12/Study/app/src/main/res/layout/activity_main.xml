@@ -5,6 +5,13 @@
 
     <data>
 
+        <variable
+            name="activity"
+            type="com.example.study.ui.main.MainActivity" />
+
+        <variable
+            name="query"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,12 +31,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:ems="20" />
+                android:ems="20"
+                android:text="@={query}" />
 
             <Button
                 android:id="@+id/btn_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="@{()-> activity.getMovieList(query)}"
                 android:text="@string/btn_search" />
         </LinearLayout>
 

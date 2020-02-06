@@ -20,7 +20,7 @@ import com.example.study.ui.detail.DetailActivity
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
-    private lateinit var binding:ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     private val movieAdapter = MovieAdapter()
     private val presenter: MainContract.Presenter by lazy {
         MainPresenter(
@@ -37,14 +37,15 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         setContentView(binding.root)
 
         binding.rvMovieList.adapter = movieAdapter
+        binding.activity = this@MainActivity
 
-        binding.btnSearch.setOnClickListener {
+/*        binding.btnSearch.setOnClickListener {
             if (binding.etMovieSearch.text.isNullOrEmpty()) {
                 showErrorQueryEmpty()
             } else {
                 getMovieList(binding.etMovieSearch.text.toString())
             }
-        }
+        }*/
         getRecentSearchResult()
 
         movieAdapter.setOnItemClickListener { movie ->
@@ -55,12 +56,16 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         }
     }
 
-    private fun getRecentSearchResult() {
+    fun getRecentSearchResult() {
         presenter.getRecentSearchResult()
     }
 
-    private fun getMovieList(query: String) {
-        presenter.getMovies(query)
+    fun getMovieList(query: String) {
+        if (binding.etMovieSearch.text.isNullOrEmpty()) {
+            showErrorQueryEmpty()
+        } else {
+            presenter.getMovies(query)
+        }
     }
 
     override fun updateMovieList(items: List<Movie>) {
