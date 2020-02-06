@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
     private lateinit var btnSearch: Button
     private lateinit var rvMovieList: RecyclerView
     private lateinit var rvMovieAdapter: MovieListAdapter
-
+    // variables
     private var query = ""
     // Presenter
     private lateinit var presenter: MainInterface.Presenter
@@ -48,12 +48,16 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
     }
 
     override fun initPresenter() {
+
         val localMovieDao = AppDatabase.getInstance(this)?.localMovieDao()
         val searchWordDao = AppDatabase.getInstance(this)?.searchWordDao()
 
+
         if (localMovieDao != null && searchWordDao != null) {
+
             presenter = MainPresenter(localMovieDao, searchWordDao)
             presenter.bindView(this)
+
         }
     }
 
@@ -95,8 +99,10 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
 
     private fun requestLocalData() {
         Log.d("init", "requestLocalData()")
+
         val localQuery = presenter.getLocalQuery()
         presenter.getLocalData(localQuery)
+
     }
 
 

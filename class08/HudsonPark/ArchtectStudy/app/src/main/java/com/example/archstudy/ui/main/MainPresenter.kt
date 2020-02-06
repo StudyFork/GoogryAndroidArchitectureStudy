@@ -5,8 +5,8 @@ import com.example.archstudy.data.source.local.*
 import com.example.archstudy.data.source.remote.NaverQueryRemoteDataSourceImpl
 
 class MainPresenter(
-    private val localMovieDao: MovieDataDao,
-    private val searchWordDao: SearchWordDao
+    localMovieDao: MovieDataDao,
+    searchWordDao: SearchWordDao
 ) : MainInterface.Presenter {
 
     private var mView: MainInterface.View? = null
@@ -17,6 +17,7 @@ class MainPresenter(
         val localData = NaverQueryLocalDataSourceImpl(localMovieDao, searchWordDao)
         val remoteData = NaverQueryRemoteDataSourceImpl()
         naverQueryRepositoryImpl = NaverQueryRepositoryImpl(localData, remoteData)
+
     }
 
     override fun bindView(view: MainInterface.View) {
@@ -37,8 +38,10 @@ class MainPresenter(
         naverQueryRepositoryImpl.requestRemoteData(query, successCallback = {
             // Remote Data 요청이 성공했을 경우 MainActivity에 데이터 전달
             mView?.showDataList(it)
+
             // Local DB에 쿼리와 데이터 저장
-            insertData(query,it)
+            insertData(query, it)
+
 
         }, failCallback = {
             // Remote Data 요청이 실패했을 경우 에러 메시지 출력
