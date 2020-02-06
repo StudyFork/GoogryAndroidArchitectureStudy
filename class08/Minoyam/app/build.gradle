@@ -61,7 +61,7 @@ dependencies {
     // Room
     implementation "androidx.room:room-runtime:2.2.3"
     kapt "androidx.room:room-compiler:2.2.3"
-    kaptTest "androidx.ro   om:room-testing:2.2.3"
+    kaptTest "androidx.room:room-testing:2.2.3"
 
     // Lifecycle
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
