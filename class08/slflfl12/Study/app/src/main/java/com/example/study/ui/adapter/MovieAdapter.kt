@@ -4,23 +4,25 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.study.R
 import com.example.study.data.model.Movie
-import kotlinx.android.synthetic.main.movie_item.view.*
+import com.example.study.databinding.MovieItemBinding
 
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
+    private lateinit var binding:MovieItemBinding
     private val movies = mutableListOf<Movie>()
-    private var onItemClickListener: OnItemClickListener? = null
+    private var itemClickListener: ItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
-        val holder = MovieViewHolder(view)
+        binding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.movie_item, parent, false)
+        val holder = MovieViewHolder(binding.root)
         holder.itemView.setOnClickListener {
-            onItemClickListener?.onItemClickListener(movies[holder.adapterPosition])
+            itemClickListener?.onItemClick(movies[holder.adapterPosition])
         }
 
         return holder
@@ -32,9 +34,9 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     }
 
     fun setOnItemClickListener(listener: (Movie) -> Unit) {
-        onItemClickListener = object :
-            OnItemClickListener {
-            override fun onItemClickListener(movie: Movie) {
+        itemClickListener = object :
+            ItemClickListener {
+            override fun onItemClick(movie: Movie) {
                 listener(movie)
             }
         }
@@ -48,23 +50,14 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     override fun getItemCount() = movies.size
 
-    class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(movie: Movie) {
-            with(itemView) {
-                Glide.with(context)
-                    .load(movie.image)
-                    .into(iv_movie_image)
-                tv_title.text = movie.title
-                rb_movie_rating.rating = movie.userRating.toFloat() / 2
-                tv_pubdate.text = movie.pubDate
-                tv_director.text = movie.director
-                tv_actor.text = movie.actor
-            }
+            binding.movie = movie
         }
     }
 
-    interface OnItemClickListener {
-        fun onItemClickListener(movie: Movie)
+    interface ItemClickListener {
+        fun onItemClick(movie: Movie)
     }
 }
 
