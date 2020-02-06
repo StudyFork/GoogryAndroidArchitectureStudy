@@ -9,7 +9,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
 @BindingAdapter("loadUrl")
-fun ImageView.loadUrl(url:String) {
+fun ImageView.loadUrl(url: String) {
     Glide.with(context)
         .load(url)
         .into(this)
@@ -23,8 +23,9 @@ fun bindRating(ratingBar: RatingBar, rating: String) {
 @BindingAdapter("setTitle")
 fun TextView.setTitle(movieTitle: String) {
     if (Build.VERSION.SDK_INT >= 24) {
-        Html.fromHtml(movieTitle, Build.VERSION.SDK_INT).toString() // for 24 api and more
+        this.text =
+            Html.fromHtml(movieTitle, Build.VERSION.SDK_INT).toString() // for 24 api and more
     } else {
-        Html.fromHtml(movieTitle).toString() // or for older api
+        this.text = Html.fromHtml(movieTitle).toString() // or for older api
     }
 }
