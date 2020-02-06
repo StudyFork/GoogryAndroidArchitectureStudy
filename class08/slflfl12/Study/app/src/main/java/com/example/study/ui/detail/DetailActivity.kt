@@ -4,26 +4,28 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.study.R
+import com.example.study.databinding.ActivityDetailBinding
 
-import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity(), DetailContract.View {
 
+    private lateinit var binding: ActivityDetailBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
+        binding = ActivityDetailBinding.inflate(layoutInflater, null, false)
+        setContentView(binding.root)
 
         var intent = getIntent()
         var movieUrl = intent.getStringExtra(MOVIE_URL)
 
-        wv_detail.settings.javaScriptEnabled
+        binding.wvDetail.settings.javaScriptEnabled
         movieUrl?.let {
             showDetailView(movieUrl)
         }
     }
 
     override fun showDetailView(movieUrl: String) {
-        wv_detail.loadUrl(movieUrl)
+        binding.wvDetail.loadUrl(movieUrl)
     }
 
     companion object {
