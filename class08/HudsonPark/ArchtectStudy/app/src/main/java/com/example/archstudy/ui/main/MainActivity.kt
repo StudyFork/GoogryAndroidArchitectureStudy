@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
 
     override fun showDataList(dataList: MutableList<MovieData>) {
         rvMovieAdapter.setAllData(dataList)
-        insertLocalData(query, dataList)
     }
 
     override fun initPresenter() {
@@ -98,10 +97,6 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
         Log.d("init", "requestLocalData()")
         val localQuery = presenter.getLocalQuery()
         presenter.getLocalData(localQuery)
-    }
-
-    private fun insertLocalData(query: String, data: MutableList<MovieData>) {
-        presenter.insertData(query, data)
     }
 
 

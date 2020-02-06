@@ -21,7 +21,6 @@ class MainPresenter(
 
     override fun bindView(view: MainInterface.View) {
         this.mView = view
-
     }
 
     override fun unBindView() {
@@ -31,12 +30,15 @@ class MainPresenter(
     override fun getRemoteDataByQuery(query: String?) {
 
         if (query.isNullOrEmpty()) {
+            mView?.showErrorMessage(Throwable("검색어에 문제가 있습니다. 다시 입력해주세요."))
             return
         }
 
         naverQueryRepositoryImpl.requestRemoteData(query, successCallback = {
             // Remote Data 요청이 성공했을 경우 MainActivity에 데이터 전달
             mView?.showDataList(it)
+            // Local DB에 쿼리와 데이터 저장
+            insertData(query,it)
 
         }, failCallback = {
             // Remote Data 요청이 실패했을 경우 에러 메시지 출력
