@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -13,11 +14,13 @@ import com.example.study.data.repository.NaverSearchRepositoryImpl
 import com.example.study.data.source.local.NaverSearchLocalDataSourceImpl
 import com.example.study.data.source.local.SearchResultDatabase
 import com.example.study.data.source.remote.NaverSearchRemoteDataSourceImpl
+import com.example.study.databinding.ActivityMainBinding
 import com.example.study.ui.adapter.MovieAdapter
 import com.example.study.ui.detail.DetailActivity
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
+    private lateinit var binding:ActivityMainBinding
     private val movieAdapter = MovieAdapter()
     private val presenter: MainContract.Presenter by lazy {
         MainPresenter(
@@ -30,15 +33,16 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater, null, false)
+        setContentView(binding.root)
 
-        rv_movie_list.adapter = movieAdapter
+        binding.rvMovieList.adapter = movieAdapter
 
-        btn_search.setOnClickListener {
-            if (et_movie_search.text.isNullOrEmpty()) {
+        binding.btnSearch.setOnClickListener {
+            if (binding.etMovieSearch.text.isNullOrEmpty()) {
                 showErrorQueryEmpty()
             } else {
-                getMovieList(et_movie_search.text.toString())
+                getMovieList(binding.etMovieSearch.text.toString())
             }
         }
         getRecentSearchResult()
@@ -64,11 +68,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun showProgress() {
-        pb_loading.visibility = View.VISIBLE
+        binding.pbLoading.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
-        pb_loading.visibility = View.GONE
+        binding.pbLoading.visibility = View.GONE
     }
 
     override fun showErrorQueryEmpty() {
@@ -81,7 +85,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun hideKeyboard() {
         (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).run {
-            hideSoftInputFromWindow(et_movie_search.windowToken, 0)
+            hideSoftInputFromWindow(binding.etMovieSearch.windowToken, 0)
         }
     }
 
