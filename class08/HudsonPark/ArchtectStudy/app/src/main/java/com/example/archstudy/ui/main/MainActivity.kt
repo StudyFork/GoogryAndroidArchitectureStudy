@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.archstudy.R
+import com.example.archstudy.data.source.local.AppDatabase
 import com.example.archstudy.data.source.local.MovieData
 
 class MainActivity : AppCompatActivity(), MainInterface.View {
@@ -38,18 +39,23 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
         showToast(msg)
     }
 
-    override fun showErrorMessage(errrorMessage: Throwable) {
-        showToast(errrorMessage.toString())
+    override fun showErrorMessage(error: Throwable) {
+        showToast(error.toString())
     }
 
     override fun showDataList(dataList: MutableList<MovieData>) {
         rvMovieAdapter.setAllData(dataList)
-        insertLocalData(query,dataList)
+        insertLocalData(query, dataList)
     }
 
     override fun initPresenter() {
-        presenter = MainPresenter(applicationContext)
-        presenter.bindView(this)
+        val localMovieDao = AppDatabase.getInstance(this)?.localMovieDao()
+        val searchWordDao = AppDatabase.getInstance(this)?.searchWordDao()
+
+        if (localMovieDao != null && searchWordDao != null) {
+            presenter = MainPresenter(localMovieDao, searchWordDao)
+            presenter.bindView(this)
+        }
     }
 
     private fun initData() {
@@ -95,7 +101,7 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
     }
 
     private fun insertLocalData(query: String, data: MutableList<MovieData>) {
-        presenter.insertData(query,data)
+        presenter.insertData(query, data)
     }
 
 

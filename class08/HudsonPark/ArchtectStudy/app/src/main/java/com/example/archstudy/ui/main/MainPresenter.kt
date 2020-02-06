@@ -1,21 +1,19 @@
 package com.example.archstudy.ui.main
 
-import android.content.Context
 import com.example.archstudy.data.repository.NaverQueryRepositoryImpl
-import com.example.archstudy.data.source.local.AppDatabase
-import com.example.archstudy.data.source.local.MovieData
-import com.example.archstudy.data.source.local.NaverQueryLocalDataSourceImpl
+import com.example.archstudy.data.source.local.*
 import com.example.archstudy.data.source.remote.NaverQueryRemoteDataSourceImpl
 
-class MainPresenter(mContext : Context?) : MainInterface.Presenter {
+class MainPresenter(
+    private val localMovieDao: MovieDataDao,
+    private val searchWordDao: SearchWordDao
+) : MainInterface.Presenter {
 
     private var mView: MainInterface.View? = null
     private var naverQueryRepositoryImpl: NaverQueryRepositoryImpl
 
     init {
 
-        val localMovieDao = AppDatabase.getInstance(mContext!!)?.localMovieDao()
-        val searchWordDao = AppDatabase.getInstance(mContext!!)?.searchWordDao()
         val localData = NaverQueryLocalDataSourceImpl(localMovieDao, searchWordDao)
         val remoteData = NaverQueryRemoteDataSourceImpl()
         naverQueryRepositoryImpl = NaverQueryRepositoryImpl(localData, remoteData)
@@ -69,6 +67,6 @@ class MainPresenter(mContext : Context?) : MainInterface.Presenter {
     }
 
     override fun insertData(query: String, data: MutableList<MovieData>) {
-        naverQueryRepositoryImpl.InsertLocalDataAsync(query,data).execute()
+        naverQueryRepositoryImpl.InsertLocalDataAsync(query, data).execute()
     }
 }
