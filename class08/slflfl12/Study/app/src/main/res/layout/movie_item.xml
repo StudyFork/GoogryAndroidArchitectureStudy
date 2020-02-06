@@ -18,6 +18,7 @@
             android:layout_height="160dp"
             android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher"
+            loadUrl="@{movie.image}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="@{movie.title}"
+                setTitle="@{movie.title}"
                 android:textSize="20dp"
                 app:layout_constraintStart_toEndOf="@id/iv_movie_image"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -47,6 +48,7 @@
                 android:isIndicator="false"
                 android:numStars="5"
                 android:stepSize="0.1"
+                bindRating="@{movie.userRating}"
                 app:layout_constraintStart_toEndOf="@id/iv_movie_image"
                 app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
