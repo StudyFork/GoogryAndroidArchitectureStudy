@@ -44,7 +44,9 @@ class NaverQueryRepositoryImpl(
                     }
                 }
             })
+
         }
+
     }
 
     override fun requestLocalData(
