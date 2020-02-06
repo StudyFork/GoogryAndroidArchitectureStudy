@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="@string/title"
+                android:text="@{movie.title}"
                 android:textSize="20dp"
                 app:layout_constraintStart_toEndOf="@id/iv_movie_image"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="@string/pub_date"
+                android:text="@{movie.pubDate}"
                 app:layout_constraintStart_toEndOf="@id/iv_movie_image"
                 app:layout_constraintTop_toBottomOf="@id/rb_movie_rating" />
 
@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="@string/director"
+                android:text="@{movie.director}"
                 app:layout_constraintStart_toEndOf="@id/iv_movie_image"
                 app:layout_constraintTop_toBottomOf="@id/tv_pubdate" />
 
@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="@string/actor"
+                android:text="@{movie.actor}"
                 app:layout_constraintStart_toEndOf="@id/iv_movie_image"
                 app:layout_constraintTop_toBottomOf="@id/tv_director" />
         </LinearLayout>
