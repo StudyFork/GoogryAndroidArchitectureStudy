@@ -1,5 +1,6 @@
 package com.studyfork.architecturestudy.base
 
+import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import androidx.annotation.LayoutRes
@@ -8,14 +9,17 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 
 abstract class BaseActivity<B : ViewDataBinding, P : BasePresenter>(
-    @LayoutRes layoutResId: Int
+    @LayoutRes private val layoutResId: Int
 ) : AppCompatActivity(), BaseContract.View {
+
+    protected lateinit var binding: B
 
     abstract val presenter: P
     abstract val progressBar: ProgressBar
 
-    protected val binding: B by lazy {
-        DataBindingUtil.setContentView<B>(this, layoutResId)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, layoutResId)
     }
 
     override fun onDestroy() {

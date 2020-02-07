@@ -56,7 +56,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(R.layout.a
     }
 
     fun onClick(view: View) {
-        when(view.id) {
+        when (view.id) {
             R.id.btn_search -> {
                 currentFocus?.hideKeyboard()
                 presenter.getMovieList(binding.editMovieSearch.text.toString())
