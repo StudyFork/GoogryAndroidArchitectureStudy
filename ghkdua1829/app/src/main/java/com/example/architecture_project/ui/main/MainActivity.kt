@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.architecture_project.R
 import com.example.architecture_project.`object`.ObjectCollection.URL
+import com.example.architecture_project.data.model.Movie
 import com.example.architecture_project.databinding.ActivityMainBinding
 import com.example.architecture_project.feature.movie.MovieAdapter
 import com.example.architecture_project.feature.search.WebviewActivity
@@ -67,6 +68,11 @@ class MainActivity : AppCompatActivity() {
 
         vm.hasWrongChar.observe(this, Observer<Boolean> { showNotAvailableKeyword() })
         vm.movieDataNum.observe(this, Observer<Int> { showDataNum(vm.movieDataNum.value!!) })
+        vm.movieData.observe(this, Observer<List<Movie>> {
+            if (it.isNotEmpty()) {
+                movieAdapter.setMovieItemList(it)
+            }
+        })
 
     }
 }
