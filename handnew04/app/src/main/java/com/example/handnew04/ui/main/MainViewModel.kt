@@ -8,13 +8,13 @@ import com.example.handnew04.data.MovieRepository
 import com.example.handnew04.network.NetworkManager
 
 class MainViewModel(val networkManager: NetworkManager) : ViewModel() {
-    var movieData = MutableLiveData<List<MovieData>>()
-    var isLoading = MutableLiveData<Boolean>()
-    var isNetworkRunning = MutableLiveData<Boolean>()
-    var isInputTextLengthZero = MutableLiveData<Boolean>()
-    var isEmptyResult = MutableLiveData<Boolean>()
-    var failMessage = MutableLiveData<String>()
-    var inputText = MutableLiveData<String>()
+    val movieData = MutableLiveData<List<MovieData>>()
+    val isLoading = MutableLiveData<Boolean>()
+    val isNetworkRunning = MutableLiveData<Boolean>()
+    val isInputTextLengthZero = MutableLiveData<Boolean>()
+    val isEmptyResult = MutableLiveData<Boolean>()
+    val failMessage = MutableLiveData<String>()
+    val inputText = MutableLiveData<String>()
 
     fun serchMovie() {
         isLoading.value = true

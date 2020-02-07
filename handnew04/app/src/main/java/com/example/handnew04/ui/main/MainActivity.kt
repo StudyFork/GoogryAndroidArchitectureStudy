@@ -59,6 +59,7 @@ class MainActivity : AppCompatActivity() {
     private fun initBinding() {
         binding.activity = this@MainActivity
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this@MainActivity
     }
 
     private fun initObserveCallBack() {
@@ -77,10 +78,6 @@ class MainActivity : AppCompatActivity() {
 
             failMessage.observe(this@MainActivity, Observer {
                 showFailSearchMovie(failMessage.toString())
-            })
-
-            movieData.observe(this@MainActivity, Observer {
-                recyclerAdapter.setItemList(it as ArrayList<MovieData>)
             })
         }
     }
