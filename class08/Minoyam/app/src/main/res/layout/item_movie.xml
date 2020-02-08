@@ -1,60 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/layout_background"
-    android:orientation="horizontal">
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/iv_movie_image"
-        android:layout_width="80dp"
-        android:layout_height="120dp"
-        android:layout_margin="10dp"
-        tools:src="@mipmap/ic_launcher" />
+    <data>
+        <variable
+            name="items"
+            type="com.cnm.homework.data.model.NaverResponse.Item" />
+    </data>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@drawable/layout_background"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_movie_title"
+        <ImageView
+            android:id="@+id/iv_movie_image"
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_margin="10dp"
+            bind:bindImage="@{items.image}"
+            tools:src="@mipmap/ic_launcher" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            tools:text="엑스맨: 다크 피닉스" />
+            android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatRatingBar
-            android:id="@+id/rb_movie_rating"
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            tools:rating="4.5" />
+            <TextView
+                android:id="@+id/tv_movie_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="@{items.title}"
+                tools:text="엑스맨: 다크 피닉스" />
 
-        <TextView
-            android:id="@+id/tv_movie_pub_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            tools:text="2019" />
+            <androidx.appcompat.widget.AppCompatRatingBar
+                android:id="@+id/rb_movie_rating"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                bind:bindRating="@{items.userRating}"
+                tools:rating="4.5" />
 
-        <TextView
-            android:id="@+id/tv_movie_director"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            tools:text="사이먼 킨버그|" />
+            <TextView
+                android:id="@+id/tv_movie_pub_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="@{items.pubDate}"
+                tools:text="2019" />
 
-        <TextView
-            android:id="@+id/tv_movie_actor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            tools:text="소피 터너|제니퍼 로렌스|제임스 맥어보이|타이 쉐리던|마이클 패스벤더|니콜라스 홀트|코디 스밋맥피|알렉산드라 쉽|제시카 차스테인|올리비아 문|로즈 번" />
+            <TextView
+                android:id="@+id/tv_movie_director"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="@{items.director}"
+                tools:text="사이먼 킨버그|" />
+
+            <TextView
+                android:id="@+id/tv_movie_actor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="@{items.actor}"
+                tools:text="소피 터너|제니퍼 로렌스|제임스 맥어보이|타이 쉐리던|마이클 패스벤더|니콜라스 홀트|코디 스밋맥피|알렉산드라 쉽|제시카 차스테인|올리비아 문|로즈 번" />
+        </LinearLayout>
+
     </LinearLayout>
-
-</LinearLayout>
+</layout>

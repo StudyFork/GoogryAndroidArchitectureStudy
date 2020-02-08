@@ -1,6 +1,5 @@
 package com.cnm.homework.ui
 
-import android.content.Context
 import com.cnm.homework.data.model.NaverResponse
 
 interface MainContract {

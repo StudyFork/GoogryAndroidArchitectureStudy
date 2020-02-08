@@ -1,19 +1,18 @@
 package com.cnm.homework.ui
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.cnm.homework.R
+import com.cnm.homework.adapter.MovieAdapter
 import com.cnm.homework.data.model.NaverResponse
 import com.cnm.homework.data.source.local.db.LocalDao
 import com.cnm.homework.data.source.local.db.LocalDatabase
-import kotlinx.android.synthetic.main.activity_main.*
+import com.cnm.homework.databinding.ActivityMainBinding
+import com.cnm.homework.extension.hideKeyboard
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
@@ -29,12 +28,14 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             localDao
         )
     }
-
+    private val binding by lazy {
+        DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        rv_content.adapter = movieAdapter
+        binding.rvContent.adapter = movieAdapter
+        binding.activity = this@MainActivity
 
         if (movieAdapter.movieItems.isEmpty()) {
             val r = Runnable { beforeMovieListSearch() }
@@ -42,19 +43,12 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             thread.start()
         }
 
-        bt_movie_search.setOnClickListener {
-            et_movie_search.hideKeyboard()
-            val query = et_movie_search.text.toString()
-            presenter.movieListSearch(query)
-        }
-        et_movie_search.setOnEditorActionListener { _, i, _ ->
-            when (i) {
-                EditorInfo.IME_ACTION_SEARCH -> {
-                    bt_movie_search.performClick()
-                }
-            }
-            true
-        }
+    }
+
+    fun buttonClick() {
+        binding.etMovieSearch.hideKeyboard()
+        val query = binding.etMovieSearch.text.toString()
+        presenter.movieListSearch(query)
     }
 
     override fun onDestroy() {
@@ -76,25 +70,29 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun setItem(items: List<NaverResponse.Item>) {
         movieAdapter.setItem(items)
-        rv_content.scrollToPosition(0)
+        binding.rvContent.scrollToPosition(0)
     }
 
     override fun showProgress() {
-        pb_loading.visibility = View.VISIBLE
+        binding.isPbVisible = true
     }
 
     override fun hideProgress() {
-        pb_loading.visibility = View.GONE
+        binding.isPbVisible = false
     }
 
     override fun showEmptyLayout() {
-        rv_content.visibility = View.GONE
-        fl_empty.visibility = View.VISIBLE
+        with(binding) {
+            isRvVisible = false
+            isFlVisible = true
+        }
     }
 
     override fun hideEmptyLayout() {
-        rv_content.visibility = View.VISIBLE
-        fl_empty.visibility = View.GONE
+        with(binding) {
+            isRvVisible = true
+            isFlVisible = false
+        }
     }
 
     override fun showErrorEmptyResult() =
@@ -102,10 +100,5 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun showErrorEmptyQuery() =
         Toast.makeText(this, "제목을 입력해주세요", Toast.LENGTH_SHORT).show()
-
-    private fun View.hideKeyboard() {
-        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(windowToken, 0)
-    }
 
 }
