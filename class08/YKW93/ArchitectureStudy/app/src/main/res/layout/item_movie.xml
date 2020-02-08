@@ -1,67 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:padding="10dp">
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-            android:id="@+id/iv_movie_image"
-            android:layout_width="80dp"
-            android:layout_height="110dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@mipmap/ic_launcher"/>
+    <data>
 
-    <LinearLayout
-            android:layout_width="0dp"
+        <variable
+                name="movie"
+                type="com.studyfork.architecturestudy.data.model.MovieResponse.Item" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/iv_movie_image"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:background="?attr/selectableItemBackground"
+            android:padding="10dp">
 
-        <TextView
-                android:id="@+id/tv_movie_name"
-                android:layout_width="wrap_content"
+        <ImageView
+                android:id="@+id/iv_movie_image"
+                android:layout_width="80dp"
+                android:layout_height="110dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                bind:imageUrl="@{movie.image}"
+                tools:src="@mipmap/ic_launcher" />
+
+        <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                tools:text="엑스맨"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_movie_image"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatRatingBar
-                android:id="@+id/rb_movie_rating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="?android:attr/ratingBarStyleSmall"
-                android:numStars="5"
-                android:stepSize="1"
-                android:isIndicator="true"
-                tools:rating="3"/>
+            <TextView
+                    android:id="@+id/tv_movie_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    bind:htmlText="@{movie.title}"
+                    tools:text="엑스맨" />
 
-        <TextView
-                android:id="@+id/tv_movie_publish_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="2019"/>
+            <androidx.appcompat.widget.AppCompatRatingBar
+                    android:id="@+id/rb_movie_rating"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:rating="@{movie.userRating / 2f}"
+                    android:stepSize="1"
+                    tools:rating="3" />
 
-        <TextView
-                android:id="@+id/tv_movie_director"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="사이먼 킨버그|"/>
+            <TextView
+                    android:id="@+id/tv_movie_publish_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{movie.pubDate}"
+                    tools:text="2019" />
 
-        <TextView
-                android:id="@+id/tv_movie_actor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="왕카이|장로일|임심여|"/>
+            <TextView
+                    android:id="@+id/tv_movie_director"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{movie.director}"
+                    tools:text="사이먼 킨버그|" />
 
-    </LinearLayout>
+            <TextView
+                    android:id="@+id/tv_movie_actor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{movie.actor}"
+                    tools:text="왕카이|장로일|임심여|" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
