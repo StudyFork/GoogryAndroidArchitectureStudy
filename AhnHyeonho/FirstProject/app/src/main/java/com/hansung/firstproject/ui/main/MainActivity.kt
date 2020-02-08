@@ -110,13 +110,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun initObserveCallback() {
         with(viewModel) {
-            movieData.run {
-                observe(this@MainActivity, Observer {
-                    movieItemAdapter.addItems(it)
-                    movieItemAdapter.notifyDataSetChanged()
-                })
-            }
-
             showError.run {
                 observe(this@MainActivity, Observer {
                     showErrorByErrorMessage(it.toString())
