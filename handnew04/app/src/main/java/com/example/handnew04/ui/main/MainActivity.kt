@@ -5,9 +5,12 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.handnew04.R
 import com.example.handnew04.adapter.MovieRecyclerAdapter
+import com.example.handnew04.data.MovieData
 import com.example.handnew04.databinding.ActivityMainBinding
 import com.example.handnew04.network.NetworkManager
 import com.example.handnew04.ui.movie.MovieDetailActivity
@@ -17,7 +20,14 @@ class MainActivity : AppCompatActivity() {
     lateinit var recyclerAdapter: MovieRecyclerAdapter
     lateinit var binding: ActivityMainBinding
 
-    val viewModel: MainViewModel by lazy { MainViewModel(NetworkManager(this@MainActivity.application)) }
+    //val viewModel: MainViewModel by lazy { MainViewModel(NetworkManager(this@MainActivity.application)) }
+    val viewModel by lazy {
+        ViewModelProvider(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MainViewModel(NetworkManager(this@MainActivity.application)) as T
+            }
+        })[MainViewModel::class.java]
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,36 +59,25 @@ class MainActivity : AppCompatActivity() {
     private fun initBinding() {
         binding.activity = this@MainActivity
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this@MainActivity
     }
 
     private fun initObserveCallBack() {
         with(viewModel) {
-            isEmptyResult.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    showEmptyResult()
-                }
-
+            isEmptyResult.observe(this@MainActivity, Observer {
+                showEmptyResult()
             })
-            isNetworkRunning.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    showNotConnectedNetwork()
-                }
-            })
-            isInputTextLengthZero.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    showInputLengthZero()
-                }
 
+            isNetworkRunning.observe(this@MainActivity, Observer {
+                showNotConnectedNetwork()
             })
-            failMessage.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    showFailSearchMovie(failMessage.toString())
-                }
 
+            isInputTextLengthZero.observe(this@MainActivity, Observer {
+                showInputLengthZero()
+            })
+
+            failMessage.observe(this@MainActivity, Observer {
+                showFailSearchMovie(failMessage.toString())
             })
         }
     }
