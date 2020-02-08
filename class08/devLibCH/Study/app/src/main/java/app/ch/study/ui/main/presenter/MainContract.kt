@@ -12,6 +12,6 @@ interface MainContract {
     }
 
     interface Presenter : BaseContract.Presenter {
-        fun searchMovie(name: String)
+        fun searchMovie()
     }
 }

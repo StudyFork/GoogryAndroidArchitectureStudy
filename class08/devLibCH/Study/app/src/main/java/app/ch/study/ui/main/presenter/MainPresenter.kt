@@ -1,5 +1,6 @@
 package app.ch.study.ui.main.presenter
 
+import androidx.databinding.ObservableField
 import app.ch.study.core.BasePresenter
 import app.ch.study.data.local.LocalDataManager
 import app.ch.study.data.local.source.NaverQueryLocalDataSourceImpl
@@ -16,15 +17,23 @@ class MainPresenter(
     private val remote = NaverQueryRemoteDataSourceImpl(WebApiTask.getInstance())
     private var repository = NaverQueryRepositoryImpl(local, remote)
 
-    override fun searchMovie(name: String) {
+    var query = ObservableField<String>()
+    var isVisible = ObservableField<Boolean>()
+
+    init {
+        query.set(localDataManager.getQuery())
+        searchMovie()
+    }
+
+    override fun searchMovie() {
+        val name = query.get()?:""
+
         if (name.isEmpty()) {
             view.showEmptyResult()
             return
         }
 
-        val search = repository.searchMovie(name)
-
-        search
+        repository.searchMovie(name)
             .doOnSubscribe {
                 view.showLoading()
             }
@@ -35,10 +44,12 @@ class MainPresenter(
                 val list = response.items
 
                 if (list.isEmpty()) {
+                    isVisible.set(true)
                     view.showEmptyResult()
                     return@subscribe
                 }
 
+                isVisible.set(false)
                 view.showMovieList(list)
             }, {
                 val error = handleError(it)
