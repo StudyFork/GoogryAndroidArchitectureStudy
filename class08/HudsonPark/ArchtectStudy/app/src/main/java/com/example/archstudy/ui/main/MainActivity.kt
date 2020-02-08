@@ -54,10 +54,7 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
 
 
         if (localMovieDao != null && searchWordDao != null) {
-
-            presenter = MainPresenter(localMovieDao, searchWordDao)
-            presenter.bindView(this)
-
+            presenter = MainPresenter(this,localMovieDao, searchWordDao)
         }
     }
 
