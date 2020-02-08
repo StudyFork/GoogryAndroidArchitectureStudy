@@ -7,7 +7,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.onit.googlearchitecturestudy.R
 import com.onit.googlearchitecturestudy.databinding.ActivityMainBinding
 import com.onit.googlearchitecturestudy.ui.movieInformation.MovieInformationActivity
@@ -20,14 +22,19 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var resultMovieListRecyclerAdapter: ResultMovieListRecyclerAdapter
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: MainViewModel by lazy { MainViewModel() }
+    lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        viewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MainViewModel() as T
+            }
+        })[MainViewModel::class.java]
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)!!
         binding.viewModel = viewModel
-
+        binding.lifecycleOwner = this
         init()
     }
 
@@ -55,18 +62,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun setViewModelCallback() {
         with(viewModel) {
-            toastMessage.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    showToastMessage(toastMessage.get() ?: "", Toast.LENGTH_SHORT)
-                }
+            toastMessage.observe(this@MainActivity, Observer {
+                showToastMessage(toastMessage.value ?: "", Toast.LENGTH_SHORT)
             })
 
-            hideKeyBoard.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    hideKeyBoard()
-                }
+            hideKeyBoard.observe(this@MainActivity, Observer {
+                hideKeyBoard()
             })
         }
     }
