@@ -61,6 +61,11 @@ class KinFragment : Fragment(), KinContract.View {
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        presenter.onStop()
+    }
+
     override fun showErrorMessage(message: String) {
         Toast.makeText(this.activity, message, Toast.LENGTH_SHORT).show()
     }

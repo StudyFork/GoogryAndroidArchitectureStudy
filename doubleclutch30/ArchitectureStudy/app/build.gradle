@@ -38,13 +38,20 @@ dependencies {
     implementation "androidx.room:room-ktx:2.2.3"
     kapt "androidx.room:room-compiler:2.2.3"
 
+    // retrofit
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.2'
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
+    //glide
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+
+    // rxjava
+    implementation "io.reactivex.rxjava2:rxjava:2.2.17"
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.2'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

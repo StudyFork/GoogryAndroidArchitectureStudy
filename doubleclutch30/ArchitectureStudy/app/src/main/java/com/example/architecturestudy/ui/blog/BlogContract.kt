@@ -13,5 +13,6 @@ interface BlogContract {
     interface Presenter {
         fun taskSearch(isNetWork: Boolean, keyword : String)
         fun getLastData()
+        fun onStop()
     }
 }

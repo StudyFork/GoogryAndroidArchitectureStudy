@@ -51,17 +51,17 @@ class MovieFragment : Fragment(), MovieContract.View {
         btn_search.setOnClickListener {
             if (input_text != null) {
                 val edit = edit_text.text.toString()
-
-                val isConnect = isOnline()
-
-                Log.e("isConnected", "$isConnect")
-
                 presenter.taskSearch(
                         isNetwork = isOnline(),
                         keyword = edit
                     )
             }
         }
+    }
+
+    override fun onStop() {
+        presenter.onStop()
+        super.onStop()
     }
 
     override fun showErrorMessage(message: String) {

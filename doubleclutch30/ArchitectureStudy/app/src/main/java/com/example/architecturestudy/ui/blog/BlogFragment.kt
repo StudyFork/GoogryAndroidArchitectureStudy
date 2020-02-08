@@ -61,6 +61,11 @@ class BlogFragment : Fragment(), BlogContract.View {
         }
     }
 
+    override fun onStop() {
+        presenter.onStop()
+        super.onStop()
+    }
+
     override fun showErrorMessage(message: String) {
         Toast.makeText(this.activity, message, Toast.LENGTH_SHORT).show()
     }
