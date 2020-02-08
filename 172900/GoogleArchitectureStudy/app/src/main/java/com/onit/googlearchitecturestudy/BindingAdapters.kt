@@ -6,9 +6,7 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.onit.googlearchitecturestudy.ui.main.ResultMovieListRecyclerAdapter
 
 object BindingAdapters {
 
@@ -34,14 +32,6 @@ object BindingAdapters {
     @BindingAdapter("setTagRemovedText")
     fun setTagRemovedText(textView: TextView, text: String) {
         textView.text = text.removeTag()
-    }
-
-    @JvmStatic
-    @BindingAdapter("setItem")
-    fun RecyclerView.setItem(item: List<Movie>?) {
-        if (adapter is ResultMovieListRecyclerAdapter && item != null) {
-            (adapter as ResultMovieListRecyclerAdapter).setMovieList(item)
-        }
     }
 
     private fun String.removeTag(): String {
