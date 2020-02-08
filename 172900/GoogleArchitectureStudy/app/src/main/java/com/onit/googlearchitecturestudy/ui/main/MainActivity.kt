@@ -3,12 +3,13 @@ package com.onit.googlearchitecturestudy.ui.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.onit.googlearchitecturestudy.Movie
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.onit.googlearchitecturestudy.R
 import com.onit.googlearchitecturestudy.databinding.ActivityMainBinding
 import com.onit.googlearchitecturestudy.ui.movieInformation.MovieInformationActivity
@@ -17,22 +18,27 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 typealias ClickMovieListener = (Int) -> Unit
 
-class MainActivity : AppCompatActivity(), MainContract.View {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var resultMovieListRecyclerAdapter: ResultMovieListRecyclerAdapter
-    private lateinit var presenter: MainContract.Presenter
     private lateinit var binding: ActivityMainBinding
+    lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        viewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MainViewModel() as T
+            }
+        })[MainViewModel::class.java]
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)!!
-        presenter = MainPresenter(this)
-        binding.presenter = presenter
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         init()
     }
 
-    override fun hideKeyBoard() {
+    fun hideKeyBoard() {
         val view = this.currentFocus
         view?.let { v ->
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
@@ -40,29 +46,30 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         }
     }
 
-    override fun showLoadingProgressBar() {
-        loadingProgressBar.visibility = View.VISIBLE
-    }
-
-    override fun hideLoadingProgressBar() {
-        loadingProgressBar.visibility = View.GONE
-    }
-
-    override fun showToastMessage(message: String, option: Int) {
+    fun showToastMessage(message: String, option: Int) {
         Toast.makeText(applicationContext, message, option).show()
-    }
-
-    override fun setMovieList(movieList: List<Movie>) {
-        resultMovieListRecyclerAdapter.setMovieList(movieList)
     }
 
     private fun init() {
         setRecyclerView()
+        setViewModelCallback()
     }
 
     private fun setRecyclerView() {
         resultMovieListRecyclerAdapter = ResultMovieListRecyclerAdapter(clickMovieListener)
         resultMovieListRecyclerView.adapter = resultMovieListRecyclerAdapter
+    }
+
+    private fun setViewModelCallback() {
+        with(viewModel) {
+            toastMessage.observe(this@MainActivity, Observer {
+                showToastMessage(toastMessage.value ?: "", Toast.LENGTH_SHORT)
+            })
+
+            hideKeyBoard.observe(this@MainActivity, Observer {
+                hideKeyBoard()
+            })
+        }
     }
 
     private val clickMovieListener: ClickMovieListener = { position ->

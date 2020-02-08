@@ -4,13 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="presenter"
-            type="com.onit.googlearchitecturestudy.ui.main.MainContract.Presenter"/>
+        <import type="android.view.View" />
 
         <variable
-            name="searchString"
-            type="String"/>
+            name="viewModel"
+            type="com.onit.googlearchitecturestudy.ui.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="3dp"
-            android:visibility="gone"
+            android:visibility="@{viewModel.isLoading() ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +35,7 @@
             app:layout_constraintEnd_toStartOf="@id/searchButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@={searchString}"/>
+            android:text="@={viewModel.searchString}"/>
 
         <Button
             android:id="@+id/searchButton"
@@ -46,7 +44,7 @@
             android:text="검색"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{() -> presenter.searchMovies(searchString)}"/>
+            android:onClick="@{() -> viewModel.searchMovies()}"/>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -59,6 +57,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/resultMovieListRecyclerView"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:setItem="@{viewModel.movieList}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
