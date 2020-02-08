@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,24 +25,26 @@ class MainActivity : AppCompatActivity() {
 
     private var movieItemAdapter: MovieItemAdapter = MovieItemAdapter()
     private lateinit var binding: ActivityMainBinding
-
-    private val viewModel: MainViewModel by lazy {
-        MainViewModel(
-            NaverRepository.getInstance(
-                NaverRemoteDataSourceImpl.getInstance(
-                    Pair<String, String>(
-                        getString(R.string.client_id),
-                        getString(R.string.client_secret)
-                    )
-                )
-            )
-        )
-    }
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        viewModel = ViewModelProviders.of(
+            this@MainActivity,
+            MainViewModelFactory(
+                NaverRepository.getInstance(
+                    NaverRemoteDataSourceImpl.getInstance(
+                        Pair<String, String>(
+                            getString(R.string.client_id),
+                            getString(R.string.client_secret)
+                        )
+                    )
+                )
+            )
+        )[MainViewModel::class.java]
 
         with(binding) {
             vm = viewModel
