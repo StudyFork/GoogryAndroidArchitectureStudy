@@ -25,7 +25,7 @@ class MainViewModel(private val localDao: LocalDao) {
     val toastString = ObservableField<String>()
     val isKeyboardBoolean = ObservableField<Boolean>()
     val isProgressBoolean = ObservableField<Boolean>()
-    val isRvBoolean = ObservableField<Boolean>()
+    val isRvBoolean = ObservableField<Boolean>(true)
     val isFlBoolean = ObservableField<Boolean>()
 
 
@@ -70,4 +70,6 @@ class MainViewModel(private val localDao: LocalDao) {
     fun disposableClear() = disposable.clear()
 
     fun showKeyboard() = isKeyboardBoolean.set(true)
+
+    fun loadMovieList(): List<NaverResponse.Item> = naverQueryRepositoryImpl.loadLocal()
 }

@@ -16,7 +16,7 @@ import com.cnm.homework.databinding.ActivityMainBinding
 import com.cnm.homework.extension.hideKeyboard
 
 class MainActivity : AppCompatActivity() {
-    //fun loadMovieList(): List<NaverResponse.Item> = naverQueryRepositoryImpl.loadLocal()
+
     private val movieAdapter = MovieAdapter(::showMovieDetail)
     private val localDao: LocalDao by lazy {
         val db = LocalDatabase.getInstance(this)!!
@@ -29,14 +29,26 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initActivity()
+        changedCallback()
+    }
+
+    override fun onDestroy() {
+        vm.disposableClear()
+        super.onDestroy()
+    }
+
+    private fun initActivity() {
         binding.rvContent.adapter = movieAdapter
         binding.vm = vm
+        if (movieAdapter.movieItems.isEmpty()) {
+            val r = Runnable { beforeMovieListSearch() }
+            val thread = Thread(r)
+            thread.start()
+        }
+    }
 
-//        if (movieAdapter.movieItems.isEmpty()) {
-//            val r = Runnable { beforeMovieListSearch() }
-//            val thread = Thread(r)
-//            thread.start()
-//        }
+    private fun changedCallback() {
         vm.isKeyboardBoolean.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
@@ -50,20 +62,16 @@ class MainActivity : AppCompatActivity() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 vm.toastString.get()?.let { showToast(it) }
             }
-        }
-        )
-    }
-    override fun onDestroy() {
-        vm.disposableClear()
-        super.onDestroy()
+        })
     }
 
-//    private fun beforeMovieListSearch() {
-//        val repoItem = presenter.loadMovieList()
-//        runOnUiThread {
-//            movieAdapter.setItem(repoItem)
-//        }
-//    }
+    private fun beforeMovieListSearch() {
+        val repoItem = vm.loadMovieList()
+        runOnUiThread {
+            vm.movieItems.clear()
+            vm.movieItems.addAll(repoItem)
+        }
+    }
 
     private fun showMovieDetail(item: NaverResponse.Item) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
