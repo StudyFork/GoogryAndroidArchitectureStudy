@@ -8,12 +8,12 @@ import android.widget.Toast
 import androidx.databinding.Observable
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.studyfork.architecturestudy.R
-import com.studyfork.architecturestudy.base.BaseActivityV2
+import com.studyfork.architecturestudy.base.BaseActivity
 import com.studyfork.architecturestudy.databinding.ActivityMainBinding
 import com.studyfork.architecturestudy.extension.hideKeyboard
 import com.studyfork.architecturestudy.ui.adapter.MovieResultRVAdapter
 
-class MainActivity : BaseActivityV2<ActivityMainBinding, MainViewModel>(R.layout.activity_main) {
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.activity_main) {
 
     private val movieResultRVAdapter: MovieResultRVAdapter by lazy {
         MovieResultRVAdapter {
