@@ -68,8 +68,7 @@ class MainActivity : AppCompatActivity() {
     private fun beforeMovieListSearch() {
         val repoItem = vm.loadMovieList()
         runOnUiThread {
-            vm.movieItems.clear()
-            vm.movieItems.addAll(repoItem)
+            vm.setItems(repoItem)
         }
     }
 

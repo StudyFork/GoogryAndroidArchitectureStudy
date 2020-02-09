@@ -43,8 +43,7 @@ class MainViewModel(private val localDao: LocalDao) {
                 }
                 .subscribe({
                     if (it.total != 0) {
-                        movieItems.clear()
-                        movieItems.addAll(it.items)
+                        setItems(it.items)
                         hideEmptyLayout()
                     }
                 }, {
@@ -65,6 +64,11 @@ class MainViewModel(private val localDao: LocalDao) {
     private fun hideEmptyLayout() {
         isFlBoolean.set(false)
         isRvBoolean.set(true)
+    }
+
+    fun setItems(it: List<NaverResponse.Item>) {
+        movieItems.clear()
+        movieItems.addAll(it)
     }
 
     fun disposableClear() = disposable.clear()
