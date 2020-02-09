@@ -4,46 +4,47 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
-import androidx.databinding.Observable
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.siwon.prj.R
 import com.siwon.prj.common.adapter.MovieAdapter
 import com.siwon.prj.common.base.BaseActivity
+import com.siwon.prj.common.extension.setMovieResult
 import com.siwon.prj.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    // viewmodel적용
-    private val vm: MainViewmodel by lazy { MainViewmodel() }
+    lateinit var vm: MainViewmodel
 
     lateinit var adapter: MovieAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        vm = ViewModelProvider(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MainViewmodel() as T
+            }
+        })[MainViewmodel::class.java]
         binding.vm = vm
         adapter = MovieAdapter { link: String ->
             itemClick(link)
         }
         movieListRv.adapter = adapter
 
-        vm.isKeyboardVisible.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                vm.isKeyboardVisible.get()?.let { isVisible ->
-                    if (!isVisible) hideKeyboard()
-                }
-            }
+        vm.isKeyboardVisible.observe(this, Observer { isVisible ->
+            if (!isVisible) hideKeyboard()
         })
-        vm.toastMsg.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                vm.toastMsg.get()?.let { showToast(it) }
-            }
+        vm.toastMsg.observe(this, Observer {
+            showToast(it)
         })
-
+        vm.searchResult.observe(this, Observer {
+            binding.movieListRv.setMovieResult(it)
+        })
         binding.editTextInput.setOnClickListener {
-            vm.isKeyboardVisible.set(true)
+            vm.isKeyboardVisible.value = true
         }
     }
 
