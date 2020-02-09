@@ -9,20 +9,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="activity"
-            type="com.cnm.homework.ui.MainActivity" />
-
-        <variable
-            name="isPbVisible"
-            type="Boolean" />
-
-        <variable
-            name="isFlVisible"
-            type="Boolean" />
-
-        <variable
-            name="isRvVisible"
-            type="Boolean" />
+            name="vm"
+            type="com.cnm.homework.ui.MainViewModel" />
     </data>
 
     <LinearLayout
@@ -43,14 +31,16 @@
                 android:layout_weight="1"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
-                bind:bindOnEditorActionListener="@{activity::buttonClick}" />
+                android:text="@={vm.searchString}"
+                android:onClick="@{() -> vm.showKeyboard()}"
+                bind:bindOnEditorActionListener="@{() -> vm.movieListSearch()}" />
 
             <Button
                 android:id="@+id/bt_movie_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> activity.buttonClick()}"
-                android:text="검색" />
+                android:onClick="@{() -> vm.movieListSearch()}"
+                android:text="@string/search" />
         </LinearLayout>
 
         <FrameLayout
@@ -61,8 +51,9 @@
                 android:id="@+id/rv_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="@{isRvVisible ? View.VISIBLE : View.GONE}"
+                android:visibility="@{vm.isRvBoolean() ? View.VISIBLE : View.GONE}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                bind:bindSetMovieItem="@{vm.movieItems}"
                 tools:itemCount="3"
                 tools:listitem="@layout/item_movie" />
 
@@ -70,14 +61,14 @@
                 android:id="@+id/fl_empty"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="@{isFlVisible ? View.VISIBLE : View.GONE}" />
+                android:visibility="@{vm.isFlBoolean() ? View.VISIBLE : View.GONE}" />
 
             <androidx.core.widget.ContentLoadingProgressBar
                 android:id="@+id/pb_loading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:visibility="@{isPbVisible ? View.VISIBLE : View.GONE}" />
+                android:visibility="@{vm.isProgressBoolean() ? View.VISIBLE : View.GONE}" />
         </FrameLayout>
     </LinearLayout>
 </layout>
