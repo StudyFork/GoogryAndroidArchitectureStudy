@@ -17,7 +17,7 @@ class MainApplication : Application() {
                     localDataModule,
                     remoteDataModule,
                     networkManagerModule,
-                    viewModelDataModule,
+                    mainViewModelModule,
                     movieRepositoryModule
                 )
             )

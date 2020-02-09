@@ -1,14 +1,12 @@
 package com.example.handnew04.data
 
 import com.example.handnew04.data.local.MovieLocalDataSource
-import com.example.handnew04.data.local.MovieLocalDataSourceImpl
 import com.example.handnew04.data.remote.MovieRemoteDataSource
-import com.example.handnew04.data.remote.MovieRemoteDataSourceImpl
 
-object MovieRepository {
-    private var movieLocalDataSource: MovieLocalDataSource = MovieLocalDataSourceImpl()
-    private var movieRemoteDataSource: MovieRemoteDataSource = MovieRemoteDataSourceImpl()
-
+class MovieRepository(
+    val movieLocalDataSource: MovieLocalDataSource,
+    val movieRemoteDataSource: MovieRemoteDataSource
+) {
     fun getMovieData(
         query: String,
         success: (NaverMovieResponse) -> Unit,
