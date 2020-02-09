@@ -12,6 +12,7 @@ import com.example.androidarchitecture.common.toast
 import com.example.androidarchitecture.databinding.FragmentBlogBinding
 import com.example.androidarchitecture.ui.base.BaseFragment
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -19,11 +20,15 @@ import kotlinx.coroutines.launch
 class BlogFragment : BaseFragment<FragmentBlogBinding>(R.layout.fragment_blog) {
 
     private lateinit var blogAdapter: BlogAdapter
-    private val vm by lazy {
-        BlogViewModel(
-            naverSearchRepository
-        )
-    }
+
+    // val detailViewModel: DetailViewModel by viewModel()
+    val vm: BlogViewModel by viewModel()
+    //private val vm by viewModel<BlogViewModel>()
+//    private val vm by lazy {
+//        BlogViewModel(
+//            naverSearchRepository
+//        )
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

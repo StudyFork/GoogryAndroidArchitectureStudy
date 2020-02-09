@@ -1,6 +1,8 @@
 package com.example.androidarchitecture.data.repository
 
+import com.example.androidarchitecture.data.datasource.local.NaverLocalDataSourceIml
 import com.example.androidarchitecture.data.datasource.local.NaverLocalDataSourceInterface
+import com.example.androidarchitecture.data.datasource.remote.NaverRemoteDs
 import com.example.androidarchitecture.data.datasource.remote.NaverRemoteDsInterface
 import com.example.androidarchitecture.data.response.BlogData
 import com.example.androidarchitecture.data.response.ImageData
@@ -8,8 +10,8 @@ import com.example.androidarchitecture.data.response.KinData
 import com.example.androidarchitecture.data.response.MovieData
 
 class NaverRepoImpl(
-    private val naverRemoteDs: NaverRemoteDsInterface,
-    private val naverLocalDs: NaverLocalDataSourceInterface
+    private val naverRemoteDs: NaverRemoteDs,
+    private val naverLocalDs: NaverLocalDataSourceIml
 ) : NaverRepoInterface {
 
 
