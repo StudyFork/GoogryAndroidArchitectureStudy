@@ -25,3 +25,16 @@ fun RatingBar.starNum(star: Float) {
 fun TextView.fromHtml(title: String) {
     text = Html.fromHtml(title)
 }
+
+@BindingAdapter("setData")
+fun RecyclerView.setData(movieData: List<Any>?) {
+    when (movieData) {
+        null -> {
+        }
+        else -> {
+            if (movieData.isNotEmpty()) {
+                (this.adapter as MovieAdapter).setMovieItemList(movieData as List<Movie>)
+            }
+        }
+    }
+}
