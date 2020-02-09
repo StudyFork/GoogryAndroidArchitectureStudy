@@ -44,7 +44,7 @@
             android:text="검색"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{() -> viewModel.searchMovies(viewModel.searchString)}"/>
+            android:onClick="@{() -> viewModel.searchMovies()}"/>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"

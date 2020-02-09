@@ -1,7 +1,8 @@
 package com.onit.googlearchitecturestudy.ui.main
 
 import android.util.Log
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.onit.googlearchitecturestudy.Movie
 import com.onit.googlearchitecturestudy.data.repository.MovieRepository
 import com.onit.googlearchitecturestudy.data.repository.MovieRepositoryImpl
@@ -10,32 +11,26 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainViewModel {
+class MainViewModel : ViewModel() {
     private val movieRepositroy: MovieRepository = MovieRepositoryImpl()
-    val isLoading: ObservableField<Boolean> = ObservableField(false)
-    val toastMessage: ObservableField<String> = ObservableField("")
-    val hideKeyBoard: ObservableField<Boolean> = ObservableField(false)
-    val movieList: ObservableField<List<Movie>> = ObservableField()
-    val searchString: ObservableField<String> = ObservableField("")
+    val isLoading = MutableLiveData<Boolean>()
+    val toastMessage = MutableLiveData<String>()
+    val hideKeyBoard = MutableLiveData<Boolean>()
+    val movieList = MutableLiveData<List<Movie>>()
+    val searchString = MutableLiveData<String>()
 
     fun searchMovies() {
-        with(hideKeyBoard) {
-            set(true)
-            notifyChange()
-        }
+        hideKeyBoard.value = true
 
-        val keyword = searchString.get()
+        val keyword = searchString.value
 
         if (keyword.isNullOrBlank()) {
-            with(toastMessage) {
-                set("검색어를 입력해주세요.")
-                notifyChange()
-            }
+            toastMessage.value = "검색어를 입력해주세요."
             return
         }
 
         CoroutineScope(Dispatchers.Main).launch {
-            isLoading.set(true)
+            isLoading.value = true
 
             val response =
                 withContext(Dispatchers.IO) { movieRepositroy.getMovieList(keyword) }
@@ -43,22 +38,16 @@ class MainViewModel {
             if (response.isSuccessful) {
                 val responseMovieList = response.body()?.movies
                 if (responseMovieList == null) {
-                    with(toastMessage) {
-                        set("검색결과가 없습니다.")
-                        notifyChange()
-                    }
+                    toastMessage.value = "검색결과가 없습니다."
                 } else {
-                    movieList.set(responseMovieList)
+                    movieList.value = responseMovieList
                 }
             } else {
                 Log.e("MainActivity", "네이버 API요청에 실패했습니다. responseCode = ${response.code()}")
-                with(toastMessage) {
-                    set("네트워크가 불안정합니다.")
-                    notifyChange()
-                }
+                toastMessage.value = "네트워크가 불안정합니다."
             }
 
-            isLoading.set(false)
+            isLoading.value = false
         }
     }
 }
