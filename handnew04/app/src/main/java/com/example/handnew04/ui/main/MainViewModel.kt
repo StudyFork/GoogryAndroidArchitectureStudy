@@ -7,7 +7,8 @@ import com.example.handnew04.data.MovieData
 import com.example.handnew04.data.MovieRepository
 import com.example.handnew04.network.NetworkManager
 
-class MainViewModel(val networkManager: NetworkManager) : ViewModel() {
+class MainViewModel(val networkManager: NetworkManager, val movieRepository: MovieRepository) :
+    ViewModel() {
     val movieData = MutableLiveData<List<MovieData>>()
     val isLoading = MutableLiveData<Boolean>()
     val isNetworkRunning = MutableLiveData<Boolean>()
@@ -27,7 +28,7 @@ class MainViewModel(val networkManager: NetworkManager) : ViewModel() {
 
         if (!checkInputQuery()) return
 
-        MovieRepository.getMovieData(
+        movieRepository.getMovieData(
             inputText.value.toString()
             , success = {
                 if (it.items.isEmpty()) isEmptyResult.value = true

@@ -1,10 +1,7 @@
 package com.example.handnew04
 
 import android.app.Application
-import com.example.handnew04.di.localDataModule
-import com.example.handnew04.di.networkManagerModule
-import com.example.handnew04.di.remoteDataModule
-import com.example.handnew04.di.viewModelDataModule
+import com.example.handnew04.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -20,7 +17,8 @@ class MainApplication : Application() {
                     localDataModule,
                     remoteDataModule,
                     networkManagerModule,
-                    viewModelDataModule
+                    viewModelDataModule,
+                    movieRepositoryModule
                 )
             )
         }
