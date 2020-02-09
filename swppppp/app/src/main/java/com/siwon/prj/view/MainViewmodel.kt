@@ -1,12 +1,13 @@
 package com.siwon.prj.view
 
-import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.siwon.prj.common.model.Movie
 import com.siwon.prj.repository.MovieSearchRepository
 import com.siwon.prj.repository.MovieSearchRepositoryImpl
 
-class MainViewmodel {
+class MainViewmodel : ViewModel() { // aac viewmodel 구현
     /**
      *
     fun showResult(result: ArrayList<Movie>)
@@ -19,41 +20,43 @@ class MainViewmodel {
     private val repository: MovieSearchRepository = MovieSearchRepositoryImpl()
 
     // 검색 결과리스트
-    val searchResult: ObservableArrayList<Movie> = ObservableArrayList()
+    val searchResult = MutableLiveData<ArrayList<Movie>>()
     // 검색결과 유/무
     val isResultEmpty: ObservableField<Boolean> = ObservableField()
     // 오류 및 안내 토스트메시지
-    val toastMsg: ObservableField<String> = ObservableField()
+    val toastMsg = MutableLiveData<String>()
     // input값
-    var userInput: ObservableField<String> = ObservableField()
+    val userInput = MutableLiveData<String>()
     // 키보드visibility
-    val isKeyboardVisible: ObservableField<Boolean> = ObservableField(true)
+    val isKeyboardVisible = MutableLiveData<Boolean>()
 
     fun searchMovie() {
-        val input = userInput.get()
+        val input = userInput.value
         if (input.isNullOrBlank()) {
             // TODO: 입력값 없는경우 처리 --> toastMsg로 '검색어를 입력해 주세요!'
-            toastMsg.set("검색어를 입력해 주세요!")
+            toastMsg.value = "검색어를 입력해 주세요!"
         } else {
             repository.searchMovies(input,
                 success = { result ->
                     result.let {
                         if (it.isNotEmpty()) {
-//                            searchResult.clone()
-                            searchResult.clear()
-                            searchResult.addAll(it)
+                            searchResult.value = it
                             isResultEmpty.set(false)
                         } else {
                             // TODO: 검색결과 없는경우 처리 --> 검색결과 없음 이미지 visible
                             isResultEmpty.set(true)
                         }
-                        isKeyboardVisible.set(false)
+                        isKeyboardVisible.value = false
                     }
                 },
                 fail = {
                     // TODO: 검실패한 경우 처리
-                    toastMsg.set("검색오류\n${it.message}\n입니다!")
+                    toastMsg.value = "검색오류\n${it.message}\n입니다!"
                 })
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
     }
 }

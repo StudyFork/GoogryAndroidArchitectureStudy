@@ -52,4 +52,7 @@ dependencies {
     // 의존성 주입을 위한 koin
 //    implementation 'org.koin:koin-android:2.0.1'
 //    implementation 'org.koin:koin-androidx-viewmodel:2.0.1'
+
+    // rxjava 추가하기
+    // activity ktx, fragment ktx 추가..!
 }
