@@ -1,39 +1,46 @@
 package com.hansung.firstproject.ui.main
 
-import androidx.databinding.ObservableArrayList
-import androidx.databinding.ObservableField
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.hansung.firstproject.data.MovieModel
 import com.hansung.firstproject.data.repository.NaverRepository
 
-class MainViewModel(private val repository: NaverRepository) {
+class MainViewModel(private val repository: NaverRepository) : ViewModel() {
 
-    val movieData: ObservableArrayList<MovieModel> = ObservableArrayList()
-    var keyword = ObservableField<String>("")
-    var showError = ObservableField<String>()
-    var isEmptyResult = ObservableField<Boolean>()
-    var showKeywordEmptyError = ObservableField<Boolean>()
-    var hideKeyboard = ObservableField<Boolean>()
+    private val _isEmptyResult = MutableLiveData<Throwable>()
+    private val _showKeywordEmptyError = MutableLiveData<Throwable>()
+    private val _hideKeyboard = MutableLiveData<Throwable>()
+
+    val movieData: MutableLiveData<ArrayList<MovieModel>> by lazy { MutableLiveData<ArrayList<MovieModel>>() }
+    val keyword: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val showError: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val isEmptyResult: LiveData<Throwable> get() = _isEmptyResult
+    val showKeywordEmptyError: LiveData<Throwable> get() = _showKeywordEmptyError
+    val hideKeyboard: LiveData<Throwable> get() = _hideKeyboard
 
 
     fun doSearch() {
-        if (keyword.get()!! == "") {
-            showKeywordEmptyError.set(true)
+        if (keyword.value.isNullOrBlank()) {
+            _showKeywordEmptyError.value = Throwable()
         } else {
             // 검색 메소드
             repository.getMoviesData(
-                keyword.get()!!,
+                keyword.value!!,
+
                 success = {
-                    movieData.clear()
-                    movieData.addAll(it.items)
+                    movieData.value = it.items
                 },
                 fail = {
-                    showError.set(it.message!!)
+                    showError.value = it.message
+                    Log.d("ahn", showError.value.toString())
                 },
                 isEmptyList = {
-                    isEmptyResult.set(true)
+                    _isEmptyResult.value = Throwable()
                 }
             )
-            hideKeyboard.set(true)
+            _hideKeyboard.value = Throwable()
         }
     }
 }

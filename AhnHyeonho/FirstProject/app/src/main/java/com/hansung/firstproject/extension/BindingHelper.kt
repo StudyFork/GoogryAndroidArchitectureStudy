@@ -37,10 +37,11 @@ fun TextView.setTitle(title: String) {
 }
 
 @BindingAdapter(value = ["refreshMovieData"])
-fun RecyclerView.refreshMovieData(items: ArrayList<MovieModel>) {
+fun RecyclerView.refreshMovieData(items: ArrayList<MovieModel>?) {
     (adapter as MovieItemAdapter).run {
-        addItems(items)
-        notifyDataSetChanged()
+        if (!items.isNullOrEmpty()) {
+            addItems(_item = items)
+            notifyDataSetChanged()
+        }
     }
-
 }
