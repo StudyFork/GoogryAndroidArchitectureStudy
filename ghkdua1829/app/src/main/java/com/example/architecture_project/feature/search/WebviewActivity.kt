@@ -17,7 +17,6 @@ class WebviewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_webview)
-        setContentView(R.layout.activity_webview)
 
         binding.wbPage.webViewClient = WebViewClient()
         val webViewSettings = binding.wbPage.settings
