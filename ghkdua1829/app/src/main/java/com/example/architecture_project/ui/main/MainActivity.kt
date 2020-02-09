@@ -62,17 +62,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addObservableData() {
-        vm.isEmptyMovieData.observe(this, Observer<Boolean> { showNoResult() })
+        vm.isEmptyMovieData.observe(this, Observer { showNoResult() })
 
-        vm.isEmptyKeyword.observe(this, Observer<Boolean> { showNotExistKeyword() })
+        vm.isEmptyKeyword.observe(this, Observer { showNotExistKeyword() })
 
-        vm.hasWrongChar.observe(this, Observer<Boolean> { showNotAvailableKeyword() })
+        vm.hasWrongChar.observe(this, Observer { showNotAvailableKeyword() })
         vm.movieDataNum.observe(this, Observer<Int> { showDataNum(vm.movieDataNum.value!!) })
-        vm.movieData.observe(this, Observer<List<Movie>> {
-            if (it.isNotEmpty()) {
-                movieAdapter.setMovieItemList(it)
-            }
-        })
-
     }
 }

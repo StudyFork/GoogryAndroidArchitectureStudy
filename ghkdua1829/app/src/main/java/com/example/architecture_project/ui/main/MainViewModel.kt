@@ -9,26 +9,26 @@ import com.example.architecture_project.data.repository.NaverRepository
 
 class MainViewModel : ViewModel() {
 
-    val naverRepository: NaverRepository = NaverRepository()
-    var hasWrongChar = MutableLiveData<Boolean>()
-    var isEmptyKeyword = MutableLiveData<Boolean>()
-    var isEmptyMovieData = MutableLiveData<Boolean>()
-    var movieData = MutableLiveData<List<Movie>>()
-    var errorToast = MutableLiveData<Throwable>()
-    var movieDataNum = MutableLiveData<Int>()
+    private val naverRepository: NaverRepository = NaverRepository()
+    val hasWrongChar = MutableLiveData<Unit>()
+    val isEmptyKeyword = MutableLiveData<Unit>()
+    val isEmptyMovieData = MutableLiveData<Unit>()
+    val movieData = MutableLiveData<List<Movie>>()
+    private val errorToast = MutableLiveData<Throwable>()
+    val movieDataNum = MutableLiveData<Int>()
 
     fun getMovieData(keyword: String) {
         if (keyword.contains("@")) {
-            hasWrongChar.value = true
+            hasWrongChar.value = Unit
             return
         }
         if (keyword.equals("")) {
-            isEmptyKeyword.value = true
+            isEmptyKeyword.value = Unit
             return
         }
         naverRepository.getMovieData(keyword, success = {
             if (it.item.isEmpty()) {
-                isEmptyMovieData.value = true
+                isEmptyMovieData.value = Unit
             } else {
                 setMovieDataNum(it)
                 movieData.value = it.item
