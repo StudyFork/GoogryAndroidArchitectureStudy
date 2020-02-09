@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.siwon.prj.R
 import com.siwon.prj.common.adapter.MovieAdapter
 import com.siwon.prj.common.base.BaseActivity
-import com.siwon.prj.common.extension.setMovieResult
 import com.siwon.prj.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -29,6 +28,7 @@ class MainActivity :
             }
         })[MainViewmodel::class.java]
         binding.vm = vm
+        binding.lifecycleOwner = this
         adapter = MovieAdapter { link: String ->
             itemClick(link)
         }
@@ -39,9 +39,6 @@ class MainActivity :
         })
         vm.toastMsg.observe(this, Observer {
             showToast(it)
-        })
-        vm.searchResult.observe(this, Observer {
-            binding.movieListRv.setMovieResult(it)
         })
         binding.editTextInput.setOnClickListener {
             vm.isKeyboardVisible.value = true
