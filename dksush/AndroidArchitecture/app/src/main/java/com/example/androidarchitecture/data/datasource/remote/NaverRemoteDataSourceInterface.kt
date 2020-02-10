@@ -5,7 +5,7 @@ import com.example.androidarchitecture.data.response.ImageData
 import com.example.androidarchitecture.data.response.KinData
 import com.example.androidarchitecture.data.response.MovieData
 
-interface NaverRemoteDsInterface {
+interface NaverRemoteDataSourceInterface {
 
 
     fun getBlog(

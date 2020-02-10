@@ -1,16 +1,14 @@
 package com.example.androidarchitecture.ui.blog
 
 import android.text.TextUtils
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.example.androidarchitecture.data.repository.NaverRepoImpl
 import com.example.androidarchitecture.data.repository.NaverRepoInterface
 import com.example.androidarchitecture.data.response.BlogData
 
-class BlogViewModel(private val naverRepositroy: NaverRepoImpl) : ViewModel() {
+class BlogViewModel(private val naverRepositroy: NaverRepoInterface) : ViewModel() {
 
     private val _renderItems = MutableLiveData<List<BlogData>>()
     val renderItems: LiveData<List<BlogData>> get() = _renderItems

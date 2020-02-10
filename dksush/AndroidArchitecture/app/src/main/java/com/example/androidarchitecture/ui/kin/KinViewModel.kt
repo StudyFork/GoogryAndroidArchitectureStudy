@@ -4,10 +4,11 @@ import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
 import com.example.androidarchitecture.data.repository.NaverRepoInterface
 import com.example.androidarchitecture.data.response.KinData
 
-class KinViewModel(private val naverRepositroy: NaverRepoInterface) {
+class KinViewModel(private val naverRepositroy: NaverRepoInterface) : ViewModel(){
 
 
     private val _renderItems = MutableLiveData<List<KinData>>()

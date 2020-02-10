@@ -14,7 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class NaverLocalDataSourceIml(
+class NaverLocalDataSourceImpl(
     private val spm: SharedPreferences,
     private val searchHistyDatabase: SearchHistDatabase
 ) : NaverLocalDataSourceInterface {

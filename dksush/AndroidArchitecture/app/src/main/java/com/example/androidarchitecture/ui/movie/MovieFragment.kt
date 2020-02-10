@@ -12,6 +12,7 @@ import com.example.androidarchitecture.common.toast
 import com.example.androidarchitecture.databinding.FragmentMovieBinding
 import com.example.androidarchitecture.ui.base.BaseFragment
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -19,7 +20,8 @@ import kotlinx.coroutines.launch
 class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie) {
 
     private lateinit var movieAdapter: MovieAdapter
-    private val vm by lazy { MovieViewModel(naverSearchRepository) }
+    private val vm : MovieViewModel by viewModel()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

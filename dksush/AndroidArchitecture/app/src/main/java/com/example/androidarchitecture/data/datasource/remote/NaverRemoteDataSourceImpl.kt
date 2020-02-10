@@ -6,8 +6,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NaverRemoteDs :
-    NaverRemoteDsInterface {
+class NaverRemoteDataSourceImpl :
+    NaverRemoteDataSourceInterface {
 
 
     override fun getBlog(

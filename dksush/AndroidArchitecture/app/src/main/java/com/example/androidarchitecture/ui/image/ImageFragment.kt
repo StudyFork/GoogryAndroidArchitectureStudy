@@ -12,6 +12,7 @@ import com.example.androidarchitecture.common.toast
 import com.example.androidarchitecture.databinding.FragmentImageBinding
 import com.example.androidarchitecture.ui.base.BaseFragment
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -20,7 +21,7 @@ class ImageFragment : BaseFragment<FragmentImageBinding>(R.layout.fragment_image
 
 
     private lateinit var imageAdapter: ImageAdapter
-    private val vm by lazy { ImageViewModel(naverSearchRepository) }
+    private val vm: ImageViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
