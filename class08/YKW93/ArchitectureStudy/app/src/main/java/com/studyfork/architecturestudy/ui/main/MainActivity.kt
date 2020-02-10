@@ -4,11 +4,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.databinding.Observable
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.studyfork.architecturestudy.R
 import com.studyfork.architecturestudy.base.BaseActivity
+import com.studyfork.architecturestudy.common.ResourceProvider
 import com.studyfork.architecturestudy.databinding.ActivityMainBinding
 import com.studyfork.architecturestudy.extension.hideKeyboard
 import com.studyfork.architecturestudy.ui.adapter.MovieResultRVAdapter
@@ -21,41 +20,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         }
     }
 
-    override val viewModel: MainViewModel = MainViewModel()
+    override fun getViewModelInstance(): MainViewModel =
+        MainViewModel(ResourceProvider(baseContext))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.activity = this@MainActivity
         setMovieRecyclerView()
-        setObservableCallback()
-    }
-
-    private fun setObservableCallback() {
-        with(viewModel) {
-            isErrorEmptyQuery.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    showErrorEmptyQuery()
-                }
-            })
-
-            isErrorEmptyResult.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    showErrorEmptyResult()
-                }
-            })
-        }
-    }
-
-    private fun showErrorEmptyQuery() {
-        Toast.makeText(baseContext, getString(R.string.empty_query_notice), Toast.LENGTH_SHORT)
-            .show()
-    }
-
-    private fun showErrorEmptyResult() {
-        Toast.makeText(baseContext, getString(R.string.empty_data_notice), Toast.LENGTH_SHORT)
-            .show()
     }
 
     private fun setMovieRecyclerView() {

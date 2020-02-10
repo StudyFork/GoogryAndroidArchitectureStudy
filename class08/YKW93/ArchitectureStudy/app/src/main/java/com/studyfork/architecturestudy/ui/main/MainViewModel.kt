@@ -2,12 +2,14 @@ package com.studyfork.architecturestudy.ui.main
 
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
+import com.studyfork.architecturestudy.R
 import com.studyfork.architecturestudy.base.BaseViewModel
+import com.studyfork.architecturestudy.common.ResourceProvider
 import com.studyfork.architecturestudy.data.model.MovieResponse
 import com.studyfork.architecturestudy.data.repository.MovieRepositoryImpl
 import com.studyfork.architecturestudy.data.source.remote.MovieRemoteDataSourceImpl
 
-class MainViewModel : BaseViewModel() {
+class MainViewModel(private val resourceProvider: ResourceProvider) : BaseViewModel() {
 
     private val movieRepositoryImpl: MovieRepositoryImpl by lazy {
         MovieRepositoryImpl(MovieRemoteDataSourceImpl())
@@ -17,14 +19,12 @@ class MainViewModel : BaseViewModel() {
     var searchText: ObservableField<String> = ObservableField()
 
     var isLoading: ObservableBoolean = ObservableBoolean()
-    var isErrorEmptyQuery: ObservableBoolean = ObservableBoolean()
-    var isErrorEmptyResult: ObservableBoolean = ObservableBoolean()
 
     fun getMovieList() {
         val query: String? = searchText.get()
 
         if (query.isNullOrEmpty()) {
-            isErrorEmptyQuery.set(true)
+            showToast(resourceProvider.getString(R.string.empty_query_notice))
             return
         } else {
             movieRepositoryImpl.getMovieList(query, {
@@ -33,7 +33,7 @@ class MainViewModel : BaseViewModel() {
                 if (it.total != 0) {
                     movieDataList.set(it.items)
                 } else {
-                    isErrorEmptyResult.set(true)
+                    showToast(resourceProvider.getString(R.string.empty_data_notice))
                 }
             }, {
                 it.printStackTrace()
