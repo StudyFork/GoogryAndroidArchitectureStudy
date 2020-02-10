@@ -3,7 +3,7 @@ package com.studyfork.architecturestudy.ui.main
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
+import androidx.databinding.Observable
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.studyfork.architecturestudy.R
 import com.studyfork.architecturestudy.base.BaseActivity
@@ -25,8 +25,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.activity = this@MainActivity
         setMovieRecyclerView()
+        setKeyboardObservable()
     }
 
     private fun setMovieRecyclerView() {
@@ -36,12 +36,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         }
     }
 
-    fun onClick(view: View) {
-        when (view.id) {
-            R.id.btn_search -> {
-                currentFocus?.hideKeyboard()
-                viewModel.getMovieList()
-            }
+    private fun setKeyboardObservable() {
+        with(viewModel.hidesKeyboard) {
+            addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    if (get()) binding.editMovieSearch.hideKeyboard()
+                }
+            })
         }
     }
 }

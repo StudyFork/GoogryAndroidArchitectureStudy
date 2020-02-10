@@ -9,10 +9,6 @@
         <import type="android.view.View" />
 
         <variable
-                name="activity"
-                type="com.studyfork.architecturestudy.ui.main.MainActivity" />
-
-        <variable
                 name="vm"
                 type="com.studyfork.architecturestudy.ui.main.MainViewModel" />
 
@@ -27,6 +23,7 @@
                 android:id="@+id/edit_movie_search"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:onClick="@{vm::onClick}"
                 android:text="@={vm.searchText}"
                 app:layout_constraintBaseline_toBaselineOf="@+id/btn_search"
                 app:layout_constraintEnd_toStartOf="@id/btn_search"
@@ -37,7 +34,7 @@
                 android:id="@+id/btn_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{activity::onClick}"
+                android:onClick="@{vm::onClick}"
                 android:text="@string/search"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/edit_movie_search"

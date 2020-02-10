@@ -1,5 +1,6 @@
 package com.studyfork.architecturestudy.ui.main
 
+import android.view.View
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import com.studyfork.architecturestudy.R
@@ -19,8 +20,9 @@ class MainViewModel(private val resourceProvider: ResourceProvider) : BaseViewMo
     var searchText: ObservableField<String> = ObservableField()
 
     var isLoading: ObservableBoolean = ObservableBoolean()
+    var hidesKeyboard: ObservableBoolean = ObservableBoolean()
 
-    fun getMovieList() {
+    private fun requestMovieData() {
         val query: String? = searchText.get()
 
         if (query.isNullOrEmpty()) {
@@ -38,6 +40,18 @@ class MainViewModel(private val resourceProvider: ResourceProvider) : BaseViewMo
             }, {
                 it.printStackTrace()
             }).addDisposable()
+        }
+    }
+
+    fun onClick(view: View) {
+        when (view.id) {
+            R.id.btn_search -> {
+                requestMovieData()
+                hidesKeyboard.set(true)
+            }
+            R.id.edit_movie_search -> {
+                hidesKeyboard.set(false)
+            }
         }
     }
 }
