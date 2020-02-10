@@ -19,6 +19,8 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
         getViewModelInstance()
     }
 
+    abstract fun getViewModelInstance(): VM
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,5 +39,8 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
         })
     }
 
-    abstract fun getViewModelInstance(): VM
+    override fun onDestroy() {
+        viewModel.clearDisposable()
+        super.onDestroy()
+    }
 }

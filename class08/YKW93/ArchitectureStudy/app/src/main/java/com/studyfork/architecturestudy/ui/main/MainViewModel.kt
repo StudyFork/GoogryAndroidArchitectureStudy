@@ -37,7 +37,7 @@ class MainViewModel(private val resourceProvider: ResourceProvider) : BaseViewMo
                 }
             }, {
                 it.printStackTrace()
-            })
+            }).addDisposable()
         }
     }
 }
