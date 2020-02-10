@@ -25,9 +25,6 @@ class MainViewModel(private val localDao: LocalDao) {
     val toastString = ObservableField<String>()
     val isKeyboardBoolean = ObservableField<Boolean>()
     val isProgressBoolean = ObservableField<Boolean>()
-    val isRvBoolean = ObservableField<Boolean>(true)
-    val isFlBoolean = ObservableField<Boolean>()
-
 
     fun movieListSearch() {
         val query = searchString.get() as String
@@ -44,26 +41,15 @@ class MainViewModel(private val localDao: LocalDao) {
                 .subscribe({
                     if (it.total != 0) {
                         setItems(it.items)
-                        hideEmptyLayout()
                     }
                 }, {
                     toastString.set("검색 결과가 없습니다.")
-                    showEmptyLayout()
+                    movieItems.clear()
                 })
             )
         } else {
             toastString.set("제목을 입력해주세요.")
         }
-    }
-
-    private fun showEmptyLayout() {
-        isFlBoolean.set(true)
-        isRvBoolean.set(false)
-    }
-
-    private fun hideEmptyLayout() {
-        isFlBoolean.set(false)
-        isRvBoolean.set(true)
     }
 
     fun setItems(it: List<NaverResponse.Item>) {
