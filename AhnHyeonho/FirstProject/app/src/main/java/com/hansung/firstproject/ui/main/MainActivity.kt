@@ -10,44 +10,27 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hansung.firstproject.R
 import com.hansung.firstproject.adapter.MovieItemAdapter
 import com.hansung.firstproject.data.ErrorStringResource
-import com.hansung.firstproject.data.repository.NaverRepository
-import com.hansung.firstproject.data.source.remote.NaverRemoteDataSourceImpl
 import com.hansung.firstproject.databinding.ActivityMainBinding
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
     private var movieItemAdapter: MovieItemAdapter = MovieItemAdapter()
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: MainViewModel
-
+    private val mainViewModel: MainViewModel by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        viewModel = ViewModelProviders.of(
-            this@MainActivity,
-            MainViewModelFactory(
-                NaverRepository.getInstance(
-                    NaverRemoteDataSourceImpl.getInstance(
-                        Pair<String, String>(
-                            getString(R.string.client_id),
-                            getString(R.string.client_secret)
-                        )
-                    )
-                )
-            )
-        )[MainViewModel::class.java]
-
         with(binding) {
-            vm = viewModel
+            vm = mainViewModel
             lifecycleOwner = this@MainActivity
         }
 
@@ -56,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         // keyboard function
         setKeyboardSearchFunc()
         initObserveCallback()
+        R.string.empty_keyword_message.toString()
     }
 
     // recyclerView 초기화 메소드
@@ -98,7 +82,7 @@ class MainActivity : AppCompatActivity() {
             override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
                 when (actionId) {
                     EditorInfo.IME_ACTION_SEARCH -> {
-                        viewModel.doSearch()
+                        mainViewModel.doSearch()
                     }
                     else ->
                         return false
@@ -109,7 +93,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initObserveCallback() {
-        with(viewModel) {
+        with(mainViewModel) {
             showError.run {
                 observe(this@MainActivity, Observer {
                     showErrorByErrorMessage(it.toString())
