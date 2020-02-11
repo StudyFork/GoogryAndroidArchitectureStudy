@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 
-abstract class BaseActivity<T : ViewDataBinding, P : BaseContract.Presenter>(@LayoutRes resId: Int) :
+abstract class BaseActivity<T : ViewDataBinding, P : BaseContract.Presenter>(@LayoutRes private val resId: Int) :
     AppCompatActivity(resId), BaseContract.View {
 
     abstract val presenter: P
@@ -17,13 +17,10 @@ abstract class BaseActivity<T : ViewDataBinding, P : BaseContract.Presenter>(@La
     protected lateinit var binding: T
         private set
 
-    @LayoutRes
-    abstract fun getLayoutResId(): Int
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(this, getLayoutResId())
+        binding = DataBindingUtil.setContentView(this, resId)
     }
 
     override fun showLoading() {

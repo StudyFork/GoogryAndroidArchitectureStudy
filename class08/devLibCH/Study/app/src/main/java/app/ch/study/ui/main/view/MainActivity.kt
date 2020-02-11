@@ -19,8 +19,6 @@ import app.ch.study.ui.main.presenter.MainPresenter
 class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(R.layout.activity_main),
     MainContract.View {
 
-    override fun getLayoutResId(): Int = R.layout.activity_main
-
     override val presenter: MainPresenter by lazy {
         val prefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         val localDataManager = LocalDataManager.getInstance(prefs)
