@@ -9,9 +9,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.jay.architecturestudy.R
-import com.jay.architecturestudy.data.repository.NaverSearchRepositoryImpl
-import com.jay.architecturestudy.data.source.local.NaverSearchLocalDataSourceImpl
-import com.jay.architecturestudy.data.source.remote.NaverSearchRemoteDataSourceImpl
 import com.jay.architecturestudy.util.showToastMessage
 import com.jay.architecturestudy.util.then
 
@@ -22,13 +19,6 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel<*>>(
     lateinit var binding: T
 
     abstract val viewModel: VM
-
-    val naverSearchRepository by lazy {
-        NaverSearchRepositoryImpl(
-            naverSearchRemoteDataSource = NaverSearchRemoteDataSourceImpl,
-            naverSearchLocalDataSource = NaverSearchLocalDataSourceImpl
-        )
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
