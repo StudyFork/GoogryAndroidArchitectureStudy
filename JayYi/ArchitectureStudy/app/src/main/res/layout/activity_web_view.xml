@@ -4,8 +4,8 @@
 
     <data>
         <variable
-            name="url"
-            type="String" />
+            name="vm"
+            type="com.jay.architecturestudy.ui.WebViewViewModel" />
 
     </data>
 
@@ -22,7 +22,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            loadUrl="@{url}"
+            loadUrl="@{vm.url}"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
