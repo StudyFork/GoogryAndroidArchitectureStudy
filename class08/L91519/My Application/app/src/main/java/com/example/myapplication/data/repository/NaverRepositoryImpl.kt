@@ -12,4 +12,5 @@ object NaverRepositoryImpl : NaverRepository {
     ) {
         NaverRemoteDataSourceImpl.getResultData(query, success, fail)
     }
+
 }

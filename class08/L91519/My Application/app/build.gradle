@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
 
@@ -26,6 +26,10 @@ android {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -44,4 +48,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.3.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.3.0'
     implementation 'com.github.bumptech.glide:glide:4.10.0'
+
+    implementation "android.arch.persistence.room:runtime:2.2.2"
+    kapt "android.arch.persistence.room:compiler:2.2.2"
 }
