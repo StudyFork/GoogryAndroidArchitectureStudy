@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import com.example.studyapplication.util.MyLogger
 import io.realm.Realm
 import io.realm.RealmConfiguration
 
@@ -12,7 +13,8 @@ class BaseApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        DEBUG = isDebuggable(this)
+        MyLogger.e(">>> onCreate")
+
         initRealm()
     }
 
@@ -23,22 +25,5 @@ class BaseApplication : Application() {
             .deleteRealmIfMigrationNeeded()
             .build()
         Realm.setDefaultConfiguration(config)
-    }
-
-    private fun isDebuggable(context : Context) : Boolean {
-        var debuggable = false
-
-        val pm = context.packageManager
-        try {
-            val appInfo = pm.getApplicationInfo(context.packageName, 0)
-            debuggable = 0 != appInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE
-        } catch (e: PackageManager.NameNotFoundException) {
-        }
-
-        return debuggable
-    }
-
-    companion object {
-        var DEBUG = false
     }
 }

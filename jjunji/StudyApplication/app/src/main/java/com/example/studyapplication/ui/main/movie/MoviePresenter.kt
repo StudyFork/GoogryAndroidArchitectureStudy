@@ -20,10 +20,8 @@ class MoviePresenter(
                         val searchData: SearchResult<MovieInfo> = result as SearchResult<MovieInfo>
                         searchData.let {
                             if (searchData.arrItem.size == 0) {
-                                repository.deleteMovieList()
                                 view.showEmptyView()
                             } else {
-                                repository.saveMovieList(searchData.arrItem)
                                 view.showList(searchData.arrItem)
                             }
                         }
@@ -31,7 +29,6 @@ class MoviePresenter(
 
                     override fun failed(e: Throwable) {
                         onRequestFailed(e)
-                        repository.deleteMovieList()
                     }
                 })
             }

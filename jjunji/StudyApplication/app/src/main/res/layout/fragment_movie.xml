@@ -50,6 +50,7 @@
             android:textSize="30sp"
             android:gravity="center"
             android:visibility="gone"
+            tools:visibility="visible"
             android:text="@string/error_message_result_isNull">
         </TextView>
 

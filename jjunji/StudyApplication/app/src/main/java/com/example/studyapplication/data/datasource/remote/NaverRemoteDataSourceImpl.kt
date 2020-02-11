@@ -1,6 +1,5 @@
 package com.example.studyapplication.data.datasource.remote
 
-import android.util.Log
 import com.example.studyapplication.network.ApiClient
 import com.example.studyapplication.network.Conn
 import com.example.studyapplication.network.Remote

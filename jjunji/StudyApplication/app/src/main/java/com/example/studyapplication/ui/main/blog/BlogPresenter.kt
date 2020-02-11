@@ -19,18 +19,15 @@ class BlogPresenter(
                         val searchData: SearchResult<BlogInfo> = result as SearchResult<BlogInfo>
                         searchData.let {
                             if (searchData.arrItem.size == 0) {
-                                repository.deleteBlogList()
                                 view.showEmptyView()
                             } else {
                                 view.showList(searchData.arrItem)
-                                repository.saveBlogList(searchData.arrItem)
                             }
                         }
                     }
 
                     override fun failed(e: Throwable) {
                         onRequestFailed(e)
-                        repository.deleteMovieList()
                     }
                 })
             }

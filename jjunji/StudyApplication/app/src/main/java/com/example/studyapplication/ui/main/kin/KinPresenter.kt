@@ -20,18 +20,15 @@ class KinPresenter(
                         val searchData: SearchResult<KinInfo> = result as SearchResult<KinInfo>
                         searchData.let {
                             if (searchData.arrItem.size == 0) {
-                                repository.deleteKinList()
                                 view.showEmptyView()
                             } else {
                                 view.showList(searchData.arrItem)
-                                repository.saveKinList(searchData.arrItem)
                             }
                         }
                     }
 
                     override fun failed(e: Throwable) {
                         onRequestFailed(e)
-                        repository.deleteImageList()
                     }
                 })
             }
