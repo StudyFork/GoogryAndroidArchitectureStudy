@@ -9,12 +9,19 @@ import org.koin.core.context.startKoin
 class MainApplication : Application() {
     override fun onCreate() {
         super.onCreate()
+
         startKoin {
             if (BuildConfig.DEBUG) {
                 androidLogger()
             }
             androidContext(this@MainApplication)
-            modules(listOf())
+            modules(
+                listOf(
+                    DataSourceModule,
+                    RepositoryModule,
+                    ViewModelModule
+                )
+            )
         }
     }
 }
