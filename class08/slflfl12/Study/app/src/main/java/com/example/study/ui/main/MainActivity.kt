@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil.setContentView
+import androidx.databinding.Observable
 import com.example.study.R
 import com.example.study.data.model.Movie
 import com.example.study.data.repository.NaverSearchRepositoryImpl
@@ -33,7 +34,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
     }
 
     private val movieAdapter: MovieAdapter by lazy {
-        MovieAdapter{ link ->
+        MovieAdapter { link ->
             var intent = Intent(this, DetailActivity::class.java)
             intent.putExtra(DetailActivity.MOVIE_URL, link.toString())
             this.startActivity(intent)
@@ -42,59 +43,63 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater, null, false)
-        setContentView(binding.root)
 
         binding.rvMovieList.adapter = movieAdapter
-        binding.activity = this@MainActivity
-
         getRecentSearchResult()
-
-
+        addObserveProperty()
     }
 
     fun getRecentSearchResult() {
-        presenter.getRecentSearchResult()
+        vm.getRecentSearchResult()
     }
 
-    fun getMovieList(query: String) {
-        if (query.isNullOrBlank()) {
-            showErrorQueryEmpty()
-        } else {
-            presenter.getMovies(query)
-        }
+    private fun showErrorQueryEmpty() {
+        Toast.makeText(applicationContext, R.string.empty_query_message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun updateMovieList(items: List<Movie>) {
-        movieAdapter.setItem(items)
+    private fun showErrorEmptyResult() {
+        Toast.makeText(applicationContext, R.string.empty_result_message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun showProgress() {
-        binding.pbLoading.visibility = View.VISIBLE
+    private fun failSearch() {
+        Toast.makeText(applicationContext, R.string.fail_search, Toast.LENGTH_SHORT).show()
     }
 
-    override fun hideProgress() {
-        binding.pbLoading.visibility = View.GONE
+    private fun addObserveProperty() {
+
+        vm.errorQueryEmpty.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                showErrorQueryEmpty()
+            }
+        })
+
+        vm.errorFailSearch.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                failSearch()
+            }
+        })
+
+        vm.errorResultEmpty.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                showErrorEmptyResult()
+            }
+        })
+
+        vm.isKeyboardBoolean.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                vm.isKeyboardBoolean.get()?.let {
+                    if (!it) {
+                        hideKeyboard()
+                    }
+                }
+            }
+        })
     }
 
-    override fun showErrorQueryEmpty() {
-        Toast.makeText(this@MainActivity, R.string.empty_query_message, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun showErrorEmptyResult() {
-        Toast.makeText(this@MainActivity, R.string.empty_result_message, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun hideKeyboard() {
-        (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).run {
-            hideSoftInputFromWindow(binding.etMovieSearch.windowToken, 0)
-        }
-    }
-
-    override fun onDestroy() {
-        presenter.clearDisposable()
-        super.onDestroy()
-    }
 }
 
 

@@ -14,4 +14,6 @@
     <string name="empty_result_message">검색 결과가 없습니다</string>
 
     <string name="empty_query_message">빈칸을 입력할 수 없습니다</string>
+
+    <string name="fail_search">검색을 실패하였습니다.</string>
 </resources>
