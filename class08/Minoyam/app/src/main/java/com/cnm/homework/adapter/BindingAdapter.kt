@@ -5,7 +5,9 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RatingBar
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.cnm.homework.data.model.NaverResponse
 
 @BindingAdapter("bind:bindImage")
 fun bindImage(imageView: ImageView, imageUri: String?) {
@@ -30,4 +32,12 @@ fun bindOnEditorActionListener(editText: EditText, click: (() -> Unit)) {
         }
         true
     }
+}
+
+@BindingAdapter("bind:bindSetMovieItem")
+fun RecyclerView.bindSetMovieItem(items: List<NaverResponse.Item>?) {
+    if (adapter is MovieAdapter)
+        items?.let {
+            (adapter as MovieAdapter).setItem(it)
+        }
 }

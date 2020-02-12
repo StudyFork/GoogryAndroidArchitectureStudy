@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
 import com.cnm.homework.R
 import com.cnm.homework.adapter.MovieAdapter
 import com.cnm.homework.data.model.NaverResponse
@@ -14,52 +15,60 @@ import com.cnm.homework.data.source.local.db.LocalDatabase
 import com.cnm.homework.databinding.ActivityMainBinding
 import com.cnm.homework.extension.hideKeyboard
 
-class MainActivity : AppCompatActivity(), MainContract.View {
+class MainActivity : AppCompatActivity() {
 
     private val movieAdapter = MovieAdapter(::showMovieDetail)
-
     private val localDao: LocalDao by lazy {
         val db = LocalDatabase.getInstance(this)!!
         db.localDao()
     }
-    private val presenter: MainContract.Presenter by lazy {
-        MainPresenter(
-            this@MainActivity,
-            localDao
-        )
-    }
+    private val vm: MainViewModel by lazy { MainViewModel(localDao) }
     private val binding by lazy {
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initActivity()
+        changedCallback()
+    }
 
+    override fun onDestroy() {
+        vm.disposableClear()
+        super.onDestroy()
+    }
+
+    private fun initActivity() {
         binding.rvContent.adapter = movieAdapter
-        binding.activity = this@MainActivity
-
+        binding.vm = vm
         if (movieAdapter.movieItems.isEmpty()) {
             val r = Runnable { beforeMovieListSearch() }
             val thread = Thread(r)
             thread.start()
         }
-
     }
 
-    fun buttonClick() {
-        binding.etMovieSearch.hideKeyboard()
-        val query = binding.etMovieSearch.text.toString()
-        presenter.movieListSearch(query)
-    }
-
-    override fun onDestroy() {
-        presenter.disposableClear()
-        super.onDestroy()
+    private fun changedCallback() {
+        vm.isKeyboardBoolean.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                vm.isKeyboardBoolean.get()?.let {
+                    if (!it) binding.etMovieSearch.hideKeyboard()
+                }
+            }
+        })
+        vm.toastString.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                vm.toastString.get()?.let { showToast(it) }
+            }
+        })
     }
 
     private fun beforeMovieListSearch() {
-        val repoItem = presenter.loadMovieList()
+        val repoItem = vm.loadMovieList()
         runOnUiThread {
-            movieAdapter.setItem(repoItem)
+            vm.setItems(repoItem)
         }
     }
 
@@ -68,37 +77,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         startActivity(intent)
     }
 
-    override fun setItem(items: List<NaverResponse.Item>) {
-        movieAdapter.setItem(items)
-        binding.rvContent.scrollToPosition(0)
-    }
-
-    override fun showProgress() {
-        binding.isPbVisible = true
-    }
-
-    override fun hideProgress() {
-        binding.isPbVisible = false
-    }
-
-    override fun showEmptyLayout() {
-        with(binding) {
-            isRvVisible = false
-            isFlVisible = true
-        }
-    }
-
-    override fun hideEmptyLayout() {
-        with(binding) {
-            isRvVisible = true
-            isFlVisible = false
-        }
-    }
-
-    override fun showErrorEmptyResult() =
-        Toast.makeText(this, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show()
-
-    override fun showErrorEmptyQuery() =
-        Toast.makeText(this, "제목을 입력해주세요", Toast.LENGTH_SHORT).show()
-
+    fun showToast(msg: String) =
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }
