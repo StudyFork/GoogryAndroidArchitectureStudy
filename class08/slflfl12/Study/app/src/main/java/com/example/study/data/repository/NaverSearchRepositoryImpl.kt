@@ -17,7 +17,8 @@ class NaverSearchRepositoryImpl private constructor(
 
     override fun getMovies(query: String): Single<NaverSearchResponse> {
         return naverSearchRemoteDataSource.getMovies(query).doAfterSuccess {
-            addSearchResult(SearchResult(Gson().toJson(it.items))) }
+            addSearchResult(SearchResult(Gson().toJson(it.items)))
+        }
     }
 
     override fun addSearchResult(searchResult: SearchResult) =

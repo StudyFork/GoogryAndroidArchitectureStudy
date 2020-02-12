@@ -4,23 +4,25 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.study.R
 import com.example.study.data.model.Movie
-import kotlinx.android.synthetic.main.movie_item.view.*
+import com.example.study.databinding.MovieItemBinding
 
 
-class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+class MovieAdapter(private val itemClick: (String) -> Unit) : RecyclerView.Adapter<MovieViewHolder>() {
 
     private val movies = mutableListOf<Movie>()
-    private var onItemClickListener: OnItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
-        val holder = MovieViewHolder(view)
-        holder.itemView.setOnClickListener {
-            onItemClickListener?.onItemClickListener(movies[holder.adapterPosition])
+        val binding = DataBindingUtil.inflate<MovieItemBinding>(LayoutInflater.from(parent.context), R.layout.movie_item, parent, false)
+        val holder = MovieViewHolder(binding)
+        binding.root.setOnClickListener {
+            binding.movie?.link?.let { link ->
+                itemClick(link)
+            }
         }
 
         return holder
@@ -31,14 +33,6 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         holder.bind(movies[position])
     }
 
-    fun setOnItemClickListener(listener: (Movie) -> Unit) {
-        onItemClickListener = object :
-            OnItemClickListener {
-            override fun onItemClickListener(movie: Movie) {
-                listener(movie)
-            }
-        }
-    }
 
     fun setItem(item: List<Movie>) {
         movies.clear()
@@ -48,24 +42,8 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     override fun getItemCount() = movies.size
 
-    class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(movie: Movie) {
-            with(itemView) {
-                Glide.with(context)
-                    .load(movie.image)
-                    .into(iv_movie_image)
-                tv_title.text = movie.title
-                rb_movie_rating.rating = movie.userRating.toFloat() / 2
-                tv_pubdate.text = movie.pubDate
-                tv_director.text = movie.director
-                tv_actor.text = movie.actor
-            }
-        }
-    }
 
-    interface OnItemClickListener {
-        fun onItemClickListener(movie: Movie)
-    }
+
 }
 
 

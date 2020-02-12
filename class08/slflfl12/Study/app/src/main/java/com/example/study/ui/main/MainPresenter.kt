@@ -48,7 +48,7 @@ class MainPresenter(
 
     override fun getRecentSearchResult() {
         naverSearchRepository.getRecentSearchResult()?.let {
-                view.updateMovieList(it)
+            view.updateMovieList(it)
         }
     }
 
