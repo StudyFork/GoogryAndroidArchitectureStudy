@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="vm"
             type="com.example.study.ui.main.MainViewModel" />
@@ -40,10 +41,10 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_movie_list"
+            setItems="@{vm.movieItems}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            setItems="@{vm.movieItems}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
             tools:listitem="@layout/movie_item" />

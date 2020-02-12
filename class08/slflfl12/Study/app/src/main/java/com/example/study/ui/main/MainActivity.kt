@@ -1,25 +1,15 @@
 package com.example.study.ui.main
 
-import android.content.Context
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.databinding.Observable
 import com.example.study.R
-import com.example.study.data.model.Movie
 import com.example.study.data.repository.NaverSearchRepositoryImpl
 import com.example.study.data.source.local.NaverSearchLocalDataSourceImpl
 import com.example.study.data.source.local.SearchResultDatabase
 import com.example.study.data.source.remote.NaverSearchRemoteDataSourceImpl
 import com.example.study.databinding.ActivityMainBinding
 import com.example.study.ui.adapter.MovieAdapter
-import com.example.study.ui.detail.DetailActivity
 import com.example.study.util.base.BaseActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.activity_main) {
