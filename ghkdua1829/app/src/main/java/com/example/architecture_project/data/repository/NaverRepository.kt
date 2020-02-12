@@ -4,8 +4,7 @@ import com.example.architecture_project.data.datasource.remote.NaverRemoteDataSo
 import com.example.architecture_project.data.datasource.remote.NaverRemoteDataSourceImpl
 import com.example.architecture_project.data.model.NaverApi
 
-class NaverRepository {
-    var NaverRemoteDataSourece: NaverRemoteDataSource = NaverRemoteDataSourceImpl()
+class NaverRepository(val NaverRemoteDataSourece: NaverRemoteDataSource) {
 
     fun getMovieData(title: String, success: (NaverApi) -> Unit, fail: (Throwable) -> Unit) {
         NaverRemoteDataSourece.getMovieData(title, success, fail)
