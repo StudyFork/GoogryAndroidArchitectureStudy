@@ -4,10 +4,11 @@ import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
 import com.example.androidarchitecture.data.repository.NaverRepoInterface
 import com.example.androidarchitecture.data.response.ImageData
 
-class ImageViewModel(private val naverRepositroy: NaverRepoInterface) {
+class ImageViewModel(private val naverRepositroy: NaverRepoInterface) : ViewModel() {
 
     private val _renderItems = MutableLiveData<List<ImageData>>()
     val renderItems: LiveData<List<ImageData>> get() = _renderItems

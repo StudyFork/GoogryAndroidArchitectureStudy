@@ -12,13 +12,14 @@ import com.example.androidarchitecture.common.toast
 import com.example.androidarchitecture.databinding.FragmentKinBinding
 import com.example.androidarchitecture.ui.base.BaseFragment
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * A simple [Fragment] subclass.
  */
 class KinFragment : BaseFragment<FragmentKinBinding>(R.layout.fragment_kin) {
     private lateinit var kinAdapter: KinAdapter
-    private val vm by lazy { KinViewModel(naverSearchRepository) }
+    private val vm : KinViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -72,6 +72,8 @@ dependencies {
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    
+
+    // koin
+    implementation "org.koin:koin-androidx-viewmodel:2.0.1"
 
 }
