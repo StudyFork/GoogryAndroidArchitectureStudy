@@ -17,7 +17,12 @@ class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
     private val movies = mutableListOf<Movie>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val binding = DataBindingUtil.inflate<MovieItemBinding>(LayoutInflater.from(parent.context), R.layout.movie_item, parent, false)
+        val binding = DataBindingUtil.inflate<MovieItemBinding>(
+            LayoutInflater.from(parent.context),
+            R.layout.movie_item,
+            parent,
+            false
+        )
         val holder = MovieViewHolder(binding)
 
         return holder
@@ -36,7 +41,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
     }
 
     override fun getItemCount() = movies.size
-    
+
 }
 
 
