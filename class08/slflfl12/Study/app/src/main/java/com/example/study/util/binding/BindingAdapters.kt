@@ -1,7 +1,9 @@
 package com.example.study.util.binding
 
+import android.content.Intent
 import android.os.Build
 import android.text.Html
+import android.view.View
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.study.data.model.Movie
 import com.example.study.ui.adapter.MovieAdapter
+import com.example.study.ui.detail.DetailActivity
 
 @BindingAdapter("loadUrl")
 fun ImageView.loadUrl(url: String) {
@@ -37,5 +40,16 @@ fun TextView.setTitle(movieTitle: String) {
 fun RecyclerView.setItems(items: List<Movie>?) {
     items?.let {
         (adapter as? MovieAdapter)?.setItem(items)
+    }
+}
+
+@BindingAdapter("setMovieItemClickListener")
+fun View.setMovieItemClickListener(link: String?) {
+    setOnClickListener {
+        link?.let {
+            val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra(DetailActivity.MOVIE_URL, link)
+            context.startActivity(intent)
+        }
     }
 }

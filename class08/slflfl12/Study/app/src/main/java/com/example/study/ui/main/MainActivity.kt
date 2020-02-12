@@ -34,11 +34,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
     }
 
     private val movieAdapter: MovieAdapter by lazy {
-        MovieAdapter { link ->
-            var intent = Intent(this, DetailActivity::class.java)
-            intent.putExtra(DetailActivity.MOVIE_URL, link.toString())
-            this.startActivity(intent)
-        }
+        MovieAdapter()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +45,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         addObserveProperty()
     }
 
-    fun getRecentSearchResult() {
+    private fun getRecentSearchResult() {
         vm.getRecentSearchResult()
     }
 
