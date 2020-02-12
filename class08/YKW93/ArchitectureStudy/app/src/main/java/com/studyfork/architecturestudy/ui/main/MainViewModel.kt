@@ -1,6 +1,5 @@
 package com.studyfork.architecturestudy.ui.main
 
-import android.view.View
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import com.studyfork.architecturestudy.R
@@ -43,15 +42,10 @@ class MainViewModel(private val resourceProvider: ResourceProvider) : BaseViewMo
         }
     }
 
-    fun onClick(view: View) {
-        when (view.id) {
-            R.id.btn_search -> {
-                requestMovieData()
-                hidesKeyboard.set(true)
-            }
-            R.id.edit_movie_search -> {
-                hidesKeyboard.set(false)
-            }
-        }
+    fun loadMovieData() {
+        hidesKeyboard.set(true)
+        requestMovieData()
     }
+
+    fun showKeyboard() = hidesKeyboard.set(false)
 }
