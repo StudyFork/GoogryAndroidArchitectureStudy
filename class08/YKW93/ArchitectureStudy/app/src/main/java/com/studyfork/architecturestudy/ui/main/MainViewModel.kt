@@ -16,11 +16,11 @@ class MainViewModel(private val resourceProvider: ResourceProvider) : BaseViewMo
         MovieRepositoryImpl(MovieRemoteDataSourceImpl())
     }
 
-    var movieDataList: ObservableField<List<MovieResponse.Item>> = ObservableField()
-    var searchText: ObservableField<String> = ObservableField()
+    val movieDataList: ObservableField<List<MovieResponse.Item>> = ObservableField()
+    val searchText: ObservableField<String> = ObservableField()
 
-    var isLoading: ObservableBoolean = ObservableBoolean()
-    var hidesKeyboard: ObservableBoolean = ObservableBoolean()
+    val isLoading: ObservableBoolean = ObservableBoolean()
+    val hidesKeyboard: ObservableBoolean = ObservableBoolean()
 
     private fun requestMovieData() {
         val query: String? = searchText.get()
