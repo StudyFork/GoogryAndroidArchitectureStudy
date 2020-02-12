@@ -33,7 +33,7 @@
         <TextView
             android:id="@+id/rv_item_tv_movie_title"
             htmlText="@{movie.title}"
-            android:layout_width="200dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             app:layout_constraintStart_toEndOf="@+id/rv_item_iv_movie_image"
@@ -71,7 +71,7 @@
 
         <TextView
             android:id="@+id/rv_item_tv_movie_actor"
-            android:layout_width="200dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="@{movie.actor}"

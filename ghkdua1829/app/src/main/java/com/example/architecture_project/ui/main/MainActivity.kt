@@ -6,24 +6,23 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.example.architecture_project.R
 import com.example.architecture_project.`object`.ObjectCollection.URL
-import com.example.architecture_project.data.model.Movie
 import com.example.architecture_project.databinding.ActivityMainBinding
 import com.example.architecture_project.feature.movie.MovieAdapter
 import com.example.architecture_project.feature.search.WebviewActivity
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var movieAdapter: MovieAdapter
     lateinit var binding: ActivityMainBinding
-    lateinit var vm: MainViewModel
+    private val vm: MainViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        vm = ViewModelProviders.of(this@MainActivity)[MainViewModel::class.java]
+//        vm = ViewModelProviders.of(this@MainActivity)[MainViewModel::class.java]
 
         binding.mainActivity = this@MainActivity
         binding.vm = vm
