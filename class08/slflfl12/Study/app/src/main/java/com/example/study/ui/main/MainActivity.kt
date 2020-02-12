@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.databinding.DataBindingUtil.setContentView
 import com.example.study.R
 import com.example.study.data.model.Movie
 import com.example.study.data.repository.NaverSearchRepositoryImpl
@@ -17,12 +19,18 @@ import com.example.study.data.source.remote.NaverSearchRemoteDataSourceImpl
 import com.example.study.databinding.ActivityMainBinding
 import com.example.study.ui.adapter.MovieAdapter
 import com.example.study.ui.detail.DetailActivity
+import com.example.study.util.base.BaseActivity
 
-class MainActivity : AppCompatActivity(), MainContract.View {
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.activity_main) {
 
-    private lateinit var binding: ActivityMainBinding
-
-
+    override val vm: MainViewModel by lazy {
+        MainViewModel(
+            NaverSearchRepositoryImpl.getInstance(
+                NaverSearchLocalDataSourceImpl.getInstance(SearchResultDatabase.getInstance(this)!!.searchResultDao())
+                , NaverSearchRemoteDataSourceImpl.getInstance()
+            )
+        )
+    }
 
     private val movieAdapter: MovieAdapter by lazy {
         MovieAdapter{ link ->

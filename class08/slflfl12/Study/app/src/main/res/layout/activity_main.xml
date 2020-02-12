@@ -10,6 +10,10 @@
             type="com.example.study.ui.main.MainActivity" />
 
         <variable
+            name="vm"
+            type="com.example.study.ui.main.MainViewModel" />
+
+        <variable
             name="query"
             type="String" />
     </data>
