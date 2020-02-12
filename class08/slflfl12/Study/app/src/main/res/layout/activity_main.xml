@@ -38,7 +38,7 @@
                 android:id="@+id/btn_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()-> activity.getMovieList(query)}"
+                android:onClick="@{() -> activity.getMovieList(query)}"
                 android:text="@string/btn_search" />
         </LinearLayout>
 

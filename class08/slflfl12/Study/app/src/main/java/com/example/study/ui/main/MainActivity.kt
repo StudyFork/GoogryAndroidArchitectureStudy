@@ -21,7 +21,7 @@ import com.example.study.ui.detail.DetailActivity
 class MainActivity : AppCompatActivity(), MainContract.View {
 
     private lateinit var binding: ActivityMainBinding
-    private val movieAdapter = MovieAdapter()
+
     private val presenter: MainContract.Presenter by lazy {
         MainPresenter(
             this, NaverSearchRepositoryImpl.getInstance(
@@ -29,6 +29,14 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 , NaverSearchRemoteDataSourceImpl.getInstance()
             )
         )
+    }
+
+    private val movieAdapter: MovieAdapter by lazy {
+        MovieAdapter{ link ->
+            var intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra(DetailActivity.MOVIE_URL, link.toString())
+            this.startActivity(intent)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,21 +47,9 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         binding.rvMovieList.adapter = movieAdapter
         binding.activity = this@MainActivity
 
-/*        binding.btnSearch.setOnClickListener {
-            if (binding.etMovieSearch.text.isNullOrEmpty()) {
-                showErrorQueryEmpty()
-            } else {
-                getMovieList(binding.etMovieSearch.text.toString())
-            }
-        }*/
         getRecentSearchResult()
 
-        movieAdapter.setOnItemClickListener { movie ->
-            var intent = Intent(this, DetailActivity::class.java)
-            intent.putExtra(DetailActivity.MOVIE_URL, movie.link.toString())
 
-            this.startActivity(intent)
-        }
     }
 
     fun getRecentSearchResult() {
@@ -61,7 +57,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     fun getMovieList(query: String) {
-        if (binding.etMovieSearch.text.isNullOrEmpty()) {
+        if (query.isNullOrBlank()) {
             showErrorQueryEmpty()
         } else {
             presenter.getMovies(query)

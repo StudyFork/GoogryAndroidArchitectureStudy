@@ -12,17 +12,17 @@ import com.example.study.data.model.Movie
 import com.example.study.databinding.MovieItemBinding
 
 
-class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+class MovieAdapter(private val itemClick: (String) -> Unit) : RecyclerView.Adapter<MovieViewHolder>() {
 
-    private lateinit var binding:MovieItemBinding
     private val movies = mutableListOf<Movie>()
-    private var itemClickListener: ItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        binding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.movie_item, parent, false)
-        val holder = MovieViewHolder(binding.root)
-        holder.itemView.setOnClickListener {
-            itemClickListener?.onItemClick(movies[holder.adapterPosition])
+        val binding = DataBindingUtil.inflate<MovieItemBinding>(LayoutInflater.from(parent.context), R.layout.movie_item, parent, false)
+        val holder = MovieViewHolder(binding)
+        binding.root.setOnClickListener {
+            binding.movie?.link?.let { link ->
+                itemClick(link)
+            }
         }
 
         return holder
@@ -33,14 +33,6 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         holder.bind(movies[position])
     }
 
-    fun setOnItemClickListener(listener: (Movie) -> Unit) {
-        itemClickListener = object :
-            ItemClickListener {
-            override fun onItemClick(movie: Movie) {
-                listener(movie)
-            }
-        }
-    }
 
     fun setItem(item: List<Movie>) {
         movies.clear()
@@ -50,15 +42,8 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     override fun getItemCount() = movies.size
 
-    inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(movie: Movie) {
-            binding.movie = movie
-        }
-    }
 
-    interface ItemClickListener {
-        fun onItemClick(movie: Movie)
-    }
+
 }
 
 
