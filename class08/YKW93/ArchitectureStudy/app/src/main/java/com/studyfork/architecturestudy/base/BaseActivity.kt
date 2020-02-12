@@ -15,11 +15,7 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
 
     protected lateinit var binding: B
 
-    protected val viewModel: VM by lazy {
-        getViewModelInstance()
-    }
-
-    abstract fun getViewModelInstance(): VM
+    protected abstract val viewModel: VM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

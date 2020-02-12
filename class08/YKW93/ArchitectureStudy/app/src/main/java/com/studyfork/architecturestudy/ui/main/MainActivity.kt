@@ -13,15 +13,15 @@ import com.studyfork.architecturestudy.extension.hideKeyboard
 import com.studyfork.architecturestudy.ui.adapter.MovieResultRVAdapter
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.activity_main) {
-
     private val movieResultRVAdapter: MovieResultRVAdapter by lazy {
         MovieResultRVAdapter {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it)))
         }
     }
 
-    override fun getViewModelInstance(): MainViewModel =
+    override val viewModel: MainViewModel by lazy {
         MainViewModel(ResourceProvider(baseContext))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
