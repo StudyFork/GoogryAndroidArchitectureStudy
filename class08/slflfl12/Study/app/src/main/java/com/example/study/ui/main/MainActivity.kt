@@ -22,14 +22,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val presenter: MainContract.Presenter by lazy {
-        MainPresenter(
-            this, NaverSearchRepositoryImpl.getInstance(
-                NaverSearchLocalDataSourceImpl.getInstance(SearchResultDatabase.getInstance(this)!!.searchResultDao())
-                , NaverSearchRemoteDataSourceImpl.getInstance()
-            )
-        )
-    }
+
 
     private val movieAdapter: MovieAdapter by lazy {
         MovieAdapter{ link ->
