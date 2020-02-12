@@ -12,7 +12,6 @@ class MainApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
 
         startKoin {
             androidContext(this@MainApplication) // inject android context
@@ -27,9 +26,5 @@ class MainApplication : Application() {
         }
 
     }
-
-    companion object {
-        lateinit var instance: MainApplication
-            private set
-    }
+    
 }
