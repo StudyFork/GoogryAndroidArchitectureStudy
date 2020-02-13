@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
-                name="activity"
-                type="com.studyfork.architecturestudy.ui.main.MainActivity" />
+                name="vm"
+                type="com.studyfork.architecturestudy.ui.main.MainViewModel" />
 
     </data>
 
@@ -20,6 +23,8 @@
                 android:id="@+id/edit_movie_search"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:onClick="@{() -> vm.showKeyboard()}"
+                android:text="@={vm.searchText}"
                 app:layout_constraintBaseline_toBaselineOf="@+id/btn_search"
                 app:layout_constraintEnd_toStartOf="@id/btn_search"
                 app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +34,7 @@
                 android:id="@+id/btn_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{activity::onClick}"
+                android:onClick="@{() -> vm.loadMovieData()}"
                 android:text="@string/search"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/edit_movie_search"
@@ -44,13 +49,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_movie_search"
+                bind:setItems="@{vm.movieDataList}"
                 tools:listitem="@layout/item_movie" />
 
         <ProgressBar
                 android:id="@+id/pb_loading_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="@{vm.isLoading() ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
