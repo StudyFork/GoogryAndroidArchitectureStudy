@@ -3,23 +3,21 @@ package app.ch.study.ui.main.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.Toast
-import androidx.recyclerview.widget.RecyclerView
 import app.ch.study.R
 import app.ch.study.core.BaseActivity
 import app.ch.study.data.common.EXTRA_URL
 import app.ch.study.data.common.PREF_NAME
 import app.ch.study.data.local.LocalDataManager
 import app.ch.study.data.remote.response.MovieModel
+import app.ch.study.databinding.ActivityMainBinding
 import app.ch.study.ui.detail.DetailActivity
 import app.ch.study.ui.main.presenter.MainContract
 import app.ch.study.ui.main.presenter.MainPresenter
 
-class MainActivity : BaseActivity<MainPresenter>(R.layout.activity_main), MainContract.View {
+class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(R.layout.activity_main),
+    MainContract.View {
 
     override val presenter: MainPresenter by lazy {
         val prefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
@@ -28,7 +26,7 @@ class MainActivity : BaseActivity<MainPresenter>(R.layout.activity_main), MainCo
     }
 
     override val pbLoading: FrameLayout by lazy {
-        findViewById<FrameLayout>(R.id.pb_loading)
+        binding.pbLoading
     }
 
     private val adapter: MovieAdapter by lazy {
@@ -39,51 +37,19 @@ class MainActivity : BaseActivity<MainPresenter>(R.layout.activity_main), MainCo
         }
     }
 
-    private lateinit var etSearch: EditText
-    private lateinit var noResultView: FrameLayout
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        initEvent()
-
-        val prefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        val localDataManager = LocalDataManager.getInstance(prefs)
-        val name = localDataManager.getQuery()
-        if (name.isNotEmpty()) {
-            etSearch.setText(name)
-            presenter.searchMovie(name)
-        }
+        binding.presenter = presenter
+        binding.rvMovie.adapter = adapter
     }
 
-    private fun initEvent() {
-        val btnSearch: Button = findViewById(R.id.btn_search)
-        val rvMovie: RecyclerView = findViewById(R.id.rv_movie)
-        etSearch = findViewById(R.id.et_search)
-        noResultView = findViewById(R.id.no_result_view)
-
-        rvMovie.adapter = adapter
-
-        btnSearch.setOnClickListener {
-            val name = etSearch.text.toString()
-            presenter.searchMovie(name)
-        }
-    }
+    override fun showMovieList(items: MutableList<MovieModel>) = adapter.replaceAll(items)
 
     override fun showError(error: String) = showLongMsg(error)
 
-    override fun showMovieList(items: MutableList<MovieModel>) {
-        noResultView.visibility = View.GONE
-        adapter.replaceAll(items)
-    }
-
     override fun showErrorEmptyQuery() = showLongMsg(getString(R.string.empty_query))
 
-    override fun showEmptyResult() {
-        adapter.clear()
-        noResultView.visibility = View.VISIBLE
-    }
+    override fun showEmptyResult() = adapter.clear()
 
     private fun showLongMsg(msg: String) =
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show()

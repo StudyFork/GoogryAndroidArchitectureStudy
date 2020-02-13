@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -30,6 +30,10 @@ android {
             buildConfigField "String", "CLIENT_ID", "\"610zQukfpS6Y7LQflqWZ\""
             buildConfigField "String", "CLIENT_SECRET", "\"ndzyi6Qphn\""
         }
+    }
+
+    dataBinding {
+        enabled true
     }
 }
 
