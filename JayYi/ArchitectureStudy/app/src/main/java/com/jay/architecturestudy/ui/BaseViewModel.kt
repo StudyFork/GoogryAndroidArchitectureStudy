@@ -1,20 +1,27 @@
 package com.jay.architecturestudy.ui
 
 import android.view.View
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.jay.architecturestudy.data.repository.NaverSearchRepository
+import com.jay.architecturestudy.util.SingleLiveEvent
 import com.jay.architecturestudy.util.hideKeyboard
 import com.jay.architecturestudy.util.then
 import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseViewModel<T>(
     protected open val repository: NaverSearchRepository
-): ViewModel() {
-    val errorMsg = MutableLiveData<String>()
+) : ViewModel() {
     val keyword = MutableLiveData<String>()
 
-    val invalidKeyword = MutableLiveData<Boolean>()
+    protected val _errorMsg = SingleLiveEvent<String>()
+    val errorMsg: LiveData<String>
+        get() = _errorMsg
+
+    private val _invalidKeyword = SingleLiveEvent<Boolean>()
+    val invalidKeyword: LiveData<Boolean>
+        get() = _invalidKeyword
 
     protected val compositeDisposable = CompositeDisposable()
 
@@ -32,7 +39,7 @@ abstract class BaseViewModel<T>(
             return
         }
 
-        invalidKeyword.value = keyword.isBlank()
+        _invalidKeyword.value = keyword.isBlank()
         keyword.isNotBlank().then {
             v.hideKeyboard()
             search(keyword)

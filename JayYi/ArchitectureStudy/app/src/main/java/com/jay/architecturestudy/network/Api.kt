@@ -4,33 +4,36 @@ import com.jay.architecturestudy.data.model.ResponseBlog
 import com.jay.architecturestudy.data.model.ResponseImage
 import com.jay.architecturestudy.data.model.ResponseKin
 import com.jay.architecturestudy.data.model.ResponseMovie
+import com.jay.architecturestudy.network.service.ApiService
 import io.reactivex.Single
 
-object Api {
+class Api(
+    private val apiService: ApiService
+) {
 
     fun getMovies(keyword: String): Single<ResponseMovie> =
-        ApiClient.apiService
+        apiService
             .getMovies(
                 query = keyword
             )
             .map { ResponseMovie(it.items) }
 
     fun getImages(keyword: String): Single<ResponseImage> =
-        ApiClient.apiService
+        apiService
             .getImages(
                 query = keyword
             )
             .map { ResponseImage(it.items) }
 
     fun getBlog(keyword: String): Single<ResponseBlog> =
-        ApiClient.apiService
+        apiService
             .getBlog(
                 query = keyword
             )
             .map { ResponseBlog(it.items) }
 
     fun getKin(keyword: String): Single<ResponseKin> =
-        ApiClient.apiService
+        apiService
             .getKin(
                 query = keyword
             )

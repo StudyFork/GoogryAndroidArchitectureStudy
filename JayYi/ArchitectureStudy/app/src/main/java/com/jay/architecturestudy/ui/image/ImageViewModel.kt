@@ -12,7 +12,7 @@ import com.jay.architecturestudy.util.singleIoMainThread
 
 class ImageViewModel(
     override val repository: NaverSearchRepository
-): BaseViewModel<Image>(repository) {
+) : BaseViewModel<Image>(repository) {
     override val _data: MutableLiveData<List<Image>> = MutableLiveData()
     val data: LiveData<List<Image>>
         get() = _data
@@ -34,7 +34,7 @@ class ImageViewModel(
                 _data.value = it.images
             }, { e ->
                 val message = e.message ?: return@subscribe
-                errorMsg.value = message
+                _errorMsg.value = message
             })
             .addTo(compositeDisposable)
     }
@@ -48,7 +48,7 @@ class ImageViewModel(
                 _data.value = imageRepo.images
             }, { e ->
                 val message = e.message ?: return@subscribe
-                errorMsg.value = message
+                _errorMsg.value = message
             })
             .addTo(compositeDisposable)
     }

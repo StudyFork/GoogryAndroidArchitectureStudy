@@ -1,8 +1,6 @@
 package com.jay.architecturestudy.data.source.local
 
-import android.content.Context
 import android.content.SharedPreferences
-import com.jay.architecturestudy.MainApplication
 import com.jay.architecturestudy.data.database.SearchHistoryDatabase
 import com.jay.architecturestudy.data.database.entity.BlogEntity
 import com.jay.architecturestudy.data.database.entity.ImageEntity
@@ -16,21 +14,12 @@ import com.jay.architecturestudy.data.source.local.NaverSearchLocalDataSource.Co
 import com.jay.architecturestudy.data.source.local.NaverSearchLocalDataSource.Companion.PREFS_KEY_IMAGE
 import com.jay.architecturestudy.data.source.local.NaverSearchLocalDataSource.Companion.PREFS_KEY_KIN
 import com.jay.architecturestudy.data.source.local.NaverSearchLocalDataSource.Companion.PREFS_KEY_MOVIE
-import com.jay.architecturestudy.data.source.local.NaverSearchLocalDataSource.Companion.PREFS_NAME
 import io.reactivex.Single
 
-object NaverSearchLocalDataSourceImpl : NaverSearchLocalDataSource {
-
-    private val context: Context
-        get() = MainApplication.instance
-
-    override val searchHistoryDatabase: SearchHistoryDatabase by lazy {
-        SearchHistoryDatabase.getInstance(context)
-    }
-
-    override val sharedPreferences: SharedPreferences by lazy {
-        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-    }
+class NaverSearchLocalDataSourceImpl(
+    private val searchHistoryDatabase: SearchHistoryDatabase,
+    private val sharedPreferences: SharedPreferences
+) : NaverSearchLocalDataSource {
 
     override fun getMovie(): Single<MovieLocalData> =
         searchHistoryDatabase.movieDao()

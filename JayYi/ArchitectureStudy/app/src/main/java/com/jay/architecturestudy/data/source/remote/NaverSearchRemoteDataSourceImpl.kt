@@ -7,26 +7,28 @@ import com.jay.architecturestudy.data.model.ResponseMovie
 import com.jay.architecturestudy.network.Api
 import io.reactivex.Single
 
-object NaverSearchRemoteDataSourceImpl : NaverSearchRemoteDataSource {
+class NaverSearchRemoteDataSourceImpl(
+    private val api: Api
+) : NaverSearchRemoteDataSource {
 
     override fun getMovie(
         keyword: String
     ): Single<ResponseMovie> =
-        Api.getMovies(keyword)
+        api.getMovies(keyword)
 
     override fun getImage(
         keyword: String
     ): Single<ResponseImage> =
-        Api.getImages(keyword)
+        api.getImages(keyword)
 
     override fun getBlog(
         keyword: String
     ): Single<ResponseBlog> =
-        Api.getBlog(keyword)
+        api.getBlog(keyword)
 
     override fun getKin(
         keyword: String
     ): Single<ResponseKin> =
-        Api.getKin(keyword)
+        api.getKin(keyword)
 
 }

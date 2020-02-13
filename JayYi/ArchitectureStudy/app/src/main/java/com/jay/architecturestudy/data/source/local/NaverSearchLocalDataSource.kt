@@ -1,7 +1,5 @@
 package com.jay.architecturestudy.data.source.local
 
-import android.content.SharedPreferences
-import com.jay.architecturestudy.data.database.SearchHistoryDatabase
 import com.jay.architecturestudy.data.database.entity.BlogEntity
 import com.jay.architecturestudy.data.database.entity.ImageEntity
 import com.jay.architecturestudy.data.database.entity.KinEntity
@@ -13,8 +11,6 @@ import com.jay.architecturestudy.data.model.MovieLocalData
 import io.reactivex.Single
 
 interface NaverSearchLocalDataSource {
-    val searchHistoryDatabase: SearchHistoryDatabase
-    val sharedPreferences: SharedPreferences
 
     fun getMovie(): Single<MovieLocalData>
 
