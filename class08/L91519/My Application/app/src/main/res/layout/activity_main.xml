@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="mainActivity"
-            type="com.example.myapplication.ui.MainActivity" />
+            name="vm"
+            type="com.example.myapplication.ui.MainViewModel" />
 
     </data>
 
@@ -24,47 +24,49 @@
             android:id="@+id/search_parent"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:paddingRight="3dp"
-            android:paddingLeft="3dp"
             android:layout_margin="2dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.1">
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
 
             <EditText
                 android:id="@+id/et_movie"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@={vm.query}"
                 app:layout_constraintEnd_toStartOf="@id/btn_movie_search"
-                app:layout_constraintWidth_percent="0.8"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.8" />
 
             <Button
                 android:id="@+id/btn_movie_search"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:onClick="@{()->vm.findMovie()}"
                 android:text="@string/search"
-                android:onClick="@{()->mainActivity.findMovie()}"
-                app:layout_constraintStart_toEndOf="@id/et_movie"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/et_movie"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/et_movie"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.2" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_movie_list"
-            android:layout_height="0dp"
             android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.9"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_parent"
-            app:layout_constraintHeight_percent="0.9" />
+            bindSetMovieItem="@{vm.searchResultList}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

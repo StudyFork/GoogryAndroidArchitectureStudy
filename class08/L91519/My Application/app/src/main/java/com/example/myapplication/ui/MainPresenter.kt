@@ -5,7 +5,7 @@ import com.example.myapplication.data.repository.NaverRepositoryImpl
 class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
 
     override fun findMovie(query: String) {
-        query ?: view.queryNone()
+//        query ?: view.queryNone()
         NaverRepositoryImpl.getResultData(query,
             success = {
                 if (it.items.isEmpty()) {
