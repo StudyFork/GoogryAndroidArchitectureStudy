@@ -1,16 +1,14 @@
 package com.example.myapplication.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextWatcher
-import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
-import androidx.room.Room
+import com.example.myapplication.MovieDatabase
 import com.example.myapplication.R
-import com.example.myapplication.data.model.MovieResult
 import com.example.myapplication.data.repository.NaverRepositoryImpl
+import com.example.myapplication.data.source.NaverLocalDataSourceImpl
 import com.example.myapplication.data.source.NaverRemoteDataSourceImpl
 import com.example.myapplication.databinding.ActivityMainBinding
 
@@ -18,7 +16,16 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: MovieRecyclerViewAdpater
-    private val vm: MainViewModel by lazy { MainViewModel() }
+    private val vm: MainViewModel by lazy {
+        MainViewModel(
+            NaverRepositoryImpl(
+                NaverRemoteDataSourceImpl,
+                NaverLocalDataSourceImpl(
+                    MovieDatabase.getInstance(applicationContext).movieDao()
+                )
+            )
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         binding.vm = vm
         binding.rvMovieList.adapter = adapter
         observableProperty()
+
+        vm.getRecentData()
 
     }
 

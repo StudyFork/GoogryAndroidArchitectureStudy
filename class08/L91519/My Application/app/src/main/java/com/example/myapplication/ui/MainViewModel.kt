@@ -1,11 +1,11 @@
 package com.example.myapplication.ui
 
-import android.util.Log
 import androidx.databinding.ObservableField
+import com.example.myapplication.Movie
 import com.example.myapplication.data.model.MovieResult
-import com.example.myapplication.data.repository.NaverRepositoryImpl
+import com.example.myapplication.data.repository.NaverRepository
 
-class MainViewModel {
+class MainViewModel(private val naverRepository: NaverRepository) {
 
     val query = ObservableField<String>()
     val searchResultList = ObservableField<List<MovieResult.Item>>()
@@ -14,10 +14,11 @@ class MainViewModel {
     val resultEmpty = ObservableField<Boolean>()
 
     fun findMovie() {
-        if (query.get()?.isBlank()?:true) {
+        if (query.get()?.isBlank() != false) {
             errorQueryBlank.set(Throwable())
         } else {
-            NaverRepositoryImpl.getResultData(query.get()?:"",
+            naverRepository.getResultData(
+                query.get() ?: "",
                 success = {
                     if (it.items.isEmpty()) {
                         searchResultList.set(it.items)
@@ -25,6 +26,11 @@ class MainViewModel {
                     } else {
                         searchResultList.set(it.items)
                         resultEmpty.set(false)
+
+                        naverRepository.saveCache(
+                            Movie(it.items, query.get() ?: "")
+                        )
+
                         //TODO: Save Searched Result
 
                     }
@@ -35,5 +41,11 @@ class MainViewModel {
         }
     }
 
-//    private fun getQuery() = query.get() as String
+    fun getRecentData() {
+        naverRepository.getRecentData().let {
+            searchResultList.set(it.results)
+            query.set(it.query)
+        }
+    }
+
 }
