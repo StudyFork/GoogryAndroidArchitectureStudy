@@ -7,9 +7,8 @@ import com.example.architecture_project.data.model.Movie
 import com.example.architecture_project.data.model.NaverApi
 import com.example.architecture_project.data.repository.NaverRepository
 
-class MainViewModel : ViewModel() {
+class MainViewModel (private val naverRepository: NaverRepository) : ViewModel(){
 
-    private val naverRepository: NaverRepository = NaverRepository()
     val hasWrongChar = MutableLiveData<Unit>()
     val isEmptyKeyword = MutableLiveData<Unit>()
     val isEmptyMovieData = MutableLiveData<Unit>()
