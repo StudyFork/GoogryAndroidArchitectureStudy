@@ -6,28 +6,19 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.handnew04.R
 import com.example.handnew04.adapter.MovieRecyclerAdapter
-import com.example.handnew04.data.MovieData
 import com.example.handnew04.databinding.ActivityMainBinding
-import com.example.handnew04.network.NetworkManager
 import com.example.handnew04.ui.movie.MovieDetailActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainActivity : AppCompatActivity() {
     lateinit var recyclerAdapter: MovieRecyclerAdapter
     lateinit var binding: ActivityMainBinding
 
-    //val viewModel: MainViewModel by lazy { MainViewModel(NetworkManager(this@MainActivity.application)) }
-    val viewModel by lazy {
-        ViewModelProvider(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return MainViewModel(NetworkManager(this@MainActivity.application)) as T
-            }
-        })[MainViewModel::class.java]
-    }
+    //val mainViewModel: MainViewModel by lazy { MainViewModel(NetworkManager(this@MainActivity.application)) }
+    val mainViewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,12 +49,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun initBinding() {
         binding.activity = this@MainActivity
-        binding.viewModel = viewModel
+        binding.viewModel = mainViewModel
         binding.lifecycleOwner = this@MainActivity
     }
 
     private fun initObserveCallBack() {
-        with(viewModel) {
+        with(mainViewModel) {
             isEmptyResult.observe(this@MainActivity, Observer {
                 showEmptyResult()
             })
