@@ -5,28 +5,29 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.siwon.prj.R
 import com.siwon.prj.common.adapter.MovieAdapter
 import com.siwon.prj.common.base.BaseActivity
 import com.siwon.prj.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    lateinit var vm: MainViewmodel
+//    lateinit var vm: MainViewmodel
+
+    val vm by viewModel<MainViewmodel>()
 
     lateinit var adapter: MovieAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        vm = ViewModelProvider(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return MainViewmodel() as T
-            }
-        })[MainViewmodel::class.java]
+//        vm = ViewModelProvider(this, object : ViewModelProvider.Factory {
+//            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+//                return MainViewmodel() as T
+//            }
+//        })[MainViewmodel::class.java]
         binding.vm = vm
         binding.lifecycleOwner = this
         adapter = MovieAdapter { link: String ->
