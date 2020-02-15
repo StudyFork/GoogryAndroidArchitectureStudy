@@ -5,9 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.siwon.prj.common.model.Movie
 import com.siwon.prj.repository.MovieSearchRepository
-import com.siwon.prj.repository.MovieSearchRepositoryImpl
 
-class MainViewmodel : ViewModel() { // aac viewmodel 구현
+class MainViewmodel(val repository: MovieSearchRepository) : ViewModel() { // aac viewmodel 구현
     /**
      *
     fun showResult(result: ArrayList<Movie>)
@@ -17,7 +16,7 @@ class MainViewmodel : ViewModel() { // aac viewmodel 구현
     fun hideKeyboard()
 
      */
-    private val repository: MovieSearchRepository = MovieSearchRepositoryImpl()
+//    private val repository: MovieSearchRepository = MovieSearchRepositoryImpl()
 
     // 검색 결과리스트
     val searchResult = MutableLiveData<ArrayList<Movie>>()
@@ -41,12 +40,10 @@ class MainViewmodel : ViewModel() { // aac viewmodel 구현
                     result.let {
                         if (it.isNotEmpty()) {
                             searchResult.value = it
-                            isResultEmpty.set(false)
-                        } else {
-                            // TODO: 검색결과 없는경우 처리 --> 검색결과 없음 이미지 visible
-                            isResultEmpty.set(true)
-                        }
+                            this.isResultEmpty.set(false)
+                        } else this.isResultEmpty.set(true)
                         isKeyboardVisible.value = false
+                        // TODO: 검색결과 없는경우 처리 --> 검색결과 없음 이미지 visible
                     }
                 },
                 fail = {
