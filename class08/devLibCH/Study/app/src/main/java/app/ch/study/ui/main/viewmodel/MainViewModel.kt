@@ -1,60 +1,57 @@
-package app.ch.study.ui.main.presenter
+package app.ch.study.ui.main.viewmodel
 
 import androidx.databinding.ObservableField
-import app.ch.study.core.BasePresenter
+import app.ch.study.core.BaseViewModel
+import app.ch.study.data.common.KEY_QUERY_EMPTY
 import app.ch.study.data.local.LocalDataManager
 import app.ch.study.data.local.source.NaverQueryLocalDataSourceImpl
 import app.ch.study.data.remote.api.WebApiTask
+import app.ch.study.data.remote.response.MovieModel
 import app.ch.study.data.remote.source.NaverQueryRemoteDataSourceImpl
 import app.ch.study.data.repository.NaverQueryRepositoryImpl
+import app.ch.study.util.handleError
 
-class MainPresenter(
-    private val view: MainContract.View,
-    localDataManager: LocalDataManager
-) : BasePresenter(), MainContract.Presenter {
+class MainViewModel(localDataManager: LocalDataManager): BaseViewModel() {
 
     private val local = NaverQueryLocalDataSourceImpl(localDataManager)
     private val remote = NaverQueryRemoteDataSourceImpl(WebApiTask.getInstance())
     private var repository = NaverQueryRepositoryImpl(local, remote)
 
     var query = ObservableField<String>()
-    var isVisible = ObservableField<Boolean>()
+    var result = ObservableField<MutableList<MovieModel>>()
+    var isEmpty = ObservableField<Boolean>()
+    var showLoading = ObservableField<Boolean>()
+    var showError = ObservableField<String>()
 
     init {
         query.set(localDataManager.getQuery())
         searchMovie()
     }
 
-    override fun searchMovie() {
+    fun searchMovie() {
         val name = query.get()?:""
 
         if (name.isEmpty()) {
-            view.showEmptyResult()
+            showError.set(KEY_QUERY_EMPTY)
             return
         }
 
+        showLoading.set(true)
+
         repository.searchMovie(name)
-            .doOnSubscribe {
-                view.showLoading()
-            }
-            .doOnTerminate {
-                view.hideLoading()
+            .doOnComplete {
+                showLoading.set(false)
             }
             .subscribe({ response ->
                 val list = response.items
-
-                if (list.isEmpty()) {
-                    isVisible.set(true)
-                    view.showEmptyResult()
-                    return@subscribe
-                }
-
-                isVisible.set(false)
-                view.showMovieList(list)
+                isEmpty.set(list.isEmpty())
+                result.set(list)
             }, {
                 val error = handleError(it)
-                view.showError(error)
+                showError.set(error)
+                showLoading.set(false)
             })
             .addToDisposable()
     }
+
 }
