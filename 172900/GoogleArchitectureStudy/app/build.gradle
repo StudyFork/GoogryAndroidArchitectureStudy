@@ -42,4 +42,29 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    // Koin for Kotlin
+    implementation "org.koin:koin-core:$koin_version"
+    // Koin extended & experimental features
+    implementation "org.koin:koin-core-ext:$koin_version"
+    // Koin for Unit tests
+    testImplementation "org.koin:koin-test:$koin_version"
+    // Koin for Java developers
+    implementation "org.koin:koin-java:$koin_version"
+
+    // Koin for Android
+    implementation "org.koin:koin-android:$koin_version"
+    // Koin Android Scope features
+    implementation "org.koin:koin-android-scope:$koin_version"
+    // Koin Android ViewModel features
+    implementation "org.koin:koin-android-viewmodel:$koin_version"
+    // Koin Android Experimental features
+    implementation "org.koin:koin-android-ext:$koin_version"
+
+    // Koin AndroidX Scope features
+    implementation "org.koin:koin-androidx-scope:$koin_version"
+    // Koin AndroidX ViewModel features
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+    // Koin AndroidX Experimental features
+    implementation "org.koin:koin-androidx-ext:$koin_version"
+
 }
