@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="presenter"
-            type="app.ch.study.ui.main.presenter.MainPresenter" />
+            name="vm"
+            type="app.ch.study.ui.main.viewmodel.MainViewModel" />
 
     </data>
 
@@ -26,7 +26,7 @@
             android:inputType="text"
             android:paddingStart="20dp"
             android:paddingEnd="0dp"
-            android:text="@={presenter.query}"
+            android:text="@={vm.query}"
             app:layout_constraintEnd_toStartOf="@+id/btn_search"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +35,7 @@
             android:id="@+id/btn_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> presenter.searchMovie()}"
+            android:onClick="@{() -> vm.searchMovie()}"
             android:text="검색"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -52,11 +52,13 @@
                 android:id="@+id/rv_movie"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:movieResult="@{vm.result}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/list_item_movie" />
 
             <FrameLayout
                 android:id="@+id/pb_loading"
+                app:visible="@{vm.showLoading}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/white"
@@ -74,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/white"
-                app:visible="@{presenter.isVisible}">
+                app:visible="@{vm.isEmpty}">
 
                 <TextView
                     android:layout_width="wrap_content"
