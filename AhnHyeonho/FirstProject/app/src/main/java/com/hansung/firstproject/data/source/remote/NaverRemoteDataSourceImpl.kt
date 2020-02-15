@@ -1,5 +1,7 @@
 package com.hansung.firstproject.data.source.remote
 
+import android.content.Context
+import com.hansung.firstproject.R
 import com.hansung.firstproject.data.ErrorStringResource
 import com.hansung.firstproject.data.MovieResponseModel
 import com.hansung.firstproject.data.source.remote.api.NaverApiServiceImpl
@@ -8,8 +10,8 @@ import retrofit2.Response
 import java.net.UnknownHostException
 
 
-class NaverRemoteDataSourceImpl private constructor(
-    private val clientInfo: Pair<String, String>
+class NaverRemoteDataSourceImpl(
+    private val stringContext: Context
 ) : NaverRemoteDataSource {
 
     override fun getMoviesData(
@@ -19,8 +21,8 @@ class NaverRemoteDataSourceImpl private constructor(
         isEmptyList: () -> Unit
     ) {
         NaverApiServiceImpl.getResult(
-            clientInfo.first,
-            clientInfo.second,
+            stringContext.getString(R.string.client_id),
+            stringContext.getString(R.string.client_secret),
             title,
             100
         )
@@ -54,20 +56,5 @@ class NaverRemoteDataSourceImpl private constructor(
                     }
                 }
             })
-    }
-
-    companion object {
-        @Volatile
-        private var _INSTANCE: NaverRemoteDataSourceImpl? = null
-
-        @JvmStatic
-        fun getInstance(
-            clientInfo: Pair<String, String>
-        ): NaverRemoteDataSourceImpl =
-            _INSTANCE ?: synchronized(this) {
-                _INSTANCE ?: NaverRemoteDataSourceImpl(clientInfo).also {
-                    _INSTANCE = it
-                }
-            }
     }
 }
