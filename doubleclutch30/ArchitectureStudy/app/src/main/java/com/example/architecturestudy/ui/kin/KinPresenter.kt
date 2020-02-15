@@ -32,10 +32,20 @@ class KinPresenter(
     }
 
     override fun getLastData() {
-        repository?.getLastKin(
-            success = { view.showResult(it) },
-            fail = { e -> view.showEmpty(e.toString()) }
-        )
+        if(repository == null) return
+
+        val data = repository.getLastKin()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    view.showResult(it)
+                },
+                {
+                    view.showErrorMessage(it.toString())
+                }
+            )
+        disposable.add(data)
     }
 
     override fun onStop() {

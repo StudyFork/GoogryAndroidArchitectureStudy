@@ -1,6 +1,5 @@
 package com.example.architecturestudy.network
 
-import android.util.Log
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response

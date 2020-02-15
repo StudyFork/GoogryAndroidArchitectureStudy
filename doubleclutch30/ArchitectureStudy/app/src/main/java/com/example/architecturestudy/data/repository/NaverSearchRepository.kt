@@ -16,8 +16,8 @@ interface NaverSearchRepository  {
     fun getKin(keyword: String): Single<KinData>
     fun getImage(keyword: String): Single<ImageData>
 
-    fun getLastMovie(success: (List<MovieItem>) -> Unit, fail: (Throwable) -> Unit)
-    fun getLastBlog(success: (List<BlogItem>) -> Unit, fail: (Throwable) -> Unit)
-    fun getLastKin(success: (List<KinItem>) -> Unit, fail: (Throwable) -> Unit)
-    fun getLastImage(success: (List<ImageItem>) -> Unit, fail: (Throwable) -> Unit)
+    fun getLastMovie(): Single<List<MovieItem>>
+    fun getLastBlog(): Single<List<BlogItem>>
+    fun getLastKin(): Single<List<KinItem>>
+    fun getLastImage(): Single<List<ImageItem>>
 }

@@ -32,10 +32,20 @@ class ImagePresenter(
     }
 
     override fun getLastData() {
-        repository?.getLastImage(
-            success = { view.showResult(it) },
-            fail = { e -> view.showEmpty(e.toString()) }
-        )
+        if(repository == null) return
+
+        val data = repository.getLastImage()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    view.showResult(it)
+                },
+                {
+                    view.showErrorMessage(it.toString())
+                }
+            )
+        disposable.add(data)
     }
 
     override fun onStop() {

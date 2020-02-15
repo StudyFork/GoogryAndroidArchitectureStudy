@@ -1,19 +1,21 @@
-package com.example.architecturestudy.data.local.Dao
+package com.example.architecturestudy.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.architecturestudy.data.local.Entity.KinEntity
+import io.reactivex.Completable
+import io.reactivex.Single
 
 @Dao
 interface KinDao {
     @Query("SELECT * FROM kin")
-    fun getAll(): List<KinEntity>
+    fun getAll(): Single<List<KinEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun inserAll(blogItem: List<KinEntity>)
+    fun insertAll(item: List<KinEntity>): Completable
 
     @Query("DELETE FROM kin")
-    fun deleteAll()
+    fun deleteAll(): Completable
 }

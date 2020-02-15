@@ -1,5 +1,6 @@
 package com.example.architecturestudy.ui.movie
 
+import android.util.Log
 import com.example.architecturestudy.data.repository.NaverSearchRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -29,6 +30,7 @@ class MoviePresenter(
                     },
                     // 실패 처리
                     {
+                        it.printStackTrace()
                         view.showErrorMessage(it.toString())
                     }
                 )
@@ -37,10 +39,20 @@ class MoviePresenter(
     }
 
     override fun getLastData() {
-        repository?.getLastMovie(
-            success = { view.showResult(it) },
-            fail = { e -> view.showEmpty(e.toString()) }
-        )
+        if (repository == null) return
+
+        val data = repository.getLastMovie()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    view.showResult(it)
+                },
+                {
+                    view.showErrorMessage(it.toString())
+                }
+            )
+        disposable.add(data)
     }
 
     override fun onStop() {

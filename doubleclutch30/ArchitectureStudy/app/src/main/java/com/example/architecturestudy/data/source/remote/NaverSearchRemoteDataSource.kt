@@ -1,9 +1,5 @@
 package com.example.architecturestudy.data.source.remote
 
-import com.example.architecturestudy.data.model.BlogItem
-import com.example.architecturestudy.data.model.ImageItem
-import com.example.architecturestudy.data.model.KinItem
-import com.example.architecturestudy.data.model.MovieItem
 import com.example.architecturestudy.network.response.BlogData
 import com.example.architecturestudy.network.response.ImageData
 import com.example.architecturestudy.network.response.KinData

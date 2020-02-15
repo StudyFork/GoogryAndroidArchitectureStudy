@@ -5,105 +5,58 @@ import com.example.architecturestudy.data.local.Entity.ImageEntity
 import com.example.architecturestudy.data.local.Entity.KinEntity
 import com.example.architecturestudy.data.local.Entity.MovieEntity
 import com.example.architecturestudy.data.local.NaverDataBase
-import java.util.concurrent.Callable
-import java.util.concurrent.Executors
-import java.util.concurrent.Future
+import io.reactivex.Completable
+import io.reactivex.Single
 
 class NaverSearchLocalDataSourceImpl(
-        private val naverDataBase: NaverDataBase
+    private val naverDataBase: NaverDataBase
 ) : NaverSearchLocalDataSource {
 
-    private val executor = Executors.newSingleThreadExecutor()
-
-    override fun saveMovieItems(items: List<MovieEntity>) {
-        executor.submit {
-            naverDataBase.movieDao().insertAll((items as? List<MovieEntity>) ?: emptyList())
-        }
+    override fun saveMovieItems(items: List<MovieEntity>): Completable {
+        return naverDataBase.movieDao().insertAll(items)
     }
 
-    override fun getMovieItems(
-        success: (items: List<MovieEntity>) -> Unit,
-        fail: (Throwable) -> Unit
-    ) {
-        val future: Future<List<MovieEntity>> = executor.submit(Callable<List<MovieEntity>> {
-            return@Callable naverDataBase.movieDao().getAll()
-        })
-        val list = future.get()
-        success((list) ?: emptyList())
+    override fun saveBlogItems(items: List<BlogEntity>): Completable {
+        return naverDataBase.blogDao().insertAll(items)
     }
 
-    override fun deleteMovie() {
-        executor.submit {
-            naverDataBase.movieDao().deleteAll()
-        }
+    override fun saveKinItems(items: List<KinEntity>): Completable {
+        return naverDataBase.kinDao().insertAll(items)
     }
 
-    override fun saveBlogItems(items: List<BlogEntity>) {
-        executor.submit {
-            naverDataBase.blogDao().insertAll((items as? List<BlogEntity>) ?: emptyList())
-        }
+    override fun saveImageItems(items: List<ImageEntity>): Completable {
+        return naverDataBase.imageDao().insertAll(items)
     }
 
-    override fun getBlogItems(
-        success: (items: List<BlogEntity>) -> Unit,
-        fail: (Throwable) -> Unit
-    ) {
-        val future: Future<List<BlogEntity>> = executor.submit(Callable<List<BlogEntity>> {
-            return@Callable naverDataBase.blogDao().getAll()
-        })
-        val list = future.get()
-        success((list) ?: emptyList())
+    override fun deleteMovie(): Completable {
+        return naverDataBase.movieDao().deleteAll()
     }
 
-    override fun deleteBlog() {
-        executor.submit {
-            naverDataBase.blogDao().deleteAll()
-        }
+    override fun deleteBlog(): Completable {
+        return naverDataBase.blogDao().deleteAll()
     }
 
-    override fun saveKinItems(items: List<KinEntity>) {
-        executor.submit {
-            naverDataBase.kinDao().inserAll(items as? List<KinEntity> ?: emptyList())
-        }
+    override fun deleteKin(): Completable {
+        return naverDataBase.kinDao().deleteAll()
     }
 
-    override fun getKiItems(
-        success: (items: List<KinEntity>) -> Unit,
-        fail: (Throwable) -> Unit
-    ) {
-        val future: Future<List<KinEntity>> = executor.submit(Callable<List<KinEntity>> {
-            return@Callable naverDataBase.kinDao().getAll()
-        })
-        val list = future.get()
-        success((list) ?: emptyList())
+    override fun deleteImage(): Completable {
+        return naverDataBase.imageDao().deleteAll()
     }
 
-    override fun deleteKin() {
-        executor.submit {
-            naverDataBase.kinDao().deleteAll()
-        }
+    override fun getMovieItems(): Single<List<MovieEntity>> {
+        return naverDataBase.movieDao().getAll()
     }
 
-    override fun saveImageItems(items: List<ImageEntity>) {
-        executor.submit {
-            naverDataBase.imageDao().inserAll(items as? List<ImageEntity> ?: emptyList())
-        }
+    override fun getBlogItems(): Single<List<BlogEntity>> {
+        return naverDataBase.blogDao().getAll()
     }
 
-    override fun deleteImage() {
-        executor.submit {
-            naverDataBase.imageDao().deleteAll()
-        }
+    override fun getKiItems(): Single<List<KinEntity>> {
+        return naverDataBase.kinDao().getAll()
     }
 
-    override fun getImageItems(
-        success: (items: List<ImageEntity>) -> Unit,
-        fail: (Throwable) -> Unit
-    ) {
-        val future: Future<List<ImageEntity>> = executor.submit(Callable<List<ImageEntity>> {
-            return@Callable naverDataBase.imageDao().getAll()
-        })
-        val list = future.get()
-        success((list) ?: emptyList())
+    override fun getImageItems(): Single<List<ImageEntity>> {
+        return naverDataBase.imageDao().getAll()
     }
 }

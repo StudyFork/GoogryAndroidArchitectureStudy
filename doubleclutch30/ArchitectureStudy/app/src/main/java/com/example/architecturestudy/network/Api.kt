@@ -5,7 +5,6 @@ import com.example.architecturestudy.network.response.ImageData
 import com.example.architecturestudy.network.response.KinData
 import com.example.architecturestudy.network.response.MovieData
 import io.reactivex.Single
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
