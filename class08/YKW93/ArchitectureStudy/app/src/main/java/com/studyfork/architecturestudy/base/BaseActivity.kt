@@ -21,7 +21,10 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, layoutRes)
-        binding.setVariable(BR.vm, viewModel)
+        binding.run {
+            setVariable(BR.vm, viewModel)
+            lifecycleOwner = this@BaseActivity
+        }
 
         viewModel.observableToastMessage.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
@@ -33,10 +36,5 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
                 ).show()
             }
         })
-    }
-
-    override fun onDestroy() {
-        viewModel.clearDisposable()
-        super.onDestroy()
     }
 }

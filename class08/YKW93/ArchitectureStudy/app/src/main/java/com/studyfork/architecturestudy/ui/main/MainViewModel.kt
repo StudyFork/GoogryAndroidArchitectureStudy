@@ -3,13 +3,18 @@ package com.studyfork.architecturestudy.ui.main
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import com.studyfork.architecturestudy.R
+import com.studyfork.architecturestudy.base.BaseApplication
 import com.studyfork.architecturestudy.base.BaseViewModel
 import com.studyfork.architecturestudy.common.ResourceProvider
 import com.studyfork.architecturestudy.data.model.MovieResponse
 import com.studyfork.architecturestudy.data.repository.MovieRepositoryImpl
 import com.studyfork.architecturestudy.data.source.remote.MovieRemoteDataSourceImpl
 
-class MainViewModel(private val resourceProvider: ResourceProvider) : BaseViewModel() {
+class MainViewModel : BaseViewModel() {
+
+    private val resourceProvider: ResourceProvider by lazy {
+        ResourceProvider(BaseApplication.applicationContext())
+    }
 
     private val movieRepositoryImpl: MovieRepositoryImpl by lazy {
         MovieRepositoryImpl(MovieRemoteDataSourceImpl())

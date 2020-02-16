@@ -2,10 +2,11 @@ package com.studyfork.architecturestudy.base
 
 import androidx.annotation.NonNull
 import androidx.databinding.ObservableField
+import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
-abstract class BaseViewModel {
+abstract class BaseViewModel : ViewModel() {
 
     var observableToastMessage: ObservableField<String> = ObservableField("")
 
@@ -19,7 +20,8 @@ abstract class BaseViewModel {
         compositeDisposable.add(this)
     }
 
-    fun clearDisposable() {
+    override fun onCleared() {
         compositeDisposable.clear()
+        super.onCleared()
     }
 }
