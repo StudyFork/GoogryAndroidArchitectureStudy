@@ -1,6 +1,6 @@
 package com.example.myapplication.data.source
 
-import com.example.myapplication.Movie
+import com.example.myapplication.data.model.Movie
 
 interface NaverLocalDataSource {
     fun getRecentData(): Movie

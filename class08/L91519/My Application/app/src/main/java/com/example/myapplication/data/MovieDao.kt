@@ -1,9 +1,9 @@
-package com.example.myapplication
+package com.example.myapplication.data
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.myapplication.data.model.MovieResult
+import com.example.myapplication.data.model.Movie
 
 @Dao
 interface MovieDao{

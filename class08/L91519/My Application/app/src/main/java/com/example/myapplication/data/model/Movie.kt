@@ -1,9 +1,8 @@
-package com.example.myapplication
+package com.example.myapplication.data.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.myapplication.data.model.MovieResult
 
 @Entity(tableName = "Movies")
 data class Movie(

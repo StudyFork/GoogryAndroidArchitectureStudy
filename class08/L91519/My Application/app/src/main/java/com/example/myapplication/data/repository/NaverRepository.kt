@@ -1,6 +1,6 @@
 package com.example.myapplication.data.repository
 
-import com.example.myapplication.Movie
+import com.example.myapplication.data.model.Movie
 import com.example.myapplication.data.model.MovieResult
 
 interface NaverRepository {

@@ -1,7 +1,7 @@
 package com.example.myapplication.data.source
 
-import com.example.myapplication.Movie
-import com.example.myapplication.MovieDao
+import com.example.myapplication.data.MovieDao
+import com.example.myapplication.data.model.Movie
 
 class NaverLocalDataSourceImpl constructor(private val movieDao: MovieDao) : NaverLocalDataSource {
 

@@ -5,8 +5,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
-import com.example.myapplication.MovieDatabase
 import com.example.myapplication.R
+import com.example.myapplication.data.MovieDatabase
 import com.example.myapplication.data.repository.NaverRepositoryImpl
 import com.example.myapplication.data.source.NaverLocalDataSourceImpl
 import com.example.myapplication.data.source.NaverRemoteDataSourceImpl

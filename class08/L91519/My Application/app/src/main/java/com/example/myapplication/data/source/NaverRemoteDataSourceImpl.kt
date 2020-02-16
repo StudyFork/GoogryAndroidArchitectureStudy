@@ -1,6 +1,6 @@
 package com.example.myapplication.data.source
 
-import com.example.myapplication.ApiClient
+import com.example.myapplication.data.ApiClient
 import com.example.myapplication.data.model.MovieResult
 import retrofit2.Call
 import retrofit2.Callback

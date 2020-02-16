@@ -1,5 +1,6 @@
-package com.example.myapplication
+package com.example.myapplication.data
 
+import com.example.myapplication.MovieApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -27,5 +28,7 @@ object ApiClient {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-    val getService: MovieApi = retrofit.create(MovieApi::class.java)
+    val getService: MovieApi = retrofit.create(
+        MovieApi::class.java
+    )
 }
