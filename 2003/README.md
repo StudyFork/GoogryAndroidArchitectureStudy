@@ -15,6 +15,6 @@
 - 김수아 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2003/)
 
-- 진승언 [](https://github.com/)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2003/)
+- 진승언 [mtjin](https://github.com/mtjin)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2003/mtjin)
 
