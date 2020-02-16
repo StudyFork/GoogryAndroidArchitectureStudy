@@ -1,7 +1,6 @@
 package com.studyfork.architecturestudy.ui.main
 
-import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import com.studyfork.architecturestudy.R
 import com.studyfork.architecturestudy.base.BaseApplication
 import com.studyfork.architecturestudy.base.BaseViewModel
@@ -20,24 +19,24 @@ class MainViewModel : BaseViewModel() {
         MovieRepositoryImpl(MovieRemoteDataSourceImpl())
     }
 
-    val movieDataList: ObservableField<List<MovieResponse.Item>> = ObservableField()
-    val searchText: ObservableField<String> = ObservableField()
+    val movieDataList: MutableLiveData<List<MovieResponse.Item>> = MutableLiveData()
+    val searchText: MutableLiveData<String> = MutableLiveData()
 
-    val isLoading: ObservableBoolean = ObservableBoolean()
-    val hidesKeyboard: ObservableBoolean = ObservableBoolean()
+    val isLoading: MutableLiveData<Boolean> = MutableLiveData()
+    val hidesKeyboard: MutableLiveData<Boolean> = MutableLiveData()
 
     private fun requestMovieData() {
-        val query: String? = searchText.get()
+        val query: String? = searchText.value
 
         if (query.isNullOrEmpty()) {
             showToast(resourceProvider.getString(R.string.empty_query_notice))
             return
         } else {
             movieRepositoryImpl.getMovieList(query, {
-                isLoading.set(it)
+                isLoading.value = it
             }, {
                 if (it.total != 0) {
-                    movieDataList.set(it.items)
+                    movieDataList.value = it.items
                 } else {
                     showToast(resourceProvider.getString(R.string.empty_data_notice))
                 }
@@ -48,9 +47,11 @@ class MainViewModel : BaseViewModel() {
     }
 
     fun loadMovieData() {
-        hidesKeyboard.set(true)
+        hidesKeyboard.value = true
         requestMovieData()
     }
 
-    fun showKeyboard() = hidesKeyboard.set(false)
+    fun showKeyboard() {
+        hidesKeyboard.value = false
+    }
 }

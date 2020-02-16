@@ -5,8 +5,8 @@ import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Observer
 import com.studyfork.architecturestudy.BR
 
 abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
@@ -26,15 +26,8 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
             lifecycleOwner = this@BaseActivity
         }
 
-        viewModel.observableToastMessage.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                Toast.makeText(
-                    baseContext,
-                    viewModel.observableToastMessage.get(),
-                    Toast.LENGTH_LONG
-                ).show()
-            }
+        viewModel.liveDataToastMessage.observe(this@BaseActivity, Observer<String> {
+            Toast.makeText(baseContext, it, Toast.LENGTH_LONG).show()
         })
     }
 }
