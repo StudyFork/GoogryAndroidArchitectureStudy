@@ -1,12 +1,10 @@
 package com.onit.googlearchitecturestudy.data.source.remote
 
 import com.onit.googlearchitecturestudy.Movies
-import com.onit.googlearchitecturestudy.NetworkService
+import com.onit.googlearchitecturestudy.NaverApiService
 import retrofit2.Response
 
-class NaverApiRemoteDataSourceImpl : NaverApiRemoteDataSource {
-
-    private val naverApiService = NetworkService.naverApiService
+class NaverApiRemoteDataSourceImpl(private val naverApiService: NaverApiService) : NaverApiRemoteDataSource {
 
     override suspend fun getMovieList(keyword: String): Response<Movies> {
         return naverApiService.getMovieList(keyword)

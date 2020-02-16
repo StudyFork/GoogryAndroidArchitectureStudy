@@ -8,13 +8,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.onit.googlearchitecturestudy.R
 import com.onit.googlearchitecturestudy.databinding.ActivityMainBinding
 import com.onit.googlearchitecturestudy.ui.movieInformation.MovieInformationActivity
 import com.onit.googlearchitecturestudy.ui.movieInformation.MovieInformationActivity.Companion.MOVIE_URL
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 typealias ClickMovieListener = (Int) -> Unit
 
@@ -22,18 +21,13 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var resultMovieListRecyclerAdapter: ResultMovieListRecyclerAdapter
     private lateinit var binding: ActivityMainBinding
-    lateinit var viewModel: MainViewModel
+    private val mainViewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return MainViewModel() as T
-            }
-        })[MainViewModel::class.java]
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)!!
-        binding.viewModel = viewModel
+        binding.viewModel = mainViewModel
         binding.lifecycleOwner = this
         init()
     }
@@ -61,7 +55,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setViewModelCallback() {
-        with(viewModel) {
+        with(mainViewModel) {
             toastMessage.observe(this@MainActivity, Observer {
                 showToastMessage(toastMessage.value ?: "", Toast.LENGTH_SHORT)
             })

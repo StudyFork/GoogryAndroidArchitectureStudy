@@ -5,14 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.onit.googlearchitecturestudy.Movie
 import com.onit.googlearchitecturestudy.data.repository.MovieRepository
-import com.onit.googlearchitecturestudy.data.repository.MovieRepositoryImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainViewModel : ViewModel() {
-    private val movieRepositroy: MovieRepository = MovieRepositoryImpl()
+class MainViewModel(private val movieRepository: MovieRepository) : ViewModel() {
     val isLoading = MutableLiveData<Boolean>()
     val toastMessage = MutableLiveData<String>()
     val hideKeyBoard = MutableLiveData<Boolean>()
@@ -33,7 +31,7 @@ class MainViewModel : ViewModel() {
             isLoading.value = true
 
             val response =
-                withContext(Dispatchers.IO) { movieRepositroy.getMovieList(keyword) }
+                withContext(Dispatchers.IO) { movieRepository.getMovieList(keyword) }
 
             if (response.isSuccessful) {
                 val responseMovieList = response.body()?.movies
