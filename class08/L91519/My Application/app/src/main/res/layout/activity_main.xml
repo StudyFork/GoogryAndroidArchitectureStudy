@@ -15,11 +15,6 @@
         android:layout_height="match_parent"
         tools:context=".ui.MainActivity">
 
-        <WebView
-            android:id="@+id/webview_detail_movie"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/search_parent"
             android:layout_width="0dp"
