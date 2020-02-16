@@ -1,6 +1,6 @@
 package com.example.architecturestudy.data.model
 
-import com.example.architecturestudy.data.local.Entity.MovieEntity
+import com.example.architecturestudy.data.local.entity.MovieEntity
 import com.google.gson.annotations.SerializedName
 
 data class MovieItem(

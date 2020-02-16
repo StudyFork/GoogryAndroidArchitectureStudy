@@ -4,17 +4,22 @@ import android.os.Bundle
 import android.util.Log
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.example.architecturestudy.R
+import com.example.architecturestudy.databinding.ActivityMainBinding
+import com.example.architecturestudy.databinding.ActivityWebviewBinding
 import kotlinx.android.synthetic.main.activity_webview.*
 
 class WebViewActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityWebviewBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_webview)
+        binding = DataBindingUtil.setContentView(this@WebViewActivity, R.layout.activity_webview)
 
         val url = intent.getStringExtra(EXTRA_URL)
 
-        val webView = webview.apply {
+        val webView = binding.webview.apply {
             webViewClient = WebViewClient()
             settings.run {
                 useWideViewPort = true

@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.architecturestudy.data.local.Entity.ImageEntity
+import com.example.architecturestudy.data.local.entity.ImageEntity
 import io.reactivex.Completable
 import io.reactivex.Single
 

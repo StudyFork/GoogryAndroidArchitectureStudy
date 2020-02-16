@@ -1,6 +1,6 @@
 package com.example.architecturestudy.data.model
 
-import com.example.architecturestudy.data.local.Entity.ImageEntity
+import com.example.architecturestudy.data.local.entity.ImageEntity
 import com.google.gson.annotations.SerializedName
 
 data class ImageItem(
