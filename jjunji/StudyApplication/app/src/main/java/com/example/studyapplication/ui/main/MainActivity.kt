@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.studyapplication.R
 import com.example.studyapplication.ui.base.BaseFragment
 import com.example.studyapplication.ui.main.movie.MovieFragment
+import com.example.studyapplication.util.MyLogger
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 

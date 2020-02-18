@@ -13,18 +13,36 @@ class MoviePresenter(
     BaseSearchPresenter(view) {
 
     override fun clickSearchButton(query: String) {
-        repository.getMovieList(query, object : Conn {
-            override fun <T> success(result: T) {
-                val searchData: SearchResult<MovieInfo> = result as SearchResult<MovieInfo>
-                searchData.let {
-                    view.showList(searchData.arrItem)
-                }
-            }
+        checkQueryValid(query, validQuery = {
+            if (it) {
+                repository.getMovieList(query, object : Conn {
+                    override fun <T> success(result: T) {
+                        val searchData: SearchResult<MovieInfo> = result as SearchResult<MovieInfo>
+                        searchData.let {
+                            if (searchData.arrItem.size == 0) {
+                                view.showEmptyView()
+                            } else {
+                                view.showList(searchData.arrItem)
+                            }
+                        }
+                    }
 
-            override fun failed(e: Throwable) {
-                onRequestFailed(e)
+                    override fun failed(e: Throwable) {
+                        onRequestFailed(e)
+                    }
+                })
             }
         })
     }
 
+    override fun checkCacheData() {
+        repository.getCacheMovieList(
+            success = {
+                if (it.size > 0) {
+                    view.showList(it)
+                }
+            },
+            failed = { onRequestFailed(it) }
+        )
+    }
 }

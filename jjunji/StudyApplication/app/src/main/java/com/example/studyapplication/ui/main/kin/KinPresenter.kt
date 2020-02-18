@@ -13,16 +13,37 @@ class KinPresenter(
     BaseSearchPresenter(view) {
 
     override fun clickSearchButton(query: String) {
-        repository.getKinList(query, object : Conn {
-            override fun <T> success(result: T) {
-                val searchData: SearchResult<KinInfo> = result as SearchResult<KinInfo>
-                searchData.let { view.showList(searchData.arrItem) }
-            }
+        checkQueryValid(query, validQuery = {
+            if (it) {
+                repository.getKinList(query, object : Conn {
+                    override fun <T> success(result: T) {
+                        val searchData: SearchResult<KinInfo> = result as SearchResult<KinInfo>
+                        searchData.let {
+                            if (searchData.arrItem.size == 0) {
+                                view.showEmptyView()
+                            } else {
+                                view.showList(searchData.arrItem)
+                            }
+                        }
+                    }
 
-            override fun failed(e: Throwable) {
-                onRequestFailed(e)
+                    override fun failed(e: Throwable) {
+                        onRequestFailed(e)
+                    }
+                })
             }
         })
+    }
+
+    override fun checkCacheData() {
+        repository.getCacheKinList(
+            success = {
+                if (it.size > 0) {
+                    view.showList(it)
+                }
+            },
+            failed = { onRequestFailed(it) }
+        )
     }
 
 }

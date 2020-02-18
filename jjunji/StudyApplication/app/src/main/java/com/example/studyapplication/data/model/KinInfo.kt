@@ -1,7 +1,9 @@
 package com.example.studyapplication.data.model
 
-data class KinInfo(
-    var title: String,
-    var link: String,
-    var description: String
-)
+import io.realm.RealmObject
+
+open class KinInfo(
+    var title: String = "",
+    var link: String = "",
+    var description: String = ""
+) : RealmObject()

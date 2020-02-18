@@ -13,17 +13,38 @@ class ImagePresenter(
     BaseSearchPresenter(view) {
 
     override fun clickSearchButton(query: String) {
-        repository.getImageList(query, object : Conn {
-            override fun <T> success(result: T) {
-                val searchData: SearchResult<ImageInfo> = result as SearchResult<ImageInfo>
-                searchData.let { view.showList(searchData.arrItem) }
-            }
+        checkQueryValid(query, validQuery = {
+            if (it) {
+                repository.getImageList(query, object : Conn {
+                    override fun <T> success(result: T) {
+                        val searchData: SearchResult<ImageInfo> = result as SearchResult<ImageInfo>
+                        searchData.let {
+                            if(searchData.arrItem.size == 0) {
+                                view.showEmptyView()
+                            } else {
+                                view.showList(searchData.arrItem)
+                            }
+                        }
+                    }
 
-            override fun failed(e: Throwable) {
-                onRequestFailed(e)
-            }
+                    override fun failed(e: Throwable) {
+                        onRequestFailed(e)
+                    }
 
+                })
+            }
         })
+    }
+
+    override fun checkCacheData() {
+        repository.getCacheImageList(
+            success = {
+                if (it.size > 0) {
+                    view.showList(it)
+                }
+            },
+            failed = { onRequestFailed(it) }
+        )
     }
 
 }

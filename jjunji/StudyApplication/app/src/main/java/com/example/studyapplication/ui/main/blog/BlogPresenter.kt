@@ -12,19 +12,36 @@ class BlogPresenter(
 ) : BaseSearchPresenter(view), BlogContract.Presenter {
 
     override fun clickSearchButton(query: String) {
-        repository.getBlogList(query, object : Conn {
-            override fun <T> success(result: T) {
-                // SearchResult<BlogInfo>
+        checkQueryValid(query, validQuery = {
+            if (it) {
+                repository.getBlogList(query, object : Conn {
+                    override fun <T> success(result: T) {
+                        val searchData: SearchResult<BlogInfo> = result as SearchResult<BlogInfo>
+                        searchData.let {
+                            if (searchData.arrItem.size == 0) {
+                                view.showEmptyView()
+                            } else {
+                                view.showList(searchData.arrItem)
+                            }
+                        }
+                    }
 
-                val searchData : SearchResult<BlogInfo> = result as SearchResult<BlogInfo>
-                searchData.let {
-                    view.showList(searchData.arrItem)
-                }
-            }
-
-            override fun failed(e: Throwable) {
-                onRequestFailed(e)
+                    override fun failed(e: Throwable) {
+                        onRequestFailed(e)
+                    }
+                })
             }
         })
+    }
+
+    override fun checkCacheData() {
+        repository.getCacheBlogList(
+            success = {
+                if (it.size > 0) {
+                    view.showList(it)
+                }
+            },
+            failed = { onRequestFailed(it) }
+        )
     }
 }

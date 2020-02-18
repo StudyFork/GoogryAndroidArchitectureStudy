@@ -3,6 +3,7 @@ package com.example.studyapplication.ui.main.blog
 import android.os.Bundle
 import android.view.View
 import com.example.studyapplication.R
+import com.example.studyapplication.data.datasource.local.NaverLocalDataSourceImpl
 import com.example.studyapplication.data.datasource.remote.NaverRemoteDataSourceImpl
 import com.example.studyapplication.data.model.BlogInfo
 import com.example.studyapplication.data.repository.NaverSearchRepository
@@ -13,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_blog.*
 
 class BlogFragment : BaseSearchFragment(R.layout.fragment_blog), BlogContract.View {
     private val repository: NaverSearchRepository =
-        NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl())
+        NaverSearchRepositoryImpl(NaverRemoteDataSourceImpl(), NaverLocalDataSourceImpl())
     private lateinit var blogAdapter: BlogAdapter
     private lateinit var presenter: BlogContract.Presenter
 
@@ -24,6 +25,8 @@ class BlogFragment : BaseSearchFragment(R.layout.fragment_blog), BlogContract.Vi
         btnSearch.setOnClickListener(btnSearchClickListener())
         blogAdapter = BlogAdapter()
         recyclerView.adapter = blogAdapter
+
+        presenter.checkCacheData()
     }
 
     // 검색 버튼 클릭 리스너
@@ -35,7 +38,18 @@ class BlogFragment : BaseSearchFragment(R.layout.fragment_blog), BlogContract.Vi
     }
 
     override fun showList(items: ArrayList<BlogInfo>) {
+        if (tvEmpty.visibility == View.VISIBLE) {
+            tvEmpty.visibility = View.GONE
+            recyclerView.visibility = View.VISIBLE
+        }
         blogAdapter.resetItem(items)
+    }
+
+    override fun showEmptyView() {
+        if (recyclerView.visibility == View.VISIBLE) {
+            recyclerView.visibility = View.GONE
+        }
+        tvEmpty.visibility = View.VISIBLE
     }
 
 }

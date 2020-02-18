@@ -1,6 +1,5 @@
 package com.example.studyapplication.data.datasource.remote
 
-import android.util.Log
 import com.example.studyapplication.network.ApiClient
 import com.example.studyapplication.network.Conn
 import com.example.studyapplication.network.Remote
@@ -22,9 +21,7 @@ class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
     override fun getBlogList(title: String, conn: Conn) {
         Remote.get(ApiClient.getService().getBlogList(title), object : Conn {
             override fun <T> success(result: T) {
-//                conn.success(result)
-                Log.e("", ">>> getBlogList()")
-                conn.failed(Throwable("Test"))
+                conn.success(result)
             }
 
             override fun failed(e: Throwable) {
