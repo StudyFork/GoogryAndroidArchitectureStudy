@@ -6,8 +6,8 @@
 -  강래민 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2003/)
 
-- 이경재 [](https://github.com/)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2003/)
+- 이경재 [byiryu](https://github.com/byiryu)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2003/byiryu)
 
 - 황성진 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2003/)
