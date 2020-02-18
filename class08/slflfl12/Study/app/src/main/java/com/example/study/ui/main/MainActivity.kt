@@ -25,17 +25,32 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         MovieAdapter()
     }
 
-    override val vm: MainViewModel by lazy {
-        ViewModelProvider(this, object: ViewModelProvider.Factory {
+    /*    override val vm: MainViewModel by lazy {
+            ViewModelProvider(this, object: ViewModelProvider.Factory {
+                override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                    return MainViewModel(NaverSearchRepositoryImpl.getInstance(
+                        NaverSearchLocalDataSourceImpl.getInstance(SearchResultDatabase.getInstance(applicationContext)!!.searchResultDao())
+                        , NaverSearchRemoteDataSourceImpl.getInstance()
+                    )) as T
+                }
+            }).get(MainViewModel::class.java)
+        }*/
+    override val vm: MainViewModel by viewModels {
+        object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return MainViewModel(NaverSearchRepositoryImpl.getInstance(
-                    NaverSearchLocalDataSourceImpl.getInstance(SearchResultDatabase.getInstance(applicationContext)!!.searchResultDao())
-                    , NaverSearchRemoteDataSourceImpl.getInstance()
-                )) as T
+                return MainViewModel(
+                    NaverSearchRepositoryImpl.getInstance(
+                        NaverSearchLocalDataSourceImpl.getInstance(
+                            SearchResultDatabase.getInstance(
+                                applicationContext
+                            )!!.searchResultDao()
+                        )
+                        , NaverSearchRemoteDataSourceImpl.getInstance()
+                    )
+                ) as T
             }
-        }).get(MainViewModel::class.java)
-    }
-
+        }
+    } // ktx 사용
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
