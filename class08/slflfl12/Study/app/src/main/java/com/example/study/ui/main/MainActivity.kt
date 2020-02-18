@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.Observable
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -59,7 +60,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         binding.rvMovieList.adapter = movieAdapter
         binding.lifecycleOwner = this
         getRecentSearchResult()
-        addObserve()
+        addLiveDataObserve()
 
     }
 
@@ -75,45 +76,22 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         Toast.makeText(applicationContext, R.string.empty_result_message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun failSearch() {
-        Toast.makeText(applicationContext, R.string.fail_search, Toast.LENGTH_SHORT).show()
+    private fun addLiveDataObserve() {
+        vm.movieItems.observe(this, Observer { movieAdapter.setItem(it) })
+
+        vm.errorQueryEmpty.observe(this, Observer { showErrorQueryEmpty() })
+
+        vm.errorFailSearch.observe(
+            this,
+            Observer {
+                Toast.makeText(applicationContext, it.toString(), Toast.LENGTH_SHORT).show()
+            })
+
+        vm.errorResultEmpty.observe(this, Observer { showErrorEmptyResult() })
+
+        vm.isKeyboardBoolean.observe(this, Observer { if (!it) hideKeyboard() })
+
     }
-
-    private fun addObserve() {
-
-        vm.errorQueryEmpty.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                showErrorQueryEmpty()
-            }
-        })
-
-        vm.errorFailSearch.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                failSearch()
-            }
-        })
-
-        vm.errorResultEmpty.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                showErrorEmptyResult()
-            }
-        })
-
-        vm.isKeyboardBoolean.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                vm.isKeyboardBoolean.get()?.let {
-                    if (!it) {
-                        hideKeyboard()
-                    }
-                }
-            }
-        })
-    }
-
 }
 
 
