@@ -59,7 +59,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         binding.rvMovieList.adapter = movieAdapter
         binding.lifecycleOwner = this
         getRecentSearchResult()
-        addObserveProperty()
+        addObserve()
 
     }
 
@@ -79,7 +79,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         Toast.makeText(applicationContext, R.string.fail_search, Toast.LENGTH_SHORT).show()
     }
 
-    private fun addObserveProperty() {
+    private fun addObserve() {
 
         vm.errorQueryEmpty.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
