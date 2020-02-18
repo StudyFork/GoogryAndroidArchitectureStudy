@@ -1,41 +1,43 @@
 package com.example.myapplication.ui
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.myapplication.data.model.MovieResult
 import com.example.myapplication.data.repository.NaverRepository
 
-class MainViewModel(private val naverRepository: NaverRepository) {
+class MainViewModel(private val naverRepository: NaverRepository) : ViewModel() {
 
-    val query = ObservableField<String>()
-    val searchResultList = ObservableField<List<MovieResult.Item>>()
-    val errorQueryBlank = ObservableField<Throwable>()
-    val errorFailSearch = ObservableField<Throwable>()
-    val resultEmpty = ObservableField<Boolean>()
+    val query = MutableLiveData<String>()
+    val searchResultList = MutableLiveData<List<MovieResult.Item>>()
+    val errorQueryBlank = MutableLiveData<Throwable>()
+    val errorFailSearch = MutableLiveData<Throwable>()
+    val resultEmpty = MutableLiveData<Boolean>()
 
     fun findMovie() {
-        if (query.get()?.isBlank() != false) {
-            errorQueryBlank.set(Throwable())
+        if (query.value.toString().isBlank()) {
+            errorQueryBlank.value = Throwable()
         } else {
             naverRepository.getResultData(
-                query.get() ?: "",
+                query.value ?: "",
                 success = {
-                    searchResultList.set(it.items)
                     if (it.items.isEmpty()) {
-                        resultEmpty.set(true)
+                        searchResultList.value = it.items
+                        resultEmpty.value = true
                     } else {
-                        resultEmpty.set(false)
+                        searchResultList.value = it.items
+                        resultEmpty.value = false
                     }
                 },
                 fail = {
-                    errorFailSearch.set(it)
+                    errorFailSearch.value = it
                 })
         }
     }
 
     fun getRecentData() {
         naverRepository.getRecentData().let {
-            searchResultList.set(it.results)
-            query.set(it.query)
+            searchResultList.value = it.results
+            query.value = it.query
         }
     }
 
