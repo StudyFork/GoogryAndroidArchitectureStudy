@@ -1,9 +1,16 @@
 package com.example.study.ui.main
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.databinding.Observable
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelStoreOwner
 import com.example.study.R
+import com.example.study.data.model.Movie
 import com.example.study.data.repository.NaverSearchRepositoryImpl
 import com.example.study.data.source.local.NaverSearchLocalDataSourceImpl
 import com.example.study.data.source.local.SearchResultDatabase
@@ -14,25 +21,31 @@ import com.example.study.util.base.BaseActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.activity_main) {
 
-    override val vm: MainViewModel by lazy {
-        MainViewModel(
-            NaverSearchRepositoryImpl.getInstance(
-                NaverSearchLocalDataSourceImpl.getInstance(SearchResultDatabase.getInstance(this)!!.searchResultDao())
-                , NaverSearchRemoteDataSourceImpl.getInstance()
-            )
-        )
-    }
-
     private val movieAdapter: MovieAdapter by lazy {
         MovieAdapter()
     }
+
+    override val vm: MainViewModel by lazy {
+        ViewModelProvider(this, object: ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MainViewModel(NaverSearchRepositoryImpl.getInstance(
+                    NaverSearchLocalDataSourceImpl.getInstance(SearchResultDatabase.getInstance(applicationContext)!!.searchResultDao())
+                    , NaverSearchRemoteDataSourceImpl.getInstance()
+                )) as T
+            }
+        }).get(MainViewModel::class.java)
+    }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding.rvMovieList.adapter = movieAdapter
+        binding.lifecycleOwner = this
         getRecentSearchResult()
         addObserveProperty()
+
     }
 
     private fun getRecentSearchResult() {
