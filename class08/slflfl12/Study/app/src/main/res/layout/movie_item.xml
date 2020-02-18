@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="movie"
             type="com.example.study.data.model.Movie" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        setMovieItemClickListener="@{movie.link}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

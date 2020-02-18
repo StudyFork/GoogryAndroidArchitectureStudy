@@ -6,12 +6,8 @@
     <data>
 
         <variable
-            name="activity"
-            type="com.example.study.ui.main.MainActivity" />
-
-        <variable
-            name="query"
-            type="String" />
+            name="vm"
+            type="com.example.study.ui.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,19 +28,20 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="20"
-                android:text="@={query}" />
+                android:text="@={vm.queryObservableField}" />
 
             <Button
                 android:id="@+id/btn_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> activity.getMovieList(query)}"
+                android:onClick="@{() -> vm.getMovies()}"
                 android:text="@string/btn_search" />
         </LinearLayout>
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_movie_list"
+            setItems="@{vm.movieItems}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
