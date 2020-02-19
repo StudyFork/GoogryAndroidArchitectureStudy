@@ -27,22 +27,18 @@ class MainViewModel(private val naverRepository: NaverRepository) {
                         searchResultList.set(it.items)
                         resultEmpty.set(false)
 
-                        saveCache(it)
+                        naverRepository.saveCache(
+                            Movie(
+                                it.items,
+                                query.get() ?: ""
+                            )
+                        )
                     }
                 },
                 fail = {
                     errorFailSearch.set(it)
                 })
         }
-    }
-
-    fun saveCache(movieResult: MovieResult) {
-        naverRepository.saveCache(
-            Movie(
-                movieResult.items,
-                query.get() ?: ""
-            )
-        )
     }
 
     fun getRecentData() {
