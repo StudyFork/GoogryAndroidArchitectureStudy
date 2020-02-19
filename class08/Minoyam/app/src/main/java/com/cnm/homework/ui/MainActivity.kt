@@ -4,9 +4,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.cnm.homework.R
 import com.cnm.homework.adapter.MovieAdapter
 import com.cnm.homework.data.model.NaverResponse
@@ -22,7 +25,13 @@ class MainActivity : AppCompatActivity() {
         val db = LocalDatabase.getInstance(this)!!
         db.localDao()
     }
-    private val vm: MainViewModel by lazy { MainViewModel(localDao) }
+    private val viewModel: MainViewModel by viewModels {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MainViewModel(localDao) as T
+            }
+        }
+    }
     private val binding by lazy {
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
     }
@@ -33,14 +42,14 @@ class MainActivity : AppCompatActivity() {
         changedCallback()
     }
 
-    override fun onDestroy() {
-        vm.disposableClear()
-        super.onDestroy()
-    }
-
     private fun initActivity() {
-        binding.rvContent.adapter = movieAdapter
-        binding.vm = vm
+        with(binding) {
+            rvContent.adapter = movieAdapter
+            lifecycleOwner = this@MainActivity
+            this.vm = viewModel
+
+        }
+
         if (movieAdapter.movieItems.isEmpty()) {
             val r = Runnable { beforeMovieListSearch() }
             val thread = Thread(r)
@@ -49,26 +58,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun changedCallback() {
-        vm.isKeyboardBoolean.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                vm.isKeyboardBoolean.get()?.let {
-                    if (!it) binding.etMovieSearch.hideKeyboard()
-                }
-            }
+        viewModel.isKeyboardBoolean.observe(this@MainActivity, Observer {
+            if (!it) binding.etMovieSearch.hideKeyboard()
         })
-        vm.toastString.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                vm.toastString.get()?.let { showToast(it) }
-            }
+
+        viewModel.toastString.observe(this@MainActivity, Observer {
+            showToast(it)
         })
     }
 
     private fun beforeMovieListSearch() {
-        val repoItem = vm.loadMovieList()
+        val repoItem = viewModel.loadMovieList()
         runOnUiThread {
-            vm.setItems(repoItem)
+            viewModel.setItems(repoItem)
         }
     }
 
@@ -77,6 +79,6 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun showToast(msg: String) =
+    private fun showToast(msg: String) =
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }
