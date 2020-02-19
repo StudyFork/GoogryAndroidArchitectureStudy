@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.handnew04.R
-import com.example.handnew04.data.MovieData
 import com.example.handnew04.databinding.ItemMovieBinding
+import com.example.model.data.MovieData
 
 
 class MovieRecyclerAdapter :

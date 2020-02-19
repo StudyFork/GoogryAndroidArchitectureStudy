@@ -1,2 +1,2 @@
-include ':app', ':data', ':remote'
+include ':app', ':model'
 rootProject.name='Handnew04'

@@ -1,4 +1,4 @@
-package com.example.handnew04.network
+package com.example.model.network
 
 import com.example.model.data.NaverMovieResponse
 import retrofit2.Call
