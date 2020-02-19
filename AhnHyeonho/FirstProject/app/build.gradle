@@ -66,8 +66,10 @@ dependencies {
     // Koin AndroidX Experimental features
     implementation "org.koin:koin-androidx-ext:$koin_version"
 
-    /*data library 추가*/
+    /*repository library 추가*/
     implementation project(':repository')
+    /*remote library 추가*/
+    implementation project(':remote')
 
 
 }
