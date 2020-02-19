@@ -2,6 +2,7 @@ package com.example.myapplication.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.myapplication.data.model.Movie
 import com.example.myapplication.data.model.MovieResult
 import com.example.myapplication.data.repository.NaverRepository
 
@@ -26,12 +27,23 @@ class MainViewModel(private val naverRepository: NaverRepository) : ViewModel() 
                     } else {
                         searchResultList.value = it.items
                         resultEmpty.value = false
+
+                        saveCache(it)
                     }
                 },
                 fail = {
                     errorFailSearch.value = it
                 })
         }
+    }
+
+    private fun saveCache(movieResult: MovieResult) {
+        naverRepository.saveCache(
+            Movie(
+                movieResult.items,
+                query.value ?: ""
+            )
+        )
     }
 
     fun getRecentData() {
