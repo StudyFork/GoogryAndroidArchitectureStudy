@@ -3,7 +3,7 @@
 -  김무제 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2003/)
 
--  강래민 [kangraemin](https://github.com/)
+-  강래민 [kangraemin](https://github.com/kangraemin)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2003/kangraemin)
 
 - 이경재 [](https://github.com/)
