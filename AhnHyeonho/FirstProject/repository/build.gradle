@@ -37,4 +37,8 @@ dependencies {
     /*data library 추가*/
     implementation project(':remote')
 
+    // Koin for Android
+    implementation "org.koin:koin-android:$koin_version"
+
+
 }
