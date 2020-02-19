@@ -1,10 +1,9 @@
-package com.hansung.firstproject.data.source.remote
+package com.hansung.remote
 
 import android.content.Context
-import com.hansung.firstproject.R
 import com.hansung.firstproject.data.ErrorStringResource
 import com.hansung.firstproject.data.MovieResponseModel
-import com.hansung.firstproject.data.source.remote.api.NaverApiServiceImpl
+import com.hansung.remote.api.NaverApiServiceImpl
 import retrofit2.Call
 import retrofit2.Response
 import java.net.UnknownHostException

@@ -1,7 +1,7 @@
 package com.hansung.firstproject.data
 
 import androidx.annotation.StringRes
-import com.hansung.firstproject.R
+import com.hansung.remote.R
 
 enum class ErrorStringResource(@StringRes val resId: Int) {
     INTERNET_ERROR(R.string.internet_error_message),

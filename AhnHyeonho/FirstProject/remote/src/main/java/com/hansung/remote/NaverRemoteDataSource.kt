@@ -1,4 +1,4 @@
-package com.hansung.firstproject.data.source.remote
+package com.hansung.remote
 
 import com.hansung.firstproject.data.MovieResponseModel
 
