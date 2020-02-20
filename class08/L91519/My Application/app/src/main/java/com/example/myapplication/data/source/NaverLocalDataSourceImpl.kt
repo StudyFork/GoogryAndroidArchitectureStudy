@@ -17,4 +17,12 @@ class NaverLocalDataSourceImpl constructor(private val movieDao: MovieDao) : Nav
         movieDao.deleteAllResult()
     }
 
+    companion object {
+        private var instance: NaverLocalDataSourceImpl? = null
+        fun getInstance(movieDao: MovieDao): NaverLocalDataSourceImpl {
+            return instance ?: NaverLocalDataSourceImpl(
+                movieDao
+            ).apply { instance = this }
+        }
+    }
 }

@@ -15,14 +15,7 @@ class NaverRepositoryImpl(
         success: (MovieResult) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        naverRemoteDataSource.getResultData(query, success = {
-            saveCache(
-                Movie(
-                    it.items,
-                    query
-                )
-            )
-        }, fail = {})
+        naverRemoteDataSource.getResultData(query, success, fail)
     }
 
     override fun getRecentData(): Movie {
@@ -31,6 +24,19 @@ class NaverRepositoryImpl(
 
     override fun saveCache(movie: Movie) {
         naverLocalDataSource.saveCache(movie)
+    }
+
+    companion object {
+        private var instance: NaverRepositoryImpl? = null
+        fun getInstance(
+            naverRemoteDataSource: NaverRemoteDataSource,
+            naverLocalDataSource: NaverLocalDataSource
+        ): NaverRepositoryImpl {
+            return instance ?: NaverRepositoryImpl(
+                naverRemoteDataSource,
+                naverLocalDataSource
+            ).apply { instance = this }
+        }
     }
 
 }
