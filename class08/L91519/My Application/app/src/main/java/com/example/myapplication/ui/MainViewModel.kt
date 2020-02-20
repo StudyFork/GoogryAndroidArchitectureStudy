@@ -19,11 +19,10 @@ class MainViewModel(private val naverRepository: NaverRepository) {
             naverRepository.getResultData(
                 query.get() ?: "",
                 success = {
+                    searchResultList.set(it.items)
                     if (it.items.isEmpty()) {
-                        searchResultList.set(it.items)
                         resultEmpty.set(true)
                     } else {
-                        searchResultList.set(it.items)
                         resultEmpty.set(false)
                     }
                 },
