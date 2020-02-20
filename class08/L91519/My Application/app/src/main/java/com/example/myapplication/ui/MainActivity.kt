@@ -18,10 +18,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: MovieRecyclerViewAdpater
     private val vm: MainViewModel by lazy {
         MainViewModel(
-            NaverRepositoryImpl(
-                NaverRemoteDataSourceImpl,
-                NaverLocalDataSourceImpl(
-                    MovieDatabase.getInstance(applicationContext).movieDao()
+            NaverRepositoryImpl.getInstance(
+                NaverRemoteDataSourceImpl.getInstance(applicationContext),
+                NaverLocalDataSourceImpl.getInstance(
+                    MovieDatabase.getInstance(
+                        applicationContext
+                    ).movieDao()
                 )
             )
         )
