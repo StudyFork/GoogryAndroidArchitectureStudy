@@ -1,7 +1,6 @@
 package com.example.myapplication.ui
 
 import androidx.databinding.ObservableField
-import com.example.myapplication.data.model.Movie
 import com.example.myapplication.data.model.MovieResult
 import com.example.myapplication.data.repository.NaverRepository
 
@@ -26,13 +25,6 @@ class MainViewModel(private val naverRepository: NaverRepository) {
                     } else {
                         searchResultList.set(it.items)
                         resultEmpty.set(false)
-
-                        naverRepository.saveCache(
-                            Movie(
-                                it.items,
-                                query.get() ?: ""
-                            )
-                        )
                     }
                 },
                 fail = {

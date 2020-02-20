@@ -6,8 +6,8 @@ import com.example.myapplication.data.source.NaverLocalDataSource
 import com.example.myapplication.data.source.NaverRemoteDataSource
 
 class NaverRepositoryImpl(
-    val naverRemoteDataSource: NaverRemoteDataSource,
-    val naverLocalDataSource: NaverLocalDataSource
+    private val naverRemoteDataSource: NaverRemoteDataSource,
+    private val naverLocalDataSource: NaverLocalDataSource
 ) : NaverRepository {
 
     override fun getResultData(
@@ -15,7 +15,14 @@ class NaverRepositoryImpl(
         success: (MovieResult) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        naverRemoteDataSource.getResultData(query, success, fail)
+        naverRemoteDataSource.getResultData(query, success = {
+            saveCache(
+                Movie(
+                    it.items,
+                    query
+                )
+            )
+        }, fail = {})
     }
 
     override fun getRecentData(): Movie {
