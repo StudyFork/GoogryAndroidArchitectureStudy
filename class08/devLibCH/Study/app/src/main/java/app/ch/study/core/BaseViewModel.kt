@@ -11,7 +11,7 @@ open class BaseViewModel {
         add(disposable)
     }
 
-    fun Disposable.addToDisposable(): Disposable
+    protected fun Disposable.addToDisposable(): Disposable
             = apply { compositeDisposable.add(this) }
 
     fun clearDisposable() = compositeDisposable.clear()
