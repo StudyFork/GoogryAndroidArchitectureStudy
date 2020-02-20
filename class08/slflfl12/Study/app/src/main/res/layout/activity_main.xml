@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="20"
-                android:text="@={vm.queryObservableField}" />
+                android:text="@={vm.queryLiveData}" />
 
             <Button
                 android:id="@+id/btn_search"
