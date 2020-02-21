@@ -5,7 +5,6 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -57,16 +56,14 @@ class MainActivity : AppCompatActivity() {
             showToast(getString(R.string.query_none))
         })
 
-        Toast.makeText(applicationContext, getString(R.string.result_none), Toast.LENGTH_SHORT)
-            .show()
         vm.errorFailSearch.observe(this@MainActivity, Observer {
             if (vm.resultEmpty.value as Boolean) {
-                showToast(getString(R.string.movie_not_found))
+                showToast(getString(R.string.movie_search_fail))
             }
         })
         vm.resultEmpty.observe(this@MainActivity, Observer {
             if (vm.resultEmpty.value as Boolean) {
-                showToast(getString(R.string.movie_not_found))
+                showToast(getString(R.string.result_none))
             }
         })
         vm.searchResultList.observe(this@MainActivity, Observer {
