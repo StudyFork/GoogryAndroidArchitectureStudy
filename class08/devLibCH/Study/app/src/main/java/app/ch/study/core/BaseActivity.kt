@@ -7,11 +7,12 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import app.ch.study.BR
 
-abstract class BaseActivity<T : ViewDataBinding, P : BaseContract.Presenter>(@LayoutRes private val resId: Int) :
-    AppCompatActivity(resId), BaseContract.View {
+abstract class BaseActivity<T : ViewDataBinding, VM : BaseViewModel>(@LayoutRes private val resId: Int) :
+    AppCompatActivity(resId) {
 
-    abstract val presenter: P
+    abstract val vm: VM
     abstract val pbLoading: FrameLayout?
 
     protected lateinit var binding: T
@@ -21,19 +22,19 @@ abstract class BaseActivity<T : ViewDataBinding, P : BaseContract.Presenter>(@La
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, resId)
+        binding.setVariable(BR.vm, vm)
     }
 
-    override fun showLoading() {
+    fun showLoading() {
         pbLoading?.visibility = View.VISIBLE
     }
 
-    override fun hideLoading() {
+    fun hideLoading() {
         pbLoading?.visibility = View.GONE
     }
 
     override fun onDestroy() {
-        presenter.clearDisposable()
+        vm.clearDisposable()
         super.onDestroy()
     }
-
 }
