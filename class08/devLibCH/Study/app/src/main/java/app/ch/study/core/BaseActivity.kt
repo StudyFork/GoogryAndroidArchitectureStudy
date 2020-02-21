@@ -33,8 +33,4 @@ abstract class BaseActivity<T : ViewDataBinding, VM : BaseViewModel>(@LayoutRes 
         pbLoading?.visibility = View.GONE
     }
 
-    override fun onDestroy() {
-        vm.clearDisposable()
-        super.onDestroy()
-    }
 }
