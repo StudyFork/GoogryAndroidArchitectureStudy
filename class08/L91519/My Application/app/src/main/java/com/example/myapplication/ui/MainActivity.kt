@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         adapter = MovieRecyclerViewAdpater()
 
         binding.vm = vm
+        binding.lifecycleOwner = this
         binding.rvMovieList.adapter = adapter
         observableProperty()
 
