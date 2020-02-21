@@ -1,6 +1,7 @@
 package app.ch.study.ui.main.viewmodel
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import app.ch.study.core.BaseViewModel
 import app.ch.study.data.common.KEY_QUERY_EMPTY
 import app.ch.study.data.local.LocalDataManager
@@ -15,41 +16,43 @@ class MainViewModel(localDataManager: LocalDataManager): BaseViewModel() {
 
     private val local = NaverQueryLocalDataSourceImpl(localDataManager)
     private val remote = NaverQueryRemoteDataSourceImpl(WebApiTask.getInstance())
-    private var repository = NaverQueryRepositoryImpl(local, remote)
+    private val repository = NaverQueryRepositoryImpl(local, remote)
 
-    var query = ObservableField<String>()
-    var result = ObservableField<MutableList<MovieModel>>()
-    var isEmpty = ObservableField<Boolean>()
-    var showLoading = ObservableField<Boolean>()
-    var showError = ObservableField<String>()
+    val query = MutableLiveData<String>()
+    val result = MutableLiveData<MutableList<MovieModel>>()
+    val isEmpty = MutableLiveData<Boolean>()
+    val showLoading = MutableLiveData<Boolean>()
+
+    private val _showError = MutableLiveData<String>()
+    val showError: LiveData<String> get() = _showError
 
     init {
-        query.set(localDataManager.getQuery())
+        query.value = localDataManager.getQuery()
         searchMovie()
     }
 
     fun searchMovie() {
-        val name = query.get()?:""
+        val name = query.value
 
-        if (name.isEmpty()) {
-            showError.set(KEY_QUERY_EMPTY)
+        if (name.isNullOrEmpty()) {
+            _showError.value = KEY_QUERY_EMPTY
             return
         }
 
-        showLoading.set(true)
+        showLoading.value = true
 
         repository.searchMovie(name)
             .doOnComplete {
-                showLoading.set(false)
+                showLoading.value = false
             }
             .subscribe({ response ->
                 val list = response.items
-                isEmpty.set(list.isEmpty())
-                result.set(list)
+                isEmpty.value = list.isEmpty()
+                result.value = list
             }, {
                 val error = handleError(it)
-                showError.set(error)
-                showLoading.set(false)
+                _showError.value = error
+                showLoading.value = false
             })
             .addToDisposable()
     }
