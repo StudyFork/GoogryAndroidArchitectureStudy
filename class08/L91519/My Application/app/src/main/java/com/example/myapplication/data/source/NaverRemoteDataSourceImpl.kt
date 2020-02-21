@@ -5,7 +5,6 @@ import com.example.myapplication.data.ApiClient
 import com.example.myapplication.data.MovieDatabase
 import com.example.myapplication.data.model.Movie
 import com.example.myapplication.data.model.MovieResult
-import com.example.myapplication.data.repository.NaverRepositoryImpl
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,18 +24,13 @@ class NaverRemoteDataSourceImpl(val context: Context) : NaverRemoteDataSource {
             override fun onResponse(call: Call<MovieResult>, response: Response<MovieResult>) {
                 response.body()?.let {
                     success(it)
-                    NaverRepositoryImpl.getInstance(
-                        NaverRemoteDataSourceImpl.getInstance(context),
-                        NaverLocalDataSourceImpl.getInstance(
-                            MovieDatabase.getInstance(
-                                context.applicationContext
-                            ).movieDao()
-                        )
+
+                    NaverLocalDataSourceImpl.getInstance(
+                        MovieDatabase.getInstance(
+                            context.applicationContext
+                        ).movieDao()
                     ).saveCache(
-                        Movie(
-                            it.items,
-                            query
-                        )
+                        Movie(it.items, query)
                     )
                 }
             }
