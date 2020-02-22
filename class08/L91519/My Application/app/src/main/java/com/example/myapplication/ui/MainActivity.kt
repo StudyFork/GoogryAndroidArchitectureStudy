@@ -1,53 +1,83 @@
 package com.example.myapplication.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.room.Room
+import androidx.databinding.Observable
 import com.example.myapplication.R
-import com.example.myapplication.data.model.MovieResult
+import com.example.myapplication.data.MovieDatabase
+import com.example.myapplication.data.repository.NaverRepositoryImpl
+import com.example.myapplication.data.source.NaverLocalDataSourceImpl
+import com.example.myapplication.data.source.NaverRemoteDataSourceImpl
 import com.example.myapplication.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(), MainContract.View {
+class MainActivity : AppCompatActivity() {
 
-    private val presenter by lazy { MainPresenter(this) }
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: MovieRecyclerViewAdpater
+    private val vm: MainViewModel by lazy {
+        MainViewModel(
+            NaverRepositoryImpl.getInstance(
+                NaverRemoteDataSourceImpl.getInstance(applicationContext),
+                NaverLocalDataSourceImpl.getInstance(
+                    MovieDatabase.getInstance(
+                        applicationContext
+                    ).movieDao()
+                )
+            )
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.mainActivity = this
 
-        adapter = MovieRecyclerViewAdpater() { link ->
-            binding.webviewDetailMovie.loadUrl(link)
-        }
+        adapter = MovieRecyclerViewAdpater()
 
+        binding.vm = vm
         binding.rvMovieList.adapter = adapter
+        observableProperty()
+
+        vm.getRecentData()
+
     }
 
-    override fun updateMovieRecycler(items: List<MovieResult.Item>) {
-        adapter.setItems(items)
+    private fun observableProperty() {
+
+        vm.errorQueryBlank.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                showToast(getString(R.string.query_none))
+            }
+        })
+
+        vm.errorFailSearch.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                showToast(getString(R.string.movie_search_fail))
+            }
+        })
+
+        vm.resultEmpty.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                if (vm.resultEmpty.get() as Boolean) {
+                    showToast(getString(R.string.movie_not_found))
+                }
+            }
+        })
+
+        vm.searchResultList.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                vm.searchResultList.get()?.let { adapter.setItems(it) }
+            }
+        })
     }
 
-    override fun failMovieGet(msg: String) {
-        Toast.makeText(applicationContext, msg, Toast.LENGTH_SHORT).show()
+    private fun showToast(toast: String) {
+        Toast.makeText(this, toast, Toast.LENGTH_SHORT).show()
     }
-
-    override fun findMovie() {
-        presenter.findMovie(binding.etMovie.text.toString())
-    }
-
-    override fun queryNone() {
-        Toast.makeText(applicationContext, getString(R.string.query_none), Toast.LENGTH_SHORT)
-            .show()
-    }
-
-    override fun resultNone() {
-        Toast.makeText(applicationContext, getString(R.string.result_none), Toast.LENGTH_SHORT)
-            .show()
-    }
-
 }
 

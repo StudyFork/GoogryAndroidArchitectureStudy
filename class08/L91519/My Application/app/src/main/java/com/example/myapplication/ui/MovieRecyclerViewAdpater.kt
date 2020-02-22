@@ -8,8 +8,7 @@ import com.example.myapplication.R
 import com.example.myapplication.data.model.MovieResult
 import com.example.myapplication.databinding.ItemMovieBinding
 
-class MovieRecyclerViewAdpater(val itemClick: (movieDetail: String) -> Unit) :
-    RecyclerView.Adapter<MovieRecyclerViewAdpater.MovieViewHolder>() {
+class MovieRecyclerViewAdpater : RecyclerView.Adapter<MovieRecyclerViewAdpater.MovieViewHolder>() {
 
     private val results = mutableListOf<MovieResult.Item>()
     private lateinit var binding: ItemMovieBinding
@@ -31,13 +30,6 @@ class MovieRecyclerViewAdpater(val itemClick: (movieDetail: String) -> Unit) :
 
     inner class MovieViewHolder(val binding: ItemMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
-        init {
-            binding.root.setOnClickListener {
-                itemClick(results[adapterPosition].link)
-            }
-            binding.executePendingBindings()
-        }
 
         fun bind(movieItem: MovieResult.Item) {
             binding.item = movieItem
