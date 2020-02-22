@@ -1,6 +1,6 @@
 # 8기
 
--  김무제 [logout0607](https://github.com/logout0607)
+- 김무제 [logout0607](https://github.com/logout0607)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2003/logout0607)
 
 -  강래민 [](https://github.com/)
