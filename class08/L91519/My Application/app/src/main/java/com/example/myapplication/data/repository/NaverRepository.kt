@@ -13,5 +13,4 @@ interface NaverRepository {
 
     fun getRecentData(): Movie
 
-    fun saveCache(movie: Movie)
 }

@@ -2,8 +2,6 @@ package com.example.myapplication.data.source
 
 import android.content.Context
 import com.example.myapplication.data.ApiClient
-import com.example.myapplication.data.MovieDatabase
-import com.example.myapplication.data.model.Movie
 import com.example.myapplication.data.model.MovieResult
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,14 +22,6 @@ class NaverRemoteDataSourceImpl(val context: Context) : NaverRemoteDataSource {
             override fun onResponse(call: Call<MovieResult>, response: Response<MovieResult>) {
                 response.body()?.let {
                     success(it)
-
-                    NaverLocalDataSourceImpl.getInstance(
-                        MovieDatabase.getInstance(
-                            context.applicationContext
-                        ).movieDao()
-                    ).saveCache(
-                        Movie(it.items, query)
-                    )
                 }
             }
 
