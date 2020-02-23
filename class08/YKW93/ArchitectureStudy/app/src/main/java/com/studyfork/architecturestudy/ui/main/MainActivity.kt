@@ -3,11 +3,11 @@ package com.studyfork.architecturestudy.ui.main
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.databinding.Observable
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.studyfork.architecturestudy.R
 import com.studyfork.architecturestudy.base.BaseActivity
-import com.studyfork.architecturestudy.common.ResourceProvider
 import com.studyfork.architecturestudy.databinding.ActivityMainBinding
 import com.studyfork.architecturestudy.extension.hideKeyboard
 import com.studyfork.architecturestudy.ui.adapter.MovieResultRVAdapter
@@ -19,14 +19,12 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         }
     }
 
-    override val viewModel: MainViewModel by lazy {
-        MainViewModel(ResourceProvider(baseContext))
-    }
+    override val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setMovieRecyclerView()
-        setKeyboardObservable()
+        setKeyboardObserve()
     }
 
     private fun setMovieRecyclerView() {
@@ -36,12 +34,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         }
     }
 
-    private fun setKeyboardObservable() {
+    private fun setKeyboardObserve() {
         with(viewModel.hidesKeyboard) {
-            addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    if (get()) binding.editMovieSearch.hideKeyboard()
-                }
+            observe(this@MainActivity, Observer {
+                if (it) binding.editMovieSearch.hideKeyboard()
             })
         }
     }
