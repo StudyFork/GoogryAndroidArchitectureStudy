@@ -12,6 +12,7 @@ import com.example.architecturestudy.network.response.ImageData
 import com.example.architecturestudy.network.response.KinData
 import com.example.architecturestudy.network.response.MovieData
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
@@ -28,12 +29,8 @@ class NaverSearchRepositoryImpl(
                 val deleteCompletable = naverSearchLocalDataSource.deleteMovie()
                 val insertCompletable = naverSearchLocalDataSource.saveMovieItems(it.items.map { it.toEntity() })
 
-                Completable.concat(listOf(deleteCompletable, insertCompletable))
-                    .subscribeOn(Schedulers.io())
-                    .subscribe(
-                        { Log.e("getMovie", "complete") },
-                        { Log.e("getMovie", "fail") }
-                    )
+                Completable.concat(mutableListOf(deleteCompletable,insertCompletable)).blockingAwait()
+
                 return@flatMap Single.just(it)
             }
 
@@ -45,12 +42,8 @@ class NaverSearchRepositoryImpl(
                 val deleteCompletable = naverSearchLocalDataSource.deleteBlog()
                 val insertCompletable = naverSearchLocalDataSource.saveBlogItems(it.items.map { it.toEntity() })
 
-                Completable.concat(listOf(deleteCompletable, insertCompletable))
-                    .subscribeOn(Schedulers.io())
-                    .subscribe(
-                        { Log.e("getBlog", "complete") },
-                        { Log.e("getBlog", "fail") }
-                    )
+                Completable.concat(listOf(deleteCompletable, insertCompletable)).blockingAwait()
+
                 return@flatMap Single.just(it)
             }
 
@@ -62,12 +55,8 @@ class NaverSearchRepositoryImpl(
                 val deleteCompletable = naverSearchLocalDataSource.deleteKin()
                 val insertCompletable = naverSearchLocalDataSource.saveKinItems(it.items.map { it.toEntity() })
 
-                Completable.concat(listOf(deleteCompletable, insertCompletable))
-                    .subscribeOn(Schedulers.io())
-                    .subscribe(
-                        { Log.e("getKin", "complete") },
-                        { Log.e("getKin", "fail") }
-                    )
+                Completable.concat(listOf(deleteCompletable, insertCompletable)).blockingAwait()
+
                 return@flatMap Single.just(it)
             }
 
@@ -79,12 +68,8 @@ class NaverSearchRepositoryImpl(
                     val deleteCompletable = naverSearchLocalDataSource.deleteImage()
                     val insertCompletable = naverSearchLocalDataSource.saveImageItems(it.items.map { it.toEntity() })
 
-                    Completable.concat(listOf(deleteCompletable, insertCompletable))
-                        .subscribeOn(Schedulers.io())
-                        .subscribe(
-                            { Log.e("getImage", "complete") },
-                            { Log.e("getImage", "fail") }
-                        )
+                    Completable.concat(listOf(deleteCompletable, insertCompletable)).blockingAwait()
+
                     return@flatMap Single.just(it)
                 }
 
