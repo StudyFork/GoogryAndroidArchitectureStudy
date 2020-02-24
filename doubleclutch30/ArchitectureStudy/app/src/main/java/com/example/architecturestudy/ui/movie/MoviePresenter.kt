@@ -39,20 +39,20 @@ class MoviePresenter(
     }
 
     override fun getLastData() {
-        if (repository == null) return
-
-        val data = repository.getLastMovie()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    view.showResult(it)
-                },
-                {
-                    view.showErrorMessage(it.toString())
-                }
-            )
-        disposable.add(data)
+        repository?.let {
+            val data = repository.getLastMovie()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        view.showResult(it)
+                    },
+                    {
+                        view.showErrorMessage(it.toString())
+                    }
+                )
+            disposable.add(data)
+        }
     }
 
     override fun onStop() {
