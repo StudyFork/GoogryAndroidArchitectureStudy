@@ -2,9 +2,12 @@ package com.example.myapplication.ui
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.R
 import com.example.myapplication.data.MovieDatabase
 import com.example.myapplication.data.repository.NaverRepositoryImpl
@@ -16,17 +19,21 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: MovieRecyclerViewAdpater
-    private val vm: MainViewModel by lazy {
-        MainViewModel(
-            NaverRepositoryImpl.getInstance(
-                NaverRemoteDataSourceImpl.getInstance(applicationContext),
-                NaverLocalDataSourceImpl.getInstance(
-                    MovieDatabase.getInstance(
-                        applicationContext
-                    ).movieDao()
-                )
-            )
-        )
+    private val vm: MainViewModel by viewModels {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MainViewModel(
+                    NaverRepositoryImpl.getInstance(
+                        NaverRemoteDataSourceImpl.getInstance(applicationContext),
+                        NaverLocalDataSourceImpl.getInstance(
+                            MovieDatabase.getInstance(
+                                applicationContext
+                            ).movieDao()
+                        )
+                    )
+                ) as T
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         adapter = MovieRecyclerViewAdpater()
 
         binding.vm = vm
+        binding.lifecycleOwner = this
         binding.rvMovieList.adapter = adapter
         observableProperty()
 
@@ -45,34 +53,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun observableProperty() {
 
-        vm.errorQueryBlank.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                showToast(getString(R.string.query_none))
-            }
+        vm.errorQueryBlank.observe(this@MainActivity, Observer {
+            showToast(getString(R.string.query_none))
         })
 
-        vm.errorFailSearch.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+        vm.errorFailSearch.observe(this@MainActivity, Observer {
+            if (vm.resultEmpty.value as Boolean) {
                 showToast(getString(R.string.movie_search_fail))
             }
         })
-
-        vm.resultEmpty.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                if (vm.resultEmpty.get() as Boolean) {
-                    showToast(getString(R.string.movie_not_found))
-                }
+        vm.resultEmpty.observe(this@MainActivity, Observer {
+            if (vm.resultEmpty.value as Boolean) {
+                showToast(getString(R.string.result_none))
             }
         })
-
-        vm.searchResultList.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                vm.searchResultList.get()?.let { adapter.setItems(it) }
-            }
+        vm.searchResultList.observe(this@MainActivity, Observer {
+            vm.searchResultList.value?.let { adapter.setItems(it) }
         })
     }
 
@@ -80,4 +76,3 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, toast, Toast.LENGTH_SHORT).show()
     }
 }
-
