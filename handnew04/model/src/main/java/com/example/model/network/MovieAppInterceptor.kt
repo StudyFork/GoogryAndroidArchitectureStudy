@@ -5,7 +5,7 @@ import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import java.io.IOException
 
-class MovieAppInterceptor : Interceptor {
+internal class MovieAppInterceptor : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()

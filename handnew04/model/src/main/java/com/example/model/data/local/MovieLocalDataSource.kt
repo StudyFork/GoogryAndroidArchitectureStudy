@@ -1,5 +1,5 @@
 package com.example.model.data.local
 
-interface MovieLocalDataSource {
+internal interface MovieLocalDataSource {
     fun getMovieData()
 }

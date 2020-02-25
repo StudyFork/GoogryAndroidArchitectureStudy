@@ -6,7 +6,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
+internal class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
     override fun getMovieData(
         query: String,
         success: (NaverMovieResponse) -> Unit,

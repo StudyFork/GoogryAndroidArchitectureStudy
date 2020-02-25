@@ -3,7 +3,7 @@ package com.example.model.data
 import com.example.model.data.local.MovieLocalDataSource
 import com.example.model.data.remote.MovieRemoteDataSource
 
-class MovieRepositoryImpl(
+internal class MovieRepositoryImpl(
     val movieLocalDataSource: MovieLocalDataSource,
     val movieRemoteDataSource: MovieRemoteDataSource
 ) : MovieRepository {
