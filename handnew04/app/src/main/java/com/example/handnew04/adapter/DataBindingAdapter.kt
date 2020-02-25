@@ -41,7 +41,7 @@ fun setText(textView: TextView, text: CharSequence?) {
         Html.fromHtml(text as String).toString()
     }
 
-    textView.setText(htmlText)
+    textView.text = htmlText
 }
 
 fun haveContentsChanged(
