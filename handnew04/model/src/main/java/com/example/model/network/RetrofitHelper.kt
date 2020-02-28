@@ -1,4 +1,4 @@
-package com.example.handnew04.network
+package com.example.model.network
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

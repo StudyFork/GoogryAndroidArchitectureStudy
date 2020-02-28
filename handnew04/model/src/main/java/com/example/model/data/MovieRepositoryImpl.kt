@@ -1,13 +1,14 @@
-package com.example.handnew04.data
+package com.example.model.data
 
-import com.example.handnew04.data.local.MovieLocalDataSource
-import com.example.handnew04.data.remote.MovieRemoteDataSource
+import com.example.model.data.local.MovieLocalDataSource
+import com.example.model.data.remote.MovieRemoteDataSource
 
-class MovieRepository(
+internal class MovieRepositoryImpl(
     val movieLocalDataSource: MovieLocalDataSource,
     val movieRemoteDataSource: MovieRemoteDataSource
-) {
-    fun getMovieData(
+) : MovieRepository {
+
+    override fun getMovieData(
         query: String,
         success: (NaverMovieResponse) -> Unit,
         fail: (Throwable) -> Unit

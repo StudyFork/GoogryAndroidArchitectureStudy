@@ -1,4 +1,4 @@
-package com.example.handnew04.network
+package com.example.model.network
 
 import android.app.Application
 import android.content.Context

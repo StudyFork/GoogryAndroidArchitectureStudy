@@ -1,4 +1,4 @@
-package com.example.handnew04.data
+package com.example.model.data
 
 data class NaverMovieResponse(
     var items: List<MovieData>
@@ -13,4 +13,3 @@ data class MovieData(
     val actor: String,
     val userRating: String
 )
-

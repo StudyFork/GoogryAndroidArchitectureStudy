@@ -1,6 +1,6 @@
-package com.example.handnew04.di
+package com.example.model.di
 
-import com.example.handnew04.network.NetworkManager
+import com.example.model.network.NetworkManager
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 

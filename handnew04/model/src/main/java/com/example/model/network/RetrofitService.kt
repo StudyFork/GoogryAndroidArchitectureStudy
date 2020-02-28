@@ -1,6 +1,6 @@
-package com.example.handnew04.network
+package com.example.model.network
 
-import com.example.handnew04.data.NaverMovieResponse
+import com.example.model.data.NaverMovieResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

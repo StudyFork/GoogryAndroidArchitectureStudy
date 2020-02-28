@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.handnew04.data.MovieData
+import com.example.model.data.MovieData
 
 @BindingAdapter("bind:bindImage")
 fun bindImage(imageView: ImageView, imageUri: String) {
@@ -41,7 +41,7 @@ fun setText(textView: TextView, text: CharSequence?) {
         Html.fromHtml(text as String).toString()
     }
 
-    textView.setText(htmlText)
+    textView.text = htmlText
 }
 
 fun haveContentsChanged(
