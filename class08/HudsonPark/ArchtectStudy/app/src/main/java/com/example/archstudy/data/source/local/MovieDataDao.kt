@@ -7,8 +7,8 @@ import androidx.room.Query
 
 @Dao
 interface MovieDataDao {
-    @Query("SELECT * FROM MovieData")
-    fun getLocalData() : MutableList<MovieData>
+    @Query("SELECT * FROM MovieData WHERE subtitle LIKE :query")
+    fun getLocalData(query : String) : MutableList<MovieData>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun setLocalData(movieData: MovieData)

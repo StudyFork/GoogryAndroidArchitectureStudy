@@ -1,7 +1,11 @@
 package com.example.archstudy.ui.main
 
+import android.util.Log
 import com.example.archstudy.data.repository.NaverQueryRepositoryImpl
-import com.example.archstudy.data.source.local.*
+import com.example.archstudy.data.source.local.MovieData
+import com.example.archstudy.data.source.local.MovieDataDao
+import com.example.archstudy.data.source.local.NaverQueryLocalDataSourceImpl
+import com.example.archstudy.data.source.local.SearchWordDao
 import com.example.archstudy.data.source.remote.NaverQueryRemoteDataSourceImpl
 
 class MainPresenter(
@@ -10,58 +14,87 @@ class MainPresenter(
     searchWordDao: SearchWordDao
 ) : MainInterface.Presenter {
 
-    private var naverQueryRepositoryImpl: NaverQueryRepositoryImpl
+    private val localData = NaverQueryLocalDataSourceImpl(localMovieDao, searchWordDao)
+    private val remoteData = NaverQueryRemoteDataSourceImpl()
+    private var naverQueryRepositoryImpl = NaverQueryRepositoryImpl(localData, remoteData)
 
-    init {
-        val localData = NaverQueryLocalDataSourceImpl(localMovieDao, searchWordDao)
-        val remoteData = NaverQueryRemoteDataSourceImpl()
-        naverQueryRepositoryImpl = NaverQueryRepositoryImpl(localData, remoteData)
+    override fun initData() {
+        getQuery {
+            getData(it)
+        }
     }
 
-    override fun getRemoteDataByQuery(query: String?) {
+    override fun getData(query: String?) {
 
-        if (query.isNullOrEmpty()) {
-            view?.showErrorMessage(Throwable("검색어에 문제가 있습니다. 다시 입력해주세요."))
-            return
-        }
-
-        naverQueryRepositoryImpl.requestRemoteData(query, successCallback = {
-            // Remote Data 요청이 성공했을 경우 MainActivity에 데이터 전달
+        Log.d("query", "requestQuery in getData() : $query")
+        getLocalData(query, successCallback = {
+            Log.d("data", "movie data in getLocalData successCallback : $it")
             view?.showDataList(it)
-
-            // Local DB에 쿼리와 데이터 저장
-            insertData(query, it)
-
-
         }, failCallback = {
-            // Remote Data 요청이 실패했을 경우 에러 메시지 출력
-            view?.showErrorMessage(it)
+            // 로컬 데이터를 가져오는 것에 실패했을 경우 리모트에 데이터 요청
+            Log.d("data", "movie data in getLocalData failCallback : $it")
+            Log.d("search", "searchQuery in getData() : $it")
+            getRemoteDataByQuery(it)
         })
     }
 
-    override fun getLocalQuery(): String? {
-        var localQuery: String
-        naverQueryRepositoryImpl.apply {
-            localQuery = RequestLocalQueryAsync().execute().get() ?: ""
+    override fun getRemoteDataByQuery(query: String?) {
+        Log.d("remoteQuery", "remoteQuery : $query")
+        query?.let {
+            naverQueryRepositoryImpl.requestRemoteData(query, successCallback = {
+                // Local DB에 쿼리와 데이터 저장
+                Log.d("callback", "successCallback for requestRemoteData()")
+                insertData(query, it)
+                // Remote Data 요청이 성공했을 경우 MainActivity 에 데이터 전달
+                view?.showDataList(it)
+
+            }, failCallback = {
+                // Remote Data 요청이 실패했을 경우 에러 메시지 출력
+                view?.showErrorMessage(it)
+            })
         }
-        return localQuery
     }
 
-    override fun getLocalData(query: String?) {
+    override fun getQuery(successCallback: (String) -> Unit) {
 
-        // 검색어가 null 이거나 비었을 경우 오류 메세지 출력
-        if (query.isNullOrEmpty()) {
-            view?.showErrorMessage(Throwable("최근 검색한 결과가 없습니다."))
-            // query 가 비어있거나 null 값이 아닐 경우 로컬 DB에 데이터 요청
-        } else {
+        naverQueryRepositoryImpl.apply {
+            RequestLocalQueryAsync(object : NaverQueryRepositoryImpl.AsyncTaskQueryListener {
+                override fun onResult(result: String) {
+                    successCallback(result)
+                    Log.d("query", "localQuery Result in getQuery() : $result")
+                }
+            }).execute()
+        }
+    }
+
+    override fun getLocalData(
+        query: String?,
+        successCallback: (MutableList<MovieData>) -> Unit,
+        failCallback: (String) -> Unit
+    ) {
+
+        // query 가 비어있거나 null 값이 아닐 경우 로컬 DB에 데이터 요청
+        if (!(query.isNullOrEmpty())) {
             naverQueryRepositoryImpl.apply {
-                val result = RequestLocalDataAsync(query).execute().get()
-                view?.showDataList(result.asReversed())
+                RequestLocalDataAsync(
+                    query,
+                    object : NaverQueryRepositoryImpl.AsyncTaskDataListener {
+                        override fun onResult(result: MutableList<MovieData>) {
+
+                            if (result.size != 0) {
+                                successCallback(result.asReversed())
+                            } else {
+                                failCallback(query)
+                            }
+                        }
+                    }).execute()
             }
         }
     }
 
     override fun insertData(query: String, data: MutableList<MovieData>) {
+        Log.d("insert", "query : $query")
+        Log.d("insert", "data : $data")
         naverQueryRepositoryImpl.InsertLocalDataAsync(query, data).execute()
     }
 }

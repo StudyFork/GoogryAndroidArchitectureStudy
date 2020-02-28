@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
     }
 
     override fun showErrorMessage(error: Throwable) {
-        showToast(error.toString())
+        showToast(error.message.toString())
     }
 
     override fun showDataList(dataList: MutableList<MovieData>) {
@@ -52,24 +52,24 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
         val localMovieDao = AppDatabase.getInstance(this)?.localMovieDao()
         val searchWordDao = AppDatabase.getInstance(this)?.searchWordDao()
 
-
         if (localMovieDao != null && searchWordDao != null) {
-            presenter = MainPresenter(this,localMovieDao, searchWordDao)
+            presenter = MainPresenter(this, localMovieDao, searchWordDao)
         }
     }
 
     private fun initData() {
-        requestLocalData()
+        presenter.initData()
     }
 
     private fun initEvent() {
-        Log.d("init", "initEvent()")
+
         btnSearch.setOnClickListener {
             hideKeyboard()
             disableButton()
             // 검색 버튼 클릭 시
             query = edtQuery.text.toString()
-            requestRemoteData(query)
+            Log.d("query", "query : $query")
+            presenter.getData(query)
             activateButton()
         }
     }
@@ -88,20 +88,6 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
         })
         rvMovieList.adapter = rvMovieAdapter
     }
-
-    // 사용자가 입력한 검색어로 네이버 영화 검색 API에서 데이터 얻어오기
-    private fun requestRemoteData(query: String) {
-        presenter.getRemoteDataByQuery(query)
-    }
-
-    private fun requestLocalData() {
-        Log.d("init", "requestLocalData()")
-
-        val localQuery = presenter.getLocalQuery()
-        presenter.getLocalData(localQuery)
-
-    }
-
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
