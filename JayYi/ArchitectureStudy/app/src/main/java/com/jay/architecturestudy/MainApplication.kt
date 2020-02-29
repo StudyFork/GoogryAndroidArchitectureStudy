@@ -1,10 +1,12 @@
 package com.jay.architecturestudy
 
 import android.app.Application
-import com.jay.architecturestudy.di.networkModule
-import com.jay.architecturestudy.di.repositoryModule
-import com.jay.architecturestudy.di.storageModule
 import com.jay.architecturestudy.di.viewModelModule
+import com.jay.local.di.localModule
+import com.jay.local.di.storageModule
+import com.jay.remote.di.networkModule
+import com.jay.remote.di.remoteModule
+import com.jay.repository.di.repositoryModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -19,8 +21,10 @@ class MainApplication : Application() {
                 listOf(
                     viewModelModule,
                     repositoryModule,
-                    storageModule,
-                    networkModule
+                    remoteModule,
+                    networkModule,
+                    localModule,
+                    storageModule
                 )
             )
         }

@@ -4,10 +4,10 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.jay.architecturestudy.data.repository.NaverSearchRepository
 import com.jay.architecturestudy.util.SingleLiveEvent
 import com.jay.architecturestudy.util.hideKeyboard
 import com.jay.architecturestudy.util.then
+import com.jay.repository.repository.NaverSearchRepository
 import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseViewModel<T>(
@@ -52,8 +52,8 @@ abstract class BaseViewModel<T>(
     }
 }
 
-enum class ViewType(type: Int) {
-    VIEW_SEARCH_RESULT(0),
-    VIEW_SEARCH_NO_RESULT(1),
+enum class ViewType {
+    VIEW_SEARCH_RESULT,
+    VIEW_SEARCH_NO_RESULT,
     ;
 }

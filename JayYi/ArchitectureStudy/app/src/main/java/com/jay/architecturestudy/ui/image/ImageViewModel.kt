@@ -3,12 +3,12 @@ package com.jay.architecturestudy.ui.image
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.jay.architecturestudy.data.model.Image
-import com.jay.architecturestudy.data.repository.NaverSearchRepository
 import com.jay.architecturestudy.ui.BaseViewModel
 import com.jay.architecturestudy.ui.ViewType
 import com.jay.architecturestudy.util.addTo
 import com.jay.architecturestudy.util.singleIoMainThread
+import com.jay.repository.model.Image
+import com.jay.repository.repository.NaverSearchRepository
 
 class ImageViewModel(
     override val repository: NaverSearchRepository
