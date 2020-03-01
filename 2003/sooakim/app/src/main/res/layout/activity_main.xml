@@ -52,4 +52,15 @@
         app:layout_constraintStart_toEndOf="@id/et_search"
         app:layout_constraintTop_toBottomOf="@id/_guide_top" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_search_result"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/_guide_bottom"
+        app:layout_constraintEnd_toStartOf="@id/_guide_end"
+        app:layout_constraintStart_toEndOf="@id/_guide_start"
+        app:layout_constraintTop_toBottomOf="@id/et_search"
+        app:orientation="vertical" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
