@@ -1,7 +1,8 @@
-package io.github.sooakim
+package io.github.sooakim.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import io.github.sooakim.R
 
 class SAMainActivity : AppCompatActivity() {
 
