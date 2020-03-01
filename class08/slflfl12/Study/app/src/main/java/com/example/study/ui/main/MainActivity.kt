@@ -26,7 +26,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         MovieAdapter()
     }
 
-    /*    override val vm: MainViewModel by lazy {
+/*        override val vm: MainViewModel by lazy {
             ViewModelProvider(this, object: ViewModelProvider.Factory {
                 override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                     return MainViewModel(NaverSearchRepositoryImpl.getInstance(
