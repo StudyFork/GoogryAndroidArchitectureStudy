@@ -5,7 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.recyclerview.widget.RecyclerView
+import com.jakewharton.rxbinding3.view.clicks
+import com.jakewharton.rxbinding3.widget.textChanges
 import io.github.sooakim.R
+import io.github.sooakim.network.SANetworkService
+import io.github.sooakim.network.model.SAMovieModel
+import io.github.sooakim.network.model.response.SANaverSearchResponse
+import io.reactivex.Observable
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import java.util.concurrent.TimeUnit
 
 class SAMainActivity : AppCompatActivity() {
     private lateinit var mSearchEdit: AppCompatEditText
@@ -13,6 +23,7 @@ class SAMainActivity : AppCompatActivity() {
     private lateinit var mSearchResultRecyclerView: RecyclerView
 
     private val mSearchResultAdapter: SAMainSearchResultAdapter = SAMainSearchResultAdapter()
+    private val mCompositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +31,12 @@ class SAMainActivity : AppCompatActivity() {
 
         initView()
         initRecyclerView()
+        bindRx()
+    }
+
+    override fun onDestroy() {
+        mCompositeDisposable.clear()
+        super.onDestroy()
     }
 
     private fun initView() {
@@ -30,5 +47,26 @@ class SAMainActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
         mSearchResultRecyclerView.adapter = mSearchResultAdapter
+    }
+
+    private fun bindRx() {
+        val textChanges = mSearchEdit.textChanges()
+        val buttonClick = mSearchButton.clicks()
+            .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+            .flatMapSingle { Single.fromCallable(mSearchEdit::getText) }
+
+        Observable.merge(textChanges, buttonClick)
+            .debounce(700, TimeUnit.MILLISECONDS)
+            .filter(CharSequence::isNotBlank)
+            .map(CharSequence::trim)
+            .map(CharSequence::toString)
+            .distinctUntilChanged()
+            .switchMapSingle(SANetworkService.movieApi::getSearchMovie)
+            .map(SANaverSearchResponse<SAMovieModel>::items)
+            .onErrorReturn { _ -> listOf() }
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnNext(mSearchResultAdapter::submitList)
+            .subscribe()
+            .let(mCompositeDisposable::add)
     }
 }
