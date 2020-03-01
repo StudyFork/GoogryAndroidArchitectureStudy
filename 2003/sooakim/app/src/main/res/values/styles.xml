@@ -8,4 +8,5 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppRatingBar.Small" parent="Widget.AppCompat.RatingBar.Small" />
 </resources>
