@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatRatingBar
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -45,7 +46,8 @@ class SAMainSearchResultAdapter :
             .placeholder(R.drawable.bg_placeholder_movie)
             .into(holder.ivPoster)
 
-        holder.tvTitle.text = currentItem.title
+        holder.tvTitle.text =
+            HtmlCompat.fromHtml(currentItem.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
         holder.rtbStar.rating = (currentItem.userRating.toFloatOrNull() ?: 0f) / 2
         holder.tvPublishDate.text = currentItem.pubDate
         holder.tvDirector.text = currentItem.director
