@@ -18,9 +18,48 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        release {
+        debug {
+            signingConfig signingConfigs.debug
+            aaptOptions.cruncherEnabled = false
+
+            splits.abi.enable = false
+            splits.density.enable = false
+
+            debuggable true
             minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled false
+
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
+
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    flavorDimensions "type"
+    productFlavors{
+        dev{
+            dimension "type"
+
+            applicationIdSuffix ".dev"
+
+            buildConfigField "String", "NAVER_BASE_URL", "\"https://openapi.naver.com/\""
+            buildConfigField "String", "NAVER_CLIENT_ID", "\"HmhQvFfXXWN3arqKw3rh\""
+            buildConfigField "String", "NAVER_CLIENT_SECRET", "\"xy1RSbH9HM\""
+        }
+        prod{
+            dimension "type"
+
+            buildConfigField "String", "NAVER_BASE_URL", "\"https://openapi.naver.com/\""
+            buildConfigField "String", "NAVER_CLIENT_ID", "\"HmhQvFfXXWN3arqKw3rh\""
+            buildConfigField "String", "NAVER_CLIENT_SECRET", "\"xy1RSbH9HM\""
         }
     }
 }
