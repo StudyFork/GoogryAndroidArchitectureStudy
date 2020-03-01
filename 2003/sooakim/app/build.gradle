@@ -19,7 +19,6 @@ android {
     }
     buildTypes {
         debug {
-            signingConfig signingConfigs.debug
             aaptOptions.cruncherEnabled = false
 
             splits.abi.enable = false
