@@ -1,5 +1,7 @@
 package io.github.sooakim.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
@@ -19,7 +21,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
-class SAMainActivity : AppCompatActivity() {
+class SAMainActivity : AppCompatActivity(),
+    SAMainSearchResultAdapter.OnMainSearchResultClickListener {
     private lateinit var mSearchEdit: AppCompatEditText
     private lateinit var mSearchButton: AppCompatButton
     private lateinit var mSearchResultRecyclerView: RecyclerView
@@ -38,6 +41,7 @@ class SAMainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        mSearchResultAdapter.clickListener = null
         mCompositeDisposable.clear()
         super.onDestroy()
     }
@@ -58,6 +62,7 @@ class SAMainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
+        mSearchResultAdapter.clickListener = this
         mSearchResultRecyclerView.adapter = mSearchResultAdapter
     }
 
@@ -83,5 +88,13 @@ class SAMainActivity : AppCompatActivity() {
             .doOnNext(mSearchResultAdapter::submitList)
             .subscribe()
             .let(mCompositeDisposable::add)
+    }
+
+    override fun onSearchResultClick(item: SAMovieModel) {
+        val linkString = item.link.takeIf(String::isNotBlank) ?: return
+
+        Intent(Intent.ACTION_VIEW, Uri.parse(linkString)).takeIf {
+            it.resolveActivity(packageManager) != null
+        }?.run(this::startActivity)
     }
 }

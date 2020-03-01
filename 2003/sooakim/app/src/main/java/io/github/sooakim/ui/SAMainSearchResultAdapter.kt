@@ -17,6 +17,7 @@ import io.github.sooakim.network.model.SAMovieModel
 class SAMainSearchResultAdapter :
     ListAdapter<SAMovieModel, SAMainSearchResultAdapter.SAItemViewHolder>(mDiffer) {
     private lateinit var mLayoutInflater: LayoutInflater
+    var clickListener: OnMainSearchResultClickListener? = null
 
     private fun provideLayoutInflater(context: Context): LayoutInflater {
         if (!::mLayoutInflater.isInitialized) mLayoutInflater = LayoutInflater.from(context)
@@ -26,7 +27,13 @@ class SAMainSearchResultAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SAItemViewHolder {
         val layoutInflater = provideLayoutInflater(parent.context)
         val itemView = layoutInflater.inflate(R.layout.item_main_search_result, parent, false)
-        return SAItemViewHolder(itemView)
+        return SAItemViewHolder(itemView).also {
+            it.itemView.setOnClickListener { _ ->
+                val currentItem =
+                    currentList.getOrNull(it.adapterPosition) ?: return@setOnClickListener
+                clickListener?.onSearchResultClick(currentItem)
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: SAItemViewHolder, position: Int) {
@@ -52,6 +59,10 @@ class SAMainSearchResultAdapter :
         val tvPublishDate: AppCompatTextView = itemView.findViewById(R.id.tv_publish_date)
         val tvDirector: AppCompatTextView = itemView.findViewById(R.id.tv_director)
         val tvActor: AppCompatTextView = itemView.findViewById(R.id.tv_actor)
+    }
+
+    interface OnMainSearchResultClickListener {
+        fun onSearchResultClick(item: SAMovieModel)
     }
 
     companion object {
