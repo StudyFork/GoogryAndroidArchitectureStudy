@@ -1,6 +1,6 @@
 package com.example.study.data.source.remote.network
 
-import com.example.study.interceptor.ApplicationInterceptor
+import com.example.study.data.source.remote.network.interceptor.ApplicationInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
