@@ -57,11 +57,20 @@
         android:id="@+id/rv_search_result"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/_guide_bottom"
         app:layout_constraintEnd_toStartOf="@id/_guide_end"
         app:layout_constraintStart_toEndOf="@id/_guide_start"
-        app:layout_constraintTop_toBottomOf="@id/et_search"
-        android:orientation="vertical" />
+        app:layout_constraintTop_toBottomOf="@id/et_search" />
 
+    <ProgressBar
+        android:id="@+id/pgb_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/rv_search_result"
+        app:layout_constraintEnd_toEndOf="@id/rv_search_result"
+        app:layout_constraintStart_toStartOf="@id/rv_search_result"
+        app:layout_constraintTop_toTopOf="@id/rv_search_result" />
 </androidx.constraintlayout.widget.ConstraintLayout>

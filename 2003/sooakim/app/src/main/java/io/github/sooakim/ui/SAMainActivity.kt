@@ -1,6 +1,8 @@
 package io.github.sooakim.ui
 
 import android.os.Bundle
+import android.view.View
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
@@ -21,6 +23,7 @@ class SAMainActivity : AppCompatActivity() {
     private lateinit var mSearchEdit: AppCompatEditText
     private lateinit var mSearchButton: AppCompatButton
     private lateinit var mSearchResultRecyclerView: RecyclerView
+    private lateinit var mLoadingProgressBar: ProgressBar
 
     private val mSearchResultAdapter: SAMainSearchResultAdapter = SAMainSearchResultAdapter()
     private val mCompositeDisposable: CompositeDisposable = CompositeDisposable()
@@ -43,6 +46,15 @@ class SAMainActivity : AppCompatActivity() {
         mSearchEdit = findViewById(R.id.et_search)
         mSearchButton = findViewById(R.id.btn_search)
         mSearchResultRecyclerView = findViewById(R.id.rv_search_result)
+        mLoadingProgressBar = findViewById(R.id.pgb_loading)
+    }
+
+    private fun updateLoading(isLoading: Boolean) {
+        mLoadingProgressBar.visibility = if (isLoading) {
+            View.VISIBLE
+        } else {
+            View.INVISIBLE
+        }
     }
 
     private fun initRecyclerView() {
@@ -61,10 +73,13 @@ class SAMainActivity : AppCompatActivity() {
             .map(CharSequence::trim)
             .map(CharSequence::toString)
             .distinctUntilChanged()
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnNext { _ -> updateLoading(true) }
             .switchMapSingle(SANetworkService.movieApi::getSearchMovie)
             .map(SANaverSearchResponse<SAMovieModel>::items)
             .onErrorReturn { _ -> listOf() }
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnNext { _ -> updateLoading(false) }
             .doOnNext(mSearchResultAdapter::submitList)
             .subscribe()
             .let(mCompositeDisposable::add)
