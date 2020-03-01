@@ -14,14 +14,5 @@ class NaverSearchLocalDataSourceImpl(
         return naverResultDao.getRecentSearchResult()
     }
 
-    companion object {
-        private var instance: NaverSearchLocalDataSourceImpl? = null
 
-        fun getInstance(naverResultDao: SearchResultDao): NaverSearchLocalDataSourceImpl {
-            return instance ?: synchronized(NaverSearchLocalDataSourceImpl::javaClass) {
-                instance ?: NaverSearchLocalDataSourceImpl(naverResultDao).also { instance = it }
-            }
-
-        }
-    }
 }

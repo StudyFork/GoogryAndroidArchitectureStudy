@@ -12,17 +12,5 @@ abstract class SearchResultDatabase : RoomDatabase() {
     abstract fun searchResultDao(): SearchResultDao
 
 
-    companion object {
 
-        private var instance: SearchResultDatabase? = null
-
-        fun getInstance(context: Context): SearchResultDatabase? {
-
-            return instance ?: synchronized(SearchResultDatabase::class) {
-                instance ?: Room.databaseBuilder(context.applicationContext, SearchResultDatabase::class.java, "SearchResult.db").allowMainThreadQueries().build().apply { instance = this}
-            }
-
-
-        }
-    }
 }

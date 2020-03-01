@@ -32,17 +32,4 @@ class NaverSearchRepositoryImpl (
         return list
     }
 
-    companion object {
-        private var instance: NaverSearchRepositoryImpl? = null
-
-        fun getInstance(
-            naverSearchLocalDataSource: NaverSearchLocalDataSource,
-            naverSearchRemoteDataSource: NaverSearchRemoteDataSource
-        ): NaverSearchRepositoryImpl {
-            return instance ?: NaverSearchRepositoryImpl(
-                naverSearchLocalDataSource,
-                naverSearchRemoteDataSource
-            ).apply { instance = this }
-        }
-    }
 }

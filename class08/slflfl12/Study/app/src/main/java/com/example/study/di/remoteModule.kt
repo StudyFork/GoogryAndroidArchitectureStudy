@@ -1,5 +1,6 @@
 package com.example.study.di
 
+import com.example.study.data.source.remote.NaverSearchRemoteDataSource
 import com.example.study.data.source.remote.NaverSearchRemoteDataSourceImpl
 import com.example.study.data.source.remote.network.NaverApiClient
 import com.example.study.data.source.remote.network.NaverApiService
@@ -41,8 +42,8 @@ val remoteModule = module {
     single<Retrofit> {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(get())
+            .addCallAdapterFactory(get())
             .client(get<OkHttpClient>())
             .build()
     }
@@ -51,7 +52,7 @@ val remoteModule = module {
         get<Retrofit>().create(NaverApiService::class.java)
     }
 
-    single {
+    single<NaverSearchRemoteDataSource> {
         NaverSearchRemoteDataSourceImpl()
     }
 }

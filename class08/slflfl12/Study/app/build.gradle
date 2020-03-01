@@ -71,7 +71,7 @@ dependencies {
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.0.0"
 
     //koin
-    implementation "org.koin:koin-android-viewmodel:2.1.1"
+    implementation "org.koin:koin-androidx-viewmodel:2.1.1"
 
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.7.1'

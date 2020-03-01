@@ -16,14 +16,4 @@ class NaverSearchRemoteDataSourceImpl :
         return NaverApiClient.naverRetrofitService.getMovieList(query)
     }
 
-    companion object {
-        private var instance: NaverSearchRemoteDataSourceImpl? = null
-
-        fun getInstance(): NaverSearchRemoteDataSourceImpl {
-            return instance ?: synchronized(NaverSearchRemoteDataSourceImpl::javaClass) {
-                instance ?: NaverSearchRemoteDataSourceImpl().also { instance = it }
-            }
-
-        }
-    }
 }

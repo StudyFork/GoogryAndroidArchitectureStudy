@@ -19,8 +19,7 @@ import com.example.study.data.source.remote.NaverSearchRemoteDataSourceImpl
 import com.example.study.databinding.ActivityMainBinding
 import com.example.study.ui.adapter.MovieAdapter
 import com.example.study.util.base.BaseActivity
-import org.koin.android.viewmodel.ext.android.getViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.activity_main) {
 
