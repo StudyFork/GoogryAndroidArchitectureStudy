@@ -15,5 +15,4 @@ class NaverSearchRemoteDataSourceImpl :
     ): Single<NaverSearchResponse> {
         return NaverApiClient.naverRetrofitService.getMovieList(query)
     }
-
 }

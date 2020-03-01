@@ -9,5 +9,4 @@ val viewmodelModule = module {
         MainViewModel(get())
         /*viewModel { (title: String) -> MainViewModel(title, get())}*/ //매개변수 넘겨줄 때 이렇게
     }
-
 }
