@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.github.sooakim.BuildConfig
+import io.github.sooakim.network.api.SANaverMovieApi
 import io.github.sooakim.network.interceptor.SANaverAuthInterceptor
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
@@ -34,5 +35,9 @@ object SANetworkService {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
             .addConverterFactory(GsonConverterFactory.create(mGson))
             .build()
+    }
+
+    val movieApi: SANaverMovieApi by lazy {
+        mRetrofit.create(SANaverMovieApi::class.java)
     }
 }
