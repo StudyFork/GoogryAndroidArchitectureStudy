@@ -47,4 +47,4 @@ data class SAMovieModel(
     @SerializedName("userRating")
     @Expose
     val userRating: String
-)
+) : SAModel
