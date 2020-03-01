@@ -9,7 +9,7 @@ import com.example.study.data.source.local.model.SearchResult
 import com.google.gson.Gson
 import io.reactivex.Single
 
-class NaverSearchRepositoryImpl private constructor(
+class NaverSearchRepositoryImpl (
     private val naverSearchLocalDataSource: NaverSearchLocalDataSource,
     private val naverSearchRemoteDataSource: NaverSearchRemoteDataSource
 ) : NaverSearchRepository {

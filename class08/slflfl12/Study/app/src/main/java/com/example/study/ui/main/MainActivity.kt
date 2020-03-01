@@ -19,6 +19,8 @@ import com.example.study.data.source.remote.NaverSearchRemoteDataSourceImpl
 import com.example.study.databinding.ActivityMainBinding
 import com.example.study.ui.adapter.MovieAdapter
 import com.example.study.util.base.BaseActivity
+import org.koin.android.viewmodel.ext.android.getViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.activity_main) {
 
@@ -26,32 +28,11 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         MovieAdapter()
     }
 
-/*        override val vm: MainViewModel by lazy {
-            ViewModelProvider(this, object: ViewModelProvider.Factory {
-                override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                    return MainViewModel(NaverSearchRepositoryImpl.getInstance(
-                        NaverSearchLocalDataSourceImpl.getInstance(SearchResultDatabase.getInstance(applicationContext)!!.searchResultDao())
-                        , NaverSearchRemoteDataSourceImpl.getInstance()
-                    )) as T
-                }
-            }).get(MainViewModel::class.java)
-        }*/
-    override val vm: MainViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return MainViewModel(
-                    NaverSearchRepositoryImpl.getInstance(
-                        NaverSearchLocalDataSourceImpl.getInstance(
-                            SearchResultDatabase.getInstance(
-                                applicationContext
-                            )!!.searchResultDao()
-                        )
-                        , NaverSearchRemoteDataSourceImpl.getInstance()
-                    )
-                ) as T
-            }
-        }
-    } // ktx 사용
+    override val vm: MainViewModel by viewModel()
+
+/*    private val viewModel by viewModel<MainViewModel> {
+        parametersOf(arguments?.getString(ARG_TITLE) ?: "")
+    }*/ // 매개변수 넘겨줄 때는 이렇게
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +42,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         binding.lifecycleOwner = this
         getRecentSearchResult()
         addLiveDataObserve()
-
     }
 
     private fun getRecentSearchResult() {
