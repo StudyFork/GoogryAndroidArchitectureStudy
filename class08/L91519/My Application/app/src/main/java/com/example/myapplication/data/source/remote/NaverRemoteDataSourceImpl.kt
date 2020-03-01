@@ -1,13 +1,13 @@
-package com.example.myapplication.data.source
+package com.example.myapplication.data.source.remote
 
-import android.content.Context
 import com.example.myapplication.data.ApiClient
 import com.example.myapplication.data.model.MovieResult
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NaverRemoteDataSourceImpl(val context: Context) : NaverRemoteDataSource {
+class NaverRemoteDataSourceImpl :
+    NaverRemoteDataSource {
 
     override fun getResultData(
         query: String,
@@ -26,14 +26,5 @@ class NaverRemoteDataSourceImpl(val context: Context) : NaverRemoteDataSource {
             }
 
         })
-    }
-
-    companion object {
-        private var instance: NaverRemoteDataSourceImpl? = null
-        fun getInstance(context: Context): NaverRemoteDataSourceImpl {
-            return instance ?: NaverRemoteDataSourceImpl(
-                context
-            ).apply { instance = this }
-        }
     }
 }

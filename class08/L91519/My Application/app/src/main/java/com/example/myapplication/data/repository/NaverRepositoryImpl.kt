@@ -2,8 +2,8 @@ package com.example.myapplication.data.repository
 
 import com.example.myapplication.data.model.Movie
 import com.example.myapplication.data.model.MovieResult
-import com.example.myapplication.data.source.NaverLocalDataSource
-import com.example.myapplication.data.source.NaverRemoteDataSource
+import com.example.myapplication.data.source.local.NaverLocalDataSource
+import com.example.myapplication.data.source.remote.NaverRemoteDataSource
 
 class NaverRepositoryImpl(
     private val naverRemoteDataSource: NaverRemoteDataSource,
@@ -23,18 +23,6 @@ class NaverRepositoryImpl(
 
     override fun getRecentData(): Movie {
         return naverLocalDataSource.getRecentData()
-    }
-    companion object {
-        private var instance: NaverRepositoryImpl? = null
-        fun getInstance(
-            naverRemoteDataSource: NaverRemoteDataSource,
-            naverLocalDataSource: NaverLocalDataSource
-        ): NaverRepositoryImpl {
-            return instance ?: NaverRepositoryImpl(
-                naverRemoteDataSource,
-                naverLocalDataSource
-            ).apply { instance = this }
-        }
     }
 
 }
