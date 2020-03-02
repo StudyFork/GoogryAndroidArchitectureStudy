@@ -54,8 +54,6 @@ class MainActivity : AppCompatActivity(),
                 movieAdapter.clear()
                 val apiInterface = ApiClient.getApiClient().create(ApiInterface::class.java)
                 apiInterface.getSearchMovie(
-                    getString(R.string.client_id),
-                    getString(R.string.client_secret),
                     query
                 ).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -73,7 +71,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onItemClick(movie: Movie) {
-        var intent = Intent(Intent.ACTION_VIEW , Uri.parse(movie.link))
+        var intent = Intent(Intent.ACTION_VIEW, Uri.parse(movie.link))
         startActivity(intent)
     }
 
