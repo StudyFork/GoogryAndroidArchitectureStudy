@@ -5,6 +5,7 @@ import android.content.Context
 import com.studyfork.architecturestudy.BuildConfig
 import com.studyfork.architecturestudy.di.remoteModule
 import com.studyfork.architecturestudy.di.repositoryModule
+import com.studyfork.architecturestudy.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -20,7 +21,7 @@ class BaseApplication : Application() {
         startKoin {
             if (BuildConfig.DEBUG) androidLogger()
             androidContext(this@BaseApplication)
-            modules(repositoryModule, remoteModule)
+            modules(repositoryModule, remoteModule, viewModelModule)
         }
     }
 

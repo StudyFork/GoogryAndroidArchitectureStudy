@@ -6,9 +6,9 @@ import com.studyfork.architecturestudy.base.BaseApplication
 import com.studyfork.architecturestudy.base.BaseViewModel
 import com.studyfork.architecturestudy.common.ResourceProvider
 import com.studyfork.architecturestudy.data.model.MovieResponse
-import com.studyfork.architecturestudy.data.repository.MovieRepositoryImpl
+import com.studyfork.architecturestudy.data.repository.MovieRepository
 
-class MainViewModel(private val movieRepositoryImpl: MovieRepositoryImpl) : BaseViewModel() {
+class MainViewModel(private val movieRepository: MovieRepository) : BaseViewModel() {
 
     private val resourceProvider: ResourceProvider by lazy {
         ResourceProvider(BaseApplication.applicationContext())
@@ -27,7 +27,7 @@ class MainViewModel(private val movieRepositoryImpl: MovieRepositoryImpl) : Base
             showToast(resourceProvider.getString(R.string.empty_query_notice))
             return
         } else {
-            movieRepositoryImpl.getMovieList(query, {
+            movieRepository.getMovieList(query, {
                 isLoading.value = it
             }, {
                 if (it.total != 0) {
