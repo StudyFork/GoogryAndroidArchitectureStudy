@@ -2,17 +2,15 @@ package com.studyfork.architecturestudy.ui.main
 
 import androidx.lifecycle.MutableLiveData
 import com.studyfork.architecturestudy.R
-import com.studyfork.architecturestudy.base.BaseApplication
 import com.studyfork.architecturestudy.base.BaseViewModel
 import com.studyfork.architecturestudy.common.ResourceProvider
 import com.studyfork.architecturestudy.data.model.MovieResponse
 import com.studyfork.architecturestudy.data.repository.MovieRepository
 
-class MainViewModel(private val movieRepository: MovieRepository) : BaseViewModel() {
-
-    private val resourceProvider: ResourceProvider by lazy {
-        ResourceProvider(BaseApplication.applicationContext())
-    }
+class MainViewModel(
+    private val movieRepository: MovieRepository,
+    private val resourceProvider: ResourceProvider
+) : BaseViewModel() {
 
     val movieDataList: MutableLiveData<List<MovieResponse.Item>> = MutableLiveData()
     val searchText: MutableLiveData<String> = MutableLiveData()
