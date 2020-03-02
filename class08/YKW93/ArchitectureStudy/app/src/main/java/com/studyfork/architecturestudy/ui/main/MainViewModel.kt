@@ -7,16 +7,11 @@ import com.studyfork.architecturestudy.base.BaseViewModel
 import com.studyfork.architecturestudy.common.ResourceProvider
 import com.studyfork.architecturestudy.data.model.MovieResponse
 import com.studyfork.architecturestudy.data.repository.MovieRepositoryImpl
-import com.studyfork.architecturestudy.data.source.remote.MovieRemoteDataSourceImpl
 
-class MainViewModel : BaseViewModel() {
+class MainViewModel(private val movieRepositoryImpl: MovieRepositoryImpl) : BaseViewModel() {
 
     private val resourceProvider: ResourceProvider by lazy {
         ResourceProvider(BaseApplication.applicationContext())
-    }
-
-    private val movieRepositoryImpl: MovieRepositoryImpl by lazy {
-        MovieRepositoryImpl(MovieRemoteDataSourceImpl())
     }
 
     val movieDataList: MutableLiveData<List<MovieResponse.Item>> = MutableLiveData()
