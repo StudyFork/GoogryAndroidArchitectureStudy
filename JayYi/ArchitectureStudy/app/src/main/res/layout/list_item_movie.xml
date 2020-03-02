@@ -6,7 +6,7 @@
     <data>
         <variable
             name="movie"
-            type="com.jay.architecturestudy.data.model.Movie" />
+            type="com.jay.repository.model.Movie" />
 
         <variable
             name="clickEvent"

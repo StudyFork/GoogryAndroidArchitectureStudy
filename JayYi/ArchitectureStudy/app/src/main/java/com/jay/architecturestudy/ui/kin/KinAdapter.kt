@@ -3,12 +3,12 @@ package com.jay.architecturestudy.ui.kin
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.jay.architecturestudy.data.model.Kin
 import com.jay.architecturestudy.databinding.ListItemKinBinding
 import com.jay.architecturestudy.ui.BaseAdapter
 import com.jay.architecturestudy.ui.BaseViewHolder
 import com.jay.architecturestudy.ui.OnItemClickListener
 import com.jay.architecturestudy.util.startWebView
+import com.jay.repository.model.Kin
 
 internal class KinAdapter : BaseAdapter<Kin, KinHolder>() {
 

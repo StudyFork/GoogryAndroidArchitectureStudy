@@ -3,12 +3,12 @@ package com.jay.architecturestudy.ui.blog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.jay.architecturestudy.data.model.Blog
 import com.jay.architecturestudy.databinding.ListItemBlogBinding
 import com.jay.architecturestudy.ui.BaseAdapter
 import com.jay.architecturestudy.ui.BaseViewHolder
 import com.jay.architecturestudy.ui.OnItemClickListener
 import com.jay.architecturestudy.util.startWebView
+import com.jay.repository.model.Blog
 
 
 internal class BlogAdapter : BaseAdapter<Blog, BlogHolder>() {

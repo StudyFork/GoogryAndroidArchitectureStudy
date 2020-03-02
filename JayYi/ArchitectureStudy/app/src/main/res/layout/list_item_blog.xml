@@ -6,7 +6,7 @@
     <data>
         <variable
             name="blog"
-            type="com.jay.architecturestudy.data.model.Blog" />
+            type="com.jay.repository.model.Blog" />
 
         <variable
             name="clickEvent"

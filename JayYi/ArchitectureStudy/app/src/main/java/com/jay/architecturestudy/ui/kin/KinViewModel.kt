@@ -3,12 +3,12 @@ package com.jay.architecturestudy.ui.kin
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.jay.architecturestudy.data.model.Kin
-import com.jay.architecturestudy.data.repository.NaverSearchRepository
 import com.jay.architecturestudy.ui.BaseViewModel
 import com.jay.architecturestudy.ui.ViewType
 import com.jay.architecturestudy.util.addTo
 import com.jay.architecturestudy.util.singleIoMainThread
+import com.jay.repository.model.Kin
+import com.jay.repository.repository.NaverSearchRepository
 
 class KinViewModel(
     override val repository: NaverSearchRepository
