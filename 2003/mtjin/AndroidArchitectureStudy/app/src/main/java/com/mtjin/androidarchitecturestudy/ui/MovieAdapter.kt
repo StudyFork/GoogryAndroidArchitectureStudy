@@ -1,4 +1,4 @@
-package com.mtjin.androidarchitecturestudy
+package com.mtjin.androidarchitecturestudy.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,6 +7,8 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.mtjin.androidarchitecturestudy.R
+import com.mtjin.androidarchitecturestudy.data.Movie
 
 class MovieAdapter :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {

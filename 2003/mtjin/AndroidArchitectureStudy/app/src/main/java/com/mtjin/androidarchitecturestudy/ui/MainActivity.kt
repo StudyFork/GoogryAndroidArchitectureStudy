@@ -8,8 +8,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.mtjin.androidarchitecturestudy.Movie
-import com.mtjin.androidarchitecturestudy.MovieAdapter
+import com.mtjin.androidarchitecturestudy.data.Movie
 import com.mtjin.androidarchitecturestudy.R
 import com.mtjin.androidarchitecturestudy.api.ApiClient
 import com.mtjin.androidarchitecturestudy.api.ApiInterface

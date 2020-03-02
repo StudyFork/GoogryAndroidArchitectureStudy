@@ -1,4 +1,4 @@
-package com.mtjin.androidarchitecturestudy
+package com.mtjin.androidarchitecturestudy.data
 
 
 import com.google.gson.annotations.Expose
