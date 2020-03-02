@@ -1,4 +1,4 @@
-package com.mtjin.androidarchitecturestudy
+package com.mtjin.androidarchitecturestudy.ui
 
 import android.content.Intent
 import android.net.Uri
@@ -8,11 +8,17 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.mtjin.androidarchitecturestudy.Movie
+import com.mtjin.androidarchitecturestudy.MovieAdapter
+import com.mtjin.androidarchitecturestudy.R
+import com.mtjin.androidarchitecturestudy.api.ApiClient
+import com.mtjin.androidarchitecturestudy.api.ApiInterface
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 
-class MainActivity : AppCompatActivity(), MovieAdapter.ItemClickListener {
+class MainActivity : AppCompatActivity(),
+    MovieAdapter.ItemClickListener {
 
     private lateinit var etInput: EditText
     private lateinit var btnSearch: Button

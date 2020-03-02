@@ -1,5 +1,6 @@
-package com.mtjin.androidarchitecturestudy
+package com.mtjin.androidarchitecturestudy.api
 
+import com.mtjin.androidarchitecturestudy.MovieResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Header
