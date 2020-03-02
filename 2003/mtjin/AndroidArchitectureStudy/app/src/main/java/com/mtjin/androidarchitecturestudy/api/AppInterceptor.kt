@@ -1,6 +1,5 @@
 package com.mtjin.androidarchitecturestudy.api
 
-import com.mtjin.androidarchitecturestudy.R
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
@@ -10,8 +9,8 @@ class AppInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain)
             : Response = with(chain) {
         val newRequest = request().newBuilder().run {
-            addHeader("X-Naver-Client-Id", R.string.client_id.toString())
-            addHeader("X-Naver-Client-Secret", R.string.client_secret.toString())
+            addHeader("X-Naver-Client-Id", "33chRuAiqlSn5hn8tIme")
+            addHeader("X-Naver-Client-Secret", "fyfwt9PCUN")
             build()
         }
         proceed(newRequest)
