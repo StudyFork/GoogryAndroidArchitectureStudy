@@ -17,7 +17,7 @@
     <EditText
         android:id="@+id/et_input"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:hint="입력"
         android:inputType="text"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
@@ -29,7 +29,7 @@
     <Button
         android:id="@+id/btn_search"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:text="검색"
         app:layout_constraintBottom_toTopOf="@id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
