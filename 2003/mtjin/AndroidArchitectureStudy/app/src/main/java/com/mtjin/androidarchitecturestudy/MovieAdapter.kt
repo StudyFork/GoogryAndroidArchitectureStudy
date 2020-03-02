@@ -49,7 +49,7 @@ class MovieAdapter :
 
         fun bind(movie: Movie) {
             with(movie) {
-                Glide.with(itemView).load(image).into(ivPoster!!)
+                Glide.with(itemView).load(image).placeholder(R.drawable.ic_default).into(ivPoster!!)
                 rvRating?.rating = userRating.toFloat() / 2
                 tvTitle?.text = title
                 tvReleaseDate?.text = pubDate
