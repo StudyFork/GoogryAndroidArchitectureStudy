@@ -17,7 +17,7 @@ class ApiClient {
                 .build()
         }
 
-        fun provideOkHttpClient(
+        private fun provideOkHttpClient(
             interceptor: AppInterceptor
         ): OkHttpClient
                 = OkHttpClient.Builder()
