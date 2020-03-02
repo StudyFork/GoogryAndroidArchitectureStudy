@@ -34,4 +34,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     // rxbinding
     implementation 'com.jakewharton.rxbinding3:rxbinding-appcompat:3.0.0'
+    // rxjava2
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.15'
 }
