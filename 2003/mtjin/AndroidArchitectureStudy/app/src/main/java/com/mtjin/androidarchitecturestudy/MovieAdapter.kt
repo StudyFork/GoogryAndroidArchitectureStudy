@@ -10,20 +10,20 @@ import com.bumptech.glide.Glide
 
 class MovieAdapter :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
-    private var clickListener: ItemClickListener? = null
+    var clickListener: ItemClickListener? = null
     private var items: MutableList<Movie> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(parent)
 
     override fun getItemCount(): Int = items.size
 
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         items[position].let {
-            viewHolder.bind(it)
+            holder.bind(it)
         }
     }
 
-    class ViewHolder(parent: ViewGroup) :
+    inner class ViewHolder(parent: ViewGroup) :
         RecyclerView.ViewHolder(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.item_movie,
@@ -48,14 +48,18 @@ class MovieAdapter :
         }
 
         fun bind(movie: Movie) {
-            Glide.with(itemView).load(movie.image).into(ivPoster!!)
-            rvRating?.rating = movie.userRating.toFloat()
-            tvTitle?.text = movie.title
-            tvReleaseDate?.text = movie.pubDate
-            tvActor?.text = movie.actor
-            tvDirector?.text = movie.director
+            with(movie) {
+                Glide.with(itemView).load(image).into(ivPoster!!)
+                rvRating?.rating = userRating.toFloat() / 2
+                tvTitle?.text = title
+                tvReleaseDate?.text = pubDate
+                tvActor?.text = actor
+                tvDirector?.text = director
+                itemView.setOnClickListener {
+                    clickListener?.onItemClick(movie)
+                }
+            }
         }
-
     }
 
     fun setItems(items: List<Movie>) {
