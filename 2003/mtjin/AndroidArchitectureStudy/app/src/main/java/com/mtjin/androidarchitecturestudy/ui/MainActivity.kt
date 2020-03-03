@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity(),
         }?.run(this::startActivity)
     }
 
-    fun onToastMessage(message: String?) {
+    private fun onToastMessage(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
