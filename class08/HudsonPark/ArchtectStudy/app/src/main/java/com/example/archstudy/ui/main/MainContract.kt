@@ -4,7 +4,7 @@ import com.example.archstudy.base.BasePresenter
 import com.example.archstudy.base.BaseView
 import com.example.archstudy.data.source.local.MovieData
 
-interface MainInterface {
+interface MainContract {
 
     interface View : BaseView {
         fun initPresenter()

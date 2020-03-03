@@ -14,7 +14,7 @@ import com.example.archstudy.R
 import com.example.archstudy.data.source.local.AppDatabase
 import com.example.archstudy.data.source.local.MovieData
 
-class MainActivity : AppCompatActivity(), MainInterface.View {
+class MainActivity : AppCompatActivity(), MainContract.View {
 
     // View
     private lateinit var edtQuery: EditText
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity(), MainInterface.View {
     // variables
     private var query = ""
     // Presenter
-    private lateinit var presenter: MainInterface.Presenter
+    private lateinit var presenter: MainContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

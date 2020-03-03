@@ -9,10 +9,10 @@ import com.example.archstudy.data.source.local.SearchWordDao
 import com.example.archstudy.data.source.remote.NaverQueryRemoteDataSourceImpl
 
 class MainPresenter(
-    private val view: MainInterface.View,
+    private val view: MainContract.View,
     localMovieDao: MovieDataDao,
     searchWordDao: SearchWordDao
-) : MainInterface.Presenter {
+) : MainContract.Presenter {
 
     private val localData = NaverQueryLocalDataSourceImpl(localMovieDao, searchWordDao)
     private val remoteData = NaverQueryRemoteDataSourceImpl()
