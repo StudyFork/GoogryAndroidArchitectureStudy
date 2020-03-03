@@ -20,7 +20,7 @@ class MovieAdapter :
         val view: View = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_movie, parent, false)
         val viewHolder = ViewHolder(view)
-        view.setOnClickListener{
+        view.setOnClickListener {
             clickListener.onItemClick(items[viewHolder.adapterPosition])
         }
         return viewHolder
@@ -46,7 +46,7 @@ class MovieAdapter :
         fun bind(movie: Movie) {
             with(movie) {
                 Glide.with(itemView).load(image).placeholder(R.drawable.ic_default).into(ivPoster!!)
-                rvRating?.rating = userRating.toFloat() / 2
+                rvRating?.rating = (userRating.toFloatOrNull() ?: 0f) / 2
                 tvTitle?.text = title
                 tvReleaseDate?.text = pubDate
                 tvActor?.text = actor
