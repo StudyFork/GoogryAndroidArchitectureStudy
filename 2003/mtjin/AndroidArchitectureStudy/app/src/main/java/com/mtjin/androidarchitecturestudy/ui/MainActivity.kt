@@ -70,8 +70,9 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onItemClick(movie: Movie) {
-        var intent = Intent(Intent.ACTION_VIEW, Uri.parse(movie.link))
-        startActivity(intent)
+        Intent(Intent.ACTION_VIEW, Uri.parse(movie.link)).takeIf {
+            it.resolveActivity(packageManager) != null
+        }?.run(this::startActivity)
     }
 
     fun onToastMessage(message: String?) {
