@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Study</string>
+
+    <string name="btn_search">검색</string>
 </resources>
