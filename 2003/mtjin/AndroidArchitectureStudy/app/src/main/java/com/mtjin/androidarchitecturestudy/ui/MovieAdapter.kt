@@ -1,6 +1,7 @@
 package com.mtjin.androidarchitecturestudy.ui
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RatingBar
@@ -15,7 +16,15 @@ class MovieAdapter :
     var clickListener: ItemClickListener? = null
     private var items: MutableList<Movie> = mutableListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view: View = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_movie, parent, false)
+        val viewHolder = ViewHolder(view)
+        view.setOnClickListener{
+            clickListener?.onItemClick(items[viewHolder.adapterPosition])
+        }
+        return viewHolder
+    }
 
     override fun getItemCount(): Int = items.size
 
@@ -25,29 +34,14 @@ class MovieAdapter :
         }
     }
 
-    inner class ViewHolder(parent: ViewGroup) :
-        RecyclerView.ViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.item_movie,
-                parent,
-                false
-            )
-        ) {
-        private var ivPoster: ImageView? = null
-        private var rvRating: RatingBar? = null
-        private var tvTitle: TextView? = null
-        private var tvReleaseDate: TextView? = null
-        private var tvActor: TextView? = null
-        private var tvDirector: TextView? = null
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        init {
-            ivPoster = itemView.findViewById(R.id.iv_poster)
-            rvRating = itemView.findViewById(R.id.rb_rating)
-            tvTitle = itemView.findViewById(R.id.tv_title)
-            tvReleaseDate = itemView.findViewById(R.id.tv_release_date)
-            tvActor = itemView.findViewById(R.id.tv_actor)
-            tvDirector = itemView.findViewById(R.id.tv_director)
-        }
+        private var ivPoster: ImageView? = itemView.findViewById(R.id.iv_poster)
+        private var rvRating: RatingBar? = itemView.findViewById(R.id.rb_rating)
+        private var tvTitle: TextView? = itemView.findViewById(R.id.tv_title)
+        private var tvReleaseDate: TextView? = itemView.findViewById(R.id.tv_release_date)
+        private var tvActor: TextView? = itemView.findViewById(R.id.tv_actor)
+        private var tvDirector: TextView? = itemView.findViewById(R.id.tv_director)
 
         fun bind(movie: Movie) {
             with(movie) {
@@ -57,9 +51,6 @@ class MovieAdapter :
                 tvReleaseDate?.text = pubDate
                 tvActor?.text = actor
                 tvDirector?.text = director
-                itemView.setOnClickListener {
-                    clickListener?.onItemClick(movie)
-                }
             }
         }
     }
