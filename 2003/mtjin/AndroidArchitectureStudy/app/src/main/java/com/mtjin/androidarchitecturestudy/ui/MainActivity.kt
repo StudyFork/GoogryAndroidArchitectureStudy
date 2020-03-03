@@ -8,12 +8,14 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.mtjin.androidarchitecturestudy.data.Movie
 import com.mtjin.androidarchitecturestudy.R
 import com.mtjin.androidarchitecturestudy.api.ApiClient
 import com.mtjin.androidarchitecturestudy.api.ApiInterface
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.mtjin.androidarchitecturestudy.data.Movie
+import com.mtjin.androidarchitecturestudy.data.MovieResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class MainActivity : AppCompatActivity(),
@@ -52,19 +54,25 @@ class MainActivity : AppCompatActivity(),
                 onToastMessage("잠시만 기다려주세요.")
                 movieAdapter.clear()
                 val apiInterface = ApiClient.getApiClient().create(ApiInterface::class.java)
-                apiInterface.getSearchMovie(
-                    query
-                ).subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({
-                        // handle success
-                        movieAdapter.setItems(it.movies)
-                        movieAdapter.notifyDataSetChanged()
-                    }, {
-                        // handle fail
+                apiInterface.getSearchMovie(query).enqueue(object : Callback<MovieResponse> {
+                    override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                         onToastMessage("불러오는데 실패 했습니다.")
-                    })
+                    }
 
+                    override fun onResponse(
+                        call: Call<MovieResponse>,
+                        response: Response<MovieResponse>
+                    ) {
+                        with(response){
+                            if (isSuccessful && body() != null) {
+                                body()?.movies?.let { it -> movieAdapter.setItems(it) }
+                                movieAdapter.notifyDataSetChanged()
+                            } else {
+                                onToastMessage("불러오는데 실패 했습니다.")
+                            }
+                        }
+                    }
+                })
             }
         }
     }
@@ -77,5 +85,9 @@ class MainActivity : AppCompatActivity(),
 
     private fun onToastMessage(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }
