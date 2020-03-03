@@ -9,10 +9,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.archstudy.R
 import com.example.archstudy.data.source.local.AppDatabase
 import com.example.archstudy.data.source.local.MovieData
+import com.example.archstudy.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
@@ -21,6 +23,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private lateinit var btnSearch: Button
     private lateinit var rvMovieList: RecyclerView
     private lateinit var rvMovieAdapter: MovieListAdapter
+    // DataBinding
+    private lateinit var binding: ActivityMainBinding
     // variables
     private var query = ""
     // Presenter
@@ -28,7 +32,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        // Binding View
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         initView() // 뷰 초기화
         initPresenter() // 프레젠터 초기화
         initData() // 데이터 초기화
@@ -75,10 +80,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     private fun initView() {
-        Log.d("init", "initView()")
-        edtQuery = findViewById(R.id.edtQuery)
-        btnSearch = findViewById(R.id.btnSearch)
-        rvMovieList = findViewById(R.id.rvMovieList)
 
         rvMovieAdapter = MovieListAdapter(object :
             MovieListAdapter.ItemClickListener {
