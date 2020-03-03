@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="movie_details" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_marginTop">@dimen/text_detail_top_margin</item>
+        <item name="android:textSize">@dimen/text_detail</item>
+        <item name="android:textColor">@color/text_normal</item>
+    </style>
+
 </resources>
