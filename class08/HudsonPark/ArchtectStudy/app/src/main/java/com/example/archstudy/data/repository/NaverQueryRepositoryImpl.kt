@@ -50,9 +50,23 @@ class NaverQueryRepositoryImpl(
     }
 
     override fun requestLocalData(
-        query: String
+        query: String,
+        successCallback: (MutableList<MovieData>) -> Unit,
+        failCallback: (Throwable) -> Unit
     ): MutableList<MovieData>? {
-        return naverQueryLocalDataSource.requestLocalData(query)
+        var resultData = naverQueryLocalDataSource.requestLocalData(query)
+        if (resultData.isNullOrEmpty()) {
+            // 로컬 데이터가 비어있다면, 리모트 데이터 요청
+            requestRemoteData(query, successCallback = {
+                Log.d("data","successCallback in requestLocalData.requestRemoteData()")
+                successCallback(it)
+            }, failCallback = {
+                failCallback(it)
+            })
+        } else {
+            return resultData
+        }
+        return null
     }
 
     override fun insertLocalData(query: String, data: List<MovieData>) {
@@ -67,7 +81,11 @@ class NaverQueryRepositoryImpl(
 
         override fun doInBackground(vararg param: Unit?): MutableList<MovieData>? {
             Log.d("Async", "RequestLocalDataAsync.doInBackground()")
-            var result = requestLocalData(query)
+            var result = requestLocalData(query, successCallback = {
+                asyncTaskDataListener.onResult(it)
+            }, failCallback = {
+                asyncTaskDataListener.onResult(emptyList<MovieData>() as MutableList<MovieData>)
+            })
             Log.d("Async", "doInBackground().result : $result")
             return result
         }
@@ -75,7 +93,9 @@ class NaverQueryRepositoryImpl(
         override fun onPostExecute(result: MutableList<MovieData>?) {
             super.onPostExecute(result)
             Log.d("Async", "Request Result : $result")
-            asyncTaskDataListener.onResult(result!!)
+            result?.let {
+                asyncTaskDataListener.onResult(result!!)
+            }
         }
 
     }

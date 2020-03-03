@@ -31,10 +31,8 @@ class MainPresenter(
             Log.d("data", "movie data in getLocalData successCallback : $it")
             view?.showDataList(it)
         }, failCallback = {
-            // 로컬 데이터를 가져오는 것에 실패했을 경우 리모트에 데이터 요청
-            Log.d("data", "movie data in getLocalData failCallback : $it")
             Log.d("search", "searchQuery in getData() : $it")
-            getRemoteDataByQuery(it)
+            view?.showErrorMessage(Throwable(it))
         })
     }
 
