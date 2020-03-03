@@ -23,31 +23,30 @@ class NaverQueryRepositoryImpl(
 
         naverQueryRemoteDataSource
             .getMovie(query)
-            .apply {
-                this.enqueue(object : Callback<MovieDataResponse> {
+            .enqueue(object : Callback<MovieDataResponse> {
 
-                    override fun onFailure(call: Call<MovieDataResponse>, t: Throwable) {
-                        failCallback(t)
-                    }
+                override fun onFailure(call: Call<MovieDataResponse>, t: Throwable) {
+                    failCallback(t)
+                }
 
-                    override fun onResponse(
-                        call: Call<MovieDataResponse>,
-                        response: Response<MovieDataResponse>
-                    ) {
-                        if (response.body() != null) {
-                            val items = response.body()?.items as MutableList<MovieData>
-                            InsertLocalDataAsync(
-                                query,
-                                items
-                            ).execute() // Remote Data 전송 성공 시 해당 Data를 Local에 저장
-                            Log.d(
-                                "Async", "onResponse().query : $query, onResponse().items : $items"
-                            )
-                            successCallback(items)
-                        }
+                override fun onResponse(
+                    call: Call<MovieDataResponse>,
+                    response: Response<MovieDataResponse>
+                ) {
+                    if (response.body() != null) {
+                        val items = response.body()?.items as MutableList<MovieData>
+                        InsertLocalDataAsync(
+                            query,
+                            items
+                        ).execute() // Remote Data 전송 성공 시 해당 Data를 Local에 저장
+                        Log.d(
+                            "Async", "onResponse().query : $query, onResponse().items : $items"
+                        )
+                        successCallback(items)
                     }
-                })
-            }
+                }
+            })
+
     }
 
     override fun requestLocalData(
