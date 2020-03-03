@@ -13,7 +13,7 @@ import com.mtjin.androidarchitecturestudy.data.Movie
 
 class MovieAdapter :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
-    var clickListener: ItemClickListener? = null
+    private lateinit var clickListener: ItemClickListener
     private var items: MutableList<Movie> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -21,7 +21,7 @@ class MovieAdapter :
             .inflate(R.layout.item_movie, parent, false)
         val viewHolder = ViewHolder(view)
         view.setOnClickListener{
-            clickListener?.onItemClick(items[viewHolder.adapterPosition])
+            clickListener.onItemClick(items[viewHolder.adapterPosition])
         }
         return viewHolder
     }
@@ -59,7 +59,7 @@ class MovieAdapter :
         this.items = items.toMutableList()
     }
 
-    fun setItemClickListener(listener: ItemClickListener?) {
+    fun setItemClickListener(listener: ItemClickListener) {
         this.clickListener = listener
     }
 
