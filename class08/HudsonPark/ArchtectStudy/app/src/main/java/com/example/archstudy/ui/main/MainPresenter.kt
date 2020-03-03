@@ -36,23 +36,6 @@ class MainPresenter(
         })
     }
 
-    override fun getRemoteDataByQuery(query: String?) {
-        Log.d("remoteQuery", "remoteQuery : $query")
-        query?.let {
-            naverQueryRepositoryImpl.requestRemoteData(query, successCallback = {
-                // Local DB에 쿼리와 데이터 저장
-                Log.d("callback", "successCallback for requestRemoteData()")
-                insertData(query, it)
-                // Remote Data 요청이 성공했을 경우 MainActivity 에 데이터 전달
-                view?.showDataList(it)
-
-            }, failCallback = {
-                // Remote Data 요청이 실패했을 경우 에러 메시지 출력
-                view?.showErrorMessage(it)
-            })
-        }
-    }
-
     override fun getQuery(successCallback: (String) -> Unit) {
 
         naverQueryRepositoryImpl.apply {

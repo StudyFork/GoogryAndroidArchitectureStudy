@@ -14,7 +14,6 @@ interface MainContract {
     interface Presenter : BasePresenter<View> {
         fun initData()
         fun getData(query: String?)
-        fun getRemoteDataByQuery(query: String?)
         fun getQuery(successCallback: (String) -> Unit)
         fun getLocalData(
             query: String?,
