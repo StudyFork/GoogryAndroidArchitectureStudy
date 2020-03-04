@@ -37,7 +37,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         super.onCreate(savedInstanceState)
 
         binding.rvMovieList.adapter = movieAdapter
-        binding.lifecycleOwner = this
         getRecentSearchResult()
         addLiveDataObserve()
     }
