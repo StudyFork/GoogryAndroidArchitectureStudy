@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity(),
     private lateinit var btnSearch: Button
     private lateinit var rvMovies: RecyclerView
     private lateinit var movieAdapter: MovieAdapter
+    private lateinit var movieCall: Call<MovieResponse>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,36 +48,39 @@ class MainActivity : AppCompatActivity(),
         movieAdapter.setItemClickListener(this)
         //검색버튼
         btnSearch.setOnClickListener {
-            var query = etInput.text.toString().trim()
+            val query = etInput.text.toString().trim()
             if (query.isEmpty()) {
                 onToastMessage("검색어를 입력해주세요.")
             } else {
                 onToastMessage("잠시만 기다려주세요.")
-                movieAdapter.clear()
-                val apiInterface = ApiClient.getApiClient().create(ApiInterface::class.java)
-                apiInterface.getSearchMovie(query).enqueue(object : Callback<MovieResponse> {
-                    override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                        onToastMessage("불러오는데 실패 했습니다.")
-                        call.cancel()
-                    }
-
-                    override fun onResponse(
-                        call: Call<MovieResponse>,
-                        response: Response<MovieResponse>
-                    ) {
-                        with(response) {
-                            if (isSuccessful && body() != null) {
-                                body()?.movies?.let { it -> movieAdapter.setItems(it) }
-                                movieAdapter.notifyDataSetChanged()
-                            } else {
-                                onToastMessage("불러오는데 실패 했습니다.")
-                            }
-                            call.cancel()
-                        }
-                    }
-                })
+                requestMovie(query)
             }
         }
+    }
+
+    private fun requestMovie(query: String) {
+        movieAdapter.clear()
+        val apiInterface = ApiClient.getApiClient().create(ApiInterface::class.java)
+        movieCall = apiInterface.getSearchMovie(query)
+        movieCall.enqueue(object : Callback<MovieResponse> {
+            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+                onToastMessage("불러오는데 실패 했습니다.")
+            }
+
+            override fun onResponse(
+                call: Call<MovieResponse>,
+                response: Response<MovieResponse>
+            ) {
+                with(response) {
+                    if (isSuccessful && body() != null) {
+                        body()?.movies?.let { it -> movieAdapter.setItems(it) }
+                        movieAdapter.notifyDataSetChanged()
+                    } else {
+                        onToastMessage("불러오는데 실패 했습니다.")
+                    }
+                }
+            }
+        })
     }
 
     override fun onItemClick(movie: Movie) {
@@ -89,4 +93,8 @@ class MainActivity : AppCompatActivity(),
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        movieCall.cancel()
+    }
 }
