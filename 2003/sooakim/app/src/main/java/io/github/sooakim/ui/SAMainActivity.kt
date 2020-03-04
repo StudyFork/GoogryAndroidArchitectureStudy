@@ -54,12 +54,12 @@ class SAMainActivity : AppCompatActivity(),
         mLoadingProgressBar = findViewById(R.id.pgb_loading)
     }
 
-    private fun updateLoading(isLoading: Boolean) {
-        mLoadingProgressBar.visibility = if (isLoading) {
-            View.VISIBLE
-        } else {
-            View.INVISIBLE
-        }
+    private fun showLoading() {
+        mLoadingProgressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideLoading() {
+        mLoadingProgressBar.visibility = View.INVISIBLE
     }
 
     private fun initRecyclerView() {
@@ -80,12 +80,12 @@ class SAMainActivity : AppCompatActivity(),
             .map(CharSequence::toString)
             .distinctUntilChanged()
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnNext { _ -> updateLoading(true) }
+            .doOnNext { _ -> showLoading() }
             .switchMapSingle(SANetworkService.movieApi::getSearchMovie)
             .map(SANaverSearchResponse<SAMovieModel>::items)
             .onErrorReturn { _ -> listOf() }
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnNext { _ -> updateLoading(false) }
+            .doOnNext { _ -> hideLoading() }
             .subscribe(mSearchResultAdapter::submitList)
             .addTo(mCompositeDisposable)
     }
