@@ -23,13 +23,13 @@ import io.reactivex.rxkotlin.addTo
 import java.util.concurrent.TimeUnit
 
 class SAMainActivity : AppCompatActivity() {
-    private lateinit var mSearchEdit: AppCompatEditText
-    private lateinit var mSearchButton: AppCompatButton
-    private lateinit var mSearchResultRecyclerView: RecyclerView
-    private lateinit var mLoadingProgressBar: ProgressBar
+    private lateinit var searchEdit: AppCompatEditText
+    private lateinit var searchButton: AppCompatButton
+    private lateinit var searchResultRecyclerView: RecyclerView
+    private lateinit var loadingProgressBar: ProgressBar
 
-    private lateinit var mSearchResultAdapter: SAMainSearchResultAdapter
-    private val mCompositeDisposable: CompositeDisposable = CompositeDisposable()
+    private lateinit var searchResultAdapter: SAMainSearchResultAdapter
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,37 +41,37 @@ class SAMainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        mCompositeDisposable.clear()
+        compositeDisposable.clear()
         super.onDestroy()
     }
 
     private fun initView() {
-        mSearchEdit = findViewById(R.id.et_search)
-        mSearchButton = findViewById(R.id.btn_search)
-        mSearchResultRecyclerView = findViewById(R.id.rv_search_result)
-        mLoadingProgressBar = findViewById(R.id.pgb_loading)
+        searchEdit = findViewById(R.id.et_search)
+        searchButton = findViewById(R.id.btn_search)
+        searchResultRecyclerView = findViewById(R.id.rv_search_result)
+        loadingProgressBar = findViewById(R.id.pgb_loading)
     }
 
     private fun showLoading() {
-        mLoadingProgressBar.visibility = View.VISIBLE
+        loadingProgressBar.visibility = View.VISIBLE
     }
 
     private fun hideLoading() {
-        mLoadingProgressBar.visibility = View.INVISIBLE
+        loadingProgressBar.visibility = View.INVISIBLE
     }
 
     private fun initRecyclerView() {
-        if (!::mSearchResultAdapter.isInitialized) {
-            mSearchResultAdapter = SAMainSearchResultAdapter(this::onSearchResultClick)
+        if (!::searchResultAdapter.isInitialized) {
+            searchResultAdapter = SAMainSearchResultAdapter(this::onSearchResultClick)
         }
-        mSearchResultRecyclerView.adapter = mSearchResultAdapter
+        searchResultRecyclerView.adapter = searchResultAdapter
     }
 
     private fun bindRx() {
-        val textChanges = mSearchEdit.textChanges()
-        val buttonClick = mSearchButton.clicks()
+        val textChanges = searchEdit.textChanges()
+        val buttonClick = searchButton.clicks()
             .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-            .flatMapSingle { Single.fromCallable(mSearchEdit::getText) }
+            .flatMapSingle { Single.fromCallable(searchEdit::getText) }
 
         Observable.merge(textChanges, buttonClick)
             .debounce(700, TimeUnit.MILLISECONDS)
@@ -86,8 +86,8 @@ class SAMainActivity : AppCompatActivity() {
             .onErrorReturn { listOf() }
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext { hideLoading() }
-            .subscribe(mSearchResultAdapter::submitList)
-            .addTo(mCompositeDisposable)
+            .subscribe(searchResultAdapter::submitList)
+            .addTo(compositeDisposable)
     }
 
     private fun onSearchResultClick(item: SAMovieModel) {
