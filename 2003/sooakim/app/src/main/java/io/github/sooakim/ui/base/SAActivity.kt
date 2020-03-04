@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 @SuppressLint("Registered")
 open class SAActivity : AppCompatActivity() {
-    open val commonProgressView: View? = null
+    protected open val commonProgressView: View? = null
 
     fun showLoading() {
         commonProgressView?.visibility = View.VISIBLE
