@@ -5,7 +5,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +14,7 @@ import io.github.sooakim.R
 import io.github.sooakim.network.SANetworkService
 import io.github.sooakim.network.model.SAMovieModel
 import io.github.sooakim.network.model.response.SANaverSearchResponse
+import io.github.sooakim.ui.base.SAActivity
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,7 +22,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import java.util.concurrent.TimeUnit
 
-class SAMovieSearchActivity : AppCompatActivity() {
+class SAMovieSearchActivity : SAActivity() {
     private lateinit var searchEdit: AppCompatEditText
     private lateinit var searchButton: AppCompatButton
     private lateinit var searchResultRecyclerView: RecyclerView
@@ -30,6 +30,9 @@ class SAMovieSearchActivity : AppCompatActivity() {
 
     private lateinit var searchResultAdapter: SAMovieSearchResultAdapter
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
+
+    override val commonProgressView: View?
+        get() = loadingProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,14 +53,6 @@ class SAMovieSearchActivity : AppCompatActivity() {
         searchButton = findViewById(R.id.btn_search)
         searchResultRecyclerView = findViewById(R.id.rv_search_result)
         loadingProgressBar = findViewById(R.id.pgb_loading)
-    }
-
-    private fun showLoading() {
-        loadingProgressBar.visibility = View.VISIBLE
-    }
-
-    private fun hideLoading() {
-        loadingProgressBar.visibility = View.INVISIBLE
     }
 
     private fun initRecyclerView() {
