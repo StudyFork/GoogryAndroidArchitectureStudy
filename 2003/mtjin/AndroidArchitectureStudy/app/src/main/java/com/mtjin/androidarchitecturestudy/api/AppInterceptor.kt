@@ -8,11 +8,11 @@ class AppInterceptor : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain)
             : Response = with(chain) {
-        val newRequest = request().newBuilder().run {
-            addHeader("X-Naver-Client-Id", "33chRuAiqlSn5hn8tIme")
-            addHeader("X-Naver-Client-Secret", "fyfwt9PCUN")
-            build()
-        }
+        val newRequest = request().newBuilder()
+            .addHeader("X-Naver-Client-Id", "33chRuAiqlSn5hn8tIme")
+            .addHeader("X-Naver-Client-Secret", "fyfwt9PCUN")
+            .build()
+
         proceed(newRequest)
     }
 }
