@@ -14,18 +14,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.archstudy.data.source.local.MovieData
 import com.example.archstudy.R
+import com.example.archstudy.databinding.ItemMovieBinding
 
 class MovieListAdapter(@Nullable private var listener: ItemClickListener) :
     RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
 
     private var list = mutableListOf<MovieData>()
+    private lateinit var binding: ItemMovieBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val holder = ViewHolder(
-            LayoutInflater
-                .from(parent.context)
-                .inflate(R.layout.item_movie, parent, false)
-        )
+
+        binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+        val holder = ViewHolder(binding)
 
         holder.itemView.setOnClickListener {
             listener.onItemClick(list[holder.adapterPosition].link)
@@ -38,56 +39,59 @@ class MovieListAdapter(@Nullable private var listener: ItemClickListener) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         holder.bind(list[position])
 
-    fun setAllData(movieList: MutableList<MovieData>){
+    fun setAllData(movieList: MutableList<MovieData>) {
         list.clear()
         list.addAll(movieList)
         notifyDataSetChanged()
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(private var binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        private val ivThumbnail = itemView.findViewById<ImageView>(R.id.ivThumbNail)
-        private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
-        private val ratingMovie = itemView.findViewById<RatingBar>(R.id.ratingMovie)
-        private val tvReleaseYear = itemView.findViewById<TextView>(R.id.tvReleaseYear)
-        private val tvDirector = itemView.findViewById<TextView>(R.id.tvDirector)
-        private val tvActors = itemView.findViewById<TextView>(R.id.tvActors)
+//        private val ivThumbnail = itemView.findViewById<ImageView>(R.id.ivThumbNail)
+//        private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
+//        private val ratingMovie = itemView.findViewById<RatingBar>(R.id.ratingMovie)
+//        private val tvReleaseYear = itemView.findViewById<TextView>(R.id.tvReleaseYear)
+//        private val tvDirector = itemView.findViewById<TextView>(R.id.tvDirector)
+//        private val tvActors = itemView.findViewById<TextView>(R.id.tvActors)
 
         fun bind(data: MovieData) {
 
             with(data) {
                 Log.d("img", "image : $image, title : $title")
                 val convertedText = htmlToString(title)
-                tvTitle.text = convertedText
-                ratingMovie.rating = userRating.toFloat() / 2
-                tvReleaseYear.text = pubDate
-                tvDirector.text = director
-                tvActors.text = actor
-                loadImage(image)
+                with(binding){
+                    tvTitle.text = convertedText
+                    ratingMovie.rating = userRating.toFloat() / 2
+                    tvReleaseYear.text = pubDate
+                    tvDirector.text = director
+                    tvActors.text = actor
+                    loadImage(this,image)
+                }
             }
 
         }
 
-        private fun loadImage(image: String) {
+        private fun loadImage(binding: ItemMovieBinding ,image: String) {
 
-            if (image.trim().isNotEmpty()) {
-                Glide.with(itemView.context)
-                    .load(image)
-                    .override(600, 1000)
-                    .into(ivThumbnail)
-            } else {
-
-                Glide.with(itemView.context)
-                    .load(R.drawable.no_image)
-                    .override(600, 1000)
-                    .into(ivThumbnail)
+            with(binding){
+                if (image.trim().isNotEmpty()) {
+                    Glide.with(itemView.context)
+                        .load(image)
+                        .override(600, 1000)
+                        .into(ivThumbNail)
+                } else {
+                    Glide.with(itemView.context)
+                        .load(R.drawable.no_image)
+                        .override(600, 1000)
+                        .into(ivThumbNail)
+                }
             }
         }
 
-        private fun htmlToString(htmlText : String) : String {
+        private fun htmlToString(htmlText: String): String {
             // Android N Version 이상의 경우
-            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-                Html.fromHtml(htmlText,Html.FROM_HTML_MODE_LEGACY).toString()
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Html.fromHtml(htmlText, Html.FROM_HTML_MODE_LEGACY).toString()
             } else {
                 // 그 외
                 Html.fromHtml(htmlText).toString()

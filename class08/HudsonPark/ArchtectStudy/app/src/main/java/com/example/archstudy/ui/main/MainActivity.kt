@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         super.onCreate(savedInstanceState)
         // Binding View
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        initView() // 뷰 초기화
+        initRecyclerView() // 리사이클러 뷰 초기화
         initPresenter() // 프레젠터 초기화
         initData() // 데이터 초기화
         initEvent() // 이벤트 처리
@@ -68,26 +68,27 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     private fun initEvent() {
 
-        btnSearch.setOnClickListener {
-            hideKeyboard()
-            disableButton()
-            // 검색 버튼 클릭 시
-            query = edtQuery.text.toString()
-            Log.d("query", "query : $query")
-            presenter.getData(query)
-            activateButton()
+        with(binding){
+            btnSearch.setOnClickListener {
+                hideKeyboard()
+                disableButton()
+                // 검색 버튼 클릭 시
+                query = edtQuery.text.toString()
+                Log.d("query", "query : $query")
+                presenter.getData(query)
+                activateButton()
+            }
         }
     }
 
-    private fun initView() {
+    private fun initRecyclerView() {
 
-        rvMovieAdapter = MovieListAdapter(object :
+        binding.rvMovieList.adapter = MovieListAdapter(object :
             MovieListAdapter.ItemClickListener {
             override fun onItemClick(url: String) {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
             }
         })
-        rvMovieList.adapter = rvMovieAdapter
     }
 
     private fun showToast(message: String) {
