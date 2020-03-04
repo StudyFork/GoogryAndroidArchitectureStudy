@@ -1,7 +1,7 @@
 package com.hansung.remote
 
 import android.content.Context
-import com.hansung.firstproject.data.ErrorStringResource
+import com.hansung.remote.data.ErrorStringResource
 import com.hansung.firstproject.data.MovieResponseModel
 import com.hansung.remote.api.NaverApiServiceImpl
 import retrofit2.Call

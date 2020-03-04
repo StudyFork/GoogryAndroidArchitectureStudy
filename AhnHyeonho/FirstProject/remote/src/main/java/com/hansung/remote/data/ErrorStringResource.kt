@@ -1,4 +1,4 @@
-package com.hansung.firstproject.data
+package com.hansung.remote.data
 
 import androidx.annotation.StringRes
 import com.hansung.remote.R
