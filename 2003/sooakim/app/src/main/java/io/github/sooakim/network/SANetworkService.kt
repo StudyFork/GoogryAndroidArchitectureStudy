@@ -13,31 +13,31 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object SANetworkService {
     private const val GSON_DATE_FORMAT = "E, dd MMM yyyy HH:mm:ss Z"
-    private val mNaverAuthInterceptor: SANaverAuthInterceptor by lazy {
+    private val naverAuthInterceptor: SANaverAuthInterceptor by lazy {
         SANaverAuthInterceptor()
     }
-    private val mOkHttpClient: OkHttpClient by lazy {
+    private val okHttpClient: OkHttpClient by lazy {
         OkHttpClient.Builder()
-            .addInterceptor(mNaverAuthInterceptor)
+            .addInterceptor(naverAuthInterceptor)
             .build()
     }
-    private val mGson: Gson by lazy {
+    private val gson: Gson by lazy {
         GsonBuilder()
             .setDateFormat(GSON_DATE_FORMAT)
             .setPrettyPrinting()
             .excludeFieldsWithoutExposeAnnotation()
             .create()
     }
-    private val mRetrofit: Retrofit by lazy {
+    private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BuildConfig.NAVER_BASE_URL)
-            .client(mOkHttpClient)
+            .client(okHttpClient)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
-            .addConverterFactory(GsonConverterFactory.create(mGson))
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
 
     val movieApi: SANaverMovieApi by lazy {
-        mRetrofit.create(SANaverMovieApi::class.java)
+        retrofit.create(SANaverMovieApi::class.java)
     }
 }
