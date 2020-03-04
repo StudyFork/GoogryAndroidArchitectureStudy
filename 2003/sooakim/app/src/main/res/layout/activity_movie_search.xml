@@ -15,7 +15,10 @@
         app:layout_constraintBottom_toBottomOf="@id/btn_search"
         app:layout_constraintEnd_toStartOf="@id/btn_search"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btn_search" />
+        app:layout_constraintTop_toTopOf="@id/btn_search">
+
+        <requestFocus />
+    </androidx.appcompat.widget.AppCompatEditText>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_search"
