@@ -19,6 +19,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import java.util.concurrent.TimeUnit
 
 class SAMainActivity : AppCompatActivity(),
@@ -87,7 +88,7 @@ class SAMainActivity : AppCompatActivity(),
             .doOnNext { _ -> updateLoading(false) }
             .doOnNext(mSearchResultAdapter::submitList)
             .subscribe()
-            .let(mCompositeDisposable::add)
+            .addTo(mCompositeDisposable)
     }
 
     override fun onSearchResultClick(item: SAMovieModel) {
