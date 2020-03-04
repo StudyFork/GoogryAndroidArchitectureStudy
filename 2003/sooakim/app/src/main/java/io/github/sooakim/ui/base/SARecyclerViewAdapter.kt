@@ -30,11 +30,14 @@ abstract class SARecyclerViewAdapter<E, VH>(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         return this.onCreateViewHolder(provideLayoutInflater(parent.context), parent, viewType)
             .also {
-                if (onItemClick == null) return@also
-                else it.itemView.setOnClickListener { _ ->
-                    val currentItem =
-                        currentList.getOrNull(it.adapterPosition) ?: return@setOnClickListener
-                    onItemClick.invoke(currentItem)
+                if (onItemClick == null) {
+                    return@also
+                } else {
+                    it.itemView.setOnClickListener { _ ->
+                        val currentItem =
+                            currentList.getOrNull(it.adapterPosition) ?: return@setOnClickListener
+                        onItemClick.invoke(currentItem)
+                    }
                 }
             }
     }
