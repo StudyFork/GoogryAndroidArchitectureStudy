@@ -95,6 +95,8 @@ class MainActivity : AppCompatActivity(),
 
     override fun onDestroy() {
         super.onDestroy()
-        movieCall?.cancel()
+        if(this::movieCall.isInitialized){
+            movieCall.cancel()
+        }
     }
 }
