@@ -3,6 +3,7 @@ package com.example.myapplication.activity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,7 +30,14 @@ class SearchMovieActivity : AppCompatActivity() {
         val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
         rv_movie.setLayoutManager(mLayoutManager)
 
-        btn_search.setOnClickListener(View.OnClickListener { getMovieList(et_movie_title.getText().toString()) })
+        btn_search.setOnClickListener(View.OnClickListener {
+
+            if(et_movie_title.text.toString().isNotEmpty()) {
+                getMovieList(et_movie_title.text.toString())
+            } else {
+                Toast.makeText(this, R.string.activity_toast_empty_movie_title,Toast.LENGTH_SHORT).show()
+            }})
+
     }
 
 

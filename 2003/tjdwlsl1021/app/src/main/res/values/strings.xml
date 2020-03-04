@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="activity_toast_empty_movie_title">영화제목을 입력해주세요</string>
+
 </resources>
