@@ -3,35 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_underline">
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/_guide_top"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="16dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/_guide_bottom"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="16dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/_guide_start"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/_guide_end"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="16dp" />
+    android:background="@drawable/bg_underline"
+    android:padding="16dp">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/_guide_split"
@@ -48,10 +21,10 @@
         android:layout_marginRight="16dp"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@id/_guide_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/_guide_split"
-        app:layout_constraintStart_toEndOf="@id/_guide_start"
-        app:layout_constraintTop_toBottomOf="@id/_guide_top"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -62,9 +35,9 @@
         android:gravity="start|center_vertical"
         android:maxLines="1"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@id/_guide_end"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/_guide_split"
-        app:layout_constraintTop_toBottomOf="@id/_guide_top"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="영화 제목" />
 
     <androidx.appcompat.widget.AppCompatRatingBar
@@ -76,7 +49,7 @@
         android:isIndicator="true"
         android:numStars="5"
         android:stepSize="0.5"
-        app:layout_constraintEnd_toStartOf="@id/_guide_end"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@id/_guide_split"
         app:layout_constraintTop_toBottomOf="@id/tv_title" />
@@ -87,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@id/_guide_end"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/_guide_split"
         app:layout_constraintTop_toBottomOf="@id/rtb_star"
         tools:text="영화 개봉 일" />
@@ -98,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@id/_guide_end"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/_guide_split"
         app:layout_constraintTop_toBottomOf="@id/tv_publish_date"
         tools:text="영화 감독" />
@@ -109,8 +82,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@id/_guide_bottom"
-        app:layout_constraintEnd_toStartOf="@id/_guide_end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/_guide_split"
         app:layout_constraintTop_toBottomOf="@id/tv_director"
         app:layout_constraintVertical_bias="0"
