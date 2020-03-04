@@ -86,8 +86,7 @@ class SAMainActivity : AppCompatActivity(),
             .onErrorReturn { _ -> listOf() }
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext { _ -> updateLoading(false) }
-            .doOnNext(mSearchResultAdapter::submitList)
-            .subscribe()
+            .subscribe(mSearchResultAdapter::submitList)
             .addTo(mCompositeDisposable)
     }
 
