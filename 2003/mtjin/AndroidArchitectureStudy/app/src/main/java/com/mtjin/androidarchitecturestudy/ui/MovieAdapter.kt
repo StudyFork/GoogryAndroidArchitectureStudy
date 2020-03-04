@@ -15,7 +15,7 @@ import com.mtjin.androidarchitecturestudy.data.Movie
 class MovieAdapter :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     private lateinit var clickListener: ItemClickListener
-    private var items: MutableList<Movie> = mutableListOf()
+    private var items: ArrayList<Movie> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View = LayoutInflater.from(parent.context)
@@ -57,7 +57,7 @@ class MovieAdapter :
     }
 
     fun setItems(items: List<Movie>) {
-        this.items = items.toMutableList()
+        this.items = items as ArrayList<Movie>
     }
 
     fun setItemClickListener(listener: ItemClickListener) {
