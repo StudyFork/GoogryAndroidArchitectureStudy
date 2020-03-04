@@ -37,7 +37,7 @@ class MovieAdapter :
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val ivPoster  = itemView.findViewById<ImageView>(R.id.iv_poster)
+        private val ivPoster = itemView.findViewById<ImageView>(R.id.iv_poster)
         private val rvRating = itemView.findViewById<RatingBar>(R.id.rb_rating)
         private val tvTitle = itemView.findViewById<TextView>(R.id.tv_title)
         private val tvReleaseDate = itemView.findViewById<TextView>(R.id.tv_release_date)
@@ -46,9 +46,11 @@ class MovieAdapter :
 
         fun bind(movie: Movie) {
             with(movie) {
-                Glide.with(itemView).load(image).placeholder(R.drawable.ic_default).into(ivPoster!!)
+                Glide.with(itemView).load(image)
+                    .placeholder(R.drawable.ic_default)
+                    .into(ivPoster!!)
                 rvRating.rating = (userRating.toFloatOrNull() ?: 0f) / 2
-                tvTitle.text =  HtmlCompat.fromHtml(title, HtmlCompat.FROM_HTML_MODE_COMPACT)
+                tvTitle.text = HtmlCompat.fromHtml(title, HtmlCompat.FROM_HTML_MODE_COMPACT)
                 tvReleaseDate.text = pubDate
                 tvActor.text = actor
                 tvDirector.text = director
