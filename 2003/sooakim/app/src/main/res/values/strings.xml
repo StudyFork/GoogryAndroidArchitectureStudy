@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">sooakim</string>
+    <string name="activity_main_btn_search">검색</string>
 </resources>
