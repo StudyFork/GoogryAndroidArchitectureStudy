@@ -58,6 +58,7 @@ class MovieAdapter :
 
     fun setItems(items: List<Movie>) {
         this.items.addAll(items)
+        notifyDataSetChanged()
     }
 
     fun setItemClickListener(listener: ItemClickListener) {
@@ -66,6 +67,7 @@ class MovieAdapter :
 
     fun clear() {
         this.items.clear()
+        notifyDataSetChanged()
     }
 
     interface ItemClickListener {

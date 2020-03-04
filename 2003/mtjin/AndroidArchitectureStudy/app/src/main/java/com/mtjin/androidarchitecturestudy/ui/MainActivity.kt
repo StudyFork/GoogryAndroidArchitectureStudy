@@ -74,7 +74,6 @@ class MainActivity : AppCompatActivity(),
                 with(response) {
                     if (isSuccessful && body() != null) {
                         body()?.movies?.let { it -> movieAdapter.setItems(it) }
-                        movieAdapter.notifyDataSetChanged()
                     } else {
                         onToastMessage("불러오는데 실패 했습니다.")
                     }
