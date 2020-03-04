@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
 import io.github.sooakim.R
-import io.github.sooakim.network.SANetworkService
 import io.github.sooakim.network.model.SAMovieModel
 import io.github.sooakim.network.model.response.SANaverSearchResponse
 import io.github.sooakim.ui.base.SAActivity
@@ -77,7 +76,7 @@ class SAMovieSearchActivity : SAActivity() {
             .distinctUntilChanged()
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext { showLoading() }
-            .switchMapSingle(SANetworkService.movieApi::getSearchMovie)
+            .switchMapSingle(requireApplication().networkService.movieApi::getSearchMovie)
             .map(SANaverSearchResponse<SAMovieModel>::items)
             .onErrorReturn { listOf() }
             .observeOn(AndroidSchedulers.mainThread())

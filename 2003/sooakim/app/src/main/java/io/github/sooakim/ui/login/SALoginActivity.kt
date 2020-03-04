@@ -10,9 +10,7 @@ import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
 import io.github.sooakim.R
-import io.github.sooakim.network.SANetworkService
 import io.github.sooakim.network.model.request.SAAuthRequest
-import io.github.sooakim.ui.application.SAApplication
 import io.github.sooakim.ui.base.SAActivity
 import io.github.sooakim.ui.movie.SAMovieSearchActivity
 import io.reactivex.Observable
@@ -67,7 +65,8 @@ class SALoginActivity : SAActivity() {
             .flatMap { request }
             .doOnNext { showLoading() }
             .switchMap {
-                SANetworkService.authApi.postLogin(it)
+                requireApplication().networkService.authApi
+                    .postLogin(it)
                     .toSingleDefault(Unit)
                     .toObservable()
             }
@@ -105,7 +104,8 @@ class SALoginActivity : SAActivity() {
     }
 
     private fun routeMovieSearch() {
-        (applicationContext as? SAApplication)?.preferencesHelper?.isAuthRequired = false
+        requireApplication().preferencesHelper.isAuthRequired = false
+
         startActivity(Intent(application, SAMovieSearchActivity::class.java))
         finish()
     }
