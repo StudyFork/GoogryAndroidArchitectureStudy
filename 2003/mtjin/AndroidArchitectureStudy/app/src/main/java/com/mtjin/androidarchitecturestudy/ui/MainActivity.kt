@@ -72,8 +72,9 @@ class MainActivity : AppCompatActivity(),
                 response: Response<MovieResponse>
             ) {
                 with(response) {
-                    if (isSuccessful && body() != null) {
-                        body()?.movies?.let { it -> movieAdapter.setItems(it) }
+                    val body = body()
+                    if (isSuccessful && body != null) {
+                        body.movies.let { movieAdapter.setItems(it) }
                     } else {
                         onToastMessage("불러오는데 실패 했습니다.")
                     }
@@ -94,7 +95,7 @@ class MainActivity : AppCompatActivity(),
 
     override fun onDestroy() {
         super.onDestroy()
-        if(this::movieCall.isInitialized){
+        if (this::movieCall.isInitialized) {
             movieCall.cancel()
         }
     }
