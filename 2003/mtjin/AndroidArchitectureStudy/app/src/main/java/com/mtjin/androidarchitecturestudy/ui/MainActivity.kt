@@ -70,8 +70,8 @@ class MainActivity : AppCompatActivity(),
                                 movieAdapter.notifyDataSetChanged()
                             } else {
                                 onToastMessage("불러오는데 실패 했습니다.")
-                                call.cancel()
                             }
+                            call.cancel()
                         }
                     }
                 })
