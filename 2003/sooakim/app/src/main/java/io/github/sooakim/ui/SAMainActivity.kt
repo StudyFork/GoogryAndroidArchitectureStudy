@@ -22,14 +22,13 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import java.util.concurrent.TimeUnit
 
-class SAMainActivity : AppCompatActivity(),
-    SAMainSearchResultAdapter.OnMainSearchResultClickListener {
+class SAMainActivity : AppCompatActivity() {
     private lateinit var mSearchEdit: AppCompatEditText
     private lateinit var mSearchButton: AppCompatButton
     private lateinit var mSearchResultRecyclerView: RecyclerView
     private lateinit var mLoadingProgressBar: ProgressBar
 
-    private val mSearchResultAdapter: SAMainSearchResultAdapter = SAMainSearchResultAdapter()
+    private lateinit var mSearchResultAdapter: SAMainSearchResultAdapter
     private val mCompositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +41,6 @@ class SAMainActivity : AppCompatActivity(),
     }
 
     override fun onDestroy() {
-        mSearchResultAdapter.clickListener = null
         mCompositeDisposable.clear()
         super.onDestroy()
     }
@@ -63,7 +61,9 @@ class SAMainActivity : AppCompatActivity(),
     }
 
     private fun initRecyclerView() {
-        mSearchResultAdapter.clickListener = this
+        if (!::mSearchResultAdapter.isInitialized) {
+            mSearchResultAdapter = SAMainSearchResultAdapter(this::onSearchResultClick)
+        }
         mSearchResultRecyclerView.adapter = mSearchResultAdapter
     }
 
@@ -90,7 +90,7 @@ class SAMainActivity : AppCompatActivity(),
             .addTo(mCompositeDisposable)
     }
 
-    override fun onSearchResultClick(item: SAMovieModel) {
+    private fun onSearchResultClick(item: SAMovieModel) {
         val linkString = item.link.takeIf(String::isNotBlank) ?: return
 
         Intent(Intent.ACTION_VIEW, Uri.parse(linkString)).takeIf {

@@ -1,6 +1,5 @@
 package io.github.sooakim.ui
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,86 +7,52 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatRatingBar
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.text.HtmlCompat
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import io.github.sooakim.R
 import io.github.sooakim.network.model.SAMovieModel
+import io.github.sooakim.ui.base.OnRecyclerViewItemClick
+import io.github.sooakim.ui.base.SARecyclerViewAdapter
+import io.github.sooakim.ui.base.SAViewHolder
+import io.github.sooakim.ui.base.SAViewHolderLifecycle
 
-class SAMainSearchResultAdapter :
-    ListAdapter<SAMovieModel, SAMainSearchResultAdapter.SAItemViewHolder>(mDiffer) {
-    private lateinit var mLayoutInflater: LayoutInflater
-    var clickListener: OnMainSearchResultClickListener? = null
-
-    private fun provideLayoutInflater(context: Context): LayoutInflater {
-        if (!::mLayoutInflater.isInitialized) mLayoutInflater = LayoutInflater.from(context)
-        return mLayoutInflater
+class SAMainSearchResultAdapter(
+    onItemClick: OnRecyclerViewItemClick<SAMovieModel>
+) : SARecyclerViewAdapter<SAMovieModel, SAMainSearchResultAdapter.SAItemViewHolder>(onItemClick) {
+    override fun onCreateViewHolder(
+        inflater: LayoutInflater,
+        parent: ViewGroup,
+        viewType: Int
+    ): SAItemViewHolder {
+        return SAItemViewHolder(
+            inflater.inflate(R.layout.item_main_search_result, parent, false)
+        )
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SAItemViewHolder {
-        val layoutInflater = provideLayoutInflater(parent.context)
-        val itemView = layoutInflater.inflate(R.layout.item_main_search_result, parent, false)
-        return SAItemViewHolder(itemView).also {
-            it.itemView.setOnClickListener { _ ->
-                val currentItem =
-                    currentList.getOrNull(it.adapterPosition) ?: return@setOnClickListener
-                clickListener?.onSearchResultClick(currentItem)
-            }
+    class SAItemViewHolder(itemView: View) : SAViewHolder(itemView),
+        SAViewHolderLifecycle<SAMovieModel> {
+        private val ivPoster: AppCompatImageView = itemView.findViewById(R.id.iv_poster)
+        private val tvTitle: AppCompatTextView = itemView.findViewById(R.id.tv_title)
+        private val rtbStar: AppCompatRatingBar = itemView.findViewById(R.id.rtb_star)
+        private val tvPublishDate: AppCompatTextView = itemView.findViewById(R.id.tv_publish_date)
+        private val tvDirector: AppCompatTextView = itemView.findViewById(R.id.tv_director)
+        private val tvActor: AppCompatTextView = itemView.findViewById(R.id.tv_actor)
+
+        override fun onBind(item: SAMovieModel) {
+            Glide.with(ivPoster)
+                .load(item.image)
+                .error(R.drawable.bg_placeholder_movie)
+                .placeholder(R.drawable.bg_placeholder_movie)
+                .into(ivPoster)
+
+            tvTitle.text = HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
+            rtbStar.rating = (item.userRating.toFloatOrNull() ?: 0f) / 2
+            tvPublishDate.text = item.pubDate
+            tvDirector.text = item.director
+            tvActor.text = item.actor
         }
-    }
 
-    override fun onBindViewHolder(holder: SAItemViewHolder, position: Int) {
-        val currentItem = currentList.getOrNull(position) ?: return
-
-        Glide.with(holder.ivPoster)
-            .load(currentItem.image)
-            .error(R.drawable.bg_placeholder_movie)
-            .placeholder(R.drawable.bg_placeholder_movie)
-            .into(holder.ivPoster)
-
-        holder.tvTitle.text =
-            HtmlCompat.fromHtml(currentItem.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
-        holder.rtbStar.rating = (currentItem.userRating.toFloatOrNull() ?: 0f) / 2
-        holder.tvPublishDate.text = currentItem.pubDate
-        holder.tvDirector.text = currentItem.director
-        holder.tvActor.text = currentItem.actor
-    }
-
-    override fun onViewRecycled(holder: SAItemViewHolder) {
-        super.onViewRecycled(holder)
-        Glide.with(holder.ivPoster).clear(holder.ivPoster)
-    }
-
-    class SAItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val ivPoster: AppCompatImageView = itemView.findViewById(R.id.iv_poster)
-        val tvTitle: AppCompatTextView = itemView.findViewById(R.id.tv_title)
-        val rtbStar: AppCompatRatingBar = itemView.findViewById(R.id.rtb_star)
-        val tvPublishDate: AppCompatTextView = itemView.findViewById(R.id.tv_publish_date)
-        val tvDirector: AppCompatTextView = itemView.findViewById(R.id.tv_director)
-        val tvActor: AppCompatTextView = itemView.findViewById(R.id.tv_actor)
-    }
-
-    interface OnMainSearchResultClickListener {
-        fun onSearchResultClick(item: SAMovieModel)
-    }
-
-    companion object {
-        private val mDiffer: DiffUtil.ItemCallback<SAMovieModel> =
-            object : DiffUtil.ItemCallback<SAMovieModel>() {
-                override fun areItemsTheSame(
-                    oldItem: SAMovieModel,
-                    newItem: SAMovieModel
-                ): Boolean {
-                    return oldItem.subtitle == newItem.subtitle
-                }
-
-                override fun areContentsTheSame(
-                    oldItem: SAMovieModel,
-                    newItem: SAMovieModel
-                ): Boolean {
-                    return oldItem == newItem
-                }
-            }
+        override fun onRecycle() {
+            Glide.with(ivPoster).clear(ivPoster)
+        }
     }
 }

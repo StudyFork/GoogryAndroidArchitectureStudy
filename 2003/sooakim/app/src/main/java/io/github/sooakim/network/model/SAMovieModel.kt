@@ -2,6 +2,7 @@ package io.github.sooakim.network.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import io.github.sooakim.ui.base.SAIdentifiable
 
 /*
 {
@@ -47,4 +48,7 @@ data class SAMovieModel(
     @SerializedName("userRating")
     @Expose
     val userRating: String
-) : SAModel
+) : SAModel, SAIdentifiable {
+    override val identifier: Any
+        get() = subtitle
+}
