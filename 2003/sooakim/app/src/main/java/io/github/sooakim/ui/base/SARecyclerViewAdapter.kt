@@ -20,11 +20,11 @@ abstract class SARecyclerViewAdapter<E, VH>(
         return oldItem == newItem
     }
 }) where E : SAIdentifiable, E : SAModel, VH : SAViewHolder {
-    private lateinit var mLayoutInflater: LayoutInflater
+    private lateinit var layoutInflater: LayoutInflater
 
     private fun provideLayoutInflater(context: Context): LayoutInflater {
-        if (!::mLayoutInflater.isInitialized) mLayoutInflater = LayoutInflater.from(context)
-        return mLayoutInflater
+        if (!::layoutInflater.isInitialized) layoutInflater = LayoutInflater.from(context)
+        return layoutInflater
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
