@@ -80,12 +80,12 @@ class SAMainActivity : AppCompatActivity(),
             .map(CharSequence::toString)
             .distinctUntilChanged()
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnNext { _ -> showLoading() }
+            .doOnNext { showLoading() }
             .switchMapSingle(SANetworkService.movieApi::getSearchMovie)
             .map(SANaverSearchResponse<SAMovieModel>::items)
-            .onErrorReturn { _ -> listOf() }
+            .onErrorReturn { listOf() }
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnNext { _ -> hideLoading() }
+            .doOnNext { hideLoading() }
             .subscribe(mSearchResultAdapter::submitList)
             .addTo(mCompositeDisposable)
     }
