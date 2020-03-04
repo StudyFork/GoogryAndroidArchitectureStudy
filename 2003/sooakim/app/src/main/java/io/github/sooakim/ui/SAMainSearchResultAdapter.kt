@@ -54,6 +54,11 @@ class SAMainSearchResultAdapter :
         holder.tvActor.text = currentItem.actor
     }
 
+    override fun onViewRecycled(holder: SAItemViewHolder) {
+        super.onViewRecycled(holder)
+        Glide.with(holder.ivPoster).clear(holder.ivPoster)
+    }
+
     class SAItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivPoster: AppCompatImageView = itemView.findViewById(R.id.iv_poster)
         val tvTitle: AppCompatTextView = itemView.findViewById(R.id.tv_title)
