@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(),
         initListener()
     }
 
-    fun initView() {
+    private fun initView() {
         etInput = findViewById(R.id.et_input)
         btnSearch = findViewById(R.id.btn_search)
         rvMovies = findViewById(R.id.rv_movies)
