@@ -1,4 +1,4 @@
-package com.example.myapplication.data.source
+package com.example.myapplication.data.source.local
 
 import com.example.myapplication.data.model.Movie
 

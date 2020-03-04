@@ -1,20 +1,20 @@
-package com.example.myapplication.data.source
+package com.example.myapplication.data.source.remote
 
-import android.content.Context
-import com.example.myapplication.data.ApiClient
+import com.example.myapplication.MovieApi
 import com.example.myapplication.data.model.MovieResult
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NaverRemoteDataSourceImpl(val context: Context) : NaverRemoteDataSource {
+class NaverRemoteDataSourceImpl(private val movieApi: MovieApi) :
+    NaverRemoteDataSource {
 
     override fun getResultData(
         query: String,
         success: (MovieResult) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        ApiClient.getService.searchMovie(query).enqueue(object : Callback<MovieResult> {
+        movieApi.searchMovie(query).enqueue(object : Callback<MovieResult> {
             override fun onFailure(call: Call<MovieResult>, t: Throwable) {
                 fail(t)
             }
@@ -26,14 +26,5 @@ class NaverRemoteDataSourceImpl(val context: Context) : NaverRemoteDataSource {
             }
 
         })
-    }
-
-    companion object {
-        private var instance: NaverRemoteDataSourceImpl? = null
-        fun getInstance(context: Context): NaverRemoteDataSourceImpl {
-            return instance ?: NaverRemoteDataSourceImpl(
-                context
-            ).apply { instance = this }
-        }
     }
 }

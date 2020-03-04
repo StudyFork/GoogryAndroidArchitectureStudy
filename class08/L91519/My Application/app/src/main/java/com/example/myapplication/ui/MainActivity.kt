@@ -2,39 +2,18 @@ package com.example.myapplication.ui
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.R
-import com.example.myapplication.data.MovieDatabase
-import com.example.myapplication.data.repository.NaverRepositoryImpl
-import com.example.myapplication.data.source.NaverLocalDataSourceImpl
-import com.example.myapplication.data.source.NaverRemoteDataSourceImpl
 import com.example.myapplication.databinding.ActivityMainBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: MovieRecyclerViewAdpater
-    private val vm: MainViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return MainViewModel(
-                    NaverRepositoryImpl.getInstance(
-                        NaverRemoteDataSourceImpl.getInstance(applicationContext),
-                        NaverLocalDataSourceImpl.getInstance(
-                            MovieDatabase.getInstance(
-                                applicationContext
-                            ).movieDao()
-                        )
-                    )
-                ) as T
-            }
-        }
-    }
+    private val vm by viewModel<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,12 +46,11 @@ class MainActivity : AppCompatActivity() {
                 showToast(getString(R.string.result_none))
             }
         })
-        vm.searchResultList.observe(this@MainActivity, Observer {
-            vm.searchResultList.value?.let { adapter.setItems(it) }
-        })
+
     }
 
     private fun showToast(toast: String) {
         Toast.makeText(this, toast, Toast.LENGTH_SHORT).show()
     }
+
 }
