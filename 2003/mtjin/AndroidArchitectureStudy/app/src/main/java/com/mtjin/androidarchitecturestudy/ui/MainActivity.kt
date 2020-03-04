@@ -57,18 +57,20 @@ class MainActivity : AppCompatActivity(),
                 apiInterface.getSearchMovie(query).enqueue(object : Callback<MovieResponse> {
                     override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                         onToastMessage("불러오는데 실패 했습니다.")
+                        call.cancel()
                     }
 
                     override fun onResponse(
                         call: Call<MovieResponse>,
                         response: Response<MovieResponse>
                     ) {
-                        with(response){
+                        with(response) {
                             if (isSuccessful && body() != null) {
                                 body()?.movies?.let { it -> movieAdapter.setItems(it) }
                                 movieAdapter.notifyDataSetChanged()
                             } else {
                                 onToastMessage("불러오는데 실패 했습니다.")
+                                call.cancel()
                             }
                         }
                     }
@@ -87,7 +89,4 @@ class MainActivity : AppCompatActivity(),
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
 }
