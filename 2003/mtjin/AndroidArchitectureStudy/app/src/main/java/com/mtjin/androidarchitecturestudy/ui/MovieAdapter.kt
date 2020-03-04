@@ -1,6 +1,5 @@
 package com.mtjin.androidarchitecturestudy.ui
 
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,12 +37,12 @@ class MovieAdapter :
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private var ivPoster: ImageView? = itemView.findViewById(R.id.iv_poster)
-        private var rvRating: RatingBar? = itemView.findViewById(R.id.rb_rating)
-        private var tvTitle: TextView? = itemView.findViewById(R.id.tv_title)
-        private var tvReleaseDate: TextView? = itemView.findViewById(R.id.tv_release_date)
-        private var tvActor: TextView? = itemView.findViewById(R.id.tv_actor)
-        private var tvDirector: TextView? = itemView.findViewById(R.id.tv_director)
+        private val ivPoster  = itemView.findViewById<ImageView>(R.id.iv_poster)
+        private val rvRating = itemView.findViewById<RatingBar>(R.id.rb_rating)
+        private val tvTitle = itemView.findViewById<TextView>(R.id.tv_title)
+        private val tvReleaseDate = itemView.findViewById<TextView>(R.id.tv_release_date)
+        private val tvActor = itemView.findViewById<TextView>(R.id.tv_actor)
+        private val tvDirector = itemView.findViewById<TextView>(R.id.tv_director)
 
         fun bind(movie: Movie) {
             with(movie) {
