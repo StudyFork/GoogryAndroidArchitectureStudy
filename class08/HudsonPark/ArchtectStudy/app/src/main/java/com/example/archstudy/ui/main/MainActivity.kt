@@ -18,10 +18,6 @@ import com.example.archstudy.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
-    // View
-    private lateinit var edtQuery: EditText
-    private lateinit var btnSearch: Button
-    private lateinit var rvMovieList: RecyclerView
     private lateinit var rvMovieAdapter: MovieListAdapter
     // DataBinding
     private lateinit var binding: ActivityMainBinding
