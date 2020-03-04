@@ -83,12 +83,13 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     private fun initRecyclerView() {
 
-        binding.rvMovieList.adapter = MovieListAdapter(object :
+        rvMovieAdapter = MovieListAdapter(object :
             MovieListAdapter.ItemClickListener {
             override fun onItemClick(url: String) {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
             }
         })
+        binding.rvMovieList.adapter = rvMovieAdapter
     }
 
     private fun showToast(message: String) {
@@ -96,15 +97,15 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     private fun activateButton() {
-        btnSearch.isEnabled = true
+        binding.btnSearch.isEnabled = true
     }
 
     private fun disableButton() {
-        btnSearch.isEnabled = false
+        binding.btnSearch.isEnabled = false
     }
 
     private fun hideKeyboard() {
         val inputManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        inputManager.hideSoftInputFromWindow(edtQuery.windowToken, 0)
+        inputManager.hideSoftInputFromWindow(binding.edtQuery.windowToken, 0)
     }
 }
