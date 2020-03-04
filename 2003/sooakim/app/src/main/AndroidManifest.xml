@@ -29,6 +29,13 @@
             android:launchMode="singleTop"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustNothing|stateVisible" />
+
+        <activity
+            android:name=".ui.login.SALoginActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
     </application>
 
 </manifest>
