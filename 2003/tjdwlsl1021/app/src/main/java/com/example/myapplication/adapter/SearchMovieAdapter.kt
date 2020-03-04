@@ -15,9 +15,10 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.item.SearchMovieItem
 
+
 class SearchMovieAdapter(
     private val context: Context,
-    private val movieInfoArrayList: List<SearchMovieItem>?
+    private val movieInfoArrayList: ArrayList<SearchMovieItem>?
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -45,7 +46,7 @@ class SearchMovieAdapter(
             .into(movieViewHolder.iv_thumbnail)
 
         movieViewHolder.iv_thumbnail.setOnClickListener {
-            val link = this!!.movieInfoArrayList?.get(position)?.link
+            val link = this.movieInfoArrayList?.get(position)?.link
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
             context.startActivity(intent)
         }
@@ -53,6 +54,12 @@ class SearchMovieAdapter(
 
     override fun getItemCount(): Int {
         return movieInfoArrayList?.size!!
+    }
+
+    fun addItems(items: java.util.ArrayList<SearchMovieItem>) {
+        movieInfoArrayList?.clear()
+        movieInfoArrayList?.addAll(items)
+        notifyDataSetChanged()
     }
 
     class MovieViewHolder internal constructor(view: View) :

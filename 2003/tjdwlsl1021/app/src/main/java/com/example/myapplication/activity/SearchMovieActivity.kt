@@ -10,12 +10,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.adapter.SearchMovieAdapter
 import com.example.myapplication.item.SearchMovieInfo
+import com.example.myapplication.item.SearchMovieItem
 import com.example.myapplication.network.RetrofitHelper
 import com.example.myapplication.network.RetrofitHelper.RequestNaverApi
 import kotlinx.android.synthetic.main.activity_search_movie.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+
 
 class SearchMovieActivity : AppCompatActivity() {
     private val TAG = "SearchMovieActivity"
@@ -28,15 +31,21 @@ class SearchMovieActivity : AppCompatActivity() {
 
         rv_movie.setHasFixedSize(true)
         val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
-        rv_movie.setLayoutManager(mLayoutManager)
+        rv_movie.layoutManager = mLayoutManager
+
+        val movies: ArrayList<SearchMovieItem> = ArrayList()
+        movieAdapter = SearchMovieAdapter(this, movies)
+        rv_movie.adapter = movieAdapter
 
         btn_search.setOnClickListener(View.OnClickListener {
 
-            if(et_movie_title.text.toString().isNotEmpty()) {
+            if (et_movie_title.text.toString().isNotEmpty()) {
                 getMovieList(et_movie_title.text.toString())
             } else {
-                Toast.makeText(this, R.string.activity_toast_empty_movie_title,Toast.LENGTH_SHORT).show()
-            }})
+                Toast.makeText(this, R.string.activity_toast_empty_movie_title, Toast.LENGTH_SHORT)
+                    .show()
+            }
+        })
 
     }
 
@@ -54,8 +63,8 @@ class SearchMovieActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val result = response.body()
                     if (null != result) {
-                        movieAdapter =
-                            SearchMovieAdapter(this@SearchMovieActivity, result.items)
+                        val moives: ArrayList<SearchMovieItem> = ArrayList(result.items!!)
+                        movieAdapter?.addItems(moives)
                         rv_movie!!.adapter = movieAdapter
                     }
                 }
