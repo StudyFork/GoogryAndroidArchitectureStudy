@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hansung.firstproject.R
 import com.hansung.firstproject.adapter.MovieItemAdapter
-import com.hansung.firstproject.data.ErrorStringResource
+import com.hansung.remote.data.ErrorStringResource
 import com.hansung.firstproject.databinding.ActivityMainBinding
 import org.koin.android.viewmodel.ext.android.viewModel
 

@@ -1,9 +1,10 @@
-package com.hansung.firstproject.data.source.remote.api
+package com.hansung.remote.api
 
 import com.hansung.firstproject.data.MovieResponseModel
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
 
 object NaverApiServiceImpl {
     private val retrofit: Retrofit = Retrofit.Builder()

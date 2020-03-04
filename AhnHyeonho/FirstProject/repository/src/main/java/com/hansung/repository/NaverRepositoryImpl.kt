@@ -1,12 +1,12 @@
-package com.hansung.firstproject.data.repository
+package com.hansung.repository
 
 import com.hansung.firstproject.data.MovieResponseModel
-import com.hansung.firstproject.data.source.remote.NaverRemoteDataSource
+import com.hansung.remote.NaverRemoteDataSource
 
-class NaverRepository(
+class NaverRepositoryImpl(
     private val dataSource: NaverRemoteDataSource
-) {
-    fun getMoviesData(
+) : NaverRepository {
+    override fun getMoviesData(
         title: String,
         success: (MovieResponseModel) -> Unit,
         fail: (Throwable) -> Unit,

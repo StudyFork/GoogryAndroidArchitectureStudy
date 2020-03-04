@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.hansung.firstproject.data.MovieModel
-import com.hansung.firstproject.data.repository.NaverRepository
+import com.hansung.repository.NaverRepository
 
 class MainViewModel(private val repository: NaverRepository) : ViewModel() {
 
