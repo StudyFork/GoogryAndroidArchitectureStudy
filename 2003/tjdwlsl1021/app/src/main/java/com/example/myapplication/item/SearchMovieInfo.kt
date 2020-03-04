@@ -3,21 +3,20 @@ package com.example.myapplication.item
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class SearchMovieInfo {
+data class SearchMovieInfo (
     @SerializedName("lastBuildDate")
     @Expose
-    var lastBuildDate: String? = null
+    val lastBuildDate: String,
     @SerializedName("total")
     @Expose
-    var total: Int? = null
+    val total: Int,
     @SerializedName("start")
     @Expose
-    var start: Int? = null
+    val start: Int,
     @SerializedName("display")
     @Expose
-    var display: Int? = null
+    val display: Int,
     @SerializedName("items")
     @Expose
-    var items: List<SearchMovieItem>? = null
-
-}
+    val items: List<SearchMovieItem>
+)

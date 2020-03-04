@@ -3,30 +3,29 @@ package com.example.myapplication.item
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class SearchMovieItem {
+data class SearchMovieItem (
     @SerializedName("title")
     @Expose
-    var title: String? = null
+    val title: String,
     @SerializedName("link")
     @Expose
-    var link: String? = null
+    val link: String,
     @SerializedName("image")
     @Expose
-    var image: String? = null
+    val image: String,
     @SerializedName("subtitle")
     @Expose
-    var subtitle: String? = null
+    val subtitle: String,
     @SerializedName("pubDate")
     @Expose
-    var pubDate: String? = null
+    val pubDate: String,
     @SerializedName("director")
     @Expose
-    var director: String? = null
+    val director: String,
     @SerializedName("actor")
     @Expose
-    var actor: String? = null
+    val actor: String,
     @SerializedName("userRating")
     @Expose
-    var userRating: String? = null
-
-}
+    val userRating: String
+)
