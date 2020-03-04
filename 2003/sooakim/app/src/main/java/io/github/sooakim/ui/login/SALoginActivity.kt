@@ -12,6 +12,7 @@ import com.jakewharton.rxbinding3.widget.textChanges
 import io.github.sooakim.R
 import io.github.sooakim.network.SANetworkService
 import io.github.sooakim.network.model.request.SAAuthRequest
+import io.github.sooakim.ui.application.SAApplication
 import io.github.sooakim.ui.base.SAActivity
 import io.github.sooakim.ui.movie.SAMovieSearchActivity
 import io.reactivex.Observable
@@ -104,6 +105,7 @@ class SALoginActivity : SAActivity() {
     }
 
     private fun routeMovieSearch() {
+        (applicationContext as? SAApplication)?.preferencesHelper?.isAuthRequired = false
         startActivity(Intent(application, SAMovieSearchActivity::class.java))
         finish()
     }
