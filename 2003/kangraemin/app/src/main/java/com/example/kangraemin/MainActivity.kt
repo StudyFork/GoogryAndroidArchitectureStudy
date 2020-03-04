@@ -1,5 +1,6 @@
 package com.example.kangraemin
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +21,13 @@ class MainActivity : KangBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val sharedPreferences = getSharedPreferences("user_info", 0)
+        val editor = sharedPreferences.edit()
+
+        if (sharedPreferences.getBoolean("auto_login", false)) {
+            btn_logout.visibility = View.VISIBLE
+        }
 
         val data = ArrayList<ResponseMovieSearch>()
         val adapter = SearchResultAdapter(this, data = data)
@@ -75,6 +83,14 @@ class MainActivity : KangBaseActivity() {
             }
         compositeDisposable.add(whenSearchButtonClicked)
 
+        val whenLogOutClicked = btn_logout.clicks()
+            .subscribe {
+                editor.remove("auto_login")
+                editor.apply()
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+            }
+        compositeDisposable.add(whenLogOutClicked)
 
     }
 }
