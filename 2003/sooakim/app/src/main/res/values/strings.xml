@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">sooakim</string>
     <string name="activity_main_btn_search">검색</string>
+    <string name="activity_login_btn_login">로그인</string>
+    <string name="activity_login_iet_id_hint">ID</string>
+    <string name="activity_login_iet_password_hint">Password</string>
 </resources>
