@@ -47,11 +47,11 @@ class MovieAdapter :
         fun bind(movie: Movie) {
             with(movie) {
                 Glide.with(itemView).load(image).placeholder(R.drawable.ic_default).into(ivPoster!!)
-                rvRating?.rating = (userRating.toFloatOrNull() ?: 0f) / 2
-                tvTitle?.text =  HtmlCompat.fromHtml(title, HtmlCompat.FROM_HTML_MODE_COMPACT)
-                tvReleaseDate?.text = pubDate
-                tvActor?.text = actor
-                tvDirector?.text = director
+                rvRating.rating = (userRating.toFloatOrNull() ?: 0f) / 2
+                tvTitle.text =  HtmlCompat.fromHtml(title, HtmlCompat.FROM_HTML_MODE_COMPACT)
+                tvReleaseDate.text = pubDate
+                tvActor.text = actor
+                tvDirector.text = director
             }
         }
     }
