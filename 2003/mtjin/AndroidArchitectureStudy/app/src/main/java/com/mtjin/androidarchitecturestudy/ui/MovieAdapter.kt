@@ -57,7 +57,7 @@ class MovieAdapter :
     }
 
     fun setItems(items: List<Movie>) {
-        this.items = items as ArrayList<Movie>
+        this.items.addAll(items)
     }
 
     fun setItemClickListener(listener: ItemClickListener) {
