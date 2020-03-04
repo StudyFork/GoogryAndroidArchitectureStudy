@@ -39,6 +39,6 @@ val remoteModule = module {
     }
 
     single<NaverRemoteDataSource> {
-        NaverRemoteDataSourceImpl()
+        NaverRemoteDataSourceImpl(get())
     }
 }
