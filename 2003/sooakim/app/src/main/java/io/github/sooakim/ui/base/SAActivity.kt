@@ -3,10 +3,15 @@ package io.github.sooakim.ui.base
 import android.annotation.SuppressLint
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import io.github.sooakim.ui.application.SAApplication
 
 @SuppressLint("Registered")
 open class SAActivity : AppCompatActivity() {
     protected open val commonProgressView: View? = null
+    protected val application: SAApplication?
+        get() {
+            return (applicationContext as? SAApplication)
+        }
 
     fun showLoading() {
         commonProgressView?.visibility = View.VISIBLE
@@ -14,5 +19,14 @@ open class SAActivity : AppCompatActivity() {
 
     fun hideLoading() {
         commonProgressView?.visibility = View.INVISIBLE
+    }
+
+    @Throws(IllegalStateException::class)
+    fun requireApplication(): SAApplication {
+        if (applicationContext is SAApplication) {
+            return application!!
+        } else {
+            throw IllegalStateException("applicationContext is not instance of SAApplication")
+        }
     }
 }
