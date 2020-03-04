@@ -4,6 +4,8 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.github.sooakim.BuildConfig
+import io.github.sooakim.network.api.SAAuthApi
+import io.github.sooakim.network.api.SAAuthApiImpl
 import io.github.sooakim.network.api.SANaverMovieApi
 import io.github.sooakim.network.interceptor.SANaverAuthInterceptor
 import io.reactivex.schedulers.Schedulers
@@ -39,5 +41,9 @@ object SANetworkService {
 
     val movieApi: SANaverMovieApi by lazy {
         retrofit.create(SANaverMovieApi::class.java)
+    }
+
+    val authApi: SAAuthApi by lazy {
+        SAAuthApiImpl()
     }
 }
