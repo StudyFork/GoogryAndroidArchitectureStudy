@@ -18,8 +18,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class MainActivity : AppCompatActivity(),
-    MovieAdapter.ItemClickListener {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var etInput: EditText
     private lateinit var btnSearch: Button
@@ -45,7 +44,12 @@ class MainActivity : AppCompatActivity(),
 
     private fun initListener() {
         //어댑터 아이템 클릭리스너
-        movieAdapter.setItemClickListener(this)
+        movieAdapter.setItemClickListener { movie ->
+            Intent(Intent.ACTION_VIEW, Uri.parse(movie.link)).takeIf {
+                it.resolveActivity(packageManager) != null
+            }?.run(this::startActivity)
+        }
+
         //검색버튼
         btnSearch.setOnClickListener {
             val query = etInput.text.toString().trim()
@@ -81,12 +85,6 @@ class MainActivity : AppCompatActivity(),
                 }
             }
         })
-    }
-
-    override fun onItemClick(movie: Movie) {
-        Intent(Intent.ACTION_VIEW, Uri.parse(movie.link)).takeIf {
-            it.resolveActivity(packageManager) != null
-        }?.run(this::startActivity)
     }
 
     private fun onToastMessage(message: String) {
