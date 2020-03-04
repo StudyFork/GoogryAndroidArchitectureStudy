@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.SAMainActivity"
+            android:name=".ui.movie.SAMovieSearchActivity"
             android:windowSoftInputMode="adjustNothing|stateVisible">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package io.github.sooakim.ui
+package io.github.sooakim.ui.movie
 
 import android.content.Intent
 import android.net.Uri
@@ -22,18 +22,18 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import java.util.concurrent.TimeUnit
 
-class SAMainActivity : AppCompatActivity() {
+class SAMovieSearchActivity : AppCompatActivity() {
     private lateinit var searchEdit: AppCompatEditText
     private lateinit var searchButton: AppCompatButton
     private lateinit var searchResultRecyclerView: RecyclerView
     private lateinit var loadingProgressBar: ProgressBar
 
-    private lateinit var searchResultAdapter: SAMainSearchResultAdapter
+    private lateinit var searchResultAdapter: SAMovieSearchResultAdapter
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_movie_search)
 
         initView()
         initRecyclerView()
@@ -62,7 +62,8 @@ class SAMainActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
         if (!::searchResultAdapter.isInitialized) {
-            searchResultAdapter = SAMainSearchResultAdapter(this::onSearchResultClick)
+            searchResultAdapter =
+                SAMovieSearchResultAdapter(this::onSearchResultClick)
         }
         searchResultRecyclerView.adapter = searchResultAdapter
     }
