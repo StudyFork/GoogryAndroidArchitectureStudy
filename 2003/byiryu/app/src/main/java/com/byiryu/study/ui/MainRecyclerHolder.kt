@@ -15,7 +15,7 @@ class MainRecyclerHolder(
 ) : RecyclerView.ViewHolder(itemView) {
 
     fun binding(item: MovieItem) {
-        Glide.with(context)
+        Glide.with(itemView.image)
             .load(item.image)
             .into(itemView.image)
 
