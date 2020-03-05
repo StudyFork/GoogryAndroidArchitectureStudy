@@ -19,6 +19,24 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        debug{
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            // apk 파일 크기 줄이기
+            splits.abi.enable = false
+            splits.density.enable = false
+
+            // png 최적화
+            aaptOptions.cruncherEnabled = false
+
+
+            debuggable true
+
+            shrinkResources false
+            zipAlignEnabled false
+        }
     }
 }
 
