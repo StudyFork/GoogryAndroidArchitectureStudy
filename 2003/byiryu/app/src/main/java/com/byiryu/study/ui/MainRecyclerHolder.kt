@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.byiryu.study.R
 import com.byiryu.study.api.model.MovieItem
 import kotlinx.android.synthetic.main.view_main_item.view.*
 
@@ -17,6 +18,8 @@ class MainRecyclerHolder(
     fun binding(item: MovieItem) {
         Glide.with(itemView.image)
             .load(item.image)
+            .error(R.color.colorPrimaryDark)
+            .placeholder(R.color.colorPrimaryDark)
             .into(itemView.image)
 
         itemView.title.text = HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
