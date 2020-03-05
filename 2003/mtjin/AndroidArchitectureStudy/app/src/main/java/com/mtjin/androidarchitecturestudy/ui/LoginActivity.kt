@@ -33,6 +33,7 @@ class LoginActivity : AppCompatActivity() {
             if (id == USER_ID && pw == USER_PW) {
                 startActivity(Intent(this, MovieSearchActivity::class.java))
                 PreferenceManager.setBoolean(this, PreferenceManager.AUTO_LOGIN_KEY, true)
+                finish()
             } else if (id.isEmpty())
                 tvId.error = "아이디를 입력해주세요"
             else if (pw.isEmpty())
