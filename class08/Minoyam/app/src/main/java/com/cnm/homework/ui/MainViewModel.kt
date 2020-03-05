@@ -4,20 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cnm.homework.applySchedulers
 import com.cnm.homework.data.model.NaverResponse
-import com.cnm.homework.data.repository.NaverQueryRepositoryImpl
-import com.cnm.homework.data.source.local.NaverQueryLocalDataSourceImpl
-import com.cnm.homework.data.source.local.db.LocalDao
-import com.cnm.homework.data.source.remote.NaverQueryRemoteDataSourceImpl
+import com.cnm.homework.data.repository.NaverQueryRepository
 import io.reactivex.disposables.CompositeDisposable
 
-class MainViewModel(private val localDao: LocalDao) : ViewModel() {
-
-    private val naverQueryRepositoryImpl: NaverQueryRepositoryImpl by lazy {
-        NaverQueryRepositoryImpl(
-            NaverQueryRemoteDataSourceImpl(),
-            NaverQueryLocalDataSourceImpl(localDao)
-        )
-    }
+class MainViewModel(private val naverQueryRepository: NaverQueryRepository) : ViewModel() {
     private val disposable = CompositeDisposable()
 
     val movieItems = MutableLiveData<List<NaverResponse.Item>>()
@@ -29,7 +19,7 @@ class MainViewModel(private val localDao: LocalDao) : ViewModel() {
     fun movieListSearch() {
         val query = searchString.value as String
         if (query.isNotEmpty()) {
-            disposable.add(naverQueryRepositoryImpl.getNaverMovie(query)
+            disposable.add(naverQueryRepository.getNaverMovie(query)
                 .applySchedulers()
                 .doOnSubscribe {
                     isProgressBoolean.value = true
@@ -66,5 +56,5 @@ class MainViewModel(private val localDao: LocalDao) : ViewModel() {
         isKeyboardBoolean.value = true
     }
 
-    fun loadMovieList(): List<NaverResponse.Item> = naverQueryRepositoryImpl.loadLocal()
+    fun loadMovieList(): List<NaverResponse.Item> = naverQueryRepository.loadLocal()
 }

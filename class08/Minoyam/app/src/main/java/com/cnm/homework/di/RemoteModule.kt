@@ -1,6 +1,8 @@
 package com.cnm.homework.di
 
 import com.cnm.homework.BuildConfig
+import com.cnm.homework.data.source.remote.NaverQueryRemoteDataSource
+import com.cnm.homework.data.source.remote.NaverQueryRemoteDataSourceImpl
 import com.cnm.homework.data.source.remote.network.NaverApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -13,6 +15,9 @@ val remoteModule = module {
     factory { createOkHttpClient() }
     factory { createNaverApi(get()) }
     single { crearteRetrofit(get()) }
+    single<NaverQueryRemoteDataSource> {
+        NaverQueryRemoteDataSourceImpl(get())
+    }
 }
 
 private fun createNaverApi(retrofit: Retrofit): NaverApi {
