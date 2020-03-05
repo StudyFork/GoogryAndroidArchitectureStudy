@@ -12,7 +12,7 @@ class NaverQueryLocalDataSourceImpl(
     }
 
     override fun requestLocalData(query: String): MutableList<MovieData>? {
-        return movieDataDao?.getLocalData()
+        return movieDataDao?.getLocalData(query)
     }
 
     override fun insertLocalData(query: String, list: MutableList<MovieData>) {
