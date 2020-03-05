@@ -34,13 +34,13 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(Intent(this, MovieSearchActivity::class.java))
                 PreferenceManager.setBoolean(this, PreferenceManager.AUTO_LOGIN_KEY, true)
                 finish()
-            } else if (id.isEmpty())
+            } else if (id.isEmpty()) {
                 tvId.error = "아이디를 입력해주세요"
-            else if (pw.isEmpty())
+            } else if (pw.isEmpty()) {
                 tvPw.error = "비밀번호를 입력해주세요"
-            else
+            } else {
                 tvPw.error = "아이디와 또는 패스워드가 틀렸습니다"
-
+            }
         }
     }
 
