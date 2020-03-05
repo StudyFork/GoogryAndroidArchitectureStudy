@@ -10,4 +10,9 @@
         <item name="android:textSize">10sp</item>
     </style>
 
+    <!--스플래쉬화면-->
+    <style name = "SplashTheme" parent= "Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/bg_splash</item>
+    </style>
+
 </resources>
