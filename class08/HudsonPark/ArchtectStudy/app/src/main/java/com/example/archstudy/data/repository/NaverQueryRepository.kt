@@ -7,7 +7,7 @@ interface NaverQueryRepository {
         query: String,
         successCallback: (MutableList<MovieData>) -> Unit,
         failCallback: (Throwable) -> Unit
-    ): MutableList<MovieData>?
+    )
 
     fun insertLocalData(query: String, data: List<MovieData>)
     fun requestRemoteData(

@@ -53,7 +53,7 @@ class NaverQueryRepositoryImpl(
         query: String,
         successCallback: (MutableList<MovieData>) -> Unit,
         failCallback: (Throwable) -> Unit
-    ): MutableList<MovieData>? {
+    ) {
         var resultData = naverQueryLocalDataSource.requestLocalData(query)
         if (resultData.isNullOrEmpty()) {
             // 로컬 데이터가 비어있다면, 리모트 데이터 요청
@@ -64,9 +64,8 @@ class NaverQueryRepositoryImpl(
                 failCallback(it)
             })
         } else {
-            return resultData
+            successCallback(resultData)
         }
-        return null
     }
 
     override fun insertLocalData(query: String, data: List<MovieData>) {
@@ -77,27 +76,26 @@ class NaverQueryRepositoryImpl(
     inner class RequestLocalDataAsync(
         private var query: String,
         private var asyncTaskDataListener: AsyncTaskDataListener
-    ) : AsyncTask<Unit, Unit, MutableList<MovieData>>() {
+    ) : AsyncTask<Unit, Unit, Unit>() {
 
-        override fun doInBackground(vararg param: Unit?): MutableList<MovieData>? {
+        override fun doInBackground(vararg param: Unit?) {
             Log.d("Async", "RequestLocalDataAsync.doInBackground()")
-            var result = requestLocalData(query, successCallback = {
+            requestLocalData(query, successCallback = {
                 asyncTaskDataListener.onResult(it)
             }, failCallback = {
                 asyncTaskDataListener.onResult(emptyList<MovieData>() as MutableList<MovieData>)
             })
-            Log.d("Async", "doInBackground().result : $result")
-            return result
+            // Log.d("Async", "doInBackground().result : $result")
+            //return result
         }
 
-        override fun onPostExecute(result: MutableList<MovieData>?) {
-            super.onPostExecute(result)
-            Log.d("Async", "Request Result : $result")
-            result?.let {
-                asyncTaskDataListener.onResult(result!!)
-            }
-        }
-
+//        override fun onPostExecute(result: MutableList<MovieData>?) {
+//            super.onPostExecute(result)
+//            Log.d("Async", "Request Result : $result")
+//            result?.let {
+//                asyncTaskDataListener.onResult(result!!)
+//            }
+//        }
     }
 
 
