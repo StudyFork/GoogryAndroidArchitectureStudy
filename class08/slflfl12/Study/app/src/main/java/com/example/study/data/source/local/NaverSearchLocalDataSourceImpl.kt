@@ -2,7 +2,7 @@ package com.example.study.data.source.local
 
 import com.example.study.data.source.local.model.SearchResult
 
-class NaverSearchLocalDataSourceImpl private constructor(
+class NaverSearchLocalDataSourceImpl(
     private val naverResultDao: SearchResultDao
 ) : NaverSearchLocalDataSource {
 
@@ -14,14 +14,5 @@ class NaverSearchLocalDataSourceImpl private constructor(
         return naverResultDao.getRecentSearchResult()
     }
 
-    companion object {
-        private var instance: NaverSearchLocalDataSourceImpl? = null
 
-        fun getInstance(naverResultDao: SearchResultDao): NaverSearchLocalDataSourceImpl {
-            return instance ?: synchronized(NaverSearchLocalDataSourceImpl::javaClass) {
-                instance ?: NaverSearchLocalDataSourceImpl(naverResultDao).also { instance = it }
-            }
-
-        }
-    }
 }

@@ -9,7 +9,7 @@ import com.example.study.data.source.local.model.SearchResult
 import com.google.gson.Gson
 import io.reactivex.Single
 
-class NaverSearchRepositoryImpl private constructor(
+class NaverSearchRepositoryImpl (
     private val naverSearchLocalDataSource: NaverSearchLocalDataSource,
     private val naverSearchRemoteDataSource: NaverSearchRemoteDataSource
 ) : NaverSearchRepository {
@@ -32,17 +32,4 @@ class NaverSearchRepositoryImpl private constructor(
         return list
     }
 
-    companion object {
-        private var instance: NaverSearchRepositoryImpl? = null
-
-        fun getInstance(
-            naverSearchLocalDataSource: NaverSearchLocalDataSource,
-            naverSearchRemoteDataSource: NaverSearchRemoteDataSource
-        ): NaverSearchRepositoryImpl {
-            return instance ?: NaverSearchRepositoryImpl(
-                naverSearchLocalDataSource,
-                naverSearchRemoteDataSource
-            ).apply { instance = this }
-        }
-    }
 }

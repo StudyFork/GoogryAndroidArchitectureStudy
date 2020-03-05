@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="vm"
             type="com.example.study.ui.main.MainViewModel" />
@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="20"
-                android:text="@={vm.queryLiveData}" />
+                android:text="@={vm._query}" />
 
             <Button
                 android:id="@+id/btn_search"
@@ -53,7 +53,7 @@
             android:id="@+id/pb_loading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
+            android:visibility="@{vm.isProgressBoolean ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

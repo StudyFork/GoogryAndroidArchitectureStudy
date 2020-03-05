@@ -19,7 +19,7 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(private val
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutResId)
         binding.setVariable(BR.vm, vm)
-
+        binding.lifecycleOwner = this
     }
 
     override fun onDestroy() {

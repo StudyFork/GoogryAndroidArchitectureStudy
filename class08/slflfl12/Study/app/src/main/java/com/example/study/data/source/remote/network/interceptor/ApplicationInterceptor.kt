@@ -1,4 +1,4 @@
-package com.example.study.interceptor
+package com.example.study.data.source.remote.network.interceptor
 
 import okhttp3.Interceptor
 import okhttp3.Response
