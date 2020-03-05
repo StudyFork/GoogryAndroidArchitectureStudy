@@ -4,10 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import io.github.sooakim.ui.application.SAApplication
+import io.github.sooakim.ui.base.SAActivity
 import io.github.sooakim.ui.login.SALoginActivity
 import io.github.sooakim.ui.movie.SAMovieSearchActivity
 
-class SASplashActivity : AppCompatActivity() {
+class SASplashActivity : SAActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -15,10 +16,7 @@ class SASplashActivity : AppCompatActivity() {
     }
 
     private fun route() {
-        val isAuthRequired = (applicationContext as? SAApplication)?.preferencesHelper
-            ?.isAuthRequired
-            ?: return
-        if (isAuthRequired) {
+        if (requireApplication().preferencesHelper.isAuthRequired) {
             routeLogin()
         } else {
             routeMovieSearch()
