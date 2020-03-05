@@ -22,15 +22,17 @@ android {
         }
     }
     kotlinOptions {
-
         jvmTarget = "1.8"
     }
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_8
-            targetCompatibility JavaVersion.VERSION_1_8
-        }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     dataBinding {
         enabled = true
+    }
+    repositories {
+        jcenter()
     }
 }
 
@@ -45,7 +47,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
 //    리사이클러뷰
-    implementation "com.google.android.material:material:1.2.0-alpha04"
+    implementation "com.google.android.material:material:1.2.0-alpha05"
 //    retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.7.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
@@ -59,17 +61,19 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.2.1")
 
     // Room
-    implementation "androidx.room:room-runtime:2.2.3"
-    kapt "androidx.room:room-compiler:2.2.3"
-    kaptTest "androidx.room:room-testing:2.2.3"
+    implementation "androidx.room:room-runtime:2.2.4"
+    kapt "androidx.room:room-compiler:2.2.4"
+    kaptTest "androidx.room:room-testing:2.2.4"
 
     // Lifecycle
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0"
 
+//    Koin
+    implementation 'org.koin:koin-androidx-viewmodel:2.1.1'
+
     implementation 'androidx.activity:activity-ktx:1.1.0'
     kapt 'com.github.bumptech.glide:compiler:4.10.0'
-
 
 
 }
