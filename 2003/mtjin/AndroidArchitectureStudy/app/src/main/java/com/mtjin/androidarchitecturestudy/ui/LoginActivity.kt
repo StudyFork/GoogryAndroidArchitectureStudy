@@ -44,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val USER_ID = "id"
-        const val USER_PW = "P@sswOrd"
+        private const val USER_ID = "id"
+        private const val USER_PW = "P@sswOrd"
     }
 }
