@@ -18,7 +18,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class MainActivity : AppCompatActivity() {
+class MovieSearchActivity : AppCompatActivity() {
 
     private lateinit var etInput: EditText
     private lateinit var btnSearch: Button
