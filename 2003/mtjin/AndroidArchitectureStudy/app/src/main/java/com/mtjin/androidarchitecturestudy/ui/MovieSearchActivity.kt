@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mtjin.androidarchitecturestudy.R
 import com.mtjin.androidarchitecturestudy.api.ApiClient
 import com.mtjin.androidarchitecturestudy.api.ApiInterface
-import com.mtjin.androidarchitecturestudy.data.Movie
 import com.mtjin.androidarchitecturestudy.data.MovieResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,7 +27,7 @@ class MovieSearchActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_movie_search)
 
         initView()
         initListener()
