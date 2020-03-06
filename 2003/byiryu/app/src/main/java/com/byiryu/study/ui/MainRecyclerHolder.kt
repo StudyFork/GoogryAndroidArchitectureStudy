@@ -1,6 +1,5 @@
 package com.byiryu.study.ui
 
-import android.content.Context
 import android.view.View
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView

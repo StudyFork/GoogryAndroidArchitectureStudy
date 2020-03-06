@@ -1,6 +1,5 @@
 package com.byiryu.study.ui
 
-import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
