@@ -53,7 +53,7 @@ object RetrofitHelper {
             @Query("query") query: String?,  //-검색어
             @Query("display") display: Int,  //-검색 결과 최대 출력 건수
             @Query("start") start: Int,  //-검색 시작 위치
-            @Query("genre") genre: String?
-        ): Call<SearchMovieInfo?>? //-장르 코드
+            @Query("genre") genre: String? //-장르 코드
+        ): Call<SearchMovieInfo?>?
     }
 }
