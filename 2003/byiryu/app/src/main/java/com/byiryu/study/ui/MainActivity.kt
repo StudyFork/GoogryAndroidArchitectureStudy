@@ -43,10 +43,10 @@ class MainActivity : BaseActivity() {
                 disposable = retrofit.getSearchMovie(text)
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnSubscribe {
-                        loading(false)
+                        showLoading(true)
                     }
                     .doOnSuccess {
-                        loading(true)
+                        showLoading(false)
                     }
                     .doOnError {
                         showMsg(R.string.msg_error_loading)
@@ -63,11 +63,11 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun loading(isLoading: Boolean) {
+    private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
-            loading.visibility = View.INVISIBLE
-        } else {
             loading.visibility = View.VISIBLE
+        } else {
+            loading.visibility = View.INVISIBLE
         }
     }
 
