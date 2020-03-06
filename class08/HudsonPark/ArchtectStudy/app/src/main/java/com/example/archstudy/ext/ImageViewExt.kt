@@ -6,11 +6,11 @@ import com.bumptech.glide.Glide
 import com.example.archstudy.R
 
 @BindingAdapter("image")
-fun ImageView.imageViewBindingAdapter(imageView: ImageView, image: String) {
+fun ImageView.imageViewBindingAdapter(image: String) {
 
     Glide.with(context)
         .load(image)
         .override(600,1000)
         .error(R.drawable.no_image)
-        .into(imageView)
+        .into(this)
 }
