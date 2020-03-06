@@ -16,7 +16,7 @@ class MainActivity : BaseActivity() {
     private var disposable: Disposable? = null
 
     private val adapter = MainRecyclerAdapter()
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,7 +38,7 @@ class MainActivity : BaseActivity() {
             var text = editText.text.toString()
 
             if (text.isEmpty()) {
-                showMsg("검색어를 입력해주세요.")
+                showMsg(R.string.msg_search_value)
             } else {
                 disposable = retrofit.getSearchMovie(text)
                     .observeOn(AndroidSchedulers.mainThread())
@@ -49,7 +49,7 @@ class MainActivity : BaseActivity() {
                         loading(true)
                     }
                     .doOnError {
-
+                        showMsg(R.string.msg_error_loading)
                     }
                     .subscribe(
                         {
