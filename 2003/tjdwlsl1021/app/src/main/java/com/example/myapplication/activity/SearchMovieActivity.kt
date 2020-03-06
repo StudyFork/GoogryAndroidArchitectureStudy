@@ -29,7 +29,7 @@ class SearchMovieActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search_movie)
 
         rv_movie.setHasFixedSize(true)
-        
+
         val movies: ArrayList<SearchMovieItem> = ArrayList()
         movieAdapter = SearchMovieAdapter(this, movies)
         rv_movie.adapter = movieAdapter
@@ -58,8 +58,8 @@ class SearchMovieActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val result = response.body()
                     if (null != result) {
-                        val moives: ArrayList<SearchMovieItem> = ArrayList(result.items)
-                        movieAdapter?.addItems(moives)
+                        val movies: ArrayList<SearchMovieItem> = ArrayList(result.items)
+                        movieAdapter?.addItems(movies)
                         rv_movie!!.adapter = movieAdapter
                     }
                 }
