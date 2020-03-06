@@ -53,8 +53,8 @@
                 android:maxLength="10"
                 android:maxLines="1"
                 android:textSize="@dimen/movie_name"
-                android:text="@{movieData.title}"
                 android:textStyle="bold"
+                app:html="@{movieData.title}"
                 tools:text="영화 이름" />
 
             <RatingBar
