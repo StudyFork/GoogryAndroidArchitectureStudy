@@ -26,7 +26,12 @@ class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     ): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val v = inflater.inflate(R.layout.item_movie, parent, false)
-        return MovieViewHolder(v)
+        val viewHolder = MovieViewHolder(v)
+
+        v.setOnClickListener {
+            onClickListener(movieInfoArrayList[viewHolder.adapterPosition])
+        }
+        return viewHolder
     }
 
     override fun onBindViewHolder(
@@ -44,10 +49,6 @@ class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         Glide.with(movieViewHolder.iv_thumbnail).load(item.image)
             .into(movieViewHolder.iv_thumbnail)
-
-        movieViewHolder.iv_thumbnail.setOnClickListener {
-            onClickListener(item)
-        }
     }
 
     fun setOnclickListener(onClickListener: (SearchMovieItem) -> Unit) {
