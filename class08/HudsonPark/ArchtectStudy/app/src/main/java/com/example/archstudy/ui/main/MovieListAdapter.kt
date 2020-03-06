@@ -56,58 +56,11 @@ class MovieListAdapter(@Nullable private var listener: ItemClickListener) :
     class ViewHolder(private val binding: ItemMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        /*
-                private val ivThumbnail = itemView.findViewById<ImageView>(R.id.ivThumbNail)
-                private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
-                private val ratingMovie = itemView.findViewById<RatingBar>(R.id.ratingMovie)
-                private val tvReleaseYear = itemView.findViewById<TextView>(R.id.tvReleaseYear)
-                private val tvDirector = itemView.findViewById<TextView>(R.id.tvDirector)
-                private val tvActors = itemView.findViewById<TextView>(R.id.tvActors)
-
-        */
         fun bind(data: MovieData) {
 
-            with(data) {
-                Log.d("img", "image : $image, title : $title")
-                val convertedText = htmlToString(title)
-
+                Log.d("img", "image : ${data.image}, title : ${data.title}")
                 with(binding) {
                     setVariable(BR.movieData, data)
-                    //tvTitle.text = convertedText
-                    //ratingMovie.rating = userRating.toFloat() / 2
-                    //tvReleaseYear.text = pubDate
-                    //tvDirector.text = director
-                    //tvActors.text = actor
-                    //loadImage(this, image)
-                }
-            }
-
-        }
-
-        private fun loadImage(binding: ItemMovieBinding, image: String) {
-
-            with(binding) {
-                if (image.trim().isNotEmpty()) {
-                    Glide.with(itemView.context)
-                        .load(image)
-                        .override(600, 1000)
-                        .into(ivThumbNail)
-                } else {
-                    Glide.with(itemView.context)
-                        .load(R.drawable.no_image)
-                        .override(600, 1000)
-                        .into(ivThumbNail)
-                }
-            }
-        }
-
-        private fun htmlToString(htmlText: String): String {
-            // Android N Version 이상의 경우
-            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                Html.fromHtml(htmlText, Html.FROM_HTML_MODE_LEGACY).toString()
-            } else {
-                // 그 외
-                Html.fromHtml(htmlText).toString()
             }
         }
     }
