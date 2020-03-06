@@ -9,18 +9,18 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.archstudy.R
 import com.example.archstudy.data.source.local.AppDatabase
 import com.example.archstudy.data.source.local.MovieData
+import com.example.archstudy.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
-    // View
-    private lateinit var edtQuery: EditText
-    private lateinit var btnSearch: Button
-    private lateinit var rvMovieList: RecyclerView
     private lateinit var rvMovieAdapter: MovieListAdapter
+    // DataBinding
+    private lateinit var binding: ActivityMainBinding
     // variables
     private var query = ""
     // Presenter
@@ -28,11 +28,12 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        initView() // 뷰 초기화
+        // Binding View
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.main = this
+        initRecyclerView() // 리사이클러 뷰 초기화
         initPresenter() // 프레젠터 초기화
         initData() // 데이터 초기화
-        initEvent() // 이벤트 처리
     }
 
     override fun showMessage(msg: String) {
@@ -61,24 +62,21 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         presenter.initData()
     }
 
-    private fun initEvent() {
+    fun onClickButton() {
 
-        btnSearch.setOnClickListener {
+        with(binding) {
             hideKeyboard()
             disableButton()
             // 검색 버튼 클릭 시
             query = edtQuery.text.toString()
+            edtQuery.text.clear()
             Log.d("query", "query : $query")
             presenter.getData(query)
             activateButton()
         }
     }
 
-    private fun initView() {
-        Log.d("init", "initView()")
-        edtQuery = findViewById(R.id.edtQuery)
-        btnSearch = findViewById(R.id.btnSearch)
-        rvMovieList = findViewById(R.id.rvMovieList)
+    private fun initRecyclerView() {
 
         rvMovieAdapter = MovieListAdapter(object :
             MovieListAdapter.ItemClickListener {
@@ -86,7 +84,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
             }
         })
-        rvMovieList.adapter = rvMovieAdapter
+        binding.rvMovieList.adapter = rvMovieAdapter
     }
 
     private fun showToast(message: String) {
@@ -94,15 +92,15 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     private fun activateButton() {
-        btnSearch.isEnabled = true
+        binding.btnSearch.isEnabled = true
     }
 
     private fun disableButton() {
-        btnSearch.isEnabled = false
+        binding.btnSearch.isEnabled = false
     }
 
     private fun hideKeyboard() {
         val inputManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        inputManager.hideSoftInputFromWindow(edtQuery.windowToken, 0)
+        inputManager.hideSoftInputFromWindow(binding.edtQuery.windowToken, 0)
     }
 }

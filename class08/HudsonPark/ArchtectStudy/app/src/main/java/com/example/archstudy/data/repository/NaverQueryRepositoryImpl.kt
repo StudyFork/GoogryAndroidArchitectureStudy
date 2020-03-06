@@ -85,17 +85,7 @@ class NaverQueryRepositoryImpl(
             }, failCallback = {
                 asyncTaskDataListener.onResult(emptyList<MovieData>() as MutableList<MovieData>)
             })
-            // Log.d("Async", "doInBackground().result : $result")
-            //return result
         }
-
-//        override fun onPostExecute(result: MutableList<MovieData>?) {
-//            super.onPostExecute(result)
-//            Log.d("Async", "Request Result : $result")
-//            result?.let {
-//                asyncTaskDataListener.onResult(result!!)
-//            }
-//        }
     }
 
 
