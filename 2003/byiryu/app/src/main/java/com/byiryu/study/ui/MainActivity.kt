@@ -35,7 +35,7 @@ class MainActivity : BaseActivity() {
         }
 
         btn_search.setOnClickListener {
-            var text = editText.text.toString()
+            val text = editText.text.toString()
 
             if (text.isEmpty()) {
                 showMsg(R.string.msg_search_value)
@@ -72,7 +72,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onDestroy() {
-        
+
         disposable?.dispose()
         super.onDestroy()
 
