@@ -33,7 +33,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        JavaVersion.VERSION_1_8.toString()
     }
 
     dataBinding {
