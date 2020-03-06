@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    
+    <data>
+        <variable
+            name="view"
+            type="com.example.archstudy.ui.main.MainContract.View" />
+        
+        <variable
+            name="movieData"
+            type="com.example.archstudy.data.source.local.MovieData" />
+    </data>
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/layoutItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/item_margin"
         android:orientation="horizontal">
 
-
+        <!-- TODO : BindingAdapter 사용화기 -->
         <ImageView
             android:id="@+id/ivThumbNail"
             android:layout_width="150dp"
@@ -39,6 +50,7 @@
                 android:ellipsize="end"
                 android:maxLength="10"
                 android:maxLines="1"
+                android:text="@{movieData.title}"
                 android:textSize="@dimen/movie_name"
                 android:textStyle="bold"
                 tools:text="영화 이름" />
@@ -59,6 +71,7 @@
                 android:layout_gravity="left"
                 android:layout_marginTop="@dimen/text_margin_top"
                 android:textSize="@dimen/movie_release_year"
+                android:text="@{movieData.pubDate}"
                 tools:text="2019" />
 
             <TextView
@@ -72,6 +85,7 @@
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textSize="@dimen/movie_release_year"
+                android:text="@{movieData.director}"
                 tools:text="사이먼 킨버그" />
 
             <TextView
@@ -85,6 +99,7 @@
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textSize="@dimen/movie_release_year"
+                android:text="@{movieData.actor}"
                 tools:text="사이먼 킨버그" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

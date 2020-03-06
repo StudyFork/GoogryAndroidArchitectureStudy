@@ -30,10 +30,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         super.onCreate(savedInstanceState)
         // Binding View
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.main = this
         initRecyclerView() // 리사이클러 뷰 초기화
         initPresenter() // 프레젠터 초기화
         initData() // 데이터 초기화
-        initEvent() // 이벤트 처리
+       // initEvent() // 이벤트 처리
     }
 
     override fun showMessage(msg: String) {
@@ -62,7 +63,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         presenter.initData()
     }
 
-    private fun initEvent() {
+    fun initEvent() {
 
         with(binding){
             btnSearch.setOnClickListener {
