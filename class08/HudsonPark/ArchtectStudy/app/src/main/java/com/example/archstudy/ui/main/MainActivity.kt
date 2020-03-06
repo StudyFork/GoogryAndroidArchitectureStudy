@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         initRecyclerView() // 리사이클러 뷰 초기화
         initPresenter() // 프레젠터 초기화
         initData() // 데이터 초기화
-       // initEvent() // 이벤트 처리
     }
 
     override fun showMessage(msg: String) {
@@ -63,18 +62,17 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         presenter.initData()
     }
 
-    fun initEvent() {
+    fun onClickButton() {
 
-        with(binding){
-            btnSearch.setOnClickListener {
-                hideKeyboard()
-                disableButton()
-                // 검색 버튼 클릭 시
-                query = edtQuery.text.toString()
-                Log.d("query", "query : $query")
-                presenter.getData(query)
-                activateButton()
-            }
+        with(binding) {
+            hideKeyboard()
+            disableButton()
+            // 검색 버튼 클릭 시
+            query = edtQuery.text.toString()
+            edtQuery.text.clear()
+            Log.d("query", "query : $query")
+            presenter.getData(query)
+            activateButton()
         }
     }
 
