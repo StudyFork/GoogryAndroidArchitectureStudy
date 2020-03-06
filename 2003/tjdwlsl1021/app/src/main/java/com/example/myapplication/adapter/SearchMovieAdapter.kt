@@ -1,8 +1,5 @@
 package com.example.myapplication.adapter
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
@@ -18,10 +15,10 @@ import com.example.myapplication.item.SearchMovieItem
 /**
  * MutableList : 가변, 변경가능한 리스트
  * */
-class SearchMovieAdapter(
-    private val context: Context
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
     private val movieInfoArrayList: MutableList<SearchMovieItem> = arrayListOf()
+    private lateinit var onClickListener: (SearchMovieItem) -> Unit
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -49,10 +46,12 @@ class SearchMovieAdapter(
             .into(movieViewHolder.iv_thumbnail)
 
         movieViewHolder.iv_thumbnail.setOnClickListener {
-            val link = this.movieInfoArrayList[position].link
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
-            context.startActivity(intent)
+            onClickListener(item)
         }
+    }
+
+    fun setOnclickListener(onClickListener: (SearchMovieItem) -> Unit) {
+        this.onClickListener = onClickListener
     }
 
     override fun getItemCount(): Int {

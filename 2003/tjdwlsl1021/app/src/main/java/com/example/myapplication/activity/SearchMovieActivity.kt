@@ -1,5 +1,7 @@
 package com.example.myapplication.activity
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -22,16 +24,18 @@ import java.util.*
 class SearchMovieActivity : AppCompatActivity() {
     private val TAG = "SearchMovieActivity"
 
-    private var movieAdapter: SearchMovieAdapter? = null
+    private val movieAdapter =  SearchMovieAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_movie)
 
         rv_movie.setHasFixedSize(true)
-
-        movieAdapter = SearchMovieAdapter(this)
         rv_movie.adapter = movieAdapter
+
+        movieAdapter.setOnclickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
+        }
 
         btn_search.setOnClickListener(View.OnClickListener {
 
@@ -58,7 +62,7 @@ class SearchMovieActivity : AppCompatActivity() {
                     val result = response.body()
                     if (null != result) {
                         val movies: ArrayList<SearchMovieItem> = ArrayList(result.items)
-                        movieAdapter?.addItems(movies)
+                        movieAdapter.addItems(movies)
                         rv_movie!!.adapter = movieAdapter
                     }
                 }
