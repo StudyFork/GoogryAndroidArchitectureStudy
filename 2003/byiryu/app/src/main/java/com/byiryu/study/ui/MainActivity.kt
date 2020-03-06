@@ -26,7 +26,7 @@ class MainActivity : BaseActivity() {
     }
 
 
-    fun bind() {
+    private fun bind() {
 
         recyclerView.adapter = adapter
 
