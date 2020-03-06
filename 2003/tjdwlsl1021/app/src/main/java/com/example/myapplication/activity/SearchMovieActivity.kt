@@ -29,9 +29,7 @@ class SearchMovieActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search_movie)
 
         rv_movie.setHasFixedSize(true)
-        val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
-        rv_movie.layoutManager = mLayoutManager
-
+        
         val movies: ArrayList<SearchMovieItem> = ArrayList()
         movieAdapter = SearchMovieAdapter(this, movies)
         rv_movie.adapter = movieAdapter
