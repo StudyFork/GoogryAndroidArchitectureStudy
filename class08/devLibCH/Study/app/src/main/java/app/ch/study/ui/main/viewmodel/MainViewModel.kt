@@ -4,19 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import app.ch.study.core.BaseViewModel
 import app.ch.study.data.common.KEY_QUERY_EMPTY
-import app.ch.study.data.local.LocalDataManager
-import app.ch.study.data.local.source.NaverQueryLocalDataSourceImpl
-import app.ch.study.data.remote.api.WebApiTask
 import app.ch.study.data.remote.response.MovieModel
-import app.ch.study.data.remote.source.NaverQueryRemoteDataSourceImpl
-import app.ch.study.data.repository.NaverQueryRepositoryImpl
+import app.ch.study.data.repository.NaverQueryRepository
 import app.ch.study.util.handleError
 
-class MainViewModel(localDataManager: LocalDataManager): BaseViewModel() {
-
-    private val local = NaverQueryLocalDataSourceImpl(localDataManager)
-    private val remote = NaverQueryRemoteDataSourceImpl(WebApiTask.getInstance())
-    private val repository = NaverQueryRepositoryImpl(local, remote)
+class MainViewModel(private val repository: NaverQueryRepository): BaseViewModel() {
 
     val query = MutableLiveData<String>()
     val result = MutableLiveData<MutableList<MovieModel>>()
@@ -27,7 +19,7 @@ class MainViewModel(localDataManager: LocalDataManager): BaseViewModel() {
     val showError: LiveData<String> get() = _showError
 
     init {
-        query.value = localDataManager.getQuery()
+        query.value = repository.getQuery()
         searchMovie()
     }
 
