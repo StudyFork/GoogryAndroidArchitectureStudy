@@ -65,21 +65,13 @@ class SearchMovieAdapter(
     class MovieViewHolder internal constructor(view: View) :
         RecyclerView.ViewHolder(view) {
 
-        val iv_thumbnail: ImageView
-        val tv_title: TextView
-        val rb_userRating: RatingBar
-        val pubDate: TextView
-        val tv_director: TextView
-        val tv_actor: TextView
+        val iv_thumbnail: ImageView = view.findViewById(R.id.iv_thumbnail)
+        val tv_title: TextView = view.findViewById(R.id.tv_title)
+        val rb_userRating: RatingBar = view.findViewById(R.id.rb_userRating)
+        val pubDate: TextView = view.findViewById(R.id.tv_pubDate)
+        val tv_director: TextView = view.findViewById(R.id.tv_director)
+        val tv_actor: TextView = view.findViewById(R.id.tv_actor)
 
-        init {
-            iv_thumbnail = view.findViewById(R.id.iv_thumbnail)
-            tv_title = view.findViewById(R.id.tv_title)
-            rb_userRating = view.findViewById(R.id.rb_userRating)
-            pubDate = view.findViewById(R.id.tv_pubDate)
-            tv_director = view.findViewById(R.id.tv_director)
-            tv_actor = view.findViewById(R.id.tv_actor)
-        }
     }
 
 }
