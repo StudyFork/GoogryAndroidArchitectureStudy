@@ -1,12 +1,10 @@
 package io.github.sooakim.ui.base
 
-import android.annotation.SuppressLint
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import io.github.sooakim.ui.application.SAApplication
 
-@SuppressLint("Registered")
-open class SAActivity : AppCompatActivity() {
+abstract class SAActivity : AppCompatActivity() {
     protected open val commonProgressView: View? = null
     protected val application: SAApplication?
         get() {
