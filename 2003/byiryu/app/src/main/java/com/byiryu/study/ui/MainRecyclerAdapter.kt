@@ -19,29 +19,29 @@ class MainRecyclerAdapter :
 
     }) {
 
-    var clickListener: OnClickListener? = null
+    private lateinit var onClickListener: (MovieItem) -> Unit
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainRecyclerHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.view_main_item, parent, false)
-        return MainRecyclerHolder(itemView, parent.context, clickListener)
+        return MainRecyclerHolder(itemView)
 
     }
 
     override fun onBindViewHolder(holder: MainRecyclerHolder, position: Int) {
-        var item = getItem(position)
+        val item = getItem(position)
 
         holder.binding(item)
+        holder.itemView.setOnClickListener{
+            onClickListener(item)
+        }
 
     }
 
-    fun setOnclickListener(clickListener: OnClickListener) {
-        this.clickListener = clickListener
-    }
 
-
-    interface OnClickListener {
-        fun onClick(url: String)
+    fun setOnclickListener(onClickListener : (MovieItem) -> Unit){
+        this.onClickListener = onClickListener
     }
 
 }

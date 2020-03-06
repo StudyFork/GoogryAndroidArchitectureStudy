@@ -10,9 +10,7 @@ import com.byiryu.study.api.model.MovieItem
 import kotlinx.android.synthetic.main.view_main_item.view.*
 
 class MainRecyclerHolder(
-    itemView: View,
-    var context: Context,
-    var onClickListener: MainRecyclerAdapter.OnClickListener?
+    itemView: View
 ) : RecyclerView.ViewHolder(itemView) {
 
     fun binding(item: MovieItem) {
@@ -27,9 +25,5 @@ class MainRecyclerHolder(
         itemView.publishDate.text = item.pubDate
         itemView.director.text = item.director
         itemView.actor.text = item.actor
-
-        itemView.rootLayout.setOnClickListener {
-            onClickListener?.onClick(item.link)
-        }
     }
 }

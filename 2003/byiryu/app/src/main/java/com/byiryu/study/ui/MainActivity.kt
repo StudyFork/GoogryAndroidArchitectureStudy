@@ -11,14 +11,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity(), MainRecyclerAdapter.OnClickListener {
-
-
-    lateinit var text: String
+class MainActivity : BaseActivity() {
 
     private var disposable: Disposable? = null
-    // false 로딩중 true 완
-    private var isLoading = false
 
     private val adapter = MainRecyclerAdapter()
 
@@ -35,10 +30,13 @@ class MainActivity : BaseActivity(), MainRecyclerAdapter.OnClickListener {
     fun bind() {
 
         recyclerView.adapter = adapter
-        adapter.setOnclickListener(this)
+
+        adapter.setOnclickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
+        }
 
         btn_search.setOnClickListener {
-            text = editText.text.toString()
+            var text = editText.text.toString()
 
             if (text.isEmpty()) {
                 showMsg("검색어를 입력해주세요.")
@@ -83,8 +81,4 @@ class MainActivity : BaseActivity(), MainRecyclerAdapter.OnClickListener {
 
     }
 
-    override fun onClick(url: String) {
-
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-    }
 }
