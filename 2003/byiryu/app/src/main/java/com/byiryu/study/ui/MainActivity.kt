@@ -72,11 +72,9 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onDestroy() {
+        
+        disposable?.dispose()
         super.onDestroy()
-
-        if (disposable != null && !disposable!!.isDisposed) {
-            disposable!!.dispose()
-        }
 
     }
 
