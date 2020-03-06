@@ -15,11 +15,14 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.item.SearchMovieItem
 
-
+/**
+ * MutableList : 가변, 변경가능한 리스트
+ * */
 class SearchMovieAdapter(
-    private val context: Context,
-    private val movieInfoArrayList: ArrayList<SearchMovieItem>?
+    private val context: Context
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val movieInfoArrayList: MutableList<SearchMovieItem> = arrayListOf()
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -34,10 +37,10 @@ class SearchMovieAdapter(
         position: Int
     ) {
         val movieViewHolder = holder as MovieViewHolder
-        val item = movieInfoArrayList?.get(position)
+        val item = movieInfoArrayList[position]
 
-        movieViewHolder.tv_title.text = Html.fromHtml(item?.title)
-        movieViewHolder.rb_userRating.rating = item?.userRating!!.toFloat() / 2
+        movieViewHolder.tv_title.text = Html.fromHtml(item.title)
+        movieViewHolder.rb_userRating.rating = item.userRating.toFloat() / 2
         movieViewHolder.pubDate.text = item.pubDate
         movieViewHolder.tv_director.text = Html.fromHtml(item.director)
         movieViewHolder.tv_actor.text = Html.fromHtml(item.actor)
@@ -46,19 +49,19 @@ class SearchMovieAdapter(
             .into(movieViewHolder.iv_thumbnail)
 
         movieViewHolder.iv_thumbnail.setOnClickListener {
-            val link = this.movieInfoArrayList?.get(position)?.link
+            val link = this.movieInfoArrayList[position].link
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
             context.startActivity(intent)
         }
     }
 
     override fun getItemCount(): Int {
-        return movieInfoArrayList?.size!!
+        return movieInfoArrayList.size
     }
 
     fun addItems(items: java.util.ArrayList<SearchMovieItem>) {
-        movieInfoArrayList?.clear()
-        movieInfoArrayList?.addAll(items)
+        movieInfoArrayList.clear()
+        movieInfoArrayList.addAll(items)
         notifyDataSetChanged()
     }
 

@@ -30,8 +30,7 @@ class SearchMovieActivity : AppCompatActivity() {
 
         rv_movie.setHasFixedSize(true)
 
-        val movies: ArrayList<SearchMovieItem> = ArrayList()
-        movieAdapter = SearchMovieAdapter(this, movies)
+        movieAdapter = SearchMovieAdapter(this)
         rv_movie.adapter = movieAdapter
 
         btn_search.setOnClickListener(View.OnClickListener {
