@@ -29,10 +29,10 @@ class MainPresenter(
         Log.d("query", "requestQuery in getData() : $query")
         getLocalData(query, successCallback = {
             Log.d("data", "movie data in getLocalData successCallback : $it")
-            view?.showDataList(it)
+            view.showDataList(it)
         }, failCallback = {
             Log.d("search", "searchQuery in getData() : $it")
-            view?.showErrorMessage(Throwable(it))
+            view.showErrorMessage(Throwable(it))
         })
     }
 
