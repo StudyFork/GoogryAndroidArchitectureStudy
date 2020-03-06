@@ -36,8 +36,9 @@ class SearchMovieActivity : AppCompatActivity() {
 
         btn_search.setOnClickListener(View.OnClickListener {
 
-            if (et_movie_title.text.toString().isNotEmpty()) {
-                getMovieList(et_movie_title.text.toString())
+            var etMovieTitle = et_movie_title.text.toString()
+            if (etMovieTitle.isNotEmpty()) {
+                getMovieList(etMovieTitle)
             } else {
                 Toast.makeText(this, R.string.activity_toast_empty_movie_title, Toast.LENGTH_SHORT)
                     .show()
