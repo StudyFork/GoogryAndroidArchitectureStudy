@@ -49,7 +49,7 @@ class SearchMovieActivity : AppCompatActivity() {
     }
 
 
-    fun getMovieList(query: String?) {
+    private fun getMovieList(query: String?) {
         val call = RetrofitHelper.retrofitService.getMovieList(query, 10, 1, "1")
         call?.enqueue(object : Callback<SearchMovieInfo?> {
             override fun onResponse(
