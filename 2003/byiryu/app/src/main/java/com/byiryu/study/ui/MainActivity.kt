@@ -16,8 +16,7 @@ class MainActivity : BaseActivity() {
     private var disposable: Disposable? = null
 
     private val adapter = MainRecyclerAdapter()
-
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
