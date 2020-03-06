@@ -10,8 +10,10 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.annotation.Nullable
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.archstudy.BR
 import com.example.archstudy.data.source.local.MovieData
 import com.example.archstudy.R
 import com.example.archstudy.databinding.ItemMovieBinding
@@ -22,9 +24,15 @@ class MovieListAdapter(@Nullable private var listener: ItemClickListener) :
     private var list = mutableListOf<MovieData>()
     private lateinit var binding: ItemMovieBinding
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.item_movie,
+            parent,
+            false
+        )
 
         val holder = ViewHolder(binding)
 
@@ -45,35 +53,40 @@ class MovieListAdapter(@Nullable private var listener: ItemClickListener) :
         notifyDataSetChanged()
     }
 
-    class ViewHolder(private var binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: ItemMovieBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-//        private val ivThumbnail = itemView.findViewById<ImageView>(R.id.ivThumbNail)
-//        private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
-//        private val ratingMovie = itemView.findViewById<RatingBar>(R.id.ratingMovie)
-//        private val tvReleaseYear = itemView.findViewById<TextView>(R.id.tvReleaseYear)
-//        private val tvDirector = itemView.findViewById<TextView>(R.id.tvDirector)
-//        private val tvActors = itemView.findViewById<TextView>(R.id.tvActors)
+        /*
+                private val ivThumbnail = itemView.findViewById<ImageView>(R.id.ivThumbNail)
+                private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
+                private val ratingMovie = itemView.findViewById<RatingBar>(R.id.ratingMovie)
+                private val tvReleaseYear = itemView.findViewById<TextView>(R.id.tvReleaseYear)
+                private val tvDirector = itemView.findViewById<TextView>(R.id.tvDirector)
+                private val tvActors = itemView.findViewById<TextView>(R.id.tvActors)
 
+        */
         fun bind(data: MovieData) {
 
             with(data) {
                 Log.d("img", "image : $image, title : $title")
                 val convertedText = htmlToString(title)
-                with(binding){
-                    tvTitle.text = convertedText
-                    ratingMovie.rating = userRating.toFloat() / 2
-                    tvReleaseYear.text = pubDate
-                    tvDirector.text = director
-                    tvActors.text = actor
-                    loadImage(this,image)
+
+                with(binding) {
+                    setVariable(BR.movieData, data)
+                    //tvTitle.text = convertedText
+                    //ratingMovie.rating = userRating.toFloat() / 2
+                    //tvReleaseYear.text = pubDate
+                    //tvDirector.text = director
+                    //tvActors.text = actor
+                    //loadImage(this, image)
                 }
             }
 
         }
 
-        private fun loadImage(binding: ItemMovieBinding ,image: String) {
+        private fun loadImage(binding: ItemMovieBinding, image: String) {
 
-            with(binding){
+            with(binding) {
                 if (image.trim().isNotEmpty()) {
                     Glide.with(itemView.context)
                         .load(image)

@@ -3,13 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
+
         <variable
             name="view"
             type="com.example.archstudy.ui.main.MainContract.View" />
-        
+
         <variable
             name="movieData"
             type="com.example.archstudy.data.source.local.MovieData" />
+
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,8 +52,8 @@
                 android:ellipsize="end"
                 android:maxLength="10"
                 android:maxLines="1"
-                android:text="@{movieData.title}"
                 android:textSize="@dimen/movie_name"
+                android:text="@{movieData.title}"
                 android:textStyle="bold"
                 tools:text="영화 이름" />
 
@@ -62,7 +64,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/text_margin_top"
-                android:numStars="5" />
+                android:numStars="5"
+                app:rating="@{movieData.userRating}" />
 
             <TextView
                 android:id="@+id/tvReleaseYear"
