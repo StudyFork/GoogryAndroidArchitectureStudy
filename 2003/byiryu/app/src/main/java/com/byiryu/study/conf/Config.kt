@@ -1,6 +1,6 @@
 package com.byiryu.study.conf
 
-object config{
+object Config{
 
 
     val BASE_URL = "https://openapi.naver.com/"

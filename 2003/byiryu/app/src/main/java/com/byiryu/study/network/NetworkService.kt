@@ -1,9 +1,9 @@
 package com.byiryu.study.network
 
 import com.byiryu.study.api.Apis
-import com.byiryu.study.conf.config.BASE_URL
-import com.byiryu.study.conf.config.NAVER_CLIENT_ID
-import com.byiryu.study.conf.config.NAVER_CLIENT_SECRET
+import com.byiryu.study.conf.Config.BASE_URL
+import com.byiryu.study.conf.Config.NAVER_CLIENT_ID
+import com.byiryu.study.conf.Config.NAVER_CLIENT_SECRET
 import com.google.gson.GsonBuilder
 import io.reactivex.schedulers.Schedulers
 import okhttp3.Interceptor
