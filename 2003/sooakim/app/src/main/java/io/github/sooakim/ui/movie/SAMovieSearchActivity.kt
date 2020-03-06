@@ -1,20 +1,19 @@
-package io.github.sooakim.ui
+package io.github.sooakim.ui.movie
 
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
 import io.github.sooakim.R
-import io.github.sooakim.network.SANetworkService
 import io.github.sooakim.network.model.SAMovieModel
 import io.github.sooakim.network.model.response.SANaverSearchResponse
+import io.github.sooakim.ui.base.SAActivity
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,18 +21,21 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import java.util.concurrent.TimeUnit
 
-class SAMainActivity : AppCompatActivity() {
+class SAMovieSearchActivity : SAActivity() {
     private lateinit var searchEdit: AppCompatEditText
     private lateinit var searchButton: AppCompatButton
     private lateinit var searchResultRecyclerView: RecyclerView
     private lateinit var loadingProgressBar: ProgressBar
 
-    private lateinit var searchResultAdapter: SAMainSearchResultAdapter
+    private lateinit var searchResultAdapter: SAMovieSearchResultAdapter
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
+
+    override val commonProgressView: View?
+        get() = loadingProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_movie_search)
 
         initView()
         initRecyclerView()
@@ -52,17 +54,10 @@ class SAMainActivity : AppCompatActivity() {
         loadingProgressBar = findViewById(R.id.pgb_loading)
     }
 
-    private fun showLoading() {
-        loadingProgressBar.visibility = View.VISIBLE
-    }
-
-    private fun hideLoading() {
-        loadingProgressBar.visibility = View.INVISIBLE
-    }
-
     private fun initRecyclerView() {
         if (!::searchResultAdapter.isInitialized) {
-            searchResultAdapter = SAMainSearchResultAdapter(this::onSearchResultClick)
+            searchResultAdapter =
+                SAMovieSearchResultAdapter(this::onSearchResultClick)
         }
         searchResultRecyclerView.adapter = searchResultAdapter
     }
@@ -81,7 +76,7 @@ class SAMainActivity : AppCompatActivity() {
             .distinctUntilChanged()
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext { showLoading() }
-            .switchMapSingle(SANetworkService.movieApi::getSearchMovie)
+            .switchMapSingle(requireApplication().networkService.movieApi::getSearchMovie)
             .map(SANaverSearchResponse<SAMovieModel>::items)
             .onErrorReturn { listOf() }
             .observeOn(AndroidSchedulers.mainThread())

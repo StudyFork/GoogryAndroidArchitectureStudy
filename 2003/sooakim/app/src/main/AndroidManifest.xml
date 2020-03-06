@@ -5,22 +5,38 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".ui.application.SAApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:supportsRtl="true">
 
         <activity
-            android:name=".ui.SAMainActivity"
-            android:windowSoftInputMode="adjustNothing|stateVisible">
+            android:name=".ui.SASplashActivity"
+            android:noHistory="true"
+            android:theme="@style/SplashTheme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.movie.SAMovieSearchActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing|stateVisible" />
+
+        <activity
+            android:name=".ui.login.SALoginActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
     </application>
 
 </manifest>

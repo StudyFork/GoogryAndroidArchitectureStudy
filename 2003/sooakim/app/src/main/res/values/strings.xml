@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">sooakim</string>
     <string name="activity_main_btn_search">검색</string>
+    <string name="activity_login_btn_login">로그인</string>
+    <string name="activity_login_iet_id_hint">ID</string>
+    <string name="activity_login_iet_id_error">존재하지 않는 사용자입니다.</string>
+    <string name="activity_login_iet_password_hint">Password</string>
+    <string name="activity_login_iet_password_error">패스워드가 틀렸습니다.</string>
 </resources>

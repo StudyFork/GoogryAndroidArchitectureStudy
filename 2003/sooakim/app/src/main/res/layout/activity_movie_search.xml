@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="8dp"
-    tools:context=".ui.SAMainActivity">
+    tools:context=".ui.movie.SAMovieSearchActivity">
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/et_search"
@@ -15,7 +15,10 @@
         app:layout_constraintBottom_toBottomOf="@id/btn_search"
         app:layout_constraintEnd_toStartOf="@id/btn_search"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btn_search" />
+        app:layout_constraintTop_toTopOf="@id/btn_search">
+
+        <requestFocus />
+    </androidx.appcompat.widget.AppCompatEditText>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_search"
@@ -38,7 +41,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_search" />
+        app:layout_constraintTop_toBottomOf="@id/et_search"
+        tools:listitem="@layout/item_movie_search_result" />
 
     <ProgressBar
         android:id="@+id/pgb_loading"

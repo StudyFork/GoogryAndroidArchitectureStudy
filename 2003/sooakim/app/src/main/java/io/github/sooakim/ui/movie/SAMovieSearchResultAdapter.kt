@@ -1,4 +1,4 @@
-package io.github.sooakim.ui
+package io.github.sooakim.ui.movie
 
 import android.view.LayoutInflater
 import android.view.View
@@ -15,16 +15,16 @@ import io.github.sooakim.ui.base.SARecyclerViewAdapter
 import io.github.sooakim.ui.base.SAViewHolder
 import io.github.sooakim.ui.base.SAViewHolderLifecycle
 
-class SAMainSearchResultAdapter(
+class SAMovieSearchResultAdapter(
     onItemClick: OnRecyclerViewItemClick<SAMovieModel>
-) : SARecyclerViewAdapter<SAMovieModel, SAMainSearchResultAdapter.SAItemViewHolder>(onItemClick) {
+) : SARecyclerViewAdapter<SAMovieModel, SAMovieSearchResultAdapter.SAItemViewHolder>(onItemClick) {
     override fun onCreateViewHolder(
         inflater: LayoutInflater,
         parent: ViewGroup,
         viewType: Int
     ): SAItemViewHolder {
         return SAItemViewHolder(
-            inflater.inflate(R.layout.item_main_search_result, parent, false)
+            inflater.inflate(R.layout.item_movie_search_result, parent, false)
         )
     }
 
