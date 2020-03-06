@@ -12,7 +12,6 @@ import com.example.myapplication.adapter.SearchMovieAdapter
 import com.example.myapplication.item.SearchMovieInfo
 import com.example.myapplication.item.SearchMovieItem
 import com.example.myapplication.network.RetrofitHelper
-import com.example.myapplication.network.RetrofitHelper.RequestNaverApi
 import kotlinx.android.synthetic.main.activity_search_movie.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -51,10 +50,7 @@ class SearchMovieActivity : AppCompatActivity() {
 
 
     fun getMovieList(query: String?) {
-        val requestNaverApi = RetrofitHelper.retrofit?.create(
-            RequestNaverApi::class.java
-        )
-        val call = requestNaverApi?.getMovieList(query, 10, 1, "1")
+        val call = RetrofitHelper.retrofitService.getMovieList(query, 10, 1, "1")
         call?.enqueue(object : Callback<SearchMovieInfo?> {
             override fun onResponse(
                 call: Call<SearchMovieInfo?>,
@@ -63,7 +59,7 @@ class SearchMovieActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val result = response.body()
                     if (null != result) {
-                        val moives: ArrayList<SearchMovieItem> = ArrayList(result.items!!)
+                        val moives: ArrayList<SearchMovieItem> = ArrayList(result.items)
                         movieAdapter?.addItems(moives)
                         rv_movie!!.adapter = movieAdapter
                     }

@@ -1,5 +1,6 @@
 package com.example.myapplication.network
 
+import android.util.Log
 import com.example.myapplication.item.SearchMovieInfo
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -10,20 +11,37 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
 
+
+
+/**
+ * val : immutable이라서 생성한 후에는 값을 변경할 수 없다, 생성할 때 값이 있어야 한다.
+ * lazy : 늦은 초기화, 호출 시점에 초기화를 진행한다, 호출할 때 한번만 초기화하고, 이후부터는 가져다가 쓴다.
+ * lazy 옵션 3개(SYNCHRONIZED, PUBLICATION,NONE), default는 SYNCHRONIZED
+ * */
 object RetrofitHelper {
-    var retrofit: Retrofit? = null
-        get() {
-            val interceptor = HttpLoggingInterceptor()
-            interceptor.level = HttpLoggingInterceptor.Level.BODY
-            val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
-            field = Retrofit.Builder()
-                .baseUrl(SearchMovieServerURL.URL_BASE)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
-                .build()
-            return field
+
+    private val interceptor: HttpLoggingInterceptor by lazy {
+        HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
         }
-        private set
+    }
+
+    private val client: OkHttpClient by lazy {
+        OkHttpClient.Builder().addInterceptor(interceptor).build()
+    }
+
+    private val retrofit: Retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(SearchMovieServerURL.URL_BASE)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+    }
+
+    val retrofitService: RequestNaverApi by lazy {
+        Log.d("RetrofitHelper","호출")
+        retrofit.create(RequestNaverApi::class.java)
+    }
 
     interface RequestNaverApi {
         @Headers(
