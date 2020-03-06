@@ -30,8 +30,10 @@ class NaverQueryLocalDataSourceImpl(private val localDataManager: LocalDataManag
         localDataManager.saveMovieList(jsonList)
     }
 
-    override fun saveSearchQuery(query: String) {
+    override fun saveSearchQuery(query: String) =
         localDataManager.saveSearchQuery(query)
-    }
+
+    override fun getQuery(): String =
+        localDataManager.getQuery()
 
 }
