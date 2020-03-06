@@ -22,12 +22,12 @@
         android:layout_margin="@dimen/item_margin"
         android:orientation="horizontal">
 
-        <!-- TODO : BindingAdapter 사용화기 -->
         <ImageView
             android:id="@+id/ivThumbNail"
             android:layout_width="150dp"
             android:layout_height="200dp"
             android:scaleType="fitXY"
+            app:image="@{movieData.image}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
