@@ -10,6 +10,7 @@ fun imageViewBindingAdapter(imageView: ImageView, image: String) {
 
     Glide.with(imageView.context)
         .load(image)
+        .override(600,1000)
         .error(R.drawable.no_image)
         .into(imageView)
 }
