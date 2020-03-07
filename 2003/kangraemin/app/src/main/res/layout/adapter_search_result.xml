@@ -47,7 +47,7 @@
 
         <TextView
             android:id="@+id/tv_date"
-            style="@style/movie_details"
+            style="@style/AppTheme.MovieDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +55,7 @@
 
         <TextView
             android:id="@+id/tv_director"
-            style="@style/movie_details"
+            style="@style/AppTheme.MovieDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +63,7 @@
 
         <TextView
             android:id="@+id/tv_castings"
-            style="@style/movie_details"
+            style="@style/AppTheme.MovieDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
