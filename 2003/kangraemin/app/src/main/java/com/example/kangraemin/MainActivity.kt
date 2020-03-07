@@ -21,10 +21,10 @@ class MainActivity : KangBaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val sharedPreferences = getSharedPreferences("user_info", 0)
+        val sharedPreferences = getSharedPreferences(LoginActivity.TAG_USER_INFO, 0)
         val editor = sharedPreferences.edit()
 
-        if (sharedPreferences.getBoolean("auto_login", false)) {
+        if (sharedPreferences.getBoolean(LoginActivity.TAG_AUTO_LOGIN, false)) {
             btn_logout.visibility = View.VISIBLE
         }
 
@@ -83,7 +83,7 @@ class MainActivity : KangBaseActivity() {
 
         val whenLogOutClicked = btn_logout.clicks()
             .subscribe {
-                editor.remove("auto_login")
+                editor.remove(LoginActivity.TAG_AUTO_LOGIN)
                 editor.apply()
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
