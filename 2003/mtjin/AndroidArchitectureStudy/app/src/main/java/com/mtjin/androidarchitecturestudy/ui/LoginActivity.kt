@@ -30,16 +30,16 @@ class LoginActivity : AppCompatActivity() {
         btnLogin.setOnClickListener {
             val id = tvId.text.toString().trim()
             val pw = tvPw.text.toString().trim()
-            if (id == USER_ID && pw == USER_PW) {
-                startActivity(Intent(this, MovieSearchActivity::class.java))
-                PreferenceManager.setBoolean(this, PreferenceManager.AUTO_LOGIN_KEY, true)
-                finish()
+            if (id != USER_ID || pw != USER_PW) {
+                tvPw.error = "아이디 또는 패스워드가 틀렸습니다"
             } else if (id.isEmpty()) {
                 tvId.error = "아이디를 입력해주세요"
             } else if (pw.isEmpty()) {
                 tvPw.error = "비밀번호를 입력해주세요"
             } else {
-                tvPw.error = "아이디와 또는 패스워드가 틀렸습니다"
+                startActivity(Intent(this, MovieSearchActivity::class.java))
+                PreferenceManager.setBoolean(this, PreferenceManager.AUTO_LOGIN_KEY, true)
+                finish()
             }
         }
     }
