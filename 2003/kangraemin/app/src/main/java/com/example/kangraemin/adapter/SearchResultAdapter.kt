@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.adapter_search_result.view.*
 class SearchResultAdapter :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var data = ArrayList<ResponseMovieSearch>()
+    private var data = ArrayList<ResponseMovieSearch>()
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
