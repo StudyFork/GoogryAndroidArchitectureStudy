@@ -1,6 +1,5 @@
 package com.example.architecturestudy.ui.movie
 
-import android.util.Log
 import com.example.architecturestudy.data.repository.NaverSearchRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -13,10 +12,8 @@ class MoviePresenter(
 
     private val disposable = CompositeDisposable()
 
-    override fun taskSearch(isNetwork: Boolean, keyword: String) {
-        if (repository != null) {
-
-            // 생성자
+    override fun taskSearch(keyword: String) {
+        repository?.let {
             val searchSingle = repository.getMovie(
                 keyword = keyword
             )
@@ -24,11 +21,9 @@ class MoviePresenter(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    // 성공처리
                     {
                         view.showResult(it.items)
                     },
-                    // 실패 처리
                     {
                         it.printStackTrace()
                         view.showErrorMessage(it.toString())
@@ -48,6 +43,7 @@ class MoviePresenter(
                         view.showResult(it)
                     },
                     {
+                        it.printStackTrace()
                         view.showErrorMessage(it.toString())
                     }
                 )

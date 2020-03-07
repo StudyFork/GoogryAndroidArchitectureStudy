@@ -5,13 +5,14 @@ import com.example.architecturestudy.data.model.MovieItem
 interface MovieContract {
 
     interface View {
-        fun showErrorMessage(message : String)
+        fun updateUi(keyword: String, item: List<MovieItem>)
+        fun showErrorMessage(message: String)
         fun showResult(item: List<MovieItem>)
         fun showEmpty(message: String)
     }
 
     interface Presenter {
-        fun taskSearch(isNetwork: Boolean, keyword : String)
+        fun taskSearch(keyword: String)
         fun getLastData()
         fun onStop()
     }

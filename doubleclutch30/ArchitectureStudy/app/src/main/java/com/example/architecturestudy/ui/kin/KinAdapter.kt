@@ -1,17 +1,13 @@
 package com.example.architecturestudy.ui.kin
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.text.HtmlCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.architecturestudy.R
 import com.example.architecturestudy.data.model.KinItem
-import com.example.architecturestudy.databinding.ItemImageBinding
 import com.example.architecturestudy.databinding.ItemKinBinding
 import com.example.architecturestudy.ui.startWebView
-import kotlinx.android.synthetic.main.item_kin.view.*
 
 class KinAdapter : RecyclerView.Adapter<KinAdapter.KinHolder>() {
 

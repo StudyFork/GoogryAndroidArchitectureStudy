@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="keyword"
+            type="String" />
+        <variable
+            name="presenter"
+            type="com.example.architecturestudy.ui.movie.MovieContract.Presenter" />
+        <variable
+            name="view"
+            type="com.example.architecturestudy.ui.movie.MovieContract.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context="com.example.architecturestudy.ui.MovieFragment">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_text"
@@ -19,9 +30,10 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_text"
+                android:id="@+id/search_edit"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="@{keyword}"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -31,11 +43,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:text="검색"
+            android:onClick="@{() -> presenter.taskSearch(searchEdit.getText().toString())}"
             app:layout_constraintBottom_toBottomOf="@id/input_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/input_text"
             app:layout_constraintTop_toTopOf="parent" />
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleview"
@@ -45,7 +57,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input_text" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

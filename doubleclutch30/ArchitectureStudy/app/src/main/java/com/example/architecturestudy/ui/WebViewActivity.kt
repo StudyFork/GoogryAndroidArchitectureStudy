@@ -6,9 +6,7 @@ import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.architecturestudy.R
-import com.example.architecturestudy.databinding.ActivityMainBinding
 import com.example.architecturestudy.databinding.ActivityWebviewBinding
-import kotlinx.android.synthetic.main.activity_webview.*
 
 class WebViewActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWebviewBinding

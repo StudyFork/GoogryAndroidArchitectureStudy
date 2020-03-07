@@ -1,8 +1,5 @@
 package com.example.architecturestudy.ui.movie
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +13,6 @@ import com.example.architecturestudy.Injection
 import com.example.architecturestudy.R
 import com.example.architecturestudy.data.model.MovieItem
 import com.example.architecturestudy.databinding.FragmentMovieBinding
-import kotlinx.android.synthetic.main.fragment_movie.*
 
 class MovieFragment : Fragment(), MovieContract.View {
 
@@ -26,8 +22,8 @@ class MovieFragment : Fragment(), MovieContract.View {
 
     private val presenter: MovieContract.Presenter by lazy {
         MoviePresenter(
-            this,
-            context?.let { Injection.provideNaverSearchRepository(it) }
+            view = this,
+            repository = context?.let { Injection.provideNaverSearchRepository(it) }
         )
     }
 
@@ -42,6 +38,10 @@ class MovieFragment : Fragment(), MovieContract.View {
             container,
             false
         )
+
+        binding.view = this
+        binding.presenter = presenter
+
         return binding.root
     }
 
@@ -58,21 +58,16 @@ class MovieFragment : Fragment(), MovieContract.View {
                 DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
             )
         }
-
-        binding.btnSearch.setOnClickListener {
-            if (input_text != null) {
-                val edit = edit_text.text.toString()
-                presenter.taskSearch(
-                        isNetwork = isOnline(),
-                        keyword = edit
-                    )
-            }
-        }
     }
 
     override fun onStop() {
         presenter.onStop()
         super.onStop()
+    }
+
+    override fun updateUi(keyword: String, item: List<MovieItem>) {
+        binding.searchEdit.setText(keyword)
+        showResult(item)
     }
 
     override fun showErrorMessage(message: String) {
@@ -85,11 +80,5 @@ class MovieFragment : Fragment(), MovieContract.View {
 
     override fun showResult(item: List<MovieItem>) {
         movieAdapter.update(item)
-    }
-
-    private fun isOnline(): Boolean {
-        val connMgr = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo: NetworkInfo? = connMgr.activeNetworkInfo
-        return networkInfo?.isConnected == true
     }
 }

@@ -16,7 +16,6 @@ import com.example.architecturestudy.Injection
 import com.example.architecturestudy.R
 import com.example.architecturestudy.data.model.KinItem
 import com.example.architecturestudy.databinding.FragmentKinBinding
-import kotlinx.android.synthetic.main.fragment_kin.*
 
 class KinFragment : Fragment(), KinContract.View {
 
@@ -42,6 +41,10 @@ class KinFragment : Fragment(), KinContract.View {
             container,
             false
         )
+
+        binding.view = this
+        binding.presenter = presenter
+
         return binding.root
     }
 
@@ -57,17 +60,6 @@ class KinFragment : Fragment(), KinContract.View {
             addItemDecoration(
                 DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
             )
-        }
-
-        binding.btnSearch.setOnClickListener {
-            if(input_text != null) {
-                val edit = edit_text.text.toString()
-                presenter.taskSearch(
-                        isNetwork = isOnline(),
-                        keyword = edit
-                    )
-
-            }
         }
     }
 
@@ -86,11 +78,5 @@ class KinFragment : Fragment(), KinContract.View {
 
     override fun showResult(item: List<KinItem>) {
         kinAdapter.update(item)
-    }
-
-    private fun isOnline(): Boolean {
-        val connMgr = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo: NetworkInfo? = connMgr.activeNetworkInfo
-        return networkInfo?.isConnected == true
     }
 }

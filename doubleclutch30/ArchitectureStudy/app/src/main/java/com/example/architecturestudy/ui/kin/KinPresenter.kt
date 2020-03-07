@@ -1,5 +1,6 @@
 package com.example.architecturestudy.ui.kin
 
+import android.util.Log
 import com.example.architecturestudy.data.repository.NaverSearchRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -12,8 +13,8 @@ class KinPresenter(
 
     private val disposable = CompositeDisposable()
 
-    override fun taskSearch(isNetwork: Boolean, keyword: String) {
-        if(repository != null) {
+    override fun taskSearch (keyword: String) {
+        repository?.let {
             val searchSingle = repository?.getKin(
                 keyword = keyword
             )

@@ -16,7 +16,6 @@ import com.example.architecturestudy.Injection
 import com.example.architecturestudy.R
 import com.example.architecturestudy.data.model.ImageItem
 import com.example.architecturestudy.databinding.FragmentImageBinding
-import kotlinx.android.synthetic.main.fragment_image.*
 
 class ImageFragment : Fragment(), ImageContract.View {
 
@@ -42,6 +41,10 @@ class ImageFragment : Fragment(), ImageContract.View {
             container,
             false
         )
+
+        binding.view = this
+        binding.presenter = presenter
+
         return binding.root
     }
 
@@ -56,16 +59,6 @@ class ImageFragment : Fragment(), ImageContract.View {
             layoutManager = LinearLayoutManager(activity)
             addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         }
-
-        binding.btnSearch.setOnClickListener {
-            if(input_text != null) {
-                val edit = edit_text.text.toString()
-                presenter.taskSearch(
-                        isNetWork = isOnline(),
-                        keyword = edit
-                    )
-            }
-        }
     }
 
     override fun showErrorMessage(message: String) {
@@ -78,11 +71,5 @@ class ImageFragment : Fragment(), ImageContract.View {
 
     override fun showResult(item: List<ImageItem>) {
         imageAdapter.update(item)
-    }
-
-    private fun isOnline(): Boolean {
-        val connMgr = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo: NetworkInfo? = connMgr.activeNetworkInfo
-        return networkInfo?.isConnected == true
     }
 }

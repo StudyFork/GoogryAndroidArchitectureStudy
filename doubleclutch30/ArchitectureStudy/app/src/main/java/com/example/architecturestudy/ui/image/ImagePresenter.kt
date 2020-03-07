@@ -12,8 +12,8 @@ class ImagePresenter(
 
     private val disposable = CompositeDisposable()
 
-    override fun taskSearch(isNetwork: Boolean, keyword: String) {
-        if(repository != null) {
+    override fun taskSearch(keyword: String) {
+        repository?.let {
             val searchSingle = repository?.getImage(
                 keyword = keyword
             )
