@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.kangraemin.Response.ResponseMovieSearch
 import com.example.kangraemin.adapter.SearchResultAdapter
 import com.example.kangraemin.model.KangBaseActivity
 import com.example.kangraemin.model.MovieSearchInterface

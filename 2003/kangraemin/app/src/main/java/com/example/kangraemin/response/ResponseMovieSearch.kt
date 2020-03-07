@@ -1,4 +1,4 @@
-package com.example.kangraemin.Response
+package com.example.kangraemin.response
 
 data class ItemsMovieSearch(
     val items: ArrayList<ResponseMovieSearch>
