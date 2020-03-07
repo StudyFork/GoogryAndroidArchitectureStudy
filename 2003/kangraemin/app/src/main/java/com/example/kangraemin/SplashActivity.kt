@@ -2,7 +2,7 @@ package com.example.kangraemin
 
 import android.content.Intent
 import android.os.Bundle
-import com.example.kangraemin.model.KangBaseActivity
+import com.example.kangraemin.base.KangBaseActivity
 import io.reactivex.Observable
 import java.util.concurrent.TimeUnit
 

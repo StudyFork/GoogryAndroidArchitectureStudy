@@ -1,4 +1,4 @@
-package com.example.kangraemin.model
+package com.example.kangraemin.base
 
 import androidx.appcompat.app.AppCompatActivity
 import io.reactivex.disposables.CompositeDisposable
