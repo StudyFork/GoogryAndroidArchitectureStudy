@@ -16,10 +16,10 @@ class LoginActivity : KangBaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val sharedPreferences = getSharedPreferences("user_info", 0)
+        val sharedPreferences = getSharedPreferences(TAG_USER_INFO, 0)
         val editor = sharedPreferences.edit()
 
-        if (sharedPreferences.getBoolean("auto_login", false)) {
+        if (sharedPreferences.getBoolean(TAG_AUTO_LOGIN, false)) {
             moveMain()
         }
 
@@ -74,7 +74,7 @@ class LoginActivity : KangBaseActivity() {
                 val loginSuccess = login(et_id.text.toString(), et_pw.text.toString())
                 if (loginSuccess) {
                     if (chb_auto_login.isChecked) {
-                        editor.putBoolean("auto_login", true)
+                        editor.putBoolean(TAG_AUTO_LOGIN, true)
                         editor.apply()
                     }
                     layout_pw.error = ""
@@ -97,5 +97,10 @@ class LoginActivity : KangBaseActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    companion object {
+        val TAG_AUTO_LOGIN = "auto_login"
+        val TAG_USER_INFO = "user_info"
     }
 }
