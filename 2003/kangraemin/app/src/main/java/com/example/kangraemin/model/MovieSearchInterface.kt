@@ -8,7 +8,6 @@ import retrofit2.http.Headers
 import retrofit2.http.Query
 
 interface MovieSearchInterface {
-    @Headers("Content-Type: application/json")
     @GET("/v1/search/movie.json")
     fun getSearchItems(
         @Header("X-Naver-Client-Id") clientId: String? = "5wa1hBD6a5XVIVLBnAyF",
