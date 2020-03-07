@@ -5,7 +5,7 @@ import io.reactivex.disposables.CompositeDisposable
 
 abstract class KangBaseActivity : AppCompatActivity() {
 
-    val compositeDisposable = CompositeDisposable()
+    protected val compositeDisposable = CompositeDisposable()
 
     override fun onDestroy() {
         compositeDisposable.dispose()
