@@ -8,7 +8,7 @@ abstract class KangBaseActivity : AppCompatActivity() {
     val compositeDisposable = CompositeDisposable()
 
     override fun onDestroy() {
-        super.onDestroy()
         compositeDisposable.dispose()
+        super.onDestroy()
     }
 }
