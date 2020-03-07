@@ -3,7 +3,7 @@ package com.example.kangraemin.model
 import androidx.appcompat.app.AppCompatActivity
 import io.reactivex.disposables.CompositeDisposable
 
-open class KangBaseActivity : AppCompatActivity() {
+abstract class KangBaseActivity : AppCompatActivity() {
 
     val compositeDisposable = CompositeDisposable()
 
