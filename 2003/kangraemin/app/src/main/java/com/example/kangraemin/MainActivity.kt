@@ -3,7 +3,6 @@ package com.example.kangraemin
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kangraemin.adapter.SearchResultAdapter
 import com.example.kangraemin.base.KangBaseActivity
 import com.example.kangraemin.model.MovieSearchInterface
@@ -30,7 +29,6 @@ class MainActivity : KangBaseActivity() {
 
         val adapter = SearchResultAdapter()
 
-        rv_search_result.layoutManager = LinearLayoutManager(this)
         rv_search_result.adapter = adapter
 
         val service = RetrofitClient()
