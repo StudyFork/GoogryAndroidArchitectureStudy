@@ -25,7 +25,13 @@ class MainRecyclerAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainRecyclerHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.view_main_item, parent, false)
-        return MainRecyclerHolder(itemView)
+
+        val holder = MainRecyclerHolder(itemView)
+
+        itemView.setOnClickListener {
+            onClickListener(getItem(holder.adapterPosition))
+        }
+        return holder
 
     }
 
@@ -33,14 +39,11 @@ class MainRecyclerAdapter :
         val item = getItem(position)
 
         holder.binding(item)
-        holder.itemView.setOnClickListener{
-            onClickListener(item)
-        }
 
     }
 
 
-    fun setOnclickListener(onClickListener : (MovieItem) -> Unit){
+    fun setOnclickListener(onClickListener: (MovieItem) -> Unit) {
         this.onClickListener = onClickListener
     }
 
