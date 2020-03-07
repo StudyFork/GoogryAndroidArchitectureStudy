@@ -3,4 +3,15 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="default_underline">#80D0D0D0</color>
+    <color name="highlight_underline">#B33399FF</color>
+
+    <color name="error">#B3B82521</color>
+
+    <color name="text_normal">#666666</color>
+    <color name="text_strong">#222222</color>
+
+    <color name="search_img_background">#888888</color>
+
 </resources>
