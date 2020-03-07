@@ -29,8 +29,7 @@ class MainActivity : KangBaseActivity() {
             btn_logout.visibility = View.VISIBLE
         }
 
-        val data = ArrayList<ResponseMovieSearch>()
-        val adapter = SearchResultAdapter(this, data = data)
+        val adapter = SearchResultAdapter()
 
         rv_search_result.layoutManager = LinearLayoutManager(this)
         rv_search_result.adapter = adapter
