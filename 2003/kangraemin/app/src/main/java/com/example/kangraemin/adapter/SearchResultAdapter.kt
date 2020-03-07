@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kangraemin.R
-import com.example.kangraemin.Response.ResponseMovieSearch
+import com.example.kangraemin.response.ResponseMovieSearch
 import com.example.kangraemin.util.Utils
 import kotlinx.android.synthetic.main.adapter_search_result.view.*
 

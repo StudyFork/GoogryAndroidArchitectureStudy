@@ -1,6 +1,6 @@
 package com.example.kangraemin.model
 
-import com.example.kangraemin.Response.ItemsMovieSearch
+import com.example.kangraemin.response.ItemsMovieSearch
 import io.reactivex.Flowable
 import retrofit2.http.GET
 import retrofit2.http.Header
