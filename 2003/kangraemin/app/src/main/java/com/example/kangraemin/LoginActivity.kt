@@ -12,9 +12,6 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : KangBaseActivity() {
 
-    var hasEnteredId = false
-    var hasEnteredPw = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -43,12 +40,12 @@ class LoginActivity : KangBaseActivity() {
         compositeDisposable.add(validInput)
 
         val whenIdFocusChange = et_id.focusChanges()
+            .skip(1)
             .subscribe { hasFocus ->
                 if (!hasFocus) {
-                    if (et_id.text.toString().isEmpty() && hasEnteredId) {
+                    if (et_id.text.toString().isEmpty()) {
                         layout_id.error = getString(R.string.login_error_id_empty)
                     } else {
-                        hasEnteredId = true
                         layout_id.error = null
                     }
                 } else {
@@ -58,12 +55,12 @@ class LoginActivity : KangBaseActivity() {
         compositeDisposable.add(whenIdFocusChange)
 
         val whenPwFocusChange = et_pw.focusChanges()
+            .skip(1)
             .subscribe { hasFocus ->
                 if (!hasFocus) {
-                    if (et_pw.text.toString().isEmpty() && hasEnteredPw) {
+                    if (et_pw.text.toString().isEmpty()) {
                         layout_pw.error = getString(R.string.login_error_pw_empty)
                     } else {
-                        hasEnteredPw = true
                         layout_pw.error = null
                     }
                 } else {
