@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 배경색 설정 ( splash_base는 그라데이션 적용되있음-->
+    <item android:drawable="@drawable/bg_green_gradation" />
+    <!-- 스플래시 로고 이미지 -->
+    <item>
+        <bitmap android:src="@drawable/ic_app_logo"
+            android:gravity="center" />
+    </item>
+</layer-list>
