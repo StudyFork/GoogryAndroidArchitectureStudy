@@ -1,4 +1,4 @@
-package com.mtjin.androidarchitecturestudy.data
+package com.mtjin.androidarchitecturestudy.data.source
 
 
 import com.google.gson.annotations.SerializedName

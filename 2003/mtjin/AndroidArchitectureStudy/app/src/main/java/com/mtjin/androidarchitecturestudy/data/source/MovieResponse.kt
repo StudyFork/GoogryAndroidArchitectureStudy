@@ -1,7 +1,8 @@
-package com.mtjin.androidarchitecturestudy.data
+package com.mtjin.androidarchitecturestudy.data.source
 
 
 import com.google.gson.annotations.SerializedName
+import com.mtjin.androidarchitecturestudy.data.source.Movie
 
 data class MovieResponse(
     @SerializedName("display")

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mtjin.androidarchitecturestudy.R
 import com.mtjin.androidarchitecturestudy.api.ApiClient
 import com.mtjin.androidarchitecturestudy.api.ApiInterface
-import com.mtjin.androidarchitecturestudy.data.MovieResponse
+import com.mtjin.androidarchitecturestudy.data.source.MovieResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
