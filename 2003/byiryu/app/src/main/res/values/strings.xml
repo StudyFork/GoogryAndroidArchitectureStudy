@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Study</string>
+
+    <string name="btn_search">검색</string>
+
+    <string name="msg_search_value">검색어를 입력해주세요.</string>
+
+    <string name="msg_error_loading">로딩중 오류..!</string>
 </resources>
