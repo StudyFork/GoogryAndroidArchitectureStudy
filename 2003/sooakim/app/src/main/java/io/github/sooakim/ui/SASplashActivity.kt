@@ -2,8 +2,6 @@ package io.github.sooakim.ui
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import io.github.sooakim.ui.application.SAApplication
 import io.github.sooakim.ui.base.SAActivity
 import io.github.sooakim.ui.login.SALoginActivity
 import io.github.sooakim.ui.movie.SAMovieSearchActivity
@@ -16,7 +14,7 @@ class SASplashActivity : SAActivity() {
     }
 
     private fun route() {
-        if (requireApplication().preferencesHelper.isAuthRequired) {
+        if (requireApplication().authRepository.isAuthRequired) {
             routeLogin()
         } else {
             routeMovieSearch()
