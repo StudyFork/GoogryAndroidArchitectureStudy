@@ -6,18 +6,17 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatRatingBar
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.core.text.HtmlCompat
 import com.bumptech.glide.Glide
 import io.github.sooakim.R
-import io.github.sooakim.network.model.SAMovieModel
 import io.github.sooakim.ui.base.OnRecyclerViewItemClick
 import io.github.sooakim.ui.base.SARecyclerViewAdapter
 import io.github.sooakim.ui.base.SAViewHolder
 import io.github.sooakim.ui.base.SAViewHolderLifecycle
+import io.github.sooakim.ui.movie.model.SAMovieViewModel
 
 class SAMovieSearchResultAdapter(
-    onItemClick: OnRecyclerViewItemClick<SAMovieModel>
-) : SARecyclerViewAdapter<SAMovieModel, SAMovieSearchResultAdapter.SAItemViewHolder>(onItemClick) {
+    onItemClick: OnRecyclerViewItemClick<SAMovieViewModel>
+) : SARecyclerViewAdapter<SAMovieViewModel, SAMovieSearchResultAdapter.SAItemViewHolder>(onItemClick) {
     override fun onCreateViewHolder(
         inflater: LayoutInflater,
         parent: ViewGroup,
@@ -29,7 +28,7 @@ class SAMovieSearchResultAdapter(
     }
 
     class SAItemViewHolder(itemView: View) : SAViewHolder(itemView),
-        SAViewHolderLifecycle<SAMovieModel> {
+        SAViewHolderLifecycle<SAMovieViewModel> {
         private val ivPoster: AppCompatImageView = itemView.findViewById(R.id.iv_poster)
         private val tvTitle: AppCompatTextView = itemView.findViewById(R.id.tv_title)
         private val rtbStar: AppCompatRatingBar = itemView.findViewById(R.id.rtb_star)
@@ -37,15 +36,15 @@ class SAMovieSearchResultAdapter(
         private val tvDirector: AppCompatTextView = itemView.findViewById(R.id.tv_director)
         private val tvActor: AppCompatTextView = itemView.findViewById(R.id.tv_actor)
 
-        override fun onBind(item: SAMovieModel) {
+        override fun onBind(item: SAMovieViewModel) {
             Glide.with(ivPoster)
                 .load(item.image)
                 .error(R.drawable.bg_placeholder_movie)
                 .placeholder(R.drawable.bg_placeholder_movie)
                 .into(ivPoster)
 
-            tvTitle.text = HtmlCompat.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
-            rtbStar.rating = (item.userRating.toFloatOrNull() ?: 0f) / 2
+            tvTitle.text = item.title
+            rtbStar.rating = item.userRating
             tvPublishDate.text = item.pubDate
             tvDirector.text = item.director
             tvActor.text = item.actor

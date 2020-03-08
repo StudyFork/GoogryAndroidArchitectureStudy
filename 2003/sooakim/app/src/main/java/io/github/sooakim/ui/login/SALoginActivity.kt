@@ -10,12 +10,11 @@ import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
 import io.github.sooakim.R
-import io.github.sooakim.network.model.request.SAAuthRequest
+import io.github.sooakim.data.remote.model.request.SAAuthRequest
 import io.github.sooakim.ui.base.SAActivity
 import io.github.sooakim.ui.movie.SAMovieSearchActivity
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.rxkotlin.addTo
 import java.util.concurrent.TimeUnit

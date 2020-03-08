@@ -11,13 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
 import io.github.sooakim.R
-import io.github.sooakim.network.model.SAMovieModel
-import io.github.sooakim.network.model.response.SANaverSearchResponse
 import io.github.sooakim.ui.base.SAActivity
-import io.reactivex.Observable
+import io.github.sooakim.ui.movie.model.SAMovieViewModel
+import io.reactivex.BackpressureStrategy
+import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import java.util.concurrent.TimeUnit
 
@@ -58,11 +57,13 @@ class SAMovieSearchActivity : SAActivity() {
 
     private fun bindRx() {
         val textChanges = searchEdit.textChanges()
+            .toFlowable(BackpressureStrategy.DROP)
         val buttonClick = searchButton.clicks()
             .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
             .flatMapSingle { Single.fromCallable(searchEdit::getText) }
+            .toFlowable(BackpressureStrategy.DROP)
 
-        Observable.merge(textChanges, buttonClick)
+        Flowable.merge(textChanges, buttonClick)
             .debounce(700, TimeUnit.MILLISECONDS)
             .filter(CharSequence::isNotBlank)
             .map(CharSequence::trim)
@@ -70,16 +71,18 @@ class SAMovieSearchActivity : SAActivity() {
             .distinctUntilChanged()
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext { showLoading() }
-            .switchMapSingle(requireApplication().networkService.movieApi::getSearchMovie)
-            .map(SANaverSearchResponse<SAMovieModel>::items)
-            .onErrorReturn { listOf() }
+            .switchMap(requireApplication().movieRepository::getMovies)
+            .map { it.map(requireApplication().movieMapper::mapToViewModel) }
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext { hideLoading() }
-            .subscribe(searchResultAdapter::submitList)
+            .doOnError { hideLoading() }
+            .subscribe(searchResultAdapter::submitList) {
+                it.printStackTrace()
+            }
             .addTo(compositeDisposable)
     }
 
-    private fun onSearchResultClick(item: SAMovieModel) {
+    private fun onSearchResultClick(item: SAMovieViewModel) {
         val linkString = item.link.takeIf(String::isNotBlank) ?: return
 
         Intent(Intent.ACTION_VIEW, Uri.parse(linkString)).takeIf {
