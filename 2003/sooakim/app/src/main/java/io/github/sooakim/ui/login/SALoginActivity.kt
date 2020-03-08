@@ -26,8 +26,6 @@ class SALoginActivity : SAActivity() {
     private lateinit var loginButton: AppCompatButton
     private lateinit var loadingProgressBar: ProgressBar
 
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-
     override val commonProgressView: View?
         get() = loadingProgressBar
 

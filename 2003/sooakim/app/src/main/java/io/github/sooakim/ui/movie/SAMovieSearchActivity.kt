@@ -28,7 +28,6 @@ class SAMovieSearchActivity : SAActivity() {
     private lateinit var loadingProgressBar: ProgressBar
 
     private lateinit var searchResultAdapter: SAMovieSearchResultAdapter
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override val commonProgressView: View?
         get() = loadingProgressBar
@@ -40,11 +39,6 @@ class SAMovieSearchActivity : SAActivity() {
         initView()
         initRecyclerView()
         bindRx()
-    }
-
-    override fun onDestroy() {
-        compositeDisposable.clear()
-        super.onDestroy()
     }
 
     private fun initView() {
