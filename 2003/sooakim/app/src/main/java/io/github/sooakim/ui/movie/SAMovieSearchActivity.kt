@@ -45,6 +45,9 @@ class SAMovieSearchActivity : SAActivity() {
         searchButton = findViewById(R.id.btn_search)
         searchResultRecyclerView = findViewById(R.id.rv_search_result)
         loadingProgressBar = findViewById(R.id.pgb_loading)
+
+        //restore latest
+        searchEdit.setText(requireApplication().movieRepository.latestMovieQuery)
     }
 
     private fun initRecyclerView() {

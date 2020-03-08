@@ -32,12 +32,18 @@ class SAApplication : Application() {
 
         val database = SADatabase.Factory.create(applicationContext)
         val movieLocalMapper = SAMovieLocalMapper()
-        val movieLocalDataSource = SAMovieLocalDataSourceImpl(database.movieDao, movieLocalMapper)
+        val movieLocalDataSource = SAMovieLocalDataSourceImpl(
+            preferencesHelper,
+            database.movieDao,
+            movieLocalMapper
+        )
 
         networkService = SANetworkServiceImpl()
         val movieRemoteMapper = SAMovieRemoteMapper()
-        val movieRemoteDataSource =
-            SAMovieRemoteDataSourceImpl(networkService.movieApi, movieRemoteMapper)
+        val movieRemoteDataSource = SAMovieRemoteDataSourceImpl(
+            networkService.movieApi,
+            movieRemoteMapper
+        )
 
         val movieDomainMapper = SAMovieDomainMapper()
         movieRepository = SAMovieRepositoryImpl(

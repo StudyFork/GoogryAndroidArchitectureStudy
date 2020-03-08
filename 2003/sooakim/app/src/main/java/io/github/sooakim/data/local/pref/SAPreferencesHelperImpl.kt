@@ -18,9 +18,18 @@ class SAPreferencesHelperImpl(
             }
         }
 
+    override var latestMovieQuery: String
+        get() = preferences.getString(KEY_LATEST_MOVIE_QUERY, null) ?: ""
+        set(value) {
+            preferences.edit(false) {
+                putString(KEY_LATEST_MOVIE_QUERY, value)
+            }
+        }
+
     companion object {
         const val PREF_FILE_NAME = "io.github.sooakim.data.local.pref"
 
         private const val KEY_AUTH_REQUIRED = "keyAuthRequired"
+        private const val KEY_LATEST_MOVIE_QUERY = "keyLatestMovieQuery"
     }
 }

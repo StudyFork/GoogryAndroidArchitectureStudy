@@ -12,7 +12,11 @@ class SAMovieRepositoryImpl(
     private val movieRemoteDataSource: SAMovieRemoteDataSource,
     private val movieMapper: SAMovieMapper
 ) : SAMovieRepository {
+    override val latestMovieQuery: String
+        get() = movieLocalDataSource.latestMovieQuery
+
     override fun getMovies(query: String): Flowable<List<SAMovieModel>> {
+        movieLocalDataSource.latestMovieQuery = query
         return movieLocalDataSource.getMovies(query)
             .map { it.map(movieMapper::mapToModel) }
             .retryWhen { retryWhen ->
