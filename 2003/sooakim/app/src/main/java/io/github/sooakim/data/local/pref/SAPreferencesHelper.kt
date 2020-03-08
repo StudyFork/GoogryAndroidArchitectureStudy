@@ -1,4 +1,4 @@
-package io.github.sooakim.pref
+package io.github.sooakim.data.local.pref
 
 interface SAPreferencesHelper {
     var isAuthRequired: Boolean

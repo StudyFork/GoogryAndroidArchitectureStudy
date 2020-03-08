@@ -1,10 +1,11 @@
-package io.github.sooakim.network.api
+package io.github.sooakim.data.remote.api
 
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
-import io.github.sooakim.network.model.request.SAAuthRequest
+import io.github.sooakim.data.remote.model.request.SAAuthRequest
 import io.reactivex.Completable
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Response
 
 class SAAuthApiImpl : SAAuthApi {
@@ -29,10 +30,8 @@ class SAAuthApiImpl : SAAuthApi {
     }
 
     private fun provideErrorBody(): ResponseBody {
-        return ResponseBody.create(
-            MediaType.parse("application/json"),
-            "{ message: 'invalid_information' }"
-        )
+        return "{ message: 'invalid_information' }"
+            .toResponseBody("application/json".toMediaTypeOrNull())
     }
 
     companion object {

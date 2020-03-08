@@ -1,7 +1,7 @@
-package io.github.sooakim.network.api
+package io.github.sooakim.data.remote.api
 
-import io.github.sooakim.network.model.SAMovieModel
-import io.github.sooakim.network.model.response.SANaverSearchResponse
+import io.github.sooakim.data.remote.model.SAMovieModel
+import io.github.sooakim.data.remote.model.response.SANaverSearchResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

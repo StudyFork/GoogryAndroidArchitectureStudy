@@ -1,8 +1,8 @@
-package io.github.sooakim.network.model.response
+package io.github.sooakim.data.remote.model.response
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import io.github.sooakim.network.model.SAModel
+import io.github.sooakim.data.remote.model.SAModel
 import java.util.*
 
 data class SANaverSearchResponse<Model : SAModel>(

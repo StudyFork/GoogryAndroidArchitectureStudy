@@ -1,4 +1,4 @@
-package io.github.sooakim.pref
+package io.github.sooakim.data.local.pref
 
 import android.content.Context
 import androidx.core.content.edit
@@ -19,7 +19,7 @@ class SAPreferencesHelperImpl(
         }
 
     companion object {
-        const val PREF_FILE_NAME = "io.github.sooakim.pref"
+        const val PREF_FILE_NAME = "io.github.sooakim.data.local.pref"
 
         private const val KEY_AUTH_REQUIRED = "keyAuthRequired"
     }

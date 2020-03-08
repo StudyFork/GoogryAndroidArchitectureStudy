@@ -1,13 +1,13 @@
-package io.github.sooakim.network
+package io.github.sooakim.data.remote
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.github.sooakim.BuildConfig
-import io.github.sooakim.network.api.SAAuthApi
-import io.github.sooakim.network.api.SAAuthApiImpl
-import io.github.sooakim.network.api.SANaverMovieApi
-import io.github.sooakim.network.interceptor.SANaverAuthInterceptor
+import io.github.sooakim.data.remote.api.SAAuthApi
+import io.github.sooakim.data.remote.api.SAAuthApiImpl
+import io.github.sooakim.data.remote.api.SANaverMovieApi
+import io.github.sooakim.data.remote.interceptor.SANaverAuthInterceptor
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
