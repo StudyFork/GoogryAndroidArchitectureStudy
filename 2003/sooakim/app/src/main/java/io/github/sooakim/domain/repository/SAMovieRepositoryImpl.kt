@@ -21,11 +21,14 @@ class SAMovieRepositoryImpl(
             .map { it.map(movieMapper::mapToModel) }
             .retryWhen { retryWhen ->
                 retryWhen.flatMap { error ->
-                    if (error is EmptyResultSetException) movieRemoteDataSource.getMovies(query)
-                        .flatMapCompletable(movieLocalDataSource::saveMovies)
-                        .toSingleDefault(Unit)
-                        .toFlowable()
-                    else Flowable.error(error)
+                    if (error is EmptyResultSetException) {
+                        movieRemoteDataSource.getMovies(query)
+                            .flatMapCompletable(movieLocalDataSource::saveMovies)
+                            .toSingleDefault(Unit)
+                            .toFlowable()
+                    } else {
+                        Flowable.error(error)
+                    }
                 }
             }
             .onErrorReturn { listOf() }
