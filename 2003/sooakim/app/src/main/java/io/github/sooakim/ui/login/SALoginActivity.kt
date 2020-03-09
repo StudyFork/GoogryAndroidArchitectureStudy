@@ -15,6 +15,7 @@ import io.github.sooakim.ui.movie.SAMovieSearchActivity
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.rxkotlin.addTo
 import java.util.concurrent.TimeUnit
@@ -25,6 +26,8 @@ class SALoginActivity : SAActivity() {
     private lateinit var loginButton: AppCompatButton
     private lateinit var loadingProgressBar: ProgressBar
 
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
+
     override val commonProgressView: View?
         get() = loadingProgressBar
 
@@ -34,6 +37,11 @@ class SALoginActivity : SAActivity() {
 
         initView()
         bindRx()
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.clear()
+        super.onDestroy()
     }
 
     private fun initView() {

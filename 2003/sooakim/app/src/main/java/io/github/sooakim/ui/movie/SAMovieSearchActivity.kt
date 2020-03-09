@@ -17,6 +17,7 @@ import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import java.util.concurrent.TimeUnit
 
@@ -26,6 +27,7 @@ class SAMovieSearchActivity : SAActivity() {
     private lateinit var searchResultRecyclerView: RecyclerView
     private lateinit var loadingProgressBar: ProgressBar
 
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     private lateinit var searchResultAdapter: SAMovieSearchResultAdapter
 
     override val commonProgressView: View?
@@ -38,6 +40,11 @@ class SAMovieSearchActivity : SAActivity() {
         initView()
         initRecyclerView()
         bindRx()
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.clear()
+        super.onDestroy()
     }
 
     private fun initView() {
