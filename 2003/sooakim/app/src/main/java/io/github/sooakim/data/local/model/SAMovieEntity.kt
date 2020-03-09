@@ -7,6 +7,10 @@ import java.util.Date
 
 @Entity(tableName = "movie")
 data class SAMovieEntity(
+    @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = true)
+    val id: Long,
+
     @ColumnInfo(name = "title")
     val title: String,
 
@@ -17,7 +21,6 @@ data class SAMovieEntity(
     val image: String,
 
     @ColumnInfo(name = "subtitle")
-    @PrimaryKey(autoGenerate = false)
     val subtitle: String,
 
     @ColumnInfo(name = "pubDate")

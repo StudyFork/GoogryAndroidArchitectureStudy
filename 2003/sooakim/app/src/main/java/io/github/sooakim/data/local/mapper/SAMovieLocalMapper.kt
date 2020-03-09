@@ -6,6 +6,7 @@ import io.github.sooakim.data.local.model.SAMovieEntity as SAMovieLocalModel
 class SAMovieLocalMapper : SALocalMapper<SAMovieLocalModel, SAMovieEntity> {
     override fun mapToLocal(from: SAMovieEntity): SAMovieLocalModel {
         return SAMovieLocalModel(
+            id = 0L,
             title = from.title,
             link = from.link,
             image = from.image,

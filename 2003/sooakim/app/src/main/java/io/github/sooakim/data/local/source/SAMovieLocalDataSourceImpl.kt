@@ -3,10 +3,8 @@ package io.github.sooakim.data.local.source
 import io.github.sooakim.data.local.dao.SAMovieDao
 import io.github.sooakim.data.local.mapper.SAMovieLocalMapper
 import io.github.sooakim.data.local.pref.SAPreferencesHelper
-import io.github.sooakim.data.local.utils.throwIfEmpty
 import io.github.sooakim.data.model.SAMovieEntity
 import io.reactivex.Completable
-import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
@@ -21,17 +19,17 @@ class SAMovieLocalDataSourceImpl(
             pref.latestMovieQuery = value
         }
 
-    override fun getMovies(query: String): Flowable<List<SAMovieEntity>> {
-        return movieDao.getSearchMovie(query)
+    override fun getMovies(): Single<List<SAMovieEntity>> {
+        return movieDao.getMovies()
             .map { it.map(movieLocalMapper::mapToEntity) }
-            .throwIfEmpty()
             .subscribeOn(Schedulers.io())
     }
 
     override fun saveMovies(movies: List<SAMovieEntity>): Completable {
-        return Single.just(movies)
+        return movieDao.deleteAll()
+            .andThen(Single.just(movies))
             .map { it.map(movieLocalMapper::mapToLocal) }
-            .flatMapCompletable(movieDao::saveSearchResult)
+            .flatMapCompletable(movieDao::insertMovies)
             .subscribeOn(Schedulers.io())
     }
 }

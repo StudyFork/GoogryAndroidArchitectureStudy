@@ -6,18 +6,16 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import io.github.sooakim.data.local.model.SAMovieEntity
 import io.reactivex.Completable
-import io.reactivex.Flowable
+import io.reactivex.Single
 
 @Dao
 interface SAMovieDao {
-    @Query(
-        value = "SELECT * FROM movie WHERE title LIKE ('%' || :query || '%') " +
-                "OR subtitle LIKE ('%' || :query || '%') " +
-                "OR director LIKE ('%' || :query || '%') " +
-                "OR actor LIKE ('%' || :query || '%')"
-    )
-    fun getSearchMovie(query: String): Flowable<List<SAMovieEntity>>
+    @Query("SELECT * FROM movie")
+    fun getMovies(): Single<List<SAMovieEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveSearchResult(movies: List<SAMovieEntity>): Completable
+    fun insertMovies(movies: List<SAMovieEntity>): Completable
+
+    @Query("DELETE from movie")
+    fun deleteAll(): Completable
 }
