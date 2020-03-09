@@ -1,5 +1,6 @@
 package io.github.sooakim.data.remote
 
+import com.amitshekhar.BuildConfig
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -20,7 +21,11 @@ class SANetworkServiceImpl : SANetworkService {
     }
     private val loggingInterceptor: HttpLoggingInterceptor by lazy {
         HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
+            level = if (BuildConfig.DEBUG) {
+                HttpLoggingInterceptor.Level.BODY
+            } else {
+                HttpLoggingInterceptor.Level.NONE
+            }
         }
     }
     private val okHttpClient: OkHttpClient by lazy {
