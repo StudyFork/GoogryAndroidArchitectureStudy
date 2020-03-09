@@ -1,8 +1,11 @@
-package com.mtjin.androidarchitecturestudy.data.source
+package com.mtjin.androidarchitecturestudy.data
 
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "movies")
 data class Movie(
     @SerializedName("actor")
     val actor: String,
@@ -16,6 +19,7 @@ data class Movie(
     val pubDate: String,
     @SerializedName("subtitle")
     val subtitle: String,
+    @PrimaryKey(autoGenerate = false)
     @SerializedName("title")
     val title: String,
     @SerializedName("userRating")
