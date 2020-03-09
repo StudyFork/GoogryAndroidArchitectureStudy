@@ -1,7 +1,7 @@
 package com.example.myapplication.network
 
 /**
- * baseURL에는 domain 부분만 사용
+ * URL 목록
  * */
 object SearchMovieServerURL {
     const val URL_BASE = "https://openapi.naver.com/"

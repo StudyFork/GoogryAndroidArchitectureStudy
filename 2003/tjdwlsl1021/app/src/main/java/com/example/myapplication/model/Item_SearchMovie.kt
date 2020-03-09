@@ -1,9 +1,12 @@
-package com.example.myapplication.item
+package com.example.myapplication.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class SearchMovieItem (
+/**
+ * api응답 받은 result값의 리스트 아이템
+ * */
+data class Item_SearchMovie (
     @SerializedName("title")
     @Expose
     val title: String,

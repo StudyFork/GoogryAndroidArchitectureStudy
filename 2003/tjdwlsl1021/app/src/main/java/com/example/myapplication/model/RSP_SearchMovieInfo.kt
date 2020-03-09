@@ -1,9 +1,12 @@
-package com.example.myapplication.item
+package com.example.myapplication.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class SearchMovieInfo (
+/**
+ * api응답 받는 값
+ * */
+data class RSP_SearchMovieInfo (
     @SerializedName("lastBuildDate")
     @Expose
     val lastBuildDate: String,
@@ -18,5 +21,5 @@ data class SearchMovieInfo (
     val display: Int,
     @SerializedName("items")
     @Expose
-    val items: List<SearchMovieItem>
+    val items: List<Item_SearchMovie>
 )
