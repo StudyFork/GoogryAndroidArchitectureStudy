@@ -11,7 +11,8 @@ interface KinContract {
     }
 
     interface Presenter {
-        fun taskSearch(isNetwork: Boolean, keyword: String)
+        fun taskSearch(keyword: String)
         fun getLastData()
+        fun onStop()
     }
 }

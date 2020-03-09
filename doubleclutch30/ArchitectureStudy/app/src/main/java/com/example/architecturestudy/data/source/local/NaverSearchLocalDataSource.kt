@@ -1,36 +1,26 @@
 package com.example.architecturestudy.data.source.local
 
-import com.example.architecturestudy.data.local.Entity.BlogEntity
-import com.example.architecturestudy.data.local.Entity.ImageEntity
-import com.example.architecturestudy.data.local.Entity.KinEntity
-import com.example.architecturestudy.data.local.Entity.MovieEntity
+import com.example.architecturestudy.data.local.entity.BlogEntity
+import com.example.architecturestudy.data.local.entity.ImageEntity
+import com.example.architecturestudy.data.local.entity.KinEntity
+import com.example.architecturestudy.data.local.entity.MovieEntity
+import io.reactivex.Completable
+import io.reactivex.Single
 
 interface NaverSearchLocalDataSource {
 
-    fun saveMovieItems(items: List<MovieEntity>)
-    fun saveBlogItems(items: List<BlogEntity>)
-    fun saveKinItems(items: List<KinEntity>)
-    fun saveImageItems(items: List<ImageEntity>)
+    fun saveMovieItems(items: List<MovieEntity>): Completable
+    fun saveBlogItems(items: List<BlogEntity>): Completable
+    fun saveKinItems(items: List<KinEntity>): Completable
+    fun saveImageItems(items: List<ImageEntity>): Completable
 
-    fun deleteMovie()
-    fun deleteBlog()
-    fun deleteKin()
-    fun deleteImage()
+    fun deleteMovie(): Completable
+    fun deleteBlog(): Completable
+    fun deleteKin(): Completable
+    fun deleteImage(): Completable
 
-    fun getMovieItems(
-        success: (items: List<MovieEntity>) -> Unit,
-        fail: (Throwable) -> Unit
-    )
-    fun getBlogItems(
-        success: (items: List<BlogEntity>) -> Unit,
-        fail: (Throwable) -> Unit
-    )
-    fun getKiItems(
-        success: (items: List<KinEntity>) -> Unit,
-        fail: (Throwable) -> Unit
-    )
-    fun getImageItems(
-        success: (items: List<ImageEntity>) -> Unit,
-        fail: (Throwable) -> Unit
-    )
+    fun getMovieItems(): Single<List<MovieEntity>>
+    fun getBlogItems(): Single<List<BlogEntity>>
+    fun getKiItems(): Single<List<KinEntity>>
+    fun getImageItems(): Single<List<ImageEntity>>
 }

@@ -1,6 +1,6 @@
 package com.example.architecturestudy.data.model
 
-import com.example.architecturestudy.data.local.Entity.BlogEntity
+import com.example.architecturestudy.data.local.entity.BlogEntity
 import com.google.gson.annotations.SerializedName
 
 data class BlogItem(

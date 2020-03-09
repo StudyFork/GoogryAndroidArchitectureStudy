@@ -11,7 +11,8 @@ interface ImageContract {
     }
 
     interface Presenter {
-        fun taskSearch(isNetWork: Boolean, keyword: String)
+        fun taskSearch(keyword: String)
         fun getLastData()
+        fun onStop()
     }
 }

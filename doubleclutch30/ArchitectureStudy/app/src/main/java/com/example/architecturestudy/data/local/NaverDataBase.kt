@@ -4,14 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.architecturestudy.data.local.Dao.BlogDao
-import com.example.architecturestudy.data.local.Dao.ImageDao
-import com.example.architecturestudy.data.local.Dao.KinDao
-import com.example.architecturestudy.data.local.Dao.MovieDao
-import com.example.architecturestudy.data.local.Entity.BlogEntity
-import com.example.architecturestudy.data.local.Entity.ImageEntity
-import com.example.architecturestudy.data.local.Entity.KinEntity
-import com.example.architecturestudy.data.local.Entity.MovieEntity
+import com.example.architecturestudy.data.local.entity.BlogEntity
+import com.example.architecturestudy.data.local.entity.ImageEntity
+import com.example.architecturestudy.data.local.entity.KinEntity
+import com.example.architecturestudy.data.local.entity.MovieEntity
+import com.example.architecturestudy.data.local.dao.BlogDao
+import com.example.architecturestudy.data.local.dao.ImageDao
+import com.example.architecturestudy.data.local.dao.KinDao
+import com.example.architecturestudy.data.local.dao.MovieDao
 
 @Database(entities = [MovieEntity::class, BlogEntity::class, KinEntity::class, ImageEntity::class], version = 1)
 abstract class NaverDataBase : RoomDatabase() {

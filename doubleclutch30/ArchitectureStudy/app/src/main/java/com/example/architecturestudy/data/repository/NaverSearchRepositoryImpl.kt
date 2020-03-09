@@ -7,6 +7,14 @@ import com.example.architecturestudy.data.model.KinItem
 import com.example.architecturestudy.data.model.MovieItem
 import com.example.architecturestudy.data.source.local.NaverSearchLocalDataSource
 import com.example.architecturestudy.data.source.remote.NaverSearchRemoteDataSource
+import com.example.architecturestudy.network.response.BlogData
+import com.example.architecturestudy.network.response.ImageData
+import com.example.architecturestudy.network.response.KinData
+import com.example.architecturestudy.network.response.MovieData
+import io.reactivex.Completable
+import io.reactivex.Observable
+import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 
 class NaverSearchRepositoryImpl(
     private val naverSearchRemoteDataSource: NaverSearchRemoteDataSource,
@@ -14,190 +22,73 @@ class NaverSearchRepositoryImpl(
 ) : NaverSearchRepository {
 
     override fun getMovie(
-        isNetwork: Boolean,
-        keyword: String,
-        success: (List<MovieItem>) -> Unit,
-        fail: (Throwable) -> Unit
-    ) {
-        if (isNetwork) {
-            naverSearchRemoteDataSource.getMovie(
-                keyword = keyword,
-                success = {
-                    if(it.isNotEmpty()) {
-                        naverSearchLocalDataSource.deleteMovie()
-                        naverSearchLocalDataSource.saveMovieItems(it.map { it.toEntity() })
-                        success(it)
-                    }
-                },
-                fail = fail
-            )
-        } else {
-            naverSearchLocalDataSource.getMovieItems(
-                success = {
-                    if (it.isNotEmpty()) {
-                        success(it.map { it.toItem() })
-                    } else {
-                        fail(Throwable("empty data"))
-                    }
-                },
-                fail = fail
-            )
-        }
-    }
+        keyword: String
+    ): Single<MovieData> =
+        naverSearchRemoteDataSource.getMovie(keyword = keyword)
+            .flatMap {
+                val deleteCompletable = naverSearchLocalDataSource.deleteMovie()
+                val insertCompletable = naverSearchLocalDataSource.saveMovieItems(it.items.map { it.toEntity() })
 
-    override fun getLastMovie(
-        success: (List<MovieItem>) -> Unit,
-        fail: (Throwable) -> Unit) {
-            naverSearchLocalDataSource.getMovieItems(
-                success = {
-                    if(it.isNotEmpty()) {
-                        success(it.map { it.toItem() })
-                    } else {
-                        fail(Throwable("empty data"))
-                    }
-                },
-                fail = fail
-            )
-    }
+                Completable.concat(mutableListOf(deleteCompletable,insertCompletable)).blockingAwait()
+
+                return@flatMap Single.just(it)
+            }
 
     override fun getBlog(
-        isNetwork: Boolean,
-        keyword: String,
-        success: (List<BlogItem>) -> Unit,
-        fail: (Throwable) -> Unit
-    ) {
-        if(isNetwork) {
-            naverSearchRemoteDataSource.getBlog(
-                keyword = keyword,
-                success = {
-                    if(it.isNotEmpty()) {
-                        naverSearchLocalDataSource.deleteBlog()
-                        naverSearchLocalDataSource.saveBlogItems(it.map { it.toEntity() })
-                        success(it)
-                    }
-                },
-                fail = fail
-            )
-        } else {
-            naverSearchLocalDataSource.getBlogItems(
-                success = {
-                    if (it.isNotEmpty()) {
-                        success(it.map { it.toItem() })
-                    } else {
-                        fail(Throwable("empty data"))
-                    }
-                },
-                fail = fail
-            )
-        }
-    }
+        keyword: String
+    ): Single<BlogData> =
+        naverSearchRemoteDataSource.getBlog(keyword = keyword)
+            .flatMap {
+                val deleteCompletable = naverSearchLocalDataSource.deleteBlog()
+                val insertCompletable = naverSearchLocalDataSource.saveBlogItems(it.items.map { it.toEntity() })
 
-    override fun getLastBlog(success: (List<BlogItem>) -> Unit, fail: (Throwable) -> Unit) {
-        naverSearchLocalDataSource.getBlogItems(
-            success = {
-                if(it.isNotEmpty()) {
-                    success(it.map { it.toItem() })
-                } else {
-                    fail(Throwable("empty data"))
-                }
-            },
-            fail = fail
-        )
-    }
+                Completable.concat(listOf(deleteCompletable, insertCompletable)).blockingAwait()
+
+                return@flatMap Single.just(it)
+            }
 
     override fun getKin(
-        isNetwork: Boolean,
-        keyword: String,
-        success: (List<KinItem>) -> Unit,
-        fail: (Throwable) -> Unit
-    ) {
-        if(isNetwork) {
-            naverSearchRemoteDataSource.getKin(
-                keyword = keyword,
-                success = {
-                    if(it.isNotEmpty()) {
-                        naverSearchLocalDataSource.deleteKin()
-                        naverSearchLocalDataSource.saveKinItems(it.map { it.toEntity() })
-                        success(it)
-                    }
-                },
-                fail = fail
-            )
-        } else {
-            naverSearchLocalDataSource.getKiItems(
-                 success = {
-                     if(it.isNotEmpty()) {
-                         success(it.map { it.toItem() })
-                     } else {
-                         fail(Throwable("empty data"))
-                     }
-                 },
-                fail = fail
-            )
-        }
-    }
+        keyword: String
+    ): Single<KinData> =
+        naverSearchRemoteDataSource.getKin(keyword = keyword)
+            .flatMap {
+                val deleteCompletable = naverSearchLocalDataSource.deleteKin()
+                val insertCompletable = naverSearchLocalDataSource.saveKinItems(it.items.map { it.toEntity() })
 
-    override fun getLastKin(
-        success: (List<KinItem>) -> Unit,
-        fail: (Throwable) -> Unit) {
-        naverSearchLocalDataSource.getKiItems(
-            success = {
-                if(it.isNotEmpty()) {
-                    success(it.map { it.toItem() })
-                } else {
-                    fail(Throwable("empty data"))
-                }
-            },
-            fail = fail
-        )
-    }
+                Completable.concat(listOf(deleteCompletable, insertCompletable)).blockingAwait()
+
+                return@flatMap Single.just(it)
+            }
 
     override fun getImage(
-        isNetwork: Boolean,
-        keyword: String,
-        success: (List<ImageItem>) -> Unit,
-        fail: (Throwable) -> Unit
-    ) {
-        if(isNetwork) {
-            naverSearchRemoteDataSource.getImage(
-                keyword = keyword,
-                success = {
-                    if(it.isNotEmpty()) {
-                        naverSearchLocalDataSource.deleteImage()
-                        naverSearchLocalDataSource.saveImageItems(it.map { it.toEntity() })
-                        success(it)
-                    }
+        keyword: String
+    ): Single<ImageData> =
+            naverSearchRemoteDataSource.getImage(keyword = keyword)
+                .flatMap {
+                    val deleteCompletable = naverSearchLocalDataSource.deleteImage()
+                    val insertCompletable = naverSearchLocalDataSource.saveImageItems(it.items.map { it.toEntity() })
 
-                },
-                fail = fail
-            )
-        } else {
-            naverSearchLocalDataSource.getImageItems(
-                success = {
-                    if(it.isNotEmpty()) {
-                        success(it.map { it.toItem() })
-                    } else {
-                        fail(Throwable("empty data"))
-                    }
-                },
-                fail = fail
-            )
-        }
+                    Completable.concat(listOf(deleteCompletable, insertCompletable)).blockingAwait()
 
+                    return@flatMap Single.just(it)
+                }
+
+    override fun getLastMovie(): Single<List<MovieItem>> =
+        naverSearchLocalDataSource.getMovieItems()
+            .map { it.map { it.toItem() } }
+
+    override fun getLastBlog(): Single<List<BlogItem>> {
+        return naverSearchLocalDataSource.getBlogItems()
+            .map { it.map { it.toItem() } }
     }
 
-    override fun getLastImage(
-        success: (List<ImageItem>) -> Unit,
-        fail: (Throwable) -> Unit) {
-        naverSearchLocalDataSource.getImageItems(
-            success = {
-                if(it.isNotEmpty()) {
-                    success(it.map { it.toItem() })
-                } else {
-                    fail(Throwable("empty data"))
-                }
-            },
-            fail = fail
-        )
+    override fun getLastKin(): Single<List<KinItem>> {
+        return naverSearchLocalDataSource.getKiItems()
+            .map { it.map { it.toItem() } }
+    }
+
+    override fun getLastImage(): Single<List<ImageItem>> {
+        return naverSearchLocalDataSource.getImageItems()
+            .map { it.map { it.toItem() } }
     }
 }

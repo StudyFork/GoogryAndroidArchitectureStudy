@@ -2,7 +2,9 @@ package com.example.architecturestudy
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.example.architecturestudy.databinding.ActivityMainBinding
 import com.example.architecturestudy.ui.MainContract
 import com.example.architecturestudy.ui.MainPresenter
 import com.example.architecturestudy.ui.blog.BlogFragment
@@ -10,9 +12,10 @@ import com.example.architecturestudy.ui.image.ImageFragment
 import com.example.architecturestudy.ui.kin.KinFragment
 import com.example.architecturestudy.ui.movie.MovieFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
+
+    private lateinit var binding: ActivityMainBinding
 
     private val presenter : MainContract.Presenter by lazy {
         MainPresenter(this)
@@ -20,9 +23,9 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this@MainActivity, R.layout.activity_main)
         presenter.start()
-        bottom_navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        binding.bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->

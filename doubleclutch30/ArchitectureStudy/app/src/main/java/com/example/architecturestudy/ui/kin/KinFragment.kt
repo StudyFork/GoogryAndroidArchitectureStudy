@@ -8,15 +8,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.Injection
 import com.example.architecturestudy.R
 import com.example.architecturestudy.data.model.KinItem
-import kotlinx.android.synthetic.main.fragment_kin.*
+import com.example.architecturestudy.databinding.FragmentKinBinding
 
 class KinFragment : Fragment(), KinContract.View {
+
+    private lateinit var binding: FragmentKinBinding
 
     private lateinit var kinAdapter: KinAdapter
 
@@ -32,33 +35,37 @@ class KinFragment : Fragment(), KinContract.View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_kin, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_kin,
+            container,
+            false
+        )
+
+        binding.view = this
+        binding.presenter = presenter
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         kinAdapter =  KinAdapter()
 
-        recycleview.apply {
+        presenter.getLastData()
+
+        binding.recycleview.apply {
             adapter = kinAdapter
             layoutManager = LinearLayoutManager(activity)
             addItemDecoration(
                 DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
             )
         }
+    }
 
-        presenter.getLastData()
-
-        btn_search.setOnClickListener {
-            if(input_text != null) {
-                val edit = edit_text.text.toString()
-                presenter.taskSearch(
-                        isNetwork = isOnline(),
-                        keyword = edit
-                    )
-
-            }
-        }
+    override fun onStop() {
+        super.onStop()
+        presenter.onStop()
     }
 
     override fun showErrorMessage(message: String) {
@@ -71,11 +78,5 @@ class KinFragment : Fragment(), KinContract.View {
 
     override fun showResult(item: List<KinItem>) {
         kinAdapter.update(item)
-    }
-
-    private fun isOnline(): Boolean {
-        val connMgr = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo: NetworkInfo? = connMgr.activeNetworkInfo
-        return networkInfo?.isConnected == true
     }
 }
