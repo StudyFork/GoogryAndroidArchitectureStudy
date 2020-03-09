@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import io.github.sooakim.ui.model.SAViewModel
+import io.github.sooakim.ui.model.SAPresentation
 
 typealias OnRecyclerViewItemClick<E> = ((E) -> Unit)
 
@@ -19,7 +19,7 @@ abstract class SARecyclerViewAdapter<E, VH>(
     override fun areContentsTheSame(oldItem: E, newItem: E): Boolean {
         return oldItem == newItem
     }
-}) where E : SAIdentifiable, E : SAViewModel, VH : SAViewHolder {
+}) where E : SAIdentifiable, E : SAPresentation, VH : SAViewHolder {
     private lateinit var layoutInflater: LayoutInflater
 
     private fun provideLayoutInflater(context: Context): LayoutInflater {

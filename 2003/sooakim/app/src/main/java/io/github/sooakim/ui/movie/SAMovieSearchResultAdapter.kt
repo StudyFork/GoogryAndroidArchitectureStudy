@@ -12,11 +12,13 @@ import io.github.sooakim.ui.base.OnRecyclerViewItemClick
 import io.github.sooakim.ui.base.SARecyclerViewAdapter
 import io.github.sooakim.ui.base.SAViewHolder
 import io.github.sooakim.ui.base.SAViewHolderLifecycle
-import io.github.sooakim.ui.movie.model.SAMovieViewModel
+import io.github.sooakim.ui.movie.model.SAMoviePresentation
 
 class SAMovieSearchResultAdapter(
-    onItemClick: OnRecyclerViewItemClick<SAMovieViewModel>
-) : SARecyclerViewAdapter<SAMovieViewModel, SAMovieSearchResultAdapter.SAItemViewHolder>(onItemClick) {
+    onItemClick: OnRecyclerViewItemClick<SAMoviePresentation>
+) : SARecyclerViewAdapter<SAMoviePresentation, SAMovieSearchResultAdapter.SAItemViewHolder>(
+    onItemClick
+) {
     override fun onCreateViewHolder(
         inflater: LayoutInflater,
         parent: ViewGroup,
@@ -28,7 +30,7 @@ class SAMovieSearchResultAdapter(
     }
 
     class SAItemViewHolder(itemView: View) : SAViewHolder(itemView),
-        SAViewHolderLifecycle<SAMovieViewModel> {
+        SAViewHolderLifecycle<SAMoviePresentation> {
         private val ivPoster: AppCompatImageView = itemView.findViewById(R.id.iv_poster)
         private val tvTitle: AppCompatTextView = itemView.findViewById(R.id.tv_title)
         private val rtbStar: AppCompatRatingBar = itemView.findViewById(R.id.rtb_star)
@@ -36,7 +38,7 @@ class SAMovieSearchResultAdapter(
         private val tvDirector: AppCompatTextView = itemView.findViewById(R.id.tv_director)
         private val tvActor: AppCompatTextView = itemView.findViewById(R.id.tv_actor)
 
-        override fun onBind(item: SAMovieViewModel) {
+        override fun onBind(item: SAMoviePresentation) {
             Glide.with(ivPoster)
                 .load(item.image)
                 .error(R.drawable.bg_placeholder_movie)

@@ -1,15 +1,15 @@
 package io.github.sooakim.ui.movie.mapper
 
 import io.github.sooakim.domain.model.SAMovieModel
-import io.github.sooakim.ui.mapper.SAMapper
-import io.github.sooakim.ui.movie.model.SAMovieViewModel
+import io.github.sooakim.ui.mapper.SAPresentationMapper
+import io.github.sooakim.ui.movie.model.SAMoviePresentation
 import io.github.sooakim.util.ext.formatWith
 import io.github.sooakim.util.ext.toDateWith
 import java.util.Date
 
-class SAMovieMapper : SAMapper<SAMovieModel, SAMovieViewModel> {
-    override fun mapToViewModel(from: SAMovieModel): SAMovieViewModel {
-        return SAMovieViewModel(
+class SAMovieMapper : SAPresentationMapper<SAMovieModel, SAMoviePresentation> {
+    override fun mapToPresentation(from: SAMovieModel): SAMoviePresentation {
+        return SAMoviePresentation(
             title = from.title,
             link = from.link,
             image = from.image,
@@ -21,7 +21,7 @@ class SAMovieMapper : SAMapper<SAMovieModel, SAMovieViewModel> {
         )
     }
 
-    override fun mapToModel(from: SAMovieViewModel): SAMovieModel {
+    override fun mapToModel(from: SAMoviePresentation): SAMovieModel {
         return SAMovieModel(
             title = from.title,
             link = from.link,

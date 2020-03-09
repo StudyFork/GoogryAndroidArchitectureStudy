@@ -1,9 +1,9 @@
 package io.github.sooakim.ui.movie.model
 
 import io.github.sooakim.ui.base.SAIdentifiable
-import io.github.sooakim.ui.model.SAViewModel
+import io.github.sooakim.ui.model.SAPresentation
 
-data class SAMovieViewModel(
+data class SAMoviePresentation(
     val title: String,
 
     val link: String,
@@ -19,7 +19,7 @@ data class SAMovieViewModel(
     val actor: String,
 
     val userRating: Float
-) : SAViewModel, SAIdentifiable {
+) : SAPresentation, SAIdentifiable {
     override val identifier: Any
         get() = subtitle
 }

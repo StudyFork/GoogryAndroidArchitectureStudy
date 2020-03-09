@@ -12,13 +12,12 @@ import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
 import io.github.sooakim.R
 import io.github.sooakim.ui.base.SAActivity
-import io.github.sooakim.ui.movie.model.SAMovieViewModel
+import io.github.sooakim.ui.movie.model.SAMoviePresentation
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
 import java.util.concurrent.TimeUnit
 
 class SAMovieSearchActivity : SAActivity() {
@@ -92,7 +91,7 @@ class SAMovieSearchActivity : SAActivity() {
             .addTo(compositeDisposable)
     }
 
-    private fun onSearchResultClick(item: SAMovieViewModel) {
+    private fun onSearchResultClick(item: SAMoviePresentation) {
         val linkString = item.link.takeIf(String::isNotBlank) ?: return
 
         Intent(Intent.ACTION_VIEW, Uri.parse(linkString)).takeIf {
