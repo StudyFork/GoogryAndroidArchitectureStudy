@@ -3,7 +3,7 @@ package io.github.sooakim.data.mapper
 import io.github.sooakim.data.model.SAMovieData
 import io.github.sooakim.domain.model.SAMovieModel
 
-class SAMovieDataMapper :
+object SAMovieDataMapper :
     SADataMapper<SAMovieData, SAMovieModel> {
     override fun mapToModel(from: SAMovieData): SAMovieModel {
         return SAMovieModel(

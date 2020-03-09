@@ -3,7 +3,7 @@ package io.github.sooakim.data.local.mapper
 import io.github.sooakim.data.model.SAMovieData
 import io.github.sooakim.data.local.model.SAMovieEntity as SAMovieLocalModel
 
-class SAMovieLocalMapper : SALocalMapper<SAMovieLocalModel, SAMovieData> {
+object SAMovieLocalMapper : SALocalMapper<SAMovieLocalModel, SAMovieData> {
     override fun mapToLocal(from: SAMovieData): SAMovieLocalModel {
         return SAMovieLocalModel(
             id = 0L,

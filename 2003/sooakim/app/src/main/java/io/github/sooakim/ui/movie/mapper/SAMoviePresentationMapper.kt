@@ -7,7 +7,9 @@ import io.github.sooakim.util.ext.formatWith
 import io.github.sooakim.util.ext.toDateWith
 import java.util.Date
 
-class SAMovieMapper : SAPresentationMapper<SAMovieModel, SAMoviePresentation> {
+object SAMoviePresentationMapper : SAPresentationMapper<SAMovieModel, SAMoviePresentation> {
+    private const val DATE_FORMAT_YEAR = "yyyy"
+
     override fun mapToPresentation(from: SAMovieModel): SAMoviePresentation {
         return SAMoviePresentation(
             title = from.title,
@@ -32,9 +34,5 @@ class SAMovieMapper : SAPresentationMapper<SAMovieModel, SAMoviePresentation> {
             actor = from.actor,
             userRating = from.userRating
         )
-    }
-
-    companion object {
-        private const val DATE_FORMAT_YEAR = "yyyy"
     }
 }

@@ -12,12 +12,14 @@ import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
 import io.github.sooakim.R
 import io.github.sooakim.ui.base.SAActivity
+import io.github.sooakim.ui.movie.mapper.SAMoviePresentationMapper
 import io.github.sooakim.ui.movie.model.SAMoviePresentation
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import java.util.concurrent.TimeUnit
 
 class SAMovieSearchActivity : SAActivity() {
@@ -74,14 +76,13 @@ class SAMovieSearchActivity : SAActivity() {
 
         Flowable.merge(textChanges, buttonClick)
             .debounce(700, TimeUnit.MILLISECONDS)
-            .filter(CharSequence::isNotBlank)
             .map(CharSequence::trim)
             .map(CharSequence::toString)
             .distinctUntilChanged()
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext { showLoading() }
             .switchMap(requireApplication().movieRepository::getMovies)
-            .map { it.map(requireApplication().movieMapper::mapToViewModel) }
+            .map { it.map(SAMoviePresentationMapper::mapToPresentation) }
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext { hideLoading() }
             .doOnError { hideLoading() }

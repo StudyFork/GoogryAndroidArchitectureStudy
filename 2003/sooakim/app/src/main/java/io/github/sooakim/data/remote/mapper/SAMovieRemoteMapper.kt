@@ -7,7 +7,9 @@ import io.github.sooakim.util.ext.toPlainFromHtml
 import java.util.Date
 import io.github.sooakim.data.remote.model.SAMovieModel as SAMovieRemoteModel
 
-class SAMovieRemoteMapper : SARemoteMapper<SAMovieRemoteModel, SAMovieData> {
+object SAMovieRemoteMapper : SARemoteMapper<SAMovieRemoteModel, SAMovieData> {
+    private const val DATE_FORMAT_YEAR = "yyyy"
+
     override fun mapToRemote(from: SAMovieData): SAMovieRemoteModel {
         return SAMovieRemoteModel(
             title = from.title,
@@ -32,9 +34,5 @@ class SAMovieRemoteMapper : SARemoteMapper<SAMovieRemoteModel, SAMovieData> {
             actor = from.actor.toPlainFromHtml(),
             userRating = from.userRating.toFloatOrNull() ?: 0f
         )
-    }
-
-    companion object {
-        private const val DATE_FORMAT_YEAR = "yyyy"
     }
 }

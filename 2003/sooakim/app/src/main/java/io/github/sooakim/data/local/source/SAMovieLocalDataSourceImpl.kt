@@ -10,8 +10,7 @@ import io.reactivex.schedulers.Schedulers
 
 class SAMovieLocalDataSourceImpl(
     private val pref: SAPreferencesHelper,
-    private val movieDao: SAMovieDao,
-    private val movieLocalMapper: SAMovieLocalMapper
+    private val movieDao: SAMovieDao
 ) : SAMovieLocalDataSource {
     override var latestMovieQuery: String
         get() = pref.latestMovieQuery
@@ -21,14 +20,14 @@ class SAMovieLocalDataSourceImpl(
 
     override fun getMovies(): Single<List<SAMovieData>> {
         return movieDao.getMovies()
-            .map { it.map(movieLocalMapper::mapToData) }
+            .map { it.map(SAMovieLocalMapper::mapToData) }
             .subscribeOn(Schedulers.io())
     }
 
     override fun saveMovies(movies: List<SAMovieData>): Completable {
         return movieDao.deleteAll()
             .andThen(Single.just(movies))
-            .map { it.map(movieLocalMapper::mapToLocal) }
+            .map { it.map(SAMovieLocalMapper::mapToLocal) }
             .flatMapCompletable(movieDao::insertMovies)
             .subscribeOn(Schedulers.io())
     }

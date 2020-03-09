@@ -11,8 +11,7 @@ import io.reactivex.Single
 
 class SAMovieRepositoryImpl(
     private val movieLocalDataSource: SAMovieLocalDataSource,
-    private val movieRemoteDataSource: SAMovieRemoteDataSource,
-    private val movieMapper: SAMovieDataMapper
+    private val movieRemoteDataSource: SAMovieRemoteDataSource
 ) : SAMovieRepository {
     override val latestMovieQuery: String
         get() = movieLocalDataSource.latestMovieQuery
@@ -24,14 +23,14 @@ class SAMovieRepositoryImpl(
             .flatMapPublisher { cachedMovies ->
                 if (cachedMovies.isEmpty()) {
                     getRemoteMovies(query)
-                        .map { it.map(movieMapper::mapToModel) }
+                        .map { it.map(SAMovieDataMapper::mapToModel) }
                         .toFlowable()
                         .onErrorReturn { listOf() }
                 } else {
                     val local = Single.just(cachedMovies)
-                        .map { it.map(movieMapper::mapToModel) }
+                        .map { it.map(SAMovieDataMapper::mapToModel) }
                     val remote = getRemoteMovies(query)
-                        .map { it.map(movieMapper::mapToModel) }
+                        .map { it.map(SAMovieDataMapper::mapToModel) }
                         .onErrorResumeNext { local }
                     Single.concat(local, remote)
                 }
