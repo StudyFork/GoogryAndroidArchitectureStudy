@@ -9,12 +9,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.mtjin.androidarchitecturestudy.R
-import com.mtjin.androidarchitecturestudy.api.ApiClient
-import com.mtjin.androidarchitecturestudy.api.ApiInterface
-import com.mtjin.androidarchitecturestudy.data.source.MovieResponse
+import com.mtjin.androidarchitecturestudy.data.MovieResponse
+import com.mtjin.androidarchitecturestudy.data.source.MovieRepository
+import com.mtjin.androidarchitecturestudy.data.source.MovieRepositoryImpl
+import com.mtjin.androidarchitecturestudy.data.source.local.MovieDao
+import com.mtjin.androidarchitecturestudy.data.source.local.MovieDatabase
+import com.mtjin.androidarchitecturestudy.data.source.local.MovieLocalDataSource
+import com.mtjin.androidarchitecturestudy.data.source.local.MovieLocalDataSourceImpl
+import com.mtjin.androidarchitecturestudy.data.source.remote.MovieRemoteDataSource
+import com.mtjin.androidarchitecturestudy.data.source.remote.MovieRemoteDataSourceImpl
 import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class MovieSearchActivity : AppCompatActivity() {
@@ -24,6 +28,10 @@ class MovieSearchActivity : AppCompatActivity() {
     private lateinit var rvMovies: RecyclerView
     private lateinit var movieAdapter: MovieAdapter
     private lateinit var movieCall: Call<MovieResponse>
+    private lateinit var movieRepository: MovieRepository
+    private lateinit var movieRemoteDataSource: MovieRemoteDataSource
+    private lateinit var movieLocalDataSource: MovieLocalDataSource
+    private lateinit var movieDao: MovieDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +47,11 @@ class MovieSearchActivity : AppCompatActivity() {
         rvMovies = findViewById(R.id.rv_movies)
         movieAdapter = MovieAdapter()
         rvMovies.adapter = movieAdapter
+
+        movieDao = MovieDatabase.getInstance(this).movieDao()
+        movieRemoteDataSource = MovieRemoteDataSourceImpl()
+        movieLocalDataSource = MovieLocalDataSourceImpl(movieDao)
+        movieRepository = MovieRepositoryImpl(movieRemoteDataSource, movieLocalDataSource)
     }
 
     private fun initListener() {
@@ -62,28 +75,19 @@ class MovieSearchActivity : AppCompatActivity() {
     }
 
     private fun requestMovie(query: String) {
-        movieAdapter.clear()
-        val apiInterface = ApiClient.getApiClient().create(ApiInterface::class.java)
-        movieCall = apiInterface.getSearchMovie(query)
-        movieCall.enqueue(object : Callback<MovieResponse> {
-            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                onToastMessage("불러오는데 실패 했습니다.")
-            }
-
-            override fun onResponse(
-                call: Call<MovieResponse>,
-                response: Response<MovieResponse>
-            ) {
-                with(response) {
-                    val body = body()
-                    if (isSuccessful && body != null) {
-                        body.movies.let { movieAdapter.setItems(it) }
-                    } else {
-                        onToastMessage("불러오는데 실패 했습니다.")
-                    }
+        movieRepository.getSearchMovies(query,
+            success = {
+                movieAdapter.clear()
+                movieAdapter.setItems(it)
+                if(it.isEmpty()){
+                    onToastMessage("영화를 불러왔습니다.")
+                }else{
+                    onToastMessage("해당 영화는 존재하지 않습니다.")
                 }
-            }
-        })
+            },
+            fail = {
+                onToastMessage("불러오는데 실패 했습니다.")
+            })
     }
 
     private fun onToastMessage(message: String) {
