@@ -1,7 +1,8 @@
-package io.github.sooakim.domain.repository
+package io.github.sooakim.data
 
 import io.github.sooakim.data.local.source.SAAuthLocalDataSource
 import io.github.sooakim.data.remote.source.SAAuthRemoteDataSource
+import io.github.sooakim.domain.repository.SAAuthRepository
 import io.reactivex.Flowable
 
 class SAAuthRepositoryImpl(
