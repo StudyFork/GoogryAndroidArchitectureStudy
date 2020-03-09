@@ -15,7 +15,7 @@ import io.github.sooakim.data.remote.source.SAMovieRemoteDataSourceImpl
 import io.github.sooakim.domain.repository.SAAuthRepository
 import io.github.sooakim.domain.repository.SAMovieRepository
 import io.github.sooakim.ui.movie.mapper.SAMovieMapper
-import io.github.sooakim.domain.mapper.SAMovieMapper as SAMovieDomainMapper
+import io.github.sooakim.data.mapper.SAMovieMapper as SAMovieDomainMapper
 
 class SAApplication : Application() {
     lateinit var authRepository: SAAuthRepository

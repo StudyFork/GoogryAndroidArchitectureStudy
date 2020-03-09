@@ -1,9 +1,9 @@
 package io.github.sooakim.data
 
 import io.github.sooakim.data.local.source.SAMovieLocalDataSource
+import io.github.sooakim.data.mapper.SAMovieMapper
 import io.github.sooakim.data.model.SAMovieEntity
 import io.github.sooakim.data.remote.source.SAMovieRemoteDataSource
-import io.github.sooakim.domain.mapper.SAMovieMapper
 import io.github.sooakim.domain.model.SAMovieModel
 import io.github.sooakim.domain.repository.SAMovieRepository
 import io.reactivex.Flowable
