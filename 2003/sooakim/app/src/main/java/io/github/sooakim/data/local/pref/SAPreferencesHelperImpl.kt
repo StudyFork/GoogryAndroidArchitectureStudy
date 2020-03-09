@@ -20,6 +20,7 @@ class SAPreferencesHelperImpl(
 
     override var latestMovieQuery: String
         get() = preferences.getString(KEY_LATEST_MOVIE_QUERY, null) ?: ""
+        @Synchronized
         set(value) {
             preferences.edit(false) {
                 putString(KEY_LATEST_MOVIE_QUERY, value)
