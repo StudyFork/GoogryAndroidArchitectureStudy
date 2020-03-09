@@ -79,9 +79,9 @@ class MovieSearchActivity : AppCompatActivity() {
             success = {
                 movieAdapter.clear()
                 movieAdapter.setItems(it)
-                if(it.isEmpty()){
+                if (it.isEmpty()) {
                     onToastMessage("영화를 불러왔습니다.")
-                }else{
+                } else {
                     onToastMessage("해당 영화는 존재하지 않습니다.")
                 }
             },
