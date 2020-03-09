@@ -1,6 +1,5 @@
 package io.github.sooakim.data.remote
 
-import com.amitshekhar.BuildConfig
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
