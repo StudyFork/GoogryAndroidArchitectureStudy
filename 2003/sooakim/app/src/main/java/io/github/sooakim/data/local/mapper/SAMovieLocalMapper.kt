@@ -1,10 +1,10 @@
 package io.github.sooakim.data.local.mapper
 
-import io.github.sooakim.data.model.SAMovieEntity
+import io.github.sooakim.data.model.SAMovieData
 import io.github.sooakim.data.local.model.SAMovieEntity as SAMovieLocalModel
 
-class SAMovieLocalMapper : SALocalMapper<SAMovieLocalModel, SAMovieEntity> {
-    override fun mapToLocal(from: SAMovieEntity): SAMovieLocalModel {
+class SAMovieLocalMapper : SALocalMapper<SAMovieLocalModel, SAMovieData> {
+    override fun mapToLocal(from: SAMovieData): SAMovieLocalModel {
         return SAMovieLocalModel(
             id = 0L,
             title = from.title,
@@ -18,8 +18,8 @@ class SAMovieLocalMapper : SALocalMapper<SAMovieLocalModel, SAMovieEntity> {
         )
     }
 
-    override fun mapToEntity(from: SAMovieLocalModel): SAMovieEntity {
-        return SAMovieEntity(
+    override fun mapToData(from: SAMovieLocalModel): SAMovieData {
+        return SAMovieData(
             title = from.title,
             link = from.link,
             image = from.image,

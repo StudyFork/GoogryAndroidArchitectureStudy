@@ -1,14 +1,14 @@
 package io.github.sooakim.data.remote.mapper
 
-import io.github.sooakim.data.model.SAMovieEntity
+import io.github.sooakim.data.model.SAMovieData
 import io.github.sooakim.util.ext.formatWith
 import io.github.sooakim.util.ext.toDateWith
 import io.github.sooakim.util.ext.toPlainFromHtml
 import java.util.Date
 import io.github.sooakim.data.remote.model.SAMovieModel as SAMovieRemoteModel
 
-class SAMovieRemoteMapper : SARemoteMapper<SAMovieRemoteModel, SAMovieEntity> {
-    override fun mapToRemote(from: SAMovieEntity): SAMovieRemoteModel {
+class SAMovieRemoteMapper : SARemoteMapper<SAMovieRemoteModel, SAMovieData> {
+    override fun mapToRemote(from: SAMovieData): SAMovieRemoteModel {
         return SAMovieRemoteModel(
             title = from.title,
             link = from.link,
@@ -21,8 +21,8 @@ class SAMovieRemoteMapper : SARemoteMapper<SAMovieRemoteModel, SAMovieEntity> {
         )
     }
 
-    override fun mapToEntity(from: SAMovieRemoteModel): SAMovieEntity {
-        return SAMovieEntity(
+    override fun mapToData(from: SAMovieRemoteModel): SAMovieData {
+        return SAMovieData(
             title = from.title.toPlainFromHtml(),
             link = from.link,
             image = from.image,

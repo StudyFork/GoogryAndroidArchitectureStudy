@@ -1,11 +1,11 @@
 package io.github.sooakim.data.mapper
 
-import io.github.sooakim.data.model.SAMovieEntity
+import io.github.sooakim.data.model.SAMovieData
 import io.github.sooakim.domain.model.SAMovieModel
 
-class SAMovieMapper :
-    SAMapper<SAMovieEntity, SAMovieModel> {
-    override fun mapToModel(from: SAMovieEntity): SAMovieModel {
+class SAMovieDataMapper :
+    SADataMapper<SAMovieData, SAMovieModel> {
+    override fun mapToModel(from: SAMovieData): SAMovieModel {
         return SAMovieModel(
             title = from.title,
             link = from.link,
@@ -18,8 +18,8 @@ class SAMovieMapper :
         )
     }
 
-    override fun mapToEntity(from: SAMovieModel): SAMovieEntity {
-        return SAMovieEntity(
+    override fun mapToData(from: SAMovieModel): SAMovieData {
+        return SAMovieData(
             title = from.title,
             link = from.link,
             image = from.image,

@@ -1,8 +1,8 @@
 package io.github.sooakim.data
 
 import io.github.sooakim.data.local.source.SAMovieLocalDataSource
-import io.github.sooakim.data.mapper.SAMovieMapper
-import io.github.sooakim.data.model.SAMovieEntity
+import io.github.sooakim.data.mapper.SAMovieDataMapper
+import io.github.sooakim.data.model.SAMovieData
 import io.github.sooakim.data.remote.source.SAMovieRemoteDataSource
 import io.github.sooakim.domain.model.SAMovieModel
 import io.github.sooakim.domain.repository.SAMovieRepository
@@ -12,7 +12,7 @@ import io.reactivex.Single
 class SAMovieRepositoryImpl(
     private val movieLocalDataSource: SAMovieLocalDataSource,
     private val movieRemoteDataSource: SAMovieRemoteDataSource,
-    private val movieMapper: SAMovieMapper
+    private val movieMapper: SAMovieDataMapper
 ) : SAMovieRepository {
     override val latestMovieQuery: String
         get() = movieLocalDataSource.latestMovieQuery
@@ -38,7 +38,7 @@ class SAMovieRepositoryImpl(
             }
     }
 
-    private fun getRemoteMovies(query: String): Single<List<SAMovieEntity>> {
+    private fun getRemoteMovies(query: String): Single<List<SAMovieData>> {
         return movieRemoteDataSource.getMovies(query)
             .flatMap { remoteMovies ->
                 movieLocalDataSource.saveMovies(remoteMovies)

@@ -2,7 +2,7 @@ package io.github.sooakim.data.model
 
 import java.util.Date
 
-data class SAMovieEntity(
+data class SAMovieData(
     val title: String,
 
     val link: String,
@@ -18,4 +18,4 @@ data class SAMovieEntity(
     val actor: String,
 
     val userRating: Float
-) : SAEntity
+) : SAData
