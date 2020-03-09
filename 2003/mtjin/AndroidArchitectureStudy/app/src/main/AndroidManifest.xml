@@ -4,6 +4,7 @@
     package="com.mtjin.androidarchitecturestudy">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -13,8 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.LoginActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
+        <activity
+            android:name=".ui.LoginActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ui.SplashActivity"
             android:theme="@style/SplashTheme">
