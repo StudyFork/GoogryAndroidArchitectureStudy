@@ -4,7 +4,7 @@ import io.github.sooakim.data.model.SAMovieEntity
 import io.github.sooakim.util.ext.formatWith
 import io.github.sooakim.util.ext.toDateWith
 import io.github.sooakim.util.ext.toPlainFromHtml
-import java.util.*
+import java.util.Date
 import io.github.sooakim.data.remote.model.SAMovieModel as SAMovieRemoteModel
 
 class SAMovieRemoteMapper : SARemoteMapper<SAMovieRemoteModel, SAMovieEntity> {

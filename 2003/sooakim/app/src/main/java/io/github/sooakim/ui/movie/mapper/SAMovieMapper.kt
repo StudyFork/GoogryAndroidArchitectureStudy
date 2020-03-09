@@ -5,7 +5,7 @@ import io.github.sooakim.ui.mapper.SAMapper
 import io.github.sooakim.ui.movie.model.SAMovieViewModel
 import io.github.sooakim.util.ext.formatWith
 import io.github.sooakim.util.ext.toDateWith
-import java.util.*
+import java.util.Date
 
 class SAMovieMapper : SAMapper<SAMovieModel, SAMovieViewModel> {
     override fun mapToViewModel(from: SAMovieModel): SAMovieViewModel {

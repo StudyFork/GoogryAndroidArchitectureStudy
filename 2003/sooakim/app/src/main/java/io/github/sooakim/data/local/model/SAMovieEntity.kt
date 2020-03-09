@@ -3,7 +3,7 @@ package io.github.sooakim.data.local.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
+import java.util.Date
 
 @Entity(tableName = "movie")
 data class SAMovieEntity(

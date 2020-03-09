@@ -1,7 +1,7 @@
 package io.github.sooakim.data.local.converter
 
 import androidx.room.TypeConverter
-import java.util.*
+import java.util.Date
 
 object SADateTypeConverter {
     @TypeConverter

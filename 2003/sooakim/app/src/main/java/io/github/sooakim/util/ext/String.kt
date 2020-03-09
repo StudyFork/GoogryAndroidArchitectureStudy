@@ -2,7 +2,8 @@ package io.github.sooakim.util.ext
 
 import androidx.core.text.HtmlCompat
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 fun String.formatter(pattern: String, isLocal: Boolean = false): SimpleDateFormat {
     val locale = if (isLocal) Locale.getDefault() else Locale.ENGLISH

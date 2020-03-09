@@ -1,6 +1,6 @@
 package io.github.sooakim.data.model
 
-import java.util.*
+import java.util.Date
 
 data class SAMovieEntity(
     val title: String,
