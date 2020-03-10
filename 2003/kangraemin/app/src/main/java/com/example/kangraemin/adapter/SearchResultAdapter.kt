@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kangraemin.R
-import com.example.kangraemin.response.ResponseMovieSearch
+import com.example.kangraemin.model.remote.datamodel.MovieDetail
 import com.example.kangraemin.util.Utils
 import kotlinx.android.synthetic.main.adapter_search_result.view.*
 
 class SearchResultAdapter :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var data = ArrayList<ResponseMovieSearch>()
+    private var data = ArrayList<MovieDetail>()
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -29,6 +29,10 @@ class SearchResultAdapter :
 
     override fun getItemCount(): Int {
         return data.size
+    }
+
+    fun setData(data: ArrayList<MovieDetail>) {
+        this.data = data
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
