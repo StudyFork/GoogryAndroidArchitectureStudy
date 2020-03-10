@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.mtjin.androidarchitecturestudy.R
-import com.mtjin.androidarchitecturestudy.data.MovieResponse
 import com.mtjin.androidarchitecturestudy.data.source.MovieRepository
 import com.mtjin.androidarchitecturestudy.data.source.MovieRepositoryImpl
 import com.mtjin.androidarchitecturestudy.data.source.local.MovieDao
@@ -18,7 +17,6 @@ import com.mtjin.androidarchitecturestudy.data.source.local.MovieLocalDataSource
 import com.mtjin.androidarchitecturestudy.data.source.local.MovieLocalDataSourceImpl
 import com.mtjin.androidarchitecturestudy.data.source.remote.MovieRemoteDataSource
 import com.mtjin.androidarchitecturestudy.data.source.remote.MovieRemoteDataSourceImpl
-import retrofit2.Call
 
 
 class MovieSearchActivity : AppCompatActivity() {
@@ -27,7 +25,6 @@ class MovieSearchActivity : AppCompatActivity() {
     private lateinit var btnSearch: Button
     private lateinit var rvMovies: RecyclerView
     private lateinit var movieAdapter: MovieAdapter
-    private lateinit var movieCall: Call<MovieResponse>
     private lateinit var movieRepository: MovieRepository
     private lateinit var movieRemoteDataSource: MovieRemoteDataSource
     private lateinit var movieLocalDataSource: MovieLocalDataSource
@@ -94,10 +91,4 @@ class MovieSearchActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        if (this::movieCall.isInitialized) {
-            movieCall.cancel()
-        }
-    }
 }
