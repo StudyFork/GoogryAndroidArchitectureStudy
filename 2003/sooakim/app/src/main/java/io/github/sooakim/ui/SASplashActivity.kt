@@ -22,10 +22,10 @@ class SASplashActivity : SAActivity() {
     }
 
     private fun routeLogin() {
-        startActivity(Intent(applicationContext, SALoginActivity::class.java))
+        startActivity(Intent(this, SALoginActivity::class.java))
     }
 
     private fun routeMovieSearch() {
-        startActivity(Intent(applicationContext, SAMovieSearchActivity::class.java))
+        startActivity(Intent(this, SAMovieSearchActivity::class.java))
     }
 }

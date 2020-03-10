@@ -109,7 +109,7 @@ class SALoginActivity : SAActivity() {
     }
 
     private fun routeMovieSearch() {
-        startActivity(Intent(application, SAMovieSearchActivity::class.java))
+        startActivity(Intent(this, SAMovieSearchActivity::class.java))
         finish()
     }
 }
