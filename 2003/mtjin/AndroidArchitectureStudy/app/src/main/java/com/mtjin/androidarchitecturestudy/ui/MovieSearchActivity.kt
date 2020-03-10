@@ -9,14 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.mtjin.androidarchitecturestudy.R
-import com.mtjin.androidarchitecturestudy.data.source.MovieRepository
-import com.mtjin.androidarchitecturestudy.data.source.MovieRepositoryImpl
-import com.mtjin.androidarchitecturestudy.data.source.local.MovieDao
-import com.mtjin.androidarchitecturestudy.data.source.local.MovieDatabase
-import com.mtjin.androidarchitecturestudy.data.source.local.MovieLocalDataSource
-import com.mtjin.androidarchitecturestudy.data.source.local.MovieLocalDataSourceImpl
-import com.mtjin.androidarchitecturestudy.data.source.remote.MovieRemoteDataSource
-import com.mtjin.androidarchitecturestudy.data.source.remote.MovieRemoteDataSourceImpl
+import com.mtjin.androidarchitecturestudy.utils.MyApplication
 
 
 class MovieSearchActivity : AppCompatActivity() {
@@ -25,10 +18,7 @@ class MovieSearchActivity : AppCompatActivity() {
     private lateinit var btnSearch: Button
     private lateinit var rvMovies: RecyclerView
     private lateinit var movieAdapter: MovieAdapter
-    private lateinit var movieRepository: MovieRepository
-    private lateinit var movieRemoteDataSource: MovieRemoteDataSource
-    private lateinit var movieLocalDataSource: MovieLocalDataSource
-    private lateinit var movieDao: MovieDao
+    private lateinit var myApplication: MyApplication
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,16 +29,12 @@ class MovieSearchActivity : AppCompatActivity() {
     }
 
     private fun initView() {
+        myApplication = application as MyApplication
         etInput = findViewById(R.id.et_input)
         btnSearch = findViewById(R.id.btn_search)
         rvMovies = findViewById(R.id.rv_movies)
         movieAdapter = MovieAdapter()
         rvMovies.adapter = movieAdapter
-
-        movieDao = MovieDatabase.getInstance(this).movieDao()
-        movieRemoteDataSource = MovieRemoteDataSourceImpl()
-        movieLocalDataSource = MovieLocalDataSourceImpl(movieDao)
-        movieRepository = MovieRepositoryImpl(movieRemoteDataSource, movieLocalDataSource)
     }
 
     private fun initListener() {
@@ -72,7 +58,7 @@ class MovieSearchActivity : AppCompatActivity() {
     }
 
     private fun requestMovie(query: String) {
-        movieRepository.getSearchMovies(query,
+        myApplication.movieRepository.getSearchMovies(query,
             success = {
                 movieAdapter.clear()
                 movieAdapter.setItems(it)
