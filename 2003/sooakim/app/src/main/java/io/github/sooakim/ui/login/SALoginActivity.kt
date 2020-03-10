@@ -10,10 +10,10 @@ import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
 import io.github.sooakim.R
-import io.github.sooakim.network.model.request.SAAuthRequest
 import io.github.sooakim.ui.base.SAActivity
 import io.github.sooakim.ui.movie.SAMovieSearchActivity
-import io.reactivex.Observable
+import io.reactivex.BackpressureStrategy
+import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
@@ -39,6 +39,11 @@ class SALoginActivity : SAActivity() {
         bindRx()
     }
 
+    override fun onDestroy() {
+        compositeDisposable.clear()
+        super.onDestroy()
+    }
+
     private fun initView() {
         idInputEditText = findViewById(R.id.iet_id)
         passwordInputEditText = findViewById(R.id.iet_password)
@@ -49,26 +54,26 @@ class SALoginActivity : SAActivity() {
     private fun bindRx() {
         val idChanges = idInputEditText.textChanges()
             .map(CharSequence::toString)
+            .toFlowable(BackpressureStrategy.DROP)
         val pwChanges = passwordInputEditText.textChanges()
             .map(CharSequence::toString)
-        val request = Observable.combineLatest(
+            .toFlowable(BackpressureStrategy.DROP)
+        val request = Flowable.combineLatest(
             idChanges,
             pwChanges,
-            BiFunction<String, String, SAAuthRequest> { id, password ->
-                SAAuthRequest(id, password)
+            BiFunction<String, String, Pair<String, String>> { id, password ->
+                id to password
             }
         )
 
         loginButton.clicks()
+            .toFlowable(BackpressureStrategy.DROP)
             .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
             .doOnNext { clearError() }
             .flatMap { request }
             .doOnNext { showLoading() }
-            .switchMap {
-                requireApplication().networkService.authApi
-                    .postLogin(it)
-                    .toSingleDefault(Unit)
-                    .toObservable()
+            .switchMap { (id, password) ->
+                requireApplication().authRepository.login(id, password)
             }
             .doOnNext { hideLoading() }
             .doOnError { hideLoading() }
@@ -104,9 +109,7 @@ class SALoginActivity : SAActivity() {
     }
 
     private fun routeMovieSearch() {
-        requireApplication().preferencesHelper.isAuthRequired = false
-
-        startActivity(Intent(application, SAMovieSearchActivity::class.java))
+        startActivity(Intent(this, SAMovieSearchActivity::class.java))
         finish()
     }
 }

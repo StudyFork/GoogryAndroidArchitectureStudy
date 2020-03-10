@@ -1,18 +1,51 @@
 package io.github.sooakim.ui.application
 
 import android.app.Application
-import io.github.sooakim.network.SANetworkService
-import io.github.sooakim.network.SANetworkServiceImpl
-import io.github.sooakim.pref.SAPreferencesHelper
-import io.github.sooakim.pref.SAPreferencesHelperImpl
+import io.github.sooakim.data.SAAuthRepositoryImpl
+import io.github.sooakim.data.SAMovieRepositoryImpl
+import io.github.sooakim.data.local.SADatabase
+import io.github.sooakim.data.local.pref.SAPreferencesHelperImpl
+import io.github.sooakim.data.local.source.SAAuthLocalDataSourceImpl
+import io.github.sooakim.data.local.source.SAMovieLocalDataSourceImpl
+import io.github.sooakim.data.remote.SANetworkServiceImpl
+import io.github.sooakim.data.remote.source.SAAuthRemoteDataSourceImpl
+import io.github.sooakim.data.remote.source.SAMovieRemoteDataSourceImpl
+import io.github.sooakim.domain.repository.SAAuthRepository
+import io.github.sooakim.domain.repository.SAMovieRepository
 
 class SAApplication : Application() {
-    lateinit var preferencesHelper: SAPreferencesHelper
-    lateinit var networkService: SANetworkService
+    lateinit var authRepository: SAAuthRepository
+    lateinit var movieRepository: SAMovieRepository
 
     override fun onCreate() {
         super.onCreate()
-        preferencesHelper = SAPreferencesHelperImpl(applicationContext)
-        networkService = SANetworkServiceImpl()
+        inject()
+    }
+
+    private fun inject() {
+        val prefHelper = SAPreferencesHelperImpl(applicationContext)
+        val database = SADatabase.Factory.create(applicationContext)
+        val networkService = SANetworkServiceImpl()
+
+        val authLocalDataSource = SAAuthLocalDataSourceImpl(prefHelper)
+        val authRemoteDataSource = SAAuthRemoteDataSourceImpl(networkService.authApi)
+        authRepository = SAAuthRepositoryImpl(
+            authLocalDataSource,
+            authRemoteDataSource
+        )
+
+        val movieLocalDataSource = SAMovieLocalDataSourceImpl(
+            prefHelper,
+            database.movieDao
+        )
+
+        val movieRemoteDataSource = SAMovieRemoteDataSourceImpl(
+            networkService.movieApi
+        )
+
+        movieRepository = SAMovieRepositoryImpl(
+            movieLocalDataSource,
+            movieRemoteDataSource
+        )
     }
 }

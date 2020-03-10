@@ -1,8 +1,8 @@
 package io.github.sooakim.ui.base
 
-import io.github.sooakim.network.model.SAModel
+import io.github.sooakim.ui.model.SAPresentation
 
-interface SAViewHolderLifecycle<T : SAModel> {
+interface SAViewHolderLifecycle<T : SAPresentation> {
     fun onBind(item: T)
 
     fun onRecycle()
