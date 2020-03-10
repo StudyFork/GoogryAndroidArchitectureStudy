@@ -7,9 +7,7 @@ import io.github.sooakim.ui.application.SAApplication
 abstract class SAActivity : AppCompatActivity() {
     protected open val commonProgressView: View? = null
     protected val application: SAApplication?
-        get() {
-            return (applicationContext as? SAApplication)
-        }
+        get() = (applicationContext as? SAApplication)
 
     fun showLoading() {
         commonProgressView?.visibility = View.VISIBLE
