@@ -5,16 +5,15 @@ import android.os.Bundle
 import android.view.View
 import com.example.kangraemin.adapter.SearchResultAdapter
 import com.example.kangraemin.base.KangBaseActivity
-import com.example.kangraemin.model.MovieSearchInterface
+import com.example.kangraemin.model.MovieSearchRepository
 import com.example.kangraemin.util.NetworkUtil
-import com.example.kangraemin.util.RetrofitClient
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : KangBaseActivity() {
+
+    val adapter = SearchResultAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,13 +26,9 @@ class MainActivity : KangBaseActivity() {
             btn_logout.visibility = View.VISIBLE
         }
 
-        val adapter = SearchResultAdapter()
-
         rv_search_result.adapter = adapter
 
-        val service = RetrofitClient()
-            .getClient("https://openapi.naver.com")
-            .create(MovieSearchInterface::class.java)
+        search("")
 
         val whenSearchTextChanged = et_search.textChanges()
             .map { enteredText ->
@@ -61,17 +56,7 @@ class MainActivity : KangBaseActivity() {
                 if (connectedToInternet) {
                     rv_search_result.visibility = View.VISIBLE
                     tv_network_error.visibility = View.GONE
-                    service.getSearchItems(
-                        display = "10",
-                        start = "1",
-                        query = et_search.text.toString()
-                    )
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({ responseMovieSearch ->
-                            adapter.data = responseMovieSearch.items
-                            adapter.notifyDataSetChanged()
-                        }, { it.printStackTrace() })
+                    search(et_search.text.toString())
                 } else {
                     rv_search_result.visibility = View.GONE
                     tv_network_error.visibility = View.VISIBLE
@@ -87,6 +72,15 @@ class MainActivity : KangBaseActivity() {
                 finish()
             }
         compositeDisposable.add(whenLogOutClicked)
+    }
 
+    private fun search(query: String) {
+        val whenSearchFinished = MovieSearchRepository()
+            .getMovieData(query = query, context = this)
+            .subscribe({ responseMovieSearch ->
+                adapter.setData(responseMovieSearch.items)
+                adapter.notifyDataSetChanged()
+            }, { it.printStackTrace() })
+        compositeDisposable.add(whenSearchFinished)
     }
 }
