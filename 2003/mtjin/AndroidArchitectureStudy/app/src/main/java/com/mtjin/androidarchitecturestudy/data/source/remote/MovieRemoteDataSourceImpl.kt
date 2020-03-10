@@ -11,13 +11,12 @@ import retrofit2.Response
 
 class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
     private lateinit var movieCall: Call<MovieResponse>
-
+    private val apiInterface: ApiInterface = ApiClient.getApiClient().create(ApiInterface::class.java)
     override fun getSearchMovies(
         query: String,
         success: (List<Movie>) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        val apiInterface = ApiClient.getApiClient().create(ApiInterface::class.java)
         movieCall = apiInterface.getSearchMovie(query)
         movieCall.enqueue(object : Callback<MovieResponse> {
             override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
