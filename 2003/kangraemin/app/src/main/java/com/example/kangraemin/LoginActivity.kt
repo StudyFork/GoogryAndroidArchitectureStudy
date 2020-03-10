@@ -100,7 +100,7 @@ class LoginActivity : KangBaseActivity() {
     }
 
     companion object {
-        val TAG_AUTO_LOGIN = "auto_login"
-        val TAG_USER_INFO = "user_info"
+        const val TAG_AUTO_LOGIN = "auto_login"
+        const val TAG_USER_INFO = "user_info"
     }
 }
