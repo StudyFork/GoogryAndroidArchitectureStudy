@@ -3,6 +3,7 @@ package com.mtjin.androidarchitecturestudy.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -62,19 +63,20 @@ class MovieSearchActivity : AppCompatActivity() {
             success = {
                 movieAdapter.clear()
                 movieAdapter.setItems(it)
-                if (it.isEmpty()) {
-                    onToastMessage("영화를 불러왔습니다.")
-                } else {
-                    onToastMessage("해당 영화는 존재하지 않습니다.")
-                }
+                onToastMessage("영화를 불러왔습니다.")
             },
             fail = {
+                Log.d(TAG, it.toString())
                 onToastMessage("불러오는데 실패 했습니다.")
             })
     }
 
     private fun onToastMessage(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    companion object {
+        const val TAG = "MovieSearchActivity"
     }
 
 }
