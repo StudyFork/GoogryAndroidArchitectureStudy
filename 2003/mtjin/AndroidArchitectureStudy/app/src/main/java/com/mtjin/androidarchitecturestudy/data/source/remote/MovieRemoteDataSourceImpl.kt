@@ -20,7 +20,7 @@ class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
         movieCall = apiInterface.getSearchMovie(query)
         movieCall.enqueue(object : Callback<MovieResponse> {
             override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                Log.d(TAG, "Remote 데이터 검색 실패")
+                Log.d(TAG, "Remote onFailure")
                 fail(t)
             }
 
@@ -31,11 +31,11 @@ class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
                 with(response) {
                     val body = body()
                     if (isSuccessful && body != null) {
-                        Log.d(TAG, "Remote 데이터 검색 성공")
+                        Log.d(TAG, "Remote onResponse success")
                         success(body.movies)
                     } else {
-                        Log.d(TAG, "Remote 데이터 검색 실패")
-                        fail(Throwable("error"))
+                        Log.d(TAG, "Remote onResponse fail")
+                        fail(Throwable(response.code().toString()))
                     }
                 }
             }
