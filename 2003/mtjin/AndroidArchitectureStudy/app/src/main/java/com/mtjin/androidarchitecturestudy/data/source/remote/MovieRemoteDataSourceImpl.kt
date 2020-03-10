@@ -23,7 +23,6 @@ class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
             override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                 Log.d(TAG, "Remote 데이터 검색 실패")
                 fail(t)
-                movieCall.cancel()
             }
 
             override fun onResponse(
@@ -39,10 +38,10 @@ class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
                         Log.d(TAG, "Remote 데이터 검색 실패")
                         fail(Throwable("error"))
                     }
-                    movieCall.cancel()
                 }
             }
         })
+        movieCall.cancel()
     }
 
     companion object {
