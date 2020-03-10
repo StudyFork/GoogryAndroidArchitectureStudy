@@ -12,12 +12,12 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMovies(movies: List<Movie>)
 
-    @Query("SELECT * FROM Movies")
+    @Query("SELECT * FROM Movie")
     suspend fun getAllMovies(): List<Movie>
 
-    @Query("SELECT * FROM Movies WHERE title LIKE '%' || :title || '%'")
+    @Query("SELECT * FROM Movie WHERE title LIKE '%' || :title || '%'")
     suspend fun getMoviesByTitle(title: String): List<Movie>
 
-    @Query("DELETE FROM Movies")
+    @Query("DELETE FROM Movie")
     suspend fun deleteAllMovies()
 }

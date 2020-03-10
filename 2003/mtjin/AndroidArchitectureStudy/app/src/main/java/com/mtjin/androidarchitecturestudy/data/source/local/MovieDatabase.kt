@@ -19,7 +19,7 @@ abstract class MovieDatabase : RoomDatabase() {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(
                             context.applicationContext,
-                            MovieDatabase::class.java, "Movies"
+                            MovieDatabase::class.java, "Movie.db"
                         )
                         .build()
                 }
