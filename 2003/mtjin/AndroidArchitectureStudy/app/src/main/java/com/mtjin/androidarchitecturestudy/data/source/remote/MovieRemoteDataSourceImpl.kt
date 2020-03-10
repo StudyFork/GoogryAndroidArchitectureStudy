@@ -40,7 +40,6 @@ class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
                 }
             }
         })
-        movieCall.cancel()
     }
 
     companion object {
