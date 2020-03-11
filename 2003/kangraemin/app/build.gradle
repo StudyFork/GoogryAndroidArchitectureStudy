@@ -71,5 +71,4 @@ dependencies {
     testImplementation "androidx.room:room-testing:$room_version"
 
     kapt "androidx.room:room-compiler:$room_version"
-    kapt "android.arch.persistence.room:compiler:$room_version"
 }
