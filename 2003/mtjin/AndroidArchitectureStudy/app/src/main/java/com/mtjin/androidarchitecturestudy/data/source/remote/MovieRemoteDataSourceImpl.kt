@@ -6,7 +6,9 @@ import com.mtjin.androidarchitecturestudy.data.Movie
 import com.mtjin.androidarchitecturestudy.data.MovieResponse
 import retrofit2.Call
 import retrofit2.Callback
+import retrofit2.HttpException
 import retrofit2.Response
+
 
 class MovieRemoteDataSourceImpl(private val apiInterface: ApiInterface) : MovieRemoteDataSource {
     override fun getSearchMovies(
@@ -32,7 +34,7 @@ class MovieRemoteDataSourceImpl(private val apiInterface: ApiInterface) : MovieR
                         success(body.movies)
                     } else {
                         Log.d(TAG, "Remote onResponse fail")
-                        fail(Throwable(response.code().toString()))
+                        fail(Throwable(HttpException(this)))
                     }
                 }
             }
