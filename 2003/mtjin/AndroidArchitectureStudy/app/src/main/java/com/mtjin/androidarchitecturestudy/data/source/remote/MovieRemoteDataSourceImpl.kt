@@ -34,7 +34,7 @@ class MovieRemoteDataSourceImpl(private val apiInterface: ApiInterface) : MovieR
                         success(body.movies)
                     } else {
                         Log.d(TAG, "Remote onResponse fail")
-                        fail(Throwable(HttpException(this)))
+                        fail(HttpException(this))
                     }
                 }
             }
