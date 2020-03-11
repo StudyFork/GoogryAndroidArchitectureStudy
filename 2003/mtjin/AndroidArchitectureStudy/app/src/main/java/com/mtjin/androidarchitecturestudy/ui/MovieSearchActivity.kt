@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.mtjin.androidarchitecturestudy.R
 import com.mtjin.androidarchitecturestudy.utils.MyApplication
+import retrofit2.HttpException
 
 
 class MovieSearchActivity : AppCompatActivity() {
@@ -61,13 +62,20 @@ class MovieSearchActivity : AppCompatActivity() {
     private fun requestMovie(query: String) {
         myApplication.movieRepository.getSearchMovies(query,
             success = {
-                movieAdapter.clear()
-                movieAdapter.setItems(it)
-                onToastMessage("영화를 불러왔습니다.")
+                if (it.isEmpty()) {
+                    onToastMessage("해당 영화는 존재하지 않습니다.")
+                } else {
+                    movieAdapter.clear()
+                    movieAdapter.setItems(it)
+                    onToastMessage("영화를 불러왔습니다.")
+                }
             },
             fail = {
                 Log.d(TAG, it.toString())
-                onToastMessage("불러오는데 실패 했습니다.")
+                when (it) {
+                    is HttpException -> onToastMessage("네트워크에 문제가 있습니다.")
+                    else -> onToastMessage(it.message.toString())
+                }
             })
     }
 

@@ -52,7 +52,7 @@ class MovieRepositoryImpl(
                 launch {
                     with(movieLocalDataSource.getSearchMovies(query)) {
                         if (this.isEmpty()) {
-                            fail(Throwable("해당 영화는 존재하지 않습니다."))
+                            fail(Throwable("해당 영화는 존재하지 않습니다.\n네트워크를 연결해서 검색해주세요"))
                         } else {
                             success(this)
                         }
