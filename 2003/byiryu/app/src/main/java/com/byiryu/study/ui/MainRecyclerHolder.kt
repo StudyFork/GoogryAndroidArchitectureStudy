@@ -5,7 +5,7 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.byiryu.study.R
-import com.byiryu.study.api.model.MovieItem
+import com.byiryu.study.model.entity.MovieItem
 import kotlinx.android.synthetic.main.view_main_item.view.*
 
 class MainRecyclerHolder(
