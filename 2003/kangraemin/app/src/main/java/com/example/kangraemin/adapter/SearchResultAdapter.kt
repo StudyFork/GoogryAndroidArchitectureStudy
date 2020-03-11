@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.adapter_search_result.view.*
 class SearchResultAdapter :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var data = ArrayList<MovieDetail>()
+    private val data = ArrayList<MovieDetail>()
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -32,7 +32,8 @@ class SearchResultAdapter :
     }
 
     fun setData(data: ArrayList<MovieDetail>) {
-        this.data = data
+        this.data.clear()
+        this.data.addAll(data)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
