@@ -13,6 +13,7 @@ class Repository {
         query: String
     ): Single<List<MovieItem>> {
         return remoteDataSource.getMoveList(query)
+            .map { it.items }
     }
 
 }
