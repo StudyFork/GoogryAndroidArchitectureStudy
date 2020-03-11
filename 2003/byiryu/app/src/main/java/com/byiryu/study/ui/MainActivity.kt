@@ -6,12 +6,17 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.byiryu.study.R
+import com.byiryu.study.model.Repository
 import com.byiryu.study.network.NetworkService.retrofit
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
+
+    private val repository = Repository()
+    override val progressBar: View
+        get() = loading
 
     private var disposable: Disposable? = null
 
@@ -25,7 +30,6 @@ class MainActivity : BaseActivity() {
 
     }
 
-
     private fun bind() {
 
         recyclerView.adapter = adapter
@@ -37,37 +41,24 @@ class MainActivity : BaseActivity() {
         btn_search.setOnClickListener {
             val text = editText.text.toString()
 
+
             if (text.isEmpty()) {
                 showMsg(R.string.msg_search_value)
             } else {
-                disposable = retrofit.getSearchMovie(text)
+                disposable = repository.getMovieList(text)
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnSubscribe {
-                        showLoading(true)
+                        showLoading()
+                    }.doOnSuccess{
+                        hideLoading()
+                    }.doOnError {
                     }
-                    .doOnSuccess {
-                        showLoading(false)
-                    }
-                    .doOnError {
-                        showMsg(R.string.msg_error_loading)
-                    }
-                    .subscribe(
-                        {
-                            adapter.submitList(it.items)
-                        },
-                        { t ->
-                            Log.e("MainActivity", t.toString())
-                        }
-                    )
+                    .subscribe({
+                        adapter.submitList(it)
+                    },{
+                        showMsg("오류 발생 : $it")
+                    })
             }
-        }
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            loading.visibility = View.VISIBLE
-        } else {
-            loading.visibility = View.INVISIBLE
         }
     }
 
