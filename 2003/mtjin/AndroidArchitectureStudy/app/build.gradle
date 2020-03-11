@@ -45,7 +45,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
     //glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    kapt 'com.github.bumptech.glide:compiler:4.9.0'
     //rxjava
     implementation "io.reactivex.rxjava2:rxjava:2.2.12"
     implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
@@ -54,7 +54,7 @@ dependencies {
     implementation "androidx.room:room-runtime:2.2.4"
     testImplementation "androidx.room:room-testing:2.2.4"
     kapt "androidx.room:room-compiler:2.2.4"
-    annotationProcessor "androidx.room:room-compiler:2.2.4"
+    kapt "androidx.room:room-compiler:2.2.4"
     implementation 'androidx.room:room-ktx:2.2.4'
     //coroutine lifecycle
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha01"
