@@ -1,4 +1,4 @@
-package com.byiryu.study.model.source
+package com.byiryu.study.model.source.remote
 
 import com.byiryu.study.model.entity.MovieItem
 import com.byiryu.study.model.entity.MovieResponse

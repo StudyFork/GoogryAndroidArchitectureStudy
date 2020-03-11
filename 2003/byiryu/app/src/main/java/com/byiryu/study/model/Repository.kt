@@ -1,7 +1,7 @@
 package com.byiryu.study.model
 
 import com.byiryu.study.model.entity.MovieItem
-import com.byiryu.study.model.source.RemoteDataSource
+import com.byiryu.study.model.source.remote.RemoteDataSource
 import io.reactivex.Single
 
 class Repository {
