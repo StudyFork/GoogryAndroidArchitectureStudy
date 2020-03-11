@@ -6,13 +6,13 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Movie(
-    @ColumnInfo(name = "title") var title: String,
-    @ColumnInfo(name = "image") var image: String,
-    @ColumnInfo(name = "director") var director: String,
-    @ColumnInfo(name = "actor") var actor: String,
-    @ColumnInfo(name = "user_rating") var userRating: String,
-    @ColumnInfo(name = "pub_data") var pubDate: String
+    @ColumnInfo(name = "title") val title: String,
+    @ColumnInfo(name = "image") val image: String,
+    @ColumnInfo(name = "director") val director: String,
+    @ColumnInfo(name = "actor") val actor: String,
+    @ColumnInfo(name = "user_rating") val userRating: String,
+    @ColumnInfo(name = "pub_data") val pubDate: String
 ) {
     @PrimaryKey(autoGenerate = true)
-    var idx: Int = 0
+    val idx: Int = 0
 }
