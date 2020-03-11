@@ -19,6 +19,16 @@ class MovieRepositoryImpl(
         fail: (Throwable) -> Unit
     ) {
         if (networkManager.checkNetworkState()) {
+            // remote 검색 전 local에서 먼저 검색해서 데이터 전달
+            runBlocking {
+                launch {
+                    with(movieLocalDataSource.getSearchMovies(query)) {
+                        if(this.isNotEmpty()) {
+                            success(this)
+                        }
+                    }
+                }
+            }
             // remote 에서 검색
             movieRemoteDataSource.getSearchMovies(
                 query,
