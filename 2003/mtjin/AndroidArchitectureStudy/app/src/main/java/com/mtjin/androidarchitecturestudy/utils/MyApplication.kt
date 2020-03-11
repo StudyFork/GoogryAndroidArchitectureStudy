@@ -13,11 +13,12 @@ import com.mtjin.androidarchitecturestudy.data.source.remote.MovieRemoteDataSour
 import com.mtjin.androidarchitecturestudy.data.source.remote.MovieRemoteDataSourceImpl
 
 class MyApplication : Application() {
-    lateinit var apiInterface: ApiInterface
+    private lateinit var networkManager: NetworkManager
+    private lateinit var apiInterface: ApiInterface
     lateinit var movieRepository: MovieRepository
-    lateinit var movieRemoteDataSource: MovieRemoteDataSource
-    lateinit var movieLocalDataSource: MovieLocalDataSource
-    lateinit var movieDao: MovieDao
+    private lateinit var movieRemoteDataSource: MovieRemoteDataSource
+    private lateinit var movieLocalDataSource: MovieLocalDataSource
+    private lateinit var movieDao: MovieDao
 
     override fun onCreate() {
         super.onCreate()
@@ -25,10 +26,11 @@ class MyApplication : Application() {
     }
 
     private fun inject() {
+        networkManager = NetworkManager(applicationContext)
         apiInterface = ApiClient.getApiClient().create(ApiInterface::class.java)
         movieDao = MovieDatabase.getInstance(this).movieDao()
         movieRemoteDataSource = MovieRemoteDataSourceImpl(apiInterface)
         movieLocalDataSource = MovieLocalDataSourceImpl(movieDao)
-        movieRepository = MovieRepositoryImpl(movieRemoteDataSource, movieLocalDataSource)
+        movieRepository = MovieRepositoryImpl(movieRemoteDataSource, movieLocalDataSource, networkManager)
     }
 }
