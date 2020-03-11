@@ -1,6 +1,6 @@
 package com.byiryu.study.network
 
-import com.byiryu.study.api.Apis
+import com.byiryu.study.model.Apis
 import com.byiryu.study.conf.AppConf.BASE_URL
 import com.byiryu.study.conf.AppConf.NAVER_CLIENT_ID
 import com.byiryu.study.conf.AppConf.NAVER_CLIENT_SECRET
