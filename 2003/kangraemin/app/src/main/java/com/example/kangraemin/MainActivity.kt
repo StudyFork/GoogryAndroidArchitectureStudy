@@ -79,7 +79,6 @@ class MainActivity : KangBaseActivity() {
             .getMovieData(query = query, context = this)
             .subscribe({ responseMovieSearch ->
                 adapter.setData(responseMovieSearch.items)
-                adapter.notifyDataSetChanged()
             }, { it.printStackTrace() })
         compositeDisposable.add(whenSearchFinished)
     }

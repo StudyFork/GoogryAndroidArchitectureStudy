@@ -34,6 +34,7 @@ class SearchResultAdapter :
     fun setData(data: ArrayList<MovieDetail>) {
         this.data.clear()
         this.data.addAll(data)
+        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
