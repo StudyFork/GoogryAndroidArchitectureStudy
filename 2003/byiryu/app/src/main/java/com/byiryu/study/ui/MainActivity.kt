@@ -8,13 +8,16 @@ import android.view.View
 import com.byiryu.study.R
 import com.byiryu.study.model.Repository
 import com.byiryu.study.network.NetworkService.retrofit
+import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
-    private val repository = Repository()
+    lateinit var repository : Repository
+
     override val progressBar: View
         get() = loading
 
@@ -32,6 +35,8 @@ class MainActivity : BaseActivity() {
 
     private fun bind() {
 
+        repository = Repository(this@MainActivity)
+
         recyclerView.adapter = adapter
 
         adapter.setOnclickListener {
@@ -46,12 +51,14 @@ class MainActivity : BaseActivity() {
                 showMsg(R.string.msg_search_value)
             } else {
                 disposable = repository.getMovieList(text)
+                    .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnSubscribe {
                         showLoading()
                     }.doOnSuccess{
                         hideLoading()
                     }.doOnError {
+                        showMsg(R.string.msg_error_loading)
                     }
                     .subscribe({
                         adapter.submitList(it)
