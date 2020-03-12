@@ -1,4 +1,4 @@
-package com.byiryu.study.model.source.remote
+package com.byiryu.study.model.remote
 
 import com.byiryu.study.model.data.MovieResponse
 import com.byiryu.study.network.NetworkService.retrofit

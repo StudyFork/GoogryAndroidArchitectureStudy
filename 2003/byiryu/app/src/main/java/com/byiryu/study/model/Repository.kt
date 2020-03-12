@@ -2,10 +2,10 @@ package com.byiryu.study.model
 
 import android.content.Context
 import com.byiryu.study.model.data.MovieItem
-import com.byiryu.study.model.source.local.LocalDataBase
-import com.byiryu.study.model.source.local.LocalDataSource
-import com.byiryu.study.model.source.local.MovieDao
-import com.byiryu.study.model.source.remote.RemoteDataSource
+import com.byiryu.study.model.local.LocalDataBase
+import com.byiryu.study.model.local.LocalDataSource
+import com.byiryu.study.model.local.MovieDao
+import com.byiryu.study.model.remote.RemoteDataSource
 import io.reactivex.Single
 
 class Repository constructor(context: Context) {

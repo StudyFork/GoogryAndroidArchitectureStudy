@@ -1,4 +1,4 @@
-package com.byiryu.study.model.source.local
+package com.byiryu.study.model.local
 
 import android.content.Context
 import androidx.room.Database

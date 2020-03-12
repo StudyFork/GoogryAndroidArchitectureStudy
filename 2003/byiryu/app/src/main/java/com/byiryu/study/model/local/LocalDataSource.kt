@@ -1,4 +1,4 @@
-package com.byiryu.study.model.source.local
+package com.byiryu.study.model.local
 
 import com.byiryu.study.model.data.MovieItem
 import io.reactivex.Completable
