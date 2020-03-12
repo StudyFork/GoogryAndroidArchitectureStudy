@@ -13,28 +13,36 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
-    lateinit var repository: Repository
+    private lateinit var repository: Repository
 
     override val progressBar: View
         get() = loading
 
     private var disposable: Disposable? = null
 
-    private val adapter = MainRecyclerAdapter()
+    private lateinit var adapter: MainRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        initView()
         bind()
 
     }
 
-    private fun bind() {
+    private fun initView() {
+
+        adapter = MainRecyclerAdapter()
+        recyclerView.adapter = adapter
 
         repository = Repository(this@MainActivity)
 
-        recyclerView.adapter = adapter
+        editText.hint = repository.getPrevSearchQuery()
+
+    }
+
+    private fun bind() {
 
         adapter.setOnclickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
@@ -42,7 +50,6 @@ class MainActivity : BaseActivity() {
 
         btn_search.setOnClickListener {
             val text = editText.text.toString()
-
 
             if (text.isEmpty()) {
                 showMsg(R.string.msg_search_value)
