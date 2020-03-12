@@ -5,6 +5,7 @@ import com.byiryu.study.model.data.MovieItem
 import com.byiryu.study.model.local.LocalDataBase
 import com.byiryu.study.model.local.LocalDataSource
 import com.byiryu.study.model.local.MovieDao
+import com.byiryu.study.model.local.pref.AppPreference
 import com.byiryu.study.model.remote.RemoteDataSource
 import io.reactivex.Single
 
@@ -13,10 +14,12 @@ class Repository constructor(context: Context) {
     private var remoteDataSource: RemoteDataSource = RemoteDataSource()
     private var movieDao: MovieDao = LocalDataBase.getInstance(context).movieDao()
     private var localDataSource: LocalDataSource = LocalDataSource(movieDao)
+    private var pref: AppPreference = AppPreference(context)
 
     fun getMovieList(
         query: String
     ): Single<List<MovieItem>> {
+        pref.setPrevQuery(query)
         return localDataSource.getAll()
             .flatMap { movies ->
                 if (movies.isEmpty()) {
@@ -35,6 +38,11 @@ class Repository constructor(context: Context) {
                 localDataSource.saveMovies(movies)
                     .andThen(Single.just(movies))
             }
+    }
+
+
+    fun getPrevSearchQuery(): String {
+        return pref.getPrevQuery()
     }
 
 }
