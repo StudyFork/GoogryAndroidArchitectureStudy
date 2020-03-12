@@ -46,7 +46,7 @@ class MovieSearchRepository {
         return movieData
     }
 
-    fun getMovieDataInRoom(movies: List<Movie>): ArrayList<MovieDetail> {
+    private fun getMovieDataInRoom(movies: List<Movie>): ArrayList<MovieDetail> {
         val localDataItemsMovieSearch = ArrayList<MovieDetail>()
         for (movie in movies) {
             val localMovieData = MovieDetail(
@@ -62,7 +62,7 @@ class MovieSearchRepository {
         return localDataItemsMovieSearch
     }
 
-    fun mappingMovieDataToLocal(movies: Movies): List<Movie> {
+    private fun mappingMovieDataToLocal(movies: Movies): List<Movie> {
         val localMovies = mutableListOf<Movie>()
         for (searchedMovie in movies.items) {
             val movie = Movie(
