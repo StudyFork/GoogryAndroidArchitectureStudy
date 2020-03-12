@@ -6,12 +6,12 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.kangraemin.model.local.datamodel.Movie
 import io.reactivex.Completable
-import io.reactivex.Flowable
+import io.reactivex.Single
 
 @Dao
 interface MovieDao {
     @Query("SELECT * from Movie")
-    fun getAll(): Flowable<List<Movie>>
+    fun getAll(): Single<List<Movie>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovies(movies: List<Movie>): Completable
