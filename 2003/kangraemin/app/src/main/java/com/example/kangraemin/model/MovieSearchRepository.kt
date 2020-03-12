@@ -35,20 +35,11 @@ class MovieSearchRepository {
                     query = query
                 )
                 .subscribeOn(Schedulers.io())
-                .map { itemsMovieSearch ->
-                    db.movieDao().deleteAll()
-                    for (searchedMovie in itemsMovieSearch.items) {
-                        val movie = Movie(
-                            title = searchedMovie.title,
-                            image = searchedMovie.image,
-                            director = searchedMovie.director,
-                            actor = searchedMovie.actor,
-                            userRating = searchedMovie.userRating,
-                            pubDate = searchedMovie.pubDate
-                        )
-                        db.movieDao().insert(movie)
+                .doOnNext {
+                    db.movieDao().apply {
+                        deleteAll()
+                            .andThen(insertMovies(mappingMovieDataToLocal(it)))
                     }
-                    itemsMovieSearch
                 }
                 .subscribe({ itemsMovieSearch ->
                     movieData.onNext(itemsMovieSearch)
@@ -59,7 +50,7 @@ class MovieSearchRepository {
 
     fun getMovieDataInRoom(movies: List<Movie>): ArrayList<MovieDetail> {
         val localDataItemsMovieSearch = ArrayList<MovieDetail>()
-        for (movie in  movies) {
+        for (movie in movies) {
             val localMovieData = MovieDetail(
                 title = movie.title,
                 image = movie.image,
@@ -71,5 +62,21 @@ class MovieSearchRepository {
             localDataItemsMovieSearch.add(localMovieData)
         }
         return localDataItemsMovieSearch
+    }
+
+    fun mappingMovieDataToLocal(movies: Movies): List<Movie> {
+        val localMovies = mutableListOf<Movie>()
+        for (searchedMovie in movies.items) {
+            val movie = Movie(
+                title = searchedMovie.title,
+                image = searchedMovie.image,
+                director = searchedMovie.director,
+                actor = searchedMovie.actor,
+                userRating = searchedMovie.userRating,
+                pubDate = searchedMovie.pubDate
+            )
+            localMovies.add(movie)
+        }
+        return localMovies.toList()
     }
 }
