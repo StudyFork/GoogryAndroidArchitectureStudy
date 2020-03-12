@@ -1,4 +1,4 @@
-package com.byiryu.study.model.entity
+package com.byiryu.study.model.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

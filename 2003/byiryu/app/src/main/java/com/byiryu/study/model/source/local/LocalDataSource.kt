@@ -1,6 +1,6 @@
 package com.byiryu.study.model.source.local
 
-import com.byiryu.study.model.entity.MovieItem
+import com.byiryu.study.model.data.MovieItem
 import io.reactivex.Completable
 import io.reactivex.Single
 

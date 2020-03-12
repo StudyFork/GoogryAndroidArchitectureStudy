@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
-import com.byiryu.study.model.entity.MovieItem
+import com.byiryu.study.model.data.MovieItem
 import io.reactivex.Completable
 import io.reactivex.Single
 

@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.byiryu.study.model.entity.MovieItem
+import com.byiryu.study.model.data.MovieItem
 
 @Database(entities = [MovieItem::class], version = 1)
 abstract class LocalDataBase : RoomDatabase() {
