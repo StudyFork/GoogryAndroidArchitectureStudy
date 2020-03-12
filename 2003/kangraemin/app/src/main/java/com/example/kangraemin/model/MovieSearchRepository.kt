@@ -5,7 +5,6 @@ import com.example.kangraemin.model.local.datamodel.Movie
 import com.example.kangraemin.model.remote.datadao.MovieImpl
 import com.example.kangraemin.model.remote.datamodel.MovieDetail
 import com.example.kangraemin.model.remote.datamodel.Movies
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 
@@ -20,7 +19,6 @@ class MovieSearchRepository {
         db.movieDao().getAll()
             .subscribeOn(Schedulers.io())
             .map { getMovieDataInRoom(it) }
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ localDataItemsMovieSearch ->
                 if (localDataItemsMovieSearch.isNotEmpty()) {
                     movieData.onNext(Movies(items = localDataItemsMovieSearch))
