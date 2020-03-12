@@ -13,7 +13,7 @@ class Repository constructor(context: Context) {
     private var remoteDataSource: RemoteDataSource = RemoteDataSource()
     private var movieDao: MovieDao = LocalDataBase.getInstance(context).movieDao()
     private var localDataSource: LocalDataSource = LocalDataSource(movieDao)
-    
+
     fun getMovieList(
         query: String
     ): Single<List<MovieItem>> {

@@ -3,12 +3,9 @@ package com.byiryu.study.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.byiryu.study.R
 import com.byiryu.study.model.Repository
-import com.byiryu.study.network.NetworkService.retrofit
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -16,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
-    lateinit var repository : Repository
+    lateinit var repository: Repository
 
     override val progressBar: View
         get() = loading
@@ -55,14 +52,14 @@ class MainActivity : BaseActivity() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnSubscribe {
                         showLoading()
-                    }.doOnSuccess{
+                    }.doOnSuccess {
                         hideLoading()
                     }.doOnError {
                         showMsg(R.string.msg_error_loading)
                     }
                     .subscribe({
                         adapter.submitList(it)
-                    },{
+                    }, {
                         showMsg("오류 발생 : $it")
                     })
             }
