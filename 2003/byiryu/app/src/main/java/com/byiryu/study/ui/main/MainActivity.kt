@@ -1,4 +1,4 @@
-package com.byiryu.study.ui
+package com.byiryu.study.ui.main
 
 import android.content.Intent
 import android.net.Uri
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.byiryu.study.R
 import com.byiryu.study.model.Repository
+import com.byiryu.study.ui.base.BaseActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
