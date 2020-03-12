@@ -45,4 +45,12 @@ class Repository constructor(context: Context) {
         return pref.getPrevQuery()
     }
 
+    fun isAutoLogin() : Boolean{
+        return pref.getAutoLogin()
+    }
+
+    fun setAutoLogin(){
+        pref.setAutoLogin()
+    }
+
 }
