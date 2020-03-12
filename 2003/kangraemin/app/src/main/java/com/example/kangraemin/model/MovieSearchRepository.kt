@@ -19,21 +19,7 @@ class MovieSearchRepository {
 
         db.movieDao().getAll()
             .subscribeOn(Schedulers.io())
-            .map {
-                val localDataItemsMovieSearch = ArrayList<MovieDetail>()
-                for (movie in it) {
-                    val localMovieData = MovieDetail(
-                        title = movie.title,
-                        image = movie.image,
-                        director = movie.director,
-                        actor = movie.actor,
-                        userRating = movie.userRating,
-                        pubDate = movie.pubDate
-                    )
-                    localDataItemsMovieSearch.add(localMovieData)
-                }
-                localDataItemsMovieSearch
-            }
+            .map { getMovieDataInRoom(it) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ localDataItemsMovieSearch ->
                 if (localDataItemsMovieSearch.isNotEmpty()) {
@@ -69,5 +55,21 @@ class MovieSearchRepository {
                 }, { movieData.onError(it) })
         }
         return movieData
+    }
+
+    fun getMovieDataInRoom(movies: List<Movie>): ArrayList<MovieDetail> {
+        val localDataItemsMovieSearch = ArrayList<MovieDetail>()
+        for (movie in  movies) {
+            val localMovieData = MovieDetail(
+                title = movie.title,
+                image = movie.image,
+                director = movie.director,
+                actor = movie.actor,
+                userRating = movie.userRating,
+                pubDate = movie.pubDate
+            )
+            localDataItemsMovieSearch.add(localMovieData)
+        }
+        return localDataItemsMovieSearch
     }
 }
