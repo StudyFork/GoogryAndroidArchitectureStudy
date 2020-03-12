@@ -13,8 +13,7 @@ class Repository constructor(context: Context) {
     private var remoteDataSource: RemoteDataSource = RemoteDataSource()
     private var movieDao: MovieDao = LocalDataBase.getInstance(context).movieDao()
     private var localDataSource: LocalDataSource = LocalDataSource(movieDao)
-
-
+    
     fun getMovieList(
         query: String
     ): Single<List<MovieItem>> {
@@ -28,6 +27,7 @@ class Repository constructor(context: Context) {
             }
     }
 
+    //추가
     private fun getMovieListWithRemote(query: String): Single<List<MovieItem>> {
         return remoteDataSource.getMoveList(query)
             .map { it.items }
