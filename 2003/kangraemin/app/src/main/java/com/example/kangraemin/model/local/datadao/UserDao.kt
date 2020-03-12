@@ -14,7 +14,7 @@ interface UserDao {
     @Query("SELECT * FROM user WHERE idx IN (:idx)")
     fun loadAllByIds(idx: IntArray): List<User>
 
-    @Query("SELECT * FROM user WHERE user_name LIKE (:userId) LIMIT 1")
+    @Query("SELECT * FROM user WHERE idx LIKE (:userId) LIMIT 1")
     fun findByUserId(userId: String): User
 
     @Insert
