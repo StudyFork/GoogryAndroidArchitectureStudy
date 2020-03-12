@@ -49,7 +49,6 @@ class MovieSearchRepository {
                     query = query
                 )
                 .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
                 .map { itemsMovieSearch ->
                     db.movieDao().deleteAll()
                     for (searchedMovie in itemsMovieSearch.items) {
