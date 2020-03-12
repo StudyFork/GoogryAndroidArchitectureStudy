@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import com.byiryu.study.model.Repository
 import com.byiryu.study.ui.base.BaseActivity
+import com.byiryu.study.ui.login.LoginActivity
 import com.byiryu.study.ui.main.MainActivity
 
 
