@@ -22,6 +22,7 @@
         </activity>
 
         <activity android:name=".ui.intro.IntroActivity"/>
+        <activity android:name=".ui.login.LoginActivity"/>
     </application>
 
 </manifest>
