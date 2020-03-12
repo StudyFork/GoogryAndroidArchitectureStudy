@@ -78,6 +78,7 @@ class MainActivity : KangBaseActivity() {
     private fun search(query: String) {
         val whenSearchFinished = MovieSearchRepository()
             .getMovieData(query = query, context = this)
+            .cache()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ responseMovieSearch ->
                 adapter.setData(responseMovieSearch.items)
