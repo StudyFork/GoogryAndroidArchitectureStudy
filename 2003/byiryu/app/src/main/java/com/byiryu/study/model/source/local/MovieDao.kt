@@ -5,17 +5,19 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import com.byiryu.study.model.entity.MovieItem
+import io.reactivex.Completable
+import io.reactivex.Single
 
 @Dao
-interface MovieDao{
+interface MovieDao {
 
     @Insert(onConflict = REPLACE)
-    fun insertAll(items : List<MovieItem>)
+    fun insertAll(items: List<MovieItem>): Completable
 
     @Query("SELECT * FROM Movie")
-    fun getAll() : List<MovieItem>
+    fun getAll(): Single<List<MovieItem>>
 
     @Query("DELETE FROM Movie")
-    fun deleteAll()
+    fun deleteAll(): Completable
 
 }
