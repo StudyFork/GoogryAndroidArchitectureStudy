@@ -65,7 +65,6 @@ class MovieSearchRepository {
                     }
                     itemsMovieSearch
                 }
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ itemsMovieSearch ->
                     movieData.onNext(itemsMovieSearch)
                 }, { movieData.onError(it) })

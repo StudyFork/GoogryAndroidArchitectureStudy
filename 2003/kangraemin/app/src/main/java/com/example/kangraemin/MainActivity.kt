@@ -9,6 +9,7 @@ import com.example.kangraemin.model.MovieSearchRepository
 import com.example.kangraemin.util.NetworkUtil
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : KangBaseActivity() {
@@ -77,6 +78,7 @@ class MainActivity : KangBaseActivity() {
     private fun search(query: String) {
         val whenSearchFinished = MovieSearchRepository()
             .getMovieData(query = query, context = this)
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ responseMovieSearch ->
                 adapter.setData(responseMovieSearch.items)
             }, { it.printStackTrace() })
