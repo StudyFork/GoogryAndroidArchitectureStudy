@@ -32,9 +32,11 @@ class SearchResultAdapter :
     }
 
     fun setData(data: ArrayList<MovieDetail>) {
-        this.data.clear()
-        this.data.addAll(data)
-        notifyDataSetChanged()
+        this.data.apply {
+            clear()
+            addAll(data)
+            notifyDataSetChanged()
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
