@@ -5,6 +5,7 @@ import com.example.kangraemin.util.RetrofitClient
 import io.reactivex.Flowable
 
 class MovieImpl : MovieInterface {
+
     override fun getSearchItems(
         clientId: String?,
         clientSecret: String?,
@@ -20,5 +21,20 @@ class MovieImpl : MovieInterface {
             start = start,
             query = query
         )
+    }
+
+    companion object {
+        private var movieImpl: MovieImpl? = null
+
+        fun getInstance(): MovieImpl {
+            if (movieImpl == null) {
+                synchronized(MovieImpl::class) {
+                    if (movieImpl == null) {
+                        movieImpl = MovieImpl()
+                    }
+                }
+            }
+            return movieImpl!!
+        }
     }
 }

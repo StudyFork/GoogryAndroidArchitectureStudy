@@ -22,7 +22,7 @@ class MovieSearchRepository {
                     .map { getMovieDataInRoom(it) }
                     .toFlowable()
 
-                val getRemoteMovies = MovieImpl()
+                val getRemoteMovies = MovieImpl.getInstance()
                     .getSearchItems(
                         display = "10",
                         start = "1",
