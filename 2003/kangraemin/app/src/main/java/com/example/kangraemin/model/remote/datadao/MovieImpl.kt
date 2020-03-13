@@ -13,14 +13,13 @@ class MovieImpl : MovieInterface {
         start: String,
         query: String
     ): Flowable<Movies> {
-        val service = RetrofitClient()
-            .getClient("https://openapi.naver.com")
-            .create(MovieInterface::class.java)
-        return service.getSearchItems(
-            display = display,
-            start = start,
-            query = query
-        )
+        return RetrofitClient
+            .getMovieApi()
+            .getSearchItems(
+                display = display,
+                start = start,
+                query = query
+            )
     }
 
     companion object {
