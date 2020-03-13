@@ -14,8 +14,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
-    private lateinit var repository: Repository
-
     override val progressBar: View
         get() = loading
 
@@ -37,9 +35,7 @@ class MainActivity : BaseActivity() {
         adapter = MainRecyclerAdapter()
         recyclerView.adapter = adapter
 
-        repository = Repository(this@MainActivity)
-
-        editText.hint = repository.getPrevSearchQuery()
+        editText.hint = getBRApplication().repository.getPrevSearchQuery()
 
     }
 
@@ -55,7 +51,7 @@ class MainActivity : BaseActivity() {
             if (text.isEmpty()) {
                 showMsg(R.string.msg_search_value)
             } else {
-                disposable = repository.getMovieList(text)
+                disposable = getBRApplication().repository.getMovieList(text)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnSubscribe {

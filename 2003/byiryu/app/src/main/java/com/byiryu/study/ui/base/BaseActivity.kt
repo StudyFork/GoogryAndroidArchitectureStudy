@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import com.byiryu.study.ui.BRApplication
 
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -29,6 +30,10 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun goActivity(clazz: Class<*>) {
         startActivity(Intent(this, clazz))
+    }
+
+    fun getBRApplication() : BRApplication{
+        return applicationContext as BRApplication
     }
 
 }

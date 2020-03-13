@@ -10,6 +10,8 @@
     <string name="msg_error_loading">로딩중 오류..!</string>
     <string name="msg_invalid_id">아이디를 입력해주세요.</string>
     <string name="msg_invalid_pw">비밀번호를 입력해주세요.</string>
+    <string name="msg_incorrect_login">아이디 또는 비밀번호를 확인해 주세요.</string>
+    <string name="msg_success_login">로그인에 성고했습니다.</string>
 
     <!-- hint -->
     <string name="hint_id">아이디</string>

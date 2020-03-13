@@ -1,21 +1,16 @@
 package com.byiryu.study.model
 
-import android.content.Context
 import com.byiryu.study.model.data.MovieItem
-import com.byiryu.study.model.local.LocalDataBase
 import com.byiryu.study.model.local.LocalDataSource
-import com.byiryu.study.model.local.MovieDao
 import com.byiryu.study.model.local.pref.AppPreference
 import com.byiryu.study.model.remote.RemoteDataSource
 import io.reactivex.Single
 
-class Repository constructor(context: Context) {
-
-    private var remoteDataSource: RemoteDataSource = RemoteDataSource()
-    private var movieDao: MovieDao = LocalDataBase.getInstance(context).movieDao()
-    private var localDataSource: LocalDataSource = LocalDataSource(movieDao)
-    private var pref: AppPreference = AppPreference(context)
-
+class Repository constructor(
+    private var remoteDataSource: RemoteDataSource,
+    private var localDataSource: LocalDataSource,
+    private var pref: AppPreference
+) {
     fun getMovieList(
         query: String
     ): Single<List<MovieItem>> {
@@ -45,11 +40,11 @@ class Repository constructor(context: Context) {
         return pref.getPrevQuery()
     }
 
-    fun isAutoLogin() : Boolean{
+    fun isAutoLogin(): Boolean {
         return pref.getAutoLogin()
     }
 
-    fun setAutoLogin(){
+    fun setAutoLogin() {
         pref.setAutoLogin()
     }
 
