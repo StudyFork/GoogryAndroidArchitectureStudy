@@ -10,14 +10,14 @@ import com.mtjin.androidarchitecturestudy.data.Movie
 interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMovies(movies: List<Movie>)
+    fun insertMovies(movies: List<Movie>)
 
     @Query("SELECT * FROM movie")
-    suspend fun getAllMovies(): List<Movie>
+    fun getAllMovies(): List<Movie>
 
     @Query("SELECT * FROM movie WHERE title LIKE '%' || :title || '%'")
-    suspend fun getMoviesByTitle(title: String): List<Movie>
+    fun getMoviesByTitle(title: String): List<Movie>
 
     @Query("DELETE FROM movie")
-    suspend fun deleteAllMovies()
+    fun deleteAllMovies()
 }
