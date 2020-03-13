@@ -54,7 +54,6 @@ class MovieSearchRepository {
                     .subscribe({
                         emitter.onNext(it)
                     }, {
-                        it.printStackTrace()
                         emitter.onError(it)
                     })
             }, BackpressureStrategy.BUFFER)
