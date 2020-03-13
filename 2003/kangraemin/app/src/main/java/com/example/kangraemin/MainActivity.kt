@@ -87,13 +87,8 @@ class MainActivity : KangBaseActivity() {
                 }
                 it
             }
-            .switchMap {
-                if (it == "init") {
-                    search("")
-                } else {
-                    search(et_search.text.toString())
-                }
-            }
+            .map { et_search.text.toString() }
+            .switchMap { search(it) }
             .subscribe({ movies ->
                 adapter.setData(movies.items)
             }, { it.printStackTrace() })
