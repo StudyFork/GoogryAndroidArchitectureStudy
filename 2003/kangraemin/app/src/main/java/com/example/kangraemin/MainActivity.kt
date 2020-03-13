@@ -74,7 +74,7 @@ class MainActivity : KangBaseActivity() {
                 Flowable.just("init"),
                 btn_search.clicks().toFlowable(BackpressureStrategy.BUFFER)
             )
-            .map {
+            .doOnNext {
                 when (NetworkUtil().getConnectivityStatus(context = this)) {
                     NetworkUtil.NetworkStatus.NOT_CONNECTED -> {
                         rv_search_result.visibility = View.GONE
@@ -85,7 +85,6 @@ class MainActivity : KangBaseActivity() {
                         tv_network_error.visibility = View.GONE
                     }
                 }
-                it
             }
             .map { et_search.text.toString() }
             .switchMap { search(it) }
