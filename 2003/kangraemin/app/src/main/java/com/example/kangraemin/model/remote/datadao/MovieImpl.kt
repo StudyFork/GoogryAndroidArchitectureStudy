@@ -5,10 +5,10 @@ import com.example.kangraemin.util.RetrofitClient
 import io.reactivex.Flowable
 
 class MovieImpl(
-    private val getMovieApi: MovieInterface
+    private val movieApi: MovieInterface
 ) : MovieDataSource {
     override fun getMovies(query: String): Flowable<Movies> {
-        return getMovieApi.getSearchItems(query = query)
+        return movieApi.getSearchItems(query = query)
     }
 
     companion object {
