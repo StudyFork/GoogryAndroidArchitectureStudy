@@ -39,7 +39,6 @@ class MovieRepositoryImpl(
                         } else {
                             success(this)
                         }
-
                     }
                 }
             )
@@ -52,6 +51,29 @@ class MovieRepositoryImpl(
                     success(this)
                 }
             }
+        }
+    }
+
+    override fun getPagingMovies(
+        query: String,
+        start: Int,
+        success: (List<Movie>) -> Unit,
+        fail: (Throwable) -> Unit
+    ) {
+        if (networkManager.checkNetworkState()) {
+            movieRemoteDataSource.getSearchMovies(
+                query,
+                start,
+                success = {
+                    movieLocalDataSource.insertMovies(it)
+                    success(it)
+                },
+                fail = {
+                    fail(it)
+                }
+            )
+        }else{
+            fail(Throwable("네트워크가 연결이 되어있지 않습니다."))
         }
     }
 }
