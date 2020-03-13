@@ -16,20 +16,21 @@ abstract class AppDatabase : RoomDatabase() {
 
     companion object {
         private var db: AppDatabase? = null
-        private val lock = Any()
 
         @JvmStatic
         fun getInstance(context: Context): AppDatabase {
-            synchronized(lock) {
-                if (db == null) {
-                    db = Room.databaseBuilder(
-                        context.applicationContext,
-                        AppDatabase::class.java,
-                        "local"
-                    ).build()
+            if (db == null) {
+                synchronized(AppDatabase::class) {
+                    if (db == null) {
+                        db = Room.databaseBuilder(
+                            context.applicationContext,
+                            AppDatabase::class.java,
+                            "local"
+                        ).build()
+                    }
                 }
-                return db!!
             }
+            return db!!
         }
     }
 }
