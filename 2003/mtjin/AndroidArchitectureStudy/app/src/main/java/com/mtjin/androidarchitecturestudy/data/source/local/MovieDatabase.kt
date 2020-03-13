@@ -21,6 +21,7 @@ abstract class MovieDatabase : RoomDatabase() {
                             context.applicationContext,
                             MovieDatabase::class.java, "Movie.db"
                         )
+                        .allowMainThreadQueries()
                         .build()
                 }
                 return INSTANCE!!
