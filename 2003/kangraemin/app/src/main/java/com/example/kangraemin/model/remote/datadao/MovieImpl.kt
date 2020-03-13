@@ -6,7 +6,7 @@ import io.reactivex.Flowable
 
 class MovieImpl(
     private val movieApi: MovieInterface
-) : MovieDataSource {
+) : RemoteMovieDataSource {
     override fun getMovies(query: String): Flowable<Movies> {
         return movieApi.getSearchItems(query = query)
     }
