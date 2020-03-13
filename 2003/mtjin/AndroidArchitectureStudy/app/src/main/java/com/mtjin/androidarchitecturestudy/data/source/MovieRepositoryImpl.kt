@@ -1,6 +1,5 @@
 package com.mtjin.androidarchitecturestudy.data.source
 
-import android.util.Log
 import com.mtjin.androidarchitecturestudy.data.Movie
 import com.mtjin.androidarchitecturestudy.data.source.local.MovieLocalDataSource
 import com.mtjin.androidarchitecturestudy.data.source.remote.MovieRemoteDataSource
