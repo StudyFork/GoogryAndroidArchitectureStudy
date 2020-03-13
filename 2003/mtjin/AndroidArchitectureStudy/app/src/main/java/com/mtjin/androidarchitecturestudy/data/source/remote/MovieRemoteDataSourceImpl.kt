@@ -13,10 +13,11 @@ import retrofit2.Response
 class MovieRemoteDataSourceImpl(private val apiInterface: ApiInterface) : MovieRemoteDataSource {
     override fun getSearchMovies(
         query: String,
+        start: Int,
         success: (List<Movie>) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        val movieCall = apiInterface.getSearchMovie(query)
+        val movieCall = apiInterface.getSearchMovie(query, start)
         movieCall.enqueue(object : Callback<MovieResponse> {
             override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                 Log.d(TAG, "Remote onFailure")
@@ -31,7 +32,11 @@ class MovieRemoteDataSourceImpl(private val apiInterface: ApiInterface) : MovieR
                     val body = body()
                     if (isSuccessful && body != null) {
                         Log.d(TAG, "Remote onResponse success")
-                        success(body.movies)
+                        if(start != body.start){
+                            fail(Throwable("마지막 페이지"))
+                        }else {
+                            success(body.movies)
+                        }
                     } else {
                         Log.d(TAG, "Remote onResponse fail")
                         fail(HttpException(this))
