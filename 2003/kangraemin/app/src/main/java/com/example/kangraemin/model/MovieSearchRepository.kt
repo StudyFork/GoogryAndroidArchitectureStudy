@@ -40,10 +40,17 @@ class MovieSearchRepository {
                     }
 
                 Flowable
-                    .concat(
-                        getLocalMovies,
-                        getRemoteMovies
-                    )
+                    .defer {
+                        if (query.isNotEmpty()) {
+                            Flowable
+                                .concat(
+                                    getLocalMovies,
+                                    getRemoteMovies
+                                )
+                        } else {
+                            getLocalMovies
+                        }
+                    }
                     .subscribe({
                         emitter.onNext(it)
                     }, {

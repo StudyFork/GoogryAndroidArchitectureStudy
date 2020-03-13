@@ -6,9 +6,12 @@ import android.view.View
 import com.example.kangraemin.adapter.SearchResultAdapter
 import com.example.kangraemin.base.KangBaseActivity
 import com.example.kangraemin.model.MovieSearchRepository
+import com.example.kangraemin.model.remote.datamodel.Movies
 import com.example.kangraemin.util.NetworkUtil
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
+import io.reactivex.BackpressureStrategy
+import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -29,8 +32,6 @@ class MainActivity : KangBaseActivity() {
 
         rv_search_result.adapter = adapter
 
-        search("")
-
         val whenSearchTextChanged = et_search.textChanges()
             .map { enteredText ->
                 enteredText.isNotEmpty()
@@ -46,25 +47,6 @@ class MainActivity : KangBaseActivity() {
             }
         compositeDisposable.add(whenSearchTextChanged)
 
-        val whenSearchButtonClicked = btn_search.clicks()
-            .map {
-                when (NetworkUtil().getConnectivityStatus(context = this)) {
-                    NetworkUtil.NetworkStatus.NOT_CONNECTED -> false
-                    else -> true
-                }
-            }
-            .subscribe { connectedToInternet ->
-                if (connectedToInternet) {
-                    rv_search_result.visibility = View.VISIBLE
-                    tv_network_error.visibility = View.GONE
-                    search(et_search.text.toString())
-                } else {
-                    rv_search_result.visibility = View.GONE
-                    tv_network_error.visibility = View.VISIBLE
-                }
-            }
-        compositeDisposable.add(whenSearchButtonClicked)
-
         val whenLogOutClicked = btn_logout.clicks()
             .subscribe {
                 editor.remove(LoginActivity.TAG_AUTO_LOGIN)
@@ -73,16 +55,42 @@ class MainActivity : KangBaseActivity() {
                 finish()
             }
         compositeDisposable.add(whenLogOutClicked)
+
+        val whenArriveSearchResult = Flowable
+            .merge(
+                Flowable.just("init"),
+                btn_search.clicks().toFlowable(BackpressureStrategy.BUFFER)
+            )
+            .map {
+                when (NetworkUtil().getConnectivityStatus(context = this)) {
+                    NetworkUtil.NetworkStatus.NOT_CONNECTED -> {
+                        rv_search_result.visibility = View.GONE
+                        tv_network_error.visibility = View.VISIBLE
+                    }
+                    else -> {
+                        rv_search_result.visibility = View.VISIBLE
+                        tv_network_error.visibility = View.GONE
+                    }
+                }
+                it
+            }
+            .switchMap {
+                if (it == "init") {
+                    search("")
+                } else {
+                    search(et_search.text.toString())
+                }
+            }
+            .subscribe({ movies ->
+                adapter.setData(movies.items)
+            }, { it.printStackTrace() })
+        compositeDisposable.add(whenArriveSearchResult)
     }
 
-    private fun search(query: String) {
-        val whenSearchFinished = MovieSearchRepository()
+    private fun search(query: String): Flowable<Movies> {
+        return MovieSearchRepository()
             .getMovieData(query = query, context = this)
             .cache()
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ responseMovieSearch ->
-                adapter.setData(responseMovieSearch.items)
-            }, { it.printStackTrace() })
-        compositeDisposable.add(whenSearchFinished)
     }
 }
