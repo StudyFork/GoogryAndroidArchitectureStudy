@@ -10,15 +10,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
-import com.example.myapplication.model.Item_SearchMovie
+import com.example.myapplication.model.MovieEntity
 
-/**
- * 영화 검색 Adapter
- * */
 class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val movieInfoArrayList: MutableList<Item_SearchMovie> = arrayListOf()
-    private lateinit var onClickListener: (Item_SearchMovie) -> Unit
+    private val movieInfoArrayList: MutableList<MovieEntity> = arrayListOf()
+    private lateinit var onClickListener: (MovieEntity) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -42,11 +39,10 @@ class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         movieViewHolder.tv_director.text = Html.fromHtml(item.director)
         movieViewHolder.tv_actor.text = Html.fromHtml(item.actor)
 
-        Glide.with(movieViewHolder.iv_thumbnail).load(item.image)
-            .into(movieViewHolder.iv_thumbnail)
+        Glide.with(movieViewHolder.iv_thumbnail).load(item.image).into(movieViewHolder.iv_thumbnail)
     }
 
-    fun setOnclickListener(onClickListener: (Item_SearchMovie) -> Unit) {
+    fun setOnclickListener(onClickListener: (MovieEntity) -> Unit) {
         this.onClickListener = onClickListener
     }
 
@@ -54,9 +50,10 @@ class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return movieInfoArrayList.size
     }
 
-    fun addItems(items: java.util.ArrayList<Item_SearchMovie>) {
+    fun addItems(items: List<MovieEntity>) {
         movieInfoArrayList.clear()
         movieInfoArrayList.addAll(items)
+
         notifyDataSetChanged()
     }
 

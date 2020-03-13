@@ -9,64 +9,61 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.R
 import com.example.myapplication.adapter.SearchMovieAdapter
-import com.example.myapplication.model.RSP_SearchMovieInfo
-import com.example.myapplication.model.Item_SearchMovie
-import com.example.myapplication.network.RetrofitHelper
+import com.example.myapplication.data.repository.MovieRepository
+import com.example.myapplication.data.repository.MovieRepositoryImpl
+import com.example.myapplication.data.local.MovieDao
+import com.example.myapplication.data.local.MovieDatabase
+import com.example.myapplication.data.local.source.MovieLocalDataSource
+import com.example.myapplication.data.local.source.MovieLocalDataSourceImpl
+import com.example.myapplication.data.remote.MovieRemoteDataSource
+import com.example.myapplication.data.remote.MovieRemoteDataSourceImpl
 import kotlinx.android.synthetic.main.activity_search_movie.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.util.*
 
-/**
- * 영화검색 Activity
- * */
 class SearchMovieActivity : AppCompatActivity() {
     private val TAG = "SearchMovieActivity"
-    private val movieAdapter =  SearchMovieAdapter()
+
+    lateinit var mMovieRepository: MovieRepository
+    private lateinit var MMovieRemoteDataSource: MovieRemoteDataSource
+    private lateinit var mMovieLocalDataSource: MovieLocalDataSource
+    private lateinit var MMovieDao: MovieDao
+
+    private val movieAdapter = SearchMovieAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_movie)
 
+        initview()
+        setOnclickListener()
+    }
+
+    private fun initview() {
+        MMovieDao = MovieDatabase.getDatabase(this).movieDao()
+        MMovieRemoteDataSource = MovieRemoteDataSourceImpl()
+        mMovieLocalDataSource = MovieLocalDataSourceImpl(MMovieDao)
+        mMovieRepository = MovieRepositoryImpl(MMovieRemoteDataSource, mMovieLocalDataSource)
+
         rv_movie.setHasFixedSize(true)
         rv_movie.adapter = movieAdapter
+    }
 
-        movieAdapter.setOnclickListener {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
-        }
-
+    private fun setOnclickListener() {
         btn_search.setOnClickListener(View.OnClickListener {
-
             var etMovieTitle = et_movie_title.text.toString()
+
             if (etMovieTitle.isNotEmpty()) {
                 getMovieList(etMovieTitle)
             } else {
                 Toast.makeText(this, R.string.activity_toast_empty_movie_title, Toast.LENGTH_SHORT).show()
             }
         })
+
+        movieAdapter.setOnclickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
+        }
     }
 
-    private fun getMovieList(query: String?) {
-        val call = RetrofitHelper.retrofitService.getMovieList(query, 10, 1, "1")
-
-        call?.enqueue(object : Callback<RSP_SearchMovieInfo?> {
-            override fun onResponse(call: Call<RSP_SearchMovieInfo?>, response: Response<RSP_SearchMovieInfo?>) {
-                if (response.isSuccessful) {
-                    val result = response.body()
-
-                    if (null != result) {
-                        val movies: ArrayList<Item_SearchMovie> = ArrayList(result.items)
-
-                        movieAdapter.addItems(movies)
-                        rv_movie!!.adapter = movieAdapter
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<RSP_SearchMovieInfo?>, t: Throwable) {
-                Log.e(TAG, t.message)
-            }
-        })
+    private fun getMovieList(query: String) {
+        mMovieRepository.getMovieList(query, success = { movieAdapter.addItems(it) }, failed = { Log.e(TAG, it.toString()) })
     }
 }
