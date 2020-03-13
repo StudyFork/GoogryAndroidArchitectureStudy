@@ -51,7 +51,7 @@ class MovieSearchActivity : AppCompatActivity() {
         rvMovies.layoutManager = linearLayoutManager
         scrollListener = object : EndlessRecyclerViewScrollListener(linearLayoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
-                loadNextDataFromApi(query, totalItemsCount + 1)
+                requestPagingMovie(query, totalItemsCount + 1)
             }
         }
         rvMovies.addOnScrollListener(scrollListener)
@@ -101,7 +101,7 @@ class MovieSearchActivity : AppCompatActivity() {
             })
     }
 
-    fun loadNextDataFromApi(query: String, offset: Int) {
+    fun requestPagingMovie(query: String, offset: Int) {
         showLoading()
         myApplication.movieRepository.getPagingMovies(query, offset,
             success = {
