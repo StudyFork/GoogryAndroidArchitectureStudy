@@ -2,7 +2,7 @@ package com.byiryu.study.ui.intro
 
 import android.os.Bundle
 import android.os.Handler
-import com.byiryu.study.model.Repository
+import com.byiryu.study.R
 import com.byiryu.study.ui.base.BaseActivity
 import com.byiryu.study.ui.login.LoginActivity
 import com.byiryu.study.ui.main.MainActivity
@@ -10,16 +10,20 @@ import com.byiryu.study.ui.main.MainActivity
 
 class IntroActivity : BaseActivity() {
 
-    lateinit var repository: Repository
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        setContentView(R.layout.activity_intro)
 
-        init()
+        initView()
+
+    }
+
+    private fun initView() {
 
         val handler = Handler()
         handler.postDelayed({
-            if (repository.isAutoLogin()) {
+            if (getBRApplication().repository.isAutoLogin()) {
                 goActivity(MainActivity::class.java)
                 finish()
             } else {
@@ -29,8 +33,5 @@ class IntroActivity : BaseActivity() {
         }, 2000)
     }
 
-    private fun init() {
-        repository = Repository(this@IntroActivity)
-    }
 
 }
