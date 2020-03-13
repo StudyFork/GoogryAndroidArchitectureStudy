@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import com.example.kangraemin.adapter.SearchResultAdapter
 import com.example.kangraemin.base.KangBaseActivity
+import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.MovieSearchRepository
 import com.example.kangraemin.model.remote.datamodel.Movies
 import com.example.kangraemin.util.NetworkUtil
@@ -19,16 +20,24 @@ class MainActivity : KangBaseActivity() {
 
     val adapter = SearchResultAdapter()
 
+    val authRepo: AuthRepository by lazy {
+        AuthRepository
+            .getAuthRepo()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val sharedPreferences = getSharedPreferences(LoginActivity.TAG_USER_INFO, 0)
-        val editor = sharedPreferences.edit()
-
-        if (sharedPreferences.getBoolean(LoginActivity.TAG_AUTO_LOGIN, false)) {
-            btn_logout.visibility = View.VISIBLE
-        }
+        val getAuth = authRepo
+            .getAuth(context = this)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                if (it.autoLogin) {
+                    btn_logout.visibility = View.VISIBLE
+                }
+            }, { it.printStackTrace() })
+        compositeDisposable.add(getAuth)
 
         rv_search_result.adapter = adapter
 
@@ -49,10 +58,14 @@ class MainActivity : KangBaseActivity() {
 
         val whenLogOutClicked = btn_logout.clicks()
             .subscribe {
-                editor.remove(LoginActivity.TAG_AUTO_LOGIN)
-                editor.apply()
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
+                val deleteAuth = authRepo
+                    .deleteAuth(context = this)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        startActivity(Intent(this, LoginActivity::class.java))
+                        finish()
+                    }, { it.printStackTrace() })
+                compositeDisposable.add(deleteAuth)
             }
         compositeDisposable.add(whenLogOutClicked)
 
