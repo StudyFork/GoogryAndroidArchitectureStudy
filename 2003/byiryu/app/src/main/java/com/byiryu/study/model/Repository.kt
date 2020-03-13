@@ -1,10 +1,13 @@
 package com.byiryu.study.model
 
+import com.byiryu.study.conf.AppConf.ID
+import com.byiryu.study.conf.AppConf.PW
 import com.byiryu.study.model.data.MovieItem
 import com.byiryu.study.model.local.LocalDataSource
 import com.byiryu.study.model.local.pref.AppPreference
 import com.byiryu.study.model.remote.RemoteDataSource
 import io.reactivex.Single
+import java.util.concurrent.TimeUnit
 
 class Repository constructor(
     private var remoteDataSource: RemoteDataSource,
@@ -47,5 +50,14 @@ class Repository constructor(
     fun setAutoLogin() {
         pref.setAutoLogin()
     }
+
+    fun loginCheck(id: String, pw: String): Single<Boolean> {
+        return if (id == ID && pw == PW) {
+            Single.just(true).delay(2, TimeUnit.SECONDS)
+        } else {
+            Single.just(false).delay(2, TimeUnit.SECONDS)
+        }
+    }
+
 
 }
