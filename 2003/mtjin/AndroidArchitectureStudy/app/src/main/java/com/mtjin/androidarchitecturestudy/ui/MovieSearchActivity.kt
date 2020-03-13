@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mtjin.androidarchitecturestudy.R
 import com.mtjin.androidarchitecturestudy.utils.MyApplication
@@ -24,12 +25,15 @@ class MovieSearchActivity : AppCompatActivity() {
     private lateinit var pbLoading: ProgressBar
     private lateinit var movieAdapter: MovieAdapter
     private lateinit var myApplication: MyApplication
+    private lateinit var query: String
+    private lateinit var scrollListener: EndlessRecyclerViewScrollListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_search)
 
         initView()
+        initAdapter()
         initListener()
     }
 
@@ -39,7 +43,18 @@ class MovieSearchActivity : AppCompatActivity() {
         btnSearch = findViewById(R.id.btn_search)
         rvMovies = findViewById(R.id.rv_movies)
         pbLoading = findViewById(R.id.pb_loading)
+    }
+
+    private fun initAdapter() {
         movieAdapter = MovieAdapter()
+        val linearLayoutManager = LinearLayoutManager(this)
+        rvMovies.layoutManager = linearLayoutManager
+        scrollListener = object : EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                loadNextDataFromApi(query, totalItemsCount + 1)
+            }
+        }
+        rvMovies.addOnScrollListener(scrollListener)
         rvMovies.adapter = movieAdapter
     }
 
@@ -50,10 +65,9 @@ class MovieSearchActivity : AppCompatActivity() {
                 it.resolveActivity(packageManager) != null
             }?.run(this::startActivity)
         }
-
         //검색버튼
         btnSearch.setOnClickListener {
-            val query = etInput.text.toString().trim()
+            query = etInput.text.toString().trim()
             if (query.isEmpty()) {
                 onToastMessage("검색어를 입력해주세요.")
             } else {
@@ -65,12 +79,35 @@ class MovieSearchActivity : AppCompatActivity() {
 
     private fun requestMovie(query: String) {
         showLoading()
+        scrollListener.resetState()
         myApplication.movieRepository.getSearchMovies(query,
             success = {
                 if (it.isEmpty()) {
                     onToastMessage("해당 영화는 존재하지 않습니다.")
                 } else {
                     movieAdapter.clear()
+                    movieAdapter.setItems(it)
+                    onToastMessage("영화를 불러왔습니다.")
+                }
+                hideLoading()
+            },
+            fail = {
+                Log.d(TAG, it.toString())
+                when (it) {
+                    is HttpException -> onToastMessage("네트워크에 문제가 있습니다.")
+                    else -> onToastMessage(it.message.toString())
+                }
+                hideLoading()
+            })
+    }
+
+    fun loadNextDataFromApi(query: String, offset: Int) {
+        showLoading()
+        myApplication.movieRepository.getPagingMovies(query, offset,
+            success = {
+                if (it.isEmpty()) {
+                    onToastMessage("마지막 페이지")
+                } else {
                     movieAdapter.setItems(it)
                     onToastMessage("영화를 불러왔습니다.")
                 }
