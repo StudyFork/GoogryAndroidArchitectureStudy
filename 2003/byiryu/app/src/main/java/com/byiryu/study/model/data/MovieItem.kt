@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "Movie")
+@Entity(tableName = "movie")
 data class MovieItem(
     @SerializedName("actor")
     @Expose

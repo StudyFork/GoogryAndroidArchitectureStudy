@@ -14,10 +14,10 @@ interface MovieDao {
     @Insert(onConflict = REPLACE)
     fun insertAll(items: List<MovieItem>): Completable
 
-    @Query("SELECT * FROM Movie")
+    @Query("SELECT * FROM movie")
     fun getAll(): Single<List<MovieItem>>
 
-    @Query("DELETE FROM Movie")
+    @Query("DELETE FROM movie")
     fun deleteAll(): Completable
 
 }

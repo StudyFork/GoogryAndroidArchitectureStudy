@@ -19,7 +19,7 @@ abstract class LocalDataBase : RoomDatabase() {
                 if (ins == null) {
                     ins = Room.databaseBuilder(
                         (context.applicationContext),
-                        LocalDataBase::class.java, "Movie.db"
+                        LocalDataBase::class.java, "movie.db"
                     )
                         .fallbackToDestructiveMigration()
                         .build()
