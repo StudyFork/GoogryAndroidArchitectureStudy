@@ -3,18 +3,18 @@ package com.mtjin.androidarchitecturestudy.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mtjin.androidarchitecturestudy.R
-import com.mtjin.androidarchitecturestudy.api.ApiClient
-import com.mtjin.androidarchitecturestudy.api.ApiInterface
-import com.mtjin.androidarchitecturestudy.data.MovieResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.mtjin.androidarchitecturestudy.utils.MyApplication
+import retrofit2.HttpException
 
 
 class MovieSearchActivity : AppCompatActivity() {
@@ -22,22 +22,39 @@ class MovieSearchActivity : AppCompatActivity() {
     private lateinit var etInput: EditText
     private lateinit var btnSearch: Button
     private lateinit var rvMovies: RecyclerView
+    private lateinit var pbLoading: ProgressBar
     private lateinit var movieAdapter: MovieAdapter
-    private lateinit var movieCall: Call<MovieResponse>
+    private lateinit var myApplication: MyApplication
+    private lateinit var query: String
+    private lateinit var scrollListener: EndlessRecyclerViewScrollListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_search)
 
         initView()
+        initAdapter()
         initListener()
     }
 
     private fun initView() {
+        myApplication = application as MyApplication
         etInput = findViewById(R.id.et_input)
         btnSearch = findViewById(R.id.btn_search)
         rvMovies = findViewById(R.id.rv_movies)
+        pbLoading = findViewById(R.id.pb_loading)
+    }
+
+    private fun initAdapter() {
         movieAdapter = MovieAdapter()
+        val linearLayoutManager = LinearLayoutManager(this)
+        rvMovies.layoutManager = linearLayoutManager
+        scrollListener = object : EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                requestPagingMovie(query, totalItemsCount + 1)
+            }
+        }
+        rvMovies.addOnScrollListener(scrollListener)
         rvMovies.adapter = movieAdapter
     }
 
@@ -48,10 +65,9 @@ class MovieSearchActivity : AppCompatActivity() {
                 it.resolveActivity(packageManager) != null
             }?.run(this::startActivity)
         }
-
         //검색버튼
         btnSearch.setOnClickListener {
-            val query = etInput.text.toString().trim()
+            query = etInput.text.toString().trim()
             if (query.isEmpty()) {
                 onToastMessage("검색어를 입력해주세요.")
             } else {
@@ -62,38 +78,65 @@ class MovieSearchActivity : AppCompatActivity() {
     }
 
     private fun requestMovie(query: String) {
-        movieAdapter.clear()
-        val apiInterface = ApiClient.getApiClient().create(ApiInterface::class.java)
-        movieCall = apiInterface.getSearchMovie(query)
-        movieCall.enqueue(object : Callback<MovieResponse> {
-            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                onToastMessage("불러오는데 실패 했습니다.")
-            }
-
-            override fun onResponse(
-                call: Call<MovieResponse>,
-                response: Response<MovieResponse>
-            ) {
-                with(response) {
-                    val body = body()
-                    if (isSuccessful && body != null) {
-                        body.movies.let { movieAdapter.setItems(it) }
-                    } else {
-                        onToastMessage("불러오는데 실패 했습니다.")
-                    }
+        showLoading()
+        scrollListener.resetState()
+        myApplication.movieRepository.getSearchMovies(query,
+            success = {
+                if (it.isEmpty()) {
+                    onToastMessage("해당 영화는 존재하지 않습니다.")
+                } else {
+                    movieAdapter.clear()
+                    movieAdapter.setItems(it)
+                    onToastMessage("영화를 불러왔습니다.")
                 }
-            }
-        })
+                hideLoading()
+            },
+            fail = {
+                Log.d(TAG, it.toString())
+                when (it) {
+                    is HttpException -> onToastMessage("네트워크에 문제가 있습니다.")
+                    else -> onToastMessage(it.message.toString())
+                }
+                hideLoading()
+            })
+    }
+
+    fun requestPagingMovie(query: String, offset: Int) {
+        showLoading()
+        myApplication.movieRepository.getPagingMovies(query, offset,
+            success = {
+                if (it.isEmpty()) {
+                    onToastMessage("마지막 페이지")
+                } else {
+                    movieAdapter.setItems(it)
+                    onToastMessage("영화를 불러왔습니다.")
+                }
+                hideLoading()
+            },
+            fail = {
+                Log.d(TAG, it.toString())
+                when (it) {
+                    is HttpException -> onToastMessage("네트워크에 문제가 있습니다.")
+                    else -> onToastMessage(it.message.toString())
+                }
+                hideLoading()
+            })
     }
 
     private fun onToastMessage(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        if (this::movieCall.isInitialized) {
-            movieCall.cancel()
-        }
+    private fun showLoading() {
+        pbLoading.visibility = View.VISIBLE
     }
+
+    private fun hideLoading() {
+        pbLoading.visibility = View.GONE
+    }
+
+    companion object {
+        const val TAG = "MovieSearchActivity"
+    }
+
 }

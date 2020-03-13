@@ -14,7 +14,7 @@ import com.mtjin.androidarchitecturestudy.data.Movie
 
 class MovieAdapter :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
-    private lateinit var callback: (Movie) -> Unit
+    private lateinit var clickCallBack: (Movie) -> Unit
     private val items: ArrayList<Movie> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,8 +22,9 @@ class MovieAdapter :
             .inflate(R.layout.item_movie, parent, false)
         val viewHolder = ViewHolder(view)
         view.setOnClickListener {
-            callback(items[viewHolder.adapterPosition])
+            clickCallBack(items[viewHolder.adapterPosition])
         }
+
         return viewHolder
     }
 
@@ -63,8 +64,8 @@ class MovieAdapter :
         notifyDataSetChanged()
     }
 
-    fun setItemClickListener(callback: (Movie) -> Unit) {
-        this.callback = callback
+    fun setItemClickListener(clickCallBack: (Movie) -> Unit) {
+        this.clickCallBack = clickCallBack
     }
 
     fun clear() {
