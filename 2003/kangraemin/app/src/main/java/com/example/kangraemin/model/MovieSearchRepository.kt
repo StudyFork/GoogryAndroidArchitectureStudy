@@ -23,9 +23,7 @@ class MovieSearchRepository {
                     .toFlowable()
 
                 val getRemoteMovies = MovieImpl.getInstance()
-                    .getSearchItems(
-                        display = "10",
-                        start = "1",
+                    .getMovies(
                         query = query
                     )
                     .subscribeOn(Schedulers.io())

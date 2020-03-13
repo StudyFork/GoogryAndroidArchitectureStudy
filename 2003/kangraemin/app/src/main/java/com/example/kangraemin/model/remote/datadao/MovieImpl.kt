@@ -4,22 +4,11 @@ import com.example.kangraemin.model.remote.datamodel.Movies
 import com.example.kangraemin.util.RetrofitClient
 import io.reactivex.Flowable
 
-class MovieImpl : MovieInterface {
-
-    override fun getSearchItems(
-        clientId: String?,
-        clientSecret: String?,
-        display: String,
-        start: String,
-        query: String
-    ): Flowable<Movies> {
-        return RetrofitClient
-            .getMovieApi()
-            .getSearchItems(
-                display = display,
-                start = start,
-                query = query
-            )
+class MovieImpl(
+    private val getMovieApi: MovieInterface
+) : MovieDataSource {
+    override fun getMovies(query: String): Flowable<Movies> {
+        return getMovieApi.getSearchItems(query = query)
     }
 
     companion object {
@@ -29,7 +18,7 @@ class MovieImpl : MovieInterface {
             if (movieImpl == null) {
                 synchronized(MovieImpl::class) {
                     if (movieImpl == null) {
-                        movieImpl = MovieImpl()
+                        movieImpl = MovieImpl(RetrofitClient.getMovieApi())
                     }
                 }
             }
