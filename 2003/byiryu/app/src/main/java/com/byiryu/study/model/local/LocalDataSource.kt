@@ -16,7 +16,7 @@ class LocalDataSource constructor(
 
     fun saveMovies(movies: List<MovieItem>): Completable {
         return movieDao.deleteAll()
-            .doOnComplete {
+            .andThen {
                 movieDao.insertAll(movies)
             }
     }
