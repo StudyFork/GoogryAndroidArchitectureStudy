@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.view.View
 import com.example.kangraemin.adapter.SearchResultAdapter
 import com.example.kangraemin.base.KangBaseActivity
+import com.example.kangraemin.model.AppDatabase
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.MovieSearchRepository
+import com.example.kangraemin.model.local.datadao.AuthImpl
+import com.example.kangraemin.model.local.datadao.LocalMovieImpl
 import com.example.kangraemin.model.remote.datadao.MovieImpl
 import com.example.kangraemin.model.remote.datamodel.Movies
 import com.example.kangraemin.util.NetworkUtil
@@ -20,23 +23,28 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : KangBaseActivity() {
 
-    val remoteMovieDatasource by lazy {
+    val remoteMovieDataSource by lazy {
         MovieImpl(RetrofitClient.getMovieApi())
     }
 
-    val adapter = SearchResultAdapter()
-
-    val authRepo: AuthRepository by lazy {
-        AuthRepository
-            .getAuthRepo()
+    val localMovieDataSource by lazy {
+        val db = AppDatabase.getInstance(context = this)
+        LocalMovieImpl(db = db)
     }
+
+    val authRepository by lazy {
+        val db = AppDatabase.getInstance(context = this)
+        AuthRepository(authDataSource = AuthImpl(db))
+    }
+
+    val adapter = SearchResultAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val getAuth = authRepo
-            .getAuth(context = this)
+        val getAuth = authRepository
+            .getAuth()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 if (it.autoLogin) {
@@ -64,8 +72,8 @@ class MainActivity : KangBaseActivity() {
 
         val whenLogOutClicked = btn_logout.clicks()
             .subscribe {
-                val deleteAuth = authRepo
-                    .deleteAuth(context = this)
+                val deleteAuth = authRepository
+                    .deleteAuth()
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         startActivity(Intent(this, LoginActivity::class.java))
@@ -99,8 +107,11 @@ class MainActivity : KangBaseActivity() {
     }
 
     private fun search(query: String): Flowable<Movies> {
-        return MovieSearchRepository(remoteMovieDatasource = remoteMovieDatasource)
-            .getMovieData(query = query, context = this)
+        return MovieSearchRepository(
+            remoteMovieDatasource = remoteMovieDataSource,
+            localMovieDataSource = localMovieDataSource
+        )
+            .getMovieData(query = query)
             .cache()
             .observeOn(AndroidSchedulers.mainThread())
     }

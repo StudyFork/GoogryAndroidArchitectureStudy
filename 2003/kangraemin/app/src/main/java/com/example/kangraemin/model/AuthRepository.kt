@@ -1,63 +1,31 @@
 package com.example.kangraemin.model
 
-import android.content.Context
-import com.example.kangraemin.model.local.datadao.AuthImpl
+import com.example.kangraemin.model.local.datadao.AuthDataSource
 import com.example.kangraemin.model.local.datamodel.Auth
-import io.reactivex.BackpressureStrategy
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
 
-class AuthRepository {
+class AuthRepository(
+    val authDataSource: AuthDataSource
+) {
 
-    fun getAuth(context: Context): Flowable<Auth> {
-        return Flowable
-            .create({ emitter ->
-                val db = AppDatabase.getInstance(context = context)
-                AuthImpl(db = db)
-                    .getAuth()
-                    .subscribeOn(Schedulers.io())
-                    .subscribe({
-                        emitter.onNext(it)
-                    }, { emitter.onError(it) })
-            }, BackpressureStrategy.BUFFER)
+    fun getAuth(): Flowable<Auth> {
+        return authDataSource
+            .getAuth()
+            .subscribeOn(Schedulers.io())
+            .toFlowable()
     }
 
-    fun deleteAuth(context: Context): Completable {
-        return Completable
-            .create { emitter ->
-                val db = AppDatabase.getInstance(context = context)
-                AuthImpl(db = db)
-                    .deleteAuth()
-                    .subscribeOn(Schedulers.io())
-                    .subscribe({
-                        emitter.onComplete()
-                    }, { emitter.onError(it) })
-            }
+    fun deleteAuth(): Completable {
+        return authDataSource
+            .deleteAuth()
+            .subscribeOn(Schedulers.io())
     }
 
-    fun addAuth(context: Context, auth: Auth): Completable {
-        return Completable
-            .create { emitter ->
-                val db = AppDatabase.getInstance(context = context)
-                AuthImpl(db = db)
-                    .addAuth(auth = auth)
-                    .subscribeOn(Schedulers.io())
-                    .subscribe({
-                        emitter.onComplete()
-                    }, { emitter.onError(it) })
-            }
-    }
-
-    companion object {
-        private var authRepo: AuthRepository? = null
-
-        @JvmStatic
-        fun getAuthRepo(): AuthRepository {
-            if (authRepo == null) {
-                authRepo = AuthRepository()
-            }
-            return authRepo!!
-        }
+    fun addAuth(auth: Auth): Completable {
+        return authDataSource
+            .addAuth(auth = auth)
+            .subscribeOn(Schedulers.io())
     }
 }

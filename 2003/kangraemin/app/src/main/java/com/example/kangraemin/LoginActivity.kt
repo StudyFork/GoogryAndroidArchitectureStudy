@@ -3,7 +3,9 @@ package com.example.kangraemin
 import android.content.Intent
 import android.os.Bundle
 import com.example.kangraemin.base.KangBaseActivity
+import com.example.kangraemin.model.AppDatabase
 import com.example.kangraemin.model.AuthRepository
+import com.example.kangraemin.model.local.datadao.AuthImpl
 import com.example.kangraemin.model.local.datamodel.Auth
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.view.focusChanges
@@ -15,25 +17,23 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : KangBaseActivity() {
 
-    val authRepo: AuthRepository by lazy {
-        AuthRepository
-            .getAuthRepo()
+    val authRepository by lazy {
+        val db = AppDatabase.getInstance(context = this)
+        AuthRepository(authDataSource = AuthImpl(db))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val getAuth = authRepo
-            .getAuth(context = this)
+        val getAuth = authRepository
+            .getAuth()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 if (it.autoLogin) {
                     moveMain()
                 }
-            }, {
-                it.printStackTrace()
-            })
+            }, { it.printStackTrace() })
         compositeDisposable.add(getAuth)
 
         val validInput = Observable
@@ -88,8 +88,8 @@ class LoginActivity : KangBaseActivity() {
                 if (loginSuccess) {
                     if (chb_auto_login.isChecked) {
                         val auth = Auth(autoLogin = true)
-                        val addAuth = authRepo
-                            .addAuth(context = this, auth = auth)
+                        val addAuth = authRepository
+                            .addAuth(auth = auth)
                             .subscribe({
 
                             }, { it.printStackTrace() })
