@@ -59,6 +59,7 @@ class MainActivity : BaseActivity() {
                     }.doOnSuccess {
                         hideLoading()
                     }.doOnError {
+                        hideLoading()
                         showMsg(R.string.msg_error_loading)
                     }
                     .subscribe({
