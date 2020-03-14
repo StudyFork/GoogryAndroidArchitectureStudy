@@ -39,7 +39,9 @@ class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         movieViewHolder.tv_director.text = Html.fromHtml(item.director)
         movieViewHolder.tv_actor.text = Html.fromHtml(item.actor)
 
-        Glide.with(movieViewHolder.iv_thumbnail).load(item.image).into(movieViewHolder.iv_thumbnail)
+        Glide.with(movieViewHolder.iv_thumbnail)
+            .load(item.image)
+            .into(movieViewHolder.iv_thumbnail)
     }
 
     fun setOnclickListener(onClickListener: (MovieEntity) -> Unit) {
