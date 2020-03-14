@@ -19,7 +19,7 @@ class LoginActivity : KangBaseActivity() {
 
     val authRepository by lazy {
         val db = AppDatabase.getInstance(context = this)
-        AuthRepository(authLocalDataSource = AuthLocalDataSourceImpl(db))
+        AuthRepository(authLocalDataSource = AuthLocalDataSourceImpl(db.authDao()))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

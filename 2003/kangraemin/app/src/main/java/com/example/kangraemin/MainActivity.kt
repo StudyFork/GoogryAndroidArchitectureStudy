@@ -34,7 +34,7 @@ class MainActivity : KangBaseActivity() {
 
     val authRepository by lazy {
         val db = AppDatabase.getInstance(context = this)
-        AuthRepository(authLocalDataSource = AuthLocalDataSourceImpl(db))
+        AuthRepository(authLocalDataSource = AuthLocalDataSourceImpl(db.authDao()))
     }
 
     val adapter = SearchResultAdapter()
