@@ -5,7 +5,6 @@ import com.example.kangraemin.model.local.datamodel.Movie
 import com.example.kangraemin.model.remote.datadao.RemoteMovieDataSource
 import com.example.kangraemin.model.remote.datamodel.MovieDetail
 import com.example.kangraemin.model.remote.datamodel.Movies
-import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
 
@@ -13,10 +12,9 @@ class MovieSearchRepository(
     val remoteMovieDatasource: RemoteMovieDataSource
 ) {
 
-
     fun getMovieData(context: Context, query: String): Flowable<Movies> {
         return Flowable
-            .create({ emitter ->
+            .defer {
                 val db = AppDatabase.getInstance(context)
 
                 val getLocalMovies = db.movieDao().getAll()
@@ -39,24 +37,16 @@ class MovieSearchRepository(
                         return@map it
                     }
 
-                Flowable
-                    .defer {
-                        if (query.isNotEmpty()) {
-                            Flowable
-                                .concat(
-                                    getLocalMovies,
-                                    getRemoteMovies
-                                )
-                        } else {
-                            getLocalMovies
-                        }
-                    }
-                    .subscribe({
-                        emitter.onNext(it)
-                    }, {
-                        emitter.onError(it)
-                    })
-            }, BackpressureStrategy.BUFFER)
+                if (query.isNotEmpty()) {
+                    Flowable
+                        .concat(
+                            getLocalMovies,
+                            getRemoteMovies
+                        )
+                } else {
+                    getLocalMovies
+                }
+            }
     }
 
     private fun getMovieDataInRoom(movies: List<Movie>): Movies {
