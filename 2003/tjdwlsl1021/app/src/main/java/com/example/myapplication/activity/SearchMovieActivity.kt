@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_search_movie.*
 class SearchMovieActivity : AppCompatActivity() {
     private val TAG = "SearchMovieActivity"
 
-    private lateinit var mMovieRepositoryDataSet: MovieRepositoryDataSet
+    private lateinit var MovieRepositoryDataSet: MovieRepositoryDataSet
 
     private val movieAdapter = SearchMovieAdapter()
 
@@ -28,7 +28,7 @@ class SearchMovieActivity : AppCompatActivity() {
     }
 
     private fun initview() {
-        mMovieRepositoryDataSet = application as MovieRepositoryDataSet
+        MovieRepositoryDataSet = application as MovieRepositoryDataSet
         rv_movie.setHasFixedSize(true)
         rv_movie.adapter = movieAdapter
     }
@@ -50,6 +50,6 @@ class SearchMovieActivity : AppCompatActivity() {
     }
 
     private fun getMovieList(query: String) {
-        mMovieRepositoryDataSet.mMovieRepository.getMovieList(query, success = { movieAdapter.addItems(it) }, failed = { Log.e(TAG, it.toString()) })
+        MovieRepositoryDataSet.mMovieRepository.getMovieList(query, success = { movieAdapter.addItems(it) }, failed = { Log.e(TAG, it.toString()) })
     }
 }
