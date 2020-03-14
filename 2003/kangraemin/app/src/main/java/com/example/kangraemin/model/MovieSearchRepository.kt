@@ -6,6 +6,7 @@ import com.example.kangraemin.model.remote.datadao.MovieRemoteDataSource
 import com.example.kangraemin.model.remote.datamodel.MovieDetail
 import com.example.kangraemin.model.remote.datamodel.Movies
 import io.reactivex.Flowable
+import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
 class MovieSearchRepository(
@@ -30,14 +31,15 @@ class MovieSearchRepository(
                         localMovieDataSource
                             .deleteAll()
                             .subscribeOn(Schedulers.io())
-                            .andThen(Flowable.just(it))
+                            .andThen(Single.just(it))
                             .map { mappingMovieDataToLocal(it) }
                             .flatMapCompletable {
                                 localMovieDataSource.insertMovies(it)
                                     .subscribeOn(Schedulers.io())
                             }
-                            .andThen(Flowable.just(it))
+                            .andThen(Single.just(it))
                     }
+                    .toFlowable()
 
                 if (query.isNotEmpty()) {
                     Flowable
