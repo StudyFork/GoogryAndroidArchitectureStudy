@@ -4,7 +4,7 @@ import com.example.kangraemin.model.local.datamodel.Movie
 import io.reactivex.Completable
 import io.reactivex.Single
 
-class LocalMovieImpl(
+class LocalMovieDataSourceImpl(
     private val movieDao: MovieDao
 ) : LocalMovieDataSource {
     override fun getAll(): Single<List<Movie>> {
