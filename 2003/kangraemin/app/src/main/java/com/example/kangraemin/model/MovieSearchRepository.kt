@@ -29,6 +29,7 @@ class MovieSearchRepository(
                     .flatMap {
                         localMovieDataSource
                             .deleteAll()
+                            .subscribeOn(Schedulers.io())
                             .andThen(Flowable.just(it))
                             .map { mappingMovieDataToLocal(it) }
                             .flatMapCompletable { localMovieDataSource.insertMovies(it) }
