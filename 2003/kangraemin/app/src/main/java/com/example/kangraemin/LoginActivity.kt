@@ -90,7 +90,7 @@ class LoginActivity : KangBaseActivity() {
                         val auth = Auth(autoLogin = true)
                         val addAuth = authRepository
                             .addAuth(auth = auth)
-                            .subscribe({
+                            .subscribe({ // no-op
 
                             }, { it.printStackTrace() })
                         compositeDisposable.add(addAuth)
