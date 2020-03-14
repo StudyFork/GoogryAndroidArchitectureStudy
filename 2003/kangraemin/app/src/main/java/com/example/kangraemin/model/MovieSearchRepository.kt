@@ -32,7 +32,10 @@ class MovieSearchRepository(
                             .subscribeOn(Schedulers.io())
                             .andThen(Flowable.just(it))
                             .map { mappingMovieDataToLocal(it) }
-                            .flatMapCompletable { localMovieDataSource.insertMovies(it) }
+                            .flatMapCompletable {
+                                localMovieDataSource.insertMovies(it)
+                                    .subscribeOn(Schedulers.io())
+                            }
                             .andThen(Flowable.just(it))
                     }
 
