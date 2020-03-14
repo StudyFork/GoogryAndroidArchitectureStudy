@@ -4,24 +4,24 @@ import com.example.myapplication.data.local.source.MovieLocalDataSource
 import com.example.myapplication.data.remote.MovieRemoteDataSource
 import com.example.myapplication.model.MovieEntity
 
-class MovieRepositoryImpl(private val mMovieRemoteDataSource: MovieRemoteDataSource, private val mMovieLocalDataSource: MovieLocalDataSource) :
+class MovieRepositoryImpl(private val movieRemoteDataSource: MovieRemoteDataSource, private val movieLocalDataSource: MovieLocalDataSource) :
     MovieRepository {
     override fun getMovieList(query: String, success: (List<MovieEntity>) -> Unit, failed: (Throwable) -> Unit) {
-        with(mMovieLocalDataSource.getSearchMovies(query)) {
+        with(movieLocalDataSource.getSearchMovies(query)) {
             if (this.isNotEmpty()) {
                 success(this)
             }
         }
 
-        mMovieRemoteDataSource.getMovieList(
+        movieRemoteDataSource.getMovieList(
             query,
             success = {
-                mMovieLocalDataSource.insertMovies(it)
+                movieLocalDataSource.insertMovies(it)
                 success(it)
             },
 
             failed = {
-                with(mMovieLocalDataSource.getSearchMovies(query)) {
+                with(movieLocalDataSource.getSearchMovies(query)) {
                     if (this.isEmpty()) {
                         failed(it)
                     } else {
