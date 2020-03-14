@@ -21,6 +21,9 @@ class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
                     result?.let {
                         success(result.items)
                     }
+                    if(result == null) {
+                        failed(Throwable("오류"))
+                    }
                 }
             }
 
