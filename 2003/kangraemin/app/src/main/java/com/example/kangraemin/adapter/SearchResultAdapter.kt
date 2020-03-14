@@ -41,12 +41,16 @@ class SearchResultAdapter :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val result = data[position]
-        holder.itemView.tv_castings.text = result.actor
-        holder.itemView.tv_director.text = result.director
-        holder.itemView.tv_title.text = Utils.fromHtml(result.title)
-        holder.itemView.tv_date.text = result.pubDate
-        Glide.with(holder.itemView.img_thumbnail).load(result.image).centerCrop()
-            .into(holder.itemView.img_thumbnail)
-        holder.itemView.rtb_rating.rating = result.userRating.toFloat() / 2
+        holder.apply {
+            itemView.tv_castings.text = result.actor
+            itemView.tv_director.text = result.director
+            itemView.tv_title.text = Utils.fromHtml(result.title)
+            itemView.tv_date.text = result.pubDate
+            itemView.rtb_rating.rating = result.userRating.toFloat() / 2
+            Glide.with(itemView.img_thumbnail)
+                .load(result.image)
+                .centerCrop()
+                .into(itemView.img_thumbnail)
+        }
     }
 }
