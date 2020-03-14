@@ -1,6 +1,6 @@
 package com.example.kangraemin.util
 
-import com.example.kangraemin.model.remote.datadao.MovieInterface
+import com.example.kangraemin.model.remote.datadao.MovieApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -28,13 +28,13 @@ class RetrofitClient {
     }
 
     companion object {
-        private var movieSearchApi: MovieInterface? = null
+        private var movieSearchApi: MovieApi? = null
 
-        fun getMovieApi(): MovieInterface {
+        fun getMovieApi(): MovieApi {
             if (movieSearchApi == null) {
                 movieSearchApi = RetrofitClient()
                     .getClient("https://openapi.naver.com")
-                    .create(MovieInterface::class.java)
+                    .create(MovieApi::class.java)
             }
             return movieSearchApi!!
         }

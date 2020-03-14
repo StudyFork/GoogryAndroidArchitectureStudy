@@ -2,14 +2,14 @@ package com.example.kangraemin.model
 
 import com.example.kangraemin.model.local.datadao.LocalMovieDataSource
 import com.example.kangraemin.model.local.datamodel.Movie
-import com.example.kangraemin.model.remote.datadao.RemoteMovieDataSource
+import com.example.kangraemin.model.remote.datadao.MovieRemoteDataSource
 import com.example.kangraemin.model.remote.datamodel.MovieDetail
 import com.example.kangraemin.model.remote.datamodel.Movies
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
 
 class MovieSearchRepository(
-    val remoteMovieDatasource: RemoteMovieDataSource,
+    val remoteMovieDatasource: MovieRemoteDataSource,
     val localMovieDataSource: LocalMovieDataSource
 ) {
 

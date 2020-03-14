@@ -10,7 +10,7 @@ import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.MovieSearchRepository
 import com.example.kangraemin.model.local.datadao.AuthLocalDataSourceImpl
 import com.example.kangraemin.model.local.datadao.LocalMovieImpl
-import com.example.kangraemin.model.remote.datadao.MovieImpl
+import com.example.kangraemin.model.remote.datadao.MovieRemoteDataSourceImpl
 import com.example.kangraemin.model.remote.datamodel.Movies
 import com.example.kangraemin.util.NetworkUtil
 import com.example.kangraemin.util.RetrofitClient
@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : KangBaseActivity() {
 
     val remoteMovieDataSource by lazy {
-        MovieImpl(RetrofitClient.getMovieApi())
+        MovieRemoteDataSourceImpl(RetrofitClient.getMovieApi())
     }
 
     val localMovieDataSource by lazy {
