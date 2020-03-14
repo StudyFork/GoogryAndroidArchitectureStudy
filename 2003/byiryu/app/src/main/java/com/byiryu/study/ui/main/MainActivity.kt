@@ -1,34 +1,45 @@
-package com.byiryu.study.ui
+package com.byiryu.study.ui.main
 
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.byiryu.study.R
-import com.byiryu.study.network.NetworkService.retrofit
+import com.byiryu.study.model.Repository
+import com.byiryu.study.ui.base.BaseActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
+    override val progressBar: View
+        get() = loading
+
     private var disposable: Disposable? = null
 
-    private val adapter = MainRecyclerAdapter()
+    private lateinit var adapter: MainRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        initView()
         bind()
 
     }
 
+    private fun initView() {
+
+        adapter = MainRecyclerAdapter()
+        recyclerView.adapter = adapter
+
+        editText.hint = getBRApplication().repository.getPrevSearchQuery()
+
+    }
 
     private fun bind() {
-
-        recyclerView.adapter = adapter
 
         adapter.setOnclickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
@@ -40,34 +51,23 @@ class MainActivity : BaseActivity() {
             if (text.isEmpty()) {
                 showMsg(R.string.msg_search_value)
             } else {
-                disposable = retrofit.getSearchMovie(text)
+                disposable = getBRApplication().repository.getMovieList(text)
+                    .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnSubscribe {
-                        showLoading(true)
-                    }
-                    .doOnSuccess {
-                        showLoading(false)
-                    }
-                    .doOnError {
+                        showLoading()
+                    }.doOnSuccess {
+                        hideLoading()
+                    }.doOnError {
+                        hideLoading()
                         showMsg(R.string.msg_error_loading)
                     }
-                    .subscribe(
-                        {
-                            adapter.submitList(it.items)
-                        },
-                        { t ->
-                            Log.e("MainActivity", t.toString())
-                        }
-                    )
+                    .subscribe({
+                        adapter.submitList(it)
+                    }, {
+                        showMsg("오류 발생 : $it")
+                    })
             }
-        }
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            loading.visibility = View.VISIBLE
-        } else {
-            loading.visibility = View.INVISIBLE
         }
     }
 

@@ -1,11 +1,11 @@
-package com.byiryu.study.ui
+package com.byiryu.study.ui.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.byiryu.study.R
-import com.byiryu.study.api.model.MovieItem
+import com.byiryu.study.model.data.MovieItem
 
 class MainRecyclerAdapter :
     ListAdapter<MovieItem, MainRecyclerHolder>(object : DiffUtil.ItemCallback<MovieItem>() {

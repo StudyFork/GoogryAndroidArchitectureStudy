@@ -2,6 +2,9 @@
 
 buildscript {
     ext{
+        //room
+
+        roomVersion = '2.2.4'
         // Retrofit
         retrofitVersion = '2.6.1'
 
