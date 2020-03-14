@@ -58,34 +58,33 @@ class MovieSearchRepository {
     }
 
     private fun getMovieDataInRoom(movies: List<Movie>): Movies {
-        val localDataItemsMovieSearch = ArrayList<MovieDetail>()
-        for (movie in movies) {
-            val localMovieData = MovieDetail(
-                title = movie.title,
-                image = movie.image,
-                director = movie.director,
-                actor = movie.actor,
-                userRating = movie.userRating,
-                pubDate = movie.pubDate
-            )
-            localDataItemsMovieSearch.add(localMovieData)
-        }
-        return Movies(items = localDataItemsMovieSearch)
+        return Movies(
+            items = ArrayList(
+                movies
+                    .map {
+                        MovieDetail(
+                            title = it.title,
+                            image = it.image,
+                            director = it.director,
+                            actor = it.actor,
+                            userRating = it.userRating,
+                            pubDate = it.pubDate
+                        )
+                    })
+        )
     }
 
     private fun mappingMovieDataToLocal(movies: Movies): List<Movie> {
-        val localMovies = mutableListOf<Movie>()
-        for (searchedMovie in movies.items) {
-            val movie = Movie(
-                title = searchedMovie.title,
-                image = searchedMovie.image,
-                director = searchedMovie.director,
-                actor = searchedMovie.actor,
-                userRating = searchedMovie.userRating,
-                pubDate = searchedMovie.pubDate
-            )
-            localMovies.add(movie)
-        }
-        return localMovies.toList()
+        return movies.items.toList()
+            .map {
+                Movie(
+                    title = it.title,
+                    image = it.image,
+                    director = it.director,
+                    actor = it.actor,
+                    userRating = it.userRating,
+                    pubDate = it.pubDate
+                )
+            }
     }
 }
