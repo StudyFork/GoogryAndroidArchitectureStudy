@@ -10,12 +10,12 @@ import io.reactivex.Single
 
 @Dao
 interface MovieDao {
-    @Query("SELECT * from Movie")
+    @Query("SELECT * FROM MOVIE")
     fun getAll(): Single<List<Movie>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovies(movies: List<Movie>): Completable
 
-    @Query("DELETE from Movie")
+    @Query("DELETE FROM MOVIE")
     fun deleteAll(): Completable
 }

@@ -9,12 +9,12 @@ import io.reactivex.Single
 
 @Dao
 interface AuthDao {
-    @Query("SELECT * FROM Auth LIMIT 1")
+    @Query("SELECT * FROM AUTH LIMIT 1")
     fun getAuth(): Single<Auth>
 
     @Insert
     fun insertAuth(auth: Auth): Completable
 
-    @Query("DELETE from Auth")
+    @Query("DELETE FROM AUTH")
     fun deleteAuth(): Completable
 }
