@@ -5,7 +5,7 @@ import com.example.kangraemin.model.local.datamodel.Auth
 import io.reactivex.Completable
 import io.reactivex.Single
 
-class AuthImpl(
+class AuthLocalDataSourceImpl(
     private val db: AppDatabase
 ) : AuthLocalDataSource {
     override fun getAuth(): Single<Auth> {

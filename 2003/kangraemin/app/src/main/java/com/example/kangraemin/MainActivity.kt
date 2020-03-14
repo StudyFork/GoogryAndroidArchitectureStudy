@@ -8,7 +8,7 @@ import com.example.kangraemin.base.KangBaseActivity
 import com.example.kangraemin.model.AppDatabase
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.MovieSearchRepository
-import com.example.kangraemin.model.local.datadao.AuthImpl
+import com.example.kangraemin.model.local.datadao.AuthLocalDataSourceImpl
 import com.example.kangraemin.model.local.datadao.LocalMovieImpl
 import com.example.kangraemin.model.remote.datadao.MovieImpl
 import com.example.kangraemin.model.remote.datamodel.Movies
@@ -34,7 +34,7 @@ class MainActivity : KangBaseActivity() {
 
     val authRepository by lazy {
         val db = AppDatabase.getInstance(context = this)
-        AuthRepository(authLocalDataSource = AuthImpl(db))
+        AuthRepository(authLocalDataSource = AuthLocalDataSourceImpl(db))
     }
 
     val adapter = SearchResultAdapter()

@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.example.kangraemin.base.KangBaseActivity
 import com.example.kangraemin.model.AppDatabase
 import com.example.kangraemin.model.AuthRepository
-import com.example.kangraemin.model.local.datadao.AuthImpl
+import com.example.kangraemin.model.local.datadao.AuthLocalDataSourceImpl
 import com.example.kangraemin.model.local.datamodel.Auth
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.view.focusChanges
@@ -19,7 +19,7 @@ class LoginActivity : KangBaseActivity() {
 
     val authRepository by lazy {
         val db = AppDatabase.getInstance(context = this)
-        AuthRepository(authLocalDataSource = AuthImpl(db))
+        AuthRepository(authLocalDataSource = AuthLocalDataSourceImpl(db))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
