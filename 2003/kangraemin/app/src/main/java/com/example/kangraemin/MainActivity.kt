@@ -90,8 +90,8 @@ class MainActivity : KangBaseActivity() {
                 }
             }
             .map { et_search.text.toString() }
+            .startWith("")
             .switchMap { search(it) }
-            .startWith(search(""))
             .subscribe({ movies ->
                 adapter.setData(movies.items)
             }, { it.printStackTrace() })
