@@ -7,7 +7,7 @@ import io.reactivex.Single
 
 class AuthImpl(
     private val db: AppDatabase
-) : AuthDataSource {
+) : AuthLocalDataSource {
     override fun getAuth(): Single<Auth> {
         return db
             .authDao()
