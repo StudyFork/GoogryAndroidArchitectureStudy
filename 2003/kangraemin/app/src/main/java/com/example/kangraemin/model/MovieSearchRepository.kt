@@ -1,6 +1,6 @@
 package com.example.kangraemin.model
 
-import android.content.Context
+import com.example.kangraemin.model.local.datadao.LocalMovieDataSource
 import com.example.kangraemin.model.local.datamodel.Movie
 import com.example.kangraemin.model.remote.datadao.RemoteMovieDataSource
 import com.example.kangraemin.model.remote.datamodel.MovieDetail
@@ -9,15 +9,14 @@ import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
 
 class MovieSearchRepository(
-    val remoteMovieDatasource: RemoteMovieDataSource
+    val remoteMovieDatasource: RemoteMovieDataSource,
+    val localMovieDataSource: LocalMovieDataSource
 ) {
 
-    fun getMovieData(context: Context, query: String): Flowable<Movies> {
+    fun getMovieData(query: String): Flowable<Movies> {
         return Flowable
             .defer {
-                val db = AppDatabase.getInstance(context)
-
-                val getLocalMovies = db.movieDao().getAll()
+                val getLocalMovies = localMovieDataSource.getAll()
                     .subscribeOn(Schedulers.io())
                     .map { getMovieDataInRoom(it) }
                     .toFlowable()
@@ -28,10 +27,11 @@ class MovieSearchRepository(
                     )
                     .subscribeOn(Schedulers.io())
                     .flatMap {
-                        db.movieDao().deleteAll()
+                        localMovieDataSource
+                            .deleteAll()
                             .andThen(Flowable.just(it))
                             .map { mappingMovieDataToLocal(it) }
-                            .flatMapCompletable { db.movieDao().insertMovies(it) }
+                            .flatMapCompletable { localMovieDataSource.insertMovies(it) }
                             .andThen(Flowable.just(it))
                     }
 
