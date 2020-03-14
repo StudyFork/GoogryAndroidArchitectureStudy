@@ -50,6 +50,6 @@ class SearchMovieActivity : AppCompatActivity() {
     }
 
     private fun getMovieList(query: String) {
-        MovieRepositoryDataSet.mMovieRepository.getMovieList(query, success = { movieAdapter.addItems(it) }, failed = { Log.e(TAG, it.toString()) })
+        MovieRepositoryDataSet.MovieRepository.getMovieList(query, success = { movieAdapter.addItems(it) }, failed = { Log.e(TAG, it.toString()) })
     }
 }

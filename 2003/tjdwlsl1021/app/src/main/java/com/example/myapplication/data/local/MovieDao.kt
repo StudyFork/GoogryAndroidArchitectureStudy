@@ -9,8 +9,8 @@ import com.example.myapplication.model.MovieEntity
 @Dao
 interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMovies(movies: List<MovieEntity>)
+    fun insertMovies(movies: List<MovieEntity>)
 
     @Query("SELECT * FROM movie WHERE title LIKE '%' || :title || '%'")
-    suspend fun getMoviesByTitle(title: String): List<MovieEntity>
+    fun getMoviesByTitle(title: String): List<MovieEntity>
 }
