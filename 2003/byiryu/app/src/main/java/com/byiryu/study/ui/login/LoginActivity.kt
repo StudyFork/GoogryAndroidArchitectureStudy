@@ -12,9 +12,6 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity() {
 
-    private var id: String? = null
-    private var pw: String? = null
-
     override val progressBar: View?
         get() = loading
 
@@ -33,10 +30,10 @@ class LoginActivity : BaseActivity() {
     private fun bind() {
 
         btn_login.setOnClickListener {
-            id = editText_id.text.toString()
-            pw = editText_pw.text.toString()
-            if (invalid()) {
-                getBRApplication().repository.loginCheck(id!!, pw!!)
+            val id = editText_id.text.toString()
+            val pw = editText_pw.text.toString()
+            if (invalid(id, pw)) {
+                getBRApplication().repository.loginCheck(id, pw)
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnSubscribe {
                         showLoading()
@@ -63,13 +60,13 @@ class LoginActivity : BaseActivity() {
 
     }
 
-    private fun invalid(): Boolean {
-        if (id!!.isEmpty()) {
+    private fun invalid(id: String, pw: String): Boolean {
+        if (id.isEmpty()) {
             showMsg(R.string.msg_invalid_id)
             return false
         }
 
-        if (pw!!.isEmpty()) {
+        if (pw.isEmpty()) {
             showMsg(R.string.msg_invalid_pw)
             return false
         }
