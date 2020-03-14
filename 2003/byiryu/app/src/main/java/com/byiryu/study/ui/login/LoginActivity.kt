@@ -39,6 +39,8 @@ class LoginActivity : BaseActivity() {
                         showLoading()
                     }.doOnError {
                         showMsg(R.string.msg_error_loading)
+                    }.doAfterTerminate{
+                        hideLoading()
                     }
                     .subscribe({
                         Log.e("TAG", it.toString())
@@ -46,10 +48,8 @@ class LoginActivity : BaseActivity() {
                             if (btn_auto_login.isChecked)
                                 getBRApplication().repository.setAutoLogin()
                             goActivity(MainActivity::class.java)
-                            hideLoading()
                             finish()
                         } else {
-                            hideLoading()
                             showMsg(R.string.msg_incorrect_login)
                         }
                     }, {
