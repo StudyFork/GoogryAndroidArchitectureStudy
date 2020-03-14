@@ -27,14 +27,12 @@ class MovieSearchRepository(
                         query = query
                     )
                     .subscribeOn(Schedulers.io())
-                    .map {
-                        db.movieDao().apply {
-                            deleteAll()
-                                .andThen(
-                                    insertMovies(mappingMovieDataToLocal(it))
-                                ).subscribe({}, { t -> t.printStackTrace() })
-                        }
-                        return@map it
+                    .flatMap {
+                        db.movieDao().deleteAll()
+                            .andThen(Flowable.just(it))
+                            .map { mappingMovieDataToLocal(it) }
+                            .flatMapCompletable { db.movieDao().insertMovies(it) }
+                            .andThen(Flowable.just(it))
                     }
 
                 if (query.isNotEmpty()) {
