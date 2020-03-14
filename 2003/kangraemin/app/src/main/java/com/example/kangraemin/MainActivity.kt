@@ -29,7 +29,7 @@ class MainActivity : KangBaseActivity() {
 
     val localMovieDataSource by lazy {
         val db = AppDatabase.getInstance(context = this)
-        LocalMovieImpl(db = db)
+        LocalMovieImpl(movieDao = db.movieDao())
     }
 
     val authRepository by lazy {
