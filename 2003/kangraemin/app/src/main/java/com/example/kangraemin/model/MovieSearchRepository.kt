@@ -2,14 +2,16 @@ package com.example.kangraemin.model
 
 import android.content.Context
 import com.example.kangraemin.model.local.datamodel.Movie
-import com.example.kangraemin.model.remote.datadao.MovieImpl
+import com.example.kangraemin.model.remote.datadao.RemoteMovieDataSource
 import com.example.kangraemin.model.remote.datamodel.MovieDetail
 import com.example.kangraemin.model.remote.datamodel.Movies
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
 
-class MovieSearchRepository {
+class MovieSearchRepository(
+    val remoteMovieDatasource: RemoteMovieDataSource
+) {
 
 
     fun getMovieData(context: Context, query: String): Flowable<Movies> {
@@ -22,7 +24,7 @@ class MovieSearchRepository {
                     .map { getMovieDataInRoom(it) }
                     .toFlowable()
 
-                val getRemoteMovies = MovieImpl.getInstance()
+                val getRemoteMovies = remoteMovieDatasource
                     .getMovies(
                         query = query
                     )

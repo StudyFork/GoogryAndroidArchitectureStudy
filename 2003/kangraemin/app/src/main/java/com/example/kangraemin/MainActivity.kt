@@ -7,8 +7,10 @@ import com.example.kangraemin.adapter.SearchResultAdapter
 import com.example.kangraemin.base.KangBaseActivity
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.MovieSearchRepository
+import com.example.kangraemin.model.remote.datadao.MovieImpl
 import com.example.kangraemin.model.remote.datamodel.Movies
 import com.example.kangraemin.util.NetworkUtil
+import com.example.kangraemin.util.RetrofitClient
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
 import io.reactivex.BackpressureStrategy
@@ -17,6 +19,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : KangBaseActivity() {
+
+    val remoteMovieDatasource by lazy {
+        MovieImpl(RetrofitClient.getMovieApi())
+    }
 
     val adapter = SearchResultAdapter()
 
@@ -95,7 +101,7 @@ class MainActivity : KangBaseActivity() {
     }
 
     private fun search(query: String): Flowable<Movies> {
-        return MovieSearchRepository()
+        return MovieSearchRepository(remoteMovieDatasource = remoteMovieDatasource)
             .getMovieData(query = query, context = this)
             .cache()
             .observeOn(AndroidSchedulers.mainThread())
