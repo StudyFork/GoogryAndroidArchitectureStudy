@@ -75,11 +75,8 @@ class MainActivity : KangBaseActivity() {
             }
         compositeDisposable.add(whenLogOutClicked)
 
-        val whenArriveSearchResult = Flowable
-            .merge(
-                Flowable.just("init"),
-                btn_search.clicks().toFlowable(BackpressureStrategy.BUFFER)
-            )
+        val whenArriveSearchResult = btn_search.clicks()
+            .toFlowable(BackpressureStrategy.BUFFER)
             .doOnNext {
                 when (NetworkUtil().getConnectivityStatus(context = this)) {
                     NetworkUtil.NetworkStatus.NOT_CONNECTED -> {
@@ -94,6 +91,7 @@ class MainActivity : KangBaseActivity() {
             }
             .map { et_search.text.toString() }
             .switchMap { search(it) }
+            .startWith(search(""))
             .subscribe({ movies ->
                 adapter.setData(movies.items)
             }, { it.printStackTrace() })
