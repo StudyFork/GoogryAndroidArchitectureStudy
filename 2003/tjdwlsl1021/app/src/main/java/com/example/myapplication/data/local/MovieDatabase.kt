@@ -12,19 +12,19 @@ abstract class MovieDatabase : RoomDatabase() {
 
     companion object {
 
-        private var mInstance: MovieDatabase? = null
+        private var Instance: MovieDatabase? = null
         private const val DATABASE_NAME = "movie-database"
 
         @Synchronized
         fun getDatabase(context: Context): MovieDatabase {
             synchronized(this) {
-                if (mInstance == null) {
-                    mInstance = Room.databaseBuilder(
+                if (Instance == null) {
+                    Instance = Room.databaseBuilder(
                         context.applicationContext,
                         MovieDatabase::class.java, DATABASE_NAME
                     ).build()
                 }
-                return mInstance!!
+                return Instance!!
             }
         }
     }
