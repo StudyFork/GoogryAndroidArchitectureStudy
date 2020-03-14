@@ -18,15 +18,14 @@ abstract class AppDatabase : RoomDatabase() {
         private var db: AppDatabase? = null
 
         @JvmStatic
+        @Synchronized
         fun getInstance(context: Context): AppDatabase {
             if (db == null) {
-                synchronized(AppDatabase::class) {
-                    db = Room.databaseBuilder(
-                        context.applicationContext,
-                        AppDatabase::class.java,
-                        "local"
-                    ).build()
-                }
+                db = Room.databaseBuilder(
+                    context.applicationContext,
+                    AppDatabase::class.java,
+                    "local"
+                ).build()
             }
             return db!!
         }
