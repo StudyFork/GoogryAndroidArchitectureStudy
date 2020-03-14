@@ -35,8 +35,8 @@ class SearchResultAdapter :
         this.data.apply {
             clear()
             addAll(data)
-            notifyDataSetChanged()
         }
+        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
