@@ -9,10 +9,10 @@ import com.example.myapplication.data.remote.MovieRemoteDataSource
 import com.example.myapplication.data.remote.MovieRemoteDataSourceImpl
 
 class MovieRepositoryDataSet: Application() {
-    lateinit var mMovieRepository: MovieRepository
-    private lateinit var MMovieRemoteDataSource: MovieRemoteDataSource
-    private lateinit var mMovieLocalDataSource: MovieLocalDataSource
-    private lateinit var MMovieDao: MovieDao
+    lateinit var MovieRepository: MovieRepository
+    private lateinit var MovieRemoteDataSource: MovieRemoteDataSource
+    private lateinit var MovieLocalDataSource: MovieLocalDataSource
+    private lateinit var MovieDao: MovieDao
 
 
     override fun onCreate() {
@@ -21,9 +21,9 @@ class MovieRepositoryDataSet: Application() {
     }
 
     private fun inject() {
-        MMovieDao = MovieDatabase.getDatabase(this).movieDao()
-        MMovieRemoteDataSource = MovieRemoteDataSourceImpl()
-        mMovieLocalDataSource = MovieLocalDataSourceImpl(MMovieDao)
-        mMovieRepository = MovieRepositoryImpl(MMovieRemoteDataSource, mMovieLocalDataSource)
+        MovieDao = MovieDatabase.getDatabase(this).movieDao()
+        MovieRemoteDataSource = MovieRemoteDataSourceImpl()
+        MovieLocalDataSource = MovieLocalDataSourceImpl(MovieDao)
+        MovieRepository = MovieRepositoryImpl(MovieRemoteDataSource, MovieLocalDataSource)
     }
 }
