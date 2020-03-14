@@ -7,7 +7,7 @@ import com.byiryu.study.model.local.LocalDataSource
 import com.byiryu.study.model.local.pref.AppPreference
 import com.byiryu.study.model.remote.RemoteDataSource
 
-class BRApplication : Application(){
+class BRApplication : Application() {
 
     lateinit var repository: Repository
 
@@ -22,10 +22,10 @@ class BRApplication : Application(){
         val db = LocalDataBase.getInstance(this)
 
         val remoteDataSource = RemoteDataSource()
-        val localDataSource = LocalDataSource(db.movieDao())
+        val localDataSource = LocalDataSource(db.movieDao(), pref)
 
 
-        repository = Repository(remoteDataSource,localDataSource, pref)
+        repository = Repository(remoteDataSource, localDataSource)
 
     }
 

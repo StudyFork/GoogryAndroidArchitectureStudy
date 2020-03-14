@@ -4,20 +4,18 @@ import com.byiryu.study.conf.AppConf.ID
 import com.byiryu.study.conf.AppConf.PW
 import com.byiryu.study.model.data.MovieItem
 import com.byiryu.study.model.local.LocalDataSource
-import com.byiryu.study.model.local.pref.AppPreference
 import com.byiryu.study.model.remote.RemoteDataSource
 import io.reactivex.Single
 import java.util.concurrent.TimeUnit
 
 class Repository constructor(
     private var remoteDataSource: RemoteDataSource,
-    private var localDataSource: LocalDataSource,
-    private var pref: AppPreference
+    private var localDataSource: LocalDataSource
 ) {
     fun getMovieList(
         query: String
     ): Single<List<MovieItem>> {
-        pref.setPrevQuery(query)
+        localDataSource.setPrevQuery(query)
         return localDataSource.getAll()
             .flatMap { movies ->
                 if (movies.isEmpty()) {
@@ -40,15 +38,15 @@ class Repository constructor(
 
 
     fun getPrevSearchQuery(): String {
-        return pref.getPrevQuery()
+        return localDataSource.getPrevSearchQuery()
     }
 
     fun isAutoLogin(): Boolean {
-        return pref.getAutoLogin()
+        return localDataSource.isAutoLogin()
     }
 
     fun setAutoLogin() {
-        pref.setAutoLogin()
+        localDataSource.setAutoLogin()
     }
 
     fun loginCheck(id: String, pw: String): Single<Boolean> {
