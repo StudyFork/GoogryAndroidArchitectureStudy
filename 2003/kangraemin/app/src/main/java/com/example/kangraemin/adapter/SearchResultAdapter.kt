@@ -41,7 +41,7 @@ class SearchResultAdapter :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val result = data[position]
-        holder.apply {
+        holder.run {
             itemView.tv_castings.text = result.actor
             itemView.tv_director.text = result.director
             itemView.tv_title.text = Utils.fromHtml(result.title)
