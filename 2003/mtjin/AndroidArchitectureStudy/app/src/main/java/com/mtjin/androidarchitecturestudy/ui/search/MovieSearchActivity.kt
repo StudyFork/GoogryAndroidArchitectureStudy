@@ -46,8 +46,7 @@ class MovieSearchActivity : AppCompatActivity(), MovieSearchContract.View {
     }
 
     private fun initAdapter() {
-        movieAdapter =
-            MovieAdapter()
+        movieAdapter = MovieAdapter()
         val linearLayoutManager = LinearLayoutManager(this)
         rvMovies.layoutManager = linearLayoutManager
         scrollListener = object : EndlessRecyclerViewScrollListener(linearLayoutManager) {
