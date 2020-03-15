@@ -34,6 +34,7 @@ class MovieSearchActivity : AppCompatActivity(), MovieSearchContract.View {
         initView()
         initAdapter()
         initListener()
+        presenter = MovieSearchPresenter(this, scrollListener, myApplication, movieAdapter)
     }
 
     private fun initView() {
@@ -42,7 +43,6 @@ class MovieSearchActivity : AppCompatActivity(), MovieSearchContract.View {
         btnSearch = findViewById(R.id.btn_search)
         rvMovies = findViewById(R.id.rv_movies)
         pbLoading = findViewById(R.id.pb_loading)
-        presenter = MovieSearchPresenter(this, scrollListener, myApplication, movieAdapter)
     }
 
     private fun initAdapter() {
