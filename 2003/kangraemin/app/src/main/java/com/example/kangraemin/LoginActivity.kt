@@ -125,4 +125,9 @@ class LoginActivity : KangBaseActivity(), LoginContract.View {
         layout_pw.error = ""
         moveMain()
     }
+
+    override fun onDestroy() {
+        presenter.disposeCompositDisposable()
+        super.onDestroy()
+    }
 }
