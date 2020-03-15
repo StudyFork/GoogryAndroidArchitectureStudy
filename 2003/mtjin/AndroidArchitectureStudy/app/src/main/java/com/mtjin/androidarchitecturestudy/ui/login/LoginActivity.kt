@@ -1,17 +1,16 @@
 package com.mtjin.androidarchitecturestudy.ui.login
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mtjin.androidarchitecturestudy.R
-import com.mtjin.androidarchitecturestudy.ui.search.MovieSearchActivity
-import com.mtjin.androidarchitecturestudy.utils.PreferenceManager
 
-class LoginActivity : AppCompatActivity() {
-    private lateinit var tvId: TextView
-    private lateinit var tvPw: TextView
+class LoginActivity : AppCompatActivity(), LoginContract.View {
+    private lateinit var presenter: LoginContract.Presenter
+    private lateinit var etId: EditText
+    private lateinit var etPw: EditText
     private lateinit var btnLogin: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,31 +21,35 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        tvId = findViewById(R.id.tv_id)
-        tvPw = findViewById(R.id.tv_pw)
+        etId = findViewById(R.id.et_id)
+        etPw = findViewById(R.id.et_pw)
         btnLogin = findViewById(R.id.btn_login)
+        presenter = LoginPresenter(this)
     }
 
     private fun initListener() {
         btnLogin.setOnClickListener {
-            val id = tvId.text.toString().trim()
-            val pw = tvPw.text.toString().trim()
-            if (id != USER_ID || pw != USER_PW) {
-                tvPw.error = "아이디 또는 패스워드가 틀렸습니다"
-            } else if (id.isEmpty()) {
-                tvId.error = "아이디를 입력해주세요"
-            } else if (pw.isEmpty()) {
-                tvPw.error = "비밀번호를 입력해주세요"
-            } else {
-                startActivity(Intent(this, MovieSearchActivity::class.java))
-                PreferenceManager.setBoolean(this, PreferenceManager.AUTO_LOGIN_KEY, true)
-                finish()
-            }
+            val id = etId.text.toString().trim()
+            val pw = etPw.text.toString().trim()
+            presenter.login(this, id, pw)
         }
     }
 
-    companion object {
-        private const val USER_ID = "id"
-        private const val USER_PW = "P@sswOrd"
+    override fun showToast(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
+
+    override fun showIdError(msg: String) {
+        etId.error = msg
+    }
+
+    override fun showPwError(msg: String) {
+        etPw.error = msg
+    }
+
+    override fun finishActivity() {
+        finish()
+    }
+
+
 }
