@@ -16,7 +16,7 @@
         android:name=".utils.MyApplication"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".ui.login.LoginActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ui.SplashActivity"
@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.MovieSearchActivity"
+            android:name=".ui.search.MovieSearchActivity"
             android:windowSoftInputMode="adjustNothing" />
     </application>
 
