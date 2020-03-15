@@ -3,23 +3,30 @@ package com.example.kangraemin
 import android.content.Intent
 import android.os.Bundle
 import com.example.kangraemin.base.KangBaseActivity
-import io.reactivex.Completable
-import java.util.concurrent.TimeUnit
+import com.example.kangraemin.contract.SplashContract
+import com.example.kangraemin.presenter.SplashPresenter
 
-class SplashActivity : KangBaseActivity() {
+class SplashActivity : KangBaseActivity(), SplashContract.View {
+
+    private lateinit var presenter: SplashContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        val splashTimer = Completable
-            .timer(3, TimeUnit.SECONDS)
-            .doOnComplete {
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-            .subscribe()
-        compositeDisposable.add(splashTimer)
+        presenter = SplashPresenter(this)
+
+        presenter.startTimer()
+    }
+
+    override fun startLoginActivity() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    override fun onDestroy() {
+        presenter.disposeCompositDisposable()
+        super.onDestroy()
     }
 }
