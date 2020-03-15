@@ -18,13 +18,13 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         setContentView(R.layout.activity_login)
         initView()
         initListener()
+        presenter = LoginPresenter(this)
     }
 
     private fun initView() {
         etId = findViewById(R.id.et_id)
         etPw = findViewById(R.id.et_pw)
         btnLogin = findViewById(R.id.btn_login)
-        presenter = LoginPresenter(this)
     }
 
     private fun initListener() {
