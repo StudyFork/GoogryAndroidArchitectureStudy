@@ -3,19 +3,21 @@ package com.example.kangraemin
 import android.content.Intent
 import android.os.Bundle
 import com.example.kangraemin.base.KangBaseActivity
+import com.example.kangraemin.contract.LoginContract
 import com.example.kangraemin.model.AppDatabase
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.local.datadao.AuthLocalDataSourceImpl
-import com.example.kangraemin.model.local.datamodel.Auth
+import com.example.kangraemin.presenter.LoginPresenter
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.view.focusChanges
 import com.jakewharton.rxbinding3.widget.textChanges
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : KangBaseActivity() {
+class LoginActivity : KangBaseActivity(), LoginContract.View {
+
+    private lateinit var presenter: LoginContract.Presenter
 
     val authRepository by lazy {
         val db = AppDatabase.getInstance(context = this)
@@ -26,89 +28,49 @@ class LoginActivity : KangBaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val getAuth = authRepository
-            .getAuth()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                if (it.autoLogin) {
-                    moveMain()
-                }
-            }, { it.printStackTrace() })
-        compositeDisposable.add(getAuth)
+        presenter = LoginPresenter(this)
 
-        val validInput = Observable
+        presenter.checkAutoLoginStatus(authRepository = authRepository)
+
+        val checkLoginInfoHasEntered = Observable
             .combineLatest(
                 et_id.textChanges(),
                 et_pw.textChanges(),
-                BiFunction { t1: CharSequence, t2: CharSequence -> t1.isNotEmpty() && t2.isNotEmpty() }
-            )
-            .subscribe { loginInfoEntered ->
-                btn_login.isEnabled = loginInfoEntered
-                if (loginInfoEntered) {
-                    btn_login.alpha = 1f
-                } else {
-                    btn_login.alpha = 0.5f
+                BiFunction { id: CharSequence, password: CharSequence ->
+                    presenter
+                        .checkLoginInfoHasEntered(
+                            id = id.toString(),
+                            password = password.toString()
+                        )
                 }
+            )
+            .subscribe { loginInfoHasEntered ->
+                presenter.activateButton(loginInfoHasEntered)
             }
-        compositeDisposable.add(validInput)
+        compositeDisposable.add(checkLoginInfoHasEntered)
 
         val whenIdFocusChange = et_id.focusChanges()
             .skip(1)
             .subscribe { hasFocus ->
-                if (!hasFocus) {
-                    if (et_id.text.toString().isEmpty()) {
-                        layout_id.error = getString(R.string.login_error_id_empty)
-                    } else {
-                        layout_id.error = null
-                    }
-                } else {
-                    layout_id.error = null
-                }
+                presenter.checkIdIsEmpty(id = et_id.text.toString(), hasFocus = hasFocus)
             }
         compositeDisposable.add(whenIdFocusChange)
 
         val whenPwFocusChange = et_pw.focusChanges()
             .skip(1)
             .subscribe { hasFocus ->
-                if (!hasFocus) {
-                    if (et_pw.text.toString().isEmpty()) {
-                        layout_pw.error = getString(R.string.login_error_pw_empty)
-                    } else {
-                        layout_pw.error = null
-                    }
-                } else {
-                    layout_pw.error = null
-                }
+                presenter.checkPasswordIsEmpty(
+                    password = et_pw.text.toString(),
+                    hasFocus = hasFocus
+                )
             }
         compositeDisposable.add(whenPwFocusChange)
 
         val whenLoginButtonClicked = btn_login.clicks()
             .subscribe {
-                val loginSuccess = login(et_id.text.toString(), et_pw.text.toString())
-                if (loginSuccess) {
-                    if (chb_auto_login.isChecked) {
-                        val auth = Auth(autoLogin = true)
-                        val addAuth = authRepository
-                            .addAuth(auth = auth)
-                            .subscribe({ // no-op
-
-                            }, { it.printStackTrace() })
-                        compositeDisposable.add(addAuth)
-                    }
-                    layout_pw.error = ""
-                    moveMain()
-                } else {
-                    layout_pw.error = getString(R.string.login_fail)
-                }
+                presenter.login(id = et_id.text.toString(), password = et_pw.text.toString())
             }
         compositeDisposable.add(whenLoginButtonClicked)
-    }
-
-    private fun login(id: String, password: String): Boolean {
-        if (id == "id" && password == "P@ssw0rd") {
-            return true
-        }
-        return false
     }
 
     private fun moveMain() {
@@ -120,5 +82,47 @@ class LoginActivity : KangBaseActivity() {
     companion object {
         const val TAG_AUTO_LOGIN = "auto_login"
         const val TAG_USER_INFO = "user_info"
+    }
+
+    override fun showEmptyIdError() {
+        layout_id.error = getString(R.string.login_error_id_empty)
+    }
+
+    override fun hideEmptyIdError() {
+        layout_id.error = null
+    }
+
+    override fun showPasswordEmptyError() {
+        layout_pw.error = getString(R.string.login_error_pw_empty)
+    }
+
+    override fun hidePasswordEmptyError() {
+        layout_pw.error = null
+    }
+
+    override fun showFailedLoginError() {
+        layout_pw.error = getString(R.string.login_fail)
+    }
+
+    override fun hideFailedLoginError() {
+        layout_pw.error = null
+    }
+
+    override fun enableLoginButton() {
+        btn_login.isEnabled = true
+        btn_login.alpha = 1f
+    }
+
+    override fun disableLoginButton() {
+        btn_login.isEnabled = false
+        btn_login.alpha = 0.5f
+    }
+
+    override fun startMainActivity() {
+        if (chb_auto_login.isChecked) {
+            presenter.addAutoLoginStatus(authRepository = authRepository)
+        }
+        layout_pw.error = ""
+        moveMain()
     }
 }
