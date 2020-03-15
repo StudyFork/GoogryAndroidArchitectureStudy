@@ -12,35 +12,37 @@ import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
 import io.github.sooakim.R
 import io.github.sooakim.ui.base.SAActivity
-import io.github.sooakim.ui.movie.mapper.SAMoviePresentationMapper
+import io.github.sooakim.ui.movie.adapter.SAMovieSearchResultAdapter
 import io.github.sooakim.ui.movie.model.SAMoviePresentation
-import io.reactivex.BackpressureStrategy
-import io.reactivex.Flowable
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
-import java.util.concurrent.TimeUnit
 
-class SAMovieSearchActivity : SAActivity() {
+class SAMovieSearchActivity : SAActivity<SAMovieSearchPresenter>(), SAMovieSearchContractor.View {
     private lateinit var searchEdit: AppCompatEditText
     private lateinit var searchButton: AppCompatButton
     private lateinit var searchResultRecyclerView: RecyclerView
     private lateinit var loadingProgressBar: ProgressBar
+    private lateinit var searchResultAdapter: SAMovieSearchResultAdapter
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-    private lateinit var searchResultAdapter: SAMovieSearchResultAdapter
+
+    override val presenter: SAMovieSearchPresenter
+        get() = SAMovieSearchPresenter(
+            movieRepository = requireApplication().movieRepository,
+            view = this
+        )
 
     override val commonProgressView: View?
         get() = loadingProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_search)
 
         initView()
         initRecyclerView()
+
         bindRx()
+        super.onCreate(savedInstanceState)
     }
 
     override fun onDestroy() {
@@ -53,49 +55,39 @@ class SAMovieSearchActivity : SAActivity() {
         searchButton = findViewById(R.id.btn_search)
         searchResultRecyclerView = findViewById(R.id.rv_search_result)
         loadingProgressBar = findViewById(R.id.pgb_loading)
-
-        //restore latest
-        searchEdit.setText(requireApplication().movieRepository.latestMovieQuery)
     }
 
     private fun initRecyclerView() {
         if (!::searchResultAdapter.isInitialized) {
             searchResultAdapter =
-                SAMovieSearchResultAdapter(this::onSearchResultClick)
+                SAMovieSearchResultAdapter(
+                    presenter::onSearchResultClick
+                )
         }
         searchResultRecyclerView.adapter = searchResultAdapter
     }
 
     private fun bindRx() {
-        val textChanges = searchEdit.textChanges()
-            .toFlowable(BackpressureStrategy.DROP)
-        val buttonClick = searchButton.clicks()
-            .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-            .flatMapSingle { Single.fromCallable(searchEdit::getText) }
-            .toFlowable(BackpressureStrategy.DROP)
-
-        Flowable.merge(textChanges, buttonClick)
-            .debounce(700, TimeUnit.MILLISECONDS)
-            .map(CharSequence::trim)
+        searchEdit.textChanges()
             .map(CharSequence::toString)
-            .distinctUntilChanged()
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnNext { showLoading() }
-            .switchMap(requireApplication().movieRepository::getMovies)
-            .map { it.map(SAMoviePresentationMapper::mapToPresentation) }
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnNext { hideLoading() }
-            .doOnError { hideLoading() }
-            .subscribe(searchResultAdapter::submitList) {
-                it.printStackTrace()
-            }
+            .subscribe(presenter::onSearchChanges)
+            .addTo(compositeDisposable)
+
+        searchButton.clicks()
+            .subscribe { presenter.doSearch(text = searchEdit.text.toString()) }
             .addTo(compositeDisposable)
     }
 
-    private fun onSearchResultClick(item: SAMoviePresentation) {
-        val linkString = item.link.takeIf(String::isNotBlank) ?: return
+    override fun setSearchText(text: String) {
+        searchEdit.setText(text)
+    }
 
-        Intent(Intent.ACTION_VIEW, Uri.parse(linkString)).takeIf {
+    override fun showSearchResults(results: List<SAMoviePresentation>) {
+        searchResultAdapter.submitList(results)
+    }
+
+    override fun showLink(uri: Uri) {
+        Intent(Intent.ACTION_VIEW, uri).takeIf {
             it.resolveActivity(packageManager) != null
         }?.run(this::startActivity)
     }
