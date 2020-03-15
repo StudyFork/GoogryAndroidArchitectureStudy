@@ -5,35 +5,55 @@ import android.os.Bundle
 import android.view.View
 import com.example.kangraemin.adapter.SearchResultAdapter
 import com.example.kangraemin.base.KangBaseActivity
-import com.example.kangraemin.model.MovieSearchInterface
+import com.example.kangraemin.model.AppDatabase
+import com.example.kangraemin.model.AuthRepository
+import com.example.kangraemin.model.MovieSearchRepository
+import com.example.kangraemin.model.local.datadao.AuthLocalDataSourceImpl
+import com.example.kangraemin.model.local.datadao.LocalMovieDataSourceImpl
+import com.example.kangraemin.model.remote.datadao.MovieRemoteDataSourceImpl
+import com.example.kangraemin.model.remote.datamodel.Movies
 import com.example.kangraemin.util.NetworkUtil
 import com.example.kangraemin.util.RetrofitClient
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
+import io.reactivex.BackpressureStrategy
+import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : KangBaseActivity() {
+
+    val remoteMovieDataSource by lazy {
+        MovieRemoteDataSourceImpl(RetrofitClient.getMovieApi())
+    }
+
+    val localMovieDataSource by lazy {
+        val db = AppDatabase.getInstance(context = this)
+        LocalMovieDataSourceImpl(movieDao = db.movieDao())
+    }
+
+    val authRepository by lazy {
+        val db = AppDatabase.getInstance(context = this)
+        AuthRepository(authLocalDataSource = AuthLocalDataSourceImpl(db.authDao()))
+    }
+
+    val adapter = SearchResultAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val sharedPreferences = getSharedPreferences(LoginActivity.TAG_USER_INFO, 0)
-        val editor = sharedPreferences.edit()
-
-        if (sharedPreferences.getBoolean(LoginActivity.TAG_AUTO_LOGIN, false)) {
-            btn_logout.visibility = View.VISIBLE
-        }
-
-        val adapter = SearchResultAdapter()
+        val getAuth = authRepository
+            .getAuth()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                if (it.autoLogin) {
+                    btn_logout.visibility = View.VISIBLE
+                }
+            }, { it.printStackTrace() })
+        compositeDisposable.add(getAuth)
 
         rv_search_result.adapter = adapter
-
-        val service = RetrofitClient()
-            .getClient("https://openapi.naver.com")
-            .create(MovieSearchInterface::class.java)
 
         val whenSearchTextChanged = et_search.textChanges()
             .map { enteredText ->
@@ -50,43 +70,49 @@ class MainActivity : KangBaseActivity() {
             }
         compositeDisposable.add(whenSearchTextChanged)
 
-        val whenSearchButtonClicked = btn_search.clicks()
-            .map {
-                when (NetworkUtil().getConnectivityStatus(context = this)) {
-                    NetworkUtil.NetworkStatus.NOT_CONNECTED -> false
-                    else -> true
-                }
-            }
-            .subscribe { connectedToInternet ->
-                if (connectedToInternet) {
-                    rv_search_result.visibility = View.VISIBLE
-                    tv_network_error.visibility = View.GONE
-                    service.getSearchItems(
-                        display = "10",
-                        start = "1",
-                        query = et_search.text.toString()
-                    )
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({ responseMovieSearch ->
-                            adapter.data = responseMovieSearch.items
-                            adapter.notifyDataSetChanged()
-                        }, { it.printStackTrace() })
-                } else {
-                    rv_search_result.visibility = View.GONE
-                    tv_network_error.visibility = View.VISIBLE
-                }
-            }
-        compositeDisposable.add(whenSearchButtonClicked)
-
         val whenLogOutClicked = btn_logout.clicks()
             .subscribe {
-                editor.remove(LoginActivity.TAG_AUTO_LOGIN)
-                editor.apply()
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
+                val deleteAuth = authRepository
+                    .deleteAuth()
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        startActivity(Intent(this, LoginActivity::class.java))
+                        finish()
+                    }, { it.printStackTrace() })
+                compositeDisposable.add(deleteAuth)
             }
         compositeDisposable.add(whenLogOutClicked)
 
+        val whenArriveSearchResult = btn_search.clicks()
+            .toFlowable(BackpressureStrategy.BUFFER)
+            .doOnNext {
+                when (NetworkUtil().getConnectivityStatus(context = this)) {
+                    NetworkUtil.NetworkStatus.NOT_CONNECTED -> {
+                        rv_search_result.visibility = View.GONE
+                        tv_network_error.visibility = View.VISIBLE
+                    }
+                    else -> {
+                        rv_search_result.visibility = View.VISIBLE
+                        tv_network_error.visibility = View.GONE
+                    }
+                }
+            }
+            .map { et_search.text.toString() }
+            .startWith("")
+            .switchMap { search(it) }
+            .subscribe({ movies ->
+                adapter.setData(movies.items)
+            }, { it.printStackTrace() })
+        compositeDisposable.add(whenArriveSearchResult)
+    }
+
+    private fun search(query: String): Flowable<Movies> {
+        return MovieSearchRepository(
+            remoteMovieDatasource = remoteMovieDataSource,
+            localMovieDataSource = localMovieDataSource
+        )
+            .getMovieData(query = query)
+            .cache()
+            .observeOn(AndroidSchedulers.mainThread())
     }
 }

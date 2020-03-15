@@ -1,10 +1,10 @@
-package com.example.kangraemin.response
+package com.example.kangraemin.model.remote.datamodel
 
-data class ItemsMovieSearch(
-    val items: ArrayList<ResponseMovieSearch>
+data class Movies(
+    val items: ArrayList<MovieDetail>
 )
 
-data class ResponseMovieSearch(
+data class MovieDetail(
     val title: String,
     val image: String,
     val director: String,
