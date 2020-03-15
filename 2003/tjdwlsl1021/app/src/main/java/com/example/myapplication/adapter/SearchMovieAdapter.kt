@@ -10,34 +10,26 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
-import com.example.myapplication.item.SearchMovieItem
+import com.example.myapplication.model.MovieEntity
 
-/**
- * MutableList : 가변, 변경가능한 리스트
- * */
 class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val movieInfoArrayList: MutableList<SearchMovieItem> = arrayListOf()
-    private lateinit var onClickListener: (SearchMovieItem) -> Unit
+    private val movieInfoArrayList: MutableList<MovieEntity> = arrayListOf()
+    private lateinit var onClickListener: (MovieEntity) -> Unit
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val v = inflater.inflate(R.layout.item_movie, parent, false)
         val viewHolder = MovieViewHolder(v)
 
+        //-onClick은 onCrateViewHoler에서 선언, *bindViewHolder에서 선언하면 bind할 때마다 생성되는 문제
         v.setOnClickListener {
             onClickListener(movieInfoArrayList[viewHolder.adapterPosition])
         }
         return viewHolder
     }
 
-    override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder,
-        position: Int
-    ) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val movieViewHolder = holder as MovieViewHolder
         val item = movieInfoArrayList[position]
 
@@ -47,11 +39,12 @@ class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         movieViewHolder.tv_director.text = Html.fromHtml(item.director)
         movieViewHolder.tv_actor.text = Html.fromHtml(item.actor)
 
-        Glide.with(movieViewHolder.iv_thumbnail).load(item.image)
+        Glide.with(movieViewHolder.iv_thumbnail)
+            .load(item.image)
             .into(movieViewHolder.iv_thumbnail)
     }
 
-    fun setOnclickListener(onClickListener: (SearchMovieItem) -> Unit) {
+    fun setOnclickListener(onClickListener: (MovieEntity) -> Unit) {
         this.onClickListener = onClickListener
     }
 
@@ -59,22 +52,19 @@ class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return movieInfoArrayList.size
     }
 
-    fun addItems(items: java.util.ArrayList<SearchMovieItem>) {
+    fun addItems(items: List<MovieEntity>) {
         movieInfoArrayList.clear()
         movieInfoArrayList.addAll(items)
+
         notifyDataSetChanged()
     }
 
-    class MovieViewHolder internal constructor(view: View) :
-        RecyclerView.ViewHolder(view) {
-
+    class MovieViewHolder internal constructor(view: View) : RecyclerView.ViewHolder(view) {
         val iv_thumbnail: ImageView = view.findViewById(R.id.iv_thumbnail)
         val tv_title: TextView = view.findViewById(R.id.tv_title)
         val rb_userRating: RatingBar = view.findViewById(R.id.rb_userRating)
         val pubDate: TextView = view.findViewById(R.id.tv_pubDate)
         val tv_director: TextView = view.findViewById(R.id.tv_director)
         val tv_actor: TextView = view.findViewById(R.id.tv_actor)
-
     }
-
 }
