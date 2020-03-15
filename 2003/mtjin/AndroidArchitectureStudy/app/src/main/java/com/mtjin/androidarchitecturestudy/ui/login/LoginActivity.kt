@@ -1,4 +1,4 @@
-package com.mtjin.androidarchitecturestudy.ui
+package com.mtjin.androidarchitecturestudy.ui.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.mtjin.androidarchitecturestudy.R
+import com.mtjin.androidarchitecturestudy.ui.search.MovieSearchActivity
 import com.mtjin.androidarchitecturestudy.utils.PreferenceManager
 
 class LoginActivity : AppCompatActivity() {

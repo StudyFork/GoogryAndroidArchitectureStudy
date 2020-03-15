@@ -1,4 +1,4 @@
-package com.mtjin.androidarchitecturestudy.ui
+package com.mtjin.androidarchitecturestudy.ui.search
 
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +20,10 @@ class MovieAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_movie, parent, false)
-        val viewHolder = ViewHolder(view)
+        val viewHolder =
+            ViewHolder(
+                view
+            )
         view.setOnClickListener {
             clickCallBack(items[viewHolder.adapterPosition])
         }

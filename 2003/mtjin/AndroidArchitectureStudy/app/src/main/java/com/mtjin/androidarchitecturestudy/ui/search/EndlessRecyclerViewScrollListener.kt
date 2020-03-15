@@ -1,4 +1,4 @@
-package com.mtjin.androidarchitecturestudy.ui
+package com.mtjin.androidarchitecturestudy.ui.search
 
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager

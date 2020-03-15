@@ -1,4 +1,4 @@
-package com.mtjin.androidarchitecturestudy.ui
+package com.mtjin.androidarchitecturestudy.ui.search
 
 import android.content.Intent
 import android.net.Uri
@@ -46,7 +46,8 @@ class MovieSearchActivity : AppCompatActivity() {
     }
 
     private fun initAdapter() {
-        movieAdapter = MovieAdapter()
+        movieAdapter =
+            MovieAdapter()
         val linearLayoutManager = LinearLayoutManager(this)
         rvMovies.layoutManager = linearLayoutManager
         scrollListener = object : EndlessRecyclerViewScrollListener(linearLayoutManager) {
