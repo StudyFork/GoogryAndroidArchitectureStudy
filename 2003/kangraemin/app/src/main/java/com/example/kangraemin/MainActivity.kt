@@ -5,23 +5,24 @@ import android.os.Bundle
 import android.view.View
 import com.example.kangraemin.adapter.SearchResultAdapter
 import com.example.kangraemin.base.KangBaseActivity
+import com.example.kangraemin.contract.MainContract
 import com.example.kangraemin.model.AppDatabase
 import com.example.kangraemin.model.AuthRepository
-import com.example.kangraemin.model.MovieSearchRepository
 import com.example.kangraemin.model.local.datadao.AuthLocalDataSourceImpl
 import com.example.kangraemin.model.local.datadao.LocalMovieDataSourceImpl
 import com.example.kangraemin.model.remote.datadao.MovieRemoteDataSourceImpl
-import com.example.kangraemin.model.remote.datamodel.Movies
+import com.example.kangraemin.model.remote.datamodel.MovieDetail
+import com.example.kangraemin.presenter.MainPresenter
 import com.example.kangraemin.util.NetworkUtil
 import com.example.kangraemin.util.RetrofitClient
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
 import io.reactivex.BackpressureStrategy
-import io.reactivex.Flowable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : KangBaseActivity() {
+class MainActivity : KangBaseActivity(), MainContract.View {
+
+    private lateinit var presenter: MainContract.Presenter
 
     val remoteMovieDataSource by lazy {
         MovieRemoteDataSourceImpl(RetrofitClient.getMovieApi())
@@ -43,76 +44,75 @@ class MainActivity : KangBaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val getAuth = authRepository
-            .getAuth()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                if (it.autoLogin) {
-                    btn_logout.visibility = View.VISIBLE
-                }
-            }, { it.printStackTrace() })
-        compositeDisposable.add(getAuth)
+        presenter = MainPresenter(this)
+
+        presenter.checkAutoLoginStatus(authRepository = authRepository)
 
         rv_search_result.adapter = adapter
 
         val whenSearchTextChanged = et_search.textChanges()
-            .map { enteredText ->
-                enteredText.isNotEmpty()
-            }
-            .subscribe { isText ->
-                if (isText) {
-                    btn_search.alpha = 1f
-                    btn_search.isEnabled = true
-                } else {
-                    btn_search.alpha = 0.3f
-                    btn_search.isEnabled = false
-                }
+            .subscribe {
+                presenter.hasEnteredSearchText(it.toString())
             }
         compositeDisposable.add(whenSearchTextChanged)
 
         val whenLogOutClicked = btn_logout.clicks()
             .subscribe {
-                val deleteAuth = authRepository
-                    .deleteAuth()
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({
-                        startActivity(Intent(this, LoginActivity::class.java))
-                        finish()
-                    }, { it.printStackTrace() })
-                compositeDisposable.add(deleteAuth)
+                presenter.deleteAutoLoginStatus(authRepository = authRepository)
             }
         compositeDisposable.add(whenLogOutClicked)
 
         val whenArriveSearchResult = btn_search.clicks()
             .toFlowable(BackpressureStrategy.BUFFER)
             .doOnNext {
-                when (NetworkUtil().getConnectivityStatus(context = this)) {
-                    NetworkUtil.NetworkStatus.NOT_CONNECTED -> {
-                        rv_search_result.visibility = View.GONE
-                        tv_network_error.visibility = View.VISIBLE
-                    }
-                    else -> {
-                        rv_search_result.visibility = View.VISIBLE
-                        tv_network_error.visibility = View.GONE
-                    }
-                }
+                presenter.checkNetworkStatus(NetworkUtil().getConnectivityStatus(context = this))
             }
-            .map { et_search.text.toString() }
-            .startWith("")
-            .switchMap { search(it) }
-            .subscribe({ movies ->
-                adapter.setData(movies.items)
-            }, { it.printStackTrace() })
+            .startWith(Unit)
+            .subscribe {
+                presenter.getMovies(
+                    remoteMovieDataSource = remoteMovieDataSource,
+                    localMovieDataSource = localMovieDataSource,
+                    searchText = et_search.text.toString()
+                )
+            }
         compositeDisposable.add(whenArriveSearchResult)
     }
 
-    private fun search(query: String): Flowable<Movies> {
-        return MovieSearchRepository(
-            remoteMovieDatasource = remoteMovieDataSource,
-            localMovieDataSource = localMovieDataSource
-        )
-            .getMovieData(query = query)
-            .cache()
-            .observeOn(AndroidSchedulers.mainThread())
+    override fun showLogOutButton() {
+        btn_logout.visibility = View.VISIBLE
+    }
+
+    override fun enableSearchButton() {
+        btn_search.alpha = 1f
+        btn_search.isEnabled = true
+    }
+
+    override fun disableSearchButton() {
+        btn_search.alpha = 0.3f
+        btn_search.isEnabled = false
+    }
+
+    override fun startLoginActivity() {
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
+    }
+
+    override fun showNetworkErrorText() {
+        rv_search_result.visibility = View.GONE
+        tv_network_error.visibility = View.VISIBLE
+    }
+
+    override fun hideNetworkErrorText() {
+        rv_search_result.visibility = View.VISIBLE
+        tv_network_error.visibility = View.GONE
+    }
+
+    override fun setMoviesInAdapter(movies: ArrayList<MovieDetail>) {
+        adapter.setData(movies)
+    }
+
+    override fun onDestroy() {
+        presenter.disposeCompositDisposable()
+        super.onDestroy()
     }
 }
