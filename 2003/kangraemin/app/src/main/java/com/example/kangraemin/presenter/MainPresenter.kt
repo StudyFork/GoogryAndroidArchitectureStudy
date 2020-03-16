@@ -67,7 +67,7 @@ class MainPresenter(
             .startWith("")
             .switchMap {
                 MovieSearchRepository(
-                    remoteMovieDatasource = remoteMovieDataSource,
+                    remoteMovieDataSource = remoteMovieDataSource,
                     localMovieDataSource = localMovieDataSource
                 )
                     .getMovieData(query = it).cache()
