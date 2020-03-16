@@ -40,15 +40,15 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
 
     override fun showLoginErrorToast() {
-        Toast.makeText(this, "아이디 또는 패스워드가 틀렸습니다", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.id_pw_not_correct_error_msg), Toast.LENGTH_SHORT).show()
     }
 
     override fun showIdEmptyError() {
-        etId.error = "아이디를 입력해주세요"
+        etId.error = getString(R.string.id_empty_error_msg)
     }
 
     override fun showPwEmptyError() {
-        etPw.error = "비밀번호를 입력해주세요"
+        etPw.error = getString(R.string.pw_empty_error_msg)
     }
 
     override fun finishActivity() {
