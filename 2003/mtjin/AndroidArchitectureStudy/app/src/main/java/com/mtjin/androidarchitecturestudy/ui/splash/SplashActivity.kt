@@ -31,7 +31,7 @@ class SplashActivity : AppCompatActivity(), SplashContract.View {
         startActivity(Intent(this, MovieSearchActivity::class.java))
     }
 
-    override fun checkNetworkState() : Boolean {
-       return PreferenceManager.getBoolean(this, PreferenceManager.AUTO_LOGIN_KEY)
+    override fun checkNetworkState(): Boolean {
+        return PreferenceManager.getBoolean(this, PreferenceManager.AUTO_LOGIN_KEY)
     }
 }
