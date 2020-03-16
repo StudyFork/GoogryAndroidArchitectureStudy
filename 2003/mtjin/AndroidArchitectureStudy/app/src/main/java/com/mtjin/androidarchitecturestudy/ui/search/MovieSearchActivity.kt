@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mtjin.androidarchitecturestudy.R
+import com.mtjin.androidarchitecturestudy.data.Movie
 import com.mtjin.androidarchitecturestudy.utils.MyApplication
 
 
@@ -34,7 +35,7 @@ class MovieSearchActivity : AppCompatActivity(), MovieSearchContract.View {
         initView()
         initAdapter()
         initListener()
-        presenter = MovieSearchPresenter(this, myApplication, movieAdapter)
+        presenter = MovieSearchPresenter(this, myApplication.movieRepository)
     }
 
     private fun initView() {
@@ -72,10 +73,6 @@ class MovieSearchActivity : AppCompatActivity(), MovieSearchContract.View {
         }
     }
 
-    override fun showToast(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-    }
-
     override fun showLoading() {
         pbLoading.visibility = View.VISIBLE
     }
@@ -84,8 +81,44 @@ class MovieSearchActivity : AppCompatActivity(), MovieSearchContract.View {
         pbLoading.visibility = View.GONE
     }
 
+    override fun showToast(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showEmptyQueryToast() {
+        Toast.makeText(this, getString(R.string.search_input_query_msg), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showWaitToast() {
+        Toast.makeText(this, getString(R.string.wait_toast), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showNetworkErrorToast() {
+        Toast.makeText(this, getString(R.string.network_error_msg), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showNetworkSuccessToast() {
+        Toast.makeText(this, getString(R.string.load_movie_success_msg), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showNoMovieToast() {
+        Toast.makeText(this, getString(R.string.no_movie_error_msg), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showLastPageToast() {
+        Toast.makeText(this, getString(R.string.last_page_msg), Toast.LENGTH_SHORT).show()
+    }
+
     override fun scrollResetState() {
         scrollListener.resetState()
+    }
+
+    override fun adapterClear() {
+        movieAdapter.clear()
+    }
+
+    override fun adapterSetItems(movieList: List<Movie>) {
+        movieAdapter.setItems(movieList)
     }
 
 }
