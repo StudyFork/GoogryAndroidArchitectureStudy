@@ -6,6 +6,7 @@ interface MovieSearchContract {
         fun showToast(msg: String)
         fun showLoading()
         fun hideLoading()
+        fun scrollResetState()
     }
 
     interface Presenter {

@@ -34,7 +34,7 @@ class MovieSearchActivity : AppCompatActivity(), MovieSearchContract.View {
         initView()
         initAdapter()
         initListener()
-        presenter = MovieSearchPresenter(this, scrollListener, myApplication, movieAdapter)
+        presenter = MovieSearchPresenter(this, myApplication, movieAdapter)
     }
 
     private fun initView() {
@@ -82,6 +82,10 @@ class MovieSearchActivity : AppCompatActivity(), MovieSearchContract.View {
 
     override fun hideLoading() {
         pbLoading.visibility = View.GONE
+    }
+
+    override fun scrollResetState() {
+        scrollListener.resetState()
     }
 
 }

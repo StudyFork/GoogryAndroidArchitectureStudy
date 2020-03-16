@@ -6,7 +6,6 @@ import retrofit2.HttpException
 
 class MovieSearchPresenter(
     private val view: MovieSearchContract.View,
-    private val scrollListener: EndlessRecyclerViewScrollListener,
     private val myApplication: MyApplication,
     private val movieAdapter: MovieAdapter
 ) :
@@ -19,7 +18,7 @@ class MovieSearchPresenter(
         } else {
             view.showToast("잠시만 기다려주세요.")
             view.showLoading()
-            scrollListener.resetState()
+            view.scrollResetState()
             myApplication.movieRepository.getSearchMovies(query,
                 success = {
                     if (it.isEmpty()) {
