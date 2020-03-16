@@ -20,10 +20,7 @@ class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val v = inflater.inflate(R.layout.item_movie, parent, false)
-        val viewHolder =
-            MovieViewHolder(
-                v
-            )
+        val viewHolder = MovieViewHolder(v)
 
         //-onClick은 onCrateViewHoler에서 선언, *bindViewHolder에서 선언하면 bind할 때마다 생성되는 문제
         v.setOnClickListener {

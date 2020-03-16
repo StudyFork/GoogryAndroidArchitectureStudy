@@ -7,8 +7,8 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import com.example.myapplication.R
+import com.example.myapplication.data.local.MovieEntity
 import com.example.myapplication.data.repository.MovieRepositoryDataSet
 import kotlinx.android.synthetic.main.activity_search_movie.*
 
@@ -16,22 +16,21 @@ class SearchMovieActivity : AppCompatActivity(), Contract.View {
     private val TAG = "SearchMovieActivity"
 
     private lateinit var movieRepositoryDataSet: MovieRepositoryDataSet
-    private lateinit var presenter: Presenter
+    private lateinit var presenter: SearchMoviePresenter
 
-    private val movieAdapter =
-        SearchMovieAdapter()
+    private val movieAdapter = SearchMovieAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_movie)
 
-        initview()
+        initView()
         setOnclickListener()
-        presenter = Presenter(this)
+        presenter = SearchMoviePresenter(this)
 
     }
 
-    private fun initview() {
+    private fun initView() {
         movieRepositoryDataSet = application as MovieRepositoryDataSet
         rv_movie.setHasFixedSize(true)
         rv_movie.adapter = movieAdapter
@@ -39,21 +38,36 @@ class SearchMovieActivity : AppCompatActivity(), Contract.View {
 
     private fun setOnclickListener() {
         btn_search.setOnClickListener(View.OnClickListener {
-            var etMovieTitle = et_movie_title.text.toString()
 
-            if (etMovieTitle.isNotEmpty()) {
-                getMovieList(etMovieTitle)
-            } else {
-                Toast.makeText(this, R.string.activity_toast_empty_movie_title, Toast.LENGTH_SHORT).show()
-            }
+            var etMovieTitle = et_movie_title.text.toString()
+            presenter.checkIsEmptyMovieTitle(etMovieTitle)
         })
 
         movieAdapter.setOnclickListener {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
+            presenter.goToMovieWebPage(it)
         }
     }
 
-    private fun getMovieList(query: String) {
-        movieRepositoryDataSet.movieRepository.getMovieList(query, success = { movieAdapter.addItems(it) }, failed = { Log.e(TAG, it.toString()) })
+
+    /**
+     * View - 화면 출력
+     *
+     * */
+    // 영화 리스트
+    override fun showMovieList(query: String) {
+        movieRepositoryDataSet.movieRepository.getMovieList(
+            query,
+            success = { movieAdapter.addItems(it) },
+            failed = { Log.e(TAG, it.toString()) })
+    }
+
+    // 영화제목 입력하세요 문구
+    override fun showToastMovieTitleIsEmpty() {
+        Toast.makeText(this, R.string.activity_toast_empty_movie_title, Toast.LENGTH_SHORT).show()
+    }
+
+    // 영화정보 웹 페이지
+    override fun showMoiveWebPage(it: MovieEntity) {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
     }
 }
