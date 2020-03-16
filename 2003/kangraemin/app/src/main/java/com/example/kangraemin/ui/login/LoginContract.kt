@@ -1,4 +1,4 @@
-package com.example.kangraemin.contract
+package com.example.kangraemin.ui.login
 
 import com.example.kangraemin.base.KangBasePresenter
 import com.example.kangraemin.model.AuthRepository

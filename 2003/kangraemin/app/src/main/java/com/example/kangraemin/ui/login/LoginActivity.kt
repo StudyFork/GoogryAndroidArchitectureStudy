@@ -1,13 +1,13 @@
-package com.example.kangraemin
+package com.example.kangraemin.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import com.example.kangraemin.ui.main.MainActivity
+import com.example.kangraemin.R
 import com.example.kangraemin.base.KangBaseActivity
-import com.example.kangraemin.contract.LoginContract
 import com.example.kangraemin.model.AppDatabase
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.local.datadao.AuthLocalDataSourceImpl
-import com.example.kangraemin.presenter.LoginPresenter
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.view.focusChanges
 import com.jakewharton.rxbinding3.widget.textChanges

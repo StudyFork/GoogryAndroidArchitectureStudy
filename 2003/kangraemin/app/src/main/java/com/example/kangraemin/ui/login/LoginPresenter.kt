@@ -1,6 +1,5 @@
-package com.example.kangraemin.presenter
+package com.example.kangraemin.ui.login
 
-import com.example.kangraemin.contract.LoginContract
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.local.datamodel.Auth
 import io.reactivex.android.schedulers.AndroidSchedulers

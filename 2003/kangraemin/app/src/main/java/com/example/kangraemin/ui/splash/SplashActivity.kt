@@ -1,10 +1,10 @@
-package com.example.kangraemin
+package com.example.kangraemin.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
+import com.example.kangraemin.R
 import com.example.kangraemin.base.KangBaseActivity
-import com.example.kangraemin.contract.SplashContract
-import com.example.kangraemin.presenter.SplashPresenter
+import com.example.kangraemin.ui.login.LoginActivity
 
 class SplashActivity : KangBaseActivity(), SplashContract.View {
 

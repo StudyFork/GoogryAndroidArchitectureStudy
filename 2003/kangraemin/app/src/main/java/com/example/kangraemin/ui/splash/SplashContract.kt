@@ -1,4 +1,4 @@
-package com.example.kangraemin.contract
+package com.example.kangraemin.ui.splash
 
 import com.example.kangraemin.base.KangBasePresenter
 

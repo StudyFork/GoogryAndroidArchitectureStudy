@@ -1,6 +1,5 @@
-package com.example.kangraemin.presenter
+package com.example.kangraemin.ui.main
 
-import com.example.kangraemin.contract.MainContract
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.MovieSearchRepository
 import com.example.kangraemin.model.local.datadao.LocalMovieDataSourceImpl
