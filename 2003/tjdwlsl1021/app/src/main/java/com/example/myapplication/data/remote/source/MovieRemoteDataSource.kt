@@ -1,6 +1,6 @@
-package com.example.myapplication.data.remote
+package com.example.myapplication.data.remote.source
 
-import com.example.myapplication.model.MovieEntity
+import com.example.myapplication.data.local.MovieEntity
 
 interface MovieRemoteDataSource {
     fun getMovieList(query: String, success: (List<MovieEntity>) -> Unit, failed: (Throwable) -> Unit)

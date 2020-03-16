@@ -1,4 +1,4 @@
-package com.example.myapplication.model
+package com.example.myapplication.data.local
 
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo

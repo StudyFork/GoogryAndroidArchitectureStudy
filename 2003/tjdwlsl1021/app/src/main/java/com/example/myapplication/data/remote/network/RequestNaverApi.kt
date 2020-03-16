@@ -1,6 +1,6 @@
-package com.example.myapplication.network
+package com.example.myapplication.data.remote.network
 
-import com.example.myapplication.model.SearchMovieInfoResponse
+import com.example.myapplication.data.remote.ServerURL
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers

@@ -1,6 +1,7 @@
-package com.example.myapplication.network
+package com.example.myapplication.data.remote.network
 
 import android.util.Log
+import com.example.myapplication.data.remote.ServerURL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -28,6 +29,7 @@ object NetworkService {
 
     val retrofitService: RequestNaverApi by lazy {
         Log.d("RetrofitHelper","호출")
-        retrofit.create(RequestNaverApi::class.java)
+        retrofit.create(
+            RequestNaverApi::class.java)
     }
 }

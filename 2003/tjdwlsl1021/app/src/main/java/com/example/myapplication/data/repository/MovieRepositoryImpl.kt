@@ -1,8 +1,8 @@
 package com.example.myapplication.data.repository
 
 import com.example.myapplication.data.local.source.MovieLocalDataSource
-import com.example.myapplication.data.remote.MovieRemoteDataSource
-import com.example.myapplication.model.MovieEntity
+import com.example.myapplication.data.remote.source.MovieRemoteDataSource
+import com.example.myapplication.data.local.MovieEntity
 
 class MovieRepositoryImpl(private val movieRemoteDataSource: MovieRemoteDataSource, private val movieLocalDataSource: MovieLocalDataSource) :
     MovieRepository {

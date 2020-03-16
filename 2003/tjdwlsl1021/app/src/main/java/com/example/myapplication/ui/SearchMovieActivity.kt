@@ -1,4 +1,4 @@
-package com.example.myapplication.activity
+package com.example.myapplication.ui
 
 import android.content.Intent
 import android.net.Uri
@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.R
-import com.example.myapplication.adapter.SearchMovieAdapter
 import com.example.myapplication.data.repository.MovieRepositoryDataSet
 import kotlinx.android.synthetic.main.activity_search_movie.*
 
@@ -17,7 +16,8 @@ class SearchMovieActivity : AppCompatActivity() {
 
     private lateinit var movieRepositoryDataSet: MovieRepositoryDataSet
 
-    private val movieAdapter = SearchMovieAdapter()
+    private val movieAdapter =
+        SearchMovieAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
