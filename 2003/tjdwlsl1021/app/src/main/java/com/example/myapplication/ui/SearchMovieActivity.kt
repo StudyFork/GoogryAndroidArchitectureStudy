@@ -7,14 +7,16 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import com.example.myapplication.R
 import com.example.myapplication.data.repository.MovieRepositoryDataSet
 import kotlinx.android.synthetic.main.activity_search_movie.*
 
-class SearchMovieActivity : AppCompatActivity() {
+class SearchMovieActivity : AppCompatActivity(), Contract.View {
     private val TAG = "SearchMovieActivity"
 
     private lateinit var movieRepositoryDataSet: MovieRepositoryDataSet
+    private lateinit var presenter: Presenter
 
     private val movieAdapter =
         SearchMovieAdapter()
@@ -25,6 +27,8 @@ class SearchMovieActivity : AppCompatActivity() {
 
         initview()
         setOnclickListener()
+        presenter = Presenter(this)
+
     }
 
     private fun initview() {
