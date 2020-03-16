@@ -79,7 +79,7 @@ class MainPresenter(
         compositeDisposable.add(whenArrivedMovieData)
     }
 
-    override fun disposeCompositDisposable() {
+    override fun disposeCompositeDisposable() {
         compositeDisposable.dispose()
     }
 }

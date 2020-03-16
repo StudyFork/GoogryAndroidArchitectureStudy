@@ -80,7 +80,7 @@ class LoginPresenter(
         }
     }
 
-    override fun disposeCompositDisposable() {
+    override fun disposeCompositeDisposable() {
         compositeDisposable.dispose()
     }
 }
