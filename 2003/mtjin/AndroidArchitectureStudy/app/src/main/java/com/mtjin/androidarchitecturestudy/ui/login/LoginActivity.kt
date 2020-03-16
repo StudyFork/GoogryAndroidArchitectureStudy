@@ -1,11 +1,14 @@
 package com.mtjin.androidarchitecturestudy.ui.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mtjin.androidarchitecturestudy.R
+import com.mtjin.androidarchitecturestudy.ui.search.MovieSearchActivity
+import com.mtjin.androidarchitecturestudy.utils.PreferenceManager
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
     private lateinit var presenter: LoginContract.Presenter
@@ -31,7 +34,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         btnLogin.setOnClickListener {
             val id = etId.text.toString().trim()
             val pw = etPw.text.toString().trim()
-            presenter.login(this, id, pw)
+            presenter.login(id, pw)
         }
     }
 
@@ -50,6 +53,14 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
     override fun finishActivity() {
         finish()
+    }
+
+    override fun goMovieSearchActivity() {
+        startActivity(Intent(this, MovieSearchActivity::class.java))
+    }
+
+    override fun saveAutoLoginSharedPref() {
+        PreferenceManager.setBoolean(this, PreferenceManager.AUTO_LOGIN_KEY, true)
     }
 
 

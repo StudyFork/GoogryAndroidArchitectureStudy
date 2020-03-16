@@ -8,10 +8,12 @@ interface LoginContract {
         fun showIdEmptyError()
         fun showPwEmptyError()
         fun finishActivity()
+        fun goMovieSearchActivity()
+        fun saveAutoLoginSharedPref()
     }
 
     interface Presenter {
-        fun login(context: Context, id: String, pw: String)
+        fun login(id: String, pw: String)
     }
 
 }
