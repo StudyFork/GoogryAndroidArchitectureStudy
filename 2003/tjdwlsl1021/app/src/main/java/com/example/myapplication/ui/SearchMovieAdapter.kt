@@ -1,5 +1,7 @@
 package com.example.myapplication.ui
 
+import android.annotation.TargetApi
+import android.os.Build
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
@@ -29,19 +31,20 @@ class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return viewHolder
     }
 
+    @TargetApi(Build.VERSION_CODES.N)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val movieViewHolder = holder as MovieViewHolder
         val item = movieInfoArrayList[position]
 
-        movieViewHolder.tv_title.text = Html.fromHtml(item.title)
-        movieViewHolder.rb_userRating.rating = item.userRating.toFloat() / 2
+        movieViewHolder.tvTitle.text = Html.fromHtml(item.title, Html.FROM_HTML_MODE_COMPACT)
+        movieViewHolder.rbUserRating.rating = item.userRating.toFloat() / 2
         movieViewHolder.pubDate.text = item.pubDate
-        movieViewHolder.tv_director.text = Html.fromHtml(item.director)
-        movieViewHolder.tv_actor.text = Html.fromHtml(item.actor)
+        movieViewHolder.tvDirector.text = Html.fromHtml(item.director, Html.FROM_HTML_MODE_COMPACT)
+        movieViewHolder.tvActor.text = Html.fromHtml(item.actor, Html.FROM_HTML_MODE_COMPACT)
 
-        Glide.with(movieViewHolder.iv_thumbnail)
+        Glide.with(movieViewHolder.ivThumbnail)
             .load(item.image)
-            .into(movieViewHolder.iv_thumbnail)
+            .into(movieViewHolder.ivThumbnail)
     }
 
     fun setOnclickListener(onClickListener: (MovieEntity) -> Unit) {
@@ -60,11 +63,11 @@ class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     class MovieViewHolder internal constructor(view: View) : RecyclerView.ViewHolder(view) {
-        val iv_thumbnail: ImageView = view.findViewById(R.id.iv_thumbnail)
-        val tv_title: TextView = view.findViewById(R.id.tv_title)
-        val rb_userRating: RatingBar = view.findViewById(R.id.rb_userRating)
+        val ivThumbnail: ImageView = view.findViewById(R.id.iv_thumbnail)
+        val tvTitle: TextView = view.findViewById(R.id.tv_title)
+        val rbUserRating: RatingBar = view.findViewById(R.id.rb_userRating)
         val pubDate: TextView = view.findViewById(R.id.tv_pubDate)
-        val tv_director: TextView = view.findViewById(R.id.tv_director)
-        val tv_actor: TextView = view.findViewById(R.id.tv_actor)
+        val tvDirector: TextView = view.findViewById(R.id.tv_director)
+        val tvActor: TextView = view.findViewById(R.id.tv_actor)
     }
 }
