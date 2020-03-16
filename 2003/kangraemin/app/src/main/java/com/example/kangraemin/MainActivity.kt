@@ -24,21 +24,21 @@ class MainActivity : KangBaseActivity(), MainContract.View {
 
     private lateinit var presenter: MainContract.Presenter
 
-    val remoteMovieDataSource by lazy {
+    private val remoteMovieDataSource by lazy {
         MovieRemoteDataSourceImpl(RetrofitClient.getMovieApi())
     }
 
-    val localMovieDataSource by lazy {
+    private val localMovieDataSource by lazy {
         val db = AppDatabase.getInstance(context = this)
         LocalMovieDataSourceImpl(movieDao = db.movieDao())
     }
 
-    val authRepository by lazy {
+    private val authRepository by lazy {
         val db = AppDatabase.getInstance(context = this)
         AuthRepository(authLocalDataSource = AuthLocalDataSourceImpl(db.authDao()))
     }
 
-    val adapter = SearchResultAdapter()
+    private val adapter = SearchResultAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

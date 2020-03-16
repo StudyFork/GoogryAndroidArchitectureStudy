@@ -19,7 +19,7 @@ class LoginActivity : KangBaseActivity(), LoginContract.View {
 
     private lateinit var presenter: LoginContract.Presenter
 
-    val authRepository by lazy {
+    private val authRepository by lazy {
         val db = AppDatabase.getInstance(context = this)
         AuthRepository(authLocalDataSource = AuthLocalDataSourceImpl(db.authDao()))
     }
