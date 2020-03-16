@@ -9,11 +9,11 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
 
     override fun login(context: Context, id: String, pw: String) {
         if (id != USER_ID || pw != USER_PW) {
-            view.showPwError("아이디 또는 패스워드가 틀렸습니다")
+            view.showLoginErrorToast()
         } else if (id.isEmpty()) {
-            view.showIdError("아이디를 입력해주세요")
+            view.showIdEmptyError()
         } else if (pw.isEmpty()) {
-            view.showPwError("비밀번호를 입력해주세요")
+            view.showPwEmptyError()
         } else {
             context.startActivity(Intent(context, MovieSearchActivity::class.java))
             PreferenceManager.setBoolean(context, PreferenceManager.AUTO_LOGIN_KEY, true)

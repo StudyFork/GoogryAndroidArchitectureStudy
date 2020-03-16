@@ -4,9 +4,9 @@ import android.content.Context
 
 interface LoginContract {
     interface View {
-        fun showToast(msg: String)
-        fun showIdError(msg: String)
-        fun showPwError(msg: String)
+        fun showLoginErrorToast()
+        fun showIdEmptyError()
+        fun showPwEmptyError()
         fun finishActivity()
     }
 

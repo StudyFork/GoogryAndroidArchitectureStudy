@@ -35,16 +35,17 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         }
     }
 
-    override fun showToast(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+
+    override fun showLoginErrorToast() {
+        Toast.makeText(this, "아이디 또는 패스워드가 틀렸습니다", Toast.LENGTH_SHORT).show()
     }
 
-    override fun showIdError(msg: String) {
-        etId.error = msg
+    override fun showIdEmptyError() {
+        etId.error = "아이디를 입력해주세요"
     }
 
-    override fun showPwError(msg: String) {
-        etPw.error = msg
+    override fun showPwEmptyError() {
+        etPw.error = "비밀번호를 입력해주세요"
     }
 
     override fun finishActivity() {
