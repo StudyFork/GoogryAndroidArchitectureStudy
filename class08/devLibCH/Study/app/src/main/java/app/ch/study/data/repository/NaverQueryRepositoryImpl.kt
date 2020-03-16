@@ -1,14 +1,14 @@
 package app.ch.study.data.repository
 
-import app.ch.study.data.local.source.NaverQueryLocalDataSourceImpl
+import app.ch.study.data.local.source.NaverQueryLocalDataSource
 import app.ch.study.data.remote.response.MovieResponse
-import app.ch.study.data.remote.source.NaverQueryRemoteDataSourceImpl
+import app.ch.study.data.remote.source.NaverQueryRemoteDataSource
 import io.reactivex.Observable
 import io.reactivex.Single
 
 class NaverQueryRepositoryImpl(
-    private val naverQueryLocalDataSource: NaverQueryLocalDataSourceImpl,
-    private val naverQueryRemoteDataSource: NaverQueryRemoteDataSourceImpl
+    private val naverQueryLocalDataSource: NaverQueryLocalDataSource,
+    private val naverQueryRemoteDataSource: NaverQueryRemoteDataSource
 ) : NaverQueryRepository {
 
     override fun searchMovie(query: String): Observable<MovieResponse> {
@@ -25,5 +25,8 @@ class NaverQueryRepositoryImpl(
             )
             .toObservable()
     }
+
+    override fun getQuery(): String
+        = naverQueryLocalDataSource.getQuery()
 
 }

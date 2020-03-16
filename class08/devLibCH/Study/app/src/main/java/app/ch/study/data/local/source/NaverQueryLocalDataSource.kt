@@ -11,4 +11,6 @@ interface NaverQueryLocalDataSource {
 
     fun saveSearchQuery(query: String)
 
+    fun getQuery(): String
+
 }

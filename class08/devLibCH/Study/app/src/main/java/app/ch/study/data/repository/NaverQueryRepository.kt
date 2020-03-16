@@ -5,6 +5,8 @@ import io.reactivex.Observable
 
 interface NaverQueryRepository {
 
-    fun searchMovie(query: String) : Observable<MovieResponse>
+    fun searchMovie(query: String): Observable<MovieResponse>
+
+    fun getQuery(): String
 
 }

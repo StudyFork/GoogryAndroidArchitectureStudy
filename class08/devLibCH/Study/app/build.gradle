@@ -33,7 +33,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        JavaVersion.VERSION_1_8.toString()
     }
 
     dataBinding {
@@ -69,6 +69,9 @@ dependencies {
 
     //ktx
     implementation "androidx.fragment:fragment-ktx:1.2.2"
+
+    //koin
+    implementation "org.koin:koin-androidx-viewmodel:2.0.1"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
