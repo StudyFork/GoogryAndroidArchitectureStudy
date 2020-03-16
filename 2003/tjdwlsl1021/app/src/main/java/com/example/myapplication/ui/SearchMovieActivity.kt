@@ -26,7 +26,7 @@ class SearchMovieActivity : AppCompatActivity(), Contract.View {
 
         initView()
         setOnclickListener()
-        presenter = SearchMoviePresenter(this)
+        presenter = SearchMoviePresenter(this, movieRepositoryDataSet)
 
     }
 
@@ -37,12 +37,14 @@ class SearchMovieActivity : AppCompatActivity(), Contract.View {
     }
 
     private fun setOnclickListener() {
+        // 영화 검색 로직
         btn_search.setOnClickListener(View.OnClickListener {
 
             var etMovieTitle = et_movie_title.text.toString()
-            presenter.checkIsEmptyMovieTitle(etMovieTitle)
+            presenter.searchMovie(etMovieTitle)
         })
 
+        // 영화 이미지 클릭시 이동 로직
         movieAdapter.setOnclickListener {
             presenter.goToMovieWebPage(it)
         }
@@ -51,16 +53,7 @@ class SearchMovieActivity : AppCompatActivity(), Contract.View {
 
     /**
      * View - 화면 출력
-     *
      * */
-    // 영화 리스트
-    override fun showMovieList(query: String) {
-        movieRepositoryDataSet.movieRepository.getMovieList(
-            query,
-            success = { movieAdapter.addItems(it) },
-            failed = { Log.e(TAG, it.toString()) })
-    }
-
     // 영화제목 입력하세요 문구
     override fun showToastMovieTitleIsEmpty() {
         Toast.makeText(this, R.string.activity_toast_empty_movie_title, Toast.LENGTH_SHORT).show()
@@ -69,5 +62,19 @@ class SearchMovieActivity : AppCompatActivity(), Contract.View {
     // 영화정보 웹 페이지
     override fun showMoiveWebPage(it: MovieEntity) {
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
+    }
+
+    // 영화 리스트 전체 출력
+    override fun showMovieList(query: String) {
+        presenter.getMovieList(query)
+    }
+
+    // 영화 리스트 어댑터에 아이템 추가 반영
+    override fun addItems(it: List<MovieEntity>) {
+        movieAdapter.addItems(it)
+    }
+
+    override fun recordLog(it: String) {
+        Log.e(TAG, it)
     }
 }

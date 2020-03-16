@@ -8,13 +8,16 @@ import com.example.myapplication.data.local.MovieEntity
  * */
 interface Contract {
     interface View {
-        fun showMovieList(query: String)
         fun showToastMovieTitleIsEmpty()
         fun showMoiveWebPage(it:MovieEntity)
 
+        fun showMovieList(query: String)
+        fun addItems(it:List<MovieEntity>)
+        fun recordLog(it:String)
     }
     interface Presenter {
-        fun checkIsEmptyMovieTitle(etMovieTitle:String)
+        fun searchMovie(etMovieTitle:String)
         fun goToMovieWebPage(it:MovieEntity)
+        fun getMovieList(query:String)
     }
 }
