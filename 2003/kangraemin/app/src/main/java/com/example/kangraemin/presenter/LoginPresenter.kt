@@ -72,11 +72,11 @@ class LoginPresenter(
     }
 
     override fun login(id: String, password: String) {
-        if (id == "id" && password == "P@ssw0rd") {
+        if (id != "id" || password != "P@ssw0rd") {
+            loginView.showFailedLoginError()
+        } else {
             loginView.hideFailedLoginError()
             loginView.startMainActivity()
-        } else {
-            loginView.showFailedLoginError()
         }
     }
 
