@@ -10,8 +10,12 @@ import com.byiryu.study.ui.main.MainActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : BaseActivity() {
+class LoginActivity : BaseActivity(), LoginContract.View{
 
+
+    private val loginPresenter by lazy {
+        LoginPresenter<LoginContract.View>(getBRApplication().repository)
+    }
     override val progressBar: View?
         get() = loading
 
@@ -19,11 +23,15 @@ class LoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        init()
+        loginPresenter.onAttach(this)
+
+        initView()
+
         bind()
     }
 
-    private fun init() {
+    private fun initView(){
+
     }
 
     @SuppressLint("CheckResult")
@@ -32,46 +40,16 @@ class LoginActivity : BaseActivity() {
         btn_login.setOnClickListener {
             val id = editText_id.text.toString()
             val pw = editText_pw.text.toString()
-            if (invalid(id, pw)) {
-                getBRApplication().repository.loginCheck(id, pw)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnSubscribe {
-                        showLoading()
-                    }.doOnError {
-                        showMsg(R.string.msg_error_loading)
-                    }.doAfterTerminate{
-                        hideLoading()
-                    }
-                    .subscribe({
-                        Log.e("TAG", it.toString())
-                        if (it) {
-                            if (btn_auto_login.isChecked)
-                                getBRApplication().repository.setAutoLogin()
-                            goActivity(MainActivity::class.java)
-                            finish()
-                        } else {
-                            showMsg(R.string.msg_incorrect_login)
-                        }
-                    }, {
-                        showMsg("오류 발생 : $it")
-                    })
+            if (loginPresenter.invalid(id, pw)) {
+                loginPresenter.login(btn_auto_login.isChecked)
             }
         }
 
     }
 
-    private fun invalid(id: String, pw: String): Boolean {
-        if (id.isEmpty()) {
-            showMsg(R.string.msg_invalid_id)
-            return false
-        }
-
-        if (pw.isEmpty()) {
-            showMsg(R.string.msg_invalid_pw)
-            return false
-        }
-
-        return true
+    override fun goActivity() {
+        goActivity(MainActivity::class.java)
+        finish()
     }
 
 
