@@ -1,7 +1,6 @@
 package com.example.kangraemin.ui.login
 
 import com.example.kangraemin.base.KangBasePresenter
-import com.example.kangraemin.model.AuthRepository
 
 interface LoginContract {
     interface View {
@@ -20,7 +19,6 @@ interface LoginContract {
         fun checkIdIsEmpty(id: String, hasFocus: Boolean)
         fun checkPasswordIsEmpty(password: String, hasFocus: Boolean)
         fun checkLoginInfoHasEntered(id: String, password: String): Boolean
-        fun checkAutoLoginStatus()
         fun activateButton(allValueEntered: Boolean)
         fun addAutoLoginStatus()
         fun login(id: String, password: String, isAutoLogin: Boolean)

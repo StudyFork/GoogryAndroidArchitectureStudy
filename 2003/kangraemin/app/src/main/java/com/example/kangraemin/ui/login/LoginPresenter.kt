@@ -3,7 +3,6 @@ package com.example.kangraemin.ui.login
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.local.datamodel.Auth
 import io.reactivex.Flowable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
 class LoginPresenter(
@@ -12,7 +11,6 @@ class LoginPresenter(
 ) : LoginContract.Presenter {
 
     private val compositeDisposable = CompositeDisposable()
-
 
     override fun checkIdIsEmpty(id: String, hasFocus: Boolean) {
         if (!hasFocus) {
@@ -40,21 +38,6 @@ class LoginPresenter(
 
     override fun checkLoginInfoHasEntered(id: String, password: String): Boolean {
         return id.isNotEmpty() && password.isNotEmpty()
-    }
-
-    override fun checkAutoLoginStatus() {
-        val getAuth = Flowable
-            .just("")
-            .switchMap {
-                authRepository.getAuth()
-            }
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                if (it.autoLogin) {
-                    loginView.startMainActivity()
-                }
-            }, { it.printStackTrace() })
-        compositeDisposable.add(getAuth)
     }
 
     override fun activateButton(allValueEntered: Boolean) {

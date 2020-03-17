@@ -2,12 +2,12 @@ package com.example.kangraemin.ui.login
 
 import android.content.Intent
 import android.os.Bundle
-import com.example.kangraemin.ui.main.MainActivity
 import com.example.kangraemin.R
 import com.example.kangraemin.base.KangBaseActivity
 import com.example.kangraemin.model.AppDatabase
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.local.datadao.AuthLocalDataSourceImpl
+import com.example.kangraemin.ui.main.MainActivity
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.view.focusChanges
 import com.jakewharton.rxbinding3.widget.textChanges
@@ -29,8 +29,6 @@ class LoginActivity : KangBaseActivity(), LoginContract.View {
         setContentView(R.layout.activity_login)
 
         presenter = LoginPresenter(this, authRepository = authRepository)
-
-        presenter.checkAutoLoginStatus()
 
         val checkLoginInfoHasEntered = Observable
             .combineLatest(
@@ -68,7 +66,11 @@ class LoginActivity : KangBaseActivity(), LoginContract.View {
 
         val whenLoginButtonClicked = btn_login.clicks()
             .subscribe {
-                presenter.login(id = et_id.text.toString(), password = et_pw.text.toString(), isAutoLogin = chb_auto_login.isChecked)
+                presenter.login(
+                    id = et_id.text.toString(),
+                    password = et_pw.text.toString(),
+                    isAutoLogin = chb_auto_login.isChecked
+                )
             }
         compositeDisposable.add(whenLoginButtonClicked)
     }

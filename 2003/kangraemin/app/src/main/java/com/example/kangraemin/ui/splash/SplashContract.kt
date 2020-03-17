@@ -5,9 +5,10 @@ import com.example.kangraemin.base.KangBasePresenter
 interface SplashContract {
     interface View {
         fun startLoginActivity()
+        fun startMainActivity()
     }
 
-    interface Presenter: KangBasePresenter {
+    interface Presenter : KangBasePresenter {
         fun startTimer()
     }
 }
