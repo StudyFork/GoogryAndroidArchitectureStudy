@@ -59,11 +59,6 @@ class SearchMovieActivity : AppCompatActivity(), Contract.View {
         Toast.makeText(this, R.string.activity_toast_empty_movie_title, Toast.LENGTH_SHORT).show()
     }
 
-    // 영화 리스트 전체 출력
-    override fun showMovieList(query: String) {
-        presenter.getMovieList(query)
-    }
-
     // 영화 리스트 어댑터에 아이템 추가 반영
     override fun addItems(it: List<MovieEntity>) {
         movieAdapter.addItems(it)

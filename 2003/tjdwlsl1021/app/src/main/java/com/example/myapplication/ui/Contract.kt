@@ -9,13 +9,10 @@ import com.example.myapplication.data.local.MovieEntity
 interface Contract {
     interface View {
         fun showToastMovieTitleIsEmpty()
-
-        fun showMovieList(query: String)
         fun addItems(it:List<MovieEntity>)
         fun recordLog(it:String)
     }
     interface Presenter {
         fun searchMovie(etMovieTitle:String)
-        fun getMovieList(query:String)
     }
 }
