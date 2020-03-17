@@ -1,7 +1,5 @@
 package com.example.myapplication.ui
 
-import android.util.Log
-import com.example.myapplication.data.local.MovieEntity
 import com.example.myapplication.data.repository.MovieRepositoryDataSet
 
 /**
@@ -16,10 +14,6 @@ class SearchMoviePresenter(private val view: Contract.View, private val movieRep
         } else {
             view.showToastMovieTitleIsEmpty()
         }
-    }
-
-    override fun goToMovieWebPage(it: MovieEntity) {
-        view.showMoiveWebPage(it)
     }
 
     override fun getMovieList(query: String) {

@@ -46,7 +46,7 @@ class SearchMovieActivity : AppCompatActivity(), Contract.View {
 
         // 영화 이미지 클릭시 이동 로직
         movieAdapter.setOnclickListener {
-            presenter.goToMovieWebPage(it)
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
         }
     }
 
@@ -57,11 +57,6 @@ class SearchMovieActivity : AppCompatActivity(), Contract.View {
     // 영화제목 입력하세요 문구
     override fun showToastMovieTitleIsEmpty() {
         Toast.makeText(this, R.string.activity_toast_empty_movie_title, Toast.LENGTH_SHORT).show()
-    }
-
-    // 영화정보 웹 페이지
-    override fun showMoiveWebPage(it: MovieEntity) {
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
     }
 
     // 영화 리스트 전체 출력

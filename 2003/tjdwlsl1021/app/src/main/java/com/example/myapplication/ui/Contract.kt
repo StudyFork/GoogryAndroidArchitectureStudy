@@ -9,7 +9,6 @@ import com.example.myapplication.data.local.MovieEntity
 interface Contract {
     interface View {
         fun showToastMovieTitleIsEmpty()
-        fun showMoiveWebPage(it:MovieEntity)
 
         fun showMovieList(query: String)
         fun addItems(it:List<MovieEntity>)
@@ -17,7 +16,6 @@ interface Contract {
     }
     interface Presenter {
         fun searchMovie(etMovieTitle:String)
-        fun goToMovieWebPage(it:MovieEntity)
         fun getMovieList(query:String)
     }
 }
