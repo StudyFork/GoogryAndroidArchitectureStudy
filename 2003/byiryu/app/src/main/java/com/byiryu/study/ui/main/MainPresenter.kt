@@ -1,16 +1,14 @@
 package com.byiryu.study.ui.main
 
-import android.content.Context
-import android.util.Log
 import com.byiryu.study.R
 import com.byiryu.study.model.Repository
-import com.byiryu.study.ui.BRApplication
 import com.byiryu.study.ui.base.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class MainPresenter<V : MainConract.View> constructor(private val repository: Repository): BasePresenter<V>(), MainConract.Presenter<V> {
-
+class MainPresenter<V : MainConract.View> constructor(
+    private val repository: Repository
+) : BasePresenter<V>(), MainConract.Presenter<V> {
 
 
     override fun onViewPrepared() {

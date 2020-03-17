@@ -1,7 +1,6 @@
 package com.byiryu.study.ui.intro
 
 import android.os.Bundle
-import android.os.Handler
 import com.byiryu.study.R
 import com.byiryu.study.ui.base.BaseActivity
 import com.byiryu.study.ui.login.LoginActivity

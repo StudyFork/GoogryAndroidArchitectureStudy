@@ -1,6 +1,5 @@
 package com.byiryu.study.ui.main
 
-import android.content.Context
 import com.byiryu.study.model.data.MovieItem
 import com.byiryu.study.ui.base.BaseContract
 

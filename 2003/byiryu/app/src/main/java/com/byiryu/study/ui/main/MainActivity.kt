@@ -3,14 +3,12 @@ package com.byiryu.study.ui.main
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.byiryu.study.R
 import com.byiryu.study.model.data.MovieItem
 import com.byiryu.study.ui.base.BaseActivity
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
+
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), MainConract.View {
