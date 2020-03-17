@@ -23,6 +23,8 @@ class LoginPresenter<V : LoginContract.View> constructor(private val repository:
             return false
         }
 
+        this.id = id
+        this.pw = pw
         return true
     }
 
