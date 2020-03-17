@@ -7,7 +7,6 @@ abstract class BasePresenter<V : BaseContract.View> : BaseContract.Presenter<V> 
     var disposable: Disposable? = null
 
     var mvpView: V? = null
-        private set
 
     override fun onAttach(view: V) {
         this.mvpView = view
@@ -17,9 +16,6 @@ abstract class BasePresenter<V : BaseContract.View> : BaseContract.Presenter<V> 
         disposable?.dispose()
         this.mvpView = null
     }
-
-    class BaseViewNotAttachedException :
-        RuntimeException("Please call Presenter.onAttach(BaseContract.BaseView) before" + " requesting data to the Presenter")
 
 
 }
