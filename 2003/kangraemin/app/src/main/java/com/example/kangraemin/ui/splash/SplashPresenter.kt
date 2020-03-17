@@ -16,8 +16,11 @@ class SplashPresenter(
     private val compositeDisposable = CompositeDisposable()
 
     override fun startTimer() {
-        val splashTimer = Completable
-            .timer(3, TimeUnit.SECONDS)
+        val splashTimer = Flowable
+            .just("")
+            .switchMapCompletable {
+                Completable.timer(3, TimeUnit.SECONDS)
+            }
             .subscribe({
                 checkAutoLoginStatus()
             }, { it.printStackTrace() })
