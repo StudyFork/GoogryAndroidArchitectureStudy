@@ -10,7 +10,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
 class MainPresenter(
-    private val mainView: MainContract.View
+    private val mainView: MainContract.View,
+    private val remoteMovieDataSource: MovieRemoteDataSourceImpl,
+    private val localMovieDataSource: LocalMovieDataSourceImpl
 ) : MainContract.Presenter {
 
     private val compositeDisposable = CompositeDisposable()
@@ -56,11 +58,7 @@ class MainPresenter(
         }
     }
 
-    override fun getMovies(
-        remoteMovieDataSource: MovieRemoteDataSourceImpl,
-        localMovieDataSource: LocalMovieDataSourceImpl,
-        searchText: String
-    ) {
+    override fun getMovies(searchText: String) {
         val whenArrivedMovieData = Flowable
             .just(searchText)
             .startWith("")

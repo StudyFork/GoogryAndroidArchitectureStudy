@@ -44,7 +44,11 @@ class MainActivity : KangBaseActivity(), MainContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        presenter = MainPresenter(this)
+        presenter = MainPresenter(
+            mainView = this,
+            remoteMovieDataSource = remoteMovieDataSource,
+            localMovieDataSource = localMovieDataSource
+        )
 
         presenter.checkAutoLoginStatus(authRepository = authRepository)
 
@@ -69,11 +73,7 @@ class MainActivity : KangBaseActivity(), MainContract.View {
             }
             .startWith(Unit)
             .subscribe {
-                presenter.getMovies(
-                    remoteMovieDataSource = remoteMovieDataSource,
-                    localMovieDataSource = localMovieDataSource,
-                    searchText = et_search.text.toString()
-                )
+                presenter.getMovies(searchText = et_search.text.toString())
             }
         compositeDisposable.add(whenArriveSearchResult)
     }

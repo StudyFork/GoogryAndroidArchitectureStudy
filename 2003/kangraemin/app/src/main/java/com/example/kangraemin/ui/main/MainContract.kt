@@ -2,8 +2,6 @@ package com.example.kangraemin.ui.main
 
 import com.example.kangraemin.base.KangBasePresenter
 import com.example.kangraemin.model.AuthRepository
-import com.example.kangraemin.model.local.datadao.LocalMovieDataSourceImpl
-import com.example.kangraemin.model.remote.datadao.MovieRemoteDataSourceImpl
 import com.example.kangraemin.model.remote.datamodel.MovieDetail
 import com.example.kangraemin.util.NetworkUtil
 
@@ -23,10 +21,6 @@ interface MainContract {
         fun deleteAutoLoginStatus(authRepository: AuthRepository)
         fun hasEnteredSearchText(searchText: String)
         fun checkNetworkStatus(networkStatus: NetworkUtil.NetworkStatus)
-        fun getMovies(
-            remoteMovieDataSource: MovieRemoteDataSourceImpl,
-            localMovieDataSource: LocalMovieDataSourceImpl,
-            searchText: String
-        )
+        fun getMovies(searchText: String)
     }
 }
