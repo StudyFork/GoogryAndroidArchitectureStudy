@@ -61,7 +61,7 @@ class LoginPresenter(
         }
     }
 
-    override fun addAutoLoginStatus(authRepository: AuthRepository) {
+    override fun addAutoLoginStatus() {
         val auth = Auth(autoLogin = true)
         val addAuth = authRepository
             .addAuth(auth = auth)
@@ -73,7 +73,7 @@ class LoginPresenter(
 
     override fun login(id: String, password: String, isAutoLogin: Boolean) {
         if (isAutoLogin) {
-           addAutoLoginStatus(authRepository = authRepository)
+            addAutoLoginStatus()
         }
         if (id != "id" || password != "P@ssw0rd") {
             loginView.showFailedLoginError()

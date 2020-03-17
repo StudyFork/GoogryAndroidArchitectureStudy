@@ -22,7 +22,7 @@ interface LoginContract {
         fun checkLoginInfoHasEntered(id: String, password: String): Boolean
         fun checkAutoLoginStatus()
         fun activateButton(allValueEntered: Boolean)
-        fun addAutoLoginStatus(authRepository: AuthRepository)
+        fun addAutoLoginStatus()
         fun login(id: String, password: String, isAutoLogin: Boolean)
     }
 }
