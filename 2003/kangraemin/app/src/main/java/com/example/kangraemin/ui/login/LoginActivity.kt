@@ -73,11 +73,6 @@ class LoginActivity : KangBaseActivity(), LoginContract.View {
         compositeDisposable.add(whenLoginButtonClicked)
     }
 
-    companion object {
-        const val TAG_AUTO_LOGIN = "auto_login"
-        const val TAG_USER_INFO = "user_info"
-    }
-
     override fun showEmptyIdError() {
         layout_id.error = getString(R.string.login_error_id_empty)
     }
