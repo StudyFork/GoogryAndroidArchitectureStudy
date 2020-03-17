@@ -19,8 +19,11 @@ class MainPresenter(
     private val compositeDisposable = CompositeDisposable()
 
     override fun checkAutoLoginStatus() {
-        val getAuth = authRepository
-            .getAuth()
+        val getAuth = Flowable
+            .just("")
+            .switchMap {
+                authRepository.getAuth()
+            }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 if (it.autoLogin) {
@@ -31,8 +34,11 @@ class MainPresenter(
     }
 
     override fun deleteAutoLoginStatus() {
-        val deleteAuth = authRepository
-            .deleteAuth()
+        val deleteAuth = Flowable
+            .just("")
+            .switchMapCompletable {
+                authRepository.deleteAuth()
+            }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 mainView.startLoginActivity()

@@ -2,6 +2,7 @@ package com.example.kangraemin.ui.login
 
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.local.datamodel.Auth
+import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
@@ -42,8 +43,11 @@ class LoginPresenter(
     }
 
     override fun checkAutoLoginStatus() {
-        val getAuth = authRepository
-            .getAuth()
+        val getAuth = Flowable
+            .just("")
+            .switchMap {
+                authRepository.getAuth()
+            }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 if (it.autoLogin) {
@@ -63,8 +67,11 @@ class LoginPresenter(
 
     override fun addAutoLoginStatus() {
         val auth = Auth(autoLogin = true)
-        val addAuth = authRepository
-            .addAuth(auth = auth)
+        val addAuth = Flowable
+            .just("")
+            .switchMapCompletable {
+                authRepository.addAuth(auth = auth)
+            }
             .subscribe({ // no-op
 
             }, { it.printStackTrace() })
