@@ -68,7 +68,7 @@ class LoginActivity : KangBaseActivity(), LoginContract.View {
 
         val whenLoginButtonClicked = btn_login.clicks()
             .subscribe {
-                presenter.login(id = et_id.text.toString(), password = et_pw.text.toString())
+                presenter.login(id = et_id.text.toString(), password = et_pw.text.toString(), isAutoLogin = chb_auto_login.isChecked)
             }
         compositeDisposable.add(whenLoginButtonClicked)
     }
@@ -108,9 +108,6 @@ class LoginActivity : KangBaseActivity(), LoginContract.View {
     }
 
     override fun startMainActivity() {
-        if (chb_auto_login.isChecked) {
-            presenter.addAutoLoginStatus(authRepository = authRepository)
-        }
         layout_pw.error = ""
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)

@@ -23,6 +23,6 @@ interface LoginContract {
         fun checkAutoLoginStatus()
         fun activateButton(allValueEntered: Boolean)
         fun addAutoLoginStatus(authRepository: AuthRepository)
-        fun login(id: String, password: String)
+        fun login(id: String, password: String, isAutoLogin: Boolean)
     }
 }

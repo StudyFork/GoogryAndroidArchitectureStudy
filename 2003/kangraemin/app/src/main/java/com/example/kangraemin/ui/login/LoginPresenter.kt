@@ -71,7 +71,10 @@ class LoginPresenter(
         compositeDisposable.add(addAuth)
     }
 
-    override fun login(id: String, password: String) {
+    override fun login(id: String, password: String, isAutoLogin: Boolean) {
+        if (isAutoLogin) {
+           addAutoLoginStatus(authRepository = authRepository)
+        }
         if (id != "id" || password != "P@ssw0rd") {
             loginView.showFailedLoginError()
         } else {
