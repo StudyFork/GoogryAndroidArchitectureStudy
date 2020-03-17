@@ -48,7 +48,8 @@ class MainActivity : KangBaseActivity(), MainContract.View {
             mainView = this,
             remoteMovieDataSource = remoteMovieDataSource,
             localMovieDataSource = localMovieDataSource,
-            authRepository = authRepository
+            authRepository = authRepository,
+            networkUtil = NetworkUtil(context = this)
         )
 
         presenter.checkAutoLoginStatus()
@@ -70,7 +71,7 @@ class MainActivity : KangBaseActivity(), MainContract.View {
         val whenArriveSearchResult = btn_search.clicks()
             .toFlowable(BackpressureStrategy.BUFFER)
             .doOnNext {
-                presenter.checkNetworkStatus(NetworkUtil().getConnectivityStatus(context = this))
+                presenter.checkNetworkStatus()
             }
             .startWith(Unit)
             .subscribe {

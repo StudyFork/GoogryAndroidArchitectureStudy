@@ -13,7 +13,8 @@ class MainPresenter(
     private val mainView: MainContract.View,
     private val remoteMovieDataSource: MovieRemoteDataSourceImpl,
     private val localMovieDataSource: LocalMovieDataSourceImpl,
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val networkUtil: NetworkUtil
 ) : MainContract.Presenter {
 
     private val compositeDisposable = CompositeDisposable()
@@ -54,8 +55,8 @@ class MainPresenter(
         }
     }
 
-    override fun checkNetworkStatus(networkStatus: NetworkUtil.NetworkStatus) {
-        when (networkStatus) {
+    override fun checkNetworkStatus() {
+        when (networkUtil.getConnectivityStatus()) {
             NetworkUtil.NetworkStatus.NOT_CONNECTED -> {
                 mainView.showNetworkErrorText()
             }

@@ -2,7 +2,6 @@ package com.example.kangraemin.ui.main
 
 import com.example.kangraemin.base.KangBasePresenter
 import com.example.kangraemin.model.remote.datamodel.MovieDetail
-import com.example.kangraemin.util.NetworkUtil
 
 interface MainContract {
     interface View {
@@ -19,7 +18,7 @@ interface MainContract {
         fun checkAutoLoginStatus()
         fun deleteAutoLoginStatus()
         fun hasEnteredSearchText(searchText: String)
-        fun checkNetworkStatus(networkStatus: NetworkUtil.NetworkStatus)
+        fun checkNetworkStatus()
         fun getMovies(searchText: String)
     }
 }
