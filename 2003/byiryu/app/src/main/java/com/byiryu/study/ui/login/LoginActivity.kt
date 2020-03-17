@@ -25,13 +25,7 @@ class LoginActivity : BaseActivity(), LoginContract.View{
 
         loginPresenter.onAttach(this)
 
-        initView()
-
         bind()
-    }
-
-    private fun initView(){
-
     }
 
     @SuppressLint("CheckResult")
