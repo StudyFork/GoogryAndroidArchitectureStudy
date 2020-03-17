@@ -20,7 +20,7 @@ interface LoginContract {
         fun checkIdIsEmpty(id: String, hasFocus: Boolean)
         fun checkPasswordIsEmpty(password: String, hasFocus: Boolean)
         fun checkLoginInfoHasEntered(id: String, password: String): Boolean
-        fun checkAutoLoginStatus(authRepository: AuthRepository)
+        fun checkAutoLoginStatus()
         fun activateButton(allValueEntered: Boolean)
         fun addAutoLoginStatus(authRepository: AuthRepository)
         fun login(id: String, password: String)

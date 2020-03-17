@@ -28,9 +28,9 @@ class LoginActivity : KangBaseActivity(), LoginContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        presenter = LoginPresenter(this)
+        presenter = LoginPresenter(this, authRepository = authRepository)
 
-        presenter.checkAutoLoginStatus(authRepository = authRepository)
+        presenter.checkAutoLoginStatus()
 
         val checkLoginInfoHasEntered = Observable
             .combineLatest(

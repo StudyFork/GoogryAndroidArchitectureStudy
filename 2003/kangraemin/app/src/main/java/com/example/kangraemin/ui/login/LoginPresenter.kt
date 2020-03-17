@@ -6,7 +6,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
 class LoginPresenter(
-    private val loginView: LoginContract.View
+    private val loginView: LoginContract.View,
+    private val authRepository: AuthRepository
 ) : LoginContract.Presenter {
 
     private val compositeDisposable = CompositeDisposable()
@@ -40,7 +41,7 @@ class LoginPresenter(
         return id.isNotEmpty() && password.isNotEmpty()
     }
 
-    override fun checkAutoLoginStatus(authRepository: AuthRepository) {
+    override fun checkAutoLoginStatus() {
         val getAuth = authRepository
             .getAuth()
             .observeOn(AndroidSchedulers.mainThread())
