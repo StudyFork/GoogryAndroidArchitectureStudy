@@ -47,10 +47,11 @@ class MainActivity : KangBaseActivity(), MainContract.View {
         presenter = MainPresenter(
             mainView = this,
             remoteMovieDataSource = remoteMovieDataSource,
-            localMovieDataSource = localMovieDataSource
+            localMovieDataSource = localMovieDataSource,
+            authRepository = authRepository
         )
 
-        presenter.checkAutoLoginStatus(authRepository = authRepository)
+        presenter.checkAutoLoginStatus()
 
         rv_search_result.adapter = adapter
 
@@ -62,7 +63,7 @@ class MainActivity : KangBaseActivity(), MainContract.View {
 
         val whenLogOutClicked = btn_logout.clicks()
             .subscribe {
-                presenter.deleteAutoLoginStatus(authRepository = authRepository)
+                presenter.deleteAutoLoginStatus()
             }
         compositeDisposable.add(whenLogOutClicked)
 

@@ -12,12 +12,13 @@ import io.reactivex.disposables.CompositeDisposable
 class MainPresenter(
     private val mainView: MainContract.View,
     private val remoteMovieDataSource: MovieRemoteDataSourceImpl,
-    private val localMovieDataSource: LocalMovieDataSourceImpl
+    private val localMovieDataSource: LocalMovieDataSourceImpl,
+    private val authRepository: AuthRepository
 ) : MainContract.Presenter {
 
     private val compositeDisposable = CompositeDisposable()
 
-    override fun checkAutoLoginStatus(authRepository: AuthRepository) {
+    override fun checkAutoLoginStatus() {
         val getAuth = authRepository
             .getAuth()
             .observeOn(AndroidSchedulers.mainThread())
@@ -29,7 +30,7 @@ class MainPresenter(
         compositeDisposable.add(getAuth)
     }
 
-    override fun deleteAutoLoginStatus(authRepository: AuthRepository) {
+    override fun deleteAutoLoginStatus() {
         val deleteAuth = authRepository
             .deleteAuth()
             .observeOn(AndroidSchedulers.mainThread())
