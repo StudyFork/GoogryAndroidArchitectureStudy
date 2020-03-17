@@ -26,7 +26,7 @@ class SplashActivity : KangBaseActivity(), SplashContract.View {
     }
 
     override fun onDestroy() {
-        presenter.disposeCompositeDisposable()
+        presenter.onViewDestroy()
         super.onDestroy()
     }
 }

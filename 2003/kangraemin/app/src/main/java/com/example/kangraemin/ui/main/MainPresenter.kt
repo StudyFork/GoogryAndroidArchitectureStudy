@@ -76,7 +76,7 @@ class MainPresenter(
         compositeDisposable.add(whenArrivedMovieData)
     }
 
-    override fun disposeCompositeDisposable() {
+    override fun onViewDestroy() {
         compositeDisposable.dispose()
     }
 }

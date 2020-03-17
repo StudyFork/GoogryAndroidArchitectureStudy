@@ -112,7 +112,7 @@ class MainActivity : KangBaseActivity(), MainContract.View {
     }
 
     override fun onDestroy() {
-        presenter.disposeCompositeDisposable()
+        presenter.onViewDestroy()
         super.onDestroy()
     }
 }

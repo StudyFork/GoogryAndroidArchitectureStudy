@@ -20,7 +20,7 @@ class SplashPresenter(
         compositeDisposable.add(splashTimer)
     }
 
-    override fun disposeCompositeDisposable() {
+    override fun onViewDestroy() {
         compositeDisposable.dispose()
     }
 }

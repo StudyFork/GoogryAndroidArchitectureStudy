@@ -115,7 +115,7 @@ class LoginActivity : KangBaseActivity(), LoginContract.View {
     }
 
     override fun onDestroy() {
-        presenter.disposeCompositeDisposable()
+        presenter.onViewDestroy()
         super.onDestroy()
     }
 }
