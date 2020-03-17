@@ -1,6 +1,5 @@
 package com.example.kangraemin.ui.splash
 
-import com.example.kangraemin.ui.splash.SplashContract
 import io.reactivex.Completable
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
