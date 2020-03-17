@@ -73,12 +73,6 @@ class LoginActivity : KangBaseActivity(), LoginContract.View {
         compositeDisposable.add(whenLoginButtonClicked)
     }
 
-    private fun moveMain() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
-
     companion object {
         const val TAG_AUTO_LOGIN = "auto_login"
         const val TAG_USER_INFO = "user_info"
@@ -123,7 +117,9 @@ class LoginActivity : KangBaseActivity(), LoginContract.View {
             presenter.addAutoLoginStatus(authRepository = authRepository)
         }
         layout_pw.error = ""
-        moveMain()
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     override fun onDestroy() {
