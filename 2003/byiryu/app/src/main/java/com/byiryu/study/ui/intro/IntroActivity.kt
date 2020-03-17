@@ -8,29 +8,30 @@ import com.byiryu.study.ui.login.LoginActivity
 import com.byiryu.study.ui.main.MainActivity
 
 
-class IntroActivity : BaseActivity() {
+class IntroActivity : BaseActivity(), IntroContract.View{
 
+    private val introPresenter by lazy{
+        IntroPresenter<IntroContract.View>(getBRApplication().repository)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_intro)
 
-        initView()
+        introPresenter.onAttach(this)
+
+        introPresenter.onViewPrepared()
 
     }
 
-    private fun initView() {
+    override fun goActivityMain() {
+        goActivity(MainActivity::class.java)
+        finish()
+    }
 
-        val handler = Handler()
-        handler.postDelayed({
-            if (getBRApplication().repository.isAutoLogin()) {
-                goActivity(MainActivity::class.java)
-                finish()
-            } else {
-                goActivity(LoginActivity::class.java)
-                finish()
-            }
-        }, 2000)
+    override fun goActivityLogin() {
+        goActivity(LoginActivity::class.java)
+        finish()
     }
 
 
