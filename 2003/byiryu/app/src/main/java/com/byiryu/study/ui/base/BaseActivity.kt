@@ -8,28 +8,36 @@ import androidx.appcompat.app.AppCompatActivity
 import com.byiryu.study.ui.BRApplication
 
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
 
     protected open val progressBar: View? = null
 
-    fun showMsg(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
-    fun showMsg(@StringRes res: Int) {
+    override fun showMsg(res: Int) {
         showMsg(getString(res))
     }
 
-    fun showLoading() {
+    override fun showMsg(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showLoading() {
         progressBar?.visibility = View.VISIBLE
     }
 
-    fun hideLoading() {
+    override fun hideLoading() {
         progressBar?.visibility = View.INVISIBLE
     }
 
-    fun goActivity(clazz: Class<*>) {
+    override fun goActivity(clazz: Class<*>) {
         startActivity(Intent(this, clazz))
+    }
+
+    override fun goActivity(intent: Intent) {
+        startActivity(intent)
+    }
+
+    override fun goActivity() {
+
     }
 
     fun getBRApplication() : BRApplication{
