@@ -18,8 +18,8 @@ interface LoginContract {
     interface Presenter : KangBasePresenter {
         fun checkIdIsEmpty(id: String, hasFocus: Boolean)
         fun checkPasswordIsEmpty(password: String, hasFocus: Boolean)
-        fun checkLoginInfoHasEntered(id: String, password: String): Boolean
-        fun activateButton(allValueEntered: Boolean)
+        fun idTextChanges(id: String)
+        fun pwTextChanges(pw: String)
         fun addAutoLoginStatus()
         fun login(id: String, password: String, isAutoLogin: Boolean)
     }

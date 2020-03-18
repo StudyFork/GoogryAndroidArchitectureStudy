@@ -12,6 +12,9 @@ class LoginPresenter(
 
     private val compositeDisposable = CompositeDisposable()
 
+    private var id = ""
+    private var pw = ""
+
     override fun checkIdIsEmpty(id: String, hasFocus: Boolean) {
         if (!hasFocus) {
             if (id.isEmpty()) {
@@ -36,11 +39,21 @@ class LoginPresenter(
         }
     }
 
-    override fun checkLoginInfoHasEntered(id: String, password: String): Boolean {
-        return id.isNotEmpty() && password.isNotEmpty()
+    override fun idTextChanges(id: String) {
+        this.id = id
+        checkLoginInfoHasEntered()
     }
 
-    override fun activateButton(allValueEntered: Boolean) {
+    override fun pwTextChanges(pw: String) {
+        this.pw = pw
+        checkLoginInfoHasEntered()
+    }
+
+    private fun checkLoginInfoHasEntered() {
+        activateButton(id.isNotEmpty() && pw.isNotEmpty())
+    }
+
+    private fun activateButton(allValueEntered: Boolean) {
         if (allValueEntered) {
             loginView.enableLoginButton()
         } else {
