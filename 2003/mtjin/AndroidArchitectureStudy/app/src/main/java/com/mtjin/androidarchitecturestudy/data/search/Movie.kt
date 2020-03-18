@@ -1,4 +1,4 @@
-package com.mtjin.androidarchitecturestudy.data.movie_search
+package com.mtjin.androidarchitecturestudy.data.search
 
 
 import androidx.room.Entity

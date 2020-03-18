@@ -3,14 +3,14 @@ package com.mtjin.androidarchitecturestudy.utils
 import android.app.Application
 import com.mtjin.androidarchitecturestudy.api.ApiClient
 import com.mtjin.androidarchitecturestudy.api.ApiInterface
-import com.mtjin.androidarchitecturestudy.data.movie_search.source.MovieRepository
-import com.mtjin.androidarchitecturestudy.data.movie_search.source.MovieRepositoryImpl
-import com.mtjin.androidarchitecturestudy.data.movie_search.source.local.MovieDao
-import com.mtjin.androidarchitecturestudy.data.movie_search.source.local.MovieDatabase
-import com.mtjin.androidarchitecturestudy.data.movie_search.source.local.MovieLocalDataSource
-import com.mtjin.androidarchitecturestudy.data.movie_search.source.local.MovieLocalDataSourceImpl
-import com.mtjin.androidarchitecturestudy.data.movie_search.source.remote.MovieRemoteDataSource
-import com.mtjin.androidarchitecturestudy.data.movie_search.source.remote.MovieRemoteDataSourceImpl
+import com.mtjin.androidarchitecturestudy.data.search.source.MovieRepository
+import com.mtjin.androidarchitecturestudy.data.search.source.MovieRepositoryImpl
+import com.mtjin.androidarchitecturestudy.data.search.source.local.MovieDao
+import com.mtjin.androidarchitecturestudy.data.search.source.local.MovieDatabase
+import com.mtjin.androidarchitecturestudy.data.search.source.local.MovieLocalDataSource
+import com.mtjin.androidarchitecturestudy.data.search.source.local.MovieLocalDataSourceImpl
+import com.mtjin.androidarchitecturestudy.data.search.source.remote.MovieRemoteDataSource
+import com.mtjin.androidarchitecturestudy.data.search.source.remote.MovieRemoteDataSourceImpl
 
 class MyApplication : Application() {
     private lateinit var networkManager: NetworkManager

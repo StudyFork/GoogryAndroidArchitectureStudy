@@ -1,7 +1,7 @@
 package com.mtjin.androidarchitecturestudy.ui.search
 
 import android.util.Log
-import com.mtjin.androidarchitecturestudy.data.movie_search.source.MovieRepository
+import com.mtjin.androidarchitecturestudy.data.search.source.MovieRepository
 import retrofit2.HttpException
 
 class MovieSearchPresenter(

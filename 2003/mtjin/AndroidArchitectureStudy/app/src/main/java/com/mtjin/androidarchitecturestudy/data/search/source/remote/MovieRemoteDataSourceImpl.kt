@@ -1,9 +1,9 @@
-package com.mtjin.androidarchitecturestudy.data.movie_search.source.remote
+package com.mtjin.androidarchitecturestudy.data.search.source.remote
 
 import android.util.Log
 import com.mtjin.androidarchitecturestudy.api.ApiInterface
-import com.mtjin.androidarchitecturestudy.data.movie_search.Movie
-import com.mtjin.androidarchitecturestudy.data.movie_search.MovieResponse
+import com.mtjin.androidarchitecturestudy.data.search.Movie
+import com.mtjin.androidarchitecturestudy.data.search.MovieResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException

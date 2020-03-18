@@ -1,6 +1,6 @@
-package com.mtjin.androidarchitecturestudy.data.movie_search.source.local
+package com.mtjin.androidarchitecturestudy.data.search.source.local
 
-import com.mtjin.androidarchitecturestudy.data.movie_search.Movie
+import com.mtjin.androidarchitecturestudy.data.search.Movie
 
 class MovieLocalDataSourceImpl(private val movieDao: MovieDao) : MovieLocalDataSource {
     override fun insertMovies(movies: List<Movie>) {
