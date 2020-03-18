@@ -5,7 +5,7 @@ interface SplashContract {
         fun showAutoLogin()
         fun goLogin()
         fun goMovieSearch()
-        fun checkNetworkState() : Boolean
+        fun checkAutoLogin() : Boolean
     }
 
     interface Presenter {

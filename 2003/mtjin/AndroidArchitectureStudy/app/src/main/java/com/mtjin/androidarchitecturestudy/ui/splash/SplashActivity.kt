@@ -31,7 +31,7 @@ class SplashActivity : AppCompatActivity(), SplashContract.View {
         finish()
     }
 
-    override fun checkNetworkState(): Boolean {
+    override fun checkAutoLogin(): Boolean {
         return PreferenceManager.getBoolean(this, PreferenceManager.AUTO_LOGIN_KEY)
     }
 }
