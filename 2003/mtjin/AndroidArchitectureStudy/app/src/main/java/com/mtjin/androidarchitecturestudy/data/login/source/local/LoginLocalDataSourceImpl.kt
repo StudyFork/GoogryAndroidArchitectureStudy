@@ -4,10 +4,7 @@ import com.mtjin.androidarchitecturestudy.utils.PreferenceManager
 
 class LoginLocalDataSourceImpl(private val preferenceManager: PreferenceManager) :
     LoginLocalDataSource {
-
-    override fun getAutoLogin(): Boolean = preferenceManager.getBoolean()
-    
-    override fun saveAutoLogin() {
-        preferenceManager.setBoolean(true)
-    }
+    override var autoLogin: Boolean
+        get() = preferenceManager.getBoolean()
+        set(value) {preferenceManager.setBoolean(value)}
 }
