@@ -6,11 +6,12 @@ import io.github.sooakim.ui.login.SALoginActivity
 import io.github.sooakim.ui.movie.SAMovieSearchActivity
 
 class SASplashActivity : SAActivity<SASplashPresenter>(), SASplashContractor.View {
-    override val presenter: SASplashPresenter
-        get() = SASplashPresenter(
+    override val presenter: SASplashPresenter by lazy {
+        SASplashPresenter(
             authRepository = requireApplication().authRepository,
             view = this
         )
+    }
 
     override fun showLogin() {
         startActivity(Intent(this, SALoginActivity::class.java))

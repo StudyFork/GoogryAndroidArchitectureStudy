@@ -21,11 +21,12 @@ class SALoginActivity : SAActivity<SALoginPresenter>(), SALoginContractor.View {
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    override val presenter: SALoginPresenter
-        get() = SALoginPresenter(
+    override val presenter: SALoginPresenter by lazy {
+        SALoginPresenter(
             authRepository = requireApplication().authRepository,
             view = this
         )
+    }
 
     override val commonProgressView: View?
         get() = loadingProgressBar

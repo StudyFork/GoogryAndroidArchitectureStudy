@@ -26,11 +26,12 @@ class SAMovieSearchActivity : SAActivity<SAMovieSearchPresenter>(), SAMovieSearc
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    override val presenter: SAMovieSearchPresenter
-        get() = SAMovieSearchPresenter(
+    override val presenter: SAMovieSearchPresenter by lazy {
+        SAMovieSearchPresenter(
             movieRepository = requireApplication().movieRepository,
             view = this
         )
+    }
 
     override val commonProgressView: View?
         get() = loadingProgressBar
