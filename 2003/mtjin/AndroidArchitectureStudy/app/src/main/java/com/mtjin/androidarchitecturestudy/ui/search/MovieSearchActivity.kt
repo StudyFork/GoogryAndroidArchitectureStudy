@@ -97,10 +97,6 @@ class MovieSearchActivity : AppCompatActivity(), MovieSearchContract.View {
         Toast.makeText(this, getString(R.string.network_error_msg), Toast.LENGTH_SHORT).show()
     }
 
-    override fun showNetworkSuccess() {
-        Toast.makeText(this, getString(R.string.load_movie_success_msg), Toast.LENGTH_SHORT).show()
-    }
-
     override fun showNoMovie() {
         Toast.makeText(this, getString(R.string.no_movie_error_msg), Toast.LENGTH_SHORT).show()
     }
@@ -113,12 +109,16 @@ class MovieSearchActivity : AppCompatActivity(), MovieSearchContract.View {
         scrollListener.resetState()
     }
 
-    override fun adapterClear() {
+    override fun searchMovieSuccess(movieList: List<Movie>) {
         movieAdapter.clear()
+        movieAdapter.setItems(movieList)
+        Toast.makeText(this, getString(R.string.load_movie_success_msg), Toast.LENGTH_SHORT).show()
     }
 
-    override fun adapterSetItems(movieList: List<Movie>) {
+    override fun pagingMovieSuccess(movieList: List<Movie>) {
         movieAdapter.setItems(movieList)
+        Toast.makeText(this, getString(R.string.load_movie_success_msg), Toast.LENGTH_SHORT).show()
     }
+
 
 }

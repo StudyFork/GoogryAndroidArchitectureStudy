@@ -22,9 +22,7 @@ class MovieSearchPresenter(
                     if (it.isEmpty()) {
                         view.showNoMovie()
                     } else {
-                        view.adapterClear()
-                        view.adapterSetItems(it)
-                        view.showNetworkSuccess()
+                        view.searchMovieSuccess(it)
                     }
                     view.hideLoading()
                 },
@@ -46,8 +44,7 @@ class MovieSearchPresenter(
                 if (it.isEmpty()) {
                     view.showLastPage()
                 } else {
-                    view.adapterSetItems(it)
-                    view.showNetworkSuccess()
+                    view.pagingMovieSuccess(it)
                 }
                 view.hideLoading()
             },

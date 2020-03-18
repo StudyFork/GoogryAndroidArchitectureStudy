@@ -11,12 +11,11 @@ interface MovieSearchContract {
         fun showEmptyQuery()
         fun showWait()
         fun showNetworkError()
-        fun showNetworkSuccess()
         fun showNoMovie()
         fun showLastPage()
         fun scrollResetState()
-        fun adapterClear()
-        fun adapterSetItems(movieList: List<Movie>)
+        fun searchMovieSuccess(movieList: List<Movie>)
+        fun pagingMovieSuccess(movieList: List<Movie>)
     }
 
     interface Presenter {
