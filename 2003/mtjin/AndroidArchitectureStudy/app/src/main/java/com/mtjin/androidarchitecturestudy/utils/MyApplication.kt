@@ -5,12 +5,12 @@ import com.mtjin.androidarchitecturestudy.api.ApiClient
 import com.mtjin.androidarchitecturestudy.api.ApiInterface
 import com.mtjin.androidarchitecturestudy.data.source.MovieRepository
 import com.mtjin.androidarchitecturestudy.data.source.MovieRepositoryImpl
-import com.mtjin.androidarchitecturestudy.data.source.local.MovieDao
-import com.mtjin.androidarchitecturestudy.data.source.local.MovieDatabase
-import com.mtjin.androidarchitecturestudy.data.source.local.MovieLocalDataSource
-import com.mtjin.androidarchitecturestudy.data.source.local.MovieLocalDataSourceImpl
-import com.mtjin.androidarchitecturestudy.data.source.remote.MovieRemoteDataSource
-import com.mtjin.androidarchitecturestudy.data.source.remote.MovieRemoteDataSourceImpl
+import com.mtjin.androidarchitecturestudy.data.source.local.movie_search.MovieDao
+import com.mtjin.androidarchitecturestudy.data.source.local.movie_search.MovieDatabase
+import com.mtjin.androidarchitecturestudy.data.source.local.movie_search.MovieLocalDataSource
+import com.mtjin.androidarchitecturestudy.data.source.local.movie_search.MovieLocalDataSourceImpl
+import com.mtjin.androidarchitecturestudy.data.source.remote.movie_search.MovieRemoteDataSource
+import com.mtjin.androidarchitecturestudy.data.source.remote.movie_search.MovieRemoteDataSourceImpl
 
 class MyApplication : Application() {
     private lateinit var networkManager: NetworkManager
@@ -29,8 +29,14 @@ class MyApplication : Application() {
         networkManager = NetworkManager(applicationContext)
         apiInterface = ApiClient.getApiClient().create(ApiInterface::class.java)
         movieDao = MovieDatabase.getInstance(this).movieDao()
-        movieRemoteDataSource = MovieRemoteDataSourceImpl(apiInterface)
-        movieLocalDataSource = MovieLocalDataSourceImpl(movieDao)
+        movieRemoteDataSource =
+            MovieRemoteDataSourceImpl(
+                apiInterface
+            )
+        movieLocalDataSource =
+            MovieLocalDataSourceImpl(
+                movieDao
+            )
         movieRepository = MovieRepositoryImpl(movieRemoteDataSource, movieLocalDataSource, networkManager)
     }
 }

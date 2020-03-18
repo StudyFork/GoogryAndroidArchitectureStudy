@@ -1,4 +1,4 @@
-package com.mtjin.androidarchitecturestudy.data.source.local
+package com.mtjin.androidarchitecturestudy.data.source.local.movie_search
 
 import androidx.room.Dao
 import androidx.room.Insert

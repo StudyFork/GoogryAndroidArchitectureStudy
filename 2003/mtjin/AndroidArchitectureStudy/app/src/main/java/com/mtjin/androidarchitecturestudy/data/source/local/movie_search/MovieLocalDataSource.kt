@@ -1,4 +1,4 @@
-package com.mtjin.androidarchitecturestudy.data.source.local
+package com.mtjin.androidarchitecturestudy.data.source.local.movie_search
 
 import com.mtjin.androidarchitecturestudy.data.Movie
 

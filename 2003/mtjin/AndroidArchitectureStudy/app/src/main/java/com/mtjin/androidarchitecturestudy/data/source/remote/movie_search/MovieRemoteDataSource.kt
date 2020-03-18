@@ -1,4 +1,4 @@
-package com.mtjin.androidarchitecturestudy.data.source.remote
+package com.mtjin.androidarchitecturestudy.data.source.remote.movie_search
 
 import com.mtjin.androidarchitecturestudy.data.Movie
 

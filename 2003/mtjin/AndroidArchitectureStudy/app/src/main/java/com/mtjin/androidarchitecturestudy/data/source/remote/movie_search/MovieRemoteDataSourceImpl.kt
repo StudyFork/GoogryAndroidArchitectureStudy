@@ -1,4 +1,4 @@
-package com.mtjin.androidarchitecturestudy.data.source.remote
+package com.mtjin.androidarchitecturestudy.data.source.remote.movie_search
 
 import android.util.Log
 import com.mtjin.androidarchitecturestudy.api.ApiInterface
@@ -10,7 +10,8 @@ import retrofit2.HttpException
 import retrofit2.Response
 
 
-class MovieRemoteDataSourceImpl(private val apiInterface: ApiInterface) : MovieRemoteDataSource {
+class MovieRemoteDataSourceImpl(private val apiInterface: ApiInterface) :
+    MovieRemoteDataSource {
     override fun getSearchMovies(
         query: String,
         start: Int,
