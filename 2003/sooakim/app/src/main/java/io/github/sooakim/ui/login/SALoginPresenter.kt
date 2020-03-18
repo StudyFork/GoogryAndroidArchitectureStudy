@@ -7,29 +7,26 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.subjects.PublishSubject
-import java.lang.ref.WeakReference
 import java.util.concurrent.TimeUnit
 
 class SALoginPresenter(
     authRepository: SAAuthRepository,
-    view: SALoginContractor.View
+    private val view: SALoginContractor.View
 ) : SALoginContractor.Presenter {
-    private val viewRef: WeakReference<SALoginContractor.View> = WeakReference(view)
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     private val loginAction: PublishSubject<Pair<String, String>> = PublishSubject.create()
 
     init {
         loginAction
             .toFlowable(BackpressureStrategy.DROP)
-            .takeUntil { viewRef.get() == null }
             .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-            .doOnNext { viewRef.get()?.clearErrors() }
+            .doOnNext { view.clearErrors() }
             .switchMap { (id, password) -> authRepository.login(id, password) }
-            .doOnNext { viewRef.get()?.hideLoading() }
-            .doOnError { viewRef.get()?.hideLoading() }
+            .doOnNext { view.hideLoading() }
+            .doOnError { view.hideLoading() }
             .doOnError(this::handleError)
             .retry { error -> (error is HttpException) }
-            .subscribe { viewRef.get()?.showMovieSearch() }
+            .subscribe { view.showMovieSearch() }
             .addTo(compositeDisposable)
     }
 
@@ -37,17 +34,17 @@ class SALoginPresenter(
         when (throwable) {
             is HttpException -> when (throwable.code()) {
                 404 -> {
-                    viewRef.get()?.showIdError()
+                    view.showIdError()
                 }
                 409 -> {
-                    viewRef.get()?.showPasswordError()
+                    view.showPasswordError()
                 }
                 else -> {
-                    viewRef.get()?.clearErrors()
+                    view.clearErrors()
                 }
             }
             else -> {
-                viewRef.get()?.clearErrors()
+                view.clearErrors()
             }
         }
     }
