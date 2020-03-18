@@ -110,7 +110,6 @@ class LoginActivity : KangBaseActivity(), LoginContract.View {
     }
 
     override fun startMainActivity() {
-        layout_pw.error = ""
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
