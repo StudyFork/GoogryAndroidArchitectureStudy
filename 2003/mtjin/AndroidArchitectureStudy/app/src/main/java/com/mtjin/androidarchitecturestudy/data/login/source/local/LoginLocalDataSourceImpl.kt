@@ -6,8 +6,7 @@ class LoginLocalDataSourceImpl(private val preferenceManager: PreferenceManager)
     LoginLocalDataSource {
 
     override fun getAutoLogin(): Boolean = preferenceManager.getBoolean()
-
-
+    
     override fun saveAutoLogin() {
         preferenceManager.setBoolean(true)
     }
