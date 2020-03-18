@@ -24,7 +24,6 @@ class SALoginPresenter(
             .takeUntil { viewRef.get() == null }
             .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
             .doOnNext { viewRef.get()?.clearErrors() }
-            .doOnNext { viewRef.get()?.clearErrors() }
             .switchMap { (id, password) -> authRepository.login(id, password) }
             .doOnNext { viewRef.get()?.hideLoading() }
             .doOnError { viewRef.get()?.hideLoading() }
