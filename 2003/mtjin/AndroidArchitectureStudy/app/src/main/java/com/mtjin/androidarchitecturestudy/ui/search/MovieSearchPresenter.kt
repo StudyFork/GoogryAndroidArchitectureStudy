@@ -12,26 +12,26 @@ class MovieSearchPresenter(
 
     override fun requestMovie(query: String) {
         if (query.isEmpty()) {
-            view.showEmptyQueryToast()
+            view.showEmptyQuery()
         } else {
-            view.showWaitToast()
+            view.showWait()
             view.showLoading()
             view.scrollResetState()
             movieRepository.getSearchMovies(query,
                 success = {
                     if (it.isEmpty()) {
-                        view.showNoMovieToast()
+                        view.showNoMovie()
                     } else {
                         view.adapterClear()
                         view.adapterSetItems(it)
-                        view.showNetworkSuccessToast()
+                        view.showNetworkSuccess()
                     }
                     view.hideLoading()
                 },
                 fail = {
                     Log.d(TAG, it.toString())
                     when (it) {
-                        is HttpException -> view.showNetworkErrorToast()
+                        is HttpException -> view.showNetworkError()
                         else -> view.showToast(it.message.toString())
                     }
                     view.hideLoading()
@@ -44,17 +44,17 @@ class MovieSearchPresenter(
         movieRepository.getPagingMovies(query, offset,
             success = {
                 if (it.isEmpty()) {
-                    view.showLastPageToast()
+                    view.showLastPage()
                 } else {
                     view.adapterSetItems(it)
-                    view.showNetworkSuccessToast()
+                    view.showNetworkSuccess()
                 }
                 view.hideLoading()
             },
             fail = {
                 Log.d(TAG, it.toString())
                 when (it) {
-                    is HttpException -> view.showNetworkErrorToast()
+                    is HttpException -> view.showNetworkError()
                     else -> view.showToast(it.message.toString())
                 }
                 view.hideLoading()

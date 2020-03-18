@@ -85,27 +85,27 @@ class MovieSearchActivity : AppCompatActivity(), MovieSearchContract.View {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
-    override fun showEmptyQueryToast() {
+    override fun showEmptyQuery() {
         Toast.makeText(this, getString(R.string.search_input_query_msg), Toast.LENGTH_SHORT).show()
     }
 
-    override fun showWaitToast() {
+    override fun showWait() {
         Toast.makeText(this, getString(R.string.wait_toast), Toast.LENGTH_SHORT).show()
     }
 
-    override fun showNetworkErrorToast() {
+    override fun showNetworkError() {
         Toast.makeText(this, getString(R.string.network_error_msg), Toast.LENGTH_SHORT).show()
     }
 
-    override fun showNetworkSuccessToast() {
+    override fun showNetworkSuccess() {
         Toast.makeText(this, getString(R.string.load_movie_success_msg), Toast.LENGTH_SHORT).show()
     }
 
-    override fun showNoMovieToast() {
+    override fun showNoMovie() {
         Toast.makeText(this, getString(R.string.no_movie_error_msg), Toast.LENGTH_SHORT).show()
     }
 
-    override fun showLastPageToast() {
+    override fun showLastPage() {
         Toast.makeText(this, getString(R.string.last_page_msg), Toast.LENGTH_SHORT).show()
     }
 

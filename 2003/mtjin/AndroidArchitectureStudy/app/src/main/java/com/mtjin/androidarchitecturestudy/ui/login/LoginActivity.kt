@@ -34,12 +34,12 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         btnLogin.setOnClickListener {
             val id = etId.text.toString().trim()
             val pw = etPw.text.toString().trim()
-            presenter.login(id, pw)
+            presenter.doLogin(id, pw)
         }
     }
 
 
-    override fun showLoginErrorToast() {
+    override fun showLoginError() {
         Toast.makeText(this, getString(R.string.id_pw_not_correct_error_msg), Toast.LENGTH_SHORT).show()
     }
 

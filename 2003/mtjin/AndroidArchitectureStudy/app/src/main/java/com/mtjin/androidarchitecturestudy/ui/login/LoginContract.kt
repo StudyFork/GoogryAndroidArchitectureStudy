@@ -2,7 +2,7 @@ package com.mtjin.androidarchitecturestudy.ui.login
 
 interface LoginContract {
     interface View {
-        fun showLoginErrorToast()
+        fun showLoginError()
         fun showIdEmptyError()
         fun showPwEmptyError()
         fun goMovieSearch()
@@ -10,7 +10,7 @@ interface LoginContract {
     }
 
     interface Presenter {
-        fun login(id: String, pw: String)
+        fun doLogin(id: String, pw: String)
     }
 
 }

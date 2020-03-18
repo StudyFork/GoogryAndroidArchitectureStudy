@@ -15,11 +15,11 @@ class SplashActivity : AppCompatActivity(), SplashContract.View {
         super.onCreate(savedInstanceState)
 
         presenter = SplashPresenter(this)
-        presenter.splashStart()
+        presenter.doSplash()
         finish()
     }
 
-    override fun showAutoLoginToast() {
+    override fun showAutoLogin() {
         Toast.makeText(this, getString(R.string.auto_login_msg), Toast.LENGTH_SHORT).show()
     }
 
