@@ -24,6 +24,7 @@ class SplashActivity : AppCompatActivity(), SplashContract.View {
 
     override fun goLogin() {
         startActivity(Intent(this, LoginActivity::class.java))
+        finish()
     }
 
     override fun goMovieSearch() {
