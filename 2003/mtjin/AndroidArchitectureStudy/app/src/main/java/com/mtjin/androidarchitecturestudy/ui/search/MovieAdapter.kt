@@ -10,7 +10,7 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mtjin.androidarchitecturestudy.R
-import com.mtjin.androidarchitecturestudy.data.Movie
+import com.mtjin.androidarchitecturestudy.data.movie_search.Movie
 
 class MovieAdapter :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {

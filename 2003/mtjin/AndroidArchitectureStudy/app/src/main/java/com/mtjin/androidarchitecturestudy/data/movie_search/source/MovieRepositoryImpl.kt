@@ -1,8 +1,8 @@
-package com.mtjin.androidarchitecturestudy.data.source
+package com.mtjin.androidarchitecturestudy.data.movie_search.source
 
-import com.mtjin.androidarchitecturestudy.data.Movie
-import com.mtjin.androidarchitecturestudy.data.source.local.movie_search.MovieLocalDataSource
-import com.mtjin.androidarchitecturestudy.data.source.remote.movie_search.MovieRemoteDataSource
+import com.mtjin.androidarchitecturestudy.data.movie_search.Movie
+import com.mtjin.androidarchitecturestudy.data.movie_search.source.local.MovieLocalDataSource
+import com.mtjin.androidarchitecturestudy.data.movie_search.source.remote.MovieRemoteDataSource
 import com.mtjin.androidarchitecturestudy.utils.NetworkManager
 
 class MovieRepositoryImpl(

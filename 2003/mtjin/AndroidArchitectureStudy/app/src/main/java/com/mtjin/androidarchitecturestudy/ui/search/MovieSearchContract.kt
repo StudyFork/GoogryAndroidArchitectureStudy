@@ -1,6 +1,6 @@
 package com.mtjin.androidarchitecturestudy.ui.search
 
-import com.mtjin.androidarchitecturestudy.data.Movie
+import com.mtjin.androidarchitecturestudy.data.movie_search.Movie
 
 interface MovieSearchContract {
 

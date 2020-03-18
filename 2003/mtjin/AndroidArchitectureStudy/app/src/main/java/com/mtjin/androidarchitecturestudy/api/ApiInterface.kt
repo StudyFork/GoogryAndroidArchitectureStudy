@@ -1,6 +1,6 @@
 package com.mtjin.androidarchitecturestudy.api
 
-import com.mtjin.androidarchitecturestudy.data.MovieResponse
+import com.mtjin.androidarchitecturestudy.data.movie_search.MovieResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

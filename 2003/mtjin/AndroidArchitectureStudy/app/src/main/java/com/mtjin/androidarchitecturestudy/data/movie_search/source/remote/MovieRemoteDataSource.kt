@@ -1,6 +1,6 @@
-package com.mtjin.androidarchitecturestudy.data.source.remote.movie_search
+package com.mtjin.androidarchitecturestudy.data.movie_search.source.remote
 
-import com.mtjin.androidarchitecturestudy.data.Movie
+import com.mtjin.androidarchitecturestudy.data.movie_search.Movie
 
 interface MovieRemoteDataSource {
     fun getSearchMovies(

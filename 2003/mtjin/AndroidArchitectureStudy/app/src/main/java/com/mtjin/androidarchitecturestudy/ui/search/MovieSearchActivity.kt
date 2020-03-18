@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mtjin.androidarchitecturestudy.R
-import com.mtjin.androidarchitecturestudy.data.Movie
+import com.mtjin.androidarchitecturestudy.data.movie_search.Movie
 import com.mtjin.androidarchitecturestudy.utils.MyApplication
 
 
