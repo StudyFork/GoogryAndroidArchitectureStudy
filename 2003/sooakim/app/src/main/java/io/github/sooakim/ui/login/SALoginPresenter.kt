@@ -56,7 +56,7 @@ class SALoginPresenter(
         compositeDisposable.clear()
     }
 
-    override fun doLogin(id: String, password: String) {
+    override fun login(id: String, password: String) {
         loginAction.onNext(id to password)
     }
 }

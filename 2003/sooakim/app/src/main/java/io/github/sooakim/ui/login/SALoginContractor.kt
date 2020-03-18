@@ -13,6 +13,6 @@ interface SALoginContractor {
     }
 
     interface Presenter : SABasePresenter {
-        fun doLogin(id: String, password: String)
+        fun login(id: String, password: String)
     }
 }

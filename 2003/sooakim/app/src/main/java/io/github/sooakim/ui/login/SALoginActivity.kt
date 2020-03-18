@@ -54,7 +54,7 @@ class SALoginActivity : SAActivity<SALoginPresenter>(), SALoginContractor.View {
     private fun bindRx() {
         loginButton.clicks()
             .subscribe {
-                presenter.doLogin(
+                presenter.login(
                     id = idInputEditText.text.toString(),
                     password = passwordInputEditText.text.toString()
                 )
