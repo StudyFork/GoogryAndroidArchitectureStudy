@@ -14,7 +14,7 @@ interface SAMovieSearchContractor {
     }
 
     interface Presenter : SABasePresenter {
-        fun doSearch(text: String)
+        fun search(text: String)
 
         fun onSearchChanges(text: String)
         fun onSearchResultClick(item: SAMoviePresentation)

@@ -75,7 +75,7 @@ class SAMovieSearchActivity : SAActivity<SAMovieSearchPresenter>(), SAMovieSearc
             .addTo(compositeDisposable)
 
         searchButton.clicks()
-            .subscribe { presenter.doSearch(text = searchEdit.text.toString()) }
+            .subscribe { presenter.search(text = searchEdit.text.toString()) }
             .addTo(compositeDisposable)
     }
 

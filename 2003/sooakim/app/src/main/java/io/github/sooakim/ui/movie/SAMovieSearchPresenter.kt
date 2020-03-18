@@ -56,7 +56,7 @@ class SAMovieSearchPresenter(
         viewRef.get()?.showLink(uri)
     }
 
-    override fun doSearch(text: String) {
+    override fun search(text: String) {
         searchAction.onNext(text)
     }
 
