@@ -109,7 +109,7 @@ class LoginActivity : KangBaseActivity(), LoginContract.View {
         btn_login.alpha = 0.5f
     }
 
-    override fun startMainActivity() {
+    override fun startMain() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()

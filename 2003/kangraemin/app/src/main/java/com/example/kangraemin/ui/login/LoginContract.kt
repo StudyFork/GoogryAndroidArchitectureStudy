@@ -12,7 +12,7 @@ interface LoginContract {
         fun hideFailedLoginError()
         fun enableLoginButton()
         fun disableLoginButton()
-        fun startMainActivity()
+        fun startMain()
     }
 
     interface Presenter : KangBasePresenter {

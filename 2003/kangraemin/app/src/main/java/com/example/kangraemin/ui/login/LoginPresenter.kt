@@ -69,7 +69,7 @@ class LoginPresenter(
             loginView.showFailedLoginError()
         } else {
             loginView.hideFailedLoginError()
-            loginView.startMainActivity()
+            loginView.startMain()
         }
     }
 
