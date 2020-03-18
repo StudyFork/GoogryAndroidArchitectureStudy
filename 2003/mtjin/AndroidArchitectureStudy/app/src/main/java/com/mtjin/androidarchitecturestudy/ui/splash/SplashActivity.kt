@@ -16,7 +16,6 @@ class SplashActivity : AppCompatActivity(), SplashContract.View {
 
         presenter = SplashPresenter(this)
         presenter.doSplash()
-        finish()
     }
 
     override fun showAutoLogin() {
@@ -29,6 +28,7 @@ class SplashActivity : AppCompatActivity(), SplashContract.View {
 
     override fun goMovieSearch() {
         startActivity(Intent(this, MovieSearchActivity::class.java))
+        finish()
     }
 
     override fun checkNetworkState(): Boolean {
