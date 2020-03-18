@@ -51,12 +51,9 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         etPw.error = getString(R.string.pw_empty_error_msg)
     }
 
-    override fun finishActivity() {
-        finish()
-    }
-
     override fun goMovieSearchActivity() {
         startActivity(Intent(this, MovieSearchActivity::class.java))
+        finish()
     }
 
     override fun saveAutoLoginSharedPref() {

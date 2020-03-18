@@ -10,9 +10,8 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
         } else if (id != USER_ID || pw != USER_PW) {
             view.showLoginErrorToast()
         } else {
-            view.goMovieSearchActivity()
             view.saveAutoLoginSharedPref()
-            view.finishActivity()
+            view.goMovieSearchActivity()
         }
     }
 
