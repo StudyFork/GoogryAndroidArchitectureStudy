@@ -1,6 +1,11 @@
 package com.mtjin.androidarchitecturestudy.ui.login
 
-class LoginPresenter(private val view: LoginContract.View) : LoginContract.Presenter {
+import com.mtjin.androidarchitecturestudy.data.login.source.LoginRepository
+
+class LoginPresenter(
+    private val view: LoginContract.View,
+    private val loginRepository: LoginRepository
+) : LoginContract.Presenter {
 
     override fun doLogin(id: String, pw: String) {
         if (id.isEmpty()) {
@@ -10,7 +15,7 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
         } else if (id != USER_ID || pw != USER_PW) {
             view.showLoginError()
         } else {
-            view.saveAutoLoginSharedPref()
+            loginRepository.saveAutoLogin()
             view.goMovieSearch()
         }
     }

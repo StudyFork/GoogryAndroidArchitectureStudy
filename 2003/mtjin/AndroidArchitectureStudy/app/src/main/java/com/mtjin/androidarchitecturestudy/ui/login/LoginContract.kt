@@ -6,7 +6,6 @@ interface LoginContract {
         fun showIdEmptyError()
         fun showPwEmptyError()
         fun goMovieSearch()
-        fun saveAutoLoginSharedPref()
     }
 
     interface Presenter {

@@ -7,6 +7,10 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mtjin.androidarchitecturestudy.R
+import com.mtjin.androidarchitecturestudy.data.login.source.LoginRepository
+import com.mtjin.androidarchitecturestudy.data.login.source.LoginRepositoryImpl
+import com.mtjin.androidarchitecturestudy.data.login.source.local.LoginLocalDataSource
+import com.mtjin.androidarchitecturestudy.data.login.source.local.LoginLocalDataSourceImpl
 import com.mtjin.androidarchitecturestudy.ui.search.MovieSearchActivity
 import com.mtjin.androidarchitecturestudy.utils.PreferenceManager
 
@@ -21,7 +25,14 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         setContentView(R.layout.activity_login)
         initView()
         initListener()
-        presenter = LoginPresenter(this)
+        inject()
+    }
+
+    private fun inject() {
+        val preferenceManager = PreferenceManager(this)
+        val loginLocalDataSource: LoginLocalDataSource = LoginLocalDataSourceImpl(preferenceManager)
+        val loginRepository: LoginRepository = LoginRepositoryImpl(loginLocalDataSource)
+        presenter = LoginPresenter(this, loginRepository)
     }
 
     private fun initView() {
@@ -40,7 +51,8 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
 
     override fun showLoginError() {
-        Toast.makeText(this, getString(R.string.id_pw_not_correct_error_msg), Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.id_pw_not_correct_error_msg), Toast.LENGTH_SHORT)
+            .show()
     }
 
     override fun showIdEmptyError() {
@@ -54,10 +66,6 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     override fun goMovieSearch() {
         startActivity(Intent(this, MovieSearchActivity::class.java))
         finish()
-    }
-
-    override fun saveAutoLoginSharedPref() {
-        PreferenceManager.setBoolean(this, PreferenceManager.AUTO_LOGIN_KEY, true)
     }
 
 
