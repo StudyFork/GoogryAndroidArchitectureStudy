@@ -15,7 +15,6 @@ class SplashActivity : AppCompatActivity(), SplashContract.View {
         super.onCreate(savedInstanceState)
 
         presenter = SplashPresenter(this)
-        presenter.doSplash()
     }
 
     override fun showAutoLogin() {
