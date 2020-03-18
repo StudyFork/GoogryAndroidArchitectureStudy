@@ -1,4 +1,4 @@
-package io.github.sooakim.ui.movie
+package io.github.sooakim.ui.movie.adapter
 
 import android.view.LayoutInflater
 import android.view.View
