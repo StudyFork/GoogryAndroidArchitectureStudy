@@ -4,9 +4,9 @@ class SplashPresenter(private val view: SplashContract.View) : SplashContract.Pr
     override fun splashStart() {
         if (view.checkNetworkState()) {
             view.showAutoLoginToast()
-            view.goMovieSearchActivity()
+            view.goMovieSearch()
         } else {
-            view.goLoginActivity()
+            view.goLogin()
         }
     }
 }

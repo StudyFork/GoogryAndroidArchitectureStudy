@@ -11,7 +11,7 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
             view.showLoginErrorToast()
         } else {
             view.saveAutoLoginSharedPref()
-            view.goMovieSearchActivity()
+            view.goMovieSearch()
         }
     }
 

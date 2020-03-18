@@ -3,8 +3,8 @@ package com.mtjin.androidarchitecturestudy.ui.splash
 interface SplashContract {
     interface View {
         fun showAutoLoginToast()
-        fun goLoginActivity()
-        fun goMovieSearchActivity()
+        fun goLogin()
+        fun goMovieSearch()
         fun checkNetworkState() : Boolean
     }
 

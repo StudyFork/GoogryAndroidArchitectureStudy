@@ -23,11 +23,11 @@ class SplashActivity : AppCompatActivity(), SplashContract.View {
         Toast.makeText(this, getString(R.string.auto_login_msg), Toast.LENGTH_SHORT).show()
     }
 
-    override fun goLoginActivity() {
+    override fun goLogin() {
         startActivity(Intent(this, LoginActivity::class.java))
     }
 
-    override fun goMovieSearchActivity() {
+    override fun goMovieSearch() {
         startActivity(Intent(this, MovieSearchActivity::class.java))
     }
 

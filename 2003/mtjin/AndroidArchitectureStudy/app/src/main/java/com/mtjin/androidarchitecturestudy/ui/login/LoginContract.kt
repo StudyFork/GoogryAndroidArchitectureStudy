@@ -5,7 +5,7 @@ interface LoginContract {
         fun showLoginErrorToast()
         fun showIdEmptyError()
         fun showPwEmptyError()
-        fun goMovieSearchActivity()
+        fun goMovieSearch()
         fun saveAutoLoginSharedPref()
     }
 
