@@ -11,14 +11,13 @@ class SearchMoviePresenter(
 ) : SearchMovieContract.Presenter {
 
     override fun searchMovie(etMovieTitle: String) {
-        if (etMovieTitle.isNotEmpty()) {
+        if (etMovieTitle.isEmpty()) {
+            view.showToastMovieTitleIsEmpty()
+        } else {
             movieRepositoryDataSet.movieRepository.getMovieList(
                 etMovieTitle,
                 success = { view.addItems(it) },
                 failed = { view.recordLog(it.toString()) })
-
-        } else {
-            view.showToastMovieTitleIsEmpty()
         }
     }
 }
