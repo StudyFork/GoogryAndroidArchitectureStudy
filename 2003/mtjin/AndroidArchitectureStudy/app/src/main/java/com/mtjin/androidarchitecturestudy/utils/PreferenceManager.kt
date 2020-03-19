@@ -3,23 +3,17 @@ package com.mtjin.androidarchitecturestudy.utils
 import android.content.Context
 import android.content.SharedPreferences
 
-class PreferenceManager(private val context: Context) {
+class PreferenceManager(context: Context) {
+    private val autoLoginPref: SharedPreferences =
+        context.getSharedPreferences(MOVIE_SEARCH_APP, Context.MODE_PRIVATE)
 
-    private fun getPreferences(): SharedPreferences {
-        return context.getSharedPreferences(MOVIE_SEARCH_APP, Context.MODE_PRIVATE)
-    }
-
-    fun setBoolean(value: Boolean) {
-        val prefs = getPreferences()
-        val editor = prefs.edit()
-        editor.putBoolean(AUTO_LOGIN_KEY, value)
-        editor.apply()
-    }
-
-    fun getBoolean(): Boolean {
-        val prefs = getPreferences()
-        return prefs.getBoolean(AUTO_LOGIN_KEY, false)
-    }
+    var autoLogin: Boolean
+        get() = autoLoginPref.getBoolean(AUTO_LOGIN_KEY, false)
+        set(value) {
+            val editor = autoLoginPref.edit()
+            editor.putBoolean(AUTO_LOGIN_KEY, value)
+            editor.apply()
+        }
 
     companion object {
         private const val MOVIE_SEARCH_APP = "MOVIE_SEARCH_APP"
