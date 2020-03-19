@@ -6,9 +6,9 @@ import com.example.myapplication.data.repository.MovieRepositoryDataSet
  * Presenter : 로직, 계산, if문
  * */
 class SearchMoviePresenter(
-    private val view: Contract.View,
+    private val view: SearchMovieContract.View,
     private val movieRepositoryDataSet: MovieRepositoryDataSet
-) : Contract.Presenter {
+) : SearchMovieContract.Presenter {
 
     override fun searchMovie(etMovieTitle: String) {
         if (etMovieTitle.isNotEmpty()) {

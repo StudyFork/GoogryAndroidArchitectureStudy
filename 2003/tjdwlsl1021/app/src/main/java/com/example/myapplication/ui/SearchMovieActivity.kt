@@ -12,7 +12,7 @@ import com.example.myapplication.data.local.MovieEntity
 import com.example.myapplication.data.repository.MovieRepositoryDataSet
 import kotlinx.android.synthetic.main.activity_search_movie.*
 
-class SearchMovieActivity : AppCompatActivity(), Contract.View {
+class SearchMovieActivity : AppCompatActivity(), SearchMovieContract.View {
     private val TAG = "SearchMovieActivity"
 
     private lateinit var movieRepositoryDataSet: MovieRepositoryDataSet
