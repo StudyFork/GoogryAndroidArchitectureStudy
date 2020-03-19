@@ -30,17 +30,18 @@ class LoginActivity : KangBaseActivity(), LoginContract.View {
 
         presenter = LoginPresenter(this, authRepository = authRepository)
 
-        val whenIdTextChanged = et_id.textChanges()
-            .subscribe { id ->
-                presenter.idTextChanges(id.toString())
+        val whenTextChanged = Observable
+            .combineLatest(
+                et_id.textChanges(),
+                et_pw.textChanges(),
+                BiFunction<CharSequence, CharSequence, Pair<String, String>> { id, pw ->
+                    id.toString() to pw.toString()
+                }
+            )
+            .subscribe {
+                presenter.checkLoginInfoHasEntered(it.first, it.second)
             }
-        compositeDisposable.add(whenIdTextChanged)
-
-        val whenPwTextChanged = et_pw.textChanges()
-            .subscribe { pw ->
-                presenter.pwTextChanges(pw.toString())
-            }
-        compositeDisposable.add(whenPwTextChanged)
+        compositeDisposable.add(whenTextChanged)
 
         val whenIdFocusChange = et_id.focusChanges()
             .skip(1)
