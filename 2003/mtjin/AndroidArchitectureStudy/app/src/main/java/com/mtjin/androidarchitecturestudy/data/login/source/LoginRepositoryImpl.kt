@@ -5,9 +5,9 @@ import com.mtjin.androidarchitecturestudy.data.login.source.local.LoginLocalData
 class LoginRepositoryImpl(private val loginLocalDataSource: LoginLocalDataSource) :
     LoginRepository {
 
-    override fun getAutoLogin(): Boolean = loginLocalDataSource.autoLogin
-
-    override fun saveAutoLogin() {
-        loginLocalDataSource.autoLogin = true
-    }
+    override var autoLogin: Boolean
+        get() = loginLocalDataSource.autoLogin
+        set(value) {
+            loginLocalDataSource.autoLogin = value
+        }
 }

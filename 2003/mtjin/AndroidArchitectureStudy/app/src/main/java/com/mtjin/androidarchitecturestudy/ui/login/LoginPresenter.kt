@@ -15,7 +15,8 @@ class LoginPresenter(
         } else if (id != USER_ID || pw != USER_PW) {
             view.showLoginError()
         } else {
-            loginRepository.saveAutoLogin()
+            loginRepository.autoLogin = true
+
             view.goMovieSearch()
         }
     }

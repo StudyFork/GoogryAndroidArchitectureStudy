@@ -11,7 +11,7 @@ class SplashPresenter(
     }
 
     private fun doSplash() {
-        if (loginRepository.getAutoLogin()) {
+        if (loginRepository.autoLogin) {
             view.showAutoLogin()
             view.goMovieSearch()
         } else {
