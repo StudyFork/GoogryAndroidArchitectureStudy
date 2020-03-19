@@ -8,7 +8,7 @@ import com.example.myapplication.data.local.source.MovieLocalDataSourceImpl
 import com.example.myapplication.data.remote.source.MovieRemoteDataSource
 import com.example.myapplication.data.remote.source.MovieRemoteDataSourceImpl
 
-class MovieRepositoryDataSet: Application() {
+class MovieRepositoryDataSet : Application() {
     lateinit var movieRepository: MovieRepository
     private lateinit var movieRemoteDataSource: MovieRemoteDataSource
     private lateinit var movieLocalDataSource: MovieLocalDataSource

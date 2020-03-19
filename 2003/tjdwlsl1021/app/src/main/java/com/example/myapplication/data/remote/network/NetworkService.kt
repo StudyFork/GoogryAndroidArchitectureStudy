@@ -28,8 +28,9 @@ object NetworkService {
     }
 
     val retrofitService: RequestNaverApi by lazy {
-        Log.d("RetrofitHelper","호출")
+        Log.d("RetrofitHelper", "호출")
         retrofit.create(
-            RequestNaverApi::class.java)
+            RequestNaverApi::class.java
+        )
     }
 }
