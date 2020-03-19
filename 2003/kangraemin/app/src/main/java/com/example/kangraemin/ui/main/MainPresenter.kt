@@ -5,9 +5,11 @@ import com.example.kangraemin.model.MovieSearchRepository
 import com.example.kangraemin.model.local.datadao.LocalMovieDataSourceImpl
 import com.example.kangraemin.model.remote.datadao.MovieRemoteDataSourceImpl
 import com.example.kangraemin.util.NetworkUtil
+import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.PublishSubject
 
 class MainPresenter(
     private val mainView: MainContract.View,
@@ -18,6 +20,26 @@ class MainPresenter(
 ) : MainContract.Presenter {
 
     private val compositeDisposable = CompositeDisposable()
+
+    private val searchTextSubject = PublishSubject.create<String>()
+
+    init {
+        val whenArrivedMovieData = searchTextSubject
+            .toFlowable(BackpressureStrategy.DROP)
+            .startWith("")
+            .switchMap {
+                MovieSearchRepository(
+                    remoteMovieDataSource = remoteMovieDataSource,
+                    localMovieDataSource = localMovieDataSource
+                )
+                    .getMovieData(query = it).cache()
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ movies ->
+                mainView.setMoviesInAdapter(movies = movies.items)
+            }, { it.printStackTrace() })
+        compositeDisposable.add(whenArrivedMovieData)
+    }
 
     override fun checkAutoLoginStatus() {
         val getAuth = Flowable
@@ -67,21 +89,7 @@ class MainPresenter(
     }
 
     override fun getMovies(searchText: String) {
-        val whenArrivedMovieData = Flowable
-            .just(searchText)
-            .startWith("")
-            .switchMap {
-                MovieSearchRepository(
-                    remoteMovieDataSource = remoteMovieDataSource,
-                    localMovieDataSource = localMovieDataSource
-                )
-                    .getMovieData(query = it).cache()
-                    .observeOn(AndroidSchedulers.mainThread())
-            }
-            .subscribe({ movies ->
-                mainView.setMoviesInAdapter(movies = movies.items)
-            }, { it.printStackTrace() })
-        compositeDisposable.add(whenArrivedMovieData)
+        searchTextSubject.onNext(searchText)
     }
 
     override fun onViewDestroy() {
