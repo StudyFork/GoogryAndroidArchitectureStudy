@@ -7,6 +7,7 @@ import com.example.kangraemin.model.remote.datadao.MovieRemoteDataSourceImpl
 import com.example.kangraemin.util.NetworkUtil
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
@@ -22,6 +23,10 @@ class MainPresenter(
     private val compositeDisposable = CompositeDisposable()
 
     private val searchTextSubject = PublishSubject.create<String>()
+
+    private val deleteAuthSubject = PublishSubject.create<Unit>()
+
+    private val getAuthSubject = PublishSubject.create<Unit>()
 
     init {
         val whenArrivedMovieData = searchTextSubject
@@ -39,11 +44,21 @@ class MainPresenter(
                 mainView.setMoviesInAdapter(movies = movies.items)
             }, { it.printStackTrace() })
         compositeDisposable.add(whenArrivedMovieData)
-    }
 
-    override fun checkAutoLoginStatus() {
-        val getAuth = Flowable
-            .just("")
+        val deleteAuth = deleteAuthSubject
+            .toFlowable(BackpressureStrategy.DROP)
+            .switchMap {
+                authRepository.deleteAuth()
+                    .andThen(Flowable.just(Unit))
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                mainView.startLoginActivity()
+            }, { it.printStackTrace() })
+        compositeDisposable.add(deleteAuth)
+
+        val getAuth = getAuthSubject
+            .toFlowable(BackpressureStrategy.DROP)
             .switchMap {
                 authRepository.getAuth()
             }
@@ -56,17 +71,12 @@ class MainPresenter(
         compositeDisposable.add(getAuth)
     }
 
-    override fun deleteAutoLoginStatus() {
-        val deleteAuth = Flowable
-            .just("")
-            .switchMapCompletable {
-                authRepository.deleteAuth()
-            }
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                mainView.startLoginActivity()
-            }, { it.printStackTrace() })
-        compositeDisposable.add(deleteAuth)
+    override fun checkAutoLoginStatus() {
+        getAuthSubject.onNext(Unit)
+    }
+
+    override fun deleteAutoLoginStatus(unit: Unit) {
+        deleteAuthSubject.onNext(unit)
     }
 
     override fun hasEnteredSearchText(searchText: String) {

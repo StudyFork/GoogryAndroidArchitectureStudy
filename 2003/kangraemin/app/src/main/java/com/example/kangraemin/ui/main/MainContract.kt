@@ -16,7 +16,7 @@ interface MainContract {
 
     interface Presenter : KangBasePresenter {
         fun checkAutoLoginStatus()
-        fun deleteAutoLoginStatus()
+        fun deleteAutoLoginStatus(unit: Unit)
         fun hasEnteredSearchText(searchText: String)
         fun checkNetworkStatus()
         fun getMovies(searchText: String)

@@ -64,7 +64,7 @@ class MainActivity : KangBaseActivity(), MainContract.View {
 
         val whenLogOutClicked = btn_logout.clicks()
             .subscribe {
-                presenter.deleteAutoLoginStatus()
+                presenter.deleteAutoLoginStatus(unit = it)
             }
         compositeDisposable.add(whenLogOutClicked)
 
