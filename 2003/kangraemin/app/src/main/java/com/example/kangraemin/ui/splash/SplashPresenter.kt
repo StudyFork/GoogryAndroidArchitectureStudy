@@ -15,7 +15,7 @@ class SplashPresenter(
 
     private val compositeDisposable = CompositeDisposable()
 
-    override fun startTimer() {
+    init {
         val splashTimer = Flowable
             .just("")
             .switchMapCompletable {

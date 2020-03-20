@@ -8,7 +8,5 @@ interface SplashContract {
         fun startMainActivity()
     }
 
-    interface Presenter : KangBasePresenter {
-        fun startTimer()
-    }
+    interface Presenter : KangBasePresenter
 }

@@ -24,8 +24,6 @@ class SplashActivity : KangBaseActivity(), SplashContract.View {
         setContentView(R.layout.activity_splash)
 
         presenter = SplashPresenter(this, authRepository = authRepository)
-
-        presenter.startTimer()
     }
 
     override fun startLoginActivity() {
