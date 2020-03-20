@@ -20,7 +20,7 @@ class LoginPresenter<V : LoginContract.View> constructor(private val repository:
             return
         }
 
-        disposable = repository.loginCheck(id, pw)
+        disposable?.add( repository.loginCheck(id, pw)
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
                 mvpView?.showLoading()
@@ -41,6 +41,7 @@ class LoginPresenter<V : LoginContract.View> constructor(private val repository:
             }, {
                 mvpView?.showMsg("오류 발생 : $it")
             })
+        )
     }
 
 }
