@@ -7,7 +7,6 @@ import com.example.kangraemin.model.remote.datadao.MovieRemoteDataSourceImpl
 import com.example.kangraemin.util.NetworkUtil
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
