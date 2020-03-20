@@ -2,8 +2,10 @@ package com.example.kangraemin.ui.login
 
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.local.datamodel.Auth
-import io.reactivex.Flowable
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.PublishSubject
 
 class LoginPresenter(
     private val loginView: LoginContract.View,
@@ -11,6 +13,22 @@ class LoginPresenter(
 ) : LoginContract.Presenter {
 
     private val compositeDisposable = CompositeDisposable()
+
+    private val addAuthSubject = PublishSubject.create<Auth>()
+
+    init {
+        val addAuth = addAuthSubject
+            .switchMap {
+                authRepository.addAuth(auth = it)
+                    .andThen(Observable.just(Unit))
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                loginView.hideFailedLoginError()
+                loginView.startMain()
+            }, { it.printStackTrace() })
+        compositeDisposable.add(addAuth)
+    }
 
     override fun checkIdIsEmpty(id: String, hasFocus: Boolean) {
         if (!hasFocus) {
@@ -44,28 +62,16 @@ class LoginPresenter(
         }
     }
 
-    private fun addAutoLoginStatus() {
-        val auth = Auth(autoLogin = true)
-        val addAuth = Flowable
-            .just("")
-            .switchMapCompletable {
-                authRepository.addAuth(auth = auth)
-            }
-            .subscribe({ // no-op
-
-            }, { it.printStackTrace() })
-        compositeDisposable.add(addAuth)
-    }
-
     override fun login(id: String, password: String, isAutoLogin: Boolean) {
-        if (isAutoLogin) {
-            addAutoLoginStatus()
-        }
         if (id != "id" || password != "P@ssw0rd") {
             loginView.showFailedLoginError()
         } else {
-            loginView.hideFailedLoginError()
-            loginView.startMain()
+            if (isAutoLogin) {
+                addAuthSubject.onNext(Auth(autoLogin = true))
+            } else {
+                loginView.hideFailedLoginError()
+                loginView.startMain()
+            }
         }
     }
 
