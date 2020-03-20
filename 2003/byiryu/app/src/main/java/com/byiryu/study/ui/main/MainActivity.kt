@@ -42,8 +42,6 @@ class MainActivity : BaseActivity(), MainConract.View {
 
         recyclerView.adapter = adapter
 
-        presenter.onViewPrepared()
-
     }
 
     private fun bind() {
@@ -70,7 +68,6 @@ class MainActivity : BaseActivity(), MainConract.View {
 
     override fun onDestroy() {
         presenter.onDetach()
-        disposable?.dispose()
         super.onDestroy()
 
     }
