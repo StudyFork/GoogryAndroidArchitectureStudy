@@ -32,9 +32,7 @@ class LoginActivity : BaseActivity(), LoginContract.View{
         btn_login.setOnClickListener {
             val id = editText_id.text.toString()
             val pw = editText_pw.text.toString()
-            if (loginPresenter.invalid(id, pw)) {
-                loginPresenter.login(btn_auto_login.isChecked)
-            }
+            loginPresenter.login(id, pw, btn_auto_login.isChecked)
         }
 
     }

@@ -8,9 +8,8 @@ interface LoginContract {
     }
 
     interface Presenter<V : View> : BaseContract.Presenter<V> {
-        fun invalid(id: String, pw: String): Boolean
 
-        fun login(autoLogin : Boolean)
+        fun login(id: String, pw: String, autoLogin: Boolean)
 
     }
 }

@@ -8,28 +8,18 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 class LoginPresenter<V : LoginContract.View> constructor(private val repository: Repository) :
     BasePresenter<V>(), LoginContract.Presenter<V> {
 
-    lateinit var id: String
-    lateinit var pw: String
-
-    override fun invalid(id: String, pw: String): Boolean {
+    override fun login(id: String, pw: String, autoLogin: Boolean) {
 
         if (id.isEmpty()) {
             mvpView?.showMsg(R.string.msg_invalid_id)
-            return false
+            return
         }
 
         if (pw.isEmpty()) {
             mvpView?.showMsg(R.string.msg_invalid_pw)
-            return false
+            return
         }
 
-        this.id = id
-        this.pw = pw
-        return true
-    }
-
-
-    override fun login(autoLogin: Boolean) {
         disposable = repository.loginCheck(id, pw)
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
@@ -43,7 +33,7 @@ class LoginPresenter<V : LoginContract.View> constructor(private val repository:
                 if (it) {
                     if (autoLogin)
                         repository.setAutoLogin()
-                    mvpView?.goActivity()
+                    mvpView?.goActivityMain()
                 } else {
                     mvpView?.showMsg(R.string.msg_incorrect_login)
                 }
