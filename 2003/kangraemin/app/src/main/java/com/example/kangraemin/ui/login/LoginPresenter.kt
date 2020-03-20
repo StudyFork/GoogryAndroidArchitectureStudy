@@ -2,7 +2,8 @@ package com.example.kangraemin.ui.login
 
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.local.datamodel.Auth
-import io.reactivex.Observable
+import io.reactivex.BackpressureStrategy
+import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
@@ -18,9 +19,10 @@ class LoginPresenter(
 
     init {
         val addAuth = addAuthSubject
+            .toFlowable(BackpressureStrategy.DROP)
             .switchMap {
                 authRepository.addAuth(auth = it)
-                    .andThen(Observable.just(Unit))
+                    .andThen(Flowable.just(Unit))
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
