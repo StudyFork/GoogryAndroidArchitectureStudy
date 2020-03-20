@@ -39,7 +39,7 @@ class LoginActivity : BaseActivity(), LoginContract.View{
 
     }
 
-    override fun goActivity() {
+    override fun goActivityMain() {
         goActivity(MainActivity::class.java)
         finish()
     }
