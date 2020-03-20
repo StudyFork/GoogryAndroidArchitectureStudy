@@ -1,10 +1,10 @@
 package com.byiryu.study.ui.base
 
-import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
 
 abstract class BasePresenter<V : BaseContract.View> : BaseContract.Presenter<V> {
 
-    var disposable: Disposable? = null
+    var disposable: CompositeDisposable? = null
 
     var mvpView: V? = null
 
