@@ -8,7 +8,8 @@ class IntroPresenter<V : IntroContract.View> constructor(
     private val repository: Repository
 ) : BasePresenter<V>(), IntroContract.Presenter<V> {
 
-    override fun onViewPrepared() {
+    override fun onAttach(view: V) {
+        super.onAttach(view)
         val handler = Handler()
         handler.postDelayed({
             if (repository.isAutoLogin()) {

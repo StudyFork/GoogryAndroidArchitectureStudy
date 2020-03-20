@@ -9,9 +9,5 @@ interface IntroContract {
         fun goActivityLogin()
     }
 
-    interface Presenter<V : View> : BaseContract.Presenter<V>{
-
-        fun onViewPrepared()
-
-    }
+    interface Presenter<V : View> : BaseContract.Presenter<V>
 }

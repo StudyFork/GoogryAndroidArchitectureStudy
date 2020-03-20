@@ -19,8 +19,6 @@ class IntroActivity : BaseActivity(), IntroContract.View{
 
         introPresenter.onAttach(this)
 
-        introPresenter.onViewPrepared()
-
     }
 
     override fun goActivityMain() {
