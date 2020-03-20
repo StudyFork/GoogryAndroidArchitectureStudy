@@ -16,20 +16,11 @@ class SplashPresenter(
     private val compositeDisposable = CompositeDisposable()
 
     init {
-        val splashTimer = Flowable
-            .just("")
-            .switchMapCompletable {
-                Completable.timer(3, TimeUnit.SECONDS)
-            }
-            .subscribe({
-                checkAutoLoginStatus()
-            }, { it.printStackTrace() })
-        compositeDisposable.add(splashTimer)
-    }
-
-    private fun checkAutoLoginStatus() {
-        val getAuth = Flowable
-            .just("")
+        val splashTimer = Completable
+            .timer(3, TimeUnit.SECONDS)
+            .andThen(
+                Flowable.just(Unit)
+            )
             .switchMap {
                 authRepository.getAuth()
             }
@@ -44,7 +35,7 @@ class SplashPresenter(
                 }
                 it.printStackTrace()
             })
-        compositeDisposable.add(getAuth)
+        compositeDisposable.add(splashTimer)
     }
 
     override fun onViewDestroy() {
