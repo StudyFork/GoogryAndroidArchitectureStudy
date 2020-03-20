@@ -13,8 +13,6 @@ interface MainConract {
 
     interface Presenter<V : View> : BaseContract.Presenter<V>{
 
-        fun onViewPrepared()
-
         fun search(query : String)
     }
 }
