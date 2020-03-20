@@ -42,5 +42,9 @@ class LoginActivity : BaseActivity(), LoginContract.View{
         finish()
     }
 
+    override fun onDestroy() {
+        loginPresenter.onDetach()
+        super.onDestroy()
 
+    }
 }

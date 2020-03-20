@@ -32,4 +32,9 @@ class IntroActivity : BaseActivity(), IntroContract.View{
     }
 
 
+    override fun onDestroy() {
+        introPresenter.onDetach()
+        super.onDestroy()
+
+    }
 }
