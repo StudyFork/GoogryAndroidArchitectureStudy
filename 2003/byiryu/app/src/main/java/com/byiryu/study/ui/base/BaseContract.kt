@@ -17,8 +17,6 @@ interface BaseContract {
         fun goActivity(clazz: Class<*>)
 
         fun goActivity(intent: Intent)
-
-        fun goActivity()
     }
 
     interface Presenter<T : View> {

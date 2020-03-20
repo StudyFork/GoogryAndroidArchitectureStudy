@@ -35,11 +35,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
     override fun goActivity(intent: Intent) {
         startActivity(intent)
     }
-
-    override fun goActivity() {
-
-    }
-
+    
     fun getBRApplication() : BRApplication{
         return applicationContext as BRApplication
     }
