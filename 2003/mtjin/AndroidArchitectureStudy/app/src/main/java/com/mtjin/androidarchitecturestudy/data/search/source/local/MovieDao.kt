@@ -1,10 +1,10 @@
-package com.mtjin.androidarchitecturestudy.data.source.local
+package com.mtjin.androidarchitecturestudy.data.search.source.local
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.mtjin.androidarchitecturestudy.data.Movie
+import com.mtjin.androidarchitecturestudy.data.search.Movie
 
 @Dao
 interface MovieDao {

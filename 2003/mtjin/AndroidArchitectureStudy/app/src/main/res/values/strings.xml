@@ -2,4 +2,14 @@
     <string name="app_name">AndroidArchitectureStudy</string>
     <string name="client_id">33chRuAiqlSn5hn8tIme</string>
     <string name="client_secret">fyfwt9PCUN</string>
+    <string name="search_input_query_msg">검색어를 입력해주세요</string>
+    <string name="network_error_msg">네트워크를 연결해주세요.</string>
+    <string name="load_movie_success_msg">영화를 불러왔습니다.</string>
+    <string name="no_movie_error_msg">해당 영화는 존재하지 않습니다.</string>
+    <string name="last_page_msg">마지막 페이지 입니다</string>
+    <string name="wait_toast">잠시만 기다려주세요.</string>
+    <string name="auto_login_msg">자동 로그인</string>
+    <string name="id_pw_not_correct_error_msg">아이디 또는 패스워드가 틀렸습니다</string>
+    <string name="id_empty_error_msg">아이디를 입력해주세요</string>
+    <string name="pw_empty_error_msg">비밀번호를 입력해주세요</string>
 </resources>

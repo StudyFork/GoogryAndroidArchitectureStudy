@@ -1,4 +1,4 @@
-package com.mtjin.androidarchitecturestudy.ui
+package com.mtjin.androidarchitecturestudy.ui.search
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +10,7 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mtjin.androidarchitecturestudy.R
-import com.mtjin.androidarchitecturestudy.data.Movie
+import com.mtjin.androidarchitecturestudy.data.search.Movie
 
 class MovieAdapter :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {

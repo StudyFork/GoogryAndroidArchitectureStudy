@@ -1,6 +1,6 @@
-package com.mtjin.androidarchitecturestudy.data.source.local
+package com.mtjin.androidarchitecturestudy.data.search.source.local
 
-import com.mtjin.androidarchitecturestudy.data.Movie
+import com.mtjin.androidarchitecturestudy.data.search.Movie
 
 interface MovieLocalDataSource {
     fun insertMovies(movies: List<Movie>)

@@ -1,6 +1,6 @@
-package com.mtjin.androidarchitecturestudy.data.source
+package com.mtjin.androidarchitecturestudy.data.search.source
 
-import com.mtjin.androidarchitecturestudy.data.Movie
+import com.mtjin.androidarchitecturestudy.data.search.Movie
 
 interface MovieRepository {
     fun getSearchMovies(
