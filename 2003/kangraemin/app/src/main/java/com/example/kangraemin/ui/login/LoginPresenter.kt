@@ -44,7 +44,7 @@ class LoginPresenter(
         }
     }
 
-    override fun addAutoLoginStatus() {
+    private fun addAutoLoginStatus() {
         val auth = Auth(autoLogin = true)
         val addAuth = Flowable
             .just("")

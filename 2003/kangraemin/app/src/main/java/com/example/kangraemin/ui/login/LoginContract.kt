@@ -19,7 +19,6 @@ interface LoginContract {
         fun checkIdIsEmpty(id: String, hasFocus: Boolean)
         fun checkPasswordIsEmpty(password: String, hasFocus: Boolean)
         fun checkLoginInfoHasEntered(id: String, password: String)
-        fun addAutoLoginStatus()
         fun login(id: String, password: String, isAutoLogin: Boolean)
     }
 }
