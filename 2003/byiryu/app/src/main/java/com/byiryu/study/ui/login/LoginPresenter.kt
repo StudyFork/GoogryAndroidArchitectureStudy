@@ -31,8 +31,9 @@ class LoginPresenter<V : LoginContract.View> constructor(private val repository:
             }
             .subscribe({
                 if (it) {
-                    if (autoLogin)
+                    if (autoLogin) {
                         repository.setAutoLogin()
+                    }
                     mvpView?.goActivityMain()
                 } else {
                     mvpView?.showMsg(R.string.msg_incorrect_login)
