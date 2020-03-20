@@ -10,10 +10,9 @@ class MainPresenter<V : MainConract.View> constructor(
     private val repository: Repository
 ) : BasePresenter<V>(), MainConract.Presenter<V> {
 
-
-    override fun onViewPrepared() {
+    override fun onAttach(view: V) {
+        super.onAttach(view)
         mvpView?.setPrevQuery(repository.getPrevSearchQuery())
-
     }
 
     override fun search(query: String) {
@@ -21,7 +20,7 @@ class MainPresenter<V : MainConract.View> constructor(
             mvpView?.showMsg(R.string.msg_search_value)
         } else {
 
-            disposable =
+            disposable?.add(
                 repository.getMovieList(query)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -38,6 +37,7 @@ class MainPresenter<V : MainConract.View> constructor(
                     }, {
                         mvpView?.showMsg("오류 발생 $it")
                     })
+            )
 
         }
 
