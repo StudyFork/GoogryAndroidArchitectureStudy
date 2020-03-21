@@ -38,6 +38,10 @@ class SplashActivity : KangBaseActivity(), SplashContract.View {
         finish()
     }
 
+    override fun showGetAuthError() {
+        toast(getString(R.string.error_get_auth_toast_message))
+    }
+
     override fun onDestroy() {
         presenter.onViewDestroy()
         super.onDestroy()
