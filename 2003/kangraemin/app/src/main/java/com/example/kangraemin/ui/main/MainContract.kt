@@ -11,6 +11,9 @@ interface MainContract {
         fun startLoginActivity()
         fun showNetworkErrorText()
         fun hideNetworkErrorText()
+        fun showGetMovieError()
+        fun showLogOutError()
+        fun showGetAuthError()
         fun setMoviesInAdapter(movies: ArrayList<MovieDetail>)
     }
 

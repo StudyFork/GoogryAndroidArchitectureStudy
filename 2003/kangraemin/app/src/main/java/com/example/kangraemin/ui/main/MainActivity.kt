@@ -106,6 +106,18 @@ class MainActivity : KangBaseActivity(), MainContract.View {
         tv_network_error.visibility = View.GONE
     }
 
+    override fun showGetMovieError() {
+        toast(getString(R.string.main_error_get_movie_data_toast_message))
+    }
+
+    override fun showLogOutError() {
+        toast(getString(R.string.main_error_delete_auth_toast_message))
+    }
+
+    override fun showGetAuthError() {
+        toast(getString(R.string.error_get_auth_toast_message))
+    }
+
     override fun setMoviesInAdapter(movies: ArrayList<MovieDetail>) {
         adapter.setData(movies)
     }

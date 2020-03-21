@@ -1,7 +1,10 @@
 package com.example.kangraemin.ui.main
 
+import androidx.room.EmptyResultSetException
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.MovieSearchRepository
+import com.example.kangraemin.model.local.datamodel.Auth
+import com.example.kangraemin.model.remote.datamodel.Movies
 import com.example.kangraemin.util.NetworkUtil
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
@@ -20,9 +23,26 @@ class MainPresenter(
 
     private val searchTextSubject = PublishSubject.create<String>()
 
+    private data class ResponseMovieData(
+        val responseError: Boolean,
+        val responseResult: Movies = Movies(items = ArrayList()),
+        val throwable: Throwable? = null
+    )
+
     private val deleteAuthSubject = PublishSubject.create<Unit>()
 
+    private data class ResponseDeleteAuth(
+        val responseError: Boolean,
+        val throwable: Throwable? = null
+    )
+
     private val getAuthSubject = PublishSubject.create<Unit>()
+
+    private data class ResponseGetAuth(
+        val responseError: Boolean,
+        val responseResult: Auth = Auth(autoLogin = false),
+        val throwable: Throwable? = null
+    )
 
     init {
         val whenArrivedMovieData = searchTextSubject
@@ -31,10 +51,21 @@ class MainPresenter(
             .switchMap {
                 movieSearchRepository
                     .getMovieData(query = it).cache()
+                    .map { movies ->
+                        ResponseMovieData(responseError = false, responseResult = movies)
+                    }
+                    .onErrorReturn { ResponseMovieData(responseError = true, throwable = it) }
             }
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ movies ->
-                mainView.setMoviesInAdapter(movies = movies.items)
+            .subscribe({ responseMovieData ->
+                if (responseMovieData.responseError) {
+                    mainView.showGetMovieError()
+                    responseMovieData.throwable?.apply {
+                        printStackTrace()
+                    }
+                } else {
+                    mainView.setMoviesInAdapter(movies = responseMovieData.responseResult.items)
+                }
             }, { it.printStackTrace() })
         compositeDisposable.add(whenArrivedMovieData)
 
@@ -42,11 +73,19 @@ class MainPresenter(
             .toFlowable(BackpressureStrategy.DROP)
             .switchMap {
                 authRepository.deleteAuth()
-                    .andThen(Flowable.just(Unit))
+                    .andThen(Flowable.just(ResponseDeleteAuth(responseError = false)))
+                    .onErrorReturn { ResponseDeleteAuth(responseError = true, throwable = it) }
             }
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                mainView.startLoginActivity()
+            .subscribe({ responseDeleteAuth ->
+                if (responseDeleteAuth.responseError) {
+                    mainView.showLogOutError()
+                    responseDeleteAuth.throwable?.apply {
+                        printStackTrace()
+                    }
+                } else {
+                    mainView.startLoginActivity()
+                }
             }, { it.printStackTrace() })
         compositeDisposable.add(deleteAuth)
 
@@ -54,10 +93,21 @@ class MainPresenter(
             .toFlowable(BackpressureStrategy.DROP)
             .switchMap {
                 authRepository.getAuth()
+                    .map {
+                        ResponseGetAuth(responseError = false, responseResult = it)
+                    }
+                    .onErrorReturn { ResponseGetAuth(responseError = true, throwable = it) }
             }
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                if (it.autoLogin) {
+            .subscribe({ responseGetAuth ->
+                if (responseGetAuth.responseError) {
+                    responseGetAuth.throwable?.apply {
+                        if (this !is EmptyResultSetException) {
+                            mainView.showGetAuthError()
+                        }
+                        printStackTrace()
+                    }
+                } else {
                     mainView.showLogOutButton()
                 }
             }, { it.printStackTrace() })
