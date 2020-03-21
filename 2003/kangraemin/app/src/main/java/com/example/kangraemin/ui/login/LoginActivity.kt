@@ -19,16 +19,18 @@ class LoginActivity : KangBaseActivity(), LoginContract.View {
 
     private lateinit var presenter: LoginContract.Presenter
 
-    private val authRepository by lazy {
-        val db = AppDatabase.getInstance(context = this)
-        AuthRepository(authLocalDataSource = AuthLocalDataSourceImpl(db.authDao()))
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        presenter = LoginPresenter(this, authRepository = authRepository)
+        presenter = LoginPresenter(
+            this,
+            authRepository = AuthRepository(
+                authLocalDataSource = AuthLocalDataSourceImpl(
+                    AppDatabase.getInstance(context = this).authDao()
+                )
+            )
+        )
 
         val whenTextChanged = Observable
             .combineLatest(
