@@ -5,10 +5,10 @@ import com.example.myapplication.data.local.MovieDao
 import com.example.myapplication.data.local.MovieDatabase
 import com.example.myapplication.data.local.source.MovieLocalDataSource
 import com.example.myapplication.data.local.source.MovieLocalDataSourceImpl
-import com.example.myapplication.data.remote.MovieRemoteDataSource
-import com.example.myapplication.data.remote.MovieRemoteDataSourceImpl
+import com.example.myapplication.data.remote.source.MovieRemoteDataSource
+import com.example.myapplication.data.remote.source.MovieRemoteDataSourceImpl
 
-class MovieRepositoryDataSet: Application() {
+class MovieRepositoryDataSet : Application() {
     lateinit var movieRepository: MovieRepository
     private lateinit var movieRemoteDataSource: MovieRemoteDataSource
     private lateinit var movieLocalDataSource: MovieLocalDataSource
@@ -22,7 +22,8 @@ class MovieRepositoryDataSet: Application() {
 
     private fun inject() {
         movieDao = MovieDatabase.getDatabase(this).movieDao()
-        movieRemoteDataSource = MovieRemoteDataSourceImpl()
+        movieRemoteDataSource =
+            MovieRemoteDataSourceImpl()
         movieLocalDataSource = MovieLocalDataSourceImpl(movieDao)
         movieRepository = MovieRepositoryImpl(movieRemoteDataSource, movieLocalDataSource)
     }

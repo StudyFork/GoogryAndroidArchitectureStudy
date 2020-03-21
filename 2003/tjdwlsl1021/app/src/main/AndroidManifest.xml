@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".data.repository.MovieRepositoryDataSet">
-        <activity android:name=".activity.SearchMovieActivity">
+        <activity android:name=".ui.SearchMovieActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

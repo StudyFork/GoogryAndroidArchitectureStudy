@@ -1,8 +1,8 @@
-package com.example.myapplication.data.repository
+package com.example.myapplication.data.remote.source
 
 import com.example.myapplication.data.local.MovieEntity
 
-interface MovieRepository {
+interface MovieRemoteDataSource {
     fun getMovieList(
         query: String,
         success: (List<MovieEntity>) -> Unit,

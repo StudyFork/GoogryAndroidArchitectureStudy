@@ -1,4 +1,4 @@
-package com.example.myapplication.network
+package com.example.myapplication.data.remote
 
 object ServerURL {
     const val URL_BASE = "https://openapi.naver.com/"

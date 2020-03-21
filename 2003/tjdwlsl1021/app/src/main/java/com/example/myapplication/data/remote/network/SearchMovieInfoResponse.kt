@@ -1,9 +1,10 @@
-package com.example.myapplication.model
+package com.example.myapplication.data.remote.network
 
+import com.example.myapplication.data.local.MovieEntity
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class SearchMovieInfoResponse (
+data class SearchMovieInfoResponse(
     @SerializedName("lastBuildDate")
     @Expose
     val lastBuildDate: String,
