@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">kangraemin</string>
+
     <string name="main_search_button">검색</string>
     <string name="main_search_bar_hint">영화 제목을 입력해주세요</string>
     <string name="main_network_error_message">네트워크 연결을 확인해주세요.</string>
+    <string name="main_log_out">로그아웃</string>
+    <string name="main_error_delete_auth_toast_message">로그아웃에 실패했습니다.</string>
+    <string name="main_error_get_movie_data_toast_message">영화 정보를 가져오는데 실패했습니다.</string>
+
     <string name="login_btn">로그인</string>
     <string name="login_hint_id">아이디</string>
     <string name="login_hint_pw">비밀번호</string>
@@ -10,5 +15,8 @@
     <string name="login_error_id_empty">아이디를 입력 해 주세요</string>
     <string name="login_fail">아이디 또는 패스워드가 틀렸습니다.</string>
     <string name="login_auto_login">자동로그인</string>
-    <string name="main_log_out">로그아웃</string>
+    <string name="login_error_add_auth_toast_message">자동로그인 정보를 저장하는데 실패했습니다.</string>
+
+    <string name="error_get_auth_toast_message">자동 로그인 정보를 가져오는데 실패했습니다.</string>
+
 </resources>
