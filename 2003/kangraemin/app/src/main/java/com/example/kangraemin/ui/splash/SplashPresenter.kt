@@ -38,8 +38,8 @@ class SplashPresenter(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ responseGetAuth ->
                 if (responseGetAuth.responseError) {
-                    if (responseGetAuth.throwable != null) {
-                        responseGetAuth.throwable.printStackTrace()
+                    responseGetAuth.throwable?.apply {
+                        printStackTrace()
                         if (responseGetAuth.throwable is EmptyResultSetException) {
                             splashView.startLoginActivity()
                         } else {
