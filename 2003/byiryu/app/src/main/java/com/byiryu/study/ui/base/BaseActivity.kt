@@ -1,17 +1,21 @@
 package com.byiryu.study.ui.base
 
 import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import com.byiryu.study.ui.BRApplication
-
 
 abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
 
     protected open val progressBar: View? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        presenter.onAttach(this)
+
+    }
     override fun showMsg(res: Int) {
         showMsg(getString(res))
     }
@@ -35,9 +39,13 @@ abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
     override fun goActivity(intent: Intent) {
         startActivity(intent)
     }
-    
+
     fun getBRApplication() : BRApplication{
         return applicationContext as BRApplication
     }
 
+    override fun onDestroy() {
+        presenter.onDetach()
+        super.onDestroy()
+    }
 }

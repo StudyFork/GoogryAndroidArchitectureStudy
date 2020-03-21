@@ -4,7 +4,7 @@ import io.reactivex.disposables.CompositeDisposable
 
 abstract class BasePresenter<V : BaseContract.View> : BaseContract.Presenter<V> {
 
-    var disposable: CompositeDisposable? = null
+    var disposable = CompositeDisposable()
 
     var mvpView: V? = null
 
@@ -13,7 +13,7 @@ abstract class BasePresenter<V : BaseContract.View> : BaseContract.Presenter<V> 
     }
 
     override fun onDetach() {
-        disposable?.dispose()
+        disposable.dispose()
         this.mvpView = null
     }
 

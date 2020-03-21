@@ -7,28 +7,29 @@ import android.view.View
 import com.byiryu.study.R
 import com.byiryu.study.model.data.MovieItem
 import com.byiryu.study.ui.base.BaseActivity
-import io.reactivex.disposables.Disposable
+import com.byiryu.study.ui.base.BaseContract
+import com.byiryu.study.ui.base.BasePresenter
 
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), MainConract.View {
 
-    private val presenter: MainConract.Presenter<MainConract.View> by lazy {
+    @Suppress("UNCHECKED_CAST")
+    override val presenter: BaseContract.Presenter<BaseContract.View>
+        get() = mainPresenter as BasePresenter<BaseContract.View>
+
+    private val mainPresenter: MainConract.Presenter<MainConract.View> by lazy {
         MainPresenter<MainConract.View>(getBRApplication().repository)
     }
 
     override val progressBar: View
         get() = loading
 
-    private var disposable: Disposable? = null
-
     private lateinit var adapter: MainRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        presenter.onAttach(this)
 
         initView()
 
@@ -42,6 +43,7 @@ class MainActivity : BaseActivity(), MainConract.View {
 
         recyclerView.adapter = adapter
 
+
     }
 
     private fun bind() {
@@ -51,7 +53,7 @@ class MainActivity : BaseActivity(), MainConract.View {
         }
 
         btn_search.setOnClickListener {
-            presenter.search(editText.text.toString())
+            mainPresenter.search(editText.text.toString())
         }
 
 
@@ -63,13 +65,6 @@ class MainActivity : BaseActivity(), MainConract.View {
 
     override fun setPrevQuery(query: String) {
         editText.hint = query
-    }
-
-
-    override fun onDestroy() {
-        presenter.onDetach()
-        super.onDestroy()
-
     }
 
 }

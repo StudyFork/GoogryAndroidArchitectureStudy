@@ -6,6 +6,8 @@ import androidx.annotation.StringRes
 interface BaseContract {
 
     interface View {
+        val presenter : Presenter<View>
+
         fun showMsg(@StringRes res: Int)
 
         fun showMsg(msg: String)

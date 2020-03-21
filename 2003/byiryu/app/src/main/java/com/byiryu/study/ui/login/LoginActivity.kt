@@ -5,11 +5,16 @@ import android.os.Bundle
 import android.view.View
 import com.byiryu.study.R
 import com.byiryu.study.ui.base.BaseActivity
+import com.byiryu.study.ui.base.BaseContract
+import com.byiryu.study.ui.base.BasePresenter
 import com.byiryu.study.ui.main.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity(), LoginContract.View{
 
+    @Suppress("UNCHECKED_CAST")
+    override val presenter: BaseContract.Presenter<BaseContract.View>
+        get() = loginPresenter as  BasePresenter<BaseContract.View>
 
     private val loginPresenter by lazy {
         LoginPresenter<LoginContract.View>(getBRApplication().repository)
@@ -20,8 +25,6 @@ class LoginActivity : BaseActivity(), LoginContract.View{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-        loginPresenter.onAttach(this)
 
         bind()
     }
@@ -42,9 +45,4 @@ class LoginActivity : BaseActivity(), LoginContract.View{
         finish()
     }
 
-    override fun onDestroy() {
-        loginPresenter.onDetach()
-        super.onDestroy()
-
-    }
 }
