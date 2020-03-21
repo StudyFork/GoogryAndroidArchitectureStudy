@@ -1,5 +1,6 @@
 package com.byiryu.study.ui.main
 
+import android.util.Log
 import com.byiryu.study.R
 import com.byiryu.study.model.Repository
 import com.byiryu.study.ui.base.BasePresenter
@@ -9,9 +10,8 @@ import io.reactivex.schedulers.Schedulers
 class MainPresenter<V : MainConract.View> constructor(
     private val repository: Repository
 ) : BasePresenter<V>(), MainConract.Presenter<V> {
-
-    override fun onAttach(view: V) {
-        super.onAttach(view)
+    
+    override fun onViewPrepared() {
         mvpView?.setPrevQuery(repository.getPrevSearchQuery())
     }
 
@@ -20,7 +20,7 @@ class MainPresenter<V : MainConract.View> constructor(
             mvpView?.showMsg(R.string.msg_search_value)
         } else {
 
-            disposable?.add(
+            disposable.add(
                 repository.getMovieList(query)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -42,5 +42,6 @@ class MainPresenter<V : MainConract.View> constructor(
         }
 
     }
+
 
 }

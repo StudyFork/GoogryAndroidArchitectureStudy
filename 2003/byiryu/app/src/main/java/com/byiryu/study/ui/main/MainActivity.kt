@@ -31,6 +31,8 @@ class MainActivity : BaseActivity(), MainConract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        mainPresenter.onViewPrepared()
+
         initView()
 
         bind()
@@ -38,12 +40,9 @@ class MainActivity : BaseActivity(), MainConract.View {
     }
 
     private fun initView() {
-
         adapter = MainRecyclerAdapter()
 
         recyclerView.adapter = adapter
-
-
     }
 
     private fun bind() {
@@ -55,7 +54,6 @@ class MainActivity : BaseActivity(), MainConract.View {
         btn_search.setOnClickListener {
             mainPresenter.search(editText.text.toString())
         }
-
 
     }
 
