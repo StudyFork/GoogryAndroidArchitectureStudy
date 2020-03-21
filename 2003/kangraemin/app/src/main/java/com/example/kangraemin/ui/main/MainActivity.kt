@@ -8,6 +8,7 @@ import com.example.kangraemin.adapter.SearchResultAdapter
 import com.example.kangraemin.base.KangBaseActivity
 import com.example.kangraemin.model.AppDatabase
 import com.example.kangraemin.model.AuthRepository
+import com.example.kangraemin.model.MovieSearchRepository
 import com.example.kangraemin.model.local.datadao.AuthLocalDataSourceImpl
 import com.example.kangraemin.model.local.datadao.LocalMovieDataSourceImpl
 import com.example.kangraemin.model.remote.datadao.MovieRemoteDataSourceImpl
@@ -24,20 +25,6 @@ class MainActivity : KangBaseActivity(), MainContract.View {
 
     private lateinit var presenter: MainContract.Presenter
 
-    private val remoteMovieDataSource by lazy {
-        MovieRemoteDataSourceImpl(RetrofitClient.getMovieApi())
-    }
-
-    private val localMovieDataSource by lazy {
-        val db = AppDatabase.getInstance(context = this)
-        LocalMovieDataSourceImpl(movieDao = db.movieDao())
-    }
-
-    private val authRepository by lazy {
-        val db = AppDatabase.getInstance(context = this)
-        AuthRepository(authLocalDataSource = AuthLocalDataSourceImpl(db.authDao()))
-    }
-
     private val adapter = SearchResultAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,9 +33,19 @@ class MainActivity : KangBaseActivity(), MainContract.View {
 
         presenter = MainPresenter(
             mainView = this,
-            remoteMovieDataSource = remoteMovieDataSource,
-            localMovieDataSource = localMovieDataSource,
-            authRepository = authRepository,
+            movieSearchRepository = MovieSearchRepository(
+                localMovieDataSource = LocalMovieDataSourceImpl(
+                    movieDao = AppDatabase.getInstance(
+                        context = this
+                    ).movieDao()
+                ),
+                remoteMovieDataSource = MovieRemoteDataSourceImpl(RetrofitClient.getMovieApi())
+            ),
+            authRepository = AuthRepository(
+                authLocalDataSource = AuthLocalDataSourceImpl(
+                    AppDatabase.getInstance(context = this).authDao()
+                )
+            ),
             networkUtil = NetworkUtil(context = this)
         )
 

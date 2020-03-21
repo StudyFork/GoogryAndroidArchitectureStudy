@@ -2,8 +2,6 @@ package com.example.kangraemin.ui.main
 
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.MovieSearchRepository
-import com.example.kangraemin.model.local.datadao.LocalMovieDataSourceImpl
-import com.example.kangraemin.model.remote.datadao.MovieRemoteDataSourceImpl
 import com.example.kangraemin.util.NetworkUtil
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
@@ -13,8 +11,7 @@ import io.reactivex.subjects.PublishSubject
 
 class MainPresenter(
     private val mainView: MainContract.View,
-    private val remoteMovieDataSource: MovieRemoteDataSourceImpl,
-    private val localMovieDataSource: LocalMovieDataSourceImpl,
+    private val movieSearchRepository: MovieSearchRepository,
     private val authRepository: AuthRepository,
     private val networkUtil: NetworkUtil
 ) : MainContract.Presenter {
@@ -32,10 +29,7 @@ class MainPresenter(
             .toFlowable(BackpressureStrategy.DROP)
             .startWith("")
             .switchMap {
-                MovieSearchRepository(
-                    remoteMovieDataSource = remoteMovieDataSource,
-                    localMovieDataSource = localMovieDataSource
-                )
+                movieSearchRepository
                     .getMovieData(query = it).cache()
             }
             .observeOn(AndroidSchedulers.mainThread())
