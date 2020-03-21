@@ -97,6 +97,10 @@ class LoginActivity : KangBaseActivity(), LoginContract.View {
         layout_pw.error = null
     }
 
+    override fun showAddAuthError() {
+        toast(getString(R.string.login_error_add_auth_toast_message))
+    }
+
     override fun enableLoginButton() {
         btn_login.isEnabled = true
         btn_login.alpha = 1f

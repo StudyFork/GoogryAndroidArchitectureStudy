@@ -10,6 +10,7 @@ interface LoginContract {
         fun hidePasswordEmptyError()
         fun showFailedLoginError()
         fun hideFailedLoginError()
+        fun showAddAuthError()
         fun enableLoginButton()
         fun disableLoginButton()
         fun startMain()

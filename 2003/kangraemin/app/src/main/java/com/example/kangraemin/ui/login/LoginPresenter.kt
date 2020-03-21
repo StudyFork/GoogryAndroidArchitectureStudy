@@ -17,17 +17,30 @@ class LoginPresenter(
 
     private val addAuthSubject = PublishSubject.create<Auth>()
 
+    private data class ResponseAddAuth(
+        val responseError: Boolean,
+        val throwable: Throwable? = null
+    )
+
     init {
         val addAuth = addAuthSubject
             .toFlowable(BackpressureStrategy.DROP)
             .switchMap {
                 authRepository.addAuth(auth = it)
-                    .andThen(Flowable.just(Unit))
+                    .andThen(Flowable.just(ResponseAddAuth(responseError = false)))
+                    .onErrorReturn { ResponseAddAuth(responseError = true, throwable = it) }
             }
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                loginView.hideFailedLoginError()
-                loginView.startMain()
+            .subscribe({ responseAddAuth ->
+                if (responseAddAuth.responseError) {
+                    loginView.showAddAuthError()
+                    responseAddAuth.throwable?.apply {
+                        printStackTrace()
+                    }
+                } else {
+                    loginView.hideFailedLoginError()
+                    loginView.startMain()
+                }
             }, { it.printStackTrace() })
         compositeDisposable.add(addAuth)
     }
