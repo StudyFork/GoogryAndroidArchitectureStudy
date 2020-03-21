@@ -5,19 +5,25 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import com.byiryu.study.R
-import com.byiryu.study.model.Repository
+import com.byiryu.study.model.data.MovieItem
 import com.byiryu.study.ui.base.BaseActivity
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
+import com.byiryu.study.ui.base.BaseContract
+import com.byiryu.study.ui.base.BasePresenter
+
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), MainConract.View {
+
+    @Suppress("UNCHECKED_CAST")
+    override val presenter: BaseContract.Presenter<BaseContract.View>
+        get() = mainPresenter as BasePresenter<BaseContract.View>
+
+    private val mainPresenter: MainConract.Presenter<MainConract.View> by lazy {
+        MainPresenter<MainConract.View>(getBRApplication().repository)
+    }
 
     override val progressBar: View
         get() = loading
-
-    private var disposable: Disposable? = null
 
     private lateinit var adapter: MainRecyclerAdapter
 
@@ -25,57 +31,38 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        mainPresenter.onViewPrepared()
+
         initView()
+
         bind()
 
     }
 
     private fun initView() {
-
         adapter = MainRecyclerAdapter()
+
         recyclerView.adapter = adapter
-
-        editText.hint = getBRApplication().repository.getPrevSearchQuery()
-
     }
 
     private fun bind() {
 
         adapter.setOnclickListener {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
+            goActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
         }
 
         btn_search.setOnClickListener {
-            val text = editText.text.toString()
-
-            if (text.isEmpty()) {
-                showMsg(R.string.msg_search_value)
-            } else {
-                disposable = getBRApplication().repository.getMovieList(text)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnSubscribe {
-                        showLoading()
-                    }.doOnSuccess {
-                        hideLoading()
-                    }.doOnError {
-                        hideLoading()
-                        showMsg(R.string.msg_error_loading)
-                    }
-                    .subscribe({
-                        adapter.submitList(it)
-                    }, {
-                        showMsg("오류 발생 : $it")
-                    })
-            }
+            mainPresenter.search(editText.text.toString())
         }
+
     }
 
-    override fun onDestroy() {
+    override fun setResult(items: List<MovieItem>) {
+        adapter.submitList(items)
+    }
 
-        disposable?.dispose()
-        super.onDestroy()
-
+    override fun setPrevQuery(query: String) {
+        editText.hint = query
     }
 
 }
