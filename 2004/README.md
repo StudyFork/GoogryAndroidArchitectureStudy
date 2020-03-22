@@ -3,7 +3,7 @@
 - 윤태성 [TaeseongYun](https://github.com/TaeseongYun)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2004/taeseongyun)
 
-- 권용재 [](https://github.com/)
+- 권용재 [invitejay](https://github.com/invitejay)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2004/)
 
 - 박규동 [](https://github.com/)
