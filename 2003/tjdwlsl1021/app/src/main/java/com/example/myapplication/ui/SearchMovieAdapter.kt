@@ -4,15 +4,14 @@ import android.annotation.TargetApi
 import android.os.Build
 import android.text.Html
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.myapplication.R
 import com.example.myapplication.data.local.MovieEntity
+import com.example.myapplication.databinding.ItemMovieBinding
 
 class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -21,11 +20,11 @@ class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val v = inflater.inflate(R.layout.item_movie, parent, false)
-        val viewHolder = MovieViewHolder(v)
+        val binding = ItemMovieBinding.inflate(inflater)
+        val viewHolder = MovieViewHolder(binding)
 
         //-onClick은 onCrateViewHoler에서 선언, *bindViewHolder에서 선언하면 bind할 때마다 생성되는 문제
-        v.setOnClickListener {
+        binding.root.setOnClickListener {
             onClickListener(movieInfoArrayList[viewHolder.adapterPosition])
         }
         return viewHolder
@@ -62,12 +61,12 @@ class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    class MovieViewHolder internal constructor(view: View) : RecyclerView.ViewHolder(view) {
-        val ivThumbnail: ImageView = view.findViewById(R.id.iv_thumbnail)
-        val tvTitle: TextView = view.findViewById(R.id.tv_title)
-        val rbUserRating: RatingBar = view.findViewById(R.id.rb_userRating)
-        val pubDate: TextView = view.findViewById(R.id.tv_pubDate)
-        val tvDirector: TextView = view.findViewById(R.id.tv_director)
-        val tvActor: TextView = view.findViewById(R.id.tv_actor)
+    class MovieViewHolder(binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
+        val ivThumbnail: ImageView = binding.ivThumbnail
+        val tvTitle: TextView = binding.tvTitle
+        val rbUserRating: RatingBar = binding.rbUserRating
+        val pubDate: TextView = binding.tvPubDate
+        val tvDirector: TextView = binding.tvDirector
+        val tvActor: TextView = binding.tvActor
     }
 }
