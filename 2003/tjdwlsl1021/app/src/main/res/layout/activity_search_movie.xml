@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="searchMoiveItem"
+            name="activity"
             type="com.example.myapplication.ui.SearchMovieActivity" />
     </data>
 
@@ -31,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:onClick="@{activity::onSearchMovieClick}"
             android:text="@string/activity_btn_search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

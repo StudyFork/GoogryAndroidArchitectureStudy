@@ -26,6 +26,7 @@ class SearchMovieActivity : AppCompatActivity(), SearchMovieContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search_movie)
+        binding.activity = this@SearchMovieActivity
 
         initView()
         setOnclickListener()
@@ -39,16 +40,15 @@ class SearchMovieActivity : AppCompatActivity(), SearchMovieContract.View {
     }
 
     private fun setOnclickListener() {
-        // 영화 검색
-        binding.btnSearch.setOnClickListener(View.OnClickListener {
-            val movieTitle = binding.etMovieTitle.text.toString()
-            presenter.searchMovie(movieTitle)
-        })
-
         // 영화 이미지 클릭시 이동 로직
         movieAdapter.setOnclickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
         }
+    }
+
+    fun onSearchMovieClick(view: View) {
+        val movieTitle = binding.etMovieTitle.text.toString()
+        presenter.searchMovie(movieTitle)
     }
 
     /**
