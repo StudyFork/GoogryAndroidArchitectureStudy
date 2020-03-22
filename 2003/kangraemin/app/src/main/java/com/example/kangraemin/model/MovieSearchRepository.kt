@@ -10,7 +10,7 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
 class MovieSearchRepository(
-    val remoteMovieDatasource: MovieRemoteDataSource,
+    val remoteMovieDataSource: MovieRemoteDataSource,
     val localMovieDataSource: LocalMovieDataSource
 ) {
 
@@ -22,7 +22,7 @@ class MovieSearchRepository(
                     .map { getMovieDataInRoom(it) }
                     .toFlowable()
 
-                val getRemoteMovies = remoteMovieDatasource
+                val getRemoteMovies = remoteMovieDataSource
                     .getMovies(
                         query = query
                     )

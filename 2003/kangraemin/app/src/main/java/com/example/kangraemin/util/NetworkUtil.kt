@@ -5,8 +5,10 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 
-class NetworkUtil {
-    fun getConnectivityStatus(context: Context): NetworkStatus {
+class NetworkUtil(
+    private val context: Context
+) {
+    fun getConnectivityStatus(): NetworkStatus {
         var result = NetworkStatus.NOT_CONNECTED
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
