@@ -12,8 +12,8 @@
 - 이병준 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2004/)
 
-- 양혜진 [](https://github.com/)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2004/)
+- 양혜진 [nukeolaf](https://github.com/nukeolaf)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2004/nukeolaf)
 
 - 홍은진 [eunjin-hong](https://github.com/eunjin-hong)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2004/eunjin-hong)
