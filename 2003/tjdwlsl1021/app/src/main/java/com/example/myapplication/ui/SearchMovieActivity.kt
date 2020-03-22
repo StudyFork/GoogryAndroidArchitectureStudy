@@ -7,10 +7,11 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.example.myapplication.R
 import com.example.myapplication.data.local.MovieEntity
 import com.example.myapplication.data.repository.MovieRepositoryDataSet
-import kotlinx.android.synthetic.main.activity_search_movie.*
+import com.example.myapplication.databinding.ActivitySearchMovieBinding
 
 class SearchMovieActivity : AppCompatActivity(), SearchMovieContract.View {
     private val TAG = "SearchMovieActivity"
@@ -20,28 +21,28 @@ class SearchMovieActivity : AppCompatActivity(), SearchMovieContract.View {
 
     private val movieAdapter = SearchMovieAdapter()
 
+    private lateinit var binding: ActivitySearchMovieBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search_movie)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_search_movie)
 
         initView()
         setOnclickListener()
         presenter = SearchMoviePresenter(this, movieRepositoryDataSet)
-
     }
 
     private fun initView() {
         movieRepositoryDataSet = application as MovieRepositoryDataSet
-        rv_movie.setHasFixedSize(true)
-        rv_movie.adapter = movieAdapter
+        binding.rvMovie.setHasFixedSize(true)
+        binding.rvMovie.adapter = movieAdapter
     }
 
     private fun setOnclickListener() {
-        // 영화 검색 로직
-        btn_search.setOnClickListener(View.OnClickListener {
-
-            var etMovieTitle = et_movie_title.text.toString()
-            presenter.searchMovie(etMovieTitle)
+        // 영화 검색
+        binding.btnSearch.setOnClickListener(View.OnClickListener {
+            val movieTitle = binding.etMovieTitle.text.toString()
+            presenter.searchMovie(movieTitle)
         })
 
         // 영화 이미지 클릭시 이동 로직
@@ -49,7 +50,6 @@ class SearchMovieActivity : AppCompatActivity(), SearchMovieContract.View {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
         }
     }
-
 
     /**
      * View - 화면 출력
