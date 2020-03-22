@@ -1,13 +1,22 @@
 package io.github.sooakim.ui.base
 
+import android.os.Bundle
 import android.view.View
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import io.github.sooakim.ui.application.SAApplication
 
-abstract class SAActivity<Presenter : SABasePresenter> : AppCompatActivity(), SABaseView {
+abstract class SAActivity<VDB : ViewDataBinding, Presenter : SABasePresenter>(
+    @LayoutRes
+    protected val layoutResId: Int = 0
+) : AppCompatActivity(),
+    SABaseView {
+    protected lateinit var viewDataBinding: VDB
     protected abstract val presenter: Presenter
     protected open val commonProgressView: View? = null
     protected val application: SAApplication?
@@ -17,9 +26,6 @@ abstract class SAActivity<Presenter : SABasePresenter> : AppCompatActivity(), SA
         lifecycle.addObserver(object : LifecycleEventObserver {
             override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
                 when (event) {
-                    Lifecycle.Event.ON_CREATE -> {
-                        presenter.create()
-                    }
                     Lifecycle.Event.ON_START -> {
                         presenter.start()
                     }
@@ -41,6 +47,15 @@ abstract class SAActivity<Presenter : SABasePresenter> : AppCompatActivity(), SA
                 }
             }
         })
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (layoutResId != 0) {
+            viewDataBinding = DataBindingUtil.setContentView<VDB>(this, layoutResId).apply {
+                lifecycleOwner = this@SAActivity
+            }
+        }
     }
 
     override fun showLoading() {

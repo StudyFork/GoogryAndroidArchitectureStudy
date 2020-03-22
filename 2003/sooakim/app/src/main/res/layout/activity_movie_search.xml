@@ -1,56 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="8dp"
-    tools:context=".ui.movie.SAMovieSearchActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/et_search"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:maxLines="1"
-        app:layout_constraintBottom_toBottomOf="@id/btn_search"
-        app:layout_constraintEnd_toStartOf="@id/btn_search"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btn_search">
+    <data>
 
-        <requestFocus />
-    </androidx.appcompat.widget.AppCompatEditText>
+    </data>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/activity_main_btn_search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/et_search"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="8dp"
+        tools:context=".ui.movie.SAMovieSearchActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_search_result"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:orientation="vertical"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_search"
-        tools:listitem="@layout/item_movie_search_result" />
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_search"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:maxLines="1"
+            app:layout_constraintBottom_toBottomOf="@id/btn_search"
+            app:layout_constraintEnd_toStartOf="@id/btn_search"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_search">
 
-    <ProgressBar
-        android:id="@+id/pgb_loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/rv_search_result"
-        app:layout_constraintEnd_toEndOf="@id/rv_search_result"
-        app:layout_constraintStart_toStartOf="@id/rv_search_result"
-        app:layout_constraintTop_toTopOf="@id/rv_search_result" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <requestFocus />
+        </androidx.appcompat.widget.AppCompatEditText>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/activity_main_btn_search"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/et_search"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_search_result"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_search"
+            tools:listitem="@layout/item_movie_search_result" />
+
+        <ProgressBar
+            android:id="@+id/pgb_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/rv_search_result"
+            app:layout_constraintEnd_toEndOf="@id/rv_search_result"
+            app:layout_constraintStart_toStartOf="@id/rv_search_result"
+            app:layout_constraintTop_toTopOf="@id/rv_search_result" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
