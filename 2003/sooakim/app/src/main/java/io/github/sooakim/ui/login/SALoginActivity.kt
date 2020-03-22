@@ -3,22 +3,16 @@ package io.github.sooakim.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.ProgressBar
-import androidx.appcompat.widget.AppCompatButton
-import com.google.android.material.textfield.TextInputEditText
 import com.jakewharton.rxbinding3.view.clicks
 import io.github.sooakim.R
+import io.github.sooakim.databinding.ActivityLoginBinding
 import io.github.sooakim.ui.base.SAActivity
 import io.github.sooakim.ui.movie.SAMovieSearchActivity
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 
-class SALoginActivity : SAActivity<SALoginPresenter>(), SALoginContractor.View {
-    private lateinit var idInputEditText: TextInputEditText
-    private lateinit var passwordInputEditText: TextInputEditText
-    private lateinit var loginButton: AppCompatButton
-    private lateinit var loadingProgressBar: ProgressBar
-
+class SALoginActivity : SAActivity<ActivityLoginBinding, SALoginPresenter>(),
+    SALoginContractor.View {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override val presenter: SALoginPresenter by lazy {
@@ -28,14 +22,14 @@ class SALoginActivity : SAActivity<SALoginPresenter>(), SALoginContractor.View {
         )
     }
 
+    override val layoutResId: Int
+        get() = R.layout.activity_login
+
     override val commonProgressView: View?
-        get() = loadingProgressBar
+        get() = viewDataBinding.pgbLoading
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-
-        initView()
         bindRx()
     }
 
@@ -44,35 +38,28 @@ class SALoginActivity : SAActivity<SALoginPresenter>(), SALoginContractor.View {
         super.onDestroy()
     }
 
-    private fun initView() {
-        idInputEditText = findViewById(R.id.iet_id)
-        passwordInputEditText = findViewById(R.id.iet_password)
-        loginButton = findViewById(R.id.btn_login)
-        loadingProgressBar = findViewById(R.id.pgb_loading)
-    }
-
     private fun bindRx() {
-        loginButton.clicks()
+        viewDataBinding.btnLogin.clicks()
             .subscribe {
                 presenter.login(
-                    id = idInputEditText.text.toString(),
-                    password = passwordInputEditText.text.toString()
+                    id = viewDataBinding.ietId.text.toString(),
+                    password = viewDataBinding.ietPassword.text.toString()
                 )
             }
             .addTo(compositeDisposable)
     }
 
     override fun clearErrors() {
-        idInputEditText.error = null
-        passwordInputEditText.error = null
+        viewDataBinding.ietId.error = null
+        viewDataBinding.ietPassword.error = null
     }
 
     override fun showIdError() {
-        idInputEditText.error = getString(R.string.activity_login_iet_id_error)
+        viewDataBinding.ietId.error = getString(R.string.activity_login_iet_id_error)
     }
 
     override fun showPasswordError() {
-        passwordInputEditText.error = getString(R.string.activity_login_iet_password_error)
+        viewDataBinding.ietPassword.error = getString(R.string.activity_login_iet_password_error)
     }
 
     override fun showMovieSearch() {

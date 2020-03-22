@@ -7,7 +7,7 @@ class SASplashPresenter(
     private val view: SASplashContractor.View
 ) : SASplashContractor.Presenter {
 
-    override fun create() {
+    init {
         val isAuthRequired = authRepository.isAuthRequired
         if (isAuthRequired) {
             view.showLogin()

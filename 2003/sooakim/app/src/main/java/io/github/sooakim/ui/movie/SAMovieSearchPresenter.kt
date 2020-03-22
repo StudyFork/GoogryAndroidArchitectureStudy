@@ -41,9 +41,7 @@ class SAMovieSearchPresenter(
             .doOnError { view.hideLoading() }
             .subscribe { view.showSearchResults(it) }
             .addTo(compositeDisposable)
-    }
 
-    override fun create() {
         view.setSearchText(text = movieRepository.latestMovieQuery)
     }
 

@@ -1,11 +1,12 @@
 package io.github.sooakim.ui
 
 import android.content.Intent
+import androidx.databinding.ViewDataBinding
 import io.github.sooakim.ui.base.SAActivity
 import io.github.sooakim.ui.login.SALoginActivity
 import io.github.sooakim.ui.movie.SAMovieSearchActivity
 
-class SASplashActivity : SAActivity<SASplashPresenter>(), SASplashContractor.View {
+class SASplashActivity : SAActivity<ViewDataBinding, SASplashPresenter>(), SASplashContractor.View {
     override val presenter: SASplashPresenter by lazy {
         SASplashPresenter(
             authRepository = requireApplication().authRepository,
