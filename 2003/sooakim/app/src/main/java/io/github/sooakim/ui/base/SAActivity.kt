@@ -11,13 +11,14 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import io.github.sooakim.ui.application.SAApplication
 
-abstract class SAActivity<VDB : ViewDataBinding, Presenter : SABasePresenter> : AppCompatActivity(),
+abstract class SAActivity<VDB : ViewDataBinding, Presenter : SABasePresenter>(
+    @LayoutRes
+    protected val layoutResId: Int = 0
+) : AppCompatActivity(),
     SABaseView {
     protected lateinit var viewDataBinding: VDB
     protected abstract val presenter: Presenter
     protected open val commonProgressView: View? = null
-    @LayoutRes
-    protected open val layoutResId: Int = 0
     protected val application: SAApplication?
         get() = (applicationContext as? SAApplication)
 

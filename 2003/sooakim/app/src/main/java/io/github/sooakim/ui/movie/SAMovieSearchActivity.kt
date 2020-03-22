@@ -14,7 +14,8 @@ import io.github.sooakim.ui.movie.model.SAMoviePresentation
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 
-class SAMovieSearchActivity : SAActivity<ActivityMovieSearchBinding, SAMovieSearchPresenter>(),
+class SAMovieSearchActivity :
+    SAActivity<ActivityMovieSearchBinding, SAMovieSearchPresenter>(R.layout.activity_movie_search),
     SAMovieSearchContractor.View {
     private lateinit var searchResultAdapter: SAMovieSearchResultAdapter
 
@@ -26,9 +27,6 @@ class SAMovieSearchActivity : SAActivity<ActivityMovieSearchBinding, SAMovieSear
             view = this
         )
     }
-
-    override val layoutResId: Int
-        get() = R.layout.activity_movie_search
 
     override val commonProgressView: View?
         get() = viewDataBinding.pgbLoading

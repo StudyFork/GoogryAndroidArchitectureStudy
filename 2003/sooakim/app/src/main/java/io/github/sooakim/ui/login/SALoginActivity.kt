@@ -11,7 +11,7 @@ import io.github.sooakim.ui.movie.SAMovieSearchActivity
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 
-class SALoginActivity : SAActivity<ActivityLoginBinding, SALoginPresenter>(),
+class SALoginActivity : SAActivity<ActivityLoginBinding, SALoginPresenter>(R.layout.activity_login),
     SALoginContractor.View {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
@@ -21,9 +21,6 @@ class SALoginActivity : SAActivity<ActivityLoginBinding, SALoginPresenter>(),
             view = this
         )
     }
-
-    override val layoutResId: Int
-        get() = R.layout.activity_login
 
     override val commonProgressView: View?
         get() = viewDataBinding.pgbLoading
