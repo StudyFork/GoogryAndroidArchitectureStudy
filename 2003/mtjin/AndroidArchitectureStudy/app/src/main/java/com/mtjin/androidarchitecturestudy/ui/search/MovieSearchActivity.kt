@@ -4,25 +4,21 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mtjin.androidarchitecturestudy.R
 import com.mtjin.androidarchitecturestudy.data.search.Movie
+import com.mtjin.androidarchitecturestudy.databinding.ActivityMovieSearchBinding
 import com.mtjin.androidarchitecturestudy.utils.MyApplication
 
 
 class MovieSearchActivity : AppCompatActivity(), MovieSearchContract.View {
 
+    private lateinit var binding: ActivityMovieSearchBinding
     private lateinit var presenter: MovieSearchContract.Presenter
-    private lateinit var etInput: EditText
-    private lateinit var btnSearch: Button
-    private lateinit var rvMovies: RecyclerView
-    private lateinit var pbLoading: ProgressBar
     private lateinit var movieAdapter: MovieAdapter
     private lateinit var myApplication: MyApplication
     private lateinit var query: String
@@ -31,54 +27,49 @@ class MovieSearchActivity : AppCompatActivity(), MovieSearchContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_search)
-
-        initView()
+        initDataBinding()
+        inject()
         initAdapter()
-        initListener()
+    }
+
+    private fun initDataBinding() {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_search)
+        binding.search = this
+    }
+
+    private fun inject() {
+        myApplication = application as MyApplication
         presenter = MovieSearchPresenter(this, myApplication.movieRepository)
     }
 
-    private fun initView() {
-        myApplication = application as MyApplication
-        etInput = findViewById(R.id.et_input)
-        btnSearch = findViewById(R.id.btn_search)
-        rvMovies = findViewById(R.id.rv_movies)
-        pbLoading = findViewById(R.id.pb_loading)
-    }
-
     private fun initAdapter() {
-        movieAdapter = MovieAdapter()
+        movieAdapter = MovieAdapter { movie ->
+            Intent(Intent.ACTION_VIEW, Uri.parse(movie.link)).takeIf {
+                it.resolveActivity(packageManager) != null
+            }?.run(this::startActivity)
+        }
         val linearLayoutManager = LinearLayoutManager(this)
-        rvMovies.layoutManager = linearLayoutManager
+        binding.rvMovies.layoutManager = linearLayoutManager
         scrollListener = object : EndlessRecyclerViewScrollListener(linearLayoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
                 presenter.requestPagingMovie(query, totalItemsCount + 1)
             }
         }
-        rvMovies.addOnScrollListener(scrollListener)
-        rvMovies.adapter = movieAdapter
+        binding.rvMovies.addOnScrollListener(scrollListener)
+        binding.rvMovies.adapter = movieAdapter
     }
 
-    private fun initListener() {
-        //어댑터 아이템 클릭리스너
-        movieAdapter.setItemClickListener { movie ->
-            Intent(Intent.ACTION_VIEW, Uri.parse(movie.link)).takeIf {
-                it.resolveActivity(packageManager) != null
-            }?.run(this::startActivity)
-        }
-        //검색버튼
-        btnSearch.setOnClickListener {
-            query = etInput.text.toString().trim()
-            presenter.requestMovie(query)
-        }
+    fun onSearchClick() {
+        query = binding.etInput.text.toString().trim()
+        presenter.requestMovie(query)
     }
 
     override fun showLoading() {
-        pbLoading.visibility = View.VISIBLE
+        binding.pbLoading.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
-        pbLoading.visibility = View.GONE
+        binding.pbLoading.visibility = View.GONE
     }
 
     override fun showToast(msg: String) {
@@ -111,12 +102,12 @@ class MovieSearchActivity : AppCompatActivity(), MovieSearchContract.View {
 
     override fun searchMovieSuccess(movieList: List<Movie>) {
         movieAdapter.clear()
-        movieAdapter.setItems(movieList)
+        movieAdapter.addItems(movieList)
         Toast.makeText(this, getString(R.string.load_movie_success_msg), Toast.LENGTH_SHORT).show()
     }
 
     override fun pagingMovieSuccess(movieList: List<Movie>) {
-        movieAdapter.setItems(movieList)
+        movieAdapter.addItems(movieList)
         Toast.makeText(this, getString(R.string.load_movie_success_msg), Toast.LENGTH_SHORT).show()
     }
 
