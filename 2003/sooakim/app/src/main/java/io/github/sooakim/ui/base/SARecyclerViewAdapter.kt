@@ -9,9 +9,9 @@ import io.github.sooakim.ui.model.SAPresentation
 
 typealias OnRecyclerViewItemClick<E> = ((E) -> Unit)
 
-abstract class SARecyclerViewAdapter<E, VH>(
+abstract class SARecyclerViewAdapter<E>(
     private val onItemClick: OnRecyclerViewItemClick<E>? = null
-) : ListAdapter<E, VH>(object : DiffUtil.ItemCallback<E>() {
+) : ListAdapter<E, SAViewHolder<*, E>>(object : DiffUtil.ItemCallback<E>() {
     override fun areItemsTheSame(oldItem: E, newItem: E): Boolean {
         return oldItem.identifier == newItem.identifier
     }
@@ -19,7 +19,7 @@ abstract class SARecyclerViewAdapter<E, VH>(
     override fun areContentsTheSame(oldItem: E, newItem: E): Boolean {
         return oldItem == newItem
     }
-}) where E : SAIdentifiable, E : SAPresentation, VH : SAViewHolder {
+}) where E : SAIdentifiable, E : SAPresentation {
     private lateinit var layoutInflater: LayoutInflater
 
     private fun provideLayoutInflater(context: Context): LayoutInflater {
@@ -27,7 +27,7 @@ abstract class SARecyclerViewAdapter<E, VH>(
         return layoutInflater
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SAViewHolder<*, E> {
         return this.onCreateViewHolder(provideLayoutInflater(parent.context), parent, viewType)
             .also {
                 if (onItemClick == null) {
@@ -42,16 +42,20 @@ abstract class SARecyclerViewAdapter<E, VH>(
             }
     }
 
-    abstract fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup, viewType: Int): VH
+    abstract fun onCreateViewHolder(
+        inflater: LayoutInflater,
+        parent: ViewGroup,
+        viewType: Int
+    ): SAViewHolder<*, E>
 
     @Suppress("UNCHECKED_CAST")
-    override fun onBindViewHolder(holder: VH, position: Int) {
+    override fun onBindViewHolder(holder: SAViewHolder<*, E>, position: Int) {
         val currentItem = currentList.getOrNull(position) ?: return
         (holder as? SAViewHolderLifecycle<E>)?.onBind(currentItem)
     }
 
     @Suppress("UNCHECKED_CAST")
-    override fun onViewRecycled(holder: VH) {
+    override fun onViewRecycled(holder: SAViewHolder<*, E>) {
         super.onViewRecycled(holder)
         (holder as? SAViewHolderLifecycle<E>)?.onRecycle()
     }
