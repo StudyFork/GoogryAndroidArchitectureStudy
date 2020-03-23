@@ -6,8 +6,8 @@
 - 권용재 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2004/)
 
-- 박규동 [](https://github.com/)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2004/)
+- 박규동 [Kyudong3](https://github.com/Kyudong3)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2004/kyudong3)
 
 - 이병준 [jesterz91](https://github.com/jesterz91)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2004/jesterz91)
