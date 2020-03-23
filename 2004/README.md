@@ -9,8 +9,8 @@
 - 박규동 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2004/)
 
-- 이병준 [](https://github.com/)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2004/)
+- 이병준 [jesterz91](https://github.com/jesterz91)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2004/jesterz91)
 
 - 양혜진 [nukeolaf](https://github.com/nukeolaf)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2004/nukeolaf)
