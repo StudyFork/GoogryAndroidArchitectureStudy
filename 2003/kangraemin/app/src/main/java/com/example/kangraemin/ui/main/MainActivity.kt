@@ -3,9 +3,11 @@ package com.example.kangraemin.ui.main
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.databinding.DataBindingUtil
 import com.example.kangraemin.R
 import com.example.kangraemin.adapter.SearchResultAdapter
 import com.example.kangraemin.base.KangBaseActivity
+import com.example.kangraemin.databinding.ActivityMainBinding
 import com.example.kangraemin.model.AppDatabase
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.MovieSearchRepository
@@ -19,7 +21,6 @@ import com.example.kangraemin.util.RetrofitClient
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
 import io.reactivex.BackpressureStrategy
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : KangBaseActivity(), MainContract.View {
 
@@ -27,9 +28,12 @@ class MainActivity : KangBaseActivity(), MainContract.View {
 
     private val adapter = SearchResultAdapter()
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         presenter = MainPresenter(
             mainView = this,
@@ -51,44 +55,44 @@ class MainActivity : KangBaseActivity(), MainContract.View {
 
         presenter.checkAutoLoginStatus()
 
-        rv_search_result.adapter = adapter
+        binding.rvSearchResult.adapter = adapter
 
-        val whenSearchTextChanged = et_search.textChanges()
+        val whenSearchTextChanged = binding.etSearch.textChanges()
             .subscribe {
                 presenter.hasEnteredSearchText(it.toString())
             }
         compositeDisposable.add(whenSearchTextChanged)
 
-        val whenLogOutClicked = btn_logout.clicks()
+        val whenLogOutClicked = binding.btnLogout.clicks()
             .subscribe {
                 presenter.deleteAutoLoginStatus(unit = it)
             }
         compositeDisposable.add(whenLogOutClicked)
 
-        val whenArriveSearchResult = btn_search.clicks()
+        val whenArriveSearchResult = binding.btnSearch.clicks()
             .toFlowable(BackpressureStrategy.BUFFER)
             .doOnNext {
                 presenter.checkNetworkStatus()
             }
             .startWith(Unit)
             .subscribe {
-                presenter.getMovies(searchText = et_search.text.toString())
+                presenter.getMovies(searchText = binding.etSearch.text.toString())
             }
         compositeDisposable.add(whenArriveSearchResult)
     }
 
     override fun showLogOutButton() {
-        btn_logout.visibility = View.VISIBLE
+        binding.btnLogout.visibility = View.VISIBLE
     }
 
     override fun enableSearchButton() {
-        btn_search.alpha = 1f
-        btn_search.isEnabled = true
+        binding.btnSearch.alpha = 1f
+        binding.btnSearch.isEnabled = true
     }
 
     override fun disableSearchButton() {
-        btn_search.alpha = 0.3f
-        btn_search.isEnabled = false
+        binding.btnSearch.alpha = 0.3f
+        binding.btnSearch.isEnabled = false
     }
 
     override fun startLoginActivity() {
@@ -97,13 +101,13 @@ class MainActivity : KangBaseActivity(), MainContract.View {
     }
 
     override fun showNetworkErrorText() {
-        rv_search_result.visibility = View.GONE
-        tv_network_error.visibility = View.VISIBLE
+        binding.rvSearchResult.visibility = View.GONE
+        binding.tvNetworkError.visibility = View.VISIBLE
     }
 
     override fun hideNetworkErrorText() {
-        rv_search_result.visibility = View.VISIBLE
-        tv_network_error.visibility = View.GONE
+        binding.rvSearchResult.visibility = View.VISIBLE
+        binding.tvNetworkError.visibility = View.GONE
     }
 
     override fun showGetMovieError() {
