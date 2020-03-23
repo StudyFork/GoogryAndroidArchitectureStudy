@@ -1,28 +1,28 @@
 package com.mtjin.androidarchitecturestudy.ui.search
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
-import androidx.core.text.HtmlCompat
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.mtjin.androidarchitecturestudy.R
 import com.mtjin.androidarchitecturestudy.data.search.Movie
+import com.mtjin.androidarchitecturestudy.databinding.ItemMovieBinding
 
-class MovieAdapter :
+class MovieAdapter(private val itemClick: (Movie) -> Unit) :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
-    private lateinit var clickCallBack: (Movie) -> Unit
+    lateinit var binding: ItemMovieBinding
     private val items: ArrayList<Movie> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_movie, parent, false)
-        val viewHolder = ViewHolder(view)
-        view.setOnClickListener {
-            clickCallBack(items[viewHolder.adapterPosition])
+        binding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.item_movie,
+            parent,
+            false
+        )
+        val viewHolder = ViewHolder(binding)
+        binding.root.setOnClickListener {
+            itemClick(items[viewHolder.adapterPosition])
         }
 
         return viewHolder
@@ -36,36 +36,17 @@ class MovieAdapter :
         }
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        private val ivPoster = itemView.findViewById<ImageView>(R.id.iv_poster)
-        private val rvRating = itemView.findViewById<RatingBar>(R.id.rb_rating)
-        private val tvTitle = itemView.findViewById<TextView>(R.id.tv_title)
-        private val tvReleaseDate = itemView.findViewById<TextView>(R.id.tv_release_date)
-        private val tvActor = itemView.findViewById<TextView>(R.id.tv_actor)
-        private val tvDirector = itemView.findViewById<TextView>(R.id.tv_director)
+    class ViewHolder(private val binding: ItemMovieBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(movie: Movie) {
-            with(movie) {
-                Glide.with(itemView).load(image)
-                    .placeholder(R.drawable.ic_default)
-                    .into(ivPoster!!)
-                rvRating.rating = (userRating.toFloatOrNull() ?: 0f) / 2
-                tvTitle.text = HtmlCompat.fromHtml(title, HtmlCompat.FROM_HTML_MODE_COMPACT)
-                tvReleaseDate.text = pubDate
-                tvActor.text = actor
-                tvDirector.text = director
-            }
+            binding.movie = movie
         }
     }
 
-    fun setItems(items: List<Movie>) {
+    fun addItems(items: List<Movie>) {
         this.items.addAll(items)
         notifyDataSetChanged()
-    }
-
-    fun setItemClickListener(clickCallBack: (Movie) -> Unit) {
-        this.clickCallBack = clickCallBack
     }
 
     fun clear() {
