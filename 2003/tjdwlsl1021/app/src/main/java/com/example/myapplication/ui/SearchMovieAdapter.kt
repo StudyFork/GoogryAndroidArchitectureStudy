@@ -2,14 +2,12 @@ package com.example.myapplication.ui
 
 import android.annotation.TargetApi
 import android.os.Build
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.example.myapplication.BR
+import com.example.myapplication.R
 import com.example.myapplication.data.local.MovieEntity
 import com.example.myapplication.databinding.ItemMovieBinding
 
@@ -18,32 +16,29 @@ class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val movieInfoArrayList: MutableList<MovieEntity> = arrayListOf()
     private lateinit var onClickListener: (MovieEntity) -> Unit
 
+    private lateinit var binding: ItemMovieBinding
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemMovieBinding.inflate(inflater)
-        val viewHolder = MovieViewHolder(binding)
+        binding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.item_movie,
+            parent,
+            false
+        )
+        val holder = MovieViewHolder(binding)
 
         //-onClick은 onCrateViewHoler에서 선언, *bindViewHolder에서 선언하면 bind할 때마다 생성되는 문제
-        binding.root.setOnClickListener {
-            onClickListener(movieInfoArrayList[viewHolder.adapterPosition])
+        holder.itemView.setOnClickListener {
+            onClickListener(movieInfoArrayList[holder.adapterPosition])
         }
-        return viewHolder
+        return holder
     }
 
     @TargetApi(Build.VERSION_CODES.N)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val movieViewHolder = holder as MovieViewHolder
         val item = movieInfoArrayList[position]
-
-        movieViewHolder.tvTitle.text = Html.fromHtml(item.title, Html.FROM_HTML_MODE_COMPACT)
-        movieViewHolder.rbUserRating.rating = item.userRating.toFloat() / 2
-        movieViewHolder.pubDate.text = item.pubDate
-        movieViewHolder.tvDirector.text = Html.fromHtml(item.director, Html.FROM_HTML_MODE_COMPACT)
-        movieViewHolder.tvActor.text = Html.fromHtml(item.actor, Html.FROM_HTML_MODE_COMPACT)
-
-        Glide.with(movieViewHolder.ivThumbnail)
-            .load(item.image)
-            .into(movieViewHolder.ivThumbnail)
+        movieViewHolder.bind(item)
     }
 
     fun setOnclickListener(onClickListener: (MovieEntity) -> Unit) {
@@ -61,12 +56,10 @@ class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    class MovieViewHolder(binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
-        val ivThumbnail: ImageView = binding.ivThumbnail
-        val tvTitle: TextView = binding.tvTitle
-        val rbUserRating: RatingBar = binding.rbUserRating
-        val pubDate: TextView = binding.tvPubDate
-        val tvDirector: TextView = binding.tvDirector
-        val tvActor: TextView = binding.tvActor
+    class MovieViewHolder(private val binding: ItemMovieBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: MovieEntity) {
+            binding.setVariable(BR.movie, data)
+        }
     }
 }
