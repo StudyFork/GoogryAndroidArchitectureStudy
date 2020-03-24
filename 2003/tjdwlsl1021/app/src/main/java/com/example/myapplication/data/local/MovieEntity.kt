@@ -26,5 +26,5 @@ data class MovieEntity(
     @ColumnInfo(name = "title")
     val title: String,
     @ColumnInfo(name = "userRating")
-    val userRating: String
+    val userRating: Float
 )
