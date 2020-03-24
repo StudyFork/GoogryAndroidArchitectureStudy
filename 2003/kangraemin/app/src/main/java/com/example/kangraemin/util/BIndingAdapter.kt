@@ -18,7 +18,7 @@ fun setImageFromUrl(view: ImageView, url: String) {
 
 @BindingAdapter("bind:rating")
 fun setRating(ratingBar: RatingBar, rating: String) {
-    ratingBar.rating = rating.toFloat() / 2
+    ratingBar.rating = (rating.toFloatOrNull() ?: 0f) / 2
 }
 
 @BindingAdapter("bind:fromHtml")
