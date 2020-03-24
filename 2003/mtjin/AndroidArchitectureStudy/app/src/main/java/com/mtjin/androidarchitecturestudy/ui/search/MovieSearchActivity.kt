@@ -48,9 +48,8 @@ class MovieSearchActivity : AppCompatActivity(), MovieSearchContract.View {
                 it.resolveActivity(packageManager) != null
             }?.run(this::startActivity)
         }
-        val linearLayoutManager = LinearLayoutManager(this)
-        binding.rvMovies.layoutManager = linearLayoutManager
-        scrollListener = object : EndlessRecyclerViewScrollListener(linearLayoutManager) {
+        scrollListener = object :
+            EndlessRecyclerViewScrollListener(binding.rvMovies.layoutManager as LinearLayoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
                 presenter.requestPagingMovie(query, totalItemsCount + 1)
             }
