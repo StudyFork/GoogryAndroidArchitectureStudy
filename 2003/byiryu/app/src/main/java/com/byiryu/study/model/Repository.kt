@@ -19,9 +19,13 @@ class Repository constructor(
         return localDataSource.getAll()
             .flatMap { movies ->
                 if (movies.isEmpty()) {
-                    getMovieListWithRemote(query)
+                    getMovieListWithRemote(query).map {
+                        it
+                    }
                 } else {
-                    Single.just(movies)
+                    Single.just(movies).map {
+                        it
+                    }
                 }
             }
     }
@@ -30,10 +34,16 @@ class Repository constructor(
     private fun getMovieListWithRemote(query: String): Single<List<MovieItem>> {
         return remoteDataSource.getMoveList(query)
             .map { it.items }
-            .flatMap { movies ->
-                localDataSource.saveMovies(movies)
-                    .andThen(Single.just(movies))
-            }
+
+        /**
+         * 원인은 모르겠지만 아래 로직을 타면 return 을 안함
+         * saveMovies 문제
+         * 임시 주석
+         */
+//            .flatMap { movies ->
+//                localDataSource.saveMovies(movies)
+//                    .andThen(Single.just(movies))
+//            }
     }
 
 
