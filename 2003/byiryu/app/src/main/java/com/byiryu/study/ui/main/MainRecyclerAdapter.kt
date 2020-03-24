@@ -4,10 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import com.byiryu.study.BR
 import com.byiryu.study.R
 import com.byiryu.study.model.data.MovieItem
+import com.byiryu.study.wigets.OnViewClickListener
 
-class MainRecyclerAdapter :
+class MainRecyclerAdapter constructor(val onViewClickListener: OnViewClickListener) :
     ListAdapter<MovieItem, MainRecyclerHolder>(object : DiffUtil.ItemCallback<MovieItem>() {
         override fun areItemsTheSame(oldItem: MovieItem, newItem: MovieItem): Boolean {
             return oldItem.title == newItem.title
@@ -19,32 +21,19 @@ class MainRecyclerAdapter :
 
     }) {
 
-    private lateinit var onClickListener: (MovieItem) -> Unit
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainRecyclerHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.view_main_item, parent, false)
 
-        val holder = MainRecyclerHolder(itemView)
-
-        itemView.setOnClickListener {
-            onClickListener(getItem(holder.adapterPosition))
-        }
-        return holder
-
+        return MainRecyclerHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: MainRecyclerHolder, position: Int) {
         val item = getItem(position)
-
-        holder.binding(item)
+        holder.viewDataBinding?.run {
+            setVariable(BR.movieItem, item)
+            setVariable(BR.itemClickListener, onViewClickListener)
+        }
 
     }
-
-
-    fun setOnclickListener(onClickListener: (MovieItem) -> Unit) {
-        this.onClickListener = onClickListener
-    }
-
 }
