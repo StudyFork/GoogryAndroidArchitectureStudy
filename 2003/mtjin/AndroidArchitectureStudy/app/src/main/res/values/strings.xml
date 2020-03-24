@@ -12,4 +12,9 @@
     <string name="id_pw_not_correct_error_msg">아이디 또는 패스워드가 틀렸습니다</string>
     <string name="id_empty_error_msg">아이디를 입력해주세요</string>
     <string name="pw_empty_error_msg">비밀번호를 입력해주세요</string>
+    <string name="movie_search_input_hint">영화를 입력해주세요</string>
+    <string name="movie_search_text">검색</string>
+    <string name="login_id_hint">아이디(id)</string>
+    <string name="login_pw_hint">패스워드(P@sswOrd)</string>
+    <string name="login_login_text">로그인</string>
 </resources>
