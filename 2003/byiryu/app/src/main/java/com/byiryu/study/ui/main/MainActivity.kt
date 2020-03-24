@@ -4,15 +4,14 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import com.byiryu.study.R
+import com.byiryu.study.databinding.ActivityMainBinding
 import com.byiryu.study.model.data.MovieItem
 import com.byiryu.study.ui.base.BaseActivity
 import com.byiryu.study.ui.base.BaseContract
 import com.byiryu.study.ui.base.BasePresenter
+import com.byiryu.study.wigets.OnViewClickListener
 
-import kotlinx.android.synthetic.main.activity_main.*
-
-class MainActivity : BaseActivity(), MainConract.View {
+class MainActivity : BaseActivity(), MainConract.View{
 
     @Suppress("UNCHECKED_CAST")
     override val presenter: BaseContract.Presenter<BaseContract.View>
@@ -22,47 +21,37 @@ class MainActivity : BaseActivity(), MainConract.View {
         MainPresenter<MainConract.View>(getBRApplication().repository)
     }
 
-    override val progressBar: View
-        get() = loading
+    override var progressBar: View? = null
 
-    private lateinit var adapter: MainRecyclerAdapter
+    private val adapter: MainRecyclerAdapter = MainRecyclerAdapter(onViewClickListener = object : OnViewClickListener{
+        override fun onclick(data: Any) {
+            if(data !is MovieItem){
+                return
+            }
+
+            goActivity(Intent(Intent.ACTION_VIEW, Uri.parse(data.link)))
+        }
+
+    })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        mainPresenter.onViewPrepared()
+        val viewDataBinding = ActivityMainBinding.inflate(layoutInflater).apply {
+            progressBar = loading
+            adapter = this@MainActivity.adapter
+            editText.hint = mainPresenter.getPrevQuery()
 
-        initView()
-
-        bind()
-
-    }
-
-    private fun initView() {
-        adapter = MainRecyclerAdapter()
-
-        recyclerView.adapter = adapter
-    }
-
-    private fun bind() {
-
-        adapter.setOnclickListener {
-            goActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
+            btnSearch.setOnClickListener {
+                mainPresenter.search(editText.text.toString())
+            }
         }
 
-        btn_search.setOnClickListener {
-            mainPresenter.search(editText.text.toString())
-        }
+        setContentView(viewDataBinding.root)
 
     }
 
     override fun setResult(items: List<MovieItem>) {
         adapter.submitList(items)
     }
-
-    override fun setPrevQuery(query: String) {
-        editText.hint = query
-    }
-
 }
