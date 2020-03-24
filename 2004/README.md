@@ -4,7 +4,7 @@
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2004/taeseongyun)
 
 - 권용재 [invitejay](https://github.com/invitejay)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2004/)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2004/invitejay)
 
 - 박규동 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2004/)
