@@ -41,6 +41,7 @@ class MovieAdapter(private val itemClick: (Movie) -> Unit) :
 
         fun bind(movie: Movie) {
             binding.movie = movie
+            binding.executePendingBindings()
         }
     }
 
