@@ -9,7 +9,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
 @BindingAdapter("bind:imageFromUrl")
-fun getImageFromUrl(view: ImageView, url: String) {
+fun setImageFromUrl(view: ImageView, url: String) {
     Glide.with(view)
         .load(url)
         .centerCrop()
