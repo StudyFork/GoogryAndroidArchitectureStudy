@@ -1,10 +1,9 @@
 package com.mtjin.androidarchitecturestudy.utils
 
-import android.os.Build
-import android.text.Html
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.mtjin.androidarchitecturestudy.R
@@ -12,11 +11,7 @@ import com.mtjin.androidarchitecturestudy.R
 
 @BindingAdapter("htmlText")
 fun setHtmlText(textView: TextView, html: String) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        textView.text = Html.fromHtml(html, Html.FROM_HTML_MODE_COMPACT)
-    } else {
-        textView.text = Html.fromHtml(html)
-    }
+    HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_COMPACT)
 }
 
 @BindingAdapter("urlImage")
