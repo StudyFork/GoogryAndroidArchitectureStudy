@@ -9,7 +9,7 @@ import com.byiryu.study.R
 import com.byiryu.study.model.data.MovieItem
 import com.byiryu.study.wigets.OnViewClickListener
 
-class MainRecyclerAdapter constructor(val onViewClickListener: OnViewClickListener) :
+class MainRecyclerAdapter (val onViewClickListener: OnViewClickListener) :
     ListAdapter<MovieItem, MainRecyclerHolder>(object : DiffUtil.ItemCallback<MovieItem>() {
         override fun areItemsTheSame(oldItem: MovieItem, newItem: MovieItem): Boolean {
             return oldItem.title == newItem.title
