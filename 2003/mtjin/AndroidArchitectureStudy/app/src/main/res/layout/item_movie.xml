@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -17,7 +18,7 @@
 
         <ImageView
             android:id="@+id/iv_poster"
-            urlImage="@{movie.image}"
+            bind:urlImage="@{movie.image}"
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_weight="1"
@@ -32,7 +33,7 @@
 
             <TextView
                 android:id="@+id/tv_title"
-                htmlText="@{movie.title}"
+                bind:htmlText="@{movie.title}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
@@ -41,7 +42,7 @@
             <RatingBar
                 android:id="@+id/rb_rating"
                 style="@style/Widget.AppCompat.RatingBar.Small"
-                movieRating="@{movie.userRating}"
+                bind:movieRating="@{movie.userRating}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
