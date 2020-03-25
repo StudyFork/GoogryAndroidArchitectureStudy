@@ -21,7 +21,7 @@ fun setHtmlText(textView: TextView, html: String) {
 
 @BindingAdapter("urlImage")
 fun setUrlImage(imageView: ImageView, url: String) {
-    Glide.with(imageView.context).load(url)
+    Glide.with(imageView).load(url)
         .placeholder(R.drawable.ic_default)
         .into(imageView)
 }
