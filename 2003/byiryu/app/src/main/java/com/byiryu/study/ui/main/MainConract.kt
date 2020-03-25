@@ -7,13 +7,15 @@ interface MainConract {
 
     interface View : BaseContract.View {
 
-        fun setResult(items : List<MovieItem>)
+        fun setResult(items: List<MovieItem>)
+
+        fun setPrevQuery(query: String)
     }
 
     interface Presenter<V : View> : BaseContract.Presenter<V>{
 
-        fun search(query : String)
+        fun search(query: String)
 
-        fun getPrevQuery() : String
+        fun getPrevQuery()
     }
 }

@@ -10,8 +10,8 @@ class MainPresenter<V : MainConract.View> constructor(
     private val repository: Repository
 ) : BasePresenter<V>(), MainConract.Presenter<V> {
 
-    override fun getPrevQuery(): String {
-        return repository.getPrevSearchQuery()
+    override fun getPrevQuery() {
+        mvpView?.setPrevQuery(repository.getPrevSearchQuery())
     }
 
 

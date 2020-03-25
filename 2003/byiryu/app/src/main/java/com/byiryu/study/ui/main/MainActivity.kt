@@ -23,6 +23,8 @@ class MainActivity : BaseActivity(), MainConract.View{
 
     override var progressBar: View? = null
 
+    private lateinit var viewDataBinding : ActivityMainBinding
+
     private val adapter: MainRecyclerAdapter = MainRecyclerAdapter(onViewClickListener = object : OnViewClickListener{
         override fun onclick(data: Any) {
             if(data !is MovieItem){
@@ -37,15 +39,16 @@ class MainActivity : BaseActivity(), MainConract.View{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val viewDataBinding = ActivityMainBinding.inflate(layoutInflater).apply {
+         viewDataBinding = ActivityMainBinding.inflate(layoutInflater).apply {
             progressBar = loading
             adapter = this@MainActivity.adapter
-            editText.hint = mainPresenter.getPrevQuery()
 
             btnSearch.setOnClickListener {
                 mainPresenter.search(editText.text.toString())
             }
         }
+
+        mainPresenter.getPrevQuery()
 
         setContentView(viewDataBinding.root)
 
@@ -53,5 +56,9 @@ class MainActivity : BaseActivity(), MainConract.View{
 
     override fun setResult(items: List<MovieItem>) {
         adapter.submitList(items)
+    }
+
+    override fun setPrevQuery(query: String) {
+        viewDataBinding.editText.hint = query
     }
 }
