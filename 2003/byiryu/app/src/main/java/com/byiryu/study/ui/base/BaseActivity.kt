@@ -9,7 +9,7 @@ import com.byiryu.study.ui.BRApplication
 
 abstract class BaseActivity : AppCompatActivity(), BaseContract.View {
 
-    protected open val progressBar: View? = null
+    protected abstract var progressBar: View?
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

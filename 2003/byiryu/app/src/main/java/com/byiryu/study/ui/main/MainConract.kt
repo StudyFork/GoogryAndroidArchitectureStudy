@@ -6,15 +6,16 @@ import com.byiryu.study.ui.base.BaseContract
 interface MainConract {
 
     interface View : BaseContract.View {
-        fun setPrevQuery(query : String)
 
-        fun setResult(items : List<MovieItem>)
+        fun setResult(items: List<MovieItem>)
+
+        fun setPrevQuery(query: String)
     }
 
     interface Presenter<V : View> : BaseContract.Presenter<V>{
 
-        fun search(query : String)
+        fun search(query: String)
 
-        fun onViewPrepared()
+        fun getPrevQuery()
     }
 }

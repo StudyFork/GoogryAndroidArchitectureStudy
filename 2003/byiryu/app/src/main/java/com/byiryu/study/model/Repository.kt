@@ -20,20 +20,18 @@ class Repository constructor(
             .flatMap { movies ->
                 if (movies.isEmpty()) {
                     getMovieListWithRemote(query)
+                        .doOnSuccess {
+                            localDataSource.saveMovies(it)
+                        }
                 } else {
                     Single.just(movies)
                 }
             }
     }
 
-    //추가
     private fun getMovieListWithRemote(query: String): Single<List<MovieItem>> {
         return remoteDataSource.getMoveList(query)
             .map { it.items }
-            .flatMap { movies ->
-                localDataSource.saveMovies(movies)
-                    .andThen(Single.just(movies))
-            }
     }
 
 

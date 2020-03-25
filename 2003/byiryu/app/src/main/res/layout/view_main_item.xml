@@ -1,99 +1,129 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/view_border"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="androidx.core.text.HtmlCompat"/>
+        <variable
+            name="movieItem"
+            type="com.byiryu.study.model.data.MovieItem" />
+
+        <variable
+            name="itemClickListener"
+            type="com.byiryu.study.wigets.OnViewClickListener" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/rootLayout"
-        android:layout_margin="@dimen/default_space"
+        android:background="@drawable/view_border"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/image"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            app:layout_constraintEnd_toStartOf="@+id/contents_layout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/contents_layout"
-            app:layout_constraintStart_toEndOf="@+id/image"
+            android:id="@+id/rootLayout"
+            android:layout_margin="@dimen/default_space"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{() -> itemClickListener.onclick(movieItem)}"
+            >
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/title"
-                android:textColor="@color/black"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:gravity="start"
-                android:textSize="15sp"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:adjustViewBounds="true"
+                app:image_url="@{movieItem.image}"
+                app:image_scale_type='@{"center_crop"}'
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toStartOf="@+id/contents_layout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/rating"
-                />
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-            <androidx.appcompat.widget.AppCompatRatingBar
-                style="@style/Widget.AppCompat.RatingBar.Small"
-                android:id="@+id/rating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:isIndicator="true"
-                android:numStars="5"
-                android:stepSize="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title"
-                app:layout_constraintBottom_toTopOf="@+id/publishDate"/>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/publishDate"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/contents_layout"
+                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rating"
-                app:layout_constraintBottom_toTopOf="@+id/director" />
+                android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/director"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/publishDate"
-                app:layout_constraintBottom_toTopOf="@+id/actor"
-               />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/title"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:textSize="15sp"
+                    android:text="@{HtmlCompat.fromHtml(movieItem.title, HtmlCompat.FROM_HTML_MODE_COMPACT)}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/rating"
+                    tools:text="엑스맨: 뉴 뮤턴트"
+                    />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/actor"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/director"
-                />
+                <androidx.appcompat.widget.AppCompatRatingBar
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:id="@+id/rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:stepSize="0.5"
+                    tools:rating="3.2"
+                    android:rating="@{movieItem.userRating/2.0f}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/title"
+                    app:layout_constraintBottom_toTopOf="@+id/publishDate"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/publishDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="12sp"
+                    tools:text="2020"
+                    android:text="@{movieItem.pubDate}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rating"
+                    app:layout_constraintBottom_toTopOf="@+id/director" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/director"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="14sp"
+                    tools:text="조쉬 분|"
+                    android:text="@{movieItem.director}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/publishDate"
+                    app:layout_constraintBottom_toTopOf="@+id/actor"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/actor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="14sp"
+                    tools:text="안야 테일러 조이|메이지 윌리암스|"
+                    android:text="@{movieItem.actor}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/director"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
