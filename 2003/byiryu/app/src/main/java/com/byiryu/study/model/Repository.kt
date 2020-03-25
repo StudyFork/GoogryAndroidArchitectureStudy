@@ -28,7 +28,7 @@ class Repository constructor(
                 }
             }
     }
-    
+
     private fun getMovieListWithRemote(query: String): Single<List<MovieItem>> {
         return remoteDataSource.getMoveList(query)
             .map { it.items }
