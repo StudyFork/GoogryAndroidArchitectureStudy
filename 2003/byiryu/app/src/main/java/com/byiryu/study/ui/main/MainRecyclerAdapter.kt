@@ -33,6 +33,7 @@ class MainRecyclerAdapter (val onViewClickListener: OnViewClickListener) :
         holder.viewDataBinding?.run {
             setVariable(BR.movieItem, item)
             setVariable(BR.itemClickListener, onViewClickListener)
+            executePendingBindings()
         }
 
     }
