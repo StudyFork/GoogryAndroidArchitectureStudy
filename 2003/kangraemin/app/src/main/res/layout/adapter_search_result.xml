@@ -25,7 +25,7 @@
             android:background="@color/search_img_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            bind:imageFromUrl="@{movieDetail.image}"/>
+            imageFromUrl="@{movieDetail.image}"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_movie_detail"
@@ -43,7 +43,7 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                bind:fromHtml="@{movieDetail.title}"/>
+                fromHtml="@{movieDetail.title}"/>
 
             <androidx.appcompat.widget.AppCompatRatingBar
                 android:id="@+id/rtb_rating"
@@ -57,7 +57,7 @@
                 android:stepSize="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_title"
-                bind:rating="@{movieDetail.userRating}"/>
+                rating="@{movieDetail.userRating}"/>
 
             <TextView
                 android:id="@+id/tv_date"

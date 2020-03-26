@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
-@BindingAdapter("bind:imageFromUrl")
+@BindingAdapter("imageFromUrl")
 fun setImageFromUrl(view: ImageView, url: String) {
     Glide.with(view)
         .load(url)
@@ -16,12 +16,12 @@ fun setImageFromUrl(view: ImageView, url: String) {
         .into(view)
 }
 
-@BindingAdapter("bind:rating")
+@BindingAdapter("rating")
 fun setRating(ratingBar: RatingBar, rating: String) {
     ratingBar.rating = (rating.toFloatOrNull() ?: 0f) / 2
 }
 
-@BindingAdapter("bind:fromHtml")
+@BindingAdapter("fromHtml")
 fun transferFromHtml(textView: TextView, htmlString: String) {
     if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
         textView.text = Html.fromHtml(htmlString)
