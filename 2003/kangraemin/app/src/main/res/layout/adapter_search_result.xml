@@ -4,11 +4,11 @@
     xmlns:bind="http://schemas.android.com/tools">
 
     <data>
-        
+
         <variable
             name="movieDetail"
             type="com.example.kangraemin.model.remote.datamodel.MovieDetail" />
-        
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +25,7 @@
             android:background="@color/search_img_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            imageFromUrl="@{movieDetail.image}"/>
+            bind:imageFromUrl="@{movieDetail.image}" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_movie_detail"
@@ -43,7 +43,7 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                fromHtml="@{movieDetail.title}"/>
+                bind:fromHtml="@{movieDetail.title}" />
 
             <androidx.appcompat.widget.AppCompatRatingBar
                 android:id="@+id/rtb_rating"
@@ -57,7 +57,7 @@
                 android:stepSize="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_title"
-                rating="@{movieDetail.userRating}"/>
+                bind:rating="@{movieDetail.userRating}" />
 
             <TextView
                 android:id="@+id/tv_date"
