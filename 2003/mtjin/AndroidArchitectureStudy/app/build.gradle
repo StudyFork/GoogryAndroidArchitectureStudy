@@ -2,8 +2,6 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -26,6 +24,9 @@ android {
     compileOptions {
         targetCompatibility = "8"
         sourceCompatibility = "8"
+    }
+    dataBinding {
+        enabled = true
     }
 }
 

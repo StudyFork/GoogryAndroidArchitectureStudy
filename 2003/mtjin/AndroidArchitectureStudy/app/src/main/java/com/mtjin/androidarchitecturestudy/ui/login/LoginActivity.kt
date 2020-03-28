@@ -2,30 +2,31 @@ package com.mtjin.androidarchitecturestudy.ui.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.mtjin.androidarchitecturestudy.R
 import com.mtjin.androidarchitecturestudy.data.login.source.LoginRepository
 import com.mtjin.androidarchitecturestudy.data.login.source.LoginRepositoryImpl
 import com.mtjin.androidarchitecturestudy.data.login.source.local.LoginLocalDataSource
 import com.mtjin.androidarchitecturestudy.data.login.source.local.LoginLocalDataSourceImpl
+import com.mtjin.androidarchitecturestudy.databinding.ActivityLoginBinding
 import com.mtjin.androidarchitecturestudy.ui.search.MovieSearchActivity
 import com.mtjin.androidarchitecturestudy.utils.PreferenceManager
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
     private lateinit var presenter: LoginContract.Presenter
-    private lateinit var etId: EditText
-    private lateinit var etPw: EditText
-    private lateinit var btnLogin: Button
-
+    private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-        initView()
-        initListener()
+        initDataBinding()
         inject()
+    }
+
+    private fun initDataBinding() {
+        binding =
+            DataBindingUtil.setContentView(this, R.layout.activity_login)
+        binding.login = this
     }
 
     private fun inject() {
@@ -35,18 +36,10 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         presenter = LoginPresenter(this, loginRepository)
     }
 
-    private fun initView() {
-        etId = findViewById(R.id.et_id)
-        etPw = findViewById(R.id.et_pw)
-        btnLogin = findViewById(R.id.btn_login)
-    }
-
-    private fun initListener() {
-        btnLogin.setOnClickListener {
-            val id = etId.text.toString().trim()
-            val pw = etPw.text.toString().trim()
-            presenter.doLogin(id, pw)
-        }
+    fun onLoginClick() {
+        val id = binding.etId.text.toString().trim()
+        val pw = binding.etPw.text.toString().trim()
+        presenter.doLogin(id, pw)
     }
 
 
@@ -56,11 +49,11 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     override fun showIdEmptyError() {
-        etId.error = getString(R.string.id_empty_error_msg)
+        binding.etId.error = getString(R.string.id_empty_error_msg)
     }
 
     override fun showPwEmptyError() {
-        etPw.error = getString(R.string.pw_empty_error_msg)
+        binding.etPw.error = getString(R.string.pw_empty_error_msg)
     }
 
     override fun goMovieSearch() {
