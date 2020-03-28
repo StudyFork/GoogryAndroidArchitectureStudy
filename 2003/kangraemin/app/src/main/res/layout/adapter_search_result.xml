@@ -1,74 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="10dp"
-    android:paddingTop="10dp"
-    android:paddingRight="10dp">
+    xmlns:bind="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/img_thumbnail"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@color/search_img_background"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
+
+        <variable
+            name="movieDetail"
+            type="com.example.kangraemin.model.remote.datamodel.MovieDetail" />
+
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_movie_detail"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
-        app:layout_constraintStart_toEndOf="@id/img_thumbnail"
-        app:layout_constraintTop_toTopOf="@id/img_thumbnail">
+        android:paddingTop="10dp"
+        android:paddingRight="10dp">
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/text_title"
-            android:textStyle="bold"
+        <ImageView
+            android:id="@+id/img_thumbnail"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@color/search_img_background"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            bind:imageFromUrl="@{movieDetail.image}" />
 
-        <androidx.appcompat.widget.AppCompatRatingBar
-            android:id="@+id/rtb_rating"
-            style="@style/Widget.AppCompat.RatingBar.Small"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_movie_detail"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:isIndicator="true"
-            android:numStars="5"
-            android:rating="0"
-            android:stepSize="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+            android:paddingLeft="10dp"
+            app:layout_constraintStart_toEndOf="@id/img_thumbnail"
+            app:layout_constraintTop_toTopOf="@id/img_thumbnail">
 
-        <TextView
-            android:id="@+id/tv_date"
-            style="@style/AppTheme.MovieDetails"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rtb_rating" />
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_title"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                bind:fromHtml="@{movieDetail.title}" />
 
-        <TextView
-            android:id="@+id/tv_director"
-            style="@style/AppTheme.MovieDetails"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_date" />
+            <androidx.appcompat.widget.AppCompatRatingBar
+                android:id="@+id/rtb_rating"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="0"
+                android:stepSize="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                bind:rating="@{movieDetail.userRating}" />
 
-        <TextView
-            android:id="@+id/tv_castings"
-            style="@style/AppTheme.MovieDetails"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_director" />
+            <TextView
+                android:id="@+id/tv_date"
+                style="@style/AppTheme.MovieDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{movieDetail.pubDate}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rtb_rating" />
+
+            <TextView
+                android:id="@+id/tv_director"
+                style="@style/AppTheme.MovieDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{movieDetail.director}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_date" />
+
+            <TextView
+                android:id="@+id/tv_castings"
+                style="@style/AppTheme.MovieDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{movieDetail.actor}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_director" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

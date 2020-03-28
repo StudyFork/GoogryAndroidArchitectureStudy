@@ -1,26 +1,31 @@
 package com.example.kangraemin.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.kangraemin.R
+import com.example.kangraemin.databinding.AdapterSearchResultBinding
 import com.example.kangraemin.model.remote.datamodel.MovieDetail
-import com.example.kangraemin.util.Utils
-import kotlinx.android.synthetic.main.adapter_search_result.view.*
 
 class SearchResultAdapter :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<SearchResultAdapter.ItemViewHolder>() {
 
     private val data = ArrayList<MovieDetail>()
 
-    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    class ItemViewHolder(
+        private val binding: AdapterSearchResultBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        fun bind(movieDetail: MovieDetail) {
+            binding.movieDetail = movieDetail
+            binding.executePendingBindings()
+        }
+
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.adapter_search_result,
+            binding = AdapterSearchResultBinding.inflate(
+                LayoutInflater.from(parent.context),
                 parent,
                 false
             )
@@ -39,18 +44,7 @@ class SearchResultAdapter :
         notifyDataSetChanged()
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val result = data[position]
-        holder.run {
-            itemView.tv_castings.text = result.actor
-            itemView.tv_director.text = result.director
-            itemView.tv_title.text = Utils.fromHtml(result.title)
-            itemView.tv_date.text = result.pubDate
-            itemView.rtb_rating.rating = result.userRating.toFloat() / 2
-            Glide.with(itemView.img_thumbnail)
-                .load(result.image)
-                .centerCrop()
-                .into(itemView.img_thumbnail)
-        }
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+        holder.bind(data[position])
     }
 }
