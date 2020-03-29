@@ -6,16 +6,11 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import io.github.sooakim.R
 import io.github.sooakim.databinding.ItemMovieSearchResultBinding
-import io.github.sooakim.ui.base.OnRecyclerViewItemClick
 import io.github.sooakim.ui.base.SARecyclerViewAdapter
 import io.github.sooakim.ui.base.SAViewHolder
 import io.github.sooakim.ui.movie.model.SAMoviePresentation
 
-class SAMovieSearchResultAdapter(
-    onItemClick: OnRecyclerViewItemClick<SAMoviePresentation>
-) : SARecyclerViewAdapter<SAMoviePresentation>(
-    onItemClick
-) {
+class SAMovieSearchResultAdapter : SARecyclerViewAdapter<SAMoviePresentation>() {
     override fun onCreateViewHolder(
         inflater: LayoutInflater,
         parent: ViewGroup,

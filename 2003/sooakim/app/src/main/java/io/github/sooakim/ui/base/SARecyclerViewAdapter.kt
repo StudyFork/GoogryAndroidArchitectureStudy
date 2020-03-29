@@ -7,11 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import io.github.sooakim.ui.model.SAPresentation
 
-typealias OnRecyclerViewItemClick<E> = ((E) -> Unit)
 
-abstract class SARecyclerViewAdapter<E>(
-    private val onItemClick: OnRecyclerViewItemClick<E>? = null
-) : ListAdapter<E, SAViewHolder<*, E>>(object : DiffUtil.ItemCallback<E>() {
+abstract class SARecyclerViewAdapter<E> :
+    ListAdapter<E, SAViewHolder<*, E>>(object : DiffUtil.ItemCallback<E>() {
     override fun areItemsTheSame(oldItem: E, newItem: E): Boolean {
         return oldItem.identifier == newItem.identifier
     }
@@ -27,17 +25,14 @@ abstract class SARecyclerViewAdapter<E>(
         return layoutInflater
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SAViewHolder<*, E> {
         return this.onCreateViewHolder(provideLayoutInflater(parent.context), parent, viewType)
             .also {
-                if (onItemClick == null) {
-                    return@also
-                } else {
-                    it.itemView.setOnClickListener { _ ->
-                        val currentItem =
-                            currentList.getOrNull(it.adapterPosition) ?: return@setOnClickListener
-                        onItemClick.invoke(currentItem)
-                    }
+                it.itemView.setOnClickListener { _ ->
+                    val currentItem =
+                        currentList.getOrNull(it.adapterPosition) ?: return@setOnClickListener
+                    (currentItem as? SAClickable<E>)?.onClick?.onNext(currentItem)
                 }
             }
     }

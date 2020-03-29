@@ -1,24 +1,16 @@
 package io.github.sooakim.ui
 
-import android.content.Intent
 import androidx.databinding.ViewDataBinding
 import io.github.sooakim.ui.base.SAActivity
-import io.github.sooakim.ui.login.SALoginActivity
-import io.github.sooakim.ui.movie.SAMovieSearchActivity
+import io.github.sooakim.ui.base.SANavigationProviderImpl
 
-class SASplashActivity : SAActivity<ViewDataBinding, SASplashPresenter>(), SASplashContractor.View {
-    override val presenter: SASplashPresenter by lazy {
-        SASplashPresenter(
+class SASplashActivity : SAActivity<ViewDataBinding, SASplashViewModel>() {
+    override val viewModel: SASplashViewModel by lazy {
+        SASplashViewModel(
             authRepository = requireApplication().authRepository,
-            view = this
+            navigator = SASplashNavigator(
+                SANavigationProviderImpl(this)
+            )
         )
-    }
-
-    override fun showLogin() {
-        startActivity(Intent(this, SALoginActivity::class.java))
-    }
-
-    override fun showMain() {
-        startActivity(Intent(this, SAMovieSearchActivity::class.java))
     }
 }

@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="io.github.sooakim.ui.movie.SAMovieSearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,6 +22,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:maxLines="1"
+            android:text="@={viewModel.searchText}"
             app:layout_constraintBottom_toBottomOf="@id/btn_search"
             app:layout_constraintEnd_toStartOf="@id/btn_search"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +38,8 @@
             android:text="@string/activity_main_btn_search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/et_search"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            bind:onClick="@{viewModel.searchClick}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_search_result"
@@ -48,16 +54,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_search"
+            bind:submitList="@{viewModel.movies}"
             tools:listitem="@layout/item_movie_search_result" />
 
         <ProgressBar
             android:id="@+id/pgb_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/rv_search_result"
             app:layout_constraintEnd_toEndOf="@id/rv_search_result"
             app:layout_constraintStart_toStartOf="@id/rv_search_result"
-            app:layout_constraintTop_toTopOf="@id/rv_search_result" />
+            app:layout_constraintTop_toTopOf="@id/rv_search_result"
+            bind:visibleOrInvisible="@{viewModel.isLoading}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

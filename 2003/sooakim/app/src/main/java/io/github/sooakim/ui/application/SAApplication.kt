@@ -12,10 +12,13 @@ import io.github.sooakim.data.remote.source.SAAuthRemoteDataSourceImpl
 import io.github.sooakim.data.remote.source.SAMovieRemoteDataSourceImpl
 import io.github.sooakim.domain.repository.SAAuthRepository
 import io.github.sooakim.domain.repository.SAMovieRepository
+import io.github.sooakim.util.ResourceProvider
+import io.github.sooakim.util.ResourceProviderImpl
 
 class SAApplication : Application() {
     lateinit var authRepository: SAAuthRepository
     lateinit var movieRepository: SAMovieRepository
+    lateinit var resourceProvider: ResourceProvider
 
     override fun onCreate() {
         super.onCreate()
@@ -47,5 +50,6 @@ class SAApplication : Application() {
             movieLocalDataSource,
             movieRemoteDataSource
         )
+        resourceProvider = ResourceProviderImpl(this)
     }
 }

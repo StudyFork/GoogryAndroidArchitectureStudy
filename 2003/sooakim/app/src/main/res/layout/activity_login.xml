@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="io.github.sooakim.ui.login.SALoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,14 +25,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed">
+            app:layout_constraintVertical_chainStyle="packed"
+            bind:error="@{viewModel.errorId}">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/iet_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/activity_login_iet_id_hint"
-                android:inputType="text|textAutoComplete" />
+                android:inputType="text|textAutoComplete"
+                android:text="@={viewModel.id}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -40,14 +46,16 @@
             app:layout_constraintBottom_toTopOf="@id/btn_login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tl_id">
+            app:layout_constraintTop_toBottomOf="@id/tl_id"
+            bind:error="@{viewModel.errorPassword}">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/iet_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/activity_login_iet_password_hint"
-                android:inputType="text|textPassword|textNoSuggestions" />
+                android:inputType="text|textPassword|textNoSuggestions"
+                android:text="@={viewModel.password}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -56,6 +64,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:minHeight="56dp"
+            bind:onClick="@{viewModel.loginClick}"
             android:text="@string/activity_login_btn_login"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -67,10 +76,10 @@
             android:id="@+id/pgb_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            bind:visibleOrInvisible="@{viewModel.isLoading}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
