@@ -1,5 +1,6 @@
 package com.example.kangraemin.ui.splash
 
+import androidx.databinding.ObservableField
 import androidx.room.EmptyResultSetException
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.local.datamodel.Auth
@@ -9,11 +10,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
-class SplashPresenter(
-    private val splashView: SplashContract.View,
+class SplashViewModel(
     private val authRepository: AuthRepository
-) : SplashContract.Presenter {
-
+) {
     private val compositeDisposable = CompositeDisposable()
 
     private data class ResponseGetAuth(
@@ -21,6 +20,14 @@ class SplashPresenter(
         val responseResult: Auth = Auth(autoLogin = false),
         val throwable: Throwable? = null
     )
+
+    val observableSplashResult = ObservableField<SplashResult>()
+
+    enum class SplashResult {
+        NEED_LOGIN,
+        AUTH_ERROR,
+        MAIN_VIEW
+    }
 
     init {
         val splashTimer = Completable
@@ -41,19 +48,15 @@ class SplashPresenter(
                     responseGetAuth.throwable?.apply {
                         printStackTrace()
                         if (responseGetAuth.throwable is EmptyResultSetException) {
-                            splashView.startLoginActivity()
+                            observableSplashResult.set(SplashResult.NEED_LOGIN)
                         } else {
-                            splashView.showGetAuthError()
+                            observableSplashResult.set(SplashResult.AUTH_ERROR)
                         }
                     }
                 } else {
-                    splashView.startMainActivity()
+                    observableSplashResult.set(SplashResult.MAIN_VIEW)
                 }
             }, { it.printStackTrace() })
         compositeDisposable.add(splashTimer)
-    }
-
-    override fun onViewDestroy() {
-        compositeDisposable.dispose()
     }
 }
