@@ -20,10 +20,11 @@ class MovieSearchViewModel(private val movieRepository: MovieRepository) {
     var scrollRestateState: ObservableBoolean = ObservableBoolean(false)
     var isLoadMore: Boolean = false
 
-
+    var currentQuery: String = ""
     fun requestMovie() {
         isLoadMore = false
-        if (query.get().toString().isEmpty()) {
+        currentQuery = query.get().toString()
+        if (currentQuery.isEmpty()) {
             emptyQueryMsg.set(true)
         } else {
             isLoading.set(true)
@@ -53,7 +54,7 @@ class MovieSearchViewModel(private val movieRepository: MovieRepository) {
     fun requestPagingMovie(offset: Int) {
         isLoadMore = true
         isLoading.set(true)
-        movieRepository.getPagingMovies(query.get().toString(), offset,
+        movieRepository.getPagingMovies(currentQuery, offset,
             success = {
                 if (it.isEmpty()) {
                     lastPageMsg.set(true)
