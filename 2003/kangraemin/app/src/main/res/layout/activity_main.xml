@@ -5,6 +5,12 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.example.kangraemin.ui.main.MainViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,16 +22,19 @@
             android:id="@+id/et_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
             android:hint="@string/main_search_bar_hint"
+            android:text="@={vm.searchText}"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/btn_search"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/btn_search" />
 
         <Button
             android:id="@+id/btn_search"
+            bind:activateButton="@{vm.searchText}"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:onClick="@{()->vm.movieSearch()}"
             android:text="@string/main_search_button"
             app:layout_constraintRight_toLeftOf="@id/btn_logout"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,8 +43,9 @@
             android:id="@+id/btn_logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> vm.deleteAutoLoginStatus()}"
             android:text="@string/main_log_out"
-            android:visibility="gone"
+            android:visibility="@{vm.showLogoutButton ? View.VISIBLE : View.GONE}"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,6 +53,7 @@
             android:id="@+id/rv_search_result"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:visibility="@{vm.isNetworkConnected() ? View.VISIBLE : View.GONE}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_search" />
@@ -52,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/main_network_error_message"
-            android:visibility="gone"
+            android:visibility="@{vm.isNetworkConnected() ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
