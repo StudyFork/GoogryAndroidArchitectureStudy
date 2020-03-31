@@ -1,5 +1,6 @@
 package com.example.kangraemin.util
 
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
@@ -23,4 +24,15 @@ fun setRating(ratingBar: RatingBar, rating: String) {
 @BindingAdapter("fromHtml")
 fun transferFromHtml(textView: TextView, htmlString: String) {
     textView.text = HtmlCompat.fromHtml(htmlString, HtmlCompat.FROM_HTML_MODE_LEGACY)
+}
+
+@BindingAdapter("activateButton")
+fun activateButton(button: Button, enteredText: String) {
+    if (enteredText.isEmpty()) {
+        button.alpha = 0.3f
+        button.isEnabled = false
+    } else {
+        button.alpha = 1f
+        button.isEnabled = true
+    }
 }
