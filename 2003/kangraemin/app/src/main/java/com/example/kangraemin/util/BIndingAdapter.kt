@@ -26,8 +26,8 @@ fun transferFromHtml(textView: TextView, htmlString: String) {
     textView.text = HtmlCompat.fromHtml(htmlString, HtmlCompat.FROM_HTML_MODE_LEGACY)
 }
 
-@BindingAdapter("activateButton")
-fun activateButton(button: Button, enteredText: String) {
+@BindingAdapter("activateButtonByPresenceOfString")
+fun activateButtonByPresenceOfString(button: Button, enteredText: String) {
     if (enteredText.isEmpty()) {
         button.alpha = 0.3f
         button.isEnabled = false
