@@ -46,9 +46,4 @@ class SplashActivity : KangBaseActivity() {
         })
 
     }
-
-    override fun onDestroy() {
-//        presenter.onViewDestroy()
-        super.onDestroy()
-    }
 }
