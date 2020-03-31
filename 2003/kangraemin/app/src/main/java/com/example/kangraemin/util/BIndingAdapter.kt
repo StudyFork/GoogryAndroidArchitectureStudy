@@ -36,3 +36,14 @@ fun activateButtonByPresenceOfString(button: Button, enteredText: String) {
         button.isEnabled = true
     }
 }
+
+@BindingAdapter("activateLoginButton")
+fun activateLoginButton(button: Button, loginInfoEntered: Boolean) {
+    if (loginInfoEntered) {
+        button.alpha = 1f
+        button.isEnabled = true
+    } else {
+        button.alpha = 0.5f
+        button.isEnabled = false
+    }
+}
