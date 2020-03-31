@@ -11,7 +11,6 @@ import io.github.sooakim.util.ext.rx
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
@@ -21,8 +20,6 @@ class SAMovieSearchViewModel(
     movieRepository: SAMovieRepository,
     navigator: SAMovieSearchNavigator
 ) : SAViewModel<SAMovieSearchNavigator>(navigator) {
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-
     private val _isLoading: ObservableBoolean = ObservableBoolean(false)
     private val _searchText: NotNullObservableField<String> =
         NotNullObservableField(movieRepository.latestMovieQuery)

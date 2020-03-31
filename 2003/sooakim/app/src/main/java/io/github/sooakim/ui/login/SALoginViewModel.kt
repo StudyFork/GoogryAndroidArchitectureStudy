@@ -10,7 +10,6 @@ import io.github.sooakim.util.NotNullObservableField
 import io.github.sooakim.util.ResourceProvider
 import io.reactivex.BackpressureStrategy
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
@@ -21,7 +20,6 @@ class SALoginViewModel(
     authRepository: SAAuthRepository,
     navigator: SALoginNavigator
 ) : SAViewModel<SALoginNavigator>(navigator) {
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     private val _isLoading: ObservableBoolean = ObservableBoolean(false)
     private val _id: NotNullObservableField<String> = NotNullObservableField("")
     private val _password: NotNullObservableField<String> = NotNullObservableField("")
@@ -89,10 +87,5 @@ class SALoginViewModel(
 
     private fun hideLoading() {
         _isLoading.set(false)
-    }
-
-    override fun destroy() {
-        super.destroy()
-        compositeDisposable.clear()
     }
 }
