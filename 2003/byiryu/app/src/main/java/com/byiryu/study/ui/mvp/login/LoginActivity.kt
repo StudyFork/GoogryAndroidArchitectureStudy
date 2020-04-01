@@ -1,12 +1,12 @@
-package com.byiryu.study.ui.login
+package com.byiryu.study.ui.mvp.login
 
 import android.os.Bundle
 import android.view.View
 import com.byiryu.study.databinding.ActivityLoginBinding
-import com.byiryu.study.ui.base.BaseActivity
-import com.byiryu.study.ui.base.BaseContract
-import com.byiryu.study.ui.base.BasePresenter
-import com.byiryu.study.ui.main.MainActivity
+import com.byiryu.study.ui.mvp.base.BaseActivity
+import com.byiryu.study.ui.mvp.base.BaseContract
+import com.byiryu.study.ui.mvp.base.BasePresenter
+import com.byiryu.study.ui.mvp.main.MainActivity
 
 class LoginActivity : BaseActivity(), LoginContract.View {
 
@@ -23,7 +23,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         super.onCreate(savedInstanceState)
 
         val viewDataBinding = ActivityLoginBinding.inflate(layoutInflater).apply {
-            progressBar = loading
+//            progressBar = loading
 
             btnLogin.setOnClickListener {
                 loginPresenter.login(

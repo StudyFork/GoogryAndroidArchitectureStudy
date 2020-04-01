@@ -1,8 +1,8 @@
-package com.byiryu.study.ui.intro
+package com.byiryu.study.ui.mvp.intro
 
 import android.os.Handler
 import com.byiryu.study.model.Repository
-import com.byiryu.study.ui.base.BasePresenter
+import com.byiryu.study.ui.mvp.base.BasePresenter
 
 class IntroPresenter<V : IntroContract.View> constructor(
     private val repository: Repository

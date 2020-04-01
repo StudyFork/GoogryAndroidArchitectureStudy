@@ -1,8 +1,8 @@
-package com.byiryu.study.ui.login
+package com.byiryu.study.ui.mvp.login
 
 import com.byiryu.study.R
 import com.byiryu.study.model.Repository
-import com.byiryu.study.ui.base.BasePresenter
+import com.byiryu.study.ui.mvp.base.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 class LoginPresenter<V : LoginContract.View> constructor(private val repository: Repository) :
