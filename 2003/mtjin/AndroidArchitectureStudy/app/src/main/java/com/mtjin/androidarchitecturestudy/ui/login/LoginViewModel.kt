@@ -16,14 +16,14 @@ class LoginViewModel(private val loginRepository: LoginRepository) {
         val id = id.get().toString().trim()
         val pw = pw.get().toString().trim()
         if (id.isEmpty()) {
-            isIdEmpty.set(true)
+            isIdEmpty.notifyChange()
         } else if (pw.isEmpty()) {
-            isPwEmpty.set(true)
+            isPwEmpty.notifyChange()
         } else if (id != USER_ID || pw != USER_PW) {
-            loginErrorMsg.set(true)
+            loginErrorMsg.notifyChange()
         } else {
             loginRepository.autoLogin = true
-            successLogin.set(true)
+            successLogin.notifyChange()
         }
     }
 

@@ -40,14 +40,12 @@ class LoginActivity : AppCompatActivity() {
             isIdEmpty.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                     showIdEmptyError()
-                    isIdEmpty.set(false)
                 }
 
             })
             isPwEmpty.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                     showPwEmptyError()
-                    isPwEmpty.set(false)
                 }
 
             })
@@ -55,7 +53,6 @@ class LoginActivity : AppCompatActivity() {
                 Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                     showLoginError()
-                    loginErrorMsg.set(false)
                 }
 
             })
@@ -63,7 +60,6 @@ class LoginActivity : AppCompatActivity() {
                 Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                     goMovieSearch()
-                    successLogin.set(false)
                 }
 
             })
