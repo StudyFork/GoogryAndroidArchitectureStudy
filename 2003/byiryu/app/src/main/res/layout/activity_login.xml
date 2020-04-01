@@ -3,7 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="com.byiryu.study.ui.enums.NetStatus"/>
 
+        <variable
+            name="netStatus"
+            type="androidx.databinding.ObservableField&lt;NetStatus>" />
+        <variable
+            name="vm"
+            type="com.byiryu.study.ui.mvvm.login.viewmodel.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,6 +54,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toTopOf="@+id/editText_pw"
+                    android:text="@={vm.id}"
                     android:inputType="text"
                     android:hint="@string/hint_id"
                     android:textColorHint="@color/gray"
@@ -65,6 +73,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:inputType="textPassword"
                     android:hint="@string/hint_pw"
+                    android:text="@={vm.pw}"
                     android:textColorHint="@color/gray"
                     android:textColor="@color/black"
                     android:textSize="15sp">
@@ -93,6 +102,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     android:gravity="center"
                     android:textSize="15sp"
+                    android:onClick="@{() -> vm.loginProcess()}"
                     android:text="@string/btn_login"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
@@ -104,6 +114,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btn_login"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    android:checked="@={vm.autoLogin}"
                     android:text="@string/btn_auto_login"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp">
@@ -114,15 +125,9 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <ProgressBar
-                android:id="@+id/loading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+            <include
+                app:netStatus="@{netStatus}"
+                layout="@layout/layout_loading"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
