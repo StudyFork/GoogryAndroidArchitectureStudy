@@ -3,68 +3,72 @@ package com.example.myapplication.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
 import com.example.myapplication.R
-import com.example.myapplication.data.local.MovieEntity
 import com.example.myapplication.data.repository.MovieRepositoryDataSet
 import com.example.myapplication.databinding.ActivitySearchMovieBinding
 
-class SearchMovieActivity : AppCompatActivity(), SearchMovieContract.View {
-    private val TAG = "SearchMovieActivity"
+class SearchMovieActivity : AppCompatActivity() {
 
     private lateinit var movieRepositoryDataSet: MovieRepositoryDataSet
-    private lateinit var presenter: SearchMoviePresenter
-
     private val movieAdapter = SearchMovieAdapter()
-
     private lateinit var binding: ActivitySearchMovieBinding
+
+    private val viewModel by lazy {
+        SearchMovieViewModel(movieRepositoryDataSet.movieRepository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search_movie)
-        binding.activity = this@SearchMovieActivity
+        movieRepositoryDataSet = application as MovieRepositoryDataSet
+        binding.vm = viewModel
 
         initView()
         setOnclickListener()
-        presenter = SearchMoviePresenter(this, movieRepositoryDataSet)
+        initViewModelCallback()
     }
 
     private fun initView() {
-        movieRepositoryDataSet = application as MovieRepositoryDataSet
         binding.rvMovie.setHasFixedSize(true)
         binding.rvMovie.adapter = movieAdapter
     }
 
     private fun setOnclickListener() {
-        // 영화 이미지 클릭시 이동 로직
         movieAdapter.setOnclickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
         }
     }
 
-    fun onSearchMovieClick(view: View) {
-        val movieTitle = binding.etMovieTitle.text.toString()
-        presenter.searchMovie(movieTitle)
+    private fun initViewModelCallback() {
+
+        viewModel.run {
+            emptyMsg.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    viewModel.emptyMsg.get()?.run {
+                        if (!first) {
+                            if (second is Int) {
+                                showToast(second as Int)
+                            } else if (second is String) {
+                                showToast(second as String)
+                            }
+                        } else {
+                            return
+                        }
+                    }
+                }
+            })
+        }
     }
 
-    /**
-     * View - 화면 출력
-     * */
-    // 영화제목 입력하세요 문구
-    override fun showToastMovieTitleIsEmpty() {
-        Toast.makeText(this, R.string.activity_toast_empty_movie_title, Toast.LENGTH_SHORT).show()
+    fun showToast(res: Int) {
+        showToast(getString(res))
     }
 
-    // 영화 리스트 어댑터에 아이템 추가 반영
-    override fun addItems(it: List<MovieEntity>) {
-        movieAdapter.addItems(it)
-    }
-
-    override fun recordLog(it: String) {
-        Log.e(TAG, it)
+    fun showToast(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 }
