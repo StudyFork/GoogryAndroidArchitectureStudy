@@ -2,10 +2,9 @@ package com.mtjin.androidarchitecturestudy.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.Observable
 import com.mtjin.androidarchitecturestudy.R
+import com.mtjin.androidarchitecturestudy.base.BaseActivity
 import com.mtjin.androidarchitecturestudy.data.login.source.LoginRepository
 import com.mtjin.androidarchitecturestudy.data.login.source.LoginRepositoryImpl
 import com.mtjin.androidarchitecturestudy.data.login.source.local.LoginLocalDataSource
@@ -14,7 +13,7 @@ import com.mtjin.androidarchitecturestudy.ui.login.LoginActivity
 import com.mtjin.androidarchitecturestudy.ui.search.MovieSearchActivity
 import com.mtjin.androidarchitecturestudy.utils.PreferenceManager
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity() {
     private lateinit var viewModel: SplashViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +53,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     fun goMovieSearch() {
-        Toast.makeText(this, getString(R.string.auto_login_msg), Toast.LENGTH_SHORT).show()
+        showToast(getString(R.string.auto_login_msg))
         startActivity(Intent(this, MovieSearchActivity::class.java))
         finish()
     }

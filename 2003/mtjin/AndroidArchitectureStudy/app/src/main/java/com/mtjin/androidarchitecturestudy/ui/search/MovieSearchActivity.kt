@@ -10,11 +10,12 @@ import androidx.databinding.Observable
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mtjin.androidarchitecturestudy.R
+import com.mtjin.androidarchitecturestudy.base.BaseActivity
 import com.mtjin.androidarchitecturestudy.databinding.ActivityMovieSearchBinding
 import com.mtjin.androidarchitecturestudy.utils.MyApplication
 
 
-class MovieSearchActivity : AppCompatActivity() {
+class MovieSearchActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMovieSearchBinding
     private lateinit var movieAdapter: MovieAdapter
@@ -101,10 +102,6 @@ class MovieSearchActivity : AppCompatActivity() {
                 }
             })
         }
-    }
-
-    fun showToast(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
     fun scrollResetState() {
