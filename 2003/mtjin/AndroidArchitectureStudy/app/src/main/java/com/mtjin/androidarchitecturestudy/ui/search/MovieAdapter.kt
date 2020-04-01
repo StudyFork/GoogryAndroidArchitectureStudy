@@ -10,7 +10,7 @@ import com.mtjin.androidarchitecturestudy.databinding.ItemMovieBinding
 
 class MovieAdapter(private val itemClick: (Movie) -> Unit) :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
-    lateinit var binding: ItemMovieBinding
+    private lateinit var binding: ItemMovieBinding
     private val items: ArrayList<Movie> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

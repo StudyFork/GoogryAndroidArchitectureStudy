@@ -65,35 +65,30 @@ class MovieSearchActivity : AppCompatActivity() {
                 Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                     showToast(getString(R.string.last_page_msg))
-                    lastPageMsg.set(false)
                 }
             })
             emptyQueryMsg.addOnPropertyChangedCallback(object :
                 Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                     showToast(getString(R.string.search_input_query_msg))
-                    emptyQueryMsg.set(false)
                 }
             })
             noResultMsg.addOnPropertyChangedCallback(object :
                 Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                     showToast(getString(R.string.no_movie_error_msg))
-                    noResultMsg.set(false)
                 }
             })
             networkErrorMsg.addOnPropertyChangedCallback(object :
                 Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                     showToast(getString(R.string.network_error_msg))
-                    networkErrorMsg.set(false)
                 }
             })
             successMsg.addOnPropertyChangedCallback(object :
                 Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                     showToast(getString(R.string.load_movie_success_msg))
-                    successMsg.set(false)
                 }
             })
             scrollRestateState.addOnPropertyChangedCallback(object :

@@ -25,25 +25,25 @@ class MovieSearchViewModel(private val movieRepository: MovieRepository) {
         isLoadMore = false
         currentQuery = query.get().toString()
         if (currentQuery.isEmpty()) {
-            emptyQueryMsg.set(true)
+            emptyQueryMsg.notifyChange()
         } else {
             isLoading.set(true)
             scrollRestateState.set(true)
             movieRepository.getSearchMovies(query.get().toString(),
                 success = {
                     if (it.isEmpty()) {
-                        noResultMsg.set(true)
+                        noResultMsg.notifyChange()
                     } else {
                         movieList.get()?.clear()
                         movieList.set(it as ArrayList<Movie>?)
-                        successMsg.set(true)
+                        successMsg.notifyChange()
                     }
                     isLoading.set(false)
                 },
                 fail = {
                     Log.d(TAG, it.toString())
                     when (it) {
-                        is HttpException -> networkErrorMsg.set(true)
+                        is HttpException -> networkErrorMsg.notifyChange()
                         else -> toastMsg.set(it.message.toString())
                     }
                     isLoading.set(false)
@@ -57,17 +57,17 @@ class MovieSearchViewModel(private val movieRepository: MovieRepository) {
         movieRepository.getPagingMovies(currentQuery, offset,
             success = {
                 if (it.isEmpty()) {
-                    lastPageMsg.set(true)
+                    lastPageMsg.notifyChange()
                 } else {
                     movieList.set(it as ArrayList<Movie>?)
-                    successMsg.set(true)
+                    successMsg.notifyChange()
                 }
                 isLoading.set(false)
             },
             fail = {
                 Log.d(TAG, it.toString())
                 when (it) {
-                    is HttpException -> networkErrorMsg.set(true)
+                    is HttpException -> networkErrorMsg.notifyChange()
                     else -> toastMsg.set(it.message.toString())
                 }
                 isLoading.set(false)
