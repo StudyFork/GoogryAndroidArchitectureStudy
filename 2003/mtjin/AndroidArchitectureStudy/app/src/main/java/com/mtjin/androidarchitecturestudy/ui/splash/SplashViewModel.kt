@@ -9,9 +9,9 @@ class SplashViewModel(private val loginRepository: LoginRepository) {
 
     fun doSplash() {
         if (loginRepository.autoLogin) {
-            goMovieSearch.set(true)
+            goMovieSearch.notifyChange()
         } else {
-            goLogin.set(true)
+            goLogin.notifyChange()
         }
     }
 }
