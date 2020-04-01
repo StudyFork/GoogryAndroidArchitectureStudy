@@ -152,6 +152,7 @@ class MainViewModel(
         return when (networkUtil.getConnectivityStatus()) {
             NetworkUtil.NetworkStatus.NOT_CONNECTED -> {
                 isNetworkConnected.set(false)
+                isNetworkConnected.notifyChange()
             }
             else -> {
                 isNetworkConnected.set(true)

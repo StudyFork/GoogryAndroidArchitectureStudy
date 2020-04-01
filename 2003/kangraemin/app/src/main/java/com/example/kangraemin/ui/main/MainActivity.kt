@@ -91,5 +91,13 @@ class MainActivity : KangBaseActivity() {
                 adapter.setData(mainViewModel.movies.get())
             }
         })
+
+        mainViewModel.isNetworkConnected.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                if (!mainViewModel.isNetworkConnected.get()) {
+                    toast(resources.getString(R.string.main_network_error_message))
+                }
+            }
+        })
     }
 }
