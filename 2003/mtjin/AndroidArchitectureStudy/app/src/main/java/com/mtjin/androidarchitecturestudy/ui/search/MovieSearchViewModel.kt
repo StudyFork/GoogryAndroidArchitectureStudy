@@ -19,19 +19,11 @@ class MovieSearchViewModel(private val movieRepository: MovieRepository) {
 
     var query: ObservableField<String> = ObservableField("")
     var movieList: ObservableField<List<Movie>> = ObservableField()
-
-    //    var toastMsg: ObservableField<String> = ObservableField()
     var toastMsg: ObservableField<MessageSet> = ObservableField()
-
-    //    var lastPageMsg: ObservableBoolean = ObservableBoolean(false)
-//    var emptyQueryMsg: ObservableBoolean = ObservableBoolean(false)
-//    var noResultMsg: ObservableBoolean = ObservableBoolean(false)
-//    var networkErrorMsg: ObservableBoolean = ObservableBoolean(false)
-//    var successMsg: ObservableBoolean = ObservableBoolean(false)
     var isLoading: ObservableBoolean = ObservableBoolean(false)
     var isLoadMore: Boolean = false
-
     var currentQuery: String = ""
+
     fun requestMovie() {
         isLoadMore = false
         currentQuery = query.get().toString()
@@ -44,19 +36,17 @@ class MovieSearchViewModel(private val movieRepository: MovieRepository) {
                 success = {
                     if (it.isEmpty()) {
                         toastMsg.set(MessageSet.NO_RESULT)
-                        //noResultMsg.notifyChange()
                     } else {
                         movieList.set(it)
                         toastMsg.set(MessageSet.SUCCESS)
-                        //successMsg.notifyChange()
                     }
                     isLoading.set(false)
                 },
                 fail = {
                     Log.d(TAG, it.toString())
                     when (it) {
-                        is HttpException -> toastMsg.set(MessageSet.NETWORK_ERROR)//networkErrorMsg.notifyChange()
-                        else -> toastMsg.set(MessageSet.LAST_PAGE)//toastMsg.set(it.message.toString())
+                        is HttpException -> toastMsg.set(MessageSet.NETWORK_ERROR)
+                        else -> toastMsg.set(MessageSet.LAST_PAGE)
                     }
                     isLoading.set(false)
                 })
@@ -70,19 +60,17 @@ class MovieSearchViewModel(private val movieRepository: MovieRepository) {
             success = {
                 if (it.isEmpty()) {
                     toastMsg.set(MessageSet.LAST_PAGE)
-                    //lastPageMsg.notifyChange()
                 } else {
                     movieList.set(it)
                     toastMsg.set(MessageSet.SUCCESS)
-                    //successMsg.notifyChange()
                 }
                 isLoading.set(false)
             },
             fail = {
                 Log.d(TAG, it.toString())
                 when (it) {
-                    is HttpException -> toastMsg.set(MessageSet.NETWORK_ERROR)//networkErrorMsg.notifyChange()
-                    else -> toastMsg.set(MessageSet.LAST_PAGE)//toastMsg.set(it.message.toString())
+                    is HttpException -> toastMsg.set(MessageSet.NETWORK_ERROR)
+                    else -> toastMsg.set(MessageSet.LAST_PAGE)
                 }
                 isLoading.set(false)
             })

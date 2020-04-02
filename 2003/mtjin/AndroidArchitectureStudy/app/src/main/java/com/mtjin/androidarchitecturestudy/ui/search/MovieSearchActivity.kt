@@ -5,8 +5,6 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.mtjin.androidarchitecturestudy.R
 import com.mtjin.androidarchitecturestudy.base.BaseActivity
 import com.mtjin.androidarchitecturestudy.databinding.ActivityMovieSearchBinding
@@ -59,36 +57,6 @@ class MovieSearchActivity : BaseActivity() {
                     toastMsg.set(MovieSearchViewModel.MessageSet.BASIC)
                 }
             })
-//            lastPageMsg.addOnPropertyChangedCallback(object :
-//                Observable.OnPropertyChangedCallback() {
-//                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-//                    showToast(getString(R.string.last_page_msg))
-//                }
-//            })
-//            emptyQueryMsg.addOnPropertyChangedCallback(object :
-//                Observable.OnPropertyChangedCallback() {
-//                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-//                    showToast(getString(R.string.search_input_query_msg))
-//                }
-//            })
-//            noResultMsg.addOnPropertyChangedCallback(object :
-//                Observable.OnPropertyChangedCallback() {
-//                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-//                    showToast(getString(R.string.no_movie_error_msg))
-//                }
-//            })
-//            networkErrorMsg.addOnPropertyChangedCallback(object :
-//                Observable.OnPropertyChangedCallback() {
-//                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-//                    showToast(getString(R.string.network_error_msg))
-//                }
-//            })
-//            successMsg.addOnPropertyChangedCallback(object :
-//                Observable.OnPropertyChangedCallback() {
-//                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-//                    showToast(getString(R.string.load_movie_success_msg))
-//                }
-//            })
         }
     }
 }
