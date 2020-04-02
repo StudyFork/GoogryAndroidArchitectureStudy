@@ -1,6 +1,5 @@
 package com.mtjin.androidarchitecturestudy.utils
 
-import android.util.Log
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
@@ -47,11 +46,12 @@ fun RecyclerView.setAdapterItems(items: List<Movie>?, loadMore: Boolean) {
 fun RecyclerView.setEndlessScroll(
     viewModel: MovieSearchViewModel
 ) {
-    val scrollListener = object : EndlessRecyclerViewScrollListener(layoutManager as LinearLayoutManager) {
-        override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
-            viewModel.requestPagingMovie(totalItemsCount + 1)
+    val scrollListener =
+        object : EndlessRecyclerViewScrollListener(layoutManager as LinearLayoutManager) {
+            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                viewModel.requestPagingMovie(totalItemsCount + 1)
+            }
         }
-    }
     this.addOnScrollListener(scrollListener)
 }
 
