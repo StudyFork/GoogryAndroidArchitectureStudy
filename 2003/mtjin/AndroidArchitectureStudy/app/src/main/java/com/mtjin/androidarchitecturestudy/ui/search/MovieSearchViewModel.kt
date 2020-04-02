@@ -8,14 +8,6 @@ import com.mtjin.androidarchitecturestudy.data.search.source.MovieRepository
 import retrofit2.HttpException
 
 class MovieSearchViewModel(private val movieRepository: MovieRepository) {
-    enum class MessageSet {
-        BASIC,
-        LAST_PAGE,
-        EMPTY_QUERY,
-        NETWORK_ERROR,
-        SUCCESS,
-        NO_RESULT
-    }
 
     var query: ObservableField<String> = ObservableField("")
     var movieList: ObservableField<List<Movie>> = ObservableField()
@@ -74,6 +66,15 @@ class MovieSearchViewModel(private val movieRepository: MovieRepository) {
                 }
                 isLoading.set(false)
             })
+    }
+
+    enum class MessageSet {
+        BASIC,
+        LAST_PAGE,
+        EMPTY_QUERY,
+        NETWORK_ERROR,
+        SUCCESS,
+        NO_RESULT
     }
 
     companion object {
