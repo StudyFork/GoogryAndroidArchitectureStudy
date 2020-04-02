@@ -11,10 +11,6 @@
         <variable
             name="vm"
             type="com.mtjin.androidarchitecturestudy.ui.search.MovieSearchViewModel" />
-
-        <variable
-            name="endlessScroll"
-            type="com.mtjin.androidarchitecturestudy.ui.search.EndlessRecyclerViewScrollListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,9 +53,6 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_movies"
-            bind:loadMore="@{vm.loadMore}"
-            bind:setItems="@{vm.movieList}"
-            bind:endlessScroll="@{vm}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clipToPadding="false"
@@ -68,7 +61,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline" />
+            app:layout_constraintTop_toBottomOf="@id/guideline"
+            bind:endlessScroll="@{vm}"
+            bind:loadMore="@{vm.loadMore}"
+            bind:setItems="@{vm.movieList}" />
 
         <ProgressBar
             android:id="@+id/pb_loading"
