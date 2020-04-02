@@ -18,7 +18,7 @@ class MovieSearchViewModel(private val movieRepository: MovieRepository) {
     }
 
     var query: ObservableField<String> = ObservableField("")
-    var movieList: ObservableField<ArrayList<Movie>> = ObservableField()
+    var movieList: ObservableField<List<Movie>> = ObservableField()
 
     //    var toastMsg: ObservableField<String> = ObservableField()
     var toastMsg: ObservableField<MessageSet> = ObservableField()
@@ -48,8 +48,7 @@ class MovieSearchViewModel(private val movieRepository: MovieRepository) {
                         toastMsg.set(MessageSet.NO_RESULT)
                         //noResultMsg.notifyChange()
                     } else {
-                        movieList.get()?.clear()
-                        movieList.set(it as ArrayList<Movie>?)
+                        movieList.set(it)
                         toastMsg.set(MessageSet.SUCCESS)
                         //successMsg.notifyChange()
                     }
@@ -75,7 +74,7 @@ class MovieSearchViewModel(private val movieRepository: MovieRepository) {
                     toastMsg.set(MessageSet.LAST_PAGE)
                     //lastPageMsg.notifyChange()
                 } else {
-                    movieList.set(it as ArrayList<Movie>?)
+                    movieList.set(it)
                     toastMsg.set(MessageSet.SUCCESS)
                     //successMsg.notifyChange()
                 }
