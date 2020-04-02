@@ -47,11 +47,9 @@ fun RecyclerView.setAdapterItems(items: List<Movie>?, loadMore: Boolean) {
 fun RecyclerView.setEndlessScroll(
     viewModel: MovieSearchViewModel
 ) {
-    Log.d("TTTT" , "setEndlessScroll 호출")
     val scrollListener = object : EndlessRecyclerViewScrollListener(layoutManager as LinearLayoutManager) {
         override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
             viewModel.requestPagingMovie(totalItemsCount + 1)
-            Log.d("TTTT" , "onLoadMore 호출, 페이지 => " + totalItemsCount)
         }
     }
     this.addOnScrollListener(scrollListener)
