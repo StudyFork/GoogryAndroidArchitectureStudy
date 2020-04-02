@@ -1,16 +1,15 @@
 package com.mtjin.androidarchitecturestudy.ui.login
 
-import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import com.mtjin.androidarchitecturestudy.data.login.source.LoginRepository
 
 class LoginViewModel(private val loginRepository: LoginRepository) {
     var id: ObservableField<String> = ObservableField("")
     var pw: ObservableField<String> = ObservableField("")
-    var isIdEmpty: ObservableBoolean = ObservableBoolean(false)
-    var isPwEmpty: ObservableBoolean = ObservableBoolean(false)
-    var loginErrorMsg: ObservableBoolean = ObservableBoolean(false)
-    var successLogin: ObservableBoolean = ObservableBoolean(false)
+    var isIdEmpty: ObservableField<Unit> = ObservableField()
+    var isPwEmpty: ObservableField<Unit> = ObservableField()
+    var loginErrorMsg: ObservableField<Unit> = ObservableField()
+    var successLogin: ObservableField<Unit> = ObservableField()
 
     fun onLoginClick() {
         val id = id.get().toString().trim()
