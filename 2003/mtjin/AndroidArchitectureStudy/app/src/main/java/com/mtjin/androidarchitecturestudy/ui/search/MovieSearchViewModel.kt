@@ -29,7 +29,6 @@ class MovieSearchViewModel(private val movieRepository: MovieRepository) {
 //    var networkErrorMsg: ObservableBoolean = ObservableBoolean(false)
 //    var successMsg: ObservableBoolean = ObservableBoolean(false)
     var isLoading: ObservableBoolean = ObservableBoolean(false)
-    var scrollRestateState: ObservableBoolean = ObservableBoolean(false)
     var isLoadMore: Boolean = false
 
     var currentQuery: String = ""
@@ -41,7 +40,6 @@ class MovieSearchViewModel(private val movieRepository: MovieRepository) {
             //emptyQueryMsg.notifyChange()
         } else {
             isLoading.set(true)
-            scrollRestateState.set(true)
             movieRepository.getSearchMovies(query.get().toString(),
                 success = {
                     if (it.isEmpty()) {

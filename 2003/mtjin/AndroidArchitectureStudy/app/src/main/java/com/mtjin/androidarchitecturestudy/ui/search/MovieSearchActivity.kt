@@ -18,7 +18,6 @@ class MovieSearchActivity : BaseActivity() {
     private lateinit var binding: ActivityMovieSearchBinding
     private lateinit var movieAdapter: MovieAdapter
     private lateinit var myApplication: MyApplication
-    private lateinit var scrollListener: EndlessRecyclerViewScrollListener
     private lateinit var viewModel: MovieSearchViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,13 +41,6 @@ class MovieSearchActivity : BaseActivity() {
                 it.resolveActivity(packageManager) != null
             }?.run(this::startActivity)
         }
-        scrollListener = object :
-            EndlessRecyclerViewScrollListener(binding.rvMovies.layoutManager as LinearLayoutManager) {
-            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
-                viewModel.requestPagingMovie(totalItemsCount + 1)
-            }
-        }
-        binding.rvMovies.addOnScrollListener(scrollListener)
         binding.rvMovies.adapter = movieAdapter
     }
 
@@ -97,19 +89,6 @@ class MovieSearchActivity : BaseActivity() {
 //                    showToast(getString(R.string.load_movie_success_msg))
 //                }
 //            })
-            scrollRestateState.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    if (scrollRestateState.get()) {
-                        scrollResetState()
-                        scrollRestateState.set(false)
-                    }
-                }
-            })
         }
-    }
-
-    fun scrollResetState() {
-        scrollListener.resetState()
     }
 }

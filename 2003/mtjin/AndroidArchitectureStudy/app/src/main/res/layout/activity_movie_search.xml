@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -10,6 +11,10 @@
         <variable
             name="vm"
             type="com.mtjin.androidarchitecturestudy.ui.search.MovieSearchViewModel" />
+
+        <variable
+            name="endlessScroll"
+            type="com.mtjin.androidarchitecturestudy.ui.search.EndlessRecyclerViewScrollListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,8 +57,9 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_movies"
-            loadMore="@{vm.loadMore}"
-            setItems="@{vm.movieList}"
+            bind:loadMore="@{vm.loadMore}"
+            bind:setItems="@{vm.movieList}"
+            bind:endlessScroll="@{vm}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clipToPadding="false"

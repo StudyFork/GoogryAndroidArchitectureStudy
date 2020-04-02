@@ -1,15 +1,19 @@
 package com.mtjin.androidarchitecturestudy.utils
 
+import android.util.Log
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mtjin.androidarchitecturestudy.R
 import com.mtjin.androidarchitecturestudy.data.search.Movie
+import com.mtjin.androidarchitecturestudy.ui.search.EndlessRecyclerViewScrollListener
 import com.mtjin.androidarchitecturestudy.ui.search.MovieAdapter
+import com.mtjin.androidarchitecturestudy.ui.search.MovieSearchViewModel
 
 
 @BindingAdapter("htmlText")
@@ -37,6 +41,20 @@ fun RecyclerView.setAdapterItems(items: List<Movie>?, loadMore: Boolean) {
         }
         items?.let { this.addItems(it) }
     }
+}
+
+@BindingAdapter("endlessScroll")
+fun RecyclerView.setEndlessScroll(
+    viewModel: MovieSearchViewModel
+) {
+    Log.d("TTTT" , "setEndlessScroll 호출")
+    val scrollListener = object : EndlessRecyclerViewScrollListener(layoutManager as LinearLayoutManager) {
+        override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+            viewModel.requestPagingMovie(totalItemsCount + 1)
+            Log.d("TTTT" , "onLoadMore 호출, 페이지 => " + totalItemsCount)
+        }
+    }
+    this.addOnScrollListener(scrollListener)
 }
 
 
