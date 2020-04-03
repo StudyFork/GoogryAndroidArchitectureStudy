@@ -6,10 +6,10 @@ import com.example.myapplication.data.local.MovieEntity
 import com.example.myapplication.data.repository.MovieRepository
 
 class SearchMovieViewModel(private val movieRepository: MovieRepository) {
-    var query = ObservableField<String>()
-    var movieList = ObservableField<ArrayList<MovieEntity>>()
-    var emptyMsg = ObservableField<Pair<Boolean, Any>>()
-    var failMsg = ObservableField<Pair<Boolean, Any>>()
+    val query = ObservableField<String>()
+    val movieList = ObservableField<ArrayList<MovieEntity>>()
+    val emptyMsg = ObservableField<Pair<Boolean, Any>>()
+    val failMsg = ObservableField<Pair<Boolean, Any>>()
 
     fun searchMovie() {
         if (query.get().isNullOrEmpty()) {
