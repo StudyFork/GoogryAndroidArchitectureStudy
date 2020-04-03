@@ -35,9 +35,9 @@ class SearchMovieActivity : AppCompatActivity() {
         }
 
         viewModel.run {
-            emptyMsg.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            failMsg.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    viewModel.emptyMsg.get()?.run {
+                    viewModel.failMsg.get()?.run {
                         if (!first) {
                             if (second is Int) {
                                 showToast(second as Int)
