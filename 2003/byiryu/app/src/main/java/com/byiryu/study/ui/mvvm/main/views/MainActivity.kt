@@ -53,9 +53,9 @@ class MainActivity : BaseActivity(){
                     }
                 }
             })
-            data.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
+            movieData.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    this@MainActivity.adapter.submitList(data.get())
+                    this@MainActivity.adapter.submitList(movieData.get())
                 }
             })
         }

@@ -15,7 +15,7 @@ class MainViewModel (private val repository: Repository): BaseViewModel(){
     val query = ObservableField<String>()
     val netStatus = ObservableField<NetStatus>()
     val status = ObservableField<Pair<Boolean, Any>>()
-    val data = ObservableField<List<MovieItem>>()
+    val movieData = ObservableField<List<MovieItem>>()
 
     init {
         prevQuery.set(repository.getPrevSearchQuery())
@@ -40,7 +40,7 @@ class MainViewModel (private val repository: Repository): BaseViewModel(){
                         status.notifyChange()
                     }
                     .subscribe({
-                        data.set(it)
+                        movieData.set(it)
                     }, {
                         status.set(Pair(false, "오류발생 : $it"))
                         status.notifyChange()
