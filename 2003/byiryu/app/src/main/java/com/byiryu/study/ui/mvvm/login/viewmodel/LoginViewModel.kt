@@ -10,11 +10,11 @@ import io.reactivex.disposables.CompositeDisposable
 
 class LoginViewModel(private val repository: Repository) : BaseViewModel(){
 
-    var netStatus = ObservableField<NetStatus>()
-    var id = ObservableField<String>()
-    var pw = ObservableField<String>()
-    var autoLogin = ObservableField<Boolean>(false)
-    var loginStatus = ObservableField<Pair<Boolean, Int>>()
+    val netStatus = ObservableField<NetStatus>()
+    val id = ObservableField<String>()
+    val pw = ObservableField<String>()
+    val autoLogin = ObservableField<Boolean>(false)
+    val loginStatus = ObservableField<Pair<Boolean, Int>>()
 
     private val disposable = CompositeDisposable()
     fun loginProcess(){
