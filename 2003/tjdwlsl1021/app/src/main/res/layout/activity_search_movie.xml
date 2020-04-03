@@ -8,6 +8,11 @@
         <variable
             name="vm"
             type="com.example.myapplication.ui.SearchMovieViewModel" />
+
+        <variable
+            name="adapter"
+            type="com.example.myapplication.ui.SearchMovieAdapter" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,16 +45,15 @@
         <!--    뷰의 크기를 제약(Constraint)을 사용해 결정 0dp, match_parent는 안쓰는걸 권고-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_movie"
-            addItems="@{vm.movieList}"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:adapter="@{adapter}"
             app:layoutManager="LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_movie_title"
             tools:listitem="@layout/item_movie" />
-        <!--            loadMore="@{vm.loadMore}"-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

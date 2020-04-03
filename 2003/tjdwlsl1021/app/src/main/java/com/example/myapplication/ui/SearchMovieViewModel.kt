@@ -7,7 +7,7 @@ import com.example.myapplication.data.repository.MovieRepository
 
 class SearchMovieViewModel(private val movieRepository: MovieRepository) {
     val query = ObservableField<String>()
-    val movieList = ObservableField<ArrayList<MovieEntity>>()
+    val movieList = ObservableField<List<MovieEntity>>()
     val failMsg = ObservableField<Pair<Boolean, Any>>()
 
     fun searchMovie() {
@@ -17,7 +17,7 @@ class SearchMovieViewModel(private val movieRepository: MovieRepository) {
             movieRepository.getMovieList(
                 query.get().toString(),
                 success = {
-                    movieList.set(it as ArrayList<MovieEntity>)
+                    movieList.set(it)
                 },
                 failed = {
                     failMsg.set(Pair(false, it.toString()))

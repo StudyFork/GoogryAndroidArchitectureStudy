@@ -5,9 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
-import com.example.myapplication.R
 import com.example.myapplication.data.repository.MovieRepositoryDataSet
 import com.example.myapplication.databinding.ActivitySearchMovieBinding
 
@@ -23,9 +21,13 @@ class SearchMovieActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_search_movie)
+
         movieRepositoryDataSet = application as MovieRepositoryDataSet
-        binding.vm = viewModel
+
+        binding = ActivitySearchMovieBinding.inflate(layoutInflater).apply {
+            vm = viewModel
+            adapter = this@SearchMovieActivity.movieAdapter
+        }
 
         binding.rvMovie.setHasFixedSize(true)
         binding.rvMovie.adapter = movieAdapter
@@ -50,7 +52,14 @@ class SearchMovieActivity : AppCompatActivity() {
                     }
                 }
             })
+            movieList.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    this@SearchMovieActivity.movieAdapter.addItems(movieList.get())
+                }
+
+            })
         }
+        setContentView(binding.root)
     }
 
     fun showToast(res: Int) {

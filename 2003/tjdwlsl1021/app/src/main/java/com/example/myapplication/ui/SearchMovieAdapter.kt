@@ -48,10 +48,10 @@ class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return movieInfoArrayList.size
     }
 
-    fun addItems(items: List<MovieEntity>) {
+    fun addItems(items: List<MovieEntity>?) {
+        items as ArrayList<MovieEntity>
         movieInfoArrayList.clear()
         movieInfoArrayList.addAll(items)
-
         notifyDataSetChanged()
     }
 
