@@ -35,12 +35,9 @@ class LoginViewModel(
         val throwable: Throwable? = null
     )
 
-    val loginResponse: ObservableField<LogInResponse> = ObservableField()
+    val loginError: ObservableField<Unit> = ObservableField()
 
-    enum class LogInResponse {
-        LOGIN_ERROR,
-        LOGIN_SUCCESS
-    }
+    val loginSuccess: ObservableField<Unit> = ObservableField()
 
     val loginInfoEntered: ObservableBoolean = ObservableBoolean(false)
 
@@ -122,13 +119,12 @@ class LoginViewModel(
 
     fun login() {
         if (id.get() != "id" || pw.get() != "P@ssw0rd") {
-            loginResponse.set(LogInResponse.LOGIN_ERROR)
-            loginResponse.notifyChange()
+            loginError.notifyChange()
         } else {
             if (autoLogin.get()) {
                 addAuthSubject.onNext(Auth(autoLogin = true))
             } else {
-                loginResponse.set(LogInResponse.LOGIN_SUCCESS)
+                loginSuccess.notifyChange()
             }
         }
     }
