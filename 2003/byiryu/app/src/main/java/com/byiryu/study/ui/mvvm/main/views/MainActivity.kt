@@ -65,8 +65,7 @@ class MainActivity : BaseActivity(){
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         viewModel.onDestroy()
-
+        super.onDestroy()
     }
 }
