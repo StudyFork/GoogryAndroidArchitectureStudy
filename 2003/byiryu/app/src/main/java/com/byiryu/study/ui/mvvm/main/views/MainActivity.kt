@@ -44,10 +44,9 @@ class MainActivity : BaseActivity(){
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                     viewModel.status.get()?.run{
                         if(!first) {
-                            if (second is Int) {
-                                showMsg(second as Int)
-                            } else if (second is String) {
-                                showMsg(second as String)
+                            when (val str = second) {
+                                is Int -> showMsg(str)
+                                is String -> showMsg(str)
                             }
                         }else{
                             return
