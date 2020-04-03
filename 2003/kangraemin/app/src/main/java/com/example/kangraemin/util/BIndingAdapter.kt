@@ -1,12 +1,11 @@
 package com.example.kangraemin.util
 
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
+import android.view.View
+import android.widget.*
 import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+
 
 @BindingAdapter("imageFromUrl")
 fun setImageFromUrl(view: ImageView, url: String) {
@@ -46,4 +45,9 @@ fun activateLoginButton(button: Button, loginInfoEntered: Boolean) {
         button.alpha = 0.5f
         button.isEnabled = false
     }
+}
+
+@BindingAdapter("onFocusChange")
+fun onFocusChange(text: EditText, listener: View.OnFocusChangeListener?) {
+    text.onFocusChangeListener = listener
 }

@@ -15,7 +15,6 @@ import com.example.kangraemin.ui.login.LoginViewModel.AddAuthResponse.ADD_AUTH_S
 import com.example.kangraemin.ui.login.LoginViewModel.LogInResponse.LOGIN_ERROR
 import com.example.kangraemin.ui.login.LoginViewModel.LogInResponse.LOGIN_SUCCESS
 import com.example.kangraemin.ui.main.MainActivity
-import com.jakewharton.rxbinding3.view.focusChanges
 
 class LoginActivity : KangBaseActivity() {
 
@@ -37,20 +36,6 @@ class LoginActivity : KangBaseActivity() {
         )
 
         binding.vm = loginViewModel
-
-        val whenIdFocusChange = binding.etId.focusChanges()
-            .skip(1)
-            .subscribe { hasFocus ->
-                loginViewModel.checkIdIsEmpty(hasFocus = hasFocus)
-            }
-        compositeDisposable.add(whenIdFocusChange)
-
-        val whenPwFocusChange = binding.etPw.focusChanges()
-            .skip(1)
-            .subscribe { hasFocus ->
-                loginViewModel.checkPasswordIsEmpty(hasFocus = hasFocus)
-            }
-        compositeDisposable.add(whenPwFocusChange)
 
         loginViewModel.loginResponse.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {

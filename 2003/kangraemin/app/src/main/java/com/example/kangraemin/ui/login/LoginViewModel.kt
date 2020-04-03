@@ -1,5 +1,6 @@
 package com.example.kangraemin.ui.login
 
+import android.view.View
 import androidx.databinding.Observable
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
@@ -13,9 +14,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 
-class LoginViewModel (
+class LoginViewModel(
     private val authRepository: AuthRepository
 ) : ViewModel() {
+
+    val idText = "id"
+
+    val pwText = "pw"
+
     private val compositeDisposable = CompositeDisposable()
 
     private val addAuthSubject = PublishSubject.create<Auth>()
@@ -133,5 +139,18 @@ class LoginViewModel (
     override fun onCleared() {
         compositeDisposable.dispose()
         super.onCleared()
+    }
+
+    fun getOnFocusChangeListener(string: String): View.OnFocusChangeListener {
+        return View.OnFocusChangeListener { _, hasFocus ->
+            when (string) {
+                "id" -> {
+                    checkIdIsEmpty(hasFocus = hasFocus)
+                }
+                "pw" -> {
+                    checkPasswordIsEmpty(hasFocus = hasFocus)
+                }
+            }
+        }
     }
 }
