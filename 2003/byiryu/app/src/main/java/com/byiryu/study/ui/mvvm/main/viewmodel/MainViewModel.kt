@@ -12,11 +12,11 @@ import io.reactivex.schedulers.Schedulers
 
 class MainViewModel (private val repository: Repository): BaseViewModel(){
 
-    var prevQuery = ObservableField<String>()
-    var query = ObservableField<String>()
-    var netStatus = ObservableField<NetStatus>()
-    var status = ObservableField<Pair<Boolean, Any>>()
-    var data = ObservableField<List<MovieItem>>()
+    val prevQuery = ObservableField<String>()
+    val query = ObservableField<String>()
+    val netStatus = ObservableField<NetStatus>()
+    val status = ObservableField<Pair<Boolean, Any>>()
+    val data = ObservableField<List<MovieItem>>()
 
     private val disposable = CompositeDisposable()
 
