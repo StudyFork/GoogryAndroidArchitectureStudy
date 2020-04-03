@@ -6,7 +6,6 @@ import com.byiryu.study.model.Repository
 import com.byiryu.study.ui.enums.NetStatus
 import com.byiryu.study.ui.mvvm.base.viewmodel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 
 class LoginViewModel(private val repository: Repository) : BaseViewModel(){
 
@@ -16,7 +15,6 @@ class LoginViewModel(private val repository: Repository) : BaseViewModel(){
     val autoLogin = ObservableField<Boolean>(false)
     val loginStatus = ObservableField<Pair<Boolean, Int>>()
 
-    private val disposable = CompositeDisposable()
     fun loginProcess(){
 
         if (id.get()?.isEmpty()!!) {
@@ -60,8 +58,5 @@ class LoginViewModel(private val repository: Repository) : BaseViewModel(){
             })
         )
     }
-
-    override fun onDestroy() {
-        disposable.clear()
-    }
+    
 }

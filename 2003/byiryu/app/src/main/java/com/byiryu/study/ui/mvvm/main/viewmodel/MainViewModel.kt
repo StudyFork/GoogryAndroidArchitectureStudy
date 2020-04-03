@@ -7,7 +7,6 @@ import com.byiryu.study.model.data.MovieItem
 import com.byiryu.study.ui.enums.NetStatus
 import com.byiryu.study.ui.mvvm.base.viewmodel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class MainViewModel (private val repository: Repository): BaseViewModel(){
@@ -17,8 +16,6 @@ class MainViewModel (private val repository: Repository): BaseViewModel(){
     val netStatus = ObservableField<NetStatus>()
     val status = ObservableField<Pair<Boolean, Any>>()
     val data = ObservableField<List<MovieItem>>()
-
-    private val disposable = CompositeDisposable()
 
     init {
         prevQuery.set(repository.getPrevSearchQuery())
@@ -52,10 +49,6 @@ class MainViewModel (private val repository: Repository): BaseViewModel(){
 
         }
 
-    }
-
-    override fun onDestroy() {
-       disposable.clear()
     }
 
 }
