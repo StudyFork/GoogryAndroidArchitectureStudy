@@ -88,7 +88,7 @@ class LoginViewModel(
         })
     }
 
-    fun checkIdIsEmpty(hasFocus: Boolean) {
+    private fun checkIdIsEmpty(hasFocus: Boolean) {
         if (!hasFocus) {
             if (id.get().isEmpty()) {
                 idIsEmpty.set(true)
@@ -100,7 +100,7 @@ class LoginViewModel(
         }
     }
 
-    fun checkPasswordIsEmpty(hasFocus: Boolean) {
+    private fun checkPasswordIsEmpty(hasFocus: Boolean) {
         if (!hasFocus) {
             if (pw.get().isEmpty()) {
                 pwIsEmpty.set(true)
