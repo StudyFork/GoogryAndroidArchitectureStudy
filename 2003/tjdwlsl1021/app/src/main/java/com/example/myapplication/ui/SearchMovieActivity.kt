@@ -27,23 +27,12 @@ class SearchMovieActivity : AppCompatActivity() {
         movieRepositoryDataSet = application as MovieRepositoryDataSet
         binding.vm = viewModel
 
-        initView()
-        setOnclickListener()
-        initViewModelCallback()
-    }
-
-    private fun initView() {
         binding.rvMovie.setHasFixedSize(true)
         binding.rvMovie.adapter = movieAdapter
-    }
 
-    private fun setOnclickListener() {
         movieAdapter.setOnclickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
         }
-    }
-
-    private fun initViewModelCallback() {
 
         viewModel.run {
             emptyMsg.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
