@@ -2,8 +2,8 @@ package com.example.kangraemin.ui.main
 
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
-import androidx.lifecycle.ViewModel
 import androidx.room.EmptyResultSetException
+import com.example.kangraemin.base.KangBaseViewModel
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.MovieSearchRepository
 import com.example.kangraemin.model.local.datamodel.Auth
@@ -14,15 +14,13 @@ import com.example.kangraemin.util.NonNullObservableField
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 
 class MainViewModel(
     private val movieSearchRepository: MovieSearchRepository,
     private val authRepository: AuthRepository,
     private val networkUtil: NetworkUtil
-) : ViewModel() {
-    private val compositeDisposable = CompositeDisposable()
+) : KangBaseViewModel() {
 
     private val searchTextSubject = PublishSubject.create<String>()
 
@@ -162,10 +160,5 @@ class MainViewModel(
 
     fun movieSearch() {
         searchTextSubject.onNext(searchText.get())
-    }
-
-    override fun onCleared() {
-        compositeDisposable.dispose()
-        super.onCleared()
     }
 }

@@ -1,20 +1,18 @@
 package com.example.kangraemin.ui.splash
 
 import androidx.databinding.ObservableField
-import androidx.lifecycle.ViewModel
 import androidx.room.EmptyResultSetException
+import com.example.kangraemin.base.KangBaseViewModel
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.local.datamodel.Auth
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
 class SplashViewModel(
     private val authRepository: AuthRepository
-) : ViewModel() {
-    private val compositeDisposable = CompositeDisposable()
+) : KangBaseViewModel() {
 
     private data class ResponseGetAuth(
         val responseError: Boolean,
@@ -59,10 +57,5 @@ class SplashViewModel(
                 }
             }, { it.printStackTrace() })
         compositeDisposable.add(splashTimer)
-    }
-
-    override fun onCleared() {
-        compositeDisposable.dispose()
-        super.onCleared()
     }
 }

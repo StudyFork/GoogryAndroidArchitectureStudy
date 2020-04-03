@@ -100,4 +100,9 @@ class MainActivity : KangBaseActivity() {
             }
         })
     }
+
+    override fun onDestroy() {
+        mainViewModel.onDestroy()
+        super.onDestroy()
+    }
 }

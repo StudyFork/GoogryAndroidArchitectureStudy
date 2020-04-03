@@ -4,25 +4,22 @@ import android.view.View
 import androidx.databinding.Observable
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
-import androidx.lifecycle.ViewModel
+import com.example.kangraemin.base.KangBaseViewModel
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.local.datamodel.Auth
 import com.example.kangraemin.util.NonNullObservableField
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 
 class LoginViewModel(
     private val authRepository: AuthRepository
-) : ViewModel() {
+) : KangBaseViewModel() {
 
     val idText = "id"
 
     val pwText = "pw"
-
-    private val compositeDisposable = CompositeDisposable()
 
     private val addAuthSubject = PublishSubject.create<Auth>()
 
@@ -134,11 +131,6 @@ class LoginViewModel(
                 loginResponse.set(LogInResponse.LOGIN_SUCCESS)
             }
         }
-    }
-
-    override fun onCleared() {
-        compositeDisposable.dispose()
-        super.onCleared()
     }
 
     fun getOnFocusChangeListener(string: String): View.OnFocusChangeListener {

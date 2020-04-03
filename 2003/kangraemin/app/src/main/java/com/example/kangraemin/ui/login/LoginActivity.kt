@@ -91,4 +91,9 @@ class LoginActivity : KangBaseActivity() {
             }
         })
     }
+
+    override fun onDestroy() {
+        loginViewModel.onDestroy()
+        super.onDestroy()
+    }
 }

@@ -19,11 +19,14 @@ class SplashActivity : KangBaseActivity() {
         AuthRepository(authLocalDataSource = AuthLocalDataSourceImpl(db.authDao()))
     }
 
+    private lateinit var splashViewModel: SplashViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        val splashViewModel = SplashViewModel(authRepository = authRepository)
+        splashViewModel = SplashViewModel(authRepository = authRepository)
+
         splashViewModel.observableSplashResult.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
@@ -44,6 +47,10 @@ class SplashActivity : KangBaseActivity() {
                 }
             }
         })
+    }
 
+    override fun onDestroy() {
+        splashViewModel.onDestroy()
+        super.onDestroy()
     }
 }
