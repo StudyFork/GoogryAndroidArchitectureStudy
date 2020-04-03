@@ -18,7 +18,6 @@ class LoginActivity : BaseActivity(){
 
         val binding = ActivityLoginBinding.inflate(layoutInflater).apply {
             vm = viewModel
-            netStatus = viewModel.netStatus
         }
         viewModel.loginStatus.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {

@@ -36,7 +36,6 @@ class MainActivity : BaseActivity(){
         val binding = ActivityMainBinding.inflate(layoutInflater).apply {
             vm = viewModel
             adapter = this@MainActivity.adapter
-            netStatus = viewModel.netStatus
         }
 
         viewModel.run {

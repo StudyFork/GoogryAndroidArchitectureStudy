@@ -6,9 +6,6 @@
         <import type="com.byiryu.study.ui.enums.NetStatus"/>
 
         <variable
-            name="netStatus"
-            type="androidx.databinding.ObservableField&lt;NetStatus>" />
-        <variable
             name="vm"
             type="com.byiryu.study.ui.mvvm.login.viewmodel.LoginViewModel" />
     </data>
@@ -126,7 +123,7 @@
 
 
             <include
-                app:netStatus="@{netStatus}"
+                app:netStatus="@{vm.netStatus}"
                 layout="@layout/layout_loading"/>
 
 
