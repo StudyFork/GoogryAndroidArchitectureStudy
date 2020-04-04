@@ -51,3 +51,12 @@ fun activateLoginButton(button: Button, loginInfoEntered: Boolean) {
 fun onFocusChange(text: EditText, listener: View.OnFocusChangeListener?) {
     text.onFocusChangeListener = listener
 }
+
+@BindingAdapter("activateLogOutButton")
+fun activateLogOutButton(button: Button, activate: Boolean) {
+    if (activate) {
+        button.visibility = View.VISIBLE
+    } else {
+        button.visibility = View.GONE
+    }
+}
