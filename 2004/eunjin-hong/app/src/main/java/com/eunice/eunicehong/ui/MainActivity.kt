@@ -1,7 +1,8 @@
-package com.eunice.eunicehong
+package com.eunice.eunicehong.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.eunice.eunicehong.R
 
 class MainActivity : AppCompatActivity() {
 
