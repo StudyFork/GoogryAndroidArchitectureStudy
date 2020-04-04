@@ -10,11 +10,11 @@ import retrofit2.HttpException
 class MovieSearchViewModel(private val movieRepository: MovieRepository) {
 
     var query: ObservableField<String> = ObservableField("")
-    var movieList: ObservableField<List<Movie>> = ObservableField()
+    var movieList: ObservableField<ArrayList<Movie>> = ObservableField()
     var toastMsg: ObservableField<MessageSet> = ObservableField()
     var isLoading: ObservableBoolean = ObservableBoolean(false)
     var isLoadMore: Boolean = false
-    var currentQuery: String = ""
+    private var currentQuery: String = ""
 
     fun requestMovie() {
         isLoadMore = false
@@ -29,7 +29,7 @@ class MovieSearchViewModel(private val movieRepository: MovieRepository) {
                     if (it.isEmpty()) {
                         toastMsg.set(MessageSet.NO_RESULT)
                     } else {
-                        movieList.set(it)
+                        movieList.set(it as ArrayList<Movie>?)
                         toastMsg.set(MessageSet.SUCCESS)
                     }
                     isLoading.set(false)
@@ -53,7 +53,9 @@ class MovieSearchViewModel(private val movieRepository: MovieRepository) {
                 if (it.isEmpty()) {
                     toastMsg.set(MessageSet.LAST_PAGE)
                 } else {
-                    movieList.set(it)
+                    movieList.get()?.clear()
+                    movieList.get()?.addAll(it)
+                    movieList.notifyChange()
                     toastMsg.set(MessageSet.SUCCESS)
                 }
                 isLoading.set(false)
