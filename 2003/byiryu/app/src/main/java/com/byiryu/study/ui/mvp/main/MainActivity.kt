@@ -1,4 +1,4 @@
-package com.byiryu.study.ui.main
+package com.byiryu.study.ui.mvp.main
 
 import android.content.Intent
 import android.net.Uri
@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.view.View
 import com.byiryu.study.databinding.ActivityMainBinding
 import com.byiryu.study.model.data.MovieItem
-import com.byiryu.study.ui.base.BaseActivity
-import com.byiryu.study.ui.base.BaseContract
-import com.byiryu.study.ui.base.BasePresenter
+import com.byiryu.study.ui.mvp.base.BaseActivity
+import com.byiryu.study.ui.mvp.base.BaseContract
+import com.byiryu.study.ui.mvp.base.BasePresenter
 import com.byiryu.study.wigets.OnViewClickListener
 
 class MainActivity : BaseActivity(), MainConract.View{
@@ -40,8 +40,8 @@ class MainActivity : BaseActivity(), MainConract.View{
         super.onCreate(savedInstanceState)
 
          viewDataBinding = ActivityMainBinding.inflate(layoutInflater).apply {
-            progressBar = loading
-            adapter = this@MainActivity.adapter
+//            progressBar = loading
+//            adapter = this@MainActivity.adapter
 
             btnSearch.setOnClickListener {
                 mainPresenter.search(editText.text.toString())

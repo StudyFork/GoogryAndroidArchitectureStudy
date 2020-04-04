@@ -47,7 +47,7 @@ class Repository constructor(
         localDataSource.setAutoLogin()
     }
 
-    fun loginCheck(id: String, pw: String): Single<Boolean> {
+    fun loginCheck(id: String?, pw: String?): Single<Boolean> {
         return if (id == ID && pw == PW) {
             Single.just(true).delay(2, TimeUnit.SECONDS)
         } else {

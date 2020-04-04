@@ -3,9 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
 
+        <import type="com.byiryu.study.ui.enums.NetStatus"/>
+
+        <variable
+            name="vm"
+            type="com.byiryu.study.ui.mvvm.main.viewmodel.MainViewModel" />
+
         <variable
             name="adapter"
-            type="com.byiryu.study.ui.main.MainRecyclerAdapter" />
+            type="com.byiryu.study.ui.mvvm.main.views.adapter.MainRecyclerAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,6 +29,8 @@
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:maxLines="1"
+                android:hint="@{vm.prevQuery}"
+                android:text="@={vm.query}"
                 app:layout_constraintEnd_toStartOf="@+id/btn_search"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -32,6 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:text="@string/btn_search"
+                android:onClick="@{() -> vm.search()}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/editText"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -48,18 +57,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editText" />
 
-            <ProgressBar
-                android:id="@+id/loading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
-                app:layout_constraintEnd_toEndOf="@+id/recyclerView"
-                app:layout_constraintStart_toStartOf="@+id/recyclerView"
-                app:layout_constraintTop_toTopOf="@+id/recyclerView" />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            layout="@layout/layout_loading"
+            app:netStatus="@{vm.netStatus}"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,7 @@
-package com.byiryu.study.ui.main
+package com.byiryu.study.ui.mvp.main
 
 import com.byiryu.study.model.data.MovieItem
-import com.byiryu.study.ui.base.BaseContract
+import com.byiryu.study.ui.mvp.base.BaseContract
 
 interface MainConract {
 

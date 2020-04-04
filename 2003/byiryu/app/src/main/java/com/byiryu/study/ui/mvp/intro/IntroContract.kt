@@ -1,6 +1,6 @@
-package com.byiryu.study.ui.intro
+package com.byiryu.study.ui.mvp.intro
 
-import com.byiryu.study.ui.base.BaseContract
+import com.byiryu.study.ui.mvp.base.BaseContract
 
 interface IntroContract {
     interface View : BaseContract.View{

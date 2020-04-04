@@ -1,4 +1,4 @@
-package com.byiryu.study.ui.base
+package com.byiryu.study.ui.mvp.base
 
 import io.reactivex.disposables.CompositeDisposable
 

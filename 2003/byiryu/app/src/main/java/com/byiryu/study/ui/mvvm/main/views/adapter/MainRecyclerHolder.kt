@@ -1,4 +1,4 @@
-package com.byiryu.study.ui.main
+package com.byiryu.study.ui.mvvm.main.views.adapter
 
 import android.util.Log
 import android.view.View

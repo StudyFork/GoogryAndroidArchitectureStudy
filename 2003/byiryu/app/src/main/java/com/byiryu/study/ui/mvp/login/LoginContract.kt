@@ -1,6 +1,6 @@
-package com.byiryu.study.ui.login
+package com.byiryu.study.ui.mvp.login
 
-import com.byiryu.study.ui.base.BaseContract
+import com.byiryu.study.ui.mvp.base.BaseContract
 
 interface LoginContract {
     interface View : BaseContract.View{

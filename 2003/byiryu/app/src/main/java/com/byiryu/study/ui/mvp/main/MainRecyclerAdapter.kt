@@ -1,4 +1,4 @@
-package com.byiryu.study.ui.main
+package com.byiryu.study.ui.mvp.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
