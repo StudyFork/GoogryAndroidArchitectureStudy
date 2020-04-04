@@ -20,16 +20,6 @@ class LoginViewModel(
 
     val addAuthResponse: ObservableField<AddAuthResponse> = ObservableField()
 
-    enum class AddAuthResponse {
-        ADD_AUTH_ERROR,
-        ADD_AUTH_SUCCESS
-    }
-
-    private data class ResponseAddAuth(
-        val responseError: Boolean,
-        val throwable: Throwable? = null
-    )
-
     val loginError: ObservableField<Unit> = ObservableField()
 
     val loginSuccess: ObservableField<Unit> = ObservableField()
@@ -123,4 +113,14 @@ class LoginViewModel(
             }
         }
     }
+
+    enum class AddAuthResponse {
+        ADD_AUTH_ERROR,
+        ADD_AUTH_SUCCESS
+    }
+
+    private data class ResponseAddAuth(
+        val responseError: Boolean,
+        val throwable: Throwable? = null
+    )
 }

@@ -24,37 +24,15 @@ class MainViewModel(
 
     private val searchTextSubject = PublishSubject.create<String>()
 
-    private data class ResponseMovieData(
-        val responseError: Boolean,
-        val responseResult: Movies = Movies(items = ArrayList()),
-        val throwable: Throwable? = null
-    )
-
     val getMovieError: ObservableBoolean = ObservableBoolean(false)
 
     val movies: NonNullObservableField<ArrayList<MovieDetail>> = NonNullObservableField(ArrayList())
 
     private val deleteAuthSubject = PublishSubject.create<Unit>()
 
-    private data class ResponseDeleteAuth(
-        val responseError: Boolean,
-        val throwable: Throwable? = null
-    )
-
     val logoutResponse = ObservableField<LogoutResponse>()
 
-    enum class LogoutResponse {
-        LOGOUT_ERROR,
-        LOGOUT_SUCCESS
-    }
-
     private val getAuthSubject = PublishSubject.create<Unit>()
-
-    private data class ResponseGetAuth(
-        val responseError: Boolean,
-        val responseResult: Auth = Auth(autoLogin = false),
-        val throwable: Throwable? = null
-    )
 
     val getAuthError: ObservableField<Unit> = ObservableField(Unit)
 
@@ -161,4 +139,26 @@ class MainViewModel(
     fun movieSearch() {
         searchTextSubject.onNext(searchText.get())
     }
+
+    enum class LogoutResponse {
+        LOGOUT_ERROR,
+        LOGOUT_SUCCESS
+    }
+
+    private data class ResponseMovieData(
+        val responseError: Boolean,
+        val responseResult: Movies = Movies(items = ArrayList()),
+        val throwable: Throwable? = null
+    )
+
+    private data class ResponseDeleteAuth(
+        val responseError: Boolean,
+        val throwable: Throwable? = null
+    )
+
+    private data class ResponseGetAuth(
+        val responseError: Boolean,
+        val responseResult: Auth = Auth(autoLogin = false),
+        val throwable: Throwable? = null
+    )
 }

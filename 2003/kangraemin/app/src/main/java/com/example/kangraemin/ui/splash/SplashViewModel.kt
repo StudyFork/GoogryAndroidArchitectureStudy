@@ -14,19 +14,7 @@ class SplashViewModel(
     private val authRepository: AuthRepository
 ) : KangBaseViewModel() {
 
-    private data class ResponseGetAuth(
-        val responseError: Boolean,
-        val responseResult: Auth = Auth(autoLogin = false),
-        val throwable: Throwable? = null
-    )
-
     val observableSplashResult = ObservableField<SplashResult>()
-
-    enum class SplashResult {
-        NEED_LOGIN,
-        AUTH_ERROR,
-        MAIN_VIEW
-    }
 
     init {
         val splashTimer = Completable
@@ -58,4 +46,16 @@ class SplashViewModel(
             }, { it.printStackTrace() })
         compositeDisposable.add(splashTimer)
     }
+
+    enum class SplashResult {
+        NEED_LOGIN,
+        AUTH_ERROR,
+        MAIN_VIEW
+    }
+
+    private data class ResponseGetAuth(
+        val responseError: Boolean,
+        val responseResult: Auth = Auth(autoLogin = false),
+        val throwable: Throwable? = null
+    )
 }
