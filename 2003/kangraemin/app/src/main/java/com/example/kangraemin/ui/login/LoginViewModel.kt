@@ -1,6 +1,5 @@
 package com.example.kangraemin.ui.login
 
-import android.view.View
 import androidx.databinding.Observable
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
@@ -16,10 +15,6 @@ import io.reactivex.subjects.PublishSubject
 class LoginViewModel(
     private val authRepository: AuthRepository
 ) : KangBaseViewModel() {
-
-    val idText = "id"
-
-    val pwText = "pw"
 
     private val addAuthSubject = PublishSubject.create<Auth>()
 
