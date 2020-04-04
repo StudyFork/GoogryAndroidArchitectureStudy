@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/movie_item_height"
+    android:layout_margin="@dimen/margin_1"
+    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardCornerRadius="@dimen/movie_item_corner_radius"
+    app:cardElevation="@dimen/margin_0"
+    app:cardMaxElevation="@dimen/margin_0"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="@dimen/margin_1"
+    tools:ignore="contentDescription">
+
+    <View
+        android:id="@+id/color_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.7"
+        android:background="@color/colorPrimary" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/movie_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_1"
+            android:maxLines="2"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@color/colorText"
+            app:layout_constraintBottom_toTopOf="@id/movie_pub_date"
+            tools:text="@tools:sample/full_names" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/movie_pub_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_1"
+            app:cardBackgroundColor="@color/colorTint"
+            app:contentPaddingLeft="5dp"
+            app:contentPaddingRight="5dp"
+            app:layout_constraintBottom_toTopOf="@id/movie_subtitle"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/movie_date_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="2083" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/movie_user_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_1"
+            app:cardBackgroundColor="@color/colorShadow"
+            app:contentPaddingRight="5dp"
+            app:layout_constraintBottom_toTopOf="@id/movie_subtitle"
+            app:layout_constraintLeft_toRightOf="@id/movie_pub_date">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/movie_user_rating_key"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/movie_item_user_rating_key"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/movie_user_rating_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/movie_user_rating_key"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="3.5" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/movie_directors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_1"
+            android:ellipsize="end"
+            android:maxWidth="@dimen/movie_item_directors_max_width"
+            android:maxLines="1"
+            android:textColor="@color/colorText"
+            app:layout_constraintBottom_toTopOf="@id/movie_subtitle"
+            app:layout_constraintLeft_toRightOf="@id/movie_user_rating"
+            tools:text="@tools:sample/lorem/random" />
+
+        <TextView
+            android:id="@+id/movie_actors"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/colorText"
+            app:layout_constraintBottom_toTopOf="@id/movie_subtitle"
+            app:layout_constraintLeft_toRightOf="@id/movie_directors"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="@tools:sample/lorem/random" />
+
+        <TextView
+            android:id="@+id/movie_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_1"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/colorTextSecond"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="@tools:sample/lorem/random" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
