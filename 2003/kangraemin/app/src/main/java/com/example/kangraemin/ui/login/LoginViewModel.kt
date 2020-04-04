@@ -85,7 +85,7 @@ class LoginViewModel(
         })
     }
 
-    private fun checkIdIsEmpty(hasFocus: Boolean) {
+    fun checkIdIsEmpty(hasFocus: Boolean) {
         if (!hasFocus) {
             if (id.get().isEmpty()) {
                 idIsEmpty.set(true)
@@ -97,7 +97,7 @@ class LoginViewModel(
         }
     }
 
-    private fun checkPasswordIsEmpty(hasFocus: Boolean) {
+    fun checkPasswordIsEmpty(hasFocus: Boolean) {
         if (!hasFocus) {
             if (pw.get().isEmpty()) {
                 pwIsEmpty.set(true)
@@ -125,19 +125,6 @@ class LoginViewModel(
                 addAuthSubject.onNext(Auth(autoLogin = true))
             } else {
                 loginSuccess.notifyChange()
-            }
-        }
-    }
-
-    fun getOnFocusChangeListener(string: String): View.OnFocusChangeListener {
-        return View.OnFocusChangeListener { _, hasFocus ->
-            when (string) {
-                "id" -> {
-                    checkIdIsEmpty(hasFocus = hasFocus)
-                }
-                "pw" -> {
-                    checkPasswordIsEmpty(hasFocus = hasFocus)
-                }
             }
         }
     }

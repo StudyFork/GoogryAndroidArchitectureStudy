@@ -48,7 +48,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_id"
                     style="@style/AppTheme.LoginEditText"
-                    bind:onFocusChange="@{vm.getOnFocusChangeListener(vm.idText)}"
+                    bind:onFocusChange="@{(v, hasFocus) -> vm.checkIdIsEmpty(hasFocus)}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/login_hint_id"
@@ -74,7 +74,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_pw"
                     style="@style/AppTheme.LoginEditText"
-                    bind:onFocusChange="@{vm.getOnFocusChangeListener(vm.pwText)}"
+                    bind:onFocusChange="@{(v, hasFocus) -> vm.checkPasswordIsEmpty(hasFocus)}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/login_hint_pw"
