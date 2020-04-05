@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         retrofitClient = RetrofitClient.client
         movie_rv.adapter = movieAdapter
 
+        search_view.setIconifiedByDefault(false)
+        search_view.queryHint = "영화 검색"
         search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchMovie(query!!)
@@ -36,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                return true
+                return false
             }
         })
     }
