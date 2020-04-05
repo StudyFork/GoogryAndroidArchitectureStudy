@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.item_movies_rv.view.*
 
 class MovieAdpater(
     private var movies: ArrayList<MovieItem>
@@ -25,13 +26,23 @@ class MovieAdpater(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind()
+        holder.bind(movies[position], position)
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind() {
+        private var view = itemView
 
+        fun bind(item: MovieItem, position: Int) {
+            val director = "감독 : ${item.director}"
+            val actor = "출연진 : ${item.actor}"
+            view.apply {
+                movie_title.text = item.title
+                movie_subtitle.text = item.subtitle
+                movie_pub_date.text = item.pubDate
+                movie_director.text = director
+                movie_actor.text = actor
+            }
         }
 
     }
