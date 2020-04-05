@@ -14,8 +14,10 @@
         android:queryHint="검색어를 입력하시오" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:listitem="@layout/item_movies_rv"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 </LinearLayout>
