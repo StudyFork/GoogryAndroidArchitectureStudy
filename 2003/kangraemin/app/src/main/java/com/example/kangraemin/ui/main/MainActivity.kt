@@ -15,8 +15,6 @@ import com.example.kangraemin.model.local.datadao.AuthLocalDataSourceImpl
 import com.example.kangraemin.model.local.datadao.LocalMovieDataSourceImpl
 import com.example.kangraemin.model.remote.datadao.MovieRemoteDataSourceImpl
 import com.example.kangraemin.ui.login.LoginActivity
-import com.example.kangraemin.ui.main.MainViewModel.LogoutResponse.LOGOUT_ERROR
-import com.example.kangraemin.ui.main.MainViewModel.LogoutResponse.LOGOUT_SUCCESS
 import com.example.kangraemin.util.NetworkUtil
 import com.example.kangraemin.util.RetrofitClient
 
@@ -56,18 +54,18 @@ class MainActivity : KangBaseActivity() {
 
         binding.rvSearchResult.adapter = adapter
 
-        mainViewModel.logoutResponse.addOnPropertyChangedCallback(object :
+        mainViewModel.logOutSuccess.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                when (mainViewModel.logoutResponse.get()) {
-                    LOGOUT_SUCCESS -> {
-                        startActivity(Intent(this@MainActivity, LoginActivity::class.java))
-                        finish()
-                    }
-                    LOGOUT_ERROR -> {
-                        toast(getString(R.string.main_error_delete_auth_toast_message))
-                    }
-                }
+                startActivity(Intent(this@MainActivity, LoginActivity::class.java))
+                finish()
+            }
+        })
+
+        mainViewModel.logOutFail.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                toast(getString(R.string.main_error_delete_auth_toast_message))
             }
         })
 
@@ -92,7 +90,8 @@ class MainActivity : KangBaseActivity() {
             }
         })
 
-        mainViewModel.isNetworkConnected.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+        mainViewModel.isNetworkConnected.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 if (!mainViewModel.isNetworkConnected.get()) {
                     toast(resources.getString(R.string.main_network_error_message))

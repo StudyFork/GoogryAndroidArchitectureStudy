@@ -10,8 +10,6 @@ import com.example.kangraemin.databinding.ActivityLoginBinding
 import com.example.kangraemin.model.AppDatabase
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.local.datadao.AuthLocalDataSourceImpl
-import com.example.kangraemin.ui.login.LoginViewModel.AddAuthResponse.ADD_AUTH_ERROR
-import com.example.kangraemin.ui.login.LoginViewModel.AddAuthResponse.ADD_AUTH_SUCCESS
 import com.example.kangraemin.ui.main.MainActivity
 
 class LoginActivity : KangBaseActivity() {
@@ -73,20 +71,21 @@ class LoginActivity : KangBaseActivity() {
             }
         })
 
-        loginViewModel.addAuthResponse.addOnPropertyChangedCallback(object :
+        loginViewModel.addAuthSuccess.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                when (loginViewModel.addAuthResponse.get()) {
-                    ADD_AUTH_SUCCESS -> {
-                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    }
-                    ADD_AUTH_ERROR -> {
-                        toast(getString(R.string.login_error_add_auth_toast_message))
-                    }
-                }
+                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
             }
+        })
+
+        loginViewModel.addAuthFail.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                toast(getString(R.string.login_error_add_auth_toast_message))
+            }
+
         })
     }
 

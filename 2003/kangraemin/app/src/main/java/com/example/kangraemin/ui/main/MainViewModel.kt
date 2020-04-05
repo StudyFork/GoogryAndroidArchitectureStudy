@@ -30,7 +30,9 @@ class MainViewModel(
 
     private val deleteAuthSubject = PublishSubject.create<Unit>()
 
-    val logoutResponse = ObservableField<LogoutResponse>()
+    val logOutSuccess: ObservableField<Unit> = ObservableField()
+
+    val logOutFail: ObservableField<Unit> = ObservableField()
 
     private val getAuthSubject = PublishSubject.create<Unit>()
 
@@ -81,12 +83,12 @@ class MainViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ responseDeleteAuth ->
                 if (responseDeleteAuth.responseError) {
-                    logoutResponse.set(LogoutResponse.LOGOUT_ERROR)
+                    logOutFail.notifyChange()
                     responseDeleteAuth.throwable?.apply {
                         printStackTrace()
                     }
                 } else {
-                    logoutResponse.set(LogoutResponse.LOGOUT_SUCCESS)
+                    logOutSuccess.notifyChange()
                 }
             }, { it.printStackTrace() })
         compositeDisposable.add(deleteAuth)
@@ -138,11 +140,6 @@ class MainViewModel(
 
     fun movieSearch() {
         searchTextSubject.onNext(searchText.get())
-    }
-
-    enum class LogoutResponse {
-        LOGOUT_ERROR,
-        LOGOUT_SUCCESS
     }
 
     private data class ResponseMovieData(

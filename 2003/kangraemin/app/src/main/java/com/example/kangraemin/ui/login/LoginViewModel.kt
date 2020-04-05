@@ -18,8 +18,6 @@ class LoginViewModel(
 
     private val addAuthSubject = PublishSubject.create<Auth>()
 
-    val addAuthResponse: ObservableField<AddAuthResponse> = ObservableField()
-
     val loginError: ObservableField<Unit> = ObservableField()
 
     val loginSuccess: ObservableField<Unit> = ObservableField()
@@ -36,6 +34,10 @@ class LoginViewModel(
 
     val autoLogin: ObservableBoolean = ObservableBoolean(false)
 
+    val addAuthSuccess: ObservableField<Unit> = ObservableField()
+
+    val addAuthFail: ObservableField<Unit> = ObservableField()
+
     init {
         val addAuth = addAuthSubject
             .toFlowable(BackpressureStrategy.DROP)
@@ -47,12 +49,12 @@ class LoginViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ responseAddAuth ->
                 if (responseAddAuth.responseError) {
-                    addAuthResponse.set(AddAuthResponse.ADD_AUTH_ERROR)
+                    addAuthFail.notifyChange()
                     responseAddAuth.throwable?.apply {
                         printStackTrace()
                     }
                 } else {
-                    addAuthResponse.set(AddAuthResponse.ADD_AUTH_SUCCESS)
+                    addAuthSuccess.notifyChange()
                 }
             }, { it.printStackTrace() })
         compositeDisposable.add(addAuth)
@@ -112,11 +114,6 @@ class LoginViewModel(
                 loginSuccess.notifyChange()
             }
         }
-    }
-
-    enum class AddAuthResponse {
-        ADD_AUTH_ERROR,
-        ADD_AUTH_SUCCESS
     }
 
     private data class ResponseAddAuth(
