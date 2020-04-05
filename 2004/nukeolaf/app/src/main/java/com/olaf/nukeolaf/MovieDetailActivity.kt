@@ -1,7 +1,9 @@
 package com.olaf.nukeolaf
 
 import android.os.Bundle
+import android.text.Html
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 
@@ -13,7 +15,8 @@ class MovieDetailActivity : AppCompatActivity() {
 
         var movieItem = intent.getSerializableExtra("movieItem") as MovieItem
 
-        val title = "${movieItem.title} (${movieItem.pubDate})"
+        val title =
+            Html.fromHtml("${movieItem.title} (${movieItem.pubDate})", FROM_HTML_MODE_LEGACY)
         val subtitle = "${movieItem.subtitle} (${movieItem.pubDate})"
         val director = "감독 : ${movieItem.director}"
         val actor = "출연진 : ${movieItem.actor}"
