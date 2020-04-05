@@ -20,8 +20,4 @@ interface SAViewModelLifecycle {
     fun stop() {
 
     }
-
-    fun destroy() {
-
-    }
 }

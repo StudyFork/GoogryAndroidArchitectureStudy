@@ -1,12 +1,12 @@
 package io.github.sooakim.ui.movie
 
-import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import io.github.sooakim.domain.repository.SAMovieRepository
 import io.github.sooakim.ui.base.SAViewModel
 import io.github.sooakim.ui.movie.mapper.SAMoviePresentationMapper
 import io.github.sooakim.ui.movie.model.SAMoviePresentation
-import io.github.sooakim.util.NotNullObservableField
+import io.github.sooakim.util.NotNullMutableLiveData
 import io.github.sooakim.util.ext.rx
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
@@ -17,29 +17,28 @@ import io.reactivex.subjects.Subject
 import java.util.concurrent.TimeUnit
 
 class SAMovieSearchViewModel(
-    movieRepository: SAMovieRepository,
-    navigator: SAMovieSearchNavigator
-) : SAViewModel<SAMovieSearchNavigator>(navigator) {
-    private val _isLoading: ObservableBoolean = ObservableBoolean(false)
-    private val _searchText: NotNullObservableField<String> =
-        NotNullObservableField(movieRepository.latestMovieQuery)
+    movieRepository: SAMovieRepository
+) : SAViewModel<SAMovieSearchState>() {
+    private val _isLoading: NotNullMutableLiveData<Boolean> = NotNullMutableLiveData(false)
+    private val _searchText: NotNullMutableLiveData<String> =
+        NotNullMutableLiveData(movieRepository.latestMovieQuery)
     private val _searchClick: PublishSubject<Unit> = PublishSubject.create()
-    private val _movies: NotNullObservableField<List<SAMoviePresentation>> = NotNullObservableField(
+    private val _movies: NotNullMutableLiveData<List<SAMoviePresentation>> = NotNullMutableLiveData(
         emptyList()
     )
     private val _movieClick: PublishSubject<SAMoviePresentation> = PublishSubject.create()
 
-    val isLoading: ObservableBoolean = _isLoading
-    val searchText: ObservableField<String> = _searchText
+    val isLoading: LiveData<Boolean> = _isLoading
+    val searchText: MutableLiveData<String> = _searchText
     val searchClick: Subject<Unit> = _searchClick
-    val movies: ObservableField<List<SAMoviePresentation>> = _movies
+    val movies: LiveData<List<SAMoviePresentation>> = _movies
 
     init {
         val textChanges = _searchText.rx
             .toFlowable(BackpressureStrategy.DROP)
         val buttonClick = _searchClick
             .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-            .map { _searchText.get() }
+            .map { _searchText.value }
             .toFlowable(BackpressureStrategy.DROP)
 
         Flowable.merge(textChanges, buttonClick)
@@ -59,20 +58,22 @@ class SAMovieSearchViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext { hideLoading() }
             .doOnError { hideLoading() }
-            .subscribe { _movies.set(it) }
+            .subscribe { _movies.value = it }
             .addTo(compositeDisposable)
 
         _movieClick
             .map(SAMoviePresentation::link)
-            .subscribe(navigator::showMovieLink)
+            .subscribe {
+                runState(SAMovieSearchState.ShowMovieLink(it))
+            }
             .addTo(compositeDisposable)
     }
 
     private fun showLoading() {
-        _isLoading.set(true)
+        _isLoading.value = true
     }
 
     private fun hideLoading() {
-        _isLoading.set(false)
+        _isLoading.value = false
     }
 }

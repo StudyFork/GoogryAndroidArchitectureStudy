@@ -4,16 +4,15 @@ import io.github.sooakim.domain.repository.SAAuthRepository
 import io.github.sooakim.ui.base.SAViewModel
 
 class SASplashViewModel(
-    authRepository: SAAuthRepository,
-    navigator: SASplashNavigator
-) : SAViewModel<SASplashNavigator>(navigator) {
+    authRepository: SAAuthRepository
+) : SAViewModel<SASplashState>() {
 
     init {
         val isAuthRequired = authRepository.isAuthRequired
         if (isAuthRequired) {
-            navigator.showLogin()
+            runState(SASplashState.ShowLogin())
         } else {
-            navigator.showMain()
+            runState(SASplashState.ShowMain())
         }
     }
 }
