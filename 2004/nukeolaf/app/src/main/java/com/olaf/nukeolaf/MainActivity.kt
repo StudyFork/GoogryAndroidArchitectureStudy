@@ -3,7 +3,6 @@ package com.olaf.nukeolaf
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -15,8 +14,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var retrofitClient: RetrofitInterface
     private val itemListener: MovieItemListener = object : MovieItemListener {
-        override fun onMovieItemClick(view: View, position: Int) {
+        override fun onMovieItemClick(item: MovieItem) {
             var intent = Intent(this@MainActivity, MovieDetailActivity::class.java)
+            intent.putExtra("movieItem", item)
             startActivity(intent)
         }
     }

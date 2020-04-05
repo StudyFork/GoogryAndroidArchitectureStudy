@@ -47,7 +47,7 @@ class MovieAdapter(
                 movie_rating.numStars = 5
                 movie_rating.rating = item.userRating / 2
                 setOnClickListener {
-                    itemListener.onMovieItemClick(view, position)
+                    itemListener.onMovieItemClick(item)
                 }
             }
             Glide.with(view)

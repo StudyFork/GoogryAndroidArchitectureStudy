@@ -1,5 +1,7 @@
 package com.olaf.nukeolaf
 
+import java.io.Serializable
+
 data class MovieItem(
     val title: String,
     val link: String,
@@ -9,4 +11,4 @@ data class MovieItem(
     val director: String,
     val actor: String,
     val userRating: Float
-)
+) : Serializable
