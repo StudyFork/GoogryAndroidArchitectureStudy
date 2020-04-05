@@ -1,5 +1,7 @@
 package com.olaf.nukeolaf
 
+import android.os.Build
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +42,7 @@ class MovieAdapter(
             val actor = "출연진 : ${item.actor.replace("|", " ")}"
 
             view.apply {
-                movie_title.text = item.title
+                movie_title.text = item.title.htmlToString()
                 movie_subtitle.text = item.subtitle
                 movie_pub_date.text = item.pubDate
                 movie_director.text = director
@@ -56,5 +58,13 @@ class MovieAdapter(
                 .into(view.movie_image)
         }
 
+    }
+
+    fun String.htmlToString(): String {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY).toString()
+        } else {
+            Html.fromHtml(this).toString()
+        }
     }
 }
