@@ -1,8 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="20dp"
     tools:context=".MovieDetailActivity">
+
+    <TextView
+        android:id="@+id/movie_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="영화 제목"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/movie_subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="movie title"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/movie_title" />
+
+    <ImageView
+        android:id="@+id/movie_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/movie_subtitle" />
+
+    <androidx.appcompat.widget.AppCompatRatingBar
+        android:id="@+id/movie_rating"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/movie_image" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="0.0"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@id/movie_director"
+        app:layout_constraintLeft_toRightOf="@id/movie_rating"
+        app:layout_constraintTop_toBottomOf="@id/movie_image" />
+
+    <TextView
+        android:id="@+id/movie_director"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="감독 : 김아무개"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/movie_rating" />
+
+    <TextView
+        android:id="@+id/movie_actor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="출연진 : 김수한무, 홍길동"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/movie_director" />
+
+    <TextView
+        android:id="@+id/movie_link"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="링크 : https://www.naver.com"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/movie_actor" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
