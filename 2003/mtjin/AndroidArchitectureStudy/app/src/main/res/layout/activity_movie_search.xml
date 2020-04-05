@@ -63,7 +63,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guideline"
             bind:endlessScroll="@{vm}"
-            bind:loadMore="@{vm.loadMore}"
             bind:setItems="@{vm.movieList}" />
 
         <ProgressBar

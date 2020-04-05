@@ -19,7 +19,6 @@ class MovieSearchViewModel(private val movieRepository: MovieRepository) {
         currentQuery = query.get().toString()
         if (currentQuery.isEmpty()) {
             toastMsg.set(MessageSet.EMPTY_QUERY)
-            //emptyQueryMsg.notifyChange()
         } else {
             isLoading.set(true)
             movieRepository.getSearchMovies(query.get().toString(),

@@ -32,8 +32,8 @@ fun RatingBar.setMovieRating(score: String) {
     rating = (score.toFloatOrNull() ?: 0f) / 2
 }
 
-@BindingAdapter("setItems", "loadMore")
-fun RecyclerView.setAdapterItems(items: List<Movie>?, loadMore: Boolean) {
+@BindingAdapter("setItems")
+fun RecyclerView.setAdapterItems(items: List<Movie>?) {
     with((adapter as MovieAdapter)) {
         this.clear()
         items?.let { this.addItems(it) }
