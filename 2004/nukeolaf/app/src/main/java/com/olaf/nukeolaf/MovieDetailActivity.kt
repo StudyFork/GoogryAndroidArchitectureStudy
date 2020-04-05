@@ -14,11 +14,12 @@ class MovieDetailActivity : AppCompatActivity() {
         var movieItem = intent.getSerializableExtra("movieItem") as MovieItem
 
         val title = "${movieItem.title} (${movieItem.pubDate})"
+        val subtitle = "${movieItem.subtitle} (${movieItem.pubDate})"
         val director = "감독 : ${movieItem.director}"
         val actor = "출연진 : ${movieItem.actor}"
 
         movie_title.text = title
-        movie_subtitle.text = movieItem.subtitle
+        movie_subtitle.text = subtitle
         movie_rating.numStars = 5
         movie_rating.rating = movieItem.userRating / 2
         movie_rating_num.text = movieItem.userRating.toString()
