@@ -1,7 +1,9 @@
 package com.olaf.nukeolaf
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -12,7 +14,13 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
 
     private lateinit var retrofitClient: RetrofitInterface
-    private val movieAdapter = MovieAdapter(ArrayList(0))
+    private val itemListener: MovieItemListener = object : MovieItemListener {
+        override fun onMovieItemClick(view: View, position: Int) {
+            var intent = Intent(this@MainActivity, MovieDetailActivity::class.java)
+            startActivity(intent)
+        }
+    }
+    private val movieAdapter = MovieAdapter(ArrayList(0), itemListener)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
