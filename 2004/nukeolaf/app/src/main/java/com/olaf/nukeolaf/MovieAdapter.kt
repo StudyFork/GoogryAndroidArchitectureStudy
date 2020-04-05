@@ -44,6 +44,8 @@ class MovieAdapter(
                 movie_pub_date.text = item.pubDate
                 movie_director.text = director
                 movie_actor.text = actor
+                movie_rating.numStars = 5
+                movie_rating.rating = item.userRating / 2
                 setOnClickListener {
                     itemListener.onMovieItemClick(view, position)
                 }
