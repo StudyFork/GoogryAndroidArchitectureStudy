@@ -52,8 +52,13 @@ class MainActivity : AppCompatActivity() {
                 call: Call<MovieResponse>,
                 response: Response<MovieResponse>
             ) {
-                Log.d("onQueryTextListener", response.toString())
-                Log.d("onQueryTextListener", response.body().toString())
+                movieAdapter.run {
+                    setMovies(response.body()!!.items)
+                    notifyDataSetChanged()
+                }.also {
+                    Log.d("onQueryTextListener", response.toString())
+                    Log.d("onQueryTextListener", response.body().toString())
+                }
             }
 
             override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
