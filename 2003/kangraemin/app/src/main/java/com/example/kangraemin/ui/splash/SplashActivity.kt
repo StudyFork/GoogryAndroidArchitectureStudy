@@ -10,7 +10,6 @@ import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.local.datadao.AuthLocalDataSourceImpl
 import com.example.kangraemin.ui.login.LoginActivity
 import com.example.kangraemin.ui.main.MainActivity
-import com.example.kangraemin.ui.splash.SplashViewModel.SplashResult.*
 
 class SplashActivity : KangBaseActivity() {
 
@@ -27,25 +26,28 @@ class SplashActivity : KangBaseActivity() {
 
         splashViewModel = SplashViewModel(authRepository = authRepository)
 
-        splashViewModel.observableSplashResult.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
+        splashViewModel.toMain.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                when (splashViewModel.observableSplashResult.get()) {
-                    MAIN_VIEW -> {
-                        val intent = Intent(this@SplashActivity, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    }
-                    NEED_LOGIN -> {
-                        val intent = Intent(this@SplashActivity, LoginActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    }
-                    AUTH_ERROR -> {
-                        toast(getString(R.string.error_get_auth_toast_message))
-                    }
-                }
+                val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
             }
+
+        })
+
+        splashViewModel.getAuthError.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                toast(getString(R.string.error_get_auth_toast_message))
+            }
+
+        })
+        splashViewModel.needLogin.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                val intent = Intent(this@SplashActivity, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+
         })
     }
 
