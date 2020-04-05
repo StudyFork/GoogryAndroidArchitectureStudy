@@ -98,6 +98,7 @@
 
             <androidx.appcompat.widget.AppCompatRatingBar
                 android:id="@+id/movie_rating"
+                style="@style/Widget.AppCompat.RatingBar.Indicator"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
