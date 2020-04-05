@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_movies_rv.view.*
 
 class MovieAdpater(
@@ -43,6 +44,9 @@ class MovieAdpater(
                 movie_director.text = director
                 movie_actor.text = actor
             }
+            Glide.with(view)
+                .load(item.image)
+                .into(view.movie_image)
         }
 
     }
