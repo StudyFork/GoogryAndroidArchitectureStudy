@@ -18,7 +18,21 @@ class MainActivity : AppCompatActivity() {
 
         search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                return if (isEmptyText(query)) {
+                    // 검색어가 공백인 경우
+                    true
+                } else {
+                    // 검색어가 있는 경우
+                    var map = HashMap<String, Any>()
+                    map["query"] = query!!
+                    map["display"] = 100
+                    retrofitClient.searchMovie(
+                        getString(R.string.naver_client_id),
+                        getString(R.string.naver_client_secret),
+                        map
+                    )
+                    true
+                }
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
@@ -28,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // inputString 공백 확인 메서드
-    private fun isEmptyText(text: String): Boolean {
+    private fun isEmptyText(text: String?): Boolean {
         return TextUtils.isEmpty(text)
     }
 }
