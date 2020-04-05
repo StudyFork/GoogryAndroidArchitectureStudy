@@ -53,13 +53,13 @@ class MainActivity : AppCompatActivity() {
                 response: Response<MovieResponse>
             ) {
                 showMovies(response.body()!!.items).also {
-                    Log.d("onQueryTextListener", response.toString())
-                    Log.d("onQueryTextListener", response.body().toString())
+                    Log.d("searchMovie", response.toString())
+                    Log.d("searchMovie", response.body().toString())
                 }
             }
 
             override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                Log.d("onQueryTextListener", t.toString())
+                Log.d("searchMovie", t.toString())
             }
         })
     }
