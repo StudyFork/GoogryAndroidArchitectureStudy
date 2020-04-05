@@ -13,11 +13,9 @@ class MovieSearchViewModel(private val movieRepository: MovieRepository) {
     var movieList: ObservableField<ArrayList<Movie>> = ObservableField()
     var toastMsg: ObservableField<MessageSet> = ObservableField()
     var isLoading: ObservableBoolean = ObservableBoolean(false)
-    var isLoadMore: Boolean = false
     private var currentQuery: String = ""
 
     fun requestMovie() {
-        isLoadMore = false
         currentQuery = query.get().toString()
         if (currentQuery.isEmpty()) {
             toastMsg.set(MessageSet.EMPTY_QUERY)
@@ -46,14 +44,12 @@ class MovieSearchViewModel(private val movieRepository: MovieRepository) {
     }
 
     fun requestPagingMovie(offset: Int) {
-        isLoadMore = true
         isLoading.set(true)
         movieRepository.getPagingMovies(currentQuery, offset,
             success = {
                 if (it.isEmpty()) {
                     toastMsg.set(MessageSet.LAST_PAGE)
                 } else {
-                    movieList.get()?.clear()
                     movieList.get()?.addAll(it)
                     movieList.notifyChange()
                     toastMsg.set(MessageSet.SUCCESS)
