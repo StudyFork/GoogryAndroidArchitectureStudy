@@ -10,7 +10,7 @@ interface RetrofitInterface {
     fun searchMovie(
         @Header("X-Naver-Client-Id") clientId: String,
         @Header("X-Naver-Client-Secret") clientSecret: String,
-        @QueryMap map: Map<String, String>
+        @QueryMap map: Map<String, Any>
     )
 
 }
