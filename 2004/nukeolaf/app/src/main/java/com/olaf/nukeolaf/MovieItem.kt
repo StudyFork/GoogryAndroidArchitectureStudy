@@ -1,6 +1,6 @@
 package com.olaf.nukeolaf
 
-data class Item(
+data class MovieItem(
     val title: String,
     val link: String,
     val image: String,

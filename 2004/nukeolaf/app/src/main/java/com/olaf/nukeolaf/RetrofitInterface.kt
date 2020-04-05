@@ -14,6 +14,6 @@ interface RetrofitInterface {
         @Query("query") query: String,
         @Query("display") display: Int,
         @Query("start") start: Int
-    ): Call<Movie>
+    ): Call<MovieResponse>
 
 }
