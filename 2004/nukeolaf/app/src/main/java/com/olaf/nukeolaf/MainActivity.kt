@@ -34,13 +34,16 @@ class MainActivity : AppCompatActivity() {
                         getString(R.string.naver_client_id),
                         getString(R.string.naver_client_secret),
                         query!!, 10, 1
-                    ).enqueue(object : Callback<Movie> {
-                        override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
+                    ).enqueue(object : Callback<MovieResponse> {
+                        override fun onResponse(
+                            call: Call<MovieResponse>,
+                            response: Response<MovieResponse>
+                        ) {
                             Log.d("onQueryTextListener", response.toString())
                             Log.d("onQueryTextListener", response.body().toString())
                         }
 
-                        override fun onFailure(call: Call<Movie>, t: Throwable) {
+                        override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                             Log.d("onQueryTextListener", t.toString())
                         }
                     })
