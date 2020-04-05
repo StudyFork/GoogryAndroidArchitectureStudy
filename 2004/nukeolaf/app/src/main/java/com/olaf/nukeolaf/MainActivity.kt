@@ -29,30 +29,33 @@ class MainActivity : AppCompatActivity() {
                     true
                 } else {
                     // 검색어가 있는 경우
-                    var map = HashMap<String, Any>()
-                    retrofitClient.searchMovie(
-                        getString(R.string.naver_client_id),
-                        getString(R.string.naver_client_secret),
-                        query!!, 10, 1
-                    ).enqueue(object : Callback<MovieResponse> {
-                        override fun onResponse(
-                            call: Call<MovieResponse>,
-                            response: Response<MovieResponse>
-                        ) {
-                            Log.d("onQueryTextListener", response.toString())
-                            Log.d("onQueryTextListener", response.body().toString())
-                        }
-
-                        override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                            Log.d("onQueryTextListener", t.toString())
-                        }
-                    })
+                    searchMovie(query!!)
                     true
                 }
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 return true
+            }
+        })
+    }
+
+    private fun searchMovie(query: String) {
+        retrofitClient.searchMovie(
+            getString(R.string.naver_client_id),
+            getString(R.string.naver_client_secret),
+            query, 10, 1
+        ).enqueue(object : Callback<MovieResponse> {
+            override fun onResponse(
+                call: Call<MovieResponse>,
+                response: Response<MovieResponse>
+            ) {
+                Log.d("onQueryTextListener", response.toString())
+                Log.d("onQueryTextListener", response.body().toString())
+            }
+
+            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+                Log.d("onQueryTextListener", t.toString())
             }
         })
     }
