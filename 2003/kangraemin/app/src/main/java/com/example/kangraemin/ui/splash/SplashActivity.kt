@@ -50,9 +50,4 @@ class SplashActivity : KangBaseActivity() {
 
         })
     }
-
-    override fun onDestroy() {
-        splashViewModel.onDestroy()
-        super.onDestroy()
-    }
 }
