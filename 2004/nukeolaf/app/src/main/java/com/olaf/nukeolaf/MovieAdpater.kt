@@ -21,7 +21,7 @@ class MovieAdpater(
     }
 
     override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return movies.size
     }
 
     override fun onBindViewHolder(holder: MovieAdpater.ViewHolder, position: Int) {
