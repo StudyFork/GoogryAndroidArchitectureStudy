@@ -1,9 +1,7 @@
 package com.olaf.nukeolaf
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -25,15 +23,8 @@ class MainActivity : AppCompatActivity() {
 
         search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                return if (isEmptyText(query)) {
-                    // 검색어가 공백인 경우
-                    showEmptyTextDialog()
-                    true
-                } else {
-                    // 검색어가 있는 경우
-                    searchMovie(query!!)
-                    true
-                }
+                searchMovie(query!!)
+                return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
@@ -68,19 +59,6 @@ class MainActivity : AppCompatActivity() {
         movieAdapter.run {
             setMovies(movies)
             notifyDataSetChanged()
-        }
-    }
-
-    // inputString 공백 확인 메서드
-    private fun isEmptyText(text: String?): Boolean {
-        return TextUtils.isEmpty(text)
-    }
-
-    private fun showEmptyTextDialog() {
-        AlertDialog.Builder(this).apply {
-            setTitle("알림")
-                .setMessage("검색어를 입력해주세요")
-                .show()
         }
     }
 }
