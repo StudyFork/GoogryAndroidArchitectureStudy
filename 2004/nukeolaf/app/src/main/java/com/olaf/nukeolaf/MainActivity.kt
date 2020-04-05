@@ -2,10 +2,14 @@ package com.olaf.nukeolaf
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,19 +30,25 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     // 검색어가 있는 경우
                     var map = HashMap<String, Any>()
-                    map["query"] = query!!
-                    map["display"] = 100
                     retrofitClient.searchMovie(
                         getString(R.string.naver_client_id),
                         getString(R.string.naver_client_secret),
-                        map
-                    )
+                        query!!, 10, 1
+                    ).enqueue(object : Callback<Movie> {
+                        override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
+                            Log.d("onQueryTextListener", response.toString())
+                        }
+
+                        override fun onFailure(call: Call<Movie>, t: Throwable) {
+                            Log.d("onQueryTextListener", t.toString())
+                        }
+                    })
                     true
                 }
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                return true
             }
         })
     }
