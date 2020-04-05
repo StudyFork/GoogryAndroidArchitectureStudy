@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return if (isEmptyText(query)) {
                     // 검색어가 공백인 경우
+                    showEmptyTextDialog()
                     true
                 } else {
                     // 검색어가 있는 경우
