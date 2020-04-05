@@ -18,8 +18,8 @@ class MovieDetailActivity : AppCompatActivity() {
         val title =
             Html.fromHtml("${movieItem.title} (${movieItem.pubDate})", FROM_HTML_MODE_LEGACY)
         val subtitle = "${movieItem.subtitle} (${movieItem.pubDate})"
-        val director = "감독 : ${movieItem.director}"
-        val actor = "출연진 : ${movieItem.actor}"
+        val director = "감독 : ${movieItem.director.replace("|", " ")}"
+        val actor = "출연진 : ${movieItem.actor.replace("|", " ")}"
 
         movie_title.text = title
         movie_subtitle.text = subtitle

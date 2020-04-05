@@ -1,10 +1,8 @@
 package com.olaf.nukeolaf
 
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_movies_rv.view.*
@@ -38,10 +36,11 @@ class MovieAdapter(
         private var view = itemView
 
         fun bind(item: MovieItem, position: Int) {
-            val director = "감독 : ${item.director}"
-            val actor = "출연진 : ${item.actor}"
+            val director = "감독 : ${item.director.replace("|", " ")}"
+            val actor = "출연진 : ${item.actor.replace("|", " ")}"
+
             view.apply {
-                movie_title.text = Html.fromHtml(item.title, HtmlCompat.FROM_HTML_MODE_LEGACY)
+                movie_title.text = item.title
                 movie_subtitle.text = item.subtitle
                 movie_pub_date.text = item.pubDate
                 movie_director.text = director
