@@ -14,14 +14,14 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
 
     private lateinit var retrofitClient: RetrofitInterface
-    private val movieAdpater = MovieAdpater(ArrayList(0))
+    private val movieAdapter = MovieAdapter(ArrayList(0))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         retrofitClient = RetrofitClient.client
-        movie_rv.adapter = movieAdpater
+        movie_rv.adapter = movieAdapter
 
         search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {

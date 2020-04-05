@@ -7,15 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_movies_rv.view.*
 
-class MovieAdpater(
+class MovieAdapter(
     private var movies: ArrayList<MovieItem>
-) : RecyclerView.Adapter<MovieAdpater.ViewHolder>() {
+) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     fun setMovies(list: ArrayList<MovieItem>) {
         this.movies = list
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieAdpater.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflatedView = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.item_movies_rv, parent)
