@@ -52,10 +52,7 @@ class MainActivity : AppCompatActivity() {
                 call: Call<MovieResponse>,
                 response: Response<MovieResponse>
             ) {
-                movieAdapter.run {
-                    setMovies(response.body()!!.items)
-                    notifyDataSetChanged()
-                }.also {
+                showMovies(response.body()!!.items).also {
                     Log.d("onQueryTextListener", response.toString())
                     Log.d("onQueryTextListener", response.body().toString())
                 }
@@ -65,6 +62,13 @@ class MainActivity : AppCompatActivity() {
                 Log.d("onQueryTextListener", t.toString())
             }
         })
+    }
+
+    private fun showMovies(movies: ArrayList<MovieItem>) {
+        movieAdapter.run {
+            setMovies(movies)
+            notifyDataSetChanged()
+        }
     }
 
     // inputString 공백 확인 메서드
