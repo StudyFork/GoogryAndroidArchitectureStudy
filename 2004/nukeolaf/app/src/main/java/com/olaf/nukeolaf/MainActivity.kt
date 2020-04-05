@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
                     ).enqueue(object : Callback<Movie> {
                         override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
                             Log.d("onQueryTextListener", response.toString())
+                            Log.d("onQueryTextListener", response.body().toString())
                         }
 
                         override fun onFailure(call: Call<Movie>, t: Throwable) {
