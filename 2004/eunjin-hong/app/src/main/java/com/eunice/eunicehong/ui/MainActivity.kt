@@ -3,9 +3,11 @@ package com.eunice.eunicehong.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -51,6 +53,10 @@ class MainActivity : AppCompatActivity() {
     private fun searchMovieList(query: String) {
         MovieAPI().getMovieList(query,
             { movies ->
+                val zeroItemMessage = findViewById<TextView>(R.id.zero_item_message)
+                zeroItemMessage.visibility =
+                    if (movies.items.isNullOrEmpty()) View.VISIBLE else View.GONE
+
                 movieList.let {
                     it.clear()
                     it.addAll(movies.items)

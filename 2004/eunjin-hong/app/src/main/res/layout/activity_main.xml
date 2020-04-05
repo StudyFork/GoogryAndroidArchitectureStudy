@@ -56,4 +56,16 @@
         tools:layout_editor_absoluteX="8dp"
         tools:listitem="@layout/item_movie" />
 
+    <TextView
+        android:id="@+id/zero_item_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_0"
+        android:text="@string/movie_list_zero_item_message"
+        android:textAlignment="center"
+        android:textColor="@color/colorText"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_bar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
