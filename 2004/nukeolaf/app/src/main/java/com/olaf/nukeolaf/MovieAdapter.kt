@@ -8,7 +8,8 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_movies_rv.view.*
 
 class MovieAdapter(
-    private var movies: ArrayList<MovieItem>
+    private var movies: ArrayList<MovieItem>,
+    private val itemListener: MovieItemListener
 ) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     fun setMovies(list: ArrayList<MovieItem>) {
@@ -43,6 +44,9 @@ class MovieAdapter(
                 movie_pub_date.text = item.pubDate
                 movie_director.text = director
                 movie_actor.text = actor
+                setOnClickListener {
+                    itemListener.onMovieItemClick(view, position)
+                }
             }
             Glide.with(view)
                 .load(item.image)
