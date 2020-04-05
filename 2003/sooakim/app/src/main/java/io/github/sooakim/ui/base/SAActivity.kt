@@ -61,9 +61,7 @@ abstract class SAActivity<VDB : ViewDataBinding, VM : SAViewModel<*>, S : SAStat
         }
 
         viewModel.state.observe(this, Observer {
-            if (it != null && !it.isConsumed) {
-                it.isConsumed = true
-
+            if (it != null && it.isConsumed.compareAndSet(false, true)) {
                 @Suppress("UNCHECKED_CAST")
                 onState(it.event as S)
             }

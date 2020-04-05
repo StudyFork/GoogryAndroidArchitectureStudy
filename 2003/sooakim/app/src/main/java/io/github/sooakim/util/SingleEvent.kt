@@ -1,6 +1,8 @@
 package io.github.sooakim.util
 
+import java.util.concurrent.atomic.AtomicBoolean
+
 data class SingleEvent<E>(
     val event: E,
-    var isConsumed: Boolean = false
+    val isConsumed: AtomicBoolean = AtomicBoolean(false)
 )
