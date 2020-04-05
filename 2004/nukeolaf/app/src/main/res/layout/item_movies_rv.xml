@@ -2,13 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:paddingStart="5dp"
+    android:paddingEnd="5dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/movie_card"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="7dp"
         android:elevation="2dp"
         android:padding="7dp"
         app:cardCornerRadius="8dp"
@@ -36,12 +37,9 @@
                 android:layout_marginStart="7dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="5dp"
-                android:ellipsize="marquee"
-                android:focusable="true"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:text="영화 제목"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/movie_image"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -52,8 +50,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="7dp"
                 android:layout_marginEnd="5dp"
+                android:maxLines="1"
                 android:text="movie title"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/movie_image"
                 app:layout_constraintTop_toBottomOf="@id/movie_title" />
@@ -64,8 +63,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="7dp"
                 android:layout_marginEnd="5dp"
+                android:maxLines="1"
                 android:text="2020"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/movie_image"
                 app:layout_constraintTop_toBottomOf="@id/movie_subtitle" />
@@ -76,8 +76,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="7dp"
                 android:layout_marginEnd="5dp"
+                android:maxLines="1"
                 android:text="감독 : 김아무개"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/movie_image"
                 app:layout_constraintTop_toBottomOf="@id/movie_pub_date" />
@@ -88,8 +89,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="7dp"
                 android:layout_marginEnd="5dp"
+                android:maxLines="1"
                 android:text="출연진 : 김수한무, 홍길동"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/movie_image"
                 app:layout_constraintTop_toBottomOf="@id/movie_director" />
