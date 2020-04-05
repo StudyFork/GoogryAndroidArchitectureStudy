@@ -8,5 +8,5 @@ data class Item(
     val pubDate: String,
     val director: String,
     val actor: String,
-    val userRating: Int
+    val userRating: Float
 )
