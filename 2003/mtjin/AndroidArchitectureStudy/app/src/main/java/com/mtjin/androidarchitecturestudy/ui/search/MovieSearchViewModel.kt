@@ -67,7 +67,7 @@ class MovieSearchViewModel(private val movieRepository: MovieRepository) : ViewM
             fail = {
                 Log.d(TAG, it.toString())
                 when (it) {
-                    is HttpException -> MessageSet.NETWORK_ERROR.toString()
+                    is HttpException -> MessageSet.NETWORK_ERROR
                     else -> _toastMsg.value = MessageSet.LAST_PAGE
                 }
                 _isLoading.value = false
