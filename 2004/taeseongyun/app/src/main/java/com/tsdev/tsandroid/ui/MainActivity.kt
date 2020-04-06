@@ -1,5 +1,7 @@
 package com.tsdev.tsandroid.ui
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -22,15 +24,16 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewViewHolder.OnClickDel
     }
 
     private fun getMovieList(disposable: CompositeDisposable, query: String) {
-        disposable.add(NaverAPI.movieAPI.getSearchMovie(query)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                movieRecyclerAdapter.addItems(it.items)
-                movieRecyclerAdapter.notifyDataSetChanged()
-            }, {
-                it.printStackTrace()
-            })
+        disposable.add(
+            NaverAPI.movieAPI.getSearchMovie(query)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    movieRecyclerAdapter.addItems(it.items)
+                    movieRecyclerAdapter.notifyDataSetChanged()
+                }, {
+                    it.printStackTrace()
+                })
         )
     }
 
@@ -39,7 +42,6 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewViewHolder.OnClickDel
         setContentView(R.layout.activity_main)
 
         search_img.setOnClickListener {
-//            Log.d("MOVE", "click")
             getMovieList(disposable, edit_query.text.toString())
         }
 
@@ -55,6 +57,11 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewViewHolder.OnClickDel
     }
 
     override fun onClickEventListener(position: Int) {
-       Log.d("MOVIE", movieRecyclerAdapter.movieList[position].link)
+        startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(movieRecyclerAdapter.movieList[position].link)
+            )
+        )
     }
 }
