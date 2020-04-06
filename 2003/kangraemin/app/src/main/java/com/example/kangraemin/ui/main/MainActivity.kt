@@ -2,8 +2,8 @@ package com.example.kangraemin.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
 import com.example.kangraemin.R
 import com.example.kangraemin.adapter.SearchResultAdapter
 import com.example.kangraemin.base.KangBaseActivity
@@ -14,17 +14,15 @@ import com.example.kangraemin.model.MovieSearchRepository
 import com.example.kangraemin.model.local.datadao.AuthLocalDataSourceImpl
 import com.example.kangraemin.model.local.datadao.LocalMovieDataSourceImpl
 import com.example.kangraemin.model.remote.datadao.MovieRemoteDataSourceImpl
-import com.example.kangraemin.model.remote.datamodel.MovieDetail
 import com.example.kangraemin.ui.login.LoginActivity
+import com.example.kangraemin.ui.main.MainViewModel.LogoutResponse.LOGOUT_ERROR
+import com.example.kangraemin.ui.main.MainViewModel.LogoutResponse.LOGOUT_SUCCESS
 import com.example.kangraemin.util.NetworkUtil
 import com.example.kangraemin.util.RetrofitClient
-import com.jakewharton.rxbinding3.view.clicks
-import com.jakewharton.rxbinding3.widget.textChanges
-import io.reactivex.BackpressureStrategy
 
-class MainActivity : KangBaseActivity(), MainContract.View {
+class MainActivity : KangBaseActivity() {
 
-    private lateinit var presenter: MainContract.Presenter
+    private lateinit var mainViewModel: MainViewModel
 
     private val adapter = SearchResultAdapter()
 
@@ -35,8 +33,7 @@ class MainActivity : KangBaseActivity(), MainContract.View {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        presenter = MainPresenter(
-            mainView = this,
+        mainViewModel = MainViewModel(
             movieSearchRepository = MovieSearchRepository(
                 localMovieDataSource = LocalMovieDataSourceImpl(
                     movieDao = AppDatabase.getInstance(
@@ -53,81 +50,59 @@ class MainActivity : KangBaseActivity(), MainContract.View {
             networkUtil = NetworkUtil(context = this)
         )
 
-        presenter.checkAutoLoginStatus()
+        binding.vm = mainViewModel
+
+        mainViewModel.checkAutoLoginStatus()
 
         binding.rvSearchResult.adapter = adapter
 
-        val whenSearchTextChanged = binding.etSearch.textChanges()
-            .subscribe {
-                presenter.hasEnteredSearchText(it.toString())
+        mainViewModel.logoutResponse.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                when (mainViewModel.logoutResponse.get()) {
+                    LOGOUT_SUCCESS -> {
+                        startActivity(Intent(this@MainActivity, LoginActivity::class.java))
+                        finish()
+                    }
+                    LOGOUT_ERROR -> {
+                        toast(getString(R.string.main_error_delete_auth_toast_message))
+                    }
+                }
             }
-        compositeDisposable.add(whenSearchTextChanged)
+        })
 
-        val whenLogOutClicked = binding.btnLogout.clicks()
-            .subscribe {
-                presenter.deleteAutoLoginStatus(unit = it)
+        mainViewModel.getAuthError.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                toast(getString(R.string.error_get_auth_toast_message))
             }
-        compositeDisposable.add(whenLogOutClicked)
+        })
 
-        val whenArriveSearchResult = binding.btnSearch.clicks()
-            .toFlowable(BackpressureStrategy.BUFFER)
-            .doOnNext {
-                presenter.checkNetworkStatus()
+        mainViewModel.getMovieError.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                toast(getString(R.string.main_error_get_movie_data_toast_message))
             }
-            .startWith(Unit)
-            .subscribe {
-                presenter.getMovies(searchText = binding.etSearch.text.toString())
+        })
+
+        mainViewModel.movies.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                adapter.setData(mainViewModel.movies.get())
             }
-        compositeDisposable.add(whenArriveSearchResult)
-    }
+        })
 
-    override fun showLogOutButton() {
-        binding.btnLogout.visibility = View.VISIBLE
-    }
-
-    override fun enableSearchButton() {
-        binding.btnSearch.alpha = 1f
-        binding.btnSearch.isEnabled = true
-    }
-
-    override fun disableSearchButton() {
-        binding.btnSearch.alpha = 0.3f
-        binding.btnSearch.isEnabled = false
-    }
-
-    override fun startLoginActivity() {
-        startActivity(Intent(this, LoginActivity::class.java))
-        finish()
-    }
-
-    override fun showNetworkErrorText() {
-        binding.rvSearchResult.visibility = View.GONE
-        binding.tvNetworkError.visibility = View.VISIBLE
-    }
-
-    override fun hideNetworkErrorText() {
-        binding.rvSearchResult.visibility = View.VISIBLE
-        binding.tvNetworkError.visibility = View.GONE
-    }
-
-    override fun showGetMovieError() {
-        toast(getString(R.string.main_error_get_movie_data_toast_message))
-    }
-
-    override fun showLogOutError() {
-        toast(getString(R.string.main_error_delete_auth_toast_message))
-    }
-
-    override fun showGetAuthError() {
-        toast(getString(R.string.error_get_auth_toast_message))
-    }
-
-    override fun setMoviesInAdapter(movies: ArrayList<MovieDetail>) {
-        adapter.setData(movies)
+        mainViewModel.isNetworkConnected.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                if (!mainViewModel.isNetworkConnected.get()) {
+                    toast(resources.getString(R.string.main_network_error_message))
+                }
+            }
+        })
     }
 
     override fun onDestroy() {
-        presenter.onViewDestroy()
+        mainViewModel.onDestroy()
         super.onDestroy()
     }
 }

@@ -1,26 +1,20 @@
 package com.example.kangraemin.ui.splash
 
+import androidx.databinding.ObservableField
 import androidx.room.EmptyResultSetException
+import com.example.kangraemin.base.KangBaseViewModel
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.local.datamodel.Auth
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
-class SplashPresenter(
-    private val splashView: SplashContract.View,
+class SplashViewModel(
     private val authRepository: AuthRepository
-) : SplashContract.Presenter {
+) : KangBaseViewModel() {
 
-    private val compositeDisposable = CompositeDisposable()
-
-    private data class ResponseGetAuth(
-        val responseError: Boolean,
-        val responseResult: Auth = Auth(autoLogin = false),
-        val throwable: Throwable? = null
-    )
+    val observableSplashResult = ObservableField<SplashResult>()
 
     init {
         val splashTimer = Completable
@@ -41,19 +35,27 @@ class SplashPresenter(
                     responseGetAuth.throwable?.apply {
                         printStackTrace()
                         if (responseGetAuth.throwable is EmptyResultSetException) {
-                            splashView.startLoginActivity()
+                            observableSplashResult.set(SplashResult.NEED_LOGIN)
                         } else {
-                            splashView.showGetAuthError()
+                            observableSplashResult.set(SplashResult.AUTH_ERROR)
                         }
                     }
                 } else {
-                    splashView.startMainActivity()
+                    observableSplashResult.set(SplashResult.MAIN_VIEW)
                 }
             }, { it.printStackTrace() })
         compositeDisposable.add(splashTimer)
     }
 
-    override fun onViewDestroy() {
-        compositeDisposable.dispose()
+    enum class SplashResult {
+        NEED_LOGIN,
+        AUTH_ERROR,
+        MAIN_VIEW
     }
+
+    private data class ResponseGetAuth(
+        val responseError: Boolean,
+        val responseResult: Auth = Auth(autoLogin = false),
+        val throwable: Throwable? = null
+    )
 }

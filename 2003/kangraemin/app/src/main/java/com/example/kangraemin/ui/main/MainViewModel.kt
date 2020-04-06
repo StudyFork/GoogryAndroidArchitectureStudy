@@ -1,51 +1,53 @@
 package com.example.kangraemin.ui.main
 
+import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableField
 import androidx.room.EmptyResultSetException
+import com.example.kangraemin.base.KangBaseViewModel
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.MovieSearchRepository
 import com.example.kangraemin.model.local.datamodel.Auth
+import com.example.kangraemin.model.remote.datamodel.MovieDetail
 import com.example.kangraemin.model.remote.datamodel.Movies
 import com.example.kangraemin.util.NetworkUtil
+import com.example.kangraemin.util.NonNullObservableField
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 
-class MainPresenter(
-    private val mainView: MainContract.View,
+class MainViewModel(
     private val movieSearchRepository: MovieSearchRepository,
     private val authRepository: AuthRepository,
     private val networkUtil: NetworkUtil
-) : MainContract.Presenter {
-
-    private val compositeDisposable = CompositeDisposable()
+) : KangBaseViewModel() {
 
     private val searchTextSubject = PublishSubject.create<String>()
 
-    private data class ResponseMovieData(
-        val responseError: Boolean,
-        val responseResult: Movies = Movies(items = ArrayList()),
-        val throwable: Throwable? = null
-    )
+    val getMovieError: ObservableBoolean = ObservableBoolean(false)
+
+    val movies: NonNullObservableField<ArrayList<MovieDetail>> = NonNullObservableField(ArrayList())
 
     private val deleteAuthSubject = PublishSubject.create<Unit>()
 
-    private data class ResponseDeleteAuth(
-        val responseError: Boolean,
-        val throwable: Throwable? = null
-    )
+    val logoutResponse = ObservableField<LogoutResponse>()
 
     private val getAuthSubject = PublishSubject.create<Unit>()
 
-    private data class ResponseGetAuth(
-        val responseError: Boolean,
-        val responseResult: Auth = Auth(autoLogin = false),
-        val throwable: Throwable? = null
-    )
+    val getAuthError: ObservableField<Unit> = ObservableField(Unit)
+
+    val showLogoutButton: ObservableBoolean = ObservableBoolean(false)
+
+    val searchText: NonNullObservableField<String> = NonNullObservableField("")
+
+    val isNetworkConnected: ObservableBoolean = ObservableBoolean(true)
 
     init {
+
         val whenArrivedMovieData = searchTextSubject
+            .doOnNext {
+                getNetworkStatus()
+            }
             .toFlowable(BackpressureStrategy.DROP)
             .startWith("")
             .switchMap {
@@ -59,12 +61,12 @@ class MainPresenter(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ responseMovieData ->
                 if (responseMovieData.responseError) {
-                    mainView.showGetMovieError()
+                    getMovieError.set(true)
                     responseMovieData.throwable?.apply {
                         printStackTrace()
                     }
                 } else {
-                    mainView.setMoviesInAdapter(movies = responseMovieData.responseResult.items)
+                    movies.set(responseMovieData.responseResult.items)
                 }
             }, { it.printStackTrace() })
         compositeDisposable.add(whenArrivedMovieData)
@@ -79,12 +81,12 @@ class MainPresenter(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ responseDeleteAuth ->
                 if (responseDeleteAuth.responseError) {
-                    mainView.showLogOutError()
+                    logoutResponse.set(LogoutResponse.LOGOUT_ERROR)
                     responseDeleteAuth.throwable?.apply {
                         printStackTrace()
                     }
                 } else {
-                    mainView.startLoginActivity()
+                    logoutResponse.set(LogoutResponse.LOGOUT_SUCCESS)
                 }
             }, { it.printStackTrace() })
         compositeDisposable.add(deleteAuth)
@@ -103,49 +105,60 @@ class MainPresenter(
                 if (responseGetAuth.responseError) {
                     responseGetAuth.throwable?.apply {
                         if (this !is EmptyResultSetException) {
-                            mainView.showGetAuthError()
+                            getAuthError.set(Unit)
                         }
                         printStackTrace()
                     }
                 } else {
-                    mainView.showLogOutButton()
+                    showLogoutButton.set(true)
                 }
             }, { it.printStackTrace() })
         compositeDisposable.add(getAuth)
     }
 
-    override fun checkAutoLoginStatus() {
+    fun checkAutoLoginStatus() {
         getAuthSubject.onNext(Unit)
     }
 
-    override fun deleteAutoLoginStatus(unit: Unit) {
-        deleteAuthSubject.onNext(unit)
+    fun deleteAutoLoginStatus() {
+        deleteAuthSubject.onNext(Unit)
     }
 
-    override fun hasEnteredSearchText(searchText: String) {
-        if (searchText.isNotEmpty()) {
-            mainView.enableSearchButton()
-        } else {
-            mainView.disableSearchButton()
-        }
-    }
-
-    override fun checkNetworkStatus() {
-        when (networkUtil.getConnectivityStatus()) {
+    private fun getNetworkStatus() {
+        return when (networkUtil.getConnectivityStatus()) {
             NetworkUtil.NetworkStatus.NOT_CONNECTED -> {
-                mainView.showNetworkErrorText()
+                isNetworkConnected.set(false)
+                isNetworkConnected.notifyChange()
             }
             else -> {
-                mainView.hideNetworkErrorText()
+                isNetworkConnected.set(true)
             }
         }
     }
 
-    override fun getMovies(searchText: String) {
-        searchTextSubject.onNext(searchText)
+    fun movieSearch() {
+        searchTextSubject.onNext(searchText.get())
     }
 
-    override fun onViewDestroy() {
-        compositeDisposable.dispose()
+    enum class LogoutResponse {
+        LOGOUT_ERROR,
+        LOGOUT_SUCCESS
     }
+
+    private data class ResponseMovieData(
+        val responseError: Boolean,
+        val responseResult: Movies = Movies(items = ArrayList()),
+        val throwable: Throwable? = null
+    )
+
+    private data class ResponseDeleteAuth(
+        val responseError: Boolean,
+        val throwable: Throwable? = null
+    )
+
+    private data class ResponseGetAuth(
+        val responseError: Boolean,
+        val responseResult: Auth = Auth(autoLogin = false),
+        val throwable: Throwable? = null
+    )
 }

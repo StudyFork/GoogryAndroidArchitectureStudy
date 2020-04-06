@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="com.example.kangraemin.ui.login.LoginViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,11 +48,13 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_id"
                     style="@style/AppTheme.LoginEditText"
+                    bind:onFocusChange="@{(v, hasFocus) -> vm.checkIdIsEmpty(hasFocus)}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/login_hint_id"
                     android:inputType="text"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:text="@={vm.id}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,10 +74,12 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_pw"
                     style="@style/AppTheme.LoginEditText"
+                    bind:onFocusChange="@{(v, hasFocus) -> vm.checkPasswordIsEmpty(hasFocus)}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/login_hint_pw"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:text="@={vm.pw}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,9 +92,11 @@
 
                 <Button
                     android:id="@+id/btn_login"
+                    bind:activateLoginButton="@{vm.loginInfoEntered}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:onClick="@{() -> vm.login()}"
                     android:text="@string/login_btn"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -97,6 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp"
+                    android:checked="@={vm.autoLogin}"
                     android:text="@string/login_auto_login"
                     app:layout_constraintBottom_toBottomOf="@id/btn_login"
                     app:layout_constraintStart_toEndOf="@id/btn_login"
@@ -104,8 +115,8 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
