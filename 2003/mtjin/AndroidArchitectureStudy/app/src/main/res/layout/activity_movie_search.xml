@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
-            name="search"
-            type="com.mtjin.androidarchitecturestudy.ui.search.MovieSearchActivity" />
+            name="vm"
+            type="com.mtjin.androidarchitecturestudy.ui.search.MovieSearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,6 +32,7 @@
             android:layout_height="0dp"
             android:hint="@string/movie_search_input_hint"
             android:inputType="text"
+            android:text="@={vm.query}"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toStartOf="@+id/btn_search"
             app:layout_constraintHorizontal_weight="8"
@@ -39,7 +43,7 @@
             android:id="@+id/btn_search"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:onClick="@{()->search.onSearchClick()}"
+            android:onClick="@{()->vm.requestMovie()}"
             android:text="@string/movie_search_text"
             app:layout_constraintBottom_toTopOf="@id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,14 +61,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline" />
+            app:layout_constraintTop_toBottomOf="@id/guideline"
+            bind:endlessScroll="@{vm}"
+            bind:setItems="@{vm.movieList}" />
 
         <ProgressBar
             android:id="@+id/pb_loading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:visibility="gone"
+            android:visibility="@{vm.isLoading() ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

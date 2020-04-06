@@ -2,9 +2,9 @@ package com.mtjin.androidarchitecturestudy.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.Observable
 import com.mtjin.androidarchitecturestudy.R
+import com.mtjin.androidarchitecturestudy.base.BaseActivity
 import com.mtjin.androidarchitecturestudy.data.login.source.LoginRepository
 import com.mtjin.androidarchitecturestudy.data.login.source.LoginRepositoryImpl
 import com.mtjin.androidarchitecturestudy.data.login.source.local.LoginLocalDataSource
@@ -13,31 +13,47 @@ import com.mtjin.androidarchitecturestudy.ui.login.LoginActivity
 import com.mtjin.androidarchitecturestudy.ui.search.MovieSearchActivity
 import com.mtjin.androidarchitecturestudy.utils.PreferenceManager
 
-class SplashActivity : AppCompatActivity(), SplashContract.View {
-    private lateinit var presenter: SplashContract.Presenter
+class SplashActivity : BaseActivity() {
+    private lateinit var viewModel: SplashViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         inject()
+        initViewModelCallback()
+        viewModel.doSplash()
     }
 
     private fun inject() {
         val preferenceManager = PreferenceManager(this)
         val loginLocalDataSource: LoginLocalDataSource = LoginLocalDataSourceImpl(preferenceManager)
         val loginRepository: LoginRepository = LoginRepositoryImpl(loginLocalDataSource)
-        presenter = SplashPresenter(this, loginRepository)
+        viewModel = SplashViewModel(loginRepository)
     }
 
-    override fun showAutoLogin() {
-        Toast.makeText(this, getString(R.string.auto_login_msg), Toast.LENGTH_SHORT).show()
+    private fun initViewModelCallback() {
+        with(viewModel) {
+            goMovieSearch.addOnPropertyChangedCallback(object :
+                Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    goMovieSearch()
+                }
+            })
+            goLogin.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    goLogin()
+                }
+            })
+        }
     }
 
-    override fun goLogin() {
+
+    fun goLogin() {
         startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }
 
-    override fun goMovieSearch() {
+    fun goMovieSearch() {
+        showToast(getString(R.string.auto_login_msg))
         startActivity(Intent(this, MovieSearchActivity::class.java))
         finish()
     }
