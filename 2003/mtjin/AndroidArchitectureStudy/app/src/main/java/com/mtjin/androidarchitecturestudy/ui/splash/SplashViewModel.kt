@@ -1,17 +1,22 @@
 package com.mtjin.androidarchitecturestudy.ui.splash
 
-import androidx.databinding.ObservableBoolean
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.mtjin.androidarchitecturestudy.data.login.source.LoginRepository
 
-class SplashViewModel(private val loginRepository: LoginRepository) {
-    var goMovieSearch: ObservableBoolean = ObservableBoolean(false)
-    var goLogin: ObservableBoolean = ObservableBoolean(false)
+class SplashViewModel(private val loginRepository: LoginRepository) : ViewModel() {
+    private val _goMovieSearch: MutableLiveData<Unit> = MutableLiveData()
+    private val _goLogin: MutableLiveData<Unit> = MutableLiveData()
+
+    val goMovieSearch: LiveData<Unit> get() = _goMovieSearch
+    val goLogin: LiveData<Unit> get() = _goLogin
 
     fun doSplash() {
         if (loginRepository.autoLogin) {
-            goMovieSearch.notifyChange()
+            _goMovieSearch.value = Unit
         } else {
-            goLogin.notifyChange()
+            _goLogin.value = Unit
         }
     }
 }
