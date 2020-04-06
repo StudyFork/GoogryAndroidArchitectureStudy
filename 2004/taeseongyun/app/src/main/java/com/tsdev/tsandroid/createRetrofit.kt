@@ -23,15 +23,18 @@ fun <T> createRetrofit(baseUrl: String, cls: Class<T>): T {
 
 
 private fun okHttpClient(): OkHttpClient {
-    val httpLoggingInterceptor = HttpLoggingInterceptor()
-    return OkHttpClient.Builder().addInterceptor { chain ->
-        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-        val originRequest = chain.request()
-        chain.proceed(originRequest.newBuilder().apply {
-            addHeader(X_NAVER_CLIENT_ID, BuildConfig.Client_ID)
-            addHeader(X_NAVER_CLIENT_SECRET, BuildConfig.Client_SECRET)
-        }.build())
-    }.writeTimeout(REQUEST_TIME_OUT, TimeUnit.MILLISECONDS)
+    return OkHttpClient.Builder().addInterceptor(
+        HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        })
+        .addInterceptor { chain ->
+            val originRequest = chain.request()
+            chain.proceed(originRequest.newBuilder().apply {
+                addHeader(X_NAVER_CLIENT_ID, BuildConfig.Client_ID)
+                addHeader(X_NAVER_CLIENT_SECRET, BuildConfig.Client_SECRET)
+            }.build())
+        }
+        .writeTimeout(REQUEST_TIME_OUT, TimeUnit.MILLISECONDS)
         .readTimeout(REQUEST_TIME_OUT, TimeUnit.MILLISECONDS)
         .connectTimeout(REQUEST_TIME_OUT, TimeUnit.MILLISECONDS)
         .build()
