@@ -16,6 +16,15 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
     buildTypes {
         debug {
             buildConfigField "String", "Client_ID", rootProject.ext.client_ID
@@ -37,6 +46,8 @@ dependencies {
     implementation deps.androidx.constraintlayout
     implementation deps.androidx.ktx.core
     implementation deps.androidx.ktx.fragment
+    api deps.androidx.material
+    implementation deps.androidx.recyclerview
 
     //test
     testImplementation deps.junit
@@ -45,10 +56,18 @@ dependencies {
 
     //retrofit
     implementation deps.library.squareup.retrofit
-    implementation deps.library.squareup.adapter_rxjava2
+    implementation deps.library.squareup.adapter_rxjava3
     implementation deps.library.squareup.retrofit_gson_converter
 
     //okhttp
     implementation deps.library.squareup.okhttp
     implementation deps.library.squareup.okhttp_logging_interceptor
+
+    //glide
+    implementation deps.library.glide
+    implementation deps.library.glide_blur
+
+    //rx
+    implementation deps.library.rx.java
+    implementation deps.library.rx.android
 }
