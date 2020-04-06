@@ -7,7 +7,6 @@ import android.text.Spanned
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 
-
 @TargetApi(Build.VERSION_CODES.N)
 @BindingAdapter("android:htmlText")
 fun androidHtmlText(textView: TextView, htmlText: String?) {

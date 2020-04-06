@@ -27,7 +27,6 @@ class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         )
         val holder = MovieViewHolder(binding)
 
-        //-onClick은 onCrateViewHoler에서 선언, *bindViewHolder에서 선언하면 bind할 때마다 생성되는 문제
         holder.itemView.setOnClickListener {
             onClickListener(movieInfoArrayList[holder.adapterPosition])
         }
@@ -49,10 +48,10 @@ class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return movieInfoArrayList.size
     }
 
-    fun addItems(items: List<MovieEntity>) {
+    fun addItems(items: List<MovieEntity>?) {
+        items as ArrayList<MovieEntity>
         movieInfoArrayList.clear()
         movieInfoArrayList.addAll(items)
-
         notifyDataSetChanged()
     }
 
@@ -60,6 +59,7 @@ class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: MovieEntity) {
             binding.setVariable(BR.movie, data)
+            binding.executePendingBindings()
         }
     }
 }

@@ -6,8 +6,13 @@
     <data>
 
         <variable
-            name="activity"
-            type="com.example.myapplication.ui.SearchMovieActivity" />
+            name="vm"
+            type="com.example.myapplication.ui.SearchMovieViewModel" />
+
+        <variable
+            name="adapter"
+            type="com.example.myapplication.ui.SearchMovieAdapter" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,6 +27,7 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
             android:inputType="textPersonName"
+            android:text="@={vm.query}"
             app:layout_constraintEnd_toStartOf="@+id/btn_search"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:onClick="@{activity::onSearchMovieClick}"
+            android:onClick="@{() -> vm.searchMovie()}"
             android:text="@string/activity_btn_search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -41,6 +47,7 @@
             android:id="@+id/rv_movie"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:adapter="@{adapter}"
             app:layoutManager="LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
