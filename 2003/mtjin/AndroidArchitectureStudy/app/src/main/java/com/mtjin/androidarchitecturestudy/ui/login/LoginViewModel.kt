@@ -1,28 +1,35 @@
 package com.mtjin.androidarchitecturestudy.ui.login
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.mtjin.androidarchitecturestudy.data.login.source.LoginRepository
 
-class LoginViewModel(private val loginRepository: LoginRepository) {
-    var id: ObservableField<String> = ObservableField("")
-    var pw: ObservableField<String> = ObservableField("")
-    var isIdEmpty: ObservableField<Unit> = ObservableField()
-    var isPwEmpty: ObservableField<Unit> = ObservableField()
-    var loginErrorMsg: ObservableField<Unit> = ObservableField()
-    var successLogin: ObservableField<Unit> = ObservableField()
+class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
+    val id: MutableLiveData<String> = MutableLiveData("")
+    val pw: MutableLiveData<String> = MutableLiveData("")
+    private val _isIdEmpty: MutableLiveData<Unit> = MutableLiveData()
+    private val _isPwEmpty: MutableLiveData<Unit> = MutableLiveData()
+    private val _loginErrorMsg: MutableLiveData<Unit> = MutableLiveData()
+    private val _successLogin: MutableLiveData<Unit> = MutableLiveData()
+
+    val isIdEmpty: LiveData<Unit> get() = _isIdEmpty
+    val isPwEmpty: LiveData<Unit> get() = _isPwEmpty
+    val loginErrorMsg: LiveData<Unit> get() = _loginErrorMsg
+    val successLogin: LiveData<Unit> get() = _successLogin
 
     fun onLoginClick() {
-        val id = id.get().toString().trim()
-        val pw = pw.get().toString().trim()
+        val id = id.value.toString().trim()
+        val pw = pw.value.toString().trim()
         if (id.isEmpty()) {
-            isIdEmpty.notifyChange()
+            _isIdEmpty.value = Unit
         } else if (pw.isEmpty()) {
-            isPwEmpty.notifyChange()
+            _isPwEmpty.value = Unit
         } else if (id != USER_ID || pw != USER_PW) {
-            loginErrorMsg.notifyChange()
+            _loginErrorMsg.value = Unit
         } else {
             loginRepository.autoLogin = true
-            successLogin.notifyChange()
+            _successLogin.value = Unit
         }
     }
 

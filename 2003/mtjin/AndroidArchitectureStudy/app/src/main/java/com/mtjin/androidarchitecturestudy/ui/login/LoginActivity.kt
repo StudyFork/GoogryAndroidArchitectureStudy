@@ -2,8 +2,11 @@ package com.mtjin.androidarchitecturestudy.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.mtjin.androidarchitecturestudy.R
 import com.mtjin.androidarchitecturestudy.base.BaseActivity
 import com.mtjin.androidarchitecturestudy.data.login.source.LoginRepository
@@ -16,7 +19,16 @@ import com.mtjin.androidarchitecturestudy.utils.PreferenceManager
 
 class LoginActivity : BaseActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var viewModel: LoginViewModel
+    private lateinit var preferenceManager: PreferenceManager
+    private lateinit var loginLocalDataSource: LoginLocalDataSource
+    private lateinit var loginRepository: LoginRepository
+    private val viewModel: LoginViewModel by viewModels {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return LoginViewModel(loginRepository) as T
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,53 +39,39 @@ class LoginActivity : BaseActivity() {
     private fun inject() {
         binding =
             DataBindingUtil.setContentView(this, R.layout.activity_login)
-        val preferenceManager = PreferenceManager(this)
-        val loginLocalDataSource: LoginLocalDataSource = LoginLocalDataSourceImpl(preferenceManager)
-        val loginRepository: LoginRepository = LoginRepositoryImpl(loginLocalDataSource)
-        viewModel = LoginViewModel(loginRepository)
+        preferenceManager = PreferenceManager(this)
+        loginLocalDataSource = LoginLocalDataSourceImpl(preferenceManager)
+        loginRepository = LoginRepositoryImpl(loginLocalDataSource)
         binding.vm = viewModel
     }
 
     private fun initViewModelCallback() {
         with(viewModel) {
-            isIdEmpty.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    showIdEmptyError()
-                }
-
+            isIdEmpty.observe(this@LoginActivity, Observer {
+                showIdEmptyError()
             })
-            isPwEmpty.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    showPwEmptyError()
-                }
-
+            isPwEmpty.observe(this@LoginActivity, Observer {
+                showPwEmptyError()
             })
-            loginErrorMsg.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    showToast(getString(R.string.id_pw_not_correct_error_msg))
-                }
-
+            loginErrorMsg.observe(this@LoginActivity, Observer {
+                showToast(getString(R.string.id_pw_not_correct_error_msg))
             })
-            successLogin.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    goMovieSearch()
-                }
-
+            successLogin.observe(this@LoginActivity, Observer {
+                goMovieSearch()
             })
         }
     }
 
-    fun showIdEmptyError() {
+    private fun showIdEmptyError() {
         binding.etId.error = getString(R.string.id_empty_error_msg)
     }
 
-    fun showPwEmptyError() {
+    private fun showPwEmptyError() {
         binding.etPw.error = getString(R.string.pw_empty_error_msg)
     }
 
-    fun goMovieSearch() {
+    private fun goMovieSearch() {
+        showToast(getString(R.string.login_success_msg))
         startActivity(Intent(this, MovieSearchActivity::class.java))
         finish()
     }
