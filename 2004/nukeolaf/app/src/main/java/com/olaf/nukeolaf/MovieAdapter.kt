@@ -16,7 +16,10 @@ class MovieAdapter(
     private var movies: ArrayList<MovieItem> = ArrayList()
 
     fun setMovies(list: List<MovieItem>) {
-        this.movies.addAll(list)
+        this.movies.apply {
+            clear()
+            addAll(list)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
