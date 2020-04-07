@@ -10,9 +10,10 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_movies_rv.view.*
 
 class MovieAdapter(
-    private var movies: ArrayList<MovieItem>,
     private val itemListener: MovieItemListener
 ) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+
+    private lateinit var movies: ArrayList<MovieItem>
 
     fun setMovies(list: ArrayList<MovieItem>) {
         this.movies = list

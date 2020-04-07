@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-    private val movieAdapter = MovieAdapter(ArrayList(0), itemListener)
+    private val movieAdapter = MovieAdapter(itemListener)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
