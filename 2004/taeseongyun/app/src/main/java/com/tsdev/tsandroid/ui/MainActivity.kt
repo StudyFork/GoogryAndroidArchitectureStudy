@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewViewHolder.OnClickDel
 
         movie_recycler.run {
             adapter = movieRecyclerAdapter
-            layoutManager = LinearLayoutManager(this.context)
         }
     }
 
