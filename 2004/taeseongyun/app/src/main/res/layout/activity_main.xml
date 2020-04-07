@@ -26,6 +26,9 @@
                     android:background="@drawable/edit_text_background">
 
                     <EditText
+                        android:maxLines="1"
+                        android:inputType="text"
+                        android:imeOptions="actionDone"
                         android:id="@+id/edit_query"
                         android:layout_marginStart="@dimen/spacing_normal"
                         android:layout_width="match_parent"
