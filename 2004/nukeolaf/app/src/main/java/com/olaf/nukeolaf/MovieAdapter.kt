@@ -38,15 +38,12 @@ class MovieAdapter(
         private var view = itemView
 
         fun bind(item: MovieItem, position: Int) {
-            val director = "감독 : ${item.director.replace("|", " ")}"
-            val actor = "출연진 : ${item.actor.replace("|", " ")}"
-
             view.apply {
                 movie_title.text = item.title.htmlToString()
                 movie_subtitle.text = item.subtitle
                 movie_pub_date.text = item.pubDate
-                movie_director.text = director
-                movie_actor.text = actor
+                movie_director.text = item.director.addCommas("감독 : ")
+                movie_actor.text = item.actor.addCommas("출연진 : ")
                 movie_rating.numStars = 5
                 movie_rating.rating = item.userRating / 2
                 setOnClickListener {
@@ -64,6 +61,20 @@ class MovieAdapter(
             } else {
                 Html.fromHtml(this).toString()
             }
+        }
+
+        private fun String.addCommas(prefix: String): String {
+            return if (this.isNotEmpty()) {
+                this.substring(0, this.length - 1)
+                    .split("|")
+                    .joinToString(
+                        prefix = prefix,
+                        separator = ", "
+                    )
+            } else {
+                this
+            }
+
         }
 
     }
