@@ -1,7 +1,7 @@
 package com.example.kangraemin.ui.main
 
-import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.EmptyResultSetException
 import com.example.kangraemin.base.KangBaseViewModel
 import com.example.kangraemin.model.AuthRepository
@@ -10,7 +10,7 @@ import com.example.kangraemin.model.local.datamodel.Auth
 import com.example.kangraemin.model.remote.datamodel.MovieDetail
 import com.example.kangraemin.model.remote.datamodel.Movies
 import com.example.kangraemin.util.NetworkUtil
-import com.example.kangraemin.util.NonNullObservableField
+import com.example.kangraemin.util.NonNullMutableLiveData
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -24,25 +24,41 @@ class MainViewModel(
 
     private val searchTextSubject = PublishSubject.create<String>()
 
-    val getMovieError: ObservableBoolean = ObservableBoolean(false)
+    private val _getMovieError: MutableLiveData<Boolean> = MutableLiveData()
 
-    val movies: NonNullObservableField<ArrayList<MovieDetail>> = NonNullObservableField(ArrayList())
+    val getMovieError: LiveData<Boolean> = _getMovieError
+
+    private val _movies: MutableLiveData<ArrayList<MovieDetail>> = MutableLiveData()
+
+    val movies: LiveData<ArrayList<MovieDetail>> = _movies
 
     private val deleteAuthSubject = PublishSubject.create<Unit>()
 
-    val logOutSuccess: ObservableField<Unit> = ObservableField()
+    private val _logOutSuccess: MutableLiveData<Unit> = MutableLiveData()
 
-    val logOutFail: ObservableField<Unit> = ObservableField()
+    val logOutSuccess: LiveData<Unit> = _logOutSuccess
+
+    private val _logOutFail: MutableLiveData<Unit> = MutableLiveData()
+
+    val logOutFail: LiveData<Unit> = _logOutFail
 
     private val getAuthSubject = PublishSubject.create<Unit>()
 
-    val getAuthError: ObservableField<Unit> = ObservableField(Unit)
+    private val _getAuthError: MutableLiveData<Unit> = MutableLiveData()
 
-    val showLogoutButton: ObservableBoolean = ObservableBoolean(false)
+    val getAuthError: LiveData<Unit> = _getAuthError
 
-    val searchText: NonNullObservableField<String> = NonNullObservableField("")
+    private val _showLogoutButton: MutableLiveData<Boolean> = MutableLiveData()
 
-    val isNetworkConnected: ObservableBoolean = ObservableBoolean(true)
+    val showLogoutButton: LiveData<Boolean> = _showLogoutButton
+
+    private val _searchText: NonNullMutableLiveData<String> = NonNullMutableLiveData("")
+
+    val searchText: MutableLiveData<String> = _searchText
+
+    private val _isNetworkConnected: MutableLiveData<Boolean> = MutableLiveData()
+
+    val isNetworkConnected: LiveData<Boolean> = _isNetworkConnected
 
     init {
 
@@ -63,12 +79,12 @@ class MainViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ responseMovieData ->
                 if (responseMovieData.responseError) {
-                    getMovieError.set(true)
+                    _getMovieError.value = true
                     responseMovieData.throwable?.apply {
                         printStackTrace()
                     }
                 } else {
-                    movies.set(responseMovieData.responseResult.items)
+                    _movies.value = responseMovieData.responseResult.items
                 }
             }, { it.printStackTrace() })
         compositeDisposable.add(whenArrivedMovieData)
@@ -83,12 +99,12 @@ class MainViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ responseDeleteAuth ->
                 if (responseDeleteAuth.responseError) {
-                    logOutFail.notifyChange()
+                    _logOutFail.value = Unit
                     responseDeleteAuth.throwable?.apply {
                         printStackTrace()
                     }
                 } else {
-                    logOutSuccess.notifyChange()
+                    _logOutSuccess.value = Unit
                 }
             }, { it.printStackTrace() })
         compositeDisposable.add(deleteAuth)
@@ -107,12 +123,12 @@ class MainViewModel(
                 if (responseGetAuth.responseError) {
                     responseGetAuth.throwable?.apply {
                         if (this !is EmptyResultSetException) {
-                            getAuthError.set(Unit)
+                            _getAuthError.value = Unit
                         }
                         printStackTrace()
                     }
                 } else {
-                    showLogoutButton.set(true)
+                    _showLogoutButton.value = true
                 }
             }, { it.printStackTrace() })
         compositeDisposable.add(getAuth)
@@ -129,17 +145,16 @@ class MainViewModel(
     private fun getNetworkStatus() {
         return when (networkUtil.getConnectivityStatus()) {
             NetworkUtil.NetworkStatus.NOT_CONNECTED -> {
-                isNetworkConnected.set(false)
-                isNetworkConnected.notifyChange()
+                _isNetworkConnected.value = false
             }
             else -> {
-                isNetworkConnected.set(true)
+                _isNetworkConnected.value = true
             }
         }
     }
 
     fun movieSearch() {
-        searchTextSubject.onNext(searchText.get())
+        searchTextSubject.onNext(_searchText.value)
     }
 
     private data class ResponseMovieData(
