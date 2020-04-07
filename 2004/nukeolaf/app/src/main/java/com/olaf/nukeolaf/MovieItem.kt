@@ -1,7 +1,9 @@
 package com.olaf.nukeolaf
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class MovieItem(
     val title: String,
     val link: String,
@@ -11,4 +13,4 @@ data class MovieItem(
     val director: String,
     val actor: String,
     val userRating: Float
-) : Serializable
+) : Parcelable
