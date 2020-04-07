@@ -13,10 +13,10 @@ class MovieAdapter(
     private val itemListener: MovieItemListener
 ) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
-    private var movies: List<MovieItem> = ArrayList()
+    private var movies: ArrayList<MovieItem> = ArrayList()
 
     fun setMovies(list: List<MovieItem>) {
-        this.movies = list
+        this.movies.addAll(list)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
