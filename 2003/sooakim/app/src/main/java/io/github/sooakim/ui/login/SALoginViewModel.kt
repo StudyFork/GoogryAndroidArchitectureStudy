@@ -44,7 +44,7 @@ class SALoginViewModel(
             .doOnError { hideLoading() }
             .doOnError { error -> handleError(error) }
             .retry { error -> (error is HttpException) }
-            .subscribe { runState(SALoginState.ShowMain()) }
+            .subscribe { runState(SALoginState.ShowMain) }
             .addTo(compositeDisposable)
     }
 

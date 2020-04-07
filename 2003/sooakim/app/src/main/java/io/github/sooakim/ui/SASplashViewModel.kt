@@ -10,9 +10,9 @@ class SASplashViewModel(
     init {
         val isAuthRequired = authRepository.isAuthRequired
         if (isAuthRequired) {
-            runState(SASplashState.ShowLogin())
+            runState(SASplashState.ShowLogin)
         } else {
-            runState(SASplashState.ShowMain())
+            runState(SASplashState.ShowMain)
         }
     }
 }

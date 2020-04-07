@@ -3,5 +3,5 @@ package io.github.sooakim.ui.login
 import io.github.sooakim.ui.base.SAState
 
 sealed class SALoginState : SAState {
-    class ShowMain : SALoginState()
+    object ShowMain : SALoginState()
 }
