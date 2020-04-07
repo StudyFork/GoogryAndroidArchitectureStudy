@@ -1,12 +1,12 @@
 package io.github.sooakim.ui.login
 
-import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import io.github.sooakim.R
 import io.github.sooakim.domain.repository.SAAuthRepository
 import io.github.sooakim.ui.base.SAViewModel
-import io.github.sooakim.util.NotNullObservableField
+import io.github.sooakim.util.NotNullMutableLiveData
 import io.github.sooakim.util.ResourceProvider
 import io.reactivex.BackpressureStrategy
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,21 +17,20 @@ import java.util.concurrent.TimeUnit
 
 class SALoginViewModel(
     private val resourceProvider: ResourceProvider,
-    authRepository: SAAuthRepository,
-    navigator: SALoginNavigator
-) : SAViewModel<SALoginNavigator>(navigator) {
-    private val _isLoading: ObservableBoolean = ObservableBoolean(false)
-    private val _id: NotNullObservableField<String> = NotNullObservableField("")
-    private val _password: NotNullObservableField<String> = NotNullObservableField("")
-    private val _errorId: ObservableField<String> = ObservableField()
-    private val _errorPassword: ObservableField<String> = ObservableField()
+    authRepository: SAAuthRepository
+) : SAViewModel<SALoginState>() {
+    private val _isLoading: NotNullMutableLiveData<Boolean> = NotNullMutableLiveData(false)
+    private val _id: NotNullMutableLiveData<String> = NotNullMutableLiveData("")
+    private val _password: NotNullMutableLiveData<String> = NotNullMutableLiveData("")
+    private val _errorId: MutableLiveData<String> = MutableLiveData()
+    private val _errorPassword: MutableLiveData<String> = MutableLiveData()
     private val _loginClick: PublishSubject<Unit> = PublishSubject.create()
 
-    val isLoading: ObservableBoolean = _isLoading
-    val id: ObservableField<String> = _id
-    val password: ObservableField<String> = _password
-    val errorId: ObservableField<String> = _errorId
-    val errorPassword: ObservableField<String> = _errorPassword
+    val isLoading: LiveData<Boolean> = _isLoading
+    val id: MutableLiveData<String> = _id
+    val password: MutableLiveData<String> = _password
+    val errorId: LiveData<String> = _errorId
+    val errorPassword: LiveData<String> = _errorPassword
     val loginClick: Subject<Unit> = _loginClick
 
     init {
@@ -40,12 +39,12 @@ class SALoginViewModel(
             .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
             .doOnNext { clearErrors() }
             .doOnNext { showLoading() }
-            .switchMap { authRepository.login(_id.get(), _password.get()) }
+            .switchMap { authRepository.login(_id.value, _password.value) }
             .doOnNext { hideLoading() }
             .doOnError { hideLoading() }
             .doOnError { error -> handleError(error) }
             .retry { error -> (error is HttpException) }
-            .subscribe { navigator.showMain() }
+            .subscribe { runState(SALoginState.ShowMain) }
             .addTo(compositeDisposable)
     }
 
@@ -69,23 +68,24 @@ class SALoginViewModel(
     }
 
     private fun clearErrors() {
-        _errorId.set(null)
-        _errorPassword.set(null)
+        _errorId.value = null
+        _errorPassword.value = null
     }
 
     private fun showIdError() {
-        _errorId.set(resourceProvider.getString(R.string.activity_login_iet_id_error))
+        _errorId.value = resourceProvider.getString(R.string.activity_login_iet_id_error)
     }
 
     private fun showPasswordError() {
-        _errorPassword.set(resourceProvider.getString(R.string.activity_login_iet_password_error))
+        _errorPassword.value =
+            resourceProvider.getString(R.string.activity_login_iet_password_error)
     }
 
     private fun showLoading() {
-        _isLoading.set(true)
+        _isLoading.value = true
     }
 
     private fun hideLoading() {
-        _isLoading.set(false)
+        _isLoading.value = false
     }
 }

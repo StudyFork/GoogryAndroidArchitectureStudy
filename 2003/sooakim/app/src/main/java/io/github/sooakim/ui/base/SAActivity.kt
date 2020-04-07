@@ -8,10 +8,11 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import io.github.sooakim.BR
 import io.github.sooakim.ui.application.SAApplication
 
-abstract class SAActivity<VDB : ViewDataBinding, VM : SAViewModel<*>>(
+abstract class SAActivity<VDB : ViewDataBinding, VM : SAViewModel<*>, S : SAState>(
     @LayoutRes
     protected val layoutResId: Int = 0
 ) : AppCompatActivity() {
@@ -41,7 +42,6 @@ abstract class SAActivity<VDB : ViewDataBinding, VM : SAViewModel<*>>(
                         viewModel.stop()
                     }
                     Lifecycle.Event.ON_DESTROY -> {
-                        viewModel.destroy()
                         lifecycle.removeObserver(this)
                     }
                     else -> {
@@ -59,6 +59,17 @@ abstract class SAActivity<VDB : ViewDataBinding, VM : SAViewModel<*>>(
                 setVariable(viewModelBrId, viewModel)
             }
         }
+
+        viewModel.state.observe(this, Observer {
+            if (it != null && it.isConsumed.compareAndSet(false, true)) {
+                @Suppress("UNCHECKED_CAST")
+                onState(it.event as S)
+            }
+        })
+    }
+
+    protected open fun onState(newState: S) {
+
     }
 
     @Throws(IllegalStateException::class)
@@ -66,7 +77,7 @@ abstract class SAActivity<VDB : ViewDataBinding, VM : SAViewModel<*>>(
         if (applicationContext is SAApplication) {
             return application!!
         } else {
-            throw IllegalStateException("applicationContext is not instance of SAApplication")
+            throw IllegalStateException("applicationContext is not instance of SAApplviication")
         }
     }
 }
