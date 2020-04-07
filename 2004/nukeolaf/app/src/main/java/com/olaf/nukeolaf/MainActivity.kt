@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                     if (movieResponse != null) {
                         val movies = movieResponse.items
                         if (movies.isNotEmpty()) {
-                            showMovies(movies as ArrayList<MovieItem>)
+                            showMovies(movies)
                         } else {
                             makeToast("${query}에 대한 검색결과가 없습니다")
                         }
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun showMovies(movies: ArrayList<MovieItem>) {
+    private fun showMovies(movies: List<MovieItem>) {
         movieAdapter.run {
             setMovies(movies)
             notifyDataSetChanged()
