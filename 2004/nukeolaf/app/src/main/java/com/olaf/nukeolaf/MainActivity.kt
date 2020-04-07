@@ -1,6 +1,7 @@
 package com.olaf.nukeolaf
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -15,8 +16,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var retrofitClient: RetrofitInterface
     private val itemListener: MovieItemListener = object : MovieItemListener {
         override fun onMovieItemClick(item: MovieItem) {
-            val intent = Intent(this@MainActivity, MovieDetailActivity::class.java)
-            intent.putExtra("movieItem", item)
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
             startActivity(intent)
         }
     }
