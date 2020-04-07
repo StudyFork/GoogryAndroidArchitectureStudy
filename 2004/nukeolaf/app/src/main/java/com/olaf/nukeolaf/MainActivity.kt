@@ -52,17 +52,12 @@ class MainActivity : AppCompatActivity() {
                 call: Call<MovieResponse>,
                 response: Response<MovieResponse>
             ) {
-                if (response.isSuccessful) {
-                    val movieResponse = response.body()
-                    if (movieResponse != null) {
-                        val movies = movieResponse.items
-                        if (movies.isNotEmpty()) {
-                            showMovies(movies)
-                        } else {
-                            makeToast("${query}에 대한 검색결과가 없습니다")
-                        }
+                if (response.body() != null && response.isSuccessful) {
+                    val movies = response.body()!!.items
+                    if (movies.isNotEmpty()) {
+                        showMovies(movies)
                     } else {
-                        makeToast("응답값이 없습니다")
+                        makeToast("${query}에 대한 검색결과가 없습니다")
                     }
                 } else {
                     makeToast("서버 에러 : 서버에 문제가 있습니다")
