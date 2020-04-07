@@ -5,5 +5,5 @@ data class MovieResponse(
     val total: String,
     val start: String,
     val display: String,
-    val items: ArrayList<MovieItem>
+    val items: List<MovieItem>
 )

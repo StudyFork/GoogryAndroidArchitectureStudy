@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun showMovies(movies: ArrayList<MovieItem>) {
+    private fun showMovies(movies: List<MovieItem>) {
         movieAdapter.run {
             setMovies(movies)
             notifyDataSetChanged()

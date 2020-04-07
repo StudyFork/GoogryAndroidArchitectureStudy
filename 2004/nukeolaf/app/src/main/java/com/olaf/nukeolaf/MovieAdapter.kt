@@ -13,9 +13,9 @@ class MovieAdapter(
     private val itemListener: MovieItemListener
 ) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
-    private lateinit var movies: ArrayList<MovieItem>
+    private lateinit var movies: List<MovieItem>
 
-    fun setMovies(list: ArrayList<MovieItem>) {
+    fun setMovies(list: List<MovieItem>) {
         this.movies = list
     }
 
