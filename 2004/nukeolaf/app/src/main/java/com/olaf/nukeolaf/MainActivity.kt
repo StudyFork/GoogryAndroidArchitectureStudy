@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var retrofitClient: RetrofitInterface
     private val itemListener: MovieItemListener = object : MovieItemListener {
         override fun onMovieItemClick(item: MovieItem) {
-            var intent = Intent(this@MainActivity, MovieDetailActivity::class.java)
+            val intent = Intent(this@MainActivity, MovieDetailActivity::class.java)
             intent.putExtra("movieItem", item)
             startActivity(intent)
         }
