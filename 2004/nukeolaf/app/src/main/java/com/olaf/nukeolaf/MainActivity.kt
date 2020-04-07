@@ -55,16 +55,24 @@ class MainActivity : AppCompatActivity() {
                 response: Response<MovieResponse>
             ) {
                 if (response.isSuccessful) {
-                    showMovies(response.body()!!.items).also {
-                        Log.d("searchMovie", response.toString())
-                        Log.d("searchMovie", response.body().toString())
+                    val movieResponse = response.body()
+                    if (movieResponse != null) {
+                        val movies = movieResponse.items
+                        if (movies.isNotEmpty()) {
+                            showMovies(movies)
+                        } else {
+                            makeToast("${query}에 대한 검색결과가 없습니다")
+                        }
+                    } else {
+                        makeToast("응답값이 없습니다")
                     }
                 } else {
-
+                    makeToast("서버 에러 : 서버에 문제가 있습니다")
                 }
             }
 
             override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+                makeToast("네트워크 에러 : 인터넷 연결을 확인해 주세요")
                 Log.d("searchMovie", t.toString())
             }
         })
