@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface RetrofitInterface {
 
-    @GET("movie.json")
+    @GET("/v1/search/movie.json")
     fun searchMovie(
         @Header("X-Naver-Client-Id") clientId: String,
         @Header("X-Naver-Client-Secret") clientSecret: String,
