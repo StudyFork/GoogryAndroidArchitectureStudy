@@ -23,7 +23,7 @@ class MovieAdapter(
         val inflatedView = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.item_movies_rv, parent, false)
-        return (ViewHolder(inflatedView))
+        return ViewHolder(inflatedView)
     }
 
     override fun getItemCount(): Int {
