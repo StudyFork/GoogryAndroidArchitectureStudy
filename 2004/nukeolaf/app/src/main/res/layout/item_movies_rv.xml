@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingStart="5dp"
@@ -39,11 +40,11 @@
                 android:layout_marginEnd="10dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="영화 제목"
                 android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/movie_image"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="영화 제목" />
 
             <TextView
                 android:id="@+id/movie_subtitle"
@@ -53,11 +54,11 @@
                 android:layout_marginEnd="10dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="movie title"
                 android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/movie_image"
-                app:layout_constraintTop_toBottomOf="@id/movie_title" />
+                app:layout_constraintTop_toBottomOf="@id/movie_title"
+                tools:text="movie title" />
 
             <TextView
                 android:id="@+id/movie_pub_date"
@@ -66,11 +67,11 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:maxLines="1"
-                android:text="2020"
                 android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/movie_image"
-                app:layout_constraintTop_toBottomOf="@id/movie_subtitle" />
+                app:layout_constraintTop_toBottomOf="@id/movie_subtitle"
+                tools:text="2020" />
 
             <TextView
                 android:id="@+id/movie_director"
@@ -80,11 +81,11 @@
                 android:layout_marginEnd="10dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="감독 : 김아무개"
                 android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/movie_image"
-                app:layout_constraintTop_toBottomOf="@id/movie_pub_date" />
+                app:layout_constraintTop_toBottomOf="@id/movie_pub_date"
+                tools:text="감독 : 김아무개" />
 
             <TextView
                 android:id="@+id/movie_actor"
@@ -94,11 +95,11 @@
                 android:layout_marginEnd="10dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="출연진 : 김수한무, 홍길동"
                 android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/movie_image"
-                app:layout_constraintTop_toBottomOf="@id/movie_director" />
+                app:layout_constraintTop_toBottomOf="@id/movie_director"
+                tools:text="출연진 : 김수한무, 홍길동" />
 
             <androidx.appcompat.widget.AppCompatRatingBar
                 android:id="@+id/movie_rating"
