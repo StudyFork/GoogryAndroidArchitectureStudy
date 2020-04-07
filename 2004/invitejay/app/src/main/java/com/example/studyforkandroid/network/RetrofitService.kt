@@ -1,4 +1,4 @@
-package com.example.studyforkandroid.Network
+package com.example.studyforkandroid.network
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -6,8 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitService {
 
-
-    private var baseUrl: String = "https://openapi.naver.com/v1/"
+    private const val baseUrl: String = "https://openapi.naver.com/v1/"
 
     val instance: RetrofitAPI by lazy {
         val retrofit = Retrofit.Builder()

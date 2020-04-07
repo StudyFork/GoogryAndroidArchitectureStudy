@@ -1,4 +1,4 @@
-package com.example.studyforkandroid.Network
+package com.example.studyforkandroid.network
 
 import com.example.studyforkandroid.data.MovieRes
 import retrofit2.Call
