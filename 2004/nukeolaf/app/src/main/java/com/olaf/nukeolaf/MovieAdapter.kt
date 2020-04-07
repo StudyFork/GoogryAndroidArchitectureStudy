@@ -36,10 +36,8 @@ class MovieAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private var view = itemView
-
-        fun bind(item: MovieItem, position: Int) {
-            view.apply {
+        fun bind(item: MovieItem) {
+            itemView.apply {
                 movie_title.text = item.title.htmlToString()
                 movie_subtitle.text = item.subtitle
                 movie_pub_date.text = item.pubDate
@@ -50,10 +48,10 @@ class MovieAdapter(
                 setOnClickListener {
                     itemListener.onMovieItemClick(item)
                 }
+                Glide.with(this)
+                    .load(item.image)
+                    .into(this.movie_image)
             }
-            Glide.with(view)
-                .load(item.image)
-                .into(view.movie_image)
         }
 
         private fun String.htmlToString(): String {
