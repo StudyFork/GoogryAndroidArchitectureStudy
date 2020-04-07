@@ -53,9 +53,13 @@ class MainActivity : AppCompatActivity() {
                 call: Call<MovieResponse>,
                 response: Response<MovieResponse>
             ) {
-                showMovies(response.body()!!.items).also {
-                    Log.d("searchMovie", response.toString())
-                    Log.d("searchMovie", response.body().toString())
+                if (response.isSuccessful) {
+                    showMovies(response.body()!!.items).also {
+                        Log.d("searchMovie", response.toString())
+                        Log.d("searchMovie", response.body().toString())
+                    }
+                } else {
+
                 }
             }
 
