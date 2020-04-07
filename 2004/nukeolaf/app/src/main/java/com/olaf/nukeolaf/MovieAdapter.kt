@@ -31,7 +31,7 @@ class MovieAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(movies[position], position)
+        holder.bind(movies[position])
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
