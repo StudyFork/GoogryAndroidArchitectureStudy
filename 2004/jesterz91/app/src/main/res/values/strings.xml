@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Study</string>
+    <string name="back_press_message">뒤로가기 버튼을 한 번 더 누르면 종료됩니다.</string>
+    <string name="search_movie_hint">영화 제목을 입력해주세요.</string>
+    <string name="description_movie_image">영화 이미지</string>
+    <string name="menu_search">영화검색</string>
 </resources>
