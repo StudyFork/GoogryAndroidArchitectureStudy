@@ -44,7 +44,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun searchMovieList(query: String) {
-        MovieAPI().getMovieList(query,
+        MovieAPI.getMovieList(
+            query,
             { movies ->
                 zero_item_message.visibility =
                     if (movies.items.isNullOrEmpty()) View.VISIBLE else View.GONE

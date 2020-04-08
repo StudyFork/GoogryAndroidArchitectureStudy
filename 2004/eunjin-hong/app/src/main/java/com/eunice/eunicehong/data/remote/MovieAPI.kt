@@ -4,9 +4,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MovieAPI {
+object MovieAPI {
     private val service = MovieClient().getClient().create(MovieService::class.java)
-
 
     fun getMovieList(
         query: String,
