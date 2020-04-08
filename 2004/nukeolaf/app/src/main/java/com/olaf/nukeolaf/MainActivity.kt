@@ -44,8 +44,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun searchMovie(query: String) {
         retrofitClient.searchMovie(
-            getString(R.string.naver_client_id),
-            getString(R.string.naver_client_secret),
             query, 10, 1
         ).enqueue(object : Callback<MovieResponse> {
             override fun onResponse(
