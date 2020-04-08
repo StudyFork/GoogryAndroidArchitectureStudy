@@ -16,5 +16,3 @@ abstract class BaseRecyclerViewHolder<ITEM>(itemView: View) :
 
     abstract fun onBindViewHolder(item: ITEM)
 }
-
-typealias OnClickPositionEvent = (Int) -> Unit
