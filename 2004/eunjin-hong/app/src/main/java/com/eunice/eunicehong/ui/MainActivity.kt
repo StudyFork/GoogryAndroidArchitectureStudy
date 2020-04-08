@@ -6,7 +6,6 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.eunice.eunicehong.R
 import com.eunice.eunicehong.data.remote.Movie
 import com.eunice.eunicehong.data.remote.MovieAPI
@@ -66,7 +65,6 @@ class MainActivity : AppCompatActivity() {
     private fun setMovieList() {
         movieListAdapter = MovieAdapter(movieList)
         move_list.adapter = movieListAdapter
-        move_list.layoutManager = LinearLayoutManager(this@MainActivity)
     }
 
     companion object {

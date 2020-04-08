@@ -50,6 +50,7 @@
         android:layout_height="0dp"
         android:layout_margin="@dimen/margin_1"
         app:layout="@layout/item_movie"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_bar"
         tools:itemCount="12"
