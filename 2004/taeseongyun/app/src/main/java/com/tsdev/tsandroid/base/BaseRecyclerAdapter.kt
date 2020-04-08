@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import java.lang.Exception
 
 abstract class BaseRecyclerAdapter<ITEM> : RecyclerView.Adapter<BaseRecyclerViewHolder<*>>(),
-    RecyclerViewModel {
+    RecyclerViewModel<ITEM> {
 
     internal val itemList = mutableListOf<ITEM>()
 

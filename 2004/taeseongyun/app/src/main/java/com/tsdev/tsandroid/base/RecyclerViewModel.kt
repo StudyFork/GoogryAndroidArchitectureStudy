@@ -1,9 +1,9 @@
 package com.tsdev.tsandroid.base
 
-interface RecyclerViewModel {
-    fun addItem(item: Any)
+interface RecyclerViewModel<ITEM> {
+    fun  addItem(item: ITEM)
 
-    fun addItems(items: List<Any>)
+    fun addItems(items: List<ITEM>)
 
     fun clear()
 }

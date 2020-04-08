@@ -11,22 +11,21 @@ class MovieRecyclerAdapter(private val onClickListenerEvent: MovieRecyclerViewVi
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseRecyclerViewHolder<*> =
         MovieRecyclerViewViewHolder(onClickListenerEvent, parent)
 
-
-    override fun addItem(item: Any) {
-        itemList.add(item as Item)
-    }
-
-    override fun addItems(items: List<Any>) {
-        items.forEach {
-            addItem(it)
-        }
-    }
-
     override fun clear() {
         itemList.clear()
     }
 
     override fun onBindViewHolder(holder: BaseRecyclerViewHolder<*>, position: Int) {
         holder.bindingCheckItem(itemList[position])
+    }
+
+    override fun addItem(item: Item) {
+        itemList.add(item as Item)
+    }
+
+    override fun addItems(items: List<Item>) {
+        items.forEach {
+            addItem(it)
+        }
     }
 }
