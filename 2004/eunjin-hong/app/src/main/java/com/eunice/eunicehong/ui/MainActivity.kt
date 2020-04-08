@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         search_button.setOnClickListener {
             val query = query_input.text.toString().trim()
-            if (!query.isBlank()) {
+            if (query.isNotBlank()) {
                 searchMovieList(query)
             }
         }
