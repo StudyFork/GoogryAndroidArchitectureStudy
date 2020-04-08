@@ -2,7 +2,6 @@ package com.eunice.eunicehong.ui
 
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
@@ -28,12 +27,12 @@ class MainActivity : AppCompatActivity() {
     private fun setSearchBar() {
 
         query_input.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH
-                && event.keyCode == KeyEvent.KEYCODE_ENTER
-            ) {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 searchMovieList(v.text.toString().trim())
                 true
-            } else false
+            } else {
+                false
+            }
         }
 
         search_button.setOnClickListener {
