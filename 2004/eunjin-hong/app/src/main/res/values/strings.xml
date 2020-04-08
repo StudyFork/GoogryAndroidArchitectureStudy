@@ -4,5 +4,5 @@
     <string name="movie_list_zero_item_message">🔎 일치하는 검색 결과가 없습니다. 😅</string>
 
     <string name="movie_search_hint">🎬 영화 제목, 감독, 배우를 입력하세요</string>
-    <string name="movie_item_user_rating_key">⭐</string>
+    <string name="movie_item_user_rating_key">⭐ %s</string>
 </resources>

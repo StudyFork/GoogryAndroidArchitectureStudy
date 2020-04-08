@@ -52,7 +52,8 @@ class MovieAdapter(private val items: List<Movie>) :
             directors.text = movie.directors.formatStaffList()
 
             pubDate.text = movie.pubDate
-            rating.text = movie.userRating
+            rating.text =
+                rating.context.getString(R.string.movie_item_user_rating_key, movie.userRating)
 
             Glide.with(poster.context).load(movie.imageUrl).into(poster)
 
