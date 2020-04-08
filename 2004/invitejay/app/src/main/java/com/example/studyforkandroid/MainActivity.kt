@@ -38,11 +38,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun searchMovie(title: String) {
 
-        RetrofitService.instance.movieRequest(
-            BuildConfig.CLIENT_ID,
-            BuildConfig.SECRET_KEY,
-            title
-        )
+        RetrofitService.instance
+            .movieRequest(title)
             .enqueue(object : Callback<MovieRes> {
                 override fun onFailure(call: Call<MovieRes>, t: Throwable) {
                     Log.d("resposeFailure", "movieList")
