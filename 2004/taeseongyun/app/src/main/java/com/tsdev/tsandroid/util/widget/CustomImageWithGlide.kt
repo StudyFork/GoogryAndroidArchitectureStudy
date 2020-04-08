@@ -1,4 +1,4 @@
-package com.tsdev.tsandroid.util
+package com.tsdev.tsandroid.util.widget
 
 import android.content.Context
 import android.util.AttributeSet

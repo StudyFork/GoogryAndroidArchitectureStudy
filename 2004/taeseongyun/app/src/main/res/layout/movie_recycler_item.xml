@@ -28,7 +28,7 @@
                 android:layout_marginTop="@dimen/spacing_normal"
                 app:cardCornerRadius="@dimen/spacing_normal">
 
-                <com.tsdev.tsandroid.util.CustomImageWithGlide
+                <com.tsdev.tsandroid.util.widget.CustomImageWithGlide
                     android:id="@+id/movie_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
