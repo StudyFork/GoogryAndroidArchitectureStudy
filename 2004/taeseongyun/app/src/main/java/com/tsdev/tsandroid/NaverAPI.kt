@@ -4,6 +4,6 @@ object NaverAPI {
     private const val baseUrl = BuildConfig.BASE_URL
 
     val movieAPI by lazy {
-        createRetrofit(baseUrl, MovieInterface::class.java)
+        creatorRetrofit<MovieInterface>(baseUrl)
     }
 }

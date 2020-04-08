@@ -11,21 +11,21 @@ private const val X_NAVER_CLIENT_ID = "X-Naver-Client-Id"
 private const val X_NAVER_CLIENT_SECRET = "X-Naver-Client-Secret"
 private const val REQUEST_TIME_OUT = 100L
 
-fun <T> createRetrofit(baseUrl: String, cls: Class<T>): T {
+inline fun <reified T> creatorRetrofit(baseUrl: String): T {
     return Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .baseUrl(baseUrl)
         .client(okHttpClient())
         .build()
-        .create(cls)
+        .create(T::class.java)
 }
 
 
-private fun okHttpClient(): OkHttpClient {
+fun okHttpClient(): OkHttpClient {
     return OkHttpClient.Builder().addInterceptor(
         HttpLoggingInterceptor().apply {
-            level = if (BuildConfig.DEBUG)
+            level = if (BuildConfig.DEBUGING)
                 HttpLoggingInterceptor.Level.BODY
             else
                 HttpLoggingInterceptor.Level.NONE

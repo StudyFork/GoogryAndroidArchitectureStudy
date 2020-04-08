@@ -30,7 +30,7 @@ android {
             buildConfigField "String", "Client_ID", rootProject.ext.client_ID
             buildConfigField "String", "Client_SECRET", rootProject.ext.client_SECRET
             buildConfigField "String", "BASE_URL", rootProject.ext.base_url
-            buildConfigField "Boolean", "DEBUG", "false"
+            buildConfigField "Boolean", "DEBUGING", "false"
         }
         release {
             minifyEnabled false
