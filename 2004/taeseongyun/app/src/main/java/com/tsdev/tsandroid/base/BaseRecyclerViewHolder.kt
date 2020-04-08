@@ -2,10 +2,19 @@ package com.tsdev.tsandroid.base
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import java.lang.Exception
 
-abstract class BaseRecyclerViewHolder<ITEM : Any>(itemView: View) :
+abstract class BaseRecyclerViewHolder<ITEM>(itemView: View) :
     RecyclerView.ViewHolder(itemView) {
-    abstract fun initBind(item: ITEM)
+
+    fun bindingCheckItem(item: Any) {
+        try {
+            onBindViewHolder(item as ITEM)
+        } catch (e: Exception) {
+        }
+    }
+
+    abstract fun onBindViewHolder(item: ITEM)
 }
 
 typealias OnClickPositionEvent = (Int) -> Unit

@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewViewHolder.OnClickDel
         startActivity(
             Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse(movieRecyclerAdapter.movieList[position].link)
+                Uri.parse(movieRecyclerAdapter.itemList[position].link)
             )
         )
     }

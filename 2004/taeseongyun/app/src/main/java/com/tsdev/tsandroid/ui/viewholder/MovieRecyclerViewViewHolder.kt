@@ -24,7 +24,7 @@ class MovieRecyclerViewViewHolder(onClickListenerEvent: OnClickDelegate, parent:
         fun onClickEventListener(position: Int)
     }
 
-    override fun initBind(item: Item) {
+    override fun onBindViewHolder(item: Item) {
         itemView.movie_actor.text = item.actor.htmlConvert().split("|")
             .map { it.trim() }
             .filter { it != "" }
