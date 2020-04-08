@@ -45,8 +45,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun searchMovieList(query: String) {
         MovieAPI.getMovieList(
-            query,
-            { movies ->
+            query = query,
+            onSuccess = { movies ->
                 zero_item_message.visibility =
                     if (movies.isNullOrEmpty()) View.VISIBLE else View.GONE
 
@@ -57,7 +57,8 @@ class MainActivity : AppCompatActivity() {
                     movieListAdapter.notifyDataSetChanged()
                 }
 
-            }, { e: Throwable ->
+            },
+            onFailure = { e: Throwable ->
                 Log.d(TAG, e.toString())
             })
     }
