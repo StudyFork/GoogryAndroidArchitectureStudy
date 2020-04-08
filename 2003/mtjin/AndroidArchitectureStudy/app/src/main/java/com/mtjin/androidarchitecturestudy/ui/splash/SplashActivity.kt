@@ -2,7 +2,10 @@ package com.mtjin.androidarchitecturestudy.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.databinding.Observable
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.mtjin.androidarchitecturestudy.R
 import com.mtjin.androidarchitecturestudy.base.BaseActivity
 import com.mtjin.androidarchitecturestudy.data.login.source.LoginRepository
@@ -14,7 +17,16 @@ import com.mtjin.androidarchitecturestudy.ui.search.MovieSearchActivity
 import com.mtjin.androidarchitecturestudy.utils.PreferenceManager
 
 class SplashActivity : BaseActivity() {
-    private lateinit var viewModel: SplashViewModel
+    private lateinit var preferenceManager: PreferenceManager
+    private lateinit var loginLocalDataSource: LoginLocalDataSource
+    lateinit var loginRepository: LoginRepository
+    private val viewModel: SplashViewModel by viewModels {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return SplashViewModel(loginRepository) as T
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,35 +36,29 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun inject() {
-        val preferenceManager = PreferenceManager(this)
-        val loginLocalDataSource: LoginLocalDataSource = LoginLocalDataSourceImpl(preferenceManager)
-        val loginRepository: LoginRepository = LoginRepositoryImpl(loginLocalDataSource)
-        viewModel = SplashViewModel(loginRepository)
+        preferenceManager = PreferenceManager(this)
+        loginLocalDataSource = LoginLocalDataSourceImpl(preferenceManager)
+        loginRepository = LoginRepositoryImpl(loginLocalDataSource)
     }
 
     private fun initViewModelCallback() {
         with(viewModel) {
-            goMovieSearch.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    goMovieSearch()
-                }
+            goMovieSearch.observe(this@SplashActivity, Observer {
+                goMovieSearch()
             })
-            goLogin.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    goLogin()
-                }
+            goLogin.observe(this@SplashActivity, Observer {
+                goLogin()
             })
         }
     }
 
 
-    fun goLogin() {
+    private fun goLogin() {
         startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }
 
-    fun goMovieSearch() {
+    private fun goMovieSearch() {
         showToast(getString(R.string.auto_login_msg))
         startActivity(Intent(this, MovieSearchActivity::class.java))
         finish()

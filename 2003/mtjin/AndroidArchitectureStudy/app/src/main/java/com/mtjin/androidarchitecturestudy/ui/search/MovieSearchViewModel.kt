@@ -1,72 +1,80 @@
 package com.mtjin.androidarchitecturestudy.ui.search
 
 import android.util.Log
-import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.mtjin.androidarchitecturestudy.data.search.Movie
 import com.mtjin.androidarchitecturestudy.data.search.source.MovieRepository
 import retrofit2.HttpException
 
-class MovieSearchViewModel(private val movieRepository: MovieRepository) {
+class MovieSearchViewModel(private val movieRepository: MovieRepository) : ViewModel() {
 
-    var query: ObservableField<String> = ObservableField("")
-    var movieList: ObservableField<ArrayList<Movie>> = ObservableField()
-    var toastMsg: ObservableField<MessageSet> = ObservableField()
-    var isLoading: ObservableBoolean = ObservableBoolean(false)
     private var currentQuery: String = ""
+    val query = MutableLiveData<String>()
+    private val _movieList = MutableLiveData<ArrayList<Movie>>()
+    private val _toastMsg = MutableLiveData<MessageSet>()
+    private val _isLoading = MutableLiveData<Boolean>(false)
+
+    val movieList: LiveData<ArrayList<Movie>> get() = _movieList
+    val toastMsg: LiveData<MessageSet> get() = _toastMsg
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
 
     fun requestMovie() {
-        currentQuery = query.get().toString()
+        currentQuery = query.value.toString().trim()
+        Log.d(TAG, currentQuery)
         if (currentQuery.isEmpty()) {
-            toastMsg.set(MessageSet.EMPTY_QUERY)
+            _toastMsg.value = MessageSet.EMPTY_QUERY
         } else {
-            isLoading.set(true)
-            movieRepository.getSearchMovies(query.get().toString(),
+            _isLoading.value = true
+            movieRepository.getSearchMovies(currentQuery,
                 success = {
                     if (it.isEmpty()) {
-                        toastMsg.set(MessageSet.NO_RESULT)
+                        _toastMsg.value = MessageSet.NO_RESULT
                     } else {
-                        movieList.set(it as ArrayList<Movie>?)
-                        toastMsg.set(MessageSet.SUCCESS)
+                        _movieList.value = it as ArrayList<Movie>
+                        _toastMsg.value = MessageSet.SUCCESS
                     }
-                    isLoading.set(false)
+                    _isLoading.value = false
                 },
                 fail = {
                     Log.d(TAG, it.toString())
                     when (it) {
-                        is HttpException -> toastMsg.set(MessageSet.NETWORK_ERROR)
-                        else -> toastMsg.set(MessageSet.LAST_PAGE)
+                        is HttpException -> _toastMsg.value = MessageSet.NETWORK_ERROR
+                        else -> _toastMsg.value = MessageSet.LAST_PAGE
                     }
-                    isLoading.set(false)
+                    _isLoading.value = false
                 })
         }
     }
 
     fun requestPagingMovie(offset: Int) {
-        isLoading.set(true)
+        Log.d(TAG, currentQuery)
+        _isLoading.value = true
         movieRepository.getPagingMovies(currentQuery, offset,
             success = {
                 if (it.isEmpty()) {
-                    toastMsg.set(MessageSet.LAST_PAGE)
+                    _toastMsg.value = MessageSet.LAST_PAGE
                 } else {
-                    movieList.get()?.addAll(it)
-                    movieList.notifyChange()
-                    toastMsg.set(MessageSet.SUCCESS)
+                    val pagingMovieList = _movieList.value
+                    pagingMovieList?.addAll(it)
+                    _movieList.value = pagingMovieList
+                    _toastMsg.value = MessageSet.SUCCESS
                 }
-                isLoading.set(false)
+                _isLoading.value = false
             },
             fail = {
                 Log.d(TAG, it.toString())
                 when (it) {
-                    is HttpException -> toastMsg.set(MessageSet.NETWORK_ERROR)
-                    else -> toastMsg.set(MessageSet.LAST_PAGE)
+                    is HttpException -> MessageSet.NETWORK_ERROR
+                    else -> _toastMsg.value = MessageSet.LAST_PAGE
                 }
-                isLoading.set(false)
+                _isLoading.value = false
             })
     }
 
     enum class MessageSet {
-        BASIC,
         LAST_PAGE,
         EMPTY_QUERY,
         NETWORK_ERROR,
