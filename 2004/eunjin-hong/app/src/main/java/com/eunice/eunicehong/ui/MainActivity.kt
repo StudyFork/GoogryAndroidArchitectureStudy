@@ -5,15 +5,12 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.eunice.eunicehong.R
 import com.eunice.eunicehong.data.remote.Movie
 import com.eunice.eunicehong.data.remote.MovieAPI
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,10 +27,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setSearchBar() {
-        val searchEditText = findViewById<EditText>(R.id.query_input)
-        val searchButton = findViewById<ImageButton>(R.id.search_button)
 
-        searchEditText.setOnEditorActionListener { v, actionId, event ->
+        query_input.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH
                 && event.keyCode == KeyEvent.KEYCODE_ENTER
             ) {
@@ -42,8 +37,8 @@ class MainActivity : AppCompatActivity() {
             } else false
         }
 
-        searchButton.setOnClickListener {
-            val query = searchEditText.text.toString().trim()
+        search_button.setOnClickListener {
+            val query = query_input.text.toString().trim()
             if (!query.isBlank()) {
                 searchMovieList(query)
             }
@@ -53,8 +48,7 @@ class MainActivity : AppCompatActivity() {
     private fun searchMovieList(query: String) {
         MovieAPI().getMovieList(query,
             { movies ->
-                val zeroItemMessage = findViewById<TextView>(R.id.zero_item_message)
-                zeroItemMessage.visibility =
+                zero_item_message.visibility =
                     if (movies.items.isNullOrEmpty()) View.VISIBLE else View.GONE
 
                 movieList.let {
@@ -70,10 +64,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setMovieList() {
-        val movieListView = findViewById<RecyclerView>(R.id.move_list)
         movieListAdapter = MovieAdapter(movieList)
-        movieListView.adapter = movieListAdapter
-        movieListView.layoutManager = LinearLayoutManager(this@MainActivity)
+        move_list.adapter = movieListAdapter
+        move_list.layoutManager = LinearLayoutManager(this@MainActivity)
     }
 
     companion object {
