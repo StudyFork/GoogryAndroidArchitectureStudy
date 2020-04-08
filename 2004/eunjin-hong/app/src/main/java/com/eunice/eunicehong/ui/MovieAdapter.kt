@@ -32,17 +32,9 @@ class MovieAdapter(private val items: ArrayList<Movie>) :
                     HtmlCompat.FROM_HTML_MODE_LEGACY
                 )
 
-                actors.text = movie.actors
-                    .split("|")
-                    .map { it.trim() }
-                    .filter { it != "" }
-                    .joinToString(", ")
+                actors.text = movie.actors.formatStaffList()
 
-                directors.text = movie.directors
-                    .split("|")
-                    .map { it.trim() }
-                    .filter { it != "" }
-                    .joinToString(", ")
+                directors.text = movie.directors.formatStaffList()
 
                 pubDate.text = movie.pubDate
                 rating.text = movie.userRating
@@ -56,6 +48,11 @@ class MovieAdapter(private val items: ArrayList<Movie>) :
             }
         }
     }
+
+    private fun String.formatStaffList(): String = this.split("|")
+        .map { it.trim() }
+        .filter { it != "" }
+        .joinToString(", ")
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
