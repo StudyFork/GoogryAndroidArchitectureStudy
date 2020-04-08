@@ -48,11 +48,11 @@ class MainActivity : AppCompatActivity() {
             query,
             { movies ->
                 zero_item_message.visibility =
-                    if (movies.items.isNullOrEmpty()) View.VISIBLE else View.GONE
+                    if (movies.isNullOrEmpty()) View.VISIBLE else View.GONE
 
                 movieList.let {
                     it.clear()
-                    it.addAll(movies.items)
+                    it.addAll(movies)
                 }.also {
                     movieListAdapter.notifyDataSetChanged()
                 }

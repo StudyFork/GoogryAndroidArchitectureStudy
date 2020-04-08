@@ -9,14 +9,14 @@ object MovieAPI {
 
     fun getMovieList(
         query: String,
-        onSuccess: (movieList: MovieList) -> Unit,
+        onSuccess: (movieList: List<Movie>) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
         service.getMovieList(query).enqueue(object : Callback<MovieList> {
             override fun onResponse(call: Call<MovieList>, response: Response<MovieList>) {
                 val content = response.body()
                 if (response.isSuccessful && content != null) {
-                    onSuccess(content)
+                    onSuccess(content.items)
                 } else {
                     onFailure(Throwable(response.errorBody().toString()))
                 }
