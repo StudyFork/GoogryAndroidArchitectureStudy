@@ -51,8 +51,8 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewViewHolder.OnClickDel
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         disposable.clear()
+        super.onDestroy()
     }
 
     override fun onClickEventListener(position: Int) {
