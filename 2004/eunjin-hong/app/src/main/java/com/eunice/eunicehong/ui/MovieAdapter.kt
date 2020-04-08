@@ -23,7 +23,7 @@ class MovieAdapter(private val items: List<Movie>) :
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        items.get(position).let { movie ->
+        items[position].let { movie ->
             with(holder) {
                 title.text = HtmlCompat.fromHtml(movie.title, HtmlCompat.FROM_HTML_MODE_LEGACY)
 
