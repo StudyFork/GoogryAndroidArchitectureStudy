@@ -51,8 +51,10 @@ class MovieAdapter(
                 setOnClickListener {
                     itemListener.onMovieItemClick(item)
                 }
+
                 Glide.with(this)
                     .load(item.image)
+                    .error(R.drawable.ic_launcher_foreground)
                     .into(this.movie_image)
             }
         }
