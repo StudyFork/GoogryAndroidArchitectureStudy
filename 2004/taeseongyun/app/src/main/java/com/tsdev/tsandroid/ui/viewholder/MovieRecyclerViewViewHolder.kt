@@ -14,9 +14,9 @@ class MovieRecyclerViewViewHolder(onClickListenerEvent: OnClickDelegate, parent:
     ) {
     init {
         itemView.setOnClickListener {
-            adapterPosition.takeIf { adapterPosition > -1 }.apply {
-                onClickListenerEvent.onClickEventListener(this ?: 0)
-            }
+            adapterPosition.takeIf { adapterPosition > -1 }?.let {
+                onClickListenerEvent.onClickEventListener(it)
+            } ?: onClickListenerEvent.onClickEventListener(0)
         }
     }
 
