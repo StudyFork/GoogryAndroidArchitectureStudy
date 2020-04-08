@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide
 import com.eunice.eunicehong.R
 import com.eunice.eunicehong.data.remote.Movie
 
-class MovieAdapter(private val items: ArrayList<Movie>) :
+class MovieAdapter(private val items: List<Movie>) :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)

@@ -3,7 +3,7 @@ package com.eunice.eunicehong.data.remote
 import com.google.gson.annotations.SerializedName
 
 data class MovieList(
-    @SerializedName("items") val items: ArrayList<Movie>
+    @SerializedName("items") val items: List<Movie>
 )
 
 data class Movie(
