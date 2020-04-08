@@ -28,8 +28,14 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewViewHolder.OnClickDel
             NaverAPI.movieAPI.getSearchMovie(query)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    movieRecyclerAdapter.addItems(it.items)
+                .subscribe({ movieResponse ->
+                    movieRecyclerAdapter.itemList.takeIf { list ->
+                        list.isNotEmpty()
+                    }?.let {
+                        Log.d("NOT_EMPTY", "Call")
+                        movieRecyclerAdapter.clear()
+                        movieRecyclerAdapter.addItems(movieResponse.items)
+                    } ?: movieRecyclerAdapter.addItems(movieResponse.items)
                     movieRecyclerAdapter.notifyDataSetChanged()
                 }, {
                     it.printStackTrace()
