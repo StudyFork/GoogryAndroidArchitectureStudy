@@ -39,8 +39,8 @@ class MainActivity : AppCompatActivity() {
     private fun searchMovie(title: String) {
 
         RetrofitService.instance.movieRequest(
-            getString(R.string.CLIENT_ID),
-            getString(R.string.SECRET_KEY),
+            BuildConfig.CLIENT_ID,
+            BuildConfig.SECRET_KEY,
             title
         )
             .enqueue(object : Callback<MovieRes> {

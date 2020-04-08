@@ -4,16 +4,25 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+def appkeyPropertiesFile = rootProject.file("appkey.properties")
+def appkeyProperties = new Properties()
+appkeyProperties.load(new FileInputStream(appkeyPropertiesFile))
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
+
         applicationId "com.example.studyforkandroid"
         minSdkVersion 24
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField( "String", "BASE_URI", appkeyProperties['BASE_URI'])
+        buildConfigField( "String", "CLIENT_ID", appkeyProperties['NAVER_APPID'])
+        buildConfigField( "String" , "SECRET_KEY", appkeyProperties['NAVER_SECRET'])
     }
     buildTypes {
         release {
