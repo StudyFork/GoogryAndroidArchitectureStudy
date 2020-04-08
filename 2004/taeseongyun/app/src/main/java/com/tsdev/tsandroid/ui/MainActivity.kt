@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewViewHolder.OnClickDel
         MovieRecyclerAdapter(this)
     }
 
-    private fun getMovieList(disposable: CompositeDisposable, query: String) {
+    private fun getMovieList(query: String) {
         disposable.add(
             NaverAPI.movieAPI.getSearchMovie(query)
                 .subscribeOn(Schedulers.io())
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewViewHolder.OnClickDel
         setContentView(R.layout.activity_main)
 
         search_img.setOnClickListener {
-            getMovieList(disposable, edit_query.text.toString())
+            getMovieList(edit_query.text.toString())
         }
 
         movie_recycler.run {
