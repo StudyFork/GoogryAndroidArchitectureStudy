@@ -23,47 +23,51 @@ class MovieAdapter(private val items: List<Movie>) :
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        items[position].let { movie ->
-            with(holder) {
-                title.text = HtmlCompat.fromHtml(movie.title, HtmlCompat.FROM_HTML_MODE_LEGACY)
-
-                subtitle.text = HtmlCompat.fromHtml(
-                    movie.subtitle,
-                    HtmlCompat.FROM_HTML_MODE_LEGACY
-                )
-
-                actors.text = movie.actors.formatStaffList()
-
-                directors.text = movie.directors.formatStaffList()
-
-                pubDate.text = movie.pubDate
-                rating.text = movie.userRating
-
-                Glide.with(poster.context).load(movie.imageUrl).into(poster)
-
-                card.setOnClickListener {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movie.link))
-                    card.context.startActivity(intent)
-                }
-            }
+        with(holder) {
+            bind(items[position])
         }
     }
 
-    private fun String.formatStaffList(): String = this.split("|")
-        .map { it.trim() }
-        .filter { it != "" }
-        .joinToString(", ")
-
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val card = itemView.findViewById<CardView>(R.id.movie_card)
-        val title = itemView.findViewById<TextView>(R.id.movie_title)
-        val poster = itemView.findViewById<ImageView>(R.id.movie_poster)
-        val subtitle = itemView.findViewById<TextView>(R.id.movie_subtitle)
-        val actors = itemView.findViewById<TextView>(R.id.movie_actors)
-        val directors = itemView.findViewById<TextView>(R.id.movie_directors)
-        val pubDate = itemView.findViewById<TextView>(R.id.movie_date_text)
-        val rating = itemView.findViewById<TextView>(R.id.movie_user_rating_value)
+        private val card = itemView.findViewById<CardView>(R.id.movie_card)
+        private val title = itemView.findViewById<TextView>(R.id.movie_title)
+        private val poster = itemView.findViewById<ImageView>(R.id.movie_poster)
+        private val subtitle = itemView.findViewById<TextView>(R.id.movie_subtitle)
+        private val actors = itemView.findViewById<TextView>(R.id.movie_actors)
+        private val directors = itemView.findViewById<TextView>(R.id.movie_directors)
+        private val pubDate = itemView.findViewById<TextView>(R.id.movie_date_text)
+        private val rating = itemView.findViewById<TextView>(R.id.movie_user_rating_value)
+
+        fun bind(movie: Movie) {
+            title.text = HtmlCompat.fromHtml(movie.title, HtmlCompat.FROM_HTML_MODE_LEGACY)
+
+            subtitle.text = HtmlCompat.fromHtml(
+                movie.subtitle,
+                HtmlCompat.FROM_HTML_MODE_LEGACY
+            )
+
+            actors.text = movie.actors.formatStaffList()
+
+            directors.text = movie.directors.formatStaffList()
+
+            pubDate.text = movie.pubDate
+            rating.text = movie.userRating
+
+            Glide.with(poster.context).load(movie.imageUrl).into(poster)
+
+            card.setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movie.link))
+                card.context.startActivity(intent)
+            }
+
+        }
+
+
+        private fun String.formatStaffList(): String = this.split("|")
+            .map { it.trim() }
+            .filter { it != "" }
+            .joinToString(", ")
     }
 
 }
