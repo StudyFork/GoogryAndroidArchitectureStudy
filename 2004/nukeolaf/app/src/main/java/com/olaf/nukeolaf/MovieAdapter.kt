@@ -13,7 +13,7 @@ class MovieAdapter(
     private val itemListener: MovieItemListener
 ) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
-    private var movies: ArrayList<MovieItem> = ArrayList()
+    private val movies: ArrayList<MovieItem> = ArrayList()
 
     fun setMovies(list: List<MovieItem>) {
         this.movies.apply {
