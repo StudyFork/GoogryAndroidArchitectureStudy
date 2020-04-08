@@ -25,7 +25,10 @@ fun <T> createRetrofit(baseUrl: String, cls: Class<T>): T {
 private fun okHttpClient(): OkHttpClient {
     return OkHttpClient.Builder().addInterceptor(
         HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
+            level = if (BuildConfig.DEBUG)
+                HttpLoggingInterceptor.Level.BODY
+            else
+                HttpLoggingInterceptor.Level.NONE
         })
         .addInterceptor { chain ->
             val originRequest = chain.request()
