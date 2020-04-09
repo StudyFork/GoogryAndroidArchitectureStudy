@@ -9,7 +9,7 @@ import com.tsdev.tsandroid.util.htmlConvert
 import kotlinx.android.synthetic.main.movie_recycler_item.view.*
 
 class MovieRecyclerViewViewHolder(onClickListenerEvent: OnClickDelegate, parent: ViewGroup) :
-    BaseRecyclerViewHolder(
+    BaseRecyclerViewHolder<Item>(
         LayoutInflater.from(parent.context).inflate(R.layout.movie_recycler_item, parent, false)
     ) {
     init {

@@ -5,9 +5,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tsdev.tsandroid.Item
 import java.lang.Exception
 
-abstract class BaseRecyclerViewHolder(itemView: View) :
+abstract class BaseRecyclerViewHolder<ITEM>(itemView: View) :
     RecyclerView.ViewHolder(itemView) {
 
 
-    abstract fun onBindViewHolder(item: Item)
+    abstract fun onBindViewHolder(item: ITEM)
 }

@@ -9,7 +9,10 @@ import com.tsdev.tsandroid.ui.viewholder.MovieRecyclerViewViewHolder
 class MovieRecyclerAdapter(private val onClickListenerEvent: MovieRecyclerViewViewHolder.OnClickDelegate) :
     BaseRecyclerAdapter<Item>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseRecyclerViewHolder =
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): BaseRecyclerViewHolder<Item> =
         MovieRecyclerViewViewHolder(onClickListenerEvent, parent)
 
     override fun clear() {
