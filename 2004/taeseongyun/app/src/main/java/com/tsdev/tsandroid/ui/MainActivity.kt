@@ -29,13 +29,8 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewViewHolder.OnClickDel
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ movieResponse ->
-                    movieRecyclerAdapter.itemList.takeIf { list ->
-                        list.isNotEmpty()
-                    }?.let {
-                        Log.d("NOT_EMPTY", "Call")
-                        movieRecyclerAdapter.clear()
-                        movieRecyclerAdapter.addItems(movieResponse.items)
-                    } ?: movieRecyclerAdapter.addItems(movieResponse.items)
+                    movieRecyclerAdapter.clear()
+                    movieRecyclerAdapter.addItems(movieResponse.items)
                     movieRecyclerAdapter.notifyDataSetChanged()
                 }, {
                     it.printStackTrace()
