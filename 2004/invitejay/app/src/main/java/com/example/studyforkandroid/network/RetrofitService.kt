@@ -17,10 +17,11 @@ object RetrofitService {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.apply {
             level =
-                if (BuildConfig.DEBUG)
+                if (BuildConfig.DEBUG) {
                     HttpLoggingInterceptor.Level.BODY
-                else
+                } else {
                     HttpLoggingInterceptor.Level.NONE
+                }
         }
 
         val headerInterceptor = Interceptor {

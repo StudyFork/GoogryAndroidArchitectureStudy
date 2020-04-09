@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVh>() {
 
-    private var movieList = mutableListOf<Item>()
+    private val movieList = mutableListOf<Item>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieAdapter.MovieVh {
 
