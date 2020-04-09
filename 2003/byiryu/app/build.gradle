@@ -37,6 +37,7 @@ android {
             zipAlignEnabled false
         }
     }
+
     dataBinding{
         enabled = true
     }
@@ -45,7 +46,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'androidx.core:core-ktx:1.1.0'
+    implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'com.google.android.material:material:1.2.0-alpha02'
     testImplementation 'junit:junit:4.12'
 
