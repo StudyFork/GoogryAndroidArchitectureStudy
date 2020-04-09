@@ -2,9 +2,11 @@ package com.tsdev.tsandroid.ui.viewholder
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import com.tsdev.tsandroid.Item
 import com.tsdev.tsandroid.R
 import com.tsdev.tsandroid.base.BaseRecyclerViewHolder
+import com.tsdev.tsandroid.showToast
 import com.tsdev.tsandroid.util.htmlConvert
 import kotlinx.android.synthetic.main.movie_recycler_item.view.*
 
@@ -16,7 +18,7 @@ class MovieRecyclerViewViewHolder(onClickListenerEvent: OnClickDelegate, parent:
         itemView.setOnClickListener {
             adapterPosition.takeIf { adapterPosition > -1 }?.let {
                 onClickListenerEvent.onClickEventListener(it)
-            } ?: onClickListenerEvent.onClickEventListener(0)
+            } ?: parent.context.showToast(Toast.LENGTH_LONG)
         }
     }
 
