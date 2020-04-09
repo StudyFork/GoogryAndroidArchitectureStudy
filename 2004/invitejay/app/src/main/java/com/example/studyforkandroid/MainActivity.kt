@@ -30,10 +30,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRv() {
-        rvAdapter = MovieAdapter(this)
-        movie_rv.apply {
-            adapter = rvAdapter
-        }
+        rvAdapter = MovieAdapter()
+        movie_rv.adapter = rvAdapter
     }
 
     private fun searchMovie(title: String) {
