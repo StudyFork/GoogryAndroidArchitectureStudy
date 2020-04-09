@@ -46,7 +46,8 @@ class MainActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<MovieRes>, response: Response<MovieRes>) {
                     val movie = response.body()
                     movie?.let {
-                        rvAdapter.setList(it.items)
+                        rvAdapter.clear()
+                        rvAdapter.addAll(it.items)
                         rvAdapter.notifyDataSetChanged()
                     }
                 }

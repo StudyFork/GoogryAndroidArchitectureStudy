@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVh>() {
 
-    private var movieList: List<Item> = listOf()
+    private var movieList = mutableListOf<Item>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieAdapter.MovieVh {
 
@@ -35,8 +35,12 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVh>() {
         return movieList.size
     }
 
-    fun setList(movieList: List<Item>) {
-        this.movieList = movieList
+    fun addAll(movieList: List<Item>) {
+        this.movieList.addAll(movieList)
+    }
+
+    fun clear() {
+        this.movieList.clear()
     }
 
     override fun onBindViewHolder(holder: MovieAdapter.MovieVh, position: Int) {
