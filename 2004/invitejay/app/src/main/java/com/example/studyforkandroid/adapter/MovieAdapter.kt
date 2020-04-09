@@ -14,7 +14,7 @@ import com.example.studyforkandroid.data.Item
 import com.example.studyforkandroid.utils.htmlToString
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieAdapter(val context: Context) : RecyclerView.Adapter<MovieAdapter.MovieVh>() {
+class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVh>() {
 
     private var movieList: List<Item> = listOf()
 
@@ -48,12 +48,7 @@ class MovieAdapter(val context: Context) : RecyclerView.Adapter<MovieAdapter.Mov
             }
         }
 
-        Glide.with(context).load(movieList[position].image).into(holder.img)
-        holder.layout.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(movieList[position].link)
-            context.startActivity(intent)
-        }
+        Glide.with(holder.img.context).load(movieList[position].image).into(holder.img)
     }
 
     class MovieVh(itemView: View) : RecyclerView.ViewHolder(itemView) {
