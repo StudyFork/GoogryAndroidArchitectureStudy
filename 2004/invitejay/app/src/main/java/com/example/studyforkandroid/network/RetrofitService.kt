@@ -15,7 +15,13 @@ object RetrofitService {
     fun okHttpClient(): OkHttpClient {
 
         val httpLoggingInterceptor = HttpLoggingInterceptor()
-        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        httpLoggingInterceptor.apply {
+            level =
+                if (BuildConfig.DEBUG)
+                    HttpLoggingInterceptor.Level.BODY
+                else
+                    HttpLoggingInterceptor.Level.NONE
+        }
 
         val headerInterceptor = Interceptor {
             val request = it.request()
