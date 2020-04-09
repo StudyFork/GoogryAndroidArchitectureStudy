@@ -3,6 +3,7 @@ package com.byiryu.study.ui.mvvm.main.views.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.byiryu.study.BR
@@ -22,20 +23,16 @@ class MainRecyclerAdapter (val onViewClickListener: OnViewClickListener) :
 
     }) {
 
+    lateinit var lifecycleOwner: LifecycleOwner
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainRecyclerHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.view_main_item, parent, false)
 
-        return MainRecyclerHolder(itemView)
+        return MainRecyclerHolder(itemView, lifecycleOwner, onViewClickListener)
     }
 
     override fun onBindViewHolder(holder: MainRecyclerHolder, position: Int) {
-        val item = getItem(position)
-        holder.viewDataBinding?.run {
-            setVariable(BR.movieItem, item)
-            setVariable(BR.itemClickListener, onViewClickListener)
-            executePendingBindings()
-        }
-
+        holder.bind(getItem(position))
     }
 }
