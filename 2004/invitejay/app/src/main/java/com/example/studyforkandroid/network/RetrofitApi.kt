@@ -5,7 +5,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface RetrofitAPI {
+interface RetrofitApi {
 
     @GET("search/movie")
     fun movieRequest(

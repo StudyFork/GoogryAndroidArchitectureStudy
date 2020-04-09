@@ -32,13 +32,13 @@ object RetrofitService {
             .build()
     }
 
-    val instance: RetrofitAPI by lazy {
+    val instance: RetrofitApi by lazy {
         val retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient())
             .build()
 
-        retrofit.create(RetrofitAPI::class.java)
+        retrofit.create(RetrofitApi::class.java)
     }
 }
