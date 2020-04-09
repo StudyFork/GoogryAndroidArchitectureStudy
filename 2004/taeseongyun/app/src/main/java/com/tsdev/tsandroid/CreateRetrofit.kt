@@ -25,7 +25,7 @@ inline fun <reified T> creatorRetrofit(baseUrl: String): T {
 fun okHttpClient(): OkHttpClient {
     return OkHttpClient.Builder().addInterceptor(
         HttpLoggingInterceptor().apply {
-            level = if (BuildConfig.DEBUGING)
+            level = if (BuildConfig.DEBUG)
                 HttpLoggingInterceptor.Level.BODY
             else
                 HttpLoggingInterceptor.Level.NONE
