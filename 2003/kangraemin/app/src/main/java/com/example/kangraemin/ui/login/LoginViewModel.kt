@@ -1,8 +1,8 @@
 package com.example.kangraemin.ui.login
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.example.kangraemin.base.KangBaseViewModel
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.local.datamodel.Auth
@@ -44,8 +44,6 @@ class LoginViewModel(
 
     val pw: MutableLiveData<String> = _pw
 
-    val registerLoginInfoListener = MediatorLiveData<Unit>()
-
     private val _autoLogin: NonNullMutableLiveData<Boolean> = NonNullMutableLiveData(false)
 
     val autoLogin: MutableLiveData<Boolean> = _autoLogin
@@ -57,6 +55,10 @@ class LoginViewModel(
     private val _addAuthFail: MutableLiveData<Unit> = MutableLiveData()
 
     val addAuthFail: LiveData<Unit> = _addAuthFail
+
+    private val loginInfoObserver = Observer<String> {
+        checkLoginInfoHasEntered()
+    }
 
     init {
         val addAuth = addAuthSubject
@@ -79,13 +81,9 @@ class LoginViewModel(
             }, { it.printStackTrace() })
         compositeDisposable.add(addAuth)
 
-        registerLoginInfoListener.addSource(id) {
-            checkLoginInfoHasEntered()
-        }
+        id.observeForever(loginInfoObserver)
 
-        registerLoginInfoListener.addSource(pw) {
-            checkLoginInfoHasEntered()
-        }
+        pw.observeForever(loginInfoObserver)
     }
 
     fun checkIdIsEmpty(hasFocus: Boolean) {
@@ -126,8 +124,8 @@ class LoginViewModel(
     )
 
     override fun onCleared() {
-        registerLoginInfoListener.removeSource(id)
-        registerLoginInfoListener.removeSource(pw)
+        id.removeObserver(loginInfoObserver)
+        pw.removeObserver(loginInfoObserver)
         super.onCleared()
     }
 }

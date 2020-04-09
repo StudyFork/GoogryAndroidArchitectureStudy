@@ -77,9 +77,5 @@ class LoginActivity : KangBaseActivity() {
         loginViewModel.addAuthFail.observe(this, Observer {
             toast(getString(R.string.login_error_add_auth_toast_message))
         })
-
-        loginViewModel.registerLoginInfoListener.observe(this, Observer {
-
-        })
     }
 }
