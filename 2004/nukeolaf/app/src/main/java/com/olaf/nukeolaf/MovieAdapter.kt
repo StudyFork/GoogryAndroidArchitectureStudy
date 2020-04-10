@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class MovieAdapter(
     private val itemListener: MovieItemListener
-) : RecyclerView.Adapter<MovieItemVeiwHolder>() {
+) : RecyclerView.Adapter<MovieItemViewHolder>() {
 
     private val movies = mutableListOf<MovieItem>()
 
@@ -17,18 +17,18 @@ class MovieAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieItemVeiwHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieItemViewHolder {
         val inflatedView = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.item_movies_rv, parent, false)
-        return MovieItemVeiwHolder(inflatedView)
+        return MovieItemViewHolder(inflatedView, itemListener)
     }
 
     override fun getItemCount(): Int {
         return movies.size
     }
 
-    override fun onBindViewHolder(holder: MovieItemVeiwHolder, position: Int) {
+    override fun onBindViewHolder(holder: MovieItemViewHolder, position: Int) {
         holder.bind(movies[position])
     }
 }

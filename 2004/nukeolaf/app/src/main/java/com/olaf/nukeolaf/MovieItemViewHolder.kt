@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_movies_rv.view.*
 
-class MovieItemVeiwHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class MovieItemViewHolder(itemView: View, private val itemListener: MovieItemListener) :
+    RecyclerView.ViewHolder(itemView) {
 
     fun bind(item: MovieItem) {
         itemView.apply {
@@ -19,7 +20,7 @@ class MovieItemVeiwHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             movie_rating.numStars = 5
             movie_rating.rating = item.userRating / 2
             setOnClickListener {
-                // itemListener.onMovieItemClick(item)
+                itemListener.onMovieItemClick(item)
             }
 
             Glide.with(this)
