@@ -15,7 +15,9 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var movieRvAdapter: SearchMovieRvAdapter
+    private val movieRvAdapter: SearchMovieRvAdapter by lazy {
+        SearchMovieRvAdapter(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +52,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setMovieRecyclerView() {
-        movieRvAdapter = SearchMovieRvAdapter(this)
         searchRv.apply {
             adapter = movieRvAdapter
             addItemDecoration(RecyclerViewItemDivider(this@MainActivity))
