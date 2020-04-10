@@ -31,7 +31,11 @@ class MainActivity : AppCompatActivity() {
 
         search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                searchMovie(query!!)
+                if (query != null) {
+                    searchMovie(query)
+                } else {
+                    makeToast("검색어를 입력해주세요")
+                }
                 return false
             }
 
