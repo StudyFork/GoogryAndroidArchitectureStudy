@@ -53,8 +53,9 @@ class MainActivity : AppCompatActivity() {
                 call: Call<MovieResponse>,
                 response: Response<MovieResponse>
             ) {
-                if (response.body() != null && response.isSuccessful) {
-                    val movies = response.body()!!.items
+                val body = response.body()
+                if (body != null && response.isSuccessful) {
+                    val movies = body.items
                     if (movies.isNotEmpty()) {
                         showMovies(movies)
                     } else {
