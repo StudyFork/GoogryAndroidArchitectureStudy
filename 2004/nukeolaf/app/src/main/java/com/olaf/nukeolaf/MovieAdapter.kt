@@ -15,6 +15,7 @@ class MovieAdapter(
             clear()
             addAll(list)
         }
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieItemViewHolder {

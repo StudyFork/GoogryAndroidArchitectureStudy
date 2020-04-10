@@ -74,10 +74,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showMovies(movies: List<MovieItem>) {
-        movieAdapter.run {
-            setMovies(movies)
-            notifyDataSetChanged()
-        }
+        movieAdapter.setMovies(movies)
     }
 
     private fun makeToast(message: String) {
