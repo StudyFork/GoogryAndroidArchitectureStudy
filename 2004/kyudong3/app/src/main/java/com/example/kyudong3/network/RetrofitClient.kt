@@ -7,7 +7,8 @@ import okhttp3.internal.platform.Platform
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitClient {
+object RetrofitClient {
+    private const val BASE_URL = "https://openapi.naver.com/"
     private val okHttpClient: OkHttpClient
 
     init {
@@ -31,9 +32,5 @@ class RetrofitClient {
             .build()
 
         return retrofit.create(NaverApiService::class.java)
-    }
-
-    companion object {
-        private const val BASE_URL = "https://openapi.naver.com/"
     }
 }
