@@ -16,8 +16,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "Naver_Client_Id", Naver_Client_Id)
-        buildConfigField("String", "Naver_Client_Secret", Naver_Client_Secret)
+        buildConfigField("String", "NAVER_CLIENT_ID", NAVER_CLIENT_ID)
+        buildConfigField("String", "NAVER_CLIENT_SECRET", NAVER_CLIENT_SECRET)
     }
     buildTypes {
         release {
