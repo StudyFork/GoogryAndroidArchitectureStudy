@@ -6,14 +6,12 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import com.eunice.eunicehong.R
-import com.eunice.eunicehong.data.remote.Movie
 import com.eunice.eunicehong.data.remote.MovieAPI
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val movieList = arrayListOf<Movie>()
-    private lateinit var movieListAdapter: MovieAdapter
+    private val movieListAdapter = MovieAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,14 +47,7 @@ class MainActivity : AppCompatActivity() {
             onSuccess = { movies ->
                 zero_item_message.visibility =
                     if (movies.isNullOrEmpty()) View.VISIBLE else View.GONE
-
-                movieList.let {
-                    it.clear()
-                    it.addAll(movies)
-                }.also {
-                    movieListAdapter.notifyDataSetChanged()
-                }
-
+                movieListAdapter.setMovieList(movies)
             },
             onFailure = { e: Throwable ->
                 Log.d(TAG, e.toString())
@@ -64,7 +55,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setMovieList() {
-        movieListAdapter = MovieAdapter(movieList)
         move_list.adapter = movieListAdapter
     }
 

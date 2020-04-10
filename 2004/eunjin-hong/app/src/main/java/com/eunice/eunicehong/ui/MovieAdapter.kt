@@ -14,20 +14,33 @@ import com.bumptech.glide.Glide
 import com.eunice.eunicehong.R
 import com.eunice.eunicehong.data.remote.Movie
 
-class MovieAdapter(private val items: List<Movie>) :
+class MovieAdapter :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+
+    private val movieList = mutableListOf<Movie>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
     )
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = movieList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder) {
-            bind(items[position])
+            bind(movieList[position])
         }
     }
 
+    private fun addAllMovies(movies: Collection<Movie>) {
+        movieList.addAll(movies)
+        notifyDataSetChanged()
+    }
+
+    fun setMovieList(movies: Collection<Movie>) {
+        movieList.clear()
+        addAllMovies(movies)
+        notifyDataSetChanged()
+    }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
