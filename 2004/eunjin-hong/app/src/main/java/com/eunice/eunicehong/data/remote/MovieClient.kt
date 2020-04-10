@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MovieClient {
     fun getClient(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BuildConfig.MovieAppServerHost)
+            .baseUrl(BuildConfig.MOVIE_APP_SERVER_HOST)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(getOkHttpClient())
             .addConverterFactory(GsonConverterFactory.create())

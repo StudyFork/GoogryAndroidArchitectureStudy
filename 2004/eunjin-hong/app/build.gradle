@@ -17,9 +17,9 @@ android {
 
         vectorDrawables.useSupportLibrary = true
 
-        buildConfigField("String", "MovieAppServerHost", "${MovieAppServerHost}")
-        buildConfigField("String", "ClientId", "${ClientId}")
-        buildConfigField("String", "ClientSecret", "${ClientSecret}")
+        buildConfigField("String", "MOVIE_APP_SERVER_HOST", "${MovieAppServerHost}")
+        buildConfigField("String", "CLIENT_ID", "${ClientId}")
+        buildConfigField("String", "CLIENT_SECRET", "${ClientSecret}")
     }
     buildTypes {
         release {

@@ -23,8 +23,8 @@ interface MovieService {
     fun getMovieList(
         @Query("query") query: String,
 
-        @Header("X-Naver-Client-Id") clientId: String = BuildConfig.ClientId,
-        @Header("X-Naver-Client-Secret") clientSecret: String = BuildConfig.ClientSecret,
+        @Header("X-Naver-Client-Id") clientId: String = BuildConfig.CLIENT_ID,
+        @Header("X-Naver-Client-Secret") clientSecret: String = BuildConfig.CLIENT_SECRET,
         @Query("display") display: Int? = null,
         @Query("start") start: Int? = null,
         @Query("genre") genre: Int? = null,
