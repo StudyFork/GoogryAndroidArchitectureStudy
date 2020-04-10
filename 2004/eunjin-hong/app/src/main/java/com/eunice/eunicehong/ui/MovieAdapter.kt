@@ -30,6 +30,9 @@ class MovieAdapter(private val items: List<Movie>) :
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        private lateinit var movie: Movie
+
         private val card = itemView.findViewById<CardView>(R.id.movie_card)
         private val title = itemView.findViewById<TextView>(R.id.movie_title)
         private val poster = itemView.findViewById<ImageView>(R.id.movie_poster)
@@ -39,7 +42,13 @@ class MovieAdapter(private val items: List<Movie>) :
         private val pubDate = itemView.findViewById<TextView>(R.id.movie_date_text)
         private val rating = itemView.findViewById<TextView>(R.id.movie_user_rating_value)
 
-        fun bind(movie: Movie) {
+        private val itemClickListener = View.OnClickListener { _ ->
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movie.link))
+            card.context.startActivity(intent)
+        }
+
+        fun bind(item: Movie) {
+            movie = item
             title.text = HtmlCompat.fromHtml(movie.title, HtmlCompat.FROM_HTML_MODE_LEGACY)
 
             subtitle.text = HtmlCompat.fromHtml(
@@ -57,10 +66,7 @@ class MovieAdapter(private val items: List<Movie>) :
 
             Glide.with(poster.context).load(movie.imageUrl).into(poster)
 
-            card.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movie.link))
-                card.context.startActivity(intent)
-            }
+            card.setOnClickListener(itemClickListener)
 
         }
 
