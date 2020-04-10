@@ -45,7 +45,12 @@ class MovieAdapter :
 
         private lateinit var movie: Movie
 
-        private val card = itemView.findViewById<CardView>(R.id.movie_card)
+        private val card = itemView.findViewById<CardView>(R.id.movie_card).apply {
+            setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movie.link))
+                context.startActivity(intent)
+            }
+        }
         private val title = itemView.findViewById<TextView>(R.id.movie_title)
         private val poster = itemView.findViewById<ImageView>(R.id.movie_poster)
         private val subtitle = itemView.findViewById<TextView>(R.id.movie_subtitle)
@@ -53,11 +58,6 @@ class MovieAdapter :
         private val directors = itemView.findViewById<TextView>(R.id.movie_directors)
         private val pubDate = itemView.findViewById<TextView>(R.id.movie_date_text)
         private val rating = itemView.findViewById<TextView>(R.id.movie_user_rating_value)
-
-        private val itemClickListener = View.OnClickListener { _ ->
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movie.link))
-            card.context.startActivity(intent)
-        }
 
         fun bind(item: Movie) {
             movie = item
@@ -77,8 +77,6 @@ class MovieAdapter :
                 rating.context.getString(R.string.movie_item_user_rating_key, movie.userRating)
 
             Glide.with(poster.context).load(movie.imageUrl).into(poster)
-
-            card.setOnClickListener(itemClickListener)
 
         }
 
