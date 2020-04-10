@@ -30,9 +30,7 @@ class SearchMovieRvAdapter :
     }
 
     override fun onBindViewHolder(holder: SearchMovieVH, position: Int) {
-        with(holder) {
-            bind(movieList[position])
-        }
+        holder.bind(movieList[position])
     }
 
     fun setMovieList(movieList: List<Movie>) {
