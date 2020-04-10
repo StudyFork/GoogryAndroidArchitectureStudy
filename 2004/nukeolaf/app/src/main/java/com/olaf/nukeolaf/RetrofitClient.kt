@@ -1,7 +1,5 @@
 package com.olaf.nukeolaf
 
-import com.olaf.nukeolaf.BuildConfig.NAVER_CLIENT_ID
-import com.olaf.nukeolaf.BuildConfig.NAVER_CLIENT_SECRET
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -19,8 +17,8 @@ object RetrofitClient {
             .addInterceptor { chain: Interceptor.Chain ->
                 val original = chain.request()
                 chain.proceed(original.newBuilder().apply {
-                    addHeader("X-Naver-Client-Id", NAVER_CLIENT_ID)
-                    addHeader("X-Naver-Client-Secret", NAVER_CLIENT_SECRET)
+                    addHeader("X-Naver-Client-Id", BuildConfig.NAVER_CLIENT_ID)
+                    addHeader("X-Naver-Client-Secret", BuildConfig.NAVER_CLIENT_SECRET)
                 }.build())
             }
             .addInterceptor(HttpLoggingInterceptor().apply {
