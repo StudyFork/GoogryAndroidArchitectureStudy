@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">StudyForkAndroid</string>
+
+    <string name="CLIENT_ID">LFMh4P2DYY6iko3bTH3x</string>
+    <string name="SECRET_KEY">ZI0nygoFib</string>
+
+    <string name="search">검색</string>
+    <string name="inputTitle">제목을 입력해주세요.</string>
 </resources>
