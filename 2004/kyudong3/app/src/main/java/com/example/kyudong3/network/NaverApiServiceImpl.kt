@@ -3,15 +3,13 @@ package com.example.kyudong3.network
 import com.example.kyudong3.BuildConfig
 
 class NaverApiServiceImpl {
-    private val retrofitClient: RetrofitClient
     private val naverService: NaverApiService
 
     private val clientId: String = BuildConfig.clientId
     private val clientSecret: String = BuildConfig.clientSecret
 
     init {
-        retrofitClient = RetrofitClient()
-        naverService = retrofitClient.getNaverService()
+        naverService = RetrofitClient.getNaverService()
     }
 
     fun getSearchMovie(searchQuery: String) =
