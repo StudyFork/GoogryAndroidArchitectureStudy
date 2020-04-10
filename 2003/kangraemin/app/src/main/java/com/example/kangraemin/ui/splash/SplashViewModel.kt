@@ -1,6 +1,7 @@
 package com.example.kangraemin.ui.splash
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.EmptyResultSetException
 import com.example.kangraemin.base.KangBaseViewModel
 import com.example.kangraemin.model.AuthRepository
@@ -14,7 +15,17 @@ class SplashViewModel(
     private val authRepository: AuthRepository
 ) : KangBaseViewModel() {
 
-    val observableSplashResult = ObservableField<SplashResult>()
+    private val _needLogin = MutableLiveData<Unit>()
+
+    val needLogin: LiveData<Unit> = _needLogin
+
+    private val _getAuthError = MutableLiveData<Unit>()
+
+    val getAuthError: LiveData<Unit> = _getAuthError
+
+    private val _toMain = MutableLiveData<Unit>()
+
+    val toMain: LiveData<Unit> = _toMain
 
     init {
         val splashTimer = Completable
@@ -35,22 +46,16 @@ class SplashViewModel(
                     responseGetAuth.throwable?.apply {
                         printStackTrace()
                         if (responseGetAuth.throwable is EmptyResultSetException) {
-                            observableSplashResult.set(SplashResult.NEED_LOGIN)
+                            _needLogin.value = Unit
                         } else {
-                            observableSplashResult.set(SplashResult.AUTH_ERROR)
+                            _getAuthError.value = Unit
                         }
                     }
                 } else {
-                    observableSplashResult.set(SplashResult.MAIN_VIEW)
+                    _toMain.value = Unit
                 }
             }, { it.printStackTrace() })
         compositeDisposable.add(splashTimer)
-    }
-
-    enum class SplashResult {
-        NEED_LOGIN,
-        AUTH_ERROR,
-        MAIN_VIEW
     }
 
     private data class ResponseGetAuth(

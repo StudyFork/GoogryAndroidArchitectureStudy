@@ -1,12 +1,12 @@
 package com.example.kangraemin.ui.login
 
-import androidx.databinding.Observable
-import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.example.kangraemin.base.KangBaseViewModel
 import com.example.kangraemin.model.AuthRepository
 import com.example.kangraemin.model.local.datamodel.Auth
-import com.example.kangraemin.util.NonNullObservableField
+import com.example.kangraemin.util.NonNullMutableLiveData
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,23 +18,47 @@ class LoginViewModel(
 
     private val addAuthSubject = PublishSubject.create<Auth>()
 
-    val addAuthResponse: ObservableField<AddAuthResponse> = ObservableField()
+    private val _loginError: MutableLiveData<Unit> = MutableLiveData()
 
-    val loginError: ObservableField<Unit> = ObservableField()
+    val loginError: LiveData<Unit> = _loginError
 
-    val loginSuccess: ObservableField<Unit> = ObservableField()
+    private val _loginSuccess: MutableLiveData<Unit> = MutableLiveData()
 
-    val loginInfoEntered: ObservableBoolean = ObservableBoolean(false)
+    val loginSuccess: LiveData<Unit> = _loginSuccess
 
-    val idIsEmpty: ObservableBoolean = ObservableBoolean(false)
+    val loginInfoEntered: MutableLiveData<Boolean> = MutableLiveData(false)
 
-    val pwIsEmpty: ObservableBoolean = ObservableBoolean(false)
+    private val _idIsEmpty: MutableLiveData<Boolean> = MutableLiveData()
 
-    val id: NonNullObservableField<String> = NonNullObservableField("")
+    val idIsEmpty: LiveData<Boolean> = _idIsEmpty
 
-    val pw: NonNullObservableField<String> = NonNullObservableField("")
+    private val _pwIsEmpty: MutableLiveData<Boolean> = MutableLiveData()
 
-    val autoLogin: ObservableBoolean = ObservableBoolean(false)
+    val pwIsEmpty: LiveData<Boolean> = _pwIsEmpty
+
+    private val _id: NonNullMutableLiveData<String> = NonNullMutableLiveData("")
+
+    val id: MutableLiveData<String> = _id
+
+    private val _pw: NonNullMutableLiveData<String> = NonNullMutableLiveData("")
+
+    val pw: MutableLiveData<String> = _pw
+
+    private val _autoLogin: NonNullMutableLiveData<Boolean> = NonNullMutableLiveData(false)
+
+    val autoLogin: MutableLiveData<Boolean> = _autoLogin
+
+    private val _addAuthSuccess: MutableLiveData<Unit> = MutableLiveData()
+
+    val addAuthSuccess: LiveData<Unit> = _addAuthSuccess
+
+    private val _addAuthFail: MutableLiveData<Unit> = MutableLiveData()
+
+    val addAuthFail: LiveData<Unit> = _addAuthFail
+
+    private val loginInfoObserver = Observer<String> {
+        checkLoginInfoHasEntered()
+    }
 
     init {
         val addAuth = addAuthSubject
@@ -47,80 +71,61 @@ class LoginViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ responseAddAuth ->
                 if (responseAddAuth.responseError) {
-                    addAuthResponse.set(AddAuthResponse.ADD_AUTH_ERROR)
+                    _addAuthFail.value = Unit
                     responseAddAuth.throwable?.apply {
                         printStackTrace()
                     }
                 } else {
-                    addAuthResponse.set(AddAuthResponse.ADD_AUTH_SUCCESS)
+                    _addAuthSuccess.value = Unit
                 }
             }, { it.printStackTrace() })
         compositeDisposable.add(addAuth)
 
-        id.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                checkLoginInfoHasEntered()
-            }
-        })
+        id.observeForever(loginInfoObserver)
 
-        pw.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                checkLoginInfoHasEntered()
-            }
-        })
+        pw.observeForever(loginInfoObserver)
     }
 
     fun checkIdIsEmpty(hasFocus: Boolean) {
         if (!hasFocus) {
-            if (id.get().isEmpty()) {
-                idIsEmpty.set(true)
-            } else {
-                idIsEmpty.set(false)
-            }
+            _idIsEmpty.value = _id.value.isEmpty()
         } else {
-            idIsEmpty.set(false)
+            _idIsEmpty.value = false
         }
     }
 
     fun checkPasswordIsEmpty(hasFocus: Boolean) {
         if (!hasFocus) {
-            if (pw.get().isEmpty()) {
-                pwIsEmpty.set(true)
-            } else {
-                pwIsEmpty.set(false)
-            }
+            _pwIsEmpty.value = _pw.value.isEmpty()
         } else {
-            pwIsEmpty.set(false)
+            _pwIsEmpty.value = false
         }
     }
 
     fun checkLoginInfoHasEntered() {
-        if (id.get().isEmpty() || pw.get().isEmpty()) {
-            loginInfoEntered.set(false)
-        } else {
-            loginInfoEntered.set(true)
-        }
+        loginInfoEntered.value = !(_id.value.isEmpty() || _pw.value.isEmpty())
     }
 
     fun login() {
-        if (id.get() != "id" || pw.get() != "P@ssw0rd") {
-            loginError.notifyChange()
+        if (id.value != "id" || pw.value != "P@ssw0rd") {
+            _loginError.value = Unit
         } else {
-            if (autoLogin.get()) {
+            if (_autoLogin.value) {
                 addAuthSubject.onNext(Auth(autoLogin = true))
             } else {
-                loginSuccess.notifyChange()
+                _loginSuccess.value = Unit
             }
         }
-    }
-
-    enum class AddAuthResponse {
-        ADD_AUTH_ERROR,
-        ADD_AUTH_SUCCESS
     }
 
     private data class ResponseAddAuth(
         val responseError: Boolean,
         val throwable: Throwable? = null
     )
+
+    override fun onCleared() {
+        id.removeObserver(loginInfoObserver)
+        pw.removeObserver(loginInfoObserver)
+        super.onCleared()
+    }
 }
