@@ -6,7 +6,6 @@ import android.view.Menu
 import androidx.appcompat.widget.SearchView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding3.appcompat.queryTextChanges
 import io.github.jesterz91.study.R
 import io.github.jesterz91.study.data.model.MovieResponse
@@ -48,7 +47,6 @@ class MovieSearchActivity :
                     DividerItemDecoration.VERTICAL
                 )
             )
-            layoutManager = LinearLayoutManager(this@MovieSearchActivity)
             adapter = movieAdapter.also {
                 subscribeBrowseEvent(it.getClickObservable())
             }
