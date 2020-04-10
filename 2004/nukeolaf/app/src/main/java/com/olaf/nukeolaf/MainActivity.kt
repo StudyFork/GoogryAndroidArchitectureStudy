@@ -14,7 +14,7 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var retrofitClient: RetrofitInterface
+    private val retrofitClient: RetrofitInterface = RetrofitClient.client
     private val itemListener: MovieItemListener = object : MovieItemListener {
         override fun onMovieItemClick(item: MovieItem) {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        retrofitClient = RetrofitClient.client
         movie_rv.adapter = movieAdapter
 
         search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
