@@ -1,6 +1,8 @@
 package com.example.kyudong3.model
 
-data class MovieList(
+import com.google.gson.annotations.SerializedName
+
+data class MovieReceiver(
     val total: Int,
     val start: Int,
     val display: Int,
@@ -8,12 +10,12 @@ data class MovieList(
 )
 
 data class Movie(
-    val title: String,
-    val link: String,
-    val image: String,
-    val subtitle: String,
-    val pubDate: String,
-    val director: String,
-    val actor: String,
-    val userRating: Double
+    @SerializedName("title") val title: String,
+    @SerializedName("link") val link: String,
+    @SerializedName("image") val image: String,
+    @SerializedName("subtitle") val subtitle: String,
+    @SerializedName("pubDate") val pubDate: String,
+    @SerializedName("director") val director: String,
+    @SerializedName("actor") val actor: String,
+    @SerializedName("userRating") val userRating: Double
 )
