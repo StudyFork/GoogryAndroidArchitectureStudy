@@ -1,6 +1,5 @@
 package com.example.kyudong3.adapter
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
@@ -15,10 +14,10 @@ import com.example.kyudong3.extension.htmlToString
 import com.example.kyudong3.model.Movie
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class SearchMovieRvAdapter(val context: Context) :
+class SearchMovieRvAdapter :
     RecyclerView.Adapter<SearchMovieRvAdapter.SearchMovieVH>() {
 
-    private var movieList: List<Movie> = listOf()
+    private val movieList = mutableListOf<Movie>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchMovieVH {
         return SearchMovieVH(
@@ -31,26 +30,20 @@ class SearchMovieRvAdapter(val context: Context) :
     }
 
     override fun onBindViewHolder(holder: SearchMovieVH, position: Int) {
-        movieList[position].let { movie ->
-            with(holder) {
-                Glide.with(context).load(movie.image).into(image)
-                title.text = movie.title.htmlToString()
-                subTitle.text = movie.subtitle.htmlToString()
-                pubDate.text = movie.pubDate.toString().htmlToString()
-                director.text = movie.director.htmlToString().replace("|", "")
-                actor.text = movie.actor.htmlToString().replace("|", " ")
-                userRating.text = "평점 : ${movie.userRating.toString().htmlToString()}"
-            }
+        with(holder) {
+            bind(movieList[position])
         }
-
-        holder.clickListener(movieList[position].link)
     }
 
     fun setMovieList(movieList: List<Movie>) {
-        this.movieList = movieList
+        this.movieList.apply {
+            clear()
+            addAll(movieList)
+        }
     }
 
     inner class SearchMovieVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        lateinit var movie: Movie
         val image: ImageView = itemView.movieImageImv
         val title: TextView = itemView.movieTitleTxv
         val subTitle: TextView = itemView.movieSubTitleTxv
@@ -59,11 +52,20 @@ class SearchMovieRvAdapter(val context: Context) :
         val actor: TextView = itemView.movieActorTxv
         val userRating: TextView = itemView.movieUserRatingTxv
 
-        fun clickListener(link: String) {
-            itemView.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
-                context.startActivity(intent)
-            }
+        private val onClickListener = View.OnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movie.link))
+            itemView.context.startActivity(intent)
+        }
+
+        fun bind(movie: Movie) {
+            this.movie = movie
+            Glide.with(itemView.context).load(movie.image).into(image)
+            title.text = movie.title.htmlToString()
+            subTitle.text = movie.subtitle.htmlToString()
+            pubDate.text = movie.pubDate.toString().htmlToString()
+            director.text = movie.director.htmlToString().replace("|", "")
+            actor.text = movie.actor.htmlToString().replace("|", " ")
+            userRating.text = "평점 : ${movie.userRating.toString().htmlToString()}"
         }
     }
 }
