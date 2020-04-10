@@ -18,9 +18,7 @@ abstract class BaseAdapter<ITEM, VH : BaseViewHolder<ITEM, out ViewBinding>> :
 
     override fun getItemCount(): Int = items.size
 
-    override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.bind(items[position])
-    }
+    override fun onBindViewHolder(holder: VH, position: Int) = holder.bind(items[position])
 
     fun getItem(position: Int): ITEM = items[position]
 

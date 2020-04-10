@@ -22,8 +22,8 @@ abstract class BaseActivity<B : ViewBinding>(private val inflate: (LayoutInflate
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         disposables.clear()
+        super.onDestroy()
     }
 
     protected fun hideSoftKeyboard(windowToken: IBinder) {
