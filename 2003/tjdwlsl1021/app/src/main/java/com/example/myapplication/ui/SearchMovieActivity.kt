@@ -55,7 +55,7 @@ class SearchMovieActivity : AppCompatActivity() {
         })
 
         viewModel.movieList.observe(this, Observer {
-            this@SearchMovieActivity.movieAdapter.addItems(viewModel.movieList.value)
+            movieAdapter.addItems(viewModel.movieList.value)
         })
 
         setContentView(binding.root)
