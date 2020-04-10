@@ -39,7 +39,6 @@ class MovieAdapter :
     fun setMovieList(movies: Collection<Movie>) {
         movieList.clear()
         addAllMovies(movies)
-        notifyDataSetChanged()
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
