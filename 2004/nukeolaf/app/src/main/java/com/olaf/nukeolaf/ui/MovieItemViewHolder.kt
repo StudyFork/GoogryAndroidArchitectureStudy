@@ -1,4 +1,4 @@
-package com.olaf.nukeolaf
+package com.olaf.nukeolaf.ui
 
 import android.content.Intent
 import android.net.Uri
@@ -7,6 +7,8 @@ import android.text.Html
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.olaf.nukeolaf.MovieItem
+import com.olaf.nukeolaf.R
 import kotlinx.android.synthetic.main.item_movies_rv.view.*
 
 class MovieItemViewHolder(itemView: View) :

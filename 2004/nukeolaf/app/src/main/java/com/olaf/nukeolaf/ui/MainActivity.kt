@@ -1,10 +1,15 @@
-package com.olaf.nukeolaf
+package com.olaf.nukeolaf.ui
 
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import com.olaf.nukeolaf.MovieItem
+import com.olaf.nukeolaf.MovieResponse
+import com.olaf.nukeolaf.R
+import com.olaf.nukeolaf.network.RetrofitClient
+import com.olaf.nukeolaf.network.RetrofitInterface
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -12,7 +17,8 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    private val retrofitClient: RetrofitInterface = RetrofitClient.client
+    private val retrofitClient: RetrofitInterface =
+        RetrofitClient.client
     private val movieAdapter = MovieAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {

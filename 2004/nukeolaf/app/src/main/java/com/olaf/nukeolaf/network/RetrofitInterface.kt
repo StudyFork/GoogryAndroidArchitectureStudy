@@ -1,5 +1,6 @@
-package com.olaf.nukeolaf
+package com.olaf.nukeolaf.network
 
+import com.olaf.nukeolaf.MovieResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

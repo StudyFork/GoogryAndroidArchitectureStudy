@@ -1,8 +1,10 @@
-package com.olaf.nukeolaf
+package com.olaf.nukeolaf.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.olaf.nukeolaf.MovieItem
+import com.olaf.nukeolaf.R
 
 class MovieAdapter : RecyclerView.Adapter<MovieItemViewHolder>() {
 
