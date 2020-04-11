@@ -1,8 +1,7 @@
 package com.tsdev.tsandroid.data.repository
 
-import android.util.Log
 import com.tsdev.tsandroid.data.Item
-import com.tsdev.tsandroid.NaverMovieInterface
+import com.tsdev.tsandroid.network.NaverMovieInterface
 import com.tsdev.tsandroid.data.MovieResponse
 import com.tsdev.tsandroid.data.source.NaverRemoteDataSource
 import com.tsdev.tsandroid.data.source.NaverRemoteDataSourceImpl

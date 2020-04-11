@@ -4,7 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.tsdev.tsandroid.NaverAPI
+import com.tsdev.tsandroid.api.NaverAPI
 import com.tsdev.tsandroid.R
 import com.tsdev.tsandroid.data.repository.NaverRepositoryImpl
 import com.tsdev.tsandroid.ui.adapter.MovieRecyclerAdapter

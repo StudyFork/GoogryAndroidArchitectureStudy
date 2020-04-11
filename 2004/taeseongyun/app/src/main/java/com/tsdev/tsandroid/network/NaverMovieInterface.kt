@@ -1,4 +1,4 @@
-package com.tsdev.tsandroid
+package com.tsdev.tsandroid.network
 
 import com.tsdev.tsandroid.data.MovieResponse
 import io.reactivex.rxjava3.core.Single
