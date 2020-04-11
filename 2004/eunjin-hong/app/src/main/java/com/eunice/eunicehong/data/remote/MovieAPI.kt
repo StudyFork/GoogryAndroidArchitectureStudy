@@ -1,5 +1,7 @@
 package com.eunice.eunicehong.data.remote
 
+import com.eunice.eunicehong.data.model.Movie
+import com.eunice.eunicehong.data.model.MovieList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
