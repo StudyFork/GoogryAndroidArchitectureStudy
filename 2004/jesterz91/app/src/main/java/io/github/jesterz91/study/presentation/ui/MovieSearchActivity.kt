@@ -27,11 +27,7 @@ class MovieSearchActivity :
 
     private val backPressSubject = BehaviorSubject.createDefault(0L)
 
-    private val movieAdapter by lazy {
-        MovieSearchAdapter(
-            mutableListOf()
-        )
-    }
+    private val movieAdapter by lazy { MovieSearchAdapter() }
 
     private val customTabsIntent: CustomTabsIntent by lazy {
         CustomTabsIntent.Builder().build()

@@ -8,7 +8,7 @@ import androidx.viewbinding.ViewBinding
 abstract class BaseAdapter<ITEM, VH : BaseViewHolder<ITEM, out ViewBinding>> :
     RecyclerView.Adapter<VH>() {
 
-    abstract val items: MutableList<ITEM>
+    private val items: MutableList<ITEM> = mutableListOf()
 
     abstract fun createViewHolder(layoutInflater: LayoutInflater): VH
 
@@ -33,4 +33,9 @@ abstract class BaseAdapter<ITEM, VH : BaseViewHolder<ITEM, out ViewBinding>> :
     }
 
     fun clearItem() = items.clear()
+
+    fun changeItems(newItems: List<ITEM>) {
+        clearItem()
+        addItem(newItems)
+    }
 }

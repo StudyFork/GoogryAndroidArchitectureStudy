@@ -9,8 +9,7 @@ import io.github.jesterz91.study.presentation.common.BaseAdapter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
-class MovieSearchAdapter(override val items: MutableList<Movie>) :
-    BaseAdapter<Movie, MovieSearchViewHolder>() {
+class MovieSearchAdapter : BaseAdapter<Movie, MovieSearchViewHolder>() {
 
     private val uriSubject = PublishSubject.create<Uri>()
 
@@ -29,9 +28,4 @@ class MovieSearchAdapter(override val items: MutableList<Movie>) :
     }
 
     fun getClickObservable(): Observable<Uri> = uriSubject
-
-    fun changeItems(newItems: List<Movie>) {
-        items.clear()
-        items.addAll(newItems)
-    }
 }
