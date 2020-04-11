@@ -1,8 +1,9 @@
 package com.tsdev.tsandroid.data.repository
 
-import com.tsdev.tsandroid.Item
+import android.util.Log
+import com.tsdev.tsandroid.data.Item
 import com.tsdev.tsandroid.NaverMovieInterface
-import com.tsdev.tsandroid.MovieResponse
+import com.tsdev.tsandroid.data.MovieResponse
 import com.tsdev.tsandroid.data.source.NaverRemoteDataSource
 import com.tsdev.tsandroid.data.source.NaverRemoteDataSourceImpl
 import com.tsdev.tsandroid.util.htmlConvert
@@ -15,22 +16,27 @@ class NaverRepositoryImpl(private val naverAPI: NaverMovieInterface) : NaverReop
     }
 
     override fun getMovieList(query: String): Single<List<Item>> =
-        naverRemoteDataSourceImpl.getMovieList(query).flatMap {
+        naverRemoteDataSourceImpl.getMovieList(query).concatMap {
             convertRemoteData(it)
         }
 
     private fun convertRemoteData(movieResponse: MovieResponse): Single<List<Item>> {
 
         val convertHtml = movieResponse.items.map { item ->
-            item.actor.htmlConvert().split("|").map { it.trim() }
-                .filter { it != "" }
-                .joinToString { it }
-            item.title.htmlConvert()
-            item.subtitle.htmlConvert()
-            item.director.htmlConvert().split("|").map { it.trim() }
-                .filter { it != "" }
-                .joinToString { it }
-            item
+            Item(
+                item.actor.htmlConvert().split("|").map { it.trim() }
+                    .filter { it != "" }
+                    .joinToString { it },
+                item.director.split("|").map { it.trim() }
+                    .filter { it != "" }
+                    .joinToString { it },
+                item.image,
+                item.link,
+                item.pubDate,
+                item.subtitle.htmlConvert().toString(),
+                item.title.htmlConvert().toString(),
+                item.userRating
+            )
         }
 
         return Single.just(convertHtml)

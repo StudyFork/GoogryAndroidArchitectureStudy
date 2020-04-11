@@ -1,4 +1,4 @@
-package com.tsdev.tsandroid
+package com.tsdev.tsandroid.data
 
 data class MovieResponse(
     val display: Int,

@@ -4,10 +4,9 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.tsdev.tsandroid.NaverAPI
 import com.tsdev.tsandroid.R
+import com.tsdev.tsandroid.data.repository.NaverRepositoryImpl
 import com.tsdev.tsandroid.ui.adapter.MovieRecyclerAdapter
 import com.tsdev.tsandroid.ui.viewholder.MovieRecyclerViewViewHolder
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -23,14 +22,18 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewViewHolder.OnClickDel
         MovieRecyclerAdapter(this)
     }
 
+    private val naverRepository by lazy {
+        NaverRepositoryImpl(NaverAPI.movieAPI)
+    }
+
     private fun getMovieList(query: String) {
         disposable.add(
-            NaverAPI.movieAPI.getSearchMovie(query)
+            naverRepository.getMovieList(query)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ movieResponse ->
+                .subscribe({
                     movieRecyclerAdapter.clear()
-                    movieRecyclerAdapter.addItems(movieResponse.items)
+                    movieRecyclerAdapter.addItems(it)
                     movieRecyclerAdapter.notifyDataSetChanged()
                 }, {
                     it.printStackTrace()
