@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">My Application</string>
+
+    <string name="edit_text_hint">검색하실 제목을 입력해주세요.</string>
+
+    <string name="occur_error_toast">얘기치 못한 에러가 발생했습니다. 검색을 다시 해주세요.</string>
 </resources>

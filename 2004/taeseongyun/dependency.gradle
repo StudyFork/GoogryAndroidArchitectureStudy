@@ -1,0 +1,80 @@
+ext {
+    versions = [
+            classpath        : [
+                    build_gradle: "3.6.0",
+            ],
+            kotlin           : "1.3.61",
+            sdkVersions      : [
+                    minVersion     : 17,
+                    targetVersions : 29,
+                    compileVersions: 29
+            ],
+            buildToolVersions: "29.0.3",
+            androidx         : [
+                    appcompat       : "1.1.0",
+                    constraintlayout: "2.0.0-beta4",
+                    ktx             : [
+                            core    : "1.2.0",
+                            fragment: "1.2.4",
+                    ],
+                    material        : "1.1.0-alpha06",
+                    recyclerview    : "1.1.0",
+            ],
+            test             : [
+                    junit   : "1.1.1",
+                    espresso: "3.2.0"
+            ],
+            junit            : "4.12",
+            rx               : [
+                    java   : "3.0.1",
+                    android: "3.0.0"
+            ],
+            squareup         : [
+                    okhttp             : "4.4.0",
+                    logging_interceptor: "4.4.0",
+                    retrofit           : "2.8.1",
+                    adapter_rxjava3    : "3.0.0"
+            ],
+            bumptech         : [
+                    glide     : "4.10.0",
+                    glide_blur: "4.0.0"
+            ],
+    ]
+    deps = [
+            junit        : "junit:junit:$versions.junit",
+            classpath    : [
+                    build_gradle: "com.android.tools.build:gradle:$versions.classpath.build_gradle",
+                    kotlin      : "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+            ],
+            kotlin_stdlib: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin",
+            androidx     : [
+                    appcompat       : "androidx.appcompat:appcompat:$versions.androidx.appcompat",
+                    constraintlayout: "androidx.constraintlayout:constraintlayout:$versions.androidx.constraintlayout",
+                    ktx             : [
+                            core    : "androidx.core:core-ktx:$versions.androidx.ktx.core",
+                            fragment: "androidx.fragment:fragment-ktx:$versions.androidx.ktx.fragment"
+                    ],
+                    test            : [
+                            junit   : "androidx.test.ext:junit:$versions.test.junit",
+                            espresso: "androidx.test.espresso:espresso-core:$versions.test.espresso"
+                    ],
+                    material        : "com.google.android.material:material:$versions.androidx.material",
+                    recyclerview    : "androidx.recyclerview:recyclerview:$versions.androidx.recyclerview",
+            ],
+            library      : [
+                    rx        : [
+                            java   : "io.reactivex.rxjava3:rxjava:$versions.rx.java",
+                            android: "io.reactivex.rxjava3:rxandroid:$versions.rx.android"
+                    ],
+                    squareup  : [
+                            retrofit                  : "com.squareup.retrofit2:retrofit:$versions.squareup.retrofit",
+                            retrofit_gson_converter   : "com.squareup.retrofit2:converter-gson:$versions.squareup.retrofit",
+                            adapter_rxjava3           : "com.github.akarnokd:rxjava3-retrofit-adapter:$versions.squareup.adapter_rxjava3",
+                            okhttp                    : "com.squareup.okhttp3:okhttp:$versions.squareup.okhttp",
+                            okhttp_logging_interceptor: "com.squareup.okhttp3:logging-interceptor:$versions.squareup.logging_interceptor"
+                    ],
+                    glide     : "com.github.bumptech.glide:glide:$versions.bumptech.glide",
+                    glide_blur: "jp.wasabeef:glide-transformations:$versions.bumptech.glide_blur",
+            ]
+    ]
+}
