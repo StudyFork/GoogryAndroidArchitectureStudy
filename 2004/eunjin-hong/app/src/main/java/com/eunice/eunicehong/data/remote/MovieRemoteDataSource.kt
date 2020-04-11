@@ -4,6 +4,7 @@ import com.eunice.eunicehong.data.model.Movie
 import com.eunice.eunicehong.data.model.MovieList
 import retrofit2.Call
 import retrofit2.Callback
+import retrofit2.HttpException
 import retrofit2.Response
 
 class MovieRemoteDataSource {
@@ -20,7 +21,7 @@ class MovieRemoteDataSource {
                 if (response.isSuccessful && content != null) {
                     onSuccess(content.items)
                 } else {
-                    onFailure(Throwable(response.errorBody().toString()))
+                    onFailure(HttpException(response))
                 }
 
             }
