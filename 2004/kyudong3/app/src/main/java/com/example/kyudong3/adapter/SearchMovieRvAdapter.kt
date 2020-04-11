@@ -43,12 +43,12 @@ class SearchMovieRvAdapter :
     inner class SearchMovieVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         lateinit var movie: Movie
 
-        private val onClickListener = View.OnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movie.link))
-            itemView.context.startActivity(intent)
+        init {
+            itemView.setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movie.link))
+                itemView.context.startActivity(intent)
+            }
         }
-
-        private var movieItemView = itemView.setOnClickListener(onClickListener)
 
         val image: ImageView = itemView.movieImageImv
         val title: TextView = itemView.movieTitleTxv
