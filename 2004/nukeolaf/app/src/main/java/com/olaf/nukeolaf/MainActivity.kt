@@ -1,7 +1,5 @@
 package com.olaf.nukeolaf
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -15,13 +13,7 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
 
     private val retrofitClient: RetrofitInterface = RetrofitClient.client
-    private val itemListener: MovieItemListener = object : MovieItemListener {
-        override fun onMovieItemClick(item: MovieItem) {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
-            startActivity(intent)
-        }
-    }
-    private val movieAdapter = MovieAdapter(itemListener)
+    private val movieAdapter = MovieAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

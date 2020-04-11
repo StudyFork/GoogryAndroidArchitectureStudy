@@ -1,5 +1,7 @@
 package com.olaf.nukeolaf
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.text.Html
 import android.view.View
@@ -7,10 +9,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_movies_rv.view.*
 
-class MovieItemViewHolder(itemView: View, private val itemListener: MovieItemListener) :
+class MovieItemViewHolder(itemView: View) :
     RecyclerView.ViewHolder(itemView) {
 
+    private lateinit var movieItem: MovieItem
+
+    init {
+        itemView.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movieItem.link))
+            it.context.startActivity(intent)
+        }
+    }
+
     fun bind(item: MovieItem) {
+        movieItem = item
         itemView.apply {
             movie_title.text = item.title.htmlToString()
             movie_subtitle.text = item.subtitle
@@ -19,9 +31,6 @@ class MovieItemViewHolder(itemView: View, private val itemListener: MovieItemLis
             movie_actor.text = item.actor.addCommas("출연진 : ")
             movie_rating.numStars = 5
             movie_rating.rating = item.userRating / 2
-            setOnClickListener {
-                itemListener.onMovieItemClick(item)
-            }
 
             Glide.with(this)
                 .load(item.image)

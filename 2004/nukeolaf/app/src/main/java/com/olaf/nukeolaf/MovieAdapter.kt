@@ -4,9 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class MovieAdapter(
-    private val itemListener: MovieItemListener
-) : RecyclerView.Adapter<MovieItemViewHolder>() {
+class MovieAdapter : RecyclerView.Adapter<MovieItemViewHolder>() {
 
     private val movies = mutableListOf<MovieItem>()
 
@@ -22,7 +20,7 @@ class MovieAdapter(
         val inflatedView = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.item_movies_rv, parent, false)
-        return MovieItemViewHolder(inflatedView, itemListener)
+        return MovieItemViewHolder(inflatedView)
     }
 
     override fun getItemCount(): Int {
