@@ -6,7 +6,7 @@ import android.widget.Toast
 import com.tsdev.tsandroid.Item
 import com.tsdev.tsandroid.R
 import com.tsdev.tsandroid.base.BaseRecyclerViewHolder
-import com.tsdev.tsandroid.showToast
+import com.tsdev.tsandroid.ext.showToast
 import com.tsdev.tsandroid.util.htmlConvert
 import kotlinx.android.synthetic.main.movie_recycler_item.view.*
 

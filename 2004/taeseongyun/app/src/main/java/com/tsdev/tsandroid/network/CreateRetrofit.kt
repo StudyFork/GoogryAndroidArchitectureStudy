@@ -1,5 +1,6 @@
-package com.tsdev.tsandroid
+package com.tsdev.tsandroid.network
 
+import com.tsdev.tsandroid.BuildConfig
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -33,8 +34,14 @@ fun okHttpClient(): OkHttpClient {
         .addInterceptor { chain ->
             val originRequest = chain.request()
             chain.proceed(originRequest.newBuilder().apply {
-                addHeader(X_NAVER_CLIENT_ID, BuildConfig.Client_ID)
-                addHeader(X_NAVER_CLIENT_SECRET, BuildConfig.Client_SECRET)
+                addHeader(
+                    X_NAVER_CLIENT_ID,
+                    BuildConfig.Client_ID
+                )
+                addHeader(
+                    X_NAVER_CLIENT_SECRET,
+                    BuildConfig.Client_SECRET
+                )
             }.build())
         }
         .writeTimeout(REQUEST_TIME_OUT, TimeUnit.MILLISECONDS)
