@@ -6,7 +6,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import com.eunice.eunicehong.R
-import com.eunice.eunicehong.data.remote.MovieAPI
+import com.eunice.eunicehong.data.repository.MovieRepository
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun searchMovieList(query: String) {
-        MovieAPI.getMovieList(
+        MovieRepository.getMovieList(
             query = query,
             onSuccess = { movies ->
                 zero_item_message.visibility =
