@@ -22,10 +22,11 @@ object RetrofitClient {
                 }.build())
             }
             .addInterceptor(HttpLoggingInterceptor().apply {
-                level = if (BuildConfig.DEBUG)
+                level = if (BuildConfig.DEBUG) {
                     HttpLoggingInterceptor.Level.BODY
-                else
+                } else {
                     HttpLoggingInterceptor.Level.NONE
+                }
             }).build()
 
         val retrofit = Retrofit.Builder()
