@@ -1,6 +1,6 @@
 package com.olaf.nukeolaf.data.remote
 
-import com.olaf.nukeolaf.MovieResponse
+import com.olaf.nukeolaf.data.model.MovieResponse
 import com.olaf.nukeolaf.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -10,7 +10,7 @@ class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
 
     private val retrofitClient = RetrofitClient.client
 
-    override fun getMovie(
+    override fun getMovies(
         query: String,
         callback: MovieRemoteDataSource.LoadMoviesCallback
     ) {
