@@ -4,7 +4,7 @@ import android.content.Context
 import com.google.gson.GsonBuilder
 import com.olaf.nukeolaf.data.model.MovieResponse
 
-class MovieLocalDataClassImpl(context: Context) : MovieLocalDataSource {
+class MovieLocalDataSourceImpl(context: Context) : MovieLocalDataSource {
 
     private val sharedPreferences =
         context.getSharedPreferences("movies", Context.MODE_PRIVATE)
