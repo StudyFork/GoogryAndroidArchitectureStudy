@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
-                    searchMovie(query)
                 } else {
                     makeToast("검색어를 입력해주세요")
                 }
@@ -30,34 +29,6 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 return false
-            }
-        })
-    }
-
-    private fun searchMovie(query: String) {
-        retrofitClient.searchMovie(
-            query, 10, 1
-        ).enqueue(object : Callback<MovieResponse> {
-            override fun onResponse(
-                call: Call<MovieResponse>,
-                response: Response<MovieResponse>
-            ) {
-                val body = response.body()
-                if (body != null && response.isSuccessful) {
-                    val movies = body.items
-                    if (movies.isNotEmpty()) {
-                        showMovies(movies)
-                    } else {
-                        makeToast("${query}에 대한 검색결과가 없습니다")
-                    }
-                } else {
-                    makeToast("서버 에러 : 서버에 문제가 있습니다")
-                }
-            }
-
-            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                makeToast("네트워크 에러 : 인터넷 연결을 확인해 주세요")
-                Log.d("searchMovie", t.toString())
             }
         })
     }
