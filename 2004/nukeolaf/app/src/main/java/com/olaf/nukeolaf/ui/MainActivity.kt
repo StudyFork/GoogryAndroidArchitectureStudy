@@ -16,15 +16,21 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private val movieAdapter = MovieAdapter()
-    private val movieLocalDataSource = MovieLocalDataSourceImpl(this@MainActivity)
-    private val movieRemoteDataSource = MovieRemoteDataSourceImpl()
-    private val movieRepository = MovieRepositoryImpl(movieLocalDataSource, movieRemoteDataSource)
+    private lateinit var movieLocalDataSource: MovieLocalDataSourceImpl
+    private lateinit var movieRemoteDataSource: MovieRemoteDataSourceImpl
+    private lateinit var movieRepository: MovieRepositoryImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         movie_rv.adapter = movieAdapter
+
+        movieLocalDataSource = MovieLocalDataSourceImpl(this@MainActivity)
+        movieRemoteDataSource = MovieRemoteDataSourceImpl()
+        movieRepository = MovieRepositoryImpl(movieLocalDataSource, movieRemoteDataSource)
+
+        loadMovies()
 
         search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -62,6 +68,13 @@ class MainActivity : AppCompatActivity() {
                     makeToast("네트워크 에러 : 인터넷 연결을 확인해 주세요")
                 }
             })
+    }
+
+    private fun loadMovies() {
+        val movieList = movieRepository.getMovies()
+        if (movieList != null && movieList.items.isNotEmpty()) {
+            showMovies(movieList.items)
+        }
     }
 
     private fun showMovies(movies: List<MovieItem>) {
