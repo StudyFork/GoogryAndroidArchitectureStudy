@@ -9,28 +9,28 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
     private const val BASE_URL = "https://openapi.naver.com/"
-    private val okHttpClient: OkHttpClient
 
-    init {
-        val okHttpBuilder = OkHttpClient.Builder()
-        okHttpBuilder.addInterceptor(
-            LoggingInterceptor.Builder().apply {
-                setLevel(Level.BASIC)
-                log(Platform.INFO)
-                request("Request")
-                response("Response")
-            }.build()
-        )
-        okHttpClient = okHttpBuilder.build()
+    val okHttpClient: OkHttpClient by lazy {
+        OkHttpClient.Builder()
+            .addInterceptor(
+                LoggingInterceptor.Builder().apply {
+                    setLevel(Level.BASIC)
+                    log(Platform.INFO)
+                    request("Request")
+                    response("Response")
+                }.build()
+            ).build()
     }
 
-    fun getNaverService(): NaverApiService {
-        val retrofit: Retrofit = Retrofit.Builder()
+    val retrofit: Retrofit by lazy {
+        Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
+    }
 
-        return retrofit.create(NaverApiService::class.java)
+    val naverService: NaverApiService by lazy {
+        retrofit.create(NaverApiService::class.java)
     }
 }
