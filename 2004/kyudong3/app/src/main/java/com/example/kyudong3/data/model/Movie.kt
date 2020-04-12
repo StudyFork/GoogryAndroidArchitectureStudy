@@ -1,4 +1,4 @@
-package com.example.kyudong3.model
+package com.example.kyudong3.data.model
 
 import com.google.gson.annotations.SerializedName
 
