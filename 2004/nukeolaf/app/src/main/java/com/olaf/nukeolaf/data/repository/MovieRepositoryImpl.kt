@@ -9,14 +9,8 @@ class MovieRepositoryImpl(
     private val movieRemoteDataSource: MovieRemoteDataSource
 ) : MovieRepository {
 
-    private var cacheMovieResponse: MovieResponse? = null
-
     override fun getMovies(): MovieResponse? {
-        return if (cacheMovieResponse != null) {
-            movieLocalDataSource.getMovies()
-        } else {
-            null
-        }
+        return movieLocalDataSource.getMovies()
     }
 
     override fun searchMovies(query: String, callback: MovieRepository.LoadMoviesCallback) {
