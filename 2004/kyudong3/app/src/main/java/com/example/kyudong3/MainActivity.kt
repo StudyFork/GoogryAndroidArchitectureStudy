@@ -5,15 +5,17 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kyudong3.adapter.SearchMovieRvAdapter
-import com.example.kyudong3.model.MovieReceiver
-import com.example.kyudong3.network.NaverApiServiceImpl
+import com.example.kyudong3.data.repository.MovieRepository
+import com.example.kyudong3.data.repository.MovieRepositoryImpl
+import com.example.kyudong3.extension.toast
 import com.example.kyudong3.util.RecyclerViewItemDivider
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+
+    private val movieRepository: MovieRepository by lazy {
+        MovieRepositoryImpl()
+    }
 
     private val movieRvAdapter: SearchMovieRvAdapter by lazy {
         SearchMovieRvAdapter()
@@ -59,33 +61,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun fetchSearchMovieApi(searchQuery: String) {
-        val naverApiServiceImpl: NaverApiServiceImpl = NaverApiServiceImpl()
-        val naverApiServiceCall = naverApiServiceImpl.getSearchMovie(searchQuery)
-
-        naverApiServiceCall.enqueue(object : Callback<MovieReceiver> {
-            override fun onFailure(call: Call<MovieReceiver>, t: Throwable) {
-                Toast.makeText(
-                    applicationContext,
-                    "네트워크가 원활하지 않습니다.\n잠시 후 다시 시도해주세요.",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
-            override fun onResponse(call: Call<MovieReceiver>, response: Response<MovieReceiver>) {
-                val movieReceiver = response.body()
-                if (response.isSuccessful && movieReceiver != null) {
-
-                    movieReceiver.run {
-                        if (items.isEmpty()) {
-                            Toast.makeText(applicationContext, "검색결과가 없습니다", Toast.LENGTH_SHORT)
-                                .show()
-                        } else {
-                            movieRvAdapter.setMovieList(items)
-                            movieRvAdapter.notifyDataSetChanged()
-                        }
-                    }
+        movieRepository.getSearchMovie(searchQuery,
+            success = { movieList ->
+                if (movieList.isEmpty()) {
+                    this.toast("검색결과가 없습니다")
+                } else {
+                    movieRvAdapter.setMovieList(movieList)
+                    movieRvAdapter.notifyDataSetChanged()
                 }
-            }
-        })
+            },
+            failure = { error ->
+                error.printStackTrace()
+            })
     }
 }
