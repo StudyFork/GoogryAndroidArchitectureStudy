@@ -1,5 +1,13 @@
 package com.olaf.nukeolaf.data.remote
 
+import com.olaf.nukeolaf.MovieResponse
+
 interface MovieRemoteDataSource {
-    fun getMovie(query: String)
+    interface LoadMoviesCallback {
+        fun onMoviesLoaded(movieResponse: MovieResponse)
+        fun onResponseError(message: String)
+        fun onFailure(t: Throwable)
+    }
+
+    fun getMovie(query: String, callback: LoadMoviesCallback)
 }
