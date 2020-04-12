@@ -1,4 +1,4 @@
-package com.olaf.nukeolaf
+package com.olaf.nukeolaf.data.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

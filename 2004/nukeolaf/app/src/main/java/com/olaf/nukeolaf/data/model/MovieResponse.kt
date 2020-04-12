@@ -1,4 +1,6 @@
-package com.olaf.nukeolaf
+package com.olaf.nukeolaf.data.model
+
+import MovieItem
 
 data class MovieResponse(
     val lastBuildDate: String,
