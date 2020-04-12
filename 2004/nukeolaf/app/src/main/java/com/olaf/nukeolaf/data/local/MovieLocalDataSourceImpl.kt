@@ -11,7 +11,7 @@ class MovieLocalDataSourceImpl(context: Context) : MovieLocalDataSource {
     private val editor = sharedPreferences.edit()
 
     override fun saveMovies(movies: MovieResponse) {
-        editor.putString("signin_token", GsonBuilder().create().toJson(movies))
+        editor.putString("movies", GsonBuilder().create().toJson(movies))
         editor.commit()
     }
 
