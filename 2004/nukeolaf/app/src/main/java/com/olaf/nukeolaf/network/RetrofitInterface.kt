@@ -10,8 +10,8 @@ interface RetrofitInterface {
     @GET("/v1/search/movie.json")
     fun searchMovie(
         @Query("query") query: String,
-        @Query("display") display: Int,
-        @Query("start") start: Int
+        @Query("display") display: Int = 1,
+        @Query("start") start: Int = 10
     ): Call<MovieResponse>
 
 }
