@@ -4,13 +4,21 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import com.olaf.nukeolaf.MovieItem
 import com.olaf.nukeolaf.R
+import com.olaf.nukeolaf.data.local.MovieLocalDataSourceImpl
+import com.olaf.nukeolaf.data.model.MovieItem
+import com.olaf.nukeolaf.data.model.MovieResponse
+import com.olaf.nukeolaf.data.remote.MovieRemoteDataSourceImpl
+import com.olaf.nukeolaf.data.repository.MovieRepository
+import com.olaf.nukeolaf.data.repository.MovieRepositoryImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     private val movieAdapter = MovieAdapter()
+    private val movieLocalDataSource = MovieLocalDataSourceImpl(this@MainActivity)
+    private val movieRemoteDataSource = MovieRemoteDataSourceImpl()
+    private val movieRepository = MovieRepositoryImpl(movieLocalDataSource, movieRemoteDataSource)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
+                    searchMovie(query)
                 } else {
                     makeToast("검색어를 입력해주세요")
                 }
@@ -31,6 +40,28 @@ class MainActivity : AppCompatActivity() {
                 return false
             }
         })
+    }
+
+    private fun searchMovie(query: String) {
+        movieRepository.searchMovies(
+            query,
+            object : MovieRepository.LoadMoviesCallback {
+                override fun onMoviesLoaded(movieResponse: MovieResponse) {
+                    if (movieResponse.items.isNotEmpty()) {
+                        showMovies(movieResponse.items)
+                    } else {
+                        makeToast("${query}에 대한 검색결과가 없습니다")
+                    }
+                }
+
+                override fun onResponseError(message: String) {
+                    makeToast("서버 에러 : 서버에 문제가 있습니다")
+                }
+
+                override fun onFailure(t: Throwable) {
+                    makeToast("네트워크 에러 : 인터넷 연결을 확인해 주세요")
+                }
+            })
     }
 
     private fun showMovies(movies: List<MovieItem>) {
