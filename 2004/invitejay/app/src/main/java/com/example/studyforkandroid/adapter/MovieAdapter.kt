@@ -10,15 +10,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.studyforkandroid.R
-import com.example.studyforkandroid.data.Item
+import com.example.studyforkandroid.data.Movie
 import com.example.studyforkandroid.utils.htmlToString
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVh>() {
 
-    private val movieList = mutableListOf<Item>()
+    private val movieList = mutableListOf<Movie>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieAdapter.MovieVh {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieVh {
 
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
         val movieVh = MovieVh(view)
@@ -35,7 +35,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVh>() {
         return movieList.size
     }
 
-    fun addAll(movieList: List<Item>) {
+    fun addAll(movieList: List<Movie>) {
         this.movieList.addAll(movieList)
     }
 
@@ -43,12 +43,12 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVh>() {
         this.movieList.clear()
     }
 
-    override fun onBindViewHolder(holder: MovieAdapter.MovieVh, position: Int) {
-        movieList[position].let { Item ->
+    override fun onBindViewHolder(holder: MovieVh, position: Int) {
+        movieList[position].let { movie ->
             with(holder) {
-                title.text = Item.title.htmlToString()
-                rating.text = Item.userRating.htmlToString()
-                actor.text = Item.actor.htmlToString().replace("|", " ")
+                title.text = movie.title.htmlToString()
+                rating.text = movie.userRating.htmlToString()
+                actor.text = movie.actor.htmlToString().replace("|", " ")
             }
         }
 
