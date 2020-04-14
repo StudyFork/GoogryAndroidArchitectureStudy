@@ -15,4 +15,4 @@
 ### [8기](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class08)
 ### [2003(9기)](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2003)
 ### [2004(10기)](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2004)
-### [2005(11기)](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2005)
+### [2005(11기)](https://github.com/RyuC0605/GoogryAndroidArchitectureStudy/tree/2005/init-readme/2005)
