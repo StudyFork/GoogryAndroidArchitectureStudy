@@ -10,7 +10,7 @@
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2005/)
 
 - 류승윤 [sy.Ryu](https://github.com/RyuC0605/)
-[공간](https://github.com/RyuC0605/GoogryAndroidArchitectureStudy/tree/2005/init-readme/2005/SeungYun-Ryu)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2005/SeungYun-Ryu)
 
 - 김신환 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2005/)
