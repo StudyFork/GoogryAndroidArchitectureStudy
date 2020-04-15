@@ -1,6 +1,5 @@
 package com.example.myapplication.ui
 
-import com.example.myapplication.data.repository.MovieRepositoryDataSet
 
 ///**
 // * Presenter : 로직, 계산, if문

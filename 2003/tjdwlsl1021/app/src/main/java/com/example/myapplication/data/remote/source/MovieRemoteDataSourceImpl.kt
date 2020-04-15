@@ -1,14 +1,14 @@
 package com.example.myapplication.data.remote.source
 
 import com.example.myapplication.data.local.MovieEntity
-import com.example.myapplication.data.remote.network.NetworkService
+import com.example.myapplication.data.remote.api.NaverMovieApi
 import com.example.myapplication.data.remote.network.SearchMovieInfoResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class MovieRemoteDataSourceImpl :
+class MovieRemoteDataSourceImpl(private val naverMovieApi: NaverMovieApi) :
     MovieRemoteDataSource {
 
     override fun getMovieList(
@@ -16,7 +16,7 @@ class MovieRemoteDataSourceImpl :
         success: (List<MovieEntity>) -> Unit,
         failed: (Throwable) -> Unit
     ) {
-        val call = NetworkService.retrofitService.getMovieList(query, 10, 1, "1")
+        val call = naverMovieApi.getMovieList(query, 10, 1, "1")
 
         call.enqueue(object : Callback<SearchMovieInfoResponse> {
             override fun onResponse(
