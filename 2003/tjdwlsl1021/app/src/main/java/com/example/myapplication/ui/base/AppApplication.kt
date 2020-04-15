@@ -22,9 +22,9 @@ class AppApplication : Application() {
             androidContext(this@AppApplication)
 
             modules(
-                repositoryModule,
                 localDataModule,
                 remoteDataModule,
+                repositoryModule,
                 viewModelModule
             )
 
