@@ -8,7 +8,7 @@ import retrofit2.HttpException
 import retrofit2.Response
 
 class MovieRemoteDataSource {
-    private val service = MovieClient().getClient().create(MovieService::class.java)
+    private val service = MovieClient.getClient().create(MovieService::class.java)
 
     fun getMovieList(
         query: String,
