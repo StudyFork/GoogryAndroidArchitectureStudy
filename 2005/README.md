@@ -1,7 +1,7 @@
 # 2005
 
-- 김철 [](https://github.com/)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2005/)
+- 김철 [chuuuul](https://github.com/chuuuul)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2005/chuuuul)
 
 - 배성재 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2005/)
