@@ -15,11 +15,11 @@ import org.koin.dsl.module
 val localDataModule: Module = module {
     single<MovieLocalDataSource> { MovieLocalDataSourceImpl(get()) }
     single<LoginLocalDataSource> { LoginLocalDataSourceImpl(get()) }
-    single<PreferenceManager> { PreferenceManager(androidContext()) }
+    single<PreferenceManager> { PreferenceManager(get()) }
     single<MovieDao> { get<MovieDatabase>().movieDao() }
     single<MovieDatabase> {
         Room.databaseBuilder(
-                androidContext(),
+                get(),
                 MovieDatabase::class.java, "Movie.db"
             )
             .allowMainThreadQueries()

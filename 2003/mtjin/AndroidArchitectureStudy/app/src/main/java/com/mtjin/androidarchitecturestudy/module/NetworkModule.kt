@@ -6,5 +6,5 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 
 val networkModule: Module = module {
-    single { NetworkManager(androidContext()) }
+    single { NetworkManager(get()) }
 }
