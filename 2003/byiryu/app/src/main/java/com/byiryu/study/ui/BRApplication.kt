@@ -6,9 +6,11 @@ import com.byiryu.study.model.local.LocalDataBase
 import com.byiryu.study.model.local.LocalDataSource
 import com.byiryu.study.model.local.pref.AppPreference
 import com.byiryu.study.model.remote.RemoteDataSource
+import com.byiryu.study.ui.mvvm.base.BRViewModelFactory
 
 class BRApplication : Application() {
 
+    lateinit var viewModelFactory: BRViewModelFactory
     lateinit var repository: Repository
 
     override fun onCreate() {
@@ -26,6 +28,7 @@ class BRApplication : Application() {
 
 
         repository = Repository(remoteDataSource, localDataSource)
+        viewModelFactory = BRViewModelFactory(repository)
 
     }
 

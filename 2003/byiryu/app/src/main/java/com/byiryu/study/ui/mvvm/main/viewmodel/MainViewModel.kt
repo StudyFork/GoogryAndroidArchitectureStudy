@@ -1,6 +1,6 @@
 package com.byiryu.study.ui.mvvm.main.viewmodel
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import com.byiryu.study.R
 import com.byiryu.study.model.Repository
 import com.byiryu.study.model.data.MovieItem
@@ -11,42 +11,38 @@ import io.reactivex.schedulers.Schedulers
 
 class MainViewModel (private val repository: Repository): BaseViewModel(){
 
-    val prevQuery = ObservableField<String>()
-    val query = ObservableField<String>()
-    val netStatus = ObservableField<NetStatus>()
-    val status = ObservableField<Pair<Boolean, Any>>()
-    val movieData = ObservableField<List<MovieItem>>()
+    val prevQuery = MutableLiveData<String>()
+    val query = MutableLiveData<String>()
+    val netStatus = MutableLiveData<NetStatus>()
+    val status = MutableLiveData<Pair<Boolean, Any>>()
+    val movieData = MutableLiveData<List<MovieItem>>()
 
     init {
-        prevQuery.set(repository.getPrevSearchQuery())
+        prevQuery.value = repository.getPrevSearchQuery()
     }
 
     fun search(){
-        if (query.get().isNullOrEmpty()) {
-            status.set(Pair(false, R.string.msg_search_value))
-            status.notifyChange()
+        if (query.value.isNullOrEmpty()) {
+            status.value = Pair(false, R.string.msg_search_value)
         } else {
             disposable.add(
-                repository.getMovieList(query.get()!!)
+                repository.getMovieList(query.value!!)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnSubscribe {
-                        netStatus.set(NetStatus.LOADING)
+                        netStatus.value = NetStatus.LOADING
                     }.doOnSuccess {
-                        netStatus.set(NetStatus.SUCCESS)
+                        netStatus.value = NetStatus.SUCCESS
                     }.doOnError {
-                        netStatus.set(NetStatus.FAIL)
-                        status.set(Pair(false, R.string.msg_error_loading))
-                        status.notifyChange()
+                        netStatus.value = NetStatus.FAIL
+                        status.value = Pair(false, R.string.msg_error_loading)
                     }
                     .subscribe({
-                        movieData.set(it)
+                        movieData.value = it
                     }, {
-                        status.set(Pair(false, "오류발생 : $it"))
-                        status.notifyChange()
+                        status.value = Pair(false, "오류발생 : $it")
                     })
             )
-
         }
 
     }

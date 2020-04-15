@@ -1,6 +1,6 @@
 package com.byiryu.study.ui.mvvm.login.viewmodel
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import com.byiryu.study.R
 import com.byiryu.study.model.Repository
 import com.byiryu.study.ui.enums.NetStatus
@@ -9,54 +9,50 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 
 class LoginViewModel(private val repository: Repository) : BaseViewModel(){
 
-    val netStatus = ObservableField<NetStatus>()
-    val id = ObservableField<String>()
-    val pw = ObservableField<String>()
-    val autoLogin = ObservableField<Boolean>(false)
-    val loginStatus = ObservableField<Pair<Boolean, Int>>()
+    val netStatus = MutableLiveData<NetStatus>()
+    val id = MutableLiveData<String>()
+    val pw = MutableLiveData<String>()
+    val autoLogin = MutableLiveData<Boolean>()
+    val loginStatus = MutableLiveData<Pair<Boolean, Int>>()
 
     fun loginProcess(){
 
-        if (id.get()?.isEmpty()!!) {
-            loginStatus.set(Pair(false, R.string.msg_invalid_id))
+        if (id.value?.isEmpty()!!) {
+            loginStatus.value = Pair(false, R.string.msg_invalid_id)
             return
         }
 
-        if (pw.get()?.isEmpty()!!) {
-            loginStatus.set(Pair(false, R.string.msg_invalid_pw))
+        if (pw.value?.isEmpty()!!) {
+            loginStatus.value = Pair(false, R.string.msg_invalid_pw)
             return
         }
 
-        disposable.add( repository.loginCheck(id.get(), pw.get())
+        disposable.add( repository.loginCheck(id.value, pw.value)
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
-                netStatus.set(NetStatus.LOADING)
+                netStatus.value = NetStatus.LOADING
             }
             .doOnSuccess{
-                netStatus.set(NetStatus.SUCCESS)
+                netStatus.value = NetStatus.SUCCESS
             }
             .doOnError {
-                netStatus.set(NetStatus.FAIL)
-                loginStatus.set(Pair(false, R.string.msg_error_loading))
-                loginStatus.notifyChange()
+                netStatus.value = NetStatus.FAIL
+                loginStatus.value = Pair(false, R.string.msg_error_loading)
             }.doAfterTerminate {
-                netStatus.set(NetStatus.SUCCESS)
+                netStatus.value = NetStatus.SUCCESS
             }
             .subscribe({
                 if (it) {
-                    autoLogin.get()?.run {
+                    autoLogin.value?.run {
                         repository.setAutoLogin()
                     }
-                    loginStatus.set(Pair(true, -1))
+                    loginStatus.value = Pair(true, -1)
                 } else {
-                    loginStatus.set(Pair(false, R.string.msg_incorrect_login))
-                    loginStatus.notifyChange()
+                    loginStatus.value = Pair(false, R.string.msg_incorrect_login)
                 }
             }, {
-                loginStatus.set(Pair(false, R.string.msg_error_loading))
-                loginStatus.notifyChange()
+                loginStatus.value = Pair(false, R.string.msg_error_loading)
             })
         )
     }
-
 }
