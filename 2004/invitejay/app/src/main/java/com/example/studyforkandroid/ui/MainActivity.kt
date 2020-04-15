@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun searchMovie(title: String) {
-        MovieRepositoryImpl.getMovieList(
+        MovieRepositoryImpl.getRemoteMovieList(
             title,
             onSuccess = { movieList ->
                 rvAdapter.clear()
