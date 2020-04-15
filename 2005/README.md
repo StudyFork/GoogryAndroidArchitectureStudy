@@ -7,7 +7,7 @@
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2005/)
 
 - 김상진 [sangjinKIM93](https://github.com/sangjinKIM93)
-[공간](https://github.com/sangjinKIM93/GoogryAndroidArchitectureStudy/tree/master/2005/sangjinKIM93)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2005/sangjinKIM93)
 
 - 류승윤 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2005/)
