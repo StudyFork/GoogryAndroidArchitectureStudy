@@ -8,13 +8,18 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.jakewharton.rxbinding3.appcompat.queryTextChanges
 import io.github.jesterz91.study.R
-import io.github.jesterz91.study.data.model.MovieResponse
-import io.github.jesterz91.study.data.remote.MovieService
+import io.github.jesterz91.study.data.local.MovieDatabase
+import io.github.jesterz91.study.data.local.source.MovieLocalDataSourceImpl
+import io.github.jesterz91.study.data.remote.source.MovieRemoteDataSourceImpl
 import io.github.jesterz91.study.databinding.ActivityMovieSearchBinding
+import io.github.jesterz91.study.domain.mapper.MovieLocalMapper
+import io.github.jesterz91.study.domain.mapper.MovieRemoteMapper
+import io.github.jesterz91.study.domain.repository.MovieRepositoryImpl
+import io.github.jesterz91.study.domain.usecase.GetMovieUseCase
 import io.github.jesterz91.study.presentation.common.BaseActivity
 import io.github.jesterz91.study.presentation.constant.Constant
-import io.github.jesterz91.study.presentation.extension.toGone
-import io.github.jesterz91.study.presentation.extension.toVisible
+import io.github.jesterz91.study.presentation.extension.hide
+import io.github.jesterz91.study.presentation.extension.show
 import io.github.jesterz91.study.presentation.extension.toast
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -31,6 +36,21 @@ class MovieSearchActivity :
 
     private val customTabsIntent: CustomTabsIntent by lazy {
         CustomTabsIntent.Builder().build()
+    }
+
+    private val movieDatabase by lazy {
+        MovieDatabase.getInstance(applicationContext)
+    }
+
+    private val movieUseCase by lazy {
+        GetMovieUseCase(
+            movieRepository = MovieRepositoryImpl(
+                movieLocalDataSource = MovieLocalDataSourceImpl(movieDatabase.movieDao()),
+                movieLocalMapper = MovieLocalMapper(),
+                movieRemoteDataSource = MovieRemoteDataSourceImpl(),
+                movieRemoteMapper = MovieRemoteMapper()
+            )
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,42 +72,27 @@ class MovieSearchActivity :
 
     private fun subscribeMovieSearchEvent(searchView: SearchView) {
         searchView.queryTextChanges()
-            .debounce(700, TimeUnit.MILLISECONDS)
+            .debounce(Constant.SEARCH_DEBOUNCE_TIME, TimeUnit.MILLISECONDS)
             .filter(CharSequence::isNotBlank)
             .map(CharSequence::toString)
             .distinctUntilChanged()
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnNext { binding.progressBar.toVisible() }
-            .flatMapSingle(MovieService.movieApi::searchMovie)
+            .doOnNext { binding.progressBar.show() }
+            .flatMapSingle(movieUseCase::invoke)
             .observeOn(AndroidSchedulers.mainThread())
-            .map(MovieResponse::items)
             .onErrorReturn { mutableListOf() }
-            .doOnNext { binding.progressBar.toGone() }
+            .doOnNext { binding.progressBar.hide() }
             .subscribe {
                 movieAdapter.changeItems(it)
                 movieAdapter.notifyDataSetChanged()
                 hideSoftKeyboard(searchView.windowToken)
             }.addTo(disposables)
-
     }
 
     private fun subscribeBrowseEvent(uriObservable: Observable<Uri>) {
         uriObservable.subscribe { uri ->
             customTabsIntent.launchUrl(this, uri)
         }.addTo(disposables)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_search, menu)
-        (menu?.findItem(R.id.menu_search)?.actionView as? SearchView)?.apply {
-            maxWidth = Int.MAX_VALUE
-            queryHint = getString(R.string.search_movie_hint)
-        }?.also(::subscribeMovieSearchEvent)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onBackPressed() {
-        backPressSubject.onNext(System.currentTimeMillis())
     }
 
     private fun subscribeBackPressEvent() {
@@ -101,4 +106,15 @@ class MovieSearchActivity :
                 }
             }.addTo(disposables)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_search, menu)
+        (menu?.findItem(R.id.menu_search)?.actionView as? SearchView)?.apply {
+            maxWidth = Int.MAX_VALUE
+            queryHint = getString(R.string.search_movie_hint)
+        }?.also(::subscribeMovieSearchEvent)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onBackPressed() = backPressSubject.onNext(System.currentTimeMillis())
 }
