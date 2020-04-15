@@ -15,5 +15,5 @@
 - 김신환 [hwaniiidev](https://github.com/hwaniiidev)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2005/hwaniiidev)
 
-- 이청우 [](https://github.com/)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2005/)
+- 이청우 [LeeChungWoo92](https://github.com/LeeChungWoo92)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2005/leechungwoo92)
