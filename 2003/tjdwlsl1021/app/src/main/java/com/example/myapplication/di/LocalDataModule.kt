@@ -4,7 +4,6 @@ import androidx.room.Room
 import com.example.myapplication.data.local.MovieDatabase
 import com.example.myapplication.data.local.source.MovieLocalDataSource
 import com.example.myapplication.data.local.source.MovieLocalDataSourceImpl
-import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val localDataModule = module {
@@ -14,7 +13,7 @@ val localDataModule = module {
 
     single {
         Room.databaseBuilder(
-            androidContext(),
+            get(),
             MovieDatabase::class.java, "movie-database"
         )
             .allowMainThreadQueries()
