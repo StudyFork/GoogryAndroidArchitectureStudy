@@ -14,7 +14,12 @@ class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
         query: String,
         callback: MovieRemoteDataSource.LoadMoviesCallback
     ) {
-        retrofitClient.searchMovie(query).enqueue(object : Callback<MovieResponse> {
+        val options: MutableMap<String, Any> = mutableMapOf(
+            "query" to query,
+            "display" to 10,
+            "start" to 1
+        )
+        retrofitClient.searchMovie(options).enqueue(object : Callback<MovieResponse> {
             override fun onResponse(
                 call: Call<MovieResponse>,
                 response: Response<MovieResponse>
