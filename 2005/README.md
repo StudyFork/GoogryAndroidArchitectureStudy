@@ -1,9 +1,9 @@
-# 2004
+# 2005
 
 - 김철 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2005/)
 
-- 배성재 [](https://github.com/)
+- 배성재 [developer-sungjae](https://github.com/developer-sungjae)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/2005/)
 
 - 김상진 [](https://github.com/)
