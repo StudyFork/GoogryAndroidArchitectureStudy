@@ -12,8 +12,11 @@ class KoinApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin {
-            if (BuildConfig.DEBUG) androidLogger()
-            else androidLogger(Level.NONE)
+            if (BuildConfig.DEBUG) {
+                androidLogger()
+            } else {
+                androidLogger(Level.NONE)
+            }
             androidContext(this@KoinApplication)
             modules(
                 repositoryModule,
