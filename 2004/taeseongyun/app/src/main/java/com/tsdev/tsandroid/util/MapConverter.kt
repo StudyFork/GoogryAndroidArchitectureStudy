@@ -4,19 +4,19 @@ import com.tsdev.tsandroid.data.Item
 
 class MapConverter : AbstractMapConverter<List<Item>, List<Item>>() {
     override fun toMap(params: List<Item>): List<Item> = params.map { itemData ->
-        Item(
-            itemData.actor.htmlConvert().split("|").map { it.trim() }
+        itemData.copy(
+            actor = itemData.actor.htmlConvert().split("|")
+                .map { it.trim() }
                 .filter { it != "" }
                 .joinToString { it },
-            itemData.director.split("|").map { it.trim() }
+
+            title = itemData.title.htmlConvert().toString(),
+            subtitle = itemData.subtitle.htmlConvert().toString(),
+
+            director = itemData.director.split("|")
+                .map { it.trim() }
                 .filter { it != "" }
-                .joinToString { it },
-            itemData.image,
-            itemData.link,
-            itemData.pubDate,
-            itemData.subtitle.htmlConvert().toString(),
-            itemData.title.htmlConvert().toString(),
-            itemData.userRating
+                .joinToString { it }
         )
     }
 }
