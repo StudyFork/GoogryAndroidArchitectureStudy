@@ -8,9 +8,19 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-object RetrofitService {
+object MovieClient {
 
     private const val baseUrl: String = BuildConfig.BASE_URI
+
+    val instance: MovieApi by lazy {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient())
+            .build()
+
+        return@lazy retrofit.create(MovieApi::class.java)
+    }
 
     fun okHttpClient(): OkHttpClient {
 
@@ -37,15 +47,5 @@ object RetrofitService {
             .addInterceptor(headerInterceptor)
             .addInterceptor(httpLoggingInterceptor)
             .build()
-    }
-
-    val instance: RetrofitApi by lazy {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient())
-            .build()
-
-        retrofit.create(RetrofitApi::class.java)
     }
 }
