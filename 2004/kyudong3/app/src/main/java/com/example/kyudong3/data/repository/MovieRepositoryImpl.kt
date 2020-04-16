@@ -1,10 +1,11 @@
 package com.example.kyudong3.data.repository
 
 import com.example.kyudong3.data.model.Movie
+import com.example.kyudong3.data.remote.MovieRemoteDataSource
 import com.example.kyudong3.data.remote.MovieRemoteDataSourceImpl
 
 class MovieRepositoryImpl : MovieRepository {
-    private val movieDataSourceImpl: MovieRemoteDataSourceImpl by lazy {
+    private val movieDataSourceImpl: MovieRemoteDataSource by lazy {
         MovieRemoteDataSourceImpl()
     }
 
