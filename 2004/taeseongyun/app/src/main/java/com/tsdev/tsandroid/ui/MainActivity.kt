@@ -9,6 +9,7 @@ import com.tsdev.tsandroid.R
 import com.tsdev.tsandroid.data.repository.NaverRepositoryImpl
 import com.tsdev.tsandroid.ui.adapter.MovieRecyclerAdapter
 import com.tsdev.tsandroid.ui.viewholder.MovieRecyclerViewViewHolder
+import com.tsdev.tsandroid.util.MapConverter
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -21,9 +22,11 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewViewHolder.OnClickDel
     private val movieRecyclerAdapter: MovieRecyclerAdapter by lazy {
         MovieRecyclerAdapter(this)
     }
-
+    private val movieMapConverter by lazy {
+        MapConverter()
+    }
     private val naverRepository by lazy {
-        NaverRepositoryImpl(NaverAPI.movieAPI)
+        NaverRepositoryImpl(movieMapConverter)
     }
 
     private fun getMovieList(query: String) {

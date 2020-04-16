@@ -1,17 +1,17 @@
 package com.tsdev.tsandroid.data.repository
 
 import com.tsdev.tsandroid.data.Item
-import com.tsdev.tsandroid.network.NaverMovieInterface
 import com.tsdev.tsandroid.data.MovieResponse
 import com.tsdev.tsandroid.data.source.NaverRemoteDataSource
 import com.tsdev.tsandroid.data.source.NaverRemoteDataSourceImpl
-import com.tsdev.tsandroid.util.htmlConvert
+import com.tsdev.tsandroid.util.AbstractMapConverter
 import io.reactivex.rxjava3.core.Single
 
-class NaverRepositoryImpl(private val naverAPI: NaverMovieInterface) : NaverReopsitory {
+class NaverRepositoryImpl(private val movieMapConverter: AbstractMapConverter<List<Item>, List<Item>>) :
+    NaverReopsitory {
 
     private val naverRemoteDataSourceImpl: NaverRemoteDataSource by lazy {
-        NaverRemoteDataSourceImpl(naverAPI)
+        NaverRemoteDataSourceImpl()
     }
 
     override fun getMovieList(query: String): Single<List<Item>> =
@@ -20,24 +20,6 @@ class NaverRepositoryImpl(private val naverAPI: NaverMovieInterface) : NaverReop
         }
 
     private fun convertRemoteData(movieResponse: MovieResponse): Single<List<Item>> {
-
-        val convertHtml = movieResponse.items.map { item ->
-            Item(
-                item.actor.htmlConvert().split("|").map { it.trim() }
-                    .filter { it != "" }
-                    .joinToString { it },
-                item.director.split("|").map { it.trim() }
-                    .filter { it != "" }
-                    .joinToString { it },
-                item.image,
-                item.link,
-                item.pubDate,
-                item.subtitle.htmlConvert().toString(),
-                item.title.htmlConvert().toString(),
-                item.userRating
-            )
-        }
-
-        return Single.just(convertHtml)
+        return Single.just(movieMapConverter.toMap(movieResponse.items))
     }
 }
