@@ -1,6 +1,7 @@
 package com.eunice.eunicehong.data.remote
 
 import com.eunice.eunicehong.BuildConfig
+import com.eunice.eunicehong.data.model.MovieList
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header

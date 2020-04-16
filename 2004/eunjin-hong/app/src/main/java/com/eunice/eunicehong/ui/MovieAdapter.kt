@@ -12,7 +12,7 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.eunice.eunicehong.R
-import com.eunice.eunicehong.data.remote.Movie
+import com.eunice.eunicehong.data.model.Movie
 
 class MovieAdapter :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {

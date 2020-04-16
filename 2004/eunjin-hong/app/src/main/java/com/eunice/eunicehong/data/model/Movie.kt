@@ -1,4 +1,4 @@
-package com.eunice.eunicehong.data.remote
+package com.eunice.eunicehong.data.model
 
 import com.google.gson.annotations.SerializedName
 
