@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         movie_rv.adapter = movieAdapter
 
-        movieLocalDataSource = MovieLocalDataSourceImpl(this@MainActivity)
+        movieLocalDataSource = MovieLocalDataSourceImpl(applicationContext)
         movieRemoteDataSource = MovieRemoteDataSourceImpl()
         movieRepository = MovieRepositoryImpl(movieLocalDataSource, movieRemoteDataSource)
 
