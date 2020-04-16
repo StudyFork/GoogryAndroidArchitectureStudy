@@ -10,15 +10,16 @@ class MovieLocalDataSourceImpl(context: Context) : MovieLocalDataSource {
     private val name = context.resources.getString(R.string.MOVIE_CACHE_DATA)
     private val sharedPreferences =
         context.getSharedPreferences(name, Context.MODE_PRIVATE)
+    private val gsonBuilder = GsonBuilder().create()
     private val editor = sharedPreferences.edit()
 
     override fun saveMovies(movies: MovieResponse) {
-        editor.putString(name, GsonBuilder().create().toJson(movies))
+        editor.putString(name, gsonBuilder.toJson(movies))
         editor.commit()
     }
 
     override fun getMovies(): MovieResponse? {
         val movies = sharedPreferences.getString(name, null)
-        return GsonBuilder().create().fromJson(movies, MovieResponse::class.java)
+        return gsonBuilder.fromJson(movies, MovieResponse::class.java)
     }
 }
