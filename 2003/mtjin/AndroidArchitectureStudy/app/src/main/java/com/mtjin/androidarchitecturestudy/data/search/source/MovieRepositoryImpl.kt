@@ -72,7 +72,7 @@ class MovieRepositoryImpl(
                     fail(it)
                 }
             )
-        }else{
+        } else {
             fail(Throwable("네트워크가 연결이 되어있지 않습니다."))
         }
     }

@@ -2,46 +2,27 @@ package com.mtjin.androidarchitecturestudy.ui.login
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.mtjin.androidarchitecturestudy.R
 import com.mtjin.androidarchitecturestudy.base.BaseActivity
-import com.mtjin.androidarchitecturestudy.data.login.source.LoginRepository
-import com.mtjin.androidarchitecturestudy.data.login.source.LoginRepositoryImpl
-import com.mtjin.androidarchitecturestudy.data.login.source.local.LoginLocalDataSource
-import com.mtjin.androidarchitecturestudy.data.login.source.local.LoginLocalDataSourceImpl
 import com.mtjin.androidarchitecturestudy.databinding.ActivityLoginBinding
 import com.mtjin.androidarchitecturestudy.ui.search.MovieSearchActivity
-import com.mtjin.androidarchitecturestudy.utils.PreferenceManager
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : BaseActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var preferenceManager: PreferenceManager
-    private lateinit var loginLocalDataSource: LoginLocalDataSource
-    private lateinit var loginRepository: LoginRepository
-    private val viewModel: LoginViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return LoginViewModel(loginRepository) as T
-            }
-        }
-    }
+    private val viewModel: LoginViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        inject()
+        initBinding()
         initViewModelCallback()
     }
 
-    private fun inject() {
+    private fun initBinding() {
         binding =
             DataBindingUtil.setContentView(this, R.layout.activity_login)
-        preferenceManager = PreferenceManager(this)
-        loginLocalDataSource = LoginLocalDataSourceImpl(preferenceManager)
-        loginRepository = LoginRepositoryImpl(loginLocalDataSource)
         binding.vm = viewModel
     }
 
