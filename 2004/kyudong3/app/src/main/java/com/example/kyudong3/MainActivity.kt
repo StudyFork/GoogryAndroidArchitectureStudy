@@ -2,7 +2,6 @@ package com.example.kyudong3
 
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kyudong3.adapter.SearchMovieRvAdapter
 import com.example.kyudong3.data.repository.MovieRepository
@@ -53,8 +52,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun searchMovie() {
         if (searchETxt.text.trim().isEmpty()) {
-            Toast.makeText(applicationContext, "검색어를 1자 이상 입력해주세요!", Toast.LENGTH_SHORT)
-                .show()
+            toast("검색어를 1자 이상 입력해주세요!")
         } else {
             fetchSearchMovieApi(searchETxt.text.trim().toString())
         }
@@ -64,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         movieRepository.getSearchMovie(searchQuery,
             success = { movieList ->
                 if (movieList.isEmpty()) {
-                    this.toast("검색결과가 없습니다")
+                    toast("검색결과가 없습니다")
                 } else {
                     movieRvAdapter.setMovieList(movieList)
                     movieRvAdapter.notifyDataSetChanged()
