@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.tsdev.tsandroid.api.NaverAPI
 import com.tsdev.tsandroid.R
+import com.tsdev.tsandroid.data.repository.NaverReopsitory
 import com.tsdev.tsandroid.data.repository.NaverRepositoryImpl
 import com.tsdev.tsandroid.ui.adapter.MovieRecyclerAdapter
 import com.tsdev.tsandroid.ui.viewholder.MovieRecyclerViewViewHolder
@@ -22,10 +23,10 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewViewHolder.OnClickDel
     private val movieRecyclerAdapter: MovieRecyclerAdapter by lazy {
         MovieRecyclerAdapter(this)
     }
-    private val movieMapConverter by lazy {
+    private val movieMapConverter: MapConverter by lazy {
         MapConverter()
     }
-    private val naverRepository by lazy {
+    private val naverRepository: NaverReopsitory by lazy {
         NaverRepositoryImpl(movieMapConverter)
     }
 
