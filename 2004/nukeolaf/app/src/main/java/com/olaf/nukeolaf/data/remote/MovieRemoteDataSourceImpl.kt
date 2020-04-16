@@ -14,7 +14,7 @@ class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
         query: String,
         callback: MovieRemoteDataSource.LoadMoviesCallback
     ) {
-        val options: MutableMap<String, Any> = mutableMapOf(
+        val options = mutableMapOf(
             "query" to query,
             "display" to 10,
             "start" to 1

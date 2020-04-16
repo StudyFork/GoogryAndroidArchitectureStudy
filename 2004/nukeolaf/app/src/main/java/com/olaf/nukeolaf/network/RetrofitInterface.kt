@@ -9,7 +9,7 @@ interface RetrofitInterface {
 
     @GET("/v1/search/movie.json")
     fun searchMovie(
-        @QueryMap options: Map<String, Any>
+        @QueryMap options: MutableMap<String, Any>
     ): Call<MovieResponse>
 
 }
