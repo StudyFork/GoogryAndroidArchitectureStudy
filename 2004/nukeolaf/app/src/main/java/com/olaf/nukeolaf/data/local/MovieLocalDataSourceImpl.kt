@@ -19,10 +19,6 @@ class MovieLocalDataSourceImpl(context: Context) : MovieLocalDataSource {
 
     override fun getMovies(): MovieResponse? {
         val movies = sharedPreferences.getString(name, null)
-        return if (movies != null) {
-            GsonBuilder().create().fromJson(movies, MovieResponse::class.java)
-        } else {
-            null
-        }
+        return GsonBuilder().create().fromJson(movies, MovieResponse::class.java)
     }
 }
