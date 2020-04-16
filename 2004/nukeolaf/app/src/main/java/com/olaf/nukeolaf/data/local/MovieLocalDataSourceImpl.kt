@@ -11,11 +11,12 @@ class MovieLocalDataSourceImpl(context: Context) : MovieLocalDataSource {
     private val sharedPreferences =
         context.getSharedPreferences(name, Context.MODE_PRIVATE)
     private val gsonBuilder = GsonBuilder().create()
-    private val editor = sharedPreferences.edit()
 
     override fun saveMovies(movies: MovieResponse) {
-        editor.putString(name, gsonBuilder.toJson(movies))
-        editor.commit()
+        sharedPreferences.edit().apply {
+            putString(name, gsonBuilder.toJson(movies))
+            apply()
+        }
     }
 
     override fun getMovies(): MovieResponse? {
