@@ -8,7 +8,5 @@ interface MovieRemoteDataSource {
         query: String,
         onSuccess: (List<Movie>) -> Unit,
         onFailure: (Throwable) -> Unit
-    ) {
-
-    }
+    )
 }
