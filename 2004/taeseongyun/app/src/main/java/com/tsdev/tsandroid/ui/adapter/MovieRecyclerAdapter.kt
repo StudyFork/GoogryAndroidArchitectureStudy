@@ -1,7 +1,8 @@
 package com.tsdev.tsandroid.ui.adapter
 
+import android.util.Log
 import android.view.ViewGroup
-import com.tsdev.tsandroid.Item
+import com.tsdev.tsandroid.data.Item
 import com.tsdev.tsandroid.base.BaseRecyclerAdapter
 import com.tsdev.tsandroid.base.BaseRecyclerViewHolder
 import com.tsdev.tsandroid.ui.viewholder.MovieRecyclerViewViewHolder
@@ -20,11 +21,12 @@ class MovieRecyclerAdapter(private val onClickListenerEvent: MovieRecyclerViewVi
     }
 
     override fun addItem(item: Item) {
-        itemList.add(item as Item)
+        itemList.add(item)
     }
 
     override fun addItems(items: List<Item>) {
         items.forEach {
+            Log.d("ACTOR", it.actor)
             addItem(it)
         }
     }
