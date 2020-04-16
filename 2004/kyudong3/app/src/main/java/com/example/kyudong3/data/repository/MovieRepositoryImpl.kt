@@ -1,11 +1,11 @@
 package com.example.kyudong3.data.repository
 
 import com.example.kyudong3.data.model.Movie
-import com.example.kyudong3.data.remote.MovieDataSourceImpl
+import com.example.kyudong3.data.remote.MovieRemoteDataSourceImpl
 
 class MovieRepositoryImpl : MovieRepository {
-    private val movieDataSourceImpl: MovieDataSourceImpl by lazy {
-        MovieDataSourceImpl()
+    private val movieDataSourceImpl: MovieRemoteDataSourceImpl by lazy {
+        MovieRemoteDataSourceImpl()
     }
 
     override fun getSearchMovie(

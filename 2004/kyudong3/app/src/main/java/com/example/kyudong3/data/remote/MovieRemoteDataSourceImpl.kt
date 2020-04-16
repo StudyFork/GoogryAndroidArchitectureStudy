@@ -9,7 +9,7 @@ import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
 
-class MovieDataSourceImpl : MovieDataSource {
+class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
     private val naverService: NaverApiService = RetrofitClient.naverService
 
     override fun getMovieList(
