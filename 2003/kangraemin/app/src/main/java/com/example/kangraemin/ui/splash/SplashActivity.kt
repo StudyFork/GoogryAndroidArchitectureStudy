@@ -2,32 +2,16 @@ package com.example.kangraemin.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.kangraemin.R
 import com.example.kangraemin.base.KangBaseActivity
-import com.example.kangraemin.model.AppDatabase
-import com.example.kangraemin.model.AuthRepository
-import com.example.kangraemin.model.local.datadao.AuthLocalDataSourceImpl
 import com.example.kangraemin.ui.login.LoginActivity
 import com.example.kangraemin.ui.main.MainActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashActivity : KangBaseActivity() {
 
-    private val authRepository by lazy {
-        val db = AppDatabase.getInstance(context = this)
-        AuthRepository(authLocalDataSource = AuthLocalDataSourceImpl(db.authDao()))
-    }
-
-    private val splashViewModel: SplashViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return SplashViewModel(authRepository = authRepository) as T
-            }
-        }
-    }
+    private val splashViewModel: SplashViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
