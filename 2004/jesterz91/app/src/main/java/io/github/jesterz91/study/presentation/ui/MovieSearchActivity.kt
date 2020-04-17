@@ -21,6 +21,7 @@ import io.github.jesterz91.study.presentation.constant.Constant
 import io.github.jesterz91.study.presentation.extension.hide
 import io.github.jesterz91.study.presentation.extension.show
 import io.github.jesterz91.study.presentation.extension.toast
+import io.reactivex.BackpressureStrategy
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
@@ -72,13 +73,14 @@ class MovieSearchActivity :
 
     private fun subscribeMovieSearchEvent(searchView: SearchView) {
         searchView.queryTextChanges()
+            .toFlowable(BackpressureStrategy.DROP)
             .debounce(Constant.SEARCH_DEBOUNCE_TIME, TimeUnit.MILLISECONDS)
             .filter(CharSequence::isNotBlank)
             .map(CharSequence::toString)
             .distinctUntilChanged()
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext { binding.progressBar.show() }
-            .flatMapSingle(movieUseCase::invoke)
+            .flatMap(movieUseCase::invoke)
             .observeOn(AndroidSchedulers.mainThread())
             .onErrorReturn { mutableListOf() }
             .doOnNext { binding.progressBar.hide() }

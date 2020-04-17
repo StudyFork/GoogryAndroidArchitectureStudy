@@ -7,7 +7,7 @@ import io.reactivex.Single
 
 class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
 
-    override fun requestMovie(query: String): Single<List<MovieRemote>> {
+    override fun requestMovieInfo(query: String): Single<List<MovieRemote>> {
         return MovieService.movieApi
             .searchMovie(query)
             .map(MovieSearchResponse::items)

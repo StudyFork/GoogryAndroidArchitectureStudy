@@ -2,20 +2,9 @@ package io.github.jesterz91.study.data.local.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 
-@Entity(
-    tableName = "movie",
-    foreignKeys = [ForeignKey(
-        entity = MovieSearchQuery::class,
-        parentColumns = ["id"],
-        childColumns = ["queryId"],
-        onDelete = CASCADE
-    )
-    ]
-)
+@Entity(tableName = "movie")
 data class MovieLocal(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
@@ -36,6 +25,6 @@ data class MovieLocal(
     val pubDate: String,
     @ColumnInfo(name = "userRating")
     val userRating: Float,
-    @ColumnInfo(name = "queryId")
-    val queryId: Int = 0
+    @ColumnInfo(name = "searchQuery")
+    var searchQuery: String = ""
 )

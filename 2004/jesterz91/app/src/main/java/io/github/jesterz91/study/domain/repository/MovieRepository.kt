@@ -1,9 +1,9 @@
 package io.github.jesterz91.study.domain.repository
 
 import io.github.jesterz91.study.domain.entity.Movie
-import io.reactivex.Single
+import io.reactivex.Flowable
 
 interface MovieRepository {
 
-    fun getMovie(query: String): Single<List<Movie>>
+    fun getMovieInfo(query: String): Flowable<List<Movie>>
 }

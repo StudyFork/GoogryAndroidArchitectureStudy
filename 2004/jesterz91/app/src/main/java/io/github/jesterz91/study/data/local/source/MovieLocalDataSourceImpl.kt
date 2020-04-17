@@ -2,13 +2,15 @@ package io.github.jesterz91.study.data.local.source
 
 import io.github.jesterz91.study.data.local.dao.MovieDao
 import io.github.jesterz91.study.data.local.model.MovieLocal
-import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.Maybe
 
 class MovieLocalDataSourceImpl(private val movieDao: MovieDao) : MovieLocalDataSource {
 
-    override fun selectMovie(): Single<List<MovieLocal>> {
-        return Single.just(movieDao.selectMovie())
-            .subscribeOn(Schedulers.io())
+    override fun loadMovieInfo(query: String): Maybe<List<MovieLocal>> {
+        return movieDao.loadMovieInfo(query)
+    }
+
+    override fun saveMovieInfo(movies: List<MovieLocal>) {
+        movieDao.insertAll(movies)
     }
 }

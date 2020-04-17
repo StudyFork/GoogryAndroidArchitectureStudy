@@ -6,14 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import io.github.jesterz91.study.data.local.dao.MovieDao
 import io.github.jesterz91.study.data.local.model.MovieLocal
-import io.github.jesterz91.study.data.local.model.MovieSearchQuery
-import io.github.jesterz91.study.presentation.constant.Constant
 
-@Database(
-    entities = [MovieLocal::class, MovieSearchQuery::class],
-    version = 1,
-    exportSchema = false
-)
+@Database(entities = [MovieLocal::class], version = 1)
 abstract class MovieDatabase : RoomDatabase() {
 
     abstract fun movieDao(): MovieDao
@@ -27,15 +21,15 @@ abstract class MovieDatabase : RoomDatabase() {
             synchronized(this) {
                 var instance = INSTANCE
 
-                if (instance == null) {
-                    instance = Room.databaseBuilder(
-                        context.applicationContext,
-                        MovieDatabase::class.java,
-                        Constant.MOVIE_DATABASE_NAME
-                    ).build()
-                    INSTANCE = instance
+                return instance ?: run {
+                    Room.inMemoryDatabaseBuilder(
+                        context,
+                        MovieDatabase::class.java
+                    ).build().also {
+                        instance = it
+                        INSTANCE = instance
+                    }
                 }
-                return instance
             }
         }
     }

@@ -1,15 +1,15 @@
 package io.github.jesterz91.study.data.local.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Update
+import androidx.room.*
 
 @Dao
 interface BaseDao<T> {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(data: T)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(data: List<T>)
 
     @Delete
     fun delete(data: T)

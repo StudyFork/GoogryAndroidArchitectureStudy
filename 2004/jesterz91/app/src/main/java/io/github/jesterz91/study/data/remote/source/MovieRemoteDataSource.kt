@@ -5,5 +5,5 @@ import io.reactivex.Single
 
 interface MovieRemoteDataSource {
 
-    fun requestMovie(query: String): Single<List<MovieRemote>>
+    fun requestMovieInfo(query: String): Single<List<MovieRemote>>
 }
