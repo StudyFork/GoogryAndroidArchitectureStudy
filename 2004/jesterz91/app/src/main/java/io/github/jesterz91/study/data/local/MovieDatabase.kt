@@ -15,19 +15,16 @@ abstract class MovieDatabase : RoomDatabase() {
     companion object {
 
         @Volatile
-        private var INSTANCE: MovieDatabase? = null
+        private var instance: MovieDatabase? = null
 
         fun getInstance(context: Context): MovieDatabase {
             synchronized(this) {
-                var instance = INSTANCE
-
                 return instance ?: run {
                     Room.inMemoryDatabaseBuilder(
                         context,
                         MovieDatabase::class.java
                     ).build().also {
                         instance = it
-                        INSTANCE = instance
                     }
                 }
             }
