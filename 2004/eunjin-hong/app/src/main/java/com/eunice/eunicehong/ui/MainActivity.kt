@@ -1,10 +1,13 @@
 package com.eunice.eunicehong.ui
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import com.eunice.eunicehong.R
 import com.eunice.eunicehong.data.repository.MovieRepository
 import kotlinx.android.synthetic.main.activity_main.*
@@ -22,22 +25,41 @@ class MainActivity : AppCompatActivity() {
         setMovieList()
     }
 
-    private fun setSearchBar() {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_main, menu)
 
-        query_input.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                searchMovieList(v.text.toString().trim())
-                true
-            } else {
-                false
-            }
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        (menu.findItem(R.id.search_bar).actionView as SearchView).apply {
+            setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            setIconifiedByDefault(false)
+            isSubmitButtonEnabled = true
+            isQueryRefinementEnabled = true
         }
 
-        search_button.setOnClickListener {
-            val query = query_input.text.toString().trim()
-            if (query.isNotBlank()) {
-                searchMovieList(query)
-            }
+        return true
+    }
+
+
+    private fun setSearchBar() {
+        query_input.apply {
+            isSubmitButtonEnabled = true
+            setQuery(query_input.query, true)
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    if (!query.isNullOrBlank()) {
+                        searchMovieList(query)
+                    }
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    return false
+                }
+
+            })
+
+
         }
     }
 

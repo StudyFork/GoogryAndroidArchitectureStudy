@@ -8,31 +8,17 @@
     tools:context=".ui.MainActivity"
     tools:ignore="contentDescription, Autofill">
 
-    <EditText
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/query_input"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_1"
-        android:hint="@string/movie_search_hint"
-        android:imeOptions="actionSearch"
         android:inputType="text"
-        android:maxLines="1"
-        android:textColor="@color/colorText"
-        android:textColorHint="@color/colorTextSecond"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/search_button"
+        app:defaultQueryHint="@string/movie_search_hint"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@tools:sample/lorem" />
-
-    <ImageButton
-        android:id="@+id/search_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_1"
-        android:background="@android:color/transparent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_search" />
+        app:goIcon="@android:drawable/ic_menu_search"
+        app:iconifiedByDefault="false"
+        app:queryHint="@string/movie_search_hint"
+        app:searchIcon="@drawable/ic_movie" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/move_list"
@@ -53,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_0"
         android:text="@string/movie_list_zero_item_message"
-        android:textAlignment="center"
+        android:gravity="center"
         android:textColor="@color/colorText"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
