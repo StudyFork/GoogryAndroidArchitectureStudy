@@ -2,6 +2,7 @@ package com.eunice.eunicehong.ui
 
 import android.content.Intent
 import android.net.Uri
+import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,16 +62,14 @@ class MovieAdapter :
 
         fun bind(item: Movie) {
             movie = item
-            title.text = HtmlCompat.fromHtml(movie.title, HtmlCompat.FROM_HTML_MODE_LEGACY)
 
-            subtitle.text = HtmlCompat.fromHtml(
-                movie.subtitle,
-                HtmlCompat.FROM_HTML_MODE_LEGACY
-            )
+            title.text = movie.title.parseHTML()
 
-            actors.text = movie.actors.formatStaffList()
+            subtitle.text = movie.subtitle.parseHTML()
 
-            directors.text = movie.directors.formatStaffList()
+            actors.text = movie.actors.formatStaffList().parseHTML()
+
+            directors.text = movie.directors.formatStaffList().parseHTML()
 
             pubDate.text = movie.pubDate
             rating.text =
@@ -79,6 +78,9 @@ class MovieAdapter :
             Glide.with(poster.context).load(movie.imageUrl).into(poster)
 
         }
+
+        private fun String.parseHTML(): Spanned =
+            HtmlCompat.fromHtml(this, HtmlCompat.FROM_HTML_MODE_LEGACY)
 
 
         private fun String.formatStaffList(): String = this.split("|")
