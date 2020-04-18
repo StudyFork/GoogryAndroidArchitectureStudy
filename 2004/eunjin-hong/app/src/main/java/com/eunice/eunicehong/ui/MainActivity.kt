@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.View
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import com.eunice.eunicehong.R
 import com.eunice.eunicehong.data.repository.MovieRepository
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,8 +20,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setSearchBar()
-
         setMovieList()
     }
 
@@ -32,19 +30,10 @@ class MainActivity : AppCompatActivity() {
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         (menu.findItem(R.id.search_bar).actionView as SearchView).apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
-            setIconifiedByDefault(false)
+            isIconifiedByDefault = false
             isSubmitButtonEnabled = true
             isQueryRefinementEnabled = true
-        }
 
-        return true
-    }
-
-
-    private fun setSearchBar() {
-        query_input.apply {
-            isSubmitButtonEnabled = true
-            setQuery(query_input.query, true)
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     if (!query.isNullOrBlank()) {
@@ -56,11 +45,9 @@ class MainActivity : AppCompatActivity() {
                 override fun onQueryTextChange(newText: String?): Boolean {
                     return false
                 }
-
             })
-
-
         }
+        return true
     }
 
     private fun searchMovieList(query: String) {

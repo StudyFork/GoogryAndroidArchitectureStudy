@@ -8,18 +8,6 @@
     tools:context=".ui.MainActivity"
     tools:ignore="contentDescription, Autofill">
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/query_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        app:defaultQueryHint="@string/movie_search_hint"
-        app:layout_constraintTop_toTopOf="parent"
-        app:goIcon="@android:drawable/ic_menu_search"
-        app:iconifiedByDefault="false"
-        app:queryHint="@string/movie_search_hint"
-        app:searchIcon="@drawable/ic_movie" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/move_list"
         android:layout_width="match_parent"
@@ -28,7 +16,7 @@
         app:layout="@layout/item_movie"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/query_input"
+        app:layout_constraintTop_toTopOf="parent"
         tools:itemCount="12"
         tools:layout_editor_absoluteX="8dp"
         tools:listitem="@layout/item_movie" />
@@ -43,6 +31,6 @@
         android:textColor="@color/colorText"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/query_input" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
