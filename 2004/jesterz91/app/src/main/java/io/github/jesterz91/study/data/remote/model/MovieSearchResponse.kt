@@ -1,10 +1,10 @@
-package io.github.jesterz91.study.data.model
+package io.github.jesterz91.study.data.remote.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class MovieResponse(
+data class MovieSearchResponse(
     @Json(name = "lastBuildDate")
     val lastBuildDate: String,
     @Json(name = "total")
@@ -14,5 +14,5 @@ data class MovieResponse(
     @Json(name = "display")
     val display: Int,
     @Json(name = "items")
-    val items: List<Movie>
+    val items: List<MovieRemote>
 )

@@ -1,10 +1,10 @@
-package io.github.jesterz91.study.data.model
+package io.github.jesterz91.study.data.remote.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class Movie(
+data class MovieRemote(
     @Json(name = "title")
     val title: String,
     @Json(name = "subtitle")

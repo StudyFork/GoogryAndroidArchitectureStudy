@@ -2,8 +2,8 @@ package io.github.jesterz91.study.presentation.ui
 
 import android.view.LayoutInflater
 import androidx.core.text.HtmlCompat
-import io.github.jesterz91.study.data.model.Movie
 import io.github.jesterz91.study.databinding.ItemMovieBinding
+import io.github.jesterz91.study.domain.entity.Movie
 import io.github.jesterz91.study.presentation.common.BaseViewHolder
 
 class MovieSearchViewHolder(layoutInflater: LayoutInflater) :
@@ -23,6 +23,6 @@ class MovieSearchViewHolder(layoutInflater: LayoutInflater) :
 
         moviePubDate.text = item.pubDate
 
-        movieRating.rating = item.userRating.toFloatOrNull() ?: 0f
+        movieRating.rating = item.userRating
     }
 }
