@@ -21,11 +21,11 @@ buildscript {
         rxAndroidVersion = '2.1.1'
         rxJavaVersion = '2.2.16'
 
-//        // koin
-//        koinVersion = '2.0.1'
+        // koin
+        koinVersion = '2.1.5'
 //
-//        // AAC
-//        lifecycleVersion = '2.1.0'
+        // AAC
+        lifecycleVersion = '2.1.0'
     }
     repositories {
         google()

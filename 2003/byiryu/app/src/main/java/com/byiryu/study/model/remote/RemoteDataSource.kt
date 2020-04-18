@@ -1,15 +1,15 @@
 package com.byiryu.study.model.remote
 
+import com.byiryu.study.model.Apis
 import com.byiryu.study.model.data.MovieResponse
-import com.byiryu.study.network.NetworkService.retrofit
 import io.reactivex.Single
 
-class RemoteDataSource {
+class RemoteDataSource(private val apis: Apis) {
 
 
     fun getMoveList(query: String): Single<MovieResponse> {
 
-        return retrofit.getSearchMovie(query)
+        return apis.getSearchMovie(query)
 
     }
 
