@@ -19,8 +19,6 @@ class MainActivity : AppCompatActivity() {
 
     private val movieListAdapter = MovieAdapter()
 
-    private var queryText: String? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,12 +29,14 @@ class MainActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
 
-        if (!queryText.isNullOrBlank()) {
-            SearchRecentSuggestions(
-                this,
-                SuggestionProvider.AUTHORITY,
-                SuggestionProvider.MODE
-            ).saveRecentQuery(queryText, null)
+        intent?.getStringExtra(SearchManager.QUERY)
+            ?.also { query ->
+                SearchRecentSuggestions(
+                    this,
+                    SuggestionProvider.AUTHORITY,
+                    SuggestionProvider.MODE
+                ).saveRecentQuery(query, null)
+                searchMovieList(query)
         }
     }
 
@@ -50,21 +50,6 @@ class MainActivity : AppCompatActivity() {
             isIconifiedByDefault = false
             isSubmitButtonEnabled = true
             isQueryRefinementEnabled = true
-
-            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    if (!query.isNullOrBlank()) {
-                        queryText = query
-                        searchMovieList(query)
-                    }
-                    return false
-                }
-
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    queryText = newText
-                    return false
-                }
-            })
         }
         return true
     }
