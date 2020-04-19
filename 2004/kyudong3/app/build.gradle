@@ -53,6 +53,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation "androidx.room:room-runtime:2.2.5"
+    kapt "androidx.room:room-compiler:2.2.5"
     dependencies {
         implementation('com.github.ihsanbal:LoggingInterceptor:3.1.0-rc5') {
             exclude group: 'org.json', module: 'json'
