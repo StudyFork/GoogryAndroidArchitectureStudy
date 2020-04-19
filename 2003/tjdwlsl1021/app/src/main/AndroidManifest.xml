@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".data.repository.MovieRepositoryDataSet">
+        android:name=".ui.base.AppApplication">
         <activity android:name=".ui.SearchMovieActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
