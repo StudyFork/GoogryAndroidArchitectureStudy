@@ -19,6 +19,8 @@ class MainActivity : AppCompatActivity() {
 
     private val movieListAdapter = MovieAdapter()
 
+    private lateinit var searchView: SearchView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -36,6 +38,8 @@ class MainActivity : AppCompatActivity() {
                     SuggestionProvider.AUTHORITY,
                     SuggestionProvider.MODE
                 ).saveRecentQuery(query, null)
+                searchView.setQuery(query, false)
+                searchView.clearFocus()
                 searchMovieList(query)
         }
     }
@@ -45,7 +49,8 @@ class MainActivity : AppCompatActivity() {
         inflater.inflate(R.menu.menu_main, menu)
 
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        (menu.findItem(R.id.search_bar).actionView as SearchView).apply {
+        searchView = menu.findItem(R.id.search_bar).actionView as SearchView
+        searchView.apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
             isIconifiedByDefault = false
             isSubmitButtonEnabled = true
