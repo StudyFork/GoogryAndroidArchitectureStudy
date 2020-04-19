@@ -4,6 +4,7 @@ import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.github.sooakim.presentation.SAViewModelLifecycle
 import io.github.sooakim.util.SingleEvent
 import io.github.sooakim.util.ext.liveOf
 import io.reactivex.disposables.CompositeDisposable

@@ -13,7 +13,7 @@
         android:supportsRtl="true">
 
         <activity
-            android:name=".ui.SASplashActivity"
+            android:name=".ui.splash.SASplashActivity"
             android:noHistory="true"
             android:theme="@style/SplashTheme"
             android:windowSoftInputMode="stateAlwaysHidden|adjustNothing">

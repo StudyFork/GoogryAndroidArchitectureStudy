@@ -1,0 +1,79 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        debug {
+            aaptOptions.cruncherEnabled = false
+
+            splits.abi.enable = false
+            splits.density.enable = false
+
+            debuggable true
+            minifyEnabled false
+            zipAlignEnabled false
+
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            minifyEnabled true
+            zipAlignEnabled true
+
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "type"
+
+    productFlavors{
+        dev{
+            dimension "type"
+
+            buildConfigField "String", "NAVER_BASE_URL", "\"https://openapi.naver.com/\""
+            buildConfigField "String", "NAVER_CLIENT_ID", "\"HmhQvFfXXWN3arqKw3rh\""
+            buildConfigField "String", "NAVER_CLIENT_SECRET", "\"xy1RSbH9HM\""
+        }
+        prod{
+            dimension "type"
+
+            buildConfigField "String", "NAVER_BASE_URL", "\"https://openapi.naver.com/\""
+            buildConfigField "String", "NAVER_CLIENT_ID", "\"HmhQvFfXXWN3arqKw3rh\""
+            buildConfigField "String", "NAVER_CLIENT_SECRET", "\"xy1RSbH9HM\""
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.1.0'
+    testImplementation 'junit:junit:4.12'
+
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.10'
+
+    implementation 'org.koin:koin-core:2.1.5'
+
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+
+    implementation project(":data")
+}
