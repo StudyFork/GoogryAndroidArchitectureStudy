@@ -1,13 +1,9 @@
-package com.byiryu.study.di
+package com.byiryu.remote.di
 
-import com.byiryu.study.conf.AppConf.BASE_URL
-import com.byiryu.study.model.Apis
-import com.byiryu.study.model.Repository
-import com.byiryu.study.model.local.LocalDataBase
-import com.byiryu.study.model.local.LocalDataSource
-import com.byiryu.study.model.local.pref.AppPreference
-import com.byiryu.study.model.remote.NaverHeaderInterceptor
-import com.byiryu.study.model.remote.RemoteDataSource
+import com.byiryu.data.source.remote.RemoteDataSource
+import com.byiryu.remote.RemoteDataSourceImpl
+import com.byiryu.remote.model.apis.Apis
+import com.byiryu.remote.conf.RemoteConf.BASE_URL
 import com.google.gson.GsonBuilder
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
@@ -19,6 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 val remoteModule = module {
+
     single {
         HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
@@ -64,30 +61,8 @@ val remoteModule = module {
         get<Retrofit>().create(Apis::class.java)
     }
 
-    single {
-        RemoteDataSource(get())
+    single<RemoteDataSource> {
+        RemoteDataSourceImpl(get())
     }
 
-
-}
-
-val localModule = module {
-    single {
-        AppPreference(get())
-    }
-
-    single {
-        LocalDataBase.getInstance(get())
-    }
-
-    single {
-        LocalDataSource(get<LocalDataBase>().movieDao(), get())
-    }
-}
-
-
-val repositoryModule = module {
-    single {
-        Repository(get(), get())
-    }
 }

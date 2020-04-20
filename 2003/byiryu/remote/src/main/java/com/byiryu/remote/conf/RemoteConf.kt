@@ -1,6 +1,6 @@
-package com.byiryu.study.conf
+package com.byiryu.remote.conf
 
-object AppConf {
+object RemoteConf {
 
 
     val BASE_URL = "https://openapi.naver.com/"

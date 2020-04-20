@@ -1,6 +1,6 @@
-package com.byiryu.study.model
+package com.byiryu.remote.model.apis
 
-import com.byiryu.study.model.data.MovieResponse
+import com.byiryu.remote.model.MovieResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
