@@ -6,13 +6,13 @@ interface MainContract {
     interface View {
         fun showMovies(movies: List<MovieItem>)
         fun showEmptySearchWord()
-        fun showNoResultForSearchWord()
+        fun showNoResultForSearchWord(query: String)
         fun showServerError()
         fun showNetworkError()
     }
 
     interface Presenter {
         fun loadMovies()
-        fun searchMovie()
+        fun searchMovie(query: String?)
     }
 }
