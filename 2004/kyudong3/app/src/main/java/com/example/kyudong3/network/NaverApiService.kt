@@ -1,7 +1,7 @@
 package com.example.kyudong3.network
 
 import com.example.kyudong3.BuildConfig
-import com.example.kyudong3.data.model.MovieReceiver
+import com.example.kyudong3.data.remote.MovieReceiver
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
