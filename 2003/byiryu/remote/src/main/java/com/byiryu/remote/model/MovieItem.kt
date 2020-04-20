@@ -1,11 +1,8 @@
-package com.byiryu.study.model.data
+package com.byiryu.remote.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "movie")
 data class MovieItem(
     @SerializedName("actor")
     @Expose
@@ -31,7 +28,6 @@ data class MovieItem(
     @Expose
     val subtitle: String,
 
-    @PrimaryKey(autoGenerate = false)
     @SerializedName("title")
     @Expose
     val title: String,
