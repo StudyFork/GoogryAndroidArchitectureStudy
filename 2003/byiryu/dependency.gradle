@@ -1,0 +1,27 @@
+ext{
+    //room
+    roomVersion = '2.2.5'
+
+    // Retrofit
+    retrofitVersion = '2.6.1'
+
+    // OkHttp
+    okHttpVersion = '4.1.0'
+
+    // glide
+    glideVersion = '4.9.0'
+
+    // kotlin
+    kotlinVersion = '1.3.41'
+
+    // rxAndroid
+    rxAndroidVersion = '2.1.1'
+    rxJavaVersion = '2.2.16'
+
+    // koin
+    koinVersion = '2.1.5'
+
+    // AAC
+    lifecycleVersion = '2.2.0'
+    
+}
