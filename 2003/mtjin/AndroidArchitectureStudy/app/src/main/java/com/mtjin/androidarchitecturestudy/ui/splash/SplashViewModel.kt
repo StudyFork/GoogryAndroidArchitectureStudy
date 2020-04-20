@@ -3,7 +3,7 @@ package com.mtjin.androidarchitecturestudy.ui.splash
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mtjin.androidarchitecturestudy.data.login.source.LoginRepository
+import com.mtjin.data.login.source.LoginRepository
 
 class SplashViewModel(private val loginRepository: LoginRepository) : ViewModel() {
     private val _goMovieSearch: MutableLiveData<Unit> = MutableLiveData()

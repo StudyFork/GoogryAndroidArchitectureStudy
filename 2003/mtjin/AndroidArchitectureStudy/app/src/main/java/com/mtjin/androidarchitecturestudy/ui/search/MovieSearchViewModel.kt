@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mtjin.androidarchitecturestudy.data.search.Movie
-import com.mtjin.androidarchitecturestudy.data.search.source.MovieRepository
+import com.mtjin.data.search.model.Movie
+import com.mtjin.data.search.source.MovieRepository
 import retrofit2.HttpException
 
 class MovieSearchViewModel(private val movieRepository: MovieRepository) : ViewModel() {

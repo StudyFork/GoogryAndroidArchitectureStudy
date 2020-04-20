@@ -2,7 +2,8 @@ package com.mtjin.androidarchitecturestudy.di
 
 import android.app.Application
 import com.mtjin.androidarchitecturestudy.BuildConfig
-import com.mtjin.androidarchitecturestudy.module.*
+import com.mtjin.androidarchitecturestudy.module.viewModelModule
+import com.mtjin.data.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

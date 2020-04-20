@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mtjin.androidarchitecturestudy.R
-import com.mtjin.androidarchitecturestudy.data.search.Movie
 import com.mtjin.androidarchitecturestudy.ui.search.EndlessRecyclerViewScrollListener
 import com.mtjin.androidarchitecturestudy.ui.search.MovieAdapter
 import com.mtjin.androidarchitecturestudy.ui.search.MovieSearchViewModel
+import com.mtjin.data.search.model.Movie
 
 
 @BindingAdapter("htmlText")
