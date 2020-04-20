@@ -1,10 +1,9 @@
-package com.byiryu.study.model.local
-
+package com.byiryu.local.model.data
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
-import com.byiryu.study.model.data.MovieItem
+import com.byiryu.local.model.MovieItem
 import io.reactivex.Completable
 import io.reactivex.Single
 

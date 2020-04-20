@@ -1,10 +1,10 @@
-package com.byiryu.study.model.local
+package com.byiryu.local.model.data
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.byiryu.study.model.data.MovieItem
+import com.byiryu.local.model.MovieItem
 
 @Database(entities = [MovieItem::class], version = 1)
 abstract class LocalDataBase : RoomDatabase() {

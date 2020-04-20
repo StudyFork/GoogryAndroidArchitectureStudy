@@ -1,5 +1,4 @@
-package com.byiryu.study.model.local.pref
-
+package com.byiryu.local.model.data
 import android.content.Context
 
 class AppPreference constructor(context: Context) {
