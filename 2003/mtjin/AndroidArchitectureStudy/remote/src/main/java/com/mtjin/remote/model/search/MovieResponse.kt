@@ -1,4 +1,5 @@
-package com.mtjin.data.search.model
+package com.mtjin.remote.model.search
+
 import com.google.gson.annotations.SerializedName
 
 data class MovieResponse(

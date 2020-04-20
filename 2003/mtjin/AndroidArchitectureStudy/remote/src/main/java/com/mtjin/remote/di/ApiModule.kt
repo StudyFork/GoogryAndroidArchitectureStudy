@@ -1,7 +1,7 @@
-package com.mtjin.data.di
+package com.mtjin.remote.di
 
-import com.mtjin.data.api.ApiClient
-import com.mtjin.data.api.ApiInterface
+import com.mtjin.remote.api.ApiClient
+import com.mtjin.remote.api.ApiInterface
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.koin.core.module.Module

@@ -1,6 +1,6 @@
-package com.mtjin.data.api
+package com.mtjin.remote.api
 
-import com.mtjin.data.search.model.MovieResponse
+import com.mtjin.remote.model.search.MovieResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

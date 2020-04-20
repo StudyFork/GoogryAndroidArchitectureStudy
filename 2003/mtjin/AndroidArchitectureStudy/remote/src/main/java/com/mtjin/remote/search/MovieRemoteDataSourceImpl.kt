@@ -1,16 +1,16 @@
-package com.mtjin.data.search.source.remote
+package com.mtjin.remote.search
 
 import android.util.Log
-import com.mtjin.data.api.ApiInterface
-import com.mtjin.data.search.model.Movie
-import com.mtjin.data.search.model.MovieResponse
+import com.mtjin.remote.api.ApiInterface
+import com.mtjin.remote.model.search.Movie
+import com.mtjin.remote.model.search.MovieResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
 
 
-class MovieRemoteDataSourceImpl(private val apiInterface: ApiInterface) :
+internal class MovieRemoteDataSourceImpl(private val apiInterface: ApiInterface) :
     MovieRemoteDataSource {
     override fun getSearchMovies(
         query: String,
@@ -33,9 +33,9 @@ class MovieRemoteDataSourceImpl(private val apiInterface: ApiInterface) :
                     val body = body()
                     if (isSuccessful && body != null) {
                         Log.d(TAG, "Remote onResponse success")
-                        if(start != body.start){
+                        if (start != body.start) {
                             fail(Throwable("마지막 페이지"))
-                        }else {
+                        } else {
                             success(body.movies)
                         }
                     } else {

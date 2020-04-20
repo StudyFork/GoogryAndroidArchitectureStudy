@@ -1,6 +1,6 @@
-package com.mtjin.data.search.source.remote
+package com.mtjin.remote.search
 
-import com.mtjin.data.search.model.Movie
+import com.mtjin.remote.model.search.Movie
 
 interface MovieRemoteDataSource {
     fun getSearchMovies(
