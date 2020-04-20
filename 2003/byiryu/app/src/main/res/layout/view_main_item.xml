@@ -6,7 +6,7 @@
         <import type="androidx.core.text.HtmlCompat"/>
         <variable
             name="movieItem"
-            type="com.byiryu.study.model.data.MovieItem" />
+            type="com.byiryu.study.model.Movie" />
 
         <variable
             name="itemClickListener"
