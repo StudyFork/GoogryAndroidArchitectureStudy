@@ -1,4 +1,4 @@
-package com.mtjin.data.login.source
+package com.mtjin.data.source.login
 
 interface LoginRepository {
 

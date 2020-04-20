@@ -1,6 +1,6 @@
-package com.mtjin.data.search.source
+package com.mtjin.data.source.search
 
-import com.mtjin.data.search.model.Movie
+import com.mtjin.data.model.search.Movie
 
 interface MovieRepository {
     fun getSearchMovies(

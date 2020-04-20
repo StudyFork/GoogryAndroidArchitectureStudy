@@ -1,4 +1,4 @@
-package com.mtjin.data.search.model
+package com.mtjin.data.model.search
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

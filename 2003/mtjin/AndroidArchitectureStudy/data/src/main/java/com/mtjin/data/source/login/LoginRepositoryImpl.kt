@@ -1,8 +1,8 @@
-package com.mtjin.data.login.source
+package com.mtjin.data.source.login
 
-import com.mtjin.data.login.source.local.LoginLocalDataSource
+import com.mtjin.local.login.LoginLocalDataSource
 
-class LoginRepositoryImpl(private val loginLocalDataSource: LoginLocalDataSource) :
+internal class LoginRepositoryImpl(private val loginLocalDataSource: LoginLocalDataSource) :
     LoginRepository {
 
     override var autoLogin: Boolean
