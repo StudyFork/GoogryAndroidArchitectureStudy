@@ -1,4 +1,4 @@
-package com.olaf.nukeolaf
+package com.olaf.nukeolaf.data.model
 
 data class MovieResponse(
     val lastBuildDate: String,
