@@ -1,6 +1,6 @@
-package com.mtjin.data.search.source.local
+package com.mtjin.local.search
 
-import com.mtjin.data.search.model.Movie
+import com.mtjin.local.model.search.Movie
 
 interface MovieLocalDataSource {
     fun insertMovies(movies: List<Movie>)

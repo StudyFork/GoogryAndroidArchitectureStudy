@@ -1,8 +1,8 @@
-package com.mtjin.data.search.source.local
+package com.mtjin.local.search
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.mtjin.data.search.model.Movie
+import com.mtjin.local.model.search.Movie
 
 @Database(entities = [Movie::class], version = 1, exportSchema = false)
 abstract class MovieDatabase : RoomDatabase() {

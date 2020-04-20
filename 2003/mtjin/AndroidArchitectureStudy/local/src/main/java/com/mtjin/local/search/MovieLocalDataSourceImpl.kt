@@ -1,9 +1,9 @@
-package com.mtjin.data.search.source.local
+package com.mtjin.local.search
 
-import com.mtjin.data.search.model.Movie
+import com.mtjin.local.model.search.Movie
 
 
-class MovieLocalDataSourceImpl(private val movieDao: MovieDao) : MovieLocalDataSource {
+internal class MovieLocalDataSourceImpl(private val movieDao: MovieDao) : MovieLocalDataSource {
     override fun insertMovies(movies: List<Movie>) {
         movieDao.insertMovies(movies)
     }

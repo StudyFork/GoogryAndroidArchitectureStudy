@@ -1,4 +1,4 @@
-package com.mtjin.data.utils
+package com.mtjin.local.utils
 
 import android.content.Context
 import android.content.SharedPreferences

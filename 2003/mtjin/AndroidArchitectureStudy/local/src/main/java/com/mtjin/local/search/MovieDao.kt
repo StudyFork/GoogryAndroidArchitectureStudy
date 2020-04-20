@@ -1,10 +1,11 @@
-package com.mtjin.data.search.source.local
+package com.mtjin.local.search
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.mtjin.data.search.model.Movie
+import com.mtjin.local.model.search.Movie
+
 
 @Dao
 interface MovieDao {
