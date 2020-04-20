@@ -1,2 +1,2 @@
-include ':app', ':data'
+include ':app', ':data', ':remote', ':local'
 rootProject.name='AndroidArchitectureStudy'
