@@ -19,7 +19,7 @@ import com.eunice.eunicehong.provider.SuggestionProvider
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MovieContract.View {
 
     private val movieListAdapter = MovieAdapter()
 
@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showRemoveHistoryConfirmDialog() {
+    override fun showRemoveHistoryConfirmDialog() {
         AlertDialog.Builder(this)
             .setTitle(R.string.app_name)
             .setMessage(getString(R.string.delete_history_confirmation))
