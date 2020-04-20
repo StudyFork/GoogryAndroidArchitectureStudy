@@ -1,6 +1,5 @@
 package com.eunice.eunicehong.data.remote
 
-import com.eunice.eunicehong.data.model.Movie
 import com.eunice.eunicehong.data.model.MovieList
 import retrofit2.Call
 import retrofit2.Callback
@@ -12,18 +11,17 @@ class MovieRemoteDataSource {
 
     fun getMovieList(
         query: String,
-        onSuccess: (movieList: List<Movie>) -> Unit,
+        onSuccess: (movieList: MovieList) -> Unit,
         onFailure: (e: Throwable) -> Unit
     ) {
         service.getMovieList(query).enqueue(object : Callback<MovieList> {
             override fun onResponse(call: Call<MovieList>, response: Response<MovieList>) {
                 val content = response.body()
                 if (response.isSuccessful && content != null) {
-                    onSuccess(content.items)
+                    onSuccess(content)
                 } else {
                     onFailure(HttpException(response))
                 }
-
             }
 
             override fun onFailure(call: Call<MovieList>, t: Throwable) {

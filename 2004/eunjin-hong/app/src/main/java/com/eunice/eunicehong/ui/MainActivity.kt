@@ -92,6 +92,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun clearHistory() {
+        MovieRepository.removeAllHistory(this@MainActivity)
         SearchRecentSuggestions(
             this,
             SuggestionProvider.AUTHORITY,
@@ -101,13 +102,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun searchMovieList(query: String) {
         MovieRepository.getMovieList(
+            context = this@MainActivity,
             query = query,
-            onSuccess = { movies ->
+            success = { movies ->
                 zero_item_message.visibility =
                     if (movies.isNullOrEmpty()) View.VISIBLE else View.GONE
                 movieListAdapter.setMovieList(movies)
             },
-            onFailure = { e: Throwable ->
+            failure = { e: Throwable ->
                 Log.d(TAG, e.toString())
             })
     }
