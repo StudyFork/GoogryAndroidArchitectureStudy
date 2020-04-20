@@ -12,7 +12,7 @@ import com.mtjin.androidarchitecturestudy.R
 import com.mtjin.androidarchitecturestudy.ui.search.EndlessRecyclerViewScrollListener
 import com.mtjin.androidarchitecturestudy.ui.search.MovieAdapter
 import com.mtjin.androidarchitecturestudy.ui.search.MovieSearchViewModel
-import com.mtjin.data.search.model.Movie
+import com.mtjin.data.model.search.Movie
 
 
 @BindingAdapter("htmlText")

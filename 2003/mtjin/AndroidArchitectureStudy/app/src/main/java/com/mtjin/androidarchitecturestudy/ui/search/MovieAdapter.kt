@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mtjin.androidarchitecturestudy.R
 import com.mtjin.androidarchitecturestudy.databinding.ItemMovieBinding
-import com.mtjin.data.search.model.Movie
+import com.mtjin.data.model.search.Movie
 
 class MovieAdapter(private val itemClick: (Movie) -> Unit) :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {

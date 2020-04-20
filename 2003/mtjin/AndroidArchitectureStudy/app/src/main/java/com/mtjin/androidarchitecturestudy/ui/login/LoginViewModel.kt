@@ -3,7 +3,7 @@ package com.mtjin.androidarchitecturestudy.ui.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mtjin.data.login.source.LoginRepository
+import com.mtjin.data.source.login.LoginRepository
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
     val id: MutableLiveData<String> = MutableLiveData("")

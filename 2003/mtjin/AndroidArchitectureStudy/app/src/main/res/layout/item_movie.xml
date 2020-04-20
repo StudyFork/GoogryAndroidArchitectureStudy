@@ -6,7 +6,7 @@
 
         <variable
             name="movie"
-            type="com.mtjin.data.search.model.Movie" />
+            type="com.mtjin.data.model.search.Movie" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
