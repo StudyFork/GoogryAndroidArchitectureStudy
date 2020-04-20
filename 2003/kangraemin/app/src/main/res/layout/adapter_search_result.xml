@@ -7,7 +7,7 @@
 
         <variable
             name="movieDetail"
-            type="com.example.kangraemin.model.remote.datamodel.MovieDetail" />
+            type="com.example.data.model.Movie" />
 
     </data>
 

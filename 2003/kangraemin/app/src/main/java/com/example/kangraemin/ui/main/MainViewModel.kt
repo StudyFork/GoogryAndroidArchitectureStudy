@@ -3,13 +3,12 @@ package com.example.kangraemin.ui.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.EmptyResultSetException
+import com.example.data.model.Auth
+import com.example.data.model.Movie
 import com.example.kangraemin.base.KangBaseViewModel
-import com.example.kangraemin.model.AuthRepository
-import com.example.kangraemin.model.MovieSearchRepository
-import com.example.kangraemin.model.local.datamodel.Auth
-import com.example.kangraemin.model.remote.datamodel.MovieDetail
-import com.example.kangraemin.model.remote.datamodel.Movies
-import com.example.kangraemin.util.NetworkUtil
+import com.example.data.source.AuthRepository
+import com.example.data.source.MovieSearchRepository
+import com.example.data.source.NetworkUtil
 import com.example.kangraemin.util.NonNullMutableLiveData
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
@@ -28,9 +27,9 @@ class MainViewModel(
 
     val getMovieError: LiveData<Boolean> = _getMovieError
 
-    private val _movies: MutableLiveData<ArrayList<MovieDetail>> = MutableLiveData()
+    private val _movies: MutableLiveData<List<Movie>> = MutableLiveData()
 
-    val movies: LiveData<ArrayList<MovieDetail>> = _movies
+    val movies: LiveData<List<Movie>> = _movies
 
     private val deleteAuthSubject = PublishSubject.create<Unit>()
 
@@ -84,7 +83,7 @@ class MainViewModel(
                         printStackTrace()
                     }
                 } else {
-                    _movies.value = responseMovieData.responseResult.items
+                    _movies.value = responseMovieData.responseResult
                 }
             }, { it.printStackTrace() })
         compositeDisposable.add(whenArrivedMovieData)
@@ -159,7 +158,7 @@ class MainViewModel(
 
     private data class ResponseMovieData(
         val responseError: Boolean,
-        val responseResult: Movies = Movies(items = ArrayList()),
+        val responseResult: List<Movie> = mutableListOf(),
         val throwable: Throwable? = null
     )
 
@@ -170,7 +169,9 @@ class MainViewModel(
 
     private data class ResponseGetAuth(
         val responseError: Boolean,
-        val responseResult: Auth = Auth(autoLogin = false),
+        val responseResult: Auth = Auth(
+            autoLogin = false
+        ),
         val throwable: Throwable? = null
     )
 }
