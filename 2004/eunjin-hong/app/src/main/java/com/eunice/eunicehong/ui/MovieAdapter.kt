@@ -1,7 +1,5 @@
 package com.eunice.eunicehong.ui
 
-import android.content.Intent
-import android.net.Uri
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
@@ -15,13 +13,14 @@ import com.bumptech.glide.Glide
 import com.eunice.eunicehong.R
 import com.eunice.eunicehong.data.model.Movie
 
-class MovieAdapter :
+class MovieAdapter(private val presenter: MoviePresenter) :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     private val movieList = mutableListOf<Movie>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
+        LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false),
+        presenter
     )
 
     override fun getItemCount(): Int = movieList.size
@@ -42,14 +41,14 @@ class MovieAdapter :
         addAllMovies(movies)
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View, private val presenter: MoviePresenter) :
+        RecyclerView.ViewHolder(itemView) {
 
         private lateinit var movie: Movie
 
         private val card = itemView.findViewById<CardView>(R.id.movie_card).apply {
             setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movie.link))
-                context.startActivity(intent)
+                presenter.showDetail(movie.link)
             }
         }
         private val title = itemView.findViewById<TextView>(R.id.movie_title)

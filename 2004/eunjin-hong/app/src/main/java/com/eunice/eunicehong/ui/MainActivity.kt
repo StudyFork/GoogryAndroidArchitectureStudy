@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.SearchRecentSuggestions
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -14,19 +13,24 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.eunice.eunicehong.R
-import com.eunice.eunicehong.data.repository.MovieRepository
+import com.eunice.eunicehong.data.model.Movie
 import com.eunice.eunicehong.provider.SuggestionProvider
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(), MovieContract.View {
 
-    private val movieListAdapter = MovieAdapter()
+    override lateinit var movieContext: Context
 
     private lateinit var searchView: SearchView
 
+    private val presenter = MoviePresenter(this)
+    private val movieListAdapter = MovieAdapter(presenter)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        movieContext = this@MainActivity
+
         setContentView(R.layout.activity_main)
 
         setMovieList()
@@ -44,7 +48,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
                 ).saveRecentQuery(query, null)
                 searchView.setQuery(query, false)
                 searchView.clearFocus()
-                searchMovieList(query)
+                presenter.search(query)
         }
     }
 
@@ -81,7 +85,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
             .setPositiveButton(
                 android.R.string.yes
             ) { _, _ ->
-                clearHistory()
+                presenter.removeHistory()
                 Toast.makeText(
                     this@MainActivity,
                     getString(R.string.complete_delete_history),
@@ -91,27 +95,10 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
             .setNegativeButton(android.R.string.no, null).show()
     }
 
-    private fun clearHistory() {
-        MovieRepository.removeAllHistory(this@MainActivity)
-        SearchRecentSuggestions(
-            this,
-            SuggestionProvider.AUTHORITY,
-            SuggestionProvider.MODE
-        ).clearHistory()
-    }
-
-    private fun searchMovieList(query: String) {
-        MovieRepository.getMovieList(
-            context = this@MainActivity,
-            query = query,
-            success = { movies ->
-                zero_item_message.visibility =
-                    if (movies.isNullOrEmpty()) View.VISIBLE else View.GONE
-                movieListAdapter.setMovieList(movies)
-            },
-            failure = { e: Throwable ->
-                Log.d(TAG, e.toString())
-            })
+    override fun showSearchResult(movies: List<Movie>) {
+        zero_item_message.visibility =
+            if (movies.isNullOrEmpty()) View.VISIBLE else View.GONE
+        movieListAdapter.setMovieList(movies)
     }
 
     private fun setMovieList() {
@@ -121,5 +108,4 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
     companion object {
         private const val TAG = "MAIN_ACTIVITY"
     }
-
 }
