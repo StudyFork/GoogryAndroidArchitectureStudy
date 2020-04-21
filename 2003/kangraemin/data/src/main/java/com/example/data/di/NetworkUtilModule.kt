@@ -7,6 +7,6 @@ val networkUtilModule = module {
 
     // For NetworkUtil
     single {
-        com.example.data.source.NetworkUtil(get())
+        NetworkUtil(get())
     }
 }
