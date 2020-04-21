@@ -1,55 +1,51 @@
 package com.mtjin.data.mapper
 
 import com.mtjin.data.model.search.Movie
+import com.mtjin.local.model.search.Movie as localMovie
+import com.mtjin.remote.model.search.Movie as remoteMovie
 
-fun mapperMovieListRemoteToLocal(movies: List<com.mtjin.remote.model.search.Movie>): List<com.mtjin.local.model.search.Movie> {
-    val localMovies: List<com.mtjin.local.model.search.Movie>
-    localMovies = movies.map { movie ->
-        com.mtjin.local.model.search.Movie(
-            movie.actor,
-            movie.director,
-            movie.image,
-            movie.link,
-            movie.pubDate,
-            movie.subtitle,
-            movie.title,
-            movie.userRating
+fun mapperMovieListRemoteToLocal(movies: List<remoteMovie>): List<localMovie> {
+    return movies.toList().map {
+        localMovie(
+            it.actor,
+            it.director,
+            it.image,
+            it.link,
+            it.pubDate,
+            it.subtitle,
+            it.title,
+            it.userRating
         )
     }
-    return localMovies
 }
 
-fun mapperMovieListLocalToData(movies: List<com.mtjin.local.model.search.Movie>): List<Movie> {
-    val dataMovies: List<Movie>
-    dataMovies = movies.map { movie ->
+fun mapperMovieListLocalToData(movies: List<localMovie>): List<Movie> {
+    return movies.toList().map {
         Movie(
-            movie.actor,
-            movie.director,
-            movie.image,
-            movie.link,
-            movie.pubDate,
-            movie.subtitle,
-            movie.title,
-            movie.userRating
+            it.actor,
+            it.director,
+            it.image,
+            it.link,
+            it.pubDate,
+            it.subtitle,
+            it.title,
+            it.userRating
         )
     }
-    return dataMovies
 }
 
-fun mapperMovieListRemoteToData(movies: List<com.mtjin.remote.model.search.Movie>): List<Movie> {
-    val dataMovies: List<Movie>
-    dataMovies = movies.map { movie ->
+fun mapperMovieListRemoteToData(movies: List<remoteMovie>): List<Movie> {
+    return movies.toList().map {
         Movie(
-            movie.actor,
-            movie.director,
-            movie.image,
-            movie.link,
-            movie.pubDate,
-            movie.subtitle,
-            movie.title,
-            movie.userRating
+            it.actor,
+            it.director,
+            it.image,
+            it.link,
+            it.pubDate,
+            it.subtitle,
+            it.title,
+            it.userRating
         )
     }
-    return dataMovies
 }
 

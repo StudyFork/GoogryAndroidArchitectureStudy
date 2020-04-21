@@ -5,8 +5,8 @@ import com.mtjin.data.mapper.mapperMovieListRemoteToData
 import com.mtjin.data.mapper.mapperMovieListRemoteToLocal
 import com.mtjin.data.model.search.Movie
 import com.mtjin.data.utils.NetworkManager
-import com.mtjin.local.search.MovieLocalDataSource
-import com.mtjin.remote.search.MovieRemoteDataSource
+import com.mtjin.local.source.search.MovieLocalDataSource
+import com.mtjin.remote.source.search.MovieRemoteDataSource
 
 internal class MovieRepositoryImpl(
     private val movieRemoteDataSource: MovieRemoteDataSource,

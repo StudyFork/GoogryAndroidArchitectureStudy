@@ -1,6 +1,6 @@
 package com.mtjin.data.source.login
 
-import com.mtjin.local.login.LoginLocalDataSource
+import com.mtjin.local.source.login.LoginLocalDataSource
 
 internal class LoginRepositoryImpl(private val loginLocalDataSource: LoginLocalDataSource) :
     LoginRepository {
