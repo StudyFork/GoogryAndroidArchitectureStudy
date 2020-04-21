@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MovieContract.View {
 
-    private var rvAdapter = MovieAdapter()
+    private val rvAdapter = MovieAdapter()
     private val moviePresenter = MoviePresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
         movie_rv.adapter = rvAdapter
     }
 
-    override fun setItems(list: List<Movie>) {
+    override fun showMovieList(list: List<Movie>) {
         rvAdapter.clear()
         rvAdapter.addAll(list)
         rvAdapter.notifyDataSetChanged()
