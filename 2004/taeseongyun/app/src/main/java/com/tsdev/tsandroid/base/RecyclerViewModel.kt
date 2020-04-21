@@ -6,4 +6,6 @@ interface RecyclerViewModel<ITEM> {
     fun addItems(items: List<ITEM>)
 
     fun clear()
+
+    var notifiedDataChange: () -> Unit
 }

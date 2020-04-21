@@ -10,6 +10,10 @@ import com.tsdev.tsandroid.ui.viewholder.MovieRecyclerViewViewHolder
 class MovieRecyclerAdapter(private val onClickListenerEvent: MovieRecyclerViewViewHolder.OnClickDelegate) :
     BaseRecyclerAdapter<Item>() {
 
+    init {
+        notifiedDataChange = this@MovieRecyclerAdapter::notifyDataSetChanged
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
