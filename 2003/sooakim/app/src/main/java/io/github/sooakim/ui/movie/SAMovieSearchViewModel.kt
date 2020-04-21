@@ -23,9 +23,8 @@ class SAMovieSearchViewModel(
     private val _searchText: NotNullMutableLiveData<String> =
         NotNullMutableLiveData(movieRepository.latestMovieQuery)
     private val _searchClick: PublishSubject<Unit> = PublishSubject.create()
-    private val _movies: NotNullMutableLiveData<List<SAMoviePresentation>> = NotNullMutableLiveData(
-        emptyList()
-    )
+    private val _movies: NotNullMutableLiveData<List<SAMoviePresentation>> =
+        NotNullMutableLiveData(emptyList())
     private val _movieClick: PublishSubject<SAMoviePresentation> = PublishSubject.create()
 
     val isLoading: LiveData<Boolean> = _isLoading

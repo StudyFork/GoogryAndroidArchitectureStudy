@@ -42,28 +42,24 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     flavorDimensions "type"
+
     productFlavors{
         dev{
             dimension "type"
 
             applicationIdSuffix ".dev"
-
-            buildConfigField "String", "NAVER_BASE_URL", "\"https://openapi.naver.com/\""
-            buildConfigField "String", "NAVER_CLIENT_ID", "\"HmhQvFfXXWN3arqKw3rh\""
-            buildConfigField "String", "NAVER_CLIENT_SECRET", "\"xy1RSbH9HM\""
         }
         prod{
             dimension "type"
-
-            buildConfigField "String", "NAVER_BASE_URL", "\"https://openapi.naver.com/\""
-            buildConfigField "String", "NAVER_CLIENT_ID", "\"HmhQvFfXXWN3arqKw3rh\""
-            buildConfigField "String", "NAVER_CLIENT_SECRET", "\"xy1RSbH9HM\""
         }
     }
+
     dataBinding{
         enabled true
     }
+
     compileOptions {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
@@ -83,23 +79,8 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'
 
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-    implementation "androidx.room:room-ktx:$room_version"
-    implementation "androidx.room:room-rxjava2:$room_version"
-    testImplementation "androidx.room:room-testing:$room_version"
-
-    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
-
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.10'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.4.0'
-    implementation 'com.jakewharton.rxbinding3:rxbinding:3.1.0'
-
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
-    implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
 
     implementation "com.github.bumptech.glide:glide:$glide_version"
     implementation "com.github.bumptech.glide:annotations:$glide_version"
@@ -109,9 +90,15 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
+    implementation 'org.koin:koin-androidx-viewmodel:2.1.5'
+
     implementation "androidx.fragment:fragment-ktx:1.2.2"
 
-    implementation 'org.koin:koin-androidx-viewmodel:2.1.5'
+    implementation project(":local")
+    implementation project(":remote")
+    implementation project(":data")
+    implementation project(":domain")
+    implementation project(":common")
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'

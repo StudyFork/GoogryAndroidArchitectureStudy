@@ -1,4 +1,4 @@
-package io.github.sooakim.ui.base
+package io.github.sooakim.presentation
 
 interface SAViewModelLifecycle {
     fun create() {

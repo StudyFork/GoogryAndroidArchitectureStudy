@@ -2,9 +2,10 @@ package io.github.sooakim.ui.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import io.github.sooakim.R
 import io.github.sooakim.domain.repository.SAAuthRepository
+import com.example.common.exception.InvalidPasswordException
+import com.example.common.exception.UserNotFoundException
 import io.github.sooakim.ui.base.SAViewModel
 import io.github.sooakim.util.NotNullMutableLiveData
 import io.github.sooakim.util.ResourceProvider
@@ -19,9 +20,12 @@ class SALoginViewModel(
     private val resourceProvider: ResourceProvider,
     authRepository: SAAuthRepository
 ) : SAViewModel<SALoginState>() {
-    private val _isLoading: NotNullMutableLiveData<Boolean> = NotNullMutableLiveData(false)
-    private val _id: NotNullMutableLiveData<String> = NotNullMutableLiveData("")
-    private val _password: NotNullMutableLiveData<String> = NotNullMutableLiveData("")
+    private val _isLoading: NotNullMutableLiveData<Boolean> =
+        NotNullMutableLiveData(false)
+    private val _id: NotNullMutableLiveData<String> =
+        NotNullMutableLiveData("")
+    private val _password: NotNullMutableLiveData<String> =
+        NotNullMutableLiveData("")
     private val _errorId: MutableLiveData<String> = MutableLiveData()
     private val _errorPassword: MutableLiveData<String> = MutableLiveData()
     private val _loginClick: PublishSubject<Unit> = PublishSubject.create()
@@ -43,24 +47,15 @@ class SALoginViewModel(
             .doOnNext { hideLoading() }
             .doOnError { hideLoading() }
             .doOnError { error -> handleError(error) }
-            .retry { error -> (error is HttpException) }
+            .retry()
             .subscribe { runState(SALoginState.ShowMain) }
             .addTo(compositeDisposable)
     }
 
     private fun handleError(throwable: Throwable) {
         when (throwable) {
-            is HttpException -> when (throwable.code()) {
-                404 -> {
-                    showIdError()
-                }
-                409 -> {
-                    showPasswordError()
-                }
-                else -> {
-                    clearErrors()
-                }
-            }
+            is UserNotFoundException -> showIdError()
+            is InvalidPasswordException -> showPasswordError()
             else -> {
                 clearErrors()
             }
