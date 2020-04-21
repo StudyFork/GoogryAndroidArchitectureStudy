@@ -1,4 +1,4 @@
-package com.mtjin.remote.search
+package com.mtjin.remote.source.search
 
 import com.mtjin.remote.model.search.Movie
 

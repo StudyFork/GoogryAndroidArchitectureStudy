@@ -1,4 +1,4 @@
-package com.mtjin.remote.search
+package com.mtjin.remote.source.search
 
 import android.util.Log
 import com.mtjin.remote.api.ApiInterface
