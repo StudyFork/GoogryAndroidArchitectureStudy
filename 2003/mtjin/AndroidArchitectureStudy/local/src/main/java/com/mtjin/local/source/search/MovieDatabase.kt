@@ -1,4 +1,4 @@
-package com.mtjin.local.search
+package com.mtjin.local.source.search
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

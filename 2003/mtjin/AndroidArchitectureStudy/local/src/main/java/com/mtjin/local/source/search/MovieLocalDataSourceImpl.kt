@@ -1,4 +1,4 @@
-package com.mtjin.local.search
+package com.mtjin.local.source.search
 
 import com.mtjin.local.model.search.Movie
 
