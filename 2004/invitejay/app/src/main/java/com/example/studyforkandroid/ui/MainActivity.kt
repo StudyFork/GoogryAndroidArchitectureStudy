@@ -4,43 +4,39 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.studyforkandroid.R
 import com.example.studyforkandroid.adapter.MovieAdapter
-import com.example.studyforkandroid.data.source.MovieRepositoryImpl
+import com.example.studyforkandroid.data.Movie
+import com.example.studyforkandroid.presenter.MovieContract
+import com.example.studyforkandroid.presenter.MoviePresenter
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MovieContract.View {
 
-    private lateinit var rvAdapter: MovieAdapter
+    private var rvAdapter = MovieAdapter()
+    private val moviePresenter = MoviePresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        moviePresenter.setView(this)
+
         initRv()
         initBtn()
-
     }
 
     private fun initBtn() {
         movie_search.setOnClickListener {
-            searchMovie(movie_input.text.toString())
+            moviePresenter.loadItem(movie_input.text.toString())
         }
     }
 
     private fun initRv() {
-        rvAdapter = MovieAdapter()
         movie_rv.adapter = rvAdapter
     }
 
-    private fun searchMovie(title: String) {
-        MovieRepositoryImpl.getRemoteMovieList(
-            title,
-            onSuccess = { movieList ->
-                rvAdapter.clear()
-                rvAdapter.addAll(movieList)
-                rvAdapter.notifyDataSetChanged()
-            },
-            onFailure = { e ->
-                e.printStackTrace()
-            })
+    override fun setItems(list: List<Movie>) {
+        rvAdapter.clear()
+        rvAdapter.addAll(list)
+        rvAdapter.notifyDataSetChanged()
     }
 }
