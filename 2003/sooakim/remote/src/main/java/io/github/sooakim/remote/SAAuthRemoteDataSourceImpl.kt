@@ -3,8 +3,8 @@ package io.github.sooakim.remote
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import io.github.sooakim.data.remote.SAAuthRemoteDataSource
 import io.github.sooakim.remote.api.SAAuthApi
-import io.github.sooakim.remote.exception.InvalidPasswordException
-import io.github.sooakim.remote.exception.UserNotFoundException
+import com.example.common.exception.InvalidPasswordException
+import com.example.common.exception.UserNotFoundException
 import io.github.sooakim.remote.model.request.SAAuthRequest
 import io.reactivex.Completable
 

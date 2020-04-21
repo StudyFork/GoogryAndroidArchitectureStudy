@@ -98,6 +98,7 @@ dependencies {
     implementation project(":remote")
     implementation project(":data")
     implementation project(":domain")
+    implementation project(":common")
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'

@@ -1,3 +1,3 @@
-package io.github.sooakim.remote.exception
+package com.example.common.exception
 
 class InvalidPasswordException : RuntimeException()

@@ -63,4 +63,5 @@ dependencies {
     implementation 'org.koin:koin-core:2.1.5'
 
     implementation project(":domain")
+    implementation project(":common")
 }

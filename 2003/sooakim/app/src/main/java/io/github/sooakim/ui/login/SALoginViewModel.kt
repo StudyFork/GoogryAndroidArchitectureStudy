@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.github.sooakim.R
 import io.github.sooakim.domain.repository.SAAuthRepository
-import io.github.sooakim.remote.exception.InvalidPasswordException
-import io.github.sooakim.remote.exception.UserNotFoundException
+import com.example.common.exception.InvalidPasswordException
+import com.example.common.exception.UserNotFoundException
 import io.github.sooakim.ui.base.SAViewModel
 import io.github.sooakim.util.NotNullMutableLiveData
 import io.github.sooakim.util.ResourceProvider
