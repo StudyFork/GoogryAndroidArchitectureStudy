@@ -50,31 +50,10 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.15'
     // recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    // retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.7.2'
-    // retrofit adapter
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
-    // gson converter
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     // glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
-    // OkHttp
-    implementation 'com.squareup.okhttp3:okhttp:3.14.7'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.2'
     // material design
     implementation 'com.google.android.material:material:1.1.0'
-
-    def room_version = "2.2.4"
-    implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
-    // optional - Kotlin Extensions and Coroutines support for Room
-    implementation "androidx.room:room-ktx:$room_version"
-    // optional - RxJava support for Room
-    implementation "androidx.room:room-rxjava2:$room_version"
-    // Test helpers
-    testImplementation "androidx.room:room-testing:$room_version"
-
-    kapt "androidx.room:room-compiler:$room_version"
 
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.fragment:fragment-ktx:1.2.4'
