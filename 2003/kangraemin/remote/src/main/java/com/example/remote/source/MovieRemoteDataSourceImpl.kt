@@ -3,7 +3,7 @@ package com.example.remote.source
 import com.example.remote.model.Movies
 import io.reactivex.Single
 
-class MovieRemoteDataSourceImpl(
+internal class MovieRemoteDataSourceImpl(
     private val movieApi: MovieApi
 ) : MovieRemoteDataSource {
     override fun getMovies(query: String): Single<Movies> {
