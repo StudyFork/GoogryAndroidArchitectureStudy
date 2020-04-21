@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.room.EmptyResultSetException
 import com.example.data.model.Auth
 import com.example.data.model.Movie
+import com.example.data.model.NetworkStatus
 import com.example.kangraemin.base.KangBaseViewModel
 import com.example.data.source.AuthRepository
 import com.example.data.source.MovieSearchRepository
@@ -143,7 +144,7 @@ class MainViewModel(
 
     private fun getNetworkStatus() {
         return when (networkUtil.getConnectivityStatus()) {
-            NetworkUtil.NetworkStatus.NOT_CONNECTED -> {
+            NetworkStatus.NOT_CONNECTED -> {
                 _isNetworkConnected.value = false
             }
             else -> {
