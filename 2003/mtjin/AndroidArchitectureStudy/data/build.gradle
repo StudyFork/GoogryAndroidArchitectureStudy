@@ -38,7 +38,4 @@ dependencies {
     //room
     implementation 'androidx.room:room-runtime:2.2.5'
     kapt 'androidx.room:room-compiler:2.2.5'
-    //multi module
-    implementation project(':remote')
-    implementation project(':local')
 }
