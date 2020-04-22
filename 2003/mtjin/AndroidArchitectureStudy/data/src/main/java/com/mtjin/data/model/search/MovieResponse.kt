@@ -1,6 +1,4 @@
 package com.mtjin.data.model.search
-import com.google.gson.annotations.SerializedName
-import com.mtjin.data.model.search.Movie
 
 data class MovieResponse(
     val display: Int,
