@@ -17,7 +17,7 @@ class MainPresenter(
     }
 
     override fun searchMovie(query: String?) {
-        if (query == null) {
+        if (query.isNullOrEmpty()) {
             view.showEmptySearchWord()
             return
         }
