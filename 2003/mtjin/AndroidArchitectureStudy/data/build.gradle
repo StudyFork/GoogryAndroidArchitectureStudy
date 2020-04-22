@@ -32,9 +32,6 @@ dependencies {
 
     // koin
     implementation 'org.koin:koin-core:2.1.5'
-    //retrofit2
-    implementation 'com.squareup.retrofit2:retrofit:2.7.2'
-    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
     //room
     implementation 'androidx.room:room-runtime:2.2.5'
     kapt 'androidx.room:room-compiler:2.2.5'
