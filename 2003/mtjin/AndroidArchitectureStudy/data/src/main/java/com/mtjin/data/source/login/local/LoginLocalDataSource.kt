@@ -1,4 +1,4 @@
-package com.mtjin.local.source.login
+package com.mtjin.data.source.login.local
 
 interface LoginLocalDataSource {
     var autoLogin: Boolean
