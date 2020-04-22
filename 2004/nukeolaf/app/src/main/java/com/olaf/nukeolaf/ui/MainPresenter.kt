@@ -2,10 +2,9 @@ package com.olaf.nukeolaf.ui
 
 import com.olaf.nukeolaf.data.model.MovieResponse
 import com.olaf.nukeolaf.data.repository.MovieRepository
-import com.olaf.nukeolaf.data.repository.MovieRepositoryImpl
 
 class MainPresenter(
-    private val movieRepository: MovieRepositoryImpl,
+    private val movieRepository: MovieRepository,
     private val view: MainContract.View
 ) : MainContract.Presenter {
 
