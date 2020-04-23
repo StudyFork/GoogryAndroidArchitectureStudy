@@ -1,5 +1,7 @@
 package com.tsdev.tsandroid.presenter
 
+import com.tsdev.tsandroid.data.Item
+
 
 interface MovieContract {
     interface View {
@@ -10,6 +12,8 @@ interface MovieContract {
         fun hideProgressBar()
 
         fun showProgressBar()
+
+        fun fetchMovieItem(items: List<Item>)
     }
 
     interface Presenter {

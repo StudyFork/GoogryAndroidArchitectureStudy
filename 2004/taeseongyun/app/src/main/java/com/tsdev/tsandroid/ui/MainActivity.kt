@@ -1,18 +1,23 @@
 package com.tsdev.tsandroid.ui
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.tsdev.tsandroid.api.NaverAPI
 import com.tsdev.tsandroid.R
 import com.tsdev.tsandroid.base.BaseActivity
+import com.tsdev.tsandroid.data.Item
 import com.tsdev.tsandroid.data.repository.NaverReopsitory
 import com.tsdev.tsandroid.data.repository.NaverRepositoryImpl
 import com.tsdev.tsandroid.presenter.MovieContract
 import com.tsdev.tsandroid.presenter.MoviePresenter
+import com.tsdev.tsandroid.provider.ResourceProvider
+import com.tsdev.tsandroid.provider.ResourceProviderImpl
 import com.tsdev.tsandroid.ui.adapter.MovieRecyclerAdapter
 import com.tsdev.tsandroid.ui.viewholder.MovieRecyclerViewViewHolder
 import com.tsdev.tsandroid.util.MapConverter
@@ -35,7 +40,7 @@ class MainActivity : BaseActivity(), MovieRecyclerViewViewHolder.OnClickDelegate
     }
 
     private val naverMoviePresenter: MoviePresenter by lazy {
-        MoviePresenter(disposable, naverRepository, movieRecyclerAdapter)
+        MoviePresenter(this, disposable, naverRepository, ResourceProviderImpl(this))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +66,10 @@ class MainActivity : BaseActivity(), MovieRecyclerViewViewHolder.OnClickDelegate
     }
 
     override fun onHideSoftKeyboard() {
-
+        (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
+            search_img.windowToken,
+            0
+        )
     }
 
     override fun showToastMessage(message: String) {
@@ -70,11 +78,15 @@ class MainActivity : BaseActivity(), MovieRecyclerViewViewHolder.OnClickDelegate
 
     override fun hideProgressBar() {
         progress_bar.visibility = View.GONE
-        movie_recycler.visibility = View.VISIBLE
     }
 
     override fun showProgressBar() {
         progress_bar.visibility = View.VISIBLE
-        movie_recycler.visibility = View.GONE
+    }
+
+    override fun fetchMovieItem(items: List<Item>) {
+        movieRecyclerAdapter.clear()
+        movieRecyclerAdapter.addItems(items)
+        movieRecyclerAdapter.notifiedDataChange()
     }
 }

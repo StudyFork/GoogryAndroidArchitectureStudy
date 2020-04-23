@@ -59,7 +59,6 @@
         android:layout_gravity="center"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:id="@+id/movie_recycler"
         android:layout_width="match_parent"
