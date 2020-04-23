@@ -4,11 +4,14 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import com.tsdev.tsandroid.api.NaverAPI
 import com.tsdev.tsandroid.R
 import com.tsdev.tsandroid.base.BaseActivity
 import com.tsdev.tsandroid.data.repository.NaverReopsitory
 import com.tsdev.tsandroid.data.repository.NaverRepositoryImpl
+import com.tsdev.tsandroid.presenter.MovieContract
 import com.tsdev.tsandroid.presenter.MoviePresenter
 import com.tsdev.tsandroid.ui.adapter.MovieRecyclerAdapter
 import com.tsdev.tsandroid.ui.viewholder.MovieRecyclerViewViewHolder
@@ -18,7 +21,8 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity(), MovieRecyclerViewViewHolder.OnClickDelegate {
+class MainActivity : BaseActivity(), MovieRecyclerViewViewHolder.OnClickDelegate,
+    MovieContract.View {
 
     private val movieRecyclerAdapter: MovieRecyclerAdapter by lazy {
         MovieRecyclerAdapter(this)
@@ -54,5 +58,23 @@ class MainActivity : BaseActivity(), MovieRecyclerViewViewHolder.OnClickDelegate
                 Uri.parse(movieRecyclerAdapter.itemList[position].link)
             )
         )
+    }
+
+    override fun onHideSoftKeyboard() {
+
+    }
+
+    override fun showToastMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun hideProgressBar() {
+        progress_bar.visibility = View.GONE
+        movie_recycler.visibility = View.VISIBLE
+    }
+
+    override fun showProgressBar() {
+        progress_bar.visibility = View.VISIBLE
+        movie_recycler.visibility = View.GONE
     }
 }

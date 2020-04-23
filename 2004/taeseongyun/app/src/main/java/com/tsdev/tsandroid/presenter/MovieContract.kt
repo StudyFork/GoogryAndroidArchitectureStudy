@@ -3,7 +3,13 @@ package com.tsdev.tsandroid.presenter
 
 interface MovieContract {
     interface View {
-        //Not yet..
+        fun onHideSoftKeyboard()
+
+        fun showToastMessage(message: String)
+
+        fun hideProgressBar()
+
+        fun showProgressBar()
     }
 
     interface Presenter {
