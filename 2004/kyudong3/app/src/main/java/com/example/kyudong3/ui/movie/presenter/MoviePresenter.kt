@@ -1,20 +1,12 @@
 package com.example.kyudong3.ui.movie.presenter
 
-import com.example.kyudong3.data.local.MovieDao
 import com.example.kyudong3.data.model.Movie
 import com.example.kyudong3.data.repository.MovieRepository
-import com.example.kyudong3.data.repository.MovieRepositoryImpl
-import com.example.kyudong3.mapper.MovieLocalMapper
-import com.example.kyudong3.mapper.MovieRemoteMapper
 
 class MoviePresenter(
     private val view: MovieContract.View,
-    private val movieDao: MovieDao
+    private val movieRepository: MovieRepository
 ) : MovieContract.Presenter {
-
-    private val movieRepository: MovieRepository by lazy {
-        MovieRepositoryImpl(movieDao, MovieRemoteMapper(), MovieLocalMapper())
-    }
 
     override fun searchMovie(query: String) {
         if (query.isEmpty()) {

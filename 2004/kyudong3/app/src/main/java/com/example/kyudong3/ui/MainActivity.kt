@@ -7,7 +7,11 @@ import com.example.kyudong3.R
 import com.example.kyudong3.adapter.SearchMovieRvAdapter
 import com.example.kyudong3.data.local.MovieDatabase
 import com.example.kyudong3.data.model.Movie
+import com.example.kyudong3.data.repository.MovieRepository
+import com.example.kyudong3.data.repository.MovieRepositoryImpl
 import com.example.kyudong3.extension.toast
+import com.example.kyudong3.mapper.MovieLocalMapper
+import com.example.kyudong3.mapper.MovieRemoteMapper
 import com.example.kyudong3.ui.movie.presenter.MovieContract
 import com.example.kyudong3.ui.movie.presenter.MoviePresenter
 import com.example.kyudong3.util.RecyclerViewItemDivider
@@ -22,13 +26,17 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
         MovieDatabase.getInstance(applicationContext)
     }
 
-    private lateinit var moviePresenter: MoviePresenter
+    private val movieRepository: MovieRepository by lazy {
+        MovieRepositoryImpl(movieDatabase.movieDao(), MovieRemoteMapper(), MovieLocalMapper())
+    }
+
+    private val moviePresenter: MoviePresenter by lazy {
+        MoviePresenter(this@MainActivity, movieRepository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        moviePresenter = MoviePresenter(this@MainActivity, movieDatabase.movieDao())
 
         setMovieRecyclerView()
 
