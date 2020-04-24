@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
         MovieRepositoryImpl(movieDatabase.movieDao(), MovieRemoteMapper(), MovieLocalMapper())
     }
 
-    private val moviePresenter: MoviePresenter by lazy {
+    private val moviePresenter: MovieContract.Presenter by lazy {
         MoviePresenter(this@MainActivity, movieRepository)
     }
 
