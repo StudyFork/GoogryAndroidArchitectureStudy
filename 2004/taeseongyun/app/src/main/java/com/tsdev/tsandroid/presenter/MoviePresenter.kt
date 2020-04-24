@@ -22,7 +22,7 @@ class MoviePresenter(
                     view.showProgressBar()
                     view.onHideSoftKeyboard()
                 }
-                .doOnSuccess { view.hideProgressBar() }
+                .doAfterTerminate { view.hideProgressBar() }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     if (it.isNotEmpty()) {
