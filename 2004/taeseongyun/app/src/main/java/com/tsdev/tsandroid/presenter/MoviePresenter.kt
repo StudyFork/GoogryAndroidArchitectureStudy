@@ -26,7 +26,7 @@ class MoviePresenter(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     if (it.isNotEmpty()) {
-                        view.fetchMovieItem(it)
+                        view.showSearchResult(it)
                     } else {
                         view.showToastMessage(resourceProvider.getResultErrorString(R.string.non_search_result))
                     }
