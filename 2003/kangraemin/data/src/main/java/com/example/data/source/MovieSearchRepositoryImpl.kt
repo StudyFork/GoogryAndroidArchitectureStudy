@@ -1,9 +1,8 @@
 package com.example.data.source
 
-import com.example.data.mapper.MovieMapper
 import com.example.data.model.Movie
-import com.example.local.source.LocalMovieDataSource
-import com.example.remote.source.MovieRemoteDataSource
+import com.example.data.source.local.LocalMovieDataSource
+import com.example.data.source.remote.MovieRemoteDataSource
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
@@ -18,7 +17,6 @@ internal class MovieSearchRepositoryImpl(
             .defer {
                 val getLocalMovies = localMovieDataSource.getAll()
                     .subscribeOn(Schedulers.io())
-                    .map { MovieMapper.localMovieToDataMovie(it) }
                     .toFlowable()
 
                 val getRemoteMovies = remoteMovieDataSource
@@ -31,12 +29,11 @@ internal class MovieSearchRepositoryImpl(
                             .deleteAll()
                             .subscribeOn(Schedulers.io())
                             .andThen(Single.just(it))
-                            .map { MovieMapper.remoteMovieToLocalMovie(it) }
                             .flatMapCompletable {
                                 localMovieDataSource.insertMovies(it)
                                     .subscribeOn(Schedulers.io())
                             }
-                            .andThen(Single.just(MovieMapper.remoteMovieToDataMovie(it)))
+                            .andThen(Single.just(it))
                     }
                     .toFlowable()
 

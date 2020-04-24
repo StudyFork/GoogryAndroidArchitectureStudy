@@ -50,4 +50,8 @@ dependencies {
 
     // Koin
     implementation 'org.koin:koin-core:2.1.5'
+
+    // use modules
+    implementation project(":data")
+    implementation project(":common")
 }

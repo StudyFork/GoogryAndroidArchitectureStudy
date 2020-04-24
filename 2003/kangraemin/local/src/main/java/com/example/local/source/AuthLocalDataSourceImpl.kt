@@ -1,6 +1,10 @@
 package com.example.local.source
 
-import com.example.local.model.Auth
+import androidx.room.EmptyResultSetException
+import com.example.common.exception.RoomEmptyResultException
+import com.example.data.model.Auth
+import com.example.data.source.local.AuthLocalDataSource
+import com.example.local.mapper.AuthMapper
 import io.reactivex.Completable
 import io.reactivex.Single
 
@@ -10,11 +14,24 @@ internal class AuthLocalDataSourceImpl(
     override fun getAuth(): Single<Auth> {
         return authDao
             .getAuth()
+            .map {
+                AuthMapper.localAuthToDataAuth(it)
+            }
+            .onErrorResumeNext {
+                when(it) {
+                    is EmptyResultSetException -> {
+                        Single.error(RoomEmptyResultException())
+                    }
+                    else -> {
+                        Single.error(it)
+                    }
+                }
+            }
     }
 
     override fun addAuth(auth: Auth): Completable {
         return authDao
-            .insertAuth(auth = auth)
+            .insertAuth(auth = AuthMapper.dataAuthToLocalAuth(auth))
     }
 
     override fun deleteAuth(): Completable {

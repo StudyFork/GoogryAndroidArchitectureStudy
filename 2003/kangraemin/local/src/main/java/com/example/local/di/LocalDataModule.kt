@@ -1,8 +1,9 @@
 package com.example.local.di
 
 import androidx.room.Room
+import com.example.data.source.local.AuthLocalDataSource
+import com.example.data.source.local.LocalMovieDataSource
 import com.example.local.source.*
-import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val localDataModule = module {
@@ -10,7 +11,7 @@ val localDataModule = module {
     // For AppDatabase instance
     single {
         Room.databaseBuilder(
-            androidContext(),
+            get(),
             AppDatabase::class.java,
             "local"
         ).build()

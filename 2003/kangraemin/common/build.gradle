@@ -1,15 +1,13 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
 
     defaultConfig {
-        minSdkVersion 17
+        minSdkVersion 15
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -35,22 +33,4 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    // rxjava2
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.15'
-    // retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.7.2'
-    // retrofit adapter
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
-    // gson converter
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-    // OkHttp
-    implementation 'com.squareup.okhttp3:okhttp:3.14.7'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.2'
-
-    // Koin
-    implementation 'org.koin:koin-core:2.1.5'
-
-    // use modules
-    implementation project(":data")
-    implementation project(":common")
 }

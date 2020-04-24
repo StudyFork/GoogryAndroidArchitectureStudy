@@ -1,6 +1,6 @@
-package com.example.local.source
+package com.example.data.source.local
 
-import com.example.local.model.Movie
+import com.example.data.model.Movie
 import io.reactivex.Completable
 import io.reactivex.Single
 

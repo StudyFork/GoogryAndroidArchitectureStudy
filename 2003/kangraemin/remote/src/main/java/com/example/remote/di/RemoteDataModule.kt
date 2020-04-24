@@ -1,7 +1,7 @@
 package com.example.remote.di
 
 import com.example.remote.source.MovieApi
-import com.example.remote.source.MovieRemoteDataSource
+import com.example.data.source.remote.MovieRemoteDataSource
 import com.example.remote.source.MovieRemoteDataSourceImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

@@ -1,4 +1,4 @@
-package com.example.data.mapper
+package com.example.local.mapper
 
 import com.example.data.model.Auth as dataAuth
 import com.example.local.model.Auth as localAuth

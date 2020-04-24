@@ -2,7 +2,7 @@ package com.example.kangraemin.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.room.EmptyResultSetException
+import com.example.common.exception.RoomEmptyResultException
 import com.example.data.model.Auth
 import com.example.data.model.Movie
 import com.example.data.model.NetworkStatus
@@ -122,7 +122,7 @@ class MainViewModel(
             .subscribe({ responseGetAuth ->
                 if (responseGetAuth.responseError) {
                     responseGetAuth.throwable?.apply {
-                        if (this !is EmptyResultSetException) {
+                        if (this !is RoomEmptyResultException) {
                             _getAuthError.value = Unit
                         }
                         printStackTrace()

@@ -66,5 +66,6 @@ dependencies {
     implementation project(":data")
     implementation project(":local")
     implementation project(":remote")
+    implementation project(":common")
 
 }

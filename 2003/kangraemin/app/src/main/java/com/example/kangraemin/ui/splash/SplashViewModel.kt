@@ -2,7 +2,7 @@ package com.example.kangraemin.ui.splash
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.room.EmptyResultSetException
+import com.example.common.exception.RoomEmptyResultException
 import com.example.data.model.Auth
 import com.example.kangraemin.base.KangBaseViewModel
 import com.example.data.source.AuthRepository
@@ -45,7 +45,7 @@ class SplashViewModel(
                 if (responseGetAuth.responseError) {
                     responseGetAuth.throwable?.apply {
                         printStackTrace()
-                        if (responseGetAuth.throwable is EmptyResultSetException) {
+                        if (responseGetAuth.throwable is RoomEmptyResultException) {
                             _needLogin.value = Unit
                         } else {
                             _getAuthError.value = Unit
