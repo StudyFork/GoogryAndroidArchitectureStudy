@@ -7,6 +7,7 @@ import com.example.data.source.local.AuthLocalDataSource
 import com.example.local.mapper.AuthMapper
 import io.reactivex.Completable
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 
 internal class AuthLocalDataSourceImpl(
     private val authDao: AuthDao
@@ -17,6 +18,7 @@ internal class AuthLocalDataSourceImpl(
             .map {
                 AuthMapper.localAuthToDataAuth(it)
             }
+            .subscribeOn(Schedulers.io())
             .onErrorResumeNext {
                 when(it) {
                     is EmptyResultSetException -> {
@@ -32,10 +34,12 @@ internal class AuthLocalDataSourceImpl(
     override fun addAuth(auth: Auth): Completable {
         return authDao
             .insertAuth(auth = AuthMapper.dataAuthToLocalAuth(auth))
+            .subscribeOn(Schedulers.io())
     }
 
     override fun deleteAuth(): Completable {
         return authDao
             .deleteAuth()
+            .subscribeOn(Schedulers.io())
     }
 }
