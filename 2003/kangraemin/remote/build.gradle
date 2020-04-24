@@ -48,5 +48,5 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.2'
 
     // Koin
-    implementation 'org.koin:koin-androidx-viewmodel:2.1.5'
+    implementation 'org.koin:koin-core:2.1.5'
 }

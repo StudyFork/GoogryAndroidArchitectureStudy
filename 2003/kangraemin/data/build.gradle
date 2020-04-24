@@ -39,7 +39,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.15'
 
     // Koin
-    implementation 'org.koin:koin-androidx-viewmodel:2.1.5'
+    implementation 'org.koin:koin-core:2.1.5'
 
     // use modules
     implementation project(":local")
