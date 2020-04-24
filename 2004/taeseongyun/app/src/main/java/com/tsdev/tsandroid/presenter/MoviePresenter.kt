@@ -23,7 +23,6 @@ class MoviePresenter(
                     view.onHideSoftKeyboard()
                 }
                 .doAfterTerminate { view.hideProgressBar() }
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     if (it.isNotEmpty()) {
                         view.showSearchResult(it)
