@@ -13,7 +13,7 @@ interface MovieContract {
 
         fun showProgressBar()
 
-        fun fetchMovieItem(items: List<Item>)
+        fun showSearchResult(items: List<Item>)
     }
 
     interface Presenter {

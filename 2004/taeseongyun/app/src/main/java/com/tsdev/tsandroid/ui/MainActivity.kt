@@ -84,7 +84,7 @@ class MainActivity : BaseActivity(), MovieRecyclerViewViewHolder.OnClickDelegate
         progress_bar.visibility = View.VISIBLE
     }
 
-    override fun fetchMovieItem(items: List<Item>) {
+    override fun showSearchResult(items: List<Item>) {
         movieRecyclerAdapter.clear()
         movieRecyclerAdapter.addItems(items)
         movieRecyclerAdapter.notifiedDataChange()
