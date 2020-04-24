@@ -30,7 +30,12 @@ class MovieRepositoryImpl(
     ) {
         movieRemoteDataSourceImpl.getMovieList(
             query = searchQuery,
-            success = success,
+            success = { movieList: List<Movie> ->
+                Thread {
+                    saveMovieDataLocal(movieList)
+                }.start()
+                success(movieList)
+            },
             failure = failure
         )
     }

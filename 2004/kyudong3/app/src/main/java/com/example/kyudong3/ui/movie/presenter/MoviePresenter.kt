@@ -28,20 +28,12 @@ class MoviePresenter(
                     view.showEmptySearchResult()
                 } else {
                     view.setMovieData(movieList)
-                    saveMovieDataLocal(movieList)
                 }
             },
             failure = { error ->
                 view.showNetworkError(error)
                 //showCachedMovieData(searchQuery)
             })
-    }
-
-    private fun saveMovieDataLocal(movieList: List<Movie>) {
-        val thread = Thread {
-            movieRepository.saveMovieDataLocal(movieList)
-        }
-        thread.start()
     }
 
     private fun showCachedMovieData(searchQuery: String) {
