@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.SearchRecentSuggestions
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -13,18 +14,36 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.eunice.eunicehong.R
-import com.eunice.eunicehong.data.model.Movie
+import com.eunice.eunicehong.data.model.MovieList
+import com.eunice.eunicehong.data.source.MovieDataSource
 import com.eunice.eunicehong.provider.SuggestionProvider
+import com.google.gson.JsonSyntaxException
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(), MovieContract.View {
+    private val cache = object : MovieCache {
+        val preferences = MoviePreferences.getInstance(this@MainActivity)
+
+        @Throws(IllegalStateException::class, JsonSyntaxException::class)
+        override fun getMovieList(
+            query: String
+        ): MovieList = preferences.getHistory(query)
+
+        override fun saveMovieList(query: String, movieList: MovieList) =
+            preferences.saveHistory(query, movieList)
+
+
+        override fun removeMovieHistory() {
+            preferences.removeAllSearchHistory()
+        }
+    }
 
     override lateinit var movieContext: Context
 
     private lateinit var searchView: SearchView
 
-    private val presenter = MoviePresenter(this)
+    private val presenter = MoviePresenter(this, cache)
     private val movieListAdapter = MovieAdapter(presenter)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +67,16 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
                 ).saveRecentQuery(query, null)
                 searchView.setQuery(query, false)
                 searchView.clearFocus()
-                presenter.search(query)
+                presenter.search(query, object : MovieDataSource.LoadMoviesCallback {
+                    override fun onSuccess(movieList: MovieList) {
+                        showSearchResult(movieList)
+                        cache.saveMovieList(query, movieList)
+                    }
+
+                    override fun onFailure(e: Throwable) {
+                        Log.d(this.toString(), e.toString())
+                    }
+                })
         }
     }
 
@@ -95,10 +123,10 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
             .setNegativeButton(android.R.string.no, null).show()
     }
 
-    override fun showSearchResult(movies: List<Movie>) {
+    override fun showSearchResult(movies: MovieList) {
         zero_item_message.visibility =
-            if (movies.isNullOrEmpty()) View.VISIBLE else View.GONE
-        movieListAdapter.setMovieList(movies)
+            if (movies.items.isNullOrEmpty()) View.VISIBLE else View.GONE
+        movieListAdapter.setMovieList(movies.items)
     }
 
     private fun setMovieList() {
