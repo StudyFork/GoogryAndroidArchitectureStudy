@@ -1,11 +1,11 @@
 package com.mtjin.remote.mapper
 
 import com.mtjin.remote.model.search.Movie
-import com.mtjin.data.model.search.Movie as dataMovie
+import com.mtjin.data.model.search.Movie as DataMovie
 
-fun mapperMovieListRemoteToData(movies: List<Movie>): List<dataMovie> {
+fun mapperMovieListRemoteToData(movies: List<Movie>): List<DataMovie> {
     return movies.toList().map {
-        dataMovie(
+        DataMovie(
             it.actor,
             it.director,
             it.image,

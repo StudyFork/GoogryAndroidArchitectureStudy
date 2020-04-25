@@ -1,11 +1,11 @@
 package com.mtjin.local.mapper
 
 import com.mtjin.local.model.search.Movie
-import com.mtjin.data.model.search.Movie as dataMovie
+import com.mtjin.data.model.search.Movie as DataMovie
 
-fun mapperMovieListLocalToData(movies: List<Movie>): List<dataMovie> {
+fun mapperMovieListLocalToData(movies: List<Movie>): List<DataMovie> {
     return movies.toList().map {
-        dataMovie(
+        DataMovie(
             it.actor,
             it.director,
             it.image,
@@ -18,7 +18,7 @@ fun mapperMovieListLocalToData(movies: List<Movie>): List<dataMovie> {
     }
 }
 
-fun mapperMovieListDataToLocal(movies: List<dataMovie>): List<Movie> {
+fun mapperMovieListDataToLocal(movies: List<DataMovie>): List<Movie> {
     return movies.toList().map {
         Movie(
             it.actor,
