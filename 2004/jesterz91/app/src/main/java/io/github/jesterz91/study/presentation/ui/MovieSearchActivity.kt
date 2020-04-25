@@ -21,9 +21,8 @@ import io.github.jesterz91.study.domain.usecase.UseCase
 import io.github.jesterz91.study.presentation.common.BaseActivity
 import io.github.jesterz91.study.presentation.extension.hide
 import io.github.jesterz91.study.presentation.extension.show
-import io.github.jesterz91.study.presentation.uitl.ResourceProviderImpl
+import io.github.jesterz91.study.presentation.util.ResourceProviderImpl
 import io.reactivex.Flowable
-import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
 
 class MovieSearchActivity : BaseActivity<MovieSearchContract.Presenter,
@@ -64,7 +63,11 @@ class MovieSearchActivity : BaseActivity<MovieSearchContract.Presenter,
                     DividerItemDecoration.VERTICAL
                 )
             )
-            adapter = movieAdapter
+            adapter = movieAdapter.apply {
+                getClickObservable()
+                    .subscribe(presenter::browseMovie)
+                    .addTo(disposables)
+            }
         }
     }
 
@@ -83,12 +86,10 @@ class MovieSearchActivity : BaseActivity<MovieSearchContract.Presenter,
 
     override fun onBackPressed() = presenter.backPressed()
 
-    override fun fetchSearchResult(items: List<Movie>) {
+    override fun showSearchResult(items: List<Movie>) {
         movieAdapter.changeItems(items)
         movieAdapter.notifyDataSetChanged()
     }
-
-    override fun getClickObservable(): Observable<Uri> = movieAdapter.getClickObservable()
 
     override fun showLink(uri: Uri) = customTabsIntent.launchUrl(this, uri)
 

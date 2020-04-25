@@ -1,11 +1,12 @@
 package io.github.jesterz91.study.presentation.ui
 
+import android.net.Uri
 import io.github.jesterz91.study.R
 import io.github.jesterz91.study.domain.entity.Movie
 import io.github.jesterz91.study.domain.usecase.UseCase
 import io.github.jesterz91.study.presentation.common.BasePresenter
 import io.github.jesterz91.study.presentation.constant.Constant
-import io.github.jesterz91.study.presentation.uitl.ResourceProvider
+import io.github.jesterz91.study.presentation.util.ResourceProvider
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,12 +23,14 @@ class MovieSearchPresenter(
 
     private val queryChangeSubject = PublishSubject.create<CharSequence>()
 
+    private val browseSubject = PublishSubject.create<Uri>()
+
     private val backPressSubject = BehaviorSubject.createDefault(0L)
 
     init {
         subscribeMovieSearchEvent()
 
-        subscribeClickEvent()
+        subscribeMovieBrowseEvent()
 
         subscribeBackPressEvent()
     }
@@ -47,12 +50,12 @@ class MovieSearchPresenter(
                 view.hideProgress()
                 view.hideSoftKeyboard()
             }
-            .subscribe(view::fetchSearchResult)
+            .subscribe(view::showSearchResult)
             .addTo(disposables)
     }
 
-    private fun subscribeClickEvent() {
-        view.getClickObservable()
+    private fun subscribeMovieBrowseEvent() {
+        browseSubject
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(view::showLink)
             .addTo(disposables)
@@ -71,6 +74,8 @@ class MovieSearchPresenter(
     }
 
     override fun searchMovie(query: CharSequence) = queryChangeSubject.onNext(query)
+
+    override fun browseMovie(uri: Uri) = browseSubject.onNext(uri)
 
     override fun backPressed() = backPressSubject.onNext(System.currentTimeMillis())
 }

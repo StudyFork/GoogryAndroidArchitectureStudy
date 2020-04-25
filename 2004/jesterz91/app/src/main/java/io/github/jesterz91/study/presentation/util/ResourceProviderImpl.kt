@@ -1,4 +1,4 @@
-package io.github.jesterz91.study.presentation.uitl
+package io.github.jesterz91.study.presentation.util
 
 import android.content.Context
 import androidx.annotation.StringRes
