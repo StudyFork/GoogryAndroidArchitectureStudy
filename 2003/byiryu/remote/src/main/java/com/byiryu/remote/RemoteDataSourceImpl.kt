@@ -9,7 +9,7 @@ import io.reactivex.Single
 internal class RemoteDataSourceImpl(private val apis: Apis) : RemoteDataSource{
     override fun getMoveList(query: String): Single<Response> {
         return apis.getSearchMovie(query).map {
-            MovieMapper.toData(it)
+            MovieMapper.remoteToData(it)
         }
     }
 
