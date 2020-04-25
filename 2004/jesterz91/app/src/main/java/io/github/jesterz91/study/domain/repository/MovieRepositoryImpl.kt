@@ -20,7 +20,6 @@ class MovieRepositoryImpl(
     override fun getMovieInfo(query: String): Flowable<List<Movie>> {
         return movieLocalDataSource.loadMovieInfo(query)
             .subscribeOn(Schedulers.io())
-            .filter { it.isNotEmpty() }
             .map(movieLocalMapper::toDomain)
             .switchIfEmpty(Single.defer {
                 movieRemoteDataSource

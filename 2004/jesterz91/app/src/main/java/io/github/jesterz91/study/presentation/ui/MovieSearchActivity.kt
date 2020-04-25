@@ -12,30 +12,25 @@ import io.github.jesterz91.study.data.local.MovieDatabase
 import io.github.jesterz91.study.data.local.source.MovieLocalDataSourceImpl
 import io.github.jesterz91.study.data.remote.source.MovieRemoteDataSourceImpl
 import io.github.jesterz91.study.databinding.ActivityMovieSearchBinding
+import io.github.jesterz91.study.domain.entity.Movie
 import io.github.jesterz91.study.domain.mapper.MovieLocalMapper
 import io.github.jesterz91.study.domain.mapper.MovieRemoteMapper
 import io.github.jesterz91.study.domain.repository.MovieRepositoryImpl
 import io.github.jesterz91.study.domain.usecase.GetMovieUseCase
+import io.github.jesterz91.study.domain.usecase.UseCase
 import io.github.jesterz91.study.presentation.common.BaseActivity
-import io.github.jesterz91.study.presentation.constant.Constant
 import io.github.jesterz91.study.presentation.extension.hide
 import io.github.jesterz91.study.presentation.extension.show
-import io.github.jesterz91.study.presentation.extension.toast
-import io.reactivex.BackpressureStrategy
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
+import io.github.jesterz91.study.presentation.util.ResourceProviderImpl
+import io.reactivex.Flowable
 import io.reactivex.rxkotlin.addTo
-import io.reactivex.subjects.BehaviorSubject
-import java.util.concurrent.TimeUnit
 
-class MovieSearchActivity :
-    BaseActivity<ActivityMovieSearchBinding>(ActivityMovieSearchBinding::inflate) {
-
-    private val backPressSubject = BehaviorSubject.createDefault(0L)
+class MovieSearchActivity : BaseActivity<MovieSearchContract.Presenter,
+        ActivityMovieSearchBinding>(ActivityMovieSearchBinding::inflate), MovieSearchContract.View {
 
     private val movieAdapter by lazy { MovieSearchAdapter() }
 
-    private val customTabsIntent: CustomTabsIntent by lazy {
+    private val customTabsIntent by lazy {
         CustomTabsIntent.Builder().build()
     }
 
@@ -43,7 +38,7 @@ class MovieSearchActivity :
         MovieDatabase.getInstance(applicationContext)
     }
 
-    private val movieUseCase by lazy {
+    private val movieUseCase: UseCase<Flowable<List<Movie>>, String> by lazy {
         GetMovieUseCase(
             movieRepository = MovieRepositoryImpl(
                 movieLocalDataSource = MovieLocalDataSourceImpl(movieDatabase.movieDao()),
@@ -52,6 +47,10 @@ class MovieSearchActivity :
                 movieRemoteMapper = MovieRemoteMapper()
             )
         )
+    }
+
+    override val presenter: MovieSearchContract.Presenter by lazy {
+        MovieSearchPresenter(this, ResourceProviderImpl(this), movieUseCase)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,49 +63,12 @@ class MovieSearchActivity :
                     DividerItemDecoration.VERTICAL
                 )
             )
-            adapter = movieAdapter.also {
-                subscribeBrowseEvent(it.getClickObservable())
+            adapter = movieAdapter.apply {
+                getClickObservable()
+                    .subscribe(presenter::browseMovie)
+                    .addTo(disposables)
             }
         }
-        subscribeBackPressEvent()
-    }
-
-    private fun subscribeMovieSearchEvent(searchView: SearchView) {
-        searchView.queryTextChanges()
-            .toFlowable(BackpressureStrategy.DROP)
-            .debounce(Constant.SEARCH_DEBOUNCE_TIME, TimeUnit.MILLISECONDS)
-            .filter(CharSequence::isNotBlank)
-            .map(CharSequence::toString)
-            .distinctUntilChanged()
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnNext { binding.progressBar.show() }
-            .flatMap(movieUseCase::invoke)
-            .observeOn(AndroidSchedulers.mainThread())
-            .onErrorReturn { mutableListOf() }
-            .doOnNext { binding.progressBar.hide() }
-            .subscribe {
-                movieAdapter.changeItems(it)
-                movieAdapter.notifyDataSetChanged()
-                hideSoftKeyboard(searchView.windowToken)
-            }.addTo(disposables)
-    }
-
-    private fun subscribeBrowseEvent(uriObservable: Observable<Uri>) {
-        uriObservable.subscribe { uri ->
-            customTabsIntent.launchUrl(this, uri)
-        }.addTo(disposables)
-    }
-
-    private fun subscribeBackPressEvent() {
-        backPressSubject.buffer(2, 1)
-            .map { it.last() - it.first() }
-            .subscribe { duration ->
-                if (duration < Constant.FINISH_DURATION) {
-                    finish()
-                } else {
-                    toast(getString(R.string.back_press_message))
-                }
-            }.addTo(disposables)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -114,9 +76,24 @@ class MovieSearchActivity :
         (menu?.findItem(R.id.menu_search)?.actionView as? SearchView)?.apply {
             maxWidth = Int.MAX_VALUE
             queryHint = getString(R.string.search_movie_hint)
-        }?.also(::subscribeMovieSearchEvent)
+
+            queryTextChanges()
+                .subscribe(presenter::searchMovie)
+                .addTo(disposables)
+        }
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onBackPressed() = backPressSubject.onNext(System.currentTimeMillis())
+    override fun onBackPressed() = presenter.backPressed()
+
+    override fun showSearchResult(items: List<Movie>) {
+        movieAdapter.changeItems(items)
+        movieAdapter.notifyDataSetChanged()
+    }
+
+    override fun showLink(uri: Uri) = customTabsIntent.launchUrl(this, uri)
+
+    override fun showProgress() = binding.progressBar.show()
+
+    override fun hideProgress() = binding.progressBar.hide()
 }

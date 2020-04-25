@@ -8,6 +8,6 @@ import io.reactivex.Maybe
 @Dao
 abstract class MovieDao : BaseDao<MovieLocal> {
 
-    @Query("SELECT * FROM movie WHERE searchQuery = :query ORDER BY id ASC ")
+    @Query("SELECT * FROM movie WHERE searchQuery = :query ORDER BY id ASC")
     abstract fun loadMovieInfo(query: String): Maybe<List<MovieLocal>>
 }

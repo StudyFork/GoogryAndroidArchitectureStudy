@@ -2,15 +2,17 @@ package io.github.jesterz91.study.presentation.common
 
 import android.content.Context
 import android.os.Bundle
-import android.os.IBinder
 import android.view.LayoutInflater
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
+import io.github.jesterz91.study.presentation.extension.toast
 import io.reactivex.disposables.CompositeDisposable
 
-abstract class BaseActivity<B : ViewBinding>(private val inflate: (LayoutInflater) -> B) :
-    AppCompatActivity() {
+abstract class BaseActivity<P : BaseContract.Presenter, B : ViewBinding>(private val inflate: (LayoutInflater) -> B) :
+    AppCompatActivity(), BaseContract.View {
+
+    abstract val presenter: P
 
     protected val binding: B by lazy { inflate.invoke(layoutInflater) }
 
@@ -23,12 +25,15 @@ abstract class BaseActivity<B : ViewBinding>(private val inflate: (LayoutInflate
 
     override fun onDestroy() {
         disposables.clear()
+        presenter.clearDisposables()
         super.onDestroy()
     }
 
-    protected fun hideSoftKeyboard(windowToken: IBinder) {
+    override fun showToast(message: String) = toast(message)
+
+    override fun hideSoftKeyboard() {
         (getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.run {
-            hideSoftInputFromWindow(windowToken, 0)
+            hideSoftInputFromWindow(currentFocus?.windowToken, 0)
         }
     }
 }

@@ -7,7 +7,9 @@ import io.reactivex.Maybe
 class MovieLocalDataSourceImpl(private val movieDao: MovieDao) : MovieLocalDataSource {
 
     override fun loadMovieInfo(query: String): Maybe<List<MovieLocal>> {
-        return movieDao.loadMovieInfo(query)
+        return movieDao
+            .loadMovieInfo(query)
+            .filter{ it.isNotEmpty() }
     }
 
     override fun saveMovieInfo(movies: List<MovieLocal>) {
