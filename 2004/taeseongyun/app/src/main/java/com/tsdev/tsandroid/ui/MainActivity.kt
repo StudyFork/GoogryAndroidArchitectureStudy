@@ -1,13 +1,23 @@
 package com.tsdev.tsandroid.ui
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import com.tsdev.tsandroid.api.NaverAPI
 import com.tsdev.tsandroid.R
+import com.tsdev.tsandroid.base.BaseActivity
+import com.tsdev.tsandroid.data.Item
 import com.tsdev.tsandroid.data.repository.NaverReopsitory
 import com.tsdev.tsandroid.data.repository.NaverRepositoryImpl
+import com.tsdev.tsandroid.presenter.MovieContract
+import com.tsdev.tsandroid.presenter.MoviePresenter
+import com.tsdev.tsandroid.provider.ResourceProvider
+import com.tsdev.tsandroid.provider.ResourceProviderImpl
 import com.tsdev.tsandroid.ui.adapter.MovieRecyclerAdapter
 import com.tsdev.tsandroid.ui.viewholder.MovieRecyclerViewViewHolder
 import com.tsdev.tsandroid.util.MapConverter
@@ -16,9 +26,8 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), MovieRecyclerViewViewHolder.OnClickDelegate {
-
-    private val disposable = CompositeDisposable()
+class MainActivity : BaseActivity(), MovieRecyclerViewViewHolder.OnClickDelegate,
+    MovieContract.View {
 
     private val movieRecyclerAdapter: MovieRecyclerAdapter by lazy {
         MovieRecyclerAdapter(this)
@@ -30,19 +39,8 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewViewHolder.OnClickDel
         NaverRepositoryImpl(movieMapConverter)
     }
 
-    private fun getMovieList(query: String) {
-        disposable.add(
-            naverRepository.getMovieList(query)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    movieRecyclerAdapter.clear()
-                    movieRecyclerAdapter.addItems(it)
-                    movieRecyclerAdapter.notifyDataSetChanged()
-                }, {
-                    it.printStackTrace()
-                })
-        )
+    private val naverMoviePresenter: MoviePresenter by lazy {
+        MoviePresenter(this, disposable, naverRepository, ResourceProviderImpl(this))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,17 +48,12 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewViewHolder.OnClickDel
         setContentView(R.layout.activity_main)
 
         search_img.setOnClickListener {
-            getMovieList(edit_query.text.toString())
+            naverMoviePresenter.loadMovie(edit_query.text.toString())
         }
 
         movie_recycler.run {
             adapter = movieRecyclerAdapter
         }
-    }
-
-    override fun onDestroy() {
-        disposable.clear()
-        super.onDestroy()
     }
 
     override fun onClickEventListener(position: Int) {
@@ -70,5 +63,30 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewViewHolder.OnClickDel
                 Uri.parse(movieRecyclerAdapter.itemList[position].link)
             )
         )
+    }
+
+    override fun onHideSoftKeyboard() {
+        (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
+            search_img.windowToken,
+            0
+        )
+    }
+
+    override fun showToastMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun hideProgressBar() {
+        progress_bar.visibility = View.GONE
+    }
+
+    override fun showProgressBar() {
+        progress_bar.visibility = View.VISIBLE
+    }
+
+    override fun showSearchResult(items: List<Item>) {
+        movieRecyclerAdapter.clear()
+        movieRecyclerAdapter.addItems(items)
+        movieRecyclerAdapter.notifiedDataChange()
     }
 }

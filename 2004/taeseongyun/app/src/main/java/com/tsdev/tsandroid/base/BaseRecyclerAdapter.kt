@@ -12,4 +12,6 @@ abstract class BaseRecyclerAdapter<ITEM> : RecyclerView.Adapter<BaseRecyclerView
     override fun onBindViewHolder(holder: BaseRecyclerViewHolder<ITEM>, position: Int) {
         holder.onBindViewHolder(itemList[position])
     }
+
+    override lateinit var notifiedDataChange: () -> Unit
 }

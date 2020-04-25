@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 private const val X_NAVER_CLIENT_ID = "X-Naver-Client-Id"
 private const val X_NAVER_CLIENT_SECRET = "X-Naver-Client-Secret"
-private const val REQUEST_TIME_OUT = 100L
+private const val REQUEST_TIME_OUT = 1000L
 
 inline fun <reified T> creatorRetrofit(baseUrl: String): T {
     return Retrofit.Builder()
