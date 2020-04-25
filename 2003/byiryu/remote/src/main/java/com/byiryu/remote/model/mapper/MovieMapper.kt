@@ -17,20 +17,18 @@ object MovieMapper: Mapper.MovieMapper{
     }
 
     override fun remoteToDataItem(movieItems: List<MovieItem>): List<Item>{
-        val items = ArrayList<Item>()
-        movieItems.forEach{ item ->
-            items.add(Item(
-                item.actor,
-                item.director,
-                item.image,
-                item.link,
-                item.pubDate,
-                item.subtitle,
-                item.title,
-                item.userRating
-            ))
+        return movieItems.map {
+            Item(
+                it.actor,
+                it.director,
+                it.image,
+                it.link,
+                it.pubDate,
+                it.subtitle,
+                it.title,
+                it.userRating
+            )
         }
-        return items.toList()
     }
 
 
@@ -44,20 +42,18 @@ object MovieMapper: Mapper.MovieMapper{
         )
     }
     override fun dataToRemoteItem(items: List<Item>): List<MovieItem>{
-        val _items = ArrayList<MovieItem>()
-        items.forEach{ item ->
-            _items.add(MovieItem(
-                item.actor,
-                item.director,
-                item.image,
-                item.link,
-                item.pubDate,
-                item.subtitle,
-                item.title,
-                item.userRating
-            ))
-        }
-        return _items.toList()
+        return items.map {
+            MovieItem(
+                it.actor,
+                it.director,
+                it.image,
+                it.link,
+                it.pubDate,
+                it.subtitle,
+                it.title,
+                it.userRating
+            )
+        }.toList()
     }
 
 
