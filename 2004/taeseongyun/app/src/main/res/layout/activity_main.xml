@@ -1,68 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+    <data>
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll">
+        <import type="android.view.View" />
 
-            <androidx.appcompat.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize">
+        <variable
+            name="activity"
+            type="com.tsdev.tsandroid.ui.MainActivity" />
 
-                <LinearLayout
-                    android:layout_margin="@dimen/spacing_normal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/edit_text_background">
+        <variable
+            name="presenter"
+            type="com.tsdev.tsandroid.presenter.MovieContract.Presenter" />
+    </data>
 
-                    <EditText
-                        android:maxLines="1"
-                        android:inputType="text"
-                        android:imeOptions="actionDone"
-                        android:id="@+id/edit_query"
-                        android:layout_marginStart="@dimen/spacing_normal"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:textColorHint="@color/edit_hint_text_color"
-                        android:layout_weight="8"
-                        android:background="@android:color/transparent"
-                        android:hint="@string/edit_text_hint" />
-
-                    <ImageView
-                        android:id="@+id/search_img"
-                        android:layout_width="@dimen/spacing_x_huge"
-                        android:layout_height="@dimen/spacing_xx_large"
-                        android:layout_gravity="center"
-                        android:layout_weight="2"
-                        android:src="@drawable/ic_search_black_24dp" />
-                </LinearLayout>
-
-            </androidx.appcompat.widget.Toolbar>
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <ProgressBar
-        android:visibility="gone"
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:id="@+id/movie_recycler"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+        tools:context=".ui.MainActivity">
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/spacing_normal"
+                        android:background="@drawable/edit_text_background">
+
+                        <EditText
+                            android:id="@+id/edit_query"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/spacing_normal"
+                            android:layout_weight="8"
+                            android:background="@android:color/transparent"
+                            android:hint="@string/edit_text_hint"
+                            android:imeOptions="actionDone"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:textColorHint="@color/edit_hint_text_color" />
+
+                        <ImageView
+                            android:id="@+id/search_img"
+                            android:layout_width="@dimen/spacing_x_huge"
+                            android:layout_height="@dimen/spacing_xx_large"
+                            android:layout_gravity="center"
+                            android:layout_weight="2"
+                            android:onClick="@{() -> presenter.loadMovie(editQuery.getText().toString())}"
+                            android:src="@drawable/ic_search_black_24dp" />
+                    </LinearLayout>
+
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            isVisible="@{presenter.loading}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/movie_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
