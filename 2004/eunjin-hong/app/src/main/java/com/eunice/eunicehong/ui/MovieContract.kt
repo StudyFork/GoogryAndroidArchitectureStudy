@@ -17,5 +17,6 @@ interface MovieContract {
         fun showDetail(url: String)
         fun search(query: String, callback: MovieDataSource.LoadMoviesCallback)
         fun removeHistory()
+        fun onOptionMenuSelected(id: Int): Boolean
     }
 }

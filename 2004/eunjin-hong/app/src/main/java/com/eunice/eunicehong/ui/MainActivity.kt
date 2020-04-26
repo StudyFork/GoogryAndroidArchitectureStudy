@@ -86,15 +86,8 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
-        R.id.remove_history -> {
-            showRemoveHistoryConfirmDialog()
-            true
-        }
-        else -> {
-            super.onOptionsItemSelected(item)
-        }
-    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+        presenter.onOptionMenuSelected(item.itemId)
 
     override fun showRemoveHistoryConfirmDialog() {
         AlertDialog.Builder(this)
