@@ -1,8 +1,8 @@
-package com.example.myapplication.data.repository
+package com.example.data2
 
-import com.example.myapplication.data.local.MovieEntity
-import com.example.myapplication.data.local.source.MovieLocalDataSource
-import com.example.myapplication.data.remote.source.MovieRemoteDataSource
+import com.example.data2.model.Movie
+import com.example.data2.soruce.local.MovieLocalDataSource
+import com.example.data2.soruce.remote.MovieRemoteDataSource
 
 class MovieRepositoryImpl(
     private val movieRemoteDataSource: MovieRemoteDataSource,
@@ -11,7 +11,7 @@ class MovieRepositoryImpl(
     MovieRepository {
     override fun getMovieList(
         query: String,
-        success: (List<MovieEntity>) -> Unit,
+        success: (List<Movie>) -> Unit,
         failed: (Throwable) -> Unit
     ) {
         with(movieLocalDataSource.getSearchMovies(query)) {
