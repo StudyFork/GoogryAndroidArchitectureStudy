@@ -1,6 +1,8 @@
 package com.hwaniiidev.architecture
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
@@ -33,6 +35,10 @@ class AdapterMovieList(val context: Context, val movieList: List<Item>?) :
     }
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
+        holder.itemView.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movieList!!.get(position).link))
+            context.startActivity(intent)
+        }
         Glide.with(context)
             .load(movieList!!.get(position).image)
             .into(holder.imgMovie)
@@ -42,9 +48,5 @@ class AdapterMovieList(val context: Context, val movieList: List<Item>?) :
         holder.txtDirector.text = movieList!!.get(position).director
         holder.txtActors.text = movieList!!.get(position).actor
         holder.txtRating.text = movieList!!.get(position).userRating
-
-
     }
-
-
 }
