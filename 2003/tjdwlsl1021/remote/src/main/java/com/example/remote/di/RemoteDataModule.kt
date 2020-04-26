@@ -1,14 +1,13 @@
-package com.example.myapplication.di
+package com.example.remote.di
 
-import com.example.myapplication.data.remote.api.NaverMovieApi
-import com.example.myapplication.data.remote.source.MovieRemoteDataSource
-import com.example.myapplication.data.remote.source.MovieRemoteDataSourceImpl
+import com.example.data2.soruce.remote.MovieRemoteDataSource
+import com.example.remote.model.api.NaverMovieApi
+import com.example.remote.source.MovieRemoteDataSourceImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
 
 val remoteDataModule = module {
 
@@ -35,5 +34,4 @@ val remoteDataModule = module {
     single { get<Retrofit>().create(NaverMovieApi::class.java) }
 
     single<MovieRemoteDataSource> { MovieRemoteDataSourceImpl(get()) }
-
 }
