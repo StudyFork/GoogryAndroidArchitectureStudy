@@ -6,7 +6,7 @@ import com.example.local.MovieItem
 
 object MovieMapper : Mapper.MovieMapper {
 
-    override fun LocalToData(items: List<MovieItem>): List<Movie> {
+    override fun localToData(items: List<MovieItem>): List<Movie> {
         return items.toList().map {
             Movie(
                 it.actor,
@@ -22,23 +22,17 @@ object MovieMapper : Mapper.MovieMapper {
     }
 
     override fun dataToLocal(items: List<Movie>): List<MovieItem> {
-        val _items = ArrayList<MovieItem>()
-
-        items.forEach { item ->
-            _items.add(
-                MovieItem(
-                    item.actor,
-                    item.director,
-                    item.image,
-                    item.link,
-                    item.pubDate,
-                    item.subtitle,
-                    item.title,
-                    item.userRating
-                )
+        return items.toList().map {
+            MovieItem(
+                it.actor,
+                it.director,
+                it.image,
+                it.link,
+                it.pubDate,
+                it.subtitle,
+                it.title,
+                it.userRating
             )
-
         }
-        return _items.toList()
     }
 }

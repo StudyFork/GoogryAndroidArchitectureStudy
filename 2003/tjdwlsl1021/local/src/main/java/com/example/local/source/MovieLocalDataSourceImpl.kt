@@ -13,6 +13,6 @@ internal class MovieLocalDataSourceImpl(private val movieDao: MovieDao) : MovieL
     }
 
     override fun getSearchMovies(title: String): List<Movie> {
-        return MovieMapper.LocalToData(movieDao.getMoviesByTitle(title))
+        return MovieMapper.localToData(movieDao.getMoviesByTitle(title))
     }
 }
