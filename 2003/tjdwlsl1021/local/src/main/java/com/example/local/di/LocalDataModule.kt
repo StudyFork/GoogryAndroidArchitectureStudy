@@ -1,9 +1,10 @@
-package com.example.myapplication.di
+package com.example.local.di
 
 import androidx.room.Room
-import com.example.myapplication.data.local.MovieDatabase
-import com.example.myapplication.data.local.source.MovieLocalDataSource
-import com.example.myapplication.data.local.source.MovieLocalDataSourceImpl
+import com.example.data2.soruce.local.MovieLocalDataSource
+import com.example.local.data.MovieDatabase
+import com.example.local.source.MovieLocalDataSourceImpl
+
 import org.koin.dsl.module
 
 val localDataModule = module {
