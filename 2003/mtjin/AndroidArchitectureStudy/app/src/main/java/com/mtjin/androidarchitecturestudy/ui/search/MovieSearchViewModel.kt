@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mtjin.androidarchitecturestudy.data.search.Movie
-import com.mtjin.androidarchitecturestudy.data.search.source.MovieRepository
+import com.mtjin.data.model.search.Movie
+import com.mtjin.data.source.search.MovieRepository
 import retrofit2.HttpException
 
 class MovieSearchViewModel(private val movieRepository: MovieRepository) : ViewModel() {
@@ -42,7 +42,7 @@ class MovieSearchViewModel(private val movieRepository: MovieRepository) : ViewM
                     Log.d(TAG, it.toString())
                     when (it) {
                         is HttpException -> _toastMsg.value = MessageSet.NETWORK_ERROR
-                        else -> _toastMsg.value = MessageSet.LAST_PAGE
+                        else -> _toastMsg.value = MessageSet.NETWORK_ERROR
                     }
                     _isLoading.value = false
                 })
