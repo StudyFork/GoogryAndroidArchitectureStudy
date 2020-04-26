@@ -4,7 +4,7 @@ import com.example.data2.model.Movie
 import com.example.data2.soruce.remote.MovieRemoteDataSource
 import com.example.remote.model.MovieResponse
 import com.example.remote.model.api.NaverMovieApi
-import com.example.remote.model.mapper.remoteToData
+import com.example.remote.model.mapper.MovieMapper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,7 +28,7 @@ class MovieRemoteDataSourceImpl(private val naverMovieApi: NaverMovieApi) :
                     val result = response.body()
 
                     result?.let {
-                        success(remoteToData(result.items))
+                        success(MovieMapper.remoteToData(result.items))
                     }
                     if (result == null) {
                         failed(Throwable("오류"))
