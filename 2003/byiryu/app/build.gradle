@@ -7,7 +7,7 @@ android {
     buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.byiryu.study"
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -51,10 +51,6 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.0-alpha02'
     testImplementation 'junit:junit:4.12'
 
-    // rx android
-    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
-    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
-
     // kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 
@@ -62,34 +58,29 @@ dependencies {
     implementation "androidx.appcompat:appcompat:1.1.0"
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta3"
-//    implementation "androidx.constraintlayout:constraintlayout:$supportLibraryVersion"
-
-    // retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
-
-    // okHttp
-    implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
-    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+//  implementation "androidx.constraintlayout:constraintlayout:$supportLibraryVersion"
 
     // glide
     implementation "com.github.bumptech.glide:glide:$glideVersion"
 
-    //room
-    implementation "androidx.room:room-runtime:$roomVersion"
-    kapt "androidx.room:room-compiler:$roomVersion"
-    implementation "androidx.room:room-ktx:$roomVersion"
-    implementation "androidx.room:room-rxjava2:$roomVersion"
-    testImplementation "androidx.room:room-testing:$roomVersion"
-
+    //life cycle
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
 
     //koin
-    implementation "org.koin:koin-androidx-scope:$koinVersion"
+    implementation "org.koin:koin-core:$koinVersion"
     implementation "org.koin:koin-androidx-viewmodel:$koinVersion"
-    implementation "org.koin:koin-androidx-ext:$koinVersion"
+
+    // rx android
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+
+    implementation project(":data")
+    implementation project(":local")
+    implementation project(":remote")
 
 
+//    implementation "org.koin:koin-androidx-scope:$koinVersion"
+//    implementation "org.koin:koin-androidx-viewmodel:$koinVersion"
+//    implementation "org.koin:koin-androidx-ext:$koinVersion"
 }

@@ -1,8 +1,8 @@
 package com.byiryu.study.ui.mvvm.login.viewmodel
 
 import androidx.lifecycle.MutableLiveData
+import com.byiryu.data.Repository
 import com.byiryu.study.R
-import com.byiryu.study.model.Repository
 import com.byiryu.study.ui.enums.NetStatus
 import com.byiryu.study.ui.mvvm.base.viewmodel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers

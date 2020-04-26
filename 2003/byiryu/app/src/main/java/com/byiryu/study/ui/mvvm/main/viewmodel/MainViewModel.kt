@@ -1,9 +1,10 @@
 package com.byiryu.study.ui.mvvm.main.viewmodel
 
 import androidx.lifecycle.MutableLiveData
+import com.byiryu.data.Repository
 import com.byiryu.study.R
-import com.byiryu.study.model.Repository
-import com.byiryu.study.model.data.MovieItem
+import com.byiryu.study.model.Movie
+import com.byiryu.study.model.mapper.MovieMapper
 import com.byiryu.study.ui.enums.NetStatus
 import com.byiryu.study.ui.mvvm.base.viewmodel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,7 +16,7 @@ class MainViewModel (private val repository: Repository): BaseViewModel(){
     val query = MutableLiveData<String>()
     val netStatus = MutableLiveData<NetStatus>()
     val status = MutableLiveData<Pair<Boolean, Any>>()
-    val movieData = MutableLiveData<List<MovieItem>>()
+    val movieData = MutableLiveData<List<Movie>>()
 
     init {
         prevQuery.value = repository.getPrevSearchQuery()
@@ -38,7 +39,7 @@ class MainViewModel (private val repository: Repository): BaseViewModel(){
                         status.value = Pair(false, R.string.msg_error_loading)
                     }
                     .subscribe({
-                        movieData.value = it
+                        movieData.value = MovieMapper.dataToView(it)
                     }, {
                         status.value = Pair(false, "오류발생 : $it")
                     })

@@ -11,7 +11,7 @@
 
         <variable
             name="adapter"
-            type="com.byiryu.study.ui.mvvm.main.views.adapter.MainRecyclerAdapter" />
+            type="com.byiryu.study.ui.mvvm.base.views.adapter.BaseAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
