@@ -2,14 +2,14 @@ package com.example.myapplication.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.data2.MovieRepository
+import com.example.data2.model.Movie
 import com.example.myapplication.R
-import com.example.myapplication.data.local.MovieEntity
-import com.example.myapplication.data.repository.MovieRepository
 
 class SearchMovieViewModel(private val movieRepository: MovieRepository) : ViewModel() {
 
     val query = MutableLiveData<String>()
-    val movieList = MutableLiveData<List<MovieEntity>>()
+    val movieList = MutableLiveData<List<Movie>>()
     val failMsg = MutableLiveData<Pair<Boolean, Any>>()
 
     fun searchMovie() {

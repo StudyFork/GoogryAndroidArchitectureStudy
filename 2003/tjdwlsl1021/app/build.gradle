@@ -23,7 +23,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    
+
     dataBinding {
         enabled = true
     }
@@ -52,10 +52,6 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:4.11.0'
 
-    implementation "androidx.room:room-runtime:2.2.4"
-    testImplementation "androidx.room:room-testing:2.2.4"
-    kapt "androidx.room:room-compiler:2.2.4"
-    implementation 'androidx.room:room-ktx:2.2.4'
 
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha01"
 
@@ -65,6 +61,7 @@ dependencies {
 
     implementation 'org.koin:koin-androidx-viewmodel:2.1.5'
 
-
-
+    implementation project(':data2')
+    implementation project(':remote')
+    implementation project(':local')
 }

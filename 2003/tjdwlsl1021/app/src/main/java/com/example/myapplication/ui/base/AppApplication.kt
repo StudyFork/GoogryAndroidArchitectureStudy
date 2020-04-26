@@ -1,11 +1,11 @@
 package com.example.myapplication.ui.base
 
 import android.app.Application
-import com.example.myapplication.BuildConfig
-import com.example.myapplication.di.localDataModule
-import com.example.myapplication.di.remoteDataModule
-import com.example.myapplication.di.repositoryModule
+import androidx.databinding.library.BuildConfig
+import com.example.data2.di.repositoryModule
+import com.example.local.di.localDataModule
 import com.example.myapplication.di.viewModelModule
+import com.example.remote.di.remoteDataModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
