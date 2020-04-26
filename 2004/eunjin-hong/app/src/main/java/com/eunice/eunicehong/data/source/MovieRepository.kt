@@ -1,7 +1,6 @@
-package com.eunice.eunicehong.data.repository
+package com.eunice.eunicehong.data.source
 
-import com.eunice.eunicehong.data.remote.MovieRemoteDataSource
-import com.eunice.eunicehong.data.source.MovieDataSource
+import com.eunice.eunicehong.data.source.remote.MovieRemoteDataSource
 
 object MovieRepository {
     private val remoteDataSource = MovieRemoteDataSource()

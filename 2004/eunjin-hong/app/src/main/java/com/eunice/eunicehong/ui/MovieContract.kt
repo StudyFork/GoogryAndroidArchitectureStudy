@@ -8,6 +8,7 @@ interface MovieContract {
     interface View {
         var movieContext: Context
 
+        fun setQueryText(query: String)
         fun showSearchResult(movies: MovieList)
         fun showRemoveHistoryConfirmDialog()
     }

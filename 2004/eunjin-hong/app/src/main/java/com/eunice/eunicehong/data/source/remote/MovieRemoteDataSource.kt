@@ -1,4 +1,4 @@
-package com.eunice.eunicehong.data.remote
+package com.eunice.eunicehong.data.source.remote
 
 import com.eunice.eunicehong.data.model.MovieList
 import com.eunice.eunicehong.data.source.MovieDataSource

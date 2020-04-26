@@ -3,8 +3,8 @@ package com.eunice.eunicehong.ui
 import android.content.Intent
 import android.net.Uri
 import android.provider.SearchRecentSuggestions
-import com.eunice.eunicehong.data.repository.MovieRepository
 import com.eunice.eunicehong.data.source.MovieDataSource
+import com.eunice.eunicehong.data.source.MovieRepository
 import com.eunice.eunicehong.provider.SuggestionProvider
 import com.eunice.eunicehong.util.ToastMessage
 
@@ -19,6 +19,12 @@ class MoviePresenter(
     }
 
     override fun search(query: String, callback: MovieDataSource.LoadMoviesCallback) {
+        SearchRecentSuggestions(
+            view.movieContext,
+            SuggestionProvider.AUTHORITY,
+            SuggestionProvider.MODE
+        ).saveRecentQuery(query, null)
+
         try {
             val list = cache.getMovieList(query)
             if (list.items.isEmpty()) {
