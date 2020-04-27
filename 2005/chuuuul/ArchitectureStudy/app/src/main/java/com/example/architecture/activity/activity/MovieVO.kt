@@ -1,4 +1,4 @@
-package com.example.architecture.activity.Activity
+package com.example.architecture.activity.activity
 
 data class MovieVO(
         val image : String?,
