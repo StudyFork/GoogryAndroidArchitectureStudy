@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        searchData = ArrayList()
 
         btn_search.setOnClickListener {
             if (et_search.text.toString().isEmpty()) return@setOnClickListener
@@ -51,5 +52,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun setRecyclerView() {
         adapter = SearchAdapter(searchData)
+        listview_movie.adapter = adapter
     }
 }
