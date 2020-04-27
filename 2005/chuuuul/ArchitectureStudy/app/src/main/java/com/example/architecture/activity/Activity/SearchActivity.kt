@@ -1,4 +1,4 @@
-package com.example.architecture.activity
+package com.example.architecture.activity.Activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,4 +12,6 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
     }
+
+
 }
