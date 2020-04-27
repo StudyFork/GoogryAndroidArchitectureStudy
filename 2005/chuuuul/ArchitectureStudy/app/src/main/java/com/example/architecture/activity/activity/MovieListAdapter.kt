@@ -10,26 +10,26 @@ import com.bumptech.glide.Glide
 import com.example.architecture.R
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class SearchListAdapter(private val movies: ArrayList<MovieVO>) :
-        RecyclerView.Adapter<SearchViewHolder>() {
+class MovieListAdapter(private val movies: ArrayList<MovieVO>) :
+        RecyclerView.Adapter<MovieViewHolder>() {
 
     private lateinit var context: Context
 
     private val NO_IMAGE_URL = "https://ssl.pstatic.net/static/movie/2012/06/dft_img133x190.png"
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         context = parent.context
 
         val view = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false)
 
-        return SearchViewHolder(view)
+        return MovieViewHolder(view)
     }
 
     override fun getItemCount(): Int {
         return movies.count()
     }
 
-    override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         holder.itemView.textView_movie_title.text = movies[position].title
         holder.itemView.textView_movie_pubDate.text = movies[position].pubDate
 
@@ -47,4 +47,4 @@ class SearchListAdapter(private val movies: ArrayList<MovieVO>) :
 
 }
 
-class SearchViewHolder(view: View) : RecyclerView.ViewHolder(view)
+class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view)

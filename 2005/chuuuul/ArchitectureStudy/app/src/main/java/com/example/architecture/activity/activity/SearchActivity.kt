@@ -26,7 +26,7 @@ class SearchActivity : AppCompatActivity() {
                         , "반지의 제왕", "2001", "https://", 4.0f)
         )
 
-        recyclerview_search_movieList.adapter = SearchListAdapter(movies)
+        recyclerview_search_movieList.adapter = MovieListAdapter(movies)
         recyclerview_search_movieList.layoutManager = gridLayoutManager
     }
 
