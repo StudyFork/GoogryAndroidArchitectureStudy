@@ -26,7 +26,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView_movie_Image" />
 
     <TextView
-        android:id="@+id/textView_movie_year"
+        android:id="@+id/textView_movie_pubDate"
         android:textAlignment="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,13 +37,17 @@
 
     <RatingBar
         android:id="@+id/ratingBar_movie_rating"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:isIndicator="false"
+        android:max="5"
+        android:numStars="5"
+        android:rating="3"
+        android:stepSize="0.5"
         app:layout_constraintEnd_toEndOf="@+id/imageView_movie_Image"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/imageView_movie_Image"
-        app:layout_constraintTop_toBottomOf="@+id/textView_movie_year" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_movie_pubDate" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
