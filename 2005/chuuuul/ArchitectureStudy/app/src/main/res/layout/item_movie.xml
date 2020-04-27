@@ -6,7 +6,7 @@
 
     <ImageView
         android:id="@+id/imageView_movie_Image"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="200dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
