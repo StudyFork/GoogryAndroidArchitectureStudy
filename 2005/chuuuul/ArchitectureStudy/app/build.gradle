@@ -44,5 +44,7 @@ dependencies {
     // Retrofit requires at minimum Java 8+ or Android API 21+.
     implementation 'com.squareup.retrofit2:retrofit:2.6.1'
 
+    // Gson
+    implementation 'com.google.code.gson:gson:2.8.5'
 
 }
