@@ -27,9 +27,9 @@ class MainActivity : AppCompatActivity() {
         btn_search.setOnClickListener {
             if (et_search.text.toString().isEmpty()) return@setOnClickListener
             if (searchData.count() > 0) {
+                searchData.clear()
                 adapter?.notifyItemRangeRemoved(0, searchData.count() - 1)
             }
-
             doSearch(et_search.text.toString())
         }
         setRecyclerView()
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
             ?.subscribe({ movie ->
                 movie.items.iterator().forEach {
                     searchData.add(it)
-                    adapter?.notifyDataSetChanged()
+                    listview_movie.adapter = adapter
                 }
             },
                 { error ->
@@ -54,8 +54,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setRecyclerView() {
-        adapter = SearchAdapter(searchData)
-        listview_movie.adapter = adapter
         listview_movie.layoutManager = LinearLayoutManager(this)
+        adapter = SearchAdapter(searchData)
     }
 }
