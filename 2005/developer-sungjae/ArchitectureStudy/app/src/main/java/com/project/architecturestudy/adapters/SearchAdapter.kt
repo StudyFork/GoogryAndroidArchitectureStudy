@@ -18,11 +18,15 @@ class SearchAdapter(var searchData: ArrayList<MovieData.Items>) : RecyclerView.A
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is SearchingResultHolder -> {
-                Picasso.get().load(searchData[position].image)
-                    .placeholder(R.drawable.ic_launcher_foreground)
-                    .centerCrop()
-                    .fit()
-                    .into(holder.ivMovie)
+                when (searchData[position].image.isEmpty()) {
+                    true -> holder.ivMovie.setImageResource(R.drawable.ic_launcher_foreground)
+                    false ->
+                        Picasso.get().load(searchData[position].image)
+                            .placeholder(R.drawable.ic_launcher_foreground)
+                            .centerCrop()
+                            .fit()
+                            .into(holder.ivMovie)
+                }
 
                 holder.title.text = searchData[position].title
                 holder.subTitle.text = searchData[position].subtitle
