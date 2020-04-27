@@ -39,6 +39,7 @@
 
                     <com.tsdev.tsandroid.util.widget.CustomImageWithGlide
                         android:id="@+id/movie_img"
+                        moviePosterImg="@{movieItem.image}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         tools:src="@drawable/ic_launcher_background" />
