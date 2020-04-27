@@ -27,12 +27,16 @@ class MainActivity : AppCompatActivity() {
         btn_search.setOnClickListener {
             if (et_search.text.toString().isEmpty()) return@setOnClickListener
             if (searchData.count() > 0) {
-                searchData.clear()
-                adapter?.notifyItemRangeRemoved(0, searchData.count() - 1)
+                removeAllItems()
             }
             doSearch(et_search.text.toString())
         }
         setRecyclerView()
+    }
+
+    private fun removeAllItems() {
+        searchData.clear()
+        adapter?.notifyItemRangeRemoved(0, searchData.count() - 1)
     }
 
     @SuppressLint("CheckResult")
