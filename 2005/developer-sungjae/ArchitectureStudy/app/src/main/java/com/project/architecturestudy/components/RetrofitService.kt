@@ -1,6 +1,9 @@
 package com.project.architecturestudy.components
 
 import com.project.architecturestudy.BuildConfig
+import com.project.architecturestudy.components.Constants.NAVER_CLIENT_ID
+import com.project.architecturestudy.components.Constants.NAVER_CLIENT_SECRET
+import com.project.architecturestudy.components.Constants.NAVER_SEARCH_BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -17,7 +20,11 @@ interface RetrofitService {
             }
             // 헤더에 UserAgent
             builder.addInterceptor {
-                val request = it.request().newBuilder().addHeader("User-Agent", "").build()
+                val request =
+                    it.request().newBuilder()
+                        .addHeader("X-Naver-Client-Id", NAVER_CLIENT_ID)
+                        .addHeader("X-Naver-Client-Secret", NAVER_CLIENT_SECRET)
+                        .build()
                 it.proceed(request)
             }
 
@@ -26,7 +33,7 @@ interface RetrofitService {
             val services = Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(Constants.NAVER_SEARCH_BASE_URL)
+                .baseUrl(NAVER_SEARCH_BASE_URL)
                 .client(client)
                 .build()
             return services.create(RetrofitService::class.java)
