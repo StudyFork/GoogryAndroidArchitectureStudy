@@ -33,13 +33,17 @@ class SearchingResultHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
     fun bindItem(searchData: MovieData.Items) {
         when (searchData.image.isEmpty()) {
             true -> itemView.iv_movie.setImageResource(R.drawable.ic_launcher_foreground)
-            false -> Picasso.get().load(searchData.image).centerCrop().into(itemView.iv_movie)
+            false -> Picasso.get()
+                .load(searchData.image)
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .centerCrop()
+                .fit()
+                .into(itemView.iv_movie)
         }
         itemView.tv_title.text = searchData.title
         itemView.tv_subTitle.text = searchData.subtitle
         itemView.tv_pubDate.text = searchData.pubDate
         itemView.tv_actors.text = searchData.actor
-        //클릭시 웹사이트 연결
         itemView.setOnClickListener {
             val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(searchData.link))
             itemView.context.startActivity(webIntent)
