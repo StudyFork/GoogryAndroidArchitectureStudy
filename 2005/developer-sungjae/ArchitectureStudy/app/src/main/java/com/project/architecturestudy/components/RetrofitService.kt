@@ -26,7 +26,7 @@ interface RetrofitService {
             val services = Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(Constants.serverUrl)
+                .baseUrl(Constants.NAVER_SEARCH_BASE_URL)
                 .client(client)
                 .build()
             return services.create(RetrofitService::class.java)
