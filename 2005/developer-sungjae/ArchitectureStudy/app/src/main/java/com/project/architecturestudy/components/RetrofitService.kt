@@ -4,13 +4,21 @@ import com.project.architecturestudy.BuildConfig
 import com.project.architecturestudy.components.Constants.NAVER_CLIENT_ID
 import com.project.architecturestudy.components.Constants.NAVER_CLIENT_SECRET
 import com.project.architecturestudy.components.Constants.NAVER_SEARCH_BASE_URL
+import com.project.architecturestudy.models.MovieData
+import io.reactivex.Flowable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface RetrofitService {
+
+    @GET("movie.json")
+    fun getMovies(@Query("query") title: String?): Flowable<MovieData>?
+
     companion object ServiceFactory {
         fun create(): RetrofitService {
             val builder = OkHttpClient.Builder()
