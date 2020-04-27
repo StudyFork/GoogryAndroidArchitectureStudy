@@ -3,6 +3,14 @@
 
     <string name="movie_list_zero_item_message">🔎 일치하는 검색 결과가 없습니다. 😅</string>
 
-    <string name="movie_search_hint">🎬 영화 제목, 감독, 배우를 입력하세요</string>
+    <string name="movie_search_hint">영화 제목, 감독, 배우를 검색하세요</string>를
     <string name="movie_item_user_rating_key">⭐ %s</string>
+    <string name="button_search_title">Search</string>
+    <string name="button_delete_history_title">Delete History</string>
+
+    <string name="delete_history_confirmation">🤔 검색 내역 및 결과를 모두 삭제하시겠습니까?</string>
+    <string name="complete_delete_history">👍 검색 결과를 모두 삭제하였습니다!</string>
+
+    <string name="preference_file_key">eunjin_hong_preferences_file_key</string>
+    <string name="preference_movie_search_query_history_keys">search_history</string>
 </resources>
