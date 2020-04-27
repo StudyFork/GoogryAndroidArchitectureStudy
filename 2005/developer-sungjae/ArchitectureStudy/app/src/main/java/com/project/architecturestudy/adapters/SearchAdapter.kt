@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.project.architecturestudy.R
 import com.project.architecturestudy.models.MovieData
 
-class SearchAdapter(var searchData: ArrayList<MovieData>) {
+class SearchAdapter(var searchData: ArrayList<MovieData.Items>) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return SearchingResultHolder(LayoutInflater.from(parent.context).inflate(R.layout.movie_list, parent, false))
