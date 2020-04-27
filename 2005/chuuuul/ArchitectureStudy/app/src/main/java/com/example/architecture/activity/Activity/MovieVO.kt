@@ -5,5 +5,5 @@ data class MovieVO(
         val title : String,
         val pubDate: String,
         val link : String,
-        val userRating : Int
+        val userRating: Float
 )
