@@ -23,10 +23,9 @@ class MainActivity : AppCompatActivity() {
         btn_search.setOnClickListener {
             if (et_search.text.toString().isEmpty()) return@setOnClickListener
 
-
             doSearch(et_search.text.toString())
         }
-
+        setRecyclerView()
     }
 
     @SuppressLint("CheckResult")
@@ -44,8 +43,11 @@ class MainActivity : AppCompatActivity() {
             },
                 { error ->
                     Log.d("error", error.toString())
-                },
-                { Log.d("onComplete", "onComplete") }
+                }
             )
+    }
+
+    private fun setRecyclerView() {
+
     }
 }
