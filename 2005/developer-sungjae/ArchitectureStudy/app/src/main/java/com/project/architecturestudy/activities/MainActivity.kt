@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             ?.subscribe({ movie ->
                 movie.items.iterator().forEach {
                     searchData.add(it)
-//                    adapter.notifyItemInserted(searchDatas.size - 1)
+                    adapter?.notifyDataSetChanged()
                 }
             },
                 { error ->
