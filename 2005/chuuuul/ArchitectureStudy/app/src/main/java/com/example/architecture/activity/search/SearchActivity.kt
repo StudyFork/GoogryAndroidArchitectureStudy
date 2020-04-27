@@ -1,4 +1,4 @@
-package com.example.architecture.activity.activity
+package com.example.architecture.activity.search
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

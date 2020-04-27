@@ -1,4 +1,4 @@
-package com.example.architecture.activity.activity
+package com.example.architecture.activity.search
 
 import android.content.Context
 import android.view.LayoutInflater

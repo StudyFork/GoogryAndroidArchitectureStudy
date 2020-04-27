@@ -1,4 +1,4 @@
-package com.example.architecture.activity.activity
+package com.example.architecture.activity.search
 
 data class MovieVO(
         val image : String?,
