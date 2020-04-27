@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.project.architecturestudy.R
+import com.project.architecturestudy.adapters.SearchAdapter
 import com.project.architecturestudy.components.RetrofitService
 import com.project.architecturestudy.models.MovieData
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -14,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var searchData: ArrayList<MovieData.Items>
+    private var adapter: SearchAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +50,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setRecyclerView() {
-
+        adapter = SearchAdapter(searchData)
     }
 }
