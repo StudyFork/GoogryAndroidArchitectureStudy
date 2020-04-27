@@ -40,11 +40,13 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
+    // Gson
+    implementation 'com.google.code.gson:gson:2.8.6'
+
     // Retrofit 2
     // Retrofit requires at minimum Java 8+ or Android API 21+.
     implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
 
-    // Gson
-    implementation 'com.google.code.gson:gson:2.8.6'
 
 }
