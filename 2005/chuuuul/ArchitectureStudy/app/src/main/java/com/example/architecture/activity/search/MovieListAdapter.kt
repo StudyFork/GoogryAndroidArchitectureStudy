@@ -39,10 +39,9 @@ class MovieListAdapter(private val movies: ArrayList<MovieVO>) :
     }
 
     private fun setMovieImage(imageView: ImageView, url: String?) {
-        if (url != null) {
-            Glide.with(context).load(url).fitCenter().error(R.drawable.image_loaderror).into(imageView)
-        } else
-            Glide.with(context).load(NO_IMAGE_URL).fitCenter().error(R.drawable.image_loaderror).into(imageView)
+        Glide.with(context)
+                .load(url ?: NO_IMAGE_URL).placeholder(R.drawable.ic_loading_black_24dp)
+                .error(R.drawable.image_loaderror).fitCenter().into(imageView)
     }
 
 }
