@@ -54,7 +54,7 @@ class MovieListActivity : AppCompatActivity() {
 
     private fun refreshList(){
         movieListView.layoutManager = linearLayoutManager
-        movieListAdapter = MovieListAdapter(movieList)
+        movieListAdapter = MovieListAdapter(movieList, this)
         movieListView.adapter = movieListAdapter
 
         movieListView.visibility = View.VISIBLE
