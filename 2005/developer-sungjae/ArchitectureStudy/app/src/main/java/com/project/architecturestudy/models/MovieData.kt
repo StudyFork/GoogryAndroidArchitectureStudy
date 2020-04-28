@@ -3,11 +3,11 @@ package com.project.architecturestudy.models
 import com.google.gson.annotations.SerializedName
 
 class MovieData(
-    @SerializedName("lastBuildDate") var lastBuildDate: String,
-    @SerializedName("total") var total: Int,
-    @SerializedName("start") var start: Int,
-    @SerializedName("display") var display: Int,
-    @SerializedName("items") var items: Array<Items>
+    @SerializedName("lastBuildDate") val lastBuildDate: String,
+    @SerializedName("total") val total: Int,
+    @SerializedName("start") val start: Int,
+    @SerializedName("display") val display: Int,
+    @SerializedName("items") val items: Array<Items>
 ) {
     data class Items(
         @SerializedName("title")
