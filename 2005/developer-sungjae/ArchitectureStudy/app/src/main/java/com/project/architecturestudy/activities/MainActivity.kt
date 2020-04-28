@@ -43,13 +43,11 @@ class MainActivity : AppCompatActivity() {
     fun doSearch(keyWord: String) {
         val service = RetrofitService.create()
         service.getMovies(keyWord)
-            ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribeOn(Schedulers.io())
-            ?.subscribe({ movie ->
-                movie.items.iterator().forEach {
-                    searchData.add(it)
-                    listview_movie.adapter = adapter
-                }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({ movie ->
+                searchData.addAll(movie.items)
+                adapter?.notifyDataSetChanged()
             },
                 { error ->
                     Log.d("error", error.toString())
@@ -60,5 +58,6 @@ class MainActivity : AppCompatActivity() {
     private fun setRecyclerView() {
         listview_movie.layoutManager = LinearLayoutManager(this)
         adapter = SearchAdapter(searchData)
+        listview_movie.adapter = adapter
     }
 }
