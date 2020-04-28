@@ -45,9 +45,12 @@ class SearchActivity : AppCompatActivity(), Callback<MovieResponseVO> {
         }
 
         editText_search_searchName.setOnKeyListener { _, keyCode, _ ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER)
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 button_search_searchButton.callOnClick()
-            true
+                true
+            } else
+                false
+
         }
     }
 
