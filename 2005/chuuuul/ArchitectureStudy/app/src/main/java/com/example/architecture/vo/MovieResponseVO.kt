@@ -1,4 +1,4 @@
-package com.example.architecture.activity.search
+package com.example.architecture.vo
 
 import com.google.gson.annotations.SerializedName
 

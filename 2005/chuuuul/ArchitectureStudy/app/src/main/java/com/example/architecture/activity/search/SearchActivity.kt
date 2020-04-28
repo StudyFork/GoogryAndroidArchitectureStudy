@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.architecture.R
 import com.example.architecture.retrofit.MovieSearchService
+import com.example.architecture.vo.MovieResponseVO
+import com.example.architecture.vo.MovieVO
 import kotlinx.android.synthetic.main.activity_search.*
 import retrofit2.Call
 import retrofit2.Callback

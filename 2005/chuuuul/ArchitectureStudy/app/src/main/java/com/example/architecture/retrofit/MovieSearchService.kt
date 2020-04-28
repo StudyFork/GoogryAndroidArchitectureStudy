@@ -1,7 +1,7 @@
 package com.example.architecture.retrofit
 
 import com.example.architecture.BuildConfig
-import com.example.architecture.activity.search.MovieResponseVO
+import com.example.architecture.vo.MovieResponseVO
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers

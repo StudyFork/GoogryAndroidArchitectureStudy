@@ -8,6 +8,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.architecture.R
+import com.example.architecture.vo.MovieVO
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieListAdapter(private val movies: ArrayList<MovieVO>) :
