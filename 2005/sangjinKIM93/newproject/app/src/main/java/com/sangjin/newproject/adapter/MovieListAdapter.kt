@@ -9,8 +9,16 @@ import com.sangjin.newproject.R
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieListAdapter (private val movieList: List<Movie>, private val context: Context) : RecyclerView.Adapter<MovieListViewHolder>(){
+
+    var onItemClickListener : ((Int)->Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieListViewHolder {
         val item = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
+
+        item.setOnClickListener{
+            var position: Long = item.tag as Long
+            onItemClickListener?.invoke(position.toInt())
+        }
 
         return MovieListViewHolder(item)
     }
@@ -22,10 +30,15 @@ class MovieListAdapter (private val movieList: List<Movie>, private val context:
             .load(movieList.get(position).image)
             .centerCrop()
             .into(holder.containerView.movieImageIV)
+
+        holder.containerView.tag = getItemId(position)
     }
 
     override fun getItemCount() = movieList.size
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
 
     private fun deleteHTMLTag(str: String): String{
         var strEdited = str.replace("<b>", "")

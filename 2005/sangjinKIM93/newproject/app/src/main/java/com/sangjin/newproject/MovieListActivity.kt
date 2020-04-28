@@ -1,5 +1,6 @@
 package com.sangjin.newproject
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -59,6 +60,11 @@ class MovieListActivity : AppCompatActivity() {
 
         movieListView.visibility = View.VISIBLE
         guideMessageToInput.visibility = View.INVISIBLE
+
+        //각 항목 클릭시 이벤트
+        movieListAdapter.onItemClickListener = {
+
+        }
     }
 
     private fun noResultMessage(){
