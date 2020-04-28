@@ -1,6 +1,5 @@
 package com.lllccww.studyforkproject.model
 
-import MovieItem
 
 data class Movie(
     val display: String,
