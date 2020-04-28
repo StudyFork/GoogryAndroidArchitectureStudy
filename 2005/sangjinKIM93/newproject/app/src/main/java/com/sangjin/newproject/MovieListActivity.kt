@@ -1,11 +1,16 @@
 package com.sangjin.newproject
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sangjin.newproject.adapter.Movie
 import com.sangjin.newproject.adapter.MovieListAdapter
+import com.sangjin.newproject.adapter.ResponseData
 import kotlinx.android.synthetic.main.activity_movie_list.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MovieListActivity : AppCompatActivity() {
 
@@ -24,5 +29,18 @@ class MovieListActivity : AppCompatActivity() {
         movieListView.layoutManager = linearLayoutManager
         movieListView.adapter = movieListAdapter
 
+    }
+
+
+    private fun getMovieList(keyWord: String){
+        MovieApi.retrofitService.requestMovieList(keyword = keyWord)
+            .enqueue(object: Callback<ResponseData>{
+                override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
+                    val result = response.body()?.items
+                }
+
+                override fun onFailure(call: Call<ResponseData>, t: Throwable) {
+                }
+            })
     }
 }
