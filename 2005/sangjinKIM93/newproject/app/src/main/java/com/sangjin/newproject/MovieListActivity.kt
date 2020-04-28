@@ -24,6 +24,10 @@ class MovieListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_list)
 
+        movieNameInputBtn.setOnClickListener {
+            getMovieList(movieNameET.text.toString())
+        }
+
     }
 
 
