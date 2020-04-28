@@ -2,6 +2,7 @@ package com.example.architecture.activity.search
 
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -33,14 +34,20 @@ class SearchActivity : AppCompatActivity(), Callback<MovieResponseVO> {
         setContentView(R.layout.activity_search)
 
         setRecyclerview()
-        setClickEvent()
+        setViewEvent()
     }
 
     // * 검색
 
-    private fun setClickEvent() {
+    private fun setViewEvent() {
         button_search_searchButton.setOnClickListener {
             searchMovie()
+        }
+
+        editText_search_searchName.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER)
+                button_search_searchButton.callOnClick()
+            true
         }
     }
 
