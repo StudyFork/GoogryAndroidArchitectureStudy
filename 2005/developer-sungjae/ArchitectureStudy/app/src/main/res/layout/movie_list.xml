@@ -16,41 +16,45 @@
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:textColor="@android:color/holo_red_light"
         app:layout_constraintBottom_toTopOf="@id/tv_subTitle"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_movie"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="타이틀" />
 
     <TextView
         android:id="@+id/tv_subTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         app:layout_constraintBottom_toTopOf="@id/tv_pubDate"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_movie"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
         tools:text="서브타이틀" />
 
     <TextView
         android:id="@+id/tv_pubDate"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         app:layout_constraintBottom_toTopOf="@id/tv_actors"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_movie"
         app:layout_constraintTop_toBottomOf="@id/tv_subTitle"
         tools:text="개봉년도" />
 
     <TextView
         android:id="@+id/tv_actors"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_movie"
         app:layout_constraintTop_toBottomOf="@id/tv_pubDate"
         tools:text="배우나열" />
