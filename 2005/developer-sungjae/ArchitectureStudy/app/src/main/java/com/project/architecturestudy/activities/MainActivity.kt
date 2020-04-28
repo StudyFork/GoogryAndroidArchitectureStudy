@@ -25,11 +25,15 @@ class MainActivity : AppCompatActivity() {
         searchData = ArrayList()
 
         btn_search.setOnClickListener {
-            if (et_search.text.toString().isEmpty()) return@setOnClickListener
-            if (searchData.count() > 0) {
+            if (et_search.text.toString().isEmpty()) {
+
+                return@setOnClickListener
+
+            } else if (searchData.count() > 0) {
+
                 removeAllItems()
+                doSearch(et_search.text.toString())
             }
-            doSearch(et_search.text.toString())
         }
         setRecyclerView()
     }
