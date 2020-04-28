@@ -30,10 +30,10 @@ class MovieListAdapter(private val movies: ArrayList<MovieVO>) :
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.itemView.textView_movie_title.text = movies[position].title
+        holder.itemView.textView_movie_title.text = removeMarkupTag(movies[position].title)
         holder.itemView.textView_movie_pubDate.text = movies[position].pubDate
 
-        holder.itemView.ratingBar_movie_rating.rating = movies[position].userRating.toFloat()
+        holder.itemView.ratingBar_movie_rating.rating = movies[position].userRating
 
         setMovieImage(holder.itemView.imageView_movie_Image, movies[position].image)
     }
@@ -44,7 +44,11 @@ class MovieListAdapter(private val movies: ArrayList<MovieVO>) :
 
         Glide.with(context)
             .load(url).placeholder(R.drawable.ic_loading_black_24dp)
-                .error(R.drawable.image_loaderror).fitCenter().into(imageView)
+            .error(R.drawable.image_loaderror).centerCrop().into(imageView)
+    }
+
+    private fun removeMarkupTag(string: String): String {
+        return string.replace("<b>", "").replace("</b>", "")
     }
 
 }
