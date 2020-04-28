@@ -1,5 +1,9 @@
 package com.sangjin.newproject.adapter
 
+data class ResponseData(
+    val items: List<Movie>
+)
+
 data class Movie(
     var title: String = "",
     var link: String = "",
