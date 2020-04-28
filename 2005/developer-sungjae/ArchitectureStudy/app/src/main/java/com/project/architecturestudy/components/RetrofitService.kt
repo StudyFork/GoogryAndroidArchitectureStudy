@@ -17,7 +17,7 @@ import retrofit2.http.Query
 interface RetrofitService {
 
     @GET("movie.json")
-    fun getMovies(@Query("query") title: String?): Flowable<MovieData>?
+    fun getMovies(@Query("query") title: String?): Flowable<MovieData>
 
     companion object ServiceFactory {
         fun create(): RetrofitService {
