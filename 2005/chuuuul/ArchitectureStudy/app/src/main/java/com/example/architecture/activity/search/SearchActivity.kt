@@ -97,7 +97,7 @@ class SearchActivity : AppCompatActivity(), Callback<MovieResponseVO> {
 
         if (result != null) {
 
-            if (result.total != 0) {
+            if (result.total > 0) {
                 movies.clear()
                 movies.addAll(response.body()?.movies!!)
                 recyclerview_search_movieList.adapter?.notifyDataSetChanged()
