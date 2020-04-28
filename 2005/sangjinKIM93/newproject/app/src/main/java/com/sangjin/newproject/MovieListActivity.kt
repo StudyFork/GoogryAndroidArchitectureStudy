@@ -62,8 +62,10 @@ class MovieListActivity : AppCompatActivity() {
         guideMessageToInput.visibility = View.INVISIBLE
 
         //각 항목 클릭시 이벤트
-        movieListAdapter.onItemClickListener = {
-
+        movieListAdapter.onItemClickListener = {position ->
+            val intent = Intent(this, MovieDetailActiviry::class.java)
+            intent.putExtra("LINK", movieList.get(position).link)
+            startActivity(intent)
         }
     }
 
