@@ -2,6 +2,7 @@ package com.sangjin.newproject
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sangjin.newproject.adapter.Movie
@@ -31,6 +32,15 @@ class MovieListActivity : AppCompatActivity() {
             .enqueue(object: Callback<ResponseData>{
                 override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
                     val result = response.body()?.items
+
+                    if (result != null) {
+                        movieList = result
+                        refreshList()
+                    }
+                    else{
+                        noResultMessage()
+                    }
+
                 }
 
                 override fun onFailure(call: Call<ResponseData>, t: Throwable) {
@@ -42,5 +52,15 @@ class MovieListActivity : AppCompatActivity() {
         movieListView.layoutManager = linearLayoutManager
         movieListAdapter = MovieListAdapter(movieList)
         movieListView.adapter = movieListAdapter
+
+        movieListView.visibility = View.VISIBLE
+        guideMessageToInput.visibility = View.INVISIBLE
+    }
+
+    private fun noResultMessage(){
+        movieListView.visibility = View.INVISIBLE
+        guideMessageToInput.visibility = View.VISIBLE
+
+        guideMessageToInput.text = "검색 결과가 없습니다."
     }
 }
