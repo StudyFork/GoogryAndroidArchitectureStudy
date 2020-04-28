@@ -33,14 +33,17 @@ class MovieListAdapter(private val movies: ArrayList<MovieVO>) :
         holder.itemView.textView_movie_title.text = movies[position].title
         holder.itemView.textView_movie_pubDate.text = movies[position].pubDate
 
-        holder.itemView.ratingBar_movie_rating.rating = movies[position].userRating
+        holder.itemView.ratingBar_movie_rating.rating = movies[position].userRating.toFloat()
 
         setMovieImage(holder.itemView.imageView_movie_Image, movies[position].image)
     }
 
-    private fun setMovieImage(imageView: ImageView, url: String?) {
+    private fun setMovieImage(imageView: ImageView, imageUrl: String?) {
+
+        val url = if (imageUrl == "") NO_IMAGE_URL else imageUrl
+
         Glide.with(context)
-                .load(url ?: NO_IMAGE_URL).placeholder(R.drawable.ic_loading_black_24dp)
+            .load(url).placeholder(R.drawable.ic_loading_black_24dp)
                 .error(R.drawable.image_loaderror).fitCenter().into(imageView)
     }
 
