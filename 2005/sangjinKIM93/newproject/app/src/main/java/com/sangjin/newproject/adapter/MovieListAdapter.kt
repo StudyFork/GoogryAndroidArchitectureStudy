@@ -14,9 +14,17 @@ class MovieListAdapter (private val movieList: List<Movie>) : RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: MovieListViewHolder, position: Int) {
-        holder.containerView.movieTitleTV.text = movieList.get(position).title
+        holder.containerView.movieTitleTV.text = deleteHTMLTag(movieList.get(position).title)
     }
 
     override fun getItemCount() = movieList.size
+
+
+    private fun deleteHTMLTag(str: String): String{
+        var strEdited = str.replace("<b>", "")
+        strEdited = str.replace("</b>", "")
+
+        return strEdited
+    }
 
 }
