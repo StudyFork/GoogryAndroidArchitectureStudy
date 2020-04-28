@@ -14,20 +14,14 @@ import retrofit2.Response
 
 class MovieListActivity : AppCompatActivity() {
 
-    private var movieList = arrayOf<Movie>()
-    private val movieListAdapter: MovieListAdapter by lazy {
-        MovieListAdapter(movieList)
-    }
+    private var movieList = listOf<Movie>()
+    private lateinit var movieListAdapter: MovieListAdapter
     private val linearLayoutManager = LinearLayoutManager(this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_list)
-
-        //리사이클러뷰 초기화
-        movieListView.layoutManager = linearLayoutManager
-        movieListView.adapter = movieListAdapter
 
     }
 
@@ -42,5 +36,11 @@ class MovieListActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 }
             })
+    }
+
+    private fun refreshList(){
+        movieListView.layoutManager = linearLayoutManager
+        movieListAdapter = MovieListAdapter(movieList)
+        movieListView.adapter = movieListAdapter
     }
 }
