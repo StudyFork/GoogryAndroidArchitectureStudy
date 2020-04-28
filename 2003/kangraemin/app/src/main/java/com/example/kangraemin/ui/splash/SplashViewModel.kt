@@ -2,10 +2,10 @@ package com.example.kangraemin.ui.splash
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.room.EmptyResultSetException
+import com.example.common.exception.RoomEmptyResultException
+import com.example.data.model.Auth
 import com.example.kangraemin.base.KangBaseViewModel
-import com.example.kangraemin.model.AuthRepository
-import com.example.kangraemin.model.local.datamodel.Auth
+import com.example.data.source.AuthRepository
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -45,7 +45,7 @@ class SplashViewModel(
                 if (responseGetAuth.responseError) {
                     responseGetAuth.throwable?.apply {
                         printStackTrace()
-                        if (responseGetAuth.throwable is EmptyResultSetException) {
+                        if (responseGetAuth.throwable is RoomEmptyResultException) {
                             _needLogin.value = Unit
                         } else {
                             _getAuthError.value = Unit
@@ -60,7 +60,9 @@ class SplashViewModel(
 
     private data class ResponseGetAuth(
         val responseError: Boolean,
-        val responseResult: Auth = Auth(autoLogin = false),
+        val responseResult: Auth = Auth(
+            autoLogin = false
+        ),
         val throwable: Throwable? = null
     )
 }

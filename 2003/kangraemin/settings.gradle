@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':data', ':remote', ':local', ':common'
 rootProject.name='kangraemin'

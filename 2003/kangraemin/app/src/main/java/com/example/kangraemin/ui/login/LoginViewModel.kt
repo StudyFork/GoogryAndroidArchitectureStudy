@@ -3,9 +3,9 @@ package com.example.kangraemin.ui.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.example.data.model.Auth
 import com.example.kangraemin.base.KangBaseViewModel
-import com.example.kangraemin.model.AuthRepository
-import com.example.kangraemin.model.local.datamodel.Auth
+import com.example.data.source.AuthRepository
 import com.example.kangraemin.util.NonNullMutableLiveData
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
