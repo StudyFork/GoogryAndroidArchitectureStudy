@@ -1,6 +1,8 @@
 package com.example.architecture.activity.search
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +39,10 @@ class MovieListAdapter(private val movies: ArrayList<MovieVO>) :
         holder.itemView.ratingBar_movie_rating.rating = movies[position].userRating
 
         setMovieImage(holder.itemView.imageView_movie_Image, movies[position].image)
+
+        holder.itemView.setOnClickListener {
+            openWebPage(movies[position].link)
+        }
     }
 
     private fun setMovieImage(imageView: ImageView, imageUrl: String?) {
@@ -50,6 +56,11 @@ class MovieListAdapter(private val movies: ArrayList<MovieVO>) :
 
     private fun removeMarkupTag(string: String): String {
         return string.replace("<b>", "").replace("</b>", "")
+    }
+
+    private fun openWebPage(urlString: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(urlString))
+        context.startActivity(intent)
     }
 
 }
