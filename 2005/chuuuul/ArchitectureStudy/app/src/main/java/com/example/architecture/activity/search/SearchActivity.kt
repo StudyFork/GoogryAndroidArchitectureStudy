@@ -73,7 +73,7 @@ class SearchActivity : AppCompatActivity(), Callback<MovieResponseVO> {
 
         if (keyword.isEmpty()) {
             isValid = false
-            errorString = "검색어를 입력하세요"
+            errorString = getString(R.string.empty_keyword)
         }
 
         if (!isValid)
@@ -107,7 +107,7 @@ class SearchActivity : AppCompatActivity(), Callback<MovieResponseVO> {
             } else {
                 movies.clear()
                 recyclerview_search_movieList.adapter?.notifyDataSetChanged()
-                Toast.makeText(this, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.not_found_result, Toast.LENGTH_SHORT).show()
             }
         }
     }
