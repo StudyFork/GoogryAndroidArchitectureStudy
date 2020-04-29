@@ -2,4 +2,5 @@
     <string name="app_name">newproject</string>
     <string name="input_btn">입력</string>
     <string name="movie_name_hint">영화 이름</string>
+    <string name="guide_message_toinput">영화를 검색해주세요</string>
 </resources>
