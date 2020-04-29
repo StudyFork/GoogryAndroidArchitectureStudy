@@ -1,4 +1,4 @@
-package com.example.studyforkandroid.utils
+package com.example.studyforkandroid.ext
 
 import android.os.Build
 import android.text.Html
