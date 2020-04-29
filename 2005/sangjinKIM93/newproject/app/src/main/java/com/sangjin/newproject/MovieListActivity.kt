@@ -38,14 +38,13 @@ class MovieListActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
                     val result = response.body()?.items
 
-                    if (result != null) {
+                    if (result.isNullOrEmpty()) {
+                        noResultMessage()
+                    }
+                    else{
                         movieList = result
                         refreshList()
                     }
-                    else{
-                        noResultMessage()
-                    }
-
                 }
 
                 override fun onFailure(call: Call<ResponseData>, t: Throwable) {
