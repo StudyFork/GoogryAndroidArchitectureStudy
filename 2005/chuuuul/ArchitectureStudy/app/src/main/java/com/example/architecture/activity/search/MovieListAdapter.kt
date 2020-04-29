@@ -14,7 +14,7 @@ import com.example.architecture.vo.MovieVO
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieListAdapter(private val movies: ArrayList<MovieVO>) :
-        RecyclerView.Adapter<MovieViewHolder>() {
+    RecyclerView.Adapter<MovieViewHolder>() {
 
     private lateinit var context: Context
 
@@ -45,9 +45,9 @@ class MovieListAdapter(private val movies: ArrayList<MovieVO>) :
         }
     }
 
-    private fun setMovieImage(imageView: ImageView, imageUrl: String?) {
+    private fun setMovieImage(imageView: ImageView, imageUrl: String) {
 
-        val url = if (imageUrl == "") NO_IMAGE_URL else imageUrl
+        val url = if (imageUrl.isEmpty()) NO_IMAGE_URL else imageUrl
 
         Glide.with(context)
             .load(url).placeholder(R.drawable.ic_loading_black_24dp)

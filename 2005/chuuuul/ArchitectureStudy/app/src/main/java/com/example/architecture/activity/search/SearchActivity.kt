@@ -71,7 +71,7 @@ class SearchActivity : AppCompatActivity(), Callback<MovieResponseVO> {
         var isValid = true
         var errorString = ""
 
-        if (keyword == "") {
+        if (keyword.isEmpty()) {
             isValid = false
             errorString = "검색어를 입력하세요"
         }
