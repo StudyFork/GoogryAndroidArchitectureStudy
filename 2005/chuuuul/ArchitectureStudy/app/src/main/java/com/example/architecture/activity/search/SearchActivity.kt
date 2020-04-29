@@ -45,7 +45,7 @@ class SearchActivity : AppCompatActivity(), Callback<MovieResponseVO> {
         }
 
         // * 키보드 엔터 클릭 시 검색
-        et_search_searchName.setOnKeyListener { _, keyCode, _ ->
+        edt_search_searchName.setOnKeyListener { _, keyCode, _ ->
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 btn_search_searchButton.callOnClick()
                 true
@@ -58,7 +58,7 @@ class SearchActivity : AppCompatActivity(), Callback<MovieResponseVO> {
     // * 검색
     
     private fun searchMovie() {
-        val keyWord = et_search_searchName.text.toString()
+        val keyWord = edt_search_searchName.text.toString()
 
         if (isValidKeyword(keyWord)) {
             val service: MovieSearchService = retrofit.create(MovieSearchService::class.java)
