@@ -16,7 +16,18 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug{
+            buildConfigField("String", "NAVER_API_URL", '"https://openapi.naver.com/v1/search/movie.json"')
+            buildConfigField("String", "X_NAVER_CLIENT_ID", '"ODK9MahW0fWrdX0wQnXL"')
+            buildConfigField("String", "X_NAVER_CLIENT_SECRET", '"Cf72qvUQ0N"')
+            buildConfigField("String", "Naver_Client_Secret", '"Cf72qvUQ0N"')
+        }
         release {
+            buildConfigField("String", "NAVER_API_URL", '"https://openapi.naver.com/v1/search/movie.json"')
+            buildConfigField("String", "X_NAVER_CLIENT_ID", '"ODK9MahW0fWrdX0wQnXL"')
+            buildConfigField("String", "X_NAVER_CLIENT_SECRET", '"Cf72qvUQ0N"')
+            buildConfigField("String", "Naver_Client_Secret", '"Cf72qvUQ0N"')
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -32,4 +43,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    // retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.5.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.3.0"
+    // okhttp interceptor
+    implementation "com.squareup.okhttp3:logging-interceptor:3.9.1"
 }
