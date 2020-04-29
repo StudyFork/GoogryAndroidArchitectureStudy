@@ -7,7 +7,7 @@
     tools:context=".activity.search.SearchActivity">
 
     <EditText
-        android:id="@+id/editText_search_searchName"
+        android:id="@+id/et_search_searchName"
         android:hint="검색 할 영화를 입력하세요"
         android:maxLines="1"
         android:inputType="text"
@@ -16,19 +16,19 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/button_search_searchButton"
+        app:layout_constraintEnd_toStartOf="@+id/btn_search_searchButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button_search_searchButton"
+        android:id="@+id/btn_search_searchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="검색"
-        app:layout_constraintBottom_toBottomOf="@+id/editText_search_searchName"
+        app:layout_constraintBottom_toBottomOf="@+id/et_search_searchName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText_search_searchName" />
+        app:layout_constraintTop_toTopOf="@+id/et_search_searchName" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_search_movieList"
@@ -38,7 +38,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_search_searchName" />
+        app:layout_constraintTop_toBottomOf="@+id/et_search_searchName" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

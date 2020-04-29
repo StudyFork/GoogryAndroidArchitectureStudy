@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imageView_movie_Image"
+        android:id="@+id/img_movie_Image"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintDimensionRatio="1:1.4"
@@ -17,24 +17,24 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView_movie_title"
+        android:id="@+id/tv_movie_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@+id/imageView_movie_Image"
-        app:layout_constraintStart_toStartOf="@+id/imageView_movie_Image"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_movie_Image" />
+        app:layout_constraintEnd_toEndOf="@+id/img_movie_Image"
+        app:layout_constraintStart_toStartOf="@+id/img_movie_Image"
+        app:layout_constraintTop_toBottomOf="@+id/img_movie_Image" />
 
     <TextView
-        android:id="@+id/textView_movie_pubDate"
+        android:id="@+id/tv_movie_pubDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@+id/imageView_movie_Image"
-        app:layout_constraintStart_toStartOf="@+id/imageView_movie_Image"
-        app:layout_constraintTop_toBottomOf="@+id/textView_movie_title" />
+        app:layout_constraintEnd_toEndOf="@+id/img_movie_Image"
+        app:layout_constraintStart_toStartOf="@+id/img_movie_Image"
+        app:layout_constraintTop_toBottomOf="@+id/tv_movie_title" />
 
     <RatingBar
         android:id="@+id/ratingBar_movie_rating"
@@ -51,9 +51,9 @@
         android:rating="3"
         android:stepSize="0.5"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageView_movie_Image"
-        app:layout_constraintStart_toStartOf="@+id/imageView_movie_Image"
-        app:layout_constraintTop_toBottomOf="@+id/textView_movie_pubDate" />
+        app:layout_constraintEnd_toEndOf="@+id/img_movie_Image"
+        app:layout_constraintStart_toStartOf="@+id/img_movie_Image"
+        app:layout_constraintTop_toBottomOf="@+id/tv_movie_pubDate" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
