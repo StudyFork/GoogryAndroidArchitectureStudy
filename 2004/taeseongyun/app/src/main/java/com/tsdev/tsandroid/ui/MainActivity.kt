@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.tsdev.tsandroid.R
@@ -93,9 +94,14 @@ class MainActivity : BaseActivity<MoviePresenter, ActivityMainBinding>(),
     }
 
     override fun showSearchResult(items: List<Item>) {
-        movieRecyclerAdapter.clear()
-        movieRecyclerAdapter.addItems(items)
-        movieRecyclerAdapter.notifiedDataChange()
+        items.takeIf (List<Item>::isNotEmpty)?.run {
+            movieRecyclerAdapter.clear()
+            movieRecyclerAdapter.addItems(items)
+            movieRecyclerAdapter.notifiedDataChange()
+        } ?: run {
+            movieRecyclerAdapter.clear()
+            showToastMessage(getString(R.string.non_search_result))
+        }
     }
 
     override fun removeAll() {
