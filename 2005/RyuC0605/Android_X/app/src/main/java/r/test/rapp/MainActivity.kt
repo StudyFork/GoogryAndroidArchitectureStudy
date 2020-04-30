@@ -1,6 +1,10 @@
 package r.test.rapp
 
+import android.app.Notification
 import android.app.ProgressDialog
+import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,6 +16,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.AdapterView
 import android.widget.BaseAdapter
 import android.widget.EditText
 import android.widget.Toast
@@ -95,14 +100,30 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<MovieVo>, response: Response<MovieVo>) {
                 var adt = response.body()?.let { MovieAdapter(response.body()!!.items) };
                 lv_contents.adapter = adt;
+                lv_contents.onItemClickListener =
+                    AdapterView.OnItemClickListener { parent, view, position, id ->
+
+                        val webIntent: Intent =
+                            Uri.parse(response.body()!!.items[position].link).let { webpage ->
+                                Intent(Intent.ACTION_VIEW, webpage)
+                            }
+
+                        startActivity(webIntent)
+
+                    }
                 mProgress?.hide()
             }
         }
         )
     }
 
+    override fun onResume() {
+        super.onResume()
+        //네트워크 체크 코드는 퍼미션 체크까지 필요하므로 불필요 코드를 줄이기 위해 패스. 요구사항에도 없었음.
+    }
+
     /**
-     * 리스트 뷰의 커스텀 아답터. 
+     * 리스트 뷰의 커스텀 아답터.
      */
     class MovieAdapter(var items: List<Item>) : BaseAdapter() {
 
