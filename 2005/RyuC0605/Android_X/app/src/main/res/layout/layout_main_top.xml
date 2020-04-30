@@ -10,7 +10,10 @@
         android:id="@+id/edt_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.7" />
+        android:layout_weight="0.7"
+        android:hint="@string/enter_keyword"
+        android:imeOptions="actionSearch"
+        android:inputType="text" />
 
     <Button
         android:layout_width="0dp"

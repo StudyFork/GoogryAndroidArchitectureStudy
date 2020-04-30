@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="row_content_height">45dp</dimen>
+    <dimen name="row_content_height">65dp</dimen>
 </resources>
