@@ -23,15 +23,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         btn_search.setOnClickListener {
-            if (et_search.text.toString().isEmpty()) {
-
+            if (et_search.text.toString().isEmpty())
                 return@setOnClickListener
-
-            } else if (searchData.count() > 0) {
-
+            else if (searchData.count() > 0)
                 removeAllItems()
-                doSearch(et_search.text.toString())
-            }
+
+            doSearch(et_search.text.toString())
         }
         setRecyclerView()
     }
