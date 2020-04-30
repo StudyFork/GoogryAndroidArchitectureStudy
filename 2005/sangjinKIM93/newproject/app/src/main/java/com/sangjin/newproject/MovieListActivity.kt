@@ -72,6 +72,6 @@ class MovieListActivity : AppCompatActivity() {
         movieListView.visibility = View.INVISIBLE
         guideMessageToInput.visibility = View.VISIBLE
 
-        guideMessageToInput.text = "검색 결과가 없습니다."
+        guideMessageToInput.text = resources.getString(R.string.no_movie_list)
     }
 }
