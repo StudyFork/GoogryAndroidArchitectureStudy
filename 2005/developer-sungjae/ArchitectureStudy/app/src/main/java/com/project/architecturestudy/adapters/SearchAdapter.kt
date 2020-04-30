@@ -7,14 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.project.architecturestudy.R
+import com.project.architecturestudy.components.parseHTMLTag
 import com.project.architecturestudy.models.MovieData
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.movie_item.view.*
 
-class SearchAdapter(private val searchData: ArrayList<MovieData.Items>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SearchAdapter(private val searchData: ArrayList<MovieData.Items>) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return SearchingResultHolder(LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false))
+        return SearchingResultHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -40,10 +44,10 @@ class SearchingResultHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
                 .fit()
                 .into(itemView.iv_movie)
         }
-        itemView.tv_title.text = searchData.title
-        itemView.tv_subTitle.text = searchData.subtitle
-        itemView.tv_pubDate.text = searchData.pubDate
-        itemView.tv_actors.text = searchData.actor
+        itemView.tv_title.text = searchData.title.parseHTMLTag()
+        itemView.tv_subTitle.text = searchData.subtitle.parseHTMLTag()
+        itemView.tv_pubDate.text = searchData.pubDate.parseHTMLTag()
+        itemView.tv_actors.text = searchData.actor.parseHTMLTag()
         itemView.setOnClickListener {
             val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(searchData.link))
             itemView.context.startActivity(webIntent)
