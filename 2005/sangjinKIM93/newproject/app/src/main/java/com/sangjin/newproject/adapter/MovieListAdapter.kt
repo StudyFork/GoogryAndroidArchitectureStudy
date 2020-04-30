@@ -1,6 +1,8 @@
 package com.sangjin.newproject.adapter
 
 import android.content.Context
+import android.os.Build
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -24,7 +26,7 @@ class MovieListAdapter (private val movieList: List<Movie>, private val context:
     }
 
     override fun onBindViewHolder(holder: MovieListViewHolder, position: Int) {
-        holder.containerView.movieTitleTV.text = deleteHTMLTag(movieList.get(position).title)
+        holder.containerView.movieTitleTV.text = movieList.get(position).title.htmlToString()
 
         Glide.with(context)
             .load(movieList.get(position).image)
@@ -40,11 +42,12 @@ class MovieListAdapter (private val movieList: List<Movie>, private val context:
         return position.toLong()
     }
 
-    private fun deleteHTMLTag(str: String): String{
-        var strEdited = str.replace("<b>", "")
-        strEdited = strEdited.replace("</b>", "")
-
-        return strEdited
+    fun String.htmlToString() : String{
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY).toString()
+        } else {
+            return Html.fromHtml(this).toString()
+        }
     }
 
 }
