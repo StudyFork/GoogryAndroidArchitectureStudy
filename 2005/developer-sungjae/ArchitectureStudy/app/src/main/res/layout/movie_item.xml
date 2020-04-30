@@ -34,7 +34,7 @@
         app:layout_constraintBottom_toTopOf="@id/tv_subTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_movie"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/iv_movie"
         tools:text="@string/tools_tv_title" />
 
     <TextView
