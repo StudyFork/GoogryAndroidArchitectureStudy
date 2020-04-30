@@ -11,7 +11,7 @@ import com.project.architecturestudy.models.MovieData
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.movie_item.view.*
 
-class SearchAdapter(var searchData: ArrayList<MovieData.Items>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SearchAdapter(private var searchData: ArrayList<MovieData.Items>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return SearchingResultHolder(LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false))
