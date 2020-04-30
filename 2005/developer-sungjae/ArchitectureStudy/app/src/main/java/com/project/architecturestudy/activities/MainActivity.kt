@@ -15,14 +15,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var searchData: ArrayList<MovieData.Items>
+    private val searchData: ArrayList<MovieData.Items> = ArrayList()
     private var adapter: SearchAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        searchData = ArrayList()
 
         btn_search.setOnClickListener {
             if (et_search.text.toString().isEmpty()) {
