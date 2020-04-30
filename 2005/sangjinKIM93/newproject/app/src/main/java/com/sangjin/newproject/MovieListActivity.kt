@@ -1,6 +1,7 @@
 package com.sangjin.newproject
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -62,8 +63,7 @@ class MovieListActivity : AppCompatActivity() {
 
         //각 항목 클릭시 이벤트
         movieListAdapter.onItemClickListener = {position ->
-            val intent = Intent(this, MovieDetailActiviry::class.java)
-            intent.putExtra("LINK", movieList.get(position).link)
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movieList.get(position).link))
             startActivity(intent)
         }
     }
