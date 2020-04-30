@@ -16,7 +16,16 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug{
+            buildConfigField("String", "NAVER_API_URL", '"https://openapi.naver.com/"')
+            buildConfigField("String", "X_Naver_Client_Id", '"Eoo188aalN5O119lfhGY"')
+            buildConfigField("String", "X_Naver_Client_Secret", '"siIgsqKRng"')
+        }
         release {
+            buildConfigField("String", "NAVER_API_URL", '"https://openapi.naver.com/"')
+            buildConfigField("String", "X_Naver_Client_Id", '"Eoo188aalN5O119lfhGY"')
+            buildConfigField("String", "X_Naver_Client_Secret", '"siIgsqKRng"')
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

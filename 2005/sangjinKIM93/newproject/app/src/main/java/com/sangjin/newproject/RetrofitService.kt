@@ -12,8 +12,8 @@ import retrofit2.http.Query
 interface RetrofitService {
 
     @Headers(
-        "X-Naver-Client-Id: Eoo188aalN5O119lfhGY",
-        "X-Naver-Client-Secret: siIgsqKRng"
+        "X-Naver-Client-Id: ${BuildConfig.X_Naver_Client_Id}",
+        "X-Naver-Client-Secret: ${BuildConfig.X_Naver_Client_Secret}"
     )
     @GET("/v1/search/movie.json")
     fun requestMovieList(
@@ -24,7 +24,7 @@ interface RetrofitService {
 
 //retrofit 객체 생성
 private val retrofit = Retrofit.Builder()
-    .baseUrl("https://openapi.naver.com/")
+    .baseUrl(BuildConfig.NAVER_API_URL)
     .addConverterFactory(GsonConverterFactory.create())
     .build()
 
