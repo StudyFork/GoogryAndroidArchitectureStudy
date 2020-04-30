@@ -7,6 +7,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.lllccww.studyforkproject.R
 import com.lllccww.studyforkproject.SearchRetrofit
 import com.lllccww.studyforkproject.model.Movie
@@ -32,29 +33,30 @@ class MainActivity : AppCompatActivity() {
 
 
         rv_movie_list.layoutManager = LinearLayoutManager(this)
+        movieListAdapter = MovieListAdapter(this)
+        rv_movie_list.adapter = movieListAdapter
 
-/*        rv_movie_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        rv_movie_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val lastVisibleItemPosition =
-                    (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
-                val itemTotalCount = recyclerView.adapter!!.itemCount
-                if (lastVisibleItemPosition + 1 == itemTotalCount) { //스크롤 마지막(바닥)
+                val lastVisibleItemPosition = (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
+                val itemTotalCount = recyclerView.adapter!!.itemCount -1
+                if (lastVisibleItemPosition  == itemTotalCount) { //스크롤 마지막(바닥)
                     Log.d("fail : ", "---------------바닥------")
                     if (start < total) {
-                        requestSearchMovie(start + 1)
+                        requestSearchMovie(start + 10)
                     } else {
                         Toast.makeText(this@MainActivity, "마지막 페이지입니다.", Toast.LENGTH_SHORT).show()
                     }
 
                 }
             }
-        })*/
+        })
 
 
         btn_search.setOnClickListener {
-
+            movieListAdapter.clear()
             closeKeyboard()
             requestSearchMovie(start)
         }
@@ -72,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
                     if (response.isSuccessful) {
-                        movieList.clear()
+                        //movieList.clear()
 
 
                         val movieData = response.body()
@@ -82,20 +84,24 @@ class MainActivity : AppCompatActivity() {
                                 .show()
                         }
                         Log.d("movie : ", movieData.toString())
+
                         total = Integer.parseInt(movieData!!.total)
                         start = Integer.parseInt(movieData!!.start)
                         display = Integer.parseInt(movieData!!.display)
+                        Log.d("start : ", start.toString())
+                        Log.d("total : ", total.toString())
+                        Log.d("display : ", display.toString())
 
-
-                        for (i in 0 until display) {
+                      /*  for (i in 0 until display) {
                             movieList!!.add(movieData.items[i])
                             Log.d("movieList : ", movieList.toString())
-                        }
+                        }*/
+                        movieListAdapter.setItems(movieData.items)
 
 
-                        movieListAdapter = MovieListAdapter(this@MainActivity, movieList!!)
+                  /*      movieListAdapter = MovieListAdapter(this@MainActivity)
                         rv_movie_list.adapter = movieListAdapter
-                        movieListAdapter.notifyDataSetChanged()
+                        movieListAdapter.notifyDataSetChanged()*/
 
                     }
                 }
