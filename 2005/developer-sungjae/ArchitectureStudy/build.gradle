@@ -10,6 +10,7 @@ buildscript {
         rxandroid_version = '2.1.1'
         picasso_version = '2.71828'
         jsoup_version = '1.13.1'
+        commonstext_version = '1.7'
     }
     repositories {
         google()
