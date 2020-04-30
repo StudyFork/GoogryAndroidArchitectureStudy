@@ -20,13 +20,11 @@ android {
             buildConfigField("String", "NAVER_API_URL", '"https://openapi.naver.com"')
             buildConfigField("String", "X_NAVER_CLIENT_ID", '"ODK9MahW0fWrdX0wQnXL"')
             buildConfigField("String", "X_NAVER_CLIENT_SECRET", '"Cf72qvUQ0N"')
-            buildConfigField("String", "Naver_Client_Secret", '"Cf72qvUQ0N"')
         }
         release {
             buildConfigField("String", "NAVER_API_URL", '"https://openapi.naver.com"')
             buildConfigField("String", "X_NAVER_CLIENT_ID", '"ODK9MahW0fWrdX0wQnXL"')
             buildConfigField("String", "X_NAVER_CLIENT_SECRET", '"Cf72qvUQ0N"')
-            buildConfigField("String", "Naver_Client_Secret", '"Cf72qvUQ0N"')
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
