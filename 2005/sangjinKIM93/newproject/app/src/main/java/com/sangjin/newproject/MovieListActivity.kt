@@ -24,14 +24,15 @@ import retrofit2.Response
 
 class MovieListActivity : AppCompatActivity() {
 
-    private var movieList = listOf<Movie>()
+    private var movieList = ArrayList<Movie>()
     private lateinit var movieListAdapter: MovieListAdapter
-    private val linearLayoutManager = LinearLayoutManager(this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_list)
+
+        setRecyclerView()
 
         movieNameET.setOnEditorActionListener { v, actionId, event ->
             if(actionId == EditorInfo.IME_ACTION_SEARCH){
@@ -83,7 +84,9 @@ class MovieListActivity : AppCompatActivity() {
 
     }
 
-
+    /**
+     * 검색 결과 받아서 출력
+     */
     private fun getMovieList(keyWord: String){
 
         MovieApi.retrofitService.requestMovieList(keyword = keyWord)
@@ -92,11 +95,14 @@ class MovieListActivity : AppCompatActivity() {
                     val result = response.body()?.items
 
                     if (result.isNullOrEmpty()) {
-                        noResultMessage()
+                        movieList.clear()
+                        movieListAdapter.notifyDataSetChanged()
+                        Toast.makeText(this@MovieListActivity, R.string.no_movie_list, Toast.LENGTH_SHORT).show()
                     }
                     else{
-                        movieList = result
-                        refreshList()
+                        movieList.clear()
+                        movieList.addAll(result)
+                        movieListAdapter.notifyDataSetChanged()
                     }
                 }
 
@@ -105,13 +111,13 @@ class MovieListActivity : AppCompatActivity() {
             })
     }
 
-    private fun refreshList(){
-        movieListView.layoutManager = linearLayoutManager
+
+    /**
+     * 리사이클러뷰 셋팅
+     */
+    private fun setRecyclerView(){
         movieListAdapter = MovieListAdapter(movieList, this)
         movieListView.adapter = movieListAdapter
-
-        movieListView.visibility = View.VISIBLE
-        guideMessageToInput.visibility = View.INVISIBLE
 
         //각 항목 클릭시 이벤트
         movieListAdapter.onItemClickListener = {position ->
@@ -120,11 +126,5 @@ class MovieListActivity : AppCompatActivity() {
         }
     }
 
-    private fun noResultMessage(){
-        movieListView.visibility = View.INVISIBLE
-        guideMessageToInput.visibility = View.VISIBLE
-
-        guideMessageToInput.text = resources.getString(R.string.no_movie_list)
-    }
 
 }

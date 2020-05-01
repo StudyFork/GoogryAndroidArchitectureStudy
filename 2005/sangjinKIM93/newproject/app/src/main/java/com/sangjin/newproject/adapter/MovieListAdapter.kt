@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.sangjin.newproject.R
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieListAdapter (private val movieList: List<Movie>, private val context: Context) : RecyclerView.Adapter<MovieListViewHolder>(){
+class MovieListAdapter (private val movieList: ArrayList<Movie>, private val context: Context) : RecyclerView.Adapter<MovieListViewHolder>(){
 
     var onItemClickListener : ((Int)->Unit)? = null
 

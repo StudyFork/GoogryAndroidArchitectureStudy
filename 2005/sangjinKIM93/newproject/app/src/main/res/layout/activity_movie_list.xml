@@ -11,7 +11,7 @@
         android:id="@+id/movieNameET"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:hint="@string/movie_name_hint"
+        android:hint="@string/guide_message_toinput"
         android:inputType="text"
         android:imeOptions="actionSearch"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -41,18 +41,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/movieNameET"
-        android:visibility="invisible"/>
-
-    <TextView
-        android:id="@+id/guideMessageToInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/guide_message_toinput"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movieNameET" />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
