@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
      * 키패드 보여주기.
      */
     fun showKeyPad(v: EditText) {
-        edt_input.requestFocus()
+        v.requestFocus()
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }
 
