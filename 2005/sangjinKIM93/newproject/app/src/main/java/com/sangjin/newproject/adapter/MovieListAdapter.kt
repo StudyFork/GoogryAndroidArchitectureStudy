@@ -30,6 +30,7 @@ class MovieListAdapter (private val movieList: List<Movie>, private val context:
 
         Glide.with(context)
             .load(movieList.get(position).image)
+            .placeholder(R.drawable.img_default)
             .centerCrop()
             .into(holder.containerView.movieImageIV)
 
