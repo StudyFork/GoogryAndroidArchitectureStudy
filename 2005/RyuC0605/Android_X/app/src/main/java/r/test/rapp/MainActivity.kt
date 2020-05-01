@@ -77,9 +77,9 @@ class MainActivity : AppCompatActivity() {
      * 검색버튼 클릭 액션
      */
     fun onClick(view: View) {
-        var api: NaverApi = RetrofitClient.client.create(NaverApi::class.java);
+        var api: NaverApi = RetrofitClient.client.create(NaverApi::class.java)
 
-        var keyword: String = edt_input.text.toString();
+        var keyword: String = edt_input.text.toString()
 
         if (TextUtils.isEmpty(keyword)) {
             Toast.makeText(this@MainActivity, R.string.enter_keyword, Toast.LENGTH_LONG).show()
