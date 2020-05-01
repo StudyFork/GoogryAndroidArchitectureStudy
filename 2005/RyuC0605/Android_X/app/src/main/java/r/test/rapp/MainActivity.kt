@@ -37,13 +37,13 @@ class MainActivity : AppCompatActivity() {
     /**
      * Deprecated 됐지만 구글은 해당 클래스를 아직까지 살려둠. 사실 커스텀 뷰 만들기 귀찮아서 사용...
      */
-    var mProgress: ProgressDialog? = null;
+    var mProgress: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mProgress = ProgressDialog(this);
-        lv_contents.emptyView = txt_empty;
+        mProgress = ProgressDialog(this)
+        lv_contents.emptyView = txt_empty
         edt_input.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 onClick(v)
@@ -60,8 +60,8 @@ class MainActivity : AppCompatActivity() {
      * 키패드 숨기기
      */
     fun hideKeyPad(v: View) {
-        var imm: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager;
-        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        var imm: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(v.getWindowToken(), 0)
 
     }
 
@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
      */
     fun showKeyPad(v: EditText) {
         v.requestFocus()
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }
 
     /**
@@ -99,8 +99,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<MovieVo>, response: Response<MovieVo>) {
-                var adt = response.body()?.let { MovieAdapter(response.body()!!.items) };
-                lv_contents.adapter = adt;
+                var adt = response.body()?.let { MovieAdapter(response.body()!!.items) }
+                lv_contents.adapter = adt
                 lv_contents.onItemClickListener =
                     AdapterView.OnItemClickListener { parent, view, position, id ->
 
@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity() {
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
             var inflater: LayoutInflater = LayoutInflater.from(parent?.context)
             var rowView = inflater.inflate(R.layout.row_content, parent, false)
-            var item = items[position];
+            var item = items[position]
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 rowView.txt_title.setText(Html.fromHtml(item.title, Html.FROM_HTML_MODE_COMPACT))
