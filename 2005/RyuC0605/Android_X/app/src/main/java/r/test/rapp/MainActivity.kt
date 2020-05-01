@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity() {
         edt_input.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 onClick(v)
-                hideKeyPad(v)
                 true
             } else {
                 false
@@ -86,6 +85,8 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this@MainActivity, R.string.enter_keyword, Toast.LENGTH_LONG).show()
             return
         }
+
+        hideKeyPad(edt_input)
 
         mProgress?.show()
 
