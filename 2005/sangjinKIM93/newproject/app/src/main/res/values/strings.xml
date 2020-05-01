@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">newproject</string>
-    <string name="input_btn">입력</string>
+    <string name="search_btn">검색</string>
     <string name="movie_name_hint">영화 이름</string>
     <string name="guide_message_toinput">영화를 검색해주세요</string>
     <string name="no_movie_list">검색 결과가 없습니다</string>
+    <string name="no_keyword">검색어를 입력해주세요</string>
 </resources>
