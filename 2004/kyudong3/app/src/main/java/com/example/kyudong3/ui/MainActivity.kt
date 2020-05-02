@@ -3,19 +3,20 @@ package com.example.kyudong3.ui
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.example.kyudong3.R
 import com.example.kyudong3.adapter.SearchMovieRvAdapter
 import com.example.kyudong3.data.local.MovieDatabase
 import com.example.kyudong3.data.model.Movie
 import com.example.kyudong3.data.repository.MovieRepository
 import com.example.kyudong3.data.repository.MovieRepositoryImpl
+import com.example.kyudong3.databinding.ActivityMainBinding
 import com.example.kyudong3.extension.toast
 import com.example.kyudong3.mapper.MovieLocalMapper
 import com.example.kyudong3.mapper.MovieRemoteMapper
 import com.example.kyudong3.ui.movie.presenter.MovieContract
 import com.example.kyudong3.ui.movie.presenter.MoviePresenter
 import com.example.kyudong3.util.RecyclerViewItemDivider
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MovieContract.View {
     private val movieRvAdapter: SearchMovieRvAdapter by lazy {
@@ -34,16 +35,18 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
         MoviePresenter(this@MainActivity, movieRepository)
     }
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         setMovieRecyclerView()
 
-        searchETxt.setOnEditorActionListener { _, actionId, _ ->
+        binding.searchQuery.setOnEditorActionListener { _, actionId, _ ->
             when (actionId) {
                 EditorInfo.IME_ACTION_UNSPECIFIED, EditorInfo.IME_ACTION_GO -> {
-                    moviePresenter.searchMovie(searchETxt.text.trim().toString())
+                    moviePresenter.searchMovie(binding.searchQuery.text.trim().toString())
                     true
                 }
                 else -> {
@@ -51,14 +54,14 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
                 }
             }
         }
+    }
 
-        searchBtn.setOnClickListener {
-            moviePresenter.searchMovie(searchETxt.text.trim().toString())
-        }
+    fun searchBtnClick(query: String) {
+        moviePresenter.searchMovie(query)
     }
 
     private fun setMovieRecyclerView() {
-        searchRv.apply {
+        binding.searchRv.apply {
             adapter = movieRvAdapter
             addItemDecoration(RecyclerViewItemDivider(this@MainActivity))
         }
