@@ -21,7 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:iconifiedByDefault="false"
-            app:queryHint="검색어를 입력하시오" />
+            app:queryHint="검색어를 입력하시오"
+            app:setOnQueryTextListener="@{activity.searchMovie}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movie_rv"

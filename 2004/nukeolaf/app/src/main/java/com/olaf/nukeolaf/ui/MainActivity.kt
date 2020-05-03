@@ -3,7 +3,6 @@ package com.olaf.nukeolaf.ui
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import com.olaf.nukeolaf.R
 import com.olaf.nukeolaf.data.local.MovieLocalDataSourceImpl
@@ -19,6 +18,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private val movieAdapter = MovieAdapter()
     private lateinit var presenter: MainContract.Presenter
 
+    val searchMovie = { query: String? ->
+        presenter.searchMovie(query)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -26,6 +29,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             this,
             R.layout.activity_main
         )
+        binding.activity = this
 
         movie_rv.adapter = movieAdapter
 
@@ -35,17 +39,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 MovieRemoteDataSourceImpl()
             ), this
         ).apply { loadMovies() }
-
-        search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                presenter.searchMovie(query)
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return false
-            }
-        })
     }
 
     override fun showMovies(movies: List<MovieItem>) {
