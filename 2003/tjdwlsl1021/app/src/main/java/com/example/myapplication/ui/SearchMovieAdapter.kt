@@ -6,15 +6,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.data2.model.Movie
 import com.example.myapplication.BR
 import com.example.myapplication.R
-import com.example.myapplication.data.local.MovieEntity
 import com.example.myapplication.databinding.ItemMovieBinding
 
 class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val movieInfoArrayList: MutableList<MovieEntity> = arrayListOf()
-    private lateinit var onClickListener: (MovieEntity) -> Unit
+    private val movieInfoArrayList: MutableList<Movie> = arrayListOf()
+    private lateinit var onClickListener: (Movie) -> Unit
 
     private lateinit var binding: ItemMovieBinding
 
@@ -40,7 +40,7 @@ class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         movieViewHolder.bind(item)
     }
 
-    fun setOnclickListener(onClickListener: (MovieEntity) -> Unit) {
+    fun setOnclickListener(onClickListener: (Movie) -> Unit) {
         this.onClickListener = onClickListener
     }
 
@@ -48,8 +48,8 @@ class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return movieInfoArrayList.size
     }
 
-    fun addItems(items: List<MovieEntity>?) {
-        items as ArrayList<MovieEntity>
+    fun addItems(items: List<Movie>?) {
+        items as ArrayList<Movie>
         movieInfoArrayList.clear()
         movieInfoArrayList.addAll(items)
         notifyDataSetChanged()
@@ -57,7 +57,7 @@ class SearchMovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class MovieViewHolder(private val binding: ItemMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: MovieEntity) {
+        fun bind(data: Movie) {
             binding.setVariable(BR.movie, data)
             binding.executePendingBindings()
         }

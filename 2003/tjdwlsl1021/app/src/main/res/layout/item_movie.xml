@@ -7,7 +7,7 @@
 
         <variable
             name="movie"
-            type="com.example.myapplication.data.local.MovieEntity" />
+            type="com.example.data2.model.Movie" />
 
     </data>
 
