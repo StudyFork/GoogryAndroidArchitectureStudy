@@ -1,5 +1,7 @@
 package com.olaf.nukeolaf.ui
 
+import android.os.Build
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +15,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieItemViewHolder>() {
     fun setMovies(list: List<MovieItem>) {
         this.movies.apply {
             clear()
-            addAll(list)
+            addAll(processMovieItemString(list))
         }
         notifyDataSetChanged()
     }
@@ -30,5 +32,39 @@ class MovieAdapter : RecyclerView.Adapter<MovieItemViewHolder>() {
 
     override fun onBindViewHolder(holder: MovieItemViewHolder, position: Int) {
         holder.bind(movies[position])
+    }
+
+    private fun processMovieItemString(movies: List<MovieItem>): List<MovieItem> {
+        for (movie in movies) {
+            movie.apply {
+                title = title.htmlToString()
+                subtitle = subtitle.htmlToString()
+                director = director.addCommas("감독 : ")
+                actor = actor.addCommas("출연진 : ")
+            }
+        }
+        return movies
+    }
+
+    private fun String.htmlToString(): String {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY).toString()
+        } else {
+            Html.fromHtml(this).toString()
+        }
+    }
+
+    private fun String.addCommas(prefix: String): String {
+        return if (this.isNotEmpty()) {
+            this.substring(0, this.length - 1)
+                .split("|")
+                .joinToString(
+                    prefix = prefix,
+                    separator = ", "
+                )
+        } else {
+            this
+        }
+
     }
 }
