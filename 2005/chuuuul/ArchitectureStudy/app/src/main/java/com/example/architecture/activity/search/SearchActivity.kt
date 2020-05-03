@@ -71,7 +71,7 @@ class SearchActivity : AppCompatActivity(), Callback<MovieResponseVO> {
         var isValid = true
         var errorString = ""
 
-        if (keyword.isEmpty()) {
+        if (keyword.isBlank()) {
             isValid = false
             errorString = getString(R.string.empty_keyword)
         }
