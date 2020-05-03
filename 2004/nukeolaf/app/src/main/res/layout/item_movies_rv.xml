@@ -37,6 +37,7 @@
                     android:id="@+id/movie_image"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintWidth_percent="0.4"
                     app:movieImage="@{movieItem.image}" />
