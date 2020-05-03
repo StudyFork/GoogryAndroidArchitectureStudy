@@ -4,15 +4,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.text.Html
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.olaf.nukeolaf.R
 import com.olaf.nukeolaf.data.model.MovieItem
-import kotlinx.android.synthetic.main.item_movies_rv.view.*
+import com.olaf.nukeolaf.databinding.ItemMoviesRvBinding
 
-class MovieItemViewHolder(itemView: View) :
-    RecyclerView.ViewHolder(itemView) {
+class MovieItemViewHolder(private val binding: ItemMoviesRvBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
     private lateinit var movieItem: MovieItem
 
@@ -25,19 +22,9 @@ class MovieItemViewHolder(itemView: View) :
 
     fun bind(item: MovieItem) {
         movieItem = item
-        itemView.apply {
-            movie_title.text = item.title.htmlToString()
-            movie_subtitle.text = item.subtitle
-            movie_pub_date.text = item.pubDate
-            movie_director.text = item.director.addCommas("감독 : ")
-            movie_actor.text = item.actor.addCommas("출연진 : ")
-            movie_rating.numStars = 5
-            movie_rating.rating = item.userRating / 2
-
-            Glide.with(this)
-                .load(item.image)
-                .error(R.drawable.ic_launcher_foreground)
-                .into(this.movie_image)
+        with(binding) {
+            movieItem = item
+            executePendingBindings()
         }
     }
 
