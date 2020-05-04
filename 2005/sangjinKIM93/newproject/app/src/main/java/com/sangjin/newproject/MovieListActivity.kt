@@ -52,7 +52,7 @@ class MovieListActivity : AppCompatActivity() {
     /**
      * 키패드 보여주기
      */
-    fun showKeyPad(){
+    private fun showKeyPad(){
         movieNameET.requestFocus()
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }
@@ -61,7 +61,7 @@ class MovieListActivity : AppCompatActivity() {
     /**
      * 키패드 숨기기
      */
-    fun hideKeyPad(v: View){
+    private fun hideKeyPad(v: View){
         val imm : InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(v.windowToken, 0)
     }
