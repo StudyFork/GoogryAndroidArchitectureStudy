@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.architecture.ConstValue.Companion.NO_IMAGE_URL
 import com.example.architecture.R
 import com.example.architecture.vo.MovieVO
 import kotlinx.android.synthetic.main.item_movie.view.*
@@ -17,7 +18,6 @@ class MovieListAdapter :
     RecyclerView.Adapter<MovieViewHolder>() {
 
     private val movies = ArrayList<MovieVO>()
-    private val NO_IMAGE_URL = "https://ssl.pstatic.net/static/movie/2012/06/dft_img133x190.png"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
 
