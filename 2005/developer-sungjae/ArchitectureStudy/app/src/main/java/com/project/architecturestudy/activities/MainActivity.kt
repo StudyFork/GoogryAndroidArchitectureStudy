@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.architecturestudy.R
 import com.project.architecturestudy.adapters.SearchAdapter
 import com.project.architecturestudy.components.RetrofitService
@@ -47,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .subscribe({ movie ->
                 searchData.addAll(movie.items)
+                adapter?.addData(searchData)
                 adapter?.notifyDataSetChanged()
             },
                 { error ->
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setRecyclerView() {
-        adapter = SearchAdapter(searchData)
+        adapter = SearchAdapter()
         listview_movie.adapter = adapter
     }
 }
