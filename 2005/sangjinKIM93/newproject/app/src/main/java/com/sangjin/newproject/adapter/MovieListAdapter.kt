@@ -34,10 +34,12 @@ class MovieListAdapter(list: ArrayList<Movie>) : RecyclerView.Adapter<MovieListV
     }
 
     override fun onBindViewHolder(holder: MovieListViewHolder, position: Int) {
-        holder.containerView.movieTitleTV.text = movieList.get(position).title.htmlToString()
+        val movie = movieList.get(position)
+
+        holder.containerView.movieTitleTV.text = movie.title.htmlToString()
 
         Glide.with(context)
-            .load(movieList.get(position).image)
+            .load(movie.image)
             .placeholder(R.drawable.img_default)
             .centerCrop()
             .into(holder.containerView.movieImageIV)
