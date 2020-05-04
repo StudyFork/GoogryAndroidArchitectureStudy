@@ -68,18 +68,12 @@ class SearchActivity : AppCompatActivity(), Callback<MovieResponseVO> {
     }
 
     private fun isValidKeyword(keyword: String): Boolean {
-        var isValid = true
-        var errorString = ""
 
         if (keyword.isBlank()) {
-            isValid = false
-            errorString = getString(R.string.empty_keyword)
+            Toast.makeText(this, getString(R.string.empty_keyword), Toast.LENGTH_SHORT).show()
+            return false
         }
-
-        if (!isValid)
-            Toast.makeText(this, errorString, Toast.LENGTH_SHORT).show()
-
-        return isValid
+        return true
     }
 
     // * RecyclerView
