@@ -98,11 +98,10 @@ class SearchActivity : AppCompatActivity(), Callback<MovieResponseVO> {
 
         val result = response.body()
 
-        if (result != null) {
-
-            if (result.total > 0) {
+        result?.also {
+            if (it.total > 0) {
                 movies.clear()
-                movies.addAll(response.body()?.movies!!)
+                movies.addAll(it.movies)
                 recyclerview_search_movieList.adapter?.notifyDataSetChanged()
             } else {
                 movies.clear()
