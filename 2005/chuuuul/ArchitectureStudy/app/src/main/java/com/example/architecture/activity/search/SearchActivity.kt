@@ -6,6 +6,7 @@ import android.view.KeyEvent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.architecture.ConstValue.Companion.MOVIE_SEARCH_API_URL
 import com.example.architecture.R
 import com.example.architecture.retrofit.MovieSearchService
 import com.example.architecture.vo.MovieResponseVO
@@ -18,8 +19,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class SearchActivity : AppCompatActivity(), Callback<MovieResponseVO> {
-
-    private val MOVIE_SEARCH_API_URL = "https://openapi.naver.com"
 
     private val movies = ArrayList<MovieVO>()
     private val adapter = MovieListAdapter()
