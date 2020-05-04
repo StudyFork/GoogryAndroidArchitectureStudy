@@ -12,8 +12,11 @@ import com.project.architecturestudy.models.MovieData
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.movie_item.view.*
 
-class SearchAdapter(private val searchData: ArrayList<MovieData.Items>) :
+class SearchAdapter :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private lateinit var searchList: ArrayList<MovieData.Items>
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return SearchingResultHolder(
@@ -23,13 +26,17 @@ class SearchAdapter(private val searchData: ArrayList<MovieData.Items>) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is SearchingResultHolder -> holder.bindItem(searchData[position])
+            is SearchingResultHolder -> holder.bindItem(searchList[position])
 
 
         }
     }
 
-    override fun getItemCount(): Int = searchData.count()
+    override fun getItemCount(): Int = searchList.count()
+
+    fun addData(searchData: ArrayList<MovieData.Items>) {
+        this.searchList = searchData
+    }
 
 }
 
