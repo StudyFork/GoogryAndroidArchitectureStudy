@@ -10,12 +10,12 @@ import com.bumptech.glide.Glide
 import com.sangjin.newproject.R
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieListAdapter (list: ArrayList<Movie>) : RecyclerView.Adapter<MovieListViewHolder>(){
+class MovieListAdapter(list: ArrayList<Movie>) : RecyclerView.Adapter<MovieListViewHolder>() {
 
-    private var movieList : ArrayList<Movie> = list
+    private var movieList: ArrayList<Movie> = list
     private lateinit var context: Context
 
-    var onItemClickListener : ((Int)->Unit)? = null
+    var onItemClickListener: ((Int) -> Unit)? = null
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieListViewHolder {
@@ -23,12 +23,14 @@ class MovieListAdapter (list: ArrayList<Movie>) : RecyclerView.Adapter<MovieList
 
         val item = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
 
-        item.setOnClickListener{
-            var position: Long = item.tag as Long
-            onItemClickListener?.invoke(position.toInt())
+        val movieListViewHolder = MovieListViewHolder(item)
+
+        item.setOnClickListener {
+            var position = movieListViewHolder.adapterPosition
+            onItemClickListener?.invoke(position)
         }
 
-        return MovieListViewHolder(item)
+        return movieListViewHolder
     }
 
     override fun onBindViewHolder(holder: MovieListViewHolder, position: Int) {
@@ -45,11 +47,8 @@ class MovieListAdapter (list: ArrayList<Movie>) : RecyclerView.Adapter<MovieList
 
     override fun getItemCount() = movieList.size
 
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
 
-    fun String.htmlToString() : String{
+    fun String.htmlToString(): String {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY).toString()
         } else {
