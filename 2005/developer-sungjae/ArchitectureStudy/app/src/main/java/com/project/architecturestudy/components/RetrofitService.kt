@@ -3,6 +3,7 @@ package com.project.architecturestudy.components
 import com.project.architecturestudy.BuildConfig
 import com.project.architecturestudy.components.Constants.NAVER_SEARCH_BASE_URL
 import com.project.architecturestudy.models.MovieData
+import com.squareup.picasso.BuildConfig
 import io.reactivex.Flowable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -14,7 +15,7 @@ import retrofit2.http.Query
 
 interface RetrofitService {
 
-    @GET("movie.json")
+    @GET("v1/search/movie.json")
     fun getMovies(@Query("query") title: String): Flowable<MovieData>
 
     companion object ServiceFactory {
