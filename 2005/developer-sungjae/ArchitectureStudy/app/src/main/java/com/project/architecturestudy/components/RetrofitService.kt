@@ -3,7 +3,6 @@ package com.project.architecturestudy.components
 import com.project.architecturestudy.BuildConfig
 import com.project.architecturestudy.components.Constants.NAVER_SEARCH_BASE_URL
 import com.project.architecturestudy.models.MovieData
-import com.squareup.picasso.BuildConfig
 import io.reactivex.Flowable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -29,7 +28,6 @@ interface RetrofitService {
                 builder.addInterceptor(interceptor)
             }
 
-            // 헤더에 UserAgent
             builder.addInterceptor {
                 val request =
                     it.request().newBuilder()
