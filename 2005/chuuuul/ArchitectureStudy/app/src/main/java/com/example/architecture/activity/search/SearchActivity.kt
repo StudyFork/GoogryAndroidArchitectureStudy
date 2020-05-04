@@ -2,7 +2,7 @@ package com.example.architecture.activity.search
 
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.architecture.ConstValue.Companion.MOVIE_SEARCH_API_URL
@@ -44,8 +44,8 @@ class SearchActivity : AppCompatActivity(), Callback<MovieResponseVO> {
         }
 
         // * 키보드 엔터 클릭 시 검색
-        edt_search_searchName.setOnKeyListener { _, keyCode, _ ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+        edt_search_searchName.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 btn_search_searchButton.callOnClick()
                 true
             } else
