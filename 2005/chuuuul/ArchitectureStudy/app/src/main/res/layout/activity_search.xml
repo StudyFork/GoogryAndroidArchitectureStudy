@@ -33,6 +33,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_search_movieList"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"

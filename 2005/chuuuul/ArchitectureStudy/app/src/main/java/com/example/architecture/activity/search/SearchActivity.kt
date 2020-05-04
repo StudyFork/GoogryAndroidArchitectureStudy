@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.KeyEvent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
 import com.example.architecture.ConstValue.Companion.MOVIE_SEARCH_API_URL
 import com.example.architecture.R
 import com.example.architecture.retrofit.MovieSearchService
@@ -79,12 +78,8 @@ class SearchActivity : AppCompatActivity(), Callback<MovieResponseVO> {
     // * RecyclerView
 
     private fun setRecyclerview() {
-
-        val gridLayoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
-
         adapter.addNewItems(movies)
         recyclerview_search_movieList.adapter = adapter
-        recyclerview_search_movieList.layoutManager = gridLayoutManager
     }
 
     // * Retrofit Response
