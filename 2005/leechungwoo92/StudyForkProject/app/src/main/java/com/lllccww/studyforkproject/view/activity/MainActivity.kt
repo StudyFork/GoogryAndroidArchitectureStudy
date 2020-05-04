@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
                         Log.d("display : ", display.toString())
 
 
-                        movieListAdapter.setItems(movieData.items)
+                        movieListAdapter.addItems(movieData.items)
 
 
                     }
