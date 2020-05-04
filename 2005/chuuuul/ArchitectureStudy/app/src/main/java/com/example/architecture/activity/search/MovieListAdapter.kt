@@ -13,9 +13,10 @@ import com.example.architecture.R
 import com.example.architecture.vo.MovieVO
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieListAdapter(private val movies: ArrayList<MovieVO>) :
+class MovieListAdapter :
     RecyclerView.Adapter<MovieViewHolder>() {
 
+    private val movies = ArrayList<MovieVO>()
     private val NO_IMAGE_URL = "https://ssl.pstatic.net/static/movie/2012/06/dft_img133x190.png"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -43,6 +44,16 @@ class MovieListAdapter(private val movies: ArrayList<MovieVO>) :
             openWebPage(it.context, movie.link)
         }
     }
+
+    fun addNewItems(movieList : ArrayList<MovieVO>){
+        if (movies.isNotEmpty()) {
+            movies.clear()
+        }
+
+        movies.addAll(movieList)
+        notifyDataSetChanged()
+    }
+
 
     private fun setMovieImage(imageView: ImageView, imageUrl: String) {
 

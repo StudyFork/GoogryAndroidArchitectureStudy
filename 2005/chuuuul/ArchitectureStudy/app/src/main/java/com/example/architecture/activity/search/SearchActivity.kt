@@ -20,7 +20,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 class SearchActivity : AppCompatActivity(), Callback<MovieResponseVO> {
 
     private val MOVIE_SEARCH_API_URL = "https://openapi.naver.com"
-    private var movies = ArrayList<MovieVO>()
+
+    private val movies = ArrayList<MovieVO>()
+    private val adapter = MovieListAdapter()
 
     private val retrofit by lazy {
         Retrofit.Builder()
@@ -36,7 +38,6 @@ class SearchActivity : AppCompatActivity(), Callback<MovieResponseVO> {
         setRecyclerview()
         setViewEvent()
     }
-
 
 
     private fun setViewEvent() {
@@ -56,7 +57,7 @@ class SearchActivity : AppCompatActivity(), Callback<MovieResponseVO> {
     }
 
     // * 검색
-    
+
     private fun searchMovie() {
         val keyWord = edt_search_searchName.text.toString()
 
@@ -88,7 +89,8 @@ class SearchActivity : AppCompatActivity(), Callback<MovieResponseVO> {
 
         val gridLayoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
 
-        recyclerview_search_movieList.adapter = MovieListAdapter(movies)
+        adapter.addNewItems(movies)
+        recyclerview_search_movieList.adapter = adapter
         recyclerview_search_movieList.layoutManager = gridLayoutManager
     }
 
@@ -102,10 +104,10 @@ class SearchActivity : AppCompatActivity(), Callback<MovieResponseVO> {
             if (it.total > 0) {
                 movies.clear()
                 movies.addAll(it.movies)
-                recyclerview_search_movieList.adapter?.notifyDataSetChanged()
+                adapter.addNewItems(movies)
             } else {
                 movies.clear()
-                recyclerview_search_movieList.adapter?.notifyDataSetChanged()
+                adapter.addNewItems(movies)
                 Toast.makeText(this, R.string.not_found_result, Toast.LENGTH_SHORT).show()
             }
         }
