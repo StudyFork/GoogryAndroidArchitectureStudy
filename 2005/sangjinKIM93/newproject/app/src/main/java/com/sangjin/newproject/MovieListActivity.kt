@@ -76,8 +76,7 @@ class MovieListActivity : AppCompatActivity() {
 
         if(TextUtils.isEmpty(keyWord)){
             Toast.makeText(this, R.string.no_keyword, Toast.LENGTH_LONG).show()
-        }
-        else{
+        }else{
             getMovieList(keyWord)
             hideKeyPad(view)
         }
