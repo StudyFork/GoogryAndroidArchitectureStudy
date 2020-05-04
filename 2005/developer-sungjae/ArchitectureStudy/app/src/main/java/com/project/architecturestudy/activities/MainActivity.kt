@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setRecyclerView() {
-        listview_movie.layoutManager = LinearLayoutManager(this)
         adapter = SearchAdapter(searchData)
         listview_movie.adapter = adapter
     }
