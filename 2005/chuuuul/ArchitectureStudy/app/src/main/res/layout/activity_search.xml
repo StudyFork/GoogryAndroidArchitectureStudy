@@ -10,6 +10,7 @@
         android:id="@+id/edt_search_searchName"
         android:hint="@string/search_hint"
         android:maxLines="1"
+        android:imeOptions="actionSearch"
         android:inputType="text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
