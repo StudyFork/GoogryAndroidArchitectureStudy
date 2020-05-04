@@ -33,15 +33,18 @@ class MovieListAdapter(private val movies: ArrayList<MovieVO>) :
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.itemView.tv_movie_title.text = removeMarkupTag(movies[position].title)
-        holder.itemView.tv_movie_pubDate.text = movies[position].pubDate
 
-        holder.itemView.ratingBar_movie_rating.rating = movies[position].userRating
+        val movie = movies[position]
 
-        setMovieImage(holder.itemView.img_movie_Image, movies[position].image)
+        holder.itemView.tv_movie_title.text = removeMarkupTag(movie.title)
+        holder.itemView.tv_movie_pubDate.text = movie.pubDate
+
+        holder.itemView.ratingBar_movie_rating.rating = movie.userRating
+
+        setMovieImage(holder.itemView.img_movie_Image, movie.image)
 
         holder.itemView.setOnClickListener {
-            openWebPage(movies[position].link)
+            openWebPage(movie.link)
         }
     }
 
