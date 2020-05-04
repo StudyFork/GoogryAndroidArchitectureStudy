@@ -23,10 +23,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         btn_search.setOnClickListener {
-            if (et_search.text.toString().isEmpty())
+            if (et_search.text.toString().isEmpty()) {
                 return@setOnClickListener
-            else if (searchData.count() > 0)
+            } else if (searchData.count() > 0) {
                 removeAllItems()
+            }
 
             doSearch(et_search.text.toString())
         }
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun removeAllItems() {
         searchData.clear()
-        adapter?.notifyItemRangeRemoved(0, searchData.count() - 1)
+        adapter?.notifyDataSetChanged()
     }
 
     @SuppressLint("CheckResult")
@@ -50,8 +51,7 @@ class MainActivity : AppCompatActivity() {
             },
                 { error ->
                     Log.d("error", error.toString())
-                }
-            )
+                })
     }
 
     private fun setRecyclerView() {
