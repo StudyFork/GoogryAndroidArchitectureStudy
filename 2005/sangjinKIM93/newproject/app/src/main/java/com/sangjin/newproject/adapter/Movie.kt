@@ -5,12 +5,12 @@ data class ResponseData(
 )
 
 data class Movie(
-    var title: String = "",
-    var link: String = "",
-    var image: String = "",
-    var subtitle: String = "",
-    var pubDate: String = "",
-    var director: String = "",
-    var actor: String = "",
-    var userRating: String = ""
+    val title: String,
+    val link: String,
+    val image: String,
+    val subtitle: String,
+    val pubDate: String,
+    val director: String,
+    val actor: String,
+    val userRating: String
 )
