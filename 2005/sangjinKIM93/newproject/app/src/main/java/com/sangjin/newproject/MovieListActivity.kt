@@ -116,7 +116,7 @@ class MovieListActivity : AppCompatActivity() {
      * 리사이클러뷰 셋팅
      */
     private fun setRecyclerView(){
-        movieListAdapter = MovieListAdapter(movieList, this)
+        movieListAdapter = MovieListAdapter(movieList)
         movieListView.adapter = movieListAdapter
 
         //각 항목 클릭시 이벤트
