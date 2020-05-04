@@ -46,7 +46,7 @@ class SearchActivity : AppCompatActivity(), Callback<MovieResponseVO> {
 
         // * 키보드 엔터 클릭 시 검색
         edt_search_searchName.setOnKeyListener { _, keyCode, _ ->
-            if (keyCode == KeyEvent.KEYCODE_SEARCH) {
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 btn_search_searchButton.callOnClick()
                 true
             } else
