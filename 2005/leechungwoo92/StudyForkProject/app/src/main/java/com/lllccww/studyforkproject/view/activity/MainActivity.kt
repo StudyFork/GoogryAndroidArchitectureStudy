@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
                     if (response.isSuccessful) {
-                        //movieList.clear()
+                       
 
 
                         val movieData = response.body()
