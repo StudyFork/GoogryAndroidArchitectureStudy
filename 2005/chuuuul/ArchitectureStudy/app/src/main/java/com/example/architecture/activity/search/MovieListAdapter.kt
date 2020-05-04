@@ -16,15 +16,11 @@ import kotlinx.android.synthetic.main.item_movie.view.*
 class MovieListAdapter(private val movies: ArrayList<MovieVO>) :
     RecyclerView.Adapter<MovieViewHolder>() {
 
-    private lateinit var context: Context
-
     private val NO_IMAGE_URL = "https://ssl.pstatic.net/static/movie/2012/06/dft_img133x190.png"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        context = parent.context
 
-        val view = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false)
-
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
         return MovieViewHolder(view)
     }
 
@@ -44,7 +40,7 @@ class MovieListAdapter(private val movies: ArrayList<MovieVO>) :
         setMovieImage(holder.itemView.img_movie_Image, movie.image)
 
         holder.itemView.setOnClickListener {
-            openWebPage(movie.link)
+            openWebPage(it.context, movie.link)
         }
     }
 
@@ -52,7 +48,7 @@ class MovieListAdapter(private val movies: ArrayList<MovieVO>) :
 
         val url = if (imageUrl.isBlank()) NO_IMAGE_URL else imageUrl
 
-        Glide.with(context)
+        Glide.with(imageView.context)
             .load(url).placeholder(R.drawable.ic_loading_black_24dp)
             .error(R.drawable.image_loaderror).centerCrop().into(imageView)
     }
@@ -61,7 +57,7 @@ class MovieListAdapter(private val movies: ArrayList<MovieVO>) :
         return string.replace("<b>", "").replace("</b>", "")
     }
 
-    private fun openWebPage(urlString: String) {
+    private fun openWebPage(context : Context, urlString: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(urlString))
         context.startActivity(intent)
     }
