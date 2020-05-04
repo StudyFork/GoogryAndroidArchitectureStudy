@@ -1,6 +1,8 @@
 package com.lllccww.studyforkproject.view.activity
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
@@ -11,20 +13,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lllccww.studyforkproject.R
 import com.lllccww.studyforkproject.SearchRetrofit
 import com.lllccww.studyforkproject.model.Movie
-import com.lllccww.studyforkproject.model.MovieItem
 import com.lllccww.studyforkproject.view.adapter.MovieListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
     private var start = 1
     private var total = 0
     private var display = 0
-    private var movieList = ArrayList<MovieItem>()
     lateinit var movieListAdapter: MovieListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,18 +31,25 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        rv_movie_list.layoutManager = LinearLayoutManager(this)
-        movieListAdapter = MovieListAdapter(this)
+        movieListAdapter = MovieListAdapter()
+        movieListAdapter.setItemClickListener { movieItem ->
+            var intent = Intent(Intent.ACTION_VIEW, Uri.parse(movieItem.link))
+            startActivity(intent)
+        }
+
         rv_movie_list.adapter = movieListAdapter
 
         rv_movie_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val lastVisibleItemPosition = (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
-                val itemTotalCount = recyclerView.adapter!!.itemCount -1
-                if (lastVisibleItemPosition  == itemTotalCount) { //스크롤 마지막(바닥)
-                    Log.d("fail : ", "---------------바닥------")
+
+                val lastVisibleItemPosition =
+                    (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
+                val itemTotalCount = recyclerView.adapter!!.itemCount - 1
+
+                if (lastVisibleItemPosition == itemTotalCount) {
+                    Log.d("fail : ", "스크롤 최하단")
                     if (start < total) {
                         requestSearchMovie(start + 10)
                     } else {
@@ -85,23 +91,16 @@ class MainActivity : AppCompatActivity() {
                         }
                         Log.d("movie : ", movieData.toString())
 
-                        total = Integer.parseInt(movieData!!.total)
-                        start = Integer.parseInt(movieData!!.start)
-                        display = Integer.parseInt(movieData!!.display)
+                        total = movieData!!.total.toInt()
+                        start = movieData!!.start.toInt()
+                        display = movieData!!.display.toInt()
                         Log.d("start : ", start.toString())
                         Log.d("total : ", total.toString())
                         Log.d("display : ", display.toString())
 
-                      /*  for (i in 0 until display) {
-                            movieList!!.add(movieData.items[i])
-                            Log.d("movieList : ", movieList.toString())
-                        }*/
+
                         movieListAdapter.setItems(movieData.items)
 
-
-                  /*      movieListAdapter = MovieListAdapter(this@MainActivity)
-                        rv_movie_list.adapter = movieListAdapter
-                        movieListAdapter.notifyDataSetChanged()*/
 
                     }
                 }
@@ -111,8 +110,8 @@ class MainActivity : AppCompatActivity() {
 
 
     //키보드 숨기기
-    fun closeKeyboard() {
-        var view = this.currentFocus
+    private fun closeKeyboard() {
+        val view = this.currentFocus
 
         if (view != null) {
             val inputMethodManager =
