@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
     fun onClick(view: View) {
         val api: NaverApi = RetrofitClient.getClient(BuildConfig.NAVER_API_URL).create(NaverApi::class.java)
 
-        var keyword: String = edt_input.text.toString()
+        val keyword: String = edt_input.text.toString().trim()
 
         if (TextUtils.isEmpty(keyword)) {
             Toast.makeText(this@MainActivity, R.string.enter_keyword, Toast.LENGTH_LONG).show()
@@ -87,8 +87,6 @@ class MainActivity : AppCompatActivity() {
         hideKeyPad(edt_input)
 
         progress?.show()
-
-        keyword = keyword.trim()
 
         api.searchMovie(keyword).enqueue(object : Callback<MovieVo> {
             override fun onFailure(call: Call<MovieVo>, t: Throwable) {
