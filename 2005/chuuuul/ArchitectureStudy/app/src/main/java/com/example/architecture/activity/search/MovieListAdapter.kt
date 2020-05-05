@@ -22,7 +22,14 @@ class MovieListAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
 
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
-        return MovieViewHolder(view)
+
+        val viewHolder = MovieViewHolder(view)
+
+        view.setOnClickListener {
+            openWebPage(it.context, movies[viewHolder.layoutPosition].link)
+        }
+
+        return viewHolder
     }
 
     override fun getItemCount(): Int {
@@ -40,9 +47,7 @@ class MovieListAdapter :
 
         setMovieImage(holder.itemView.img_movie_Image, movie.image)
 
-        holder.itemView.setOnClickListener {
-            openWebPage(it.context, movie.link)
-        }
+
     }
 
     fun addNewItems(movieList : ArrayList<MovieVO>){
