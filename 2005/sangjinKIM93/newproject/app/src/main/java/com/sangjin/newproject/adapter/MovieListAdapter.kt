@@ -10,9 +10,9 @@ import com.bumptech.glide.Glide
 import com.sangjin.newproject.R
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieListAdapter(list: ArrayList<Movie>) : RecyclerView.Adapter<MovieListViewHolder>() {
+class MovieListAdapter() : RecyclerView.Adapter<MovieListViewHolder>() {
 
-    private var movieList: ArrayList<Movie> = list
+    private val movieList = ArrayList<Movie>()
     private lateinit var context: Context
 
     var onItemClickListener: ((Int) -> Unit)? = null
@@ -48,6 +48,16 @@ class MovieListAdapter(list: ArrayList<Movie>) : RecyclerView.Adapter<MovieListV
     }
 
     override fun getItemCount() = movieList.size
+
+
+    fun addList(movieListFromActivity : ArrayList<Movie>){
+        if(movieList.isNotEmpty()){
+            movieList.clear()
+        }
+
+        movieList.addAll(movieListFromActivity)
+        notifyDataSetChanged()
+    }
 
 
     fun String.htmlToString(): String {

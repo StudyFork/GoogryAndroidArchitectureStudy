@@ -95,13 +95,13 @@ class MovieListActivity : AppCompatActivity() {
 
                     if (result.isNullOrEmpty()) {
                         movieList.clear()
-                        movieListAdapter.notifyDataSetChanged()
+                        movieListAdapter.addList(movieList)
                         Toast.makeText(this@MovieListActivity, R.string.no_movie_list, Toast.LENGTH_SHORT).show()
                     }
                     else{
                         movieList.clear()
                         movieList.addAll(result)
-                        movieListAdapter.notifyDataSetChanged()
+                        movieListAdapter.addList(movieList)
                     }
                 }
 
@@ -115,7 +115,7 @@ class MovieListActivity : AppCompatActivity() {
      * 리사이클러뷰 셋팅
      */
     private fun setRecyclerView(){
-        movieListAdapter = MovieListAdapter(movieList)
+        movieListAdapter = MovieListAdapter()
         movieListView.adapter = movieListAdapter
 
         //각 항목 클릭시 이벤트
