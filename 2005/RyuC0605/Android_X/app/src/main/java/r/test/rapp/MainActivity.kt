@@ -48,6 +48,20 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        lv_contents.adapter = MovieAdapter()
+        lv_contents.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, view, position, id ->
+
+                val webIntent: Intent =
+                    Uri.parse((lv_contents.adapter as MovieAdapter).movieList[position].link)
+                        .let { webpage ->
+                            Intent(Intent.ACTION_VIEW, webpage)
+                        }
+
+                startActivity(webIntent)
+
+            }
+
         showKeyPad(edt_input)
     }
 
@@ -96,19 +110,11 @@ class MainActivity : AppCompatActivity() {
                 if (response.body() == null)
                     return;
 
-                val adt = response.body()?.let { MovieAdapter(it.items) }
-                lv_contents.adapter = adt
-                lv_contents.onItemClickListener =
-                    AdapterView.OnItemClickListener { parent, view, position, id ->
+                val adt = lv_contents.adapter as MovieAdapter
+                adt.movieList.clear()
+                adt.movieList.addAll(response.body()!!.items)
+                adt.notifyDataSetChanged()
 
-                        val webIntent: Intent =
-                            Uri.parse(response.body()!!.items[position].link).let { webpage ->
-                                Intent(Intent.ACTION_VIEW, webpage)
-                            }
-
-                        startActivity(webIntent)
-
-                    }
                 progress?.hide()
             }
         }
@@ -118,8 +124,8 @@ class MainActivity : AppCompatActivity() {
     /**
      * 리스트 뷰의 커스텀 아답터.
      */
-    class MovieAdapter(var items: List<Item>) : BaseAdapter() {
-
+    class MovieAdapter : BaseAdapter() {
+        val movieList: ArrayList<Item> = ArrayList()
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
             val inflater: LayoutInflater = LayoutInflater.from(parent?.context)
             val rowView: View = convertView ?: inflater.inflate(R.layout.row_content, parent, false)
@@ -138,7 +144,7 @@ class MainActivity : AppCompatActivity() {
                 holder = rowView.tag as ViewHolder
             }
 
-            val item = items[position]
+            val item = movieList[position]
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 holder.txtTitle.text = Html.fromHtml(item.title, Html.FROM_HTML_MODE_COMPACT)
@@ -161,7 +167,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun getItem(position: Int): Item {
-            return items[position]
+            return movieList[position]
         }
 
         override fun getItemId(position: Int): Long {
@@ -169,7 +175,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun getCount(): Int {
-            return items.size
+            return movieList.size
         }
     }
 }
