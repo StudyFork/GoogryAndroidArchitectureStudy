@@ -11,22 +11,21 @@ object RetrofitClient {
     private const val TIME_OUT_SEC = 10
 
     fun getClient(baseUrl: String?): Retrofit {
-            val httpClient = genOkHttpClient()
-            val builder = Retrofit.Builder().baseUrl(baseUrl)
-            builder.addConverterFactory(GsonConverterFactory.create())
-            return builder.client(httpClient.build()).build()
-        }
+        return Retrofit.Builder().baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create()).client(genOkHttpClient())
+            .build()
+    }
 
-    private fun genOkHttpClient(): OkHttpClient.Builder {
-        val client = OkHttpClient().newBuilder()
-        client.connectTimeout(TIME_OUT_SEC.toLong(), TimeUnit.SECONDS)  // 클라이언트 연결 타임아웃 10초
-        client.readTimeout(TIME_OUT_SEC.toLong(), TimeUnit.SECONDS)     //  read 타임아웃 10초
-        client.writeTimeout(TIME_OUT_SEC.toLong(), TimeUnit.SECONDS)    // write 타임아웃 10초
+    private fun genOkHttpClient(): OkHttpClient {
+        val builder = OkHttpClient().newBuilder()
+        builder.connectTimeout(TIME_OUT_SEC.toLong(), TimeUnit.SECONDS)  // 클라이언트 연결 타임아웃 10초
+        builder.readTimeout(TIME_OUT_SEC.toLong(), TimeUnit.SECONDS)     //  read 타임아웃 10초
+        builder.writeTimeout(TIME_OUT_SEC.toLong(), TimeUnit.SECONDS)    // write 타임아웃 10초
         if (BuildConfig.DEBUG) {
             val loggingInterceptor = HttpLoggingInterceptor()
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-            client.addInterceptor(loggingInterceptor)
+            builder.addInterceptor(loggingInterceptor)
         }
-        return client
+        return builder.build()
     }
 }
