@@ -107,12 +107,14 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<MovieVo>, response: Response<MovieVo>) {
-                if (response.body() == null)
-                    return;
+                val body = response.body() ?: return
+
+//                if (response.body() == null)
+//                    return;
 
                 val adt = lv_contents.adapter as MovieAdapter
                 adt.movieList.clear()
-                adt.movieList.addAll(response.body()!!.items)
+                adt.movieList.addAll(body.items)
                 adt.notifyDataSetChanged()
 
                 progress?.hide()
@@ -135,14 +137,19 @@ class MainActivity : AppCompatActivity() {
 //                convertView
 //            }
 
-            var holder: ViewHolder? = null;
+            val holder = (convertView?.tag as? ViewHolder)
+                ?: run {
+                    ViewHolder(rowView).also { rowView.tag = it }
+                }
 
-            if (convertView == null) {
-                holder = ViewHolder(rowView)
-                rowView.tag = holder;
-            } else {
-                holder = rowView.tag as ViewHolder
-            }
+//            var holder: ViewHolder? = null;
+//
+//            if (convertView == null) {
+//                holder = ViewHolder(rowView)
+//                rowView.tag = holder;
+//            } else {
+//                holder = rowView.tag as ViewHolder
+//            }
 
             val item = movieList[position]
 
