@@ -36,15 +36,16 @@ class AdapterMovieList(val context: Context, val movieList: List<Item>?) :
     }
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
+        val itemData = movieList!!.get(position)
         Glide.with(context)
-            .load(movieList!!.get(position).image)
+            .load(itemData.image)
             .into(holder.imgMovie)
-        holder.txtTile.text = Html.fromHtml(movieList!!.get(position).title)
-        holder.txtSubTile.text = movieList!!.get(position).subtitle
-        holder.txtPubDate.text = movieList!!.get(position).pubDate
-        holder.txtDirector.text = movieList!!.get(position).director
-        holder.txtActors.text = movieList!!.get(position).actor
-        holder.txtRating.text = movieList!!.get(position).userRating
+        holder.txtTile.text = Html.fromHtml(itemData.title)
+        holder.txtSubTile.text = itemData.subtitle
+        holder.txtPubDate.text = itemData.pubDate
+        holder.txtDirector.text = itemData.director
+        holder.txtActors.text = itemData.actor
+        holder.txtRating.text = itemData.userRating
     }
 
     inner class MovieHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
