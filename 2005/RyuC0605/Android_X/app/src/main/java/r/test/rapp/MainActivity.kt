@@ -59,18 +59,18 @@ class MainActivity : AppCompatActivity() {
     /**
      * 키패드 숨기기
      */
-    fun hideKeyPad(v: View) {
+    private fun hideKeyPad(v: View) {
         var imm: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(v.getWindowToken(), 0)
+        imm.hideSoftInputFromWindow(v.windowToken, 0)
 
     }
 
     /**
      * 키패드 보여주기.
      */
-    fun showKeyPad(v: EditText) {
+    private fun showKeyPad(v: EditText) {
         v.requestFocus()
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }
 
     /**
@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
 
         keyword = keyword.trim()
 
-        api.searchMovie(keyword)?.enqueue(object : Callback<MovieVo> {
+        api.searchMovie(keyword).enqueue(object : Callback<MovieVo> {
             override fun onFailure(call: Call<MovieVo>, t: Throwable) {
                 Toast.makeText(this@MainActivity, t.toString(), Toast.LENGTH_LONG).show()
                 mProgress?.hide()
@@ -118,11 +118,6 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    override fun onResume() {
-        super.onResume()
-        //네트워크 체크 코드는 퍼미션 체크까지 필요하므로 불필요 코드를 줄이기 위해 패스. 요구사항에도 없었음.
-    }
-
     /**
      * 리스트 뷰의 커스텀 아답터.
      */
@@ -134,9 +129,9 @@ class MainActivity : AppCompatActivity() {
             var item = items[position]
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                rowView.txt_title.setText(Html.fromHtml(item.title, Html.FROM_HTML_MODE_COMPACT))
+                rowView.txt_title.text = Html.fromHtml(item.title, Html.FROM_HTML_MODE_COMPACT)
             } else {
-                rowView.txt_title.setText(Html.fromHtml(item.title))
+                rowView.txt_title.text = Html.fromHtml(item.title)
             }
             Glide.with(rowView.context).load(item.image).placeholder(R.drawable.no_image)
                 .centerCrop().into(rowView.iv_thumbnail)
