@@ -145,8 +145,11 @@ class MainActivity : AppCompatActivity() {
             } else {
                 holder.txtTitle.text = Html.fromHtml(item.title)
             }
-            Glide.with(rowView.context).load(item.image).placeholder(R.drawable.no_image)
-                .centerCrop().into(holder.ivThumbnail)
+            Glide.with(rowView.context)
+                .load(item.image)
+                .placeholder(R.drawable.no_image)
+                .centerCrop()
+                .into(holder.ivThumbnail)
 
             return rowView
         }
