@@ -1,9 +1,7 @@
 package r.test.rapp
 
-import android.app.Notification
 import android.app.ProgressDialog
 import android.content.Intent
-import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -37,12 +35,12 @@ class MainActivity : AppCompatActivity() {
     /**
      * Deprecated 됐지만 구글은 해당 클래스를 아직까지 살려둠. 사실 커스텀 뷰 만들기 귀찮아서 사용...
      */
-    var mProgress: ProgressDialog? = null
+    var progress: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mProgress = ProgressDialog(this)
+        progress = ProgressDialog(this)
         lv_contents.emptyView = txt_empty
         edt_input.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -88,14 +86,14 @@ class MainActivity : AppCompatActivity() {
 
         hideKeyPad(edt_input)
 
-        mProgress?.show()
+        progress?.show()
 
         keyword = keyword.trim()
 
         api.searchMovie(keyword).enqueue(object : Callback<MovieVo> {
             override fun onFailure(call: Call<MovieVo>, t: Throwable) {
                 Toast.makeText(this@MainActivity, t.toString(), Toast.LENGTH_LONG).show()
-                mProgress?.hide()
+                progress?.hide()
             }
 
             override fun onResponse(call: Call<MovieVo>, response: Response<MovieVo>) {
@@ -112,7 +110,7 @@ class MainActivity : AppCompatActivity() {
                         startActivity(webIntent)
 
                     }
-                mProgress?.hide()
+                progress?.hide()
             }
         }
         )
