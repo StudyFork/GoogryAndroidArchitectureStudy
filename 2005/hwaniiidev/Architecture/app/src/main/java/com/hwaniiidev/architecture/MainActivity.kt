@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
                                 movieList = response.body()!!.items
                                 if (movieList!!.size == 0) {
                                     text_plz_search.text = "검색결과가 없습니다.\n다른 검색어을 입력해주세요."
+                                    text_plz_search.visibility = View.VISIBLE
                                 } else {
                                     listUpdate()
                                     text_plz_search.visibility = View.GONE
