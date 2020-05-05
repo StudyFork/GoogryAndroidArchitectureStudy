@@ -5,17 +5,18 @@ import android.os.Build
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sangjin.newproject.R
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieListAdapter() : RecyclerView.Adapter<MovieListViewHolder>() {
+class MovieListAdapter(clickListener : ((Int) -> Unit)) : RecyclerView.Adapter<MovieListViewHolder>() {
 
     private val movieList = ArrayList<Movie>()
     private lateinit var context: Context
 
-    var onItemClickListener: ((Int) -> Unit)? = null
+    private val onItemClickListener = clickListener
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieListViewHolder {
@@ -27,7 +28,7 @@ class MovieListAdapter() : RecyclerView.Adapter<MovieListViewHolder>() {
 
         item.setOnClickListener {
             var position = movieListViewHolder.adapterPosition
-            onItemClickListener?.invoke(position)
+            onItemClickListener(position)
         }
 
         return movieListViewHolder

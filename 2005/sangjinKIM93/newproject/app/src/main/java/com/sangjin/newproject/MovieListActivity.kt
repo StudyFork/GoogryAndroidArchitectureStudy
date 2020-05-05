@@ -115,14 +115,17 @@ class MovieListActivity : AppCompatActivity() {
      * 리사이클러뷰 셋팅
      */
     private fun setRecyclerView(){
-        movieListAdapter = MovieListAdapter()
-        movieListView.adapter = movieListAdapter
 
-        //각 항목 클릭시 이벤트
-        movieListAdapter.onItemClickListener = {position ->
+        //각 항목 클릭시 이벤트 처리
+        val onItemClickListener: ((Int) -> Unit) = {position ->
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movieList.get(position).link))
             startActivity(intent)
         }
+
+        movieListAdapter = MovieListAdapter(onItemClickListener)
+        movieListView.adapter = movieListAdapter
+
+
     }
 
 
