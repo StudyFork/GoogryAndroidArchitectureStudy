@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
      * 키패드 숨기기
      */
     private fun hideKeyPad(v: View) {
-        var imm: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(v.windowToken, 0)
 
     }
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
      * 검색버튼 클릭 액션
      */
     fun onClick(view: View) {
-        var api: NaverApi = RetrofitClient.getClient(BuildConfig.NAVER_API_URL).create(NaverApi::class.java)
+        val api: NaverApi = RetrofitClient.getClient(BuildConfig.NAVER_API_URL).create(NaverApi::class.java)
 
         var keyword: String = edt_input.text.toString()
 
@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<MovieVo>, response: Response<MovieVo>) {
-                var adt = response.body()?.let { MovieAdapter(response.body()!!.items) }
+                val adt = response.body()?.let { MovieAdapter(response.body()!!.items) }
                 lv_contents.adapter = adt
                 lv_contents.onItemClickListener =
                     AdapterView.OnItemClickListener { parent, view, position, id ->
@@ -122,9 +122,9 @@ class MainActivity : AppCompatActivity() {
     class MovieAdapter(var items: List<Item>) : BaseAdapter() {
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-            var inflater: LayoutInflater = LayoutInflater.from(parent?.context)
-            var rowView = inflater.inflate(R.layout.row_content, parent, false)
-            var item = items[position]
+            val inflater: LayoutInflater = LayoutInflater.from(parent?.context)
+            val rowView = inflater.inflate(R.layout.row_content, parent, false)
+            val item = items[position]
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 rowView.txt_title.text = Html.fromHtml(item.title, Html.FROM_HTML_MODE_COMPACT)
