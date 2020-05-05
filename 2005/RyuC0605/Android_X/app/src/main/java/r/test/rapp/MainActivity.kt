@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
      * 검색버튼 클릭 액션
      */
     fun onClick(view: View) {
-        var api: NaverApi = RetrofitClient.client.create(NaverApi::class.java)
+        var api: NaverApi = RetrofitClient.getClient(BuildConfig.NAVER_API_URL).create(NaverApi::class.java)
 
         var keyword: String = edt_input.text.toString()
 

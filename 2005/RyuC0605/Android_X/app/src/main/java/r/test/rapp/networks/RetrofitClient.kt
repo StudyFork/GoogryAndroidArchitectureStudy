@@ -9,14 +9,10 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
     private const val TIME_OUT_SEC = 10
-    fun getClient(baseUrl: String?): Retrofit {
-        return client
-    }
 
-    val client: Retrofit
-        get() {
+    fun getClient(baseUrl: String?): Retrofit {
             val httpClient = genOkHttpClient()
-            val builder = Retrofit.Builder().baseUrl(BuildConfig.NAVER_API_URL)
+            val builder = Retrofit.Builder().baseUrl(baseUrl)
             builder.addConverterFactory(GsonConverterFactory.create())
             return builder.client(httpClient.build()).build()
         }
