@@ -95,7 +95,10 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<MovieVo>, response: Response<MovieVo>) {
-                val adt = response.body()?.let { MovieAdapter(response.body()!!.items) }
+                if(response.body() == null)
+                    return;
+
+                val adt = response.body()?.let { MovieAdapter(it.items) }
                 lv_contents.adapter = adt
                 lv_contents.onItemClickListener =
                     AdapterView.OnItemClickListener { parent, view, position, id ->
