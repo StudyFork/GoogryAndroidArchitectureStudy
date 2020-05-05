@@ -9,16 +9,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.hwaniiidev.architecture.model.Item
+
 
 class AdapterMovieList(val context: Context, val movieList: List<Item>?) :
     RecyclerView.Adapter<AdapterMovieList.MovieHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_movie_list, parent, false)
-        return MovieHolder(view)
+
+        val holder = MovieHolder(view)
+        //클릭시 브라우저로 영화 정보 조회
+        holder.itemView.setOnClickListener { v ->
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movieList!!.get(holder.adapterPosition).link))
+            context.startActivity(intent)
+        }
+        return holder
     }
 
     override fun getItemCount(): Int {
@@ -26,10 +36,6 @@ class AdapterMovieList(val context: Context, val movieList: List<Item>?) :
     }
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
-        holder.itemView.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movieList!!.get(position).link))
-            context.startActivity(intent)
-        }
         Glide.with(context)
             .load(movieList!!.get(position).image)
             .into(holder.imgMovie)
