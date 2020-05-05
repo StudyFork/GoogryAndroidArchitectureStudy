@@ -14,10 +14,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.AdapterView
-import android.widget.BaseAdapter
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_main_top.*
@@ -75,7 +72,8 @@ class MainActivity : AppCompatActivity() {
      * 검색버튼 클릭 액션
      */
     fun onClick(view: View) {
-        val api: NaverApi = RetrofitClient.getClient(BuildConfig.NAVER_API_URL).create(NaverApi::class.java)
+        val api: NaverApi =
+            RetrofitClient.getClient(BuildConfig.NAVER_API_URL).create(NaverApi::class.java)
 
         val keyword: String = edt_input.text.toString().trim()
 
@@ -95,7 +93,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<MovieVo>, response: Response<MovieVo>) {
-                if(response.body() == null)
+                if (response.body() == null)
                     return;
 
                 val adt = response.body()?.let { MovieAdapter(it.items) }
@@ -124,18 +122,39 @@ class MainActivity : AppCompatActivity() {
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
             val inflater: LayoutInflater = LayoutInflater.from(parent?.context)
-            val rowView = inflater.inflate(R.layout.row_content, parent, false)
+            val rowView: View = convertView ?: inflater.inflate(R.layout.row_content, parent, false)
+//            val rowView: View = if (convertView == null) {
+//                inflater.inflate(R.layout.row_content, parent, false)
+//            } else {
+//                convertView
+//            }
+
+            var holder: ViewHolder? = null;
+
+            if (convertView == null) {
+                holder = ViewHolder(rowView)
+                rowView.tag = holder;
+            } else {
+                holder = rowView.tag as ViewHolder
+            }
+
             val item = items[position]
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                rowView.txt_title.text = Html.fromHtml(item.title, Html.FROM_HTML_MODE_COMPACT)
+                holder.txtTitle.text = Html.fromHtml(item.title, Html.FROM_HTML_MODE_COMPACT)
             } else {
-                rowView.txt_title.text = Html.fromHtml(item.title)
+                holder.txtTitle.text = Html.fromHtml(item.title)
             }
             Glide.with(rowView.context).load(item.image).placeholder(R.drawable.no_image)
-                .centerCrop().into(rowView.iv_thumbnail)
+                .centerCrop().into(holder.ivThumbnail)
 
             return rowView
+        }
+
+        private class ViewHolder(view: View) {
+            val txtTitle: TextView = view.txt_title
+            val ivThumbnail: ImageView = view.iv_thumbnail
+
         }
 
         override fun getItem(position: Int): Item {
