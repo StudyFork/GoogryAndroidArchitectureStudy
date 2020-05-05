@@ -1,4 +1,4 @@
-package com.hwaniiidev.architecture.Model
+package com.hwaniiidev.architecture.model
 
 data class ResponseMovieSearchData(
     val display: Int,

@@ -6,8 +6,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.hwaniiidev.architecture.Model.Item
-import com.hwaniiidev.architecture.Model.ResponseMovieSearchData
+import com.hwaniiidev.architecture.model.Item
+import com.hwaniiidev.architecture.model.ResponseMovieSearchData
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Response
 

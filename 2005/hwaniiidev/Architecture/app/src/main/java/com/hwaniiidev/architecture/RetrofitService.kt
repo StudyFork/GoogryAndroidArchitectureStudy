@@ -1,6 +1,6 @@
 package com.hwaniiidev.architecture
 
-import com.hwaniiidev.architecture.Model.ResponseMovieSearchData
+import com.hwaniiidev.architecture.model.ResponseMovieSearchData
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
