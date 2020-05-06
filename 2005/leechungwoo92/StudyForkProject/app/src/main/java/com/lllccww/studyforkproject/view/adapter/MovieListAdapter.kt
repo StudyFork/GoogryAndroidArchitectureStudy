@@ -2,7 +2,6 @@ package com.lllccww.studyforkproject.view.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -12,17 +11,16 @@ import kotlinx.android.synthetic.main.item_movie_list.view.*
 
 class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
     private val list: ArrayList<MovieItem> = ArrayList()
-    private lateinit var callback: (MovieItem) -> Unit
+    var onClick: ((MovieItem) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_movie_list, parent, false)
-        val viewHolder = ViewHolder(view)
-        view.setOnClickListener {
-            callback(list[viewHolder.adapterPosition])
-        }
+        return ViewHolder(parent).apply {
+            itemView.setOnClickListener {
+                val item = list[adapterPosition]
+                onClick?.invoke(item)
 
-        return viewHolder
+            }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -46,11 +44,11 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun setItemClickListener(callback: (MovieItem) -> Unit) {
-        this.callback = callback
-    }
-
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+        LayoutInflater.from(parent.context).inflate(
+            R.layout.item_movie_list, parent, false
+        )
+    ) {
         private val tvTitle = itemView.tv_title!!
         private val tvDirector = itemView.tv_director!!
         private val tvPubDate = itemView.tv_pubdate!!
