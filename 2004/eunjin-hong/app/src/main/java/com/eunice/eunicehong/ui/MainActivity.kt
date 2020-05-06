@@ -12,11 +12,22 @@ import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.BindingAdapter
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
+import androidx.databinding.ObservableBoolean
+import androidx.recyclerview.widget.RecyclerView
 import com.eunice.eunicehong.R
 import com.eunice.eunicehong.data.model.MovieList
 import com.eunice.eunicehong.data.source.MovieDataSource
+import com.eunice.eunicehong.databinding.ActivityMainBinding
 import com.google.gson.JsonSyntaxException
 import kotlinx.android.synthetic.main.activity_main.*
+
+@BindingAdapter("app:setMovieAdapter")
+fun setMovieList(recyclerView: RecyclerView, movieAdapter: MovieAdapter) {
+    recyclerView.adapter = movieAdapter
+}
 
 
 class MainActivity : AppCompatActivity(), MovieContract.View {
@@ -44,13 +55,38 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
     private val presenter = MoviePresenter(this, cache)
     private val movieListAdapter = MovieAdapter(presenter)
 
+    private val resultNotExist: ObservableBoolean = ObservableBoolean(false).also {
+        it.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                if (it.get()) {
+                    networkErrorOccur.set(false)
+                }
+            }
+        })
+    }
+    private val networkErrorOccur: ObservableBoolean = ObservableBoolean(false).also {
+        it.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                if (it.get()) {
+                    resultNotExist.set(false)
+                }
+            }
+        })
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         movieContext = this@MainActivity
 
-        setContentView(R.layout.activity_main)
-
-        setMovieList()
+        DataBindingUtil.setContentView<ActivityMainBinding>(
+            this@MainActivity,
+            R.layout.activity_main
+        ).apply {
+            resultNotFoundOn = resultNotExist
+            networkErrorMessageOn = networkErrorOccur
+            adapter = movieListAdapter
+            lifecycleOwner = this@MainActivity
+        }
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -60,11 +96,18 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
         if (!query.isNullOrBlank()) {
             presenter.search(query, object : MovieDataSource.LoadMoviesCallback {
                 override fun onSuccess(movieList: MovieList) {
-                    showSearchResult(movieList)
+                    if (movieList.items.isEmpty()) {
+                        resultNotExist.set(true)
+                    } else {
+                        showSearchResult(movieList)
+                        resultNotExist.set(false)
+                        networkErrorOccur.set(false)
+                    }
                     cache.saveMovieList(query, movieList)
                 }
 
                 override fun onFailure(e: Throwable) {
+                    networkErrorOccur.set(true)
                     Log.d(this.toString(), e.toString())
                 }
             })
@@ -111,15 +154,6 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
         zero_item_message.visibility =
             if (movies.items.isNullOrEmpty()) View.VISIBLE else View.GONE
         movieListAdapter.setMovieList(movies.items)
-    }
-
-    private fun setMovieList() {
-        move_list.adapter = movieListAdapter
-    }
-
-    override fun setQueryText(query: String) {
-        searchView.setQuery(query, false)
-        searchView.clearFocus()
     }
 
     companion object {
