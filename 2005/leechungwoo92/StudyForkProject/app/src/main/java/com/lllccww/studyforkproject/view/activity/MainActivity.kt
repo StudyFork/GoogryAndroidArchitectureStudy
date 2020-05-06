@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lllccww.studyforkproject.R
 import com.lllccww.studyforkproject.SearchRetrofit
 import com.lllccww.studyforkproject.model.Movie
+import com.lllccww.studyforkproject.model.MovieItem
 import com.lllccww.studyforkproject.view.adapter.MovieListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
@@ -24,20 +25,19 @@ class MainActivity : AppCompatActivity() {
     private var start = 1
     private var total = 0
     private var display = 0
-    lateinit var movieListAdapter: MovieListAdapter
+    private val movieListAdapter = MovieListAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        rv_movie_list.adapter = movieListAdapter
 
-        movieListAdapter = MovieListAdapter()
-        movieListAdapter.setItemClickListener { movieItem ->
-            var intent = Intent(Intent.ACTION_VIEW, Uri.parse(movieItem.link))
+        movieListAdapter.onClick = { item: MovieItem ->
+            var intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
             startActivity(intent)
         }
 
-        rv_movie_list.adapter = movieListAdapter
 
         rv_movie_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
@@ -80,7 +80,6 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
                     if (response.isSuccessful) {
-                       
 
 
                         val movieData = response.body()
@@ -88,6 +87,7 @@ class MainActivity : AppCompatActivity() {
                         if (movieData!!.display == "0") {
                             Toast.makeText(this@MainActivity, "검색 결과가 없습니다.", Toast.LENGTH_SHORT)
                                 .show()
+                            return
                         }
                         Log.d("movie : ", movieData.toString())
 
