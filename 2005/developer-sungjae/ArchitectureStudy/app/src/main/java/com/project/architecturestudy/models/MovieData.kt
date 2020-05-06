@@ -5,7 +5,7 @@ class MovieData(
     val total: Int,
     val start: Int,
     val display: Int,
-    val items: Array<Items>
+    val items: ArrayList<Items>
 ) {
     data class Items(
         val title: String,

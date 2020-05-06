@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .subscribe({ movie ->
                 searchData.addAll(movie.items)
-                adapter?.addData(searchData)
+                adapter?.addData(movie.items)
                 adapter?.notifyDataSetChanged()
             },
                 { error ->
