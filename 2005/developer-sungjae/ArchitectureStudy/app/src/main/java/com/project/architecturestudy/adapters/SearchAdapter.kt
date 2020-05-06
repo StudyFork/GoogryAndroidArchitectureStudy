@@ -30,6 +30,12 @@ class SearchAdapter : RecyclerView.Adapter<SearchingResultHolder>() {
 
     fun addData(searchData: ArrayList<MovieData.Items>) {
         this.searchList = searchData
+        notifyDataSetChanged()
+    }
+
+    fun clear() {
+        searchList.clear()
+        notifyDataSetChanged()
     }
 
 }
