@@ -23,16 +23,12 @@ class MainActivity : AppCompatActivity() {
             if (et_search.text.toString().isEmpty()) {
                 return@setOnClickListener
             } else if (adapter?.itemCount ?: 0 > 0) {
-                removeAllItems()
+                adapter?.clear()
             }
 
             doSearch(et_search.text.toString())
         }
         setRecyclerView()
-    }
-
-    private fun removeAllItems() {
-        adapter?.clear()
     }
 
     @SuppressLint("CheckResult")
