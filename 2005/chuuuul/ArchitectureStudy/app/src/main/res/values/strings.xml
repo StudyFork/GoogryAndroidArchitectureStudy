@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Architecture</string>
+    <string name="search_hint">검색 할 영화를 입력하세요</string>
+    <string name="search_button">검 색</string>
+    <string name="not_found_result">검색 결과가 없습니다.</string>
+    <string name="empty_keyword">"검색어를 입력하세요"</string>
 </resources>
