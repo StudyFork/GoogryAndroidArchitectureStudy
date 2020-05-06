@@ -7,14 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.project.architecturestudy.R
 import com.project.architecturestudy.adapters.SearchAdapter
 import com.project.architecturestudy.components.RetrofitService
-import com.project.architecturestudy.models.MovieData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val searchData: ArrayList<MovieData.Items> = ArrayList()
     private var adapter: SearchAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         btn_search.setOnClickListener {
             if (et_search.text.toString().isEmpty()) {
                 return@setOnClickListener
-            } else if (searchData.count() > 0) {
+            } else if (adapter?.itemCount ?: 0 > 0) {
                 removeAllItems()
             }
 
@@ -34,7 +32,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun removeAllItems() {
-        searchData.clear()
         adapter?.clear()
     }
 
@@ -45,7 +42,6 @@ class MainActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ movie ->
-                searchData.addAll(movie.items)
                 adapter?.addData(movie.items)
             },
                 { error ->
