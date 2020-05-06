@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun removeAllItems() {
         searchData.clear()
-        adapter?.notifyDataSetChanged()
+        adapter?.clear()
     }
 
     @SuppressLint("CheckResult")
@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity() {
             .subscribe({ movie ->
                 searchData.addAll(movie.items)
                 adapter?.addData(movie.items)
-                adapter?.notifyDataSetChanged()
             },
                 { error ->
                     Log.d("error", error.toString())
