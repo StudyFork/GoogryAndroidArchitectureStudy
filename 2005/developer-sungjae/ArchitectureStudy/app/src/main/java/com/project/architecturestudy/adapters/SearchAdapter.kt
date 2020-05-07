@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.movie_item.view.*
 
 class SearchAdapter : RecyclerView.Adapter<SearchingResultHolder>() {
 
-    private var searchList: ArrayList<MovieData.Items> = ArrayList()
+    private var searchList: MutableList<MovieData.Items> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchingResultHolder {
         return SearchingResultHolder(
@@ -28,16 +28,11 @@ class SearchAdapter : RecyclerView.Adapter<SearchingResultHolder>() {
 
     override fun getItemCount(): Int = searchList.count()
 
-    fun addData(searchData: ArrayList<MovieData.Items>) {
+    fun resetData(searchData: ArrayList<MovieData.Items>) {
+        searchList.clear()
         this.searchList = searchData
         notifyDataSetChanged()
     }
-
-    fun clear() {
-        searchList.clear()
-        notifyDataSetChanged()
-    }
-
 }
 
 class SearchingResultHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
