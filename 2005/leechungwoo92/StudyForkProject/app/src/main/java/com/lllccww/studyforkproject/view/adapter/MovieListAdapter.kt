@@ -53,6 +53,8 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
         private val tvDirector = itemView.tv_director!!
         private val tvPubDate = itemView.tv_pubdate!!
         private val ivMovieImage = itemView.iv_movie_image!!
+        private val tvUserRating = itemView.tv_user_rating!!
+
 
         fun bind(movieItem: MovieItem) {
             Glide.with(itemView).load(movieItem.image).error(R.drawable.ic_no_img)
@@ -61,6 +63,7 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
             tvTitle.text = android.text.Html.fromHtml(movieItem.title).toString()
             tvDirector.text = movieItem.director
             tvPubDate.text = movieItem.pubDate
+            tvUserRating.text = movieItem.userRating
         }
 
 
