@@ -55,7 +55,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieItemViewHolder>() {
     }
 
     private fun String.addCommas(prefix: String): String {
-        return if (this.isNotEmpty()) {
+        return if (this.isNotBlank()) {
             this.substring(0, this.length - 1)
                 .split("|")
                 .joinToString(
