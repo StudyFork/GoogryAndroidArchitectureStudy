@@ -19,7 +19,10 @@ class SearchAdapter : RecyclerView.Adapter<SearchingResultHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchingResultHolder {
         return SearchingResultHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
-        )
+        ).apply {
+
+
+        }
     }
 
     override fun onBindViewHolder(holder: SearchingResultHolder, position: Int) {
@@ -38,10 +41,10 @@ class SearchAdapter : RecyclerView.Adapter<SearchingResultHolder>() {
 class SearchingResultHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bindItem(searchData: MovieData.Items) {
         when (searchData.image.isEmpty()) {
-            true -> itemView.iv_movie.setImageResource(R.drawable.ic_launcher_foreground)
+            true -> itemView.iv_movie.setImageResource(R.drawable.ic_no_resource)
             false -> Picasso.get()
                 .load(searchData.image)
-                .placeholder(R.drawable.ic_launcher_foreground)
+                .placeholder(R.drawable.ic_no_resource)
                 .centerCrop()
                 .fit()
                 .into(itemView.iv_movie)
