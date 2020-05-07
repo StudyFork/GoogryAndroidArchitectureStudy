@@ -24,7 +24,7 @@ class SearchAdapter : RecyclerView.Adapter<SearchingResultHolder>() {
     }
 
     override fun onBindViewHolder(holder: SearchingResultHolder, position: Int) {
-        holder.bindItem(searchList[position])
+        holder.bind(searchList[position])
     }
 
     override fun getItemCount(): Int = searchList.count()
@@ -39,7 +39,7 @@ class SearchAdapter : RecyclerView.Adapter<SearchingResultHolder>() {
 class SearchingResultHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
 ) {
-    fun bindItem(searchData: MovieData.Items) {
+    fun bind(searchData: MovieData.Items) {
         when (searchData.image.isEmpty()) {
             true -> itemView.iv_movie.setImageResource(R.drawable.ic_no_resource)
             false -> Picasso.get()
