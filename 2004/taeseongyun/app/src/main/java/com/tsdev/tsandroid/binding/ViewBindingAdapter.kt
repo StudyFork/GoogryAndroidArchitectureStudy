@@ -5,15 +5,16 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.tsdev.tsandroid.util.widget.CustomImageWithGlide
 import com.tsdev.tsandroid.util.widget.DebounceClickListener
-import com.tsdev.tsandroid.util.widget.OnClickListener
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 @BindingAdapter("isVisible")
 fun View.visibleBindingAdapter(isLoading: Boolean) {
-    visibility = if (isLoading)
+    visibility = if (isLoading) {
         View.VISIBLE
-    else
+    }
+    else {
         View.GONE
+    }
 }
 
 @BindingAdapter("onDebounceClickEvent")
