@@ -27,5 +27,6 @@ class MovieRecyclerViewViewHolder(onClickListenerEvent: OnClickDelegate, parent:
 
     override fun onBindViewHolder(item: Item) {
         recyclerDataBinding.movieItem = item
+        recyclerDataBinding.executePendingBindings()
     }
 }
