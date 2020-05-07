@@ -6,5 +6,6 @@ data class MovieItem(
     val image: String,
     val subtitle: String,
     val pubDate: String,
-    val director: String
+    val director: String,
+    val userRating: String
 )
