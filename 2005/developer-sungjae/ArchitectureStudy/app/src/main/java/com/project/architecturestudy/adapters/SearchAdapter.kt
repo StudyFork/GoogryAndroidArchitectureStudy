@@ -1,9 +1,6 @@
 package com.project.architecturestudy.adapters
 
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.project.architecturestudy.R
@@ -15,13 +12,14 @@ import kotlinx.android.synthetic.main.movie_item.view.*
 class SearchAdapter : RecyclerView.Adapter<SearchingResultHolder>() {
 
     private var searchList: MutableList<MovieData.Items> = mutableListOf()
+    var onClick: ((MovieData.Items) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchingResultHolder {
-        return SearchingResultHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
-        ).apply {
-
-
+        return SearchingResultHolder(parent).apply {
+            itemView.setOnClickListener {
+                val item = searchList[adapterPosition]
+                onClick?.invoke(item)
+            }
         }
     }
 
@@ -38,7 +36,9 @@ class SearchAdapter : RecyclerView.Adapter<SearchingResultHolder>() {
     }
 }
 
-class SearchingResultHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class SearchingResultHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+    LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
+) {
     fun bindItem(searchData: MovieData.Items) {
         when (searchData.image.isEmpty()) {
             true -> itemView.iv_movie.setImageResource(R.drawable.ic_no_resource)
@@ -53,9 +53,5 @@ class SearchingResultHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
         itemView.tv_subTitle.text = searchData.subtitle.parseHTMLTag()
         itemView.tv_pubDate.text = searchData.pubDate.parseHTMLTag()
         itemView.tv_actors.text = searchData.actor.parseHTMLTag()
-        itemView.setOnClickListener {
-            val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(searchData.link))
-            itemView.context.startActivity(webIntent)
-        }
     }
 }
