@@ -22,8 +22,6 @@ class MainActivity : AppCompatActivity() {
         btn_search.setOnClickListener {
             if (et_search.text.toString().isEmpty()) {
                 return@setOnClickListener
-            } else if (adapter?.itemCount ?: 0 > 0) {
-                adapter?.clear()
             }
 
             doSearch(et_search.text.toString())
@@ -38,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ movie ->
-                adapter?.addData(movie.items)
+                adapter?.resetData(movie.items)
             },
                 { error ->
                     Log.d("error", error.toString())
