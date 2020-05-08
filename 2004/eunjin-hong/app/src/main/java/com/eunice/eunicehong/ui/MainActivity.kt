@@ -12,23 +12,15 @@ import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
 import androidx.databinding.ObservableBoolean
-import androidx.recyclerview.widget.RecyclerView
 import com.eunice.eunicehong.R
 import com.eunice.eunicehong.data.model.MovieList
 import com.eunice.eunicehong.data.source.MovieDataSource
 import com.eunice.eunicehong.databinding.ActivityMainBinding
 import com.google.gson.JsonSyntaxException
 import kotlinx.android.synthetic.main.activity_main.*
-
-@BindingAdapter("app:setMovieAdapter")
-fun setMovieList(recyclerView: RecyclerView, movieAdapter: MovieAdapter) {
-    recyclerView.adapter = movieAdapter
-}
-
 
 class MainActivity : AppCompatActivity(), MovieContract.View {
     private val cache = object : MovieCache {

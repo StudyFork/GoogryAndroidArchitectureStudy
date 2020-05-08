@@ -1,38 +1,12 @@
 package com.eunice.eunicehong.ui
 
-import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.core.text.HtmlCompat
-import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.eunice.eunicehong.R
 import com.eunice.eunicehong.data.model.Movie
 import com.eunice.eunicehong.databinding.ItemMovieBinding
-
-@BindingAdapter("app:imageSrc")
-fun loadImage(imageView: ImageView, url: String) {
-    Glide.with(imageView.context)
-        .load(url)
-        .into(imageView)
-}
-
-@BindingAdapter("app:formattedText")
-fun formattedText(textView: TextView, text: String) {
-    val formatted = text.split("|")
-        .map { it.trim() }
-        .filter { it != "" }
-        .joinToString(", ")
-
-    textView.text = formatted.parseHTML()
-}
-
-private fun String.parseHTML(): Spanned =
-    HtmlCompat.fromHtml(this, HtmlCompat.FROM_HTML_MODE_LEGACY)
 
 class MovieAdapter(private val presenter: MoviePresenter) :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
