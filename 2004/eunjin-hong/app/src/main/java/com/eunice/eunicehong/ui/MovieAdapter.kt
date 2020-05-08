@@ -44,18 +44,13 @@ class MovieAdapter(private val presenter: MoviePresenter) :
     class ViewHolder(private val binding: ItemMovieBinding, private val presenter: MoviePresenter) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private lateinit var movie: Movie
-
         fun bind(item: Movie) {
-            movie = item
-
-            binding.movie = movie
+            binding.movie = item
             binding.viewHolder = this@ViewHolder
-
         }
 
-        fun showDetailWebPage() {
-            presenter.showDetail(movie.link)
+        fun showDetailWebPage(link: String) {
+            presenter.showDetail(link)
         }
 
     }
