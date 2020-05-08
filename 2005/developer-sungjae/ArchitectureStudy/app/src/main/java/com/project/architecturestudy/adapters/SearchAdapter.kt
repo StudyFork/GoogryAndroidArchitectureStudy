@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.movie_item.view.*
 
 class SearchAdapter : RecyclerView.Adapter<SearchingResultHolder>() {
 
-    private var searchList: MutableList<MovieData.Items> = mutableListOf()
+    private val searchList: MutableList<MovieData.Items> = mutableListOf()
     var onClick: ((MovieData.Items) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchingResultHolder {
@@ -31,7 +31,7 @@ class SearchAdapter : RecyclerView.Adapter<SearchingResultHolder>() {
 
     fun resetData(searchData: ArrayList<MovieData.Items>) {
         searchList.clear()
-        this.searchList = searchData
+        searchList.addAll(searchData)
         notifyDataSetChanged()
     }
 }
