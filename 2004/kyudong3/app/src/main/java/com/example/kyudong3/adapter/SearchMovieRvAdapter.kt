@@ -16,7 +16,15 @@ class SearchMovieRvAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchMovieVH {
         val binding = ItemMovieBindingImpl.inflate(LayoutInflater.from(parent.context))
-        return SearchMovieVH(binding)
+        val searchMovieVH = SearchMovieVH(binding)
+
+        binding.root.setOnClickListener {
+            val intent =
+                Intent(Intent.ACTION_VIEW, Uri.parse(movieList[searchMovieVH.adapterPosition].link))
+            parent.context.startActivity(intent)
+        }
+
+        return searchMovieVH
     }
 
     override fun getItemCount(): Int {
@@ -36,18 +44,10 @@ class SearchMovieRvAdapter :
 
     inner class SearchMovieVH(val itemMovieBinding: ItemMovieBinding) :
         RecyclerView.ViewHolder(itemMovieBinding.root) {
-        lateinit var movie: Movie
-
-        init {
-            itemMovieBinding.root.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movie.link))
-                it.context.startActivity(intent)
-            }
-        }
 
         fun bind(movie: Movie) {
             itemMovieBinding.movieItem = movie
-            this.movie = movie
+            itemMovieBinding.executePendingBindings()
         }
     }
 }
