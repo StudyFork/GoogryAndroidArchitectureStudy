@@ -1,91 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/spacing_normal"
-        app:cardCornerRadius="@dimen/spacing_normal"
-        app:cardElevation="@dimen/spacing_normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <data>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <variable
+            name="movieItem"
+            type="com.tsdev.tsandroid.data.Item" />
+    </data>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/movie_card"
-                android:layout_width="@dimen/spacing_super_huge"
-                android:layout_height="@dimen/spacing_super_huge"
-                android:layout_marginStart="@dimen/spacing_normal"
-                android:layout_marginTop="@dimen/spacing_normal"
-                app:cardCornerRadius="@dimen/spacing_normal">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-                <com.tsdev.tsandroid.util.widget.CustomImageWithGlide
-                    android:id="@+id/movie_img"
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_normal"
+            app:cardCornerRadius="@dimen/spacing_normal"
+            app:cardElevation="@dimen/spacing_normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/movie_card"
+                    android:layout_width="@dimen/spacing_super_huge"
+                    android:layout_height="@dimen/spacing_super_huge"
+                    android:layout_marginStart="@dimen/spacing_normal"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    app:cardCornerRadius="@dimen/spacing_normal">
+
+                    <com.tsdev.tsandroid.util.widget.CustomImageWithGlide
+                        android:id="@+id/movie_img"
+                        moviePosterImg="@{movieItem.image}"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:src="@drawable/ic_launcher_background" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/movie_name"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:src="@drawable/ic_launcher_background" />
-            </androidx.cardview.widget.CardView>
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="@dimen/spacing_large"
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:layout_toEndOf="@+id/movie_card"
+                    tools:text="영화제목"
+                    android:text="@{movieItem.title}"/>
 
-            <TextView
-                android:id="@+id/movie_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="@dimen/spacing_large"
-                android:layout_marginTop="@dimen/spacing_large"
-                android:layout_toEndOf="@+id/movie_card"
-                tools:text="영화제목" />
+                <TextView
+                    android:id="@+id/movie_sub_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/movie_name"
+                    android:layout_marginStart="@dimen/spacing_large"
+                    android:layout_marginTop="@dimen/spacing_mini"
+                    android:layout_toEndOf="@+id/movie_card"
+                    tools:text="서브타이틀"
+                    android:text="@{movieItem.subtitle}"/>
 
-            <TextView
-                android:id="@+id/movie_sub_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/movie_name"
-                android:layout_marginStart="@dimen/spacing_large"
-                android:layout_marginTop="@dimen/spacing_mini"
-                android:layout_toEndOf="@+id/movie_card"
-                tools:text="서브타이틀" />
+                <TextView
+                    android:id="@+id/movie_actor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/movie_sub_title"
+                    android:layout_marginStart="@dimen/spacing_large"
+                    android:layout_marginTop="@dimen/spacing_mini"
+                    android:layout_toEndOf="@+id/movie_card"
+                    tools:text="movie_actor"
+                    android:text="@{movieItem.actor}"/>
 
-            <TextView
-                android:id="@+id/movie_actor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/movie_sub_title"
-                android:layout_marginStart="@dimen/spacing_large"
-                android:layout_marginTop="@dimen/spacing_mini"
-                android:layout_toEndOf="@+id/movie_card"
-                tools:text="movie_actor" />
+                <TextView
+                    android:id="@+id/movie_director"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/movie_actor"
+                    android:layout_marginStart="@dimen/spacing_large"
+                    android:layout_marginTop="@dimen/spacing_mini"
+                    android:layout_toEndOf="@+id/movie_card"
+                    tools:text="director"
+                    android:text="@{movieItem.director}"/>
 
-            <TextView
-                android:id="@+id/movie_director"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/movie_actor"
-                android:layout_marginStart="@dimen/spacing_large"
-                android:layout_marginTop="@dimen/spacing_mini"
-                android:layout_toEndOf="@+id/movie_card"
-                tools:text="director" />
+                <TextView
+                    android:id="@+id/movie_rating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/movie_director"
+                    android:layout_marginStart="@dimen/spacing_large"
+                    android:layout_marginTop="@dimen/spacing_mini"
+                    android:layout_marginBottom="@dimen/spacing_normal"
+                    android:layout_toEndOf="@+id/movie_card"
+                    android:text="@{movieItem.userRating}"
+                    tools:text="평점" />
 
-            <TextView
-                android:id="@+id/movie_rating"
-                android:layout_marginBottom="@dimen/spacing_normal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/movie_director"
-                android:layout_marginStart="@dimen/spacing_large"
-                android:layout_marginTop="@dimen/spacing_mini"
-                android:layout_toEndOf="@+id/movie_card"
-                tools:text="평점" />
-
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import com.tsdev.tsandroid.data.Item
 import com.tsdev.tsandroid.base.BaseRecyclerAdapter
 import com.tsdev.tsandroid.base.BaseRecyclerViewHolder
+import com.tsdev.tsandroid.databinding.MovieRecyclerItemBinding
 import com.tsdev.tsandroid.ui.viewholder.MovieRecyclerViewViewHolder
 
 class MovieRecyclerAdapter(private val onClickListenerEvent: MovieRecyclerViewViewHolder.OnClickDelegate) :
-    BaseRecyclerAdapter<Item>() {
+    BaseRecyclerAdapter<MovieRecyclerItemBinding, Item>() {
 
     init {
         notifiedDataChange = this@MovieRecyclerAdapter::notifyDataSetChanged
@@ -17,7 +18,7 @@ class MovieRecyclerAdapter(private val onClickListenerEvent: MovieRecyclerViewVi
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): BaseRecyclerViewHolder<Item> =
+    ): BaseRecyclerViewHolder<MovieRecyclerItemBinding, Item> =
         MovieRecyclerViewViewHolder(onClickListenerEvent, parent)
 
     override fun clear() {
