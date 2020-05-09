@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
                 val lastVisibleItemPosition =
                     (recyclerView.layoutManager as? LinearLayoutManager)!!.findLastCompletelyVisibleItemPosition()
-                val itemTotalCount = recyclerView.adapter!!.itemCount - 1
+                val itemTotalCount = movieListAdapter.itemCount - 1
 
                 if (lastVisibleItemPosition == itemTotalCount) {
                     Log.d("fail : ", "스크롤 최하단")
