@@ -83,23 +83,32 @@ class MainActivity : AppCompatActivity() {
 
 
                         val movieData = response.body()
-                        Log.d("datadata : ", movieData!!.display)
-                        if (movieData!!.display == "0") {
-                            Toast.makeText(this@MainActivity, "검색 결과가 없습니다.", Toast.LENGTH_SHORT)
-                                .show()
-                            return
+
+                        if (movieData != null) {
+                            if (movieData.display == "0") {
+                                Toast.makeText(
+                                    this@MainActivity,
+                                    "검색 결과가 없습니다.",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                                return
+                            }
                         }
                         Log.d("movie : ", movieData.toString())
 
-                        total = movieData!!.total.toInt()
-                        start = movieData!!.start.toInt()
-                        display = movieData!!.display.toInt()
-                        Log.d("start : ", start.toString())
-                        Log.d("total : ", total.toString())
-                        Log.d("display : ", display.toString())
+                        if (movieData != null) {
+                            total = movieData.total.toInt()
+                            start = movieData.start.toInt()
+                            display = movieData.display.toInt()
+                            Log.d("start : ", start.toString())
+                            Log.d("total : ", total.toString())
+                            Log.d("display : ", display.toString())
+
+                            movieListAdapter.addItems(movieData.items)
+                        }
 
 
-                        movieListAdapter.addItems(movieData.items)
 
 
                     }
