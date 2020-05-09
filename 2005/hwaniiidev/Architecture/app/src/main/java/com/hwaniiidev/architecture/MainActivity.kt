@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val api = APICall.setUp()
+        val api = ApiCall.setUp()
 
         initView()
 
