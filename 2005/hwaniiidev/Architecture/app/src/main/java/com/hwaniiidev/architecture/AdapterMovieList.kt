@@ -16,17 +16,20 @@ import com.bumptech.glide.Glide
 import com.hwaniiidev.architecture.model.Item
 
 
-class AdapterMovieList(val context: Context, val movieList: List<Item>?) :
+class AdapterMovieList :
     RecyclerView.Adapter<AdapterMovieList.MovieHolder>() {
+    val movieList: ArrayList<Item> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_movie_list, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_movie_list, parent, false)
 
         val holder = MovieHolder(view)
         //클릭시 브라우저로 영화 정보 조회
         holder.itemView.setOnClickListener { v ->
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movieList!!.get(holder.adapterPosition).link))
-            context.startActivity(intent)
+            val intent =
+                Intent(Intent.ACTION_VIEW, Uri.parse(movieList!!.get(holder.adapterPosition).link))
+            view.context.startActivity(intent)
         }
         return holder
     }
@@ -37,7 +40,7 @@ class AdapterMovieList(val context: Context, val movieList: List<Item>?) :
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
         val itemData = movieList!!.get(position)
-        Glide.with(context)
+        Glide.with(holder.itemView)
             .load(itemData.image)
             .into(holder.imgMovie)
         holder.txtTile.text = Html.fromHtml(itemData.title)
@@ -46,6 +49,11 @@ class AdapterMovieList(val context: Context, val movieList: List<Item>?) :
         holder.txtDirector.text = itemData.director
         holder.txtActors.text = itemData.actor
         holder.txtRating.text = itemData.userRating
+    }
+
+    fun addItem(items: List<Item>) {
+        movieList.addAll(items)
+        notifyDataSetChanged()
     }
 
     inner class MovieHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -57,4 +65,5 @@ class AdapterMovieList(val context: Context, val movieList: List<Item>?) :
         val txtActors = itemView.findViewById<TextView>(R.id.item_movie_list_actors)
         val txtRating = itemView.findViewById<TextView>(R.id.item_movie_list_rating)
     }
+
 }

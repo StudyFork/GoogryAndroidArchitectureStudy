@@ -86,12 +86,11 @@ class MainActivity : AppCompatActivity() {
 
     fun initView() {
         recyclerview_search_list.layoutManager = LinearLayoutManager(this)
-
+        adapterMovieList = AdapterMovieList()
+        recyclerview_search_list.adapter = adapterMovieList
     }
 
     fun listUpdate(items: List<Item>) {
-        adapterMovieList = AdapterMovieList(this, items)
-        recyclerview_search_list.adapter = adapterMovieList
-        adapterMovieList.notifyDataSetChanged()
+        adapterMovieList.addItem(items)
     }
 }
