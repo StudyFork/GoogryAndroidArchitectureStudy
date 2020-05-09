@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
 
     private lateinit var searchView: SearchView
 
-    private val presenter = MoviePresenter(this, cache)
+    private val presenter = MovieListPresenter(this, cache)
     private val movieListAdapter = MovieAdapter(presenter)
 
     private val resultNotExist: ObservableBoolean = ObservableBoolean(false).also {

@@ -1,5 +1,7 @@
 package com.eunice.eunicehong.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -8,7 +10,7 @@ import com.eunice.eunicehong.R
 import com.eunice.eunicehong.data.model.Movie
 import com.eunice.eunicehong.databinding.ItemMovieBinding
 
-class MovieAdapter(private val presenter: MoviePresenter) :
+class MovieAdapter(private val presenter: MovieListPresenter) :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     private val movieList = mutableListOf<Movie>()
@@ -20,7 +22,7 @@ class MovieAdapter(private val presenter: MoviePresenter) :
             parent,
             false
         )
-        return ViewHolder(binding, presenter)
+        return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int = movieList.size
@@ -41,17 +43,18 @@ class MovieAdapter(private val presenter: MoviePresenter) :
         addAllMovies(movies)
     }
 
-    class ViewHolder(private val binding: ItemMovieBinding, private val presenter: MoviePresenter) :
-        RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: ItemMovieBinding) :
+        RecyclerView.ViewHolder(binding.root), MovieContract.ItemPresenter {
 
         fun bind(item: Movie) {
             binding.movie = item
             binding.viewHolder = this@ViewHolder
         }
 
-        fun showDetailWebPage(link: String) {
-            presenter.showDetail(link)
+        override fun showDetail(url: String) {
+            val context = binding.root.context
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            context.startActivity(intent)
         }
-
     }
 }
