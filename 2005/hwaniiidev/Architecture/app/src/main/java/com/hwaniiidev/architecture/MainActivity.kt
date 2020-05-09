@@ -11,10 +11,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    val TAG = MainActivity::class.java.simpleName
-    val clientId = "KXY8b7w9cuaFFHkDSGwS"
-    val clientPw = "HdI9WbTqtt"
-    val displayValue = 30
+    companion object {
+        private val TAG = MainActivity::class.java.simpleName
+        const private val clientId = "KXY8b7w9cuaFFHkDSGwS"
+        const private val clientPw = "HdI9WbTqtt"
+        const private val displayValue = 30
+    }
+
     lateinit var adapterMovieList: AdapterMovieList
 
     override fun onCreate(savedInstanceState: Bundle?) {
