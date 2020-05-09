@@ -8,7 +8,7 @@ import androidx.databinding.BindingAdapter
 fun formattedText(textView: TextView, text: String) {
     val formatted = text.split("|")
         .map { it.trim() }
-        .filter { it != "" }
+        .filter { !it.isBlank() }
         .joinToString(", ")
 
     textView.text = formatted.parseHtml()
