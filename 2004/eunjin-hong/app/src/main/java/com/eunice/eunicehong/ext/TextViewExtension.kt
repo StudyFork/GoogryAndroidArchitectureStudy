@@ -9,7 +9,7 @@ fun formattedText(textView: TextView, text: String) {
     val formatted = text.split("|")
         .map { it.trim() }
         .filter { !it.isBlank() }
-        .joinToString(", ")
+        .joinToString()
 
     textView.text = formatted.parseHtml()
 }
