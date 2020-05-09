@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                 super.onScrolled(recyclerView, dx, dy)
 
                 val lastVisibleItemPosition =
-                    (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
+                    (recyclerView.layoutManager as? LinearLayoutManager)!!.findLastCompletelyVisibleItemPosition()
                 val itemTotalCount = recyclerView.adapter!!.itemCount - 1
 
                 if (lastVisibleItemPosition == itemTotalCount) {
