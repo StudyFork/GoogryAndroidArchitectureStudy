@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 
 typealias OnClickListener = (View) -> Unit
 
-class DebounceClickListener(
+class ThrottleClickListener(
     disposable: CompositeDisposable,
     private val listener: OnClickListener
 ) : View.OnClickListener {
@@ -22,7 +22,8 @@ class DebounceClickListener(
     /***
      * debounce -> 매개변수로 지정한 TimeUnit 가 지난 후 이벤트가 없으면 데이터를 발행.
      * throttlexxx ->  첫 이벤트가 들어온 후 매개변수로 지정한 TimeUnit 동안 들어온 이벤트를 모두 무시.
-    ***/
+     ***/
+
     init {
         disposable.add(
             throttleBehaviorSubject
@@ -41,5 +42,4 @@ class DebounceClickListener(
     override fun onClick(v: View?) {
         throttleBehaviorSubject.onNext(v)
     }
-
 }
