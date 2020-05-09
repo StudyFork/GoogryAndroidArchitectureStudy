@@ -22,8 +22,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val api = ApiCall.setUp()
-
         initView()
 
         btn_search.setOnClickListener {
@@ -33,7 +31,7 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "없음")
                 Toast.makeText(this, "검색어를 입력해주세요.", Toast.LENGTH_LONG).show()
             } else {
-                api.getMovieSearchData(clientId, clientPw, searchValue, displayValue)
+                ApiCall.api.getMovieSearchData(clientId, clientPw, searchValue, displayValue)
                     .enqueue(object : retrofit2.Callback<ResponseMovieSearchData> {
                         override fun onResponse(
                             call: retrofit2.Call<ResponseMovieSearchData>,
@@ -77,11 +75,9 @@ class MainActivity : AppCompatActivity() {
                                 Toast.LENGTH_LONG
                             ).show()
                         }
-
                     })
             }
         }
-
     }
 
     fun initView() {
