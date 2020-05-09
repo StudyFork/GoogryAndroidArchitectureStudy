@@ -3,22 +3,33 @@ package com.olaf.nukeolaf.ui
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
+import androidx.databinding.DataBindingUtil
 import com.olaf.nukeolaf.R
 import com.olaf.nukeolaf.data.local.MovieLocalDataSourceImpl
 import com.olaf.nukeolaf.data.model.MovieItem
 import com.olaf.nukeolaf.data.remote.MovieRemoteDataSourceImpl
 import com.olaf.nukeolaf.data.repository.MovieRepositoryImpl
+import com.olaf.nukeolaf.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
+    private lateinit var binding: ActivityMainBinding
     private val movieAdapter = MovieAdapter()
     private lateinit var presenter: MainContract.Presenter
 
+    val searchMovie = { query: String? ->
+        presenter.searchMovie(query)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = DataBindingUtil.setContentView(
+            this,
+            R.layout.activity_main
+        )
+        binding.activity = this
 
         movie_rv.adapter = movieAdapter
 
@@ -28,17 +39,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 MovieRemoteDataSourceImpl()
             ), this
         ).apply { loadMovies() }
-
-        search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                presenter.searchMovie(query)
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return false
-            }
-        })
     }
 
     override fun showMovies(movies: List<MovieItem>) {
