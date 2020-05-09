@@ -79,6 +79,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
             adapter = movieListAdapter
             lifecycleOwner = this@MainActivity
         }
+
     }
 
     override fun onNewIntent(intent: Intent?) {
