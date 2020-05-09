@@ -82,9 +82,9 @@ class MainActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
 
 
-                        val movieData = response.body()
+                        val movieData = response.body() ?: return
 
-                        if (movieData != null) {
+
                             if (movieData.display == "0") {
                                 Toast.makeText(
                                     this@MainActivity,
@@ -94,10 +94,10 @@ class MainActivity : AppCompatActivity() {
                                     .show()
                                 return
                             }
-                        }
+
                         Log.d("movie : ", movieData.toString())
 
-                        if (movieData != null) {
+
                             total = movieData.total.toInt()
                             start = movieData.start.toInt()
                             display = movieData.display.toInt()
@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity() {
                             Log.d("display : ", display.toString())
 
                             movieListAdapter.addItems(movieData.items)
-                        }
+
 
 
 
