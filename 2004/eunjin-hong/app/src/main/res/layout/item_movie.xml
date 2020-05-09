@@ -76,7 +76,7 @@
                     android:id="@+id/movie_date_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{String.format(@string/movie_item_user_rating_key, movie.userRating)}"
+                    android:text="@{@string/movie_item_user_rating_key(movie.userRating)}"
                     android:textColor="@color/colorText"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
