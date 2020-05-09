@@ -49,6 +49,8 @@ class MovieAdapter(private val presenter: MovieListPresenter) :
         fun bind(item: Movie) {
             binding.movie = item
             binding.viewHolder = this@ViewHolder
+
+            binding.executePendingBindings()
         }
 
         override fun showDetail(url: String) {
