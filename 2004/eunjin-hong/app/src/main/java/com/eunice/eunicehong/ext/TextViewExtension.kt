@@ -11,5 +11,5 @@ fun formattedText(textView: TextView, text: String) {
         .filter { it != "" }
         .joinToString(", ")
 
-    textView.text = formatted.parseHTML()
+    textView.text = formatted.parseHtml()
 }

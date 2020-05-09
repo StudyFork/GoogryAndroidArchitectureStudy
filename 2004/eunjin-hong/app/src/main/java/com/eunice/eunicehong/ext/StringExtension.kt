@@ -4,5 +4,5 @@ import android.text.Spanned
 import androidx.core.text.HtmlCompat
 
 
-fun String.parseHTML(): Spanned =
+fun String.parseHtml(): Spanned =
     HtmlCompat.fromHtml(this, HtmlCompat.FROM_HTML_MODE_LEGACY)
