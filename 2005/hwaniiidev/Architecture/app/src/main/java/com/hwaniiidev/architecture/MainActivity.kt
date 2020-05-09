@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
     val clientId = "KXY8b7w9cuaFFHkDSGwS"
     val clientPw = "HdI9WbTqtt"
     val displayValue = 30
-    var movieList: List<Item>? = null
     lateinit var adapterMovieList: AdapterMovieList
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,12 +48,11 @@ class MainActivity : AppCompatActivity() {
                                     Log.d(TAG, "title : ${it.title}")
                                 }
 
-                                movieList = response.body()!!.items
-                                if (movieList!!.size == 0) {
+                                if (response.body()!!.total == 0) {
                                     text_plz_search.text = "검색결과가 없습니다.\n다른 검색어을 입력해주세요."
                                     text_plz_search.visibility = View.VISIBLE
                                 } else {
-                                    listUpdate()
+                                    listUpdate(response.body()!!.items)
                                     text_plz_search.visibility = View.GONE
                                 }
 
@@ -91,8 +89,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun listUpdate() {
-        adapterMovieList = AdapterMovieList(this, this!!.movieList)
+    fun listUpdate(items: List<Item>) {
+        adapterMovieList = AdapterMovieList(this, items)
         recyclerview_search_list.adapter = adapterMovieList
         adapterMovieList.notifyDataSetChanged()
     }
