@@ -4,7 +4,9 @@ import android.os.Build
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.olaf.nukeolaf.R
 import com.olaf.nukeolaf.data.model.MovieItem
 import com.olaf.nukeolaf.databinding.ItemMoviesRvBinding
 
@@ -22,7 +24,12 @@ class MovieAdapter : RecyclerView.Adapter<MovieItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemMoviesRvBinding.inflate(inflater, parent, false)
+        val binding = DataBindingUtil.inflate<ItemMoviesRvBinding>(
+            inflater,
+            R.layout.item_movies_rv,
+            parent,
+            false
+        )
         return MovieItemViewHolder(binding)
     }
 
