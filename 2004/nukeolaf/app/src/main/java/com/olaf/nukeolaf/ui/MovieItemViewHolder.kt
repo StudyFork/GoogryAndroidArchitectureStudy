@@ -9,17 +9,14 @@ import com.olaf.nukeolaf.databinding.ItemMoviesRvBinding
 class MovieItemViewHolder(private val binding: ItemMoviesRvBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    private lateinit var movieItem: MovieItem
-
     init {
         itemView.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movieItem.link))
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(binding.movieItem.link))
             it.context.startActivity(intent)
         }
     }
 
     fun bind(item: MovieItem) {
-        movieItem = item
         with(binding) {
             movieItem = item
             executePendingBindings()
