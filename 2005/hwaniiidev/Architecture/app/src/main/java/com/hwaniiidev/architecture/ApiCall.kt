@@ -3,16 +3,14 @@ package com.hwaniiidev.architecture
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ApiCall {
-    companion object {
-        val serverUrl: String = "https://openapi.naver.com/"
+object ApiCall {
+    val serverUrl: String = "https://openapi.naver.com/"
 
-        fun setUp(): RetrofitService {
-            return Retrofit.Builder()
-                .baseUrl(serverUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(RetrofitService::class.java)
-        }
+    fun setUp(): RetrofitService {
+        return Retrofit.Builder()
+            .baseUrl(serverUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(RetrofitService::class.java)
     }
 }
