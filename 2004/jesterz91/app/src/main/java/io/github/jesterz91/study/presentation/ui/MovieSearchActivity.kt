@@ -55,16 +55,13 @@ class MovieSearchActivity : BaseActivity<MovieSearchContract.Presenter,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.recyclerView.apply {
-            setHasFixedSize(true)
-            addItemDecoration(
-                DividerItemDecoration(
-                    this@MovieSearchActivity,
-                    DividerItemDecoration.VERTICAL
-                )
+        with(binding) {
+            itemDecoration = DividerItemDecoration(
+                this@MovieSearchActivity,
+                DividerItemDecoration.VERTICAL
             )
-            adapter = movieAdapter.apply {
-                getClickObservable()
+            adapter = movieAdapter.also {
+                it.getClickObservable()
                     .subscribe(presenter::browseMovie)
                     .addTo(disposables)
             }
@@ -76,7 +73,6 @@ class MovieSearchActivity : BaseActivity<MovieSearchContract.Presenter,
         (menu?.findItem(R.id.menu_search)?.actionView as? SearchView)?.apply {
             maxWidth = Int.MAX_VALUE
             queryHint = getString(R.string.search_movie_hint)
-
             queryTextChanges()
                 .subscribe(presenter::searchMovie)
                 .addTo(disposables)
@@ -87,8 +83,7 @@ class MovieSearchActivity : BaseActivity<MovieSearchContract.Presenter,
     override fun onBackPressed() = presenter.backPressed()
 
     override fun showSearchResult(items: List<Movie>) {
-        movieAdapter.changeItems(items)
-        movieAdapter.notifyDataSetChanged()
+        binding.items = items
     }
 
     override fun showLink(uri: Uri) = customTabsIntent.launchUrl(this, uri)

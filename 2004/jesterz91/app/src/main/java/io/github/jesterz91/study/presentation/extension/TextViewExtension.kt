@@ -5,6 +5,8 @@ import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
 
 @BindingAdapter("fromHtml")
-fun TextView.fromHtml(text: String) {
-    setText(HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_COMPACT))
+fun TextView.fromHtml(text: String?) {
+    text?.let {
+        setText(HtmlCompat.fromHtml(it, HtmlCompat.FROM_HTML_MODE_COMPACT))
+    }
 }

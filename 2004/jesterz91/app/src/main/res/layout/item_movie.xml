@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -30,7 +31,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guideLine"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:loadUrl="@{movie.image}"
+            bind:loadUrl="@{movie.image}"
             tools:srcCompat="@tools:sample/avatars" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -49,11 +50,11 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textStyle="bold"
-            app:fromHtml="@{movie.title}"
             app:layout_constraintBottom_toTopOf="@+id/movieSubtitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/guideLine"
             app:layout_constraintTop_toTopOf="parent"
+            bind:fromHtml="@{movie.title}"
             tools:text="영화제목" />
 
         <TextView
@@ -63,11 +64,11 @@
             android:layout_marginEnd="4dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{movie.subtitle}"
             app:layout_constraintBottom_toTopOf="@+id/movieDirector"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/guideLine"
             app:layout_constraintTop_toBottomOf="@+id/movieTitle"
+            bind:text="@{movie.subtitle}"
             tools:text="영화부제" />
 
         <TextView
@@ -77,11 +78,11 @@
             android:layout_marginEnd="4dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{movie.director}"
             app:layout_constraintBottom_toTopOf="@+id/movieActor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/guideLine"
             app:layout_constraintTop_toBottomOf="@+id/movieSubtitle"
+            bind:text="@{movie.director}"
             tools:text="영화감독" />
 
         <TextView
@@ -91,12 +92,12 @@
             android:layout_marginEnd="4dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{movie.actor}"
             app:layout_constraintBottom_toTopOf="@+id/movieRating"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/guideLine"
             app:layout_constraintTop_toBottomOf="@+id/movieDirector"
-            tools:text="영화배" />
+            bind:text="@{movie.actor}"
+            tools:text="영화배우" />
 
         <RatingBar
             android:id="@+id/movieRating"
@@ -105,13 +106,13 @@
             android:layout_marginEnd="4dp"
             android:isIndicator="true"
             android:numStars="5"
-            android:rating="@{movie.userRating}"
             android:stepSize="0.5"
             app:layout_constraintBottom_toTopOf="@+id/moviePubDate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@+id/guideLine"
             app:layout_constraintTop_toBottomOf="@+id/movieActor"
+            bind:rating="@{movie.userRating}"
             tools:rating="2" />
 
         <TextView
@@ -120,11 +121,11 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="4dp"
-            android:text="@{movie.pubDate}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/guideLine"
             app:layout_constraintTop_toBottomOf="@+id/movieRating"
+            bind:text="@{movie.pubDate}"
             tools:text="영화개봉일" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
