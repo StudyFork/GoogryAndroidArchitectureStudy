@@ -1,10 +1,14 @@
 package com.tsdev.tsandroid.util.widget
 
 import android.view.View
+import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 import com.tsdev.tsandroid.constant.Const
+import com.tsdev.tsandroid.provider.ResourceProvider
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
+import java.util.concurrent.TimeUnit
 
 typealias OnClickListener = (View) -> Unit
 
@@ -13,31 +17,29 @@ class DebounceClickListener(
     private val listener: OnClickListener
 ) : View.OnClickListener {
 
-    private lateinit var view: View
-    protected val debounceOnClickBehaviorSubject = BehaviorSubject.createDefault(0L)
+    private val throttleBehaviorSubject = BehaviorSubject.create<View>()
 
+    /***
+     * debounce -> 매개변수로 지정한 TimeUnit 가 지난 후 이벤트가 없으면 데이터를 발행.
+     * throttlexxx ->  첫 이벤트가 들어온 후 매개변수로 지정한 TimeUnit 동안 들어온 이벤트를 모두 무시.
+    ***/
     init {
         disposable.add(
-            debounceOnClickBehaviorSubject
+            throttleBehaviorSubject
                 .subscribeOn(Schedulers.computation())
-                .buffer(2, 1)
-                .map { it[0] to it[1] }
-                .subscribe({
-                    if (it.second < it.first + Const.SEARCH_BUTTON_THROTTLE_TIME) {
-                        return@subscribe
-                    } else {
-                        if (::view.isInitialized)
-                            view.run(listener)
-                    }
-                }, {
-                    it.printStackTrace()
-                })
+                .onErrorReturn {
+                    Snackbar.make(throttleBehaviorSubject.value, "재 검색을 해주세요", Snackbar.LENGTH_LONG)
+                        .view
+                }
+                .throttleFirst(Const.SEARCH_BUTTON_THROTTLE_TIME, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    it.run(listener)
+                }
         )
     }
 
     override fun onClick(v: View?) {
-        v?.let { view = it }
-        debounceOnClickBehaviorSubject.onNext(System.currentTimeMillis())
+        throttleBehaviorSubject.onNext(v)
     }
 
 }
