@@ -125,7 +125,7 @@
                     android:layout_marginStart="7dp"
                     android:layout_marginBottom="10dp"
                     android:numStars="5"
-                    android:rating="@{movieItem.userRating/2}"
+                    android:rating="@{movieItem.userRating}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/movie_image" />
 

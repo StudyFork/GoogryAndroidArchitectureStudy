@@ -35,15 +35,15 @@ class MovieAdapter : RecyclerView.Adapter<MovieItemViewHolder>() {
     }
 
     private fun processMovieItemString(movies: List<MovieItem>): List<MovieItem> {
-        for (movie in movies) {
-            movie.apply {
-                title = title.htmlToString()
-                subtitle = subtitle.htmlToString()
-                director = director.addCommas("감독 : ")
-                actor = actor.addCommas("출연진 : ")
-            }
+        return movies.map {
+            it.copy(
+                title = it.title.htmlToString(),
+                subtitle = it.subtitle.htmlToString(),
+                director = it.director.addCommas("감독 : "),
+                actor = it.actor.addCommas("출연진 : "),
+                userRating = it.userRating / 2
+            )
         }
-        return movies
     }
 
     private fun String.htmlToString(): String {
