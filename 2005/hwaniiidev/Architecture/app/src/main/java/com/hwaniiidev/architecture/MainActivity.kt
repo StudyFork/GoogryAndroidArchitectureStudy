@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.hwaniiidev.architecture.model.Item
 import com.hwaniiidev.architecture.model.ResponseMovieSearchData
 import kotlinx.android.synthetic.main.activity_main.*
@@ -50,7 +49,7 @@ class MainActivity : AppCompatActivity() {
                                     text_plz_search.text = "검색결과가 없습니다.\n다른 검색어을 입력해주세요."
                                     text_plz_search.visibility = View.VISIBLE
                                 } else {
-                                    listUpdate(response.body()!!.items)
+                                    updateList(response.body()!!.items)
                                     text_plz_search.visibility = View.GONE
                                 }
 
@@ -85,7 +84,7 @@ class MainActivity : AppCompatActivity() {
         recyclerview_search_list.adapter = adapterMovieList
     }
 
-    private fun listUpdate(items: List<Item>) {
+    private fun updateList(items: List<Item>) {
         adapterMovieList.addItem(items)
     }
 }
