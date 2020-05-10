@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/movie_item_height"
         android:layout_margin="@dimen/margin_1"
-        android:onClick="@{() -> viewHolder.showDetail(movie.link)}"
+        app:setMovieItemClickListener="@{movie.link}"
         app:cardBackgroundColor="@color/colorPrimary"
         app:cardCornerRadius="@dimen/movie_item_corner_radius"
         app:cardElevation="@dimen/margin_0"

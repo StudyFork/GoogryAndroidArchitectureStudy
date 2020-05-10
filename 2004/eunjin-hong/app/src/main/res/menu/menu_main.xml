@@ -7,9 +7,11 @@
         android:title="@string/button_search_title"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="ifRoom|withText" />
+
     <item
         android:id="@+id/remove_history"
         android:icon="@android:drawable/ic_menu_delete"
         android:title="@string/button_delete_history_title"
+        android:onClick="showRemoveHistoryConfirmDialog"
         app:showAsAction="always" />
 </menu>

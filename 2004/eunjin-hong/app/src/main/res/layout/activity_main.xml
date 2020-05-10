@@ -8,16 +8,10 @@
         <import type="android.view.View" />
 
         <variable
-            name="networkErrorMessageOn"
-            type="androidx.databinding.ObservableBoolean" />
+            name="viewModel"
+            type="com.eunice.eunicehong.viewmodel.MainViewModel" />
 
-        <variable
-            name="resultNotFoundOn"
-            type="androidx.databinding.ObservableBoolean" />
-
-        <variable
-            name="adapter"
-            type="com.eunice.eunicehong.ui.MovieAdapter" />
+        <import type="com.eunice.eunicehong.viewmodel.MainViewModel.MovieListState" />
 
     </data>
 
@@ -33,12 +27,12 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="@dimen/margin_1"
-            android:visibility="@{!resultNotFoundOn &amp;&amp; !networkErrorMessageOn ?View.VISIBLE: View.INVISIBLE}"
+            android:visibility="@{viewModel.movieListState == MovieListState.SHOW_RESULT ?View.VISIBLE: View.INVISIBLE}"
             app:layout="@layout/item_movie"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:adapter="@{adapter}"
+            app:adapter="@{viewModel.movieListAdapter}"
             tools:itemCount="12"
             tools:layout_editor_absoluteX="8dp"
             tools:listitem="@layout/item_movie" />
@@ -51,7 +45,7 @@
             android:gravity="center"
             android:text="@string/movie_list_zero_item_message"
             android:textColor="@color/colorText"
-            android:visibility="@{resultNotFoundOn &amp;&amp; !networkErrorMessageOn ?View.VISIBLE: View.INVISIBLE}"
+            android:visibility="@{viewModel.movieListState == MovieListState.NO_MATCHING_RESULT ?View.VISIBLE: View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -63,7 +57,7 @@
             android:gravity="center"
             android:text="@string/movie_list_network_error_message"
             android:textColor="@color/colorText"
-            android:visibility="@{!resultNotFoundOn &amp;&amp;networkErrorMessageOn  ?View.VISIBLE: View.INVISIBLE}"
+            android:visibility="@{viewModel.movieListState == MovieListState.NETWORK_ERROR ?View.VISIBLE: View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

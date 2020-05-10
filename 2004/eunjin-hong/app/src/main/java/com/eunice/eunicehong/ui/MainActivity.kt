@@ -8,75 +8,31 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
-import androidx.databinding.ObservableBoolean
 import com.eunice.eunicehong.R
 import com.eunice.eunicehong.data.model.MovieList
 import com.eunice.eunicehong.data.source.MovieDataSource
 import com.eunice.eunicehong.databinding.ActivityMainBinding
-import com.google.gson.JsonSyntaxException
-import kotlinx.android.synthetic.main.activity_main.*
+import com.eunice.eunicehong.viewmodel.MainViewModel
 
-class MainActivity : AppCompatActivity(), MovieContract.View {
-    private val cache = object : MovieCache {
-        val preferences = MoviePreferences.getInstance(this@MainActivity)
-
-        @Throws(IllegalStateException::class, JsonSyntaxException::class)
-        override fun getMovieList(
-            query: String
-        ): MovieList = preferences.getHistory(query)
-
-        override fun saveMovieList(query: String, movieList: MovieList) =
-            preferences.saveHistory(query, movieList)
-
-
-        override fun removeMovieHistory() {
-            preferences.removeAllSearchHistory()
-        }
-    }
-
-    override lateinit var movieContext: Context
+class MainActivity : AppCompatActivity() {
 
     private lateinit var searchView: SearchView
 
-    private val presenter = MovieListPresenter(this, cache)
-    private val movieListAdapter = MovieAdapter(presenter)
-
-    private val resultNotExist: ObservableBoolean = ObservableBoolean(false).also {
-        it.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                if (it.get()) {
-                    networkErrorOccur.set(false)
-                }
-            }
-        })
-    }
-    private val networkErrorOccur: ObservableBoolean = ObservableBoolean(false).also {
-        it.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                if (it.get()) {
-                    resultNotExist.set(false)
-                }
-            }
-        })
-    }
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        movieContext = this@MainActivity
+        mainViewModel = MainViewModel(this@MainActivity)
 
         DataBindingUtil.setContentView<ActivityMainBinding>(
             this@MainActivity,
             R.layout.activity_main
         ).apply {
-            resultNotFoundOn = resultNotExist
-            networkErrorMessageOn = networkErrorOccur
-            adapter = movieListAdapter
+            viewModel = mainViewModel
             lifecycleOwner = this@MainActivity
         }
 
@@ -87,20 +43,12 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
 
         val query = intent?.getStringExtra(SearchManager.QUERY)
         if (!query.isNullOrBlank()) {
-            presenter.search(query, object : MovieDataSource.LoadMoviesCallback {
+            mainViewModel.search(query, object : MovieDataSource.LoadMoviesCallback {
                 override fun onSuccess(movieList: MovieList) {
-                    if (movieList.items.isEmpty()) {
-                        resultNotExist.set(true)
-                    } else {
-                        showSearchResult(movieList)
-                        resultNotExist.set(false)
-                        networkErrorOccur.set(false)
-                    }
-                    cache.saveMovieList(query, movieList)
+                    mainViewModel.showSearchResult(query, movieList)
                 }
 
                 override fun onFailure(e: Throwable) {
-                    networkErrorOccur.set(true)
                     Log.d(this.toString(), e.toString())
                 }
             })
@@ -122,10 +70,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-        presenter.onOptionMenuSelected(item.itemId)
-
-    override fun showRemoveHistoryConfirmDialog() {
+    fun showRemoveHistoryConfirmDialog(item: MenuItem) {
         AlertDialog.Builder(this)
             .setTitle(R.string.app_name)
             .setMessage(getString(R.string.delete_history_confirmation))
@@ -133,7 +78,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
             .setPositiveButton(
                 android.R.string.yes
             ) { _, _ ->
-                presenter.removeHistory()
+                mainViewModel.removeHistory()
                 Toast.makeText(
                     this@MainActivity,
                     getString(R.string.complete_delete_history),
@@ -143,11 +88,6 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
             .setNegativeButton(android.R.string.no, null).show()
     }
 
-    override fun showSearchResult(movies: MovieList) {
-        zero_item_message.visibility =
-            if (movies.items.isNullOrEmpty()) View.VISIBLE else View.GONE
-        movieListAdapter.setMovieList(movies.items)
-    }
 
     companion object {
         private const val TAG = "MAIN_ACTIVITY"
