@@ -1,7 +1,7 @@
 package com.example.architecture.retrofit
 
 import com.example.architecture.BuildConfig
-import com.example.architecture.vo.MovieResponseVO
+import com.example.architecture.data.model.MovieResponseModel
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -16,7 +16,7 @@ interface MovieSearchService {
     @GET("/v1/search/movie.json")
     fun requestSearchMovie(
         @Query("query") title: String
-    ): Call<MovieResponseVO>
+    ): Call<MovieResponseModel>
 
 
 }

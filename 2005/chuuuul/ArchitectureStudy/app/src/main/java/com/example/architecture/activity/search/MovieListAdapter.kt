@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.architecture.ConstValue.Companion.NO_IMAGE_URL
 import com.example.architecture.R
-import com.example.architecture.data.model.MovieVO
+import com.example.architecture.data.model.MovieModel
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieListAdapter :
     RecyclerView.Adapter<MovieViewHolder>() {
 
-    private val movies = ArrayList<MovieVO>()
+    private val movies = ArrayList<MovieModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
 
@@ -50,7 +50,7 @@ class MovieListAdapter :
 
     }
 
-    fun addNewItems(movieList : ArrayList<MovieVO>){
+    fun addNewItems(movieList: ArrayList<MovieModel>) {
         if (movies.isNotEmpty()) {
             movies.clear()
         }

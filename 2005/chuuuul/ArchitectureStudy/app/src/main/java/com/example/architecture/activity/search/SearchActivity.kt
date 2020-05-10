@@ -7,8 +7,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.architecture.ConstValue.Companion.MOVIE_SEARCH_API_URL
 import com.example.architecture.R
-import com.example.architecture.data.model.MovieResponseVO
-import com.example.architecture.data.model.MovieVO
+import com.example.architecture.data.model.MovieModel
+import com.example.architecture.data.model.MovieResponseModel
 import com.example.architecture.retrofit.MovieSearchService
 import kotlinx.android.synthetic.main.activity_search.*
 import retrofit2.Call
@@ -17,9 +17,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class SearchActivity : AppCompatActivity(), Callback<MovieResponseVO> {
+class SearchActivity : AppCompatActivity(), Callback<MovieResponseModel> {
 
-    private val movies = ArrayList<MovieVO>()
+    private val movies = ArrayList<MovieModel>()
     private val adapter = MovieListAdapter()
 
     private val retrofit by lazy {
@@ -84,7 +84,10 @@ class SearchActivity : AppCompatActivity(), Callback<MovieResponseVO> {
 
     // * Retrofit Response
 
-    override fun onResponse(call: Call<MovieResponseVO>, response: Response<MovieResponseVO>) {
+    override fun onResponse(
+        call: Call<MovieResponseModel>,
+        response: Response<MovieResponseModel>
+    ) {
 
         val result = response.body()
 
@@ -101,7 +104,7 @@ class SearchActivity : AppCompatActivity(), Callback<MovieResponseVO> {
         }
     }
 
-    override fun onFailure(call: Call<MovieResponseVO>, t: Throwable) {
+    override fun onFailure(call: Call<MovieResponseModel>, t: Throwable) {
         Log.d("chul", "$t")
     }
 }
