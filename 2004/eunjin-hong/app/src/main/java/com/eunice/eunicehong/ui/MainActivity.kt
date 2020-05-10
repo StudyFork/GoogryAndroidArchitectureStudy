@@ -63,6 +63,21 @@ class MainActivity : AppCompatActivity() {
             isIconifiedByDefault = false
             isSubmitButtonEnabled = true
             isQueryRefinementEnabled = true
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    if (newText.isNullOrBlank()) {
+                        mainViewModel.movieListState.set(MainViewModel.MovieListState.EMPTY_QUERY)
+                        return true
+                    } else {
+                        return false
+                    }
+                }
+
+            })
         }
         return true
     }
