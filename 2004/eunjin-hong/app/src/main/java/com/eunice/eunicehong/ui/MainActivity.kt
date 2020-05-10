@@ -1,6 +1,5 @@
 package com.eunice.eunicehong.ui
 
-import android.app.AlertDialog
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
@@ -9,7 +8,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.eunice.eunicehong.R
@@ -71,21 +69,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showRemoveHistoryConfirmDialog(item: MenuItem) {
-        AlertDialog.Builder(this)
-            .setTitle(R.string.app_name)
-            .setMessage(getString(R.string.delete_history_confirmation))
-            .setIcon(android.R.drawable.ic_dialog_alert)
-            .setPositiveButton(
-                android.R.string.yes
-            ) { _, _ ->
-                mainViewModel.removeHistory()
-                Toast.makeText(
-                    this@MainActivity,
-                    getString(R.string.complete_delete_history),
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-            .setNegativeButton(android.R.string.no, null).show()
+        if (item.itemId == R.id.remove_history) {
+            mainViewModel.showRemoveHistoryConfirmDialog()
+        }
     }
 
 

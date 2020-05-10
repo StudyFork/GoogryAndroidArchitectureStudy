@@ -1,8 +1,11 @@
 package com.eunice.eunicehong.viewmodel
 
+import android.app.AlertDialog
 import android.content.Context
 import android.provider.SearchRecentSuggestions
+import android.widget.Toast
 import androidx.databinding.ObservableField
+import com.eunice.eunicehong.R
 import com.eunice.eunicehong.data.model.MovieList
 import com.eunice.eunicehong.data.source.MovieDataSource
 import com.eunice.eunicehong.data.source.MovieRepository
@@ -55,6 +58,24 @@ class MainViewModel(private val context: Context) {
         } catch (e: Throwable) {
             MovieRepository.getMovieList(query, callback)
         }
+    }
+
+    fun showRemoveHistoryConfirmDialog() {
+        AlertDialog.Builder(context)
+            .setTitle(R.string.app_name)
+            .setMessage(context.getString(R.string.delete_history_confirmation))
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setPositiveButton(
+                android.R.string.yes
+            ) { _, _ ->
+                removeHistory()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.complete_delete_history),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            .setNegativeButton(android.R.string.no, null).show()
     }
 
     fun removeHistory() {
