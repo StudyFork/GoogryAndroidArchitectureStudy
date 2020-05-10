@@ -9,7 +9,7 @@ abstract class BaseRecyclerViewHolder<BINDING: ViewDataBinding, ITEM>(itemView: 
     RecyclerView.ViewHolder(itemView) {
 
 
-    abstract fun onBindViewHolder(item: ITEM)
+    abstract fun onBindViewHolder(item: ITEM?)
 
     protected val recyclerDataBinding: BINDING = DataBindingUtil.bind(itemView)!!
 }

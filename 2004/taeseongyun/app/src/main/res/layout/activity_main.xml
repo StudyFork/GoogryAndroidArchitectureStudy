@@ -12,8 +12,8 @@
             type="com.tsdev.tsandroid.ui.MainActivity" />
 
         <variable
-            name="presenter"
-            type="com.tsdev.tsandroid.presenter.MovieContract.Presenter" />
+            name="viewModel"
+            type="com.tsdev.tsandroid.ui.viewmodel.MainViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -48,6 +48,7 @@
                             android:layout_weight="8"
                             android:background="@android:color/transparent"
                             android:hint="@string/edit_text_hint"
+                            android:text="@={viewModel.observerQuery}"
                             android:imeOptions="actionDone"
                             android:inputType="text"
                             android:maxLines="1"
@@ -59,7 +60,7 @@
                             android:layout_height="@dimen/spacing_xx_large"
                             android:layout_gravity="center"
                             android:layout_weight="2"
-                            onDebounceClickEvent="@{() -> presenter.loadMovie(editQuery.getText().toString())}"
+                            onDebounceClickEvent="@{() -> viewModel.searchMovie()}"
                             android:src="@drawable/ic_search_black_24dp" />
                     </LinearLayout>
 
@@ -69,13 +70,14 @@
 
         <ProgressBar
             android:id="@+id/progress_bar"
-            isVisible="@{presenter.loading}"
+            isVisible="@{viewModel.loading}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movie_recycler"
+            app:bindingItems="@{viewModel.observe.emitList()}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

@@ -6,14 +6,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.tsdev.tsandroid.eventbus.RxEventBusImpl
+import com.tsdev.tsandroid.ui.viewmodel.BaseViewModel
+import com.tsdev.tsandroid.ui.viewmodel.MainViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
-abstract class BaseActivity<PRESENTER : BaseContract.Presenter, BINDING : ViewDataBinding> :
+abstract class BaseActivity<VM: BaseViewModel, BINDING : ViewDataBinding> :
     AppCompatActivity() {
 
     protected val disposable = CompositeDisposable()
 
-    abstract val presenter: PRESENTER
+    abstract val viewModel: VM
 
     abstract val binding: BINDING
 
@@ -29,7 +31,7 @@ abstract class BaseActivity<PRESENTER : BaseContract.Presenter, BINDING : ViewDa
 
     override fun onDestroy() {
         disposable.clear()
-        presenter.clearCompositeDisposable()
+        viewModel.onDestroy()
         super.onDestroy()
     }
 }
