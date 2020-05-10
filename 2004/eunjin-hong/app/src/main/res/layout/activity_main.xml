@@ -14,13 +14,38 @@
         <import type="com.eunice.eunicehong.viewmodel.MainViewModel.MovieListState" />
 
     </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        tools:context=".ui.MainActivity"
-        tools:ignore="contentDescription, Autofill">
+        android:layout_height="match_parent">
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/main_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:visibility="@{viewModel.movieListState == MovieListState.LOADING ? View.VISIBLE : View.GONE}"
+            app:shimmer_auto_start="true"
+            tools:context=".ui.MainActivity"
+            tools:ignore="contentDescription, Autofill">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/item_movie_placeholder" />
+
+                <include layout="@layout/item_movie_placeholder" />
+
+                <include layout="@layout/item_movie_placeholder" />
+
+                <include layout="@layout/item_movie_placeholder" />
+
+                <include layout="@layout/item_movie_placeholder" />
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movie_list"
@@ -28,11 +53,11 @@
             android:layout_height="0dp"
             android:layout_margin="@dimen/margin_1"
             android:visibility="@{viewModel.movieListState == MovieListState.SHOW_RESULT ?View.VISIBLE: View.INVISIBLE}"
+            app:adapter="@{viewModel.movieListAdapter}"
             app:layout="@layout/item_movie"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:adapter="@{viewModel.movieListAdapter}"
             tools:itemCount="12"
             tools:layout_editor_absoluteX="8dp"
             tools:listitem="@layout/item_movie" />

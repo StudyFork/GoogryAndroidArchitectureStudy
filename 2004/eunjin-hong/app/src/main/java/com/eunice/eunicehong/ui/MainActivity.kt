@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
             viewModel = mainViewModel
             lifecycleOwner = this@MainActivity
         }
-
     }
 
     override fun onNewIntent(intent: Intent?) {

@@ -7,4 +7,5 @@
     <color name="colorTextSecond">#bbbbbbbb</color>
     <color name="colorShadow">#890515</color>
     <color name="colorTint">#EA3A4E</color>
+    <color name="placeholder">#444444</color>
 </resources>

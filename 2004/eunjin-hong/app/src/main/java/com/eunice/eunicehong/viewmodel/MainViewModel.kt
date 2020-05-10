@@ -47,6 +47,8 @@ class MainViewModel(private val context: Context) {
             SuggestionProvider.MODE
         ).saveRecentQuery(query, null)
 
+        movieListState.set(MovieListState.LOADING)
+
         try {
             val list = cache.getMovieList(query)
             if (list.items.isEmpty()) {
