@@ -1,5 +1,9 @@
 package com.tsdev.tsandroid.ui.viewmodel
 
+import android.app.Activity
+import android.content.Context
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.ObservableField
 import com.tsdev.tsandroid.R
@@ -31,7 +35,7 @@ class MainViewModel(
 
     private val compositeDisposable = CompositeDisposable()
 
-    fun searchMovie() {
+    fun searchMovie(activity: Activity, view: View) {
         compositeDisposable.add(
             movieRepository.getMovieList(observerQuery.get() ?: NON_QUERY)
                 .subscribeOn(Schedulers.io())
@@ -42,6 +46,10 @@ class MainViewModel(
                 }.observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe {
                     isLoading = true
+                    (activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
+                        view.windowToken,
+                        0
+                    )
                 }
                 .doOnTerminate { isLoading = false }
                 .subscribe { items: List<Item>, _ ->
