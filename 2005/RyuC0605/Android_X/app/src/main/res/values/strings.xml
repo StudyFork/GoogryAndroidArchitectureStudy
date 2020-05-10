@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">RApp</string>
+    <string name="app_name" translatable="false">네이버 영화 검색</string>
+    <string name="empty_result">not found for search result.</string>
+    <string name="enter_keyword">enter the keyword</string>
 </resources>
