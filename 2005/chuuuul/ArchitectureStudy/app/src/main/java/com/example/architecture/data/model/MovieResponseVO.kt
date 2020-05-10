@@ -1,4 +1,4 @@
-package com.example.architecture.vo
+package com.example.architecture.data.model
 
 import com.google.gson.annotations.SerializedName
 

@@ -7,9 +7,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.architecture.ConstValue.Companion.MOVIE_SEARCH_API_URL
 import com.example.architecture.R
+import com.example.architecture.data.model.MovieResponseVO
+import com.example.architecture.data.model.MovieVO
 import com.example.architecture.retrofit.MovieSearchService
-import com.example.architecture.vo.MovieResponseVO
-import com.example.architecture.vo.MovieVO
 import kotlinx.android.synthetic.main.activity_search.*
 import retrofit2.Call
 import retrofit2.Callback
