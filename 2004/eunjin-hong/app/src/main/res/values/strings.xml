@@ -2,6 +2,7 @@
     <string name="app_name">EuniceHong</string>
 
     <string name="movie_list_zero_item_message">🔎 일치하는 검색 결과가 없습니다. 😅</string>
+    <string name="movie_list_network_error_message">🔗 네트워크 연결을 확인해주세요. 😅</string>
 
     <string name="movie_search_hint">영화 제목, 감독, 배우를 검색하세요</string>를
     <string name="movie_item_user_rating_key">⭐ %s</string>

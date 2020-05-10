@@ -8,15 +8,17 @@ interface MovieContract {
     interface View {
         var movieContext: Context
 
-        fun setQueryText(query: String)
         fun showSearchResult(movies: MovieList)
         fun showRemoveHistoryConfirmDialog()
     }
 
     interface Presenter {
-        fun showDetail(url: String)
         fun search(query: String, callback: MovieDataSource.LoadMoviesCallback)
         fun removeHistory()
         fun onOptionMenuSelected(id: Int): Boolean
+    }
+
+    interface ItemPresenter {
+        fun showDetail(url: String)
     }
 }
