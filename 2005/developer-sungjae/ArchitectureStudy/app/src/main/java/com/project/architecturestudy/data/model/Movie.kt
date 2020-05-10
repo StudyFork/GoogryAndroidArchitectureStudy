@@ -1,6 +1,6 @@
-package com.project.architecturestudy.models
+package com.project.architecturestudy.data.model
 
-class MovieData(
+class Movie(
     val lastBuildDate: String,
     val total: Int,
     val start: Int,
