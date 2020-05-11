@@ -7,14 +7,9 @@ import com.project.architecturestudy.data.source.remote.NaverMovieRemoteDataSour
 class NaverMovieRepositoryImpl(
     val naverMovieLocalDataSource: NaverMovieLocalDataSource,
     val naverMovieRemoteDataSource: NaverMovieRemoteDataSource
-
 ) :
     NaverMovieRepository {
-    override fun getMovieList(
-        query: String,
-        Success: (Movie.Items) -> Unit,
-        Failure: (Throwable) -> Unit
-    ) {
+    override fun getMovieList(query: String) {
 
     }
 
