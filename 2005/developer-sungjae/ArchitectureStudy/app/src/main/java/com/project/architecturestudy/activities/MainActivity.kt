@@ -9,7 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.project.architecturestudy.R
 import com.project.architecturestudy.adapters.SearchAdapter
 import com.project.architecturestudy.components.RetrofitService
-import com.project.architecturestudy.data.model.Movie
+import com.project.architecturestudy.data.repository.NaverMovieRepositoryImpl
+import com.project.architecturestudy.data.source.local.NaverMovieLocalDataSourceImpl
+import com.project.architecturestudy.data.source.remote.NaverMovieRemoteDataSourceImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
@@ -17,10 +19,16 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private var adapter: SearchAdapter? = null
+    private val naverMovieRepositoryImpl by lazy {
+        val naverMovieLocalDataSource = NaverMovieLocalDataSourceImpl()
+        val naverMovieRemoteDataSource = NaverMovieRemoteDataSourceImpl()
+        NaverMovieRepositoryImpl(naverMovieLocalDataSource, naverMovieRemoteDataSource)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         btn_search.setOnClickListener {
             if (et_search.text.toString().isEmpty()) {
@@ -40,21 +48,18 @@ class MainActivity : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .subscribe({ movie ->
                 adapter?.resetData(movie.items)
-            },
-                { error ->
-                    Log.d("error", error.toString())
-                })
+            }, { error ->
+                Log.d("error", error.toString())
+            })
     }
 
     private fun setRecyclerView() {
         adapter = SearchAdapter()
         listview_movie.adapter = adapter
 
-        adapter?.onClick = { item: Movie.Items ->
+        adapter?.onClick = { item ->
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
             startActivity(intent)
         }
-
-
     }
 }
