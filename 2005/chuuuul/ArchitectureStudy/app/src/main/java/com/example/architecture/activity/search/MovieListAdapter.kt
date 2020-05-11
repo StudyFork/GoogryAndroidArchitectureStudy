@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.item_movie.view.*
 class MovieListAdapter :
     RecyclerView.Adapter<MovieViewHolder>() {
 
-    private val movies = ArrayList<MovieModel>()
+    private val movies = mutableListOf<MovieModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
 
@@ -50,7 +50,7 @@ class MovieListAdapter :
 
     }
 
-    fun addNewItems(movieList: ArrayList<MovieModel>) {
+    fun addNewItems(movieList: Collection<MovieModel>) {
         if (movies.isNotEmpty()) {
             movies.clear()
         }
