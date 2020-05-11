@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
             if (et_search.text.toString().isEmpty()) {
                 return@setOnClickListener
             }
-            naverMovieRepositoryImpl.getMovieList(et_search.text.toString(), adapter,
+            naverMovieRepositoryImpl.getMovieList(this, et_search.text.toString(), adapter,
                 SuccessMsg = { toast(getString(R.string.get_data_success)) },
                 FailureMsg = { toast(getString(R.string.get_data_failure)) })
         }

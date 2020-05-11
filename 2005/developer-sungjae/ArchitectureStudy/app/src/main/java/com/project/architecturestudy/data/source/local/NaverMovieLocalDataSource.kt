@@ -5,7 +5,11 @@ import com.project.architecturestudy.data.model.Movie
 
 interface NaverMovieLocalDataSource {
 
-    fun getMovieList(Success: (ArrayList<Movie.Items>) -> Unit, Failure: (Throwable) -> Unit)
+    fun getMovieList(
+        context: Context,
+        Success: (ArrayList<Movie.Items>) -> Unit,
+        Failure: (Throwable) -> Unit
+    )
 
     fun saveMovieList(movieItem: ArrayList<Movie.Items>, context: Context)
 }
