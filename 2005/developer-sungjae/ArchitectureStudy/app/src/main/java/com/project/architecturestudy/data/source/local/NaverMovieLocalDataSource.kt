@@ -1,10 +1,11 @@
 package com.project.architecturestudy.data.source.local
 
+import android.content.Context
 import com.project.architecturestudy.data.model.Movie
 
 interface NaverMovieLocalDataSource {
 
-    fun getMovieList(query: String, Success:((Movie.Items) -> Unit), Failure:((Throwable) -> Unit))
+    fun getMovieList(Success: (Movie.Items) -> Unit, Failure: (Throwable) -> Unit)
 
-    fun saveMovieList(query: String)
+    fun saveMovieList(movieItem: ArrayList<Movie.Items>, context: Context)
 }
