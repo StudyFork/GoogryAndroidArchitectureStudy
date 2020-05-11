@@ -1,6 +1,7 @@
 package com.project.architecturestudy.data.source.local.room
 
 import androidx.room.*
+import com.project.architecturestudy.data.model.Movie
 import io.reactivex.Flowable
 
 @Dao
@@ -14,12 +15,12 @@ interface MovieItemDAO {
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg person: MovieItem)
+    fun insert(list: ArrayList<Movie.Items>)
 
     @Update
-    fun update(vararg person: MovieItem)
+    fun update(vararg item: MovieItem)
 
     @Delete
-    fun delete(vararg person: MovieItem)
+    fun delete(vararg item: MovieItem)
 
 }
