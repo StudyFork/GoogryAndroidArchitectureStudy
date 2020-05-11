@@ -12,7 +12,11 @@ class NaverMovieRepositoryImpl(
 ) :
     NaverMovieRepository {
     @SuppressLint("CheckResult")
-    override fun getMovieList(keyWord: String, adapter: SearchAdapter?, SuccessMsg: (String) -> Unit, FailureMsg: (String) -> Unit) {
+    override fun getMovieList(
+        keyWord: String, adapter: SearchAdapter?,
+        SuccessMsg: (String) -> Unit,
+        FailureMsg: (String) -> Unit
+    ) {
 
         naverMovieRemoteDataSource.getMovieList(keyWord,
             Success = { items ->
