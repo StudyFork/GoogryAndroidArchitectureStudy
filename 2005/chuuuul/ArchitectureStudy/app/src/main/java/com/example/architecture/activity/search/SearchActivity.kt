@@ -81,7 +81,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun onFailure(t: Throwable) {
-        Log.d("chul", "${t.stackTrace}")
+        Log.d("chul", "OnFailure : $t")
     }
 
 }
