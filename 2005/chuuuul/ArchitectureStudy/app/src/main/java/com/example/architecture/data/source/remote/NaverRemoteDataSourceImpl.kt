@@ -1,5 +1,6 @@
 package com.example.architecture.data.source.remote
 
+import android.content.Context
 import com.example.architecture.data.model.MovieModel
 import com.example.architecture.data.model.MovieResponseModel
 import com.example.architecture.retrofit.MovieSearchService
@@ -20,9 +21,11 @@ class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
     }
 
     override fun getMovieList(
+        context: Context,
         keyWord: String,
         onSuccess: (movies: List<MovieModel>) -> Unit,
-        onFailure: (t: Throwable) -> Unit
+        onFailure: (t: Throwable) -> Unit,
+        saveMovieInLocal: (context: Context, keyword: String, movies: List<MovieModel>) -> Unit
     ) {
 
         val service = retrofit.create(MovieSearchService::class.java)
@@ -37,6 +40,7 @@ class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
 
                 movieResponse?.also {
                     onSuccess(it.movies)
+                    saveMovieInLocal(context, keyWord, it.movies)
                 }
             }
 

@@ -46,6 +46,7 @@ class SearchActivity : AppCompatActivity() {
 
         if (isValidKeyword(keyWord)) {
             NaverRepositoryImpl.getMovieList(
+                applicationContext,
                 keyWord,
                 onSuccess = this::onSuccess,
                 onFailure = this::onFailure
