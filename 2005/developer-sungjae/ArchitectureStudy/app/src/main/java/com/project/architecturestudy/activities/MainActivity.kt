@@ -10,6 +10,7 @@ import com.project.architecturestudy.data.repository.NaverMovieRepositoryImpl
 import com.project.architecturestudy.data.source.local.NaverMovieLocalDataSourceImpl
 import com.project.architecturestudy.data.source.remote.NaverMovieRemoteDataSourceImpl
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,7 +30,9 @@ class MainActivity : AppCompatActivity() {
             if (et_search.text.toString().isEmpty()) {
                 return@setOnClickListener
             }
-            naverMovieRepositoryImpl.getMovieList(et_search.text.toString(), adapter)
+            naverMovieRepositoryImpl.getMovieList(et_search.text.toString(), adapter,
+                SuccessMsg = { toast(it) },
+                FailureMsg = { toast(it) })
         }
         setRecyclerView()
     }
