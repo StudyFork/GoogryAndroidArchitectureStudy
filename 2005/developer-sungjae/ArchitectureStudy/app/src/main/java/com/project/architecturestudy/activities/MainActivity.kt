@@ -31,8 +31,8 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             naverMovieRepositoryImpl.getMovieList(et_search.text.toString(), adapter,
-                SuccessMsg = { toast(it) },
-                FailureMsg = { toast(it) })
+                SuccessMsg = { toast(getString(R.string.get_data_success)) },
+                FailureMsg = { toast(getString(R.string.get_data_failure)) })
         }
         setRecyclerView()
     }
