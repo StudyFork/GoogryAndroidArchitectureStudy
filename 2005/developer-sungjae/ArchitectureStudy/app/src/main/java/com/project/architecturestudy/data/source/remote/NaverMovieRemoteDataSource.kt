@@ -4,5 +4,5 @@ import com.project.architecturestudy.data.model.Movie
 
 interface NaverMovieRemoteDataSource {
 
-    fun getMovieList(query: String, Success: (Movie.Items) -> Unit, Failure: (Throwable) -> Unit)
+    fun getMovieList(keyWord: String, Success: (Movie.Items) -> Unit, Failure: (Throwable) -> Unit)
 }
