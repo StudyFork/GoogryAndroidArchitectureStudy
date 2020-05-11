@@ -19,12 +19,18 @@ class NaverMovieRepositoryImpl(
         FailureMsg: () -> Unit
     ) {
 
-        naverMovieLocalDataSource.getMovieList()
+        naverMovieLocalDataSource.getMovieList(
+            Success = { items ->
+                adapter?.resetData(items)
+            },
+            Failure = {
+                Log.d("bsjbsj", "RoomDataBase LoadData Failure : $it")
+            })
 
         naverMovieRemoteDataSource.getMovieList(keyWord,
             Success = { items ->
-                naverMovieLocalDataSource.saveMovieList(items, context)
                 adapter?.resetData(items)
+                naverMovieLocalDataSource.saveMovieList(items, context)
                 SuccessMsg.invoke()
             },
             Failure = {
