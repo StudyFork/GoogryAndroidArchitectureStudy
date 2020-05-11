@@ -1,4 +1,4 @@
-package com.example.architecture
+package com.example.architecture.util
 
 class ConstValue {
     companion object{

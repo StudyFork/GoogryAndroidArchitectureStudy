@@ -1,9 +1,9 @@
 package com.example.architecture.data.source.remote
 
-import com.example.architecture.ConstValue
 import com.example.architecture.data.model.MovieModel
 import com.example.architecture.data.model.MovieResponseModel
 import com.example.architecture.retrofit.MovieSearchService
+import com.example.architecture.util.ConstValue
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

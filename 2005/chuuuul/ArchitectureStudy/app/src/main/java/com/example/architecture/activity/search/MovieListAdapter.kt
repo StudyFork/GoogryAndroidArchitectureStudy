@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.architecture.ConstValue.Companion.NO_IMAGE_URL
 import com.example.architecture.R
 import com.example.architecture.data.model.MovieModel
+import com.example.architecture.util.ConstValue.Companion.NO_IMAGE_URL
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieListAdapter :
