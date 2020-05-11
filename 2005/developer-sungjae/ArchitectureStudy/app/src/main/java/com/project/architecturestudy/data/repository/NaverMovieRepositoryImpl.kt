@@ -1,6 +1,8 @@
 package com.project.architecturestudy.data.repository
 
-import com.project.architecturestudy.data.model.Movie
+import android.annotation.SuppressLint
+import android.util.Log
+import com.project.architecturestudy.adapters.SearchAdapter
 import com.project.architecturestudy.data.source.local.NaverMovieLocalDataSource
 import com.project.architecturestudy.data.source.remote.NaverMovieRemoteDataSource
 
@@ -9,7 +11,17 @@ class NaverMovieRepositoryImpl(
     val naverMovieRemoteDataSource: NaverMovieRemoteDataSource
 ) :
     NaverMovieRepository {
-    override fun getMovieList(query: String) {
+    @SuppressLint("CheckResult")
+    override fun getMovieList(keyWord: String, adapter: SearchAdapter?) {
+
+        naverMovieRemoteDataSource.getMovieList(keyWord = keyWord,
+            Success = { items ->
+                adapter?.resetData(items)
+            },
+            Failure = {
+                Log.d("bsjbsj", "Failure : $it")
+            }
+        )
 
     }
 
