@@ -7,7 +7,7 @@ import io.reactivex.Flowable
 interface MovieItemDAO {
 
     @Query("SELECT * FROM movieitem")
-    fun getAllPerson(): Flowable<ArrayList<MovieItem>>
+    fun getAllMovie(): Flowable<ArrayList<MovieItem>>
 
     @Query("DELETE FROM movieitem")
     fun clearAll()
