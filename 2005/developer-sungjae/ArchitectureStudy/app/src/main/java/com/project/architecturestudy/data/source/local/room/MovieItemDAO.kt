@@ -8,14 +8,14 @@ import io.reactivex.Flowable
 interface MovieItemDAO {
 
     @Query("SELECT * FROM movieitem")
-    fun getAllMovie(): Flowable<ArrayList<MovieItem>>
+    fun getAllMovie(): Flowable<List<Movie.Items>>
 
     @Query("DELETE FROM movieitem")
     fun clearAll()
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(list: ArrayList<Movie.Items>)
+    fun insert(vararg item: MovieItem)
 
     @Update
     fun update(vararg item: MovieItem)
