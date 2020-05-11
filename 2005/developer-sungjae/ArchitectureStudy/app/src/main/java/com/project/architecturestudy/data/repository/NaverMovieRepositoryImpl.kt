@@ -11,7 +11,11 @@ class NaverMovieRepositoryImpl(
 ) :
     NaverMovieRepository {
 
-    override fun getMovieList(keyWord: String, adapter: SearchAdapter?, SuccessMsg: () -> Unit, FailureMsg: () -> Unit) {
+    override fun getMovieList(
+        keyWord: String, adapter: SearchAdapter?,
+        SuccessMsg: () -> Unit,
+        FailureMsg: () -> Unit
+    ) {
         naverMovieRemoteDataSource.getMovieList(keyWord,
             Success = { items ->
                 adapter?.resetData(items)
