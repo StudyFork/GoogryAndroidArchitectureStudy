@@ -4,5 +4,5 @@ import com.project.architecturestudy.adapters.SearchAdapter
 
 interface NaverMovieRepository {
 
-    fun getMovieList(keyWord: String, adapter: SearchAdapter?)
+    fun getMovieList(keyWord: String, adapter: SearchAdapter?, SuccessMsg: (String) -> Unit, FailureMsg: (String) -> Unit)
 }
