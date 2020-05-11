@@ -12,6 +12,9 @@ buildscript {
         picasso_version = '2.71828'
         jsoup_version = '1.13.1'
         commonstext_version = '1.7'
+        roomruntime_version = '1.1.1'
+        roomcompile_version = '1.1.1'
+        roomrxjava_version = '1.1.1'
     }
     repositories {
         google()
