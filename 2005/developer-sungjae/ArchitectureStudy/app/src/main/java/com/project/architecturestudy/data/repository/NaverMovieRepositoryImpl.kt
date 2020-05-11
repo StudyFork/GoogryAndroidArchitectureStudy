@@ -1,5 +1,6 @@
 package com.project.architecturestudy.data.repository
 
+import android.content.Context
 import android.util.Log
 import com.project.architecturestudy.adapters.SearchAdapter
 import com.project.architecturestudy.data.source.local.NaverMovieLocalDataSource
@@ -12,12 +13,17 @@ class NaverMovieRepositoryImpl(
     NaverMovieRepository {
 
     override fun getMovieList(
+        context: Context,
         keyWord: String, adapter: SearchAdapter?,
         SuccessMsg: () -> Unit,
         FailureMsg: () -> Unit
     ) {
+
+        naverMovieLocalDataSource.getMovieList()
+
         naverMovieRemoteDataSource.getMovieList(keyWord,
             Success = { items ->
+                naverMovieLocalDataSource.saveMovieList(items, context)
                 adapter?.resetData(items)
                 SuccessMsg.invoke()
             },
@@ -27,5 +33,4 @@ class NaverMovieRepositoryImpl(
             }
         )
     }
-
 }
