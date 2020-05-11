@@ -1,8 +1,13 @@
 package com.example.architecture.data.repository
 
+import com.example.architecture.data.model.MovieModel
+
 interface NaverRepository {
 
-    fun getMovieList(query: String)
-
+    fun getMovieList(
+        keyword: String,
+        onSuccess: (movies: List<MovieModel>) -> Unit,
+        onFailure: (t: Throwable) -> Unit
+    )
 
 }
