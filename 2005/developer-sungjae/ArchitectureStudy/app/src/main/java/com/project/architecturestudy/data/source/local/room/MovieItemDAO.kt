@@ -1,26 +1,21 @@
 package com.project.architecturestudy.data.source.local.room
 
-import androidx.room.*
-import com.project.architecturestudy.data.model.Movie
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import io.reactivex.Flowable
 
 @Dao
 interface MovieItemDAO {
 
-    @Query("SELECT * FROM movieitem")
-    fun getAllMovie(): Flowable<List<Movie.Items>>
+    @Query("SELECT * FROM movielist")
+    fun getMovieList(): Flowable<List<MovieLocal>>
 
-    @Query("DELETE FROM movieitem")
-    fun clearAll()
-
-
+    /* import android.arch.persistence.room.OnConflictStrategy.REPLACE */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg item: MovieItem)
+    fun insert(item: MovieLocal)
 
-    @Update
-    fun update(vararg item: MovieItem)
-
-    @Delete
-    fun delete(vararg item: MovieItem)
-
+    @Query("DELETE from movielist")
+    fun deleteAll()
 }
