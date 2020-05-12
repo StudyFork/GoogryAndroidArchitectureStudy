@@ -6,10 +6,10 @@ import com.project.architecturestudy.adapters.SearchAdapter
 interface NaverMovieRepository {
 
     fun getMovieList(
-        context: Context,
         keyWord: String,
-        adapter: SearchAdapter?,
         SuccessMsg: () -> Unit,
         FailureMsg: () -> Unit
     )
+
+    fun getCashingMovieList(context: Context, adapter: SearchAdapter?)
 }

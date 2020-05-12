@@ -7,4 +7,5 @@
     <string name="tools_tv_actors">배우나열</string>
     <string name="get_data_success">데이터 갱신에 성공하였습니다.</string>
     <string name="get_data_failure">데이터 갱신에 실패하였습니다.</string>
+    <string name="please_write">검색어를 입력해주세요.</string>
 </resources>
