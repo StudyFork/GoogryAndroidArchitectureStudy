@@ -5,21 +5,26 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [MovieRoomDataBase::class], version = 1)
+@Database(entities = [MovieLocal::class], version = 1)
 abstract class MovieRoomDataBase : RoomDatabase() {
     abstract fun getMovieDAO(): MovieItemDAO
 
     companion object {
 
-        private var INSTANCE: MovieRoomDataBase? = null
+        private var db: MovieRoomDataBase? = null
+
         fun getInstance(context: Context): MovieRoomDataBase? {
-            if (INSTANCE == null) {
+            if (db == null) {
                 synchronized(MovieRoomDataBase::class) {
-                    INSTANCE = Room.databaseBuilder(context, MovieRoomDataBase::class.java, "movie.db").build()
+                    db = Room.databaseBuilder(context, MovieRoomDataBase::class.java, "movielist.db").fallbackToDestructiveMigration().build()
                 }
             }
 
-            return INSTANCE
+            return db
+        }
+
+        fun destoryInstance() {
+            db = null
         }
 
     }
