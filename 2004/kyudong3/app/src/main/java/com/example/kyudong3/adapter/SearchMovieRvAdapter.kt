@@ -35,10 +35,12 @@ class SearchMovieRvAdapter :
         holder.bind(movieList[position])
     }
 
-    fun setMovieList(movieList: List<Movie>) {
+    fun setMovieList(movieList: List<Movie>?) {
         this.movieList.apply {
             clear()
-            addAll(movieList)
+            movieList?.let {
+                addAll(it)
+            }
         }
     }
 
