@@ -25,9 +25,14 @@ class NaverMoviesRepositoryImpl(
         remoteDataSourceImpl.getMovieData(query,
             onSuccess = { movies ->
                 onSuccess(movies)
+                saveMoviesCache(movies, roomDB)
             },
             onFailure = { t ->
                 onFailure(t)
             })
+    }
+
+    override fun saveMoviesCache(movies: List<Movie>, roomDB: RoomDB) {
+
     }
 }

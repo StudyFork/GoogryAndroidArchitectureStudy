@@ -10,4 +10,9 @@ interface LocalDataSource {
         onSuccess: ((movies: List<Movie>) -> Unit)
     )
 
+    fun saveMovieData(
+        movies: List<Movie>,
+        roomDB: RoomDB
+    )
+
 }

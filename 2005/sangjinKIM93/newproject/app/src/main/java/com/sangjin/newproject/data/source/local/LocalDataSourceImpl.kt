@@ -13,4 +13,8 @@ class LocalDataSourceImpl : LocalDataSource {
 
         onSuccess(movies)
     }
+
+    override fun saveMovieData(movies: List<Movie>, roomDB: RoomDB) {
+        roomDB.movieDao.insertAll(movies)
+    }
 }
