@@ -1,6 +1,6 @@
 package com.sangjin.newproject.data.source.remote
 
-import com.sangjin.newproject.adapter.Movie
+import com.sangjin.newproject.data.model.Movie
 
 interface RemoteDataSource {
 

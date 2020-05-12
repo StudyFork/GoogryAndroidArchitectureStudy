@@ -1,8 +1,8 @@
 package com.sangjin.newproject.data.source.remote
 
 import com.sangjin.newproject.MovieApi
-import com.sangjin.newproject.adapter.Movie
-import com.sangjin.newproject.adapter.ResponseData
+import com.sangjin.newproject.data.model.Movie
+import com.sangjin.newproject.data.model.NaverMovieResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -14,10 +14,10 @@ class RemoteDataSourceImpl : RemoteDataSource {
         onFailure: (t: Throwable) -> Unit
     ) {
         MovieApi.retrofitService.requestMovieList(query)
-            .enqueue(object : Callback<ResponseData>{
+            .enqueue(object : Callback<NaverMovieResponse>{
                 override fun onResponse(
-                    call: Call<ResponseData>,
-                    response: Response<ResponseData>
+                    call: Call<NaverMovieResponse>,
+                    response: Response<NaverMovieResponse>
                 ) {
                     val movies = response.body()?.items
 
@@ -26,7 +26,7 @@ class RemoteDataSourceImpl : RemoteDataSource {
                     }
                 }
 
-                override fun onFailure(call: Call<ResponseData>, t: Throwable) {
+                override fun onFailure(call: Call<NaverMovieResponse>, t: Throwable) {
                     onFailure(t)
                 }
 

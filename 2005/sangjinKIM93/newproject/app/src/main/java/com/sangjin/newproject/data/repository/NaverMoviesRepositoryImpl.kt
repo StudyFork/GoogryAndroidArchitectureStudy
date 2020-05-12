@@ -1,6 +1,6 @@
 package com.sangjin.newproject.data.repository
 
-import com.sangjin.newproject.adapter.Movie
+import com.sangjin.newproject.data.model.Movie
 import com.sangjin.newproject.data.source.remote.RemoteDataSourceImpl
 
 class NaverMoviesRepositoryImpl(
