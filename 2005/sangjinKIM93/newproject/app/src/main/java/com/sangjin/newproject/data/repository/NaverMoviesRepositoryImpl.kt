@@ -33,6 +33,6 @@ class NaverMoviesRepositoryImpl(
     }
 
     override fun saveMoviesCache(movies: List<Movie>, roomDB: RoomDB) {
-
+            localDataSource.saveMovieData(movies, roomDB)
     }
 }
