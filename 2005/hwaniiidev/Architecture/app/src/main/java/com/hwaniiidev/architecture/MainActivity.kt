@@ -5,20 +5,18 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.hwaniiidev.architecture.data.repository.NaverMovieRepositoryImpl
 import com.hwaniiidev.architecture.model.Item
 import com.hwaniiidev.architecture.model.ResponseMovieSearchData
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    companion object {
-        private val TAG = MainActivity::class.java.simpleName
-        const private val clientId = "KXY8b7w9cuaFFHkDSGwS"
-        const private val clientPw = "HdI9WbTqtt"
-        const private val displayValue = 30
-    }
+
+    private val TAG = MainActivity::class.java.simpleName
 
     lateinit var adapterMovieList: AdapterMovieList
+
+    private val naverMovieRepositoryImpl = NaverMovieRepositoryImpl()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,55 +29,35 @@ class MainActivity : AppCompatActivity() {
 
             if (edit_search_title.text.isEmpty()) {       //검색어 입력하지 않았을 때
                 Log.d(TAG, "없음")
-                Toast.makeText(this, "검색어를 입력해주세요.", Toast.LENGTH_LONG).show()
+                toast("검색어를 입력해주세요.")
             } else {
-                ApiCall.api.getMovieSearchData(clientId, clientPw, searchValue, displayValue)
-                    .enqueue(object : retrofit2.Callback<ResponseMovieSearchData> {
-                        override fun onResponse(
-                            call: retrofit2.Call<ResponseMovieSearchData>,
-                            response: Response<ResponseMovieSearchData>
-                        ) {
-                            if (response.isSuccessful) {
-                                Log.d(TAG, response.body()!!.lastBuildDate)
-                                Log.d(TAG, "total : ${response.body()!!.total}")
-                                Log.d(TAG, "start : ${response.body()!!.start}")
-                                Log.d(TAG, "display : ${response.body()!!.display}")
-                                for (it in response.body()!!.items) {
-                                    Log.d(TAG, "title : ${it.title}")
-                                }
-
-                                if (response.body()!!.total == 0) {
-                                    text_plz_search.text = "검색결과가 없습니다.\n다른 검색어을 입력해주세요."
-                                    text_plz_search.visibility = View.VISIBLE
-                                } else {
-                                    updateList(response.body()!!.items)
-                                    text_plz_search.visibility = View.GONE
-                                }
-
-                            } else {
-                                Log.d(TAG, "APICall failed");
-                                Toast.makeText(
-                                    this@MainActivity,
-                                    "다른 검색어를 입력해주세요.",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                        }
-
-                        override fun onFailure(
-                            call: retrofit2.Call<ResponseMovieSearchData>,
-                            t: Throwable
-                        ) {
-                            Log.d(TAG, "APICall failed : " + t.message);
-                            Toast.makeText(
-                                this@MainActivity,
-                                "네트워크에 연결할 수 없습니다. 네트워크 연결을 확인해주세요.",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                    })
+                naverMovieRepositoryImpl.getRemoteMovies(
+                    query = searchValue,
+                    onSuccess = this::onSuccessGetRemoteMovies,
+                    onError = this::onError,
+                    onFailure = this::onFailure
+                )
             }
         }
+    }
+
+    private fun onSuccessGetRemoteMovies(response: ResponseMovieSearchData) {
+        if (response.total == 0) {
+            text_plz_search.text = "검색결과가 없습니다.\n다른 검색어을 입력해주세요."
+            text_plz_search.visibility = View.VISIBLE
+        } else {
+            updateList(response.items)
+            text_plz_search.visibility = View.GONE
+        }
+
+    }
+
+    private fun onFailure(t: Throwable) {
+        toast("네트워크에 연결할 수 없습니다. 네트워크 연결을 확인해주세요.")
+    }
+
+    private fun onError(message: String) {
+        toast("다시 시도해주세요.")
     }
 
     private fun initView() {
@@ -89,5 +67,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateList(items: List<Item>) {
         adapterMovieList.addItem(items)
+    }
+    private fun toast(message:String){
+        Toast.makeText(
+            this@MainActivity,
+            message,
+            Toast.LENGTH_LONG
+        ).show()
     }
 }
