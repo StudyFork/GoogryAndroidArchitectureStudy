@@ -1,7 +1,6 @@
 package com.sangjin.newproject
 
-import com.sangjin.newproject.adapter.Movie
-import com.sangjin.newproject.adapter.ResponseData
+import com.sangjin.newproject.data.model.NaverMovieResponse
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -18,7 +17,7 @@ interface RetrofitService {
     @GET("/v1/search/movie.json")
     fun requestMovieList(
         @Query("query") keyword: String
-    ): Call<ResponseData>
+    ): Call<NaverMovieResponse>
 
 }
 
