@@ -21,9 +21,9 @@ class NaverLocalDataSourceImpl(private val context: Context) : NaverLocalDataSou
     ) {
 
         val jsonMovieData = sharedPref.getString(keyword, null) ?: return
-        val movieList = convertJsonToGson<MovieModel>(jsonMovieData)
+        val movieList = convertJsonToGson(jsonMovieData, MovieModel::class.java)
 
-        onSuccess(movieList)
+        onSuccess(movieList.toList())
     }
 
     override fun saveMovieList(

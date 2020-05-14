@@ -50,7 +50,7 @@ class MovieListAdapter :
 
     }
 
-    fun addNewItems(movieList: Collection<MovieModel>) {
+    fun addNewItems(movieList: List<MovieModel>) {
         if (this.movieList.isNotEmpty()) {
             this.movieList.clear()
         }
