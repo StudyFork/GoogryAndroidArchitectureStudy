@@ -15,7 +15,7 @@ class MovieRemoteDataSource : MovieDataSource {
             override fun onResponse(call: Call<MovieList>, response: Response<MovieList>) {
                 val content = response.body()
                 if (response.isSuccessful && content != null) {
-                    callback.onSuccess(content)
+                    callback.onSuccess(query, content)
                 } else {
                     callback.onFailure(HttpException(response))
                 }

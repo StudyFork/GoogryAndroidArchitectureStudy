@@ -15,38 +15,42 @@ class MainViewModel(private val cache: MovieCache) {
     val movieListState: ObservableField<MovieListState> =
         ObservableField(MovieListState.EMPTY_QUERY)
 
+    private val loadMovieListCallback = object : MovieDataSource.LoadMoviesCallback {
+        override fun onSuccess(query: String?, movieList: MovieList) {
+            if (query.isNullOrBlank()) {
+                setListStateEmptyQuery()
+            } else {
+                showSearchResult(query, movieList)
+            }
+        }
+
+        override fun onFailure(e: Throwable) {
+            Log.d(this.toString(), e.toString())
+        }
+    }
+
     fun search(query: String?) {
         if (query.isNullOrBlank()) return
 
         cache.saveSearchRecentSuggestions(query)
-
-        val callback = object : MovieDataSource.LoadMoviesCallback {
-            override fun onSuccess(movieList: MovieList) {
-                showSearchResult(query, movieList)
-            }
-
-            override fun onFailure(e: Throwable) {
-                Log.d(this.toString(), e.toString())
-            }
-        }
 
         movieListState.set(MovieListState.LOADING)
 
         try {
             val list = cache.getMovieList(query)
             if (list.items.isEmpty()) {
-                MovieRepository.getMovieList(query, callback)
+                MovieRepository.getMovieList(query, loadMovieListCallback)
             } else {
-                callback.onSuccess(list)
+                loadMovieListCallback.onSuccess(query, list)
             }
         } catch (e: Throwable) {
-            MovieRepository.getMovieList(query, callback)
+            MovieRepository.getMovieList(query, loadMovieListCallback)
         }
     }
+
     fun removeHistory() {
         cache.removeMovieHistory()
     }
-
 
     fun showSearchResult(query: String, movies: MovieList) {
         if (movies.items.isEmpty()) {
