@@ -17,8 +17,8 @@ class NaverLocalDataSourceImpl : NaverLocalDataSource {
             context.getSharedPreferences(MOVIE_SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
                 ?: return
 
-        val movieString = sharedPref.getString(keyword, null) ?: return
-        val movieList = convertJsonToGson<MovieModel>(movieString)
+        val jsonMovieData = sharedPref.getString(keyword, null) ?: return
+        val movieList = convertJsonToGson<MovieModel>(jsonMovieData)
 
         onSuccess(movieList)
     }
@@ -32,10 +32,10 @@ class NaverLocalDataSourceImpl : NaverLocalDataSource {
             context.getSharedPreferences(MOVIE_SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
                 ?: return
 
-        val movieString = convertGsonToJson(movieList)
+        val jsonMovieData = convertGsonToJson(movieList)
 
         sharedPref.edit().apply {
-            putString(keyword, movieString)
+            putString(keyword, jsonMovieData)
             apply()
         }
 
