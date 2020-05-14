@@ -22,7 +22,7 @@ class NaverMovieRepositoryImpl(
 
         naverMovieLocalDataSource.getMovieList(context,
             Success = { items ->
-                adapter?.setLocalData(items)
+                adapter?.setLocalMovieData(items)
                 Log.d("bsjbsj", "RoomDataBase LoadData Success")
             },
             Failure = {
@@ -38,7 +38,7 @@ class NaverMovieRepositoryImpl(
 
         naverMovieRemoteDataSource.getMovieList(keyWord,
             Success = { items ->
-                adapter?.resetData(items)
+                adapter?.setRemoteMovieData(items)
                 naverMovieLocalDataSource.saveMovieList(items, context)
                 SuccessMsg.invoke()
             },

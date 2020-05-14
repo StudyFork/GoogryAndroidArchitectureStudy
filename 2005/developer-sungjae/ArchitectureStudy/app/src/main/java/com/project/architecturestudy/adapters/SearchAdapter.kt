@@ -1,6 +1,5 @@
 package com.project.architecturestudy.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -13,8 +12,8 @@ import kotlinx.android.synthetic.main.movie_item.view.*
 
 class SearchAdapter : RecyclerView.Adapter<SearchingResultHolder>() {
 
-    private val searchList: MutableList<Movie.Items> = mutableListOf()
-    private val savedLocalList: MutableList<MovieLocal> = mutableListOf()
+    private val remoteSearchList: MutableList<Movie.Items> = mutableListOf()
+    private val localSearchList: MutableList<MovieLocal> = mutableListOf()
     var onClick: ((Movie.Items) -> Unit)? = null
     private var isCaching = false
 
@@ -22,7 +21,7 @@ class SearchAdapter : RecyclerView.Adapter<SearchingResultHolder>() {
         return SearchingResultHolder(parent).apply {
             itemView.setOnClickListener {
                 if (!isCaching) {
-                    val item = searchList[adapterPosition]
+                    val item = remoteSearchList[adapterPosition]
                     onClick?.invoke(item)
                 }
             }
@@ -31,36 +30,31 @@ class SearchAdapter : RecyclerView.Adapter<SearchingResultHolder>() {
 
     override fun onBindViewHolder(holder: SearchingResultHolder, position: Int) {
         when (isCaching) {
-            true -> holder.localBind(savedLocalList[position])
-            false -> holder.remoteBind(searchList[position])
+            true -> holder.localBind(localSearchList[position])
+            false -> holder.remoteBind(remoteSearchList[position])
         }
     }
 
     override fun getItemCount(): Int {
         return when (isCaching) {
-            true -> savedLocalList.count()
-            false -> searchList.count()
+            true -> localSearchList.count()
+            false -> remoteSearchList.count()
         }
     }
 
-    fun resetData(search: ArrayList<Movie.Items>) {
-        searchList.clear()
-        savedLocalList.clear()
+    fun setRemoteMovieData(search: ArrayList<Movie.Items>) {
+        remoteSearchList.clear()
+        localSearchList.clear()
         isCaching = false
-        searchList.addAll(search)
+        remoteSearchList.addAll(search)
         notifyDataSetChanged()
     }
 
-    fun setLocalData(savedResultList: ArrayList<MovieLocal>) {
-        searchList.clear()
-        savedLocalList.clear()
+    fun setLocalMovieData(localSearchList: ArrayList<MovieLocal>) {
+        remoteSearchList.clear()
+        this.localSearchList.clear()
         isCaching = true
-        savedLocalList.addAll(savedResultList)
-        Log.d("bsjbsjadapter", savedLocalList[0].image)
-        Log.d("bsjbsjadapter", savedLocalList[1].image)
-        Log.d("bsjbsjadapter", savedLocalList[2].image)
-        Log.d("bsjbsjadapter", savedLocalList[3].image)
-        Log.d("bsjbsjadapter", savedLocalList[4].image)
+        this.localSearchList.addAll(localSearchList)
 
         notifyDataSetChanged()
     }
