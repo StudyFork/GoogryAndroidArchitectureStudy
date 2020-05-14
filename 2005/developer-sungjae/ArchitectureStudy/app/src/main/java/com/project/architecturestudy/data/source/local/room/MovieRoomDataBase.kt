@@ -23,7 +23,7 @@ abstract class MovieRoomDataBase : RoomDatabase() {
             return db
         }
 
-        fun destoryInstance() {
+        fun destroyInstance() {
             db = null
         }
 
