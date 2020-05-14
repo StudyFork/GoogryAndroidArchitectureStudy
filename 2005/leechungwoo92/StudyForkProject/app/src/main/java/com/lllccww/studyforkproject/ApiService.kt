@@ -18,8 +18,8 @@ interface ApiService {
     )
     @GET("v1/search/movie.json")
     fun listMovie(
-        @Query("query") keyword: String,
-        @Query("start") start: Int
+        @Query("query") keyword: String
+        //@Query("start") start: Int
     ): Call<Movie>
 
 
