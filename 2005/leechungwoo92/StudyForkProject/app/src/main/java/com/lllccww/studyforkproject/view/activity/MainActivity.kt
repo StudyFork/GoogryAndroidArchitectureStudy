@@ -14,6 +14,8 @@ import com.lllccww.studyforkproject.R
 import com.lllccww.studyforkproject.SearchRetrofit
 import com.lllccww.studyforkproject.data.model.Movie
 import com.lllccww.studyforkproject.data.model.MovieItem
+import com.lllccww.studyforkproject.data.repository.NaverMovieRepositoryImpl
+import com.lllccww.studyforkproject.data.source.remote.MovieRemoteDataSourceImpl
 import com.lllccww.studyforkproject.view.adapter.MovieListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
@@ -26,6 +28,10 @@ class MainActivity : AppCompatActivity() {
     private var total = 0
     private var display = 0
     private val movieListAdapter = MovieListAdapter()
+
+    private val naverMoviesRepositoryImpl by lazy {
+        NaverMovieRepositoryImpl(MovieRemoteDataSourceImpl())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 if (lastVisibleItemPosition == itemTotalCount) {
                     Log.d("fail : ", "스크롤 최하단")
                     if (start < total) {
-                        requestSearchMovie(start + 10)
+                        //requestSearchMovie(start + 10)
                     } else {
                         Toast.makeText(this@MainActivity, "마지막 페이지입니다.", Toast.LENGTH_SHORT).show()
                     }
@@ -62,60 +68,33 @@ class MainActivity : AppCompatActivity() {
 
 
         btn_search.setOnClickListener {
-            movieListAdapter.clear()
             closeKeyboard()
-            requestSearchMovie(start)
+            requestSearchMovie()
         }
     }
 
 
+
     //영화정보 요청
-    private fun requestSearchMovie(pageStart: Int) {
-        SearchRetrofit.getService()
-            .listMovie(keyword = edt_search_keyword.text.toString(), start = pageStart)
-            .enqueue(object : Callback<Movie> {
-                override fun onFailure(call: Call<Movie>, t: Throwable) {
-                    Log.d("fail : ", t.message)
+    private fun requestSearchMovie() {
+        val keword = edt_search_keyword.text.toString()
+
+        naverMoviesRepositoryImpl.getSearchMovie(
+            keword,
+            success = { movieItem ->
+                if (movieItem.isNullOrEmpty()) {
+                    Toast.makeText(this@MainActivity, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show()
+                } else {
+                    movieListAdapter.addItems(movieItem)
                 }
+            },
+            failure = { t ->
+                Toast.makeText(this@MainActivity, t.toString(), Toast.LENGTH_SHORT).show()
+            }
 
-                override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
-                    if (response.isSuccessful) {
-
-
-                        val movieData = response.body() ?: return
-
-
-                            if (movieData.display == "0") {
-                                Toast.makeText(
-                                    this@MainActivity,
-                                    "검색 결과가 없습니다.",
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
-                                return
-                            }
-
-                        Log.d("movie : ", movieData.toString())
-
-
-                            total = movieData.total.toInt()
-                            start = movieData.start.toInt()
-                            display = movieData.display.toInt()
-                            Log.d("start : ", start.toString())
-                            Log.d("total : ", total.toString())
-                            Log.d("display : ", display.toString())
-
-                            movieListAdapter.addItems(movieData.items)
-
-
-
-
-
-                    }
-                }
-
-            })
+        )
     }
+
 
 
     //키보드 숨기기
