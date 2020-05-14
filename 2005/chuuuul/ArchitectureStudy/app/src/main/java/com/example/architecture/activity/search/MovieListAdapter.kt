@@ -73,8 +73,8 @@ class MovieListAdapter :
             .error(R.drawable.image_loaderror).centerCrop().into(imageView)
     }
 
-    private fun removeMarkupTag(string: String): String {
-        return string.replace("<b>", "").replace("</b>", "")
+    private fun removeMarkupTag(html: String): String {
+        return html.replace("<b>", "").replace("</b>", "")
     }
 
     private fun openWebPage(context : Context, urlString: String) {
