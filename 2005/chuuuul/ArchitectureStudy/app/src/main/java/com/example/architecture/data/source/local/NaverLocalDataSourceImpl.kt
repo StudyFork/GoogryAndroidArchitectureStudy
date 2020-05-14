@@ -8,8 +8,8 @@ import com.google.gson.reflect.TypeToken
 
 class NaverLocalDataSourceImpl : NaverLocalDataSource {
 
-    private fun movieModelToString(movies: List<MovieModel>): String {
-        return Gson().toJson(movies)
+    private fun movieModelToString(movieList: List<MovieModel>): String {
+        return Gson().toJson(movieList)
     }
 
     private fun stringToMovieModel(gsonString: String): List<MovieModel> {
@@ -21,28 +21,28 @@ class NaverLocalDataSourceImpl : NaverLocalDataSource {
     override fun getMovieList(
         context: Context,
         keyword: String,
-        onSuccess: (movies: List<MovieModel>) -> Unit
+        onSuccess: (movieList: List<MovieModel>) -> Unit
     ) {
         val sharedPref =
             context.getSharedPreferences(MOVIE_SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
                 ?: return
 
         val movieString = sharedPref.getString(keyword, null) ?: return
-        val movies = stringToMovieModel(movieString)
+        val movieList = stringToMovieModel(movieString)
 
-        onSuccess(movies)
+        onSuccess(movieList)
     }
 
     override fun saveMovieList(
         context: Context,
         keyword: String,
-        movies: List<MovieModel>
+        movieList: List<MovieModel>
     ) {
         val sharedPref =
             context.getSharedPreferences(MOVIE_SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
                 ?: return
 
-        val movieString = movieModelToString(movies)
+        val movieString = movieModelToString(movieList)
 
         sharedPref.edit().apply {
             putString(keyword, movieString)

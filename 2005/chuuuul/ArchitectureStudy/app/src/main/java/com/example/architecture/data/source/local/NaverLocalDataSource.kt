@@ -7,13 +7,13 @@ interface NaverLocalDataSource {
     fun getMovieList(
         context: Context,
         keyword: String,
-        onSuccess: (movies: List<MovieModel>) -> Unit
+        onSuccess: (movieList: List<MovieModel>) -> Unit
     )
 
     fun saveMovieList(
         context: Context,
         keyword: String,
-        movies: List<MovieModel>
+        movieList: List<MovieModel>
     )
 
     fun clearData(context: Context)

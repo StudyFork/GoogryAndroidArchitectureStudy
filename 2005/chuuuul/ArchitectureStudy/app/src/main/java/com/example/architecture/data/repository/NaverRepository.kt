@@ -8,7 +8,7 @@ interface NaverRepository {
     fun getMovieList(
         context: Context,
         keyword: String,
-        onSuccess: (movies: List<MovieModel>) -> Unit,
+        onSuccess: (movieList: List<MovieModel>) -> Unit,
         onFailure: (t: Throwable) -> Unit
     )
 

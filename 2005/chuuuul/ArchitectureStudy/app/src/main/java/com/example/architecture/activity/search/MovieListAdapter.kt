@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.item_movie.view.*
 class MovieListAdapter :
     RecyclerView.Adapter<MovieViewHolder>() {
 
-    private val movies = mutableListOf<MovieModel>()
+    private val movieList = mutableListOf<MovieModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
 
@@ -26,19 +26,19 @@ class MovieListAdapter :
         val viewHolder = MovieViewHolder(view)
 
         view.setOnClickListener {
-            openWebPage(it.context, movies[viewHolder.layoutPosition].link)
+            openWebPage(it.context, movieList[viewHolder.layoutPosition].link)
         }
 
         return viewHolder
     }
 
     override fun getItemCount(): Int {
-        return movies.count()
+        return movieList.count()
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
 
-        val movie = movies[position]
+        val movie = movieList[position]
 
         holder.itemView.tv_movie_title.text = removeMarkupTag(movie.title)
         holder.itemView.tv_movie_pubDate.text = movie.pubDate
@@ -51,11 +51,11 @@ class MovieListAdapter :
     }
 
     fun addNewItems(movieList: Collection<MovieModel>) {
-        if (movies.isNotEmpty()) {
-            movies.clear()
+        if (this.movieList.isNotEmpty()) {
+            this.movieList.clear()
         }
 
-        movies.addAll(movieList)
+        this.movieList.addAll(movieList)
         notifyDataSetChanged()
     }
 

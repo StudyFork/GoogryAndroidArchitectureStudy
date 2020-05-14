@@ -13,12 +13,12 @@ object NaverRepositoryImpl : NaverRepository {
     override fun getMovieList(
         context: Context,
         keyword: String,
-        onSuccess: (movies: List<MovieModel>) -> Unit,
+        onSuccess: (movieList: List<MovieModel>) -> Unit,
         onFailure: (t: Throwable) -> Unit
     ) {
 
         naverLocalDataSourceImpl.getMovieList(context, keyword, onSuccess)
-        
+
         naverRemoteDataSourceImpl.getMovieList(
             context,
             keyword,
@@ -36,9 +36,9 @@ object NaverRepositoryImpl : NaverRepository {
     private fun saveMovieList(
         context: Context,
         keyword: String,
-        movies: List<MovieModel>
+        movieList: List<MovieModel>
     ) {
-        naverLocalDataSourceImpl.saveMovieList(context, keyword, movies)
+        naverLocalDataSourceImpl.saveMovieList(context, keyword, movieList)
     }
 
 }

@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_search.*
 
 class SearchActivity : AppCompatActivity() {
 
-    private val movies = ArrayList<MovieModel>()
+    private val movieList = mutableListOf<MovieModel>()
     private val adapter = MovieListAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,14 +67,14 @@ class SearchActivity : AppCompatActivity() {
     // * RecyclerView
 
     private fun setRecyclerview() {
-        adapter.addNewItems(movies)
+        adapter.addNewItems(movieList)
         recyclerview_search_movieList.adapter = adapter
     }
 
     // * Retrofit Response
-    private fun onSuccess(movies: List<MovieModel>) {
-        if (movies.isNotEmpty()) {
-            adapter.addNewItems(movies)
+    private fun onSuccess(movieList: List<MovieModel>) {
+        if (movieList.isNotEmpty()) {
+            adapter.addNewItems(movieList)
         } else {
             Toast.makeText(this, R.string.not_found_result, Toast.LENGTH_SHORT).show()
         }
