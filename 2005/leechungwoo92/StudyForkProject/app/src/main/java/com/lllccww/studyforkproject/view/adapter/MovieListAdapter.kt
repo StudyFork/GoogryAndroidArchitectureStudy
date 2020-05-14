@@ -33,7 +33,8 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
 
     }
 
-    fun addItems(items: ArrayList<MovieItem>) {
+    fun addItems(items: List<MovieItem>) {
+        list.clear()
         list.addAll(items)
         Log.d("movieData : ", list.size.toString())
         notifyDataSetChanged()
