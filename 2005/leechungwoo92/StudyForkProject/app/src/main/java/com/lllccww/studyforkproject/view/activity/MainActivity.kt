@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lllccww.studyforkproject.R
 import com.lllccww.studyforkproject.SearchRetrofit
-import com.lllccww.studyforkproject.model.Movie
-import com.lllccww.studyforkproject.model.MovieItem
+import com.lllccww.studyforkproject.data.model.Movie
+import com.lllccww.studyforkproject.data.model.MovieItem
 import com.lllccww.studyforkproject.view.adapter.MovieListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
