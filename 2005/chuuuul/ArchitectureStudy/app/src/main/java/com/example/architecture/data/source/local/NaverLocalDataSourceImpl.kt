@@ -1,6 +1,7 @@
 package com.example.architecture.data.source.local
 
 import android.content.Context
+import android.content.SharedPreferences
 import com.example.architecture.data.model.MovieModel
 import com.example.architecture.util.AppUtil.convertGsonToJson
 import com.example.architecture.util.AppUtil.convertJsonToGson
@@ -8,7 +9,7 @@ import com.example.architecture.util.ConstValue.Companion.MOVIE_SHARED_PREFERENC
 
 class NaverLocalDataSourceImpl(private val context: Context) : NaverLocalDataSource {
 
-    private val sharedPref by lazy {
+    private val sharedPref: SharedPreferences by lazy {
         context.getSharedPreferences(
             MOVIE_SHARED_PREFERENCE_NAME,
             Context.MODE_PRIVATE
@@ -19,7 +20,6 @@ class NaverLocalDataSourceImpl(private val context: Context) : NaverLocalDataSou
         keyword: String,
         onSuccess: (movieList: List<MovieModel>) -> Unit
     ) {
-
         val jsonMovieData = sharedPref.getString(keyword, null) ?: return
         val movieList = convertJsonToGson(jsonMovieData, MovieModel::class.java)
 
@@ -40,8 +40,7 @@ class NaverLocalDataSourceImpl(private val context: Context) : NaverLocalDataSou
 
     }
 
-    override fun clearData(context: Context) {
-
+    override fun clearData() {
         sharedPref.edit().apply {
             clear()
             apply()

@@ -1,6 +1,5 @@
 package com.example.architecture.data.source.local
 
-import android.content.Context
 import com.example.architecture.data.model.MovieModel
 
 interface NaverLocalDataSource {
@@ -14,5 +13,5 @@ interface NaverLocalDataSource {
         movieList: List<MovieModel>
     )
 
-    fun clearData(context: Context)
+    fun clearData()
 }

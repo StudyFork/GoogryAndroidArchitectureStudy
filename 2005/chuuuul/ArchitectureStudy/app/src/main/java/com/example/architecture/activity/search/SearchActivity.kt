@@ -12,6 +12,8 @@ import kotlinx.android.synthetic.main.activity_search.*
 
 class SearchActivity : AppCompatActivity() {
 
+    private val naverRepositoryImpl = NaverRepositoryImpl(this)
+
     private val movieList = mutableListOf<MovieModel>()
     private val adapter = MovieListAdapter()
 
@@ -45,8 +47,7 @@ class SearchActivity : AppCompatActivity() {
         val keyWord = edt_search_searchName.text.toString()
 
         if (isValidKeyword(keyWord)) {
-            NaverRepositoryImpl.getMovieList(
-                applicationContext,
+            naverRepositoryImpl.getMovieList(
                 keyWord,
                 onSuccess = this::onSuccess,
                 onFailure = this::onFailure

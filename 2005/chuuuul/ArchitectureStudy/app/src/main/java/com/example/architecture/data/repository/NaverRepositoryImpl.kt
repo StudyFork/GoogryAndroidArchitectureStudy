@@ -5,22 +5,20 @@ import com.example.architecture.data.model.MovieModel
 import com.example.architecture.data.source.local.NaverLocalDataSourceImpl
 import com.example.architecture.data.source.remote.NaverRemoteDataSourceImpl
 
-object NaverRepositoryImpl : NaverRepository {
+class NaverRepositoryImpl(val context: Context) : NaverRepository {
 
     private val naverRemoteDataSourceImpl = NaverRemoteDataSourceImpl()
-    private val naverLocalDataSourceImpl = NaverLocalDataSourceImpl()
+    private val naverLocalDataSourceImpl = NaverLocalDataSourceImpl(context)
 
     override fun getMovieList(
-        context: Context,
         keyword: String,
         onSuccess: (movieList: List<MovieModel>) -> Unit,
         onFailure: (t: Throwable) -> Unit
     ) {
 
-        naverLocalDataSourceImpl.getMovieList(context, keyword, onSuccess)
+        naverLocalDataSourceImpl.getMovieList(keyword, onSuccess)
 
         naverRemoteDataSourceImpl.getMovieList(
-            context,
             keyword,
             onSuccess,
             onFailure,
@@ -29,16 +27,15 @@ object NaverRepositoryImpl : NaverRepository {
     }
 
 
-    override fun clearCacheData(context: Context) {
-        naverLocalDataSourceImpl.clearData(context)
+    override fun clearCacheData() {
+        naverLocalDataSourceImpl.clearData()
     }
 
     private fun saveMovieList(
-        context: Context,
         keyword: String,
         movieList: List<MovieModel>
     ) {
-        naverLocalDataSourceImpl.saveMovieList(context, keyword, movieList)
+        naverLocalDataSourceImpl.saveMovieList(keyword, movieList)
     }
 
 }
