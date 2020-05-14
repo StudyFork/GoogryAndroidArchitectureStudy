@@ -16,7 +16,9 @@ object NaverRepositoryImpl : NaverRepository {
         onSuccess: (movies: List<MovieModel>) -> Unit,
         onFailure: (t: Throwable) -> Unit
     ) {
+
         naverLocalDataSourceImpl.getMovieList(context, keyword, onSuccess)
+        
         naverRemoteDataSourceImpl.getMovieList(
             context,
             keyword,
