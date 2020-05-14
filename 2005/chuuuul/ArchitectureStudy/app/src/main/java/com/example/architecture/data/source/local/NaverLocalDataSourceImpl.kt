@@ -6,16 +6,19 @@ import com.example.architecture.util.AppUtil.convertGsonToJson
 import com.example.architecture.util.AppUtil.convertJsonToGson
 import com.example.architecture.util.ConstValue.Companion.MOVIE_SHARED_PREFERENCE_NAME
 
-class NaverLocalDataSourceImpl : NaverLocalDataSource {
+class NaverLocalDataSourceImpl(private val context: Context) : NaverLocalDataSource {
+
+    private val sharedPref by lazy {
+        context.getSharedPreferences(
+            MOVIE_SHARED_PREFERENCE_NAME,
+            Context.MODE_PRIVATE
+        )
+    }
 
     override fun getMovieList(
-        context: Context,
         keyword: String,
         onSuccess: (movieList: List<MovieModel>) -> Unit
     ) {
-        val sharedPref =
-            context.getSharedPreferences(MOVIE_SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
-                ?: return
 
         val jsonMovieData = sharedPref.getString(keyword, null) ?: return
         val movieList = convertJsonToGson<MovieModel>(jsonMovieData)
@@ -24,13 +27,9 @@ class NaverLocalDataSourceImpl : NaverLocalDataSource {
     }
 
     override fun saveMovieList(
-        context: Context,
         keyword: String,
         movieList: List<MovieModel>
     ) {
-        val sharedPref =
-            context.getSharedPreferences(MOVIE_SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
-                ?: return
 
         val jsonMovieData = convertGsonToJson(movieList)
 
@@ -42,12 +41,8 @@ class NaverLocalDataSourceImpl : NaverLocalDataSource {
     }
 
     override fun clearData(context: Context) {
-        val sharedPref =
-            context.getSharedPreferences(MOVIE_SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
-                ?: return
 
         sharedPref.edit().apply {
-
             clear()
             apply()
         }
