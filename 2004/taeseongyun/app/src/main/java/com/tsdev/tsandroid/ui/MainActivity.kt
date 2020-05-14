@@ -8,6 +8,7 @@ import com.tsdev.tsandroid.constant.Const
 import com.tsdev.tsandroid.data.repository.NaverReopsitory
 import com.tsdev.tsandroid.data.repository.NaverRepositoryImpl
 import com.tsdev.tsandroid.databinding.ActivityMainBinding
+import com.tsdev.tsandroid.ext.showToast
 import com.tsdev.tsandroid.provider.ResourceProviderImpl
 import com.tsdev.tsandroid.ui.adapter.MovieRecyclerAdapter
 import com.tsdev.tsandroid.ui.observe.ObserverProviderImpl
@@ -57,7 +58,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                 .map { it[0] to it[1] }
                 .subscribe({
                     if (it.second - it.first > Const.BACK_BUTTON_THROTTLE_TIME)
-                        showToastMessage(resources.getString(R.string.destroy_view_toast_message))
+                        showToast(R.string.destroy_view_toast_message, Toast.LENGTH_LONG)
                     else
                         finish()
                 }, {
@@ -68,10 +69,6 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         binding.movieRecycler.run {
             adapter = movieRecyclerAdapter
         }
-    }
-
-    private fun showToastMessage(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
     override fun onBackPressed() {

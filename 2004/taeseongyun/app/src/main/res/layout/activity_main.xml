@@ -8,6 +8,10 @@
         <import type="android.view.View" />
 
         <variable
+            name="activity"
+            type="com.tsdev.tsandroid.ui.MainActivity" />
+
+        <variable
             name="viewModel"
             type="com.tsdev.tsandroid.ui.viewmodel.MainViewModel" />
     </data>
