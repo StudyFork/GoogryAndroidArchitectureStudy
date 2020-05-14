@@ -47,7 +47,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:setItems="@{vm.movies}"
-            app:layout_constraintTop_toBottomOf="@id/movie_search" />
+            app:layout_constraintTop_toBottomOf="@id/movie_search"
+            app:setItems="@{vm.movies}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
