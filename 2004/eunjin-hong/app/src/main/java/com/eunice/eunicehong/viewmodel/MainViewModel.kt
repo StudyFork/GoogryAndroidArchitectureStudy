@@ -15,7 +15,11 @@ class MainViewModel(private val cache: MovieCache) {
     val movieListState: ObservableField<MovieListState> =
         ObservableField(MovieListState.EMPTY_QUERY)
 
-    fun search(query: String) {
+    fun search(query: String?) {
+        if (query.isNullOrBlank()) return
+
+        cache.saveSearchRecentSuggestions(query)
+
         val callback = object : MovieDataSource.LoadMoviesCallback {
             override fun onSuccess(movieList: MovieList) {
                 showSearchResult(query, movieList)
@@ -52,6 +56,10 @@ class MainViewModel(private val cache: MovieCache) {
             movieListState.set(MovieListState.SHOW_RESULT)
         }
         cache.saveMovieList(query, movies)
+    }
+
+    fun setListStateEmptyQuery() {
+        movieListState.set(MovieListState.EMPTY_QUERY)
     }
 
     enum class MovieListState {

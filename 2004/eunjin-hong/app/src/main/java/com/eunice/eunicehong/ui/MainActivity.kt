@@ -2,13 +2,11 @@ package com.eunice.eunicehong.ui
 
 import android.app.AlertDialog
 import android.app.SearchManager
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.SearchRecentSuggestions
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -60,52 +58,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mainViewModel = MainViewModel(cache)
 
-        DataBindingUtil.setContentView<ActivityMainBinding>(
+        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(
             this@MainActivity,
             R.layout.activity_main
         ).apply {
             viewModel = mainViewModel
+            componentName = this@MainActivity.componentName
             lifecycleOwner = this@MainActivity
         }
+
+        setSupportActionBar(binding.toolbar)
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
 
         val query = intent?.getStringExtra(SearchManager.QUERY)
-        if (!query.isNullOrBlank()) {
-            cache.saveSearchRecentSuggestions(query)
-            mainViewModel.search(query)
-        }
+        mainViewModel.search(query)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu_main, menu)
-
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView = menu.findItem(R.id.search_bar).actionView as SearchView
-        searchView.apply {
-            setSearchableInfo(searchManager.getSearchableInfo(componentName))
-            isIconifiedByDefault = false
-            isSubmitButtonEnabled = true
-            isQueryRefinementEnabled = true
-            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    return false
-                }
-
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    return if (newText.isNullOrBlank()) {
-                        mainViewModel.movieListState.set(MainViewModel.MovieListState.EMPTY_QUERY)
-                        true
-                    } else {
-                        false
-                    }
-                }
-
-            })
-        }
         return true
     }
 
