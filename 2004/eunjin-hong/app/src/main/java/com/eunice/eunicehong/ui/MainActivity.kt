@@ -1,30 +1,48 @@
 package com.eunice.eunicehong.ui
 
+import android.app.AlertDialog
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.provider.SearchRecentSuggestions
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.eunice.eunicehong.R
 import com.eunice.eunicehong.data.model.MovieList
-import com.eunice.eunicehong.data.source.MovieDataSource
 import com.eunice.eunicehong.databinding.ActivityMainBinding
+import com.eunice.eunicehong.provider.SuggestionProvider
 import com.eunice.eunicehong.viewmodel.MainViewModel
+import com.google.gson.JsonSyntaxException
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var searchView: SearchView
+    private val cache = object : MovieCache {
+        val preferences = MoviePreferences.getInstance(this@MainActivity)
+
+        @Throws(IllegalStateException::class, JsonSyntaxException::class)
+        override fun getMovieList(
+            query: String
+        ): MovieList = preferences.getHistory(query)
+
+        override fun saveMovieList(query: String, movieList: MovieList) =
+            preferences.saveHistory(query, movieList)
+
+
+        override fun removeMovieHistory() {
+            preferences.removeAllSearchHistory()
+        }
+    }
 
     private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainViewModel = MainViewModel(this@MainActivity)
+        mainViewModel = MainViewModel(cache)
 
         DataBindingUtil.setContentView<ActivityMainBinding>(
             this@MainActivity,
@@ -40,15 +58,13 @@ class MainActivity : AppCompatActivity() {
 
         val query = intent?.getStringExtra(SearchManager.QUERY)
         if (!query.isNullOrBlank()) {
-            mainViewModel.search(query, object : MovieDataSource.LoadMoviesCallback {
-                override fun onSuccess(movieList: MovieList) {
-                    mainViewModel.showSearchResult(query, movieList)
-                }
+            SearchRecentSuggestions(
+                this@MainActivity,
+                SuggestionProvider.AUTHORITY,
+                SuggestionProvider.MODE
+            ).saveRecentQuery(query, null)
 
-                override fun onFailure(e: Throwable) {
-                    Log.d(this.toString(), e.toString())
-                }
-            })
+            mainViewModel.search(query)
         }
     }
 
@@ -57,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         inflater.inflate(R.menu.menu_main, menu)
 
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        searchView = menu.findItem(R.id.search_bar).actionView as SearchView
+        val searchView = menu.findItem(R.id.search_bar).actionView as SearchView
         searchView.apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
             isIconifiedByDefault = false
@@ -69,11 +85,11 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    if (newText.isNullOrBlank()) {
+                    return if (newText.isNullOrBlank()) {
                         mainViewModel.movieListState.set(MainViewModel.MovieListState.EMPTY_QUERY)
-                        return true
+                        true
                     } else {
-                        return false
+                        false
                     }
                 }
 
@@ -84,7 +100,28 @@ class MainActivity : AppCompatActivity() {
 
     fun showRemoveHistoryConfirmDialog(item: MenuItem) {
         if (item.itemId == R.id.remove_history) {
-            mainViewModel.showRemoveHistoryConfirmDialog()
+            AlertDialog.Builder(this@MainActivity)
+                .setTitle(R.string.app_name)
+                .setMessage(getString(R.string.delete_history_confirmation))
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(
+                    android.R.string.yes
+                ) { _, _ ->
+                    mainViewModel.removeHistory()
+
+                    SearchRecentSuggestions(
+                        this@MainActivity,
+                        SuggestionProvider.AUTHORITY,
+                        SuggestionProvider.MODE
+                    ).clearHistory()
+
+                    Toast.makeText(
+                        this@MainActivity,
+                        getString(R.string.complete_delete_history),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                .setNegativeButton(android.R.string.no, null).show()
         }
     }
 
