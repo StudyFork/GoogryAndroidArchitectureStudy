@@ -62,7 +62,11 @@ class MovieListAdapter :
 
     private fun setMovieImage(imageView: ImageView, imageUrl: String) {
 
-        val url = if (imageUrl.isBlank()) NO_IMAGE_URL else imageUrl
+        val url = if (imageUrl.isBlank()) {
+            NO_IMAGE_URL
+        } else {
+            imageUrl
+        }
 
         Glide.with(imageView.context)
             .load(url).placeholder(R.drawable.ic_loading_black_24dp)
