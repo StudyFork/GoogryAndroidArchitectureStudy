@@ -36,6 +36,22 @@ class MainActivity : AppCompatActivity() {
         override fun removeMovieHistory() {
             preferences.removeAllSearchHistory()
         }
+
+        override fun saveSearchRecentSuggestions(query: String) {
+            SearchRecentSuggestions(
+                this@MainActivity,
+                SuggestionProvider.AUTHORITY,
+                SuggestionProvider.MODE
+            ).saveRecentQuery(query, null)
+        }
+
+        override fun deleteAllSearchRecentSuggestions() {
+            SearchRecentSuggestions(
+                this@MainActivity,
+                SuggestionProvider.AUTHORITY,
+                SuggestionProvider.MODE
+            ).clearHistory()
+        }
     }
 
     private lateinit var mainViewModel: MainViewModel
@@ -58,12 +74,7 @@ class MainActivity : AppCompatActivity() {
 
         val query = intent?.getStringExtra(SearchManager.QUERY)
         if (!query.isNullOrBlank()) {
-            SearchRecentSuggestions(
-                this@MainActivity,
-                SuggestionProvider.AUTHORITY,
-                SuggestionProvider.MODE
-            ).saveRecentQuery(query, null)
-
+            cache.saveSearchRecentSuggestions(query)
             mainViewModel.search(query)
         }
     }
@@ -109,11 +120,7 @@ class MainActivity : AppCompatActivity() {
                 ) { _, _ ->
                     mainViewModel.removeHistory()
 
-                    SearchRecentSuggestions(
-                        this@MainActivity,
-                        SuggestionProvider.AUTHORITY,
-                        SuggestionProvider.MODE
-                    ).clearHistory()
+                    cache.deleteAllSearchRecentSuggestions()
 
                     Toast.makeText(
                         this@MainActivity,
