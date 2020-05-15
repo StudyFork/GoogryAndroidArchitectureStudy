@@ -3,6 +3,7 @@ package com.project.architecturestudy.activities
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.project.architecturestudy.R
 import com.project.architecturestudy.adapters.SearchAdapter
@@ -36,8 +37,14 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             naverMovieRepositoryImpl.getMovieList(et_search.text.toString(),
-                SuccessMsg = { toast(getString(R.string.get_data_success)) },
-                FailureMsg = { toast(getString(R.string.get_data_failure)) })
+                Success = { items ->
+                    adapter.setRemoteMovieData(items)
+                    toast(getString(R.string.get_data_success))
+                },
+                Failure = {
+                    Log.d("bsjbsj", "Throwable:$it")
+                    toast(getString(R.string.get_data_failure))
+                })
         }
 
         adapter.onClick = { item ->
@@ -49,7 +56,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun setRecyclerView() {
         listview_movie.adapter = adapter
-        naverMovieRepositoryImpl.getCashedMovieList()
+        naverMovieRepositoryImpl.getCashedMovieList(
+            Success = { items ->
+                adapter.setLocalMovieData(items)
+            },
+            Failure = {
+                Log.d("bsjbsj", "Throwable:$it")
+            })
 
     }
 
