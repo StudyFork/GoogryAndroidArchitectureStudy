@@ -11,7 +11,7 @@ class MovieViewModel(
     val query = ObservableField<String>()
 
     fun searchMovies() {
-        val searchQuery = query.get() as String
+        val searchQuery = query.get() ?: return
         movieRepository.getRemoteMovieList(
             searchQuery
             , onSuccess = { movieList: List<Movie> ->
