@@ -31,7 +31,7 @@ class MainViewModel(
 
     fun searchMovie(query: String?) {
         if (query.isNullOrEmpty()) {
-            errorType.set(1)
+            errorType.set(EMPTY_SEARCH_WORD)
             return
         }
         movieRepository.searchMovies(
@@ -41,16 +41,16 @@ class MainViewModel(
                     if (movieResponse.items.isNotEmpty()) {
                         movies.set(processMovieItemString(movieResponse.items))
                     } else {
-                        errorType.set(2)
+                        errorType.set(NO_QUERY_RESULT)
                     }
                 }
 
                 override fun onResponseError(message: String) {
-                    errorType.set(3)
+                    errorType.set(SERVER_ERROR)
                 }
 
                 override fun onFailure(t: Throwable) {
-                    errorType.set(4)
+                    errorType.set(NETWORK_ERROR)
                 }
             })
     }
