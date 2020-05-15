@@ -32,7 +32,6 @@ class NaverMovieLocalDataSourceImpl : NaverMovieLocalDataSource {
                         director = eachItem.director
                         actor = eachItem.actor
                         userRating = eachItem.userRating
-                        title = eachItem.title
                     }
                     MovieRoomDataBase.getInstance(nContext)?.getMovieDAO()?.insert(localData)
                     Log.d("bsjbsj", "RoomDatabase Save Success $localData")
