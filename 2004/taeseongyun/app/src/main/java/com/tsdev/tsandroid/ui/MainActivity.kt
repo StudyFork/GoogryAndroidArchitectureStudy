@@ -16,8 +16,10 @@ import com.tsdev.tsandroid.provider.ResourceProviderImpl
 import com.tsdev.tsandroid.ui.adapter.MovieRecyclerAdapter
 import com.tsdev.tsandroid.ui.observe.ObserverProviderImpl
 import com.tsdev.tsandroid.ui.viewmodel.MainViewModel
+import com.tsdev.tsandroid.util.BackKeyPressExt
 import com.tsdev.tsandroid.util.MapConverter
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
@@ -40,33 +42,20 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         NaverRepositoryImpl(movieMapConverter)
     }
 
+    private val backKeyPressExt: BackKeyPressExt by lazy {
+        BackKeyPressExt(rxJavaEvent, CompositeDisposable(), ::finish, ::showToast)
+    }
+
     override val viewModel: MainViewModel by lazy {
         MainViewModel(
             naverRepository,
             ResourceProviderImpl(this),
-            ObserverProviderImpl(),
-            rxJavaEvent
+            ObserverProviderImpl()
         )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        disposable.add(
-            rxJavaEvent.getBackButtonEvent()
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .buffer(2, 1)
-                .map { it[0] to it[1] }
-                .subscribe({
-                    if (it.second - it.first > Const.BACK_BUTTON_THROTTLE_TIME)
-                        showToast(R.string.destroy_view_toast_message, Toast.LENGTH_LONG)
-                    else
-                        finish()
-                }, {
-                    it.printStackTrace()
-                })
-        )
 
         binding.movieRecycler.run {
             adapter = movieRecyclerAdapter
@@ -82,6 +71,6 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     }
 
     override fun onBackPressed() {
-        viewModel.onBackKeyPressed()
+        backKeyPressExt.onPressedBackKey()
     }
 }

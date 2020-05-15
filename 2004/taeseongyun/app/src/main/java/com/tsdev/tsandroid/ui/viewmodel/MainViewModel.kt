@@ -20,9 +20,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class MainViewModel(
     private val movieRepository: NaverReopsitory,
     private val resourceProvider: ResourceProvider,
-    override val observe: ObserverProvider,
-//    private val recyclerViewModel: RecyclerViewModel<Item>,
-    private val rxEventBus: RxEventBus
+    override val observe: ObserverProvider
 ) : BaseViewModel() {
 
     companion object {
@@ -74,9 +72,5 @@ class MainViewModel(
 
     private fun removeAll() {
         observe.disconnectObserve()
-    }
-
-    override fun onBackKeyPressed() {
-        rxEventBus.sendBackButtonEvent(System.currentTimeMillis())
     }
 }

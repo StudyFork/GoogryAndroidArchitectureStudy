@@ -4,7 +4,6 @@ import com.tsdev.tsandroid.ui.observe.ObserverProvider
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 abstract class BaseViewModel {
-    abstract fun onBackKeyPressed()
 
     internal val compositeDisposable = CompositeDisposable()
 
