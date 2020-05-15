@@ -11,5 +11,5 @@ interface NaverMovieRepository {
         FailureMsg: () -> Unit
     )
 
-    fun getCashingMovieList(context: Context, adapter: SearchAdapter?)
+    fun getCashedMovieList(context: Context, adapter: SearchAdapter?)
 }

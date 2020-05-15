@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setRecyclerView() {
         listview_movie.adapter = adapter
-        naverMovieRepositoryImpl.getCashingMovieList(this, adapter)
+        naverMovieRepositoryImpl.getCashedMovieList(this, adapter)
 
     }
 

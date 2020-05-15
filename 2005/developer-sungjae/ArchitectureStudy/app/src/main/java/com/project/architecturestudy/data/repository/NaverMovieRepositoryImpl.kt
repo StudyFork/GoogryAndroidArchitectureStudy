@@ -16,7 +16,7 @@ class NaverMovieRepositoryImpl(
     private var adapter: SearchAdapter? = null
 
 
-    override fun getCashingMovieList(context: Context, adapter: SearchAdapter?) {
+    override fun getCashedMovieList(context: Context, adapter: SearchAdapter?) {
         this.context = context
         this.adapter = adapter
 
