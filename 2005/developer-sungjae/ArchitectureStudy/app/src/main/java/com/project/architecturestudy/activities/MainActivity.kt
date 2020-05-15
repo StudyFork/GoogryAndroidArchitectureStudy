@@ -15,7 +15,7 @@ import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity() {
 
-    private var adapter: SearchAdapter? = null
+    private var adapter: SearchAdapter = SearchAdapter()
     private val naverMovieRepositoryImpl by lazy {
         val naverMovieLocalDataSource = NaverMovieLocalDataSourceImpl()
         val naverMovieRemoteDataSource = NaverMovieRemoteDataSourceImpl()
@@ -40,12 +40,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setRecyclerView() {
-        adapter = SearchAdapter()
         listview_movie.adapter = adapter
-
         naverMovieRepositoryImpl.getCashingMovieList(this, adapter)
 
-        adapter?.onClick = { item ->
+        adapter.onClick = { item ->
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
             startActivity(intent)
         }
@@ -53,6 +51,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        MovieRoomDataBase.destoryInstance()
+        MovieRoomDataBase.destroyInstance()
     }
 }
