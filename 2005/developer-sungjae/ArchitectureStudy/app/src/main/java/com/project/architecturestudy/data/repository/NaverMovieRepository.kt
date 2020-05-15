@@ -1,7 +1,6 @@
 package com.project.architecturestudy.data.repository
 
 import android.content.Context
-import com.project.architecturestudy.adapters.SearchAdapter
 import com.project.architecturestudy.data.source.local.NaverMovieLocalDataSource
 import com.project.architecturestudy.data.source.remote.NaverMovieRemoteDataSource
 
@@ -19,5 +18,5 @@ interface NaverMovieRepository {
         FailureMsg: () -> Unit
     )
 
-    fun getCashedMovieList(context: Context, adapter: SearchAdapter)
+    fun getCashedMovieList()
 }

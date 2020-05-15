@@ -24,9 +24,7 @@ object NaverMovieRepositoryImpl : NaverMovieRepository {
         this.naverMovieRemoteDataSource = naverMovieRemoteDataSource
     }
 
-    override fun getCashedMovieList(context: Context, adapter: SearchAdapter) {
-        this.adapter = adapter
-
+    override fun getCashedMovieList() {
         naverMovieLocalDataSource.getMovieList(context,
             Success = { items ->
                 adapter.setLocalMovieData(items)
