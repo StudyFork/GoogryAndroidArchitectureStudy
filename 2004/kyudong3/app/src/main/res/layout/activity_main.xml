@@ -6,10 +6,6 @@
     <data>
 
         <variable
-            name="mainActivity"
-            type="com.example.kyudong3.ui.MainActivity" />
-
-        <variable
             name="vm"
             type="com.example.kyudong3.viewModel.MainViewModel" />
     </data>
@@ -27,6 +23,7 @@
             android:imeOptions="actionGo|actionUnspecified"
             android:maxLines="1"
             android:text="@={vm.searchQuery}"
+            setOnEditorActionListener="@{vm}"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/searchRv"
             app:layout_constraintLeft_toLeftOf="parent"

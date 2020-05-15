@@ -23,10 +23,6 @@ class MainViewModel(private val movieRepository: MovieRepository) {
     }
 
     private fun fetchMovieList(searchQuery: String) {
-        fetchMovieFromRemote(searchQuery)
-    }
-
-    private fun fetchMovieFromRemote(searchQuery: String) {
         movieRepository.getMovieListRemote(searchQuery,
             success = { movieList: List<Movie> ->
                 if (movieList.isEmpty()) {

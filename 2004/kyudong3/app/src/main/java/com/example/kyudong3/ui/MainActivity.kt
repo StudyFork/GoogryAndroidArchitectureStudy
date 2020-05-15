@@ -1,7 +1,6 @@
 package com.example.kyudong3.ui
 
 import android.os.Bundle
-import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
@@ -40,18 +39,6 @@ class MainActivity : AppCompatActivity() {
 
         setMovieRecyclerView()
         initVmCallback()
-
-        binding.searchQuery.setOnEditorActionListener { _, actionId, _ ->
-            when (actionId) {
-                EditorInfo.IME_ACTION_UNSPECIFIED, EditorInfo.IME_ACTION_GO -> {
-                    mainViewModel.searchMovie()
-                    true
-                }
-                else -> {
-                    false
-                }
-            }
-        }
     }
 
     private fun setMovieRecyclerView() {
@@ -63,14 +50,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun initVmCallback() {
         with(mainViewModel) {
-            movies.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    movieRvAdapter.setMovieList(movies.get())
-                    movieRvAdapter.notifyDataSetChanged()
-                }
-            })
-
             invalidSearchQuery.addOnPropertyChangedCallback(object :
                 Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {

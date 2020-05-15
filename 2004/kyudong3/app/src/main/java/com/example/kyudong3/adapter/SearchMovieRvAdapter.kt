@@ -40,6 +40,7 @@ class SearchMovieRvAdapter :
             clear()
             movieList?.let {
                 addAll(it)
+                notifyDataSetChanged()
             }
         }
     }
