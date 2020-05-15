@@ -33,7 +33,7 @@ class MainViewModel(
 
     val observerQuery = ObservableField<String>()
 
-    private val compositeDisposable = CompositeDisposable()
+
 
     fun searchMovie(activity: Activity, view: View) {
         compositeDisposable.add(
@@ -66,10 +66,6 @@ class MainViewModel(
                         }
                 }
         )
-    }
-
-    override fun onDestroy() {
-        compositeDisposable.clear()
     }
 
     private fun showToastMessage(message: String) {
