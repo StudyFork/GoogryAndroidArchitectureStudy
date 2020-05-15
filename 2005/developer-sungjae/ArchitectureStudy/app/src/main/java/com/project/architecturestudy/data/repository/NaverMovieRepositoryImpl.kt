@@ -12,17 +12,17 @@ class NaverMovieRepositoryImpl(
 ) :
     NaverMovieRepository {
 
-    private lateinit var context: Context
-    private var adapter: SearchAdapter? = null
+    override lateinit var context: Context
+    private lateinit var adapter: SearchAdapter
 
 
-    override fun getCashedMovieList(context: Context, adapter: SearchAdapter?) {
+    override fun getCashedMovieList(context: Context, adapter: SearchAdapter) {
         this.context = context
         this.adapter = adapter
 
         naverMovieLocalDataSource.getMovieList(context,
             Success = { items ->
-                adapter?.setLocalMovieData(items)
+                adapter.setLocalMovieData(items)
                 Log.d("bsjbsj", "RoomDataBase LoadData Success")
             },
             Failure = {
@@ -35,10 +35,9 @@ class NaverMovieRepositoryImpl(
         SuccessMsg: () -> Unit,
         FailureMsg: () -> Unit
     ) {
-
         naverMovieRemoteDataSource.getMovieList(keyWord,
             Success = { items ->
-                adapter?.setRemoteMovieData(items)
+                adapter.setRemoteMovieData(items)
                 naverMovieLocalDataSource.saveMovieList(items, context)
                 SuccessMsg.invoke()
             },
