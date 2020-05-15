@@ -11,11 +11,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 
-class NaverMovieLocalDataSourceImpl : NaverMovieLocalDataSource {
+class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSource {
+
+    override var roomDataBase = MovieRoomDataBase.getInstance(context)
+
     @SuppressLint("CheckResult")
     override fun saveMovieList(data: ArrayList<Movie.Items>, context: Context) {
         Thread(Runnable {
-            MovieRoomDataBase.getInstance(context)?.getMovieDAO()?.deleteAll()
+            roomDataBase?.getMovieDAO()?.deleteAll()
         }).start()
 
         Observable.fromIterable(data)
@@ -32,7 +35,7 @@ class NaverMovieLocalDataSourceImpl : NaverMovieLocalDataSource {
                     actor = eachItem.actor
                     userRating = eachItem.userRating
                 }
-                MovieRoomDataBase.getInstance(context)?.getMovieDAO()?.insert(localData)
+                roomDataBase?.getMovieDAO()?.insert(localData)
                 Log.d("bsjbsj", "RoomDatabase Save Success $localData")
             },
                 {
@@ -46,7 +49,7 @@ class NaverMovieLocalDataSourceImpl : NaverMovieLocalDataSource {
         Success: (ArrayList<MovieLocal>) -> Unit,
         Failure: (Throwable) -> Unit
     ) {
-        MovieRoomDataBase.getInstance(context)?.getMovieDAO()?.getMovieList()
+        roomDataBase?.getMovieDAO()?.getMovieList()
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe({
                 if (it.count() > 0) {
