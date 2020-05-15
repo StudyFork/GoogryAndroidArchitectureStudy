@@ -24,8 +24,7 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
         Observable.fromIterable(data)
             .subscribeOn(Schedulers.io())
             .subscribe({ eachItem ->
-                val localData = MovieLocal()
-                localData.apply {
+                val localData = MovieLocal().apply {
                     title = eachItem.title
                     subtitle = eachItem.subtitle
                     image = eachItem.image
@@ -35,6 +34,7 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
                     actor = eachItem.actor
                     userRating = eachItem.userRating
                 }
+                
                 roomDataBase?.getMovieDAO()?.insert(localData)
                 Log.d("bsjbsj", "RoomDatabase Save Success $localData")
             },
