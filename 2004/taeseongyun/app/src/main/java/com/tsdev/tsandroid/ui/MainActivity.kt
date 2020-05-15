@@ -2,9 +2,12 @@ package com.tsdev.tsandroid.ui
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.databinding.ObservableArrayList
 import com.tsdev.tsandroid.R
 import com.tsdev.tsandroid.base.BaseActivity
 import com.tsdev.tsandroid.constant.Const
+import com.tsdev.tsandroid.data.Item
+import com.tsdev.tsandroid.data.MovieResponse
 import com.tsdev.tsandroid.data.repository.NaverReopsitory
 import com.tsdev.tsandroid.data.repository.NaverRepositoryImpl
 import com.tsdev.tsandroid.databinding.ActivityMainBinding
@@ -42,7 +45,6 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
             naverRepository,
             ResourceProviderImpl(this),
             ObserverProviderImpl(),
-            movieRecyclerAdapter,
             rxJavaEvent
         )
     }
@@ -69,6 +71,14 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         binding.movieRecycler.run {
             adapter = movieRecyclerAdapter
         }
+
+        /***
+         * ?. 부분은 observe 중일 때  ?: 은 observe 를 끊기 때문에 빈 리스트 들어옴.
+         ***/
+        viewModel.observe.emitList().takeIf(ObservableArrayList<Item>::isNotEmpty)
+            ?.run {
+                movieRecyclerAdapter.notifiedDataChange()
+            } ?: movieRecyclerAdapter.notifiedDataChange()
     }
 
     override fun onBackPressed() {

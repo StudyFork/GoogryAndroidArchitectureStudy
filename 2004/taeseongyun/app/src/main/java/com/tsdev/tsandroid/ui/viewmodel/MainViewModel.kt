@@ -21,7 +21,7 @@ class MainViewModel(
     private val movieRepository: NaverReopsitory,
     private val resourceProvider: ResourceProvider,
     override val observe: ObserverProvider,
-    private val recyclerViewModel: RecyclerViewModel<Item>,
+//    private val recyclerViewModel: RecyclerViewModel<Item>,
     private val rxEventBus: RxEventBus
 ) : BaseViewModel() {
 
@@ -59,7 +59,6 @@ class MainViewModel(
                             this.forEach {
                                 observe.observeList(it)
                             }
-                            recyclerViewModel.notifiedDataChange()
                         }
                         ?: apply {
                             removeAll()
@@ -79,7 +78,6 @@ class MainViewModel(
 
     private fun removeAll() {
         observe.disconnectObserve()
-        recyclerViewModel.notifiedDataChange()
     }
 
     override fun onBackKeyPressed() {
