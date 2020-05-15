@@ -18,7 +18,7 @@ import org.jetbrains.anko.toast
 class MainActivity : AppCompatActivity() {
 
     private var adapter: SearchAdapter = SearchAdapter()
-    private val naverMovieRepositoryImpl by lazy { NaverMovieRepositoryImpl }
+    private val naverMovieRepositoryImpl = NaverMovieRepositoryImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

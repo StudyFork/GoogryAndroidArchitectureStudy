@@ -34,7 +34,7 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
                     actor = eachItem.actor
                     userRating = eachItem.userRating
                 }
-                
+
                 roomDataBase?.getMovieDAO()?.insert(localData)
                 Log.d("bsjbsj", "RoomDatabase Save Success $localData")
             },
