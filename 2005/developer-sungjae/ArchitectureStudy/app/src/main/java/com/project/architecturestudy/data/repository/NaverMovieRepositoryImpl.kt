@@ -12,7 +12,7 @@ class NaverMovieRepositoryImpl(
 ) :
     NaverMovieRepository {
 
-    private var context: Context? = null
+    private lateinit var context: Context
     private var adapter: SearchAdapter? = null
 
 
