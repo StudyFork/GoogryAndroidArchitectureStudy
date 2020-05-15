@@ -7,13 +7,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class NaverMovieRemoteDataSourceImpl : NaverMovieRemoteDataSource {
+
+    override val service by lazy { RetrofitService.create() }
+
     @SuppressLint("CheckResult")
     override fun getMovieList(
         keyWord: String,
         Success: (ArrayList<Movie.Items>) -> Unit,
         Failure: (Throwable) -> Unit
     ) {
-        val service = RetrofitService.create()
         service.getMovies(keyWord)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
