@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.project.architecturestudy.R
 import com.project.architecturestudy.adapters.SearchAdapter
 import com.project.architecturestudy.data.repository.NaverMovieRepositoryImpl
+import com.project.architecturestudy.data.repository.NaverMovieRepositoryImpl.setRepository
 import com.project.architecturestudy.data.source.local.NaverMovieLocalDataSourceImpl
 import com.project.architecturestudy.data.source.local.room.MovieRoomDataBase
 import com.project.architecturestudy.data.source.remote.NaverMovieRemoteDataSourceImpl
@@ -16,16 +17,13 @@ import org.jetbrains.anko.toast
 class MainActivity : AppCompatActivity() {
 
     private var adapter: SearchAdapter = SearchAdapter()
-    private val naverMovieRepositoryImpl by lazy {
-        val naverMovieLocalDataSource = NaverMovieLocalDataSourceImpl()
-        val naverMovieRemoteDataSource = NaverMovieRemoteDataSourceImpl()
-        NaverMovieRepositoryImpl(naverMovieLocalDataSource, naverMovieRemoteDataSource)
-    }
+    private val naverMovieRepositoryImpl by lazy { NaverMovieRepositoryImpl }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setRepository(this, NaverMovieLocalDataSourceImpl(), NaverMovieRemoteDataSourceImpl())
         setRecyclerView()
         setOnClick()
 

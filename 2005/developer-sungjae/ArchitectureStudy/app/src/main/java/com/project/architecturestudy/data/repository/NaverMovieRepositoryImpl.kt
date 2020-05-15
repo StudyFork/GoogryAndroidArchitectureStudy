@@ -6,18 +6,25 @@ import com.project.architecturestudy.adapters.SearchAdapter
 import com.project.architecturestudy.data.source.local.NaverMovieLocalDataSource
 import com.project.architecturestudy.data.source.remote.NaverMovieRemoteDataSource
 
-class NaverMovieRepositoryImpl(
-    private val naverMovieLocalDataSource: NaverMovieLocalDataSource,
-    private val naverMovieRemoteDataSource: NaverMovieRemoteDataSource
-) :
-    NaverMovieRepository {
+object NaverMovieRepositoryImpl : NaverMovieRepository {
 
     override lateinit var context: Context
+    override lateinit var naverMovieLocalDataSource: NaverMovieLocalDataSource
+    override lateinit var naverMovieRemoteDataSource: NaverMovieRemoteDataSource
     private lateinit var adapter: SearchAdapter
 
 
-    override fun getCashedMovieList(context: Context, adapter: SearchAdapter) {
+    override fun setRepository(
+        context: Context,
+        naverMovieLocalDataSource: NaverMovieLocalDataSource,
+        naverMovieRemoteDataSource: NaverMovieRemoteDataSource
+    ) {
         this.context = context
+        this.naverMovieLocalDataSource = naverMovieLocalDataSource
+        this.naverMovieRemoteDataSource = naverMovieRemoteDataSource
+    }
+
+    override fun getCashedMovieList(context: Context, adapter: SearchAdapter) {
         this.adapter = adapter
 
         naverMovieLocalDataSource.getMovieList(context,
