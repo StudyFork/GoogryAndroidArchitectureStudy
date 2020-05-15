@@ -1,6 +1,9 @@
 package com.tsdev.tsandroid.ui
 
+import android.content.Context
 import android.os.Bundle
+import android.view.inputmethod.InputMethod
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.ObservableArrayList
 import com.tsdev.tsandroid.R
@@ -44,6 +47,13 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     private val backKeyPressExt: BackKeyPressExt by lazy {
         BackKeyPressExt(rxJavaEvent, CompositeDisposable(), ::finish, ::showToast)
+    }
+
+    var hideKeyBoard: () -> Unit = {
+        (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
+            binding.searchImg.windowToken,
+            0
+        )
     }
 
     override val viewModel: MainViewModel by lazy {

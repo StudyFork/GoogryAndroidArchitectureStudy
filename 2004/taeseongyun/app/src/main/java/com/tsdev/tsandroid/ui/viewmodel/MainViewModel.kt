@@ -33,7 +33,7 @@ class MainViewModel(
 
 
 
-    fun searchMovie(activity: Activity, view: View) {
+    fun searchMovie(hideKeyBoard: () -> Unit) {
         compositeDisposable.add(
             movieRepository.getMovieList(observerQuery.get() ?: NON_QUERY)
                 .subscribeOn(Schedulers.io())
@@ -44,10 +44,11 @@ class MainViewModel(
                 }.observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe {
                     isLoading = true
-                    (activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-                        view.windowToken,
-                        0
-                    )
+                    hideKeyBoard()
+//                    (activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
+//                        view.windowToken,
+//                        0
+//                    )
                 }
                 .doOnTerminate { isLoading = false }
                 .subscribe { items: List<Item>, _ ->

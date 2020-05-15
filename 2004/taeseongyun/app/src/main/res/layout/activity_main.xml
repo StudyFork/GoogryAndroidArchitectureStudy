@@ -60,7 +60,7 @@
                             android:layout_height="@dimen/spacing_xx_large"
                             android:layout_gravity="center"
                             android:layout_weight="2"
-                            onDebounceClickEvent="@{(view) -> viewModel.searchMovie(activity, view)}"
+                            onDebounceClickEvent="@{() -> viewModel.searchMovie(activity.hideKeyBoard)}"
                             android:src="@drawable/ic_search_black_24dp" />
                     </LinearLayout>
 
