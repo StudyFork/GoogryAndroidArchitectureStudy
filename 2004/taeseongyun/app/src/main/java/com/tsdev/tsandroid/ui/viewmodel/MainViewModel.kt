@@ -54,13 +54,13 @@ class MainViewModel(
                 .doOnTerminate { isLoading = false }
                 .subscribe { items: List<Item>, _ ->
                     items.takeIf { list -> list.isNotEmpty() }
-                        ?.apply {
+                        ?.run {
                             observe.disconnectObserve()
                             this.forEach {
                                 observe.observeList(it)
                             }
                         }
-                        ?: apply {
+                        ?: run {
                             removeAll()
                             showToastMessage(resourceProvider.getResultErrorString(R.string.non_search_result))
                         }
