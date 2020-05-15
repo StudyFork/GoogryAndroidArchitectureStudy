@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setRepository(this, NaverMovieLocalDataSourceImpl(), NaverMovieRemoteDataSourceImpl())
+        setRepository(this, NaverMovieLocalDataSourceImpl(this), NaverMovieRemoteDataSourceImpl())
         setRecyclerView()
         setOnClick()
 
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setRecyclerView() {
         listview_movie.adapter = adapter
-        naverMovieRepositoryImpl.getCashedMovieList(this, adapter)
+        naverMovieRepositoryImpl.getCashedMovieList()
 
     }
 
