@@ -53,10 +53,10 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe({
                 if (it.count() > 0) {
-                    val arrList = ArrayList<MovieLocal>()
-                    arrList.addAll(it)
-                    Success.invoke(arrList)
-                    Log.d("bsjbsj", "RoomDatabase GetData Success : ${arrList[0]}")
+                    val movieList = ArrayList<MovieLocal>()
+                    movieList.addAll(it)
+                    Success.invoke(movieList)
+                    Log.d("bsjbsj", "RoomDatabase GetData Success : ${movieList[0]}")
                 } else {
                     Log.d("bsjbsj", "RoomDatabase has no Data")
                 }
