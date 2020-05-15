@@ -14,7 +14,7 @@ class SearchAdapter : RecyclerView.Adapter<SearchingResultHolder>() {
 
     private val remoteSearchList: MutableList<Movie.Items> = mutableListOf()
     private val localSearchList: MutableList<MovieLocal> = mutableListOf()
-    var onClick: ((Movie.Items) -> Unit)? = null
+    lateinit var onClick: ((Movie.Items) -> Unit)
     private var isCaching = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchingResultHolder {
@@ -22,7 +22,7 @@ class SearchAdapter : RecyclerView.Adapter<SearchingResultHolder>() {
             itemView.setOnClickListener {
                 if (!isCaching) {
                     val item = remoteSearchList[adapterPosition]
-                    onClick?.invoke(item)
+                    onClick.invoke(item)
                 }
             }
         }
