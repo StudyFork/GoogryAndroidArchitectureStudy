@@ -36,9 +36,9 @@ class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
             ) {
                 val movieResponse = response.body()
 
-                movieResponse?.also {
-                    onSuccess(it.movieList)
-                    saveMovieInLocal(keyWord, it.movieList)
+                movieResponse?.movieList?.also {
+                    onSuccess(it)
+                    saveMovieInLocal(keyWord, it)
                 }
             }
 
