@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="activity"
-            type="com.example.studyforkandroid.ui.MainActivity" />
+            name="vm"
+            type="com.example.studyforkandroid.viewmodel.MovieViewModel" />
     </data>
 
 
@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/inputTitle"
             android:maxLines="1"
+            android:text="@={vm.query}"
             app:layout_constraintEnd_toStartOf="@id/movie_search"
 
             app:layout_constraintHorizontal_weight="0.8"
@@ -32,7 +33,7 @@
             android:id="@+id/movie_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:onClick="@{()-> activity.searchBtn()}"
+            android:onClick="@{()-> vm.searchMovies()}"
             android:text="@string/search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="0.2"
@@ -46,6 +47,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/movie_search" />
+            app:layout_constraintTop_toBottomOf="@id/movie_search"
+            app:setItems="@{vm.movies}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
