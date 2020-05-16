@@ -14,15 +14,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="5dp"
-        android:paddingEnd="5dp">
+        android:paddingEnd="5dp"
+        app:setClickListener="@{movieItem.link}">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/movie_card"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:elevation="2dp"
             android:padding="7dp"
             app:cardCornerRadius="8dp"
+            app:cardElevation="2dp"
             app:cardUseCompatPadding="true"
             app:layout_constraintDimensionRatio="1:0.5"
             app:layout_constraintEnd_toEndOf="parent"

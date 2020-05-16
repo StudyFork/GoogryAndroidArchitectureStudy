@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="activity"
-            type="com.olaf.nukeolaf.ui.MainActivity" />
+            name="vm"
+            type="com.olaf.nukeolaf.ui.MainViewModel" />
     </data>
 
     <LinearLayout
@@ -22,13 +22,14 @@
             android:layout_height="wrap_content"
             app:iconifiedByDefault="false"
             app:queryHint="검색어를 입력하시오"
-            app:setOnQueryTextListener="@{activity.searchMovie}" />
+            app:setOnQueryTextListener="@{vm}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movie_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:setItems="@{vm.movies}"
             tools:listitem="@layout/item_movies_rv" />
 
     </LinearLayout>
