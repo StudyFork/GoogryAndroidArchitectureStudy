@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="mainActivity"
-            type="com.example.kyudong3.ui.MainActivity" />
+            name="vm"
+            type="com.example.kyudong3.viewModel.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +20,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="제목을 입력하세요"
+            android:imeOptions="actionGo|actionUnspecified"
             android:maxLines="1"
+            android:text="@={vm.searchQuery}"
+            setOnEditorActionListener="@{vm}"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/searchRv"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -31,13 +34,14 @@
             android:id="@+id/searchBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> mainActivity.searchBtnClick(searchQuery.getText().toString())}"
+            android:onClick="@{() -> vm.searchMovie()}"
             android:text="검색"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searchRv"
+            setItems="@{vm.movies}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="5dp"
