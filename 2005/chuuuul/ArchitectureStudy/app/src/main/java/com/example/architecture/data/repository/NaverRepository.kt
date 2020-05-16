@@ -1,6 +1,7 @@
 package com.example.architecture.data.repository
 
 import com.example.architecture.data.model.MovieModel
+import com.example.architecture.data.source.remote.NaverRemoteDataSourceImpl
 
 interface NaverRepository {
 
@@ -11,4 +12,11 @@ interface NaverRepository {
     )
 
     fun clearCacheData()
+
+    fun saveMovieList(
+        keyword: String,
+        movieList: List<MovieModel>
+    )
+
+
 }
