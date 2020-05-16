@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
         android:padding="4dp"
+        bind:launchUrl="@{movie.link}"
         tools:background="@android:color/darker_gray"
         tools:viewBindingIgnore="true">
 

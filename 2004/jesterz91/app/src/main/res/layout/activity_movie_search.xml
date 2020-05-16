@@ -11,6 +11,10 @@
         <import type="io.github.jesterz91.study.domain.entity.Movie" />
 
         <variable
+            name="vm"
+            type="io.github.jesterz91.study.presentation.ui.MovieSearchViewModel" />
+
+        <variable
             name="adapter"
             type="io.github.jesterz91.study.presentation.ui.MovieSearchAdapter" />
 
