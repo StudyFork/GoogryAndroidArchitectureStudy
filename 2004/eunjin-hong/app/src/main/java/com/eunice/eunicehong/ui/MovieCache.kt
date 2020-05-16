@@ -9,4 +9,8 @@ interface MovieCache {
 
     fun removeMovieHistory()
 
+    fun saveSearchRecentSuggestions(query: String)
+
+    fun deleteAllSearchRecentSuggestions()
+
 }

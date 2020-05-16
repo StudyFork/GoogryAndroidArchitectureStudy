@@ -4,7 +4,7 @@ import com.eunice.eunicehong.data.model.MovieList
 
 interface MovieDataSource {
     interface LoadMoviesCallback {
-        fun onSuccess(movieList: MovieList)
+        fun onSuccess(query: String?, movieList: MovieList)
         fun onFailure(e: Throwable)
     }
 

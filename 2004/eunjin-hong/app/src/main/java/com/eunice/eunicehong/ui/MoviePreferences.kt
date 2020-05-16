@@ -1,6 +1,5 @@
 package com.eunice.eunicehong.ui
 
-import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
 import com.eunice.eunicehong.R
@@ -11,10 +10,10 @@ import com.google.gson.JsonSyntaxException
 class MoviePreferences {
     companion object {
         private var instance: MoviePreferences? = null
-        private lateinit var context: Activity
+        private lateinit var context: Context
 
-        fun getInstance(activity: Activity): MoviePreferences {
-            context = activity
+        fun getInstance(_context: Context): MoviePreferences {
+            context = _context
             return instance
                 ?: MoviePreferences()
         }
@@ -68,6 +67,9 @@ class MoviePreferences {
     }
 
     private fun getPreferences() =
-        context.getPreferences(Context.MODE_PRIVATE)
+        context.getSharedPreferences(
+            context.getString(R.string.preference_file_key),
+            Context.MODE_PRIVATE
+        )
 
 }

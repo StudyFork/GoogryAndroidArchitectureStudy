@@ -1,7 +1,5 @@
 package com.eunice.eunicehong.ui
 
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -10,7 +8,7 @@ import com.eunice.eunicehong.R
 import com.eunice.eunicehong.data.model.Movie
 import com.eunice.eunicehong.databinding.ItemMovieBinding
 
-class MovieAdapter(private val presenter: MovieListPresenter) :
+class MovieAdapter() :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     private val movieList = mutableListOf<Movie>()
@@ -44,7 +42,7 @@ class MovieAdapter(private val presenter: MovieListPresenter) :
     }
 
     class ViewHolder(private val binding: ItemMovieBinding) :
-        RecyclerView.ViewHolder(binding.root), MovieContract.ItemPresenter {
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Movie) {
             binding.movie = item
@@ -53,10 +51,5 @@ class MovieAdapter(private val presenter: MovieListPresenter) :
             binding.executePendingBindings()
         }
 
-        override fun showDetail(url: String) {
-            val context = binding.root.context
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-            context.startActivity(intent)
-        }
     }
 }
