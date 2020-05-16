@@ -5,7 +5,7 @@ import com.example.architecture.data.model.MovieModel
 import com.example.architecture.data.source.local.NaverLocalDataSourceImpl
 import com.example.architecture.data.source.remote.NaverRemoteDataSourceImpl
 
-class NaverRepositoryImpl(val context: Context) : NaverRepository {
+class NaverRepositoryImpl(context: Context) : NaverRepository {
 
     private val naverRemoteDataSourceImpl = NaverRemoteDataSourceImpl()
     private val naverLocalDataSourceImpl = NaverLocalDataSourceImpl(context)
