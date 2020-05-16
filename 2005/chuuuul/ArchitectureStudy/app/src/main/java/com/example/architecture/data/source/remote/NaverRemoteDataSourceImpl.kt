@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
 
-    private val retrofit by lazy {
+    override val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(ConstValue.MOVIE_SEARCH_API_URL)
             .addConverterFactory(GsonConverterFactory.create())
