@@ -1,10 +1,10 @@
 package com.eunice.eunicehong.data.source
 
-import com.eunice.eunicehong.data.model.MovieList
+import com.eunice.eunicehong.data.model.MovieContents
 
 interface MovieDataSource {
     interface LoadMoviesCallback {
-        fun onSuccess(query: String?, movieList: MovieList)
+        fun onSuccess(query: String?, movieContents: MovieContents)
         fun onFailure(e: Throwable)
     }
 

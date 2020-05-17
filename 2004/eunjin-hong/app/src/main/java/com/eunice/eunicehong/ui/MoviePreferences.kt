@@ -3,7 +3,7 @@ package com.eunice.eunicehong.ui
 import android.content.Context
 import android.content.res.Resources
 import com.eunice.eunicehong.R
-import com.eunice.eunicehong.data.model.MovieList
+import com.eunice.eunicehong.data.model.MovieContents
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonSyntaxException
 
@@ -20,12 +20,12 @@ class MoviePreferences {
     }
 
     @Throws(IllegalStateException::class, JsonSyntaxException::class)
-    fun getHistory(query: String): MovieList {
+    fun getHistory(query: String): MovieContents {
         val jsonString = getStringValue(query)
-        return GsonBuilder().create().fromJson(jsonString, MovieList::class.java)
+        return GsonBuilder().create().fromJson(jsonString, MovieContents::class.java)
     }
 
-    fun saveHistory(query: String, value: MovieList) {
+    fun saveHistory(query: String, value: MovieContents) {
         val jsonString = GsonBuilder().create().toJson(value)
         saveStringValue(query, jsonString)
         saveQueryKey(query)

@@ -1,7 +1,7 @@
 package com.eunice.eunicehong.data.source.remote
 
 import com.eunice.eunicehong.BuildConfig
-import com.eunice.eunicehong.data.model.MovieList
+import com.eunice.eunicehong.data.model.MovieContents
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -32,5 +32,5 @@ interface MovieService {
         @Query("country") country: String? = null,
         @Query("yearfrom") yearFrom: Int? = null,
         @Query("yearto") yearTo: Int? = null
-    ): Call<MovieList>
+    ): Call<MovieContents>
 }

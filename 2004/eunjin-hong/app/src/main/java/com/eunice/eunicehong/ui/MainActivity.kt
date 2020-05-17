@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.eunice.eunicehong.R
-import com.eunice.eunicehong.data.model.MovieList
+import com.eunice.eunicehong.data.model.MovieContents
 import com.eunice.eunicehong.databinding.ActivityMainBinding
 import com.eunice.eunicehong.provider.SuggestionProvider
 import com.eunice.eunicehong.viewmodel.MainViewModel
@@ -25,10 +25,10 @@ class MainActivity : AppCompatActivity() {
         @Throws(IllegalStateException::class, JsonSyntaxException::class)
         override fun getMovieList(
             query: String
-        ): MovieList = preferences.getHistory(query)
+        ): MovieContents = preferences.getHistory(query)
 
-        override fun saveMovieList(query: String, movieList: MovieList) =
-            preferences.saveHistory(query, movieList)
+        override fun saveMovieList(query: String, movieContents: MovieContents) =
+            preferences.saveHistory(query, movieContents)
 
 
         override fun removeMovieHistory() {
@@ -52,6 +52,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    val movieListAdapter = MovieAdapter()
+
     private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +64,7 @@ class MainActivity : AppCompatActivity() {
             this@MainActivity,
             R.layout.activity_main
         ).apply {
+            activity = this@MainActivity
             viewModel = mainViewModel
             componentName = this@MainActivity.componentName
             lifecycleOwner = this@MainActivity

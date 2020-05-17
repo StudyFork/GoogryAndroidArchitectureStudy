@@ -2,25 +2,27 @@ package com.eunice.eunicehong.viewmodel
 
 import android.util.Log
 import androidx.databinding.ObservableField
-import com.eunice.eunicehong.data.model.MovieList
+import com.eunice.eunicehong.data.model.Movie
+import com.eunice.eunicehong.data.model.MovieContents
 import com.eunice.eunicehong.data.source.MovieDataSource
 import com.eunice.eunicehong.data.source.MovieRepository
-import com.eunice.eunicehong.ui.MovieAdapter
 import com.eunice.eunicehong.ui.MovieCache
 
 class MainViewModel(private val cache: MovieCache) {
 
-    val movieListAdapter = MovieAdapter()
+//    val movieListAdapter = MovieAdapter()
 
     val movieListState: ObservableField<MovieListState> =
         ObservableField(MovieListState.EMPTY_QUERY)
 
     private val loadMovieListCallback = object : MovieDataSource.LoadMoviesCallback {
-        override fun onSuccess(query: String?, movieList: MovieList) {
+        override fun onSuccess(query: String?, movieContents: MovieContents) {
             if (query.isNullOrBlank()) {
                 setListStateEmptyQuery()
             } else {
-                showSearchResult(query, movieList)
+                resultMovieList.set(movieContents.items)
+                showSearchResult(movieContents)
+                cache.saveMovieList(query, movieContents)
             }
         }
 
@@ -28,6 +30,8 @@ class MainViewModel(private val cache: MovieCache) {
             Log.d(this.toString(), e.toString())
         }
     }
+
+    val resultMovieList = ObservableField<Collection<Movie>>()
 
     fun search(query: String?) {
         if (query.isNullOrBlank()) return
@@ -52,14 +56,12 @@ class MainViewModel(private val cache: MovieCache) {
         cache.removeMovieHistory()
     }
 
-    fun showSearchResult(query: String, movies: MovieList) {
+    fun showSearchResult(movies: MovieContents) {
         if (movies.items.isEmpty()) {
             movieListState.set(MovieListState.NO_MATCHING_RESULT)
         } else {
-            movieListAdapter.setMovieList(movies.items)
             movieListState.set(MovieListState.SHOW_RESULT)
         }
-        cache.saveMovieList(query, movies)
     }
 
     fun setListStateEmptyQuery() {
