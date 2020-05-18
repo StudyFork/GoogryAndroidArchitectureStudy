@@ -10,7 +10,7 @@ import retrofit2.Response
 
 class NaverRemoteDataSourceImpl :
     NaverRemoteDataSource {
-    override fun getMovie(
+    override fun getData(
         keyword: String,
         onSuccess: (movies: MovieVo) -> Unit,
         onFail: (t: Throwable) -> Unit
