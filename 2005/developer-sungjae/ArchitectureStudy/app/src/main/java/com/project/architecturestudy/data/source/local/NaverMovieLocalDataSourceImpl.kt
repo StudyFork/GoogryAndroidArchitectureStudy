@@ -17,13 +17,14 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
 
     @SuppressLint("CheckResult")
     override fun saveMovieList(data: ArrayList<Movie.Items>) {
-        Thread(Runnable {
-            roomDataBase?.getMovieDAO()?.deleteAll()
-        }).start()
-
         Observable.fromIterable(data)
+            .doOnSubscribe {
+                roomDataBase?.getMovieDAO()?.deleteAll()
+                Log.d("bsjbsj", "doOnSubscribe")
+            }
             .subscribeOn(Schedulers.io())
             .subscribe({ eachItem ->
+                Log.d("bsjbsj", "subscribe")
                 val localData = MovieLocal().apply {
 
                     this.title = eachItem.title
