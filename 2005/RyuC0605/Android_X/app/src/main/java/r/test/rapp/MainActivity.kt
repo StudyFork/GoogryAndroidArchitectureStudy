@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.layout_main_top.*
 import kotlinx.android.synthetic.main.row_content.view.*
 import r.test.rapp.data.model.Item
 import r.test.rapp.data.repository.MovieRepositoryImpl
+import r.test.rapp.networks.ImageLoader
 
 class MainActivity : AppCompatActivity() {
 
@@ -111,6 +112,8 @@ class MainActivity : AppCompatActivity() {
      */
     class MovieAdapter : BaseAdapter() {
         val movieList: ArrayList<Item> = ArrayList()
+        val imgLoader : ImageLoader = ImageLoader()
+
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
             val inflater: LayoutInflater = LayoutInflater.from(parent?.context)
             val rowView: View = convertView ?: inflater.inflate(R.layout.row_content, parent, false)
@@ -123,12 +126,7 @@ class MainActivity : AppCompatActivity() {
             val item = movieList[position]
 
             holder.txtTitle.text = item.getHtmlTitle()
-
-            Glide.with(rowView.context)
-                .load(item.image)
-                .placeholder(R.drawable.no_image)
-                .centerCrop()
-                .into(holder.ivThumbnail)
+            imgLoader.load(item.image, holder.ivThumbnail)
 
             return rowView
         }
