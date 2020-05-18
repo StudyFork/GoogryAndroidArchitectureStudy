@@ -20,18 +20,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_main_top.*
 import kotlinx.android.synthetic.main.row_content.view.*
 import r.test.rapp.data.model.Item
-import r.test.rapp.networks.NaverApi
-import r.test.rapp.networks.RetrofitClient
-import r.test.rapp.data.model.MovieVo
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import r.test.rapp.data.repository.MovieRepositoryImpl
+import r.test.rapp.networks.ImageLoader
 
 class MainActivity : AppCompatActivity() {
 
-    /**
-     * Deprecated 됐지만 구글은 해당 클래스를 아직까지 살려둠. 사실 커스텀 뷰 만들기 귀찮아서 사용...
-     */
     var progress: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,8 +47,8 @@ class MainActivity : AppCompatActivity() {
 
                 val webIntent: Intent =
                     Uri.parse((lv_contents.adapter as MovieAdapter).movieList[position].link)
-                        .let { webpage ->
-                            Intent(Intent.ACTION_VIEW, webpage)
+                        .let { link ->
+                            Intent(Intent.ACTION_VIEW, link)
                         }
 
                 startActivity(webIntent)
@@ -86,9 +79,6 @@ class MainActivity : AppCompatActivity() {
      * 검색버튼 클릭 액션
      */
     fun onClick(view: View) {
-        val api: NaverApi =
-            RetrofitClient.getClient(BuildConfig.NAVER_API_URL).create(NaverApi::class.java)
-
         val keyword: String = edt_input.text.toString().trim()
 
         if (TextUtils.isEmpty(keyword)) {
@@ -97,30 +87,24 @@ class MainActivity : AppCompatActivity() {
         }
 
         hideKeyPad(edt_input)
-
         progress?.show()
 
-        api.searchMovie(keyword).enqueue(object : Callback<MovieVo> {
-            override fun onFailure(call: Call<MovieVo>, t: Throwable) {
-                Toast.makeText(this@MainActivity, t.toString(), Toast.LENGTH_LONG).show()
-                progress?.hide()
-            }
-
-            override fun onResponse(call: Call<MovieVo>, response: Response<MovieVo>) {
-                val body = response.body() ?: return
-
-//                if (response.body() == null)
-//                    return;
-
+        val repository: MovieRepositoryImpl = MovieRepositoryImpl()
+        repository.getMovieList(
+            keyword,
+            onSuccess = { vo ->
+                val res = vo ?: return@getMovieList
                 val adt = lv_contents.adapter as MovieAdapter
                 adt.movieList.clear()
-                adt.movieList.addAll(body.items)
+                adt.movieList.addAll(res.items)
                 adt.notifyDataSetChanged()
 
                 progress?.hide()
-            }
-        }
-        )
+            },
+            onFail = { f ->
+                Toast.makeText(this@MainActivity, f.toString(), Toast.LENGTH_LONG).show()
+                progress?.hide()
+            });
     }
 
     /**
@@ -128,41 +112,21 @@ class MainActivity : AppCompatActivity() {
      */
     class MovieAdapter : BaseAdapter() {
         val movieList: ArrayList<Item> = ArrayList()
+        val imgLoader : ImageLoader = ImageLoader()
+
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
             val inflater: LayoutInflater = LayoutInflater.from(parent?.context)
             val rowView: View = convertView ?: inflater.inflate(R.layout.row_content, parent, false)
-//            val rowView: View = if (convertView == null) {
-//                inflater.inflate(R.layout.row_content, parent, false)
-//            } else {
-//                convertView
-//            }
 
             val holder = (convertView?.tag as? ViewHolder)
                 ?: run {
                     ViewHolder(rowView).also { rowView.tag = it }
                 }
 
-//            var holder: ViewHolder? = null;
-//
-//            if (convertView == null) {
-//                holder = ViewHolder(rowView)
-//                rowView.tag = holder;
-//            } else {
-//                holder = rowView.tag as ViewHolder
-//            }
-
             val item = movieList[position]
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                holder.txtTitle.text = Html.fromHtml(item.title, Html.FROM_HTML_MODE_COMPACT)
-            } else {
-                holder.txtTitle.text = Html.fromHtml(item.title)
-            }
-            Glide.with(rowView.context)
-                .load(item.image)
-                .placeholder(R.drawable.no_image)
-                .centerCrop()
-                .into(holder.ivThumbnail)
+            holder.txtTitle.text = item.getHtmlTitle()
+            imgLoader.load(item.image, holder.ivThumbnail)
 
             return rowView
         }
