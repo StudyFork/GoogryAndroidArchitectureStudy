@@ -16,7 +16,7 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
     override var roomDataBase = MovieRoomDataBase.getInstance(context)
 
     @SuppressLint("CheckResult")
-    override fun saveMovieList(context: Context, data: ArrayList<Movie.Items>) {
+    override fun saveMovieList(data: ArrayList<Movie.Items>) {
         Thread(Runnable {
             roomDataBase?.getMovieDAO()?.deleteAll()
         }).start()
@@ -46,7 +46,6 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
 
     @SuppressLint("CheckResult")
     override fun getMovieList(
-        context: Context,
         Success: (ArrayList<MovieLocal>) -> Unit,
         Failure: (Throwable) -> Unit
     ) {
