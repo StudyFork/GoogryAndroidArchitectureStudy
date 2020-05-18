@@ -32,5 +32,7 @@ object NaverMovieRepositoryImpl : NaverMovieRepository {
         Failure: (Throwable) -> Unit
     ) {
         naverMovieRemoteDataSource.getMovieList(keyWord, Success, Failure)
+        naverMovieLocalDataSource.sendMovieListToLocal(Success)
+//        naverMovieLocalDataSource.saveMovieList(context)
     }
 }

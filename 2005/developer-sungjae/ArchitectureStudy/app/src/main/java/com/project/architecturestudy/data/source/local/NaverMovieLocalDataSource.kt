@@ -10,6 +10,6 @@ interface NaverMovieLocalDataSource {
     var roomDataBase: MovieRoomDataBase?
     fun getMovieList(context: Context, Success: (ArrayList<MovieLocal>) -> Unit, Failure: (Throwable) -> Unit)
     fun saveMovieList(context: Context)
-    fun sendMovieList(success: (ArrayList<Movie.Items>) -> Unit)
+    fun sendMovieListToLocal(success: (ArrayList<Movie.Items>) -> Unit)
 
 }
