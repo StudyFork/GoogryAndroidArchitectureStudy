@@ -16,7 +16,7 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
     override var roomDataBase = MovieRoomDataBase.getInstance(context)
     var successCallback: ((ArrayList<Movie.Items>) -> Unit)? = null
 
-    override fun sendMovieList(success: (ArrayList<Movie.Items>) -> Unit) {
+    override fun sendMovieListToLocal(success: (ArrayList<Movie.Items>) -> Unit) {
         successCallback = success
     }
 
