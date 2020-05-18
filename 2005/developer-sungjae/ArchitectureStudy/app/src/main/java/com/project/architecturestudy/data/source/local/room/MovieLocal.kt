@@ -14,7 +14,7 @@ class MovieLocal(
     @ColumnInfo(name = "pubDate") var pubDate: String,
     @ColumnInfo(name = "director") var director: String,
     @ColumnInfo(name = "actor") var actor: String,
-    @ColumnInfo(name = "userRating") var userRating: Double?
+    @ColumnInfo(name = "userRating") var userRating: Double
 ) {
-    constructor() : this(0, "", "", "", "", "", "", "", null)
+    constructor() : this(0, "", "", "", "", "", "", "", 0.0)
 }
