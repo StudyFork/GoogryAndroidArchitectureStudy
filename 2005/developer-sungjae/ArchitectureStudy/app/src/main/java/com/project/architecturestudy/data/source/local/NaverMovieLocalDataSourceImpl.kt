@@ -14,33 +14,42 @@ import io.reactivex.schedulers.Schedulers
 class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSource {
 
     override var roomDataBase = MovieRoomDataBase.getInstance(context)
+    var successCallback: ((ArrayList<Movie.Items>) -> Unit)? = null
+
+    override fun sendMovieList(success: (ArrayList<Movie.Items>) -> Unit) {
+        successCallback = success
+    }
 
     @SuppressLint("CheckResult")
-    override fun saveMovieList(data: ArrayList<Movie.Items>, context: Context) {
-        Thread(Runnable {
-            roomDataBase?.getMovieDAO()?.deleteAll()
-        }).start()
+    override fun saveMovieList(context: Context) {
 
-        Observable.fromIterable(data)
-            .subscribeOn(Schedulers.io())
-            .subscribe({ eachItem ->
-                val localData = MovieLocal().apply {
-                    title = eachItem.title
-                    subtitle = eachItem.subtitle
-                    image = eachItem.image
-                    link = eachItem.link
-                    pubDate = eachItem.pubDate
-                    director = eachItem.director
-                    actor = eachItem.actor
-                    userRating = eachItem.userRating
-                }
+        successCallback = { data ->
+            Thread(Runnable {
+                roomDataBase?.getMovieDAO()?.deleteAll()
+            }).start()
 
-                roomDataBase?.getMovieDAO()?.insert(localData)
-                Log.d("bsjbsj", "RoomDatabase Save Success $localData")
-            },
-                {
-                    Log.d("bsjbsj", "RoomDatabase Save Failure")
-                })
+            Observable.fromIterable(data)
+                .subscribeOn(Schedulers.io())
+                .subscribe({ eachItem ->
+                    val localData = MovieLocal().apply {
+                        title = eachItem.title
+                        subtitle = eachItem.subtitle
+                        image = eachItem.image
+                        link = eachItem.link
+                        pubDate = eachItem.pubDate
+                        director = eachItem.director
+                        actor = eachItem.actor
+                        userRating = eachItem.userRating
+                    }
+
+                    roomDataBase?.getMovieDAO()?.insert(localData)
+                    Log.d("bsjbsj", "RoomDatabase Save Success $localData")
+                },
+                    {
+                        Log.d("bsjbsj", "RoomDatabase Save Failure")
+                    })
+
+        }
     }
 
     @SuppressLint("CheckResult")
