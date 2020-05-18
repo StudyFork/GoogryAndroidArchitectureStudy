@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "movielist")
 class MovieLocal(
-    @PrimaryKey var id: Long?,
+    @PrimaryKey(autoGenerate = true) val id: Long,
     @ColumnInfo(name = "title") var title: String,
     @ColumnInfo(name = "link") var link: String,
     @ColumnInfo(name = "image") var image: String,
@@ -16,5 +16,5 @@ class MovieLocal(
     @ColumnInfo(name = "actor") var actor: String,
     @ColumnInfo(name = "userRating") var userRating: Double?
 ) {
-    constructor() : this(null, "", "", "", "", "", "", "", null)
+    constructor() : this(0, "", "", "", "", "", "", "", null)
 }
