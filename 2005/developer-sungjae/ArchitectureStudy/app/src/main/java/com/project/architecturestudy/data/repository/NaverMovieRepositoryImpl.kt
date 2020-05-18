@@ -1,7 +1,6 @@
 package com.project.architecturestudy.data.repository
 
 import android.content.Context
-import android.util.Log
 import com.project.architecturestudy.data.model.Movie
 import com.project.architecturestudy.data.source.local.NaverMovieLocalDataSourceImpl
 import com.project.architecturestudy.data.source.local.room.MovieLocal
@@ -24,11 +23,11 @@ object NaverMovieRepositoryImpl : NaverMovieRepository {
     }
 
     override fun getCashedMovieList(Success: (ArrayList<MovieLocal>) -> Unit, Failure: (Throwable) -> Unit) {
-        naverMovieLocalDataSource.getMovieList(context, Success, Failure)
+        naverMovieLocalDataSource.getMovieList(Success, Failure)
     }
 
     override fun saveMovieListToLocal(items: ArrayList<Movie.Items>) {
-        naverMovieLocalDataSource.saveMovieList(context, items)
+        naverMovieLocalDataSource.saveMovieList(items)
     }
 
     override fun getMovieList(
