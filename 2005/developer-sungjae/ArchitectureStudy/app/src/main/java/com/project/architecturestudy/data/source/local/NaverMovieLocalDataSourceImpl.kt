@@ -1,6 +1,5 @@
 package com.project.architecturestudy.data.source.local
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import com.project.architecturestudy.data.model.Movie
@@ -8,16 +7,17 @@ import com.project.architecturestudy.data.source.local.room.MovieLocal
 import com.project.architecturestudy.data.source.local.room.MovieRoomDataBase
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 
 class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSource {
 
     override var roomDataBase = MovieRoomDataBase.getInstance(context)
+    override val disposable = CompositeDisposable()
 
-    @SuppressLint("CheckResult")
     override fun saveMovieList(data: ArrayList<Movie.Items>) {
-        Observable.fromIterable(data)
+        disposable.add(Observable.fromIterable(data)
             .doOnSubscribe {
                 roomDataBase?.getMovieDAO()?.deleteAll()
                 Log.d("bsjbsj", "doOnSubscribe")
@@ -43,9 +43,9 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
                 {
                     Log.d("bsjbsj", "RoomDatabase Save Failure")
                 })
+        )
     }
 
-    @SuppressLint("CheckResult")
     override fun getMovieList(
         Success: (ArrayList<MovieLocal>) -> Unit,
         Failure: (Throwable) -> Unit
@@ -65,6 +65,8 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
                 {
                     Failure.invoke(it)
                     Log.d("bsjbsj", "RoomDatabase GetData Failure")
-                })
+                })?.let {
+                disposable.add(it)
+            }
     }
 }
