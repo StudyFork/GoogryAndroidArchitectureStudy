@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "r.test.rapp"
+        minSdkVersion 15
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug{
+            buildConfigField("String", "NAVER_API_URL", '"https://openapi.naver.com"')
+            buildConfigField("String", "X_NAVER_CLIENT_ID", '"ODK9MahW0fWrdX0wQnXL"')
+            buildConfigField("String", "X_NAVER_CLIENT_SECRET", '"Cf72qvUQ0N"')
+        }
+        release {
+            buildConfigField("String", "NAVER_API_URL", '"https://openapi.naver.com"')
+            buildConfigField("String", "X_NAVER_CLIENT_ID", '"ODK9MahW0fWrdX0wQnXL"')
+            buildConfigField("String", "X_NAVER_CLIENT_SECRET", '"Cf72qvUQ0N"')
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.core:core-ktx:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    // retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.5.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.3.0"
+    // okhttp interceptor
+    implementation "com.squareup.okhttp3:logging-interceptor:3.9.1"
+    // glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+}
