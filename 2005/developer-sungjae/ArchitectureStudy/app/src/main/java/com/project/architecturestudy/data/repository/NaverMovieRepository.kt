@@ -15,4 +15,5 @@ interface NaverMovieRepository {
     fun setRepository(context: Context, naverMovieLocalDataSource: NaverMovieLocalDataSourceImpl, naverMovieRemoteDataSource: NaverMovieRemoteDataSourceImpl)
     fun getMovieList(keyWord: String, Success: (ArrayList<Movie.Items>) -> Unit, Failure: (Throwable) -> Unit)
     fun getCashedMovieList(Success: (ArrayList<MovieLocal>) -> Unit, Failure: (Throwable) -> Unit)
+    fun saveMovieListToLocal(items: ArrayList<Movie.Items>)
 }
