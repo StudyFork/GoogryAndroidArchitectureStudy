@@ -52,6 +52,7 @@ class AdapterMovieList :
     }
 
     fun addItem(items: List<Item>) {
+        movieList.clear()
         movieList.addAll(items)
         notifyDataSetChanged()
     }
