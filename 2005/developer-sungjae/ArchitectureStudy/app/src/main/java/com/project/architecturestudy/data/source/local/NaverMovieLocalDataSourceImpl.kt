@@ -14,42 +14,34 @@ import io.reactivex.schedulers.Schedulers
 class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSource {
 
     override var roomDataBase = MovieRoomDataBase.getInstance(context)
-    var successCallback: ((ArrayList<Movie.Items>) -> Unit)? = null
-
-    override fun sendMovieListToLocal(success: (ArrayList<Movie.Items>) -> Unit) {
-        successCallback = success
-    }
 
     @SuppressLint("CheckResult")
-    override fun saveMovieList(context: Context) {
+    override fun saveMovieList(context: Context, data: ArrayList<Movie.Items>) {
+        Thread(Runnable {
+            roomDataBase?.getMovieDAO()?.deleteAll()
+        }).start()
 
-        successCallback = { data ->
-            Thread(Runnable {
-                roomDataBase?.getMovieDAO()?.deleteAll()
-            }).start()
+        Observable.fromIterable(data)
+            .subscribeOn(Schedulers.io())
+            .subscribe({ eachItem ->
+                val localData = MovieLocal().apply {
 
-            Observable.fromIterable(data)
-                .subscribeOn(Schedulers.io())
-                .subscribe({ eachItem ->
-                    val localData = MovieLocal().apply {
-                        title = eachItem.title
-                        subtitle = eachItem.subtitle
-                        image = eachItem.image
-                        link = eachItem.link
-                        pubDate = eachItem.pubDate
-                        director = eachItem.director
-                        actor = eachItem.actor
-                        userRating = eachItem.userRating
-                    }
+                    this.title = eachItem.title
+                    this.subtitle = eachItem.subtitle
+                    this.image = eachItem.image
+                    this.link = eachItem.link
+                    this.pubDate = eachItem.pubDate
+                    this.director = eachItem.director
+                    this.actor = eachItem.actor
+                    this.userRating = eachItem.userRating
+                }
 
-                    roomDataBase?.getMovieDAO()?.insert(localData)
-                    Log.d("bsjbsj", "RoomDatabase Save Success $localData")
-                },
-                    {
-                        Log.d("bsjbsj", "RoomDatabase Save Failure")
-                    })
-
-        }
+                roomDataBase?.getMovieDAO()?.insert(localData)
+                Log.d("bsjbsj", "RoomDatabase Save Success $localData")
+            },
+                {
+                    Log.d("bsjbsj", "RoomDatabase Save Failure")
+                })
     }
 
     @SuppressLint("CheckResult")
@@ -75,6 +67,4 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
                     Log.d("bsjbsj", "RoomDatabase GetData Failure")
                 })
     }
-
-
 }
