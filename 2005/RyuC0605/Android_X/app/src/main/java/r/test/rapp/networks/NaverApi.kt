@@ -1,7 +1,7 @@
 package r.test.rapp.networks
 
 import r.test.rapp.BuildConfig
-import r.test.rapp.vo.MovieVo
+import r.test.rapp.data.model.MovieVo
 import retrofit2.Call
 import retrofit2.http.*
 
