@@ -18,7 +18,6 @@ import org.jetbrains.anko.toast
 class MainActivity : AppCompatActivity() {
 
     private var adapter: SearchAdapter = SearchAdapter()
-    private val naverMovieRepositoryImpl = NaverMovieRepositoryImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,11 +35,11 @@ class MainActivity : AppCompatActivity() {
                 toast(getString(R.string.please_write))
                 return@setOnClickListener
             }
-            naverMovieRepositoryImpl.getMovieList(et_search.text.toString(),
+            NaverMovieRepositoryImpl.getMovieList(et_search.text.toString(),
                 Success = { items ->
                     adapter.setRemoteMovieData(items)
                     toast(getString(R.string.get_data_success))
-                    naverMovieRepositoryImpl.saveMovieListToLocal(items)
+                    NaverMovieRepositoryImpl.saveMovieListToLocal(items)
                 },
                 Failure = {
                     Log.d("bsjbsj", "Throwable:$it")
@@ -57,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setRecyclerView() {
         listview_movie.adapter = adapter
-        naverMovieRepositoryImpl.getCashedMovieList(
+        NaverMovieRepositoryImpl.getCashedMovieList(
             Success = { items ->
                 adapter.setLocalMovieData(items)
             },
