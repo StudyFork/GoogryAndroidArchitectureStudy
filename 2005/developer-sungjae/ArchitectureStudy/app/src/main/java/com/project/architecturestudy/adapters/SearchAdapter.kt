@@ -20,10 +20,8 @@ class SearchAdapter : RecyclerView.Adapter<SearchingResultHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchingResultHolder {
         return SearchingResultHolder(parent).apply {
             itemView.setOnClickListener {
-                if (!isCaching) {
-                    val item = remoteSearchList[adapterPosition]
-                    onClick.invoke(item)
-                }
+                val item = remoteSearchList[adapterPosition]
+                onClick.invoke(item)
             }
         }
     }
@@ -43,20 +41,22 @@ class SearchAdapter : RecyclerView.Adapter<SearchingResultHolder>() {
     }
 
     fun setRemoteMovieData(search: ArrayList<Movie.Items>) {
-        remoteSearchList.clear()
-        localSearchList.clear()
+        itemClear()
         isCaching = false
-        remoteSearchList.addAll(search)
+        this.remoteSearchList.addAll(search)
         notifyDataSetChanged()
     }
 
     fun setLocalMovieData(localSearchList: ArrayList<MovieLocal>) {
-        remoteSearchList.clear()
-        this.localSearchList.clear()
+        itemClear()
         isCaching = true
         this.localSearchList.addAll(localSearchList)
-
         notifyDataSetChanged()
+    }
+
+    fun itemClear() {
+        this.remoteSearchList.clear()
+        this.localSearchList.clear()
     }
 }
 
