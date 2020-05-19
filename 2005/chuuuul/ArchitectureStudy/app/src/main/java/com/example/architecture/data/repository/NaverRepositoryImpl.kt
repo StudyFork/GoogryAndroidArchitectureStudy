@@ -8,12 +8,6 @@ import com.example.architecture.data.source.remote.NaverRemoteDataSourceImpl
 
 class NaverRepositoryImpl(context : Context) : NaverRepository {
 
-    companion object  {
-
-        private val naverRemoteDataSourceImpl = NaverRemoteDataSourceImpl()
-        private lateinit var naverLocalDataSourceImpl : NaverLocalDataSourceImpl
-    }
-
     init {
         naverLocalDataSourceImpl = NaverLocalDataSourceImpl(context)
     }
@@ -44,6 +38,11 @@ class NaverRepositoryImpl(context : Context) : NaverRepository {
         movieList: List<MovieModel>
     ) {
         naverLocalDataSourceImpl.saveMovieList(keyword, movieList)
+    }
+
+    companion object {
+        private val naverRemoteDataSourceImpl = NaverRemoteDataSourceImpl()
+        private lateinit var naverLocalDataSourceImpl: NaverLocalDataSourceImpl
     }
 
 }
