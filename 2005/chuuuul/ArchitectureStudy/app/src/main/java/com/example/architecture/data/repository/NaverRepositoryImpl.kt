@@ -10,8 +10,8 @@ class NaverRepositoryImpl(context : Context) : NaverRepository {
 
     companion object  {
 
-        val naverRemoteDataSourceImpl = NaverRemoteDataSourceImpl()
-        lateinit var naverLocalDataSourceImpl : NaverLocalDataSourceImpl
+        private val naverRemoteDataSourceImpl = NaverRemoteDataSourceImpl()
+        private lateinit var naverLocalDataSourceImpl : NaverLocalDataSourceImpl
     }
 
     init {
