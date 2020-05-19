@@ -18,20 +18,5 @@ data class Movie(
     val link: String,
 
     @ColumnInfo(name="image")
-    val image: String,
-
-    @ColumnInfo(name="subtitle")
-    val subtitle: String,
-
-    @ColumnInfo(name="pub_date")
-    val pubDate: String,
-
-    @ColumnInfo(name="director")
-    val director: String,
-
-    @ColumnInfo(name="actor")
-    val actor: String,
-
-    @ColumnInfo(name="user_rating")
-    val userRating: String
+    val image: String
 )
