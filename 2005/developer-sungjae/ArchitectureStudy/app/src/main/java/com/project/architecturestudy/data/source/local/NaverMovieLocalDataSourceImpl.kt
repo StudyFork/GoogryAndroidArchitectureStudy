@@ -46,6 +46,7 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
         )
     }
 
+
     override fun getMovieList(
         Success: (ArrayList<MovieLocal>) -> Unit,
         Failure: (Throwable) -> Unit
@@ -68,5 +69,11 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
                 })?.let {
                 disposable.add(it)
             }
+    }
+
+    override fun dispose() {
+        if(!disposable.isDisposed){
+            disposable.dispose()
+        }
     }
 }

@@ -7,6 +7,12 @@ import io.reactivex.disposables.CompositeDisposable
 interface NaverMovieRemoteDataSource {
 
     val service: RetrofitService
-    fun getMovieList(keyWord: String, Success: (ArrayList<Movie.Items>) -> Unit, Failure: (Throwable) -> Unit)
-    val compositeDisposable: CompositeDisposable
+    val disposable: CompositeDisposable
+    fun getMovieList(
+        keyWord: String,
+        Success: (ArrayList<Movie.Items>) -> Unit,
+        Failure: (Throwable) -> Unit
+    )
+
+    fun dispose()
 }

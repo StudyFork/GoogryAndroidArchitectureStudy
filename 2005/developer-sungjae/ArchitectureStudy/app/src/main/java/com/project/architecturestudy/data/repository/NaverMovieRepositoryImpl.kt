@@ -22,7 +22,10 @@ object NaverMovieRepositoryImpl : NaverMovieRepository {
 
     }
 
-    override fun getCashedMovieList(Success: (ArrayList<MovieLocal>) -> Unit, Failure: (Throwable) -> Unit) {
+    override fun getCashedMovieList(
+        Success: (ArrayList<MovieLocal>) -> Unit,
+        Failure: (Throwable) -> Unit
+    ) {
         naverMovieLocalDataSource.getMovieList(Success, Failure)
     }
 
@@ -30,11 +33,17 @@ object NaverMovieRepositoryImpl : NaverMovieRepository {
         naverMovieLocalDataSource.saveMovieList(items)
     }
 
+
     override fun getMovieList(
         keyWord: String,
         Success: (ArrayList<Movie.Items>) -> Unit,
         Failure: (Throwable) -> Unit
     ) {
         naverMovieRemoteDataSource.getMovieList(keyWord, Success, Failure)
+    }
+
+    override fun dispose() {
+        naverMovieLocalDataSource.dispose()
+        naverMovieRemoteDataSource.dispose()
     }
 }

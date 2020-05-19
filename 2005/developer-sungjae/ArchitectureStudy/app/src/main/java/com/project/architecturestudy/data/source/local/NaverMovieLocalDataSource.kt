@@ -7,8 +7,9 @@ import io.reactivex.disposables.CompositeDisposable
 
 interface NaverMovieLocalDataSource {
 
+    val disposable: CompositeDisposable
     var roomDataBase: MovieRoomDataBase?
     fun getMovieList(Success: (ArrayList<MovieLocal>) -> Unit, Failure: (Throwable) -> Unit)
     fun saveMovieList(data: ArrayList<Movie.Items>)
-    val disposable: CompositeDisposable
+    fun dispose()
 }
