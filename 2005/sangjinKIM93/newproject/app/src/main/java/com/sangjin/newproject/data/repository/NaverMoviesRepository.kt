@@ -11,8 +11,4 @@ interface NaverMoviesRepository {
         onFailure: ((t: Throwable) -> Unit)
     )
 
-    fun saveMoviesCache(
-        movies: List<Movie>
-    )
-
 }

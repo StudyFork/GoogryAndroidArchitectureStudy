@@ -31,7 +31,7 @@ class NaverMoviesRepositoryImpl(
             })
     }
 
-    override fun saveMoviesCache(movies: List<Movie>) {
+    private fun saveMoviesCache(movies: List<Movie>) {
         localDataSourceImpl.saveMovieData(movies)
     }
 }
