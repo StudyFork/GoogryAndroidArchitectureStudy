@@ -18,9 +18,11 @@ class LocalDataSourceImpl : LocalDataSource {
         roomDB.movieDao.selectMovies("%${query}%")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ movies ->
-                onSuccess(movies)
-            })
+            .subscribe { movies ->
+                if(!movies.isNullOrEmpty()){
+                    onSuccess(movies)
+                }
+            }
     }
 
     override fun saveMovieData(movies: List<Movie>, roomDB: RoomDB) {
