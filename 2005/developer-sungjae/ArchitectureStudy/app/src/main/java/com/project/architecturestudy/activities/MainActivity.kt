@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         setRepository(this, NaverMovieLocalDataSourceImpl(this), NaverMovieRemoteDataSourceImpl())
         setRecyclerView()
         setOnClick()
@@ -69,5 +70,6 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         MovieRoomDataBase.destroyInstance()
+        NaverMovieRepositoryImpl.dispose()
     }
 }

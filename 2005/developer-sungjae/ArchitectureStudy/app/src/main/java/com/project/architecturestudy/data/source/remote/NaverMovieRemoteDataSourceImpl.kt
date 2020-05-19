@@ -9,22 +9,28 @@ import io.reactivex.schedulers.Schedulers
 class NaverMovieRemoteDataSourceImpl : NaverMovieRemoteDataSource {
 
     override val service = RetrofitService.create()
-    override val compositeDisposable = CompositeDisposable()
+    override val disposable = CompositeDisposable()
 
     override fun getMovieList(
         keyWord: String,
         Success: (ArrayList<Movie.Items>) -> Unit,
         Failure: (Throwable) -> Unit
     ) {
-        compositeDisposable.add(service.getMovies(keyWord)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({
-                Success.invoke(it.items)
-            }, { error ->
-                Failure.invoke(error)
-            })
+        disposable.add(
+            service.getMovies(keyWord)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe({
+                    Success.invoke(it.items)
+                }, { error ->
+                    Failure.invoke(error)
+                })
         )
     }
 
+    override fun dispose() {
+        if (!disposable.isDisposed) {
+            disposable.dispose()
+        }
+    }
 }
