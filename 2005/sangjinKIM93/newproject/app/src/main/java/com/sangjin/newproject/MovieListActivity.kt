@@ -27,7 +27,7 @@ class MovieListActivity : AppCompatActivity() {
     private val naverMoviesRepositoryImpl by lazy {
         NaverMoviesRepositoryImpl(
             RemoteDataSourceImpl(),
-            LocalDataSourceImpl()
+            LocalDataSourceImpl(RoomDB.getInstance(applicationContext))
         )
     }
 
@@ -108,8 +108,7 @@ class MovieListActivity : AppCompatActivity() {
             },
             onFailure = { t ->
                 Toast.makeText(this@MovieListActivity, t.toString(), Toast.LENGTH_SHORT).show()
-            },
-            roomDB = RoomDB.getInstance(applicationContext)
+            }
         )
     }
 

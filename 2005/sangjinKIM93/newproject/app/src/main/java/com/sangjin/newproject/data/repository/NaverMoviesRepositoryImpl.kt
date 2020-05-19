@@ -1,23 +1,22 @@
 package com.sangjin.newproject.data.repository
 
 import com.sangjin.newproject.data.model.Movie
-import com.sangjin.newproject.data.source.local.LocalDataSource
+import com.sangjin.newproject.data.source.local.LocalDataSourceImpl
 import com.sangjin.newproject.data.source.local.RoomDB
 import com.sangjin.newproject.data.source.remote.RemoteDataSourceImpl
 
 class NaverMoviesRepositoryImpl(
     private val remoteDataSourceImpl: RemoteDataSourceImpl,
-    private val localDataSource: LocalDataSource
+    private val localDataSourceImpl: LocalDataSourceImpl
 ) : NaverMoviesRepository {
 
     override fun getNaverMovies(
         query: String,
-        roomDB: RoomDB,
         onSuccess: (movies: List<Movie>) -> Unit,
         onFailure: (t: Throwable) -> Unit
     ) {
 
-        localDataSource.getMovieData(query, roomDB,
+        localDataSourceImpl.getMovieData(query,
         onSuccess = { movies ->
             onSuccess(movies)
         })
@@ -25,14 +24,14 @@ class NaverMoviesRepositoryImpl(
         remoteDataSourceImpl.getMovieData(query,
             onSuccess = { movies ->
                 onSuccess(movies)
-                saveMoviesCache(movies, roomDB)
+                saveMoviesCache(movies)
             },
             onFailure = { t ->
                 onFailure(t)
             })
     }
 
-    override fun saveMoviesCache(movies: List<Movie>, roomDB: RoomDB) {
-            localDataSource.saveMovieData(movies, roomDB)
+    override fun saveMoviesCache(movies: List<Movie>) {
+        localDataSourceImpl.saveMovieData(movies)
     }
 }

@@ -6,12 +6,13 @@ import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class LocalDataSourceImpl : LocalDataSource {
+class LocalDataSourceImpl(room : RoomDB) : LocalDataSource {
+
+    private val roomDB = room
 
     @SuppressLint("CheckResult")
     override fun getMovieData(
         query: String,
-        roomDB: RoomDB,
         onSuccess: (movies: List<Movie>) -> Unit
     ) {
 
@@ -25,7 +26,7 @@ class LocalDataSourceImpl : LocalDataSource {
             }
     }
 
-    override fun saveMovieData(movies: List<Movie>, roomDB: RoomDB) {
+    override fun saveMovieData(movies: List<Movie>) {
 
         Completable.fromRunnable {
             Runnable {
