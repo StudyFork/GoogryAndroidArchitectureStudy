@@ -33,7 +33,7 @@ class NaverLocalDataSourceImpl(private val context: Context) : NaverLocalDataSou
 
         val jsonMovieData = convertGsonToJson(movieList)
 
-        sharedPref.edit().apply {
+        with(sharedPref.edit()) {
             putString(keyword, jsonMovieData)
             apply()
         }
@@ -41,7 +41,7 @@ class NaverLocalDataSourceImpl(private val context: Context) : NaverLocalDataSou
     }
 
     override fun clearData() {
-        sharedPref.edit().apply {
+        with(sharedPref.edit()) {
             clear()
             apply()
         }
