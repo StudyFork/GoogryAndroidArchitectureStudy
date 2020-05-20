@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             AdapterView.OnItemClickListener { parent, view, position, id ->
 
                 val webIntent: Intent =
-                    Uri.parse((lv_contents.adapter as MovieAdapter).movieList[position].link)
+                    Uri.parse((lv_contents.adapter as MovieAdapter).getMovieList()[position].link)
                         .let { link ->
                             Intent(Intent.ACTION_VIEW, link)
                         }
@@ -95,8 +95,9 @@ class MainActivity : AppCompatActivity() {
             onSuccess = { vo ->
                 val res = vo ?: return@getMovieList
                 val adt = lv_contents.adapter as MovieAdapter
-                adt.movieList.clear()
-                adt.movieList.addAll(res.items)
+                val movieList = adt.getMovieList();
+                movieList.clear()
+                movieList.addAll(res.items)
                 adt.notifyDataSetChanged()
 
                 progress?.hide()
@@ -111,8 +112,8 @@ class MainActivity : AppCompatActivity() {
      * 리스트 뷰의 커스텀 아답터.
      */
     class MovieAdapter : BaseAdapter() {
-        val movieList: ArrayList<Item> = ArrayList()
-        val imgLoader : ImageLoader = ImageLoader()
+        private val movieList: ArrayList<Item> = ArrayList()
+        private val imgLoader : ImageLoader = ImageLoader()
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
             val inflater: LayoutInflater = LayoutInflater.from(parent?.context)
@@ -129,6 +130,10 @@ class MainActivity : AppCompatActivity() {
             imgLoader.load(item.image, holder.ivThumbnail)
 
             return rowView
+        }
+
+        fun getMovieList() : ArrayList<Item>{
+            return movieList
         }
 
         private class ViewHolder(view: View) {

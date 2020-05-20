@@ -1,6 +1,7 @@
 package r.test.rapp.data.repository
 
 import r.test.rapp.data.model.MovieVo
+import r.test.rapp.data.source.remote.NaverRemoteDataSource
 import r.test.rapp.data.source.remote.NaverRemoteDataSourceImpl
 
 class MovieRepositoryImpl : MovieRepository {
@@ -9,7 +10,7 @@ class MovieRepositoryImpl : MovieRepository {
         onSuccess: (movies: MovieVo) -> Unit,
         onFail: (t: Throwable) -> Unit
     ) {
-        val naver: NaverRemoteDataSourceImpl = NaverRemoteDataSourceImpl()
+        val naver: NaverRemoteDataSource = NaverRemoteDataSourceImpl()
         naver.getData(keyword, onSuccess, onFail)
     }
 }
