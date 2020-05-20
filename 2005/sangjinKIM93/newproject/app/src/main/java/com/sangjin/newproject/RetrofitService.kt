@@ -1,8 +1,10 @@
 package com.sangjin.newproject
 
 import com.sangjin.newproject.data.model.NaverMovieResponse
+import io.reactivex.Single
 import retrofit2.Call
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -17,7 +19,7 @@ interface RetrofitService {
     @GET("/v1/search/movie.json")
     fun requestMovieList(
         @Query("query") keyword: String
-    ): Call<NaverMovieResponse>
+    ): Single<NaverMovieResponse>
 
 }
 
@@ -25,6 +27,7 @@ interface RetrofitService {
 private val retrofit = Retrofit.Builder()
     .baseUrl(BuildConfig.NAVER_API_URL)
     .addConverterFactory(GsonConverterFactory.create())
+    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
     .build()
 
 //retrofitService 객체 생성

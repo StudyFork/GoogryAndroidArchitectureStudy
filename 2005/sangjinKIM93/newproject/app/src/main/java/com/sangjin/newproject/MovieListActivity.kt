@@ -117,27 +117,29 @@ class MovieListActivity : AppCompatActivity() {
      */
     private fun getMovieList(keyWord: String) {
 
-        naverMoviesRepositoryImpl.getNaverMovies(
-            keyWord,
-            onSuccess = { movies ->
-                if (movies.isNullOrEmpty()) {
-                    movieList.clear()
-                    movieListAdapter.addList(movieList)
-                    Toast.makeText(
-                        this@MovieListActivity,
-                        R.string.no_movie_list,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    movieList.clear()
-                    movieList.addAll(movies)
-                    movieListAdapter.addList(movieList)
-                }
-            },
-            onFailure = { t ->
-                Toast.makeText(this@MovieListActivity, t.toString(), Toast.LENGTH_SHORT).show()
+        naverMoviesRepositoryImpl.getNaverMovies(keyWord)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { naverMovieResponse ->
+                    val movies = naverMovieResponse.items
+
+                    if (movies.isNullOrEmpty()) {
+                        movieList.clear()
+                        movieListAdapter.addList(movieList)
+                        Toast.makeText(this@MovieListActivity, R.string.no_movie_list, Toast.LENGTH_SHORT).show()
+                    } else {
+                        movieList.clear()
+                        movieList.addAll(movies)
+                        movieListAdapter.addList(movieList)
+                    }
+                },
+                { t ->
+                    Toast.makeText(this@MovieListActivity, t.toString(), Toast.LENGTH_SHORT).show()
+                })
+            .let {
+                disposables.add(it)
             }
-        )
     }
 
 

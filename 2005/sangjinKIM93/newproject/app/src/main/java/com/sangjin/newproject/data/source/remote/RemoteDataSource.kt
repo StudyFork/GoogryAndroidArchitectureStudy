@@ -1,13 +1,10 @@
 package com.sangjin.newproject.data.source.remote
 
-import com.sangjin.newproject.data.model.Movie
+import com.sangjin.newproject.data.model.NaverMovieResponse
+import io.reactivex.Single
 
 interface RemoteDataSource {
 
-    fun getMovieData(
-        query: String,
-        onSuccess: ((movies: List<Movie>) -> Unit),
-        onFailure: ((t: Throwable) -> Unit)
-    )
+    fun getMovieData(query: String) : Single<NaverMovieResponse>
 
 }
