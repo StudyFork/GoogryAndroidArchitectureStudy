@@ -14,6 +14,9 @@ interface MoviesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(movies: Item)
 
-    @Query("DELETE from movies")
+    @Query("DELETE FROM movies")
     fun deleteAll()
+
+    @Query("SELECT * FROM movies WHERE `query` = :keyword")
+    fun getCachedData(keyword: String):List<Item>
 }
