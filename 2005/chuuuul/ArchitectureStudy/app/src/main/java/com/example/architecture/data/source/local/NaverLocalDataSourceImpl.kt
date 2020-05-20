@@ -21,7 +21,7 @@ class NaverLocalDataSourceImpl(private val context: Context) : NaverLocalDataSou
         onSuccess: (movieList: List<MovieModel>) -> Unit
     ) {
         val jsonMovieData = sharedPref.getString(keyword, null) ?: return
-        val movieList = convertJsonToGson(jsonMovieData, MovieModel::class.java)
+        val movieList = convertJsonToGson<MovieModel>(jsonMovieData)
 
         onSuccess(movieList.toList())
     }
@@ -33,18 +33,14 @@ class NaverLocalDataSourceImpl(private val context: Context) : NaverLocalDataSou
 
         val jsonMovieData = convertGsonToJson(movieList)
 
-        with(sharedPref.edit()) {
-            putString(keyword, jsonMovieData)
-            apply()
-        }
-
+        sharedPref.edit()
+            .putString(keyword, jsonMovieData)
+            .apply()
     }
 
     override fun clearData() {
-        with(sharedPref.edit()) {
-            clear()
-            apply()
-        }
+        sharedPref.edit()
+            .clear()
+            .apply()
     }
-
 }

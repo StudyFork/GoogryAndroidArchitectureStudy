@@ -8,8 +8,8 @@ object AppUtil {
         return Gson().toJson(gsonData)
     }
 
-    fun <T> convertJsonToGson(jsonData: String, clazz: Class<T>): Collection<T> {
-        val collectionType = TypeToken.getParameterized(Collection::class.java, clazz).type
+    inline fun <reified T> convertJsonToGson(jsonData: String): Collection<T> {
+        val collectionType = TypeToken.getParameterized(Collection::class.java, T::class.java).type
         return Gson().fromJson(jsonData, collectionType)
     }
 }
