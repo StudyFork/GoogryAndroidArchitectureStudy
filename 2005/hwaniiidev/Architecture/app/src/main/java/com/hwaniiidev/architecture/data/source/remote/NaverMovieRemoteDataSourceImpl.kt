@@ -29,8 +29,9 @@ class NaverMovieRemoteDataSourceImpl : NaverMovieRemoteDataSource {
                     response: Response<ResponseMovieSearchData>
                 ) {
                     if (response.isSuccessful) {
-                        val result = response.body()
+                        var result = response.body()
                         if (result != null) {
+                            result.query = query
                             onSuccess(result)
                             //onSuccess(result.items)
                         }
