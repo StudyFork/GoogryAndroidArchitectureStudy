@@ -15,7 +15,7 @@ interface MovieDao {
     fun insertAll(movies: List<Movie>)
 
     @Query("SELECT * FROM movie_table")
-    fun getAllMovies() : List<Movie>
+    fun getAllMovies() : Single<List<Movie>>
 
     @Query("SELECT * FROM movie_table WHERE title LIKE :query")
     fun selectMovies(query: String): Single<List<Movie>>

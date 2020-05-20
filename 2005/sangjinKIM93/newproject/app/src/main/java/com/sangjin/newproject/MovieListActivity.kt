@@ -18,6 +18,9 @@ import com.sangjin.newproject.data.repository.NaverMoviesRepositoryImpl
 import com.sangjin.newproject.data.source.local.LocalDataSourceImpl
 import com.sangjin.newproject.data.source.local.RoomDB
 import com.sangjin.newproject.data.source.remote.RemoteDataSourceImpl
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_movie_list.*
 
 class MovieListActivity : AppCompatActivity() {
@@ -31,12 +34,15 @@ class MovieListActivity : AppCompatActivity() {
         )
     }
 
+    private val disposables = CompositeDisposable()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_list)
 
         setRecyclerView()
+        loadCache()
 
         movieNameET.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -51,6 +57,24 @@ class MovieListActivity : AppCompatActivity() {
 
         showKeyPad()
 
+    }
+
+    /**
+     * 초기 화면으로 이전에 검색한 결과 보여주기
+     */
+    private fun loadCache() {
+        naverMoviesRepositoryImpl.loadCachedMovies()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                movieList.addAll(it)
+                movieListAdapter.addList(movieList)
+            },
+                {
+
+                }).let {
+                disposables.add(it)
+            }
     }
 
     /**
@@ -99,7 +123,11 @@ class MovieListActivity : AppCompatActivity() {
                 if (movies.isNullOrEmpty()) {
                     movieList.clear()
                     movieListAdapter.addList(movieList)
-                    Toast.makeText(this@MovieListActivity, R.string.no_movie_list, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@MovieListActivity,
+                        R.string.no_movie_list,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
                     movieList.clear()
                     movieList.addAll(movies)
@@ -126,9 +154,11 @@ class MovieListActivity : AppCompatActivity() {
 
         movieListAdapter = MovieListAdapter(onItemClickListener)
         movieListView.adapter = movieListAdapter
-
-
     }
 
 
+    override fun onDestroy() {
+        disposables.clear()
+        super.onDestroy()
+    }
 }

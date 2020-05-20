@@ -4,6 +4,7 @@ import com.sangjin.newproject.data.model.Movie
 import com.sangjin.newproject.data.source.local.LocalDataSourceImpl
 import com.sangjin.newproject.data.source.local.RoomDB
 import com.sangjin.newproject.data.source.remote.RemoteDataSourceImpl
+import io.reactivex.Single
 
 class NaverMoviesRepositoryImpl(
     private val remoteDataSourceImpl: RemoteDataSourceImpl,
@@ -16,11 +17,6 @@ class NaverMoviesRepositoryImpl(
         onFailure: (t: Throwable) -> Unit
     ) {
 
-        localDataSourceImpl.getMovieData(query,
-        onSuccess = { movies ->
-            onSuccess(movies)
-        })
-
         remoteDataSourceImpl.getMovieData(query,
             onSuccess = { movies ->
                 onSuccess(movies)
@@ -31,7 +27,12 @@ class NaverMoviesRepositoryImpl(
             })
     }
 
+
     private fun saveMoviesCache(movies: List<Movie>) {
         localDataSourceImpl.saveMovieData(movies)
     }
+
+
+    override fun loadCachedMovies(): Single<List<Movie>> = localDataSourceImpl.getMovieData()
+
 }
