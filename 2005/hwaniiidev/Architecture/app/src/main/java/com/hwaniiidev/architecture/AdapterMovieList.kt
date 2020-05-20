@@ -40,9 +40,16 @@ class AdapterMovieList :
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
         val itemData = movieList!!.get(position)
-        Glide.with(holder.itemView)
-            .load(itemData.image)
-            .into(holder.imgMovie)
+        if (itemData.image.isNullOrEmpty()) {
+            Glide.with(holder.itemView)
+                .load(R.drawable.gm_noimage)
+                .into(holder.imgMovie)
+        } else {
+            Glide.with(holder.itemView)
+                .load(itemData.image)
+                .into(holder.imgMovie)
+        }
+
         holder.txtTile.text = Html.fromHtml(itemData.title)
         holder.txtSubTile.text = itemData.subtitle
         holder.txtPubDate.text = itemData.pubDate
