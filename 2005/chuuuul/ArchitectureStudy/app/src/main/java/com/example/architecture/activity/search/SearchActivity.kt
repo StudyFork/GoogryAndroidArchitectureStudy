@@ -14,7 +14,7 @@ class SearchActivity : AppCompatActivity() {
 
     private val naverRepositoryImpl = NaverRepositoryImpl(this)
 
-    private val movieList = mutableListOf<MovieModel>()
+    //    private val movieList = mutableListOf<MovieModel>()
     private val adapter = MovieListAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,7 +68,7 @@ class SearchActivity : AppCompatActivity() {
     // * RecyclerView
 
     private fun setRecyclerview() {
-        adapter.addNewItems(movieList)
+//        adapter.addNewItems(movieList)
         recyclerview_search_movieList.adapter = adapter
     }
 
