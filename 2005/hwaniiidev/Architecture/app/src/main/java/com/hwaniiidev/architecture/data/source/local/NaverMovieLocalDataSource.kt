@@ -10,10 +10,6 @@ interface NaverMovieLocalDataSource {
         movies: ArrayList<Item>
     )
     /*fun getCachedMovies(
-
-    )
-    fun removeOverlap(
-        query: String,
-        cachingMovies: ArrayList<Item>
-    ):ArrayList<Item>*/
+        미구현
+    )*/
 }
