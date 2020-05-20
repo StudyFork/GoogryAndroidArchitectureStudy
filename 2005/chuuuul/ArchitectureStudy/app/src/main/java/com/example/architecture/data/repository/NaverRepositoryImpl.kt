@@ -22,9 +22,11 @@ class NaverRepositoryImpl(context : Context) : NaverRepository {
 
         naverRemoteDataSourceImpl.getMovieList(
             keyword,
-            onSuccess,
-            onFailure,
-            this::saveMovieList
+            {
+                onSuccess(it)
+                saveMovieList(keyword, it)
+            },
+            onFailure
         )
     }
 

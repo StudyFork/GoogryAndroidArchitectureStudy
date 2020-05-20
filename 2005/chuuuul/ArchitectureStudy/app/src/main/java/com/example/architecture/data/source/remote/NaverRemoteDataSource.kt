@@ -10,8 +10,7 @@ interface NaverRemoteDataSource {
     fun getMovieList(
         keyWord: String,
         onSuccess: (movieList: List<MovieModel>) -> Unit,
-        onFailure: (t: Throwable) -> Unit,
-        saveMovieInLocal: (keyword: String, movieList: List<MovieModel>) -> Unit
+        onFailure: (t: Throwable) -> Unit
     )
 
 }

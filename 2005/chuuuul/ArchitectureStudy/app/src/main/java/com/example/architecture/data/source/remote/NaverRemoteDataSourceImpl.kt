@@ -22,8 +22,7 @@ class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
     override fun getMovieList(
         keyWord: String,
         onSuccess: (movieList: List<MovieModel>) -> Unit,
-        onFailure: (t: Throwable) -> Unit,
-        saveMovieInLocal: (keyword: String, movieList: List<MovieModel>) -> Unit
+        onFailure: (t: Throwable) -> Unit
     ) {
 
         val service = retrofit.create(MovieSearchService::class.java)
@@ -38,7 +37,6 @@ class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
 
                 movieResponse?.movieList?.also {
                     onSuccess(it)
-                    saveMovieInLocal(keyWord, it)
                 }
             }
 
