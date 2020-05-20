@@ -33,31 +33,34 @@ class MainActivity : AppCompatActivity() {
             } else {
                 naverMovieRepositoryImpl.getRemoteMovies(
                     query = searchValue,
-                    onSuccess = this::onSuccessGetRemoteMovies,
-                    onError = this::onError,
-                    onFailure = this::onFailure
+                    onSuccess = { response ->
+                        if (response.total == 0) {
+                            text_plz_search.text = "검색결과가 없습니다.\n다른 검색어을 입력해주세요."
+                            text_plz_search.visibility = View.VISIBLE
+                        } else {
+                            updateList(response.items)
+                            text_plz_search.visibility = View.GONE
+
+                            //Local DB에 저장
+                            if (!this.isFinishing && !this.isDestroyed)
+                                naverMovieRepositoryImpl.cachingMovies(
+                                    context = this,
+                                    query = response.query,
+                                    movies = response.items
+                                )
+                        }
+                    },
+                    onError = { errorMessage ->
+                        toast("다시 시도해주세요.")
+                        Log.d(TAG, errorMessage)
+                    },
+                    onFailure = { t ->
+                        toast("네트워크에 연결할 수 없습니다. 네트워크 연결을 확인해주세요.")
+                        Log.d(TAG, t.toString())
+                    }
                 )
             }
         }
-    }
-
-    private fun onSuccessGetRemoteMovies(response: ResponseMovieSearchData) {
-        if (response.total == 0) {
-            text_plz_search.text = "검색결과가 없습니다.\n다른 검색어을 입력해주세요."
-            text_plz_search.visibility = View.VISIBLE
-        } else {
-            updateList(response.items)
-            text_plz_search.visibility = View.GONE
-        }
-
-    }
-
-    private fun onFailure(t: Throwable) {
-        toast("네트워크에 연결할 수 없습니다. 네트워크 연결을 확인해주세요.")
-    }
-
-    private fun onError(message: String) {
-        toast("다시 시도해주세요.")
     }
 
     private fun initView() {
@@ -68,7 +71,8 @@ class MainActivity : AppCompatActivity() {
     private fun updateList(items: List<Item>) {
         adapterMovieList.addItem(items)
     }
-    private fun toast(message:String){
+
+    private fun toast(message: String) {
         Toast.makeText(
             this@MainActivity,
             message,
