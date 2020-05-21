@@ -7,16 +7,16 @@ import androidx.room.RoomDatabase
 import com.sangjin.newproject.data.model.Movie
 
 @Database(entities = arrayOf(Movie::class), version = 2)
-abstract class RoomDB : RoomDatabase(){
+abstract class RoomDb : RoomDatabase(){
 
     abstract val movieDao : MovieDao
 
     companion object{
 
         @Volatile
-        private var INSTANCE: RoomDB? = null
+        private var INSTANCE: RoomDb? = null
 
-        fun getInstance(context: Context): RoomDB {
+        fun getInstance(context: Context): RoomDb {
 
             synchronized(this){
                 var instance =
@@ -25,7 +25,7 @@ abstract class RoomDB : RoomDatabase(){
                 if(instance == null){
                     instance = Room.databaseBuilder(
                         context.applicationContext,
-                        RoomDB::class.java,
+                        RoomDb::class.java,
                         "movie_database"
                     )
                         .fallbackToDestructiveMigration()

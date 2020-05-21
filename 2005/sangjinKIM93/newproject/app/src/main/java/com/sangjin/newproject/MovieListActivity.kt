@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
@@ -16,7 +15,7 @@ import com.sangjin.newproject.adapter.MovieListAdapter
 import com.sangjin.newproject.data.model.Movie
 import com.sangjin.newproject.data.repository.NaverMoviesRepositoryImpl
 import com.sangjin.newproject.data.source.local.LocalDataSourceImpl
-import com.sangjin.newproject.data.source.local.RoomDB
+import com.sangjin.newproject.data.source.local.RoomDb
 import com.sangjin.newproject.data.source.remote.RemoteDataSourceImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -30,7 +29,7 @@ class MovieListActivity : AppCompatActivity() {
     private val naverMoviesRepositoryImpl by lazy {
         NaverMoviesRepositoryImpl(
             RemoteDataSourceImpl(),
-            LocalDataSourceImpl(RoomDB.getInstance(applicationContext))
+            LocalDataSourceImpl(RoomDb.getInstance(applicationContext))
         )
     }
 
