@@ -7,9 +7,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class LocalDataSourceImpl(room : RoomDB) : LocalDataSource {
-
-    private val roomDB = room
+class LocalDataSourceImpl(private val roomDB: RoomDB) : LocalDataSource {
 
     override fun getMovieData() : Single<List<Movie>> =  roomDB.movieDao.getAllMovies()
 
