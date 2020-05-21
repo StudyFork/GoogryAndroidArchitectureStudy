@@ -9,15 +9,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.architecture.ConstValue.Companion.NO_IMAGE_URL
 import com.example.architecture.R
-import com.example.architecture.vo.MovieVO
+import com.example.architecture.data.model.MovieModel
+import com.example.architecture.util.ConstValue.Companion.NO_IMAGE_URL
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieListAdapter :
     RecyclerView.Adapter<MovieViewHolder>() {
 
-    private val movies = ArrayList<MovieVO>()
+    private val movieList = mutableListOf<MovieModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
 
@@ -26,19 +26,19 @@ class MovieListAdapter :
         val viewHolder = MovieViewHolder(view)
 
         view.setOnClickListener {
-            openWebPage(it.context, movies[viewHolder.layoutPosition].link)
+            openWebPage(it.context, movieList[viewHolder.layoutPosition].link)
         }
 
         return viewHolder
     }
 
     override fun getItemCount(): Int {
-        return movies.count()
+        return movieList.count()
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
 
-        val movie = movies[position]
+        val movie = movieList[position]
 
         holder.itemView.tv_movie_title.text = removeMarkupTag(movie.title)
         holder.itemView.tv_movie_pubDate.text = movie.pubDate
@@ -50,27 +50,31 @@ class MovieListAdapter :
 
     }
 
-    fun addNewItems(movieList : ArrayList<MovieVO>){
-        if (movies.isNotEmpty()) {
-            movies.clear()
+    fun addNewItems(movieList: List<MovieModel>) {
+        if (this.movieList.isNotEmpty()) {
+            this.movieList.clear()
         }
 
-        movies.addAll(movieList)
+        this.movieList.addAll(movieList)
         notifyDataSetChanged()
     }
 
 
     private fun setMovieImage(imageView: ImageView, imageUrl: String) {
 
-        val url = if (imageUrl.isBlank()) NO_IMAGE_URL else imageUrl
+        val url = if (imageUrl.isBlank()) {
+            NO_IMAGE_URL
+        } else {
+            imageUrl
+        }
 
         Glide.with(imageView.context)
             .load(url).placeholder(R.drawable.ic_loading_black_24dp)
             .error(R.drawable.image_loaderror).centerCrop().into(imageView)
     }
 
-    private fun removeMarkupTag(string: String): String {
-        return string.replace("<b>", "").replace("</b>", "")
+    private fun removeMarkupTag(html: String): String {
+        return html.replace("<b>", "").replace("</b>", "")
     }
 
     private fun openWebPage(context : Context, urlString: String) {

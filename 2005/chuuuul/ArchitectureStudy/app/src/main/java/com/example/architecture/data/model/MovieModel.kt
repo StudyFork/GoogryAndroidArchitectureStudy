@@ -1,6 +1,6 @@
-package com.example.architecture.vo
+package com.example.architecture.data.model
 
-data class MovieVO(
+data class MovieModel(
     val image: String,
     val title : String,
     val pubDate: String,
