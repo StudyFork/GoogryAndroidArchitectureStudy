@@ -1,8 +1,10 @@
 package com.hwaniiidev.architecture
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.hwaniiidev.architecture.data.repository.NaverMovieRepositoryImpl
@@ -18,11 +20,15 @@ class MainActivity : AppCompatActivity() {
 
     private val naverMovieRepositoryImpl = NaverMovieRepositoryImpl()
 
+    lateinit private var imm: InputMethodManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         initView()
+
+        imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
 
         btn_search.setOnClickListener {
             val searchValue = edit_search_title.text.toString()
@@ -34,6 +40,8 @@ class MainActivity : AppCompatActivity() {
                 naverMovieRepositoryImpl.getRemoteMovies(
                     query = searchValue,
                     onSuccess = { response ->
+                        hideKeyboard()
+
                         if (response.total == 0) {
                             text_plz_search.text = "검색결과가 없습니다.\n다른 검색어을 입력해주세요."
                             text_plz_search.visibility = View.VISIBLE
@@ -78,5 +86,9 @@ class MainActivity : AppCompatActivity() {
             message,
             Toast.LENGTH_LONG
         ).show()
+    }
+
+    private fun hideKeyboard() {
+        imm.hideSoftInputFromWindow(edit_search_title.windowToken, 0)
     }
 }
