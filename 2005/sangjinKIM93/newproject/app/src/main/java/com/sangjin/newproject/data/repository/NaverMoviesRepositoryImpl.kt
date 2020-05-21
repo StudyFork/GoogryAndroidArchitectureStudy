@@ -2,27 +2,26 @@ package com.sangjin.newproject.data.repository
 
 import com.sangjin.newproject.data.model.Movie
 import com.sangjin.newproject.data.model.NaverMovieResponse
-import com.sangjin.newproject.data.source.local.LocalDataSourceImpl
-import com.sangjin.newproject.data.source.local.RoomDB
-import com.sangjin.newproject.data.source.remote.RemoteDataSourceImpl
+import com.sangjin.newproject.data.source.local.LocalDataSource
+import com.sangjin.newproject.data.source.remote.RemoteDataSource
 import io.reactivex.Single
 
 class NaverMoviesRepositoryImpl(
-    private val remoteDataSourceImpl: RemoteDataSourceImpl,
-    private val localDataSourceImpl: LocalDataSourceImpl
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource
 ) : NaverMoviesRepository {
 
     override fun getNaverMovies(query: String): Single<NaverMovieResponse> {
-        return remoteDataSourceImpl.getMovieData(query)
+        return remoteDataSource.getMovieData(query)
             .doOnSuccess{ naverMovieResponse ->
                 saveMoviesCache(naverMovieResponse.items)
             }
     }
 
     private fun saveMoviesCache(movies: List<Movie>) {
-        localDataSourceImpl.saveMovieData(movies)
+        localDataSource.saveMovieData(movies)
     }
 
-    override fun loadCachedMovies(): Single<List<Movie>> = localDataSourceImpl.getMovieData()
+    override fun loadCachedMovies(): Single<List<Movie>> = localDataSource.getMovieData()
 
 }
