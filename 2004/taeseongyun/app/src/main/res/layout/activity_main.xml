@@ -48,19 +48,19 @@
                             android:layout_weight="8"
                             android:background="@android:color/transparent"
                             android:hint="@string/edit_text_hint"
-                            android:text="@={viewModel.observerQuery}"
                             android:imeOptions="actionDone"
                             android:inputType="text"
                             android:maxLines="1"
+                            android:text="@={viewModel.query}"
                             android:textColorHint="@color/edit_hint_text_color" />
 
                         <ImageView
                             android:id="@+id/search_img"
+                            onDebounceClickEvent="@{() -> viewModel.searchMovie(activity.hideKeyBoard)}"
                             android:layout_width="@dimen/spacing_x_huge"
                             android:layout_height="@dimen/spacing_xx_large"
                             android:layout_gravity="center"
                             android:layout_weight="2"
-                            onDebounceClickEvent="@{(view) -> viewModel.searchMovie(activity, view)}"
                             android:src="@drawable/ic_search_black_24dp" />
                     </LinearLayout>
 
@@ -70,16 +70,16 @@
 
         <ProgressBar
             android:id="@+id/progress_bar"
-            isVisible="@{viewModel.loading}"
+            isVisible="@{viewModel.isLoading}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movie_recycler"
-            app:bindingItems="@{viewModel.observe.emitList()}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:bindingItems="@{viewModel.observe.emitList()}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
