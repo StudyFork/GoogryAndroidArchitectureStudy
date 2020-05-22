@@ -32,16 +32,17 @@ class SearchAdapter : RecyclerView.Adapter<SearchingResultHolder>() {
     fun setRemoteMovieData(remoteSearchList: List<MovieItem>) {
         itemClear()
         this.movieList.addAll(remoteSearchList)
+        notifyDataSetChanged()
     }
 
     fun setLocalMovieData(localSearchList: ArrayList<MovieItem>) {
         itemClear()
         this.movieList.addAll(localSearchList)
+        notifyDataSetChanged()
     }
 
     private fun itemClear() {
         this.movieList.clear()
-        notifyDataSetChanged()
     }
 }
 
