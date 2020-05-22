@@ -68,8 +68,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         MovieRoomDataBase.destroyInstance()
         NaverMovieRepositoryImpl.dispose()
+        super.onDestroy()
     }
 }
