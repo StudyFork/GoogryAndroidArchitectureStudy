@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
                 SuggestionProvider.AUTHORITY,
                 SuggestionProvider.MODE
             ).clearHistory()
+
         }
     }
 
