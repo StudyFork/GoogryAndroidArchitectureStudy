@@ -44,8 +44,8 @@ class MainActivity : AppCompatActivity() {
             naverMovieRepositoryImpl.getMovieList(et_search.text.toString(),
                 Success = { items ->
                     adapter.setRemoteMovieData(items)
-                    toast(getString(R.string.get_data_success))
                     naverMovieRepositoryImpl.saveMovieListToLocal(items)
+                    toast(getString(R.string.get_data_success))
                 },
                 Failure = {
                     Log.d("bsjbsj", "Throwable:$it")
