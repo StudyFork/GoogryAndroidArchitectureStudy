@@ -2,7 +2,7 @@ package com.project.architecturestudy.components
 
 import com.project.architecturestudy.BuildConfig
 import com.project.architecturestudy.components.Constants.NAVER_SEARCH_BASE_URL
-import com.project.architecturestudy.data.model.Movie
+import com.project.architecturestudy.data.model.NaverApiData
 import io.reactivex.Single
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -15,7 +15,7 @@ import retrofit2.http.Query
 interface RetrofitService {
 
     @GET("v1/search/movie.json")
-    fun getMovies(@Query("query") title: String): Single<Movie>
+    fun getMovies(@Query("query") title: String): Single<NaverApiData>
 
     companion object ServiceFactory {
         fun create(): RetrofitService {
