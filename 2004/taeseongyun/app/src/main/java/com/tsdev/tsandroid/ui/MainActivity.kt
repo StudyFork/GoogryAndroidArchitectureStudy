@@ -87,9 +87,6 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         /***
          * ?. 부분은 observe 중일 때  ?: 은 observe 를 끊기 때문에 빈 리스트 들어옴.
          ***/
-        viewModel.movieList.observe(this, Observer {
-            movieRecyclerAdapter.notifiedDataChange()
-        })
         viewModel.onClearList = {
             movieRecyclerAdapter.run {
                 clear()
