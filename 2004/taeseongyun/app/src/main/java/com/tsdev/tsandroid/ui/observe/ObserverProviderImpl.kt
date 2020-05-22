@@ -2,7 +2,6 @@ package com.tsdev.tsandroid.ui.observe
 
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
-import androidx.databinding.ObservableList
 import com.tsdev.tsandroid.data.Item
 import java.lang.Exception
 

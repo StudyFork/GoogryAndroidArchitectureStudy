@@ -26,7 +26,7 @@ class MovieRecyclerAdapter :
     }
 
     override fun addItem(item: Item) {
-        itemList.add(ObservableField(item))
+        itemList.add(item)
     }
 
     override fun addItems(items: List<Item>?) {
