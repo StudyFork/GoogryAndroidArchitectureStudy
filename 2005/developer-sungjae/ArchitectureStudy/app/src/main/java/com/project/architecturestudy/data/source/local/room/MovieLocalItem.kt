@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "movielist")
-class MovieLocal(
+class MovieLocalItem(
     @PrimaryKey(autoGenerate = true) var id: Long,
     @ColumnInfo(name = "title") var title: String,
     @ColumnInfo(name = "link") var link: String,

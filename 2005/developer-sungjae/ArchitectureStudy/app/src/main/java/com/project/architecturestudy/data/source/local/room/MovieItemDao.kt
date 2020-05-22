@@ -10,11 +10,11 @@ import io.reactivex.Flowable
 interface MovieItemDao {
 
     @Query("SELECT * FROM movielist")
-    fun getMovieList(): Flowable<List<MovieLocal>>
+    fun getMovieList(): Flowable<List<MovieLocalItem>>
 
     /* import android.arch.persistence.room.OnConflictStrategy.REPLACE */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(item: MovieLocal)
+    fun insert(item: MovieLocalItem)
 
     @Query("DELETE from movielist")
     fun deleteAll()
