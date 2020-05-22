@@ -11,16 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lllccww.studyforkproject.R
-import com.lllccww.studyforkproject.SearchRetrofit
-import com.lllccww.studyforkproject.data.model.Movie
 import com.lllccww.studyforkproject.data.model.MovieItem
 import com.lllccww.studyforkproject.data.repository.NaverMovieRepositoryImpl
 import com.lllccww.studyforkproject.data.source.remote.MovieRemoteDataSourceImpl
 import com.lllccww.studyforkproject.view.adapter.MovieListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private var total = 0
     private var display = 0
     private val movieListAdapter = MovieListAdapter()
+    //private val naverMovieRepositoryImpl = NaverMovieRepositoryImpl()
 
     private val naverMoviesRepositoryImpl by lazy {
         NaverMovieRepositoryImpl(MovieRemoteDataSourceImpl())
@@ -74,7 +70,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     //영화정보 요청
     private fun requestSearchMovie() {
         val keword = edt_search_keyword.text.toString()
@@ -82,11 +77,7 @@ class MainActivity : AppCompatActivity() {
         naverMoviesRepositoryImpl.getSearchMovie(
             keword,
             success = { movieItem ->
-                if (movieItem.isNullOrEmpty()) {
-                    Toast.makeText(this@MainActivity, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show()
-                } else {
-                    movieListAdapter.addItems(movieItem)
-                }
+                movieApiSucess(movieItem)
             },
             failure = { t ->
                 Toast.makeText(this@MainActivity, t.toString(), Toast.LENGTH_SHORT).show()
@@ -94,7 +85,6 @@ class MainActivity : AppCompatActivity() {
 
         )
     }
-
 
 
     //키보드 숨기기
@@ -105,6 +95,15 @@ class MainActivity : AppCompatActivity() {
             val inputMethodManager =
                 getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+    }
+
+    //영화검색Api success시 동작함수
+    private fun movieApiSucess(movieItem: List<MovieItem>) {
+        if (movieItem.isNullOrEmpty()) {
+            Toast.makeText(this@MainActivity, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show()
+        } else {
+            movieListAdapter.addItems(movieItem)
         }
     }
 
