@@ -1,12 +1,11 @@
 package com.tsdev.tsandroid.ext
 
 import android.content.Context
-import android.view.View
 import android.widget.Toast
-import com.tsdev.tsandroid.R
+import androidx.annotation.StringRes
 
-fun Context.showToast(durationTime: Int) =
+fun Context.showToast(@StringRes toastText: Int, durationTime: Int) =
     Toast.makeText(
         this,
-        R.string.occur_error_toast, durationTime
+        toastText, durationTime
     ).show()

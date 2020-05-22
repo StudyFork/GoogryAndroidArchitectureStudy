@@ -75,4 +75,7 @@ dependencies {
     //rx
     implementation deps.library.rx.java
     implementation deps.library.rx.android
+
+    //lifecycle
+    implementation deps.androidx.lifecycle
 }

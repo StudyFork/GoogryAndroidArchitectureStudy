@@ -1,11 +1,17 @@
 package com.tsdev.tsandroid.ui.viewmodel
 
+import androidx.lifecycle.ViewModel
 import com.tsdev.tsandroid.ui.observe.ObserverProvider
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 
-abstract class BaseViewModel {
-    abstract fun onBackKeyPressed()
+abstract class BaseViewModel : ViewModel() {
 
-    abstract fun onDestroy()
+    internal val compositeDisposable by lazy { CompositeDisposable() }
+
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
+    }
 
     abstract val observe: ObserverProvider
 }
