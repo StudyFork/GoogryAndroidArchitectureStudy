@@ -74,7 +74,7 @@ class MainViewModel(
                             }
                         }
                         ?: run {
-                            removeAll()
+                            oldQuery.onNext(onClearList)
                             showToastMessage(resourceProvider.getResultErrorString(R.string.non_search_result))
                         }
                 }
@@ -83,9 +83,5 @@ class MainViewModel(
 
     private fun showToastMessage(message: String) {
         Toast.makeText(resourceProvider.getContext, message, Toast.LENGTH_LONG).show()
-    }
-
-    private fun removeAll() {
-        _movieList.value = emptyList()
     }
 }

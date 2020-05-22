@@ -91,7 +91,10 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
             movieRecyclerAdapter.notifiedDataChange()
         })
         viewModel.onClearList = {
-            movieRecyclerAdapter.clear()
+            movieRecyclerAdapter.run {
+                clear()
+                notifiedDataChange()
+            }
         }
     }
 
