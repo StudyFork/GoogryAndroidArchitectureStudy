@@ -2,10 +2,11 @@ package com.project.architecturestudy.data.source.local
 
 import android.content.Context
 import android.util.Log
-import com.project.architecturestudy.data.model.Movie
-import com.project.architecturestudy.data.source.local.room.MovieLocal
+import com.project.architecturestudy.data.model.MovieItem
+import com.project.architecturestudy.data.model.NaverApiData
+import com.project.architecturestudy.data.source.local.room.MovieLocalItem
 import com.project.architecturestudy.data.source.local.room.MovieRoomDataBase
-import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -16,29 +17,34 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
     override var roomDataBase = MovieRoomDataBase.getInstance(context)
     override val disposable = CompositeDisposable()
 
-    override fun saveMovieList(data: ArrayList<Movie.Items>) {
-        disposable.add(Observable.fromIterable(data)
-            .doOnSubscribe {
-                roomDataBase?.getMovieDao()?.deleteAll()
-                Log.d("bsjbsj", "doOnSubscribe")
-            }
+    override fun saveMovieList(data: Single<NaverApiData>) {
+
+
+        disposable.add(data.doOnSubscribe {
+            roomDataBase?.getMovieDao()?.deleteAll()
+            Log.d("bsjbsj", "doOnSubscribe")
+
+        }
             .subscribeOn(Schedulers.io())
-            .subscribe({ eachItem ->
+            .subscribe({
                 Log.d("bsjbsj", "subscribe")
-                val localData = MovieLocal().apply {
 
-                    this.title = eachItem.title
-                    this.subtitle = eachItem.subtitle
-                    this.image = eachItem.image
-                    this.link = eachItem.link
-                    this.pubDate = eachItem.pubDate
-                    this.director = eachItem.director
-                    this.actor = eachItem.actor
-                    this.userRating = eachItem.userRating
+                for (item in it.movieItems.iterator()) {
+                    val localData = MovieLocalItem().apply {
+
+                        this.title = item.title
+                        this.subtitle = item.subtitle
+                        this.image = item.image
+                        this.link = item.link
+                        this.pubDate = item.pubDate
+                        this.director = item.director
+                        this.actor = item.actor
+                        this.userRating = item.userRating
+                    }
+
+                    roomDataBase?.getMovieDao()?.insert(localData)
+                    Log.d("bsjbsj", "RoomDatabase Save Success $localData")
                 }
-
-                roomDataBase?.getMovieDao()?.insert(localData)
-                Log.d("bsjbsj", "RoomDatabase Save Success $localData")
             },
                 {
                     Log.d("bsjbsj", "RoomDatabase Save Failure")
@@ -48,17 +54,30 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
 
 
     override fun getMovieList(
-        Success: (ArrayList<MovieLocal>) -> Unit,
-        Failure: (t : Throwable) -> Unit
+        Success: (ArrayList<MovieItem>) -> Unit,
+        Failure: (t: Throwable) -> Unit
     ) {
         roomDataBase?.getMovieDao()?.getMovieList()
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe({
                 if (it.count() > 0) {
-                    val movieList = ArrayList<MovieLocal>()
-                    movieList.addAll(it)
+                    val movieList = ArrayList<MovieItem>()
+                    for (localItem in it.iterator()) {
+                        val item = MovieItem().apply {
+
+                            this.title = localItem.title
+                            this.subtitle = localItem.subtitle
+                            this.image = localItem.image
+                            this.link = localItem.link
+                            this.pubDate = localItem.pubDate
+                            this.director = localItem.director
+                            this.actor = localItem.actor
+                            this.userRating = localItem.userRating
+                        }
+
+                        movieList.add(item)
+                    }
                     Success.invoke(movieList)
-                    Log.d("bsjbsj", "RoomDatabase GetData Success : ${movieList[0]}")
                 } else {
                     Log.d("bsjbsj", "RoomDatabase has no Data")
                 }
@@ -72,7 +91,7 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
     }
 
     override fun dispose() {
-        if(!disposable.isDisposed){
+        if (!disposable.isDisposed) {
             disposable.dispose()
         }
     }
