@@ -1,30 +1,18 @@
 package com.project.architecturestudy.data.repository
 
-import android.content.Context
 import com.project.architecturestudy.data.model.Movie
-import com.project.architecturestudy.data.source.local.NaverMovieLocalDataSourceImpl
+import com.project.architecturestudy.data.source.local.NaverMovieLocalDataSource
 import com.project.architecturestudy.data.source.local.room.MovieLocal
-import com.project.architecturestudy.data.source.remote.NaverMovieRemoteDataSourceImpl
+import com.project.architecturestudy.data.source.remote.NaverMovieRemoteDataSource
 
-object NaverMovieRepositoryImpl : NaverMovieRepository {
-
-    override lateinit var context: Context
-    override lateinit var naverMovieLocalDataSource: NaverMovieLocalDataSourceImpl
-    override lateinit var naverMovieRemoteDataSource: NaverMovieRemoteDataSourceImpl
-    override fun setRepository(
-        context: Context,
-        naverMovieLocalDataSource: NaverMovieLocalDataSourceImpl,
-        naverMovieRemoteDataSource: NaverMovieRemoteDataSourceImpl
-    ) {
-        this.context = context
-        this.naverMovieLocalDataSource = naverMovieLocalDataSource
-        this.naverMovieRemoteDataSource = naverMovieRemoteDataSource
-
-    }
+class NaverMovieRepositoryImpl(
+    private val naverMovieLocalDataSource: NaverMovieLocalDataSource,
+    private val naverMovieRemoteDataSource: NaverMovieRemoteDataSource
+) : NaverMovieRepository {
 
     override fun getCashedMovieList(
         Success: (ArrayList<MovieLocal>) -> Unit,
-        Failure: (t : Throwable) -> Unit
+        Failure: (t: Throwable) -> Unit
     ) {
         naverMovieLocalDataSource.getMovieList(Success, Failure)
     }
@@ -37,7 +25,7 @@ object NaverMovieRepositoryImpl : NaverMovieRepository {
     override fun getMovieList(
         keyWord: String,
         Success: (ArrayList<Movie.Items>) -> Unit,
-        Failure: (t : Throwable) -> Unit
+        Failure: (t: Throwable) -> Unit
     ) {
         naverMovieRemoteDataSource.getMovieList(keyWord, Success, Failure)
     }
