@@ -14,6 +14,7 @@ import com.tsdev.tsandroid.ui.observe.ObserverProviderImpl
 import com.tsdev.tsandroid.ui.viewmodel.MainViewModel
 import com.tsdev.tsandroid.util.MapConverter
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
@@ -34,6 +35,10 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     }
     private val naverRepository: NaverReopsitory by lazy {
         NaverRepositoryImpl(movieMapConverter)
+    }
+
+    private val backKeyPressExt: BackKeyPressExt by lazy {
+        BackKeyPressExt(rxJavaEvent, CompositeDisposable(), ::finish, ::showToast)
     }
 
     override val viewModel: MainViewModel by lazy {
