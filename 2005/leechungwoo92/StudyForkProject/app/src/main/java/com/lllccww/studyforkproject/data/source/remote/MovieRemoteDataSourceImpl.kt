@@ -19,8 +19,11 @@ class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
         SearchRetrofit.getService().listMovie(keyword = query)
             .enqueue(object : Callback<Movie> {
                 override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
-                    val movieItems = response.body()?.items
-                    onSuccess(movieItems!!)
+                    if(response.isSuccessful){
+                        val movieItems = response.body()?.items?:return
+                        onSuccess(movieItems!!)
+                    }
+
 
                 }
 
