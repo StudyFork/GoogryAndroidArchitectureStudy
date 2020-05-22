@@ -12,7 +12,6 @@ interface NaverMovieRepository {
     )
 
     fun getCashedMovieList(Success: (ArrayList<MovieLocal>) -> Unit, Failure: (t: Throwable) -> Unit)
-    fun saveMovieListToLocal(items: ArrayList<Movie.Items>)
     fun dispose()
 
 }

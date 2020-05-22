@@ -17,17 +17,21 @@ class NaverMovieRepositoryImpl(
         naverMovieLocalDataSource.getMovieList(Success, Failure)
     }
 
-    override fun saveMovieListToLocal(items: ArrayList<Movie.Items>) {
-        naverMovieLocalDataSource.saveMovieList(items)
-    }
-
-
     override fun getMovieList(
         keyWord: String,
         Success: (ArrayList<Movie.Items>) -> Unit,
         Failure: (t: Throwable) -> Unit
     ) {
-        naverMovieRemoteDataSource.getMovieList(keyWord, Success, Failure)
+        naverMovieRemoteDataSource.getMovieList(keyWord,
+            Success = {
+                Success.invoke(it)
+                naverMovieLocalDataSource.saveMovieList(it)
+
+            },
+            Failure = {
+                Failure.invoke(it)
+            }
+        )
     }
 
     override fun dispose() {
