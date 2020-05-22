@@ -7,7 +7,7 @@ import androidx.room.Query
 import io.reactivex.Flowable
 
 @Dao
-interface MovieItemDAO {
+interface MovieItemDao {
 
     @Query("SELECT * FROM movielist")
     fun getMovieList(): Flowable<List<MovieLocal>>

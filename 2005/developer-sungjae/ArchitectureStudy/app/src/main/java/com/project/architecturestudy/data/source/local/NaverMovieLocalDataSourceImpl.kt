@@ -19,7 +19,7 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
     override fun saveMovieList(data: ArrayList<Movie.Items>) {
         disposable.add(Observable.fromIterable(data)
             .doOnSubscribe {
-                roomDataBase?.getMovieDAO()?.deleteAll()
+                roomDataBase?.getMovieDao()?.deleteAll()
                 Log.d("bsjbsj", "doOnSubscribe")
             }
             .subscribeOn(Schedulers.io())
@@ -37,7 +37,7 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
                     this.userRating = eachItem.userRating
                 }
 
-                roomDataBase?.getMovieDAO()?.insert(localData)
+                roomDataBase?.getMovieDao()?.insert(localData)
                 Log.d("bsjbsj", "RoomDatabase Save Success $localData")
             },
                 {
@@ -51,7 +51,7 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
         Success: (ArrayList<MovieLocal>) -> Unit,
         Failure: (Throwable) -> Unit
     ) {
-        roomDataBase?.getMovieDAO()?.getMovieList()
+        roomDataBase?.getMovieDao()?.getMovieList()
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe({
                 if (it.count() > 0) {
