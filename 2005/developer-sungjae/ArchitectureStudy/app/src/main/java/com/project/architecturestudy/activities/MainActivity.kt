@@ -41,10 +41,20 @@ class MainActivity : AppCompatActivity() {
                 toast(getString(R.string.please_write))
                 return@setOnClickListener
             }
+
             naverMovieRepositoryImpl.getMovieList(et_search.text.toString(),
-                Success = { items ->
-                    adapter.setRemoteMovieData(items)
-                    toast(getString(R.string.get_data_success))
+                Success = { single ->
+
+                    single.subscribe({
+                        adapter.setRemoteMovieData(it.movieItems)
+                        toast(getString(R.string.get_data_success))
+
+                    }, { t ->
+
+                        toast(getString(R.string.get_data_failure))
+                        Log.d("bsjbsj", t.toString())
+                    })
+
                 },
                 Failure = {
                     Log.d("bsjbsj", "Throwable:$it")
@@ -62,8 +72,8 @@ class MainActivity : AppCompatActivity() {
     private fun setRecyclerView() {
         listview_movie.adapter = adapter
         naverMovieRepositoryImpl.getCashedMovieList(
-            Success = { items ->
-                adapter.setLocalMovieData(items)
+            Success = {
+                adapter.setLocalMovieData(it)
             },
             Failure = {
                 Log.d("bsjbsj", "Throwable:$it")
