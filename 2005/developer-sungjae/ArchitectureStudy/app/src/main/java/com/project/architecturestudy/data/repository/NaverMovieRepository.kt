@@ -1,17 +1,18 @@
 package com.project.architecturestudy.data.repository
 
-import com.project.architecturestudy.data.model.Movie
-import com.project.architecturestudy.data.source.local.room.MovieLocal
+import com.project.architecturestudy.data.model.MovieItem
+import com.project.architecturestudy.data.model.NaverApiData
+import io.reactivex.Single
 
 interface NaverMovieRepository {
 
     fun getMovieList(
         keyWord: String,
-        Success: (ArrayList<Movie.Items>) -> Unit,
+        Success: (Single<NaverApiData>) -> Unit,
         Failure: (t: Throwable) -> Unit
     )
 
-    fun getCashedMovieList(Success: (ArrayList<MovieLocal>) -> Unit, Failure: (t: Throwable) -> Unit)
+    fun getCashedMovieList(Success: (ArrayList<MovieItem>) -> Unit, Failure: (t: Throwable) -> Unit)
     fun dispose()
 
 }
