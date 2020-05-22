@@ -9,7 +9,7 @@ interface NaverMovieLocalDataSource {
 
     val disposable: CompositeDisposable
     var roomDataBase: MovieRoomDataBase?
-    fun getMovieList(Success: (ArrayList<MovieLocal>) -> Unit, Failure: (Throwable) -> Unit)
+    fun getMovieList(Success: (ArrayList<MovieLocal>) -> Unit, Failure: (t : Throwable) -> Unit)
     fun saveMovieList(data: ArrayList<Movie.Items>)
     fun dispose()
 }

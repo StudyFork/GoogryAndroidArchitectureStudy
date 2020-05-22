@@ -14,7 +14,7 @@ class NaverMovieRemoteDataSourceImpl : NaverMovieRemoteDataSource {
     override fun getMovieList(
         keyWord: String,
         Success: (ArrayList<Movie.Items>) -> Unit,
-        Failure: (Throwable) -> Unit
+        Failure: (t : Throwable) -> Unit
     ) {
         disposable.add(
             service.getMovies(keyWord)

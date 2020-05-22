@@ -21,10 +21,10 @@ interface NaverMovieRepository {
     fun getMovieList(
         keyWord: String,
         Success: (ArrayList<Movie.Items>) -> Unit,
-        Failure: (Throwable) -> Unit
+        Failure: (t : Throwable) -> Unit
     )
 
-    fun getCashedMovieList(Success: (ArrayList<MovieLocal>) -> Unit, Failure: (Throwable) -> Unit)
+    fun getCashedMovieList(Success: (ArrayList<MovieLocal>) -> Unit, Failure: (t : Throwable) -> Unit)
     fun saveMovieListToLocal(items: ArrayList<Movie.Items>)
     fun dispose()
 

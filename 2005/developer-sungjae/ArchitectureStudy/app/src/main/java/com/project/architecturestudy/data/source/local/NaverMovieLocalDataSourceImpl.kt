@@ -49,7 +49,7 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
 
     override fun getMovieList(
         Success: (ArrayList<MovieLocal>) -> Unit,
-        Failure: (Throwable) -> Unit
+        Failure: (t : Throwable) -> Unit
     ) {
         roomDataBase?.getMovieDao()?.getMovieList()
             ?.observeOn(AndroidSchedulers.mainThread())

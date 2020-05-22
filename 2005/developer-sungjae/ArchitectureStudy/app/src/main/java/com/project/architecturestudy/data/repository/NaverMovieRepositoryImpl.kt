@@ -24,7 +24,7 @@ object NaverMovieRepositoryImpl : NaverMovieRepository {
 
     override fun getCashedMovieList(
         Success: (ArrayList<MovieLocal>) -> Unit,
-        Failure: (Throwable) -> Unit
+        Failure: (t : Throwable) -> Unit
     ) {
         naverMovieLocalDataSource.getMovieList(Success, Failure)
     }
@@ -37,7 +37,7 @@ object NaverMovieRepositoryImpl : NaverMovieRepository {
     override fun getMovieList(
         keyWord: String,
         Success: (ArrayList<Movie.Items>) -> Unit,
-        Failure: (Throwable) -> Unit
+        Failure: (t : Throwable) -> Unit
     ) {
         naverMovieRemoteDataSource.getMovieList(keyWord, Success, Failure)
     }
