@@ -41,11 +41,11 @@ class MainActivity : AppCompatActivity() {
                 toast(getString(R.string.please_write))
                 return@setOnClickListener
             }
-            NaverMovieRepositoryImpl.getMovieList(et_search.text.toString(),
+            naverMovieRepositoryImpl.getMovieList(et_search.text.toString(),
                 Success = { items ->
                     adapter.setRemoteMovieData(items)
                     toast(getString(R.string.get_data_success))
-                    NaverMovieRepositoryImpl.saveMovieListToLocal(items)
+                    naverMovieRepositoryImpl.saveMovieListToLocal(items)
                 },
                 Failure = {
                     Log.d("bsjbsj", "Throwable:$it")
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setRecyclerView() {
         listview_movie.adapter = adapter
-        NaverMovieRepositoryImpl.getCashedMovieList(
+        naverMovieRepositoryImpl.getCashedMovieList(
             Success = { items ->
                 adapter.setLocalMovieData(items)
             },
@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         MovieRoomDataBase.destroyInstance()
-        NaverMovieRepositoryImpl.dispose()
+        naverMovieRepositoryImpl.dispose()
         super.onDestroy()
     }
 }
