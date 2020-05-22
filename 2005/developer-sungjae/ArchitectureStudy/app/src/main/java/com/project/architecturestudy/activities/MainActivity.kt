@@ -17,7 +17,7 @@ import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity() {
 
-    private var adapter: SearchAdapter = SearchAdapter()
+    private val adapter: SearchAdapter = SearchAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
