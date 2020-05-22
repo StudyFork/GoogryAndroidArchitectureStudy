@@ -4,69 +4,51 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.project.architecturestudy.R
-import com.project.architecturestudy.adapters.SearchingResultHolder.Companion.NO_ITEM
-import com.project.architecturestudy.components.CACHING
 import com.project.architecturestudy.components.parseHTMLTag
-import com.project.architecturestudy.data.model.Movie
-import com.project.architecturestudy.data.source.local.room.MovieLocal
+import com.project.architecturestudy.data.model.MovieItem
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.movie_item.view.*
 
 class SearchAdapter : RecyclerView.Adapter<SearchingResultHolder>() {
 
-    private val remoteSearchList: MutableList<Movie.Items> = mutableListOf()
-    private val localSearchList: MutableList<MovieLocal> = mutableListOf()
-    lateinit var onClick: ((Movie.Items) -> Unit)
-    private var isCaching = CACHING.NON_CACHED.value
+    private val movieList: MutableList<MovieItem> = mutableListOf()
+    lateinit var onClick: ((MovieItem) -> Unit)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchingResultHolder {
         return SearchingResultHolder(parent).apply {
             itemView.setOnClickListener {
-                val item = remoteSearchList[adapterPosition]
+                val item = movieList[adapterPosition]
                 onClick.invoke(item)
             }
         }
     }
 
     override fun onBindViewHolder(holder: SearchingResultHolder, position: Int) {
-        when (isCaching) {
-            CACHING.CACHED.value -> holder.localBind(localSearchList[position])
-            CACHING.NON_CACHED.value -> holder.remoteBind(remoteSearchList[position])
-        }
+        holder.bind(movieList[position])
     }
 
-    override fun getItemCount(): Int {
-        return when (isCaching) {
-            CACHING.CACHED.value -> localSearchList.count()
-            CACHING.NON_CACHED.value -> remoteSearchList.count()
-            else -> NO_ITEM
-        }
-    }
+    override fun getItemCount(): Int = movieList.count()
 
-    fun setRemoteMovieData(search: ArrayList<Movie.Items>) {
+    fun setRemoteMovieData(remoteSearchList: List<MovieItem>) {
         itemClear()
-        isCaching = false
-        this.remoteSearchList.addAll(search)
-        notifyDataSetChanged()
+        this.movieList.addAll(remoteSearchList)
     }
 
-    fun setLocalMovieData(localSearchList: ArrayList<MovieLocal>) {
+    fun setLocalMovieData(localSearchList: ArrayList<MovieItem>) {
         itemClear()
-        isCaching = true
-        this.localSearchList.addAll(localSearchList)
-        notifyDataSetChanged()
+        this.movieList.addAll(localSearchList)
     }
 
     private fun itemClear() {
-        this.remoteSearchList.clear()
-        this.localSearchList.clear()
+        this.movieList.clear()
+        notifyDataSetChanged()
     }
 }
 
 class SearchingResultHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
 ) {
-    fun remoteBind(search: Movie.Items) {
+    fun bind(search: MovieItem) {
         when (search.image.isEmpty()) {
             true -> itemView.iv_movie.setImageResource(R.drawable.ic_no_resource)
             false -> Picasso.get()
@@ -80,27 +62,6 @@ class SearchingResultHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         itemView.tv_subTitle.text = search.subtitle.parseHTMLTag()
         itemView.tv_pubDate.text = search.pubDate.parseHTMLTag()
         itemView.tv_actors.text = search.actor.parseHTMLTag()
-    }
-
-    fun localBind(search: MovieLocal) {
-        when (search.image.isEmpty()) {
-            true -> itemView.iv_movie.setImageResource(R.drawable.ic_no_resource)
-            false -> Picasso.get()
-                .load(search.image)
-                .placeholder(R.drawable.ic_no_resource)
-                .centerCrop()
-                .fit()
-                .into(itemView.iv_movie)
-        }
-        itemView.tv_title.text = search.title.parseHTMLTag()
-        itemView.tv_subTitle.text = search.subtitle.parseHTMLTag()
-        itemView.tv_pubDate.text = search.pubDate.parseHTMLTag()
-        itemView.tv_actors.text = search.actor.parseHTMLTag()
-    }
-
-    companion object {
-
-        const val NO_ITEM = -1
     }
 }
 
