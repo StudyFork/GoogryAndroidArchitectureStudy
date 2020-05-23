@@ -56,7 +56,8 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
         roomDataBase.getMovieDao().getMovieList()
             .subscribeOn(Schedulers.io())
             .subscribe({
-                if (it.isNullOrEmpty()) {
+                Log.d("bsjbsj", "RoomDatabase Get Data Success:$it")
+                if (it.isNotEmpty()) {
                     val movieList = ArrayList<MovieItem>()
                     for (localItem in it) {
                         val item = MovieItem().apply {
