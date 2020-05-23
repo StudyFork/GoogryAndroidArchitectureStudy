@@ -4,7 +4,6 @@ import com.project.architecturestudy.components.Retrofit
 import com.project.architecturestudy.data.model.NaverApiData
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 
 class NaverMovieRemoteDataSourceImpl : NaverMovieRemoteDataSource {
 
@@ -16,9 +15,6 @@ class NaverMovieRemoteDataSourceImpl : NaverMovieRemoteDataSource {
         Success: (Single<NaverApiData>) -> Unit,
         Failure: (t: Throwable) -> Unit
     ) {
-        Success.invoke(
-            service.getMovies(keyWord)
-                .subscribeOn(Schedulers.io())
-        )
+        Success.invoke(service.getMovies(keyWord))
     }
 }

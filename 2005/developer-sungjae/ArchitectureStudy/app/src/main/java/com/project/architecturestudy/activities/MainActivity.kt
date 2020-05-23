@@ -9,9 +9,9 @@ import com.project.architecturestudy.R
 import com.project.architecturestudy.adapters.SearchAdapter
 import com.project.architecturestudy.data.repository.NaverMovieRepositoryImpl
 import com.project.architecturestudy.data.source.local.NaverMovieLocalDataSourceImpl
-import com.project.architecturestudy.data.source.local.room.MovieRoomDataBase
 import com.project.architecturestudy.data.source.remote.NaverMovieRemoteDataSourceImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 
@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
             naverMovieRepositoryImpl.getMovieList(et_search.text.toString(),
                 Success = { single ->
                     single.observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io())
                         .subscribe(
                             {
 
