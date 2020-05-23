@@ -19,7 +19,7 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
     override fun saveMovieList(data: Single<NaverApiData>) {
 
         disposable.add(data.doOnSubscribe {
-            roomDataBase?.getMovieDao()?.deleteAll()
+            roomDataBase.getMovieDao().deleteAll()
 
         }
             .subscribeOn(Schedulers.io())
@@ -38,7 +38,7 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
                         this.userRating = item.userRating
                     }
 
-                    roomDataBase?.getMovieDao()?.insert(localData)
+                    roomDataBase.getMovieDao().insert(localData)
                     Log.d("bsjbsj", "RoomDatabase Save Success $localData")
                 }
             },
@@ -53,9 +53,9 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
         Success: (ArrayList<MovieItem>) -> Unit,
         Failure: (t: Throwable) -> Unit
     ) {
-        roomDataBase?.getMovieDao()?.getMovieList()
-            ?.subscribeOn(Schedulers.io())
-            ?.subscribe({
+        roomDataBase.getMovieDao().getMovieList()
+            .subscribeOn(Schedulers.io())
+            .subscribe({
                 if (it.isNullOrEmpty()) {
                     val movieList = ArrayList<MovieItem>()
                     for (localItem in it) {

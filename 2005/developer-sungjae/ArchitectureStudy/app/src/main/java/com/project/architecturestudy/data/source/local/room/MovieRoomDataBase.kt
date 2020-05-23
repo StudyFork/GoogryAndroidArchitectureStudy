@@ -7,26 +7,19 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [MovieLocalItem::class], version = 1)
 abstract class MovieRoomDataBase : RoomDatabase() {
+
     abstract fun getMovieDao(): MovieItemDao
 
     companion object {
+        private lateinit var db: MovieRoomDataBase
 
-        private var db: MovieRoomDataBase? = null
-
-        fun getInstance(context: Context): MovieRoomDataBase? {
-            if (db == null) {
-                synchronized(MovieRoomDataBase::class) {
-                    db = Room.databaseBuilder(context, MovieRoomDataBase::class.java, "movielist.db").fallbackToDestructiveMigration().build()
-                }
+        fun getInstance(context: Context): MovieRoomDataBase {
+            synchronized(MovieRoomDataBase::class) {
+                db = Room.databaseBuilder(context, MovieRoomDataBase::class.java, "movielist.db")
+                    .fallbackToDestructiveMigration()
+                    .build()
             }
-
             return db
         }
-
-        fun destroyInstance() {
-            db = null
-        }
-
     }
-
 }
