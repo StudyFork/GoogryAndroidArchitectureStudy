@@ -34,20 +34,11 @@ class MainViewModel(
 
     val query = MutableLiveData<String>()
 
-    private val oldQuery = PublishSubject.create<() -> Unit>()
+    private val _oldMovieList = MutableLiveData<() -> Unit>()
+    val oldMovieList: LiveData<() -> Unit>
+        get() = _oldMovieList
 
     lateinit var onClearList: () -> Unit
-
-    init {
-        compositeDisposable.add(
-            oldQuery.subscribeOn(Schedulers.single())
-                .observeOn(AndroidSchedulers.mainThread())
-                .onErrorReturn { {} }
-                .subscribe {
-                    it()
-                }
-        )
-    }
 
     fun searchMovie(hideKeyBoard: () -> Unit) {
         compositeDisposable.add(
@@ -69,12 +60,12 @@ class MainViewModel(
                             if (_movieList.value?.containsAll(this) == true) {
                                 return@subscribe
                             } else {
-                                oldQuery.onNext(onClearList)
+                                _oldMovieList.value = onClearList
                                 _movieList.value = this
                             }
                         }
                         ?: run {
-                            oldQuery.onNext(onClearList)
+                            _oldMovieList.value = onClearList
                             showToastMessage(resourceProvider.getResultErrorString(R.string.non_search_result))
                         }
                 }

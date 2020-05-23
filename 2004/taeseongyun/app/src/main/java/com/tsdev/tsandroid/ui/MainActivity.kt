@@ -94,6 +94,10 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                 notifiedDataChange()
             }
         }
+
+        viewModel.oldMovieList.observe(this, Observer {
+            it()
+        })
     }
 
     override fun onBackPressed() {
