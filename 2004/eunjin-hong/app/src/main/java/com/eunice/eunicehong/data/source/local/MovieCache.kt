@@ -1,10 +1,8 @@
-package com.eunice.eunicehong.ui
+package com.eunice.eunicehong.data.source.local
 
 import com.eunice.eunicehong.data.model.MovieContents
 
 interface MovieCache {
-    fun getMovieList(query: String): MovieContents
-
     fun saveMovieList(query: String, movieContents: MovieContents)
 
     fun removeMovieHistory()

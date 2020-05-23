@@ -7,17 +7,7 @@ import com.eunice.eunicehong.data.model.MovieContents
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonSyntaxException
 
-class MoviePreferences {
-    companion object {
-        private var instance: MoviePreferences? = null
-        private lateinit var context: Context
-
-        fun getInstance(_context: Context): MoviePreferences {
-            context = _context
-            return instance
-                ?: MoviePreferences()
-        }
-    }
+class MoviePreferences(private val context: Context) {
 
     @Throws(IllegalStateException::class, JsonSyntaxException::class)
     fun getHistory(query: String): MovieContents {

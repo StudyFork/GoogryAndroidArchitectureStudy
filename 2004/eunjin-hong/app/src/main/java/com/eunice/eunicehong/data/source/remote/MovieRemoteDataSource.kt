@@ -10,7 +10,7 @@ import retrofit2.Response
 class MovieRemoteDataSource : MovieDataSource {
     private val service = MovieClient.getClient().create(MovieService::class.java)
 
-    override fun getMovieList(query: String, callback: MovieDataSource.LoadMoviesCallback) {
+    fun getMovieList(query: String, callback: MovieDataSource.LoadMoviesCallback) {
         service.getMovieList(query).enqueue(object : Callback<MovieContents> {
             override fun onResponse(call: Call<MovieContents>, response: Response<MovieContents>) {
                 val content = response.body()

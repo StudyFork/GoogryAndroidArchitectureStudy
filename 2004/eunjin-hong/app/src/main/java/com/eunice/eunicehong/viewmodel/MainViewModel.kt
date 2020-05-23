@@ -6,9 +6,8 @@ import com.eunice.eunicehong.data.model.Movie
 import com.eunice.eunicehong.data.model.MovieContents
 import com.eunice.eunicehong.data.source.MovieDataSource
 import com.eunice.eunicehong.data.source.MovieRepository
-import com.eunice.eunicehong.ui.MovieCache
 
-class MainViewModel(private val cache: MovieCache) {
+class MainViewModel(private val repository: MovieRepository) {
 
     val movieListState: MutableLiveData<MovieListState> =
         MutableLiveData(MovieListState.EMPTY_QUERY)
@@ -20,7 +19,7 @@ class MainViewModel(private val cache: MovieCache) {
             } else {
                 resultMovieList.value = movieContents.items
                 showSearchResult(movieContents)
-                cache.saveMovieList(query, movieContents)
+                repository.saveMovieList(query, movieContents)
             }
         }
 
@@ -33,25 +32,16 @@ class MainViewModel(private val cache: MovieCache) {
 
     fun search(query: String?) {
         if (query.isNullOrBlank()) return
-
-        cache.saveSearchRecentSuggestions(query)
-
         movieListState.value = MovieListState.LOADING
+        repository.getMovieList(query, loadMovieListCallback)
+    }
 
-        try {
-            val list = cache.getMovieList(query)
-            if (list.items.isEmpty()) {
-                MovieRepository.getMovieList(query, loadMovieListCallback)
-            } else {
-                loadMovieListCallback.onSuccess(query, list)
-            }
-        } catch (e: Throwable) {
-            MovieRepository.getMovieList(query, loadMovieListCallback)
-        }
+    fun deleteAllSearchRecentSuggestions() {
+        repository.deleteAllSearchRecentSuggestions()
     }
 
     fun removeHistory() {
-        cache.removeMovieHistory()
+        repository.removeMovieHistory()
     }
 
     fun showSearchResult(movies: MovieContents) {

@@ -7,6 +7,4 @@ interface MovieDataSource {
         fun onSuccess(query: String?, movieContents: MovieContents)
         fun onFailure(e: Throwable)
     }
-
-    fun getMovieList(query: String, callback: LoadMoviesCallback)
 }

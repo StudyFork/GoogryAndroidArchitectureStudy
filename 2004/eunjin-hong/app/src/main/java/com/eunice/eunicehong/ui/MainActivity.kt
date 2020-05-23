@@ -11,55 +11,40 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.eunice.eunicehong.R
-import com.eunice.eunicehong.data.model.MovieContents
+import com.eunice.eunicehong.data.source.MovieRepository
+import com.eunice.eunicehong.data.source.local.MovieLocalDataSource
+import com.eunice.eunicehong.data.source.remote.MovieRemoteDataSource
 import com.eunice.eunicehong.databinding.ActivityMainBinding
 import com.eunice.eunicehong.provider.SuggestionProvider
 import com.eunice.eunicehong.viewmodel.MainViewModel
-import com.google.gson.JsonSyntaxException
 
 class MainActivity : AppCompatActivity() {
 
-    private val cache = object : MovieCache {
-        val preferences = MoviePreferences.getInstance(this@MainActivity)
-
-        @Throws(IllegalStateException::class, JsonSyntaxException::class)
-        override fun getMovieList(
-            query: String
-        ): MovieContents = preferences.getHistory(query)
-
-        override fun saveMovieList(query: String, movieContents: MovieContents) =
-            preferences.saveHistory(query, movieContents)
-
-
-        override fun removeMovieHistory() {
-            preferences.removeAllSearchHistory()
-        }
-
-        override fun saveSearchRecentSuggestions(query: String) {
-            SearchRecentSuggestions(
-                this@MainActivity,
-                SuggestionProvider.AUTHORITY,
-                SuggestionProvider.MODE
-            ).saveRecentQuery(query, null)
-        }
-
-        override fun deleteAllSearchRecentSuggestions() {
-            SearchRecentSuggestions(
-                this@MainActivity,
-                SuggestionProvider.AUTHORITY,
-                SuggestionProvider.MODE
-            ).clearHistory()
-
-        }
-    }
-
     val movieListAdapter = MovieAdapter()
+
+    private lateinit var sharedPreferences: MoviePreferences
+    private lateinit var searchRecentSuggestions: SearchRecentSuggestions
+
+    private lateinit var localDataSource: MovieLocalDataSource
+    private lateinit var remoteDataSource: MovieRemoteDataSource
+    private lateinit var movieRepository: MovieRepository
 
     private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainViewModel = MainViewModel(cache)
+
+        sharedPreferences = MoviePreferences(this@MainActivity)
+        searchRecentSuggestions = SearchRecentSuggestions(
+            this@MainActivity,
+            SuggestionProvider.AUTHORITY,
+            SuggestionProvider.MODE
+        )
+
+        localDataSource = MovieLocalDataSource(sharedPreferences, searchRecentSuggestions)
+        remoteDataSource = MovieRemoteDataSource()
+        movieRepository = MovieRepository(remoteDataSource, localDataSource)
+        mainViewModel = MainViewModel(movieRepository)
 
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(
             this@MainActivity,
@@ -98,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                 ) { _, _ ->
                     mainViewModel.removeHistory()
 
-                    cache.deleteAllSearchRecentSuggestions()
+                    mainViewModel.deleteAllSearchRecentSuggestions()
 
                     Toast.makeText(
                         this@MainActivity,
