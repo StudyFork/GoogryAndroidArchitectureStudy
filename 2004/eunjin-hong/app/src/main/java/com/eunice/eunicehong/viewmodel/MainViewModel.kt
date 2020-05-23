@@ -2,12 +2,13 @@ package com.eunice.eunicehong.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.eunice.eunicehong.data.model.Movie
 import com.eunice.eunicehong.data.model.MovieContents
 import com.eunice.eunicehong.data.source.MovieDataSource
 import com.eunice.eunicehong.data.source.MovieRepository
 
-class MainViewModel(private val repository: MovieRepository) {
+class MainViewModel(private val repository: MovieRepository) : ViewModel() {
 
     val movieListState: MutableLiveData<MovieListState> =
         MutableLiveData(MovieListState.EMPTY_QUERY)

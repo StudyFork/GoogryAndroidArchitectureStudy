@@ -10,6 +10,8 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.eunice.eunicehong.R
 import com.eunice.eunicehong.data.source.MovieRepository
 import com.eunice.eunicehong.data.source.local.MovieLocalDataSource
@@ -44,7 +46,13 @@ class MainActivity : AppCompatActivity() {
         localDataSource = MovieLocalDataSource(sharedPreferences, searchRecentSuggestions)
         remoteDataSource = MovieRemoteDataSource()
         movieRepository = MovieRepository(remoteDataSource, localDataSource)
-        mainViewModel = MainViewModel(movieRepository)
+
+        mainViewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MainViewModel(movieRepository) as T
+            }
+        }).get(MainViewModel::class.java)
 
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(
             this@MainActivity,
