@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
             }
         }).get(MovieViewModel::class.java)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.apply {
+        binding.run {
             vm = viewModel
             lifecycleOwner = this@MainActivity
         }
