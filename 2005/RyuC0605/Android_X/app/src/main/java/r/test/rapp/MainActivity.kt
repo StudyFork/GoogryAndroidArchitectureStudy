@@ -20,12 +20,15 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_main_top.*
 import kotlinx.android.synthetic.main.row_content.view.*
 import r.test.rapp.data.model.Item
+import r.test.rapp.data.repository.MovieRepository
 import r.test.rapp.data.repository.MovieRepositoryImpl
 import r.test.rapp.networks.ImageLoader
 
 class MainActivity : AppCompatActivity() {
 
-    var progress: ProgressDialog? = null
+    private var progress: ProgressDialog? = null
+    private var repository: MovieRepository? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,8 +92,8 @@ class MainActivity : AppCompatActivity() {
         hideKeyPad(edt_input)
         progress?.show()
 
-        val repository: MovieRepositoryImpl = MovieRepositoryImpl()
-        repository.getMovieList(
+        repository = repository ?: MovieRepositoryImpl()
+        repository?.getMovieList(
             keyword,
             onSuccess = { vo ->
                 val res = vo ?: return@getMovieList
