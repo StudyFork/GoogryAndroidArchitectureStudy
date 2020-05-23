@@ -15,8 +15,8 @@ open class Event<out VALUE>(private val content: VALUE) {
     fun getValueSingleData(): VALUE? {
         return if (_isPending) {
             null
-        }
-        else {
+        } else {
+            _isPending = true
             content
         }
     }
