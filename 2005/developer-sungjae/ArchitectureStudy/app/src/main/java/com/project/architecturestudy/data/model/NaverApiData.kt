@@ -9,5 +9,5 @@ data class NaverApiData(
     val total: Int,
     val start: Int,
     val display: Int,
-    val movieItems: List<MovieItem>
+    val items: List<MovieItem>
 ): Parcelable

@@ -3,7 +3,6 @@ package com.project.architecturestudy.data.source.remote
 import com.project.architecturestudy.components.Service
 import com.project.architecturestudy.data.model.NaverApiData
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
@@ -19,7 +18,6 @@ class NaverMovieRemoteDataSourceImpl : NaverMovieRemoteDataSource {
     ) {
         Success.invoke(
             service.getMovies(keyWord)
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
         )
     }

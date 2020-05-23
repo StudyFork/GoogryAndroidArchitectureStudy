@@ -7,7 +7,6 @@ import com.project.architecturestudy.data.model.NaverApiData
 import com.project.architecturestudy.data.source.local.room.MovieLocalItem
 import com.project.architecturestudy.data.source.local.room.MovieRoomDataBase
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
@@ -19,17 +18,14 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
 
     override fun saveMovieList(data: Single<NaverApiData>) {
 
-
         disposable.add(data.doOnSubscribe {
             roomDataBase?.getMovieDao()?.deleteAll()
-            Log.d("bsjbsj", "doOnSubscribe")
 
         }
             .subscribeOn(Schedulers.io())
             .subscribe({
-                Log.d("bsjbsj", "subscribe")
-
-                for (item in it.movieItems.iterator()) {
+                for (item in it.items) {
+                    Log.d("bsjbsj", "RoomDataBase Subscribe Item:$item\n")
                     val localData = MovieLocalItem().apply {
 
                         this.title = item.title
@@ -47,7 +43,7 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
                 }
             },
                 {
-                    Log.d("bsjbsj", "RoomDatabase Save Failure")
+                    Log.d("bsjbsj", "RoomDatabase Save Failure:$it")
                 })
         )
     }
@@ -58,11 +54,11 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
         Failure: (t: Throwable) -> Unit
     ) {
         roomDataBase?.getMovieDao()?.getMovieList()
-            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribeOn(Schedulers.io())
             ?.subscribe({
-                if (it.count() > 0) {
+                if (it.isNullOrEmpty()) {
                     val movieList = ArrayList<MovieItem>()
-                    for (localItem in it.iterator()) {
+                    for (localItem in it) {
                         val item = MovieItem().apply {
 
                             this.title = localItem.title
