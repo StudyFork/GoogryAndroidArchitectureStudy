@@ -11,7 +11,6 @@ interface NaverMovieRemoteDataSource {
     val disposable: CompositeDisposable
     fun getMovieList(
         keyWord: String,
-        Success: (Single<NaverApiData>) -> Unit,
-        Failure: (t: Throwable) -> Unit
+        onGetRemoteData: (Single<NaverApiData>) -> Unit
     )
 }

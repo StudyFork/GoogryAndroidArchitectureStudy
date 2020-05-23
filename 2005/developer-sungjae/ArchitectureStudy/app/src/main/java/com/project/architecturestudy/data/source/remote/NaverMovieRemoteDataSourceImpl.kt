@@ -12,9 +12,8 @@ class NaverMovieRemoteDataSourceImpl : NaverMovieRemoteDataSource {
 
     override fun getMovieList(
         keyWord: String,
-        Success: (Single<NaverApiData>) -> Unit,
-        Failure: (t: Throwable) -> Unit
+        onGetRemoteData: (Single<NaverApiData>) -> Unit
     ) {
-        Success.invoke(service.getMovies(keyWord))
+        onGetRemoteData.invoke(service.getMovies(keyWord))
     }
 }
