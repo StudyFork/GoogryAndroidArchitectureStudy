@@ -62,7 +62,7 @@ class MainViewModel(
                     _isLoading.event = true
                     hideKeyBoard()
                 }
-                .doOnTerminate { _isLoading.event = false }
+                .doAfterTerminate { _isLoading.event = false }
                 .subscribe { items: List<Item>, _ ->
                     items.takeIf { list -> list.isNotEmpty() }
                         ?.run {
