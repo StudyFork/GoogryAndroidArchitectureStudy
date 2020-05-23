@@ -70,10 +70,10 @@ class MainActivity : AppCompatActivity() {
     private fun setRecyclerView() {
         listview_movie.adapter = adapter
         naverMovieRepositoryImpl.getCashedMovieList(
-            Success = {
+            onSuccess = {
                 adapter.setLocalMovieData(it)
             },
-            Failure = {
+            onFailure = {
                 Log.d("bsjbsj", "Throwable:$it")
             })
 

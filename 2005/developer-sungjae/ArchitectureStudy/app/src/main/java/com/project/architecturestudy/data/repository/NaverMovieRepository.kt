@@ -11,7 +11,7 @@ interface NaverMovieRepository {
         onGetRemoteData: (Single<NaverApiData>) -> Unit
     )
 
-    fun getCashedMovieList(Success: (ArrayList<MovieItem>) -> Unit, Failure: (t: Throwable) -> Unit)
+    fun getCashedMovieList(onSuccess: (ArrayList<MovieItem>) -> Unit, onFailure: (t: Throwable) -> Unit)
     fun dispose()
 
 }

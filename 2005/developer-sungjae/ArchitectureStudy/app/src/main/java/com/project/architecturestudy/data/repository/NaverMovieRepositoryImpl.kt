@@ -12,10 +12,10 @@ class NaverMovieRepositoryImpl(
 ) : NaverMovieRepository {
 
     override fun getCashedMovieList(
-        Success: (ArrayList<MovieItem>) -> Unit,
-        Failure: (t: Throwable) -> Unit
+        onSuccess: (ArrayList<MovieItem>) -> Unit,
+        onFailure: (t: Throwable) -> Unit
     ) {
-        naverMovieLocalDataSource.getMovieList(Success, Failure)
+        naverMovieLocalDataSource.getMovieList(onSuccess, onFailure)
     }
 
     override fun getMovieList(
