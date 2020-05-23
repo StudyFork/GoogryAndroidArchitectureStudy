@@ -20,18 +20,17 @@ class NaverMovieRepositoryImpl(
 
     override fun getMovieList(
         keyWord: String,
-        Success: (Single<NaverApiData>) -> Unit,
-        Failure: (t: Throwable) -> Unit
+        onSuccess: (Single<NaverApiData>) -> Unit,
+        onFailure: (t: Throwable) -> Unit
     ) {
         naverMovieRemoteDataSource.getMovieList(keyWord,
-            Success = {
-                Success.invoke(it)
+            onGetRemoteData = {
+                onSuccess.invoke(it)
                 naverMovieLocalDataSource.saveMovieList(it)
 
-            },
-            Failure = {
-                Failure.invoke(it)
             }
+
+
         )
     }
 

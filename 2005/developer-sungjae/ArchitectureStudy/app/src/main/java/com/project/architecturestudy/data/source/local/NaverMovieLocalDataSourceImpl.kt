@@ -50,8 +50,8 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
 
 
     override fun getMovieList(
-        Success: (ArrayList<MovieItem>) -> Unit,
-        Failure: (t: Throwable) -> Unit
+        onSuccess: (ArrayList<MovieItem>) -> Unit,
+        onFailure: (t: Throwable) -> Unit
     ) {
         roomDataBase.getMovieDao().getMovieList()
             .subscribeOn(Schedulers.io())
@@ -74,13 +74,13 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
 
                         movieList.add(item)
                     }
-                    Success.invoke(movieList)
+                    onSuccess.invoke(movieList)
                 } else {
                     Log.d("bsjbsj", "RoomDatabase has no Data")
                 }
             },
                 {
-                    Failure.invoke(it)
+                    onFailure.invoke(it)
                     Log.d("bsjbsj", "RoomDatabase GetData Failure")
                 })?.let {
                 disposable.add(it)

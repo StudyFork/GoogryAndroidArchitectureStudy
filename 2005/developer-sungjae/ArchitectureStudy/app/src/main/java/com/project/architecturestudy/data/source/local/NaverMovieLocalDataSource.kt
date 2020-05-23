@@ -10,7 +10,7 @@ interface NaverMovieLocalDataSource {
 
     val disposable: CompositeDisposable
     val roomDataBase: MovieRoomDataBase
-    fun getMovieList(Success: (ArrayList<MovieItem>) -> Unit, Failure: (t: Throwable) -> Unit)
+    fun getMovieList(onSuccess: (ArrayList<MovieItem>) -> Unit, onFailure: (t: Throwable) -> Unit)
     fun saveMovieList(data: Single<NaverApiData>)
     fun dispose()
 }

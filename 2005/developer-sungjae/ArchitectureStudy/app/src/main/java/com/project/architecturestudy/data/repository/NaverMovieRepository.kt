@@ -8,8 +8,8 @@ interface NaverMovieRepository {
 
     fun getMovieList(
         keyWord: String,
-        Success: (Single<NaverApiData>) -> Unit,
-        Failure: (t: Throwable) -> Unit
+        onSuccess: (Single<NaverApiData>) -> Unit,
+        onFailure: (t: Throwable) -> Unit
     )
 
     fun getCashedMovieList(Success: (ArrayList<MovieItem>) -> Unit, Failure: (t: Throwable) -> Unit)
