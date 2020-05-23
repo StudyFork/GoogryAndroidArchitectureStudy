@@ -4,13 +4,13 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import io.reactivex.Flowable
+import io.reactivex.Observable
 
 @Dao
 interface MovieItemDao {
 
     @Query("SELECT * FROM movielist")
-    fun getMovieList(): Flowable<List<MovieLocalItem>>
+    fun getMovieList(): Observable<List<MovieLocalItem>>
 
     /* import android.arch.persistence.room.OnConflictStrategy.REPLACE */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
