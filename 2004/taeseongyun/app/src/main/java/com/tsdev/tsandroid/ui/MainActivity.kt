@@ -1,5 +1,6 @@
 package com.tsdev.tsandroid.ui
 
+import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import android.view.inputmethod.InputMethod
@@ -69,7 +70,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return  MainViewModel(
                     naverRepository,
-                    ResourceProviderImpl(this@MainActivity),
+                    ResourceProviderImpl(this@MainActivity.applicationContext),
                     ObserverProviderImpl()
                 ) as T
             }
