@@ -1,6 +1,6 @@
 package com.project.architecturestudy.data.source.remote
 
-import com.project.architecturestudy.components.Service
+import com.project.architecturestudy.components.Retrofit
 import com.project.architecturestudy.data.model.NaverApiData
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -8,7 +8,7 @@ import io.reactivex.schedulers.Schedulers
 
 class NaverMovieRemoteDataSourceImpl : NaverMovieRemoteDataSource {
 
-    override val service = Service.create()
+    override val service = Retrofit.service
     override val disposable = CompositeDisposable()
 
     override fun getMovieList(
