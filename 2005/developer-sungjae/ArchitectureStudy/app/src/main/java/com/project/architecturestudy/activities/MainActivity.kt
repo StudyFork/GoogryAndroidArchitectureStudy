@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             naverMovieRepositoryImpl.getMovieList(et_search.text.toString(),
-                Success = { single ->
+                onGetRemoteData = { single ->
                     single.observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.io())
                         .subscribe(
@@ -57,10 +57,6 @@ class MainActivity : AppCompatActivity() {
                                 Log.d("bsjbsj", t.toString())
                             })
 
-                },
-                Failure = {
-                    Log.d("bsjbsj", "Throwable:$it")
-                    toast(getString(R.string.get_data_failure))
                 })
         }
 
