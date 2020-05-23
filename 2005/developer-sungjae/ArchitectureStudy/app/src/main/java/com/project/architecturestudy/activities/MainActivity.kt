@@ -11,6 +11,7 @@ import com.project.architecturestudy.data.repository.NaverMovieRepositoryImpl
 import com.project.architecturestudy.data.source.local.NaverMovieLocalDataSourceImpl
 import com.project.architecturestudy.data.source.local.room.MovieRoomDataBase
 import com.project.architecturestudy.data.source.remote.NaverMovieRemoteDataSourceImpl
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 
@@ -29,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         setRecyclerView()
         setOnClick()
 
@@ -44,16 +44,17 @@ class MainActivity : AppCompatActivity() {
 
             naverMovieRepositoryImpl.getMovieList(et_search.text.toString(),
                 Success = { single ->
+                    single.observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                            {
 
-                    single.subscribe({
-                        adapter.setRemoteMovieData(it.movieItems)
-                        toast(getString(R.string.get_data_success))
+                                adapter.setRemoteMovieData(it.items)
+                                toast(getString(R.string.get_data_success))
+                            }, { t ->
 
-                    }, { t ->
-
-                        toast(getString(R.string.get_data_failure))
-                        Log.d("bsjbsj", t.toString())
-                    })
+                                toast(getString(R.string.get_data_failure))
+                                Log.d("bsjbsj", t.toString())
+                            })
 
                 },
                 Failure = {
@@ -82,7 +83,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        MovieRoomDataBase.destroyInstance()
         naverMovieRepositoryImpl.dispose()
         super.onDestroy()
     }
