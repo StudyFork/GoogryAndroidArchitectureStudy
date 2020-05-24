@@ -10,6 +10,7 @@ interface Contractor {
          * 토스트 메시지 출력
          */
         fun showToast(msg: String)
+        fun showToast(resId: Int)
 
         /**
          * 프로그레스 보여주기.

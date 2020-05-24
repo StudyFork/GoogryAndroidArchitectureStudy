@@ -1,15 +1,13 @@
 package r.test.rapp.main
 
-import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main.*
-import r.test.rapp.data.model.Item
+import android.text.TextUtils
+import r.test.rapp.R
 import r.test.rapp.data.repository.MovieRepository
 import r.test.rapp.data.repository.MovieRepositoryImpl
 
 class PresenterImpl : Contractor.Presenter {
 
     private var repository: MovieRepository = MovieRepositoryImpl()
-
 
     private var view: Contractor.View? = null;
 
@@ -18,6 +16,12 @@ class PresenterImpl : Contractor.Presenter {
     }
 
     override fun searchData(keyword: String) {
+
+        if (TextUtils.isEmpty(keyword)) {
+            view?.showToast(R.string.enter_keyword)
+            return
+        }
+
         repository = repository ?: MovieRepositoryImpl()
         repository?.getMovieList(
             keyword,

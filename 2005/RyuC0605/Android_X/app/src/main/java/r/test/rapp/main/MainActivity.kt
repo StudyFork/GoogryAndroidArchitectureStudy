@@ -25,17 +25,25 @@ import r.test.rapp.data.repository.MovieRepository
 import r.test.rapp.data.repository.MovieRepositoryImpl
 import r.test.rapp.networks.ImageLoader
 
-class MainActivity : AppCompatActivity() {
+@Suppress("DEPRECATION")
+class MainActivity : AppCompatActivity(), Contractor.View {
 
     private var progress: ProgressDialog? = null
-    private var repository: MovieRepository? = null
-
+    private var presenter: Contractor.Presenter = PresenterImpl()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initView()
+
+        presenter.setView(this)
+        showKeyPad()
+    }
+
+    private fun initView() {
         progress = ProgressDialog(this)
         lv_contents.emptyView = txt_empty
+
         edt_input.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 onClick(v)
@@ -56,27 +64,7 @@ class MainActivity : AppCompatActivity() {
                         }
 
                 startActivity(webIntent)
-
             }
-
-        showKeyPad(edt_input)
-    }
-
-    /**
-     * 키패드 숨기기
-     */
-    private fun hideKeyPad(v: View) {
-        val imm: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(v.windowToken, 0)
-
-    }
-
-    /**
-     * 키패드 보여주기.
-     */
-    private fun showKeyPad(v: EditText) {
-        v.requestFocus()
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }
 
     /**
@@ -84,79 +72,41 @@ class MainActivity : AppCompatActivity() {
      */
     fun onClick(view: View) {
         val keyword: String = edt_input.text.toString().trim()
-
-        if (TextUtils.isEmpty(keyword)) {
-            Toast.makeText(this@MainActivity, R.string.enter_keyword, Toast.LENGTH_LONG).show()
-            return
-        }
-
-        hideKeyPad(edt_input)
-        progress?.show()
-
-        repository = repository ?: MovieRepositoryImpl()
-        repository?.getMovieList(
-            keyword,
-            onSuccess = { vo ->
-                val res = vo ?: return@getMovieList
-                val adt = lv_contents.adapter as MovieAdapter
-                val movieList = adt.getMovieList();
-                movieList.clear()
-                movieList.addAll(res.items)
-                adt.notifyDataSetChanged()
-
-                progress?.hide()
-            },
-            onFail = { f ->
-                Toast.makeText(this@MainActivity, f.toString(), Toast.LENGTH_LONG).show()
-                progress?.hide()
-            });
+        presenter.searchData(keyword)
+        hideKeyPad()
     }
 
-    /**
-     * 리스트 뷰의 커스텀 아답터.
-     */
-    class MovieAdapter : BaseAdapter() {
-        private val movieList: ArrayList<Item> = ArrayList()
-        private val imgLoader : ImageLoader = ImageLoader()
+    override fun showToast(msg: String) {
+        Toast.makeText(this@MainActivity, msg, Toast.LENGTH_LONG).show()
+    }
 
-        override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-            val inflater: LayoutInflater = LayoutInflater.from(parent?.context)
-            val rowView: View = convertView ?: inflater.inflate(R.layout.row_content, parent, false)
+    override fun showToast(resId: Int) {
+        showToast(getString(resId))
+    }
 
-            val holder = (convertView?.tag as? ViewHolder)
-                ?: run {
-                    ViewHolder(rowView)
-                        .also { rowView.tag = it }
-                }
+    override fun showProgress() {
+        progress?.show()
+    }
 
-            val item = movieList[position]
+    override fun hideProgress() {
+        progress?.hide()
+    }
 
-            holder.txtTitle.text = item.getHtmlTitle()
-            imgLoader.load(item.image, holder.ivThumbnail)
+    override fun hideKeyPad() {
+        val imm: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(edt_input.windowToken, 0)
+    }
 
-            return rowView
-        }
+    override fun showKeyPad() {
+        edt_input.requestFocus()
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+    }
 
-        fun getMovieList() : ArrayList<Item>{
-            return movieList
-        }
-
-        private class ViewHolder(view: View) {
-            val txtTitle: TextView = view.txt_title
-            val ivThumbnail: ImageView = view.iv_thumbnail
-
-        }
-
-        override fun getItem(position: Int): Item {
-            return movieList[position]
-        }
-
-        override fun getItemId(position: Int): Long {
-            return position.toLong()
-        }
-
-        override fun getCount(): Int {
-            return movieList.size
-        }
+    override fun refreshListView(items: List<Item>) {
+        val adt = lv_contents.adapter as MovieAdapter
+        val movieList = adt.getMovieList();
+        movieList.clear()
+        movieList.addAll(items)
+        adt.notifyDataSetChanged()
     }
 }
