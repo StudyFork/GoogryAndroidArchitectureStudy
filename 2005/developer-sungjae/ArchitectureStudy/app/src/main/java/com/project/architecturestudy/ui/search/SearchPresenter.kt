@@ -1,7 +1,5 @@
 package com.project.architecturestudy.ui.search
 
-import android.content.Intent
-import android.net.Uri
 import android.util.Log
 import com.project.architecturestudy.data.repository.NaverMovieRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -11,8 +9,6 @@ class SearchPresenter(
     private val view: SearchContract.View,
     private val naverMovieRepository: NaverMovieRepository
 ) : SearchContract.Presenter {
-
-    override val adapter = SearchAdapter()
 
     override fun validateSearchWord(searchWord: String) {
         when (searchWord.isNotEmpty()) {
@@ -26,7 +22,8 @@ class SearchPresenter(
     override fun getMovieListFromLocal() {
         naverMovieRepository.getCashedMovieList(
             onSuccess = {
-                adapter.setLocalMovieData(it)
+                Log.d("bsjbsj", "getLocalData:$it")
+                view.setLocalMovieData(it)
             },
             onFailure = {
                 Log.d("bsjbsj", "Throwable:$it")
@@ -40,8 +37,8 @@ class SearchPresenter(
                     .subscribeOn(Schedulers.io())
                     .subscribe(
                         {
-
-                            adapter.setRemoteMovieData(it.items)
+                            Log.d("bsjbsj", "getRemoteData:$it")
+                            view.setRemoteMovieData(it.items)
                             view.showRemoteDataSuccess()
                         }, { t ->
 
@@ -50,13 +47,6 @@ class SearchPresenter(
                         })
 
             })
-    }
-
-    override fun setItemClickListener() {
-        adapter.onClick = { item ->
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
-            view.moveWebMovieDetailPage(intent)
-        }
     }
 
     override fun remoteDispose() {

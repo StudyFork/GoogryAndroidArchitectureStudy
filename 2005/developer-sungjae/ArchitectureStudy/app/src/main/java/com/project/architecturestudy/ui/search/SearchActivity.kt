@@ -1,9 +1,11 @@
 package com.project.architecturestudy.ui.search
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.project.architecturestudy.R
+import com.project.architecturestudy.data.model.MovieItem
 import com.project.architecturestudy.data.repository.NaverMovieRepositoryImpl
 import com.project.architecturestudy.data.source.local.NaverMovieLocalDataSourceImpl
 import com.project.architecturestudy.data.source.remote.NaverMovieRemoteDataSourceImpl
@@ -26,6 +28,7 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
 
         setRecyclerView()
         setOnClick()
+        presenter.getMovieListFromLocal()
 
     }
 
@@ -36,14 +39,23 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
 
         }
 
-    }
+        adapter.onClick = { item ->
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
+            startActivity(intent)
+        }
 
-    override fun moveWebMovieDetailPage(intent: Intent) {
-        startActivity(intent)
     }
 
     private fun setRecyclerView() {
         listview_movie.adapter = adapter
+    }
+
+    override fun setLocalMovieData(item: ArrayList<MovieItem>) {
+        adapter.setLocalMovieData(item)
+    }
+
+    override fun setRemoteMovieData(item: List<MovieItem>) {
+        adapter.setRemoteMovieData(item)
     }
 
 
