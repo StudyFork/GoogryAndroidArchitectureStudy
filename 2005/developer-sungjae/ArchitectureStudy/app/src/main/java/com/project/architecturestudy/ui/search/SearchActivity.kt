@@ -1,7 +1,6 @@
 package com.project.architecturestudy.ui.search
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.project.architecturestudy.R
@@ -37,16 +36,16 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
 
         }
 
-        adapter.onClick = { item ->
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
-            startActivity(intent)
-        }
+    }
 
+    override fun moveWebMovieDetailPage(intent: Intent) {
+        startActivity(intent)
     }
 
     private fun setRecyclerView() {
         listview_movie.adapter = adapter
     }
+
 
     override fun showSearchWordIsEmpty() {
         toast(getString(R.string.please_write))
