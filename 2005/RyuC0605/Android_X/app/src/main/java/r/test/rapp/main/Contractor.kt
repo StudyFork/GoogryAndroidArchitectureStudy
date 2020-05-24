@@ -31,12 +31,17 @@ interface Contractor {
          */
         fun showKeyPad()
 
+        /**
+         * 리스트뷰 갱신
+         */
+        fun refreshListView(items: List<Item>)
+
     }
 
     interface Presenter {
 
         fun setView(v: View)
-        fun refreshData(items: List<Item>)
+        fun searchData(keyword: String)
 
     }
 }
