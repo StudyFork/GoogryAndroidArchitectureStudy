@@ -1,4 +1,4 @@
-package r.test.rapp
+package r.test.rapp.main
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_main_top.*
 import kotlinx.android.synthetic.main.row_content.view.*
+import r.test.rapp.R
 import r.test.rapp.data.model.Item
 import r.test.rapp.data.repository.MovieRepository
 import r.test.rapp.data.repository.MovieRepositoryImpl
@@ -124,7 +125,8 @@ class MainActivity : AppCompatActivity() {
 
             val holder = (convertView?.tag as? ViewHolder)
                 ?: run {
-                    ViewHolder(rowView).also { rowView.tag = it }
+                    ViewHolder(rowView)
+                        .also { rowView.tag = it }
                 }
 
             val item = movieList[position]
