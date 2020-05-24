@@ -24,10 +24,5 @@ abstract class MoviesDB : RoomDatabase(){
             }
             return instance
         }
-
-
-    }
-    fun detroyInstance(){
-        instance = null
     }
 }

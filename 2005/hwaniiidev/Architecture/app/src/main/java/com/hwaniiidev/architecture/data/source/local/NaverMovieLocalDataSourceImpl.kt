@@ -37,7 +37,6 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
                     moviesDB?.moviesDao()?.insert(movies = it)
                 }
             }
-            moviesDB?.detroyInstance()
         }
         val addThread = Thread(addMovies)
         addThread.start()
