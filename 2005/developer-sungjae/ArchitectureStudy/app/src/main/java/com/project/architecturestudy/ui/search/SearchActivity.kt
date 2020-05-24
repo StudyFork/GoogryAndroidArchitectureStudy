@@ -1,4 +1,4 @@
-package com.project.architecturestudy.activities
+package com.project.architecturestudy.ui.search
 
 import android.content.Intent
 import android.net.Uri
@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.project.architecturestudy.R
-import com.project.architecturestudy.adapters.SearchAdapter
 import com.project.architecturestudy.data.repository.NaverMovieRepositoryImpl
 import com.project.architecturestudy.data.source.local.NaverMovieLocalDataSourceImpl
 import com.project.architecturestudy.data.source.remote.NaverMovieRemoteDataSourceImpl

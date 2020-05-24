@@ -1,4 +1,4 @@
-package com.project.architecturestudy.adapters
+package com.project.architecturestudy.ui.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
