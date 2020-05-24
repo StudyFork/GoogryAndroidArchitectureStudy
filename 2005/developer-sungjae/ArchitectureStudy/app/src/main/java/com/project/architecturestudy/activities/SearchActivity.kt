@@ -12,10 +12,10 @@ import com.project.architecturestudy.data.source.local.NaverMovieLocalDataSource
 import com.project.architecturestudy.data.source.remote.NaverMovieRemoteDataSourceImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_search.*
 import org.jetbrains.anko.toast
 
-class MainActivity : AppCompatActivity() {
+class SearchActivity : AppCompatActivity() {
 
     private val adapter: SearchAdapter = SearchAdapter()
 
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_search)
 
         setRecyclerView()
         setOnClick()
