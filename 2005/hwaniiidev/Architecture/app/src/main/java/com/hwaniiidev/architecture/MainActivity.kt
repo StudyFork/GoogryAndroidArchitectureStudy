@@ -49,12 +49,14 @@ class MainActivity : AppCompatActivity() {
                             updateList(response.items)
                             text_plz_search.visibility = View.GONE
 
-                            //Local DB에 저장
-                            if (!this.isFinishing && !this.isDestroyed)
+                            /*//Local DB에 저장
+                            if (!this.isFinishing && !this.isDestroyed){
                                 naverMovieRepositoryImpl.cachingMovies(
                                     query = response.query,
                                     movies = response.items
                                 )
+                            }*/
+
                         }
                     },
                     onError = { errorMessage ->

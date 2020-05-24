@@ -18,10 +18,13 @@ class NaverMovieRepositoryImpl(context: Context) : NaverMovieRepository {
         onFailure: (t: Throwable) -> Unit
     ) {
         naverMovieRemoteSource.getRemoteMovies(
-            query,
-            onSuccess,
-            onError,
-            onFailure
+            query = query,
+            onSuccess = {response ->
+                //local DB에 저장
+                cachingMovies(query,response.items)
+            },
+            onError = onError,
+            onFailure = onFailure
         )
     }
 
@@ -31,5 +34,4 @@ class NaverMovieRepositoryImpl(context: Context) : NaverMovieRepository {
             movies
         )
     }
-
 }
