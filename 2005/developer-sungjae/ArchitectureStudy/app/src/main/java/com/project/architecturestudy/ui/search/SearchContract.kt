@@ -4,17 +4,20 @@ interface SearchContract {
 
     interface View {
 
-        fun showSearchWordIsEmpty(emptyMsg: String)
-        fun showLocalDataSuccess(successMsg: String)
-        fun showLocalDataFailure(failureMsg: String)
-        fun showRemoteDataSuccess(successMsg: String)
-        fun showRemoteDataFailure(failureMsg: String)
+        fun showSearchWordIsEmpty()
+        fun showLocalDataSuccess()
+        fun showLocalDataFailure()
+        fun showRemoteDataSuccess()
+        fun showRemoteDataFailure()
     }
 
     interface Presenter {
 
+        val adapter: SearchAdapter
         fun validateSearchWord(searchWord: String)
         fun getMovieListFromLocal()
-        fun getMovieListFromRemote()
+        fun getMovieListFromRemote(searchWord: String)
+        fun remoteDispose()
+
     }
 }
