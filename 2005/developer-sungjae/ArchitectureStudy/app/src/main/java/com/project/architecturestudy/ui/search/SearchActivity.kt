@@ -14,15 +14,21 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_search.*
 import org.jetbrains.anko.toast
 
-class SearchActivity : AppCompatActivity() {
+class SearchActivity : AppCompatActivity(), SearchContract.View {
 
     private val adapter: SearchAdapter = SearchAdapter()
+    private val presenter by lazy {
+        val naverMovieLocalDataSource = NaverMovieLocalDataSourceImpl(this)
+        val naverMovieRemoteDataSource = NaverMovieRemoteDataSourceImpl()
+
+        SearchPresenter(this, NaverMovieRepositoryImpl(naverMovieLocalDataSource, naverMovieRemoteDataSource))
+    }
 
     private val naverMovieRepositoryImpl by lazy {
+
         val naverMovieLocalDataSource = NaverMovieLocalDataSourceImpl(this)
         val naverMovieRemoteDataSource = NaverMovieRemoteDataSourceImpl()
         NaverMovieRepositoryImpl(naverMovieLocalDataSource, naverMovieRemoteDataSource)
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,12 +42,14 @@ class SearchActivity : AppCompatActivity() {
 
     private fun setOnClick() {
         btn_search.setOnClickListener {
-            if (et_search.text.toString().isEmpty()) {
+            val searchText = et_search.text.toString()
+
+            if (searchText.isEmpty()) {
                 toast(getString(R.string.please_write))
                 return@setOnClickListener
             }
 
-            naverMovieRepositoryImpl.getMovieList(et_search.text.toString(),
+            naverMovieRepositoryImpl.getMovieList(searchText,
                 onGetRemoteData = { single ->
                     single.observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.io())
@@ -81,5 +89,25 @@ class SearchActivity : AppCompatActivity() {
     override fun onDestroy() {
         naverMovieRepositoryImpl.dispose()
         super.onDestroy()
+    }
+
+    override fun showSearchWordIsEmpty(emptyMsg: String) {
+        toast(emptyMsg)
+    }
+
+    override fun showLocalDataSuccess(successMsg: String) {
+        toast(successMsg)
+    }
+
+    override fun showLocalDataFailure(failureMsg: String) {
+        toast(failureMsg)
+    }
+
+    override fun showRemoteDataSuccess(successMsg: String) {
+        toast(successMsg)
+    }
+
+    override fun showRemoteDataFailure(failureMsg: String) {
+        toast(failureMsg)
     }
 }
