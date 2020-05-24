@@ -1,6 +1,5 @@
 package com.project.architecturestudy.activities
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -8,53 +7,80 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.project.architecturestudy.R
 import com.project.architecturestudy.adapters.SearchAdapter
-import com.project.architecturestudy.components.RetrofitService
-import com.project.architecturestudy.models.MovieData
+import com.project.architecturestudy.data.repository.NaverMovieRepositoryImpl
+import com.project.architecturestudy.data.source.local.NaverMovieLocalDataSourceImpl
+import com.project.architecturestudy.data.source.remote.NaverMovieRemoteDataSourceImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity() {
 
-    private var adapter: SearchAdapter? = null
+    private val adapter: SearchAdapter = SearchAdapter()
+
+    private val naverMovieRepositoryImpl by lazy {
+        val naverMovieLocalDataSource = NaverMovieLocalDataSourceImpl(this)
+        val naverMovieRemoteDataSource = NaverMovieRemoteDataSourceImpl()
+        NaverMovieRepositoryImpl(naverMovieLocalDataSource, naverMovieRemoteDataSource)
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setRecyclerView()
+        setOnClick()
+
+    }
+
+    private fun setOnClick() {
         btn_search.setOnClickListener {
             if (et_search.text.toString().isEmpty()) {
+                toast(getString(R.string.please_write))
                 return@setOnClickListener
             }
 
-            doSearch(et_search.text.toString())
-        }
-        setRecyclerView()
-    }
+            naverMovieRepositoryImpl.getMovieList(et_search.text.toString(),
+                onGetRemoteData = { single ->
+                    single.observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io())
+                        .subscribe(
+                            {
 
-    @SuppressLint("CheckResult")
-    fun doSearch(keyWord: String) {
-        val service = RetrofitService.create()
-        service.getMovies(keyWord)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({ movie ->
-                adapter?.resetData(movie.items)
-            },
-                { error ->
-                    Log.d("error", error.toString())
+                                adapter.setRemoteMovieData(it.items)
+                                toast(getString(R.string.get_data_success))
+                            }, { t ->
+
+                                toast(getString(R.string.get_data_failure))
+                                Log.d("bsjbsj", t.toString())
+                            })
+
                 })
-    }
+        }
 
-    private fun setRecyclerView() {
-        adapter = SearchAdapter()
-        listview_movie.adapter = adapter
-
-        adapter?.onClick = { item: MovieData.Items ->
+        adapter.onClick = { item ->
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
             startActivity(intent)
         }
 
+    }
 
+    private fun setRecyclerView() {
+        listview_movie.adapter = adapter
+        naverMovieRepositoryImpl.getCashedMovieList(
+            onSuccess = {
+                adapter.setLocalMovieData(it)
+            },
+            onFailure = {
+                Log.d("bsjbsj", "Throwable:$it")
+            })
+
+    }
+
+    override fun onDestroy() {
+        naverMovieRepositoryImpl.dispose()
+        super.onDestroy()
     }
 }
