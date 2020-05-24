@@ -13,10 +13,10 @@ class SearchPresenter(
     override val adapter = SearchAdapter()
 
     override fun validateSearchWord(searchWord: String) {
-        when (searchWord.isEmpty()) {
+        when (searchWord.isNotEmpty()) {
 
-            true -> view.showSearchWordIsEmpty()
-            false -> getMovieListFromRemote(searchWord)
+            true -> getMovieListFromRemote(searchWord)
+            false -> view.showSearchWordIsEmpty()
         }
     }
 
