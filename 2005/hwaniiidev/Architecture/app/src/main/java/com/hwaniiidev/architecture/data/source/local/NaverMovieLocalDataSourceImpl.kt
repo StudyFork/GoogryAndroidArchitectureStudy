@@ -3,11 +3,12 @@ package com.hwaniiidev.architecture.data.source.local
 import android.content.Context
 import com.hwaniiidev.architecture.model.Item
 
-class NaverMovieLocalDataSourceImpl : NaverMovieLocalDataSource {
+class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSource {
+    private val mContext = context
     private var moviesDB: MoviesDB? = null
 
-    override fun cachingMovies(context: Context, query: String, movies: ArrayList<Item>) {
-        moviesDB = MoviesDB.getInstance(context)
+    override fun cachingMovies(query: String, movies: ArrayList<Item>) {
+        moviesDB = MoviesDB.getInstance(mContext)
 
         val addMovies = Runnable {
             val cachedMovies = moviesDB?.moviesDao()?.getCachedData(query)

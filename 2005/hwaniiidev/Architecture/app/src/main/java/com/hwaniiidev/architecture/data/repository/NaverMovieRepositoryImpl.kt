@@ -6,9 +6,10 @@ import com.hwaniiidev.architecture.data.source.remote.NaverMovieRemoteDataSource
 import com.hwaniiidev.architecture.model.Item
 import com.hwaniiidev.architecture.model.ResponseMovieSearchData
 
-class NaverMovieRepositoryImpl : NaverMovieRepository {
+class NaverMovieRepositoryImpl(context: Context) : NaverMovieRepository {
+    private val mContext = context
     private val naverMovieRemoteSource = NaverMovieRemoteDataSourceImpl()
-    private val naverMovieLocalDataSource = NaverMovieLocalDataSourceImpl()
+    private val naverMovieLocalDataSource = NaverMovieLocalDataSourceImpl(mContext)
     override fun getRemoteMovies(
         query: String,
         //onSuccess: (movies: ArrayList<Item>) -> Unit,
@@ -24,9 +25,8 @@ class NaverMovieRepositoryImpl : NaverMovieRepository {
         )
     }
 
-    override fun cachingMovies(context: Context, query: String, movies: ArrayList<Item>) {
+    override fun cachingMovies(query: String, movies: ArrayList<Item>) {
         naverMovieLocalDataSource.cachingMovies(
-            context,
             query,
             movies
         )

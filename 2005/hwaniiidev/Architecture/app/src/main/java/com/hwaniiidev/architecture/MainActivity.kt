@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var adapterMovieList: AdapterMovieList
 
-    private val naverMovieRepositoryImpl = NaverMovieRepositoryImpl()
+    private val naverMovieRepositoryImpl = NaverMovieRepositoryImpl(this)
 
     lateinit private var imm: InputMethodManager
 
@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity() {
                             //Local DB에 저장
                             if (!this.isFinishing && !this.isDestroyed)
                                 naverMovieRepositoryImpl.cachingMovies(
-                                    context = this,
                                     query = response.query,
                                     movies = response.items
                                 )

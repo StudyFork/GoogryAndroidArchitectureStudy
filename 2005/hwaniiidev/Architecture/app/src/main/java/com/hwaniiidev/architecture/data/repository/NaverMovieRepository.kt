@@ -14,7 +14,6 @@ interface NaverMovieRepository {
     )
 
     fun cachingMovies(
-        context: Context,
         query: String,
         movies: ArrayList<Item>
     )

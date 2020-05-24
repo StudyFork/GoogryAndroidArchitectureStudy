@@ -5,7 +5,6 @@ import com.hwaniiidev.architecture.model.Item
 
 interface NaverMovieLocalDataSource {
     fun cachingMovies(
-        context: Context,
         query: String,
         movies: ArrayList<Item>
     )
