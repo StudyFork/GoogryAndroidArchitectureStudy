@@ -66,6 +66,7 @@ class MainViewModel(
                         }
                         ?: run {
                             _oldMovieList.value = onClearList
+                            _movieList.value = null
                             showToastMessage(resourceProvider.getResultErrorString(R.string.non_search_result))
                         }
                 }
