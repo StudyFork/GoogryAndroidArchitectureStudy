@@ -9,12 +9,6 @@ import retrofit2.Response
 class NaverMovieRemoteDataSourceImpl : NaverMovieRemoteDataSource {
     private val api = ApiCall.api
 
-    companion object {
-        const private val clientId = "KXY8b7w9cuaFFHkDSGwS"
-        const private val clientPw = "HdI9WbTqtt"
-        const private val displayValue = 30
-    }
-
     override fun getRemoteMovies(
         query: String,
         //onSuccess: (movies: ArrayList<Item>) -> Unit,
@@ -44,5 +38,11 @@ class NaverMovieRemoteDataSourceImpl : NaverMovieRemoteDataSource {
                     onFailure(t)
                 }
             })
+    }
+
+    companion object {
+        const private val clientId = "KXY8b7w9cuaFFHkDSGwS"
+        const private val clientPw = "HdI9WbTqtt"
+        const private val displayValue = 30
     }
 }
