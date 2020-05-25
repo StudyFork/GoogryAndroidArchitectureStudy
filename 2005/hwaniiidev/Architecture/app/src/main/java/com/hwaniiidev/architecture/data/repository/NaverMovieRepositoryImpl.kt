@@ -10,6 +10,7 @@ class NaverMovieRepositoryImpl(context: Context) : NaverMovieRepository {
     private val mContext = context
     private val naverMovieRemoteSource = NaverMovieRemoteDataSourceImpl()
     private val naverMovieLocalDataSource = NaverMovieLocalDataSourceImpl(mContext)
+
     override fun getRemoteMovies(
         query: String,
         //onSuccess: (movies: ArrayList<Item>) -> Unit,
@@ -22,6 +23,7 @@ class NaverMovieRepositoryImpl(context: Context) : NaverMovieRepository {
             onSuccess = {response ->
                 //local DB에 저장
                 cachingMovies(query,response.items)
+                onSuccess(response)
             },
             onError = onError,
             onFailure = onFailure
