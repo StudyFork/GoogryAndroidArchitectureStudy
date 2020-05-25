@@ -9,29 +9,25 @@ import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sangjin.newproject.R
+import com.sangjin.newproject.data.model.Movie
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieListAdapter(clickListener : ((Int) -> Unit)) : RecyclerView.Adapter<MovieListViewHolder>() {
 
     private val movieList = ArrayList<Movie>()
-    private lateinit var context: Context
 
     private val onItemClickListener = clickListener
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieListViewHolder {
-        context = parent.context
 
         val item = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
 
-        val movieListViewHolder = MovieListViewHolder(item)
-
-        item.setOnClickListener {
-            var position = movieListViewHolder.adapterPosition
-            onItemClickListener(position)
+        return MovieListViewHolder(item).apply {
+            itemView.setOnClickListener {
+                onItemClickListener(adapterPosition)
+            }
         }
-
-        return movieListViewHolder
     }
 
     override fun onBindViewHolder(holder: MovieListViewHolder, position: Int) {
@@ -39,13 +35,12 @@ class MovieListAdapter(clickListener : ((Int) -> Unit)) : RecyclerView.Adapter<M
 
         holder.containerView.movieTitleTV.text = movie.title.htmlToString()
 
-        Glide.with(context)
+        Glide.with(holder.containerView.movieImageIV.context)
             .load(movie.image)
             .placeholder(R.drawable.img_default)
             .centerCrop()
             .into(holder.containerView.movieImageIV)
 
-        holder.containerView.tag = getItemId(position)
     }
 
     override fun getItemCount() = movieList.size

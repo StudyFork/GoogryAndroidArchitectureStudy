@@ -5,27 +5,35 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethod
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.sangjin.newproject.adapter.Movie
 import com.sangjin.newproject.adapter.MovieListAdapter
-import com.sangjin.newproject.adapter.ResponseData
+import com.sangjin.newproject.data.model.Movie
+import com.sangjin.newproject.data.repository.NaverMoviesRepositoryImpl
+import com.sangjin.newproject.data.source.local.LocalDataSourceImpl
+import com.sangjin.newproject.data.source.local.RoomDb
+import com.sangjin.newproject.data.source.remote.RemoteDataSourceImpl
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_movie_list.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MovieListActivity : AppCompatActivity() {
 
     private var movieList = ArrayList<Movie>()
     private lateinit var movieListAdapter: MovieListAdapter
+    private val naverMoviesRepositoryImpl by lazy {
+        NaverMoviesRepositoryImpl(
+            RemoteDataSourceImpl(),
+            LocalDataSourceImpl(RoomDb.getInstance(applicationContext))
+        )
+    }
+
+    private val disposables = CompositeDisposable()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,14 +41,15 @@ class MovieListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_list)
 
         setRecyclerView()
+        loadCache()
 
         movieNameET.setOnEditorActionListener { v, actionId, event ->
-            if(actionId == EditorInfo.IME_ACTION_SEARCH){
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
                 onClick(v)
 
                 true
-            }else{
+            } else {
                 false
             }
         }
@@ -50,9 +59,27 @@ class MovieListActivity : AppCompatActivity() {
     }
 
     /**
+     * 초기 화면으로 이전에 검색한 결과 보여주기
+     */
+    private fun loadCache() {
+        naverMoviesRepositoryImpl.loadCachedMovies()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                movieList.addAll(it)
+                movieListAdapter.addList(movieList)
+            },
+                {
+
+                }).let {
+                disposables.add(it)
+            }
+    }
+
+    /**
      * 키패드 보여주기
      */
-    private fun showKeyPad(){
+    private fun showKeyPad() {
         movieNameET.requestFocus()
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }
@@ -61,8 +88,9 @@ class MovieListActivity : AppCompatActivity() {
     /**
      * 키패드 숨기기
      */
-    private fun hideKeyPad(v: View){
-        val imm : InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    private fun hideKeyPad(v: View) {
+        val imm: InputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(v.windowToken, 0)
     }
 
@@ -74,9 +102,9 @@ class MovieListActivity : AppCompatActivity() {
 
         val keyWord = movieNameET.text.toString().trim()
 
-        if(TextUtils.isEmpty(keyWord)){
+        if (TextUtils.isEmpty(keyWord)) {
             Toast.makeText(this, R.string.no_keyword, Toast.LENGTH_LONG).show()
-        }else{
+        } else {
             getMovieList(keyWord)
             hideKeyPad(view)
         }
@@ -86,47 +114,52 @@ class MovieListActivity : AppCompatActivity() {
     /**
      * 검색 결과 받아서 출력
      */
-    private fun getMovieList(keyWord: String){
+    private fun getMovieList(keyWord: String) {
 
-        MovieApi.retrofitService.requestMovieList(keyword = keyWord)
-            .enqueue(object: Callback<ResponseData>{
-                override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
-                    val result = response.body()?.items
+        naverMoviesRepositoryImpl.getNaverMovies(keyWord)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { naverMovieResponse ->
+                    val movies = naverMovieResponse.items
 
-                    if (result.isNullOrEmpty()) {
+                    if (movies.isNullOrEmpty()) {
                         movieList.clear()
                         movieListAdapter.addList(movieList)
                         Toast.makeText(this@MovieListActivity, R.string.no_movie_list, Toast.LENGTH_SHORT).show()
-                    }
-                    else{
+                    } else {
                         movieList.clear()
-                        movieList.addAll(result)
+                        movieList.addAll(movies)
                         movieListAdapter.addList(movieList)
                     }
-                }
-
-                override fun onFailure(call: Call<ResponseData>, t: Throwable) {
-                }
-            })
+                },
+                { t ->
+                    Toast.makeText(this@MovieListActivity, t.toString(), Toast.LENGTH_SHORT).show()
+                })
+            .let {
+                disposables.add(it)
+            }
     }
 
 
     /**
      * 리사이클러뷰 셋팅
      */
-    private fun setRecyclerView(){
+    private fun setRecyclerView() {
 
         //각 항목 클릭시 이벤트 처리
-        val onItemClickListener: ((Int) -> Unit) = {position ->
+        val onItemClickListener: ((Int) -> Unit) = { position ->
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movieList.get(position).link))
             startActivity(intent)
         }
 
         movieListAdapter = MovieListAdapter(onItemClickListener)
         movieListView.adapter = movieListAdapter
-
-
     }
 
 
+    override fun onDestroy() {
+        disposables.clear()
+        super.onDestroy()
+    }
 }
