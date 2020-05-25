@@ -1,39 +1,39 @@
 package com.example.architecture.activity.search.adapter
 
 import android.view.View
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.architecture.R
 import com.example.architecture.data.model.MovieModel
-import com.example.architecture.util.ConstValue.Companion.NO_IMAGE_URL
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieHolder(view: View) : RecyclerView.ViewHolder(view), MovieHolderContract.View {
 
-    fun onBind(movie: MovieModel) {
-        itemView.tv_movie_title.text = removeMarkupTag(movie.title)
-        itemView.tv_movie_pubDate.text = movie.pubDate
+    private val movieHolderPresenter = MovieHolderPresenter(this)
 
-        itemView.ratingBar_movie_rating.rating = movie.userRating
-
-        setMovieImage(itemView.img_movie_Image, movie.image)
-
+    override fun onBind(movie: MovieModel) {
+        setMovieTitle(movie.title)
+        setMoviePubData(movie.pubDate)
+        setMovieRating(movie.userRating)
+        setMovieImage(movie.image)
     }
 
-    private fun removeMarkupTag(html: String): String {
-        return html.replace("<b>", "").replace("</b>", "")
+    override fun setMovieTitle(text: String) {
+        itemView.tv_movie_title.text = movieHolderPresenter.removeMarkupTag(text)
     }
 
-    private fun setMovieImage(imageView: ImageView, imageUrl: String) {
-        val url = if (imageUrl.isBlank()) {
-            NO_IMAGE_URL
-        } else {
-            imageUrl
-        }
-        Glide.with(imageView.context)
-            .load(url).placeholder(R.drawable.ic_loading_black_24dp)
-            .error(R.drawable.image_loaderror).centerCrop().into(imageView)
+    override fun setMoviePubData(text: String) {
+        itemView.tv_movie_pubDate.text = text
     }
 
+    override fun setMovieRating(rating: Float) {
+        itemView.ratingBar_movie_rating.rating = rating
+    }
+
+    override fun setMovieImage(imageUrl: String) {
+        Glide.with(itemView.context)
+            .load(movieHolderPresenter.checkImageUrl(imageUrl))
+            .placeholder(R.drawable.ic_loading_black_24dp)
+            .error(R.drawable.image_loaderror).centerCrop().into(itemView.img_movie_Image)
+    }
 }
