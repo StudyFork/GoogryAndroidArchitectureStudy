@@ -21,13 +21,13 @@ class PresenterImpl : Contractor.Presenter {
             view?.showToast(R.string.enter_keyword)
             return
         }
+        view?.showProgress()
 
         repository = repository ?: MovieRepositoryImpl()
         repository?.getMovieList(
             keyword,
             onSuccess = { vo ->
-                val res = vo ?: return@getMovieList
-                view?.refreshListView(res.items)
+                view?.refreshListView(vo.items)
                 view?.hideProgress()
             },
             onFail = { f ->

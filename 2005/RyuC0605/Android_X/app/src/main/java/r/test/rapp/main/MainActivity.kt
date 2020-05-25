@@ -3,27 +3,18 @@ package r.test.rapp.main
 import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Html
-import android.text.TextUtils
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
-import com.bumptech.glide.Glide
+import android.widget.AdapterView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_main_top.*
-import kotlinx.android.synthetic.main.row_content.view.*
 import r.test.rapp.R
 import r.test.rapp.data.model.Item
-import r.test.rapp.data.repository.MovieRepository
-import r.test.rapp.data.repository.MovieRepositoryImpl
-import r.test.rapp.networks.ImageLoader
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(), Contractor.View {
@@ -38,33 +29,6 @@ class MainActivity : AppCompatActivity(), Contractor.View {
 
         presenter.setView(this)
         showKeyPad()
-    }
-
-    private fun initView() {
-        progress = ProgressDialog(this)
-        lv_contents.emptyView = txt_empty
-
-        edt_input.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                onClick(v)
-                true
-            } else {
-                false
-            }
-        }
-
-        lv_contents.adapter = MovieAdapter()
-        lv_contents.onItemClickListener =
-            AdapterView.OnItemClickListener { parent, view, position, id ->
-
-                val webIntent: Intent =
-                    Uri.parse((lv_contents.adapter as MovieAdapter).getMovieList()[position].link)
-                        .let { link ->
-                            Intent(Intent.ACTION_VIEW, link)
-                        }
-
-                startActivity(webIntent)
-            }
     }
 
     /**
@@ -108,5 +72,34 @@ class MainActivity : AppCompatActivity(), Contractor.View {
         movieList.clear()
         movieList.addAll(items)
         adt.notifyDataSetChanged()
+    }
+
+    private fun initView() {
+        progress = ProgressDialog(this)
+        lv_contents.emptyView = txt_empty
+
+        edt_input.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                onClick(v)
+                true
+            } else {
+                false
+            }
+        }
+
+        lv_contents.adapter = MovieAdapter()
+        lv_contents.onItemClickListener = OnItemClickListenerImpl()
+    }
+
+    private class OnItemClickListenerImpl : AdapterView.OnItemClickListener {
+
+        private var adt: MovieAdapter? = null
+
+        override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+            adt = adt ?: parent.adapter as MovieAdapter
+
+            val uri: Uri = Uri.parse(adt?.getMovieList()!![position].link)
+            parent.context.startActivity(Intent(Intent.ACTION_VIEW, uri))
+        }
     }
 }
