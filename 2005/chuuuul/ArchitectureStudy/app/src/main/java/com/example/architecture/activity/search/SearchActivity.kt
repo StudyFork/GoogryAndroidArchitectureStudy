@@ -1,8 +1,9 @@
 package com.example.architecture.activity.search
 
 import android.os.Bundle
-import android.view.inputmethod.EditorInfo
+
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import com.example.architecture.R
 import com.example.architecture.activity.search.adapter.MovieAdapter
@@ -31,34 +32,27 @@ class SearchActivity : AppCompatActivity(R.layout.activity_search), SearchContra
     }
 
     private fun setViewEvent() {
-        // * Keyboard의 엔터로 검색 작업
-        edt_search_keyword.setOnEditorActionListener { _, actionId, _ ->
-            val keyword = edt_search_keyword.text.toString()
 
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                searchPresenter.searchMovie(keyword)
-                true
-            } else {
-                false
-            }
+
+        edt_search_keyword.setOnEditorActionListener { _, actionId, _ ->
+            searchPresenter.searchMovie(actionId, edt_search_keyword.text.toString())
         }
 
         btn_search_searchButton.setOnClickListener {
-            val keyword = edt_search_keyword.text.toString()
-            searchPresenter.searchMovie(keyword)
+            searchPresenter.searchMovie(edt_search_keyword.text.toString())
         }
     }
 
-    override fun showMessageEmptyResult() {
-        Toast.makeText(this, getString(R.string.not_found_result), Toast.LENGTH_SHORT).show()
+    override fun showToast(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 
-    override fun showMessageEmptyKeyword() {
-        Toast.makeText(this, getString(R.string.empty_keyword), Toast.LENGTH_SHORT).show()
+    override fun showToast(@StringRes resId: Int) {
+        Toast.makeText(this, getText(resId), Toast.LENGTH_SHORT).show()
     }
 
-    override fun showMovieList(movieList: List<MovieModel>) {
-        adapter.movieAdapterPresenter.setMovieList(movieList)
+    override fun setMovieList(movieList: List<MovieModel>) {
+        adapter.movieAdapterPresenter.addNewItems(movieList)
     }
 
 

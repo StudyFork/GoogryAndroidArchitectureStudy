@@ -1,6 +1,8 @@
 package com.example.architecture.activity.search
 
 import android.util.Log
+import android.view.inputmethod.EditorInfo
+import com.example.architecture.R
 import com.example.architecture.data.model.MovieModel
 import com.example.architecture.data.repository.NaverRepository
 
@@ -17,9 +19,9 @@ class SearchPresenter(
 
     private fun onSuccess(movieList: List<MovieModel>) {
         if (movieList.isNotEmpty()) {
-            view.showMovieList(movieList)
+            view.setMovieList(movieList)
         } else {
-            view.showMessageEmptyResult()
+            view.showToast(R.string.not_found_result)
         }
     }
 
@@ -27,15 +29,22 @@ class SearchPresenter(
         Log.d("chul", "OnFailure : $t")
     }
 
+    override fun searchMovie(actionId: Int, keyword: String): Boolean {
+        return if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            searchMovie(keyword)
+            true
+        } else {
+            false
+        }
+    }
+
     override fun isValidKeyword(keyword: String): Boolean {
 
-        return if (keyword.isBlank()) {
-            view.showMessageEmptyKeyword()
+        if (keyword.isBlank()) {
+            view.showToast(R.string.empty_keyword)
             return false
         }
-        else {
-            true
-        }
+        return true
     }
 
     override fun clearLocalData(keyword: String) {
