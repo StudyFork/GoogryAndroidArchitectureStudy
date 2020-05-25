@@ -14,9 +14,6 @@ fun RecyclerView.init(hasFixedSize: Boolean?, itemDecoration: RecyclerView.ItemD
 @BindingAdapter("replaceAll")
 fun RecyclerView.replaceAll(items: List<Any>?) {
     (adapter as? BaseAdapter<Any, *>)?.run {
-        items?.let {
-            changeItems(it)
-            notifyDataSetChanged()
-        }
+        items?.run(::submitList)
     }
 }
