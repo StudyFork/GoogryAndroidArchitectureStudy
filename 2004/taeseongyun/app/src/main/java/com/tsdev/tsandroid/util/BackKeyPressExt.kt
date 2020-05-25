@@ -35,5 +35,4 @@ class BackKeyPressExt(
     fun onPressedBackKey() {
         rxEventBus.sendBackButtonEvent(System.currentTimeMillis())
     }
-
 }

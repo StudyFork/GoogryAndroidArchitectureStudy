@@ -19,6 +19,7 @@ ext {
                     ],
                     material        : "1.1.0-alpha06",
                     recyclerview    : "1.1.0",
+                    lifecycle       : "2.2.0"
             ],
             test             : [
                     junit   : "1.1.1",
@@ -60,6 +61,7 @@ ext {
                     ],
                     material        : "com.google.android.material:material:$versions.androidx.material",
                     recyclerview    : "androidx.recyclerview:recyclerview:$versions.androidx.recyclerview",
+                    lifecycle       : "androidx.lifecycle:lifecycle-extensions:$versions.androidx.lifecycle"
             ],
             library      : [
                     rx        : [

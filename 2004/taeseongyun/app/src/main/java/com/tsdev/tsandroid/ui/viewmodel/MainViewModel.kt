@@ -1,21 +1,18 @@
 package com.tsdev.tsandroid.ui.viewmodel
 
-import android.app.Activity
-import android.content.Context
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.tsdev.tsandroid.R
-import com.tsdev.tsandroid.base.RecyclerViewModel
 import com.tsdev.tsandroid.data.Item
 import com.tsdev.tsandroid.data.repository.NaverReopsitory
-import com.tsdev.tsandroid.eventbus.RxEventBus
+import com.tsdev.tsandroid.ext.SingleEventLiveData
+import com.tsdev.tsandroid.ext.SingleMutableLiveData
 import com.tsdev.tsandroid.provider.ResourceProvider
 import com.tsdev.tsandroid.ui.observe.ObserverProvider
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.subjects.PublishSubject
 
 class MainViewModel(
     private val movieRepository: NaverReopsitory,
@@ -27,15 +24,25 @@ class MainViewModel(
         const val NON_QUERY = "N/A"
     }
 
-    var isLoading = false
+    private val _isLoading = SingleMutableLiveData<Boolean>()
+    val isLoading: SingleEventLiveData<Boolean>
+        get() = _isLoading
 
-    val observerQuery = ObservableField<String>()
+    private val _movieList = MutableLiveData<List<Item>>()
+    val movieList: LiveData<List<Item>>
+        get() = _movieList
 
+    val query = MutableLiveData<String>()
 
+    private val _oldMovieList = MutableLiveData<() -> Unit>()
+    val oldMovieList: LiveData<() -> Unit>
+        get() = _oldMovieList
+
+    lateinit var onClearList: () -> Unit
 
     fun searchMovie(hideKeyBoard: () -> Unit) {
         compositeDisposable.add(
-            movieRepository.getMovieList(observerQuery.get() ?: NON_QUERY)
+            movieRepository.getMovieList(query.value ?: NON_QUERY)
                 .subscribeOn(Schedulers.io())
                 .onErrorReturn {
                     it.printStackTrace()
@@ -43,24 +50,23 @@ class MainViewModel(
                     emptyList()
                 }.observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe {
-                    isLoading = true
+                    _isLoading.event = true
                     hideKeyBoard()
-//                    (activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-//                        view.windowToken,
-//                        0
-//                    )
                 }
-                .doOnTerminate { isLoading = false }
+                .doAfterTerminate { _isLoading.event = false }
                 .subscribe { items: List<Item>, _ ->
                     items.takeIf { list -> list.isNotEmpty() }
                         ?.run {
-                            observe.disconnectObserve()
-                            this.forEach {
-                                observe.observeList(it)
+                            if (_movieList.value?.containsAll(this) == true) {
+                                return@subscribe
+                            } else {
+                                _oldMovieList.value = onClearList
+                                _movieList.value = this
                             }
                         }
                         ?: run {
-                            removeAll()
+                            _oldMovieList.value = onClearList
+                            _movieList.value = null
                             showToastMessage(resourceProvider.getResultErrorString(R.string.non_search_result))
                         }
                 }
@@ -69,9 +75,5 @@ class MainViewModel(
 
     private fun showToastMessage(message: String) {
         Toast.makeText(resourceProvider.getContext, message, Toast.LENGTH_LONG).show()
-    }
-
-    private fun removeAll() {
-        observe.disconnectObserve()
     }
 }

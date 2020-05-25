@@ -31,7 +31,6 @@ abstract class BaseActivity<VM: BaseViewModel, BINDING : ViewDataBinding> :
 
     override fun onDestroy() {
         disposable.clear()
-        viewModel.onDestroy()
         super.onDestroy()
     }
 }
