@@ -7,11 +7,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.architecture.R
-import com.example.architecture.data.model.MovieModel
 
 class MovieAdapter : RecyclerView.Adapter<MovieHolder>(), MovieAdapterContract.View {
 
-    private val movieList = mutableListOf<MovieModel>()
+    val movieAdapterPresenter = MovieAdapterPresenter(this)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
 
@@ -19,34 +18,31 @@ class MovieAdapter : RecyclerView.Adapter<MovieHolder>(), MovieAdapterContract.V
         val viewHolder = MovieHolder(view)
 
         view.setOnClickListener {
-            openWebPage(it.context, movieList[viewHolder.layoutPosition].link)
+            showMovieWebPage(
+                it.context,
+                movieAdapterPresenter.getMovie(viewHolder.layoutPosition).link
+            )
         }
 
         return viewHolder
     }
 
-    private fun openWebPage(context: Context, link: String) {
+    override fun updateMovieList() {
+        notifyDataSetChanged()
+    }
+
+    override fun showMovieWebPage(context: Context, link: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
         context.startActivity(intent)
     }
 
     override fun getItemCount(): Int {
-        return movieList.count()
+        return movieAdapterPresenter.getMovieCount()
     }
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
-
-        val movie = movieList[position]
+        val movie = movieAdapterPresenter.getMovie(position)
         holder.onBind(movie)
-    }
-
-    fun addNewItems(movieList: List<MovieModel>) {
-        if (this.movieList.isNotEmpty()) {
-            this.movieList.clear()
-        }
-
-        this.movieList.addAll(movieList)
-        notifyDataSetChanged()
     }
 }
 
