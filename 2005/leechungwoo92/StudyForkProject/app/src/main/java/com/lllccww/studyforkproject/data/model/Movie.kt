@@ -1,4 +1,4 @@
-package com.lllccww.studyforkproject.model
+package com.lllccww.studyforkproject.data.model
 
 
 data class Movie(
