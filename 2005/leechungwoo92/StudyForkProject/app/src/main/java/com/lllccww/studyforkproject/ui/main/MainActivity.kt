@@ -1,4 +1,4 @@
-package com.lllccww.studyforkproject.view.activity
+package com.lllccww.studyforkproject.ui.main
 
 import android.content.Context
 import android.content.Intent
@@ -14,7 +14,6 @@ import com.lllccww.studyforkproject.R
 import com.lllccww.studyforkproject.data.model.MovieItem
 import com.lllccww.studyforkproject.data.repository.NaverMovieRepositoryImpl
 import com.lllccww.studyforkproject.data.source.remote.MovieRemoteDataSourceImpl
-import com.lllccww.studyforkproject.view.adapter.MovieListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -22,7 +21,8 @@ class MainActivity : AppCompatActivity() {
     private var start = 1
     private var total = 0
     private var display = 0
-    private val movieListAdapter = MovieListAdapter()
+    private val movieListAdapter =
+        MovieListAdapter()
     //private val naverMovieRepositoryImpl = NaverMovieRepositoryImpl()
 
     private val naverMoviesRepositoryImpl by lazy {

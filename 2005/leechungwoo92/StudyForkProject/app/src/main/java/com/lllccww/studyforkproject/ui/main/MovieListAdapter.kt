@@ -1,4 +1,4 @@
-package com.lllccww.studyforkproject.view.adapter
+package com.lllccww.studyforkproject.ui.main
 
 import android.util.Log
 import android.view.LayoutInflater
