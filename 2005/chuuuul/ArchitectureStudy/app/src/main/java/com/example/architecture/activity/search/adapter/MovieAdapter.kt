@@ -14,7 +14,7 @@ import com.example.architecture.data.model.MovieModel
 import com.example.architecture.util.ConstValue.Companion.NO_IMAGE_URL
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieListAdapter :  RecyclerView.Adapter<MovieViewHolder>() {
+class MovieAdapter :  RecyclerView.Adapter<MovieViewHolder>() {
 
     private val movieList = mutableListOf<MovieModel>()
 
