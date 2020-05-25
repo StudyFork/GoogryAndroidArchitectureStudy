@@ -1,4 +1,4 @@
-package com.example.architecture.activity.search
+package com.example.architecture.activity.search.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -14,15 +14,13 @@ import com.example.architecture.data.model.MovieModel
 import com.example.architecture.util.ConstValue.Companion.NO_IMAGE_URL
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieListAdapter :
-    RecyclerView.Adapter<MovieViewHolder>() {
+class MovieListAdapter :  RecyclerView.Adapter<MovieViewHolder>() {
 
     private val movieList = mutableListOf<MovieModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
 
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
-
         val viewHolder = MovieViewHolder(view)
 
         view.setOnClickListener {
@@ -32,6 +30,11 @@ class MovieListAdapter :
         return viewHolder
     }
 
+    private fun openWebPage(context: Context, link: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+        context.startActivity(intent)
+    }
+
     override fun getItemCount(): Int {
         return movieList.count()
     }
@@ -39,15 +42,7 @@ class MovieListAdapter :
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
 
         val movie = movieList[position]
-
-        holder.itemView.tv_movie_title.text = removeMarkupTag(movie.title)
-        holder.itemView.tv_movie_pubDate.text = movie.pubDate
-
-        holder.itemView.ratingBar_movie_rating.rating = movie.userRating
-
-        setMovieImage(holder.itemView.img_movie_Image, movie.image)
-
-
+        holder.onBind( movie )
     }
 
     fun addNewItems(movieList: List<MovieModel>) {
@@ -58,30 +53,34 @@ class MovieListAdapter :
         this.movieList.addAll(movieList)
         notifyDataSetChanged()
     }
+}
 
+class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view)
+{
+    fun onBind(movie : MovieModel)
+    {
+        itemView.tv_movie_title.text = removeMarkupTag(movie.title)
+        itemView.tv_movie_pubDate.text = movie.pubDate
 
-    private fun setMovieImage(imageView: ImageView, imageUrl: String) {
+        itemView.ratingBar_movie_rating.rating = movie.userRating
 
-        val url = if (imageUrl.isBlank()) {
-            NO_IMAGE_URL
-        } else {
-            imageUrl
-        }
+        setMovieImage(itemView.img_movie_Image, movie.image)
 
-        Glide.with(imageView.context)
-            .load(url).placeholder(R.drawable.ic_loading_black_24dp)
-            .error(R.drawable.image_loaderror).centerCrop().into(imageView)
     }
 
     private fun removeMarkupTag(html: String): String {
         return html.replace("<b>", "").replace("</b>", "")
     }
 
-    private fun openWebPage(context : Context, urlString: String) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(urlString))
-        context.startActivity(intent)
+    private fun setMovieImage(imageView: ImageView, imageUrl: String) {
+        val url = if (imageUrl.isBlank()) {
+            NO_IMAGE_URL
+        } else {
+            imageUrl
+        }
+        Glide.with(imageView.context)
+            .load(url).placeholder(R.drawable.ic_loading_black_24dp)
+            .error(R.drawable.image_loaderror).centerCrop().into(imageView)
     }
 
 }
-
-class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view)
