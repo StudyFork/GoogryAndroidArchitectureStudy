@@ -2,14 +2,16 @@ package com.example.architecture.data.repository
 
 import android.content.Context
 import com.example.architecture.data.model.MovieModel
+import com.example.architecture.data.source.local.NaverLocalDataSource
 import com.example.architecture.data.source.local.NaverLocalDataSourceImpl
+import com.example.architecture.data.source.remote.NaverRemoteDataSource
 import com.example.architecture.data.source.remote.NaverRemoteDataSourceImpl
 
 
 class NaverRepositoryImpl(context : Context) : NaverRepository {
 
     init {
-        naverLocalDataSourceImpl = NaverLocalDataSourceImpl(context)
+        naverLocalDataSource = NaverLocalDataSourceImpl(context)
     }
 
     override fun getMovieList(
@@ -18,9 +20,9 @@ class NaverRepositoryImpl(context : Context) : NaverRepository {
         onFailure: (t: Throwable) -> Unit
     ) {
 
-        naverLocalDataSourceImpl.getMovieList(keyword, onSuccess)
+        naverLocalDataSource.getMovieList(keyword, onSuccess)
 
-        naverRemoteDataSourceImpl.getMovieList(
+        naverRemoteDataSource.getMovieList(
             keyword,
             {
                 onSuccess(it)
@@ -32,19 +34,19 @@ class NaverRepositoryImpl(context : Context) : NaverRepository {
 
 
     override fun clearCacheData() {
-        naverLocalDataSourceImpl.clearData()
+        naverLocalDataSource.clearData()
     }
 
     override fun saveMovieList(
         keyword: String,
         movieList: List<MovieModel>
     ) {
-        naverLocalDataSourceImpl.saveMovieList(keyword, movieList)
+        naverLocalDataSource.saveMovieList(keyword, movieList)
     }
 
     companion object {
-        private val naverRemoteDataSourceImpl = NaverRemoteDataSourceImpl()
-        private lateinit var naverLocalDataSourceImpl: NaverLocalDataSourceImpl
+        private val naverRemoteDataSource: NaverRemoteDataSource = NaverRemoteDataSourceImpl()
+        private lateinit var naverLocalDataSource: NaverLocalDataSource
     }
 
 }
