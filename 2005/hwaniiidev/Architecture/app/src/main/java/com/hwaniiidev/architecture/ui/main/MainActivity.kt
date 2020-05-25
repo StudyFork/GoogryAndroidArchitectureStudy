@@ -33,43 +33,6 @@ class MainActivity : AppCompatActivity() , MainContract.View{
         btn_search.setOnClickListener {
             val searchValue = edit_search_title.text.toString()
             mainPresenter.searchMovies(searchValue)
-
-            /*if (edit_search_title.text.isEmpty()) {       //검색어 입력하지 않았을 때
-                Log.d(TAG, "없음")
-                toast("검색어를 입력해주세요.")
-            } else {
-                naverMovieRepositoryImpl.getRemoteMovies(
-                    query = searchValue,
-                    onSuccess = { response ->
-                        hideKeyboard()
-
-                        if (response.total == 0) {
-                            text_plz_search.text = "검색결과가 없습니다.\n다른 검색어을 입력해주세요."
-                            text_plz_search.visibility = View.VISIBLE
-                        } else {
-                            updateList(response.items)
-                            text_plz_search.visibility = View.GONE
-
-                            //Local DB에 저장
-                            if (!this.isFinishing && !this.isDestroyed){
-                                naverMovieRepositoryImpl.cachingMovies(
-                                    query = response.query,
-                                    movies = response.items
-                                )
-                            }
-
-                        }
-                    },
-                    onError = { errorMessage ->
-                        toast("다시 시도해주세요.")
-                        Log.d(TAG, errorMessage)
-                    },
-                    onFailure = { t ->
-                        toast("네트워크에 연결할 수 없습니다. 네트워크 연결을 확인해주세요.")
-                        Log.d(TAG, t.toString())
-                    }
-                )
-            }*/
         }
     }
 
@@ -77,10 +40,6 @@ class MainActivity : AppCompatActivity() , MainContract.View{
         adapterMovieList = AdapterMovieList()
         recyclerview_search_list.adapter = adapterMovieList
     }
-
-    /*private fun updateList(items: List<Item>) {
-        adapterMovieList.addItem(items)
-    }*/
 
     private fun toast(message: String) {
         Toast.makeText(
