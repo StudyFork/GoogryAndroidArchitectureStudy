@@ -56,6 +56,9 @@ class MovieListAdapter(clickListener : ((Int) -> Unit)) : RecyclerView.Adapter<M
     }
 
 
+    fun getMovieList(): ArrayList<Movie> = movieList
+
+
     fun String.htmlToString(): String {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY).toString()

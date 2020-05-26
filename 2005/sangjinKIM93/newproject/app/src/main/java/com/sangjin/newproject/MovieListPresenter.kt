@@ -52,7 +52,7 @@ class MovieListPresenter(
 
     override fun checkMovieResult(movies: List<Movie>) {
         if (movies.isNullOrEmpty()) {
-            view.noResult()
+            view.noResult(movies)
         } else {
             view.showMovieList(movies)
         }

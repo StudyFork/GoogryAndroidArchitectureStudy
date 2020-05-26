@@ -8,7 +8,7 @@ interface MovieListContract{
     interface View {
         fun noKeyword()
         fun showMovieList(movies: List<Movie>)
-        fun noResult()
+        fun noResult(movies: List<Movie>)
         fun onError(t: Throwable)
     }
 

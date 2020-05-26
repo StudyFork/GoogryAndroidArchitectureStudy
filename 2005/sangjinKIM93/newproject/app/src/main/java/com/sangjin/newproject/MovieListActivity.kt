@@ -27,7 +27,6 @@ import kotlinx.android.synthetic.main.activity_movie_list.*
 
 class MovieListActivity : AppCompatActivity(), MovieListContract.View {
 
-    private var movieList = ArrayList<Movie>()
     private lateinit var movieListAdapter: MovieListAdapter
     private val naverMoviesRepositoryImpl by lazy {
         NaverMoviesRepositoryImpl(
@@ -58,7 +57,7 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
 
         //각 항목 클릭시 이벤트 처리
         val onItemClickListener: ((Int) -> Unit) = { position ->
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movieList.get(position).link))
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movieListAdapter.getMovieList().get(position).link))
             startActivity(intent)
         }
 
@@ -118,16 +117,13 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
 
 
     override fun showMovieList(movies: List<Movie>) {
-        movieList.clear()
-        movieList.addAll(movies)
-        movieListAdapter.addList(movieList)
+        movieListAdapter.addList(movies as ArrayList<Movie>)
         hideKeyPad()
     }
 
 
-    override fun noResult() {
-        movieList.clear()
-        movieListAdapter.addList(movieList)
+    override fun noResult(movies: List<Movie>) {
+        movieListAdapter.addList(movies as ArrayList<Movie>)
         Toast.makeText(this@MovieListActivity, R.string.no_movie_list, Toast.LENGTH_SHORT).show()
     }
 
