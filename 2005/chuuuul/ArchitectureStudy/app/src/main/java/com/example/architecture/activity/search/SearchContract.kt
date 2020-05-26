@@ -6,9 +6,9 @@ import com.example.architecture.data.model.MovieModel
 interface SearchContract {
 
     interface View {
-        fun showToast(text: String)
-        fun showToast(@StringRes resId: Int)
         fun showMovieList(movieList: List<MovieModel>)
+        fun showMessageEmptyKeyword()
+        fun showMessageEmptyResult()
 
     }
 

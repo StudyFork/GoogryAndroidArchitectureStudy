@@ -21,7 +21,7 @@ class SearchPresenter(
         if (movieList.isNotEmpty()) {
             view.showMovieList(movieList)
         } else {
-            view.showToast(R.string.not_found_result)
+            view.showMessageEmptyResult()
         }
     }
 
@@ -41,7 +41,7 @@ class SearchPresenter(
     override fun isValidKeyword(keyword: String): Boolean {
 
         if (keyword.isBlank()) {
-            view.showToast(R.string.empty_keyword)
+            view.showMessageEmptyKeyword()
             return false
         }
         return true

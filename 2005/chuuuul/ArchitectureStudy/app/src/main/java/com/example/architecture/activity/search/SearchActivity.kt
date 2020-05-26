@@ -41,12 +41,12 @@ class SearchActivity : AppCompatActivity(R.layout.activity_search), SearchContra
         }
     }
 
-    override fun showToast(text: String) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+    override fun showMessageEmptyResult(){
+        Toast.makeText(this, getString(R.string.not_found_result), Toast.LENGTH_SHORT).show()
     }
 
-    override fun showToast(@StringRes resId: Int) {
-        Toast.makeText(this, getText(resId), Toast.LENGTH_SHORT).show()
+    override fun showMessageEmptyKeyword(){
+        Toast.makeText(this, getString(R.string.empty_keyword), Toast.LENGTH_SHORT).show()
     }
 
     override fun showMovieList(movieList: List<MovieModel>) {
