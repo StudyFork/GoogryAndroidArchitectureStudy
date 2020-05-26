@@ -51,5 +51,9 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
+    // Associate Html Parse
+    implementation "org.apache.commons:commons-text:$apache_commons_version"
+    implementation "org.jsoup:jsoup:$jsoup_version"
+
 
 }
