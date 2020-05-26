@@ -13,7 +13,7 @@ class MainPresenter(
         if (searchValue.isNullOrEmpty()) {
             view.showQueryIsEmpty()
         } else {
-            naverMovieRepositoryImpl.getRemoteMovies(
+            naverMovieRepositoryImpl.searchMovies(
                 query = searchValue,
                 onSuccess = { response ->
                     view.hideKeyBoard()
@@ -31,8 +31,12 @@ class MainPresenter(
                 onFailure = { t ->
                     view.showNetworkFailure()
                     Log.d(TAG, t.toString())
-                }
-            )
+                },
+                onCached ={movies ->
+                    if(!movies.isNullOrEmpty()){
+                        view.showMoviesList(movies)
+                    }
+                })
         }
     }
 }
