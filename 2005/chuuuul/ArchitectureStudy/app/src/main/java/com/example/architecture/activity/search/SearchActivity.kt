@@ -31,7 +31,7 @@ class SearchActivity : AppCompatActivity(R.layout.activity_search), SearchContra
     }
 
     private fun setViewEvent() {
-
+        // * Keyboard의 엔터로 검색 작업
         edt_search_keyword.setOnEditorActionListener { _, actionId, _ ->
             searchPresenter.searchMovie(actionId, edt_search_keyword.text.toString())
         }
