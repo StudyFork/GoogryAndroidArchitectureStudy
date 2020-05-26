@@ -1,6 +1,7 @@
 package com.project.architecturestudy.ui.search
 
 import android.util.Log
+import com.project.architecturestudy.components.Constants.TAG
 import com.project.architecturestudy.data.repository.NaverMovieRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -22,11 +23,11 @@ class SearchPresenter(
     override fun getMovieListFromLocal() {
         naverMovieRepository.getCashedMovieList(
             onSuccess = {
-                Log.d("bsjbsj", "getLocalData:$it")
+                Log.d(TAG, "getLocalData:$it")
                 view.showLocalMovieData(it)
             },
             onFailure = {
-                Log.d("bsjbsj", "Throwable:$it")
+                Log.d(TAG, "Throwable:$it")
             })
     }
 
@@ -37,13 +38,13 @@ class SearchPresenter(
                     .subscribeOn(Schedulers.io())
                     .subscribe(
                         {
-                            Log.d("bsjbsj", "getRemoteData:$it")
+                            Log.d(TAG, "getRemoteData:$it")
                             view.showRemoteMovieData(it.items)
                             view.showRemoteDataSuccessMsg()
                         }, { t ->
 
                             view.showRemoteDataFailureMsg()
-                            Log.d("bsjbsj", t.toString())
+                            Log.d(TAG, t.toString())
                         })
 
             })
