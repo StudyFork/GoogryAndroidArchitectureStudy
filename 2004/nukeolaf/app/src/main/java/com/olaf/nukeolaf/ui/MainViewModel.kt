@@ -1,16 +1,21 @@
 package com.olaf.nukeolaf.ui
 
+import android.app.Application
 import android.os.Build
 import android.text.Html
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.olaf.nukeolaf.data.local.MovieLocalDataSourceImpl
 import com.olaf.nukeolaf.data.model.MovieItem
 import com.olaf.nukeolaf.data.model.MovieResponse
+import com.olaf.nukeolaf.data.remote.MovieRemoteDataSourceImpl
 import com.olaf.nukeolaf.data.repository.MovieRepository
+import com.olaf.nukeolaf.data.repository.MovieRepositoryImpl
 
-class MainViewModel(
-    private val movieRepository: MovieRepository
-) : ViewModel() {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val movieRepository =
+        MovieRepositoryImpl(MovieLocalDataSourceImpl(getApplication()), MovieRemoteDataSourceImpl())
 
     val movies = MutableLiveData<List<MovieItem>>()
     val errorType = MutableLiveData<Int>().apply { value = 0 }
