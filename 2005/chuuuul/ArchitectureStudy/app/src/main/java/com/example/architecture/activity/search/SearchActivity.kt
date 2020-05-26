@@ -33,19 +33,21 @@ class SearchActivity : AppCompatActivity(R.layout.activity_search), SearchContra
     private fun setViewEvent() {
         // * Keyboard의 엔터로 검색 작업
         edt_search_keyword.setOnEditorActionListener { _, actionId, _ ->
-            searchPresenter.searchMovie(actionId, edt_search_keyword.text.toString())
+            val keyword = edt_search_keyword.text.toString()
+            searchPresenter.searchMovie(actionId, keyword)
         }
 
         btn_search_searchButton.setOnClickListener {
-            searchPresenter.searchMovie(edt_search_keyword.text.toString())
+            val keyword = edt_search_keyword.text.toString()
+            searchPresenter.searchMovie(keyword)
         }
     }
 
-    override fun showMessageEmptyResult(){
+    override fun showMessageEmptyResult() {
         Toast.makeText(this, getString(R.string.not_found_result), Toast.LENGTH_SHORT).show()
     }
 
-    override fun showMessageEmptyKeyword(){
+    override fun showMessageEmptyKeyword() {
         Toast.makeText(this, getString(R.string.empty_keyword), Toast.LENGTH_SHORT).show()
     }
 
