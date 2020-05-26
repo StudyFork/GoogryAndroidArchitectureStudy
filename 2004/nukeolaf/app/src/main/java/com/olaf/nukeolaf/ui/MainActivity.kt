@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
+import androidx.lifecycle.Observer
 import com.olaf.nukeolaf.R
 import com.olaf.nukeolaf.data.local.MovieLocalDataSourceImpl
 import com.olaf.nukeolaf.data.remote.MovieRemoteDataSourceImpl
@@ -37,7 +37,10 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        binding.vm = viewModel
+        binding.apply {
+            lifecycleOwner = this@MainActivity
+            vm = viewModel
+        }
 
         viewModel.errorType.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
@@ -48,9 +51,9 @@ class MainActivity : AppCompatActivity() {
                     SERVER_ERROR -> makeToast("[서버 에러] : 서버에 문제가 있습니다")
                     NETWORK_ERROR -> makeToast("[네트워크 에러] : 인터넷 연결을 확인해 주세요")
                 }
-                viewModel.errorType.set(NO_ERROR)
+                viewModel.errorType.value = NO_ERROR
             }
-        })
+        )
 
     }
 
