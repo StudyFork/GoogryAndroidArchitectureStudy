@@ -6,10 +6,10 @@ interface MovieHolderContract {
     interface View {
         fun onBind(movie: MovieModel)
 
-        fun setMovieTitle(text: String)
-        fun setMoviePubData(text: String)
-        fun setMovieRating(rating: Float)
-        fun setMovieImage(imageUrl: String)
+        fun showMovieTitle(text: String)
+        fun showMoviePubData(text: String)
+        fun showMovieRating(rating: Float)
+        fun showMovieImage(imageUrl: String)
     }
 
     interface Presenter {

@@ -49,8 +49,8 @@ class SearchActivity : AppCompatActivity(R.layout.activity_search), SearchContra
         Toast.makeText(this, getText(resId), Toast.LENGTH_SHORT).show()
     }
 
-    override fun setMovieList(movieList: List<MovieModel>) {
-        adapter.movieAdapterPresenter.addNewItems(movieList)
+    override fun showMovieList(movieList: List<MovieModel>) {
+        adapter.movieAdapterPresenter.setMovieList(movieList)
     }
 
 

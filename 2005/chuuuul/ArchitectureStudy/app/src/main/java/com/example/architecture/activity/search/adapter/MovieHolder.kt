@@ -12,25 +12,25 @@ class MovieHolder(view: View) : RecyclerView.ViewHolder(view), MovieHolderContra
     private val movieHolderPresenter = MovieHolderPresenter(this)
 
     override fun onBind(movie: MovieModel) {
-        setMovieTitle(movie.title)
-        setMoviePubData(movie.pubDate)
-        setMovieRating(movie.userRating)
-        setMovieImage(movie.image)
+        showMovieTitle(movie.title)
+        showMoviePubData(movie.pubDate)
+        showMovieRating(movie.userRating)
+        showMovieImage(movie.image)
     }
 
-    override fun setMovieTitle(text: String) {
+    override fun showMovieTitle(text: String) {
         itemView.tv_movie_title.text = movieHolderPresenter.removeMarkupTag(text)
     }
 
-    override fun setMoviePubData(text: String) {
+    override fun showMoviePubData(text: String) {
         itemView.tv_movie_pubDate.text = text
     }
 
-    override fun setMovieRating(rating: Float) {
+    override fun showMovieRating(rating: Float) {
         itemView.ratingBar_movie_rating.rating = rating
     }
 
-    override fun setMovieImage(imageUrl: String) {
+    override fun showMovieImage(imageUrl: String) {
         Glide.with(itemView.context)
             .load(movieHolderPresenter.checkImageUrl(imageUrl))
             .placeholder(R.drawable.ic_loading_black_24dp)

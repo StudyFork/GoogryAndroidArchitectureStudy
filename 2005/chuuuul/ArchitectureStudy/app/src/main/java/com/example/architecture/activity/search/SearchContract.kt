@@ -8,7 +8,7 @@ interface SearchContract {
     interface View {
         fun showToast(text: String)
         fun showToast(@StringRes resId: Int)
-        fun setMovieList(movieList: List<MovieModel>)
+        fun showMovieList(movieList: List<MovieModel>)
 
     }
 

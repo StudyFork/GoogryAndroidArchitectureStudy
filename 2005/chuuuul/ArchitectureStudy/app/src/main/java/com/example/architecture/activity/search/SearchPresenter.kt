@@ -19,7 +19,7 @@ class SearchPresenter(
 
     private fun onSuccess(movieList: List<MovieModel>) {
         if (movieList.isNotEmpty()) {
-            view.setMovieList(movieList)
+            view.showMovieList(movieList)
         } else {
             view.showToast(R.string.not_found_result)
         }

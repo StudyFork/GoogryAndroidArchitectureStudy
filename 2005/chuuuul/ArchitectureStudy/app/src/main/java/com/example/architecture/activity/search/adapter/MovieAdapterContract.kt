@@ -7,7 +7,7 @@ interface MovieAdapterContract {
 
     interface View {
 
-        fun updateMovieList()
+        fun showMovieList()
         fun showMovieWebPage(context: Context, link: String)
     }
 
@@ -15,6 +15,6 @@ interface MovieAdapterContract {
 
         fun getMovie(position: Int): MovieModel
         fun getMovieCount(): Int
-        fun addNewItems(movieList: List<MovieModel>)
+        fun setMovieList(movieList: List<MovieModel>)
     }
 }

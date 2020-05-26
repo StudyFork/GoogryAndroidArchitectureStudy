@@ -27,7 +27,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieHolder>(), MovieAdapterContract.V
         return viewHolder
     }
 
-    override fun updateMovieList() {
+    override fun showMovieList() {
         notifyDataSetChanged()
     }
 

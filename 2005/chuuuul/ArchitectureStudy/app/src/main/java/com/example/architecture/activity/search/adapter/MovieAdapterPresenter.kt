@@ -14,12 +14,12 @@ class MovieAdapterPresenter(
 
     override fun getMovieCount(): Int = movieList.count()
 
-    override fun addNewItems(movieList: List<MovieModel>) {
+    override fun setMovieList(movieList: List<MovieModel>) {
         if (this.movieList.isNotEmpty()) {
             this.movieList.clear()
         }
         this.movieList.addAll(movieList)
-        view.updateMovieList()
+        view.showMovieList()
     }
 
 
