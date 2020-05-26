@@ -14,9 +14,10 @@ import com.olaf.nukeolaf.data.repository.MovieRepositoryImpl
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val movieRepository =
-        MovieRepositoryImpl(MovieLocalDataSourceImpl(getApplication()), MovieRemoteDataSourceImpl())
-
+    private val movieRepository: MovieRepository = MovieRepositoryImpl(
+        MovieLocalDataSourceImpl(application.applicationContext),
+        MovieRemoteDataSourceImpl()
+    )
     val movies = MutableLiveData<List<MovieItem>>()
     val errorType = MutableLiveData<Int>().apply { value = 0 }
 
