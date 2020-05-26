@@ -11,14 +11,14 @@ import com.hwaniiidev.architecture.data.repository.NaverMovieRepositoryImpl
 import com.hwaniiidev.architecture.model.Item
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() , MainContract.View{
+class MainActivity : AppCompatActivity(), MainContract.View {
 
     private val TAG = MainActivity::class.java.simpleName
 
     lateinit var adapterMovieList: AdapterMovieList
 
     private val naverMovieRepositoryImpl = NaverMovieRepositoryImpl(this)
-    private val mainPresenter = MainPresenter(this,naverMovieRepositoryImpl)
+    private val mainPresenter = MainPresenter(this, naverMovieRepositoryImpl)
 
     lateinit private var imm: InputMethodManager
 
@@ -72,7 +72,9 @@ class MainActivity : AppCompatActivity() , MainContract.View{
     }
 
     override fun showMoviesList(items: List<Item>) {
-        adapterMovieList.addItem(items)
-        text_plz_search.visibility = View.GONE
+        runOnUiThread {
+            adapterMovieList.addItem(items)
+            text_plz_search.visibility = View.GONE
+        }
     }
 }
