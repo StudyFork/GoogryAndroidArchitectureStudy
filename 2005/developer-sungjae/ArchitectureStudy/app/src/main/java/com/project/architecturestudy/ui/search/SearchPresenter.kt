@@ -14,7 +14,7 @@ class SearchPresenter(
         when (searchWord.isNotEmpty()) {
 
             true -> getMovieListFromRemote(searchWord)
-            false -> view.showSearchWordIsEmpty()
+            false -> view.showSearchWordIsEmptyMsg()
         }
     }
 
@@ -23,7 +23,7 @@ class SearchPresenter(
         naverMovieRepository.getCashedMovieList(
             onSuccess = {
                 Log.d("bsjbsj", "getLocalData:$it")
-                view.setLocalMovieData(it)
+                view.showLocalMovieData(it)
             },
             onFailure = {
                 Log.d("bsjbsj", "Throwable:$it")
@@ -38,11 +38,11 @@ class SearchPresenter(
                     .subscribe(
                         {
                             Log.d("bsjbsj", "getRemoteData:$it")
-                            view.setRemoteMovieData(it.items)
-                            view.showRemoteDataSuccess()
+                            view.showRemoteMovieData(it.items)
+                            view.showRemoteDataSuccessMsg()
                         }, { t ->
 
-                            view.showRemoteDataFailure()
+                            view.showRemoteDataFailureMsg()
                             Log.d("bsjbsj", t.toString())
                         })
 

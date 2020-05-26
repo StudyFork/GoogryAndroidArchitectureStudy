@@ -50,32 +50,32 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
         listview_movie.adapter = adapter
     }
 
-    override fun setLocalMovieData(item: ArrayList<MovieItem>) {
+    override fun showLocalMovieData(item: ArrayList<MovieItem>) {
         adapter.setLocalMovieData(item)
     }
 
-    override fun setRemoteMovieData(item: List<MovieItem>) {
+    override fun showRemoteMovieData(item: List<MovieItem>) {
         adapter.setRemoteMovieData(item)
     }
 
 
-    override fun showSearchWordIsEmpty() {
+    override fun showSearchWordIsEmptyMsg() {
         toast(getString(R.string.please_write))
     }
 
-    override fun showLocalDataSuccess() {
+    override fun showLocalDataSuccessMsg() {
         toast(getString(R.string.get_local_data_success))
     }
 
-    override fun showLocalDataFailure() {
+    override fun showLocalDataFailureMsg() {
         toast(getString(R.string.get_local_data_failure))
     }
 
-    override fun showRemoteDataSuccess() {
+    override fun showRemoteDataSuccessMsg() {
         toast(getString(R.string.get_data_success))
     }
 
-    override fun showRemoteDataFailure() {
+    override fun showRemoteDataFailureMsg() {
         toast(getString(R.string.get_data_failure))
     }
 

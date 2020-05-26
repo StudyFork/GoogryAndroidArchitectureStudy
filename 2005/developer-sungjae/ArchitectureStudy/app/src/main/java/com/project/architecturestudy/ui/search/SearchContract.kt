@@ -6,13 +6,13 @@ interface SearchContract {
 
     interface View {
 
-        fun showSearchWordIsEmpty()
-        fun showLocalDataSuccess()
-        fun showLocalDataFailure()
-        fun showRemoteDataSuccess()
-        fun showRemoteDataFailure()
-        fun setLocalMovieData(item: ArrayList<MovieItem>)
-        fun setRemoteMovieData(item: List<MovieItem>)
+        fun showSearchWordIsEmptyMsg()
+        fun showLocalDataSuccessMsg()
+        fun showLocalDataFailureMsg()
+        fun showRemoteDataSuccessMsg()
+        fun showRemoteDataFailureMsg()
+        fun showLocalMovieData(item: ArrayList<MovieItem>)
+        fun showRemoteMovieData(item: List<MovieItem>)
     }
 
     interface Presenter {
