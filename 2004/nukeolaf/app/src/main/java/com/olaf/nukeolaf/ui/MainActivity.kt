@@ -42,10 +42,10 @@ class MainActivity : AppCompatActivity() {
             vm = viewModel
         }
 
-        viewModel.errorType.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                when (viewModel.errorType.get()) {
+        viewModel.errorType.observe(
+            this,
+            Observer { errorType ->
+                when (errorType) {
                     EMPTY_SEARCH_WORD -> makeToast("검색어를 입력해 주세요")
                     NO_QUERY_RESULT -> makeToast("검색 결과가 존재하지 않습니다")
                     SERVER_ERROR -> makeToast("[서버 에러] : 서버에 문제가 있습니다")
