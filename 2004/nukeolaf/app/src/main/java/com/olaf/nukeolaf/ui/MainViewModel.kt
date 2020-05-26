@@ -22,11 +22,7 @@ class MainViewModel(
 
     private fun loadMovies() {
         val movieList = movieRepository.getMovies()
-        if (movieList != null && movieList.items.isNotEmpty()) {
-            movies.set(processMovieItemString(movieList.items))
-        } else {
-            movies.set(listOf())
-        }
+        movies.set(movieList?.items?.processMovieItemString() ?: listOf())
     }
 
     fun searchMovie(query: String?) {
@@ -39,7 +35,7 @@ class MainViewModel(
             object : MovieRepository.LoadMoviesCallback {
                 override fun onMoviesLoaded(movieResponse: MovieResponse) {
                     if (movieResponse.items.isNotEmpty()) {
-                        movies.set(processMovieItemString(movieResponse.items))
+                        movies.set(movieResponse.items.processMovieItemString())
                     } else {
                         errorType.set(NO_QUERY_RESULT)
                     }
@@ -55,8 +51,8 @@ class MainViewModel(
             })
     }
 
-    private fun processMovieItemString(movies: List<MovieItem>): List<MovieItem> {
-        return movies.map {
+    private fun List<MovieItem>.processMovieItemString(): List<MovieItem> {
+        return this.map {
             it.copy(
                 title = it.title.htmlToString(),
                 subtitle = it.subtitle.htmlToString(),
