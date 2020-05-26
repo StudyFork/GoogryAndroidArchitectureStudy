@@ -12,7 +12,9 @@ class MovieAdapterPresenter(
         return movieList[position]
     }
 
-    override fun getMovieCount(): Int = movieList.count()
+    override fun getMovieCount(): Int {
+        return movieList.count()
+    }
 
     override fun setMovieList(movieList: List<MovieModel>) {
         if (this.movieList.isNotEmpty()) {
