@@ -17,7 +17,7 @@ import com.lllccww.studyforkproject.data.source.remote.MovieRemoteDataSourceImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainContract.View {
     private var start = 1
     private var total = 0
     private var display = 0
@@ -105,6 +105,23 @@ class MainActivity : AppCompatActivity() {
         } else {
             movieListAdapter.addItems(movieItem)
         }
+    }
+
+    override fun showMovieList(items: List<MovieItem>) {
+
+    }
+
+    override fun showFailGetData(msg: String) {
+        Toast.makeText(applicationContext, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showMovieNoResult() {
+        Toast.makeText(applicationContext, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show()
+
+    }
+
+    override fun showMovieEmptySearchQuery() {
+        Toast.makeText(applicationContext, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
     }
 
 
