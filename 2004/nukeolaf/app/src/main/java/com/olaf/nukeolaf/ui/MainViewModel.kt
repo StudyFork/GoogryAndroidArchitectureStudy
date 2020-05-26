@@ -4,13 +4,14 @@ import android.os.Build
 import android.text.Html
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
+import androidx.lifecycle.ViewModel
 import com.olaf.nukeolaf.data.model.MovieItem
 import com.olaf.nukeolaf.data.model.MovieResponse
 import com.olaf.nukeolaf.data.repository.MovieRepository
 
 class MainViewModel(
     private val movieRepository: MovieRepository
-) {
+) : ViewModel() {
 
     val movies = ObservableField<List<MovieItem>>()
 
