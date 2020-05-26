@@ -1,21 +1,17 @@
 package com.lllccww.studyforkproject.ui.main
 
-import android.content.Context
-import android.widget.Toast
 import com.lllccww.studyforkproject.data.model.MovieItem
 
 interface MainContract {
 
     interface View {
-        fun showLoading()
-        fun hideLoading()
-        fun closeKeyboard()
-        fun showToastMessage(context: Context, message: String) {
-            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-        }
+        fun showMovieList(items: List<MovieItem>)
+        fun showFailGetData(msg: String)
+        fun showMovieNoResult()
+        fun showMovieEmptySearchQuery()
     }
 
     interface Presenter {
-        fun getSearchMovie(movieData: List<MovieItem>)
+        fun getSearchMovie(query: String)
     }
 }
