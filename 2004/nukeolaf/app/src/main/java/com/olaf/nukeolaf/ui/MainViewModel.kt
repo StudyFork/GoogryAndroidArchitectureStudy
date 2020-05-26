@@ -2,8 +2,7 @@ package com.olaf.nukeolaf.ui
 
 import android.os.Build
 import android.text.Html
-import androidx.databinding.ObservableField
-import androidx.databinding.ObservableInt
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.olaf.nukeolaf.data.model.MovieItem
 import com.olaf.nukeolaf.data.model.MovieResponse
@@ -13,9 +12,8 @@ class MainViewModel(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
-    val movies = ObservableField<List<MovieItem>>()
-
-    val errorType = ObservableInt(0)
+    val movies = MutableLiveData<List<MovieItem>>()
+    val errorType = MutableLiveData<Int>().apply { value = 0 }
 
     init {
         loadMovies()
@@ -23,12 +21,12 @@ class MainViewModel(
 
     private fun loadMovies() {
         val movieList = movieRepository.getMovies()
-        movies.set(movieList?.items?.processMovieItemString() ?: listOf())
+        movies.value = movieList?.items?.processMovieItemString() ?: listOf()
     }
 
     fun searchMovie(query: String?) {
         if (query.isNullOrEmpty()) {
-            errorType.set(EMPTY_SEARCH_WORD)
+            errorType.value = EMPTY_SEARCH_WORD
             return
         }
         movieRepository.searchMovies(
@@ -36,18 +34,18 @@ class MainViewModel(
             object : MovieRepository.LoadMoviesCallback {
                 override fun onMoviesLoaded(movieResponse: MovieResponse) {
                     if (movieResponse.items.isNotEmpty()) {
-                        movies.set(movieResponse.items.processMovieItemString())
+                        movies.value = movieResponse.items.processMovieItemString()
                     } else {
-                        errorType.set(NO_QUERY_RESULT)
+                        errorType.value = NO_QUERY_RESULT
                     }
                 }
 
                 override fun onResponseError(message: String) {
-                    errorType.set(SERVER_ERROR)
+                    errorType.value = SERVER_ERROR
                 }
 
                 override fun onFailure(t: Throwable) {
-                    errorType.set(NETWORK_ERROR)
+                    errorType.value = NETWORK_ERROR
                 }
             })
     }
