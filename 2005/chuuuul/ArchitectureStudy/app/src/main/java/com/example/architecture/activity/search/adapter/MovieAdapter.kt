@@ -42,7 +42,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieHolder>(), MovieAdapterContract.V
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
         val movie = movieAdapterPresenter.getMovie(position)
-        holder.onBind(movie)
+        holder.showMovieElement(movie)
     }
 }
 

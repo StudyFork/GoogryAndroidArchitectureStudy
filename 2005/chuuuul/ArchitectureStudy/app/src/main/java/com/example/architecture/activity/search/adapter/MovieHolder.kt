@@ -11,15 +11,12 @@ class MovieHolder(view: View) : RecyclerView.ViewHolder(view), MovieHolderContra
 
     private val movieHolderPresenter = MovieHolderPresenter(this)
 
-    override fun onBind(movie: MovieModel) {
-        showMovieTitle(movie.title)
-        showMoviePubData(movie.pubDate)
-        showMovieRating(movie.userRating)
-        showMovieImage(movie.image)
+    override fun showMovieElement(movie: MovieModel) {
+        movieHolderPresenter.bindMovie(movie)
     }
 
     override fun showMovieTitle(text: String) {
-        itemView.tv_movie_title.text = movieHolderPresenter.removeMarkupTag(text)
+        itemView.tv_movie_title.text = text
     }
 
     override fun showMoviePubData(text: String) {
@@ -32,7 +29,7 @@ class MovieHolder(view: View) : RecyclerView.ViewHolder(view), MovieHolderContra
 
     override fun showMovieImage(imageUrl: String) {
         Glide.with(itemView.context)
-            .load(movieHolderPresenter.checkImageUrl(imageUrl))
+            .load(imageUrl)
             .placeholder(R.drawable.ic_loading_black_24dp)
             .error(R.drawable.image_loaderror).centerCrop().into(itemView.img_movie_Image)
     }

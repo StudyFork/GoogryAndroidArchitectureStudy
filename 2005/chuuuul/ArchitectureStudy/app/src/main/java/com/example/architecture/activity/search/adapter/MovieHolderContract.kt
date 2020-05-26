@@ -4,7 +4,7 @@ import com.example.architecture.data.model.MovieModel
 
 interface MovieHolderContract {
     interface View {
-        fun onBind(movie: MovieModel)
+        fun showMovieElement(movie: MovieModel)
 
         fun showMovieTitle(text: String)
         fun showMoviePubData(text: String)
@@ -14,6 +14,7 @@ interface MovieHolderContract {
 
     interface Presenter {
 
+        fun bindMovie(movie: MovieModel)
         fun removeMarkupTag(html: String): String
         fun checkImageUrl(imageUrl: String): String
     }
