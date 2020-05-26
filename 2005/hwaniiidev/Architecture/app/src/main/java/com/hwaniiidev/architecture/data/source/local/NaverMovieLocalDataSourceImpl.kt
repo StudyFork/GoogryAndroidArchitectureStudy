@@ -43,7 +43,18 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
 
     }
 
-    /*override fun getCachedMovies() {
-        TODO("Not yet implemented")
-    }*/
+    override fun getCachedMovies(
+        query: String,
+        onCached: (movies: List<Item>?) -> Unit
+    ) {
+        moviesDB = MoviesDB.getInstance(mContext)
+
+        val getMovies = Runnable {
+            val cachedMovies = moviesDB?.moviesDao()?.getCachedData(query)
+
+            onCached(cachedMovies)
+        }
+        val getThread = Thread(getMovies)
+        getThread.start()
+    }
 }
