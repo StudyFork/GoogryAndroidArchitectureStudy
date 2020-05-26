@@ -17,6 +17,15 @@ class SearchPresenter(
         }
     }
 
+    override fun searchMovie(actionId: Int, keyword: String): Boolean {
+        return if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            searchMovie(keyword)
+            true
+        } else {
+            false
+        }
+    }
+
     private fun onSuccess(movieList: List<MovieModel>) {
         if (movieList.isNotEmpty()) {
             view.showMovieList(movieList)
@@ -29,22 +38,15 @@ class SearchPresenter(
         Log.d("chul", "OnFailure : $t")
     }
 
-    override fun searchMovie(actionId: Int, keyword: String): Boolean {
-        return if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-            searchMovie(keyword)
-            true
-        } else {
-            false
-        }
-    }
-
     override fun isValidKeyword(keyword: String): Boolean {
 
-        if (keyword.isBlank()) {
+        return if (keyword.isBlank()) {
             view.showMessageEmptyKeyword()
             return false
         }
-        return true
+        else {
+            true
+        }
     }
 
     override fun clearLocalData(keyword: String) {
