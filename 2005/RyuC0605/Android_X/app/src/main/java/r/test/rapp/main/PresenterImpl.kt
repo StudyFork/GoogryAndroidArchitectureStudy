@@ -20,12 +20,12 @@ class PresenterImpl(private val view: Contractor.View) : Contractor.Presenter {
         repository.getMovieList(
             keyword,
             onSuccess = { vo ->
-                view?.refreshListView(vo.items)
-                view?.hideProgress()
+                view.refreshListView(vo.items)
+                view.hideProgress()
             },
             onFail = { f ->
-                view?.showToast(f.toString())
-                view?.hideProgress()
+                view.showToast(f.toString())
+                view.hideProgress()
             });
     }
 }
