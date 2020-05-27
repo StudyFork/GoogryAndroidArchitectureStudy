@@ -116,11 +116,6 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
     }
 
 
-    override fun showMovieList(movies: List<Movie>) {
-        hideKeyPad()
-    }
-
-
     override fun noResult(movies: List<Movie>) {
         Toast.makeText(this@MovieListActivity, R.string.no_movie_list, Toast.LENGTH_SHORT).show()
     }
@@ -133,6 +128,7 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
 
     override fun refreshMovieList(movies: List<Movie>) {
         movieListAdapter.addList(movies as ArrayList<Movie>)
+        hideKeyPad()
     }
 
 

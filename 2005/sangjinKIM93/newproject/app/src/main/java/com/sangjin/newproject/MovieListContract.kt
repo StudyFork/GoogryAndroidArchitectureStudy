@@ -7,7 +7,6 @@ import io.reactivex.Single
 interface MovieListContract{
     interface View {
         fun noKeyword()
-        fun showMovieList(movies: List<Movie>)
         fun noResult(movies: List<Movie>)
         fun onError(t: Throwable)
         fun refreshMovieList(movies: List<Movie>)

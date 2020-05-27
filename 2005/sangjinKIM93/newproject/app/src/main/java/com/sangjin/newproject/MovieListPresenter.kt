@@ -21,7 +21,7 @@ class MovieListPresenter(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                view.showMovieList(it)
+                view.refreshMovieList(it)
             },
                 {
 
@@ -58,7 +58,7 @@ class MovieListPresenter(
         if (movies.isNullOrEmpty()) {
             view.noResult(movies)
         } else {
-            view.showMovieList(movies)
+            view.refreshMovieList(movies)
         }
     }
 
