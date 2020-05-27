@@ -7,7 +7,7 @@ import r.test.rapp.data.repository.MovieRepositoryImpl
 
 class PresenterImpl : Contractor.Presenter {
 
-    private var repository: MovieRepository = MovieRepositoryImpl()
+    private val repository: MovieRepository = MovieRepositoryImpl()
 
     private var view: Contractor.View? = null;
 
@@ -23,8 +23,7 @@ class PresenterImpl : Contractor.Presenter {
         }
         view?.showProgress()
 
-        repository = repository ?: MovieRepositoryImpl()
-        repository?.getMovieList(
+        repository.getMovieList(
             keyword,
             onSuccess = { vo ->
                 view?.refreshListView(vo.items)
