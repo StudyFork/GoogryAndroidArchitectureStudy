@@ -9,6 +9,8 @@ interface MainContract {
         fun showFailGetData(msg: String)
         fun showMovieNoResult()
         fun showMovieEmptySearchQuery()
+        fun hideKeyboard()
+        
     }
 
     interface Presenter {
