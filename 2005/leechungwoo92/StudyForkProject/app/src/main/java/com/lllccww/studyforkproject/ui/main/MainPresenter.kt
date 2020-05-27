@@ -22,6 +22,7 @@ class MainPresenter(
                     view.showMovieNoResult()
                 } else {
                     view.showMovieList(movieItem)
+                    view.hideKeyboard()
                 }
             },
             failure = {
