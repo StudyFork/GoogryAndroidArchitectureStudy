@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity() {
                     SERVER_ERROR -> makeToast("[서버 에러] : 서버에 문제가 있습니다")
                     NETWORK_ERROR -> makeToast("[네트워크 에러] : 인터넷 연결을 확인해 주세요")
                 }
-                viewModel.errorType.value = NO_ERROR
             }
         )
 
