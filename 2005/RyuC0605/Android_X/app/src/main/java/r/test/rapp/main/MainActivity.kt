@@ -87,18 +87,16 @@ class MainActivity : AppCompatActivity(), Contractor.View {
             }
         }
 
-        lv_contents.adapter = MovieAdapter()
-        lv_contents.onItemClickListener = OnItemClickListenerImpl()
+        val adt : MovieAdapter = MovieAdapter();
+        lv_contents.adapter = adt
+        lv_contents.onItemClickListener = OnItemClickListenerImpl(adt)
     }
 
-    private class OnItemClickListenerImpl : AdapterView.OnItemClickListener {
-
-        private var adt: MovieAdapter? = null
+    private class OnItemClickListenerImpl(private val adt: MovieAdapter) : AdapterView.OnItemClickListener {
 
         override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-            adt = adt ?: parent.adapter as MovieAdapter
 
-            val uri: Uri = Uri.parse(adt?.getMovieList()!![position].link)
+            val uri: Uri = Uri.parse(adt.getMovieList()[position].link)
             parent.context.startActivity(Intent(Intent.ACTION_VIEW, uri))
         }
     }
