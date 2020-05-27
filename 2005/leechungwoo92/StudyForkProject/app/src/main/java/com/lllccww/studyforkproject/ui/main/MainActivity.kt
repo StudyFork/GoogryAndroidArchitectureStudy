@@ -96,10 +96,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
-
-    override fun scrollFinish() {
-
-    }
+    
 
 
 }
