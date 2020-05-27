@@ -5,15 +5,9 @@ import r.test.rapp.R
 import r.test.rapp.data.repository.MovieRepository
 import r.test.rapp.data.repository.MovieRepositoryImpl
 
-class PresenterImpl : Contractor.Presenter {
+class PresenterImpl(private val view: Contractor.View) : Contractor.Presenter {
 
     private val repository: MovieRepository = MovieRepositoryImpl()
-
-    private var view: Contractor.View? = null;
-
-    override fun setView(v: Contractor.View) {
-        this.view = v;
-    }
 
     override fun searchData(keyword: String) {
 

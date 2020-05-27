@@ -20,14 +20,14 @@ import r.test.rapp.data.model.Item
 class MainActivity : AppCompatActivity(), Contractor.View {
 
     private var progress: ProgressDialog? = null
-    private var presenter: Contractor.Presenter = PresenterImpl()
+    private lateinit var presenter: Contractor.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView()
+        presenter = PresenterImpl(this)
 
-        presenter.setView(this)
         showKeyPad()
     }
 

@@ -41,7 +41,6 @@ interface Contractor {
 
     interface Presenter {
 
-        fun setView(v: View)
         fun searchData(keyword: String)
 
     }
