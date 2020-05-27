@@ -127,7 +127,7 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
 
 
     override fun refreshMovieList(movies: List<Movie>) {
-        movieListAdapter.addList(movies as ArrayList<Movie>)
+        movieListAdapter.addList(movies)
         hideKeyPad()
     }
 
