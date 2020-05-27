@@ -1,25 +1,19 @@
 package com.olaf.nukeolaf.ui
 
-import android.app.Application
 import android.os.Build
 import android.text.Html
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.olaf.nukeolaf.data.local.MovieLocalDataSourceImpl
+import androidx.lifecycle.ViewModel
 import com.olaf.nukeolaf.data.model.MovieItem
 import com.olaf.nukeolaf.data.model.MovieResponse
-import com.olaf.nukeolaf.data.remote.MovieRemoteDataSourceImpl
 import com.olaf.nukeolaf.data.repository.MovieRepository
-import com.olaf.nukeolaf.data.repository.MovieRepositoryImpl
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel(
+    private val movieRepository: MovieRepository
+) : ViewModel() {
 
-    private val movieRepository: MovieRepository = MovieRepositoryImpl(
-        MovieLocalDataSourceImpl(application.applicationContext),
-        MovieRemoteDataSourceImpl()
-    )
     val movies = MutableLiveData<List<MovieItem>>()
-    val errorType = MutableLiveData<Int>().apply { value = 0 }
+    val errorType = MutableLiveData<Int>().apply { value = NO_ERROR }
 
     init {
         loadMovies()
@@ -41,6 +35,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 override fun onMoviesLoaded(movieResponse: MovieResponse) {
                     if (movieResponse.items.isNotEmpty()) {
                         movies.value = movieResponse.items.processMovieItemString()
+                        errorType.value = NO_ERROR
                     } else {
                         errorType.value = NO_QUERY_RESULT
                     }
