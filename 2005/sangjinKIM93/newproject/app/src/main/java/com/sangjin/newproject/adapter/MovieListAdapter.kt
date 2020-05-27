@@ -3,6 +3,7 @@ package com.sangjin.newproject.adapter
 import android.content.Context
 import android.os.Build
 import android.text.Html
+import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.AdapterView
@@ -33,7 +34,7 @@ class MovieListAdapter(clickListener : ((Int) -> Unit)) : RecyclerView.Adapter<M
     override fun onBindViewHolder(holder: MovieListViewHolder, position: Int) {
         val movie = movieList.get(position)
 
-        holder.containerView.movieTitleTV.text = movie.title.htmlToString()
+        holder.containerView.movieTitleTV.text = movie.title.htmlToSpanned()
 
         Glide.with(holder.containerView.movieImageIV.context)
             .load(movie.image)
@@ -59,11 +60,11 @@ class MovieListAdapter(clickListener : ((Int) -> Unit)) : RecyclerView.Adapter<M
     fun getMovieList(): ArrayList<Movie> = movieList
 
 
-    fun String.htmlToString(): String {
+    private fun String.htmlToSpanned(): Spanned {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY).toString()
+            Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY)
         } else {
-            Html.fromHtml(this).toString()
+            Html.fromHtml(this)
         }
     }
 
