@@ -12,10 +12,10 @@ class PresenterImpl(private val view: Contractor.View) : Contractor.Presenter {
     override fun searchData(keyword: String) {
 
         if (TextUtils.isEmpty(keyword)) {
-            view?.showToast(R.string.enter_keyword)
+            view.showToast(R.string.enter_keyword)
             return
         }
-        view?.showProgress()
+        view.showProgress()
 
         repository.getMovieList(
             keyword,
