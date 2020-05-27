@@ -10,6 +10,7 @@ interface MovieListContract{
         fun showMovieList(movies: List<Movie>)
         fun noResult(movies: List<Movie>)
         fun onError(t: Throwable)
+        fun refreshMovieList(movies: List<Movie>)
     }
 
     interface Presenter {

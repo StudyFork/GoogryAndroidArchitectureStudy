@@ -51,6 +51,10 @@ class MovieListPresenter(
 
 
     override fun checkMovieResult(movies: List<Movie>) {
+
+        //리스트 최신화
+        view.refreshMovieList(movies)
+
         if (movies.isNullOrEmpty()) {
             view.noResult(movies)
         } else {
