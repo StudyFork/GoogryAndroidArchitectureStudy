@@ -7,9 +7,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.olaf.nukeolaf.R
-import com.olaf.nukeolaf.data.local.MovieLocalDataSourceImpl
-import com.olaf.nukeolaf.data.remote.MovieRemoteDataSourceImpl
-import com.olaf.nukeolaf.data.repository.MovieRepositoryImpl
 import com.olaf.nukeolaf.databinding.ActivityMainBinding
 
 const val NO_ERROR = 0
@@ -32,12 +29,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         viewModel = ViewModelProvider(
-            this, MainViewModelFactory(
-                MovieRepositoryImpl(
-                    MovieLocalDataSourceImpl(applicationContext),
-                    MovieRemoteDataSourceImpl()
-                )
-            )
+            this, ViewModelProvider.AndroidViewModelFactory(application)
         ).get(MainViewModel::class.java)
 
         binding.apply {
