@@ -35,7 +35,7 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
     private fun setOnClick() {
         btn_search.setOnClickListener {
             val searchText = et_search.text.toString()
-            presenter.validateSearchWord(searchText)
+            presenter.getMovieListFromRemote(searchText)
 
         }
 

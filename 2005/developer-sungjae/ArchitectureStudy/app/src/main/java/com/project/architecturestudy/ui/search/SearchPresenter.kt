@@ -11,15 +11,6 @@ class SearchPresenter(
     private val naverMovieRepository: NaverMovieRepository
 ) : SearchContract.Presenter {
 
-    override fun validateSearchWord(searchWord: String) {
-        when (searchWord.isNotEmpty()) {
-
-            true -> getMovieListFromRemote(searchWord)
-            false -> view.showSearchWordIsEmptyMsg()
-        }
-    }
-
-
     override fun getMovieListFromLocal() {
         naverMovieRepository.getCashedMovieList(
             onSuccess = {
@@ -32,6 +23,11 @@ class SearchPresenter(
     }
 
     override fun getMovieListFromRemote(searchWord: String) {
+        if (searchWord.isEmpty()) {
+            view.showSearchWordIsEmptyMsg()
+            return
+        }
+
         naverMovieRepository.getMovieList(searchWord,
             onGetRemoteData = { single ->
                 single.observeOn(AndroidSchedulers.mainThread())

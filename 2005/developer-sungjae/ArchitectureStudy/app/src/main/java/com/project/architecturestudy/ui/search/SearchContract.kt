@@ -16,7 +16,6 @@ interface SearchContract {
 
     interface Presenter {
 
-        fun validateSearchWord(searchWord: String)
         fun getMovieListFromLocal()
         fun getMovieListFromRemote(searchWord: String)
         fun remoteDispose()
