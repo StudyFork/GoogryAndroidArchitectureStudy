@@ -29,20 +29,10 @@ class SearchAdapter : RecyclerView.Adapter<SearchingResultHolder>() {
 
     override fun getItemCount(): Int = movieList.count()
 
-    fun setRemoteMovieData(remoteSearchList: List<MovieItem>) {
-        itemClear()
-        this.movieList.addAll(remoteSearchList)
-        notifyDataSetChanged()
-    }
-
-    fun setLocalMovieData(localSearchList: ArrayList<MovieItem>) {
-        itemClear()
-        this.movieList.addAll(localSearchList)
-        notifyDataSetChanged()
-    }
-
-    private fun itemClear() {
+    fun setLocalMovieData(movieItemList: List<MovieItem>) {
         this.movieList.clear()
+        this.movieList.addAll(movieItemList)
+        notifyDataSetChanged()
     }
 }
 

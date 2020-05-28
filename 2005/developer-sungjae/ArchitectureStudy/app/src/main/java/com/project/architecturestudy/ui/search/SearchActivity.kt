@@ -50,14 +50,9 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
         listview_movie.adapter = adapter
     }
 
-    override fun showLocalMovieData(item: ArrayList<MovieItem>) {
+    override fun showMovieData(item: List<MovieItem>) {
         adapter.setLocalMovieData(item)
     }
-
-    override fun showRemoteMovieData(item: List<MovieItem>) {
-        adapter.setRemoteMovieData(item)
-    }
-
 
     override fun showSearchWordIsEmptyMsg() {
         toast(getString(R.string.please_write))

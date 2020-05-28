@@ -11,8 +11,7 @@ interface SearchContract {
         fun showLocalDataFailureMsg()
         fun showRemoteDataSuccessMsg()
         fun showRemoteDataFailureMsg()
-        fun showLocalMovieData(item: ArrayList<MovieItem>)
-        fun showRemoteMovieData(item: List<MovieItem>)
+        fun showMovieData(item: List<MovieItem>)
     }
 
     interface Presenter {

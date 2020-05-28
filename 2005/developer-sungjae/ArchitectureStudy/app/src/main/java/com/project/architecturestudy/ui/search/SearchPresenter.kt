@@ -24,7 +24,7 @@ class SearchPresenter(
         naverMovieRepository.getCashedMovieList(
             onSuccess = {
                 Log.d(TAG, "getLocalData:$it")
-                view.showLocalMovieData(it)
+                view.showMovieData(it.toList())
             },
             onFailure = {
                 Log.d(TAG, "Throwable:$it")
@@ -39,7 +39,7 @@ class SearchPresenter(
                     .subscribe(
                         {
                             Log.d(TAG, "getRemoteData:$it")
-                            view.showRemoteMovieData(it.items)
+                            view.showMovieData(it.items)
                             view.showRemoteDataSuccessMsg()
                         }, { t ->
 
