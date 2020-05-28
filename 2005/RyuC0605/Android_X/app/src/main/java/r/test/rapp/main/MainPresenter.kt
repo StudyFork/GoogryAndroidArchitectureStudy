@@ -16,6 +16,8 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Present 
             return
         }
         view.showProgress()
+        view.hideKeyPad()
+
 
         repository.getMovieList(
             keyword,

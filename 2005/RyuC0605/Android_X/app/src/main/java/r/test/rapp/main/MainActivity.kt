@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     fun onClick(view: View) {
         val keyword: String = edt_input.text.toString().trim()
         presenter.searchData(keyword)
-        hideKeyPad()
     }
 
     override fun showToast(msg: String) {
