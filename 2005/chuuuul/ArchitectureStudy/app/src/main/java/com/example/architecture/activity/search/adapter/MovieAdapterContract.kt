@@ -12,9 +12,8 @@ interface MovieAdapterContract {
     }
 
     interface Presenter {
-
-        fun getMovie(position: Int): MovieModel
-        fun getMovieCount(): Int
         fun setMovieList(movieList: List<MovieModel>)
+        fun setMovieElement(holder: MovieHolder, position: Int)
+        fun openWebPage(context: Context, position: Int)
     }
 }

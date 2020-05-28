@@ -13,9 +13,6 @@ interface MovieHolderContract {
     }
 
     interface Presenter {
-
         fun bindMovie(movie: MovieModel)
-        fun removeHtmlTag(html: String): String
-        fun checkImageUrl(imageUrl: String): String
     }
 }

@@ -16,12 +16,12 @@ class MovieHolderPresenter(
         view.showMovieImage(checkImageUrl(movie.image))
     }
 
-    override fun removeHtmlTag(html: String): String {
+    private fun removeHtmlTag(html: String): String {
         val escapedHtml = StringEscapeUtils.unescapeHtml4(html)
         return Jsoup.parse(escapedHtml).text()
     }
 
-    override fun checkImageUrl(imageUrl: String): String {
+    private fun checkImageUrl(imageUrl: String): String {
         return if (imageUrl.isBlank()) {
             NO_IMAGE_URL
         } else {

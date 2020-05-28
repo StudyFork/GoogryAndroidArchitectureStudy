@@ -18,10 +18,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieHolder>(), MovieAdapterContract.V
         val viewHolder = MovieHolder(view)
 
         view.setOnClickListener {
-            showMovieWebPage(
-                it.context,
-                movieAdapterPresenter.getMovie(viewHolder.layoutPosition).link
-            )
+            movieAdapterPresenter.openWebPage(it.context, viewHolder.layoutPosition)
         }
 
         return viewHolder
@@ -41,8 +38,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieHolder>(), MovieAdapterContract.V
     }
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
-        val movie = movieAdapterPresenter.getMovie(position)
-        holder.showMovieElement(movie)
+        movieAdapterPresenter.setMovieElement(holder, position)
     }
 }
 
