@@ -2,7 +2,7 @@ package r.test.rapp.main
 
 import r.test.rapp.data.model.Item
 
-interface Contractor {
+interface MainContract {
 
     interface View {
 
@@ -39,7 +39,7 @@ interface Contractor {
 
     }
 
-    interface Presenter {
+    interface Present {
 
         fun searchData(keyword: String)
 

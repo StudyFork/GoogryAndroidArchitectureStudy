@@ -5,7 +5,7 @@ import r.test.rapp.R
 import r.test.rapp.data.repository.MovieRepository
 import r.test.rapp.data.repository.MovieRepositoryImpl
 
-class PresenterImpl(private val view: Contractor.View) : Contractor.Presenter {
+class MainPresenter(private val view: MainContract.View) : MainContract.Present {
 
     private val repository: MovieRepository = MovieRepositoryImpl()
 

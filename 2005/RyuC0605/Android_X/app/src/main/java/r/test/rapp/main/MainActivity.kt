@@ -17,16 +17,16 @@ import r.test.rapp.R
 import r.test.rapp.data.model.Item
 
 @Suppress("DEPRECATION")
-class MainActivity : AppCompatActivity(), Contractor.View {
+class MainActivity : AppCompatActivity(), MainContract.View {
 
     private var progress: ProgressDialog? = null
-    private lateinit var presenter: Contractor.Presenter
+    private lateinit var presenter: MainContract.Present
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView()
-        presenter = PresenterImpl(this)
+        presenter = MainPresenter(this)
 
         showKeyPad()
     }
