@@ -1,4 +1,4 @@
-package com.lllccww.studyforkproject.view.activity
+package com.lllccww.studyforkproject.ui.main
 
 import android.content.Context
 import android.content.Intent
@@ -14,19 +14,20 @@ import com.lllccww.studyforkproject.R
 import com.lllccww.studyforkproject.data.model.MovieItem
 import com.lllccww.studyforkproject.data.repository.NaverMovieRepositoryImpl
 import com.lllccww.studyforkproject.data.source.remote.MovieRemoteDataSourceImpl
-import com.lllccww.studyforkproject.view.adapter.MovieListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainContract.View {
     private var start = 1
     private var total = 0
     private var display = 0
-    private val movieListAdapter = MovieListAdapter()
-    //private val naverMovieRepositoryImpl = NaverMovieRepositoryImpl()
+    private val movieListAdapter =
+        MovieListAdapter()
 
-    private val naverMoviesRepositoryImpl by lazy {
-        NaverMovieRepositoryImpl(MovieRemoteDataSourceImpl())
+
+    private val mainPresenter by lazy {
+        val naverMoviesRepositoryImpl = NaverMovieRepositoryImpl(MovieRemoteDataSourceImpl())
+        MainPresenter(naverMoviesRepositoryImpl, this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,31 +65,30 @@ class MainActivity : AppCompatActivity() {
 
 
         btn_search.setOnClickListener {
-            closeKeyboard()
-            requestSearchMovie()
+            mainPresenter.getSearchMovie(edt_search_keyword.text.toString())
         }
     }
 
 
-    //영화정보 요청
-    private fun requestSearchMovie() {
-        val keword = edt_search_keyword.text.toString()
-
-        naverMoviesRepositoryImpl.getSearchMovie(
-            keword,
-            success = { movieItem ->
-                movieApiSucess(movieItem)
-            },
-            failure = { t ->
-                Toast.makeText(this@MainActivity, t.toString(), Toast.LENGTH_SHORT).show()
-            }
-
-        )
+    override fun showMovieList(items: List<MovieItem>) {
+        movieListAdapter.addItems(items)
     }
 
+    override fun showFailGetData(msg: String) {
+        toastMsg(msg, 0)
+    }
 
-    //키보드 숨기기
-    private fun closeKeyboard() {
+    override fun showMovieNoResult() {
+        toastMsg("검색 결과가 없습니다.", 0)
+
+    }
+
+    override fun showMovieEmptySearchQuery() {
+        toastMsg("검색어를 입력해주세요.", 0)
+
+    }
+
+    override fun hideKeyboard() {
         val view = this.currentFocus
 
         if (view != null) {
@@ -98,13 +98,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //영화검색Api success시 동작함수
-    private fun movieApiSucess(movieItem: List<MovieItem>) {
-        if (movieItem.isNullOrEmpty()) {
-            Toast.makeText(this@MainActivity, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show()
-        } else {
-            movieListAdapter.addItems(movieItem)
-        }
+    override fun toastMsg(msg: String, toastLength: Int) {
+        Toast.makeText(applicationContext, msg, toastLength).show()
     }
 
 

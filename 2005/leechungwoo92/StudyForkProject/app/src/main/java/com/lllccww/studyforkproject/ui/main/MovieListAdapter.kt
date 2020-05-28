@@ -1,4 +1,4 @@
-package com.lllccww.studyforkproject.view.adapter
+package com.lllccww.studyforkproject.ui.main
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -40,10 +40,6 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun clear() {
-        list.clear()
-        notifyDataSetChanged()
-    }
 
     inner class ViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(
