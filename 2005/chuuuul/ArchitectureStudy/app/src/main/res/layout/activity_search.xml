@@ -7,7 +7,7 @@
     tools:context=".activity.search.SearchActivity">
 
     <EditText
-        android:id="@+id/edt_search_searchName"
+        android:id="@+id/edt_search_keyword"
         android:hint="@string/search_hint"
         android:maxLines="1"
         android:imeOptions="actionSearch"
@@ -27,9 +27,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="@string/search_button"
-        app:layout_constraintBottom_toBottomOf="@+id/edt_search_searchName"
+        app:layout_constraintBottom_toBottomOf="@+id/edt_search_keyword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/edt_search_searchName" />
+        app:layout_constraintTop_toTopOf="@+id/edt_search_keyword" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_search_movieList"
@@ -42,7 +42,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_search_searchName" />
+        app:layout_constraintTop_toBottomOf="@+id/edt_search_keyword" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
