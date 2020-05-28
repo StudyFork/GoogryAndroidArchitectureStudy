@@ -75,16 +75,17 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun showFailGetData(msg: String) {
-        Toast.makeText(applicationContext, msg, Toast.LENGTH_SHORT).show()
+        toastMsg(msg, 0)
     }
 
     override fun showMovieNoResult() {
-        Toast.makeText(applicationContext, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show()
+        toastMsg("검색 결과가 없습니다.", 0)
 
     }
 
     override fun showMovieEmptySearchQuery() {
-        Toast.makeText(applicationContext, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
+        toastMsg("검색어를 입력해주세요.", 0)
+
     }
 
     override fun hideKeyboard() {
@@ -96,7 +97,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
-    
+
+    override fun toastMsg(msg: String, toastLength: Int) {
+        Toast.makeText(applicationContext, msg, toastLength).show()
+    }
 
 
 }
