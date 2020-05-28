@@ -1,8 +1,8 @@
 package com.example.architecture.activity.search
 
 import android.os.Bundle
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import com.example.architecture.R
 import com.example.architecture.activity.search.adapter.MovieAdapter
@@ -34,7 +34,13 @@ class SearchActivity : AppCompatActivity(R.layout.activity_search), SearchContra
         // * Keyboard의 엔터로 검색 작업
         edt_search_keyword.setOnEditorActionListener { _, actionId, _ ->
             val keyword = edt_search_keyword.text.toString()
-            searchPresenter.searchMovie(actionId, keyword)
+
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                searchPresenter.searchMovie(keyword)
+                true
+            } else {
+                false
+            }
         }
 
         btn_search_searchButton.setOnClickListener {

@@ -1,8 +1,6 @@
 package com.example.architecture.activity.search
 
 import android.util.Log
-import android.view.inputmethod.EditorInfo
-import com.example.architecture.R
 import com.example.architecture.data.model.MovieModel
 import com.example.architecture.data.repository.NaverRepository
 
@@ -14,15 +12,6 @@ class SearchPresenter(
     override fun searchMovie(keyword: String) {
         if (isValidKeyword(keyword)) {
             naverRepository.getMovieList(keyword, this::onSuccess, this::onFailure)
-        }
-    }
-
-    override fun searchMovie(actionId: Int, keyword: String): Boolean {
-        return if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-            searchMovie(keyword)
-            true
-        } else {
-            false
         }
     }
 
