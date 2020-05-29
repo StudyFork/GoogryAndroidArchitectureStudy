@@ -17,24 +17,16 @@ class MainViewModel(
     val movies: LiveData<List<Movie>>
         get() = _movies
 
-    private val _invalidSearchQuery = MutableLiveData<String>()
-    val invalidSearchQuery: LiveData<String>
-        get() = _invalidSearchQuery
-
-    private val _emptySearchResult = MutableLiveData<String>()
-    val emptySearchResult: LiveData<String>
-        get() = _emptySearchResult
-
-    private val _showNetworkError = MutableLiveData<String>()
-    val showNetworkError: LiveData<String>
-        get() = _showNetworkError
+    private val _errorSearchResult = MutableLiveData<String>()
+    val errorSearchResult: LiveData<String>
+        get() = _errorSearchResult
 
     val searchQuery = MutableLiveData<String>()
 
     fun searchMovie() {
         val query = searchQuery.value
         if (query.isNullOrBlank()) {
-            _invalidSearchQuery.value =
+            _errorSearchResult.value =
                 resourceProvider.getString(R.string.toast_invalid_search_query)
         } else {
             fetchMovieList(query)
@@ -45,19 +37,15 @@ class MainViewModel(
         movieRepository.getMovieListRemote(searchQuery,
             success = { movieList: List<Movie> ->
                 if (movieList.isEmpty()) {
-                    _emptySearchResult.value =
+                    _errorSearchResult.value =
                         resourceProvider.getString(R.string.toast_empty_search_result)
                 } else {
                     _movies.value = movieList
                 }
             },
             failure = {
-                _showNetworkError.value =
+                _errorSearchResult.value =
                     resourceProvider.getString(R.string.toast_show_network_error)
             })
-    }
-
-    override fun onCleared() {
-        super.onCleared()
     }
 }

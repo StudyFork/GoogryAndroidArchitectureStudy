@@ -59,18 +59,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        mainViewModel.invalidSearchQuery.observe(this, Observer { invalid ->
-            showToast(invalid)
+        mainViewModel.errorSearchResult.observe(this, Observer { message ->
+            toast(message)
         })
-        mainViewModel.emptySearchResult.observe(this, Observer { empty ->
-            showToast(empty)
-        })
-        mainViewModel.showNetworkError.observe(this, Observer { networkError ->
-            showToast(networkError)
-        })
-    }
-
-    private fun showToast(message: String) {
-        toast(message)
     }
 }
