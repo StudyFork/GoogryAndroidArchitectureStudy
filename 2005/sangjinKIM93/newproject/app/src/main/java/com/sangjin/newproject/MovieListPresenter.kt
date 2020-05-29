@@ -63,6 +63,6 @@ class MovieListPresenter(
 
 
     override fun clearDisposable() {
-        disposables.clear()
+        disposables.dispose()
     }
 }
