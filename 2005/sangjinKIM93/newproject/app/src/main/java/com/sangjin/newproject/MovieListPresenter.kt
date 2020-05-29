@@ -57,9 +57,8 @@ class MovieListPresenter(
 
         if (movies.isNullOrEmpty()) {
             view.noResult(movies)
-        } else {
-            view.refreshMovieList(movies)
         }
+
     }
 
 
