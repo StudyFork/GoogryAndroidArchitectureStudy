@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
@@ -14,15 +12,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.sangjin.newproject.adapter.MovieListAdapter
 import com.sangjin.newproject.data.model.Movie
-import com.sangjin.newproject.data.model.NaverMovieResponse
 import com.sangjin.newproject.data.repository.NaverMoviesRepositoryImpl
 import com.sangjin.newproject.data.source.local.LocalDataSourceImpl
 import com.sangjin.newproject.data.source.local.RoomDb
 import com.sangjin.newproject.data.source.remote.RemoteDataSourceImpl
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_movie_list.*
 
 class MovieListActivity : AppCompatActivity(), MovieListContract.View {
@@ -127,7 +120,7 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
 
 
     override fun refreshMovieList(movies: List<Movie>) {
-        movieListAdapter.addList(movies)
+        movieListAdapter.refreshList(movies)
         hideKeyPad()
     }
 

@@ -47,7 +47,7 @@ class MovieListAdapter(clickListener : ((Int) -> Unit)) : RecyclerView.Adapter<M
     override fun getItemCount() = movieList.size
 
 
-    fun addList(movieListFromActivity : List<Movie>){
+    fun refreshList(movieListFromActivity : List<Movie>){
         if(movieList.isNotEmpty()){
             movieList.clear()
         }
