@@ -24,7 +24,6 @@ abstract class BaseActivity<VM : BaseViewModel, B : ViewBinding>(private val inf
 
     override fun onDestroy() {
         disposables.clear()
-        viewModel.clearDisposables()
         super.onDestroy()
     }
 

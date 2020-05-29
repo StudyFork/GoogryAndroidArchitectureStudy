@@ -1,10 +1,14 @@
 package io.github.jesterz91.study.presentation.common
 
+import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
 
-abstract class BaseViewModel {
+abstract class BaseViewModel : ViewModel() {
 
     protected val disposables by lazy { CompositeDisposable() }
 
-    fun clearDisposables() = disposables.clear()
+    override fun onCleared() {
+        super.onCleared()
+        disposables.clear()
+    }
 }

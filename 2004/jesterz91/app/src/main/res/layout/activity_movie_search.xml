@@ -6,9 +6,7 @@
 
     <data>
 
-        <import type="java.util.List" />
-
-        <import type="io.github.jesterz91.study.domain.entity.Movie" />
+        <import type="android.view.View" />
 
         <variable
             name="vm"
@@ -17,10 +15,6 @@
         <variable
             name="adapter"
             type="io.github.jesterz91.study.presentation.ui.MovieSearchAdapter" />
-
-        <variable
-            name="items"
-            type="List&lt;Movie>" />
 
         <variable
             name="itemDecoration"
@@ -45,14 +39,14 @@
             bind:adapter="@{adapter}"
             bind:fixedSize="@{true}"
             bind:itemDecoration="@{itemDecoration}"
-            bind:replaceAll="@{items}"
+            bind:replaceAll="@{vm.movieListLiveData}"
             tools:listitem="@layout/item_movie" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="@{vm.loadingLiveData ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
