@@ -12,11 +12,7 @@ import com.example.kyudong3.viewModel.MainViewModel
 
 @BindingAdapter(value = ["setItems"])
 fun RecyclerView.setItems(movies: List<Movie>?) {
-    if (adapter is SearchMovieRvAdapter) {
-        movies?.let {
-            (adapter as SearchMovieRvAdapter).setMovieList(it)
-        }
-    }
+    movies?.let { (adapter as? SearchMovieRvAdapter)?.setMovieList(it) }
 }
 
 @BindingAdapter(value = ["loadUrl"])
