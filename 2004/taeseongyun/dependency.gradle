@@ -61,7 +61,7 @@ ext {
                     ],
                     material        : "com.google.android.material:material:$versions.androidx.material",
                     recyclerview    : "androidx.recyclerview:recyclerview:$versions.androidx.recyclerview",
-                    lifecycle       : "androidx.lifecycle:lifecycle-extensions:$versions.androidx.lifecycle"
+                    lifecycle       : "androidx.lifecycle:lifecycle-livedata-ktx:$versions.androidx.lifecycle"
             ],
             library      : [
                     rx        : [

@@ -12,7 +12,6 @@ import com.tsdev.tsandroid.provider.ResourceProvider
 import com.tsdev.tsandroid.ui.observe.ObserverProvider
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
-import io.reactivex.rxjava3.subjects.PublishSubject
 
 class MainViewModel(
     private val movieRepository: NaverReopsitory,
