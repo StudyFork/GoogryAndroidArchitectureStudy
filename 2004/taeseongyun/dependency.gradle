@@ -19,7 +19,8 @@ ext {
                     ],
                     material        : "1.1.0-alpha06",
                     recyclerview    : "1.1.0",
-                    lifecycle       : "2.2.0"
+                    lifecycle       : "2.2.0",
+                    koin            : "2.1.5"
             ],
             test             : [
                     junit   : "1.1.1",
@@ -61,7 +62,8 @@ ext {
                     ],
                     material        : "com.google.android.material:material:$versions.androidx.material",
                     recyclerview    : "androidx.recyclerview:recyclerview:$versions.androidx.recyclerview",
-                    lifecycle       : "androidx.lifecycle:lifecycle-livedata-ktx:$versions.androidx.lifecycle"
+                    lifecycle       : "androidx.lifecycle:lifecycle-livedata-ktx:$versions.androidx.lifecycle",
+                    koin            : "org.koin:koin-androidx-viewmodel:$versions.androidx.koin"
             ],
             library      : [
                     rx        : [

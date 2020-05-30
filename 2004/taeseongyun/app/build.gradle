@@ -78,4 +78,7 @@ dependencies {
 
     //lifecycle
     implementation deps.androidx.lifecycle
+
+    //koin
+    implementation deps.androidx.koin
 }
