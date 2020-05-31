@@ -20,7 +20,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     )
 
     val movies = MutableLiveData<List<MovieItem>>()
-    val errorType = MutableLiveData<Int>().apply { value = NO_ERROR }
+    val errorType = MutableLiveData<Int>()
 
     init {
         loadMovies()
@@ -44,7 +44,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         movies.value = movieResponse.items.processMovieItemString()
                         errorType.value = NO_ERROR
                     } else {
-                        errorType.value = NO_QUERY_RESULT
+                        errorType.apply {
+                            value = NO_QUERY_RESULT
+                            value = NO_ERROR
+                        }
                     }
                 }
 
@@ -53,7 +56,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 }
 
                 override fun onFailure(t: Throwable) {
-                    errorType.value = NETWORK_ERROR
+                    errorType.apply {
+                        value = NETWORK_ERROR
+                        value = NO_ERROR
+                    }
                 }
             })
     }
