@@ -8,8 +8,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="activity"
-            type="com.eunice.eunicehong.ui.MainActivity" />
+            name="movieAdapter"
+            type="com.eunice.eunicehong.ui.MovieAdapter" />
 
         <variable
             name="viewModel"
@@ -86,7 +86,7 @@
             android:layout_height="0dp"
             android:layout_margin="@dimen/margin_1"
             android:visibility="@{viewModel.movieListState == MovieListState.SHOW_RESULT ?View.VISIBLE: View.INVISIBLE}"
-            app:adapter="@{activity.movieListAdapter}"
+            app:adapter="@{movieAdapter}"
             app:items="@{viewModel.resultMovieList}"
             app:layout="@layout/item_movie"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

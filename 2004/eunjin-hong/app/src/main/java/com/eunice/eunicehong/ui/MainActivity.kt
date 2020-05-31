@@ -22,7 +22,7 @@ import com.eunice.eunicehong.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    val movieListAdapter = MovieAdapter()
+    private val movieListAdapter = MovieAdapter()
 
     private lateinit var mainViewModel: MainViewModel
 
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             this@MainActivity,
             R.layout.activity_main
         ).apply {
-            activity = this@MainActivity
+            movieAdapter = movieListAdapter
             viewModel = mainViewModel
             componentName = this@MainActivity.componentName
             lifecycleOwner = this@MainActivity
