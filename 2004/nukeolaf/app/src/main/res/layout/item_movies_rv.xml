@@ -72,6 +72,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/movie_image"
                     app:layout_constraintTop_toBottomOf="@id/movie_title"
+                    app:movieStringVisibility="@{movieItem.subtitle}"
                     tools:text="movie title" />
 
                 <TextView
@@ -86,6 +87,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/movie_image"
                     app:layout_constraintTop_toBottomOf="@id/movie_subtitle"
+                    app:movieStringVisibility="@{movieItem.pubDate}"
                     tools:text="2020" />
 
                 <TextView
@@ -101,6 +103,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/movie_image"
                     app:layout_constraintTop_toBottomOf="@id/movie_pub_date"
+                    app:movieStringVisibility="@{movieItem.director}"
                     tools:text="감독 : 김아무개" />
 
                 <TextView
@@ -116,6 +119,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/movie_image"
                     app:layout_constraintTop_toBottomOf="@id/movie_director"
+                    app:movieStringVisibility="@{movieItem.actor}"
                     tools:text="출연진 : 김수한무, 홍길동" />
 
                 <androidx.appcompat.widget.AppCompatRatingBar

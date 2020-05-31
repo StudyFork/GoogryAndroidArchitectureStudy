@@ -63,8 +63,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             it.copy(
                 title = it.title.htmlToString(),
                 subtitle = it.subtitle.htmlToString(),
-                director = it.director.addCommas(),
-                actor = it.actor.addCommas(),
+                director = it.director.htmlToString().addCommas(),
+                actor = it.actor.htmlToString().addCommas(),
                 userRating = it.userRating / 2
             )
         }
