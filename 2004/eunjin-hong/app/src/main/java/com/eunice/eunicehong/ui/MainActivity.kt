@@ -24,28 +24,21 @@ class MainActivity : AppCompatActivity() {
 
     val movieListAdapter = MovieAdapter()
 
-    private lateinit var sharedPreferences: MoviePreferences
-    private lateinit var searchRecentSuggestions: SearchRecentSuggestions
-
-    private lateinit var localDataSource: MovieLocalDataSource
-    private lateinit var remoteDataSource: MovieRemoteDataSource
-    private lateinit var movieRepository: MovieRepository
-
     private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        sharedPreferences = MoviePreferences(this@MainActivity)
-        searchRecentSuggestions = SearchRecentSuggestions(
+        val sharedPreferences = MoviePreferences(this@MainActivity)
+        val searchRecentSuggestions = SearchRecentSuggestions(
             this@MainActivity,
             SuggestionProvider.AUTHORITY,
             SuggestionProvider.MODE
         )
 
-        localDataSource = MovieLocalDataSource(sharedPreferences, searchRecentSuggestions)
-        remoteDataSource = MovieRemoteDataSource()
-        movieRepository = MovieRepository(remoteDataSource, localDataSource)
+        val localDataSource = MovieLocalDataSource(sharedPreferences, searchRecentSuggestions)
+        val remoteDataSource = MovieRemoteDataSource()
+        val movieRepository = MovieRepository(remoteDataSource, localDataSource)
 
         mainViewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
