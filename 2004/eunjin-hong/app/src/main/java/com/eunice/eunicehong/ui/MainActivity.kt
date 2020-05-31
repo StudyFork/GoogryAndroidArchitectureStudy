@@ -4,20 +4,14 @@ import android.app.AlertDialog
 import android.app.SearchManager
 import android.content.Intent
 import android.os.Bundle
-import android.provider.SearchRecentSuggestions
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.eunice.eunicehong.R
-import com.eunice.eunicehong.data.source.MovieRepository
-import com.eunice.eunicehong.data.source.local.MovieLocalDataSource
-import com.eunice.eunicehong.data.source.remote.MovieRemoteDataSource
 import com.eunice.eunicehong.databinding.ActivityMainBinding
-import com.eunice.eunicehong.provider.SuggestionProvider
 import com.eunice.eunicehong.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -29,23 +23,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val sharedPreferences = MoviePreferences(this@MainActivity)
-        val searchRecentSuggestions = SearchRecentSuggestions(
-            this@MainActivity,
-            SuggestionProvider.AUTHORITY,
-            SuggestionProvider.MODE
-        )
-
-        val localDataSource = MovieLocalDataSource(sharedPreferences, searchRecentSuggestions)
-        val remoteDataSource = MovieRemoteDataSource()
-        val movieRepository = MovieRepository(remoteDataSource, localDataSource)
-
-        mainViewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return MainViewModel(movieRepository) as T
-            }
-        }).get(MainViewModel::class.java)
+        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(
             this@MainActivity,

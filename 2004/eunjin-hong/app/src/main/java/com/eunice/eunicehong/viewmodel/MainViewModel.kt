@@ -1,14 +1,32 @@
 package com.eunice.eunicehong.viewmodel
 
+import android.app.Application
+import android.provider.SearchRecentSuggestions
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.eunice.eunicehong.data.model.Movie
 import com.eunice.eunicehong.data.model.MovieContents
 import com.eunice.eunicehong.data.source.MovieDataSource
 import com.eunice.eunicehong.data.source.MovieRepository
+import com.eunice.eunicehong.data.source.local.MovieLocalDataSource
+import com.eunice.eunicehong.data.source.remote.MovieRemoteDataSource
+import com.eunice.eunicehong.provider.SuggestionProvider
+import com.eunice.eunicehong.ui.MoviePreferences
 
-class MainViewModel(private val repository: MovieRepository) : ViewModel() {
+class MainViewModel(application: Application) :
+    AndroidViewModel(application) {
+
+    private val sharedPreferences = MoviePreferences(application.applicationContext)
+    private val searchRecentSuggestions = SearchRecentSuggestions(
+        application.applicationContext,
+        SuggestionProvider.AUTHORITY,
+        SuggestionProvider.MODE
+    )
+
+    private val localDataSource = MovieLocalDataSource(sharedPreferences, searchRecentSuggestions)
+    private val remoteDataSource = MovieRemoteDataSource()
+    val movieRepository = MovieRepository(remoteDataSource, localDataSource)
 
     val movieListState: MutableLiveData<MovieListState> =
         MutableLiveData(MovieListState.EMPTY_QUERY)
@@ -20,7 +38,7 @@ class MainViewModel(private val repository: MovieRepository) : ViewModel() {
             } else {
                 resultMovieList.value = movieContents.items
                 showSearchResult(movieContents)
-                repository.saveMovieList(query, movieContents)
+                movieRepository.saveMovieList(query, movieContents)
             }
         }
 
@@ -34,15 +52,15 @@ class MainViewModel(private val repository: MovieRepository) : ViewModel() {
     fun search(query: String?) {
         if (query.isNullOrBlank()) return
         movieListState.value = MovieListState.LOADING
-        repository.getMovieList(query, loadMovieListCallback)
+        movieRepository.getMovieList(query, loadMovieListCallback)
     }
 
     fun deleteAllSearchRecentSuggestions() {
-        repository.deleteAllSearchRecentSuggestions()
+        movieRepository.deleteAllSearchRecentSuggestions()
     }
 
     fun removeHistory() {
-        repository.removeMovieHistory()
+        movieRepository.removeMovieHistory()
     }
 
     fun showSearchResult(movies: MovieContents) {
