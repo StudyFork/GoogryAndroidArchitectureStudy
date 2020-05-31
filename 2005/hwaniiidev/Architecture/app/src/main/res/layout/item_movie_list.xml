@@ -48,7 +48,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{movieItem.title}" />
+                    htmlTitle="@{movieItem.title}"/>
             </LinearLayout>
 
             <LinearLayout
