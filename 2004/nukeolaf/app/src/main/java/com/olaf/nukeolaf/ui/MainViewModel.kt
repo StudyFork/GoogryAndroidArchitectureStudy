@@ -63,8 +63,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             it.copy(
                 title = it.title.htmlToString(),
                 subtitle = it.subtitle.htmlToString(),
-                director = it.director.addCommas("감독 : "),
-                actor = it.actor.addCommas("출연진 : "),
+                director = it.director.addCommas(),
+                actor = it.actor.addCommas(),
                 userRating = it.userRating / 2
             )
         }
@@ -78,14 +78,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    private fun String.addCommas(prefix: String): String {
+    private fun String.addCommas(): String {
         return if (this.isNotBlank()) {
             this.substring(0, this.length - 1)
                 .split("|")
-                .joinToString(
-                    prefix = prefix,
-                    separator = ", "
-                )
+                .joinToString()
         } else {
             this
         }
