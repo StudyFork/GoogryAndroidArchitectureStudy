@@ -49,7 +49,7 @@ class AdapterMovieList :
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
         val itemData = movieList.get(position)
-        if (itemData.image.isNullOrEmpty()) {
+        /*if (itemData.image.isNullOrEmpty()) {
             Glide.with(holder.itemView)
                 .load(R.drawable.gm_noimage)
                 .into(holder.imgMovie)
@@ -57,7 +57,7 @@ class AdapterMovieList :
             Glide.with(holder.itemView)
                 .load(itemData.image)
                 .into(holder.imgMovie)
-        }
+        }*/
         holder.binding.movieItem = itemData
 
         /*holder.txtTile.text = Html.fromHtml(itemData.title)
@@ -74,9 +74,10 @@ class AdapterMovieList :
         notifyDataSetChanged()
     }
 
-    inner class MovieHolder(val binding: ItemMovieListBinding) : RecyclerView.ViewHolder(binding.root) {
-        val imgMovie = itemView.findViewById<ImageView>(R.id.item_movie_list_image)
-        /*al txtTile = itemView.findViewById<TextView>(R.id.item_movie_list_title)
+    inner class MovieHolder(val binding: ItemMovieListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        /*val imgMovie = itemView.findViewById<ImageView>(R.id.item_movie_list_image)
+        val txtTile = itemView.findViewById<TextView>(R.id.item_movie_list_title)
         val txtSubTile = itemView.findViewById<TextView>(R.id.item_movie_list_subtitle)
         val txtPubDate = itemView.findViewById<TextView>(R.id.item_movie_list_pub_date)
         val txtDirector = itemView.findViewById<TextView>(R.id.item_movie_list_director)
