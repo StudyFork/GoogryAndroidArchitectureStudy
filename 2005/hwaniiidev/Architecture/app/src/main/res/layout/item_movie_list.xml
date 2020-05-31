@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="movieItem"
             type="com.hwaniiidev.architecture.model.Item" />
@@ -15,11 +16,12 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_gravity="center_vertical"
             android:id="@+id/item_movie_list_image"
-            android:layout_marginEnd="14dp"
+            imageUrl="@{movieItem.image}"
             android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="14dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
