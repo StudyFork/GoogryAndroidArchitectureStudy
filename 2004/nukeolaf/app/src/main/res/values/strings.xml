@@ -3,6 +3,6 @@
 
     <string name="MOVIE_CACHE_DATA">MOVIE_CACHE_DATA</string>
 
-    <string name="movie_director_prefix">감독 : $s</string>
-    <string name="movie_actor_prefix">출연진 : $s</string>
+    <string name="movie_director_prefix">감독 : %1$s</string>
+    <string name="movie_actor_prefix">출연진 : %1$s</string>
 </resources>
