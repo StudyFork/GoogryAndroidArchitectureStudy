@@ -59,6 +59,7 @@ class AdapterMovieList :
                 .into(holder.imgMovie)
         }*/
         holder.binding.movieItem = itemData
+        holder.binding.executePendingBindings()
 
         /*holder.txtTile.text = Html.fromHtml(itemData.title)
         holder.txtSubTile.text = itemData.subtitle
