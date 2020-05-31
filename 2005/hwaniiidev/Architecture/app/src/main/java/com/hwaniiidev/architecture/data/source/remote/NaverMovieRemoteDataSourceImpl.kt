@@ -11,7 +11,6 @@ class NaverMovieRemoteDataSourceImpl : NaverMovieRemoteDataSource {
 
     override fun getRemoteMovies(
         query: String,
-        //onSuccess: (movies: ArrayList<Item>) -> Unit,
         onSuccess: (response: ResponseMovieSearchData) -> Unit,
         onError: (errorMessage: String) -> Unit,
         onFailure: (t: Throwable) -> Unit
@@ -27,7 +26,6 @@ class NaverMovieRemoteDataSourceImpl : NaverMovieRemoteDataSource {
                         if (result != null) {
                             result.query = query
                             onSuccess(result)
-                            //onSuccess(result.items)
                         }
                     } else {
                         onError(response.errorBody().toString())
