@@ -1,10 +1,7 @@
 package com.tsdev.tsandroid
 
 import android.app.Application
-import com.tsdev.tsandroid.di.mapConverterModule
-import com.tsdev.tsandroid.di.naverRepositoryModule
-import com.tsdev.tsandroid.di.networkModule
-import com.tsdev.tsandroid.di.rxJavaEventBusModule
+import com.tsdev.tsandroid.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -25,7 +22,9 @@ class NaverMovieSearchApp : Application() {
                     networkModule,
                     mapConverterModule,
                     naverRepositoryModule,
-                    rxJavaEventBusModule
+                    rxJavaEventBusModule,
+                    viewModelModule,
+                    resourceProviderModule
                 )
             )
         }

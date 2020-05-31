@@ -3,19 +3,16 @@ package com.tsdev.tsandroid.ui
 import android.content.Context
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
-import androidx.activity.viewModels
 import androidx.lifecycle.*
 import com.tsdev.tsandroid.R
 import com.tsdev.tsandroid.base.BaseActivity
-import com.tsdev.tsandroid.data.repository.NaverReopsitory
 import com.tsdev.tsandroid.databinding.ActivityMainBinding
 import com.tsdev.tsandroid.ext.showToast
-import com.tsdev.tsandroid.provider.ResourceProviderImpl
 import com.tsdev.tsandroid.ui.adapter.MovieRecyclerAdapter
-import com.tsdev.tsandroid.ui.observe.ObserverProviderImpl
 import com.tsdev.tsandroid.ui.viewmodel.MainViewModel
 import com.tsdev.tsandroid.util.BackKeyPressExt
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
@@ -37,8 +34,6 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         MovieRecyclerAdapter()
     }
 
-    private val naverRepository by inject<NaverReopsitory>()
-
     private val backKeyPressExt by inject<BackKeyPressExt> {
         parametersOf(::finish, ::showToast)
     }
@@ -50,18 +45,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         )
     }
 
-    override val viewModel: MainViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return MainViewModel(
-                    naverRepository,
-                    ResourceProviderImpl(this@MainActivity.applicationContext),
-                    ObserverProviderImpl()
-                ) as T
-            }
-        }
-    }
-
+    override val viewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

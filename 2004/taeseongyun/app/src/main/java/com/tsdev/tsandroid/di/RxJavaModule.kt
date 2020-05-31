@@ -10,8 +10,9 @@ val rxJavaEventBusModule = module {
     single<RxEventBus> { RxEventBusImpl() }
 
 
-    /***todo single로 처리 할 경우 한번만 실행 되는데 이유를 모르겠음.
-     * factory로 할 경우는 정상 작동.
+    /***
+     * todo single not working.
+     * todo factory working.
      ***/
 
     factory { (finish: () -> Unit, showToast: (Int, Int) -> Unit) ->
