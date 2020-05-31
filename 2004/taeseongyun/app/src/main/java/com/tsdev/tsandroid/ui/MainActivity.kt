@@ -8,7 +8,6 @@ import androidx.lifecycle.*
 import com.tsdev.tsandroid.R
 import com.tsdev.tsandroid.base.BaseActivity
 import com.tsdev.tsandroid.data.repository.NaverReopsitory
-import com.tsdev.tsandroid.data.repository.NaverRepositoryImpl
 import com.tsdev.tsandroid.databinding.ActivityMainBinding
 import com.tsdev.tsandroid.ext.showToast
 import com.tsdev.tsandroid.provider.ResourceProviderImpl
@@ -16,11 +15,10 @@ import com.tsdev.tsandroid.ui.adapter.MovieRecyclerAdapter
 import com.tsdev.tsandroid.ui.observe.ObserverProviderImpl
 import com.tsdev.tsandroid.ui.viewmodel.MainViewModel
 import com.tsdev.tsandroid.util.BackKeyPressExt
-import com.tsdev.tsandroid.util.MapConverter
-import io.reactivex.rxjava3.disposables.CompositeDisposable
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
-
 
     /***
      * Fragment 는 viewOwnerLifeCycle 적용 해야함 fragment 에는 view 사이클 fragment 사이클 두 가지가 존재.
@@ -38,15 +36,11 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     private val movieRecyclerAdapter: MovieRecyclerAdapter by lazy {
         MovieRecyclerAdapter()
     }
-    private val movieMapConverter: MapConverter by lazy {
-        MapConverter()
-    }
-    private val naverRepository: NaverReopsitory by lazy {
-        NaverRepositoryImpl(movieMapConverter)
-    }
 
-    private val backKeyPressExt: BackKeyPressExt by lazy {
-        BackKeyPressExt(rxJavaEvent, CompositeDisposable(), ::finish, ::showToast)
+    private val naverRepository by inject<NaverReopsitory>()
+
+    private val backKeyPressExt by inject<BackKeyPressExt> {
+        parametersOf(::finish, ::showToast)
     }
 
     val hideKeyBoard: () -> Unit = {
