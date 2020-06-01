@@ -1,30 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".main.MainActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <include
-        layout="@layout/layout_main_top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <data>
+        <variable
+            name="main"
+            type="r.test.rapp.main.MainActivity" />
+        <variable
+            name="test"
+            type="r.test.rapp.networks.ImageLoader" />
+    </data>
 
-    <ListView
-        android:id="@+id/lv_contents"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/row_content" />
+        android:orientation="vertical"
+        tools:context=".main.MainActivity">
 
-    <TextView
-        android:id="@+id/txt_empty"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:drawableLeft="@android:drawable/ic_menu_search"
-        android:gravity="center"
-        android:text="@string/empty_result" />
+        <include
+            android:id="@+id/top"
+            layout="@layout/layout_main_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ListView
+            android:id="@+id/lv_contents"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/row_content" />
+
+        <TextView
+            android:id="@+id/txt_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:drawableLeft="@android:drawable/ic_menu_search"
+            android:gravity="center"
+            android:text="@string/empty_result" />
 
 
-</LinearLayout>
+    </LinearLayout>
+</layout>
