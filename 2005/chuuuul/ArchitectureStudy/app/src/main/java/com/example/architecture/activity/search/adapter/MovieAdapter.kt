@@ -13,6 +13,8 @@ import com.example.architecture.R
 import com.example.architecture.data.model.MovieModel
 import com.example.architecture.util.ConstValue.Companion.NO_IMAGE_URL
 import kotlinx.android.synthetic.main.item_movie.view.*
+import org.apache.commons.text.StringEscapeUtils
+import org.jsoup.Jsoup
 
 class MovieAdapter :  RecyclerView.Adapter<MovieViewHolder>() {
 
@@ -59,7 +61,7 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view)
 {
     fun onBind(movie : MovieModel)
     {
-        itemView.tv_movie_title.text = removeMarkupTag(movie.title)
+        itemView.tv_movie_title.text = removeHtmlTag(movie.title)
         itemView.tv_movie_pubDate.text = movie.pubDate
 
         itemView.ratingBar_movie_rating.rating = movie.userRating
@@ -68,8 +70,9 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     }
 
-    private fun removeMarkupTag(html: String): String {
-        return html.replace("<b>", "").replace("</b>", "")
+    private fun removeHtmlTag(html: String): String {
+        val escapedHtml = StringEscapeUtils.unescapeHtml4(html)
+        return Jsoup.parse(escapedHtml).text()
     }
 
     private fun setMovieImage(imageView: ImageView, imageUrl: String) {
