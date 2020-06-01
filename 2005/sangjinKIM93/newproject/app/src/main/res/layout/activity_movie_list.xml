@@ -7,7 +7,9 @@
         <variable
             name="movie"
             type="com.sangjin.newproject.data.model.Movie" />
-
+        <variable
+            name="activity"
+            type="com.sangjin.newproject.MovieListActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/search_btn"
-            android:onClick="onClick"
+            android:onClick="@{activity::onClick}"
             app:layout_constraintBottom_toBottomOf="@+id/movieNameET"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/movieNameET"

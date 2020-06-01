@@ -40,6 +40,7 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_list)
+        binding.activity = this
 
         setRecyclerView()
         presenter.loadCache()
@@ -67,7 +68,7 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
     //**검색 버튼 클릭 이벤트
     fun onClick(view: View) {
 
-        val keyWord = movieNameET.text.toString().trim()
+        val keyWord = binding.movieNameET.text.toString().trim()
 
         presenter.searchMovie(keyWord)
     }
