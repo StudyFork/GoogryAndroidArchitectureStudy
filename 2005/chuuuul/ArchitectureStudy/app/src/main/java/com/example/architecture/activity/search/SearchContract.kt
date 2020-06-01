@@ -13,7 +13,6 @@ interface SearchContract {
 
     interface Presenter {
         fun searchMovie(keyword: String)
-        fun isValidKeyword(keyword: String): Boolean
         fun clearLocalData(keyword: String)
     }
 
