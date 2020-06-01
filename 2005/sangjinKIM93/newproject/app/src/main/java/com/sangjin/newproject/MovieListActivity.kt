@@ -10,12 +10,14 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.sangjin.newproject.adapter.MovieListAdapter
 import com.sangjin.newproject.data.model.Movie
 import com.sangjin.newproject.data.repository.NaverMoviesRepositoryImpl
 import com.sangjin.newproject.data.source.local.LocalDataSourceImpl
 import com.sangjin.newproject.data.source.local.RoomDb
 import com.sangjin.newproject.data.source.remote.RemoteDataSourceImpl
+import com.sangjin.newproject.databinding.ActivityMovieListBinding
 import kotlinx.android.synthetic.main.activity_movie_list.*
 
 class MovieListActivity : AppCompatActivity(), MovieListContract.View {
@@ -32,10 +34,12 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         MovieListPresenter(this, naverMoviesRepositoryImpl)
     }
 
+    private lateinit var binding: ActivityMovieListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movie_list)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_list)
 
         setRecyclerView()
         presenter.loadCache()
@@ -55,7 +59,7 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         }
 
         movieListAdapter = MovieListAdapter(onItemClickListener)
-        movieListView.adapter = movieListAdapter
+        binding.movieListView.adapter = movieListAdapter
     }
 
 
@@ -71,7 +75,7 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
 
     //**키패드 셋팅
     private fun setKeypad() {
-        movieNameET.setOnEditorActionListener { v, actionId, event ->
+        binding.movieNameET.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
                 onClick(v)
@@ -86,7 +90,7 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
 
     //**키패드 보여주기
     private fun showKeyPad() {
-        movieNameET.requestFocus()
+        binding.movieNameET.requestFocus()
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }
 
