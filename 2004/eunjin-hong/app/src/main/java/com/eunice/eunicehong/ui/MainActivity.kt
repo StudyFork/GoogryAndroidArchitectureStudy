@@ -4,64 +4,32 @@ import android.app.AlertDialog
 import android.app.SearchManager
 import android.content.Intent
 import android.os.Bundle
-import android.provider.SearchRecentSuggestions
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.eunice.eunicehong.R
-import com.eunice.eunicehong.data.model.MovieList
 import com.eunice.eunicehong.databinding.ActivityMainBinding
-import com.eunice.eunicehong.provider.SuggestionProvider
 import com.eunice.eunicehong.viewmodel.MainViewModel
-import com.google.gson.JsonSyntaxException
 
 class MainActivity : AppCompatActivity() {
 
-    private val cache = object : MovieCache {
-        val preferences = MoviePreferences.getInstance(this@MainActivity)
-
-        @Throws(IllegalStateException::class, JsonSyntaxException::class)
-        override fun getMovieList(
-            query: String
-        ): MovieList = preferences.getHistory(query)
-
-        override fun saveMovieList(query: String, movieList: MovieList) =
-            preferences.saveHistory(query, movieList)
-
-
-        override fun removeMovieHistory() {
-            preferences.removeAllSearchHistory()
-        }
-
-        override fun saveSearchRecentSuggestions(query: String) {
-            SearchRecentSuggestions(
-                this@MainActivity,
-                SuggestionProvider.AUTHORITY,
-                SuggestionProvider.MODE
-            ).saveRecentQuery(query, null)
-        }
-
-        override fun deleteAllSearchRecentSuggestions() {
-            SearchRecentSuggestions(
-                this@MainActivity,
-                SuggestionProvider.AUTHORITY,
-                SuggestionProvider.MODE
-            ).clearHistory()
-        }
-    }
+    private val movieListAdapter = MovieAdapter()
 
     private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainViewModel = MainViewModel(cache)
+
+        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(
             this@MainActivity,
             R.layout.activity_main
         ).apply {
+            movieAdapter = movieListAdapter
             viewModel = mainViewModel
             componentName = this@MainActivity.componentName
             lifecycleOwner = this@MainActivity
@@ -94,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                 ) { _, _ ->
                     mainViewModel.removeHistory()
 
-                    cache.deleteAllSearchRecentSuggestions()
+                    mainViewModel.deleteAllSearchRecentSuggestions()
 
                     Toast.makeText(
                         this@MainActivity,

@@ -2,7 +2,7 @@ package com.eunice.eunicehong.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class MovieList(
+data class MovieContents(
     @SerializedName("items") val items: List<Movie>
 )
 

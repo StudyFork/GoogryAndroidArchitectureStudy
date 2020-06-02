@@ -8,7 +8,7 @@ import com.eunice.eunicehong.R
 import com.eunice.eunicehong.data.model.Movie
 import com.eunice.eunicehong.databinding.ItemMovieBinding
 
-class MovieAdapter() :
+class MovieAdapter :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     private val movieList = mutableListOf<Movie>()
@@ -31,12 +31,12 @@ class MovieAdapter() :
         }
     }
 
-    private fun addAllMovies(movies: Collection<Movie>) {
-        movieList.addAll(movies)
+    private fun addAllMovies(movies: Collection<Movie>?) {
+        movieList.addAll(movies ?: listOf())
         notifyDataSetChanged()
     }
 
-    fun setMovieList(movies: Collection<Movie>) {
+    fun setMovieList(movies: Collection<Movie>?) {
         movieList.clear()
         addAllMovies(movies)
     }

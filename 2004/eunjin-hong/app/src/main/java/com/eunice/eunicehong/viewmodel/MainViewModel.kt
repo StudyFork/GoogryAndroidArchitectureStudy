@@ -1,26 +1,44 @@
 package com.eunice.eunicehong.viewmodel
 
+import android.app.Application
+import android.provider.SearchRecentSuggestions
 import android.util.Log
-import androidx.databinding.ObservableField
-import com.eunice.eunicehong.data.model.MovieList
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import com.eunice.eunicehong.data.model.Movie
+import com.eunice.eunicehong.data.model.MovieContents
 import com.eunice.eunicehong.data.source.MovieDataSource
 import com.eunice.eunicehong.data.source.MovieRepository
-import com.eunice.eunicehong.ui.MovieAdapter
-import com.eunice.eunicehong.ui.MovieCache
+import com.eunice.eunicehong.data.source.local.MovieLocalDataSource
+import com.eunice.eunicehong.data.source.remote.MovieRemoteDataSource
+import com.eunice.eunicehong.provider.SuggestionProvider
+import com.eunice.eunicehong.ui.MoviePreferences
 
-class MainViewModel(private val cache: MovieCache) {
+class MainViewModel(application: Application) :
+    AndroidViewModel(application) {
 
-    val movieListAdapter = MovieAdapter()
+    private val sharedPreferences = MoviePreferences(application.applicationContext)
+    private val searchRecentSuggestions = SearchRecentSuggestions(
+        application.applicationContext,
+        SuggestionProvider.AUTHORITY,
+        SuggestionProvider.MODE
+    )
 
-    val movieListState: ObservableField<MovieListState> =
-        ObservableField(MovieListState.EMPTY_QUERY)
+    private val localDataSource = MovieLocalDataSource(sharedPreferences, searchRecentSuggestions)
+    private val remoteDataSource = MovieRemoteDataSource()
+    val movieRepository = MovieRepository(remoteDataSource, localDataSource)
+
+    val movieListState: MutableLiveData<MovieListState> =
+        MutableLiveData(MovieListState.EMPTY_QUERY)
 
     private val loadMovieListCallback = object : MovieDataSource.LoadMoviesCallback {
-        override fun onSuccess(query: String?, movieList: MovieList) {
+        override fun onSuccess(query: String?, movieContents: MovieContents) {
             if (query.isNullOrBlank()) {
                 setListStateEmptyQuery()
             } else {
-                showSearchResult(query, movieList)
+                resultMovieList.value = movieContents.items
+                showSearchResult(movieContents)
+                movieRepository.saveMovieList(query, movieContents)
             }
         }
 
@@ -29,41 +47,32 @@ class MainViewModel(private val cache: MovieCache) {
         }
     }
 
+    val resultMovieList = MutableLiveData<Collection<Movie>>()
+
     fun search(query: String?) {
         if (query.isNullOrBlank()) return
+        movieListState.value = MovieListState.LOADING
+        movieRepository.getMovieList(query, loadMovieListCallback)
+    }
 
-        cache.saveSearchRecentSuggestions(query)
-
-        movieListState.set(MovieListState.LOADING)
-
-        try {
-            val list = cache.getMovieList(query)
-            if (list.items.isEmpty()) {
-                MovieRepository.getMovieList(query, loadMovieListCallback)
-            } else {
-                loadMovieListCallback.onSuccess(query, list)
-            }
-        } catch (e: Throwable) {
-            MovieRepository.getMovieList(query, loadMovieListCallback)
-        }
+    fun deleteAllSearchRecentSuggestions() {
+        movieRepository.deleteAllSearchRecentSuggestions()
     }
 
     fun removeHistory() {
-        cache.removeMovieHistory()
+        movieRepository.removeMovieHistory()
     }
 
-    fun showSearchResult(query: String, movies: MovieList) {
+    fun showSearchResult(movies: MovieContents) {
         if (movies.items.isEmpty()) {
-            movieListState.set(MovieListState.NO_MATCHING_RESULT)
+            movieListState.value = MovieListState.NO_MATCHING_RESULT
         } else {
-            movieListAdapter.setMovieList(movies.items)
-            movieListState.set(MovieListState.SHOW_RESULT)
+            movieListState.value = MovieListState.SHOW_RESULT
         }
-        cache.saveMovieList(query, movies)
     }
 
     fun setListStateEmptyQuery() {
-        movieListState.set(MovieListState.EMPTY_QUERY)
+        movieListState.value = MovieListState.EMPTY_QUERY
     }
 
     enum class MovieListState {
