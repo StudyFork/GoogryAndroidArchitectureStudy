@@ -13,11 +13,5 @@ class MovieListViewHolder(private val binding: ItemMovieBinding) :
 
     fun bind(item: Movie) {
         binding.movie = item
-
-        Glide.with(binding.movieImageIV.context)
-            .load(item.image)
-            .placeholder(R.drawable.img_default)
-            .centerCrop()
-            .into(binding.movieImageIV)
     }
 }
