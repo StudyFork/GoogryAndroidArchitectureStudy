@@ -49,7 +49,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/movieImageIV"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:htmlToSpanned="@{movie}"
+                    app:htmlToSpanned="@{movie.title}"
                     tools:text="해리포터 : 마법사의 돌" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
