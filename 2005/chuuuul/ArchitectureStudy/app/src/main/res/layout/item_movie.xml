@@ -4,20 +4,30 @@
 
     <data>
 
+        <variable
+            name="movie"
+            type="com.example.architecture.data.model.MovieModel" />
+
+        <variable
+            name="onItemClick"
+            type="android.view.View.OnClickListener" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{onItemClick}">
 
         <ImageView
             android:id="@+id/img_movie_Image"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="1:1.4"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:imageSrc="@{movie.image}"
+            app:layout_constraintDimensionRatio="1:1.4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -27,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:renderHtml="@{movie.title}"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="@+id/img_movie_Image"
             app:layout_constraintStart_toStartOf="@+id/img_movie_Image"
@@ -37,6 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:renderHtml="@{movie.pubDate}"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="@+id/img_movie_Image"
             app:layout_constraintStart_toStartOf="@+id/img_movie_Image"
@@ -54,7 +66,7 @@
             android:isIndicator="true"
             android:max="5"
             android:numStars="5"
-            android:rating="3"
+            android:rating="@{movie.userRating}"
             android:stepSize="0.5"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/img_movie_Image"

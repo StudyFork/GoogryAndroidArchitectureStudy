@@ -4,29 +4,31 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
-import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
-import android.widget.ImageView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.architecture.R
 import com.example.architecture.data.model.MovieModel
-import com.example.architecture.util.ConstValue.Companion.NO_IMAGE_URL
-import kotlinx.android.synthetic.main.item_movie.view.*
-import org.apache.commons.text.StringEscapeUtils
-import org.jsoup.Jsoup
+import com.example.architecture.databinding.ItemMovieBinding
 
-class MovieAdapter :  RecyclerView.Adapter<MovieViewHolder>() {
+class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
 
     private val movieList = mutableListOf<MovieModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
 
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
-        val viewHolder = MovieViewHolder(view)
+        val binding = DataBindingUtil.inflate<ItemMovieBinding>(
+            LayoutInflater.from(parent.context),
+            R.layout.item_movie,
+            parent,
+            false
+        )
 
-        view.setOnClickListener {
-            openWebPage(it.context, movieList[viewHolder.layoutPosition].link)
+        val viewHolder = MovieViewHolder(binding)
+
+        binding.onItemClick = OnClickListener { view ->
+            openWebPage(view.context, movieList[viewHolder.layoutPosition].link)
         }
 
         return viewHolder
@@ -44,7 +46,7 @@ class MovieAdapter :  RecyclerView.Adapter<MovieViewHolder>() {
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
 
         val movie = movieList[position]
-        holder.onBind( movie )
+        holder.onBind(movie)
     }
 
     fun addNewItems(movieList: List<MovieModel>) {
@@ -57,33 +59,10 @@ class MovieAdapter :  RecyclerView.Adapter<MovieViewHolder>() {
     }
 }
 
-class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view)
-{
-    fun onBind(movie : MovieModel)
-    {
-        itemView.tv_movie_title.text = removeHtmlTag(movie.title)
-        itemView.tv_movie_pubDate.text = movie.pubDate
-
-        itemView.ratingBar_movie_rating.rating = movie.userRating
-
-        setMovieImage(itemView.img_movie_Image, movie.image)
-
+class MovieViewHolder(private val binding: ItemMovieBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+    fun onBind(movie: MovieModel) {
+        binding.movie = movie
+        binding.executePendingBindings()
     }
-
-    private fun removeHtmlTag(html: String): String {
-        val escapedHtml = StringEscapeUtils.unescapeHtml4(html)
-        return Jsoup.parse(escapedHtml).text()
-    }
-
-    private fun setMovieImage(imageView: ImageView, imageUrl: String) {
-        val url = if (imageUrl.isBlank()) {
-            NO_IMAGE_URL
-        } else {
-            imageUrl
-        }
-        Glide.with(imageView.context)
-            .load(url).placeholder(R.drawable.ic_loading_black_24dp)
-            .error(R.drawable.image_loaderror).centerCrop().into(imageView)
-    }
-
 }

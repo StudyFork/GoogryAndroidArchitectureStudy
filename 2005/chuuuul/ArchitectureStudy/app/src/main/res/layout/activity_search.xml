@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="onSearchClick"
+            type="android.view.View.OnClickListener" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,9 +27,11 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:onEnterClick="@{onSearchClick}"
             app:layout_constraintEnd_toStartOf="@+id/btn_search_searchButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
         <Button
             android:id="@+id/btn_search_searchButton"
@@ -33,6 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:text="@string/search_button"
+            android:onClick="@{onSearchClick}"
             app:layout_constraintBottom_toBottomOf="@+id/edt_search_keyword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/edt_search_keyword" />
