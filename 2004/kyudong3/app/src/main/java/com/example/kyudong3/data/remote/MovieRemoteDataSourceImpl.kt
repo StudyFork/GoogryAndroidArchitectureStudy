@@ -3,22 +3,22 @@ package com.example.kyudong3.data.remote
 import com.example.kyudong3.data.model.Movie
 import com.example.kyudong3.mapper.MovieRemoteMapper
 import com.example.kyudong3.network.NaverApiService
-import com.example.kyudong3.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
 
-class MovieRemoteDataSourceImpl(private val movieRemoteMapper: MovieRemoteMapper) :
-    MovieRemoteDataSource {
-    private val naverService: NaverApiService = RetrofitClient.naverService
+class MovieRemoteDataSourceImpl(
+    private val movieRemoteMapper: MovieRemoteMapper,
+    private val naverApiService: NaverApiService
+) : MovieRemoteDataSource {
 
     override fun getMovieList(
         query: String,
         success: (List<Movie>) -> Unit,
         failure: (Throwable) -> Unit
     ) {
-        naverService.getSearchMovie(movieName = query)
+        naverApiService.getSearchMovie(movieName = query)
             .enqueue(object : Callback<MovieReceiver> {
                 override fun onResponse(
                     call: Call<MovieReceiver>,
