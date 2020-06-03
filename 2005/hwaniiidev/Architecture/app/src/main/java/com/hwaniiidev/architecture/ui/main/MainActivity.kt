@@ -28,15 +28,20 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.mainActivity = this
 
         initView()
 
         imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
 
-        btn_search.setOnClickListener {
+        /*btn_search.setOnClickListener {
             val searchValue = edit_search_title.text.toString()
             mainPresenter.searchMovies(searchValue)
-        }
+        }*/
+    }
+
+    fun searchMovies(searchValue : String){
+        mainPresenter.searchMovies(searchValue)
     }
 
     private fun initView() {
