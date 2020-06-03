@@ -62,6 +62,7 @@ class SearchingResultHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         item.actor = movieItem.actor
 
         binding.movieItem = item
+        binding.executePendingBindings()
     }
 }
 
