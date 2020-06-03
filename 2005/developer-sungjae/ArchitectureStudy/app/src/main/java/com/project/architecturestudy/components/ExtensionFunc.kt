@@ -1,5 +1,6 @@
 package com.project.architecturestudy.components
 
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
@@ -14,15 +15,15 @@ fun String.parseHTMLTag(): String {
     return Jsoup.parse(strWithoutSign).text()
 }
 
-@BindingAdapter("setImgUrl")
-fun ImageView.setImgUrl(imgUrl: String?) {
+@BindingAdapter("setImgUrl", "setAlternativeImg", requireAll = true)
+fun ImageView.setImgUrl(imgUrl: String?, alternativeImg: Drawable) {
     Log.d("bsjbsj", "movieItem.image   imgUrl:$imgUrl")
     imgUrl?.let {
         Picasso.get()
             .load(it)
-            .placeholder(R.drawable.ic_no_resource)
+            .placeholder(alternativeImg)
             .centerCrop()
-            .error(R.drawable.ic_no_resource)
+            .error(alternativeImg)
             .fit()
             .into(this)
     }

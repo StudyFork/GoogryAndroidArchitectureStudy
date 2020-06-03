@@ -33,6 +33,7 @@
             android:adjustViewBounds="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/line"
+            app:setAlternativeImg="@{@drawable/ic_no_resource}"
             app:setImgUrl="@{movieItem.image}"
             tools:src="@mipmap/ic_launcher" />
 
