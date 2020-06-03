@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.project.architecturestudy.R
 import com.project.architecturestudy.components.Constants.NO_IMAGE_URL
 import com.project.architecturestudy.components.Constants.TAG
-import com.project.architecturestudy.components.parseHTMLTag
 import com.project.architecturestudy.data.model.MovieItem
 import com.project.architecturestudy.databinding.MovieItemBinding
 
@@ -57,10 +56,10 @@ class SearchingResultHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
             }
         }
 
-        item.title = movieItem.title.parseHTMLTag()
-        item.subtitle = movieItem.subtitle.parseHTMLTag()
-        item.pubDate = movieItem.pubDate.parseHTMLTag()
-        item.actor = movieItem.actor.parseHTMLTag()
+        item.title = movieItem.title
+        item.subtitle = movieItem.subtitle
+        item.pubDate = movieItem.pubDate
+        item.actor = movieItem.actor
 
         binding.movieItem = item
     }

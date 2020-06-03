@@ -41,12 +41,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:text="@{movieItem.title}"
             android:textColor="@android:color/holo_red_light"
             app:layout_constraintBottom_toTopOf="@id/tv_subTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_movie"
             app:layout_constraintTop_toTopOf="@id/iv_movie"
+            app:parseHtml="@{movieItem.title}"
             tools:text="@string/tools_tv_title" />
 
         <TextView
@@ -54,11 +54,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:text="@{movieItem.subtitle}"
             app:layout_constraintBottom_toTopOf="@id/tv_pubDate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_movie"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:parseHtml="@{movieItem.subtitle}"
             tools:text="@string/tools_tv_subTitle" />
 
         <TextView
@@ -66,11 +66,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:text="@{movieItem.pubDate}"
             app:layout_constraintBottom_toTopOf="@id/tv_actors"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_movie"
             app:layout_constraintTop_toBottomOf="@id/tv_subTitle"
+            app:parseHtml="@{movieItem.pubDate}"
             tools:text="@string/tools_tv_pubDate" />
 
         <TextView
@@ -78,11 +78,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:text="@{movieItem.actor}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_movie"
             app:layout_constraintTop_toBottomOf="@id/tv_pubDate"
+            app:parseHtml="@{movieItem.actor}"
             tools:text="@string/tools_tv_actors" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
