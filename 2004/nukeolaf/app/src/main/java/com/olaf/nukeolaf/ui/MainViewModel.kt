@@ -1,20 +1,26 @@
 package com.olaf.nukeolaf.ui
 
+import android.app.Application
 import android.os.Build
 import android.text.Html
-import androidx.databinding.ObservableField
-import androidx.databinding.ObservableInt
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import com.olaf.nukeolaf.data.local.MovieLocalDataSourceImpl
 import com.olaf.nukeolaf.data.model.MovieItem
 import com.olaf.nukeolaf.data.model.MovieResponse
+import com.olaf.nukeolaf.data.remote.MovieRemoteDataSourceImpl
 import com.olaf.nukeolaf.data.repository.MovieRepository
+import com.olaf.nukeolaf.data.repository.MovieRepositoryImpl
 
-class MainViewModel(
-    private val movieRepository: MovieRepository
-) {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    val movies = ObservableField<List<MovieItem>>()
+    private val movieRepository: MovieRepository = MovieRepositoryImpl(
+        MovieLocalDataSourceImpl(application.applicationContext),
+        MovieRemoteDataSourceImpl()
+    )
 
-    val errorType = ObservableInt(0)
+    val movies = MutableLiveData<List<MovieItem>>()
+    val errorType = MutableLiveData<Int>()
 
     init {
         loadMovies()
@@ -22,16 +28,12 @@ class MainViewModel(
 
     private fun loadMovies() {
         val movieList = movieRepository.getMovies()
-        if (movieList != null && movieList.items.isNotEmpty()) {
-            movies.set(processMovieItemString(movieList.items))
-        } else {
-            movies.set(listOf())
-        }
+        movies.value = movieList?.items?.processMovieItemString() ?: listOf()
     }
 
     fun searchMovie(query: String?) {
         if (query.isNullOrEmpty()) {
-            errorType.set(EMPTY_SEARCH_WORD)
+            errorType.value = EMPTY_SEARCH_WORD
             return
         }
         movieRepository.searchMovies(
@@ -39,29 +41,36 @@ class MainViewModel(
             object : MovieRepository.LoadMoviesCallback {
                 override fun onMoviesLoaded(movieResponse: MovieResponse) {
                     if (movieResponse.items.isNotEmpty()) {
-                        movies.set(processMovieItemString(movieResponse.items))
+                        movies.value = movieResponse.items.processMovieItemString()
+                        errorType.value = NO_ERROR
                     } else {
-                        errorType.set(NO_QUERY_RESULT)
+                        errorType.apply {
+                            value = NO_QUERY_RESULT
+                            value = NO_ERROR
+                        }
                     }
                 }
 
                 override fun onResponseError(message: String) {
-                    errorType.set(SERVER_ERROR)
+                    errorType.value = SERVER_ERROR
                 }
 
                 override fun onFailure(t: Throwable) {
-                    errorType.set(NETWORK_ERROR)
+                    errorType.apply {
+                        value = NETWORK_ERROR
+                        value = NO_ERROR
+                    }
                 }
             })
     }
 
-    private fun processMovieItemString(movies: List<MovieItem>): List<MovieItem> {
-        return movies.map {
+    private fun List<MovieItem>.processMovieItemString(): List<MovieItem> {
+        return this.map {
             it.copy(
                 title = it.title.htmlToString(),
                 subtitle = it.subtitle.htmlToString(),
-                director = it.director.addCommas("감독 : "),
-                actor = it.actor.addCommas("출연진 : "),
+                director = it.director.htmlToString().addCommas(),
+                actor = it.actor.htmlToString().addCommas(),
                 userRating = it.userRating / 2
             )
         }
@@ -75,14 +84,11 @@ class MainViewModel(
         }
     }
 
-    private fun String.addCommas(prefix: String): String {
+    private fun String.addCommas(): String {
         return if (this.isNotBlank()) {
             this.substring(0, this.length - 1)
                 .split("|")
-                .joinToString(
-                    prefix = prefix,
-                    separator = ", "
-                )
+                .joinToString()
         } else {
             this
         }

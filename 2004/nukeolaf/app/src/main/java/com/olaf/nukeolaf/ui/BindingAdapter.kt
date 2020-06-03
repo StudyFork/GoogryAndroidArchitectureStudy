@@ -2,6 +2,7 @@ package com.olaf.nukeolaf.ui
 
 import android.content.Intent
 import android.net.Uri
+import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -48,4 +49,9 @@ fun setClickListener(view: ConstraintLayout, url: String?) {
 fun setItems(view: RecyclerView, items: List<MovieItem>) {
     val adapter = view.adapter as? MovieAdapter ?: MovieAdapter().apply { view.adapter = this }
     adapter.setMovies(items)
+}
+
+@BindingAdapter("app:movieStringVisibility")
+fun movieStringVisibility(view: View, string: String) {
+    view.visibility = if (string.isNullOrBlank()) View.GONE else View.VISIBLE
 }
