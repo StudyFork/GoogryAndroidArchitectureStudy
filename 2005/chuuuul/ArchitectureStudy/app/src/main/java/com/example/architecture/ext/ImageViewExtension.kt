@@ -9,13 +9,12 @@ import com.example.architecture.util.ConstValue.Companion.NO_IMAGE_URL
 @BindingAdapter("android:imageSrc")
 fun ImageView.loadImage(url: String?) {
 
-    if (url == null) return
-
-    Glide.with(this)
-        .load(url.ifBlank { NO_IMAGE_URL })
-        .placeholder(R.drawable.ic_loading_black_24dp)
-        .error(R.drawable.image_loaderror)
-        .centerCrop()
-        .into(this)
-
+    url?.let {
+        Glide.with(this)
+            .load(it.ifBlank { NO_IMAGE_URL })
+            .placeholder(R.drawable.ic_loading_black_24dp)
+            .error(R.drawable.image_loaderror)
+            .centerCrop()
+            .into(this)
+    }
 }
