@@ -18,7 +18,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
 
-        val binding = DataBindingUtil.inflate<ItemMovieBinding>(
+        val binding: ItemMovieBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
             R.layout.item_movie,
             parent,

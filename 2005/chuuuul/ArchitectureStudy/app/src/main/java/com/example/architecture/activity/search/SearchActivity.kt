@@ -25,8 +25,8 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding =
-            DataBindingUtil.setContentView<ActivitySearchBinding>(this, R.layout.activity_search)
+        val binding: ActivitySearchBinding =
+            DataBindingUtil.setContentView(this, R.layout.activity_search)
 
         binding.onSearchClick = View.OnClickListener { searchMovie() }
         setRecyclerview()
