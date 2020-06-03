@@ -1,5 +1,6 @@
 package com.hwaniiidev.architecture.ui.main
 
+import android.os.Build
 import android.text.Html
 import android.widget.ImageView
 import android.widget.TextView
@@ -17,5 +18,10 @@ fun loadImage(view: ImageView, url: String) {
 
 @BindingAdapter("htmlTitle")
 fun loadHtml(view: TextView, title: String) {
-    view.text = Html.fromHtml(title)
+    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+        view.text = Html.fromHtml(title,Html.FROM_HTML_MODE_LEGACY)
+    }else{
+        view.text = Html.fromHtml(title)
+    }
+
 }
