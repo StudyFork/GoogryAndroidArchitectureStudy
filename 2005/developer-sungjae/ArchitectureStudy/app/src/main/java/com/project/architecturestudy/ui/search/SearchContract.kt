@@ -1,5 +1,6 @@
 package com.project.architecturestudy.ui.search
 
+import android.content.Context
 import com.project.architecturestudy.data.model.MovieItem
 
 interface SearchContract {
@@ -12,12 +13,13 @@ interface SearchContract {
         fun showRemoteDataSuccessMsg()
         fun showRemoteDataFailureMsg()
         fun showMovieData(item: List<MovieItem>)
+        fun showSearchKeyWord(result: String, visibility: Int)
     }
 
     interface Presenter {
 
         fun getMovieListFromLocal()
-        fun getMovieListFromRemote(searchWord: String)
+        fun getMovieListFromRemote(context: Context, searchWord: String)
         fun remoteDispose()
     }
 }

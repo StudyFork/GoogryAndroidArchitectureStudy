@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.project.architecturestudy.R
 import com.project.architecturestudy.components.Constants.NO_IMAGE_URL
-import com.project.architecturestudy.components.Constants.TAG
+import com.project.architecturestudy.components.Constants.customTAG
 import com.project.architecturestudy.data.model.MovieItem
 import com.project.architecturestudy.databinding.MovieItemBinding
 
@@ -51,7 +51,7 @@ class SearchingResultHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
                 item.image = NO_IMAGE_URL
             }
             false -> {
-                Log.d(TAG, "movieItem.image:${movieItem.image}")
+                Log.d(customTAG, "movieItem.image:${movieItem.image}")
                 item.image = movieItem.image
             }
         }
