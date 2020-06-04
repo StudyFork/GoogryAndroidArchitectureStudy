@@ -17,7 +17,6 @@ fun String.parseHTMLTag(): String {
 
 @BindingAdapter("setImgUrl", "setAlternativeImg", requireAll = true)
 fun ImageView.setImgUrl(imgUrl: String?, alternativeImg: Drawable) {
-    Log.d("bsjbsj", "movieItem.image   imgUrl:$imgUrl")
     imgUrl?.let { nImgUrl ->
         Picasso.get()
             .load(nImgUrl.ifEmpty {
