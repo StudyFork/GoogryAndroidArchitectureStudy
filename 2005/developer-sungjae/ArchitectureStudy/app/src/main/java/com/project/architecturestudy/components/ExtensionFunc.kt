@@ -5,7 +5,7 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.project.architecturestudy.R
+import com.project.architecturestudy.components.Constants.NO_IMAGE_URL
 import com.squareup.picasso.Picasso
 import org.apache.commons.text.StringEscapeUtils
 import org.jsoup.Jsoup
@@ -18,9 +18,11 @@ fun String.parseHTMLTag(): String {
 @BindingAdapter("setImgUrl", "setAlternativeImg", requireAll = true)
 fun ImageView.setImgUrl(imgUrl: String?, alternativeImg: Drawable) {
     Log.d("bsjbsj", "movieItem.image   imgUrl:$imgUrl")
-    imgUrl?.let {
+    imgUrl?.let { nImgUrl ->
         Picasso.get()
-            .load(it)
+            .load(nImgUrl.ifEmpty {
+                NO_IMAGE_URL
+            })
             .placeholder(alternativeImg)
             .centerCrop()
             .error(alternativeImg)

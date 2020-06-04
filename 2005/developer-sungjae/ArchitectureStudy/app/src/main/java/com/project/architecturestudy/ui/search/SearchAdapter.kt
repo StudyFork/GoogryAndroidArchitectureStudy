@@ -1,13 +1,10 @@
 package com.project.architecturestudy.ui.search
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.project.architecturestudy.R
-import com.project.architecturestudy.components.Constants.NO_IMAGE_URL
-import com.project.architecturestudy.components.Constants.customTAG
 import com.project.architecturestudy.data.model.MovieItem
 import com.project.architecturestudy.databinding.MovieItemBinding
 
@@ -44,24 +41,7 @@ class SearchingResultHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     private val binding: MovieItemBinding = DataBindingUtil.bind(itemView)!!
 
     fun bind(movieItem: MovieItem) {
-        val item = MovieItem()
-
-        when (movieItem.image.isEmpty()) {
-            true -> {
-                item.image = NO_IMAGE_URL
-            }
-            false -> {
-                Log.d(customTAG, "movieItem.image:${movieItem.image}")
-                item.image = movieItem.image
-            }
-        }
-
-        item.title = movieItem.title
-        item.subtitle = movieItem.subtitle
-        item.pubDate = movieItem.pubDate
-        item.actor = movieItem.actor
-
-        binding.movieItem = item
+        binding.movieItem = movieItem
         binding.executePendingBindings()
     }
 }
