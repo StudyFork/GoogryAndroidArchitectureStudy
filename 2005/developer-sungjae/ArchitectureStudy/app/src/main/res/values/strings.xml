@@ -12,4 +12,5 @@
     <string name="please_write">검색어를 입력해주세요.</string>
     <string name="tv_result_sample">검색결과</string>
     <string name="tv_result_text">\'%s\'에 대한 검색 결과입니다.</string>
+    <string name="empty">""</string>
 </resources>
