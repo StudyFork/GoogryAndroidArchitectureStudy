@@ -7,6 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import com.project.architecturestudy.R
 import com.project.architecturestudy.data.model.MovieItem
@@ -40,18 +41,9 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
         onClickAdapterItem()
         presenter.getMovieListFromLocal()
 
-        val textWatcher = object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                presenter.invokeTextChanged()
-            }
+        et_search.doAfterTextChanged {
+            presenter.invokeTextChanged()
         }
-        et_search.addTextChangedListener(textWatcher)
     }
 
     fun onClickSearchBtn(searchWord: String) {
