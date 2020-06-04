@@ -1,5 +1,6 @@
 package com.eunice.eunicehong.module
 
+import android.content.Context
 import android.provider.SearchRecentSuggestions
 import com.eunice.eunicehong.BuildConfig
 import com.eunice.eunicehong.data.source.MovieRepository
@@ -18,13 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val appModule = module {
 
-    single {
-        SearchRecentSuggestions(
-            androidContext(),
-            SuggestionProvider.AUTHORITY,
-            SuggestionProvider.MODE
-        )
-    }
+    single { provideSearchRecentSuggestions(androidContext()) }
 
     single<MoviePreferences> { MoviePreferences(androidContext()) }
 
@@ -40,6 +35,14 @@ val appModule = module {
 
     single<MovieRepository> { MovieRepository(get(), get()) }
 
+}
+
+fun provideSearchRecentSuggestions(context: Context): SearchRecentSuggestions {
+    return SearchRecentSuggestions(
+        context,
+        SuggestionProvider.AUTHORITY,
+        SuggestionProvider.MODE
+    )
 }
 
 fun provideOkHttpClient(): OkHttpClient {
