@@ -3,11 +3,12 @@ package com.project.architecturestudy.ui.search
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.project.architecturestudy.R
-import com.project.architecturestudy.components.Constants.customTAG
 import com.project.architecturestudy.data.model.MovieItem
 import com.project.architecturestudy.data.repository.NaverMovieRepositoryImpl
 import com.project.architecturestudy.data.source.local.NaverMovieLocalDataSourceImpl
@@ -23,7 +24,10 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
         val naverMovieLocalDataSource = NaverMovieLocalDataSourceImpl(this)
         val naverMovieRemoteDataSource = NaverMovieRemoteDataSourceImpl()
 
-        SearchPresenter(this, NaverMovieRepositoryImpl(naverMovieLocalDataSource, naverMovieRemoteDataSource))
+        SearchPresenter(
+            this,
+            NaverMovieRepositoryImpl(naverMovieLocalDataSource, naverMovieRemoteDataSource)
+        )
     }
     private lateinit var binding: ActivitySearchBinding
 
@@ -36,10 +40,21 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
         onClickAdapterItem()
         presenter.getMovieListFromLocal()
 
+        val textWatcher = object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                presenter.invokeTextChanged()
+            }
+        }
+        et_search.addTextChangedListener(textWatcher)
     }
 
     fun onClickSearchBtn(searchWord: String) {
-        Log.d(customTAG, "searchWord:$searchWord")
         presenter.getMovieListFromRemote(this@SearchActivity, searchWord)
     }
 
@@ -48,7 +63,6 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
             startActivity(intent)
         }
-
     }
 
     private fun setRecyclerView() {
@@ -59,7 +73,7 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
         adapter.setLocalMovieData(item)
     }
 
-    override fun showSearchKeyWord(result: String, visibility: Int) {
+    override fun showSearchKeyWord(result: String?, visibility: Int) {
         tv_result_text.visibility = visibility
         tv_result_text.text = result
     }

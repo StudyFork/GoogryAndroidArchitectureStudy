@@ -13,7 +13,7 @@ interface SearchContract {
         fun showRemoteDataSuccessMsg()
         fun showRemoteDataFailureMsg()
         fun showMovieData(item: List<MovieItem>)
-        fun showSearchKeyWord(result: String, visibility: Int)
+        fun showSearchKeyWord(result: String? = null, visibility: Int)
     }
 
     interface Presenter {
@@ -21,5 +21,6 @@ interface SearchContract {
         fun getMovieListFromLocal()
         fun getMovieListFromRemote(context: Context, searchWord: String)
         fun remoteDispose()
+        fun invokeTextChanged()
     }
 }

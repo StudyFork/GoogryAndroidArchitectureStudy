@@ -31,8 +31,8 @@ class SearchPresenter(
             view.showSearchWordIsEmptyMsg()
             return
         }
-
         val result = String.format(Locale.KOREAN, context.getString(R.string.tv_result_text), searchWord)
+
         view.showSearchKeyWord(result, View.VISIBLE)
 
         naverMovieRepository.getMovieList(searchWord,
@@ -49,11 +49,15 @@ class SearchPresenter(
                             view.showRemoteDataFailureMsg()
                             Log.d(customTAG, t.toString())
                         })
-
             })
+
     }
 
     override fun remoteDispose() {
         naverMovieRepository.dispose()
+    }
+
+    override fun invokeTextChanged() {
+        view.showSearchKeyWord(null, visibility = View.GONE)
     }
 }
