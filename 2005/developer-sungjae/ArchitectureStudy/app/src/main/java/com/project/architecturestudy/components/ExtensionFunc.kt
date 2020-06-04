@@ -1,7 +1,6 @@
 package com.project.architecturestudy.components
 
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -10,7 +9,7 @@ import com.squareup.picasso.Picasso
 import org.apache.commons.text.StringEscapeUtils
 import org.jsoup.Jsoup
 
-fun String.parseHTMLTag(): String {
+private fun String.parseHTMLTag(): String {
     val strWithoutSign = StringEscapeUtils.unescapeHtml4(this)
     return Jsoup.parse(strWithoutSign).text()
 }
