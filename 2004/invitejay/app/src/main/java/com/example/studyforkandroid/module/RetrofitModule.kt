@@ -1,8 +1,6 @@
 package com.example.studyforkandroid.module
 
 import com.example.studyforkandroid.BuildConfig
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -13,12 +11,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 private const val baseUrl = BuildConfig.BASE_URI
 
 val retrofitModule = module {
-    single<Gson> { GsonBuilder().create() }
-
     single<Retrofit> {
         Retrofit.Builder()
             .baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create(get()))
+            .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()
     }
