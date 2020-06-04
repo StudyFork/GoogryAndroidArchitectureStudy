@@ -41,6 +41,7 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_list)
         binding.activity = this
+        binding.presenter = presenter
 
         setRecyclerView()
         presenter.loadCache()
@@ -64,22 +65,13 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
     }
 
 
-
-    //**검색 버튼 클릭 이벤트
-    fun onClick(view: View) {
-
-        val keyWord = binding.movieNameET.text.toString().trim()
-
-        presenter.searchMovie(keyWord)
-    }
-
-
     //**키패드 셋팅
     private fun setKeypad() {
         binding.movieNameET.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
-                onClick(v)
+                val keyWord = binding.movieNameET.text.toString().trim()
+                presenter.searchMovie(keyWord)
 
                 true
             } else {

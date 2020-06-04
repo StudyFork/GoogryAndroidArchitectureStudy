@@ -10,6 +10,9 @@
         <variable
             name="activity"
             type="com.sangjin.newproject.MovieListActivity" />
+        <variable
+            name="presenter"
+            type="com.sangjin.newproject.MovieListPresenter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/search_btn"
-            android:onClick="@{activity::onClick}"
+            android:onClick="@{()->presenter.searchMovie(movieNameET.getText().toString().trim())}"
             app:layout_constraintBottom_toBottomOf="@+id/movieNameET"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/movieNameET"
