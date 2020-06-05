@@ -29,7 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
-            android:onClick="@{(keyword) -> present.searchData(edtInput.getText().toString().trim())}"
+            android:onClick="@{() -> present.searchData(edtInput.getText().toString().trim())}"
             android:text="@android:string/search_go" />
     </LinearLayout>
 </layout>
