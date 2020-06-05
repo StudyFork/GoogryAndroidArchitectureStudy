@@ -6,16 +6,16 @@ import com.bumptech.glide.Glide
 import r.test.rapp.R
 
 
-class ImageLoader {
+class ImageViewExtension {
     companion object {
-        @BindingAdapter("thumbnail")
+        @BindingAdapter("load")
         @JvmStatic
-        fun load(iv: ImageView, url: String?) {
-            Glide.with(iv)
+        fun ImageView.load(url: String) {
+            Glide.with(this)
                 .load(url)
                 .placeholder(R.drawable.no_image)
                 .centerCrop()
-                .into(iv)
+                .into(this)
         }
     }
 }
