@@ -12,36 +12,47 @@ import retrofit2.converter.gson.GsonConverterFactory
 private const val BASE_URL = "https://openapi.naver.com/"
 
 val retrofitModule = module {
-    single { okHttpClient() }
-    single { retrofit(get()) }
-    single { movieApi(get()) }
-}
-
-fun okHttpClient(): OkHttpClient = OkHttpClient.Builder()
-    .addInterceptor { chain: Interceptor.Chain ->
-        val original = chain.request()
-        chain.proceed(original.newBuilder().apply {
-            addHeader("X-Naver-Client-Id", BuildConfig.NAVER_CLIENT_ID)
-            addHeader(
-                "X-Naver-Client-Secret",
-                BuildConfig.NAVER_CLIENT_SECRET
-            )
-        }.build())
+    single {
+        OkHttpClient.Builder()
+            .addInterceptor(get<Interceptor>())
+            .addInterceptor(get<HttpLoggingInterceptor>())
+            .build()
     }
-    .addInterceptor(HttpLoggingInterceptor().apply {
-        level = if (BuildConfig.DEBUG) {
-            HttpLoggingInterceptor.Level.BODY
-        } else {
-            HttpLoggingInterceptor.Level.NONE
+
+    single {
+        Interceptor { chain: Interceptor.Chain ->
+            val original = chain.request()
+            chain.proceed(original.newBuilder().apply {
+                addHeader("X-Naver-Client-Id", BuildConfig.NAVER_CLIENT_ID)
+                addHeader(
+                    "X-Naver-Client-Secret",
+                    BuildConfig.NAVER_CLIENT_SECRET
+                )
+            }.build())
         }
-    }).build()
+    }
 
-fun retrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-    .baseUrl(BASE_URL)
-    .client(okHttpClient)
-    .addConverterFactory(GsonConverterFactory.create())
-    .build()
+    single {
+        HttpLoggingInterceptor().apply {
+            level = if (BuildConfig.DEBUG) {
+                HttpLoggingInterceptor.Level.BODY
+            } else {
+                HttpLoggingInterceptor.Level.NONE
+            }
+        }
+    }
 
-fun movieApi(retrofit: Retrofit): RetrofitInterface = retrofit.create(
-    RetrofitInterface::class.java
-)
+    single {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(get())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    single {
+        get<Retrofit>().create(
+            RetrofitInterface::class.java
+        )
+    }
+}
