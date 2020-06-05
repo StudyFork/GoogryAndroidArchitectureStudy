@@ -1,5 +1,7 @@
 package com.lllccww.studyforkproject.ui.main
 
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,25 +11,20 @@ import com.lllccww.studyforkproject.R
 import com.lllccww.studyforkproject.data.model.MovieItem
 import com.lllccww.studyforkproject.databinding.ItemMovieListBinding
 
-class MovieListAdapter(private val itemClick: (MovieItem) -> Unit) :
+class MovieListAdapter :
     RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
     private val list: ArrayList<MovieItem> = ArrayList()
-    private lateinit var binding: ItemMovieListBinding
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        binding = DataBindingUtil.inflate(
+        val binding = DataBindingUtil.inflate<ItemMovieListBinding>(
             LayoutInflater.from(parent.context),
             R.layout.item_movie_list,
             parent,
             false
         )
 
-        val viewHolder = ViewHolder(binding)
-        binding.root.setOnClickListener {
-            itemClick(list[viewHolder.adapterPosition])
-        }
-        return viewHolder
+        return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -48,8 +45,15 @@ class MovieListAdapter(private val itemClick: (MovieItem) -> Unit) :
     }
 
 
-    inner class ViewHolder(itemBinding: ItemMovieListBinding) :
+    inner class ViewHolder(private val binding: ItemMovieListBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            itemView.setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(binding.movieItem!!.link))
+                it.context.startActivity(intent)
+            }
+        }
 
 
         fun bind(movieItem: MovieItem) {
