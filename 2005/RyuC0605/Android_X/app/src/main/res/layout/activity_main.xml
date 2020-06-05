@@ -3,12 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="main"
-            type="r.test.rapp.main.MainActivity" />
-        <variable
-            name="test"
-            type="r.test.rapp.networks.ImageLoader" />
     </data>
 
     <LinearLayout

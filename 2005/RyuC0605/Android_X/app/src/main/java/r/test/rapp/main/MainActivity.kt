@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         presenter = MainPresenter(this)
-        binding.setVariable(BR.main, this)
         binding.top.setVariable(BR.present, presenter)
 
         initView()
