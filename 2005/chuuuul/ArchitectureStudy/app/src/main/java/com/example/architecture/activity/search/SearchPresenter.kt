@@ -27,7 +27,7 @@ class SearchPresenter(
         Log.d("chul", "OnFailure : $t")
     }
 
-    override fun isValidKeyword(keyword: String): Boolean {
+    private fun isValidKeyword(keyword: String): Boolean {
 
         return if (keyword.isBlank()) {
             view.showMessageEmptyKeyword()
