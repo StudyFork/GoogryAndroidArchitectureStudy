@@ -12,13 +12,11 @@ class StudyApp : Application() {
         startKoin {
             androidContext(applicationContext)
             modules(
-                listOf(
-                    repositoryModule,
-                    viewModelModule,
-                    retrofitModule,
-                    remoteDataModule,
-                    apiModule
-                )
+                repositoryModule,
+                viewModelModule,
+                retrofitModule,
+                remoteDataModule,
+                apiModule
             )
         }
     }
