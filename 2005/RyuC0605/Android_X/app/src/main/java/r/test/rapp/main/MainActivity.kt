@@ -29,7 +29,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         presenter = MainPresenter(this)
-        binding.top.setVariable(BR.present, presenter)
+        binding.present = presenter;
+//        binding.top.setVariable(BR.present, presenter)
 
         initView()
         showKeyPad()
