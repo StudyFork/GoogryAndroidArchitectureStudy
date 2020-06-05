@@ -2,7 +2,7 @@ package com.project.architecturestudy.data.source.local
 
 import android.content.Context
 import android.util.Log
-import com.project.architecturestudy.components.Constants.TAG
+import com.project.architecturestudy.components.Constants.customTAG
 import com.project.architecturestudy.data.model.MovieItem
 import com.project.architecturestudy.data.model.NaverApiData
 import com.project.architecturestudy.data.source.local.room.MovieLocalItem
@@ -26,7 +26,7 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
             .subscribeOn(Schedulers.io())
             .subscribe({
                 for (item in it.items) {
-                    Log.d(TAG, "RoomDataBase Subscribe Item:$item\n")
+                    Log.d(customTAG, "RoomDataBase Subscribe Item:$item\n")
                     val localData = MovieLocalItem().apply {
 
                         this.title = item.title
@@ -40,11 +40,11 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
                     }
 
                     roomDataBase.getMovieDao().insert(localData)
-                    Log.d(TAG, "RoomDatabase Save Success $localData")
+                    Log.d(customTAG, "RoomDatabase Save Success $localData")
                 }
             },
                 {
-                    Log.d(TAG, "RoomDatabase Save Failure:$it")
+                    Log.d(customTAG, "RoomDatabase Save Failure:$it")
                 })
         )
     }
@@ -57,7 +57,7 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
         roomDataBase.getMovieDao().getMovieList()
             .subscribeOn(Schedulers.io())
             .subscribe({
-                Log.d(TAG, "RoomDatabase Get Data Success:$it")
+                Log.d(customTAG, "RoomDatabase Get Data Success:$it")
                 if (it.isNotEmpty()) {
                     val movieList = ArrayList<MovieItem>()
                     for (localItem in it) {
@@ -77,12 +77,12 @@ class NaverMovieLocalDataSourceImpl(context: Context) : NaverMovieLocalDataSourc
                     }
                     onSuccess.invoke(movieList)
                 } else {
-                    Log.d(TAG, "RoomDatabase has no Data")
+                    Log.d(customTAG, "RoomDatabase has no Data")
                 }
             },
                 {
                     onFailure.invoke(it)
-                    Log.d(TAG, "RoomDatabase GetData Failure")
+                    Log.d(customTAG, "RoomDatabase GetData Failure")
                 })?.let {
                 disposable.add(it)
             }
