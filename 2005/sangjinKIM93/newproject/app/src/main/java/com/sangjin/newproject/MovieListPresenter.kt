@@ -1,6 +1,7 @@
 package com.sangjin.newproject
 
 import android.text.TextUtils
+import android.util.Log
 import com.sangjin.newproject.data.model.Movie
 import com.sangjin.newproject.data.repository.NaverMoviesRepository
 import io.reactivex.Single
@@ -21,13 +22,26 @@ class MovieListPresenter(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                view.refreshMovieList(it)
+                if(!it.isNullOrEmpty()){
+
+                    view.refreshMovieList(it)
+
+                    view.setCacheKeyword(extractKeyword(it))
+                }
             },
                 {
 
                 }).let {
                 disposables.add(it)
             }
+    }
+
+    
+    //**검색 결과를 바탕으로 검색한 keyword 추출하기
+    private fun extractKeyword(it: List<Movie>): String {
+        val title = it[0].title
+        val keyWord = title.split("<b>", "</b>")[1]
+        return keyWord
     }
 
 

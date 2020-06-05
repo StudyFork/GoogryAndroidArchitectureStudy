@@ -121,6 +121,11 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         hideKeyPad()
     }
 
+    override fun setCacheKeyword(keyword: String) {
+        binding.movieNameET.setText(keyword)
+        binding.movieNameET.setSelection(keyword.length)
+    }
+
 
     //**해제시 presenter에 있는 disposable 해제
     override fun onDestroy() {
