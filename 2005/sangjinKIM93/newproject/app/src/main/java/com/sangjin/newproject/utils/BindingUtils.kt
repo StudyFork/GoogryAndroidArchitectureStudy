@@ -8,16 +8,6 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.sangjin.newproject.R
 
-@BindingAdapter("htmlToSpanned")
-fun TextView.htmlToSpanned(title: String?) {
-    title?.let {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            text = Html.fromHtml(it, Html.FROM_HTML_MODE_LEGACY)
-        } else {
-            text = Html.fromHtml(it)
-        }
-    }
-}
 
 @BindingAdapter("imageLoader")
 fun ImageView.imageLoader(url: String?){
