@@ -1,10 +1,10 @@
 package com.example.studyforkandroid.data.source
 
 import com.example.studyforkandroid.data.Movie
-import com.example.studyforkandroid.data.source.remote.MovieRemoteDataSourceImpl
+import com.example.studyforkandroid.data.source.remote.MovieRemoteDataSource
 
 class MovieRepositoryImpl(
-    private val movieRemoteDataSourceImpl: MovieRemoteDataSourceImpl
+    private val movieRemoteDataSource: MovieRemoteDataSource
 ) : MovieRepository {
 
     override fun getRemoteMovieList(
@@ -12,6 +12,6 @@ class MovieRepositoryImpl(
         onSuccess: (List<Movie>) -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
-        movieRemoteDataSourceImpl.getMovieList(query, onSuccess, onFailure)
+        movieRemoteDataSource.getMovieList(query, onSuccess, onFailure)
     }
 }
