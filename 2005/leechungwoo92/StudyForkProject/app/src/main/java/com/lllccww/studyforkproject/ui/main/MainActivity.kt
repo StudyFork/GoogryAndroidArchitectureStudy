@@ -39,11 +39,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.main = this@MainActivity
 
-        movieListAdapter = MovieListAdapter { movieItem ->
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movieItem.link))
-            startActivity(intent)
-        }
-
+        movieListAdapter = MovieListAdapter()
         binding.rvMovieList.adapter = movieListAdapter
 
 
