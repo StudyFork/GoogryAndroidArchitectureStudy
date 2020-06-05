@@ -22,7 +22,7 @@ class MovieListAdapter(clickListener : ((Int) -> Unit)) : RecyclerView.Adapter<M
 
         val item = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
 
-        val binding: ItemMovieBinding = DataBindingUtil.bind(item)!!
+        val binding: ItemMovieBinding = ItemMovieBinding.bind(item)
 
         return MovieListViewHolder(binding).apply {
             itemView.setOnClickListener {
