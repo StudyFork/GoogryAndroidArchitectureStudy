@@ -9,11 +9,12 @@ import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import kotlinx.android.synthetic.main.activity_main.*
-import r.test.rapp.BR
 import r.test.rapp.R
 import r.test.rapp.data.model.Item
 import r.test.rapp.databinding.ActivityMainBinding
@@ -74,15 +75,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         progress = ProgressDialog(this)
         lv_contents.emptyView = txt_empty
 
-        binding.top.edtInput.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                presenter.searchData(v.text.toString().trim())
-                true
-            } else {
-                false
-            }
-        }
-
         val adt = MovieAdapter();
         lv_contents.adapter = adt
         lv_contents.onItemClickListener = OnItemClickListenerImpl(adt)
@@ -94,6 +86,23 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
             val uri: Uri = Uri.parse(adt.getMovieList()[position].link)
             parent.context.startActivity(Intent(Intent.ACTION_VIEW, uri))
+        }
+    }
+
+    companion object {
+        @BindingAdapter("onSearch")
+        @JvmStatic
+        fun onSearch(edt: EditText, presenter: MainContract.Present) {
+            edt.setOnEditorActionListener { v, actionId, event ->
+                presenter.searchData(v.text.toString().trim())
+
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    presenter.searchData(v.text.toString().trim())
+                    true
+                } else {
+                    false
+                }
+            }
         }
     }
 }

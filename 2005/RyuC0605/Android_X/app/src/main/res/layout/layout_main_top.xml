@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -21,7 +22,8 @@
             android:layout_weight="0.7"
             android:hint="@string/enter_keyword"
             android:imeOptions="actionSearch"
-            android:inputType="text" />
+            android:inputType="text"
+            bind:onSearch="@{present}" />
 
         <Button
             android:layout_width="0dp"
