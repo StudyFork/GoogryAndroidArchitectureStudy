@@ -21,7 +21,7 @@ val movieModelModule = module {
 
     single<MovieService> { provideMovieService(get()) }
 
-    single<MovieRemoteDataSource> { MovieRemoteDataSource() }
+    single<MovieRemoteDataSource> { MovieRemoteDataSource(get()) }
 
     single<MovieRepository> { MovieRepository(get(), get()) }
 }

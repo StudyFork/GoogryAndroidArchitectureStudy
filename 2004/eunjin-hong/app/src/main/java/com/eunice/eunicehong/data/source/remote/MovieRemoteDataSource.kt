@@ -2,16 +2,12 @@ package com.eunice.eunicehong.data.source.remote
 
 import com.eunice.eunicehong.data.model.MovieContents
 import com.eunice.eunicehong.data.source.MovieDataSource
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
 
-class MovieRemoteDataSource : MovieDataSource, KoinComponent {
-    private val service by inject<MovieService>()
-
+class MovieRemoteDataSource(private val service: MovieService) : MovieDataSource {
     fun getMovieList(query: String, callback: MovieDataSource.LoadMoviesCallback) {
         service.getMovieList(query).enqueue(object : Callback<MovieContents> {
             override fun onResponse(call: Call<MovieContents>, response: Response<MovieContents>) {
