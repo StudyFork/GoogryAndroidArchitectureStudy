@@ -31,7 +31,7 @@ task clean(type: Delete) {
 ext {
     Properties properties = new Properties()
     properties.load(project.rootProject.file('local.properties').newDataInputStream())
-    client_ID = properties.getProperty('Client_ID', "\"\"")
-    client_SECRET = properties.getProperty('Client_SECRET', "\"\"")
+    client_ID = properties.getProperty('CLIENT_ID', "\"\"")
+    client_SECRET = properties.getProperty('CLIENT_SECRET', "\"\"")
     base_url = properties.getProperty('BASE_URL', "\"\"")
 }

@@ -28,8 +28,8 @@ val networkModule = module {
             .addInterceptor { chain ->
                 chain.proceed(
                     chain.request().newBuilder()
-                        .addHeader(X_NAVER_CLIENT_ID, BuildConfig.Client_ID)
-                        .addHeader(X_NAVER_CLIENT_SECRET, BuildConfig.Client_SECRET)
+                        .addHeader(X_NAVER_CLIENT_ID, BuildConfig.CLIENT_ID)
+                        .addHeader(X_NAVER_CLIENT_SECRET, BuildConfig.CLIENT_SECRET)
                         .build()
                 )
             }

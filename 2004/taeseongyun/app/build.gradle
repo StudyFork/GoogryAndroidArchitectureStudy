@@ -27,8 +27,8 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField "String", "Client_ID", rootProject.ext.client_ID
-            buildConfigField "String", "Client_SECRET", rootProject.ext.client_SECRET
+            buildConfigField "String", "CLIENT_ID", rootProject.ext.client_ID
+            buildConfigField "String", "CLIENT_SECRET", rootProject.ext.client_SECRET
             buildConfigField "String", "BASE_URL", rootProject.ext.base_url
         }
         release {
