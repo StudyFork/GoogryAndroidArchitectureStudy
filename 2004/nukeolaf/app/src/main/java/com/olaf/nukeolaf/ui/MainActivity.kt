@@ -5,9 +5,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.olaf.nukeolaf.R
 import com.olaf.nukeolaf.databinding.ActivityMainBinding
+import org.koin.android.ext.android.inject
 
 const val NO_ERROR = 0
 const val EMPTY_SEARCH_WORD = 1
@@ -17,26 +17,23 @@ const val NETWORK_ERROR = 4
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(
+        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(
             this,
             R.layout.activity_main
-        )
-
-        viewModel = ViewModelProvider(
-            this, ViewModelProvider.AndroidViewModelFactory(application)
-        ).get(MainViewModel::class.java)
-
-        binding.apply {
+        ).apply {
             vm = viewModel
             lifecycleOwner = this@MainActivity
         }
 
+        observeErrorType()
+    }
+
+    private fun observeErrorType() {
         viewModel.errorType.observe(
             this,
             Observer { errorType ->
@@ -48,7 +45,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         )
-
     }
 
     private fun makeToast(message: String) {
