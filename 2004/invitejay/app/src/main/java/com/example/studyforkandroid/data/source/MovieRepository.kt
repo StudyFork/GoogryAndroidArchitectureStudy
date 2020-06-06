@@ -3,9 +3,6 @@ package com.example.studyforkandroid.data.source
 import com.example.studyforkandroid.data.Movie
 
 interface MovieRepository {
-    fun getLocalMovieList(
-
-    )
 
     fun getRemoteMovieList(
         query: String,
