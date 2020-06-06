@@ -15,14 +15,12 @@ val rxJavaEventBusModule = module {
      * todo factory working.
      ***/
 
-    single { (finish: () -> Unit, showToast: (Int, Int) -> Unit) ->
+    factory { (finish: () -> Unit, showToast: (Int, Int) -> Unit, compositeDisposable: CompositeDisposable) ->
         BackKeyPressExt(
             get(),
-            get(),
+            compositeDisposable,
             finish,
             showToast
         )
     }
-
-    factory { CompositeDisposable() }
 }

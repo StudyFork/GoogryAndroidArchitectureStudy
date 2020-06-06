@@ -35,7 +35,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     }
 
     private val backKeyPressExt by inject<BackKeyPressExt> {
-        parametersOf(::finish, ::showToast)
+        parametersOf(::finish, ::showToast, disposable)
     }
 
     val hideKeyBoard: () -> Unit = {
