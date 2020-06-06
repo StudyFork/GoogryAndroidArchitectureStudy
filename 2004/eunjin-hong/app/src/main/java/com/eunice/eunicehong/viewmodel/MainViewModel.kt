@@ -1,20 +1,14 @@
 package com.eunice.eunicehong.viewmodel
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.eunice.eunicehong.data.model.Movie
 import com.eunice.eunicehong.data.model.MovieContents
 import com.eunice.eunicehong.data.source.MovieDataSource
 import com.eunice.eunicehong.data.source.MovieRepository
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 
-class MainViewModel(application: Application) :
-    AndroidViewModel(application), KoinComponent {
-
-    val movieRepository by inject<MovieRepository>()
+class MainViewModel(val movieRepository: MovieRepository) : ViewModel() {
 
     val movieListState: MutableLiveData<MovieListState> =
         MutableLiveData(MovieListState.EMPTY_QUERY)
