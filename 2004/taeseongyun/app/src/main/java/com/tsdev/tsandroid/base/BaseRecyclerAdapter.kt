@@ -1,6 +1,5 @@
 package com.tsdev.tsandroid.base
 
-import androidx.databinding.ObservableField
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 

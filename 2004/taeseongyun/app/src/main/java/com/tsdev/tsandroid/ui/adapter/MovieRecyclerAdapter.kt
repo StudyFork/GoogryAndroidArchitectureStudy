@@ -1,7 +1,6 @@
 package com.tsdev.tsandroid.ui.adapter
 
 import android.view.ViewGroup
-import androidx.databinding.ObservableField
 import com.tsdev.tsandroid.data.Item
 import com.tsdev.tsandroid.base.BaseRecyclerAdapter
 import com.tsdev.tsandroid.base.BaseRecyclerViewHolder

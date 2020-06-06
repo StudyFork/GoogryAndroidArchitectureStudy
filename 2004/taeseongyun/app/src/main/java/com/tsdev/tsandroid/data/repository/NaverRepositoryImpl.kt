@@ -2,7 +2,6 @@ package com.tsdev.tsandroid.data.repository
 
 import com.tsdev.tsandroid.data.Item
 import com.tsdev.tsandroid.data.source.NaverRemoteDataSource
-import com.tsdev.tsandroid.data.source.NaverRemoteDataSourceImpl
 import com.tsdev.tsandroid.util.AbstractMapConverter
 import io.reactivex.rxjava3.core.Single
 
