@@ -23,7 +23,7 @@ abstract class BaseActivity<VM : BaseViewModel, BINDING : ViewDataBinding> :
 
     abstract val binding: BINDING
 
-    protected val rxJavaEvent by inject<RxEventBus>()
+//    protected val rxJavaEvent by inject<RxEventBus>()
 
     inline fun movieSetDataBinding(
         @LayoutRes layoutInt: Int, activity: Activity,
