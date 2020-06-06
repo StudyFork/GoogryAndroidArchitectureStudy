@@ -1,17 +1,15 @@
 package com.sangjin.newproject.adapter
 
-import android.content.Context
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.AdapterView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.sangjin.newproject.R
 import com.sangjin.newproject.data.model.Movie
-import kotlinx.android.synthetic.main.item_movie.view.*
+import com.sangjin.newproject.databinding.ItemMovieBinding
 
 class MovieListAdapter(clickListener : ((Int) -> Unit)) : RecyclerView.Adapter<MovieListViewHolder>() {
 
@@ -24,7 +22,9 @@ class MovieListAdapter(clickListener : ((Int) -> Unit)) : RecyclerView.Adapter<M
 
         val item = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
 
-        return MovieListViewHolder(item).apply {
+        val binding: ItemMovieBinding = ItemMovieBinding.bind(item)
+
+        return MovieListViewHolder(binding).apply {
             itemView.setOnClickListener {
                 onItemClickListener(adapterPosition)
             }
@@ -33,15 +33,7 @@ class MovieListAdapter(clickListener : ((Int) -> Unit)) : RecyclerView.Adapter<M
 
     override fun onBindViewHolder(holder: MovieListViewHolder, position: Int) {
         val movie = movieList.get(position)
-
-        holder.containerView.movieTitleTV.text = movie.title.htmlToSpanned()
-
-        Glide.with(holder.containerView.movieImageIV.context)
-            .load(movie.image)
-            .placeholder(R.drawable.img_default)
-            .centerCrop()
-            .into(holder.containerView.movieImageIV)
-
+        holder.bind(movie)
     }
 
     override fun getItemCount() = movieList.size
@@ -59,13 +51,5 @@ class MovieListAdapter(clickListener : ((Int) -> Unit)) : RecyclerView.Adapter<M
 
     fun getMovieList(): ArrayList<Movie> = movieList
 
-
-    private fun String.htmlToSpanned(): Spanned {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY)
-        } else {
-            Html.fromHtml(this)
-        }
-    }
 
 }

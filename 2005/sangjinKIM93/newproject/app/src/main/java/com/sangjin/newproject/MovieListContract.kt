@@ -10,6 +10,7 @@ interface MovieListContract{
         fun noResult(movies: List<Movie>)
         fun onError(t: Throwable)
         fun refreshMovieList(movies: List<Movie>)
+        fun setCacheKeyword(keyword: String)
     }
 
     interface Presenter {

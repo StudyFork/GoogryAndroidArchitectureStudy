@@ -8,14 +8,18 @@ import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.BindingAdapter
+import androidx.databinding.DataBindingUtil
 import com.sangjin.newproject.adapter.MovieListAdapter
 import com.sangjin.newproject.data.model.Movie
 import com.sangjin.newproject.data.repository.NaverMoviesRepositoryImpl
 import com.sangjin.newproject.data.source.local.LocalDataSourceImpl
 import com.sangjin.newproject.data.source.local.RoomDb
 import com.sangjin.newproject.data.source.remote.RemoteDataSourceImpl
+import com.sangjin.newproject.databinding.ActivityMovieListBinding
 import kotlinx.android.synthetic.main.activity_movie_list.*
 
 class MovieListActivity : AppCompatActivity(), MovieListContract.View {
@@ -32,14 +36,17 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         MovieListPresenter(this, naverMoviesRepositoryImpl)
     }
 
+    private lateinit var binding: ActivityMovieListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movie_list)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_list)
+        binding.activity = this
+        binding.presenter = presenter
 
         setRecyclerView()
         presenter.loadCache()
-        setKeypad()
         showKeyPad()
 
     }
@@ -55,38 +62,13 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         }
 
         movieListAdapter = MovieListAdapter(onItemClickListener)
-        movieListView.adapter = movieListAdapter
-    }
-
-
-
-    //**검색 버튼 클릭 이벤트
-    fun onClick(view: View) {
-
-        val keyWord = movieNameET.text.toString().trim()
-
-        presenter.searchMovie(keyWord)
-    }
-
-
-    //**키패드 셋팅
-    private fun setKeypad() {
-        movieNameET.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-
-                onClick(v)
-
-                true
-            } else {
-                false
-            }
-        }
+        binding.movieListView.adapter = movieListAdapter
     }
 
 
     //**키패드 보여주기
     private fun showKeyPad() {
-        movieNameET.requestFocus()
+        binding.movieNameET.requestFocus()
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }
 
@@ -124,10 +106,35 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         hideKeyPad()
     }
 
+    override fun setCacheKeyword(keyword: String) {
+        binding.movieNameET.setText(keyword)
+        binding.movieNameET.setSelection(keyword.length)
+    }
+
 
     //**해제시 presenter에 있는 disposable 해제
     override fun onDestroy() {
         presenter.clearDisposable()
         super.onDestroy()
+    }
+
+
+    //**키패드 셋팅
+    companion object{
+        @BindingAdapter("setKeypad")
+        @JvmStatic
+        fun EditText.setKeypad(presenter: MovieListContract.Presenter) {
+            this.setOnEditorActionListener { v, actionId, event ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+
+                    val keyWord = this.text.toString().trim()
+                    presenter.searchMovie(keyWord)
+
+                    true
+                } else {
+                    false
+                }
+            }
+        }
     }
 }
