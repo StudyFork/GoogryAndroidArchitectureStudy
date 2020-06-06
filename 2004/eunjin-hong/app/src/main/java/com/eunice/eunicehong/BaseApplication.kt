@@ -14,11 +14,9 @@ class BaseApplication : Application() {
         startKoin {
             androidContext(this@BaseApplication)
             modules(
-                listOf(
-                    retrofitModule,
-                    movieModelModule,
-                    viewModelDependency
-                )
+                retrofitModule,
+                movieModelModule,
+                viewModelDependency
             )
         }
     }
