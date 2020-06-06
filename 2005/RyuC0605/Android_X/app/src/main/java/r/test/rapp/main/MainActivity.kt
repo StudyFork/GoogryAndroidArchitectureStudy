@@ -89,20 +89,4 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         }
     }
 
-    companion object {
-        @BindingAdapter("onSearch")
-        @JvmStatic
-        fun onSearch(edt: EditText, presenter: MainContract.Present) {
-            edt.setOnEditorActionListener { v, actionId, event ->
-                presenter.searchData(v.text.toString().trim())
-
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    presenter.searchData(v.text.toString().trim())
-                    true
-                } else {
-                    false
-                }
-            }
-        }
-    }
 }

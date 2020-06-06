@@ -23,7 +23,7 @@
             android:hint="@string/enter_keyword"
             android:imeOptions="actionSearch"
             android:inputType="text"
-            bind:onSearch="@{present}" />
+            onEditorAction="@{() -> present.searchData(edtInput.getText().toString().trim())}"/>
 
         <Button
             android:layout_width="0dp"
