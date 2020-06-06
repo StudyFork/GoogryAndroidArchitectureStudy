@@ -9,15 +9,12 @@ import com.tsdev.tsandroid.data.repository.NaverReopsitory
 import com.tsdev.tsandroid.ext.SingleEventLiveData
 import com.tsdev.tsandroid.ext.SingleMutableLiveData
 import com.tsdev.tsandroid.provider.ResourceProvider
-import com.tsdev.tsandroid.ui.observe.ObserverProvider
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
-import io.reactivex.rxjava3.subjects.PublishSubject
 
 class MainViewModel(
     private val movieRepository: NaverReopsitory,
-    private val resourceProvider: ResourceProvider,
-    override val observe: ObserverProvider
+    private val resourceProvider: ResourceProvider
 ) : BaseViewModel() {
 
     companion object {

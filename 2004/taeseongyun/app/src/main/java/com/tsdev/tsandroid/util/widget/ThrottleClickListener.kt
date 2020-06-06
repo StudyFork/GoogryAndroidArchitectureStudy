@@ -1,10 +1,8 @@
 package com.tsdev.tsandroid.util.widget
 
 import android.view.View
-import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import com.tsdev.tsandroid.constant.Const
-import com.tsdev.tsandroid.provider.ResourceProvider
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
