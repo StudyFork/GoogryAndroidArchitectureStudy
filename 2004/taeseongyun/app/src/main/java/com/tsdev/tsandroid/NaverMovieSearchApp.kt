@@ -18,15 +18,13 @@ class NaverMovieSearchApp : Application() {
             }
             androidContext(applicationContext)
             modules(
-                listOf(
-                    mapConverterModule,
-                    naverRepositoryModule,
-                    rxJavaEventBusModule,
-                    viewModelModule,
-                    remoteModule,
-                    networkModule,
-                    resourceProviderModule
-                )
+                mapConverterModule,
+                naverRepositoryModule,
+                rxJavaEventBusModule,
+                viewModelModule,
+                remoteModule,
+                networkModule,
+                resourceProviderModule
             )
         }
     }
