@@ -5,5 +5,5 @@ import com.tsdev.tsandroid.data.repository.NaverRepositoryImpl
 import org.koin.dsl.module
 
 val naverRepositoryModule = module {
-    single<NaverReopsitory> { NaverRepositoryImpl(get()) }
+    single<NaverReopsitory> { NaverRepositoryImpl(get(), get()) }
 }

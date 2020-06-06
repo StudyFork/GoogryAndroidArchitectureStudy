@@ -19,11 +19,12 @@ class NaverMovieSearchApp : Application() {
             androidContext(applicationContext)
             modules(
                 listOf(
-                    networkModule,
                     mapConverterModule,
                     naverRepositoryModule,
                     rxJavaEventBusModule,
                     viewModelModule,
+                    remoteModule,
+                    networkModule,
                     resourceProviderModule
                 )
             )
