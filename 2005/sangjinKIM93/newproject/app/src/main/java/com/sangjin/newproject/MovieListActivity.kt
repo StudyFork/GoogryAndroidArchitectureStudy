@@ -8,8 +8,10 @@ import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import com.sangjin.newproject.adapter.MovieListAdapter
 import com.sangjin.newproject.data.model.Movie
@@ -45,7 +47,6 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
 
         setRecyclerView()
         presenter.loadCache()
-        setKeypad()
         showKeyPad()
 
     }
@@ -62,22 +63,6 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
 
         movieListAdapter = MovieListAdapter(onItemClickListener)
         binding.movieListView.adapter = movieListAdapter
-    }
-
-
-    //**키패드 셋팅
-    private fun setKeypad() {
-        binding.movieNameET.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-
-                val keyWord = binding.movieNameET.text.toString().trim()
-                presenter.searchMovie(keyWord)
-
-                true
-            } else {
-                false
-            }
-        }
     }
 
 
@@ -131,5 +116,25 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
     override fun onDestroy() {
         presenter.clearDisposable()
         super.onDestroy()
+    }
+
+
+    //**키패드 셋팅
+    companion object{
+        @BindingAdapter("setKeypad")
+        @JvmStatic
+        fun EditText.setKeypad(presenter: MovieListContract.Presenter) {
+            this.setOnEditorActionListener { v, actionId, event ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+
+                    val keyWord = this.text.toString().trim()
+                    presenter.searchMovie(keyWord)
+
+                    true
+                } else {
+                    false
+                }
+            }
+        }
     }
 }
