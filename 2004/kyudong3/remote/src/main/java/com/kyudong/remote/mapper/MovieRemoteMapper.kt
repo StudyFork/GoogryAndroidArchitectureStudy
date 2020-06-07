@@ -1,9 +1,11 @@
-package com.example.kyudong3.mapper
+package com.kyudong.remote.mapper
 
-import com.example.kyudong3.data.model.Movie
-import com.example.kyudong3.data.remote.MovieRemote
+import com.kyudong.data.mapper.Mapper
+import com.kyudong.data.model.Movie
+import com.kyudong.remote.network.MovieRemote
 
-class MovieRemoteMapper : Mapper<List<Movie>, List<MovieRemote>> {
+internal class MovieRemoteMapper :
+    Mapper<List<Movie>, List<MovieRemote>> {
     override fun toData(domain: List<Movie>): List<MovieRemote> {
         return domain.map {
             MovieRemote(

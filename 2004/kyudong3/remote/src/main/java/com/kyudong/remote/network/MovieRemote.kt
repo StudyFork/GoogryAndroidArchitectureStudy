@@ -1,4 +1,4 @@
-package com.example.kyudong3.data.remote
+package com.kyudong.remote.network
 
 import com.google.gson.annotations.SerializedName
 

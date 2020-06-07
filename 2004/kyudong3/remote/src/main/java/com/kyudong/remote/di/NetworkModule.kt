@@ -1,7 +1,7 @@
-package com.example.kyudong3.di
+package com.kyudong.remote.di
 
-import com.example.kyudong3.BuildConfig
-import com.example.kyudong3.network.NaverApiService
+import com.kyudong.remote.BuildConfig
+import com.kyudong.remote.network.NaverApiService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

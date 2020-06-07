@@ -1,14 +1,16 @@
-package com.example.kyudong3.data.remote
+package com.kyudong.remote
 
-import com.example.kyudong3.data.model.Movie
-import com.example.kyudong3.mapper.MovieRemoteMapper
-import com.example.kyudong3.network.NaverApiService
+import com.kyudong.data.model.Movie
+import com.kyudong.data.remote.MovieRemoteDataSource
+import com.kyudong.remote.mapper.MovieRemoteMapper
+import com.kyudong.remote.network.MovieReceiver
+import com.kyudong.remote.network.NaverApiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
 
-class MovieRemoteDataSourceImpl(
+internal class MovieRemoteDataSourceImpl(
     private val movieRemoteMapper: MovieRemoteMapper,
     private val naverApiService: NaverApiService
 ) : MovieRemoteDataSource {
@@ -32,7 +34,10 @@ class MovieRemoteDataSourceImpl(
                     }
                 }
 
-                override fun onFailure(call: Call<MovieReceiver>, t: Throwable) {
+                override fun onFailure(
+                    call: Call<MovieReceiver>,
+                    t: Throwable
+                ) {
                     failure(t)
                 }
             })
