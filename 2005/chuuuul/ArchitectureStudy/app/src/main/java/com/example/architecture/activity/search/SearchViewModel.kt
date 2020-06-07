@@ -9,7 +9,7 @@ import com.example.architecture.data.repository.NaverRepositoryImpl
 
 class SearchViewModel(private val naverRepository: NaverRepositoryImpl) {
 
-    val keyword = ObservableField<String>()
+    val keyword = ObservableField<String>("")
     val isLoading = ObservableBoolean(false)
     val movieList = ObservableArrayList<MovieModel>()
     val showMessageEmptyKeyword = ObservableField<Unit>()
