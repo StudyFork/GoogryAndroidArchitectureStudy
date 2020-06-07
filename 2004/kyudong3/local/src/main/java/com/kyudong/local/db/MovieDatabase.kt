@@ -1,4 +1,4 @@
-package com.example.kyudong3.data.local
+package com.kyudong.local.db
 
 import android.content.Context
 import androidx.room.Database
@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(entities = [MovieLocalEntity::class], version = 1, exportSchema = false)
-abstract class MovieDatabase : RoomDatabase() {
+internal abstract class MovieDatabase : RoomDatabase() {
     abstract fun movieDao(): MovieDao
 
     companion object {
@@ -15,7 +15,10 @@ abstract class MovieDatabase : RoomDatabase() {
 
         fun getInstance(context: Context): MovieDatabase {
             return instance ?: synchronized(this) {
-                instance ?: buildDatabase(context)
+                instance
+                    ?: buildDatabase(
+                        context
+                    )
             }
         }
 

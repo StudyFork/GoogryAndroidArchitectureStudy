@@ -1,4 +1,4 @@
-package com.example.kyudong3.data.local
+package com.kyudong.local.db
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -6,7 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-interface MovieDao {
+internal interface MovieDao {
     @Query("SELECT * FROM movie WHERE search_query = :query")
     fun fetchCacheMovieData(query: String): List<MovieLocalEntity>
 

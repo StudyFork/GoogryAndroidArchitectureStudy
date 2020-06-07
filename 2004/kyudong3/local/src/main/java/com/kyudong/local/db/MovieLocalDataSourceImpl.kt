@@ -1,9 +1,10 @@
-package com.example.kyudong3.data.local
+package com.kyudong.local.db
 
-import com.example.kyudong3.data.model.Movie
-import com.example.kyudong3.mapper.MovieLocalMapper
+import com.kyudong.data.local.MovieLocalDataSource
+import com.kyudong.data.model.Movie
+import com.kyudong.local.mapper.MovieLocalMapper
 
-class MovieLocalDataSourceImpl(
+internal class MovieLocalDataSourceImpl(
     private val movieDao: MovieDao,
     private val movieLocalMapper: MovieLocalMapper
 ) : MovieLocalDataSource {

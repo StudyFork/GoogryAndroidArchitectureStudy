@@ -1,9 +1,11 @@
-package com.example.kyudong3.mapper
+package com.kyudong.local.mapper
 
-import com.example.kyudong3.data.local.MovieLocalEntity
-import com.example.kyudong3.data.model.Movie
+import com.kyudong.data.mapper.Mapper
+import com.kyudong.data.model.Movie
+import com.kyudong.local.db.MovieLocalEntity
 
-class MovieLocalMapper : Mapper<List<Movie>, List<MovieLocalEntity>> {
+internal class MovieLocalMapper :
+    Mapper<List<Movie>, List<MovieLocalEntity>> {
     override fun toData(domain: List<Movie>): List<MovieLocalEntity> {
         return domain.map {
             MovieLocalEntity(
