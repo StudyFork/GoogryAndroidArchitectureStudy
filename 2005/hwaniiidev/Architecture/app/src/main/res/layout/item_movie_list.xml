@@ -29,138 +29,35 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                htmlTitle="@{movieItem.title}"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="제목 : " />
-
-                <!--<TextView
-                    android:id="@+id/item_movie_list_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="영화제목" />-->
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    htmlTitle="@{movieItem.title}"/>
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                loadSubTitle="@{movieItem.subtitle}"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="서브제목 : " />
-
-                <!--<TextView
-                    android:id="@+id/item_movie_list_subtitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="서브제목" />-->
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{movieItem.subtitle}" />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                loadPubDate="@{movieItem.pubDate}"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="개봉년도 : " />
-
-                <!--<TextView
-                    android:id="@+id/item_movie_list_pub_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2019" />-->
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{movieItem.pubDate}" />
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                loadDirector="@{movieItem.director}"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="감독 : " />
-
-                <!--<TextView
-                    android:id="@+id/item_movie_list_director"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="봉준호" />-->
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{movieItem.director}" />
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                loadActor="@{movieItem.actor}"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="출연 : " />
-
-                <!--<TextView
-                    android:id="@+id/item_movie_list_actors"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="이선균" />-->
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{movieItem.actor}" />
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                loadUserRating="@{movieItem.userRating}"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="평점점 : " />
-
-                <!--<TextView
-                    android:id="@+id/item_movie_list_rating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="9.7" />-->
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{movieItem.userRating}" />
-            </LinearLayout>
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
 
