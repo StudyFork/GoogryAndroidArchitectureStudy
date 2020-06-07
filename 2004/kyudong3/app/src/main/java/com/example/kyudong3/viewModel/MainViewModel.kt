@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.kyudong3.R
-import com.example.kyudong3.data.model.Movie
-import com.example.kyudong3.data.repository.MovieRepository
 import com.example.kyudong3.provider.ResourceProvider
+import com.kyudong.data.model.Movie
+import com.kyudong.data.repository.MovieRepository
 
 class MainViewModel(
     private val movieRepository: MovieRepository,

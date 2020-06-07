@@ -9,7 +9,7 @@
 
         <variable
             name="movieItem"
-            type="com.example.kyudong3.data.model.Movie" />
+            type="com.kyudong.data.model.Movie" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

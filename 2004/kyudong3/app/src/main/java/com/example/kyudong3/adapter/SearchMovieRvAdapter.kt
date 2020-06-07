@@ -5,9 +5,9 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.kyudong3.data.model.Movie
 import com.example.kyudong3.databinding.ItemMovieBinding
 import com.example.kyudong3.databinding.ItemMovieBindingImpl
+import com.kyudong.data.model.Movie
 
 class SearchMovieRvAdapter :
     RecyclerView.Adapter<SearchMovieRvAdapter.SearchMovieVH>() {
