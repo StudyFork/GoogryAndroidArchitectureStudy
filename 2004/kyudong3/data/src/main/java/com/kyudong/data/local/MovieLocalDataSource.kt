@@ -1,6 +1,6 @@
-package com.example.kyudong3.data.local
+package com.kyudong.data.local
 
-import com.example.kyudong3.data.model.Movie
+import com.kyudong.data.model.Movie
 
 interface MovieLocalDataSource {
     fun getMovieList(query: String): List<Movie>

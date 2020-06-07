@@ -1,6 +1,6 @@
-package com.example.kyudong3.data.repository
+package com.kyudong.data.repository
 
-import com.example.kyudong3.data.model.Movie
+import com.kyudong.data.model.Movie
 
 interface MovieRepository {
     fun getMovieListRemote(

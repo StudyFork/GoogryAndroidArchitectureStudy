@@ -1,4 +1,4 @@
-package com.example.kyudong3.data.model
+package com.kyudong.data.model
 
 data class Movie(
     val title: String,

@@ -1,10 +1,10 @@
-package com.example.kyudong3.data.repository
+package com.kyudong.data.repository
 
-import com.example.kyudong3.data.local.MovieLocalDataSource
-import com.example.kyudong3.data.model.Movie
-import com.example.kyudong3.data.remote.MovieRemoteDataSource
+import com.kyudong.data.local.MovieLocalDataSource
+import com.kyudong.data.model.Movie
+import com.kyudong.data.remote.MovieRemoteDataSource
 
-class MovieRepositoryImpl(
+internal class MovieRepositoryImpl(
     private val movieRemoteDataSource: MovieRemoteDataSource,
     private val movieLocalDataSource: MovieLocalDataSource
 ) : MovieRepository {
