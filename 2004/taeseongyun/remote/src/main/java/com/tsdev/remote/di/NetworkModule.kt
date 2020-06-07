@@ -28,8 +28,12 @@ val networkModule = module {
         OkHttpClient.Builder()
             .addInterceptor(get<Interceptor>())
             .addInterceptor { chain ->
-
-                chain.proceed(chain.request().newBuilder().addHeader().build())
+                chain.proceed(
+                    chain.request().newBuilder()
+                        .addHeader(X_NAVER_CLIENT_ID, BuildConfig.CLIENT_ID)
+                        .addHeader(X_NAVER_CLIENT_SECRET, BuildConfig.CLIENT_SECRET)
+                        .build()
+                )
             }
             .build()
     }

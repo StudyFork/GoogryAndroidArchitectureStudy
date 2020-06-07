@@ -10,6 +10,7 @@ dependencies {
 
     //rx
     implementation deps.library.rx.java
+
 }
 
 sourceCompatibility = "8"

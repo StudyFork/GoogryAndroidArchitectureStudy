@@ -1,5 +1,8 @@
 package com.tsdev.domain.repository
 
+import com.tsdev.data.source.Item
+import io.reactivex.rxjava3.core.Single
+
 interface NaverMovieRepository  {
-//    fun getMovieList(query: String): Single<List<Item>>
+    fun getMovieList(query: String): Single<List<Item>>
 }

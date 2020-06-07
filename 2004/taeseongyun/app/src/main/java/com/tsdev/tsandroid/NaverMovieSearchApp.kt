@@ -1,6 +1,9 @@
 package com.tsdev.tsandroid
 
 import android.app.Application
+import com.tsdev.domain.di.repositoryModule
+import com.tsdev.remote.di.mapperModule
+import com.tsdev.remote.di.remoteModule
 import com.tsdev.tsandroid.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -18,12 +21,15 @@ class NaverMovieSearchApp : Application() {
             }
             androidContext(applicationContext)
             modules(
-                mapConverterModule,
-                naverRepositoryModule,
+                remoteModule,
+                mapperModule,
+                repositoryModule,
+//                mapConverterModule,
+//                naverRepositoryModule,
                 rxJavaEventBusModule,
                 viewModelModule,
-                remoteModule,
-                networkModule,
+//                remoteModule,
+//                networkModule,
                 resourceProviderModule
             )
         }
