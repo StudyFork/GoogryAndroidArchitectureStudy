@@ -9,34 +9,32 @@ import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.BindingAdapter
+import androidx.databinding.DataBindingUtil
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.layout_main_top.*
 import r.test.rapp.R
 import r.test.rapp.data.model.Item
+import r.test.rapp.databinding.ActivityMainBinding
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(), MainContract.View {
 
-    private var progress: ProgressDialog? = null
+    private lateinit var progress: ProgressDialog
     private lateinit var presenter: MainContract.Present
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        initView()
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         presenter = MainPresenter(this)
+        binding.present = presenter;
+//        binding.top.setVariable(BR.present, presenter)
 
+        initView()
         showKeyPad()
-    }
-
-    /**
-     * 검색버튼 클릭 액션
-     */
-    fun onClick(view: View) {
-        val keyword: String = edt_input.text.toString().trim()
-        presenter.searchData(keyword)
     }
 
     override fun showToast(msg: String) {
@@ -48,20 +46,20 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun showProgress() {
-        progress?.show()
+        progress.show()
     }
 
     override fun hideProgress() {
-        progress?.hide()
+        progress.hide()
     }
 
     override fun hideKeyPad() {
         val imm: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(edt_input.windowToken, 0)
+        imm.hideSoftInputFromWindow(binding.top.edtInput.windowToken, 0)
     }
 
     override fun showKeyPad() {
-        edt_input.requestFocus()
+        binding.top.edtInput.requestFocus()
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }
 
@@ -77,16 +75,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         progress = ProgressDialog(this)
         lv_contents.emptyView = txt_empty
 
-        edt_input.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                onClick(v)
-                true
-            } else {
-                false
-            }
-        }
-
-        val adt : MovieAdapter = MovieAdapter();
+        val adt = MovieAdapter();
         lv_contents.adapter = adt
         lv_contents.onItemClickListener = OnItemClickListenerImpl(adt)
     }
@@ -99,4 +88,5 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             parent.context.startActivity(Intent(Intent.ACTION_VIEW, uri))
         }
     }
+
 }
