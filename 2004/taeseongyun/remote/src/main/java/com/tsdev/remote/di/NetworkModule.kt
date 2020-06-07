@@ -16,6 +16,14 @@ private const val X_NAVER_CLIENT_ID = "X-Naver-Client-Id"
 private const val X_NAVER_CLIENT_SECRET = "X-Naver-Client-Secret"
 private const val REQUEST_TIME_OUT = 1000L
 
+
+/***
+ * single : 한번 선언되면 고유한 인스턴스를 유지.
+ * factory : 호출 될 때마다 새로운 인스턴스를 생성.
+ * viewModel : factory 와 비슷한거 같음. 동적 매개변수를 전달하려면 람다식으로 전달.
+ * by viewModel : lazy 패턴으로 주입.  ViewModelStoreOwner 확장함수로 getViewModel 로 뷰 모델을 가져옴.
+ ***/
+
 val networkModule = module {
     single {
         Retrofit.Builder()
@@ -43,7 +51,7 @@ val networkModule = module {
             .build()
     }
 
-    single {
+    single<Interceptor> {
         HttpLoggingInterceptor().apply {
             level = if (BuildConfig.DEBUG) {
                 HttpLoggingInterceptor.Level.BODY
