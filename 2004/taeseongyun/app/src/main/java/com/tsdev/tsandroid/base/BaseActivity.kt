@@ -5,7 +5,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.tsdev.tsandroid.ui.viewmodel.BaseViewModel
+import com.tsdev.presentation.base.BaseViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 abstract class BaseActivity<VM : BaseViewModel, BINDING : ViewDataBinding> :

@@ -4,12 +4,12 @@ import android.content.Context
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.*
+import com.tsdev.presentation.MainViewModel
 import com.tsdev.tsandroid.R
 import com.tsdev.tsandroid.base.BaseActivity
 import com.tsdev.tsandroid.databinding.ActivityMainBinding
 import com.tsdev.tsandroid.ext.showToast
 import com.tsdev.tsandroid.ui.adapter.MovieRecyclerAdapter
-import com.tsdev.tsandroid.ui.viewmodel.MainViewModel
 import com.tsdev.tsandroid.util.BackKeyPressExt
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
