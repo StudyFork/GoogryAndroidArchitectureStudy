@@ -1,0 +1,28 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+//Parcelable
+apply plugin: 'kotlin-android-extensions'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    //rx
+    implementation deps.library.rx.java
+
+    //retrofit
+    implementation deps.library.squareup.retrofit
+    implementation deps.library.squareup.adapter_rxjava3
+    implementation deps.library.squareup.retrofit_gson_converter
+
+    //okhttp
+    implementation deps.library.squareup.okhttp
+    implementation deps.library.squareup.okhttp_logging_interceptor
+
+    //koin
+    implementation deps.androidx.koin
+}
+
+sourceCompatibility = "8"
+targetCompatibility = "8"
