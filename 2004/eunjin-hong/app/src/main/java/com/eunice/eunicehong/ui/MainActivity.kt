@@ -9,21 +9,21 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import com.eunice.eunicehong.R
 import com.eunice.eunicehong.databinding.ActivityMainBinding
 import com.eunice.eunicehong.viewmodel.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private val movieListAdapter = MovieAdapter()
+    private lateinit var movieListAdapter: MovieAdapter
 
-    private lateinit var mainViewModel: MainViewModel
+    private val mainViewModel by viewModel<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        movieListAdapter = MovieAdapter()
 
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(
             this@MainActivity,

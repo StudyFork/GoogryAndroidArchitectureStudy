@@ -7,9 +7,7 @@ import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
 
-class MovieRemoteDataSource : MovieDataSource {
-    private val service = MovieClient.getClient().create(MovieService::class.java)
-
+class MovieRemoteDataSource(private val service: MovieService) : MovieDataSource {
     fun getMovieList(query: String, callback: MovieDataSource.LoadMoviesCallback) {
         service.getMovieList(query).enqueue(object : Callback<MovieContents> {
             override fun onResponse(call: Call<MovieContents>, response: Response<MovieContents>) {
