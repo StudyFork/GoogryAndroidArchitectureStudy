@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
 
         <variable
             name="vm"
@@ -45,19 +46,30 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/edt_search_keyword" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_search_movieList"
-            android:layout_width="match_parent"
+        <FrameLayout
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
-            android:items="@{vm.movieList}"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_search_keyword"
-            app:spanCount="2" />
+            app:layout_constraintTop_toBottomOf="@+id/edt_search_keyword">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_search_movieList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:items="@{vm.movieList}"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="@{vm.isLoading? View.VISIBLE : View.INVISIBLE }" />
+        </FrameLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
