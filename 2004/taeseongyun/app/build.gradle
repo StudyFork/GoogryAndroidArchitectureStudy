@@ -69,6 +69,9 @@ dependencies {
     //koin
     implementation deps.androidx.koin
 
+    //rx
+    implementation deps.library.rx.android
+
     //multi-module
     implementation project(':data')
     implementation project(':domain')
