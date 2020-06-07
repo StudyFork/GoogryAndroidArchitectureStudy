@@ -10,18 +10,6 @@ dependencies {
 
     //rx
     implementation deps.library.rx.java
-
-    //retrofit
-    implementation deps.library.squareup.retrofit
-    implementation deps.library.squareup.adapter_rxjava3
-    implementation deps.library.squareup.retrofit_gson_converter
-
-    //okhttp
-    implementation deps.library.squareup.okhttp
-    implementation deps.library.squareup.okhttp_logging_interceptor
-
-    //koin
-    implementation deps.androidx.koin
 }
 
 sourceCompatibility = "8"

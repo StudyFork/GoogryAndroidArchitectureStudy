@@ -1,0 +1,68 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField "String", "CLIENT_ID", rootProject.ext.client_ID
+            buildConfigField "String", "CLIENT_SECRET", rootProject.ext.client_SECRET
+            buildConfigField "String", "BASE_URL", rootProject.ext.base_url
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.3.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    //retrofit
+    implementation deps.library.squareup.retrofit
+    implementation deps.library.squareup.adapter_rxjava3
+    implementation deps.library.squareup.retrofit_gson_converter
+
+    //okhttp
+    implementation deps.library.squareup.okhttp
+    implementation deps.library.squareup.okhttp_logging_interceptor
+
+    //koin
+    implementation deps.androidx.koin
+
+    //rx
+    implementation deps.library.rx.java
+
+    //data
+    implementation project(':data')
+}
