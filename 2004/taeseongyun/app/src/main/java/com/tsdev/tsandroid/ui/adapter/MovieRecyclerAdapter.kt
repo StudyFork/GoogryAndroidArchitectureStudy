@@ -1,7 +1,7 @@
 package com.tsdev.tsandroid.ui.adapter
 
 import android.view.ViewGroup
-import com.tsdev.tsandroid.data.Item
+import com.tsdev.data.source.Item
 import com.tsdev.tsandroid.base.BaseRecyclerAdapter
 import com.tsdev.tsandroid.base.BaseRecyclerViewHolder
 import com.tsdev.tsandroid.databinding.MovieRecyclerItemBinding

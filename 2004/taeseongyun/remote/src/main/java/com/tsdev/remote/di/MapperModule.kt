@@ -7,6 +7,6 @@ import com.tsdev.remote.source.MovieDomainResponse
 import io.reactivex.rxjava3.core.Single
 import org.koin.dsl.module
 
-val mapperModule = module {
+val remoteMapperModule = module {
     single<Mapper<MovieResponse, MovieDomainResponse>> { MapperImpl() }
 }

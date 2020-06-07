@@ -2,7 +2,7 @@ package com.tsdev.tsandroid.binding
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.tsdev.tsandroid.data.Item
+import com.tsdev.data.source.Item
 import com.tsdev.tsandroid.ui.adapter.MovieRecyclerAdapter
 
 @BindingAdapter(value = ["bindingItems"])

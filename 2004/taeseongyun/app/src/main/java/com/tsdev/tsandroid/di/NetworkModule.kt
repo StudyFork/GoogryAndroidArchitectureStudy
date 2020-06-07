@@ -22,42 +22,42 @@ private const val X_NAVER_CLIENT_ID = "X-Naver-Client-Id"
 private const val X_NAVER_CLIENT_SECRET = "X-Naver-Client-Secret"
 private const val REQUEST_TIME_OUT = 1000L
 
-val networkModule = module {
-    single {
-        OkHttpClient.Builder()
-            .addInterceptor { chain ->
-                chain.proceed(
-                    chain.request().newBuilder()
-                        .addHeader(X_NAVER_CLIENT_ID, BuildConfig.CLIENT_ID)
-                        .addHeader(X_NAVER_CLIENT_SECRET, BuildConfig.CLIENT_SECRET)
-                        .build()
-                )
-            }
-            .addInterceptor(get<Interceptor>())
-            .callTimeout(REQUEST_TIME_OUT, TimeUnit.MILLISECONDS)
-            .readTimeout(REQUEST_TIME_OUT, TimeUnit.MILLISECONDS)
-            .writeTimeout(REQUEST_TIME_OUT, TimeUnit.MILLISECONDS)
-            .build()
-    }
-
-    single {
-        Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
-            .client(get())
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
-    single<Interceptor> {
-        HttpLoggingInterceptor().apply {
-            level = if (BuildConfig.DEBUG) {
-                HttpLoggingInterceptor.Level.BODY
-            } else {
-                HttpLoggingInterceptor.Level.NONE
-            }
-        }
-    }
-
-    single { get<Retrofit>().create(NaverMovieInterface::class.java) }
-}
+//val networkModule = module {
+//    single {
+//        OkHttpClient.Builder()
+//            .addInterceptor { chain ->
+//                chain.proceed(
+//                    chain.request().newBuilder()
+//                        .addHeader(X_NAVER_CLIENT_ID, BuildConfig.CLIENT_ID)
+//                        .addHeader(X_NAVER_CLIENT_SECRET, BuildConfig.CLIENT_SECRET)
+//                        .build()
+//                )
+//            }
+//            .addInterceptor(get<Interceptor>())
+//            .callTimeout(REQUEST_TIME_OUT, TimeUnit.MILLISECONDS)
+//            .readTimeout(REQUEST_TIME_OUT, TimeUnit.MILLISECONDS)
+//            .writeTimeout(REQUEST_TIME_OUT, TimeUnit.MILLISECONDS)
+//            .build()
+//    }
+//
+//    single {
+//        Retrofit.Builder()
+//            .baseUrl(BuildConfig.BASE_URL)
+//            .client(get())
+//            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .build()
+//    }
+//
+//    single<Interceptor> {
+//        HttpLoggingInterceptor().apply {
+//            level = if (BuildConfig.DEBUG) {
+//                HttpLoggingInterceptor.Level.BODY
+//            } else {
+//                HttpLoggingInterceptor.Level.NONE
+//            }
+//        }
+//    }
+//
+//    single { get<Retrofit>().create(NaverMovieInterface::class.java) }
+//}

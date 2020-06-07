@@ -6,6 +6,6 @@ import com.tsdev.domain.mapper.Mapper
 import com.tsdev.domain.mapper.MapperImpl
 import org.koin.dsl.module
 
-val mapperModule = module {
+val domainMapperModule = module {
     single<Mapper<MovieResponse, List<Item>>> { MapperImpl() }
 }

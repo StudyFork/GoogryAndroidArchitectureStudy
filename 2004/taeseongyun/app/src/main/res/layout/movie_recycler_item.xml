@@ -7,7 +7,7 @@
 
         <variable
             name="movieItem"
-            type="com.tsdev.tsandroid.data.Item" />
+            type="com.tsdev.data.source.Item" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

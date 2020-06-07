@@ -1,6 +1,7 @@
 package com.tsdev.remote.di
 
 import com.tsdev.remote.BuildConfig
+import com.tsdev.remote.network.NaverMovieAPI
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -8,6 +9,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 
 private const val X_NAVER_CLIENT_ID = "X-Naver-Client-Id"
@@ -35,6 +37,9 @@ val networkModule = module {
                         .build()
                 )
             }
+            .writeTimeout(REQUEST_TIME_OUT, TimeUnit.MILLISECONDS)
+            .readTimeout(REQUEST_TIME_OUT, TimeUnit.MILLISECONDS)
+            .callTimeout(REQUEST_TIME_OUT, TimeUnit.MILLISECONDS)
             .build()
     }
 
@@ -47,4 +52,6 @@ val networkModule = module {
             }
         }
     }
+
+    single { get<Retrofit>().create(NaverMovieAPI::class.java) }
 }

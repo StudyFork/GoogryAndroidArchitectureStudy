@@ -3,9 +3,9 @@ package com.tsdev.tsandroid.ui.viewmodel
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.tsdev.data.source.Item
+import com.tsdev.domain.repository.NaverMovieRepository
 import com.tsdev.tsandroid.R
-import com.tsdev.tsandroid.data.Item
-import com.tsdev.tsandroid.data.repository.NaverReopsitory
 import com.tsdev.tsandroid.ext.SingleEventLiveData
 import com.tsdev.tsandroid.ext.SingleMutableLiveData
 import com.tsdev.tsandroid.provider.ResourceProvider
@@ -13,7 +13,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class MainViewModel(
-    private val movieRepository: NaverReopsitory,
+    private val movieRepository: NaverMovieRepository,
     private val resourceProvider: ResourceProvider
 ) : BaseViewModel() {
 
@@ -51,7 +51,7 @@ class MainViewModel(
                     hideKeyBoard()
                 }
                 .doAfterTerminate { _isLoading.event = false }
-                .subscribe { items: List<Item>, _ ->
+                .subscribe { items ->
                     items.takeIf { list -> list.isNotEmpty() }
                         ?.run {
                             if (_movieList.value?.containsAll(this) == true) {
