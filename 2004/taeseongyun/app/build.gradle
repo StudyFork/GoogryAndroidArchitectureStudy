@@ -82,8 +82,9 @@ dependencies {
     //koin
     implementation deps.androidx.koin
 
-    //data
+    //multi-module
     implementation project(':data')
     implementation project(':domain')
     implementation project(':remote')
+    implementation project(':presentation')
 }
