@@ -19,9 +19,9 @@ fun loadImage(view: ImageView, url: String) {
 @BindingAdapter("htmlTitle")
 fun loadHtml(view: TextView, title: String) {
     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-        view.text = "제목 : ${Html.fromHtml(title,Html.FROM_HTML_MODE_LEGACY)}"
+        view.text = Html.fromHtml("제목 : $title",Html.FROM_HTML_MODE_LEGACY)
     }else{
-        view.text ="제목 : ${ Html.fromHtml(title)}"
+        view.text = Html.fromHtml("제목 : $title")
     }
 }
 
