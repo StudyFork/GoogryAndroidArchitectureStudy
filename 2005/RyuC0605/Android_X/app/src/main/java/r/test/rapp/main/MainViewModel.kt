@@ -34,6 +34,7 @@ class MainViewModel {
             repository.getMovieList(
                 searchQuery,
                 onSuccess = { vo ->
+                    movies.clear()
                     movies.addAll(vo.items)
                     isLoading.set(false)
                 },
