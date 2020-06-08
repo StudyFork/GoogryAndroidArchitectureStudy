@@ -22,7 +22,7 @@ import com.sangjin.newproject.data.source.remote.RemoteDataSourceImpl
 import com.sangjin.newproject.databinding.ActivityMovieListBinding
 import kotlinx.android.synthetic.main.activity_movie_list.*
 
-class MovieListActivity : AppCompatActivity(), MovieListContract.View {
+class MovieListActivity : AppCompatActivity() {
 
     private lateinit var movieListAdapter: MovieListAdapter
     private val naverMoviesRepositoryImpl by lazy {
@@ -32,9 +32,6 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         )
     }
 
-    private val presenter by lazy {
-        MovieListPresenter(this, naverMoviesRepositoryImpl)
-    }
 
     private lateinit var binding: ActivityMovieListBinding
 
@@ -43,10 +40,8 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_list)
         binding.activity = this
-        binding.presenter = presenter
 
         setRecyclerView()
-        presenter.loadCache()
         showKeyPad()
 
     }
@@ -57,7 +52,10 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
 
         //각 항목 클릭시 이벤트 처리
         val onItemClickListener: ((Int) -> Unit) = { position ->
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movieListAdapter.getMovieList().get(position).link))
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(movieListAdapter.getMovieList().get(position).link)
+            )
             startActivity(intent)
         }
 
@@ -82,53 +80,13 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
 
 
 
-    /**
-     * Contract.View Interface 구현
-     */
-
-    override fun noKeyword() {
-        Toast.makeText(this, R.string.no_keyword, Toast.LENGTH_LONG).show()
-    }
-
-
-    override fun noResult(movies: List<Movie>) {
-        Toast.makeText(this@MovieListActivity, R.string.no_movie_list, Toast.LENGTH_SHORT).show()
-    }
-
-
-    override fun onError(t: Throwable) {
-        Toast.makeText(this, t.toString(), Toast.LENGTH_SHORT).show()
-    }
-
-
-    override fun refreshMovieList(movies: List<Movie>) {
-        movieListAdapter.refreshList(movies)
-        hideKeyPad()
-    }
-
-    override fun setCacheKeyword(keyword: String) {
-        binding.movieNameET.setText(keyword)
-        binding.movieNameET.setSelection(keyword.length)
-    }
-
-
-    //**해제시 presenter에 있는 disposable 해제
-    override fun onDestroy() {
-        presenter.clearDisposable()
-        super.onDestroy()
-    }
-
-
     //**키패드 셋팅
-    companion object{
+    companion object {
         @BindingAdapter("setKeypad")
         @JvmStatic
-        fun EditText.setKeypad(presenter: MovieListContract.Presenter) {
+        fun EditText.setKeypad(viewModel: MovieListViewModel) {
             this.setOnEditorActionListener { v, actionId, event ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-
-                    val keyWord = this.text.toString().trim()
-                    presenter.searchMovie(keyWord)
 
                     true
                 } else {
