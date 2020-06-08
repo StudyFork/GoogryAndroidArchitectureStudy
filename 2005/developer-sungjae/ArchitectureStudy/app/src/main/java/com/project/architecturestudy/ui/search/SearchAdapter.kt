@@ -28,7 +28,7 @@ class SearchAdapter : RecyclerView.Adapter<SearchingResultHolder>() {
 
     override fun getItemCount(): Int = movieList.count()
 
-    fun setLocalMovieData(movieItemList: List<MovieItem>) {
+    fun addMovieData(movieItemList: List<MovieItem>) {
         this.movieList.clear()
         this.movieList.addAll(movieItemList)
         notifyDataSetChanged()
