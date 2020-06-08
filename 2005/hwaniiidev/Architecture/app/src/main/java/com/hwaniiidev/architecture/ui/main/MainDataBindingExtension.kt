@@ -5,8 +5,10 @@ import android.text.Html
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hwaniiidev.architecture.R
+import com.hwaniiidev.architecture.model.Item
 
 @BindingAdapter("imageUrl")
 fun loadImage(view: ImageView, url: String) {
@@ -18,34 +20,43 @@ fun loadImage(view: ImageView, url: String) {
 
 @BindingAdapter("htmlTitle")
 fun loadHtml(view: TextView, title: String) {
-    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-        view.text = Html.fromHtml("제목 : $title",Html.FROM_HTML_MODE_LEGACY)
-    }else{
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        view.text = Html.fromHtml("제목 : $title", Html.FROM_HTML_MODE_LEGACY)
+    } else {
         view.text = Html.fromHtml("제목 : $title")
     }
 }
 
 @BindingAdapter("loadSubTitle")
-fun loadSubTtitle(view : TextView, subtitle: String){
+fun loadSubTtitle(view: TextView, subtitle: String) {
     view.text = "서브제목 : ${subtitle}"
 }
 
 @BindingAdapter("loadPubDate")
-fun loadPubDate(view : TextView, pubDate: String){
+fun loadPubDate(view: TextView, pubDate: String) {
     view.text = "개봉년도 : ${pubDate}"
 }
 
 @BindingAdapter("loadDirector")
-fun loadDirector(view : TextView, director: String){
+fun loadDirector(view: TextView, director: String) {
     view.text = "감독 : ${director}"
 }
 
 @BindingAdapter("loadActor")
-fun loadActor(view : TextView, actor: String){
+fun loadActor(view: TextView, actor: String) {
     view.text = "개봉년도 : ${actor}"
 }
 
 @BindingAdapter("loadUserRating")
-fun loadUserRating(view : TextView, userRating: String){
+fun loadUserRating(view: TextView, userRating: String) {
     view.text = "평점 : ${userRating}"
+}
+
+@BindingAdapter("setMovies")
+fun setMovies(view: RecyclerView, movies: List<Item>?) {
+    val adapter =
+        view.adapter as? AdapterMovieList ?: AdapterMovieList().apply { view.adapter = this }
+    if (!movies.isNullOrEmpty()) {
+        adapter.addItem(movies)
+    }
 }
