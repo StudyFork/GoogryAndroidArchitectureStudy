@@ -1,26 +1,30 @@
 package com.lllccww.studyforkproject.ui.main
 
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.lllccww.studyforkproject.R
 import com.lllccww.studyforkproject.data.model.MovieItem
-import kotlinx.android.synthetic.main.item_movie_list.view.*
+import com.lllccww.studyforkproject.databinding.ItemMovieListBinding
 
-class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
+class MovieListAdapter :
+    RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
     private val list: ArrayList<MovieItem> = ArrayList()
-    var onClick: ((MovieItem) -> Unit)? = null
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(parent).apply {
-            itemView.setOnClickListener {
-                val item = list[adapterPosition]
-                onClick?.invoke(item)
+        val binding = DataBindingUtil.inflate<ItemMovieListBinding>(
+            LayoutInflater.from(parent.context),
+            R.layout.item_movie_list,
+            parent,
+            false
+        )
 
-            }
-        }
+        return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -41,26 +45,20 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
     }
 
 
-    inner class ViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
-        LayoutInflater.from(parent.context).inflate(
-            R.layout.item_movie_list, parent, false
-        )
-    ) {
-        private val tvTitle = itemView.tv_title!!
-        private val tvDirector = itemView.tv_director!!
-        private val tvPubDate = itemView.tv_pubdate!!
-        private val ivMovieImage = itemView.iv_movie_image!!
-        private val tvUserRating = itemView.tv_user_rating!!
+    inner class ViewHolder(private val binding: ItemMovieListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            itemView.setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(binding.movieItem!!.link))
+                it.context.startActivity(intent)
+            }
+        }
 
 
         fun bind(movieItem: MovieItem) {
-            Glide.with(itemView).load(movieItem.image).error(R.drawable.ic_no_img)
-                .into(ivMovieImage)
-
-            tvTitle.text = android.text.Html.fromHtml(movieItem.title).toString()
-            tvDirector.text = movieItem.director
-            tvPubDate.text = movieItem.pubDate
-            tvUserRating.text = movieItem.userRating
+            binding.movieItem = movieItem
+            binding.executePendingBindings()
         }
 
 

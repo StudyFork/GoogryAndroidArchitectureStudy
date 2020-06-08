@@ -8,12 +8,14 @@ import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lllccww.studyforkproject.R
 import com.lllccww.studyforkproject.data.model.MovieItem
 import com.lllccww.studyforkproject.data.repository.NaverMovieRepositoryImpl
 import com.lllccww.studyforkproject.data.source.remote.MovieRemoteDataSourceImpl
+import com.lllccww.studyforkproject.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -21,8 +23,9 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private var start = 1
     private var total = 0
     private var display = 0
-    private val movieListAdapter =
-        MovieListAdapter()
+    private lateinit var movieListAdapter: MovieListAdapter
+
+    private lateinit var binding: ActivityMainBinding
 
 
     private val mainPresenter by lazy {
@@ -32,14 +35,13 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        rv_movie_list.adapter = movieListAdapter
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.main = this@MainActivity
 
-        movieListAdapter.onClick = { item: MovieItem ->
-            var intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
-            startActivity(intent)
-        }
+        movieListAdapter = MovieListAdapter()
+        binding.rvMovieList.adapter = movieListAdapter
+
 
 
         rv_movie_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -63,10 +65,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             }
         })
 
-
-        btn_search.setOnClickListener {
-            mainPresenter.getSearchMovie(edt_search_keyword.text.toString())
-        }
     }
 
 
@@ -100,6 +98,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun toastMsg(msg: String, toastLength: Int) {
         Toast.makeText(applicationContext, msg, toastLength).show()
+    }
+
+    fun getSearchMovie(keyWord: String) {
+        mainPresenter.getSearchMovie(keyWord)
     }
 
 
