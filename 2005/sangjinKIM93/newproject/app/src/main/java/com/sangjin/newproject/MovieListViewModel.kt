@@ -1,5 +1,57 @@
 package com.sangjin.newproject
 
-class MovieListViewModel {
+import android.util.Log
+import androidx.databinding.ObservableField
+import com.sangjin.newproject.data.model.Movie
+import com.sangjin.newproject.data.repository.NaverMoviesRepository
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
+class MovieListViewModel(private val repository: NaverMoviesRepository) {
+
+    private val disposables = CompositeDisposable()
+
+    var movieList = ObservableField<List<Movie>>()
+
+    var initKeyword = ObservableField<String>()
+
+    init {
+        loadCache()
+    }
+
+
+    private fun loadCache() {
+        repository.loadCachedMovies()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ it ->
+                if (!it.isNullOrEmpty()) {
+
+                    //리스트 최신화
+                    movieList.set(it)
+
+                    //기록했던 검색어 출력
+                    initKeyword.set(extractKeyword(it))
+                }
+            },
+                {
+
+                }).let {
+                disposables.add(it)
+            }
+
+    }
+
+    //**검색 결과를 바탕으로 검색한 keyword 추출하기
+    private fun extractKeyword(it: List<Movie>): String {
+        val title = it[0].title
+        val keyWord = title.split("<b>", "</b>")
+        return if (keyWord.size > 1) {
+            keyWord[1]
+        } else {
+            keyWord[0]
+        }
+
+    }
 }

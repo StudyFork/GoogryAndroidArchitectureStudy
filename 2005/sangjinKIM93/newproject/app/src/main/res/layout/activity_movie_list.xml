@@ -8,11 +8,8 @@
             name="movie"
             type="com.sangjin.newproject.data.model.Movie" />
         <variable
-            name="activity"
-            type="com.sangjin.newproject.MovieListActivity" />
-        <variable
-            name="presenter"
-            type="com.sangjin.newproject.MovieListPresenter" />
+            name="viewModel"
+            type="com.sangjin.newproject.MovieListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +25,8 @@
             android:hint="@string/guide_message_toinput"
             android:inputType="text"
             android:imeOptions="actionSearch"
-            app:setKeypad="@{presenter}"
+            android:text="@{viewModel.initKeyword}"
+            selectLast="@{viewModel.initKeyword}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/movieNameInputBtn"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -41,7 +39,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/search_btn"
-            android:onClick="@{()->presenter.searchMovie(movieNameET.getText().toString().trim())}"
             app:layout_constraintBottom_toBottomOf="@+id/movieNameET"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/movieNameET"
@@ -52,6 +49,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
+            app:refreshList="@{viewModel.movieList}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

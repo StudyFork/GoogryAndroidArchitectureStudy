@@ -32,6 +32,10 @@ class MovieListActivity : AppCompatActivity() {
         )
     }
 
+    private val viewModel by lazy {
+        MovieListViewModel(naverMoviesRepositoryImpl)
+    }
+
 
     private lateinit var binding: ActivityMovieListBinding
 
@@ -39,7 +43,7 @@ class MovieListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_list)
-        binding.activity = this
+        binding.viewModel = viewModel
 
         setRecyclerView()
         showKeyPad()
