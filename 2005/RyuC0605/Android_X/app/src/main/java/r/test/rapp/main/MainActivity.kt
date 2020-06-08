@@ -4,7 +4,6 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
@@ -14,13 +13,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
 import kotlinx.android.synthetic.main.activity_main.*
-import r.test.rapp.BR
 import r.test.rapp.R
-import r.test.rapp.data.model.Item
 import r.test.rapp.databinding.ActivityMainBinding
 
 @Suppress("DEPRECATION")
-class MainActivity : AppCompatActivity(), MainContract.View {
+class MainActivity : AppCompatActivity(){
 
     private lateinit var progress: ProgressDialog
     private  var vm: MainViewModel = MainViewModel()
@@ -36,38 +33,22 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         showKeyPad()
     }
 
-    override fun showToast(msg: String) {
+    private fun showToast(msg: String) {
         Toast.makeText(this@MainActivity, msg, Toast.LENGTH_LONG).show()
     }
 
-    override fun showToast(resId: Int) {
+    private fun showToast(resId: Int) {
         showToast(getString(resId))
     }
 
-    override fun showProgress() {
-        progress.show()
-    }
-
-    override fun hideProgress() {
-        progress.hide()
-    }
-
-    override fun hideKeyPad() {
+    private fun hideKeyPad() {
         val imm: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.top.edtInput.windowToken, 0)
     }
 
-    override fun showKeyPad() {
+    private fun showKeyPad() {
         binding.top.edtInput.requestFocus()
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-    }
-
-    override fun refreshListView(items: List<Item>) {
-        val adt = lv_contents.adapter as MovieAdapter
-        val movieList = adt.getMovieList();
-        movieList.clear()
-        movieList.addAll(items)
-        adt.notifyDataSetChanged()
     }
 
     private fun initView() {
@@ -97,7 +78,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         vm.isLoading.addOnPropertyChangedCallback(object :Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                Log.d("#####", "isisis " + (propertyId === BR.vm))
                 val showLoding = vm.isLoading.get()  ?: return
                 if(showLoding)
                     progress.show()
