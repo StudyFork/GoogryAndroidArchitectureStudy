@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="present"
-            type="r.test.rapp.main.MainContract.Present" />
+            name="vm"
+            type="r.test.rapp.main.MainViewModel" />
     </data>
 
     <LinearLayout
@@ -23,13 +23,14 @@
             android:hint="@string/enter_keyword"
             android:imeOptions="actionSearch"
             android:inputType="text"
-            onEditorAction="@{() -> present.searchData(edtInput.getText().toString().trim())}"/>
+            android:text="@={vm.keyword}"
+            onEditorAction="@{() -> vm.searchData()}"/>
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
-            android:onClick="@{() -> present.searchData(edtInput.getText().toString().trim())}"
+            android:onClick="@{() -> vm.searchData()}"
             android:text="@android:string/search_go" />
     </LinearLayout>
 </layout>
