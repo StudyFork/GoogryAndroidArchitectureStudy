@@ -18,6 +18,10 @@
             type="com.hwaniiidev.architecture.ui.main.MainActivity" />
 
         <variable
+            name="viewModel"
+            type="com.hwaniiidev.architecture.ui.main.MainViewModel" />
+
+        <variable
             name="searchValue"
             type="String" />
 
@@ -43,13 +47,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@={searchValue}"/>
+                android:text="@={searchValue}" />
 
             <Button
                 android:id="@+id/btn_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->mainActivity.searchMovies(searchValue)}"
+                android:onClick="@{()->viewModel.searchMovies(searchValue)}"
                 android:text="검색" />
         </LinearLayout>
 
@@ -58,7 +62,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:padding="12dp"
-            android:visibility="@{movieList.size() != 0? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewModel.movies.size() != 0? View.VISIBLE : View.GONE}"
+            setMovies="@{viewModel.movies}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -71,10 +76,10 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="#FFFFFF"
-            android:gravity="center"
             android:clickable="false"
+            android:gravity="center"
             android:text="원하는 검색어로 검색해주세요"
-            android:visibility="@{movieList.size() == 0? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewModel.movies.size() == 0? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
