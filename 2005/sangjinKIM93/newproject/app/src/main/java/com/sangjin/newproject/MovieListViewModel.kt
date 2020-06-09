@@ -13,15 +13,21 @@ class MovieListViewModel(private val repository: NaverMoviesRepository) {
 
     private val disposables = CompositeDisposable()
 
-    var movieList = ObservableField<List<Movie>>()
-    var keyword = ObservableField<String>()
+    private var _movieList = ObservableField<List<Movie>>()
+    val movieList = _movieList
 
-    var toastMsgNoKeyword = ObservableField<Unit>()
-    var toastMsgNoResult = ObservableField<Unit>()
-    var toastMsgError = ObservableField<Throwable>()
+    private var _keyword = ObservableField<String>()
+    val keyword = _keyword
 
-    var hideKeypad = ObservableField<Unit>()
+    private var _toastMsgNoKeyword = ObservableField<Unit>()
+    val toastMsgNoKeyword = _toastMsgNoKeyword
+    private var _toastMsgNoResult = ObservableField<Unit>()
+    val toastMsgNoResult = _toastMsgNoResult
+    private var _toastMsgError = ObservableField<Throwable>()
+    val toastMsgError = _toastMsgError
 
+    private var _hideKeypad = ObservableField<Unit>()
+    val hideKeypad = _hideKeypad
 
     init {
         loadCache()
@@ -36,10 +42,10 @@ class MovieListViewModel(private val repository: NaverMoviesRepository) {
                 if (!it.isNullOrEmpty()) {
 
                     //리스트 최신화
-                    movieList.set(it)
+                    _movieList.set(it)
 
                     //기록했던 검색어 출력
-                    keyword.set(extractKeyword(it))
+                    _keyword.set(extractKeyword(it))
                 }
             },
                 {
@@ -65,7 +71,7 @@ class MovieListViewModel(private val repository: NaverMoviesRepository) {
     fun refreshList(keyword: String){
         Log.d("Toast", keyword)
         if (TextUtils.isEmpty(keyword)) {
-            toastMsgNoKeyword.notifyChange()
+            _toastMsgNoKeyword.notifyChange()
         } else {
             repository.getNaverMovies(keyword)
                 .subscribeOn(Schedulers.io())
@@ -74,8 +80,8 @@ class MovieListViewModel(private val repository: NaverMoviesRepository) {
                     checkMovieResult(it.items)
                 },
                     {
-                        toastMsgError.set(it)
-                        toastMsgError.notifyChange()
+                        _toastMsgError.set(it)
+                        _toastMsgError.notifyChange()
                     }).let {
                     disposables.add(it)
                 }
@@ -85,11 +91,11 @@ class MovieListViewModel(private val repository: NaverMoviesRepository) {
     private fun checkMovieResult(movies: List<Movie>) {
 
         //리스트 최신화
-        movieList.set(movies)
-        hideKeypad.notifyChange()
+        _movieList.set(movies)
+        _hideKeypad.notifyChange()
 
         if (movies.isNullOrEmpty()) {
-            toastMsgNoResult.notifyChange()
+            _toastMsgNoResult.notifyChange()
         }
 
     }
