@@ -8,8 +8,10 @@ import com.example.architecture.data.model.MovieModel
 
 @BindingAdapter("android:items")
 fun RecyclerView.setItems(items: MutableList<MovieModel>) {
-    if (this.adapter is MovieAdapter) {
-        val adapter = this.adapter as MovieAdapter
-        adapter.addNewItems(items)
+    when (this.adapter) {
+        is MovieAdapter -> {
+            val adapter = this.adapter as MovieAdapter
+            adapter.addNewItems(items)
+        }
     }
 }
