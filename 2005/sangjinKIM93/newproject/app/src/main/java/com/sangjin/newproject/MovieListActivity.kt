@@ -49,13 +49,6 @@ class MovieListActivity : AppCompatActivity() {
         showKeyPad()
 
 
-        //edittext 변화를 감지하여 viewmodel.keyword에 반영
-        binding.movieNameET.doAfterTextChanged {
-
-            viewModel.keyword.set(it.toString())
-        }
-
-
         toastMsgObserver()
         hideKeypadObserver()
     }
