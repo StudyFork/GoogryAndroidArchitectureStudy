@@ -49,7 +49,7 @@ class MovieListActivity : AppCompatActivity() {
         showKeyPad()
 
 
-        //변화된 검색어 정보를 viewmodel에 전달
+        //edittext 변화를 감지하여 viewmodel.keyword에 반영
         binding.movieNameET.doAfterTextChanged {
 
             viewModel.keyword.set(it.toString())
@@ -85,13 +85,7 @@ class MovieListActivity : AppCompatActivity() {
     }
 
 
-    //**키패드 숨기기
-    private fun hideKeyPad() {
-
-    }
-
-
-    //** toastMsg 모음
+    //** toastMsgObserver 모음
     private fun toastMsgObserver() {
         viewModel.toastMsgNoKeyword.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
@@ -128,6 +122,7 @@ class MovieListActivity : AppCompatActivity() {
     }
 
 
+    //** 키패드 숨기기
     private fun hideKeypadObserver() {
         viewModel.hideKeypad.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
