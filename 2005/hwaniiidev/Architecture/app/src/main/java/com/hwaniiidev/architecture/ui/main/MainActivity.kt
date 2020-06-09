@@ -41,7 +41,6 @@ class MainActivity : AppCompatActivity(){
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 when(viewModel.error.get()){
                     ERROR_QUERY_IS_NONE -> showQueryIsEmpty()
-                    ERROR_RESPONSE_IS_NONE -> showResponseIsNone()
                     ERROR_RESPONSE_ERROR -> showResponseError()
                     ERROR_NETWORK_FAILURE -> showNetworkFailure()
                 }
@@ -87,10 +86,10 @@ class MainActivity : AppCompatActivity(){
         imm.hideSoftInputFromWindow(edit_search_title.windowToken, 0)
     }
 
-    fun showResponseIsNone() {
-        text_plz_search.text = "검색결과가 없습니다.\n다른 검색어을 입력해주세요."
+    /*fun showResponseIsNone() {
+        //text_plz_search.text = "검색결과가 없습니다.\n다른 검색어을 입력해주세요."
         //binding.movieList = null
-    }
+    }*/
 
     fun showResponseError() {
         toast("다시 시도해주세요.")
