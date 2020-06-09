@@ -4,10 +4,6 @@ import android.util.Log
 import androidx.databinding.ObservableField
 import com.hwaniiidev.architecture.data.repository.NaverMovieRepositoryImpl
 import com.hwaniiidev.architecture.model.Item
-import com.hwaniiidev.architecture.ui.main.MainActivity.Companion.ERROR_NETWORK_FAILURE
-import com.hwaniiidev.architecture.ui.main.MainActivity.Companion.ERROR_QUERY_IS_NONE
-import com.hwaniiidev.architecture.ui.main.MainActivity.Companion.ERROR_RESPONSE_ERROR
-import com.hwaniiidev.architecture.ui.main.MainActivity.Companion.ERROR_RESPONSE_IS_NONE
 
 class MainViewModel(
     val naverMovieRepositoryImpl: NaverMovieRepositoryImpl
@@ -16,6 +12,10 @@ class MainViewModel(
     val error = ObservableField<Int>()
     val hideKeyboard = ObservableField<Unit>()
     private val TAG = MainViewModel::class.java.simpleName
+
+    init {
+        error.set(INIT)
+    }
 
     fun searchMovies(searchValue: String) {
         if (searchValue.isNullOrBlank()) {
@@ -34,6 +34,7 @@ class MainViewModel(
                 } else {
                     //TODO : 영화리스트 추가
                     movies.set(response.items)
+                    error.set(NONE_ERROR)
                     hideKeyboard.notifyChange()
                 }
             },
@@ -51,11 +52,21 @@ class MainViewModel(
                 if (!movies.isNullOrEmpty()) {
                     //TODO : 영화리스트 추가
                     this.movies.set(movies)
+                    error.set(NONE_ERROR)
                     hideKeyboard.notifyChange()
                     movies.forEach{
                         Log.d(TAG,it.title)
                     }
                 }
             })
+    }
+
+    companion object{
+        const val INIT = 11
+        const val NONE_ERROR = 10
+        const val ERROR_RESPONSE_IS_NONE = 9
+        const val ERROR_RESPONSE_ERROR = 8
+        const val ERROR_NETWORK_FAILURE = 7
+        const val ERROR_QUERY_IS_NONE = 6
     }
 }

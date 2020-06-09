@@ -10,7 +10,10 @@ import androidx.databinding.Observable
 import com.hwaniiidev.architecture.R
 import com.hwaniiidev.architecture.data.repository.NaverMovieRepositoryImpl
 import com.hwaniiidev.architecture.databinding.ActivityMainBinding
-import com.hwaniiidev.architecture.model.Item
+import com.hwaniiidev.architecture.ui.main.MainViewModel.Companion.ERROR_NETWORK_FAILURE
+import com.hwaniiidev.architecture.ui.main.MainViewModel.Companion.ERROR_QUERY_IS_NONE
+import com.hwaniiidev.architecture.ui.main.MainViewModel.Companion.ERROR_RESPONSE_ERROR
+import com.hwaniiidev.architecture.ui.main.MainViewModel.Companion.ERROR_RESPONSE_IS_NONE
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(){
@@ -104,10 +107,5 @@ class MainActivity : AppCompatActivity(){
         }
     }*/
 
-    companion object{
-        const val ERROR_RESPONSE_IS_NONE = 9
-        const val ERROR_RESPONSE_ERROR = 8
-        const val ERROR_NETWORK_FAILURE = 7
-        const val ERROR_QUERY_IS_NONE = 6
-    }
+
 }
