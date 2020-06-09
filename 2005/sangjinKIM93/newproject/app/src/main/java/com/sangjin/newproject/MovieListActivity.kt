@@ -151,10 +151,10 @@ class MovieListActivity : AppCompatActivity() {
     companion object {
         @BindingAdapter("setKeypad")
         @JvmStatic
-        fun EditText.setKeypad(viewModel: MovieListViewModel) {
-            this.setOnEditorActionListener { v, actionId, event ->
+        fun EditText.setKeypad(action : (() -> Unit) ?= null) {
+            this.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-
+                    action?.invoke()
                     true
                 } else {
                     false

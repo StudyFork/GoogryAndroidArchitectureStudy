@@ -27,6 +27,7 @@
             android:imeOptions="actionSearch"
             android:text="@{viewModel.keyword}"
             selectLast="@{viewModel.keyword}"
+            setKeypad="@{()->viewModel.refreshList(movieNameET.text.toString().trim())}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/movieNameInputBtn"
             app:layout_constraintHorizontal_chainStyle="packed"
