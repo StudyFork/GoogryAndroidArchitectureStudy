@@ -2,12 +2,13 @@ package com.hwaniiidev.architecture.ui.main
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.hwaniiidev.architecture.R
 import com.hwaniiidev.architecture.data.repository.NaverMovieRepositoryImpl
+import com.hwaniiidev.architecture.databinding.ActivityMainBinding
 import com.hwaniiidev.architecture.model.Item
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -21,19 +22,26 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private val mainPresenter = MainPresenter(this, naverMovieRepositoryImpl)
 
     lateinit private var imm: InputMethodManager
+    lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.mainActivity = this
 
         initView()
 
         imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
 
-        btn_search.setOnClickListener {
+        /*btn_search.setOnClickListener {
             val searchValue = edit_search_title.text.toString()
             mainPresenter.searchMovies(searchValue)
-        }
+        }*/
+    }
+
+    fun searchMovies(searchValue : String){
+        mainPresenter.searchMovies(searchValue)
     }
 
     private fun initView() {
@@ -60,7 +68,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun showResponseIsNone() {
         text_plz_search.text = "검색결과가 없습니다.\n다른 검색어을 입력해주세요."
-        text_plz_search.visibility = View.VISIBLE
+        binding.movieList = null
     }
 
     override fun showResponseError() {
@@ -74,7 +82,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun showMoviesList(items: List<Item>) {
         runOnUiThread {
             adapterMovieList.addItem(items)
-            text_plz_search.visibility = View.GONE
+            binding.movieList = items
         }
     }
 }
