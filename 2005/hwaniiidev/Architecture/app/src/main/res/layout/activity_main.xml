@@ -9,14 +9,6 @@
 
         <import type="android.view.View" />
 
-        <!--<variable
-            name="movieList"
-            type="List&lt;com.hwaniiidev.architecture.model.Item>" />
-
-        <variable
-            name="mainActivity"
-            type="com.hwaniiidev.architecture.ui.main.MainActivity" />-->
-
         <variable
             name="viewModel"
             type="com.hwaniiidev.architecture.ui.main.MainViewModel" />

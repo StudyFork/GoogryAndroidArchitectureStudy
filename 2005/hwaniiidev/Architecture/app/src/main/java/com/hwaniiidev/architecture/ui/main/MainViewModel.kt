@@ -25,7 +25,6 @@ class MainViewModel(
         naverMovieRepositoryImpl.searchMovies(
             query = searchValue,
             onSuccess = { response ->
-                //view.hideKeyBoard()
 
                 if (response.total == 0) {
                     //TODO : 에러처리 showResponseIsNone
@@ -54,14 +53,14 @@ class MainViewModel(
                     this.movies.set(movies)
                     error.set(NONE_ERROR)
                     hideKeyboard.notifyChange()
-                    movies.forEach{
-                        Log.d(TAG,it.title)
+                    movies.forEach {
+                        Log.d(TAG, it.title)
                     }
                 }
             })
     }
 
-    companion object{
+    companion object {
         const val INIT = 11
         const val NONE_ERROR = 10
         const val ERROR_RESPONSE_IS_NONE = 9
