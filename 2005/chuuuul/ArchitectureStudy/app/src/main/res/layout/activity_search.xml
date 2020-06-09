@@ -56,7 +56,7 @@
             app:layout_constraintTop_toBottomOf="@+id/edt_search_keyword">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerview_search_movieList"
+                android:id="@+id/rv_search_movieList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:items="@{vm.movieList}"

@@ -30,7 +30,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerview() {
-        recyclerview_search_movieList.adapter = MovieAdapter()
+        rv_search_movieList.adapter = MovieAdapter()
     }
 
     private fun setupViewModelEvent() {
