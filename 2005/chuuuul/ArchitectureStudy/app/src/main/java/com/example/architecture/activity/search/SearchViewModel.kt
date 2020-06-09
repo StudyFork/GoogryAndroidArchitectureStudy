@@ -18,7 +18,7 @@ class SearchViewModel(private val naverRepository: NaverRepositoryImpl) {
     fun searchMovie() {
         keyword.get()?.let { keyword ->
             if (isValidKeyword(keyword)) {
-                playProgressBar()
+                showProgressBar(true)
                 naverRepository.getMovieList(keyword, this::onSuccess, this::onFailure)
             }
         }
@@ -41,20 +41,16 @@ class SearchViewModel(private val naverRepository: NaverRepositoryImpl) {
         } else {
             showMessageEmptyResult.notifyChange()
         }
-        stopProgressBar()
+        showProgressBar(false)
     }
 
     private fun onFailure(t: Throwable) {
         Log.d("chul", "OnFailure : $t")
-        stopProgressBar()
+        showProgressBar(false)
     }
 
-    private fun playProgressBar() {
-        isLoading.set(true)
-    }
-
-    private fun stopProgressBar() {
-        isLoading.set(false)
+    private fun showProgressBar(visible: Boolean) {
+        isLoading.set(visible)
     }
 
     private fun clearCacheData(keyword: String) {
