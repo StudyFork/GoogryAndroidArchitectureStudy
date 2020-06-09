@@ -7,11 +7,14 @@ import com.example.architecture.data.model.MovieModel
 
 
 @BindingAdapter("android:items")
-fun RecyclerView.setItems(items: MutableList<MovieModel>) {
-    when (this.adapter) {
-        is MovieAdapter -> {
-            val adapter = this.adapter as MovieAdapter
-            adapter.addNewItems(items)
+fun RecyclerView.setItems(items: MutableList<MovieModel>?) {
+    items?.also {
+        when (this.adapter) {
+            is MovieAdapter -> {
+                val adapter = this.adapter as MovieAdapter
+                adapter.addNewItems(it)
+            }
         }
     }
+
 }
