@@ -4,17 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
 import com.sangjin.newproject.adapter.MovieListAdapter
-import com.sangjin.newproject.data.model.Movie
 import com.sangjin.newproject.data.repository.NaverMoviesRepositoryImpl
 import com.sangjin.newproject.data.source.local.LocalDataSourceImpl
 import com.sangjin.newproject.data.source.local.RoomDb
@@ -48,6 +48,16 @@ class MovieListActivity : AppCompatActivity() {
         setRecyclerView()
         showKeyPad()
 
+
+        //변화된 검색어 정보를 viewmodel에 전달
+        binding.movieNameET.doAfterTextChanged {
+
+            viewModel.keyword.set(it.toString())
+        }
+
+
+        toastMsgObserver()
+        hideKeypadObserver()
     }
 
 
@@ -77,11 +87,64 @@ class MovieListActivity : AppCompatActivity() {
 
     //**키패드 숨기기
     private fun hideKeyPad() {
-        val imm: InputMethodManager =
-            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(movieNameET.windowToken, 0)
+
     }
 
+
+    //** toastMsg 모음
+    private fun toastMsgObserver() {
+        viewModel.toastMsgNoKeyword.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                Toast.makeText(
+                    applicationContext,
+                    getString(R.string.no_keyword),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+
+        viewModel.toastMsgNoResult.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                Toast.makeText(
+                    applicationContext,
+                    getString(R.string.no_movie_list),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+
+        viewModel.toastMsgError.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                Toast.makeText(
+                    applicationContext,
+                    viewModel.toastMsgError.toString(),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
+
+
+    private fun hideKeypadObserver() {
+        viewModel.hideKeypad.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                val imm: InputMethodManager =
+                    getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(movieNameET.windowToken, 0)
+            }
+
+        })
+    }
+
+
+    override fun onDestroy() {
+        viewModel.removeDisposable()
+        super.onDestroy()
+    }
 
 
     //**키패드 셋팅

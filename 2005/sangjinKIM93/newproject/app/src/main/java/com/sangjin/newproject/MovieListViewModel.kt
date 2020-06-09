@@ -1,5 +1,6 @@
 package com.sangjin.newproject
 
+import android.text.TextUtils
 import android.util.Log
 import androidx.databinding.ObservableField
 import com.sangjin.newproject.data.model.Movie
@@ -13,8 +14,14 @@ class MovieListViewModel(private val repository: NaverMoviesRepository) {
     private val disposables = CompositeDisposable()
 
     var movieList = ObservableField<List<Movie>>()
+    var keyword = ObservableField<String>()
 
-    var initKeyword = ObservableField<String>()
+    var toastMsgNoKeyword = ObservableField<Unit>()
+    var toastMsgNoResult = ObservableField<Unit>()
+    var toastMsgError = ObservableField<Throwable>()
+
+    var hideKeypad = ObservableField<Unit>()
+
 
     init {
         loadCache()
@@ -32,7 +39,7 @@ class MovieListViewModel(private val repository: NaverMoviesRepository) {
                     movieList.set(it)
 
                     //기록했던 검색어 출력
-                    initKeyword.set(extractKeyword(it))
+                    keyword.set(extractKeyword(it))
                 }
             },
                 {
@@ -53,5 +60,42 @@ class MovieListViewModel(private val repository: NaverMoviesRepository) {
             keyWord[0]
         }
 
+    }
+
+    fun refreshList(keyword: String){
+        Log.d("Toast", keyword)
+        if (TextUtils.isEmpty(keyword)) {
+            toastMsgNoKeyword.notifyChange()
+        } else {
+            repository.getNaverMovies(keyword)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    checkMovieResult(it.items)
+                },
+                    {
+                        toastMsgError.set(it)
+                        toastMsgError.notifyChange()
+                    }).let {
+                    disposables.add(it)
+                }
+        }
+    }
+
+    private fun checkMovieResult(movies: List<Movie>) {
+
+        //리스트 최신화
+        movieList.set(movies)
+        hideKeypad.notifyChange()
+
+        if (movies.isNullOrEmpty()) {
+            toastMsgNoResult.notifyChange()
+        }
+
+    }
+
+
+    fun removeDisposable(){
+        disposables.dispose()
     }
 }
