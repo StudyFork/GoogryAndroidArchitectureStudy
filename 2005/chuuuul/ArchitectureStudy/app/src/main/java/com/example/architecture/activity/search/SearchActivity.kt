@@ -37,22 +37,14 @@ class SearchActivity : AppCompatActivity() {
         vm.showMessageEmptyResult.addOnPropertyChangedCallback(object :
             OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                Toast.makeText(
-                    applicationContext,
-                    getString(R.string.not_found_result),
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(applicationContext, getString(R.string.not_found_result), Toast.LENGTH_SHORT).show()
             }
         })
 
         vm.showMessageEmptyKeyword.addOnPropertyChangedCallback(object :
             OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                Toast.makeText(
-                    applicationContext,
-                    getString(R.string.empty_keyword),
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(applicationContext, getString(R.string.empty_keyword), Toast.LENGTH_SHORT).show()
             }
         })
     }
