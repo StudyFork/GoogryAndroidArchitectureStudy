@@ -31,9 +31,26 @@ class MainActivity : AppCompatActivity(){
         val viewModel = MainViewModel(naverMovieRepositoryImpl)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.mainActivity = this
+        //binding.mainActivity = this
         binding.viewModel = viewModel
+        viewModel.error.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                when(viewModel.error.get()){
+                    ERROR_QUERY_IS_NONE -> showQueryIsEmpty()
+                    ERROR_RESPONSE_IS_NONE -> showResponseIsNone()
+                    ERROR_RESPONSE_ERROR -> showResponseError()
+                    ERROR_NETWORK_FAILURE -> showNetworkFailure()
+                }
+            }
 
+        })
+        viewModel.hideKeyboard.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                hideKeyBoard()
+            }
+
+        })
         //initView()
 
         imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
@@ -69,7 +86,7 @@ class MainActivity : AppCompatActivity(){
 
     fun showResponseIsNone() {
         text_plz_search.text = "검색결과가 없습니다.\n다른 검색어을 입력해주세요."
-        binding.movieList = null
+        //binding.movieList = null
     }
 
     fun showResponseError() {
@@ -87,4 +104,10 @@ class MainActivity : AppCompatActivity(){
         }
     }*/
 
+    companion object{
+        const val ERROR_RESPONSE_IS_NONE = 9
+        const val ERROR_RESPONSE_ERROR = 8
+        const val ERROR_NETWORK_FAILURE = 7
+        const val ERROR_QUERY_IS_NONE = 6
+    }
 }
