@@ -79,7 +79,7 @@
             android:clickable="false"
             android:gravity="center"
             android:text="원하는 검색어로 검색해주세요"
-            android:visibility="@{viewModel.movies.size() == 0 ? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewModel.error == viewModel.ERROR_RESPONSE_IS_NONE || viewModel.error == viewModel.INIT ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
