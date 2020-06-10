@@ -13,7 +13,6 @@ import io.reactivex.schedulers.Schedulers
 
 class SearchViewModel(private val repository: NaverMovieRepository) {
 
-    val searchWord = ObservableField<String>()
     val movieData = ObservableField<List<MovieItem>>()
     val showToast = ObservableField<String>()
     val tvResultVisible = ObservableField(View.GONE)
@@ -36,7 +35,6 @@ class SearchViewModel(private val repository: NaverMovieRepository) {
             showToast.set(Strings.get(R.string.please_write))
             return
         }
-        this.searchWord.set(searchWord)
 
         tvResultVisible.set(View.VISIBLE)
 

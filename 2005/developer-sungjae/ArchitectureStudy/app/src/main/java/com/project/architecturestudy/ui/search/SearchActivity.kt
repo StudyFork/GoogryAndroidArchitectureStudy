@@ -10,7 +10,6 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
 import com.project.architecturestudy.R
-import com.project.architecturestudy.data.model.MovieItem
 import com.project.architecturestudy.data.repository.NaverMovieRepositoryImpl
 import com.project.architecturestudy.data.source.local.NaverMovieLocalDataSourceImpl
 import com.project.architecturestudy.data.source.remote.NaverMovieRemoteDataSourceImpl
