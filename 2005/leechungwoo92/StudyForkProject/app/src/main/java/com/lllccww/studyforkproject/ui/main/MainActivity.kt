@@ -1,25 +1,23 @@
 package com.lllccww.studyforkproject.ui.main
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lllccww.studyforkproject.R
-import com.lllccww.studyforkproject.data.model.MovieItem
+import com.lllccww.studyforkproject.data.repository.NaverMovieRepository
 import com.lllccww.studyforkproject.data.repository.NaverMovieRepositoryImpl
+import com.lllccww.studyforkproject.data.source.remote.MovieRemoteDataSource
 import com.lllccww.studyforkproject.data.source.remote.MovieRemoteDataSourceImpl
 import com.lllccww.studyforkproject.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity(), MainContract.View {
+class MainActivity : AppCompatActivity() {
     private var start = 1
     private var total = 0
     private var display = 0
@@ -27,20 +25,37 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     private lateinit var binding: ActivityMainBinding
 
+    private lateinit var vm: MainViewModel
+    private lateinit var movieRepository: NaverMovieRepository
+    private lateinit var movieRemoteDataSource: MovieRemoteDataSource
 
-    private val mainPresenter by lazy {
-        val naverMoviesRepositoryImpl = NaverMovieRepositoryImpl(MovieRemoteDataSourceImpl())
-        MainPresenter(naverMoviesRepositoryImpl, this)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.main = this@MainActivity
+
+
+        movieRemoteDataSource = MovieRemoteDataSourceImpl()
+        movieRepository = NaverMovieRepositoryImpl(movieRemoteDataSource)
+
+        vm = MainViewModel(movieRepository)
+
+
+        binding.vm = vm
 
         movieListAdapter = MovieListAdapter()
         binding.rvMovieList.adapter = movieListAdapter
+
+
+        vm.toastString.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                vm.toastString.get()?.let { toastMsg(it) }
+            }
+
+        })
+
 
 
 
@@ -68,40 +83,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
 
-    override fun showMovieList(items: List<MovieItem>) {
-        movieListAdapter.addItems(items)
-    }
-
-    override fun showFailGetData(msg: String) {
-        toastMsg(msg, 0)
-    }
-
-    override fun showMovieNoResult() {
-        toastMsg("검색 결과가 없습니다.", 0)
-
-    }
-
-    override fun showMovieEmptySearchQuery() {
-        toastMsg("검색어를 입력해주세요.", 0)
-
-    }
-
-    override fun hideKeyboard() {
-        val view = this.currentFocus
-
-        if (view != null) {
-            val inputMethodManager =
-                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-        }
-    }
-
-    override fun toastMsg(msg: String, toastLength: Int) {
-        Toast.makeText(applicationContext, msg, toastLength).show()
-    }
-
-    fun getSearchMovie(keyWord: String) {
-        mainPresenter.getSearchMovie(keyWord)
+    fun toastMsg(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
 
