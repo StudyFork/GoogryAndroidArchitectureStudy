@@ -49,6 +49,11 @@
 
         </LinearLayout>
 
+        <ProgressBar
+            visibleIf="@{vm.progressBar}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_movie_list"
             setMovieItem="@{vm.movieItemList}"
