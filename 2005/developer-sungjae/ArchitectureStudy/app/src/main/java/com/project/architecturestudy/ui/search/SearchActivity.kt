@@ -50,13 +50,8 @@ class SearchActivity : AppCompatActivity() {
                 handler.postDelayed({ toast(msg) }, 0)
             }
         })
-//
-//        vm.showMovieData.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-//            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-//                val data = vm.showMovieData.get() as List<MovieItem>
-//                adapter.addMovieData(data)
-//            }
-//        })
+
+
     }
 
     private fun onClickAdapterItem() {
@@ -75,3 +70,17 @@ class SearchActivity : AppCompatActivity() {
         super.onDestroy()
     }
 }
+
+//        //ViewModel
+//        val showToast = ObservableField<Unit>()
+//
+//        //Activity
+//        vm.showToast.addOnPropertyChangedCallback(object :
+//            OnPropertyChangedCallback() {
+//            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+//                toast("")
+//            }
+//        })
+//
+//        // viewModel
+//        showToast.notifyChange()
