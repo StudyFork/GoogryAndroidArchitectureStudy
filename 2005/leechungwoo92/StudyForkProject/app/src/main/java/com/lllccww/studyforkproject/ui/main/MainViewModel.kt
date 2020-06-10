@@ -8,19 +8,23 @@ class MainViewModel(private val movieRepository: NaverMovieRepository) {
     val movieItemList = ObservableField<ArrayList<MovieItem>>()
     val query = ObservableField<String>()
     val toastString = ObservableField<String>()
+    val progressBar = ObservableField<Boolean>(false)
 
     fun getSearchMovie() {
+
         val inputQuery = query.get()
 
         if (inputQuery.isNullOrBlank()) {
             toastString.set("검색어를 입력해주세요.")
             return
-
         }
+        progressBar.set(true)
+
 
         movieRepository.getSearchMovie(
             inputQuery,
             success = { movieItem ->
+                progressBar.set(false)
                 if (movieItem.isNullOrEmpty()) {
                     toastString.set("검색결과가 없습니다.")
                 } else {
@@ -28,9 +32,12 @@ class MainViewModel(private val movieRepository: NaverMovieRepository) {
                 }
             },
             failure = {
+                progressBar.set(false)
                 toastString.set(it.message.toString())
             }
+
         )
+
 
     }
 
