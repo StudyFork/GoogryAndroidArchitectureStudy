@@ -2,10 +2,10 @@ package com.project.architecturestudy.ui.search
 
 import android.util.Log
 import android.view.View
+import androidx.annotation.StringRes
 import androidx.databinding.ObservableField
 import com.project.architecturestudy.R
 import com.project.architecturestudy.components.Constants.customTAG
-import com.project.architecturestudy.components.Strings
 import com.project.architecturestudy.data.model.MovieItem
 import com.project.architecturestudy.data.repository.NaverMovieRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -14,7 +14,7 @@ import io.reactivex.schedulers.Schedulers
 class SearchViewModel(private val repository: NaverMovieRepository) {
 
     val movieData = ObservableField<List<MovieItem>>()
-    val showToast = ObservableField<String>()
+    val showToast = ObservableField<@StringRes Int>()
     val tvResultVisible = ObservableField(View.GONE)
 
     fun getMovieListFromLocal() {
@@ -22,17 +22,17 @@ class SearchViewModel(private val repository: NaverMovieRepository) {
             onSuccess = {
                 Log.d(customTAG, "getLocalData:$it")
                 movieData.set(it.toList())
-                showToast.set(Strings.get(R.string.get_local_data_success))
+                showToast.set(R.string.get_local_data_success)
             },
             onFailure = {
                 Log.d(customTAG, "Throwable:$it")
-                showToast.set(Strings.get(R.string.get_local_data_failure))
+                showToast.set(R.string.get_local_data_failure)
             })
     }
 
     fun getMovieListFromRemote(searchWord: String) {
         if (searchWord.isEmpty()) {
-            showToast.set(Strings.get(R.string.please_write))
+            showToast.set(R.string.please_write)
             return
         }
 
@@ -46,9 +46,9 @@ class SearchViewModel(private val repository: NaverMovieRepository) {
                         {
                             Log.d(customTAG, "getRemoteData:$it")
                             movieData.set(it.items)
-                            showToast.set(Strings.get(R.string.get_data_success))
+                            showToast.set(R.string.get_data_success)
                         }, { t ->
-                            showToast.set(Strings.get(R.string.get_data_failure))
+                            showToast.set(R.string.get_data_failure)
                             Log.d(customTAG, t.toString())
                         })
             })

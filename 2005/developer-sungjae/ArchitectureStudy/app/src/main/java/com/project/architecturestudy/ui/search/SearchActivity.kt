@@ -46,8 +46,7 @@ class SearchActivity : AppCompatActivity() {
         }
         vm.showToast.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                val msg = vm.showToast.get().toString()
-                /*for toast*/
+                val msg = getString(vm.showToast.get() ?: return)
                 handler.postDelayed({ toast(msg) }, 0)
             }
         })
