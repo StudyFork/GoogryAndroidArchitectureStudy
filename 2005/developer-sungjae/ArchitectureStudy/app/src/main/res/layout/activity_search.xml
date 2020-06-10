@@ -46,10 +46,10 @@
 
         <TextView
             android:id="@+id/tv_result_text"
-            refinedString="@{String.format(@string/tv_result_text, searchWord)}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:text="@{String.format(@string/tv_result_text, searchWord)}"
             android:visibility="@{vm.tvResultVisible}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
