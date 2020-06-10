@@ -16,11 +16,7 @@ class SearchViewModel(private val repository: NaverMovieRepository) {
     val searchWord = ObservableField<String>()
     val movieData = ObservableField<List<MovieItem>>()
     val showToast = ObservableField<String>()
-    val tvResultVisible = ObservableField<Int>()
-
-    init {
-        tvResultVisible.set(View.GONE)
-    }
+    val tvResultVisible = ObservableField(View.GONE)
 
     fun getMovieListFromLocal() {
         repository.getCashedMovieList(
