@@ -5,7 +5,8 @@ import android.text.Html
 import android.text.Spanned
 
 data class MovieVo(
-    val items: List<Item>
+    val items: List<Item>,
+    val errorMessage: String
 )
 
 class Item(
