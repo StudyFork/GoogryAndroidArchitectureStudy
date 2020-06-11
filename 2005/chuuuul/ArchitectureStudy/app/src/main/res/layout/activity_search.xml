@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
 
         <variable
-            name="onSearchClick"
-            type="android.view.View.OnClickListener" />
-
+            name="vm"
+            type="com.example.architecture.activity.search.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,16 +18,18 @@
 
         <EditText
             android:id="@+id/edt_search_keyword"
-            android:hint="@string/search_hint"
-            android:maxLines="1"
-            android:imeOptions="actionSearch"
-            android:inputType="text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:onEnterClick="@{onSearchClick}"
+            android:hint="@string/search_hint"
+            android:imeOptions="actionSearch"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:maxLines="1"
+            android:onEnterClick="@{()->vm.searchMovie()}"
+            android:text="@={vm.keyword}"
             app:layout_constraintEnd_toStartOf="@+id/btn_search_searchButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -38,24 +40,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:onClick="@{()->vm.searchMovie()}"
             android:text="@string/search_button"
-            android:onClick="@{onSearchClick}"
             app:layout_constraintBottom_toBottomOf="@+id/edt_search_keyword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/edt_search_keyword" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_search_movieList"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
+        <FrameLayout
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_search_keyword" />
+            app:layout_constraintTop_toBottomOf="@+id/edt_search_keyword">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_search_movieList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:items="@{vm.movieList}"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="@{vm.isLoading? View.VISIBLE : View.INVISIBLE }" />
+        </FrameLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
