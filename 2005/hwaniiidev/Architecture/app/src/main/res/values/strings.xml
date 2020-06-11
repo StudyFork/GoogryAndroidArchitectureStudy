@@ -2,4 +2,8 @@
     <string name="app_name">Architecture</string>
     <string name="none_response">검색결과가 없습니다.\n다른 검색어을 입력해주세요.</string>
     <string name="init">원하는 검색어를 입력해주세요.</string>
+
+    <string name="query_is_empty">검색어를 입력해주세요.</string>
+    <string name="response_error">다시 시도해주세요.</string>
+    <string name="network_failure">네트워크에 연결할 수 없습니다. 네트워크 연결을 확인해주세요.</string>
 </resources>

@@ -35,9 +35,9 @@ class MainActivity : AppCompatActivity() {
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 when (viewModel.error.get()) {
-                    ERROR_QUERY_IS_NONE -> showQueryIsEmpty()
-                    ERROR_RESPONSE_ERROR -> showResponseError()
-                    ERROR_NETWORK_FAILURE -> showNetworkFailure()
+                    ERROR_QUERY_IS_NONE -> toast(getString(R.string.query_is_empty))
+                    ERROR_RESPONSE_ERROR -> toast(getString(R.string.response_error))
+                    ERROR_NETWORK_FAILURE -> toast(getString(R.string.network_failure))
                 }
             }
 
@@ -60,20 +60,7 @@ class MainActivity : AppCompatActivity() {
         ).show()
     }
 
-    fun showQueryIsEmpty() {
-        toast("검색어를 입력해주세요.")
-        Log.d(TAG, "없음")
-    }
-
     fun hideKeyBoard() {
         imm.hideSoftInputFromWindow(edit_search_title.windowToken, 0)
-    }
-
-    fun showResponseError() {
-        toast("다시 시도해주세요.")
-    }
-
-    fun showNetworkFailure() {
-        toast("네트워크에 연결할 수 없습니다. 네트워크 연결을 확인해주세요.")
     }
 }
