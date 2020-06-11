@@ -35,27 +35,27 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                loadSubTitle="@{movieItem.subtitle}"
+                android:text="@{movieItem.subtitle}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
-                loadPubDate="@{movieItem.pubDate}"
+                android:text="@{movieItem.pubDate}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
-                loadDirector="@{movieItem.director}"
+                android:text="@{movieItem.director}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
-                loadActor="@{movieItem.actor}"
+                android:text="@{movieItem.actor}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
-                loadUserRating="@{movieItem.userRating}"
+                android:text="@{movieItem.userRating}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>

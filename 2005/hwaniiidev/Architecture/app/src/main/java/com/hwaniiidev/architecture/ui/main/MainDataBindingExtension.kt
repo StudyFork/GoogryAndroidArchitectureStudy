@@ -27,31 +27,6 @@ fun loadHtml(view: TextView, title: String) {
     }
 }
 
-@BindingAdapter("loadSubTitle")
-fun loadSubTtitle(view: TextView, subtitle: String) {
-    view.text = "서브제목 : ${subtitle}"
-}
-
-@BindingAdapter("loadPubDate")
-fun loadPubDate(view: TextView, pubDate: String) {
-    view.text = "개봉년도 : ${pubDate}"
-}
-
-@BindingAdapter("loadDirector")
-fun loadDirector(view: TextView, director: String) {
-    view.text = "감독 : ${director}"
-}
-
-@BindingAdapter("loadActor")
-fun loadActor(view: TextView, actor: String) {
-    view.text = "개봉년도 : ${actor}"
-}
-
-@BindingAdapter("loadUserRating")
-fun loadUserRating(view: TextView, userRating: String) {
-    view.text = "평점 : ${userRating}"
-}
-
 @BindingAdapter("setMovies")
 fun setMovies(view: RecyclerView, movies: List<Item>?) {
     val adapter =

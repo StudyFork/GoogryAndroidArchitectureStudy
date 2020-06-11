@@ -40,6 +40,13 @@ class AdapterMovieList :
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
         val itemData = movieList.get(position)
+
+        itemData.subtitle = "서브제목 : ${itemData.subtitle}"
+        itemData.pubDate = "개봉년도 : ${itemData.pubDate}"
+        itemData.director = "감독 : ${itemData.director}"
+        itemData.actor = "출연 : ${itemData.actor}"
+        itemData.userRating = "평점 : ${itemData.userRating}"
+
         holder.binding.movieItem = itemData
         holder.binding.executePendingBindings()
     }
