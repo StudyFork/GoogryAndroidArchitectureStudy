@@ -30,19 +30,17 @@ class MainViewModel {
         showKeypad.set(false)
 
 
-        if (searchQuery != null) {
-            repository.getMovieList(
-                searchQuery,
-                onSuccess = { vo ->
-                    movies.clear()
-                    movies.addAll(vo.items)
-                    isLoading.set(false)
-                },
-                onFail = { f ->
-                    isLoading.set(false)
-                    toastMsg.set(f.toString())
-                })
-        };
+        repository.getMovieList(
+            searchQuery,
+            onSuccess = { vo ->
+                movies.clear()
+                movies.addAll(vo.items)
+                isLoading.set(false)
+            },
+            onFail = { f ->
+                isLoading.set(false)
+                toastMsg.set(f.toString())
+            })
     }
 
 }
