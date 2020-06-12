@@ -17,7 +17,11 @@ class SearchViewModel(private val repository: NaverMovieRepository) {
     val showToast = ObservableField<@StringRes Int>()
     val tvResultVisible = ObservableField(View.GONE)
 
-    fun getMovieListFromLocal() {
+    init {
+        getMovieListFromLocal()
+    }
+
+    private fun getMovieListFromLocal() {
         repository.getCashedMovieList(
             onSuccess = {
                 Log.d(customTAG, "getLocalData:$it")

@@ -39,7 +39,6 @@ class SearchActivity : AppCompatActivity() {
 
         setRecyclerView()
         onClickAdapterItem()
-        vm.getMovieListFromLocal()
 
         et_search.doAfterTextChanged {
             vm.invokeTextChanged()
