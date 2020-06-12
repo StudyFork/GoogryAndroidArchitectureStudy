@@ -28,7 +28,7 @@ class MovieListActivity : AppCompatActivity() {
     private val naverMoviesRepositoryImpl by lazy {
         NaverMoviesRepositoryImpl(
             RemoteDataSourceImpl(),
-            LocalDataSourceImpl(RoomDb.getInstance(applicationContext))
+            LocalDataSourceImpl(applicationContext)
         )
     }
 

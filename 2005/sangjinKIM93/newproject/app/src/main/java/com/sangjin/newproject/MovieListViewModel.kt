@@ -43,7 +43,7 @@ class MovieListViewModel(private val repository: NaverMoviesRepository) {
                     _movieList.set(it)
 
                     //기록했던 검색어 출력
-                    _keyword.set(extractKeyword(it))
+                    _keyword.set(repository.getCacheKeyword())
                 }
             },
                 {
@@ -54,17 +54,6 @@ class MovieListViewModel(private val repository: NaverMoviesRepository) {
 
     }
 
-    //**검색 결과를 바탕으로 검색한 keyword 추출하기
-    private fun extractKeyword(it: List<Movie>): String {
-        val title = it[0].title
-        val keyWord = title.split("<b>", "</b>")
-        return if (keyWord.size > 1) {
-            keyWord[1]
-        } else {
-            keyWord[0]
-        }
-
-    }
 
     fun refreshList(keyword: String){
         Log.d("Toast", keyword)

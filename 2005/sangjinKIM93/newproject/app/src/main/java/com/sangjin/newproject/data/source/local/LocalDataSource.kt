@@ -11,4 +11,12 @@ interface LocalDataSource {
         movies: List<Movie>
     )
 
+    fun getCacheKeyword() : String
+
+    fun saveCacheKeyword(
+        keyword: String
+    )
+
+    fun clearCacheKeyword()
+
 }
