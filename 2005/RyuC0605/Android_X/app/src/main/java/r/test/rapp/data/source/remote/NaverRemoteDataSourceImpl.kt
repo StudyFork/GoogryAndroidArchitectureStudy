@@ -1,11 +1,13 @@
 package r.test.rapp.data.source.remote
 
+import okhttp3.ResponseBody
 import r.test.rapp.BuildConfig
 import r.test.rapp.data.model.MovieVo
 import r.test.rapp.networks.NaverApi
 import r.test.rapp.networks.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
+import retrofit2.Converter
 import retrofit2.Response
 
 class NaverRemoteDataSourceImpl :
@@ -24,7 +26,17 @@ class NaverRemoteDataSourceImpl :
             }
 
             override fun onResponse(call: Call<MovieVo>, response: Response<MovieVo>) {
-                response.body()?.let { onSuccess(it) };
+                if(response.isSuccessful){
+                    response.body()?.let { onSuccess(it) };
+                }else{
+
+                    val converter: Converter<ResponseBody, MovieVo> =
+                        RetrofitClient.getClient(BuildConfig.NAVER_API_URL).responseBodyConverter(
+                            MovieVo::class.java, arrayOfNulls<Annotation>(0)
+                        )
+                    val errorModel: MovieVo? = converter.convert(response.errorBody())
+                    onFail(Exception(errorModel!!.errorMessage))
+                }
             }
         })
     }

@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="present"
-            type="r.test.rapp.main.MainContract.Present" />
+            name="vm"
+            type="r.test.rapp.main.MainViewModel" />
     </data>
 
     <LinearLayout
@@ -21,7 +21,7 @@
             layout="@layout/layout_main_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            bind:present="@{present}" />
+            bind:vm="@{vm}" />
 
         <ListView
             android:id="@+id/lv_contents"
