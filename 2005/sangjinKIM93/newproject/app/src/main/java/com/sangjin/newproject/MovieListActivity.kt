@@ -87,36 +87,21 @@ class MovieListActivity : AppCompatActivity() {
 
     //** toastMsgObserver 모음
     private fun toastMsgObserver() {
-        viewModel.toastMsgNoKeyword.addOnPropertyChangedCallback(object :
+        viewModel.toastMsgRes.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                Toast.makeText(
-                    applicationContext,
-                    getString(R.string.no_keyword),
-                    Toast.LENGTH_SHORT
-                ).show()
+                viewModel.toastMsgRes.get()?.let {
+                    Toast.makeText(applicationContext, getString(it),Toast.LENGTH_SHORT).show()
+                }
             }
         })
 
-        viewModel.toastMsgNoResult.addOnPropertyChangedCallback(object :
+        viewModel.toastMsgString.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                Toast.makeText(
-                    applicationContext,
-                    getString(R.string.no_movie_list),
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        })
-
-        viewModel.toastMsgError.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                Toast.makeText(
-                    applicationContext,
-                    viewModel.toastMsgError.toString(),
-                    Toast.LENGTH_SHORT
-                ).show()
+                viewModel.toastMsgString.get()?.let {
+                    Toast.makeText(applicationContext, it, Toast.LENGTH_SHORT).show()
+                }
             }
         })
     }

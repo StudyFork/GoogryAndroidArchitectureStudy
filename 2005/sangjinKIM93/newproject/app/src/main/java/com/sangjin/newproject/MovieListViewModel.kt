@@ -19,12 +19,10 @@ class MovieListViewModel(private val repository: NaverMoviesRepository) {
     private var _keyword = ObservableField<String>()
     val keyword = _keyword
 
-    private var _toastMsgNoKeyword = ObservableField<Unit>()
-    val toastMsgNoKeyword = _toastMsgNoKeyword
-    private var _toastMsgNoResult = ObservableField<Unit>()
-    val toastMsgNoResult = _toastMsgNoResult
-    private var _toastMsgError = ObservableField<Throwable>()
-    val toastMsgError = _toastMsgError
+    private var _toastMsgRes = ObservableField<Int>()
+    val toastMsgRes = _toastMsgRes
+    private var _toastMsgString = ObservableField<String>()
+    val toastMsgString = _toastMsgString
 
     private var _hideKeypad = ObservableField<Boolean>()
     val hideKeypad = _hideKeypad
@@ -71,7 +69,7 @@ class MovieListViewModel(private val repository: NaverMoviesRepository) {
     fun refreshList(keyword: String){
         Log.d("Toast", keyword)
         if (TextUtils.isEmpty(keyword)) {
-            _toastMsgNoKeyword.notifyChange()
+            _toastMsgRes.set(R.string.no_keyword)
         } else {
             repository.getNaverMovies(keyword)
                 .subscribeOn(Schedulers.io())
@@ -80,8 +78,8 @@ class MovieListViewModel(private val repository: NaverMoviesRepository) {
                     checkMovieResult(it.items)
                 },
                     {
-                        _toastMsgError.set(it)
-                        _toastMsgError.notifyChange()
+                        _toastMsgString.set(it.toString())
+
                     }).let {
                     disposables.add(it)
                 }
@@ -95,7 +93,7 @@ class MovieListViewModel(private val repository: NaverMoviesRepository) {
         _hideKeypad.notifyChange()
 
         if (movies.isNullOrEmpty()) {
-            _toastMsgNoResult.notifyChange()
+            _toastMsgRes.set(R.string.no_movie_list)
         }
 
     }
