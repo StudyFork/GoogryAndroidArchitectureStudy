@@ -9,9 +9,7 @@ import androidx.databinding.Observable
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lllccww.studyforkproject.R
-import com.lllccww.studyforkproject.data.repository.NaverMovieRepository
 import com.lllccww.studyforkproject.data.repository.NaverMovieRepositoryImpl
-import com.lllccww.studyforkproject.data.source.remote.MovieRemoteDataSource
 import com.lllccww.studyforkproject.data.source.remote.MovieRemoteDataSourceImpl
 import com.lllccww.studyforkproject.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
@@ -21,14 +19,11 @@ class MainActivity : AppCompatActivity() {
     private var start = 1
     private var total = 0
     private var display = 0
-    private lateinit var movieListAdapter: MovieListAdapter
+
 
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var vm: MainViewModel
-    private lateinit var movieRepository: NaverMovieRepository
-    private lateinit var movieRemoteDataSource: MovieRemoteDataSource
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,16 +31,13 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
 
-        movieRemoteDataSource = MovieRemoteDataSourceImpl()
-        movieRepository = NaverMovieRepositoryImpl(movieRemoteDataSource)
 
-        vm = MainViewModel(movieRepository)
+        vm = MainViewModel(NaverMovieRepositoryImpl(MovieRemoteDataSourceImpl()))
 
 
         binding.vm = vm
 
-        movieListAdapter = MovieListAdapter()
-        binding.rvMovieList.adapter = movieListAdapter
+        binding.rvMovieList.adapter = MovieListAdapter()
 
 
         vm.toastString.addOnPropertyChangedCallback(object :
@@ -66,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
                 val lastVisibleItemPosition =
                     (recyclerView.layoutManager as? LinearLayoutManager)!!.findLastCompletelyVisibleItemPosition()
-                val itemTotalCount = movieListAdapter.itemCount - 1
+                val itemTotalCount = MovieListAdapter().itemCount - 1
 
                 if (lastVisibleItemPosition == itemTotalCount) {
                     Log.d("fail : ", "스크롤 최하단")
