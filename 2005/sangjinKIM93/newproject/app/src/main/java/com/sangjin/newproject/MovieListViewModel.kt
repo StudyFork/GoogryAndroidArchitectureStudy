@@ -26,7 +26,7 @@ class MovieListViewModel(private val repository: NaverMoviesRepository) {
     private var _toastMsgError = ObservableField<Throwable>()
     val toastMsgError = _toastMsgError
 
-    private var _hideKeypad = ObservableField<Unit>()
+    private var _hideKeypad = ObservableField<Boolean>()
     val hideKeypad = _hideKeypad
 
     init {

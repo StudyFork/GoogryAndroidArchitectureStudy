@@ -77,6 +77,13 @@ class MovieListActivity : AppCompatActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }
 
+    //**키패드 숨기기
+    private fun hideKeypad(){
+        val imm: InputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(movieNameET.windowToken, 0)
+    }
+
 
     //** toastMsgObserver 모음
     private fun toastMsgObserver() {
@@ -120,9 +127,7 @@ class MovieListActivity : AppCompatActivity() {
         viewModel.hideKeypad.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                val imm: InputMethodManager =
-                    getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(movieNameET.windowToken, 0)
+                hideKeypad()
             }
 
         })
