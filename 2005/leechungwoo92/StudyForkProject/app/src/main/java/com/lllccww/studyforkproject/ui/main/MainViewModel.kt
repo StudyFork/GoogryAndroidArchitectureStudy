@@ -14,8 +14,8 @@ class MainViewModel(private val movieRepository: NaverMovieRepository) {
 
         val inputQuery = query.get()
 
-        if (inputQuery.isNullOrBlank()) {
-            toastString.set("검색어를 입력해주세요.")
+        if (inputQuery.isNullOrEmpty()) {
+            showToastMessage("검색어를 입력해주세요.")
             return
         }
         progressBar.set(true)
@@ -26,19 +26,27 @@ class MainViewModel(private val movieRepository: NaverMovieRepository) {
             success = { movieItem ->
                 progressBar.set(false)
                 if (movieItem.isNullOrEmpty()) {
-                    toastString.set("검색결과가 없습니다.")
+                    showToastMessage("검색결과가 없습니다.")
+
+
                 } else {
                     movieItemList.set(movieItem as ArrayList<MovieItem>)
                 }
             },
             failure = {
                 progressBar.set(false)
-                toastString.set(it.message.toString())
+                showToastMessage(it.message.toString())
+
             }
 
         )
 
 
+    }
+
+    fun showToastMessage(msg: String) {
+        toastString.set(msg)
+        toastString.notifyChange()
     }
 
 
