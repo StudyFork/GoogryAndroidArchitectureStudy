@@ -17,6 +17,10 @@
             name="searchValue"
             type="String" />
 
+        <variable
+            name="searchError"
+            type="com.hwaniiidev.architecture.ui.main.SearchError" />
+
 
     </data>
 
@@ -69,8 +73,8 @@
             android:background="#FFFFFF"
             android:clickable="false"
             android:gravity="center"
-            android:text="@{viewModel.error == viewModel.ERROR_RESPONSE_IS_NONE ? @string/none_response : @string/init }"
-            android:visibility="@{viewModel.error == viewModel.ERROR_RESPONSE_IS_NONE || viewModel.error == viewModel.INIT ? View.VISIBLE : View.GONE}"
+            android:text="@{viewModel.error.errorMessage}"
+            android:visibility="@{viewModel.error == searchError.RESPONSE_IS_NONE || viewModel.error ==  searchError.INIT ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,7 +1,6 @@
 package com.hwaniiidev.architecture.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -10,9 +9,6 @@ import androidx.databinding.Observable
 import com.hwaniiidev.architecture.R
 import com.hwaniiidev.architecture.data.repository.NaverMovieRepositoryImpl
 import com.hwaniiidev.architecture.databinding.ActivityMainBinding
-import com.hwaniiidev.architecture.ui.main.MainViewModel.Companion.ERROR_NETWORK_FAILURE
-import com.hwaniiidev.architecture.ui.main.MainViewModel.Companion.ERROR_QUERY_IS_NONE
-import com.hwaniiidev.architecture.ui.main.MainViewModel.Companion.ERROR_RESPONSE_ERROR
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -34,10 +30,12 @@ class MainActivity : AppCompatActivity() {
         viewModel.error.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                when (viewModel.error.get()) {
-                    ERROR_QUERY_IS_NONE -> toast(getString(R.string.query_is_empty))
-                    ERROR_RESPONSE_ERROR -> toast(getString(R.string.response_error))
-                    ERROR_NETWORK_FAILURE -> toast(getString(R.string.network_failure))
+                val error = viewModel.error.get()
+                if (error == SearchError.QUERY_IS_NONE
+                    || error == SearchError.RESPONSE_ERROR
+                    || error == SearchError.NETWORK_FAILURE
+                ) {
+                    toast(error.errorMessage)
                 }
             }
 
