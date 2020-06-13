@@ -9,6 +9,7 @@ import com.hwaniiidev.architecture.model.Item
 class MainViewModel(
     val naverMovieRepositoryImpl: NaverMovieRepositoryImpl
 ) {
+    val searchQuery = ObservableField<String>()
     val movies = ObservableField<List<Item>>()
     val error = ObservableField<SearchError>()
     val hideKeyboard = ObservableField<Unit>()
@@ -18,11 +19,12 @@ class MainViewModel(
         error.set(SearchError.INIT)
     }
 
-    fun searchMovies(searchValue: String?) {
+    fun searchMovies() {
+        val searchValue = searchQuery.get()
         if (searchValue.isNullOrBlank()) {
             //TODO : 에러처리 "검색어 입력"
             error.set(SearchError.QUERY_IS_NONE)
-        }else{
+        } else {
             naverMovieRepositoryImpl.searchMovies(
                 query = searchValue,
                 onSuccess = { response ->

@@ -14,10 +14,6 @@
             type="com.hwaniiidev.architecture.ui.main.MainViewModel" />
 
         <variable
-            name="searchValue"
-            type="String" />
-
-        <variable
             name="searchError"
             type="com.hwaniiidev.architecture.ui.main.SearchError" />
 
@@ -43,13 +39,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@={searchValue}" />
+                android:text="@={viewModel.searchQuery}" />
 
             <Button
                 android:id="@+id/btn_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->viewModel.searchMovies(searchValue)}"
+                android:onClick="@{()->viewModel.searchMovies()}"
                 android:text="검색" />
         </LinearLayout>
 
