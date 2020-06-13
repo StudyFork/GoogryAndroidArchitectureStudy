@@ -46,7 +46,10 @@ class MainViewModel(private val movieRepository: NaverMovieRepository) {
 
     fun showToastMessage(msg: String) {
         toastString.set(msg)
-        toastString.notifyChange()
+        if(toastString.get().toString() == msg){
+            toastString.notifyChange()
+        }
+
     }
 
 
