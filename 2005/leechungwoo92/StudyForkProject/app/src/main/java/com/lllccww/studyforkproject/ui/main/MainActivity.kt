@@ -19,11 +19,13 @@ class MainActivity : AppCompatActivity() {
     private var start = 1
     private var total = 0
     private var display = 0
+    private lateinit var movieListAdapter: MovieListAdapter
 
 
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var vm: MainViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,13 +33,13 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
 
-
         vm = MainViewModel(NaverMovieRepositoryImpl(MovieRemoteDataSourceImpl()))
 
 
         binding.vm = vm
 
-        binding.rvMovieList.adapter = MovieListAdapter()
+        movieListAdapter = MovieListAdapter()
+        binding.rvMovieList.adapter = movieListAdapter
 
 
         vm.toastString.addOnPropertyChangedCallback(object :
@@ -58,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
                 val lastVisibleItemPosition =
                     (recyclerView.layoutManager as? LinearLayoutManager)!!.findLastCompletelyVisibleItemPosition()
-                val itemTotalCount = MovieListAdapter().itemCount - 1
+                val itemTotalCount = movieListAdapter.itemCount - 1
 
                 if (lastVisibleItemPosition == itemTotalCount) {
                     Log.d("fail : ", "스크롤 최하단")
