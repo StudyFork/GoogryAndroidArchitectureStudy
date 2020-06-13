@@ -6,8 +6,9 @@
     <data>
 
         <variable
-            name="activity"
-            type="com.project.architecturestudy.ui.search.SearchActivity" />
+            name="vm"
+            type="com.project.architecturestudy.ui.search.SearchViewModel" />
+
 
         <variable
             name="searchWord"
@@ -37,7 +38,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="50dp"
-            android:onClick='@{()-> activity.onClickSearchBtn(searchWord ?? @string/empty)}'
+            android:onClick='@{()-> vm.getMovieListFromRemote(searchWord ?? @string/empty)}'
             android:text="@string/search_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,8 +49,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text='@{searchWord ?? @string/empty}'
-            android:visibility="gone"
+            android:text="@{String.format(@string/tv_result_text, searchWord)}"
+            android:visibility="@{vm.tvResultVisible}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_search"
@@ -60,6 +61,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="50dp"
+            app:bindItem="@{vm.movieData}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
