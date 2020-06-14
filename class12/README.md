@@ -12,8 +12,8 @@
 - 이호영 [](https://github.com//)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class12/)
 
-- 지운만 [](https://github.com/)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class12/)
+- 지운만 [](https://github.com/manjee-study)
+[공간](https://github.com/manjee-study/GoogryAndroidArchitectureStudy/tree/class12/)
 
 - 이송미 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class12/)
