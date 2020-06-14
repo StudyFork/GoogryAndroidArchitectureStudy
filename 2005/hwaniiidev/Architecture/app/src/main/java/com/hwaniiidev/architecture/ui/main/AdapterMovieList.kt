@@ -40,6 +40,7 @@ class AdapterMovieList :
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
         val itemData = movieList.get(position)
+
         holder.binding.movieItem = itemData
         holder.binding.executePendingBindings()
     }

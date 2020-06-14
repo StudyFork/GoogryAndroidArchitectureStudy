@@ -10,16 +10,12 @@
         <import type="android.view.View" />
 
         <variable
-            name="movieList"
-            type="List&lt;com.hwaniiidev.architecture.model.Item>" />
+            name="viewModel"
+            type="com.hwaniiidev.architecture.ui.main.MainViewModel" />
 
         <variable
-            name="mainActivity"
-            type="com.hwaniiidev.architecture.ui.main.MainActivity" />
-
-        <variable
-            name="searchValue"
-            type="String" />
+            name="searchError"
+            type="com.hwaniiidev.architecture.ui.main.SearchError" />
 
 
     </data>
@@ -43,22 +39,23 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@={searchValue}"/>
+                android:text="@={viewModel.searchQuery}" />
 
             <Button
                 android:id="@+id/btn_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->mainActivity.searchMovies(searchValue)}"
+                android:onClick="@{()->viewModel.searchMovies()}"
                 android:text="검색" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_search_list"
+            setMovies="@{viewModel.movies}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:padding="12dp"
-            android:visibility="@{movieList.size() != 0? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewModel.movies.size() != 0? View.VISIBLE : View.GONE}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -67,14 +64,13 @@
             tools:listitem="@layout/item_movie_list" />
 
         <TextView
-            android:id="@+id/text_plz_search"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="#FFFFFF"
-            android:gravity="center"
             android:clickable="false"
-            android:text="원하는 검색어로 검색해주세요"
-            android:visibility="@{movieList.size() == 0? View.VISIBLE : View.GONE}"
+            android:gravity="center"
+            android:text="@{viewModel.error.errorMessage}"
+            android:visibility="@{viewModel.error == searchError.RESPONSE_IS_NONE || viewModel.error ==  searchError.INIT ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
