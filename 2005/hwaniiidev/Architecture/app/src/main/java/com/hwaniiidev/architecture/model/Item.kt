@@ -8,12 +8,12 @@ import androidx.room.PrimaryKey
 data class Item(
     @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(name = "query") var query: String,
-    @ColumnInfo(name = "actor") var actor: String,
-    @ColumnInfo(name = "director") var director: String,
+    @ColumnInfo(name = "actor") val actor: String,
+    @ColumnInfo(name = "director") val director: String,
     @ColumnInfo(name = "image") val image: String,
     @ColumnInfo(name = "link") val link: String,
-    @ColumnInfo(name = "pub_date") var pubDate: String,
-    @ColumnInfo(name = "subtitle") var subtitle: String,
+    @ColumnInfo(name = "pub_date") val pubDate: String,
+    @ColumnInfo(name = "subtitle") val subtitle: String,
     @ColumnInfo(name = "title") val title: String,
-    @ColumnInfo(name = "user_rating") var userRating: String
+    @ColumnInfo(name = "user_rating") val userRating: String
 )
