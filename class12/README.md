@@ -1,7 +1,7 @@
 # 12기
 
-- 양승진 [](https://github.com/)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class12/)
+- 양승진 [ysj1224](https://github.com/ysj1224)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class12/ysj1224)
 
 - 최선웅 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class12/)
