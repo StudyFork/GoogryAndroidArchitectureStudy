@@ -10,4 +10,6 @@ interface NaverMoviesRepository {
 
     fun loadCachedMovies() : Single<List<Movie>>
 
+    fun getCacheKeyword() : String
+
 }

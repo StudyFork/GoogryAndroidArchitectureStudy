@@ -4,17 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
 import com.sangjin.newproject.adapter.MovieListAdapter
-import com.sangjin.newproject.data.model.Movie
 import com.sangjin.newproject.data.repository.NaverMoviesRepositoryImpl
 import com.sangjin.newproject.data.source.local.LocalDataSourceImpl
 import com.sangjin.newproject.data.source.local.RoomDb
@@ -22,19 +22,20 @@ import com.sangjin.newproject.data.source.remote.RemoteDataSourceImpl
 import com.sangjin.newproject.databinding.ActivityMovieListBinding
 import kotlinx.android.synthetic.main.activity_movie_list.*
 
-class MovieListActivity : AppCompatActivity(), MovieListContract.View {
+class MovieListActivity : AppCompatActivity() {
 
     private lateinit var movieListAdapter: MovieListAdapter
     private val naverMoviesRepositoryImpl by lazy {
         NaverMoviesRepositoryImpl(
             RemoteDataSourceImpl(),
-            LocalDataSourceImpl(RoomDb.getInstance(applicationContext))
+            LocalDataSourceImpl(applicationContext)
         )
     }
 
-    private val presenter by lazy {
-        MovieListPresenter(this, naverMoviesRepositoryImpl)
+    private val viewModel by lazy {
+        MovieListViewModel(naverMoviesRepositoryImpl)
     }
+
 
     private lateinit var binding: ActivityMovieListBinding
 
@@ -42,13 +43,14 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_list)
-        binding.activity = this
-        binding.presenter = presenter
+        binding.viewModel = viewModel
 
         setRecyclerView()
-        presenter.loadCache()
         showKeyPad()
 
+
+        toastMsgObserver()
+        hideKeypadObserver()
     }
 
 
@@ -57,7 +59,10 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
 
         //각 항목 클릭시 이벤트 처리
         val onItemClickListener: ((Int) -> Unit) = { position ->
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movieListAdapter.getMovieList().get(position).link))
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(movieListAdapter.getMovieList().get(position).link)
+            )
             startActivity(intent)
         }
 
@@ -72,64 +77,62 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }
 
-
     //**키패드 숨기기
-    private fun hideKeyPad() {
+    private fun hideKeypad(){
         val imm: InputMethodManager =
             getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(movieNameET.windowToken, 0)
     }
 
 
+    //** toastMsgObserver 모음
+    private fun toastMsgObserver() {
+        viewModel.toastMsgRes.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                viewModel.toastMsgRes.get()?.let {
+                    Toast.makeText(applicationContext, getString(it),Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
 
-    /**
-     * Contract.View Interface 구현
-     */
-
-    override fun noKeyword() {
-        Toast.makeText(this, R.string.no_keyword, Toast.LENGTH_LONG).show()
+        viewModel.toastMsgString.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                viewModel.toastMsgString.get()?.let {
+                    Toast.makeText(applicationContext, it, Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
     }
 
 
-    override fun noResult(movies: List<Movie>) {
-        Toast.makeText(this@MovieListActivity, R.string.no_movie_list, Toast.LENGTH_SHORT).show()
+    //** 키패드 숨기기
+    private fun hideKeypadObserver() {
+        viewModel.hideKeypad.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                hideKeypad()
+            }
+
+        })
     }
 
 
-    override fun onError(t: Throwable) {
-        Toast.makeText(this, t.toString(), Toast.LENGTH_SHORT).show()
-    }
-
-
-    override fun refreshMovieList(movies: List<Movie>) {
-        movieListAdapter.refreshList(movies)
-        hideKeyPad()
-    }
-
-    override fun setCacheKeyword(keyword: String) {
-        binding.movieNameET.setText(keyword)
-        binding.movieNameET.setSelection(keyword.length)
-    }
-
-
-    //**해제시 presenter에 있는 disposable 해제
     override fun onDestroy() {
-        presenter.clearDisposable()
+        viewModel.removeDisposable()
         super.onDestroy()
     }
 
 
     //**키패드 셋팅
-    companion object{
+    companion object {
         @BindingAdapter("setKeypad")
         @JvmStatic
-        fun EditText.setKeypad(presenter: MovieListContract.Presenter) {
-            this.setOnEditorActionListener { v, actionId, event ->
+        fun EditText.setKeypad(action : (() -> Unit) ?= null) {
+            this.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-
-                    val keyWord = this.text.toString().trim()
-                    presenter.searchMovie(keyWord)
-
+                    action?.invoke()
                     true
                 } else {
                     false
