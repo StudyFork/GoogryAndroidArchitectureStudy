@@ -10,11 +10,11 @@
 
         <variable
             name="vm"
-            type="io.github.jesterz91.study.presentation.ui.MovieSearchViewModel" />
+            type="io.github.jesterz91.study.ui.MovieSearchViewModel" />
 
         <variable
             name="adapter"
-            type="io.github.jesterz91.study.presentation.ui.MovieSearchAdapter" />
+            type="io.github.jesterz91.study.ui.MovieSearchAdapter" />
 
         <variable
             name="itemDecoration"
@@ -24,7 +24,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.ui.MovieSearchActivity"
+        tools:context=".ui.MovieSearchActivity"
         tools:viewBindingIgnore="true">
 
         <androidx.recyclerview.widget.RecyclerView

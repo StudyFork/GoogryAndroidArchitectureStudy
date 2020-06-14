@@ -9,9 +9,9 @@ buildscript {
         rxandroid_version = '2.1.1'
         rxbinding_version = '3.1.0'
 
-        retrofit_version = '2.7.1'
-        okhttp_version = '4.3.1'
-        moshi_version = '1.9.2'
+        retrofit_version = '2.9.0'
+        okhttp_version = '4.7.2'
+        moshi_version = '1.9.3'
 
         glide_version = '4.11.0'
 
