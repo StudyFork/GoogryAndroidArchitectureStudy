@@ -5,7 +5,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.hwaniiidev.architecture.R
 import com.hwaniiidev.architecture.data.repository.NaverMovieRepositoryImpl
 import com.hwaniiidev.architecture.databinding.ActivityMainBinding
@@ -23,28 +25,31 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val viewModel = MainViewModel(naverMovieRepositoryImpl)
+        val viewModelProvider = ViewModelProvider(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MainViewModel(naverMovieRepositoryImpl) as T
+            }
+        })
+        val viewModel = viewModelProvider[MainViewModel::class.java]
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.viewModel = viewModel
-        viewModel.error.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                val error = viewModel.error.get()
-                if (error == SearchError.QUERY_IS_NONE
-                    || error == SearchError.RESPONSE_ERROR
-                    || error == SearchError.NETWORK_FAILURE
-                ) {
-                    toast(error.errorMessage)
+        binding.apply {
+            this.viewModel = viewModel
+            lifecycleOwner = this@MainActivity
+        }
+
+        viewModel.error.observe(this, Observer {
+            when (it) {
+                SearchError.QUERY_IS_NONE,
+                SearchError.RESPONSE_ERROR,
+                SearchError.NETWORK_FAILURE -> {
+                    toast(it.errorMessage)
                 }
             }
-
         })
-        viewModel.hideKeyboard.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                hideKeyBoard()
-            }
+
+        viewModel.hideKeyboard.observe(this, Observer {
+            hideKeyBoard()
         })
 
         imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
