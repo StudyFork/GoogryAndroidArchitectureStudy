@@ -15,5 +15,5 @@
 - 지운만 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class12/)
 
-- 이송미 [](https://github.com/)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class12/)
+- 이송미 [songmilee](https://github.com/songmilee)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class12/songmilee)
