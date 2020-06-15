@@ -11,9 +11,13 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.sangjin.newproject.adapter.MovieListAdapter
 import com.sangjin.newproject.data.repository.NaverMoviesRepositoryImpl
 import com.sangjin.newproject.data.source.local.LocalDataSourceImpl
@@ -25,15 +29,9 @@ import kotlinx.android.synthetic.main.activity_movie_list.*
 class MovieListActivity : AppCompatActivity() {
 
     private lateinit var movieListAdapter: MovieListAdapter
-    private val naverMoviesRepositoryImpl by lazy {
-        NaverMoviesRepositoryImpl(
-            RemoteDataSourceImpl(),
-            LocalDataSourceImpl(applicationContext)
-        )
-    }
 
     private val viewModel by lazy {
-        MovieListViewModel(naverMoviesRepositoryImpl)
+        ViewModelProviders.of(this).get(MovieListViewModel::class.java)
     }
 
 
@@ -44,10 +42,10 @@ class MovieListActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_list)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         setRecyclerView()
         showKeyPad()
-
 
         toastMsgObserver()
         hideKeypadObserver()
@@ -87,34 +85,21 @@ class MovieListActivity : AppCompatActivity() {
 
     //** toastMsgObserver 모음
     private fun toastMsgObserver() {
-        viewModel.toastMsgRes.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                viewModel.toastMsgRes.get()?.let {
-                    Toast.makeText(applicationContext, getString(it),Toast.LENGTH_SHORT).show()
-                }
-            }
+        viewModel.toastMsgRes.observe(this, Observer {
+            Toast.makeText(applicationContext, getString(it),Toast.LENGTH_SHORT).show()
         })
 
-        viewModel.toastMsgString.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                viewModel.toastMsgString.get()?.let {
-                    Toast.makeText(applicationContext, it, Toast.LENGTH_SHORT).show()
-                }
-            }
+        viewModel.toastMsgString.observe(this, Observer {
+            Toast.makeText(applicationContext, it, Toast.LENGTH_SHORT).show()
         })
+
     }
 
 
-    //** 키패드 숨기기
+    //** 키패드 숨기기 옵저버
     private fun hideKeypadObserver() {
-        viewModel.hideKeypad.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                hideKeypad()
-            }
-
+        viewModel.hideKeypad.observe(this, Observer {
+            hideKeypad()
         })
     }
 
