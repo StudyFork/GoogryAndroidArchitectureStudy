@@ -71,5 +71,7 @@ dependencies {
     implementation "org.apache.commons:commons-text:$apache_commons_version"
     implementation "org.jsoup:jsoup:$jsoup_version"
 
+    // Activity KTX
+    implementation "androidx.activity:activity-ktx:$activity_ktx_version"
 
 }
