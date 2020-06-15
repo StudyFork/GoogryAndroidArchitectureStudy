@@ -6,8 +6,8 @@
 - 최선웅 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class12/)
 
-- 이다원 [](https://github.com/)
-[공간](https://github.com/DWL5/GoogryAndroidArchitectureStudy/tree/class12/init-readme/class12)
+- 이다원 [프로필](https://github.com/DWL5)
+[공간](https://github.com/DWL5/GoogryAndroidArchitectureStudy/tree/class12/init-readme/class12/study)
 
 - 이호영 [](https://github.com//)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class12/)
