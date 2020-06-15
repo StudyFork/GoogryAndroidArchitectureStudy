@@ -1,24 +1,36 @@
 package com.example.architecture.activity.search
 
 import android.util.Log
-import androidx.databinding.ObservableArrayList
-import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.example.architecture.R
 import com.example.architecture.data.model.MovieModel
 import com.example.architecture.data.repository.NaverRepositoryImpl
+import com.example.architecture.ext.createDefault
+import com.example.architecture.provider.ResourceProviderImpl
 
-class SearchViewModel(private val naverRepository: NaverRepositoryImpl) {
+class SearchViewModel(
+    private val naverRepository: NaverRepositoryImpl,
+    private val resourceProvider: ResourceProviderImpl
+) : ViewModel() {
 
-    val keyword = ObservableField<String>("")
-    val isLoading = ObservableBoolean(false)
-    val movieList = ObservableArrayList<MovieModel>()
-    val showMessageEmptyKeyword = ObservableField<Unit>()
-    val showMessageEmptyResult = ObservableField<Unit>()
+    val keyword = MutableLiveData<String>().createDefault("")
+
+    private val _isLoading = MutableLiveData<Boolean>().createDefault(false)
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _movieList = MutableLiveData<MutableList<MovieModel>>().createDefault(mutableListOf())
+    val movieList: LiveData<MutableList<MovieModel>> = _movieList
+
+    private val _toastMessage = MutableLiveData<String>()
+    val toastMessage: LiveData<String> = _toastMessage
+
 
     fun searchMovie() {
-        keyword.get()?.let { keyword ->
+        keyword.value?.let { keyword ->
             if (isValidKeyword(keyword)) {
-                showProgressBar(true)
+                setVisibleProgressBar(true)
                 naverRepository.getMovieList(keyword, this::onSuccess, this::onFailure)
             }
         }
@@ -27,7 +39,7 @@ class SearchViewModel(private val naverRepository: NaverRepositoryImpl) {
     private fun isValidKeyword(keyword: String): Boolean {
 
         return if (keyword.isBlank()) {
-            showMessageEmptyKeyword.notifyChange()
+            _toastMessage.value = resourceProvider.getString(R.string.empty_keyword)
             false
         } else {
             true
@@ -36,21 +48,24 @@ class SearchViewModel(private val naverRepository: NaverRepositoryImpl) {
 
     private fun onSuccess(movieList: List<MovieModel>) {
         if (movieList.isNotEmpty()) {
-            this.movieList.clear()
-            this.movieList.addAll(movieList)
+            _movieList.value?.also {
+                it.clear()
+                it.addAll(movieList)
+                _movieList.value = it
+            }
         } else {
-            showMessageEmptyResult.notifyChange()
+            _toastMessage.value = resourceProvider.getString(R.string.not_found_result)
         }
-        showProgressBar(false)
+        setVisibleProgressBar(false)
     }
 
     private fun onFailure(t: Throwable) {
         Log.d("chul", "OnFailure : $t")
-        showProgressBar(false)
+        setVisibleProgressBar(false)
     }
 
-    private fun showProgressBar(visible: Boolean) {
-        isLoading.set(visible)
+    private fun setVisibleProgressBar(visible: Boolean) {
+        _isLoading.value = visible
     }
 
     private fun clearCacheData(keyword: String) {
