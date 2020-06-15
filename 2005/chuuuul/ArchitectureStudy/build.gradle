@@ -10,6 +10,8 @@ buildscript {
         apache_commons_version = '1.8'
         activity_ktx_version = '1.1.0'
         rxkotlin_version = '2.4.0'
+        rxjava_version = '2.2.19'
+        rxandroid_version = '2.1.1'
     }
 
     repositories {
