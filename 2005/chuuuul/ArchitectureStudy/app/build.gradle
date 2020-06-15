@@ -74,4 +74,7 @@ dependencies {
     // Activity KTX
     implementation "androidx.activity:activity-ktx:$activity_ktx_version"
 
+    // RxKotlin
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
+
 }
