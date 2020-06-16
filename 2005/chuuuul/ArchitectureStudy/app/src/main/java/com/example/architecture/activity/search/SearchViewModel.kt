@@ -26,6 +26,8 @@ class SearchViewModel(
     private val _toastMessage = MutableLiveData<String>()
     val toastMessage: LiveData<String> = _toastMessage
 
+    val searchEvent = MutableLiveData<Unit>()
+    val onClickEvent = MutableLiveData<Unit>()
 
     fun searchMovie() {
         keyword.value?.let { keyword ->
@@ -66,6 +68,10 @@ class SearchViewModel(
 
     private fun setVisibleProgressBar(visible: Boolean) {
         _isLoading.value = visible
+    }
+
+    fun onSearchClick() {
+        onClickEvent.value = Unit
     }
 
     private fun clearCacheData(keyword: String) {

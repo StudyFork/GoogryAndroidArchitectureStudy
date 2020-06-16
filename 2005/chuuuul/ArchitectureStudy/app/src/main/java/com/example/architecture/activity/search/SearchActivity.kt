@@ -8,10 +8,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.map
 import com.example.architecture.R
 import com.example.architecture.activity.search.adapter.MovieAdapter
 import com.example.architecture.data.repository.NaverRepositoryImpl
 import com.example.architecture.databinding.ActivitySearchBinding
+import com.example.architecture.ext.debounce
 import com.example.architecture.provider.ResourceProviderImpl
 import kotlinx.android.synthetic.main.activity_search.*
 
@@ -46,8 +48,36 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun setupViewModelObserve() {
-        vm.toastMessage.observe(this, Observer { message ->
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-        })
+        showToast()
+        showSearchMovie()
+    }
+
+    private fun showToast() {
+        vm.toastMessage
+            .observe(this, Observer { message ->
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+            })
+    }
+
+    private fun showSearchMovie() {
+
+        vm.keyword
+            .debounce(3000)
+            .map { keyword ->
+                if (keyword.isNotBlank()) {
+                    vm.searchEvent.value = Unit
+                }
+            }
+            .observe(this, Observer { })
+
+        vm.onClickEvent
+            .map { vm.searchEvent.value = Unit }
+            .observe(this, Observer { })
+
+        vm.searchEvent
+            .observe(this, Observer {
+
+                vm::searchMovie.invoke()
+            })
     }
 }
