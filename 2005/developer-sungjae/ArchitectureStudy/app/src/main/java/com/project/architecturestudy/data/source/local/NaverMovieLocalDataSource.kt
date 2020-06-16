@@ -12,6 +12,6 @@ interface NaverMovieLocalDataSource {
     )
 
 
-    fun deleteMovieList(onGetDao: (MovieItemDao) -> Unit)
+    fun deleteMovieList(onGetDao : (MovieItemDao) -> Unit)
     fun saveMovieList(data: MovieLocalItem, onInsert: (Observable<Unit>) -> Unit)
 }

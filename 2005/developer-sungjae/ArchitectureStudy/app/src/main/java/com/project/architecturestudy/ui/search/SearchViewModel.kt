@@ -9,8 +9,10 @@ import com.project.architecturestudy.R
 import com.project.architecturestudy.base.BaseViewModel
 import com.project.architecturestudy.components.Constants.customTAG
 import com.project.architecturestudy.data.model.MovieItem
+import com.project.architecturestudy.data.model.NaverApiData
 import com.project.architecturestudy.data.repository.NaverMovieRepository
 import com.project.architecturestudy.data.source.local.room.MovieLocalItem
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -39,14 +41,14 @@ class SearchViewModel(private val repository: NaverMovieRepository) : BaseViewMo
                         val movieList = ArrayList<MovieItem>()
                         for (item in movieLocalItem) {
                             movieList.add(MovieItem().apply {
-                                this.title = item.title
-                                this.subtitle = item.subtitle
-                                this.image = item.image
-                                this.link = item.link
-                                this.pubDate = item.pubDate
-                                this.director = item.director
-                                this.actor = item.actor
-                                this.userRating = item.userRating
+                                title = item.title
+                                subtitle = item.subtitle
+                                image = item.image
+                                link = item.link
+                                pubDate = item.pubDate
+                                director = item.director
+                                actor = item.actor
+                                userRating = item.userRating
                             })
                         }
 
@@ -79,42 +81,47 @@ class SearchViewModel(private val repository: NaverMovieRepository) : BaseViewMo
                 single.observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe(
-                        {
-                            Log.d(customTAG, "getRemoteData:$it")
-                            _movieData.value = it.items
+                        { remoteData ->
+                            Log.d(customTAG, "getRemoteData:$remoteData")
+                            _movieData.value = remoteData.items
                             _showToast.value = R.string.get_data_success
 
-                            for (item in it.items) {
-                                val movieLocalItem = MovieLocalItem().apply {
-                                    this.title = item.title
-                                    this.subtitle = item.subtitle
-                                    this.image = item.image
-                                    this.link = item.link
-                                    this.pubDate = item.pubDate
-                                    this.director = item.director
-                                    this.actor = item.actor
-                                    this.userRating = item.userRating
-                                }
-                                repository.saveMovieList(movieLocalItem,
-                                    onInsert = { observable ->
-                                        observable.doOnSubscribe {
-                                            repository.deleteMovieList { dao -> dao.deleteAll() }
-                                        }
-                                            .subscribeOn(Schedulers.io())
-                                            .observeOn(AndroidSchedulers.mainThread())
-                                            .subscribe({
-                                                Log.d(customTAG, "RoomDatabase Save Data Success")
-                                            }, {
-                                                Log.d(customTAG, "RoomDatabase Save Data Failure$it")
-                                            })
-                                    })
+                            repository.deleteMovieList { dao ->
+                                Observable.fromCallable { dao.deleteAll() }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe { saveMovieList(remoteData) }
                             }
+
                         }, { t ->
                             _showToast.value = R.string.get_data_failure
                             Log.d(customTAG, t.toString())
                         }).addDisposable()
             })
 
+    }
+
+    private fun saveMovieList(data: NaverApiData) {
+        for (item in data.items) {
+            val movieLocalItem = MovieLocalItem().apply {
+                this.title = item.title
+                this.subtitle = item.subtitle
+                this.image = item.image
+                this.link = item.link
+                this.pubDate = item.pubDate
+                this.director = item.director
+                this.actor = item.actor
+                this.userRating = item.userRating
+            }
+            repository.saveMovieList(movieLocalItem,
+                onInsert = { observable ->
+                    observable.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({
+                            Log.d(customTAG, "RoomDatabase Save Data Success")
+                        }, {
+                            Log.d(customTAG, "RoomDatabase Save Data Failure$it")
+                        })
+                })
+        }
     }
 
     fun invokeTextChanged() {
