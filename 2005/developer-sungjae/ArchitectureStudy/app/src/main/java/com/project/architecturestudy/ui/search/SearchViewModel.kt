@@ -3,19 +3,26 @@ package com.project.architecturestudy.ui.search
 import android.util.Log
 import android.view.View
 import androidx.annotation.StringRes
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.project.architecturestudy.R
+import com.project.architecturestudy.base.BaseViewModel
 import com.project.architecturestudy.components.Constants.customTAG
 import com.project.architecturestudy.data.model.MovieItem
 import com.project.architecturestudy.data.repository.NaverMovieRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class SearchViewModel(private val repository: NaverMovieRepository) {
+class SearchViewModel(private val repository: NaverMovieRepository) : BaseViewModel() {
 
-    val movieData = ObservableField<List<MovieItem>>()
-    val showToast = ObservableField<@StringRes Int>()
-    val tvResultVisible = ObservableField(View.GONE)
+    private val _movieData = MutableLiveData<List<MovieItem>>()
+    val movieData: LiveData<List<MovieItem>> = _movieData
+
+    private val _showToast = MutableLiveData<@StringRes Int>()
+    val showToast: LiveData<Int> = _showToast
+
+    private val _tvResultVisible = MutableLiveData<Int>().apply { this.value = View.GONE }
+    val tvResultVisible: LiveData<Int> = _tvResultVisible
 
     init {
         getMovieListFromLocal()
@@ -25,22 +32,48 @@ class SearchViewModel(private val repository: NaverMovieRepository) {
         repository.getCashedMovieList(
             onSuccess = {
                 Log.d(customTAG, "getLocalData:$it")
-                movieData.set(it.toList())
-                showToast.set(R.string.get_local_data_success)
+                it.subscribe({ movieLocalItem ->
+                    Log.d(customTAG, "RoomDatabase Get Data Success:$movieLocalItem")
+                    if (movieLocalItem.isNotEmpty()) {
+                        val movieList = ArrayList<MovieItem>()
+                        for (item in movieLocalItem) {
+
+                            movieList.add(MovieItem().apply {
+                                this.title = item.title
+                                this.subtitle = item.subtitle
+                                this.image = item.image
+                                this.link = item.link
+                                this.pubDate = item.pubDate
+                                this.director = item.director
+                                this.actor = item.actor
+                                this.userRating = item.userRating
+                            })
+                        }
+
+                        _movieData.postValue(movieList)
+                        _showToast.postValue(R.string.get_local_data_success)
+
+                    } else {
+                        Log.d(customTAG, "RoomDatabase has no Data")
+                    }
+                },
+                    {
+                        Log.d(customTAG, "RoomDatabase GetData Failure")
+                    }).addDisposable()
             },
             onFailure = {
                 Log.d(customTAG, "Throwable:$it")
-                showToast.set(R.string.get_local_data_failure)
+                _showToast.postValue(R.string.get_local_data_failure)
             })
     }
 
     fun getMovieListFromRemote(searchWord: String) {
         if (searchWord.isEmpty()) {
-            showToast.set(R.string.please_write)
+            _showToast.value = R.string.please_write
             return
         }
 
-        tvResultVisible.set(View.VISIBLE)
+        _tvResultVisible.value = View.VISIBLE
 
         repository.getMovieList(searchWord,
             onGetRemoteData = { single ->
@@ -49,21 +82,17 @@ class SearchViewModel(private val repository: NaverMovieRepository) {
                     .subscribe(
                         {
                             Log.d(customTAG, "getRemoteData:$it")
-                            movieData.set(it.items)
-                            showToast.set(R.string.get_data_success)
+                            _movieData.value = it.items
+                            _showToast.value = R.string.get_data_success
                         }, { t ->
-                            showToast.set(R.string.get_data_failure)
+                            _showToast.value = R.string.get_data_failure
                             Log.d(customTAG, t.toString())
-                        })
+                        }).addDisposable()
             })
 
     }
 
-    fun remoteDispose() {
-        repository.dispose()
-    }
-
     fun invokeTextChanged() {
-        tvResultVisible.set(View.GONE)
+        _tvResultVisible.value = View.GONE
     }
 }
