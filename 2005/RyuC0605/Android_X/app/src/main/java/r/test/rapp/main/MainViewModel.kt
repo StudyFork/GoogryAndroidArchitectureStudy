@@ -2,9 +2,6 @@ package r.test.rapp.main
 
 import android.content.res.Resources
 import android.text.TextUtils
-import androidx.databinding.ObservableArrayList
-import androidx.databinding.ObservableField
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import r.test.rapp.R
@@ -23,7 +20,7 @@ class MainViewModel(private val res: Resources) : ViewModel() {
 
     fun searchData() {
 
-        val searchQuery = keyword.value ?: return
+        val searchQuery = keyword.value
 
         if (TextUtils.isEmpty(searchQuery)) {
             toastMsg.value = res.getString(R.string.enter_keyword)
@@ -34,7 +31,7 @@ class MainViewModel(private val res: Resources) : ViewModel() {
 
 
         repository.getMovieList(
-            searchQuery,
+            searchQuery!!,
             onSuccess = { vo ->
                 movies.value = vo.items
                 isLoading.value = false
