@@ -12,6 +12,7 @@ buildscript {
         rxkotlin_version = '2.4.0'
         rxjava_version = '2.2.19'
         rxandroid_version = '2.1.1'
+        livedata_ktx_version = '2.2.0'
     }
 
     repositories {

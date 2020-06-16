@@ -79,5 +79,7 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
 
+    // LiveData KTX
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$livedata_ktx_version"
 
 }
