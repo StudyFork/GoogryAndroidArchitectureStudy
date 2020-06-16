@@ -3,54 +3,64 @@ package com.project.architecturestudy.ui.search
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import androidx.appcompat.app.AppCompatActivity
+import android.util.Log
 import androidx.core.widget.doAfterTextChanged
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.project.architecturestudy.R
+import com.project.architecturestudy.base.BaseActivity
+import com.project.architecturestudy.data.model.MovieItem
 import com.project.architecturestudy.data.repository.NaverMovieRepositoryImpl
 import com.project.architecturestudy.data.source.local.NaverMovieLocalDataSourceImpl
+import com.project.architecturestudy.data.source.local.room.MovieDataBase
 import com.project.architecturestudy.data.source.remote.NaverMovieRemoteDataSourceImpl
 import com.project.architecturestudy.databinding.ActivitySearchBinding
+import com.project.architecturestudy.databinding.MovieItemBinding
 import kotlinx.android.synthetic.main.activity_search.*
 import org.jetbrains.anko.toast
 
-class SearchActivity : AppCompatActivity() {
+class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>(R.layout.activity_search) {
 
-    private val adapter: SearchAdapter = SearchAdapter()
-    private val handler by lazy {
-        Handler(Looper.getMainLooper())
+    override val vm: SearchViewModel by lazy {
+        val naverMovieLocalDataSource = NaverMovieLocalDataSourceImpl.getInstance(MovieDataBase.getInstance(applicationContext).getMovieDao())
+        val naverMovieRemoteDataSource = NaverMovieRemoteDataSourceImpl
+        val repository = NaverMovieRepositoryImpl.getInstance(naverMovieLocalDataSource, naverMovieRemoteDataSource)
+        val viewModelProvider = ViewModelProvider(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return SearchViewModel(repository) as T
+            }
+        })
+        viewModelProvider[SearchViewModel::class.java]
     }
-
-    private val vm by lazy {
-        val naverMovieLocalDataSource = NaverMovieLocalDataSourceImpl(this)
-        val naverMovieRemoteDataSource = NaverMovieRemoteDataSourceImpl()
-        val repository = NaverMovieRepositoryImpl(naverMovieLocalDataSource, naverMovieRemoteDataSource)
-        SearchViewModel(repository)
-    }
-    private lateinit var binding: ActivitySearchBinding
+    private lateinit var adapter: SearchAdapter<MovieItemBinding, MovieItem>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_search)
         binding.vm = vm
-
+        binding.lifecycleOwner = this
         setRecyclerView()
         onClickAdapterItem()
 
         et_search.doAfterTextChanged {
             vm.invokeTextChanged()
         }
-        vm.showToast.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                val msg = getString(vm.showToast.get() ?: return)
-                handler.postDelayed({ toast(msg) }, 0)
-            }
+        vm.showToast.observe(this, Observer {
+            Log.d("observer", "$it")
+            toast(getString(it))
         })
+    }
 
+    override fun onResume() {
+        super.onResume()
+        binding.vm = vm
+        binding.lifecycleOwner = this
+        setRecyclerView()
+        onClickAdapterItem()
 
+        et_search.doAfterTextChanged {
+            vm.invokeTextChanged()
+        }
     }
 
     private fun onClickAdapterItem() {
@@ -61,25 +71,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun setRecyclerView() {
-        listview_movie.adapter = adapter
-    }
-
-    override fun onDestroy() {
-        vm.remoteDispose()
-        super.onDestroy()
+        adapter = SearchAdapter(R.layout.movie_item)
+        binding.listviewMovie.adapter = adapter
     }
 }
-
-//        //ViewModel
-//        val showToast = ObservableField<Unit>()
-//
-//        //Activity
-//        vm.showToast.addOnPropertyChangedCallback(object :
-//            OnPropertyChangedCallback() {
-//            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-//                toast("")
-//            }
-//        })
-//
-//        // viewModel
-//        showToast.notifyChange()
