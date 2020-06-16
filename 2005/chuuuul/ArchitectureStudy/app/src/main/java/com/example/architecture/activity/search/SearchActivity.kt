@@ -15,6 +15,7 @@ import com.example.architecture.data.repository.NaverRepositoryImpl
 import com.example.architecture.databinding.ActivitySearchBinding
 import com.example.architecture.ext.debounce
 import com.example.architecture.provider.ResourceProviderImpl
+import com.example.architecture.util.ConstValue.Companion.AUTO_SEARCH_TIME
 import kotlinx.android.synthetic.main.activity_search.*
 
 class SearchActivity : AppCompatActivity() {
@@ -62,7 +63,7 @@ class SearchActivity : AppCompatActivity() {
     private fun showSearchMovie() {
 
         vm.keyword
-            .debounce(3000)
+            .debounce(AUTO_SEARCH_TIME)
             .map { keyword ->
                 if (keyword.isNotBlank()) {
                     vm.searchEvent.value = Unit
