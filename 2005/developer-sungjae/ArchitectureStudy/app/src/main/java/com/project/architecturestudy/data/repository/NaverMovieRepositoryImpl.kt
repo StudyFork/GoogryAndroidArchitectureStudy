@@ -2,6 +2,7 @@ package com.project.architecturestudy.data.repository
 
 import com.project.architecturestudy.data.model.NaverApiData
 import com.project.architecturestudy.data.source.local.NaverMovieLocalDataSource
+import com.project.architecturestudy.data.source.local.room.MovieItemDao
 import com.project.architecturestudy.data.source.local.room.MovieLocalItem
 import com.project.architecturestudy.data.source.remote.NaverMovieRemoteDataSource
 import io.reactivex.Observable
@@ -19,6 +20,14 @@ class NaverMovieRepositoryImpl(
         naverMovieLocalDataSource.getMovieList(onSuccess, onFailure)
     }
 
+    override fun saveMovieList(movieList: MovieLocalItem, onInsert: (Observable<Unit>) -> Unit) {
+        naverMovieLocalDataSource.saveMovieList(movieList, onInsert)
+    }
+
+    override fun deleteMovieList(onGetDao: (MovieItemDao) -> Unit) {
+        naverMovieLocalDataSource.deleteMovieList(onGetDao)
+    }
+
     override fun getMovieList(
         keyWord: String,
         onGetRemoteData: (Single<NaverApiData>) -> Unit
@@ -34,7 +43,10 @@ class NaverMovieRepositoryImpl(
             naverMovieLocalDataSource: NaverMovieLocalDataSource,
             naverMovieRemoteDataSource: NaverMovieRemoteDataSource
         ): NaverMovieRepositoryImpl {
-            return INSTANCE ?: NaverMovieRepositoryImpl(naverMovieLocalDataSource, naverMovieRemoteDataSource)
+            return INSTANCE ?: NaverMovieRepositoryImpl(
+                naverMovieLocalDataSource,
+                naverMovieRemoteDataSource
+            )
                 .apply { INSTANCE = this }
         }
 
