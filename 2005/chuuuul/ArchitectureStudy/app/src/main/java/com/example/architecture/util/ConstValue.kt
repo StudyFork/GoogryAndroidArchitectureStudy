@@ -8,6 +8,7 @@ class ConstValue {
         const val MOVIE_SHARED_PREFERENCE_NAME = "MoviesSharedPreferenceName"
 
         const val AUTO_SEARCH_TIME: Long = 3000
+        const val SEARCH_TIME_THROTTLE = 1500L
     }
 
 }

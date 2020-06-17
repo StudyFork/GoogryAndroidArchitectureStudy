@@ -9,6 +9,7 @@ import com.example.architecture.data.model.MovieModel
 import com.example.architecture.data.repository.NaverRepositoryImpl
 import com.example.architecture.ext.createDefault
 import com.example.architecture.provider.ResourceProviderImpl
+import com.example.architecture.util.ConstValue.Companion.SEARCH_TIME_THROTTLE
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -44,7 +45,7 @@ class SearchViewModel(
         searchMovieSubject
             .subscribeOn(AndroidSchedulers.mainThread())
             .filter { it.isNotBlank() }
-            .throttleFirst(3000L, TimeUnit.MILLISECONDS, Schedulers.computation())
+            .throttleFirst(SEARCH_TIME_THROTTLE, TimeUnit.MILLISECONDS, Schedulers.computation())
             .subscribe { keyword ->
                 setVisibleProgressBar(true)
                 naverRepository.getMovieList(keyword, this::onSuccess, this::onFailure)
