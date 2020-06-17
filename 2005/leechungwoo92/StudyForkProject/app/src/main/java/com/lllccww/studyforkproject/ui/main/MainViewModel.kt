@@ -1,41 +1,45 @@
 package com.lllccww.studyforkproject.ui.main
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.lllccww.studyforkproject.data.model.MovieItem
 import com.lllccww.studyforkproject.data.repository.NaverMovieRepository
 
-class MainViewModel(private val movieRepository: NaverMovieRepository) {
-    val movieItemList = ObservableField<ArrayList<MovieItem>>()
-    val query = ObservableField<String>()
-    val toastString = ObservableField<String>()
-    val progressBar = ObservableField<Boolean>(false)
+class MainViewModel(private val movieRepository: NaverMovieRepository) : ViewModel() {
+    val movieItemList = MutableLiveData<ArrayList<MovieItem>>()
+    val query = MutableLiveData<String>()
+    val toastMessage = MutableLiveData<String>()
+    val progressBar = MutableLiveData<Boolean>()
+    val hideKeyboard = MutableLiveData<Boolean>()
 
     fun getSearchMovie() {
 
-        val inputQuery = query.get()
+
+        val inputQuery = query.value
 
         if (inputQuery.isNullOrEmpty()) {
-            showToastMessage("검색어를 입력해주세요.")
+            toastMessage.value = "검색어를 입력해주세요."
             return
         }
-        progressBar.set(true)
+        hideKeyboard.value = true
+        progressBar.value = true
 
 
         movieRepository.getSearchMovie(
             inputQuery,
             success = { movieItem ->
-                progressBar.set(false)
+                progressBar.value = false
                 if (movieItem.isNullOrEmpty()) {
-                    showToastMessage("검색결과가 없습니다.")
+                    toastMessage.value = "검색결과가 없습니다."
 
 
                 } else {
-                    movieItemList.set(movieItem as ArrayList<MovieItem>)
+                    movieItemList.value = (movieItem as ArrayList<MovieItem>)
                 }
             },
             failure = {
-                progressBar.set(false)
-                showToastMessage(it.message.toString())
+                progressBar.value = false
+                toastMessage.value = it.message.toString()
 
             }
 
@@ -43,14 +47,5 @@ class MainViewModel(private val movieRepository: NaverMovieRepository) {
 
 
     }
-
-    fun showToastMessage(msg: String) {
-        toastString.set(msg)
-        if(toastString.get().toString() == msg){
-            toastString.notifyChange()
-        }
-
-    }
-
 
 }
