@@ -1,11 +1,15 @@
 package com.lllccww.studyforkproject.ui.main
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lllccww.studyforkproject.R
@@ -24,34 +28,34 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private lateinit var vm: MainViewModel
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
 
-        vm = MainViewModel(NaverMovieRepositoryImpl(MovieRemoteDataSourceImpl()))
+        val viewModelProvider = ViewModelProvider(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MainViewModel(NaverMovieRepositoryImpl(MovieRemoteDataSourceImpl())) as T
+            }
+        })
+        val mainViewModel = viewModelProvider.get(MainViewModel::class.java)
 
 
-        binding.vm = vm
+        binding.vm = mainViewModel
+        binding.lifecycleOwner = this
 
         movieListAdapter = MovieListAdapter()
         binding.rvMovieList.adapter = movieListAdapter
 
 
-        vm.toastString.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                vm.toastString.get()?.let { toastMsg(it) }
-            }
-
+        mainViewModel.toastMessage.observe(this@MainActivity, Observer {
+            showToastMsg(mainViewModel.toastMessage.value!!)
         })
 
-
-
+        mainViewModel.hideKeyboard.observe(this@MainActivity, Observer {
+            hideKeyboard()
+        })
 
         rv_movie_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
@@ -67,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                     if (start < total) {
                         //requestSearchMovie(start + 10)
                     } else {
-                        Toast.makeText(this@MainActivity, "마지막 페이지입니다.", Toast.LENGTH_SHORT).show()
+                        showToastMsg("마지막 페이지입니다.")
                     }
 
                 }
@@ -77,8 +81,19 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun toastMsg(msg: String) {
+    fun showToastMsg(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    //키보드 숨기기
+    private fun hideKeyboard() {
+        val view = this.currentFocus
+
+        if (view != null) {
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 
 
