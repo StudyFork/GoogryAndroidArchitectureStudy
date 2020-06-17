@@ -49,7 +49,7 @@ class SearchActivity : AppCompatActivity() {
 
     private fun setupViewModelObserve() {
         showToast()
-        showSearchMovie()
+        searchMovieAfterMoment()
     }
 
     private fun showToast() {
@@ -59,7 +59,7 @@ class SearchActivity : AppCompatActivity() {
             })
     }
 
-    private fun showSearchMovie() {
+    private fun searchMovieAfterMoment() {
         vm.keyword
             .debounce(AUTO_SEARCH_TIME)
             .observe(this, Observer {
