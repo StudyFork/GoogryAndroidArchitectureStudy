@@ -32,9 +32,6 @@ class SearchViewModel(
     private val _toastMessage = MutableLiveData<String>()
     val toastMessage: LiveData<String> = _toastMessage
 
-    val searchEvent = MutableLiveData<Unit>()
-    val onClickEvent = MutableLiveData<Unit>()
-
     private val compositeDisposable = CompositeDisposable()
     private val searchMovieSubject = BehaviorSubject.createDefault("")
 
@@ -94,9 +91,6 @@ class SearchViewModel(
         _isLoading.value = visible
     }
 
-    fun onSearchClick() {
-        onClickEvent.value = Unit
-    }
 
     private fun clearCacheData(keyword: String) {
         naverRepository.clearCacheData()

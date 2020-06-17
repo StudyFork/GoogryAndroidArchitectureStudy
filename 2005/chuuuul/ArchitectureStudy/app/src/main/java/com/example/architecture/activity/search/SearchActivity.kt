@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.map
 import com.example.architecture.R
 import com.example.architecture.activity.search.adapter.MovieAdapter
 import com.example.architecture.data.repository.NaverRepositoryImpl
@@ -61,21 +60,8 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun showSearchMovie() {
-
         vm.keyword
             .debounce(AUTO_SEARCH_TIME)
-            .map { keyword ->
-                if (keyword.isNotBlank()) {
-                    vm.searchEvent.value = Unit
-                }
-            }
-            .observe(this, Observer { })
-
-        vm.onClickEvent
-            .map { vm.searchEvent.value = Unit }
-            .observe(this, Observer { })
-
-        vm.searchEvent
             .observe(this, Observer {
                 vm::searchMovie.invoke()
             })
