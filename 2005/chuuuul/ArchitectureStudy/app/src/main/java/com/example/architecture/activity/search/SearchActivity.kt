@@ -77,8 +77,25 @@ class SearchActivity : AppCompatActivity() {
 
         vm.searchEvent
             .observe(this, Observer {
-
                 vm::searchMovie.invoke()
             })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        bindViewModel()
+    }
+
+    private fun bindViewModel() {
+        vm.bindViewModel()
+    }
+
+    override fun onPause() {
+        unbindViewModel()
+        super.onPause()
+    }
+
+    private fun unbindViewModel() {
+        vm.unbindViewModel()
     }
 }

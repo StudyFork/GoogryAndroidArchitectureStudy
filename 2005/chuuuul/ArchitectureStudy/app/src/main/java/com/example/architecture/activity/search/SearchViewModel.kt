@@ -9,6 +9,12 @@ import com.example.architecture.data.model.MovieModel
 import com.example.architecture.data.repository.NaverRepositoryImpl
 import com.example.architecture.ext.createDefault
 import com.example.architecture.provider.ResourceProviderImpl
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.BehaviorSubject
+import java.util.concurrent.TimeUnit
 
 class SearchViewModel(
     private val naverRepository: NaverRepositoryImpl,
@@ -29,11 +35,29 @@ class SearchViewModel(
     val searchEvent = MutableLiveData<Unit>()
     val onClickEvent = MutableLiveData<Unit>()
 
+    private val compositeDisposable = CompositeDisposable()
+    private val searchMovieSubject = BehaviorSubject.createDefault("")
+
+    fun bindViewModel() {
+        setSearchMovieSubject()
+    }
+
+    private fun setSearchMovieSubject() {
+
+        searchMovieSubject
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .filter { it.isNotBlank() }
+            .throttleFirst(3000L, TimeUnit.MILLISECONDS, Schedulers.computation())
+            .subscribe { keyword ->
+                setVisibleProgressBar(true)
+                naverRepository.getMovieList(keyword, this::onSuccess, this::onFailure)
+            }.addTo(compositeDisposable)
+    }
+
     fun searchMovie() {
         keyword.value?.let { keyword ->
             if (isValidKeyword(keyword)) {
-                setVisibleProgressBar(true)
-                naverRepository.getMovieList(keyword, this::onSuccess, this::onFailure)
+                searchMovieSubject.onNext(keyword)
             }
         }
     }
@@ -76,6 +100,10 @@ class SearchViewModel(
 
     private fun clearCacheData(keyword: String) {
         naverRepository.clearCacheData()
+    }
+
+    fun unbindViewModel() {
+        compositeDisposable.clear()
     }
 
 }
