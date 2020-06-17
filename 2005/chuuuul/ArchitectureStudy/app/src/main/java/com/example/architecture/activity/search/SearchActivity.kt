@@ -25,7 +25,7 @@ class SearchActivity : AppCompatActivity() {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return SearchViewModel(
-                    NaverRepositoryImpl(this@SearchActivity)
+                    NaverRepositoryImpl(this@SearchActivity.applicationContext)
                     , ResourceProviderImpl(this@SearchActivity.applicationContext)
                 ) as T
             }
