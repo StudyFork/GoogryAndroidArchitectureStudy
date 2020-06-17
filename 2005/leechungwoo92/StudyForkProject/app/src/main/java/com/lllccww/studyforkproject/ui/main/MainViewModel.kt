@@ -3,9 +3,9 @@ package com.lllccww.studyforkproject.ui.main
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lllccww.studyforkproject.data.model.MovieItem
-import com.lllccww.studyforkproject.data.repository.NaverMovieRepository
+import com.lllccww.studyforkproject.data.repository.NaverMovieRepositoryImpl
 
-class MainViewModel(private val movieRepository: NaverMovieRepository) : ViewModel() {
+class MainViewModel(private val movieRepository: NaverMovieRepositoryImpl) : ViewModel() {
     val movieItemList = MutableLiveData<ArrayList<MovieItem>>()
     val query = MutableLiveData<String>()
     val toastMessage = MutableLiveData<String>()
