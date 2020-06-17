@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.architecture.R
 import com.example.architecture.activity.search.adapter.MovieAdapter
 import com.example.architecture.data.repository.NaverRepositoryImpl
+import com.example.architecture.data.source.local.NaverLocalDataSourceImpl
+import com.example.architecture.data.source.remote.NaverRemoteDataSourceImpl
 import com.example.architecture.databinding.ActivitySearchBinding
 import com.example.architecture.ext.debounce
 import com.example.architecture.provider.ResourceProviderImpl
@@ -23,9 +25,16 @@ class SearchActivity : AppCompatActivity() {
     private val vm: SearchViewModel by viewModels {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+
+                val naverLocalDataSource = NaverLocalDataSourceImpl.getInstance(applicationContext)
+                val naverRemoteDataSource = NaverRemoteDataSourceImpl
+                val naverRepository = NaverRepositoryImpl.getInstance(naverLocalDataSource, naverRemoteDataSource)
+
+                val resourceProvider = ResourceProviderImpl(this@SearchActivity.applicationContext)
+
                 return SearchViewModel(
-                    NaverRepositoryImpl(this@SearchActivity.applicationContext)
-                    , ResourceProviderImpl(this@SearchActivity.applicationContext)
+                    naverRepository,
+                    resourceProvider
                 ) as T
             }
         }
