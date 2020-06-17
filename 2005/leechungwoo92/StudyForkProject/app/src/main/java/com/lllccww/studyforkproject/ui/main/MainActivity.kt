@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private lateinit var binding: ActivityMainBinding
+    private val naverMovieRepositoryImpl = NaverMovieRepositoryImpl()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,10 +37,10 @@ class MainActivity : AppCompatActivity() {
 
         val viewModelProvider = ViewModelProvider(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return MainViewModel(NaverMovieRepositoryImpl(MovieRemoteDataSourceImpl())) as T
+                return MainViewModel(naverMovieRepositoryImpl) as T
             }
         })
-        val mainViewModel = viewModelProvider.get(MainViewModel::class.java)
+        val mainViewModel = viewModelProvider[MainViewModel::class.java]
 
 
         binding.vm = mainViewModel
