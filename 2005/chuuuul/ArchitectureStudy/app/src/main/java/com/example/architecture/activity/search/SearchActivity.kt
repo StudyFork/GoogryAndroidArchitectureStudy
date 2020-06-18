@@ -30,7 +30,7 @@ class SearchActivity : AppCompatActivity() {
                 val naverRemoteDataSource = NaverRemoteDataSourceImpl
                 val naverRepository = NaverRepositoryImpl.getInstance(naverLocalDataSource, naverRemoteDataSource)
 
-                val resourceProvider = ResourceProviderImpl(this@SearchActivity.applicationContext)
+                val resourceProvider = ResourceProviderImpl(applicationContext)
 
                 return SearchViewModel(
                     naverRepository,
