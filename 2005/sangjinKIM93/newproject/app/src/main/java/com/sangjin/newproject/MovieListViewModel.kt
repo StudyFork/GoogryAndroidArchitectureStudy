@@ -2,6 +2,7 @@ package com.sangjin.newproject
 
 import android.app.Application
 import android.text.TextUtils
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,8 +13,11 @@ import com.sangjin.newproject.data.source.remote.RemoteDataSourceImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.PublishSubject
+import java.util.concurrent.TimeUnit
 
-class MovieListViewModel(application: Application) :AndroidViewModel(application){
+class MovieListViewModel(application: Application) : AndroidViewModel(application) {
 
     private val context = application
 
@@ -37,8 +41,11 @@ class MovieListViewModel(application: Application) :AndroidViewModel(application
     private var _hideKeypad = MutableLiveData<Unit>()
     val hideKeypad: LiveData<Unit> = _hideKeypad
 
+    private val refreshMovieSubject = PublishSubject.create<String>()
+
 
     init {
+        setRefreshMovieSubject()
         loadCache()
     }
 
@@ -73,20 +80,31 @@ class MovieListViewModel(application: Application) :AndroidViewModel(application
         if (TextUtils.isEmpty(keyword)) {
             _toastMsg.value = context.getString(R.string.no_keyword)
         } else {
-            repository.getNaverMovies(keyword)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    checkMovieResult(it.items)
-                },
-                    {
-                        _toastMsg.value = it.toString()
-                    }
-                ).let {
-                    compositeDisposable.add(it)
-                }
+            refreshMovieSubject.onNext(keyword)
         }
     }
+
+
+    //버튼이 2번 연속으로 눌리는 경우 한번만 요청이 가도록 하는 기능
+    private fun setRefreshMovieSubject() {
+        refreshMovieSubject
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .throttleFirst(2000L, TimeUnit.MILLISECONDS, Schedulers.computation())     //클릭 후 2초 안에 눌린 다른 클릭에는 반응하 않도록 설정
+            .subscribe { keyword ->
+                repository.getNaverMovies(keyword)
+                    .subscribe(
+                        {
+                            checkMovieResult(it.items)
+                        },
+                        {
+                            _toastMsg.value = it.toString()
+                        }
+                    )
+            }.let {
+                compositeDisposable.add(it)
+            }
+    }
+
 
     private fun checkMovieResult(movies: List<Movie>) {
 
