@@ -51,18 +51,6 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>(R.la
         })
     }
 
-    override fun onResume() {
-        super.onResume()
-        binding.vm = vm
-        binding.lifecycleOwner = this
-        setRecyclerView()
-        onClickAdapterItem()
-
-        et_search.doAfterTextChanged {
-            vm.invokeTextChanged()
-        }
-    }
-
     private fun onClickAdapterItem() {
         adapter.onClick = { item ->
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
