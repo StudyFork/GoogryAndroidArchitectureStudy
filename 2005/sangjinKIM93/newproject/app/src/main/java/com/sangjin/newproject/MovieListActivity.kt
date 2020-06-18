@@ -85,11 +85,7 @@ class MovieListActivity : AppCompatActivity() {
 
     //** toastMsgObserver 모음
     private fun toastMsgObserver() {
-        viewModel.toastMsgRes.observe(this, Observer {
-            Toast.makeText(this@MovieListActivity, getString(it),Toast.LENGTH_SHORT).show()
-        })
-
-        viewModel.toastMsgString.observe(this, Observer {
+        viewModel.toastMsg.observe(this, Observer {
             Toast.makeText(this@MovieListActivity, it, Toast.LENGTH_SHORT).show()
         })
 

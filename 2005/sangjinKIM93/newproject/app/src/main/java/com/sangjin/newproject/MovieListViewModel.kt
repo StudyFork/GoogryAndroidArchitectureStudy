@@ -2,15 +2,10 @@ package com.sangjin.newproject
 
 import android.app.Application
 import android.text.TextUtils
-import android.util.Log
-import android.widget.EditText
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.sangjin.newproject.data.model.Movie
-import com.sangjin.newproject.data.repository.NaverMoviesRepository
 import com.sangjin.newproject.data.repository.NaverMoviesRepositoryImpl
 import com.sangjin.newproject.data.source.local.LocalDataSourceImpl
 import com.sangjin.newproject.data.source.remote.RemoteDataSourceImpl
@@ -20,10 +15,12 @@ import io.reactivex.schedulers.Schedulers
 
 class MovieListViewModel(application: Application) :AndroidViewModel(application){
 
+    private val context = application
+
     private val repository by lazy {
         NaverMoviesRepositoryImpl(
             RemoteDataSourceImpl(),
-            LocalDataSourceImpl(application)
+            LocalDataSourceImpl(context)
         )
     }
 
@@ -34,10 +31,8 @@ class MovieListViewModel(application: Application) :AndroidViewModel(application
 
     var keyword = MutableLiveData<String>()
 
-    private var _toastMsgRes = MutableLiveData<Int>()
-    val toastMsgRes: LiveData<Int> = _toastMsgRes
-    private var _toastMsgString = MutableLiveData<String>()
-    val toastMsgString: LiveData<String> = _toastMsgString
+    private var _toastMsg = MutableLiveData<String>()
+    val toastMsg: LiveData<String> = _toastMsg
 
     private var _hideKeypad = MutableLiveData<Unit>()
     val hideKeypad: LiveData<Unit> = _hideKeypad
@@ -76,7 +71,7 @@ class MovieListViewModel(application: Application) :AndroidViewModel(application
         val keyword = keyword.value ?: return
 
         if (TextUtils.isEmpty(keyword)) {
-            _toastMsgRes.value = R.string.no_keyword
+            _toastMsg.value = context.getString(R.string.no_keyword)
         } else {
             repository.getNaverMovies(keyword)
                 .subscribeOn(Schedulers.io())
@@ -85,7 +80,7 @@ class MovieListViewModel(application: Application) :AndroidViewModel(application
                     checkMovieResult(it.items)
                 },
                     {
-                        _toastMsgString.value = it.toString()
+                        _toastMsg.value = it.toString()
 
                     }).let {
                     disposables.add(it)
@@ -100,7 +95,7 @@ class MovieListViewModel(application: Application) :AndroidViewModel(application
         _hideKeypad.value = Unit
 
         if (movies.isNullOrEmpty()) {
-            _toastMsgRes.value = R.string.no_movie_list
+            _toastMsg.value = context.getString(R.string.no_movie_list)
         }
 
     }
