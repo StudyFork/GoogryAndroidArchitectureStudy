@@ -1,64 +1,60 @@
 package com.hwaniiidev.architecture.ui.main
 
 import android.util.Log
-import androidx.databinding.ObservableField
-import com.hwaniiidev.architecture.R
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.hwaniiidev.architecture.data.repository.NaverMovieRepositoryImpl
 import com.hwaniiidev.architecture.model.Item
 
 class MainViewModel(
     val naverMovieRepositoryImpl: NaverMovieRepositoryImpl
-) {
-    val searchQuery = ObservableField<String>()
-    val movies = ObservableField<List<Item>>()
-    val error = ObservableField<SearchError>()
-    val hideKeyboard = ObservableField<Unit>()
+) : ViewModel() {
+    val searchQuery = MutableLiveData<String>()
+    private val _movies = MutableLiveData<List<Item>>()
+    val movies: LiveData<List<Item>> = _movies
+    private val _error = MutableLiveData<SearchError>()
+    val error: LiveData<SearchError> = _error
+    private val _hideKeyboard = MutableLiveData<Unit>()
+    val hideKeyboard: LiveData<Unit> = _hideKeyboard
+
     private val TAG = MainViewModel::class.java.simpleName
 
     init {
-        error.set(SearchError.INIT)
+        _error.value = SearchError.INIT
     }
 
     fun searchMovies() {
-        val searchValue = searchQuery.get()
+        val searchValue = searchQuery.value
         if (searchValue.isNullOrBlank()) {
-            //TODO : 에러처리 "검색어 입력"
-            error.set(SearchError.QUERY_IS_NONE)
+            _error.value = SearchError.QUERY_IS_NONE
         } else {
             naverMovieRepositoryImpl.searchMovies(
                 query = searchValue,
                 onSuccess = { response ->
 
                     if (response.total == 0) {
-                        //TODO : 에러처리 showResponseIsNone
-                        movies.set(null)
-                        error.set(SearchError.RESPONSE_IS_NONE)
+                        _movies.value = null
+                        _error.value = SearchError.RESPONSE_IS_NONE
                     } else {
-                        //TODO : 영화리스트 추가
-                        movies.set(response.items)
-                        error.set(SearchError.NONE_ERROR)
-                        hideKeyboard.notifyChange()
+                        _movies.value = response.items
+                        _error.value = SearchError.NONE_ERROR
+                        _hideKeyboard.value = Unit
                     }
                 },
                 onError = { errorMessage ->
-                    //TODO : 에러처리 showResponseError
-                    error.set(SearchError.RESPONSE_ERROR)
+                    _error.value = SearchError.RESPONSE_ERROR
                     Log.d(TAG, errorMessage)
                 },
                 onFailure = { t ->
-                    //TODO : 에러처리 showNetworkFailure
-                    error.set(SearchError.NETWORK_FAILURE)
+                    _error.value = SearchError.NETWORK_FAILURE
                     Log.d(TAG, t.toString())
                 },
                 onCached = { movies ->
                     if (!movies.isNullOrEmpty()) {
-                        //TODO : 영화리스트 추가
-                        this.movies.set(movies)
-                        error.set(SearchError.NONE_ERROR)
-                        hideKeyboard.notifyChange()
-                        movies.forEach {
-                            Log.d(TAG, it.title)
-                        }
+                        _movies.postValue(movies)
+                        _error.postValue(SearchError.NONE_ERROR)
+                        _hideKeyboard.postValue(Unit)
                     }
                 })
         }
