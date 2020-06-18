@@ -11,7 +11,7 @@ fun <T : Any> MutableLiveData<T>.createDefault(defaultValue: T): MutableLiveData
     return this
 }
 
-fun <T> LiveData<T>.debounce(duration: Long = 1000L) = MediatorLiveData<T>().also { mld ->
+fun <T> LiveData<T>.debounce(duration: Long) = MediatorLiveData<T>().also { mld ->
     val source = this
     val handler = Handler(Looper.getMainLooper())
 
