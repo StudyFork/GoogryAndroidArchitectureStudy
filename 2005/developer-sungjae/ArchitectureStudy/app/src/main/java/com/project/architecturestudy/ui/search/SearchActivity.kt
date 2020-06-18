@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -17,7 +16,6 @@ import com.project.architecturestudy.data.source.local.room.MovieDataBase
 import com.project.architecturestudy.data.source.remote.NaverMovieRemoteDataSourceImpl
 import com.project.architecturestudy.databinding.ActivitySearchBinding
 import com.project.architecturestudy.databinding.MovieItemBinding
-import kotlinx.android.synthetic.main.activity_search.*
 import org.jetbrains.anko.toast
 
 class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>(R.layout.activity_search) {
@@ -42,9 +40,10 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>(R.la
         setRecyclerView()
         onClickAdapterItem()
 
-        et_search.doAfterTextChanged {
+        vm.searchWord.observe(this, Observer {
             vm.invokeTextChanged()
-        }
+        })
+        
         vm.showToast.observe(this, Observer {
             Log.d("observer", "$it")
             toast(getString(it))

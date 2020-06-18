@@ -27,6 +27,9 @@ class SearchViewModel(private val repository: NaverMovieRepository) : BaseViewMo
     private val _tvResultVisible = MutableLiveData<Int>().apply { this.value = View.GONE }
     val tvResultVisible: LiveData<Int> = _tvResultVisible
 
+    private val _searchWord = MutableLiveData<String>().apply { this.value = "" }
+    val searchWord: LiveData<String> = _searchWord
+
     init {
         getMovieListFromLocal()
     }
