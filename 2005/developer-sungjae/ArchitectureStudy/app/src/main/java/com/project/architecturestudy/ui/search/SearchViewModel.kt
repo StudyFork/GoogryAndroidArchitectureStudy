@@ -41,20 +41,7 @@ class SearchViewModel(private val repository: NaverMovieRepository) : BaseViewMo
                 it.subscribe({ movieLocalItem ->
                     Log.d(customTAG, "RoomDatabase Get Data Success:$movieLocalItem")
                     if (movieLocalItem.isNotEmpty()) {
-                        val movieList = ArrayList<MovieItem>()
-                        for (item in movieLocalItem) {
-                            movieList.add(MovieItem().apply {
-                                title = item.title
-                                subtitle = item.subtitle
-                                image = item.image
-                                link = item.link
-                                pubDate = item.pubDate
-                                director = item.director
-                                actor = item.actor
-                                userRating = item.userRating
-                            })
-                        }
-
+                        val movieList = translatingToShow(movieLocalItem)
                         _movieData.postValue(movieList)
                         _showToast.postValue(R.string.get_local_data_success)
 
@@ -104,16 +91,7 @@ class SearchViewModel(private val repository: NaverMovieRepository) : BaseViewMo
 
     private fun saveMovieList(data: NaverApiData) {
         for (item in data.items) {
-            val movieLocalItem = MovieLocalItem().apply {
-                this.title = item.title
-                this.subtitle = item.subtitle
-                this.image = item.image
-                this.link = item.link
-                this.pubDate = item.pubDate
-                this.director = item.director
-                this.actor = item.actor
-                this.userRating = item.userRating
-            }
+            val movieLocalItem = translatingToInsert(item)
             repository.saveMovieList(movieLocalItem,
                 onInsert = { observable ->
                     observable.subscribeOn(Schedulers.io())
@@ -127,7 +105,39 @@ class SearchViewModel(private val repository: NaverMovieRepository) : BaseViewMo
         }
     }
 
+    private fun translatingToShow(movieLocalItem: List<MovieLocalItem>): ArrayList<MovieItem> {
+        val movieList = ArrayList<MovieItem>()
+        for (item in movieLocalItem) {
+            val movieItem = MovieItem().apply {
+                title = item.title
+                subtitle = item.subtitle
+                image = item.image
+                link = item.link
+                pubDate = item.pubDate
+                director = item.director
+                actor = item.actor
+                userRating = item.userRating
+            }
+            movieList.add(movieItem)
+        }
+        return movieList
+    }
+
+    private fun translatingToInsert(item: MovieItem): MovieLocalItem {
+        return MovieLocalItem().apply {
+            title = item.title
+            subtitle = item.subtitle
+            image = item.image
+            link = item.link
+            pubDate = item.pubDate
+            director = item.director
+            actor = item.actor
+            userRating = item.userRating
+        }
+    }
+
     fun invokeTextChanged() {
         _tvResultVisible.value = View.GONE
     }
+
 }

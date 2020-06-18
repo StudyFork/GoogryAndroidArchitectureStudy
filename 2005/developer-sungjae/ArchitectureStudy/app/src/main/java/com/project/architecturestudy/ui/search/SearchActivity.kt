@@ -43,7 +43,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>(R.la
         vm.searchWord.observe(this, Observer {
             vm.invokeTextChanged()
         })
-        
+
         vm.showToast.observe(this, Observer {
             Log.d("observer", "$it")
             toast(getString(it))
