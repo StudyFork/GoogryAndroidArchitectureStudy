@@ -100,11 +100,6 @@ class MovieListActivity : AppCompatActivity() {
     }
 
 
-    override fun onDestroy() {
-        viewModel.removeDisposable()
-        super.onDestroy()
-    }
-
 
     //**키패드 셋팅
     companion object {

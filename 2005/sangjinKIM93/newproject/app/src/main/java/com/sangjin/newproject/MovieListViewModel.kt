@@ -24,7 +24,7 @@ class MovieListViewModel(application: Application) :AndroidViewModel(application
         )
     }
 
-    private val disposables = CompositeDisposable()
+    private val compositeDisposable = CompositeDisposable()
 
     private var _movieList = MutableLiveData<List<Movie>>()
     val movieList: LiveData<List<Movie>> = _movieList
@@ -58,9 +58,9 @@ class MovieListViewModel(application: Application) :AndroidViewModel(application
                 }
             },
                 {
-
-                }).let {
-                disposables.add(it)
+                }
+            ).let {
+                compositeDisposable.add(it)
             }
 
     }
@@ -81,9 +81,9 @@ class MovieListViewModel(application: Application) :AndroidViewModel(application
                 },
                     {
                         _toastMsg.value = it.toString()
-
-                    }).let {
-                    disposables.add(it)
+                    }
+                ).let {
+                    compositeDisposable.add(it)
                 }
         }
     }
@@ -101,7 +101,8 @@ class MovieListViewModel(application: Application) :AndroidViewModel(application
     }
 
 
-    fun removeDisposable() {
-        disposables.dispose()
+    override fun onCleared() {
+        compositeDisposable.dispose()
+        super.onCleared()
     }
 }
