@@ -5,7 +5,7 @@ import com.project.architecturestudy.data.model.NaverApiData
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 
-class NaverMovieRemoteDataSourceImpl : NaverMovieRemoteDataSource {
+object NaverMovieRemoteDataSourceImpl : NaverMovieRemoteDataSource {
 
     override val service = Retrofit.service
     override val disposable = CompositeDisposable()

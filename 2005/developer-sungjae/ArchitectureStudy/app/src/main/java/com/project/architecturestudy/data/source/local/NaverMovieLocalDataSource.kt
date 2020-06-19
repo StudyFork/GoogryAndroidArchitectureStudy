@@ -1,16 +1,17 @@
 package com.project.architecturestudy.data.source.local
 
-import com.project.architecturestudy.data.model.MovieItem
-import com.project.architecturestudy.data.model.NaverApiData
-import com.project.architecturestudy.data.source.local.room.MovieRoomDataBase
-import io.reactivex.Single
-import io.reactivex.disposables.CompositeDisposable
+import com.project.architecturestudy.data.source.local.room.MovieItemDao
+import com.project.architecturestudy.data.source.local.room.MovieLocalItem
+import io.reactivex.Observable
 
 interface NaverMovieLocalDataSource {
 
-    val disposable: CompositeDisposable
-    val roomDataBase: MovieRoomDataBase
-    fun getMovieList(onSuccess: (ArrayList<MovieItem>) -> Unit, onFailure: (t: Throwable) -> Unit)
-    fun saveMovieList(data: Single<NaverApiData>)
-    fun dispose()
+    fun getMovieList(
+        onSuccess: (Observable<List<MovieLocalItem>>) -> Unit,
+        onFailure: (t: Throwable) -> Unit
+    )
+
+
+    fun deleteMovieList(onGetDao : (MovieItemDao) -> Unit)
+    fun saveMovieList(data: MovieLocalItem, onInsert: (Observable<Unit>) -> Unit)
 }

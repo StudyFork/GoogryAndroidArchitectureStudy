@@ -1,13 +1,13 @@
 package com.project.architecturestudy.components
 
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.project.architecturestudy.base.BaseRecyclerViewAdapter
 import com.project.architecturestudy.components.Constants.NO_IMAGE_URL
-import com.project.architecturestudy.data.model.MovieItem
-import com.project.architecturestudy.ui.search.SearchAdapter
 import com.squareup.picasso.Picasso
 import org.apache.commons.text.StringEscapeUtils
 import org.jsoup.Jsoup
@@ -37,11 +37,14 @@ fun TextView.parseHtml(text: String?) {
     this.text = text?.parseHTMLTag()
 }
 
+@Suppress("UNCHECKED_CAST")
 @BindingAdapter("bindItem")
-fun RecyclerView.bindItem(data: List<MovieItem>?) {
-    val adapter = this.adapter as SearchAdapter
+fun RecyclerView.bindItem(data: List<Any>?) {
+    val adapter = this.adapter as BaseRecyclerViewAdapter<*, Any>
     data?.let {
-        adapter.addMovieData(it)
+        Log.d("bindItem", it.toString())
+        adapter.updateData(it)
+        adapter.notifyDataSetChanged()
     }
 }
 
