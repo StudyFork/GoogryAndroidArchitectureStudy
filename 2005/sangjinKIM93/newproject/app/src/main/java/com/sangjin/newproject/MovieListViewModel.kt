@@ -19,12 +19,10 @@ import java.util.concurrent.TimeUnit
 
 class MovieListViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val context = application
-
     private val repository by lazy {
         NaverMoviesRepositoryImpl(
             RemoteDataSourceImpl(),
-            LocalDataSourceImpl(context)
+            LocalDataSourceImpl(application)
         )
     }
 
@@ -78,7 +76,7 @@ class MovieListViewModel(application: Application) : AndroidViewModel(applicatio
         val keyword = keyword.value ?: return
 
         if (TextUtils.isEmpty(keyword)) {
-            _toastMsg.value = context.getString(R.string.no_keyword)
+            _toastMsg.value = getApplication<Application>().getString(R.string.no_keyword)
         } else {
             refreshMovieSubject.onNext(keyword)
         }
@@ -113,7 +111,7 @@ class MovieListViewModel(application: Application) : AndroidViewModel(applicatio
         _hideKeypad.value = Unit
 
         if (movies.isNullOrEmpty()) {
-            _toastMsg.value = context.getString(R.string.no_movie_list)
+            _toastMsg.value = getApplication<Application>().getString(R.string.no_movie_list)
         }
 
     }
