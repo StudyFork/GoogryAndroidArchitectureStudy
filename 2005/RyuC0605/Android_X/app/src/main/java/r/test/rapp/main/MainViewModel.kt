@@ -17,13 +17,13 @@ class MainViewModel(private val res: Resources) : ViewModel() {
     private val _keyword = MutableLiveData<String>()
     private val _toastMsg = MutableLiveData<String>()
     private val _isLoading = MutableLiveData<Boolean>()
-    private val _showKeypad = MutableLiveData<Boolean>()
+    private val _hideKeypad = MutableLiveData<Unit>()
 
     val movies: LiveData<List<Item>> = _movies
     val keyword: LiveData<String> = _keyword
     val toastMsg: LiveData<String> = _toastMsg
     val isLoading: LiveData<Boolean> = _isLoading
-    val showKeypad: LiveData<Boolean> = _showKeypad
+    val hideKeypad: LiveData<Unit> = _hideKeypad
 
     fun searchData() {
 
@@ -34,7 +34,7 @@ class MainViewModel(private val res: Resources) : ViewModel() {
             return
         }
         _isLoading.value = true
-        _showKeypad.value = false
+        _hideKeypad.value = Unit
 
 
         repository.getMovieList(

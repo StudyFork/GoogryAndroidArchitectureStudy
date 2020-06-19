@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         vm.movies.observe(this, Observer {
             val inputList = vm.movies.value ?: return@Observer
 
-            val adt  = lv_contents.adapter as MovieAdapter
+            val adt = lv_contents.adapter as MovieAdapter
             val movieList = adt.getMovieList()
             movieList.clear()
             movieList.addAll(inputList)
@@ -84,12 +84,8 @@ class MainActivity : AppCompatActivity() {
                 progress.hide()
         })
 
-        vm.showKeypad.observe(this, Observer {
-            val showKeypad = vm.showKeypad.value ?: return@Observer
-            if (showKeypad)
-                showKeyPad()
-            else
-                hideKeyPad()
+        vm.hideKeypad.observe(this, Observer {
+            hideKeyPad()
         })
     }
 
