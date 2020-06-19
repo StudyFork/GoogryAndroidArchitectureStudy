@@ -22,12 +22,11 @@ class SearchViewModel(
     private val resourceProvider: ResourceProviderImpl
 ) : ViewModel() {
 
-    val keyword = MutableLiveData<String>().createDefault("")
-
-    private val _isLoading = MutableLiveData<Boolean>().createDefault(false)
+    val keyword = MutableLiveData<String>("")
+    private val _isLoading = MutableLiveData<Boolean>(false)
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _movieList = MutableLiveData<MutableList<MovieModel>>().createDefault(mutableListOf())
+    private val _movieList = MutableLiveData<MutableList<MovieModel>>(mutableListOf())
     val movieList: LiveData<MutableList<MovieModel>> = _movieList
 
     private val _toastMessage = MutableLiveData<String>()
