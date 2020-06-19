@@ -43,7 +43,7 @@ fun RecyclerView.bindItem(data: List<Any>?) {
     val adapter = this.adapter as BaseRecyclerViewAdapter<*, Any>
     data?.let {
         Log.d("bindItem", it.toString())
-        adapter.updateMovieData(it)
+        adapter.updateData(it)
         adapter.notifyDataSetChanged()
     }
 }

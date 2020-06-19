@@ -28,7 +28,7 @@ open class BaseRecyclerViewAdapter<B : ViewDataBinding, ITEM>(
     protected fun getItem(position: Int): ITEM =
         items.getOrNull(position) ?: throw ArrayIndexOutOfBoundsException()
 
-    fun updateMovieData(items: List<ITEM>?) {
+    fun updateData(items: List<ITEM>?) {
         items?.let {
             this.items.run {
                 clear()
