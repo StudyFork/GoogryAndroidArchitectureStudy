@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="movieItem"
+            name="item"
             type="com.project.architecturestudy.data.model.MovieItem" />
 
     </data>
@@ -34,7 +34,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/line"
             app:setAlternativeImg="@{@drawable/ic_no_resource}"
-            app:setImgUrl="@{movieItem.image}"
+            app:setImgUrl="@{item.image}"
             tools:src="@mipmap/ic_launcher" />
 
         <TextView
@@ -47,7 +47,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_movie"
             app:layout_constraintTop_toTopOf="@id/iv_movie"
-            app:parseHtml="@{movieItem.title}"
+            app:parseHtml="@{item.title}"
             tools:text="@string/tools_tv_title" />
 
         <TextView
@@ -59,7 +59,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_movie"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
-            app:parseHtml="@{movieItem.subtitle}"
+            app:parseHtml="@{item.subtitle}"
             tools:text="@string/tools_tv_subTitle" />
 
         <TextView
@@ -71,7 +71,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_movie"
             app:layout_constraintTop_toBottomOf="@id/tv_subTitle"
-            app:parseHtml="@{movieItem.pubDate}"
+            app:parseHtml="@{item.pubDate}"
             tools:text="@string/tools_tv_pubDate" />
 
         <TextView
@@ -83,7 +83,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_movie"
             app:layout_constraintTop_toBottomOf="@id/tv_pubDate"
-            app:parseHtml="@{movieItem.actor}"
+            app:parseHtml="@{item.actor}"
             tools:text="@string/tools_tv_actors" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

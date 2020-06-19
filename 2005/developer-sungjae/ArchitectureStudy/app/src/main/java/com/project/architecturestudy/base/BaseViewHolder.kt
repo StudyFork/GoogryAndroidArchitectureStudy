@@ -21,7 +21,7 @@ open class BaseViewHolder<B : ViewDataBinding>(
         Log.d("BaseViewHolder", "onBindViewHolder")
         item?.let {
             with(binding) {
-                setVariable(BR.movieItem, item)
+                setVariable(BR.item, item)
                 executePendingBindings()
             }
         }
